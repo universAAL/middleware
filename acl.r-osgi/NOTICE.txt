@@ -1,0 +1,28 @@
+PERSONA ACL R-OSGI
+
+Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+
+
+I. Included Software
+
+This does not include any software developed by 3rd parties
+
+
+II. Used Software
+
+This product uses software developed at
+The Apache Software Foundation (http://www.apache.org/).
+Licensed under the Apache License 2.0.
+
+This product uses software developed at
+IKS Research Group, ETH Zurich (http://www.iks.ethz.ch/).
+Licensed under modified BSD license
+
+This product uses software developed at
+ASM (http://asm.objectweb.org).
+Licensed under modified BSD license
+
+III. License Summary
+- Apache License 2.0
+- Modified BSD License

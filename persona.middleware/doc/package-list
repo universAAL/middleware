@@ -1,0 +1,16 @@
+org.persona.middleware
+org.persona.middleware.context
+org.persona.middleware.context.impl
+org.persona.middleware.dialog
+org.persona.middleware.input
+org.persona.middleware.input.impl
+org.persona.middleware.output
+org.persona.middleware.output.impl
+org.persona.middleware.service
+org.persona.middleware.service.impl
+org.persona.middleware.service.process
+org.persona.middleware.service.profile
+org.persona.middleware.util
+org.persona.ontology
+org.persona.ontology.context
+org.persona.ontology.expr

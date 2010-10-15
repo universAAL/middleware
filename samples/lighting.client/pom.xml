@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.aal-persona.samples</groupId>
+		<artifactId>middleware.samples</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<packaging>bundle</packaging>
+	<artifactId>lighting.client</artifactId>  
+	<version>0.3.0-SNAPSHOT</version>
+	<name>Lighting Client</name>
+	<description>A client using lighting services based on the corresponding domain ontology</description>
+	<url/>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.log</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aal-persona.middleware</groupId>
+			<artifactId>middleware.upper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aal-persona.middleware</groupId>
+			<artifactId>sodapop.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aal-persona.middleware</groupId>
+			<artifactId>cdc.support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aal-persona.platform</groupId>
+			<artifactId>casf.ont</artifactId>
+			<version>0.2.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>  
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Activator>de.fhg.igd.ima.persona.lighting.client.Activator</Bundle-Activator>
+						<Bundle-Description>${pom.description}</Bundle-Description>
+						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Private-Package>de.fhg.igd.ima.persona.lighting.client</Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
