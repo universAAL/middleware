@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.aal-persona.middleware</groupId>
+		<artifactId>pom</artifactId>
+		<version>2.0.0</version>
+		<relativePath>../pom/pom.xml</relativePath>
+	</parent>
+
+	<groupId>org.aal-persona.middleware</groupId>
+	<artifactId>acl.upnp</artifactId>
+	<version>0.2.0-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<name>ACL UPnP</name>
+	<description>Implementatation of the SodaPop ACL based on UPnP protocol</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aal-persona.middleware</groupId>
+			<artifactId>acl.interfaces</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Activator>org.persona.mw.acl.upnp.Activator</Bundle-Activator>
+						<Bundle-Description>${pom.description}</Bundle-Description>
+						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Export-Package>org.persona.mw.acl.upnp,org.persona.mw.acl.upnp.exporter,org.persona.mw.acl.upnp.importer,org.persona.mw.acl.upnp,org.persona.mw.acl.upnp.exporter.actions,org.persona.mw.acl.upnp.exporter.services,org.persona.mw.acl.upnp.exporter.stateVariables</Export-Package>
+						<Private-Package />
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+

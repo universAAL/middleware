@@ -1,0 +1,19 @@
+PERSONA ACL Interfaces
+
+Copyright 2008-2010 CNR-ISTI, http://isti.cnr.it
+Institute of Information Science and Technologies 
+of the Italian National Research Council 
+
+Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+
+
+I. Included Software
+
+This does not include any software developed by 3rd parties
+
+
+II. Used Software
+
+This does not use any software developed by 3rd parties
+

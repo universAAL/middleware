@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.aal-persona.middleware</groupId>
+		<artifactId>pom</artifactId>
+		<version>2.0.0</version>
+		<relativePath>../pom/pom.xml</relativePath>
+	</parent>
+	<packaging>bundle</packaging>
+	<artifactId>middleware.upper</artifactId>  
+	<version>0.3.0-SNAPSHOT</version>
+	<name>PERSONA middleware</name>
+	<description>The realization of the set of persona-specific buses on top of sodapop</description>
+	<url />
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi_R4_compendium</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.aal-persona.middleware</groupId>
+			<artifactId>sodapop.osgi</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>  
+		<dependency>
+			<groupId>org.aal-persona.middleware</groupId>
+			<artifactId>cdc.support</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-api</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-service</artifactId>
+			<version>1.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.0.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Activator>org.persona.middleware.Activator</Bundle-Activator>
+						<Bundle-Description>${pom.description}</Bundle-Description>
+						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Export-Package>org.persona.middleware,org.persona.middleware.context,org.persona.middleware.dialog,org.persona.middleware.input,org.persona.middleware.output,org.persona.middleware.service,org.persona.middleware.service.process,org.persona.middleware.service.profile,
+										org.persona.middleware.util,org.persona.ontology, org.persona.ontology.*</Export-Package>
+						<Private-Package>org.persona.middleware.util,org.persona.middleware.context.impl,org.persona.middleware.input.impl,org.persona.middleware.output.impl,org.persona.middleware.service.impl</Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

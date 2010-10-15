@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.aal-persona.platform</groupId>
+		<artifactId>casf</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<packaging>bundle</packaging>
+	<artifactId>casf.ont</artifactId>
+	<version>0.2.0-SNAPSHOT</version>
+	<name>The PERSONA Context Ontology</name>
+	<description>The ontology classes used and exported by the PERSONA framework for supporting context-awareness.</description>
+	<url />
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>java3d</groupId>
+			<artifactId>j3d-core</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>jp.go.ipa</groupId>
+			<artifactId>jgcl</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.aal-persona.middleware</groupId>
+			<artifactId>middleware.upper</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>		
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Activator>org.persona.platform.casf.ontology.Activator</Bundle-Activator>
+						<Bundle-Description>${pom.description}</Bundle-Description>
+						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Export-Package>de.fhg.igd.ima.persona.service,de.fhg.igd.ima.persona,de.fhg.igd.ima.persona.furniture,de.fhg.igd.ima.persona.location,de.fhg.igd.ima.persona.location.indoor,de.fhg.igd.ima.persona.location.outdoor,de.fhg.igd.ima.persona.location.position,de.fhg.igd.ima.persona.shape,org.persona.platform.casf.ontology,org.persona.platform.casf.ontology.location,org.persona.platform.casf.ontology.streaming,org.persona.platform.casf.ontology.mediaservice,org.persona.platform.casf.ontology.weather,org.persona.platform.casf.ontology.device,org.persona.platform.casf.ontology.device.lighting</Export-Package>
+						<Private-Package />
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
