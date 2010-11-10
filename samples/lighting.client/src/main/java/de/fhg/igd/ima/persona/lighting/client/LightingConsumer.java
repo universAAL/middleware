@@ -141,7 +141,7 @@ class LightingConsumer extends ContextSubscriber {
 		
 		if (sr.getCallStatus() == CallStatus.succeeded){
 			try {
-				List<LightSource> lampList = new ArrayList<LightSource>();
+				List lampList = new ArrayList();
 
 				List outputs = sr.getOutputs();
 

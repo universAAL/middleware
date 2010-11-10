@@ -174,7 +174,7 @@ public class LightClient extends javax.swing.JPanel {
 					String lamp = (String)jList1.getSelectedValue();
 					String svalue = percent.getText();
 					int ivalue = Integer.valueOf( svalue ).intValue();
-					LightingConsumer.dimToValue(lamp, ivalue);
+					LightingConsumer.dimToValue(lamp, new Integer(ivalue));
 					
 				}
 			};
