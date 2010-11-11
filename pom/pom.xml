@@ -176,13 +176,6 @@
 							<bootclasspath>${maven.compile.bootclasspath}</bootclasspath>
 						</compilerArguments>
 					</configuration>
-					<dependencies>
-						<dependency>
-							<groupId>com.sun.java.j2se</groupId>
-							<artifactId>rt</artifactId>
-							<version>1.3.1_20</version>
-						</dependency>
-					</dependencies>
 				</plugin>	
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>

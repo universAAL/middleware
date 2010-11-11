@@ -16,14 +16,18 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>osgi_R4_compendium</artifactId>
-			<version>1.0</version>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -31,11 +35,6 @@
 			<artifactId>sodapop.osgi</artifactId>
 			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>  
 		<dependency>
 			<groupId>org.aal-persona.middleware</groupId>
 			<artifactId>cdc.support</artifactId>
