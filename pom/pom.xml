@@ -172,9 +172,6 @@
 					<configuration>
 						<source>${maven.compile.source}</source>
 						<target>${maven.compile.target}</target>
-						<compilerArguments>
-							<bootclasspath>${maven.compile.bootclasspath}</bootclasspath>
-						</compilerArguments>
 					</configuration>
 				</plugin>	
 				<plugin>
