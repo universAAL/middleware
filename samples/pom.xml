@@ -69,7 +69,15 @@
 	<contributors />
 
 	<modules>
-		<module>lighting.server</module>
+		<module>../acl.interfaces</module>
+        <module>../acl.r-osgi</module>
+        <module>../acl.upnp</module>
+        <module>../acl.bridge</module>
+        <module>../sodapop.osgi</module>
+        <module>../rdf.serializer.turtle</module>
+        <module>../persona.middleware</module>
+        <module>../casf.ont</module>
+        <module>lighting.server</module>
 		<module>lighting.client</module>
 	</modules>
 

@@ -56,10 +56,10 @@ class LightingConsumer extends ContextSubscriber {
 	}
 	
 	LightingConsumer(BundleContext context){
-		
+		// the constructor register us to the bus
 		super(context,getContextSubscriptionParams());
 
-
+		// the DefaultServiceCaller will be used to make ServiceRequest (surprise ;-) )
 		caller = new DefaultServiceCaller(context);
 		
 		Device[] d = getControlledLamps();
@@ -71,15 +71,21 @@ class LightingConsumer extends ContextSubscriber {
 	// Services Requests
 	// *****************************************************************
 	
+	// This method create a ServiceRequest to shut-off a light-source with the given URI
 	private static ServiceRequest turnOffRequest(String lampURI){
+		// At first create a ServiceRequest by passing a appropriate service-object
+		// Additional an involved user can be passed to create user-profiles or react to special needs
 		ServiceRequest turnOff = new ServiceRequest( new Lighting(), null);
 		
+		// Add the URI of the lamp to the request
 		turnOff.getRequestedService()
 			.addInstanceLevelRestriction(
 					Restriction.getFixedValueRestriction(								
 					Lighting.PROP_CONTROLS, new LightSource(
 							lampURI)),
 							new String[] { Lighting.PROP_CONTROLS });
+		
+		// Add the property that have to be changed and the new value
 		turnOff.addChangeEffect(
 				new PropertyPath(null, true, new String[] {
 						Lighting.PROP_CONTROLS, LightSource.PROP_SOURCE_BRIGHTNESS}),
@@ -87,6 +93,7 @@ class LightingConsumer extends ContextSubscriber {
 			return turnOff;
 	}
 	
+	// see turnOffRequest
 	private static ServiceRequest turnOnRequest(String lampURI){
 		ServiceRequest turnOn = new ServiceRequest( new Lighting(), null);
 		
@@ -96,6 +103,7 @@ class LightingConsumer extends ContextSubscriber {
 					Lighting.PROP_CONTROLS, new LightSource(
 							lampURI)),
 							new String[] { Lighting.PROP_CONTROLS });
+		
 		turnOn.addChangeEffect(
 				new PropertyPath(null, true, new String[] {
 						Lighting.PROP_CONTROLS, LightSource.PROP_SOURCE_BRIGHTNESS}),
@@ -103,6 +111,7 @@ class LightingConsumer extends ContextSubscriber {
 			return turnOn;
 	}
 	
+	// see turnOffRequest
 	private static ServiceRequest dimRequest(String lampURI, Integer percent){
 		ServiceRequest dim = new ServiceRequest( new Lighting(), null);
 		
@@ -111,7 +120,8 @@ class LightingConsumer extends ContextSubscriber {
 					Restriction.getFixedValueRestriction(								
 					Lighting.PROP_CONTROLS, new LightSource(
 							lampURI)),
-							new String[] { Lighting.PROP_CONTROLS });		
+							new String[] { Lighting.PROP_CONTROLS });	
+		
 		dim.addChangeEffect(
 				new PropertyPath(null, true, new String[] {
 						Lighting.PROP_CONTROLS, LightSource.PROP_SOURCE_BRIGHTNESS}),
@@ -121,9 +131,11 @@ class LightingConsumer extends ContextSubscriber {
 	}
 	
 	public  static  ServiceRequest getAllLampsRequest() {
+		// Again we want to create a ServiceRequest regarding LightSources
 		ServiceRequest getAllLamps = new ServiceRequest(
 				new Lighting(), null);
 	
+		// But here we do not to change anything, furthermore we want to get an output (the one at OUTPUT_LIST_OF_LAMPS)
 		getAllLamps.addSimpleOutputBinding(new ProcessOutput(
 				OUTPUT_LIST_OF_LAMPS), new PropertyPath(null, true,
 				new String[] { Lighting.PROP_CONTROLS }));
@@ -135,44 +147,37 @@ class LightingConsumer extends ContextSubscriber {
 	// Controller Methods
 	// *****************************************************************
 	
+	// Get a list of all available light-source in the system
 	public static Device[] getControlledLamps(){
 		
+		// Make a call for the lamps and get the request
 		ServiceResponse sr = caller.call(getAllLampsRequest());
 		
 		if (sr.getCallStatus() == CallStatus.succeeded){
 			try {
 				List lampList = new ArrayList();
 
+				// get the output from the request
 				List outputs = sr.getOutputs();
 
+				// if there is no output anything is wrong
 				if (outputs == null || outputs.size() == 0) {
 //					Activator.log.log(LogService.LOG_ERROR,"LocalVideoStreamMultiplexer:   No outputs available");
 					System.out.println("LightingConsumer:   outputs are null in getControlledLamps()");
 					return null;
 				}
-
+				
+				// otherwise iterate over the provided outputs
 				for (Iterator iter1 = outputs.iterator(); iter1.hasNext();) {
 					Object obj = iter1.next();
-					if(obj instanceof List){
-						List outputLists = (List)obj;
-						for(Iterator iter2 = outputLists.iterator(); iter2.hasNext();){
-							
-							ProcessOutput output = (ProcessOutput) iter2.next();
-							if (output.getURI().equals(OUTPUT_LIST_OF_LAMPS)) {
-								Object ob = output.getParameterValue();
-								if(!(ob instanceof List))
-									break;
-								List lamps = (List) ob;
-								lampList.addAll(lamps);
-							}
-						}
-					}else{
+					if(obj instanceof ProcessOutput) {
 						ProcessOutput output = (ProcessOutput) obj;
-						
+						// if we got the right output can we check by the URI given in the request
 						if (output.getURI().equals(OUTPUT_LIST_OF_LAMPS)) {
 							Object ob = output.getParameterValue();
 							if(!(ob instanceof List))
 								break;
+							// now we can add the list of lamps the our local "memory" and use them later
 							List lamps = (List)ob;
 							lampList.addAll(lamps);
 						}
@@ -185,6 +190,7 @@ class LightingConsumer extends ContextSubscriber {
 					return null;
 				}
 
+				// simple create an array out of the lamp-array and give it back --> finished
 				LightSource[] lamps = (LightSource[]) lampList.toArray(new LightSource[lampList.size()]);
 
 				return lamps;
@@ -199,16 +205,19 @@ class LightingConsumer extends ContextSubscriber {
 		}
 	}
 	
+	// this method turn off the light at lampURI and give back if the operation was an access
 	public static boolean turnOff(String lampURI){
-		
+		// check if input is valid
 		if((lampURI == null) || !(lampURI instanceof String)) {
 			System.out.println("LightingConsumer: wrong lampURI in turnOff(String lampURI)");
 			return false;
 		}
 		
+		// make a call with the appropriate request
 		ServiceResponse sr = caller.call(turnOffRequest(lampURI));
 		System.out.println(sr.getCallStatus());
 		
+		// check the call status and return true if succeeded
 		if (sr.getCallStatus() == CallStatus.succeeded) return true;
 		else{
 			System.out.println("LightingConsumer: the lamp couldn't turned off in turnOff(String lampURI)");
@@ -216,6 +225,7 @@ class LightingConsumer extends ContextSubscriber {
 		}
 	}
 	
+	// see turnOff
 	public static boolean turnOn(String lampURI){
 		
 		if((lampURI == null) || !(lampURI instanceof String)) {
@@ -232,6 +242,7 @@ class LightingConsumer extends ContextSubscriber {
 		}
 	}
 	
+	// see turnOff
 	public static boolean dimToValue(String lampURI, Integer percent){
 		
 		if((lampURI == null) || (percent == null) || !(lampURI instanceof String) || !(percent instanceof Integer)) {
