@@ -51,6 +51,7 @@ public class LightClient extends javax.swing.JPanel {
 		Location.getClassRestrictionsOnProperty(null);
 	}
 	
+	// create the GUI 
 	public void start(){
 
 		JFrame frame = new JFrame();
