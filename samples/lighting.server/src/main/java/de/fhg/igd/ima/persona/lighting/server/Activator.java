@@ -22,6 +22,7 @@ package de.fhg.igd.ima.persona.lighting.server;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.log.LogService;
+
 /**
  * @author mtazari
  *
@@ -34,10 +35,14 @@ public class Activator implements BundleActivator {
 	 * (non-Javadoc)
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
-	public void start(BundleContext context) throws Exception {
+	public void start(final BundleContext context) throws Exception {
 		log = (LogService) context.getService(
 				context.getServiceReference(LogService.class.getName()));
-		new LightingProvider(context);
+		new Thread() {
+			public void run() {
+				new LightingProvider(context);
+			}
+		}.start();
 	}
 
 	/*
