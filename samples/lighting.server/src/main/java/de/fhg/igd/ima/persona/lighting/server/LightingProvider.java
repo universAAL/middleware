@@ -45,15 +45,13 @@ import de.fhg.igd.ima.persona.lighting.server.unit_impl.MyLighting;
  *
  */
 public class LightingProvider extends ServiceCallee implements LampStateListener {
-	static final String LAMP_URI_PREFIX = ProvidedLightingService.LIGHTING_SERVER_NAMESPACE +
-			"controlledLamp";
+	static final String LAMP_URI_PREFIX = ProvidedLightingService.LIGHTING_SERVER_NAMESPACE + "controlledLamp";
 	static final String LOCATION_URI_PREFIX = "urn:aal_space:myHome#";
 	
-	private static final ServiceResponse invalidInput = new ServiceResponse(
-			CallStatus.serviceSpecificFailure);
+	private static final ServiceResponse invalidInput = new ServiceResponse(CallStatus.serviceSpecificFailure);
+	
 	static {
-		invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
-				"Invalid input!"));
+		invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Invalid input!"));
 	}
 	
 	private MyLighting theServer;
@@ -82,23 +80,31 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 	
 	// create a service response that including all available light sources
 	private ServiceResponse getControlledLamps() {
+		// We assume that the Service-Call always succeeds because we only simulate the lights
 		ServiceResponse sr = new ServiceResponse(CallStatus.succeeded);
+		// create a list including the available lights
 		int[] lamps = theServer.getLampIDs();
 		ArrayList al = new ArrayList(lamps.length);
 		for (int i=0; i<lamps.length; i++)
 			al.add(new LightSource(LAMP_URI_PREFIX + lamps[i]));
+		// create and add a ProcessOutput-Event that binds the output URI to the created list of lamps
 		sr.addOutput(new ProcessOutput(ProvidedLightingService.OUTPUT_CONTROLLED_LAMPS, al));
 		return sr;
 	}
 	
+	// create a service response with informations about the available lights
 	private ServiceResponse getLampInfo(String lampURI) {
 		try {
+			// collect the needed data
 			int lampID = Integer.parseInt(lampURI.substring(LAMP_URI_PREFIX.length()));
 			String loc = theServer.getLampLocation(lampID);
 			int state = theServer.isOn(lampID)? 100 : 0;
+			// We assume that the Service-Call always succeeds because we only simulate the lights
 			ServiceResponse sr = new ServiceResponse(CallStatus.succeeded);
+			// create and add a ProcessOutput-Event that binds the output URI to the state of the lamp
 			sr.addOutput(new ProcessOutput(ProvidedLightingService.OUTPUT_LAMP_BRIGHTNESS,
 					new Integer(state)));
+			// create and add a ProcessOutput-Event that binds the output URI to the location of the lamp
 			sr.addOutput(new ProcessOutput(ProvidedLightingService.OUTPUT_LAMP_LOCATION,
 					new PLocation(LOCATION_URI_PREFIX + loc, new RoomPlace())));
 			return sr;
@@ -154,10 +160,11 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 		ls.setBrightness(isOn? 100 : 0);
 		Activator.log.log(LogService.LOG_INFO,
 				"LightingProvider: publishing a context event on the state of a lamp!");
-		// finally create an context event and publish it
+		// finally create an context event and publish it with the light source as subject and the property that changed as predicate
 		cp.publish(new ContextEvent(ls, LightSource.PROP_SOURCE_BRIGHTNESS));
 	}
 	
+	// Simple use the turnOff method from the ProvidedLightingService
 	private ServiceResponse turnOff(String lampURI) {
 		try {
 			theServer.turnOff(Integer.parseInt(lampURI.substring(LAMP_URI_PREFIX.length())));
@@ -167,6 +174,7 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 		}
 	}
 	
+	// Simple use the turnAn method from the ProvidedLightingService
 	private ServiceResponse turnOn(String lampURI) {
 		try {
 			theServer.turnOn(Integer.parseInt(lampURI.substring(LAMP_URI_PREFIX.length())));

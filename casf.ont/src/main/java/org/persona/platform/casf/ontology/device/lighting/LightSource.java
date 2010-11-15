@@ -41,6 +41,7 @@ public class LightSource extends Device {
 	public static final String PROP_SOURCE_BRIGHTNESS;
 	public static final String PROP_SOURCE_COLOR;
 	public static final String PROP_SOURCE_LOCATION;
+	
 	static {
 		MY_URI = LIGHTING_NAMESPACE + "LightSource";
 		PROP_AMBIENT_COVERAGE = LIGHTING_NAMESPACE + "ambientCoveage";
