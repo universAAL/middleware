@@ -29,6 +29,8 @@ import de.fhg.igd.ima.persona.lighting.server.Activator;
 /**
  * @author mtazari
  *
+ * A simple model that is able to manage four virtual light sources
+ *
  */
 public class MyLighting {
 	private class Lamp {
