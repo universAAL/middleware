@@ -14,10 +14,18 @@ acl.upnp/.classpath
 acl.upnp/.project
 acl.upnp/.settings
 acl.upnp/target
+bus.context/.classpath
+bus.context/.project
+bus.context/.settings
+bus.context/target
 bus.model/.classpath
 bus.model/.project
 bus.model/.settings
 bus.model/target
+bus.service/.classpath
+bus.service/.project
+bus.service/.settings
+bus.service/target
 data.representation/.classpath
 data.representation/.project
 data.representation/.settings
@@ -26,6 +34,7 @@ data.serialization/.classpath
 data.serialization/.project
 data.serialization/.settings
 data.serialization/target
+pom/.classpath
 pom/.project
 pom/.settings
 samples/.project
