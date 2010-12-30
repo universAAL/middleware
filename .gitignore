@@ -6,10 +6,10 @@ acl.interfaces/.classpath
 acl.interfaces/.project
 acl.interfaces/.settings
 acl.interfaces/target
-acl.r-osgi/.classpath
-acl.r-osgi/.project
-acl.r-osgi/.settings
-acl.r-osgi/target
+acl.rosgi/.classpath
+acl.rosgi/.project
+acl.rosgi/.settings
+acl.rosgi/target
 acl.upnp/.classpath
 acl.upnp/.project
 acl.upnp/.settings
