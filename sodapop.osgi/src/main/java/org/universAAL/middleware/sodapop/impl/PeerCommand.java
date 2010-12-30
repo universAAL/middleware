@@ -18,46 +18,24 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.sodapop.impl;
-
-import java.util.Vector;
-
+package org.universAAL.middleware.sodapop.impl;
 /* 
 * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
 */
 
-public class CommandQueue {
-	private Vector queue;
-	private boolean running = true;
+public class PeerCommand {
+	public static final int NOTICE_PEER_BUSES = 1;
+	public static final int REPLY_PEER_BUSES = 2;
+	public static final int JOIN_BUS = 3;
+	public static final int LEAVE_BUS = 4;
+	public static final int PROCESS_MESSAGE = 5;
+	String peerId;
+	String message;
+	int mesageType;
 	
-	public CommandQueue(){
-		queue=new Vector();
+	public PeerCommand(int messageType, String peerId,String message ) {
+		this.mesageType = messageType;
+		this.peerId=peerId;
+		this.message=message;
 	}
-	
-	public synchronized void enqueue(Object cmd){
-		queue.add(cmd);
-		if(queue.size() == 1){
-			notify();
-		}
-		
-	}
-	
-	public synchronized Object dequeue(){
-		while(queue.size()==0 && running){
-			try {
-				wait();
-			} catch (InterruptedException ignored) {
-			}
-		}
-		if (running)
-			return queue.remove(0);
-		else
-			return null;
-	}
-
-	public synchronized void close() {
-		running  = false;
-		notify();		
-	}
-
 }

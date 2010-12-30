@@ -1,11 +1,11 @@
 /*
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung
+
 	Copyright 2008-2010 CNR-ISTI, http://isti.cnr.it
 	Institute of Information Science and Technologies 
 	of the Italian National Research Council  
 	
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research
-
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
 	
@@ -44,7 +44,7 @@
 */
 
 
-package de.fhg.igd.ima.sodapop.impl;
+package org.universAAL.middleware.sodapop.impl;
 
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -58,16 +58,16 @@ import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
+import org.universAAL.middleware.acl.P2PConnector;
+import org.universAAL.middleware.acl.PeerDiscoveryListener;
+import org.universAAL.middleware.acl.SodaPopPeer;
+import org.universAAL.middleware.sodapop.AbstractBus;
+import org.universAAL.middleware.sodapop.SodaPop;
+import org.universAAL.middleware.sodapop.msg.Message;
 
-import de.fhg.igd.ima.sodapop.AbstractBus;
-import de.fhg.igd.ima.sodapop.SodaPop;
-import de.fhg.igd.ima.sodapop.msg.Message;
-import de.fhg.igd.ima.sodapop.p2p.P2PConnector;
-import de.fhg.igd.ima.sodapop.p2p.PeerDiscoveryListener;
-import de.fhg.igd.ima.sodapop.p2p.SodaPopPeer;
 
 /**
- * @author mtazari
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class SodaPopImpl implements SodaPop, SodaPopPeer, PeerDiscoveryListener, ServiceListener {

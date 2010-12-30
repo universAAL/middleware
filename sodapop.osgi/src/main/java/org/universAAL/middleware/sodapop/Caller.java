@@ -1,6 +1,6 @@
 /*
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -17,12 +17,17 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.sodapop;
+package org.universAAL.middleware.sodapop;
+
+import org.universAAL.middleware.sodapop.msg.Message;
 
 /**
- * Publishes events to an event-bus and may receive requests to be replied.
+ * Registers to a bus in order to send requests needing a reply; hence, it
+ * must be able to handle replies.
  * 
- * @author mtazari
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  */
-public interface Publisher extends Callee {
+public interface Caller extends BusMember {
+
+	public void handleReply(Message m);
 }

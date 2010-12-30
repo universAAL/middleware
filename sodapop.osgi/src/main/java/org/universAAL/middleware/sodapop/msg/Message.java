@@ -1,6 +1,6 @@
 /*
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -17,16 +17,17 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.sodapop.msg;
+package org.universAAL.middleware.sodapop.msg;
 
 import java.net.InetAddress;
 import java.util.Random;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
-/* @author mtazari
-*
-*/
+/**
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ *
+ */
 public class Message {
 	private static BundleContext context = null;
 	private static long counter = 0;

@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.aal-persona.middleware</groupId>
-		<artifactId>pom</artifactId>
-		<version>2.0.0</version>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.pom</artifactId>
+		<version>1.0.0</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
-	<groupId>org.aal-persona.middleware</groupId>
-	<artifactId>sodapop.osgi</artifactId>  
+	<artifactId>mw.bus.model</artifactId>
 	<version>0.3.0-SNAPSHOT</version>
 	<name>Soda-Pop as OSGi Bundle</name>
 	<description>A Soda-Pop implementation as an OSGi bundle based on the ACL</description>
 	<url />
 
+	<scm>
+		<url>http://gforge.aal-persona.org/scm/viewvc.php/trunk/Java1.3/sodapop.osgi/?root=persona-middlew</url>
+		<connection>scm:svn:http://gforge.aal-persona.org/svn/persona-middlew/trunk/Java1.3/sodapop.osgi</connection>
+		<developerConnection>scm:svn:http://gforge.aal-persona.org/svn/persona-middlew/trunk/Java1.3/sodapop.osgi</developerConnection>
+	</scm>
+
 	<dependencies>
 		<dependency>
-			<groupId>org.aal-persona.middleware</groupId>
-			<artifactId>acl.interfaces</artifactId>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.acl.interfaces</artifactId>
 			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -53,11 +59,6 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-	<scm>
-		<url>http://gforge.aal-persona.org/scm/viewvc.php/trunk/Java1.3/sodapop.osgi/?root=persona-middlew</url>
-	  <connection>scm:svn:http://gforge.aal-persona.org/svn/persona-middlew/trunk/Java1.3/sodapop.osgi</connection>
-    <developerConnection>scm:svn:http://gforge.aal-persona.org/svn/persona-middlew/trunk/Java1.3/sodapop.osgi</developerConnection>
-  </scm>
 
 	<build>
 		<plugins>
@@ -67,13 +68,13 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Author><![CDATA[Mohammad-Reza Tazari, Francesco Furfari <francesco.furfari@isti.cnr.it>]]></Bundle-Author>
+						<Bundle-Author><![CDATA[Mohammad-Reza Tazari <saied.tazari@igd.fraunhofer.de>, Francesco Furfari <francesco.furfari@isti.cnr.it>]]></Bundle-Author>
 						<Bundle-Name>${pom.name}</Bundle-Name>
-						<Bundle-Activator>de.fhg.igd.ima.sodapop.impl.Activator</Bundle-Activator>
+						<Bundle-Activator>org.universAAL.middleware.sodapop.impl.Activator</Bundle-Activator>
 						<Bundle-Description>${pom.description}</Bundle-Description>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-						<Export-Package>de.fhg.igd.ima.sodapop,de.fhg.igd.ima.sodapop.msg</Export-Package>
-						<Private-Package>de.fhg.igd.ima.sodapop.impl</Private-Package>
+						<Export-Package>org.universAAL.middleware.sodapop,org.universAAL.middleware.sodapop.msg</Export-Package>
+						<Private-Package>org.universAAL.middleware.sodapop.impl</Private-Package>
 					</instructions>
 				</configuration>
 			</plugin>

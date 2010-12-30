@@ -1,7 +1,7 @@
-PERSONA SODAPOP OSGI Bundle
+SODAPOP OSGI Bundle
 
-Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung 
 
 Copyright 2008-2010 CNR-ISTI, http://isti.cnr.it
 Institute of Information Science and Technologies 
@@ -9,7 +9,7 @@ of the Italian National Research Council
 
 I. Included Software
 
-This does not include any software developed by 3rd parties
+Software developed by Fraunhofer IGD & CNR-ISTI within the PERSONA project is used as the initial version for further developments within the universAAL project.
 
 
 II. Used Software
