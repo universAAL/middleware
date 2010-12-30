@@ -14,10 +14,6 @@ acl.upnp/.classpath
 acl.upnp/.project
 acl.upnp/.settings
 acl.upnp/target
-persona.middleware/.classpath
-persona.middleware/.project
-persona.middleware/.settings
-persona.middleware/target
 pom/.project
 pom/.settings
 rdf.serializer.turtle/.classpath
