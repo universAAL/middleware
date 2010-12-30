@@ -1,4 +1,25 @@
-package org.persona.serialization.turtle;
+/*
+	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	
+	Copyright Aduna (http://www.aduna-software.com/) © 2001-2007
+	
+	See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	  http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+ */
+package org.universAAL.serialization.turtle;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -9,13 +30,14 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-import org.persona.middleware.PResource;
-import org.persona.middleware.TypeMapper;
-import org.persona.middleware.util.LogUtils;
-import org.persona.middleware.util.StringUtils;
-import org.persona.ontology.ManagedIndividual;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.sodapop.msg.Message;
+import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.middleware.util.StringUtils;
+import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.ManagedIndividual;
 
-import de.fhg.igd.ima.sodapop.msg.Message;
 
 /**
  * @author mtazari
@@ -27,22 +49,22 @@ public class TurtleWriter {
 	static int SERIALIZED = 2;
 	
 	private class SerData {
-		int refs = 0, redType = PResource.PROP_SERIALIZATION_UNDEFINED;
+		int refs = 0, redType = Resource.PROP_SERIALIZATION_UNDEFINED;
 		int serialized = NOT_SERIALIZED;
 		String nodeID = null;
 		List types = null;
 	}
 
 	static String serialize(Object o, int embedLevel) {
-		if (!(o instanceof PResource)) {
+		if (!(o instanceof Resource)) {
 			LogUtils.logError(Activator.logger, "TurtleWriter", "serialize",
-					new Object[]{"Cannot serialize objects other than instances of PResource!"}, null);
+					new Object[]{"Cannot serialize objects other than instances of Resource!"}, null);
 			return null;
 		}
 
 		StringWriter sw = new StringWriter(4096);
 		try {
-			new TurtleWriter(sw, embedLevel).serialize((PResource) o);
+			new TurtleWriter(sw, embedLevel).serialize((Resource) o);
 			return sw.toString();
 		} catch (IOException e) {
 			LogUtils.logError(Activator.logger, "TurtleWriter", "serialize", null, e);
@@ -58,7 +80,7 @@ public class TurtleWriter {
 
 	private boolean descriptionClosed, firstPropWritten;
 
-	private PResource lastWrittenSubject;
+	private Resource lastWrittenSubject;
 
 	private int embedLevel;
 
@@ -74,18 +96,18 @@ public class TurtleWriter {
 	}
 
 	private void analyzeObject(Object o, Hashtable nsTable, int reduction) {
-		if (o instanceof PResource)
-			if (((PResource) o).serializesAsXMLLiteral())
-				if (((PResource) o).numberOfProperties() == 0)
+		if (o instanceof Resource)
+			if (((Resource) o).serializesAsXMLLiteral())
+				if (((Resource) o).numberOfProperties() == 0)
 					countNs(TypeMapper.XSD_NAMESPACE, nsTable);
 				else
-					countNs(PResource.RDF_NAMESPACE, nsTable);
+					countNs(Resource.RDF_NAMESPACE, nsTable);
 			else {
-				SerData d = getData((PResource) o);
+				SerData d = getData((Resource) o);
 				if (d.redType < reduction)
 					d.redType = reduction;
-				if (PResource.PROP_SERIALIZATION_OPTIONAL < reduction)
-					analyzeResource((PResource) o, nsTable);
+				if (Resource.PROP_SERIALIZATION_OPTIONAL < reduction)
+					analyzeResource((Resource) o, nsTable);
 			}
 		else if (o instanceof List)
 			// reduction is simply passed on, because rdf:first & rdf:rest have no specific values in this regard
@@ -95,7 +117,7 @@ public class TurtleWriter {
 			countNs(TypeMapper.XSD_NAMESPACE, nsTable);
 	}
 
-	private void analyzeResource(PResource r, Hashtable nsTable) {
+	private void analyzeResource(Resource r, Hashtable nsTable) {
 		if (r.isAnon()) {
 			if (countResource(r, bNodes))
 				// already handled
@@ -114,10 +136,10 @@ public class TurtleWriter {
 
 		for (Enumeration e = r.getPropertyURIs(); e.hasMoreElements();) {
 			String prop = (String) e.nextElement();
-			boolean isRDFType = prop.equals(PResource.PROP_RDF_TYPE);
+			boolean isRDFType = prop.equals(Resource.PROP_RDF_TYPE);
 			if (!isRDFType && StringUtils.isQualifiedName(prop))
 				countNs(prop.substring(0, prop.lastIndexOf('#') + 1), nsTable);
-			int reduction = isRDFType ? PResource.PROP_SERIALIZATION_REDUCED
+			int reduction = isRDFType ? Resource.PROP_SERIALIZATION_REDUCED
 					: r.getPropSerializationType(prop);
 			Object o = r.getProperty(prop);
 			if (o instanceof List) {
@@ -128,7 +150,7 @@ public class TurtleWriter {
 								.getNonabstractSuperClasses(i.next().toString());
 						if (types != null)
 							for (int j = 0; j < types.length; j++) {
-								o = new PResource(types[j]);
+								o = new Resource(types[j]);
 								if (!aux.contains(o))
 									aux.add(o);
 							}
@@ -145,7 +167,7 @@ public class TurtleWriter {
 							.getNonabstractSuperClasses(o.toString());
 					if (types != null)
 						for (int j = 0; j < types.length; j++) {
-							Object oo = new PResource(types[j]);
+							Object oo = new Resource(types[j]);
 							if (!aux.contains(oo))
 								aux.add(oo);
 						}
@@ -175,7 +197,7 @@ public class TurtleWriter {
 		countTable.put(ns, aux);
 	}
 
-	private boolean countResource(PResource r, Hashtable countTable) {
+	private boolean countResource(Resource r, Hashtable countTable) {
 		SerData aux = (SerData) countTable.get(r);
 		if (aux == null) {
 			aux = new SerData();
@@ -185,15 +207,15 @@ public class TurtleWriter {
 		return aux.refs > 1;
 	}
 
-	private void finalizeNodes(PResource root, Hashtable nsTable) {
+	private void finalizeNodes(Resource root, Hashtable nsTable) {
 
 		String prefix = "_:BN";
 		int counter = 0;
 
 		for (Iterator i = bNodes.keySet().iterator(); i.hasNext();) {
-			PResource r = (PResource) i.next();
+			Resource r = (Resource) i.next();
 			SerData d = (SerData) bNodes.get(r);
-			if (PResource.PROP_SERIALIZATION_REDUCED > d.redType)
+			if (Resource.PROP_SERIALIZATION_REDUCED > d.redType)
 				i.remove();
 			else {
 				if (d.refs > 1 || r == root) {
@@ -206,9 +228,9 @@ public class TurtleWriter {
 		}
 
 		for (Iterator i = uriNodes.keySet().iterator(); i.hasNext();) {
-			PResource r = (PResource) i.next();
+			Resource r = (Resource) i.next();
 			SerData d = getData(r);
-			if (PResource.PROP_SERIALIZATION_REDUCED > d.redType)
+			if (Resource.PROP_SERIALIZATION_REDUCED > d.redType)
 				i.remove();
 			else if (r.numberOfProperties() == 0) {
 				d.serialized = SERIALIZED;
@@ -221,7 +243,7 @@ public class TurtleWriter {
 		}
 	}
 
-	private SerData getData(PResource r) {
+	private SerData getData(Resource r) {
 		SerData d = (SerData) uriNodes.get(r);
 		if (d == null) {
 			d = (SerData) bNodes.get(r);
@@ -233,12 +255,12 @@ public class TurtleWriter {
 		return d;
 	}
 
-	private int getListReduction(PResource subj, String pred, List obj) {
+	private int getListReduction(Resource subj, String pred, List obj) {
 		int result = subj.getPropSerializationType(pred);
 		for (Iterator i = obj.iterator(); i.hasNext();) {
 			Object o = i.next();
-			if (o instanceof PResource  &&  !((PResource) o).serializesAsXMLLiteral()) {
-				SerData d = getData((PResource) o);
+			if (o instanceof Resource  &&  !((Resource) o).serializesAsXMLLiteral()) {
+				SerData d = getData((Resource) o);
 				if (d.redType > result)
 					result = d.redType;
 			}
@@ -248,15 +270,15 @@ public class TurtleWriter {
 
 	private void handleNamespace(String ns) throws IOException {
 		String prefix;
-		if (ns.equals(PResource.OWL_NAMESPACE))
+		if (ns.equals(ClassExpression.OWL_NAMESPACE))
 			prefix = "owl";
-		else if (ns.equals(PResource.PERSONA_SERVICE_NAMESPACE))
+		else if (ns.equals(Resource.uAAL_SERVICE_NAMESPACE))
 			prefix = "psn";
-		else if (ns.equals(PResource.PERSONA_VOCABULARY_NAMESPACE))
+		else if (ns.equals(Resource.uAAL_VOCABULARY_NAMESPACE))
 			prefix = "pvn";
-		else if (ns.equals(PResource.RDF_NAMESPACE))
+		else if (ns.equals(Resource.RDF_NAMESPACE))
 			prefix = "rdf";
-		else if (ns.equals(PResource.RDFS_NAMESPACE))
+		else if (ns.equals(Resource.RDFS_NAMESPACE))
 			prefix = "rdfs";
 		else if (ns.equals(TypeMapper.XSD_NAMESPACE))
 			prefix = "xsd";
@@ -276,16 +298,16 @@ public class TurtleWriter {
 		writeNamespace(prefix, ns);
 	}
 
-	private void handleResourceProps(PResource res, List types) throws IOException {
+	private void handleResourceProps(Resource res, List types) throws IOException {
 		firstPropWritten = false;
-		boolean force = PResource.PROP_SERIALIZATION_FULL == getData(res).redType;
+		boolean force = Resource.PROP_SERIALIZATION_FULL == getData(res).redType;
 		for (Enumeration e = res.getPropertyURIs(); e.hasMoreElements();)
 			handleStatement(res, e.nextElement().toString(), types, force);
 	}
 
-	private void handleStatement(PResource subj, String pred, List types, boolean force)
+	private void handleStatement(Resource subj, String pred, List types, boolean force)
 			throws IOException {
-		Object obj = pred.equals(PResource.PROP_RDF_TYPE)? types : subj.getProperty(pred);
+		Object obj = pred.equals(Resource.PROP_RDF_TYPE)? types : subj.getProperty(pred);
 		if (obj instanceof List)
 			if (((List) obj).isEmpty())
 				return;
@@ -294,9 +316,9 @@ public class TurtleWriter {
 
 		int redType = (obj instanceof List) ? getListReduction(subj, pred,
 				(List) obj)
-				: (obj instanceof PResource  &&  !((PResource) obj).serializesAsXMLLiteral()) ? getData((PResource) obj).redType
+				: (obj instanceof Resource  &&  !((Resource) obj).serializesAsXMLLiteral()) ? getData((Resource) obj).redType
 						: subj.getPropSerializationType(pred);
-		if (!force && redType < PResource.PROP_SERIALIZATION_REDUCED)
+		if (!force && redType < Resource.PROP_SERIALIZATION_REDUCED)
 			return;
 
 		if (subj == lastWrittenSubject && firstPropWritten) {
@@ -311,7 +333,7 @@ public class TurtleWriter {
 		firstPropWritten = true;
 	}
 
-	void serialize(PResource root) throws IOException {
+	void serialize(Resource root) throws IOException {
 		if (writingStarted)
 			throw new RuntimeException("Document writing has already started");
 
@@ -319,7 +341,7 @@ public class TurtleWriter {
 		writingStarted = true;
 		Hashtable nsTable = new Hashtable();
 		SerData d = new SerData();
-		d.redType = PResource.PROP_SERIALIZATION_FULL;
+		d.redType = Resource.PROP_SERIALIZATION_FULL;
 		(root.isAnon() ? bNodes : uriNodes).put(root, d);
 		analyzeResource(root, nsTable);
 		finalizeNodes(root, nsTable);
@@ -407,14 +429,14 @@ public class TurtleWriter {
 	}
 
 	private void writePredicate(String predicate) throws IOException {
-		if (predicate.equals(PResource.PROP_RDF_TYPE))
+		if (predicate.equals(Resource.PROP_RDF_TYPE))
 			// Write short-cut for rdf:type
 			writer.write("a");
 		else
 			writeURI(predicate);
 	}
 
-	private void writeResource(PResource res) throws IOException {
+	private void writeResource(Resource res) throws IOException {
 		SerData d = (SerData) bNodes.get(res);
 		if (d == null) {
 			d = (SerData) uriNodes.get(res);
@@ -447,7 +469,7 @@ public class TurtleWriter {
 
 				res = null;
 				for (Enumeration e = uriNodes.keys(); e.hasMoreElements();) {
-					res = (PResource) e.nextElement();
+					res = (Resource) e.nextElement();
 					if (getData(res).serialized == NOT_SERIALIZED)
 						break;
 					else
@@ -466,7 +488,7 @@ public class TurtleWriter {
 			}
 			if (!descriptionClosed)
 				embedLevel++;
-			PResource tmp1 = lastWrittenSubject;
+			Resource tmp1 = lastWrittenSubject;
 			boolean tmp2 = descriptionClosed;
 			lastWrittenSubject = res;
 			descriptionClosed = false;
@@ -537,17 +559,17 @@ public class TurtleWriter {
 				writeValue(((List) val).get(last), false);
 				embedLevel--;
 			}
-		else if (val instanceof PResource)
-			if (((PResource) val).serializesAsXMLLiteral())
-				if (((PResource) val).isAnon()
-						|| ((PResource) val).numberOfProperties() > 0)
+		else if (val instanceof Resource)
+			if (((Resource) val).serializesAsXMLLiteral())
+				if (((Resource) val).isAnon()
+						|| ((Resource) val).numberOfProperties() > 0)
 					writeLiteral(TurtleWriter.serialize(val, embedLevel+2),
 							TurtleUtil.xmlLiteral);
 				else
-					writeLiteral(((PResource) val).getURI(), TypeMapper
-							.getDatatypeURI(PResource.class));
+					writeLiteral(((Resource) val).getURI(), TypeMapper
+							.getDatatypeURI(Resource.class));
 			else
-				writeResource((PResource) val);
+				writeResource((Resource) val);
 		else if (val instanceof Boolean  ||  val instanceof Double  ||  val instanceof Integer)
 			writer.write(val.toString());
 		else {

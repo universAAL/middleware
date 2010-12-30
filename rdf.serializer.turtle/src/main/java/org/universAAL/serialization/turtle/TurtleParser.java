@@ -1,4 +1,25 @@
-package org.persona.serialization.turtle;
+/*
+	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	
+	Copyright Aduna (http://www.aduna-software.com/) © 2001-2007
+	
+	See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	  http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+ */
+package org.universAAL.serialization.turtle;
 
 import java.io.IOException;
 import java.io.PushbackReader;
@@ -12,27 +33,26 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-import org.persona.middleware.MiddlewareConstants;
-import org.persona.middleware.PResource;
-import org.persona.middleware.TypeMapper;
-import org.persona.middleware.util.LogUtils;
-import org.persona.middleware.util.StringUtils;
-import org.persona.ontology.ManagedIndividual;
-import org.persona.ontology.PClassExpression;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.middleware.util.StringUtils;
 
-import de.fhg.igd.ima.sodapop.msg.MessageContentSerializer;
 
 /**
  * @author mtazari
  * 
  */
 public class TurtleParser implements MessageContentSerializer {
-	private static final PResource NIL = new PResource(PResource.RDF_EMPTY_LIST);
+	private static final Resource NIL = new Resource(Resource.RDF_EMPTY_LIST);
 	private class RefData {
 		int i;
 		List l;
 		String prop;
-		PResource src;
+		Resource src;
 	}
 	
 	private class ParseData {
@@ -70,7 +90,7 @@ public class TurtleParser implements MessageContentSerializer {
 
 	private PushbackReader reader;
 
-	private PResource subject, firstResource = null;
+	private Resource subject, firstResource = null;
 
 	private String predicate;
 
@@ -84,11 +104,11 @@ public class TurtleParser implements MessageContentSerializer {
 	TurtleParser() {
 	}
 
-	private void addRef(PResource referred, PResource referredBy, String prop, List l, int i) {
+	private void addRef(Resource referred, Resource referredBy, String prop, List l, int i) {
 		// we do not need to keep book on references to resources representing a type
 		// they are handled directly in reportStatement()
 		if (referred.serializesAsXMLLiteral()
-				|| PResource.PROP_RDF_TYPE.equals(prop))
+				|| Resource.PROP_RDF_TYPE.equals(prop))
 			return;
 		
 		RefData rd = new RefData();
@@ -101,8 +121,8 @@ public class TurtleParser implements MessageContentSerializer {
 	
 	private boolean containsResource(List l) {
 		for (int i=0; i<l.size(); i++)
-			if (l.get(i) instanceof PResource
-					&&  !((PResource) l.get(i)).serializesAsXMLLiteral())
+			if (l.get(i) instanceof Resource
+					&&  !((Resource) l.get(i)).serializesAsXMLLiteral())
 				return true;
 		return false;
 	}
@@ -119,16 +139,16 @@ public class TurtleParser implements MessageContentSerializer {
 	private Object deserialize(String serialized, boolean wasXMLLiteral) {
 		try {
 			parse(new StringReader(serialized), "");
-			PResource result = finalizeAndGetRoot();
+			Resource result = finalizeAndGetRoot();
 			if (wasXMLLiteral)
 				result = result.copyAsXMLLiteral();
-			else if (PResource.TYPE_RDF_LIST.equals(result.getType())) {
-//				Object first = result.getProperty(PResource.PROP_RDF_FIRST);
+			else if (Resource.TYPE_RDF_LIST.equals(result.getType())) {
+//				Object first = result.getProperty(Resource.PROP_RDF_FIRST);
 //				if (first == null)
 //					return null;
-//				Object rest = result.getProperty(PResource.PROP_RDF_REST);
+//				Object rest = result.getProperty(Resource.PROP_RDF_REST);
 //				if (rest != null
-//						&& rest.toString().equals(PResource.RDF_EMPTY_LIST))
+//						&& rest.toString().equals(Resource.RDF_EMPTY_LIST))
 //					rest = new ArrayList(1);
 //				else if (!(rest instanceof List))
 //					return null;
@@ -144,12 +164,12 @@ public class TurtleParser implements MessageContentSerializer {
 		}
 	}
 
-	private PResource finalizeAndGetRoot() {
-		PResource aux, specialized, result = null;
+	private Resource finalizeAndGetRoot() {
+		Resource aux, specialized, result = null;
 		Hashtable openItems = new Hashtable(), specializedResources = new Hashtable();
 		// Comparator c = new TypeComparator();
 		for (Iterator i = resources.values().iterator(); i.hasNext();) {
-			aux = (PResource) i.next();
+			aux = (Resource) i.next();
 			i.remove();
 			ParseData pd = (ParseData) parseTable.remove(aux);
 			specialized = (aux.numberOfProperties() == 0)? aux : specialize(aux, specializedResources, openItems);
@@ -164,7 +184,7 @@ public class TurtleParser implements MessageContentSerializer {
 				for (int j=0; j<pd.refs.size(); j++) {
 					RefData rd = (RefData) pd.refs.get(j);
 					boolean srcSpecialiazed = true;
-					aux = (PResource) specializedResources.get(rd.src.getURI());
+					aux = (Resource) specializedResources.get(rd.src.getURI());
 					if (aux == null) {
 						aux = rd.src;
 						srcSpecialiazed = false;
@@ -173,7 +193,7 @@ public class TurtleParser implements MessageContentSerializer {
 						aux.setProperty(rd.prop, specialized);
 						if (!specialized.equals(aux.getProperty(rd.prop)))
 							openItems.put(specialized, rd);
-						else if (!srcSpecialiazed &&  PClassExpression.OWL_CLASS.equals(aux.getType()))
+						else if (!srcSpecialiazed &&  ClassExpression.OWL_CLASS.equals(aux.getType()))
 							specialize(aux, specializedResources, openItems);
 					} else {
 						rd.l.set(rd.i, specialized);
@@ -194,7 +214,7 @@ public class TurtleParser implements MessageContentSerializer {
 					continue;
 				}
 				boolean srcSpecialiazed = true;
-				aux = (PResource) specializedResources.get(rd.src.getURI());
+				aux = (Resource) specializedResources.get(rd.src.getURI());
 				if (aux == null) {
 					aux = rd.src;
 					srcSpecialiazed = false;
@@ -202,21 +222,21 @@ public class TurtleParser implements MessageContentSerializer {
 				if (o instanceof String) {
 					o = rd.l;
 					for (int j=0; j<rd.l.size(); j++)
-						if (rd.l.get(j) instanceof PResource) {
-							specialized = (PResource) specializedResources.get(
-									((PResource) rd.l.get(j)).getURI());
+						if (rd.l.get(j) instanceof Resource) {
+							specialized = (Resource) specializedResources.get(
+									((Resource) rd.l.get(j)).getURI());
 							if (specialized != null)
 								rd.l.set(j, specialized);
 						}
-				} else if (o instanceof PResource) {
-					specialized = (PResource) specializedResources.get(((PResource) o).getURI());
+				} else if (o instanceof Resource) {
+					specialized = (Resource) specializedResources.get(((Resource) o).getURI());
 					if (specialized != null)
 						o = specialized;
 				}
 				aux.setProperty(rd.prop, o);
 				if (o.equals(aux.getProperty(rd.prop))) {
 					i.remove();
-					if (!srcSpecialiazed && PClassExpression.OWL_CLASS.equals(aux.getType()))
+					if (!srcSpecialiazed && ClassExpression.OWL_CLASS.equals(aux.getType()))
 						specialize(aux, specializedResources, openItems);
 				}
 			}
@@ -241,23 +261,23 @@ public class TurtleParser implements MessageContentSerializer {
 		return result;
 	}
 
-	private PClassExpression getClassExpression(PResource r, String uri) {
-		PClassExpression result = null;
-		Object o = r.getProperty((PClassExpression.PROP_RDFS_SUB_CLASS_OF));
-		if (o instanceof PResource) {
-			if (!((PResource) o).isAnon()) {
-				result = PClassExpression.getClassExpressionInstance(
-						((PResource) o).getURI(), null, uri);
+	private ClassExpression getClassExpression(Resource r, String uri) {
+		ClassExpression result = null;
+		Object o = r.getProperty((ClassExpression.PROP_RDFS_SUB_CLASS_OF));
+		if (o instanceof Resource) {
+			if (!((Resource) o).isAnon()) {
+				result = ClassExpression.getClassExpressionInstance(
+						((Resource) o).getURI(), null, uri);
 				if (result != null)
 					return result;
 			}
 		} else if (o instanceof List) {
 			for (Iterator i = ((List) o).iterator(); i.hasNext();) {
 				o = i.next();
-				if (o instanceof PResource) {
-					if (!((PResource) o).isAnon()) {
-						result = PClassExpression.getClassExpressionInstance(
-								((PResource) o).getURI(), null, uri);
+				if (o instanceof Resource) {
+					if (!((Resource) o).isAnon()) {
+						result = ClassExpression.getClassExpressionInstance(
+								((Resource) o).getURI(), null, uri);
 						if (result != null)
 							return result;
 					}
@@ -268,8 +288,8 @@ public class TurtleParser implements MessageContentSerializer {
 		int num = 0;
 		for (Enumeration e = r.getPropertyURIs(); e.hasMoreElements();) {
 			String p = (String) e.nextElement();
-			if (!PResource.PROP_RDF_TYPE.equals(p)) {
-				result = PClassExpression.getClassExpressionInstance(null, p,
+			if (!Resource.PROP_RDF_TYPE.equals(p)) {
+				result = ClassExpression.getClassExpressionInstance(null, p,
 						uri);
 				num++;
 			}
@@ -277,11 +297,11 @@ public class TurtleParser implements MessageContentSerializer {
 				return result;
 		}
 		
-		return (r.isAnon() || num > 0) ? null : PClassExpression
+		return (r.isAnon() || num > 0) ? null : ClassExpression
 				.getClassExpressionInstance(null, null, uri);
 	}
 
-	private ParseData getData(PResource r) {
+	private ParseData getData(Resource r) {
 		ParseData d = (ParseData) parseTable.get(r);
 		if (d == null) {
 			d = new ParseData();
@@ -290,20 +310,20 @@ public class TurtleParser implements MessageContentSerializer {
 		return d;
 	}
 
-	private PResource getPResource(String uri) {
-		PResource r;
+	private Resource getResource(String uri) {
+		Resource r;
 		if (uri == null) {
-			r = new PResource();
+			r = new Resource();
 			resources.put(r.getURI(), r);
 		} else {
-			r = (PResource) resources.get(uri);
+			r = (Resource) resources.get(uri);
 			if (r == null) {
 				if (uri.startsWith("_:")) {
 					// bNode ID
-					r = new PResource();
+					r = new Resource();
 					getData(r).label = uri;
 				} else
-					r = new PResource(uri);
+					r = new Resource(uri);
 				resources.put(uri, r);
 			}
 		}
@@ -342,15 +362,15 @@ public class TurtleParser implements MessageContentSerializer {
 		else {
 			parseObject();
 			l.add(object);
-			if (object instanceof PResource)
-				addRef((PResource) object, subject, predicate, l, 0);
+			if (object instanceof Resource)
+				addRef((Resource) object, subject, predicate, l, 0);
 
 			int i =1;
 			while (skipWSC() != ')') {
 				parseObject();
 				l.add(object);
-				if (object instanceof PResource)
-					addRef((PResource) object, subject, predicate, l, i);
+				if (object instanceof Resource)
+					addRef((Resource) object, subject, predicate, l, i);
 				i++;
 			}
 
@@ -387,17 +407,17 @@ public class TurtleParser implements MessageContentSerializer {
 		}
 	}
 
-	private PResource parseImplicitBlank() {
+	private Resource parseImplicitBlank() {
 		verifyCharacter(read(), "[");
 
-		PResource bNode = getPResource(null);
+		Resource bNode = getResource(null);
 
 		int c = read();
 		if (c != ']') {
 			unread(c);
 
 			// Remember current subject and predicate
-			PResource oldSubject = subject;
+			Resource oldSubject = subject;
 			String oldPredicate = predicate;
 
 			// generated bNode becomes subject
@@ -453,7 +473,7 @@ public class TurtleParser implements MessageContentSerializer {
 		return sb.substring(0, sb.length() - 3);
 	}
 
-	private PResource parseNodeID() {
+	private Resource parseNodeID() {
 		// Node ID should start with "_:"
 		verifyCharacter(read(), "_");
 		verifyCharacter(read(), ":");
@@ -479,7 +499,7 @@ public class TurtleParser implements MessageContentSerializer {
 
 		unread(c);
 
-		return getPResource(name.toString());
+		return getResource(name.toString());
 	}
 
 	private Object parseNumber() {
@@ -565,8 +585,8 @@ public class TurtleParser implements MessageContentSerializer {
 			object = parseImplicitBlank();
 		} else {
 			object = parseValue();
-//			if (object instanceof PResource  &&  ((PResource) object).serializesAsXMLLiteral())
-//				resources.put(((PResource) object).getURI(), object);
+//			if (object instanceof Resource  &&  ((Resource) object).serializesAsXMLLiteral())
+//				resources.put(((Resource) object).getURI(), object);
 		}
 	}
 
@@ -577,8 +597,8 @@ public class TurtleParser implements MessageContentSerializer {
 		int i = 0;
 		while (skipWSC() == ',') {
 			l.add(object);
-			if (object instanceof PResource)
-				addRef((PResource) object, subject, predicate, l, i);
+			if (object instanceof Resource)
+				addRef((Resource) object, subject, predicate, l, i);
 			i++;
 			read();
 			skipWSC();
@@ -586,12 +606,12 @@ public class TurtleParser implements MessageContentSerializer {
 		}
 		
 		if (l.isEmpty()) {
-			if (object instanceof PResource)
-				addRef((PResource) object, subject, predicate, null, -1);
+			if (object instanceof Resource)
+				addRef((Resource) object, subject, predicate, null, -1);
 		} else {
 			l.add(object);
-			if (object instanceof PResource)
-				addRef((PResource) object, subject, predicate, l, i);
+			if (object instanceof Resource)
+				addRef((Resource) object, subject, predicate, l, i);
 			object = l;
 		}
 		
@@ -607,7 +627,7 @@ public class TurtleParser implements MessageContentSerializer {
 
 			if (TurtleUtil.isWhitespace(c2)) {
 				// Short-cut is used, return the rdf:type URI
-				return PResource.PROP_RDF_TYPE;
+				return Resource.PROP_RDF_TYPE;
 			}
 
 			// Short-cut is not used, unread all characters
@@ -617,7 +637,7 @@ public class TurtleParser implements MessageContentSerializer {
 
 		// Predicate is a normal resource
 		Object predicate = parseValue();
-		if (predicate instanceof PResource) {
+		if (predicate instanceof Resource) {
 			return predicate.toString();
 		} else if (predicate != null || !eofAfterImplicitBlankNodeAsSubject)
 			throw new RuntimeException("Illegal predicate value: " + predicate);
@@ -753,7 +773,7 @@ public class TurtleParser implements MessageContentSerializer {
 		unread(c);
 
 		// Note: namespace has already been resolved
-		return getPResource(namespace + localName.toString());
+		return getResource(namespace + localName.toString());
 	}
 
 	private Object parseQuotedLiteral() {
@@ -796,7 +816,7 @@ public class TurtleParser implements MessageContentSerializer {
 
 			// Read datatype
 			Object datatype = parseValue();
-			if (datatype instanceof PResource)
+			if (datatype instanceof Resource)
 				datatype = datatype.toString();
 			else if (!(datatype instanceof String))
 				throw new RuntimeException("Illegal datatype value: "
@@ -887,18 +907,18 @@ public class TurtleParser implements MessageContentSerializer {
 			if (l == null || l.isEmpty())
 				subject = NIL;
 			else {
-				subject = getPResource(null);
-				subject.addType(PResource.TYPE_RDF_LIST, true);
-				subject.setProperty(PResource.PROP_RDF_FIRST, l.remove(0));
-				subject.setProperty(PResource.PROP_RDF_REST, l);
+				subject = getResource(null);
+				subject.addType(Resource.TYPE_RDF_LIST, true);
+				subject.setProperty(Resource.PROP_RDF_FIRST, l.remove(0));
+				subject.setProperty(Resource.PROP_RDF_REST, l);
 			}
 		} else if (c == '[') {
 			subject = parseImplicitBlank();
 		} else {
 			Object value = parseValue();
 
-			if (value instanceof PResource) {
-				subject = (PResource) value;
+			if (value instanceof Resource) {
+				subject = (Resource) value;
 			} else {
 				throw new RuntimeException("Illegal subject value: " + value);
 			}
@@ -959,7 +979,7 @@ public class TurtleParser implements MessageContentSerializer {
 
 		if (c == '<') {
 			// uriref, e.g. <foo://bar>
-			return getPResource(parseURI());
+			return getResource(parseURI());
 		} else if (c == ':' || TurtleUtil.isPrefixStartChar(c)) {
 			// qname or boolean
 			return parseQNameOrBoolean();
@@ -1002,11 +1022,11 @@ public class TurtleParser implements MessageContentSerializer {
 		}
 	}
 
-	private void reportStatement(PResource subj, String pred, Object obj) {
+	private void reportStatement(Resource subj, String pred, Object obj) {
 		if (obj == null || (obj instanceof List && ((List) obj).isEmpty()))
 			obj = NIL;
-		else if (!PResource.PROP_RDF_TYPE.equals(pred)
-				&& ((obj instanceof PResource  &&  !((PResource) obj).serializesAsXMLLiteral())
+		else if (!Resource.PROP_RDF_TYPE.equals(pred)
+				&& ((obj instanceof Resource  &&  !((Resource) obj).serializesAsXMLLiteral())
 						|| (obj instanceof List  &&  containsResource((List) obj))))
 			// postpone for later -> see finalizeAndGetRoot
 			return;
@@ -1018,7 +1038,7 @@ public class TurtleParser implements MessageContentSerializer {
 		return TurtleWriter.serialize(messageContent, 0);
 	}
 	
-//	private void setSpecializedValue(PResource r, String prop, Object newVal, Object oldVal) {
+//	private void setSpecializedValue(Resource r, String prop, Object newVal, Object oldVal) {
 //		r.setProperty(prop, newVal);
 //		Object o = r.getProperty(prop);
 //		if (o == null)
@@ -1067,9 +1087,9 @@ public class TurtleParser implements MessageContentSerializer {
 		return c;
 	}
 
-	private PResource specialize(PResource r, Hashtable specialized, Hashtable openItems) {
+	private Resource specialize(Resource r, Hashtable specialized, Hashtable openItems) {
 		// check if it has already been handled
-		PResource substitution = (PResource) specialized.get(r.getURI());
+		Resource substitution = (Resource) specialized.get(r.getURI());
 		if (substitution != null)
 			return substitution;
 
@@ -1082,10 +1102,10 @@ public class TurtleParser implements MessageContentSerializer {
 			String type = ManagedIndividual.getMostSpecializedClass(types);
 			if (type == null) {
 				type = types[0];
-				substitution = MiddlewareConstants.getResourceInstance(type, uri);
+				substitution = Resource.getResource(type, uri);
 				if (substitution == null) {
-					substitution = PClassExpression.getClassExpressionInstance(type, uri);
-					if (substitution == null  &&  PClassExpression.OWL_CLASS.equals(type)) {
+					substitution = ClassExpression.getClassExpressionInstance(type, uri);
+					if (substitution == null  &&  ClassExpression.OWL_CLASS.equals(type)) {
 						substitution = getClassExpression(r, uri);
 						if (substitution == null)
 							// postpone the specialization until all props are set
@@ -1112,7 +1132,7 @@ public class TurtleParser implements MessageContentSerializer {
 				RefData rd = new RefData();
 				rd.src = substitution;
 				rd.prop = prop;
-				if (val instanceof PResource)
+				if (val instanceof Resource)
 					openItems.put(val, rd);
 				else if (val instanceof List) {
 					rd.l = (List) val;
