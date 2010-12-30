@@ -18,6 +18,10 @@ bus.model/.classpath
 bus.model/.project
 bus.model/.settings
 bus.model/target
+data.representation/.classpath
+data.representation/.project
+data.representation/.settings
+data.representation/target
 data.serialization/.classpath
 data.serialization/.project
 data.serialization/.settings
