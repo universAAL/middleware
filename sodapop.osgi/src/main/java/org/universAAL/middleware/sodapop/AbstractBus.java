@@ -1,6 +1,6 @@
 /*
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -17,15 +17,16 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.sodapop;
+package org.universAAL.middleware.sodapop;
 
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import de.fhg.igd.ima.sodapop.msg.Message;
+import org.universAAL.middleware.sodapop.msg.Message;
+
 
 /**
- * @author mtazari
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  *
  */
 public abstract class AbstractBus implements Bus {

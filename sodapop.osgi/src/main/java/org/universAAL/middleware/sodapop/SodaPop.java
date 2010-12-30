@@ -1,6 +1,6 @@
 /*
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -17,18 +17,22 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.sodapop;
+package org.universAAL.middleware.sodapop;
 
-import de.fhg.igd.ima.sodapop.msg.Message;
-
+import org.universAAL.middleware.sodapop.msg.Message;
 /**
- * Registers to an RPC-bus for receiving requests to be replied.
- * 
- * @author mtazari
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ *
  */
-public interface Callee extends BusMember {
+public interface SodaPop {
 
-	public boolean eval(Message m);
+	public AbstractBus getLocalBusByName(String name);
+	
+	public String getID();
 
-	public void handleRequest(Message m);
+	public void leave(AbstractBus bus);
+	
+	public void join(AbstractBus bus);
+	
+	public int propagateMessage(AbstractBus bus, Message msg);
 }

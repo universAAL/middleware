@@ -1,6 +1,6 @@
 /*
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -17,21 +17,12 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.sodapop;
-
-import de.fhg.igd.ima.sodapop.msg.Message;
+package org.universAAL.middleware.sodapop;
 
 /**
- * @author mtazari
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  *
  */
-public interface Bus {
-	
-	public String getBusName();
-
-	public String register(BusMember member);
-	
-	public void sendMessage(String memberID, Message msg);
-	
-	public void unregister(String memberID, BusMember member);
+public interface BusMember {
+	public void busDyingOut(Bus b);
 }

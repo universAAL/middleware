@@ -37,7 +37,7 @@ Experience has shown that the above automatic generation of shared keys may stil
 lead to generating exceptions during exchange of messages. So, the recommended
 way for creating the key is to execute the main method of
 
-    de.fhg.igd.ima.sodapop.impl.CryptUtil
+    org.universAAL.middleware.sodapop.impl.CryptUtil
     
 by right-clicking the corresponding java class in sodapop.osgi and choosing "Run
 As -> Java Application". The program creates the file sodapop.key in the working
@@ -98,7 +98,7 @@ D:target\classes> set JAVA_HOME="C:\Program Files (x86)\Java\jre1.3.1_20"
 
 D:target\classes> set CLASSPATH=.;D:\Saied\.m2\repository\org\bouncycastle\jce.jdk13\144\jce.jdk13-144.jar
 
-D:target\classes> %JAVA_HOME%\bin\java de.fhg.igd.ima.sodapop.impl.CryptUtil
+D:target\classes> %JAVA_HOME%\bin\java org.universAAL.middleware.sodapop.impl.CryptUtil
 Encrypted: This is the simple test #1
 Decrypted: This is the simple test #1
 Encrypted: This is the simple test #2

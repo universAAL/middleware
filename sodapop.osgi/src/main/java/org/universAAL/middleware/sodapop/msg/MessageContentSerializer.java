@@ -1,6 +1,6 @@
 /*
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -17,22 +17,18 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.sodapop;
+package org.universAAL.middleware.sodapop.msg;
 
-import de.fhg.igd.ima.sodapop.msg.Message;
 /**
- * @author mtazari
+ * Classes implementing <code>StringSerializableParser</code> can serialize and
+ * deserialize the content of sodapop messages.
+ * 
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  *
  */
-public interface SodaPop {
+public interface MessageContentSerializer {
 
-	public AbstractBus getLocalBusByName(String name);
+	public Object deserialize(String serialized);
 	
-	public String getID();
-
-	public void leave(AbstractBus bus);
-	
-	public void join(AbstractBus bus);
-	
-	public int propagateMessage(AbstractBus bus, Message msg);
+	public String serialize(Object messageContent);
 }
