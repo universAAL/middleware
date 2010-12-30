@@ -2,17 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.aal-persona.middleware</groupId>
-    <artifactId>pom</artifactId>
-    <version>2.0.0</version>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom</artifactId>
+    <version>1.0.0</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <packaging>bundle</packaging>
-  <artifactId>acl.r-osgi</artifactId>  
+  <artifactId>mw.acl.rosgi</artifactId>  
   <version>0.3.0-SNAPSHOT</version>
   <name>ACL R-OSGi</name>
   <description>An implement of the ACL interface using R-OSGi</description>
   <url />
+
+	<scm>
+		<connection>scm:svn:http://a1gforge.igd.fraunhofer.de/svn/middleware/trunk/acl.r-osgi</connection> 
+		<developerConnection>scm:svn:http://a1gforge.igd.fraunhofer.de/svn/middleware/trunk/acl.r-osgi</developerConnection>
+		<url>http://a1gforge.igd.fraunhofer.de/gf/project/middleware/scmsvn/?path=%2Ftrunk%2Facl.r-osgi</url>
+	</scm>
 
   <dependencies>
     <dependency>
@@ -20,8 +26,8 @@
       <artifactId>org.osgi.core</artifactId>
     </dependency>
     <dependency>
-    	<groupId>org.aal-persona.middleware</groupId>
-      <artifactId>acl.interfaces</artifactId>
+    	<groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.acl.interfaces</artifactId>
       <version>0.3.0-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
@@ -48,12 +54,12 @@
         <configuration>
           <instructions>
             <Bundle-Name>${pom.name}</Bundle-Name>
-            <Bundle-Activator>org.persona.p2p.rosgi.Activator</Bundle-Activator>
+            <Bundle-Activator>org.universAAL.middleware.acl.rosgi.Activator</Bundle-Activator>
             <Bundle-Description>${pom.description}</Bundle-Description>
             <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
             <Export-Package />
-            <Import-Package>de.fhg.igd.ima.sodapop.p2p,ch.ethz.iks.r_osgi,ch.ethz.iks.r_osgi.service_discovery,org.osgi.framework</Import-Package>
-            <Private-Package>org.persona.p2p.rosgi</Private-Package>
+            <Import-Package>org.universAAL.middleware.acl,ch.ethz.iks.r_osgi,ch.ethz.iks.r_osgi.service_discovery,org.osgi.framework</Import-Package>
+            <Private-Package>org.universAAL.middleware.acl.rosgi</Private-Package>
           </instructions>
         </configuration>
       </plugin>
