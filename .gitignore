@@ -14,12 +14,12 @@ acl.upnp/.classpath
 acl.upnp/.project
 acl.upnp/.settings
 acl.upnp/target
+data.serialization/.classpath
+data.serialization/.project
+data.serialization/.settings
+data.serialization/target
 pom/.project
 pom/.settings
-rdf.serializer.turtle/.classpath
-rdf.serializer.turtle/.project
-rdf.serializer.turtle/.settings
-rdf.serializer.turtle/target
 samples/.project
 samples/.settings
 samples/lighting.client/*
