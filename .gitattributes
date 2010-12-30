@@ -6,9 +6,9 @@ acl.bridge/src/main/java/org/universAAL/middleware/acl/bridge/BridgeActivator.ja
 acl.interfaces/LICENSE.txt -text
 acl.interfaces/NOTICE.txt -text
 acl.interfaces/pom.xml -text
-acl.interfaces/src/main/java/de/fhg/igd/ima/sodapop/p2p/P2PConnector.java -text
-acl.interfaces/src/main/java/de/fhg/igd/ima/sodapop/p2p/PeerDiscoveryListener.java -text
-acl.interfaces/src/main/java/de/fhg/igd/ima/sodapop/p2p/SodaPopPeer.java -text
+acl.interfaces/src/main/java/org/universAAL/middleware/acl/P2PConnector.java -text
+acl.interfaces/src/main/java/org/universAAL/middleware/acl/PeerDiscoveryListener.java -text
+acl.interfaces/src/main/java/org/universAAL/middleware/acl/SodaPopPeer.java -text
 acl.r-osgi/LICENSE.txt -text
 acl.r-osgi/NOTICE.txt -text
 acl.r-osgi/pom.xml -text

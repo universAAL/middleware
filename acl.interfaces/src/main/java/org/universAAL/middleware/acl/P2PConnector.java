@@ -1,8 +1,8 @@
 /*
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
 	
-	Copyright 2008-2010 CNR-ISTI, http://isti.cnr.it
+	Copyright 2007-2014 CNR-ISTI, http://www.isti.cnr.it
 	Institute of Information Science and Technologies 
 	of the Italian National Research Council 
 
@@ -21,20 +21,20 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.sodapop.p2p;
+package org.universAAL.middleware.acl;
 
 /**
  * Classes implementing this interface make P2P connection between instances
- * of {@link de.fhg.igd.ima.sodapop.p2p.SodaPopPeer SodaPopPeer} using a specific
+ * of {@link org.universAAL.middleware.acl.SodaPopPeer SodaPopPeer} using a specific
  * underlying technology like "UPnP" and "R-OSGi", which is called here
  * the protocol.
  * 
- * @author mtazari
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  *
  */
 public interface P2PConnector {
 	/**
-	 * Adds a {@link de.fhg.igd.ima.sodapop.p2p.PeerDiscoveryListener 
+	 * Adds a {@link org.universAAL.middleware.acl.PeerDiscoveryListener 
 	 * PeerDiscoveryListener} willing to be notified whenever a new remote
 	 * instance of SodaPopPeer is discovered.
 	 * 
