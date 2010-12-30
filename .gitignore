@@ -14,6 +14,10 @@ acl.upnp/.classpath
 acl.upnp/.project
 acl.upnp/.settings
 acl.upnp/target
+bus.model/.classpath
+bus.model/.project
+bus.model/.settings
+bus.model/target
 data.serialization/.classpath
 data.serialization/.project
 data.serialization/.settings
@@ -29,7 +33,3 @@ samples/lighting.server/.classpath
 samples/lighting.server/.project
 samples/lighting.server/.settings
 samples/lighting.server/target
-sodapop.osgi/.classpath
-sodapop.osgi/.project
-sodapop.osgi/.settings
-sodapop.osgi/target
