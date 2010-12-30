@@ -2,7 +2,7 @@
 acl.bridge/LICENSE.txt -text
 acl.bridge/NOTICE.txt -text
 acl.bridge/pom.xml -text
-acl.bridge/src/main/java/de/fhg/igd/ima/sodapop/p2p/bridge/BridgeActivator.java -text
+acl.bridge/src/main/java/org/universAAL/middleware/acl/bridge/BridgeActivator.java -text
 acl.interfaces/LICENSE.txt -text
 acl.interfaces/NOTICE.txt -text
 acl.interfaces/pom.xml -text

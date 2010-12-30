@@ -1,12 +1,12 @@
-PERSONA ACL Bridge
+ACL (Abstract Connection Layer) Bridge
 
-Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
 
 
 I. Included Software
 
-This does not include any software developed by 3rd parties
+Software developed by Fraunhofer IGD within the PERSONA project is used as the initial version for further developments within the universAAL project.
 
 
 II. Used Software

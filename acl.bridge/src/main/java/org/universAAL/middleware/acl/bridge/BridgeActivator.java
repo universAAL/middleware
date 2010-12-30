@@ -1,6 +1,6 @@
 /*
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -17,7 +17,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.sodapop.p2p.bridge;
+package org.universAAL.middleware.acl.bridge;
 
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -27,10 +27,10 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
+import org.universAAL.middleware.acl.P2PConnector;
+import org.universAAL.middleware.acl.PeerDiscoveryListener;
+import org.universAAL.middleware.acl.SodaPopPeer;
 
-import de.fhg.igd.ima.sodapop.p2p.P2PConnector;
-import de.fhg.igd.ima.sodapop.p2p.PeerDiscoveryListener;
-import de.fhg.igd.ima.sodapop.p2p.SodaPopPeer;
 
 /**
  * @author <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
