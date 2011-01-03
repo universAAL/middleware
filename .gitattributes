@@ -151,9 +151,9 @@ pom/pom.xml -text
 samples/lighting.client/LICENSE.txt -text
 samples/lighting.client/NOTICE.txt -text
 samples/lighting.client/pom.xml -text
-samples/lighting.client/src/main/java/de/fhg/igd/ima/persona/lighting/client/Activator.java -text
-samples/lighting.client/src/main/java/de/fhg/igd/ima/persona/lighting/client/LightClient.java -text
-samples/lighting.client/src/main/java/de/fhg/igd/ima/persona/lighting/client/LightingConsumer.java -text
+samples/lighting.client/src/main/java/org/universAAL/samples/lighting/client/Activator.java -text
+samples/lighting.client/src/main/java/org/universAAL/samples/lighting/client/LightClient.java -text
+samples/lighting.client/src/main/java/org/universAAL/samples/lighting/client/LightingConsumer.java -text
 samples/lighting.server/LICENSE.txt -text
 samples/lighting.server/NOTICE.txt -text
 samples/lighting.server/pom.xml -text
