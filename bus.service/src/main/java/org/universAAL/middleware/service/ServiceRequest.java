@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
@@ -127,15 +128,6 @@ public class ServiceRequest extends Resource {
 	}
 	
 	/**
-	 * Adds filtering functions such as max(aProp) to the request as criteria to be used by the service bus
-	 * for match-making and service selection.
-	 */
-	public void addAggregatingFilter(AggregatingFilter f) {
-		if (f != null  &&  f.isWellFormed())
-			filters().add(f);
-	}
-	
-	/**
 	 * Adds the requirement that the requested service must have the effect of adding the given <code>value</code>
 	 * to the property reachable by the given <code>ppath</code>. The property should normally be a
 	 * multi-valued property.
@@ -143,6 +135,15 @@ public class ServiceRequest extends Resource {
 	public void addAddEffect(PropertyPath ppath, Object value) {
 		if (ppath != null  &&  value != null)
 			theResult().addAddEffect(ppath, value);
+	}
+	
+	/**
+	 * Adds filtering functions such as max(aProp) to the request as criteria to be used by the service bus
+	 * for match-making and service selection.
+	 */
+	public void addAggregatingFilter(AggregatingFilter f) {
+		if (f != null  &&  f.isWellFormed())
+			filters().add(f);
 	}
 	
 	/**
@@ -165,12 +166,31 @@ public class ServiceRequest extends Resource {
 	}
 	
 	/**
+	 * Adds the requirement that the requested service must satisfy the given restriction on the given property path.
+	 */
+	public void addFilter(Restriction r, String[] toPath) {
+		getRequestedService().addInstanceLevelRestriction(r, toPath);
+	}
+	
+	/**
 	 * Adds the requirement that the requested service must have the effect of removing the value of the property
 	 * reachable by the given <code>ppath</code>.
 	 */
 	public void addRemoveEffect(PropertyPath ppath) {
 		if (ppath != null)
 			theResult().addRemoveEffect(ppath);
+	}
+	
+	/**
+	 * Adds the requirement that the service must deliver an output with type restrictions bound to the given
+	 * <code>toParam</code> and that this must reflect
+	 * the value of a property reachable by the given property path <code>sourceProp</code>.
+	 */
+	public void addRequiredOutput(String paramURI, String[] fromProp) {
+		if (paramURI != null  &&  fromProp != null  &&  fromProp.length > 0)
+			theResult().addSimpleOutputBinding(
+					new ProcessOutput(paramURI),
+					new PropertyPath(null, true, fromProp));
 	}
 	
 	/**

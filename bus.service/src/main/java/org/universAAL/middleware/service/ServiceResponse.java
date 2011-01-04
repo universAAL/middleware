@@ -20,10 +20,13 @@
 package org.universAAL.middleware.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.service.impl.Activator;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.middleware.util.LogUtils;
 
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
@@ -67,6 +70,54 @@ public class ServiceResponse extends Resource {
 
 	public CallStatus getCallStatus() {
 		return (CallStatus) props.get(PROP_SERVICE_CALL_STATUS);
+	}
+	
+	/**
+	 * Returns all value objects returned for a required output with the given paramURI.
+	 * Since the original request might have been responded by several different service components,
+	 * asMergedList decides if those responses are returned separately or merged into one list.
+	 * A return value of null indicates that there are no outputs in the response.
+	 * If an empty list is returned by this method, it indicates that there are no output related to the given paramURI.
+	 * Otherwise, the return value is always a list even if there is only one value object in that list.
+	 */
+	public List getOutput(String paramURI, boolean asMergedList) {
+		List outputs = getOutputs();
+		if (outputs == null || outputs.size() == 0) {
+			LogUtils.logWarning(Activator.logger, "ServiceResponse", "getOutput", new Object[]{"The response contains no output parameters!"}, null);
+			return null;
+		}
+		
+		List result = new ArrayList();
+		
+		// iterate over the available output parameters
+		for (Iterator iter1 = outputs.iterator(); iter1.hasNext();) {
+			Object obj = iter1.next();
+			if (obj instanceof ProcessOutput) {
+				ProcessOutput output = (ProcessOutput) obj;
+				// check by the param URI if this is the right output
+				if (output.getURI().equals(paramURI)) {
+					Object ob = output.getParameterValue();
+					if (asMergedList  &&  ob instanceof List)
+						result.addAll((List)ob);
+					else
+						result.add(ob);
+				}
+			} else if (obj instanceof List) {
+				List outputLists = (List)obj;
+				for (Iterator iter2 = outputLists.iterator(); iter2.hasNext();) {
+					ProcessOutput output = (ProcessOutput) iter2.next();
+					if (output.getURI().equals(paramURI)) {
+						Object ob = output.getParameterValue();
+						if (asMergedList  &&  ob instanceof List)
+							result.addAll((List)ob);
+						else
+							result.add(ob);
+					}
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	public List getOutputs() {
