@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.aal-persona.samples</groupId>
-		<artifactId>middleware.samples</artifactId>
+		<groupId>org.universAAL.samples</groupId>
+		<artifactId>smp.pom</artifactId>
 		<version>1.0.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
-	<artifactId>lighting.client</artifactId>  
+	<artifactId>smp.lighting.client</artifactId>
 	<version>0.3.0-SNAPSHOT</version>
 	<name>Lighting Client</name>
 	<description>A client using lighting services based on the corresponding domain ontology</description>
-	<url/>
+	<url />
 
 	<dependencies>
 		<dependency>
@@ -20,27 +21,30 @@
 			<artifactId>org.osgi.core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.log</artifactId>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.data.representation</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.aal-persona.middleware</groupId>
-			<artifactId>middleware.upper</artifactId>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.context</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.aal-persona.middleware</groupId>
-			<artifactId>sodapop.osgi</artifactId>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.aal-persona.middleware</groupId>
-			<artifactId>cdc.support</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.aal-persona.platform</groupId>
-			<artifactId>casf.ont</artifactId>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.phWorld</artifactId>
 			<version>0.2.0-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency> 
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.lighting</artifactId>
+			<version>0.2.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -52,10 +56,10 @@
 				<configuration>
 					<instructions>
 						<Bundle-Name>${pom.name}</Bundle-Name>
-						<Bundle-Activator>de.fhg.igd.ima.persona.lighting.client.Activator</Bundle-Activator>
+						<Bundle-Activator>org.universAAL.samples.lighting.client.Activator</Bundle-Activator>
 						<Bundle-Description>${pom.description}</Bundle-Description>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-						<Private-Package>de.fhg.igd.ima.persona.lighting.client</Private-Package>
+						<Private-Package>org.universAAL.samples.lighting.client</Private-Package>
 					</instructions>
 				</configuration>
 			</plugin>

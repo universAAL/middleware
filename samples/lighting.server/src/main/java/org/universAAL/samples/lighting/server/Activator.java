@@ -17,11 +17,12 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.persona.lighting.server;
+package org.universAAL.samples.lighting.server;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.service.log.LogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author mtazari
@@ -29,15 +30,13 @@ import org.osgi.service.log.LogService;
  */
 public class Activator implements BundleActivator {
 	
-	public static LogService log;
+	public static Logger logger = LoggerFactory.getLogger(Activator.class);
 
 	/*
 	 * (non-Javadoc)
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(final BundleContext context) throws Exception {
-		log = (LogService) context.getService(
-				context.getServiceReference(LogService.class.getName()));
 		new Thread() {
 			public void run() {
 				new LightingProvider(context);

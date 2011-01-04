@@ -1,30 +1,29 @@
 /**
  * 
  */
-package de.fhg.igd.ima.persona.lighting.client;
+package org.universAAL.samples.lighting.client;
 
-import org.persona.platform.casf.ontology.device.Device;
+import org.universAAL.ontology.phThing.Device;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.osgi.framework.BundleContext;
-import org.osgi.service.log.LogService;
-import org.persona.middleware.context.ContextEvent;
-import org.persona.middleware.context.ContextEventPattern;
-import org.persona.middleware.context.ContextSubscriber;
-import org.persona.middleware.service.CallStatus;
-import org.persona.middleware.service.DefaultServiceCaller;
-import org.persona.middleware.service.PropertyPath;
-import org.persona.middleware.service.ServiceCaller;
-import org.persona.middleware.service.ServiceRequest;
-import org.persona.middleware.service.ServiceResponse;
-import org.persona.middleware.service.process.ProcessOutput;
-import org.persona.ontology.expr.Restriction;
-import de.fhg.igd.ima.persona.location.FHLocation;
-import org.persona.platform.casf.ontology.device.lighting.LightSource;
-import org.persona.platform.casf.ontology.device.lighting.Lighting;
+import org.universAAL.middleware.context.rdf.ContextEvent;
+import org.universAAL.middleware.context.rdf.ContextEventPattern;
+import org.universAAL.middleware.context.ContextSubscriber;
+import org.universAAL.middleware.service.CallStatus;
+import org.universAAL.middleware.service.DefaultServiceCaller;
+import org.universAAL.middleware.service.PropertyPath;
+import org.universAAL.middleware.service.ServiceCaller;
+import org.universAAL.middleware.service.ServiceRequest;
+import org.universAAL.middleware.service.ServiceResponse;
+import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.ontology.lighting.LightSource;
+import org.universAAL.ontology.lighting.Lighting;
 
 
 /**
@@ -46,13 +45,6 @@ class LightingConsumer extends ContextSubscriber {
 		cep.addRestriction(Restriction.getAllValuesRestriction(ContextEvent.PROP_RDF_SUBJECT,
 				LightSource.MY_URI));
 		return new ContextEventPattern[] {cep};
-	}
-	
-	static {
-
-		// force the JVM to load the class location classes
-		FHLocation.getClassRestrictionsOnProperty(null);
-		FHLocation.getClassRestrictionsOnProperty(null);
 	}
 	
 	LightingConsumer(BundleContext context){
@@ -77,13 +69,13 @@ class LightingConsumer extends ContextSubscriber {
 		// Additional an involved user can be passed to create user-profiles or react to special needs
 		ServiceRequest turnOff = new ServiceRequest( new Lighting(), null);
 		
-		// Add the URI of the lamp to the request
-		turnOff.getRequestedService()
-			.addInstanceLevelRestriction(
-					Restriction.getFixedValueRestriction(								
-					Lighting.PROP_CONTROLS, new LightSource(
-							lampURI)),
-							new String[] { Lighting.PROP_CONTROLS });
+		// we are interested in only those realizations of 'Lighting'
+		// that have control over the lamp with the given URI 
+		turnOff.addFilter(
+				Restriction.getFixedValueRestriction(								
+				Lighting.PROP_CONTROLS, new LightSource(
+						lampURI)),
+						new String[] { Lighting.PROP_CONTROLS });
 		
 		// Add the property that have to be changed and the new value
 		turnOff.addChangeEffect(
@@ -97,12 +89,13 @@ class LightingConsumer extends ContextSubscriber {
 	private static ServiceRequest turnOnRequest(String lampURI){
 		ServiceRequest turnOn = new ServiceRequest( new Lighting(), null);
 		
-		turnOn.getRequestedService()
-			.addInstanceLevelRestriction(
-					Restriction.getFixedValueRestriction(								
-					Lighting.PROP_CONTROLS, new LightSource(
-							lampURI)),
-							new String[] { Lighting.PROP_CONTROLS });
+		// we are interested in only those realizations of 'Lighting'
+		// that have control over the lamp with the given URI 
+		turnOn.addFilter(
+				Restriction.getFixedValueRestriction(								
+				Lighting.PROP_CONTROLS, new LightSource(
+						lampURI)),
+						new String[] { Lighting.PROP_CONTROLS });
 		
 		turnOn.addChangeEffect(
 				new PropertyPath(null, true, new String[] {
@@ -115,12 +108,13 @@ class LightingConsumer extends ContextSubscriber {
 	private static ServiceRequest dimRequest(String lampURI, Integer percent){
 		ServiceRequest dim = new ServiceRequest( new Lighting(), null);
 		
-		dim.getRequestedService()
-			.addInstanceLevelRestriction(
-					Restriction.getFixedValueRestriction(								
-					Lighting.PROP_CONTROLS, new LightSource(
-							lampURI)),
-							new String[] { Lighting.PROP_CONTROLS });	
+		// we are interested in only those realizations of 'Lighting'
+		// that have control over the lamp with the given URI 
+		dim.addFilter(
+				Restriction.getFixedValueRestriction(								
+				Lighting.PROP_CONTROLS, new LightSource(
+						lampURI)),
+						new String[] { Lighting.PROP_CONTROLS });	
 		
 		dim.addChangeEffect(
 				new PropertyPath(null, true, new String[] {
@@ -135,11 +129,16 @@ class LightingConsumer extends ContextSubscriber {
 		ServiceRequest getAllLamps = new ServiceRequest(
 				new Lighting(), null);
 	
-		// But here we do not to change anything, furthermore we want to get an output (the one at OUTPUT_LIST_OF_LAMPS)
-		getAllLamps.addSimpleOutputBinding(new ProcessOutput(
-				OUTPUT_LIST_OF_LAMPS), new PropertyPath(null, true,
-				new String[] { Lighting.PROP_CONTROLS }));
-	
+		// In this case, we do not intend to change anything but only retrieve some info
+		getAllLamps.addRequiredOutput(
+				// this is OUR unique ID with which we can later retrieve the returned value
+				OUTPUT_LIST_OF_LAMPS,
+				// Specify the meaning of the required output
+				//    by pointing to the property in whose value you are interested 
+				// Because we haven't specified any filter before, this should result
+				//    in returning all values associated with the specified property
+				new String[] { Lighting.PROP_CONTROLS });
+	 
 		return getAllLamps;
 	}
 	
@@ -155,38 +154,10 @@ class LightingConsumer extends ContextSubscriber {
 		
 		if (sr.getCallStatus() == CallStatus.succeeded){
 			try {
-				List lampList = new ArrayList();
+				List lampList = sr.getOutput(OUTPUT_LIST_OF_LAMPS, true);
 
-				// get the output from the request
-				List outputs = sr.getOutputs();
-
-				// if there is no output anything is wrong
-				if (outputs == null || outputs.size() == 0) {
-//					Activator.log.log(LogService.LOG_ERROR,"LocalVideoStreamMultiplexer:   No outputs available");
-					System.out.println("LightingConsumer:   outputs are null in getControlledLamps()");
-					return null;
-				}
-				
-				// otherwise iterate over the provided outputs
-				for (Iterator iter1 = outputs.iterator(); iter1.hasNext();) {
-					Object obj = iter1.next();
-					if(obj instanceof ProcessOutput) {
-						ProcessOutput output = (ProcessOutput) obj;
-						// if we got the right output can we check by the URI given in the request
-						if (output.getURI().equals(OUTPUT_LIST_OF_LAMPS)) {
-							Object ob = output.getParameterValue();
-							if(!(ob instanceof List))
-								break;
-							// now we can add the list of lamps the our local "memory" and use them later
-							List lamps = (List)ob;
-							lampList.addAll(lamps);
-						}
-					}
-					
-				}
-
-				if (lampList.size() == 0) {
-					System.out.println("LightingConsumer:   there are no results for lamps in getControlledLamps()");
+				if (lampList == null  ||  lampList.size() == 0) {
+					LogUtils.logInfo(Activator.logger, "LightingConsumer", "getControlledLamps", new Object[]{"there are no lamps"}, null);
 					return null;
 				}
 
@@ -196,20 +167,20 @@ class LightingConsumer extends ContextSubscriber {
 				return lamps;
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				LogUtils.logError(Activator.logger, "LightingConsumer", "getControlledLamps", new Object[]{"got exception", e.getMessage()}, e);
 				return null;
 			}
 		} else {
-			System.out.println("LightingConsumer:   callstatus is not succeeded in getControlledLamps()");
+			LogUtils.logWarning(Activator.logger, "LightingConsumer", "getControlledLamps", new Object[]{"callstatus is not succeeded"}, null);
 			return null;
 		}
 	}
 	
-	// this method turn off the light at lampURI and give back if the operation was an access
+	// this method turn off the light at lampURI and give back if the operation was a success
 	public static boolean turnOff(String lampURI){
 		// check if input is valid
 		if((lampURI == null) || !(lampURI instanceof String)) {
-			System.out.println("LightingConsumer: wrong lampURI in turnOff(String lampURI)");
+			LogUtils.logWarning(Activator.logger, "LightingConsumer", "turnOff", new Object[]{"wrong lampURI"}, null);
 			return false;
 		}
 		
@@ -220,7 +191,7 @@ class LightingConsumer extends ContextSubscriber {
 		// check the call status and return true if succeeded
 		if (sr.getCallStatus() == CallStatus.succeeded) return true;
 		else{
-			System.out.println("LightingConsumer: the lamp couldn't turned off in turnOff(String lampURI)");
+			LogUtils.logWarning(Activator.logger, "LightingConsumer", "turnOff", new Object[]{"the lamp couldn't turned off"}, null);
 			return false;
 		}
 	}
@@ -229,7 +200,7 @@ class LightingConsumer extends ContextSubscriber {
 	public static boolean turnOn(String lampURI){
 		
 		if((lampURI == null) || !(lampURI instanceof String)) {
-			System.out.println("LightingConsumer: wrong lampURI in turnOn(String lampURI)");
+			LogUtils.logWarning(Activator.logger, "LightingConsumer", "turnOn", new Object[]{"wrong lampURI"}, null);
 			return false;
 		}
 		
@@ -237,7 +208,7 @@ class LightingConsumer extends ContextSubscriber {
 		
 		if (sr.getCallStatus() == CallStatus.succeeded) return true;
 		else{
-			System.out.println("LightingConsumer: the lamp couldn't turned on in turnOn(String lampURI)");
+			LogUtils.logWarning(Activator.logger, "LightingConsumer", "turnOn", new Object[]{"the lamp couldn't turned on"}, null);
 			return false;
 		}
 	}
@@ -246,7 +217,7 @@ class LightingConsumer extends ContextSubscriber {
 	public static boolean dimToValue(String lampURI, Integer percent){
 		
 		if((lampURI == null) || (percent == null) || !(lampURI instanceof String) || !(percent instanceof Integer)) {
-			System.out.println("LightingConsumer: wrong inputs in dimToValue(String lampURI, Integer percent)");
+			LogUtils.logWarning(Activator.logger, "LightingConsumer", "dimToValue", new Object[]{"wrong inputs"}, null);
 			return false;
 		}
 		
@@ -254,26 +225,33 @@ class LightingConsumer extends ContextSubscriber {
 		
 		if (sr.getCallStatus() == CallStatus.succeeded) return true;
 		else{
-			System.out.println("LightingConsumer: the lamp couldn't dimmed to wanted value in dimToValue(String lampURI, integer percent)");
+			LogUtils.logWarning(Activator.logger, "LightingConsumer", "dimToValue", new Object[]{"the lamp couldn't dimmed to wanted value"}, null);
 			return false;
 		}
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.persona.middleware.context.ContextSubscriber#handleContextEvent(org.persona.middleware.context.ContextEvent)
+	 * @see ContextSubscriber#handleContextEvent(ContextEvent)
 	 */
 	public void handleContextEvent(ContextEvent event) {
-		Activator.log.log(LogService.LOG_INFO,
-				"Received context event:\n" +
-				"    Subject     ="+event.getSubjectURI()+"\n" +
-				"    Subject type="+event.getSubjectTypeURI()+"\n" +
-				"    Predicate   ="+event.getRDFPredicate()+"\n" +
-				"    Object      ="+event.getRDFObject());
+		LogUtils.logInfo(Activator.logger, "LightingConsumer", "handleContextEvent", new Object[]{
+				"Received context event:\n",
+				"    Subject     =",
+				event.getSubjectURI(),
+				"\n",
+				"    Subject type=",
+				event.getSubjectTypeURI(),
+				"\n",
+				"    Predicate   =",
+				event.getRDFPredicate(),
+				"\n",
+				"    Object      =",
+				event.getRDFObject()}, null);
 	}
 	
 
 	/* (non-Javadoc)
-	 * @see org.persona.middleware.context.ContextSubscriber#communicationChannelBroken()
+	 * @see ContextSubscriber#communicationChannelBroken()
 	 */
 	public void communicationChannelBroken() {
 		// TODO Auto-generated method stub

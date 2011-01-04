@@ -1,4 +1,5 @@
-package de.fhg.igd.ima.persona.lighting.client;
+package org.universAAL.samples.lighting.client;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
@@ -11,10 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.WindowConstants;
 
-import org.persona.ontology.Location;
-import org.persona.platform.casf.ontology.device.Device;
-
-import de.fhg.igd.ima.persona.location.FHLocation;
+import org.universAAL.ontology.location.Location;
+import org.universAAL.ontology.phThing.Device;
 
 
 
@@ -42,14 +41,6 @@ public class LightClient extends javax.swing.JPanel {
 	private AbstractAction Scale;
 	private AbstractAction Off;
 	private AbstractAction On;
-
-	
-	static {
-
-		// force the JVM to load the class location classes
-		FHLocation.getClassRestrictionsOnProperty(null);
-		Location.getClassRestrictionsOnProperty(null);
-	}
 	
 	// create the GUI 
 	public void start(){
