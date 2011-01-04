@@ -17,28 +17,27 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.persona.lighting.server;
+package org.universAAL.samples.lighting.server;
 
 import java.util.ArrayList;
 
 import org.osgi.framework.BundleContext;
-import org.osgi.service.log.LogService;
-import org.persona.middleware.context.ContextEvent;
-import org.persona.middleware.context.ContextPublisher;
-import org.persona.middleware.context.DefaultContextPublisher;
-import org.persona.middleware.service.CallStatus;
-import org.persona.middleware.service.ServiceCall;
-import org.persona.middleware.service.ServiceCallee;
-import org.persona.middleware.service.ServiceResponse;
-import org.persona.middleware.service.process.ProcessOutput;
-import org.persona.ontology.context.ContextProvider;
-import org.persona.ontology.context.ContextProviderType;
-import org.persona.platform.casf.ontology.device.lighting.LightSource;
-import org.persona.platform.casf.ontology.location.PLocation;
-import org.persona.platform.casf.ontology.location.RoomPlace;
+import org.universAAL.middleware.context.ContextPublisher;
+import org.universAAL.middleware.context.DefaultContextPublisher;
+import org.universAAL.middleware.context.owl.ContextProvider;
+import org.universAAL.middleware.context.owl.ContextProviderType;
+import org.universAAL.middleware.context.rdf.ContextEvent;
+import org.universAAL.middleware.service.CallStatus;
+import org.universAAL.middleware.service.ServiceCall;
+import org.universAAL.middleware.service.ServiceCallee;
+import org.universAAL.middleware.service.ServiceResponse;
+import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.ontology.lighting.LightSource;
+import org.universAAL.ontology.location.indoor.Room;
+import org.universAAL.samples.lighting.server.unit_impl.LampStateListener;
+import org.universAAL.samples.lighting.server.unit_impl.MyLighting;
 
-import de.fhg.igd.ima.persona.lighting.server.unit_impl.LampStateListener;
-import de.fhg.igd.ima.persona.lighting.server.unit_impl.MyLighting;
 
 /**
  * @author mtazari
@@ -106,7 +105,7 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 					new Integer(state)));
 			// create and add a ProcessOutput-Event that binds the output URI to the location of the lamp
 			sr.addOutput(new ProcessOutput(ProvidedLightingService.OUTPUT_LAMP_LOCATION,
-					new PLocation(LOCATION_URI_PREFIX + loc, new RoomPlace())));
+					new Room(LOCATION_URI_PREFIX + loc)));
 			return sr;
 		} catch (Exception e) {
 			return invalidInput;
@@ -148,7 +147,7 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 	}
 
 	/* (non-Javadoc)
-	 * @see de.fhg.igd.ima.persona.lighting.server.unit_impl.LampStateListener#lampStateChanged(int, java.lang.String, boolean)
+	 * @see org.universAAL.samples.lighting.server.unit_impl.LampStateListener#lampStateChanged(int, java.lang.String, boolean)
 	 * 
 	 *  To demonstrate the functionality of the context bus we publish an event for every time the value of a lamp is changed
 	 */
@@ -156,10 +155,10 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 		// Create an object that defines a specific lamp
 		LightSource ls = new LightSource(LightingProvider.LAMP_URI_PREFIX + lampID);
 		// Set the properties of the light (location and brightness)
-		ls.setSourceLocation(new PLocation(LightingProvider.LOCATION_URI_PREFIX + loc, new RoomPlace()));
+		ls.setSourceLocation(new Room(LightingProvider.LOCATION_URI_PREFIX + loc));
 		ls.setBrightness(isOn? 100 : 0);
-		Activator.log.log(LogService.LOG_INFO,
-				"LightingProvider: publishing a context event on the state of a lamp!");
+		LogUtils.logInfo(Activator.logger, "LightingProvider", "lampStateChanged",
+				new Object[]{"publishing a context event on the state of a lamp!"}, null);
 		// finally create an context event and publish it with the light source as subject and the property that changed as predicate
 		cp.publish(new ContextEvent(ls, LightSource.PROP_SOURCE_BRIGHTNESS));
 	}
@@ -174,7 +173,7 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 		}
 	}
 	
-	// Simple use the turnAn method from the ProvidedLightingService
+	// Simple use the turnOn method from the ProvidedLightingService
 	private ServiceResponse turnOn(String lampURI) {
 		try {
 			theServer.turnOn(Integer.parseInt(lampURI.substring(LAMP_URI_PREFIX.length())));

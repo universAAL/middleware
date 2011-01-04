@@ -17,7 +17,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.persona.lighting.server.unit_impl;
+package org.universAAL.samples.lighting.server.unit_impl;
 
 /**
  * @author mtazari

@@ -17,19 +17,19 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.persona.lighting.server;
+package org.universAAL.samples.lighting.server;
 
 import java.util.Hashtable;
 
-import org.persona.middleware.TypeMapper;
-import org.persona.middleware.service.PropertyPath;
-import org.persona.middleware.service.profile.ServiceProfile;
-import org.persona.ontology.Location;
-import org.persona.ontology.expr.Enumeration;
-import org.persona.ontology.expr.Restriction;
-import org.persona.platform.casf.ontology.device.lighting.LightSource;
-import org.persona.platform.casf.ontology.device.lighting.ElectricLight;
-import org.persona.platform.casf.ontology.device.lighting.Lighting;
+import org.universAAL.middleware.owl.Enumeration;
+import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.service.PropertyPath;
+import org.universAAL.middleware.service.owls.profile.ServiceProfile;
+import org.universAAL.ontology.lighting.ElectricLight;
+import org.universAAL.ontology.lighting.LightSource;
+import org.universAAL.ontology.lighting.Lighting;
+import org.universAAL.ontology.location.Location;
 
 /**
  * @author mtazari

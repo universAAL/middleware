@@ -1,20 +1,19 @@
-package de.fhg.igd.ima.persona.lighting.client;
+package org.universAAL.samples.lighting.client;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.service.log.LogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Activator implements BundleActivator {
 	
-	static LogService log;
+	static final Logger logger = LoggerFactory.getLogger(Activator.class);
 
 	/*
 	 * (non-Javadoc)
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(final BundleContext context) throws Exception {
-		log = (LogService) context.getService(
-				context.getServiceReference(LogService.class.getName()));
 		new Thread() {
 			public void run() {
 				new LightingConsumer(context);

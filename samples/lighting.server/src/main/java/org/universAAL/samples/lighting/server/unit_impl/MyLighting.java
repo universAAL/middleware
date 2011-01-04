@@ -17,14 +17,14 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package de.fhg.igd.ima.persona.lighting.server.unit_impl;
+package org.universAAL.samples.lighting.server.unit_impl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.osgi.service.log.LogService;
+import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.samples.lighting.server.Activator;
 
-import de.fhg.igd.ima.persona.lighting.server.Activator;
 
 /**
  * @author mtazari
@@ -77,8 +77,8 @@ public class MyLighting {
 	public void turnOff(int lampID) {
 		if (myLampDB[lampID].isOn) {
 			myLampDB[lampID].isOn = false;
-			Activator.log.log(LogService.LOG_INFO,
-					"Server: Lamp in " + myLampDB[lampID].loc + " turned off!");
+			LogUtils.logInfo(Activator.logger, "MyLighting", "turnOff", 
+					new Object[] {"Lamp in", myLampDB[lampID].loc, "turned off!"}, null);
 			for (Iterator i=listeners.iterator(); i.hasNext();)
 				((LampStateListener) i.next()).lampStateChanged(lampID, myLampDB[lampID].loc, false);
 		}
@@ -87,8 +87,8 @@ public class MyLighting {
 	public void turnOn(int lampID) {
 		if (!myLampDB[lampID].isOn) {
 			myLampDB[lampID].isOn = true;
-			Activator.log.log(LogService.LOG_INFO,
-					"Server: Lamp in " + myLampDB[lampID].loc + " turned on!");
+			LogUtils.logInfo(Activator.logger, "MyLighting", "turnOn", 
+					new Object[] {"Lamp in", myLampDB[lampID].loc, "turned on!"}, null);
 			for (Iterator i=listeners.iterator(); i.hasNext();)
 				((LampStateListener) i.next()).lampStateChanged(lampID, myLampDB[lampID].loc, true);
 		}
