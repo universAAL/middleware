@@ -6,11 +6,10 @@ import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
-import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 public class Callee extends ServiceCallee {
 
-	protected Callee(BundleContext context, ServiceProfile[] realizedServices) {
+	protected Callee(BundleContext context) {
 		super(context, ProvidedServiceTemp.profiles);
 		// TODO Auto-generated constructor stub
 
