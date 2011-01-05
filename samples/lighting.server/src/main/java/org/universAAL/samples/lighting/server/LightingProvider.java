@@ -60,7 +60,7 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 		// The parent need to know the profiles of the available functions to register them
 		super(context, ProvidedLightingService.profiles);
 		
-		// prepare for context publishing by create a ContextProvider object
+		// prepare for context publishing
 		ContextProvider info =  new ContextProvider(
 					ProvidedLightingService.LIGHTING_SERVER_NAMESPACE + "LightingContextProvider");
 		info.setType(ContextProviderType.controller);
@@ -71,7 +71,7 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 		theServer.addListener(this);
 	}
 	/* (non-Javadoc)
-	 * @see org.persona.middleware.service.ServiceCallee#communicationChannelBroken()
+	 * @see org.universAAL.middleware.service.ServiceCallee#communicationChannelBroken()
 	 */
 	public void communicationChannelBroken() {
 		// TODO Auto-generated method stub
@@ -113,7 +113,7 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 	}
 
 	/* (non-Javadoc)
-	 * @see org.persona.middleware.service.ServiceCallee#handleCall(org.persona.middleware.service.ServiceCall)
+	 * @see org.universAAL.middleware.service.ServiceCallee#handleCall(org.universAAL.middleware.service.ServiceCall)
 	 * 
 	 * Since this class is a child of ServiceCallee it is registered to the service-bus
 	 * Every service call that passes the restrictions will take affect here
