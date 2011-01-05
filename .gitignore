@@ -37,8 +37,13 @@ data.serialization/target
 pom/.classpath
 pom/.project
 pom/.settings
+samples/.classpath
 samples/.project
 samples/.settings
+samples/heating/.classpath
+samples/heating/.project
+samples/heating/.settings
+samples/heating/target
 samples/lighting.client/*
 samples/lighting.client/.settings
 samples/lighting.client/target
