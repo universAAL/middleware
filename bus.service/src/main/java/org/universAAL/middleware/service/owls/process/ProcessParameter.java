@@ -82,6 +82,10 @@ public abstract class ProcessParameter extends Variable {
 	public static final String TYPE_OWLS_VALUE_OF =
 		OWLS_PROCESS_NAMESPACE + "ValueOf";
 	
+	static {
+		register(ProcessParameter.class);
+	}
+	
 	public static final boolean checkDeserialization(Object o) {
 		if (isVarRef(o)) {
 			Object var = ((Resource) o).getProperty(PROP_OWLS_VALUE_OF_THE_VAR);

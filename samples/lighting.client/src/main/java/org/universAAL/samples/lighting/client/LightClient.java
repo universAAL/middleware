@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.WindowConstants;
 
-import org.universAAL.ontology.location.Location;
 import org.universAAL.ontology.phThing.Device;
 
 
@@ -43,7 +42,7 @@ public class LightClient extends javax.swing.JPanel {
 	private AbstractAction On;
 	
 	// create the GUI 
-	public void start(){
+	public void start(Device[] d){
 
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -81,7 +80,7 @@ public class LightClient extends javax.swing.JPanel {
 			percent.setBounds(103, 69, 80, 21);
 		}
 		{
-			Device[] d = LightingConsumer.getControlledLamps();
+			//Device[] d = LightingConsumer.getControlledLamps();
 			String[] lamps = new String[d.length];
 			
 			for(int i =0; i < d.length; i++){
@@ -103,10 +102,10 @@ public class LightClient extends javax.swing.JPanel {
 	
 
 	
-	public LightClient() {
+	public LightClient(Device[] d) {
 		super();	
 		initGUI();
-		start();
+		start(d);
 	}
 	
 	private void initGUI() {

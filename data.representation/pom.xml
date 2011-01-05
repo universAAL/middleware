@@ -62,7 +62,7 @@
 						<Bundle-Activator>org.universAAL.middleware.Activator</Bundle-Activator>
 						<Bundle-Description>${pom.description}</Bundle-Description>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-						<Export-Package>org.universAAL.middleware.rdf,org.universAAL.middleware.owl,org.universAAL.middleware.util</Export-Package>
+						<Export-Package>org.universAAL.middleware.rdf,org.universAAL.middleware.owl,org.universAAL.middleware.owl.supply,org.universAAL.middleware.util</Export-Package>
 						<Private-Package>org.universAAL.middleware</Private-Package>
 					</instructions>
 				</configuration>

@@ -104,7 +104,7 @@ public abstract class Variable extends Resource {
 						"resolveVarRef", new Class[]{Object.class, Hashtable.class}
 						).invoke(null, new Object[]{o, context});
 				if (aux != o)
-					break;
+					return aux;
 			}
 		} catch (Exception e) {
 		}

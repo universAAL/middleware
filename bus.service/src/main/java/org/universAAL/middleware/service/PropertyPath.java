@@ -39,8 +39,8 @@ import org.universAAL.middleware.rdf.Resource;
  * <code>(a {p1, p2, p3} g)<br/>(a {p1, p2, p3} h)<br/>(a {p1, p2, p3} i)<br/>(a {p1, p2, p3} j)
  * <br/>(a {p1, p2, p3} k)<code/>.
  * <p>As the type hierarchy of PropertyPath plays no specific role in ontological reasoning, it is not
- * defined as subclass of {@link org.persona.ontology.ManagedIndividual} but just as a
- * {@link org.universAAL.middleware.Resource}.
+ * defined as subclass of {@link org.universAAL.middleware.owl.ManagedIndividual} but just as a
+ * {@link org.universAAL.middleware.rdf.Resource}.
  * 
  * @author mtazari
  */
