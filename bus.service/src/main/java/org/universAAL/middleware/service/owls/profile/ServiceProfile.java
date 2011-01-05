@@ -241,18 +241,18 @@ public class ServiceProfile extends Resource {
 	 * to the property reachable by the given <code>ppath</code>. The property should normally be a
 	 * multi-valued property.
 	 */
-	public void addAddEffect(PropertyPath ppath, Object value) {
+	public void addAddEffect(String[] ppath, Object value) {
 		if (ppath != null  &&  value != null)
-			theResult().addAddEffect(ppath, value);
+			theResult().addAddEffect(new PropertyPath(null, true, ppath), value);
 	}
 	
 	/**
 	 * Declares that a call to the service described by this profile changes the value of the property
 	 * reachable by the given <code>ppath</code> to the given <code>value</code>.
 	 */
-	public void addChangeEffect(PropertyPath ppath, Object value) {
+	public void addChangeEffect(String[] ppath, Object value) {
 		if (ppath != null  &&  value != null)
-			theResult().addChangeEffect(ppath, value);
+			theResult().addChangeEffect(new PropertyPath(null, true, ppath), value);
 	}
 	
 	/**
@@ -261,9 +261,10 @@ public class ServiceProfile extends Resource {
 	 * by the given property path <code>sourceProp</code>.
 	 */
 	public void addClassConversionOutputBinding(ProcessOutput toParam,
-			PropertyPath sourceProp, TypeURI targetClass) {
+			String[] sourceProp, TypeURI targetClass) {
 		if (toParam != null  &&  sourceProp != null  &&  targetClass != null)
-			theResult().addClassConversionOutputBinding(toParam, sourceProp, targetClass);
+			theResult().addClassConversionOutputBinding(
+					toParam, new PropertyPath(null, true, sourceProp), targetClass);
 	}
 	
 	/**
@@ -280,9 +281,10 @@ public class ServiceProfile extends Resource {
 	 * the given <code>targetLang</code>.
 	 */
 	public void addLangConversionOutputBinding(ProcessOutput toParam,
-			PropertyPath sourceProp, String targetLang) {
+			String[] sourceProp, String targetLang) {
 		if (toParam != null  &&  sourceProp != null  &&  targetLang != null)
-			theResult().addLangConversionOutputBinding(toParam, sourceProp, targetLang);
+			theResult().addLangConversionOutputBinding(
+					toParam, new PropertyPath(null, true, sourceProp), targetLang);
 	}
 	
 	/**
@@ -297,18 +299,18 @@ public class ServiceProfile extends Resource {
 	 * Declares that a call to the service described by this profile removes the value of the property
 	 * reachable by the given <code>ppath</code>.
 	 */
-	public void addRemoveEffect(PropertyPath ppath) {
+	public void addRemoveEffect(String[] ppath) {
 		if (ppath != null)
-			theResult().addRemoveEffect(ppath);
+			theResult().addRemoveEffect(new PropertyPath(null, true, ppath));
 	}
 	
 	/**
 	 * Declares that the output parameter specified by <code>toParam</code> will reflect
 	 * the value of a property reachable by the given property path <code>sourceProp</code>.
 	 */
-	public void addSimpleOutputBinding(ProcessOutput toParam, PropertyPath sourceProp) {
+	public void addSimpleOutputBinding(ProcessOutput toParam, String[] sourceProp) {
 		if (toParam != null  &&  sourceProp != null)
-			theResult().addSimpleOutputBinding(toParam, sourceProp);
+			theResult().addSimpleOutputBinding(toParam, new PropertyPath(null, true, sourceProp));
 	}
 	
 	/**
@@ -317,9 +319,10 @@ public class ServiceProfile extends Resource {
 	 * terms of the given measurement unit <code>targetUnit</code>.
 	 */
 	public void addUnitConversionOutputBinding(ProcessOutput toParam,
-			PropertyPath sourceProp, String targetUnit) {
+			String[] sourceProp, String targetUnit) {
 		if (toParam != null  &&  sourceProp != null  &&  targetUnit != null)
-			theResult().addUnitConversionOutputBinding(toParam, sourceProp, targetUnit);
+			theResult().addUnitConversionOutputBinding(
+					toParam, new PropertyPath(null, true, sourceProp), targetUnit);
 	}
 	
 	/**

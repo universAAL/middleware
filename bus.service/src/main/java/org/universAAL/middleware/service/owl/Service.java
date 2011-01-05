@@ -26,7 +26,6 @@ import java.util.List;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.Restriction;
-import org.universAAL.middleware.service.PropertyPath;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
@@ -219,21 +218,19 @@ public abstract class Service extends ManagedIndividual {
 	
 	protected void addInputWithAddEffect(String inParamURI, String typeURI, int minCardinality, int maxCardinality, String[] propPath) {
 		ProcessInput in = createInput(inParamURI, typeURI, minCardinality, maxCardinality);
-		myProfile.addAddEffect(
-				new PropertyPath(null, true, propPath), 
+		myProfile.addAddEffect(propPath, 
 				in.asVariableReference());
 	}
 	
 	protected void addInputWithChangeEffect(String inParamURI, String typeURI, int minCardinality, int maxCardinality, String[] propPath) {
 		ProcessInput in = createInput(inParamURI, typeURI, minCardinality, maxCardinality);
-		myProfile.addChangeEffect(
-				new PropertyPath(null, true, propPath), 
+		myProfile.addChangeEffect(propPath, 
 				in.asVariableReference());
 	}
 	
 	protected void addInputWithRemoveEffect(String inParamURI, String typeURI, int minCardinality, int maxCardinality, String[] propPath) {
 		addFilteringInput(inParamURI, typeURI, minCardinality, maxCardinality, propPath);
-		myProfile.addRemoveEffect(new PropertyPath(null, true, propPath));
+		myProfile.addRemoveEffect(propPath);
 	}
 	
 	protected void addOutput(String outParamURI, String typeURI, int minCardinality, int maxCardinality, String[] propPath) {
@@ -241,8 +238,7 @@ public abstract class Service extends ManagedIndividual {
 		out.setParameterType(typeURI);
 		out.setCardinality(maxCardinality, minCardinality);
 		myProfile.addOutput(out);
-		myProfile.addSimpleOutputBinding(out,
-				new PropertyPath(null, true, propPath));
+		myProfile.addSimpleOutputBinding(out, propPath);
 	}
 	
 	/**

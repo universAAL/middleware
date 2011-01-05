@@ -5,8 +5,6 @@ package org.universAAL.samples.lighting.client;
 
 import org.universAAL.ontology.phThing.Device;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.osgi.framework.BundleContext;
@@ -15,11 +13,9 @@ import org.universAAL.middleware.context.rdf.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.DefaultServiceCaller;
-import org.universAAL.middleware.service.PropertyPath;
 import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
-import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.util.LogUtils;
 import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.ontology.lighting.LightSource;
@@ -54,8 +50,7 @@ class LightingConsumer extends ContextSubscriber {
 		// the DefaultServiceCaller will be used to make ServiceRequest (surprise ;-) )
 		caller = new DefaultServiceCaller(context);
 		
-		Device[] d = getControlledLamps();
-		LightClient c = new LightClient();
+		new LightClient(getControlledLamps());
 	}
 	
 	
@@ -71,16 +66,12 @@ class LightingConsumer extends ContextSubscriber {
 		
 		// we are interested in only those realizations of 'Lighting'
 		// that have control over the lamp with the given URI 
-		turnOff.addFilter(
-				Restriction.getFixedValueRestriction(								
-				Lighting.PROP_CONTROLS, new LightSource(
-						lampURI)),
-						new String[] { Lighting.PROP_CONTROLS });
+		turnOff.addFilter(new String[] { Lighting.PROP_CONTROLS }, new LightSource(lampURI));
 		
 		// Add the property that have to be changed and the new value
 		turnOff.addChangeEffect(
-				new PropertyPath(null, true, new String[] {
-						Lighting.PROP_CONTROLS, LightSource.PROP_SOURCE_BRIGHTNESS}),
+				new String[] {
+						Lighting.PROP_CONTROLS, LightSource.PROP_SOURCE_BRIGHTNESS},
 				new Integer(0));
 			return turnOff;
 	}
@@ -91,15 +82,11 @@ class LightingConsumer extends ContextSubscriber {
 		
 		// we are interested in only those realizations of 'Lighting'
 		// that have control over the lamp with the given URI 
-		turnOn.addFilter(
-				Restriction.getFixedValueRestriction(								
-				Lighting.PROP_CONTROLS, new LightSource(
-						lampURI)),
-						new String[] { Lighting.PROP_CONTROLS });
+		turnOn.addFilter(new String[] { Lighting.PROP_CONTROLS }, new LightSource(lampURI));
 		
 		turnOn.addChangeEffect(
-				new PropertyPath(null, true, new String[] {
-						Lighting.PROP_CONTROLS, LightSource.PROP_SOURCE_BRIGHTNESS}),
+				new String[] {
+						Lighting.PROP_CONTROLS, LightSource.PROP_SOURCE_BRIGHTNESS},
 				new Integer(100));
 			return turnOn;
 	}
@@ -110,15 +97,11 @@ class LightingConsumer extends ContextSubscriber {
 		
 		// we are interested in only those realizations of 'Lighting'
 		// that have control over the lamp with the given URI 
-		dim.addFilter(
-				Restriction.getFixedValueRestriction(								
-				Lighting.PROP_CONTROLS, new LightSource(
-						lampURI)),
-						new String[] { Lighting.PROP_CONTROLS });	
+		dim.addFilter(new String[] { Lighting.PROP_CONTROLS }, new LightSource(lampURI));
 		
 		dim.addChangeEffect(
-				new PropertyPath(null, true, new String[] {
-						Lighting.PROP_CONTROLS, LightSource.PROP_SOURCE_BRIGHTNESS}),
+				new String[] {
+						Lighting.PROP_CONTROLS, LightSource.PROP_SOURCE_BRIGHTNESS},
 				percent);
 		
 			return dim;
@@ -186,12 +169,12 @@ class LightingConsumer extends ContextSubscriber {
 		
 		// make a call with the appropriate request
 		ServiceResponse sr = caller.call(turnOffRequest(lampURI));
-		System.out.println(sr.getCallStatus());
+		LogUtils.logDebug(Activator.logger, "LightingConsumer", "turnOff", new Object[]{"Call status:", sr.getCallStatus().name()}, null);
 		
 		// check the call status and return true if succeeded
 		if (sr.getCallStatus() == CallStatus.succeeded) return true;
 		else{
-			LogUtils.logWarning(Activator.logger, "LightingConsumer", "turnOff", new Object[]{"the lamp couldn't turned off"}, null);
+			LogUtils.logWarning(Activator.logger, "LightingConsumer", "turnOff", new Object[]{"the lamp couldn't be turned off"}, null);
 			return false;
 		}
 	}
@@ -205,10 +188,11 @@ class LightingConsumer extends ContextSubscriber {
 		}
 		
 		ServiceResponse sr = caller.call(turnOnRequest(lampURI));
+		LogUtils.logDebug(Activator.logger, "LightingConsumer", "turnOn", new Object[]{"Call status:", sr.getCallStatus().name()}, null);
 		
 		if (sr.getCallStatus() == CallStatus.succeeded) return true;
 		else{
-			LogUtils.logWarning(Activator.logger, "LightingConsumer", "turnOn", new Object[]{"the lamp couldn't turned on"}, null);
+			LogUtils.logWarning(Activator.logger, "LightingConsumer", "turnOn", new Object[]{"the lamp couldn't be turned on"}, null);
 			return false;
 		}
 	}
@@ -222,10 +206,11 @@ class LightingConsumer extends ContextSubscriber {
 		}
 		
 		ServiceResponse sr = caller.call(dimRequest(lampURI, percent));
+		LogUtils.logDebug(Activator.logger, "LightingConsumer", "dimToValue", new Object[]{"Call status:", sr.getCallStatus().name()}, null);
 		
 		if (sr.getCallStatus() == CallStatus.succeeded) return true;
 		else{
-			LogUtils.logWarning(Activator.logger, "LightingConsumer", "dimToValue", new Object[]{"the lamp couldn't dimmed to wanted value"}, null);
+			LogUtils.logWarning(Activator.logger, "LightingConsumer", "dimToValue", new Object[]{"the lamp couldn't be dimmed to the given value"}, null);
 			return false;
 		}
 	}

@@ -27,7 +27,6 @@ import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.CallStatus;
-import org.universAAL.middleware.service.PropertyPath;
 import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
@@ -168,7 +167,7 @@ public class UserInterfaceService extends Service {
 		ServiceRequest req = new ServiceRequest(SERVICE_REQUEST_URI_PREFIX_INFO, 5, requestedService, null);
 		req.addSimpleOutputBinding(
 				new ProcessOutput(OUTPUT_INSTANCE_INFO),
-				new PropertyPath(null, true, new String[] {PROP_DESCRIPTION}));
+				new String[] {PROP_DESCRIPTION});
 		ServiceResponse resp = theCaller.call(req);
 		if (resp.getCallStatus() == CallStatus.succeeded) {
 			List outputs = resp.getOutputs();
@@ -197,7 +196,7 @@ public class UserInterfaceService extends Service {
 		ServiceRequest req = new ServiceRequest(SERVICE_REQUEST_URI_PREFIX_INFO, 5, requestedService, null);
 		req.addSimpleOutputBinding(
 				new ProcessOutput(OUTPUT_INSTANCE_INFO),
-				new PropertyPath(null, true, new String[] {MY_URI}));
+				new String[] {MY_URI});
 		ServiceResponse resp = theCaller.call(req);
 		if (resp.getCallStatus() == CallStatus.succeeded) {
 			List outputs = resp.getOutputs();

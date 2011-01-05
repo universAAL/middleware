@@ -132,9 +132,9 @@ public class ServiceRequest extends Resource {
 	 * to the property reachable by the given <code>ppath</code>. The property should normally be a
 	 * multi-valued property.
 	 */
-	public void addAddEffect(PropertyPath ppath, Object value) {
+	public void addAddEffect(String[] ppath, Object value) {
 		if (ppath != null  &&  value != null)
-			theResult().addAddEffect(ppath, value);
+			theResult().addAddEffect(new PropertyPath(null, true, ppath), value);
 	}
 	
 	/**
@@ -160,25 +160,27 @@ public class ServiceRequest extends Resource {
 	 * Adds the requirement that the requested service must have the effect of changing the value of the property
 	 * reachable by the given <code>ppath</code> to the given <code>value</code>.
 	 */
-	public void addChangeEffect(PropertyPath ppath, Object value) {
+	public void addChangeEffect(String[] ppath, Object value) {
 		if (ppath != null  &&  value != null)
-			theResult().addChangeEffect(ppath, value);
+			theResult().addChangeEffect(new PropertyPath(null, true, ppath), value);
 	}
 	
 	/**
-	 * Adds the requirement that the requested service must satisfy the given restriction on the given property path.
+	 * Restrict the scope of process results by selecting only those resources whose property reachable by refPath has a value equal to the given hasValue.
 	 */
-	public void addFilter(Restriction r, String[] toPath) {
-		getRequestedService().addInstanceLevelRestriction(r, toPath);
+	public void addFilter(String[] refPath, Object hasValue) {
+		getRequestedService().addInstanceLevelRestriction(
+				Restriction.getFixedValueRestriction(refPath[refPath.length-1], hasValue),
+				refPath);
 	}
 	
 	/**
 	 * Adds the requirement that the requested service must have the effect of removing the value of the property
 	 * reachable by the given <code>ppath</code>.
 	 */
-	public void addRemoveEffect(PropertyPath ppath) {
+	public void addRemoveEffect(String[] ppath) {
 		if (ppath != null)
-			theResult().addRemoveEffect(ppath);
+			theResult().addRemoveEffect(new PropertyPath(null, true, ppath));
 	}
 	
 	/**
@@ -198,9 +200,9 @@ public class ServiceRequest extends Resource {
 	 * <code>toParam</code> and that this must reflect
 	 * the value of a property reachable by the given property path <code>sourceProp</code>.
 	 */
-	public void addSimpleOutputBinding(ProcessOutput toParam, PropertyPath sourceProp) {
+	public void addSimpleOutputBinding(ProcessOutput toParam, String[] sourceProp) {
 		if (toParam != null  &&  sourceProp != null)
-			theResult().addSimpleOutputBinding(toParam, sourceProp);
+			theResult().addSimpleOutputBinding(toParam, new PropertyPath(null, true, sourceProp));
 	}
 	
 	private List filters() {
