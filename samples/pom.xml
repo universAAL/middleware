@@ -2,48 +2,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.aal-persona.middleware</groupId>
-		<artifactId>pom</artifactId>
-		<version>2.0.0</version>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.pom</artifactId>
+		<version>1.0.0</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 
-	<groupId>org.aal-persona.samples</groupId>
-	<artifactId>middleware.samples</artifactId>  
+	<groupId>org.universAAL.samples</groupId>
+	<artifactId>smp.pom</artifactId>  
 	<version>1.0.0</version>
-
 	<packaging>pom</packaging>
-	<name>PERSONA Samples</name>
-	<description>A set of components that use the PERSONA middleware with different roles and serve as samples.</description>
+	<name>universAAL Samples</name>
+	<description>A set of components that use the universAAL middleware with different roles and serve as samples.</description>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-			    <groupId>org.aal-persona.middleware</groupId>
-				<artifactId>middleware.upper</artifactId>
-				<version>0.3.0-SNAPSHOT</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-			    <groupId>org.aal-persona.middleware</groupId>
-				<artifactId>sodapop.osgi</artifactId>
-				<version>0.2.0-SNAPSHOT</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-			    <groupId>org.aal-persona.middleware</groupId>
-				<artifactId>cdc.support</artifactId>
-				<version>0.2.0-SNAPSHOT</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>org.apache.felix.log</artifactId>
-				<version>0.9.0-SNAPSHOT</version>
-				<scope>provided</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.data.representation</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.context</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.lighting</artifactId>
+			<version>0.2.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.phWorld</artifactId>
+			<version>0.2.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 
 	<developers>
 		<developer>
@@ -70,13 +68,14 @@
 
 	<modules>
 		<module>../acl.interfaces</module>
-        <module>../acl.r-osgi</module>
-        <module>../acl.upnp</module>
-        <module>../acl.bridge</module>
-        <module>../sodapop.osgi</module>
-        <module>../rdf.serializer.turtle</module>
-        <module>../persona.middleware</module>
-        <module>../casf.ont</module>
+        <module>../acl.rosgi</module>
+        <module>../bus.model</module>
+        <module>../data.representation</module>
+        <module>../bus.context</module>
+        <module>../bus.service</module>
+        <module>../data.serialization</module>
+        <module>../../ontologies/physical.world</module>
+        <module>../../ontologies/lighting</module>
         <module>lighting.server</module>
 		<module>lighting.client</module>
 	</modules>

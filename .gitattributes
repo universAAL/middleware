@@ -148,6 +148,13 @@ data.serialization/src/test/java/org/universAAL/serialization/turtle/InitialTest
 pom/eclipse.setup.bat -text
 pom/eclipse.setup.sh -text
 pom/pom.xml -text
+samples/heating/pom.xml -text
+samples/heating/src/main/java/org/universAAL/samples/heating/Activator.java -text
+samples/heating/src/main/java/org/universAAL/samples/heating/CSubscriber.java -text
+samples/heating/src/main/java/org/universAAL/samples/heating/Callee.java -text
+samples/heating/src/main/java/org/universAAL/samples/heating/ProvidedServiceTemp.java -text
+samples/heating/src/main/java/org/universAAL/samples/heating/ServiceDevice.java -text
+samples/heating/src/test/java/principal/ActivatorTest.java -text
 samples/lighting.client/LICENSE.txt -text
 samples/lighting.client/NOTICE.txt -text
 samples/lighting.client/pom.xml -text
@@ -164,4 +171,4 @@ samples/lighting.server/src/main/java/org/universAAL/samples/lighting/server/uni
 samples/lighting.server/src/main/java/org/universAAL/samples/lighting/server/unit_impl/MyLighting.java -text
 samples/m2.zip -text
 samples/pom.xml -text
-samples/ts.persona.launch -text
+samples/smp.lighting.launch -text
