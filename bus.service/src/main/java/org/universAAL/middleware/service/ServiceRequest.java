@@ -166,15 +166,6 @@ public class ServiceRequest extends Resource {
 	}
 	
 	/**
-	 * Restrict the scope of process results by selecting only those resources whose property reachable by refPath has a value equal to the given hasValue.
-	 */
-	public void addFilter(String[] refPath, Object hasValue) {
-		getRequestedService().addInstanceLevelRestriction(
-				Restriction.getFixedValueRestriction(refPath[refPath.length-1], hasValue),
-				refPath);
-	}
-	
-	/**
 	 * Adds the requirement that the requested service must have the effect of removing the value of the property
 	 * reachable by the given <code>ppath</code>.
 	 */
@@ -203,6 +194,24 @@ public class ServiceRequest extends Resource {
 	public void addSimpleOutputBinding(ProcessOutput toParam, String[] sourceProp) {
 		if (toParam != null  &&  sourceProp != null)
 			theResult().addSimpleOutputBinding(toParam, new PropertyPath(null, true, sourceProp));
+	}
+	
+	/**
+	 * Restrict the scope of process results by selecting only those resources whose property reachable by refPath is of type typeURI.
+	 */
+	public void addTypeFilter(String[] refPath, String typeURI) {
+		getRequestedService().addInstanceLevelRestriction(
+				Restriction.getAllValuesRestriction(refPath[refPath.length-1], typeURI),
+				refPath);
+	}
+	
+	/**
+	 * Restrict the scope of process results by selecting only those resources whose property reachable by refPath has a value equal to the given hasValue.
+	 */
+	public void addValueFilter(String[] refPath, Object hasValue) {
+		getRequestedService().addInstanceLevelRestriction(
+				Restriction.getFixedValueRestriction(refPath[refPath.length-1], hasValue),
+				refPath);
 	}
 	
 	private List filters() {

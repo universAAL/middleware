@@ -11,10 +11,8 @@ import org.universAAL.middleware.service.DefaultServiceCaller;
 import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
-import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
-import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.ontology.weather.TempSensor;
 
 public class Activator implements BundleActivator {
@@ -27,7 +25,7 @@ public class Activator implements BundleActivator {
 
 	Callee servicecallee; // to be called (the service)
 
-	public void start(BundleContext arg0) throws Exception {
+	public void start(BundleContext bundleContext) throws Exception {
 		// TODO Auto-generated method stub
 
 		System.out.println("*****************************************");
@@ -54,7 +52,7 @@ public class Activator implements BundleActivator {
 		System.out
 				.println(" I CREATE A SUBSCRIBER TO RECEIVE TEMPERATURES FROM SENSORS");
 
-		cs = new CSubscriber(arg0,
+		cs = new CSubscriber(bundleContext,
 				new ContextEventPattern[] { new ContextEventPattern() });
 
 		// I create a context publisher(cp) that will publish temperatures
@@ -62,10 +60,10 @@ public class Activator implements BundleActivator {
 		// In order to define the context publisher ontology I create a context
 		// provider
 		ContextProvider cpinfo = new ContextProvider(
-				"http://ontology.aal-persona.org/Test.owl#TestContextProvider");
+				"http://ontology.tsbtecnologias.es/Test.owl#TestContextProvider");
 		cpinfo.setType(ContextProviderType.gauge);
 		// context publisher = (context provider, bundle context)
-		cp = new DefaultContextPublisher(arg0, cpinfo);
+		cp = new DefaultContextPublisher(bundleContext, cpinfo);
 
 		// I create a sensor to measure the temperature inside the house.
 		System.out.println("I CREATE A TEMPERATURE SENSOR");
@@ -102,10 +100,10 @@ public class Activator implements BundleActivator {
 
 		// SERVICE BUS
 
-		servicecallee = new Callee(arg0, null);
+		servicecallee = new Callee(bundleContext);
 
 		// I create a default caller and i pass him the actual context
-		caller = new DefaultServiceCaller(arg0);
+		caller = new DefaultServiceCaller(bundleContext);
 
 		// I create a object service response
 
@@ -116,15 +114,13 @@ public class Activator implements BundleActivator {
 		ServiceRequest req = new ServiceRequest(new ServiceDevice(null), null);
 
 		// I configure the request for the call.
-		req.getRequestedService().addInstanceLevelRestriction(
-				Restriction.getAllValuesRestriction(
-						ServiceDevice.PROPERTY_CONTROLS, TempSensor.MY_URI),
-				new String[] { ServiceDevice.PROPERTY_CONTROLS });
+		req.addTypeFilter(new String[] { ServiceDevice.PROPERTY_CONTROLS },
+				TempSensor.MY_URI);
 
 		// output_temp id of the uri.
 
-		req.addSimpleOutputBinding(new ProcessOutput(
-				ProvidedServiceTemp.SERVER_NAMESPACE + "output_temp"),
+		req.addRequiredOutput(ProvidedServiceTemp.SERVER_NAMESPACE
+				+ "output_temp",
 				new String[] { ServiceDevice.PROPERTY_CONTROLS,
 						TempSensor.PROP_MEASURED_VALUE });
 
