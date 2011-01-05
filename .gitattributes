@@ -171,4 +171,5 @@ samples/lighting.server/src/main/java/org/universAAL/samples/lighting/server/uni
 samples/lighting.server/src/main/java/org/universAAL/samples/lighting/server/unit_impl/MyLighting.java -text
 samples/m2.zip -text
 samples/pom.xml -text
+samples/smp.heating.launch -text
 samples/smp.lighting.launch -text

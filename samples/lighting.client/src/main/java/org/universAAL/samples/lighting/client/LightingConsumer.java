@@ -66,7 +66,7 @@ class LightingConsumer extends ContextSubscriber {
 		
 		// we are interested in only those realizations of 'Lighting'
 		// that have control over the lamp with the given URI 
-		turnOff.addFilter(new String[] { Lighting.PROP_CONTROLS }, new LightSource(lampURI));
+		turnOff.addValueFilter(new String[] { Lighting.PROP_CONTROLS }, new LightSource(lampURI));
 		
 		// Add the property that have to be changed and the new value
 		turnOff.addChangeEffect(
@@ -82,7 +82,7 @@ class LightingConsumer extends ContextSubscriber {
 		
 		// we are interested in only those realizations of 'Lighting'
 		// that have control over the lamp with the given URI 
-		turnOn.addFilter(new String[] { Lighting.PROP_CONTROLS }, new LightSource(lampURI));
+		turnOn.addValueFilter(new String[] { Lighting.PROP_CONTROLS }, new LightSource(lampURI));
 		
 		turnOn.addChangeEffect(
 				new String[] {
@@ -97,7 +97,7 @@ class LightingConsumer extends ContextSubscriber {
 		
 		// we are interested in only those realizations of 'Lighting'
 		// that have control over the lamp with the given URI 
-		dim.addFilter(new String[] { Lighting.PROP_CONTROLS }, new LightSource(lampURI));
+		dim.addValueFilter(new String[] { Lighting.PROP_CONTROLS }, new LightSource(lampURI));
 		
 		dim.addChangeEffect(
 				new String[] {
