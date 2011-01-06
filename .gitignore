@@ -52,3 +52,7 @@ samples/lighting/server/.classpath
 samples/lighting/server/.project
 samples/lighting/server/.settings
 samples/lighting/server/target
+samples/pom/.classpath
+samples/pom/.project
+samples/pom/.settings
+samples/pom/target
