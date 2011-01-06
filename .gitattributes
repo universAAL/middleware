@@ -155,6 +155,10 @@ samples/heating/src/main/java/org/universAAL/samples/heating/Callee.java -text
 samples/heating/src/main/java/org/universAAL/samples/heating/ProvidedServiceTemp.java -text
 samples/heating/src/main/java/org/universAAL/samples/heating/ServiceDevice.java -text
 samples/heating/src/test/java/principal/ActivatorTest.java -text
+samples/launches/heating.launch -text
+samples/launches/lighting.launch -text
+samples/launches/lightingClient.launch -text
+samples/launches/lightingServer.launch -text
 samples/lighting/client/LICENSE.txt -text
 samples/lighting/client/NOTICE.txt -text
 samples/lighting/client/pom.xml -text
