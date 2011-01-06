@@ -165,6 +165,7 @@ samples/lighting/client/src/main/java/org/universAAL/samples/lighting/client/Lig
 samples/lighting/server/LICENSE.txt -text
 samples/lighting/server/NOTICE.txt -text
 samples/lighting/server/pom.xml -text
+samples/lighting/server/server.launch -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/Activator.java -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/LightingProvider.java -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/ProvidedLightingService.java -text
