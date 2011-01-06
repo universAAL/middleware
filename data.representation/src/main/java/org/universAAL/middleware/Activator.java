@@ -28,6 +28,8 @@ import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.universAAL.middleware.rdf.TypeMapper;
 
 public class Activator implements BundleActivator, ManagedService {
@@ -39,6 +41,7 @@ public class Activator implements BundleActivator, ManagedService {
 
 	public static Dictionary middlewareProps;
 	public static ServiceRegistration registration;
+	public static final Logger logger = LoggerFactory.getLogger(Activator.class);
 	
 	/*
 	 * (non-Javadoc)

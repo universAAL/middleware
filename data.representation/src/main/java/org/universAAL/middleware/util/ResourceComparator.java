@@ -24,6 +24,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Stack;
 
+import org.universAAL.middleware.Activator;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -204,9 +205,10 @@ public class ResourceComparator {
 	
 	public void printDiffs(Resource r1, Resource r2) {
 		isPrinting = true;
-		System.out.println("Comparing " + toString(r1) + " with " + toString(r2) + ":");
+		writeLine(0, new Object[] {
+				"Comparing ", toString(r1), " with ", toString(r2), ":"	});
 		if (r1 == null  ||  r2 == null)
-			System.out.println("NULL values cannot be compared!");
+			s.push("NULL values cannot be compared!");
 		else if (r1.getClass() != r2.getClass()) {
 			writeLine(0, new Object[] {
 					"  different types: ",
@@ -214,12 +216,12 @@ public class ResourceComparator {
 					" <-> ",
 					r2.getClass().getName()
 			});
-			System.out.println(s.pop());
-		} else if (differ(1, r1, r2))
-			while(!s.empty())
-				System.out.println(s.pop());
-		else
-			System.out.println("  No diffs found!");
+		} else if (differ(1, r1, r2)) {
+			// do nothing
+		} else
+			s.push("  No diffs found!");
+		
+		LogUtils.logDebug(Activator.logger, "ResourceComparator", "printDiffs", s.toArray(), null);
 	}
 
 	private String toString(Resource r) {
@@ -234,7 +236,7 @@ public class ResourceComparator {
 				sb.append("  ");
 			for (int i=0; i<lineContent.length; i++)
 				sb.append(lineContent[i]);
-			s.push(sb.toString());
+			s.push(sb.append("\n").toString());
 		}
 	}
 }
