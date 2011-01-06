@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.OutputBinding;

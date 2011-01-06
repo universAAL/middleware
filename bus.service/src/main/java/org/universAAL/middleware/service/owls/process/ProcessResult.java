@@ -24,9 +24,9 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.universAAL.middleware.owl.TypeURI;
+import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
-import org.universAAL.middleware.service.PropertyPath;
 
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>

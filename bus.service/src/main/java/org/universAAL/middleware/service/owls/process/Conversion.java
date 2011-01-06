@@ -23,8 +23,8 @@ import java.util.Enumeration;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.TypeURI;
+import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.service.PropertyPath;
 
 /**
  * A uAAL-specific value function for binding output parameters stating that the given output

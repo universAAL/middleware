@@ -20,6 +20,7 @@
 package org.universAAL.middleware.service;
 
 import org.universAAL.middleware.owl.supply.AbsLocation;
+import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
