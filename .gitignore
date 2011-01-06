@@ -44,3 +44,11 @@ samples/heating/.classpath
 samples/heating/.project
 samples/heating/.settings
 samples/heating/target
+samples/lighting/client/.classpath
+samples/lighting/client/.project
+samples/lighting/client/.settings
+samples/lighting/client/target
+samples/lighting/server/.classpath
+samples/lighting/server/.project
+samples/lighting/server/.settings
+samples/lighting/server/target

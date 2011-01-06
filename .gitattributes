@@ -149,6 +149,7 @@ pom/eclipse.setup.bat -text
 pom/eclipse.setup.sh -text
 pom/pom.xml -text
 samples/heating/pom.xml -text
+samples/heating/smp.heating.launch -text
 samples/heating/src/main/java/org/universAAL/samples/heating/Activator.java -text
 samples/heating/src/main/java/org/universAAL/samples/heating/CSubscriber.java -text
 samples/heating/src/main/java/org/universAAL/samples/heating/Callee.java -text
