@@ -157,7 +157,6 @@ samples/heating/src/main/java/org/universAAL/samples/heating/ServiceDevice.java 
 samples/heating/src/test/java/principal/ActivatorTest.java -text
 samples/lighting/client/LICENSE.txt -text
 samples/lighting/client/NOTICE.txt -text
-samples/lighting/client/client.launch -text
 samples/lighting/client/pom.xml -text
 samples/lighting/client/src/main/java/org/universAAL/samples/lighting/client/Activator.java -text
 samples/lighting/client/src/main/java/org/universAAL/samples/lighting/client/LightClient.java -text
@@ -165,12 +164,10 @@ samples/lighting/client/src/main/java/org/universAAL/samples/lighting/client/Lig
 samples/lighting/server/LICENSE.txt -text
 samples/lighting/server/NOTICE.txt -text
 samples/lighting/server/pom.xml -text
-samples/lighting/server/server.launch -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/Activator.java -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/LightingProvider.java -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/ProvidedLightingService.java -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/unit_impl/LampStateListener.java -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/unit_impl/MyLighting.java -text
-samples/lighting/smp.lighting.launch -text
 samples/m2.zip -text
 samples/pom/pom.xml -text
