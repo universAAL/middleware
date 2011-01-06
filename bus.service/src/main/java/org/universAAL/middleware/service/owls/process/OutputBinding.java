@@ -24,9 +24,9 @@ import java.util.Hashtable;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.TypeURI;
+import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
-import org.universAAL.middleware.service.PropertyPath;
 
 /**
  * Support for constructing an OWL-S http://www.daml.org/services/owl-s/1.1/Process.owl#OutputBinding

@@ -36,7 +36,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * <p>The main characteristic of services is that they specify their view on their domain by restricting
  * some of the relevant properties from the domain ontology that are reachable from the service class using
  * a sequence of properties. The universAAL middleware calls such sequences a {@link
- * org.universAAL.middleware.service.PropertyPath}. Subclasses must define a static repository for such
+ * org.universAAL.middleware.rdf.PropertyPath}. Subclasses must define a static repository for such
  * restrictions as an empty instance of {@link java.util.Hashtable} and add their class-level restrictions to this
  * repository in the same static code segment, where they call {@link #register(Class)}, using the help
  * method {@link #addRestriction(Restriction, String[], java.util.Hashtable)}.

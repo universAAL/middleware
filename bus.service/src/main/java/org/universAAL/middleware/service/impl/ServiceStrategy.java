@@ -29,13 +29,13 @@ import java.util.Vector;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.supply.AbsLocation;
+import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.AggregationFunction;
 import org.universAAL.middleware.service.AvailabilitySubscriber;
 import org.universAAL.middleware.service.CallStatus;
-import org.universAAL.middleware.service.PropertyPath;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceCaller;

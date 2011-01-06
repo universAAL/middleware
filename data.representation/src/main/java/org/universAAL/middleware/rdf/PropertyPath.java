@@ -17,13 +17,12 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 */
-package org.universAAL.middleware.service;
+package org.universAAL.middleware.rdf;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.universAAL.middleware.rdf.Resource;
 
 /**
  * A PropertyPath is a closed list of property URIs that relates a resource to a set of other

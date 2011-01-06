@@ -78,7 +78,6 @@ bus.service/src/main/java/org/universAAL/middleware/service/AggregationFunction.
 bus.service/src/main/java/org/universAAL/middleware/service/AvailabilitySubscriber.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/CallStatus.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/DefaultServiceCaller.java -text
-bus.service/src/main/java/org/universAAL/middleware/service/PropertyPath.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/ServiceBus.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/ServiceCall.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/ServiceCallee.java -text
@@ -124,6 +123,7 @@ data.representation/src/main/java/org/universAAL/middleware/owl/Union.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/supply/AbsLocation.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/supply/LevelRating.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/supply/Rating.java -text
+data.representation/src/main/java/org/universAAL/middleware/rdf/PropertyPath.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/Resource.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/TypeMapper.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/Variable.java -text
