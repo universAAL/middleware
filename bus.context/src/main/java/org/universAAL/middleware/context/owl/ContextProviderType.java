@@ -20,7 +20,7 @@
 package org.universAAL.middleware.context.owl;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
-import org.universAAL.middleware.context.rdf.ContextEvent;
+import org.universAAL.middleware.context.ContextEvent;
 
 /**
  * An enumeration for indicating the type of a context provider, which may be a controller,

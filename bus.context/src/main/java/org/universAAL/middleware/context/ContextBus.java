@@ -19,8 +19,6 @@
 */
 package org.universAAL.middleware.context;
 
-import org.universAAL.middleware.context.rdf.ContextEvent;
-import org.universAAL.middleware.context.rdf.ContextEventPattern;
 
 
 /**

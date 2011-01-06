@@ -22,7 +22,7 @@ package org.universAAL.middleware.context.owl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.universAAL.middleware.context.rdf.ContextEvent;
+import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.Restriction;
 

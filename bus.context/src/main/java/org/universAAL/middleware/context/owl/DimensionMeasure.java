@@ -20,7 +20,7 @@
 package org.universAAL.middleware.context.owl;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
-import org.universAAL.middleware.context.rdf.ContextEvent;
+import org.universAAL.middleware.context.ContextEvent;
 
 /**
  * See "Measurement.jpg" under src/main/resources.

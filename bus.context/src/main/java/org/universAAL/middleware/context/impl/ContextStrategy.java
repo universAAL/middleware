@@ -24,9 +24,9 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
-import org.universAAL.middleware.context.rdf.ContextEvent;
-import org.universAAL.middleware.context.rdf.ContextEventPattern;
 import org.universAAL.middleware.sodapop.BusStrategy;
 import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.Message;

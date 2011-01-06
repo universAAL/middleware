@@ -22,7 +22,6 @@ package org.universAAL.middleware.context;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.context.impl.Activator;
 import org.universAAL.middleware.context.owl.ContextProvider;
-import org.universAAL.middleware.context.rdf.ContextEvent;
 import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Publisher;
 import org.universAAL.middleware.sodapop.msg.Message;
@@ -36,7 +35,7 @@ import org.universAAL.middleware.sodapop.msg.Message;
  * following:
  * <ul><li>ContextPublishers provide only at the registration time info about themselves using
  * {@link org.universAAL.middleware.context.owl.ContextProvider}.</li>
- * <li>ContextSubscribers may pass an array of {@link org.universAAL.middleware.context.rdf.ContextEventPattern}s
+ * <li>ContextSubscribers may pass an array of {@link org.universAAL.middleware.context.ContextEventPattern}s
  * as their initial subscriptions and can always add new (and remove old) subscriptions dynamically.</li>
  * </ul>
  * 

@@ -3,8 +3,6 @@ package org.universAAL.middleware.context;
 
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.owl.Restriction;
-import org.universAAL.middleware.context.rdf.ContextEvent;
-import org.universAAL.middleware.context.rdf.ContextEventPattern;
 
 import junit.framework.TestCase;
 
