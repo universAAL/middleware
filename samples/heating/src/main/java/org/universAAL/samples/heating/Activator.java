@@ -2,8 +2,8 @@ package org.universAAL.samples.heating;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.universAAL.middleware.context.rdf.ContextEvent;
-import org.universAAL.middleware.context.rdf.ContextEventPattern;
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.service.CallStatus;

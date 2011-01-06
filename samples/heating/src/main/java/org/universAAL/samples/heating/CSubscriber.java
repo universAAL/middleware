@@ -1,8 +1,8 @@
 package org.universAAL.samples.heating;
 
 import org.osgi.framework.BundleContext;
-import org.universAAL.middleware.context.rdf.ContextEvent;
-import org.universAAL.middleware.context.rdf.ContextEventPattern;
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.ontology.weather.TempSensor;
