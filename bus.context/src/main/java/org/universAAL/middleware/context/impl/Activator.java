@@ -29,6 +29,7 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 import org.universAAL.middleware.util.Constants;
+import org.universAAL.middleware.util.LogUtils;
 import org.universAAL.middleware.util.ResourceComparator;
 
 
@@ -54,11 +55,11 @@ public class Activator implements BundleActivator {
 				contentSerializer = (MessageContentSerializer) context.getService(sr);
 			}
 
-			System.out.println("Assessing message content serialization; 1. serialization dump, 2. deserialize & compare with the original resource:");
+			LogUtils.logDebug(logger, "Activator", "assessContentSerialization", new Object[] {"Assessing message content serialization:"}, null);
 			// System.out.println(new RuntimeException().getStackTrace()[1]);
 			
 			String str = contentSerializer.serialize(content);
-			System.out.println(str);
+			LogUtils.logDebug(logger, "Activator", "assessContentSerialization", new Object[] {"\n      1. serialization dump\n", str, "\n      2. deserialize & compare with the original resource\n"}, null);
 			new ResourceComparator().printDiffs(content, (Resource) contentSerializer.deserialize(str));
 		}
 	}

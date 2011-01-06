@@ -78,7 +78,7 @@ public class MyLighting {
 		if (myLampDB[lampID].isOn) {
 			myLampDB[lampID].isOn = false;
 			LogUtils.logInfo(Activator.logger, "MyLighting", "turnOff", 
-					new Object[] {"Lamp in", myLampDB[lampID].loc, "turned off!"}, null);
+					new Object[] {"Lamp in ", myLampDB[lampID].loc, " turned off!"}, null);
 			for (Iterator i=listeners.iterator(); i.hasNext();)
 				((LampStateListener) i.next()).lampStateChanged(lampID, myLampDB[lampID].loc, false);
 		}
@@ -88,7 +88,7 @@ public class MyLighting {
 		if (!myLampDB[lampID].isOn) {
 			myLampDB[lampID].isOn = true;
 			LogUtils.logInfo(Activator.logger, "MyLighting", "turnOn", 
-					new Object[] {"Lamp in", myLampDB[lampID].loc, "turned on!"}, null);
+					new Object[] {"Lamp in ", myLampDB[lampID].loc, " turned on!"}, null);
 			for (Iterator i=listeners.iterator(); i.hasNext();)
 				((LampStateListener) i.next()).lampStateChanged(lampID, myLampDB[lampID].loc, true);
 		}

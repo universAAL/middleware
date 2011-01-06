@@ -27,11 +27,6 @@ import java.util.Random;
  *
  */
 public class StringUtils {
-	
-	public static void main(String[] args) {
-		if (isQualifiedName("http://ontology.tsb.itaca.es/NutritionalServer.owl#weekMenu"))
-			System.out.println("Succeeded!");
-	}
 
 	public static boolean areEqualPropPaths(String[] pp1, String[] pp2) {
 		if (pp1 == pp2)

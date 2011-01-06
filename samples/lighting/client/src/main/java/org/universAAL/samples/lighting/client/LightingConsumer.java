@@ -169,7 +169,7 @@ class LightingConsumer extends ContextSubscriber {
 		
 		// make a call with the appropriate request
 		ServiceResponse sr = caller.call(turnOffRequest(lampURI));
-		LogUtils.logDebug(Activator.logger, "LightingConsumer", "turnOff", new Object[]{"Call status:", sr.getCallStatus().name()}, null);
+		LogUtils.logDebug(Activator.logger, "LightingConsumer", "turnOff", new Object[]{"Call status: ", sr.getCallStatus().name()}, null);
 		
 		// check the call status and return true if succeeded
 		if (sr.getCallStatus() == CallStatus.succeeded) return true;
@@ -188,7 +188,7 @@ class LightingConsumer extends ContextSubscriber {
 		}
 		
 		ServiceResponse sr = caller.call(turnOnRequest(lampURI));
-		LogUtils.logDebug(Activator.logger, "LightingConsumer", "turnOn", new Object[]{"Call status:", sr.getCallStatus().name()}, null);
+		LogUtils.logDebug(Activator.logger, "LightingConsumer", "turnOn", new Object[]{"Call status: ", sr.getCallStatus().name()}, null);
 		
 		if (sr.getCallStatus() == CallStatus.succeeded) return true;
 		else{
@@ -206,7 +206,7 @@ class LightingConsumer extends ContextSubscriber {
 		}
 		
 		ServiceResponse sr = caller.call(dimRequest(lampURI, percent));
-		LogUtils.logDebug(Activator.logger, "LightingConsumer", "dimToValue", new Object[]{"Call status:", sr.getCallStatus().name()}, null);
+		LogUtils.logDebug(Activator.logger, "LightingConsumer", "dimToValue", new Object[]{"Call status: ", sr.getCallStatus().name()}, null);
 		
 		if (sr.getCallStatus() == CallStatus.succeeded) return true;
 		else{
@@ -221,16 +221,16 @@ class LightingConsumer extends ContextSubscriber {
 	public void handleContextEvent(ContextEvent event) {
 		LogUtils.logInfo(Activator.logger, "LightingConsumer", "handleContextEvent", new Object[]{
 				"Received context event:\n",
-				"    Subject     =",
+				"    Subject     = ",
 				event.getSubjectURI(),
 				"\n",
-				"    Subject type=",
+				"    Subject type= ",
 				event.getSubjectTypeURI(),
 				"\n",
-				"    Predicate   =",
+				"    Predicate   = ",
 				event.getRDFPredicate(),
 				"\n",
-				"    Object      =",
+				"    Object      = ",
 				event.getRDFObject()}, null);
 	}
 	
