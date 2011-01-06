@@ -70,7 +70,9 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext context) throws Exception {
 		Activator.context = context;
 
-		// load ontology classes exported by the context bus
+		// load classes exported by the context bus
+		Class.forName("org.universAAL.middleware.context.ContextEvent");
+		Class.forName("org.universAAL.middleware.context.ContextEventPattern");
 		Class.forName("org.universAAL.middleware.context.owl.ContextProvider");
 	}
 	
