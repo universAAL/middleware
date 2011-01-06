@@ -158,6 +158,7 @@ samples/heating/src/main/java/org/universAAL/samples/heating/ServiceDevice.java 
 samples/heating/src/test/java/principal/ActivatorTest.java -text
 samples/lighting/client/LICENSE.txt -text
 samples/lighting/client/NOTICE.txt -text
+samples/lighting/client/client.launch -text
 samples/lighting/client/pom.xml -text
 samples/lighting/client/src/main/java/org/universAAL/samples/lighting/client/Activator.java -text
 samples/lighting/client/src/main/java/org/universAAL/samples/lighting/client/LightClient.java -text
