@@ -17,7 +17,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 */
-package org.universAAL.middleware.context.rdf;
+package org.universAAL.middleware.context;
 
 import java.util.ArrayList;
 import java.util.List;

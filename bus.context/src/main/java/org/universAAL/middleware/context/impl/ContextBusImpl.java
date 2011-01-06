@@ -20,10 +20,10 @@
 package org.universAAL.middleware.context.impl;
 
 import org.universAAL.middleware.context.ContextBus;
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.ContextSubscriber;
-import org.universAAL.middleware.context.rdf.ContextEvent;
-import org.universAAL.middleware.context.rdf.ContextEventPattern;
 import org.universAAL.middleware.sodapop.AbstractBus;
 import org.universAAL.middleware.sodapop.BusMember;
 import org.universAAL.middleware.sodapop.SodaPop;
