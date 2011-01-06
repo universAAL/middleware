@@ -56,6 +56,7 @@ public class Activator implements BundleActivator, ManagedService {
 		Class.forName("org.universAAL.middleware.owl.supply.Rating");
 		Class.forName("org.universAAL.middleware.owl.TypeURI");
 		Class.forName("org.universAAL.middleware.owl.Union");
+		Class.forName("org.universAAL.middleware.rdf.PropertyPath");
 		
 		setDefaults();
 		

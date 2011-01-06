@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
@@ -8,7 +9,7 @@
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
-	<artifactId>mw.bus.service</artifactId>  
+	<artifactId>mw.bus.service</artifactId>
 	<version>0.3.0-SNAPSHOT</version>
 	<name>Service Bus</name>
 	<description>The realization of the service bus on top of Sodapop as part of the universAAL Middleware.</description>
@@ -71,10 +72,12 @@
 						<Bundle-Activator>org.universAAL.middleware.service.impl.Activator</Bundle-Activator>
 						<Bundle-Description>${pom.description}</Bundle-Description>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-						<Export-Package>org.universAAL.middleware.service,
-										org.universAAL.middleware.service.owl,
-										org.universAAL.middleware.service.owls.process,
-										org.universAAL.middleware.service.owls.profile</Export-Package>
+						<Export-Package>
+							org.universAAL.middleware.service,
+							org.universAAL.middleware.service.owl,
+							org.universAAL.middleware.service.owls.process,
+							org.universAAL.middleware.service.owls.profile
+						</Export-Package>
 						<Private-Package>org.universAAL.middleware.service.impl</Private-Package>
 					</instructions>
 				</configuration>

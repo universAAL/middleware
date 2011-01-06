@@ -70,8 +70,14 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext context) throws Exception {
 		Activator.context = context;
 
-		// load ontology classes exported by the context bus
+		// load classes exported by the service bus
+		Class.forName("org.universAAL.middleware.service.AggregatingFilter");
+		Class.forName("org.universAAL.middleware.service.ServiceCall");
+		Class.forName("org.universAAL.middleware.service.ServiceRequest");
+		Class.forName("org.universAAL.middleware.service.ServiceResponse");
+		Class.forName("org.universAAL.middleware.service.impl.ServiceRealization");
 		Class.forName("org.universAAL.middleware.service.owl.InitialServiceDialog");
+		Class.forName("org.universAAL.middleware.service.owls.profile.ServiceProfile");
 	}
 	
 	public static void checkServiceBus() {
