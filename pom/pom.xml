@@ -274,4 +274,17 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<modules>
+		<module>../acl.interfaces</module>
+		<module>../acl.bridge</module>
+		<module>../acl.rosgi</module>
+		<module>../acl.upnp</module>
+		<module>../bus.model</module>
+		<module>../data.representation</module>
+		<module>../bus.context</module>
+		<module>../bus.io</module>
+		<module>../bus.service</module>
+		<module>../data.serialization</module>
+	</modules>
+
 </project>

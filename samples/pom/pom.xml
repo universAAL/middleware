@@ -67,14 +67,8 @@
 	<contributors />
 
 	<modules>
-		<module>../../acl.interfaces</module>
-		<module>../../bus.model</module>
-		<module>../../data.representation</module>
-		<module>../../bus.context</module>
-		<module>../../bus.service</module>
-		<module>../../data.serialization</module>
-		<module>../../../ontologies/physical.world</module>
-		<module>../../../ontologies/lighting</module>
+		<module>../../../ontologies/pom</module>
+		<module>../heating</module>
 		<module>../lighting/server</module>
 		<module>../lighting/client</module>
 	</modules>
