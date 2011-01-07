@@ -255,7 +255,10 @@ public abstract class Service extends ManagedIndividual {
 	 * @see ManagedIndividual#getPropSerializationType(java.lang.String)
 	 */
 	public int getPropSerializationType(String propURI) {
-		return PROP_SERIALIZATION_FULL;
+		return (PROP_OWLS_PRESENTS.equals(propURI)
+				|| PROP_INSTANCE_LEVEL_RESTRICTIONS.equals(propURI)
+				|| PROP_NUMBER_OF_VALUE_RESTRICTIONS.equals(propURI))?
+						PROP_SERIALIZATION_FULL : PROP_SERIALIZATION_UNDEFINED;
 	}
 	
 	/**
