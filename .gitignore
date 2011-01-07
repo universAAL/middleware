@@ -18,6 +18,10 @@ bus.context/.classpath
 bus.context/.project
 bus.context/.settings
 bus.context/target
+bus.io/.classpath
+bus.io/.project
+bus.io/.settings
+bus.io/target
 bus.model/.classpath
 bus.model/.project
 bus.model/.settings
