@@ -41,6 +41,7 @@ data.serialization/target
 pom/.classpath
 pom/.project
 pom/.settings
+pom/target
 samples/.classpath
 samples/.project
 samples/.settings
