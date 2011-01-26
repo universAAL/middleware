@@ -45,9 +45,6 @@ bus.context/src/main/java/org/universAAL/middleware/context/impl/ContextBusImpl.
 bus.context/src/main/java/org/universAAL/middleware/context/impl/ContextStrategy.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/owl/ContextProvider.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/owl/ContextProviderType.java -text
-bus.context/src/main/java/org/universAAL/middleware/context/owl/DimensionMeasure.java -text
-bus.context/src/main/java/org/universAAL/middleware/context/owl/MultiDimensionMeasure.java -text
-bus.context/src/main/resources/Measurement.jpg -text
 bus.context/src/test/java/org/universAAL/middleware/context/RoundTest.java -text
 bus.context/src/test/java/org/universAAL/middleware/context/SetTopBox.java -text
 bus.io/LICENSE.txt -text
