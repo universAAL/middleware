@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.pom</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../pom/pom.xml</relativePath>
+	</parent>
+	<packaging>bundle</packaging>
+	<artifactId>mw.bus.model</artifactId>
+	<version>0.3.0-SNAPSHOT</version>
+	<name>Soda-Pop as OSGi Bundle</name>
+	<description>A Soda-Pop implementation as an OSGi bundle based on the ACL</description>
+	<url />
+
+	<scm>
+		<url>http://gforge.aal-persona.org/scm/viewvc.php/trunk/Java1.3/sodapop.osgi/?root=persona-middlew</url>
+		<connection>scm:svn:http://gforge.aal-persona.org/svn/persona-middlew/trunk/Java1.3/sodapop.osgi</connection>
+		<developerConnection>scm:svn:http://gforge.aal-persona.org/svn/persona-middlew/trunk/Java1.3/sodapop.osgi</developerConnection>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.acl.interfaces</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi_R4_compendium</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- <dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>jce.jdk13</artifactId>
+			<version>144</version>
+		</dependency>-->
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-api</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-service</artifactId>
+			<version>1.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Author><![CDATA[Mohammad-Reza Tazari <saied.tazari@igd.fraunhofer.de>, Francesco Furfari <francesco.furfari@isti.cnr.it>]]></Bundle-Author>
+						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Activator>org.universAAL.middleware.sodapop.impl.Activator</Bundle-Activator>
+						<Bundle-Description>${pom.description}</Bundle-Description>
+						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Export-Package>org.universAAL.middleware.sodapop,org.universAAL.middleware.sodapop.msg</Export-Package>
+						<Private-Package>org.universAAL.middleware.sodapop.impl</Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
