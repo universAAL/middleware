@@ -79,7 +79,56 @@ public class Resource {
 
 	private static Hashtable uriResource = new Hashtable();
 	private static Hashtable uriRsrcClass = new Hashtable();
+		
+	protected final int ns_delim_index;
+	protected final Hashtable props = new Hashtable();
+	protected final String uri;
+	protected boolean blockAddingTypes = false;
+	protected boolean isXMLLiteral = false;
 	
+	public Resource() {
+		uri = Resource.generateAnonURI();
+		ns_delim_index = -1;
+	}
+	
+	public Resource(boolean isXMLLiteral) {
+		uri = Resource.generateAnonURI();
+		ns_delim_index = -1;
+		this.isXMLLiteral = isXMLLiteral;
+	}
+	
+	public Resource(String uri) {
+		if (uri == null) {
+			this.uri = Resource.generateAnonURI();
+			ns_delim_index = -1;
+		} else {
+			this.uri = uri;
+			ns_delim_index = isQualifiedName(uri)? uri.lastIndexOf('#') : -1;
+		}
+	}
+	
+	public Resource(String uri, boolean isXMLLiteral) {
+		if (uri == null) {
+			this.uri = Resource.generateAnonURI();
+			ns_delim_index = -1;
+		} else {
+			this.uri = uri;
+			ns_delim_index = isQualifiedName(uri)? uri.lastIndexOf('#') : -1;
+		}
+		this.isXMLLiteral = isXMLLiteral;
+	}
+	
+	/**
+	 * Creates an instance of Resource with a URI that is created by appending a unique ID
+	 * to the given 'uriPrefix'. This constructor has a pseudo parameter 'numProps' in order
+	 * to make it distinct from the other constructor that also takes a string. Later versions
+	 * of Resource may decide to make some use of numProps in some way, however.
+	 */
+	protected Resource(String uriPrefix, int numProps) {
+		uri = uriPrefix + StringUtils.createUniqueID();
+		ns_delim_index = isQualifiedName(uri)? uri.lastIndexOf('#') : -1;
+	}
+
 	protected static final void addResourceClass(String uri, Class clz) {
 		if (StringUtils.isNonEmpty(uri)
 				&&  clz != null
@@ -137,56 +186,7 @@ public class Resource {
 		return StringUtils.isQualifiedName(uri)
 			&& !uri.startsWith(ANON_URI_PREFIX);
 	}
-	
-	protected final int ns_delim_index;
-	protected final Hashtable props = new Hashtable();
-	protected final String uri;
-	protected boolean blockAddingTypes = false;
-	protected boolean isXMLLiteral = false;
-	
-	public Resource() {
-		uri = Resource.generateAnonURI();
-		ns_delim_index = -1;
-	}
-	
-	public Resource(boolean isXMLLiteral) {
-		uri = Resource.generateAnonURI();
-		ns_delim_index = -1;
-		this.isXMLLiteral = isXMLLiteral;
-	}
-	
-	public Resource(String uri) {
-		if (uri == null) {
-			this.uri = Resource.generateAnonURI();
-			ns_delim_index = -1;
-		} else {
-			this.uri = uri;
-			ns_delim_index = isQualifiedName(uri)? uri.lastIndexOf('#') : -1;
-		}
-	}
-	
-	public Resource(String uri, boolean isXMLLiteral) {
-		if (uri == null) {
-			this.uri = Resource.generateAnonURI();
-			ns_delim_index = -1;
-		} else {
-			this.uri = uri;
-			ns_delim_index = isQualifiedName(uri)? uri.lastIndexOf('#') : -1;
-		}
-		this.isXMLLiteral = isXMLLiteral;
-	}
-	
-	/**
-	 * Creates an instance of Resource with a URI that is created by appending a unique ID
-	 * to the given 'uriPrefix'. This constructor has a pseudo parameter 'numProps' in order
-	 * to make it distinct from the other constructor that also takes a string. Later versions
-	 * of Resource may decide to make some use of numProps in some way, however.
-	 */
-	protected Resource(String uriPrefix, int numProps) {
-		uri = uriPrefix + StringUtils.createUniqueID();
-		ns_delim_index = isQualifiedName(uri)? uri.lastIndexOf('#') : -1;
-	}
-	
+
 	public final void addType(String typeURI, boolean blockFurtherTypes) {
 		if (!this.blockAddingTypes) {
 			if (typeURI != null) {
