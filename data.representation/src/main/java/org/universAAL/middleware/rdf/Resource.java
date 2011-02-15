@@ -77,14 +77,58 @@ public class Resource {
 	public static final int PROP_SERIALIZATION_REDUCED = 2;
 	public static final int PROP_SERIALIZATION_FULL = 3;
 
-	private static Hashtable uriResource = new Hashtable();
+	/**
+	 * Used for deserialization: all classes derived from Resource have to register
+	 * to the Resource base class with their URI by calling
+	 * {@link #addResourceClass(String uri, Class clz)}.
+	 * The deserializer can then get an instance of a class given its URI by calling
+	 * {@link #getResource(String classURI, String instanceURI)}
+	 */
 	private static Hashtable uriRsrcClass = new Hashtable();
-		
-	protected final int ns_delim_index;
-	protected final Hashtable props = new Hashtable();
+	
+	/**
+	 * Used for deserialization: specialized method to support OWL-S Process Model.
+	 * Register an object by calling {@link #addSpecialResource(Resource r)}.
+	 * The deserializer can then get the registered instance given its URI by calling
+	 * {@link #getResource(String classURI, String instanceURI)}
+	 */
+	private static Hashtable uriResource = new Hashtable();
+	
+	/**
+	 * URI of this resource, or URIref (URI plus fragment identifier, separated by the
+	 * symbol '#').
+	 */
 	protected final String uri;
+	
+	/**
+	 * For a given URIref, 'ns_delim_index' is the index of the delimiter (the
+	 * symbol '#'), or -1 if there is no delimiter.
+	 */
+	protected final int ns_delim_index;
+
+	/**
+	 * The properties denote the RDF triples of this resource, realized as Hashtable.
+	 * The RDF subject is the resource itself, the key of the Hashtable is the RDF
+	 * predicate and the value of the Hashtable are the RDF object, which can be
+	 * a literal or another resource. See {@link #setProperty(String propURI, Object value)}
+	 * for more information.
+	 */
+	protected final Hashtable props = new Hashtable();
+	
+	/**
+	 * A resource can have one or more RDF types which are represented in this class
+	 * as a property with key (RDF predicate) 'rdf:type' and an ArrayList as value
+	 * (RDF object). Types are added by calling
+	 * {@link #addType(String typeURI, boolean blockFurtherTypes)}. If only one type is
+	 * possible, this attribute indicates that not more than one type can be added.
+	 */
 	protected boolean blockAddingTypes = false;
+	
+	
 	protected boolean isXMLLiteral = false;
+	
+	
+	
 	
 	public Resource() {
 		uri = Resource.generateAnonURI();
