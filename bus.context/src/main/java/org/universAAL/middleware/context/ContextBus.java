@@ -16,25 +16,29 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.context;
 
-
-
 /**
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * 
  */
 public interface ContextBus {
-	public void addNewRegParams(String subscriberID, ContextEventPattern[] newSubscriptions);
+    public void addNewRegParams(String subscriberID,
+	    ContextEventPattern[] newSubscriptions);
 
-	public String register(ContextPublisher publisher);
-	public String register(ContextSubscriber subscriber, ContextEventPattern[] initialSubscriptions);
+    public String register(ContextPublisher publisher);
 
-	public void removeMatchingRegParams(String subscriberID, ContextEventPattern[] oldSubscriptions);
+    public String register(ContextSubscriber subscriber,
+	    ContextEventPattern[] initialSubscriptions);
 
-	public void sendMessage(String publisherID, ContextEvent event);
-	
-	public void unregister(String publisherID, ContextPublisher publisher);
-	public void unregister(String subscriberID, ContextSubscriber subscriber);
+    public void removeMatchingRegParams(String subscriberID,
+	    ContextEventPattern[] oldSubscriptions);
+
+    public void sendMessage(String publisherID, ContextEvent event);
+
+    public void unregister(String publisherID, ContextPublisher publisher);
+
+    public void unregister(String subscriberID, ContextSubscriber subscriber);
 }

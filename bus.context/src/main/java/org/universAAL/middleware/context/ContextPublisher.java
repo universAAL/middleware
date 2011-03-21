@@ -16,7 +16,7 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.context;
 
 import org.osgi.framework.BundleContext;
@@ -26,59 +26,63 @@ import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Publisher;
 import org.universAAL.middleware.sodapop.msg.Message;
 
-
 /**
- * Provides the interface to be implemented by context publishers
- * together with shared code. Only instances of this class can 
- * publish context events.
- * The convention of the context bus regarding the registration parameters is the
+ * Provides the interface to be implemented by context publishers together with
+ * shared code. Only instances of this class can publish context events. The
+ * convention of the context bus regarding the registration parameters is the
  * following:
- * <ul><li>ContextPublishers provide only at the registration time info about themselves using
+ * <ul>
+ * <li>ContextPublishers provide only at the registration time info about
+ * themselves using
  * {@link org.universAAL.middleware.context.owl.ContextProvider}.</li>
- * <li>ContextSubscribers may pass an array of {@link org.universAAL.middleware.context.ContextEventPattern}s
- * as their initial subscriptions and can always add new (and remove old) subscriptions dynamically.</li>
+ * <li>ContextSubscribers may pass an array of
+ * {@link org.universAAL.middleware.context.ContextEventPattern}s as their
+ * initial subscriptions and can always add new (and remove old) subscriptions
+ * dynamically.</li>
  * </ul>
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  */
 public abstract class ContextPublisher implements Publisher {
-	private ContextBus bus;
-	private String myID;
-	private ContextProvider providerInfo;
-	
-	protected ContextPublisher(BundleContext context, ContextProvider providerInfo) {
-		Activator.checkContextBus();
-		bus = (ContextBus) context.getService(
-				context.getServiceReference(ContextBus.class.getName()));
-		myID = bus.register(this);
-		this.providerInfo = providerInfo;
-	}
+    private ContextBus bus;
+    private String myID;
+    private ContextProvider providerInfo;
 
-	public abstract void communicationChannelBroken();
+    protected ContextPublisher(BundleContext context,
+	    ContextProvider providerInfo) {
+	Activator.checkContextBus();
+	bus = (ContextBus) context.getService(context
+		.getServiceReference(ContextBus.class.getName()));
+	myID = bus.register(this);
+	this.providerInfo = providerInfo;
+    }
 
-	public final boolean eval(Message m) {
-		return false;
-	}
+    public abstract void communicationChannelBroken();
 
-	public final void handleRequest(Message m) {
-	}
+    public final boolean eval(Message m) {
+	return false;
+    }
 
-	public final void busDyingOut(Bus b) {
-		if (b == bus)
-			communicationChannelBroken();
+    public final void handleRequest(Message m) {
+    }
+
+    public final void busDyingOut(Bus b) {
+	if (b == bus)
+	    communicationChannelBroken();
+    }
+
+    public final void publish(ContextEvent e) {
+	if (e != null) {
+	    if (e.getProvider() == null && providerInfo != null)
+		e.setProvider(providerInfo);
+	    else if (providerInfo != e.getProvider())
+		return;
+	    bus.sendMessage(myID, e);
 	}
-	
-	public final void publish(ContextEvent e) {
-		if (e != null) {
-			if (e.getProvider() == null  &&  providerInfo != null)
-				e.setProvider(providerInfo);
-			else if (providerInfo != e.getProvider())
-				return;
-			bus.sendMessage(myID, e);
-		}
-	}
-	
-	public void close(){
-		bus.unregister(myID, this);
-	}
+    }
+
+    public void close() {
+	bus.unregister(myID, this);
+    }
 }

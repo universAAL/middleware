@@ -16,7 +16,7 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.context;
 
 import org.osgi.framework.BundleContext;
@@ -26,21 +26,23 @@ import org.universAAL.middleware.context.owl.ContextProvider;
  * The default context publisher simply ignores the notification about losing
  * connection to other instances of the middleware.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  */
 public class DefaultContextPublisher extends ContextPublisher {
 
-	/**
-	 * @param context
-	 */
-	public DefaultContextPublisher(BundleContext context, ContextProvider providerInfo) {
-		super(context, providerInfo);
-	}
+    /**
+     * @param context
+     */
+    public DefaultContextPublisher(BundleContext context,
+	    ContextProvider providerInfo) {
+	super(context, providerInfo);
+    }
 
-	/**
-	 * @see org.universAAL.middleware.context.ContextPublisher#communicationChannelBroken()
-	 */
-	public void communicationChannelBroken() {
-	}
+    /**
+     * @see org.universAAL.middleware.context.ContextPublisher#communicationChannelBroken()
+     */
+    public void communicationChannelBroken() {
+    }
 
 }

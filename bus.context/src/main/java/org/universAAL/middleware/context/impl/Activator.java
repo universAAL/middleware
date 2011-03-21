@@ -16,7 +16,7 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.context.impl;
 
 import org.osgi.framework.BundleActivator;
@@ -32,67 +32,91 @@ import org.universAAL.middleware.util.Constants;
 import org.universAAL.middleware.util.LogUtils;
 import org.universAAL.middleware.util.ResourceComparator;
 
-
 /**
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * 
  */
 public class Activator implements BundleActivator {
-	
-	private static BundleContext context = null;
-	private static MessageContentSerializer contentSerializer = null;
-	private static boolean contextBusStarted = false;
-	public static final Logger logger = LoggerFactory.getLogger(Activator.class);
-	
-	public static synchronized void assessContentSerialization(Resource content) {
-		if (Constants.debugMode()) {
-			if (contentSerializer == null) {
-				ServiceReference sr = context.getServiceReference(MessageContentSerializer.class.getName());
-				if (sr == null)
-					return;
-				
-				contentSerializer = (MessageContentSerializer) context.getService(sr);
-			}
 
-			LogUtils.logDebug(logger, "Activator", "assessContentSerialization", new Object[] {"Assessing message content serialization:"}, null);
-			// System.out.println(new RuntimeException().getStackTrace()[1]);
-			
-			String str = contentSerializer.serialize(content);
-			LogUtils.logDebug(logger, "Activator", "assessContentSerialization", new Object[] {"\n      1. serialization dump\n", str, "\n      2. deserialize & compare with the original resource\n"}, null);
-			new ResourceComparator().printDiffs(content, (Resource) contentSerializer.deserialize(str));
-		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-	 */
-	public void start(BundleContext context) throws Exception {
-		Activator.context = context;
+    private static BundleContext context = null;
+    private static MessageContentSerializer contentSerializer = null;
+    private static boolean contextBusStarted = false;
+    public static final Logger logger = LoggerFactory
+	    .getLogger(Activator.class);
 
-		// load classes exported by the context bus
-		Class.forName("org.universAAL.middleware.context.ContextEvent");
-		Class.forName("org.universAAL.middleware.context.ContextEventPattern");
-		Class.forName("org.universAAL.middleware.context.owl.ContextProvider");
-	}
-	
-	public static void checkContextBus() {
-		synchronized (context) {
-			if (!contextBusStarted) {
-				SodaPop sodapop = (SodaPop) context.getService(
-						context.getServiceReference(SodaPop.class.getName()));
-				context.registerService(ContextBus.class.getName(),
-						new ContextBusImpl(sodapop), null);
-				contextBusStarted = true;
-			}
-		}
-	}
+    public static synchronized void assessContentSerialization(Resource content) {
+	if (Constants.debugMode()) {
+	    if (contentSerializer == null) {
+		ServiceReference sr = context
+			.getServiceReference(MessageContentSerializer.class
+				.getName());
+		if (sr == null)
+		    return;
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-	 */
-	public void stop(BundleContext context) throws Exception {
+		contentSerializer = (MessageContentSerializer) context
+			.getService(sr);
+	    }
+
+	    LogUtils
+		    .logDebug(
+			    logger,
+			    "Activator",
+			    "assessContentSerialization",
+			    new Object[] { "Assessing message content serialization:" },
+			    null);
+	    // System.out.println(new RuntimeException().getStackTrace()[1]);
+
+	    String str = contentSerializer.serialize(content);
+	    LogUtils
+		    .logDebug(
+			    logger,
+			    "Activator",
+			    "assessContentSerialization",
+			    new Object[] { "\n      1. serialization dump\n",
+				    str,
+				    "\n      2. deserialize & compare with the original resource\n" },
+			    null);
+	    new ResourceComparator().printDiffs(content,
+		    (Resource) contentSerializer.deserialize(str));
 	}
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
+     * )
+     */
+    public void start(BundleContext context) throws Exception {
+	Activator.context = context;
+
+	// load classes exported by the context bus
+	Class.forName("org.universAAL.middleware.context.ContextEvent");
+	Class.forName("org.universAAL.middleware.context.ContextEventPattern");
+	Class.forName("org.universAAL.middleware.context.owl.ContextProvider");
+    }
+
+    public static void checkContextBus() {
+	synchronized (context) {
+	    if (!contextBusStarted) {
+		SodaPop sodapop = (SodaPop) context.getService(context
+			.getServiceReference(SodaPop.class.getName()));
+		context.registerService(ContextBus.class.getName(),
+			new ContextBusImpl(sodapop), null);
+		contextBusStarted = true;
+	    }
+	}
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+     */
+    public void stop(BundleContext context) throws Exception {
+    }
 }
