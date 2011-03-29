@@ -36,14 +36,21 @@ public class AccessImpairment extends ManagedIndividual {
 		PROP_IMPAIRMENT_LEVEL = uAAL_VOCABULARY_NAMESPACE + "impairmentLevel";
 		register(AccessImpairment.class);
 	}
-
+/**
+ * 
+ * @param propURI
+ * @return
+ */
 	public static Restriction getClassRestrictionsOnProperty(String propURI) {
 		if (PROP_IMPAIRMENT_LEVEL.equals(propURI))
 			return Restriction.getAllValuesRestrictionWithCardinality(propURI,
 					LevelRating.MY_URI, 1, 1);
 		return ManagedIndividual.getClassRestrictionsOnProperty(propURI);
 	}
-
+/**
+ * 
+ * @return
+ */
 	public static String getRDFSComment() {
 		return "General concept for representing impairments of the users in accessing the uAAL system.";
 	}
