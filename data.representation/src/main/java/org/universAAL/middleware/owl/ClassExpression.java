@@ -184,10 +184,10 @@ public abstract class ClassExpression extends Resource {
 	 * new conditions are added in order for the membership to be asserted. If the
 	 * <code>context</code> table is null, the method does a global and unconditional check.
 	 * 
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_ACCESSING_BUS_MEMBER
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_ACCESSING_HUMAN_USER
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_CURRENT_DATETIME
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_SERVICE_TO_SELECT
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
 	 */
 	public abstract boolean hasMember(Object member, Hashtable context);
 	
@@ -206,10 +206,10 @@ public abstract class ClassExpression extends Resource {
 	 * order for the disjointness to be asserted. If the <code>context</code> table is null,
 	 * the method does a global and unconditional check.
 	 * 
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_ACCESSING_BUS_MEMBER
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_ACCESSING_HUMAN_USER
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_CURRENT_DATETIME
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_SERVICE_TO_SELECT
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
 	 */
 	public abstract boolean isDisjointWith(ClassExpression other, Hashtable context);
 	
@@ -230,10 +230,10 @@ public abstract class ClassExpression extends Resource {
 	 * order for the compatibility to be asserted. If the <code>context</code> table is null,
 	 * the method does a global and unconditional check.
 	 * 
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_ACCESSING_BUS_MEMBER
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_ACCESSING_HUMAN_USER
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_CURRENT_DATETIME
-	 * @see org.universAAL.middleware.util.Constants.middleware.MiddlewareConstants#VAR_PERSONA_SERVICE_TO_SELECT
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
+	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
 	 */
 	public abstract boolean matches(ClassExpression subset, Hashtable context);
 	
