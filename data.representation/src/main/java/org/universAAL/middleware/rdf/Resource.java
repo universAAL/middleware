@@ -560,4 +560,49 @@ public class Resource {
 	public String toString() {
 		return uri;
 	}
+	
+	/**
+	 * Debug method: get a string of this RDF graph
+	 * @return the graph as string
+	 */
+	public String toStringRecursive() {
+		return toStringRecursive("", true);
+	}
+
+	/**
+	 * Debug method: get a string of this RDF graph
+	 * @param prefix indention string that every line starts with
+	 * @param prefixAtStart true iff the first line should start with the prefix string
+	 * @return the graph as string
+	 */
+	public String toStringRecursive(String prefix, boolean prefixAtStart) {
+		String s = new String();
+		if (prefixAtStart)
+			s += prefix;
+		s += this.getClass().getName() + "\n";
+		prefix += "  ";
+		s += prefix + "URI: " + getURI() + "\n";
+		s += prefix + "Properties (Key-Value): " + "(size: " + props.size() + ")\n";
+		Enumeration<?> e = props.keys();
+		while (e.hasMoreElements()) {
+			String key = (String) e.nextElement();
+			Object val = props.get(key);
+			s += prefix + "* K " + key + "\n";
+			s += prefix + "* V ";
+			if (val instanceof Resource)
+				s += ((Resource)val).toStringRecursive(prefix+"    ", false);
+			else if (val instanceof List<?>) {
+				s += "List" + "\n";
+				for (Object o : (List<?>)val) {
+					if (o instanceof Resource)
+						s += ((Resource)o).toStringRecursive(prefix+"      ", true);
+					else
+						s += prefix+"      "+"unknown: "+val.getClass().getName() + "\n";
+				}
+			} else {
+				s += "unknown: "+val.getClass().getName() + "\n";
+			}
+		}
+		return s;
+	}
 }
