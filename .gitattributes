@@ -49,6 +49,10 @@ bus.context/src/test/java/org/universAAL/middleware/context/RoundTest.java -text
 bus.context/src/test/java/org/universAAL/middleware/context/SetTopBox.java -text
 bus.io/LICENSE.txt -text
 bus.io/NOTICE.txt -text
+bus.io/documentation/bus.io.mw.input[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
+bus.io/documentation/bus.io.mw.io.output[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
+bus.io/documentation/bus.io.mw.io.owl[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
+bus.io/documentation/bus.io.mw.io.rdf[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
 bus.io/pom.xml -text
 bus.io/src/main/java/org/universAAL/middleware/input/DefaultInputPublisher.java -text
 bus.io/src/main/java/org/universAAL/middleware/input/InputBus.java -text
