@@ -150,6 +150,10 @@ bus.service/src/main/resources/org/persona/middleware/peer.properties -text
 data.representation/LICENSE.txt -text
 data.representation/NOTICE.txt -text
 data.representation/documentation/mw.data.representation[!!-~]dependencies[!!-~]19.4.2011.png -text
+data.representation/documentation/mw.owl[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
+data.representation/documentation/mw.owl.supply[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
+data.representation/documentation/mw.rdf[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
+data.representation/documentation/mw.util[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
 data.representation/mw.data.representation[!!-~]dependencies[!!-~]18.4.2011.jpg -text
 data.representation/pom.xml -text
 data.representation/src/main/java/org/universAAL/middleware/Activator.java -text
