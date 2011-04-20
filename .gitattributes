@@ -97,6 +97,7 @@ bus.io/src/main/java/org/universAAL/middleware/output/impl/OutputStrategy.java -
 bus.io/src/test/java/org/universAAL/middleware/io/rdf/RangeTest.java -text
 bus.model/LICENSE.txt -text
 bus.model/NOTICE.txt -text
+bus.model/documentation/bus.model.sodapop[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
 bus.model/pom.xml -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/AbstractBus.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/Bus.java -text
