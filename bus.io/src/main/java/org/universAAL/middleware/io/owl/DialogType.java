@@ -22,113 +22,146 @@ package org.universAAL.middleware.io.owl;
 import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
+ * Defines types of dialog that can be System menu, Message, Subdialog and
+ * Standard Dialog. For their explanation check
+ * {@link org.universAAL.middleware.io.rdf.Form}
+ * 
  * @author mtazari
  * 
+ * @see org.universAAL.middleware.owl.ManagedIndividual
  */
 public class DialogType extends ManagedIndividual {
-	public static final String MY_URI;
-	static {
-		MY_URI = uAAL_VOCABULARY_NAMESPACE + "DialogType";
-		register(DialogType.class);
+    public static final String MY_URI;
+    static {
+	MY_URI = uAAL_VOCABULARY_NAMESPACE + "DialogType";
+	register(DialogType.class);
+    }
+
+    public static final int SYS_MENU = 0;
+    public static final int MESSGAE = 1;
+    public static final int SUBDIALOG = 2;
+    public static final int STD_DIALOG = 3;
+
+    private static final String[] names = { "system_menu", "message",
+	    "subdialog", "std_dialog" };
+
+    public static final DialogType sysMenu = new DialogType(SYS_MENU);
+    public static final DialogType message = new DialogType(MESSGAE);
+    public static final DialogType subdialog = new DialogType(SUBDIALOG);
+    public static final DialogType stdDialog = new DialogType(STD_DIALOG);
+
+    /**
+     * Returns the list of all class members guaranteeing that no other members
+     * will be created after a call to this method.
+     */
+    public static ManagedIndividual[] getEnumerationMembers() {
+	return new ManagedIndividual[] { sysMenu, message, subdialog, stdDialog };
+    }
+
+    /**
+     * Returns the modality with the given URI.
+     */
+    public static ManagedIndividual getIndividualByURI(String instanceURI) {
+	return (instanceURI != null && instanceURI
+		.startsWith(uAAL_VOCABULARY_NAMESPACE)) ? valueOf(instanceURI
+		.substring(uAAL_VOCABULARY_NAMESPACE.length())) : null;
+    }
+
+    public static DialogType getLevelByOrder(int order) {
+	switch (order) {
+	case SYS_MENU:
+	    return sysMenu;
+	case MESSGAE:
+	    return message;
+	case SUBDIALOG:
+	    return subdialog;
+	case STD_DIALOG:
+	    return stdDialog;
+	default:
+	    return null;
 	}
+    }
 
-	public static final int SYS_MENU = 0;
-	public static final int MESSGAE = 1;
-	public static final int SUBDIALOG = 2;
-	public static final int STD_DIALOG = 3;
+    /**
+     * Returns the value of the property <code>rdfs:comment</code> on this
+     * <code>owl:Class</code> from the underlying ontology.
+     */
+    public static String getRDFSComment() {
+	return "An enumeration for specifying the type of a dialog published to the output bus.";
+    }
 
-	private static final String[] names = { "system_menu", "message",
-			"subdialog", "std_dialog" };
+    /**
+     * Returns the value of the property <code>rdfs:label</code> on this
+     * <code>owl:Class</code> from the underlying ontology.
+     */
+    public static String getRDFSLabel() {
+	return "Dialog Type";
+    }
 
-	public static final DialogType sysMenu = new DialogType(SYS_MENU);
-	public static final DialogType message = new DialogType(MESSGAE);
-	public static final DialogType subdialog = new DialogType(SUBDIALOG);
-	public static final DialogType stdDialog = new DialogType(STD_DIALOG);
+    public static final DialogType valueOf(String name) {
+	for (int i = SYS_MENU; i <= STD_DIALOG; i++)
+	    if (names[i].equals(name))
+		return getLevelByOrder(i);
+	return null;
+    }
 
-	/**
-	 * Returns the list of all class members guaranteeing that no other members
-	 * will be created after a call to this method.
-	 */
-	public static ManagedIndividual[] getEnumerationMembers() {
-		return new ManagedIndividual[] { sysMenu, message, subdialog, stdDialog };
-	}
+    private int order;
 
-	/**
-	 * Returns the modality with the given URI.
-	 */
-	public static ManagedIndividual getIndividualByURI(String instanceURI) {
-		return (instanceURI != null && instanceURI
-				.startsWith(uAAL_VOCABULARY_NAMESPACE)) ? valueOf(instanceURI
-				.substring(uAAL_VOCABULARY_NAMESPACE.length())) : null;
-	}
+    /**
+     * Default constructor is prevented
+     */
+    private DialogType() {
+	// prevented usage of the default constructor
+    }
 
-	public static DialogType getLevelByOrder(int order) {
-		switch (order) {
-		case SYS_MENU:
-			return sysMenu;
-		case MESSGAE:
-			return message;
-		case SUBDIALOG:
-			return subdialog;
-		case STD_DIALOG:
-			return stdDialog;
-		default:
-			return null;
-		}
-	}
+    /**
+     * Constructor with order (it is private so that instantiation by other
+     * callers is prevented?)
+     * 
+     * @param order
+     *            order of dialog
+     */
+    private DialogType(int order) {
+	super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+	this.order = order;
+    }
 
-	/**
-	 * Returns the value of the property <code>rdfs:comment</code> on this
-	 * <code>owl:Class</code> from the underlying ontology.
-	 */
-	public static String getRDFSComment() {
-		return "An enumeration for specifying the type of a dialog published to the output bus.";
-	}
+    /**
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType(String)
+     */
+    public int getPropSerializationType(String propURI) {
+	return PROP_SERIALIZATION_OPTIONAL;
+    }
 
-	/**
-	 * Returns the value of the property <code>rdfs:label</code> on this
-	 * <code>owl:Class</code> from the underlying ontology.
-	 */
-	public static String getRDFSLabel() {
-		return "Dialog Type";
-	}
+    /**
+     * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
+     */
+    public boolean isWellFormed() {
+	return true;
+    }
 
-	public static final DialogType valueOf(String name) {
-		for (int i = SYS_MENU; i <= STD_DIALOG; i++)
-			if (names[i].equals(name))
-				return getLevelByOrder(i);
-		return null;
-	}
+    /**
+     * 
+     * @return name of the DialogType with the order defined at the time of
+     *         construction
+     */
+    public String name() {
+	return names[order];
+    }
 
-	private int order;
+    /**
+     * 
+     * @return order defined at the time of construction
+     */
+    public int ord() {
+	return order;
+    }
 
-	// prevent the usage of the default constructor
-	private DialogType() {
-
-	}
-
-	private DialogType(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
-		this.order = order;
-	}
-
-	public int getPropSerializationType(String propURI) {
-		return PROP_SERIALIZATION_OPTIONAL;
-	}
-
-	public boolean isWellFormed() {
-		return true;
-	}
-
-	public String name() {
-		return names[order];
-	}
-
-	public int ord() {
-		return order;
-	}
-
-	public void setProperty(String propURI, Object o) {
-		// do nothing
-	}
+    /**
+     * @see org.universAAL.middleware.owl.ManagedIndividual#setProperty(String,
+     *      Object)
+     */
+    public void setProperty(String propURI, Object o) {
+	// do nothing
+    }
 }
