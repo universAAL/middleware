@@ -59,7 +59,22 @@ public interface OutputBus {
 			String changedProp);
 
 	/**
-	 * Adds new subscriber with related parameters.
+	 * Removes old subscription of the subscriber. Responsible (together with
+	 * addNewRegParams() method) for changing the subscriber's profile
+	 * dynamically.
+	 * 
+	 * @param subscriberID
+	 *            ID of subscriber
+	 * @param oldSubscription
+	 *            old subscription
+	 */
+	public void removeMatchingRegParams(String subscriberID,
+			OutputEventPattern oldSubscription);
+
+	/**
+	 * Adds profile of registered subscriber (I/O handler ). Responsible
+	 * (together with removeMatchingRegParams() method) for changing the
+	 * subscriber's profile dynamically.
 	 * 
 	 * @param subscriberID
 	 *            ID of a output bus subscriber
@@ -107,6 +122,13 @@ public interface OutputBus {
 	 */
 	public void dialogSuspended(DialogManager dm, String dialogID);
 
+	// TODO finish javadoc
+	/**
+	 * 
+	 * @param publisher
+	 *            outout publisher
+	 * @return
+	 */
 	public String register(OutputPublisher publisher);
 
 	/**
@@ -120,17 +142,6 @@ public interface OutputBus {
 	 */
 	public String register(OutputSubscriber subscriber,
 			OutputEventPattern initialSubscription);
-
-	/**
-	 * Removes subscribtion that matches given pattern.
-	 * 
-	 * @param subscriberID
-	 *            ID of subscriber
-	 * @param oldSubscription
-	 *            old subscription
-	 */
-	public void removeMatchingRegParams(String subscriberID,
-			OutputEventPattern oldSubscription);
 
 	/**
 	 * Applications can use this method to ask the output bus to resume a dialog
