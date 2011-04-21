@@ -24,82 +24,97 @@ import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.middleware.owl.supply.LevelRating;
 
 /**
+ * 
+ * Main class used for modeling of access impairments (e.g. related to sight,
+ * hearing, speaking, physical condition). Impairments can be of levels as
+ * defined in {@link org.universAAL.middleware.owl.supply.LevelRating} , namely:
+ * none, low, medium, high and full.
+ * 
  * @author mtazari
  * 
+ * @see org.universAAL.middleware.owl.ManagedIndividual
  */
 public class AccessImpairment extends ManagedIndividual {
-	public static final String MY_URI;
-	public static final String PROP_IMPAIRMENT_LEVEL;
+    public static final String MY_URI;
+    public static final String PROP_IMPAIRMENT_LEVEL;
 
-	static {
-		MY_URI = uAAL_VOCABULARY_NAMESPACE + "AccessImpairment";
-		PROP_IMPAIRMENT_LEVEL = uAAL_VOCABULARY_NAMESPACE + "impairmentLevel";
-		register(AccessImpairment.class);
-	}
-/**
- * 
- * @param propURI
- * @return
- */
-	public static Restriction getClassRestrictionsOnProperty(String propURI) {
-		if (PROP_IMPAIRMENT_LEVEL.equals(propURI))
-			return Restriction.getAllValuesRestrictionWithCardinality(propURI,
-					LevelRating.MY_URI, 1, 1);
-		return ManagedIndividual.getClassRestrictionsOnProperty(propURI);
-	}
-/**
- * 
- * @return
- */
-	public static String getRDFSComment() {
-		return "General concept for representing impairments of the users in accessing the uAAL system.";
-	}
+    static {
+	MY_URI = uAAL_VOCABULARY_NAMESPACE + "AccessImpairment";
+	PROP_IMPAIRMENT_LEVEL = uAAL_VOCABULARY_NAMESPACE + "impairmentLevel";
+	register(AccessImpairment.class);
+    }
 
-	public static String getRDFSLabel() {
-		return "Access Impairment";
-	}
+    /**
+     * 
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getClassRestrictionsOnProperty(String)
+     */
+    public static Restriction getClassRestrictionsOnProperty(String propURI) {
+	if (PROP_IMPAIRMENT_LEVEL.equals(propURI))
+	    return Restriction.getAllValuesRestrictionWithCardinality(propURI,
+		    LevelRating.MY_URI, 1, 1);
+	return ManagedIndividual.getClassRestrictionsOnProperty(propURI);
+    }
 
-	public static String[] getStandardPropertyURIs() {
-		return new String[] { PROP_IMPAIRMENT_LEVEL };
-	}
+    /**
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getRDFSComment()
+     */
+    public static String getRDFSComment() {
+	return "General concept for representing impairments of the users in accessing the uAAL system.";
+    }
 
-	/**
-	 * The constructor for (de-)serializers.
-	 */
-	public AccessImpairment() {
-		super();
-	}
+    /**
+     * 
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getRDFSLabel()
+     */
+    public static String getRDFSLabel() {
+	return "Access Impairment";
+    }
 
-	/**
-	 * The constructor for use by applications.
-	 */
-	public AccessImpairment(LevelRating impairmentLevel) {
-		super();
-		props.put(PROP_IMPAIRMENT_LEVEL, impairmentLevel);
-	}
+    /**
+     * 
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getStandardPropertyURIs()
+     */
+    public static String[] getStandardPropertyURIs() {
+	return new String[] { PROP_IMPAIRMENT_LEVEL };
+    }
 
-	public LevelRating getImpaimentLevel() {
-		return (LevelRating) props.get(PROP_IMPAIRMENT_LEVEL);
-	}
+    /**
+     * The constructor for (de-)serializers.
+     */
+    public AccessImpairment() {
+	super();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
-	 * (java.lang.String)
-	 */
-	public int getPropSerializationType(String propURI) {
-		return (PROP_IMPAIRMENT_LEVEL.equals(propURI)) ? PROP_SERIALIZATION_REDUCED
-				: PROP_SERIALIZATION_OPTIONAL;
-	}
+    /**
+     * The constructor for use by applications.
+     */
+    public AccessImpairment(LevelRating impairmentLevel) {
+	super();
+	props.put(PROP_IMPAIRMENT_LEVEL, impairmentLevel);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
-	 */
-	public boolean isWellFormed() {
-		return props.containsKey(PROP_IMPAIRMENT_LEVEL);
-	}
+    /**
+     * 
+     * @return level rating
+     */
+    public LevelRating getImpaimentLevel() {
+	return (LevelRating) props.get(PROP_IMPAIRMENT_LEVEL);
+    }
+
+    /**
+     * 
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
+     *      (java.lang.String)
+     */
+    public int getPropSerializationType(String propURI) {
+	return (PROP_IMPAIRMENT_LEVEL.equals(propURI)) ? PROP_SERIALIZATION_REDUCED
+		: PROP_SERIALIZATION_OPTIONAL;
+    }
+
+    /**
+     * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
+     */
+    public boolean isWellFormed() {
+	return props.containsKey(PROP_IMPAIRMENT_LEVEL);
+    }
 }
