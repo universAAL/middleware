@@ -22,112 +22,157 @@ package org.universAAL.middleware.io.owl;
 import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
- * @author mtazari
+ * Defines modalities which can be: voice, gui, gesture or sms
  * 
+ * @author mtazari
+ * @see org.universAAL.middleware.owl.ManagedIndividual
  */
 public class Modality extends ManagedIndividual {
-	public static final String MY_URI;
-	static {
-		MY_URI = uAAL_VOCABULARY_NAMESPACE + "Modality";
-		register(Modality.class);
+    public static final String MY_URI;
+    static {
+	MY_URI = uAAL_VOCABULARY_NAMESPACE + "Modality";
+	register(Modality.class);
+    }
+
+    public static final int VOICE = 0;
+    public static final int GUI = 1;
+    public static final int GESTURE = 2;
+    public static final int SMS = 3;
+
+    private static final String[] names = { "voice", "gui", "gesture", "sms" };
+
+    public static final Modality voice = new Modality(VOICE);
+    public static final Modality gui = new Modality(GUI);
+    public static final Modality gesture = new Modality(GESTURE);
+    public static final Modality sms = new Modality(SMS);
+
+    /**
+     * Returns the list of all class members guaranteeing that no other members
+     * will be created after a call to this method.
+     */
+    public static ManagedIndividual[] getEnumerationMembers() {
+	return new ManagedIndividual[] { voice, gui, gesture, sms };
+    }
+
+    /**
+     * Returns the modality with the given URI.
+     * 
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getIndividualByURI(String)
+     */
+    public static ManagedIndividual getIndividualByURI(String instanceURI) {
+	return (instanceURI != null && instanceURI
+		.startsWith(uAAL_VOCABULARY_NAMESPACE)) ? valueOf(instanceURI
+		.substring(uAAL_VOCABULARY_NAMESPACE.length())) : null;
+    }
+
+    /**
+     * 
+     * @param order
+     *            order
+     * @return modality based on given order
+     */
+    public static Modality getLevelByOrder(int order) {
+	switch (order) {
+	case VOICE:
+	    return voice;
+	case GUI:
+	    return gui;
+	case GESTURE:
+	    return gesture;
+	case SMS:
+	    return sms;
+	default:
+	    return null;
 	}
+    }
 
-	public static final int VOICE = 0;
-	public static final int GUI = 1;
-	public static final int GESTURE = 2;
-	public static final int SMS = 3;
+    /**
+     * Returns the value of the property <code>rdfs:comment</code> on this
+     * <code>owl:Class</code> from the underlying ontology.
+     * 
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getRDFSComment()
+     */
+    public static String getRDFSComment() {
+	return "An enumeration for specifying the modality of information.";
+    }
 
-	private static final String[] names = { "voice", "gui", "gesture", "sms" };
+    /**
+     * Returns the value of the property <code>rdfs:label</code> on this
+     * <code>owl:Class</code> from the underlying ontology.
+     * 
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getRDFSLabel()
+     */
+    public static String getRDFSLabel() {
+	return "Modality";
+    }
 
-	public static final Modality voice = new Modality(VOICE);
-	public static final Modality gui = new Modality(GUI);
-	public static final Modality gesture = new Modality(GESTURE);
-	public static final Modality sms = new Modality(SMS);
+    /**
+     * 
+     * @param name
+     *            name of modality
+     * @return Modality based on name
+     */
+    public static final Modality valueOf(String name) {
+	for (int i = VOICE; i <= SMS; i++)
+	    if (names[i].equals(name))
+		return getLevelByOrder(i);
+	return null;
+    }
 
-	/**
-	 * Returns the list of all class members guaranteeing that no other members
-	 * will be created after a call to this method.
-	 */
-	public static ManagedIndividual[] getEnumerationMembers() {
-		return new ManagedIndividual[] { voice, gui, gesture, sms };
-	}
+    private int order;
 
-	/**
-	 * Returns the modality with the given URI.
-	 */
-	public static ManagedIndividual getIndividualByURI(String instanceURI) {
-		return (instanceURI != null && instanceURI
-				.startsWith(uAAL_VOCABULARY_NAMESPACE)) ? valueOf(instanceURI
-				.substring(uAAL_VOCABULARY_NAMESPACE.length())) : null;
-	}
+    /**
+     * Usage of default Constructor is prevented
+     */
+    private Modality() {
 
-	public static Modality getLevelByOrder(int order) {
-		switch (order) {
-		case VOICE:
-			return voice;
-		case GUI:
-			return gui;
-		case GESTURE:
-			return gesture;
-		case SMS:
-			return sms;
-		default:
-			return null;
-		}
-	}
+    }
 
-	/**
-	 * Returns the value of the property <code>rdfs:comment</code> on this
-	 * <code>owl:Class</code> from the underlying ontology.
-	 */
-	public static String getRDFSComment() {
-		return "An enumeration for specifying the modality of information.";
-	}
+    /**
+     * Constructor receives order
+     * 
+     * @param order
+     */
+    private Modality(int order) {
+	super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+	this.order = order;
+    }
 
-	/**
-	 * Returns the value of the property <code>rdfs:label</code> on this
-	 * <code>owl:Class</code> from the underlying ontology.
-	 */
-	public static String getRDFSLabel() {
-		return "Modality";
-	}
+    /**
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType(String)
+     */
+    public int getPropSerializationType(String propURI) {
+	return PROP_SERIALIZATION_OPTIONAL;
+    }
 
-	public static final Modality valueOf(String name) {
-		for (int i = VOICE; i <= SMS; i++)
-			if (names[i].equals(name))
-				return getLevelByOrder(i);
-		return null;
-	}
+    /**
+     * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
+     */
+    public boolean isWellFormed() {
+	return true;
+    }
 
-	private int order;
+    /**
+     * 
+     * @return name based on order defined at the time of construction
+     */
+    public String name() {
+	return names[order];
+    }
 
-	// prevent the usage of the default constructor
-	private Modality() {
+    /**
+     * 
+     * @return order defined at the time of construction
+     */
+    public int ord() {
+	return order;
+    }
 
-	}
-
-	private Modality(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
-		this.order = order;
-	}
-
-	public int getPropSerializationType(String propURI) {
-		return PROP_SERIALIZATION_OPTIONAL;
-	}
-
-	public boolean isWellFormed() {
-		return true;
-	}
-
-	public String name() {
-		return names[order];
-	}
-
-	public int ord() {
-		return order;
-	}
-
-	public void setProperty(String propURI, Object o) {
-		// do nothing
-	}
+    /**
+     * @see org.universAAL.middleware.owl.ManagedIndividual#setProperty(String,
+     *      Object)
+     */
+    public void setProperty(String propURI, Object o) {
+	// do nothing
+    }
 }
