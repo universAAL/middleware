@@ -64,6 +64,17 @@ public class InputEvent extends Resource {
 		super();
 	}
 
+	/**
+	 * This constructor is used in case of context free input which means that
+	 * Input does not originate from the running dialog.
+	 * 
+	 * @param user
+	 *            reference to the user
+	 * @param inputLocation
+	 *            location of the user
+	 * @param userRequest
+	 *            textual representation of the user's instruction
+	 */
 	public InputEvent(Resource user, AbsLocation inputLocation,
 			String userRequest) {
 		super();
@@ -81,6 +92,16 @@ public class InputEvent extends Resource {
 			props.put(PROP_INPUT_SENTENCE, userRequest);
 	}
 
+	/**
+	 * This constructor is used in the context of a running dialog.
+	 * 
+	 * @param user
+	 *            reference to the user
+	 * @param inputLocation
+	 *            location of the user
+	 * @param submit
+	 *            instance of a submit button that has finished the dialog
+	 */
 	public InputEvent(Resource user, AbsLocation inputLocation, Submit submit) {
 		super();
 
@@ -99,6 +120,10 @@ public class InputEvent extends Resource {
 			props.put(PROP_IS_SUBDIALOG_CALL, Boolean.TRUE);
 	}
 
+	/**
+	 * 
+	 * @return ID of the dialog in which this input has been provided
+	 */
 	public String getDialogID() {
 		Object id = props.get(PROP_DIALOG_ID);
 		return (id instanceof Resource) ? id.toString() : null;
@@ -114,6 +139,12 @@ public class InputEvent extends Resource {
 		return (s instanceof String) ? (String) s : null;
 	}
 
+	/**
+	 * 
+	 * @return the ID of the parent dialog in case this event is about dialog
+	 *         being finished (which can be checked by calling
+	 *         isSubdialogSubmission() method)
+	 */
 	public String getParentDialogURI() {
 		Object o = props.get(Form.PROP_PARENT_DIALOG_URI);
 		return (o instanceof Resource) ? o.toString() : null;
@@ -125,11 +156,20 @@ public class InputEvent extends Resource {
 				: PROP_SERIALIZATION_FULL;
 	}
 
+	/**
+	 * 
+	 * @return ID of the submit button selected by the user when finishing the
+	 *         dialog
+	 */
 	public String getSubmissionID() {
 		Object s = props.get(PROP_SUBMISSION_ID);
 		return (s instanceof String) ? (String) s : null;
 	}
 
+	/**
+	 * 
+	 * @return root of the tree with form data submitted
+	 */
 	public Resource getSubmittedData() {
 		return (Resource) props.get(PROP_DIALOG_DATA);
 	}
@@ -138,7 +178,11 @@ public class InputEvent extends Resource {
 		Object user = props.get(PROP_uAAL_INVOLVED_HUMAN_USER);
 		return (user instanceof Resource) ? (Resource) user : null;
 	}
-
+/**
+ * 
+ * @param propPath array of property URIs, path of a certain expected user input
+ * @return input from the tree with the form data
+ */
 	public Object getUserInput(String[] propPath) {
 		if (propPath == null || propPath.length == 0)
 			return null;
