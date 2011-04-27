@@ -22,6 +22,7 @@ package org.universAAL.middleware.rdf;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.util.ResourceComparator;
@@ -583,7 +584,7 @@ public class Resource {
 		prefix += "  ";
 		s += prefix + "URI: " + getURI() + "\n";
 		s += prefix + "Properties (Key-Value): " + "(size: " + props.size() + ")\n";
-		Enumeration<?> e = props.keys();
+		Enumeration e = props.keys();
 		while (e.hasMoreElements()) {
 			String key = (String) e.nextElement();
 			Object val = props.get(key);
@@ -591,9 +592,12 @@ public class Resource {
 			s += prefix + "* V ";
 			if (val instanceof Resource)
 				s += ((Resource)val).toStringRecursive(prefix+"    ", false);
-			else if (val instanceof List<?>) {
+			else if (val instanceof List) {
 				s += "List" + "\n";
-				for (Object o : (List<?>)val) {
+				//for (Object o : (List)val) {
+				Iterator iter = ((List)val).iterator();
+				while (iter.hasNext()) {
+					Object o = iter.next();
 					if (o instanceof Resource)
 						s += ((Resource)o).toStringRecursive(prefix+"      ", true);
 					else
