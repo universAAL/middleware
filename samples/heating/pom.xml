@@ -60,7 +60,7 @@
 					<instructions>
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-Activator>org.universAAL.samples.heating.Activator</Bundle-Activator>
-						<Bundle-Description>${pom.description}</Bundle-Description>
+						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Private-Package>org.universAAL.samples.heating.*</Private-Package>
 					</instructions>

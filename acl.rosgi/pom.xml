@@ -53,10 +53,10 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Bundle-Name>${pom.name}</Bundle-Name>
+            <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Activator>org.universAAL.middleware.acl.rosgi.Activator</Bundle-Activator>
-            <Bundle-Description>${pom.description}</Bundle-Description>
-            <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Export-Package />
             <Import-Package>org.universAAL.middleware.acl,ch.ethz.iks.r_osgi,ch.ethz.iks.r_osgi.service_discovery,org.osgi.framework</Import-Package>
             <Private-Package>org.universAAL.middleware.acl.rosgi</Private-Package>
