@@ -41,10 +41,10 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Name>${pom.name}</Bundle-Name>
-						<Bundle-Description>${pom.description}</Bundle-Description>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-Activator>org.universAAL.middleware.acl.bridge.BridgeActivator</Bundle-Activator>
-						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Import-Package>org.universAAL.middleware.acl,org.osgi.framework</Import-Package>
 						<Private-Package>org.universAAL.middleware.acl.bridge</Private-Package>
 					</instructions>

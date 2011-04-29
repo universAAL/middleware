@@ -29,9 +29,9 @@
 				<configuration>
 					<instructions>
 						<Bundle-Author><![CDATA[Mohammad-Reza Tazari <saied.tazari@igd.fraunhofer.de>, Francesco Furfari <francesco.furfari@isti.cnr.it>]]></Bundle-Author>
-						<Bundle-Name>${pom.name}</Bundle-Name>
-						<Bundle-Description>${pom.description}</Bundle-Description>
-						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>org.universAAL.middleware.acl</Export-Package>
 						<Private-Package />
 					</instructions>

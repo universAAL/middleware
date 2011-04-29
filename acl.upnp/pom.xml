@@ -39,10 +39,10 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-Activator>org.universAAL.middleware.acl.upnp.Activator</Bundle-Activator>
-						<Bundle-Description>${pom.description}</Bundle-Description>
-						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>org.universAAL.middleware.acl.upnp,org.universAAL.middleware.acl.upnp.exporter,org.universAAL.middleware.acl.upnp.importer,org.universAAL.middleware.acl.upnp,org.universAAL.middleware.acl.upnp.exporter.actions,org.universAAL.middleware.acl.upnp.exporter.services,org.universAAL.middleware.acl.upnp.exporter.stateVariables</Export-Package>
 						<Private-Package />
 					</instructions>
