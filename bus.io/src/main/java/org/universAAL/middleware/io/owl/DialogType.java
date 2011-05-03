@@ -38,7 +38,7 @@ public class DialogType extends ManagedIndividual {
     }
 
     public static final int SYS_MENU = 0;
-    public static final int MESSGAE = 1;
+    public static final int MESSAGE = 1;
     public static final int SUBDIALOG = 2;
     public static final int STD_DIALOG = 3;
 
@@ -46,7 +46,7 @@ public class DialogType extends ManagedIndividual {
 	    "subdialog", "std_dialog" };
 
     public static final DialogType sysMenu = new DialogType(SYS_MENU);
-    public static final DialogType message = new DialogType(MESSGAE);
+    public static final DialogType message = new DialogType(MESSAGE);
     public static final DialogType subdialog = new DialogType(SUBDIALOG);
     public static final DialogType stdDialog = new DialogType(STD_DIALOG);
 
@@ -71,7 +71,7 @@ public class DialogType extends ManagedIndividual {
 	switch (order) {
 	case SYS_MENU:
 	    return sysMenu;
-	case MESSGAE:
+	case MESSAGE:
 	    return message;
 	case SUBDIALOG:
 	    return subdialog;
