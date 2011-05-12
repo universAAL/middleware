@@ -49,6 +49,15 @@ public abstract class ContextPublisher implements Publisher {
     private String myID;
     private ContextProvider providerInfo;
 
+    /**
+     * Creates a Context Publisher with the associated Context Provider
+     * Information
+     * 
+     * @param context
+     *            The context of the Bundle creating the Publisher
+     * @param providerInfo
+     *            The Information describing the Publisher
+     */
     protected ContextPublisher(BundleContext context,
 	    ContextProvider providerInfo) {
 	Activator.checkContextBus();
@@ -58,6 +67,10 @@ public abstract class ContextPublisher implements Publisher {
 	this.providerInfo = providerInfo;
     }
 
+    /**
+     * Method to be called when the communication of the Publisher with the
+     * Context Bus is lost.
+     */
     public abstract void communicationChannelBroken();
 
     public final boolean eval(Message m) {
@@ -72,6 +85,12 @@ public abstract class ContextPublisher implements Publisher {
 	    communicationChannelBroken();
     }
 
+    /**
+     * Forward a Context Event through the Context Bus
+     * 
+     * @param e
+     *            The Context Event to forward
+     */
     public final void publish(ContextEvent e) {
 	if (e != null) {
 	    if (e.getProvider() == null && providerInfo != null)
@@ -82,6 +101,9 @@ public abstract class ContextPublisher implements Publisher {
 	}
     }
 
+    /**
+     * Unregisters the Publisher from the Context bus.
+     */
     public void close() {
 	bus.unregister(myID, this);
     }

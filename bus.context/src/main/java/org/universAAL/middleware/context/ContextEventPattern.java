@@ -27,6 +27,13 @@ import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
+ * Defines the patterns used to match which events must be forwarded to which
+ * subscribers.
+ * 
+ * Patterns are basically a collection of Restrictions upon a generic Context
+ * Event that delimit and therefore narrow the specific Events a Subscriber will
+ * be interested in.
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * 
@@ -66,6 +73,13 @@ public class ContextEventPattern extends Resource {
 	props.put(ClassExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
     }
 
+    /**
+     * Add a restriction to the pattern, thus narrowing the events that will
+     * match the pattern.
+     * 
+     * @param r
+     *            The Restriction to add
+     */
     public void addRestriction(Restriction r) {
 	if (r == null)
 	    return;
@@ -147,6 +161,13 @@ public class ContextEventPattern extends Resource {
 	return indices;
     }
 
+    /**
+     * Determines if a Context Event matches the Restrictions of this Pattern
+     * 
+     * @param ce
+     *            The Context Event to analyze
+     * @return {@code true} if the Event matched the pattern
+     */
     public boolean matches(ContextEvent ce) {
 	if (ce == null)
 	    return false;
