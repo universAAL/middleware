@@ -27,6 +27,8 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.Restriction;
 
 /**
+ * Ontological representation of a ContextProvider
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * 
@@ -122,6 +124,15 @@ public class ContextProvider extends ManagedIndividual {
 	return true;
     }
 
+    /**
+     * Allows to assign a set of ManagedIndividuals as the origin of the Context
+     * Information provided by this ContextProvider
+     * 
+     * @param devices
+     *            An Array of ManagedIndividuals representing the Devices (or
+     *            whatever) that generate the actual information provided by
+     *            this ContextProvider
+     */
     public void setContextSources(ManagedIndividual[] devices) {
 	if (devices != null && devices.length > 0
 		&& !props.containsKey(PROP_CONTEXT_SOURCE)) {
@@ -145,6 +156,13 @@ public class ContextProvider extends ManagedIndividual {
 	    setType((ContextProviderType) value);
     }
 
+    /**
+     * Set the type of this ContextProvider to one of those defined in
+     * ContextProviderType
+     * 
+     * @param type
+     *            The ContextProviderType of the ContextProvider
+     */
     public void setType(ContextProviderType type) {
 	if (type != null && !props.containsKey(PROP_CONTEXT_PROVIDER_TYPE))
 	    props.put(PROP_CONTEXT_PROVIDER_TYPE, type);

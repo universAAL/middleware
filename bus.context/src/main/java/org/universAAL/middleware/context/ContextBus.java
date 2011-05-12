@@ -20,25 +20,91 @@
 package org.universAAL.middleware.context;
 
 /**
+ * Interface for classes that wish to implement a Context Bus based on uAAL
+ * buses
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * 
  */
 public interface ContextBus {
+    /**
+     * Allows a Context Subscriber to register to events in the bus that match
+     * the given patterns
+     * 
+     * @param subscriberID
+     *            The ID of the subscriber, received when registered to the bus
+     * @param newSubscriptions
+     *            An array of ConntextEventPattern containing the restrictions
+     *            on Context Events that define the patterns to register to
+     */
     public void addNewRegParams(String subscriberID,
 	    ContextEventPattern[] newSubscriptions);
 
+    /**
+     * Register a ContextPublisher into the Context Bus
+     * 
+     * @param publisher
+     *            the Context Publisher to register
+     * @return The ID of the Context Publisher within the bus
+     */
     public String register(ContextPublisher publisher);
 
+    /**
+     * Register a Context Subscriber into the Context Bus and immediately register
+     * for certain patterns of Context Events
+     * 
+     * @param subscriber
+     *            the Context Subscriber to register
+     * @param initialSubscriptions
+     *            An array of ConntextEventPattern containing the restrictions
+     *            on Context Events that define the patterns to register to
+     * @return The ID of the Context Publisher within the bus
+     */
     public String register(ContextSubscriber subscriber,
 	    ContextEventPattern[] initialSubscriptions);
 
+    /**
+     * Remove the patterns of Context Events that a Context Subscriber is
+     * interested in, so it no longer receives Events matching them
+     * 
+     * @param subscriberID
+     *            ID of the Subscriber, received when registered
+     * @param oldSubscriptions
+     *            An array of ConntextEventPattern containing the restrictions
+     *            on Context Events that define the patterns to unregister. Must
+     *            be equal to those registered at first.
+     */
     public void removeMatchingRegParams(String subscriberID,
 	    ContextEventPattern[] oldSubscriptions);
 
+    /**
+     * Send a Context Event through the Context Bus
+     * 
+     * @param publisherID
+     *            ID of the Publisher, received when registered.
+     * @param event
+     *            Context Event to forward through the bus
+     */
     public void sendMessage(String publisherID, ContextEvent event);
 
+    /**
+     * Unregister a Context Publisher from the Context Bus
+     * 
+     * @param publisherID
+     *            ID of the Publisher, received when registered.
+     * @param publisher
+     *            The Publisher to unregister.
+     */
     public void unregister(String publisherID, ContextPublisher publisher);
 
+    /**
+     * Unregister a Context Subscriber from the Context Bus
+     * 
+     * @param subscriberID
+     *            ID of the Subscriber, received when registered.
+     * @param subscriber
+     *            The Subscriber to unregister.
+     */
     public void unregister(String subscriberID, ContextSubscriber subscriber);
 }

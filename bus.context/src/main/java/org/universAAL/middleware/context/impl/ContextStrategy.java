@@ -60,6 +60,16 @@ public class ContextStrategy extends BusStrategy {
 	notIndexedFilterers = new Vector();
     }
 
+    /**
+     * * Allows a Context Subscriber to register to events in the bus that match
+     * the given patterns
+     * 
+     * @param subscriber
+     *            The Subscriber that wants to register Patterns
+     * @param initialSubscriptions
+     *            An array of ConntextEventPattern containing the restrictions
+     *            on Context Events that define the patterns to register to
+     */
     void addRegParams(ContextSubscriber subscriber,
 	    ContextEventPattern[] initialSubscriptions) {
 	if (initialSubscriptions == null || subscriber == null)
@@ -175,6 +185,17 @@ public class ContextStrategy extends BusStrategy {
 	    ((ContextSubscriber) i.next()).handleContextEvent(event);
     }
 
+    /**
+     * Remove the patterns of Context Events that a Context Subscriber is
+     * interested in, so it no longer receives Events matching them
+     * 
+     * @param subscriber
+     *            The Subscriber that wants to remove its Patterns
+     * @param initialSubscriptions
+     *            An array of ConntextEventPattern containing the restrictions
+     *            on Context Events that define the patterns to unregister. Must
+     *            be equal to those registered at first.
+     */
     void removeMatchingRegParams(ContextSubscriber subscriber,
 	    ContextEventPattern[] initialSubscriptions) {
 	if (initialSubscriptions == null || subscriber == null)
@@ -202,7 +223,14 @@ public class ContextStrategy extends BusStrategy {
 	for (Iterator i = filterers.values().iterator(); i.hasNext();)
 	    remove(subscriber, (Vector) i.next());
     }
-
+    
+    /**
+     * Remove ALL patterns of Context Events that a Context Subscriber is
+     * interested in, so it no longer receives Events OF ANY KIND
+     * 
+     * @param subscriber
+     *            The Subscriber that wants to remove its Patterns
+     */
     void removeRegParams(ContextSubscriber subscriber) {
 	if (subscriber == null)
 	    return;

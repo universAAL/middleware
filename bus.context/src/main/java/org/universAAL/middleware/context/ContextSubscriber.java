@@ -48,6 +48,16 @@ public abstract class ContextSubscriber implements Subscriber {
     private ContextBus bus;
     private String myID;
 
+    /**
+     * Creates a Context Subscriber and immediately registers a set of Context
+     * Event Patterns for it, so it receives the matching events.
+     * 
+     * @param context
+     *            The context of the Bundle creating the Publisher
+     * @param initialSubscriptions
+     *            Array of ContextEventPattern that are immediately registered
+     *            for this Subscriber
+     */
     protected ContextSubscriber(BundleContext context,
 	    ContextEventPattern[] initialSubscriptions) {
 	Activator.checkContextBus();
@@ -56,15 +66,33 @@ public abstract class ContextSubscriber implements Subscriber {
 	myID = bus.register(this, initialSubscriptions);
     }
 
+    /**
+     * Registers more ContextEventPattern for this Subscriber in addition to
+     * those that might have passed initially
+     * 
+     * @param newSubscriptions
+     *            The additional array of ContextEventPattern
+     */
     protected final void addNewRegParams(ContextEventPattern[] newSubscriptions) {
 	bus.addNewRegParams(myID, newSubscriptions);
     }
 
+    /**
+     * Unregisters a set of ContextEventPattern that had been previously
+     * registered for this Subscriber. The Subscriber will no longer receive
+     * Events matching these Patterns.
+     * 
+     * @param oldSubscriptions
+     */
     protected final void removeMatchingRegParams(
 	    ContextEventPattern[] oldSubscriptions) {
 	bus.removeMatchingRegParams(myID, oldSubscriptions);
     }
 
+    /**
+     * Method to be called when the communication of the Subsccriber with the
+     * Context Bus is lost.
+     */
     public abstract void communicationChannelBroken();
 
     public final void busDyingOut(Bus b) {
@@ -76,6 +104,13 @@ public abstract class ContextSubscriber implements Subscriber {
 	return false;
     }
 
+    /**
+     * Method to be called when an Event forwarded in the Context Bus matches
+     * one of the Patterns registered by this Subscriber.
+     * 
+     * @param event
+     *            The Context Event that matched the registered Patterns
+     */
     public abstract void handleContextEvent(ContextEvent event);
 
     public final void handleEvent(Message m) {
@@ -85,7 +120,10 @@ public abstract class ContextSubscriber implements Subscriber {
 
     public final void handleReply(Message m) {
     }
-
+    
+    /**
+     * Unregisters the Subscriber from the Context bus.
+     */
     public void close() {
 	bus.unregister(myID, this);
     }
