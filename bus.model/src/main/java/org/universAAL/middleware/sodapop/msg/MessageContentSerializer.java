@@ -23,12 +23,25 @@ package org.universAAL.middleware.sodapop.msg;
  * Classes implementing <code>StringSerializableParser</code> can serialize and
  * deserialize the content of sodapop messages.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * 
  */
 public interface MessageContentSerializer {
 
-	public Object deserialize(String serialized);
-	
-	public String serialize(Object messageContent);
+    /**
+     * 
+     * @param serialized
+     *            serialized object
+     * @return deserialized content of the SodaPop message
+     */
+    public Object deserialize(String serialized);
+
+    /**
+     * 
+     * @param messageContent
+     *            content to serialize
+     * @return serialized representation of the given object
+     */
+    public String serialize(Object messageContent);
 }
