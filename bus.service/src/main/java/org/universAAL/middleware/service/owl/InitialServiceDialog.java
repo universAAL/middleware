@@ -74,13 +74,75 @@ public final class InitialServiceDialog extends UserInterfaceService {
 		return createServiceProfile(new InitialServiceDialog(startServiceURI), serviceClassURI, vendor, description, startServiceURI);
 	}
 	
+	
+	/**
+	 * Returns the UIServiceDescription from an initial Dialog Description
+	 * that upon call would lead to publishing an output event
+	 * by the matching service component.
+	 * 
+	 * @param serviceClassURI the URI of the service class from an underlying
+	 *                        ontology, e.g. the value of <code>Lighting.MY_URI
+	 *                        </code> from the lighting example.
+	 * @param vendor the URL of the partner home page that provides the UI
+	 *               e.g. <code>"http://www.igd.fraunhofer.de"</code>
+	 * 
+	 * @param ServiceCaller instance is the parameter that will be used to call the service.
+	 * 
+	 * 
+	 * 
+	 
+	 * @return The created service profile that can be used to register the service
+	 *         with the service bus.
+	 */
+	
+	
 	public static final String getInitialDialogDescription(String serviceClassURI, String vendor, ServiceCaller theCaller) {
 		return getUIServiceDescription(new InitialServiceDialog(), serviceClassURI, vendor, theCaller);
 	}
 	
+	/**
+	 * Returns the UIServiceDescription from an initial Dialog Description
+	 * that upon call would lead to publishing an output event
+	 * by the matching service component.
+	 * 
+	 * @param serviceClassURI the URI of the service class from an underlying
+	 *                        ontology, e.g. the value of <code>Lighting.MY_URI
+	 *                        </code> from the lighting example.
+	 * 
+	 * 
+	 * @param ServiceCaller instance is the parameter that will be used to call the service.
+	 * 
+	 * 
+	 * 
+	 
+	 * @return The created service profile that can be used to register the service
+	 *         with the service bus.
+	 */
+	
 	public static final UserInterfaceService[] getInitialDialogInfo(String serviceClassURI, ServiceCaller theCaller) {
 		return getUIServiceInfo(new InitialServiceDialog(), serviceClassURI, theCaller);
 	}
+	
+	/**
+	 * Returns the UIServiceDescription from an initial Dialog Description
+	 * that upon call would lead to publishing an output event
+	 * by the matching service component.
+	 * 
+	 * @param serviceClassURI the URI of the service class from an underlying
+	 *                        ontology, e.g. the value of <code>Lighting.MY_URI
+	 *                        </code> from the lighting example.
+	 *                        
+	 * @param vendor the URL of the partner home page that provides the UI
+	 *               e.g. <code>"http://www.igd.fraunhofer.de"</code>
+	 * 
+	 * @param Resource the user associated to the UI requested.  
+	 * 
+	 * 
+	 * 
+	 
+	 * @return The created service profile that can be used to register the service
+	 *         with the service bus.
+	 */
 	
 	public static final ServiceRequest getInitialDialogRequest(String serviceClassURI, String vendor, Resource requestingUser) {
 		return getUIServiceRequest(new InitialServiceDialog(), serviceClassURI, vendor, requestingUser);
@@ -93,6 +155,25 @@ public final class InitialServiceDialog extends UserInterfaceService {
 	public static String getRDFSLabel() {
 		return "Initial Service Dialog";
 	}
+	
+	/**
+	 * Returns the UIServiceDescription from an initial Dialog Description
+	 * that upon call would lead to publishing an output event
+	 * by the matching service component.
+	 * 
+	 * @param serviceClassURI the URI of the service class from an underlying
+	 *                        ontology, e.g. the value of <code>Lighting.MY_URI
+	 *                        </code> from the lighting example.
+	 * 
+	 * 
+	 * @param ServiceCaller instance is the parameter that will be used to call the service.
+	 * 
+	 * 
+	 * 
+	 
+	 * @return The created service profile that can be used to register the service
+	 *         with the service bus.
+	 */
 	
 	public static boolean startInitialDialog(String serviceClassURI, String vendor, Resource requestingUser, ServiceCaller theCaller) {
 		ServiceResponse resp = theCaller.call(getUIServiceRequest(new InitialServiceDialog(), serviceClassURI, vendor, requestingUser));
