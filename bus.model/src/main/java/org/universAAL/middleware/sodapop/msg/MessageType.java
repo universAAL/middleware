@@ -73,13 +73,10 @@ public class MessageType {
 	return null;
     }
 
-    // TODO question from Andrej: if we have private constructors this prevents
-    // us from creating an object (only static members are suitable here). Then
-    // why we have this "order" attribute?
     private int order;
 
     /**
-     * default constructor
+     * Default constructor.
      */
     private MessageType() {
 
