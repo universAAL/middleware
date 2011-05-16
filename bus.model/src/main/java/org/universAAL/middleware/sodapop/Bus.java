@@ -22,16 +22,46 @@ package org.universAAL.middleware.sodapop;
 import org.universAAL.middleware.sodapop.msg.Message;
 
 /**
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * 
+ * This interface models the bus. The bus has a name, its members can register
+ * and unregister from it, and in meanwhile (between registering and
+ * unregistering) bus members can post messages for other bus members.
+ * 
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * 
  */
 public interface Bus {
-	
-	public String getBusName();
 
-	public String register(BusMember member);
-	
-	public void sendMessage(String memberID, Message msg);
-	
-	public void unregister(String memberID, BusMember member);
+    /**
+     * 
+     * @return bus name
+     */
+    public String getBusName();
+
+    /**
+     * 
+     * @param member
+     *            bus member to be registered on the bus
+     * @return ID of registered bus member
+     */
+    public String register(BusMember member);
+
+    /**
+     * 
+     * @param memberID
+     *            ID of a bus member (sender)
+     * @param msg
+     *            message that is posted on a bus
+     */
+    public void sendMessage(String memberID, Message msg);
+
+    /**
+     * 
+     * @param memberID
+     *            ID of a bus member
+     * @param member
+     *            bus member to be unregistered from the bus
+     */
+    public void unregister(String memberID, BusMember member);
 }

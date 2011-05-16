@@ -20,19 +20,53 @@
 package org.universAAL.middleware.sodapop;
 
 import org.universAAL.middleware.sodapop.msg.Message;
+
 /**
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * 
+ * Interface describing SodaPop layer (instance).
+ * 
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * 
  */
 public interface SodaPop {
 
-	public AbstractBus getLocalBusByName(String name);
-	
-	public String getID();
+    /**
+     * 
+     * @param name
+     *            name of the local bus
+     * @return bus instance
+     */
+    public AbstractBus getLocalBusByName(String name);
 
-	public void leave(AbstractBus bus);
-	
-	public void join(AbstractBus bus);
-	
-	public int propagateMessage(AbstractBus bus, Message msg);
+    /**
+     * 
+     * @return ID of the SodaPop instance
+     */
+    public String getID();
+
+    /**
+     * 
+     * @param bus
+     *            bus that leaves SodaPop
+     */
+    public void leave(AbstractBus bus);
+
+    /**
+     * 
+     * @param bus
+     *            bus that is added to the SodaPop
+     */
+    public void join(AbstractBus bus);
+
+    // TODO add explanation for returning INT
+    /**
+     * 
+     * @param bus
+     *            bus on which message is to be propagated
+     * @param msg
+     *            message to propagate
+     * @return
+     */
+    public int propagateMessage(AbstractBus bus, Message msg);
 }
