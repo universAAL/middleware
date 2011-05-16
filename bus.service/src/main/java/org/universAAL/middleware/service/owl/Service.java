@@ -199,6 +199,11 @@ public abstract class Service extends ManagedIndividual {
 		return myProfile;
 	}
 	
+	/**
+	 * Creates an input from the given Uri and cardinality
+	 * 
+	 */
+	
 	protected ProcessInput createInput(String inParamURI, String typeURI, int minCardinality, int maxCardinality) {
 		ProcessInput in = new ProcessInput(inParamURI);
 		in.setParameterType(typeURI);
@@ -206,6 +211,11 @@ public abstract class Service extends ManagedIndividual {
 		myProfile.addInput(in);
 		return in;
 	}
+	
+	/**
+	 * Adds a restriction to a given input
+	 * 
+	 */
 	
 	protected void addFilteringInput(String inParamURI, String typeURI, int minCardinality, int maxCardinality, String[] propPath) {
 		ProcessInput in = createInput(inParamURI, typeURI, minCardinality, maxCardinality);
@@ -215,6 +225,10 @@ public abstract class Service extends ManagedIndividual {
 						in.asVariableReference()),
 				propPath);
 	}
+	/**
+	 * Adds a Effect to default profile
+	 * 
+	 */
 	
 	protected void addInputWithAddEffect(String inParamURI, String typeURI, int minCardinality, int maxCardinality, String[] propPath) {
 		ProcessInput in = createInput(inParamURI, typeURI, minCardinality, maxCardinality);
@@ -222,17 +236,31 @@ public abstract class Service extends ManagedIndividual {
 				in.asVariableReference());
 	}
 	
+	/**
+	 * Adds a change effect to default profile
+	 * 
+	 */
+	
 	protected void addInputWithChangeEffect(String inParamURI, String typeURI, int minCardinality, int maxCardinality, String[] propPath) {
 		ProcessInput in = createInput(inParamURI, typeURI, minCardinality, maxCardinality);
 		myProfile.addChangeEffect(propPath, 
 				in.asVariableReference());
 	}
 	
+	/**
+	 * Adds a remove effect to default profile
+	 * 
+	 */
+	
 	protected void addInputWithRemoveEffect(String inParamURI, String typeURI, int minCardinality, int maxCardinality, String[] propPath) {
 		addFilteringInput(inParamURI, typeURI, minCardinality, maxCardinality, propPath);
 		myProfile.addRemoveEffect(propPath);
 	}
 	
+	/**
+	 * Adds configured output to default profile
+	 * 
+	 */
 	protected void addOutput(String outParamURI, String typeURI, int minCardinality, int maxCardinality, String[] propPath) {
 		ProcessOutput out = new ProcessOutput(outParamURI);
 		out.setParameterType(typeURI);
