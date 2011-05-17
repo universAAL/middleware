@@ -130,9 +130,8 @@ public abstract class BusStrategy extends Thread {
 	}
     }
 
-    // TODO finish description
     /**
-     * Runs BusStrategy. Until it is stopped
+     * Runs BusStrategy. Until stopping process messages (in separate Threads)
      */
     public final void run() {
 	while (!stopped) {
