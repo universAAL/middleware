@@ -567,7 +567,7 @@ public class Resource {
 	 * @return the graph as string
 	 */
 	public String toStringRecursive() {
-		return toStringRecursive("", true);
+		return toStringRecursive("", true, null);
 	}
 
 	/**
@@ -576,13 +576,25 @@ public class Resource {
 	 * @param prefixAtStart true iff the first line should start with the prefix string
 	 * @return the graph as string
 	 */
-	public String toStringRecursive(String prefix, boolean prefixAtStart) {
+	public String toStringRecursive(String prefix, boolean prefixAtStart, Hashtable visitedElements) {
+		if (visitedElements == null)
+			visitedElements = new Hashtable();
+		
 		String s = new String();
 		if (prefixAtStart)
 			s += prefix;
 		s += this.getClass().getName() + "\n";
 		prefix += "  ";
-		s += prefix + "URI: " + getURI() + "\n";
+		s += prefix + "URI: " + getURI();
+		
+		if (visitedElements.get(this) != null) {
+			// this element has been visited before
+			s += " --> \n";
+			return s;
+		}
+		visitedElements.put(this, this);
+		s += "\n";
+		
 		s += prefix + "Properties (Key-Value): " + "(size: " + props.size() + ")\n";
 		Enumeration e = props.keys();
 		while (e.hasMoreElements()) {
@@ -591,7 +603,7 @@ public class Resource {
 			s += prefix + "* K " + key + "\n";
 			s += prefix + "* V ";
 			if (val instanceof Resource)
-				s += ((Resource)val).toStringRecursive(prefix+"    ", false);
+				s += ((Resource)val).toStringRecursive(prefix+"    ", false, visitedElements);
 			else if (val instanceof List) {
 				s += "List" + "\n";
 				//for (Object o : (List)val) {
@@ -599,7 +611,7 @@ public class Resource {
 				while (iter.hasNext()) {
 					Object o = iter.next();
 					if (o instanceof Resource)
-						s += ((Resource)o).toStringRecursive(prefix+"      ", true);
+						s += ((Resource)o).toStringRecursive(prefix+"      ", true, visitedElements);
 					else
 						s += prefix+"      "+"unknown: "+val.getClass().getName() + "\n";
 				}
