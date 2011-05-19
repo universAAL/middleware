@@ -28,19 +28,22 @@ import org.universAAL.middleware.sodapop.msg.Message;
 
 
 /**
- * The convention of the service bus regarding the registration parameters is the
- * following:
- * <ul><li>ServiceCallers don't need any registration parameters</li>
- * <li>ServiceCallees may pass an array of {@link org.universAAL.middleware.service.owls.profile.ServiceProfile}s</li>
- * </ul>
- * 
+ * This is an abstract class that the service callee members of the service bus must derive from.
+ * According to the convention of the service bus regarding the registration parameters 
+ * the <li><code>ServiceCallee</code>-s may pass an array of {@link org.universAAL.middleware.service.owls.profile.ServiceProfile}s</li>
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
  */
 public abstract class ServiceCallee implements Callee {
 	private ServiceBus bus;
 	private String myID;
 	
+
+	/**
+	 * The default constructor for this class.
+	 * @param context The OSGI bundle context where the ServiceBus is registered. Note that if no service bus is 
+	 * registered at the time of creation, this object will not be operational.
+	 * @param realizedServices The initial set of services that are realized by this callee.
+	 */
 	protected ServiceCallee(BundleContext context, ServiceProfile[] realizedServices) {
 		Activator.checkServiceBus();
 		bus = (ServiceBus) context.getService(
@@ -48,27 +51,50 @@ public abstract class ServiceCallee implements Callee {
 		myID = bus.register(this, realizedServices);
 	}
 	
+	/**
+	 * Registers additional services to be provided by this <code>ServiceCalee</code>. 
+	 * @param realizedServices the new services.
+	 */
 	protected final void addNewRegParams(ServiceProfile[] realizedServices) {
 		bus.addNewRegParams(myID, realizedServices);
 	}
-	
+
+	/**
+	 * Removes a specified set of services that were previously provided by this <code>ServiceCalee</code>. 
+	 * @param realizedServices the services that need to be removed.
+	 */
 	protected final void removeMatchingRegParams(ServiceProfile[] realizedServices) {
 		bus.removeMatchingRegParams(myID, realizedServices);
 	}
 
+	/**
+	 * This abstract method is called for each member of the bus when the bus is being stopped.
+	 */
 	public abstract void communicationChannelBroken();
 
+	/* (non-Javadoc)
+	 * @see org.universAAL.middleware.sodapop.BusMember#busDyingOut(org.universAAL.middleware.sodapop.Bus)
+	 */
 	public final void busDyingOut(Bus b) {
 		if (b == bus)
 			communicationChannelBroken();
 	}
 
 	public final boolean eval(Message m) {
-		return false;
+		return false; //TODO add javadoc for this method
 	}
 
+	/**
+	 * The actual service method of the <code>ServiceCallee</code>. It is called by the bus whenever there is a call that need to be serviced by this
+	 * <code>ServiceCallee</code>.
+	 * @param call the call that needs to be serviced.
+	 * @return the result of the call execution.
+	 */
 	public abstract ServiceResponse handleCall(ServiceCall call);
 
+	/* (non-Javadoc)
+	 * @see org.universAAL.middleware.sodapop.Callee#handleRequest(org.universAAL.middleware.sodapop.msg.Message)
+	 */
 	public final void handleRequest(Message m) {
 		if (m != null  &&  m.getContent() instanceof ServiceCall) {
 			ServiceResponse sr = handleCall((ServiceCall) m.getContent());
@@ -80,6 +106,9 @@ public abstract class ServiceCallee implements Callee {
 		}
 	}
 	
+	/**
+	 * Unregisters this <code>ServiceCallee</code> from the bus.
+	 */
 	public void close(){
 		bus.unregister(myID, this);
 	}
