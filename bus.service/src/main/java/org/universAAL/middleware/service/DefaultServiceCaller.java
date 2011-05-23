@@ -33,19 +33,21 @@ import org.osgi.framework.BundleContext;
 public class DefaultServiceCaller extends ServiceCaller {
 
 	/**
+	 * Constructor for usage by de-serializers.
+	 *
 	 * @param context
 	 */
 	public DefaultServiceCaller(BundleContext context) {
 		super(context);
 	}
 
-	/* (non-Javadoc)
+	/** 
 	 * @see org.universAAL.middleware.service.ServiceCaller#communicationChannelBroken()
 	 */
 	public void communicationChannelBroken() {
 	}
 
-	/* (non-Javadoc)
+	/** 
 	 * @see org.universAAL.middleware.service.ServiceCaller#handleResponse(java.lang.String, org.persona.ontology.service.ServiceResponse)
 	 */
 	public void handleResponse(String reqID, ServiceResponse response) {
