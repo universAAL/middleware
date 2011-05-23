@@ -26,6 +26,8 @@ import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
+ * The aggregatingFilter class together with ServiceRequest class cover the CALL clause of a SPARQL-like query.
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  *
  */
@@ -41,6 +43,12 @@ public class AggregatingFilter extends Resource {
 		addResourceClass(MY_URI, AggregatingFilter.class);
 	}
 	
+	/**
+	 * Returns true, if function and it's parameters are valid, otherwise false. 
+	 *
+	 * @param func defines the function (max_of etc)
+	 * @param params are addressed by means of property paths
+     */ 
 	private static boolean checkIntegrity(AggregationFunction func, List params) {
 		if (func.getNumberOfParams() != params.size())
 			return false;
@@ -54,16 +62,30 @@ public class AggregatingFilter extends Resource {
 		return true;
 	}
 	
+	/**
+	 * Creates a AggregatingFilter object.
+	 */
 	public AggregatingFilter() {
 		super();
 		addType(MY_URI, true);
 	}
 	
+	/**
+	 * Creates a AggregatingFilter object.
+	 * @param asLiteral
+	 */
 	public AggregatingFilter(boolean asLiteral) {
 		super(asLiteral);
 		addType(MY_URI, true);
 	}
 	
+	
+	/**
+	 * Sets the the function and the parameters of the property if function 
+	 * and it's parameters are valid, otherwise false. 
+	 * @param func defines the function (max_of etc)
+	 * @param params are addressed by means of property paths
+     */ 
 	public AggregatingFilter(AggregationFunction func, List params, boolean asLiteral) {
 		super(asLiteral);
 		addType(MY_URI, true);
@@ -74,19 +96,32 @@ public class AggregatingFilter extends Resource {
 			throw new IllegalArgumentException();
 	}
 	
+	/**
+	 * Returns the list of the AggregationFunction parameteres.
+	 */
 	public List getFunctionParams() {
 		return (List) props.get(PROP_uAAL_AGGREGATION_PARAMS);
 	}
 	
+	/**
+	 * Returns the AggregationFunction property.
+	 */
 	public AggregationFunction getTheFunction() {
 		return (AggregationFunction) props.get(PROP_uAAL_AGGREGATION_FUNCTION);
 	}
 	
+	/**
+	 * Returns true, if the PROP_uAAL_AGGREGATION_FUNCTION and PROP_uAAL_AGGREGATION_PARAMS 
+	 * contain the rwquired key. 
+     */ 
 	public boolean isWellFormed() {
 		return props.containsKey(PROP_uAAL_AGGREGATION_FUNCTION)
 			&& props.containsKey(PROP_uAAL_AGGREGATION_PARAMS);
 	}
 	
+	/**
+	 * @see  org.universAAL.middleware.rdf.Resource#setProperty(String propURI, Object value)
+	 */
 	public void setProperty(String propURI, Object value) {
 		if (propURI == null  ||  value == null  ||  props.containsKey(propURI))
 			return;
@@ -115,6 +150,9 @@ public class AggregatingFilter extends Resource {
 			props.put(propURI, value);
 	}
 	
+	/**
+	 * Returns the parameters and the Aggregation Funtion with their properties.
+	 */
 	public AggregatingFilter toLiteral() {
 		if (serializesAsXMLLiteral())
 			return this;

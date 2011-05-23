@@ -22,6 +22,13 @@ package org.universAAL.middleware.service;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
+ * The CallStatus simply describes the possible status of the services.
+ * The possible status for services can take the possible values below:
+ *  0.SUCCEEDED
+ *  1.NO_MATCHING_SERVICE_FOUND
+ *  2.RESPONSE_TIMED_OUT
+ *  3.SERVICE_SPECIFIC_FAILURE
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  *
  */
@@ -41,7 +48,13 @@ public class CallStatus extends Resource {
     public static final CallStatus noMatchingServiceFound = new CallStatus(NO_MATCHING_SERVICE_FOUND);
     public static final CallStatus responseTimedOut = new CallStatus(RESPONSE_TIMED_OUT);
     public static final CallStatus serviceSpecificFailure = new CallStatus(SERVICE_SPECIFIC_FAILURE);
-    
+	
+	/**
+	* Returns the value of the call status.	
+	* It returns the predefined names for the call status of services according touAAL_VOCABULARY_NAMESPACE.
+	* @param name 
+	*			gets the status value
+	*/   
     public static CallStatus valueOf(String name) {
     	if (name == null)
     		return null;
@@ -61,29 +74,51 @@ public class CallStatus extends Resource {
     
     private int order;
     
+	/**
+	 * Constructor for usage by de-serializers.
+	 */
     // prevent the usage of the default constructor
     private CallStatus() {
        
     }
     
+	/**
+	 * Creates a CallStatus object.
+	 * @param order 
+	 *			defines the order of each service call status
+	 */
     private CallStatus(int order) {
     	super(uAAL_VOCABULARY_NAMESPACE + names[order]);
     	addType(MY_URI, true);
         this.order = order;
     }
 
+	/**
+	 * @see org.universAAL.middleware.rdf.Resource#getPropSerializationType(String propURI)
+	 * @param propURI 
+	 *			the URI of the property
+	 */
 	public int getPropSerializationType(String propURI) {
 		return PROP_SERIALIZATION_OPTIONAL;
 	}
     
+	/**
+	 * Returns the array with a possible service situation
+	 */
     public String name() {
         return names[order];
     }
     
+	/**
+	 *Returns the number of the order (integer).
+	 */
     public int ord() {
         return order;
     }
 
+	/**
+	 * @see  org.universAAL.middleware.rdf.Resource#setProperty(String propURI, Object value)
+	 */
 	public void setProperty(String propURI, Object o) {
 		// do nothing
 	}
