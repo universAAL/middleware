@@ -23,7 +23,7 @@ import org.universAAL.middleware.rdf.Resource;
 
 /**
  * The CallStatus simply describes the possible status of the services.
- * The possible status for services can take the possible values below:
+ * The possible status for services can take the values below:
  *  0.SUCCEEDED
  *  1.NO_MATCHING_SERVICE_FOUND
  *  2.RESPONSE_TIMED_OUT
