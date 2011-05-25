@@ -19,8 +19,6 @@
  */
 package org.universAAL.middleware.sodapop;
 
-import javax.swing.border.AbstractBorder;
-
 /**
  * Interface describing Bus Member defined only one method called when the bus
  * is stopped to announce this to the bus members.
