@@ -182,6 +182,7 @@ data.representation/src/main/java/org/universAAL/middleware/rdf/Variable.java -t
 data.representation/src/main/java/org/universAAL/middleware/util/ConfFile.java -text
 data.representation/src/main/java/org/universAAL/middleware/util/Constants.java -text
 data.representation/src/main/java/org/universAAL/middleware/util/IntAggregator.java -text
+data.representation/src/main/java/org/universAAL/middleware/util/LogListener.java -text
 data.representation/src/main/java/org/universAAL/middleware/util/LogUtils.java -text
 data.representation/src/main/java/org/universAAL/middleware/util/Messages.java -text
 data.representation/src/main/java/org/universAAL/middleware/util/RatingAggregator.java -text
