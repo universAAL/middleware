@@ -616,7 +616,11 @@ public class Resource {
 						s += prefix+"      "+"unknown: "+val.getClass().getName() + "\n";
 				}
 			} else {
-				s += "unknown: "+val.getClass().getName() + "\n";
+				String type = TypeMapper.getDatatypeURI(val);
+				if (type == null)
+					s += "unknown: "+val.getClass().getName() + "\n";
+				else
+					s += "Literal: " + type + " " + val + "\n";
 			}
 		}
 		return s;
