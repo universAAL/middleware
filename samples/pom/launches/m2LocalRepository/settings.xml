@@ -20,7 +20,7 @@
 				<repository>
 					<id>uaal</id>
 					<name>universAAL Repositories</name>
-					<url>http://a1gforge.igd.fraunhofer.de/nexus/content/repositories/releases/</url>
+					<url>http://depot.universaal.org/maven-repo/releases/</url>
 					<snapshots>
 						<enabled>false</enabled>
 					</snapshots>
@@ -28,7 +28,7 @@
 				<repository>
 					<id>uaal-snapshots</id>
 					<name>universAAL Snapshot Repositories</name>
-					<url>http://a1gforge.igd.fraunhofer.de/nexus/content/repositories/snapshots/</url>
+					<url>http://depot.universaal.org/maven-repo/snapshots/</url>
 					<releases>
 						<enabled>false</enabled>
 					</releases>
@@ -36,7 +36,7 @@
 				<repository>
 					<id>uaal-thirdparty</id>
 					<name>universAAL ThirdParty Repositories</name>
-					<url>http://a1gforge.igd.fraunhofer.de/nexus/content/repositories/thirdparty/</url>
+					<url>http://depot.universaal.org/maven-repo/thirdparty/</url>
 				</repository>
 			</repositories>
 		</profile>
@@ -62,12 +62,12 @@
 			<id>snapshots</id>
 			<username>deployment</username>
 			<password>uaal_49_nexus</password>
-		</server>
+		</server><!--
 		<server>
 			<id>thirdparty</id>
 			<username>pdepl</username>
 			<password>dirtypond</password>
-		</server>
+		</server> -->
 	</servers>
 	
 </settings>
