@@ -43,11 +43,15 @@ public class Activator implements BundleActivator, ManagedService {
 	public static ServiceRegistration registration;
 	public static final Logger logger = LoggerFactory.getLogger(Activator.class);
 	
+	public static BundleContext context = null;
+	
 	/*
 	 * (non-Javadoc)
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
+	    
+	    Activator.context = context;
 
 		// load the reasoning engine
 		// the subclasses (e.g., Restriction & ClassExpression) will be loaded automatically
