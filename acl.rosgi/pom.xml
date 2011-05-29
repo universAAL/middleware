@@ -15,9 +15,9 @@
   <url />
 
 	<scm>
-		<connection>scm:svn:http://a1gforge.igd.fraunhofer.de/svn/middleware/trunk/acl.r-osgi</connection> 
-		<developerConnection>scm:svn:http://a1gforge.igd.fraunhofer.de/svn/middleware/trunk/acl.r-osgi</developerConnection>
-		<url>http://a1gforge.igd.fraunhofer.de/gf/project/middleware/scmsvn/?path=%2Ftrunk%2Facl.r-osgi</url>
+		<connection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/acl.r-osgi</connection> 
+		<developerConnection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/acl.r-osgi</developerConnection>
+		<url>http://forge.universaal.org/gf/project/middleware/scmsvn/?path=%2Ftrunk%2Facl.r-osgi</url>
 	</scm>
 
   <dependencies>
