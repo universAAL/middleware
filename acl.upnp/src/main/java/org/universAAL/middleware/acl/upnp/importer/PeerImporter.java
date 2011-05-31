@@ -34,38 +34,47 @@ import org.universAAL.middleware.acl.PeerDiscoveryListener;
 import org.universAAL.middleware.acl.SodaPopPeer;
 
 /* 
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+ * The role of this class is to notify to all the listener about the new/removed UPnPDevice. These OSGi services
+ * has been registered within the Service Registry  by the Base Driver. This class creates for every UPnPDevice a Proxy
+ * that will be passed as arguments to the listeners.
+ *  
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
 public class PeerImporter implements ServiceListener{
-	
+
 	private BundleContext context;
 	private Hashtable proxies; // <String,SodaPopProxy>
 	private Vector  listeners; // <PeerDiscoveryListener>
 	final private Object LOCK = new Object();
-	
+
+	/**
+	 * First an LDAP filter is configured in order to fetch already existent UPnPDevice from the registry. For every discovered service the private method addRemotePeer is called.
+	 * @param context
+	 * @param listener
+	 */
 	public PeerImporter(BundleContext context, PeerDiscoveryListener listener){
 		this.context = context;
 		listeners = new Vector(); // <PeerDiscoveryListener>
 		proxies = new Hashtable(); // <String, SodaPopProxy>
 		listeners.add(listener);
-		
-		
+
+
 		String filter =
 			"(&" + 
-				"(" + Constants.OBJECTCLASS	+ "=" + UPnPDevice.class.getName() + ")" + 
-				"( !("	+ UPnPDevice.UPNP_EXPORT + "=*) )" + 
-				"(" + UPnPDevice.TYPE + "=" + SodaPopDevice.TYPE +")" + 
+			"(" + Constants.OBJECTCLASS	+ "=" + UPnPDevice.class.getName() + ")" + 
+			"( !("	+ UPnPDevice.UPNP_EXPORT + "=*) )" + 
+			"(" + UPnPDevice.TYPE + "=" + SodaPopDevice.TYPE +")" + 
 			")";
 
 		synchronized (LOCK) {
-		    try {
+			try {
 				context.addServiceListener(this,filter);
 			} catch (Exception ex) {
 				System.out.println(ex);
 			}
-			
-			
+
+
 			ServiceReference[] services = null; 
 			try {
 				services = context.getServiceReferences(UPnPDevice.class.getName(),filter);
@@ -77,11 +86,15 @@ public class PeerImporter implements ServiceListener{
 			} catch (Exception ex) {
 				System.out.println(ex);
 			}
-		
+
 		}
 
 	}
 
+	/**
+	 * Management of the status service changes
+	 * @see org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.ServiceEvent)
+	 */
 	public void serviceChanged(ServiceEvent event) {
 		synchronized (LOCK) {			
 			switch (event.getType()) {
@@ -102,8 +115,14 @@ public class PeerImporter implements ServiceListener{
 		}
 	}
 
-    private final String UUID_PREFIX = "uuid:";
-    
+	private final String UUID_PREFIX = "uuid:";
+
+	/**
+	 * This method implements the PeerImporter business logic:
+	 * -creates a SodaPopProxy for every discovered UPnPDevice
+	 * -notify every listener about the existence of a new SodaPopPeer by passing the brand new Proxy.
+	 * @param serviceReference
+	 */
 	private void addRemotePeer(ServiceReference serviceReference) {
 		String id  = (String) serviceReference.getProperty(UPnPDevice.ID);
 		//System.out.println("addRemotePeer:: " + id);
@@ -117,8 +136,14 @@ public class PeerImporter implements ServiceListener{
 					proxy, UPnPDevice.DEVICE_CATEGORY);
 		}		
 	}
-	
 
+
+	/**
+	 * This method notify all the listeners about the removal of a SodaPopPeer:
+	 * -fetch the previously created SodaPopProxy
+	 * -notify all the listener by passing the realted Proxy 
+	 * @param serviceReference
+	 */
 	private void removeRemotePeer(ServiceReference serviceReference) {
 		String id  = (String) serviceReference.getProperty(UPnPDevice.ID);
 		//System.out.println("removeRemotePeer:: " + id);
@@ -158,6 +183,6 @@ public class PeerImporter implements ServiceListener{
 			}			
 		}
 	}
-	
+
 
 }
