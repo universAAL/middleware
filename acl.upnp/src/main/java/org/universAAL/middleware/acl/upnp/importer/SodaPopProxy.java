@@ -34,6 +34,8 @@ import org.universAAL.middleware.acl.upnp.exporter.services.SodaPopPeerService;
 import org.universAAL.middleware.acl.SodaPopPeer;
 
 /* 
+ * Ths SodaPopProxy implements the business logic in order to interact with the remote SodaPopPeer by exploiting
+ * the UPnP protocol. This provides an "UPnP oriented" implementation of the SodaPopPeer interface.
 * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
 */
 
@@ -42,6 +44,11 @@ public class SodaPopProxy implements SodaPopPeer{
 	private UPnPService sodapopPeerService;
 	private String id;
 	
+	/**
+	 * Proxy constructor. The UPnPDevice parameter is used in order to fetch all the required references able to
+	 * interact with the remote peer.  
+	 * @param device
+	 */
 	public SodaPopProxy(UPnPDevice device){
 		sodapopPeerService = device.getService(SodaPopPeerService.SERVICE_ID);		
 		id  = (String) device.getDescriptions(null).get(UPnPDevice.ID);

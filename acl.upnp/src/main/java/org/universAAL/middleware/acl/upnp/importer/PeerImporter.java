@@ -170,6 +170,9 @@ public class PeerImporter implements ServiceListener{
 		}
 	}
 
+	/**
+	 * Notify all the listeners about unregistered Peers
+	 */
 	public void unregister() {
 		synchronized (LOCK) {	
 			System.out.println("peerImporter unregistering ");
