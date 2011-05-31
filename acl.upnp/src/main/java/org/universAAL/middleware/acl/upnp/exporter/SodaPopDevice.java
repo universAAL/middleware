@@ -30,6 +30,7 @@ import org.universAAL.middleware.acl.upnp.exporter.services.SodaPopPeerService;
 import org.universAAL.middleware.acl.SodaPopPeer;
 
 /* 
+ * UPnPDevice implementation for the SodaPopPeer
 * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
 */
 
@@ -47,6 +48,10 @@ public class SodaPopDevice implements UPnPDevice{
 	}
 
 
+	/**
+	 * Configure the local properties in accordance with the SodaPopPeer instance
+	 * @param localPeer
+	 */
 	private void setupDeviceProperties(SodaPopPeer localPeer){
 		
 		final  String DEVICE_ID =  "uuid:" +  localPeer.getID();
@@ -71,7 +76,8 @@ public class SodaPopDevice implements UPnPDevice{
 	}
 	
 	
-	/* (non-Javadoc)
+	/**
+	 * @return the service associate with the serviceId parameter.
 	 * @see org.osgi.service.upnp.UPnPDevice#getService(java.lang.String)
 	 */
 	public UPnPService getService(String serviceId) {
@@ -79,14 +85,16 @@ public class SodaPopDevice implements UPnPDevice{
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/** 
+	 * @return An array of UPnPService
 	 * @see org.osgi.service.upnp.UPnPDevice#getServices()
 	 */
 	public UPnPService[] getServices() {
 		return services;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * 
 	 * @see org.osgi.service.upnp.UPnPDevice#getIcons(java.lang.String)
 	 */
 	public UPnPIcon[] getIcons(String locale) {
