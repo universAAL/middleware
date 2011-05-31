@@ -92,7 +92,9 @@ public class Activator implements BundleActivator, P2PConnector {
 	}
 
 	/**
-	 * This method registers the SodaPopPeer instance as SodaPopDevice. This allows the SodaPopPeer to be injected within the UpNP network 
+	 * This method allows to the SodaPopPeer to be exported within the UpNP network. The SodaPopPeer is firstly wrapped within the 
+	 * SodaPopDevice and then registered within the Service Registry as UPnPDevice. The UPnP Base Driver will inject the UPnP Device into the 
+	 * UpNP network.  
 	 * @see org.universAAL.middleware.acl.P2PConnector#register(org.universAAL.middleware.acl.SodaPopPeer)
 	 */
 	public void register(SodaPopPeer localInstance) {
