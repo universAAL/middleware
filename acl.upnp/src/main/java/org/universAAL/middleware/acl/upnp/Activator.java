@@ -44,7 +44,9 @@ public class Activator implements BundleActivator, P2PConnector {
 	private SodaPopPeer localInstance;
 	private PeerImporter peerImporter;
 	/**
+	 * The activator simply registers one P2PConnector instance within the Service Registry.
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+	 *  
 	 */
 	public void start(BundleContext context) throws Exception {
 		this.context = context;
@@ -57,6 +59,7 @@ public class Activator implements BundleActivator, P2PConnector {
 
 
 	/**
+	 * Stop the acl.upnp bundle by unregistering the P2PConnector. If the PeerImporter has been registered unregister it.
 	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
@@ -67,10 +70,17 @@ public class Activator implements BundleActivator, P2PConnector {
 			peerImporter.unregister();
 	}
 
+	/**
+	 * @return UPnP device category
+	 */
 	public String getProtocol() {		
 		return UPnPDevice.DEVICE_CATEGORY;
 	}
 	
+	/**
+	 * Add a new listener. The listener will be notified about the existence of the peers.
+	 * @see org.universAAL.middleware.acl.P2PConnector#addPeerDiscoveryListener(org.universAAL.middleware.acl.PeerDiscoveryListener)
+	 */
 	public void addPeerDiscoveryListener(PeerDiscoveryListener listener) {
 		System.out.println("acl.upnp:: addPeerDiscoveryListener");
 		
@@ -81,6 +91,10 @@ public class Activator implements BundleActivator, P2PConnector {
 		
 	}
 
+	/**
+	 * This method registers the SodaPopPeer instance as SodaPopDevice. This allows the SodaPopPeer to be injected within the UpNP network 
+	 * @see org.universAAL.middleware.acl.P2PConnector#register(org.universAAL.middleware.acl.SodaPopPeer)
+	 */
 	public void register(SodaPopPeer localInstance) {
 		System.out.println("acl.upnp:: register");
 
