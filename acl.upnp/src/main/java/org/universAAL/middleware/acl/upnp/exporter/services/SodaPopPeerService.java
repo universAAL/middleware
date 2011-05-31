@@ -37,7 +37,9 @@ import org.universAAL.middleware.acl.upnp.exporter.stateVariables.PeerIDStateVar
 
 import org.universAAL.middleware.acl.SodaPopPeer;
 
-/* 
+/**
+ * Concrete implementation of the UPnPService for the SodaPopPeerService. This class will be used by the SodaPopProxy in order to 
+ * invoke the UPnP action. 
 * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
 */
 
