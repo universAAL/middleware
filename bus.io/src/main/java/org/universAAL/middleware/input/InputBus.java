@@ -20,21 +20,81 @@
 package org.universAAL.middleware.input;
 
 /**
+ * The Input Bus is an event based bus. It is responsible for transferring user
+ * input from appropriate I/O Handler to the application. It accepts
+ * registration parameters from their subscribers (when they register to the
+ * bus) and allows removing and/or updating of these parameters
+ * 
  * @author mtazari
  * 
  */
 public interface InputBus {
-	public void addNewRegParams(String subscriberID, String dialogID);
 
-	public String register(InputPublisher publisher);
+    /**
+     * Adds profile of registered subscriber.
+     * 
+     * @param subscriberID
+     *            ID of an input bus subscriber
+     * @param dialogID
+     *            ID of the dialog
+     */
+    public void addNewRegParams(String subscriberID, String dialogID);
 
-	public String register(InputSubscriber subscriber);
+    /**
+     * Removes old subscription of the subscriber.
+     * 
+     * @param subscriberID
+     *            ID of subscriber
+     * @param dialogID
+     *            ID of the dialog
+     */
+    public void removeMatchingRegParams(String subscriberID, String dialogID);
 
-	public void removeMatchingRegParams(String subscriberID, String dialogID);
+    /**
+     * Registers input publisher on the input bus.
+     * 
+     * @param publisher
+     *            input publisher (I/O Handler)
+     * @return id (local mw name prefix + publisher id)
+     */
+    public String register(InputPublisher publisher);
 
-	public void sendMessage(String publisherID, InputEvent event);
+    /**
+     * Registers input subscriber on the input bus.
+     * 
+     * @param subscriber
+     *            input subscriber
+     * @return id (local mw name prefix + subscriber id)
+     */
+    public String register(InputSubscriber subscriber);
 
-	public void unregister(String publisherID, InputPublisher publisher);
+    /**
+     * Sends an Input Event.
+     * 
+     * @param publisherID
+     *            ID of input publisher
+     * @param event
+     *            input event
+     */
+    public void sendMessage(String publisherID, InputEvent event);
 
-	public void unregister(String subscriberID, InputSubscriber subscriber);
+    /**
+     * Unregisters Input Publisher.
+     * 
+     * @param publisherID
+     *            ID of input publisher
+     * @param publisher
+     *            input publisher
+     */
+    public void unregister(String publisherID, InputPublisher publisher);
+
+    /**
+     * Unregisters Input Subscriber.
+     * 
+     * @param subscriberID
+     *            ID of input subscriber
+     * @param subscriber
+     *            input subscriber
+     */
+    public void unregister(String subscriberID, InputSubscriber subscriber);
 }
