@@ -34,11 +34,28 @@ import org.universAAL.middleware.rdf.TypeMapper;
 
 public class Activator implements BundleActivator, ManagedService {
 	// configuration parameters as property keys
+	
+	/**
+	 * The URI prefix for the middleware.
+	 */
 	public static final String uAAL_AAL_SPACE_ID = "org.universAAL.middleware.peer.member_of";
+	
+	/**
+	 * The root directory of the runtime configuration.
+	 */
 	public static final String uAAL_CONF_ROOT_DIR = "bundles.configuration.location";
+	
+	/**
+	 * True, if this peer is the coordinator.
+	 */
 	public static final String uAAL_IS_COORDINATING_PEER = "org.universAAL.middleware.peer.is_coordinator";
+	
+	/**
+	 * True, if debug mode is turned on.
+	 */
 	public static final String uAAL_IS_DEBUG_MODE = "org.universAAL.middleware.debugMode";
 
+	
 	public static Dictionary middlewareProps;
 	public static ServiceRegistration registration;
 	public static final Logger logger = LoggerFactory.getLogger(Activator.class);

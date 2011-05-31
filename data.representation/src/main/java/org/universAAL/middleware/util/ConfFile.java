@@ -25,24 +25,68 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * The base class for configuration files in universAAL. All configuration files
+ * are contained in the root directory of the universAAL runtime (rundir). The
+ * configuration files of a bundle are contained in a subdirectory with the name
+ * of that bundle (Best Practice).
+ * 
  * @author climberg
- *
+ * @author Carsten Stockloew
  */
 public class ConfFile {
+
+	/**
+	 * The {@link java.io.File} containing the path for the configuration file
+	 * (the home directory of the configuration file).
+	 */
 	protected File confHome;
-	
+
+	/**
+	 * Constructor the create a new object for accessing configuration files.
+	 * 
+	 * @param id
+	 *            The ID for the configuration file. The actual file name
+	 *            consists of the root directory of the universAAL runtime, the
+	 *            given ID (which is by Best Practice the bundle name), and a
+	 *            file name which is given to the methods
+	 *            {@link #getConfFileAsStream(File)} or
+	 *            {@link #getConfFileAsStream(String)}.
+	 */
 	public ConfFile(String id) {
 		confHome = new File(new File(Constants.getSpaceConfRoot()), id);
 	}
 	
+	
+	/**
+	 * Get an InputStream for the given File.
+	 * 
+	 * @param f
+	 *            The file.
+	 * @return An InputStream for the file.
+	 * @throws IOException
+	 */
 	public InputStream getConfFileAsStream(File f) throws IOException {
 		return new FileInputStream(f);
 	}
-	
+
+	/**
+	 * Get an InputStream for the file of the given file name in the home
+	 * directory of the configuration file.
+	 * 
+	 * @param filename
+	 *            The name of the file.
+	 * @return An InputStream for the file.
+	 * @throws IOException
+	 */
 	public InputStream getConfFileAsStream(String filename) throws IOException {
 		return new FileInputStream(new File(confHome, filename));
 	}
-	
+
+	/**
+	 * List all files in the home directory of the configuration file.
+	 * 
+	 * @return The list of files.
+	 */
 	public File[] listFiles() {
 		return confHome.listFiles();
 	}

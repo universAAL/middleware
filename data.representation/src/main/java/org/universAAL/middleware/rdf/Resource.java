@@ -29,39 +29,60 @@ import org.universAAL.middleware.util.ResourceComparator;
 import org.universAAL.middleware.util.StringUtils;
 
 /**
+ * The base class of all RDF and OWL classes.
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public class Resource {
 
+	/** URI prefix for anonymous Resources. */
 	protected static final String ANON_URI_PREFIX = "urn:anonymous:";
 
-	public static final String RDF_NAMESPACE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+	/** URI of RDF namespace. */
+	public static final String RDF_NAMESPACE
+			= "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 	
-	public static final String RDFS_NAMESPACE = "http://www.w3.org/2000/01/rdf-schema#";
+	/** URI of RDFS namespace. */
+	public static final String RDFS_NAMESPACE
+			= "http://www.w3.org/2000/01/rdf-schema#";
 	
+	/** URI for empty RDF lists, or the end of an RDF list. */
 	public static final String RDF_EMPTY_LIST = RDF_NAMESPACE + "nil";
 
+	/** URI of the first element of an RDF list. */
 	public static final String PROP_RDF_FIRST = RDF_NAMESPACE + "first";
 
+	/** URI of the remaining elements of an RDF list. */
 	public static final String PROP_RDF_REST = RDF_NAMESPACE + "rest";
 
+	/** URI for rdf:type. */
 	public static final String PROP_RDF_TYPE = RDF_NAMESPACE + "type";
 
+	/** URI for RDF comments. */
 	public static final String PROP_RDFS_COMMENT = RDFS_NAMESPACE + "comment";
 
+	/** URI for RDF labels. */
 	public static final String PROP_RDFS_LABEL = RDFS_NAMESPACE + "label";
 
+	/** URI for RDF lists. */
 	public static final String TYPE_RDF_LIST = RDF_NAMESPACE + "List";
 
-	public static final String uAAL_NAMESPACE_PREFIX = "http://ontology.universAAL.org/";
+	/** URI prefix for the universAAL namespace. */
+	public static final String uAAL_NAMESPACE_PREFIX
+			= "http://ontology.universAAL.org/";
 	
-	public static final String uAAL_SERVICE_NAMESPACE = uAAL_NAMESPACE_PREFIX + "Service.owl#";
+	/** URI for the universAAL service namespace. */
+	public static final String uAAL_SERVICE_NAMESPACE
+			= uAAL_NAMESPACE_PREFIX + "Service.owl#";
 	
-	public static final String uAAL_VOCABULARY_NAMESPACE = uAAL_NAMESPACE_PREFIX + "uAAL.owl#";
+	/** URI for the universAAL namespace. */
+	public static final String uAAL_VOCABULARY_NAMESPACE
+			= uAAL_NAMESPACE_PREFIX + "uAAL.owl#";
 	
-	public static final String PROP_uAAL_INVOLVED_HUMAN_USER = 
-		uAAL_VOCABULARY_NAMESPACE + "theInvolvedHumanUser";
+	/** URI for properties linking to the user involved. */
+	public static final String PROP_uAAL_INVOLVED_HUMAN_USER
+			= uAAL_VOCABULARY_NAMESPACE + "theInvolvedHumanUser";
 	
 	/**
 	 * Legal return values for {@link #getPropSerializationType(String)}.
@@ -125,23 +146,26 @@ public class Resource {
 	 */
 	protected boolean blockAddingTypes = false;
 	
-	
+	/** true, if this resource is an XML Literal. */
 	protected boolean isXMLLiteral = false;
 	
 	
 	
-	
+	/** Constructor to create a new Resource with anonymous URI. */
 	public Resource() {
 		uri = Resource.generateAnonURI();
 		ns_delim_index = -1;
 	}
 	
+	/** Constructor to create a new Resource with anonymous URI. The Resource 
+	 * may be an XML Literal. */
 	public Resource(boolean isXMLLiteral) {
 		uri = Resource.generateAnonURI();
 		ns_delim_index = -1;
 		this.isXMLLiteral = isXMLLiteral;
 	}
 	
+	/** Constructor to create a new Resource with the specified URI. */
 	public Resource(String uri) {
 		if (uri == null) {
 			this.uri = Resource.generateAnonURI();
@@ -152,6 +176,8 @@ public class Resource {
 		}
 	}
 	
+	/** Constructor to create a new Resource with the specified URI. The Resource 
+	 * may be an XML Literal. */
 	public Resource(String uri, boolean isXMLLiteral) {
 		if (uri == null) {
 			this.uri = Resource.generateAnonURI();
@@ -164,16 +190,22 @@ public class Resource {
 	}
 	
 	/**
-	 * Creates an instance of Resource with a URI that is created by appending a unique ID
-	 * to the given 'uriPrefix'. This constructor has a pseudo parameter 'numProps' in order
-	 * to make it distinct from the other constructor that also takes a string. Later versions
-	 * of Resource may decide to make some use of numProps in some way, however.
+	 * Creates an instance of Resource with a URI that is created by appending a
+	 * unique ID to the given 'uriPrefix'. This constructor has a pseudo
+	 * parameter 'numProps' in order to make it distinct from the other
+	 * constructor that also takes a string. Later versions of Resource may
+	 * decide to make some use of numProps in some way, however.
+	 * @param uriPrefix Prefix of the URI.
+	 * @param numProps Not used.
 	 */
 	protected Resource(String uriPrefix, int numProps) {
 		uri = uriPrefix + StringUtils.createUniqueID();
 		ns_delim_index = isQualifiedName(uri)? uri.lastIndexOf('#') : -1;
 	}
 
+	
+	
+	
 	protected static final void addResourceClass(String uri, Class clz) {
 		if (StringUtils.isNonEmpty(uri)
 				&&  clz != null
@@ -186,6 +218,17 @@ public class Resource {
 			uriResource.put(r.uri, r);
 	}
 
+	/**
+	 * Creates a new Resource instance which is treated as an RDF list and
+	 * contains the specified list of elements.
+	 * 
+	 * @param members
+	 *            The elements of the list. This will be treated as separate
+	 *            Resources to be part of the resulting list.
+	 * @param isXMLLiteral
+	 *            true, if the resources in the list are XML Literals.
+	 * @return A Resource which represents the list.
+	 */
 	public static final Resource asRDFList(List members, boolean isXMLLiteral) {
 		if (members == null  ||  members.isEmpty())
 			return new Resource(RDF_EMPTY_LIST, isXMLLiteral);
@@ -294,6 +337,9 @@ public class Resource {
 		return false;
 	}
 	
+	/**
+	 * If this object is an XML Literal, create a copy of it.
+	 */
 	public Resource copyAsXMLLiteral() {
 		Resource copy = new Resource(uri, true);
 		for (Enumeration e = props.keys(); e.hasMoreElements();) {
@@ -303,6 +349,15 @@ public class Resource {
 		return copy;
 	}
 	
+	/**
+	 * Create a deep copy of this Resource, i.e. create a new Resource for this
+	 * object (only a Resource, but not a derived class) and for the resources
+	 * of all properties.<br>
+	 * Currently, only resources are copies, but not list of resources.
+	 * @return The copied Resource.
+	 */
+	 // TODO: only resources are copies, but not list of resources.
+	 // TODO: will create an infinite loop for cycles.
 	public Resource deepCopy() {
 		Resource copy = new Resource(uri, isXMLLiteral);
 		copy.blockAddingTypes = blockAddingTypes;
@@ -324,28 +379,42 @@ public class Resource {
 						: false;
 	}
 	
+	/** Get the Resource comment. Convenient method to retrieve rdfs:comment. */
 	public String getResourceComment() {
 		Object val = props.get(PROP_RDFS_COMMENT);
 		return (val instanceof String)? (String) val : null;
 	}
 	
+	/** Get the Resource comment. Convenient method to retrieve rdfs:label. */
 	public String getResourceLabel() {
 		Object val = props.get(PROP_RDFS_LABEL);
 		return (val instanceof String)? (String) val : null;
 	}
 	
+	/**
+	 * Get the local name which is the part of the URI after the delimiter
+	 * ('#').
+	 * @see #getNamespace()
+	 */
 	public final String getLocalName() {
 		return (ns_delim_index < 0)? null : uri.substring(ns_delim_index + 1);
 	}
 	
+	/**
+	 * Get the name space which is the part of the URI before the delimiter
+	 * ('#').
+	 * @see #getLocalName()
+	 */
 	public final String getNamespace() {
 		return (ns_delim_index < 0)? null : uri.substring(0, ns_delim_index);
 	}
 	
+	/** Get the RDF object for a specified property. */
 	public final Object getProperty(String propURI) {
 		return props.get(propURI);
 	}
 	
+	/** Get all properties, i.e. all RDF predicates for this Resource. */
 	public final Enumeration getPropertyURIs() {
 		return props.keys();
 	}
@@ -416,22 +485,28 @@ public class Resource {
 			return new String[0];
 	}
 	
+	/** Get the URI. */
 	public final String getURI() {
 		return uri;
 	}
 	
+	/** Get the has code for this Resource, calculated from the URI. */
 	public int hashCode() {
 		return uri.hashCode();
 	}
 	
+	/** Determines if this Resource has the specified property.  */
 	public boolean hasProperty(String propURI) {
 		return (propURI != null  &&  props.containsKey(propURI));
 	}
 	
+	/** Determines if this Resource has a qualified, i.e. the URI has a
+	 * delimiter ('#'). */
 	public final boolean hasQualifiedName() {
 		return ns_delim_index >= 0;
 	}
 	
+	/** Determines if this Resource has an anonymous URI. */
 	public final boolean isAnon() {
 		return uri.startsWith(ANON_URI_PREFIX);
 	}
@@ -460,6 +535,8 @@ public class Resource {
 		return true;
 	}
 	
+	/** Returns the number of properties, i.e. the number of RDF predicates
+	 * for this Resource. */
 	public final int numberOfProperties() {
 		return props.size();
 	}
@@ -476,11 +553,13 @@ public class Resource {
 		return isXMLLiteral;
 	}
 	
+	/** Set the Resource comment. Convenient method to set rdfs:comment. */
 	public void setResourceComment(String comment) {
 		if (comment != null  &&  !props.containsKey(PROP_RDFS_COMMENT))
 			props.put(PROP_RDFS_COMMENT, comment);
 	}
 	
+	/** Set the Resource label. Convenient method to set rdfs:label. */
 	public void setResourceLabel(String label) {
 		if (label != null  &&  !props.containsKey(PROP_RDFS_LABEL))
 			props.put(PROP_RDFS_LABEL, label);
@@ -558,6 +637,7 @@ public class Resource {
 		}
 	}
 
+	/** Get a String representation of this Resource; returns the URI. */
 	public String toString() {
 		return uri;
 	}

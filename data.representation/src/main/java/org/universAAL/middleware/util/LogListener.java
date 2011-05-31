@@ -13,7 +13,7 @@ package org.universAAL.middleware.util;
  * 		new LogMonitor(), null);
  * </pre>
  * 
- * @author cstockloew
+ * @author Carsten Stockloew
  */
 public interface LogListener {
 	

@@ -22,18 +22,37 @@ package org.universAAL.middleware.util;
 import org.universAAL.middleware.owl.supply.Rating;
 
 /**
+ * Utility class to calculate values (like average, minimum) from a consecutive
+ * appearance of {@link org.universAAL.middleware.owl.supply.Rating} values.
+ * 
+ * @see IntAggregator
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public class RatingAggregator {
 	
-	private Rating avg, min, max;
-	private int num = 0, sum = 0;
+	/** The average. */
+	private Rating avg;
 	
+	/** The minimum. */
+	private Rating min;
+	
+	/** The maximum. */
+	private Rating max;
+	
+	/** The number of Ratings. */
+	private int num = 0;
+	
+	/** The sum. */
+	private int sum = 0;
+	
+	
+	/** Create a new instance. */
 	public RatingAggregator() {
-		
 	}
 	
+	/** Add a new Rating. */
 	public RatingAggregator addRating(Rating r) {
 		if (r != null) {
 			sum += r.ord();
@@ -55,18 +74,22 @@ public class RatingAggregator {
 		return this;
 	}
 	
+	/** Get the average value. */
 	public Rating getAverage() {
 		return avg;
 	}
 	
+	/** Get the maximum value. */
 	public Rating getMax() {
 		return max;
 	}
 	
+	/** Get the minimum value. */
 	public Rating getMin() {
 		return min;
 	}
 	
+	/** Get the number of Ratings. */
 	public int getNumberOfRatings() {
 		return num;
 	}

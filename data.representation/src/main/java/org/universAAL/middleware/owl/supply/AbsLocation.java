@@ -40,20 +40,38 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  * that 'is in' defines just a partial order between locations.
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author cstockloew
  */
 public abstract class AbsLocation extends ComparableIndividual {
+	
+	/**
+	 * The URI of the ontology class.
+	 * @see org.universAAL.middleware.owl.ManagedIndividual#MY_URI
+	 */
 	public static final String MY_URI;
 	
 	
+	/**
+	 * Register all necessary information.
+	 */
 	static {
 		MY_URI = uAAL_VOCABULARY_NAMESPACE + "AbsLocation";
 		register(AbsLocation.class);
 	}
-	
+
+	/**
+	 * Create an abstract location.
+	 * @param uri URI of the location.
+	 */
 	protected AbsLocation(String uri) {
 		super(uri);
 	}
 	
+	/**
+	 * Constructor just for usage by de-serializers. Do not use this constructor
+	 * within applications as it may lead to incomplete instances that cause
+	 * exceptions.
+	 */
 	protected AbsLocation() {
 		super();
 	}

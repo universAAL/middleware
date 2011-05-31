@@ -24,8 +24,10 @@ import java.util.Hashtable;
 
 
 /**
+ * Super class for OWL-S Support of Process Parameters.
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public abstract class Variable extends Resource {
 	
@@ -59,15 +61,31 @@ public abstract class Variable extends Resource {
 	public static final String VAR_uAAL_SERVICE_TO_SELECT =
 		Resource.uAAL_VOCABULARY_NAMESPACE + "theServiceToSelect";
 	
+	/** Storage for all subclasses. Subclasses have to {@link #register(Class)}
+	 * themselves to this class. */
 	private static final ArrayList varClasses = new ArrayList(2);
+
 	
+	/** The constructor. */
+	protected Variable(String uri) {
+		super(uri);
+	}
+
+	/**
+	 * Determines if a specified object can be de-serialized to a subclass of
+	 * {@link Variable}. Must be implemented by subclasses.
+	 * 
+	 * @param o
+	 *            The object to be investigated, must be a subclass of
+	 *            {@link Resource}.
+	 */
 	public static boolean checkDeserialization(Object o) {
 		try {
 			Object aux = null;
-			for (int i=0; i<varClasses.size(); i++) {
+			for (int i = 0; i < varClasses.size(); i++) {
 				aux = ((Class) varClasses.get(i)).getMethod(
-						"checkDeserialization", new Class[]{Object.class}
-						).invoke(null, new Object[]{o});
+						"checkDeserialization", new Class[] { Object.class })
+						.invoke(null, new Object[] { o });
 				if (aux instanceof Boolean)
 					return ((Boolean) aux).booleanValue();
 			}
@@ -76,13 +94,15 @@ public abstract class Variable extends Resource {
 		return true;
 	}
 	
+	/** Determines if the specified object is a {@link Resource} and is of
+	 * type owls:ValueOf. */
 	public static boolean isVarRef(Object o) {
 		try {
 			Object aux = null;
-			for (int i=0; i<varClasses.size(); i++) {
-				aux = ((Class) varClasses.get(i)).getMethod(
-						"isVarRef", new Class[]{Object.class}
-						).invoke(null, new Object[]{o});
+			for (int i = 0; i < varClasses.size(); i++) {
+				aux = ((Class) varClasses.get(i)).getMethod("isVarRef",
+						new Class[] { Object.class }).invoke(null,
+						new Object[] { o });
 				if (aux instanceof Boolean)
 					return ((Boolean) aux).booleanValue();
 			}
@@ -90,19 +110,20 @@ public abstract class Variable extends Resource {
 		}
 		return false;
 	}
-	
+
+	/** Registration: subclasses must register to this class. */
 	protected static void register(Class clz) {
 		if (Variable.class.isAssignableFrom(clz))
 			varClasses.add(clz);
 	}
-	
+
 	public static Object resolveVarRef(Object o, Hashtable context) {
 		try {
 			Object aux;
-			for (int i=0; i<varClasses.size(); i++) {
-				aux = ((Class) varClasses.get(i)).getMethod(
-						"resolveVarRef", new Class[]{Object.class, Hashtable.class}
-						).invoke(null, new Object[]{o, context});
+			for (int i = 0; i < varClasses.size(); i++) {
+				aux = ((Class) varClasses.get(i)).getMethod("resolveVarRef",
+						new Class[] { Object.class, Hashtable.class }).invoke(
+						null, new Object[] { o, context });
 				if (aux != o)
 					return aux;
 			}
@@ -110,13 +131,11 @@ public abstract class Variable extends Resource {
 		}
 		return o;
 	}
-	
-	protected Variable(String uri) {
-		super(uri);
-	}
-	
+
 	public abstract int getMinCardinality();
+
 	public abstract Object getDefaultValue();
+
 	public abstract String getParameterType();
 
 }
