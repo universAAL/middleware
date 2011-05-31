@@ -27,7 +27,8 @@ import org.osgi.service.upnp.UPnPStateVariable;
 
 import org.universAAL.middleware.acl.SodaPopPeer;
 
-/* 
+/**
+ * UPnP PrintStatusAction implementation
 * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
 */
 

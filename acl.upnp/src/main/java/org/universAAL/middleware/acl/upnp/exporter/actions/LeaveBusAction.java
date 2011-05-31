@@ -25,7 +25,8 @@ import org.osgi.service.upnp.UPnPAction;
 import org.osgi.service.upnp.UPnPStateVariable;
 import org.universAAL.middleware.acl.SodaPopPeer;
 
-/* 
+/**
+ * UPnP LeaveBusAction implementation
 * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
 */
 
