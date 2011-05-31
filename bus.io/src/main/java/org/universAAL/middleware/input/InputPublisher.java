@@ -32,37 +32,57 @@ import org.universAAL.middleware.sodapop.msg.Message;
  * @author mtazari
  */
 public abstract class InputPublisher implements Publisher {
-	private InputBus bus;
-	private String myID;
+    private InputBus bus;
+    private String myID;
 
-	protected InputPublisher(BundleContext context) {
-		Activator.checkInputBus();
-		bus = (InputBus) context.getService(context
-				.getServiceReference(InputBus.class.getName()));
-		myID = bus.register(this);
+    protected InputPublisher(BundleContext context) {
+	Activator.checkInputBus();
+	bus = (InputBus) context.getService(context
+		.getServiceReference(InputBus.class.getName()));
+	myID = bus.register(this);
+    }
+
+    public abstract void communicationChannelBroken();
+
+    /**
+     * @see org.universAAL.middleware.sodapop.Callee#eval(Message)
+     */
+    public final boolean eval(Message m) {
+	return false;
+    }
+
+    /**
+     * @see org.universAAL.middleware.sodapop.Callee#handleRequest(Message)
+     */
+    public final void handleRequest(Message m) {
+    }
+
+    /**
+     * if the Input Bus is dying out, the communication channel for Input
+     * Publisher is broken.
+     */
+    public final void busDyingOut(Bus b) {
+	if (b == bus)
+	    communicationChannelBroken();
+    }
+
+    /**
+     * Publishes input event on the Input Bus.
+     * 
+     * @param e
+     *            Input Event
+     */
+    public final void publish(InputEvent e) {
+	if (e != null) {
+	    bus.sendMessage(myID, e);
 	}
+    }
 
-	public abstract void communicationChannelBroken();
-
-	public final boolean eval(Message m) {
-		return false;
-	}
-
-	public final void handleRequest(Message m) {
-	}
-
-	public final void busDyingOut(Bus b) {
-		if (b == bus)
-			communicationChannelBroken();
-	}
-
-	public final void publish(InputEvent e) {
-		if (e != null) {
-			bus.sendMessage(myID, e);
-		}
-	}
-
-	public void close() {
-		bus.unregister(myID, this);
-	}
+    /**
+     * Closes this Input Publisher which means that it is being unregistered on
+     * the Input Bus.
+     */
+    public void close() {
+	bus.unregister(myID, this);
+    }
 }
