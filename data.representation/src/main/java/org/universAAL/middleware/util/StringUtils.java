@@ -23,11 +23,40 @@ import java.net.InetAddress;
 import java.util.Random;
 
 /**
+ * A set of utility methods for Strings.
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public class StringUtils {
 
+	/** Internal counter for creating unique IDs. */
+	private static int counter = 0;
+	
+	/** The prefix for creating unique IDs. */
+	private static final String UUID_prefix;
+	
+	static {
+		String aux = "_:";
+		try {
+		    byte[] ownIP = InetAddress.getLocalHost().getAddress();
+		    for (int i=0; i<4; i++)
+		    	aux += (ownIP[i]<16? "0" : "") + Integer.toHexString(ownIP[i]);
+		} catch (Exception e) {
+			aux += Integer.toHexString(new Random(System.currentTimeMillis()).nextInt());
+		}
+	    UUID_prefix = aux + ":";
+	}
+	
+	/** Create a unique ID. */
+	public static String createUniqueID() {
+		return UUID_prefix + Integer.toHexString(counter++); 
+	}
+	
+	/**
+	 * Tests whether two property paths are equal, i.e. have the same length
+	 * and all elements are equal.
+	 */
 	public static boolean areEqualPropPaths(String[] pp1, String[] pp2) {
 		if (pp1 == pp2)
 			return true;
@@ -42,23 +71,13 @@ public class StringUtils {
 		return true;
 	}
 
-	private static int counter = 0;
-	private static final String UUID_prefix;
-	static {
-		String aux = "_:";
-		try {
-		    byte[] ownIP = InetAddress.getLocalHost().getAddress();
-		    for (int i=0; i<4; i++)
-		    	aux += (ownIP[i]<16? "0" : "") + Integer.toHexString(ownIP[i]);
-		} catch (Exception e) {
-			aux += Integer.toHexString(new Random(System.currentTimeMillis()).nextInt());
-		}
-	    UUID_prefix = aux + ":";
-	}
-	public static String createUniqueID() {
-		return UUID_prefix + Integer.toHexString(counter++); 
-	}
-	
+	/**
+	 * This method tries to derive a meaningful label from a given String.
+	 * If the String is a qualified name (see {@link #isQualifiedName}), only
+	 * the local part - the part after '#' - is taken. Multiple words starting
+	 * with upper case letters and written in one word are separated (e.g. 
+	 * 'myName' is transformed to 'My Name').
+	 */
 	public static String deriveLabel(String arg) {
 		if (arg == null)
 			return null;
@@ -104,31 +123,55 @@ public class StringUtils {
 		return sb.toString();
 	}
 	
+	/** Determines if the specified character is a digit [0-9]. */
 	public static boolean isDigit(char c) {
 		return c >= '0'  &&  c <= '9';
 	}
 	
+	/** Determines if the specified character is a letter [a-z,A-Z]. */
 	public static boolean isAsciiLetter(char c) {
 		return (c >= 'A' && c <= 'Z') || (c <= 'z' && c >= 'a');
 	}
 	
+	/** Determines if the specified String is null or empty. */
 	public static boolean isNullOrEmpty(String arg) {
 		return arg == null  ||  arg.equals("");
 	}
 	
+	/** Determines if the specified String is not null and not empty. */
 	public static boolean isNonEmpty(String arg) {
 		return arg != null  &&  !arg.equals("");
 	}
 	
+	/**
+	 * Determines if the specified URI String is a qualified name.
+	 * The following conditions are checked:
+	 * <ul>
+	 * <li>the String starts with a URI scheme
+	 * (see {@link #startsWithURIScheme})</li>
+	 * <li>the String contains the symbol '#'</li>
+	 * <li>there is at least one character following the symbol '#'</li>
+	 * </ul>
+	 */
 	public static boolean isQualifiedName(String uri) {
 		if (!startsWithURIScheme(uri))
 			return false;
 		
 		int i = uri.lastIndexOf('#');
 		return  i > 0
-			&&  i < uri.length()-1; // at list one char is present after '#'
+			&&  i < uri.length()-1; // at least one char is present after '#'
 	}
 	
+	/**
+	 * Determines if a prefix of the specified String is conform to an URI
+	 * definition. The following conditions are checked:
+	 * <ul>
+	 * <li>the String starts with a letter ([a-z,A-Z])</li>
+	 * <li>the String contains the symbol ':'</li>
+	 * <li>all characters from the beginning to the symbol ':' are either
+	 * a letter, a digit, or one of [+, -, .]</li>
+	 * </ul>
+	 */
 	public static boolean startsWithURIScheme(String arg) {
 		if (arg == null  ||  arg.length() == 0)
 			return false;
@@ -145,5 +188,9 @@ public class StringUtils {
 		}
 		
 		return true;
+	}
+	
+	public static void main(String args[]) {
+		System.out.println(deriveLabel("kjD2390 ösd ydg: öasä"));
 	}
 }

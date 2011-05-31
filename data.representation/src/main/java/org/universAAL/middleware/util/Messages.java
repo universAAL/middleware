@@ -25,13 +25,39 @@ import java.util.Locale;
 import java.util.Properties;
 
 /**
+ * An extension of configuration file handling. The configuration file consists
+ * of lines with key-value pairs (called 'messages'). In addition to simplify
+ * the reading of configuration files, this class also handles messages in
+ * different files representing the messages in different languages. When a
+ * message is not available in the localized language, the corresponding value
+ * for the default language is returned.<br>
+ * The default file name is <i>messages.properties</i>, the file name for a
+ * different language include a language code as lowercase ISO 639 code, e.g.
+ * for english, the file name would be <i>messages_en.properties</i>.
+ * 
  * @author mtazari
- *
+ * @author Carsten Stockloew
  */
 public class Messages extends ConfFile {
-	private Properties localizedMessages, defaultMessages;
+	
+	/** The set of messages in a localized language. */
+	private Properties localizedMessages;
+	
+	/** The set of messages in a default language. */
+	private Properties defaultMessages;
+	
+	/** The localized language. */
 	private String lang = null;
 	
+	
+	/**
+	 * Constructor: opens the file with the given ID and loads all messages.
+	 * 
+	 * @param id
+	 *            The ID for the configuration file, see
+	 *            {@link org.universAAL.middleware.util.ConfFile#ConfFile(String)}
+	 * @throws IOException
+	 */
 	public Messages(String id) throws IOException {
 		super(id);
 		defaultMessages = new Properties();
@@ -40,13 +66,19 @@ public class Messages extends ConfFile {
 		fis.close();
 	}
 	
+	/**
+	 * Get the value for a given key.
+	 * @param key The key.
+	 * @return The value.
+	 */
 	public String getString(String key) {
 		String l = Locale.getDefault().getLanguage();
 		if (!l.equals(lang)) {
 			lang = l;
 			localizedMessages = new Properties();
 			try {
-				InputStream fis = getConfFileAsStream("messages_"+l+".properties");
+				InputStream fis = getConfFileAsStream("messages_" + l
+						+ ".properties");
 				localizedMessages.load(fis);
 				fis.close();
 			} catch (Exception e) {}

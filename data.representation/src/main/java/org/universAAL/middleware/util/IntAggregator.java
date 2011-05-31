@@ -20,18 +20,38 @@
 package org.universAAL.middleware.util;
 
 /**
+ * Utility class to calculate values (like average, minimum) from a consecutive
+ * appearance of integer values.
+ * 
+ * @see RatingAggregator
+ * 
  * @author mtazari
- *
+ * @author Carsten Stockloew
  */
 public class IntAggregator {
 	
-	private int avg, min, max;
-	private int num = 0, sum = 0;
+	/** The average. */
+	private int avg;
 	
+	/** The minimum. */
+	private int min;
+	
+	/** The maximum. */
+	private int max;
+	
+	/** The number of integers. */
+	private int num = 0;
+	
+	/** The sum. */
+	private int sum = 0;
+	
+	
+	/** Create a new instance. */
 	public IntAggregator() {
-		
 	}
 	
+	
+	/** Add a new integer. */
 	public IntAggregator addVote(int vote) {
 		sum += vote;
 		num++;
@@ -48,18 +68,22 @@ public class IntAggregator {
 		return this;
 	}
 	
+	/** Get the average value. */
 	public int getAverage() {
 		return avg;
 	}
 	
+	/** Get the maximum value. */
 	public int getMax() {
 		return max;
 	}
 	
+	/** Get the minimum value. */
 	public int getMin() {
 		return min;
 	}
 	
+	/** Get the number of integers. */
 	public int getNumberOfVotes() {
 		return num;
 	}

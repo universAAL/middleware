@@ -25,8 +25,12 @@ import org.slf4j.Logger;
 import org.universAAL.middleware.Activator;
 
 /**
+ * Logging utility class. Call one of the static methods of this class to add
+ * new log entries to a logger. Log entries may also be forwarded to various
+ * other {@link LogListener}s.
+ * 
  * @author mtazari
- * @author cstockloew
+ * @author Carsten Stockloew
  */
 public class LogUtils {
 	

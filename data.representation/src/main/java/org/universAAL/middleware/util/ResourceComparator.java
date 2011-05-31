@@ -28,15 +28,31 @@ import org.universAAL.middleware.Activator;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
+ * Helper class for comparing two
+ * {@link org.universAAL.middleware.rdf.Resource}s. 
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public class ResourceComparator {
 	
-	private ArrayList done1 = new ArrayList(), done2 = new ArrayList();
+	/** Set of URIs for the first Resource of a comparison, to avoid cycles. */
+	private ArrayList done1 = new ArrayList();
+
+	/** Set of URIs for the second Resource of a comparison, to avoid cycles. */
+	private ArrayList done2 = new ArrayList();
+	
+	/** The stack contains a set of Strings for output */
 	private Stack s = new Stack();
+	
+	/** True, if output on the stack is generated */
 	private boolean isPrinting = false;
 	
+	
+	
+	/**
+	 * Internal method to test for equality.
+	 */
 	private boolean differ(int indent, List l1, List l2, boolean closedList) {
 		int i = l1.size(), j = l2.size();
 		if (i != j) {
@@ -84,6 +100,9 @@ public class ResourceComparator {
 		return result;
 	}
 	
+	/**
+	 * Internal method to test for equality.
+	 */
 	private boolean differ(int indent, Resource r1, Resource r2) {
 		int i = done1.indexOf(r1.getURI()), j = done2.indexOf(r2.getURI());
 		if (i != j) {
@@ -142,6 +161,9 @@ public class ResourceComparator {
 		return result;
 	}
 	
+	/**
+	 * Internal method to test for equality.
+	 */
 	private boolean differ(int indent, String prop, Object v1, Object v2, boolean closedList) {
 		if (v1 == null  ||  v2 == null) {
 			writeLine(indent, new Object[] {
@@ -196,6 +218,10 @@ public class ResourceComparator {
 			return false;
 	}
 	
+	/**
+	 * Tests whether two Resources are equal, i.e. the Resource, all properties, and all
+	 * Resources connected by properties.
+	 */
 	public boolean areEqual(Resource r1, Resource r2) {
 		isPrinting = false;
 		return r1 != null  &&  r2 != null 
@@ -203,6 +229,12 @@ public class ResourceComparator {
 			&& !differ(0, r1, r2);
 	}
 	
+	/**
+	 * Prints the differences between two Resources to the log.
+	 * 
+	 * @see org.universAAL.middleware.util.LogUtils#logDebug(org.slf4j.Logger,
+	 *      String, String, Object[], Throwable)
+	 */
 	public void printDiffs(Resource r1, Resource r2) {
 		isPrinting = true;
 		writeLine(0, new Object[] {
@@ -224,11 +256,25 @@ public class ResourceComparator {
 		LogUtils.logDebug(Activator.logger, "ResourceComparator", "printDiffs", s.toArray(), null);
 	}
 
+	/**
+	 * Get a String representation of a Resource.
+	 */
 	private String toString(Resource r) {
 		return (r.isAnon()? "" : r.hasQualifiedName()? r.getLocalName() : r.getURI())
 				+ "@" + StringUtils.deriveLabel(r.getType());
 	}
 	
+	/**
+	 * Write a single line and append it to the stack. A line is a concatenation
+	 * of multiple String gathered from 'lineContent'.
+	 * 
+	 * @param indent
+	 *            Indentation of the line. Each line starts with 2*indent space
+	 *            characters.
+	 * @param lineContent
+	 *            The content of the line is build up by concatenating the
+	 *            String values for each object in this array.
+	 */
 	private void writeLine(int indent, Object[] lineContent) {
 		if (isPrinting) {
 			StringBuffer sb = new StringBuffer();
