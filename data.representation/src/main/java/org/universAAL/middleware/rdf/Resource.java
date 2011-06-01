@@ -29,7 +29,7 @@ import org.universAAL.middleware.util.ResourceComparator;
 import org.universAAL.middleware.util.StringUtils;
 
 /**
- * The base class of all RDF and OWL classes.
+ * The base class for all RDF and OWL classes.
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  * @author Carsten Stockloew
@@ -86,42 +86,61 @@ public class Resource {
 	
 	/**
 	 * Legal return values for {@link #getPropSerializationType(String)}.
-	 * <code>PROP_SERIALIZATION_OPTIONAL</code> says that, when serializing an instance of
-	 * this class in a minimized way, a property can be ignored.
-	 * <code>PROP_SERIALIZATION_REDUCED</code> says that, when serializing an instance of
-	 * this class in a minimized way, a property must be included but the value can be
-	 * represented in its reduced form.
-	 * <code>PROP_SERIALIZATION_FULL</code> says that, when serializing an instance of
-	 * this class in a minimized way, a property must be included in its full form.
+	 * <code>PROP_SERIALIZATION_UNDEFINED</code> says that, when serializing an
+	 * instance of this class in a minimized way, it is undefined whether a
+	 * property can be ignored.
 	 */
 	public static final int PROP_SERIALIZATION_UNDEFINED = 0;
+
+	/**
+	 * Legal return values for {@link #getPropSerializationType(String)}.
+	 * <code>PROP_SERIALIZATION_OPTIONAL</code> says that, when serializing an
+	 * instance of this class in a minimized way, a property can be ignored.
+	 */
 	public static final int PROP_SERIALIZATION_OPTIONAL = 1;
+
+	/**
+	 * Legal return values for {@link #getPropSerializationType(String)}.
+	 * <code>PROP_SERIALIZATION_REDUCED</code> says that, when serializing an
+	 * instance of this class in a minimized way, a property must be included
+	 * but the value can be represented in its reduced form.
+	 */
 	public static final int PROP_SERIALIZATION_REDUCED = 2;
+
+	/**
+	 * Legal return values for {@link #getPropSerializationType(String)}.
+	 * <code>PROP_SERIALIZATION_FULL</code> says that, when serializing an
+	 * instance of this class in a minimized way, a property must be included in
+	 * its full form.
+	 */
 	public static final int PROP_SERIALIZATION_FULL = 3;
 
 	/**
-	 * Used for deserialization: all classes derived from Resource have to register
-	 * to the Resource base class with their URI by calling
-	 * {@link #addResourceClass(String uri, Class clz)}.
-	 * The deserializer can then get an instance of a class given its URI by calling
+	 * Used for deserialization: all classes derived from Resource have to
+	 * register to the Resource base class with their URI by calling
+	 * {@link #addResourceClass(String uri, Class clz)}. The deserializer can
+	 * then get an instance of a class given its URI by calling
 	 * {@link #getResource(String classURI, String instanceURI)}
 	 */
 	private static Hashtable uriRsrcClass = new Hashtable();
-	
+
 	/**
-	 * Used for deserialization: specialized method to support OWL-S Process Model.
-	 * Register an object by calling {@link #addSpecialResource(Resource r)}.
-	 * The deserializer can then get the registered instance given its URI by calling
+	 * Registration of specialized objects. When getting a Resource (e.g. by a
+	 * serializer), either the specialized Resource is retrieved according to
+	 * the URI of the specific instance, or a new object is created which is
+	 * derived from Resource according to the class URI. Register an object by
+	 * calling {@link #addSpecialResource(Resource r)}. The registered instance
+	 * - given its instance URI - can then be retrieved by calling
 	 * {@link #getResource(String classURI, String instanceURI)}
 	 */
 	private static Hashtable uriResource = new Hashtable();
-	
+
 	/**
-	 * URI of this resource, or URIref (URI plus fragment identifier, separated by the
-	 * symbol '#').
+	 * URI of this resource, or URIref (URI plus fragment identifier, separated
+	 * by the symbol '#').
 	 */
 	protected final String uri;
-	
+
 	/**
 	 * For a given URIref, 'ns_delim_index' is the index of the delimiter (the
 	 * symbol '#'), or -1 if there is no delimiter.
@@ -129,26 +148,31 @@ public class Resource {
 	protected final int ns_delim_index;
 
 	/**
-	 * The properties denote the RDF triples of this resource, realized as Hashtable.
-	 * The RDF subject is the resource itself, the key of the Hashtable is the RDF
-	 * predicate and the value of the Hashtable are the RDF object, which can be
-	 * a literal or another resource. See {@link #setProperty(String propURI, Object value)}
-	 * for more information.
+	 * The properties denote the RDF triples of this resource, realized as
+	 * Hashtable. The RDF subject is this Resource itself, the key of the
+	 * Hashtable is the RDF predicate and the value of the Hashtable is the RDF
+	 * object, which can be a literal or another resource. See
+	 * {@link #setProperty(String propURI, Object value)} for more information.
 	 */
 	protected final Hashtable props = new Hashtable();
-	
+
 	/**
-	 * A resource can have one or more RDF types which are represented in this class
-	 * as a property with key (RDF predicate) 'rdf:type' and an ArrayList as value
-	 * (RDF object). Types are added by calling
-	 * {@link #addType(String typeURI, boolean blockFurtherTypes)}. If only one type is
-	 * possible, this attribute indicates that not more than one type can be added.
+	 * A resource can have one or more RDF types which are represented in this
+	 * class as a property with key (RDF predicate) 'rdf:type' and an ArrayList
+	 * as value (RDF object). Types are added by calling
+	 * {@link #addType(String typeURI, boolean blockFurtherTypes)}. If only one
+	 * type is possible, this attribute indicates that not more than one type
+	 * can be added.
 	 */
 	protected boolean blockAddingTypes = false;
-	
+
 	/** true, if this resource is an XML Literal. */
-	protected boolean isXMLLiteral = false;
+	protected boolean isXMLLiteral = false;	
 	
+	/* --------------------------------------------------------------
+	 * Constructors
+	 * --------------------------------------------------------------
+	 */
 	
 	
 	/** Constructor to create a new Resource with anonymous URI. */
@@ -205,7 +229,17 @@ public class Resource {
 
 	
 	
+	/* --------------------------------------------------------------
+	 * Methods
+	 * --------------------------------------------------------------
+	 */
 	
+	
+	/**
+	 * Register a new Resource class. This can be used for deserialisation:
+	 * when a message arrives with this URI, a new instance of this class can
+	 * be generated.
+	 */
 	protected static final void addResourceClass(String uri, Class clz) {
 		if (StringUtils.isNonEmpty(uri)
 				&&  clz != null
@@ -213,6 +247,12 @@ public class Resource {
 			uriRsrcClass.put(uri, clz);
 	}
 	
+	/**
+	 * Register a new specialized Resource instance (instead of a Resource
+	 * class). The instance can be retrieved by calling
+	 * {@link #getResource(String classURI, String instanceURI)}
+	 * @param r The Resource to register.
+	 */
 	protected static final void addSpecialResource(Resource r) {
 		if (r != null  &&  !r.isAnon())
 			uriResource.put(r.uri, r);
@@ -239,10 +279,25 @@ public class Resource {
 		return result;
 	}
 	
+	/**
+	 * Create a new anonymous URI. The URI starts with the typical String for
+	 * anonymous URIs followed by a unique ID.
+	 */
 	public static final String generateAnonURI() {
 		return ANON_URI_PREFIX + StringUtils.createUniqueID();
 	}
 	
+	/**
+	 * Get a Resource with the given class and instance URI.
+	 * 
+	 * @param classURI
+	 *            The URI of the class.
+	 * @param instanceURI
+	 *            The URI of the instance.
+	 * @return The Resource object with the given 'instanceURI', or a new
+	 *         Resource, if it does not exist.
+	 * @see #addSpecialResource(Resource)
+	 */
 	public static Resource getResource(String classURI, String instanceURI) {
 		if (classURI == null)
 			return null;
@@ -266,15 +321,34 @@ public class Resource {
 		}
 	}
 	
+	/**
+	 * Determines if the specified URI is an anonymous URI, i.e. it is either
+	 * null or starts with the the String typical for anonymous URIs.
+	 * @see #ANON_URI_PREFIX
+	 */
 	public static final boolean isAnonymousURI(String uri) {
 		return uri == null  ||  uri.startsWith(ANON_URI_PREFIX);
 	}
 	
+	/**
+	 * Determines if the specified URI is a qualified name (see
+	 * {@link org.universAAL.middleware.util.StringUtils.isQualifiedName(uri)})
+	 * and is not an anonymous URI.
+	 */
 	public static final boolean isQualifiedName(String uri) {
 		return StringUtils.isQualifiedName(uri)
 			&& !uri.startsWith(ANON_URI_PREFIX);
 	}
 
+	/**
+	 * Set or add the type of this Resource. The type complies to rdf:type. A
+	 * Resource can have multiple types.
+	 * 
+	 * @param typeURI
+	 *            URI of the type.
+	 * @param blockFurtherTypes
+	 *            If true, no further types can be added.
+	 */
 	public final void addType(String typeURI, boolean blockFurtherTypes) {
 		if (!this.blockAddingTypes) {
 			if (typeURI != null) {
@@ -294,6 +368,12 @@ public class Resource {
 		}
 	}
 	
+	/**
+	 * If this Resource represents an RDF, retrieve the elements as
+	 * {@link java.util.List}.
+	 * 
+	 * @return The list containing the elements of this RDF list.
+	 */
 	public List asList() {
 		String type = getType();
 		if (type == null  ||  !type.equals(TYPE_RDF_LIST))
@@ -303,6 +383,13 @@ public class Resource {
 		return result;
 	}
 	
+	/**
+	 * If this Resource represents an RDF, retrieve the elements as
+	 * {@link java.util.List}.
+	 * 
+	 * @param l
+	 *            The list to store the elements of this RDF list.
+	 */
 	public void asList(List l) {
 		if (!uri.equals(RDF_EMPTY_LIST)) {
 			Object o = props.get(PROP_RDF_FIRST);
@@ -311,17 +398,29 @@ public class Resource {
 				o = props.get(PROP_RDF_REST);
 				if (o instanceof Resource) {
 					String type = ((Resource) o).getType();
-					if (type != null  &&  type.equals(TYPE_RDF_LIST))
+					if (type != null && type.equals(TYPE_RDF_LIST))
 						((Resource) o).asList(l);
 					// TODO: log that rest must be a list or rdf:nil
 				} else if (o instanceof List)
 					// the rest is already a list object
 					l.addAll((List) o);
-				// TODO: add a last 'else' with log that rest must be either a List, or a Resource of type rdf:List, or rdf:nil
+				// TODO: add a last 'else' with log that rest must be either a
+				// List, or a Resource of type rdf:List, or rdf:nil
 			}
 		}
 	}
 
+	/**
+	 * Change the value (RDF object) of the specified property (RDF predicate)
+	 * to the given object. If the value can't be set, it is ensured that the
+	 * original value is restored.
+	 * 
+	 * @param propURI
+	 *            The value has to be changed for this property.
+	 * @param value
+	 *            The new value.
+	 * @return true, if the value could be set.
+	 */
 	public boolean changeProperty(String propURI, Object value) {
 		if (propURI != null) {
 			Object o = props.remove(propURI);
@@ -337,9 +436,7 @@ public class Resource {
 		return false;
 	}
 	
-	/**
-	 * If this object is an XML Literal, create a copy of it.
-	 */
+	/** If this object is an XML Literal, create a copy of it. */
 	public Resource copyAsXMLLiteral() {
 		Resource copy = new Resource(uri, true);
 		for (Enumeration e = props.keys(); e.hasMoreElements();) {
@@ -371,6 +468,7 @@ public class Resource {
 		return copy;
 	}
 	
+	/** Determines if this Resource equals the specified Resource. */
 	public boolean equals(Object other) {
 		return (this == other)?
 				true : (other instanceof Resource)?
@@ -418,32 +516,45 @@ public class Resource {
 	public final Enumeration getPropertyURIs() {
 		return props.keys();
 	}
-	
+
 	/**
 	 * Answers if the given property has to be considered when serializing this
 	 * individual in a minimized way, and if not ignore-able, whether its value
 	 * should be presented in its full form or can be reduced. The return value
-	 * must be one of {@link #PROP_SERIALIZATION_OPTIONAL}, {@link
-	 * #PROP_SERIALIZATION_REDUCED}, or {@link #PROP_SERIALIZATION_FULL}. It can
-	 * be assumed that the given property is one of those returned by {@link
-	 * #getPropertyURIs()}. Decision criterion should be if the value of this
-	 * property is absolutely necessary when this resource is being sent to a
-	 * remote node. If the subclass rates it as unlikely that the receiver side
-	 * would need this info, the answer should be <code>PROP_SERIALIZATION_OPTIONAL</code>
-	 * in favor of lower communication traffic and higher performance even at
-	 * risk of a possible additional query on the receiver side for fetching
-	 * this info. With the same rationale, if a property should be included in
-	 * the process of serialization, it is preferable to include it in a reduced
-	 * form; in this case the return value should be <code>PROP_SERIALIZATION_REDUCED</code>,
-	 * otherwise <code>PROP_SERIALIZATION_FULL</code> can be returned.
+	 * must be one of {@link #PROP_SERIALIZATION_OPTIONAL},
+	 * {@link #PROP_SERIALIZATION_REDUCED}, or {@link #PROP_SERIALIZATION_FULL}.
+	 * It can be assumed that the given property is one of those returned by
+	 * {@link #getPropertyURIs()}. <br>
+	 * Decision criterion should be if the value of this property is absolutely
+	 * necessary when this resource is being sent to a remote node. If the
+	 * subclass rates it as unlikely that the receiver side would need this
+	 * info, the answer should be <code>PROP_SERIALIZATION_OPTIONAL</code> in
+	 * favor of lower communication traffic and higher performance even at risk
+	 * of a possible additional query on the receiver side for fetching this
+	 * info. With the same rationale, if a property should be included in the
+	 * process of serialization, it is preferable to include it in a reduced
+	 * form; in this case the return value should be
+	 * <code>PROP_SERIALIZATION_REDUCED</code>, otherwise
+	 * <code>PROP_SERIALIZATION_FULL</code> can be returned.
 	 * 
-	 * Subclasses should normally overwrite this method as this default implementation
-	 * returns always <code>PROP_SERIALIZATION_FULL</code>.
+	 * Subclasses should normally overwrite this method as this default
+	 * implementation returns always <code>PROP_SERIALIZATION_FULL</code>.
 	 */
 	public int getPropSerializationType(String propURI) {
 		return PROP_SERIALIZATION_FULL;
 	}
 	
+	/**
+	 * Helper method to get the static field of the java class with the given
+	 * field name. If the field is not defined in this class, the given default
+	 * value is returned.
+	 * 
+	 * @param fieldName
+	 *            Name of the static field of the java class to retrieve.
+	 * @param defaultValue
+	 *            Default value, if the field could not be retrieved.
+	 * @return The value of the field.
+	 */
 	public Object getStaticFieldValue(String fieldName, Object defaultValue) {
 		try {
 			Object o = getClass().getDeclaredField(fieldName).get(null);
@@ -566,27 +677,32 @@ public class Resource {
 	}
 	
 	/**
-	 * Adds a statement with this resource as the subject, the given <code>propURI</code>
-	 * as the predicate and the given value as the object. Subclasses must override this
-	 * in order to decide if the statement to be added fits the general class constraints.
-	 * If not, the call of this method should be ignored. For each property only one single
-	 * call may be made to this method, unless subsequent calls to this method for setting the
-	 * value of the same property are treated as an update for an update-able property.
-	 * Multi-valued properties must be set using an instance of {@link java.util.List}.
-	 * The differentiation, if a such list should be treated as an rdf:List, can be made
-	 * with the help of {@link #isClosedCollection(String)}. The default implementation
-	 * here accepts all property-value pairs blindly except for rdf:type which is handled
-	 * if the value is a type URI, a Resource or a java.util.List of them.
-	 * <p>Note: The setting of the property rdf:type is being handled by this class via
-	 * the final methods {@link #addType(String, boolean)}, {@link #getType()}, and {@link #getTypes()}.
-	 * Although these methods give the view of handling type URIs as strings, but in reality
-	 * the types are stored as direct instances of this class.
-	 * So, the subclasses should ignore calls for setting rdf:type; if not, then the subclass
-	 * must pay attention that the value should be a {@link List} of direct instances of
-	 * this class so that (1) the {@link #toString()} method returns just the URI and (2)
-	 * the serializers get no problems with the value. Also, settings via subclasses
-	 * may be overwritten by this class if a subsequent
-	 * call to  {@link #addType(String, boolean)} is made.
+	 * Adds a statement with this resource as the subject, the given
+	 * <code>propURI</code> as the predicate and the given value as the object.
+	 * Subclasses must override this in order to decide if the statement to be
+	 * added fits the general class constraints. If not, the call of this method
+	 * should be ignored. For each property only one single call may be made to
+	 * this method, unless subsequent calls to this method for setting the value
+	 * of the same property are treated as an update for an update-able
+	 * property. Multi-valued properties must be set using an instance of
+	 * {@link java.util.List}. The differentiation, if a such list should be
+	 * treated as an rdf:List, can be made with the help of
+	 * {@link #isClosedCollection(String)}. The default implementation here
+	 * accepts all property-value pairs blindly except for rdf:type which is
+	 * handled if the value is a type URI, a Resource or a java.util.List of
+	 * them.
+	 * <p>
+	 * Note: The setting of the property rdf:type is being handled by this class
+	 * via the final methods {@link #addType(String, boolean)},
+	 * {@link #getType()}, and {@link #getTypes()}. Although these methods give
+	 * the view of handling type URIs as strings, but in reality the types are
+	 * stored as direct instances of this class. So, the subclasses should
+	 * ignore calls for setting rdf:type; if not, then the subclass must pay
+	 * attention that the value should be a {@link List} of direct instances of
+	 * this class so that (1) the {@link #toString()} method returns just the
+	 * URI and (2) the serializers get no problems with the value. Also,
+	 * settings via subclasses may be overwritten by this class if a subsequent
+	 * call to {@link #addType(String, boolean)} is made.
 	 */
 	public void setProperty(String propURI, Object value) {
 		if (propURI != null  &&  value != null)
@@ -598,30 +714,68 @@ public class Resource {
 				else if (value instanceof List)
 					for (int i=0; i<((List) value).size(); i++)
 						setProperty(propURI, ((List) value).get(i));
-			} else if (PROP_RDFS_COMMENT.equals(propURI) ||  PROP_RDFS_LABEL.equals(propURI)) {
+			} else if (PROP_RDFS_COMMENT.equals(propURI)
+					|| PROP_RDFS_LABEL.equals(propURI)) {
 				if (!props.containsKey(propURI)  &&  value instanceof String)
 					props.put(propURI, value);
 			} else
 				props.put(propURI, value);
 	}
-	
+
+	/**
+	 * Set the given value at the end of the given property path, but does not
+	 * force the setting.
+	 * 
+	 * @see #setPropertyPathFromOffset(String[], int, Object, boolean)
+	 */
 	public boolean setPropertyPath(String[] propPath, Object value) {
 		return setPropertyPathFromOffset(propPath, 0, value, false);
 	}
-	
-	public boolean setPropertyPath(String[] propPath, Object value, boolean force) {
+
+	/**
+	 * Set the given value at the end of the given property path.
+	 * 
+	 * @see #setPropertyPathFromOffset(String[], int, Object, boolean)
+	 */
+	public boolean setPropertyPath(String[] propPath, Object value,
+			boolean force) {
 		return setPropertyPathFromOffset(propPath, 0, value, force);
 	}
-	
-	public boolean setPropertyPathFromOffset(String[] propPath, int fromIndex, Object value, boolean force) {
+
+	/**
+	 * Change or add the Resource at the end of the given property path to the
+	 * given value. This method starts from this Resource and follows the given
+	 * property path through the RDF graph. If a property from the path does not
+	 * yet exist, a new anonymous Resource is automatically created. At the end
+	 * of the property path, the given value is set as RDF object with the last
+	 * property from the path as RDF predicate.
+	 * 
+	 * @param propPath
+	 *            The set of properties defining the path through the RDF graph.
+	 * @param fromIndex
+	 *            The property path is evaluated from this index on; if
+	 *            'fromIndex' is greater than zero, then some entries at the
+	 *            beginning are just ignored.
+	 * @param value
+	 *            The value to set at the end of the property path
+	 * @param force
+	 *            Determines if setting the value has to be forced. If true,
+	 *            {@link #changeProperty(String, Object)} is called, otherwise
+	 *            {@link #setProperty(String, Object)} is called.
+	 * @return true, if the operation was successful.
+	 */
+	// TODO: check if fromIndex > propPath.length (otherwise results in infinite
+	// loop)
+	public boolean setPropertyPathFromOffset(String[] propPath, int fromIndex,
+			Object value, boolean force) {
 		try {
-			if (fromIndex == propPath.length-1) {
+			if (fromIndex == propPath.length - 1) {
 				if (force)
 					return changeProperty(propPath[fromIndex], value);
 				setProperty(propPath[fromIndex], value);
 				return props.get(propPath[fromIndex]) == value;
 			}
-			
+
 			Object tmp = props.get(propPath[fromIndex]);
 			if (tmp == null) {
 				if (value == null)
@@ -630,8 +784,9 @@ public class Resource {
 				props.put(propPath[fromIndex], tmp);
 			} else if (!(tmp instanceof Resource))
 				return false;
-			
-			return ((Resource) tmp).setPropertyPathFromOffset(propPath, fromIndex+1, value, force);
+
+			return ((Resource) tmp).setPropertyPathFromOffset(propPath,
+					fromIndex + 1, value, force);
 		} catch (Exception e) {
 			return false;
 		}
@@ -641,32 +796,37 @@ public class Resource {
 	public String toString() {
 		return uri;
 	}
-	
+
 	/**
-	 * Debug method: get a string of this RDF graph
-	 * @return the graph as string
+	 * Debug method: get a string of this RDF graph.
+	 * 
+	 * @return The graph as string.
 	 */
 	public String toStringRecursive() {
 		return toStringRecursive("", true, null);
 	}
 
 	/**
-	 * Debug method: get a string of this RDF graph
-	 * @param prefix indention string that every line starts with
-	 * @param prefixAtStart true iff the first line should start with the prefix string
-	 * @return the graph as string
+	 * Debug method: get a string of this RDF graph.
+	 * 
+	 * @param prefix
+	 *            Indention string that every line starts with.
+	 * @param prefixAtStart
+	 *            True iff the first line should start with the prefix string.
+	 * @return The graph as string.
 	 */
-	public String toStringRecursive(String prefix, boolean prefixAtStart, Hashtable visitedElements) {
+	public String toStringRecursive(String prefix, boolean prefixAtStart,
+			Hashtable visitedElements) {
 		if (visitedElements == null)
 			visitedElements = new Hashtable();
-		
+
 		String s = new String();
 		if (prefixAtStart)
 			s += prefix;
 		s += this.getClass().getName() + "\n";
 		prefix += "  ";
 		s += prefix + "URI: " + getURI();
-		
+
 		if (visitedElements.get(this) != null) {
 			// this element has been visited before
 			s += " --> \n";
@@ -674,8 +834,9 @@ public class Resource {
 		}
 		visitedElements.put(this, this);
 		s += "\n";
-		
-		s += prefix + "Properties (Key-Value): " + "(size: " + props.size() + ")\n";
+
+		s += prefix + "Properties (Key-Value): " + "(size: " + props.size()
+				+ ")\n";
 		Enumeration e = props.keys();
 		while (e.hasMoreElements()) {
 			String key = (String) e.nextElement();
@@ -683,22 +844,25 @@ public class Resource {
 			s += prefix + "* K " + key + "\n";
 			s += prefix + "* V ";
 			if (val instanceof Resource)
-				s += ((Resource)val).toStringRecursive(prefix+"    ", false, visitedElements);
+				s += ((Resource) val).toStringRecursive(prefix + "    ", false,
+						visitedElements);
 			else if (val instanceof List) {
 				s += "List" + "\n";
-				//for (Object o : (List)val) {
-				Iterator iter = ((List)val).iterator();
+				// for (Object o : (List)val) {
+				Iterator iter = ((List) val).iterator();
 				while (iter.hasNext()) {
 					Object o = iter.next();
 					if (o instanceof Resource)
-						s += ((Resource)o).toStringRecursive(prefix+"      ", true, visitedElements);
+						s += ((Resource) o).toStringRecursive(
+								prefix + "      ", true, visitedElements);
 					else
-						s += prefix+"      "+"unknown: "+val.getClass().getName() + "\n";
+						s += prefix + "      " + "unknown: "
+								+ val.getClass().getName() + "\n";
 				}
 			} else {
 				String type = TypeMapper.getDatatypeURI(val);
 				if (type == null)
-					s += "unknown: "+val.getClass().getName() + "\n";
+					s += "unknown: " + val.getClass().getName() + "\n";
 				else
 					s += "Literal: " + type + " " + val + "\n";
 			}
