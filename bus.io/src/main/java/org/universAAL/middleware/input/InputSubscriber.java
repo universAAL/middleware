@@ -38,48 +38,60 @@ import org.universAAL.middleware.sodapop.msg.Message;
  * 
  */
 public abstract class InputSubscriber implements Subscriber {
-	private InputBus bus;
-	private String myID;
+    private InputBus bus;
+    private String myID;
 
-	protected InputSubscriber(BundleContext context) {
-		Activator.checkInputBus();
-		bus = (InputBus) context.getService(context
-				.getServiceReference(InputBus.class.getName()));
-		myID = bus.register(this);
-	}
+    protected InputSubscriber(BundleContext context) {
+	Activator.checkInputBus();
+	bus = (InputBus) context.getService(context
+		.getServiceReference(InputBus.class.getName()));
+	myID = bus.register(this);
+    }
 
-	public abstract void dialogAborted(String dialogID);
+    public abstract void dialogAborted(String dialogID);
 
-	protected final void addNewRegParams(String dialogID) {
-		bus.addNewRegParams(myID, dialogID);
-	}
+    protected final void addNewRegParams(String dialogID) {
+	bus.addNewRegParams(myID, dialogID);
+    }
 
-	protected final void removeMatchingRegParams(String dialogID) {
-		bus.removeMatchingRegParams(myID, dialogID);
-	}
+    protected final void removeMatchingRegParams(String dialogID) {
+	bus.removeMatchingRegParams(myID, dialogID);
+    }
 
-	public abstract void communicationChannelBroken();
+    public abstract void communicationChannelBroken();
 
-	public final void busDyingOut(Bus b) {
-		if (b == bus)
-			communicationChannelBroken();
-	}
+    /**
+     * @see org.universAAL.middleware.sodapop.BusMember#busDyingOut(Bus)
+     */
+    public final void busDyingOut(Bus b) {
+	if (b == bus)
+	    communicationChannelBroken();
+    }
 
-	public final boolean eval(Message m) {
-		return false;
-	}
+    /**
+     * @see org.universAAL.middleware.sodapop.Subscriber#eval(Message)
+     */
+    public final boolean eval(Message m) {
+	return false;
+    }
 
-	public abstract void handleInputEvent(InputEvent event);
+    public abstract void handleInputEvent(InputEvent event);
 
-	public final void handleEvent(Message m) {
-		if (m.getContent() instanceof InputEvent)
-			handleInputEvent((InputEvent) m.getContent());
-	}
+    /**
+     * @see org.universAAL.middleware.sodapop.Subscriber#handleEvent(Message)
+     */
+    public final void handleEvent(Message m) {
+	if (m.getContent() instanceof InputEvent)
+	    handleInputEvent((InputEvent) m.getContent());
+    }
 
-	public final void handleReply(Message m) {
-	}
+    /**
+     * @see org.universAAL.middleware.sodapop.Caller#handleReply(Message)
+     */
+    public final void handleReply(Message m) {
+    }
 
-	public void close() {
-		bus.unregister(myID, this);
-	}
+    public void close() {
+	bus.unregister(myID, this);
+    }
 }
