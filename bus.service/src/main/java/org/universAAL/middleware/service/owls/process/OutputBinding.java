@@ -52,6 +52,14 @@ public class OutputBinding {
 	public static final String TYPE_OWLS_OUTPUT_BINDING = 
 		ProcessOutput.OWLS_PROCESS_NAMESPACE + "OutputBinding";
 	
+	/**
+	 * Returns true or false depending if the object o contains the right bindings
+	 * 
+	 *  @param Object o The object that contains the binding to check
+	 *  
+	 *  @return true if the object contains the right bindings, return false on contrary.
+	 */
+	
 	static boolean checkBinding(Object o) {
 		if (o instanceof Resource  &&  ((Resource) o).isAnon()) {
 			if (((Resource) o).numberOfProperties() != 3)
@@ -97,6 +105,14 @@ public class OutputBinding {
 		return false;
 	}
 	
+	/**
+	 * Creates a binding on the output requested
+	 *  @param AggregatingFilter Filter to define on the output.
+	 *  @param ProcessOutput Process Output to bind
+	 *  @param ProcessOutput aggregating filter to associate  
+	 *  @return return the resource with the new binding.
+	 */
+	
 	static Resource constructAggregatingBinding(ProcessOutput toParam, AggregatingFilter filter) {
 		Resource result = new Resource();
 		result.addType(TYPE_OWLS_OUTPUT_BINDING, true);
@@ -105,6 +121,15 @@ public class OutputBinding {
 				(filter.serializesAsXMLLiteral()? filter : filter.toLiteral()));
 		return result;
 	}
+	
+	/**
+	 * Creates a conversion binding on the output requested
+	 * 
+	 *  @param ProcessOutput Process Output to bind
+	 *  @param PropertyPath Property path to set  
+	 *  @param TypeURI Type Uri of the conversion binding. 
+	 *  @return return the resource with the new binding.
+	 */
 	
 	static Resource constructClassConversionBinding(ProcessOutput toParam,
 			PropertyPath sourceProp, TypeURI targetClass) {
@@ -116,6 +141,15 @@ public class OutputBinding {
 		return result;
 	}
 	
+	/**
+	 * Creates a language conversion binding on the output requested
+	 * 
+	 *  @param ProcessOutput Process Output to bind
+	 *  @param PropertyPath source associated to the language conversion  
+	 *  @param targetLang Target language to associate. 
+	 *  @return return the resource with the language conversion binding.
+	 */
+	
 	static Resource constructLanguageConversionBinding(ProcessOutput toParam,
 			PropertyPath sourceProp, String targetLang) {
 		Resource result = new Resource();
@@ -126,6 +160,14 @@ public class OutputBinding {
 		return result;
 	}
 	
+	/**
+	 * Creates a simple binding withe the property path of the argument
+	 * 
+	 *  @param ProcessOutput Process Output to bind
+	 *  @param PropertyPath Property path to associate.  
+	 *  @return return the resource with the new binding.
+	 */
+	
 	static Resource constructSimpleBinding(ProcessOutput toParam, PropertyPath sourceProp) {
 		Resource result = new Resource();
 		result.addType(TYPE_OWLS_OUTPUT_BINDING, true);
@@ -134,6 +176,15 @@ public class OutputBinding {
 				(sourceProp.serializesAsXMLLiteral()? sourceProp : sourceProp.toLiteral()));
 		return result;
 	}
+	
+	/**
+	 * Creates a language conversion binding on the output requested
+	 * 
+	 *  @param ProcessOutput Process Output to bind
+	 *  @param PropertyPath sourcePropo associated to the language conversion  
+	 *  @param targetUnit Target Unit to associate. 
+	 *  @return return the resource with the unit conversion binding binding.
+	 */
 	
 	static Resource constructUnitConversionBinding(ProcessOutput toParam,
 			PropertyPath sourceProp, String targetUnit) {
@@ -144,6 +195,14 @@ public class OutputBinding {
 				Conversion.constructUnitConversion(sourceProp, targetUnit));
 		return result;
 	}
+	
+	/**
+	 * Finds if the requested resource match with the context binding 
+	 * 
+	 *  @param Resource req. Resource requested to check.
+	 *  @param Hastable context to check. 
+	 *  @return return true if it match and false on contrary.
+	 */
 	
 	static boolean findMatchingBinding(Resource req, Resource[] offer, Hashtable context) {
 		PropertyPath srcPath = null;
