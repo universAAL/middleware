@@ -57,6 +57,15 @@ public abstract class ProcessEffect {
 	public static final String TYPE_PROCESS_REMOVE_EFFECT =
 		Resource.uAAL_SERVICE_NAMESPACE + "RemoveEffect";
 	
+	/**
+	 * Returns true or false depending if the object o contains the right effect
+	 * 
+	 *  @param Object o The object that contains the effect to check
+	 *  
+	 *  @return true if the object contains the right effect, return false on contrary.
+	 */
+	
+	
 	static boolean checkEffect(Object o) {
 		if (o instanceof Resource
 				&&  ((Resource) o).isAnon()) {
@@ -93,6 +102,12 @@ public abstract class ProcessEffect {
 		}
 		return false;
 	}
+	/**
+	 * Adds a effect of a resource
+	 *  @param Propertypath path to set the effect.
+	 *  @param Object object that contains the effect property
+	 *  @return a resource with an added effect 
+	 */
 	
 	static Resource constructAddEffect(PropertyPath ppath, Object value) {
 		if (ppath == null  ||  value == null)
@@ -106,6 +121,13 @@ public abstract class ProcessEffect {
 		return ae;
 	}
 	
+	/**
+	 * Changes a effect of a resource
+	 *  @param Propertypath path to set the effect.
+	 *  @param Object object that contains the effect property
+	 *  @return a resource with an changed effect 
+	 */
+	
 	static Resource constructChangeEffect(PropertyPath ppath, Object value) {
 		if (ppath == null  ||  value == null)
 			return null;
@@ -118,6 +140,13 @@ public abstract class ProcessEffect {
 		return ce;
 	}
 	
+	/**
+	 * Removes a effect of a resource
+	 *  @param Propertypath path to set the effect.
+	 *  @param Object object that contains the effect property
+	 *  @return a resource with an changed effect 
+	 */
+	
 	static Resource constructRemoveEffect(PropertyPath ppath) {
 		if (ppath == null)
 			return null;
@@ -128,6 +157,14 @@ public abstract class ProcessEffect {
 		re.setProperty(PROP_PROCESS_AFFECTED_PROPERTY, ppath);
 		return re;
 	}
+	
+	/**
+	 * Finds if the requested resource match with the context provided 
+	 * 
+	 *  @param Resource req. Resource requested to check.
+	 *  @param Hastable context to check. 
+	 *  @return return true if it match and false on contrary.
+	 */
 	
 	static boolean findMatchingEffect(Resource req, Resource[] offer, Hashtable context) {
 		String effectType = req.getType();
