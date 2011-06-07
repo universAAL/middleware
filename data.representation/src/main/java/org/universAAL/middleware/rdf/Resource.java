@@ -332,7 +332,7 @@ public class Resource {
 	
 	/**
 	 * Determines if the specified URI is a qualified name (see
-	 * {@link org.universAAL.middleware.util.StringUtils.isQualifiedName(uri)})
+	 * {@link org.universAAL.middleware.util.StringUtils#isQualifiedName(String)})
 	 * and is not an anonymous URI.
 	 */
 	public static final boolean isQualifiedName(String uri) {

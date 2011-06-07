@@ -206,14 +206,14 @@ public class PropertyPath extends Resource {
 	}
 
 	/**
-	 * @see org.universAAL.middleware.Resource#isClosedCollection(java.lang.String)
+	 * @see org.universAAL.middleware.rdf.Resource#isClosedCollection(String)
 	 */
 	public boolean isClosedCollection(String propURI) {
 		return PROP_PROPERTY_PATH.equals(propURI);
 	}
 
 	/**
-	 * @see org.universAAL.middleware.Resource#setProperty(java.lang.String,
+	 * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	public void setProperty(String propURI, Object o) {

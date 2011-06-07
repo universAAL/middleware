@@ -100,7 +100,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements 
 	 * @return 	<b>zero </b>if current location and argument location are in the same Place.<br>
 	 * 			<b> -1 </b> if current location is in a Place contained in argument location Place.<br>
 	 * 			<b>1 </b>	if argument location is in a Place contained in current location Place.<br>
-	 * 			{@link ComparableIndividual#NOT_COMPARABLE_INDIVIDUALS} if two locations are not comparable.
+	 * 			{@link ComparableIndividual#NON_COMPARABLE_INDIVIDUALS} if two locations are not comparable.
 	 */
 	public abstract int compareTo(Object arg0);
 	
