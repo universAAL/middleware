@@ -32,19 +32,38 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.process.ProcessResult;
 
 /**
+ * A class that represents a service request resource, which is used by the 
+ * <code>ServiceCaller</code>-s when performing synchronous or asynchronous requests.
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
  */
 public class ServiceRequest extends Resource {
 	
+	/**
+	 * A resource URI that specifies the resource as a service request.
+	 */
 	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ServiceRequest";
 
+	/**
+	 * A property key for adding of the list of aggregating filters.
+	 */
 	public static final String PROP_AGGREGATING_FILTER = 
 		uAAL_VOCABULARY_NAMESPACE + "aggregatingFilter";
+
+	/**
+	 * A property key for adding of the requested service.
+	 */
 	public static final String PROP_REQUESTED_SERVICE = 
 		uAAL_VOCABULARY_NAMESPACE + "requestedService";
+
+	/**
+	 * A property key for adding of the process result.  
+	 */
 	public static final String PROP_REQUIRED_PROCESS_RESULT = 
 		uAAL_VOCABULARY_NAMESPACE + "requiredResult";
+
+	/**
+	 * A property key for adding of the related service caller.
+	 */
 	public static final String PROP_uAAL_SERVICE_CALLER = 
 		uAAL_VOCABULARY_NAMESPACE + "theServiceCaller";
 	
@@ -74,10 +93,15 @@ public class ServiceRequest extends Resource {
 	 * <li>{@link Service#getClassURI()}, all services from this class and its sub-classes will match
 	 * <li>{@link Service#getRestrictedPropsOnInstanceLevel()} will be used to fetch all the restrictions that were
 	 *     added by the {@link ServiceCaller}. These restrictions will be checked against the services matched from the previous step
-	 *     to narrow down the hit set.
+	 *     to narrow down the result set.
 	 * <li>Finally the required outputs and effects from this ServiceRequest will be checked against the
 	 *     effects and outputs of the matched services. 
 	 * </ul>
+	 * @param requestedService the requested service. It is added as a property of the <code>ServiceRequest</code> 
+	 * with key <code>PROP_REQUESTED_SERVICE</code>.
+	 * @param involvedHumanUser the human user that is related to this service request. May be <code>null</code>. 
+	 * If not null or anonymous, then it is added as a property of the <code>ServiceRequest</code>
+	 * with key <code>Resource.PROP_uAAL_INVOLVED_HUMAN_USER</code>.
 	 */
 	public ServiceRequest(Service requestedService, Resource involvedHumanUser) {
 		super();
@@ -89,6 +113,20 @@ public class ServiceRequest extends Resource {
 			props.put(PROP_uAAL_INVOLVED_HUMAN_USER, involvedHumanUser);
 	}
 	
+	/**
+	 * Creates an instance of <code>ServiceRequest</code> with a URI that is created by appending a
+	 * unique ID to the given 'uriPrefix'. This constructor has a pseudo
+	 * parameter 'numProps' in order to make it distinct from the other
+	 * constructor that also takes a string. Later versions of <code>ServiceRequest</code> may
+	 * decide to make some use of numProps in some way, however.
+	 * @param uriPrefix Prefix of the URI.
+	 * @param numProps Not used.
+	 * @param requestedService the requested service. It is added as a property of the <code>ServiceRequest</code> 
+	 * with key <code>PROP_REQUESTED_SERVICE</code>.
+	 * @param involvedHumanUser the human user that is related to this service request. May be <code>null</code>. 
+	 * If not null or anonymous, then it is added as a property of the <code>ServiceRequest</code>
+	 * with key <code>Resource.PROP_uAAL_INVOLVED_HUMAN_USER</code>.
+	 */
 	public ServiceRequest(String uriPrefix, int numProps, Service requestedService, Resource involvedHumanUser) {
 		super(uriPrefix, numProps);
 		if (requestedService == null)
@@ -100,8 +138,14 @@ public class ServiceRequest extends Resource {
 	}
 
 	/**
-	 * See the comments above. This constructor is more appropriate for {@link AvailabilitySubscriber}s,
+	 * Creates a service request with a specified URI. This constructor is more appropriate for {@link AvailabilitySubscriber}s,
 	 * because they will be notified later only with the URI.
+	 * @param uri The URI of the <code>ServiceRequest</code>.
+	 * @param requestedService the requested service. It is added as a property of the <code>ServiceRequest</code> 
+	 * with key <code>PROP_REQUESTED_SERVICE</code>.
+	 * @param involvedHumanUser the human user that is related to this service request. May be <code>null</code>. 
+	 * If not null or anonymous, then it is added as a property of the <code>ServiceRequest</code>
+	 * with key <code>Resource.PROP_uAAL_INVOLVED_HUMAN_USER</code>.
 	 */
 	public ServiceRequest(String uri, Service requestedService, Resource involvedHumanUser) {
 		super(uri);
