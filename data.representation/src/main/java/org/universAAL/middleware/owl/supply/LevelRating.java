@@ -24,7 +24,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public class LevelRating extends ComparableIndividual {
 	public static final String MY_URI;
@@ -48,6 +48,23 @@ public class LevelRating extends ComparableIndividual {
 	public static final LevelRating middle = new LevelRating(MIDDLE);
 	public static final LevelRating high = new LevelRating(HIGH);
 	public static final LevelRating full = new LevelRating(FULL);
+	
+	/** The current value of this object. */
+	private int order;
+
+	
+	
+	// prevent the usage of the default constructor
+	private LevelRating() {
+
+	}
+
+	private LevelRating(int order) {
+		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		this.order = order;
+	}
+
+	
 	
 	/**
 	 * Returns the list of all class members guaranteeing that no other members
@@ -109,18 +126,6 @@ public class LevelRating extends ComparableIndividual {
         return null;
     }
     
-    private int order;
-    
- // prevent the usage of the default constructor
-    private LevelRating() {
-       
-    }
-    
-    private LevelRating(int order) {
-    	super(uAAL_VOCABULARY_NAMESPACE + names[order]);
-        this.order = order;
-    }
-
 	public int compareTo(Object other) {
 		return (this == other)? 0
 				: (order < ((LevelRating) other).order)? -1
@@ -139,10 +144,12 @@ public class LevelRating extends ComparableIndividual {
 		return PROP_SERIALIZATION_OPTIONAL;
 	}
 	
+    /** @see org.universAAL.middleware.rdf.Resource#isWellFormed() */
 	public boolean isWellFormed() {
 		return true;
 	}
     
+	/** Get a human-readable description for this Rating value. */
     public String name() {
         return names[order];
     }
@@ -151,6 +158,10 @@ public class LevelRating extends ComparableIndividual {
         return order;
     }
 
+    /**
+     * Overrides the default method to prevent properties from being added.
+     * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
+     */
 	public void setProperty(String propURI, Object o) {
 		// do nothing
 	}

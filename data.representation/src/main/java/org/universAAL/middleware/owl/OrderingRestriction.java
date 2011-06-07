@@ -247,6 +247,7 @@ public class OrderingRestriction extends Restriction {
 		return true;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression, Hashtable) */
 	public boolean isDisjointWith(ClassExpression other, Hashtable context) {
 		if (super.isDisjointWith(other, context))
 			return true;
@@ -296,6 +297,7 @@ public class OrderingRestriction extends Restriction {
 		return false;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
 	public boolean isWellFormed() {
 		if (props.containsKey(PROP_VALUE_HAS_MAX_EXCLUSIVE)
 				&&  props.containsKey(PROP_VALUE_HAS_MAX_INCLUSIVE))
@@ -313,6 +315,7 @@ public class OrderingRestriction extends Restriction {
 					|| props.containsKey(PROP_VALUE_HAS_MIN_INCLUSIVE));
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression, Hashtable) */
 	public boolean matches(ClassExpression subtype, Hashtable context) {
 		if (super.isWellFormed()  &&  !super.matches(subtype, context))
 			return false;
@@ -502,6 +505,7 @@ public class OrderingRestriction extends Restriction {
 		return true;
 	}
 
+	/** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
 	public void setProperty(String propURI, Object o) {
 		if (propURI == null  ||  o == null  ||  propURI.equals(PROP_OWL_HAS_VALUE)
 				|| props.containsKey(propURI))

@@ -40,7 +40,7 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  * that 'is in' defines just a partial order between locations.
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- * @author cstockloew
+ * @author Carsten Stockloew
  */
 public abstract class AbsLocation extends ComparableIndividual {
 	

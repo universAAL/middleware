@@ -289,6 +289,7 @@ public class Restriction extends ClassExpression {
 		return result;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#copy() */
 	public ClassExpression copy() {
 		Restriction copy =  new Restriction();
 		for (Iterator i = props.keySet().iterator(); i.hasNext();) {
@@ -365,6 +366,7 @@ public class Restriction extends ClassExpression {
 		return i.intValue();
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
 	public String[] getNamedSuperclasses() {
 		return new String[0];
 	}
@@ -433,10 +435,12 @@ public class Restriction extends ClassExpression {
 		return r;
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
 	public Object[] getUpperEnumeration() {
 		return new Object[0];
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object, Hashtable) */
 	public boolean hasMember(Object o, Hashtable context) {
 		int max = getMaxCardinality();
 		if (max == 0  ||  !(o instanceof Resource))
@@ -511,6 +515,7 @@ public class Restriction extends ClassExpression {
 		return true;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression, Hashtable) */
 	public boolean isDisjointWith(ClassExpression other, Hashtable context) {
 		if (!(other instanceof Restriction))
 			return other.isDisjointWith(this, context);
@@ -571,6 +576,7 @@ public class Restriction extends ClassExpression {
 		return false;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
 	public boolean isWellFormed() {
 		return getOnProperty() != null
 			&& (props.containsKey(PROP_OWL_ALL_VALUES_FROM)
@@ -581,6 +587,7 @@ public class Restriction extends ClassExpression {
 					|| props.containsKey(PROP_OWL_SOME_VALUES_FROM));
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression, Hashtable) */
 	public boolean matches(ClassExpression subtype, Hashtable context) {
 		if (subtype == null)
 			return false;
@@ -715,6 +722,7 @@ public class Restriction extends ClassExpression {
 		return result;
 	}
 
+	/** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
 	public void setProperty(String propURI, Object o) {
 		if (o == null  ||  propURI == null  ||  props.containsKey(propURI))
 			return;
