@@ -16,153 +16,154 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.owl.supply;
 
 import org.universAAL.middleware.owl.ComparableIndividual;
 import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  * @author Carsten Stockloew
  */
 public class LevelRating extends ComparableIndividual {
-	public static final String MY_URI;
-	static {
-		MY_URI = uAAL_VOCABULARY_NAMESPACE + "LevelRating";
-		register(LevelRating.class);
-	}
-	
-	public static final int NONE = 0;
-	public static final int LOW = 1;
-	public static final int MIDDLE = 2;
-	public static final int HIGH = 3;
-	public static final int FULL = 4;
+    public static final String MY_URI;
+    static {
+	MY_URI = uAAL_VOCABULARY_NAMESPACE + "LevelRating";
+	register(LevelRating.class);
+    }
 
-	private static final String[] names = {
-        "none", "low", "middle", "high", "full"
-    };
-	
-	public static final LevelRating none = new LevelRating(NONE);
-	public static final LevelRating low = new LevelRating(LOW);
-	public static final LevelRating middle = new LevelRating(MIDDLE);
-	public static final LevelRating high = new LevelRating(HIGH);
-	public static final LevelRating full = new LevelRating(FULL);
-	
-	/** The current value of this object. */
-	private int order;
+    public static final int NONE = 0;
+    public static final int LOW = 1;
+    public static final int MIDDLE = 2;
+    public static final int HIGH = 3;
+    public static final int FULL = 4;
 
-	
-	
-	// prevent the usage of the default constructor
-	private LevelRating() {
+    private static final String[] names = { "none", "low", "middle", "high",
+	    "full" };
 
-	}
+    public static final LevelRating none = new LevelRating(NONE);
+    public static final LevelRating low = new LevelRating(LOW);
+    public static final LevelRating middle = new LevelRating(MIDDLE);
+    public static final LevelRating high = new LevelRating(HIGH);
+    public static final LevelRating full = new LevelRating(FULL);
 
-	private LevelRating(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
-		this.order = order;
-	}
+    /** The current value of this object. */
+    private int order;
 
-	
-	
-	/**
-	 * Returns the list of all class members guaranteeing that no other members
-	 * will be created after a call to this method.
-	 */
-	public static ManagedIndividual[] getEnumerationMembers() {
-		return new ManagedIndividual[] {none, low, middle, high, full};
-	}
-	
-	/**
-	 * Returns the level rating with the given URI. 
-	 */
-	public static ManagedIndividual getIndividualByURI(String instanceURI) {
-		return (instanceURI != null
-				&&  instanceURI.startsWith(uAAL_VOCABULARY_NAMESPACE))?
-						valueOf(instanceURI.substring(uAAL_VOCABULARY_NAMESPACE.length()))
-						: null;
-	}
-	
-	public static LevelRating getMaxValue() {
-		return full;
-	}
-	
-	public static LevelRating getMinValue() {
-		return none;
-	}
-	
-	public static LevelRating getLevelByOrder(int order) {
-        switch (order) {
-        case NONE: return none;
-        case LOW: return low;
-        case MIDDLE: return middle;
-        case HIGH: return high;
-        case FULL: return full;
-        default: return null;
-        }
-	}
-	
-	/**
-	 * Returns the value of the property <code>rdfs:comment</code> on this <code>owl:Class</code>
-	 * from the underlying ontology.
-	 */
-	public static String getRDFSComment() {
-		return "An enumeration for specifying the level of appearance / availability of a phenomen.";
-	}
+    // prevent the usage of the default constructor
+    private LevelRating() {
 
-	/**
-	 * Returns the value of the property <code>rdfs:label</code> on this <code>owl:Class</code>
-	 * from the underlying ontology.
-	 */
-	public static String getRDFSLabel() {
-		return "Level Rating";
+    }
+
+    private LevelRating(int order) {
+	super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+	this.order = order;
+    }
+
+    /**
+     * Returns the list of all class members guaranteeing that no other members
+     * will be created after a call to this method.
+     */
+    public static ManagedIndividual[] getEnumerationMembers() {
+	return new ManagedIndividual[] { none, low, middle, high, full };
+    }
+
+    /**
+     * Returns the level rating with the given URI.
+     */
+    public static ManagedIndividual getIndividualByURI(String instanceURI) {
+	return (instanceURI != null && instanceURI
+		.startsWith(uAAL_VOCABULARY_NAMESPACE)) ? valueOf(instanceURI
+		.substring(uAAL_VOCABULARY_NAMESPACE.length())) : null;
+    }
+
+    public static LevelRating getMaxValue() {
+	return full;
+    }
+
+    public static LevelRating getMinValue() {
+	return none;
+    }
+
+    public static LevelRating getLevelByOrder(int order) {
+	switch (order) {
+	case NONE:
+	    return none;
+	case LOW:
+	    return low;
+	case MIDDLE:
+	    return middle;
+	case HIGH:
+	    return high;
+	case FULL:
+	    return full;
+	default:
+	    return null;
 	}
-    
+    }
+
+    /**
+     * Returns the value of the property <code>rdfs:comment</code> on this
+     * <code>owl:Class</code> from the underlying ontology.
+     */
+    public static String getRDFSComment() {
+	return "An enumeration for specifying the level of appearance / availability of a phenomen.";
+    }
+
+    /**
+     * Returns the value of the property <code>rdfs:label</code> on this
+     * <code>owl:Class</code> from the underlying ontology.
+     */
+    public static String getRDFSLabel() {
+	return "Level Rating";
+    }
+
     public static final LevelRating valueOf(String name) {
-        for (int i=NONE;  i<=FULL; i++)
-            if (names[i].equals(name))
-                return getLevelByOrder(i);
-        return null;
+	for (int i = NONE; i <= FULL; i++)
+	    if (names[i].equals(name))
+		return getLevelByOrder(i);
+	return null;
     }
-    
-	public int compareTo(Object other) {
-		return (this == other)? 0
-				: (order < ((LevelRating) other).order)? -1
-						: 1;
-	}
 
-	public ComparableIndividual getNext() {
-		return getLevelByOrder(order+1);
-	}
+    public int compareTo(Object other) {
+	return (this == other) ? 0 : (order < ((LevelRating) other).order) ? -1
+		: 1;
+    }
 
-	public ComparableIndividual getPrevious() {
-		return getLevelByOrder(order-1);
-	}
+    public ComparableIndividual getNext() {
+	return getLevelByOrder(order + 1);
+    }
 
-	public int getPropSerializationType(String propURI) {
-		return PROP_SERIALIZATION_OPTIONAL;
-	}
-	
+    public ComparableIndividual getPrevious() {
+	return getLevelByOrder(order - 1);
+    }
+
+    public int getPropSerializationType(String propURI) {
+	return PROP_SERIALIZATION_OPTIONAL;
+    }
+
     /** @see org.universAAL.middleware.rdf.Resource#isWellFormed() */
-	public boolean isWellFormed() {
-		return true;
-	}
-    
-	/** Get a human-readable description for this Rating value. */
-    public String name() {
-        return names[order];
+    public boolean isWellFormed() {
+	return true;
     }
-    
+
+    /** Get a human-readable description for this Rating value. */
+    public String name() {
+	return names[order];
+    }
+
     public int ord() {
-        return order;
+	return order;
     }
 
     /**
      * Overrides the default method to prevent properties from being added.
+     * 
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
      */
-	public void setProperty(String propURI, Object o) {
-		// do nothing
-	}
+    public void setProperty(String propURI, Object o) {
+	// do nothing
+    }
 }

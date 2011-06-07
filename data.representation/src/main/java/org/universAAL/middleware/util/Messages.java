@@ -16,7 +16,7 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.util;
 
 import java.io.IOException;
@@ -39,55 +39,57 @@ import java.util.Properties;
  * @author Carsten Stockloew
  */
 public class Messages extends ConfFile {
-	
-	/** The set of messages in a localized language. */
-	private Properties localizedMessages;
-	
-	/** The set of messages in a default language. */
-	private Properties defaultMessages;
-	
-	/** The localized language. */
-	private String lang = null;
-	
-	
-	/**
-	 * Constructor: opens the file with the given ID and loads all messages.
-	 * 
-	 * @param id
-	 *            The ID for the configuration file, see
-	 *            {@link org.universAAL.middleware.util.ConfFile#ConfFile(String)}
-	 * @throws IOException
-	 */
-	public Messages(String id) throws IOException {
-		super(id);
-		defaultMessages = new Properties();
-		InputStream fis = getConfFileAsStream("messages.properties");
-		defaultMessages.load(fis);
+
+    /** The set of messages in a localized language. */
+    private Properties localizedMessages;
+
+    /** The set of messages in a default language. */
+    private Properties defaultMessages;
+
+    /** The localized language. */
+    private String lang = null;
+
+    /**
+     * Constructor: opens the file with the given ID and loads all messages.
+     * 
+     * @param id
+     *            The ID for the configuration file, see
+     *            {@link org.universAAL.middleware.util.ConfFile#ConfFile(String)}
+     * @throws IOException
+     */
+    public Messages(String id) throws IOException {
+	super(id);
+	defaultMessages = new Properties();
+	InputStream fis = getConfFileAsStream("messages.properties");
+	defaultMessages.load(fis);
+	fis.close();
+    }
+
+    /**
+     * Get the value for a given key.
+     * 
+     * @param key
+     *            The key.
+     * @return The value.
+     */
+    public String getString(String key) {
+	String l = Locale.getDefault().getLanguage();
+	if (!l.equals(lang)) {
+	    lang = l;
+	    localizedMessages = new Properties();
+	    try {
+		InputStream fis = getConfFileAsStream("messages_" + l
+			+ ".properties");
+		localizedMessages.load(fis);
 		fis.close();
+	    } catch (Exception e) {
+	    }
 	}
-	
-	/**
-	 * Get the value for a given key.
-	 * @param key The key.
-	 * @return The value.
-	 */
-	public String getString(String key) {
-		String l = Locale.getDefault().getLanguage();
-		if (!l.equals(lang)) {
-			lang = l;
-			localizedMessages = new Properties();
-			try {
-				InputStream fis = getConfFileAsStream("messages_" + l
-						+ ".properties");
-				localizedMessages.load(fis);
-				fis.close();
-			} catch (Exception e) {}
-		}
-		
-		l = localizedMessages.getProperty(key);
-		if (l == null)
-			l = defaultMessages.getProperty(key);
-		
-		return (l == null)? key : l;
-	}
+
+	l = localizedMessages.getProperty(key);
+	if (l == null)
+	    l = defaultMessages.getProperty(key);
+
+	return (l == null) ? key : l;
+    }
 }

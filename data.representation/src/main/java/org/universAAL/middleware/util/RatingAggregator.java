@@ -16,7 +16,7 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.util;
 
 import org.universAAL.middleware.owl.supply.Rating;
@@ -27,70 +27,70 @@ import org.universAAL.middleware.owl.supply.Rating;
  * 
  * @see IntAggregator
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  * @author Carsten Stockloew
  */
 public class RatingAggregator {
-	
-	/** The average. */
-	private Rating avg;
-	
-	/** The minimum. */
-	private Rating min;
-	
-	/** The maximum. */
-	private Rating max;
-	
-	/** The number of Ratings. */
-	private int num = 0;
-	
-	/** The sum. */
-	private int sum = 0;
-	
-	
-	/** Create a new instance. */
-	public RatingAggregator() {
-	}
-	
-	/** Add a new Rating. */
-	public RatingAggregator addRating(Rating r) {
-		if (r != null) {
-			sum += r.ord();
-			num++;
-			
-			if (num == 1)
-				max = min = r;
-			else if (max.ord() < r.ord())
-				max = r;
-			else if (min.ord() > r.ord())
-				min = r;
 
-			int a = sum / num;
-			if ((sum % num) << 1 >= num)
-				a++;
-			avg = Rating.getRatingByOrder(a);
-		}
-		
-		return this;
+    /** The average. */
+    private Rating avg;
+
+    /** The minimum. */
+    private Rating min;
+
+    /** The maximum. */
+    private Rating max;
+
+    /** The number of Ratings. */
+    private int num = 0;
+
+    /** The sum. */
+    private int sum = 0;
+
+    /** Create a new instance. */
+    public RatingAggregator() {
+    }
+
+    /** Add a new Rating. */
+    public RatingAggregator addRating(Rating r) {
+	if (r != null) {
+	    sum += r.ord();
+	    num++;
+
+	    if (num == 1)
+		max = min = r;
+	    else if (max.ord() < r.ord())
+		max = r;
+	    else if (min.ord() > r.ord())
+		min = r;
+
+	    int a = sum / num;
+	    if ((sum % num) << 1 >= num)
+		a++;
+	    avg = Rating.getRatingByOrder(a);
 	}
-	
-	/** Get the average value. */
-	public Rating getAverage() {
-		return avg;
-	}
-	
-	/** Get the maximum value. */
-	public Rating getMax() {
-		return max;
-	}
-	
-	/** Get the minimum value. */
-	public Rating getMin() {
-		return min;
-	}
-	
-	/** Get the number of Ratings. */
-	public int getNumberOfRatings() {
-		return num;
-	}
+
+	return this;
+    }
+
+    /** Get the average value. */
+    public Rating getAverage() {
+	return avg;
+    }
+
+    /** Get the maximum value. */
+    public Rating getMax() {
+	return max;
+    }
+
+    /** Get the minimum value. */
+    public Rating getMin() {
+	return min;
+    }
+
+    /** Get the number of Ratings. */
+    public int getNumberOfRatings() {
+	return num;
+    }
 }
