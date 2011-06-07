@@ -29,14 +29,28 @@ import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.rdf.Variable;
 
 /**
+ * Represents the URI of the <i>type</i> of an ontology class.
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public class TypeURI extends ClassExpression {
+	
 	static {
 		register(TypeURI.class, null, null, null);
 	}
 	
+	public TypeURI(String uri, boolean isDatatypeURI) {
+		super(uri);
+		if (isDatatypeURI)
+			props.remove(PROP_RDF_TYPE);
+	}
+	
+	/**
+	 * Creates a new TypeURI instance according to the given object. 
+	 * @param o
+	 * @return
+	 */
 	public static TypeURI asTypeURI(Object o) {
 		if (o == null  ||  o instanceof TypeURI)
 			return (TypeURI) o;
@@ -71,32 +85,34 @@ public class TypeURI extends ClassExpression {
 		return null;
 	}
 
-	public TypeURI(String uri, boolean isDatatypeURI) {
-		super(uri);
-		if (isDatatypeURI)
-			props.remove(PROP_RDF_TYPE);
-	}
-	
 	/**
 	 * No {@link ClassExpression} instances are stored in this class, so we do not need to clone.
+	 * @see org.universAAL.middleware.owl.ClassExpression#copy()
 	 */
 	public ClassExpression copy() {
 		return this;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
 	public String[] getNamedSuperclasses() {
 		return new String[] {getURI()};
 	}
 	
+	/**
+	 * Get the restrictions for the given property.
+	 * @see org.universAAL.middleware.owl.ManagedIndividual#getClassRestrictionsOnProperty(String, String)
+	 */
 	public ClassExpression getRestrictionOnProperty(String propURI) {
 		return ManagedIndividual.getClassRestrictionsOnProperty(uri, propURI);
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
 	public Object[] getUpperEnumeration() {
 		ManagedIndividual[] answer = ManagedIndividual.getEnumerationMembers(getURI());
 		return (answer == null)? new Object[0] : answer;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object, Hashtable) */
 	public boolean hasMember(Object value, Hashtable context) {
 		if (uri.equals(TYPE_OWL_THING))
 			return true;
@@ -116,6 +132,7 @@ public class TypeURI extends ClassExpression {
 		}
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression, Hashtable) */
 	public boolean matches(ClassExpression subtype, Hashtable context) {
 		if (uri.equals(TYPE_OWL_THING))
 			return subtype != null;
@@ -160,6 +177,7 @@ public class TypeURI extends ClassExpression {
 		return false;
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression, Hashtable) */
 	public boolean isDisjointWith(ClassExpression other, Hashtable context) {
 		if (uri.equals(TYPE_OWL_THING))
 			return false;
@@ -183,12 +201,13 @@ public class TypeURI extends ClassExpression {
 		return false;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
 	public boolean isWellFormed() {
 		return true;
 	}
 
+	/** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
 	public void setProperty(String propURI, Object o) {
 		// ignore
 	}
-
 }

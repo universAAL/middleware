@@ -25,29 +25,45 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * A union of a set of class expression <i>CE<sub>1</sub> ...
+ * CE<sub>n</sub></i> contains all individuals that are instances of at least
+ * one class expression <i>CE<sub>i</sub></i> for 1 &le; i &le; n.
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public class Union extends ClassExpression {
+	
+	/** URI for owl:unionOf . */
 	public static final String PROP_OWL_UNION_OF;
+	
 	static {
 		PROP_OWL_UNION_OF = OWL_NAMESPACE + "unionOf";
 		register(Union.class, null, PROP_OWL_UNION_OF, null);
 	}
 	
+	/** The set of class expressions. */
 	private ArrayList types;
 	
+	
+	/** Constructor. */
 	public Union() {
 		super();
 		types = new ArrayList();
 		props.put(PROP_OWL_UNION_OF, types);
 	}
 	
+	
+	/**
+	 * Add a new child class expression <i>CE<sub>i</sub></i>.
+	 * @param type The class expression to add.
+	 */
 	public void addType(ClassExpression type) {
 		if (type != null  &&  !(type instanceof Union))
 			types.add(type);
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#copy() */
 	public ClassExpression copy() {
 		Union result = new Union();
 		for (Iterator i=types.iterator(); i.hasNext();)
@@ -55,6 +71,7 @@ public class Union extends ClassExpression {
 		return result;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
 	public String[] getNamedSuperclasses() {
 		ArrayList l = new ArrayList();
 		String[] tmp;
@@ -67,6 +84,7 @@ public class Union extends ClassExpression {
 		return (String[]) l.toArray(new String[l.size()]);
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
 	public Object[] getUpperEnumeration() {
 		ArrayList l = new ArrayList();
 		Object[] tmp;
@@ -81,9 +99,7 @@ public class Union extends ClassExpression {
 		return l.toArray();
 	}
 
-	/**
-	 * @see org.ClassExpression.ontology.PClassExpression#hasMember(java.lang.Object,java.util.Hashtable)
-	 */
+	/** @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object, Hashtable) */
 	public boolean hasMember(Object value, Hashtable context) {
 		for (Iterator i = types.iterator();  i.hasNext(); )
 			if (((ClassExpression) i.next()).hasMember(value, context))
@@ -91,6 +107,7 @@ public class Union extends ClassExpression {
 		return false;
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression, Hashtable) */
 	public boolean matches(ClassExpression subtype, Hashtable context) {
 		// first handle those cases that can be handled specifically
 		if (subtype instanceof Enumeration) {
@@ -133,6 +150,7 @@ public class Union extends ClassExpression {
 		return false;
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression, Hashtable) */
 	public boolean isDisjointWith(ClassExpression other, Hashtable context) {
 		Hashtable cloned = (context == null)? null : (Hashtable) context.clone();
 		for (Iterator i = types();  i.hasNext(); )
@@ -142,10 +160,12 @@ public class Union extends ClassExpression {
 		return true;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
 	public boolean isWellFormed() {
 		return types.size() > 1;
 	}
 
+	/** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
 	public void setProperty(String propURI, Object o) {
 		if (PROP_OWL_UNION_OF.equals(propURI)
 				&& o != null
@@ -171,6 +191,7 @@ public class Union extends ClassExpression {
 			}
 	}
 	
+	/** Get an iterator for the added child class expressions. */
 	public Iterator types() {
 		return types.iterator();
 	}

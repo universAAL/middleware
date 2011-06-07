@@ -28,30 +28,72 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
+ * A class for the concept of OWL class expressions, which represent sets of
+ * individuals by formally specifying conditions on the individuals'
+ * properties. Example conditions are intersection of individuals, or
+ * restrictions.
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public abstract class ClassExpression extends Resource {
 	
+	/** URI namespace for OWL. */
 	public static final String OWL_NAMESPACE = "http://www.w3.org/2002/07/owl#";
 
+	/** URI for owl:Thing. */
 	public static final String TYPE_OWL_THING = OWL_NAMESPACE + "Thing";
 	
+	/** Parameters for a registered subclass. */
 	private class RegParams {
+		/** The Java class realizing an OWL class expression. */
 		Class clz;
-		String hasSuperClass, hasProperty;
-		boolean supportsAnonClass, supportsNamedClass;
+		String hasSuperClass;
+		String hasProperty;
+		boolean supportsAnonClass;
+		boolean supportsNamedClass;
 	}
 	
+	/** URI for owl:class. */
 	public static final String OWL_CLASS = OWL_NAMESPACE + "Class";
 	
+	/** URI for rdfs:subClassOf. */
 	public static final String PROP_RDFS_SUB_CLASS_OF = RDFS_NAMESPACE + "subClassOf";
 	
-	private static ArrayList registry = new ArrayList(16); 
+	/** The set of registered class expressions according to the registration
+	 * parameters. */
+	private static ArrayList registry = new ArrayList(16);
+	
+	/** The set of registered class expressions. A Hashtable with the type URI
+	 * (String) of the expression as key and the Class as value. */
 	private static Hashtable expressionTypes = new Hashtable(8);
 	
+	
+	
+	/** Constructor for use with serializers. */
+	protected ClassExpression() {
+		super();
+		addType(OWL_CLASS, true);
+	}
+	
+	/** Constructor to create a new instance with the given URI. */
+	protected ClassExpression(String uri) {
+		super(uri);
+		addType(OWL_CLASS, true);
+	}
+	
+	
+	
+	/**
+	 * Register a new class expression.
+	 * @param clz
+	 * @param hasSuperClass
+	 * @param hasProperty
+	 * @param expressionTypeURI
+	 */
 	protected static final void register(Class clz,
 			String hasSuperClass, String hasProperty, String expressionTypeURI) {
+		
 		if (expressionTypeURI != null  &&  !expressionTypeURI.equals(OWL_CLASS))
 			expressionTypes.put(expressionTypeURI, clz);
 		
@@ -79,6 +121,7 @@ public abstract class ClassExpression extends Resource {
 		}
 	}
 	
+	/** Create a new instance of the given class. */
 	private static ClassExpression getInstance(Class clz) {
 		try {
 			return (ClassExpression) clz.newInstance();
@@ -87,6 +130,7 @@ public abstract class ClassExpression extends Resource {
 		}
 	}
 	
+	/** Create a new instance of the given class and class URI. */
 	private static ClassExpression getNamedInstance(Class clz, String classURI) {
 		try {
 			return (ClassExpression) clz.getConstructor(new Class[] {String.class}
@@ -96,7 +140,10 @@ public abstract class ClassExpression extends Resource {
 		}
 	}
 	
-	public static final ClassExpression getClassExpressionInstance(String expressionTypeURI, String classURI) {
+	/** Create a new instance with the given type URI and class URI. */
+	public static final ClassExpression getClassExpressionInstance(
+			String expressionTypeURI, String classURI) {
+		
 		if (expressionTypeURI == null)
 			return null;
 		
@@ -111,8 +158,10 @@ public abstract class ClassExpression extends Resource {
 		return isAnonymousURI(classURI)? getInstance(c) : getNamedInstance(c, classURI);
 	}
 	
+	/** Create a new instance according to the registration parameters. */
 	public static final ClassExpression getClassExpressionInstance(
 			String superClassURI, String propURI, String expressionURI) {
+		
 		Class c = null;
 		boolean isAnon = isAnonymousURI(expressionURI);
 		for (Iterator i = registry.iterator();  i.hasNext(); ) {
@@ -127,16 +176,6 @@ public abstract class ClassExpression extends Resource {
 			}
 		}
 		return isAnon? getInstance(c) : getNamedInstance(c, expressionURI);
-	}
-	
-	protected ClassExpression() {
-		super();
-		addType(OWL_CLASS, true);
-	}
-	
-	protected ClassExpression(String uri) {
-		super(uri);
-		addType(OWL_CLASS, true);
 	}
 	
 	/**
@@ -163,17 +202,30 @@ public abstract class ClassExpression extends Resource {
 		}
 	}
 	
+	/**
+	 * Create a copy of this object, i.e. create a new object of this class
+	 * and copy the necessary properties.
+	 * @return The newly created copy.
+	 */
 	public abstract ClassExpression copy();
-	
+
+	/**
+	 * Get the set of class URIs for all super classes of the individuals
+	 * of this class expression.
+	 */
 	public abstract String[] getNamedSuperclasses();
 	
+	/**
+	 * Each class expression can contain multiple objects; this method returns
+	 * this set of objects.
+	 */
 	public abstract Object[] getUpperEnumeration();
 	
 	/**
 	 * Returns true if the given object is a member of the class represented by this
 	 * class expression, otherwise false. The <code>context</code> table maps the URIs
 	 * of certain variables onto values currently assigned to them. The variables are
-	 * either standard variables managed by the PERSONA middleware or parameters of a
+	 * either standard variables managed by the universAAL middleware or parameters of a
 	 * specific service in whose context this method is called. Both the object whose
 	 * membership is going to be checked and this class expression may contain references
 	 * to such variables. If there is already a value assigned to such a referenced
@@ -195,7 +247,7 @@ public abstract class ClassExpression extends Resource {
 	 * Returns true if the given class expression has no member in common with the class
 	 * represented by this class expression, otherwise false. The <code>context</code>
 	 * table maps the URIs of certain variables onto values currently assigned to them.
-	 * The variables are either standard variables managed by the PERSONA middleware or
+	 * The variables are either standard variables managed by the universAAL middleware or
 	 * parameters of a specific service in whose context this method is called. Both of the
 	 * class expressions may contain references to such variables. If there is already a
 	 * value assigned to such a referenced variable, it must be replaced by the associated
@@ -213,13 +265,18 @@ public abstract class ClassExpression extends Resource {
 	 */
 	public abstract boolean isDisjointWith(ClassExpression other, Hashtable context);
 	
+	/**
+	 * Returns true, if the state of the resource is valid, otherwise false.
+	 * Redefined in this class as abstract to force subclasses to override it.
+	 * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
+	 */
 	public abstract boolean isWellFormed();
 	
 	/**
 	 * Returns true if the given class expression is a subset of the class
 	 * represented by this class expression, otherwise false. The <code>context</code>
 	 * table maps the URIs of certain variables onto values currently assigned to them.
-	 * The variables are either standard variables managed by the PERSONA middleware or
+	 * The variables are either standard variables managed by the universAAL middleware or
 	 * parameters of a specific service in whose context this method is called. Both of the
 	 * class expressions may contain references to such variables. If there is already a
 	 * value assigned to such a referenced variable, it must be replaced by the associated
@@ -237,6 +294,19 @@ public abstract class ClassExpression extends Resource {
 	 */
 	public abstract boolean matches(ClassExpression subset, Hashtable context);
 	
+	/**
+	 * Synchronize two Hashtables to ensure that the first Hashtable contains a
+	 * value for each key of the second Hashtable. The values themselves are not
+	 * checked; if 'cloned' contains a key which is not contained in 'context',
+	 * then the according (key/value)-pair is added to 'context'. The second
+	 * Hashtable, 'cloned', is not changed.
+	 * 
+	 * @param context
+	 *            The Hashtable to be extended by (key/value)-pairs from the
+	 *            second Hashtable.
+	 * @param cloned
+	 *            The second Hashtable.
+	 */
 	protected void synchronize(Hashtable context, Hashtable cloned) {
 		if (cloned != null  &&  cloned.size() > context.size()) 
 			for (Iterator i = cloned.keySet().iterator();  i.hasNext();) {

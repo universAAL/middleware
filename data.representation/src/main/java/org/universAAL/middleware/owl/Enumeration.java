@@ -28,26 +28,39 @@ import org.universAAL.middleware.rdf.Resource;
 
 
 /**
+ * An enumeration of the individuals <i>a<sub>1</sub> ... a<sub>n</sub></i> 
+ * contains exactly the individuals <i>a<sub>i</sub></i> for 1 &le; i &le; n.
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public class Enumeration extends ClassExpression {
+	
+	/** URI for owl:oneOf. */
 	public static final String PROP_OWL_ONE_OF;
+	
+	/** URI for owl:DataRange. */
 	public static final String TYPE_OWL_DATA_RANGE;
+	
 	static {
 		PROP_OWL_ONE_OF = OWL_NAMESPACE + "oneOf";
 		TYPE_OWL_DATA_RANGE = OWL_NAMESPACE + "DataRange";
 		register(Enumeration.class, null, PROP_OWL_ONE_OF, TYPE_OWL_DATA_RANGE);
 	}
 	
+	/** The set of individuals. */
 	private ArrayList values = new ArrayList();
+	
+	
 	private boolean datarange = false; 
 	
+	/** Constructor. */
 	public Enumeration() {
 		super();
 		props.put(PROP_OWL_ONE_OF, values);
 	}
 	
+	/** Constructor with initial values. */
 	public Enumeration(Object[] values) {
 		super();
 		props.put(PROP_OWL_ONE_OF, this.values);
@@ -64,6 +77,7 @@ public class Enumeration extends ClassExpression {
 				}
 	}
 	
+	/** Add a new individual. */
 	public void addValue(Object o) {
 		// TODO: what if o is a list?
 		if (o != null) {
@@ -75,6 +89,7 @@ public class Enumeration extends ClassExpression {
 		}
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#copy() */
 	public ClassExpression copy() {
 		Enumeration result = new Enumeration();
 		for (Iterator i = values.iterator(); i.hasNext();)
@@ -86,6 +101,12 @@ public class Enumeration extends ClassExpression {
 		return result;
 	}
 	
+	/**
+	 * Get the maximum value from all individuals. The individuals have to
+	 * implement the {@link java.lang.Comparable} interface.
+	 * @return The maximum value, or null if an individual does not implement
+	 * the {@link java.lang.Comparable} interface.
+	 */
 	public Comparable getMaxValue() {
 		try {
 			Comparable result = null;
@@ -100,6 +121,12 @@ public class Enumeration extends ClassExpression {
 		}
 	}
 	
+	/**
+	 * Get the minimum value from all individuals. The individuals have to
+	 * implement the {@link java.lang.Comparable} interface.
+	 * @return The minimum value, or null if an individual does not implement
+	 * the {@link java.lang.Comparable} interface.
+	 */
 	public Comparable getMinValue() {
 		try {
 			Comparable result = null;
@@ -114,6 +141,7 @@ public class Enumeration extends ClassExpression {
 		}
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
 	public String[] getNamedSuperclasses() {
 		ArrayList l = new ArrayList();
 		for (Iterator i = values.iterator();  i.hasNext(); )
@@ -121,6 +149,7 @@ public class Enumeration extends ClassExpression {
 		return (String[]) l.toArray(new String[l.size()]);
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
 	public Object[] getUpperEnumeration() {
 		Object[] answer = new Object[values.size()];
 		for (int i = 0;  i < values.size();  i++)
@@ -128,9 +157,7 @@ public class Enumeration extends ClassExpression {
 		return answer;
 	}
 
-	/**
-	 * @see org.ClassExpression.ontology.PClassExpression#hasMember(Object, Hashtable)
-	 */
+	/** @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object, Hashtable) */
 	public boolean hasMember(Object value, Hashtable context) {
 		if (value == null  || values.contains(value))
 			return true;
@@ -138,6 +165,7 @@ public class Enumeration extends ClassExpression {
 		return false;
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression, Hashtable) */
 	public boolean matches(ClassExpression subtype, Hashtable context) {
 		if (subtype == null)
 			return false;
@@ -173,6 +201,10 @@ public class Enumeration extends ClassExpression {
 		return false;
 	}
 	
+	/**
+	 * Determines if for all individuals of this Enumeration there is a member
+	 * in <code>supertype</code>.
+	 */
 	public boolean hasSupertype(ClassExpression supertype, Hashtable context) {
 		if (supertype == null)
 			return false;
@@ -187,6 +219,7 @@ public class Enumeration extends ClassExpression {
 		return cloned == null  ||  cloned.size() == context.size();
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression, Hashtable) */
 	public boolean isDisjointWith(ClassExpression other, Hashtable context) {
 		if (other == null)
 			return false;
@@ -202,10 +235,12 @@ public class Enumeration extends ClassExpression {
 		return true;
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
 	public boolean isWellFormed() {
 		return !values.isEmpty();
 	}
 
+	/** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
 	public void setProperty(String propURI, Object o) {
 		if (PROP_OWL_ONE_OF.equals(propURI)  &&  values.isEmpty()  &&  o != null)
 			if (o instanceof List)
@@ -215,6 +250,7 @@ public class Enumeration extends ClassExpression {
 				addValue(o);
 	}
 	
+	/** Get an iterator for the individuals. */
 	public Iterator values() {
 		return values.iterator();
 	}

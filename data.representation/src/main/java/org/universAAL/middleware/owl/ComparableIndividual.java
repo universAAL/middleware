@@ -25,6 +25,7 @@ package org.universAAL.middleware.owl;
  * non-final static methods: {@link #getMaximum()} and {@link #getMinimum()}.
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author Carsten Stockloew
  */
 public abstract class ComparableIndividual extends ManagedIndividual implements Comparable {
 	/**
@@ -39,7 +40,16 @@ public abstract class ComparableIndividual extends ManagedIndividual implements 
 		register(ComparableIndividual.class);
 	}
 	
+	protected ComparableIndividual() {
+		super();
+	}
+	
+	protected ComparableIndividual(String uri) {
+		super(uri);
+	}
+	
 	public static final ComparableIndividual getClassMaximum(Class claz) {
+		// TODO: change to getMaxValue?
 		try {
 			return (ComparableIndividual) claz.getMethod("getMaximum", null).invoke(null, null);
 		} catch (Exception e) {
@@ -48,6 +58,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements 
 	}
 	
 	public static final ComparableIndividual getClassMinimum(Class claz) {
+		// TODO: change to getMinValue?
 		try {
 			return (ComparableIndividual) claz.getMethod("getMinimum", null).invoke(null, null);
 		} catch (Exception e) {
@@ -83,15 +94,9 @@ public abstract class ComparableIndividual extends ManagedIndividual implements 
 		return "Comparable Individual";
 	}
 	
-	protected ComparableIndividual() {
-		super();
-	}
-	
-	protected ComparableIndividual(String uri) {
-		super(uri);
-	}
-	
 	/**
+	 * Compare this object to the given object.
+	 * 
 	 * @return 	<b>zero </b>if current location and argument location are in the same Place.<br>
 	 * 			<b> -1 </b> if current location is in a Place contained in argument location Place.<br>
 	 * 			<b>1 </b>	if argument location is in a Place contained in current location Place.<br>
@@ -117,10 +122,14 @@ public abstract class ComparableIndividual extends ManagedIndividual implements 
 		}
 	}
 	
+	/** Get the next value according to the total order of this comparable individual. */
 	public abstract ComparableIndividual getNext();
 	
+	/** Get the previous value according to the total order of this comparable individual. */
 	public abstract ComparableIndividual getPrevious();
 	
+	
+	/** Determines if this object equals the given object. */
 	public final boolean equal(Object other) {
 		try {
 			return compareTo(other) == 0;
@@ -129,6 +138,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements 
 		}
 	}
 	
+	/** Determines if this object is greater than the given object. */
 	public final boolean greater(Object other) {
 		try {
 			return compareTo(other) == 1;
@@ -137,6 +147,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements 
 		}
 	}
 	
+	/** Determines if this object is greater than or equals the given object. */
 	public final boolean greaterEqual(Object other) {
 		try {
 			switch (compareTo(other)) {
@@ -151,6 +162,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements 
 		}
 	}
 	
+	/** Determines if this object is smaller than the given object. */
 	public final boolean less(Object other) {
 		try {
 			return compareTo(other) == -1;
@@ -159,6 +171,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements 
 		}
 	}
 	
+	/** Determines if this object is smaller than or equals the given object. */
 	public final boolean lessEqual(Object other) {
 		try {
 			switch (compareTo(other)) {

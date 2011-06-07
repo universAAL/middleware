@@ -22,20 +22,29 @@ package org.universAAL.middleware.owl;
 import java.util.Hashtable;
 
 /**
+ * A complement class expression of a class expression <i>CE</i> contains all
+ * individuals that are not instances of the class expression <i>CE</i>.
+ *  
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public class Complement extends ClassExpression {
+	
+	/** URI for owl:complementOf. */
 	public static final String PROP_OWL_COMPLEMENT_OF;
+	
 	static {
 		PROP_OWL_COMPLEMENT_OF = OWL_NAMESPACE + "complementOf";
 		register(Complement.class, null, PROP_OWL_COMPLEMENT_OF, null);
 	}
 	
+	
+	/** Constructor. */
 	public Complement() {
 		super();
 	}
 	
+	/** Constructor. */
 	public Complement(ClassExpression toComplement) {
 		if (toComplement == null)
 			throw new NullPointerException();
@@ -44,25 +53,28 @@ public class Complement extends ClassExpression {
 		props.put(PROP_OWL_COMPLEMENT_OF, toComplement);
 	}
 	
+	
+	/** @see org.universAAL.middleware.owl.ClassExpression#copy() */
 	public ClassExpression copy() {
 		return new Complement(getComplementedClass().copy());
 	}
 	
+	/** Get the complement class. */
 	public ClassExpression getComplementedClass() {
 		return (ClassExpression) props.get(PROP_OWL_COMPLEMENT_OF);
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
 	public String[] getNamedSuperclasses() {
 		return new String[0];
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
 	public Object[] getUpperEnumeration() {
 		return new Object[0];
 	}
 
-	/**
-	 * @see org.ClassExpression.ontology.PClassExpression#hasMember(Object, Hashtable)
-	 */
+	/** @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object, Hashtable) */
 	public boolean hasMember(Object member, Hashtable context) {
 		Hashtable cloned = (context == null)? null : (Hashtable) context.clone();
 		if (!getComplementedClass().hasMember(member, cloned))
@@ -72,21 +84,22 @@ public class Complement extends ClassExpression {
 		return false;
 	}
 
-	/**
-	 * @see ClassExpression#matches(ClassExpression, java.util.Hashtable)
-	 */
+	/** @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression, Hashtable) */
 	public boolean matches(ClassExpression subtype, Hashtable context) {
 		return getComplementedClass().isDisjointWith(subtype, context);
 	}
 
+	/** @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression, Hashtable) */
 	public boolean isDisjointWith(ClassExpression other, Hashtable context) {
 		return getComplementedClass().matches(other, context);
 	}
 	
+	/** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
 	public boolean isWellFormed() {
 		return getComplementedClass() != null;
 	}
 
+	/** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
 	public void setProperty(String propURI, Object o) {
 		Object tmp = TypeURI.asTypeURI(o);
 		if (tmp != null)

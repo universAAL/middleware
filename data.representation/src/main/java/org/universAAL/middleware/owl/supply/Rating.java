@@ -34,7 +34,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * <li>"poor" = {4.7 | 5+, 5}</ul>
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author Carsten Stockloew
  */
 public class Rating extends ComparableIndividual {
 	public static final String MY_URI;
@@ -77,7 +77,22 @@ public class Rating extends ComparableIndividual {
 	public static final Rating almostExcellent = new Rating(ALMOST_EXCELLENT);
 	public static final Rating excellent = new Rating(EXCELLENT);
 	
-	/**
+	/** The current value of this object. */
+    private int order;
+
+    
+	// prevent the usage of the default constructor
+	private Rating() {
+	}
+
+	private Rating(int order) {
+		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		this.order = order;
+	}
+
+	
+	
+    /**
 	 * Returns the list of all class members guaranteeing that no other members
 	 * will be created after a call to this method.
 	 */
@@ -149,17 +164,6 @@ public class Rating extends ComparableIndividual {
         return null;
     }
     
-    private int order;
-    
- // prevent the usage of the default constructor
-    private Rating() {
-       
-    }
-    
-    private Rating(int order) {
-    	super(uAAL_VOCABULARY_NAMESPACE + names[order]);
-        this.order = order;
-    }
 
 	public int compareTo(Object other) {
 		return (this == other)? 0
@@ -179,10 +183,12 @@ public class Rating extends ComparableIndividual {
 		return PROP_SERIALIZATION_OPTIONAL;
 	}
 	
+    /** @see org.universAAL.middleware.rdf.Resource#isWellFormed() */
 	public boolean isWellFormed() {
 		return true;
 	}
     
+	/** Get a human-readable description for this Rating value. */
     public String name() {
         return names[order];
     }
@@ -191,6 +197,10 @@ public class Rating extends ComparableIndividual {
         return order;
     }
 
+    /**
+     * Overrides the default method to prevent properties from being added.
+     * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
+     */
 	public void setProperty(String propURI, Object o) {
 		// do nothing
 	}
