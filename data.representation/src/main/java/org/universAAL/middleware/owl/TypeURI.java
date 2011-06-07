@@ -48,8 +48,6 @@ public class TypeURI extends ClassExpression {
 	
 	/**
 	 * Creates a new TypeURI instance according to the given object. 
-	 * @param o
-	 * @return
 	 */
 	public static TypeURI asTypeURI(Object o) {
 		if (o == null  ||  o instanceof TypeURI)
