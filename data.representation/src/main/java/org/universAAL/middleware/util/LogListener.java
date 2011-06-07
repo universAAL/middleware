@@ -10,17 +10,18 @@ package org.universAAL.middleware.util;
  * 
  * <pre>
  * context.registerService(new String[] { LogListener.class.getName() },
- * 		new LogMonitor(), null);
+ * 	new LogMonitor(), null);
  * </pre>
  * 
  * @author Carsten Stockloew
  */
 public interface LogListener {
-	
-	/**
-	 * @see org.universAAL.middleware.util.LogUtils#logDebug(org.slf4j.Logger,
-	 *      String, String, Object[], Throwable)
-	 */
-	public void logDebug(String cls, String method, Object[] msgPart, Throwable t);
-	
+
+    /**
+     * @see org.universAAL.middleware.util.LogUtils#logDebug(org.slf4j.Logger,
+     *      String, String, Object[], Throwable)
+     */
+    public void logDebug(String cls, String method, Object[] msgPart,
+	    Throwable t);
+
 }

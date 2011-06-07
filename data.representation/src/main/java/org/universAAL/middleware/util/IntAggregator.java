@@ -16,7 +16,7 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.util;
 
 /**
@@ -29,62 +29,60 @@ package org.universAAL.middleware.util;
  * @author Carsten Stockloew
  */
 public class IntAggregator {
-	
-	/** The average. */
-	private int avg;
-	
-	/** The minimum. */
-	private int min;
-	
-	/** The maximum. */
-	private int max;
-	
-	/** The number of integers. */
-	private int num = 0;
-	
-	/** The sum. */
-	private int sum = 0;
-	
-	
-	/** Create a new instance. */
-	public IntAggregator() {
-	}
-	
-	
-	/** Add a new integer. */
-	public IntAggregator addVote(int vote) {
-		sum += vote;
-		num++;
-			
-		if (num == 1)
-			max = min = vote;
-		else if (max < vote)
-			max = vote;
-		else if (min > vote)
-			min = vote;
 
-		avg = sum / num;
-		
-		return this;
-	}
-	
-	/** Get the average value. */
-	public int getAverage() {
-		return avg;
-	}
-	
-	/** Get the maximum value. */
-	public int getMax() {
-		return max;
-	}
-	
-	/** Get the minimum value. */
-	public int getMin() {
-		return min;
-	}
-	
-	/** Get the number of integers. */
-	public int getNumberOfVotes() {
-		return num;
-	}
+    /** The average. */
+    private int avg;
+
+    /** The minimum. */
+    private int min;
+
+    /** The maximum. */
+    private int max;
+
+    /** The number of integers. */
+    private int num = 0;
+
+    /** The sum. */
+    private int sum = 0;
+
+    /** Create a new instance. */
+    public IntAggregator() {
+    }
+
+    /** Add a new integer. */
+    public IntAggregator addVote(int vote) {
+	sum += vote;
+	num++;
+
+	if (num == 1)
+	    max = min = vote;
+	else if (max < vote)
+	    max = vote;
+	else if (min > vote)
+	    min = vote;
+
+	avg = sum / num;
+
+	return this;
+    }
+
+    /** Get the average value. */
+    public int getAverage() {
+	return avg;
+    }
+
+    /** Get the maximum value. */
+    public int getMax() {
+	return max;
+    }
+
+    /** Get the minimum value. */
+    public int getMin() {
+	return min;
+    }
+
+    /** Get the number of integers. */
+    public int getNumberOfVotes() {
+	return num;
+    }
 }

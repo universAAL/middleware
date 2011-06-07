@@ -16,7 +16,7 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.util;
 
 import java.io.File;
@@ -35,60 +35,59 @@ import java.io.InputStream;
  */
 public class ConfFile {
 
-	/**
-	 * The {@link java.io.File} containing the path for the configuration file
-	 * (the home directory of the configuration file).
-	 */
-	protected File confHome;
+    /**
+     * The {@link java.io.File} containing the path for the configuration file
+     * (the home directory of the configuration file).
+     */
+    protected File confHome;
 
-	/**
-	 * Constructor the create a new object for accessing configuration files.
-	 * 
-	 * @param id
-	 *            The ID for the configuration file. The actual file name
-	 *            consists of the root directory of the universAAL runtime, the
-	 *            given ID (which is by Best Practice the bundle name), and a
-	 *            file name which is given to the methods
-	 *            {@link #getConfFileAsStream(File)} or
-	 *            {@link #getConfFileAsStream(String)}.
-	 */
-	public ConfFile(String id) {
-		confHome = new File(new File(Constants.getSpaceConfRoot()), id);
-	}
-	
-	
-	/**
-	 * Get an InputStream for the given File.
-	 * 
-	 * @param f
-	 *            The file.
-	 * @return An InputStream for the file.
-	 * @throws IOException
-	 */
-	public InputStream getConfFileAsStream(File f) throws IOException {
-		return new FileInputStream(f);
-	}
+    /**
+     * Constructor the create a new object for accessing configuration files.
+     * 
+     * @param id
+     *            The ID for the configuration file. The actual file name
+     *            consists of the root directory of the universAAL runtime, the
+     *            given ID (which is by Best Practice the bundle name), and a
+     *            file name which is given to the methods
+     *            {@link #getConfFileAsStream(File)} or
+     *            {@link #getConfFileAsStream(String)}.
+     */
+    public ConfFile(String id) {
+	confHome = new File(new File(Constants.getSpaceConfRoot()), id);
+    }
 
-	/**
-	 * Get an InputStream for the file of the given file name in the home
-	 * directory of the configuration file.
-	 * 
-	 * @param filename
-	 *            The name of the file.
-	 * @return An InputStream for the file.
-	 * @throws IOException
-	 */
-	public InputStream getConfFileAsStream(String filename) throws IOException {
-		return new FileInputStream(new File(confHome, filename));
-	}
+    /**
+     * Get an InputStream for the given File.
+     * 
+     * @param f
+     *            The file.
+     * @return An InputStream for the file.
+     * @throws IOException
+     */
+    public InputStream getConfFileAsStream(File f) throws IOException {
+	return new FileInputStream(f);
+    }
 
-	/**
-	 * List all files in the home directory of the configuration file.
-	 * 
-	 * @return The list of files.
-	 */
-	public File[] listFiles() {
-		return confHome.listFiles();
-	}
+    /**
+     * Get an InputStream for the file of the given file name in the home
+     * directory of the configuration file.
+     * 
+     * @param filename
+     *            The name of the file.
+     * @return An InputStream for the file.
+     * @throws IOException
+     */
+    public InputStream getConfFileAsStream(String filename) throws IOException {
+	return new FileInputStream(new File(confHome, filename));
+    }
+
+    /**
+     * List all files in the home directory of the configuration file.
+     * 
+     * @return The list of files.
+     */
+    public File[] listFiles() {
+	return confHome.listFiles();
+    }
 
 }
