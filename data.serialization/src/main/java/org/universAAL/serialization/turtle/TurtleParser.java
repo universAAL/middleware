@@ -41,10 +41,19 @@ import org.universAAL.middleware.util.LogUtils;
 import org.universAAL.middleware.util.StringUtils;
 
 /**
- * @author mtazari
+ * Serialization and Deserialization of RDF graphs. This class implements the
+ * interface
+ * {@link org.universAAL.middleware.sodapop.msg.MessageContentSerializer} and
+ * can be called to translate RDF graphs into <i>Terse RDF Triple Language
+ * (Turtle)</i> and vice versa. While this class handles the deserialization,
+ * the actual serialization is realized by {@link TurtleWriter}.
  * 
+ * @author mtazari
+ * @author Carsten Stockloew
  */
 public class TurtleParser implements MessageContentSerializer {
+    
+    /** URI for an empty RDF List. */
     private static final Resource NIL = new Resource(Resource.RDF_EMPTY_LIST);
 
     private class RefData {
@@ -88,9 +97,12 @@ public class TurtleParser implements MessageContentSerializer {
     //
     // }
 
+    /** The character stream to read from. */
     private PushbackReader reader;
 
-    private Resource subject, firstResource = null;
+    private Resource subject;
+    
+    private Resource firstResource = null;
 
     private String predicate;
 
@@ -98,12 +110,20 @@ public class TurtleParser implements MessageContentSerializer {
 
     private boolean eofAfterImplicitBlankNodeAsSubject = false;
 
-    private Hashtable namespaceTable = new Hashtable(),
-	    resources = new Hashtable(), parseTable = new Hashtable();
+    private Hashtable namespaceTable = new Hashtable();
+    
+    private Hashtable resources = new Hashtable();
+    
+    private Hashtable parseTable = new Hashtable();
 
+    
+    
+    
     TurtleParser() {
     }
 
+    
+    
     private void addRef(Resource referred, Resource referredBy, String prop,
 	    List l, int i) {
 	// we do not need to keep book on references to resources representing a
@@ -1020,12 +1040,14 @@ public class TurtleParser implements MessageContentSerializer {
 	}
     }
 
+    /** Returns the next character of input stream without changing the position in the stream. */
     private int peek() {
 	int result = read();
 	unread(result);
 	return result;
     }
 
+    /** Read a single character from the input stream. */
     private int read() {
 	try {
 	    return reader.read();
@@ -1046,9 +1068,10 @@ public class TurtleParser implements MessageContentSerializer {
 	subj.setProperty(pred, obj);
     }
 
+    /** @see org.universAAL.middleware.sodapop.msg.MessageContentSerializer#serialize(Object) */
     public String serialize(Object messageContent) {
 	return TurtleWriter.serialize(messageContent, 0);
-    }
+   }
 
     // private void setSpecializedValue(Resource r, String prop, Object newVal,
     // Object oldVal) {
@@ -1068,6 +1091,7 @@ public class TurtleParser implements MessageContentSerializer {
     //		
     // }
 
+    /** Skip the rest of the line. */
     private void skipLine() {
 	int c = read();
 	while (c != -1 && c != 0xD && c != 0xA) {
@@ -1085,6 +1109,7 @@ public class TurtleParser implements MessageContentSerializer {
 	}
     }
 
+    /** Skip white space characters. */
     private int skipWSC() {
 	int c = read();
 	while (TurtleUtil.isWhitespace(c) || c == '#') {
@@ -1167,6 +1192,7 @@ public class TurtleParser implements MessageContentSerializer {
 	return substitution;
     }
 
+    /** Pushes a previously read character back to the input stream. */
     private void unread(int c) {
 	if (c != -1) {
 	    try {
@@ -1177,6 +1203,7 @@ public class TurtleParser implements MessageContentSerializer {
 	}
     }
 
+    /** Tests, if the given character is contained in the set of expected characters. */
     private void verifyCharacter(int c, String expected) {
 	if (c == -1) {
 	    throw new RuntimeException("Unexpected end of file!");

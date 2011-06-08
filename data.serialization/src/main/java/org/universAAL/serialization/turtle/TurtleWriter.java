@@ -39,21 +39,115 @@ import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
- * @author mtazari
+ * Serialization of RDF graphs to <i>Terse RDF Triple Language (Turtle)</i>.
  * 
+ * @author mtazari
+ * @author Carsten Stockloew
  */
 public class TurtleWriter {
+    /** Serialization state of a Resource. */
     static int NOT_SERIALIZED = 0;
+
+    /** Serialization state of a Resource. */
     static int BEING_SERIALIZED = 1;
+
+    /** Serialization state of a Resource. */
     static int SERIALIZED = 2;
 
+    /**
+     * Serialization information for Resources. For each Resource, an according
+     * instance of this class is created.
+     */
     private class SerData {
-	int refs = 0, redType = Resource.PROP_SERIALIZATION_UNDEFINED;
+	/**
+	 * Number of references for this object. Counts how often this Resource
+	 * appears in this RDF graph (more precisely: how many properties are
+	 * leading to it).
+	 */
+	int refs = 0;
+
+	/**
+	 * Reduction type: how much of the property should be serialized?
+	 * 
+	 * @see org.universAAL.middleware.rdf.Resource#getPropSerializationType(String)
+	 */
+	int redType = Resource.PROP_SERIALIZATION_UNDEFINED;
+
+	/** Determines the serialization state for this Resource. */
 	int serialized = NOT_SERIALIZED;
+
+	/**
+	 * For anonymous Resources, a unique ID is created and stored here as
+	 * the URI of the Resource.
+	 */
 	String nodeID = null;
+
+	/**
+	 * The list of types of this Resource. Contains all elements of the
+	 * property rdf:type as well as all non-abstract super classes.
+	 */
 	List types = null;
     }
 
+    /** The character stream to write to. */
+    private Writer writer;
+
+    /** The set of namespaces and their abbreviation, maps String to String. */
+    private Hashtable namespaceTable;
+
+    /**
+     * The set of serialization data for anonymous Resources; maps Resources to
+     * {@link SerData}.
+     */
+    private Hashtable bNodes;
+
+    /**
+     * The set of serialization data for non-anonymous Resources; maps Resources
+     * to {@link SerData}.
+     */
+    private Hashtable uriNodes;
+
+    /**
+     * True, iff the serialization has already started (to avoid multi-threading
+     * problems).
+     */
+    private boolean writingStarted;
+
+    /** True, iff the description of an RDF statement is closed. */
+    private boolean descriptionClosed;
+
+    /** True, iff the first property of a Resource has already been written. */
+    private boolean firstPropWritten;
+
+    /** The last Resource that was written. */
+    private Resource lastWrittenSubject;
+
+    /** Indentation: denotes the number of spaces in front of the current line. */
+    private int embedLevel;
+
+    /** Create a new instance with the specified output stream and indentation. */
+    private TurtleWriter(Writer writer, int embedLevel) {
+	this.writer = writer;
+	namespaceTable = new Hashtable();
+	bNodes = new Hashtable();
+	uriNodes = new Hashtable();
+	writingStarted = false;
+	descriptionClosed = true;
+	lastWrittenSubject = null;
+	this.embedLevel = embedLevel;
+    }
+
+    /**
+     * Serialize the specified object. All lines of the output stream start with
+     * an indentation.
+     * 
+     * @param o
+     *            The object to serialize, must be an instance of
+     *            {@link org.universAAL.middleware.rdf.Resource}.
+     * @param embedLevel
+     *            The indentation.
+     * @return The serialized String.
+     */
     static String serialize(Object o, int embedLevel) {
 	if (!(o instanceof Resource)) {
 	    LogUtils
@@ -77,29 +171,10 @@ public class TurtleWriter {
 	}
     }
 
-    private Writer writer;
-
-    private Hashtable namespaceTable, bNodes, uriNodes;
-
-    private boolean writingStarted;
-
-    private boolean descriptionClosed, firstPropWritten;
-
-    private Resource lastWrittenSubject;
-
-    private int embedLevel;
-
-    private TurtleWriter(Writer writer, int embedLevel) {
-	this.writer = writer;
-	namespaceTable = new Hashtable();
-	bNodes = new Hashtable();
-	uriNodes = new Hashtable();
-	writingStarted = false;
-	descriptionClosed = true;
-	lastWrittenSubject = null;
-	this.embedLevel = embedLevel;
-    }
-
+    /**
+     * Analyze the RDF graph and create information (like the namespaces) for
+     * serialization.
+     */
     private void analyzeObject(Object o, Hashtable nsTable, int reduction) {
 	if (o instanceof Resource)
 	    if (((Resource) o).serializesAsXMLLiteral())
@@ -124,6 +199,10 @@ public class TurtleWriter {
 	    countNs(TypeMapper.XSD_NAMESPACE, nsTable);
     }
 
+    /**
+     * Analyze the RDF graph and create information (like the namespaces) for
+     * serialization.
+     */
     private void analyzeResource(Resource r, Hashtable nsTable) {
 	if (r.isAnon()) {
 	    if (countResource(r, bNodes))
@@ -185,6 +264,10 @@ public class TurtleWriter {
 	}
     }
 
+    /**
+     * Close the previous RDF statement by writing a specialized finisher to the
+     * output stream (" .").
+     */
     private void closePreviousStatement() throws IOException {
 	if (!descriptionClosed) {
 	    // The previous statement still needs to be closed:
@@ -195,6 +278,19 @@ public class TurtleWriter {
 	}
     }
 
+    /**
+     * Increase the number of the given namespace prefix. Each namespace that is
+     * not a known namespace (like <i>rdf</i> or <i>xsd</i>), is abbreviated
+     * with the namespace definition <i>ns</i>, <i>ns1</i>, <i>ns2</i>, ... This
+     * method checks if a namespace is already available. If this is the case,
+     * the number of that namespace is increased.
+     * 
+     * @param ns
+     *            The namespace.
+     * @param countTable
+     *            Storage for the number for all namespaces; maps the namespace
+     *            (String) to the current number (Integer).
+     */
     private void countNs(String ns, Hashtable countTable) {
 	Integer aux = (Integer) countTable.get(ns);
 	if (aux == null)
@@ -204,6 +300,18 @@ public class TurtleWriter {
 	countTable.put(ns, aux);
     }
 
+    /**
+     * For the given Resource, increase the reference counter contained in the
+     * serialization data in countTable.
+     * 
+     * @param r
+     *            The Resource.
+     * @param countTable
+     *            The table holding the serialization data, maps from Resource
+     *            to {@link SerData}.
+     * @return true, if there is already some serialization data available for
+     *         the specified Resource.
+     */
     private boolean countResource(Resource r, Hashtable countTable) {
 	SerData aux = (SerData) countTable.get(r);
 	if (aux == null) {
@@ -214,6 +322,10 @@ public class TurtleWriter {
 	return aux.refs > 1;
     }
 
+    /**
+     * Last step of the analyze phase for clean up and creation of unique IDs
+     * for anonymous Resources.
+     */
     private void finalizeNodes(Resource root, Hashtable nsTable) {
 
 	String prefix = "_:BN";
@@ -250,6 +362,10 @@ public class TurtleWriter {
 	}
     }
 
+    /**
+     * Get the serialization data associated with the specified Resource. If
+     * there is no data available yet, a new instance is created and returned.
+     */
     private SerData getData(Resource r) {
 	SerData d = (SerData) uriNodes.get(r);
 	if (d == null) {
@@ -262,6 +378,10 @@ public class TurtleWriter {
 	return d;
     }
 
+    /**
+     * For a given RDF subject, predicate, and the list of objects, get the
+     * maximum serialization type.
+     */
     private int getListReduction(Resource subj, String pred, List obj) {
 	int result = subj.getPropSerializationType(pred);
 	for (Iterator i = obj.iterator(); i.hasNext();) {
@@ -314,6 +434,7 @@ public class TurtleWriter {
 	    handleStatement(res, e.nextElement().toString(), types, force);
     }
 
+    /** Write an RDF statement to the output stream. */
     private void handleStatement(Resource subj, String pred, List types,
 	    boolean force) throws IOException {
 	Object obj = pred.equals(Resource.PROP_RDF_TYPE) ? types : subj
@@ -343,6 +464,11 @@ public class TurtleWriter {
 	firstPropWritten = true;
     }
 
+    /**
+     * Serialization of the RDF graph. This method first analyzes the graph
+     * (e.g. to get the namespaces) and then writes the data to the output
+     * stream.
+     */
     void serialize(Resource root) throws IOException {
 	if (writingStarted)
 	    throw new RuntimeException("Document writing has already started");
@@ -367,6 +493,7 @@ public class TurtleWriter {
 	writingStarted = false;
     }
 
+    /** Write the <i>End Of Line</i> and the indentation of the next line. */
     private void writeEOL() throws IOException {
 	writer.write('\n');
 	for (int i = 0; i < embedLevel; i++)
@@ -375,6 +502,17 @@ public class TurtleWriter {
 	    writer.write("  ");
     }
 
+    /**
+     * Write an RDF Literal. For example, for the literal <code>"15"^^xsd:byte
+     * </code>, the lexical
+     * form is <code>15</code> and the datatype is <code>xsd:byte</code>.
+     * 
+     * @param lexicalForm
+     *            The value if the literal in lexical form.
+     * @param datatype
+     *            The data type definition.
+     * @throws IOException
+     */
     private void writeLiteral(String lexicalForm, String datatype)
 	    throws IOException {
 	if (lexicalForm.indexOf('\n') > -1 || lexicalForm.indexOf('\r') > -1
@@ -398,6 +536,16 @@ public class TurtleWriter {
 	}
     }
 
+    /**
+     * Write a namespace to be used as prefix in the serialization.
+     * 
+     * @param prefix
+     *            The prefix to be used as abbreviation, e.g. <code>rdf</code>.
+     * @param name
+     *            The namespace the prefix stands for, e.g.
+     *            <code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code>.
+     * @throws IOException
+     */
     private void writeNamespace(String prefix, String name) throws IOException {
 	writer.write("@prefix ");
 	writer.write(prefix);
@@ -407,6 +555,14 @@ public class TurtleWriter {
 	writeEOL();
     }
 
+    /**
+     * Write the beginning of the Turtle output (the namespaces) to the output
+     * stream.
+     * 
+     * @param nsTable
+     *            Table with the namespaces.
+     * @throws IOException
+     */
     private void writeNamespaces(Hashtable nsTable) throws IOException {
 	int max = 0, curVal;
 	Integer cur;
@@ -438,6 +594,10 @@ public class TurtleWriter {
 	}
     }
 
+    /**
+     * Write an RDF predicate (a Resource property). If the predicate is
+     * rdf:type, the shorter Turtle version "a" is used.
+     */
     private void writePredicate(String predicate) throws IOException {
 	if (predicate.equals(Resource.PROP_RDF_TYPE))
 	    // Write short-cut for rdf:type
@@ -446,6 +606,7 @@ public class TurtleWriter {
 	    writeURI(predicate);
     }
 
+    /** Write a Resource to the output stream. */
     private void writeResource(Resource res) throws IOException {
 	SerData d = (SerData) bNodes.get(res);
 	if (d == null) {
@@ -517,6 +678,15 @@ public class TurtleWriter {
 	}
     }
 
+    /**
+     * Write the specified URI to the output stream. This method tries to split
+     * the URI; if the prefix is a known namespace, an abbreviated URI is
+     * written.
+     * 
+     * @param uri
+     *            The URI to write.
+     * @throws IOException
+     */
     private void writeURI(String uri) throws IOException {
 	if (uri.startsWith("_:")) {
 	    writer.write(uri);
@@ -544,6 +714,7 @@ public class TurtleWriter {
 	}
     }
 
+    /** Write a new value (Resource or Literal) to the output stream. */
     private void writeValue(Object val, boolean closed) throws IOException {
 	if (val instanceof List)
 	    if (closed) {

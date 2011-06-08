@@ -26,14 +26,26 @@ import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.util.StringUtils;
 
 /**
- * @author mtazari
+ * A Set of utility functions for TURTLE.
  * 
+ * @author mtazari
+ * @author Carsten Stockloew
  */
 public class TurtleUtil {
 
+    /** URI for RDF XML Literals. */
     static String xmlLiteral = Resource.RDF_NAMESPACE + "XMLLiteral";
+
+    /**
+     * Reference to the {@link org.universAAL.middleware.rdf.TypeMapper}
+     * instance.
+     */
     static TypeMapper typeMapper = null;
 
+    /**
+     * Decode a String that has been encoded before by replacing some escaped
+     * sequence with their according character representation.
+     */
     static String decodeString(String s) {
 	int backSlashIdx = s.indexOf('\\');
 
@@ -123,6 +135,10 @@ public class TurtleUtil {
 	return sb.toString();
     }
 
+    /**
+     * Encode a Literal String with line breaks by replacing some characters
+     * with their escaped sequence.
+     */
     static String encodeLongString(String s) {
 	// TODO: not all double quotes need to be escaped. It suffices to encode
 	// the ones that form sequences of 3 or more double quotes, and the ones
@@ -132,6 +148,10 @@ public class TurtleUtil {
 	return s;
     }
 
+    /**
+     * Encode a Literal String without line breaks by replacing some characters
+     * with their escaped sequence.
+     */
     static String encodeString(String s) {
 	s = globalReplaceChar('\\', "\\\\", s);
 	s = globalReplaceChar('\t', "\\t", s);
@@ -141,12 +161,23 @@ public class TurtleUtil {
 	return s;
     }
 
+    /**
+     * Encode an URI String by replacing some characters with their escaped
+     * sequence.
+     */
     static String encodeURIString(String s) {
 	s = globalReplaceChar('\\', "\\\\", s);
 	s = globalReplaceChar('>', "\\>", s);
 	return s;
     }
 
+    /**
+     * For the given URI find the index for splitting the URI into a prefix and
+     * the local name of the URI. For example, the URI
+     * <code>myOntology#myfunction</code> would be split directly after the
+     * symbol '#' to create the prefix <code>myOntology#</code> and the
+     * local name <code>myfunction</code>.
+     */
     static int findURISplitIndex(String uri) {
 	int uriLength = uri.length();
 
@@ -179,6 +210,18 @@ public class TurtleUtil {
 	return -1;
     }
 
+    /**
+     * Replaces all occurrences of a specified char in a String with the given
+     * String.
+     * 
+     * @param c
+     *            The character that is to be replaced.
+     * @param rpl
+     *            The String that will replace the character.
+     * @param input
+     *            The input which has to be investigated.
+     * @return The String with replacements.
+     */
     private static String globalReplaceChar(char c, String rpl, String input) {
 	char aux;
 	int n = input.length();
@@ -193,29 +236,44 @@ public class TurtleUtil {
 	return sb.toString();
     }
 
+    /**
+     * Determines if the specified character is either an ASCII letter, a digit,
+     * or the symbol '-'.
+     */
     static boolean isLanguageChar(int c) {
 	return StringUtils.isAsciiLetter((char) c)
 		|| StringUtils.isDigit((char) c) || c == '-';
     }
 
+    /** Determines if the specified character is a letter [a-z,A-Z]. */
     static boolean isLanguageStartChar(int c) {
 	return StringUtils.isAsciiLetter((char) c);
     }
 
+    /**
+     * Determines if the specified character is a valid character for a name,
+     * i.e. a letter, a digit or a special symbol.
+     */
     static boolean isNameChar(int c) {
 	return isNameStartChar(c) || StringUtils.isDigit((char) c) || c == '-'
 		|| c == 0x00B7 || c >= 0x0300 && c <= 0x036F || c >= 0x203F
 		&& c <= 0x2040;
     }
 
+    /**
+     * Determines if the specified character is either a letter or the symbol
+     * '_'.
+     */
     static boolean isNameStartChar(int c) {
 	return c == '_' || isPrefixStartChar(c);
     }
 
+    /** Same as {@link #isNameChar(int)}. */
     static boolean isPrefixChar(int c) {
 	return isNameChar(c);
     }
 
+    /** Determines if the specified character is a letter. */
     static boolean isPrefixStartChar(int c) {
 	return StringUtils.isAsciiLetter((char) c) || c >= 0x00C0
 		&& c <= 0x00D6 || c >= 0x00D8 && c <= 0x00F6 || c >= 0x00F8
@@ -226,8 +284,17 @@ public class TurtleUtil {
 		&& c <= 0xFFFD || c >= 0x10000 && c <= 0xEFFFF;
     }
 
+    /**
+     * Determines if the specified character is a whitespace (space, tab,
+     * newline or carriage return).
+     */
     static boolean isWhitespace(int c) {
 	// Whitespace character are space, tab, newline and carriage return:
 	return c == 0x20 || c == 0x9 || c == 0xA || c == 0xD;
     }
+
+    // public static void main(String args[]) {
+    // for (int c=0x00C0; c<=0x00D6; c++)
+    // System.out.println((char)c);
+    // }
 }
