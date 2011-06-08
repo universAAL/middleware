@@ -29,48 +29,50 @@ import org.slf4j.LoggerFactory;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
-
 /**
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  * 
  */
 public class Activator implements BundleActivator, ServiceListener {
-	
-	static BundleContext context = null;
-	static final Logger logger = LoggerFactory.getLogger(Activator.class);
-	TurtleParser ser;
-	
-	public void start(BundleContext context) throws Exception {
-		Activator.context = context;
-		
-		ser = new TurtleParser();
-		
-		context.registerService(
-				new String[] {MessageContentSerializer.class.getName()},
-				ser, null);
-		
-		String filter = "(objectclass=" + TypeMapper.class.getName() + ")";
-		context.addServiceListener(this, filter);
-		ServiceReference references[] = context.getServiceReferences(null, filter);
-		for (int i = 0; references != null && i < references.length; i++)
-			this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED, references[i]));
-				
-	}
 
-	public void stop(BundleContext arg0) throws Exception {
-		// TODO Auto-generated method stub	
-	}
+    static BundleContext context = null;
+    static final Logger logger = LoggerFactory.getLogger(Activator.class);
+    TurtleParser ser;
 
-	public void serviceChanged(ServiceEvent event) {
-		switch (event.getType()) {
-		case ServiceEvent.REGISTERED:
-		case ServiceEvent.MODIFIED:
-			TurtleUtil.typeMapper = (TypeMapper) context.getService(event.getServiceReference());
-			break;
-		case ServiceEvent.UNREGISTERING:
-			TurtleUtil.typeMapper = null;
-			break;
-		}		
+    public void start(BundleContext context) throws Exception {
+	Activator.context = context;
+
+	ser = new TurtleParser();
+
+	context.registerService(new String[] { MessageContentSerializer.class
+		.getName() }, ser, null);
+
+	String filter = "(objectclass=" + TypeMapper.class.getName() + ")";
+	context.addServiceListener(this, filter);
+	ServiceReference references[] = context.getServiceReferences(null,
+		filter);
+	for (int i = 0; references != null && i < references.length; i++)
+	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
+		    references[i]));
+
+    }
+
+    public void stop(BundleContext arg0) throws Exception {
+	// TODO Auto-generated method stub
+    }
+
+    public void serviceChanged(ServiceEvent event) {
+	switch (event.getType()) {
+	case ServiceEvent.REGISTERED:
+	case ServiceEvent.MODIFIED:
+	    TurtleUtil.typeMapper = (TypeMapper) context.getService(event
+		    .getServiceReference());
+	    break;
+	case ServiceEvent.UNREGISTERING:
+	    TurtleUtil.typeMapper = null;
+	    break;
 	}
+    }
 }
