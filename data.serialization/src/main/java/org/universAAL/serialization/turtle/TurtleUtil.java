@@ -31,6 +31,8 @@ import org.universAAL.middleware.util.StringUtils;
  * @author mtazari
  * @author Carsten Stockloew
  */
+// For the integer values used in some of the methods, please take a look at
+// the TURTLE specification: http://www.w3.org/TeamSubmission/turtle/
 public class TurtleUtil {
 
     /** URI for RDF XML Literals. */
