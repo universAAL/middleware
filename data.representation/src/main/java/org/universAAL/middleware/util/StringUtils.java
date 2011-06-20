@@ -39,12 +39,23 @@ public class StringUtils {
 
     static {
 	String aux = "_:";
-	try {
-	    byte[] ownIP = InetAddress.getLocalHost().getAddress();
-	    for (int i = 0; i < 4; i++)
-		aux += (ownIP[i] < 16 ? "0" : "")
-			+ Integer.toHexString(ownIP[i]);
-	} catch (Exception e) {
+	String peerID = System.getProperty("sodapop.peerID");
+	if (peerID != null) {
+	    aux = peerID
+		    + '+'
+		    + Integer
+			    .toHexString(new Random(System.currentTimeMillis())
+				    .nextInt());
+	} else {
+	    try {
+		byte[] ownIP = InetAddress.getLocalHost().getAddress();
+		int val;
+		for (int i = 0; i < ownIP.length; i++) {
+		    val = ownIP[i] & 0xFF;
+		    aux += (val < 16 ? "0" : "") + Integer.toHexString(val);
+		}
+	    } catch (Exception e) {
+	    }
 	    aux += Integer.toHexString(new Random(System.currentTimeMillis())
 		    .nextInt());
 	}
