@@ -47,6 +47,10 @@ public class SingleLocationParameter extends ProfileParameter {
 			props.put(PROP_OWLS_PROFILE_S_PARAMETER, value);
 	}
 	
+	/**
+	 * returns the location (given by the property <PROP_OWLS_PROFILE_S_PARAMETER>).
+	 * @return location (<PROP_OWLS_PROFILE_S_PARAMETER>)
+	 */
 	public AbsLocation getLocation()  {
 		return (AbsLocation) props.get(PROP_OWLS_PROFILE_S_PARAMETER);
 	}

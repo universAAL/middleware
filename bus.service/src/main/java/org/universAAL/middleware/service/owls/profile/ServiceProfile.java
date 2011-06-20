@@ -417,6 +417,10 @@ public class ServiceProfile extends Resource {
 		return answer;
 	}
 	
+	/**
+	 * Chacks if input, output and result is empty.
+	 * @return boolean
+	 */
 	public boolean isEmpty() {
 		return props.get(PROP_OWLS_PROFILE_HAS_INPUT) == null
 			&& props.get(PROP_OWLS_PROFILE_HAS_OUTPUT) == null
