@@ -45,11 +45,18 @@ public class NumberOfSamples extends ProfileParameter {
 			props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
 	}
 	
+	/**
+	 * Returns the number of samples and -1 if an error occurs. 
+	 * @return number of samples
+	 */
 	public int getNumberOfSamples() {
 		Object o = props.get(PROP_uAAL_PARAMETER_VALUE_DATA);
 		return (o instanceof Integer)? ((Integer) o).intValue() : -1;
 	}
 	
+	/**
+	 * This method sets the property of <propURI> with <value>.
+	 */
 	public void setProperty(String propURI, Object value) {
 		if (propURI != null  &&  value != null  && !props.containsKey(propURI))
 			if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {

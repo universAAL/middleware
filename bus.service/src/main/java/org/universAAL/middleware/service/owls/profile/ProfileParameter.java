@@ -75,10 +75,18 @@ public abstract class ProfileParameter extends Resource {
 		return PROP_SERIALIZATION_OPTIONAL;
 	}
 	
+	/**
+	 * The method returns the name of the name of the property (profile service parameter)
+	 * @return name of property name for parameter (String)
+	 */
 	public String getName() {
 		return (String) props.get(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME);
 	}
 	
+	/**
+	 * The method returns the value of the specified parameter.
+	 * @return parameter value
+	 */
 	public Object getValue() {
 		Object answer = props.get(PROP_OWLS_PROFILE_S_PARAMETER);
 		return (answer == null)? props.get(PROP_uAAL_PARAMETER_VALUE_DATA) : answer;

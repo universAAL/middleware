@@ -45,6 +45,10 @@ public class ResponseTimeInMilliseconds extends ProfileParameter {
 			props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
 	}
 	
+	/**
+	 * Returns the response time in milliseconds or -1 if an error occurs.
+	 * @return number of milliseconds
+	 */
 	public int getNumberOfMilliseconds() {
 		Object o = props.get(PROP_uAAL_PARAMETER_VALUE_DATA);
 		return (o instanceof Integer)? ((Integer) o).intValue() : -1;

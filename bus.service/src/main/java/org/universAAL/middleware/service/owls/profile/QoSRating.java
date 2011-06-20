@@ -46,6 +46,10 @@ public class QoSRating extends ProfileParameter {
 			props.put(PROP_OWLS_PROFILE_S_PARAMETER, r);
 	}
 	
+	/**
+	 * Returns the rating of the property with URI <PROP_OWLS_PROFILE_S_PARAMETER>.
+	 * @return Rating
+	 */
 	public Rating getRating()  {
 		return (Rating) props.get(PROP_OWLS_PROFILE_S_PARAMETER);
 	}

@@ -61,10 +61,19 @@ public class MultiLocationParameter extends ProfileParameter {
 		}
 	}
 	
+	/**
+	 * This method returns a list of abstract locations that are relevant for the parameters.
+	 * @return abstract locations in form of a list
+	 */
 	public List getAbsLocations()  {
 		return (List) props.get(PROP_OWLS_PROFILE_S_PARAMETER);
 	}
 	
+	/**
+	 * Sets the property for a specified URI to a value.
+	 * @param propURI property URI
+	 * @param value value of the property
+	 */
 	public void setProperty(String propURI, Object value) {
 		if (propURI != null  &&  value != null  && !props.containsKey(propURI))
 			if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
