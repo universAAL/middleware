@@ -34,8 +34,11 @@ import org.universAAL.middleware.acl.upnp.exporter.services.SodaPopPeerService;
 import org.universAAL.middleware.acl.SodaPopPeer;
 
 /* 
- * Ths SodaPopProxy implements the business logic in order to interact with the remote SodaPopPeer by exploiting
- * the UPnP protocol. This provides an "UPnP oriented" implementation of the SodaPopPeer interface.
+ * The SodaPopProxy acts as proxy for remote peers exported through the UPnP protocol. The methods of the SodaPopPeer interface are here implemented by invoking accordingly the UPnP actions 
+ * on the target UPnP device representing the peer. Generally invokin an action on the UPnP device corresponds to :
+ * 1)prepare a Dictionary object with all the relevant properties
+ * 2)fetch the object modeling the required UPnP action
+ * 3)invoke the action by passing the Dictionary previously created.
 * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
 */
 

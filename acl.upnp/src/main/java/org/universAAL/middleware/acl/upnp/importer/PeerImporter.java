@@ -34,9 +34,11 @@ import org.universAAL.middleware.acl.PeerDiscoveryListener;
 import org.universAAL.middleware.acl.SodaPopPeer;
 
 /* 
- * The role of this class is to notify to all the listener about the new/removed UPnPDevice. These OSGi services
- * has been registered within the Service Registry  by the Base Driver. This class creates for every UPnPDevice a Proxy
- * that will be passed as arguments to the listeners.
+ * The UPnP Base Driver registers into the local OSGi service registry a number of OSGi services in accordance to the discovered UPnP devices. Such services also represent the SodaPopPeer, 
+ * in particular they are registered as UPnPDevice with type SodaPopDevice. The role of this class is to notify to all the listeners new/removed UPnPDevices with type SodaPopDevice. 
+ * As soon as a new SodaPopDevice has been discovered (by means of the OSGi event notifications), the PeerImporter creates a brand new SodaPopProxy whose reference is passed as arguments 
+ * to all the registered PeerDiscoveryListeners. In this way the PeerDiscoveryListeners own a proxy able to forward the messages to the real UPnP device.
+ * Similarly, as soon as the SodaPopDevice leaves the UPnP network, PeerImporter notifies such event to all thePeerDiscoveryListeners.
  *  
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
