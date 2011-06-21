@@ -32,8 +32,10 @@ import org.universAAL.middleware.acl.SodaPopPeer;
 /* 
  * The SodaPopDevice "represents a UPnP device. For each UPnP root and embedded device, an object is registered with the framework under the UPnPDevice interface".
  * The public constructor first creates the SodaPopPeerService bound with the SodaPopPeer (it provides the UPnP action objects), then set-up all the relevant properties in order
- * to describe the UPnP device to the UPnP network. Please note the property UPnPDevice.TYPE = SodaPopDevice.TYPE, this allows this UPnP device to be imported into remote middleware instances 
- * by means of the PeerImporter class.
+ * to describe the UPnP device to the UPnP network. 
+ * Once the SodaPopDevice has been registered within the OSGi service registry, the UPnP Base Driver provides to "inject" it into the UPnP network. The UPnP control points are able to
+ * discover the brand new SodaPopDevice and start interacting with it. In a similar way, the UPnP Base Driver of remote middleware instances import such device as local service into their
+ * OSGi Service Registry. Please note the property UPnPDevice.TYPE = SodaPopDevice.TYPE, this allows to the remote middleware instance to recognize SodaPopDevice and create a proxy for it.
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 
