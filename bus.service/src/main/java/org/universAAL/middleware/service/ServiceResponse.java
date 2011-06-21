@@ -29,16 +29,33 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.util.LogUtils;
 
 /**
+ * A class that represents a service response resource, which is produced by the  
+ * <code>ServiceCallee</code>-s when handling calls, and are delivered to the <code>ServiceCaller</code>-s
+ * as a result of their requests.
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
  */
 public class ServiceResponse extends Resource {
+
+	/**
+	 * A resource URI that specifies the resource as a service response.
+	 */
 	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ServiceResponse";
 	
+	/**
+	 * A property key for the property where the status of the call is stored.
+	 */
 	public static final String PROP_SERVICE_CALL_STATUS = 
 		uAAL_VOCABULARY_NAMESPACE + "callStatus";
+
+	/**
+	 * A property key for the property where the service outputs are stored.
+	 */
 	public static final String PROP_SERVICE_HAS_OUTPUT = 
 		uAAL_VOCABULARY_NAMESPACE + "returns";
+
+	/**
+	 * A property key for the property where any errors occured during the service invocation are stored. 
+	 */
 	public static final String PROP_SERVICE_SPECIFIC_ERROR = 
 		uAAL_VOCABULARY_NAMESPACE + "errorDescription";
 	
@@ -46,17 +63,28 @@ public class ServiceResponse extends Resource {
 		addResourceClass(MY_URI, ServiceResponse.class);
 	}
 
+	/**
+	 * Default constructor for the class. Only sets the URI of the <code>Resource</code> to <code>MY_URI</code>.
+	 */
 	public ServiceResponse() {
 		super();
 		addType(MY_URI, true);
 	}
 
+	/**
+	 * Constructor which besides the URI, sets the status of the call.
+	 * @param status the current status of the call.
+	 */
 	public ServiceResponse(CallStatus status) {
 		super();
 		props.put(PROP_SERVICE_CALL_STATUS, status);
 		addType(MY_URI, true);
 	}
 
+	/**
+	 * Adds output payload to this object. Keeps any output payload that was previously added.
+	 * @param output the ouput that needs to be added.
+	 */
 	public void addOutput(ProcessOutput output) {
 		if (output != null) {
 			List outputs = (List) props.get(PROP_SERVICE_HAS_OUTPUT);
@@ -68,6 +96,10 @@ public class ServiceResponse extends Resource {
 		}
 	}
 
+	/**
+	 * Retrieves the call status.
+	 * @return the current call status.
+	 */
 	public CallStatus getCallStatus() {
 		return (CallStatus) props.get(PROP_SERVICE_CALL_STATUS);
 	}
@@ -79,6 +111,9 @@ public class ServiceResponse extends Resource {
 	 * A return value of null indicates that there are no outputs in the response.
 	 * If an empty list is returned by this method, it indicates that there are no output related to the given paramURI.
 	 * Otherwise, the return value is always a list even if there is only one value object in that list.
+	 * @param paramURI the URI of the required output.
+	 * @param asMergedList specifies if the outputs of the separate services are merged.
+	 * @return the output with the specified URI.
 	 */
 	public List getOutput(String paramURI, boolean asMergedList) {
 		List outputs = getOutputs();
@@ -120,14 +155,27 @@ public class ServiceResponse extends Resource {
 		return result;
 	}
 	
+	/**
+	 * Retrieves all of the service outputs as a raw <code>List</code> without any rearranging.
+	 * @return the outputs that the invoked services produced.
+	 */
 	public List getOutputs() {
 		return (List) props.get(PROP_SERVICE_HAS_OUTPUT);
 	}
 
+	/**
+	 * Tests the object for correctness by verifying the presence of <code>PROP_SERVICE_CALL_STATUS</code> property.
+	 * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
+	 */
 	public boolean isWellFormed() {
 		return props.containsKey(PROP_SERVICE_CALL_STATUS);
 	}
 
+	/** 
+	 * This method inherits the superclass behavior, but performs some additional checks for
+	 * correctness of the property values, specific for the <code>ServiceResponse</code>.
+	 * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String, java.lang.Object)
+	 */
 	public void setProperty(String propURI, Object value) {
 		if (propURI == null  ||  value == null  ||  props.containsKey(propURI))
 			return;
