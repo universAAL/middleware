@@ -34,6 +34,8 @@ import org.universAAL.middleware.acl.SodaPopPeer;
 
 
 /* 
+ * This class represents the UPnP connector among the peers. As soon as the register(...) method is invoked,  a new SodaPopDevice wrapping the SodaPopPeer instance in created and registered
+ * into the OSGi Service Registry. This allows the UPnP Base Driver to "inject" the SodaPopDevice into the UPnP network, by allowing the SodaPopPeer to act as regular UPnP device.
 * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
 */
 
@@ -93,7 +95,7 @@ public class Activator implements BundleActivator, P2PConnector {
 
 	/**
 	 * This method allows to the SodaPopPeer to be exported within the UpNP network. The SodaPopPeer is firstly wrapped within the 
-	 * SodaPopDevice and then registered within the Service Registry as UPnPDevice. The UPnP Base Driver will inject the UPnP Device into the 
+	 * SodaPopDevice and then registered within the Service Registry as UPnPDevice. The UPnP Base Driver will "inject" the UPnP Device into the 
 	 * UpNP network.  
 	 * @see org.universAAL.middleware.acl.P2PConnector#register(org.universAAL.middleware.acl.SodaPopPeer)
 	 */
