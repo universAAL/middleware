@@ -30,9 +30,12 @@ import org.universAAL.middleware.acl.upnp.exporter.services.SodaPopPeerService;
 import org.universAAL.middleware.acl.SodaPopPeer;
 
 /* 
- * UPnPDevice implementation for the SodaPopPeer
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+ * The SodaPopDevice "represents a UPnP device. For each UPnP root and embedded device, an object is registered with the framework under the UPnPDevice interface".
+ * The public constructor first creates the SodaPopPeerService bound with the SodaPopPeer (it provides the UPnP action objects), then set-up all the relevant properties in order
+ * to describe the UPnP device to the UPnP network. Please note the property UPnPDevice.TYPE = SodaPopDevice.TYPE, this allows this UPnP device to be imported into remote middleware instances 
+ * by means of the PeerImporter class.
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
 public class SodaPopDevice implements UPnPDevice{
 
