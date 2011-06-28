@@ -26,11 +26,24 @@ import org.universAAL.middleware.sodapop.msg.Message;
  * re-ask the publishers on the same bus for more info; hence, it must be able
  * to handle replies, too.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  */
 public interface Subscriber extends Caller {
 
-	public boolean eval(Message m);
+    // TODO describe return value
+    /**
+     * 
+     * @param m
+     *            message
+     * @return
+     */
+    public boolean eval(Message m);
 
-	public void handleEvent(Message m);
+    /**
+     * 
+     * @param m
+     *            message (answer) to handle
+     */
+    public void handleEvent(Message m);
 }

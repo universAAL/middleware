@@ -24,11 +24,22 @@ import org.universAAL.middleware.sodapop.msg.Message;
 /**
  * Registers to an RPC-bus for receiving requests to be replied.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  */
 public interface Callee extends BusMember {
 
-	public boolean eval(Message m);
+    // TODO add javadoc description here
+    /**
+     * 
+     */
+    public boolean eval(Message m);
 
-	public void handleRequest(Message m);
+    /**
+     * Handles request coming from the bus.
+     * 
+     * @param m
+     *            request message coming from the bus.
+     */
+    public void handleRequest(Message m);
 }
