@@ -22,12 +22,19 @@ package org.universAAL.middleware.sodapop;
 import org.universAAL.middleware.sodapop.msg.Message;
 
 /**
- * Registers to a bus in order to send requests needing a reply; hence, it
- * must be able to handle replies.
+ * Registers to a bus in order to send requests needing a reply; hence, it must
+ * be able to handle replies.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  */
 public interface Caller extends BusMember {
 
-	public void handleReply(Message m);
+    /**
+     * Handles replies coming from the bus.
+     * 
+     * @param m
+     *            reply message coming from the bus
+     */
+    public void handleReply(Message m);
 }

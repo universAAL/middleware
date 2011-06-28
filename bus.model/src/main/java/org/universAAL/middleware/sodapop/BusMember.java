@@ -20,9 +20,23 @@
 package org.universAAL.middleware.sodapop;
 
 /**
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * Interface describing Bus Member defined only one method called when the bus
+ * is stopped to announce this to the bus members.
+ * 
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * 
  */
 public interface BusMember {
-	public void busDyingOut(Bus b);
+
+    /**
+     * This method is called when the bus is stopped to announce this to the bus
+     * members.
+     * 
+     * @see org.universAAL.middleware.sodapop.AbstractBus
+     * 
+     * @param b
+     *            bus on which this member has been registered
+     */
+    public void busDyingOut(Bus b);
 }
