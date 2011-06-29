@@ -313,8 +313,9 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 
 	    }
 	}
-	logger.info("{} - Message sent to {}:\n{}", new Object[] { busName,
-		rcvrs, msg });
+	if (!"".equals(rcvrs))
+	    logger.info("{} - Message sent to {}:\n{}", new Object[] { busName,
+		    rcvrs, msg });
 	return result;
     }
 
