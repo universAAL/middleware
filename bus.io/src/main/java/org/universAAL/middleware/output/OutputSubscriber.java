@@ -26,6 +26,7 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Subscriber;
 import org.universAAL.middleware.sodapop.msg.Message;
+import org.universAAL.middleware.util.LogUtils;
 
 /**
  * Provides the interface to be implemented by output subscribers together with
@@ -46,57 +47,62 @@ import org.universAAL.middleware.sodapop.msg.Message;
  * 
  */
 public abstract class OutputSubscriber implements Subscriber {
-	private OutputBus bus;
-	private String myID;
+    private OutputBus bus;
+    private String myID;
 
-	protected OutputSubscriber(BundleContext context,
-			OutputEventPattern initialSubscription) {
-		Activator.checkOutputBus();
-		bus = (OutputBus) context.getService(context
-				.getServiceReference(OutputBus.class.getName()));
-		myID = bus.register(this, initialSubscription);
+    protected OutputSubscriber(BundleContext context,
+	    OutputEventPattern initialSubscription) {
+	Activator.checkOutputBus();
+	bus = (OutputBus) context.getService(context
+		.getServiceReference(OutputBus.class.getName()));
+	myID = bus.register(this, initialSubscription);
+    }
+
+    public abstract void adaptationParametersChanged(String dialogID,
+	    String changedProp, Object newVal);
+
+    protected final void addNewRegParams(OutputEventPattern newSubscription) {
+	bus.addNewRegParams(myID, newSubscription);
+    }
+
+    public final void busDyingOut(Bus b) {
+	if (b == bus)
+	    communicationChannelBroken();
+    }
+
+    public void close() {
+	bus.unregister(myID, this);
+    }
+
+    public abstract void communicationChannelBroken();
+
+    public abstract Resource cutDialog(String dialogID);
+
+    public final void dialogFinished(Submit submission, boolean poppedMessage) {
+	bus.dialogFinished(myID, submission, poppedMessage);
+    }
+
+    public final boolean eval(Message m) {
+	return false;
+    }
+
+    public final void handleEvent(Message m) {
+	if (m.getContent() instanceof OutputEvent) {
+	    LogUtils.logInfo(Activator.logger, "OutputSubscriber",
+		    "handleEvent",
+		    new Object[] { myID, "received output event:\n",
+			    m.getContentAsString() }, null);
+	    handleOutputEvent((OutputEvent) m.getContent());
 	}
+    }
 
-	public abstract void adaptationParametersChanged(String dialogID,
-			String changedProp, Object newVal);
+    public abstract void handleOutputEvent(OutputEvent event);
 
-	protected final void addNewRegParams(OutputEventPattern newSubscription) {
-		bus.addNewRegParams(myID, newSubscription);
-	}
+    public final void handleReply(Message m) {
+    }
 
-	public final void busDyingOut(Bus b) {
-		if (b == bus)
-			communicationChannelBroken();
-	}
-
-	public void close() {
-		bus.unregister(myID, this);
-	}
-
-	public abstract void communicationChannelBroken();
-
-	public abstract Resource cutDialog(String dialogID);
-
-	public final void dialogFinished(Submit submission, boolean poppedMessage) {
-		bus.dialogFinished(myID, submission, poppedMessage);
-	}
-
-	public final boolean eval(Message m) {
-		return false;
-	}
-
-	public final void handleEvent(Message m) {
-		if (m.getContent() instanceof OutputEvent)
-			handleOutputEvent((OutputEvent) m.getContent());
-	}
-
-	public abstract void handleOutputEvent(OutputEvent event);
-
-	public final void handleReply(Message m) {
-	}
-
-	protected final void removeMatchingRegParams(
-			OutputEventPattern oldSubscription) {
-		bus.removeMatchingRegParams(myID, oldSubscription);
-	}
+    protected final void removeMatchingRegParams(
+	    OutputEventPattern oldSubscription) {
+	bus.removeMatchingRegParams(myID, oldSubscription);
+    }
 }

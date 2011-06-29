@@ -16,7 +16,7 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.service;
 
 import org.osgi.framework.BundleContext;
@@ -25,91 +25,122 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Callee;
 import org.universAAL.middleware.sodapop.msg.Message;
-
+import org.universAAL.middleware.util.LogUtils;
 
 /**
- * This is an abstract class that the service callee members of the service bus must derive from.
- * According to the convention of the service bus regarding the registration parameters 
- * the <li><code>ServiceCallee</code>-s may pass an array of {@link org.universAAL.middleware.service.owls.profile.ServiceProfile}s</li>
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * This is an abstract class that the service callee members of the service bus
+ * must derive from. According to the convention of the service bus regarding
+ * the registration parameters the <li><code>ServiceCallee</code>-s may pass an
+ * array of
+ * {@link org.universAAL.middleware.service.owls.profile.ServiceProfile}s</li>
+ * 
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  */
 public abstract class ServiceCallee implements Callee {
-	private ServiceBus bus;
-	private String myID;
-	
+    private ServiceBus bus;
+    private String myID;
 
-	/**
-	 * The default constructor for this class.
-	 * @param context The OSGI bundle context where the ServiceBus is registered. Note that if no service bus is 
-	 * registered at the time of creation, this object will not be operational.
-	 * @param realizedServices The initial set of services that are realized by this callee.
-	 */
-	protected ServiceCallee(BundleContext context, ServiceProfile[] realizedServices) {
-		Activator.checkServiceBus();
-		bus = (ServiceBus) context.getService(
-				context.getServiceReference(ServiceBus.class.getName()));
-		myID = bus.register(this, realizedServices);
-	}
-	
-	/**
-	 * Registers additional services to be provided by this <code>ServiceCalee</code>. 
-	 * @param realizedServices the new services.
-	 */
-	protected final void addNewRegParams(ServiceProfile[] realizedServices) {
-		bus.addNewRegParams(myID, realizedServices);
-	}
+    /**
+     * The default constructor for this class.
+     * 
+     * @param context
+     *            The OSGI bundle context where the ServiceBus is registered.
+     *            Note that if no service bus is registered at the time of
+     *            creation, this object will not be operational.
+     * @param realizedServices
+     *            The initial set of services that are realized by this callee.
+     */
+    protected ServiceCallee(BundleContext context,
+	    ServiceProfile[] realizedServices) {
+	Activator.checkServiceBus();
+	bus = (ServiceBus) context.getService(context
+		.getServiceReference(ServiceBus.class.getName()));
+	myID = bus.register(this, realizedServices);
+    }
 
-	/**
-	 * Removes a specified set of services that were previously provided by this <code>ServiceCalee</code>. 
-	 * @param realizedServices the services that need to be removed.
-	 */
-	protected final void removeMatchingRegParams(ServiceProfile[] realizedServices) {
-		bus.removeMatchingRegParams(myID, realizedServices);
-	}
+    /**
+     * Registers additional services to be provided by this
+     * <code>ServiceCalee</code>.
+     * 
+     * @param realizedServices
+     *            the new services.
+     */
+    protected final void addNewRegParams(ServiceProfile[] realizedServices) {
+	bus.addNewRegParams(myID, realizedServices);
+    }
 
-	/**
-	 * This abstract method is called for each member of the bus when the bus is being stopped.
-	 */
-	public abstract void communicationChannelBroken();
+    /**
+     * Removes a specified set of services that were previously provided by this
+     * <code>ServiceCalee</code>.
+     * 
+     * @param realizedServices
+     *            the services that need to be removed.
+     */
+    protected final void removeMatchingRegParams(
+	    ServiceProfile[] realizedServices) {
+	bus.removeMatchingRegParams(myID, realizedServices);
+    }
 
-	/* (non-Javadoc)
-	 * @see org.universAAL.middleware.sodapop.BusMember#busDyingOut(org.universAAL.middleware.sodapop.Bus)
-	 */
-	public final void busDyingOut(Bus b) {
-		if (b == bus)
-			communicationChannelBroken();
-	}
+    /**
+     * This abstract method is called for each member of the bus when the bus is
+     * being stopped.
+     */
+    public abstract void communicationChannelBroken();
 
-	public final boolean eval(Message m) {
-		return false; //TODO add javadoc for this method
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.sodapop.BusMember#busDyingOut(org.universAAL
+     * .middleware.sodapop.Bus)
+     */
+    public final void busDyingOut(Bus b) {
+	if (b == bus)
+	    communicationChannelBroken();
+    }
 
-	/**
-	 * The actual service method of the <code>ServiceCallee</code>. It is called by the bus whenever there is a call that need to be serviced by this
-	 * <code>ServiceCallee</code>.
-	 * @param call the call that needs to be serviced.
-	 * @return the result of the call execution.
-	 */
-	public abstract ServiceResponse handleCall(ServiceCall call);
+    public final boolean eval(Message m) {
+	return false; // TODO add javadoc for this method
+    }
 
-	/* (non-Javadoc)
-	 * @see org.universAAL.middleware.sodapop.Callee#handleRequest(org.universAAL.middleware.sodapop.msg.Message)
-	 */
-	public final void handleRequest(Message m) {
-		if (m != null  &&  m.getContent() instanceof ServiceCall) {
-			ServiceResponse sr = handleCall((ServiceCall) m.getContent());
-			if (sr == null)
-				sr = new ServiceResponse(CallStatus.serviceSpecificFailure);
-			Message reply = m.createReply(sr);
-			if (reply != null)
-				bus.sendReply(myID, reply);
-		}
+    /**
+     * The actual service method of the <code>ServiceCallee</code>. It is called
+     * by the bus whenever there is a call that need to be serviced by this
+     * <code>ServiceCallee</code>.
+     * 
+     * @param call
+     *            the call that needs to be serviced.
+     * @return the result of the call execution.
+     */
+    public abstract ServiceResponse handleCall(ServiceCall call);
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.sodapop.Callee#handleRequest(org.universAAL
+     * .middleware.sodapop.msg.Message)
+     */
+    public final void handleRequest(Message m) {
+	if (m != null && m.getContent() instanceof ServiceCall) {
+	    LogUtils.logInfo(Activator.logger, "ServiceCallee",
+		    "handleRequest",
+		    new Object[] { myID, "received service call:\n",
+			    m.getContentAsString() }, null);
+	    ServiceResponse sr = handleCall((ServiceCall) m.getContent());
+	    if (sr == null)
+		sr = new ServiceResponse(CallStatus.serviceSpecificFailure);
+	    Message reply = m.createReply(sr);
+	    if (reply != null)
+		bus.sendReply(myID, reply);
 	}
-	
-	/**
-	 * Unregisters this <code>ServiceCallee</code> from the bus.
-	 */
-	public void close(){
-		bus.unregister(myID, this);
-	}
+    }
+
+    /**
+     * Unregisters this <code>ServiceCallee</code> from the bus.
+     */
+    public void close() {
+	bus.unregister(myID, this);
+    }
 }

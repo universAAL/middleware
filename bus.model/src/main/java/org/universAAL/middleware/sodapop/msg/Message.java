@@ -80,15 +80,42 @@ public class Message {
 	return b.toString();
     }
 
+    private static MessageContentSerializer getContentSerializer() {
+	ServiceReference sr = context
+		.getServiceReference(MessageContentSerializer.class.getName());
+	return (sr == null) ? null : (MessageContentSerializer) context
+		.getService(sr);
+    }
+
     public static void setBundleContext(BundleContext c) {
-	context = c;
+	if (context == null)
+	    context = c;
+    }
+
+    public static String trySerializationAsContent(Object o) {
+	MessageContentSerializer s = getContentSerializer();
+	return (s == null) ? o.toString() : s.serialize(o);
     }
 
     private Object content;
-    private String id, inReplyTo = null;
+    private String contentStr = null, id, inReplyTo = null;
     private String[] receivers = null;
+
     private MessageType type;
-    private MessageContentSerializer contentSerializer = null;
+
+    private Message() {
+
+    }
+
+    public Message(MessageType type, Object content) {
+	if (type == null || content == null || type == MessageType.p2p_reply
+		|| type == MessageType.reply)
+	    throw new IllegalArgumentException();
+
+	this.content = content;
+	this.type = type;
+	id = createUniqueID();
+    }
 
     public Message(String msg) {
 	if (msg == null)
@@ -121,7 +148,8 @@ public class Message {
 	// aux = aux.substring(9, i-j-3);
 	// content = getContentSerializer().deserialize(aux);
 
-	content = getContentSerializer().deserialize(msg.substring(j, i));
+	contentStr = msg.substring(j, i);
+	content = getContentSerializer().deserialize(contentStr);
 	if (content == null)
 	    throw new RuntimeException("Message content parsing failed!");
 
@@ -136,20 +164,6 @@ public class Message {
 
 	if (!msg.equals("\n</sodapop:Message>"))
 	    throw new IllegalArgumentException();
-    }
-
-    private Message() {
-
-    }
-
-    public Message(MessageType type, Object content) {
-	if (type == null || content == null || type == MessageType.p2p_reply
-		|| type == MessageType.reply)
-	    throw new IllegalArgumentException();
-
-	this.content = content;
-	this.type = type;
-	id = createUniqueID();
     }
 
     public Message createReply(Object content) {
@@ -177,19 +191,9 @@ public class Message {
     }
 
     public String getContentAsString() {
-	MessageContentSerializer s = getContentSerializer();
-	return (s == null) ? content.toString() : s.serialize(content);
-    }
-
-    private MessageContentSerializer getContentSerializer() {
-	if (contentSerializer == null) {
-	    ServiceReference sr = context
-		    .getServiceReference(MessageContentSerializer.class
-			    .getName());
-	    contentSerializer = (sr == null) ? null
-		    : (MessageContentSerializer) context.getService(sr);
-	}
-	return contentSerializer;
+	if (contentStr == null)
+	    contentStr = trySerializationAsContent(content);
+	return contentStr;
     }
 
     public String getID() {
@@ -228,16 +232,14 @@ public class Message {
     }
 
     public String toString() {
-	String contentSerialization = getContentAsString();
-
-	StringBuffer sb = new StringBuffer(512 + contentSerialization.length());
+	StringBuffer sb = new StringBuffer(512 + getContentAsString().length());
 	// sb.append("<![CDATA[<sodapop:Message>");
 	sb.append("<sodapop:Message>");
 	sb.append("\n  <sodapop:id>").append(id).append("</sodapop:id>");
 	sb.append("\n  <sodapop:type>").append(type.name()).append(
 		"</sodapop:type>");
-	sb.append("\n  <sodapop:content>\n").append(contentSerialization)
-		.append("\n    </sodapop:content>");
+	sb.append("\n  <sodapop:content>\n").append(contentStr).append(
+		"\n    </sodapop:content>");
 	if (inReplyTo != null)
 	    sb.append("\n  <sodapop:inReplyTo>").append(inReplyTo).append(
 		    "</sodapop:inReplyTo>");
