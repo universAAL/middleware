@@ -25,7 +25,6 @@ import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Subscriber;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.util.LogUtils;
-import org.universAAL.middleware.util.StringUtils;
 
 /**
  * Provides the interface to be implemented by context subscribers together with
@@ -48,7 +47,7 @@ import org.universAAL.middleware.util.StringUtils;
  */
 public abstract class ContextSubscriber implements Subscriber {
     private ContextBus bus;
-    private String myID;
+    private String myID, localID;
 
     /**
      * Creates a Context Subscriber and immediately registers a set of Context
@@ -66,6 +65,7 @@ public abstract class ContextSubscriber implements Subscriber {
 	bus = (ContextBus) context.getService(context
 		.getServiceReference(ContextBus.class.getName()));
 	myID = bus.register(this, initialSubscriptions);
+	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
 
     /**
@@ -118,8 +118,7 @@ public abstract class ContextSubscriber implements Subscriber {
     public final void handleEvent(Message m) {
 	if (m.getContent() instanceof ContextEvent) {
 	    LogUtils.logInfo(Activator.logger, "ContextSubscriber",
-		    "handleEvent", new Object[] {
-			    StringUtils.deriveLabel(myID),
+		    "handleEvent", new Object[] { localID,
 			    " received context event:\n",
 			    m.getContentAsString() }, null);
 	    handleContextEvent((ContextEvent) m.getContent());

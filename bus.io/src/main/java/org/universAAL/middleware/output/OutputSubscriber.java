@@ -27,7 +27,6 @@ import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Subscriber;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.util.LogUtils;
-import org.universAAL.middleware.util.StringUtils;
 
 /**
  * Provides the interface to be implemented by output subscribers together with
@@ -49,7 +48,7 @@ import org.universAAL.middleware.util.StringUtils;
  */
 public abstract class OutputSubscriber implements Subscriber {
     private OutputBus bus;
-    private String myID;
+    private String myID, localID;
 
     protected OutputSubscriber(BundleContext context,
 	    OutputEventPattern initialSubscription) {
@@ -57,6 +56,7 @@ public abstract class OutputSubscriber implements Subscriber {
 	bus = (OutputBus) context.getService(context
 		.getServiceReference(OutputBus.class.getName()));
 	myID = bus.register(this, initialSubscription);
+	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
 
     public abstract void adaptationParametersChanged(String dialogID,
@@ -89,12 +89,10 @@ public abstract class OutputSubscriber implements Subscriber {
 
     public final void handleEvent(Message m) {
 	if (m.getContent() instanceof OutputEvent) {
-	    LogUtils
-		    .logInfo(Activator.logger, "OutputSubscriber",
-			    "handleEvent", new Object[] {
-				    StringUtils.deriveLabel(myID),
-				    " received output event:\n",
-				    m.getContentAsString() }, null);
+	    LogUtils.logInfo(Activator.logger, "OutputSubscriber",
+		    "handleEvent",
+		    new Object[] { localID, " received output event:\n",
+			    m.getContentAsString() }, null);
 	    handleOutputEvent((OutputEvent) m.getContent());
 	}
     }
