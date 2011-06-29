@@ -182,7 +182,7 @@ public class ContextStrategy extends BusStrategy {
 			.get(i)).s);
 
 	for (Iterator i = allSubscribers.iterator(); i.hasNext();)
-	    ((ContextSubscriber) i.next()).handleContextEvent(event);
+	    ((ContextSubscriber) i.next()).handleEvent(msg);
     }
 
     /**
@@ -223,7 +223,7 @@ public class ContextStrategy extends BusStrategy {
 	for (Iterator i = filterers.values().iterator(); i.hasNext();)
 	    remove(subscriber, (Vector) i.next());
     }
-    
+
     /**
      * Remove ALL patterns of Context Events that a Context Subscriber is
      * interested in, so it no longer receives Events OF ANY KIND

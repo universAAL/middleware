@@ -24,6 +24,7 @@ import org.universAAL.middleware.io.Activator;
 import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Subscriber;
 import org.universAAL.middleware.sodapop.msg.Message;
+import org.universAAL.middleware.util.LogUtils;
 
 /**
  * Provides the interface to be implemented by input subscribers together with
@@ -81,8 +82,13 @@ public abstract class InputSubscriber implements Subscriber {
      * @see org.universAAL.middleware.sodapop.Subscriber#handleEvent(Message)
      */
     public final void handleEvent(Message m) {
-	if (m.getContent() instanceof InputEvent)
+	if (m.getContent() instanceof InputEvent) {
+	    LogUtils.logInfo(Activator.logger, "InputSubscriber",
+		    "handleEvent",
+		    new Object[] { myID, "received Input event:\n",
+			    m.getContentAsString() }, null);
 	    handleInputEvent((InputEvent) m.getContent());
+	}
     }
 
     /**
