@@ -267,7 +267,7 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	if (m == null || !myID.equals(m.getSource()))
 	    return 0;
 
-	String msg = m.toString(), cipher = msg;
+	String msg = m.toString(), cipher = msg, rcvrs = "";
 
 	String busName = b.getBusName();
 	int result = 0;
@@ -288,6 +288,7 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 
 		String[] receivers = m.getReceivers();
 		if (receivers == null || receivers.length == 0) {
+		    rcvrs = "all peers";
 		    Iterator peerList = peersOnThisBus.iterator();
 		    synchronized (remoteSodapops) {
 			while (peerList.hasNext()) {
@@ -301,16 +302,19 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 		    synchronized (remoteSodapops) {
 			for (int i = 0; i < receivers.length; i++)
 			    if (peersOnThisBus.contains(receivers[i])) {
+				rcvrs += receivers[i];
 				((Dispatcher) dispatchers.get(receivers[i])).queue
 					.enqueue(command);
 				result++;
+				rcvrs += " ";
 			    }
 		    }
 		}
 
 	    }
 	}
-	logger.debug("Msg for peers on bus '{}': {}", busName, msg);
+	logger.info("{} - Message sent to {}:\n{}", new Object[] { busName,
+		rcvrs, msg });
 	return result;
     }
 
