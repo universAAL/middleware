@@ -27,6 +27,7 @@ import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Subscriber;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.middleware.util.StringUtils;
 
 /**
  * Provides the interface to be implemented by output subscribers together with
@@ -88,10 +89,12 @@ public abstract class OutputSubscriber implements Subscriber {
 
     public final void handleEvent(Message m) {
 	if (m.getContent() instanceof OutputEvent) {
-	    LogUtils.logInfo(Activator.logger, "OutputSubscriber",
-		    "handleEvent",
-		    new Object[] { myID, "received output event:\n",
-			    m.getContentAsString() }, null);
+	    LogUtils
+		    .logInfo(Activator.logger, "OutputSubscriber",
+			    "handleEvent", new Object[] {
+				    StringUtils.deriveLabel(myID),
+				    " received output event:\n",
+				    m.getContentAsString() }, null);
 	    handleOutputEvent((OutputEvent) m.getContent());
 	}
     }

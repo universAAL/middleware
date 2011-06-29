@@ -30,6 +30,7 @@ import org.universAAL.middleware.sodapop.Caller;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.sodapop.msg.MessageType;
 import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.middleware.util.StringUtils;
 
 /**
  * /** This is an abstract class that the service caller members of the service
@@ -117,7 +118,8 @@ public abstract class ServiceCaller implements Caller {
 	if (m.getType() == MessageType.reply
 		&& (m.getContent() instanceof ServiceResponse)) {
 	    LogUtils.logInfo(Activator.logger, "ServiceCaller", "handleReply",
-		    new Object[] { myID, "received service response:\n",
+		    new Object[] { StringUtils.deriveLabel(myID),
+			    " received service response:\n",
 			    m.getContentAsString() }, null);
 	    String reqID = m.getInReplyTo();
 	    synchronized (waitingCalls) {

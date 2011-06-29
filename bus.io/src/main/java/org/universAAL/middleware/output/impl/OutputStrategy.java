@@ -474,9 +474,10 @@ public class OutputStrategy extends BusStrategy {
 	String content = (String) event.getProperty(PROP_uAAL_OUTPUT_EVENT);
 	String peerID = Constants.extractPeerID(handlerID);
 	if (sodapop.getID().equals(peerID)) {
-	    Object o = getBusMember(handlerID
+	    handlerID = handlerID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
+			    .length());
+	    Object o = getBusMember(handlerID);
 	    if (o instanceof OutputSubscriber) {
 		LogUtils.logInfo(Activator.logger, "OutputStrategy",
 			"notifyHandler_apChanged",
@@ -539,9 +540,10 @@ public class OutputStrategy extends BusStrategy {
 	String content = (String) event.getProperty(PROP_uAAL_OUTPUT_EVENT);
 	String peerID = Constants.extractPeerID(handlerID);
 	if (sodapop.getID().equals(peerID)) {
-	    Object o = getBusMember(handlerID
+	    handlerID = handlerID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
+			    .length());
+	    Object o = getBusMember(handlerID);
 	    if (o instanceof OutputSubscriber) {
 		LogUtils.logInfo(Activator.logger, "OutputStrategy",
 			"notifyHandler_handle",
