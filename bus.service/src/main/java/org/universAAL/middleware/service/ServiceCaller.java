@@ -30,7 +30,6 @@ import org.universAAL.middleware.sodapop.Caller;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.sodapop.msg.MessageType;
 import org.universAAL.middleware.util.LogUtils;
-import org.universAAL.middleware.util.StringUtils;
 
 /**
  * /** This is an abstract class that the service caller members of the service
@@ -45,7 +44,7 @@ import org.universAAL.middleware.util.StringUtils;
 public abstract class ServiceCaller implements Caller {
     private ServiceBus bus;
     private Hashtable waitingCalls, readyResponses;
-    private String myID;
+    private String myID, localID;
 
     /**
      * The default constructor for this class.
@@ -66,6 +65,7 @@ public abstract class ServiceCaller implements Caller {
 	bus = (ServiceBus) context.getService(context
 		.getServiceReference(ServiceBus.class.getName()));
 	myID = bus.register(this);
+	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
 
     /*
@@ -118,8 +118,7 @@ public abstract class ServiceCaller implements Caller {
 	if (m.getType() == MessageType.reply
 		&& (m.getContent() instanceof ServiceResponse)) {
 	    LogUtils.logInfo(Activator.logger, "ServiceCaller", "handleReply",
-		    new Object[] { StringUtils.deriveLabel(myID),
-			    " received service response:\n",
+		    new Object[] { localID, " received service response:\n",
 			    m.getContentAsString() }, null);
 	    String reqID = m.getInReplyTo();
 	    synchronized (waitingCalls) {

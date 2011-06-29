@@ -26,7 +26,6 @@ import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Callee;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.util.LogUtils;
-import org.universAAL.middleware.util.StringUtils;
 
 /**
  * This is an abstract class that the service callee members of the service bus
@@ -40,7 +39,7 @@ import org.universAAL.middleware.util.StringUtils;
  */
 public abstract class ServiceCallee implements Callee {
     private ServiceBus bus;
-    private String myID;
+    private String myID, localID;
 
     /**
      * The default constructor for this class.
@@ -58,6 +57,7 @@ public abstract class ServiceCallee implements Callee {
 	bus = (ServiceBus) context.getService(context
 		.getServiceReference(ServiceBus.class.getName()));
 	myID = bus.register(this, realizedServices);
+	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
 
     /**
@@ -125,12 +125,10 @@ public abstract class ServiceCallee implements Callee {
      */
     public final void handleRequest(Message m) {
 	if (m != null && m.getContent() instanceof ServiceCall) {
-	    LogUtils
-		    .logInfo(Activator.logger, "ServiceCallee",
-			    "handleRequest", new Object[] {
-				    StringUtils.deriveLabel(myID),
-				    " received service call:\n",
-				    m.getContentAsString() }, null);
+	    LogUtils.logInfo(Activator.logger, "ServiceCallee",
+		    "handleRequest",
+		    new Object[] { localID, " received service call:\n",
+			    m.getContentAsString() }, null);
 	    ServiceResponse sr = handleCall((ServiceCall) m.getContent());
 	    if (sr == null)
 		sr = new ServiceResponse(CallStatus.serviceSpecificFailure);
