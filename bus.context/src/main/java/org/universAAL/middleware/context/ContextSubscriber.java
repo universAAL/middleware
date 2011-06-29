@@ -25,6 +25,7 @@ import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Subscriber;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.middleware.util.StringUtils;
 
 /**
  * Provides the interface to be implemented by context subscribers together with
@@ -117,8 +118,9 @@ public abstract class ContextSubscriber implements Subscriber {
     public final void handleEvent(Message m) {
 	if (m.getContent() instanceof ContextEvent) {
 	    LogUtils.logInfo(Activator.logger, "ContextSubscriber",
-		    "handleEvent",
-		    new Object[] { myID, "received context event:\n",
+		    "handleEvent", new Object[] {
+			    StringUtils.deriveLabel(myID),
+			    " received context event:\n",
 			    m.getContentAsString() }, null);
 	    handleContextEvent((ContextEvent) m.getContent());
 	}
