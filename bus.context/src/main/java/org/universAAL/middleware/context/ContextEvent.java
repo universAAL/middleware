@@ -185,7 +185,7 @@ public class ContextEvent extends Resource {
 
     /**
      * Construct a CHe stub ContextEvent inferring the object from the predicate
-     * which URI is present in the propeorties of the subject
+     * which URI is present in the properties of the subject
      * 
      * @param subject
      *            The Resource representing the subject of the event. Must
