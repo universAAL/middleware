@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 public class Activator implements BundleActivator {
 	
 	public static Logger logger = LoggerFactory.getLogger(Activator.class);
+	private LightingProvider provider = null;
 
 	/*
 	 * (non-Javadoc)
@@ -39,7 +40,7 @@ public class Activator implements BundleActivator {
 	public void start(final BundleContext context) throws Exception {
 		new Thread() {
 			public void run() {
-				new LightingProvider(context);
+				provider = new LightingProvider(context);
 			}
 		}.start();
 	}
@@ -49,5 +50,8 @@ public class Activator implements BundleActivator {
 	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
+		if (provider != null) {
+			provider.close();
+		}
 	}
 }
