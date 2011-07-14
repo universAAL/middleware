@@ -52,6 +52,7 @@ public class Activator implements BundleActivator {
 	public void stop(BundleContext context) throws Exception {
 		if (provider != null) {
 			provider.close();
+			provider = null;
 		}
 	}
 }
