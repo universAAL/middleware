@@ -155,7 +155,7 @@ public class LightingProvider extends ServiceCallee implements LampStateListener
 		// Create an object that defines a specific lamp
 		LightSource ls = new LightSource(LightingProvider.LAMP_URI_PREFIX + lampID);
 		// Set the properties of the light (location and brightness)
-		ls.setSourceLocation(new Room(LightingProvider.LOCATION_URI_PREFIX + loc));
+		ls.setLocation(new Room(LightingProvider.LOCATION_URI_PREFIX + loc));
 		ls.setBrightness(isOn? 100 : 0);
 		LogUtils.logInfo(Activator.logger, "LightingProvider", "lampStateChanged",
 				new Object[]{"publishing a context event on the state of a lamp!"}, null);
