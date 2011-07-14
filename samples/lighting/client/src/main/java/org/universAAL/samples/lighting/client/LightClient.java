@@ -41,6 +41,13 @@ public class LightClient extends javax.swing.JPanel {
 	private AbstractAction Off;
 	private AbstractAction On;
 	
+	static {
+		// Vadim - turn off the logging 
+		java.util.logging.Logger.getLogger("sun").setLevel(java.util.logging.Level.OFF);
+		java.util.logging.Logger.getLogger("java").setLevel(java.util.logging.Level.OFF);
+		java.util.logging.Logger.getLogger("javax").setLevel(java.util.logging.Level.OFF);
+	}
+	
 	// create the GUI 
 	public void start(Device[] d){
 
