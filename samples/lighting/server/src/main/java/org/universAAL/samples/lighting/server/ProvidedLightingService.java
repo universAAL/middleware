@@ -29,6 +29,7 @@ import org.universAAL.ontology.lighting.ElectricLight;
 import org.universAAL.ontology.lighting.LightSource;
 import org.universAAL.ontology.lighting.Lighting;
 import org.universAAL.ontology.location.Location;
+import org.universAAL.ontology.phThing.PhysicalThing;
 
 /**
  * @author mtazari
@@ -139,7 +140,7 @@ public class ProvidedLightingService extends Lighting {
 		//        that is assigned to an output parameter identifiable by the given URI (parameter 1)
 		getLampInfo.addOutput(OUTPUT_LAMP_LOCATION,
 				Location.MY_URI, 1, 1,
-				new String[] {Lighting.PROP_CONTROLS, LightSource.PROP_SOURCE_LOCATION});
+				new String[] {Lighting.PROP_CONTROLS, PhysicalThing.PROP_PHYSICAL_LOCATION});
 		// we are finished and can add this profile to the list of service profiles to be registered with the service bus
 		profiles[1] = getLampInfo.myProfile;
 		
