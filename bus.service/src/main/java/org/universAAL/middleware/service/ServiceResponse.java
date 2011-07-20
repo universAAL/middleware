@@ -54,7 +54,7 @@ public class ServiceResponse extends Resource {
 		uAAL_VOCABULARY_NAMESPACE + "returns";
 
 	/**
-	 * A property key for the property where any errors occured during the service invocation are stored. 
+	 * A property key for the property where any errors occurred during the service invocation are stored. 
 	 */
 	public static final String PROP_SERVICE_SPECIFIC_ERROR = 
 		uAAL_VOCABULARY_NAMESPACE + "errorDescription";
@@ -64,7 +64,8 @@ public class ServiceResponse extends Resource {
 	}
 
 	/**
-	 * Default constructor for the class. Only sets the URI of the <code>Resource</code> to <code>MY_URI</code>.
+	 * Default constructor for the class. Only sets the class URI of the
+	 * <code>Resource</code> to <code>MY_URI</code>.
 	 */
 	public ServiceResponse() {
 		super();
