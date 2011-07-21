@@ -68,8 +68,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	}
 
 	public ServiceProfile[] getMatchingService(String callerID, Service s) {
-		// TODO Auto-generated method stub
-		return null;
+		return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s.getType());
 	}
 
 	public ServiceProfile[] getMatchingService(String callerID, String[] keywords) {
