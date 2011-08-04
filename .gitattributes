@@ -40,7 +40,6 @@ bus.context/src/main/java/org/universAAL/middleware/context/ContextEventPattern.
 bus.context/src/main/java/org/universAAL/middleware/context/ContextPublisher.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/ContextSubscriber.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/DefaultContextPublisher.java -text
-bus.context/src/main/java/org/universAAL/middleware/context/impl/Activator.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/impl/ContextBusImpl.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/impl/ContextStrategy.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/impl/osgi/Activator.java -text
@@ -62,7 +61,6 @@ bus.io/src/main/java/org/universAAL/middleware/input/InputPublisher.java -text
 bus.io/src/main/java/org/universAAL/middleware/input/InputSubscriber.java -text
 bus.io/src/main/java/org/universAAL/middleware/input/impl/InputBusImpl.java -text
 bus.io/src/main/java/org/universAAL/middleware/input/impl/InputStrategy.java -text
-bus.io/src/main/java/org/universAAL/middleware/io/Activator.java -text
 bus.io/src/main/java/org/universAAL/middleware/io/SharedResources.java -text
 bus.io/src/main/java/org/universAAL/middleware/io/osgi/Activator.java -text
 bus.io/src/main/java/org/universAAL/middleware/io/owl/AccessImpairment.java -text
@@ -111,7 +109,6 @@ bus.model/src/main/java/org/universAAL/middleware/sodapop/Caller.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/Publisher.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/SodaPop.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/Subscriber.java -text
-bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/Activator.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/CommandQueue.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/CryptUtil.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/Dispatcher.java -text
@@ -134,7 +131,6 @@ bus.service/src/main/java/org/universAAL/middleware/service/ServiceCallee.java -
 bus.service/src/main/java/org/universAAL/middleware/service/ServiceCaller.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/ServiceRequest.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/ServiceResponse.java -text
-bus.service/src/main/java/org/universAAL/middleware/service/impl/Activator.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/impl/ServiceBusImpl.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/impl/ServiceRealization.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/impl/ServiceStrategy.java -text
@@ -202,22 +198,16 @@ data.representation/src/main/java/org/universAAL/middleware/rdf/PropertyPath.jav
 data.representation/src/main/java/org/universAAL/middleware/rdf/Resource.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/TypeMapper.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/Variable.java -text
-data.representation/src/main/java/org/universAAL/middleware/util/ConfFile.java -text
 data.representation/src/main/java/org/universAAL/middleware/util/Constants.java -text
 data.representation/src/main/java/org/universAAL/middleware/util/IntAggregator.java -text
-data.representation/src/main/java/org/universAAL/middleware/util/LogListener.java -text
-data.representation/src/main/java/org/universAAL/middleware/util/LogUtils.java -text
-data.representation/src/main/java/org/universAAL/middleware/util/Messages.java -text
 data.representation/src/main/java/org/universAAL/middleware/util/RatingAggregator.java -text
 data.representation/src/main/java/org/universAAL/middleware/util/ResourceComparator.java -text
-data.representation/src/main/java/org/universAAL/middleware/util/StringUtils.java -text
 data.representation/src/main/resources/mw.data.representation[!!-~]dependencies.jpg -text
 data.representation/src/test/java/org/universAAL/middleware/rdf/TypeMapperTest.java -text
 data.serialization/LICENSE-Aduna-OpenRDF.txt -text
 data.serialization/LICENSE.txt -text
 data.serialization/NOTICE.txt -text
 data.serialization/pom.xml -text
-data.serialization/src/main/java/org/universAAL/serialization/turtle/Activator.java -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleParser.java -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleUtil.java -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleWriter.java -text
