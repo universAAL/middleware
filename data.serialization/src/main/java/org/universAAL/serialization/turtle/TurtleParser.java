@@ -25,20 +25,19 @@ import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.ArrayList; //import java.util.Arrays;
-//import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.container.utils.StringUtils;
+import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
-import org.universAAL.middleware.owl.ManagedIndividual;
-import org.universAAL.middleware.owl.ClassExpression;
-import org.universAAL.middleware.util.LogUtils;
-import org.universAAL.middleware.util.StringUtils;
 
 /**
  * Serialization and Deserialization of RDF graphs. This class implements the
@@ -52,7 +51,7 @@ import org.universAAL.middleware.util.StringUtils;
  * @author Carsten Stockloew
  */
 public class TurtleParser implements MessageContentSerializer {
-    
+
     /** URI for an empty RDF List. */
     private static final Resource NIL = new Resource(Resource.RDF_EMPTY_LIST);
 
@@ -101,7 +100,7 @@ public class TurtleParser implements MessageContentSerializer {
     private PushbackReader reader;
 
     private Resource subject;
-    
+
     private Resource firstResource = null;
 
     private String predicate;
@@ -111,19 +110,14 @@ public class TurtleParser implements MessageContentSerializer {
     private boolean eofAfterImplicitBlankNodeAsSubject = false;
 
     private Hashtable namespaceTable = new Hashtable();
-    
+
     private Hashtable resources = new Hashtable();
-    
+
     private Hashtable parseTable = new Hashtable();
 
-    
-    
-    
-    TurtleParser() {
+    public TurtleParser() {
     }
 
-    
-    
     private void addRef(Resource referred, Resource referredBy, String prop,
 	    List l, int i) {
 	// we do not need to keep book on references to resources representing a
@@ -180,8 +174,9 @@ public class TurtleParser implements MessageContentSerializer {
 	    }
 	    return result;
 	} catch (Exception e) {
-	    LogUtils.logError(Activator.logger, "TurtleParser", "deserialize",
-		    new Object[] { "Turtle-Serializer: Failed to parse\n    ",
+	    LogUtils.logError(TurtleUtil.moduleContext, TurtleParser.class,
+		    "deserialize", new Object[] {
+			    "Turtle-Serializer: Failed to parse\n    ",
 			    serialized, "\n    returning null!" }, e);
 	    return null;
 	}
@@ -281,7 +276,7 @@ public class TurtleParser implements MessageContentSerializer {
 		msgParts[ind++] = "\n        " + (rd == null ? null : rd.prop);
 		i.remove();
 	    }
-	    LogUtils.logDebug(Activator.logger, "TurtleParser",
+	    LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
 		    "finalizeAndGetRoot", msgParts, null);
 	}
 
@@ -603,8 +598,7 @@ public class TurtleParser implements MessageContentSerializer {
 	// Unread last character, it isn't part of the number
 	unread(c);
 
-	return TurtleUtil.typeMapper
-		.getJavaInstance(value.toString(), datatype);
+	return TypeMapper.getJavaInstance(value.toString(), datatype);
     }
 
     private void parseObject() {
@@ -774,8 +768,8 @@ public class TurtleParser implements MessageContentSerializer {
 		String value = prefix.toString();
 
 		if (value.equals("true") || value.equals("false")) {
-		    return TurtleUtil.typeMapper.getJavaInstance(value,
-			    TypeMapper.getDatatypeURI(Boolean.class));
+		    return TypeMapper.getJavaInstance(value, TypeMapper
+			    .getDatatypeURI(Boolean.class));
 		}
 	    }
 
@@ -839,7 +833,7 @@ public class TurtleParser implements MessageContentSerializer {
 
 	    unread(c);
 
-	    return TurtleUtil.typeMapper.getJavaInstance(label, null);
+	    return TypeMapper.getJavaInstance(label, null);
 	} else if (c == '^') {
 	    read();
 
@@ -857,10 +851,9 @@ public class TurtleParser implements MessageContentSerializer {
 	    if (datatype.equals(TurtleUtil.xmlLiteral))
 		return new TurtleParser().deserialize(label, true);
 
-	    return TurtleUtil.typeMapper.getJavaInstance(label,
-		    (String) datatype);
+	    return TypeMapper.getJavaInstance(label, (String) datatype);
 	} else {
-	    return TurtleUtil.typeMapper.getJavaInstance(label, null);
+	    return TypeMapper.getJavaInstance(label, null);
 	}
     }
 
@@ -1040,7 +1033,10 @@ public class TurtleParser implements MessageContentSerializer {
 	}
     }
 
-    /** Returns the next character of input stream without changing the position in the stream. */
+    /**
+     * Returns the next character of input stream without changing the position
+     * in the stream.
+     */
     private int peek() {
 	int result = read();
 	unread(result);
@@ -1071,7 +1067,7 @@ public class TurtleParser implements MessageContentSerializer {
     /** @see org.universAAL.middleware.sodapop.msg.MessageContentSerializer#serialize(Object) */
     public String serialize(Object messageContent) {
 	return TurtleWriter.serialize(messageContent, 0);
-   }
+    }
 
     // private void setSpecializedValue(Resource r, String prop, Object newVal,
     // Object oldVal) {
@@ -1157,7 +1153,7 @@ public class TurtleParser implements MessageContentSerializer {
 	    } else
 		substitution = ManagedIndividual.getInstance(type, uri);
 	    if (substitution == null) {
-		LogUtils.logDebug(Activator.logger, "TurtleParser",
+		LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
 			"specialize", new Object[] {
 				"Resource not specialized: type = ", type },
 			null);
@@ -1182,8 +1178,9 @@ public class TurtleParser implements MessageContentSerializer {
 		    rd.l = (List) val;
 		    openItems.put(rd.prop + rd.src.getURI(), rd);
 		} else
-		    LogUtils.logWarning(Activator.logger, "TurtleParser",
-			    "specialize", new Object[] { "Property '", prop,
+		    LogUtils.logWarn(TurtleUtil.moduleContext,
+			    TurtleParser.class, "specialize", new Object[] {
+				    "Property '", prop,
 				    "' could not be set for a resource!" },
 			    null);
 	    }
@@ -1203,7 +1200,10 @@ public class TurtleParser implements MessageContentSerializer {
 	}
     }
 
-    /** Tests, if the given character is contained in the set of expected characters. */
+    /**
+     * Tests, if the given character is contained in the set of expected
+     * characters.
+     */
     private void verifyCharacter(int c, String expected) {
 	if (c == -1) {
 	    throw new RuntimeException("Unexpected end of file!");

@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.input;
 
-import org.osgi.framework.BundleContext;
+import org.universAAL.middleware.container.ModuleContext;
 
 /**
  * The default input publisher simply ignores the notification about losing
@@ -29,17 +29,17 @@ import org.osgi.framework.BundleContext;
  */
 public class DefaultInputPublisher extends InputPublisher {
 
-	/**
-	 * @param context
-	 */
-	public DefaultInputPublisher(BundleContext context) {
-		super(context);
-	}
+    /**
+     * @param context
+     */
+    public DefaultInputPublisher(ModuleContext context) {
+	super(context);
+    }
 
-	/**
-	 * @see org.universAAL.middleware.input.InputPublisher#communicationChannelBroken()
-	 */
-	public void communicationChannelBroken() {
-	}
+    /**
+     * @see org.universAAL.middleware.input.InputPublisher#communicationChannelBroken()
+     */
+    public void communicationChannelBroken() {
+    }
 
 }

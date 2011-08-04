@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.acl.bridge</artifactId>  
-	<version>0.3.0-SNAPSHOT</version>
+	<version>0.3.1-SNAPSHOT</version>
 	<name>ACL Bridge</name>
 	<description>Finds all implementations of the ACL and bridges the proxies by one protocol to all other</description>
 	<url />
@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.acl.interfaces</artifactId>
-			<version>0.3.0-SNAPSHOT</version>
+			<version>0.3.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

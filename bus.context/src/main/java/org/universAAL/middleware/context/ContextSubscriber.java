@@ -19,12 +19,12 @@
  */
 package org.universAAL.middleware.context;
 
-import org.osgi.framework.BundleContext;
-import org.universAAL.middleware.context.impl.Activator;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Subscriber;
 import org.universAAL.middleware.sodapop.msg.Message;
-import org.universAAL.middleware.util.LogUtils;
 
 /**
  * Provides the interface to be implemented by context subscribers together with
@@ -47,6 +47,7 @@ import org.universAAL.middleware.util.LogUtils;
  */
 public abstract class ContextSubscriber implements Subscriber {
     private ContextBus bus;
+    private ModuleContext thisSubscriberContext;
     private String myID, localID;
 
     /**
@@ -59,11 +60,11 @@ public abstract class ContextSubscriber implements Subscriber {
      *            Array of ContextEventPattern that are immediately registered
      *            for this Subscriber
      */
-    protected ContextSubscriber(BundleContext context,
+    protected ContextSubscriber(ModuleContext context,
 	    ContextEventPattern[] initialSubscriptions) {
-	Activator.checkContextBus();
-	bus = (ContextBus) context.getService(context
-		.getServiceReference(ContextBus.class.getName()));
+	thisSubscriberContext = context;
+	bus = (ContextBus) context.getContainer().fetchSharedObject(context,
+		ContextBusImpl.busFetchParams);
 	myID = bus.register(this, initialSubscriptions);
 	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
@@ -117,7 +118,7 @@ public abstract class ContextSubscriber implements Subscriber {
 
     public final void handleEvent(Message m) {
 	if (m.getContent() instanceof ContextEvent) {
-	    LogUtils.logInfo(Activator.logger, "ContextSubscriber",
+	    LogUtils.logInfo(thisSubscriberContext, ContextSubscriber.class,
 		    "handleEvent", new Object[] { localID,
 			    " received context event:\n",
 			    m.getContentAsString() }, null);

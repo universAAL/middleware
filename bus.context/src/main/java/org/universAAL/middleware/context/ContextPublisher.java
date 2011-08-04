@@ -19,8 +19,8 @@
  */
 package org.universAAL.middleware.context;
 
-import org.osgi.framework.BundleContext;
-import org.universAAL.middleware.context.impl.Activator;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Publisher;
@@ -58,11 +58,10 @@ public abstract class ContextPublisher implements Publisher {
      * @param providerInfo
      *            The Information describing the Publisher
      */
-    protected ContextPublisher(BundleContext context,
+    protected ContextPublisher(ModuleContext context,
 	    ContextProvider providerInfo) {
-	Activator.checkContextBus();
-	bus = (ContextBus) context.getService(context
-		.getServiceReference(ContextBus.class.getName()));
+	bus = (ContextBus) context.getContainer().fetchSharedObject(context,
+		ContextBusImpl.busFetchParams);
 	myID = bus.register(this);
 	this.providerInfo = providerInfo;
     }

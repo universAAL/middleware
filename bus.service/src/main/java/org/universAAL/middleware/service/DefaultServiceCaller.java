@@ -16,41 +16,43 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.service;
 
-import org.osgi.framework.BundleContext;
+import org.universAAL.middleware.container.ModuleContext;
 
 /**
  * The default service caller simply ignores the notification about losing
- * connection to other instances of the middleware and calls the services
- * either only in an synchronous way (using the method {@link
- * #call(org.universAAL.middleware.service.ServiceRequest)}) or ignores the 
- * asynchronous responses.
+ * connection to other instances of the middleware and calls the services either
+ * only in an synchronous way (using the method
+ * {@link #call(org.universAAL.middleware.service.ServiceRequest)}) or ignores
+ * the asynchronous responses.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  */
 public class DefaultServiceCaller extends ServiceCaller {
 
-	/**
-	 * Constructor for usage by de-serializers.
-	 *
-	 * @param context
-	 */
-	public DefaultServiceCaller(BundleContext context) {
-		super(context);
-	}
+    /**
+     * Constructor for usage by de-serializers.
+     * 
+     * @param context
+     */
+    public DefaultServiceCaller(ModuleContext context) {
+	super(context);
+    }
 
-	/** 
-	 * @see org.universAAL.middleware.service.ServiceCaller#communicationChannelBroken()
-	 */
-	public void communicationChannelBroken() {
-	}
+    /**
+     * @see org.universAAL.middleware.service.ServiceCaller#communicationChannelBroken()
+     */
+    public void communicationChannelBroken() {
+    }
 
-	/** 
-	 * @see org.universAAL.middleware.service.ServiceCaller#handleResponse(java.lang.String, org.persona.ontology.service.ServiceResponse)
-	 */
-	public void handleResponse(String reqID, ServiceResponse response) {
-	}
+    /**
+     * @see org.universAAL.middleware.service.ServiceCaller#handleResponse(java.lang.String,
+     *      org.persona.ontology.service.ServiceResponse)
+     */
+    public void handleResponse(String reqID, ServiceResponse response) {
+    }
 
 }

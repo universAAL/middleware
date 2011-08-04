@@ -25,8 +25,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.util.ResourceComparator;
-import org.universAAL.middleware.util.StringUtils;
 
 /**
  * The base class for all RDF and OWL classes.

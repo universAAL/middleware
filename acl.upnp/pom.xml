@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>mw.acl.upnp</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.2.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<name>ACL UPnP</name>
@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.acl.interfaces</artifactId>
-			<version>0.3.0-SNAPSHOT</version>
+			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

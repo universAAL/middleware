@@ -16,10 +16,12 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.service.impl;
 
-import org.universAAL.middleware.util.Constants;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AvailabilitySubscriber;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceCallee;
@@ -31,117 +33,188 @@ import org.universAAL.middleware.sodapop.AbstractBus;
 import org.universAAL.middleware.sodapop.BusMember;
 import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.Message;
-
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.util.Constants;
+import org.universAAL.middleware.util.ResourceComparator;
 
 /**
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  * 
  */
 public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
-	public ServiceBusImpl(SodaPop g) {
-		super(Constants.uAAL_BUS_NAME_SERVICE,
-				new ServiceStrategy(g),
-				g);
-		busStrategy.setBus(this);
-	}
+    public static ModuleContext moduleContext;
+    public static Object[] busFetchParams;
+    public static Object[] contentSerializerParams;
+    private static MessageContentSerializer contentSerializer = null;
 
-	public void addAvailabilitySubscription(String callerID,
-			AvailabilitySubscriber subscriber,
-			ServiceRequest request) {
-		if (callerID != null
-				&& callerID.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)
-				&& registry.get(callerID.substring(
-						Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.length())) instanceof ServiceCaller)
-			((ServiceStrategy) busStrategy).addAvailabilitySubscription(callerID, subscriber, request);
-	}
+    public static synchronized void assessContentSerialization(Resource content) {
+	if (Constants.debugMode()) {
+	    if (contentSerializer == null) {
+		contentSerializer = (MessageContentSerializer) moduleContext
+			.getContainer().fetchSharedObject(moduleContext,
+				contentSerializerParams);
+		if (contentSerializer == null)
+		    return;
+	    }
 
-	public void addNewRegParams(String calleeID, ServiceProfile[] realizedServices) {
-		if (calleeID != null
-				&&  calleeID.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-			((ServiceStrategy) busStrategy).addRegParams(calleeID, realizedServices);
-	}
+	    LogUtils
+		    .logDebug(
+			    moduleContext,
+			    ServiceBusImpl.class,
+			    "assessContentSerialization",
+			    new Object[] { "Assessing message content serialization:" },
+			    null);
+	    // System.out.println(new RuntimeException().getStackTrace()[1]);
 
-	public ServiceProfile[] getAllServices(String callerID) {
-		// TODO Auto-generated method stub
-		return null;
+	    String str = contentSerializer.serialize(content);
+	    LogUtils
+		    .logDebug(
+			    moduleContext,
+			    ServiceBusImpl.class,
+			    "assessContentSerialization",
+			    new Object[] { "\n      1. serialization dump\n",
+				    str,
+				    "\n      2. deserialize & compare with the original resource\n" },
+			    null);
+	    new ResourceComparator().printDiffs(content,
+		    (Resource) contentSerializer.deserialize(str));
 	}
+    }
 
-	public ServiceProfile[] getMatchingService(String callerID, Service s) {
-		return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s.getType());
-	}
+    public static void loadExportedClasses() throws ClassNotFoundException {
+	Class.forName("org.universAAL.middleware.service.AggregatingFilter");
+	Class.forName("org.universAAL.middleware.service.ServiceCall");
+	Class.forName("org.universAAL.middleware.service.ServiceRequest");
+	Class.forName("org.universAAL.middleware.service.ServiceResponse");
+	Class
+		.forName("org.universAAL.middleware.service.impl.ServiceRealization");
+	Class
+		.forName("org.universAAL.middleware.service.owl.InitialServiceDialog");
+	Class
+		.forName("org.universAAL.middleware.service.owls.profile.ServiceProfile");
+    }
 
-	public ServiceProfile[] getMatchingService(String callerID, String[] keywords) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public ServiceBusImpl(SodaPop g) {
+	super(Constants.uAAL_BUS_NAME_SERVICE, new ServiceStrategy(g), g);
+	busStrategy.setBus(this);
+    }
 
-	public String register(BusMember member) {
-		return null;
-	}
+    public void addAvailabilitySubscription(String callerID,
+	    AvailabilitySubscriber subscriber, ServiceRequest request) {
+	if (callerID != null
+		&& callerID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)
+		&& registry.get(callerID
+			.substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+				.length())) instanceof ServiceCaller)
+	    ((ServiceStrategy) busStrategy).addAvailabilitySubscription(
+		    callerID, subscriber, request);
+    }
 
-	public String register(ServiceCallee callee, ServiceProfile[] realizedServices) {
-		String id = Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + super.register(callee);
-		if (realizedServices != null)
-			((ServiceStrategy) busStrategy).addRegParams(id, realizedServices);
-		return id;
-	}
+    public void addNewRegParams(String calleeID,
+	    ServiceProfile[] realizedServices) {
+	if (calleeID != null
+		&& calleeID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
+	    ((ServiceStrategy) busStrategy).addRegParams(calleeID,
+		    realizedServices);
+    }
 
-	public String register(ServiceCaller caller) {
-		return Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + super.register(caller);
-	}
+    public ServiceProfile[] getAllServices(String callerID) {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	public void removeAvailabilitySubscription(String callerID,
-			AvailabilitySubscriber subscriber,
-			String requestURI) {
-		if (callerID != null
-				&& callerID.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)
-				&& registry.get(callerID.substring(
-						Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.length())) instanceof ServiceCaller)
-			((ServiceStrategy) busStrategy).removeAvailabilitySubscription(callerID, subscriber, requestURI);
-	}
+    public ServiceProfile[] getMatchingService(String callerID, Service s) {
+	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s
+		.getType());
+    }
 
-	public void removeMatchingRegParams(String calleeID, ServiceProfile[] realizedServices) {
-		if (calleeID != null
-				&&  calleeID.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-			((ServiceStrategy) busStrategy).removeMatchingRegParams(calleeID,
-					realizedServices);
-	}
+    public ServiceProfile[] getMatchingService(String callerID,
+	    String[] keywords) {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	public void sendReply(String calleeID, Message response) {
-		if (calleeID != null
-				&&  calleeID.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-			super.sendMessage(calleeID.substring(
-					Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.length()),
-					response);
-	}
+    public String register(BusMember member) {
+	return null;
+    }
 
-	public void sendMessage(String callerID, Message request) {
-		if (callerID != null
-				&&  callerID.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-			super.sendMessage(callerID.substring(
-					Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.length()),
-					request);
-	}
+    public String register(ServiceCallee callee,
+	    ServiceProfile[] realizedServices) {
+	String id = Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+		+ super.register(callee);
+	if (realizedServices != null)
+	    ((ServiceStrategy) busStrategy).addRegParams(id, realizedServices);
+	return id;
+    }
 
-	public void unregister(String id, BusMember member) {
-	}
+    public String register(ServiceCaller caller) {
+	return Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+		+ super.register(caller);
+    }
 
-	public void unregister(String calleeID, ServiceCallee callee) {
-		if (calleeID != null
-				&&  calleeID.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-			((ServiceStrategy) busStrategy).removeRegParams(calleeID);
-			super.unregister(calleeID.substring(
-					Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.length()),
-					callee);
-		}
-	}
+    public void removeAvailabilitySubscription(String callerID,
+	    AvailabilitySubscriber subscriber, String requestURI) {
+	if (callerID != null
+		&& callerID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)
+		&& registry.get(callerID
+			.substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+				.length())) instanceof ServiceCaller)
+	    ((ServiceStrategy) busStrategy).removeAvailabilitySubscription(
+		    callerID, subscriber, requestURI);
+    }
 
-	public void unregister(String callerID, ServiceCaller caller) {
-		if (callerID != null
-				&&  callerID.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) 
-			super.unregister(callerID.substring(
-					Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.length()),
-					caller);
+    public void removeMatchingRegParams(String calleeID,
+	    ServiceProfile[] realizedServices) {
+	if (calleeID != null
+		&& calleeID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
+	    ((ServiceStrategy) busStrategy).removeMatchingRegParams(calleeID,
+		    realizedServices);
+    }
+
+    public void sendReply(String calleeID, Message response) {
+	if (calleeID != null
+		&& calleeID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
+	    super.sendMessage(calleeID
+		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+			    .length()), response);
+    }
+
+    public void sendMessage(String callerID, Message request) {
+	if (callerID != null
+		&& callerID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
+	    super.sendMessage(callerID
+		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+			    .length()), request);
+    }
+
+    public void unregister(String id, BusMember member) {
+    }
+
+    public void unregister(String calleeID, ServiceCallee callee) {
+	if (calleeID != null
+		&& calleeID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
+	    ((ServiceStrategy) busStrategy).removeRegParams(calleeID);
+	    super.unregister(calleeID
+		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+			    .length()), callee);
 	}
+    }
+
+    public void unregister(String callerID, ServiceCaller caller) {
+	if (callerID != null
+		&& callerID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
+	    super.unregister(callerID
+		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+			    .length()), caller);
+    }
 }

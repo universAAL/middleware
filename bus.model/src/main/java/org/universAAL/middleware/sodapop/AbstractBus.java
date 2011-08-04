@@ -22,7 +22,8 @@ package org.universAAL.middleware.sodapop;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import org.universAAL.middleware.sodapop.impl.Activator;
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.sodapop.impl.SodaPopImpl;
 import org.universAAL.middleware.sodapop.msg.Message;
 
 /**
@@ -173,8 +174,10 @@ public abstract class AbstractBus implements Bus {
      *            message to handle
      */
     public final void handleRemoteMessage(Message m) {
-	Activator.logger.info("{} - Received message from peer {}:\n{}",
-		new Object[] { name, m.getSource(), m.getContentAsString() });
+	LogUtils.logInfo(SodaPopImpl.moduleContext, AbstractBus.class,
+		"handleRemoteMessage", new Object[] { name,
+			" - Received message from peer ", m.getSource(), ":\n",
+			m.getContentAsString() }, null);
 	// sender ID is null for remote messages
 	busStrategy.handleMessage(m, null);
     }
@@ -184,8 +187,10 @@ public abstract class AbstractBus implements Bus {
      * process on the bus).
      */
     public void sendMessage(String senderID, Message msg) {
-	Activator.logger.info("{} - Received message from bus member {}:\n{}",
-		new Object[] { name, senderID, msg.getContentAsString() });
+	LogUtils.logInfo(SodaPopImpl.moduleContext, AbstractBus.class,
+		"handleRemoteMessage", new Object[] { name,
+			" - Received message from bus member ", senderID,
+			":\n", msg.getContentAsString() }, null);
 	busStrategy.handleMessage(msg, senderID);
     }
 

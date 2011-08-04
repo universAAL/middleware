@@ -24,7 +24,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Stack;
 
-import org.universAAL.middleware.Activator;
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.container.utils.StringUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -211,8 +213,8 @@ public class ResourceComparator {
 	} else
 	    s.push("  No diffs found!");
 
-	LogUtils.logDebug(Activator.logger, "ResourceComparator", "printDiffs",
-		s.toArray(), null);
+	LogUtils.logDebug(SharedResources.moduleContext,
+		ResourceComparator.class, "printDiffs", s.toArray(), null);
     }
 
     /**

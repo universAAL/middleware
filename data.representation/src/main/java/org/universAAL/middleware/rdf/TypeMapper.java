@@ -63,8 +63,9 @@ public class TypeMapper {
      */
     private static DatatypeFactory df;
 
-    /** Singleton instance. */
-    private static TypeMapper tm = null;
+    /*
+     * Singleton instance. private static TypeMapper tm = null;
+     */
 
     static {
 	// Create hashtables for classes and xsd types
@@ -105,17 +106,14 @@ public class TypeMapper {
     private TypeMapper() {
     }
 
-    /**
+    /*
      * Return the only allowed instance of TypeMapper
      * 
-     * @return {@link TypeMapper}
+     * @return {@link TypeMapper} public static TypeMapper getTypeMapper() { if
+     * (tm == null) tm = new TypeMapper();
+     * 
+     * return tm; }
      */
-    public static TypeMapper getTypeMapper() {
-	if (tm == null)
-	    tm = new TypeMapper();
-
-	return tm;
-    }
 
     /**
      * Get the current date and time as representation for W3C XML Schema 1.0
@@ -143,7 +141,7 @@ public class TypeMapper {
      * @return An array of 2 strings with the lexical XML form and associated
      *         XSD type.
      */
-    public String[] getXMLInstance(Object o) {
+    public static String[] getXMLInstance(Object o) {
 
 	if (o instanceof Locale) {
 	    Locale l = (Locale) o;
@@ -167,7 +165,7 @@ public class TypeMapper {
      * @return A Java object or null if it can not be mapped to an appropriate
      *         object.
      */
-    public Object getJavaInstance(String lexicalForm, String xsdType) {
+    public static Object getJavaInstance(String lexicalForm, String xsdType) {
 	if (xsdType == null || lexicalForm == null)
 	    return lexicalForm;
 
