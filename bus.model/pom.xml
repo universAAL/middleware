@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.bus.model</artifactId>
-	<version>0.3.0-SNAPSHOT</version>
+	<version>0.3.1-SNAPSHOT</version>
 	<name>Soda-Pop as OSGi Bundle</name>
 	<description>A Soda-Pop implementation as an OSGi bundle based on the ACL</description>
 	<url />
@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.acl.interfaces</artifactId>
-			<version>0.3.0-SNAPSHOT</version>
+			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
@@ -43,20 +43,14 @@
 			<version>144</version>
 		</dependency>
 		<dependency>
-			<groupId>org.ops4j.pax.logging</groupId>
-			<artifactId>pax-logging-api</artifactId>
-			<version>1.4</version>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.xfaces</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.ops4j.pax.logging</groupId>
-			<artifactId>pax-logging-service</artifactId>
-			<version>1.4</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>log4j</artifactId>
-					<groupId>log4j</groupId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.osgi</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -68,13 +62,12 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Author><![CDATA[Mohammad-Reza Tazari <saied.tazari@igd.fraunhofer.de>, Francesco Furfari <francesco.furfari@isti.cnr.it>]]></Bundle-Author>
 						<Bundle-Name>${project.name}</Bundle-Name>
-						<Bundle-Activator>org.universAAL.middleware.sodapop.impl.Activator</Bundle-Activator>
+						<Bundle-Activator>org.universAAL.middleware.sodapop.impl.osgi.Activator</Bundle-Activator>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>org.universAAL.middleware.sodapop,org.universAAL.middleware.sodapop.msg</Export-Package>
-						<Private-Package>org.universAAL.middleware.sodapop.impl</Private-Package>
+						<Private-Package>org.universAAL.middleware.sodapop.impl,org.universAAL.middleware.sodapop.impl.osgi</Private-Package>
 					</instructions>
 				</configuration>
 			</plugin>

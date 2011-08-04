@@ -19,14 +19,14 @@
  */
 package org.universAAL.middleware.output;
 
-import org.osgi.framework.BundleContext;
-import org.universAAL.middleware.io.Activator;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.io.rdf.Submit;
+import org.universAAL.middleware.output.impl.OutputBusImpl;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Subscriber;
 import org.universAAL.middleware.sodapop.msg.Message;
-import org.universAAL.middleware.util.LogUtils;
 
 /**
  * Provides the interface to be implemented by output subscribers together with
@@ -48,13 +48,14 @@ import org.universAAL.middleware.util.LogUtils;
  */
 public abstract class OutputSubscriber implements Subscriber {
     private OutputBus bus;
+    private ModuleContext thisSubscriberContext;
     private String myID, localID;
 
-    protected OutputSubscriber(BundleContext context,
+    protected OutputSubscriber(ModuleContext context,
 	    OutputEventPattern initialSubscription) {
-	Activator.checkOutputBus();
-	bus = (OutputBus) context.getService(context
-		.getServiceReference(OutputBus.class.getName()));
+	thisSubscriberContext = context;
+	bus = (OutputBus) context.getContainer().fetchSharedObject(context,
+		OutputBusImpl.busFetchParams);
 	myID = bus.register(this, initialSubscription);
 	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
@@ -89,7 +90,7 @@ public abstract class OutputSubscriber implements Subscriber {
 
     public final void handleEvent(Message m) {
 	if (m.getContent() instanceof OutputEvent) {
-	    LogUtils.logInfo(Activator.logger, "OutputSubscriber",
+	    LogUtils.logInfo(thisSubscriberContext, OutputSubscriber.class,
 		    "handleEvent",
 		    new Object[] { localID, " received output event:\n",
 			    m.getContentAsString() }, null);

@@ -19,8 +19,8 @@
  */
 package org.universAAL.middleware.input;
 
-import org.osgi.framework.BundleContext;
-import org.universAAL.middleware.io.Activator;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.input.impl.InputBusImpl;
 import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Publisher;
 import org.universAAL.middleware.sodapop.msg.Message;
@@ -35,10 +35,9 @@ public abstract class InputPublisher implements Publisher {
     private InputBus bus;
     private String myID;
 
-    protected InputPublisher(BundleContext context) {
-	Activator.checkInputBus();
-	bus = (InputBus) context.getService(context
-		.getServiceReference(InputBus.class.getName()));
+    protected InputPublisher(ModuleContext context) {
+	bus = (InputBus) context.getContainer().fetchSharedObject(context,
+		InputBusImpl.busFetchParams);
 	myID = bus.register(this);
     }
 

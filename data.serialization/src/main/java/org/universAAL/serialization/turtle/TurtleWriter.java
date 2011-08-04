@@ -30,13 +30,13 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.container.utils.StringUtils;
+import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.sodapop.msg.Message;
-import org.universAAL.middleware.util.LogUtils;
-import org.universAAL.middleware.util.StringUtils;
-import org.universAAL.middleware.owl.ClassExpression;
-import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
  * Serialization of RDF graphs to <i>Terse RDF Triple Language (Turtle)</i>.
@@ -152,8 +152,8 @@ public class TurtleWriter {
 	if (!(o instanceof Resource)) {
 	    LogUtils
 		    .logError(
-			    Activator.logger,
-			    "TurtleWriter",
+			    TurtleUtil.moduleContext,
+			    TurtleWriter.class,
 			    "serialize",
 			    new Object[] { "Cannot serialize objects other than instances of Resource!" },
 			    null);
@@ -165,8 +165,8 @@ public class TurtleWriter {
 	    new TurtleWriter(sw, embedLevel).serialize((Resource) o);
 	    return sw.toString();
 	} catch (IOException e) {
-	    LogUtils.logError(Activator.logger, "TurtleWriter", "serialize",
-		    null, e);
+	    LogUtils.logError(TurtleUtil.moduleContext, TurtleWriter.class,
+		    "serialize", null, e);
 	    return null;
 	}
     }
@@ -755,7 +755,7 @@ public class TurtleWriter {
 		|| val instanceof Integer)
 	    writer.write(val.toString());
 	else {
-	    String[] pair = TurtleUtil.typeMapper.getXMLInstance(val);
+	    String[] pair = TypeMapper.getXMLInstance(val);
 	    writeLiteral(pair[0], pair[1]);
 	}
     }

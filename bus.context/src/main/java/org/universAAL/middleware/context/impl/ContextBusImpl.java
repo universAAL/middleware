@@ -19,17 +19,22 @@
  */
 package org.universAAL.middleware.context.impl;
 
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.ContextSubscriber;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.sodapop.AbstractBus;
 import org.universAAL.middleware.sodapop.BusMember;
 import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.Message;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 import org.universAAL.middleware.sodapop.msg.MessageType;
 import org.universAAL.middleware.util.Constants;
+import org.universAAL.middleware.util.ResourceComparator;
 
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
@@ -37,6 +42,51 @@ import org.universAAL.middleware.util.Constants;
  * 
  */
 public class ContextBusImpl extends AbstractBus implements ContextBus {
+
+    public static ModuleContext moduleContext;
+    public static Object[] busFetchParams;
+    public static Object[] contentSerializerParams;
+    private static MessageContentSerializer contentSerializer = null;
+
+    public static synchronized void assessContentSerialization(Resource content) {
+	if (Constants.debugMode()) {
+	    if (contentSerializer == null) {
+		contentSerializer = (MessageContentSerializer) moduleContext
+			.getContainer().fetchSharedObject(moduleContext,
+				contentSerializerParams);
+		if (contentSerializer == null)
+		    return;
+	    }
+
+	    LogUtils
+		    .logDebug(
+			    moduleContext,
+			    ContextBusImpl.class,
+			    "assessContentSerialization",
+			    new Object[] { "Assessing message content serialization:" },
+			    null);
+	    // System.out.println(new RuntimeException().getStackTrace()[1]);
+
+	    String str = contentSerializer.serialize(content);
+	    LogUtils
+		    .logDebug(
+			    moduleContext,
+			    ContextBusImpl.class,
+			    "assessContentSerialization",
+			    new Object[] { "\n      1. serialization dump\n",
+				    str,
+				    "\n      2. deserialize & compare with the original resource\n" },
+			    null);
+	    new ResourceComparator().printDiffs(content,
+		    (Resource) contentSerializer.deserialize(str));
+	}
+    }
+
+    public static void loadExportedClasses() throws ClassNotFoundException {
+	Class.forName("org.universAAL.middleware.context.ContextEvent");
+	Class.forName("org.universAAL.middleware.context.ContextEventPattern");
+	Class.forName("org.universAAL.middleware.context.owl.ContextProvider");
+    }
 
     public ContextBusImpl(SodaPop g) {
 	super(Constants.uAAL_BUS_NAME_CONTEXT, new ContextStrategy(g), g);
@@ -65,7 +115,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
     }
 
     public void sendMessage(String publisherID, ContextEvent msg) {
-	Activator.assessContentSerialization(msg);
+	assessContentSerialization(msg);
 	if (publisherID != null
 		&& publisherID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))

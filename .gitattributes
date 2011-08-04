@@ -43,6 +43,7 @@ bus.context/src/main/java/org/universAAL/middleware/context/DefaultContextPublis
 bus.context/src/main/java/org/universAAL/middleware/context/impl/Activator.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/impl/ContextBusImpl.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/impl/ContextStrategy.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/impl/osgi/Activator.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/owl/ContextProvider.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/owl/ContextProviderType.java -text
 bus.context/src/test/java/org/universAAL/middleware/context/RoundTest.java -text
@@ -62,6 +63,8 @@ bus.io/src/main/java/org/universAAL/middleware/input/InputSubscriber.java -text
 bus.io/src/main/java/org/universAAL/middleware/input/impl/InputBusImpl.java -text
 bus.io/src/main/java/org/universAAL/middleware/input/impl/InputStrategy.java -text
 bus.io/src/main/java/org/universAAL/middleware/io/Activator.java -text
+bus.io/src/main/java/org/universAAL/middleware/io/SharedResources.java -text
+bus.io/src/main/java/org/universAAL/middleware/io/osgi/Activator.java -text
 bus.io/src/main/java/org/universAAL/middleware/io/owl/AccessImpairment.java -text
 bus.io/src/main/java/org/universAAL/middleware/io/owl/DialogType.java -text
 bus.io/src/main/java/org/universAAL/middleware/io/owl/Gender.java -text
@@ -114,6 +117,7 @@ bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/CryptUtil.java -t
 bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/Dispatcher.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/PeerCommand.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/SodaPopImpl.java -text
+bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/osgi/Activator.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/Message.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageContentSerializer.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageType.java -text
@@ -134,6 +138,7 @@ bus.service/src/main/java/org/universAAL/middleware/service/impl/Activator.java 
 bus.service/src/main/java/org/universAAL/middleware/service/impl/ServiceBusImpl.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/impl/ServiceRealization.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/impl/ServiceStrategy.java -text
+bus.service/src/main/java/org/universAAL/middleware/service/impl/osgi/Activator.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/owl/InitialServiceDialog.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/owl/Service.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/owl/UserInterfaceService.java -text
@@ -152,6 +157,23 @@ bus.service/src/main/java/org/universAAL/middleware/service/owls/profile/Respons
 bus.service/src/main/java/org/universAAL/middleware/service/owls/profile/ServiceProfile.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/owls/profile/SingleLocationParameter.java -text
 bus.service/src/main/resources/org/persona/middleware/peer.properties -text
+container.osgi/LICENSE.txt -text
+container.osgi/NOTICE.txt -text
+container.osgi/pom.xml -text
+container.osgi/src/main/java/org/universAAL/middleware/container/osgi/run/Activator.java -text
+container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundleContainer.java -text
+container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundleContext.java -text
+container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/BundleConfigHome.java -text
+container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/Messages.java -text
+container.xfaces/LICENSE.txt -text
+container.xfaces/NOTICE.txt -text
+container.xfaces/pom.xml -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/Container.java -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/LogListener.java -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/ModuleContext.java -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/SharedObjectListener.java -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/utils/LogUtils.java -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
 data.representation/LICENSE.txt -text
 data.representation/NOTICE.txt -text
 data.representation/documentation/mw.data.representation[!!-~]dependencies[!!-~]19.4.2011.png -text
@@ -161,7 +183,8 @@ data.representation/documentation/mw.rdf[!!-~]class[!!-~]diagram[!!-~]20.4.2011.
 data.representation/documentation/mw.util[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
 data.representation/mw.data.representation[!!-~]dependencies[!!-~]18.4.2011.jpg -text
 data.representation/pom.xml -text
-data.representation/src/main/java/org/universAAL/middleware/Activator.java -text
+data.representation/src/main/java/org/universAAL/middleware/datarep/SharedResources.java -text
+data.representation/src/main/java/org/universAAL/middleware/datarep/osgi/Activator.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/ClassExpression.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/ComparableIndividual.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/Complement.java -text
@@ -198,6 +221,7 @@ data.serialization/src/main/java/org/universAAL/serialization/turtle/Activator.j
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleParser.java -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleUtil.java -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleWriter.java -text
+data.serialization/src/main/java/org/universAAL/serialization/turtle/osgi/Activator.java -text
 data.serialization/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
 pom/eclipse.setup.bat -text
 pom/eclipse.setup.sh -text

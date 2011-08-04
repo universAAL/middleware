@@ -52,17 +52,16 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceEvent;
-import org.osgi.framework.ServiceListener;
-import org.osgi.framework.ServiceReference;
-import org.slf4j.Logger;
 import org.universAAL.middleware.acl.P2PConnector;
 import org.universAAL.middleware.acl.PeerDiscoveryListener;
 import org.universAAL.middleware.acl.SodaPopPeer;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.SharedObjectListener;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.sodapop.AbstractBus;
 import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.Message;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
@@ -70,448 +69,505 @@ import org.universAAL.middleware.sodapop.msg.Message;
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class SodaPopImpl implements SodaPop, SodaPopPeer,
-		PeerDiscoveryListener, ServiceListener {
+	PeerDiscoveryListener, SharedObjectListener {
+    public static ModuleContext moduleContext;
+    private static Object[] contentSerializerParams;
 
-	private String myID;
-	private Logger logger = Activator.logger;
-	private Hashtable localBusses; // <String, AbstractBus>
-	private Hashtable peersOnBus; // <String, Vector<String>>
-	private Hashtable remoteSodapops; // <String, SodaPopPeer>
-	private Hashtable dispatchers; // <String,Dispatcher>
-	private HashSet peersToNotifyBuses;
-	private HashSet contactedPeers;
-	private BundleContext context;
+    public static MessageContentSerializer getContentSerializer() {
+	return (MessageContentSerializer) SodaPopImpl.moduleContext
+		.getContainer().fetchSharedObject(SodaPopImpl.moduleContext,
+			SodaPopImpl.contentSerializerParams);
+    }
 
-	// private StringBuffer logBuffer = new StringBuffer();
-	// private long startTime;
-	// private long stopTime;
+    public MessageContentSerializer getContentSerializer(ModuleContext context) {
+	return (MessageContentSerializer) context
+		.getContainer()
+		.fetchSharedObject(context, SodaPopImpl.contentSerializerParams);
+    }
 
-	SodaPopImpl(BundleContext context) throws Exception {
-		myID = Message.thisJVM;
-		Message.setBundleContext(context);
+    private String myID;
+    private Hashtable localBusses; // <String, AbstractBus>
+    private Hashtable peersOnBus; // <String, Vector<String>>
+    private Hashtable remoteSodapops; // <String, SodaPopPeer>
+    private Hashtable dispatchers; // <String,Dispatcher>
+    private HashSet peersToNotifyBuses;
+    private HashSet contactedPeers;
 
-		this.context = context;
-		localBusses = new Hashtable(5);
-		peersOnBus = new Hashtable(5);
-		remoteSodapops = new Hashtable();
-		dispatchers = new Hashtable();
-		contactedPeers = new HashSet();
-		peersToNotifyBuses = new HashSet();
+    // private StringBuffer logBuffer = new StringBuffer();
+    // private long startTime;
+    // private long stopTime;
 
-		logger.info(CryptUtil.init(Activator.CONF_DIR));
+    public SodaPopImpl(ModuleContext mc, String configHomePath,
+	    Object[] connectorFetchParams, Object[] csFetchParams)
+	    throws Exception {
+	SodaPopImpl.moduleContext = mc;
+	SodaPopImpl.contentSerializerParams = csFetchParams;
+	myID = Message.thisJVM;
 
-		synchronized (this.context) {
-			context.addServiceListener(this);
-			try {
-				ServiceReference[] connectors = context
-						.getAllServiceReferences(P2PConnector.class.getName(),
-								null);
-				// check for null value returned by getAllServiceReference
-				// since some OSGi implementations like Concierge can return
-				// null
-				if (connectors != null) {
-					for (int i = 0; i < connectors.length; i++) {
-						P2PConnector c = (P2PConnector) context
-								.getService(connectors[i]);
-						c.register(this);
-						c.addPeerDiscoveryListener(this);
-						context.ungetService(connectors[i]);
-					}
-				}
-			} catch (Exception e) {
-				System.out.println(e);
-			}
+	localBusses = new Hashtable(5);
+	peersOnBus = new Hashtable(5);
+	remoteSodapops = new Hashtable();
+	dispatchers = new Hashtable();
+	contactedPeers = new HashSet();
+	peersToNotifyBuses = new HashSet();
+
+	moduleContext.logInfo(CryptUtil.init(configHomePath), null);
+
+	synchronized (SodaPopImpl.moduleContext) {
+	    try {
+		Object[] connectors = SodaPopImpl.moduleContext.getContainer()
+			.fetchSharedObject(SodaPopImpl.moduleContext,
+				connectorFetchParams, this);
+		if (connectors != null) {
+		    for (int i = 0; i < connectors.length; i++) {
+			P2PConnector c = (P2PConnector) connectors[i];
+			c.register(this);
+			c.addPeerDiscoveryListener(this);
+		    }
 		}
-		logger.info("SodaPopPeer started with ID '{}'!", myID);
-		// startTime = System.currentTimeMillis();
+	    } catch (Exception e) {
+		System.out.println(e);
+	    }
 	}
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "init",
+		new Object[] { "SodaPopPeer with ID '", myID, "' started!" },
+		null);
+	// startTime = System.currentTimeMillis();
+    }
 
-	public void serviceChanged(ServiceEvent se) {
-		synchronized (this.context) {
-			Object service = context.getService(se.getServiceReference());
-			if (service instanceof P2PConnector
-					&& se.getType() == ServiceEvent.REGISTERED) {
-				((P2PConnector) service).register(this);
-				((P2PConnector) service).addPeerDiscoveryListener(this);
-			}
-		}
+    public void sharedObjectAdded(Object sharedObj, Object removeHook) {
+	synchronized (SodaPopImpl.moduleContext) {
+	    if (sharedObj instanceof P2PConnector) {
+		((P2PConnector) sharedObj).register(this);
+		((P2PConnector) sharedObj).addPeerDiscoveryListener(this);
+	    }
 	}
+    }
 
-	// //////////////////////////////////////////////////////////////////////
-	// Remote Section : //
-	// methods which invoke dual methods on remote peers. //
-	// These methods are initially activated by connectors //
-	// by noticing new peers //
-	// //////////////////////////////////////////////////////////////////////
+    public void sharedObjectRemoved(Object removeHook) {
+	// TODO
+    }
 
-	public void noticeNewPeer(SodaPopPeer peer, String discoveryProtocol) {
-		String id = peer.getID();
-		Dispatcher dispatcher = new Dispatcher(peer);
-		synchronized (remoteSodapops) {
-			remoteSodapops.put(id, peer);
-			dispatchers.put(id, dispatcher);
+    // //////////////////////////////////////////////////////////////////////
+    // Remote Section : //
+    // methods which invoke dual methods on remote peers. //
+    // These methods are initially activated by connectors //
+    // by noticing new peers //
+    // //////////////////////////////////////////////////////////////////////
+
+    public void noticeNewPeer(SodaPopPeer peer, String discoveryProtocol) {
+	String id = peer.getID();
+	Dispatcher dispatcher = new Dispatcher(peer);
+	synchronized (remoteSodapops) {
+	    remoteSodapops.put(id, peer);
+	    dispatchers.put(id, dispatcher);
+	}
+	dispatcher.start();
+	if (id.compareTo(myID) > 0) {
+	    LogUtils.logInfo(moduleContext, SodaPopImpl.class, "noticeNewPeer",
+		    new Object[] { "Discovered CONS peer  '", id, "'!" }, null);
+	    forwardBusesToPeer(dispatcher);
+	} else if (id.compareTo(myID) < 0) {
+	    LogUtils.logInfo(moduleContext, SodaPopImpl.class, "noticeNewPeer",
+		    new Object[] { "Discovered PRE peer  '", id, "'!" }, null);
+	    synchronized (peersToNotifyBuses) {
+		if (peersToNotifyBuses.contains(id)) {
+		    replyBusesToPeer(dispatcher);
+		    peersToNotifyBuses.remove(id);
 		}
-		dispatcher.start();
-		if (id.compareTo(myID) > 0) {
-			logger.info("Discovered CONS peer  '{}'!", id);
-			forwardBusesToPeer(dispatcher);
-		} else if (id.compareTo(myID) < 0) {
-			logger.info("Discovered PRE peer  '{}'!", id);
-			synchronized (peersToNotifyBuses) {
-				if (peersToNotifyBuses.contains(id)) {
-					replyBusesToPeer(dispatcher);
-					peersToNotifyBuses.remove(id);
-				}
+	    }
+	} else {
+	    LogUtils
+		    .logWarn(
+			    moduleContext,
+			    SodaPopImpl.class,
+			    "noticeNewPeer",
+			    new Object[] { "Discovered peer with same ID: ", id },
+			    null);
+	}
+    }
+
+    public void noticeLostPeer(String peerID, String discoveryProtocol) {
+	if (peerID == null || peerID.equals(""))
+	    throw new IllegalArgumentException("Illegal peerID value");
+	synchronized (remoteSodapops) {
+	    remoteSodapops.remove(peerID);
+	    ((Dispatcher) dispatchers.remove(peerID)).close();
+	}
+	synchronized (peersOnBus) {
+	    for (Iterator i = peersOnBus.values().iterator(); i.hasNext();)
+		((Vector) i.next()).remove(peerID);
+	}
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "noticeLostPeer",
+		new Object[] { "Peer '", peerID, "' disconnected!" }, null);
+    }
+
+    private void forwardBusesToPeer(Dispatcher dispatcher) {
+
+	StringBuffer myBusses = new StringBuffer(256);
+	synchronized (localBusses) {
+	    for (Iterator i = localBusses.keySet().iterator(); i.hasNext();)
+		myBusses.append(i.next()).append(',');
+	}
+	if (myBusses.length() > 0)
+	    myBusses.deleteCharAt(myBusses.length() - 1);
+	PeerCommand message = new PeerCommand(PeerCommand.NOTICE_PEER_BUSES,
+		myID, myBusses.toString());
+	dispatcher.queue.enqueue(message);
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class,
+		"forwardBusesToPeer", new Object[] {
+			"call remote NOTICE_PEER_BUSES on '",
+			dispatcher.peer.getID(), "'!" }, null);
+	synchronized (contactedPeers) {
+	    contactedPeers.add(dispatcher);
+	}
+    }
+
+    /**
+     * @see org.universAAL.middleware.sodapop.SodaPop#join(AbstractBus)
+     */
+    public void join(AbstractBus b) {
+	String busName = b.getBusName();
+	synchronized (localBusses) {
+	    if (localBusses.containsKey(busName))
+		throw new RuntimeException("A bus with the name '" + busName
+			+ "' is already registered!");
+	    localBusses.put(busName, b);
+	}
+	synchronized (remoteSodapops) {
+	    Enumeration list = dispatchers.elements();
+	    while (list.hasMoreElements()) {
+		Dispatcher dispatcher = (Dispatcher) list.nextElement();
+		synchronized (contactedPeers) {
+		    if (contactedPeers.contains(dispatcher)) {
+			PeerCommand command = new PeerCommand(
+				PeerCommand.JOIN_BUS, myID, busName);
+			dispatcher.queue.enqueue(command);
+			LogUtils.logInfo(moduleContext, SodaPopImpl.class,
+				"join", new Object[] {
+					"call remote JOIN_BUS on '",
+					dispatcher.peer.getID(), "'!" }, null);
+		    }
+		}
+
+	    }
+	}
+	LogUtils
+		.logInfo(moduleContext, SodaPopImpl.class, "join",
+			new Object[] { "Bus '", busName,
+				"' joined the SodaPop engine!" }, null);
+    }
+
+    /**
+     * @see org.universAAL.middleware.sodapop.SodaPop#leave(AbstractBus)
+     */
+    public void leave(AbstractBus b) {
+	String busName = b.getBusName();
+	synchronized (localBusses) {
+	    if (localBusses.remove(busName) == null)
+		throw new RuntimeException("A bus with the name '" + busName
+			+ "' was never registered!");
+	}
+	synchronized (remoteSodapops) {
+	    Enumeration list = dispatchers.elements();
+	    while (list.hasMoreElements()) {
+		Dispatcher dispatcher = (Dispatcher) list.nextElement();
+		synchronized (contactedPeers) {
+		    if (contactedPeers.contains(dispatcher)) {
+			PeerCommand command = new PeerCommand(
+				PeerCommand.LEAVE_BUS, myID, busName);
+			dispatcher.queue.enqueue(command);
+			LogUtils.logInfo(moduleContext, SodaPopImpl.class,
+				"leave", new Object[] {
+					"call remote LEAVE_BUS on '",
+					dispatcher.peer.getID(), "'!" }, null);
+		    }
+		}
+	    }
+	}
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "leave",
+		new Object[] { "Bus '", busName, "' stopped!" }, null);
+    }
+
+    /**
+     * @see org.universAAL.middleware.sodapop.SodaPop#propagateMessage(AbstractBus,
+     *      Message)
+     */
+    public int propagateMessage(AbstractBus b, Message m) {
+	if (m == null || !myID.equals(m.getSource()))
+	    return 0;
+
+	String msg = m.toString(), cipher = msg, rcvrs = "";
+
+	String busName = b.getBusName();
+	int result = 0;
+	synchronized (peersOnBus) {
+	    Vector peersOnThisBus = (Vector) peersOnBus.get(busName);
+	    if (peersOnThisBus != null && !peersOnThisBus.isEmpty()
+		    && b == localBusses.get(busName)) {
+		try {
+		    cipher = CryptUtil.encrypt(msg);
+		} catch (Exception e) {
+		    LogUtils
+			    .logWarn(
+				    moduleContext,
+				    SodaPopImpl.class,
+				    "propagateMessage",
+				    new Object[] { "Message encryption failed - trying to send it as clear text!" },
+				    e);
+		}
+		PeerCommand command = new PeerCommand(
+			PeerCommand.PROCESS_MESSAGE, busName, cipher);
+
+		String[] receivers = m.getReceivers();
+		if (receivers == null || receivers.length == 0) {
+		    rcvrs = "all peers";
+		    Iterator peerList = peersOnThisBus.iterator();
+		    synchronized (remoteSodapops) {
+			while (peerList.hasNext()) {
+			    String peerID = (String) peerList.next();
+			    ((Dispatcher) dispatchers.get(peerID)).queue
+				    .enqueue(command);
+			    result++;
 			}
+		    }
 		} else {
-			logger.warn("Discovered peer with same ID: {}", id);
+		    synchronized (remoteSodapops) {
+			for (int i = 0; i < receivers.length; i++)
+			    if (peersOnThisBus.contains(receivers[i])) {
+				rcvrs += receivers[i];
+				((Dispatcher) dispatchers.get(receivers[i])).queue
+					.enqueue(command);
+				result++;
+				rcvrs += " ";
+			    }
+		    }
 		}
+
+	    }
+	}
+	if (!"".equals(rcvrs))
+	    LogUtils.logInfo(moduleContext, SodaPopImpl.class,
+		    "propagateMessage", new Object[] { busName,
+			    " - Message sent to ", rcvrs, ":\n", msg }, null);
+	return result;
+    }
+
+    // ///////////////////////////////////////////////////////////////////////
+    // LOCAL Section : //
+    // methods invoked by remote peers //
+    // //////////////////////////////////////////////////////////////////////
+
+    /**
+     * @see org.universAAL.middleware.acl.SodaPopPeer#noticePeerBusses(String,
+     *      String)
+     */
+    public void noticePeerBusses(String peerID, String busNames) {
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "noticePeerBusses",
+		new Object[] { "local NOTICE_PEER_BUSES called from '", peerID,
+			"'!" }, null);
+	synchronized (peersOnBus) {
+	    StringTokenizer names = new StringTokenizer(busNames, ",");
+	    while (names.hasMoreTokens()) {
+		Vector peers = getBusPeers(names.nextToken());
+		peers.add(peerID);
+	    }
+	}
+	synchronized (remoteSodapops) {
+	    Dispatcher dispatcher = (Dispatcher) dispatchers.get(peerID);
+	    if (dispatcher == null) {
+		synchronized (peersToNotifyBuses) {
+		    peersToNotifyBuses.add(peerID);
+		}
+	    } else {
+		replyBusesToPeer(dispatcher);
+	    }
 	}
 
-	public void noticeLostPeer(String peerID, String discoveryProtocol) {
-		if (peerID == null || peerID.equals(""))
-			throw new IllegalArgumentException("Illegal peerID value");
-		synchronized (remoteSodapops) {
-			remoteSodapops.remove(peerID);
-			((Dispatcher) dispatchers.remove(peerID)).close();
-		}
-		synchronized (peersOnBus) {
-			for (Iterator i = peersOnBus.values().iterator(); i.hasNext();)
-				((Vector) i.next()).remove(peerID);
-		}
-		logger.info("Peer '{}' disconnected!", peerID);
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "noticePeerBusses",
+		new Object[] { "Got busses of peer '", peerID, "'!" }, null);
+    }
+
+    private void replyBusesToPeer(Dispatcher dispatcher) {
+
+	StringBuffer myBusses = new StringBuffer(256);
+	synchronized (localBusses) {
+	    for (Iterator i = localBusses.keySet().iterator(); i.hasNext();)
+		myBusses.append(i.next()).append(',');
 	}
-
-	private void forwardBusesToPeer(Dispatcher dispatcher) {
-
-		StringBuffer myBusses = new StringBuffer(256);
-		synchronized (localBusses) {
-			for (Iterator i = localBusses.keySet().iterator(); i.hasNext();)
-				myBusses.append(i.next()).append(',');
-		}
-		if (myBusses.length() > 0)
-			myBusses.deleteCharAt(myBusses.length() - 1);
-		PeerCommand message = new PeerCommand(PeerCommand.NOTICE_PEER_BUSES,
-				myID, myBusses.toString());
-		dispatcher.queue.enqueue(message);
-		logger.info("call remote NOTICE_PEER_BUSES on '{}'",
-				dispatcher.peer.getID());
-		synchronized (contactedPeers) {
-			contactedPeers.add(dispatcher);
-		}
+	if (myBusses.length() > 0) {
+	    myBusses.deleteCharAt(myBusses.length() - 1);
+	    PeerCommand message = new PeerCommand(PeerCommand.REPLY_PEER_BUSES,
+		    myID, myBusses.toString());
+	    dispatcher.queue.enqueue(message);
+	    LogUtils.logInfo(moduleContext, SodaPopImpl.class,
+		    "replyBusesToPeer", new Object[] {
+			    "call remote REPLY_PEER_BUSES on '",
+			    dispatcher.peer.getID(), "'!" }, null);
 	}
-
-	/**
-	 * @see org.universAAL.middleware.sodapop.SodaPop#join(AbstractBus)
-	 */
-	public void join(AbstractBus b) {
-		String busName = b.getBusName();
-		synchronized (localBusses) {
-			if (localBusses.containsKey(busName))
-				throw new RuntimeException("A bus with the name '" + busName
-						+ "' is already registered!");
-			localBusses.put(busName, b);
-		}
-		synchronized (remoteSodapops) {
-			Enumeration list = dispatchers.elements();
-			while (list.hasMoreElements()) {
-				Dispatcher dispatcher = (Dispatcher) list.nextElement();
-				synchronized (contactedPeers) {
-					if (contactedPeers.contains(dispatcher)) {
-						PeerCommand command = new PeerCommand(
-								PeerCommand.JOIN_BUS, myID, busName);
-						dispatcher.queue.enqueue(command);
-						logger.info("call remote JOIN_BUS on '{}'",
-								dispatcher.peer.getID());
-					}
-				}
-
-			}
-		}
-		logger.info("Bus '{}' joined the SodaPop engine.", busName);
+	synchronized (contactedPeers) {
+	    contactedPeers.add(dispatcher);
 	}
+    }
 
-	/**
-	 * @see org.universAAL.middleware.sodapop.SodaPop#leave(AbstractBus)
-	 */
-	public void leave(AbstractBus b) {
-		String busName = b.getBusName();
-		synchronized (localBusses) {
-			if (localBusses.remove(busName) == null)
-				throw new RuntimeException("A bus with the name '" + busName
-						+ "' was never registered!");
-		}
-		synchronized (remoteSodapops) {
-			Enumeration list = dispatchers.elements();
-			while (list.hasMoreElements()) {
-				Dispatcher dispatcher = (Dispatcher) list.nextElement();
-				synchronized (contactedPeers) {
-					if (contactedPeers.contains(dispatcher)) {
-						PeerCommand command = new PeerCommand(
-								PeerCommand.LEAVE_BUS, myID, busName);
-						dispatcher.queue.enqueue(command);
-						logger.info("call remote LEAVE_BUS on '{}'",
-								dispatcher.peer.getID());
-					}
-				}
-			}
-		}
-		logger.info("Bus '{}' stopped.", busName);
+    public void replyPeerBusses(String peerID, String busNames) {
+	synchronized (peersOnBus) {
+	    StringTokenizer names = new StringTokenizer(busNames, ",");
+	    while (names.hasMoreTokens()) {
+		Vector peers = getBusPeers(names.nextToken());
+		peers.add(peerID);
+	    }
 	}
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "replyPeerBusses",
+		new Object[] { "Got busses reply of peer '", peerID, "'!" },
+		null);
+    }
 
-	/**
-	 * @see org.universAAL.middleware.sodapop.SodaPop#propagateMessage(AbstractBus,
-	 *      Message)
-	 */
-	public int propagateMessage(AbstractBus b, Message m) {
-		if (m == null || !myID.equals(m.getSource()))
-			return 0;
+    /**
+     * @see org.universAAL.middleware.acl.SodaPopPeer#joinBus(String, String)
+     */
+    public void joinBus(String busName, String joiningPeer) {
+	synchronized (peersOnBus) {
+	    getBusPeers(busName).add(joiningPeer);
+	}
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "joinBus",
+		new Object[] { "Peer '", joiningPeer, "' joins bus '", busName,
+			"'!" }, null);
+    }
 
-		String msg = m.toString(), cipher = msg, rcvrs = "";
+    private Vector getBusPeers(String busName) {
+	Vector peers = (Vector) peersOnBus.get(busName);
+	if (peers == null) {
+	    peers = new Vector();
+	    peersOnBus.put(busName, peers);
+	}
+	return peers;
+    }
 
-		String busName = b.getBusName();
-		int result = 0;
-		synchronized (peersOnBus) {
-			Vector peersOnThisBus = (Vector) peersOnBus.get(busName);
-			if (peersOnThisBus != null && !peersOnThisBus.isEmpty()
-					&& b == localBusses.get(busName)) {
-				try {
-					cipher = CryptUtil.encrypt(msg);
-				} catch (Exception e) {
-					logger.warn(
-							"Message encryption failed - trying to send it as clear text!",
-							e);
-				}
-				PeerCommand command = new PeerCommand(
-						PeerCommand.PROCESS_MESSAGE, busName, cipher);
+    /**
+     * @see org.universAAL.middleware.acl.SodaPopPeer#leaveBus(String, String)
+     */
+    public void leaveBus(String busName, String leavingPeer) {
+	synchronized (peersOnBus) {
+	    Vector peers = (Vector) peersOnBus.get(busName);
+	    if (peers != null)
+		peers.remove(leavingPeer);
+	}
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "leaveBus",
+		new Object[] { "Peer '", leavingPeer, "' leaves bus '",
+			busName, "'!" }, null);
+    }
 
-				String[] receivers = m.getReceivers();
-				if (receivers == null || receivers.length == 0) {
-					rcvrs = "all peers";
-					Iterator peerList = peersOnThisBus.iterator();
-					synchronized (remoteSodapops) {
-						while (peerList.hasNext()) {
-							String peerID = (String) peerList.next();
-							((Dispatcher) dispatchers.get(peerID)).queue
-									.enqueue(command);
-							result++;
-						}
-					}
-				} else {
-					synchronized (remoteSodapops) {
-						for (int i = 0; i < receivers.length; i++)
-							if (peersOnThisBus.contains(receivers[i])) {
-								rcvrs += receivers[i];
-								((Dispatcher) dispatchers.get(receivers[i])).queue
-										.enqueue(command);
-								result++;
-								rcvrs += " ";
-							}
-					}
-				}
-
-			}
+    /**
+     * @see org.universAAL.middleware.acl.SodaPopPeer#processBusMessage(String,
+     *      String)
+     */
+    public void processBusMessage(String busName, String msg) {
+	Message m = null;
+	synchronized (localBusses) {
+	    AbstractBus b = (AbstractBus) localBusses.get(busName);
+	    if (b != null) {
+		try {
+		    m = new Message(CryptUtil.decrypt(msg));
+		    b.handleRemoteMessage(m);
+		} catch (Exception e) {
+		    LogUtils
+			    .logWarn(
+				    moduleContext,
+				    SodaPopImpl.class,
+				    "processBusMessage",
+				    new Object[] { "Message processing aborted due to the following exception:" },
+				    e);
 		}
-		if (!"".equals(rcvrs))
-			logger.info("{} - Message sent to {}:\n{}", new Object[] { busName,
-					rcvrs, msg });
-		return result;
+	    } else
+		LogUtils.logWarn(moduleContext, SodaPopImpl.class,
+			"processBusMessage", new Object[] { "Bus '", busName,
+				"' is absent locally!" }, null);
 	}
+	if (m == null)
+	    LogUtils.logDebug(moduleContext, SodaPopImpl.class,
+		    "processBusMessage", new Object[] { "Message '\n", msg,
+			    "\n' received on bus '", busName,
+			    "' could not be parsed!" }, null);
+	else
+	    LogUtils.logDebug(moduleContext, SodaPopImpl.class,
+		    "processBusMessage", new Object[] { "Message '",
+			    Long.toString(m.getSourceTimeOrder()),
+			    "' received on bus '", busName, "' from peer '",
+			    m.getSource(), "'!" }, null);
+    }
 
-	// ///////////////////////////////////////////////////////////////////////
-	// LOCAL Section : //
-	// methods invoked by remote peers //
-	// //////////////////////////////////////////////////////////////////////
+    /**
+     * @see org.universAAL.middleware.acl.SodaPopPeer#getID()
+     * @see org.universAAL.middleware.sodapop.SodaPop#getID()
+     */
+    public String getID() {
+	return myID;
+    }
 
-	/**
-	 * @see org.universAAL.middleware.acl.SodaPopPeer#noticePeerBusses(String,
-	 *      String)
-	 */
-	public void noticePeerBusses(String peerID, String busNames) {
-		logger.info("local NOTICE_PEER_BUSES called from '{}'", peerID);
-		synchronized (peersOnBus) {
-			StringTokenizer names = new StringTokenizer(busNames, ",");
-			while (names.hasMoreTokens()) {
-				Vector peers = getBusPeers(names.nextToken());
-				peers.add(peerID);
-			}
-		}
-		synchronized (remoteSodapops) {
-			Dispatcher dispatcher = (Dispatcher) dispatchers.get(peerID);
-			if (dispatcher == null) {
-				synchronized (peersToNotifyBuses) {
-					peersToNotifyBuses.add(peerID);
-				}
-			} else {
-				replyBusesToPeer(dispatcher);
-			}
-		}
+    // synchronized private final void logger(int level, String msg){
+    //
+    // // logBuffer.append(msg).append("\n)");
+    // stopTime = System.currentTimeMillis();
+    // if (log != null)
+    // log.log(level, msg);
+    // }
 
-		logger.info("Got busses of peer '{}'!", peerID);
-	}
+    // synchronized private final void logger(int level, String msg,Exception
+    // ex){
+    // // logBuffer.append(msg).append("\n)");
+    // stopTime = System.currentTimeMillis();
+    // if (log != null)
+    // log.log(level, msg, ex);
+    // }
 
-	private void replyBusesToPeer(Dispatcher dispatcher) {
+    public void stop() {
+	// TODO
+    }
 
-		StringBuffer myBusses = new StringBuffer(256);
-		synchronized (localBusses) {
-			for (Iterator i = localBusses.keySet().iterator(); i.hasNext();)
-				myBusses.append(i.next()).append(',');
-		}
-		if (myBusses.length() > 0) {
-			myBusses.deleteCharAt(myBusses.length() - 1);
-			PeerCommand message = new PeerCommand(PeerCommand.REPLY_PEER_BUSES,
-					myID, myBusses.toString());
-			dispatcher.queue.enqueue(message);
-			logger.info("call remote REPLY_PEER_BUSES on '{}'",
-					dispatcher.peer.getID());
-		}
-		synchronized (contactedPeers) {
-			contactedPeers.add(dispatcher);
-		}
-	}
+    /**
+     * @see org.universAAL.middleware.sodapop.SodaPop#getLocalBusByName(String)
+     */
+    public AbstractBus getLocalBusByName(String name) {
+	return (name == null) ? null : (AbstractBus) localBusses.get(name);
+    }
 
-	public void replyPeerBusses(String peerID, String busNames) {
-		synchronized (peersOnBus) {
-			StringTokenizer names = new StringTokenizer(busNames, ",");
-			while (names.hasMoreTokens()) {
-				Vector peers = getBusPeers(names.nextToken());
-				peers.add(peerID);
-			}
-		}
-		logger.info("Got busses reply of peer '{}'!", peerID);
-	}
+    public void printStatus() {
+	System.out.println();
+	System.out.println("localBusses");
+	System.out.println(localBusses.toString());
+	System.out.println("===========\n");
 
-	/**
-	 * @see org.universAAL.middleware.acl.SodaPopPeer#joinBus(String, String)
-	 */
-	public void joinBus(String busName, String joiningPeer) {
-		synchronized (peersOnBus) {
-			getBusPeers(busName).add(joiningPeer);
-		}
-		logger.info("Peer '{}' joins bus '{}'!", joiningPeer, busName);
-	}
+	System.out.println("peersOnBus");
+	System.out.println(peersOnBus.toString());
+	System.out.println("===========\n");
 
-	private Vector getBusPeers(String busName) {
-		Vector peers = (Vector) peersOnBus.get(busName);
-		if (peers == null) {
-			peers = new Vector();
-			peersOnBus.put(busName, peers);
-		}
-		return peers;
-	}
+	System.out.println("remoteSodapops");
+	System.out.println(remoteSodapops.toString());
+	System.out.println("===========\n");
 
-	/**
-	 * @see org.universAAL.middleware.acl.SodaPopPeer#leaveBus(String, String)
-	 */
-	public void leaveBus(String busName, String leavingPeer) {
-		synchronized (peersOnBus) {
-			Vector peers = (Vector) peersOnBus.get(busName);
-			if (peers != null)
-				peers.remove(leavingPeer);
-		}
-		logger.info("Peer '" + leavingPeer + "' leaves bus '" + busName + "'!");
-	}
+	System.out.println("dispatchers");
+	System.out.println(dispatchers.toString());
+	System.out.println("===========\n");
 
-	/**
-	 * @see org.universAAL.middleware.acl.SodaPopPeer#processBusMessage(String,
-	 *      String)
-	 */
-	public void processBusMessage(String busName, String msg) {
-		Message m = null;
-		synchronized (localBusses) {
-			AbstractBus b = (AbstractBus) localBusses.get(busName);
-			if (b != null) {
-				try {
-					m = new Message(CryptUtil.decrypt(msg));
-					b.handleRemoteMessage(m);
-				} catch (Exception e) {
-					logger.warn(
-							"Message processing aborted due to the following exception:",
-							e);
-				}
-			} else
-				logger.warn("Bus '" + busName + "' is absent locally!");
-		}
-		if (m == null)
-			logger.debug("Message '\n" + msg + "\n' received on bus '"
-					+ busName + "' could not be parsed!");
-		else
-			logger.debug("Message '" + m.getSourceTimeOrder()
-					+ "' received on bus '" + busName + "' from peer '"
-					+ m.getSource() + "'!");
-	}
+	System.out.println("peersToNotifyBuses");
+	System.out.println(peersToNotifyBuses.toString());
+	System.out.println("===========\n");
 
-	/**
-	 * @see org.universAAL.middleware.acl.SodaPopPeer#getID()
-	 * @see org.universAAL.middleware.sodapop.SodaPop#getID()
-	 */
-	public String getID() {
-		return myID;
-	}
+	System.out.println("contactedPeers");
+	System.out.println(contactedPeers.toString());
+	System.out.println("===========\n");
 
-	// synchronized private final void logger(int level, String msg){
-	//
-	// // logBuffer.append(msg).append("\n)");
-	// stopTime = System.currentTimeMillis();
-	// if (log != null)
-	// log.log(level, msg);
-	// }
+	// System.out.println("logBuffer");
+	// System.out.println(logBuffer.toString());
+	// System.out.println("===========\n");
 
-	// synchronized private final void logger(int level, String msg,Exception
-	// ex){
-	// // logBuffer.append(msg).append("\n)");
-	// stopTime = System.currentTimeMillis();
-	// if (log != null)
-	// log.log(level, msg, ex);
-	// }
+	// System.out.println("Timing");
+	// System.out.println("started: "+ startTime);
+	// System.out.println("stopped: "+ stopTime);
+	// System.out.println("delta: "+ String.valueOf(stopTime-startTime));
+	// System.out.println("===========\n");
 
-	void stop(BundleContext context) {
-		// TODO
-	}
-
-	/**
-	 * @see org.universAAL.middleware.sodapop.SodaPop#getLocalBusByName(String)
-	 */
-	public AbstractBus getLocalBusByName(String name) {
-		return (name == null) ? null : (AbstractBus) localBusses.get(name);
-	}
-
-	public void printStatus() {
-		System.out.println();
-		System.out.println("localBusses");
-		System.out.println(localBusses.toString());
-		System.out.println("===========\n");
-
-		System.out.println("peersOnBus");
-		System.out.println(peersOnBus.toString());
-		System.out.println("===========\n");
-
-		System.out.println("remoteSodapops");
-		System.out.println(remoteSodapops.toString());
-		System.out.println("===========\n");
-
-		System.out.println("dispatchers");
-		System.out.println(dispatchers.toString());
-		System.out.println("===========\n");
-
-		System.out.println("peersToNotifyBuses");
-		System.out.println(peersToNotifyBuses.toString());
-		System.out.println("===========\n");
-
-		System.out.println("contactedPeers");
-		System.out.println(contactedPeers.toString());
-		System.out.println("===========\n");
-
-		// System.out.println("logBuffer");
-		// System.out.println(logBuffer.toString());
-		// System.out.println("===========\n");
-
-		// System.out.println("Timing");
-		// System.out.println("started: "+ startTime);
-		// System.out.println("stopped: "+ stopTime);
-		// System.out.println("delta: "+ String.valueOf(stopTime-startTime));
-		// System.out.println("===========\n");
-
-	}
+    }
 
 }

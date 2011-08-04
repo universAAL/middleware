@@ -21,9 +21,9 @@
  */
 package org.universAAL.serialization.turtle;
 
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.middleware.util.StringUtils;
 
 /**
  * A Set of utility functions for TURTLE.
@@ -34,15 +34,10 @@ import org.universAAL.middleware.util.StringUtils;
 // For the integer values used in some of the methods, please take a look at
 // the TURTLE specification: http://www.w3.org/TeamSubmission/turtle/
 public class TurtleUtil {
+    public static ModuleContext moduleContext;
 
     /** URI for RDF XML Literals. */
     static String xmlLiteral = Resource.RDF_NAMESPACE + "XMLLiteral";
-
-    /**
-     * Reference to the {@link org.universAAL.middleware.rdf.TypeMapper}
-     * instance.
-     */
-    static TypeMapper typeMapper = null;
 
     /**
      * Decode a String that has been encoded before by replacing some escaped
@@ -177,8 +172,8 @@ public class TurtleUtil {
      * For the given URI find the index for splitting the URI into a prefix and
      * the local name of the URI. For example, the URI
      * <code>myOntology#myfunction</code> would be split directly after the
-     * symbol '#' to create the prefix <code>myOntology#</code> and the
-     * local name <code>myfunction</code>.
+     * symbol '#' to create the prefix <code>myOntology#</code> and the local
+     * name <code>myfunction</code>.
      */
     static int findURISplitIndex(String uri) {
 	int uriLength = uri.length();

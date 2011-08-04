@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.context;
 
-import org.osgi.framework.BundleContext;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.owl.ContextProvider;
 
 /**
@@ -39,7 +39,7 @@ public class DefaultContextPublisher extends ContextPublisher {
      * @param providerInfo
      *            The Information describing the Publisher
      */
-    public DefaultContextPublisher(BundleContext context,
+    public DefaultContextPublisher(ModuleContext context,
 	    ContextProvider providerInfo) {
 	super(context, providerInfo);
     }

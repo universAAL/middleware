@@ -19,12 +19,12 @@
  */
 package org.universAAL.middleware.input;
 
-import org.osgi.framework.BundleContext;
-import org.universAAL.middleware.io.Activator;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.input.impl.InputBusImpl;
 import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Subscriber;
 import org.universAAL.middleware.sodapop.msg.Message;
-import org.universAAL.middleware.util.LogUtils;
 
 /**
  * Provides the interface to be implemented by input subscribers together with
@@ -40,12 +40,13 @@ import org.universAAL.middleware.util.LogUtils;
  */
 public abstract class InputSubscriber implements Subscriber {
     private InputBus bus;
+    private ModuleContext thisSubscriberContext;
     private String myID, localID;
 
-    protected InputSubscriber(BundleContext context) {
-	Activator.checkInputBus();
-	bus = (InputBus) context.getService(context
-		.getServiceReference(InputBus.class.getName()));
+    protected InputSubscriber(ModuleContext context) {
+	thisSubscriberContext = context;
+	bus = (InputBus) context.getContainer().fetchSharedObject(context,
+		InputBusImpl.busFetchParams);
 	myID = bus.register(this);
 	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
@@ -84,7 +85,7 @@ public abstract class InputSubscriber implements Subscriber {
      */
     public final void handleEvent(Message m) {
 	if (m.getContent() instanceof InputEvent) {
-	    LogUtils.logInfo(Activator.logger, "InputSubscriber",
+	    LogUtils.logInfo(thisSubscriberContext, InputSubscriber.class,
 		    "handleEvent",
 		    new Object[] { localID, " received Input event:\n",
 			    m.getContentAsString() }, null);

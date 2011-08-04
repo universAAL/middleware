@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.output;
 
-import org.osgi.framework.BundleContext;
+import org.universAAL.middleware.container.ModuleContext;
 
 /**
  * The default output publisher simply ignores the notification about losing
@@ -29,17 +29,17 @@ import org.osgi.framework.BundleContext;
  */
 public class DefaultOutputPublisher extends OutputPublisher {
 
-	/**
-	 * @param context
-	 */
-	public DefaultOutputPublisher(BundleContext context) {
-		super(context);
-	}
+    /**
+     * @param context
+     */
+    public DefaultOutputPublisher(ModuleContext context) {
+	super(context);
+    }
 
-	/**
-	 * @see org.universAAL.middleware.output.OutputPublisher#communicationChannelBroken()
-	 */
-	public void communicationChannelBroken() {
-	}
+    /**
+     * @see org.universAAL.middleware.output.OutputPublisher#communicationChannelBroken()
+     */
+    public void communicationChannelBroken() {
+    }
 
 }
