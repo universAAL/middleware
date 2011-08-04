@@ -77,7 +77,7 @@
 	<contributors />
 
 	<modules>
-		<module>../../../../../ontologies/sandboxes/saied/pom</module>
+		<module>../../../../ontologies/trunk/pom</module>
 		<module>../heating</module>
 		<module>../lighting/server</module>
 		<module>../lighting/client</module>
