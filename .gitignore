@@ -30,6 +30,14 @@ bus.service/.classpath
 bus.service/.project
 bus.service/.settings
 bus.service/target
+container.osgi/.classpath
+container.osgi/.project
+container.osgi/.settings
+container.osgi/target
+container.xfaces/.classpath
+container.xfaces/.project
+container.xfaces/.settings
+container.xfaces/target
 data.representation/.classpath
 data.representation/.project
 data.representation/.settings
