@@ -136,7 +136,7 @@ public interface ModuleContext {
      * Modules can use this method of their context to enrich it with info about
      * those config files of them that follow the container conventions. Only
      * registered config files are supposed to be editable by standard admin
-     * tools that are planned to be by universAAL.
+     * tools that are planned to be developed by universAAL.
      */
     public void registerConfigFile(Object[] configFileParams);
 

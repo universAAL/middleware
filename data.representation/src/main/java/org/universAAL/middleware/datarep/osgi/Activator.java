@@ -48,7 +48,7 @@ public class Activator implements BundleActivator, ManagedService {
 
 	Dictionary props = new Hashtable(1);
 	props.put(Constants.SERVICE_PID,
-		"org.universAAL.mw.data.representation");
+		SharedResources.uAAL_MW_SHARED_PROPERTY_FILE);
 	registration = context.registerService(ManagedService.class.getName(),
 		this, props);
     }
