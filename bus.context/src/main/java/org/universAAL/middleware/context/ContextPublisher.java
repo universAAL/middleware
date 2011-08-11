@@ -62,8 +62,8 @@ public abstract class ContextPublisher implements Publisher {
 	    ContextProvider providerInfo) {
 	bus = (ContextBus) context.getContainer().fetchSharedObject(context,
 		ContextBusImpl.busFetchParams);
-	myID = bus.register(this);
 	this.providerInfo = providerInfo;
+	myID = bus.register(this, providerInfo.getProvidedEvents());
     }
 
     /**

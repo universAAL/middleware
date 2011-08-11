@@ -42,17 +42,29 @@ public interface ContextBus {
 	    ContextEventPattern[] newSubscriptions);
 
     /**
+     * Returns all provisions registered by all {@link ContextPublisher}s on all
+     * instances of this bus in the current AAL Space. Only
+     * {@link ContextSubscriber}s are allowed to call this method, hence they
+     * must provide their member-ID so that the bus can check this.
+     */
+    public ContextEventPattern[] getAllProvisions(String subscriberID);
+
+    /**
      * Register a ContextPublisher into the Context Bus
      * 
      * @param publisher
      *            the Context Publisher to register
+     * @param providedEvents
+     *            the classes of context events that this publisher is going to
+     *            publish.
      * @return The ID of the Context Publisher within the bus
      */
-    public String register(ContextPublisher publisher);
+    public String register(ContextPublisher publisher,
+	    ContextEventPattern[] providedEvents);
 
     /**
-     * Register a Context Subscriber into the Context Bus and immediately register
-     * for certain patterns of Context Events
+     * Register a Context Subscriber into the Context Bus and immediately
+     * register for certain patterns of Context Events
      * 
      * @param subscriber
      *            the Context Subscriber to register

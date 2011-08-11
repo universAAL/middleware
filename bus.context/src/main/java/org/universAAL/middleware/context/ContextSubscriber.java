@@ -103,6 +103,14 @@ public abstract class ContextSubscriber implements Subscriber {
 	    communicationChannelBroken();
     }
 
+    /**
+     * Returns all provisions registered by all {@link ContextPublisher}s on all
+     * instances of context bus in the current AAL Space.
+     */
+    public ContextEventPattern[] getAllProvisions() {
+	return bus.getAllProvisions(myID);
+    }
+
     public final boolean eval(Message m) {
 	return false;
     }

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.Restriction;
 
@@ -35,6 +36,12 @@ import org.universAAL.middleware.owl.Restriction;
  */
 public class ContextProvider extends ManagedIndividual {
     public static final String MY_URI;
+
+    /**
+     * An array of {@link ContextEventPattern}s each of which declares a class
+     * of context events that the provider provides.
+     */
+    public static final String PROP_CONTEXT_PROVIDED_EVENTS;
 
     /**
      * The type of a context provider. The range is {@link ContextProviderType}.
@@ -50,6 +57,8 @@ public class ContextProvider extends ManagedIndividual {
 
     static {
 	MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE + "ContextProvider";
+	PROP_CONTEXT_PROVIDED_EVENTS = ContextEvent.uAAL_CONTEXT_NAMESPACE
+		+ "myClassesOfEvents";
 	PROP_CONTEXT_PROVIDER_TYPE = ContextEvent.uAAL_CONTEXT_NAMESPACE
 		+ "hasType";
 	PROP_CONTEXT_SOURCE = ContextEvent.uAAL_CONTEXT_NAMESPACE + "hasSource";
@@ -57,6 +66,9 @@ public class ContextProvider extends ManagedIndividual {
     }
 
     public static Restriction getClassRestrictionsOnProperty(String propURI) {
+	if (PROP_CONTEXT_PROVIDED_EVENTS.equals(propURI))
+	    return Restriction.getAllValuesRestrictionWithCardinality(propURI,
+		    ContextEventPattern.MY_URI, -1, 1);
 	if (PROP_CONTEXT_PROVIDER_TYPE.equals(propURI))
 	    return Restriction.getAllValuesRestrictionWithCardinality(propURI,
 		    ContextProviderType.MY_URI, 1, 1);
@@ -113,6 +125,15 @@ public class ContextProvider extends ManagedIndividual {
 	return PROP_SERIALIZATION_OPTIONAL;
     }
 
+    /**
+     * Returns the classes of context events provided by this context provider.
+     */
+    public ContextEventPattern[] getProvidedEvents() {
+	List l = (List) getProperty(PROP_CONTEXT_PROVIDED_EVENTS);
+	return (l == null) ? null : (ContextEventPattern[]) l
+		.toArray(new ContextEventPattern[l.size()]);
+    }
+
     public ContextProviderType getProviderType() {
 	return (ContextProviderType) props.get(PROP_CONTEXT_PROVIDER_TYPE);
     }
@@ -154,6 +175,25 @@ public class ContextProvider extends ManagedIndividual {
 	else if (PROP_CONTEXT_PROVIDER_TYPE.equals(propURI)
 		&& value instanceof ContextProviderType)
 	    setType((ContextProviderType) value);
+    }
+
+    /**
+     * Allows to assign a set of {@link ContextEventPattern}s as the classes of
+     * context events provided by this ContextProvider
+     * 
+     * @param devices
+     *            An Array of ManagedIndividuals representing the Devices (or
+     *            whatever) that generate the actual information provided by
+     *            this ContextProvider
+     */
+    public void setProvidedEvents(ContextEventPattern[] myEvents) {
+	if (myEvents != null && myEvents.length > 0
+		&& !props.containsKey(PROP_CONTEXT_PROVIDED_EVENTS)) {
+	    List l = new ArrayList(myEvents.length);
+	    for (int i = 0; i < myEvents.length; i++)
+		l.add(myEvents[i]);
+	    props.put(PROP_CONTEXT_PROVIDED_EVENTS, l);
+	}
     }
 
     /**
