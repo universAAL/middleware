@@ -93,13 +93,43 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	busStrategy.setBus(this);
     }
 
+    public void addNewRegParams(String subscriberID,
+	    ContextEventPattern[] newSubscriptions) {
+	if (subscriberID != null
+		&& subscriberID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
+	    Object o = registry.get(subscriberID
+		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+			    .length()));
+	    if (o instanceof ContextSubscriber && newSubscriptions != null)
+		((ContextStrategy) busStrategy).addRegParams(
+			(ContextSubscriber) o, newSubscriptions);
+	}
+    }
+
+    public ContextEventPattern[] getAllProvisions(String subscriberID) {
+	if (subscriberID != null
+		&& subscriberID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
+	    Object o = registry.get(subscriberID
+		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+			    .length()));
+	    if (o instanceof ContextSubscriber)
+		return ((ContextStrategy) busStrategy)
+			.getAllProvisions((ContextSubscriber) o);
+	}
+	return null;
+    }
+
     public String register(BusMember member) {
 	return null;
     }
 
-    public String register(ContextPublisher publisher) {
-	return Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-		+ super.register(publisher);
+    public String register(ContextPublisher publisher,
+	    ContextEventPattern[] providedEvents) {
+	String id = super.register(publisher);
+	((ContextStrategy) busStrategy).addRegParams(publisher, providedEvents);
+	return Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + id;
     }
 
     public String register(ContextSubscriber subscriber,
@@ -111,7 +141,18 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	return Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + id;
     }
 
-    public void sendMessage(String senderID, Message msg) {
+    public void removeMatchingRegParams(String subscriberID,
+	    ContextEventPattern[] oldSubscriptions) {
+	if (subscriberID != null
+		&& subscriberID
+			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
+	    Object o = registry.get(subscriberID
+		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+			    .length()));
+	    if (o instanceof ContextSubscriber && oldSubscriptions != null)
+		((ContextStrategy) busStrategy).removeMatchingRegParams(
+			(ContextSubscriber) o, oldSubscriptions);
+	}
     }
 
     public void sendMessage(String publisherID, ContextEvent msg) {
@@ -122,6 +163,12 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	    super.sendMessage(publisherID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length()), new Message(MessageType.event, msg));
+    }
+
+    public void sendMessage(String senderID, Message msg) {
+    }
+
+    public void unregister(String id, BusMember member) {
     }
 
     public void unregister(String publisherID, ContextPublisher publisher) {
@@ -141,36 +188,5 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length()), subscriber);
 	((ContextStrategy) busStrategy).removeRegParams(subscriber);
-    }
-
-    public void unregister(String id, BusMember member) {
-    }
-
-    public void addNewRegParams(String subscriberID,
-	    ContextEventPattern[] newSubscriptions) {
-	if (subscriberID != null
-		&& subscriberID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.get(subscriberID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
-	    if (o instanceof ContextSubscriber && newSubscriptions != null)
-		((ContextStrategy) busStrategy).addRegParams(
-			(ContextSubscriber) o, newSubscriptions);
-	}
-    }
-
-    public void removeMatchingRegParams(String subscriberID,
-	    ContextEventPattern[] oldSubscriptions) {
-	if (subscriberID != null
-		&& subscriberID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.get(subscriberID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
-	    if (o instanceof ContextSubscriber && oldSubscriptions != null)
-		((ContextStrategy) busStrategy).removeMatchingRegParams(
-			(ContextSubscriber) o, oldSubscriptions);
-	}
     }
 }
