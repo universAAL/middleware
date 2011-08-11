@@ -42,7 +42,7 @@
  *		- wrapped log service in logger util (TODO service unregistering)
  *		- added sybchronizzation between noticeBusesToPeer and Join
  */
-// Vadim - testing pre-commit hook, adding ".osgi" string, take 4
+// Vadim - testing pre-commit hook, adding ".osgi" string, take 5
 package org.universAAL.middleware.sodapop.impl;
 
 import java.util.Enumeration;
