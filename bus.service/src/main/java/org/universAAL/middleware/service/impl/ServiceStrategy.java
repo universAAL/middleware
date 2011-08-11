@@ -367,7 +367,10 @@ public class ServiceStrategy extends BusStrategy {
 	String callingPeer = m.getSource();
 	synchronized (matches) {
 	    int size = matches.size() - 1;
-	    if (size == ((Integer) matches.remove(size)).intValue())
+	    int numTimedOut = ((Integer) matches.remove(size)).intValue();
+	    if (size == numTimedOut)
+		// there has been no one response => this method is called
+		// because of timeout!
 		m = m.createReply(new ServiceResponse(
 			CallStatus.responseTimedOut));
 	    else {
@@ -396,6 +399,12 @@ public class ServiceStrategy extends BusStrategy {
 			    rto[i] = ssf[i] = false;
 			    break;
 			case CallStatus.RESPONSE_TIMED_OUT:
+			    // usually timeout should be captured a dozen lines
+			    // below here because if the call is timed out, we
+			    // usually do not receive any response but
+			    // nevertheless we handle this case because the
+			    // callee might send a response with this status
+			    // doing bad practice
 			    bads++;
 			    rto[i] = true;
 			    nmsf[i] = ssf[i] = false;
@@ -406,10 +415,25 @@ public class ServiceStrategy extends BusStrategy {
 			    nmsf[i] = rto[i] = false;
 			    break;
 			}
-		    } else
-			// actually not possible, because ServiceCallee does not
-			// allow this
-			nmsf[i] = rto[i] = ssf[i] = false;
+		    } else {
+			// sr == null => if later there is no good response and
+			// the response of this call is used to send the final
+			// response, then we must create a pseudo timeout
+			// response for this case; but because it is not sure if
+			// it is needed we create the pseudo response when we
+			// are sure it is needed (see comments a dozen lines
+			// below)
+			if (numTimedOut-- > 0) {
+			    // possibly this is one of those really timed out
+			    bads++;
+			    rto[i] = true;
+			    nmsf[i] = ssf[i] = false;
+			} else {
+			    // actually not possible, because ServiceCallee does
+			    // not allow this
+			    nmsf[i] = rto[i] = ssf[i] = false;
+			}
+		    }
 		}
 		switch (goods.size()) {
 		case 0:
@@ -430,7 +454,13 @@ public class ServiceStrategy extends BusStrategy {
 			    else if (bad == null)
 				bad = (Hashtable) matches.get(i);
 			}
-			m = m.createReply(bad.get(CONTEXT_RESPONSE_MESSAGE));
+			ServiceResponse sr = (ServiceResponse) bad
+				.get(CONTEXT_RESPONSE_MESSAGE);
+			if (sr == null)
+			    // see the 'sr == null' comment a dozen lines above
+			    sr = new ServiceResponse(
+				    CallStatus.responseTimedOut);
+			m = m.createReply(sr);
 		    }
 		    break;
 		case 1:
@@ -820,6 +850,7 @@ public class ServiceStrategy extends BusStrategy {
 			    .getID());
 		    if (allCalls == null)
 			// response already timed out => ignore this delayed one
+			// TODO: add a log entry
 			return;
 		    synchronized (allCalls) {
 			callContext.put(CONTEXT_RESPONSE_MESSAGE, res);
