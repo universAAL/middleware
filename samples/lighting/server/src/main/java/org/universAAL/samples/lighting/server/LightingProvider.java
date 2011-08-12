@@ -24,15 +24,21 @@ import java.util.ArrayList;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
+import org.universAAL.middleware.owl.Enumeration;
+import org.universAAL.middleware.owl.Intersection;
+import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.ontology.lighting.ElectricLight;
 import org.universAAL.ontology.lighting.LightSource;
 import org.universAAL.ontology.location.indoor.Room;
 import org.universAAL.samples.lighting.server.unit_impl.LampStateListener;
@@ -56,6 +62,106 @@ public class LightingProvider extends ServiceCallee implements
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input!"));
     }
 
+    private static LightSource[] getAllLightSources(MyLighting theServer) {
+	int[] lamps = theServer.getLampIDs();
+	LightSource[] result = new LightSource[lamps.length];
+	for (int i = 0; i < lamps.length; i++)
+	    result[i] = new LightSource(LAMP_URI_PREFIX + lamps[i],
+		    ElectricLight.lightBulb, new Room(LOCATION_URI_PREFIX
+			    + theServer.getLampLocation(lamps[i])));
+	return result;
+    }
+
+    private static ContextEventPattern[] providedEvents(MyLighting theServer) {
+	// the LightingProvioder publishes its context events only from within
+	// "lampStateChanged()" below
+
+	// here, we must try to ontologically describe the nature of those
+	// context events; to put it casually, we know that these events have
+	// always a light source as subject and that the event is always about
+	// the change of their brightness; the used value for the brightness is
+	// always either 0% or 100%, meaning that these light sources cannot be
+	// dimmed
+
+	// we do this by providing two alternative descriptions based on two
+	// disjoint assumptions:
+
+	// Assumption 1: "theServer" below controls only a pre-determined set of
+	// light sources without any dynamic changes
+
+	// Assumption 2: light sources controlled by "theServer" below might
+	// change dynamically; new light sources can always be added and
+	// existing ones might disappear and even might come back again
+
+	// however, the following is for both alternatives equal, namely
+
+	// 1) that the event is always about the change of brightness
+	Restriction predicateRestriction = Restriction
+		.getFixedValueRestriction(ContextEvent.PROP_RDF_PREDICATE,
+			LightSource.PROP_SOURCE_BRIGHTNESS);
+
+	// and 2) that the reported value will always be either 0 or 100
+	Restriction objectRestriction = Restriction
+		.getAllValuesRestrictionWithCardinality(
+			ContextEvent.PROP_RDF_OBJECT, new Enumeration(
+				new Integer[] { new Integer(0),
+					new Integer(100) }), 1, 1);
+
+	// now we demonstrate how each of the two alternatives discussed above
+	// would work for describing the subjects of our context events
+
+	// let's start with the variant 1 under the assumption 1
+	// in this case, we can say that the subject of the context events is
+	// always a member of a given set
+	// in order to build this set, we must first fetch the set members from
+	// a helper method
+	LightSource[] myLights = getAllLightSources(theServer);
+
+	// the following is to say that the subject of my context events is
+	// always one single member of the above array
+	Restriction subjectRestriction = Restriction
+		.getAllValuesRestrictionWithCardinality(
+			ContextEvent.PROP_RDF_SUBJECT,
+			new Enumeration(myLights), 1, 1);
+
+	// now we can close the first variant by creating a ContextEventPattern
+	// and adding the above restrictions to it
+	ContextEventPattern cep1 = new ContextEventPattern();
+	cep1.addRestriction(subjectRestriction);
+	cep1.addRestriction(predicateRestriction);
+	cep1.addRestriction(objectRestriction);
+
+	// now, let's switch to the variant 2 under the assumption 2 for an
+	// alternative way of describing the subject part
+
+	// the subject of these context events is always an instance of
+	// LightSource of type "light bulb" whose property srcLocation is always
+	// an instance of Room
+	Intersection xsection = new Intersection();
+	xsection.addType(new TypeURI(LightSource.MY_URI, false));
+	xsection.addType(Restriction.getFixedValueRestriction(
+		LightSource.PROP_HAS_TYPE, ElectricLight.lightBulb));
+	xsection.addType(Restriction.getAllValuesRestrictionWithCardinality(
+		LightSource.PROP_PHYSICAL_LOCATION, Room.MY_URI, 1, 1));
+	subjectRestriction = Restriction
+		.getAllValuesRestrictionWithCardinality(
+			ContextEvent.PROP_RDF_SUBJECT, xsection, 1, 1);
+
+	// now we can close the second variant as well, by creating a
+	// ContextEventPattern and adding the above restrictions to it
+	ContextEventPattern cep2 = new ContextEventPattern();
+	cep2.addRestriction(subjectRestriction);
+	cep2.addRestriction(predicateRestriction);
+	cep2.addRestriction(objectRestriction);
+
+	// we must actually make a decision and return only one of the above
+	// alternatives, but here we return both in order to indicate that
+	// context providers might provide different classes of context events
+	// and hence might be forced to return several such descriptions of
+	// their events
+	return new ContextEventPattern[] { cep1, cep2 };
+    }
+
     private MyLighting theServer;
     private ContextPublisher cp;
 
@@ -64,16 +170,19 @@ public class LightingProvider extends ServiceCallee implements
 	// register them
 	super(context, ProvidedLightingService.profiles);
 
+	// initialize the helper class that will save the available lights
+	// (their number is defined in MyLighting)
+	theServer = new MyLighting();
+
 	// prepare for context publishing
 	ContextProvider info = new ContextProvider(
 		ProvidedLightingService.LIGHTING_SERVER_NAMESPACE
 			+ "LightingContextProvider");
 	info.setType(ContextProviderType.controller);
+	info.setProvidedEvents(providedEvents(theServer));
 	cp = new DefaultContextPublisher(context, info);
 
-	// initialize the helper class that will save the available lights
-	// (their number is defined in MyLighting)
-	theServer = new MyLighting();
+	// now we are ready to listen to the changes on the server side
 	theServer.addListener(this);
     }
 
