@@ -50,28 +50,65 @@ import org.universAAL.samples.lighting.server.unit_impl.MyLighting;
  */
 public class LightingProvider extends ServiceCallee implements
 	LampStateListener {
-    static final String LAMP_URI_PREFIX = ProvidedLightingService.LIGHTING_SERVER_NAMESPACE
-	    + "controlledLamp";
-    static final String LOCATION_URI_PREFIX = "urn:aal_space:myHome#";
 
+    // this is just to prepare a standard error message for later use
     private static final ServiceResponse invalidInput = new ServiceResponse(
 	    CallStatus.serviceSpecificFailure);
-
     static {
 	invalidInput.addOutput(new ProcessOutput(
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input!"));
     }
 
+    /************** THE MAPPING NOTE ****************/
+    // when binding components to universAAL that are originally using other
+    // conventions for doing their job, you always have to do mappings between
+    // non-universAAL stuff and universAAL-compliant stuff
+    // example stuff to map are: IDs, the representation of the actual data, and
+    // the exported operations
+    /*********** END OF THE MAPPING NOTE *************/
+
+    // the following two constants and the three methods following them perform
+    // the ID mapping for this example (see THE MAPPING NOTE above)
+    static final String LAMP_URI_PREFIX = ProvidedLightingService.LIGHTING_SERVER_NAMESPACE
+	    + "controlledLamp";
+    static final String LOCATION_URI_PREFIX = "urn:aal_space:myHome#";
+
+    private static String constructLampURIfromLocalID(int localID) {
+	return LAMP_URI_PREFIX + localID;
+    }
+
+    private static String constructLocationURIfromLocalID(String localID) {
+	return LOCATION_URI_PREFIX + localID;
+    }
+
+    private static int extractLocalIDfromLampURI(String lampURI) {
+	return Integer.parseInt(lampURI.substring(LAMP_URI_PREFIX.length()));
+    }
+
+    // end of preparations for ID mapping
+
+    // this is a helper method called from the next method that also
+    // demonstrates the case of mapping data representation, e.g. light sources
+    // and locations as explicitly sharable objects
     private static LightSource[] getAllLightSources(MyLighting theServer) {
 	int[] lamps = theServer.getLampIDs();
 	LightSource[] result = new LightSource[lamps.length];
 	for (int i = 0; i < lamps.length; i++)
-	    result[i] = new LightSource(LAMP_URI_PREFIX + lamps[i],
-		    ElectricLight.lightBulb, new Room(LOCATION_URI_PREFIX
-			    + theServer.getLampLocation(lamps[i])));
+	    result[i] = new LightSource(
+	    // first param: instance URI
+		    constructLampURIfromLocalID(lamps[i]),
+		    // second param: light type
+		    ElectricLight.lightBulb,
+		    // thrid param: light location
+		    new Room(constructLocationURIfromLocalID(theServer
+			    .getLampLocation(lamps[i]))));
 	return result;
     }
 
+    /**
+     * Helper method to construct the ontological declaration of context events
+     * published by LightingProvider.
+     */
     private static ContextEventPattern[] providedEvents(MyLighting theServer) {
 	// the LightingProvioder publishes its context events only from within
 	// "lampStateChanged()" below
@@ -162,16 +199,22 @@ public class LightingProvider extends ServiceCallee implements
 	return new ContextEventPattern[] { cep1, cep2 };
     }
 
+    // the original server being here wrapped and bound to universAAL
     private MyLighting theServer;
+
+    // needed for publishing context events (whenever you think that it might be
+    // important to share a new info with other components in a universAAL-based
+    // AAL SPace, you have to publish that info as a context event
     private ContextPublisher cp;
 
     LightingProvider(ModuleContext context) {
-	// The parent need to know the profiles of the available functions to
-	// register them
+	// as a service providing component, we have to extend ServiceCallee
+	// this in turn requires that we introduce which services we would like
+	// to
+	// provide to the universAAL-based AAL Space
 	super(context, ProvidedLightingService.profiles);
 
-	// initialize the helper class that will save the available lights
-	// (their number is defined in MyLighting)
+	// this is just an example that wraps a faked "original server"
 	theServer = new MyLighting();
 
 	// prepare for context publishing
@@ -206,7 +249,7 @@ public class LightingProvider extends ServiceCallee implements
 	int[] lamps = theServer.getLampIDs();
 	ArrayList al = new ArrayList(lamps.length);
 	for (int i = 0; i < lamps.length; i++)
-	    al.add(new LightSource(LAMP_URI_PREFIX + lamps[i]));
+	    al.add(new LightSource(constructLampURIfromLocalID(lamps[i])));
 	// create and add a ProcessOutput-Event that binds the output URI to the
 	// created list of lamps
 	sr.addOutput(new ProcessOutput(
@@ -218,8 +261,7 @@ public class LightingProvider extends ServiceCallee implements
     private ServiceResponse getLampInfo(String lampURI) {
 	try {
 	    // collect the needed data
-	    int lampID = Integer.parseInt(lampURI.substring(LAMP_URI_PREFIX
-		    .length()));
+	    int lampID = extractLocalIDfromLampURI(lampURI);
 	    String loc = theServer.getLampLocation(lampID);
 	    int state = theServer.isOn(lampID) ? 100 : 0;
 	    // We assume that the Service-Call always succeeds because we only
@@ -234,7 +276,7 @@ public class LightingProvider extends ServiceCallee implements
 	    // the location of the lamp
 	    sr.addOutput(new ProcessOutput(
 		    ProvidedLightingService.OUTPUT_LAMP_LOCATION, new Room(
-			    LOCATION_URI_PREFIX + loc)));
+			    constructLocationURIfromLocalID(loc))));
 	    return sr;
 	} catch (Exception e) {
 	    return invalidInput;
@@ -293,10 +335,9 @@ public class LightingProvider extends ServiceCallee implements
      */
     public void lampStateChanged(int lampID, String loc, boolean isOn) {
 	// Create an object that defines a specific lamp
-	LightSource ls = new LightSource(LightingProvider.LAMP_URI_PREFIX
-		+ lampID);
+	LightSource ls = new LightSource(constructLampURIfromLocalID(lampID));
 	// Set the properties of the light (location and brightness)
-	ls.setLocation(new Room(LightingProvider.LOCATION_URI_PREFIX + loc));
+	ls.setLocation(new Room(constructLocationURIfromLocalID(loc)));
 	ls.setBrightness(isOn ? 100 : 0);
 	LogUtils
 		.logInfo(
@@ -313,8 +354,7 @@ public class LightingProvider extends ServiceCallee implements
     // Simple use the turnOff method from the ProvidedLightingService
     private ServiceResponse turnOff(String lampURI) {
 	try {
-	    theServer.turnOff(Integer.parseInt(lampURI
-		    .substring(LAMP_URI_PREFIX.length())));
+	    theServer.turnOff(extractLocalIDfromLampURI(lampURI));
 	    return new ServiceResponse(CallStatus.succeeded);
 	} catch (Exception e) {
 	    return invalidInput;
@@ -324,8 +364,7 @@ public class LightingProvider extends ServiceCallee implements
     // Simple use the turnOn method from the ProvidedLightingService
     private ServiceResponse turnOn(String lampURI) {
 	try {
-	    theServer.turnOn(Integer.parseInt(lampURI.substring(LAMP_URI_PREFIX
-		    .length())));
+	    theServer.turnOn(extractLocalIDfromLampURI(lampURI));
 	    return new ServiceResponse(CallStatus.succeeded);
 	} catch (Exception e) {
 	    return invalidInput;
