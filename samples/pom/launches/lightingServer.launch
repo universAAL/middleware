@@ -25,18 +25,19 @@
 <listEntry value="obr"/>
 </listAttribute>
 <mapAttribute key="org.ops4j.pax.cursor.provisionItems">
+<mapEntry key="mvn:org.universAAL.middleware/mw.container.osgi" value="true@true@3@true"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.data.serialization" value="true@true@4@true"/>
 <mapEntry key="mvn:org.universAAL.ontology/ont.phWorld" value="true@true@5@false"/>
 <mapEntry key="mvn:org.apache.felix/org.apache.felix.configadmin/1.2.4" value="true@true@2@false"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.acl.interfaces" value="true@true@2@false"/>
-<mapEntry key="mvn:org.apache.felix/org.apache.felix.upnp.basedriver" value="true@true@2@false"/>
+<mapEntry key="mvn:org.apache.felix/org.apache.felix.upnp.basedriver" value="true@true@3@false"/>
 <mapEntry key="wrap:mvn:jp.go.ipa/jgcl/1.0" value="true@true@2@false"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.bus.model" value="true@true@3@true"/>
 <mapEntry key="mvn:org.universAAL.ontology/ont.lighting" value="true@true@5@false"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.bus.context" value="true@true@4@true"/>
-<mapEntry key="mvn:org.universAAL.middleware/mw.data.representation" value="true@true@4@true"/>
+<mapEntry key="mvn:org.universAAL.middleware/mw.data.representation" value="true@true@3@true"/>
 <mapEntry key="wrap:mvn:org.osgi/osgi_R4_compendium/1.0" value="true@true@2@false"/>
-<mapEntry key="mvn:org.universAAL.middleware/mw.acl.upnp" value="true@true@3@false"/>
+<mapEntry key="mvn:org.universAAL.middleware/mw.acl.upnp" value="true@true@2@false"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.bus.service" value="true@true@4@true"/>
 <mapEntry key="wrap:mvn:java3d/vecmath/1.3.1" value="true@true@2@false"/>
 <mapEntry key="mvn:org.universAAL.samples/smp.lighting.server" value="true@false@6@true"/>
@@ -44,6 +45,7 @@
 <mapEntry key="wrap:mvn:org.bouncycastle/jce.jdk13/144" value="true@true@2@false"/>
 <mapEntry key="wrap:mvn:org.ops4j.pax.logging/pax-logging-api/1.4" value="true@true@2@false"/>
 <mapEntry key="wrap:mvn:org.ops4j.pax.logging/pax-logging-service/1.4" value="true@true@3@false"/>
+<mapEntry key="mvn:org.universAAL.middleware/mw.container.xfaces" value="true@true@3@true"/>
 <mapEntry key="wrap:mvn:java3d/j3d-core/1.3.1" value="true@true@2@false"/>
 </mapAttribute>
 <listAttribute key="org.ops4j.pax.cursor.runArguments">
@@ -66,12 +68,14 @@
 <listEntry value="wrap:mvn:org.ops4j.pax.logging/pax-logging-service/1.4@3"/>
 <listEntry value="wrap:mvn:java3d/j3d-core/1.3.1@2"/>
 <listEntry value="mvn:org.universAAL.middleware/mw.data.serialization@4@update"/>
-<listEntry value="mvn:org.apache.felix/org.apache.felix.upnp.basedriver@2"/>
+<listEntry value="mvn:org.universAAL.middleware/mw.container.osgi@3@update"/>
+<listEntry value="mvn:org.apache.felix/org.apache.felix.upnp.basedriver@3"/>
 <listEntry value="mvn:org.universAAL.middleware/mw.bus.model@3@update"/>
-<listEntry value="mvn:org.universAAL.middleware/mw.data.representation@4@update"/>
+<listEntry value="mvn:org.universAAL.middleware/mw.data.representation@3@update"/>
 <listEntry value="wrap:mvn:org.osgi/osgi_R4_compendium/1.0@2"/>
-<listEntry value="mvn:org.universAAL.middleware/mw.acl.upnp@3"/>
+<listEntry value="mvn:org.universAAL.middleware/mw.acl.upnp@2"/>
 <listEntry value="wrap:mvn:org.ops4j.pax.logging/pax-logging-api/1.4@2"/>
+<listEntry value="mvn:org.universAAL.middleware/mw.container.xfaces@3@update"/>
 </listAttribute>
 <stringAttribute key="osgi_framework_id" value="--platform=felix --version=1.4.0"/>
 <stringAttribute key="pde.version" value="3.3"/>
