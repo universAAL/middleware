@@ -237,6 +237,7 @@ samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/Lig
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/ProvidedLightingService.java -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/unit_impl/LampStateListener.java -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/unit_impl/MyLighting.java -text
+samples/pom/launches/SpaceConf_0_3_1.launch -text
 samples/pom/launches/heating.launch -text
 samples/pom/launches/lighting.launch -text
 samples/pom/launches/lightingClient.launch -text
