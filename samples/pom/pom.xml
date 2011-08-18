@@ -77,7 +77,9 @@
 	<contributors />
 
 	<modules>
-		<module>../../../../ontologies/trunk/pom</module>
+		<module>../../../../ontologies/trunk/physical.world</module>
+		<module>../../../../ontologies/trunk/lighting</module>
+		<module>../../../../middleware/trunk/pom</module>
 		<module>../heating</module>
 		<module>../lighting/server</module>
 		<module>../lighting/client</module>
