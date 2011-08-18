@@ -523,14 +523,14 @@ public abstract class ManagedIndividual extends Resource {
 			classURIMap.put(className, classURI);
 			return;
 		    } else
-			msg = "Another class already registered with the same URI!";
+			msg = "Another class already registered with the same URI (" + classURI + ") !";
 	    } else if (classURI.equals(clz.getField("MY_URI").get(null))) {
 		if (clz == uriClassMap.get(classURI))
 		    // duplicate registration: everything consistent although a
 		    // little bit strange
 		    return;
 		else
-		    msg = "Another class already registered with the same URI!";
+		    msg = "Another class already registered with the same URI (" + classURI + ")!";
 	    } else
 		msg = "Another class already registered with the same class name!";
 	    if (msg == null)
