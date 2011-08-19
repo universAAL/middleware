@@ -237,11 +237,11 @@ samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/Lig
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/ProvidedLightingService.java -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/unit_impl/LampStateListener.java -text
 samples/lighting/server/src/main/java/org/universAAL/samples/lighting/server/unit_impl/MyLighting.java -text
+samples/pom/launches/LightingExample_Complete.launch -text
+samples/pom/launches/LightingExample_Distributed_Client.launch -text
+samples/pom/launches/LightingExample_Distributed_Server.launch -text
 samples/pom/launches/SpaceConf_0_3_1.launch -text
 samples/pom/launches/heating.launch -text
-samples/pom/launches/lighting.launch -text
-samples/pom/launches/lightingClient.launch -text
-samples/pom/launches/lightingServer.launch -text
 samples/pom/launches/m2LocalRepository/M2.zip -text
 samples/pom/launches/m2LocalRepository/README.txt -text
 samples/pom/launches/m2LocalRepository/settings.xml -text
