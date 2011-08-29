@@ -1,0 +1,17 @@
+* text=auto !eol
+/LICENSE.txt -text
+/NOTICE.txt -text
+/pom.xml -text
+src/main/java/org/universAAL/middleware/context/ContextBus.java -text
+src/main/java/org/universAAL/middleware/context/ContextEvent.java -text
+src/main/java/org/universAAL/middleware/context/ContextEventPattern.java -text
+src/main/java/org/universAAL/middleware/context/ContextPublisher.java -text
+src/main/java/org/universAAL/middleware/context/ContextSubscriber.java -text
+src/main/java/org/universAAL/middleware/context/DefaultContextPublisher.java -text
+src/main/java/org/universAAL/middleware/context/impl/ContextBusImpl.java -text
+src/main/java/org/universAAL/middleware/context/impl/ContextStrategy.java -text
+src/main/java/org/universAAL/middleware/context/impl/osgi/Activator.java -text
+src/main/java/org/universAAL/middleware/context/owl/ContextProvider.java -text
+src/main/java/org/universAAL/middleware/context/owl/ContextProviderType.java -text
+src/test/java/org/universAAL/middleware/context/RoundTest.java -text
+src/test/java/org/universAAL/middleware/context/SetTopBox.java -text
