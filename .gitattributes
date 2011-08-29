@@ -1,0 +1,10 @@
+* text=auto !eol
+/LICENSE-Aduna-OpenRDF.txt -text
+/LICENSE.txt -text
+/NOTICE.txt -text
+/pom.xml -text
+src/main/java/org/universAAL/serialization/turtle/TurtleParser.java -text
+src/main/java/org/universAAL/serialization/turtle/TurtleUtil.java -text
+src/main/java/org/universAAL/serialization/turtle/TurtleWriter.java -text
+src/main/java/org/universAAL/serialization/turtle/osgi/Activator.java -text
+src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
