@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.pom</artifactId>
+		<version>1.0.1</version>
+		<relativePath>../../pom/pom.xml</relativePath>
+	</parent>
+
+	<groupId>org.universAAL.samples</groupId>
+	<artifactId>smp.pom</artifactId>  
+	<version>1.0.1</version>
+	<packaging>pom</packaging>
+	<name>universAAL Samples</name>
+	<description>A set of components that use the universAAL middleware with different roles and serve as samples.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.data.representation</artifactId>
+			<version>0.3.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.context</artifactId>
+			<version>0.3.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service</artifactId>
+			<version>0.3.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.lighting</artifactId>
+			<version>0.2.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.phWorld</artifactId>
+			<version>0.2.3-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.xfaces</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.osgi</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<developers>
+		<developer>
+			<id>saied</id>
+			<email>N/A</email>
+			<name>Saied Tazari</name>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>CEST/CET</timezone>
+		</developer>
+		<developer>
+			<id>Alex</id>
+			<email>alexander.marinc@igd.fraunhofer.de</email>
+			<name>Alexander Marinc</name>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>CEST/CET</timezone>
+		</developer>
+	</developers>
+
+	<contributors />
+
+	<modules>
+		<module>../../../../ontologies/trunk/physical.world</module>
+		<module>../../../../ontologies/trunk/lighting</module>
+		<module>../../../../ontologies/trunk/weather</module>
+		<module>../heating</module>
+		<module>../lighting/server</module>
+		<module>../lighting/client</module>
+		<module>../../pom</module>
+	</modules>
+
+</project>
