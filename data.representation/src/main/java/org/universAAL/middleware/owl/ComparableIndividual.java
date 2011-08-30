@@ -39,11 +39,8 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
      */
     public static final int NON_COMPARABLE_INDIVIDUALS = Integer.MAX_VALUE;
 
-    public static final String MY_URI;
-    static {
-	MY_URI = uAAL_VOCABULARY_NAMESPACE + "ComparableIndividual";
-	register(ComparableIndividual.class);
-    }
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ComparableIndividual";
+
 
     protected ComparableIndividual() {
 	super();
@@ -51,6 +48,10 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
 
     protected ComparableIndividual(String uri) {
 	super(uri);
+    }
+
+    public String getClassURI() {
+	return MY_URI;
     }
 
     public static final ComparableIndividual getClassMaximum(Class claz) {
@@ -85,22 +86,6 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
      */
     public static ComparableIndividual getMinimum() {
 	return null;
-    }
-
-    /**
-     * Returns a human readable description on the essence of this ontology
-     * class.
-     */
-    public static String getRDFSComment() {
-	return "The root class for all comparable individuals in the uAAL ontology.";
-    }
-
-    /**
-     * Returns a label with which this ontology class can be introduced to human
-     * users.
-     */
-    public static String getRDFSLabel() {
-	return "Comparable Individual";
     }
 
     /**

@@ -25,7 +25,6 @@ import java.util.List;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.owl.ManagedIndividual;
-import org.universAAL.middleware.owl.Restriction;
 
 /**
  * Ontological representation of a ContextProvider
@@ -62,40 +61,19 @@ public class ContextProvider extends ManagedIndividual {
 	PROP_CONTEXT_PROVIDER_TYPE = ContextEvent.uAAL_CONTEXT_NAMESPACE
 		+ "hasType";
 	PROP_CONTEXT_SOURCE = ContextEvent.uAAL_CONTEXT_NAMESPACE + "hasSource";
-	register(ContextProvider.class);
     }
 
-    public static Restriction getClassRestrictionsOnProperty(String propURI) {
-	if (PROP_CONTEXT_PROVIDED_EVENTS.equals(propURI))
-	    return Restriction.getAllValuesRestrictionWithCardinality(propURI,
-		    ContextEventPattern.MY_URI, -1, 1);
-	if (PROP_CONTEXT_PROVIDER_TYPE.equals(propURI))
-	    return Restriction.getAllValuesRestrictionWithCardinality(propURI,
-		    ContextProviderType.MY_URI, 1, 1);
-	if (PROP_CONTEXT_SOURCE.equals(propURI))
-	    return Restriction.getAllValuesRestriction(propURI,
-		    ManagedIndividual.MY_URI);
-	return ManagedIndividual.getClassRestrictionsOnProperty(propURI);
-    }
-
-    public static String[] getStandardPropertyURIs() {
-	return new String[] { PROP_CONTEXT_PROVIDER_TYPE, PROP_CONTEXT_SOURCE };
-    }
-
-    public static String getRDFSComment() {
-	return "Represents the set of components that may publish context events.";
-    }
-
-    public static String getRDFSLabel() {
-	return "Context Provider";
-    }
-
+    
     public ContextProvider() {
 	super();
     }
 
     public ContextProvider(String uri) {
 	super(uri);
+    }
+
+    public String getClassURI() {
+	return MY_URI;
     }
 
     protected ContextProvider(String uriPrefix, int numProps) {

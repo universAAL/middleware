@@ -20,7 +20,6 @@
 package org.universAAL.middleware.owl.supply;
 
 import org.universAAL.middleware.owl.ComparableIndividual;
-import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
  * An enumeration originally designed for rating the perceived quality of a
@@ -40,12 +39,10 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * @author Carsten Stockloew
  */
 public class Rating extends ComparableIndividual {
-    public static final String MY_URI;
-    static {
-	MY_URI = uAAL_VOCABULARY_NAMESPACE + "Rating";
-	register(Rating.class);
-    }
+    
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Rating";
 
+    
     public static final int POOR = 0;
     public static final int ALMOST_POOR = 1;
     public static final int ALMOST_SUFFICIENT = 2;
@@ -91,24 +88,8 @@ public class Rating extends ComparableIndividual {
 	this.order = order;
     }
 
-    /**
-     * Returns the list of all class members guaranteeing that no other members
-     * will be created after a call to this method.
-     */
-    public static ManagedIndividual[] getEnumerationMembers() {
-	return new ManagedIndividual[] { poor, almostPoor, almostSufficient,
-		sufficient, richSufficient, almostSatisfying, satisfying,
-		richSatisfying, almostGood, good, richGood, almostExcellent,
-		excellent };
-    }
-
-    /**
-     * Returns the rating with the given URI.
-     */
-    public static ManagedIndividual getIndividualByURI(String instanceURI) {
-	return (instanceURI != null && instanceURI
-		.startsWith(uAAL_VOCABULARY_NAMESPACE)) ? valueOf(instanceURI
-		.substring(uAAL_VOCABULARY_NAMESPACE.length())) : null;
+    public String getClassURI() {
+	return MY_URI;
     }
 
     public static Rating getMaxValue() {
@@ -150,23 +131,6 @@ public class Rating extends ComparableIndividual {
 	default:
 	    return null;
 	}
-    }
-
-    /**
-     * Returns the value of the property <code>rdfs:comment</code> on this
-     * <code>owl:Class</code> from the underlying ontology.
-     */
-    public static String getRDFSComment() {
-	return "An enumeration for rating the perceived quality of a service similar to the"
-		+ " german marks system for students' work.";
-    }
-
-    /**
-     * Returns the value of the property <code>rdfs:label</code> on this
-     * <code>owl:Class</code> from the underlying ontology.
-     */
-    public static String getRDFSLabel() {
-	return "QoS Rating";
     }
 
     public static final Rating valueOf(String name) {

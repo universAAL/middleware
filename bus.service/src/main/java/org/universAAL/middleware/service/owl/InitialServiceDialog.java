@@ -33,12 +33,17 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  *
  */
 public final class InitialServiceDialog extends UserInterfaceService {
+
 	public static final String MY_URI;
 	private static Hashtable isdClassLevelRestrictions = new Hashtable();
 	static {
 		MY_URI = uAAL_SERVICE_NAMESPACE + "InitialServiceDialog";
-		
-		register(InitialServiceDialog.class);
+	}
+	
+	
+	@Override
+	public String getClassURI() {
+	    return MY_URI;
 	}
 	
 	/**
@@ -146,14 +151,6 @@ public final class InitialServiceDialog extends UserInterfaceService {
 	
 	public static final ServiceRequest getInitialDialogRequest(String serviceClassURI, String vendor, Resource requestingUser) {
 		return getUIServiceRequest(new InitialServiceDialog(), serviceClassURI, vendor, requestingUser);
-	}
-	
-	public static String getRDFSComment() {
-		return "The class of all services starting an initial dialog correlated to a specific service class";
-	}
-	
-	public static String getRDFSLabel() {
-		return "Initial Service Dialog";
 	}
 	
 	/**

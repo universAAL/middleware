@@ -44,7 +44,7 @@ public class Intersection extends ClassExpression {
     }
 
     /** The list of child class expressions. */
-    private List types;
+    protected List types;
 
     /** Constructor. */
     public Intersection() {
@@ -62,6 +62,12 @@ public class Intersection extends ClassExpression {
     public void addType(ClassExpression type) {
 	if (type != null && !(type instanceof Intersection))
 	    types.add(type);
+    }
+    
+    public void addType(Intersection type) {
+	if (type != null)
+	    for (int i = 0; i < type.types.size(); i++)
+		addType((ClassExpression) type.types.get(i));
     }
 
     /** @see org.universAAL.middleware.owl.ClassExpression#copy() */

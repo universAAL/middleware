@@ -24,6 +24,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
@@ -183,8 +184,6 @@ public class ServiceProfile extends Resource {
 		nonFunctionalParams.put(PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS, NumberOfSamples.class);
 		nonFunctionalParams.put(PROP_uAAL_RESPONSE_TIMEOUT, ResponseTimeInMilliseconds.class);
 		nonFunctionalParams.put(PROP_uAAL_SPATIAL_COVERAGE, MultiLocationParameter.class);
-		
-		addResourceClass(MY_URI, ServiceProfile.class);
 	}
 	
 	/**
@@ -211,6 +210,11 @@ public class ServiceProfile extends Resource {
 		addType(MY_URI, true);
 	}
 	
+	public ServiceProfile(String uri) {
+		super(uri);
+		addType(MY_URI, true);
+	}
+	
 	/**
 	 * The constructor to be used by {@link org.universAAL.middleware.service.ServiceCallee}s. Effects,
 	 * inputs, outputs and output bindings must be added to the profile using methods whose names
@@ -228,10 +232,10 @@ public class ServiceProfile extends Resource {
 		addType(MY_URI, true);
 		props.put(Service.PROP_OWLS_PRESENTED_BY, s);
 		setProperty(PROP_OWLS_PROFILE_HAS_PROCESS, processURI);
-		String aux = Service.getRDFSLabel(s.getClassURI());
+		String aux = OntologyManagement.getInstance().getOntClassInfo(s.getClassURI()).getResourceLabel();
 		if (aux != null)
 			props.put(PROP_OWLS_PROFILE_SERVICE_NAME, aux);
-		aux = Service.getRDFSComment(s.getClassURI());
+		aux = OntologyManagement.getInstance().getOntClassInfo(s.getClassURI()).getResourceComment();
 		if (aux != null)
 			props.put(PROP_OWLS_PROFILE_TEXT_DESCRIPTION, aux);
 	}

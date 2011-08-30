@@ -33,6 +33,7 @@ import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
+import org.universAAL.middleware.owl.AbstractRestriction;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.rdf.Resource;
@@ -203,19 +204,20 @@ public class TurtleParser implements MessageContentSerializer {
 	    else if (pd != null && pd.refs != null)
 		for (int j = 0; j < pd.refs.size(); j++) {
 		    RefData rd = (RefData) pd.refs.get(j);
-		    boolean srcSpecialiazed = true;
+		    boolean srcSpecialized = true;
 		    aux = (Resource) specializedResources.get(rd.src.getURI());
 		    if (aux == null) {
 			aux = rd.src;
-			srcSpecialiazed = false;
+			srcSpecialized = false;
 		    }
 		    if (rd.l == null) {
 			aux.setProperty(rd.prop, specialized);
 			if (!specialized.equals(aux.getProperty(rd.prop)))
 			    openItems.put(specialized, rd);
-			else if (!srcSpecialiazed
-				&& ClassExpression.OWL_CLASS.equals(aux
-					.getType()))
+			else if (!srcSpecialized
+				&& (ClassExpression.OWL_CLASS.equals(aux
+					.getType()) || AbstractRestriction.MY_URI
+					.equals(aux.getType())))
 			    specialize(aux, specializedResources, openItems);
 		    } else {
 			rd.l.set(rd.i, specialized);
@@ -261,7 +263,8 @@ public class TurtleParser implements MessageContentSerializer {
 		if (o.equals(aux.getProperty(rd.prop))) {
 		    i.remove();
 		    if (!srcSpecialiazed
-			    && ClassExpression.OWL_CLASS.equals(aux.getType()))
+			    && (ClassExpression.OWL_CLASS.equals(aux.getType()) || AbstractRestriction.MY_URI
+				    .equals(aux.getType())))
 			specialize(aux, specializedResources, openItems);
 		}
 	    }
@@ -1142,7 +1145,8 @@ public class TurtleParser implements MessageContentSerializer {
 		    substitution = ClassExpression.getClassExpressionInstance(
 			    type, uri);
 		    if (substitution == null
-			    && ClassExpression.OWL_CLASS.equals(type)) {
+			    && (ClassExpression.OWL_CLASS.equals(type) || AbstractRestriction.MY_URI
+				    .equals(type))) {
 			substitution = getClassExpression(r, uri);
 			if (substitution == null)
 			    // postpone the specialization until all props are

@@ -22,9 +22,10 @@ package org.universAAL.middleware.service.impl;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import org.universAAL.middleware.owl.AbstractRestriction;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.Intersection;
-import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.supply.Rating;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.ServiceCall;
@@ -252,7 +253,7 @@ public class ServiceRealization extends Resource {
 				ClassExpression reqRestr = requestedService.getInstanceLevelRestrictionOnProp(restrProps[i]),
 						offInsRestr = offer.getInstanceLevelRestrictionOnProp(restrProps[i]),
 						offClsRestr = Service.getClassRestrictionsOnProperty(offer.getClassURI(), restrProps[i]);
-				if (!(reqRestr instanceof Restriction)) {
+				if (!(reqRestr instanceof MergedRestriction)) {
 					// makes no sense, because 'restrProps' must have instance level restrictions
 					continue;
 				}
@@ -262,10 +263,10 @@ public class ServiceRealization extends Resource {
 						// only in case of restrictions on the service profile, we may still proceed
 						if (!Service.PROP_OWLS_PRESENTS.equals(restrProps[i]))
 							return false;
-						reqRestr = (ClassExpression) ((Restriction) reqRestr).getProperty(
-								Restriction.PROP_OWL_ALL_VALUES_FROM);
-						if (reqRestr instanceof Restriction) {
-							restrProps[i] = ((Restriction) reqRestr).getOnProperty();
+						reqRestr = (ClassExpression) ((MergedRestriction) reqRestr).
+								getConstraint(MergedRestriction.allValuesFromID);
+						if (reqRestr instanceof AbstractRestriction) {
+							restrProps[i] = ((AbstractRestriction) reqRestr).getOnProperty();
 							if (restrProps[i] == null)
 								// strange!
 								continue;
@@ -280,8 +281,8 @@ public class ServiceRealization extends Resource {
 							for (Iterator j=((Intersection) reqRestr).types(); j.hasNext();) {
 								// the same as above, only this time in a loop over all members of the intersection
 								reqRestr = (ClassExpression) j.next();
-								if (reqRestr instanceof Restriction) {
-									restrProps[i] = ((Restriction) reqRestr).getOnProperty();
+								if (reqRestr instanceof AbstractRestriction) {
+									restrProps[i] = ((AbstractRestriction) reqRestr).getOnProperty();
 									if (restrProps[i] == null)
 										// strange!
 										continue;

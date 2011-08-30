@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.owl.Service;
@@ -67,10 +67,7 @@ public class ServiceRequest extends Resource {
 	public static final String PROP_uAAL_SERVICE_CALLER = 
 		uAAL_VOCABULARY_NAMESPACE + "theServiceCaller";
 	
-	static {
-		addResourceClass(MY_URI, ServiceRequest.class);
-	}
-	
+
 	/**
 	 * Constructor for usage by de-serializers, as an ananymous node without a URI.
 	 */
@@ -246,7 +243,7 @@ public class ServiceRequest extends Resource {
 	 */
 	public void addTypeFilter(String[] refPath, String typeURI) {
 		getRequestedService().addInstanceLevelRestriction(
-				Restriction.getAllValuesRestriction(refPath[refPath.length-1], typeURI),
+				MergedRestriction.getAllValuesRestriction(refPath[refPath.length-1], typeURI),
 				refPath);
 	}
 	
@@ -255,7 +252,7 @@ public class ServiceRequest extends Resource {
 	 */
 	public void addValueFilter(String[] refPath, Object hasValue) {
 		getRequestedService().addInstanceLevelRestriction(
-				Restriction.getFixedValueRestriction(refPath[refPath.length-1], hasValue),
+				MergedRestriction.getFixedValueRestriction(refPath[refPath.length-1], hasValue),
 				refPath);
 	}
 	

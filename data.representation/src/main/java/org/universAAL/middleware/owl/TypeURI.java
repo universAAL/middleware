@@ -117,8 +117,9 @@ public class TypeURI extends ClassExpression {
 
     /** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
     public Object[] getUpperEnumeration() {
-	ManagedIndividual[] answer = ManagedIndividual
-		.getEnumerationMembers(getURI());
+	OntClassInfo info = OntologyManagement.getInstance().getOntClassInfo(
+		getURI());
+	ManagedIndividual[] answer = info == null ? null : info.getInstances();
 	return (answer == null) ? new Object[0] : answer;
     }
 
@@ -172,15 +173,21 @@ public class TypeURI extends ClassExpression {
 	    return true;
 	}
 
-	if (subtype instanceof Intersection) {
+	if (subtype instanceof Intersection  && !(subtype instanceof MergedRestriction)) {
 	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();)
 		if (matches((ClassExpression) i.next(), context))
 		    return true;
 	    // TODO: there is still a chance to return true...
 	    // so fall through to the general case at the end
-	} else if (subtype instanceof Restriction) {
-	    Restriction r = ManagedIndividual.getClassRestrictionsOnProperty(
-		    uri, ((Restriction) subtype).getOnProperty());
+	} else if (subtype instanceof AbstractRestriction) {
+	    MergedRestriction r = ManagedIndividual
+		    .getClassRestrictionsOnProperty(uri,
+			    ((AbstractRestriction) subtype).getOnProperty());
+	    return r == null || r.matches(subtype, context);
+	} else if (subtype instanceof MergedRestriction) {
+	    MergedRestriction r = ManagedIndividual
+		    .getClassRestrictionsOnProperty(uri,
+			    ((MergedRestriction) subtype).getOnProperty());
 	    return r == null || r.matches(subtype, context);
 	}
 	// a last try
@@ -218,11 +225,16 @@ public class TypeURI extends ClassExpression {
 		    && !ManagedIndividual.checkCompatibility(
 			    ((TypeURI) other).uri, uri);
 
-	if (other instanceof Restriction) {
-	    Restriction r = ManagedIndividual.getClassRestrictionsOnProperty(
-		    uri, ((Restriction) other).getOnProperty());
+	if (other instanceof AbstractRestriction) {
+	    MergedRestriction r = ManagedIndividual.getClassRestrictionsOnProperty(
+		    uri, ((AbstractRestriction) other).getOnProperty());
 	    return r != null
-		    && ((Restriction) other).isDisjointWith(r, context);
+		    && ((AbstractRestriction) other).isDisjointWith(r, context);
+	} else if (other instanceof MergedRestriction) {
+	    MergedRestriction r = ManagedIndividual.getClassRestrictionsOnProperty(
+		    uri, ((MergedRestriction) other).getOnProperty());
+	    return r != null
+		    && ((MergedRestriction) other).isDisjointWith(r, context);
 	}
 
 	if (other != null)

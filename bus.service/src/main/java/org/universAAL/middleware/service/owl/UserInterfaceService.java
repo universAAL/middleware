@@ -23,7 +23,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.CallStatus;
@@ -47,7 +47,6 @@ public class UserInterfaceService extends Service {
 	public static final String PROP_DESCRIPTION;
 	public static final String PROP_HAS_INFO_RETRIEVAL_PROCESS;
 	public static final String PROP_HAS_VENDOR;
-	private static Hashtable uisClassLevelRestrictions = new Hashtable();
 	static {
 		MY_URI = uAAL_SERVICE_NAMESPACE + "UserInterfaceService";
 		
@@ -55,25 +54,6 @@ public class UserInterfaceService extends Service {
 		PROP_DESCRIPTION = uAAL_SERVICE_NAMESPACE + "description";
 		PROP_HAS_INFO_RETRIEVAL_PROCESS = uAAL_SERVICE_NAMESPACE + "infoRetrievalProcess";
 		PROP_HAS_VENDOR = uAAL_SERVICE_NAMESPACE + "vendor";
-		
-		uisClassLevelRestrictions.put(PROP_CORRELATED_SERVICE_CLASS, 
-				Restriction.getAllValuesRestrictionWithCardinality(
-						PROP_CORRELATED_SERVICE_CLASS, 
-						TypeMapper.getDatatypeURI(Resource.class), 1, 1));
-		uisClassLevelRestrictions.put(PROP_DESCRIPTION, 
-				Restriction.getAllValuesRestrictionWithCardinality(
-						PROP_DESCRIPTION, 
-						TypeMapper.getDatatypeURI(String.class), 1, 1));
-		uisClassLevelRestrictions.put(PROP_HAS_INFO_RETRIEVAL_PROCESS, 
-				Restriction.getAllValuesRestrictionWithCardinality(
-						PROP_HAS_INFO_RETRIEVAL_PROCESS, 
-						TypeMapper.getDatatypeURI(Resource.class), 1, 1));
-		uisClassLevelRestrictions.put(PROP_HAS_VENDOR, 
-				Restriction.getAllValuesRestrictionWithCardinality(
-						PROP_HAS_VENDOR, 
-						TypeMapper.getDatatypeURI(Resource.class), 1, 1));
-		
-		register(UserInterfaceService.class);
 	}
 	
 	/**
@@ -124,58 +104,7 @@ public class UserInterfaceService extends Service {
 		return uis.myProfile;
 	}
 	
-	/**
-	 * Gets the restriction from a property given by propURI argument 
-	 * 
-	 * @param propURI the URI of the service class that we want to get the restriction
-	 * 
-	 * @return The class restrictions of the property.
-	 */
-	
-	public static Restriction getClassRestrictionsOnProperty(String propURI) {
-		if (propURI != null) {
-			Object o = uisClassLevelRestrictions.get(propURI);
-			if (o instanceof Restriction)
-				return (Restriction) o;
-		}
-		return Service.getClassRestrictionsOnProperty(propURI);
-	}
-	
-	/**
-	 * Return the RDFS commment below 
-	 */
-	
-	public static String getRDFSComment() {
-		return "The class of all services starting an initial dialog correlated to a specific service class";
-	}
 
-	/**
-	 * Return the RDFS label below 
-	 */
-	
-	public static String getRDFSLabel() {
-		return "Initial Service Dialog";
-	}
-	
-	/**
-	 * Return the Standard property URIs 
-	 */
-	
-	public static String[] getStandardPropertyURIs() {
-		String[] inherited = Service.getStandardPropertyURIs();
-		String[] toReturn = new String[inherited.length+4];
-		int i = 0;
-		while (i < inherited.length) {
-			toReturn[i] = inherited[i];
-			i++;
-		}
-		toReturn[i++] = PROP_CORRELATED_SERVICE_CLASS;
-		toReturn[i++] = PROP_DESCRIPTION;
-		toReturn[i++] = PROP_HAS_INFO_RETRIEVAL_PROCESS;
-		toReturn[i] = PROP_HAS_VENDOR;
-		return toReturn;
-	}
-	
 	/**
 	 * Creates and returns an appropriate ServiceProfile for a UI
 	 * service that upon call would lead to publishing an output event
@@ -213,11 +142,11 @@ public class UserInterfaceService extends Service {
 	
 	protected static String getUIServiceDescription(UserInterfaceService requestedService, String serviceClassURI, String vendor, ServiceCaller theCaller) {
 		requestedService.addInstanceLevelRestriction(
-				Restriction.getFixedValueRestriction(PROP_CORRELATED_SERVICE_CLASS,
+				MergedRestriction.getFixedValueRestriction(PROP_CORRELATED_SERVICE_CLASS,
 						new Resource(serviceClassURI, true)),
 				new String[]{PROP_CORRELATED_SERVICE_CLASS});
 		requestedService.addInstanceLevelRestriction(
-				Restriction.getFixedValueRestriction(PROP_HAS_VENDOR,
+				MergedRestriction.getFixedValueRestriction(PROP_HAS_VENDOR,
 						new Resource(vendor, true)),
 				new String[]{PROP_HAS_VENDOR});
 		ServiceRequest req = new ServiceRequest(SERVICE_REQUEST_URI_PREFIX_INFO, 5, requestedService, null);
@@ -273,7 +202,7 @@ public class UserInterfaceService extends Service {
 	
 	protected static UserInterfaceService[] getUIServiceInfo(UserInterfaceService requestedService, String serviceClassURI, ServiceCaller theCaller) {
 		requestedService.addInstanceLevelRestriction(
-				Restriction.getFixedValueRestriction(PROP_CORRELATED_SERVICE_CLASS,
+				MergedRestriction.getFixedValueRestriction(PROP_CORRELATED_SERVICE_CLASS,
 						new Resource(serviceClassURI, true)),
 				new String[]{PROP_CORRELATED_SERVICE_CLASS});
 		ServiceRequest req = new ServiceRequest(SERVICE_REQUEST_URI_PREFIX_INFO, 5, requestedService, null);
@@ -336,10 +265,10 @@ public class UserInterfaceService extends Service {
 	
 	protected static ServiceRequest getUIServiceRequest(UserInterfaceService requestedService, String serviceClassURI, String vendor, Resource requestingUser) {
 		requestedService.addInstanceLevelRestriction(
-				Restriction.getFixedValueRestriction(PROP_CORRELATED_SERVICE_CLASS, new Resource(serviceClassURI, true)),
+				MergedRestriction.getFixedValueRestriction(PROP_CORRELATED_SERVICE_CLASS, new Resource(serviceClassURI, true)),
 				new String[]{PROP_CORRELATED_SERVICE_CLASS});
 		requestedService.addInstanceLevelRestriction(
-				Restriction.getFixedValueRestriction(PROP_HAS_VENDOR, new Resource(vendor, true)),
+				MergedRestriction.getFixedValueRestriction(PROP_HAS_VENDOR, new Resource(vendor, true)),
 				new String[]{PROP_HAS_VENDOR});
 		return new ServiceRequest(SERVICE_REQUEST_URI_PREFIX_START, 5, requestedService, requestingUser);
 	}
@@ -384,13 +313,6 @@ public class UserInterfaceService extends Service {
 	 */
 	protected UserInterfaceService(String uri) {
 		super(uri);
-	}
-
-	/**
-	 * @see org.universAAL.middleware.service.owl.Service#getClassLevelRestrictions()
-	 */
-	protected Hashtable getClassLevelRestrictions() {
-		return uisClassLevelRestrictions;
 	}
 
 	/**

@@ -58,6 +58,7 @@ public class Activator implements BundleActivator, ManagedService {
      * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext context) throws Exception {
+	SharedResources.unloadReasoningEngine();
     }
 
     /**

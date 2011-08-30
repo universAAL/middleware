@@ -26,6 +26,8 @@ import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.ContextSubscriber;
+import org.universAAL.middleware.context.owl.ContextBusOntology;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.sodapop.AbstractBus;
 import org.universAAL.middleware.sodapop.BusMember;
@@ -47,6 +49,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
     public static Object[] busFetchParams;
     public static Object[] contentSerializerParams;
     private static MessageContentSerializer contentSerializer = null;
+    private static ContextBusOntology contextBusOntology = new ContextBusOntology();
 
     public static synchronized void assessContentSerialization(Resource content) {
 	if (Constants.debugMode()) {
@@ -82,12 +85,14 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	}
     }
 
-    public static void loadExportedClasses() throws ClassNotFoundException {
-	Class.forName("org.universAAL.middleware.context.ContextEvent");
-	Class.forName("org.universAAL.middleware.context.ContextEventPattern");
-	Class.forName("org.universAAL.middleware.context.owl.ContextProvider");
+    public static void startModule() {
+	OntologyManagement.getInstance().register(contextBusOntology);
     }
-
+    
+    public static void stopModule() {
+	OntologyManagement.getInstance().unregister(contextBusOntology);
+    }
+    
     public ContextBusImpl(SodaPop g) {
 	super(Constants.uAAL_BUS_NAME_CONTEXT, new ContextStrategy(g), g);
 	busStrategy.setBus(this);
