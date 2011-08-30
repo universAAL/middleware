@@ -40,9 +40,6 @@ public class ContextEvent extends Resource {
 	    + "Context.owl#";
 
     public static final String MY_URI = uAAL_CONTEXT_NAMESPACE + "ContextEvent";
-    static {
-	addResourceClass(MY_URI, ContextEvent.class);
-    }
 
     public static final String CONTEXT_EVENT_URI_PREFIX = "urn:org.universAAL.middleware.context.rdf:ContextEvent#";
 

@@ -48,20 +48,9 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  */
 public abstract class AbsLocation extends ComparableIndividual {
 
-    /**
-     * The URI of the ontology class.
-     * 
-     * @see org.universAAL.middleware.owl.ManagedIndividual#MY_URI
-     */
-    public static final String MY_URI;
-
-    /**
-     * Register all necessary information.
-     */
-    static {
-	MY_URI = uAAL_VOCABULARY_NAMESPACE + "AbsLocation";
-	register(AbsLocation.class);
-    }
+    /** The URI of the ontology class. */
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
+	    + "AbsLocation";
 
     /**
      * Create an abstract location.
@@ -82,20 +71,8 @@ public abstract class AbsLocation extends ComparableIndividual {
 	super();
     }
 
-    /**
-     * Returns a human readable description on the essence of this ontology
-     * class.
-     */
-    public static String getRDFSComment() {
-	return "The root class for all locations.";
-    }
-
-    /**
-     * Returns a label with which this ontology class can be introduced to human
-     * users.
-     */
-    public static String getRDFSLabel() {
-	return "Abstract Location";
+    public String getClassURI() {
+	return MY_URI;
     }
 
     /**

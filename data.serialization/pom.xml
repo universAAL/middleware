@@ -9,7 +9,7 @@
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.data.serialization</artifactId>  
-	<version>0.3.1-SNAPSHOT</version>
+	<version>0.3.2-SNAPSHOT</version>
 	<name>RDF/OWL Turtle serializer</name>
 	<description>The module for message content serialization in Turtle</description>
 	<url />
@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
+			<version>0.3.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>

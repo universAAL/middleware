@@ -19,34 +19,51 @@
  */
 package org.universAAL.middleware.owl;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Hashtable;
 
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.Variable;
 
 /**
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
- *         Tazari</a>
+ * Implementation of XSD Value Restrictions: it contains all individuals that
+ * are connected by the specified property to a value that meets the specified
+ * conditions. These conditions are either:
+ * <ol>
+ * <li>min inclusive</li>
+ * <li>min exclusive</li>
+ * <li>max inclusive</li>
+ * <li>max exclusive</li>
+ * </ol>
  * 
+ * It is possible to define a condition on the min value and on the max value in
+ * the same {@link BoundingValueRestriction}.
+ * 
+ * @author Carsten Stockloew
  */
-public class OrderingRestriction extends Restriction {
+public class BoundingValueRestriction extends AbstractRestriction {
+
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "BoundingValueRestriction";
+    
     // substitutions for Double.MIN_NORMAL & Float.MIN_NORMAL from Java 1.6
     private static final double DOUBLE_SMALLEST_POSITIVE_VALUE = Double
 	    .longBitsToDouble(0x0010000000000000L);
     private static final float FLOAT_SMALLEST_POSITIVE_VALUE = Float
 	    .intBitsToFloat(0x00800000);
 
-    public static final String MY_URI;
     public static final String PROP_VALUE_HAS_MAX_EXCLUSIVE;
     public static final String PROP_VALUE_HAS_MAX_INCLUSIVE;
     public static final String PROP_VALUE_HAS_MIN_EXCLUSIVE;
     public static final String PROP_VALUE_HAS_MIN_INCLUSIVE;
-    public static final String VARIABLE_MAX_VALUE;
-    public static final String VARIABLE_MIN_VALUE;
+
+    private Object min;
+    private Object max;
+    private boolean minInclusive;
+    private boolean maxInclusive;
+    
+    
     static {
-	MY_URI = uAAL_VOCABULARY_NAMESPACE + "OrderingRestriction";
+	// TODO: for now, we use the uaal vocabulary, this has to be changed
+	// to xml names.
 	PROP_VALUE_HAS_MAX_EXCLUSIVE = uAAL_VOCABULARY_NAMESPACE
 		+ "hasMaxExclusive";
 	PROP_VALUE_HAS_MAX_INCLUSIVE = uAAL_VOCABULARY_NAMESPACE
@@ -55,73 +72,65 @@ public class OrderingRestriction extends Restriction {
 		+ "hasMinExclusive";
 	PROP_VALUE_HAS_MIN_INCLUSIVE = uAAL_VOCABULARY_NAMESPACE
 		+ "hasMinInclusive";
-	VARIABLE_MAX_VALUE = uAAL_VOCABULARY_NAMESPACE + "maxValue";
-	VARIABLE_MIN_VALUE = uAAL_VOCABULARY_NAMESPACE + "minValue";
-	register(OrderingRestriction.class, null, null, MY_URI);
+	register(BoundingValueRestriction.class, null,
+		PROP_VALUE_HAS_MAX_EXCLUSIVE, null);
+	register(BoundingValueRestriction.class, null,
+		PROP_VALUE_HAS_MAX_INCLUSIVE, null);
+	register(BoundingValueRestriction.class, null,
+		PROP_VALUE_HAS_MIN_EXCLUSIVE, null);
+	register(BoundingValueRestriction.class, null,
+		PROP_VALUE_HAS_MIN_INCLUSIVE, null);
     }
 
-    public static OrderingRestriction newOrderingRestriction(Object max,
-	    Object min, boolean maxInclusive, boolean minInclusive,
-	    String propURI) {
+    
+    /** Standard constructor for exclusive use by serializers. */
+    public BoundingValueRestriction() {
+    }
+    
+    public BoundingValueRestriction(String propURI, Object min, boolean minInclusive,
+	    Object max, boolean maxInclusive) {
 	if (propURI == null
+		|| min == null
+		|| max == null
 		|| (!(max instanceof Comparable) && !Variable.isVarRef(max)
 			&& !(min instanceof Comparable) && !Variable
 			.isVarRef(min)))
-	    return null;
+	    throw new NullPointerException();
 
 	if (max instanceof Comparable && min instanceof Comparable
 		&& ((Comparable) min).compareTo(max) > 0)
-	    return null;
+	    throw new IllegalArgumentException("min can not be greater than max.");
 
-	OrderingRestriction result = new OrderingRestriction();
-	result.setProperty(PROP_OWL_ON_PROPERTY, propURI);
-	if (max != null)
-	    if (maxInclusive)
-		result.props.put(PROP_VALUE_HAS_MAX_INCLUSIVE, max);
-	    else
-		result.props.put(PROP_VALUE_HAS_MAX_EXCLUSIVE, max);
-	if (min != null)
-	    if (minInclusive)
-		result.props.put(PROP_VALUE_HAS_MIN_INCLUSIVE, min);
-	    else
-		result.props.put(PROP_VALUE_HAS_MIN_EXCLUSIVE, min);
-	return result;
-    }
+	this.min = min;
+	this.max = max;
+	this.minInclusive = minInclusive;
+	this.maxInclusive = maxInclusive;
+	
+	setOnProperty(propURI);
+	if (minInclusive)
+	    super.setProperty(PROP_VALUE_HAS_MIN_INCLUSIVE, min);
+	else
+	    super.setProperty(PROP_VALUE_HAS_MIN_EXCLUSIVE, min);
+	if (maxInclusive)
+	    super.setProperty(PROP_VALUE_HAS_MAX_INCLUSIVE, max);
+	else
+	    super.setProperty(PROP_VALUE_HAS_MAX_EXCLUSIVE, max);
+    }    
+    
 
-    public static OrderingRestriction newOrderingRestriction(Object max,
-	    Object min, boolean maxInclusive, boolean minInclusive,
-	    Restriction toMerge) {
-	if (toMerge == null || toMerge.getOnProperty() == null
-		|| (max == null && min == null))
-	    return null;
-	OrderingRestriction result = newOrderingRestriction(max, min,
-		maxInclusive, minInclusive, toMerge.getOnProperty());
-	for (Enumeration e = toMerge.getPropertyURIs(); e.hasMoreElements();) {
-	    String propURI = (String) e.nextElement();
-	    result.setProperty(propURI, toMerge.getProperty(propURI));
-	}
-	return result;
-    }
-
-    public OrderingRestriction() {
-	super();
-	ArrayList l = new ArrayList(1);
-	l.add(new Resource(MY_URI));
-	props.put(PROP_RDF_TYPE, l);
-    }
-
-    public String getExpressionTypeURI() {
+    public String getClassURI() {
 	return MY_URI;
     }
-
+    
     public Comparable getLowerbound() {
-	Object o = props.get(PROP_VALUE_HAS_MIN_INCLUSIVE);
-	if (o instanceof Comparable)
-	    return (Comparable) o;
-	o = props.get(PROP_VALUE_HAS_MIN_EXCLUSIVE);
-	return (o instanceof Comparable) ? (Comparable) o : null;
+	return (min instanceof Comparable) ? (Comparable) min : null;
     }
 
+    public Comparable getUpperbound() {
+	return (max instanceof Comparable) ? (Comparable) max : null;
+    }
+    
+    
     private Comparable getNext(Comparable c) {
 	if (c instanceof ComparableIndividual)
 	    return ((ComparableIndividual) c).getNext();
@@ -193,92 +202,98 @@ public class OrderingRestriction extends Restriction {
 	// for Boolean, nobody uses OrderingRestriction
 	return null;
     }
-
-    public Comparable getUpperbound() {
-	Object o = props.get(PROP_VALUE_HAS_MAX_INCLUSIVE);
-	if (o instanceof Comparable)
-	    return (Comparable) o;
-	o = props.get(PROP_VALUE_HAS_MAX_EXCLUSIVE);
-	return (o instanceof Comparable) ? (Comparable) o : null;
+    
+    
+    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
+    public ClassExpression copy() {
+	return copyTo(new BoundingValueRestriction());
     }
 
-    public boolean hasMember(Object o, Hashtable context) {
-	if (o == null)
+    /**
+     * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
+     *      Hashtable)
+     */
+    public boolean hasMember(Object member, Hashtable context) {
+	if (member == null)
 	    return true;
 
-	if (super.isWellFormed() && !super.hasMember(o, context))
-	    return false;
+//	if (super.isWellFormed() && !super.hasMember(member, context))
+//	    return false;
 
 	// because it has passed super, it must be a Resource
-	o = Variable.resolveVarRef(((Resource) o).getProperty(getOnProperty()),
+	member = Variable.resolveVarRef(((Resource) member).getProperty(getOnProperty()),
 		context);
-	if (!(o instanceof Comparable))
+	if (!(member instanceof Comparable))
 	    return false;
 
 	Hashtable cloned = (context == null) ? null : (Hashtable) context
 		.clone();
 
-	Object aux = Variable.resolveVarRef(props
-		.get(PROP_VALUE_HAS_MAX_EXCLUSIVE), context);
-	if (aux == null) {
-	    aux = Variable.resolveVarRef(props
-		    .get(PROP_VALUE_HAS_MAX_INCLUSIVE), context);
-	    if (aux != null)
-		if (aux instanceof Variable) {
-		    // we can assign any value greater than o (or event o
-		    // itself) to aux so that o is a member of this ordering
+	Object aux = max;
+	if (aux != null)
+	    if (aux instanceof Variable) {
+		Comparable next = getNext((Comparable) member);
+		if (maxInclusive) {
+		    // we can assign any value greater than member (or event
+		    // member itself) to aux so that member is a member of this
 		    // restriction
 		    // so we try first with the next value and if it cannot be
-		    // determined we take o
-		    Comparable next = getNext((Comparable) o);
+		    // determined we take member
 		    if (next == null)
-			next = (Comparable) o;
-		    cloned.put(aux.toString(), next);
-		} else if (!(aux instanceof Comparable)
-			|| ((Comparable) o).compareTo(aux) > 0)
-		    return false;
-	} else if (aux instanceof Variable) {
-	    // we can assign any value greater than o to aux so that o is a
-	    // member of this ordering restriction
-	    // so we try with the next value
-	    Comparable next = getNext((Comparable) o);
-	    if (next == null)
-		return false;
-	    cloned.put(aux.toString(), next);
-	} else if (!(aux instanceof Comparable)
-		|| ((Comparable) o).compareTo(aux) > -1)
-	    return false;
-
-	aux = Variable.resolveVarRef(props.get(PROP_VALUE_HAS_MIN_EXCLUSIVE),
-		context);
-	if (aux == null) {
-	    aux = Variable.resolveVarRef(props
-		    .get(PROP_VALUE_HAS_MIN_INCLUSIVE), context);
+			next = (Comparable) member;
+		} else {
+		    // we can assign any value greater than member to aux so
+		    // that member is a member of this restriction
+		    // so we try with the next value
+		    if (next == null)
+			return false;
+		}
+		cloned.put(aux.toString(), next);
+	    } else {
+		if (maxInclusive) {
+		    if (!(aux instanceof Comparable)
+			    || ((Comparable) member).compareTo(aux) > 0)
+			return false;
+		} else {
+		    if (!(aux instanceof Comparable)
+			    || ((Comparable) member).compareTo(aux) > -1)
+			return false;
+		}
+	    }
+	
+	aux = min;
+	if (aux != null)
 	    if (aux instanceof Variable) {
-		// we can assign any value less than o (or event o itself) to
-		// aux so that o is a member of this ordering restriction
-		// so we try first with the previous value and if it cannot be
-		// determined we take o
-		Comparable prev = getPrevious((Comparable) o);
-		if (prev == null)
-		    prev = (Comparable) o;
+		Comparable prev = getPrevious((Comparable) member);
+		if (minInclusive) {
+		    // we can assign any value less than member (or event member
+		    // itself) to aux so that member is a member of this
+		    // restriction
+		    // so we try first with the previous value and if it cannot
+		    // be determined we take member
+		    if (prev == null)
+			prev = (Comparable) member;
+		} else {
+		    // we can assign any value less than member to aux so that
+		    // member is a member of this restriction
+		    // so we try with the previous value
+		    if (prev == null)
+			return false;
+		}
 		cloned.put(aux.toString(), prev);
-	    } else if (aux != null
-		    && (!(aux instanceof Comparable) || ((Comparable) aux)
-			    .compareTo(o) > 0))
-		return false;
-	} else if (aux instanceof Variable) {
-	    // we can assign any value less than o to aux so that o is a member
-	    // of this ordering restriction
-	    // so we try with the previous value
-	    Comparable prev = getPrevious((Comparable) o);
-	    if (prev == null)
-		return false;
-	    cloned.put(aux.toString(), prev);
-	} else if (!(aux instanceof Comparable)
-		|| ((Comparable) aux).compareTo(o) > -1)
-	    return false;
-
+	    } else {
+		if (minInclusive) {
+		    if (aux != null
+			    && (!(aux instanceof Comparable) || ((Comparable) aux)
+				    .compareTo(member) > 0))
+			return false;
+		} else {
+		    if (!(aux instanceof Comparable)
+			    || ((Comparable) aux).compareTo(member) > -1)
+			return false;
+		}
+	    }	
+	
 	synchronize(context, cloned);
 	return true;
     }
@@ -288,43 +303,43 @@ public class OrderingRestriction extends Restriction {
      *      Hashtable)
      */
     public boolean isDisjointWith(ClassExpression other, Hashtable context) {
-	if (super.isDisjointWith(other, context))
-	    return true;
-
-	if (other instanceof OrderingRestriction
+	// TODO: change to min/max instance variables
+	if (other instanceof BoundingValueRestriction
 		&& getOnProperty().equals(
-			((OrderingRestriction) other).getOnProperty())) {
+			((BoundingValueRestriction) other).getOnProperty())) {
 	    boolean max1Incl = true, max2Incl = true, min1Incl = true, min2Incl = true;
-	    Object max1 = Variable.resolveVarRef(props
-		    .get(PROP_VALUE_HAS_MAX_EXCLUSIVE), context);
+	    Object max1 = Variable.resolveVarRef(
+		    getProperty(PROP_VALUE_HAS_MAX_EXCLUSIVE), context);
 	    if (max1 == null)
-		max1 = Variable.resolveVarRef(props
-			.get(PROP_VALUE_HAS_MAX_INCLUSIVE), context);
+		max1 = Variable.resolveVarRef(
+			getProperty(PROP_VALUE_HAS_MAX_INCLUSIVE), context);
 	    else
 		max1Incl = false;
-	    Object max2 = Variable.resolveVarRef(
-		    ((OrderingRestriction) other).props
-			    .get(PROP_VALUE_HAS_MAX_EXCLUSIVE), context);
+	    Object max2 = Variable
+		    .resolveVarRef(((BoundingValueRestriction) other)
+			    .getProperty(PROP_VALUE_HAS_MAX_EXCLUSIVE), context);
 	    if (max2 == null)
 		max2 = Variable.resolveVarRef(
-			((OrderingRestriction) other).props
-				.get(PROP_VALUE_HAS_MAX_INCLUSIVE), context);
+			((BoundingValueRestriction) other)
+				.getProperty(PROP_VALUE_HAS_MAX_INCLUSIVE),
+			context);
 	    else
 		max2Incl = false;
-	    Object min1 = Variable.resolveVarRef(props
-		    .get(PROP_VALUE_HAS_MIN_EXCLUSIVE), context);
+	    Object min1 = Variable.resolveVarRef(
+		    getProperty(PROP_VALUE_HAS_MIN_EXCLUSIVE), context);
 	    if (min1 == null)
-		min1 = Variable.resolveVarRef(props
-			.get(PROP_VALUE_HAS_MIN_INCLUSIVE), context);
+		min1 = Variable.resolveVarRef(
+			getProperty(PROP_VALUE_HAS_MIN_INCLUSIVE), context);
 	    else
 		min1Incl = false;
-	    Object min2 = Variable.resolveVarRef(
-		    ((OrderingRestriction) other).props
-			    .get(PROP_VALUE_HAS_MIN_EXCLUSIVE), context);
+	    Object min2 = Variable
+		    .resolveVarRef(((BoundingValueRestriction) other)
+			    .getProperty(PROP_VALUE_HAS_MIN_EXCLUSIVE), context);
 	    if (min2 == null)
 		min2 = Variable.resolveVarRef(
-			((OrderingRestriction) other).props
-				.get(PROP_VALUE_HAS_MIN_INCLUSIVE), context);
+			((BoundingValueRestriction) other)
+				.getProperty(PROP_VALUE_HAS_MIN_INCLUSIVE),
+			context);
 	    else
 		min2Incl = false;
 
@@ -351,7 +366,6 @@ public class OrderingRestriction extends Restriction {
 	    return false;
 
 	return props.containsKey(PROP_OWL_ON_PROPERTY)
-		&& !props.containsKey(PROP_OWL_HAS_VALUE)
 		&& (props.containsKey(PROP_VALUE_HAS_MAX_EXCLUSIVE)
 			|| props.containsKey(PROP_VALUE_HAS_MAX_INCLUSIVE)
 			|| props.containsKey(PROP_VALUE_HAS_MIN_EXCLUSIVE) || props
@@ -362,12 +376,13 @@ public class OrderingRestriction extends Restriction {
      * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
      *      Hashtable)
      */
-    public boolean matches(ClassExpression subtype, Hashtable context) {
-	if (super.isWellFormed() && !super.matches(subtype, context))
-	    return false;
+    public boolean matches(ClassExpression subset, Hashtable context) {
+	Object noRes = matchesNonRestriction(subset, context);
+	if (noRes instanceof Boolean)
+	    return ((Boolean)noRes).booleanValue();
 
-	if (subtype instanceof OrderingRestriction) {
-	    OrderingRestriction other = (OrderingRestriction) subtype;
+	if (subset instanceof BoundingValueRestriction) {
+	    BoundingValueRestriction other = (BoundingValueRestriction) subset;
 	    if (!isWellFormed() || !other.isWellFormed()
 		    || !getOnProperty().equals(other.getOnProperty()))
 		return false;
@@ -582,16 +597,16 @@ public class OrderingRestriction extends Restriction {
 	    return true;
 	}
 
-	// all other cases are already handled correctly in super.matches()
-	return true;
+	return false;
     }
+
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
     public void setProperty(String propURI, Object o) {
-	if (propURI == null || o == null || propURI.equals(PROP_OWL_HAS_VALUE)
-		|| props.containsKey(propURI))
+	if (o == null || propURI == null || props.containsKey(propURI))
 	    return;
-
+	
+	// handle this restriction
 	if (o instanceof Comparable || Variable.isVarRef(o)) {
 	    if (propURI.equals(PROP_VALUE_HAS_MAX_EXCLUSIVE)) {
 		if (props.containsKey(PROP_VALUE_HAS_MAX_INCLUSIVE))
@@ -609,8 +624,29 @@ public class OrderingRestriction extends Restriction {
 		super.setProperty(propURI, o);
 		return;
 	    }
-	    props.put(propURI, o);
-	} else
-	    super.setProperty(propURI, o);
+	}
+	
+	// do not handle other restrictions
+	if (propURI.equals(HasValueRestriction.PROP_OWL_HAS_VALUE)
+		|| propURI
+			.equals(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY)
+		|| propURI
+			.equals(MinCardinalityRestriction.PROP_OWL_MIN_QUALIFIED_CARDINALITY)
+		|| propURI
+			.equals(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY)
+		|| propURI
+			.equals(MaxCardinalityRestriction.PROP_OWL_MAX_QUALIFIED_CARDINALITY)
+		|| propURI
+			.equals(ExactCardinalityRestriction.PROP_OWL_CARDINALITY)
+		|| propURI
+			.equals(ExactCardinalityRestriction.PROP_OWL_QUALIFIED_CARDINALITY)
+		|| propURI
+			.equals(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM)
+		|| propURI
+			.equals(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM))
+	    return;
+	
+	// for everything else: call super
+	super.setProperty(propURI, o);
     }
 }

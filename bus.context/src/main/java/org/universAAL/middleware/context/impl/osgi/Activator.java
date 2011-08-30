@@ -45,7 +45,7 @@ public class Activator implements BundleActivator {
 		.getName() };
 	ContextBusImpl.contentSerializerParams = new Object[] { MessageContentSerializer.class
 		.getName() };
-	ContextBusImpl.loadExportedClasses();
+	ContextBusImpl.startModule();
 	SodaPop sodapop = (SodaPop) context.getService(context
 		.getServiceReference(SodaPop.class.getName()));
 	context.registerService(ContextBus.class.getName(), new ContextBusImpl(
@@ -56,5 +56,6 @@ public class Activator implements BundleActivator {
      * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext context) throws Exception {
+	ContextBusImpl.stopModule();
     }
 }

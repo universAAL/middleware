@@ -20,10 +20,13 @@
 package org.universAAL.middleware.context;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.owl.AbstractRestriction;
 import org.universAAL.middleware.owl.ClassExpression;
-import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -41,10 +44,8 @@ import org.universAAL.middleware.rdf.Resource;
 public class ContextEventPattern extends Resource {
     public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE
 	    + "ContextEventPattern";
-    static {
-	addResourceClass(MY_URI, ContextEventPattern.class);
-    }
 
+    
     public class Indices {
 	private String[] subjects = null, props = null;
 	private String[] subjectTypes = null;
@@ -62,16 +63,34 @@ public class ContextEventPattern extends Resource {
 	}
     }
 
+    // the list of restrictions as set as property of the resource
     private List restrictions;
+    
+    // additional internal management of restrictions
+    // maps the URI of the onProperty (String) to a MergedRestriction
+    private HashMap mergedRestrictions;
+    
     private Indices indices;
 
+    
     public ContextEventPattern() {
 	super();
 	addType(MY_URI, true);
 	indices = new Indices();
 	restrictions = new ArrayList(5);
 	props.put(ClassExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
+	mergedRestrictions = new HashMap();
     }
+    
+    public ContextEventPattern(String instanceURI) {
+	super(instanceURI);
+	addType(MY_URI, true);
+	indices = new Indices();
+	restrictions = new ArrayList(5);
+	props.put(ClassExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
+	mergedRestrictions = new HashMap();
+    }
+   
 
     /**
      * Add a restriction to the pattern, thus narrowing the events that will
@@ -80,7 +99,7 @@ public class ContextEventPattern extends Resource {
      * @param r
      *            The Restriction to add
      */
-    public void addRestriction(Restriction r) {
+    public void addRestriction(MergedRestriction r) {
 	if (r == null)
 	    return;
 
@@ -94,12 +113,13 @@ public class ContextEventPattern extends Resource {
 		|| ContextEvent.PROP_RDF_PREDICATE.equals(prop)
 		|| ContextEvent.PROP_RDF_SUBJECT.equals(prop))
 	    if (propRestrictionAllowed(prop)) {
-		restrictions.add(r);
+		mergedRestrictions.put(r.getOnProperty(), r);
+		restrictions.addAll(r.getRestrictions());
 		if (prop.equals(ContextEvent.PROP_RDF_SUBJECT)) {
 		    ClassExpression type = (ClassExpression) r
-			    .getProperty(Restriction.PROP_OWL_ALL_VALUES_FROM);
+			    .getConstraint(MergedRestriction.allValuesFromID);
 		    Object value = r
-			    .getProperty(Restriction.PROP_OWL_HAS_VALUE);
+			    .getConstraint(MergedRestriction.hasValueID);
 		    indices.subjectTypes = (type == null) ? null : type
 			    .getNamedSuperclasses();
 
@@ -124,13 +144,13 @@ public class ContextEventPattern extends Resource {
 		    }
 		} else if (prop.equals(ContextEvent.PROP_RDF_PREDICATE)) {
 		    Object value = r
-			    .getProperty(Restriction.PROP_OWL_HAS_VALUE);
+			    .getConstraint(MergedRestriction.hasValueID);
 		    indices.props = (value instanceof Resource) ? new String[] { value
 			    .toString() }
 			    : null;
 		    if (indices.props == null) {
 			ClassExpression type = (ClassExpression) r
-				.getProperty(Restriction.PROP_OWL_ALL_VALUES_FROM);
+				.getConstraint(MergedRestriction.allValuesFromID);
 			Object[] elems = (type == null) ? null : type
 				.getUpperEnumeration();
 			if (elems != null) {
@@ -172,8 +192,9 @@ public class ContextEventPattern extends Resource {
 	if (ce == null)
 	    return false;
 
-	for (int i = 0; i < restrictions.size(); i++)
-	    if (!((Restriction) restrictions.get(i)).hasMember(ce, null))
+	Iterator it = mergedRestrictions.values().iterator();
+	while (it.hasNext())
+	    if (!((MergedRestriction) it.next()).hasMember(ce, null))
 		return false;
 
 	return true;
@@ -192,23 +213,22 @@ public class ContextEventPattern extends Resource {
     }
 
     private boolean propRestrictionAllowed(String prop) {
-	for (int i = 0; i < restrictions.size(); i++) {
-	    if (prop
-		    .equals(((Restriction) restrictions.get(i)).getOnProperty()))
-		return false;
-	}
-	return true;
+	return !mergedRestrictions.containsKey(prop);
     }
 
     public void setProperty(String propURI, Object o) {
 	if (ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)) {
-	    if (restrictions.isEmpty()) {
-		if (o instanceof Restriction)
-		    addRestriction((Restriction) o);
-		else if (o instanceof List)
-		    for (int i = 0; i < ((List) o).size(); i++)
-			if (((List) o).get(i) instanceof Restriction)
-			    addRestriction((Restriction) ((List) o).get(i));
+	    if (mergedRestrictions.isEmpty()) {
+		if (o instanceof AbstractRestriction) {
+		    // a single restriction
+		    AbstractRestriction res = (AbstractRestriction) o;
+		    MergedRestriction m = new MergedRestriction(res.getOnProperty());
+		    addRestriction(m);
+		} else if (o instanceof List) {
+		    ArrayList l = MergedRestriction.getFromList((List) o);
+		    for (int i=0; i<l.size(); i++)
+			addRestriction((MergedRestriction) l.get(i));
+		}
 	    }
 	} else
 	    super.setProperty(propURI, o);

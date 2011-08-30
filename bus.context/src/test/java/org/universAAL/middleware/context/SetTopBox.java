@@ -4,6 +4,8 @@
 package org.universAAL.middleware.context;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.owl.OntologyManagement;
+import org.universAAL.middleware.owl.SimpleOntology;
 
 /**
  * @author mtazari
@@ -16,7 +18,8 @@ public class SetTopBox extends ManagedIndividual {
 	static {
 		MY_URI = "http://ontology.aal-persona.org/fake.owl#SetTopBox";
 		HAS_ACTION = "http://ontology.aal-persona.org/fake.owl#hasAction";
-		register(SetTopBox.class);
+		//register(SetTopBox.class);
+	    	OntologyManagement.getInstance().register(new SimpleOntology(MY_URI, ManagedIndividual.MY_URI));
 	}
 	
 	public SetTopBox(String uri) {

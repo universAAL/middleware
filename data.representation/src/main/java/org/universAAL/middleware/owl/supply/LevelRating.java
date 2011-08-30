@@ -20,7 +20,7 @@
 package org.universAAL.middleware.owl.supply;
 
 import org.universAAL.middleware.owl.ComparableIndividual;
-import org.universAAL.middleware.owl.ManagedIndividual;
+
 
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
@@ -28,12 +28,10 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * @author Carsten Stockloew
  */
 public class LevelRating extends ComparableIndividual {
-    public static final String MY_URI;
-    static {
-	MY_URI = uAAL_VOCABULARY_NAMESPACE + "LevelRating";
-	register(LevelRating.class);
-    }
 
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "LevelRating";
+
+    
     public static final int NONE = 0;
     public static final int LOW = 1;
     public static final int MIDDLE = 2;
@@ -62,21 +60,8 @@ public class LevelRating extends ComparableIndividual {
 	this.order = order;
     }
 
-    /**
-     * Returns the list of all class members guaranteeing that no other members
-     * will be created after a call to this method.
-     */
-    public static ManagedIndividual[] getEnumerationMembers() {
-	return new ManagedIndividual[] { none, low, middle, high, full };
-    }
-
-    /**
-     * Returns the level rating with the given URI.
-     */
-    public static ManagedIndividual getIndividualByURI(String instanceURI) {
-	return (instanceURI != null && instanceURI
-		.startsWith(uAAL_VOCABULARY_NAMESPACE)) ? valueOf(instanceURI
-		.substring(uAAL_VOCABULARY_NAMESPACE.length())) : null;
+    public String getClassURI() {
+	return MY_URI;
     }
 
     public static LevelRating getMaxValue() {
@@ -102,22 +87,6 @@ public class LevelRating extends ComparableIndividual {
 	default:
 	    return null;
 	}
-    }
-
-    /**
-     * Returns the value of the property <code>rdfs:comment</code> on this
-     * <code>owl:Class</code> from the underlying ontology.
-     */
-    public static String getRDFSComment() {
-	return "An enumeration for specifying the level of appearance / availability of a phenomen.";
-    }
-
-    /**
-     * Returns the value of the property <code>rdfs:label</code> on this
-     * <code>owl:Class</code> from the underlying ontology.
-     */
-    public static String getRDFSLabel() {
-	return "Level Rating";
     }
 
     public static final LevelRating valueOf(String name) {

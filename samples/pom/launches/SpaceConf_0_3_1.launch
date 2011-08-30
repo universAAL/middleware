@@ -34,12 +34,12 @@
 <mapEntry key="wrap:mvn:java3d/vecmath/1.3.1" value="true@true@2@false"/>
 <mapEntry key="wrap:mvn:org.ops4j.pax.confman/pax-confman-propsloader/0.2.2" value="true@true@3@false"/>
 <mapEntry key="mvn:org.universAAL.ontology/ont.multimedia/0.1.0-SNAPSHOT" value="true@true@6@false"/>
-<mapEntry key="wrap:mvn:org.bouncycastle/jce.jdk13/144" value="true@true@2@false"/>
 <mapEntry key="mvn:org.universAAL.ontology/ont.lighting/0.2.1-SNAPSHOT" value="true@true@6@true"/>
+<mapEntry key="wrap:mvn:org.bouncycastle/jce.jdk13/144" value="true@true@2@false"/>
 <mapEntry key="wrap:mvn:org.ops4j.pax.logging/pax-logging-service/1.4" value="true@true@3@false"/>
 <mapEntry key="wrap:mvn:java3d/j3d-core/1.3.1" value="true@true@2@false"/>
-<mapEntry key="mvn:org.universAAL.samples/smp.lighting.client/0.3.1-SNAPSHOT" value="true@false@11@true"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.container.osgi" value="true@true@2@true"/>
+<mapEntry key="mvn:org.universAAL.samples/smp.lighting.client/0.3.1-SNAPSHOT" value="true@false@11@true"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.data.serialization/0.3.1-SNAPSHOT" value="true@true@4@true"/>
 <mapEntry key="mvn:org.universAAL.ontology/ont.phWorld/0.2.3-SNAPSHOT" value="true@true@6@true"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.bus.io/0.3.1-SNAPSHOT" value="true@true@5@true"/>
@@ -48,8 +48,8 @@
 <mapEntry key="mvn:org.universAAL.tools/tools.log_mon/0.1.0-SNAPSHOT" value="false@false@7@false"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.bus.model" value="true@true@3@true"/>
 <mapEntry key="mvn:org.universAAL.ontology/ont.window/0.2.1-SNAPSHOT" value="true@true@6@false"/>
-<mapEntry key="wrap:mvn:org.osgi/osgi_R4_compendium/1.0" value="true@true@2@false"/>
 <mapEntry key="mvn:org.universAAL.ontology/ont.furniture/0.2.0-SNAPSHOT" value="true@true@6@true"/>
+<mapEntry key="wrap:mvn:org.osgi/osgi_R4_compendium/1.0" value="true@true@2@false"/>
 <mapEntry key="mvn:org.universAAL.samples/smp.lighting.server/0.2.1-SNAPSHOT" value="true@false@10@true"/>
 <mapEntry key="wrap:mvn:org.ops4j.pax.logging/pax-logging-api/1.4" value="true@true@2@false"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.container.xfaces" value="true@true@2@true"/>
@@ -71,12 +71,12 @@
 <listEntry value="wrap:mvn:java3d/vecmath/1.3.1@2"/>
 <listEntry value="wrap:mvn:org.ops4j.pax.confman/pax-confman-propsloader/0.2.2@3"/>
 <listEntry value="mvn:org.universAAL.ontology/ont.multimedia/0.1.0-SNAPSHOT@6"/>
-<listEntry value="wrap:mvn:org.bouncycastle/jce.jdk13/144@2"/>
 <listEntry value="mvn:org.universAAL.ontology/ont.lighting/0.2.1-SNAPSHOT@6@update"/>
+<listEntry value="wrap:mvn:org.bouncycastle/jce.jdk13/144@2"/>
 <listEntry value="wrap:mvn:org.ops4j.pax.logging/pax-logging-service/1.4@3"/>
 <listEntry value="wrap:mvn:java3d/j3d-core/1.3.1@2"/>
-<listEntry value="mvn:org.universAAL.samples/smp.lighting.client/0.3.1-SNAPSHOT@11@nostart@update"/>
 <listEntry value="mvn:org.universAAL.middleware/mw.container.osgi@2@update"/>
+<listEntry value="mvn:org.universAAL.samples/smp.lighting.client/0.3.1-SNAPSHOT@11@nostart@update"/>
 <listEntry value="mvn:org.universAAL.middleware/mw.data.serialization/0.3.1-SNAPSHOT@4@update"/>
 <listEntry value="mvn:org.universAAL.ontology/ont.phWorld/0.2.3-SNAPSHOT@6@update"/>
 <listEntry value="mvn:org.universAAL.middleware/mw.bus.io/0.3.1-SNAPSHOT@5@update"/>
@@ -84,8 +84,8 @@
 <listEntry value="mvn:org.universAAL.middleware/mw.data.representation/0.3.1-SNAPSHOT@4@update"/>
 <listEntry value="mvn:org.universAAL.middleware/mw.bus.model@3@update"/>
 <listEntry value="mvn:org.universAAL.ontology/ont.window/0.2.1-SNAPSHOT@6"/>
-<listEntry value="wrap:mvn:org.osgi/osgi_R4_compendium/1.0@2"/>
 <listEntry value="mvn:org.universAAL.ontology/ont.furniture/0.2.0-SNAPSHOT@6@update"/>
+<listEntry value="wrap:mvn:org.osgi/osgi_R4_compendium/1.0@2"/>
 <listEntry value="mvn:org.universAAL.samples/smp.lighting.server/0.2.1-SNAPSHOT@10@nostart@update"/>
 <listEntry value="wrap:mvn:org.ops4j.pax.logging/pax-logging-api/1.4@2"/>
 <listEntry value="mvn:org.universAAL.middleware/mw.container.xfaces@2@update"/>

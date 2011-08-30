@@ -38,11 +38,9 @@ import org.universAAL.middleware.context.ContextEvent;
  * 
  */
 public class ContextProviderType extends ManagedIndividual {
-    public static final String MY_URI;
-    static {
-	MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE + "ContextProviderType";
-	register(ContextProviderType.class);
-    }
+    
+    public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE + "ContextProviderType";
+
 
     /**
      * The ordering number for controllers, needed for the implementation of the
@@ -85,24 +83,6 @@ public class ContextProviderType extends ManagedIndividual {
     public static final ContextProviderType reasoner = new ContextProviderType(
 	    REASONER);
 
-    /**
-     * Returns the list of all class members guaranteeing that no other members
-     * will be created after a call to this method.
-     */
-    public static ManagedIndividual[] getEnumerationMembers() {
-	return new ManagedIndividual[] { controller, gauge, reasoner };
-    }
-
-    /**
-     * Returns the context provider type with the given URI.
-     */
-    public static ManagedIndividual getIndividualByURI(String instanceURI) {
-	return (instanceURI != null && instanceURI
-		.startsWith(ContextEvent.uAAL_CONTEXT_NAMESPACE)) ? valueOf(instanceURI
-		.substring(ContextEvent.uAAL_CONTEXT_NAMESPACE.length()))
-		: null;
-    }
-
     public static ContextProviderType getProviderByOrder(int order) {
 	switch (order) {
 	case CONTROLLER:
@@ -116,22 +96,6 @@ public class ContextProviderType extends ManagedIndividual {
 	}
     }
 
-    /**
-     * Returns the value of the property <code>rdfs:comment</code> on this
-     * <code>owl:Class</code> from the underlying ontology.
-     */
-    public static String getRDFSComment() {
-	return "An enumeration for the type of context providers.";
-    }
-
-    /**
-     * Returns the value of the property <code>rdfs:label</code> on this
-     * <code>owl:Class</code> from the underlying ontology.
-     */
-    public static String getRDFSLabel() {
-	return "Context Provider Type";
-    }
-
     public static final ContextProviderType valueOf(String name) {
 	for (int i = CONTROLLER; i <= REASONER; i++)
 	    if (names[i].equals(name))
@@ -143,13 +107,16 @@ public class ContextProviderType extends ManagedIndividual {
 
     // prevent the usage of the default constructor
     private ContextProviderType() {
-
     }
 
     // for the internal usage above
     private ContextProviderType(int order) {
 	super(ContextEvent.uAAL_CONTEXT_NAMESPACE + names[order]);
 	this.order = order;
+    }
+
+    public String getClassURI() {
+	return MY_URI;
     }
 
     /**

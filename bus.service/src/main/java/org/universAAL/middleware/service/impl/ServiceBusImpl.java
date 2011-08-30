@@ -21,6 +21,7 @@ package org.universAAL.middleware.service.impl;
 
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AvailabilitySubscriber;
 import org.universAAL.middleware.service.ServiceBus;
@@ -28,6 +29,7 @@ import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.owl.Service;
+import org.universAAL.middleware.service.owl.ServiceBusOntology;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.sodapop.AbstractBus;
 import org.universAAL.middleware.sodapop.BusMember;
@@ -48,6 +50,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public static Object[] busFetchParams;
     public static Object[] contentSerializerParams;
     private static MessageContentSerializer contentSerializer = null;
+    private static ServiceBusOntology serviceOntology = new ServiceBusOntology();
 
     public static synchronized void assessContentSerialization(Resource content) {
 	if (Constants.debugMode()) {
@@ -83,17 +86,12 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	}
     }
 
-    public static void loadExportedClasses() throws ClassNotFoundException {
-	Class.forName("org.universAAL.middleware.service.AggregatingFilter");
-	Class.forName("org.universAAL.middleware.service.ServiceCall");
-	Class.forName("org.universAAL.middleware.service.ServiceRequest");
-	Class.forName("org.universAAL.middleware.service.ServiceResponse");
-	Class
-		.forName("org.universAAL.middleware.service.impl.ServiceRealization");
-	Class
-		.forName("org.universAAL.middleware.service.owl.InitialServiceDialog");
-	Class
-		.forName("org.universAAL.middleware.service.owls.profile.ServiceProfile");
+    public static void startModule() {
+	OntologyManagement.getInstance().register(serviceOntology);
+    }
+    
+    public static void stopModule() {
+	OntologyManagement.getInstance().unregister(serviceOntology);
     }
 
     public ServiceBusImpl(SodaPop g) {

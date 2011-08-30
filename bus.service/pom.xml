@@ -10,7 +10,7 @@
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.bus.service</artifactId>
-	<version>0.3.1-SNAPSHOT</version>
+	<version>0.3.2-SNAPSHOT</version>
 	<name>Service Bus</name>
 	<description>The realization of the service bus on top of Sodapop as part of the universAAL Middleware.</description>
 	<url />
@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
+			<version>0.3.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>

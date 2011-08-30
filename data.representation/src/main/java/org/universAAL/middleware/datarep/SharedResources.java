@@ -8,6 +8,8 @@ import java.util.Hashtable;
 
 import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.owl.DataRepOntology;
+import org.universAAL.middleware.owl.OntologyManagement;
 
 /**
  * @author mtazari
@@ -37,6 +39,9 @@ public class SharedResources {
     public static Dictionary middlewareProps = new Hashtable(4);
     public static Dictionary helpOnMiddlewareProps = new Hashtable(4);
     public static ModuleContext moduleContext;
+    
+    public static DataRepFactory factory = new DataRepFactory();
+    public static DataRepOntology dataRepOntology = new DataRepOntology();
 
     public static Container getContainer() {
 	return moduleContext.getContainer();
@@ -48,19 +53,31 @@ public class SharedResources {
     }
 
     public static void loadReasoningEngine() throws ClassNotFoundException {
+	OntologyManagement.getInstance().register(dataRepOntology);
 	// the subclasses (e.g., Restriction & ClassExpression) will be loaded
 	// automatically
 	Class.forName("org.universAAL.middleware.owl.Complement");
 	Class.forName("org.universAAL.middleware.owl.Enumeration");
 	Class.forName("org.universAAL.middleware.owl.Intersection");
-	Class.forName("org.universAAL.middleware.owl.OrderingRestriction");
+	//Class.forName("org.universAAL.middleware.owl.OrderingRestriction");
 	Class.forName("org.universAAL.middleware.owl.supply.LevelRating");
 	Class.forName("org.universAAL.middleware.owl.supply.Rating");
 	Class.forName("org.universAAL.middleware.owl.TypeURI");
 	Class.forName("org.universAAL.middleware.owl.Union");
-	Class.forName("org.universAAL.middleware.rdf.PropertyPath");
+	//Class.forName("org.universAAL.middleware.rdf.PropertyPath");
+	Class.forName("org.universAAL.middleware.owl.AllValuesFromRestriction");
+	Class.forName("org.universAAL.middleware.owl.BoundingValueRestriction");
+	Class.forName("org.universAAL.middleware.owl.ExactCardinalityRestriction");
+	Class.forName("org.universAAL.middleware.owl.HasValueRestriction");
+	Class.forName("org.universAAL.middleware.owl.MaxCardinalityRestriction");
+	Class.forName("org.universAAL.middleware.owl.MinCardinalityRestriction");
+	Class.forName("org.universAAL.middleware.owl.MergedRestriction");
     }
 
+    public static void unloadReasoningEngine() {
+	OntologyManagement.getInstance().unregister(dataRepOntology);
+    }
+    
     public static void setDefaults() {
 	middlewareProps.put(uAAL_AAL_SPACE_ID, System.getProperty(
 		uAAL_AAL_SPACE_ID,

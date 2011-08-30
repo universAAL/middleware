@@ -1,8 +1,8 @@
 package org.universAAL.middleware.context;
 
 
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.owl.Restriction;
 
 import junit.framework.TestCase;
 
@@ -21,11 +21,11 @@ public class RoundTest extends TestCase {
 		ContextEventPattern cep;
 		cep = new ContextEventPattern();
 		
-		cep.addRestriction(Restriction.getFixedValueRestriction(
+		cep.addRestriction(MergedRestriction.getFixedValueRestriction(
 				ContextEvent.PROP_RDF_SUBJECT,
 				new Resource(ELLA)));
 
-		cep.addRestriction(Restriction.getFixedValueRestriction(
+		cep.addRestriction(MergedRestriction.getFixedValueRestriction(
 				ContextEvent.PROP_RDF_PREDICATE,
 				new Resource(HAS_LOCATION)));
 		
@@ -45,11 +45,11 @@ public class RoundTest extends TestCase {
 		// a second test
 		cep = new ContextEventPattern();
 		
-		cep.addRestriction(Restriction.getAllValuesRestriction(
+		cep.addRestriction(MergedRestriction.getAllValuesRestriction(
 				ContextEvent.PROP_RDF_SUBJECT,
 				SetTopBox.MY_URI));
 
-		cep.addRestriction(Restriction.getFixedValueRestriction(
+		cep.addRestriction(MergedRestriction.getFixedValueRestriction(
 				ContextEvent.PROP_RDF_PREDICATE,
 				new Resource(SetTopBox.HAS_ACTION)));
 

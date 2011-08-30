@@ -93,6 +93,7 @@ public abstract class ClassExpression extends Resource {
      * @param hasProperty
      * @param expressionTypeURI
      */
+    // TODO: hasSuperClass is currently always null, is it really needed? 
     protected static final void register(Class clz, String hasSuperClass,
 	    String hasProperty, String expressionTypeURI) {
 

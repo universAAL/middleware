@@ -39,9 +39,6 @@ public class AggregatingFilter extends Resource {
 	public static final String PROP_uAAL_AGGREGATION_PARAMS = 
 		uAAL_VOCABULARY_NAMESPACE + "aggregationParameters";
 	
-	static {
-		addResourceClass(MY_URI, AggregatingFilter.class);
-	}
 	
 	/**
 	 * Returns true, if function and it's parameters are valid, otherwise false. 
@@ -67,6 +64,11 @@ public class AggregatingFilter extends Resource {
 	 */
 	public AggregatingFilter() {
 		super();
+		addType(MY_URI, true);
+	}
+	
+	public AggregatingFilter(String uri) {
+		super(uri);
 		addType(MY_URI, true);
 	}
 	

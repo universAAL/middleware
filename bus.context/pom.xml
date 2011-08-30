@@ -9,7 +9,7 @@
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.bus.context</artifactId>  
-	<version>0.3.1-SNAPSHOT</version>
+	<version>0.3.2-SNAPSHOT</version>
 	<name>Context Bus</name>
 	<description>The realization of the context bus on top of Sodapop as part of the universAAL Middleware</description>
 	<url />
@@ -38,7 +38,7 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
+			<version>0.3.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>

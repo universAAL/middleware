@@ -693,18 +693,19 @@ public class ServiceStrategy extends BusStrategy {
     }
 
     private Vector getNonAbstractSuperClasses(Service s) {
-	Vector result = new Vector();
-	Class superClass = s.getClass();
-	while (superClass != null) {
-	    if (!Modifier.isAbstract(superClass.getModifiers())) {
-		String uri = ManagedIndividual.getRegisteredClassURI(superClass
-			.getName());
-		if (uri != null)
-		    result.add(uri);
-	    }
-	    superClass = superClass.getSuperclass();
-	}
-	return result;
+	return ManagedIndividual.getNonAbstractSuperClasses(s);
+//	Vector result = new Vector();
+//	Class superClass = s.getClass();
+//	while (superClass != null) {
+//	    if (!Modifier.isAbstract(superClass.getModifiers())) {
+//		String uri = ManagedIndividual.getRegisteredClassURI(superClass
+//			.getName());
+//		if (uri != null)
+//		    result.add(uri);
+//	    }
+//	    superClass = superClass.getSuperclass();
+//	}
+//	return result;
     }
 
     private Object getOutputValue(Hashtable context, AggregatingFilter af) {

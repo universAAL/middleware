@@ -24,8 +24,9 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.owl.AbstractRestriction;
 import org.universAAL.middleware.owl.ManagedIndividual;
-import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
@@ -73,7 +74,6 @@ public abstract class Service extends ManagedIndividual {
 		PROP_OWLS_PRESENTS = OWLS_SERVICE_NAMESPACE + "presents";
 		PROP_OWLS_PRESENTED_BY = OWLS_SERVICE_NAMESPACE + "presentedBy";
 		MY_URI = OWLS_SERVICE_NAMESPACE + "Service";
-		register(Service.class);
 	}
 	
 	/**
@@ -88,11 +88,11 @@ public abstract class Service extends ManagedIndividual {
 	 * @param restrictions a class-level static hash-table for managing restrictions
 	 * @return true, if all constraints held and the restriction could be added; otherwise, false.
 	 */
-	protected static final boolean addRestriction(Restriction r, String[] toPath, Hashtable restrictions) {
+	protected static final boolean addRestriction(MergedRestriction r, String[] toPath, Hashtable restrictions) {
 		if (toPath == null  ||  toPath.length == 0  ||  restrictions == null  ||  r == null)
 			return false;
-		Restriction root = (Restriction) restrictions.get(toPath[0]),
-		            tmp = r.appendTo(root, toPath);
+		MergedRestriction root = (MergedRestriction) restrictions.get(toPath[0]);
+		MergedRestriction tmp = r.appendTo(root, toPath);
 		if (tmp == null)
 			return false;
 		if (root == null)
@@ -101,31 +101,31 @@ public abstract class Service extends ManagedIndividual {
 	}
 	
 	/**
-	 * A restriction previously added by {@link #addRestriction(Restriction, String[], Hashtable)} to
+	 * A restriction previously added by {@link #addRestriction(MergedRestriction, String[], Hashtable)} to
 	 * the given <code>propPath</code> using the same hash-table of <code>restrictions</code> will be
 	 * returned by this method.
 	 */
-	protected static final Restriction getRestrictionOnPropPath(Hashtable restrictions, String[] propPath) {
+	protected static final MergedRestriction getRestrictionOnPropPath(Hashtable restrictions, String[] propPath) {
 		if (propPath == null  ||  propPath.length == 0  ||  restrictions == null)
 			return null;
-		return Restriction.getRestrictionOnPath((Restriction) restrictions.get(propPath[0]), propPath);
+		MergedRestriction m = (MergedRestriction) restrictions.get(propPath[0]);
+		return m == null ? null : m.getRestrictionOnPath(propPath);
+	}
+	
+	/**
+	 * Get a list of all simple restrictions ({@link AbstractRestriction}) from the given hash table
+	 * that have been added by {@link #addRestriction(MergedRestriction, String[], Hashtable)}
+	 */
+	private static final ArrayList getRestrictions(Hashtable restrictions) {
+		ArrayList list = new ArrayList();
+		Iterator it = restrictions.values().iterator();
+		while (it.hasNext()) {
+			MergedRestriction m = (MergedRestriction) it.next();
+			list.addAll(m.getRestrictions());
+		}
+		return list;
 	}
 
-	/**
-	 * Returns the value of the property <code>rdfs:comment</code> on this <code>owl:Class</code>
-	 * from the underlying ontology.
-	 */
-	public static String getRDFSComment() {
-		return "The root of the hierarchy of service classes in universAAL.";
-	}
-
-	/**
-	 * Returns the value of the property <code>rdfs:label</code> on this <code>owl:Class</code>
-	 * from the underlying ontology.
-	 */
-	public static String getRDFSLabel() {
-		return "universAAL Service";
-	}
 	
 	protected Service() {
 		super();
@@ -153,11 +153,11 @@ public abstract class Service extends ManagedIndividual {
 	 * @see #instanceLevelRestrictions
 	 * @see #addRestriction(Restriction, String[], Hashtable)
 	 */
-	public final boolean addInstanceLevelRestriction(Restriction r, String[] toPath) {
+	public final boolean addInstanceLevelRestriction(MergedRestriction r, String[] toPath) {
 		if (addRestriction(r, toPath, instanceLevelRestrictions)) {
-			if (r.getProperty(Restriction.PROP_OWL_HAS_VALUE) != null)
+			if (r.getConstraint(MergedRestriction.hasValueID) != null)
 				props.put(PROP_NUMBER_OF_VALUE_RESTRICTIONS, new Integer(++numberOfValueRestrictions));
-			props.put(PROP_INSTANCE_LEVEL_RESTRICTIONS, new ArrayList(instanceLevelRestrictions.values()));
+			props.put(PROP_INSTANCE_LEVEL_RESTRICTIONS, getRestrictions(instanceLevelRestrictions));
 			return true;
 		}
 		return false;
@@ -169,26 +169,27 @@ public abstract class Service extends ManagedIndividual {
 	 * 
 	 * @see {@link #instanceLevelRestrictions}, which is a similar repository but at instance level
 	 */
-	protected abstract Hashtable getClassLevelRestrictions();
+	//protected abstract Hashtable getClassLevelRestrictions();
 
-	public final Restriction getClassLevelRestrictionOnProp(String propURI) {
-		return (Restriction) getClassLevelRestrictions().get(propURI);
-	}
+	// TODO: not used -> removed for now, until the BDRM is implemented
+//	public final Restriction getClassLevelRestrictionOnProp(String propURI) {
+//		return (Restriction) getClassLevelRestrictions().get(propURI);
+//	}
 	
 	public final Object getInstanceLevelFixedValueOnProp(String propURI) {
 		if (propURI == null)
 			return null;
-		Restriction r = (Restriction) instanceLevelRestrictions.get(propURI);
+		MergedRestriction r = (MergedRestriction) instanceLevelRestrictions.get(propURI);
 		return (r == null)? null
-				: r.getProperty(Restriction.PROP_OWL_HAS_VALUE);
+				: r.getConstraint(MergedRestriction.hasValueID);
 	}
 	
 	/**
 	 * Returns the restriction on the given <code>propPeth</code>, if it was previously added
 	 * to {@link #instanceLevelRestrictions} using {@link #addRestriction(Restriction, String[], java.util.Hashtable)}.
 	 */
-	public final Restriction getInstanceLevelRestrictionOnProp(String propURI) {
-		return (Restriction) instanceLevelRestrictions.get(propURI);
+	public final MergedRestriction getInstanceLevelRestrictionOnProp(String propURI) {
+		return (MergedRestriction) instanceLevelRestrictions.get(propURI);
 	}
 	
 	public final int getNumberOfValueRestrictions() {
@@ -220,7 +221,7 @@ public abstract class Service extends ManagedIndividual {
 	protected void addFilteringInput(String inParamURI, String typeURI, int minCardinality, int maxCardinality, String[] propPath) {
 		ProcessInput in = createInput(inParamURI, typeURI, minCardinality, maxCardinality);
 		addInstanceLevelRestriction(
-				Restriction.getFixedValueRestriction(
+				MergedRestriction.getFixedValueRestriction(
 						propPath[propPath.length-1],
 						in.asVariableReference()),
 				propPath);
@@ -274,10 +275,11 @@ public abstract class Service extends ManagedIndividual {
 	 * #getClassLevelRestrictions()}, it returns the set of properties that are restricted
 	 * at class level.
 	 */
-	public final String[] getRestrictedPropsOnClassLevel() {
-		Hashtable ht = getClassLevelRestrictions();
-		return (String[]) ht.keySet().toArray(new String[ht.size()]);
-	}
+	// TODO: not used -> removed for nor, until the BDRM is implemented
+//	public final String[] getRestrictedPropsOnClassLevel() {
+//		Hashtable ht = getClassLevelRestrictions();
+//		return (String[]) ht.keySet().toArray(new String[ht.size()]);
+//	}
 	
 	/**
 	 * @see ManagedIndividual#getPropSerializationType(java.lang.String)
@@ -315,13 +317,22 @@ public abstract class Service extends ManagedIndividual {
 			if (value instanceof List)
 				for (Iterator i = ((List) value).iterator(); i.hasNext();) {
 					Object o = i.next();
-					if (o instanceof Restriction)
-						instanceLevelRestrictions.put(((Restriction) o).getOnProperty(), o);
-					else
+					if (o instanceof AbstractRestriction) {
+						AbstractRestriction res = (AbstractRestriction) o;
+						// add res as MergedRestriction to instanceLevelRestrictions
+						MergedRestriction m = (MergedRestriction) instanceLevelRestrictions.get(res.getOnProperty());
+						if (m == null)
+						    m = new MergedRestriction(res.getOnProperty());
+						m.addRestriction(res);
+						instanceLevelRestrictions.put(res.getOnProperty(), m);
+					} else
 						return;
 				}
-			else if (value instanceof Restriction) {
-				instanceLevelRestrictions.put(((Restriction) value).getOnProperty(), value);
+			else if (value instanceof AbstractRestriction) {
+				AbstractRestriction res = (AbstractRestriction) value;
+				MergedRestriction m = new MergedRestriction(res.getOnProperty());
+				m.addRestriction(res);
+				instanceLevelRestrictions.put(res.getOnProperty(), m);
 				List aux = new ArrayList(1);
 				aux.add(value);
 				value = aux;

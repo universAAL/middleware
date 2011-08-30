@@ -31,7 +31,7 @@ import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.owl.Enumeration;
 import org.universAAL.middleware.owl.Intersection;
-import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceCall;
@@ -133,12 +133,12 @@ public class LightingProvider extends ServiceCallee implements
 	// however, the following is for both alternatives equal, namely
 
 	// 1) that the event is always about the change of brightness
-	Restriction predicateRestriction = Restriction
+	MergedRestriction predicateRestriction = MergedRestriction
 		.getFixedValueRestriction(ContextEvent.PROP_RDF_PREDICATE,
 			LightSource.PROP_SOURCE_BRIGHTNESS);
 
 	// and 2) that the reported value will always be either 0 or 100
-	Restriction objectRestriction = Restriction
+	MergedRestriction objectRestriction = MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
 			ContextEvent.PROP_RDF_OBJECT, new Enumeration(
 				new Integer[] { new Integer(0),
@@ -156,7 +156,7 @@ public class LightingProvider extends ServiceCallee implements
 
 	// the following is to say that the subject of my context events is
 	// always one single member of the above array
-	Restriction subjectRestriction = Restriction
+	MergedRestriction subjectRestriction = MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
 			ContextEvent.PROP_RDF_SUBJECT,
 			new Enumeration(myLights), 1, 1);
@@ -176,11 +176,11 @@ public class LightingProvider extends ServiceCallee implements
 	// an instance of Room
 	Intersection xsection = new Intersection();
 	xsection.addType(new TypeURI(LightSource.MY_URI, false));
-	xsection.addType(Restriction.getFixedValueRestriction(
+	xsection.addType(MergedRestriction.getFixedValueRestriction(
 		LightSource.PROP_HAS_TYPE, ElectricLight.lightBulb));
-	xsection.addType(Restriction.getAllValuesRestrictionWithCardinality(
+	xsection.addType(MergedRestriction.getAllValuesRestrictionWithCardinality(
 		LightSource.PROP_PHYSICAL_LOCATION, Room.MY_URI, 1, 1));
-	subjectRestriction = Restriction
+	subjectRestriction = MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
 			ContextEvent.PROP_RDF_SUBJECT, xsection, 1, 1);
 
