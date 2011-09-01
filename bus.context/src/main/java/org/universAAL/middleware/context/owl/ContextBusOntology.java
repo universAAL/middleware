@@ -35,16 +35,16 @@ import org.universAAL.middleware.rdf.Resource;
  */
 public class ContextBusOntology extends Ontology {
 
-    public static final String MY_URI = Resource.uAAL_NAMESPACE_PREFIX+"ContextBus.owl#";
+    public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX+"ContextBus.owl#";
 
     private static ContextBusFactory factory = new ContextBusFactory();
     
     public ContextBusOntology() {
-	super(MY_URI);
+	super(NAMESPACE);
 	Resource r = getInfo();
 	r.setResourceComment("Ontology of the universAAL Context Bus");
 	r.setResourceLabel("Context Bus");
-	addImport(DataRepOntology.MY_URI);
+	addImport(DataRepOntology.NAMESPACE);
     }
     
     

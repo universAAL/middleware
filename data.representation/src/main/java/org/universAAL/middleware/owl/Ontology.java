@@ -49,26 +49,46 @@ public abstract class Ontology {
     private Object ontClassInfoURIPermissionCheckSync = new Object();
     
     
+    /**
+     * Standard constructor to create a new ontology.
+     * 
+     * @param ontURI
+     *            The ontology URI. If this is a namespace, i.e. the ontology
+     *            URI including the hash sign, the hash sign is removed.
+     */
     public Ontology(String ontURI) {
-	if (!isValidOntologyURI(ontURI))
+	if ((ontURI = getValidOntologyURI(ontURI)) == null)
 	    throw new IllegalArgumentException("Not a valid Ontology URI:"+ontURI);
 	
 	info = new Resource(ontURI);
 	info.addType(TYPE_OWL_ONTOLOGY, true);
     }
-    
-    private boolean isValidOntologyURI(String ontURI) {
+
+    /**
+     * Test whether the given String is a valid ontology URI. If the URI
+     * includes a trailing hash sign, this hash sign is removed.
+     * 
+     * @param ontURI
+     *            The ontology URI.
+     * @return The ontology URI without trailing hash signs, or null if the
+     *         given value is not a valid ontology URI.
+     */
+    private String getValidOntologyURI(String ontURI) {
 	if (ontURI == null)
-	    return false;
+	    return null;
+	// remove trailing hash signs
+	while (ontURI.endsWith("#")) {
+	    if (ontURI.length() < 2)
+		return null;
+	    ontURI = ontURI.substring(0,ontURI.length()-1);
+	}
 	if (!StringUtils.startsWithURIScheme(ontURI))
-	    return false;
-	if (ontURI.length() == ontURI.lastIndexOf('#'))
-	    return false;
-	return true;
+	    return null;
+	return ontURI;
     }
     
     protected boolean addImport(String ontURI) {
-	if (!isValidOntologyURI(ontURI))
+	if ((ontURI = getValidOntologyURI(ontURI)) == null)
 	    return false;
 	synchronized (imports) {
 	    if (imports.contains(ontURI))
