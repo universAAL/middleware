@@ -32,28 +32,32 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 /**
  * 
  * @author Carsten Stockloew
- *
+ * 
  */
 public class ServiceBusFactory extends ResourceFactoryImpl {
-    
+
     public ServiceBusFactory() {
 	// The classes derived from Resource but not ManagedIndividual do not
 	// have ontological information, there is no OntClassInfo for them, so
 	// the registration of the factory is not done automatically
 	// -> we have to do the registration here.
-	
-	ResourceRegistry.getInstance().registerResourceFactory(AggregatingFilter.MY_URI, this, 0);
-	ResourceRegistry.getInstance().registerResourceFactory(ServiceRequest.MY_URI, this, 1);
-	ResourceRegistry.getInstance().registerResourceFactory(ServiceResponse.MY_URI, this, 2);
-	ResourceRegistry.getInstance().registerResourceFactory(ServiceCall.MY_URI, this, 3);
-	ResourceRegistry.getInstance().registerResourceFactory(ServiceProfile.MY_URI, this, 4);
+
+	ResourceRegistry.getInstance().registerResourceFactory(
+		AggregatingFilter.MY_URI, this, 0);
+	ResourceRegistry.getInstance().registerResourceFactory(
+		ServiceRequest.MY_URI, this, 1);
+	ResourceRegistry.getInstance().registerResourceFactory(
+		ServiceResponse.MY_URI, this, 2);
+	ResourceRegistry.getInstance().registerResourceFactory(
+		ServiceCall.MY_URI, this, 3);
+	ResourceRegistry.getInstance().registerResourceFactory(
+		ServiceProfile.MY_URI, this, 4);
     }
 
-    @Override
-    public Resource createInstance(String classURI, String instanceURI, int factoryIndex) {
+    public Resource createInstance(String classURI, String instanceURI,
+	    int factoryIndex) {
 	// TODO Auto-generated method stub
-	
-	
+
 	switch (factoryIndex) {
 	case 0:
 	    return new AggregatingFilter(instanceURI);
@@ -68,68 +72,67 @@ public class ServiceBusFactory extends ResourceFactoryImpl {
 	case 5:
 	    return new InitialServiceDialog(instanceURI);
 	}
-	
-	
+
 	/*
-	All classes that are sub classes of Resource, the ones marked with '+'
-	are registered (e.g. for deserialisation). State: 2011-07-20
-	
-	+ AggregatingFilter		MY_URI = uAAL_VOCABULARY_NAMESPACE + "AggregatingFilter"
-    	+ ServiceCall			MY_URI = ProcessInput.OWLS_PROCESS_NAMESPACE + "Perform"
-    	+ ServiceRequest		MY_URI = uAAL_VOCABULARY_NAMESPACE + "ServiceRequest"
-    	+ ServiceResponse		MY_URI = uAAL_VOCABULARY_NAMESPACE + "ServiceResponse"
-    	+ ServiceProfile		MY_URI = OWLS_PROFILE_NAMESPACE + "Profile"
-	  AggregationFunction		MY_URI = uAAL_VOCABULARY_NAMESPACE + "AggregationFunction"
-    	  CallStatus			MY_URI = uAAL_VOCABULARY_NAMESPACE + "CallStatus"
-    	  ServiceRealization		MY_URI = uAAL_VOCABULARY_NAMESPACE + "ServiceRealization"
-    	  ProcessInput			MY_URI = OWLS_PROCESS_NAMESPACE + "Input"
-    	  ProcessOutput			MY_URI = OWLS_PROCESS_NAMESPACE + "Output"
-    	  ProcessParameter		MY_URI = OWLS_PROCESS_NAMESPACE + "Parameter"
-    	  ProcessResult			TYPE_OWLS_RESULT = ProcessOutput.OWLS_PROCESS_NAMESPACE + "Result"
-    	  MultiLocationParameter	MY_URI = uAAL_SERVICE_NAMESPACE + "MultiAbsLocationParameter"
-    	  NumberOfSamples		MY_URI = uAAL_SERVICE_NAMESPACE + "NumberOfSamples"
-    	  ProfileParameter		MY_URI = ServiceProfile.OWLS_PROFILE_NAMESPACE + "ServiceParameter"
-    	  QoSRating			MY_URI = uAAL_SERVICE_NAMESPACE + "QoSRating"
-    	  ResponseTimeInMilliseconds	MY_URI = uAAL_SERVICE_NAMESPACE + "ResponseTimeInMilliseconds"
-    	  SingleLocationParameter	MY_URI = uAAL_SERVICE_NAMESPACE + "SingleLocationParameter"
-    	  
-	*/
-    	
-//	if (classURI == null)
-//	    return null;
-//	if (classURI.startsWith(Resource.uAAL_VOCABULARY_NAMESPACE)) {
-//	    String className = classURI.substring(Resource.uAAL_VOCABULARY_NAMESPACE.length());
-//	    if (className.equals("AggregatingFilter"))
-//		return new AggregatingFilter(instanceURI);
-//	    else if (className.equals("ServiceRequest"))
-//		return new ServiceRequest(instanceURI);
-//	    else if (className.equals("ServiceResponse"))
-//		return new ServiceResponse(instanceURI);
-//	} else if (classURI.equals(ServiceCall.MY_URI)) {
-//	    return new ServiceCall(instanceURI);
-//	} else if (classURI.equals(ServiceProfile.MY_URI)) {
-//	    return new ServiceProfile(instanceURI);
-//	}
-    	
-	
-	
+	 * All classes that are sub classes of Resource, the ones marked with
+	 * '+' are registered (e.g. for deserialisation). State: 2011-07-20
+	 * 
+	 * + AggregatingFilter MY_URI = uAAL_VOCABULARY_NAMESPACE +
+	 * "AggregatingFilter" + ServiceCall MY_URI =
+	 * ProcessInput.OWLS_PROCESS_NAMESPACE + "Perform" + ServiceRequest
+	 * MY_URI = uAAL_VOCABULARY_NAMESPACE + "ServiceRequest" +
+	 * ServiceResponse MY_URI = uAAL_VOCABULARY_NAMESPACE +
+	 * "ServiceResponse" + ServiceProfile MY_URI = OWLS_PROFILE_NAMESPACE +
+	 * "Profile" AggregationFunction MY_URI = uAAL_VOCABULARY_NAMESPACE +
+	 * "AggregationFunction" CallStatus MY_URI = uAAL_VOCABULARY_NAMESPACE +
+	 * "CallStatus" ServiceRealization MY_URI = uAAL_VOCABULARY_NAMESPACE +
+	 * "ServiceRealization" ProcessInput MY_URI = OWLS_PROCESS_NAMESPACE +
+	 * "Input" ProcessOutput MY_URI = OWLS_PROCESS_NAMESPACE + "Output"
+	 * ProcessParameter MY_URI = OWLS_PROCESS_NAMESPACE + "Parameter"
+	 * ProcessResult TYPE_OWLS_RESULT = ProcessOutput.OWLS_PROCESS_NAMESPACE
+	 * + "Result" MultiLocationParameter MY_URI = uAAL_SERVICE_NAMESPACE +
+	 * "MultiAbsLocationParameter" NumberOfSamples MY_URI =
+	 * uAAL_SERVICE_NAMESPACE + "NumberOfSamples" ProfileParameter MY_URI =
+	 * ServiceProfile.OWLS_PROFILE_NAMESPACE + "ServiceParameter" QoSRating
+	 * MY_URI = uAAL_SERVICE_NAMESPACE + "QoSRating"
+	 * ResponseTimeInMilliseconds MY_URI = uAAL_SERVICE_NAMESPACE +
+	 * "ResponseTimeInMilliseconds" SingleLocationParameter MY_URI =
+	 * uAAL_SERVICE_NAMESPACE + "SingleLocationParameter"
+	 */
+
+	// if (classURI == null)
+	// return null;
+	// if (classURI.startsWith(Resource.uAAL_VOCABULARY_NAMESPACE)) {
+	// String className =
+	// classURI.substring(Resource.uAAL_VOCABULARY_NAMESPACE.length());
+	// if (className.equals("AggregatingFilter"))
+	// return new AggregatingFilter(instanceURI);
+	// else if (className.equals("ServiceRequest"))
+	// return new ServiceRequest(instanceURI);
+	// else if (className.equals("ServiceResponse"))
+	// return new ServiceResponse(instanceURI);
+	// } else if (classURI.equals(ServiceCall.MY_URI)) {
+	// return new ServiceCall(instanceURI);
+	// } else if (classURI.equals(ServiceProfile.MY_URI)) {
+	// return new ServiceProfile(instanceURI);
+	// }
+
 	/*
-	All classes that are sub classes of ManagedIndividual, the ones marked
-	with '+' are registered (e.g. for deserialisation). State: 2011-07-20
-	
-	+ InitialServiceDialog	MY_URI = uAAL_SERVICE_NAMESPACE + "InitialServiceDialog"
-	+ UserInterfaceService	MY_URI = uAAL_SERVICE_NAMESPACE + "UserInterfaceService"
-	+ Service		MY_URI = OWLS_SERVICE_NAMESPACE + "Service"
-	
-	*/
-	
-//	if (classURI.equals(InitialServiceDialog.MY_URI))
-//	    return new InitialServiceDialog(instanceURI);
-    	
+	 * All classes that are sub classes of ManagedIndividual, the ones
+	 * marked with '+' are registered (e.g. for deserialisation). State:
+	 * 2011-07-20
+	 * 
+	 * + InitialServiceDialog MY_URI = uAAL_SERVICE_NAMESPACE +
+	 * "InitialServiceDialog" + UserInterfaceService MY_URI =
+	 * uAAL_SERVICE_NAMESPACE + "UserInterfaceService" + Service MY_URI =
+	 * OWLS_SERVICE_NAMESPACE + "Service"
+	 */
+
+	// if (classURI.equals(InitialServiceDialog.MY_URI))
+	// return new InitialServiceDialog(instanceURI);
 	return null;
     }
 
-    @Override
     public Resource castAs(Resource r, String classURI) {
 	// TODO Auto-generated method stub
 	return null;

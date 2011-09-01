@@ -19,7 +19,8 @@
  */
 package org.universAAL.middleware.context.impl;
 
-import org.universAAL.middleware.context.*;
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceRegistry;
@@ -28,7 +29,7 @@ import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 /**
  * 
  * @author Carsten Stockloew
- *
+ * 
  */
 public class ContextBusFactory extends ResourceFactoryImpl {
 
@@ -37,16 +38,16 @@ public class ContextBusFactory extends ResourceFactoryImpl {
 	// have ontological information, there is no OntClassInfo for them, so
 	// the registration of the factory is not done automatically
 	// -> we have to do the registration here.
-	
-	ResourceRegistry.getInstance().registerResourceFactory(ContextEvent.MY_URI, this, 0);
-	ResourceRegistry.getInstance().registerResourceFactory(ContextEventPattern.MY_URI, this, 1);
+
+	ResourceRegistry.getInstance().registerResourceFactory(
+		ContextEvent.MY_URI, this, 0);
+	ResourceRegistry.getInstance().registerResourceFactory(
+		ContextEventPattern.MY_URI, this, 1);
     }
-    
-    @Override
+
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {
 
-	
 	switch (factoryIndex) {
 	case 0:
 	    return new ContextEvent(instanceURI);
@@ -55,7 +56,7 @@ public class ContextBusFactory extends ResourceFactoryImpl {
 	case 2:
 	    return new ContextProvider(instanceURI);
 	}
-	
+
 	return null;
     }
 }
