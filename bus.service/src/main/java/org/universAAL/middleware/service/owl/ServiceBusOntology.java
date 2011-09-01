@@ -35,17 +35,17 @@ import org.universAAL.middleware.service.impl.ServiceBusFactory;
  */
 public class ServiceBusOntology extends Ontology {
 
-    public static final String MY_URI = Resource.uAAL_NAMESPACE_PREFIX
+    public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX
 	    + "ServiceBus.owl#";
 
     private static ServiceBusFactory factory = new ServiceBusFactory();
 
     public ServiceBusOntology() {
-	super(MY_URI);
+	super(NAMESPACE);
 	Resource r = getInfo();
 	r.setResourceComment("Ontology of the universAAL Service Bus");
 	r.setResourceLabel("Service Bus");
-	addImport(DataRepOntology.MY_URI);
+	addImport(DataRepOntology.NAMESPACE);
     }
 
     public void create() {

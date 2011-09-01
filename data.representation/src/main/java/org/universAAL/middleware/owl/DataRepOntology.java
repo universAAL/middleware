@@ -33,10 +33,10 @@ import org.universAAL.middleware.rdf.Resource;
  */
 public class DataRepOntology extends Ontology {
     
-    public static final String MY_URI = Resource.uAAL_NAMESPACE_PREFIX+"DataRepresentation.owl#";
+    public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX+"DataRepresentation.owl#";
 
     public DataRepOntology() {
-	super(MY_URI);
+	super(NAMESPACE);
 	Resource r = getInfo();
 	r.setResourceComment("Ontology of the universAAL Basic Data Representation Model");
 	r.setResourceLabel("Basic Data Representation Model");
