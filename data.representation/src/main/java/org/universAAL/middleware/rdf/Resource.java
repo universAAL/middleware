@@ -510,13 +510,14 @@ public class Resource {
     }
 
     /**
-     * Get the name space which is the part of the URI before the delimiter
-     * ('#').
+     * Get the namespace of the URI which is the start of the URI including the
+     * delimiter ('#'). It is the URI without the local name.
      * 
      * @see #getLocalName()
      */
     public final String getNamespace() {
-	return (ns_delim_index < 0) ? null : uri.substring(0, ns_delim_index);
+	return (ns_delim_index < 0) ? null : uri.substring(0,
+		ns_delim_index + 1);
     }
 
     /** Get the RDF object for a specified property. */
