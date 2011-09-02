@@ -109,12 +109,11 @@ public abstract class Ontology {
     
     public abstract void create();
     
+    /** Internal method. */
     public final boolean checkPermission(String uri) {
 	if (uri == null)
 	    return false;
-	if (uri.equals(ontClassInfoURIPermissionCheck))
-	    return true;
-	return false;
+	return uri.equals(ontClassInfoURIPermissionCheck);
     }
     
     
