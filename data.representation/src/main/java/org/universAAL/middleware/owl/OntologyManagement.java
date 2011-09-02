@@ -38,6 +38,9 @@ public class OntologyManagement {
     // ArrayList of Ontology
     private volatile ArrayList pendingOntologies = new ArrayList();
 
+    private String ontClassInfoURIPermissionCheck = null;
+
+    
     private OntologyManagement() {
     }
 
@@ -101,9 +104,21 @@ public class OntologyManagement {
 	    tempOntologies.put(ont.getInfo().getURI(), ont);
 
 	    tempOntClassInfoMap.putAll(ontClassInfoMap);
-	    for (int i = 0; i < ontClassInfos.length; i++)
-		tempOntClassInfoMap.put(ontClassInfos[i].getURI(),
-			ontClassInfos[i]);
+	    for (int i = 0; i < ontClassInfos.length; i++) {
+		OntClassInfo info = ontClassInfos[i];
+		ontClassInfoURIPermissionCheck = info.getURI();
+		
+		OntClassInfo combined = (OntClassInfo) ontClassInfoMap.get(info.getURI());
+		if (combined == null) {
+		    // if it does not not exist, add simple cloned one
+		    tempOntClassInfoMap.put(info.getURI(), info.clone());
+		} else {
+		    // if it exists: add extender
+		    combined.addExtender(info);
+		}
+		
+		ontClassInfoURIPermissionCheck = null;
+	    }
 
 	    // set temp as new set of ontologies
 	    ontologies = tempOntologies;
@@ -150,5 +165,12 @@ public class OntologyManagement {
 	    return true;
 
 	return false;
+    }
+
+    /** Internal method. */
+    public final boolean checkPermission(String uri) {
+	if (uri == null)
+	    return false;
+	return uri.equals(ontClassInfoURIPermissionCheck);
     }
 }
