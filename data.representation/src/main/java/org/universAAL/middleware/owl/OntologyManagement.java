@@ -25,7 +25,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 
 public class OntologyManagement {
-    
+
     // Singleton instance
     private static OntologyManagement instance = new OntologyManagement();
 
@@ -37,32 +37,31 @@ public class OntologyManagement {
 
     // ArrayList of Ontology
     private volatile ArrayList pendingOntologies = new ArrayList();
-    
-    
+
     private OntologyManagement() {
     }
-    
+
     /** Get the Singleton instance. */
     public static final OntologyManagement getInstance() {
 	return instance;
     }
 
-    
     private void removePendingOntology(Ontology ont) {
 	synchronized (pendingOntologies) {
 	    ArrayList newPendingOntologies = new ArrayList(pendingOntologies
 		    .size() - 1);
-	    for (int i = 0; i<pendingOntologies.size(); i++)
+	    for (int i = 0; i < pendingOntologies.size(); i++)
 		if (pendingOntologies.get(i) != ont)
 		    newPendingOntologies.add(ont);
 	    pendingOntologies = newPendingOntologies;
 	}
     }
-    
 
     /**
      * Register a new ontology.
-     * @param ont the ontology.
+     * 
+     * @param ont
+     *            the ontology.
      * @return false, if the Ontology is already available.
      */
     public boolean register(Ontology ont) {
@@ -74,52 +73,63 @@ public class OntologyManagement {
 	    newPendingOntologies.add(ont);
 	    pendingOntologies = newPendingOntologies;
 	}
-	
-	// create the ontology
+
+	// create and lock the ontology
 	ont.create();
-	
+	ont.lock();
+
 	// add ontology to set of ontologies
-	HashMap tempOntologies = new HashMap(ontologies.size()+1);
-	OntClassInfo[] ontClassInfos = ont.getOntClassInfo();
-	HashMap tempOntClassInfoMap = new HashMap(ontClassInfoMap.size()+ontClassInfos.length);
 	synchronized (ontologies) {
+	    // don't add if already existing
 	    if (ontologies.containsKey(ont.getInfo().getURI())) {
 		removePendingOntology(ont);
 		return false;
 	    }
-	    LogUtils.logDebug(SharedResources.moduleContext, OntologyManagement.class, "register", new Object[] { "Registering ontology: ", ont.getInfo().getURI()}, null);
+
+	    // copy all existing ontologies to temp
+	    HashMap tempOntologies = new HashMap(ontologies.size() + 1);
+	    OntClassInfo[] ontClassInfos = ont.getOntClassInfo();
+	    HashMap tempOntClassInfoMap = new HashMap(ontClassInfoMap.size()
+		    + ontClassInfos.length);
+
+	    // add new ontology
+	    LogUtils.logDebug(SharedResources.moduleContext,
+		    OntologyManagement.class, "register", new Object[] {
+			    "Registering ontology: ", ont.getInfo().getURI() },
+		    null);
 	    tempOntologies.putAll(ontologies);
 	    tempOntologies.put(ont.getInfo().getURI(), ont);
-	    
+
 	    tempOntClassInfoMap.putAll(ontClassInfoMap);
-	    for (int i=0; i<ontClassInfos.length; i++)
-		tempOntClassInfoMap.put(ontClassInfos[i].getURI(), ontClassInfos[i]);
-	    
+	    for (int i = 0; i < ontClassInfos.length; i++)
+		tempOntClassInfoMap.put(ontClassInfos[i].getURI(),
+			ontClassInfos[i]);
+
+	    // set temp as new set of ontologies
 	    ontologies = tempOntologies;
 	    ontClassInfoMap = tempOntClassInfoMap;
 	}
-	
+
 	// remove from pending
 	removePendingOntology(ont);
-	
+
 	return true;
     }
-    
+
     public void unregister(Ontology ont) {
 	// TODO
     }
 
-    
     public Ontology getOntology(String uri) {
 	return (Ontology) ontologies.get(uri);
     }
-    
+
     public OntClassInfo getOntClassInfo(String classURI) {
 	if (classURI == null)
 	    return null;
 	return (OntClassInfo) ontClassInfoMap.get(classURI);
     }
-    
+
     public boolean isRegisteredClass(String classURI, boolean includePending) {
 	// test registered classes
 	if (ontClassInfoMap.containsKey(classURI))
@@ -138,7 +148,7 @@ public class OntologyManagement {
 	// pending ontologies)
 	if (ontClassInfoMap.containsKey(classURI))
 	    return true;
-	
+
 	return false;
     }
 }

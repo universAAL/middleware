@@ -48,6 +48,7 @@ public abstract class Ontology {
     private String ontClassInfoURIPermissionCheck = null;
     private Object ontClassInfoURIPermissionCheckSync = new Object();
     
+    private boolean locked = false;
     
     /**
      * Standard constructor to create a new ontology.
@@ -141,6 +142,8 @@ public abstract class Ontology {
 
     protected OntClassInfoSetup createNewOntClassInfo(String classURI,
 	    ResourceFactory fac, int factoryIndex) {
+	if (locked)
+	    return null;
 	OntClassInfoSetup setup = newOntClassInfo(classURI, fac, factoryIndex);
 	OntClassInfo info = setup.getInfo();
 
@@ -154,6 +157,8 @@ public abstract class Ontology {
     }
 
     protected OntClassInfoSetup extendExistingOntClassInfo(String classURI) {
+	if (locked)
+	    return null;
 	OntClassInfoSetup setup = newOntClassInfo(classURI, null, 0);
 	OntClassInfo info = setup.getInfo();
 
@@ -168,6 +173,8 @@ public abstract class Ontology {
     
     private final OntClassInfoSetup newOntClassInfo(String classURI, ResourceFactory fac,
 	    int factoryIndex) {
+	if (locked)
+	    return null;
 	OntClassInfoSetup setup = null;
 	synchronized (ontClassInfoURIPermissionCheckSync) {
 	    ontClassInfoURIPermissionCheck = classURI;
@@ -186,5 +193,24 @@ public abstract class Ontology {
 	while (it.hasNext())
 	    lst[i++] = (Resource) it.next();
 	return lst;
+    }
+    
+    public void lock() {
+	// lock this ontology
+	locked = true;
+	
+	// lock all elements
+	synchronized (ontClassInfoMap) {
+	    Iterator it = ontClassInfoMap.keySet().iterator();
+	    while (it.hasNext())
+		((OntClassInfo) ontClassInfoMap.get(it.next())).lock();
+	}
+	synchronized (extendedOntClassInfoMap) {
+	    Iterator it = extendedOntClassInfoMap.keySet().iterator();
+	    while (it.hasNext())
+		((OntClassInfo) extendedOntClassInfoMap.get(it.next())).lock();
+	}
+	
+	// TODO: lock/immutable info
     }
 }

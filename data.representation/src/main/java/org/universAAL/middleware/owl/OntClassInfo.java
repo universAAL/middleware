@@ -60,6 +60,8 @@ public final class OntClassInfo extends Resource {
     private ResourceFactory factory;
     private Ontology ont;
     
+    private boolean locked = false;
+
     private PrivateSetup setup = null;
 
     
@@ -322,5 +324,9 @@ public final class OntClassInfo extends Resource {
 
     public ManagedIndividual getInstanceByURI(String uri) {
 	return (ManagedIndividual) instances.get(uri);
+    }
+    
+    public void lock() {
+	locked = true;
     }
 }
