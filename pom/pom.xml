@@ -214,8 +214,10 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>2.5</version>
 			</plugin>
-			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>cobertura-maven-plugin</artifactId> 
-				</plugin> -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
@@ -267,7 +269,9 @@
 		<!-- Default configuration for compiler source and target JVM -->
 		<maven.compile.source>1.5</maven.compile.source>
 		<maven.compile.target>1.5</maven.compile.target>
-		<!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
+		<!--
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		-->
 	</properties>
 
 	<distributionManagement>
