@@ -848,10 +848,13 @@ public class Resource {
 	prefix += "  ";
 	s += prefix + "URI: " + getURI();
 
-	if (visitedElements.get(this) != null) {
-	    // this element has been visited before
-	    s += " --> \n";
-	    return s;
+	Resource visited = (Resource) visitedElements.get(this);
+	if (visited != null) {
+	    if (visited == this) {
+		// this element has been visited before
+		s += " --> \n";
+		return s;
+	    }
 	}
 	visitedElements.put(this, this);
 	s += "\n";
