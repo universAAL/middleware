@@ -26,6 +26,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +35,8 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.owl.OntClassInfo;
+import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.sodapop.msg.Message;
@@ -96,14 +99,14 @@ public class TurtleWriter {
     private Hashtable namespaceTable;
 
     /**
-     * The set of serialization data for anonymous Resources; maps Resources to
-     * {@link SerData}.
+     * The set of serialization data for <i>anonymous</i> Resources; maps
+     * Resources to {@link SerData}.
      */
     private Hashtable bNodes;
 
     /**
-     * The set of serialization data for non-anonymous Resources; maps Resources
-     * to {@link SerData}.
+     * The set of serialization data for <i>non-anonymous</i> Resources; maps
+     * Resources to {@link SerData}.
      */
     private Hashtable uriNodes;
 
@@ -124,6 +127,11 @@ public class TurtleWriter {
 
     /** Indentation: denotes the number of spaces in front of the current line. */
     private int embedLevel;
+
+    /** Counter for URIs of blind nodes. */
+    private int counter = 0;
+    
+    private boolean isOntology = false;
 
     /** Create a new instance with the specified output stream and indentation. */
     private TurtleWriter(Writer writer, int embedLevel) {
@@ -149,20 +157,23 @@ public class TurtleWriter {
      * @return The serialized String.
      */
     static String serialize(Object o, int embedLevel) {
-	if (!(o instanceof Resource)) {
+	if (!(o instanceof Resource || o instanceof Ontology)) {
 	    LogUtils
 		    .logError(
 			    TurtleUtil.moduleContext,
 			    TurtleWriter.class,
 			    "serialize",
-			    new Object[] { "Cannot serialize objects other than instances of Resource!" },
+			    new Object[] { "Cannot serialize objects other than instances of Resource or Ontology!" },
 			    null);
 	    return null;
 	}
 
 	StringWriter sw = new StringWriter(4096);
 	try {
-	    new TurtleWriter(sw, embedLevel).serialize((Resource) o);
+	    if (o instanceof Resource)
+		new TurtleWriter(sw, embedLevel).serialize((Resource) o);
+	    else
+		new TurtleWriter(sw, embedLevel).serialize((Ontology) o);
 	    return sw.toString();
 	} catch (IOException e) {
 	    LogUtils.logError(TurtleUtil.moduleContext, TurtleWriter.class,
@@ -329,7 +340,6 @@ public class TurtleWriter {
     private void finalizeNodes(Resource root, Hashtable nsTable) {
 
 	String prefix = "_:BN";
-	int counter = 0;
 
 	for (Iterator i = bNodes.keySet().iterator(); i.hasNext();) {
 	    Resource r = (Resource) i.next();
@@ -464,6 +474,81 @@ public class TurtleWriter {
 	firstPropWritten = true;
     }
 
+//    private void printSerData() {
+//	for (Iterator it = bNodes.keySet().iterator(); it.hasNext();) {
+//	    Object o = it.next();
+//	    SerData d1 = (SerData) bNodes.get(o);
+//	    System.out.println("bNodes: " + o + " nodeid: " + d1.nodeID + " types: " + d1.types + " refs: " + d1.refs);
+//	}
+//	for (Iterator it = uriNodes.keySet().iterator(); it.hasNext();) {
+//	    Object o = it.next();
+//	    SerData d1 = (SerData) uriNodes.get(o);
+//	    System.out.println("uriNodes: " + o + " nodeid: " + d1.nodeID + " types: " + d1.types + " refs: " + d1.refs);
+//	}
+//    }
+
+    /**
+     * Serialization of an ontology. This method first analyzes the graph
+     * (e.g. to get the namespaces) and then writes the data to the output
+     * stream.
+     */
+    void serialize(Ontology ont) throws IOException {
+	// Note: not the most performant realization, but ontologies are assumed
+	// to be serialized not very often
+	if (writingStarted)
+	    throw new RuntimeException("Document writing has already started");
+
+	// get prepared
+	writingStarted = true;
+	isOntology = true;
+	Hashtable nsTable = new Hashtable();
+	Resource[] infos = ont.getResourceList();
+	SerData d[] = new SerData[infos.length];
+	Resource res;
+	
+	// analyze all classes
+	for (int i=0; i<infos.length; i++) {
+	    d[i] = new SerData();
+	    d[i].redType = Resource.PROP_SERIALIZATION_FULL;
+	    res = infos[i];
+	    (res.isAnon() ? bNodes : uriNodes).put(res, d[i]);
+	    //System.out.println("Analyzing Resource: " + res.toStringRecursive());
+	    analyzeResource(res, nsTable);
+	    finalizeNodes(res, nsTable);
+	    d[i].refs--;
+	    bNodes.clear();
+	    uriNodes.clear();
+	}
+	
+	//printSerData();
+	
+	// serialize
+	counter = 0;
+	Hashtable dummyNsTable = new Hashtable();
+	writeEOL();
+	writeNamespaces(nsTable);
+	for (int i=0; i<infos.length; i++) {
+	    res = infos[i];
+	    //System.out.println("Writing Resource: " + res.toStringRecursive());
+	    //writer.write("--- Writing Resource: " + res.toString() + "\n");
+	    
+	    (res.isAnon() ? bNodes : uriNodes).put(res, d[i]);
+
+	    analyzeResource(res, dummyNsTable);
+	    finalizeNodes(res, dummyNsTable);
+	    d[i].refs--;
+	    
+	    writeResource(res);
+	    
+	    bNodes.clear();
+	    uriNodes.clear();
+	}
+
+	// close
+	writer.flush();
+	writingStarted = false;
+    }
+    
     /**
      * Serialization of the RDF graph. This method first analyzes the graph
      * (e.g. to get the namespaces) and then writes the data to the output
@@ -483,6 +568,8 @@ public class TurtleWriter {
 	finalizeNodes(root, nsTable);
 	d.refs--;
 
+	//printSerData();
+	    
 	// serialize
 	writeEOL();
 	writeNamespaces(nsTable);
@@ -608,6 +695,7 @@ public class TurtleWriter {
 
     /** Write a Resource to the output stream. */
     private void writeResource(Resource res) throws IOException {
+	//System.out.println("writeResource: " + res);
 	SerData d = (SerData) bNodes.get(res);
 	if (d == null) {
 	    d = (SerData) uriNodes.get(res);
@@ -647,7 +735,8 @@ public class TurtleWriter {
 			res = null;
 		}
 		if (res != null)
-		    writeResource(res);
+		    if (!isOntology || embedLevel != 0)
+			writeResource(res);
 	    } else if (d.refs == -1)
 		uriNodes.remove(res);
 	} else {

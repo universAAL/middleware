@@ -24,4 +24,10 @@ public interface OntClassInfoSetup {
     public void setResourceComment(String comment);
     
     public void setResourceLabel(String label);
+    
+    public void addEquivalentClass(ClassExpression eq);
+    
+    public void addDisjointClass(ClassExpression dj);
+    
+    public void setComplementClass(ClassExpression complement);
 }
