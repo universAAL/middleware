@@ -20,8 +20,9 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Iterator;
 
 import org.universAAL.middleware.rdf.Resource;
@@ -39,15 +40,18 @@ public final class OntClassInfo extends Resource implements Cloneable {
      */
     // (getstandardproperty()?)
     // maps property property URIs to MergedRestriction
-    private Hashtable propRestriction = new Hashtable();
+    private HashMap propRestriction = new HashMap();
 
     // set of URIs
-    private HashSet namedSuperClasses = new HashSet();
+    private volatile HashSet namedSuperClasses = new HashSet();
 
     /**
      * repository of all known (non-anonymous) instances.
      */
-    private Hashtable instances = new Hashtable();
+    private HashMap instances = new HashMap();
+
+    // the combined list of all superclasses as set in the RDF graph
+    private volatile ArrayList combinedSuperClasses = new ArrayList();
 
     // Members of all the following arrays are instances of {@link
     // ClassExpression}.
@@ -121,7 +125,27 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	    if (r == null)
 		throw new NullPointerException(
 			"The restriction must be not null.");
-	    propRestriction.put(r.getOnProperty(), r);
+	    
+	    r = (MergedRestriction) r.copy();
+	    
+	    if (propRestriction.containsKey(r.getOnProperty()))
+		// a restriction for this property already exists
+		throw new IllegalAccessError(
+			"A restriction for this property (" + r.getOnProperty()
+				+ ")already exists. It can't be overwritten");
+	    
+	    // add to local variable
+	    HashMap tmp = new HashMap(propRestriction);
+	    tmp.put(r.getOnProperty(), r);
+	    propRestriction = tmp;
+
+	    // add to RDF graph: don't add the MergedRestriction directly, but
+	    // the list of simple restrictions
+	    ArrayList al = new ArrayList(combinedSuperClasses);
+	    al.addAll(r.types);
+	    combinedSuperClasses = al;
+	    setProperty(ClassExpression.PROP_RDFS_SUB_CLASS_OF, Collections
+			.unmodifiableList(combinedSuperClasses));
 	}
 
 	public void addSuperClass(ClassExpression superClass) {
@@ -159,7 +183,18 @@ public final class OntClassInfo extends Resource implements Cloneable {
 		return;
 	    if (namedSuperClass == null)
 		return;
-	    namedSuperClasses.add(namedSuperClass);
+	    
+	    // add to local variable
+	    HashSet tmp = new HashSet(namedSuperClasses);
+	    tmp.add(namedSuperClass);
+	    namedSuperClasses = tmp;
+
+	    // add to RDF graph
+	    ArrayList al = new ArrayList(combinedSuperClasses);
+	    al.add(new Resource(namedSuperClass));
+	    combinedSuperClasses = al;
+	    setProperty(ClassExpression.PROP_RDFS_SUB_CLASS_OF, Collections
+			.unmodifiableList(combinedSuperClasses));
 	}
 
 	public void toEnumeration(ManagedIndividual[] individuals) {
@@ -185,6 +220,22 @@ public final class OntClassInfo extends Resource implements Cloneable {
 		return;
 	    info.setResourceLabel(label);
 	}
+
+	public void addEquivalentClass(ClassExpression eq) {
+	    if (locked)
+		return;
+	    // TODO
+	}
+
+	public void addDisjointClass(ClassExpression dj) {
+	    // TODO Auto-generated method stub
+	    
+	}
+
+	public void setComplementClass(ClassExpression complement) {
+	    // TODO Auto-generated method stub
+	    
+	}
     }
 
     private OntClassInfo(String classURI, Ontology ont,
@@ -205,6 +256,7 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	this.factory = factory;
 	this.ont = ont;
 	setup = new PrivateSetup(this);
+	addType(ClassExpression.OWL_CLASS, true);
     }
 
     public static OntClassInfoSetup create(String classURI, Ontology ont,
@@ -302,7 +354,6 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	return (String[]) propRestriction.keySet().toArray();
     }
 
-    // public MergedRestriction getRestrictionsOnProp(String propURI) {
     public MergedRestriction getRestrictionsOnProp(String propURI) {
 	// check this class
 	MergedRestriction r;
@@ -353,59 +404,8 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	    throw new IllegalAccessError(
 		    "The given class is not defined in the context of the given ontology.");
 
-	// add the extender
-	// 'this' is the combined version
-	if (extenders.size() == 1) {
-	    OntClassInfo extender = (OntClassInfo) extenders.get(0);
-
-	    if (extender.propRestriction == propRestriction) {
-		// this is the first extender
-		// -> the combined version is the cloned version of this object
-		// -> make the combined version a "real" clone
-		// -> create new objects of all fields and copy everything from
-		// info
-		// and parent to 'this'
-
-		propRestriction = new Hashtable();
-		propRestriction.putAll(extender.propRestriction);
-
-		namedSuperClasses = new HashSet();
-		namedSuperClasses.addAll(extender.namedSuperClasses);
-
-		instances = new Hashtable();
-		instances.putAll(extender.instances);
-
-		superClasses = new ArrayList();
-		superClasses.addAll(extender.superClasses);
-
-		equivalentClasses = new ArrayList();
-		equivalentClasses.addAll(extender.equivalentClasses);
-
-		disjointClasses = new ArrayList();
-		disjointClasses.addAll(extender.disjointClasses);
-
-		setup = new PrivateSetup(this);
-
-		extenders.add(info);
-
-		// staying the same: ont, locked, extenders
-	    }
-	}
-
-	propRestriction.putAll(info.propRestriction);
-	namedSuperClasses.addAll(info.namedSuperClasses);
-	instances.putAll(info.instances);
-	superClasses.addAll(info.superClasses);
-	equivalentClasses.addAll(info.equivalentClasses);
-	disjointClasses.addAll(info.disjointClasses);
-
-	if (complementClass == null)
-	    complementClass = info.complementClass;
-
-	isEnumeration = info.isEnumeration || isEnumeration;
-
-	if (factory == null)
-	    factory = info.factory;
+	// add the extender, 'this' is the combined version
+	info.copyTo(this);
     }
 
     /** Internal method. */
@@ -413,19 +413,78 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	if (!OntologyManagement.getInstance().checkPermission(info.getURI()))
 	    throw new IllegalAccessError(
 		    "The given class is not defined in the context of the given ontology.");
+	// TODO
+    }
+
+    /** Internal method. Copy all properties from this class to the given class. */
+    private void copyTo(OntClassInfo info) {
+	Iterator it;
+
+	it = namedSuperClasses.iterator();
+	while (it.hasNext())
+	    info.setup.addSuperClass((String) it.next());
+
+	it = propRestriction.keySet().iterator();
+	while (it.hasNext())
+	    info.setup.addRestriction((MergedRestriction) propRestriction.get(it.next()));
+	
+	it = instances.keySet().iterator();
+	while (it.hasNext())
+	    info.setup.addInstance((ManagedIndividual) instances.get(it.next()));
+	
+	it = superClasses.iterator();
+	while (it.hasNext())
+	    info.setup.addSuperClass((ClassExpression) it.next());
+
+	it = equivalentClasses.iterator();
+	while (it.hasNext())
+	    info.setup.addEquivalentClass((ClassExpression) it.next());
+
+	it = disjointClasses.iterator();
+	while (it.hasNext())
+	    info.setup.addDisjointClass((ClassExpression) it.next());
+
+	info.setup.setComplementClass(complementClass);
+	
+	info.isEnumeration = info.isEnumeration || isEnumeration;
+
+	if (info.factory == null)
+	    info.factory = factory;
     }
 
     /** Internal method. */
     public Object clone() {
+	// create a clone, the clone is not locked, but setup is only available
+	// here, so that extenders can copy their properties to the clone
+	// -> the clone is the combined version of multiple ontology-specific
+	// OntClassInfos
 	if (!OntologyManagement.getInstance().checkPermission(getURI()))
 	    throw new IllegalAccessError(
 		    "The given class is not defined in the context of the given ontology.");
 	try {
 	    extenders.add(this);
-	    return super.clone();
+	    
+	    OntClassInfo cl = (OntClassInfo) super.clone();
+	    cl.setup = new PrivateSetup(cl);
+	    copyTo(cl);
+	    cl.extenders = extenders;
+	    return cl;
 	} catch (CloneNotSupportedException e) {
 	    // this shouldn't happen, since we are Cloneable
 	    throw new InternalError("Error while cloning OntClassInfo");
 	}
+    }
+    
+    
+    public void setProperty(String propURI, Object value) {
+	if (locked)
+	    return;
+	super.setProperty(propURI, value);
+    }
+    
+    public boolean isClosedCollection(String propURI) {
+	if (ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI))
+	    return false;
+	return super.isClosedCollection(propURI);
     }
 }
