@@ -36,7 +36,7 @@
 <mapEntry key="mvn:org.universAAL.middleware/mw.bus.context" value="true@true@22@true"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.data.representation" value="true@true@20@true"/>
 <mapEntry key="wrap:mvn:org.osgi/osgi_R4_compendium/1.0" value="true@true@5@false"/>
-<mapEntry key="mvn:org.apache.felix/org.apache.felix.bundlerepository/1.4.2" value="true@true@14@false"/>
+<mapEntry key="mvn:org.apache.felix/org.apache.felix.bundlerepository/1.4.2" value="true@true@2@false"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.acl.upnp" value="true@true@18@true"/>
 <mapEntry key="mvn:org.universAAL.middleware/mw.bus.service" value="true@true@22@true"/>
 <mapEntry key="wrap:mvn:java3d/vecmath/1.3.1" value="true@true@9@false"/>
@@ -61,7 +61,7 @@
 <listEntry value="wrap:mvn:jp.go.ipa/jgcl/1.0@9"/>
 <listEntry value="mvn:org.universAAL.ontology/ont.lighting@25@update"/>
 <listEntry value="mvn:org.universAAL.middleware/mw.bus.context@22@update"/>
-<listEntry value="mvn:org.apache.felix/org.apache.felix.bundlerepository/1.4.2@14"/>
+<listEntry value="mvn:org.apache.felix/org.apache.felix.bundlerepository/1.4.2@2"/>
 <listEntry value="mvn:org.universAAL.middleware/mw.bus.service@22@update"/>
 <listEntry value="mvn:org.universAAL.samples/smp.lighting.server@26@nostart@update"/>
 <listEntry value="wrap:mvn:java3d/vecmath/1.3.1@9"/>
