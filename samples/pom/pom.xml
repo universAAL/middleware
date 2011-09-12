@@ -80,7 +80,7 @@
 		<module>../../../../ontologies/trunk/physical.world</module>
 		<module>../../../../ontologies/trunk/lighting</module>
 		<module>../../../../ontologies/trunk/weather</module>
-		<module>../heating</module>
+		<!-- <module>../heating</module> -->
 		<module>../lighting/server</module>
 		<module>../lighting/client</module>
 		<module>../../pom</module>
