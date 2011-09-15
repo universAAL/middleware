@@ -2,17 +2,71 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.Property;
 
-public abstract class ObjectProperty extends Property {
-
-    protected boolean isInverseFunctional;
-    protected boolean isReflexive;
-    protected boolean isSymmetric;
-    protected boolean isTransitive;
-    protected ObjectProperty inverseOf;
+public final class ObjectProperty extends Property {
     
+    public static final String MY_URI = ClassExpression.OWL_NAMESPACE + "ObjectProperty";
 
-    protected ObjectProperty(Object password, String uri) {
-	super(password, uri);
+    private boolean isInverseFunctional = false;
+    private boolean isReflexive = false;
+    private boolean isIrreflexive = false;
+    private boolean isSymmetric = false;
+    private boolean isAsymmetric = false;
+    private boolean isTransitive = false;
+    private ObjectProperty inverseOf = null;
+    
+    private PrivateObjectPropertySetup setup;
+    
+    private class PrivateObjectPropertySetup extends PrivatePropertySetup implements ObjectPropertySetup {
+	ObjectProperty prop;
+
+	public PrivateObjectPropertySetup(ObjectProperty prop) {
+	    super(prop);
+	    this.prop = prop;
+	}
+
+	public void setInverseOf(ObjectProperty inverseOf) {
+	    prop.inverseOf = inverseOf;
+	}
+
+	public void setInverseFunctional() {
+	    isInverseFunctional = true;
+	}
+
+	public void setTransitive() {
+	    isTransitive = true;
+	}
+
+	public void setSymmetric() {
+	    if (!isAsymmetric)
+		isSymmetric = true;
+	}
+
+	public void setAsymmetric() {
+	    if (!isSymmetric)
+		isAsymmetric = true;
+	}
+
+	public void setReflexive() {
+	    if (!isIrreflexive)
+		isReflexive = true;
+	}
+
+	public void setIrreflexive() {
+	    if (!isReflexive)
+		isIrreflexive = true;
+	}
+    }    
+
+    protected ObjectProperty(String uri, OntClassInfo info) {
+	super(uri, info);
+	setup = new PrivateObjectPropertySetup(this);
+	super.setup = setup;
+	addType(MY_URI, true);
+    }
+    
+    public static ObjectPropertySetup create(String propURI, OntClassInfo info) {
+	ObjectProperty prop = new ObjectProperty(propURI, info);
+	return prop.setup;
     }
     
     
@@ -20,63 +74,27 @@ public abstract class ObjectProperty extends Property {
 	return inverseOf;
     }
     
-    public void setInverseOf(Object password, ObjectProperty inverseOf)
-	    throws IllegalAccessException {
-	if (!(this.password.equals(password)))
-	    throw new IllegalAccessException(
-		    "The specified password is not correct.");
-	this.inverseOf = inverseOf;
-    }
-    
-    
     public boolean isInverseFunctional() {
 	return isInverseFunctional;
     }
-    
-    public void setInverseFunctional(Object password, boolean isInverseFunctional)
-	    throws IllegalAccessException {
-	if (!(this.password.equals(password)))
-	    throw new IllegalAccessException(
-		    "The specified password is not correct.");
-	this.isInverseFunctional = isInverseFunctional;
-    }
-    
     
     public boolean isTransitive() {
 	return isTransitive;
     }
     
-    public void setTransitive(Object password, boolean isTransitive)
-	    throws IllegalAccessException {
-	if (!(this.password.equals(password)))
-	    throw new IllegalAccessException(
-		    "The specified password is not correct.");
-	this.isTransitive = isTransitive;
-    }
-    
-    
     public boolean isSymmetric() {
 	return isSymmetric;
     }
     
-    public void setSymmetric(Object password, boolean isSymmetric)
-	    throws IllegalAccessException {
-	if (!(this.password.equals(password)))
-	    throw new IllegalAccessException(
-		    "The specified password is not correct.");
-	this.isSymmetric = isSymmetric;
+    public boolean isAsymmetric() {
+	return isAsymmetric;
     }
-    
-    
+
     public boolean isReflexive() {
 	return isReflexive;
     }
-    
-    public void setReflexive(Object password, boolean isReflexive)
-	    throws IllegalAccessException {
-	if (!(this.password.equals(password)))
-	    throw new IllegalAccessException(
-		    "The specified password is not correct.");
-	this.isReflexive = isReflexive;
+
+    public boolean isIrreflexive() {
+	return isIrreflexive;
     }
 }

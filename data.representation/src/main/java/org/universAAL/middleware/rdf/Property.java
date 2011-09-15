@@ -21,61 +21,103 @@ package org.universAAL.middleware.rdf;
 
 import java.util.ArrayList;
 
+import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.OntClassInfo;
+
 public abstract class Property extends Resource {
 
-    protected Object password;
+    public static final String PROP_RDFS_DOMAIN = RDFS_NAMESPACE + "domain";
+
+    public static final String PROP_RDFS_RANGE = RDFS_NAMESPACE + "range";
+    
     protected boolean isFunctional;
     private volatile ArrayList subPropertyOf = new ArrayList();
     private volatile ArrayList equivalentProperties = new ArrayList();
-    private static Object equivalentPropertiesSync = new Object();
+    //private static Object equivalentPropertiesSync = new Object();
+    private ClassExpression domain = null;
+    
+    protected OntClassInfo info;
 
-    protected Property(Object password, String uri) {
+    protected PrivatePropertySetup setup;
+    
+    protected class PrivatePropertySetup implements PropertySetup {
+	protected Property prop;
+	
+	public PrivatePropertySetup(Property prop) {
+	    this.prop = prop;
+	}
+	
+	public Property getProperty() {
+	    return prop;
+	}
+	
+	public void setFunctional() {
+	    prop.isFunctional = true;
+	}
+
+	public synchronized void addSuperProperty(String superProperty) {
+	    if (subPropertyOf.contains(superProperty))
+		return;
+
+	    ArrayList al = new ArrayList(subPropertyOf);
+	    al.add(superProperty);
+	    subPropertyOf = al;
+	}
+
+	public void addEquivalentProperty(String equivalentProperty) {
+	    // we have to synchronize for all Property instances that may be in
+	    // the
+	    // set of equivalent properties
+	    // -> just synch over all Properties (synch only blocks this method,
+	    // and
+	    // adding equivalent properties is assumed to happen not very often;
+	    // mainly at the beginning)
+	    //synchronized (equivalentPropertiesSync) {
+		// get the two sets of Properties
+		// ArrayList set1 = equivalentProperties;
+		// ArrayList set2 = equivalentProperty.equivalentProperties;
+		//
+		// // combine the two sets
+		// ArrayList comb = new ArrayList(set1.size() + set2.size());
+		// comb.addAll(set1);
+		// for (int i = 0; i < set2.size(); i++)
+		// if (!comb.contains(set2.get(i)))
+		// comb.add(set2.get(i));
+		//
+		// // set the combined set in all Properties
+		// for (int i = 0; i < comb.size(); i++)
+		// ((Property) comb.get(i)).equivalentProperties = comb;
+	    //}
+	}
+
+	public void addDisjointProperty(String disjointProperty) {
+	    // TODO Auto-generated method stub
+	}
+
+	public void setDomain(ClassExpression dom) {
+	    domain = dom;
+	    setProperty(PROP_RDFS_DOMAIN, domain);
+	}
+
+	public void setRange(ClassExpression range) {
+	    // TODO Auto-generated method stub
+	}
+    }
+    
+    
+    
+    protected Property(String uri, OntClassInfo info) {
 	super(uri);
-	this.password = password;
+	if (info == null)
+	    throw new NullPointerException(
+		    "The ontology class for the property must be not null.");
+	if (!info.checkPermission(uri))
+	    throw new IllegalAccessError(
+		    "The given property URI is not defined in the context of the given ontology class.");
+	this.info = info;
     }
 
     public boolean isFunctional() {
 	return isFunctional;
-    }
-
-    public void setFunctional(Object password, boolean isFunctional)
-	    throws IllegalAccessException {
-	if (!(this.password.equals(password)))
-	    throw new IllegalAccessException(
-		    "The specified password is not correct.");
-	this.isFunctional = isFunctional;
-    }
-
-    public synchronized void addSuperProperty(Property superProperty) {
-	if (subPropertyOf.contains(superProperty))
-	    return;
-
-	ArrayList al = new ArrayList(subPropertyOf);
-	al.add(superProperty);
-	subPropertyOf = al;
-    }
-
-    public void addEquivalentProperty(Property equivalentProperty) {
-	// we have to synchronize for all Property instances that may be in the
-	// set of equivalent properties
-	// -> just synch over all Properties (synch only blocks this method, and
-	// adding equivalent properties is assumed to happen not very often;
-	// mainly at the beginning)
-	synchronized (equivalentPropertiesSync) {
-	    // get the two sets of Properties
-	    ArrayList set1 = equivalentProperties;
-	    ArrayList set2 = equivalentProperty.equivalentProperties;
-
-	    // combine the two sets
-	    ArrayList comb = new ArrayList(set1.size() + set2.size());
-	    comb.addAll(set1);
-	    for (int i = 0; i < set2.size(); i++)
-		if (!comb.contains(set2.get(i)))
-		    comb.add(set2.get(i));
-
-	    // set the combined set in all Properties
-	    for (int i = 0; i < comb.size(); i++)
-		((Property) comb.get(i)).equivalentProperties = comb;
-	}
     }
 }

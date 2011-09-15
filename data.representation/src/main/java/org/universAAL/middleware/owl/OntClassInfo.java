@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import org.universAAL.middleware.rdf.Property;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.rdf.ResourceRegistry;
@@ -41,6 +42,8 @@ public final class OntClassInfo extends Resource implements Cloneable {
     // (getstandardproperty()?)
     // maps property property URIs to MergedRestriction
     private HashMap propRestriction = new HashMap();
+    
+    private HashMap properties = new HashMap();
 
     // set of URIs
     private volatile HashSet namedSuperClasses = new HashSet();
@@ -67,6 +70,8 @@ public final class OntClassInfo extends Resource implements Cloneable {
     private boolean locked = false;
 
     private PrivateSetup setup = null;
+    
+    private String propertyURIPermissionCheck;
 
     // list of OntClassInfo
     private ArrayList extenders = new ArrayList();
@@ -78,45 +83,54 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	    this.info = info;
 	}
 
-	public DataTypeProperty addDatatypeProperty(String propURI,
-		boolean isFunctional) {
+	public DatatypePropertySetup addDatatypeProperty(String propURI) {
 	    if (locked)
 		return null;
-	    DataTypeProperty prop = ResourceRegistry.getInstance()
-		    .createDataTypeProperty(password, propURI);
-	    if (prop == null)
-		return null;
-
-	    try {
-		prop.setFunctional(password, isFunctional);
-	    } catch (Exception e) {
-	    }
+	    propertyURIPermissionCheck = propURI;
+	    DatatypePropertySetup prop = DatatypeProperty.create(propURI, info);
+	    propertyURIPermissionCheck = null;
+	    prop.setDomain(new TypeURI(getURI(), false));
+	    properties.put(propURI, prop.getProperty());
 	    return prop;
+//	    DataTypeProperty prop = ResourceRegistry.getInstance()
+//		    .createDataTypeProperty(password, propURI);
+//	    if (prop == null)
+//		return null;
+//
+//	    try {
+//		prop.setFunctional(password, isFunctional);
+//	    } catch (Exception e) {
+//	    }
+//	    return prop;
+	}
+
+	public ObjectPropertySetup addObjectProperty(String propURI) {
+	    if (locked)
+		return null;
+	    propertyURIPermissionCheck = propURI;
+	    ObjectPropertySetup prop = ObjectProperty.create(propURI, info);
+	    propertyURIPermissionCheck = null;
+	    prop.setDomain(new TypeURI(getURI(), false));
+	    properties.put(propURI, prop.getProperty());
+	    return prop;
+//	    ObjectProperty prop = ResourceRegistry.getInstance()
+//		    .createObjectProperty(password, propURI);
+//	    if (prop == null)
+//		return null;
+//
+//	    try {
+//		prop.setFunctional(password, isFunctional);
+//		prop.setSymmetric(password, isSymmetric);
+//		prop.setTransitive(password, isTransitive);
+//		prop.setInverseFunctional(password, isInverseFunctional);
+//	    } catch (Exception e) {
+//	    }
+//	    return prop;
 	}
 
 	public void addInstance(ManagedIndividual instance) {
 	    // TODO Auto-generated method stub
 
-	}
-
-	public ObjectProperty addObjectProperty(String propURI,
-		boolean isFunctional, boolean isInverseFunctional,
-		boolean isSymmetric, boolean isTransitive) {
-	    if (locked)
-		return null;
-	    ObjectProperty prop = ResourceRegistry.getInstance()
-		    .createObjectProperty(password, propURI);
-	    if (prop == null)
-		return null;
-
-	    try {
-		prop.setFunctional(password, isFunctional);
-		prop.setSymmetric(password, isSymmetric);
-		prop.setTransitive(password, isTransitive);
-		prop.setInverseFunctional(password, isInverseFunctional);
-	    } catch (Exception e) {
-	    }
-	    return prop;
 	}
 
 	public void addRestriction(MergedRestriction r) {
@@ -266,6 +280,13 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	return info.setup;
     }
 
+    /** Internal method. */
+    public final boolean checkPermission(String uri) {
+	if (uri == null)
+	    return false;
+	return uri.equals(propertyURIPermissionCheck);
+    }
+
     public String[] getNamedSuperClasses(boolean inherited,
 	    boolean includeAbstractClasses) {
 
@@ -353,6 +374,10 @@ public final class OntClassInfo extends Resource implements Cloneable {
     public String[] getDeclaredProperties() {
 	return (String[]) propRestriction.keySet().toArray();
     }
+    
+    public Property[] getProperties() {
+	return (Property[]) properties.values().toArray(new Property[0]);
+    }
 
     public MergedRestriction getRestrictionsOnProp(String propURI) {
 	// check this class
@@ -427,6 +452,15 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	it = propRestriction.keySet().iterator();
 	while (it.hasNext())
 	    info.setup.addRestriction((MergedRestriction) propRestriction.get(it.next()));
+	
+	it = properties.keySet().iterator();
+	while (it.hasNext()) {
+	    Property p = (Property) properties.get(it.next());
+	    if (p instanceof DatatypeProperty)
+		info.setup.addDatatypeProperty(p.getURI());
+	    else
+		info.setup.addObjectProperty(p.getURI());
+	}
 	
 	it = instances.keySet().iterator();
 	while (it.hasNext())

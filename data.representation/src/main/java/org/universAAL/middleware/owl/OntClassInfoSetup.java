@@ -8,12 +8,9 @@ public interface OntClassInfoSetup {
 
     public void addRestriction(MergedRestriction r);
 
-    public ObjectProperty addObjectProperty(String propURI,
-	    boolean isFunctional, boolean isInverseFunctional,
-	    boolean isSymmetric, boolean isTransitive);
+    public ObjectPropertySetup addObjectProperty(String propURI);
 
-    public DataTypeProperty addDatatypeProperty(String propURI,
-	    boolean isFunctional);
+    public DatatypePropertySetup addDatatypeProperty(String propURI);
 
     public void addInstance(ManagedIndividual instance);
 

@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 
 import org.universAAL.middleware.datarep.SharedResources;
-import org.universAAL.middleware.owl.DataTypeProperty;
+//import org.universAAL.middleware.owl.DatatypeProperty;
 import org.universAAL.middleware.owl.ObjectProperty;
 import org.universAAL.middleware.container.utils.LogUtils;
 
@@ -60,19 +60,19 @@ public final class ResourceRegistry {
     // maps URI (of instance) to Resource
     private Hashtable namedResources = new Hashtable();
     
-    private Hashtable dataTypeProperties = new Hashtable();
-    private Hashtable objectProperties = new Hashtable();
-    
-    private static class ConcreteDataTypeProperty extends DataTypeProperty {
-	public ConcreteDataTypeProperty(Object password, String uri) {
-	    super(password, uri);
-	}
-    }
-    private static class ConcreteObjectProperty extends ObjectProperty {
-	public ConcreteObjectProperty(Object password, String uri) {
-	    super(password, uri);
-	}
-    }
+//    private Hashtable dataTypeProperties = new Hashtable();
+//    private Hashtable objectProperties = new Hashtable();
+//    
+//    private static class ConcreteDataTypeProperty extends DataTypeProperty {
+//	public ConcreteDataTypeProperty(Object password, String uri) {
+//	    super(password, uri);
+//	}
+//    }
+//    private static class ConcreteObjectProperty extends ObjectProperty {
+//	public ConcreteObjectProperty(Object password, String uri) {
+//	    super(password, uri);
+//	}
+//    }
     
     
     
@@ -167,49 +167,49 @@ public final class ResourceRegistry {
     }
         
     
-    public DataTypeProperty getDataTypeProperty(String propURI) {
-	return (DataTypeProperty) dataTypeProperties.get(propURI);
-    }
-    
-    public ObjectProperty getObjectProperty(String propURI) {
-	return (ObjectProperty) objectProperties.get(propURI);
-    }
-    
-    
-    public synchronized DataTypeProperty createDataTypeProperty(Object password, String propURI) {
-	if (objectProperties.containsKey(propURI)) {
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    ResourceRegistry.class,
-			    "createDataTypeProperty",
-			    new Object[] {
-				    "ERROR: creating data type property with URI that already exists as object property:",
-				    propURI }, null);
-	    return null;
-	}
-	if (dataTypeProperties.containsKey(propURI))
-	    return getDataTypeProperty(propURI);
-	DataTypeProperty prop = new ConcreteDataTypeProperty(password, propURI);
-	dataTypeProperties.put(propURI, prop);
-	return prop;
-    }
-    public synchronized ObjectProperty createObjectProperty(Object password, String propURI) {
-	if (dataTypeProperties.containsKey(propURI)) {
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    ResourceRegistry.class,
-			    "createObjectProperty",
-			    new Object[] {
-				    "ERROR: creating object property with URI that already exists as data type property:",
-				    propURI }, null);
-	    return null;
-	}
-	if (objectProperties.containsKey(propURI))
-	    return getObjectProperty(propURI);
-	ObjectProperty prop = new ConcreteObjectProperty(password, propURI);
-	objectProperties.put(propURI, prop);
-	return prop;
-    }
+//    public DataTypeProperty getDataTypeProperty(String propURI) {
+//	return (DataTypeProperty) dataTypeProperties.get(propURI);
+//    }
+//    
+//    public ObjectProperty getObjectProperty(String propURI) {
+//	return (ObjectProperty) objectProperties.get(propURI);
+//    }
+//    
+//    
+//    public synchronized DataTypeProperty createDataTypeProperty(Object password, String propURI) {
+//	if (objectProperties.containsKey(propURI)) {
+//	    LogUtils
+//		    .logDebug(
+//			    SharedResources.moduleContext,
+//			    ResourceRegistry.class,
+//			    "createDataTypeProperty",
+//			    new Object[] {
+//				    "ERROR: creating data type property with URI that already exists as object property:",
+//				    propURI }, null);
+//	    return null;
+//	}
+//	if (dataTypeProperties.containsKey(propURI))
+//	    return getDataTypeProperty(propURI);
+//	DataTypeProperty prop = new ConcreteDataTypeProperty(password, propURI);
+//	dataTypeProperties.put(propURI, prop);
+//	return prop;
+//    }
+//    public synchronized ObjectProperty createObjectProperty(Object password, String propURI) {
+//	if (dataTypeProperties.containsKey(propURI)) {
+//	    LogUtils
+//		    .logDebug(
+//			    SharedResources.moduleContext,
+//			    ResourceRegistry.class,
+//			    "createObjectProperty",
+//			    new Object[] {
+//				    "ERROR: creating object property with URI that already exists as data type property:",
+//				    propURI }, null);
+//	    return null;
+//	}
+//	if (objectProperties.containsKey(propURI))
+//	    return getObjectProperty(propURI);
+//	ObjectProperty prop = new ConcreteObjectProperty(password, propURI);
+//	objectProperties.put(propURI, prop);
+//	return prop;
+//    }
 }

@@ -20,9 +20,11 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import org.universAAL.middleware.rdf.Property;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.container.utils.StringUtils;
@@ -184,14 +186,30 @@ public abstract class Ontology {
     }
     
     public Resource[] getResourceList() {
-	HashMap map = ontClassInfoMap;
-	Resource[] lst = new Resource[1+map.size()];
-	lst[0] = info;
-	Iterator it = map.values().iterator();
-	int i = 1;
-	while (it.hasNext())
-	    lst[i++] = (Resource) it.next();
-	return lst;
+	ArrayList list = new ArrayList();
+	list.add(info);
+	
+	for (Iterator it = ontClassInfoMap.values().iterator(); it.hasNext();) {
+	    OntClassInfo info = (OntClassInfo) it.next();
+	    list.add(info);
+	    Property[] propArr = info.getProperties();
+	    if (propArr.length != 0)
+		Collections.addAll(list, propArr);
+	}
+	
+	return (Resource[]) list.toArray(new Resource[1]);
+	
+	
+	//Property[] properties = getProperties();
+	
+//	HashMap map = ontClassInfoMap;
+//	Resource[] lst = new Resource[1+map.size()];
+//	lst[0] = info;
+//	Iterator it = map.values().iterator();
+//	int i = 1;
+//	while (it.hasNext())
+//	    lst[i++] = (Resource) it.next();
+//	return lst;
     }
     
     public void lock() {

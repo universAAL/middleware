@@ -27,28 +27,28 @@ import org.universAAL.middleware.owl.OntClassInfoSetup;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.rdf.Resource;
 
-
 /**
  * 
  * @author Carsten Stockloew
- *
+ * 
  */
 public class ContextBusOntology extends Ontology {
 
-    public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX+"ContextBus.owl#";
+    public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX
+	    + "ContextBus.owl#";
 
     private static ContextBusFactory factory = new ContextBusFactory();
-    
+
     public ContextBusOntology() {
 	super(NAMESPACE);
+    }
+
+    public void create() {
 	Resource r = getInfo();
 	r.setResourceComment("Ontology of the universAAL Context Bus");
 	r.setResourceLabel("Context Bus");
 	addImport(DataRepOntology.NAMESPACE);
-    }
-    
-    
-    public void create() {
+
 	OntClassInfoSetup oci;
 
 	// load ContextProviderType
@@ -67,17 +67,16 @@ public class ContextBusOntology extends Ontology {
 		.setResourceComment("Represents the set of components that may publish context events.");
 	oci.setResourceLabel("Context Provider");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
-	oci.addObjectProperty(ContextProvider.PROP_CONTEXT_PROVIDER_TYPE, true,
-		false, false, false);
-	oci.addRestriction(MergedRestriction.getAllValuesRestrictionWithCardinality(
-		ContextProvider.PROP_CONTEXT_PROVIDER_TYPE,
-		ContextProviderType.MY_URI, 1, 1));
-	oci.addObjectProperty(ContextProvider.PROP_CONTEXT_SOURCE, false,
-		false, false, false);
+	oci.addObjectProperty(ContextProvider.PROP_CONTEXT_PROVIDER_TYPE)
+		.setFunctional();
+	oci.addRestriction(MergedRestriction
+		.getAllValuesRestrictionWithCardinality(
+			ContextProvider.PROP_CONTEXT_PROVIDER_TYPE,
+			ContextProviderType.MY_URI, 1, 1));
+	oci.addObjectProperty(ContextProvider.PROP_CONTEXT_SOURCE);
 	oci.addRestriction(MergedRestriction.getAllValuesRestriction(
 		ContextProvider.PROP_CONTEXT_SOURCE, ManagedIndividual.MY_URI));
-	oci.addObjectProperty(ContextProvider.PROP_CONTEXT_PROVIDED_EVENTS,
-		false, false, false, false);
+	oci.addObjectProperty(ContextProvider.PROP_CONTEXT_PROVIDED_EVENTS);
 	// TODO: ContextEventPattern is not a ManagedIndividual!
 	// oci.addRestriction(password,
 	// Restriction.getAllValuesRestrictionWithCardinality(ContextProvider.PROP_CONTEXT_PROVIDED_EVENTS,
