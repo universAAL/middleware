@@ -31,7 +31,7 @@ import org.universAAL.middleware.service.impl.ServiceBusFactory;
 /**
  * 
  * @author Carsten Stockloew
- *
+ * 
  */
 public class ServiceBusOntology extends Ontology {
 
@@ -42,13 +42,14 @@ public class ServiceBusOntology extends Ontology {
 
     public ServiceBusOntology() {
 	super(NAMESPACE);
+    }
+
+    public void create() {
 	Resource r = getInfo();
 	r.setResourceComment("Ontology of the universAAL Service Bus");
 	r.setResourceLabel("Service Bus");
 	addImport(DataRepOntology.NAMESPACE);
-    }
 
-    public void create() {
 	OntClassInfoSetup oci;
 
 	// load Service
@@ -57,11 +58,9 @@ public class ServiceBusOntology extends Ontology {
 		.setResourceComment("The root of the hierarchy of service classes in universAAL.");
 	oci.setResourceLabel("universAAL Service");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
-	oci
-		.addDatatypeProperty(Service.PROP_NUMBER_OF_VALUE_RESTRICTIONS,
-			true);
-	oci.addObjectProperty(Service.PROP_INSTANCE_LEVEL_RESTRICTIONS, false,
-		false, false, false);
+	oci.addDatatypeProperty(Service.PROP_NUMBER_OF_VALUE_RESTRICTIONS)
+		.setFunctional();
+	oci.addObjectProperty(Service.PROP_INSTANCE_LEVEL_RESTRICTIONS);
 	// TODO: Restrictions?
 
 	// load UserInterfaceService
@@ -71,26 +70,27 @@ public class ServiceBusOntology extends Ontology {
 	oci.setResourceLabel("Initial Service Dialog");
 	oci.addSuperClass(Service.MY_URI);
 	oci.addObjectProperty(
-		UserInterfaceService.PROP_CORRELATED_SERVICE_CLASS, true,
-		false, false, false);
+		UserInterfaceService.PROP_CORRELATED_SERVICE_CLASS)
+		.setFunctional();
 	oci.addRestriction(MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
 			UserInterfaceService.PROP_CORRELATED_SERVICE_CLASS,
 			TypeMapper.getDatatypeURI(Resource.class), 1, 1));
-	oci.addDatatypeProperty(UserInterfaceService.PROP_DESCRIPTION, true);
+	oci.addDatatypeProperty(UserInterfaceService.PROP_DESCRIPTION)
+		.setFunctional();
 	oci.addRestriction(MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
 			UserInterfaceService.PROP_DESCRIPTION, TypeMapper
 				.getDatatypeURI(String.class), 1, 1));
 	oci.addObjectProperty(
-		UserInterfaceService.PROP_HAS_INFO_RETRIEVAL_PROCESS, true,
-		false, false, false);
+		UserInterfaceService.PROP_HAS_INFO_RETRIEVAL_PROCESS)
+		.setFunctional();
 	oci.addRestriction(MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
 			UserInterfaceService.PROP_HAS_INFO_RETRIEVAL_PROCESS,
 			TypeMapper.getDatatypeURI(Resource.class), 1, 1));
-	oci.addObjectProperty(UserInterfaceService.PROP_HAS_VENDOR, true,
-		false, false, false);
+	oci.addObjectProperty(UserInterfaceService.PROP_HAS_VENDOR)
+		.setFunctional();
 	oci.addRestriction(MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
 			UserInterfaceService.PROP_HAS_VENDOR, TypeMapper

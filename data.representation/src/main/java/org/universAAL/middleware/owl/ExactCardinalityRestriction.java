@@ -37,7 +37,7 @@ public class ExactCardinalityRestriction extends AbstractRestriction {
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ExactCardinalityRestriction";
     
     public static final String PROP_OWL_CARDINALITY = OWL_NAMESPACE
-	    + "Cardinality";
+	    + "cardinality";
     public static final String PROP_OWL_QUALIFIED_CARDINALITY = OWL_NAMESPACE
 	    + "QualifiedCardinality";
 

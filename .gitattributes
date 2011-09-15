@@ -193,7 +193,8 @@ data.representation/src/main/java/org/universAAL/middleware/owl/ClassExpression.
 data.representation/src/main/java/org/universAAL/middleware/owl/ComparableIndividual.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/Complement.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/DataRepOntology.java -text
-data.representation/src/main/java/org/universAAL/middleware/owl/DataTypeProperty.java -text
+data.representation/src/main/java/org/universAAL/middleware/owl/DatatypeProperty.java -text
+data.representation/src/main/java/org/universAAL/middleware/owl/DatatypePropertySetup.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/Enumeration.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/ExactCardinalityRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/HasValueRestriction.java -text
@@ -203,6 +204,7 @@ data.representation/src/main/java/org/universAAL/middleware/owl/MaxCardinalityRe
 data.representation/src/main/java/org/universAAL/middleware/owl/MergedRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/MinCardinalityRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/ObjectProperty.java -text
+data.representation/src/main/java/org/universAAL/middleware/owl/ObjectPropertySetup.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/OntClassInfo.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/OntClassInfoSetup.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/Ontology.java -text
@@ -216,6 +218,7 @@ data.representation/src/main/java/org/universAAL/middleware/owl/supply/LevelRati
 data.representation/src/main/java/org/universAAL/middleware/owl/supply/Rating.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/Property.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/PropertyPath.java -text
+data.representation/src/main/java/org/universAAL/middleware/rdf/PropertySetup.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/Resource.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/ResourceFactory.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/ResourceRegistry.java -text
