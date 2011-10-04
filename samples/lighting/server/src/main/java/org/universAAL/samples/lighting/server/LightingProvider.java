@@ -178,8 +178,9 @@ public class LightingProvider extends ServiceCallee implements
 	xsection.addType(new TypeURI(LightSource.MY_URI, false));
 	xsection.addType(MergedRestriction.getFixedValueRestriction(
 		LightSource.PROP_HAS_TYPE, ElectricLight.lightBulb));
-	xsection.addType(MergedRestriction.getAllValuesRestrictionWithCardinality(
-		LightSource.PROP_PHYSICAL_LOCATION, Room.MY_URI, 1, 1));
+	xsection.addType(MergedRestriction
+		.getAllValuesRestrictionWithCardinality(
+			LightSource.PROP_PHYSICAL_LOCATION, Room.MY_URI, 1, 1));
 	subjectRestriction = MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
 			ContextEvent.PROP_RDF_SUBJECT, xsection, 1, 1);
