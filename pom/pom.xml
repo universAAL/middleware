@@ -203,11 +203,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.7</version>
+				<!-- Default Checkstyle configuration is the Sun Microsystems Definition. As defined in D2.3 -->
+				<!--
 				<configuration>
-					<configLocation>http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-checkstyle-plugin/src/main/resources/config/maven_checks.xml</configLocation>
+ 					<configLocation>http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-checkstyle-plugin/src/main/resources/config/maven_checks.xml</configLocation> 
 					<headerLocation>http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-checkstyle-plugin/src/main/resources/config/maven-header.txt</headerLocation>
-				</configuration>
-				<version>2.6</version>
+				</configuration> 
+				-->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -244,15 +247,15 @@
 						<link>http://jakarta.apache.org/velocity/api/</link>
 					</links>
 					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-			
-			          <!-- <docletPath>/path/to/UmlGraph.jar</docletPath> -->
-			          <docletArtifact>
-			            <groupId>org.umlgraph</groupId>
-			            <artifactId>doclet</artifactId>
-			            <version>5.1</version>
-			          </docletArtifact>
-			          <additionalparam>-views</additionalparam>
-			          <useStandardDocletOptions>true</useStandardDocletOptions>
+
+					<!-- <docletPath>/path/to/UmlGraph.jar</docletPath> -->
+					<docletArtifact>
+						<groupId>org.umlgraph</groupId>
+						<artifactId>doclet</artifactId>
+						<version>5.1</version>
+					</docletArtifact>
+					<additionalparam>-views</additionalparam>
+					<useStandardDocletOptions>true</useStandardDocletOptions>
 				</configuration>
 			</plugin>
 			<plugin>
