@@ -47,8 +47,6 @@ bus.context/src/main/java/org/universAAL/middleware/context/impl/osgi/Activator.
 bus.context/src/main/java/org/universAAL/middleware/context/owl/ContextBusOntology.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/owl/ContextProvider.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/owl/ContextProviderType.java -text
-bus.context/src/test/java/org/universAAL/middleware/context/RoundTest.java -text
-bus.context/src/test/java/org/universAAL/middleware/context/SetTopBox.java -text
 bus.io/LICENSE.txt -text
 bus.io/NOTICE.txt -text
 bus.io/documentation/bus.io.mw.input[!!-~]class[!!-~]diagram[!!-~]26.4.2011.png -text
