@@ -515,7 +515,7 @@ public class TurtleWriter {
 	    //System.out.println("Analyzing Resource: " + res.toStringRecursive());
 	    analyzeResource(res, nsTable);
 	    finalizeNodes(res, nsTable);
-	    d[i].refs--;
+	    d[i].refs = 0;
 	    bNodes.clear();
 	    uriNodes.clear();
 	}
