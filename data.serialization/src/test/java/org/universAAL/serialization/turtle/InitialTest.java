@@ -21,6 +21,7 @@ package org.universAAL.serialization.turtle;
 
 import junit.framework.TestCase;
 
+import org.junit.Ignore;
 import org.universAAL.middleware.owl.AllValuesFromRestriction;
 import org.universAAL.middleware.owl.Enumeration;
 import org.universAAL.middleware.owl.ExactCardinalityRestriction;
@@ -32,6 +33,7 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.util.ResourceComparator;
 
+@Ignore
 public class InitialTest extends TestCase {
 
     TurtleParser s;
@@ -56,7 +58,7 @@ public class InitialTest extends TestCase {
 	System.out.println();
 	System.out.println();
     }
-
+    
     public void testRestriction() {
 	Integer one = new Integer(1);
 	Enumeration e = new Enumeration();
