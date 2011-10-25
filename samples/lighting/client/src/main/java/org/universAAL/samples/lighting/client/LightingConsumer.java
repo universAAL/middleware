@@ -24,7 +24,7 @@ import org.universAAL.ontology.phThing.Device;
  * @author amarinc
  * 
  */
-class LightingConsumer extends ContextSubscriber {
+public class LightingConsumer extends ContextSubscriber {
 
     private static ServiceCaller caller;
 

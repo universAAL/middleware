@@ -240,6 +240,18 @@ data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleUtil.
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleWriter.java -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/osgi/Activator.java -text
 data.serialization/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
+itests/pom.xml -text
+itests/rundir/confadmin/mw.bus.model/sodapop.key -text svneol=unset#application/octet-stream
+itests/rundir/confadmin/services/org.ops4j.pax.logging.properties -text
+itests/rundir/confadmin/services/org.universAAL.mw.data.representation.properties -text
+itests/rundir/confadmin/ui.dm/main_menu.txt -text
+itests/rundir/confadmin/ui.dm/main_menu_de.txt -text
+itests/rundir/confadmin/ui.dm/main_menu_saied_en.txt -text
+itests/rundir/confadmin/ui.dm/messages.properties -text
+itests/rundir/confadmin/ui.dm/messages_de.properties -text
+itests/rundir/confadmin/ui.dm/messages_en.properties -text
+itests/src/main/java/org/universAAL/itests/Activator.java -text
+itests/src/main/java/org/universAAL/itests/MiddlewareIntegrationTest.java -text
 pom/eclipse.setup.bat -text
 pom/eclipse.setup.sh -text
 pom/pom.xml -text
