@@ -299,6 +299,7 @@
 		<module>../data.serialization</module>
 		<module>../container.xfaces</module>
 		<module>../container.osgi</module>
+		<module>../itests</module>
 	</modules>
 
 </project>

@@ -16,10 +16,13 @@
 	<url />
 
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
-		</dependency>
+		<!--
+			This dependency has to be commented out because of
+			java.lang.NoClassDefFoundError: org.osgi.vendor.framework property
+			Exception
+			<dependency> <groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId> </dependency>
+		-->
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
@@ -57,6 +60,12 @@
 			<type>bundle</type>
 			<scope>compile</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>itests</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>		
 	</dependencies>
 
 	<build>
@@ -71,7 +80,7 @@
 						<Bundle-Activator>org.universAAL.samples.lighting.client.Activator</Bundle-Activator>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Private-Package>org.universAAL.samples.lighting.client</Private-Package>
+						<Export-Package>org.universAAL.samples.lighting.client</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>
