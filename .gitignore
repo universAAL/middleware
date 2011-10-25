@@ -46,6 +46,10 @@ data.serialization/.classpath
 data.serialization/.project
 data.serialization/.settings
 data.serialization/target
+itests/.classpath
+itests/.project
+itests/.settings
+itests/target
 pom/.classpath
 pom/.project
 pom/.settings
