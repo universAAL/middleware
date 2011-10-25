@@ -31,7 +31,7 @@ public class LightingTest extends MiddlewareIntegrationTest {
 	 * needed for the TestCase have to be included in the launch configuration.
 	 */
 	public LightingTest() {
-		super("../../pom/launches/LightingExample_Complete.launch",
+		super("../../pom/launches/LightingExample_Complete_0_3_2.launch",
 				"../../../itests/rundir/confadmin");
 	}
 
