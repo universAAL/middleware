@@ -23,104 +23,122 @@ import org.universAAL.samples.lighting.client.LightingConsumer;
  */
 public class LightingTest extends MiddlewareIntegrationTest {
 
-	/**
-	 * Constructor of each integration TestCase has to call constructor of upper
-	 * class providing path to the launch configuration and path to the
-	 * configuration directory of the uAAL runtime. Launch configuration will be
-	 * used to setup uAAL runtime for the purpose of TestCase. All bundles
-	 * needed for the TestCase have to be included in the launch configuration.
-	 */
-	public LightingTest() {
-		super("../../pom/launches/LightingExample_Complete_0_3_2.launch",
-				"../../../itests/rundir/confadmin");
+    /**
+     * Constructor of each integration TestCase has to call constructor of upper
+     * class providing path to the launch configuration and path to the
+     * configuration directory of the uAAL runtime. Launch configuration will be
+     * used to setup uAAL runtime for the purpose of TestCase. All bundles
+     * needed for the TestCase have to be included in the launch configuration.
+     */
+    public LightingTest() {
+	super("../../pom/launches/LightingExample_Complete_0_3_2.launch",
+		"../../../itests/rundir/confadmin");
+    }
+    
+    private String formatMsg(String format, Object... args) {
+	if (args != null) {
+	    return String.format(format, args);
+	} else {
+	    return format;
 	}
+    }
 
-	/**
-	 * Helper method for logging.
-	 * 
-	 * @param msg
-	 */
-	private void LOGInfo(String format, Object ... args) {
-	    	StackTraceElement callingMethod = Thread.currentThread().getStackTrace()[2];
-	    	String logMsg = null;
-	    	if (args != null) {
-	    	    logMsg = String.format(format, args);
-	    	} else {
-	    	    logMsg = format;
-	    	}
-	    	LogUtils.logInfo(Activator.mc, LightingTest.class, callingMethod.getMethodName(), new Object [] {logMsg}, null);
+    /**
+     * Helper method for logging.
+     * 
+     * @param msg
+     */
+    protected void logInfo(String format, Object... args) {
+	StackTraceElement callingMethod = Thread.currentThread()
+		.getStackTrace()[2];
+	LogUtils.logInfo(Activator.mc, getClass(), callingMethod
+		.getMethodName(), new Object[] { formatMsg(format, args) },
+		null);
+    }
+
+    /**
+     * Helper method for logging.
+     * 
+     * @param msg
+     */
+    protected void logError(Throwable t, String format, Object... args) {
+	StackTraceElement callingMethod = Thread.currentThread()
+		.getStackTrace()[2];
+	LogUtils.logError(Activator.mc, getClass(), callingMethod
+		.getMethodName(), new Object[] { formatMsg(format, args) }, t);
+    }    
+
+    /**
+     * Verifies that runtime platform has correctly started. It prints basic
+     * information about framework (vendor, version) and lists installed
+     * bundles.
+     * 
+     * @throws Exception
+     */
+    public void testOsgiPlatformStarts() throws Exception {
+	logInfo("FRAMEWORK_VENDOR %s", bundleContext
+		.getProperty(Constants.FRAMEWORK_VENDOR));
+	logInfo("FRAMEWORK_VERSION %s", bundleContext
+		.getProperty(Constants.FRAMEWORK_VERSION));
+	logInfo("FRAMEWORK_EXECUTIONENVIRONMENT %s", bundleContext
+		.getProperty(Constants.FRAMEWORK_EXECUTIONENVIRONMENT));
+
+	logInfo("!!!!!!! Listing bundles in integration test !!!!!!!");
+	for (int i = 0; i < bundleContext.getBundles().length; i++) {
+	    logInfo("name: " + bundleContext.getBundles()[i].getSymbolicName());
 	}
+	logInfo("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
 
+    /**
+     * Verifies the lighting sample with the use of LightingConsumer. Following
+     * operations are tested: getControlledLamps, turnOn, turnOff, dimToValue.
+     * 
+     * @throws Exception
+     */
+    public void testLightingClient() throws Exception {
+	logInfo("!!!!!!! Testing Lighting Client !!!!!!!");
+	logInfo("!!!!!!! Getting controlled lamps and checking their amount !!!!!!!");
 
-	/**
-	 * Verifies that runtime platform has correctly started. It prints basic
-	 * information about framework (vendor, version) and lists installed
-	 * bundles.
-	 * 
-	 * @throws Exception
-	 */
-	public void testOsgiPlatformStarts() throws Exception {
-		LOGInfo("FRAMEWORK_VENDOR %s", bundleContext.getProperty(Constants.FRAMEWORK_VENDOR));
-		LOGInfo("FRAMEWORK_VERSION %s", bundleContext.getProperty(Constants.FRAMEWORK_VERSION));
-		LOGInfo("FRAMEWORK_EXECUTIONENVIRONMENT %s", bundleContext.getProperty(Constants.FRAMEWORK_EXECUTIONENVIRONMENT));
+	/* There should be four lamps available. */
+	Device[] controlledLamps = LightingConsumer.getControlledLamps();
+	Assert.isTrue(controlledLamps.length == 4);
 
-		LOGInfo("!!!!!!! Listing bundles in integration test !!!!!!!");
-		for (int i = 0; i < bundleContext.getBundles().length; i++) {
-			LOGInfo("name: " + bundleContext.getBundles()[i].getSymbolicName());
-		}
-		LOGInfo("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	int i = 0;
+	for (Device lamp : controlledLamps) {
+	    logInfo("!!!!!!! Testing Lamp %s!!!!!!!", i);
+	    String lampUri = lamp.getURI();
+
+	    /* turnOn should end with success */
+	    logInfo("!!!!!!! Testing Lamp %s turnOn!!!!!!!", i);
+	    Assert.isTrue(LightingConsumer.turnOn(lampUri));
+
+	    /* when repeated turnOn should also end with success */
+	    logInfo("!!!!!!! Testing Lamp %s turnOn!!!!!!!", i);
+	    Assert.isTrue(LightingConsumer.turnOn(lampUri));
+
+	    /* turnOff should end with success */
+	    logInfo("!!!!!!! Testing Lamp %s turnOff!!!!!!!", i);
+	    Assert.isTrue(LightingConsumer.turnOff(lampUri));
+
+	    /* when repeated turnOff should also end with success */
+	    logInfo("!!!!!!! Testing Lamp %s turnOff!!!!!!!", i);
+	    Assert.isTrue(LightingConsumer.turnOff(lampUri));
+
+	    /* dimToValue with argument other than 0, 100 should fail */
+	    logInfo("!!!!!!! Testing Lamp %s dimToValue 45!!!!!!!", i);
+	    Assert.isTrue(!LightingConsumer.dimToValue(lampUri, 45));
+
+	    /* dimToValue with argument 100 should end with success */
+	    logInfo("!!!!!!! Testing Lamp %s dimToValue 100!!!!!!!", i);
+	    Assert.isTrue(LightingConsumer.dimToValue(lampUri, 100));
+
+	    /* dimToValue with argument 0 should end with success */
+	    logInfo("!!!!!!! Testing Lamp %s dimToValue 0!!!!!!!", i);
+	    Assert.isTrue(LightingConsumer.dimToValue(lampUri, 0));
+
+	    i++;
 	}
-
-	/**
-	 * Verifies the lighting sample with the use of LightingConsumer. Following
-	 * operations are tested: getControlledLamps, turnOn, turnOff, dimToValue.
-	 * 
-	 * @throws Exception
-	 */
-	public void testLightingClient() throws Exception {
-		LOGInfo("!!!!!!! Testing Lighting Client !!!!!!!");
-		LOGInfo("!!!!!!! Getting controlled lamps and checking their amount !!!!!!!");
-
-		/* There should be four lamps available. */
-		Device[] controlledLamps = LightingConsumer.getControlledLamps();
-		Assert.isTrue(controlledLamps.length == 4);
-
-		int i = 0;
-		for (Device lamp : controlledLamps) {
-			LOGInfo("!!!!!!! Testing Lamp %s!!!!!!!", i);
-			String lampUri = lamp.getURI();
-			
-
-			/* turnOn should end with success */
-			LOGInfo("!!!!!!! Testing Lamp %s turnOn!!!!!!!", i);
-			Assert.isTrue(LightingConsumer.turnOn(lampUri));
-
-			/* when repeated turnOn should also end with success */
-			LOGInfo("!!!!!!! Testing Lamp %s turnOn!!!!!!!", i);
-			Assert.isTrue(LightingConsumer.turnOn(lampUri));
-
-			/* turnOff should end with success */
-			LOGInfo("!!!!!!! Testing Lamp %s turnOff!!!!!!!", i);
-			Assert.isTrue(LightingConsumer.turnOff(lampUri));
-
-			/* when repeated turnOff should also end with success */
-			LOGInfo("!!!!!!! Testing Lamp %s turnOff!!!!!!!", i);
-			Assert.isTrue(LightingConsumer.turnOff(lampUri));
-
-			/* dimToValue with argument other than 0, 100 should fail */
-			LOGInfo("!!!!!!! Testing Lamp %s dimToValue 45!!!!!!!", i);
-			Assert.isTrue(!LightingConsumer.dimToValue(lampUri, 45));
-
-			/* dimToValue with argument 100 should end with success */
-			LOGInfo("!!!!!!! Testing Lamp %s dimToValue 100!!!!!!!", i);
-			Assert.isTrue(LightingConsumer.dimToValue(lampUri, 100));
-
-			/* dimToValue with argument 0 should end with success */
-			LOGInfo("!!!!!!! Testing Lamp %s dimToValue 0!!!!!!!", i);
-			Assert.isTrue(LightingConsumer.dimToValue(lampUri, 0));
-
-			i++;
-		}
-	}
+    }
 
 }
