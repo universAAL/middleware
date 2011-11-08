@@ -58,6 +58,13 @@ public class MiddlewareIntegrationTest extends
     private Object junitTestActivator;
 
     /**
+     * Symbolic name of bundle in which integration tests will be performed. The
+     * name is extracted from manifest.
+     * 
+     */
+    private String bundleSymbolicName;
+
+    /**
      * Constructor can be invoked only by subclasses.
      * 
      * @param pathToLaunchFile
@@ -147,7 +154,7 @@ public class MiddlewareIntegrationTest extends
 			String[] bundleUrlArr = bundleUrlStr.split("/");
 			BundleContext bc = bundleContext;
 			if (bundleUrlArr != null && bundleUrlArr.length == 3) {
-			    if (bundleUrlArr[1].equals("smp.lighting.client")) {
+			    if (bundleUrlArr[1].equals(bundleSymbolicName)) {
 				continue;
 			    }
 			}
@@ -226,6 +233,9 @@ public class MiddlewareIntegrationTest extends
 	Manifest bundleMf = new Manifest(new FileInputStream(
 		"./target/classes/META-INF/MANIFEST.MF"));
 	Attributes mainAttribs = bundleMf.getMainAttributes();
+	
+	bundleSymbolicName = (String) mainAttribs.getValue("Bundle-SymbolicName");
+	
 	mainAttribs.put(new Attributes.Name("Import-Package"), mainAttribs
 		.getValue("Import-Package")
 		+ ",org.universAAL.itests,org.springframework.util");
