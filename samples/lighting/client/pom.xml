@@ -19,8 +19,7 @@
 		<!--
 			This dependency has to be commented out because of
 			java.lang.NoClassDefFoundError: org.osgi.vendor.framework property
-			Exception
-			<dependency> <groupId>org.apache.felix</groupId>
+			Exception <dependency> <groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId> </dependency>
 		-->
 		<dependency>
@@ -60,12 +59,12 @@
 			<type>bundle</type>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>itests</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
-		</dependency>		
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -74,6 +73,15 @@
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
 					<instructions>
 						<Bundle-Name>${project.name}</Bundle-Name>
