@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
@@ -9,7 +10,7 @@
 	</parent>
 
 	<groupId>org.universAAL.samples</groupId>
-	<artifactId>smp.pom</artifactId>  
+	<artifactId>smp.pom</artifactId>
 	<version>1.0.2</version>
 	<packaging>pom</packaging>
 	<name>universAAL Samples</name>
@@ -73,17 +74,37 @@
 			<timezone>CEST/CET</timezone>
 		</developer>
 	</developers>
-
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<inherited>true</inherited>
+					<configuration>
+						<source>1.5</source>
+						<target>1.5</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 	<contributors />
 
 	<modules>
-		<module>../../../../ontologies/trunk/physical.world</module>
-		<module>../../../../ontologies/trunk/lighting</module>
-		<module>../../../../ontologies/trunk/weather</module>
-		<!-- <module>../heating</module> -->
 		<module>../lighting/server</module>
 		<module>../lighting/client</module>
-		<module>../../pom</module>
+		<module>../heating</module> 
+		<!-- The following are DEPENDECIES NOT Subprojects! -->
+		<!-- therefore they should not be included in this section -->
+<!--		<module>../../../../ontologies/trunk/physical.world</module>-->
+<!--		<module>../../../../ontologies/trunk/lighting</module>-->
+<!--		<module>../../../../ontologies/trunk/weather</module>-->
+<!--		<module>../../pom</module>-->
 	</modules>
 
 </project>
