@@ -155,9 +155,11 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>2.0.2</version>
+					<version>2.3.2</version>
 					<inherited>true</inherited>
 					<configuration>
+						<testSource>1.5</testSource>
+						<testTarget>1.5</testTarget>
 						<source>${maven.compile.source}</source>
 						<target>${maven.compile.target}</target>
 					</configuration>
@@ -268,9 +270,9 @@
 	<properties>
 		<remoteOBR />
 		<!-- Default configuration for compiler source and target JVM -->
-		<maven.compile.source>1.5</maven.compile.source>
-		<maven.compile.target>1.5</maven.compile.target>
-		<!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
+		<maven.compile.source>1.3</maven.compile.source>
+		<maven.compile.target>1.3</maven.compile.target>
+	<!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
 	</properties>
 
 	<distributionManagement>
