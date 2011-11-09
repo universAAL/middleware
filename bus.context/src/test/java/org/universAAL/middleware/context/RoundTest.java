@@ -3,11 +3,10 @@ package org.universAAL.middleware.context;
 
 import junit.framework.TestCase;
 
-import org.junit.Ignore;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
 
-@Ignore
+
 public class RoundTest extends TestCase {
 
 	public static String ELLA = "urn:org.aal-persona.profiling:12345:ella";
@@ -44,7 +43,7 @@ public class RoundTest extends TestCase {
 		assertEquals(cep.matches(event), true);
 		
 		
-		
+/*		// OBSOTELE
 		// a second test
 		cep = new ContextEventPattern();
 		
@@ -64,6 +63,6 @@ public class RoundTest extends TestCase {
 				"sample action");
 		
 		assertEquals(cep.matches(event), true);
-	}
+*/	}
 
 }
