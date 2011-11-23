@@ -61,7 +61,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
+			<groupId>org.universAAL.support</groupId>
 			<artifactId>itests</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
