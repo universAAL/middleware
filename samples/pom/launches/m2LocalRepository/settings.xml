@@ -38,6 +38,11 @@
 					<name>universAAL ThirdParty Repositories</name>
 					<url>http://depot.universaal.org/maven-repo/thirdparty/</url>
 				</repository>
+				<repository>
+					<id>iks-repository</id>
+					<name>Redirection</name>
+					<url>http://depot.universaal.org/maven-repo/thirdparty/</url>
+				</repository>
 			</repositories>
 		</profile>
 	</profiles>
