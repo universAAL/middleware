@@ -41,6 +41,9 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
 
 /**
+ * A utility class for managing private/public keys and encrypting/decrypting
+ * strings
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * 
@@ -149,7 +152,14 @@ public class CryptUtil {
 	    e.printStackTrace();
 	}
     }
-
+    
+    /**
+     * Initialization method - adds security provider, reads the shared key from 
+     * the file system or generates a new shared key 
+     * 
+     * @param String dir - the directory where the shared key file resides
+     * 
+     */
     static String init(String dir) throws Exception {
 	Security.addProvider(new BouncyCastleProvider());
 	File keyFile = new File(dir + System.getProperty("file.separator")
@@ -174,11 +184,28 @@ public class CryptUtil {
 	else
 	    return "Cryptography utils initialized successfully!";
     }
-
+    
+    /**
+     * decrypt the parameter string with the shared key read during 
+     * initialization 
+     * 
+     * @param String chiper - the string to decrypt
+     * @return the decrypted string
+     * 
+     */
     static String decrypt(String cipher) throws Exception {
 	return decrypt(cipher, skey);
     }
-
+    
+    /**
+     * decrypt the first parameter string with the shared key received as the 
+     * second parameter
+     * 
+     * @param String chiper - the string to decrypt
+     * @param SecretKey skey - the shared key
+     * @return the decrypted string
+     * 
+     */
     private static String decrypt(String cipher, SecretKey skey)
 	    throws Exception {
 	Cipher desCipher = Cipher.getInstance(cipherTransformation);
@@ -186,17 +213,41 @@ public class CryptUtil {
 	return new String(desCipher.doFinal(Base64.decode(cipher)));
     }
 
+    /**
+     * encrypt the parameter string with the shared key read during 
+     * initialization 
+     * 
+     * @param String clear - the string to encrypt
+     * @return the encrypted string
+     * 
+     */
     static String encrypt(String clear) throws Exception {
 	return encrypt(clear, skey);
     }
-
+    
+    /**
+     * encrypt the first parameter string with the shared key received as the 
+     * second parameter
+     * 
+     * @param String clear - the string to encrypt
+     * @param SecretKey skey - the shared key
+     * @return the encrypted string
+     * 
+     */
     private static String encrypt(String clear, SecretKey skey)
 	    throws Exception {
 	Cipher desCipher = Cipher.getInstance(cipherTransformation);
 	desCipher.init(Cipher.ENCRYPT_MODE, skey);
 	return new String(Base64.encode(desCipher.doFinal(clear.getBytes())));
     }
-
+    
+    /**
+     * generate the shared key and write it into the file passed as a parameter
+     * 
+     * @param File keyFile - the file to write the generated key
+     * @return SecretKey - the generated key
+     * 
+     */
     private static SecretKey generateKey(File keyFile) throws Exception {
 	KeyGenerator keyGen = KeyGenerator.getInstance(secretKeyAlgorithm);
 	keyGen.init(SecureRandom.getInstance(randomizationAlgorithm));
@@ -211,7 +262,12 @@ public class CryptUtil {
 	out.close();
 	return skey;
     }
-
+    
+    /**
+     * generate a pair of keys - public and private, and write them to the files
+     * with the names "public.key" and "private.key" 
+     * 
+     */
     public void generateKeyPair() throws Exception {
 	KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
 	SecureRandom random = SecureRandom.getInstance(randomizationAlgorithm,
@@ -230,6 +286,13 @@ public class CryptUtil {
 	keyfos.close();
     }
 
+    /**
+     * read the shared key from the file passed as a parameter
+     * 
+     * @param File keyFile - the file to read the key from
+     * @return SecretKey - the read key
+     * 
+     */
     private static SecretKey readKey(File keyFile) throws Exception {
 	DataInputStream in = new DataInputStream(new FileInputStream(keyFile));
 	byte[] rawkey = new byte[(int) keyFile.length()];
