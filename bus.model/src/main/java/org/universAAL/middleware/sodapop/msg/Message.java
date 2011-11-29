@@ -25,6 +25,11 @@ import java.util.Random;
 import org.universAAL.middleware.sodapop.impl.SodaPopImpl;
 
 /**
+ * This class represents messages sent between SodaPop bus members
+ * Each message has a unique ID, a list of receivers, the content (the actual 
+ * payload), inReplyTo field to correlate with the message its message is a 
+ * reply to
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * 
@@ -50,19 +55,41 @@ public class Message {
 	}
 	idLength = thisJVM.length() + 17;
     }
-
+    
+    /**
+     * generates a globally unique ID, based on a counter and some string that 
+     * represents this JVM
+     * 
+     * @return String - the created unique ID
+     */
     public static synchronized String createUniqueID() {
 	StringBuffer b = new StringBuffer(idLength);
 	b.append(fill0(Long.toHexString(counter++), 16));
 	b.append(':').append(thisJVM);
 	return b.toString();
     }
-
+    
+    /**
+     * generates a locally unique ID
+     * 
+     * @param localPrefix
+     * @param counter
+     * @param counterLen
+     * @return String - the created unique local ID
+     */
     public static synchronized String createUniqueLocalID(String localPrefix,
 	    int counter, int counterLen) {
 	return localPrefix + fill0(Long.toHexString(counter), counterLen);
     }
-
+    
+    /**
+     * Padd the string passed as the first parameter with zeros up to the length
+     * passed as the second parameter 
+     * 
+     * @param arg - the string to padd
+     * @param len - the required length of the padded result
+     * @return the padded string
+     */
     private static String fill0(String arg, int len) {
 	int diff = len - arg.length();
 	if (diff == 0)
@@ -77,7 +104,13 @@ public class Message {
 	b.append(arg);
 	return b.toString();
     }
-
+    
+    /**
+     * serialize the object passed as a parameter
+     * 
+     * @param o - Object to serialize
+     * @return String - the serialization
+     */
     public static String trySerializationAsContent(Object o) {
 	MessageContentSerializer s = SodaPopImpl.getContentSerializer();
 	return (s == null) ? o.toString() : s.serialize(o);
@@ -92,7 +125,13 @@ public class Message {
     private Message() {
 
     }
-
+    
+    /**
+     * Constructor - a message of particular type with particular content
+     * 
+     * @param type
+     * @param content
+     */
     public Message(MessageType type, Object content) {
 	if (type == null || content == null || type == MessageType.p2p_reply
 		|| type == MessageType.reply)
@@ -103,6 +142,12 @@ public class Message {
 	id = createUniqueID();
     }
 
+    /**
+     * Constructor - parses the string passed as a parameter and creates
+     *  a Message object  
+     * 
+     * @param msg - the string to parse (the serialization of a message object)
+     */
     public Message(String msg) {
 	if (msg == null)
 	    throw new NullPointerException();
@@ -151,7 +196,14 @@ public class Message {
 	if (!msg.equals("\n</sodapop:Message>"))
 	    throw new IllegalArgumentException();
     }
-
+    
+    /**
+     * Create reply message to this message, with the content passed as a 
+     * parameter
+     * 
+     * @param content - the content of the created reply
+     * @return Message - the reply message
+     */
     public Message createReply(Object content) {
 	if (content == null)
 	    return null;
@@ -172,51 +224,100 @@ public class Message {
 	return reply;
     }
 
+    /**
+     * 
+     * @return Object - the content of the message
+     */
     public Object getContent() {
 	return content;
     }
-
+    
+    /**
+     * 
+     * @return String - the string serialization of the content
+     */
     public String getContentAsString() {
 	if (contentStr == null)
 	    contentStr = trySerializationAsContent(content);
 	return contentStr;
     }
 
+    /**
+     * 
+     * @return - the unique ID of the message
+     */
+
     public String getID() {
 	return id;
     }
 
+    /**
+     * 
+     * @return String - the ID of the message this message replies to 
+     */
     public String getInReplyTo() {
 	return inReplyTo;
     }
 
+    /**
+     * 
+     * @return String[] - array of receiver IDs
+     */
     public String[] getReceivers() {
 	return receivers;
     }
-
+    
+    /**
+     * 
+     * @return String - the id of the sender. Please note that the id of the 
+     * message is composed of a counter and the ID of the sender (thisJVM 
+     * variable of the message)
+     */
     public String getSource() {
 	return id.substring(17);
     }
-
+    
+    /**
+     * 
+     * @return the counter of the sender. Please note that the id of the 
+     * message is composed of the counter and the ID of the sender 
+     */
     public long getSourceTimeOrder() {
 	return Long.parseLong(id.substring(0, 16), 16);
     }
 
+    /**
+     * 
+     * @return MessageType
+     */
     public MessageType getType() {
 	return type;
     }
-
+    
+    /**
+     * 
+     * @return boolean - true iff this message was sent from a remote peer
+     */
     public boolean isRemote() {
 	return !thisJVM.equals(getSource());
     }
-
+    
+    /**
+     * sets receivers to this message
+     * @param receivers
+     */
     public void setReceivers(String[] receivers) {
 	if (this.receivers == null)
 	    this.receivers = receivers;
 	else
 	    throw new RuntimeException("Cannot change the message receiver!");
     }
-
+    
+    /**
+     * Serialize the message as string
+     * 
+     * @return String - the serialized message
+     */
     public String toString() {
 	StringBuffer sb = new StringBuffer(512 + getContentAsString().length());
 	// sb.append("<![CDATA[<sodapop:Message>");
