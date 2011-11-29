@@ -24,9 +24,13 @@ import org.universAAL.middleware.acl.SodaPopPeer;
 
 
 
-/* 
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+/** 
+ * This class holds a queue of commands to send to particular remote peer
+ * Its run method runs continuously until the close() method is called, and 
+ * retrieves the commands from the queue and sends them to the remote peer 
+ * 
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
 public class Dispatcher extends Thread {
 
@@ -34,6 +38,10 @@ public class Dispatcher extends Thread {
 	public SodaPopPeer peer;
 	private boolean running = true;
 
+	/**
+	 * 
+	 * @param peer - the peer to send the queued commands to
+	 */
     public Dispatcher(SodaPopPeer peer) {
 		super("sodapop.impl.Dispatcher");
 		this.queue = new CommandQueue();
@@ -41,6 +49,10 @@ public class Dispatcher extends Thread {
 		
 	}
 
+    /**
+     * Its run method runs continuously until the close() method is called, and 
+     * retrieves the commands from the queue and sends them to the remote peer
+     */
 	public void run() {
 		while (running) {
 			PeerCommand msg = (PeerCommand) queue.dequeue();
@@ -85,7 +97,10 @@ public class Dispatcher extends Thread {
 			}
 		}
 	}
-
+	
+	/**
+	 * stop the run() method and close the queue
+	 */
 	public void close() {
 		running  = false;
 		queue.close();
