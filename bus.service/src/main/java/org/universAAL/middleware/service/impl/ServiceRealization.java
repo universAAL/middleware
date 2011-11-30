@@ -40,8 +40,11 @@ import org.universAAL.middleware.util.IntAggregator;
 import org.universAAL.middleware.util.RatingAggregator;
 
 /**
- * The profile of a realization of a service to be passed to the service bus
+ * The realization of a service to be passed to the service bus
  * as registration parameter.
+ * 
+ * The ServiceRealization is a resource that has ServiceCalle, ServiceProfile,
+ * response times, QoS rankings as properties. 
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  *
@@ -67,6 +70,10 @@ public class ServiceRealization extends Resource {
 		props.put(uAAL_SERVICE_PROFILE, theProfile);
 	}
 	
+	/**
+	 * Adds properties of the realization to the hashtable passed as a parameter
+	 * @param context - the hashtable to add properties
+	 */
 	private void addAggregatedProperties(Hashtable context) {
 		if (context == null)
 			return;
@@ -97,6 +104,10 @@ public class ServiceRealization extends Resource {
 			context.put(ServiceProfile.PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS, new Integer(t));
 	}
 	
+	/**
+	 * add measured response time to the properties of the realization  
+	 * @param rt
+	 */
 	void addMeasuredResponseTime(int rt) {
 		if (rt > 0) {
 			IntAggregator ia = (IntAggregator) props.get(uAAL_SERVICE_RESPONSE_TIME);
@@ -108,6 +119,10 @@ public class ServiceRealization extends Resource {
 		}
 	}
 	
+	/**
+	 * Add Quality of Service (QoS) to the properties of the realization
+	 * @param r - the rating of QoS
+	 */
 	void addQoSRating(Rating r) {
 		if (r != null) {
 			RatingAggregator ra = (RatingAggregator) props.get(uAAL_SERVICE_QUALITY_OF_SERVICE);
@@ -119,6 +134,15 @@ public class ServiceRealization extends Resource {
 		}
 	}
 	
+	/**
+	 * Adds to the hashtable passed as a parameter an asserted service call 
+	 * representing this ServiceRealization
+	 * 
+	 * @param context - the hashtable to add the asserted service call, contains
+	 * input parameters to the service call
+	 *  
+	 * @return true iff the operation was successful 
+	 */
 	boolean assertServiceCall(Hashtable context) {
 		ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 		if (prof == null)
@@ -151,50 +175,103 @@ public class ServiceRealization extends Resource {
 		return true;
 	}
 	
+	/**
+	 * Returns average Quality of Service rating of this ServiceRealization
+	 * @return Rating - the average rating
+	 */
 	public Rating getAvgQoSRating() {
 		RatingAggregator ra = (RatingAggregator) props.get(uAAL_SERVICE_RESPONSE_TIME);
 		return (ra == null)?  null : ra.getAverage();
 	}
 	
+	/**
+	 * Returns average response time of the measured response times for this
+	 * ServiceRealization
+	 * 
+	 * @return int - the average response time
+	 */
 	public int getAvgResponseTime() {
 		IntAggregator ia = (IntAggregator) props.get(uAAL_SERVICE_RESPONSE_TIME);
 		return (ia == null)?  -1 : ia.getAverage();
 	}
 	
+	/**
+	 * Returns maximal Quality of Service rating of this ServiceRealization
+	 * 
+	 * @return Rating - the maximal rating
+	 */
 	public Rating getMaxQoSRating() {
 		RatingAggregator ra = (RatingAggregator) props.get(uAAL_SERVICE_RESPONSE_TIME);
 		return (ra == null)?  null : ra.getMax();
 	}
 	
+	/**
+	 * Returns maximal response time of the measured response times for this
+	 * ServiceRealization
+	 * 
+	 * @return int - the maximal response time
+	 */
 	public int getMaxResponseTime() {
 		IntAggregator ia = (IntAggregator) props.get(uAAL_SERVICE_RESPONSE_TIME);
 		return (ia == null)?  -1 : ia.getMax();
 	}
 	
+	/**
+	 * Returns minimal Quality of Service rating of this ServiceRealization
+	 * 
+	 * @return Rating - the minimal rating
+	 */
 	public Rating getMinQoSRating() {
 		RatingAggregator ra = (RatingAggregator) props.get(uAAL_SERVICE_RESPONSE_TIME);
 		return (ra == null)?  null : ra.getMin();
 	}
 	
+	/**
+	 * Returns minimal response time of the measured response times for this
+	 * ServiceRealization
+	 * 
+	 * @return int - the minimal response time
+	 */
 	public int getMinResponseTime() {
 		IntAggregator ia = (IntAggregator) props.get(uAAL_SERVICE_RESPONSE_TIME);
 		return (ia == null)?  -1 : ia.getMin();
 	}
 	
+	/**
+	 * Returns number of Quality of Service ratings of this ServiceRealization
+	 * 
+	 * @return int - the number of QoSRatings
+	 */
 	public int getNumberOfQoSRatings() {
 		RatingAggregator ra = (RatingAggregator) props.get(uAAL_SERVICE_RESPONSE_TIME);
 		return (ra == null)?  0 : ra.getNumberOfRatings();
 	}
 	
+	/**
+	 * Returns number of the measured response times for this ServiceRealization
+	 * 
+	 * @return int - the number of measurements
+	 */
 	public int getNumberOfResponseTimeMeasurements() {
 		IntAggregator ia = (IntAggregator) props.get(uAAL_SERVICE_RESPONSE_TIME);
 		return (ia == null)?  0 : ia.getNumberOfVotes();
 	}
 	
+	/**
+	 * Return the ServiceProvider of this ServiceRealization
+	 * 
+	 * @return Object - the service provider
+	 */
 	Object getProvider() {
 		return props.get(uAAL_SERVICE_PROVIDER);
 	}
 	
+	/**
+	 * Return the declared response timeout of the ServiceProfile related to 
+	 * this realization
+	 * 
+	 * @return int - the response timeout
+	 */
 	public int getResponseTimeout() {
 		ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 		if (prof != null) {
@@ -206,6 +283,13 @@ public class ServiceRealization extends Resource {
 		return -1;
 	}
 	
+	/**
+	 * Return true iff the ServiceRequest matches this ServiceRealization + 
+	 * Context
+	 * @param request - the ServiceRequest to match
+	 * @param context - the Context to match
+	 * @return
+	 */
 	public boolean matches(ServiceRequest request, Hashtable context) {
 		if (request == null)
 			return true;
@@ -343,6 +427,12 @@ public class ServiceRealization extends Resource {
 		return true;
 	}
 	
+	/**
+	 * Return true iff the string passed as a parameter matches this 
+	 * ServiceRealization 
+	 * @param word - the string to match
+	 * @return - true iff the string passed as a parameter matches 
+	 */
 	public boolean matches(String word) {
 		if (word == null)
 			return true;
@@ -352,6 +442,12 @@ public class ServiceRealization extends Resource {
 			&& matchStrings(word, prof.getServiceName(), prof.getServiceDescription());
 	}
 	
+	/**
+	 * Return true iff all the strings in the array of Strings passed as a 
+	 * parameter match this ServiceRealization
+	 * @param keywords - the array of Strings to match
+	 * @return - true iff all the strings match
+	 */
 	public boolean matchesAll(String[] keywords) {
 		if (keywords != null) {
 			ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
@@ -365,6 +461,12 @@ public class ServiceRealization extends Resource {
 		return true;
 	}
 	
+	/**
+	 * Return true iff one of the strings in the array of Strings passed as a 
+	 * parameter matches this ServiceRealization
+	 * @param keywords - the array of Strings to match
+	 * @return - true iff one of the strings matches
+	 */
 	public boolean matchesOne(String[] keywords) {
 		if (keywords != null) {
 			ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
@@ -378,24 +480,50 @@ public class ServiceRealization extends Resource {
 		return false;
 	}
 	
+	/**
+	 * Returns true iff the 'searched' String appears either in 'name' or in 
+	 * 'text' strings
+	 * @param searched
+	 * @param name
+	 * @param text
+	 * @return boolean - true iff the 'searched' Strings appears in the 'name'
+	 * 	or 'text'
+	 */
 	private boolean matchStrings(String searched, String name, String text) {
 		if (searched == null  ||  "".equals(searched))
 			return true;
 		return (name != null  &&  name.toLowerCase().indexOf(searched.toLowerCase()) > -1)
 			|| (text != null  &&  text.toLowerCase().indexOf(searched.toLowerCase()) > -1);
 	}
-
+	
+	/**
+	 * Return a flag designating the serialization type of this 
+	 * ServiceRealization
+	 * 
+	 * @return int - the serialization type
+	 */
 	public int getPropSerializationType(String propURI) {
 		return (uAAL_SERVICE_PROFILE.equals(propURI)
 				||  uAAL_SERVICE_PROVIDER.equals(propURI))?
 						PROP_SERIALIZATION_FULL : PROP_SERIALIZATION_OPTIONAL;
 	}
-
+	
+	/**
+	 * Return true iff this ServiceRealization is well formed
+	 * 
+	 * @return boolean - true iff this ServiceRealization is well formed
+	 */
 	public boolean isWellFormed() {
 		return props.containsKey(uAAL_SERVICE_PROFILE)
 			&& props.containsKey(uAAL_SERVICE_PROVIDER);
 	}
-
+	
+	/**
+	 * Set a property of this service realization
+	 * 
+	 * @param String propURI - the URI of the property to set
+	 * @param Object value - the value of the property to set 
+	 */
 	public void setProperty(String propURI, Object value) {
 		if (propURI == null  ||  value == null  ||  props.containsKey(propURI))
 			return;
