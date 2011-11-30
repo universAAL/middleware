@@ -53,6 +53,8 @@ import org.universAAL.middleware.sodapop.msg.MessageType;
 import org.universAAL.middleware.util.Constants;
 
 /**
+ * This class implements the BusStrategy for the ServiceBus
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * 
@@ -136,7 +138,19 @@ public class ServiceStrategy extends BusStrategy {
 
 	}
     }
-
+    
+    /**
+     * Adds availability subscription (registration and un-registration of 
+     * services), according to the ServiceRequest
+     * 
+     * @param id - the ID of the caller who asked to make the subscription
+     * @param subscriber - the object to be notified about registration event
+     * @param request - the service request to match the the service profiles. 
+     * The notifications will be fired only regarding the 
+     * registration/unregistration of services with the matching service 
+     * profiles. 
+     *                   
+     */
     void addAvailabilitySubscription(String id,
 	    AvailabilitySubscriber subscriber, ServiceRequest request) {
 	if (request == null || subscriber == null || request.isAnon())
@@ -163,7 +177,12 @@ public class ServiceStrategy extends BusStrategy {
 	    sodapop.propagateMessage(bus, m);
 	}
     }
-
+    
+    /**
+     * Add service profiles to a previously registered ServiceCallee
+     * @param calleeID - the id of the ServiceCallee
+     * @param realizedServices - the profiles to add
+     */
     void addRegParams(String calleeID, ServiceProfile[] realizedServices) {
 	if (realizedServices == null
 		|| calleeID == null
@@ -238,7 +257,15 @@ public class ServiceStrategy extends BusStrategy {
 	    }.start();
 	}
     }
-
+    
+    /**
+     * Add service availability subscriber that will be notified about 
+     * registration/unregistration of services, matching according the 
+     * ServiceRequest passed as a parameter
+     * 
+     * @param callerID - the id of the subscriber
+     * @param request - the request to describe the desired services
+     */
     private void addSubscriber(String callerID, ServiceRequest request) {
 	String serviceURI = request.getRequestedService().getType();
 	synchronized (allServicesIndex) {
@@ -260,6 +287,11 @@ public class ServiceStrategy extends BusStrategy {
 	}
     }
 
+    /**
+     * Pass the call message to the matching service callees
+     * @param m - the message
+     * @param matches - a list of hashtables that describe the matched services
+     */ 
     private void callServices(Message m, Vector matches) {
 	int size = matches.size();
 	matches.add(new Integer(size));
@@ -358,7 +390,11 @@ public class ServiceStrategy extends BusStrategy {
 		sodapop.propagateMessage(bus, m);
 	}
     }
-
+    
+    /**
+     * Sends a response to the message passed as a parameter
+     * @param m - the message, to which the response is sent
+     */
     private void sendServiceResponse(Message m) {
 	Vector matches = (Vector) allWaitingCallers.remove(m.getID());
 	if (matches == null)
@@ -668,7 +704,12 @@ public class ServiceStrategy extends BusStrategy {
 	else
 	    sodapop.propagateMessage(bus, m);
     }
-
+    
+    /**
+     * Translates the process outputs according to the bindings
+     * @param outputs - a list of ProcessOutputs
+     * @param context - hashtable of bindings for the ProcessOutputs
+     */
     private void prepareRequestedOutput(List outputs, Hashtable context) {
 	if (outputs != null && !outputs.isEmpty())
 	    for (int i = outputs.size() - 1; i > -1; i--) {
@@ -691,7 +732,13 @@ public class ServiceStrategy extends BusStrategy {
 		}
 	    }
     }
-
+    
+    /**
+     * Return a list of non abstract super classes of the service passed as a 
+     * parameter
+     * @param s - the service
+     * @return Vector - the non-abstract superclasses
+     */
     private Vector getNonAbstractSuperClasses(Service s) {
 	return ManagedIndividual.getNonAbstractSuperClasses(s);
 //	Vector result = new Vector();
@@ -707,7 +754,15 @@ public class ServiceStrategy extends BusStrategy {
 //	}
 //	return result;
     }
-
+    
+    /**
+     * Extract the output value from the context, according to the 
+     * AggregatingFilter passed as a parameter
+     * 
+     * @param context - the context
+     * @param af - the aggregating filter  
+     * @return - the output
+     */
     private Object getOutputValue(Hashtable context, AggregatingFilter af) {
 	List outputs = ((ServiceResponse) context.get(CONTEXT_RESPONSE_MESSAGE))
 		.getOutputs();
@@ -736,6 +791,13 @@ public class ServiceStrategy extends BusStrategy {
 	return null;
     }
 
+    /**
+     * Extract profile parameter from the context, according to the property 
+     * passed as a parameter
+     * @param context
+     * @param prop - the property of the profile paramter to return
+     * @return Object - the profile parameter
+     */
     private Object getProfileParameter(Hashtable context, String prop) {
 	Object o = context.get(prop);
 	if (o == null)
@@ -745,6 +807,15 @@ public class ServiceStrategy extends BusStrategy {
 	return o;
     }
 
+    /**
+     * Returns a vector from a hashtable from Strings to Vectors. If no vector 
+     * exists in the hashtable according to the key passed as a parameter,
+     * an empty vector is inserted in the hashtable according to the key
+     * 	
+     * @param t - the hashtable
+     * @param k - the key
+     * @return Vector - the value of the key from the hashtable
+     */
     private Vector getVector(Hashtable t, String k) {
 	Vector m = (Vector) t.get(k);
 	if (m == null) {
@@ -1235,6 +1306,13 @@ public class ServiceStrategy extends BusStrategy {
 	}
     }
 
+    /**
+     * Sends a reply to the initial dialog info request message. The reply will
+     * contain  the matched services.
+     * 
+     * @param m - the initial dialog info request message
+     * @param matchingServices
+     */
     private void replyToInitialDialogInfoRequest(Message m,
 	    Vector matchingServices) {
 	if (matchingServices == null) {
@@ -1275,6 +1353,14 @@ public class ServiceStrategy extends BusStrategy {
 	    sodapop.propagateMessage(bus, m);
     }
 
+    /**
+     * Sends a reply to the initial dialog info request message. The reply will
+     * contain a description of a matched service of the vendor whose ID is 
+     * passed as a parameter
+     * 
+     * @param m - the initial dialog info request message
+     * @param matchingServices
+     */
     private void replyToInitialDialogInfoRequest(Message m,
 	    Vector matchingServices, String vendor) {
 	if (matchingServices == null) {
@@ -1320,7 +1406,12 @@ public class ServiceStrategy extends BusStrategy {
 	else
 	    sodapop.propagateMessage(bus, m);
     }
-
+    
+    /**
+     * Send the reply message to a local caller
+     * 
+     * @param msg - the reply message
+     */
     private void replyToLocalCaller(Message msg) {
 	String replyOf = msg.getInReplyTo();
 	if (replyOf == null) {
@@ -1342,7 +1433,12 @@ public class ServiceStrategy extends BusStrategy {
 	    }
 	}
     }
-
+    
+    /**
+     * Send a no-matching-found message as a reply to the message passed as a 
+     * parameter
+     * @param m - the message to send a reply to
+     */
     private void sendNoMatchingFound(Message m) {
 	String callingPeer = m.getSource();
 	m = m
@@ -1354,7 +1450,15 @@ public class ServiceStrategy extends BusStrategy {
 	else
 	    sodapop.propagateMessage(bus, m);
     }
-
+    
+    /**
+     * Adds a service with ServiceProfile, ServiceRealization and processURI
+     * to the index of services
+     * 
+     * @param prof
+     * @param registration
+     * @param processURI
+     */
     private void indexServices(ServiceProfile prof,
 	    ServiceRealization registration, String processURI) {
 	Service theService = prof.getTheService();
@@ -1391,6 +1495,8 @@ public class ServiceStrategy extends BusStrategy {
 	    }
 	}
     }
+    
+
 
     private boolean isCoordinatorKnown() {
 	if (theCoordinator == null) {
@@ -1412,6 +1518,17 @@ public class ServiceStrategy extends BusStrategy {
 	    return true;
     }
 
+    
+    /**
+     * Returns true iff a ServiceRealization passed as a parameter matches the 
+     * ServiceRequest
+     * 
+     * @param callerID - the caller ID of the ServiceRequest
+     * @param request - the ServiceRequest
+     * @param offer - the Service Realization being matched
+     * @return Hashtable - a hashtable of the context of the matching or null
+     * if the ServiceRealization does not match the ServiceRequest
+     */
     private Hashtable matches(String callerID, ServiceRequest request,
 	    ServiceRealization offer) {
 	Hashtable context = new Hashtable();
@@ -1425,6 +1542,18 @@ public class ServiceStrategy extends BusStrategy {
 	    context.put(Constants.VAR_uAAL_ACCESSING_HUMAN_USER, o);
 	return offer.matches(request, context) ? context : null;
     }
+    
+    /**
+     * Notify the Availability Subscribers about registration/unregistration of
+     * Services (ServiceRealization representing the Services) 
+     * 
+     * @param caller - the subscriber
+     * @param request - the ID of the subscription
+     * @param realization - the ID of the ServiceRealization
+     * @param registers - boolean, true if the notification is about a 
+     * registered service, false if the notification is about an unregistered 
+     * service
+     */
 
     private void notifyLocalSubscriber(String caller, String request,
 	    String realization, boolean registers) {
@@ -1444,6 +1573,17 @@ public class ServiceStrategy extends BusStrategy {
 		}
 	    }
     }
+    
+    /**
+     * Notify the Availability Subscriber about registration/unregistration of
+     * Services (ServiceRealization representing the Services) 
+     * 
+     * @param as - the availability subscription
+     * @param realizationID - the ID of the ServiceRealization
+     * @param registers - boolean, true if the notification is about a 
+     * registered service, false if the notification is about an unregistered 
+     * service
+     */
 
     private void notifySubscriber(AvailabilitySubscription as,
 	    String realizationID, boolean registers) {
@@ -1468,11 +1608,21 @@ public class ServiceStrategy extends BusStrategy {
 	    sodapop.propagateMessage(bus, m);
 	}
     }
+    
+    /**
+     * Remove availability subscriber passed as a parameter
+     * 
+     * @param callerID - the subscribing caller ID
+     * @param subscriber - the subscriber object
+     * @param requestURI - the URI of the request to subscribe
+     */
 
     void removeAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, String requestURI) {
 	if (requestURI == null || subscriber == null
 		|| localSubscriptionsIndex.get(requestURI) == null)
+		//TODO - check if  the above line should be:
+		// localSubscriptionsIndex.get(callerID)...
 	    return;
 
 	Vector v = (Vector) localSubscriptionsIndex.get(callerID);
@@ -1514,6 +1664,12 @@ public class ServiceStrategy extends BusStrategy {
 	    sodapop.propagateMessage(bus, m);
 	}
     }
+    
+    /**
+     * Remove service profiles to a previously registered ServiceCallee
+     * @param calleeID - the URI of the ServiceCallee
+     * @param realizedServices - the service profiles to remove
+     */
 
     void removeMatchingRegParams(String calleeID,
 	    ServiceProfile[] realizedServices) {
@@ -1564,6 +1720,13 @@ public class ServiceStrategy extends BusStrategy {
 	}
     }
 
+    
+    /**
+     * Remove registration parameters for a calleID passed as a parameter
+     * 
+     * @param calleeID - the URI of the callee for which the registration 
+     * parameters are removed
+     */
     void removeRegParams(String calleeID) {
 	if (calleeID == null
 		|| !(getBusMember(calleeID
@@ -1592,8 +1755,17 @@ public class ServiceStrategy extends BusStrategy {
 	    sodapop.propagateMessage(bus, m);
 	}
     }
+    
+    /**
+     * Remove services of the callee passed as a parameter from the index of 
+     * services
+     * 
+     * @param calleeID - the URI of the caller
+     * @param processURI - the URI of the process
+     */
 
     private void unindexServices(String calleeID, String processURI) {
+
 	boolean deleteAll = (processURI == null);
 	synchronized (allServicesIndex) {
 	    for (Iterator i = allServicesIndex.values().iterator(); i.hasNext();) {
@@ -1633,6 +1805,14 @@ public class ServiceStrategy extends BusStrategy {
 	}
     }
 
+    
+    /**
+     * This method returns all the globally registered Service Profiles for the 
+     * given service URI 
+     *  
+     * @param serviceURI - the URI of the Service whose profiles are returned 
+     * @return ServiceProfile[] - the service profiles of the given service
+     */
     public ServiceProfile[] getAllServiceProfiles(String serviceURI) {
 	// if (this.isCoordinator)
 	// return getLocalServices(serviceURI);
@@ -1665,6 +1845,13 @@ public class ServiceStrategy extends BusStrategy {
 	return profileListToArray(profiles);
     }
 
+    
+    /**
+     * Return the profiles registered for the service passed as a parameter, 
+     * only if this peer is a coordinator. Otherwise, an empty list is returned.
+     * @param serviceURI - the URI of the service whose profiles are returned
+     * @return - the profiles of the service passed as a parameter
+     */
     private ServiceProfile[] getCoordinatorServices(String serviceURI) {
 
 	ArrayList profiles = new ArrayList();
@@ -1685,6 +1872,13 @@ public class ServiceStrategy extends BusStrategy {
 	return profileListToArray(profiles);
     }
 
+    
+    /**
+     * This method translates a List of ServiceProfiles into an array of 
+     * ServiceProfiles
+     * @param list - the list to translate
+     * @return ServiceProfile[] - the translated array of ServiceProfiles
+     */
     private ServiceProfile[] profileListToArray(List list) {
 	if (list == null)
 	    return new ServiceProfile[0];
