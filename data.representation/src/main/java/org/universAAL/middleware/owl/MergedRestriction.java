@@ -739,6 +739,9 @@ public class MergedRestriction extends Intersection {
 	if (onThis == null)
 	    return null;
 
+	if (other == null)
+	    return this;
+	
 	String onOther = other.getOnProperty();
 	if (onOther == null || !onThis.equals(onOther))
 	    return this;
