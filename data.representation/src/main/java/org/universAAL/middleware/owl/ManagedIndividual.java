@@ -186,8 +186,10 @@ public abstract class ManagedIndividual extends Resource {
 	    return false;
 	if (value == null)
 	    return true;
-	if (! (value instanceof ManagedIndividual))
-	    return false;
+	if (! (value instanceof ManagedIndividual)) {
+	    return TypeMapper.isCompatible(typeURI, TypeMapper.getDatatypeURI(value));
+	    //return false;
+	}
 
 	// get class info for the object
 	OntClassInfo info = ((ManagedIndividual)value).getOntClassInfo();
@@ -248,7 +250,11 @@ public abstract class ManagedIndividual extends Resource {
      */
     public static final MergedRestriction getClassRestrictionsOnProperty(
 	    String classURI, String propURI) {
-	return OntologyManagement.getInstance().getOntClassInfo(classURI).getRestrictionsOnProp(propURI);
+	OntClassInfo info = OntologyManagement.getInstance().getOntClassInfo(classURI);
+	if (info == null)
+	    return null;
+
+	return info.getRestrictionsOnProp(propURI);
     }
 
     /**
