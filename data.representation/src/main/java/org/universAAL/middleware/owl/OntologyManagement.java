@@ -167,6 +167,10 @@ public class OntologyManagement {
 	return false;
     }
 
+    public String[] getOntoloyURIs() {
+	return (String[]) ontologies.keySet().toArray(new String[0]);
+    }
+    
     /** Internal method. */
     public final boolean checkPermission(String uri) {
 	if (uri == null)
