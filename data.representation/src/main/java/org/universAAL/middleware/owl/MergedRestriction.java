@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -72,6 +73,7 @@ public class MergedRestriction extends Intersection {
     // AllValuesFromRestriction is stored.
     private int index[] = new int[7];
 
+    /** The property for which this restriction is defined. */
     private String onProperty = null;
 
     /** Constructor for deserializers. */
@@ -107,82 +109,80 @@ public class MergedRestriction extends Intersection {
 	setRestrictions(onProperty, restrictions);
     }
 
-    
-    public static final MergedRestriction getPropertyBanningRestriction(String propURI) {
-        MergedRestriction m = new MergedRestriction(propURI);
-        m.addRestriction(new MaxCardinalityRestriction(propURI, 0));
-        return m;
+    public static final MergedRestriction getPropertyBanningRestriction(
+	    String propURI) {
+	MergedRestriction m = new MergedRestriction(propURI);
+	m.addRestriction(new MaxCardinalityRestriction(propURI, 0));
+	return m;
     }
 
-    public static final MergedRestriction getFixedValueRestriction(String propURI,
-            Object o) {
-        if (propURI == null || o == null)
-            return null;
-    
-        if (o instanceof String && isQualifiedName((String) o))
-            o = new Resource((String) o);
-    
-        MergedRestriction m = new MergedRestriction(propURI);
-        m.addRestriction(new HasValueRestriction(propURI, o));
-        return m;
+    public static final MergedRestriction getFixedValueRestriction(
+	    String propURI, Object o) {
+	if (propURI == null || o == null)
+	    return null;
+
+	if (o instanceof String && isQualifiedName((String) o))
+	    o = new Resource((String) o);
+
+	MergedRestriction m = new MergedRestriction(propURI);
+	m.addRestriction(new HasValueRestriction(propURI, o));
+	return m;
     }
 
-    public static final MergedRestriction getCardinalityRestriction(String propURI,
-            int min, int max) {
-        if (propURI == null)
-            return null;
-        if ((max > -1 && max < min) // nothing
-        	|| (max < 0 && min < 1)) // everything
-            return null;
-    
-        MergedRestriction ret = new MergedRestriction(propURI);
-        
-        if (min > 0  &&  min == max) {
-            ret.addRestriction(new ExactCardinalityRestriction(propURI, min));
-        } else {
-            if (min > 0)
-        	ret.addRestriction(new MinCardinalityRestriction(propURI, min));
-            if (max >= 0)
-        	ret.addRestriction(new MaxCardinalityRestriction(propURI, max));
-        }
-        
-        return ret;
+    public static final MergedRestriction getCardinalityRestriction(
+	    String propURI, int min, int max) {
+	if (propURI == null)
+	    return null;
+	if ((max > -1 && max < min) // nothing
+		|| (max < 0 && min < 1)) // everything
+	    return null;
+
+	MergedRestriction ret = new MergedRestriction(propURI);
+
+	if (min > 0 && min == max) {
+	    ret.addRestriction(new ExactCardinalityRestriction(propURI, min));
+	} else {
+	    if (min > 0)
+		ret.addRestriction(new MinCardinalityRestriction(propURI, min));
+	    if (max >= 0)
+		ret.addRestriction(new MaxCardinalityRestriction(propURI, max));
+	}
+
+	return ret;
     }
 
     public static final MergedRestriction getAllValuesRestrictionWithCardinality(
-            String propURI, String typeURI, int min, int max) {
-    
-        MergedRestriction ret = new MergedRestriction(propURI);
-        ret.addRestriction(getAllValuesRestrictionWithCardinality(propURI,
-        	TypeURI.asTypeURI(typeURI), min, max));
-        return ret;
+	    String propURI, String typeURI, int min, int max) {
+
+	MergedRestriction ret = new MergedRestriction(propURI);
+	ret.addRestriction(getAllValuesRestrictionWithCardinality(propURI,
+		TypeURI.asTypeURI(typeURI), min, max));
+	return ret;
     }
 
     public static final MergedRestriction getAllValuesRestriction(
-            String propURI, String typeURI) {
-        if (typeURI == null || propURI == null)
-            return null;
-    
-        MergedRestriction ret = new MergedRestriction(propURI);
-        ret.addRestriction(new AllValuesFromRestriction(propURI, TypeURI.asTypeURI(typeURI)));
-        return ret;
+	    String propURI, String typeURI) {
+	if (typeURI == null || propURI == null)
+	    return null;
+
+	MergedRestriction ret = new MergedRestriction(propURI);
+	ret.addRestriction(new AllValuesFromRestriction(propURI, TypeURI
+		.asTypeURI(typeURI)));
+	return ret;
     }
 
     public static final MergedRestriction getAllValuesRestrictionWithCardinality(
-            String propURI, ClassExpression expr, int min, int max) {
-        if (expr == null)
-            return null;
-    
-        MergedRestriction ret = MergedRestriction.getCardinalityRestriction(propURI, min, max);
-        if (ret != null)
-            ret.addRestriction(new AllValuesFromRestriction(propURI, expr));
-        return ret;
+	    String propURI, ClassExpression expr, int min, int max) {
+	if (expr == null)
+	    return null;
+
+	MergedRestriction ret = MergedRestriction.getCardinalityRestriction(
+		propURI, min, max);
+	if (ret != null)
+	    ret.addRestriction(new AllValuesFromRestriction(propURI, expr));
+	return ret;
     }
 
-    
-    
-    
-    
     public static ArrayList getFromList(List o) {
 	// multiple restrictions for (possibly multiple) properties
 	// -> build array of MergedRestrictions
@@ -282,7 +282,7 @@ public class MergedRestriction extends Intersection {
 		this.index[i]--;
     }
 
-    private AbstractRestriction getRestriction(int id) {
+    public AbstractRestriction getRestriction(int id) {
 	if (index[id] == -1)
 	    return null;
 	return (AbstractRestriction) types.get(index[id]);
@@ -418,7 +418,8 @@ public class MergedRestriction extends Intersection {
     public MergedRestriction addRestriction(MergedRestriction r) {
 	ArrayList resList = (ArrayList) r.types;
 	for (int i = 0; i < resList.size(); i++)
-	    addRestriction((AbstractRestriction) resList.get(i));
+	    addRestriction((AbstractRestriction) ((ClassExpression) resList
+		    .get(i)).copy());
 	return this;
     }
 
@@ -472,6 +473,43 @@ public class MergedRestriction extends Intersection {
 	return new MergedRestriction(onProperty, newList);
     }
 
+    /**
+     * Create a new {@link MergedRestriction} with modified cardinality
+     * restrictions.
+     * 
+     * @param min
+     *            The new value for {@link MinCardinalityRestriction}
+     * @param max
+     *            The new value for {@link MaxCardinalityRestriction}
+     * @return
+     */
+    public MergedRestriction copyWithNewCardinality(int min, int max) {
+	if (max > -1 && max < min)
+	    return null;
+	MergedRestriction r = (MergedRestriction) copy();
+	r.removeRestriction(minCardinalityID);
+	r.removeRestriction(maxCardinalityID);
+	r.removeRestriction(exactCardinalityID);
+	r.addRestriction(new MinCardinalityRestriction(getOnProperty(), min));
+	r.addRestriction(new MaxCardinalityRestriction(getOnProperty(), max));
+	return r;
+    }
+
+    /**
+     * Create a new {@link MergedRestriction} with modified onProperty value.
+     * 
+     * @param onProp
+     *            The new URI of the property this restriction is defined for.
+     */
+    public MergedRestriction copyOnNewProperty(String onProp) {
+	MergedRestriction r = (MergedRestriction) copy();
+	for (Iterator i = types.iterator(); i.hasNext();)
+	    ((Resource) i.next()).setProperty(
+		    AbstractRestriction.PROP_OWL_ON_PROPERTY, onProp);
+	onProperty = onProp;
+	return r;
+    }
+
     /** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
     public boolean isWellFormed() {
 	for (int i = 0; i < types.size(); i++)
@@ -496,6 +534,13 @@ public class MergedRestriction extends Intersection {
 	return new SafeIterator(types.iterator());
     }
 
+    /**
+     * If this MergedRestriction restricts the values of a property to be
+     * individuals of a specific class (i.e. an {@link AllValuesFromRestriction}
+     * of a {@link TypeURI}), then return the URI of this class.
+     * 
+     * @return The URI of the class the property must be an individual of.
+     */
     public String getPropTypeURI() {
 	ClassExpression all = null;
 
@@ -503,8 +548,7 @@ public class MergedRestriction extends Intersection {
 	    return null;
 
 	all = (ClassExpression) ((AllValuesFromRestriction) types
-		.get(index[allValuesFromID]))
-		.getProperty(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
+		.get(index[allValuesFromID])).getConstraint();
 
 	return (all instanceof TypeURI) ? ((TypeURI) all).getURI() : null;
     }
@@ -639,5 +683,90 @@ public class MergedRestriction extends Intersection {
 	}
 
 	return null;
+    }
+
+    /**
+     * Get the set of instances.
+     */
+    public Object[] getEnumeratedValues() {
+	AllValuesFromRestriction allres = (AllValuesFromRestriction) types
+		.get(index[allValuesFromID]);
+	if (allres != null) {
+	    ClassExpression all = (ClassExpression) allres.getConstraint();
+	    if (all instanceof Enumeration)
+		return ((Enumeration) all).getUpperEnumeration();
+	    else if (all instanceof TypeURI) {
+		OntClassInfo info = OntologyManagement.getInstance()
+			.getOntClassInfo(all.getURI());
+		return info == null ? null : info.getInstances();
+	    }
+	}
+
+	if (index[hasValueID] != -1) {
+	    HasValueRestriction hasres = (HasValueRestriction) types
+		    .get(index[hasValueID]);
+	    if (hasres != null) {
+		ClassExpression has = (ClassExpression) hasres.getConstraint();
+		return (has == null) ? null : new Object[] { has };
+	    }
+	}
+
+	return null;
+    }
+
+    /**
+     * Create a new {@link MergedRestriction} that is a combination of this
+     * restriction and the given restriction. If some parts are defined in both
+     * restrictions, then the parts from <code>other</code> will be preferred.
+     * 
+     * @param other
+     *            The restriction to merge with
+     * @return <p>
+     *         null if this restriction is not fully defined (has no
+     *         onProperty).
+     *         </p>
+     *         <p>
+     *         this if the onProperty of this object does not match the
+     *         onProperty of the given object.
+     *         </p>
+     *         <p>
+     *         A new MergedRestriction that combines all
+     *         {@link AbstractRestriction}s of this object and the given object.
+     *         </p>
+     */
+    public MergedRestriction merge(MergedRestriction other) {
+	String onThis = getOnProperty();
+	if (onThis == null)
+	    return null;
+
+	String onOther = other.getOnProperty();
+	if (onOther == null || !onThis.equals(onOther))
+	    return this;
+
+	MergedRestriction res = (MergedRestriction) other.copy();
+	res.addRestriction(this);
+	return res;
+    }
+
+    /**
+     * Returns true if the given object is a member of the class represented by
+     * this class expression, otherwise false; cardinality restrictions are
+     * ignored.
+     * 
+     * @param o
+     *            The object to test for membership.
+     * @return true, if the given object is a member of this class expression.
+     */
+    public boolean hasMemberIgnoreCardinality(Object o) {
+	int j = 0;
+	for (Iterator i = types.iterator(); i.hasNext();) {
+	    if (j != minCardinalityID && j != maxCardinalityID
+		    && j != exactCardinalityID)
+		if (!((ClassExpression) i.next()).hasMember(o, null))
+		    return false;
+	    j++;
+	}
+	return true;
+
     }
 }
