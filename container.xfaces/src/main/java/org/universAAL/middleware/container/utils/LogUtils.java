@@ -87,11 +87,11 @@ public class LogUtils {
 		break;
 	    }
 	    module = mc.getID();
-	}
 
-	for (Iterator i = mc.getContainer().logListeners(); i.hasNext();)
-	    ((LogListener) i.next()).log(level, module, pkg, cls, method,
-		    msgPart, t);
+	    for (Iterator i = mc.getContainer().logListeners(); i.hasNext();)
+		((LogListener) i.next()).log(level, module, pkg, cls, method,
+			msgPart, t);
+	}
     }
 
     /**
