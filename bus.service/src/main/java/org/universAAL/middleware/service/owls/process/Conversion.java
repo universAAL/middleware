@@ -59,6 +59,13 @@ public class Conversion {
 	public static final String TYPE_OUTPUT_UNIT_CONVERSION =
 		Resource.uAAL_SERVICE_NAMESPACE + "UnitConversion";
 	
+	/**
+	 * Return true iff the object passed as a parameter represents a Conversion
+	 * resource
+	 * 
+	 * @param o - the object to check if it represents a Conversion resource
+	 * @return  true iff the object represents a Conversion resource
+	 */
 	static boolean checkConversion(Object o) {
 		if (o instanceof Resource
 				&&  ((Resource) o).isAnon()
@@ -88,6 +95,12 @@ public class Conversion {
 		return false;
 	}
 	
+	/**
+	 * Construct a class conversion 
+	 * @param sourceProp - the property path of the conversion
+	 * @param targetClass - the target class of the class conversion
+	 * @return - a resource representing the constructed class conversion
+	 */
 	static Resource constructClassConversion(PropertyPath sourceProp, TypeURI targetClass) {
 		Resource result = new Resource(true);
 		result.addType(TYPE_OUTPUT_CLASS_CONVERSION, true);
@@ -96,6 +109,12 @@ public class Conversion {
 		return result;
 	}
 	
+	/**
+	 * Construct a Language conversion 
+	 * @param sourceProp - the property path of the conversion
+	 * @param targetLang - the target Language of the Language conversion
+	 * @return - a resource representing the constructed Language conversion
+	 */
 	static Resource constructLanguageConversion(PropertyPath sourceProp, String targetLang) {
 		Resource result = new Resource(true);
 		result.addType(TYPE_OUTPUT_LANGUAGE_CONVERSION, true);
@@ -104,6 +123,12 @@ public class Conversion {
 		return result;
 	}
 	
+	/**
+	 * Construct a Unit conversion 
+	 * @param sourceProp - the property path of the conversion
+	 * @param targetUnit - the target Unit of the Unit conversion
+	 * @return - a resource representing the constructed Unit conversion
+	 */
 	static Resource constructUnitConversion(PropertyPath sourceProp, String targetUnit) {
 		Resource result = new Resource(true);
 		result.addType(TYPE_OUTPUT_UNIT_CONVERSION, true);

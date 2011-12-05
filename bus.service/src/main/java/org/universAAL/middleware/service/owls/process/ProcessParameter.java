@@ -108,12 +108,28 @@ public abstract class ProcessParameter extends Variable {
 	}
 	return true;
     }
-
+    
+    /**
+     * Return true iff the object is Variable Reference 
+     * (a resource of OWL-S 
+     *      http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf class)
+     * @param o - the object to test
+     * @return - true iff the object is a resource of OWL-S ValueOf class
+     */
     public static final boolean isVarRef(Object o) {
 	return o instanceof Resource
 		&& TYPE_OWLS_VALUE_OF.equals(((Resource) o).getType());
     }
-
+    
+    /**
+     * Return the variable from the variable reference, either by the
+     * property http://www.daml.org/services/owl-s/1.1/Process.owl#theVar or 
+     * from the context
+     * 
+     * @param o - the variable reference
+     * @param context - the context
+     * @return - the variable
+     */
     public static final Object resolveVarRef(Object o, Hashtable context) {
 	ProcessParameter var = null;
 	if (isVarRef(o)) {
@@ -139,12 +155,20 @@ public abstract class ProcessParameter extends Variable {
 	o = context.get(var.getURI());
 	return (o == null) ? var : o;
     }
+    
 
     protected ProcessParameter(String uri, String subType) {
 	super(uri);
 	addType(subType, true);
     }
 
+    /**
+     * Create a variable reference (a resource of OWL-S 
+     *      http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf class) 
+     *      from this ProcessParameter
+     * 
+     * @return the Variable Reference resource
+     */
     public Resource asVariableReference() {
 	Resource result = new Resource();
 	result.addType(TYPE_OWLS_VALUE_OF, true);
@@ -153,7 +177,12 @@ public abstract class ProcessParameter extends Variable {
 		ServiceCall.THIS_SERVICE_CALL);
 	return result;
     }
-
+    
+    /**
+     * Returns the maximal cardinality of this parameter
+     * 
+     * @return - the maximal cardinality
+     */
     public int getMaxCardinality() {
 	Integer i = (Integer) props.get(PROP_PARAMETER_CARDINALITY);
 	if (i == null)
@@ -162,7 +191,12 @@ public abstract class ProcessParameter extends Variable {
 	    return Integer.MAX_VALUE;
 	return i.intValue();
     }
-
+    
+    /**
+     * Returns the minimal cardinality of this parameter
+     * 
+     * @return - the minimal cardinality
+     */
     public int getMinCardinality() {
 	Integer i = (Integer) props.get(PROP_PARAMETER_CARDINALITY);
 	if (i == null)
@@ -171,7 +205,12 @@ public abstract class ProcessParameter extends Variable {
 	    return 0;
 	return i.intValue();
     }
-
+    
+    /**
+     * Returns the default value of this parameter
+     * 
+     * @return - the object representing the default value
+     */
     public Object getDefaultValue() {
 	Object o = props.get(PROP_PARAMETER_DEFAULT_VALUE);
 	if (o instanceof Resource) {
@@ -181,12 +220,22 @@ public abstract class ProcessParameter extends Variable {
 	}
 	return o;
     }
-
+    
+    /**
+     * Returns the parameter type of this parameter
+     * 
+     * @return String - the parameter type
+     */
     public String getParameterType() {
 	return ((Resource) props.get(PROP_OWLS_PROCESS_PARAMETER_TYPE))
 		.getURI();
     }
-
+    
+    /**
+     * Returns the value of this parameter
+     * 
+     * @return - the object representing the value
+     */
     public Object getParameterValue() {
 	Object o = props.get(PROP_OWLS_PROCESS_PARAMETER_VALUE);
 	if (o instanceof Resource) {
@@ -196,7 +245,12 @@ public abstract class ProcessParameter extends Variable {
 	}
 	return o;
     }
-
+    
+    /**
+     * return true iff this process parameter is well formed (the properties 
+     * have consistent values)
+     * 
+     */
     public boolean isWellFormed() {
 	Object o = props.get(PROP_PARAMETER_MAX_CARDINALITY);
 	// check cardinality
@@ -256,7 +310,13 @@ public abstract class ProcessParameter extends Variable {
 		&& ((Resource) o).serializesAsXMLLiteral()
 		&& !((Resource) o).isAnon();
     }
-
+    
+    /**
+     * Set cardinality of the process parameter
+     * 
+     * @param max - maximal cardinality
+     * @param min - minimal cardinality
+     */
     public final void setCardinality(int max, int min) {
 	if (!props.containsKey(PROP_PARAMETER_CARDINALITY)
 		&& !props.containsKey(PROP_PARAMETER_MAX_CARDINALITY)
@@ -271,6 +331,11 @@ public abstract class ProcessParameter extends Variable {
 	}
     }
 
+    /**
+     * Set the default value of this parameter
+     * 
+     * @param value - the object representing the default value
+     */
     public final void setDefaultValue(Object value) {
 	if (props.containsKey(PROP_PARAMETER_DEFAULT_VALUE))
 	    return;
@@ -279,14 +344,24 @@ public abstract class ProcessParameter extends Variable {
 	if (value != null)
 	    props.put(PROP_PARAMETER_DEFAULT_VALUE, value);
     }
-
+    
+    /**
+     * Set the parameter type of this parameter
+     * 
+     * @param typeURI - the URI of the parameter type
+     */
     public final void setParameterType(String typeURI) {
 	if (StringUtils.isQualifiedName(typeURI)
 		&& !props.containsKey(PROP_OWLS_PROCESS_PARAMETER_TYPE))
 	    props.put(PROP_OWLS_PROCESS_PARAMETER_TYPE, new Resource(typeURI,
 		    true));
     }
-
+    
+    /**
+     * Set the value of this parameter
+     * 
+     * @param value - the object representing the value
+     */
     public final void setParameterValue(Object value) {
 	if (!props.containsKey(PROP_OWLS_PROCESS_PARAMETER_VALUE)) {
 	    value = TypeMapper.asLiteral(value);
@@ -294,7 +369,13 @@ public abstract class ProcessParameter extends Variable {
 		props.put(PROP_OWLS_PROCESS_PARAMETER_VALUE, value);
 	}
     }
-
+    
+    /**
+     * Set a value of a property for this process parameter 
+     * 
+     * @param prop - the property to set
+     * @param val - the value to set for the property
+     */
     public void setProperty(String prop, Object val) {
 	if (prop == null || val == null || props.containsKey(prop))
 	    return;

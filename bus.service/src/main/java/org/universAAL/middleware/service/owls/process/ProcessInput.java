@@ -26,12 +26,21 @@ import java.util.List;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
+ * This class represents the OWL-S process input parameter
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  *
  */
 public class ProcessInput extends ProcessParameter {
 	public static final String MY_URI = OWLS_PROCESS_NAMESPACE + "Input";
 	
+	/**
+	 * Convert the resource passed as a parameter to a ProcessInput instance
+	 * 
+	 * @param r - the resource to convert
+	 * @return - the converted well-formed ProcessInput, or null if the resource
+	 * passed as the parameter does not represent well-formed process input
+	 */
 	public static ProcessInput toInput(Resource r) {
 		if (r instanceof ProcessInput)
 			return ((ProcessInput) r).isWellFormed()? (ProcessInput) r : null;
@@ -47,7 +56,18 @@ public class ProcessInput extends ProcessParameter {
 		return input.isWellFormed()? input : null;
 	}
 	
+	/**
+	 * Convert a single ProcessInput or a List of resources representing 
+	 * ProcessInputs into a List of ProcessInput instances 
+	 * @param value - an object which is either a single ProcessInput or a List 
+	 * of resources representing ProcessInputs
+	 * @return - a List of ProcessInput instances 
+	 */
 	public static List checkParameterList(Object value) {
+		//TODO Vadim - check why in case of value being a resource the 
+		// ProcessInput.toInput() is not called to convert it into a 
+		// ProcessInput  
+		
 		if (value instanceof ProcessInput
 				&&  ((ProcessInput) value).isWellFormed()) {
 			ArrayList l = new ArrayList(1);
@@ -80,6 +100,10 @@ public class ProcessInput extends ProcessParameter {
 			return null;
 	}
 	
+	/**
+	 * The constructor - from the uri of a process input
+	 * @param uri
+	 */
 	public ProcessInput(String uri) {
 		super(uri, MY_URI);
 	}
