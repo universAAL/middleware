@@ -29,6 +29,9 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
 
 /**
+ * This class represents ProcessResult of OWL-S - 
+ *                   http://www.daml.org/services/owl-s/1.1/Process.owl#Result
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
  *
  */
@@ -40,6 +43,15 @@ public class ProcessResult extends Resource {
 	public static final String TYPE_OWLS_RESULT = 
 		ProcessOutput.OWLS_PROCESS_NAMESPACE + "Result";
 	
+	/**
+	 * Verify that the process effects of offers match the ones of  requests 
+	 * according to the context
+	 * 
+	 * @param req - a list of requests
+	 * @param offer - a list of offers
+	 * @param context - the context
+	 * @return true iff the process effects match
+	 */
 	public static boolean checkEffects(Resource[] req, Resource[] offer, Hashtable context) {
 		if (req == null  ||  req.length == 0)
 			return (offer == null  ||  offer.length == 0);
@@ -52,6 +64,15 @@ public class ProcessResult extends Resource {
 		return true;
 	}
 	
+	/**
+	 * Verify that the output bindings of offers match the ones of  requests 
+	 * according to the context
+	 * 
+	 * @param req - a list of requests
+	 * @param offer - a list of offers
+	 * @param context - the context
+	 * @return true iff the output bindings match
+	 */
 	public static boolean checkOutputBindings(Resource[] req, Resource[] offer, Hashtable context) {
 		if (req == null  ||  req.length == 0)
 			return true;
@@ -64,6 +85,11 @@ public class ProcessResult extends Resource {
 		return true;
 	}
 	
+	/**
+	 * Create an instance of ProcessResult from a resource passed as a parameter
+	 * @param pr - a resource reprenting process result
+	 * @return - the created instance of ProcessResult
+	 */
 	public static ProcessResult toResult(Resource pr) {
 		if (pr == null)
 			return null;
@@ -109,41 +135,96 @@ public class ProcessResult extends Resource {
 		addType(TYPE_OWLS_RESULT, true);
 	}
 	
+	/**
+	 * Add "add" process effect with property path and value passed as parameters
+	 * 
+	 * @param ppath - the property path
+	 * @param value - the value
+	 */
 	public void addAddEffect(PropertyPath ppath, Object value) {
 		effects().add(ProcessEffect.constructAddEffect(ppath, value));
 	}
 	
+	/**
+	 * Add aggregated output binding to a process output parameter
+	 * 
+	 * @param toParam - the parameter to which the binding is done 
+	 * @param filter - the aggregation filter of the output binding
+	 */
 	public void addAggregatingOutputBinding(ProcessOutput toParam, AggregatingFilter filter) {
 		bindings().add(OutputBinding.constructAggregatingBinding(toParam, filter));
 	}
 	
+	/**
+	 * Add "change" process effect with property path and value passed as parameters
+	 * 
+	 * @param ppath - the property path
+	 * @param value - the value
+	 */
 	public void addChangeEffect(PropertyPath ppath, Object value) {
 		effects().add(ProcessEffect.constructChangeEffect(ppath, value));
 	}
 	
+	/**
+	 * Add "remove" process effect with property path and value passed as parameters
+	 * 
+	 * @param ppath - the property path
+	 * @param value - the value
+	 */
 	public void addRemoveEffect(PropertyPath ppath) {
 		effects().add(ProcessEffect.constructRemoveEffect(ppath));
 	}
 	
+	/**
+	 * Add class conversion output binding to a process output parameter
+	 * 
+	 * @param toParam - the parameter to which the binding is done 
+	 * @param sourceProp - the property path of the value to convert
+	 * @param targetClass - the uri of the target class to convert to
+	 */
 	public void addClassConversionOutputBinding(ProcessOutput toParam,
 			PropertyPath sourceProp, TypeURI targetClass) {
 		bindings().add(OutputBinding.constructClassConversionBinding(toParam, sourceProp, targetClass));
 	}
 	
+	/**
+	 * Add language conversion output binding to a process output parameter
+	 * 
+	 * @param toParam - the parameter to which the binding is done 
+	 * @param sourceProp - the property path of the value to convert
+	 * @param targetLang - the target language to convert to
+	 */
 	public void addLangConversionOutputBinding(ProcessOutput toParam,
 			PropertyPath sourceProp, String targetLang) {
 		bindings().add(OutputBinding.constructLanguageConversionBinding(toParam, sourceProp, targetLang));
 	}
 	
+	/**
+	 * Add unit conversion output binding to a process output parameter
+	 * 
+	 * @param toParam - the parameter to which the binding is done 
+	 * @param sourceProp - the property path of the value to convert
+	 * @param targetUnit - the unit to convert to
+	 */
 	public void addUnitConversionOutputBinding(ProcessOutput toParam,
 			PropertyPath sourceProp, String targetUnit) {
 		bindings().add(OutputBinding.constructUnitConversionBinding(toParam, sourceProp, targetUnit));
 	}
 	
+	/**
+	 * Add simple output binding to a process output parameter
+	 * 
+	 * @param toParam - the parameter to which the binding is done 
+	 * @param sourceProp - the property path of the value to bind
+	 */
 	public void addSimpleOutputBinding(ProcessOutput toParam, PropertyPath sourceProp) {
 		bindings().add(OutputBinding.constructSimpleBinding(toParam, sourceProp));
 	}
 	
+	/**
+	 * Return list of output bindings (a copy) of this process result
+	 * @return list of output bindings
+	 */
 	private List bindings() {
 		List result = (List) props.get(PROP_OWLS_RESULT_WITH_OUTPUT);
 		if (result == null) {
@@ -153,6 +234,10 @@ public class ProcessResult extends Resource {
 		return result;
 	}
 	
+	/**
+	 * Return list of effects (a copy) of this process result
+	 * @return list of effects
+	 */
 	private List effects() {
 		List result = (List) props.get(PROP_OWLS_RESULT_HAS_EFFECT);
 		if (result == null) {
@@ -162,14 +247,26 @@ public class ProcessResult extends Resource {
 		return result;
 	}
 	
+	/**
+	 * Return the list of output bindings ( a reference) of this process result 
+	 * @return
+	 */
 	public List getBindings() {
 		return (List) props.get(PROP_OWLS_RESULT_WITH_OUTPUT);
 	}
 	
+	/**
+	 * Return list of effects (a reference) of this process result
+	 * @return list of effects
+	 */
 	public List getEffects() {
 		return (List) props.get(PROP_OWLS_RESULT_HAS_EFFECT);
 	}
 	
+	/**
+	 * Return true iff the process result is well formed (contains consistent 
+	 * properties)
+	 */
 	public boolean isWellFormed() {
 		return props.containsKey(PROP_OWLS_RESULT_WITH_OUTPUT)
 				|| props.containsKey(PROP_OWLS_RESULT_HAS_EFFECT);

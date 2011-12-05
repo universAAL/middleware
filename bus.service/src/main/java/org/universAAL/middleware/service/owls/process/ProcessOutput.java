@@ -32,6 +32,13 @@ import org.universAAL.middleware.rdf.Resource;
 public class ProcessOutput extends ProcessParameter {
 	public static final String MY_URI = OWLS_PROCESS_NAMESPACE + "Output";
 	
+	/**
+	 * Convert the resource passed as a parameter to a ProcessOutput instance
+	 * 
+	 * @param r - the resource to convert
+	 * @return - the converted well-formed ProcessOutput, or null if the resource
+	 * passed as the parameter does not represent well-formed process output
+	 */
 	public static ProcessOutput toOutput(Resource r) {
 		if (r == null  ||  !MY_URI.equals(r.getType()))
 			return null;
@@ -44,6 +51,13 @@ public class ProcessOutput extends ProcessParameter {
 		return output.isWellFormed()? output : null;
 	}
 	
+	/**
+	 * Convert a single ProcessOutput or a List of resources representing 
+	 * ProcessInputs into a List of ProcessInput instances 
+	 * @param value - an object which is either a single ProcessOutput or a List 
+	 * of resources representing ProcessOutputs
+	 * @return - a List of ProcessOutput instances 
+	 */
 	public static List checkParameterList(Object value) {
 		if (value instanceof ProcessOutput
 				&&  ((ProcessOutput) value).isWellFormed()) {
@@ -77,10 +91,19 @@ public class ProcessOutput extends ProcessParameter {
 			return null;
 	}
 	
+	/**
+	 * The constructor - from the uri of a process output
+	 * @param uri
+	 */
 	public ProcessOutput(String uri) {
 		super(uri, MY_URI);
 	}
 	
+	/**
+	 * The constructor - from the uri of a process output and the output value 
+	 * @param uri
+	 * @param value
+	 */
 	public ProcessOutput(String uri, Object value) {
 		super(uri, MY_URI);
 		setParameterValue(value);

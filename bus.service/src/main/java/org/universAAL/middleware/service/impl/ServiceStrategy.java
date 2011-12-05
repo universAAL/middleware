@@ -330,7 +330,17 @@ public class ServiceStrategy extends BusStrategy {
 	    sendServiceResponse(m);
 	}
     }
-
+    
+    /**
+     * This method starts a general purpose user interaction related to a 
+     * certain service class. The decision about a concrete goal to reach 
+     * (if at all) will be taken later during exploring the user interface  
+     * 
+     * @param matchingServices - the currently matching services for the general
+     * purpose user interaction request
+     * @param vendor - the vendor who provides the currently matching services
+     * @param m - the message request for general purpose user interaction
+     */
     private void callStartDialog(Vector matchingServices, String vendor,
 	    Message m) {
 	if (matchingServices == null) {
