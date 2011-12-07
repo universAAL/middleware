@@ -19,9 +19,9 @@
  */
 package org.universAAL.middleware.owl;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
@@ -43,6 +43,9 @@ public abstract class ClassExpression extends Resource {
 
     /** URI for owl:Thing. */
     public static final String TYPE_OWL_THING = OWL_NAMESPACE + "Thing";
+    
+    /** URI for rdfs:Datatype. */
+    public static final String RDFS_DATATYPE = RDFS_NAMESPACE + "Datatype";
 
     /** Parameters for a registered subclass. */
     private class RegParams {
