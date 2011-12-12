@@ -1,0 +1,2 @@
+scan-composite:mvn:org.universAAL.middleware/mw.container.osgi/0.1.0-SNAPSHOT/composite
+scan-bundle:mvn:org.universAAL.middleware/mw.data.representation/0.3.2-SNAPSHOT

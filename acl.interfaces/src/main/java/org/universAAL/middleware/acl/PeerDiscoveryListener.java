@@ -33,14 +33,14 @@ package org.universAAL.middleware.acl;
  */
 public interface PeerDiscoveryListener {
 	/**
-	 * The mothod called by a P2PConnector whenever a new remote instance of
+	 * The method called by a P2PConnector whenever a new remote instance of
 	 * SodaPopPeer is discovered.
 	 * 
 	 * @param peer the actual handle of the discovered remote SodaPopPeer
 	 * @param discoveryProtocol the name of the underlying technology
 	 *                          used by the corresponding P2PConnector
 	 *                          that discovered this peer. It can be useful
-	 *                          for implmenting protocol bridging.
+	 *                          for implementing protocol bridging.
 	 */
 	public void noticeNewPeer(SodaPopPeer peer, String discoveryProtocol);
 	
@@ -52,7 +52,7 @@ public interface PeerDiscoveryListener {
 	 * @param discoveryProtocol the name of the underlying technology
 	 *                          used by the corresponding P2PConnector
 	 *                          that discovered this peer. It can be useful
-	 *                          for implmenting protocol bridging.
+	 *                          for implementing protocol bridging.
 	 */
 	public void noticeLostPeer(String peerID, String discoveryProtocol);
 }
