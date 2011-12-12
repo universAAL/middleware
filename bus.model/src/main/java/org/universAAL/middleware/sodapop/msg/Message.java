@@ -252,6 +252,7 @@ public class Message {
     }
 
     /**
+     * Returns the ID of the message this message replies to
      * 
      * @return String - the ID of the message this message replies to 
      */
