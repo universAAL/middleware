@@ -1,1 +1,4 @@
 * text=auto !eol
+pom/eclipse.setup.bat -text
+pom/eclipse.setup.sh -text
+pom/pom.xml -text
