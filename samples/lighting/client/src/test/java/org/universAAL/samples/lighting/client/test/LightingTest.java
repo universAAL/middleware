@@ -2,7 +2,7 @@ package org.universAAL.samples.lighting.client.test;
 
 import org.osgi.framework.Constants;
 import org.springframework.util.Assert;
-import org.universAAL.itests.MiddlewareIntegrationTest;
+import org.universAAL.itests.IntegrationTest;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.ontology.phThing.Device;
 import org.universAAL.samples.lighting.client.Activator;
@@ -21,7 +21,7 @@ import org.universAAL.samples.lighting.client.LightingConsumer;
  * @author rotgier
  * 
  */
-public class LightingTest extends MiddlewareIntegrationTest {
+public class LightingTest extends IntegrationTest {
 
     /**
      * Constructor of each integration TestCase has to call constructor of upper
@@ -31,18 +31,10 @@ public class LightingTest extends MiddlewareIntegrationTest {
      * needed for the TestCase have to be included in the launch configuration.
      */
     public LightingTest() {
-	super("../../pom/launches/LightingExample_Complete_0_3_2.launch",
-		"../../../itests/rundir/confadmin");
+	//super("../../pom/launches/LightingExample_Complete_0_3_2.launch");
+	//setBundleConfLocation("../../../itests/rundir/confadmin");
     }
     
-    private String formatMsg(String format, Object... args) {
-	if (args != null) {
-	    return String.format(format, args);
-	} else {
-	    return format;
-	}
-    }
-
     /**
      * Helper method for logging.
      * 
@@ -68,6 +60,10 @@ public class LightingTest extends MiddlewareIntegrationTest {
 		.getMethodName(), new Object[] { formatMsg(format, args) }, t);
     }    
 
+    public void testComposite() {
+	logAllBundles();
+    }
+    
     /**
      * Verifies that runtime platform has correctly started. It prints basic
      * information about framework (vendor, version) and lists installed
@@ -140,5 +136,5 @@ public class LightingTest extends MiddlewareIntegrationTest {
 	    i++;
 	}
     }
-
+    
 }
