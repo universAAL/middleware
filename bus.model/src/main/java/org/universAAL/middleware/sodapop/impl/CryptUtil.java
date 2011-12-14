@@ -1,6 +1,6 @@
 /*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung
+	Fraunhofer-Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -49,6 +49,7 @@ import org.bouncycastle.util.encoders.Base64;
  * 
  */
 public class CryptUtil {
+    
     private static final String cipherTransformation = "DES/ECB/PKCS5Padding";
     private static final String keyFileName = "sodapop.key";
     private static final String randomizationAlgorithm = "SHA1PRNG";
