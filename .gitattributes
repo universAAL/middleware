@@ -161,6 +161,15 @@ container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundle
 container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundleContext.java -text
 container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/BundleConfigHome.java -text
 container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/Messages.java -text
+container.xfaces/LICENSE.txt -text
+container.xfaces/NOTICE.txt -text
+container.xfaces/pom.xml -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/Container.java -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/LogListener.java -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/ModuleContext.java -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/SharedObjectListener.java -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/utils/LogUtils.java -text
+container.xfaces/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
 data.representation/LICENSE.txt -text
 data.representation/NOTICE.txt -text
 data.representation/documentation/mw.data.representation[!!-~]dependencies[!!-~]19.4.2011.png -text
