@@ -1,3 +1,7 @@
+acl.interfaces/.classpath
+acl.interfaces/.project
+acl.interfaces/.settings
+acl.interfaces/target
 bus.context/.classpath
 bus.context/.project
 bus.context/.settings

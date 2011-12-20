@@ -1,0 +1,19 @@
+ACL (Abstract Connection Layer) Interfaces
+
+Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Fraunhofer Gesellschaft - Institut für Graphische Verarbeitung 
+
+Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
+Institute of Information Science and Technologies 
+of the Italian National Research Council 
+
+
+I. Included Software
+
+Software developed by Fraunhofer IGD & CNR-ISTI within the PERSONA project is used as the initial version for further developments within the universAAL project.
+
+
+II. Used Software
+
+This does not use any software developed by 3rd parties
+
