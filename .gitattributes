@@ -127,6 +127,14 @@ bus.service/src/main/java/org/universAAL/middleware/service/owls/profile/Respons
 bus.service/src/main/java/org/universAAL/middleware/service/owls/profile/ServiceProfile.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/owls/profile/SingleLocationParameter.java -text
 bus.service/src/main/resources/org/persona/middleware/peer.properties -text
+container.osgi/LICENSE.txt -text
+container.osgi/NOTICE.txt -text
+container.osgi/pom.xml -text
+container.osgi/src/main/java/org/universAAL/middleware/container/osgi/run/Activator.java -text
+container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundleContainer.java -text
+container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundleContext.java -text
+container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/BundleConfigHome.java -text
+container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/Messages.java -text
 data.representation/LICENSE.txt -text
 data.representation/NOTICE.txt -text
 data.representation/documentation/mw.data.representation[!!-~]dependencies[!!-~]19.4.2011.png -text
