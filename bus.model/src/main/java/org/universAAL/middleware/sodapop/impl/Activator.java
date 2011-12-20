@@ -26,36 +26,42 @@ import org.slf4j.LoggerFactory;
 import org.universAAL.middleware.sodapop.SodaPop;
 
 /**
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * 
  */
 public class Activator implements BundleActivator {
-	
-	private SodaPopImpl g = null;
-	static String CONF_DIR;
-	static Logger logger = LoggerFactory.getLogger(Activator.class);
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-	 */
-	public void start(BundleContext context) throws Exception {
-		CONF_DIR = System.getProperty("bundles.configuration.location",
-				System.getProperty("user.dir"))
-				+ System.getProperty("file.separator")
-				+ context.getBundle().getSymbolicName()
-				+ System.getProperty("file.separator");
-		
-		g = new SodaPopImpl(context);
-		
-		context.registerService(SodaPop.class.getName(), g, null);
-	}
+    private SodaPopImpl g = null;
+    static String CONF_DIR;
+    public static Logger logger = LoggerFactory.getLogger(Activator.class);
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-	 */
-	public void stop(BundleContext context) throws Exception {
-		g.stop(context);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
+     * )
+     */
+    public void start(BundleContext context) throws Exception {
+	CONF_DIR = System.getProperty("bundles.configuration.location", System
+		.getProperty("user.dir"))
+		+ System.getProperty("file.separator")
+		+ context.getBundle().getSymbolicName()
+		+ System.getProperty("file.separator");
+
+	g = new SodaPopImpl(context);
+
+	context.registerService(SodaPop.class.getName(), g, null);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+     */
+    public void stop(BundleContext context) throws Exception {
+	g.stop(context);
+    }
 }
