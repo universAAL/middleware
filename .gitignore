@@ -10,6 +10,10 @@ bus.io/.classpath
 bus.io/.project
 bus.io/.settings
 bus.io/target
+bus.model/.classpath
+bus.model/.project
+bus.model/.settings
+bus.model/target
 bus.service/.classpath
 bus.service/.project
 bus.service/.settings
