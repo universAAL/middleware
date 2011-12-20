@@ -22,9 +22,12 @@ package org.universAAL.middleware.sodapop.impl;
 
 import java.util.Vector;
 
-/* 
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+/** 
+ * This class implements a thread-safe queue of PeerCommands. 
+ * All the methods are synchronized.
+ * 
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
 public class CommandQueue {
 	private Vector queue;
@@ -34,6 +37,12 @@ public class CommandQueue {
 		queue=new Vector();
 	}
 	
+    /**
+     * enqueue a command
+     * 
+     * @param Object cmd - command to enqueue 
+     * 
+     */
 	public synchronized void enqueue(Object cmd){
 		queue.add(cmd);
 		if(queue.size() == 1){
@@ -42,6 +51,12 @@ public class CommandQueue {
 		
 	}
 	
+    /**
+     * dequeue a command
+     * 
+     * @return Object - the dequeued command 
+     * 
+     */
 	public synchronized Object dequeue(){
 		while(queue.size()==0 && running){
 			try {
@@ -55,6 +70,10 @@ public class CommandQueue {
 			return null;
 	}
 
+    /**
+     * close the queue
+     * 
+     */
 	public synchronized void close() {
 		running  = false;
 		notify();		

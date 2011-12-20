@@ -52,45 +52,72 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceEvent;
-import org.osgi.framework.ServiceListener;
-import org.osgi.framework.ServiceReference;
-import org.slf4j.Logger;
 import org.universAAL.middleware.acl.P2PConnector;
 import org.universAAL.middleware.acl.PeerDiscoveryListener;
 import org.universAAL.middleware.acl.SodaPopPeer;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.SharedObjectListener;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.sodapop.AbstractBus;
 import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.Message;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
+ * This class provides implementation of the SodaPop layer. It implements the SodaPop 
+ * interface to the local buses and SodaPopPeer interface to the remote peers. It also
+ * registers itself as a PeerDiscoveryListener 
+ * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class SodaPopImpl implements SodaPop, SodaPopPeer,
-	PeerDiscoveryListener, ServiceListener {
+	PeerDiscoveryListener, SharedObjectListener {
+    public static ModuleContext moduleContext;
+    private static Object[] contentSerializerParams;
+    
+    /**
+     * 
+     * @return MessageContentSerializer
+     */
+    public static MessageContentSerializer getContentSerializer() {
+	return (MessageContentSerializer) SodaPopImpl.moduleContext
+		.getContainer().fetchSharedObject(SodaPopImpl.moduleContext,
+			SodaPopImpl.contentSerializerParams);
+    }
+    
+    /**
+     * @param ModuleContext context
+     * 
+     * @return MessageContentSerializer
+     */
+    public MessageContentSerializer getContentSerializer(ModuleContext context) {
+	return (MessageContentSerializer) context
+		.getContainer()
+		.fetchSharedObject(context, SodaPopImpl.contentSerializerParams);
+    }
 
     private String myID;
-    private Logger logger = Activator.logger;
     private Hashtable localBusses; // <String, AbstractBus>
     private Hashtable peersOnBus; // <String, Vector<String>>
     private Hashtable remoteSodapops; // <String, SodaPopPeer>
     private Hashtable dispatchers; // <String,Dispatcher>
     private HashSet peersToNotifyBuses;
     private HashSet contactedPeers;
-    private BundleContext context;
 
     // private StringBuffer logBuffer = new StringBuffer();
     // private long startTime;
     // private long stopTime;
 
-    SodaPopImpl(BundleContext context) throws Exception {
-	myID = Message.thisJVM;
-	Message.setBundleContext(context);
 
-	this.context = context;
+    public SodaPopImpl(ModuleContext mc, String configHomePath,
+	    Object[] connectorFetchParams, Object[] csFetchParams)
+	    throws Exception {
+	SodaPopImpl.moduleContext = mc;
+	SodaPopImpl.contentSerializerParams = csFetchParams;
+	myID = Message.thisJVM;
+
 	localBusses = new Hashtable(5);
 	peersOnBus = new Hashtable(5);
 	remoteSodapops = new Hashtable();
@@ -98,43 +125,41 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	contactedPeers = new HashSet();
 	peersToNotifyBuses = new HashSet();
 
-//	logger.info(CryptUtil.init(Activator.CONF_DIR));
+//	moduleContext.logInfo(CryptUtil.init(configHomePath), null);
 
-	synchronized (this.context) {
-	    context.addServiceListener(this);
+	synchronized (SodaPopImpl.moduleContext) {
 	    try {
-		ServiceReference[] connectors = context
-			.getAllServiceReferences(P2PConnector.class.getName(),
-				null);
-		// check for null value returned by getAllServiceReference
-		// since some OSGi implementations like Concierge can return
-		// null
+		Object[] connectors = SodaPopImpl.moduleContext.getContainer()
+			.fetchSharedObject(SodaPopImpl.moduleContext,
+				connectorFetchParams, this);
 		if (connectors != null) {
 		    for (int i = 0; i < connectors.length; i++) {
-			P2PConnector c = (P2PConnector) context
-				.getService(connectors[i]);
+			P2PConnector c = (P2PConnector) connectors[i];
 			c.register(this);
 			c.addPeerDiscoveryListener(this);
-			context.ungetService(connectors[i]);
 		    }
 		}
 	    } catch (Exception e) {
 		System.out.println(e);
 	    }
 	}
-	logger.info("SodaPopPeer started with ID '{}'!", myID);
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "init",
+		new Object[] { "SodaPopPeer with ID '", myID, "' started!" },
+		null);
 	// startTime = System.currentTimeMillis();
     }
 
-    public void serviceChanged(ServiceEvent se) {
-	synchronized (this.context) {
-	    Object service = context.getService(se.getServiceReference());
-	    if (service instanceof P2PConnector
-		    && se.getType() == ServiceEvent.REGISTERED) {
-		((P2PConnector) service).register(this);
-		((P2PConnector) service).addPeerDiscoveryListener(this);
+    public void sharedObjectAdded(Object sharedObj, Object removeHook) {
+	synchronized (SodaPopImpl.moduleContext) {
+	    if (sharedObj instanceof P2PConnector) {
+		((P2PConnector) sharedObj).register(this);
+		((P2PConnector) sharedObj).addPeerDiscoveryListener(this);
 	    }
 	}
+    }
+
+    public void sharedObjectRemoved(Object removeHook) {
+	// TODO
     }
 
     // //////////////////////////////////////////////////////////////////////
@@ -143,7 +168,16 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
     // These methods are initially activated by connectors //
     // by noticing new peers //
     // //////////////////////////////////////////////////////////////////////
-
+    
+    /**
+     * This method is called by connectors to inform  this local SodaPopPeer about
+     * a newly discovered peer 
+     * 
+     * @param SodaPopPeer peer
+     * @param String discoveryProtocol
+     * 
+     * @see org.universAAL.middleware.acl.PeerDiscoveryListener#noticeLostPeer
+     */
     public void noticeNewPeer(SodaPopPeer peer, String discoveryProtocol) {
 	String id = peer.getID();
 	Dispatcher dispatcher = new Dispatcher(peer);
@@ -153,10 +187,12 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	}
 	dispatcher.start();
 	if (id.compareTo(myID) > 0) {
-	    logger.info("Discovered CONS peer  '{}'!", id);
+	    LogUtils.logInfo(moduleContext, SodaPopImpl.class, "noticeNewPeer",
+		    new Object[] { "Discovered CONS peer  '", id, "'!" }, null);
 	    forwardBusesToPeer(dispatcher);
 	} else if (id.compareTo(myID) < 0) {
-	    logger.info("Discovered PRE peer  '{}'!", id);
+	    LogUtils.logInfo(moduleContext, SodaPopImpl.class, "noticeNewPeer",
+		    new Object[] { "Discovered PRE peer  '", id, "'!" }, null);
 	    synchronized (peersToNotifyBuses) {
 		if (peersToNotifyBuses.contains(id)) {
 		    replyBusesToPeer(dispatcher);
@@ -164,10 +200,25 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 		}
 	    }
 	} else {
-	    logger.warn("Discovered peer with same ID: {}", id);
+	    LogUtils
+		    .logWarn(
+			    moduleContext,
+			    SodaPopImpl.class,
+			    "noticeNewPeer",
+			    new Object[] { "Discovered peer with same ID: ", id },
+			    null);
 	}
     }
-
+    
+    /**
+     * This method is called by connectors to inform  this local SodaPopPeer about
+     * a lost peer 
+     * 
+     * @param SodaPopPeer peer
+     * @param String discoveryProtocol
+     * 
+     * @see org.universAAL.middleware.acl.PeerDiscoveryListener#noticeLostPeer
+     */
     public void noticeLostPeer(String peerID, String discoveryProtocol) {
 	if (peerID == null || peerID.equals(""))
 	    throw new IllegalArgumentException("Illegal peerID value");
@@ -179,7 +230,8 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	    for (Iterator i = peersOnBus.values().iterator(); i.hasNext();)
 		((Vector) i.next()).remove(peerID);
 	}
-	logger.info("Peer '{}' disconnected!", peerID);
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "noticeLostPeer",
+		new Object[] { "Peer '", peerID, "' disconnected!" }, null);
     }
 
     private void forwardBusesToPeer(Dispatcher dispatcher) {
@@ -194,14 +246,20 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	PeerCommand message = new PeerCommand(PeerCommand.NOTICE_PEER_BUSES,
 		myID, myBusses.toString());
 	dispatcher.queue.enqueue(message);
-	logger.info("call remote NOTICE_PEER_BUSES on '{}'", dispatcher.peer
-		.getID());
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class,
+		"forwardBusesToPeer", new Object[] {
+			"call remote NOTICE_PEER_BUSES on '",
+			dispatcher.peer.getID(), "'!" }, null);
 	synchronized (contactedPeers) {
 	    contactedPeers.add(dispatcher);
 	}
     }
 
     /**
+     * This method is called by the local buses that want to join the SodaPop 
+     * layer
+     * @param AbstractBus b
+     * 
      * @see org.universAAL.middleware.sodapop.SodaPop#join(AbstractBus)
      */
     public void join(AbstractBus b) {
@@ -221,17 +279,27 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 			PeerCommand command = new PeerCommand(
 				PeerCommand.JOIN_BUS, myID, busName);
 			dispatcher.queue.enqueue(command);
-			logger.info("call remote JOIN_BUS on '{}'",
-				dispatcher.peer.getID());
+			LogUtils.logInfo(moduleContext, SodaPopImpl.class,
+				"join", new Object[] {
+					"call remote JOIN_BUS on '",
+					dispatcher.peer.getID(), "'!" }, null);
 		    }
 		}
 
 	    }
 	}
-	logger.info("Bus '{}' joined the SodaPop engine.", busName);
+	LogUtils
+		.logInfo(moduleContext, SodaPopImpl.class, "join",
+			new Object[] { "Bus '", busName,
+				"' joined the SodaPop engine!" }, null);
     }
 
     /**
+     *     
+     * This method is called by the local buses that want to leave the SodaPop 
+     * layer
+     * @param AbstractBus b
+     * 
      * @see org.universAAL.middleware.sodapop.SodaPop#leave(AbstractBus)
      */
     public void leave(AbstractBus b) {
@@ -250,16 +318,25 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 			PeerCommand command = new PeerCommand(
 				PeerCommand.LEAVE_BUS, myID, busName);
 			dispatcher.queue.enqueue(command);
-			logger.info("call remote LEAVE_BUS on '{}'",
-				dispatcher.peer.getID());
+			LogUtils.logInfo(moduleContext, SodaPopImpl.class,
+				"leave", new Object[] {
+					"call remote LEAVE_BUS on '",
+					dispatcher.peer.getID(), "'!" }, null);
 		    }
 		}
 	    }
 	}
-	logger.info("Bus '{}' stopped.", busName);
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "leave",
+		new Object[] { "Bus '", busName, "' stopped!" }, null);
     }
 
     /**
+     * This method sends a message from a local bus instance to remote peers on 
+     * the bus passed as the first parameter
+     * 
+     * @param AbstractBus b
+     * @param Message m
+     * 
      * @see org.universAAL.middleware.sodapop.SodaPop#propagateMessage(AbstractBus,
      *      Message)
      */
@@ -267,7 +344,7 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	if (m == null || !myID.equals(m.getSource()))
 	    return 0;
 
-	String msg = m.toString(), cipher = msg;
+	String msg = m.toString(), cipher = msg, rcvrs = "";
 
 	String busName = b.getBusName();
 	int result = 0;
@@ -278,9 +355,12 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 		/*try {
 		    cipher = CryptUtil.encrypt(msg);
 		} catch (Exception e) {
-		    logger
-			    .warn(
-				    "Message encryption failed - trying to send it as clear text!",
+		    LogUtils
+			    .logWarn(
+				    moduleContext,
+				    SodaPopImpl.class,
+				    "propagateMessage",
+				    new Object[] { "Message encryption failed - trying to send it as clear text!" },
 				    e);
 		}*/
 		PeerCommand command = new PeerCommand(
@@ -288,6 +368,7 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 
 		String[] receivers = m.getReceivers();
 		if (receivers == null || receivers.length == 0) {
+		    rcvrs = "all peers";
 		    Iterator peerList = peersOnThisBus.iterator();
 		    synchronized (remoteSodapops) {
 			while (peerList.hasNext()) {
@@ -301,16 +382,21 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 		    synchronized (remoteSodapops) {
 			for (int i = 0; i < receivers.length; i++)
 			    if (peersOnThisBus.contains(receivers[i])) {
+				rcvrs += receivers[i];
 				((Dispatcher) dispatchers.get(receivers[i])).queue
 					.enqueue(command);
 				result++;
+				rcvrs += " ";
 			    }
 		    }
 		}
 
 	    }
 	}
-	logger.debug("Msg for peers on bus '{}': {}", busName, msg);
+	if (!"".equals(rcvrs))
+	    LogUtils.logInfo(moduleContext, SodaPopImpl.class,
+		    "propagateMessage", new Object[] { busName,
+			    " - Message sent to ", rcvrs, ":\n", msg }, null);
 	return result;
     }
 
@@ -320,11 +406,19 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
     // //////////////////////////////////////////////////////////////////////
 
     /**
+     * This method is invoked by remote peers (via our exporting connectors)
+     * to inform our local peer about their buses
+     * 
+     * @param String peerID
+     * @param String busNames - the names of the buses separated by commas
+     * 
      * @see org.universAAL.middleware.acl.SodaPopPeer#noticePeerBusses(String,
      *      String)
      */
     public void noticePeerBusses(String peerID, String busNames) {
-	logger.info("local NOTICE_PEER_BUSES called from '{}'", peerID);
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "noticePeerBusses",
+		new Object[] { "local NOTICE_PEER_BUSES called from '", peerID,
+			"'!" }, null);
 	synchronized (peersOnBus) {
 	    StringTokenizer names = new StringTokenizer(busNames, ",");
 	    while (names.hasMoreTokens()) {
@@ -343,9 +437,17 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	    }
 	}
 
-	logger.info("Got busses of peer '{}'!", peerID);
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "noticePeerBusses",
+		new Object[] { "Got busses of peer '", peerID, "'!" }, null);
     }
-
+    
+    /**
+   	 * This method sends our buses to other peer as a reply to their 
+   	 * notification of their buses
+     * 
+     * @param Dispatcher - the dispatcher for the remote peer to reply
+     * 
+     */
     private void replyBusesToPeer(Dispatcher dispatcher) {
 
 	StringBuffer myBusses = new StringBuffer(256);
@@ -358,14 +460,27 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	    PeerCommand message = new PeerCommand(PeerCommand.REPLY_PEER_BUSES,
 		    myID, myBusses.toString());
 	    dispatcher.queue.enqueue(message);
-	    logger.info("call remote REPLY_PEER_BUSES on '{}'", dispatcher.peer
-		    .getID());
+	    LogUtils.logInfo(moduleContext, SodaPopImpl.class,
+		    "replyBusesToPeer", new Object[] {
+			    "call remote REPLY_PEER_BUSES on '",
+			    dispatcher.peer.getID(), "'!" }, null);
 	}
 	synchronized (contactedPeers) {
 	    contactedPeers.add(dispatcher);
 	}
     }
-
+    
+    /**
+     * This method is invoked by remote peers (via our exporting connectors)
+     * to inform our local peer about their buses, as a reply to our 
+     * notification to them about our buses 
+     * 
+     * @param String peerID
+     * @param String busNames - the names of the buses separated by commas
+     * 
+     * @see org.universAAL.middleware.acl.SodaPopPeer#noticePeerBusses(String,
+     *      String)
+     */
     public void replyPeerBusses(String peerID, String busNames) {
 	synchronized (peersOnBus) {
 	    StringTokenizer names = new StringTokenizer(busNames, ",");
@@ -374,17 +489,27 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 		peers.add(peerID);
 	    }
 	}
-	logger.info("Got busses reply of peer '{}'!", peerID);
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "replyPeerBusses",
+		new Object[] { "Got busses reply of peer '", peerID, "'!" },
+		null);
     }
 
     /**
-     * @see org.universAAL.middleware.acl.SodaPopPeer#joinBus(String, String)
+     * This method is invoked by a remote peer (via our exporting connectors)
+     * to inform our SodaPop layer that this remote peer joined the bus
+     * 
+     * @param String busName
+     * @param String joiningPeer - the joining peer ID
+     * 
+     * @see org.universAAL.middleware.acl.SodaPopPeer#leaveBus(String, String)
      */
     public void joinBus(String busName, String joiningPeer) {
 	synchronized (peersOnBus) {
 	    getBusPeers(busName).add(joiningPeer);
 	}
-	logger.info("Peer '{}' joins bus '{}'!", joiningPeer, busName);
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "joinBus",
+		new Object[] { "Peer '", joiningPeer, "' joins bus '", busName,
+			"'!" }, null);
     }
 
     private Vector getBusPeers(String busName) {
@@ -397,6 +522,12 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
     }
 
     /**
+     * This method is invoked by a remote peer (via our exporting connectors)
+     * to inform our SodaPop layer that this remote peer left the bus
+     * 
+     * @param String busName
+     * @param String leavingPeer - the leaving peer ID
+     * 
      * @see org.universAAL.middleware.acl.SodaPopPeer#leaveBus(String, String)
      */
     public void leaveBus(String busName, String leavingPeer) {
@@ -405,10 +536,18 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	    if (peers != null)
 		peers.remove(leavingPeer);
 	}
-	logger.info("Peer '" + leavingPeer + "' leaves bus '" + busName + "'!");
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "leaveBus",
+		new Object[] { "Peer '", leavingPeer, "' leaves bus '",
+			busName, "'!" }, null);
     }
 
     /**
+     * This method is invoked by a remote peer (via our exporting connectors)
+     * to send a message to our local bus instance
+     * 
+     * @param String busName
+     * @param String msg
+     * 
      * @see org.universAAL.middleware.acl.SodaPopPeer#processBusMessage(String,
      *      String)
      */
@@ -421,24 +560,35 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 		    m = new Message(/*CryptUtil.decrypt(*/msg/*)*/);
 		    b.handleRemoteMessage(m);
 		} catch (Exception e) {
-		    logger
-			    .warn(
-				    "Message processing aborted due to the following exception:",
+		    LogUtils
+			    .logWarn(
+				    moduleContext,
+				    SodaPopImpl.class,
+				    "processBusMessage",
+				    new Object[] { "Message processing aborted due to the following exception:" },
 				    e);
 		}
 	    } else
-		logger.warn("Bus '" + busName + "' is absent locally!");
+		LogUtils.logWarn(moduleContext, SodaPopImpl.class,
+			"processBusMessage", new Object[] { "Bus '", busName,
+				"' is absent locally!" }, null);
 	}
 	if (m == null)
-	    logger.debug("Message '\n" + msg + "\n' received on bus '"
-		    + busName + "' could not be parsed!");
+	    LogUtils.logDebug(moduleContext, SodaPopImpl.class,
+		    "processBusMessage", new Object[] { "Message '\n", msg,
+			    "\n' received on bus '", busName,
+			    "' could not be parsed!" }, null);
 	else
-	    logger.debug("Message '" + m.getSourceTimeOrder()
-		    + "' received on bus '" + busName + "' from peer '"
-		    + m.getSource() + "'!");
+	    LogUtils.logDebug(moduleContext, SodaPopImpl.class,
+		    "processBusMessage", new Object[] { "Message '",
+			    Long.toString(m.getSourceTimeOrder()),
+			    "' received on bus '", busName, "' from peer '",
+			    m.getSource(), "'!" }, null);
     }
 
     /**
+     * @return String - the ID of this SodaPopPeer
+     * 
      * @see org.universAAL.middleware.acl.SodaPopPeer#getID()
      * @see org.universAAL.middleware.sodapop.SodaPop#getID()
      */
@@ -447,7 +597,7 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
     }
 
     // synchronized private final void logger(int level, String msg){
-    //		
+    //
     // // logBuffer.append(msg).append("\n)");
     // stopTime = System.currentTimeMillis();
     // if (log != null)
@@ -462,17 +612,28 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
     // log.log(level, msg, ex);
     // }
 
-    void stop(BundleContext context) {
+    public void stop() {
 	// TODO
     }
 
     /**
+     * @param String name - the name of a bus
+     * @return AbstractBus - the local bus instance for the name passed as a 
+     * parameter
+     * 
      * @see org.universAAL.middleware.sodapop.SodaPop#getLocalBusByName(String)
      */
     public AbstractBus getLocalBusByName(String name) {
 	return (name == null) ? null : (AbstractBus) localBusses.get(name);
     }
 
+    /**
+	 * This method is used for debugging purposes. It is invoked by remote peers
+	 * (via our exporting connectors) to print status on *** our *** standard
+	 * output
+     * 
+     * @see org.universAAL.middleware.acl.SodaPopPeer#printStatus()
+     */
     public void printStatus() {
 	System.out.println();
 	System.out.println("localBusses");
