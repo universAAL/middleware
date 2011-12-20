@@ -19,7 +19,9 @@
  */
 package org.universAAL.middleware.sodapop;
 
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.sodapop.msg.Message;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * 
@@ -30,6 +32,7 @@ import org.universAAL.middleware.sodapop.msg.Message;
  * 
  */
 public interface SodaPop {
+    public MessageContentSerializer getContentSerializer(ModuleContext context);
 
     /**
      * 

@@ -19,9 +19,13 @@
 	limitations under the License.
  */
 package org.universAAL.middleware.sodapop.impl;
-/* 
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+/** 
+ * This class represent a command sent to peers. It is needed in order to 
+ * process a queue of commands to execute (instead of sending the commands to 
+ * the remote peers immediately).
+ * 
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
 public class PeerCommand {
 	public static final int NOTICE_PEER_BUSES = 1;

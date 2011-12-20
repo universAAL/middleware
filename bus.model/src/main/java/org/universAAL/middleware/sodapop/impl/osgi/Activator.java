@@ -17,13 +17,16 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.middleware.sodapop.impl;
+package org.universAAL.middleware.sodapop.impl.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.universAAL.middleware.acl.P2PConnector;
+import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.sodapop.SodaPop;
+import org.universAAL.middleware.sodapop.impl.SodaPopImpl;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
@@ -31,10 +34,8 @@ import org.universAAL.middleware.sodapop.SodaPop;
  * 
  */
 public class Activator implements BundleActivator {
-
+    public static BundleConfigHome confHome;
     private SodaPopImpl g = null;
-    static String CONF_DIR;
-    public static Logger logger = LoggerFactory.getLogger(Activator.class);
 
     /*
      * (non-Javadoc)
@@ -44,14 +45,12 @@ public class Activator implements BundleActivator {
      * )
      */
     public void start(BundleContext context) throws Exception {
-	CONF_DIR = System.getProperty("bundles.configuration.location", System
-		.getProperty("user.dir"))
-		+ System.getProperty("file.separator")
-		+ context.getBundle().getSymbolicName()
-		+ System.getProperty("file.separator");
-
-	g = new SodaPopImpl(context);
-
+	confHome = new BundleConfigHome(context.getBundle().getSymbolicName());
+	g = new SodaPopImpl(uAALBundleContainer.THE_CONTAINER
+		.registerModule(new Object[] { context }), confHome
+		.getAbsolutePath(),
+		new Object[] { P2PConnector.class.getName() },
+		new Object[] { MessageContentSerializer.class.getName() });
 	context.registerService(SodaPop.class.getName(), g, null);
     }
 
@@ -62,6 +61,6 @@ public class Activator implements BundleActivator {
      * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext context) throws Exception {
-	g.stop(context);
+	g.stop();
     }
 }
