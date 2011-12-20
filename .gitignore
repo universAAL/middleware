@@ -6,6 +6,10 @@ bus.service/.classpath
 bus.service/.project
 bus.service/.settings
 bus.service/target
+data.representation/.classpath
+data.representation/.project
+data.representation/.settings
+data.representation/target
 pom/.classpath
 pom/.project
 pom/.settings
