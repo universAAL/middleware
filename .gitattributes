@@ -1,4 +1,20 @@
 * text=auto !eol
+bus.context/LICENSE.txt -text
+bus.context/NOTICE.txt -text
+bus.context/pom.xml -text
+bus.context/src/main/java/org/universAAL/middleware/context/ContextBus.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/ContextEvent.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/ContextEventPattern.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/ContextPublisher.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/ContextSubscriber.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/DefaultContextPublisher.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/impl/ContextBusImpl.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/impl/ContextStrategy.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/impl/osgi/Activator.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/owl/ContextProvider.java -text
+bus.context/src/main/java/org/universAAL/middleware/context/owl/ContextProviderType.java -text
+bus.context/src/test/java/org/universAAL/middleware/context/RoundTest.java -text
+bus.context/src/test/java/org/universAAL/middleware/context/SetTopBox.java -text
 pom/eclipse.setup.bat -text
 pom/eclipse.setup.sh -text
 pom/pom.xml -text
