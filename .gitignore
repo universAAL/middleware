@@ -2,6 +2,10 @@ bus.context/.classpath
 bus.context/.project
 bus.context/.settings
 bus.context/target
+bus.service/.classpath
+bus.service/.project
+bus.service/.settings
+bus.service/target
 pom/.classpath
 pom/.project
 pom/.settings
