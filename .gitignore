@@ -10,6 +10,10 @@ data.representation/.classpath
 data.representation/.project
 data.representation/.settings
 data.representation/target
+data.serialization/.classpath
+data.serialization/.project
+data.serialization/.settings
+data.serialization/target
 pom/.classpath
 pom/.project
 pom/.settings
