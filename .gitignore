@@ -2,6 +2,10 @@ acl.interfaces/.classpath
 acl.interfaces/.project
 acl.interfaces/.settings
 acl.interfaces/target
+acl.upnp/.classpath
+acl.upnp/.project
+acl.upnp/.settings
+acl.upnp/target
 bus.context/.classpath
 bus.context/.project
 bus.context/.settings
