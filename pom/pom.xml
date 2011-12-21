@@ -42,10 +42,18 @@
 		</url>
 	</issueManagement>
 	
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
 	<scm>
-		<connection>${svn.base}</connection>
-		<developerConnection>${svn.base}</developerConnection>
-		<url>${svn.base.url}</url>
+		<connection>${svn.base}/pom</connection>
+		<developerConnection>${svn.base}/pom</developerConnection>
+		<url>${svn.base.url}pom</url>
 	</scm>
 
 	<properties>

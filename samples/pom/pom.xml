@@ -5,54 +5,16 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.0</version>
 		<relativePath>../../pom/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.universAAL.samples</groupId>
 	<artifactId>smp.pom</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<name>universAAL Samples</name>
 	<description>A set of components that use the universAAL middleware with different roles and serve as samples.</description>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.data.representation</artifactId>
-			<version>0.3.2-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.context</artifactId>
-			<version>0.3.2-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.service</artifactId>
-			<version>0.3.2-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.ontology</groupId>
-			<artifactId>ont.lighting</artifactId>
-			<version>0.2.2-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.ontology</groupId>
-			<artifactId>ont.phWorld</artifactId>
-			<version>0.2.4-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.xfaces</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.osgi</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
 
 	<developers>
 		<developer>
@@ -93,18 +55,26 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<contributors />
+	
+	<dependencyManagement>
+		<dependencies>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.phWorld</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.lighting</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<modules>
 		<module>../lighting/server</module>
 		<module>../lighting/client</module>
 		<module>../heating</module> 
-		<!-- The following are DEPENDECIES NOT Subprojects! -->
-		<!-- therefore they should not be included in this section -->
-<!--		<module>../../../../ontologies/trunk/physical.world</module>-->
-<!--		<module>../../../../ontologies/trunk/lighting</module>-->
-<!--		<module>../../../../ontologies/trunk/weather</module>-->
-<!--		<module>../../pom</module>-->
 	</modules>
 
 </project>
