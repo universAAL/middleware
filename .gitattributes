@@ -3,6 +3,12 @@ acl.bridge/LICENSE.txt -text
 acl.bridge/NOTICE.txt -text
 acl.bridge/pom.xml -text
 acl.bridge/src/main/java/org/universAAL/middleware/acl/bridge/BridgeActivator.java -text
+acl.interfaces/LICENSE.txt -text
+acl.interfaces/NOTICE.txt -text
+acl.interfaces/pom.xml -text
+acl.interfaces/src/main/java/org/universAAL/middleware/acl/P2PConnector.java -text
+acl.interfaces/src/main/java/org/universAAL/middleware/acl/PeerDiscoveryListener.java -text
+acl.interfaces/src/main/java/org/universAAL/middleware/acl/SodaPopPeer.java -text
 bus.context/LICENSE.txt -text
 bus.context/NOTICE.txt -text
 bus.context/pom.xml -text
