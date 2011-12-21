@@ -4,12 +4,12 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <packaging>bundle</packaging>
   <artifactId>mw.acl.rosgi</artifactId>  
-  <version>0.3.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>ACL R-OSGi</name>
   <description>An implement of the ACL interface using R-OSGi</description>
   <url />
@@ -25,12 +25,7 @@
       <groupId>org.apache.felix</groupId>
       <artifactId>org.osgi.core</artifactId>
     </dependency>
-    <dependency>
-    	<groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.acl.interfaces</artifactId>
-      <version>0.3.1-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
+    
     <dependency>
   		<groupId>ch.ethz.iks.r-osgi</groupId>
   		<artifactId>remote</artifactId>
@@ -41,6 +36,11 @@
       <groupId>ch.ethz.iks.r-osgi</groupId>
       <artifactId>service_discovery.slp</artifactId>
       <version>1.0.0.RC4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.acl.interfaces</artifactId>
       <scope>provided</scope>
     </dependency>
   </dependencies>
