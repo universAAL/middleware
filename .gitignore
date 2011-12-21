@@ -24,6 +24,11 @@ bus.io/.project
 bus.io/.settings
 bus.io/target
 bus.io/uAAL.log
+bus.model/.classpath
+bus.model/.project
+bus.model/.settings
+bus.model/target
+bus.model/uAAL.log
 bus.service/.classpath
 bus.service/.project
 bus.service/.settings
