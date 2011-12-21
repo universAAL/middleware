@@ -1,3 +1,7 @@
+acl.bridge/.classpath
+acl.bridge/.project
+acl.bridge/.settings
+acl.bridge/target
 bus.context/.classpath
 bus.context/.project
 bus.context/.settings
