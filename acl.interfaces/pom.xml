@@ -4,20 +4,20 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.0</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.acl.interfaces</artifactId>  
-	<version>0.3.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>ACL Interfaces</name>
 	<description>Defines the interfaces within the Abstract Connection Layer</description>
 	<url />
 
 	<scm>
-		<connection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/acl.interfaces</connection> 
-		<developerConnection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/acl.interfaces</developerConnection>
-		<url>http://forge.universaal.org/gf/project/middleware/scmsvn/?path=%2Ftrunk%2Facl.interfaces</url>
+		<connection>${svn.base}/acl.interfaces</connection> 
+		<developerConnection>${svn.base}/acl.interfaces</developerConnection>
+		<url>${svn.base.url}acl.interfaces</url>
 	</scm>
 
 	<build>

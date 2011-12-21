@@ -13,7 +13,12 @@
 	<version>1.0.0</version>
 	<name>Service Bus</name>
 	<description>The realization of the service bus on top of Sodapop as part of the universAAL Middleware.</description>
-	<url />
+
+	<scm>
+		<connection>${svn.base}/bus.service</connection> 
+		<developerConnection>${svn.base}/bus.service</developerConnection>
+		<url>${svn.base.url}bus.service</url>
+	</scm>
 
 	<dependencies>
 		<dependency>

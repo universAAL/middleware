@@ -12,7 +12,12 @@
 	<version>1.0.0</version>
 	<name>universAAL Data Representation Model</name>
 	<description>Using RDF/OWL model for data representation in universAAL</description>
-	<url />
+
+	<scm>
+		<connection>${svn.base}/data.representation</connection>
+		<developerConnection>${svn.base}/data.representation</developerConnection>
+		<url>${svn.base.url}data.representation</url>
+	</scm>
 
 	<dependencies>
 		<dependency>

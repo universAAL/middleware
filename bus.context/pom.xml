@@ -12,7 +12,12 @@
 	<version>1.0.0</version>
 	<name>Context Bus</name>
 	<description>The realization of the context bus on top of Sodapop as part of the universAAL Middleware</description>
-	<url />
+
+	<scm>
+		<connection>${svn.base}/bus.context</connection> 
+		<developerConnection>${svn.base}/bus.context</developerConnection>
+		<url>${svn.base.url}bus.context</url>
+	</scm>
 
 	<dependencies>
 		<dependency>
