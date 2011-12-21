@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.pom</artifactId>
+		<version>1.0.1</version>
+		<relativePath>../pom/pom.xml</relativePath>
+	</parent>
+	<packaging>bundle</packaging>
+	<artifactId>mw.container.osgi</artifactId>  
+	<version>0.1.0-SNAPSHOT</version>
+	<name>OSGi Container</name>
+	<description>An implementation of the interfaces exported by the Container building block of the universAAL middleware on top of the OSGi runtime</description>
+	<url />
+
+	<scm>
+		<connection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/container.osgi</connection> 
+		<developerConnection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/container.osgi</developerConnection>
+		<url>http://forge.universaal.org/gf/project/middleware/scmsvn/?path=%2Ftrunk%2Fcontainer.osgi</url>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.xfaces</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi_R4_compendium</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-api</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-service</artifactId>
+			<version>1.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Activator>org.universAAL.middleware.container.osgi.run.Activator</Bundle-Activator>
+						<Export-Package>org.universAAL.middleware.container.osgi,org.universAAL.middleware.container.osgi.util</Export-Package>
+						<Private-Package>org.universAAL.middleware.container.osgi.run</Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>uAAL-Runtime</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>org.osgi.compendium</artifactId>
+					<version>1.4.0</version>
+					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>org.apache.felix.log</artifactId>
+					<version>1.0.1</version>
+					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>org.apache.felix.configadmin</artifactId>
+					<version>1.2.4</version>
+					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>org.apache.felix.fileinstall</artifactId>
+					<version>3.1.10</version>
+					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.ops4j.pax.confman</groupId>
+					<artifactId>pax-confman-propsloader</artifactId>
+					<version>0.2.2</version>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
+
+</project>
