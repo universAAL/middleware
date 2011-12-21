@@ -100,7 +100,6 @@ bus.io/src/main/java/org/universAAL/middleware/output/OutputSubscriber.java -tex
 bus.io/src/main/java/org/universAAL/middleware/output/impl/OutputBusImpl.java -text
 bus.io/src/main/java/org/universAAL/middleware/output/impl/OutputStrategy.java -text
 bus.io/src/test/java/org/universAAL/middleware/io/rdf/RangeTest.java -text
-bus.io/src/test/java/org/universAAL/middleware/io/test/ArtifactIntegrationTest.java -text
 bus.io/src/test/resources/log4j.properties -text
 bus.model/LICENSE.txt -text
 bus.model/NOTICE.txt -text
@@ -126,7 +125,6 @@ bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/Message.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageContentSerializer.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageType.java -text
 bus.model/src/main/resources/README.txt -text
-bus.model/src/test/java/org/universAAL/middleware/sodapop/test/ArtifactIntegrationTest.java -text
 bus.model/src/test/resources/log4j.properties -text
 bus.service/pom.xml -text
 bus.service/src/main/java/org/universAAL/middleware/service/AggregatingFilter.java -text
@@ -224,8 +222,6 @@ data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleUtil.
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleWriter.java -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/osgi/Activator.java -text
 data.serialization/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
-pom/eclipse.setup.bat -text
-pom/eclipse.setup.sh -text
 pom/pom.xml -text
 samples/heating/pom.xml -text
 samples/heating/src/main/java/org/universAAL/samples/heating/Activator.java -text

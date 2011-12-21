@@ -12,7 +12,12 @@
 	<version>1.0.0</version>
 	<name>RDF/OWL Turtle serializer</name>
 	<description>The module for message content serialization in Turtle</description>
-	<url />
+
+	<scm>
+		<connection>${svn.base}/data.serialization</connection>
+		<developerConnection>${svn.base}/data.serialization</developerConnection>
+		<url>${svn.base.url}data.serialization</url>
+	</scm>
 
 	<dependencies>
 		<dependency>
