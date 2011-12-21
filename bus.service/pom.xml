@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.0</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.bus.service</artifactId>
-	<version>0.3.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Service Bus</name>
 	<description>The realization of the service bus on top of Sodapop as part of the universAAL Middleware.</description>
 	<url />
@@ -19,37 +19,26 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.model</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.xfaces</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.osgi</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -58,7 +47,6 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.0.0</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
