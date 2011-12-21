@@ -32,7 +32,6 @@ acl.upnp/src/main/java/org/universAAL/middleware/acl/upnp/exporter/stateVariable
 acl.upnp/src/main/java/org/universAAL/middleware/acl/upnp/exporter/universAALIcon.java -text
 acl.upnp/src/main/java/org/universAAL/middleware/acl/upnp/importer/PeerImporter.java -text
 acl.upnp/src/main/java/org/universAAL/middleware/acl/upnp/importer/SodaPopProxy.java -text
-acl.upnp/src/test/java/org/universAAL/middleware/acl/upnp/test/ArtifactIntegrationTest.java -text
 acl.upnp/src/test/resources/log4j.properties -text
 bus.context/LICENSE.txt -text
 bus.context/NOTICE.txt -text
