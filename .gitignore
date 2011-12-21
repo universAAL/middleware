@@ -19,6 +19,11 @@ bus.context/.classpath
 bus.context/.project
 bus.context/.settings
 bus.context/target
+bus.io/.classpath
+bus.io/.project
+bus.io/.settings
+bus.io/target
+bus.io/uAAL.log
 bus.service/.classpath
 bus.service/.project
 bus.service/.settings
