@@ -10,6 +10,11 @@ acl.rosgi/.classpath
 acl.rosgi/.project
 acl.rosgi/.settings
 acl.rosgi/target
+acl.upnp/.classpath
+acl.upnp/.project
+acl.upnp/.settings
+acl.upnp/target
+acl.upnp/uAAL.log
 bus.context/.classpath
 bus.context/.project
 bus.context/.settings
