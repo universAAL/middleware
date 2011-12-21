@@ -1,0 +1,78 @@
+<settings xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+	http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<!-- mirrors>
+		<mirror>
+			<id>artifactory</id>
+			<mirrorOf>*</mirrorOf>
+			<url>file:///D:/Saied/.m2/repository</url>
+			<name>Artifactory</name>
+		</mirror>
+	</mirrors -->
+
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>uaal</id>
+					<name>universAAL Repositories</name>
+					<url>http://depot.universaal.org/maven-repo/releases/</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>uaal-snapshots</id>
+					<name>universAAL Snapshot Repositories</name>
+					<url>http://depot.universaal.org/maven-repo/snapshots/</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+				</repository>
+				<repository>
+					<id>uaal-thirdparty</id>
+					<name>universAAL ThirdParty Repositories</name>
+					<url>http://depot.universaal.org/maven-repo/thirdparty/</url>
+				</repository>
+				<repository>
+					<id>iks-repository</id>
+					<name>Redirection</name>
+					<url>http://depot.universaal.org/maven-repo/thirdparty/</url>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
+
+	<!-- proxies>
+		<proxy>
+			<id>myproxy</id>
+			<active>false</active>
+			<protocol>http</protocol>
+			<host>ip address</host>
+			<port>port number</port>
+		</proxy>
+	</proxies -->
+
+	<servers>
+		<server>
+			<id>releases</id>
+			<username>deployment</username>
+			<password>uaal_49_nexus</password>
+		</server>
+		<server>
+			<id>snapshots</id>
+			<username>deployment</username>
+			<password>uaal_49_nexus</password>
+		</server><!--
+		<server>
+			<id>thirdparty</id>
+			<username>pdepl</username>
+			<password>dirtypond</password>
+		</server> -->
+	</servers>
+	
+</settings>
