@@ -35,6 +35,7 @@ acl.upnp/src/main/java/org/universAAL/middleware/acl/upnp/importer/SodaPopProxy.
 acl.upnp/src/test/resources/log4j.properties -text
 bus.context/LICENSE.txt -text
 bus.context/NOTICE.txt -text
+bus.context/artifact.composite -text
 bus.context/pom.xml -text
 bus.context/src/main/java/org/universAAL/middleware/context/ContextBus.java -text
 bus.context/src/main/java/org/universAAL/middleware/context/ContextEvent.java -text
@@ -125,6 +126,7 @@ bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageContentSeri
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageType.java -text
 bus.model/src/main/resources/README.txt -text
 bus.model/src/test/resources/log4j.properties -text
+bus.service/artifact.composite -text
 bus.service/pom.xml -text
 bus.service/src/main/java/org/universAAL/middleware/service/AggregatingFilter.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/AggregationFunction.java -text
@@ -180,6 +182,7 @@ container.xfaces/src/main/java/org/universAAL/middleware/container/utils/LogUtil
 container.xfaces/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
 data.representation/LICENSE.txt -text
 data.representation/NOTICE.txt -text
+data.representation/artifact.composite -text
 data.representation/documentation/mw.data.representation[!!-~]dependencies[!!-~]19.4.2011.png -text
 data.representation/documentation/mw.owl[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
 data.representation/documentation/mw.owl.supply[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
@@ -215,6 +218,7 @@ data.representation/src/test/java/org/universAAL/middleware/rdf/TypeMapperTest.j
 data.serialization/LICENSE-Aduna-OpenRDF.txt -text
 data.serialization/LICENSE.txt -text
 data.serialization/NOTICE.txt -text
+data.serialization/artifact.composite -text
 data.serialization/pom.xml -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleParser.java -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleUtil.java -text
