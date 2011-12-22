@@ -1,6 +1,6 @@
 package org.universAAL.samples.heating;
 
-import org.osgi.framework.BundleContext;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
@@ -9,7 +9,7 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
 
 public class Callee extends ServiceCallee {
 
-	protected Callee(BundleContext context) {
+	protected Callee(ModuleContext context) {
 		super(context, ProvidedServiceTemp.profiles);
 		// TODO Auto-generated constructor stub
 

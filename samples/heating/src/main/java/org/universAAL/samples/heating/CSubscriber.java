@@ -1,6 +1,6 @@
 package org.universAAL.samples.heating;
 
-import org.osgi.framework.BundleContext;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
@@ -9,7 +9,7 @@ import org.universAAL.ontology.weather.TempSensor;
 
 public class CSubscriber extends ContextSubscriber {
 
-	protected CSubscriber(BundleContext context,
+	protected CSubscriber(ModuleContext context,
 			ContextEventPattern[] initialSubscriptions) {
 		super(context, getPermanentSubscriptions());
 		// TODO Auto-generated constructor stub

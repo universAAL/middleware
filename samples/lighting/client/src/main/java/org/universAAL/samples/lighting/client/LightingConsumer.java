@@ -10,7 +10,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
-import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.DefaultServiceCaller;
 import org.universAAL.middleware.service.ServiceCaller;
@@ -24,7 +24,7 @@ import org.universAAL.ontology.phThing.Device;
  * @author amarinc
  * 
  */
-public class LightingConsumer extends ContextSubscriber {
+class LightingConsumer extends ContextSubscriber {
 
     private static ServiceCaller caller;
 
@@ -36,7 +36,7 @@ public class LightingConsumer extends ContextSubscriber {
     private static ContextEventPattern[] getContextSubscriptionParams() {
 	// I am interested in all events with a light source as subject
 	ContextEventPattern cep = new ContextEventPattern();
-	cep.addRestriction(MergedRestriction.getAllValuesRestriction(
+	cep.addRestriction(Restriction.getAllValuesRestriction(
 		ContextEvent.PROP_RDF_SUBJECT, LightSource.MY_URI));
 	return new ContextEventPattern[] { cep };
     }
