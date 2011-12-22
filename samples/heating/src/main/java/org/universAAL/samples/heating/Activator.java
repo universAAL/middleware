@@ -2,6 +2,8 @@ package org.universAAL.samples.heating;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
@@ -25,7 +27,11 @@ public class Activator implements BundleActivator {
 
 	Callee servicecallee; // to be called (the service)
 
-	public void start(BundleContext bundleContext) throws Exception {
+    static ModuleContext mc;
+
+    public void start(final BundleContext context) throws Exception {
+    	mc = uAALBundleContainer.THE_CONTAINER
+    			.registerModule(new Object[] { context });
 		// TODO Auto-generated method stub
 
 		System.out.println("*****************************************");
@@ -52,7 +58,7 @@ public class Activator implements BundleActivator {
 		System.out
 				.println(" I CREATE A SUBSCRIBER TO RECEIVE TEMPERATURES FROM SENSORS");
 
-		cs = new CSubscriber(bundleContext,
+		cs = new CSubscriber(mc,
 				new ContextEventPattern[] { new ContextEventPattern() });
 
 		// I create a context publisher(cp) that will publish temperatures
@@ -63,7 +69,7 @@ public class Activator implements BundleActivator {
 				"http://ontology.tsbtecnologias.es/Test.owl#TestContextProvider");
 		cpinfo.setType(ContextProviderType.gauge);
 		// context publisher = (context provider, bundle context)
-		cp = new DefaultContextPublisher(bundleContext, cpinfo);
+		cp = new DefaultContextPublisher(mc, cpinfo);
 
 		// I create a sensor to measure the temperature inside the house.
 		System.out.println("I CREATE A TEMPERATURE SENSOR");
@@ -100,10 +106,10 @@ public class Activator implements BundleActivator {
 
 		// SERVICE BUS
 
-		servicecallee = new Callee(bundleContext);
+		servicecallee = new Callee(mc);
 
 		// I create a default caller and i pass him the actual context
-		caller = new DefaultServiceCaller(bundleContext);
+		caller = new DefaultServiceCaller(mc);
 
 		// I create a object service response
 

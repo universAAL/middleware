@@ -7,7 +7,7 @@ import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 
 public class Activator implements BundleActivator {
 
-    public static ModuleContext mc;
+    static ModuleContext mc;
 
     /*
      * (non-Javadoc)
