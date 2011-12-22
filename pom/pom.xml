@@ -246,6 +246,7 @@
 					<version>2.3.2</version>
 					<inherited>true</inherited>
 					<configuration>
+						<showWarnings>true</showWarnings>
 						<testSource>1.5</testSource>
 						<testTarget>1.5</testTarget>
 						<source>${maven.compile.source}</source>
