@@ -32,13 +32,13 @@
 	</organization>
 	
 	<url>
-		<![CDATA[http://forge.universaal.org/gf/project/middleware/]]>
+		<![CDATA[${gforge.project.url}]]>
 	</url>
 
 	<issueManagement>
 		<system>GForge - Tracker</system>
 		<url>
-			<![CDATA[http://forge.universaal.org/gf/project/middleware/tracker/]]>
+			<![CDATA[${gforge.project.url}/tracker/]]>
 		</url>
 	</issueManagement>
 	
@@ -64,7 +64,8 @@
 	<!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
 	 	<gforge.project.name>middleware</gforge.project.name>
 		<svn.base>scm:svn:http://forge.universaal.org/svn/${gforge.project.name}/trunk</svn.base>
-		<svn.base.url>http://forge.universaal.org/gf/project/${gforge.project.name}/scmsvn/?path=%2Ftrunk%2F</svn.base.url>
+		<gforge.project.url>http://forge.universaal.org/gf/project/${gforge.project.name}</gforge.project.url>
+		<svn.base.url>${gforge.project.url}/scmsvn/?path=%2Ftrunk%2F</svn.base.url>
 	</properties>
 
 	<dependencyManagement>
@@ -334,6 +335,11 @@
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>2.3</version>
 			</plugin>
+			<plugin>
+	        	<groupId>org.codehaus.mojo</groupId>
+		        <artifactId>javancss-maven-plugin</artifactId>
+		        <version>2.0-beta-2</version>
+		      </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
