@@ -317,16 +317,23 @@
 	<modules>
 		<module>../acl.interfaces</module>
 		<module>../acl.bridge</module>
-		<module>../acl.rosgi</module>
+		<!-- 
+		!!!! unstable & not worth to be improved because new design decisions on "Discovery & Peering"
+		!!!! will cause dramatical changes in ACL anyhow! 
+		!!!! <module>../acl.rosgi</module>
+		!-->
 		<module>../acl.upnp</module>
-		<module>../bus.model</module>
-		<module>../data.representation</module>
-		<module>../bus.context</module>
-		<module>../bus.io</module>
-		<module>../bus.service</module>
-		<module>../data.serialization</module>
 		<module>../container.xfaces</module>
 		<module>../container.osgi</module>
+		<module>../bus.model</module>
+		<module>../data.representation</module>
+		<module>../data.serialization</module>
+		<module>../bus.context</module>
+		<module>../bus.service</module>
+		<!-- 
+		!!!! Deprecated. Replaced by http://forge.universaal.org/svn/uaal_ui/trunk/bus.ui/
+		!!!! <module>../bus.io</module>
+		!-->
 	</modules>
 
 </project>
