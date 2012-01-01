@@ -15,25 +15,24 @@
 	<description>A Soda-Pop implementation as an OSGi bundle based on the ACL</description>
 	<url />
 
-	<scm>
-		<connection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/acl.r-osgi</connection> 
-		<developerConnection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/acl.r-osgi</developerConnection>
-		<url>http://forge.universaal.org/gf/project/middleware/scmsvn/?path=%2Ftrunk%2Facl.r-osgi</url>
-	</scm>
-
 	<dependencies>
 		<!--
 			The dependency to itests has always come before the dependency to
 			org.osgi.core (groupId:org.apache.felix). The easiest approach is to
 			just put the dependency to itests as the first one.
-		-->	
+		-->
 		<dependency>
 			<groupId>org.universAAL.support</groupId>
 			<artifactId>itests</artifactId>
 			<version>0.1.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
-			
+		<dependency>
+			<groupId>org.springframework.osgi</groupId>
+			<artifactId>spring-osgi-test</artifactId>
+			<version>1.2.1</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.acl.interfaces</artifactId>
@@ -68,6 +67,12 @@
 
 	<build>
 		<plugins>
+			<!--
+				<plugin> <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.11</version> <configuration> <skipTests>true</skipTests>
+				</configuration> </plugin>
+			-->
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -80,7 +85,7 @@
 							<goal>manifest</goal>
 						</goals>
 					</execution>
-				</executions>				
+				</executions>
 				<configuration>
 					<instructions>
 						<Bundle-Name>${project.name}</Bundle-Name>
@@ -95,7 +100,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>			
+			</plugin>
 		</plugins>
 	</build>
 </project>
