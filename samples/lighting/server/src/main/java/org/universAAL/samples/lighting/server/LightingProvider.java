@@ -249,8 +249,12 @@ public class LightingProvider extends ServiceCallee implements
 	// create a list including the available lights
 	int[] lamps = theServer.getLampIDs();
 	ArrayList al = new ArrayList(lamps.length);
-	for (int i = 0; i < lamps.length; i++)
-	    al.add(new LightSource(constructLampURIfromLocalID(lamps[i])));
+	for (int i = 0; i < lamps.length; i++) {
+	    LightSource ls = new LightSource(
+		    constructLampURIfromLocalID(lamps[i]));
+	    ls.setLightType(ElectricLight.lightBulb);
+	    al.add(ls);
+	}
 	// create and add a ProcessOutput-Event that binds the output URI to the
 	// created list of lamps
 	sr.addOutput(new ProcessOutput(
