@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Stack;
 
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
 
@@ -171,8 +170,8 @@ public class ResourceComparator {
 	else if (v1 instanceof Resource)
 	    if (differ(indent + 1, (Resource) v1, (Resource) v2)) {
 		writeLine(indent, new Object[] { prop, ": ",
-			toString((Resource) v1), " <-> ",
-			toString((Resource) v2) });
+			((Resource) v1).getOrConstructLabel(), " <-> ",
+			((Resource) v2).getOrConstructLabel() });
 		return true;
 	    } else
 		return false;
@@ -201,8 +200,8 @@ public class ResourceComparator {
      */
     public void printDiffs(Resource r1, Resource r2) {
 	isPrinting = true;
-	writeLine(0, new Object[] { "Comparing ", toString(r1), " with ",
-		toString(r2), ":" });
+	writeLine(0, new Object[] { "Comparing ", r1.getOrConstructLabel(),
+		" with ", r2.getOrConstructLabel(), ":" });
 	if (r1 == null || r2 == null)
 	    s.push("NULL values cannot be compared!");
 	else if (r1.getClass() != r2.getClass()) {
@@ -215,15 +214,6 @@ public class ResourceComparator {
 
 	LogUtils.logDebug(SharedResources.moduleContext,
 		ResourceComparator.class, "printDiffs", s.toArray(), null);
-    }
-
-    /**
-     * Get a String representation of a Resource.
-     */
-    private String toString(Resource r) {
-	return (r.isAnon() ? "" : r.hasQualifiedName() ? r.getLocalName() : r
-		.getURI())
-		+ "@" + StringUtils.deriveLabel(r.getType());
     }
 
     /**
