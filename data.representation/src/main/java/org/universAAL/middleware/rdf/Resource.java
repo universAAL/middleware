@@ -499,11 +499,22 @@ public class Resource {
 	return (val instanceof String) ? (String) val : null;
     }
 
-    public String getOrConstructLabel() {
+    /**
+     * If this resource has no original label, constructs one for it without
+     * changing the resource itself.
+     * 
+     * @param type
+     *            The optional type to be used instead of the return value of
+     *            'getType()' when constructing a label
+     * @return if there is an original label, that one is returned; otherwise a
+     *         label constructed on-the-fly will be returned
+     */
+    public String getOrConstructLabel(String type) {
 	Object val = props.get(PROP_RDFS_LABEL);
 	if (val instanceof String)
 	    return (String) val;
-	String type = StringUtils.deriveLabel(getType());
+	if (type == null)
+	    type = StringUtils.deriveLabel(getType());
 	return isAnon() ? "a(n) " + type : type + " \""
 		+ (hasQualifiedName() ? StringUtils.deriveLabel(uri) : uri)
 		+ "\"";

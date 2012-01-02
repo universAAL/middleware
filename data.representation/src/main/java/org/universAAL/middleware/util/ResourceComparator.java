@@ -170,8 +170,8 @@ public class ResourceComparator {
 	else if (v1 instanceof Resource)
 	    if (differ(indent + 1, (Resource) v1, (Resource) v2)) {
 		writeLine(indent, new Object[] { prop, ": ",
-			((Resource) v1).getOrConstructLabel(), " <-> ",
-			((Resource) v2).getOrConstructLabel() });
+			((Resource) v1).getOrConstructLabel(null), " <-> ",
+			((Resource) v2).getOrConstructLabel(null) });
 		return true;
 	    } else
 		return false;
@@ -200,8 +200,8 @@ public class ResourceComparator {
      */
     public void printDiffs(Resource r1, Resource r2) {
 	isPrinting = true;
-	writeLine(0, new Object[] { "Comparing ", r1.getOrConstructLabel(),
-		" with ", r2.getOrConstructLabel(), ":" });
+	writeLine(0, new Object[] { "Comparing ", r1.getOrConstructLabel(null),
+		" with ", r2.getOrConstructLabel(null), ":" });
 	if (r1 == null || r2 == null)
 	    s.push("NULL values cannot be compared!");
 	else if (r1.getClass() != r2.getClass()) {
