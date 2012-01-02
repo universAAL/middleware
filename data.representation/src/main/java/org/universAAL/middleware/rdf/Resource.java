@@ -120,7 +120,7 @@ public class Resource {
      * then get an instance of a class given its URI by calling
      * {@link #getResource(String classURI, String instanceURI)}
      */
-    //private static Hashtable uriRsrcClass = new Hashtable();
+    // private static Hashtable uriRsrcClass = new Hashtable();
 
     /**
      * Registration of specialized objects. When getting a Resource (e.g. by a
@@ -131,7 +131,7 @@ public class Resource {
      * - given its instance URI - can then be retrieved by calling
      * {@link #getResource(String classURI, String instanceURI)}
      */
-    //private static Hashtable uriResource = new Hashtable();
+    // private static Hashtable uriResource = new Hashtable();
 
     /**
      * URI of this resource, or URIref (URI plus fragment identifier, separated
@@ -242,11 +242,11 @@ public class Resource {
      * a message arrives with this URI, a new instance of this class can be
      * generated.
      */
-//    protected static final void addResourceClass(String uri, Class clz) {
-//	if (StringUtils.isNonEmpty(uri) && clz != null
-//		&& !uriRsrcClass.containsKey(uri))
-//	    uriRsrcClass.put(uri, clz);
-//    }
+    // protected static final void addResourceClass(String uri, Class clz) {
+    // if (StringUtils.isNonEmpty(uri) && clz != null
+    // && !uriRsrcClass.containsKey(uri))
+    // uriRsrcClass.put(uri, clz);
+    // }
 
     /**
      * Register a new specialized Resource instance (instead of a Resource
@@ -256,10 +256,10 @@ public class Resource {
      * @param r
      *            The Resource to register.
      */
-//    protected static final void addSpecialResource(Resource r) {
-//	if (r != null && !r.isAnon())
-//	    uriResource.put(r.uri, r);
-//    }
+    // protected static final void addSpecialResource(Resource r) {
+    // if (r != null && !r.isAnon())
+    // uriResource.put(r.uri, r);
+    // }
 
     /**
      * Creates a new Resource instance which is treated as an RDF list and
@@ -302,31 +302,31 @@ public class Resource {
      * @see #addSpecialResource(Resource)
      */
     public static Resource getResource(String classURI, String instanceURI) {
-	
-	return ResourceRegistry.getInstance().getResource(classURI, instanceURI);
-	
-	
-//	if (classURI == null)
-//	    return null;
-//
-//	Class clz = (Class) uriRsrcClass.get(classURI);
-//	if (clz == null)
-//	    return null;
-//
-//	try {
-//	    if (Resource.isAnonymousURI(instanceURI))
-//		return (Resource) clz.newInstance();
-//	    else {
-//		Object o = uriResource.get(instanceURI);
-//		if (o instanceof Resource && o.getClass() == clz)
-//		    return (Resource) o;
-//		return (Resource) clz.getConstructor(
-//			new Class[] { String.class }).newInstance(
-//			new Object[] { instanceURI });
-//	    }
-//	} catch (Exception e) {
-//	    return null;
-//	}
+
+	return ResourceRegistry.getInstance()
+		.getResource(classURI, instanceURI);
+
+	// if (classURI == null)
+	// return null;
+	//
+	// Class clz = (Class) uriRsrcClass.get(classURI);
+	// if (clz == null)
+	// return null;
+	//
+	// try {
+	// if (Resource.isAnonymousURI(instanceURI))
+	// return (Resource) clz.newInstance();
+	// else {
+	// Object o = uriResource.get(instanceURI);
+	// if (o instanceof Resource && o.getClass() == clz)
+	// return (Resource) o;
+	// return (Resource) clz.getConstructor(
+	// new Class[] { String.class }).newInstance(
+	// new Object[] { instanceURI });
+	// }
+	// } catch (Exception e) {
+	// return null;
+	// }
     }
 
     /**
@@ -493,10 +493,18 @@ public class Resource {
 	return (val instanceof String) ? (String) val : null;
     }
 
-    /** Get the Resource comment. Convenient method to retrieve rdfs:label. */
+    /** Get the Resource label. Convenient method to retrieve rdfs:label. */
     public String getResourceLabel() {
 	Object val = props.get(PROP_RDFS_LABEL);
 	return (val instanceof String) ? (String) val : null;
+    }
+
+    public String getOrConstructLabel() {
+	Object val = props.get(PROP_RDFS_LABEL);
+	if (val instanceof String)
+	    return (String) val;
+	return (isAnon() ? "" : hasQualifiedName() ? getLocalName() : getURI())
+		+ "@" + StringUtils.deriveLabel(getType());
     }
 
     /**
