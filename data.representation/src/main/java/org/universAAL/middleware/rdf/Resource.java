@@ -503,8 +503,10 @@ public class Resource {
 	Object val = props.get(PROP_RDFS_LABEL);
 	if (val instanceof String)
 	    return (String) val;
-	return (isAnon() ? "" : hasQualifiedName() ? getLocalName() : getURI())
-		+ "@" + StringUtils.deriveLabel(getType());
+	String type = StringUtils.deriveLabel(getType());
+	return isAnon() ? "a(n) " + type : type + " \""
+		+ (hasQualifiedName() ? StringUtils.deriveLabel(uri) : uri)
+		+ "\"";
     }
 
     /**
