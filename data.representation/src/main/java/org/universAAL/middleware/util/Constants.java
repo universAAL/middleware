@@ -34,14 +34,11 @@ public class Constants {
     /** Name of the context bus. */
     public static final String uAAL_BUS_NAME_CONTEXT = "uAAL.bus.context";
 
-    /** Name of the input bus. */
-    public static final String uAAL_BUS_NAME_INPUT = "uAAL.bus.input";
-
-    /** Name of the output bus. */
-    public static final String uAAL_BUS_NAME_OUTPUT = "uAAL.bus.output";
-
     /** Name of the service bus. */
     public static final String uAAL_BUS_NAME_SERVICE = "uAAL.bus.service";
+
+    /** Name of the output bus. */
+    public static final String uAAL_BUS_NAME_UI = "uAAL.bus.ui";
 
     // URIs of standard variables managed by the uAAL middleware
     /**
