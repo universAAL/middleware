@@ -125,7 +125,9 @@ public class StringUtils {
 		    wordStatus = 1;
 		    break;
 		}
-	    } else if (c == '_') {
+	    } else if (isQuote(c)) {
+		sb.append(c);
+	    } else if (c == ' ' || c == '_') {
 		sb.append(' ');
 		wordStatus = 0;
 	    } else {
@@ -136,6 +138,11 @@ public class StringUtils {
 	    }
 	}
 	return sb.toString();
+    }
+
+    /** Determines if the specified character is one of <code>" ' ` ´</code>. */
+    public static boolean isQuote(char c) {
+	return "\"'`´".indexOf(c) > -1;
     }
 
     /** Determines if the specified character is a digit [0-9]. */
@@ -174,7 +181,7 @@ public class StringUtils {
 
 	int i = uri.lastIndexOf('#');
 	return i > 0 && i < uri.length() - 1; // at least one char is present
-					      // after '#'
+	// after '#'
     }
 
     /**
