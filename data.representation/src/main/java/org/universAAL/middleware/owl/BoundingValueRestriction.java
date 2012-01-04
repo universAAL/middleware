@@ -42,8 +42,9 @@ import org.universAAL.middleware.rdf.Variable;
  */
 public class BoundingValueRestriction extends AbstractRestriction {
 
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "BoundingValueRestriction";
-    
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
+	    + "BoundingValueRestriction";
+
     // substitutions for Double.MIN_NORMAL & Float.MIN_NORMAL from Java 1.6
     private static final double DOUBLE_SMALLEST_POSITIVE_VALUE = Double
 	    .longBitsToDouble(0x0010000000000000L);
@@ -55,12 +56,6 @@ public class BoundingValueRestriction extends AbstractRestriction {
     public static final String PROP_VALUE_HAS_MIN_EXCLUSIVE;
     public static final String PROP_VALUE_HAS_MIN_INCLUSIVE;
 
-    private Object min;
-    private Object max;
-    private boolean minInclusive;
-    private boolean maxInclusive;
-    
-    
     static {
 	// TODO: for now, we use the uaal vocabulary, this has to be changed
 	// to xml names.
@@ -82,55 +77,58 @@ public class BoundingValueRestriction extends AbstractRestriction {
 		PROP_VALUE_HAS_MIN_INCLUSIVE, null);
     }
 
-    
     /** Standard constructor for exclusive use by serializers. */
     public BoundingValueRestriction() {
     }
-    
-    public BoundingValueRestriction(String propURI, Object min, boolean minInclusive,
-	    Object max, boolean maxInclusive) {
+
+    public BoundingValueRestriction(String propURI, Object min,
+	    boolean minInclusive, Object max, boolean maxInclusive) {
 	if (propURI == null
-		|| min == null
-		|| max == null
-		|| (!(max instanceof Comparable) && !Variable.isVarRef(max)
-			&& !(min instanceof Comparable) && !Variable
+		|| (min == null && max == null)
+		|| (max != null && !(max instanceof Comparable) && !Variable
+			.isVarRef(max))
+		|| (min != null && !(min instanceof Comparable) && !Variable
 			.isVarRef(min)))
 	    throw new NullPointerException();
 
 	if (max instanceof Comparable && min instanceof Comparable
 		&& ((Comparable) min).compareTo(max) > 0)
-	    throw new IllegalArgumentException("min can not be greater than max.");
+	    throw new IllegalArgumentException(
+		    "min can not be greater than max.");
 
-	this.min = min;
-	this.max = max;
-	this.minInclusive = minInclusive;
-	this.maxInclusive = maxInclusive;
-	
 	setOnProperty(propURI);
-	if (minInclusive)
-	    super.setProperty(PROP_VALUE_HAS_MIN_INCLUSIVE, min);
-	else
-	    super.setProperty(PROP_VALUE_HAS_MIN_EXCLUSIVE, min);
-	if (maxInclusive)
-	    super.setProperty(PROP_VALUE_HAS_MAX_INCLUSIVE, max);
-	else
-	    super.setProperty(PROP_VALUE_HAS_MAX_EXCLUSIVE, max);
-    }    
-    
+
+	if (min != null)
+	    if (minInclusive)
+		props.put(PROP_VALUE_HAS_MIN_INCLUSIVE, min);
+	    else
+		props.put(PROP_VALUE_HAS_MIN_EXCLUSIVE, min);
+
+	if (max != null)
+	    if (maxInclusive)
+		props.put(PROP_VALUE_HAS_MAX_INCLUSIVE, max);
+	    else
+		props.put(PROP_VALUE_HAS_MAX_EXCLUSIVE, max);
+    }
 
     public String getClassURI() {
 	return MY_URI;
     }
-    
+
     public Comparable getLowerbound() {
+	Object min = props.get(PROP_VALUE_HAS_MIN_INCLUSIVE);
+	if (min == null)
+	    min = props.get(PROP_VALUE_HAS_MIN_EXCLUSIVE);
 	return (min instanceof Comparable) ? (Comparable) min : null;
     }
 
     public Comparable getUpperbound() {
+	Object max = props.get(PROP_VALUE_HAS_MAX_INCLUSIVE);
+	if (max == null)
+	    max = props.get(PROP_VALUE_HAS_MAX_EXCLUSIVE);
 	return (max instanceof Comparable) ? (Comparable) max : null;
     }
-    
-    
+
     private Comparable getNext(Comparable c) {
 	if (c instanceof ComparableIndividual)
 	    return ((ComparableIndividual) c).getNext();
@@ -202,8 +200,29 @@ public class BoundingValueRestriction extends AbstractRestriction {
 	// for Boolean, nobody uses OrderingRestriction
 	return null;
     }
-    
-    
+
+    private Comparable resolveVarByGreaterEqual(Variable v,
+	    Comparable lowerbound, boolean canBeEqual, Hashtable context) {
+	Comparable resolution = canBeEqual ? lowerbound : getNext(lowerbound);
+	// consider that we might fail because getNext() does not work always
+	if (resolution != null)
+	    // add the variable resolution to the context
+	    context.put(v.toString(), resolution);
+	return resolution;
+    }
+
+    private Comparable resolveVarByLessEqual(Variable v, Comparable upperbound,
+	    boolean canBeEqual, Hashtable context) {
+	Comparable resolution = canBeEqual ? upperbound
+		: getPrevious(upperbound);
+	// consider that we might fail because getPrevious() does not work
+	// always
+	if (resolution != null)
+	    // add the variable resolution to the context
+	    context.put(v.toString(), resolution);
+	return resolution;
+    }
+
     /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
     public ClassExpression copy() {
 	return copyTo(new BoundingValueRestriction());
@@ -217,83 +236,163 @@ public class BoundingValueRestriction extends AbstractRestriction {
 	if (member == null)
 	    return true;
 
-//	if (super.isWellFormed() && !super.hasMember(member, context))
-//	    return false;
-
-	// because it has passed super, it must be a Resource
-	member = Variable.resolveVarRef(((Resource) member).getProperty(getOnProperty()),
-		context);
-	if (!(member instanceof Comparable))
+	if (!(member instanceof Resource))
 	    return false;
 
+	// get the value to be checked against the lower- and upperbounds
+	Object valueToCheck = ((Resource) member).getProperty(getOnProperty());
+	if (valueToCheck instanceof Variable)
+	    // check if there is any value already assumed for it in the given
+	    // context
+	    valueToCheck = Variable.resolveVarRef(valueToCheck, context);
+	if (!(valueToCheck instanceof Variable)
+		&& !(valueToCheck instanceof Comparable))
+	    return false;
+
+	boolean minInclusive = true;
+	Object lowerBound = props.get(PROP_VALUE_HAS_MIN_INCLUSIVE);
+	if (lowerBound == null) {
+	    lowerBound = props.get(PROP_VALUE_HAS_MIN_EXCLUSIVE);
+	    minInclusive = false;
+	}
+
+	boolean maxInclusive = true;
+	Object upperBound = props.get(PROP_VALUE_HAS_MAX_INCLUSIVE);
+	if (upperBound == null) {
+	    upperBound = props.get(PROP_VALUE_HAS_MAX_EXCLUSIVE);
+	    maxInclusive = false;
+	}
+
+	// also, any of upperBound / lowerBound might be a variable => we must
+	// check the
+	// context if they are already bound to any value; if yes, the value
+	// must be an instance of Comparable
+	lowerBound = Variable.resolveVarRef(lowerBound, context);
+	upperBound = Variable.resolveVarRef(upperBound, context);
+	if ((!(lowerBound instanceof Variable) && !(lowerBound instanceof Comparable))
+		|| (!(upperBound instanceof Variable) && !(upperBound instanceof Comparable)))
+	    return false;
+
+	// it is still possible that any of upperBound, lowerBound, or
+	// valueToCheck is a
+	// variable, if the variables were not conditioned previously
+	// => it is possible that we can suggest a conditional match, e.g.,
+	// there is a match if var-1 is set to value-1
+	// but this will be possible if not all the three are variables
+	if (valueToCheck instanceof Variable && lowerBound instanceof Variable
+		&& upperBound instanceof Variable)
+	    return false;
+
+	// any condition must be stored in the "context", but we might have to
+	// add more than one condition
+	// => we'd better clone the context and manipulate only the clone until
+	// we are sure that the conditions will lead to a match
 	Hashtable cloned = (context == null) ? null : (Hashtable) context
 		.clone();
 
-	Object aux = max;
-	if (aux != null)
-	    if (aux instanceof Variable) {
-		Comparable next = getNext((Comparable) member);
-		if (maxInclusive) {
-		    // we can assign any value greater than member (or event
-		    // member itself) to aux so that member is a member of this
-		    // restriction
-		    // so we try first with the next value and if it cannot be
-		    // determined we take member
-		    if (next == null)
-			next = (Comparable) member;
-		} else {
-		    // we can assign any value greater than member to aux so
-		    // that member is a member of this restriction
-		    // so we try with the next value
-		    if (next == null)
-			return false;
-		}
-		cloned.put(aux.toString(), next);
-	    } else {
-		if (maxInclusive) {
-		    if (!(aux instanceof Comparable)
-			    || ((Comparable) member).compareTo(aux) > 0)
-			return false;
-		} else {
-		    if (!(aux instanceof Comparable)
-			    || ((Comparable) member).compareTo(aux) > -1)
-			return false;
-		}
-	    }
-	
-	aux = min;
-	if (aux != null)
-	    if (aux instanceof Variable) {
-		Comparable prev = getPrevious((Comparable) member);
-		if (minInclusive) {
-		    // we can assign any value less than member (or event member
-		    // itself) to aux so that member is a member of this
-		    // restriction
-		    // so we try first with the previous value and if it cannot
-		    // be determined we take member
-		    if (prev == null)
-			prev = (Comparable) member;
-		} else {
-		    // we can assign any value less than member to aux so that
-		    // member is a member of this restriction
-		    // so we try with the previous value
-		    if (prev == null)
-			return false;
-		}
-		cloned.put(aux.toString(), prev);
-	    } else {
-		if (minInclusive) {
-		    if (aux != null
-			    && (!(aux instanceof Comparable) || ((Comparable) aux)
-				    .compareTo(member) > 0))
-			return false;
-		} else {
-		    if (!(aux instanceof Comparable)
-			    || ((Comparable) aux).compareTo(member) > -1)
-			return false;
-		}
-	    }	
-	
+	// check the conditions; this means:
+	//
+	// a) "valueToCheck < upperBound" must hold in order for the 'member' to
+	// .. be a member of this BoundingValueRestriction
+	// 
+	// b) "valueToCheck == upperBound" is also valid, if
+	// .. "maxInclusive == true"
+	//
+	// c) "valueToCheck > lowerBound" must hold in order for the 'member' to
+	// .. be a member of this BoundingValueRestriction
+	// 
+	// d) "valueToCheck == lowerBound" is also valid, if
+	// .. "minInclusive == true"
+	//
+	// however, we must differentiate between different combinations of
+	// instances of Variable and Comparable
+	if (upperBound instanceof Variable) {
+	    // because upperBound is a variable, let's call it in all the
+	    // comments below "upperBoundVar"
+
+	    // we have upperBoundVar => possible cases for the other two are:
+	    //
+	    // i) valueToCheck a Variable but lowerBound a Comparable
+	    // ii) valueToCheck a Comparable but lowerBound a Variable
+	    // iii) both valueToCheck and lowerBound are instances of Comparable
+	    if (valueToCheck instanceof Variable) {
+		// we are in case 'i)' => we can use lowerBound to suggest a
+		// value for valueToCheck
+		valueToCheck = resolveVarByGreaterEqual(
+			(Variable) valueToCheck, (Comparable) lowerBound,
+			minInclusive, cloned);
+		if (valueToCheck == null)
+		    // deadend
+		    return false;
+	    } else if (lowerBound instanceof Variable) {
+		// we are in case 'ii)' => we can use valueToCheck to suggest a
+		// value for lowerBound
+		lowerBound = resolveVarByLessEqual((Variable) lowerBound,
+			(Comparable) valueToCheck, minInclusive, cloned);
+		if (lowerBound == null)
+		    // deadend
+		    return false;
+	    } else if (((Comparable) valueToCheck).compareTo(lowerBound) < 0
+		    || (!minInclusive && ((Comparable) valueToCheck)
+			    .compareTo(lowerBound) == 0))
+		// we are in case 'iii)' but the conditions 'c)' and 'd)' do not
+		// hold
+		return false;
+
+	    // at this place, we can be sure that valueToCheck is an instance of
+	    // Comparable => the above mentioned conditions will hold if we
+	    // assume a value greater than valueToCheck for upperBoundVar
+	    upperBound = resolveVarByGreaterEqual((Variable) upperBound,
+		    (Comparable) valueToCheck, maxInclusive, cloned);
+	    if (upperBound == null)
+		// deadend
+		return false;
+	} else if (lowerBound instanceof Variable) {
+	    // at this place, we can be sure that upperBound is an instance of
+	    // Comparable & lowerBound an instance of Variable => we just have
+	    // to differentiate the cases for valueToCheck
+	    if (valueToCheck instanceof Variable) {
+		// we can use upperBound to suggest a value for valueToCheck
+		valueToCheck = resolveVarByLessEqual((Variable) valueToCheck,
+			(Comparable) upperBound, maxInclusive, cloned);
+		if (valueToCheck == null)
+		    // deadend
+		    return false;
+	    } else if (((Comparable) valueToCheck).compareTo(upperBound) > 0
+		    || (!maxInclusive && ((Comparable) valueToCheck)
+			    .compareTo(upperBound) == 0))
+		// one of the conditions 'a)' / 'b)' does not hold
+		return false;
+
+	    // here, valueToCheck is certainly an instance of Comparable
+	    // now we can use valueToCheck to suggest a value for lowerBound
+	    lowerBound = resolveVarByLessEqual((Variable) lowerBound,
+		    (Comparable) valueToCheck, minInclusive, cloned);
+	    if (lowerBound == null)
+		// deadend
+		return false;
+	} else if (valueToCheck instanceof Variable) {
+	    // we can use lowerBound to suggest a value for valueToCheck
+	    valueToCheck = resolveVarByGreaterEqual((Variable) valueToCheck,
+		    (Comparable) lowerBound, minInclusive, cloned);
+	    if (valueToCheck == null)
+		// deadend
+		return false;
+
+	    if (((Comparable) valueToCheck).compareTo(upperBound) > 0
+		    || (!maxInclusive && ((Comparable) valueToCheck)
+			    .compareTo(upperBound) == 0))
+		// one of the conditions 'a)' / 'b)' does not hold
+		return false;
+	} else if (((Comparable) valueToCheck).compareTo(upperBound) > 0
+		|| (!maxInclusive && ((Comparable) valueToCheck)
+			.compareTo(upperBound) == 0)
+		|| ((Comparable) valueToCheck).compareTo(lowerBound) < 0
+		|| (!minInclusive && ((Comparable) valueToCheck)
+			.compareTo(lowerBound) == 0))
+	    // one of the conditions 'a)' / 'b)' / 'c)' / 'd)' does not hold
+	    return false;
+
 	synchronize(context, cloned);
 	return true;
     }
@@ -379,7 +478,7 @@ public class BoundingValueRestriction extends AbstractRestriction {
     public boolean matches(ClassExpression subset, Hashtable context) {
 	Object noRes = matchesNonRestriction(subset, context);
 	if (noRes instanceof Boolean)
-	    return ((Boolean)noRes).booleanValue();
+	    return ((Boolean) noRes).booleanValue();
 
 	if (subset instanceof BoundingValueRestriction) {
 	    BoundingValueRestriction other = (BoundingValueRestriction) subset;
@@ -600,13 +699,12 @@ public class BoundingValueRestriction extends AbstractRestriction {
 	return false;
     }
 
-
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
     public void setProperty(String propURI, Object o) {
 	if (o == null || propURI == null || props.containsKey(propURI))
 	    return;
-	
-	// handle this restriction
+
+	// handle properties specific to this class
 	if (o instanceof Comparable || Variable.isVarRef(o)) {
 	    if (propURI.equals(PROP_VALUE_HAS_MAX_EXCLUSIVE)) {
 		if (props.containsKey(PROP_VALUE_HAS_MAX_INCLUSIVE))
@@ -624,9 +722,13 @@ public class BoundingValueRestriction extends AbstractRestriction {
 		super.setProperty(propURI, o);
 		return;
 	    }
+	    // if we reach this place, we have a valid prop of this class with a
+	    // valid object, without any conflict with existing props
+	    props.put(propURI, o);
 	}
-	
-	// do not handle other restrictions
+
+	// before handing over to the superclass, make sure to avoid properties
+	// from other types of restrictions
 	if (propURI.equals(HasValueRestriction.PROP_OWL_HAS_VALUE)
 		|| propURI
 			.equals(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY)
@@ -645,7 +747,7 @@ public class BoundingValueRestriction extends AbstractRestriction {
 		|| propURI
 			.equals(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM))
 	    return;
-	
+
 	// for everything else: call super
 	super.setProperty(propURI, o);
     }
