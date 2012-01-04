@@ -5,29 +5,69 @@
 
 	<groupId>org.universAAL.middleware</groupId>
 	<artifactId>mw.pom</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.1-SNAPSHOT</version>
 
 	<packaging>pom</packaging>
 	<name>universAAL Middleware Suite</name>
 	<description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase.</description>
+	
+	<modules>
+		<module>../container.xfaces</module>
+		<module>../container.osgi</module>
+		<module>../acl.interfaces</module>
+		<module>../acl.bridge</module>
+		<module>../acl.rosgi</module>
+		<module>../acl.upnp</module>
+		<module>../data.representation</module>
+		<module>../data.serialization</module>
+		<module>../bus.model</module>
+		<module>../bus.service</module>
+		<module>../bus.context</module>
+		<module>../bus.io</module>
+		<module>../bus.ui</module>
+	</modules>
+	
+	<organization>
+		<name>universAAL Consortium</name>
+		<url>http://www.universAAL.org/</url>
+	</organization>
+	
 	<url>
-		<![CDATA[http://forge.universaal.org/gf/project/middleware/]]>
+		<![CDATA[${gforge.project.url}]]>
 	</url>
 
 	<issueManagement>
 		<system>GForge - Tracker</system>
 		<url>
-			<![CDATA[http://forge.universaal.org/gf/project/middleware/tracker/]]>
+			<![CDATA[${gforge.project.url}/tracker/]]>
 		</url>
 	</issueManagement>
-
-	<mailingLists />
-
+	
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
 	<scm>
-		<connection>scm:svn:http://forge.universaal.org/svn/middleware/trunk</connection>
-		<developerConnection>scm:svn:http://forge.universaal.org/svn/middleware/trunk</developerConnection>
-		<url>http://forge.universaal.org/gf/project/middleware/scmsvn/?path=%2Ftrunk%2F</url>
+		<connection>${svn.base}/pom</connection>
+		<developerConnection>${svn.base}/pom</developerConnection>
+		<url>${svn.base.url}pom</url>
 	</scm>
+
+	<properties>
+		<remoteOBR />
+		<!-- Default configuration for compiler source and target JVM -->
+		<maven.compile.source>1.3</maven.compile.source>
+		<maven.compile.target>1.3</maven.compile.target>
+	<!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
+	 	<gforge.project.name>middleware</gforge.project.name>
+		<svn.base>scm:svn:http://forge.universaal.org/svn/${gforge.project.name}/trunk</svn.base>
+		<gforge.project.url>http://forge.universaal.org/gf/project/${gforge.project.name}</gforge.project.url>
+		<svn.base.url>${gforge.project.url}/scmsvn/?path=%2Ftrunk%2F</svn.base.url>
+	</properties>
 
 	<dependencyManagement>
 		<dependencies>
@@ -48,6 +88,72 @@
 				<artifactId>org.osgi.compendium</artifactId>
 				<version>1.0.1</version>
 				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.acl.bridge</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.acl.interfaces</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.acl.rosgi</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.acl.upnp</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.context</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.io</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.model</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.service</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.osgi</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.xfaces</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.representation</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.serialization</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>itests</artifactId>
+				<version>0.1.1-SNAPSHOT</version>
+				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -110,11 +216,6 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-	<organization>
-		<name>universAAL Consortium</name>
-		<url>http://www.universAAL.org/</url>
-	</organization>
-
 	<developers>
 		<developer>
 			<id>saied</id>
@@ -138,8 +239,6 @@
 		</developer>
 	</developers>
 
-	<contributors />
-
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -154,14 +253,11 @@
 					<version>2.3.2</version>
 					<inherited>true</inherited>
 					<configuration>
+						<showWarnings>true</showWarnings>
 						<testSource>1.5</testSource>
 						<testTarget>1.5</testTarget>
 						<source>${maven.compile.source}</source>
 						<target>${maven.compile.target}</target>
-						<verbose>true</verbose>
-						<fork>true</fork>
-						<executable>${JAVA_HOME}/bin/javac</executable>
-						<compilerVersion>1.6</compilerVersion>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -198,7 +294,7 @@
 					<version>1.7</version>
 					<executions>
 						<execution>
-							<id>attach-artifacts</id>
+							<id>attach-composite</id>
 							<phase>package</phase>
 							<goals>
 								<goal>attach-artifact</goal>
@@ -217,7 +313,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
 
 	<reporting>
 		<plugins>
@@ -246,21 +341,18 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>2.5</version>
 			</plugin>
-			<!--
-				<plugin> <groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.5.1</version> </plugin>
-			-->
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>cobertura-maven-plugin</artifactId> 
+				<version>2.5.1</version> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>2.3</version>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>javancss-maven-plugin</artifactId>
-				<version>2.0-beta-2</version>
-			</plugin>
+	        	<groupId>org.codehaus.mojo</groupId>
+		        <artifactId>javancss-maven-plugin</artifactId>
+		        <version>2.0-beta-2</version>
+		      </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -304,16 +396,6 @@
 		</plugins>
 	</reporting>
 
-	<properties>
-		<remoteOBR />
-		<!-- Default configuration for compiler source and target JVM -->
-		<maven.compile.source>1.3</maven.compile.source>
-		<maven.compile.target>1.3</maven.compile.target>
-		<!--
-			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		-->
-	</properties>
-
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
@@ -326,28 +408,5 @@
 			<url>http://depot.universaal.org/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
-
-	<modules>
-		<module>../acl.interfaces</module>
-		<module>../acl.bridge</module>
-		<!--
-			unstable & not worth to be improved because new design decisions on
-			"Discovery & Peering" will cause dramatical changes in ACL anyhow!
-			<module>../acl.rosgi</module>
-		-->
-		<module>../acl.upnp</module>
-		<module>../container.xfaces</module>
-		<module>../container.osgi</module>
-		<module>../bus.model</module>
-		<module>../data.representation</module>
-		<module>../data.serialization</module>
-		<module>../bus.context</module>
-		<module>../bus.service</module>
-		<!--
-			Deprecated. Replaced by
-			http://forge.universaal.org/svn/uaal_ui/trunk/bus.ui/
-			<module>../bus.io</module>
-		-->
-	</modules>
 
 </project>

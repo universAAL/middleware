@@ -4,27 +4,22 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.container.osgi</artifactId>  
-	<version>0.1.0-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>OSGi Container</name>
 	<description>An implementation of the interfaces exported by the Container building block of the universAAL middleware on top of the OSGi runtime</description>
 	<url />
 
 	<scm>
-		<connection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/container.osgi</connection> 
-		<developerConnection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/container.osgi</developerConnection>
-		<url>http://forge.universaal.org/gf/project/middleware/scmsvn/?path=%2Ftrunk%2Fcontainer.osgi</url>
+		<connection>${svn.base}/container.osgi</connection> 
+		<developerConnection>${svn.base}/container.osgi</developerConnection>
+		<url>${svn.base.url}container.osgi</url>
 	</scm>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.xfaces</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
@@ -55,6 +50,10 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.xfaces</artifactId>
 		</dependency>
 	</dependencies>
 

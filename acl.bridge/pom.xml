@@ -4,19 +4,19 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.acl.bridge</artifactId>  
-	<version>0.3.1-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>ACL Bridge</name>
 	<description>Finds all implementations of the ACL and bridges the proxies by one protocol to all other</description>
 	<url />
 
 	<scm>
-		<connection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/acl.bridge</connection> 
-		<developerConnection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/acl.bridge</developerConnection>
-		<url>http://forge.universaal.org/gf/project/middleware/scmsvn/?path=%2Ftrunk%2Facl.bridge</url>
+		<connection>${svn.base}/acl.bridge</connection> 
+		<developerConnection>${svn.base}/acl.bridge</developerConnection>
+		<url>${svn.base.url}acl.bridge</url>
 	</scm>
 
 	<dependencies>
@@ -27,8 +27,6 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.acl.interfaces</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

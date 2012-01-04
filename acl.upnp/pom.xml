@@ -4,29 +4,21 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>mw.acl.upnp</artifactId>
-	<version>0.2.1-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<name>ACL UPnP</name>
 	<description>Implementatation of the SodaPop ACL based on UPnP protocol</description>
 
 	<dependencies>
-		<!--
-			The dependency to itests has always come before the dependency to
-			org.osgi.core (groupId:org.apache.felix). The easiest approach is to
-			just put the dependency to itests as the first one.
-		-->	
 		<dependency>
 			<groupId>org.universAAL.support</groupId>
 			<artifactId>itests</artifactId>
-			<version>0.1.1-SNAPSHOT</version>
-			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
@@ -38,7 +30,6 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.acl.interfaces</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -56,7 +47,7 @@
 							<goal>manifest</goal>
 						</goals>
 					</execution>
-				</executions>				
+				</executions>
 				<configuration>
 					<instructions>
 						<Bundle-Name>${project.name}</Bundle-Name>
