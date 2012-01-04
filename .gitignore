@@ -35,6 +35,10 @@ bus.service/.project
 bus.service/.settings
 bus.service/target
 bus.service/uAAL.log
+bus.ui/.classpath
+bus.ui/.project
+bus.ui/.settings
+bus.ui/target
 container.osgi/.classpath
 container.osgi/.project
 container.osgi/.settings
