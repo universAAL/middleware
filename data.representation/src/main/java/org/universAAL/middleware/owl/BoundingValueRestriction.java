@@ -274,12 +274,18 @@ public class BoundingValueRestriction extends AbstractRestriction {
 	    return false;
 
 	// it is still possible that any of upperBound, lowerBound, or
-	// valueToCheck is a
-	// variable, if the variables were not conditioned previously
+	// valueToCheck is a variable, if the variables were not conditioned
+	// previously
 	// => it is possible that we can suggest a conditional match, e.g.,
-	// there is a match if var-1 is set to value-1
-	// but this will be possible if not all the three are variables
-	if (valueToCheck instanceof Variable && lowerBound instanceof Variable
+	// there is a match if var-1 is set to value-1 but this will be possible
+	// if context is not null AND not all the three are variables
+	if (context == null) {
+	    if (valueToCheck instanceof Variable
+		    || lowerBound instanceof Variable
+		    || upperBound instanceof Variable)
+		return false;
+	} else if (valueToCheck instanceof Variable
+		&& lowerBound instanceof Variable
 		&& upperBound instanceof Variable)
 	    return false;
 
@@ -340,7 +346,7 @@ public class BoundingValueRestriction extends AbstractRestriction {
 		return false;
 
 	    // at this place, we can be sure that valueToCheck is an instance of
-	    // Comparable => the above mentioned conditions will hold if we
+	    // Comparable => the conditions 'a)' and 'b)' will hold if we
 	    // assume a value greater than valueToCheck for upperBoundVar
 	    upperBound = resolveVarByGreaterEqual((Variable) upperBound,
 		    (Comparable) valueToCheck, maxInclusive, cloned);
