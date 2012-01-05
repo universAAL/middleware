@@ -415,7 +415,6 @@ samples/pom/launches/LightingExample_Distributed_Server.launch -text
 samples/pom/launches/LightingExample_Distributed_Server_0_3_1.launch -text
 samples/pom/launches/SpaceConf_0_3_1.launch -text
 samples/pom/launches/heating.launch -text
-samples/pom/launches/m2LocalRepository/M2.zip -text
 samples/pom/launches/m2LocalRepository/README.txt -text
 samples/pom/launches/m2LocalRepository/settings.xml -text
 samples/pom/pom.xml -text
