@@ -241,7 +241,6 @@ samples/pom/launches/heating.launch -text
 samples/pom/launches/lighting.launch -text
 samples/pom/launches/lightingClient.launch -text
 samples/pom/launches/lightingServer.launch -text
-samples/pom/launches/m2LocalRepository/M2.zip -text
 samples/pom/launches/m2LocalRepository/README.txt -text
 samples/pom/launches/m2LocalRepository/settings.xml -text
 samples/pom/pom.xml -text
