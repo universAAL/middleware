@@ -25,7 +25,6 @@ pom/launches/LightingExample_Distributed_Client.launch -text
 pom/launches/LightingExample_Distributed_Server.launch -text
 pom/launches/SpaceConf_0_3_1.launch -text
 pom/launches/heating.launch -text
-pom/launches/m2LocalRepository/M2.zip -text
 pom/launches/m2LocalRepository/README.txt -text
 pom/launches/m2LocalRepository/settings.xml -text
 pom/pom.xml -text
