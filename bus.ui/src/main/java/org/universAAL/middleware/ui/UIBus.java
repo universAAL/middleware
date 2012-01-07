@@ -70,7 +70,7 @@ public interface UIBus {
      * notified to abort the dialog while returning any intermediate user input
      * collected so far (by calling {@link UIHandler#cutDialog(String)}), and
      * then the new UI handler is mandated (by calling
-     * {@link UIHandler#handleOutputEvent(UIRequest)}) to continue with the dialog
+     * {@link UIHandler#handleUICall(UIRequest)}) to continue with the dialog
      * presentation without loss of data.
      * 
      * @param dm
@@ -109,7 +109,7 @@ public interface UIBus {
      *            ID of the UI handler that has finished the dialog
      * @param input
      *            The user input constructed by calling
-     *            {@link UIResponse#UserInput(Resource, AbsLocation, Submit)}
+     *            {@link UIResponse#UIResponse(Resource, AbsLocation, Submit)}
      */
     public void dialogFinished(String handlerID, UIResponse input);
 

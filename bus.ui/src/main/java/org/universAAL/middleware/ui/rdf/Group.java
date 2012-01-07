@@ -82,14 +82,14 @@ public class Group extends FormControl {
      * @param valueRestriction
      *            See {@link Input#PROP_VALUE_RESTRICTION}. Because Groups may
      *            contain input controls, you may specify here a
-     *            {@link org.universAAL.middleware.owl.Restriction} to let the
+     *            {@link org.universAAL.middleware.owl.MergedRestriction} to let the
      *            dialog package to derive the value restrictions for any input
      *            control whose {@link FormControl#PROP_REFERENCED_PPATH} starts
      *            with the path given for <code>ref</code> (the previous
      *            parameter in this constructor). If <code>ref</code> is
      *            <code>null</code>, this parameter will be ignored.
      * @param initialValue
-     *            A {@link org.universAAL.middleware Resource} to be used as the
+     *            A {@link org.universAAL.middleware.rdf.Resource} to be used as the
      *            initial value for this group. If this is specified, then the
      *            initial values of any other control whose
      *            {@link FormControl#PROP_REFERENCED_PPATH} starts with the path
@@ -181,7 +181,7 @@ public class Group extends FormControl {
      * available only if {@link #getTypeURI()} returns a subclass of
      * {@link org.universAAL.middleware.owl.ManagedIndividual ManagedIndividual}
      * ; then, the structural info will be retrieved based on
-     * {@link org.universAAL.middleware.owl.ManagedIndividual#getStandardPropertyURIs(String)
+     * {@link org.universAAL.middleware.owl.OntClassInfo#getDeclaredProperties()
      * the standard properties of that class} and
      * {@link org.universAAL.middleware.owl.ManagedIndividual#getClassRestrictionsOnProperty(String,String)
      * the class restrictions on them}. Properties with insufficient
@@ -493,7 +493,7 @@ public class Group extends FormControl {
     }
 
     /**
-     * @see org.universAAL.middleware Resource#setProperty(String, Object)
+     * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
      */
     public void setProperty(String propURI, Object value) {
 	if (PROP_CHILDREN.equals(propURI)) {

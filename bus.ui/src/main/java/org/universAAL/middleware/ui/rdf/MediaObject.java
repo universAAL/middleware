@@ -33,7 +33,8 @@ public class MediaObject extends Output {
 	/**
 	 * The Internet media type of the content borne by a media object.
 	 * 
-	 * @see http://en.wikipedia.org/wiki/Internet_media_type
+	 * @see <a href="http://en.wikipedia.org/wiki/Internet_media_type">http://en.wikipedia.org/wiki/Internet_media_type</a>
+	 * 
 	 */
 	public static final String PROP_CONTENT_TYPE = Form.uAAL_DIALOG_NAMESPACE
 			+ "contentType";

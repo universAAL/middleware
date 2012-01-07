@@ -80,7 +80,7 @@ public interface DialogManager {
      * 
      * @param dialogID
      *            ID of the dialog
-     * @return
+     * @return the suspended parent dialog
      */
     public UIRequest getSuspendedDialog(String dialogID);
 

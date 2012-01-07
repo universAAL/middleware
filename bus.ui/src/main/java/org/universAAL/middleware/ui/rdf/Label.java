@@ -26,10 +26,10 @@ import org.universAAL.middleware.rdf.Resource;
  * The type of possible values for {@link FormControl#PROP_CONTROL_LABEL}. A
  * label reveals the intent of the corresponding form control for human users
  * primarily as a string. This string is stored using the standard property
- * rdfs:label (see {@link org.universAAL.middleware Resource#getResourceLabel()}
- * and {@link org.universAAL.middleware Resource#setResourceLabel(String)}).
+ * rdfs:label (see {@link org.universAAL.middleware.rdf.Resource#getResourceLabel()}
+ * and {@link org.universAAL.middleware.rdf.Resource#setResourceLabel(String)}).
  * 
- * @see http://www.w3.org/TR/rdf-schema/#ch_label
+ * @see <a href="http://www.w3.org/TR/rdf-schema/#ch_label">RDFS specification</a>
  * 
  * @author mtazari
  * @author Carsten Stockloew
@@ -61,7 +61,7 @@ public class Label extends Resource {
      * @param iconURL
      *            See {@link #PROP_ICON_URL}; optional.
      * 
-     * @see http://www.w3.org/TR/rdf-schema/#ch_label
+     * @see <a href="http://www.w3.org/TR/rdf-schema/#ch_label">RDFS specification</a>
      */
     public Label(String labelText, String iconURL) {
 	super();
@@ -86,14 +86,14 @@ public class Label extends Resource {
     /**
      * Returns the label string.
      * 
-     * @see org.universAAL.middleware Resource#getResourceLabel()
+     * @see org.universAAL.middleware.rdf.Resource#getResourceLabel()
      */
     public String getText() {
 	return getResourceLabel();
     }
 
     /**
-     * @see org.universAAL.middleware Resource#setProperty(String, Object)
+     * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
      */
     public void setProperty(String propURI, Object value) {
 	if (PROP_ICON_URL.equals(propURI)) {
@@ -104,7 +104,7 @@ public class Label extends Resource {
     }
 
     /**
-     * Overrides {@link org.universAAL.middleware Resource#toString()} in order
+     * Overrides {@link org.universAAL.middleware.rdf.Resource#toString()} in order
      * to return the label string; only if this is an empty string, the default
      * implementation is used.
      */

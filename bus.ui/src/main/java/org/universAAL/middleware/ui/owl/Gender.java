@@ -61,7 +61,6 @@ public class Gender extends ManagedIndividual {
 
     /**
      * @param name
-     * @return
      */
     public static final Gender valueOf(String name) {
 	for (int i = FEMALE; i <= MALE; i++)

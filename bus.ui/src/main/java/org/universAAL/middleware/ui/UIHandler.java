@@ -36,7 +36,7 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * <ul>
  * <li>ContextPublishers provide only at the registration time info about
  * themselves using
- * {@link org.universAAL.middleware.owl.context.ContextProvider}.</li>
+ * {@link org.universAAL.middleware.context.owl.ContextProvider}.</li>
  * <li>ContextSubscribers may pass an array of
  * {@link org.universAAL.middleware.context.ContextEventPattern}s as their
  * initial subscriptions and can always add new (and remove old) subscriptions

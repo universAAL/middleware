@@ -129,7 +129,7 @@ public class Repeat extends Group {
 	 * @param valueRestriction
 	 *            See {@link Input#PROP_VALUE_RESTRICTION}. Because repeat
 	 *            controls may contain input controls, you may specify here a
-	 *            {@link org.universAAL.middleware.owl.Restriction} to let the
+	 *            {@link org.universAAL.middleware.owl.MergedRestriction} to let the
 	 *            dialog package to derive the value restrictions for contained
 	 *            input controls if the form data does not bear the required
 	 *            info or if you want to define more restrictions compared to
