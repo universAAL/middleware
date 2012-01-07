@@ -254,10 +254,6 @@ public class UIStrategy extends BusStrategy {
      * 
      * @param subscriberID
      *            ID of the subscriber that handles the dialog
-     * @param dialogID
-     *            ID of the finished dialog
-     * @param poppedMessage
-     *            Indicates if the dialog was a popup
      */
     void dialogFinished(final String subscriberID, final UIResponse input) {
 	final String dialogID = input.getDialogID();
@@ -893,7 +889,7 @@ public class UIStrategy extends BusStrategy {
      * 
      * @param dialogID
      *            ID of the dialog we want to resume
-     * @param dialogDatan
+     * @param dialogData
      *            Original data of the dialog we are going to resume
      */
     void resumeDialog(String dialogID, Resource dialogData) {

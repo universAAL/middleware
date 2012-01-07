@@ -157,7 +157,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
     /**
      * @param dm
      *            The responsible Dialogmanager
-     * @parem oe New/Changed output
+     * @param oe New/Changed output
      * @param changedProp
      *            Property that has been changed since last time
      */
@@ -196,9 +196,6 @@ public class UIBusImpl extends AbstractBus implements UIBus {
      * parameters of this method ???
      * 
      * @param subscriberID
-     * @param submission
-     * @param poppedMessage
-     * 
      */
     public void dialogFinished(String subscriberID, UIResponse input) {
 	if (input != null

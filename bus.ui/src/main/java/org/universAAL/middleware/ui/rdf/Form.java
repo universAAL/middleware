@@ -79,15 +79,14 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * to be used within the main dialog and hence the main dialog must be frozen
  * until the application requests to continue with it. For this purpose,
  * applications must call the method {@link
- * org.universAAL.middleware.output.OutputPublisher#resumeDialog(String,.rdf.
- * Resource)} of their output publisher after the subdialog finishes and they
+ * org.universAAL.middleware.output.OutputPublisher#resumeDialog(String,org.universAAL.middleware.rdf.Resource)} of their output publisher after the subdialog finishes and they
  * have processed its data and updated the form data of the main dialog. I/O
  * handlers may decide to render instances of {@link SubdialogTrigger} and
  * {@link Submit} differently. Additionally, they may differentiate between
  * events from these two types of buttons (and e.g. keep the parent dialog open
  * until the subdialog loop is closed) or not. In any case, the middleware will
  * re-dispatch the main dialog by calling
- * {@link org.universAAL.middleware.ui.UIHandler#handleOutputEvent(org.universAAL.middleware.ui.UIRequest)}
+ * {@link org.universAAL.middleware.ui.UIHandler#handleUICall(org.universAAL.middleware.ui.UIRequest)}
  * of the output subscriber of the selected I/O handler, as soon as the
  * application requests to resume the dialog. In this way, the freezing and
  * re-activating the main dialog is forced by the middleware even if the I/O
@@ -102,7 +101,9 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * controls.</dd>
  * </dl>
  * 
- * @see ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg
+ * @see <a
+ *      href="ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg">
+ *      ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg</a>
  * @author mtazari
  * @author Carsten Stockloew
  */
@@ -328,8 +329,7 @@ public class Form extends Resource {
 	 * configuration. See also the discussion of dialog types in the above
 	 * documentation of this class. To set hidden form data, you must first get
 	 * the data root using {@link #getData()} and then add your data calling its
-	 * method {@link org.universAAL.middleware
-	 * Resource#setPropertyPath(String[], Object)}.
+	 * method {@link org.universAAL.middleware.rdf.Resource#setPropertyPath(String[], Object)}.
 	 * 
 	 * @param formTitle
 	 *            The form title giving the intent of the dialog.

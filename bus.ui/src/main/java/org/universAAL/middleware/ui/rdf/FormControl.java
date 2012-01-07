@@ -32,7 +32,9 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * The structural unit of forms that may bear information to be presented to
  * human users and / or serve as a placeholder for user input.
  * 
- * @see ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg
+ * @see <a
+ *      href="ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg">
+ *      ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg</a>
  * @author mtazari
  * @author Carsten Stockloew
  */
@@ -182,7 +184,7 @@ public abstract class FormControl extends Resource {
 	 * <ul>
 	 * <li>if value restrictions can be drawn based on available form data, then
 	 * possible upper enumeration (see
-	 * {@link org.universAAL.middleware.owl.Restriction#getEnumeratedValues()}
+	 * {@link org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration()()}
 	 * is used
 	 * <li>if this control is a direct part of a {@link Repeat} object (i.e.,
 	 * assuming that a {@link Repeat} object can be rendered as a table, then a
@@ -367,7 +369,7 @@ public abstract class FormControl extends Resource {
 
 	/**
 	 * Checks if the value returned by {@link #getTypeURI()} is one of those
-	 * supported by the {@link org.universAAL.middleware TypeMapper}.
+	 * supported by the {@link org.universAAL.middleware.rdf.TypeMapper}.
 	 */
 	public boolean isOfPrimitiveType() {
 		return TypeMapper.isRegisteredDatatypeURI(getTypeURI());
@@ -405,7 +407,7 @@ public abstract class FormControl extends Resource {
 	/**
 	 * For usage by de-serializers.
 	 * 
-	 * @see org.universAAL.middleware Resource#setProperty(String, Object)
+	 * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
 	 */
 	public void setProperty(String propURI, Object value) {
 		if (propURI == null || value == null || props.containsKey(propURI))
