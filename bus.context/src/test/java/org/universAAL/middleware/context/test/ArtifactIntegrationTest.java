@@ -1,13 +1,19 @@
 package org.universAAL.middleware.context.test;
 
+import org.springframework.util.Assert;
 import org.universAAL.itests.IntegrationTest;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
+import org.universAAL.middleware.context.ContextSubscriber;
+import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
+import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.rdf.Resource;
 
 /**
  * Here developer's of this artifact should code their integration tests.
@@ -17,6 +23,13 @@ import org.universAAL.middleware.context.owl.ContextProviderType;
  */
 public class ArtifactIntegrationTest extends IntegrationTest {
 
+    public static String NAMESPACE = "http://ontology.universAAL.org/Test.owl#";
+    public static String USER = NAMESPACE + "User";
+    public static String DUMMYUSER = NAMESPACE + "dummyUser";
+    public static String HAS_LOCATION = NAMESPACE + "hasLocation";
+    public static String LOCATION = NAMESPACE + "dummyLocation";
+    private boolean received = false;
+
     /**
      * Helper method for logging.
      * 
@@ -25,9 +38,9 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     protected void logInfo(String format, Object args) {
 	StackTraceElement callingMethod = Thread.currentThread()
 		.getStackTrace()[2];
-	LogUtils.logInfo(ContextBusImpl.moduleContext, getClass(), callingMethod
-		.getMethodName(), new Object[] { formatMsg(format, new Object[]{args}) },
-		null);
+	LogUtils.logInfo(ContextBusImpl.moduleContext, getClass(),
+		callingMethod.getMethodName(),
+		new Object[] { formatMsg(format, new Object[] { args }) }, null);
     }
 
     /**
@@ -38,35 +51,252 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     protected void logError(Throwable t, String format, Object args) {
 	StackTraceElement callingMethod = Thread.currentThread()
 		.getStackTrace()[2];
-	LogUtils.logError(ContextBusImpl.moduleContext, getClass(), callingMethod
-		.getMethodName(), new Object[] { formatMsg(format, new Object[]{args}) }, t);
-    }    
-    
+	LogUtils.logError(ContextBusImpl.moduleContext, getClass(),
+		callingMethod.getMethodName(),
+		new Object[] { formatMsg(format, new Object[] { args }) }, t);
+    }
+
+    /**
+     * Test 1: Check all artifacts in the log
+     */
     public void testComposite() {
 	logAllBundles();
     }
-    
-    public void testPublisher(){
-	ContextProvider info=new ContextProvider();
-	ContextProvider info2=new ContextProvider();
-	info.setType(ContextProviderType.gauge);
-	info2.setType(ContextProviderType.controller);
-	TestContextPublisher pub=new TestContextPublisher(ContextBusImpl.moduleContext,info);
-	ContextEvent event=new ContextEvent(info2,ContextProvider.PROP_CONTEXT_PROVIDER_TYPE);
-	pub.publish(event);
-	logInfo("PUBLISHED EVENT: %s",event);
-    }
-    
-    protected class TestContextPublisher extends ContextPublisher{
 
-	protected TestContextPublisher(ModuleContext context,
+    /**
+     * Test 2: Create context publishers (& fail) <- Integration (use module
+     * context)
+     */
+    public void testCreateContextPublisher() {
+	logInfo("-Test 2-", null);
+	ContextPublisher pub1, pub2, pub3, pub4, pub5;
+	// Correctly create a CP with full info
+	ContextProvider info = new ContextProvider();
+	info.setType(ContextProviderType.gauge);
+	ContextEventPattern cep = new ContextEventPattern();
+	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER)));
+	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
+	info.setProvidedEvents(new ContextEventPattern[] { cep });
+	// info.setContextSources(new ManagedIndividual[]{new
+	// ManagedIndividual(SOURCE)}); //Until we can use outer classes...
+	pub1 = new DummyContextPublisher(ContextBusImpl.moduleContext, info);
+	logInfo("Created COntext Publisher with full Provider Info", null);
+
+	// Correctly create a DefCP with full info
+	pub2 = new DefaultContextPublisher(ContextBusImpl.moduleContext, info);
+	logInfo("Created Default Context Publisher with full Provider Info",
+		null);
+
+	// Correctly create a CP without full info
+	info = new ContextProvider();
+	pub3 = new DummyContextPublisher(ContextBusImpl.moduleContext, info);
+	logInfo("Created COntext Publisher without full Provider Info", null);
+
+	// Correctly create a defCP without full info
+	pub4 = new DefaultContextPublisher(ContextBusImpl.moduleContext, info);
+	logInfo("Created Default Context Publisher without full Provider Info",
+		null);
+
+	// Incorrectly create a CP without info
+	try {
+	    pub5 = new DummyContextPublisher(ContextBusImpl.moduleContext, null);
+	    // Assert.notNull(null,"Allowed creation of a Context Publisher with null provider info");
+	} catch (Exception e) {
+	    Assert.notNull(e);
+	    logInfo("Properly launched exception creating bad publisher %s",
+		    e.toString());
+	}
+	
+	// Try closes of subscriber
+	pub1.communicationChannelBroken();
+	pub1.close();
+	pub2.close();
+	pub3.close();
+	pub4.close();
+    }
+
+    /**
+     * Test 3: Create context subscribers (& fail) <- Integration (module
+     * context)
+     */
+    public void testCreateContextSubscriber() {
+	logInfo("-Test 3-", null);
+	// Correctly create a context subscriber
+	ContextSubscriber sub1, sub2;
+	ContextEventPattern cep = new ContextEventPattern();
+	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER)));
+	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
+	sub1 = new DummyContextSubscriber(ContextBusImpl.moduleContext,
+		new ContextEventPattern[] { cep });
+	logInfo("Created Context Subscriber", null);
+
+	// Incorrectly create a context subscriber with null cep
+	try {
+	    sub2 = new DummyContextSubscriber(ContextBusImpl.moduleContext,
+		    null);
+	    // Assert.notNull(null,"Allowed creation of a Context Subscriber with null context event pattern subscription");
+	} catch (Exception e) {
+	    Assert.notNull(e);
+	    logInfo("Properly launched exception creating bad subscriber %s",
+		    e.toString());
+	}
+	
+	// Try closes of subscriber
+	sub1.communicationChannelBroken();
+	sub1.close();
+    }
+
+    /**
+     * Test 4: Send Context Events (& fail) <- Integration (bus)
+     */
+    public void testSendContextEvent() {
+	logInfo("-Test 4-", null);
+	// Correctly create a DefCP with full info
+	ContextProvider info = new ContextProvider();
+	info.setType(ContextProviderType.gauge);
+	ContextEventPattern cep = new ContextEventPattern();
+	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER)));
+	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
+	info.setProvidedEvents(new ContextEventPattern[] { cep });
+	// info.setContextSources(new ManagedIndividual[]{new
+	// ManagedIndividual(SOURCE)}); //Until we can use outer classes...
+	ContextPublisher pub = new DefaultContextPublisher(
+		ContextBusImpl.moduleContext, info);
+	logInfo("Created Default Context Publisher with full Provider Info",
+		null);
+
+	// Create and send first event
+	ContextEvent cev1 = ContextEvent.constructSimpleEvent(DUMMYUSER, USER,
+		HAS_LOCATION, LOCATION);
+	pub.publish(cev1);
+	logInfo("Published event 1: %s", cev1);
+
+	// Create and send second event
+	Resource s = new Resource(DUMMYUSER);
+	s.setProperty(Resource.PROP_RDF_TYPE, USER);
+	s.setProperty(HAS_LOCATION, new Resource(LOCATION));
+	ContextEvent cev2 = new ContextEvent(s, HAS_LOCATION);
+	pub.publish(cev2);
+	logInfo("Published event 2: %s", cev2);
+
+	// Create and send third event
+	ContextProvider info2 = new ContextProvider();
+	info2.setType(ContextProviderType.controller);
+	ContextEvent cev3 = new ContextEvent(info2,
+		ContextProvider.PROP_CONTEXT_PROVIDER_TYPE);
+	pub.publish(cev3);
+	logInfo("Published event 3: %s", cev3);
+
+	// Incorrectly send a null event
+	try {
+	    pub.publish(null);
+	    // Assert.notNull(null,"Allowed sending a null event");
+	} catch (Exception e) {
+	    Assert.notNull(e);
+	    logInfo("Properly launched exception sending null event %s",
+		    e.toString());
+	}
+    }
+
+    /**
+     * Test 5: Receive Context Events (& fail) <- Integration (bus)
+     */
+    public void testReceiveContextEvent() {
+	logInfo("-Test 5-", null);
+	// Correctly create a context subscriber
+	ContextSubscriber sub;
+	ContextEventPattern cep = new ContextEventPattern();
+	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER)));
+	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
+	sub = new DummyContextSubscriber(ContextBusImpl.moduleContext,
+		new ContextEventPattern[] { cep });
+	logInfo("Created Context Subscriber", null);
+
+	// Correctly create a DefCP with full info
+	ContextProvider info = new ContextProvider();
+	info.setType(ContextProviderType.gauge);
+	ContextEventPattern cep2 = new ContextEventPattern();
+	cep2.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER)));
+	cep2.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
+	info.setProvidedEvents(new ContextEventPattern[] { cep2 });
+	// info.setContextSources(new ManagedIndividual[]{new
+	// ManagedIndividual(SOURCE)}); //Until we can use outer classes...
+	ContextPublisher pub = new DefaultContextPublisher(
+		ContextBusImpl.moduleContext, info);
+	logInfo("Created Default Context Publisher with full Provider Info",
+		null);
+
+	// Create and send first event
+	ContextEvent cev1 = ContextEvent.constructSimpleEvent(DUMMYUSER, USER,
+		HAS_LOCATION, LOCATION);
+	pub.publish(cev1);
+	try {
+	    Thread.sleep(5000);
+	    Assert.isTrue(received,"Context event not received");
+	    logInfo("Properly received good context event",null);
+	} catch (InterruptedException e) {
+	    Assert.notNull(null);
+	    logError(e,"Something bad happened %s",
+		    e.toString());
+	}
+	
+	// Create and send second wrong event
+	received = false;
+	ContextEvent cev2 = ContextEvent.constructSimpleEvent(DUMMYUSER
+		+ "wrong", USER, HAS_LOCATION, LOCATION);
+	pub.publish(cev2);
+	try {
+	    Thread.sleep(5000);
+	    Assert.isTrue(!received,"Context event received but shouldn´t");
+	    if(received)logInfo("Incorrectly received bad context event",null);
+	} catch (InterruptedException e) {
+	    Assert.notNull(null);
+	    logError(e,"Something bad happened %s",
+		    e.toString());
+	}
+	
+	//Close subscriber
+	sub.close();
+    }
+
+    protected class DummyContextPublisher extends ContextPublisher {
+
+	protected DummyContextPublisher(ModuleContext context,
 		ContextProvider providerInfo) {
 	    super(context, providerInfo);
 	}
 
 	public void communicationChannelBroken() {
-	    // TODO Auto-generated method stub
+	    logInfo("Publisher: Communication channel broken",null);
 	}
+    }
+
+    protected class DummyContextSubscriber extends ContextSubscriber {
+
+	protected DummyContextSubscriber(ModuleContext context,
+		ContextEventPattern[] initialSubscriptions) {
+	    super(context, initialSubscriptions);
+	}
+
+	public void communicationChannelBroken() {
+	    logInfo("Subscriber: Communication channel broken",null);
+	}
+
+	public void handleContextEvent(ContextEvent event) {
+	    received = true;
+	    logInfo("Received an event in subscriber: %s", event);
+	}
+
     }
 
 }
