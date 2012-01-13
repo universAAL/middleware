@@ -1,5 +1,9 @@
 package org.universAAL.middleware.context.test;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.util.Assert;
 import org.universAAL.itests.IntegrationTest;
 import org.universAAL.middleware.container.ModuleContext;
@@ -28,7 +32,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     public static String DUMMYUSER = NAMESPACE + "dummyUser";
     public static String HAS_LOCATION = NAMESPACE + "hasLocation";
     public static String LOCATION = NAMESPACE + "dummyLocation";
-    private boolean received = false;
+    private BlockingQueue queue=new SynchronousQueue();
 
     /**
      * Helper method for logging.
@@ -237,13 +241,13 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		null);
 
 	// Create and send first event
+	 Boolean retrieved=null;
 	ContextEvent cev1 = ContextEvent.constructSimpleEvent(DUMMYUSER, USER,
 		HAS_LOCATION, LOCATION);
 	pub.publish(cev1);
 	try {
-	    Thread.sleep(5000);
-	    Assert.isTrue(received,"Context event not received");
-	    logInfo("Properly received good context event",null);
+	    retrieved=(Boolean) queue.poll(1000, TimeUnit.MILLISECONDS);
+	    Assert.notNull(retrieved,"Not received the expected good event");	    
 	} catch (InterruptedException e) {
 	    Assert.notNull(null);
 	    logError(e,"Something bad happened %s",
@@ -251,14 +255,13 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	}
 	
 	// Create and send second wrong event
-	received = false;
+	retrieved = null;
 	ContextEvent cev2 = ContextEvent.constructSimpleEvent(DUMMYUSER
 		+ "wrong", USER, HAS_LOCATION, LOCATION);
 	pub.publish(cev2);
 	try {
-	    Thread.sleep(5000);
-	    Assert.isTrue(!received,"Context event received but shouldn´t");
-	    if(received)logInfo("Incorrectly received bad context event",null);
+	    retrieved=(Boolean) queue.poll(1000, TimeUnit.MILLISECONDS);
+	    Assert.isNull(retrieved,"Wrongly received a bad context event");
 	} catch (InterruptedException e) {
 	    Assert.notNull(null);
 	    logError(e,"Something bad happened %s",
@@ -293,7 +296,15 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	}
 
 	public void handleContextEvent(ContextEvent event) {
-	    received = true;
+	    try {
+		boolean sent=queue.offer(new Boolean(true),1000,TimeUnit.MILLISECONDS);
+		if(!sent){
+		    logError(null,"Received event but was not expected", event);
+		}
+	    } catch (InterruptedException e) {
+		logError(e,"Something bad happened %s",
+			    e.toString());
+	    }
 	    logInfo("Received an event in subscriber: %s", event);
 	}
 
