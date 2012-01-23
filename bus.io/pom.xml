@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.2-SNAPSHOT</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
@@ -13,6 +13,81 @@
 	<name>I/O Buses</name>
 	<description>The realization of the input and output buses on top of Sodapop as part of the universAAL Middleware</description>
 	<url />
+	
+  <dependencyManagement>
+    <dependencies>
+	    <dependency>
+			<groupId>org.universAAL.support</groupId>
+			<artifactId>itests</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+		</dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.acl.bridge</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.acl.interfaces</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.acl.rosgi</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.acl.upnp</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.context</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.io</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.model</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.service</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.container.osgi</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.container.xfaces</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.data.representation</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.data.serialization</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -30,27 +105,22 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.model</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.serialization</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.xfaces</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.osgi</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 
