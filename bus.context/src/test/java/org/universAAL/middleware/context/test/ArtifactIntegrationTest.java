@@ -142,7 +142,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	try {
 	    sub2 = new DummyContextSubscriber(ContextBusImpl.moduleContext,
 		    null);
-	    // Assert.notNull(null,"Allowed creation of a Context Subscriber with null context event pattern subscription");
+	    Assert.notNull(null,"Allowed creation of a Context Subscriber with null context event pattern subscription");
 	} catch (Exception e) {
 	    Assert.notNull(e);
 	    logInfo("Properly launched exception creating bad subscriber %s",
@@ -217,10 +217,10 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	ContextSubscriber sub;
 	ContextEventPattern cep = new ContextEventPattern();
 	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
-		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER)));
+		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER+"right")));
 	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
-	sub = new DummyContextSubscriber(ContextBusImpl.moduleContext,
+	sub = new SyncContextSubscriber(ContextBusImpl.moduleContext,
 		new ContextEventPattern[] { cep });
 	logInfo("Created Context Subscriber", null);
 
@@ -229,7 +229,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	info.setType(ContextProviderType.gauge);
 	ContextEventPattern cep2 = new ContextEventPattern();
 	cep2.addRestriction(MergedRestriction.getFixedValueRestriction(
-		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER)));
+		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER+"right")));
 	cep2.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
 	info.setProvidedEvents(new ContextEventPattern[] { cep2 });
@@ -242,7 +242,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
 	// Create and send first event
 	 Boolean retrieved=null;
-	ContextEvent cev1 = ContextEvent.constructSimpleEvent(DUMMYUSER, USER,
+	ContextEvent cev1 = ContextEvent.constructSimpleEvent(DUMMYUSER+"right", USER,
 		HAS_LOCATION, LOCATION);
 	pub.publish(cev1);
 	try {
@@ -296,18 +296,37 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	}
 
 	public void handleContextEvent(ContextEvent event) {
-	    try {
-		boolean sent=queue.offer(new Boolean(true),1000,TimeUnit.MILLISECONDS);
-		if(!sent){
-		    logError(null,"Received event but was not expected", event);
-		}
-	    } catch (InterruptedException e) {
-		logError(e,"Something bad happened %s",
-			    e.toString());
-	    }
-	    logInfo("Received an event in subscriber: %s", event);
+	    logInfo("Received an event in subscriber SUBJECT: %s", event);
 	}
 
     }
+    
+    protected class SyncContextSubscriber extends ContextSubscriber {
+
+   	protected SyncContextSubscriber(ModuleContext context,
+   		ContextEventPattern[] initialSubscriptions) {
+   	    super(context, initialSubscriptions);
+   	}
+
+   	public void communicationChannelBroken() {
+   	    logInfo("Subscriber: Communication channel broken",null);
+   	}
+
+   	public void handleContextEvent(ContextEvent event) {
+   	    try {
+   		boolean sent=queue.offer(new Boolean(true),1000,TimeUnit.MILLISECONDS);
+   		if(!sent){
+   		    logError(null,"Received event but was not expected", event);
+   		}
+   	    } catch (InterruptedException e) {
+   		logError(e,"Something bad happened %s",
+   			    e.toString());
+   	    }
+   	    logInfo("Received an event in subscriber SUBJECT: %s", event.getRDFSubject());
+   	    logInfo("Received an event in subscriber PREDICATE: %s", event.getRDFPredicate());
+   	    logInfo("Received an event in subscriber OBJECT: %s", event.getRDFObject());
+   	}
+
+       }
 
 }
