@@ -20,6 +20,10 @@
 		<url>${svn.base.url}container.osgi</url>
 	</scm>
 
+	<properties>
+		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
