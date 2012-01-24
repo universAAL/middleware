@@ -170,19 +170,6 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>uaal-snapshots</id>
-			<name>universAAL Snapshot Repositories</name>
-			<url>http://depot.universaal.org/maven-repo/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>uaal-thirdparty</id>
-			<name>universAAL ThirdParty Repositories</name>
-			<url>http://depot.universaal.org/maven-repo/thirdparty/</url>
-		</repository>
 	</repositories>
 
 </project>
