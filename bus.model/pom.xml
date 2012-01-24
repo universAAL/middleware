@@ -6,7 +6,7 @@
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
 		<version>1.0.2-SNAPSHOT</version>
-		<relativePath>../pom/pom.xml</relativePath>
+		<relativePath>../pom/</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.bus.model</artifactId>
