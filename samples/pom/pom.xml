@@ -70,6 +70,11 @@
 				<artifactId>ont.lighting</artifactId>
 				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>org.universAAL.samples</groupId>
+				<artifactId>smp.lighting.server</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>			
 		</dependencies>
 	</dependencyManagement>
 

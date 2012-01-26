@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
@@ -8,16 +9,24 @@
 		<relativePath>../pom/</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
-	<artifactId>mw.bus.context</artifactId>  
+	<artifactId>mw.bus.context</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<name>Context Bus</name>
 	<description>The realization of the context bus on top of Sodapop as part of the universAAL Middleware</description>
 
 	<scm>
-		<connection>${svn.base}/bus.context</connection> 
+		<connection>${svn.base}/bus.context</connection>
 		<developerConnection>${svn.base}/bus.context</developerConnection>
 		<url>${svn.base.url}bus.context</url>
 	</scm>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>uaal-snapshots</id>
+			<name>universAAL Snapshot Repositories</name>
+			<url>http://depot.universaal.org/maven-repo/snapshots/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencies>
 		<dependency>
@@ -56,9 +65,22 @@
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>
-	
+
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>uaal-maven-plugin</artifactId>
+				<version>0.1.0-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>composite</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -71,7 +93,7 @@
 							<goal>manifest</goal>
 						</goals>
 					</execution>
-				</executions>	
+				</executions>
 				<configuration>
 					<instructions>
 						<Bundle-Name>${project.name}</Bundle-Name>
@@ -79,7 +101,7 @@
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>org.universAAL.middleware.context,
-										org.universAAL.middleware.context.owl</Export-Package>
+							org.universAAL.middleware.context.owl</Export-Package>
 						<Private-Package>org.universAAL.middleware.context.impl,org.universAAL.middleware.context.impl.osgi</Private-Package>
 					</instructions>
 				</configuration>
@@ -87,7 +109,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>            
+			</plugin>
 		</plugins>
 	</build>
 </project>
