@@ -5,6 +5,7 @@
 		<groupId>org.universAAL.samples</groupId>
 		<artifactId>smp.pom</artifactId>
 		<version>1.0.1-SNAPSHOT</version>
+		<relativePath>../../pom/</relativePath>
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>smp.lighting.server</artifactId>  
