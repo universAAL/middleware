@@ -6,6 +6,7 @@
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
 		<version>1.0.2-SNAPSHOT</version>
+		<relativePath>../pom/</relativePath>
 	</parent>
 
 	<groupId>org.universAAL.samples</groupId>
