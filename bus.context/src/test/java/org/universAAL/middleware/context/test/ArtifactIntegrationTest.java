@@ -215,13 +215,23 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	logInfo("-Test 5-", null);
 	// Correctly create a context subscriber
 	ContextSubscriber sub;
-	ContextEventPattern cep = new ContextEventPattern();
-	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
+	ContextEventPattern cepA = new ContextEventPattern();
+	cepA.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER+"right")));
-	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
+	cepA.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
+	
+	cepA.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextProvider.PROP_CONTEXT_PROVIDER_TYPE,
+		ContextProviderType.gauge).appendTo(
+		MergedRestriction.getAllValuesRestriction(
+			ContextEvent.PROP_CONTEXT_PROVIDER,
+			ContextProvider.MY_URI),
+		new String[] { ContextEvent.PROP_CONTEXT_PROVIDER,
+			ContextProvider.PROP_CONTEXT_PROVIDER_TYPE }));
+	//TODO: Test "OR" patterns (using several different CEPs)
 	sub = new SyncContextSubscriber(ContextBusImpl.moduleContext,
-		new ContextEventPattern[] { cep });
+		new ContextEventPattern[] { cepA });
 	logInfo("Created Context Subscriber", null);
 
 	// Correctly create a DefCP with full info
