@@ -22,11 +22,6 @@ package org.universAAL.middleware.rdf;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-import org.universAAL.middleware.datarep.SharedResources;
-//import org.universAAL.middleware.owl.DatatypeProperty;
-import org.universAAL.middleware.owl.ObjectProperty;
-import org.universAAL.middleware.container.utils.LogUtils;
-
 
 public final class ResourceRegistry {
     
@@ -163,6 +158,8 @@ public final class ResourceRegistry {
     }
     
     public Resource getNamedResource(String instanceURI) {
+	if (instanceURI == null)
+	    return null;
 	return (Resource) namedResources.get(instanceURI);
     }
         
