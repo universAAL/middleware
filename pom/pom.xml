@@ -95,6 +95,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.ui</artifactId>
+				<version>(${release.previous} , ${release.next}]</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
 				<artifactId>mw.bus.model</artifactId>
 				<version>(${release.previous} , ${release.next}]</version>
 			</dependency>
