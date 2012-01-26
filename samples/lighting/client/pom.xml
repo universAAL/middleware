@@ -84,4 +84,16 @@
 			</plugin>			
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>uAAL-Runtime</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.universAAL.samples</groupId>
+					<artifactId>smp.lighting.server</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>	
 </project>
