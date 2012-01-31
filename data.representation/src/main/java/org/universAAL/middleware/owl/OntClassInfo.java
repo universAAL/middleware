@@ -53,7 +53,8 @@ public final class OntClassInfo extends Resource implements Cloneable {
      */
     private HashMap instances = new HashMap();
 
-    // the combined list of all superclasses as set in the RDF graph
+    // The combined list of all superclasses as set in the RDF graph (contains
+    // named super classes and restrictions)
     private volatile ArrayList combinedSuperClasses = new ArrayList();
 
     // Members of all the following arrays are instances of {@link
