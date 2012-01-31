@@ -45,20 +45,20 @@ import org.universAAL.middleware.rdf.Resource;
 public interface DialogManager {
     /**
      * 
-     * @param event
-     *            output event published on Output Bus
-     * @return the decision if the new output event published on the Output Bus
-     *         can be immediately forwarded to an UI Handler (returns true) or
-     *         must wait for a higher priority dialog to finish (return false).
-     *         In case of returning true, the Dialog Manager must also add the
-     *         current personal and situational parameters to the output event
-     *         so that the matchmaking on the bus results in adaptive selection
-     *         of I/O channels. In case of returning false, the bus ignores the
-     *         output event because it trusts that the Dialog Manager will keep
-     *         the event in a queue of suspended dialogs and will re-activate it
+     * @param request
+     *            UI request to UI bus
+     * @return the decision if the new UI request to UI Bus can be immediately
+     *         forwarded to an UI Handler (returns true) or must wait for a
+     *         higher priority dialog to finish (return false). In case of
+     *         returning true, the Dialog Manager must also add the current
+     *         personal and situational parameters to UI request so that the
+     *         matchmaking on the bus results in adaptive selection of I/O
+     *         channels. In case of returning false, the UI Bus ignores the
+     *         request because it trusts that the Dialog Manager will keep the
+     *         request in a queue of suspended dialogs and will re-activate it
      *         whenever appropriate.
      */
-    public boolean checkNewDialog(UIRequest event);
+    public boolean checkNewDialog(UIRequest request);
 
     /**
      * Informs the Dialog Manager that a running dialog has finished according
@@ -71,6 +71,15 @@ public interface DialogManager {
      */
     public void dialogFinished(String dialogID);
 
+    /**
+     * Show main menu of the system.
+     * 
+     * @param user
+     *            user of a system
+     * 
+     * @param loginLocation
+     *            location from which user has logged to the system
+     */
     public void getMainMenu(Resource user, AbsLocation loginLocation);
 
     /**
