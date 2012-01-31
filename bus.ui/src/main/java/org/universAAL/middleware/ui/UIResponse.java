@@ -33,16 +33,27 @@ import org.universAAL.middleware.ui.rdf.Submit;
  */
 public class UIResponse extends Resource {
 
-    public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE + "UIResponse";
+    /** The Constant MY_URI. */
+    public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE
+	    + "UIResponse";
 
+    /** The Constant PROP_DIALOG_DATA. */
     public static final String PROP_DIALOG_DATA = UIRequest.uAAL_UI_NAMESPACE
 	    + "dialogData";
+
+    /** The Constant PROP_DIALOG_ID. */
     public static final String PROP_DIALOG_ID = UIRequest.uAAL_UI_NAMESPACE
 	    + "dialogID";
+
+    /** The Constant PROP_SUBMISSION_LOCATION. */
     public static final String PROP_SUBMISSION_LOCATION = UIRequest.uAAL_UI_NAMESPACE
 	    + "submissionLocation";
+
+    /** The Constant PROP_IS_SUBDIALOG_CALL. */
     public static final String PROP_IS_SUBDIALOG_CALL = UIRequest.uAAL_UI_NAMESPACE
 	    + "isSubdialogCall";
+
+    /** The Constant PROP_SUBMISSION_ID. */
     public static final String PROP_SUBMISSION_ID = UIRequest.uAAL_UI_NAMESPACE
 	    + "submissionID";
 
@@ -82,6 +93,7 @@ public class UIResponse extends Resource {
     }
 
     /**
+     * Gets the dialog id.
      * 
      * @return ID of the dialog in which this input has been provided
      */
@@ -90,12 +102,18 @@ public class UIResponse extends Resource {
 	return (id instanceof Resource) ? id.toString() : null;
     }
 
+    /**
+     * Gets the submission location.
+     * 
+     * @return the submission location
+     */
     public AbsLocation getSubmissionLocation() {
 	Object loc = props.get(PROP_SUBMISSION_LOCATION);
 	return (loc instanceof AbsLocation) ? (AbsLocation) loc : null;
     }
 
     /**
+     * Gets the parent dialog uri.
      * 
      * @return the ID of the parent dialog in case this event is about dialog
      *         being finished (which can be checked by calling
@@ -106,6 +124,9 @@ public class UIResponse extends Resource {
 	return (o instanceof Resource) ? o.toString() : null;
     }
 
+    /**
+     * @see org.universAAL.middleware.rdf.Resource#getPropSerializationType(java.lang.String)
+     */
     public int getPropSerializationType(String propURI) {
 	return (PROP_uAAL_INVOLVED_HUMAN_USER.equals(propURI) || PROP_SUBMISSION_LOCATION
 		.equals(propURI)) ? PROP_SERIALIZATION_REDUCED
@@ -113,6 +134,7 @@ public class UIResponse extends Resource {
     }
 
     /**
+     * Gets the submission id.
      * 
      * @return ID of the submit button selected by the user when finishing the
      *         dialog
@@ -123,6 +145,7 @@ public class UIResponse extends Resource {
     }
 
     /**
+     * Gets the submitted data.
      * 
      * @return root of the tree with form data submitted
      */
@@ -130,12 +153,18 @@ public class UIResponse extends Resource {
 	return (Resource) props.get(PROP_DIALOG_DATA);
     }
 
+    /**
+     * Gets the user.
+     * 
+     * @return the user
+     */
     public Resource getUser() {
 	Object user = props.get(PROP_uAAL_INVOLVED_HUMAN_USER);
 	return (user instanceof Resource) ? (Resource) user : null;
     }
 
     /**
+     * Gets the user input.
      * 
      * @param propPath
      *            array of property URIs, path of a certain expected user input
@@ -158,10 +187,20 @@ public class UIResponse extends Resource {
 	return o;
     }
 
+    /**
+     * Checks if is subdialog call.
+     * 
+     * @return true, if is subdialog call
+     */
     public boolean isSubdialogCall() {
 	return Boolean.TRUE.equals(props.get(PROP_IS_SUBDIALOG_CALL));
     }
 
+    /**
+     * Checks if is subdialog submission.
+     * 
+     * @return true, if is subdialog submission
+     */
     public boolean isSubdialogSubmission() {
 	return props.containsKey(Form.PROP_PARENT_DIALOG_URI);
     }
