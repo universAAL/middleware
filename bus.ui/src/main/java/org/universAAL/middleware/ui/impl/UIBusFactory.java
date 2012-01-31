@@ -43,12 +43,15 @@ import org.universAAL.middleware.ui.rdf.Submit;
 import org.universAAL.middleware.ui.rdf.TextArea;
 
 /**
- * 
+ * A factory for creating UIBus objects.
+ *
  * @author Carsten Stockloew
- * 
  */
 public class UIBusFactory extends ResourceFactoryImpl {
 
+    /**
+     * Instantiates a new uI bus factory.
+     */
     public UIBusFactory() {
 	// The classes derived from Resource but not ManagedIndividual do not
 	// have ontological information, there is no OntClassInfo for them, so
@@ -93,6 +96,9 @@ public class UIBusFactory extends ResourceFactoryImpl {
 		this, 18);
     }
 
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance(java.lang.String, java.lang.String, int)
+     */
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {
 

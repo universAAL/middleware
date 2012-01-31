@@ -40,65 +40,145 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * 
  * @author mtazari
  */
+
 public abstract class UICaller implements Caller {
+
+    /** The bus. */
     private UIBus bus;
+
+    /** The my id. */
     private String myID;
 
+    /**
+     * Instantiates a new uI caller.
+     * 
+     * @param context
+     *            the module context
+     */
     protected UICaller(ModuleContext context) {
 	bus = (UIBus) context.getContainer().fetchSharedObject(context,
 		UIBusImpl.busFetchParams);
 	myID = bus.register(this);
     }
 
+    /**
+     * Abort dialog.
+     * 
+     * @param dialogID
+     *            the dialog id
+     */
     public void abortDialog(String dialogID) {
 	bus.abortDialog(myID, dialogID);
     }
 
+    /**
+     * Adaptation parameters changed.
+     * 
+     * @param call
+     *            the call
+     * @param changedProp
+     *            the changed prop
+     */
     public void adaptationParametersChanged(UIRequest call, String changedProp) {
 	if (this instanceof DialogManager)
 	    bus.adaptationParametersChanged((DialogManager) this, call,
 		    changedProp);
     }
 
+    /**
+     * Bus dying out.
+     * 
+     * @param b
+     *            the bus
+     * @see org.universAAL.middleware.sodapop.BusMember#busDyingOut(Bus)
+     */
     public final void busDyingOut(Bus b) {
 	if (b == bus)
 	    communicationChannelBroken();
     }
 
+    /**
+     * Unregisters the UI Caller from the UI Bus.
+     */
     public void close() {
 	bus.unregister(myID, this);
     }
 
+    /**
+     * Method to be called when the communication of the UI Caller with the UI
+     * Bus is lost.
+     */
     public abstract void communicationChannelBroken();
 
+    /**
+     * Dialog aborted.
+     * 
+     * @param dialogID
+     *            the dialog id
+     */
     public abstract void dialogAborted(String dialogID);
 
+    /**
+     * Dialog suspended.
+     * 
+     * @param dialogID
+     *            the dialog id
+     */
     public void dialogSuspended(String dialogID) {
 	if (this instanceof DialogManager)
 	    bus.dialogSuspended((DialogManager) this, dialogID);
     }
 
+    /**
+     * 
+     * @param m
+     *            the message
+     * @return true, if successful
+     * @see org.universAAL.middleware.sodapop.Callee#eval(Message)
+     */
     public final boolean eval(Message m) {
 	return false;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Handle reply.
      * 
-     * @seeorg.universAAL.middleware.sodapop.Caller#handleReply(org.universAAL.
-     * middleware.sodapop.msg.Message)
+     * @param m
+     *            the message
+     * @see org.universAAL.middleware.sodapop.Caller#handleReply(org.universAAL.
+     *      middleware.sodapop.msg.Message)
      */
     public final void handleReply(Message m) {
 	if (m != null && m.getContent() instanceof UIResponse)
 	    handleUIResponse((UIResponse) m.getContent());
     }
 
+    /**
+     * Handle ui response.
+     * 
+     * @param input
+     *            the input
+     */
     public abstract void handleUIResponse(UIResponse input);
 
+    /**
+     * Resume dialog.
+     * 
+     * @param dialogID
+     *            the dialog id
+     * @param dialogData
+     *            the dialog data
+     */
     public void resumeDialog(String dialogID, Resource dialogData) {
 	bus.resumeDialog(myID, dialogID, dialogData);
     }
 
+    /**
+     * Send ui request.
+     * 
+     * @param e
+     *            the e
+     */
     public final void sendUIRequest(UIRequest e) {
 	if (e != null) {
 	    bus.sendMessage(myID, e);

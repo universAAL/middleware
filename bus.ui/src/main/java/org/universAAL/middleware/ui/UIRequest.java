@@ -45,38 +45,71 @@ import org.universAAL.middleware.ui.rdf.Form;
  * @author Carsten Stockloew
  */
 public class UIRequest extends Resource {
+
+    /** The Constant uAAL_UI_NAMESPACE. */
     public static final String uAAL_UI_NAMESPACE = uAAL_NAMESPACE_PREFIX
 	    + "UI.owl#";
+
+    /** The Constant MY_URI. */
     public static final String MY_URI = uAAL_UI_NAMESPACE + "UIRequest";
 
+    /** The Constant PROP_ADDRESSED_USER. */
     public static final String PROP_ADDRESSED_USER = uAAL_UI_NAMESPACE
 	    + "addressedUser";
+
+    /** The Constant PROP_DIALOG_FORM. */
     public static final String PROP_DIALOG_FORM = uAAL_UI_NAMESPACE
 	    + "dialogForm";
+
+    /** The Constant PROP_DIALOG_PRIORITY. */
     public static final String PROP_DIALOG_PRIORITY = uAAL_UI_NAMESPACE
 	    + "dialogPriority";
+
+    /** The Constant PROP_HAS_ACCESS_IMPAIRMENT. */
     public static final String PROP_HAS_ACCESS_IMPAIRMENT = uAAL_UI_NAMESPACE
 	    + "hasAccessImpairment";
+
+    /** The Constant PROP_DIALOG_LANGUAGE. */
     public static final String PROP_DIALOG_LANGUAGE = uAAL_UI_NAMESPACE
 	    + "dialogLanguage";
+
+    /** The Constant PROP_PRESENTATION_MODALITY. */
     public static final String PROP_PRESENTATION_MODALITY = uAAL_UI_NAMESPACE
 	    + "presentationModality";
+
+    /** The Constant PROP_PRESENTATION_MODALITY_ALT. */
     public static final String PROP_PRESENTATION_MODALITY_ALT = uAAL_UI_NAMESPACE
 	    + "altPresentationModality";
+
+    /** The Constant PROP_PRESENTATION_LOCATION. */
     public static final String PROP_PRESENTATION_LOCATION = uAAL_UI_NAMESPACE
 	    + "presentationLocation";
+
+    /** The Constant PROP_DIALOG_PRIVACY_LEVEL. */
     public static final String PROP_DIALOG_PRIVACY_LEVEL = uAAL_UI_NAMESPACE
 	    + "dialogPrivacyLevel";
+
+    /** The Constant PROP_SCREEN_RESOLUTION_MAX_X. */
     public static final String PROP_SCREEN_RESOLUTION_MAX_X = uAAL_UI_NAMESPACE
 	    + "screenResolutionMaxX";
+
+    /** The Constant PROP_SCREEN_RESOLUTION_MAX_Y. */
     public static final String PROP_SCREEN_RESOLUTION_MAX_Y = uAAL_UI_NAMESPACE
 	    + "screenResolutionMaxY";
+
+    /** The Constant PROP_SCREEN_RESOLUTION_MIN_X. */
     public static final String PROP_SCREEN_RESOLUTION_MIN_X = uAAL_UI_NAMESPACE
 	    + "screenResolutionMinX";
+
+    /** The Constant PROP_SCREEN_RESOLUTION_MIN_Y. */
     public static final String PROP_SCREEN_RESOLUTION_MIN_Y = uAAL_UI_NAMESPACE
 	    + "screenResolutionMinY";
+
+    /** The Constant PROP_VOICE_GENDER. */
     public static final String PROP_VOICE_GENDER = uAAL_UI_NAMESPACE
 	    + "voiceGander";
+
+    /** The Constant PROP_VOICE_LEVEL. */
     public static final String PROP_VOICE_LEVEL = uAAL_UI_NAMESPACE
 	    + "voiceLevel";
 
@@ -87,8 +120,23 @@ public class UIRequest extends Resource {
 	super();
     }
 
-    public UIRequest(Resource user, Form dialogForm, LevelRating dialogPriority,
-	    Locale dialogLang, PrivacyLevel dialogPrivacy) {
+    /**
+     * Instantiates a new UI request.
+     * 
+     * @param user
+     *            the user
+     * @param dialogForm
+     *            the dialog form
+     * @param dialogPriority
+     *            the dialog priority
+     * @param dialogLang
+     *            the dialog lang
+     * @param dialogPrivacy
+     *            the dialog privacy
+     */
+    public UIRequest(Resource user, Form dialogForm,
+	    LevelRating dialogPriority, Locale dialogLang,
+	    PrivacyLevel dialogPrivacy) {
 	super();
 
 	addType(MY_URI, true);
@@ -100,149 +148,309 @@ public class UIRequest extends Resource {
 	props.put(PROP_DIALOG_PRIVACY_LEVEL, dialogPrivacy);
     }
 
+    /**
+     * Gets the addressed user.
+     * 
+     * @return the addressed user
+     */
     public Resource getAddressedUser() {
 	return (Resource) props.get(PROP_ADDRESSED_USER);
     }
 
+    /**
+     * Gets the alt presentation modality.
+     * 
+     * @return the alt presentation modality
+     */
     public Modality getAltPresentationModality() {
 	return (Modality) props.get(PROP_PRESENTATION_MODALITY_ALT);
     }
 
+    /**
+     * Gets the dialog form.
+     * 
+     * @return the dialog form
+     */
     public Form getDialogForm() {
 	return (Form) props.get(PROP_DIALOG_FORM);
     }
 
+    /**
+     * Gets the dialog id.
+     * 
+     * @return the dialog id
+     */
     public String getDialogID() {
 	Form f = getDialogForm();
 	return (f == null) ? null : f.getDialogID();
     }
 
+    /**
+     * Gets the dialog language.
+     * 
+     * @return the dialog language
+     */
     public Locale getDialogLanguage() {
 	return (Locale) props.get(PROP_DIALOG_LANGUAGE);
     }
 
+    /**
+     * Gets the dialog priority.
+     * 
+     * @return the dialog priority
+     */
     public LevelRating getDialogPriority() {
 	return (LevelRating) props.get(PROP_DIALOG_PRIORITY);
     }
 
+    /**
+     * Gets the dialog privacy level.
+     * 
+     * @return the dialog privacy level
+     */
     public PrivacyLevel getDialogPrivacyLevel() {
 	return (PrivacyLevel) props.get(PROP_DIALOG_PRIVACY_LEVEL);
     }
 
+    /**
+     * Gets the dialog type.
+     * 
+     * @return the dialog type
+     */
     public DialogType getDialogType() {
 	Form f = getDialogForm();
 	return (f == null) ? null : f.getDialogType();
     }
 
+    /**
+     * Gets the impairments.
+     * 
+     * @return the impairments
+     */
     public AccessImpairment[] getImpairments() {
 	List l = (List) props.get(PROP_HAS_ACCESS_IMPAIRMENT);
 	return (l == null) ? null : (AccessImpairment[]) l
 		.toArray(new AccessImpairment[l.size()]);
     }
 
+    /**
+     * Gets the presentation location.
+     * 
+     * @return the presentation location
+     */
     public AbsLocation getPresentationLocation() {
 	return (AbsLocation) props.get(PROP_PRESENTATION_LOCATION);
     }
 
+    /**
+     * Gets the presentation modality.
+     * 
+     * @return the presentation modality
+     */
     public Modality getPresentationModality() {
 	return (Modality) props.get(PROP_PRESENTATION_MODALITY);
     }
 
+    /**
+     * @see org.universAAL.middleware.rdf.Resource#getPropSerializationType(java.lang.String)
+     */
     public int getPropSerializationType(String propURI) {
 	return PROP_DIALOG_FORM.equals(propURI) ? PROP_SERIALIZATION_FULL
 		: PROP_SERIALIZATION_REDUCED;
     }
 
+    /**
+     * Gets the screen resolution max x.
+     * 
+     * @return the screen resolution max x
+     */
     public int getScreenResolutionMaxX() {
 	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MAX_X);
 	return (i == null) ? -1 : i.intValue();
     }
 
+    /**
+     * Gets the screen resolution max y.
+     * 
+     * @return the screen resolution max y
+     */
     public int getScreenResolutionMaxY() {
 	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MAX_Y);
 	return (i == null) ? -1 : i.intValue();
     }
 
+    /**
+     * Gets the screen resolution min x.
+     * 
+     * @return the screen resolution min x
+     */
     public int getScreenResolutionMinX() {
 	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MIN_X);
 	return (i == null) ? -1 : i.intValue();
     }
 
+    /**
+     * Gets the screen resolution min y.
+     * 
+     * @return the screen resolution min y
+     */
     public int getScreenResolutionMinY() {
 	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MIN_Y);
 	return (i == null) ? -1 : i.intValue();
     }
 
+    /**
+     * Gets the voice gender.
+     * 
+     * @return the voice gender
+     */
     public Gender getVoiceGender() {
 	return (Gender) props.get(PROP_VOICE_GENDER);
     }
 
+    /**
+     * Gets the voice level.
+     * 
+     * @return the voice level
+     */
     public int getVoiceLevel() {
 	Integer i = (Integer) props.get(PROP_VOICE_LEVEL);
 	return (i == null) ? -1 : i.intValue();
     }
 
+    /**
+     * Sets the alt presentation modality.
+     * 
+     * @param outputModality
+     *            the new alt presentation modality
+     */
     public void setAltPresentationModality(Modality outputModality) {
 	if (outputModality != null
 		&& !props.containsKey(PROP_PRESENTATION_MODALITY_ALT))
 	    props.put(PROP_PRESENTATION_MODALITY_ALT, outputModality);
     }
 
+    /**
+     * Sets the collected input.
+     * 
+     * @param data
+     *            the new collected input
+     */
     public void setCollectedInput(Resource data) {
 	Form f = getDialogForm();
 	if (f != null)
 	    f.substituteData(data);
     }
 
+    /**
+     * Sets the impairments.
+     * 
+     * @param impairments
+     *            the new impairments
+     */
     public void setImpairments(AccessImpairment[] impairments) {
 	if (impairments != null && impairments.length > 0
 		&& !props.containsKey(PROP_HAS_ACCESS_IMPAIRMENT))
 	    props.put(PROP_HAS_ACCESS_IMPAIRMENT, Arrays.asList(impairments));
     }
 
+    /**
+     * Sets the presentation location.
+     * 
+     * @param presentationLocation
+     *            the new presentation location
+     */
     public void setPresentationLocation(AbsLocation presentationLocation) {
 	if (presentationLocation != null
 		&& !props.containsKey(PROP_PRESENTATION_LOCATION))
 	    props.put(PROP_PRESENTATION_LOCATION, presentationLocation);
     }
 
+    /**
+     * Sets the presentation modality.
+     * 
+     * @param outputModality
+     *            the new presentation modality
+     */
     public void setPresentationModality(Modality outputModality) {
 	if (outputModality != null
 		&& !props.containsKey(PROP_PRESENTATION_MODALITY))
 	    props.put(PROP_PRESENTATION_MODALITY, outputModality);
     }
 
+    /**
+     * Sets the privacy mapping.
+     * 
+     * @param pl
+     *            the new privacy mapping
+     */
     public void setPrivacyMapping(PrivacyLevel pl) {
 	if (props.containsKey(PROP_DIALOG_PRIVACY_LEVEL)
 		&& (pl == PrivacyLevel.insensible || pl == PrivacyLevel.personal))
 	    props.put(PROP_DIALOG_PRIVACY_LEVEL, pl);
     }
 
+    /**
+     * Sets the screen resolution max x.
+     * 
+     * @param x
+     *            the new screen resolution max x
+     */
     public void setScreenResolutionMaxX(int x) {
 	if (x > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MAX_X))
 	    props.put(PROP_SCREEN_RESOLUTION_MAX_X, new Integer(x));
     }
 
+    /**
+     * Sets the screen resolution max y.
+     * 
+     * @param y
+     *            the new screen resolution max y
+     */
     public void setScreenResolutionMaxY(int y) {
 	if (y > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MAX_Y))
 	    props.put(PROP_SCREEN_RESOLUTION_MAX_Y, new Integer(y));
     }
 
+    /**
+     * Sets the screen resolution min x.
+     * 
+     * @param x
+     *            the new screen resolution min x
+     */
     public void setScreenResolutionMinX(int x) {
 	if (x > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MIN_X))
 	    props.put(PROP_SCREEN_RESOLUTION_MIN_X, new Integer(x));
     }
 
+    /**
+     * Sets the screen resolution min y.
+     * 
+     * @param y
+     *            the new screen resolution min y
+     */
     public void setScreenResolutionMinY(int y) {
 	if (y > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MIN_Y))
 	    props.put(PROP_SCREEN_RESOLUTION_MIN_Y, new Integer(y));
     }
 
+    /**
+     * Sets the voice gender.
+     * 
+     * @param g
+     *            the new voice gender
+     */
     public void setVoiceGender(Gender g) {
 	if (g != null && !props.containsKey(PROP_VOICE_GENDER))
 	    props.put(PROP_VOICE_GENDER, g);
     }
 
+    /**
+     * Sets the voice level.
+     * 
+     * @param loudnessPercentage
+     *            the new voice level
+     */
     public void setVoiceLevel(int loudnessPercentage) {
 	if (loudnessPercentage > -1 && loudnessPercentage < 101
 		&& !props.containsKey(PROP_VOICE_LEVEL))

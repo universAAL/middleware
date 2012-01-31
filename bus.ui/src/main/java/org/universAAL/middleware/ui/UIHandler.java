@@ -29,29 +29,35 @@ import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
 
 /**
- * Provides the interface to be implemented by output subscribers together with
- * shared code. Only instances of this class can subscribe for output events.
- * The convention of the context bus regarding the registration parameters is
- * the following:
+ * Provides the interface to be implemented by UI Handlers together with shared
+ * code. Only instances of this class can handle UI requests. The convention of
+ * the UI bus regarding the registration parameters is the following:
  * <ul>
- * <li>ContextPublishers provide only at the registration time info about
- * themselves using
- * {@link org.universAAL.middleware.context.owl.ContextProvider}.</li>
- * <li>ContextSubscribers may pass an array of
- * {@link org.universAAL.middleware.context.ContextEventPattern}s as their
- * initial subscriptions and can always add new (and remove old) subscriptions
- * dynamically.</li>
+ * <li>UI Handlers provide only at the registration time info about themselves</li>
  * </ul>
  * 
  * @author mtazari
  * 
  */
 public abstract class UIHandler implements Callee {
+    
+    /** The bus. */
     private UIBus bus;
+    
+    /** The this callee context. */
     private ModuleContext thisCalleeContext;
+    
+    /** The local id. */
     private String myID, localID;
 
-    protected UIHandler(ModuleContext context, UIHandlerProfile initialSubscription) {
+    /**
+     * Instantiates a new uI handler.
+     *
+     * @param context the context
+     * @param initialSubscription the initial subscription
+     */
+    protected UIHandler(ModuleContext context,
+	    UIHandlerProfile initialSubscription) {
 	thisCalleeContext = context;
 	bus = (UIBus) context.getContainer().fetchSharedObject(context,
 		UIBusImpl.busFetchParams);
@@ -59,34 +65,81 @@ public abstract class UIHandler implements Callee {
 	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
 
+    /**
+     * Adaptation parameters changed.
+     *
+     * @param dialogID the dialog id
+     * @param changedProp the changed prop
+     * @param newVal the new val
+     */
     public abstract void adaptationParametersChanged(String dialogID,
 	    String changedProp, Object newVal);
 
+    /**
+     * Adds the new reg params.
+     *
+     * @param newSubscription the new subscription
+     */
     protected final void addNewRegParams(UIHandlerProfile newSubscription) {
 	bus.addNewRegParams(myID, newSubscription);
     }
 
+    /**
+     * Bus dying out.
+     *
+     * @param b the bus
+     * @see org.universAAL.middleware.sodapop.BusMember#busDyingOut(Bus)
+     */
     public final void busDyingOut(Bus b) {
 	if (b == bus)
 	    communicationChannelBroken();
     }
 
+    /**
+     * Unregisters the UI Handler from the UI Bus.
+     */
     public void close() {
 	bus.unregister(myID, this);
     }
 
+    /**
+     * Method to be called when the communication of the UI Handler with the UI
+     * Bus is lost.
+     */
     public abstract void communicationChannelBroken();
 
+    /**
+     * Cut dialog.
+     *
+     * @param dialogID the dialog id
+     * @return the resource
+     */
     public abstract Resource cutDialog(String dialogID);
 
+    /**
+     * Dialog finished.
+     *
+     * @param input the input
+     */
     public final void dialogFinished(UIResponse input) {
 	bus.dialogFinished(myID, input);
     }
 
+    /**
+     * @param m the m
+     * @return true, if successful
+     * @see org.universAAL.middleware.sodapop.Callee#eval(Message)
+     */
     public final boolean eval(Message m) {
 	return false;
     }
 
+    /**
+     * Handle request.
+     *
+     * @param m the message
+     * @see org.universAAL.middleware.sodapop.Callee#handleRequest(Message)
+     */
     public final void handleRequest(Message m) {
 	if (m.getContent() instanceof UIRequest) {
 	    LogUtils.logInfo(thisCalleeContext, UIHandler.class,
@@ -97,12 +150,29 @@ public abstract class UIHandler implements Callee {
 	}
     }
 
+    /**
+     * Handle ui call.
+     *
+     * @param uicall the uicall
+     */
     public abstract void handleUICall(UIRequest uicall);
 
-    protected final void removeMatchingRegParams(UIHandlerProfile oldSubscription) {
+    /**
+     * Removes the matching reg params.
+     *
+     * @param oldSubscription the old subscription
+     */
+    protected final void removeMatchingRegParams(
+	    UIHandlerProfile oldSubscription) {
 	bus.removeMatchingRegParams(myID, oldSubscription);
     }
 
+    /**
+     * User logged in.
+     *
+     * @param user the user
+     * @param loginLocation the login location
+     */
     public final void userLoggedIn(Resource user, AbsLocation loginLocation) {
 	bus.userLoggedIn(myID, user, loginLocation);
     }

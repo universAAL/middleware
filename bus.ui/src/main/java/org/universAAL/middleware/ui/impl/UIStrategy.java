@@ -48,6 +48,10 @@ import org.universAAL.middleware.util.Constants;
  *         "handle(Message msg, String senderID)" that is called for every
  *         message given to the bus.
  */
+/**
+ * @author eandgrg
+ *
+ */
 public class UIStrategy extends BusStrategy {
 
     /**

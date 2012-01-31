@@ -29,21 +29,36 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.owl.Modality;
 
 /**
+ * The Class UIHandlerProfile.
+ * 
  * @author mtazari
  * @author Carsten Stockloew
  */
 public class UIHandlerProfile extends Resource {
+
+    /** The Constant MY_URI. */
     public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE
 	    + "UIHandlerProfile";
+
+    /** The Constant PROP_INPUT_MODALITY. */
     public static final String PROP_INPUT_MODALITY = UIRequest.uAAL_UI_NAMESPACE
 	    + "inputModality";
 
+    /** The Constant MATCH_LEVEL_FAILED. */
     public static final int MATCH_LEVEL_FAILED = 0;
+
+    /** The Constant MATCH_LEVEL_ALT. */
     public static final int MATCH_LEVEL_ALT = 1;
+
+    /** The Constant MATCH_LEVEL_SUCCESS. */
     public static final int MATCH_LEVEL_SUCCESS = 2;
 
+    /** The restrictions. */
     private List restrictions;
 
+    /**
+     * Instantiates a new UI handler profile.
+     */
     public UIHandlerProfile() {
 	super();
 	addType(MY_URI, true);
@@ -51,6 +66,12 @@ public class UIHandlerProfile extends Resource {
 	props.put(ClassExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
     }
 
+    /**
+     * Adds the restriction.
+     * 
+     * @param r
+     *            the restriction
+     */
     public void addRestriction(MergedRestriction r) {
 	if (r == null)
 	    return;
@@ -71,11 +92,23 @@ public class UIHandlerProfile extends Resource {
 		restrictions.add(r);
     }
 
+    /**
+     * Gets the number of supported input modalities.
+     * 
+     * @return the number of supported input modalities
+     */
     public int getNumberOfSupportedInputModalities() {
 	List l = (List) props.get(PROP_INPUT_MODALITY);
 	return (l == null) ? 0 : l.size();
     }
 
+    /**
+     * Gets the restriction.
+     * 
+     * @param onProp
+     *            the on prop
+     * @return the restriction
+     */
     private MergedRestriction getRestriction(String onProp) {
 	for (int i = 0; i < restrictions.size(); i++) {
 	    MergedRestriction r = (MergedRestriction) restrictions.get(i);
@@ -85,12 +118,24 @@ public class UIHandlerProfile extends Resource {
 	return null;
     }
 
+    /**
+     * Gets the supported input modalities.
+     * 
+     * @return the supported input modalities
+     */
     public Modality[] getSupportedInputModalities() {
 	List l = (List) props.get(PROP_INPUT_MODALITY);
 	return (l == null) ? null : (Modality[]) l.toArray(new Modality[l
 		.size()]);
     }
 
+    /**
+     * Matches.
+     * 
+     * @param oe
+     *            the ui request
+     * @return the int
+     */
     public int matches(UIRequest oe) {
 	if (oe == null)
 	    return MATCH_LEVEL_FAILED;
@@ -99,7 +144,8 @@ public class UIHandlerProfile extends Resource {
 	for (int i = 0; i < restrictions.size(); i++) {
 	    MergedRestriction r = (MergedRestriction) restrictions.get(i);
 	    if (!r.hasMember(oe, null))
-		if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
+		if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
+			.getOnProperty())
 			&& r.copyOnNewProperty(
 				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
 				.hasMember(oe, null)) {
@@ -112,6 +158,12 @@ public class UIHandlerProfile extends Resource {
 	return result;
     }
 
+    /**
+     * Matches.
+     *
+     * @param subtype the subtype
+     * @return true, if successful
+     */
     public boolean matches(UIHandlerProfile subtype) {
 	if (subtype == null)
 	    return false;
@@ -127,6 +179,11 @@ public class UIHandlerProfile extends Resource {
     }
 
     /**
+     * Checks if is closed collection.
+     * 
+     * @param propURI
+     *            the prop uri
+     * @return true, if is closed collection
      * @see org.universAAL.middleware.rdf.Resource#isClosedCollection(java.lang.String)
      */
     public boolean isClosedCollection(String propURI) {
@@ -134,18 +191,39 @@ public class UIHandlerProfile extends Resource {
 		&& super.isClosedCollection(propURI);
     }
 
+    /**
+     * Checks if is well formed.
+     *
+     * @return true, if is well formed
+     * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
+     */
     public boolean isWellFormed() {
 	return true;
     }
 
+    /**
+     * Prop restriction allowed.
+     * 
+     * @param prop
+     *            the prop
+     * @return true, if successful
+     */
     private boolean propRestrictionAllowed(String prop) {
 	for (int i = 0; i < restrictions.size(); i++)
-	    if (prop
-		    .equals(((MergedRestriction) restrictions.get(i)).getOnProperty()))
+	    if (prop.equals(((MergedRestriction) restrictions.get(i))
+		    .getOnProperty()))
 		return false;
 	return true;
     }
 
+    /**
+     * Sets the property.
+     *
+     * @param propURI the prop uri
+     * @param o the o
+     * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
+     * java.lang.Object)
+     */
     public void setProperty(String propURI, Object o) {
 	if (ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)) {
 	    if (o instanceof MergedRestriction)
@@ -159,6 +237,12 @@ public class UIHandlerProfile extends Resource {
 	    setSupportedInputModalities((Modality[]) o);
     }
 
+    /**
+     * Sets the supported input modalities.
+     * 
+     * @param modalities
+     *            the new supported input modalities
+     */
     public void setSupportedInputModalities(Modality[] modalities) {
 	if (modalities != null && modalities.length > 0
 		&& !props.containsKey(PROP_INPUT_MODALITY))
