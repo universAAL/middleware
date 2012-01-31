@@ -27,7 +27,7 @@ import org.universAAL.middleware.rdf.Resource;
  * system dialogs. It (1) represents the whole system by providing system menus
  * (a unified view of all services available), possibilities to search for
  * specific services, and by handling context-free user input (user input that
- * cannot be assigned to any running dialog), and (2) assists the I/O buses by
+ * cannot be assigned to any running dialog), and (2) assists the UI bus by
  * (2.1) acting as a representative for the whole framework supporting
  * context-awareness & personalization, and by (2.2) providing user-specific
  * management of dialogs initiated by different applications to protect the user
@@ -48,7 +48,7 @@ public interface DialogManager {
      * @param event
      *            output event published on Output Bus
      * @return the decision if the new output event published on the Output Bus
-     *         can be immediately forwarded to an I/O Handler (returns true) or
+     *         can be immediately forwarded to an UI Handler (returns true) or
      *         must wait for a higher priority dialog to finish (return false).
      *         In case of returning true, the Dialog Manager must also add the
      *         current personal and situational parameters to the output event
@@ -62,7 +62,7 @@ public interface DialogManager {
 
     /**
      * Informs the Dialog Manager that a running dialog has finished according
-     * to the information received from an I/O handler. As a result this may
+     * to the information received from an UI handler. As a result this may
      * result in re-activation of previously suspended dialog (by the Dialog
      * Manager).
      * 
