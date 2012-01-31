@@ -21,6 +21,11 @@ package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 
@@ -34,6 +39,9 @@ public class OntologyManagement {
 
     // maps classURI -> OntClassInfo
     private volatile HashMap ontClassInfoMap = new HashMap();
+    
+    // maps classURI of super class -> ArrayList of URIs of all sub classes
+    private Hashtable namedSubClasses = new Hashtable();
 
     // ArrayList of Ontology
     private volatile ArrayList pendingOntologies = new ArrayList();
@@ -86,6 +94,15 @@ public class OntologyManagement {
 	    // don't add if already existing
 	    if (ontologies.containsKey(ont.getInfo().getURI())) {
 		removePendingOntology(ont);
+		LogUtils
+			.logError(
+				SharedResources.moduleContext,
+				OntologyManagement.class,
+				"register",
+				new Object[] { "The ontology ",
+					ont.getInfo().getURI(),
+					" is already registered; it can not be registered a second time." },
+				null);
 		return false;
 	    }
 
@@ -118,6 +135,23 @@ public class OntologyManagement {
 		}
 		
 		ontClassInfoURIPermissionCheck = null;
+
+		// process namedSuperClasses -> put in namedSubClasses
+		String namedSuperClasses[] = info.getNamedSuperClasses(false,
+			true);
+		for (int j = 0; j < namedSuperClasses.length; j++) {
+		    ArrayList namedSubClassesList = (ArrayList) namedSubClasses
+			    .get(namedSuperClasses[j]);
+
+		    if (namedSubClassesList == null)
+			namedSubClassesList = new ArrayList();
+
+		    if (!namedSubClassesList.contains(info.getURI()))
+			namedSubClassesList.add(info.getURI());
+
+		    namedSubClasses.put(namedSuperClasses[j],
+			    namedSubClassesList);
+		}
 	    }
 
 	    // set temp as new set of ontologies
@@ -129,6 +163,44 @@ public class OntologyManagement {
 	removePendingOntology(ont);
 
 	return true;
+    }
+
+    public Set getNamedSubClasses(String superClassURI,
+	    boolean inherited, boolean includeAbstractClasses) {
+
+	HashSet retval = new HashSet();
+	ArrayList namedSubClassesList = (ArrayList) namedSubClasses
+		.get(superClassURI);
+	
+	if (namedSubClassesList == null)
+	    namedSubClassesList = new ArrayList();
+
+	if (includeAbstractClasses)
+	    retval.addAll(namedSubClassesList);
+	else {
+	    // add only non-abstract sub classes
+	    Iterator it = namedSubClassesList.iterator();
+	    while (it.hasNext()) {
+		String subClassURI = (String) it.next();
+		OntClassInfo info = OntologyManagement.getInstance()
+			.getOntClassInfo(subClassURI);
+		if (info != null)
+		    if (!info.isAbstract())
+			retval.add(subClassURI);
+	    }
+	}
+
+	if (inherited) {
+	    // add child sub classes
+	    Iterator it = namedSubClassesList.iterator();
+	    while (it.hasNext()) {
+		String subClassURI = (String) it.next();
+		retval.addAll(getNamedSubClasses(subClassURI, inherited,
+			includeAbstractClasses));
+	    }
+	}
+
+	return retval;
     }
 
     public void unregister(Ontology ont) {
