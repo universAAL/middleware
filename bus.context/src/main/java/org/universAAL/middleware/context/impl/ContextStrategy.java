@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -31,6 +32,7 @@ import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.ContextSubscriber;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.sodapop.BusStrategy;
 import org.universAAL.middleware.sodapop.SodaPop;
@@ -180,11 +182,28 @@ public class ContextStrategy extends BusStrategy {
 	}
     }
 
-    private Vector getFilterers(ContextEventPattern f) {
+    private String[] getSubClasses(String[] superClasses) {
+	if (superClasses.length == 0)
+	    return null;
+
+	Set s = new HashSet();
+	for (int i = 0; i < superClasses.length; i++) {
+	    Set stemp = OntologyManagement.getInstance().getNamedSubClasses(
+		    superClasses[i], true, false);
+	    if (stemp != null)
+		s.addAll(stemp);
+	    s.add(superClasses[i]);
+	}
+
+	return (String[]) s.toArray(new String[] {});
+    }
+
+  private Vector getFilterers(ContextEventPattern f) {
 	Vector result = new Vector();
 	String[] props = f.getIndices().getProperties();
 	String[] subjects = f.getIndices().getSubjects();
 	String[] subjectTypes = f.getIndices().getSubjectTypes();
+	
 	if (subjects.length == 0)
 	    if (subjectTypes.length == 0)
 		if (props.length == 0)
@@ -192,15 +211,19 @@ public class ContextStrategy extends BusStrategy {
 		else
 		    for (int i = 0; i < props.length; i++)
 			result.add(getFilterers(allSubjectsWithProp, props[i]));
-	    else if (props.length == 0)
-		for (int i = 0; i < subjectTypes.length; i++)
-		    result.add(getFilterers(allPropsOfDomain, subjectTypes[i]));
-	    else
-		for (int i = 0; i < subjectTypes.length; i++)
+	    else if (props.length == 0) {
+		String[] subjectTypesSubClasses = getSubClasses(subjectTypes);
+		for (int i = 0; i < subjectTypesSubClasses.length; i++)
+		    result.add(getFilterers(allPropsOfDomain,
+			    subjectTypesSubClasses[i]));
+	    } else {
+		String[] subjectTypesSubClasses = getSubClasses(subjectTypes);
+		for (int i = 0; i < subjectTypesSubClasses.length; i++)
 		    for (int j = 0; j < props.length; j++)
 			result.add(getFilterers(specificDomainAndProp,
-				subjectTypes[i] + COMPOUND_INDEX_CONNECTOR
-					+ props[j]));
+				subjectTypesSubClasses[i]
+					+ COMPOUND_INDEX_CONNECTOR + props[j]));
+	    }
 	else if (props.length == 0)
 	    for (int i = 0; i < subjects.length; i++)
 		result.add(getFilterers(allPropsOfSubject, subjects[i]));
