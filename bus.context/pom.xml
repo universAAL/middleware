@@ -26,6 +26,11 @@
 			<name>universAAL Snapshot Repositories</name>
 			<url>http://depot.universaal.org/maven-repo/snapshots/</url>
 		</pluginRepository>
+		<pluginRepository>
+			<id>uaal</id>
+			<name>universAAL Repositories</name>
+			<url>http://depot.universaal.org/maven-repo/releases/</url>
+		</pluginRepository>
 	</pluginRepositories>
 
 	<dependencies>
