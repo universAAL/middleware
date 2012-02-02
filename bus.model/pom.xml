@@ -2,11 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.pom</artifactId>
-		<version>1.0.0</version>
-	</parent>
+	<groupId>org.universAAL.middleware</groupId>
 	<packaging>bundle</packaging>
 	<artifactId>mw.bus.model</artifactId>
 	<version>1.0.0</version>
@@ -20,12 +16,6 @@
 			org.osgi.core (groupId:org.apache.felix). The easiest approach is to
 			just put the dependency to itests as the first one.
 		-->	
-		<dependency>
-			<groupId>org.universAAL.support</groupId>
-			<artifactId>itests</artifactId>
-			<version>0.1.1-SNAPSHOT</version>
-			<scope>test</scope>
-		</dependency>
 			
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
@@ -35,6 +25,7 @@
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
