@@ -5,21 +5,14 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom</artifactId>
-		<version>1.0.1</version>
-		<relativePath>../pom/pom.xml</relativePath>
+		<version>1.0.0</version>
 	</parent>
 	<packaging>bundle</packaging>
 	<artifactId>mw.bus.model</artifactId>
-	<version>0.3.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Soda-Pop as OSGi Bundle</name>
 	<description>A Soda-Pop implementation as an OSGi bundle based on the ACL</description>
 	<url />
-
-	<scm>
-		<connection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/acl.r-osgi</connection> 
-		<developerConnection>scm:svn:http://forge.universaal.org/svn/middleware/trunk/acl.r-osgi</developerConnection>
-		<url>http://forge.universaal.org/gf/project/middleware/scmsvn/?path=%2Ftrunk%2Facl.r-osgi</url>
-	</scm>
 
 	<dependencies>
 		<!--
@@ -37,7 +30,7 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.acl.interfaces</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
@@ -57,12 +50,12 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.xfaces</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.osgi</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 
