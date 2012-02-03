@@ -37,7 +37,7 @@ acl.upnp/src/test/resources/log4j.properties -text
 bus.context/LICENSE.txt -text
 bus.context/NOTICE.txt -text
 bus.context/artifact-0.3.1.composite -text
-bus.context/artifact.composite -text
+bus.context/artifact_OLD.composite -text
 bus.context/composite-0.3.1/mw.bus.context-0.3.1-SNAPSHOT.jar -text
 bus.context/composite-0.3.1/mw.bus.context-0.3.1-SNAPSHOT.pom -text
 bus.context/pom.xml -text
