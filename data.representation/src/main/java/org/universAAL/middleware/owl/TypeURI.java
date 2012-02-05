@@ -119,7 +119,7 @@ public class TypeURI extends ClassExpression {
     public Object[] getUpperEnumeration() {
 	OntClassInfo info = OntologyManagement.getInstance().getOntClassInfo(
 		getURI());
-	ManagedIndividual[] answer = info == null ? null : info.getInstances();
+	Resource[] answer = info == null ? null : info.getInstances();
 	return (answer == null) ? new Object[0] : answer;
     }
 

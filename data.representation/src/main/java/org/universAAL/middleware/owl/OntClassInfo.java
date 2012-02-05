@@ -22,15 +22,15 @@ package org.universAAL.middleware.owl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 
 import org.universAAL.middleware.rdf.Property;
+import org.universAAL.middleware.rdf.RDFClassInfo;
+import org.universAAL.middleware.rdf.RDFClassInfoSetup;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
-import org.universAAL.middleware.rdf.ResourceRegistry;
 
-public final class OntClassInfo extends Resource implements Cloneable {
+public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 
     public static final String MY_URI = ManagedIndividual.OWL_NAMESPACE
 	    + "Class";
@@ -45,42 +45,26 @@ public final class OntClassInfo extends Resource implements Cloneable {
     
     private HashMap properties = new HashMap();
 
-    // set of URIs
-    private volatile HashSet namedSuperClasses = new HashSet();
-
-    /**
-     * repository of all known (non-anonymous) instances.
-     */
-    private HashMap instances = new HashMap();
-
-    // The combined list of all superclasses as set in the RDF graph (contains
-    // named super classes and restrictions)
-    private volatile ArrayList combinedSuperClasses = new ArrayList();
-
     // Members of all the following arrays are instances of {@link
     // ClassExpression}.
-    private ArrayList superClasses = new ArrayList();
     private ArrayList equivalentClasses = new ArrayList();
     private ArrayList disjointClasses = new ArrayList();
     private ClassExpression complementClass = null;
     private boolean isEnumeration = false; // weg??
-    private Object password = new Object();
-    private ResourceFactory factory;
-    private Ontology ont;
 
-    private boolean locked = false;
 
-    private PrivateSetup setup = null;
+    private PrivateOntSetup setup = null;
     
     private String propertyURIPermissionCheck;
 
     // list of OntClassInfo
     private ArrayList extenders = new ArrayList();
 
-    private class PrivateSetup implements OntClassInfoSetup {
+    private class PrivateOntSetup extends PrivateRDFSetup implements OntClassInfoSetup {
 	OntClassInfo info;
 
-	public PrivateSetup(OntClassInfo info) {
+	public PrivateOntSetup(OntClassInfo info) {
+	    super(info);
 	    this.info = info;
 	}
 
@@ -93,16 +77,6 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	    prop.setDomain(new TypeURI(getURI(), false));
 	    properties.put(propURI, prop.getProperty());
 	    return prop;
-//	    DataTypeProperty prop = ResourceRegistry.getInstance()
-//		    .createDataTypeProperty(password, propURI);
-//	    if (prop == null)
-//		return null;
-//
-//	    try {
-//		prop.setFunctional(password, isFunctional);
-//	    } catch (Exception e) {
-//	    }
-//	    return prop;
 	}
 
 	public ObjectPropertySetup addObjectProperty(String propURI) {
@@ -114,24 +88,6 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	    prop.setDomain(new TypeURI(getURI(), false));
 	    properties.put(propURI, prop.getProperty());
 	    return prop;
-//	    ObjectProperty prop = ResourceRegistry.getInstance()
-//		    .createObjectProperty(password, propURI);
-//	    if (prop == null)
-//		return null;
-//
-//	    try {
-//		prop.setFunctional(password, isFunctional);
-//		prop.setSymmetric(password, isSymmetric);
-//		prop.setTransitive(password, isTransitive);
-//		prop.setInverseFunctional(password, isInverseFunctional);
-//	    } catch (Exception e) {
-//	    }
-//	    return prop;
-	}
-
-	public void addInstance(ManagedIndividual instance) {
-	    // TODO Auto-generated method stub
-
 	}
 
 	public void addRestriction(MergedRestriction r) {
@@ -163,77 +119,22 @@ public final class OntClassInfo extends Resource implements Cloneable {
 			.unmodifiableList(combinedSuperClasses));
 	}
 
-	public void addSuperClass(ClassExpression superClass) {
-	    if (locked)
-		return;
-	    if (superClass != null) {
-		superClasses.add(superClass);
-		// if (superClass instanceof Restriction) {
-		// // TODO: will we have subclasses of Restriction? If yes,
-		// how
-		// to
-		// // handle subclasses?
-		// String propURI = ((Restriction)
-		// superClass).getOnProperty();
-		// MergedRestriction existing = (MergedRestriction)
-		// propRestriction
-		// .get(propURI);
-		// if (existing == null) {
-		// existing = new MergedRestriction((Restriction)
-		// superClass);
-		// propRestriction.put(propURI, existing);
-		// } else
-		// existing.addRestriction((Restriction) superClass);
+	public void addInstance(ManagedIndividual instance)
+		throws UnsupportedOperationException {
+	    if (isEnumeration)
+		throw new UnsupportedOperationException(
+			"Not allowed to add new instances to an enumeration class (class: " + getURI() + ")!");
 
-		// currently, only one Restriction possible!
-		// propRestriction.put(((Restriction) superClass)
-		// .getOnProperty(), superClass);
-		// }
-		// TODO: should we inherit all properties from superclasses
-	    }
-	}
-
-	public void addSuperClass(String namedSuperClass) {
-	    if (locked)
-		return;
-	    if (namedSuperClass == null)
-		return;
-	    
-	    // add to local variable
-	    HashSet tmp = new HashSet(namedSuperClasses);
-	    tmp.add(namedSuperClass);
-	    namedSuperClasses = tmp;
-
-	    // add to RDF graph
-	    ArrayList al = new ArrayList(combinedSuperClasses);
-	    al.add(new Resource(namedSuperClass));
-	    combinedSuperClasses = al;
-	    setProperty(ClassExpression.PROP_RDFS_SUB_CLASS_OF, Collections
-			.unmodifiableList(combinedSuperClasses));
+	    if (instance != null && uri.equals(instance.getClassURI()))
+		super.addInstance(instance);
 	}
 
 	public void toEnumeration(ManagedIndividual[] individuals) {
 	    if (locked)
 		return;
 	    for (int i = 0; i < individuals.length; i++)
-		addInstance(individuals[i]);
+		super.addInstance(individuals[i]);
 	    isEnumeration = true;
-	}
-
-	public OntClassInfo getInfo() {
-	    return info;
-	}
-
-	public void setResourceComment(String comment) {
-	    if (locked)
-		return;
-	    info.setResourceComment(comment);
-	}
-
-	public void setResourceLabel(String label) {
-	    if (locked)
-		return;
-	    info.setResourceLabel(label);
 	}
 
 	public void addEquivalentClass(ClassExpression eq) {
@@ -244,38 +145,29 @@ public final class OntClassInfo extends Resource implements Cloneable {
 
 	public void addDisjointClass(ClassExpression dj) {
 	    // TODO Auto-generated method stub
-	    
 	}
 
 	public void setComplementClass(ClassExpression complement) {
 	    // TODO Auto-generated method stub
-	    
 	}
     }
 
     private OntClassInfo(String classURI, Ontology ont,
 	    ResourceFactory factory, int factoryIndex) {
-	super(classURI);
-	if (classURI == null || isAnonymousURI(classURI))
-	    throw new NullPointerException(
-		    "The class URI must be not null and not anonymous.");
+	super(classURI, ont, factory, factoryIndex);
+
+	setup = new PrivateOntSetup(this);
+	super.rdfsetup = setup;
+	props.put(Resource.PROP_RDF_TYPE, ClassExpression.OWL_CLASS);
+    }
+
+    public static RDFClassInfoSetup create(String classURI, Ontology ont,
+	    ResourceFactory factory, int factoryIndex) {
 	if (ont == null)
 	    throw new NullPointerException("The ontology must be not null.");
 	if (!ont.checkPermission(classURI))
 	    throw new IllegalAccessError(
 		    "The given class URI is not defined in the context of the given ontology.");
-
-	// Resource.addResourceClass(classURI, clz);
-	ResourceRegistry.getInstance().registerResourceFactory(classURI,
-		factory, factoryIndex);
-	this.factory = factory;
-	this.ont = ont;
-	setup = new PrivateSetup(this);
-	addType(ClassExpression.OWL_CLASS, true);
-    }
-
-    public static OntClassInfoSetup create(String classURI, Ontology ont,
-	    ResourceFactory factory, int factoryIndex) {
 	OntClassInfo info = new OntClassInfo(classURI, ont, factory,
 		factoryIndex);
 	return info.setup;
@@ -288,88 +180,6 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	return uri.equals(propertyURIPermissionCheck);
     }
 
-    public String[] getNamedSuperClasses(boolean inherited,
-	    boolean includeAbstractClasses) {
-
-	ArrayList al = new ArrayList();
-
-	if (includeAbstractClasses)
-	    al.addAll(namedSuperClasses);
-	else {
-	    // add only non-abstract super classes
-	    Iterator it = namedSuperClasses.iterator();
-	    while (it.hasNext()) {
-		String superClassURI = (String) it.next();
-		OntClassInfo info = OntologyManagement.getInstance()
-			.getOntClassInfo(superClassURI);
-		if (info != null)
-		    if (!info.isAbstract())
-			al.add(superClassURI);
-	    }
-	}
-
-	if (inherited) {
-	    // add parent super classes
-	    Iterator it = namedSuperClasses.iterator();
-	    while (it.hasNext()) {
-		String superClassURI = (String) it.next();
-		OntClassInfo info = OntologyManagement.getInstance()
-			.getOntClassInfo(superClassURI);
-		if (info != null) {
-		    String[] res = info.getNamedSuperClasses(inherited,
-			    includeAbstractClasses);
-		    for (int i = 0; i < res.length; i++)
-			al.add(res[i]);
-		}
-	    }
-	}
-
-	return (String[]) al.toArray(new String[al.size()]);
-    }
-
-    public boolean isAbstract() {
-	return factory == null;
-    }
-
-    public boolean hasSuperClass(String classURI, boolean inherited) {
-	if (namedSuperClasses.contains(classURI))
-	    return true;
-	if (!inherited)
-	    return false;
-
-	Iterator it = namedSuperClasses.iterator();
-	while (it.hasNext()) {
-	    String superClassURI = (String) it.next();
-	    OntClassInfo superInfo = OntologyManagement.getInstance()
-		    .getOntClassInfo(superClassURI);
-	    if (superInfo != null)
-		if (superInfo.hasSuperClass(superClassURI, inherited))
-		    return true;
-	}
-	return false;
-    }
-
-    public void addInstance(ManagedIndividual instance)
-	    throws UnsupportedOperationException {
-	if (isEnumeration)
-	    throw new UnsupportedOperationException(
-		    "Not allowed to add new instances to an enumeration class!");
-	// TODO: what about repeated insert of the "same" instance?
-	if (instance != null && !instance.isAnon() && // instance.isDirectInstanceOf(instance.getURI()))
-		// {
-		uri.equals(instance.getClassURI())) {
-	    instances.put(instance.getURI(), instance);
-	    ResourceRegistry.getInstance().registerNamedResource(instance);
-	    // Resource.addSpecialResource(instance);
-	    // addToSuperClasses(instance); //TODO??
-	}
-    }
-
-    // private void addToSuperClasses(ManagedIndividual instance)
-    // throws UnsupportedOperationException {
-    // // TODO: add recursively for elements in superClasses that are of type
-    // // TypeURI
-    // }
 
     // getStandardPropertyURIs()...
     public String[] getDeclaredProperties() {
@@ -402,26 +212,8 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	return null;
     }
 
-    public ClassExpression[] getSuperClasses() {
-	return (ClassExpression[]) superClasses
-		.toArray(new ClassExpression[superClasses.size()]);
-    }
-
     public boolean isEnumeration() {
 	return isEnumeration;
-    }
-
-    public ManagedIndividual[] getInstances() {
-	return (ManagedIndividual[]) instances.values().toArray(
-		new ManagedIndividual[instances.size()]);
-    }
-
-    public ManagedIndividual getInstanceByURI(String uri) {
-	return (ManagedIndividual) instances.get(uri);
-    }
-
-    public void lock() {
-	locked = true;
     }
 
     /** Internal method. */
@@ -496,30 +288,26 @@ public final class OntClassInfo extends Resource implements Cloneable {
 	if (!OntologyManagement.getInstance().checkPermission(getURI()))
 	    throw new IllegalAccessError(
 		    "The given class is not defined in the context of the given ontology.");
-	try {
+	//try {
 	    extenders.add(this);
 	    
-	    OntClassInfo cl = (OntClassInfo) super.clone();
-	    cl.setup = new PrivateSetup(cl);
+	    OntClassInfo cl = new OntClassInfo(getURI(), ont, factory, factoryIndex); //(OntClassInfo) super.clone();
+	    //cl.setup = new PrivateOntSetup(cl);
+	    //cl.rdfsetup = cl.setup;
+	    //cl.isEnumeration = false;
 	    copyTo(cl);
 	    cl.extenders = extenders;
 	    return cl;
-	} catch (CloneNotSupportedException e) {
+/*	} catch (CloneNotSupportedException e) {
 	    // this shouldn't happen, since we are Cloneable
 	    throw new InternalError("Error while cloning OntClassInfo");
 	}
-    }
+*/    }
     
     
     public void setProperty(String propURI, Object value) {
 	if (locked)
 	    return;
 	super.setProperty(propURI, value);
-    }
-    
-    public boolean isClosedCollection(String propURI) {
-	if (ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI))
-	    return false;
-	return super.isClosedCollection(propURI);
     }
 }

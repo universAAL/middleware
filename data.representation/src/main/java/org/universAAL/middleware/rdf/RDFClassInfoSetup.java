@@ -17,25 +17,21 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.middleware.owl;
+package org.universAAL.middleware.rdf;
 
-import org.universAAL.middleware.rdf.RDFClassInfoSetup;
+import org.universAAL.middleware.owl.ClassExpression;
 
-public interface OntClassInfoSetup extends RDFClassInfoSetup {
+public interface RDFClassInfoSetup {
 
-    public void addRestriction(MergedRestriction r);
+    public void addSuperClass(ClassExpression superClass);
 
-    public ObjectPropertySetup addObjectProperty(String propURI);
+    public void addSuperClass(String namedSuperClass);
 
-    public DatatypePropertySetup addDatatypeProperty(String propURI);
+    public void addInstance(Resource instance);
 
-    public void addInstance(ManagedIndividual instance);
+    public RDFClassInfo getInfo();
 
-    public void toEnumeration(ManagedIndividual[] individuals);
+    public void setResourceComment(String comment);
 
-    public void addEquivalentClass(ClassExpression eq);
-
-    public void addDisjointClass(ClassExpression dj);
-
-    public void setComplementClass(ClassExpression complement);
+    public void setResourceLabel(String label);
 }
