@@ -63,7 +63,10 @@ public class Resource {
 
     /** URI for RDF labels. */
     public static final String PROP_RDFS_LABEL = RDFS_NAMESPACE + "label";
-
+    
+    /** URI for RDFS class. */
+    public static final String TYPE_RDFS_CLASS = RDFS_NAMESPACE + "class";
+    
     /** URI for RDF lists. */
     public static final String TYPE_RDF_LIST = RDF_NAMESPACE + "List";
 

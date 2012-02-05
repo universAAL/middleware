@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.universAAL.middleware.rdf.Property;
+import org.universAAL.middleware.rdf.RDFClassInfo;
+import org.universAAL.middleware.rdf.RDFClassInfoSetup;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.container.utils.StringUtils;
@@ -39,10 +41,13 @@ public abstract class Ontology {
     // array of String: URIs of Ontologies
     private volatile ArrayList imports = new ArrayList();
     
+    // classURI -> RDFClassInfo
+    private volatile HashMap rdfClassInfoMap = new HashMap();
+    
     // classURI -> OntClassInfo
     private volatile HashMap ontClassInfoMap = new HashMap();
     
-    // classURI -> OntClassInfo
+    // classURI -> Gefährliche Nachbarn
     private volatile HashMap extendedOntClassInfoMap = new HashMap();
     
     private Resource info;
@@ -118,7 +123,6 @@ public abstract class Ontology {
 	return uri.equals(ontClassInfoURIPermissionCheck);
     }
     
-    
     public boolean hasOntClass(String classURI) {
 	if (ontClassInfoMap.containsKey(classURI))
 	    return true;
@@ -132,6 +136,27 @@ public abstract class Ontology {
 	}
     }
 
+    protected RDFClassInfoSetup createNewRDFClassInfo(String classURI, ResourceFactory fac, int factoryIndex) {
+	if (locked)
+	    return null;
+	
+	RDFClassInfoSetup setup = null;
+	synchronized (ontClassInfoURIPermissionCheckSync) {
+	    ontClassInfoURIPermissionCheck = classURI;
+	    setup = (RDFClassInfoSetup) RDFClassInfo.create(classURI, this, fac, factoryIndex);
+	    ontClassInfoURIPermissionCheck = null;
+	}
+	RDFClassInfo info = setup.getInfo();
+
+	HashMap temp = new HashMap();
+	synchronized (rdfClassInfoMap) {
+	    temp.putAll(rdfClassInfoMap);
+	    temp.put(classURI, info);
+	    rdfClassInfoMap = temp;
+	}
+	return setup;
+    }
+    
     protected OntClassInfoSetup createNewAbstractOntClassInfo(String classURI) {
 	return createNewOntClassInfo(classURI, null, -1);
     }
@@ -146,7 +171,7 @@ public abstract class Ontology {
 	if (locked)
 	    return null;
 	OntClassInfoSetup setup = newOntClassInfo(classURI, fac, factoryIndex);
-	OntClassInfo info = setup.getInfo();
+	RDFClassInfo info = setup.getInfo();
 
 	HashMap temp = new HashMap();
 	synchronized (ontClassInfoMap) {
@@ -161,7 +186,7 @@ public abstract class Ontology {
 	if (locked)
 	    return null;
 	OntClassInfoSetup setup = newOntClassInfo(classURI, null, 0);
-	OntClassInfo info = setup.getInfo();
+	RDFClassInfo info = setup.getInfo();
 
 	HashMap temp = new HashMap();
 	synchronized (extendedOntClassInfoMap) {
@@ -179,7 +204,7 @@ public abstract class Ontology {
 	OntClassInfoSetup setup = null;
 	synchronized (ontClassInfoURIPermissionCheckSync) {
 	    ontClassInfoURIPermissionCheck = classURI;
-	    setup = OntClassInfo.create(classURI, this, fac, factoryIndex);
+	    setup = (OntClassInfoSetup) OntClassInfo.create(classURI, this, fac, factoryIndex);
 	    ontClassInfoURIPermissionCheck = null;
 	}
 	return setup;
@@ -198,18 +223,6 @@ public abstract class Ontology {
 	}
 	
 	return (Resource[]) list.toArray(new Resource[1]);
-	
-	
-	//Property[] properties = getProperties();
-	
-//	HashMap map = ontClassInfoMap;
-//	Resource[] lst = new Resource[1+map.size()];
-//	lst[0] = info;
-//	Iterator it = map.values().iterator();
-//	int i = 1;
-//	while (it.hasNext())
-//	    lst[i++] = (Resource) it.next();
-//	return lst;
     }
     
     public void lock() {
@@ -226,6 +239,11 @@ public abstract class Ontology {
 	    Iterator it = extendedOntClassInfoMap.keySet().iterator();
 	    while (it.hasNext())
 		((OntClassInfo) extendedOntClassInfoMap.get(it.next())).lock();
+	}
+	synchronized (rdfClassInfoMap) {
+	    Iterator it = rdfClassInfoMap.keySet().iterator();
+	    while (it.hasNext())
+		((RDFClassInfo) rdfClassInfoMap.get(it.next())).lock();
 	}
 	
 	// TODO: lock/immutable info
