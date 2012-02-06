@@ -291,11 +291,8 @@ data.representation/artifact-0.3.1.composite -text
 data.representation/artifact.composite -text
 data.representation/composite-0.3.1/mw.data.representation-0.3.1-SNAPSHOT.jar -text
 data.representation/composite-0.3.1/mw.data.representation-0.3.1-SNAPSHOT.pom -text
-data.representation/documentation/mw.data.representation[!!-~]dependencies[!!-~]19.4.2011.png -text
-data.representation/documentation/mw.owl[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
-data.representation/documentation/mw.owl.supply[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
-data.representation/documentation/mw.rdf[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
-data.representation/documentation/mw.util[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
+data.representation/documentation/dataRep[!!-~]class[!!-~]diagram.PNG -text
+data.representation/documentation/dataRep[!!-~]class[!!-~]diagram.ucls -text
 data.representation/mw.data.representation[!!-~]dependencies[!!-~]18.4.2011.jpg -text
 data.representation/pom.xml -text
 data.representation/src/main/java/org/universAAL/middleware/datarep/DataRepFactory.java -text
