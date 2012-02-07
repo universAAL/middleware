@@ -122,7 +122,7 @@ public class ContextProvider extends ManagedIndividual {
 	ContextProviderType type = getProviderType();
 	return type != null
 		&& props.containsKey(PROP_CONTEXT_PROVIDED_EVENTS)
-		&& (type != ContextProviderType.controller || props
+		&& (type == ContextProviderType.reasoner || props
 			.containsKey(PROP_CONTEXT_SOURCE));
     }
 
