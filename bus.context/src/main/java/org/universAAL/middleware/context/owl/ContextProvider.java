@@ -63,7 +63,6 @@ public class ContextProvider extends ManagedIndividual {
 	PROP_CONTEXT_SOURCE = ContextEvent.uAAL_CONTEXT_NAMESPACE + "hasSource";
     }
 
-    
     public ContextProvider() {
 	super();
     }
@@ -120,7 +119,11 @@ public class ContextProvider extends ManagedIndividual {
      * @see ManagedIndividual#isWellFormed()
      */
     public boolean isWellFormed() {
-	return true;
+	ContextProviderType type = getProviderType();
+	return type != null
+		&& props.containsKey(PROP_CONTEXT_PROVIDED_EVENTS)
+		&& (type != ContextProviderType.controller || props
+			.containsKey(PROP_CONTEXT_SOURCE));
     }
 
     /**
@@ -147,12 +150,37 @@ public class ContextProvider extends ManagedIndividual {
      *      java.lang.Object)
      */
     public void setProperty(String propURI, Object value) {
-	if (PROP_CONTEXT_SOURCE.equals(propURI)
-		&& value instanceof ManagedIndividual[])
-	    setContextSources((ManagedIndividual[]) value);
-	else if (PROP_CONTEXT_PROVIDER_TYPE.equals(propURI)
+	if (PROP_CONTEXT_SOURCE.equals(propURI)) {
+	    if (value instanceof ManagedIndividual[])
+		setContextSources((ManagedIndividual[]) value);
+	    else if (value instanceof ManagedIndividual) {
+		List l = new ArrayList(1);
+		l.add(value);
+		props.put(PROP_CONTEXT_SOURCE, l);
+	    } else if (value instanceof List) {
+		for (int i = 0; i < ((List) value).size(); i++)
+		    if (!(((List) value).get(i) instanceof ManagedIndividual))
+			return;
+		props.put(PROP_CONTEXT_SOURCE, (List) value);
+	    }
+	} else if (PROP_CONTEXT_PROVIDER_TYPE.equals(propURI)
 		&& value instanceof ContextProviderType)
 	    setType((ContextProviderType) value);
+	else if (PROP_CONTEXT_PROVIDED_EVENTS.equals(propURI)) {
+	    if (value instanceof ContextEventPattern[])
+		setProvidedEvents((ContextEventPattern[]) value);
+	    else if (value instanceof ContextEventPattern) {
+		List l = new ArrayList(1);
+		l.add(value);
+		props.put(PROP_CONTEXT_PROVIDED_EVENTS, l);
+	    } else if (value instanceof List) {
+		for (int i = 0; i < ((List) value).size(); i++)
+		    if (!(((List) value).get(i) instanceof ContextEventPattern))
+			return;
+		props.put(PROP_CONTEXT_PROVIDED_EVENTS, (List) value);
+	    }
+	} else
+	    super.setProperty(propURI, value);
     }
 
     /**

@@ -60,6 +60,9 @@ public abstract class ContextPublisher implements Publisher {
      */
     protected ContextPublisher(ModuleContext context,
 	    ContextProvider providerInfo) {
+	if (providerInfo == null || !providerInfo.isWellFormed())
+	    throw new IllegalArgumentException(
+		    "Missing the well-formed provider info!");
 	bus = (ContextBus) context.getContainer().fetchSharedObject(context,
 		ContextBusImpl.busFetchParams);
 	this.providerInfo = providerInfo;
