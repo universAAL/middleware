@@ -36,6 +36,7 @@ import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.owl.AbstractRestriction;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
@@ -1137,25 +1138,24 @@ public class TurtleParser implements MessageContentSerializer {
 	    return r;
 	} else {
 	    String uri = r.getURI();
-	    String type = ManagedIndividual.getMostSpecializedClass(types);
+	    String type = OntologyManagement.getInstance()
+		    .getMostSpecializedClass(types);
 	    if (type == null) {
 		type = types[0];
-		substitution = Resource.getResource(type, uri);
-		if (substitution == null) {
-		    substitution = ClassExpression.getClassExpressionInstance(
-			    type, uri);
-		    if (substitution == null
-			    && (ClassExpression.OWL_CLASS.equals(type) || AbstractRestriction.MY_URI
-				    .equals(type))) {
-			substitution = getClassExpression(r, uri);
-			if (substitution == null)
-			    // postpone the specialization until all props are
-			    // set
-			    return r;
-		    }
+		substitution = ClassExpression.getClassExpressionInstance(type,
+			uri);
+		if (substitution == null
+			&& (ClassExpression.OWL_CLASS.equals(type) || AbstractRestriction.MY_URI
+				.equals(type))) {
+		    substitution = getClassExpression(r, uri);
+		    if (substitution == null)
+			// postpone the specialization until all props are
+			// set
+			return r;
 		}
 	    } else
-		substitution = ManagedIndividual.getInstance(type, uri);
+		substitution = OntologyManagement.getInstance().getResource(
+			type, uri);
 	    if (substitution == null) {
 		LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
 			"specialize", new Object[] {
