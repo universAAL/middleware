@@ -63,7 +63,6 @@ public class ServiceResponse extends Resource {
     public static final String PROP_SERVICE_SPECIFIC_ERROR = uAAL_VOCABULARY_NAMESPACE
 	    + "errorDescription";
 
-
     /**
      * Default constructor for the class. Only sets the class URI of the
      * <code>Resource</code> to <code>MY_URI</code>.

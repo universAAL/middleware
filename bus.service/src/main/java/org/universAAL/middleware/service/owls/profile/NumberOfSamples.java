@@ -16,55 +16,60 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.service.owls.profile;
 
 /**
- * The superclass for profile parameters that deal with counting in statistical calculations,
- * hence the restriction for the property 'sParameter' is not supported by this class but 
- * 'valueData' will be mandatory accepting a single 'xsd:nonNegativeInteger'. For the sake of
- * well-formedness, serialization type of properties and setting property values, it relies on
- * the default implementations provided by the superclasses.
+ * The superclass for profile parameters that deal with counting in statistical
+ * calculations, hence the restriction for the property 'sParameter' is not
+ * supported by this class but 'valueData' will be mandatory accepting a single
+ * 'xsd:nonNegativeInteger'. For the sake of well-formedness, serialization type
+ * of properties and setting property values, it relies on the default
+ * implementations provided by the superclasses.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  */
 public class NumberOfSamples extends ProfileParameter {
-	public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "NumberOfSamples";
+    public static final String MY_URI = uAAL_SERVICE_NAMESPACE
+	    + "NumberOfSamples";
 
-	public NumberOfSamples(int value) {
-		super();
-		addType(MY_URI, true);
-		if (value > -1)
-			props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
-	}
+    public NumberOfSamples(int value) {
+	super();
+	addType(MY_URI, true);
+	if (value > -1)
+	    props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
+    }
 
-	public NumberOfSamples(String uri, int value) {
-		super(uri);
-		addType(MY_URI, true);
-		if (value > -1)
-			props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
-	}
-	
-	/**
-	 * Returns the number of samples and -1 if an error occurs. 
-	 * @return number of samples
-	 */
-	public int getNumberOfSamples() {
-		Object o = props.get(PROP_uAAL_PARAMETER_VALUE_DATA);
-		return (o instanceof Integer)? ((Integer) o).intValue() : -1;
-	}
-	
-	/**
-	 * This method sets the property of <propURI> with <value>.
-	 */
-	public void setProperty(String propURI, Object value) {
-		if (propURI != null  &&  value != null  && !props.containsKey(propURI))
-			if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
-				if (value instanceof String)
-					props.put(propURI, value);
-			} else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
-				if (value instanceof Integer  &&  ((Integer) value).intValue() > -1)
-					props.put(propURI, value);
-			}
-	}
+    public NumberOfSamples(String uri, int value) {
+	super(uri);
+	addType(MY_URI, true);
+	if (value > -1)
+	    props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
+    }
+
+    /**
+     * Returns the number of samples and -1 if an error occurs.
+     * 
+     * @return number of samples
+     */
+    public int getNumberOfSamples() {
+	Object o = props.get(PROP_uAAL_PARAMETER_VALUE_DATA);
+	return (o instanceof Integer) ? ((Integer) o).intValue() : -1;
+    }
+
+    /**
+     * This method sets the property of <propURI> with <value>.
+     */
+    public void setProperty(String propURI, Object value) {
+	if (propURI != null && value != null && !props.containsKey(propURI))
+	    if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
+		if (value instanceof String)
+		    props.put(propURI, value);
+	    } else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
+		if (value instanceof Integer
+			&& ((Integer) value).intValue() > -1)
+		    props.put(propURI, value);
+	    }
+    }
 }

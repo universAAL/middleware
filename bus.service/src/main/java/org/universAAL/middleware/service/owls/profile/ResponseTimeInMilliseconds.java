@@ -16,52 +16,57 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.service.owls.profile;
 
 /**
- * The superclass for profile parameters that deal with response time measured in milliseconds,
- * hence the restriction for the property 'sParameter' is not supported by this class but 
- * 'valueData' will be mandatory accepting a single 'xsd:positiveInteger'. For the sake of
- * well-formedness, serialization type of properties and setting property values, it relies on
- * the default implementations provided by the superclasses.
+ * The superclass for profile parameters that deal with response time measured
+ * in milliseconds, hence the restriction for the property 'sParameter' is not
+ * supported by this class but 'valueData' will be mandatory accepting a single
+ * 'xsd:positiveInteger'. For the sake of well-formedness, serialization type of
+ * properties and setting property values, it relies on the default
+ * implementations provided by the superclasses.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  */
 public class ResponseTimeInMilliseconds extends ProfileParameter {
-	public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "ResponseTimeInMilliseconds";
+    public static final String MY_URI = uAAL_SERVICE_NAMESPACE
+	    + "ResponseTimeInMilliseconds";
 
-	public ResponseTimeInMilliseconds(int value) {
-		super();
-		addType(MY_URI, true);
-		if (value > 0)
-			props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
-	}
+    public ResponseTimeInMilliseconds(int value) {
+	super();
+	addType(MY_URI, true);
+	if (value > 0)
+	    props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
+    }
 
-	public ResponseTimeInMilliseconds(String uri, int value) {
-		super(uri);
-		addType(MY_URI, true);
-		if (value > 0)
-			props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
-	}
-	
-	/**
-	 * Returns the response time in milliseconds or -1 if an error occurs.
-	 * @return number of milliseconds
-	 */
-	public int getNumberOfMilliseconds() {
-		Object o = props.get(PROP_uAAL_PARAMETER_VALUE_DATA);
-		return (o instanceof Integer)? ((Integer) o).intValue() : -1;
-	}
-	
-	public void setProperty(String propURI, Object value) {
-		if (propURI != null  &&  value != null  && !props.containsKey(propURI))
-			if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
-				if (value instanceof String)
-					props.put(propURI, value);
-			} else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
-				if (value instanceof Integer  &&  ((Integer) value).intValue() > 0)
-					props.put(propURI, value);
-			}
-	}
+    public ResponseTimeInMilliseconds(String uri, int value) {
+	super(uri);
+	addType(MY_URI, true);
+	if (value > 0)
+	    props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
+    }
+
+    /**
+     * Returns the response time in milliseconds or -1 if an error occurs.
+     * 
+     * @return number of milliseconds
+     */
+    public int getNumberOfMilliseconds() {
+	Object o = props.get(PROP_uAAL_PARAMETER_VALUE_DATA);
+	return (o instanceof Integer) ? ((Integer) o).intValue() : -1;
+    }
+
+    public void setProperty(String propURI, Object value) {
+	if (propURI != null && value != null && !props.containsKey(propURI))
+	    if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
+		if (value instanceof String)
+		    props.put(propURI, value);
+	    } else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
+		if (value instanceof Integer
+			&& ((Integer) value).intValue() > 0)
+		    props.put(propURI, value);
+	    }
+    }
 }

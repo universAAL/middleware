@@ -16,35 +16,42 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 package org.universAAL.middleware.service;
 
-
 /**
- * This interface is implemented whether components that would like to be notified whenever a 
- * new service realization is registered or deregistered. 
- * An availability notification answers whether if realization of a service is available
- *
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * This interface is implemented whether components that would like to be
+ * notified whenever a new service realization is registered or deregistered. An
+ * availability notification answers whether if realization of a service is
+ * available
+ * 
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * 
  */
 public interface AvailabilitySubscriber {
 
-/**
- * Whenever a service is registered we need to pass two parameteres for mapping
- * the notification to a specific subscription.
- * @param requestURI the URI of the original ServiceRequest object
- * @param realizationID a unique ID for each matched offer because
- * of possible multiple matches to a certain request
- */
-	public void serviceRegistered(String requestURI, String realizationID);
-	
-/**
- * Whenever a service is deregistered we need to pass two parameteres for mapping
- * the notification to a specific subscription.
- * @param requestURI the URI of the original ServiceRequest object
- * @param realizationID a unique ID for each matched offer because
- * of possible multiple matches to a certain request
- */
-	public void serviceUnregistered(String requestURI, String realizationID);
+    /**
+     * Whenever a service is registered we need to pass two parameteres for
+     * mapping the notification to a specific subscription.
+     * 
+     * @param requestURI
+     *            the URI of the original ServiceRequest object
+     * @param realizationID
+     *            a unique ID for each matched offer because of possible
+     *            multiple matches to a certain request
+     */
+    public void serviceRegistered(String requestURI, String realizationID);
+
+    /**
+     * Whenever a service is deregistered we need to pass two parameteres for
+     * mapping the notification to a specific subscription.
+     * 
+     * @param requestURI
+     *            the URI of the original ServiceRequest object
+     * @param realizationID
+     *            a unique ID for each matched offer because of possible
+     *            multiple matches to a certain request
+     */
+    public void serviceUnregistered(String requestURI, String realizationID);
 }
