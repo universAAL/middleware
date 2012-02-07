@@ -586,7 +586,7 @@ public class MergedRestriction extends Intersection {
 		return root;
 	    }
 	if (root == null) {
-	    root = new MergedRestriction(this.getOnProperty());
+	    root = new MergedRestriction(path[0]);
 	    AbstractRestriction r = new AllValuesFromRestriction();
 	    r.setProperty(AbstractRestriction.PROP_OWL_ON_PROPERTY, path[0]);
 	    root.addRestriction(r);
