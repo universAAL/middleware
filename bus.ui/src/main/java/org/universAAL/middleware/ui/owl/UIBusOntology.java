@@ -27,7 +27,25 @@ import org.universAAL.middleware.owl.OntClassInfoSetup;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.supply.LevelRating;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.ui.UIHandlerProfile;
+import org.universAAL.middleware.ui.UIRequest;
+import org.universAAL.middleware.ui.UIResponse;
 import org.universAAL.middleware.ui.impl.UIBusFactory;
+import org.universAAL.middleware.ui.rdf.ChoiceItem;
+import org.universAAL.middleware.ui.rdf.ChoiceList;
+import org.universAAL.middleware.ui.rdf.Form;
+import org.universAAL.middleware.ui.rdf.Group;
+import org.universAAL.middleware.ui.rdf.InputField;
+import org.universAAL.middleware.ui.rdf.Label;
+import org.universAAL.middleware.ui.rdf.MediaObject;
+import org.universAAL.middleware.ui.rdf.Range;
+import org.universAAL.middleware.ui.rdf.Repeat;
+import org.universAAL.middleware.ui.rdf.Select;
+import org.universAAL.middleware.ui.rdf.Select1;
+import org.universAAL.middleware.ui.rdf.SimpleOutput;
+import org.universAAL.middleware.ui.rdf.SubdialogTrigger;
+import org.universAAL.middleware.ui.rdf.Submit;
+import org.universAAL.middleware.ui.rdf.TextArea;
 
 public class UIBusOntology extends Ontology {
 
@@ -48,8 +66,28 @@ public class UIBusOntology extends Ontology {
 
 	OntClassInfoSetup oci;
 
+	// load RDF resources (no ManagedIndividuals)
+	createNewRDFClassInfo(UIHandlerProfile.MY_URI, factory, 0);
+	createNewRDFClassInfo(UIRequest.MY_URI, factory, 1);
+	createNewRDFClassInfo(UIResponse.MY_URI, factory, 2);
+	createNewRDFClassInfo(Label.MY_URI, factory, 4);
+	createNewRDFClassInfo(ChoiceItem.MY_URI, factory, 5);
+	createNewRDFClassInfo(ChoiceList.MY_URI, factory, 6);
+	createNewRDFClassInfo(Form.MY_URI, factory, 7);
+	createNewRDFClassInfo(Group.MY_URI, factory, 8);
+	createNewRDFClassInfo(Select.MY_URI, factory, 9);
+	createNewRDFClassInfo(Select1.MY_URI, factory, 10);
+	createNewRDFClassInfo(InputField.MY_URI, factory, 11);
+	createNewRDFClassInfo(SimpleOutput.MY_URI, factory, 12);
+	createNewRDFClassInfo(TextArea.MY_URI, factory, 13);
+	createNewRDFClassInfo(Submit.MY_URI, factory, 14);
+	createNewRDFClassInfo(SubdialogTrigger.MY_URI, factory, 15);
+	createNewRDFClassInfo(Repeat.MY_URI, factory, 16);
+	createNewRDFClassInfo(MediaObject.MY_URI, factory, 17);
+	createNewRDFClassInfo(Range.MY_URI, factory, 18);	
+	
 	// load AccessImpairment
-	oci = createNewOntClassInfo(AccessImpairment.MY_URI, factory, 0);
+	oci = createNewOntClassInfo(AccessImpairment.MY_URI, factory, 3);
 	oci
 		.setResourceComment("General concept for representing impairments of the users in accessing the uAAL system.");
 	oci.setResourceLabel("Access Impairment");

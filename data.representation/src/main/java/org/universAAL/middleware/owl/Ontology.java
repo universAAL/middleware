@@ -131,10 +131,16 @@ public abstract class Ontology {
     
     public final OntClassInfo[] getOntClassInfo() {
 	synchronized (ontClassInfoMap) {
-	    //return (OntClassInfo[]) ontClassInfoMap.keySet().toArray();
-	    return (OntClassInfo[]) ontClassInfoMap.values().toArray(new OntClassInfo[1]);
+	    return (OntClassInfo[]) ontClassInfoMap.values().toArray(new OntClassInfo[0]);
 	}
     }
+    
+    public final RDFClassInfo[] getRDFClassInfo() {
+	synchronized (rdfClassInfoMap) {
+	    return (RDFClassInfo[]) rdfClassInfoMap.values().toArray(new RDFClassInfo[0]);
+	}
+    }
+
 
     protected RDFClassInfoSetup createNewRDFClassInfo(String classURI, ResourceFactory fac, int factoryIndex) {
 	if (locked)
@@ -222,9 +228,9 @@ public abstract class Ontology {
 		Collections.addAll(list, propArr);
 	}
 	
-	return (Resource[]) list.toArray(new Resource[1]);
+	return (Resource[]) list.toArray(new Resource[0]);
     }
-    
+        
     public void lock() {
 	// lock this ontology
 	locked = true;

@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Vector;
 
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.ResourceRegistry;
 import org.universAAL.middleware.rdf.TypeMapper;
 
 
@@ -303,14 +302,22 @@ public abstract class ManagedIndividual extends Resource {
     public static final ManagedIndividual getInstance(String classURI,
 	    String instanceURI) {
 	
-	ManagedIndividual m = (ManagedIndividual) ResourceRegistry.getInstance().getNamedResource(classURI, instanceURI);
-	if (m != null)
-	    return m;
-	
-	Resource r = Resource.getResource(classURI, instanceURI);
+	Resource r = OntologyManagement.getInstance().getResource(classURI, instanceURI);
 	if (r instanceof ManagedIndividual)
 	    return (ManagedIndividual) r;
 	return null;
+	
+//	ManagedIndividual m = (ManagedIndividual) ResourceRegistry.getInstance().getNamedResource(classURI, instanceURI);
+//	if (m != null)
+//	    return m;
+//	
+//	Resource r = Resource.getResource(classURI, instanceURI);
+//	if (r instanceof ManagedIndividual)
+//	    return (ManagedIndividual) r;
+//	return null;
+	
+	
+	
 	
 	
 /*	if (classURI == null)
@@ -404,7 +411,7 @@ public abstract class ManagedIndividual extends Resource {
 	Vector resVec = new Vector();
 	
 	// in this method, we also include the given class (if it is non-abstract)
-	if (ResourceRegistry.getInstance().isRegisteredClass(indi.getClassURI()))
+	if (OntologyManagement.getInstance().isRegisteredClass(indi.getClassURI(), false))
 	    resVec.add(indi.getClassURI());
 	
 	// add the super classes

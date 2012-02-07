@@ -24,7 +24,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.ResourceRegistry;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
@@ -55,8 +54,6 @@ public class ServiceCall extends Resource {
 
 	static {
 		THIS_SERVICE_CALL = new ServiceCall(null, ProcessInput.OWLS_PROCESS_NAMESPACE + "ThisPerform");
-		ResourceRegistry.getInstance().registerNamedResource(THIS_SERVICE_CALL);
-		//addSpecialResource(THIS_SERVICE_CALL);
 	}
 	
 	/**

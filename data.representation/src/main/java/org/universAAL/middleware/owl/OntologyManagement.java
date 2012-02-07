@@ -28,8 +28,11 @@ import java.util.Set;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
+import org.universAAL.middleware.rdf.RDFClassInfo;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ResourceFactory;
 
-public class OntologyManagement {
+public final class OntologyManagement {
 
     // Singleton instance
     private static OntologyManagement instance = new OntologyManagement();
@@ -46,8 +49,35 @@ public class OntologyManagement {
     // ArrayList of Ontology
     private volatile ArrayList pendingOntologies = new ArrayList();
 
-    private String ontClassInfoURIPermissionCheck = null;
+    /**
+     * Registration of named objects. When getting a Resource (e.g. by a
+     * serializer), either the named Resource is retrieved according to the URI
+     * of the specific instance, or a new object is created which is derived
+     * from Resource according to the class URI. Register an object by calling
+     * {@link OntClassInfoSetup#addInstance(ManagedIndividual)}. The registered
+     * instance - given its instance URI - can then be retrieved by calling
+     * {@link #getNamedResource(String)} with the URI of the instance.
+     */
+    // maps URI (of instance) to Resource
+    private volatile HashMap namedResources = new HashMap();
 
+    private class FactoryEntry {
+	public ResourceFactory factory;
+	public int factoryIndex;
+	FactoryEntry(ResourceFactory factory, int factoryIndex) {
+	    this.factory = factory;
+	    this.factoryIndex = factoryIndex;
+	}
+    }
+    
+    private volatile HashMap factories = new HashMap();
+
+    /**
+     * Internal security check:
+     * {@link org.universAAL.middleware.owl.OntClassInfo#addExtender(OntClassInfo)
+     * will call this method to ensure that it is called from this class.
+     */
+    private String ontClassInfoURIPermissionCheck = null;
     
     private OntologyManagement() {
     }
@@ -106,63 +136,158 @@ public class OntologyManagement {
 		return false;
 	    }
 
-	    // copy all existing ontologies to temp
-	    HashMap tempOntologies = new HashMap(ontologies.size() + 1);
-	    OntClassInfo[] ontClassInfos = ont.getOntClassInfo();
-	    HashMap tempOntClassInfoMap = new HashMap(ontClassInfoMap.size()
-		    + ontClassInfos.length);
-
 	    // add new ontology
 	    LogUtils.logDebug(SharedResources.moduleContext,
 		    OntologyManagement.class, "register", new Object[] {
 			    "Registering ontology: ", ont.getInfo().getURI() },
 		    null);
+	    
+	    // copy all existing ontologies to temp
+	    OntClassInfo[] ontClassInfos = ont.getOntClassInfo();
+	    
+	    HashMap tempOntologies = new HashMap(ontologies.size() + 1);
+	    HashMap tempOntClassInfoMap = new HashMap(ontClassInfoMap.size()
+		    + ontClassInfos.length);
+	    HashMap tempNamedResources = new HashMap();
+	    HashMap tempFactories = new HashMap();
+	    
 	    tempOntologies.putAll(ontologies);
 	    tempOntologies.put(ont.getInfo().getURI(), ont);
-
+	    tempNamedResources.putAll(namedResources);
 	    tempOntClassInfoMap.putAll(ontClassInfoMap);
-	    for (int i = 0; i < ontClassInfos.length; i++) {
-		OntClassInfo info = ontClassInfos[i];
-		ontClassInfoURIPermissionCheck = info.getURI();
-		
-		OntClassInfo combined = (OntClassInfo) ontClassInfoMap.get(info.getURI());
-		if (combined == null) {
-		    // if it does not not exist, add simple cloned one
-		    tempOntClassInfoMap.put(info.getURI(), info.clone());
-		} else {
-		    // if it exists: add extender
-		    combined.addExtender(info);
+	    tempFactories.putAll(factories);
+	    
+	    if (ontClassInfos != null) {
+		for (int i = 0; i < ontClassInfos.length; i++) {
+		    OntClassInfo info = ontClassInfos[i];
+
+		    // add ontology class
+		    ontClassInfoURIPermissionCheck = info.getURI();
+		    OntClassInfo combined = (OntClassInfo) ontClassInfoMap
+			    .get(info.getURI());
+		    if (combined == null) {
+			// if it does not not exist, add simple cloned one
+			tempOntClassInfoMap.put(info.getURI(), info.clone());
+		    } else {
+			// if it exists: add extender
+			combined.addExtender(info);
+		    }
+		    ontClassInfoURIPermissionCheck = null;
+
+		    // add named instances of this ontology class
+		    Resource[] instances = info.getInstances();
+		    for (int j = 0; j < instances.length; j++)
+			tempNamedResources.put(instances[j].getURI(),
+				instances[j]);
+
+		    // add factories
+		    if (info.getFactory() != null)
+			tempFactories.put(info.getURI(), new FactoryEntry(info
+				.getFactory(), info.getFactoryIndex()));
+
+		    // process namedSuperClasses -> put in namedSubClasses
+		    String namedSuperClasses[] = info.getNamedSuperClasses(
+			    false, true);
+		    for (int j = 0; j < namedSuperClasses.length; j++) {
+			ArrayList namedSubClassesList = (ArrayList) namedSubClasses
+				.get(namedSuperClasses[j]);
+
+			if (namedSubClassesList == null)
+			    namedSubClassesList = new ArrayList();
+
+			if (!namedSubClassesList.contains(info.getURI()))
+			    namedSubClassesList.add(info.getURI());
+
+			namedSubClasses.put(namedSuperClasses[j],
+				namedSubClassesList);
+		    }
 		}
-		
-		ontClassInfoURIPermissionCheck = null;
+	    }
+	    
+	    RDFClassInfo[] rdfClassInfos = ont.getRDFClassInfo();
+	    if (rdfClassInfos != null) {
+		for (int i = 0; i < rdfClassInfos.length; i++) {
+		    RDFClassInfo info = rdfClassInfos[i];
 
-		// process namedSuperClasses -> put in namedSubClasses
-		String namedSuperClasses[] = info.getNamedSuperClasses(false,
-			true);
-		for (int j = 0; j < namedSuperClasses.length; j++) {
-		    ArrayList namedSubClassesList = (ArrayList) namedSubClasses
-			    .get(namedSuperClasses[j]);
+		    // add named instances of this ontology class
+		    Resource[] instances = info.getInstances();
+		    for (int j = 0; j < instances.length; j++)
+			tempNamedResources.put(instances[j].getURI(),
+				instances[j]);
 
-		    if (namedSubClassesList == null)
-			namedSubClassesList = new ArrayList();
-
-		    if (!namedSubClassesList.contains(info.getURI()))
-			namedSubClassesList.add(info.getURI());
-
-		    namedSubClasses.put(namedSuperClasses[j],
-			    namedSubClassesList);
+		    // add factories
+		    if (info.getFactory() != null)
+			tempFactories.put(info.getURI(), new FactoryEntry(info
+				.getFactory(), info.getFactoryIndex()));
 		}
 	    }
 
 	    // set temp as new set of ontologies
 	    ontologies = tempOntologies;
 	    ontClassInfoMap = tempOntClassInfoMap;
+	    namedResources = tempNamedResources;
+	    factories = tempFactories;
 	}
 
 	// remove from pending
 	removePendingOntology(ont);
 
 	return true;
+    }
+
+    public Resource getNamedResource(String instanceURI) {
+	if (instanceURI == null)
+	    return null;
+	return (Resource) namedResources.get(instanceURI);
+    }
+    
+    /**
+     * Get a Resource with the given class and instance URI.
+     * 
+     * @param classURI
+     *            The URI of the class.
+     * @param instanceURI
+     *            The URI of the instance.
+     * @return The Resource object with the given 'instanceURI', or a new
+     *         Resource, if it does not exist.
+     * @see #getNamedResource(String)
+     */
+    public Resource getResource(String classURI, String instanceURI) {
+	if (classURI == null)
+	    return null;
+
+	Resource r = getNamedResource(instanceURI);
+	if (r != null)
+	    return r;
+
+	FactoryEntry entry = (FactoryEntry) factories.get(classURI);
+	if (entry == null) {
+	    LogUtils.logDebug(SharedResources.moduleContext,
+		    OntologyManagement.class, "getResource", new Object[] {
+			    "No factory entry for ", classURI, "  ",
+			    instanceURI }, null);
+	    return null;
+	}
+	ResourceFactory fac = entry.factory;
+	if (fac == null) {
+	    // this should never happen!!
+	    LogUtils.logError(SharedResources.moduleContext,
+		    OntologyManagement.class, "getResource", new Object[] {
+			    "No factory for ", classURI, "  ",
+			    instanceURI }, null);
+	    return null;
+	}
+
+	try {
+	    return (Resource) fac.createInstance(classURI, instanceURI,
+		    entry.factoryIndex);
+	} catch (Exception e) {
+	    LogUtils.logError(SharedResources.moduleContext,
+		    OntologyManagement.class, "getResource", new Object[] {
+			    "The factory for ", classURI, "  ", instanceURI,
+			    " stopped with an exception" }, e);
+	    return null;
+	}
     }
 
     public Set getNamedSubClasses(String superClassURI,

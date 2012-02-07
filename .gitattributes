@@ -342,7 +342,6 @@ data.representation/src/main/java/org/universAAL/middleware/rdf/RDFClassInfo.jav
 data.representation/src/main/java/org/universAAL/middleware/rdf/RDFClassInfoSetup.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/Resource.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/ResourceFactory.java -text
-data.representation/src/main/java/org/universAAL/middleware/rdf/ResourceRegistry.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/TypeMapper.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/Variable.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/impl/ResourceFactoryImpl.java -text
