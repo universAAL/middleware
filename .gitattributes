@@ -351,6 +351,7 @@ data.representation/src/main/java/org/universAAL/middleware/util/RatingAggregato
 data.representation/src/main/java/org/universAAL/middleware/util/ResourceComparator.java -text
 data.representation/src/main/resources/mw.data.representation[!!-~]dependencies.jpg -text
 data.representation/src/test/java/org/universAAL/middleware/datarep/test/ArtifactIntegrationTest.java -text
+data.representation/src/test/java/org/universAAL/middleware/rdf/Ontologies.java -text
 data.representation/src/test/java/org/universAAL/middleware/rdf/TypeMapperTest.java -text
 data.representation/src/test/resources/log4j.properties -text
 data.serialization/LICENSE-Aduna-OpenRDF.txt -text

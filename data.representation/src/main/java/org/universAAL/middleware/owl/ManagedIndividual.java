@@ -365,26 +365,31 @@ public abstract class ManagedIndividual extends Resource {
      * @return The URI of the most specialized class.
      */
     public static final String getMostSpecializedClass(String[] classURIs) {
-	if (classURIs == null)
-	    return null;
-
-	String result = null;
-	OntClassInfo info;
-	for (int i = 0; i < classURIs.length; i++) {
-	    if (result == null) {
-		// get a registered class
-		if (OntologyManagement.getInstance().getOntClassInfo(classURIs[i]) != null)
-		    result = classURIs[i];
-	    } else {
-		// test whether the new value is a more specialized class
-		info = OntologyManagement.getInstance().getOntClassInfo(classURIs[i]);
-		if (info != null)
-		    if (info.hasSuperClass(result, true))
-			result = classURIs[i];
-	    }
-	}
 	
-	return result;
+	return OntologyManagement.getInstance().getMostSpecializedClass(classURIs);
+	
+//	if (classURIs == null)
+//	    return null;
+//
+//	String result = null;
+//	OntClassInfo info;
+//	for (int i = 0; i < classURIs.length; i++) {
+//	    if (result == null) {
+//		// get a registered class
+//		if (OntologyManagement.getInstance().getOntClassInfo(classURIs[i]) != null)
+//		    result = classURIs[i];
+//	    } else {
+//		// test whether the new value is a more specialized class
+//		info = OntologyManagement.getInstance().getOntClassInfo(classURIs[i]);
+//		if (info != null)
+//		    if (info.hasSuperClass(result, true))
+//			result = classURIs[i];
+//	    }
+//	}
+//	
+//	return result;
+	
+	
 //	
 //	
 //	String result = null;
