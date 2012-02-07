@@ -89,7 +89,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public static void startModule() {
 	OntologyManagement.getInstance().register(serviceOntology);
     }
-    
+
     public static void stopModule() {
 	OntologyManagement.getInstance().unregister(serviceOntology);
     }
@@ -98,9 +98,10 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	super(Constants.uAAL_BUS_NAME_SERVICE, new ServiceStrategy(g), g);
 	busStrategy.setBus(this);
     }
-    
+
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#addAvailabilitySubscription(String, AvailabilitySubscriber, ServiceRequest)
+     * @see org.universAAL.middleware.service.ServiceBus#addAvailabilitySubscription(String,
+     *      AvailabilitySubscriber, ServiceRequest)
      */
     public void addAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, ServiceRequest request) {
@@ -113,9 +114,10 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    ((ServiceStrategy) busStrategy).addAvailabilitySubscription(
 		    callerID, subscriber, request);
     }
-    
+
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#addNewRegParams(String, ServiceProfile[])
+     * @see org.universAAL.middleware.service.ServiceBus#addNewRegParams(String,
+     *      ServiceProfile[])
      */
     public void addNewRegParams(String calleeID,
 	    ServiceProfile[] realizedServices) {
@@ -125,7 +127,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    ((ServiceStrategy) busStrategy).addRegParams(calleeID,
 		    realizedServices);
     }
-    
+
     /**
      * @see org.universAAL.middleware.service.ServiceBus#getAllServices(String)
      */
@@ -133,9 +135,10 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	// TODO Auto-generated method stub
 	return null;
     }
-    
+
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String, Service)
+     * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
+     *      Service)
      */
     public ServiceProfile[] getMatchingService(String callerID, Service s) {
 	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s
@@ -143,23 +146,25 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String, Service[])
+     * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
+     *      Service[])
      */
     public ServiceProfile[] getMatchingService(String callerID,
 	    String[] keywords) {
 	// TODO Auto-generated method stub
 	return null;
     }
-    
+
     /**
      * not used method
      */
     public String register(BusMember member) {
 	return null;
     }
-    
+
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#register(ServiceCallee, ServiceProfile[])
+     * @see org.universAAL.middleware.service.ServiceBus#register(ServiceCallee,
+     *      ServiceProfile[])
      */
     public String register(ServiceCallee callee,
 	    ServiceProfile[] realizedServices) {
@@ -169,7 +174,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    ((ServiceStrategy) busStrategy).addRegParams(id, realizedServices);
 	return id;
     }
-    
+
     /**
      * @see org.universAAL.middleware.service.ServiceBus#register(ServiceCaller)
      */
@@ -177,9 +182,10 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	return Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 		+ super.register(caller);
     }
-    
+
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#removeAvailabilitySubscription(String, AvailabilitySubscriber, String)
+     * @see org.universAAL.middleware.service.ServiceBus#removeAvailabilitySubscription(String,
+     *      AvailabilitySubscriber, String)
      */
     public void removeAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, String requestURI) {
@@ -192,9 +198,10 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    ((ServiceStrategy) busStrategy).removeAvailabilitySubscription(
 		    callerID, subscriber, requestURI);
     }
-    
+
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#removeMatchingRegParams(String, ServiceProfile[])
+     * @see org.universAAL.middleware.service.ServiceBus#removeMatchingRegParams(String,
+     *      ServiceProfile[])
      */
     public void removeMatchingRegParams(String calleeID,
 	    ServiceProfile[] realizedServices) {
@@ -204,9 +211,10 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    ((ServiceStrategy) busStrategy).removeMatchingRegParams(calleeID,
 		    realizedServices);
     }
-    
+
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#sendReply(String, Message)
+     * @see org.universAAL.middleware.service.ServiceBus#sendReply(String,
+     *      Message)
      */
     public void sendReply(String calleeID, Message response) {
 	if (calleeID != null
@@ -216,9 +224,10 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length()), response);
     }
-    
+
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#sendMessage(String, Message)
+     * @see org.universAAL.middleware.service.ServiceBus#sendMessage(String,
+     *      Message)
      */
     public void sendMessage(String callerID, Message request) {
 	if (callerID != null
@@ -228,15 +237,16 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length()), request);
     }
-    
+
     /**
      * the method is not used
      */
     public void unregister(String id, BusMember member) {
     }
-    
+
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#unregister(String, ServiceCallee)
+     * @see org.universAAL.middleware.service.ServiceBus#unregister(String,
+     *      ServiceCallee)
      */
     public void unregister(String calleeID, ServiceCallee callee) {
 	if (calleeID != null
@@ -248,9 +258,10 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 			    .length()), callee);
 	}
     }
-    
+
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#unregister(String, ServiceCaller)
+     * @see org.universAAL.middleware.service.ServiceBus#unregister(String,
+     *      ServiceCaller)
      */
     public void unregister(String callerID, ServiceCaller caller) {
 	if (callerID != null

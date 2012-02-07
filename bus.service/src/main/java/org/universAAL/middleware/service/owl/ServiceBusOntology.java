@@ -56,7 +56,7 @@ public class ServiceBusOntology extends Ontology {
 	addImport(DataRepOntology.NAMESPACE);
 
 	OntClassInfoSetup oci;
-	
+
 	// load RDF resources (no ManagedIndividuals)
 	createNewRDFClassInfo(AggregatingFilter.MY_URI, factory, 0);
 	createNewRDFClassInfo(ServiceRequest.MY_URI, factory, 1);
