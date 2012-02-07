@@ -408,6 +408,7 @@ samples/lighting/server/src/test/resources/log4j.properties -text
 samples/pom/launches/LightingExample_Complete.launch -text
 samples/pom/launches/LightingExample_Complete_0_3_1.launch -text
 samples/pom/launches/LightingExample_Complete_0_3_2.launch -text
+samples/pom/launches/LightingExample_Complete_Simple.launch -text
 samples/pom/launches/LightingExample_Distributed_Client.launch -text
 samples/pom/launches/LightingExample_Distributed_Client_0_3_1.launch -text
 samples/pom/launches/LightingExample_Distributed_Server.launch -text
