@@ -43,6 +43,9 @@ public final class OntologyManagement {
     // maps classURI -> OntClassInfo
     private volatile HashMap ontClassInfoMap = new HashMap();
     
+    // maps classURI -> RDFClassInfo
+    private volatile HashMap rdfClassInfoMap = new HashMap();
+    
     // maps classURI of super class -> ArrayList of URIs of all sub classes
     private Hashtable namedSubClasses = new Hashtable();
 
@@ -157,6 +160,7 @@ public final class OntologyManagement {
 	    tempOntClassInfoMap.putAll(ontClassInfoMap);
 	    tempFactories.putAll(factories);
 	    
+	    // process ontology classes
 	    if (ontClassInfos != null) {
 		for (int i = 0; i < ontClassInfos.length; i++) {
 		    OntClassInfo info = ontClassInfos[i];
@@ -204,6 +208,7 @@ public final class OntologyManagement {
 		}
 	    }
 	    
+	    // process rdf classes
 	    RDFClassInfo[] rdfClassInfos = ont.getRDFClassInfo();
 	    if (rdfClassInfos != null) {
 		for (int i = 0; i < rdfClassInfos.length; i++) {
@@ -219,6 +224,10 @@ public final class OntologyManagement {
 		    if (info.getFactory() != null)
 			tempFactories.put(info.getURI(), new FactoryEntry(info
 				.getFactory(), info.getFactoryIndex()));
+		    
+		    // add rdf classes
+		    if (!rdfClassInfoMap.containsKey(info.getURI()))
+			rdfClassInfoMap.put(info.getURI(), info);
 		}
 	    }
 
@@ -289,6 +298,39 @@ public final class OntologyManagement {
 	    return null;
 	}
     }
+    
+    /**
+     * For a given set of URIs get the class that is most specialized, i.e. all
+     * other classes are super classes of this class. The method can be used for
+     * transformations to/from other representations, e.g. turtle, jena, and it
+     * considers both, RDF classes and OWL classes.
+     * 
+     * @param classURIs
+     *            The set of URIs of classes.
+     * @return The URI of the most specialized class.
+     */
+   public final String getMostSpecializedClass(String[] classURIs) {
+	if (classURIs == null)
+	    return null;
+
+	String result = null;
+	RDFClassInfo info;
+	for (int i = 0; i < classURIs.length; i++) {
+	    if (result == null) {
+		// get a registered class
+		if (getRDFClassInfo(classURIs[i], true) != null)
+		    result = classURIs[i];
+	    } else {
+		// test whether the new value is a more specialized class
+		info = getRDFClassInfo(classURIs[i], true);
+		if (info != null)
+		    if (info.hasSuperClass(result, true))
+			result = classURIs[i];
+	    }
+	}
+	
+	return result;
+    }
 
     public Set getNamedSubClasses(String superClassURI,
 	    boolean inherited, boolean includeAbstractClasses) {
@@ -336,11 +378,25 @@ public final class OntologyManagement {
 	return (Ontology) ontologies.get(uri);
     }
 
+    public RDFClassInfo getRDFClassInfo(String classURI, boolean includeOntClasses) {
+	if (classURI == null)
+	    return null;
+	
+	RDFClassInfo info = (RDFClassInfo) rdfClassInfoMap.get(classURI);
+	if (info != null)
+	    return info;
+	
+	if (includeOntClasses)
+	    return (OntClassInfo) ontClassInfoMap.get(classURI);
+	return null;
+    }
+    
     public OntClassInfo getOntClassInfo(String classURI) {
 	if (classURI == null)
 	    return null;
 	return (OntClassInfo) ontClassInfoMap.get(classURI);
     }
+
 
     public boolean isRegisteredClass(String classURI, boolean includePending) {
 	// test registered classes
