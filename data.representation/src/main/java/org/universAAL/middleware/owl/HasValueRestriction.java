@@ -34,41 +34,39 @@ import org.universAAL.middleware.rdf.Variable;
  * @author Carsten Stockloew
  */
 public class HasValueRestriction extends AbstractRestriction {
-   
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "HasValueRestriction";
-    
+
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
+	    + "HasValueRestriction";
+
     public static final String PROP_OWL_HAS_VALUE = OWL_NAMESPACE + "hasValue";;
-    
+
     private boolean hasVarRefAsValue = false;
-    
+
     static {
-	register(HasValueRestriction.class, null,
-		PROP_OWL_HAS_VALUE, null);
+	register(HasValueRestriction.class, null, PROP_OWL_HAS_VALUE, null);
     }
 
-    
     /** Standard constructor for exclusive use by serializers. */
     HasValueRestriction() {
     }
-    
+
     public HasValueRestriction(String propURI, Object o) {
-	if (propURI == null  ||  o == null)
+	if (propURI == null || o == null)
 	    throw new NullPointerException();
 	setOnProperty(propURI);
 	if (o instanceof String && isQualifiedName((String) o))
 	    o = new Resource((String) o);
 	super.setProperty(PROP_OWL_HAS_VALUE, o);
     }
- 
-    
+
     public String getClassURI() {
 	return MY_URI;
     }
-    
+
     public Object getConstraint() {
 	return getProperty(PROP_OWL_HAS_VALUE);
     }
-    
+
     /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
     public ClassExpression copy() {
 	return copyTo(new HasValueRestriction());
@@ -137,13 +135,13 @@ public class HasValueRestriction extends AbstractRestriction {
 	    }
 	return 0;
     }
-    
+
     /** Helper function for {@link #hasMember(Object, Hashtable)}. */
     // -1 -> incompatible; 0 -> equal; 1 -> compatible
     private int checkValue(Object value, Hashtable context) {
-	if (value==null)
+	if (value == null)
 	    return 1;
-	
+
 	Object myValue = props.get(PROP_OWL_HAS_VALUE);
 	if (myValue == null)
 	    // no value restriction => all values are compatible
@@ -189,8 +187,8 @@ public class HasValueRestriction extends AbstractRestriction {
 	}
 
 	return checkValueLists((List) myValue, (List) value, context);
-    }    
-    
+    }
+
     /**
      * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
      *      Hashtable)
@@ -241,7 +239,7 @@ public class HasValueRestriction extends AbstractRestriction {
     /** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return getOnProperty() != null && (hasProperty(PROP_OWL_HAS_VALUE));
-   }
+    }
 
     /**
      * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
@@ -250,9 +248,9 @@ public class HasValueRestriction extends AbstractRestriction {
     public boolean matches(ClassExpression subset, Hashtable context) {
 	Object noRes = matchesNonRestriction(subset, context);
 	if (noRes instanceof Boolean)
-	    return ((Boolean)noRes).booleanValue();
+	    return ((Boolean) noRes).booleanValue();
 
-	AbstractRestriction other = (AbstractRestriction)noRes;
+	AbstractRestriction other = (AbstractRestriction) noRes;
 
 	Hashtable cloned = (context == null) ? null : (Hashtable) context
 		.clone();
@@ -266,7 +264,7 @@ public class HasValueRestriction extends AbstractRestriction {
 	    synchronize(context, cloned);
 	    return true;
 	}
-	
+
 	return false;
     }
 
@@ -274,7 +272,7 @@ public class HasValueRestriction extends AbstractRestriction {
     public void setProperty(String propURI, Object o) {
 	if (o == null || propURI == null || props.containsKey(propURI))
 	    return;
-	
+
 	// handle this restriction
 	if (PROP_OWL_HAS_VALUE.equals(propURI)) {
 	    ClassExpression hasVal = (ClassExpression) getProperty(PROP_OWL_HAS_VALUE);
@@ -284,7 +282,7 @@ public class HasValueRestriction extends AbstractRestriction {
 	    hasVarRefAsValue = Variable.isVarRef(o);
 	    return;
 	}
-	
+
 	// do not handle other restrictions
 	if (propURI.equals(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY)
 		|| propURI
@@ -310,7 +308,7 @@ public class HasValueRestriction extends AbstractRestriction {
 		|| propURI
 			.equals(BoundingValueRestriction.PROP_VALUE_HAS_MIN_INCLUSIVE))
 	    return;
-	
+
 	// for everything else: call super
 	super.setProperty(propURI, o);
     }

@@ -26,9 +26,9 @@ public class LongRestriction extends ComparableRestriction {
     public LongRestriction() {
 	super(TypeMapper.getDatatypeURI(Long.class));
     }
-    
-    public LongRestriction(long min, boolean minInclusive,
-	    long max, boolean maxInclusive) {
+
+    public LongRestriction(long min, boolean minInclusive, long max,
+	    boolean maxInclusive) {
 	super(TypeMapper.getDatatypeURI(Long.class), new Long(min),
 		minInclusive, new Long(max), maxInclusive);
     }
@@ -38,7 +38,7 @@ public class LongRestriction extends ComparableRestriction {
     }
 
     protected Comparable getPrevious(Comparable c) {
-	return new Long(((Long) c).longValue() - 1);	
+	return new Long(((Long) c).longValue() - 1);
     }
 
     /** @see org.universAAL.middleware.owl.ClassExpression#copy() */

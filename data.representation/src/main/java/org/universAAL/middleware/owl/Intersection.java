@@ -63,7 +63,7 @@ public class Intersection extends ClassExpression {
 	if (type != null && !(type instanceof Intersection))
 	    types.add(type);
     }
-    
+
     public void addType(Intersection type) {
 	if (type != null)
 	    for (int i = 0; i < type.types.size(); i++)

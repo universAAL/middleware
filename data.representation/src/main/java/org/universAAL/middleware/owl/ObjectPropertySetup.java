@@ -24,16 +24,16 @@ import org.universAAL.middleware.rdf.PropertySetup;
 public interface ObjectPropertySetup extends PropertySetup {
 
     public void setInverseOf(ObjectProperty inverseOf);
-    
+
     public void setInverseFunctional();
-    
+
     public void setTransitive();
-    
+
     public void setSymmetric();
-    
+
     public void setAsymmetric();
-    
+
     public void setReflexive();
-    
+
     public void setIrreflexive();
 }

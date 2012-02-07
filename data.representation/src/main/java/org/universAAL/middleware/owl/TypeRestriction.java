@@ -24,10 +24,6 @@ import java.util.ListIterator;
 
 import org.universAAL.middleware.rdf.Resource;
 
-
-
-
-
 /*
  * Hierarchy:
  * 	TypeRestriction (abstract)
@@ -46,31 +42,29 @@ import org.universAAL.middleware.rdf.Resource;
  * 			...
  */
 public abstract class TypeRestriction extends ClassExpression {
-    
+
     public static final String OWL_ON_DATATYPE;
     public static final String OWL_WITH_RESTRICTIONS;
-    
+
     protected ArrayList restrictions = new ArrayList();
-    
+
     static {
 	OWL_ON_DATATYPE = OWL_NAMESPACE + "onDatatype";
 	OWL_WITH_RESTRICTIONS = OWL_NAMESPACE + "withRestrictions";
 	register(TypeRestriction.class, null, OWL_ON_DATATYPE, null);
     }
-    
+
     protected class Facet {
 	String facetURI;
 	Object value;
     }
-    
+
     /** Standard constructor. */
     protected TypeRestriction(String datatypeURI) {
 	super.setProperty(OWL_ON_DATATYPE, datatypeURI);
 	super.setProperty(OWL_WITH_RESTRICTIONS, restrictions);
     }
-    
 
-    
     protected Facet iterate(ListIterator it) {
 	while (it.hasNext()) {
 	    Object o = it.next();
@@ -87,18 +81,18 @@ public abstract class TypeRestriction extends ClassExpression {
 	    Facet f = new Facet();
 	    f.facetURI = propURI;
 	    f.value = r.getProperty(propURI);
-	    
+
 	    return f;
 	}
 	return null;
     }
-    
+
     protected void addConstrainingFacet(String facetURI, Object value) {
 	Resource r = new Resource();
 	r.setProperty(facetURI, value);
 	restrictions.add(r);
     }
-    
+
     /** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
     public String[] getNamedSuperclasses() {
 	return new String[0];
@@ -113,13 +107,13 @@ public abstract class TypeRestriction extends ClassExpression {
     public void setProperty(String propURI, Object o) {
 	if (o == null || propURI == null)
 	    return;
-	
+
 	// do not handle our properties
 	if (OWL_ON_DATATYPE.equals(propURI))
 	    return;
 	if (OWL_WITH_RESTRICTIONS.equals(propURI))
 	    return;
-	
+
 	super.setProperty(propURI, o);
     }
 }

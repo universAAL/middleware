@@ -26,13 +26,13 @@ public class FloatRestriction extends ComparableRestriction {
     // substitutions for Float.MIN_NORMAL
     private static final float FLOAT_SMALLEST_POSITIVE_VALUE = Float
 	    .intBitsToFloat(0x00800000);
-    
+
     public FloatRestriction() {
 	super(TypeMapper.getDatatypeURI(Float.class));
     }
-    
-    public FloatRestriction(float min, boolean minInclusive,
-	    float max, boolean maxInclusive) {
+
+    public FloatRestriction(float min, boolean minInclusive, float max,
+	    boolean maxInclusive) {
 	super(TypeMapper.getDatatypeURI(Float.class), new Float(min),
 		minInclusive, new Float(max), maxInclusive);
     }

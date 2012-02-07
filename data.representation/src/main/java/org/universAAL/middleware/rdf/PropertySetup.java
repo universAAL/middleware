@@ -22,18 +22,18 @@ package org.universAAL.middleware.rdf;
 import org.universAAL.middleware.owl.ClassExpression;
 
 public interface PropertySetup {
-    
+
     public Property getProperty();
 
     public void setDomain(ClassExpression dom);
-    
+
     public void setRange(ClassExpression range);
-    
+
     public void setFunctional();
-    
+
     public void addSuperProperty(String superProperty);
-    
+
     public void addEquivalentProperty(String equivalentProperty);
-    
+
     public void addDisjointProperty(String disjointProperty);
 }

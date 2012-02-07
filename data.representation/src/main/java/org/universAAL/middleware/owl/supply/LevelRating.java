@@ -21,7 +21,6 @@ package org.universAAL.middleware.owl.supply;
 
 import org.universAAL.middleware.owl.ComparableIndividual;
 
-
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
@@ -29,9 +28,9 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  */
 public class LevelRating extends ComparableIndividual {
 
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "LevelRating";
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
+	    + "LevelRating";
 
-    
     public static final int NONE = 0;
     public static final int LOW = 1;
     public static final int MIDDLE = 2;

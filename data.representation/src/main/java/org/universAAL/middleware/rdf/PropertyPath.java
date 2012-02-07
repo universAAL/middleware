@@ -64,7 +64,6 @@ public class PropertyPath extends Resource {
     public static final String TYPE_PROPERTY_PATH = uAAL_SERVICE_NAMESPACE
 	    + "PropertyPath";
 
-
     /** The constructor for (de-)serializers. */
     public PropertyPath() {
 	super();

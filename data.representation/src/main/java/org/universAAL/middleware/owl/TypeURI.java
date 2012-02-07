@@ -173,7 +173,8 @@ public class TypeURI extends ClassExpression {
 	    return true;
 	}
 
-	if (subtype instanceof Intersection  && !(subtype instanceof MergedRestriction)) {
+	if (subtype instanceof Intersection
+		&& !(subtype instanceof MergedRestriction)) {
 	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();)
 		if (matches((ClassExpression) i.next(), context))
 		    return true;
@@ -226,13 +227,15 @@ public class TypeURI extends ClassExpression {
 			    ((TypeURI) other).uri, uri);
 
 	if (other instanceof AbstractRestriction) {
-	    MergedRestriction r = ManagedIndividual.getClassRestrictionsOnProperty(
-		    uri, ((AbstractRestriction) other).getOnProperty());
+	    MergedRestriction r = ManagedIndividual
+		    .getClassRestrictionsOnProperty(uri,
+			    ((AbstractRestriction) other).getOnProperty());
 	    return r != null
 		    && ((AbstractRestriction) other).isDisjointWith(r, context);
 	} else if (other instanceof MergedRestriction) {
-	    MergedRestriction r = ManagedIndividual.getClassRestrictionsOnProperty(
-		    uri, ((MergedRestriction) other).getOnProperty());
+	    MergedRestriction r = ManagedIndividual
+		    .getClassRestrictionsOnProperty(uri,
+			    ((MergedRestriction) other).getOnProperty());
 	    return r != null
 		    && ((MergedRestriction) other).isDisjointWith(r, context);
 	}

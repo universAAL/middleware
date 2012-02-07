@@ -31,8 +31,8 @@ public class DoubleRestriction extends ComparableRestriction {
 	super(TypeMapper.getDatatypeURI(Double.class));
     }
 
-    public DoubleRestriction(double min, boolean minInclusive,
-	    double max, boolean maxInclusive) {
+    public DoubleRestriction(double min, boolean minInclusive, double max,
+	    boolean maxInclusive) {
 	super(TypeMapper.getDatatypeURI(Double.class), new Double(min),
 		minInclusive, new Double(max), maxInclusive);
     }

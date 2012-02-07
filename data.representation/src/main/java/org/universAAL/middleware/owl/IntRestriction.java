@@ -26,9 +26,9 @@ public class IntRestriction extends ComparableRestriction {
     public IntRestriction() {
 	super(TypeMapper.getDatatypeURI(Integer.class));
     }
-    
-    public IntRestriction(int min, boolean minInclusive,
-	    int max, boolean maxInclusive) {
+
+    public IntRestriction(int min, boolean minInclusive, int max,
+	    boolean maxInclusive) {
 	super(TypeMapper.getDatatypeURI(Integer.class), new Integer(min),
 		minInclusive, new Integer(max), maxInclusive);
     }
@@ -38,7 +38,7 @@ public class IntRestriction extends ComparableRestriction {
     }
 
     protected Comparable getPrevious(Comparable c) {
-	return new Integer(((Integer) c).intValue() - 1);	
+	return new Integer(((Integer) c).intValue() - 1);
     }
 
     /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
