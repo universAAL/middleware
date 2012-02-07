@@ -27,7 +27,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.rdf.Variable;
 
 public abstract class ComparableRestriction extends TypeRestriction {
-    
+
     protected static final String XSD_FACET_MIN_INCLUSIVE;
     protected static final String XSD_FACET_MAX_INCLUSIVE;
     protected static final String XSD_FACET_MIN_EXCLUSIVE;
@@ -49,10 +49,10 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	super(datatypeURI);
     }
 
-    protected ComparableRestriction(String datatypeURI, Comparable min, boolean minInclusive,
-	    Comparable max, boolean maxInclusive) {
+    protected ComparableRestriction(String datatypeURI, Comparable min,
+	    boolean minInclusive, Comparable max, boolean maxInclusive) {
 	super(datatypeURI);
-	
+
 	if (min == null && max == null)
 	    throw new NullPointerException(
 		    "Either min or max must be not null.");
@@ -66,13 +66,12 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	setFacets(min, minInclusive, max, maxInclusive);
     }
 
-    
     private void setFacets(Comparable min, boolean minInclusive,
 	    Comparable max, boolean maxInclusive) {
 	setMinFacet(min, minInclusive);
 	setMaxFacet(max, maxInclusive);
     }
-    
+
     private void setMinFacet(Comparable min, boolean minInclusive) {
 	if (min != null) {
 	    if (minInclusive)
@@ -83,7 +82,7 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	this.min = min;
 	this.minInclusive = minInclusive;
     }
-    
+
     private void setMaxFacet(Comparable max, boolean maxInclusive) {
 	if (max != null) {
 	    if (maxInclusive)
@@ -94,7 +93,7 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	this.max = max;
 	this.maxInclusive = maxInclusive;
     }
-    
+
     /**
      * Helper method to copy Restrictions.
      * 
@@ -104,7 +103,7 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	copy.setFacets(min, minInclusive, max, maxInclusive);
 	return copy;
     }
-    
+
     public Comparable getLowerbound() {
 	return min;
     }
@@ -160,7 +159,7 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	// for Boolean, nobody uses OrderingRestriction
 	return null;
     }
-    
+
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
     public void setProperty(String propURI, Object o) {
 	if (o == null || propURI == null)
@@ -182,7 +181,7 @@ public abstract class ComparableRestriction extends TypeRestriction {
 			if (getProperty(OWL_ON_DATATYPE).equals(
 				TypeMapper.getDatatypeURI(facet.value
 					.getClass()))) {
-			    
+
 			    // process the facet
 			    if (XSD_FACET_MIN_INCLUSIVE.equals(facet.facetURI)) {
 				setMinFacet((Comparable) facet.value, true);
@@ -206,8 +205,7 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	// call super for other properties (or for more general facets)
 	super.setProperty(propURI, o);
     }
-    
-    
+
     /**
      * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
      *      Hashtable)
@@ -253,7 +251,7 @@ public abstract class ComparableRestriction extends TypeRestriction {
 			return false;
 		}
 	    }
-	
+
 	aux = min;
 	if (aux != null)
 	    if (aux instanceof Variable) {
@@ -285,8 +283,8 @@ public abstract class ComparableRestriction extends TypeRestriction {
 			    || ((Comparable) aux).compareTo(member) > -1)
 			return false;
 		}
-	    }	
-	
+	    }
+
 	synchronize(context, cloned);
 	return true;
     }
@@ -326,7 +324,7 @@ public abstract class ComparableRestriction extends TypeRestriction {
     public boolean isWellFormed() {
 	return restrictions.size() > 0;
     }
-    
+
     /**
      * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
      *      Hashtable)
@@ -343,7 +341,7 @@ public abstract class ComparableRestriction extends TypeRestriction {
 		    .clone();
 
 	    // --- max value ---
-	    
+
 	    // note: the below calls to resolveVarRef will shell var refs to the
 	    // underlying process parameter
 	    // if no corresponding value can be found in the context, otherwise
@@ -354,17 +352,17 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	    Object ex = null;
 	    Object myin = null;
 	    Object in = null;
-	    
+
 	    if (maxInclusive)
 		myin = Variable.resolveVarRef(max, cloned);
 	    else
 		myex = Variable.resolveVarRef(max, cloned);
-	    
+
 	    if (other.maxInclusive)
 		in = Variable.resolveVarRef(other.max, cloned);
 	    else
 		ex = Variable.resolveVarRef(other.max, cloned);
-		
+
 	    if (myex != null) {
 		if (myex instanceof Variable) {
 		    if (ex instanceof Comparable && cloned != null) {
@@ -450,29 +448,29 @@ public abstract class ComparableRestriction extends TypeRestriction {
 		return false;
 
 	    // --- min value ---
-	    
+
 	    // note: the below calls to resolveVarRef will shell var refs to the
 	    // underlying process parameter
 	    // if no corresponding value can be found in the context, otherwise
 	    // the associated value will be
 	    // returned; if the passed value is not a var ref, then we'll get it
 	    // back without any change
-	    
+
 	    myex = null;
 	    ex = null;
 	    myin = null;
 	    in = null;
-	    
+
 	    if (minInclusive)
 		myin = Variable.resolveVarRef(min, cloned);
 	    else
 		myex = Variable.resolveVarRef(min, cloned);
-	    
+
 	    if (other.minInclusive)
 		in = Variable.resolveVarRef(other.min, cloned);
 	    else
 		ex = Variable.resolveVarRef(other.min, cloned);
-		
+
 	    if (myex != null) {
 		if (myex instanceof Variable) {
 		    if (ex instanceof Comparable && cloned != null) {

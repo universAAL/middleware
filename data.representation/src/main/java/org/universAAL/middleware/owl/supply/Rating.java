@@ -39,10 +39,9 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  * @author Carsten Stockloew
  */
 public class Rating extends ComparableIndividual {
-    
+
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Rating";
 
-    
     public static final int POOR = 0;
     public static final int ALMOST_POOR = 1;
     public static final int ALMOST_SUFFICIENT = 2;

@@ -32,31 +32,32 @@ import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.container.utils.StringUtils;
 
 public abstract class Ontology {
-    
-    public static final String TYPE_OWL_ONTOLOGY = ManagedIndividual.OWL_NAMESPACE + "Ontology";
-    
-    public static final String PROP_OWL_IMPORT = ManagedIndividual.OWL_NAMESPACE + "imports";
-    
-    
+
+    public static final String TYPE_OWL_ONTOLOGY = ManagedIndividual.OWL_NAMESPACE
+	    + "Ontology";
+
+    public static final String PROP_OWL_IMPORT = ManagedIndividual.OWL_NAMESPACE
+	    + "imports";
+
     // array of String: URIs of Ontologies
     private volatile ArrayList imports = new ArrayList();
-    
+
     // classURI -> RDFClassInfo
     private volatile HashMap rdfClassInfoMap = new HashMap();
-    
+
     // classURI -> OntClassInfo
     private volatile HashMap ontClassInfoMap = new HashMap();
-    
+
     // classURI -> Gefährliche Nachbarn
     private volatile HashMap extendedOntClassInfoMap = new HashMap();
-    
+
     private Resource info;
-    
+
     private String ontClassInfoURIPermissionCheck = null;
     private Object ontClassInfoURIPermissionCheckSync = new Object();
-    
+
     private boolean locked = false;
-    
+
     /**
      * Standard constructor to create a new ontology.
      * 
@@ -66,8 +67,9 @@ public abstract class Ontology {
      */
     public Ontology(String ontURI) {
 	if ((ontURI = getValidOntologyURI(ontURI)) == null)
-	    throw new IllegalArgumentException("Not a valid Ontology URI:"+ontURI);
-	
+	    throw new IllegalArgumentException("Not a valid Ontology URI:"
+		    + ontURI);
+
 	info = new Resource(ontURI);
 	info.addType(TYPE_OWL_ONTOLOGY, true);
     }
@@ -88,13 +90,13 @@ public abstract class Ontology {
 	while (ontURI.endsWith("#")) {
 	    if (ontURI.length() < 2)
 		return null;
-	    ontURI = ontURI.substring(0,ontURI.length()-1);
+	    ontURI = ontURI.substring(0, ontURI.length() - 1);
 	}
 	if (!StringUtils.startsWithURIScheme(ontURI))
 	    return null;
 	return ontURI;
     }
-    
+
     protected boolean addImport(String ontURI) {
 	if ((ontURI = getValidOntologyURI(ontURI)) == null)
 	    return false;
@@ -113,43 +115,46 @@ public abstract class Ontology {
     public Resource getInfo() {
 	return info;
     }
-    
+
     public abstract void create();
-    
+
     /** Internal method. */
     public final boolean checkPermission(String uri) {
 	if (uri == null)
 	    return false;
 	return uri.equals(ontClassInfoURIPermissionCheck);
     }
-    
+
     public boolean hasOntClass(String classURI) {
 	if (ontClassInfoMap.containsKey(classURI))
 	    return true;
 	return extendedOntClassInfoMap.containsKey(classURI);
     }
-    
+
     public final OntClassInfo[] getOntClassInfo() {
 	synchronized (ontClassInfoMap) {
-	    return (OntClassInfo[]) ontClassInfoMap.values().toArray(new OntClassInfo[0]);
+	    return (OntClassInfo[]) ontClassInfoMap.values().toArray(
+		    new OntClassInfo[0]);
 	}
     }
-    
+
     public final RDFClassInfo[] getRDFClassInfo() {
 	synchronized (rdfClassInfoMap) {
-	    return (RDFClassInfo[]) rdfClassInfoMap.values().toArray(new RDFClassInfo[0]);
+	    return (RDFClassInfo[]) rdfClassInfoMap.values().toArray(
+		    new RDFClassInfo[0]);
 	}
     }
 
-
-    protected RDFClassInfoSetup createNewRDFClassInfo(String classURI, ResourceFactory fac, int factoryIndex) {
+    protected RDFClassInfoSetup createNewRDFClassInfo(String classURI,
+	    ResourceFactory fac, int factoryIndex) {
 	if (locked)
 	    return null;
-	
+
 	RDFClassInfoSetup setup = null;
 	synchronized (ontClassInfoURIPermissionCheckSync) {
 	    ontClassInfoURIPermissionCheck = classURI;
-	    setup = (RDFClassInfoSetup) RDFClassInfo.create(classURI, this, fac, factoryIndex);
+	    setup = (RDFClassInfoSetup) RDFClassInfo.create(classURI, this,
+		    fac, factoryIndex);
 	    ontClassInfoURIPermissionCheck = null;
 	}
 	RDFClassInfo info = setup.getInfo();
@@ -162,7 +167,7 @@ public abstract class Ontology {
 	}
 	return setup;
     }
-    
+
     protected OntClassInfoSetup createNewAbstractOntClassInfo(String classURI) {
 	return createNewOntClassInfo(classURI, null, -1);
     }
@@ -202,24 +207,25 @@ public abstract class Ontology {
 	}
 	return setup;
     }
-    
-    private final OntClassInfoSetup newOntClassInfo(String classURI, ResourceFactory fac,
-	    int factoryIndex) {
+
+    private final OntClassInfoSetup newOntClassInfo(String classURI,
+	    ResourceFactory fac, int factoryIndex) {
 	if (locked)
 	    return null;
 	OntClassInfoSetup setup = null;
 	synchronized (ontClassInfoURIPermissionCheckSync) {
 	    ontClassInfoURIPermissionCheck = classURI;
-	    setup = (OntClassInfoSetup) OntClassInfo.create(classURI, this, fac, factoryIndex);
+	    setup = (OntClassInfoSetup) OntClassInfo.create(classURI, this,
+		    fac, factoryIndex);
 	    ontClassInfoURIPermissionCheck = null;
 	}
 	return setup;
     }
-    
+
     public Resource[] getResourceList() {
 	ArrayList list = new ArrayList();
 	list.add(info);
-	
+
 	for (Iterator it = ontClassInfoMap.values().iterator(); it.hasNext();) {
 	    OntClassInfo info = (OntClassInfo) it.next();
 	    list.add(info);
@@ -227,14 +233,14 @@ public abstract class Ontology {
 	    if (propArr.length != 0)
 		Collections.addAll(list, propArr);
 	}
-	
+
 	return (Resource[]) list.toArray(new Resource[0]);
     }
-        
+
     public void lock() {
 	// lock this ontology
 	locked = true;
-	
+
 	// lock all elements
 	synchronized (ontClassInfoMap) {
 	    Iterator it = ontClassInfoMap.keySet().iterator();
@@ -251,7 +257,7 @@ public abstract class Ontology {
 	    while (it.hasNext())
 		((RDFClassInfo) rdfClassInfoMap.get(it.next())).lock();
 	}
-	
+
 	// TODO: lock/immutable info
     }
 }

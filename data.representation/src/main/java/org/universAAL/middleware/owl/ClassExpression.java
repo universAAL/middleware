@@ -43,7 +43,7 @@ public abstract class ClassExpression extends Resource {
 
     /** URI for owl:Thing. */
     public static final String TYPE_OWL_THING = OWL_NAMESPACE + "Thing";
-    
+
     /** URI for rdfs:Datatype. */
     public static final String RDFS_DATATYPE = RDFS_NAMESPACE + "Datatype";
 
@@ -96,7 +96,7 @@ public abstract class ClassExpression extends Resource {
      * @param hasProperty
      * @param expressionTypeURI
      */
-    // TODO: hasSuperClass is currently always null, is it really needed? 
+    // TODO: hasSuperClass is currently always null, is it really needed?
     protected static final void register(Class clz, String hasSuperClass,
 	    String hasProperty, String expressionTypeURI) {
 

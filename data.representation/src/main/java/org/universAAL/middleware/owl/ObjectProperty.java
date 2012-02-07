@@ -3,8 +3,9 @@ package org.universAAL.middleware.owl;
 import org.universAAL.middleware.rdf.Property;
 
 public final class ObjectProperty extends Property {
-    
-    public static final String MY_URI = ClassExpression.OWL_NAMESPACE + "ObjectProperty";
+
+    public static final String MY_URI = ClassExpression.OWL_NAMESPACE
+	    + "ObjectProperty";
 
     private boolean isInverseFunctional = false;
     private boolean isReflexive = false;
@@ -13,10 +14,11 @@ public final class ObjectProperty extends Property {
     private boolean isAsymmetric = false;
     private boolean isTransitive = false;
     private ObjectProperty inverseOf = null;
-    
+
     private PrivateObjectPropertySetup setup;
-    
-    private class PrivateObjectPropertySetup extends PrivatePropertySetup implements ObjectPropertySetup {
+
+    private class PrivateObjectPropertySetup extends PrivatePropertySetup
+	    implements ObjectPropertySetup {
 	ObjectProperty prop;
 
 	public PrivateObjectPropertySetup(ObjectProperty prop) {
@@ -55,7 +57,7 @@ public final class ObjectProperty extends Property {
 	    if (!isReflexive)
 		isIrreflexive = true;
 	}
-    }    
+    }
 
     protected ObjectProperty(String uri, OntClassInfo info) {
 	super(uri, info);
@@ -63,29 +65,28 @@ public final class ObjectProperty extends Property {
 	super.setup = setup;
 	addType(MY_URI, true);
     }
-    
+
     public static ObjectPropertySetup create(String propURI, OntClassInfo info) {
 	ObjectProperty prop = new ObjectProperty(propURI, info);
 	return prop.setup;
     }
-    
-    
+
     public ObjectProperty inverseOf() {
 	return inverseOf;
     }
-    
+
     public boolean isInverseFunctional() {
 	return isInverseFunctional;
     }
-    
+
     public boolean isTransitive() {
 	return isTransitive;
     }
-    
+
     public boolean isSymmetric() {
 	return isSymmetric;
     }
-    
+
     public boolean isAsymmetric() {
 	return isAsymmetric;
     }

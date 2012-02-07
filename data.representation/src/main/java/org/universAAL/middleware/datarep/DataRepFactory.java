@@ -26,18 +26,18 @@ import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 /**
  * 
  * @author Carsten Stockloew
- *
+ * 
  */
 public class DataRepFactory extends ResourceFactoryImpl {
-    
+
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {
-	
+
 	switch (factoryIndex) {
 	case 0:
 	    return new PropertyPath(instanceURI);
 	}
-	
+
 	return null;
     }
 

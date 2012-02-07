@@ -42,7 +42,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     // (getstandardproperty()?)
     // maps property property URIs to MergedRestriction
     private HashMap propRestriction = new HashMap();
-    
+
     private HashMap properties = new HashMap();
 
     // Members of all the following arrays are instances of {@link
@@ -52,15 +52,15 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     private ClassExpression complementClass = null;
     private boolean isEnumeration = false; // weg??
 
-
     private PrivateOntSetup setup = null;
-    
+
     private String propertyURIPermissionCheck;
 
     // list of OntClassInfo
     private ArrayList extenders = new ArrayList();
 
-    private class PrivateOntSetup extends PrivateRDFSetup implements OntClassInfoSetup {
+    private class PrivateOntSetup extends PrivateRDFSetup implements
+	    OntClassInfoSetup {
 	OntClassInfo info;
 
 	public PrivateOntSetup(OntClassInfo info) {
@@ -96,15 +96,15 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    if (r == null)
 		throw new NullPointerException(
 			"The restriction must be not null.");
-	    
+
 	    r = (MergedRestriction) r.copy();
-	    
+
 	    if (propRestriction.containsKey(r.getOnProperty()))
 		// a restriction for this property already exists
 		throw new IllegalAccessError(
 			"A restriction for this property (" + r.getOnProperty()
 				+ ")already exists. It can't be overwritten");
-	    
+
 	    // add to local variable
 	    HashMap tmp = new HashMap(propRestriction);
 	    tmp.put(r.getOnProperty(), r);
@@ -116,14 +116,15 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    al.addAll(r.types);
 	    combinedSuperClasses = al;
 	    setProperty(ClassExpression.PROP_RDFS_SUB_CLASS_OF, Collections
-			.unmodifiableList(combinedSuperClasses));
+		    .unmodifiableList(combinedSuperClasses));
 	}
 
 	public void addInstance(ManagedIndividual instance)
 		throws UnsupportedOperationException {
 	    if (isEnumeration)
 		throw new UnsupportedOperationException(
-			"Not allowed to add new instances to an enumeration class (class: " + getURI() + ")!");
+			"Not allowed to add new instances to an enumeration class (class: "
+				+ getURI() + ")!");
 
 	    if (instance != null && uri.equals(instance.getClassURI()))
 		super.addInstance(instance);
@@ -180,12 +181,11 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	return uri.equals(propertyURIPermissionCheck);
     }
 
-
     // getStandardPropertyURIs()...
     public String[] getDeclaredProperties() {
 	return (String[]) propRestriction.keySet().toArray();
     }
-    
+
     public Property[] getProperties() {
 	return (Property[]) properties.values().toArray(new Property[0]);
     }
@@ -244,8 +244,9 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 
 	it = propRestriction.keySet().iterator();
 	while (it.hasNext())
-	    info.setup.addRestriction((MergedRestriction) propRestriction.get(it.next()));
-	
+	    info.setup.addRestriction((MergedRestriction) propRestriction
+		    .get(it.next()));
+
 	it = properties.keySet().iterator();
 	while (it.hasNext()) {
 	    Property p = (Property) properties.get(it.next());
@@ -254,11 +255,12 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    else
 		info.setup.addObjectProperty(p.getURI());
 	}
-	
+
 	it = instances.keySet().iterator();
 	while (it.hasNext())
-	    info.setup.addInstance((ManagedIndividual) instances.get(it.next()));
-	
+	    info.setup
+		    .addInstance((ManagedIndividual) instances.get(it.next()));
+
 	it = superClasses.iterator();
 	while (it.hasNext())
 	    info.setup.addSuperClass((ClassExpression) it.next());
@@ -272,7 +274,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    info.setup.addDisjointClass((ClassExpression) it.next());
 
 	info.setup.setComplementClass(complementClass);
-	
+
 	info.isEnumeration = info.isEnumeration || isEnumeration;
 
 	if (info.factory == null)
@@ -288,23 +290,23 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	if (!OntologyManagement.getInstance().checkPermission(getURI()))
 	    throw new IllegalAccessError(
 		    "The given class is not defined in the context of the given ontology.");
-	//try {
-	    extenders.add(this);
-	    
-	    OntClassInfo cl = new OntClassInfo(getURI(), ont, factory, factoryIndex); //(OntClassInfo) super.clone();
-	    //cl.setup = new PrivateOntSetup(cl);
-	    //cl.rdfsetup = cl.setup;
-	    //cl.isEnumeration = false;
-	    copyTo(cl);
-	    cl.extenders = extenders;
-	    return cl;
-/*	} catch (CloneNotSupportedException e) {
-	    // this shouldn't happen, since we are Cloneable
-	    throw new InternalError("Error while cloning OntClassInfo");
-	}
-*/    }
-    
-    
+	// try {
+	extenders.add(this);
+
+	OntClassInfo cl = new OntClassInfo(getURI(), ont, factory, factoryIndex); // (OntClassInfo)
+										  // super.clone();
+	// cl.setup = new PrivateOntSetup(cl);
+	// cl.rdfsetup = cl.setup;
+	// cl.isEnumeration = false;
+	copyTo(cl);
+	cl.extenders = extenders;
+	return cl;
+	/*
+	 * } catch (CloneNotSupportedException e) { // this shouldn't happen,
+	 * since we are Cloneable throw new
+	 * InternalError("Error while cloning OntClassInfo"); }
+	 */}
+
     public void setProperty(String propURI, Object value) {
 	if (locked)
 	    return;

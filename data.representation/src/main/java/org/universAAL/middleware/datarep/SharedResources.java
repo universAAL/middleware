@@ -1,5 +1,21 @@
-/**
- * 
+/*	
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung
+	
+	See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	  http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
  */
 package org.universAAL.middleware.datarep;
 
@@ -39,7 +55,7 @@ public class SharedResources {
     public static Dictionary middlewareProps = new Hashtable(4);
     public static Dictionary helpOnMiddlewareProps = new Hashtable(4);
     public static ModuleContext moduleContext;
-    
+
     public static DataRepFactory factory = new DataRepFactory();
     public static DataRepOntology dataRepOntology = new DataRepOntology();
 
@@ -59,25 +75,28 @@ public class SharedResources {
 	Class.forName("org.universAAL.middleware.owl.Complement");
 	Class.forName("org.universAAL.middleware.owl.Enumeration");
 	Class.forName("org.universAAL.middleware.owl.Intersection");
-	//Class.forName("org.universAAL.middleware.owl.OrderingRestriction");
+	// Class.forName("org.universAAL.middleware.owl.OrderingRestriction");
 	Class.forName("org.universAAL.middleware.owl.supply.LevelRating");
 	Class.forName("org.universAAL.middleware.owl.supply.Rating");
 	Class.forName("org.universAAL.middleware.owl.TypeURI");
 	Class.forName("org.universAAL.middleware.owl.Union");
-	//Class.forName("org.universAAL.middleware.rdf.PropertyPath");
+	// Class.forName("org.universAAL.middleware.rdf.PropertyPath");
 	Class.forName("org.universAAL.middleware.owl.AllValuesFromRestriction");
 	Class.forName("org.universAAL.middleware.owl.BoundingValueRestriction");
-	Class.forName("org.universAAL.middleware.owl.ExactCardinalityRestriction");
+	Class
+		.forName("org.universAAL.middleware.owl.ExactCardinalityRestriction");
 	Class.forName("org.universAAL.middleware.owl.HasValueRestriction");
-	Class.forName("org.universAAL.middleware.owl.MaxCardinalityRestriction");
-	Class.forName("org.universAAL.middleware.owl.MinCardinalityRestriction");
+	Class
+		.forName("org.universAAL.middleware.owl.MaxCardinalityRestriction");
+	Class
+		.forName("org.universAAL.middleware.owl.MinCardinalityRestriction");
 	Class.forName("org.universAAL.middleware.owl.MergedRestriction");
     }
 
     public static void unloadReasoningEngine() {
 	OntologyManagement.getInstance().unregister(dataRepOntology);
     }
-    
+
     public static void setDefaults() {
 	middlewareProps.put(uAAL_AAL_SPACE_ID, System.getProperty(
 		uAAL_AAL_SPACE_ID,

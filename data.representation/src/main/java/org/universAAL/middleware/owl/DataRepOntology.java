@@ -31,40 +31,43 @@ import org.universAAL.middleware.rdf.Resource;
 /**
  * 
  * @author Carsten Stockloew
- *
+ * 
  */
 public class DataRepOntology extends Ontology {
-    
-    public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX+"DataRepresentation.owl#";
-    
+
+    public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX
+	    + "DataRepresentation.owl#";
+
     private DataRepFactory factory = new DataRepFactory();
 
     public DataRepOntology() {
 	super(NAMESPACE);
 	Resource r = getInfo();
-	r.setResourceComment("Ontology of the universAAL Basic Data Representation Model");
+	r
+		.setResourceComment("Ontology of the universAAL Basic Data Representation Model");
 	r.setResourceLabel("Basic Data Representation Model");
     }
-    
-    
+
     public void create() {
 	OntClassInfoSetup oci;
-	
+
 	try {
 	    // load PropertyPath
 	    createNewRDFClassInfo(PropertyPath.TYPE_PROPERTY_PATH, factory, 0);
 
 	    // load ManagedIndividual
 	    oci = createNewAbstractOntClassInfo(ManagedIndividual.MY_URI);
-	    oci.setResourceComment("The root of the whole class hierarchy in the uAAL ontology.");
+	    oci
+		    .setResourceComment("The root of the whole class hierarchy in the uAAL ontology.");
 	    oci.setResourceLabel("uAAL Ontology Root Class");
-	    
+
 	    // load ComparableIndividual
 	    oci = createNewAbstractOntClassInfo(ComparableIndividual.MY_URI);
-	    oci.setResourceComment("The root class for all comparable individuals in the uAAL ontology.");
+	    oci
+		    .setResourceComment("The root class for all comparable individuals in the uAAL ontology.");
 	    oci.setResourceLabel("Comparable Individual");
 	    oci.addSuperClass(ManagedIndividual.MY_URI);
-	    
+
 	    // load AbsLocation
 	    oci = createNewAbstractOntClassInfo(AbsLocation.MY_URI);
 	    oci.setResourceComment("The root class for all locations.");
@@ -73,29 +76,31 @@ public class DataRepOntology extends Ontology {
 
 	    // load LevelRating
 	    oci = createNewAbstractOntClassInfo(LevelRating.MY_URI);
-	    oci.setResourceComment("An enumeration for specifying the level of appearance / availability of a phenomen.");
+	    oci
+		    .setResourceComment("An enumeration for specifying the level of appearance / availability of a phenomen.");
 	    oci.setResourceLabel("Level Rating");
 	    oci.addSuperClass(ComparableIndividual.MY_URI);
-	    oci.toEnumeration(new ManagedIndividual[] {
-		    LevelRating.none, LevelRating.low, LevelRating.middle,
-		    LevelRating.high, LevelRating.full });	    
+	    oci.toEnumeration(new ManagedIndividual[] { LevelRating.none,
+		    LevelRating.low, LevelRating.middle, LevelRating.high,
+		    LevelRating.full });
 
 	    // load Rating
 	    oci = createNewAbstractOntClassInfo(Rating.MY_URI);
-	    oci.setResourceComment("An enumeration for rating the perceived quality of a service similar to the"
-			+ " german marks system for students' work.");
+	    oci
+		    .setResourceComment("An enumeration for rating the perceived quality of a service similar to the"
+			    + " german marks system for students' work.");
 	    oci.setResourceLabel("QoS Rating");
 	    oci.addSuperClass(ComparableIndividual.MY_URI);
-	    oci.toEnumeration(new ManagedIndividual[] {
-		    Rating.poor, Rating.almostPoor,
-		    Rating.almostSufficient, Rating.sufficient,
-		    Rating.richSufficient, Rating.almostSatisfying,
-		    Rating.satisfying, Rating.richSatisfying,
-		    Rating.almostGood, Rating.good, Rating.richGood,
-		    Rating.almostExcellent, Rating.excellent });	    
-	    
-	    
-	} catch (Exception e) {//IllegalAccessException e) {
+	    oci
+		    .toEnumeration(new ManagedIndividual[] { Rating.poor,
+			    Rating.almostPoor, Rating.almostSufficient,
+			    Rating.sufficient, Rating.richSufficient,
+			    Rating.almostSatisfying, Rating.satisfying,
+			    Rating.richSatisfying, Rating.almostGood,
+			    Rating.good, Rating.richGood,
+			    Rating.almostExcellent, Rating.excellent });
+
+	} catch (Exception e) {// IllegalAccessException e) {
 	    e.printStackTrace();
 	    LogUtils.logDebug(SharedResources.moduleContext, this.getClass(),
 		    "create", new Object[] { "Exception: ", e.getMessage() },

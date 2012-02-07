@@ -29,28 +29,28 @@ public abstract class Property extends Resource {
     public static final String PROP_RDFS_DOMAIN = RDFS_NAMESPACE + "domain";
 
     public static final String PROP_RDFS_RANGE = RDFS_NAMESPACE + "range";
-    
+
     protected boolean isFunctional;
     private volatile ArrayList subPropertyOf = new ArrayList();
     private volatile ArrayList equivalentProperties = new ArrayList();
-    //private static Object equivalentPropertiesSync = new Object();
+    // private static Object equivalentPropertiesSync = new Object();
     private ClassExpression domain = null;
-    
+
     protected OntClassInfo info;
 
     protected PrivatePropertySetup setup;
-    
+
     protected class PrivatePropertySetup implements PropertySetup {
 	protected Property prop;
-	
+
 	public PrivatePropertySetup(Property prop) {
 	    this.prop = prop;
 	}
-	
+
 	public Property getProperty() {
 	    return prop;
 	}
-	
+
 	public void setFunctional() {
 	    prop.isFunctional = true;
 	}
@@ -72,22 +72,22 @@ public abstract class Property extends Resource {
 	    // and
 	    // adding equivalent properties is assumed to happen not very often;
 	    // mainly at the beginning)
-	    //synchronized (equivalentPropertiesSync) {
-		// get the two sets of Properties
-		// ArrayList set1 = equivalentProperties;
-		// ArrayList set2 = equivalentProperty.equivalentProperties;
-		//
-		// // combine the two sets
-		// ArrayList comb = new ArrayList(set1.size() + set2.size());
-		// comb.addAll(set1);
-		// for (int i = 0; i < set2.size(); i++)
-		// if (!comb.contains(set2.get(i)))
-		// comb.add(set2.get(i));
-		//
-		// // set the combined set in all Properties
-		// for (int i = 0; i < comb.size(); i++)
-		// ((Property) comb.get(i)).equivalentProperties = comb;
-	    //}
+	    // synchronized (equivalentPropertiesSync) {
+	    // get the two sets of Properties
+	    // ArrayList set1 = equivalentProperties;
+	    // ArrayList set2 = equivalentProperty.equivalentProperties;
+	    //
+	    // // combine the two sets
+	    // ArrayList comb = new ArrayList(set1.size() + set2.size());
+	    // comb.addAll(set1);
+	    // for (int i = 0; i < set2.size(); i++)
+	    // if (!comb.contains(set2.get(i)))
+	    // comb.add(set2.get(i));
+	    //
+	    // // set the combined set in all Properties
+	    // for (int i = 0; i < comb.size(); i++)
+	    // ((Property) comb.get(i)).equivalentProperties = comb;
+	    // }
 	}
 
 	public void addDisjointProperty(String disjointProperty) {
@@ -103,9 +103,7 @@ public abstract class Property extends Resource {
 	    // TODO Auto-generated method stub
 	}
     }
-    
-    
-    
+
     protected Property(String uri, OntClassInfo info) {
 	super(uri);
 	if (info == null)

@@ -19,17 +19,15 @@
  */
 package org.universAAL.middleware.owl;
 
-
 public class IndividualRestriction extends ComparableRestriction {
 
     public IndividualRestriction() {
 	super(ComparableIndividual.MY_URI);
     }
-    
+
     public IndividualRestriction(ComparableIndividual min,
 	    boolean minInclusive, ComparableIndividual max, boolean maxInclusive) {
-	super(ComparableIndividual.MY_URI, min, minInclusive, max,
-		maxInclusive);
+	super(ComparableIndividual.MY_URI, min, minInclusive, max, maxInclusive);
     }
 
     protected Comparable getNext(Comparable c) {

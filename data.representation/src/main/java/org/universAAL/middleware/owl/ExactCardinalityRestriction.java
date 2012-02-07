@@ -33,26 +33,26 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Carsten Stockloew
  */
 public class ExactCardinalityRestriction extends AbstractRestriction {
-    
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ExactCardinalityRestriction";
-    
+
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
+	    + "ExactCardinalityRestriction";
+
     public static final String PROP_OWL_CARDINALITY = OWL_NAMESPACE
 	    + "cardinality";
     public static final String PROP_OWL_QUALIFIED_CARDINALITY = OWL_NAMESPACE
 	    + "QualifiedCardinality";
 
     static {
-	register(ExactCardinalityRestriction.class, null,
-		PROP_OWL_CARDINALITY, null);
-//	register(ExactCardinalityRestriction.class, null,
-//		PROP_OWL_QUALIFIED_CARDINALITY, null);
+	register(ExactCardinalityRestriction.class, null, PROP_OWL_CARDINALITY,
+		null);
+	// register(ExactCardinalityRestriction.class, null,
+	// PROP_OWL_QUALIFIED_CARDINALITY, null);
     }
 
-    
     /** Standard constructor for exclusive use by serializers. */
     ExactCardinalityRestriction() {
     }
-    
+
     public ExactCardinalityRestriction(String propURI, int value) {
 	if (propURI == null)
 	    throw new NullPointerException();
@@ -63,18 +63,19 @@ public class ExactCardinalityRestriction extends AbstractRestriction {
 	setOnProperty(propURI);
 	super.setProperty(PROP_OWL_CARDINALITY, new Integer(value));
     }
-    
-    public ExactCardinalityRestriction(String propURI, int value, ClassExpression ce) {
+
+    public ExactCardinalityRestriction(String propURI, int value,
+	    ClassExpression ce) {
 	throw new UnsupportedOperationException("Not yet implemented");
-//	setOnProperty(propURI);
-//	super.setProperty(PROP_OWL_QUALIFIED_CARDINALITY, new Integer(value));
+	// setOnProperty(propURI);
+	// super.setProperty(PROP_OWL_QUALIFIED_CARDINALITY, new
+	// Integer(value));
     }
-   
-    
+
     public String getClassURI() {
 	return MY_URI;
     }
-    
+
     /** Get the value of this cardinality restriction */
     public int getValue() {
 	Integer i = (Integer) props.get(PROP_OWL_CARDINALITY);
@@ -82,7 +83,7 @@ public class ExactCardinalityRestriction extends AbstractRestriction {
 	    return 0;
 	return i.intValue();
     }
-    
+
     /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
     public ClassExpression copy() {
 	return copyTo(new ExactCardinalityRestriction());
@@ -95,16 +96,16 @@ public class ExactCardinalityRestriction extends AbstractRestriction {
     public boolean hasMember(Object member, Hashtable context) {
 	if (member == null)
 	    return false;
-	
+
 	Object value = ((Resource) member).getProperty(getOnProperty());
-	
+
 	if (value == null)
 	    return getValue() == 0;
-	
+
 	if (!(value instanceof List))
 	    return getValue() == 1;
 	else
-	    return getValue() == ((List)value).size();
+	    return getValue() == ((List) value).size();
     }
 
     /**
@@ -121,13 +122,13 @@ public class ExactCardinalityRestriction extends AbstractRestriction {
 	    return false;
 
 	if (r instanceof MinCardinalityRestriction) {
-	    if (getValue() < ((MinCardinalityRestriction)r).getValue())
+	    if (getValue() < ((MinCardinalityRestriction) r).getValue())
 		return true;
 	} else if (r instanceof MaxCardinalityRestriction) {
-	    if (getValue() > ((MaxCardinalityRestriction)r).getValue())
+	    if (getValue() > ((MaxCardinalityRestriction) r).getValue())
 		return true;
 	} else if (r instanceof ExactCardinalityRestriction) {
-	    if (getValue() != ((ExactCardinalityRestriction)r).getValue())
+	    if (getValue() != ((ExactCardinalityRestriction) r).getValue())
 		return true;
 	}
 
@@ -146,22 +147,23 @@ public class ExactCardinalityRestriction extends AbstractRestriction {
     public boolean matches(ClassExpression subset, Hashtable context) {
 	Object noRes = matchesNonRestriction(subset, context);
 	if (noRes instanceof Boolean)
-	    return ((Boolean)noRes).booleanValue();
+	    return ((Boolean) noRes).booleanValue();
 
-	AbstractRestriction other = (AbstractRestriction)noRes;
+	AbstractRestriction other = (AbstractRestriction) noRes;
 
 	if (other instanceof MinCardinalityRestriction) {
 	    return false;
 	} else if (other instanceof MaxCardinalityRestriction) {
-	    if (getValue() == 0 && ((MaxCardinalityRestriction) other).getValue() == 0)
+	    if (getValue() == 0
+		    && ((MaxCardinalityRestriction) other).getValue() == 0)
 		return true;
 	} else if (other instanceof ExactCardinalityRestriction) {
-	    if (getValue() == ((ExactCardinalityRestriction)other).getValue())
+	    if (getValue() == ((ExactCardinalityRestriction) other).getValue())
 		return true;
 	    else
 		return false;
 	}
-	
+
 	return false;
     }
 
@@ -169,7 +171,7 @@ public class ExactCardinalityRestriction extends AbstractRestriction {
     public void setProperty(String propURI, Object o) {
 	if (o == null || propURI == null || props.containsKey(propURI))
 	    return;
-	
+
 	// handle this restriction
 	if (PROP_OWL_CARDINALITY.equals(propURI)) {
 	    if (o instanceof Integer) {
@@ -182,7 +184,7 @@ public class ExactCardinalityRestriction extends AbstractRestriction {
 	    }
 	    return;
 	}
-	
+
 	// do not handle other restrictions
 	if (propURI.equals(HasValueRestriction.PROP_OWL_HAS_VALUE)
 		|| propURI

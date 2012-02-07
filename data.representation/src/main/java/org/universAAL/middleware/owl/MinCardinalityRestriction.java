@@ -32,9 +32,10 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Carsten Stockloew
  */
 public class MinCardinalityRestriction extends AbstractRestriction {
-    
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "MinCardinalityRestriction";
-    
+
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
+	    + "MinCardinalityRestriction";
+
     public static final String PROP_OWL_MIN_CARDINALITY = OWL_NAMESPACE
 	    + "minCardinality";
     public static final String PROP_OWL_MIN_QUALIFIED_CARDINALITY = OWL_NAMESPACE
@@ -43,15 +44,14 @@ public class MinCardinalityRestriction extends AbstractRestriction {
     static {
 	register(MinCardinalityRestriction.class, null,
 		PROP_OWL_MIN_CARDINALITY, null);
-//	register(MinCardinalityRestriction.class, null,
-//		PROP_OWL_MIN_QUALIFIED_CARDINALITY, null);
+	// register(MinCardinalityRestriction.class, null,
+	// PROP_OWL_MIN_QUALIFIED_CARDINALITY, null);
     }
 
-    
     /** Standard constructor for exclusive use by serializers. */
     MinCardinalityRestriction() {
     }
-    
+
     MinCardinalityRestriction(String propURI, int value) {
 	if (propURI == null)
 	    throw new NullPointerException();
@@ -62,18 +62,18 @@ public class MinCardinalityRestriction extends AbstractRestriction {
 	setOnProperty(propURI);
 	super.setProperty(PROP_OWL_MIN_CARDINALITY, new Integer(value));
     }
-    
+
     MinCardinalityRestriction(String propURI, int value, ClassExpression ce) {
 	throw new UnsupportedOperationException("Not yet implemented");
-//	setOnProperty(propURI);
-//	super.setProperty(PROP_OWL_MIN_QUALIFIED_CARDINALITY, new Integer(value));
+	// setOnProperty(propURI);
+	// super.setProperty(PROP_OWL_MIN_QUALIFIED_CARDINALITY, new
+	// Integer(value));
     }
-   
-    
+
     public String getClassURI() {
 	return MY_URI;
     }
-    
+
     /** Get the value of this cardinality restriction */
     public int getValue() {
 	Integer i = (Integer) props.get(PROP_OWL_MIN_CARDINALITY);
@@ -81,7 +81,7 @@ public class MinCardinalityRestriction extends AbstractRestriction {
 	    return 0;
 	return i.intValue();
     }
-    
+
     /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
     public ClassExpression copy() {
 	return copyTo(new MinCardinalityRestriction());
@@ -94,16 +94,16 @@ public class MinCardinalityRestriction extends AbstractRestriction {
     public boolean hasMember(Object member, Hashtable context) {
 	if (member == null)
 	    return false;
-	
+
 	Object value = ((Resource) member).getProperty(getOnProperty());
-	
+
 	if (value == null)
 	    return getValue() == 0;
-	
+
 	if (!(value instanceof List))
 	    return getValue() < 2;
 	else
-	    return getValue() <= ((List)value).size();
+	    return getValue() <= ((List) value).size();
     }
 
     /**
@@ -118,12 +118,12 @@ public class MinCardinalityRestriction extends AbstractRestriction {
 	Object o = getOnProperty();
 	if (o == null || !o.equals(r.getOnProperty()))
 	    return false;
-	
+
 	if (r instanceof MaxCardinalityRestriction) {
-	    if (getValue() > ((MaxCardinalityRestriction)r).getValue())
+	    if (getValue() > ((MaxCardinalityRestriction) r).getValue())
 		return true;
 	} else if (r instanceof ExactCardinalityRestriction) {
-	    if (getValue() > ((ExactCardinalityRestriction)r).getValue())
+	    if (getValue() > ((ExactCardinalityRestriction) r).getValue())
 		return true;
 	}
 
@@ -134,7 +134,7 @@ public class MinCardinalityRestriction extends AbstractRestriction {
     public boolean isWellFormed() {
 	return getOnProperty() != null
 		&& (hasProperty(PROP_OWL_MIN_CARDINALITY));
-   }
+    }
 
     /**
      * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
@@ -143,20 +143,20 @@ public class MinCardinalityRestriction extends AbstractRestriction {
     public boolean matches(ClassExpression subset, Hashtable context) {
 	Object noRes = matchesNonRestriction(subset, context);
 	if (noRes instanceof Boolean)
-	    return ((Boolean)noRes).booleanValue();
+	    return ((Boolean) noRes).booleanValue();
 
-	AbstractRestriction other = (AbstractRestriction)noRes;
+	AbstractRestriction other = (AbstractRestriction) noRes;
 
 	if (other instanceof MinCardinalityRestriction) {
-	    if (getValue() <= ((MinCardinalityRestriction)other).getValue())
+	    if (getValue() <= ((MinCardinalityRestriction) other).getValue())
 		return true;
 	} else if (other instanceof ExactCardinalityRestriction) {
-	    if (getValue() <= ((ExactCardinalityRestriction)other).getValue())
+	    if (getValue() <= ((ExactCardinalityRestriction) other).getValue())
 		return true;
 	    else
 		return false;
 	}
-	
+
 	return false;
     }
 
@@ -164,7 +164,7 @@ public class MinCardinalityRestriction extends AbstractRestriction {
     public void setProperty(String propURI, Object o) {
 	if (o == null || propURI == null || props.containsKey(propURI))
 	    return;
-	
+
 	// handle this restriction
 	if (PROP_OWL_MIN_CARDINALITY.equals(propURI)) {
 	    if (o instanceof Integer) {

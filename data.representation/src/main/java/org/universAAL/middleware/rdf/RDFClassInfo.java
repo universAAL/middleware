@@ -30,7 +30,6 @@ import org.universAAL.middleware.owl.OntClassInfo;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
 
-
 public class RDFClassInfo extends Resource {
 
     // set of URIs
@@ -45,18 +44,16 @@ public class RDFClassInfo extends Resource {
     // named super classes and restrictions)
     protected volatile ArrayList combinedSuperClasses = new ArrayList();
 
-
     // Members of all the following arrays are instances of {@link
     // ClassExpression}.
     protected ArrayList superClasses = new ArrayList();
-    
+
     protected ResourceFactory factory;
     protected int factoryIndex;
     protected Ontology ont;
     protected boolean locked = false;
     protected PrivateRDFSetup rdfsetup = null;
 
-    
     protected class PrivateRDFSetup implements RDFClassInfoSetup {
 	RDFClassInfo info;
 
@@ -106,7 +103,7 @@ public class RDFClassInfo extends Resource {
 		return;
 	    if (namedSuperClass == null)
 		return;
-	    
+
 	    // add to local variable
 	    HashSet tmp = new HashSet(namedSuperClasses);
 	    tmp.add(namedSuperClass);
@@ -117,7 +114,7 @@ public class RDFClassInfo extends Resource {
 	    al.add(new Resource(namedSuperClass));
 	    combinedSuperClasses = al;
 	    setProperty(ClassExpression.PROP_RDFS_SUB_CLASS_OF, Collections
-			.unmodifiableList(combinedSuperClasses));
+		    .unmodifiableList(combinedSuperClasses));
 	}
 
 	public RDFClassInfo getInfo() {
@@ -143,14 +140,14 @@ public class RDFClassInfo extends Resource {
 	if (classURI == null || isAnonymousURI(classURI))
 	    throw new NullPointerException(
 		    "The class URI must be not null and not anonymous.");
-	
+
 	this.factory = factory;
 	this.factoryIndex = factoryIndex;
 	this.ont = ont;
 	rdfsetup = new PrivateRDFSetup(this);
 	addType(Resource.TYPE_RDFS_CLASS, true);
     }
-    
+
     public static RDFClassInfoSetup create(String classURI, Ontology ont,
 	    ResourceFactory factory, int factoryIndex) {
 	if (ont == null)
@@ -162,15 +159,15 @@ public class RDFClassInfo extends Resource {
 		factoryIndex);
 	return info.rdfsetup;
     }
-    
+
     public boolean isAbstract() {
 	return factory == null;
     }
-    
+
     public ResourceFactory getFactory() {
 	return factory;
     }
-    
+
     public int getFactoryIndex() {
 	return factoryIndex;
     }
@@ -231,7 +228,7 @@ public class RDFClassInfo extends Resource {
 
 	return (String[]) al.toArray(new String[al.size()]);
     }
-    
+
     public ClassExpression[] getSuperClasses() {
 	return (ClassExpression[]) superClasses
 		.toArray(new ClassExpression[superClasses.size()]);
