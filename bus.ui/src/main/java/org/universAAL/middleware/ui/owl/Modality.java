@@ -22,7 +22,7 @@ package org.universAAL.middleware.ui.owl;
 import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
- * Defines modalities which can be: voice, gui, gesture or sms
+ * Defines modalities which can be: voice, gui, gesture, sms or web
  * 
  * @author mtazari
  * @author Carsten Stockloew
@@ -36,13 +36,15 @@ public class Modality extends ManagedIndividual {
     public static final int GUI = 1;
     public static final int GESTURE = 2;
     public static final int SMS = 3;
+    public static final int WEB = 4;
 
-    private static final String[] names = { "voice", "gui", "gesture", "sms" };
+    private static final String[] names = { "voice", "gui", "gesture", "sms", "web" };
 
     public static final Modality voice = new Modality(VOICE);
     public static final Modality gui = new Modality(GUI);
     public static final Modality gesture = new Modality(GESTURE);
     public static final Modality sms = new Modality(SMS);
+    public static final Modality web = new Modality(WEB);
 
     private int order;
 
@@ -62,6 +64,8 @@ public class Modality extends ManagedIndividual {
 	    return gesture;
 	case SMS:
 	    return sms;
+	case WEB:
+	    return web;
 	default:
 	    return null;
 	}
@@ -73,7 +77,7 @@ public class Modality extends ManagedIndividual {
      * @return Modality based on name
      */
     public static final Modality valueOf(String name) {
-	for (int i = VOICE; i <= SMS; i++)
+	for (int i = VOICE; i <= WEB; i++)
 	    if (names[i].equals(name))
 		return getLevelByOrder(i);
 	return null;

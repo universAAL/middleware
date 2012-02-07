@@ -89,7 +89,7 @@ public class UIBusOntology extends Ontology {
 	oci.setResourceLabel("Modality");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
 	oci.toEnumeration(new ManagedIndividual[] { Modality.voice,
-		Modality.gui, Modality.gesture, Modality.sms });
+		Modality.gui, Modality.gesture, Modality.sms, Modality.web });
 
 	// load PrivacyLevel
 	oci = createNewAbstractOntClassInfo(PrivacyLevel.MY_URI);
