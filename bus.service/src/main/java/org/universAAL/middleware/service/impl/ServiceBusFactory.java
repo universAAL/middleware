@@ -20,7 +20,6 @@
 package org.universAAL.middleware.service.impl;
 
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.ResourceRegistry;
 import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.ServiceCall;
@@ -35,24 +34,6 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * 
  */
 public class ServiceBusFactory extends ResourceFactoryImpl {
-
-    public ServiceBusFactory() {
-	// The classes derived from Resource but not ManagedIndividual do not
-	// have ontological information, there is no OntClassInfo for them, so
-	// the registration of the factory is not done automatically
-	// -> we have to do the registration here.
-
-	ResourceRegistry.getInstance().registerResourceFactory(
-		AggregatingFilter.MY_URI, this, 0);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		ServiceRequest.MY_URI, this, 1);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		ServiceResponse.MY_URI, this, 2);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		ServiceCall.MY_URI, this, 3);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		ServiceProfile.MY_URI, this, 4);
-    }
 
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {
@@ -132,10 +113,4 @@ public class ServiceBusFactory extends ResourceFactoryImpl {
 	// return new InitialServiceDialog(instanceURI);
 	return null;
     }
-
-    public Resource castAs(Resource r, String classURI) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
 }

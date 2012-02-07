@@ -23,7 +23,6 @@ import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.ResourceRegistry;
 import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 
 /**
@@ -32,18 +31,6 @@ import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
  * 
  */
 public class ContextBusFactory extends ResourceFactoryImpl {
-
-    public ContextBusFactory() {
-	// The classes derived from Resource but not ManagedIndividual do not
-	// have ontological information, there is no OntClassInfo for them, so
-	// the registration of the factory is not done automatically
-	// -> we have to do the registration here.
-
-	ResourceRegistry.getInstance().registerResourceFactory(
-		ContextEvent.MY_URI, this, 0);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		ContextEventPattern.MY_URI, this, 1);
-    }
 
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {

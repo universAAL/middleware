@@ -22,8 +22,8 @@ package org.universAAL.middleware.ui.rdf;
 import org.universAAL.middleware.owl.BoundingValueRestriction;
 import org.universAAL.middleware.owl.ComparableIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.PropertyPath;
-import org.universAAL.middleware.rdf.ResourceRegistry;
 
 /**
  * A range control should be used as placeholder for such user input that must
@@ -113,7 +113,7 @@ public class Range extends Input {
 		}
 
 		
-		Object o = ResourceRegistry.getInstance().getResource(r.getPropTypeURI(), null);
+		Object o = OntologyManagement.getInstance().getResource(r.getPropTypeURI(), null);
 		if (o == null)
 		    return null;
 		Class claz = o.getClass();

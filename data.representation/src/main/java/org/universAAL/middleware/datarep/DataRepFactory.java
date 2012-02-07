@@ -21,7 +21,6 @@ package org.universAAL.middleware.datarep;
 
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.ResourceRegistry;
 import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 
 /**
@@ -31,15 +30,6 @@ import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
  */
 public class DataRepFactory extends ResourceFactoryImpl {
     
-    DataRepFactory() {
-	// The classes derived from Resource but not ManagedIndividual do not
-	// have ontological information, there is no OntClassInfo for them, so
-	// the registration of the factory is not done automatically
-	// -> we have to do the registration here.
-	
-	ResourceRegistry.getInstance().registerResourceFactory(PropertyPath.TYPE_PROPERTY_PATH, this, 0);
-    }
-
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {
 	

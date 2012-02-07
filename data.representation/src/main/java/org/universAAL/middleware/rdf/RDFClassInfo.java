@@ -68,13 +68,9 @@ public class RDFClassInfo extends Resource {
 	    if (locked)
 		return;
 
-	    // TODO: what about repeated insert of the "same" instance?
-	    if (instance != null && !instance.isAnon()) {
-		instances.put(instance.getURI(), instance);
-		ResourceRegistry.getInstance().registerNamedResource(instance);
-		// Resource.addSpecialResource(instance);
-		// addToSuperClasses(instance); //TODO??
-	    }
+	    if (instance != null && !instance.isAnon())
+		if (!instances.containsKey(instance.getURI()))
+		    instances.put(instance.getURI(), instance);
 	}
 
 	public void addSuperClass(ClassExpression superClass) {
@@ -148,9 +144,6 @@ public class RDFClassInfo extends Resource {
 	    throw new NullPointerException(
 		    "The class URI must be not null and not anonymous.");
 	
-	// Resource.addResourceClass(classURI, clz);
-	ResourceRegistry.getInstance().registerResourceFactory(classURI,
-		factory, factoryIndex);
 	this.factory = factory;
 	this.factoryIndex = factoryIndex;
 	this.ont = ont;
@@ -172,6 +165,14 @@ public class RDFClassInfo extends Resource {
     
     public boolean isAbstract() {
 	return factory == null;
+    }
+    
+    public ResourceFactory getFactory() {
+	return factory;
+    }
+    
+    public int getFactoryIndex() {
+	return factoryIndex;
     }
 
     public boolean hasSuperClass(String classURI, boolean inherited) {

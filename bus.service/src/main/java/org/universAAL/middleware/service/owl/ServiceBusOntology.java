@@ -26,7 +26,12 @@ import org.universAAL.middleware.owl.OntClassInfoSetup;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.service.AggregatingFilter;
+import org.universAAL.middleware.service.ServiceCall;
+import org.universAAL.middleware.service.ServiceRequest;
+import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.impl.ServiceBusFactory;
+import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
  * 
@@ -51,6 +56,14 @@ public class ServiceBusOntology extends Ontology {
 	addImport(DataRepOntology.NAMESPACE);
 
 	OntClassInfoSetup oci;
+	
+	// load RDF resources (no ManagedIndividuals)
+	createNewRDFClassInfo(AggregatingFilter.MY_URI, factory, 0);
+	createNewRDFClassInfo(ServiceRequest.MY_URI, factory, 1);
+	createNewRDFClassInfo(ServiceResponse.MY_URI, factory, 2);
+	createNewRDFClassInfo(ServiceProfile.MY_URI, factory, 4);
+	createNewRDFClassInfo(ServiceCall.MY_URI, factory, 3).addInstance(
+		ServiceCall.THIS_SERVICE_CALL);
 
 	// load Service
 	oci = createNewAbstractOntClassInfo(Service.MY_URI);

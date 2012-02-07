@@ -20,7 +20,6 @@
 package org.universAAL.middleware.ui.impl;
 
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.ResourceRegistry;
 import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 import org.universAAL.middleware.ui.UIHandlerProfile;
 import org.universAAL.middleware.ui.UIRequest;
@@ -48,53 +47,6 @@ import org.universAAL.middleware.ui.rdf.TextArea;
  * @author Carsten Stockloew
  */
 public class UIBusFactory extends ResourceFactoryImpl {
-
-    /**
-     * Instantiates a new uI bus factory.
-     */
-    public UIBusFactory() {
-	// The classes derived from Resource but not ManagedIndividual do not
-	// have ontological information, there is no OntClassInfo for them, so
-	// the registration of the factory is not done automatically
-	// -> we have to do the registration here.
-
-	ResourceRegistry.getInstance().registerResourceFactory(
-		UIHandlerProfile.MY_URI, this, 0);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		UIRequest.MY_URI, this, 1);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		UIResponse.MY_URI, this, 2);
-	ResourceRegistry.getInstance().registerResourceFactory(Label.MY_URI,
-		this, 4);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		ChoiceItem.MY_URI, this, 5);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		ChoiceList.MY_URI, this, 6);
-	ResourceRegistry.getInstance().registerResourceFactory(Form.MY_URI,
-		this, 7);
-	ResourceRegistry.getInstance().registerResourceFactory(Group.MY_URI,
-		this, 8);
-	ResourceRegistry.getInstance().registerResourceFactory(Select.MY_URI,
-		this, 9);
-	ResourceRegistry.getInstance().registerResourceFactory(Select1.MY_URI,
-		this, 10);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		InputField.MY_URI, this, 11);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		SimpleOutput.MY_URI, this, 12);
-	ResourceRegistry.getInstance().registerResourceFactory(TextArea.MY_URI,
-		this, 13);
-	ResourceRegistry.getInstance().registerResourceFactory(Submit.MY_URI,
-		this, 14);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		SubdialogTrigger.MY_URI, this, 15);
-	ResourceRegistry.getInstance().registerResourceFactory(Repeat.MY_URI,
-		this, 16);
-	ResourceRegistry.getInstance().registerResourceFactory(
-		MediaObject.MY_URI, this, 17);
-	ResourceRegistry.getInstance().registerResourceFactory(Range.MY_URI,
-		this, 18);
-    }
 
     /* (non-Javadoc)
      * @see org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance(java.lang.String, java.lang.String, int)

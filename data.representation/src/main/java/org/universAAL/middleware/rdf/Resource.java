@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.container.utils.StringUtils;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.util.ResourceComparator;
 
 /**
@@ -306,8 +307,7 @@ public class Resource {
      */
     public static Resource getResource(String classURI, String instanceURI) {
 
-	return ResourceRegistry.getInstance()
-		.getResource(classURI, instanceURI);
+	return OntologyManagement.getInstance().getResource(classURI, instanceURI);
 
 	// if (classURI == null)
 	// return null;

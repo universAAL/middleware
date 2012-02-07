@@ -19,6 +19,8 @@
  */
 package org.universAAL.middleware.context.owl;
 
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.impl.ContextBusFactory;
 import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.ManagedIndividual;
@@ -51,6 +53,11 @@ public class ContextBusOntology extends Ontology {
 
 	OntClassInfoSetup oci;
 
+	// load RDF resources (no ManagedIndividuals)
+	createNewRDFClassInfo(ContextEvent.MY_URI, factory, 0);
+	createNewRDFClassInfo(ContextEventPattern.MY_URI, factory, 1);
+
+	
 	// load ContextProviderType
 	oci = createNewAbstractOntClassInfo(ContextProviderType.MY_URI);
 	oci

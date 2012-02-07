@@ -20,10 +20,12 @@
 package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.DataRepFactory;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.owl.supply.LevelRating;
 import org.universAAL.middleware.owl.supply.Rating;
+import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -34,6 +36,8 @@ import org.universAAL.middleware.rdf.Resource;
 public class DataRepOntology extends Ontology {
     
     public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX+"DataRepresentation.owl#";
+    
+    private DataRepFactory factory = new DataRepFactory();
 
     public DataRepOntology() {
 	super(NAMESPACE);
@@ -47,6 +51,9 @@ public class DataRepOntology extends Ontology {
 	OntClassInfoSetup oci;
 	
 	try {
+	    // load PropertyPath
+	    createNewRDFClassInfo(PropertyPath.TYPE_PROPERTY_PATH, factory, 0);
+
 	    // load ManagedIndividual
 	    oci = createNewAbstractOntClassInfo(ManagedIndividual.MY_URI);
 	    oci.setResourceComment("The root of the whole class hierarchy in the uAAL ontology.");
