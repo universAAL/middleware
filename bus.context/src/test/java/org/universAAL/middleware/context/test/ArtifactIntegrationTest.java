@@ -93,16 +93,6 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	logInfo("Created Default Context Publisher with full Provider Info",
 		null);
 
-	// Correctly create a CP without full info
-	info = new ContextProvider();
-	pub3 = new DummyContextPublisher(ContextBusImpl.moduleContext, info);
-	logInfo("Created COntext Publisher without full Provider Info", null);
-
-	// Correctly create a defCP without full info
-	pub4 = new DefaultContextPublisher(ContextBusImpl.moduleContext, info);
-	logInfo("Created Default Context Publisher without full Provider Info",
-		null);
-
 	// Incorrectly create a CP without info
 	try {
 	    pub5 = new DummyContextPublisher(ContextBusImpl.moduleContext, null);
@@ -113,12 +103,33 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		    e.toString());
 	}
 	
+	// Incorrectly create a CP without info
+	try {
+	    info = new ContextProvider();
+	    pub3 = new DummyContextPublisher(ContextBusImpl.moduleContext, info);
+	    // Assert.notNull(null,"Allowed creation of a Context Publisher with null provider info");
+	} catch (Exception e) {
+	    Assert.notNull(e);
+	    logInfo("Created COntext Publisher without full Provider Info",
+		    null);
+	}
+
+	// Incorrectly create a CP without info
+	try {
+	    info = new ContextProvider();
+	    pub4 = new DefaultContextPublisher(ContextBusImpl.moduleContext,
+		    info);
+	    // Assert.notNull(null,"Allowed creation of a Context Publisher with null provider info");
+	} catch (Exception e) {
+	    Assert.notNull(e);
+	    logInfo("Created Default Context Publisher without full Provider Info",
+		    null);
+	}
+
 	// Try closes of subscriber
 	pub1.communicationChannelBroken();
 	pub1.close();
 	pub2.close();
-	pub3.close();
-	pub4.close();
     }
 
     /**
@@ -259,9 +270,9 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    retrieved=(Boolean) queue.poll(1000, TimeUnit.MILLISECONDS);
 	    Assert.notNull(retrieved,"Not received the expected good event");	    
 	} catch (InterruptedException e) {
-	    Assert.notNull(null);
 	    logError(e,"Something bad happened %s",
 		    e.toString());
+	    Assert.notNull(null);
 	}
 	
 	// Create and send second wrong event
@@ -273,9 +284,9 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    retrieved=(Boolean) queue.poll(1000, TimeUnit.MILLISECONDS);
 	    Assert.isNull(retrieved,"Wrongly received a bad context event");
 	} catch (InterruptedException e) {
-	    Assert.notNull(null);
 	    logError(e,"Something bad happened %s",
 		    e.toString());
+	    Assert.notNull(null);
 	}
 	
 	//Close subscriber
