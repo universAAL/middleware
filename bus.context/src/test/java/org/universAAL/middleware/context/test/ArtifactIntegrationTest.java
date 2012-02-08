@@ -17,6 +17,7 @@ import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.supply.LevelRating;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -56,8 +57,24 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	StackTraceElement callingMethod = Thread.currentThread()
 		.getStackTrace()[2];
 	LogUtils.logError(ContextBusImpl.moduleContext, getClass(),
-		callingMethod.getMethodName(),
-		new Object[] { formatMsg(format, new Object[] { args }) }, t);
+		callingMethod.getMethodName(), new Object[] { formatMsg(format,
+			new Object[] { args }) }, t);
+    }
+
+    /**
+     * Test which verifies if classes which are not explicitly imported by
+     * tested bundle, can be used in integration test.
+     */
+    public void testDynamicImport() {
+	ContextEvent cev1 = ContextEvent.constructSimpleEvent(DUMMYUSER, USER,
+		HAS_LOCATION, LevelRating.high);
+    }
+    
+    /**
+     * Test which verifies if JUnit API can be used in integration tests.
+     */
+    public void testJunitAssert() {
+	junit.framework.Assert.assertTrue(true);
     }
 
     /**
