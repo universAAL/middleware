@@ -72,6 +72,7 @@ public class LogUtils {
 	else {
 	    switch (level) {
 	    case LogListener.LOG_LEVEL_TRACE:
+		mc.logTrace(buildMsg(cls, method, msgPart), t);
 		break;
 	    case LogListener.LOG_LEVEL_DEBUG:
 		mc.logDebug(buildMsg(cls, method, msgPart), t);
@@ -98,7 +99,7 @@ public class LogUtils {
      * Provides a standard way for using container-specific loggers for logging
      * debug messages via {@link ModuleContext#logDebug(String, Throwable)}. The
      * advantage compared to using
-     * {@link ModuleContext#logDebug(String, Throwable)} directly is twofols:
+     * {@link ModuleContext#logDebug(String, Throwable)} directly is twofold:
      * <ol>
      * <li>here registered instances of {@link LogListener} are notified
      * automatically, and</li>
@@ -133,7 +134,7 @@ public class LogUtils {
      * Provides a standard way for using container-specific loggers for logging
      * error messages via {@link ModuleContext#logError(String, Throwable)}. The
      * advantage compared to using
-     * {@link ModuleContext#logError(String, Throwable)} directly is twofols:
+     * {@link ModuleContext#logError(String, Throwable)} directly is twofold:
      * <ol>
      * <li>here registered instances of {@link LogListener} are notified
      * automatically, and</li>
@@ -168,7 +169,7 @@ public class LogUtils {
      * Provides a standard way for using container-specific loggers for logging
      * info messages via {@link ModuleContext#logInfo(String, Throwable)}. The
      * advantage compared to using
-     * {@link ModuleContext#logInfo(String, Throwable)} directly is twofols:
+     * {@link ModuleContext#logInfo(String, Throwable)} directly is twofold:
      * <ol>
      * <li>here registered instances of {@link LogListener} are notified
      * automatically, and</li>
@@ -203,7 +204,7 @@ public class LogUtils {
      * Provides a standard way for using container-specific loggers for logging
      * warn messages via {@link ModuleContext#logWarn(String, Throwable)}. The
      * advantage compared to using
-     * {@link ModuleContext#logWarn(String, Throwable)} directly is twofols:
+     * {@link ModuleContext#logWarn(String, Throwable)} directly is twofold:
      * <ol>
      * <li>here registered instances of {@link LogListener} are notified
      * automatically, and</li>
@@ -232,5 +233,40 @@ public class LogUtils {
     public static void logWarn(ModuleContext mc, Class claz, String method,
 	    Object[] msgPart, Throwable t) {
 	log(LogListener.LOG_LEVEL_WARN, mc, claz, method, msgPart, t);
+    }
+    
+    /**
+     * Provides a standard way for using container-specific loggers for logging
+     * trace messages via {@link ModuleContext#logTrace(String, Throwable)}. The
+     * advantage compared to using
+     * {@link ModuleContext#logTrace(String, Throwable)} directly is twofold:
+     * <ol>
+     * <li>here registered instances of {@link LogListener} are notified
+     * automatically, and</li>
+     * <li>the message string needed by
+     * {@link ModuleContext#logTrace(String, Throwable)} is built in a structured
+     * way by concatenating several different info (see the parameters as well
+     * as {@link #buildMsg(String, String, Object[])}).
+     * 
+     * @param mc
+     *            the {@link ModuleContext} needed for accessing the
+     *            container-specific logger for the corresponding module
+     * @param className
+     *            The name of the Java class that wants to generate the log
+     *            message
+     * @param methodName
+     *            The name of the method in the above Java class that intends to
+     *            generate the log message
+     * @param msgPart
+     *            An array of strings and other objects that should be
+     *            concatenated using {@link java.lang.String#valueOf(Object)} in
+     *            order to construct the log message
+     * @param t
+     *            An optional {@link java.lang.Throwable} object like an
+     *            exception that might have caused the log request
+     */
+    public static void logTrace(ModuleContext mc, Class claz, String method,
+	    Object[] msgPart, Throwable t) {
+	log(LogListener.LOG_LEVEL_TRACE, mc, claz, method, msgPart, t);
     }
 }
