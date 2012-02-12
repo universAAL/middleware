@@ -184,7 +184,7 @@ public class RDFClassInfo extends Resource {
 	    OntClassInfo superInfo = OntologyManagement.getInstance()
 		    .getOntClassInfo(superClassURI);
 	    if (superInfo != null)
-		if (superInfo.hasSuperClass(superClassURI, inherited))
+		if (superInfo.hasSuperClass(classURI, inherited))
 		    return true;
 	}
 	return false;
