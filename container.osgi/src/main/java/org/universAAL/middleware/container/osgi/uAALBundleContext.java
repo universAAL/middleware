@@ -183,6 +183,14 @@ public class uAALBundleContext implements ModuleContext {
     }
 
     /**
+     * @see org.universAAL.middleware.container.ModuleContext#logTrace(java.lang.String,
+     *      java.lang.Throwable)
+     */
+    public void logTrace(String message, Throwable t) {
+	logger.trace(message, t);
+    }
+
+    /**
      * @see org.universAAL.middleware.container.ModuleContext#registerConfigFile(java.lang.Object[])
      */
     public void registerConfigFile(Object[] configFileParams) {

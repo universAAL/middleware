@@ -131,6 +131,18 @@ public interface ModuleContext {
      *            might have caused the log request
      */
     public void logWarn(String message, Throwable t);
+    
+    /**
+     * Provides a standard way for using container-specific loggers, in this
+     * case for logging trace messages.
+     * 
+     * @param message
+     *            the log message
+     * @param t
+     *            An optional {@link Throwable} object like an exception that
+     *            might have caused the log request
+     */
+    public void logTrace(String message, Throwable t);
 
     /**
      * Modules can use this method of their context to enrich it with info about
