@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.PropertyPath;
@@ -1097,9 +1098,33 @@ public class ServiceStrategy extends BusStrategy {
 			for (Iterator i = v.iterator(); i.hasNext();) {
 			    ServiceRealization sr = (ServiceRealization) i
 				    .next();
+			    LogUtils
+				    .logTrace(
+					    ServiceBusImpl.moduleContext,
+					    ServiceStrategy.class,
+					    "handle",
+					    new Object[] {
+						    "Matching offer ",
+						    sr
+							    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE),
+						    " with request ", request },
+					    null);
 			    Hashtable context = matches(caller, request, sr);
-			    if (context != null)
+			    if (context != null) {
 				matches.add(context);
+				LogUtils
+					.logTrace(
+						ServiceBusImpl.moduleContext,
+						ServiceStrategy.class,
+						"handle",
+						new Object[] {
+							"Matching offer ",
+							sr
+								.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE),
+							" with request ",
+							request, " successful" },
+						null);
+			    }
 			}
 		    }
 		}
