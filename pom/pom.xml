@@ -41,6 +41,19 @@
 		<module>../bus.ui</module>
 	</modules>
 
+	<pluginRepositories>
+		<pluginRepository>
+			<id>uaal-snapshots</id>
+			<name>universAAL Snapshot Repositories</name>
+			<url>http://depot.universaal.org/maven-repo/snapshots/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>uaal</id>
+			<name>universAAL Repositories</name>
+			<url>http://depot.universaal.org/maven-repo/releases/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -180,8 +193,55 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>            
+			</plugin>
+			<plugin>
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>uaal-maven-plugin</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>CompositeMojo</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>composite</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>TestMojo</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>					
+				</executions>
+			</plugin>			          
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.7</version>
+					<executions>
+						<execution>
+							<id>attach-composite</id>
+							<phase>package</phase>
+							<goals>
+								<goal>attach-artifact</goal>
+							</goals>
+							<configuration>
+								<artifacts>
+									<artifact>
+										<file>target/artifact.composite</file>
+										<type>composite</type>
+									</artifact>
+								</artifacts>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>
