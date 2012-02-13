@@ -165,9 +165,50 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<!--
+					bus.io does not used 1.0.1-SNAPSHOT so uaal-maven-plugin cannot be
+					used
+				-->
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>uaal-maven-plugin</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>CompositeMojo</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>TestMojo</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>			
+			<plugin>
+				<!--
+					Because uaal-maven-plugin cannot be used. The older artifact.composite
+					(not the one in target/artifact.composite) has to attached.
+				-->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>			
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>attach-composite</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>artifact.composite</file>
+									<type>composite</type>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

@@ -20,19 +20,6 @@
 		<url>${svn.base.url}bus.context</url>
 	</scm>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>uaal-snapshots</id>
-			<name>universAAL Snapshot Repositories</name>
-			<url>http://depot.universaal.org/maven-repo/snapshots/</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>uaal</id>
-			<name>universAAL Repositories</name>
-			<url>http://depot.universaal.org/maven-repo/releases/</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.universAAL.support</groupId>
@@ -73,32 +60,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.universAAL.support</groupId>
-				<artifactId>uaal-maven-plugin</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>composite</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.universAAL.support</groupId>
-				<artifactId>uaal-maven-plugin</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
