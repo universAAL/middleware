@@ -14,6 +14,12 @@
 	<description>The realization of the user interaction bus on top of Sodapop as part of the universAAL Middleware</description>
 	<url />
 
+	<scm>
+		<connection>${svn.base}/bus.ui</connection> 
+		<developerConnection>${svn.base}/bus.ui</developerConnection>
+		<url>${svn.base.url}bus.ui</url>
+	</scm>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>

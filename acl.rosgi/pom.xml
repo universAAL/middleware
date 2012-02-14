@@ -16,9 +16,9 @@
 	<url />
 
 	<scm>
-		<connection>${svn.base}/acl.r-osgi</connection>
-		<developerConnection>${svn.base}/acl.r-osgi</developerConnection>
-		<url>${svn.base.url}acl.r-osgi</url>
+		<connection>${svn.base}/acl.rosgi</connection>
+		<developerConnection>${svn.base}/acl.rosgi</developerConnection>
+		<url>${svn.base.url}acl.rosgi</url>
 	</scm>
 
 	<properties>
