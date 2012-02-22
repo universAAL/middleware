@@ -1,2 +1,0 @@
-scan-composite:mvn:org.universAAL.samples/smp.lighting.server/1.0.1-SNAPSHOT/composite
-scan-bundle:mvn:org.universAAL.samples/smp.lighting.client/1.0.1-SNAPSHOT
