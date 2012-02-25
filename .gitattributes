@@ -328,6 +328,8 @@ data.representation/src/main/java/org/universAAL/middleware/owl/Ontology.java -t
 data.representation/src/main/java/org/universAAL/middleware/owl/OntologyManagement.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/SimpleOntology.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/SomeValuesFromRestriction.java -text
+data.representation/src/main/java/org/universAAL/middleware/owl/TypeExpression.java -text
+data.representation/src/main/java/org/universAAL/middleware/owl/TypeExpressionFactory.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/TypeRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/TypeURI.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/Union.java -text

@@ -38,6 +38,9 @@ import org.universAAL.middleware.rdf.Variable;
  * It is possible to define a condition on the min value and on the max value in
  * the same {@link BoundingValueRestriction}.
  * 
+ * BoundingValueRestriction will soon be replaced by
+ * {@link BoundedValueRestriction} and its subclasses.
+ * 
  * @author Carsten Stockloew
  */
 public class BoundingValueRestriction extends AbstractRestriction {

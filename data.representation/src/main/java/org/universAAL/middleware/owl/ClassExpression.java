@@ -36,7 +36,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public abstract class ClassExpression extends Resource {
+public abstract class ClassExpression extends Resource implements TypeExpression{
 
     /** URI namespace for OWL. */
     public static final String OWL_NAMESPACE = "http://www.w3.org/2002/07/owl#";
