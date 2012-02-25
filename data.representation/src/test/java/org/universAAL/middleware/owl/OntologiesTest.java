@@ -1,14 +1,15 @@
-package org.universAAL.middleware.rdf;
+package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 
 import junit.framework.TestCase;
 
-public class Ontologies extends TestCase {
+public class OntologiesTest extends TestCase {
 
     private class MyResource extends Resource {
 	public static final String MY_URI = MyOntology.NAMESPACE + "MyResource";

@@ -21,7 +21,7 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
 
-public class DoubleRestriction extends ComparableRestriction {
+public class DoubleRestriction extends BoundedValueRestriction {
 
     // substitutions for Double.MIN_NORMAL
     private static final double DOUBLE_SMALLEST_POSITIVE_VALUE = Double
