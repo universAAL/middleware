@@ -26,7 +26,22 @@ import java.util.ListIterator;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.rdf.Variable;
 
-public abstract class ComparableRestriction extends TypeRestriction {
+/**
+ * Implementation of XSD Value Restrictions: it contains all values (literals or
+ * individuals) that meet the specified conditions. These conditions are either:
+ * <ol>
+ * <li>min inclusive</li>
+ * <li>min exclusive</li>
+ * <li>max inclusive</li>
+ * <li>max exclusive</li>
+ * </ol>
+ * 
+ * It is possible to define a condition on the min value and on the max value in
+ * the same {@link BoundedValueRestriction}.
+ * 
+ * @author Carsten Stockloew
+ */
+public abstract class BoundedValueRestriction extends TypeRestriction {
 
     protected static final String XSD_FACET_MIN_INCLUSIVE;
     protected static final String XSD_FACET_MAX_INCLUSIVE;
@@ -45,11 +60,11 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	XSD_FACET_MAX_EXCLUSIVE = TypeMapper.XSD_NAMESPACE + "maxExclusive";
     }
 
-    protected ComparableRestriction(String datatypeURI) {
+    protected BoundedValueRestriction(String datatypeURI) {
 	super(datatypeURI);
     }
 
-    protected ComparableRestriction(String datatypeURI, Comparable min,
+    protected BoundedValueRestriction(String datatypeURI, Comparable min,
 	    boolean minInclusive, Comparable max, boolean maxInclusive) {
 	super(datatypeURI);
 
@@ -99,7 +114,7 @@ public abstract class ComparableRestriction extends TypeRestriction {
      * 
      * @see org.universAAL.middleware.owl.ClassExpression#copy()
      */
-    protected ClassExpression copyTo(ComparableRestriction copy) {
+    protected ClassExpression copyTo(BoundedValueRestriction copy) {
 	copy.setFacets(min, minInclusive, max, maxInclusive);
 	return copy;
     }
@@ -206,6 +221,28 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	super.setProperty(propURI, o);
     }
 
+    private Comparable resolveVarByGreaterEqual(Variable v,
+	    Comparable lowerbound, boolean canBeEqual, Hashtable context) {
+	Comparable resolution = canBeEqual ? lowerbound : getNext(lowerbound);
+	// consider that we might fail because getNext() does not work always
+	if (resolution != null)
+	    // add the variable resolution to the context
+	    context.put(v.toString(), resolution);
+	return resolution;
+    }
+
+    private Comparable resolveVarByLessEqual(Variable v, Comparable upperbound,
+	    boolean canBeEqual, Hashtable context) {
+	Comparable resolution = canBeEqual ? upperbound
+		: getPrevious(upperbound);
+	// consider that we might fail because getPrevious() does not work
+	// always
+	if (resolution != null)
+	    // add the variable resolution to the context
+	    context.put(v.toString(), resolution);
+	return resolution;
+    }
+
     /**
      * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
      *      Hashtable)
@@ -217,73 +254,154 @@ public abstract class ComparableRestriction extends TypeRestriction {
 	if (!(member instanceof Comparable))
 	    return false;
 
+	// get the value to be checked against the lower- and upperbounds
+	Object valueToCheck = member;
+	if (valueToCheck instanceof Variable)
+	    // check if there is any value already assumed for it in the given
+	    // context
+	    valueToCheck = Variable.resolveVarRef(valueToCheck, context);
+	if (!(valueToCheck instanceof Variable)
+		&& !(valueToCheck instanceof Comparable))
+	    return false;
+
+	Object lowerBound = min;
+	Object upperBound = max;
+
+	// also, any of upperBound / lowerBound might be a variable => we must
+	// check the
+	// context if they are already bound to any value; if yes, the value
+	// must be an instance of Comparable
+	lowerBound = Variable.resolveVarRef(lowerBound, context);
+	upperBound = Variable.resolveVarRef(upperBound, context);
+	if ((!(lowerBound instanceof Variable) && !(lowerBound instanceof Comparable))
+		|| (!(upperBound instanceof Variable) && !(upperBound instanceof Comparable)))
+	    return false;
+
+	// it is still possible that any of upperBound, lowerBound, or
+	// valueToCheck is a variable, if the variables were not conditioned
+	// previously
+	// => it is possible that we can suggest a conditional match, e.g.,
+	// there is a match if var-1 is set to value-1 but this will be possible
+	// if context is not null AND not all the three are variables
+	if (context == null) {
+	    if (valueToCheck instanceof Variable
+		    || lowerBound instanceof Variable
+		    || upperBound instanceof Variable)
+		return false;
+	} else if (valueToCheck instanceof Variable
+		&& lowerBound instanceof Variable
+		&& upperBound instanceof Variable)
+	    return false;
+
+	// any condition must be stored in the "context", but we might have to
+	// add more than one condition
+	// => we'd better clone the context and manipulate only the clone until
+	// we are sure that the conditions will lead to a match
 	Hashtable cloned = (context == null) ? null : (Hashtable) context
 		.clone();
 
-	Object aux = max;
-	if (aux != null)
-	    if (aux instanceof Variable) {
-		Comparable next = getNext((Comparable) member);
-		if (maxInclusive) {
-		    // we can assign any value greater than member (or event
-		    // member itself) to aux so that member is a member of this
-		    // restriction
-		    // so we try first with the next value and if it cannot be
-		    // determined we take member
-		    if (next == null)
-			next = (Comparable) member;
-		} else {
-		    // we can assign any value greater than member to aux so
-		    // that member is a member of this restriction
-		    // so we try with the next value
-		    if (next == null)
-			return false;
-		}
-		cloned.put(aux.toString(), next);
-	    } else {
-		if (maxInclusive) {
-		    if (!(aux instanceof Comparable)
-			    || ((Comparable) member).compareTo(aux) > 0)
-			return false;
-		} else {
-		    if (!(aux instanceof Comparable)
-			    || ((Comparable) member).compareTo(aux) > -1)
-			return false;
-		}
-	    }
+	// check the conditions; this means:
+	//
+	// a) "valueToCheck < upperBound" must hold in order for the 'member' to
+	// .. be a member of this BoundingValueRestriction
+	// 
+	// b) "valueToCheck == upperBound" is also valid, if
+	// .. "maxInclusive == true"
+	//
+	// c) "valueToCheck > lowerBound" must hold in order for the 'member' to
+	// .. be a member of this BoundingValueRestriction
+	// 
+	// d) "valueToCheck == lowerBound" is also valid, if
+	// .. "minInclusive == true"
+	//
+	// however, we must differentiate between different combinations of
+	// instances of Variable and Comparable
+	if (upperBound instanceof Variable) {
+	    // because upperBound is a variable, let's call it in all the
+	    // comments below "upperBoundVar"
 
-	aux = min;
-	if (aux != null)
-	    if (aux instanceof Variable) {
-		Comparable prev = getPrevious((Comparable) member);
-		if (minInclusive) {
-		    // we can assign any value less than member (or event member
-		    // itself) to aux so that member is a member of this
-		    // restriction
-		    // so we try first with the previous value and if it cannot
-		    // be determined we take member
-		    if (prev == null)
-			prev = (Comparable) member;
-		} else {
-		    // we can assign any value less than member to aux so that
-		    // member is a member of this restriction
-		    // so we try with the previous value
-		    if (prev == null)
-			return false;
-		}
-		cloned.put(aux.toString(), prev);
-	    } else {
-		if (minInclusive) {
-		    if (aux != null
-			    && (!(aux instanceof Comparable) || ((Comparable) aux)
-				    .compareTo(member) > 0))
-			return false;
-		} else {
-		    if (!(aux instanceof Comparable)
-			    || ((Comparable) aux).compareTo(member) > -1)
-			return false;
-		}
-	    }
+	    // we have upperBoundVar => possible cases for the other two are:
+	    //
+	    // i) valueToCheck a Variable but lowerBound a Comparable
+	    // ii) valueToCheck a Comparable but lowerBound a Variable
+	    // iii) both valueToCheck and lowerBound are instances of Comparable
+	    if (valueToCheck instanceof Variable) {
+		// we are in case 'i)' => we can use lowerBound to suggest a
+		// value for valueToCheck
+		valueToCheck = resolveVarByGreaterEqual(
+			(Variable) valueToCheck, (Comparable) lowerBound,
+			minInclusive, cloned);
+		if (valueToCheck == null)
+		    // deadend
+		    return false;
+	    } else if (lowerBound instanceof Variable) {
+		// we are in case 'ii)' => we can use valueToCheck to suggest a
+		// value for lowerBound
+		lowerBound = resolveVarByLessEqual((Variable) lowerBound,
+			(Comparable) valueToCheck, minInclusive, cloned);
+		if (lowerBound == null)
+		    // deadend
+		    return false;
+	    } else if (((Comparable) valueToCheck).compareTo(lowerBound) < 0
+		    || (!minInclusive && ((Comparable) valueToCheck)
+			    .compareTo(lowerBound) == 0))
+		// we are in case 'iii)' but the conditions 'c)' and 'd)' do not
+		// hold
+		return false;
+
+	    // at this place, we can be sure that valueToCheck is an instance of
+	    // Comparable => the conditions 'a)' and 'b)' will hold if we
+	    // assume a value greater than valueToCheck for upperBoundVar
+	    upperBound = resolveVarByGreaterEqual((Variable) upperBound,
+		    (Comparable) valueToCheck, maxInclusive, cloned);
+	    if (upperBound == null)
+		// deadend
+		return false;
+	} else if (lowerBound instanceof Variable) {
+	    // at this place, we can be sure that upperBound is an instance of
+	    // Comparable & lowerBound an instance of Variable => we just have
+	    // to differentiate the cases for valueToCheck
+	    if (valueToCheck instanceof Variable) {
+		// we can use upperBound to suggest a value for valueToCheck
+		valueToCheck = resolveVarByLessEqual((Variable) valueToCheck,
+			(Comparable) upperBound, maxInclusive, cloned);
+		if (valueToCheck == null)
+		    // deadend
+		    return false;
+	    } else if (((Comparable) valueToCheck).compareTo(upperBound) > 0
+		    || (!maxInclusive && ((Comparable) valueToCheck)
+			    .compareTo(upperBound) == 0))
+		// one of the conditions 'a)' / 'b)' does not hold
+		return false;
+
+	    // here, valueToCheck is certainly an instance of Comparable
+	    // now we can use valueToCheck to suggest a value for lowerBound
+	    lowerBound = resolveVarByLessEqual((Variable) lowerBound,
+		    (Comparable) valueToCheck, minInclusive, cloned);
+	    if (lowerBound == null)
+		// deadend
+		return false;
+	} else if (valueToCheck instanceof Variable) {
+	    // we can use lowerBound to suggest a value for valueToCheck
+	    valueToCheck = resolveVarByGreaterEqual((Variable) valueToCheck,
+		    (Comparable) lowerBound, minInclusive, cloned);
+	    if (valueToCheck == null)
+		// deadend
+		return false;
+
+	    if (((Comparable) valueToCheck).compareTo(upperBound) > 0
+		    || (!maxInclusive && ((Comparable) valueToCheck)
+			    .compareTo(upperBound) == 0))
+		// one of the conditions 'a)' / 'b)' does not hold
+		return false;
+	} else if (((Comparable) valueToCheck).compareTo(upperBound) > 0
+		|| (!maxInclusive && ((Comparable) valueToCheck)
+			.compareTo(upperBound) == 0)
+		|| ((Comparable) valueToCheck).compareTo(lowerBound) < 0
+		|| (!minInclusive && ((Comparable) valueToCheck)
+			.compareTo(lowerBound) == 0))
+	    // one of the conditions 'a)' / 'b)' / 'c)' / 'd)' does not hold
+	    return false;
 
 	synchronize(context, cloned);
 	return true;
@@ -294,19 +412,19 @@ public abstract class ComparableRestriction extends TypeRestriction {
      *      Hashtable)
      */
     public boolean isDisjointWith(ClassExpression other, Hashtable context) {
-	if (other instanceof ComparableRestriction) {
+	if (other instanceof BoundedValueRestriction) {
 
 	    boolean min1Incl = minInclusive;
 	    boolean max1Incl = maxInclusive;
-	    boolean min2Incl = ((ComparableRestriction) other).minInclusive;
-	    boolean max2Incl = ((ComparableRestriction) other).maxInclusive;
+	    boolean min2Incl = ((BoundedValueRestriction) other).minInclusive;
+	    boolean max2Incl = ((BoundedValueRestriction) other).maxInclusive;
 
 	    Object min1 = Variable.resolveVarRef(min, context);
 	    Object max1 = Variable.resolveVarRef(max, context);
 	    Object min2 = Variable.resolveVarRef(
-		    ((ComparableRestriction) other).min, context);
+		    ((BoundedValueRestriction) other).min, context);
 	    Object max2 = Variable.resolveVarRef(
-		    ((ComparableRestriction) other).max, context);
+		    ((BoundedValueRestriction) other).max, context);
 
 	    return (max1 instanceof Comparable && min2 instanceof Comparable && (((Comparable) max1)
 		    .compareTo(min2) < 0 || (((Comparable) max1)
@@ -332,8 +450,8 @@ public abstract class ComparableRestriction extends TypeRestriction {
     public boolean matches(ClassExpression subset, Hashtable context) {
 	// TODO: check other ClassExpressions (e.g. Union..)
 
-	if (subset instanceof ComparableRestriction) {
-	    ComparableRestriction other = (ComparableRestriction) subset;
+	if (subset instanceof BoundedValueRestriction) {
+	    BoundedValueRestriction other = (BoundedValueRestriction) subset;
 	    if (!isWellFormed() || !other.isWellFormed())
 		return false;
 

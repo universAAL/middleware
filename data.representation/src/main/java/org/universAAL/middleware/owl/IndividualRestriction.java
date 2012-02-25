@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.owl;
 
-public class IndividualRestriction extends ComparableRestriction {
+public class IndividualRestriction extends BoundedValueRestriction {
 
     public IndividualRestriction() {
 	super(ComparableIndividual.MY_URI);

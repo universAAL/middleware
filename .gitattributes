@@ -299,10 +299,10 @@ data.representation/src/main/java/org/universAAL/middleware/datarep/SharedResour
 data.representation/src/main/java/org/universAAL/middleware/datarep/osgi/Activator.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/AbstractRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/AllValuesFromRestriction.java -text
+data.representation/src/main/java/org/universAAL/middleware/owl/BoundedValueRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/BoundingValueRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/ClassExpression.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/ComparableIndividual.java -text
-data.representation/src/main/java/org/universAAL/middleware/owl/ComparableRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/Complement.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/DataRepOntology.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/DatatypeProperty.java -text
@@ -350,7 +350,8 @@ data.representation/src/main/java/org/universAAL/middleware/util/RatingAggregato
 data.representation/src/main/java/org/universAAL/middleware/util/ResourceComparator.java -text
 data.representation/src/main/resources/mw.data.representation[!!-~]dependencies.jpg -text
 data.representation/src/test/java/org/universAAL/middleware/datarep/test/ArtifactIntegrationTest.java -text
-data.representation/src/test/java/org/universAAL/middleware/rdf/Ontologies.java -text
+data.representation/src/test/java/org/universAAL/middleware/owl/BoundedValueRestrictionTest.java -text
+data.representation/src/test/java/org/universAAL/middleware/owl/OntologiesTest.java -text
 data.representation/src/test/java/org/universAAL/middleware/rdf/TypeMapperTest.java -text
 data.representation/src/test/resources/log4j.properties -text
 data.serialization/LICENSE-Aduna-OpenRDF.txt -text

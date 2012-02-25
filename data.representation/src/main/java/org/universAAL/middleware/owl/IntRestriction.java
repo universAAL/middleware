@@ -21,7 +21,7 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
 
-public class IntRestriction extends ComparableRestriction {
+public class IntRestriction extends BoundedValueRestriction {
 
     public IntRestriction() {
 	super(TypeMapper.getDatatypeURI(Integer.class));

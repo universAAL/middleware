@@ -21,7 +21,7 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
 
-public class FloatRestriction extends ComparableRestriction {
+public class FloatRestriction extends BoundedValueRestriction {
 
     // substitutions for Float.MIN_NORMAL
     private static final float FLOAT_SMALLEST_POSITIVE_VALUE = Float
