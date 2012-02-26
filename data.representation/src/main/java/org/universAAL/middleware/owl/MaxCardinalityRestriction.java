@@ -180,29 +180,7 @@ public class MaxCardinalityRestriction extends AbstractRestriction {
 	}
 
 	// do not handle other restrictions
-	if (propURI.equals(HasValueRestriction.PROP_OWL_HAS_VALUE)
-		|| propURI
-			.equals(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY)
-		|| propURI
-			.equals(MinCardinalityRestriction.PROP_OWL_MIN_QUALIFIED_CARDINALITY)
-		|| propURI
-			.equals(MaxCardinalityRestriction.PROP_OWL_MAX_QUALIFIED_CARDINALITY)
-		|| propURI
-			.equals(ExactCardinalityRestriction.PROP_OWL_CARDINALITY)
-		|| propURI
-			.equals(ExactCardinalityRestriction.PROP_OWL_QUALIFIED_CARDINALITY)
-		|| propURI
-			.equals(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM)
-		|| propURI
-			.equals(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM)
-		|| propURI
-			.equals(BoundingValueRestriction.PROP_VALUE_HAS_MAX_EXCLUSIVE)
-		|| propURI
-			.equals(BoundingValueRestriction.PROP_VALUE_HAS_MAX_INCLUSIVE)
-		|| propURI
-			.equals(BoundingValueRestriction.PROP_VALUE_HAS_MIN_EXCLUSIVE)
-		|| propURI
-			.equals(BoundingValueRestriction.PROP_VALUE_HAS_MIN_INCLUSIVE))
+	if (propMap.containsKey(propURI))
 	    return;
 
 	// for everything else: call super

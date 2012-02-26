@@ -20,6 +20,7 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 
@@ -40,6 +41,39 @@ public abstract class AbstractRestriction extends ClassExpression {
     public static final String MY_URI = OWL_NAMESPACE + "Restriction";
     public static final String PROP_OWL_ON_PROPERTY = OWL_NAMESPACE
 	    + "onProperty";
+
+    protected static HashMap propMap = new HashMap();
+
+    static {
+	// for not handling properties of other restrictions, to be used in
+	// setProperty
+	propMap.put(HasValueRestriction.PROP_OWL_HAS_VALUE, null);
+	propMap.put(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY, null);
+	propMap.put(
+		MinCardinalityRestriction.PROP_OWL_MIN_QUALIFIED_CARDINALITY,
+		null);
+	propMap.put(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY, null);
+	propMap.put(
+		MaxCardinalityRestriction.PROP_OWL_MAX_QUALIFIED_CARDINALITY,
+		null);
+	propMap.put(ExactCardinalityRestriction.PROP_OWL_CARDINALITY, null);
+	propMap.put(ExactCardinalityRestriction.PROP_OWL_QUALIFIED_CARDINALITY,
+		null);
+	propMap.put(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM, null);
+	propMap.put(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM, null);
+	propMap
+		.put(BoundingValueRestriction.PROP_VALUE_HAS_MAX_EXCLUSIVE,
+			null);
+	propMap
+		.put(BoundingValueRestriction.PROP_VALUE_HAS_MAX_INCLUSIVE,
+			null);
+	propMap
+		.put(BoundingValueRestriction.PROP_VALUE_HAS_MIN_EXCLUSIVE,
+			null);
+	propMap
+		.put(BoundingValueRestriction.PROP_VALUE_HAS_MIN_INCLUSIVE,
+			null);
+    }
 
     AbstractRestriction() {
 	addType(MY_URI, true);
