@@ -180,7 +180,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	if (o == null || propURI == null)
 	    return;
 
-	if (OWL_WITH_RESTRICTIONS.equals(propURI)) {
+	if (PROP_OWL_WITH_RESTRICTIONS.equals(propURI)) {
 	    if (min == null && max == null) {
 		// values are not set yet
 		// retrieve the values from the given object and set them
@@ -193,7 +193,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
 		    while ((facet = iterate(it)) != null) {
 			// check for correct datatype
-			if (getProperty(OWL_ON_DATATYPE).equals(
+			if (getProperty(PROP_OWL_ON_DATATYPE).equals(
 				TypeMapper.getDatatypeURI(facet.value
 					.getClass()))) {
 

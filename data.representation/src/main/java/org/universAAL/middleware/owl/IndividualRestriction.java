@@ -21,8 +21,10 @@ package org.universAAL.middleware.owl;
 
 public class IndividualRestriction extends BoundedValueRestriction {
 
+    public static final String DATATYPE_URI = ComparableIndividual.MY_URI;
+
     public IndividualRestriction() {
-	super(ComparableIndividual.MY_URI);
+	super(DATATYPE_URI);
     }
 
     public IndividualRestriction(ComparableIndividual min,
