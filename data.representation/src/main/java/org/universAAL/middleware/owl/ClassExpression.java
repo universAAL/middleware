@@ -137,20 +137,20 @@ public abstract class ClassExpression extends Resource implements TypeExpression
 	}
     }
 
-    /** Create a new instance of the given class and class URI. */
-    private static ClassExpression getNamedInstance(Class clz, String classURI) {
+    /** Create a new instance of the given class and instance URI. */
+    private static ClassExpression getNamedInstance(Class clz, String instanceURI) {
 	try {
 	    return (ClassExpression) clz.getConstructor(
 		    new Class[] { String.class }).newInstance(
-		    new Object[] { classURI });
+		    new Object[] { instanceURI });
 	} catch (Exception e) {
 	    return null;
 	}
     }
 
-    /** Create a new instance with the given type URI and class URI. */
+    /** Create a new instance with the given type URI and instance URI. */
     public static final ClassExpression getClassExpressionInstance(
-	    String expressionTypeURI, String classURI) {
+	    String expressionTypeURI, String instanceURI) {
 
 	if (expressionTypeURI == null)
 	    return null;
@@ -158,20 +158,20 @@ public abstract class ClassExpression extends Resource implements TypeExpression
 	Class c = (Class) expressionTypes.get(expressionTypeURI);
 	if (c == null)
 	    return ((OWL_CLASS.equals(expressionTypeURI) && ManagedIndividual
-		    .isRegisteredClassURI(classURI)) || (expressionTypeURI == null && TypeMapper
-		    .isRegisteredDatatypeURI(classURI))) ? ClassExpression
-		    .getClassExpressionInstance(null, null, classURI) : null;
+		    .isRegisteredClassURI(instanceURI)) || (expressionTypeURI == null && TypeMapper
+		    .isRegisteredDatatypeURI(instanceURI))) ? ClassExpression
+		    .getClassExpressionInstance(null, null, instanceURI) : null;
 
-	return isAnonymousURI(classURI) ? getInstance(c) : getNamedInstance(c,
-		classURI);
+	return isAnonymousURI(instanceURI) ? getInstance(c) : getNamedInstance(c,
+		instanceURI);
     }
 
     /** Create a new instance according to the registration parameters. */
     public static final ClassExpression getClassExpressionInstance(
-	    String superClassURI, String propURI, String expressionURI) {
+	    String superClassURI, String propURI, String instanceURI) {
 
 	Class c = null;
-	boolean isAnon = isAnonymousURI(expressionURI);
+	boolean isAnon = isAnonymousURI(instanceURI);
 	for (Iterator i = registry.iterator(); i.hasNext();) {
 	    RegParams rp = (RegParams) i.next();
 	    if ((superClassURI == rp.hasSuperClass || (superClassURI != null && superClassURI
@@ -183,7 +183,7 @@ public abstract class ClassExpression extends Resource implements TypeExpression
 		break;
 	    }
 	}
-	return isAnon ? getInstance(c) : getNamedInstance(c, expressionURI);
+	return isAnon ? getInstance(c) : getNamedInstance(c, instanceURI);
     }
 
     /**

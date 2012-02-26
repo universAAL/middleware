@@ -23,12 +23,15 @@ import org.universAAL.middleware.rdf.TypeMapper;
 
 public class DoubleRestriction extends BoundedValueRestriction {
 
+    public static final String DATATYPE_URI = TypeMapper
+	    .getDatatypeURI(Double.class);
+
     // substitutions for Double.MIN_NORMAL
     private static final double DOUBLE_SMALLEST_POSITIVE_VALUE = Double
 	    .longBitsToDouble(0x0010000000000000L);
 
     public DoubleRestriction() {
-	super(TypeMapper.getDatatypeURI(Double.class));
+	super(DATATYPE_URI);
     }
 
     public DoubleRestriction(double min, boolean minInclusive, double max,

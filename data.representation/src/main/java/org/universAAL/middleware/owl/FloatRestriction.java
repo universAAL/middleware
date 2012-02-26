@@ -23,12 +23,15 @@ import org.universAAL.middleware.rdf.TypeMapper;
 
 public class FloatRestriction extends BoundedValueRestriction {
 
+    public static final String DATATYPE_URI = TypeMapper
+	    .getDatatypeURI(Float.class);
+
     // substitutions for Float.MIN_NORMAL
     private static final float FLOAT_SMALLEST_POSITIVE_VALUE = Float
 	    .intBitsToFloat(0x00800000);
 
     public FloatRestriction() {
-	super(TypeMapper.getDatatypeURI(Float.class));
+	super(DATATYPE_URI);
     }
 
     public FloatRestriction(float min, boolean minInclusive, float max,

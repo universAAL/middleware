@@ -23,8 +23,11 @@ import org.universAAL.middleware.rdf.TypeMapper;
 
 public class LongRestriction extends BoundedValueRestriction {
 
+    public static final String DATATYPE_URI = TypeMapper
+	    .getDatatypeURI(Long.class);
+
     public LongRestriction() {
-	super(TypeMapper.getDatatypeURI(Long.class));
+	super(DATATYPE_URI);
     }
 
     public LongRestriction(long min, boolean minInclusive, long max,

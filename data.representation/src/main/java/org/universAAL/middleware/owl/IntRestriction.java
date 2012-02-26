@@ -22,9 +22,12 @@ package org.universAAL.middleware.owl;
 import org.universAAL.middleware.rdf.TypeMapper;
 
 public class IntRestriction extends BoundedValueRestriction {
+    
+    public static final String DATATYPE_URI = TypeMapper
+	    .getDatatypeURI(Integer.class);
 
     public IntRestriction() {
-	super(TypeMapper.getDatatypeURI(Integer.class));
+	super(DATATYPE_URI);
     }
 
     public IntRestriction(int min, boolean minInclusive, int max,
