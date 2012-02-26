@@ -36,8 +36,13 @@ public class FloatRestriction extends BoundedValueRestriction {
 
     public FloatRestriction(float min, boolean minInclusive, float max,
 	    boolean maxInclusive) {
-	super(TypeMapper.getDatatypeURI(Float.class), new Float(min),
-		minInclusive, new Float(max), maxInclusive);
+	this(new Float(min), minInclusive, new Float(max), maxInclusive);
+    }
+
+    public FloatRestriction(Float min, boolean minInclusive, Float max,
+	    boolean maxInclusive) {
+	super(TypeMapper.getDatatypeURI(Float.class), min, minInclusive, max,
+		maxInclusive);
     }
 
     protected Comparable getNext(Comparable c) {

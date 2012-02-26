@@ -36,8 +36,13 @@ public class DoubleRestriction extends BoundedValueRestriction {
 
     public DoubleRestriction(double min, boolean minInclusive, double max,
 	    boolean maxInclusive) {
-	super(TypeMapper.getDatatypeURI(Double.class), new Double(min),
-		minInclusive, new Double(max), maxInclusive);
+	this(new Double(min), minInclusive, new Double(max), maxInclusive);
+    }
+
+    public DoubleRestriction(Double min, boolean minInclusive, Double max,
+	    boolean maxInclusive) {
+	super(TypeMapper.getDatatypeURI(Double.class), min, minInclusive, max,
+		maxInclusive);
     }
 
     protected Comparable getNext(Comparable c) {

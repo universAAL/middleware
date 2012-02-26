@@ -32,8 +32,13 @@ public class LongRestriction extends BoundedValueRestriction {
 
     public LongRestriction(long min, boolean minInclusive, long max,
 	    boolean maxInclusive) {
-	super(TypeMapper.getDatatypeURI(Long.class), new Long(min),
-		minInclusive, new Long(max), maxInclusive);
+	this(new Long(min), minInclusive, new Long(max), maxInclusive);
+    }
+
+    public LongRestriction(Long min, boolean minInclusive, Long max,
+	    boolean maxInclusive) {
+	super(TypeMapper.getDatatypeURI(Long.class), min, minInclusive, max,
+		maxInclusive);
     }
 
     protected Comparable getNext(Comparable c) {
