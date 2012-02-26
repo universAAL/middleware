@@ -24,6 +24,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
@@ -36,7 +38,8 @@ import org.universAAL.middleware.rdf.TypeMapper;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public abstract class ClassExpression extends Resource implements TypeExpression{
+public abstract class ClassExpression extends Resource implements
+	TypeExpression {
 
     /** URI namespace for OWL. */
     public static final String OWL_NAMESPACE = "http://www.w3.org/2002/07/owl#";
@@ -138,7 +141,8 @@ public abstract class ClassExpression extends Resource implements TypeExpression
     }
 
     /** Create a new instance of the given class and instance URI. */
-    private static ClassExpression getNamedInstance(Class clz, String instanceURI) {
+    private static ClassExpression getNamedInstance(Class clz,
+	    String instanceURI) {
 	try {
 	    return (ClassExpression) clz.getConstructor(
 		    new Class[] { String.class }).newInstance(
@@ -152,6 +156,14 @@ public abstract class ClassExpression extends Resource implements TypeExpression
     public static final ClassExpression getClassExpressionInstance(
 	    String expressionTypeURI, String instanceURI) {
 
+	LogUtils
+		.logWarn(
+			SharedResources.moduleContext,
+			ClassExpression.class,
+			"getClassExpressionInstance",
+			new String[] { "This method is deprecated, please use 'TypeExpressionFactory.specialize' instead!" },
+			null);
+
 	if (expressionTypeURI == null)
 	    return null;
 
@@ -162,13 +174,21 @@ public abstract class ClassExpression extends Resource implements TypeExpression
 		    .isRegisteredDatatypeURI(instanceURI))) ? ClassExpression
 		    .getClassExpressionInstance(null, null, instanceURI) : null;
 
-	return isAnonymousURI(instanceURI) ? getInstance(c) : getNamedInstance(c,
-		instanceURI);
+	return isAnonymousURI(instanceURI) ? getInstance(c) : getNamedInstance(
+		c, instanceURI);
     }
 
     /** Create a new instance according to the registration parameters. */
     public static final ClassExpression getClassExpressionInstance(
 	    String superClassURI, String propURI, String instanceURI) {
+
+	LogUtils
+		.logWarn(
+			SharedResources.moduleContext,
+			ClassExpression.class,
+			"getClassExpressionInstance",
+			new String[] { "This method is deprecated, please use 'TypeExpressionFactory.specialize' instead!" },
+			null);
 
 	Class c = null;
 	boolean isAnon = isAnonymousURI(instanceURI);

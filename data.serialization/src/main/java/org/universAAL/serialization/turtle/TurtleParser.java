@@ -36,6 +36,7 @@ import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.owl.AbstractRestriction;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.OntologyManagement;
+import org.universAAL.middleware.owl.TypeExpressionFactory;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
@@ -64,7 +65,7 @@ public class TurtleParser implements MessageContentSerializer {
     }
 
     private class ParseData {
-	String label = null;
+	//String label = null;
 	List refs = new ArrayList(3);
     }
 
@@ -290,46 +291,6 @@ public class TurtleParser implements MessageContentSerializer {
 	return result;
     }
 
-    private ClassExpression getClassExpression(Resource r, String uri) {
-	ClassExpression result = null;
-	Object o = r.getProperty((ClassExpression.PROP_RDFS_SUB_CLASS_OF));
-	if (o instanceof Resource) {
-	    if (!((Resource) o).isAnon()) {
-		result = ClassExpression.getClassExpressionInstance(
-			((Resource) o).getURI(), null, uri);
-		if (result != null)
-		    return result;
-	    }
-	} else if (o instanceof List) {
-	    for (Iterator i = ((List) o).iterator(); i.hasNext();) {
-		o = i.next();
-		if (o instanceof Resource) {
-		    if (!((Resource) o).isAnon()) {
-			result = ClassExpression.getClassExpressionInstance(
-				((Resource) o).getURI(), null, uri);
-			if (result != null)
-			    return result;
-		    }
-		}
-	    }
-	}
-
-	int num = 0;
-	for (Enumeration e = r.getPropertyURIs(); e.hasMoreElements();) {
-	    String p = (String) e.nextElement();
-	    if (!Resource.PROP_RDF_TYPE.equals(p)) {
-		result = ClassExpression.getClassExpressionInstance(null, p,
-			uri);
-		num++;
-	    }
-	    if (result != null)
-		return result;
-	}
-
-	return (r.isAnon() || num > 0) ? null : ClassExpression
-		.getClassExpressionInstance(null, null, uri);
-    }
-
     private ParseData getData(Resource r) {
 	ParseData d = (ParseData) parseTable.get(r);
 	if (d == null) {
@@ -350,7 +311,7 @@ public class TurtleParser implements MessageContentSerializer {
 		if (uri.startsWith("_:")) {
 		    // bNode ID
 		    r = new Resource();
-		    getData(r).label = uri;
+		    //getData(r).label = uri;
 		} else
 		    r = new Resource(uri);
 		resources.put(uri, r);
@@ -1072,24 +1033,6 @@ public class TurtleParser implements MessageContentSerializer {
 	return TurtleWriter.serialize(messageContent, 0);
     }
 
-    // private void setSpecializedValue(Resource r, String prop, Object newVal,
-    // Object oldVal) {
-    // r.setProperty(prop, newVal);
-    // Object o = r.getProperty(prop);
-    // if (o == null)
-    // throw new RuntimeException("TurtleParser: could not set " + prop);
-    //		
-    // if (o instanceof List)
-    // for (int i=0; i<((List) o).size(); i++) {
-    //				
-    // }
-    // else if (o != newVal) {
-    //			
-    // }
-    //		
-    //		
-    // }
-
     /** Skip the rest of the line. */
     private void skipLine() {
 	int c = read();
@@ -1140,18 +1083,11 @@ public class TurtleParser implements MessageContentSerializer {
 	    String type = OntologyManagement.getInstance()
 		    .getMostSpecializedClass(types);
 	    if (type == null) {
-		type = types[0];
-		substitution = ClassExpression.getClassExpressionInstance(type,
-			uri);
-		if (substitution == null
-			&& (ClassExpression.OWL_CLASS.equals(type) || AbstractRestriction.MY_URI
-				.equals(type))) {
-		    substitution = getClassExpression(r, uri);
-		    if (substitution == null)
-			// postpone the specialization until all props are
-			// set
-			return r;
-		}
+		substitution = TypeExpressionFactory.specialize(r);
+		if (substitution == null)
+		    // postpone the specialization until all props are
+		    // set
+		    return r;
 	    } else
 		substitution = OntologyManagement.getInstance().getResource(
 			type, uri);
