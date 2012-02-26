@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -336,6 +338,23 @@ public class MergedRestriction extends Intersection {
 		    && (some == null || (max != 1 && res.matches(some, null)))) {
 		index[allValuesFromID] = types.size();
 		types.add(res);
+	    } else {
+		if (all != null)
+		    LogUtils
+			    .logDebug(
+				    SharedResources.moduleContext,
+				    MergedRestriction.class,
+				    "addRestriction",
+				    new String[] { "Can not add the AllValuesFromRestriction because such a restriction is already set." },
+				    null);
+		else
+		    LogUtils
+			    .logDebug(
+				    SharedResources.moduleContext,
+				    MergedRestriction.class,
+				    "addRestriction",
+				    new String[] { "Can not add the AllValuesFromRestriction, please check with your SomeValuesFromRestriction." },
+				    null);
 	    }
 	    break;
 	case someValuesFromID:
