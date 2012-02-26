@@ -173,6 +173,16 @@ public class MergedRestriction extends Intersection {
 	return ret;
     }
 
+    public static final MergedRestriction getAllValuesRestriction(
+	    String propURI, ClassExpression expr) {
+	if (expr == null || propURI == null)
+	    return null;
+
+	MergedRestriction ret = new MergedRestriction(propURI);
+	ret.addRestriction(new AllValuesFromRestriction(propURI, expr));
+	return ret;
+    }
+
     public static final MergedRestriction getAllValuesRestrictionWithCardinality(
 	    String propURI, ClassExpression expr, int min, int max) {
 	if (expr == null)
