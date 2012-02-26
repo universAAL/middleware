@@ -61,18 +61,6 @@ public abstract class AbstractRestriction extends ClassExpression {
 		null);
 	propMap.put(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM, null);
 	propMap.put(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM, null);
-	propMap
-		.put(BoundingValueRestriction.PROP_VALUE_HAS_MAX_EXCLUSIVE,
-			null);
-	propMap
-		.put(BoundingValueRestriction.PROP_VALUE_HAS_MAX_INCLUSIVE,
-			null);
-	propMap
-		.put(BoundingValueRestriction.PROP_VALUE_HAS_MIN_EXCLUSIVE,
-			null);
-	propMap
-		.put(BoundingValueRestriction.PROP_VALUE_HAS_MIN_INCLUSIVE,
-			null);
     }
 
     AbstractRestriction() {
