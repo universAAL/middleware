@@ -91,37 +91,37 @@ public class UIBusImpl extends AbstractBus implements UIBus {
     public static void startModule() {
 	OntologyManagement.getInstance().register(uiBusOntology);
     }
-    
+
     public static void stopModule() {
 	OntologyManagement.getInstance().unregister(uiBusOntology);
     }
 
-/*    public static void loadExportedClasses() throws ClassNotFoundException {
-	Class.forName("org.universAAL.middleware.ui.UIResponse");
-	Class.forName("org.universAAL.middleware.ui.owl.AccessImpairment");
-	Class.forName("org.universAAL.middleware.ui.owl.DialogType");
-	Class.forName("org.universAAL.middleware.ui.owl.Gender");
-	Class.forName("org.universAAL.middleware.ui.owl.Modality");
-	Class.forName("org.universAAL.middleware.ui.owl.PrivacyLevel");
-	Class.forName("org.universAAL.middleware.ui.rdf.ChoiceItem");
-	Class.forName("org.universAAL.middleware.ui.rdf.ChoiceList");
-	Class.forName("org.universAAL.middleware.ui.rdf.Form");
-	Class.forName("org.universAAL.middleware.ui.rdf.Group");
-	Class.forName("org.universAAL.middleware.ui.rdf.InputField");
-	Class.forName("org.universAAL.middleware.ui.rdf.Label");
-	Class.forName("org.universAAL.middleware.ui.rdf.MediaObject");
-	Class.forName("org.universAAL.middleware.ui.rdf.Range");
-	Class.forName("org.universAAL.middleware.ui.rdf.Repeat");
-	Class.forName("org.universAAL.middleware.ui.rdf.Select");
-	Class.forName("org.universAAL.middleware.ui.rdf.Select1");
-	Class.forName("org.universAAL.middleware.ui.rdf.SimpleOutput");
-	Class.forName("org.universAAL.middleware.ui.rdf.SubdialogTrigger");
-	Class.forName("org.universAAL.middleware.ui.rdf.Submit");
-	Class.forName("org.universAAL.middleware.ui.rdf.TextArea");
-	Class.forName("org.universAAL.middleware.ui.UIRequest");
-	Class.forName("org.universAAL.middleware.ui.UIHandlerProfile");
-    }
-*/
+    /*
+     * public static void loadExportedClasses() throws ClassNotFoundException {
+     * Class.forName("org.universAAL.middleware.ui.UIResponse");
+     * Class.forName("org.universAAL.middleware.ui.owl.AccessImpairment");
+     * Class.forName("org.universAAL.middleware.ui.owl.DialogType");
+     * Class.forName("org.universAAL.middleware.ui.owl.Gender");
+     * Class.forName("org.universAAL.middleware.ui.owl.Modality");
+     * Class.forName("org.universAAL.middleware.ui.owl.PrivacyLevel");
+     * Class.forName("org.universAAL.middleware.ui.rdf.ChoiceItem");
+     * Class.forName("org.universAAL.middleware.ui.rdf.ChoiceList");
+     * Class.forName("org.universAAL.middleware.ui.rdf.Form");
+     * Class.forName("org.universAAL.middleware.ui.rdf.Group");
+     * Class.forName("org.universAAL.middleware.ui.rdf.InputField");
+     * Class.forName("org.universAAL.middleware.ui.rdf.Label");
+     * Class.forName("org.universAAL.middleware.ui.rdf.MediaObject");
+     * Class.forName("org.universAAL.middleware.ui.rdf.Range");
+     * Class.forName("org.universAAL.middleware.ui.rdf.Repeat");
+     * Class.forName("org.universAAL.middleware.ui.rdf.Select");
+     * Class.forName("org.universAAL.middleware.ui.rdf.Select1");
+     * Class.forName("org.universAAL.middleware.ui.rdf.SimpleOutput");
+     * Class.forName("org.universAAL.middleware.ui.rdf.SubdialogTrigger");
+     * Class.forName("org.universAAL.middleware.ui.rdf.Submit");
+     * Class.forName("org.universAAL.middleware.ui.rdf.TextArea");
+     * Class.forName("org.universAAL.middleware.ui.UIRequest");
+     * Class.forName("org.universAAL.middleware.ui.UIHandlerProfile"); }
+     */
     /**
      * Create an instance of the UIBus.
      * 
@@ -157,7 +157,8 @@ public class UIBusImpl extends AbstractBus implements UIBus {
     /**
      * @param dm
      *            The responsible Dialogmanager
-     * @param oe New/Changed output
+     * @param oe
+     *            New/Changed output
      * @param changedProp
      *            Property that has been changed since last time
      */

@@ -29,34 +29,34 @@ import org.universAAL.middleware.rdf.PropertyPath;
  * @author Carsten Stockloew
  */
 public class Select1 extends Select {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Select1";
-	
-	/**
-	 * For exclusive usage by de-serializers.
-	 */
-	public Select1() {
-		super();
-	}
+    public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Select1";
 
-	/**
-	 * For exclusive usage by the applications.
-	 * 
-	 * @param parent
-	 *            The group to contain this select1 object.
-	 * @param label
-	 *            The label.
-	 * @param ref
-	 *            mandatory property path within the form data to which this
-	 *            select1 object refers.
-	 * @param valueRestriction
-	 *            Optional local restrictions on the value of this select1
-	 *            object.
-	 * @param initialValue
-	 *            Optional initial / default value that will be made available
-	 *            in the form data.
-	 */
-	public Select1(Group parent, Label label, PropertyPath ref,
-			MergedRestriction valueRestriction, Object initialValue) {
-		super(MY_URI, parent, label, ref, valueRestriction, initialValue);
-	}
+    /**
+     * For exclusive usage by de-serializers.
+     */
+    public Select1() {
+	super();
+    }
+
+    /**
+     * For exclusive usage by the applications.
+     * 
+     * @param parent
+     *            The group to contain this select1 object.
+     * @param label
+     *            The label.
+     * @param ref
+     *            mandatory property path within the form data to which this
+     *            select1 object refers.
+     * @param valueRestriction
+     *            Optional local restrictions on the value of this select1
+     *            object.
+     * @param initialValue
+     *            Optional initial / default value that will be made available
+     *            in the form data.
+     */
+    public Select1(Group parent, Label label, PropertyPath ref,
+	    MergedRestriction valueRestriction, Object initialValue) {
+	super(MY_URI, parent, label, ref, valueRestriction, initialValue);
+    }
 }

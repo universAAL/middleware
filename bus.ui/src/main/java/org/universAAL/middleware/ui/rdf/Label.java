@@ -26,10 +26,12 @@ import org.universAAL.middleware.rdf.Resource;
  * The type of possible values for {@link FormControl#PROP_CONTROL_LABEL}. A
  * label reveals the intent of the corresponding form control for human users
  * primarily as a string. This string is stored using the standard property
- * rdfs:label (see {@link org.universAAL.middleware.rdf.Resource#getResourceLabel()}
- * and {@link org.universAAL.middleware.rdf.Resource#setResourceLabel(String)}).
+ * rdfs:label (see
+ * {@link org.universAAL.middleware.rdf.Resource#getResourceLabel()} and
+ * {@link org.universAAL.middleware.rdf.Resource#setResourceLabel(String)}).
  * 
- * @see <a href="http://www.w3.org/TR/rdf-schema/#ch_label">RDFS specification</a>
+ * @see <a href="http://www.w3.org/TR/rdf-schema/#ch_label">RDFS
+ *      specification</a>
  * 
  * @author mtazari
  * @author Carsten Stockloew
@@ -61,7 +63,8 @@ public class Label extends Resource {
      * @param iconURL
      *            See {@link #PROP_ICON_URL}; optional.
      * 
-     * @see <a href="http://www.w3.org/TR/rdf-schema/#ch_label">RDFS specification</a>
+     * @see <a href="http://www.w3.org/TR/rdf-schema/#ch_label">RDFS
+     *      specification</a>
      */
     public Label(String labelText, String iconURL) {
 	super();
@@ -104,9 +107,9 @@ public class Label extends Resource {
     }
 
     /**
-     * Overrides {@link org.universAAL.middleware.rdf.Resource#toString()} in order
-     * to return the label string; only if this is an empty string, the default
-     * implementation is used.
+     * Overrides {@link org.universAAL.middleware.rdf.Resource#toString()} in
+     * order to return the label string; only if this is an empty string, the
+     * default implementation is used.
      */
     public String toString() {
 	String txt = getText();

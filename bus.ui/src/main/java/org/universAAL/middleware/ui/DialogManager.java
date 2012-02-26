@@ -43,21 +43,22 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public interface DialogManager {
-    
+
     /**
      * Check new dialog.
-     *
-     * @param request UI request to UI bus
+     * 
+     * @param request
+     *            UI request to UI bus
      * @return the decision if the new UI request to UI Bus can be immediately
-     * forwarded to an UI Handler (returns true) or must wait for a
-     * higher priority dialog to finish (return false). In case of
-     * returning true, the Dialog Manager must also add the current
-     * personal and situational parameters to UI request so that the
-     * matchmaking on the bus results in adaptive selection of I/O
-     * channels. In case of returning false, the UI Bus ignores the
-     * request because it trusts that the Dialog Manager will keep the
-     * request in a queue of suspended dialogs and will re-activate it
-     * whenever appropriate.
+     *         forwarded to an UI Handler (returns true) or must wait for a
+     *         higher priority dialog to finish (return false). In case of
+     *         returning true, the Dialog Manager must also add the current
+     *         personal and situational parameters to UI request so that the
+     *         matchmaking on the bus results in adaptive selection of I/O
+     *         channels. In case of returning false, the UI Bus ignores the
+     *         request because it trusts that the Dialog Manager will keep the
+     *         request in a queue of suspended dialogs and will re-activate it
+     *         whenever appropriate.
      */
     public boolean checkNewDialog(UIRequest request);
 
@@ -74,9 +75,11 @@ public interface DialogManager {
 
     /**
      * Show main menu of the system.
-     *
-     * @param user user of a system
-     * @param loginLocation location from which user has logged to the system
+     * 
+     * @param user
+     *            user of a system
+     * @param loginLocation
+     *            location from which user has logged to the system
      * @return the main menu
      */
     public void getMainMenu(Resource user, AbsLocation loginLocation);

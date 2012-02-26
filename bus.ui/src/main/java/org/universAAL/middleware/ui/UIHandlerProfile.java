@@ -160,8 +160,9 @@ public class UIHandlerProfile extends Resource {
 
     /**
      * Matches.
-     *
-     * @param subtype the subtype
+     * 
+     * @param subtype
+     *            the subtype
      * @return true, if successful
      */
     public boolean matches(UIHandlerProfile subtype) {
@@ -193,7 +194,7 @@ public class UIHandlerProfile extends Resource {
 
     /**
      * Checks if is well formed.
-     *
+     * 
      * @return true, if is well formed
      * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
      */
@@ -218,11 +219,13 @@ public class UIHandlerProfile extends Resource {
 
     /**
      * Sets the property.
-     *
-     * @param propURI the prop uri
-     * @param o the o
+     * 
+     * @param propURI
+     *            the prop uri
+     * @param o
+     *            the o
      * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
-     * java.lang.Object)
+     *      java.lang.Object)
      */
     public void setProperty(String propURI, Object o) {
 	if (ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)) {

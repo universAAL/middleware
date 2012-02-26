@@ -42,8 +42,7 @@ public class Gender extends ManagedIndividual {
 
     private int order;
 
-
-   /**
+    /**
      * @param order
      *            order
      * @return level based on the given order

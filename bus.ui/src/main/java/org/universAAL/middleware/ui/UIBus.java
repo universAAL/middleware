@@ -89,8 +89,8 @@ public interface UIBus {
     /**
      * Extends the profile of a registered subscriber (UI handler) with regard
      * to {@link UIRequest}s that it can be handle. Responsible (together with
-     * {@link #removeMatchingRegParams(String, UIHandlerProfile)}) for changing the
-     * handler's profile dynamically.
+     * {@link #removeMatchingRegParams(String, UIHandlerProfile)}) for changing
+     * the handler's profile dynamically.
      * 
      * @param handlerID
      *            ID of the UI handler introducing the new registration
@@ -99,7 +99,8 @@ public interface UIBus {
      *            the new class of {@link UIRequest}s that can additionally be
      *            handled by the given UI handler
      */
-    public void addNewRegParams(String handlerID, UIHandlerProfile newSubscription);
+    public void addNewRegParams(String handlerID,
+	    UIHandlerProfile newSubscription);
 
     /**
      * Whenever a dialog is finished, UI handlers must inform the UI Bus by
@@ -161,11 +162,12 @@ public interface UIBus {
      *         the handler. It must be passed to the bus when calling the other
      *         bus methods.
      */
-    public String register(UIHandler handler, UIHandlerProfile initialSubscription);
+    public String register(UIHandler handler,
+	    UIHandlerProfile initialSubscription);
 
     /**
-     * Removes matching patterns of {@link UIRequest}s from the profile of the UI
-     * handler. Responsible (together with
+     * Removes matching patterns of {@link UIRequest}s from the profile of the
+     * UI handler. Responsible (together with
      * {@link #addNewRegParams(String, UIHandlerProfile)}) for changing the
      * handler's profile dynamically.
      * 

@@ -29,7 +29,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * @see org.universAAL.middleware.owl.ManagedIndividual
  */
 public class Modality extends ManagedIndividual {
-    
+
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Modality";
 
     public static final int VOICE = 0;
@@ -38,7 +38,8 @@ public class Modality extends ManagedIndividual {
     public static final int SMS = 3;
     public static final int WEB = 4;
 
-    private static final String[] names = { "voice", "gui", "gesture", "sms", "web" };
+    private static final String[] names = { "voice", "gui", "gesture", "sms",
+	    "web" };
 
     public static final Modality voice = new Modality(VOICE);
     public static final Modality gui = new Modality(GUI);
@@ -48,7 +49,6 @@ public class Modality extends ManagedIndividual {
 
     private int order;
 
-    
     /**
      * @param order
      *            order
