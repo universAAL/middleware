@@ -57,10 +57,6 @@ public class TypeExpressionFactory {
     }
 
     public static ClassExpression specialize(Resource r) {
-	String uri = r.getURI();
-	if (Resource.isAnonymousURI(uri))
-	    uri = null;
-
 	Integer idx = null;
 	for (java.util.Enumeration e = r.getPropertyURIs(); e.hasMoreElements();) {
 	    idx = (Integer) propMap.get((String) e.nextElement());
@@ -70,7 +66,8 @@ public class TypeExpressionFactory {
 
 	if (idx == null) {
 	    // none of the properties matches, so it may be a TypeURI
-	    if (uri == null)
+	    String uri = r.getURI();
+	    if (Resource.isAnonymousURI(uri))
 		return null;
 
 	    if (OntologyManagement.getInstance().isRegisteredClass(uri, false))
