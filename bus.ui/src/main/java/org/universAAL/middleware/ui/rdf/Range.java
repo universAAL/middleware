@@ -19,7 +19,8 @@
  */
 package org.universAAL.middleware.ui.rdf;
 
-import org.universAAL.middleware.owl.BoundingValueRestriction;
+import org.universAAL.middleware.owl.AllValuesFromRestriction;
+import org.universAAL.middleware.owl.BoundedValueRestriction;
 import org.universAAL.middleware.owl.ComparableIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -103,8 +104,14 @@ public class Range extends Input {
 			return null;
 
 		Comparable res = null;
-		BoundingValueRestriction boundRes =
-			(BoundingValueRestriction) r.getRestriction(MergedRestriction.boundingValueID);
+//		BoundingValueRestriction boundRes =
+//			(BoundingValueRestriction) r.getRestriction(MergedRestriction.boundingValueID);
+		
+		BoundedValueRestriction boundRes = null;
+		AllValuesFromRestriction allRes = (AllValuesFromRestriction) r.getRestriction(MergedRestriction.allValuesFromID);
+		if (allRes != null) {
+		    boundRes = (BoundedValueRestriction) allRes.getConstraint();
+		}
 		if (boundRes != null) {
 			res = upper ? boundRes.getUpperbound()
 				: boundRes.getLowerbound();
