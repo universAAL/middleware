@@ -50,7 +50,7 @@ import org.universAAL.middleware.util.Constants;
  */
 /**
  * @author eandgrg
- *
+ * 
  */
 public class UIStrategy extends BusStrategy {
 

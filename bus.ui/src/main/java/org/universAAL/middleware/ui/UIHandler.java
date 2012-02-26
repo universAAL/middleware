@@ -40,21 +40,23 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * 
  */
 public abstract class UIHandler implements Callee {
-    
+
     /** The bus. */
     private UIBus bus;
-    
+
     /** The this callee context. */
     private ModuleContext thisCalleeContext;
-    
+
     /** The local id. */
     private String myID, localID;
 
     /**
      * Instantiates a new uI handler.
-     *
-     * @param context the context
-     * @param initialSubscription the initial subscription
+     * 
+     * @param context
+     *            the context
+     * @param initialSubscription
+     *            the initial subscription
      */
     protected UIHandler(ModuleContext context,
 	    UIHandlerProfile initialSubscription) {
@@ -67,18 +69,22 @@ public abstract class UIHandler implements Callee {
 
     /**
      * Adaptation parameters changed.
-     *
-     * @param dialogID the dialog id
-     * @param changedProp the changed prop
-     * @param newVal the new val
+     * 
+     * @param dialogID
+     *            the dialog id
+     * @param changedProp
+     *            the changed prop
+     * @param newVal
+     *            the new val
      */
     public abstract void adaptationParametersChanged(String dialogID,
 	    String changedProp, Object newVal);
 
     /**
      * Adds the new reg params.
-     *
-     * @param newSubscription the new subscription
+     * 
+     * @param newSubscription
+     *            the new subscription
      */
     protected final void addNewRegParams(UIHandlerProfile newSubscription) {
 	bus.addNewRegParams(myID, newSubscription);
@@ -86,8 +92,9 @@ public abstract class UIHandler implements Callee {
 
     /**
      * Bus dying out.
-     *
-     * @param b the bus
+     * 
+     * @param b
+     *            the bus
      * @see org.universAAL.middleware.sodapop.BusMember#busDyingOut(Bus)
      */
     public final void busDyingOut(Bus b) {
@@ -110,23 +117,26 @@ public abstract class UIHandler implements Callee {
 
     /**
      * Cut dialog.
-     *
-     * @param dialogID the dialog id
+     * 
+     * @param dialogID
+     *            the dialog id
      * @return the resource
      */
     public abstract Resource cutDialog(String dialogID);
 
     /**
      * Dialog finished.
-     *
-     * @param input the input
+     * 
+     * @param input
+     *            the input
      */
     public final void dialogFinished(UIResponse input) {
 	bus.dialogFinished(myID, input);
     }
 
     /**
-     * @param m the m
+     * @param m
+     *            the m
      * @return true, if successful
      * @see org.universAAL.middleware.sodapop.Callee#eval(Message)
      */
@@ -136,8 +146,9 @@ public abstract class UIHandler implements Callee {
 
     /**
      * Handle request.
-     *
-     * @param m the message
+     * 
+     * @param m
+     *            the message
      * @see org.universAAL.middleware.sodapop.Callee#handleRequest(Message)
      */
     public final void handleRequest(Message m) {
@@ -152,15 +163,17 @@ public abstract class UIHandler implements Callee {
 
     /**
      * Handle ui call.
-     *
-     * @param uicall the uicall
+     * 
+     * @param uicall
+     *            the uicall
      */
     public abstract void handleUICall(UIRequest uicall);
 
     /**
      * Removes the matching reg params.
-     *
-     * @param oldSubscription the old subscription
+     * 
+     * @param oldSubscription
+     *            the old subscription
      */
     protected final void removeMatchingRegParams(
 	    UIHandlerProfile oldSubscription) {
@@ -169,9 +182,11 @@ public abstract class UIHandler implements Callee {
 
     /**
      * User logged in.
-     *
-     * @param user the user
-     * @param loginLocation the login location
+     * 
+     * @param user
+     *            the user
+     * @param loginLocation
+     *            the login location
      */
     public final void userLoggedIn(Resource user, AbsLocation loginLocation) {
 	bus.userLoggedIn(myID, user, loginLocation);

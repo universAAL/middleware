@@ -43,13 +43,17 @@ import org.universAAL.middleware.ui.rdf.TextArea;
 
 /**
  * A factory for creating UIBus objects.
- *
+ * 
  * @author Carsten Stockloew
  */
 public class UIBusFactory extends ResourceFactoryImpl {
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance(java.lang.String, java.lang.String, int)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance
+     * (java.lang.String, java.lang.String, int)
      */
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {

@@ -28,12 +28,12 @@ import org.universAAL.middleware.rdf.PropertyPath;
  * @author mtazari
  */
 public abstract class Output extends FormControl {
-	protected Output() {
-		super();
-	}
+    protected Output() {
+	super();
+    }
 
-	protected Output(String typeURI, Group parent, Label label,
-			PropertyPath ref, Object initialValue) {
-		super(typeURI, parent, label, ref, null, initialValue);
-	}
+    protected Output(String typeURI, Group parent, Label label,
+	    PropertyPath ref, Object initialValue) {
+	super(typeURI, parent, label, ref, null, initialValue);
+    }
 }

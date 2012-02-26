@@ -84,8 +84,8 @@ public class UIBusOntology extends Ontology {
 	createNewRDFClassInfo(SubdialogTrigger.MY_URI, factory, 15);
 	createNewRDFClassInfo(Repeat.MY_URI, factory, 16);
 	createNewRDFClassInfo(MediaObject.MY_URI, factory, 17);
-	createNewRDFClassInfo(Range.MY_URI, factory, 18);	
-	
+	createNewRDFClassInfo(Range.MY_URI, factory, 18);
+
 	// load AccessImpairment
 	oci = createNewOntClassInfo(AccessImpairment.MY_URI, factory, 3);
 	oci

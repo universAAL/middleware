@@ -82,16 +82,16 @@ public class Group extends FormControl {
      * @param valueRestriction
      *            See {@link Input#PROP_VALUE_RESTRICTION}. Because Groups may
      *            contain input controls, you may specify here a
-     *            {@link org.universAAL.middleware.owl.MergedRestriction} to let the
-     *            dialog package to derive the value restrictions for any input
-     *            control whose {@link FormControl#PROP_REFERENCED_PPATH} starts
-     *            with the path given for <code>ref</code> (the previous
+     *            {@link org.universAAL.middleware.owl.MergedRestriction} to let
+     *            the dialog package to derive the value restrictions for any
+     *            input control whose {@link FormControl#PROP_REFERENCED_PPATH}
+     *            starts with the path given for <code>ref</code> (the previous
      *            parameter in this constructor). If <code>ref</code> is
      *            <code>null</code>, this parameter will be ignored.
      * @param initialValue
-     *            A {@link org.universAAL.middleware.rdf.Resource} to be used as the
-     *            initial value for this group. If this is specified, then the
-     *            initial values of any other control whose
+     *            A {@link org.universAAL.middleware.rdf.Resource} to be used as
+     *            the initial value for this group. If this is specified, then
+     *            the initial values of any other control whose
      *            {@link FormControl#PROP_REFERENCED_PPATH} starts with the path
      *            given for the above <code>ref</code> might be derivable from
      *            this value.
@@ -102,7 +102,8 @@ public class Group extends FormControl {
     }
 
     protected Group(String typeURI, Group parent, Label label,
-	    PropertyPath ref, MergedRestriction valueRestriction, Object initialValue) {
+	    PropertyPath ref, MergedRestriction valueRestriction,
+	    Object initialValue) {
 	super(typeURI, parent, label, ref, valueRestriction, initialValue);
     }
 
@@ -212,8 +213,8 @@ public class Group extends FormControl {
 	}
 
 	for (int i = 0; i < props.length; i++) {
-	    MergedRestriction r = ManagedIndividual.getClassRestrictionsOnProperty(t,
-		    props[i]);
+	    MergedRestriction r = ManagedIndividual
+		    .getClassRestrictionsOnProperty(t, props[i]);
 	    if (r == null) {
 		LogUtils
 			.logWarn(
@@ -513,7 +514,8 @@ public class Group extends FormControl {
 	    super.setProperty(propURI, value);
     }
 
-    boolean setValue(String[] pp, Object value, MergedRestriction valueRestrictions) {
+    boolean setValue(String[] pp, Object value,
+	    MergedRestriction valueRestrictions) {
 	Object parent = props.get(PROP_PARENT_CONTROL);
 	if (parent instanceof Group)
 	    return ((Group) parent).setValue(pp, value, valueRestrictions);

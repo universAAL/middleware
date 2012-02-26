@@ -30,43 +30,43 @@ package org.universAAL.middleware.ui.rdf;
  */
 public class ChoiceItem extends Label {
 
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE
-			+ "ChoiceItem";
+    public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE
+	    + "ChoiceItem";
 
-	/**
-	 * Property for accessing the value associated with a choice item.
-	 */
-	public static final String PROP_ITEM_VALUE = Form.uAAL_DIALOG_NAMESPACE
-			+ "choiceItemValue";
+    /**
+     * Property for accessing the value associated with a choice item.
+     */
+    public static final String PROP_ITEM_VALUE = Form.uAAL_DIALOG_NAMESPACE
+	    + "choiceItemValue";
 
-	/**
-	 * For use by de-serializers only.
-	 */
-	public ChoiceItem() {
-		super();
-	}
+    /**
+     * For use by de-serializers only.
+     */
+    public ChoiceItem() {
+	super();
+    }
 
-	/**
-	 * Constructs a new choice item.
-	 * 
-	 * @param labelText
-	 *            see {@link Label#Label(String, String)}
-	 * @param iconURL
-	 *            see {@link Label#Label(String, String)}
-	 * @param value
-	 *            The value to be associated with this choice item.
-	 */
-	public ChoiceItem(String labelText, String iconURL, Object value) {
-		super(labelText, iconURL);
-		props.put(PROP_ITEM_VALUE, value);
-	}
+    /**
+     * Constructs a new choice item.
+     * 
+     * @param labelText
+     *            see {@link Label#Label(String, String)}
+     * @param iconURL
+     *            see {@link Label#Label(String, String)}
+     * @param value
+     *            The value to be associated with this choice item.
+     */
+    public ChoiceItem(String labelText, String iconURL, Object value) {
+	super(labelText, iconURL);
+	props.put(PROP_ITEM_VALUE, value);
+    }
 
-	/**
-	 * Returns the value associated with this choice item.
-	 */
-	public Object getValue() {
-		Object o = props.get(PROP_ITEM_VALUE);
-		;
-		return (o == null) ? toString() : o;
-	}
+    /**
+     * Returns the value associated with this choice item.
+     */
+    public Object getValue() {
+	Object o = props.get(PROP_ITEM_VALUE);
+	;
+	return (o == null) ? toString() : o;
+    }
 }

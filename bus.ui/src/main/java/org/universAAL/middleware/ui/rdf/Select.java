@@ -77,7 +77,8 @@ public class Select extends Input {
     }
 
     protected Select(String typeURI, Group parent, Label label,
-	    PropertyPath ref, MergedRestriction valueRestriction, Object initialValue) {
+	    PropertyPath ref, MergedRestriction valueRestriction,
+	    Object initialValue) {
 	super(typeURI, parent, label, ref, valueRestriction, initialValue);
     }
 
