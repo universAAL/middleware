@@ -137,9 +137,24 @@ public class RDFClassInfo extends Resource {
     protected RDFClassInfo(String classURI, Ontology ont,
 	    ResourceFactory factory, int factoryIndex) {
 	super(classURI);
-	if (classURI == null || isAnonymousURI(classURI))
-	    throw new NullPointerException(
-		    "The class URI must be not null and not anonymous.");
+	if (classURI == null)
+	    throw new NullPointerException("The class URI must be not null.");
+
+	if (isAnonymousURI(classURI))
+	    throw new IllegalArgumentException(
+		    "The class URI must be not anonymous.");
+
+	if (classURI.startsWith(Resource.RDF_NAMESPACE))
+	    throw new IllegalArgumentException(
+		    "The class URI can not start with the protected namespace of RDF.");
+
+	if (classURI.startsWith(Resource.RDFS_NAMESPACE))
+	    throw new IllegalArgumentException(
+		    "The class URI can not start with the protected namespace of RDFS.");
+
+	if (classURI.startsWith(ClassExpression.OWL_NAMESPACE))
+	    throw new IllegalArgumentException(
+		    "The class URI can not start with the protected namespace of OWL.");
 
 	this.factory = factory;
 	this.factoryIndex = factoryIndex;
