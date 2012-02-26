@@ -22,6 +22,7 @@ package org.universAAL.middleware.owl;
 import java.util.HashMap;
 
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.TypeMapper;
 
 public class TypeExpressionFactory {
 
@@ -47,7 +48,6 @@ public class TypeExpressionFactory {
 	propMap
 		.put(TypeRestriction.PROP_OWL_WITH_RESTRICTIONS,
 			new Integer(10));
-	// TypeURI??
 
 	datatypeMap.put(IntRestriction.DATATYPE_URI, new Integer(0));
 	datatypeMap.put(FloatRestriction.DATATYPE_URI, new Integer(1));
@@ -68,8 +68,18 @@ public class TypeExpressionFactory {
 		break;
 	}
 
-	if (idx == null)
+	if (idx == null) {
+	    // none of the properties matches, so it may be a TypeURI
+	    if (uri == null)
+		return null;
+
+	    if (OntologyManagement.getInstance().isRegisteredClass(uri, false))
+		return new TypeURI(uri, false);
+	    if (TypeMapper.isRegisteredDatatypeURI(uri))
+		return new TypeURI(uri, true);
+
 	    return null;
+	}
 
 	switch (idx.intValue()) {
 	case 0:
