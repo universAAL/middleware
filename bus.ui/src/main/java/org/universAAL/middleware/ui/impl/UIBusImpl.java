@@ -48,7 +48,7 @@ import org.universAAL.middleware.util.ResourceComparator;
  * @author Carsten Stockloew
  */
 public class UIBusImpl extends AbstractBus implements UIBus {
-    public static final String uAAL_BUS_NAME_UI = "uAAL.bus.output";
+    public static final String uAAL_BUS_NAME_UI = "uAAL.bus.ui";
     public static MessageContentSerializer contentSerializer = null;
     public static ModuleContext moduleContext;
     public static Object[] contentSerializerParams;
