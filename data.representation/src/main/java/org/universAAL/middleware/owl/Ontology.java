@@ -31,11 +31,94 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.container.utils.StringUtils;
 
+/**
+ * <p>
+ * The implementation of an OWL ontology. Basically, an ontology is a model of a
+ * part of the real world. From a programming point of view, the ontology is a
+ * group of ontological classes where each ontology class represents a concept
+ * of the real world. An ontology is typically accompanied by a
+ * {@link ResourceFactory} to create new instances of the ontological classes.
+ * </p>
+ * 
+ * <p>
+ * For example, one might want to model multimedia devices and creates the
+ * ontology <i>multimedia</i> with the classes <i>TV</i>, <i>LoudSpeaker</i>,
+ * <i>VideoCamera</i> and <i>Microphone</i>. Each of these classes might have
+ * some properties, e.g. <i>LoudSpeaker</i> could have a <i>volume</i> which is
+ * given as an integer value (since integer is a datatype, it is defined as a
+ * {@link DatatypeProperty}). Also, a <i>TV</i> typically itself has a
+ * <i>LoudSpeaker</i>, so it could have a property where all values of that
+ * property are instances of <i>LoudSpeaker</i> (since <i>LoudSpeaker</i> is a
+ * class, the property would be an {@link ObjectProperty}).
+ * </p>
+ * 
+ * <p>
+ * Each ontology class corresponds to a Java class that must be a subclass of
+ * {@link ManagedIndividual}. This class is then responsible to provide getter
+ * and setter methods for its properties as a convenience for programmers. These
+ * methods will internally realize an RDF structure to store the knowledge of
+ * that class using the methods {@link Resource#getProperty(String)} and
+ * {@link Resource#setProperty(String, Object)}.
+ * </p>
+ * 
+ * <p>
+ * Additionally, for every ontology class (which stores the information at the
+ * instance level), there is an instance of {@link OntClassInfo} (which stores
+ * the information at model level) and each {@link OntClassInfo} is accompanied
+ * by an {@link OntClassInfoSetup} that provides the possibility to set the
+ * model information (for security reasons, the setter methods are in
+ * {@link OntClassInfoSetup} and the getter methods are in {@link OntClassInfo}
+ * so that only the creator of an ontology can make changes to it).
+ * </p>
+ * 
+ * <p>
+ * In our example, the concept <i>LoudSpeaker</i> has the property <i>volume</i>
+ * and this information is a model information which is stored in an
+ * {@link OntClassInfo}, so the overwritten {@link #create()} method would
+ * define:
+ * </p>
+ * <code>
+ * OntClassInfoSetup oci = createNewOntClassInfo(URI_of_LoudSpeaker, factory, factoryIndex);<br>
+ * oci.addDatatypeProperty(URI_of_Volume_Property).
+ * </code>
+ * <p>
+ * For the convenience of programmers there exists a Java class
+ * <code>LoudSpeaker</code> that corresponds to this class with the helper
+ * methods <code>getVolume()</code> and <code>setVolume(int)</code>. An instance
+ * of this class would then identify a specific instance of <i>LoudSpeaker</i>,
+ * e.g. <i>LoudSpeaker_2</i> with the <i>volume</i> <i>100</i>.
+ * </p>
+ * 
+ * <p>
+ * To create an ontology in universAAL, a subclass of this class has to be
+ * defined and the method {@link #create()} has to be overwritten. The
+ * {@link #create()} method will set up all characteristics of the ontology.
+ * Each {@link Ontology} has to be registered at the {@link OntologyManagement}
+ * by calling {@link OntologyManagement#register(Ontology)} before it can be
+ * used.
+ * </p>
+ * 
+ * <p>
+ * In our example, the classes <i>TV</i>, <i>LoudSpeaker</i>, <i>VideoCamera</i>
+ * and <i>Microphone</i> are created with one of the
+ * <code>createNewXXClassInfo</code> methods and then all characteristics of
+ * these classes (like properties and restrictions) are added.
+ * </p>
+ * 
+ * @author Carsten Stockloew
+ * @see OntClassInfo
+ * @see RDFClassInfo
+ * @see OntClassInfoSetup
+ * @see RDFClassInfoSetup
+ * @see ResourceFactory
+ */
 public abstract class Ontology {
 
+    /** URI of the ontology. */
     public static final String TYPE_OWL_ONTOLOGY = ManagedIndividual.OWL_NAMESPACE
 	    + "Ontology";
 
+    /** URI of the property 'imports'. */
     public static final String PROP_OWL_IMPORT = ManagedIndividual.OWL_NAMESPACE
 	    + "imports";
 
@@ -51,11 +134,29 @@ public abstract class Ontology {
     // classURI -> Gefährliche Nachbarn
     private volatile HashMap extendedOntClassInfoMap = new HashMap();
 
+    /**
+     * General information about the ontology, like description, version,
+     * author, and imports.
+     */
     private Resource info;
 
+    /**
+     * Internal security check: when creating a {@link RDFClassInfo} or an
+     * {@link OntClassInfo}, {@link #checkPermission(String)} is called and
+     * tested against this value to determine whether the call really originated
+     * from this class.
+     */
     private String ontClassInfoURIPermissionCheck = null;
+
+    /**
+     * Thread synchronization for the internal security check.
+     */
     private Object ontClassInfoURIPermissionCheckSync = new Object();
 
+    /**
+     * Determines whether this ontology is locked. If it is locked, no new
+     * information can be stored here.
+     */
     private boolean locked = false;
 
     /**
@@ -97,6 +198,15 @@ public abstract class Ontology {
 	return ontURI;
     }
 
+    /**
+     * Add an import to this ontology. An import states the URI of another
+     * ontology from which some concepts are used in this ontology.
+     * 
+     * @param ontURI
+     *            The URI of the import ontology.
+     * @return true, if the import could be added, or false, if the given
+     *         ontology URI is not valid.
+     */
     protected boolean addImport(String ontURI) {
 	if ((ontURI = getValidOntologyURI(ontURI)) == null)
 	    return false;
@@ -112,10 +222,19 @@ public abstract class Ontology {
 	return true;
     }
 
+    /**
+     * Get the object that stores all general information about the ontology,
+     * like description, version, author, and imports.
+     */
     public Resource getInfo() {
 	return info;
     }
 
+    /**
+     * Create this ontology. This method is called by
+     * {@link OntologyManagement#register(Ontology)} and MUST be overwritten by
+     * all subclasses.
+     */
     public abstract void create();
 
     /** Internal method. */

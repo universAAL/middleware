@@ -33,12 +33,12 @@ import org.universAAL.middleware.rdf.ResourceFactory;
 /**
  * Definition of an OWL class. The creation is separated from the usage; for
  * every OntClassInfo there is exactly one {@link OntClassInfoSetup} where all
- * the properties of this class are defined.
+ * the characteristics of this class are defined.
  * 
  * To create a new {@link OntClassInfo}, define a subclass of {@link Ontology}
  * and overwrite the {@link Ontology#create()} method.
  * 
- * @author cstocklo
+ * @author Carsten Stockloew
  * @see {@link RDFClassInfoSetup}, {@link RDFClassInfo},
  *      {@link OntClassInfoSetup}
  */
@@ -49,26 +49,74 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    + "Class";
 
     /**
-     * Repository of all properties mapped to a {@link MergedRestriction} that
-     * represents all class restrictions on the property used as key. It maps
-     * the URI of a property to the restrictions of that property.
+     * Repository of the restrictions for all properties. If a
+     * {@link MergedRestriction} is defined for a property then an entry is
+     * stored here that maps the URI of the property to its restriction. If a
+     * property has no restrictions, there is no entry in this repository.
+     * 
+     * @see #properties
      */
     // maps property URI to MergedRestriction
     private HashMap propRestriction = new HashMap();
 
+    /**
+     * Repository of all properties defined for this class. It maps the URI of
+     * the property to a {@link Property} (which is either an
+     * {@link ObjectProperty} or a {@link DatatypeProperty}).
+     */
     private HashMap properties = new HashMap();
 
-    // Members of all the following arrays are instances of {@link
-    // ClassExpression}.
+    /**
+     * The set of all equivalent classes.
+     * 
+     * @see OntClassInfoSetup#addEquivalentClass(ClassExpression)
+     */
+    // Members of this arrays are instances of {@link ClassExpression}.
     private ArrayList equivalentClasses = new ArrayList();
-    private ArrayList disjointClasses = new ArrayList();
-    private ClassExpression complementClass = null;
-    private boolean isEnumeration = false; // weg??
 
+    /**
+     * The set of all disjoint classes.
+     * 
+     * @see OntClassInfoSetup#addDisjointClass(ClassExpression)
+     */
+    // Members of this arrays are instances of {@link ClassExpression}.
+    private ArrayList disjointClasses = new ArrayList();
+
+    /**
+     * The complement class.
+     * 
+     * @see OntClassInfoSetup#setComplementClass(ClassExpression)
+     */
+    // Members of this arrays are instances of {@link ClassExpression}.
+    private ClassExpression complementClass = null;
+
+    /**
+     * Determines whether this class is an enumeration class.
+     * 
+     * @see OntClassInfoSetup#toEnumeration(ManagedIndividual[])
+     */
+    private boolean isEnumeration = false;
+
+    /**
+     * The setup interface.
+     */
     private PrivateOntSetup setup = null;
 
+    /**
+     * Internal security check: when creating a {@link Property},
+     * {@link #checkPermission(String)} is called and tested against this value
+     * to determine whether the call really originated from this class.
+     */
     private String propertyURIPermissionCheck;
 
+    /**
+     * The set of extenders of this class. A class with a URI is normally
+     * defined in one ontology. But it can be enhanced with additional
+     * characteristics in other ontologies. This is a set of all classes that
+     * contribute to the final combined class.
+     * 
+     * @see Ontology#extendExistingOntClassInfo(String)
+     */
     // list of OntClassInfo
     private ArrayList extenders = new ArrayList();
 
