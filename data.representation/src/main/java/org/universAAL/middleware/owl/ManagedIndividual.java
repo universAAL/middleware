@@ -184,10 +184,7 @@ public abstract class ManagedIndividual extends Resource {
 
     /**
      * Returns the restrictions that apply to the given property in the context
-     * of the class with the given URI. This method creates a new instance of
-     * the class with the given URI and calls the method
-     * {@link org.universAAL.middleware.owl.ManagedIndividual#getClassRestrictionsOnProperty(String)}
-     * for that object.
+     * of the class with the given URI.
      * 
      * @param classURI
      *            URI of the class for which the restrictions apply.

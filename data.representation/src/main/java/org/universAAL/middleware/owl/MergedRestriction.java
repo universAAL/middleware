@@ -507,10 +507,10 @@ public class MergedRestriction extends Intersection {
      * restrictions.
      * 
      * @param min
-     *            The new value for {@link MinCardinalityRestriction}
+     *            The new value for {@link MinCardinalityRestriction}.
      * @param max
-     *            The new value for {@link MaxCardinalityRestriction}
-     * @return
+     *            The new value for {@link MaxCardinalityRestriction}.
+     * @return The new {@link MergedRestriction}.
      */
     public MergedRestriction copyWithNewCardinality(int min, int max) {
 	if (max > -1 && max < min)
@@ -590,13 +590,29 @@ public class MergedRestriction extends Intersection {
      * Appends this restriction to the given root restriction on the given
      * property path.
      * 
-     * 
      * @param root
      *            The root restriction for the first element of the property
      *            path. Can be null.
      * @param path
      *            The property path.
-     * @return
+     * @return <b>null</b> if the parameters are invalid because of either<br>
+     *         <ul>
+     *         <li><code>path</code> is <i>null</i></li>
+     *         <li><code>path</code> is empty</li>
+     *         <li>the <code>onProperty</code> of this object is not set</li>
+     *         <li>the <code>onProperty</code> does not match the last element
+     *         of the <code>path</code></li>
+     *         <li>the <code>onProperty</code> of <code>root</code> does not
+     *         match the first element of the <code>path</code></li>
+     *         </ul>
+     *         a <b>{@link #MergedRestriction()}</b>that is either<br>
+     *         <ul>
+     *         <li><b><code>this</code></b> if <code>root</code> is <i>null</i>
+     *         and the length of <code>path</code> is one</li>
+     *         <li>a modified <b><code>root</code></b> (or a new
+     *         {@link #MergedRestriction()} if <code>root</code> is <i>null</i>)
+     *         otherwise</li>
+     *         </ul>
      */
     public MergedRestriction appendTo(MergedRestriction root, String[] path) {
 	if (path == null || path.length == 0)

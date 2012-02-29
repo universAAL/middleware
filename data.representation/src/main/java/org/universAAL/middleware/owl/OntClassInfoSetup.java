@@ -19,23 +19,98 @@
  */
 package org.universAAL.middleware.owl;
 
+import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.RDFClassInfoSetup;
 
+/**
+ * Setup interface for creating new OWL classes. The creation is separated from
+ * the usage; for every {@link OntClassInfo} there is exactly one
+ * OntClassInfoSetup where all the properties of this class are defined.
+ * 
+ * To create a new {@link OntClassInfo}, define a subclass of {@link Ontology}
+ * and overwrite the {@link Ontology#create()} method.
+ * 
+ * @author cstocklo
+ * @see {@link RDFClassInfo}, {@link OntClassInfo}, {@link RDFClassInfoSetup}
+ */
 public interface OntClassInfoSetup extends RDFClassInfoSetup {
 
+    /**
+     * Add a restriction to a property. If a restriction was already set for
+     * that property, an {@link IllegalAccessError} exception is thrown.
+     * 
+     * @param r
+     *            The restriction to add.
+     */
     public void addRestriction(MergedRestriction r);
 
+    /**
+     * Add an {@link ObjectProperty}. An object property in OWL connects an
+     * instance of a class to an instance of class (instead of a literal).
+     * 
+     * @param propURI
+     *            URI of the property.
+     * @return A setup interface to set the characteristics of that property.
+     * @see #addDatatypeProperty(String)
+     */
     public ObjectPropertySetup addObjectProperty(String propURI);
 
+    /**
+     * Add a {@link DatatypeProperty}. An datatype property in OWL connects an
+     * instance of a class to a literal (instead of an instance of a class).
+     * 
+     * @param propURI
+     *            URI of the property.
+     * @return A setup interface to set the characteristics of that property.
+     * @see #addObjectProperty(String)
+     */
     public DatatypePropertySetup addDatatypeProperty(String propURI);
 
+    /**
+     * Add an instance of this class.
+     * 
+     * @param instance
+     *            The instance to add.
+     */
     public void addInstance(ManagedIndividual instance);
 
+    /**
+     * Make this class an enumeration class by explicitly specifying all
+     * instances of class. After calling this method, no additional instances
+     * can be added.
+     * 
+     * @param individuals
+     *            The set of instances of this class.
+     */
     public void toEnumeration(ManagedIndividual[] individuals);
 
+    /**
+     * Set this class to be equivalent to the given class expression. That means
+     * that this class is semantically equivalent to the given class expression
+     * and that one can be replaced by the other.
+     * 
+     * @param eq
+     *            The equivalent class expression.
+     */
     public void addEquivalentClass(ClassExpression eq);
 
+    /**
+     * Set this class to be disjoint to the given class expression. That means
+     * that the set of instances of this class is pairwise disjoint to the set
+     * of instances defined by the given class expression.
+     * 
+     * @param eq
+     *            The disjoint class expression.
+     */
     public void addDisjointClass(ClassExpression dj);
 
+    /**
+     * Set this class to be the complement of the given class expression. That
+     * means that all individuals are either in this class or in the given class
+     * expression, but not in both.
+     * 
+     * @param complement
+     *            The complement class expression.
+     */
     public void setComplementClass(ClassExpression complement);
 }

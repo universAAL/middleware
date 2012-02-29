@@ -26,14 +26,14 @@ import org.universAAL.middleware.rdf.ResourceFactory;
 public abstract class ResourceFactoryImpl implements ResourceFactory {
 
     /**
-     * @see org.universAAL.middleware.rdf.impl.ResourceFactory#createInstance(java.lang.String,
-     *      java.lang.String)
+     * @see org.universAAL.middleware.rdf.ResourceFactory#createInstance(java.lang.String,
+     *      java.lang.String, int)
      */
     public abstract Resource createInstance(String classURI,
 	    String instanceURI, int factoryIndex);
 
     /**
-     * @see org.universAAL.middleware.rdf.impl.ResourceFactory#castAs(org.universAAL.middleware.rdf.Resource,
+     * @see org.universAAL.middleware.rdf.ResourceFactory#castAs(org.universAAL.middleware.rdf.Resource,
      *      java.lang.String)
      */
     public Resource castAs(Resource r, String classURI) {

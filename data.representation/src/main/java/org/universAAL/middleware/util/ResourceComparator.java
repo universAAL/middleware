@@ -195,8 +195,8 @@ public class ResourceComparator {
     /**
      * Prints the differences between two Resources to the log.
      * 
-     * @see org.universAAL.middleware.util.LogUtils#logDebug(org.slf4j.Logger,
-     *      String, String, Object[], Throwable)
+     * @see org.universAAL.middleware.container.utils.LogUtils#logDebug(org.universAAL.middleware.container.ModuleContext,
+     *      Class, String, Object[], Throwable)
      */
     public void printDiffs(Resource r1, Resource r2) {
 	isPrinting = true;
