@@ -25,12 +25,12 @@ import org.universAAL.middleware.rdf.RDFClassInfoSetup;
 /**
  * Setup interface for creating new OWL classes. The creation is separated from
  * the usage; for every {@link OntClassInfo} there is exactly one
- * OntClassInfoSetup where all the properties of this class are defined.
+ * OntClassInfoSetup where all the characteristics of this class are defined.
  * 
  * To create a new {@link OntClassInfo}, define a subclass of {@link Ontology}
  * and overwrite the {@link Ontology#create()} method.
  * 
- * @author cstocklo
+ * @author Carsten Stockloew
  * @see {@link RDFClassInfo}, {@link OntClassInfo}, {@link RDFClassInfoSetup}
  */
 public interface OntClassInfoSetup extends RDFClassInfoSetup {

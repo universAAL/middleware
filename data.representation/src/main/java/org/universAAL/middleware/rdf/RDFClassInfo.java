@@ -33,12 +33,12 @@ import org.universAAL.middleware.owl.OntologyManagement;
 /**
  * Definition of an RDF class. The creation is separated from the usage; for
  * every RDFClassInfo there is exactly one {@link RDFClassInfoSetup} where all
- * the properties of this class are defined.
+ * the characteristics of this class are defined.
  * 
  * To create a new {@link RDFClassInfo}, define a subclass of {@link Ontology}
  * and overwrite the {@link Ontology#create()} method.
  * 
- * @author cstocklo
+ * @author Carsten Stockloew
  * @see {@link RDFClassInfoSetup}, {@link OntClassInfo},
  *      {@link OntClassInfoSetup}
  */
