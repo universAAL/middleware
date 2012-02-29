@@ -303,7 +303,7 @@ public class Resource {
      *            The URI of the instance.
      * @return The Resource object with the given 'instanceURI', or a new
      *         Resource, if it does not exist.
-     * @see #addSpecialResource(Resource)
+     * @see OntologyManagement#getResource(String, String)
      */
     public static Resource getResource(String classURI, String instanceURI) {
 
@@ -345,7 +345,7 @@ public class Resource {
 
     /**
      * Determines if the specified URI is a qualified name (see
-     * {@link org.universAAL.middleware.util.StringUtils#isQualifiedName(String)}
+     * {@link org.universAAL.middleware.container.utils.StringUtils#isQualifiedName(String)}
      * ) and is not an anonymous URI.
      */
     public static final boolean isQualifiedName(String uri) {

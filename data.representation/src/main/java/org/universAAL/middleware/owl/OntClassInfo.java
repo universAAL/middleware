@@ -30,17 +30,30 @@ import org.universAAL.middleware.rdf.RDFClassInfoSetup;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 
+/**
+ * Definition of an OWL class. The creation is separated from the usage; for
+ * every OntClassInfo there is exactly one {@link OntClassInfoSetup} where all
+ * the properties of this class are defined.
+ * 
+ * To create a new {@link OntClassInfo}, define a subclass of {@link Ontology}
+ * and overwrite the {@link Ontology#create()} method.
+ * 
+ * @author cstocklo
+ * @see {@link RDFClassInfoSetup}, {@link RDFClassInfo},
+ *      {@link OntClassInfoSetup}
+ */
 public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 
+    /** URI of this class. */
     public static final String MY_URI = ManagedIndividual.OWL_NAMESPACE
 	    + "Class";
 
     /**
-     * repository of all properties mapped to a {@link MergedRestriction} that
-     * represents all class restrictions on the property used as key.
+     * Repository of all properties mapped to a {@link MergedRestriction} that
+     * represents all class restrictions on the property used as key. It maps
+     * the URI of a property to the restrictions of that property.
      */
-    // (getstandardproperty()?)
-    // maps property property URIs to MergedRestriction
+    // maps property URI to MergedRestriction
     private HashMap propRestriction = new HashMap();
 
     private HashMap properties = new HashMap();
@@ -59,6 +72,11 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     // list of OntClassInfo
     private ArrayList extenders = new ArrayList();
 
+    /**
+     * Implementation of the setup interface. For security reasons, this is
+     * realized as a protected nested class so that only the creator of an
+     * {@link Ontology} has access to it and can make changes.
+     */
     private class PrivateOntSetup extends PrivateRDFSetup implements
 	    OntClassInfoSetup {
 	OntClassInfo info;
@@ -68,6 +86,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    this.info = info;
 	}
 
+	/** @see OntClassInfoSetup#addDatatypeProperty(String) */
 	public DatatypePropertySetup addDatatypeProperty(String propURI) {
 	    if (locked)
 		return null;
@@ -79,6 +98,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    return prop;
 	}
 
+	/** @see OntClassInfoSetup#addObjectProperty(String) */
 	public ObjectPropertySetup addObjectProperty(String propURI) {
 	    if (locked)
 		return null;
@@ -90,6 +110,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    return prop;
 	}
 
+	/** @see OntClassInfoSetup#addRestriction(MergedRestriction) */
 	public void addRestriction(MergedRestriction r) {
 	    if (locked)
 		return;
@@ -119,6 +140,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 		    .unmodifiableList(combinedSuperClasses));
 	}
 
+	/** @see OntClassInfoSetup#addInstance(ManagedIndividual) */
 	public void addInstance(ManagedIndividual instance)
 		throws UnsupportedOperationException {
 	    if (isEnumeration)
@@ -130,6 +152,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 		super.addInstance(instance);
 	}
 
+	/** @see OntClassInfoSetup#toEnumeration(ManagedIndividual[]) */
 	public void toEnumeration(ManagedIndividual[] individuals) {
 	    if (locked)
 		return;
@@ -138,21 +161,39 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    isEnumeration = true;
 	}
 
+	/** @see OntClassInfoSetup#addEquivalentClass(ClassExpression) */
 	public void addEquivalentClass(ClassExpression eq) {
 	    if (locked)
 		return;
 	    // TODO
 	}
 
+	/** @see OntClassInfoSetup#addDisjointClass(ClassExpression) */
 	public void addDisjointClass(ClassExpression dj) {
 	    // TODO Auto-generated method stub
 	}
 
+	/** @see OntClassInfoSetup#setComplementClass(ClassExpression) */
 	public void setComplementClass(ClassExpression complement) {
 	    // TODO Auto-generated method stub
 	}
     }
 
+    /**
+     * Create a new OWL Class.
+     * 
+     * @param classURI
+     *            The URI of the class.
+     * @param ont
+     *            The {@link Ontology} that creates this instance.
+     * @param factory
+     *            A factory to create new instances; it is <i>null</i> iff the
+     *            class is abstract.
+     * @param factoryIndex
+     *            An index to be given to the <code>factory</code>. If the
+     *            <code>factory</code> is <i>null</i>, this parameter is
+     *            ignored.
+     */
     private OntClassInfo(String classURI, Ontology ont,
 	    ResourceFactory factory, int factoryIndex) {
 	super(classURI, ont, factory, factoryIndex);
@@ -162,6 +203,23 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	props.put(Resource.PROP_RDF_TYPE, ClassExpression.OWL_CLASS);
     }
 
+    /**
+     * Create a new OWL Class. This method can only be called from an
+     * {@link Ontology}.
+     * 
+     * @param classURI
+     *            The URI of the class.
+     * @param ont
+     *            The {@link Ontology} that creates this instance.
+     * @param factory
+     *            A factory to create new instances; it is <i>null</i> iff the
+     *            class is abstract.
+     * @param factoryIndex
+     *            An index to be given to the <code>factory</code>. If the
+     *            <code>factory</code> is <i>null</i>, this parameter is
+     *            ignored.
+     * @return The setup interface to set all information of this class.
+     */
     public static RDFClassInfoSetup create(String classURI, Ontology ont,
 	    ResourceFactory factory, int factoryIndex) {
 	if (ont == null)
@@ -181,15 +239,31 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	return uri.equals(propertyURIPermissionCheck);
     }
 
-    // getStandardPropertyURIs()...
+    /**
+     * Get the set of URIs of all properties for this class. To add new
+     * properties, call {@link OntClassInfoSetup#addDatatypeProperty(String)} or
+     * {@link OntClassInfoSetup#addObjectProperty(String)}.
+     */
     public String[] getDeclaredProperties() {
-	return (String[]) propRestriction.keySet().toArray();
+	return (String[]) properties.keySet().toArray();
     }
 
+    /**
+     * Get all properties of this class. To add new properties, call
+     * {@link OntClassInfoSetup#addDatatypeProperty(String)} or
+     * {@link OntClassInfoSetup#addObjectProperty(String)}.
+     */
     public Property[] getProperties() {
 	return (Property[]) properties.values().toArray(new Property[0]);
     }
 
+    /**
+     * Get the restriction that are defined for a property.
+     * 
+     * @param propURI
+     *            URI of the property for which the restrictions apply.
+     * @return The restrictions of the given property.
+     */
     public MergedRestriction getRestrictionsOnProp(String propURI) {
 	// check this class
 	MergedRestriction r;
@@ -212,6 +286,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	return null;
     }
 
+    /** Determines whether this class is an enumeration class. */
     public boolean isEnumeration() {
 	return isEnumeration;
     }
@@ -294,7 +369,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	extenders.add(this);
 
 	OntClassInfo cl = new OntClassInfo(getURI(), ont, factory, factoryIndex); // (OntClassInfo)
-										  // super.clone();
+	// super.clone();
 	// cl.setup = new PrivateOntSetup(cl);
 	// cl.rdfsetup = cl.setup;
 	// cl.isEnumeration = false;
@@ -305,8 +380,10 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	 * } catch (CloneNotSupportedException e) { // this shouldn't happen,
 	 * since we are Cloneable throw new
 	 * InternalError("Error while cloning OntClassInfo"); }
-	 */}
+	 */
+    }
 
+    /** @see Resource#setProperty(String, Object) */
     public void setProperty(String propURI, Object value) {
 	if (locked)
 	    return;

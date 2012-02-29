@@ -30,30 +30,75 @@ import org.universAAL.middleware.owl.OntClassInfo;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
 
+/**
+ * Definition of an RDF class. The creation is separated from the usage; for
+ * every RDFClassInfo there is exactly one {@link RDFClassInfoSetup} where all
+ * the properties of this class are defined.
+ * 
+ * To create a new {@link RDFClassInfo}, define a subclass of {@link Ontology}
+ * and overwrite the {@link Ontology#create()} method.
+ * 
+ * @author cstocklo
+ * @see {@link RDFClassInfoSetup}, {@link OntClassInfo},
+ *      {@link OntClassInfoSetup}
+ */
 public class RDFClassInfo extends Resource {
 
-    // set of URIs
+    /**
+     * The set of URIs of all super classes.
+     */
     protected volatile HashSet namedSuperClasses = new HashSet();
 
     /**
-     * repository of all known (non-anonymous) instances.
+     * Repository of all known (non-anonymous) instances. It maps the URI of the
+     * instance to the instance itself.
      */
     protected HashMap instances = new HashMap();
 
-    // The combined list of all superclasses as set in the RDF graph (contains
-    // named super classes and restrictions)
+    /**
+     * The combined list of all super classes as set in the RDF graph (contains
+     * named super classes and restrictions).
+     */
     protected volatile ArrayList combinedSuperClasses = new ArrayList();
 
-    // Members of all the following arrays are instances of {@link
-    // ClassExpression}.
+    /**
+     * The set of super classes. Members are instances of
+     * {@link ClassExpression}.
+     */
     protected ArrayList superClasses = new ArrayList();
 
+    /**
+     * The factory to create new instances of this class.
+     */
     protected ResourceFactory factory;
+
+    /**
+     * Factory index to be given to the {@link ResourceFactory} to create new
+     * instances of this class.
+     */
     protected int factoryIndex;
+
+    /**
+     * The {@link Ontology} which defines or extends this class.
+     */
     protected Ontology ont;
+
+    /**
+     * Determines whether this class is locked. If it is locked, no new
+     * information can be stored here.
+     */
     protected boolean locked = false;
+
+    /**
+     * The setup interface.
+     */
     protected PrivateRDFSetup rdfsetup = null;
 
+    /**
+     * Implementation of the setup interface. For security reasons, this is
+     * realized as a protected nested class so that only the creator of an
+     * {@link Ontology} has access to it and can make changes.
+     */
     protected class PrivateRDFSetup implements RDFClassInfoSetup {
 	RDFClassInfo info;
 
@@ -61,6 +106,7 @@ public class RDFClassInfo extends Resource {
 	    this.info = info;
 	}
 
+	/** @see RDFClassInfoSetup#addInstance(Resource) */
 	public void addInstance(Resource instance) {
 	    if (locked)
 		return;
@@ -70,6 +116,7 @@ public class RDFClassInfo extends Resource {
 		    instances.put(instance.getURI(), instance);
 	}
 
+	/** @see RDFClassInfoSetup#addSuperClass(ClassExpression) */
 	public void addSuperClass(ClassExpression superClass) {
 	    if (locked)
 		return;
@@ -98,6 +145,7 @@ public class RDFClassInfo extends Resource {
 	    }
 	}
 
+	/** @see RDFClassInfoSetup#addSuperClass(String) */
 	public void addSuperClass(String namedSuperClass) {
 	    if (locked)
 		return;
@@ -117,16 +165,22 @@ public class RDFClassInfo extends Resource {
 		    .unmodifiableList(combinedSuperClasses));
 	}
 
+	/**
+	 * Get the info object which is the instance of the class this class is
+	 * nested in.
+	 */
 	public RDFClassInfo getInfo() {
 	    return info;
 	}
 
+	/** @see RDFClassInfoSetup#setResourceComment(String) */
 	public void setResourceComment(String comment) {
 	    if (locked)
 		return;
 	    info.setResourceComment(comment);
 	}
 
+	/** @see RDFClassInfoSetup#setResourceLabel(String) */
 	public void setResourceLabel(String label) {
 	    if (locked)
 		return;
@@ -134,6 +188,21 @@ public class RDFClassInfo extends Resource {
 	}
     }
 
+    /**
+     * Create a new RDF Class.
+     * 
+     * @param classURI
+     *            The URI of the class.
+     * @param ont
+     *            The {@link Ontology} that creates this instance.
+     * @param factory
+     *            A factory to create new instances; it is <i>null</i> iff the
+     *            class is abstract.
+     * @param factoryIndex
+     *            An index to be given to the <code>factory</code>. If the
+     *            <code>factory</code> is <i>null</i>, this parameter is
+     *            ignored.
+     */
     protected RDFClassInfo(String classURI, Ontology ont,
 	    ResourceFactory factory, int factoryIndex) {
 	super(classURI);
@@ -163,6 +232,23 @@ public class RDFClassInfo extends Resource {
 	addType(Resource.TYPE_RDFS_CLASS, true);
     }
 
+    /**
+     * Create a new RDF Class. This method can only be called from an
+     * {@link Ontology}.
+     * 
+     * @param classURI
+     *            The URI of the class.
+     * @param ont
+     *            The {@link Ontology} that creates this instance.
+     * @param factory
+     *            A factory to create new instances; it is <i>null</i> iff the
+     *            class is abstract.
+     * @param factoryIndex
+     *            An index to be given to the <code>factory</code>. If the
+     *            <code>factory</code> is <i>null</i>, this parameter is
+     *            ignored.
+     * @return The setup interface to set all information of this class.
+     */
     public static RDFClassInfoSetup create(String classURI, Ontology ont,
 	    ResourceFactory factory, int factoryIndex) {
 	if (ont == null)
@@ -175,18 +261,46 @@ public class RDFClassInfo extends Resource {
 	return info.rdfsetup;
     }
 
+    /**
+     * Determines whether this class is an abstract class. It is an abstract
+     * class iff the factory is not set.
+     * 
+     * @return
+     */
     public boolean isAbstract() {
 	return factory == null;
     }
 
+    /**
+     * Get the factory.
+     * 
+     * @see ResourceFactory
+     */
     public ResourceFactory getFactory() {
 	return factory;
     }
 
+    /**
+     * Get the factory index.
+     * 
+     * @see ResourceFactory
+     */
     public int getFactoryIndex() {
 	return factoryIndex;
     }
 
+    /**
+     * Determines whether the given class is a super class of this class. If
+     * <code>inherited</code> is false, then only <i>direct</i> super classes
+     * are considered.
+     * 
+     * @param classURI
+     *            The URI of the super class.
+     * @param inherited
+     *            false, iff only <i>direct</i> super classes should be
+     *            considered.
+     * @return true, if the given class is a super class of this class.
+     */
     public boolean hasSuperClass(String classURI, boolean inherited) {
 	if (namedSuperClasses.contains(classURI))
 	    return true;
@@ -205,6 +319,16 @@ public class RDFClassInfo extends Resource {
 	return false;
     }
 
+    /**
+     * Get the set of URIs of all named super classes.
+     * 
+     * @param inherited
+     *            false, iff only <i>direct</i> super classes should be
+     *            returned.
+     * @param includeAbstractClasses
+     *            true, iff abstract classes should be returned.
+     * @return The set of URIs of all named super classes.
+     */
     public String[] getNamedSuperClasses(boolean inherited,
 	    boolean includeAbstractClasses) {
 
@@ -244,24 +368,47 @@ public class RDFClassInfo extends Resource {
 	return (String[]) al.toArray(new String[al.size()]);
     }
 
+    /**
+     * Get the set of all non-named super classes.
+     */
     public ClassExpression[] getSuperClasses() {
 	return (ClassExpression[]) superClasses
 		.toArray(new ClassExpression[superClasses.size()]);
     }
 
+    /**
+     * Get the set of all registered instances of this class. To add new
+     * instances, call {@link RDFClassInfoSetup#addInstance(Resource)}
+     */
     public Resource[] getInstances() {
 	return (Resource[]) instances.values().toArray(
 		new Resource[instances.size()]);
     }
 
+    /**
+     * Get a specific registered instance of this class. To add new instances,
+     * call {@link RDFClassInfoSetup#addInstance(Resource)}
+     * 
+     * @param uri
+     *            The URI of the instance.
+     * @return The instance, if registered.
+     */
     public Resource getInstanceByURI(String uri) {
 	return (Resource) instances.get(uri);
     }
 
+    /**
+     * Lock this instance. After it is locked, no changes can be made. The class
+     * is automatically locked when the {@link Ontology} that defines the class
+     * is registered at the {@link OntologyManagement}.
+     */
     public void lock() {
 	locked = true;
     }
 
+    /**
+     * @see Resource#isClosedCollection(String)
+     */
     public boolean isClosedCollection(String propURI) {
 	if (ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI))
 	    return false;
