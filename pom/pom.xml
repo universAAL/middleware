@@ -39,6 +39,7 @@
 		<module>../bus.context</module>
 		<module>../bus.io</module>
 		<module>../bus.ui</module>
+		<module>middleware</module>
 	</modules>
 
 	<pluginRepositories>
