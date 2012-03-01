@@ -1,81 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>org.universAAL.middleware</groupId>
-	<artifactId>middleware</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
-
+	<parent>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.pom</artifactId>
+		<version>1.0.2-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
 	<packaging>pom</packaging>
+	<artifactId>middleware</artifactId>  
+	<version>1.0.2-SNAPSHOT</version>
 	<name>universAAL Middleware Suite Composite</name>
 	<description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase.</description>
+	<url />
 
+	<scm>
+		<connection>${svn.base}/pom/middleware</connection> 
+		<developerConnection>${svn.base}/pom/middleware</developerConnection>
+		<url>${svn.base.url}pom/middleware</url>
+	</scm>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.ui</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.data.serialization</artifactId>
+		</dependency>
+	</dependencies>
+	
 	<properties>
-		<remoteOBR />
+		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>central</id>
-			<name>Central Maven Repository</name>
-			<url>http://repo1.maven.org/maven2</url>
-			<layout>default</layout>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
-
-	<repositories>
-		<repository>
-			<id>uaal</id>
-			<name>universAAL Repositories</name>
-			<url>http://depot.universaal.org/maven-repo/releases/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>uaal-snapshots</id>
-			<name>universAAL Snapshot Repositories</name>
-			<url>http://depot.universaal.org/maven-repo/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>uaal-thirdparty</id>
-			<name>universAAL ThirdParty Repositories</name>
-			<url>http://depot.universaal.org/maven-repo/thirdparty/</url>
-		</repository>
-	</repositories>
-
+	
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>uaal-maven-plugin</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
 				<executions>
 					<execution>
-						<id>attach-composite</id>
-						<phase>package</phase>
+						<id>CompositeMojo</id>
+						<phase>generate-resources</phase>
 						<goals>
-							<goal>attach-artifact</goal>
+							<goal>composite</goal>
 						</goals>
-						<configuration>
-							<artifacts>
-								<artifact>
-									<file>artifact.composite</file>
-									<type>composite</type>
-								</artifact>
-							</artifacts>
-						</configuration>
 					</execution>
+					<execution>
+						<id>TestMojo</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>					
 				</executions>
 			</plugin>
 		</plugins>
