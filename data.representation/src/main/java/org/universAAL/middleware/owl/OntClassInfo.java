@@ -39,8 +39,9 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  * and overwrite the {@link Ontology#create()} method.
  * 
  * @author Carsten Stockloew
- * @see {@link RDFClassInfoSetup}, {@link RDFClassInfo},
- *      {@link OntClassInfoSetup}
+ * @see RDFClassInfoSetup
+ * @see RDFClassInfo
+ * @see OntClassInfoSetup
  */
 public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 
