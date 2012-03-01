@@ -101,7 +101,7 @@ public class TypeMapper {
     }
 
     /**
-     * Private constructor, use {@link #getTypeMapper()} for singleton instance.
+     * Private constructor, this class has only static methods.
      */
     private TypeMapper() {
     }
