@@ -50,6 +50,7 @@ container.xfaces/target
 data.representation/.classpath
 data.representation/.project
 data.representation/.settings
+data.representation/doc
 data.representation/target
 data.representation/uAAL.log
 data.serialization/.classpath
