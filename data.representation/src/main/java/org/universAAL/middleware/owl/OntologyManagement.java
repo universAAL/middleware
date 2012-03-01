@@ -78,7 +78,7 @@ public final class OntologyManagement {
 
     /**
      * Internal security check:
-     * {@link org.universAAL.middleware.owl.OntClassInfo#addExtender(OntClassInfo)
+     * {@link org.universAAL.middleware.owl.OntClassInfo#addExtender(OntClassInfo)}
      * will call this method to ensure that it is called from this class.
      */
     private String ontClassInfoURIPermissionCheck = null;

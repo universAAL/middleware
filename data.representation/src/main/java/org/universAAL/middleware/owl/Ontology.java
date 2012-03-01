@@ -122,16 +122,30 @@ public abstract class Ontology {
     public static final String PROP_OWL_IMPORT = ManagedIndividual.OWL_NAMESPACE
 	    + "imports";
 
-    // array of String: URIs of Ontologies
+    /**
+     * The list of imports of the ontology. A list of URIs of the ontologies
+     * that are imported.
+     * 
+     * @see #addImport(String)
+     */
     private volatile ArrayList imports = new ArrayList();
 
-    // classURI -> RDFClassInfo
+    /**
+     * The set of RDF classes defined in this ontology. It maps the URI of the
+     * class to an {@link RDFClassInfo}.
+     */
     private volatile HashMap rdfClassInfoMap = new HashMap();
 
-    // classURI -> OntClassInfo
+    /**
+     * The set of OWL classes defined in this ontology. It maps the URI of the
+     * class to an {@link OntClassInfo}.
+     */
     private volatile HashMap ontClassInfoMap = new HashMap();
 
-    // classURI -> Gefährliche Nachbarn
+    /**
+     * The set of OWL classes that are extended in this ontology. It maps the
+     * URI of the class to an {@link OntClassInfo}.
+     */
     private volatile HashMap extendedOntClassInfoMap = new HashMap();
 
     /**
@@ -244,12 +258,24 @@ public abstract class Ontology {
 	return uri.equals(ontClassInfoURIPermissionCheck);
     }
 
+    /**
+     * Determines whether this ontology defines or extends the given OWL class.
+     * 
+     * @param classURI
+     *            URI of the class.
+     * @return true, if this ontology defines or extends the given OWL class.
+     */
     public boolean hasOntClass(String classURI) {
 	if (ontClassInfoMap.containsKey(classURI))
 	    return true;
 	return extendedOntClassInfoMap.containsKey(classURI);
     }
 
+    /**
+     * Get the class information of all OWL classes of this ontology.
+     * 
+     * @see #getRDFClassInfo()
+     */
     public final OntClassInfo[] getOntClassInfo() {
 	synchronized (ontClassInfoMap) {
 	    return (OntClassInfo[]) ontClassInfoMap.values().toArray(
@@ -257,6 +283,11 @@ public abstract class Ontology {
 	}
     }
 
+    /**
+     * Get the class information of all RDF classes of this ontology.
+     * 
+     * @see #getOntClassInfo()
+     */
     public final RDFClassInfo[] getRDFClassInfo() {
 	synchronized (rdfClassInfoMap) {
 	    return (RDFClassInfo[]) rdfClassInfoMap.values().toArray(
@@ -264,6 +295,17 @@ public abstract class Ontology {
 	}
     }
 
+    /**
+     * Register a new RDF class.
+     * 
+     * @param classURI
+     *            URI of the class.
+     * @param fac
+     *            The factory to create new instances.
+     * @param factoryIndex
+     *            Factory index to be given to the factory.
+     * @return The setup interface.
+     */
     protected RDFClassInfoSetup createNewRDFClassInfo(String classURI,
 	    ResourceFactory fac, int factoryIndex) {
 	if (locked)
@@ -287,15 +329,49 @@ public abstract class Ontology {
 	return setup;
     }
 
+    /**
+     * Register a new abstract OWL class. An OWL class is abstract iff the Java
+     * counterpart is abstract. As such a class can not be instantiated, no
+     * factory can be given.
+     * 
+     * @param classURI
+     *            URI of the class.
+     * @return The setup interface.
+     * @see #extendExistingOntClassInfo(String)
+     */
     protected OntClassInfoSetup createNewAbstractOntClassInfo(String classURI) {
 	return createNewOntClassInfo(classURI, null, -1);
     }
 
+    /**
+     * Register a new OWL class. This method calls
+     * {@link #createNewOntClassInfo(String, ResourceFactory, int)} with a dummy
+     * factory index of -1.
+     * 
+     * @param classURI
+     *            URI of the class.
+     * @param fac
+     *            The factory to create new instances.
+     * @return The setup interface.
+     * @see #extendExistingOntClassInfo(String)
+     */
     protected OntClassInfoSetup createNewOntClassInfo(String classURI,
 	    ResourceFactory fac) {
 	return createNewOntClassInfo(classURI, fac, -1);
     }
 
+    /**
+     * Register a new OWL class.
+     * 
+     * @param classURI
+     *            URI of the class.
+     * @param fac
+     *            The factory to create new instances.
+     * @param factoryIndex
+     *            Factory index to be given to the factory.
+     * @return The setup interface.
+     * @see #extendExistingOntClassInfo(String)
+     */
     protected OntClassInfoSetup createNewOntClassInfo(String classURI,
 	    ResourceFactory fac, int factoryIndex) {
 	if (locked)
@@ -312,6 +388,25 @@ public abstract class Ontology {
 	return setup;
     }
 
+    /**
+     * <p>
+     * Extend an existing OWL class. A class is normally defined only once and
+     * only in one ontology. However, other ontologies can add some
+     * characteristics to that class. This method should be called in that case:
+     * when a different ontology has already defined a class and some
+     * characteristics (like additional properties) have to be added by this
+     * ontology.
+     * </p>
+     * <p>
+     * The {@link OntologyManagement} will combine all information (from the
+     * definition and all extenders) and will provide a combined view as if all
+     * these characteristics were defined only once and only in one ontology.
+     * </p>
+     * 
+     * @param classURI
+     *            URI of the class to extend.
+     * @return The setup interface.
+     */
     protected OntClassInfoSetup extendExistingOntClassInfo(String classURI) {
 	if (locked)
 	    return null;
@@ -327,6 +422,17 @@ public abstract class Ontology {
 	return setup;
     }
 
+    /**
+     * Internal helper method to create a new OWL class.
+     * 
+     * @param classURI
+     *            URI of the class.
+     * @param fac
+     *            Factory.
+     * @param factoryIndex
+     *            Factory index.
+     * @return The setup interface to the new class.
+     */
     private final OntClassInfoSetup newOntClassInfo(String classURI,
 	    ResourceFactory fac, int factoryIndex) {
 	if (locked)
@@ -341,6 +447,10 @@ public abstract class Ontology {
 	return setup;
     }
 
+    /**
+     * Get a list of all resources of this ontology. The resources are the info
+     * part, the RDF and OWL classes as well as the properties of these classes.
+     */
     public Resource[] getResourceList() {
 	ArrayList list = new ArrayList();
 	list.add(info);
@@ -353,9 +463,16 @@ public abstract class Ontology {
 		Collections.addAll(list, propArr);
 	}
 
-	return (Resource[]) list.toArray(new Resource[0]);
+	list.addAll(rdfClassInfoMap.values());
+
+	return (Resource[]) list.toArray(new Resource[list.size()]);
     }
 
+    /**
+     * Lock this instance and all its elements. After it is locked, no changes
+     * can be made. The {@link Ontology} is automatically locked when it is
+     * registered at the {@link OntologyManagement}.
+     */
     public void lock() {
 	// lock this ontology
 	locked = true;
