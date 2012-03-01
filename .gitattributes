@@ -380,4 +380,6 @@ itests/rundir/confadmin/ui.dm/messages_en.properties -text
 pom/artifact.composite -text
 pom/eclipse.setup.bat -text
 pom/eclipse.setup.sh -text
+pom/middleware/artifact.composite -text
+pom/middleware/pom.xml -text
 pom/pom.xml -text

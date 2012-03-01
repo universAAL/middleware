@@ -65,4 +65,6 @@ itests/target
 pom/.classpath
 pom/.project
 pom/.settings
+pom/middleware/.project
+pom/middleware/.settings
 pom/target
