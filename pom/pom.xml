@@ -39,7 +39,7 @@
 		<module>../bus.context</module>
 		<module>../bus.io</module>
 		<module>../bus.ui</module>
-		<module>middleware</module>
+<!-- 		<module>middleware</module> -->
 	</modules>
 
 	<pluginRepositories>
@@ -215,7 +215,12 @@
 						</goals>
 					</execution>					
 				</executions>
-			</plugin>			          
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<inherited>false</inherited>
+			</plugin>          
 		</plugins>
 		<pluginManagement>
 			<plugins>
