@@ -31,7 +31,9 @@ import org.universAAL.middleware.owl.Ontology;
  * and overwrite the {@link Ontology#create()} method.
  * 
  * @author Carsten Stockloew
- * @see {@link RDFClassInfo}, {@link OntClassInfo}, {@link OntClassInfoSetup}
+ * @see RDFClassInfo
+ * @see org.universAAL.middleware.owl.OntClassInfo
+ * @see org.universAAL.middleware.owl.OntClassInfoSetup
  */
 public interface RDFClassInfoSetup {
 

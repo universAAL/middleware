@@ -31,7 +31,9 @@ import org.universAAL.middleware.rdf.RDFClassInfoSetup;
  * and overwrite the {@link Ontology#create()} method.
  * 
  * @author Carsten Stockloew
- * @see {@link RDFClassInfo}, {@link OntClassInfo}, {@link RDFClassInfoSetup}
+ * @see RDFClassInfo
+ * @see OntClassInfo
+ * @see RDFClassInfoSetup
  */
 public interface OntClassInfoSetup extends RDFClassInfoSetup {
 
@@ -99,7 +101,7 @@ public interface OntClassInfoSetup extends RDFClassInfoSetup {
      * that the set of instances of this class is pairwise disjoint to the set
      * of instances defined by the given class expression.
      * 
-     * @param eq
+     * @param dj
      *            The disjoint class expression.
      */
     public void addDisjointClass(ClassExpression dj);
