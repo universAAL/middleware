@@ -32,24 +32,90 @@ import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 
+/**
+ * The Ontology Management mainly serves two purposes:
+ * <ol>
+ * <li>Management of ontologies</li>
+ * <li>Providing a global view on all ontological information</li>
+ * </ol>
+ * <p>
+ * The management of {@link Ontology ontologies} is achieved by providing
+ * methods to {@link #register(Ontology) register} and
+ * {@link #unregister(Ontology) unregister} an ontology as well as to query
+ * information about ontologies, i.e. to get a list of URIs of all registered
+ * ontologies with {@link #getOntoloyURIs()} and to get a specific ontology with
+ * {@link #getOntology(String)}.
+ * </p>
+ * <p>
+ * To add a new ontology, the method {@link Ontology#create()} has to be
+ * overwritten and the ontology needs to be registered by calling
+ * {@link #register(Ontology)}. The ontology is then added to the internal list
+ * of <i>pending</i> ontologies. That means, that the information of the
+ * ontology is available for some special methods (e.g.
+ * {@link #isRegisteredClass(String, boolean)}) to provide the possibility to
+ * create instances of the classes of that ontology. Then, the
+ * <code>create()</code> method is called to actually create all this
+ * information. If <code>create()</code> returns without errors, the ontology is
+ * removed from the list of <i>pending</i> ontologies and is then available in
+ * the system.
+ * </p>
+ * <p>
+ * Ontological information can be distributed in different ontologies, e.g. one
+ * ontology can define a class and a different ontology can extend this class by
+ * adding some properties. The second purpose of the {@link OntologyManagement}
+ * is to provide a combined view on all this information as if all was defined
+ * in only one ontology.
+ * </p>
+ * <p>
+ * {@link OntologyManagement} implements the <i>Singleton</i> design pattern. To
+ * get an instance of this class and be able to call the methods, call
+ * {@link #getInstance()}.
+ * </p>
+ * 
+ * @author Carsten Stockloew
+ */
 public final class OntologyManagement {
 
-    // Singleton instance
+    /**
+     * Singleton instance.
+     */
     private static OntologyManagement instance = new OntologyManagement();
 
-    // maps Ontology URI -> Ontology
+    /**
+     * The set of registered ontologies. It maps the URI of the ontology to an
+     * instance of {@link Ontology}.
+     */
     private volatile HashMap ontologies = new HashMap();
 
-    // maps classURI -> OntClassInfo
+    /**
+     * The set of OWL classes that are defined in the registered ontologies. It
+     * maps the URI of the class to its {@link OntClassInfo}.
+     * 
+     * @see #rdfClassInfoMap
+     */
     private volatile HashMap ontClassInfoMap = new HashMap();
 
-    // maps classURI -> RDFClassInfo
+    /**
+     * The set of RDF classes that are defined in the registered ontologies. It
+     * maps the URI of the class to its {@link RDFClassInfo}.
+     * 
+     * @see #ontClassInfoMap
+     */
     private volatile HashMap rdfClassInfoMap = new HashMap();
 
-    // maps classURI of super class -> ArrayList of URIs of all sub classes
+    /**
+     * Repository of sub class relationships. It maps the URI of the super class
+     * to a list of URIs of all known sub classes.
+     */
     private Hashtable namedSubClasses = new Hashtable();
 
-    // ArrayList of Ontology
+    /**
+     * The set of pending ontologies. When an ontology is registered, it's
+     * status is set to <i>pending</i> and the method {@link Ontology#create()
+     * create()} is called. If this method returns without error, the ontology
+     * is registered and removed from the list of <i>pending</i> ontologies and,
+     * thus, available in the system.
+     */
     private volatile ArrayList pendingOntologies = new ArrayList();
 
     /**
@@ -64,6 +130,9 @@ public final class OntologyManagement {
     // maps URI (of instance) to Resource
     private volatile HashMap namedResources = new HashMap();
 
+    /**
+     * Factory information to create new instances of registered classes.
+     */
     private class FactoryEntry {
 	public ResourceFactory factory;
 	public int factoryIndex;
@@ -74,6 +143,10 @@ public final class OntologyManagement {
 	}
     }
 
+    /**
+     * Repository of all factories. It maps the URI of an {@link OntClassInfo}
+     * to a {@link FactoryEntry}.
+     */
     private volatile HashMap factories = new HashMap();
 
     /**
@@ -83,6 +156,10 @@ public final class OntologyManagement {
      */
     private String ontClassInfoURIPermissionCheck = null;
 
+    /**
+     * Private constructor for this Singleton. Use {@link #getInstance()} to get
+     * the instance.
+     */
     private OntologyManagement() {
     }
 
@@ -91,6 +168,12 @@ public final class OntologyManagement {
 	return instance;
     }
 
+    /**
+     * Remove an ontology from the list of <i>pending</i> ontologies.
+     * 
+     * @param ont
+     *            The ontology to remove.
+     */
     private void removePendingOntology(Ontology ont) {
 	synchronized (pendingOntologies) {
 	    ArrayList newPendingOntologies = new ArrayList(pendingOntologies
@@ -245,6 +328,14 @@ public final class OntologyManagement {
 	return true;
     }
 
+    /**
+     * Get a named resource. A named resource is a registered instance of an OWL
+     * or RDF class.
+     * 
+     * @param instanceURI
+     *            URI of the instance.
+     * @return The instance.
+     */
     public Resource getNamedResource(String instanceURI) {
 	if (instanceURI == null)
 	    return null;
@@ -333,6 +424,18 @@ public final class OntologyManagement {
 	return result;
     }
 
+    /**
+     * Get the URIs of all sub classes of the given class.
+     * 
+     * @param superClassURI
+     *            URI of the super class.
+     * @param inherited
+     *            false, iff only <i>direct</i> sub classes should be
+     *            considered.
+     * @param includeAbstractClasses
+     *            true, iff abstract classes should be included.
+     * @return The set of URIs of all sub classes.
+     */
     public Set getNamedSubClasses(String superClassURI, boolean inherited,
 	    boolean includeAbstractClasses) {
 
@@ -350,8 +453,7 @@ public final class OntologyManagement {
 	    Iterator it = namedSubClassesList.iterator();
 	    while (it.hasNext()) {
 		String subClassURI = (String) it.next();
-		OntClassInfo info = OntologyManagement.getInstance()
-			.getOntClassInfo(subClassURI);
+		OntClassInfo info = getOntClassInfo(subClassURI);
 		if (info != null)
 		    if (!info.isAbstract())
 			retval.add(subClassURI);
@@ -371,14 +473,31 @@ public final class OntologyManagement {
 	return retval;
     }
 
+    /**
+     * Unregister an ontology.
+     * 
+     * @param ont
+     *            The ontology to unregister.
+     */
     public void unregister(Ontology ont) {
 	// TODO
     }
 
+    /** Get an ontology by its URI. */
     public Ontology getOntology(String uri) {
 	return (Ontology) ontologies.get(uri);
     }
 
+    /**
+     * Get the model information of an RDF class.
+     * 
+     * @param classURI
+     *            URI of the class.
+     * @param includeOntClasses
+     *            true, if OWL classes should be included.
+     * @return The model information.
+     * @see #getOntClassInfo(String)
+     */
     public RDFClassInfo getRDFClassInfo(String classURI,
 	    boolean includeOntClasses) {
 	if (classURI == null)
@@ -393,12 +512,31 @@ public final class OntologyManagement {
 	return null;
     }
 
+    /**
+     * Get the model information of an OWL class.
+     * 
+     * @param classURI
+     *            URI of the class.
+     * @return The model information.
+     * @see #getRDFClassInfo(String, boolean)
+     */
     public OntClassInfo getOntClassInfo(String classURI) {
 	if (classURI == null)
 	    return null;
 	return (OntClassInfo) ontClassInfoMap.get(classURI);
     }
 
+    /**
+     * Determines whether an OWL class is registered. It is registered if it is
+     * defined or extended in one of the registered ontologies.
+     * 
+     * @param classURI
+     *            URI of the class.
+     * @param includePending
+     *            If true, classes from <i>pending</i> ontologies are also
+     *            considered.
+     * @return true, iff the class is registered.
+     */
     public boolean isRegisteredClass(String classURI, boolean includePending) {
 	// test registered classes
 	if (ontClassInfoMap.containsKey(classURI))
@@ -421,6 +559,9 @@ public final class OntologyManagement {
 	return false;
     }
 
+    /**
+     * Get the set of URIs of all registered ontologies.
+     */
     public String[] getOntoloyURIs() {
 	return (String[]) ontologies.keySet().toArray(new String[0]);
     }

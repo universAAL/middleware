@@ -22,39 +22,81 @@ package org.universAAL.middleware.rdf;
 import java.util.ArrayList;
 
 import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.DatatypeProperty;
+import org.universAAL.middleware.owl.ObjectProperty;
 import org.universAAL.middleware.owl.OntClassInfo;
+import org.universAAL.middleware.owl.Ontology;
+
+/**
+ * Definition of an RDF property. The creation is separated from the usage; for
+ * every Property there is exactly one {@link PropertySetup} where all the
+ * characteristics of this property are defined.
+ * 
+ * @author Carsten Stockloew
+ * @see org.universAAL.middleware.owl.ObjectProperty
+ * @see org.universAAL.middleware.owl.ObjectPropertySetup
+ * @see org.universAAL.middleware.owl.DatatypeProperty
+ * @see org.universAAL.middleware.owl.DatatypePropertySetup
+ * @see org.universAAL.middleware.rdf.PropertySetup
+ */
 
 public abstract class Property extends Resource {
 
+    /**
+     * URI of rdfs:domain that is used to state that any resource that has a
+     * given property is an instance of one or more classes.
+     */
     public static final String PROP_RDFS_DOMAIN = RDFS_NAMESPACE + "domain";
 
+    /**
+     * URI of rdfs:range that is used to state that the values of a property are
+     * instances of one or more classes.
+     */
     public static final String PROP_RDFS_RANGE = RDFS_NAMESPACE + "range";
 
+    /** Determines whether this property is functional. */
     protected boolean isFunctional;
+
+    /** The set of super properties. */
     private volatile ArrayList subPropertyOf = new ArrayList();
+
+    /** The set of equivalent properties. */
     private volatile ArrayList equivalentProperties = new ArrayList();
-    // private static Object equivalentPropertiesSync = new Object();
+
+    /** The rdf:domain */
     private ClassExpression domain = null;
 
+    /** The ontology that defines this property. */
     protected OntClassInfo info;
 
+    /** The setup interface. */
     protected PrivatePropertySetup setup;
 
+    /**
+     * Implementation of the setup interface. For security reasons, this is
+     * realized as a protected nested class so that only the creator of an
+     * {@link Ontology} has access to it and can make changes.
+     */
     protected class PrivatePropertySetup implements PropertySetup {
+	/** The property. */
 	protected Property prop;
 
+	/** Constructor. */
 	public PrivatePropertySetup(Property prop) {
 	    this.prop = prop;
 	}
 
+	/** Get the property for this set up. */
 	public Property getProperty() {
 	    return prop;
 	}
 
+	/** @see PropertySetup#setFunctional() */
 	public void setFunctional() {
 	    prop.isFunctional = true;
 	}
 
+	/** @see PropertySetup#addSuperProperty(String) */
 	public synchronized void addSuperProperty(String superProperty) {
 	    if (subPropertyOf.contains(superProperty))
 		return;
@@ -64,6 +106,7 @@ public abstract class Property extends Resource {
 	    subPropertyOf = al;
 	}
 
+	/** @see PropertySetup#addEquivalentProperty(String) */
 	public void addEquivalentProperty(String equivalentProperty) {
 	    // we have to synchronize for all Property instances that may be in
 	    // the
@@ -90,20 +133,33 @@ public abstract class Property extends Resource {
 	    // }
 	}
 
+	/** @see PropertySetup#addDisjointProperty(String) */
 	public void addDisjointProperty(String disjointProperty) {
 	    // TODO Auto-generated method stub
 	}
 
+	/** @see PropertySetup#setDomain(ClassExpression) */
 	public void setDomain(ClassExpression dom) {
 	    domain = dom;
 	    setProperty(PROP_RDFS_DOMAIN, domain);
 	}
 
+	/** @see PropertySetup#setRange(ClassExpression) */
 	public void setRange(ClassExpression range) {
 	    // TODO Auto-generated method stub
 	}
     }
 
+    /**
+     * Protected constructor, to create instances call either
+     * {@link ObjectProperty#create(String, OntClassInfo)} or
+     * {@link DatatypeProperty#create(String, OntClassInfo)}.
+     * 
+     * @param uri
+     *            URI of this property.
+     * @param info
+     *            The class for which this property is defined.
+     */
     protected Property(String uri, OntClassInfo info) {
 	super(uri);
 	if (info == null)
@@ -115,6 +171,11 @@ public abstract class Property extends Resource {
 	this.info = info;
     }
 
+    /**
+     * Determines whether this property is functional.
+     * 
+     * @see PropertySetup#setFunctional()
+     */
     public boolean isFunctional() {
 	return isFunctional;
     }

@@ -58,7 +58,7 @@ public interface OntClassInfoSetup extends RDFClassInfoSetup {
     public ObjectPropertySetup addObjectProperty(String propURI);
 
     /**
-     * Add a {@link DatatypeProperty}. An datatype property in OWL connects an
+     * Add a {@link DatatypeProperty}. A datatype property in OWL connects an
      * instance of a class to a literal (instead of an instance of a class).
      * 
      * @param propURI
@@ -87,7 +87,7 @@ public interface OntClassInfoSetup extends RDFClassInfoSetup {
     public void toEnumeration(ManagedIndividual[] individuals);
 
     /**
-     * Set this class to be equivalent to the given class expression. That means
+     * Set this class to be equivalent to the given class expression. This means
      * that this class is semantically equivalent to the given class expression
      * and that one can be replaced by the other.
      * 
@@ -97,7 +97,7 @@ public interface OntClassInfoSetup extends RDFClassInfoSetup {
     public void addEquivalentClass(ClassExpression eq);
 
     /**
-     * Set this class to be disjoint to the given class expression. That means
+     * Set this class to be disjoint to the given class expression. This means
      * that the set of instances of this class is pairwise disjoint to the set
      * of instances defined by the given class expression.
      * 
@@ -107,7 +107,7 @@ public interface OntClassInfoSetup extends RDFClassInfoSetup {
     public void addDisjointClass(ClassExpression dj);
 
     /**
-     * Set this class to be the complement of the given class expression. That
+     * Set this class to be the complement of the given class expression. This
      * means that all individuals are either in this class or in the given class
      * expression, but not in both.
      * 

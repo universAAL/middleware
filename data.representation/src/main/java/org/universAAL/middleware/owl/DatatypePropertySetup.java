@@ -21,8 +21,31 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.PropertySetup;
 
-// There are no specific properties/methods for RDF Property. This interface is
-// empty and only exists as equivalent for ObjectPropertySetup.
+/**
+ * <p>
+ * Setup interface for creating new datatype properties. The creation is
+ * separated from the usage; for every {@link DatatypeProperty} there is exactly
+ * one DatatypePropertySetup where all the characteristics of this property are
+ * defined.
+ * </p>
+ * <p>
+ * To create a new {@link DatatypeProperty}, define a subclass of
+ * {@link Ontology} , overwrite the {@link Ontology#create()} method, create an
+ * {@link OntClassInfo} and call
+ * {@link OntClassInfoSetup#addDatatypeProperty(String)}.
+ * </p>
+ * <p>
+ * There are no specific properties/methods for datatype properties. This
+ * interface is empty and only exists as equivalent for
+ * {@link ObjectPropertySetup}.
+ * </p>
+ * 
+ * @author Carsten Stockloew
+ * @see org.universAAL.middleware.owl.ObjectProperty
+ * @see org.universAAL.middleware.owl.ObjectPropertySetup
+ * @see org.universAAL.middleware.owl.DatatypeProperty
+ * @see org.universAAL.middleware.rdf.Property
+ * @see org.universAAL.middleware.rdf.PropertySetup
+ */
 public interface DatatypePropertySetup extends PropertySetup {
-
 }
