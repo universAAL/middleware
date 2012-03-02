@@ -31,9 +31,11 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 
 /**
- * Definition of an OWL class. The creation is separated from the usage; for
- * every OntClassInfo there is exactly one {@link OntClassInfoSetup} where all
- * the characteristics of this class are defined.
+ * Definition of an OWL class. An instance of this class stores all model
+ * information, like properties and restrictions. The creation is separated from
+ * the usage; for every OntClassInfo there is exactly one
+ * {@link OntClassInfoSetup} where all the characteristics of this class are
+ * defined.
  * 
  * To create a new {@link OntClassInfo}, define a subclass of {@link Ontology}
  * and overwrite the {@link Ontology#create()} method.
@@ -98,9 +100,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
      */
     private boolean isEnumeration = false;
 
-    /**
-     * The setup interface.
-     */
+    /** The setup interface. */
     private PrivateOntSetup setup = null;
 
     /**
@@ -128,8 +128,11 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
      */
     private class PrivateOntSetup extends PrivateRDFSetup implements
 	    OntClassInfoSetup {
+	
+	/** The info object. */
 	OntClassInfo info;
 
+	/** Constructor. */
 	public PrivateOntSetup(OntClassInfo info) {
 	    super(info);
 	    this.info = info;
