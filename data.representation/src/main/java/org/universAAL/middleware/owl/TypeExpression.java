@@ -21,8 +21,29 @@ package org.universAAL.middleware.owl;
 
 import java.util.Hashtable;
 
-public interface TypeExpression {
+import org.universAAL.middleware.rdf.IResource;
+import org.universAAL.middleware.rdf.Resource;
 
+public interface TypeExpression extends IResource {
+
+    /** URI namespace for OWL. */
+    public static final String OWL_NAMESPACE = "http://www.w3.org/2002/07/owl#";
+
+    /** URI for owl:Thing. */
+    public static final String TYPE_OWL_THING = OWL_NAMESPACE + "Thing";
+
+    /** URI for rdfs:Datatype. */
+    public static final String RDFS_DATATYPE = Resource.RDFS_NAMESPACE
+	    + "Datatype";
+
+    /** URI for owl:class. */
+    public static final String OWL_CLASS = OWL_NAMESPACE + "Class";
+
+    /** URI for rdfs:subClassOf. */
+    public static final String PROP_RDFS_SUB_CLASS_OF = Resource.RDFS_NAMESPACE
+	    + "subClassOf";
+
+    
     /**
      * Create a copy of this object, i.e. create a new object of this class and
      * copy the necessary properties.
