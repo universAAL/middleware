@@ -31,7 +31,7 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  * @author Carsten Stockloew
  */
-public class MaxCardinalityRestriction extends AbstractRestriction {
+public class MaxCardinalityRestriction extends PropertyRestriction {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "MaxCardinalityRestriction";
@@ -112,10 +112,10 @@ public class MaxCardinalityRestriction extends AbstractRestriction {
      *      Hashtable)
      */
     public boolean isDisjointWith(ClassExpression other, Hashtable context) {
-	if (!(other instanceof AbstractRestriction))
+	if (!(other instanceof PropertyRestriction))
 	    return other.isDisjointWith(this, context);
 
-	AbstractRestriction r = (AbstractRestriction) other;
+	PropertyRestriction r = (PropertyRestriction) other;
 	Object o = getOnProperty();
 	if (o == null || !o.equals(r.getOnProperty()))
 	    return false;
@@ -146,7 +146,7 @@ public class MaxCardinalityRestriction extends AbstractRestriction {
 	if (noRes instanceof Boolean)
 	    return ((Boolean) noRes).booleanValue();
 
-	AbstractRestriction other = (AbstractRestriction) noRes;
+	PropertyRestriction other = (PropertyRestriction) noRes;
 
 	if (other instanceof MaxCardinalityRestriction) {
 	    if (getValue() >= ((MaxCardinalityRestriction) other).getValue())

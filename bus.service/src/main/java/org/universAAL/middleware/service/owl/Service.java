@@ -24,7 +24,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-import org.universAAL.middleware.owl.AbstractRestriction;
+import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
@@ -137,7 +137,7 @@ public abstract class Service extends ManagedIndividual {
     }
 
     /**
-     * Get a list of all simple restrictions ({@link AbstractRestriction}) from
+     * Get a list of all simple restrictions ({@link PropertyRestriction}) from
      * the given hash table that have been added by
      * {@link #addRestriction(MergedRestriction, String[], Hashtable)}
      */
@@ -357,8 +357,8 @@ public abstract class Service extends ManagedIndividual {
 	    if (value instanceof List)
 		for (Iterator i = ((List) value).iterator(); i.hasNext();) {
 		    Object o = i.next();
-		    if (o instanceof AbstractRestriction) {
-			AbstractRestriction res = (AbstractRestriction) o;
+		    if (o instanceof PropertyRestriction) {
+			PropertyRestriction res = (PropertyRestriction) o;
 			// add res as MergedRestriction to
 			// instanceLevelRestrictions
 			MergedRestriction m = (MergedRestriction) instanceLevelRestrictions
@@ -370,8 +370,8 @@ public abstract class Service extends ManagedIndividual {
 		    } else
 			return;
 		}
-	    else if (value instanceof AbstractRestriction) {
-		AbstractRestriction res = (AbstractRestriction) value;
+	    else if (value instanceof PropertyRestriction) {
+		PropertyRestriction res = (PropertyRestriction) value;
 		MergedRestriction m = new MergedRestriction(res.getOnProperty());
 		m.addRestriction(res);
 		instanceLevelRestrictions.put(res.getOnProperty(), m);

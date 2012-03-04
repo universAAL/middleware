@@ -22,7 +22,7 @@ package org.universAAL.middleware.service.impl;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import org.universAAL.middleware.owl.AbstractRestriction;
+import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.Intersection;
 import org.universAAL.middleware.owl.MergedRestriction;
@@ -392,8 +392,8 @@ public class ServiceRealization extends Resource {
 			    return false;
 			reqRestr = (ClassExpression) ((MergedRestriction) reqRestr)
 				.getConstraint(MergedRestriction.allValuesFromID);
-			if (reqRestr instanceof AbstractRestriction) {
-			    restrProps[i] = ((AbstractRestriction) reqRestr)
+			if (reqRestr instanceof PropertyRestriction) {
+			    restrProps[i] = ((PropertyRestriction) reqRestr)
 				    .getOnProperty();
 			    if (restrProps[i] == null)
 				// strange!
@@ -413,8 +413,8 @@ public class ServiceRealization extends Resource {
 				// the same as above, only this time in a loop
 				// over all members of the intersection
 				reqRestr = (ClassExpression) j.next();
-				if (reqRestr instanceof AbstractRestriction) {
-				    restrProps[i] = ((AbstractRestriction) reqRestr)
+				if (reqRestr instanceof PropertyRestriction) {
+				    restrProps[i] = ((PropertyRestriction) reqRestr)
 					    .getOnProperty();
 				    if (restrProps[i] == null)
 					// strange!

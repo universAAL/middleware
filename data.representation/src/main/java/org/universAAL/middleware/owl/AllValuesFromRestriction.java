@@ -32,7 +32,7 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  * @author Carsten Stockloew
  */
-public class AllValuesFromRestriction extends AbstractRestriction {
+public class AllValuesFromRestriction extends PropertyRestriction {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "AllValuesFromRestriction";
@@ -109,10 +109,10 @@ public class AllValuesFromRestriction extends AbstractRestriction {
      *      Hashtable)
      */
     public boolean isDisjointWith(ClassExpression other, Hashtable context) {
-	if (!(other instanceof AbstractRestriction))
+	if (!(other instanceof PropertyRestriction))
 	    return other.isDisjointWith(this, context);
 
-	AbstractRestriction r = (AbstractRestriction) other;
+	PropertyRestriction r = (PropertyRestriction) other;
 	Object o = getOnProperty();
 	if (o == null || !o.equals(r.getOnProperty()))
 	    return false;
@@ -148,7 +148,7 @@ public class AllValuesFromRestriction extends AbstractRestriction {
 	if (noRes instanceof Boolean)
 	    return ((Boolean) noRes).booleanValue();
 
-	AbstractRestriction otherRes = (AbstractRestriction) noRes;
+	PropertyRestriction otherRes = (PropertyRestriction) noRes;
 
 	if (otherRes instanceof AllValuesFromRestriction) {
 	    Hashtable cloned = (context == null) ? null : (Hashtable) context
