@@ -41,15 +41,6 @@ import org.universAAL.middleware.rdf.TypeMapper;
 public abstract class ClassExpression extends Resource implements
 	TypeExpression {
 
-    /** URI namespace for OWL. */
-    public static final String OWL_NAMESPACE = "http://www.w3.org/2002/07/owl#";
-
-    /** URI for owl:Thing. */
-    public static final String TYPE_OWL_THING = OWL_NAMESPACE + "Thing";
-
-    /** URI for rdfs:Datatype. */
-    public static final String RDFS_DATATYPE = RDFS_NAMESPACE + "Datatype";
-
     /** Parameters for a registered subclass. */
     private class RegParams {
 	/** The Java class realizing an OWL class expression. */
@@ -59,13 +50,6 @@ public abstract class ClassExpression extends Resource implements
 	boolean supportsAnonClass;
 	boolean supportsNamedClass;
     }
-
-    /** URI for owl:class. */
-    public static final String OWL_CLASS = OWL_NAMESPACE + "Class";
-
-    /** URI for rdfs:subClassOf. */
-    public static final String PROP_RDFS_SUB_CLASS_OF = RDFS_NAMESPACE
-	    + "subClassOf";
 
     /**
      * The set of registered class expressions according to the registration

@@ -336,6 +336,7 @@ data.representation/src/main/java/org/universAAL/middleware/owl/Union.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/supply/AbsLocation.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/supply/LevelRating.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/supply/Rating.java -text
+data.representation/src/main/java/org/universAAL/middleware/rdf/IResource.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/Property.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/PropertyPath.java -text
 data.representation/src/main/java/org/universAAL/middleware/rdf/PropertySetup.java -text
