@@ -166,8 +166,8 @@ public abstract class Service extends ManagedIndividual {
     /**
      * The instance-level repository of defined restrictions on property paths.
      * For adding instance-level restrictions to this repository, the method
-     * {@link #addRestriction(Restriction, String[], java.util.Hashtable)} must
-     * be used.
+     * {@link #addRestriction(MergedRestriction, String[], java.util.Hashtable)}
+     * must be used.
      */
     protected final Hashtable instanceLevelRestrictions = new Hashtable();
     protected int numberOfValueRestrictions = 0;
