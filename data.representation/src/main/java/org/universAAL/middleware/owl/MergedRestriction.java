@@ -30,7 +30,7 @@ import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
- * Helper class to handle multiple {@link AbstractRestriction}s of the same
+ * Helper class to handle multiple {@link PropertyRestriction}s of the same
  * property.
  * 
  * NOTE: If you add this class to another Resource with
@@ -86,7 +86,7 @@ public class MergedRestriction extends Intersection {
 
     /**
      * Constructor for an empty set of restrictions. Restrictions can be add by
-     * calling {@link #addRestriction(AbstractRestriction)} or
+     * calling {@link #addRestriction(PropertyRestriction)} or
      * {@link #addRestriction(MergedRestriction)}.
      * 
      * @param onProperty
@@ -104,7 +104,7 @@ public class MergedRestriction extends Intersection {
      *            The property for which this restriction is defined.
      * @param restrictions
      *            The initial set of restrictions. The array must contain only
-     *            instances of {@link AbstractRestriction}.
+     *            instances of {@link PropertyRestriction}.
      */
     public MergedRestriction(String onProperty, ArrayList restrictions) {
 	this();
@@ -200,7 +200,7 @@ public class MergedRestriction extends Intersection {
 	// -> build array of MergedRestrictions
 	// temporary map:
 	// ___key: property URI (String)
-	// ___val: ArrayList of AbstractRestrictions
+	// ___val: ArrayList of PropertyRestrictions
 	// -> each ArrayList will be a MergedRestriction
 	HashMap map = new HashMap();
 	Object tmp;
@@ -208,8 +208,8 @@ public class MergedRestriction extends Intersection {
 	// build temporary map
 	for (int i = 0; i < o.size(); i++) {
 	    tmp = o.get(i);
-	    if (tmp instanceof AbstractRestriction) {
-		AbstractRestriction res = (AbstractRestriction) tmp;
+	    if (tmp instanceof PropertyRestriction) {
+		PropertyRestriction res = (PropertyRestriction) tmp;
 		ArrayList a = (ArrayList) map.get(res.getOnProperty());
 		if (a == null)
 		    map.put(res.getOnProperty(), a = new ArrayList());
@@ -258,7 +258,7 @@ public class MergedRestriction extends Intersection {
 
     public Object getConstraint(int id) {
 	if (index[id] != -1)
-	    return ((AbstractRestriction) types.get(index[id])).getConstraint();
+	    return ((PropertyRestriction) types.get(index[id])).getConstraint();
 	return null;
     }
 
@@ -294,10 +294,10 @@ public class MergedRestriction extends Intersection {
 		this.index[i]--;
     }
 
-    public AbstractRestriction getRestriction(int id) {
+    public PropertyRestriction getRestriction(int id) {
 	if (index[id] == -1)
 	    return null;
-	return (AbstractRestriction) types.get(index[id]);
+	return (PropertyRestriction) types.get(index[id]);
     }
 
     /**
@@ -311,7 +311,7 @@ public class MergedRestriction extends Intersection {
      * @param res
      *            The Restriction to add.
      */
-    public MergedRestriction addRestriction(AbstractRestriction res) {
+    public MergedRestriction addRestriction(PropertyRestriction res) {
 	// if (types.size()==1) {
 	// addType(res);
 	// onProperty = res.getOnProperty();
@@ -447,12 +447,12 @@ public class MergedRestriction extends Intersection {
     public MergedRestriction addRestriction(MergedRestriction r) {
 	ArrayList resList = (ArrayList) r.types;
 	for (int i = 0; i < resList.size(); i++)
-	    addRestriction((AbstractRestriction) ((ClassExpression) resList
+	    addRestriction((PropertyRestriction) ((ClassExpression) resList
 		    .get(i)).copy());
 	return this;
     }
 
-    private int getIndex(AbstractRestriction res) {
+    private int getIndex(PropertyRestriction res) {
 	int idx = -1;
 	if (res instanceof AllValuesFromRestriction)
 	    idx = allValuesFromID;
@@ -476,11 +476,11 @@ public class MergedRestriction extends Intersection {
 
     private void analyze() {
 	for (int i = 0; i < types.size(); i++) {
-	    if (!(types.get(i) instanceof AbstractRestriction))
+	    if (!(types.get(i) instanceof PropertyRestriction))
 		throw new IllegalArgumentException(
 			"Non-restriction found at index: " + i);
 
-	    AbstractRestriction res = (AbstractRestriction) types.get(i);
+	    PropertyRestriction res = (PropertyRestriction) types.get(i);
 	    if (!onProperty.equals(res.getOnProperty()))
 		throw new IllegalArgumentException(
 			"Restriction defined for wrong property: "
@@ -498,7 +498,7 @@ public class MergedRestriction extends Intersection {
     public ClassExpression copy() {
 	ArrayList newList = new ArrayList();
 	for (int i = 0; i < types.size(); i++)
-	    newList.add(((AbstractRestriction) types.get(i)).copy());
+	    newList.add(((PropertyRestriction) types.get(i)).copy());
 	return new MergedRestriction(onProperty, newList);
     }
 
@@ -534,7 +534,7 @@ public class MergedRestriction extends Intersection {
 	MergedRestriction r = (MergedRestriction) copy();
 	for (Iterator i = types.iterator(); i.hasNext();)
 	    ((Resource) i.next()).setProperty(
-		    AbstractRestriction.PROP_OWL_ON_PROPERTY, onProp);
+		    PropertyRestriction.PROP_OWL_ON_PROPERTY, onProp);
 	onProperty = onProp;
 	return r;
     }
@@ -632,8 +632,8 @@ public class MergedRestriction extends Intersection {
 	    }
 	if (root == null) {
 	    root = new MergedRestriction(path[0]);
-	    AbstractRestriction r = new AllValuesFromRestriction();
-	    r.setProperty(AbstractRestriction.PROP_OWL_ON_PROPERTY, path[0]);
+	    PropertyRestriction r = new AllValuesFromRestriction();
+	    r.setProperty(PropertyRestriction.PROP_OWL_ON_PROPERTY, path[0]);
 	    root.addRestriction(r);
 	} else {
 	    // just a test: are all restrictions in root defined for the correct
@@ -643,7 +643,7 @@ public class MergedRestriction extends Intersection {
 	}
 
 	// get the AllValuesFromRestriction in root
-	AbstractRestriction tmp = root.getRestriction(allValuesFromID);
+	PropertyRestriction tmp = root.getRestriction(allValuesFromID);
 	if (tmp == null) {
 	    // we couldn't find the AllValuesFromRestriction in the root array
 	    // -> create an empty one here
@@ -704,11 +704,11 @@ public class MergedRestriction extends Intersection {
 	    // create a new MergedRestriction and collect all simple
 	    // Restrictions
 	    MergedRestriction m = new MergedRestriction(pathElement);
-	    AbstractRestriction tmpRes;
+	    PropertyRestriction tmpRes;
 	    for (Iterator i = ((Intersection) all).types(); i.hasNext();) {
 		ClassExpression tmp = (ClassExpression) i.next();
-		if (tmp instanceof AbstractRestriction) {
-		    tmpRes = (AbstractRestriction) tmp;
+		if (tmp instanceof PropertyRestriction) {
+		    tmpRes = (PropertyRestriction) tmp;
 		    if (tmpRes.getOnProperty().equals(pathElement))
 			m.addRestriction(tmpRes);
 		}
@@ -718,8 +718,8 @@ public class MergedRestriction extends Intersection {
 	    return ManagedIndividual.getClassRestrictionsOnProperty(all
 		    .getURI(), pathElement);
 
-	if (all instanceof AbstractRestriction) {
-	    AbstractRestriction res = (AbstractRestriction) all;
+	if (all instanceof PropertyRestriction) {
+	    PropertyRestriction res = (PropertyRestriction) all;
 	    if (res.getOnProperty().equals(pathElement)) {
 		MergedRestriction m = new MergedRestriction(pathElement);
 		m.addRestriction(res);
@@ -776,7 +776,7 @@ public class MergedRestriction extends Intersection {
      *         </p>
      *         <p>
      *         A new MergedRestriction that combines all
-     *         {@link AbstractRestriction}s of this object and the given object.
+     *         {@link PropertyRestriction}s of this object and the given object.
      *         </p>
      */
     public MergedRestriction merge(MergedRestriction other) {

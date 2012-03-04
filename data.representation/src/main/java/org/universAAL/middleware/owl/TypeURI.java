@@ -180,10 +180,10 @@ public class TypeURI extends ClassExpression {
 		    return true;
 	    // TODO: there is still a chance to return true...
 	    // so fall through to the general case at the end
-	} else if (subtype instanceof AbstractRestriction) {
+	} else if (subtype instanceof PropertyRestriction) {
 	    MergedRestriction r = ManagedIndividual
 		    .getClassRestrictionsOnProperty(uri,
-			    ((AbstractRestriction) subtype).getOnProperty());
+			    ((PropertyRestriction) subtype).getOnProperty());
 	    return r == null || r.matches(subtype, context);
 	} else if (subtype instanceof MergedRestriction) {
 	    MergedRestriction r = ManagedIndividual
@@ -226,12 +226,12 @@ public class TypeURI extends ClassExpression {
 		    && !ManagedIndividual.checkCompatibility(
 			    ((TypeURI) other).uri, uri);
 
-	if (other instanceof AbstractRestriction) {
+	if (other instanceof PropertyRestriction) {
 	    MergedRestriction r = ManagedIndividual
 		    .getClassRestrictionsOnProperty(uri,
-			    ((AbstractRestriction) other).getOnProperty());
+			    ((PropertyRestriction) other).getOnProperty());
 	    return r != null
-		    && ((AbstractRestriction) other).isDisjointWith(r, context);
+		    && ((PropertyRestriction) other).isDisjointWith(r, context);
 	} else if (other instanceof MergedRestriction) {
 	    MergedRestriction r = ManagedIndividual
 		    .getClassRestrictionsOnProperty(uri,

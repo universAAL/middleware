@@ -36,7 +36,7 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  * @author Carsten Stockloew
  */
-public abstract class AbstractRestriction extends ClassExpression {
+public abstract class PropertyRestriction extends ClassExpression {
 
     public static final String MY_URI = OWL_NAMESPACE + "Restriction";
     public static final String PROP_OWL_ON_PROPERTY = OWL_NAMESPACE
@@ -63,7 +63,7 @@ public abstract class AbstractRestriction extends ClassExpression {
 	propMap.put(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM, null);
     }
 
-    AbstractRestriction() {
+    PropertyRestriction() {
 	addType(MY_URI, true);
 	ArrayList l = new ArrayList(1);
 	l.add(new Resource(MY_URI));
@@ -92,7 +92,7 @@ public abstract class AbstractRestriction extends ClassExpression {
      * 
      * @see org.universAAL.middleware.owl.ClassExpression#copy()
      */
-    protected ClassExpression copyTo(AbstractRestriction copy) {
+    protected ClassExpression copyTo(PropertyRestriction copy) {
 	for (Iterator i = props.keySet().iterator(); i.hasNext();) {
 	    String key = i.next().toString();
 	    Object o = props.get(key);
@@ -115,7 +115,7 @@ public abstract class AbstractRestriction extends ClassExpression {
 
     /**
      * Check all cases where the subtype is not a subclass of
-     * {@link #AbstractRestriction()}. Helper method for
+     * {@link #PropertyRestriction()}. Helper method for
      * {@link #matches(ClassExpression, Hashtable)} in subclasses.
      * 
      * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
@@ -147,7 +147,7 @@ public abstract class AbstractRestriction extends ClassExpression {
 
 	Hashtable cloned = (context == null) ? null : (Hashtable) context
 		.clone();
-	if (!(subtype instanceof AbstractRestriction)) {
+	if (!(subtype instanceof PropertyRestriction)) {
 	    Object[] members = subtype.getUpperEnumeration();
 	    if (members != null && members.length > 0) {
 		for (int i = 0; i < members.length; i++)
@@ -178,7 +178,7 @@ public abstract class AbstractRestriction extends ClassExpression {
 	    return Boolean.FALSE;
 	}
 
-	AbstractRestriction other = (AbstractRestriction) subtype;
+	PropertyRestriction other = (PropertyRestriction) subtype;
 	if (!isWellFormed() || !other.isWellFormed()
 		|| !getOnProperty().equals(other.getOnProperty()))
 	    return Boolean.FALSE;
@@ -222,7 +222,7 @@ public abstract class AbstractRestriction extends ClassExpression {
 	if (a == null)
 	    return false;
 
-	AbstractRestriction r = getRestriction(a, getClassURI());
+	PropertyRestriction r = getRestriction(a, getClassURI());
 	if (r == null) {
 	    // the restriction is not yet in the array
 	    a.add(this);
@@ -237,7 +237,7 @@ public abstract class AbstractRestriction extends ClassExpression {
     /**
      * Get a restriction with the given class URI from the given set of
      * restrictions. The class URI of a specific restriction can be retrieved
-     * using either Restriction.MY_URI or {@link #AbstractRestriction
+     * using either Restriction.MY_URI or {@link #PropertyRestriction
      * #getClassURI()}.
      * 
      * @param a
@@ -247,13 +247,13 @@ public abstract class AbstractRestriction extends ClassExpression {
      * @return The restriction, or null, if no restriction of the given type
      *         could be found in the given set.
      */
-    public static AbstractRestriction getRestriction(ArrayList a,
+    public static PropertyRestriction getRestriction(ArrayList a,
 	    String restrictionURI) {
 	if (restrictionURI == null || a == null)
 	    return null;
-	AbstractRestriction r = null;
+	PropertyRestriction r = null;
 	for (int i = 0; i < a.size(); i++) {
-	    r = (AbstractRestriction) (a.get(i));
+	    r = (PropertyRestriction) (a.get(i));
 	    if (r.getClassURI().equals(restrictionURI))
 		return r;
 	}

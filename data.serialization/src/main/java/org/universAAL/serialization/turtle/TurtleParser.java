@@ -33,7 +33,7 @@ import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
-import org.universAAL.middleware.owl.AbstractRestriction;
+import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.TypeExpressionFactory;
@@ -217,7 +217,7 @@ public class TurtleParser implements MessageContentSerializer {
 			    openItems.put(specialized, rd);
 			else if (!srcSpecialized
 				&& (ClassExpression.OWL_CLASS.equals(aux
-					.getType()) || AbstractRestriction.MY_URI
+					.getType()) || PropertyRestriction.MY_URI
 					.equals(aux.getType())))
 			    specialize(aux, specializedResources, openItems);
 		    } else {
@@ -264,7 +264,7 @@ public class TurtleParser implements MessageContentSerializer {
 		if (o.equals(aux.getProperty(rd.prop))) {
 		    i.remove();
 		    if (!srcSpecialiazed
-			    && (ClassExpression.OWL_CLASS.equals(aux.getType()) || AbstractRestriction.MY_URI
+			    && (ClassExpression.OWL_CLASS.equals(aux.getType()) || PropertyRestriction.MY_URI
 				    .equals(aux.getType())))
 			specialize(aux, specializedResources, openItems);
 		}

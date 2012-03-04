@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.universAAL.middleware.owl.AbstractRestriction;
+import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
@@ -219,9 +219,9 @@ public class ContextEventPattern extends Resource {
     public void setProperty(String propURI, Object o) {
 	if (ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)) {
 	    if (mergedRestrictions.isEmpty()) {
-		if (o instanceof AbstractRestriction) {
+		if (o instanceof PropertyRestriction) {
 		    // a single restriction
-		    AbstractRestriction res = (AbstractRestriction) o;
+		    PropertyRestriction res = (PropertyRestriction) o;
 		    MergedRestriction m = new MergedRestriction(res.getOnProperty());
 		    addRestriction(m);
 		} else if (o instanceof List) {

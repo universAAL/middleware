@@ -297,7 +297,6 @@ data.representation/pom.xml -text
 data.representation/src/main/java/org/universAAL/middleware/datarep/DataRepFactory.java -text
 data.representation/src/main/java/org/universAAL/middleware/datarep/SharedResources.java -text
 data.representation/src/main/java/org/universAAL/middleware/datarep/osgi/Activator.java -text
-data.representation/src/main/java/org/universAAL/middleware/owl/AbstractRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/AllValuesFromRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/BoundedValueRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/BoundingValueRestriction.java -text
@@ -326,6 +325,7 @@ data.representation/src/main/java/org/universAAL/middleware/owl/OntClassInfo.jav
 data.representation/src/main/java/org/universAAL/middleware/owl/OntClassInfoSetup.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/Ontology.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/OntologyManagement.java -text
+data.representation/src/main/java/org/universAAL/middleware/owl/PropertyRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/SimpleOntology.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/SomeValuesFromRestriction.java -text
 data.representation/src/main/java/org/universAAL/middleware/owl/TypeExpression.java -text
