@@ -59,7 +59,7 @@ public final class ObjectProperty extends Property {
     private boolean isTransitive = false;
 
     /** The inverse of this property. */
-    private ObjectProperty inverseOf = null;
+    private String inverseOf = null;
 
     /** The setup interface for this property. */
     private PrivateObjectPropertySetup setup;
@@ -71,18 +71,14 @@ public final class ObjectProperty extends Property {
      */
     private class PrivateObjectPropertySetup extends PrivatePropertySetup
 	    implements ObjectPropertySetup {
-	/** The property. */
-	ObjectProperty prop;
-
 	/** Constructor. */
 	public PrivateObjectPropertySetup(ObjectProperty prop) {
 	    super(prop);
-	    this.prop = prop;
 	}
 
-	/** @see ObjectPropertySetup#setInverseOf(ObjectProperty) */
-	public void setInverseOf(ObjectProperty inverseOf) {
-	    prop.inverseOf = inverseOf;
+	/** @see ObjectPropertySetup#setInverseOf(String) */
+	public void setInverseOf(String _inverseOf) {
+	    inverseOf = _inverseOf;
 	}
 
 	/** @see ObjectPropertySetup#setInverseFunctional() */
@@ -151,7 +147,7 @@ public final class ObjectProperty extends Property {
      * @see ObjectPropertySetup#setInverseOf(ObjectProperty)
      */
     public ObjectProperty inverseOf() {
-	return inverseOf;
+	return null;	//TODO: inverseOf;
     }
 
     /**
