@@ -49,8 +49,11 @@ public interface ObjectPropertySetup extends PropertySetup {
      * property to an individual <i>y</i>, then <i>y</i> is connected by the
      * inverse property to <i>x</i>. For example, the inverse of the property
      * <i>a:hasFather</i> could be the property <i>a:fatherOf</i>.
+     * 
+     * @param inverseOf
+     *            URI of the inverse property.
      */
-    public void setInverseOf(ObjectProperty inverseOf);
+    public void setInverseOf(String inverseOf);
 
     /**
      * Set this property to be inverse-functional. This means that for each
