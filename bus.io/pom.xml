@@ -172,7 +172,7 @@
 			</plugin>
 			<plugin>
 				<!--
-					bus.io does not used 1.0.1-SNAPSHOT so uaal-maven-plugin cannot be
+					bus.io does not use mw 1.0.1-SNAPSHOT so uaal-maven-plugin cannot be
 					used
 				-->
 				<groupId>org.universAAL.support</groupId>

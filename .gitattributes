@@ -14,7 +14,7 @@ acl.rosgi/NOTICE.txt -text
 acl.rosgi/pom.xml -text
 acl.rosgi/src/main/java/org/universAAL/middleware/acl/rosgi/Activator.java -text
 acl.upnp/LICENSE.txt -text
-acl.upnp/artifact.composite -text
+acl.upnp/artifact_manual.composite -text
 acl.upnp/pom.xml -text
 acl.upnp/src/main/java/org/universAAL/middleware/acl/upnp/Activator.java -text
 acl.upnp/src/main/java/org/universAAL/middleware/acl/upnp/exporter/SodaPopDevice.java -text
@@ -36,8 +36,7 @@ acl.upnp/src/test/java/org/universAAL/middleware/acl/upnp/test/ArtifactIntegrati
 acl.upnp/src/test/resources/log4j.properties -text
 bus.context/LICENSE.txt -text
 bus.context/NOTICE.txt -text
-bus.context/artifact-0.3.1.composite -text
-bus.context/artifact_OLD.composite -text
+bus.context/artifact_manual.composite -text
 bus.context/composite-0.3.1/mw.bus.context-0.3.1-SNAPSHOT.jar -text
 bus.context/composite-0.3.1/mw.bus.context-0.3.1-SNAPSHOT.pom -text
 bus.context/pom.xml -text
@@ -111,7 +110,7 @@ bus.io/src/test/java/org/universAAL/middleware/io/test/ArtifactIntegrationTest.j
 bus.io/src/test/resources/log4j.properties -text
 bus.model/LICENSE.txt -text
 bus.model/NOTICE.txt -text
-bus.model/artifact.composite -text
+bus.model/artifact_manual.composite -text
 bus.model/documentation/bus.model.sodapop[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
 bus.model/pom.xml -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/AbstractBus.java -text
@@ -135,8 +134,7 @@ bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageType.java -
 bus.model/src/main/resources/README.txt -text
 bus.model/src/test/java/org/universAAL/middleware/sodapop/test/ArtifactIntegrationTest.java -text
 bus.model/src/test/resources/log4j.properties -text
-bus.service/artifact-0.3.1.composite -text
-bus.service/artifact.composite -text
+bus.service/artifact_manual.composite -text
 bus.service/composite-0.3.1/mw.bus.service-0.3.1-SNAPSHOT.jar -text
 bus.service/composite-0.3.1/mw.bus.service-0.3.1-SNAPSHOT.pom -text
 bus.service/pom.xml -text
@@ -179,7 +177,7 @@ bus.service/src/test/java/org/universAAL/middleware/service/test/ArtifactIntegra
 bus.service/src/test/resources/log4j.properties -text
 bus.ui/LICENSE.txt -text
 bus.ui/NOTICE.txt -text
-bus.ui/artifact.composite -text
+bus.ui/artifact_manual.composite -text
 bus.ui/pom.xml -text
 bus.ui/src/main/java/org/universAAL/middleware/ui/DialogManager.java -text
 bus.ui/src/main/java/org/universAAL/middleware/ui/UIBus.java -text
@@ -219,7 +217,7 @@ bus.ui/src/main/java/org/universAAL/middleware/ui/rdf/TextArea.java -text
 bus.ui/src/test/java/org/universAAL/middleware/ui/rdf/RangeTest.java -text
 container.osgi/LICENSE.txt -text
 container.osgi/NOTICE.txt -text
-container.osgi/artifact.composite -text
+container.osgi/artifact_manual.composite -text
 container.osgi/doc/allclasses-frame.html -text
 container.osgi/doc/allclasses-noframe.html -text
 container.osgi/doc/constant-values.html -text
@@ -286,8 +284,7 @@ container.xfaces/src/main/java/org/universAAL/middleware/container/utils/LogUtil
 container.xfaces/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
 data.representation/LICENSE.txt -text
 data.representation/NOTICE.txt -text
-data.representation/artifact-0.3.1.composite -text
-data.representation/artifact.composite -text
+data.representation/artifact_manual.composite -text
 data.representation/composite-0.3.1/mw.data.representation-0.3.1-SNAPSHOT.jar -text
 data.representation/composite-0.3.1/mw.data.representation-0.3.1-SNAPSHOT.pom -text
 data.representation/documentation/dataRep[!!-~]class[!!-~]diagram.PNG -text
@@ -360,7 +357,7 @@ data.representation/src/test/resources/log4j.properties -text
 data.serialization/LICENSE-Aduna-OpenRDF.txt -text
 data.serialization/LICENSE.txt -text
 data.serialization/NOTICE.txt -text
-data.serialization/artifact.composite -text
+data.serialization/artifact_manual.composite -text
 data.serialization/pom.xml -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleParser.java -text
 data.serialization/src/main/java/org/universAAL/serialization/turtle/TurtleUtil.java -text
@@ -378,7 +375,7 @@ itests/rundir/confadmin/ui.dm/main_menu_saied_en.txt -text
 itests/rundir/confadmin/ui.dm/messages.properties -text
 itests/rundir/confadmin/ui.dm/messages_de.properties -text
 itests/rundir/confadmin/ui.dm/messages_en.properties -text
-pom/artifact.composite -text
+pom/artifact_manual.composite -text
 pom/eclipse.setup.bat -text
 pom/eclipse.setup.sh -text
 pom/middleware/pom.xml -text

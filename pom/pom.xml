@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.universAAL</groupId>
 		<artifactId>uAAL.pom</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</parent>
 
 	<groupId>org.universAAL.middleware</groupId>
@@ -143,7 +143,7 @@
 			<dependency>
 				<groupId>org.universAAL.support</groupId>
 				<artifactId>itests</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
+				<version>1.1.0</version>
 				<scope>test</scope>
 			</dependency>
 		</dependencies>
@@ -192,36 +192,38 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.universAAL.support</groupId>
 				<artifactId>uaal-maven-plugin</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<id>CompositeMojo</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>composite</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>TestMojo</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-					</execution>					
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<inherited>false</inherited>
-			</plugin>          
+			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>uAAL-Runtime</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.bus.service</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.bus.context</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.bus.ui</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.data.serialization</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>	
 
 </project>
