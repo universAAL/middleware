@@ -163,6 +163,7 @@ mw.bus.ui/src/main/java/org/universAAL/middleware/ui/rdf/SubdialogTrigger.java -
 mw.bus.ui/src/main/java/org/universAAL/middleware/ui/rdf/Submit.java -text
 mw.bus.ui/src/main/java/org/universAAL/middleware/ui/rdf/TextArea.java -text
 mw.bus.ui/src/test/java/org/universAAL/middleware/ui/rdf/RangeTest.java -text
+mw.composite/pom.xml -text
 mw.container.osgi/LICENSE.txt -text
 mw.container.osgi/NOTICE.txt -text
 mw.container.osgi/artifact_manual.composite -text

@@ -34,6 +34,10 @@ mw.bus.ui/.classpath
 mw.bus.ui/.project
 mw.bus.ui/.settings
 mw.bus.ui/target
+mw.composite/.classpath
+mw.composite/.project
+mw.composite/.settings
+mw.composite/target
 mw.container.osgi/.classpath
 mw.container.osgi/.project
 mw.container.osgi/.settings
