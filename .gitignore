@@ -15,6 +15,11 @@ mw.acl.upnp/.project
 mw.acl.upnp/.settings
 mw.acl.upnp/target
 mw.acl.upnp/uAAL.log
+mw.bus.context/.classpath
+mw.bus.context/.project
+mw.bus.context/.settings
+mw.bus.context/target
+mw.bus.context/uAAL.log
 mw.bus.model/.classpath
 mw.bus.model/.project
 mw.bus.model/.settings
