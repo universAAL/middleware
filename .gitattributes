@@ -215,6 +215,7 @@ mw.bus.ui-1.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Subdialo
 mw.bus.ui-1.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Submit.java -text
 mw.bus.ui-1.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/TextArea.java -text
 mw.bus.ui-1.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/ui/rdf/RangeTest.java -text
+mw.composite-1.0.2-SNAPSHOT/pom.xml -text
 mw.container.osgi-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.container.osgi-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.container.osgi-1.0.1-SNAPSHOT/artifact_manual.composite -text

@@ -39,6 +39,10 @@ mw.bus.ui-1.0.1-SNAPSHOT/.classpath
 mw.bus.ui-1.0.1-SNAPSHOT/.project
 mw.bus.ui-1.0.1-SNAPSHOT/.settings
 mw.bus.ui-1.0.1-SNAPSHOT/target
+mw.composite-1.0.2-SNAPSHOT/.classpath
+mw.composite-1.0.2-SNAPSHOT/.project
+mw.composite-1.0.2-SNAPSHOT/.settings
+mw.composite-1.0.2-SNAPSHOT/target
 mw.container.osgi-1.0.1-SNAPSHOT/.classpath
 mw.container.osgi-1.0.1-SNAPSHOT/.project
 mw.container.osgi-1.0.1-SNAPSHOT/.settings
