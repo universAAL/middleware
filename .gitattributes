@@ -9,6 +9,10 @@ mw.acl.interfaces/pom.xml -text
 mw.acl.interfaces/src/main/java/org/universAAL/middleware/acl/P2PConnector.java -text
 mw.acl.interfaces/src/main/java/org/universAAL/middleware/acl/PeerDiscoveryListener.java -text
 mw.acl.interfaces/src/main/java/org/universAAL/middleware/acl/SodaPopPeer.java -text
+mw.acl.rosgi/LICENSE.txt -text
+mw.acl.rosgi/NOTICE.txt -text
+mw.acl.rosgi/pom.xml -text
+mw.acl.rosgi/src/main/java/org/universAAL/middleware/acl/rosgi/Activator.java -text
 mw.container.osgi/LICENSE.txt -text
 mw.container.osgi/NOTICE.txt -text
 mw.container.osgi/artifact_manual.composite -text
