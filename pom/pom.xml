@@ -39,7 +39,7 @@
 		<module>../bus.context</module>
 		<module>../bus.io</module>
 		<module>../bus.ui</module>
-<!-- 		<module>middleware</module> -->
+ 		<module>composite</module>
 	</modules>
 
 	<pluginRepositories>
@@ -201,29 +201,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>uAAL-Runtime</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.bus.service</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.bus.context</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.bus.ui</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.data.serialization</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>	
 
 </project>

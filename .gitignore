@@ -65,7 +65,7 @@ itests/target
 pom/.classpath
 pom/.project
 pom/.settings
-pom/middleware/.project
-pom/middleware/.settings
-pom/middleware/target
+pom/composite/.project
+pom/composite/.settings
+pom/composite/target
 pom/target

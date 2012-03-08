@@ -376,7 +376,7 @@ itests/rundir/confadmin/ui.dm/messages.properties -text
 itests/rundir/confadmin/ui.dm/messages_de.properties -text
 itests/rundir/confadmin/ui.dm/messages_en.properties -text
 pom/artifact_manual.composite -text
+pom/composite/pom.xml -text
 pom/eclipse.setup.bat -text
 pom/eclipse.setup.sh -text
-pom/middleware/pom.xml -text
 pom/pom.xml -text
