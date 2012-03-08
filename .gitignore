@@ -25,6 +25,11 @@ mw.bus.model-1.0.1-SNAPSHOT/.project
 mw.bus.model-1.0.1-SNAPSHOT/.settings
 mw.bus.model-1.0.1-SNAPSHOT/target
 mw.bus.model-1.0.1-SNAPSHOT/uAAL.log
+mw.bus.service-1.0.1-SNAPSHOT/.classpath
+mw.bus.service-1.0.1-SNAPSHOT/.project
+mw.bus.service-1.0.1-SNAPSHOT/.settings
+mw.bus.service-1.0.1-SNAPSHOT/target
+mw.bus.service-1.0.1-SNAPSHOT/uAAL.log
 mw.container.osgi-1.0.1-SNAPSHOT/.classpath
 mw.container.osgi-1.0.1-SNAPSHOT/.project
 mw.container.osgi-1.0.1-SNAPSHOT/.settings
