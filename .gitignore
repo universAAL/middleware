@@ -34,6 +34,11 @@ mw.data.representation/.settings
 mw.data.representation/doc
 mw.data.representation/target
 mw.data.representation/uAAL.log
+mw.data.serialization/.classpath
+mw.data.serialization/.project
+mw.data.serialization/.settings
+mw.data.serialization/target
+mw.data.serialization/uAAL.log
 mw.pom/.classpath
 mw.pom/.project
 mw.pom/.settings
