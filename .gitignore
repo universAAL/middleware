@@ -20,6 +20,11 @@ mw.bus.model/.project
 mw.bus.model/.settings
 mw.bus.model/target
 mw.bus.model/uAAL.log
+mw.bus.service/.classpath
+mw.bus.service/.project
+mw.bus.service/.settings
+mw.bus.service/target
+mw.bus.service/uAAL.log
 mw.container.osgi/.classpath
 mw.container.osgi/.project
 mw.container.osgi/.settings
