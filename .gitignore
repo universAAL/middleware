@@ -30,6 +30,10 @@ mw.bus.service/.project
 mw.bus.service/.settings
 mw.bus.service/target
 mw.bus.service/uAAL.log
+mw.bus.ui/.classpath
+mw.bus.ui/.project
+mw.bus.ui/.settings
+mw.bus.ui/target
 mw.container.osgi/.classpath
 mw.container.osgi/.project
 mw.container.osgi/.settings
