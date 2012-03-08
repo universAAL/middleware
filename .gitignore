@@ -10,6 +10,11 @@ mw.acl.rosgi/.classpath
 mw.acl.rosgi/.project
 mw.acl.rosgi/.settings
 mw.acl.rosgi/target
+mw.acl.upnp/.classpath
+mw.acl.upnp/.project
+mw.acl.upnp/.settings
+mw.acl.upnp/target
+mw.acl.upnp/uAAL.log
 mw.container.osgi/.classpath
 mw.container.osgi/.project
 mw.container.osgi/.settings
