@@ -1,4 +1,13 @@
 * text=auto !eol
+mw.container.xfaces/LICENSE.txt -text
+mw.container.xfaces/NOTICE.txt -text
+mw.container.xfaces/pom.xml -text
+mw.container.xfaces/src/main/java/org/universAAL/middleware/container/Container.java -text
+mw.container.xfaces/src/main/java/org/universAAL/middleware/container/LogListener.java -text
+mw.container.xfaces/src/main/java/org/universAAL/middleware/container/ModuleContext.java -text
+mw.container.xfaces/src/main/java/org/universAAL/middleware/container/SharedObjectListener.java -text
+mw.container.xfaces/src/main/java/org/universAAL/middleware/container/utils/LogUtils.java -text
+mw.container.xfaces/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
 mw.pom/artifact_manual.composite -text
 mw.pom/composite/pom.xml -text
 mw.pom/eclipse.setup.bat -text
