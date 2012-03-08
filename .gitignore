@@ -3,6 +3,14 @@ mw.bus.io-1.0.1-SNAPSHOT/.project
 mw.bus.io-1.0.1-SNAPSHOT/.settings
 mw.bus.io-1.0.1-SNAPSHOT/target
 mw.bus.io-1.0.1-SNAPSHOT/uAAL.log
+mw.pom-1.0.2-SNAPSHOT/.classpath
+mw.pom-1.0.2-SNAPSHOT/.project
+mw.pom-1.0.2-SNAPSHOT/.settings
+mw.pom-1.0.2-SNAPSHOT/composite/.classpath
+mw.pom-1.0.2-SNAPSHOT/composite/.project
+mw.pom-1.0.2-SNAPSHOT/composite/.settings
+mw.pom-1.0.2-SNAPSHOT/composite/target
+mw.pom-1.0.2-SNAPSHOT/target
 pom-1.0.1-SNAPSHOT/.classpath
 pom-1.0.1-SNAPSHOT/.project
 pom-1.0.1-SNAPSHOT/.settings
