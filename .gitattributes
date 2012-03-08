@@ -1,4 +1,8 @@
 * text=auto !eol
+mw.acl.bridge/LICENSE.txt -text
+mw.acl.bridge/NOTICE.txt -text
+mw.acl.bridge/pom.xml -text
+mw.acl.bridge/src/main/java/org/universAAL/middleware/acl/bridge/BridgeActivator.java -text
 mw.acl.interfaces/LICENSE.txt -text
 mw.acl.interfaces/NOTICE.txt -text
 mw.acl.interfaces/pom.xml -text
