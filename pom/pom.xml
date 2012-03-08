@@ -37,7 +37,6 @@
 		<module>../bus.model</module>
 		<module>../bus.service</module>
 		<module>../bus.context</module>
-		<module>../bus.io</module>
 		<module>../bus.ui</module>
  		<module>composite</module>
 	</modules>
