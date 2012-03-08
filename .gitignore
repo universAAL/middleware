@@ -1,3 +1,7 @@
+mw.acl.interfaces/.classpath
+mw.acl.interfaces/.project
+mw.acl.interfaces/.settings
+mw.acl.interfaces/target
 mw.container.osgi/.classpath
 mw.container.osgi/.project
 mw.container.osgi/.settings
