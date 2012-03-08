@@ -23,6 +23,12 @@ mw.container.xfaces/.classpath
 mw.container.xfaces/.project
 mw.container.xfaces/.settings
 mw.container.xfaces/target
+mw.data.representation/.classpath
+mw.data.representation/.project
+mw.data.representation/.settings
+mw.data.representation/doc
+mw.data.representation/target
+mw.data.representation/uAAL.log
 mw.pom/.classpath
 mw.pom/.project
 mw.pom/.settings
