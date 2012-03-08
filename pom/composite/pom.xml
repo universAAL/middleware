@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>mw.composite</artifactId>  
 	<version>1.0.2-SNAPSHOT</version>
-	<name>universAAL Middleware Suite Composite Composite</name>
+	<name>universAAL Middleware Suite Composite</name>
 	<description>Artifact responsible for generating composite file of universAAL middleware</description>
 	<url />
 
