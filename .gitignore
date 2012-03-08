@@ -28,6 +28,12 @@ mw.container.xfaces-1.0.1-SNAPSHOT/.classpath
 mw.container.xfaces-1.0.1-SNAPSHOT/.project
 mw.container.xfaces-1.0.1-SNAPSHOT/.settings
 mw.container.xfaces-1.0.1-SNAPSHOT/target
+mw.data.representation-1.0.1-SNAPSHOT/.classpath
+mw.data.representation-1.0.1-SNAPSHOT/.project
+mw.data.representation-1.0.1-SNAPSHOT/.settings
+mw.data.representation-1.0.1-SNAPSHOT/doc
+mw.data.representation-1.0.1-SNAPSHOT/target
+mw.data.representation-1.0.1-SNAPSHOT/uAAL.log
 mw.pom-1.0.2-SNAPSHOT/.classpath
 mw.pom-1.0.2-SNAPSHOT/.project
 mw.pom-1.0.2-SNAPSHOT/.settings
