@@ -1,3 +1,7 @@
+mw.container.osgi/.classpath
+mw.container.osgi/.project
+mw.container.osgi/.settings
+mw.container.osgi/target
 mw.container.xfaces/.classpath
 mw.container.xfaces/.project
 mw.container.xfaces/.settings
