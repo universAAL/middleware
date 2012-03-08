@@ -10,6 +10,11 @@ mw.acl.rosgi-1.0.1-SNAPSHOT/.classpath
 mw.acl.rosgi-1.0.1-SNAPSHOT/.project
 mw.acl.rosgi-1.0.1-SNAPSHOT/.settings
 mw.acl.rosgi-1.0.1-SNAPSHOT/target
+mw.acl.upnp-1.0.1-SNAPSHOT/.classpath
+mw.acl.upnp-1.0.1-SNAPSHOT/.project
+mw.acl.upnp-1.0.1-SNAPSHOT/.settings
+mw.acl.upnp-1.0.1-SNAPSHOT/target
+mw.acl.upnp-1.0.1-SNAPSHOT/uAAL.log
 mw.bus.io-1.0.1-SNAPSHOT/.classpath
 mw.bus.io-1.0.1-SNAPSHOT/.project
 mw.bus.io-1.0.1-SNAPSHOT/.settings
