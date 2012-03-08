@@ -1,0 +1,6 @@
+* text=auto !eol
+mw.pom/artifact_manual.composite -text
+mw.pom/composite/pom.xml -text
+mw.pom/eclipse.setup.bat -text
+mw.pom/eclipse.setup.sh -text
+mw.pom/pom.xml -text
