@@ -1,7 +1,7 @@
 * text=auto !eol
 bus.model/LICENSE.txt -text
 bus.model/NOTICE.txt -text
-bus.model/artifact.composite -text
+bus.model/artifact_manual.composite -text
 bus.model/documentation/bus.model.sodapop[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
 bus.model/pom.xml -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/AbstractBus.java -text
