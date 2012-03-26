@@ -48,8 +48,8 @@ import org.universAAL.middleware.service.owls.process.ProcessResult;
  * has
  * <ul>
  * <li>an internal ID that has to be provided as a URI string; it will be stored
- * as the value for profile:has_process.
- * <li>
+ * as the value for profile:has_process.</li>
+ * </ul>
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
@@ -508,7 +508,7 @@ public class ServiceProfile extends Resource {
     }
 
     /**
-     * Chacks if input, output and result is empty.
+     * Checks if input, output and result is empty.
      * 
      * @return boolean
      */
@@ -538,7 +538,7 @@ public class ServiceProfile extends Resource {
     }
 
     /**
-     * @see org.universAAL.middleware.Resource#setProperty(java.lang.String,java.lang.Object)
+     * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,java.lang.Object)
      */
     public void setProperty(String propURI, Object value) {
 	// the only changeable props are the sub-properties of OWL-S
