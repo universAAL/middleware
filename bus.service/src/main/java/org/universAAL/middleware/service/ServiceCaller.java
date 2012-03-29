@@ -23,12 +23,14 @@ import java.util.Hashtable;
 
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.sodapop.Bus;
 import org.universAAL.middleware.sodapop.Caller;
 import org.universAAL.middleware.sodapop.msg.Message;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 import org.universAAL.middleware.sodapop.msg.MessageType;
 
 /**
@@ -90,6 +92,40 @@ public abstract class ServiceCaller implements Caller {
 	ServiceResponse sr = null;
 	synchronized (waitingCalls) {
 	    String callID = sendRequest(request);
+	    waitingCalls.put(callID, this);
+	    while (sr == null) {
+		try {
+		    waitingCalls.wait();
+		    sr = (ServiceResponse) readyResponses.remove(callID);
+		} catch (InterruptedException e) {
+		}
+	    }
+	}
+	return sr;
+    }
+    
+    /**
+     * This method is a way of calling a service using Turtle Strings as input.
+     * Turtle Strings are converted to Service Requests. 
+     *  
+     * @param request
+     * 				the Turtle String which will be converted into <code>ServiceRequest</code>
+     * @return sr
+     * 		the expected Service Response
+     */
+    public final ServiceResponse call(String request) {
+	ServiceResponse sr = null;
+	Object[] contentSerializerParams = new Object[] {
+			MessageContentSerializer.class.getName() };    	    	
+	      MessageContentSerializer s =
+	 (org.universAAL.middleware.sodapop.msg.MessageContentSerializer)this.thisCallerContext 
+	          .getContainer().fetchSharedObject(this.thisCallerContext, contentSerializerParams);
+	      Resource r = (Resource) s.deserialize(request);
+	     ServiceRequest sRequest = (ServiceRequest)r;
+	     
+	     
+	synchronized (waitingCalls) {
+	    String callID = sendRequest(sRequest);
 	    waitingCalls.put(callID, this);
 	    while (sr == null) {
 		try {
