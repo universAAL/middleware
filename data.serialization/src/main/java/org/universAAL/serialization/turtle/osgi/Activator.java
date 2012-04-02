@@ -23,6 +23,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
 import org.universAAL.serialization.turtle.TurtleParser;
 import org.universAAL.serialization.turtle.TurtleUtil;
 
@@ -40,7 +41,10 @@ public class Activator implements BundleActivator {
 	uAALBundleContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext,
 		new TurtleParser(),
 		new Object[] { MessageContentSerializer.class.getName() });
-    }
+	uAALBundleContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext,
+		new TurtleParser(),
+		new Object[] { MessageContentSerializerEx.class.getName() });
+   }
 
     public void stop(BundleContext arg0) throws Exception {
 	// TODO Auto-generated method stub
