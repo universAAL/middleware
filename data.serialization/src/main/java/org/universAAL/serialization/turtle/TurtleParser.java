@@ -39,7 +39,7 @@ import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.TypeExpressionFactory;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
 
 /**
  * Serialization and Deserialization of RDF graphs. This class implements the
@@ -52,18 +52,37 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class TurtleParser implements MessageContentSerializer {
+public class TurtleParser implements MessageContentSerializerEx {
 
     /** URI for an empty RDF List. */
     private static final Resource NIL = new Resource(Resource.RDF_EMPTY_LIST);
 
+    /**
+     * Information of references of a resource. For a certain resource, this
+     * class holds detailed information about all places that have the resource
+     * as RDF object.
+     */
     private class RefData {
-	int i;
-	List l;
-	String prop;
+	/** The resource that references the resource in question. */
 	Resource src;
+
+	/** The property of the resource 'src'. */
+	String prop;
+
+	/** If the property given by 'prop' is a list, this is the list. */
+	List l;
+
+	/**
+	 * If the property given by 'prop' is a list, this is the index in the
+	 * list.
+	 */
+	int i;
     }
 
+    /**
+     * A List of references. Elements of the list 'refs' are instances of
+     * {@link RefData}.
+     */
     private class ParseData {
 	//String label = null;
 	List refs = new ArrayList(3);
@@ -115,6 +134,8 @@ public class TurtleParser implements MessageContentSerializer {
 
     private Hashtable resources = new Hashtable();
 
+    private Hashtable specialized = new Hashtable();
+
     private Hashtable parseTable = new Hashtable();
 
     public TurtleParser() {
@@ -146,33 +167,48 @@ public class TurtleParser implements MessageContentSerializer {
     }
 
     public synchronized Object deserialize(String serialized) {
+	return deserialize(serialized, null);
+//	if (serialized == null)
+//	    return null;
+//
+//	firstResource = null;
+//
+//	return deserialize(serialized, false, null);
+    }
+
+    public synchronized Object deserialize(String serialized, String resourceURI) {
 	if (serialized == null)
 	    return null;
 
 	firstResource = null;
 
-	return deserialize(serialized, false);
+	Object o = deserialize(serialized, false, resourceURI);
+	this.specialized.clear();
+	return o;
     }
 
-    private Object deserialize(String serialized, boolean wasXMLLiteral) {
+    private Object deserialize(String serialized, boolean wasXMLLiteral, String resourceURI) {
 	try {
 	    parse(new StringReader(serialized), "");
-	    Resource result = finalizeAndGetRoot();
-	    if (wasXMLLiteral)
-		result = result.copyAsXMLLiteral();
-	    else if (Resource.TYPE_RDF_LIST.equals(result.getType())) {
-		// Object first = result.getProperty(Resource.PROP_RDF_FIRST);
-		// if (first == null)
-		// return null;
-		// Object rest = result.getProperty(Resource.PROP_RDF_REST);
-		// if (rest != null
-		// && rest.toString().equals(Resource.RDF_EMPTY_LIST))
-		// rest = new ArrayList(1);
-		// else if (!(rest instanceof List))
-		// return null;
-		// ((List) rest).add(0, first);
-		// return rest;
-		return result.asList();
+	    Resource result = finalizeAndGetRoot(resourceURI);
+	    if (result != null) {
+		if (wasXMLLiteral)
+		    result = result.copyAsXMLLiteral();
+		else if (Resource.TYPE_RDF_LIST.equals(result.getType())) {
+		    // Object first =
+		    // result.getProperty(Resource.PROP_RDF_FIRST);
+		    // if (first == null)
+		    // return null;
+		    // Object rest = result.getProperty(Resource.PROP_RDF_REST);
+		    // if (rest != null
+		    // && rest.toString().equals(Resource.RDF_EMPTY_LIST))
+		    // rest = new ArrayList(1);
+		    // else if (!(rest instanceof List))
+		    // return null;
+		    // ((List) rest).add(0, first);
+		    // return rest;
+		    return result.asList();
+		}
 	    }
 	    return result;
 	} catch (Exception e) {
@@ -184,16 +220,21 @@ public class TurtleParser implements MessageContentSerializer {
 	}
     }
 
-    private Resource finalizeAndGetRoot() {
-	Resource aux, specialized, result = null;
-	Hashtable openItems = new Hashtable(), specializedResources = new Hashtable();
-	// Comparator c = new TypeComparator();
+    private Resource finalizeAndGetRoot(String resourceURI) {
+	Resource aux;
+	Resource specialized;
+	Resource result = null;
+	Hashtable openItems = new Hashtable();
+	Hashtable specializedResources = new Hashtable();
+
 	for (Iterator i = resources.values().iterator(); i.hasNext();) {
 	    aux = (Resource) i.next();
 	    i.remove();
 	    ParseData pd = (ParseData) parseTable.remove(aux);
 	    specialized = (aux.numberOfProperties() == 0) ? aux : specialize(
 		    aux, specializedResources, openItems);
+	    if (resourceURI != null)
+		this.specialized.put(specialized.getURI(), specialized);
 	    if (firstResource == aux)
 		firstResource = specialized;
 	    if (aux.numberOfProperties() > 0
@@ -236,6 +277,14 @@ public class TurtleParser implements MessageContentSerializer {
 		if (rd == null) {
 		    // maybe it is a bug in the JVM because this shouldn't be
 		    // possible to occur, but it happens!!
+		    LogUtils
+			    .logDebug(
+				    TurtleUtil.moduleContext,
+				    TurtleParser.class,
+				    "finalizeAndGetRoot",
+				    new Object[] {
+					    "RefData is null, please investigate: ",
+					    o }, null);
 		    i.remove();
 		    continue;
 		}
@@ -286,6 +335,10 @@ public class TurtleParser implements MessageContentSerializer {
 
 	if (result == null)
 	    result = firstResource;
+
+	if (resourceURI != null)
+	    result = (Resource) this.specialized.get(resourceURI);
+
 	resources.clear();
 	parseTable.clear();
 	return result;
@@ -813,7 +866,7 @@ public class TurtleParser implements MessageContentSerializer {
 			+ datatype);
 
 	    if (datatype.equals(TurtleUtil.xmlLiteral))
-		return new TurtleParser().deserialize(label, true);
+		return new TurtleParser().deserialize(label, true, null);
 
 	    return TypeMapper.getJavaInstance(label, (String) datatype);
 	} else {
