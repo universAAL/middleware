@@ -1,0 +1,8 @@
+/Agenda||
+/Nutritional Advisor|http://www.tsb.upv.es|http://ontology.persona.ima.igd.fhg.de/Nutritional.owl#Nutritional
+/Cooking||
+/Shopping||
+/AMECS||
+/Health||
+/NVC Video||
+/Profile Editor|http://www.spirit.gr|http://ontology.persona.upm.es/Profile.owl#ProfilingService
