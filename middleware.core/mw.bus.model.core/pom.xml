@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>
+      mw.pom.core
+    </artifactId>
+    <version>1.1.2-SNAPSHOT</version>
+    <relativePath>
+      ../pom
+    </relativePath>
+  </parent>
+  <artifactId>mw.bus.model.core</artifactId>
+  <version>1.1.2-SNAPSHOT</version>
+  <packaging>
+jar
+</packaging>
+  <name>Soda-Pop as OSGi Bundle (Core)</name>
+  <description>A Soda-Pop implementation as an OSGi bundle based on the ACL (Core)</description>
+  <url/>
+  <scm>
+    <connection>${svn.base}/bus.model.core</connection>
+    <developerConnection>${svn.base}/bus.model.core</developerConnection>
+    <url>${svn.base.url}bus.model.core</url>
+  </scm>
+  <properties>
+    <project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>jce.jdk13</artifactId>
+      <version>144</version>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.xfaces.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.acl.interfaces.core</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      
+    </plugins>
+  </build>
+  <profiles>
+    
+  </profiles>
+</project>

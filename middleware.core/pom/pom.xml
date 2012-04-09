@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.pom</artifactId>
+		<version>1.1.2-SNAPSHOT</version>
+		<relativePath>../../pom</relativePath>
+	</parent>
+
+	<groupId>org.universAAL.middleware</groupId>
+	<artifactId>mw.pom.core</artifactId>
+	<version>1.1.2-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+	<name>universAAL Middleware Suite (Core)</name>
+	<description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase. (Core)</description>
+
+	<modules>
+		<module>../mw.acl.interfaces.core</module>
+		<module>../mw.container.xfaces.core</module>
+		<module>../mw.data.representation.core</module>
+		<module>../mw.data.serialization.core</module>
+		<module>../mw.bus.model.core</module>
+		<module>../mw.bus.service.core</module>
+		<module>../mw.bus.context.core</module>
+		<module>../mw.bus.ui.core</module>
+	</modules>
+</project>
