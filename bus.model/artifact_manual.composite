@@ -1,8 +1,0 @@
-scan-bundle:wrap:mvn:org.bouncycastle/jce.jdk13/144
-scan-composite:mvn:org.universAAL.middleware/mw.container.osgi/1.0.1-SNAPSHOT/composite
-scan-bundle:mvn:org.universAAL.middleware/mw.acl.interfaces/1.0.1-SNAPSHOT
-### UPnP bundles are enclosed here, so they are not needed to be provided explicitly in higher composites 
-scan-composite:mvn:org.universAAL.middleware/mw.acl.upnp/1.0.1-SNAPSHOT/composite
-scan-bundle:mvn:org.apache.felix/org.apache.felix.upnp.basedriver/0.8.0
-###
-scan-bundle:mvn:org.universAAL.middleware/mw.bus.model/1.0.1-SNAPSHOT

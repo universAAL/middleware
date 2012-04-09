@@ -1,194 +1,209 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.universAAL</groupId>
-    <artifactId>uAAL.pom</artifactId>
-    <version>1.1.0</version>
-  </parent>
-  <groupId>org.universAAL.middleware</groupId>
-  <artifactId>mw.pom</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>universAAL Middleware Suite</name>
-  <description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase.</description>
-  <developers>
-    <developer>
-      <id>saied</id>
-      <name>Saied Tazari</name>
-      <email>saied.tazari@igd.fraunhofer.de</email>
-      <roles>
-        <role>architect</role>
-        <role>developer</role>
-      </roles>
-      <timezone>CEST/CET</timezone>
-    </developer>
-    <developer>
-      <id>ffurfari</id>
-      <name>Francesco Furfari</name>
-      <email>francesco.furfari@isti.cnr.it</email>
-      <roles>
-        <role>builder</role>
-        <role>developer</role>
-      </roles>
-      <timezone>CEST/CET</timezone>
-    </developer>
-  </developers>
-  <modules>
-    <module>../container.xfaces</module>
-    <module>../container.osgi</module>
-    <module>../acl.interfaces</module>
-    <module>../acl.bridge</module>
-    <module>../acl.rosgi</module>
-    <module>../acl.upnp</module>
-    <module>../data.representation</module>
-    <module>../data.serialization</module>
-    <module>../bus.model</module>
-    <module>../bus.service</module>
-    <module>../bus.context</module>
-    <module>../bus.ui</module>
-    <module>composite</module>
-  </modules>
-  <scm>
-    <connection>${svn.base}/pom</connection>
-    <developerConnection>${svn.base}/pom</developerConnection>
-    <url>${svn.base.url}pom</url>
-  </scm>
-  <properties>
-    <remoteOBR></remoteOBR>
-    <gforge.project.name>middleware</gforge.project.name>
-    <maven.compile.source>1.3</maven.compile.source>
-    <maven.compile.target>1.3</maven.compile.target>
-  </properties>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.10</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>org.osgi.core</artifactId>
-        <version>1.0.1</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>org.osgi.compendium</artifactId>
-        <version>1.4.0</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.acl.bridge</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.acl.interfaces</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.acl.rosgi</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.acl.upnp</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.bus.context</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.bus.io</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.bus.ui</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.bus.model</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.bus.service</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.container.osgi</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.container.xfaces</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.data.representation</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.data.serialization</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.support</groupId>
-        <artifactId>itests</artifactId>
-        <version>1.1.0</version>
-        <scope>test</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-  <repositories>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>uaal</id>
-      <name>universAAL Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/releases/</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>uaal-snapshots</id>
-      <name>universAAL Snapshot Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/snapshots/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>uaal</id>
-      <name>universAAL Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/releases/</url>
-    </pluginRepository>
-  </pluginRepositories>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.universAAL.support</groupId>
-        <artifactId>uaal-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <configuration>
-          <skipAttach>false</skipAttach>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.universAAL</groupId>
+		<artifactId>uAAL.pom</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<groupId>org.universAAL.middleware</groupId>
+	<artifactId>mw.pom</artifactId>
+	<version>1.1.2-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+	<name>universAAL Middleware Suite</name>
+	<description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase.</description>
+
+	<properties>
+		<remoteOBR />
+		<!-- Default configuration for compiler source and target JVM -->
+		<maven.compile.source>1.3</maven.compile.source>
+		<maven.compile.target>1.3</maven.compile.target>
+		<gforge.project.name>middleware</gforge.project.name>
+	</properties>
+
+
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>uaal-snapshots</id>
+			<name>universAAL Snapshot Repositories</name>
+			<url>http://depot.universaal.org/maven-repo/snapshots/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>uaal</id>
+			<name>universAAL Repositories</name>
+			<url>http://depot.universaal.org/maven-repo/releases/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.10</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.acl.interfaces.core</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.context.core</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.ui.core</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.model.core</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.service.core</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.xfaces.core</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+			</dependency>
+
+  			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.representation.core</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.serialization.core</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>itests</artifactId>
+				<version>1.1.0</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<developers>
+		<developer>
+			<id>saied</id>
+			<email>saied.tazari@igd.fraunhofer.de</email>
+			<name>Saied Tazari</name>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>CEST/CET</timezone>
+		</developer>
+		<developer>
+			<id>ffurfari</id>
+			<email>francesco.furfari@isti.cnr.it</email>
+			<name>Francesco Furfari</name>
+			<roles>
+				<role>builder</role>
+				<role>developer</role>
+			</roles>
+			<timezone>CEST/CET</timezone>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>${svn.base}/pom</connection>
+		<developerConnection>${svn.base}/pom</developerConnection>
+		<url>${svn.base.url}pom</url>
+	</scm>
+
+	<repositories>
+		<repository>
+			<id>uaal</id>
+			<name>universAAL Repositories</name>
+			<url>http://depot.universaal.org/maven-repo/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>uaal-maven-plugin</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+				<executions>
+ 
+					<execution>
+						<id>CompositeMojo</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>composite</goal>
+						</goals>
+					</execution>
+					
+					<execution>
+						<id>TestMojo</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+								
+				</executions>
+			</plugin>			          
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.7</version>
+					<executions>
+					  
+						<execution>
+							<id>attach-composite</id>
+							<phase>package</phase>
+							<goals>
+								<goal>attach-artifact</goal>
+							</goals>
+							<configuration>
+								<artifacts>
+									<artifact>
+										<file>target/artifact.composite</file>
+										<type>composite</type>
+									</artifact>
+								</artifacts>
+							</configuration>
+						</execution>
+						
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	<modules>
+		<module>../middleware.osgi/pom</module>
+		<module>../middleware.core/pom</module>
+	</modules>
 </project>
