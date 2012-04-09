@@ -20,6 +20,7 @@
 package org.universAAL.middleware.service;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -299,6 +300,29 @@ public class ServiceRequest extends Resource {
 		MergedRestriction.getFixedValueRestriction(
 			refPath[refPath.length - 1], hasValue), refPath);
     }
+    
+    /**
+     * Add non-semantic input.
+     */
+    protected void addInput(String uri, Object input) {
+	Hashtable nonSemanticInput = (Hashtable) props.get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT);
+	if (nonSemanticInput == null) {
+	    nonSemanticInput = new Hashtable();
+	    props.put(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT, nonSemanticInput);
+	}
+	if (nonSemanticInput.contains(uri)) {
+	    throw new IllegalArgumentException();
+	} else {
+	    nonSemanticInput.put(uri, input);
+	}
+    }
+    
+    /**
+     * Get hashtable containing non-semantic input or null if none was provided.
+     */
+    protected Hashtable getInput() {
+	return (Hashtable) props.get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT);
+    }    
 
     private List filters() {
 	List filters = (List) props.get(PROP_AGGREGATING_FILTER);

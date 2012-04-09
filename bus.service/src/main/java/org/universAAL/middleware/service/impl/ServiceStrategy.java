@@ -758,6 +758,17 @@ public class ServiceStrategy extends BusStrategy {
 		    ProcessOutput substitution = new ProcessOutput(mappedURI);
 		    substitution.setParameterValue(val);
 		    outputs.add(substitution);
+		} else {
+		    // UNBOUND_OUTPUT_ALLOWED:
+		    // if the binding for given output was not found but Service
+		    // Response allows unbound output then the output is
+		    // propagated as it is (with the URI specified on the server
+		    // side).
+		    ServiceResponse sr = (ServiceResponse) context
+		   	.get(CONTEXT_RESPONSE_MESSAGE);
+		    if (sr.isUnboundOutputAllowed()) {
+			outputs.add(po);
+		    }
 		}
 	    }
     }
@@ -1139,6 +1150,31 @@ public class ServiceStrategy extends BusStrategy {
 			if (otherMatch == null)
 			    auxMap.put(sr.getProvider(), match);
 			else {
+			    // uAAL_SERVICE_URI_MATCHED:
+			    // New strategy: if service matches exactly URI
+			    // specified in Service Request than this service is
+			    // always preferred over others.
+			    if (match
+				    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null) {
+				if (otherMatch
+					.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null) {
+				    // the new service matches better the request
+				    auxMap.put(sr.getProvider(), match);
+				    continue;
+				}
+			    }
+			    if (otherMatch
+				    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null) {
+				if (match
+					.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null) {
+				    // the new service won't match better the request
+				    continue;
+				}
+			    }
+			    // If two above are not true then either both
+			    // services have matched their URIs or none of them
+			    // had. Either way regular strategy is applied.			    
+			    
 			    // The strategy: from each provider accept the one
 			    // with more specialization
 			    // and then the one with the smallest context, which
