@@ -1,6 +1,10 @@
 /.classpath
 /.project
 /.settings
+itests/.classpath
+itests/.project
+itests/.settings
+itests/target
 middleware.core/.classpath
 middleware.core/.project
 middleware.core/.settings

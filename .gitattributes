@@ -1,4 +1,13 @@
 * text=auto !eol
+itests/rundir/confadmin/mw.bus.model/sodapop.key -text svneol=unset#application/octet-stream
+itests/rundir/confadmin/services/org.ops4j.pax.logging.properties -text
+itests/rundir/confadmin/services/org.universAAL.mw.data.representation.properties -text
+itests/rundir/confadmin/ui.dm/main_menu.txt -text
+itests/rundir/confadmin/ui.dm/main_menu_de.txt -text
+itests/rundir/confadmin/ui.dm/main_menu_saied_en.txt -text
+itests/rundir/confadmin/ui.dm/messages.properties -text
+itests/rundir/confadmin/ui.dm/messages_de.properties -text
+itests/rundir/confadmin/ui.dm/messages_en.properties -text
 middleware.core/mw.acl.interfaces.core/LICENSE.txt -text
 middleware.core/mw.acl.interfaces.core/NOTICE.txt -text
 middleware.core/mw.acl.interfaces.core/pom.xml -text
