@@ -20,6 +20,7 @@
 package org.universAAL.middleware.service;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -84,11 +85,28 @@ public class ServiceCall extends Resource {
      */
     public static final String TYPE_OWLS_INPUT_BINDING = ProcessInput.OWLS_PROCESS_NAMESPACE
 	    + "InputBinding";
+    
+    private Hashtable nonSemanticInput;
 
     private ServiceCall(Object dummy, String uri) {
 	super(uri);
 	addType(MY_URI, true);
     }
+    
+    public void addNonSemanticInput(Hashtable nonSemanticInput) {
+	if (this.nonSemanticInput != null){
+	    throw new IllegalArgumentException("Non-semantic input already added");
+	} else {
+	    this.nonSemanticInput = nonSemanticInput;
+	}
+    }
+    
+    public Object getNonSemanticInput(String uri) {
+	if (this.nonSemanticInput == null){
+	    return null;
+	}
+	return this.nonSemanticInput.get(uri);
+    }    
 
     /**
      * Default constructor of the class. Does not set anything besides the
@@ -147,23 +165,38 @@ public class ServiceCall extends Resource {
      * @return the value of the parameter.
      */
     public Object getInputValue(String inputURI) {
+	Object returnValue = null;
 	List inputs = (List) props.get(PROP_OWLS_PERFORM_HAS_DATA_FROM);
-	if (inputs == null)
-	    return null;
-	for (Iterator i = inputs.iterator(); i.hasNext();) {
-	    Resource binding = (Resource) i.next(), in = (Resource) binding
-		    .getProperty(OutputBinding.PROP_OWLS_BINDING_TO_PARAM);
-	    if (in != null && in.getURI().equals(inputURI)) {
-		Object o = binding.getProperty(PROP_OWLS_BINDING_VALUE_DATA);
-		if (o instanceof Resource) {
-		    List aux = ((Resource) o).asList();
-		    if (aux != null)
-			return aux;
+	// NON_SEMANTIC_INPUT:
+	// Instead of returning the output as soon as it is known, it is
+	// assigned to returnValue variable. Thanks to that, in the end, it is
+	// possible to check if input value was found and if not to perform
+	// fallback of retrieving NON_SEMANTIC_INPUT parameter (if present).
+	if (inputs != null) {
+	    for (Iterator i = inputs.iterator(); i.hasNext();) {
+		Resource binding = (Resource) i.next(), in = (Resource) binding
+			.getProperty(OutputBinding.PROP_OWLS_BINDING_TO_PARAM);
+		if (in != null && in.getURI().equals(inputURI)) {
+		    Object o = binding
+			    .getProperty(PROP_OWLS_BINDING_VALUE_DATA);
+		    if (o instanceof Resource) {
+			List aux = ((Resource) o).asList();
+			if (aux != null) {
+			    returnValue = aux;
+			    break;
+			}
+		    }
+		    returnValue = o;
+		    break;
 		}
-		return o;
 	    }
 	}
-	return null;
+	// NON_SEMANTIC_INPUT:
+	// if input value cannot be found let's try NonSemantic input
+	if (returnValue == null) {
+	    returnValue = getNonSemanticInput(inputURI);
+	}
+	return returnValue;
     }
 
     /**

@@ -98,6 +98,8 @@ bus.service/src/main/java/org/universAAL/middleware/service/ServiceCallee.java -
 bus.service/src/main/java/org/universAAL/middleware/service/ServiceCaller.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/ServiceRequest.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/ServiceResponse.java -text
+bus.service/src/main/java/org/universAAL/middleware/service/SimpleServiceRequest.java -text
+bus.service/src/main/java/org/universAAL/middleware/service/SimpleServiceResponse.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/impl/ServiceBusFactory.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/impl/ServiceBusImpl.java -text
 bus.service/src/main/java/org/universAAL/middleware/service/impl/ServiceRealization.java -text

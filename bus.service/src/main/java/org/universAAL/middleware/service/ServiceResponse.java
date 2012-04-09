@@ -64,6 +64,12 @@ public class ServiceResponse extends Resource {
 	    + "errorDescription";
 
     /**
+     * A key of property indicating that not bound output is allowed.
+     */
+    public static final String PROP_UNBOUND_OUTPUT_ALLOWED= uAAL_VOCABULARY_NAMESPACE
+	    + "unboundOutputAllowed";    
+    
+    /**
      * Default constructor for the class. Only sets the class URI of the
      * <code>Resource</code> to <code>MY_URI</code>.
      */
@@ -78,6 +84,22 @@ public class ServiceResponse extends Resource {
 	addType(MY_URI, true);
     }
 
+    protected void allowUnboundOutput() {
+	props.put(PROP_UNBOUND_OUTPUT_ALLOWED, new Boolean(true));
+    }
+
+    protected void disallowUnboundOutput() {
+	props.remove(PROP_UNBOUND_OUTPUT_ALLOWED);
+    }
+
+    public boolean isUnboundOutputAllowed() {
+	if (props.get(PROP_UNBOUND_OUTPUT_ALLOWED) != null) {
+	    return true;
+	} else {
+	    return false;
+	}
+    }
+    
     /**
      * Constructor which besides the URI, sets the status of the call.
      * 

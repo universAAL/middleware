@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.service.impl;
 
+import java.lang.reflect.Method;
 import java.util.Hashtable;
 import java.util.Iterator;
 
@@ -30,6 +31,7 @@ import org.universAAL.middleware.owl.supply.Rating;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceRequest;
+import org.universAAL.middleware.service.SimpleServiceRequest;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessResult;
@@ -64,6 +66,12 @@ public class ServiceRealization extends Resource {
 	    + "theProfile";
     public static final String uAAL_ASSERTED_SERVICE_CALL = uAAL_VOCABULARY_NAMESPACE
 	    + "assertedServiceCall";
+    /**
+     * This constant is used for indicating that service has matched exactly the
+     * URI specified in the Service Request.
+     */
+    public static final String uAAL_SERVICE_URI_MATCHED = uAAL_VOCABULARY_NAMESPACE
+    	    + "serviceUriMatched";     
 
     public ServiceRealization() {
 	super();
@@ -194,6 +202,13 @@ public class ServiceRealization extends Resource {
 		return false;
 	}
 	context.put(uAAL_ASSERTED_SERVICE_CALL, result);
+	// NON_SEMANTIC_INPUT:
+	// if ServiceRequest contains non-semantic input than it has to be
+	// propagated to ServiceCall.
+	if (context.containsKey(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT)) {
+	    result.addNonSemanticInput((Hashtable) context
+		    .get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT));
+	}	
 	return true;
     }
 
@@ -493,7 +508,32 @@ public class ServiceRealization extends Resource {
 		if (!context.containsKey(key))
 		    context.put(key, cloned.get(key));
 	    }
-
+	// NON_SEMANTIC_INPUT:
+	// if service matches then non-semantic input has to be copied to the context
+	Hashtable nonSemanticInput = null;
+	try {
+	    Method getInputMethod = request.getClass().getDeclaredMethod("getInput", new Class[0]);
+	    getInputMethod.setAccessible(true);
+	    nonSemanticInput = (Hashtable) getInputMethod.invoke(request, new Object[0]);
+	} catch (RuntimeException ex) {
+	    throw ex;
+	} catch (Exception ex) {
+	    throw new RuntimeException(ex);
+	}
+	if (nonSemanticInput != null) {
+	    context.put(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT, nonSemanticInput);
+	}
+	// uAAL_SERVICE_URI_MATCHED:
+	// if URI of offered service matches exactly URI specified in
+	// ServiceRequest then it is indicated in the context by means of
+	// uAAL_SERVICE_URI_MATCHED property.
+	String requestedServiceUri = requestedService.getURI();
+	String offeredURI = offer.getURI();
+	if (requestedServiceUri != null) {
+	    if (requestedServiceUri.equals(offeredURI)) {
+		context.put(uAAL_SERVICE_URI_MATCHED, new Boolean(true));
+	    }
+	}
 	return true;
     }
 
