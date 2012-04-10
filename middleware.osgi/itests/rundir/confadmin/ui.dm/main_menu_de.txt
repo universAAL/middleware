@@ -1,8 +1,0 @@
-/Kalender||
-/Ernährungsratgeber|http://www.tsb.upv.es|http://ontology.persona.ima.igd.fhg.de/Nutritional.owl#Nutritional
-/Kochen||
-/Shopping||
-/AMECS||
-/Gesundheit||
-/NVC Video||
-/Profileditor|http://www.spirit.gr|http://ontology.persona.upm.es/Profile.owl#ProfilingService
