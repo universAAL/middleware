@@ -1117,11 +1117,6 @@ middleware.osgi/mw.bus.context.osgi/uAAL.log
 middleware.osgi/mw.bus.model.osgi/.classpath
 middleware.osgi/mw.bus.model.osgi/.project
 middleware.osgi/mw.bus.model.osgi/.settings
-middleware.osgi/mw.bus.model.osgi/documentation/.classpath
-middleware.osgi/mw.bus.model.osgi/documentation/.project
-middleware.osgi/mw.bus.model.osgi/documentation/.settings
-middleware.osgi/mw.bus.model.osgi/documentation/target
-middleware.osgi/mw.bus.model.osgi/documentation/uAAL.log
 middleware.osgi/mw.bus.model.osgi/src/.classpath
 middleware.osgi/mw.bus.model.osgi/src/.project
 middleware.osgi/mw.bus.model.osgi/src/.settings
@@ -1602,11 +1597,6 @@ middleware.osgi/mw.container.xfaces.osgi/uAAL.log
 middleware.osgi/mw.data.representation.osgi/.classpath
 middleware.osgi/mw.data.representation.osgi/.project
 middleware.osgi/mw.data.representation.osgi/.settings
-middleware.osgi/mw.data.representation.osgi/documentation/.classpath
-middleware.osgi/mw.data.representation.osgi/documentation/.project
-middleware.osgi/mw.data.representation.osgi/documentation/.settings
-middleware.osgi/mw.data.representation.osgi/documentation/target
-middleware.osgi/mw.data.representation.osgi/documentation/uAAL.log
 middleware.osgi/mw.data.representation.osgi/src/.classpath
 middleware.osgi/mw.data.representation.osgi/src/.project
 middleware.osgi/mw.data.representation.osgi/src/.settings

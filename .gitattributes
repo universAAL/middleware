@@ -243,7 +243,6 @@ middleware.osgi/mw.bus.context.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.bus.model.osgi/LICENSE.txt -text
 middleware.osgi/mw.bus.model.osgi/NOTICE.txt -text
 middleware.osgi/mw.bus.model.osgi/artifact_manual.composite -text
-middleware.osgi/mw.bus.model.osgi/documentation/bus.model.sodapop[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
 middleware.osgi/mw.bus.model.osgi/pom.xml -text
 middleware.osgi/mw.bus.model.osgi/src/main/java/org/universAAL/middleware/sodapop/impl/osgi/Activator.java -text
 middleware.osgi/mw.bus.model.osgi/src/main/resources/README.txt -text
@@ -323,8 +322,6 @@ middleware.osgi/mw.container.xfaces.osgi/pom.xml -text
 middleware.osgi/mw.data.representation.osgi/LICENSE.txt -text
 middleware.osgi/mw.data.representation.osgi/NOTICE.txt -text
 middleware.osgi/mw.data.representation.osgi/artifact_manual.composite -text
-middleware.osgi/mw.data.representation.osgi/documentation/dataRep[!!-~]class[!!-~]diagram.PNG -text
-middleware.osgi/mw.data.representation.osgi/documentation/dataRep[!!-~]class[!!-~]diagram.ucls -text
 middleware.osgi/mw.data.representation.osgi/pom.xml -text
 middleware.osgi/mw.data.representation.osgi/src/main/java/org/universAAL/middleware/datarep/osgi/Activator.java -text
 middleware.osgi/mw.data.representation.osgi/src/main/resources/mw.data.representation[!!-~]dependencies.jpg -text
