@@ -1,0 +1,4 @@
+scan-composite:mvn:org.universAAL.middleware/mw.bus.service.osgi/1.1.2-SNAPSHOT/composite
+scan-composite:mvn:org.universAAL.middleware/mw.bus.context.osgi/1.1.2-SNAPSHOT/composite
+scan-composite:mvn:org.universAAL.middleware/mw.bus.ui.osgi/1.1.2-SNAPSHOT/composite
+scan-bundle:mvn:org.universAAL.middleware/mw.data.serialization.osgi/1.1.2-SNAPSHOT
