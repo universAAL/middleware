@@ -29,6 +29,7 @@ middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/cont
 middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/owl/ContextBusOntology.java -text
 middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/owl/ContextProvider.java -text
 middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/owl/ContextProviderType.java -text
+middleware.core/mw.bus.context.core/src/test/java/org/universAAL/middleware/context/RoundTest.java -text
 middleware.core/mw.bus.model.core/LICENSE.txt -text
 middleware.core/mw.bus.model.core/NOTICE.txt -text
 middleware.core/mw.bus.model.core/documentation/bus.model.sodapop[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
@@ -126,6 +127,7 @@ middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/Si
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/SubdialogTrigger.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/Submit.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/TextArea.java -text
+middleware.core/mw.bus.ui.core/src/test/java/org/universAAL/middleware/ui/rdf/RangeTest.java -text
 middleware.core/mw.container.xfaces.core/LICENSE.txt -text
 middleware.core/mw.container.xfaces.core/NOTICE.txt -text
 middleware.core/mw.container.xfaces.core/pom.xml -text
@@ -197,12 +199,16 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/RatingAggregator.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/ResourceComparator.java -text
 middleware.core/mw.data.representation.core/src/main/resources/mw.data.representation[!!-~]dependencies.jpg -text
+middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/BoundedValueRestrictionTest.java -text
+middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/OntologiesTest.java -text
+middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/rdf/TypeMapperTest.java -text
 middleware.core/mw.data.serialization.core/LICENSE.txt -text
 middleware.core/mw.data.serialization.core/NOTICE.txt -text
 middleware.core/mw.data.serialization.core/pom.xml -text
 middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serialization/turtle/TurtleParser.java -text
 middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serialization/turtle/TurtleUtil.java -text
 middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serialization/turtle/TurtleWriter.java -text
+middleware.core/mw.data.serialization.core/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
 middleware.core/pom/pom.xml -text
 middleware.osgi/mw.acl.bridge.osgi/LICENSE.txt -text
 middleware.osgi/mw.acl.bridge.osgi/NOTICE.txt -text
