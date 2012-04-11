@@ -1,3 +1,0 @@
-scan-composite:mvn:org.universAAL.middleware/mw.data.representation.osgi/1.1.2-SNAPHSOT/composite
-scan-composite:mvn:org.universAAL.middleware/mw.bus.model.osgi/1.1.2-SNAPHSOT/composite
-scan-bundle:mvn:org.universAAL.middleware/mw.bus.service.osgi/1.1.2-SNAPHSOT
