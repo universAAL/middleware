@@ -16,8 +16,8 @@
   <packaging>
 jar
 </packaging>
-  <name>Soda-Pop as OSGi Bundle (Core)</name>
-  <description>A Soda-Pop implementation as an OSGi bundle based on the ACL (Core)</description>
+  <name>Soda-Pop (Core)</name>
+  <description>A Soda-Pop implementation based on the ACL (Core)</description>
   <url/>
   <scm>
     <connection>${svn.base}/bus.model.core</connection>
