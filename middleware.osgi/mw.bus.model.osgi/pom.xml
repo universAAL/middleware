@@ -83,7 +83,7 @@ itests
       <dependencies>
         <dependency>
           <groupId>org.universAAL.middleware</groupId>
-          <artifactId>mw.acl.upnp</artifactId>
+          <artifactId>mw.acl.upnp.osgi</artifactId>
         </dependency>
         <dependency>
           <groupId>org.apache.felix</groupId>
