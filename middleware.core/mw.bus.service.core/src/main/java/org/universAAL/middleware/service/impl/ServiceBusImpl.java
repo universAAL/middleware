@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.service.impl;
 
+import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -46,9 +47,12 @@ import org.universAAL.middleware.util.ResourceComparator;
  */
 public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
+    public static Container container;
     public static ModuleContext moduleContext;
     public static Object[] busFetchParams;
+    public static Object[] busShareParams;
     public static Object[] contentSerializerParams;
+    public static Object[] sodapopFetchParams;
     private static MessageContentSerializer contentSerializer = null;
     private static ServiceBusOntology serviceOntology = new ServiceBusOntology();
 
@@ -88,6 +92,9 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     public static void startModule() {
 	OntologyManagement.getInstance().register(serviceOntology);
+	container.shareObject(moduleContext, new ServiceBusImpl(
+		(SodaPop) container.fetchSharedObject(moduleContext,
+			sodapopFetchParams)), busShareParams);
     }
 
     public static void stopModule() {

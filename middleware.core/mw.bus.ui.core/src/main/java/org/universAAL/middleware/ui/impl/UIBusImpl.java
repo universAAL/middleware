@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.ui.impl;
 
+import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -50,9 +51,12 @@ import org.universAAL.middleware.util.ResourceComparator;
 public class UIBusImpl extends AbstractBus implements UIBus {
     public static final String uAAL_BUS_NAME_UI = "uAAL.bus.ui";
     public static MessageContentSerializer contentSerializer = null;
+    public static Container container;
     public static ModuleContext moduleContext;
     public static Object[] contentSerializerParams;
     public static Object[] busFetchParams;
+    public static Object[] busShareParams;
+    public static Object[] sodapopFetchParams;
     private static UIBusOntology uiBusOntology = new UIBusOntology();
 
     public static synchronized void assessContentSerialization(Resource content) {
@@ -90,6 +94,9 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 
     public static void startModule() {
 	OntologyManagement.getInstance().register(uiBusOntology);
+	container.shareObject(moduleContext, new UIBusImpl((SodaPop) container
+		.fetchSharedObject(moduleContext, sodapopFetchParams)),
+		busShareParams);
     }
 
     public static void stopModule() {

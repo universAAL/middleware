@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.context.impl;
 
+import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextBus;
@@ -45,9 +46,12 @@ import org.universAAL.middleware.util.ResourceComparator;
  */
 public class ContextBusImpl extends AbstractBus implements ContextBus {
 
+    public static Container container;
     public static ModuleContext moduleContext;
     public static Object[] busFetchParams;
+    public static Object[] busShareParams;
     public static Object[] contentSerializerParams;
+    public static Object[] sodapopFetchParams;
     private static MessageContentSerializer contentSerializer = null;
     private static ContextBusOntology contextBusOntology = new ContextBusOntology();
 
@@ -87,12 +91,15 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 
     public static void startModule() {
 	OntologyManagement.getInstance().register(contextBusOntology);
+	container.shareObject(moduleContext, new ContextBusImpl(
+		(SodaPop) container.fetchSharedObject(moduleContext,
+			sodapopFetchParams)), busShareParams);
     }
-    
+
     public static void stopModule() {
 	OntologyManagement.getInstance().unregister(contextBusOntology);
     }
-    
+
     public ContextBusImpl(SodaPop g) {
 	super(Constants.uAAL_BUS_NAME_CONTEXT, new ContextStrategy(g), g);
 	busStrategy.setBus(this);

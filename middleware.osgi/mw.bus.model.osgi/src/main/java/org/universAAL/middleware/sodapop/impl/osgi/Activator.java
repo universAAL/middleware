@@ -47,11 +47,11 @@ public class Activator implements BundleActivator {
     public void start(BundleContext context) throws Exception {
 	confHome = new BundleConfigHome(context.getBundle().getSymbolicName());
 	g = new SodaPopImpl(uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context }), confHome
-		.getAbsolutePath(),
+		.registerModule(new Object[] { context }),
+		uAALBundleContainer.THE_CONTAINER, confHome.getAbsolutePath(),
 		new Object[] { P2PConnector.class.getName() },
-		new Object[] { MessageContentSerializer.class.getName() });
-	context.registerService(SodaPop.class.getName(), g, null);
+		new Object[] { MessageContentSerializer.class.getName() },
+		new Object[] { SodaPop.class.getName() });
     }
 
     /*

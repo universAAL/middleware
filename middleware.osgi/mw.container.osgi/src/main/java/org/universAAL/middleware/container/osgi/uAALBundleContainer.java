@@ -214,20 +214,21 @@ public class uAALBundleContainer implements Container, ServiceListener {
      *            <li>all elements (except for an optional last one - see next
      *            bullet) must be instances of {@link java.lang.String}; these
      *            strings specify the interfaces that the
-     *            <code>objToShare</code> has
-     *            implemented (cf. {@link org.osgi.framework.BundleContext#registerService(String[], Object,
-	 *            java.util.Dictionary)}).</li>
+     *            <code>objToShare</code> has implemented (cf.
+     *            {@link org.osgi.framework.BundleContext#registerService(String[], Object, java.util.Dictionary)}
+     *            ).</li>
      *            <li>optionally, a last element can be an instance of
      *            {@link java.util.Dictionary}; it can be used for
      *            property-based search of shared objects (cf.
      *            {@link org.osgi.framework.BundleContext#registerService(String[], Object, java.util.Dictionary)
-     *            }).</li>
+     *            }
+     *            ).</li>
      *            </ul>
      */
     public void shareObject(ModuleContext requester, Object objToShare,
 	    Object[] shareParams) {
-	if (requester == null || objToShare == null || shareParams == null
-		|| shareParams.length == 0) {
+	if (!(requester instanceof uAALBundleContext) || objToShare == null
+		|| shareParams == null || shareParams.length == 0) {
 	    requester
 		    .logWarn(
 			    "Parameters passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
