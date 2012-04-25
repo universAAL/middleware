@@ -39,17 +39,16 @@ public class Activator implements BundleActivator {
      * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
      */
     public void start(BundleContext context) throws Exception {
+	ContextBusImpl.container = uAALBundleContainer.THE_CONTAINER;
 	ContextBusImpl.moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
-	ContextBusImpl.busFetchParams = new Object[] { ContextBus.class
+	ContextBusImpl.busFetchParams = ContextBusImpl.busShareParams = new Object[] { ContextBus.class
 		.getName() };
 	ContextBusImpl.contentSerializerParams = new Object[] { MessageContentSerializer.class
 		.getName() };
+	ContextBusImpl.sodapopFetchParams = new Object[] { SodaPop.class
+		.getName() };
 	ContextBusImpl.startModule();
-	SodaPop sodapop = (SodaPop) context.getService(context
-		.getServiceReference(SodaPop.class.getName()));
-	context.registerService(ContextBus.class.getName(), new ContextBusImpl(
-		sodapop), null);
     }
 
     /**
