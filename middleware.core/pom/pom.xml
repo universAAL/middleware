@@ -18,11 +18,11 @@
 	<description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase. (Core)</description>
 
 	<modules>
-		<module>../mw.acl.interfaces.core</module>
 		<module>../mw.container.xfaces.core</module>
+		<module>../mw.acl.interfaces.core</module>
+		<module>../mw.bus.model.core</module>
 		<module>../mw.data.representation.core</module>
 		<module>../mw.data.serialization.core</module>
-		<module>../mw.bus.model.core</module>
 		<module>../mw.bus.service.core</module>
 		<module>../mw.bus.context.core</module>
 		<module>../mw.bus.ui.core</module>

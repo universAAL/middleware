@@ -16,7 +16,7 @@ mw.pom.osgi
   <packaging>
 bundle
 </packaging>
-  <name>universAAL Data Representation Model (OSGi)</name>
+  <name>Data Representation (OSGi)</name>
   <description>Using RDF/OWL model for data representation in universAAL (OSGi)</description>
   <scm>
     <connection>${svn.base}/data.representation.osgi</connection>
