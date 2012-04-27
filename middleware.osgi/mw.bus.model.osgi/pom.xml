@@ -16,7 +16,7 @@ mw.pom.osgi
   <packaging>
 bundle
 </packaging>
-  <name>Soda-Pop as OSGi Bundle (OSGi)</name>
+  <name>Bus Model (OSGi)</name>
   <description>A Soda-Pop implementation as an OSGi bundle based on the ACL (OSGi)</description>
   <url/>
   <scm>

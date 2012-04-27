@@ -16,7 +16,7 @@
   <packaging>
 jar
 </packaging>
-  <name>Soda-Pop (Core)</name>
+  <name>Bus Model (Core)</name>
   <description>A Soda-Pop implementation based on the ACL (Core)</description>
   <url/>
   <scm>

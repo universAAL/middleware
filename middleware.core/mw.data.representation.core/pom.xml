@@ -16,7 +16,7 @@
   <packaging>
 jar
 </packaging>
-  <name>universAAL Data Representation Model (Core)</name>
+  <name>Data Representation (Core)</name>
   <description>Using RDF/OWL model for data representation in universAAL (Core)</description>
   <scm>
     <connection>${svn.base}/data.representation.core</connection>
