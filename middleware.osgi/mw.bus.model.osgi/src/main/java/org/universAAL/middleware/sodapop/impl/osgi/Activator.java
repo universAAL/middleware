@@ -27,6 +27,9 @@ import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.impl.SodaPopImpl;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import java.security.Security;
+
 
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
@@ -52,6 +55,7 @@ public class Activator implements BundleActivator {
 		new Object[] { P2PConnector.class.getName() },
 		new Object[] { MessageContentSerializer.class.getName() },
 		new Object[] { SodaPop.class.getName() });
+	Security.addProvider(new BouncyCastleProvider());
     }
 
     /*
@@ -62,5 +66,6 @@ public class Activator implements BundleActivator {
      */
     public void stop(BundleContext context) throws Exception {
 	g.stop();
+	Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
     }
 }

@@ -55,6 +55,11 @@ itests
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.container.osgi</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>jce.jdk13</artifactId>
+      <version>144</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
