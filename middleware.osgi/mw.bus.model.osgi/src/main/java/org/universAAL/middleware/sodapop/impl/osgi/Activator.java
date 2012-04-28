@@ -25,6 +25,7 @@ import org.universAAL.middleware.acl.P2PConnector;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.sodapop.SodaPop;
+import org.universAAL.middleware.sodapop.impl.Base64;
 import org.universAAL.middleware.sodapop.impl.SodaPopImpl;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -54,8 +55,17 @@ public class Activator implements BundleActivator {
 		uAALBundleContainer.THE_CONTAINER, confHome.getAbsolutePath(),
 		new Object[] { P2PConnector.class.getName() },
 		new Object[] { MessageContentSerializer.class.getName() },
-		new Object[] { SodaPop.class.getName() });
-	Security.addProvider(new BouncyCastleProvider());
+		new Object[] { SodaPop.class.getName() },
+		new Base64() {
+			public byte[] encode(byte[] binaryData) {
+				return org.bouncycastle.util.encoders.Base64.encode(binaryData);
+			}
+			
+			public byte[] decode(String base64String) {
+				return org.bouncycastle.util.encoders.Base64.decode(base64String);
+			}
+		});
+		Security.addProvider(new BouncyCastleProvider());
     }
 
     /*
@@ -65,7 +75,7 @@ public class Activator implements BundleActivator {
      * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext context) throws Exception {
-	g.stop();
-	Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
+    	g.stop();
+		Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
     }
 }
