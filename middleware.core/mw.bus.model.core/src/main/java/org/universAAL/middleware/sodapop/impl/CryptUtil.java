@@ -36,8 +36,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
-
 /**
  * A utility class for managing private/public keys and encrypting/decrypting
  * strings
@@ -55,7 +53,8 @@ public class CryptUtil {
 
     private static boolean tryMore = true;
     private static SecretKey skey = null;
-
+    private static Base64 base64 = null;
+    
     public static void main(String[] args) {
 	try {
 	    final File keyFile = new File(keyFileName);
@@ -154,11 +153,13 @@ public class CryptUtil {
     /**
      * Initialization method - reads the shared key from 
      * the file system or generates a new shared key 
+     * @param base64 
      * 
      * @param String dir - the directory where the shared key file resides
      * 
      */
-    static String init(String dir) throws Exception {
+    static String init(String dir, Base64 base64) throws Exception {
+    	CryptUtil.base64 = base64;
 	File keyFile = new File(dir + System.getProperty("file.separator")
 		+ keyFileName);
 
@@ -207,7 +208,7 @@ public class CryptUtil {
 	    throws Exception {
 	Cipher desCipher = Cipher.getInstance(cipherTransformation);
 	desCipher.init(Cipher.DECRYPT_MODE, skey);
-	return new String(desCipher.doFinal(Base64.decodeBase64(cipher)));
+	return new String(desCipher.doFinal(base64.decode(cipher)));
     }
 
     /**
@@ -235,7 +236,7 @@ public class CryptUtil {
 	    throws Exception {
 	Cipher desCipher = Cipher.getInstance(cipherTransformation);
 	desCipher.init(Cipher.ENCRYPT_MODE, skey);
-	return new String(Base64.encodeBase64(desCipher.doFinal(clear.getBytes())));
+	return new String(base64.encode(desCipher.doFinal(clear.getBytes())));
     }
     
     /**
