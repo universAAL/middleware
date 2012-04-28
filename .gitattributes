@@ -34,6 +34,7 @@ middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapo
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/Publisher.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/SodaPop.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/Subscriber.java -text
+middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/impl/Base64.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/impl/CommandQueue.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/impl/CryptUtil.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/impl/Dispatcher.java -text

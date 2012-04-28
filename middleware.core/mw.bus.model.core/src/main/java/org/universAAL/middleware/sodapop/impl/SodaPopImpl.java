@@ -114,7 +114,8 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 
     public SodaPopImpl(ModuleContext mc, Container container,
 	    String configHomePath, Object[] connectorFetchParams,
-	    Object[] csFetchParams, Object[] myShareParams) throws Exception {
+	    Object[] csFetchParams, Object[] myShareParams,
+	    Base64 base64) throws Exception {
 	SodaPopImpl.moduleContext = mc;
 	SodaPopImpl.contentSerializerParams = csFetchParams;
 	myID = Message.thisJVM;
@@ -126,7 +127,7 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	contactedPeers = new HashSet();
 	peersToNotifyBuses = new HashSet();
 
-	moduleContext.logInfo(CryptUtil.init(configHomePath), null);
+	moduleContext.logInfo(CryptUtil.init(configHomePath, base64), null);
 
 	synchronized (SodaPopImpl.moduleContext) {
 	    try {
