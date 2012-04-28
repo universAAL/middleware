@@ -28,7 +28,6 @@ import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.security.Security;
 import java.util.Vector;
 
 import javax.crypto.Cipher;
@@ -37,8 +36,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.util.encoders.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * A utility class for managing private/public keys and encrypting/decrypting
@@ -60,7 +58,6 @@ public class CryptUtil {
 
     public static void main(String[] args) {
 	try {
-	    Security.addProvider(new BouncyCastleProvider());
 	    final File keyFile = new File(keyFileName);
 	    final Vector v = new Vector();
 	    // SecretKey mainkey = generateKey(keyFile);
@@ -155,14 +152,13 @@ public class CryptUtil {
     }
     
     /**
-     * Initialization method - adds security provider, reads the shared key from 
+     * Initialization method - reads the shared key from 
      * the file system or generates a new shared key 
      * 
      * @param String dir - the directory where the shared key file resides
      * 
      */
     static String init(String dir) throws Exception {
-	Security.addProvider(new BouncyCastleProvider());
 	File keyFile = new File(dir + System.getProperty("file.separator")
 		+ keyFileName);
 
@@ -211,7 +207,7 @@ public class CryptUtil {
 	    throws Exception {
 	Cipher desCipher = Cipher.getInstance(cipherTransformation);
 	desCipher.init(Cipher.DECRYPT_MODE, skey);
-	return new String(desCipher.doFinal(Base64.decode(cipher)));
+	return new String(desCipher.doFinal(Base64.decodeBase64(cipher)));
     }
 
     /**
@@ -239,7 +235,7 @@ public class CryptUtil {
 	    throws Exception {
 	Cipher desCipher = Cipher.getInstance(cipherTransformation);
 	desCipher.init(Cipher.ENCRYPT_MODE, skey);
-	return new String(Base64.encode(desCipher.doFinal(clear.getBytes())));
+	return new String(Base64.encodeBase64(desCipher.doFinal(clear.getBytes())));
     }
     
     /**
