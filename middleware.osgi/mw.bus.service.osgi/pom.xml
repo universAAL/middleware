@@ -64,7 +64,11 @@ itests
 							org.universAAL.middleware.service.owl,
 							org.universAAL.middleware.service.owls.process,
 							org.universAAL.middleware.service.owls.profile</Export-Package>
-            <Private-Package>org.universAAL.middleware.service.impl,org.universAAL.middleware.service.impl.osgi</Private-Package>
+            <Private-Package>org.universAAL.middleware.service.impl,
+            			     org.universAAL.middleware.service.impl.osgi,
+            				 org.universAAL.middleware.service.data,
+            				 org.universAAL.middleware.service.data.factory
+            </Private-Package>
           </instructions>
         </configuration>
         <extensions>

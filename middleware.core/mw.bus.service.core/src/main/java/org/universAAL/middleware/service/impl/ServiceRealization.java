@@ -85,7 +85,12 @@ public class ServiceRealization extends Resource {
 	props.put(uAAL_SERVICE_PROFILE, theProfile);
     }
 
-    /**
+    public ServiceRealization(String instanceURI) {
+    	super(instanceURI);
+    	addType(MY_URI, true);
+	}
+
+	/**
      * Adds properties of the realization to the hashtable passed as a parameter
      * 
      * @param context

@@ -52,6 +52,8 @@ public class ServiceBusFactory extends ResourceFactoryImpl {
 	    return new ServiceProfile(instanceURI);
 	case 5:
 	    return new InitialServiceDialog(instanceURI);
+	case 6:
+	    return new ServiceRealization(instanceURI);
 	}
 
 	/*

@@ -41,6 +41,10 @@ import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
+import org.universAAL.middleware.service.data.ILocalServiceSearchResultsData;
+import org.universAAL.middleware.service.data.ILocalServicesIndexData;
+import org.universAAL.middleware.service.data.factory.IServiceStrategyDataFactory;
+import org.universAAL.middleware.service.data.factory.ServiceStrategyDataFactory;
 import org.universAAL.middleware.service.owl.InitialServiceDialog;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
@@ -101,33 +105,39 @@ public class ServiceStrategy extends BusStrategy {
 	String id;
 	Object reqOrSubs;
     }
-
+    
     private Hashtable allServicesIndex, // serviceURI ->
 	    // Vector(ServiceRealization)
 	    allSubscriptionsIndex, // serviceURI ->
 	    // Vector(AvailabilitySubscription)
 	    allWaitingCallers, // request.msgID -> Vector(call.context) +
 	    // call.msgID -> call.context
-	    localServicesIndex, // processURI -> ServiceRealization
+	    //localServicesIndex, // processURI -> ServiceRealization (was replaced with the new mechanism)
 	    localSubscriptionsIndex, // requestURI -> serviceURI + callerURI ->
 	    // Vector(AvailabilitySubscription)
 	    localWaitingCallers, // request.msgID -> callerID
-	    localServiceSearchResults, // serviceURI -> List(ServiceRealization)
+	    //localServiceSearchResults, // serviceURI -> List(ServiceRealization) (was replaced with the new mechanism)
 	    startDialogs; // serviceURI -> Vector(ServiceRealization)
+    protected ILocalServicesIndexData localServicesIndex;
+    protected ILocalServiceSearchResultsData localServiceSearchResults;
     private boolean isCoordinator;
     private String theCoordinator = null;
 
     public ServiceStrategy(SodaPop sodapop) {
 	super(sodapop);
+	
+	// Initiated the factory
+	IServiceStrategyDataFactory factory = createServiceStrategyDataFactory();
+	
 	// dummy action to force the load of the class InitialServiceDialog
 	theCoordinator = InitialServiceDialog.MY_URI;
 	theCoordinator = null;
 	// end of dummy action: we had to set the coordinator ID back to null
 	// until the real ID is found out
 	localSubscriptionsIndex = new Hashtable();
-	localServicesIndex = new Hashtable();
+	localServicesIndex = factory.createLocalServicesIndexData();
 	localWaitingCallers = new Hashtable();
-	localServiceSearchResults = new Hashtable();
+	localServiceSearchResults = factory.createLocalServiceSearchResultsData();
 	isCoordinator = Constants.isCoordinatorInstance();
 	if (isCoordinator) {
 	    allServicesIndex = new Hashtable();
@@ -138,8 +148,14 @@ public class ServiceStrategy extends BusStrategy {
 
 	}
     }
+    
 
-    /**
+    protected IServiceStrategyDataFactory createServiceStrategyDataFactory() {
+		return new ServiceStrategyDataFactory();
+	}
+
+
+	/**
      * Adds availability subscription (registration and un-registration of
      * services), according to the ServiceRequest
      * 
@@ -213,7 +229,7 @@ public class ServiceStrategy extends BusStrategy {
 	    ServiceRealization registration = new ServiceRealization(calleeID,
 		    realizedServices[i]);
 	    // index it over the ID of the operation registered
-	    localServicesIndex.put(processURI, registration);
+	    localServicesIndex.addServiceRealization(processURI, registration);
 
 	    if (isCoordinator)
 		// more complex indexing of services by the coordinator
@@ -1007,7 +1023,8 @@ public class ServiceStrategy extends BusStrategy {
 		    List profiles = (List) res
 			    .getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
 
-		    localServiceSearchResults.put(realizationID, profiles);
+		    localServiceSearchResults.addProfiles(realizationID, profiles);
+//		    localServiceSearchResults.put(realizationID, profiles);
 
 		    notifyAll();
 		}
@@ -1015,8 +1032,8 @@ public class ServiceStrategy extends BusStrategy {
 	    break;
 	case MessageType.P2P_REQUEST:
 	    if (res instanceof ServiceCall) {
-		ServiceRealization sr = (ServiceRealization) localServicesIndex
-			.get(((ServiceCall) res).getProcessURI());
+		ServiceRealization sr = localServicesIndex.getServiceRealizationByID(
+				((ServiceCall) res).getProcessURI());
 		if (sr != null) {
 		    ServiceCallee callee = (ServiceCallee) getBusMember(sr
 			    .getProperty(
@@ -1803,15 +1820,14 @@ public class ServiceStrategy extends BusStrategy {
 	    if (processURI == null)
 		continue;
 
-	    ServiceRealization reg = (ServiceRealization) localServicesIndex
-		    .remove(processURI);
+	    ServiceRealization reg = localServicesIndex.removeServiceRealization(processURI);
 	    if (!calleeID.equals(reg
 		    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))
 		    || !processURI
 			    .equals(((ServiceProfile) reg
 				    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
 				    .getProcessURI())) {
-		localServicesIndex.put(processURI, reg);
+		localServicesIndex.addServiceRealization(processURI, reg);
 	    }
 
 	    if (isCoordinator)
@@ -1849,10 +1865,14 @@ public class ServiceStrategy extends BusStrategy {
 				.length())) instanceof ServiceCallee))
 	    return;
 
-	for (Iterator i = localServicesIndex.values().iterator(); i.hasNext();)
-	    if (calleeID.equals(((ServiceRealization) i.next())
-		    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER)))
-		i.remove();
+	String[] serviceRealizationsIds = localServicesIndex.getServiceRealizationIds();
+	for (int i = 0; i < serviceRealizationsIds.length; i++) {
+		String id = serviceRealizationsIds[i];
+		ServiceRealization serviceRealization = localServicesIndex.getServiceRealizationByID(id);
+		if (calleeID.equals(serviceRealization.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))) {
+			localServicesIndex.removeServiceRealization(id);
+		}
+	}
 
 	if (isCoordinator)
 	    unindexServices(calleeID, null);
@@ -1947,7 +1967,7 @@ public class ServiceStrategy extends BusStrategy {
 	int retryCount = 0;
 
 	synchronized (this) {
-	    while (!this.localServiceSearchResults.contains(serviceURI)
+	    while (!this.localServiceSearchResults.exist(serviceURI)
 		    && maxRetry > retryCount) {
 		try {
 		    wait(msTimeout);
@@ -1958,7 +1978,7 @@ public class ServiceStrategy extends BusStrategy {
 	    }
 	}
 
-	List profiles = (List) this.localServiceSearchResults.get(serviceURI);
+	List profiles = (List) this.localServiceSearchResults.getProfiles(serviceURI);
 	return profileListToArray(profiles);
     }
 

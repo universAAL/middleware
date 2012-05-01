@@ -88,6 +88,10 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 			SodaPopImpl.contentSerializerParams);
     }
 
+    public static void updateContentSerializerParams(Object[] contentSerializerParams) {
+    	SodaPopImpl.contentSerializerParams = contentSerializerParams;
+    }
+    
     /**
      * @param ModuleContext
      *            context

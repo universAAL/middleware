@@ -27,6 +27,7 @@ import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.sodapop.AbstractBus;
 import org.universAAL.middleware.sodapop.BusMember;
+import org.universAAL.middleware.sodapop.BusStrategy;
 import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
@@ -136,10 +137,14 @@ public class UIBusImpl extends AbstractBus implements UIBus {
      *            Pointer to the local instance of the SodaPop bus-system
      */
     public UIBusImpl(SodaPop g) {
-	super(uAAL_BUS_NAME_UI, new UIStrategy(g), g);
+	super(uAAL_BUS_NAME_UI, g);
 	busStrategy.setBus(this);
     }
 
+    protected BusStrategy createBusStrategy(SodaPop sodapop) {
+		return new UIStrategy(sodapop);
+	}
+    
     /**
      * Closes a running dialog
      * 
@@ -155,7 +160,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	    String localID = publisherID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length());
-	    Object o = registry.get(localID);
+	    Object o = registry.getBusMemberByID(localID);
 	    if (o instanceof UICaller)
 		((UIStrategy) busStrategy).abortDialog(localID, dialogID);
 	}
@@ -189,7 +194,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	if (subscriberID != null
 		&& subscriberID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.get(subscriberID
+	    Object o = registry.getBusMemberByID(subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length()));
 	    if (o instanceof UIHandler)
@@ -210,7 +215,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 		&& subscriberID != null
 		&& subscriberID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.get(subscriberID
+	    Object o = registry.getBusMemberByID(subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length()));
 	    if (o instanceof UIHandler)
@@ -293,7 +298,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	if (subscriberID != null
 		&& subscriberID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.get(subscriberID
+	    Object o = registry.getBusMemberByID(subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length()));
 	    if (o instanceof UIHandler)
@@ -314,7 +319,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	    String localID = publisherID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length());
-	    Object o = registry.get(localID);
+	    Object o = registry.getBusMemberByID(localID);
 	    if (o instanceof DialogManager && dialogData instanceof UIRequest)
 		((UIStrategy) busStrategy).adaptationParametersChanged(
 			(DialogManager) o, (UIRequest) dialogData, null);
@@ -379,7 +384,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	if (subscriberID != null
 		&& subscriberID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.get(subscriberID
+	    Object o = registry.getBusMemberByID(subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length()));
 	    if (o == subscriber) {
@@ -401,7 +406,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	if (handlerID != null
 		&& handlerID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.get(handlerID
+	    Object o = registry.getBusMemberByID(handlerID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length()));
 	    if (o instanceof UIHandler && user != null)

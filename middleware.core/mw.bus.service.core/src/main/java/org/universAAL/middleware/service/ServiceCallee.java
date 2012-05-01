@@ -38,9 +38,9 @@ import org.universAAL.middleware.sodapop.msg.Message;
  *         Tazari</a>
  */
 public abstract class ServiceCallee implements Callee {
-    private ServiceBus bus;
+	protected ServiceBus bus;
     private ModuleContext thisCalleeContext;
-    private String myID, localID;
+    protected String myID, localID;
 
     /**
      * The default constructor for this class.
@@ -54,11 +54,22 @@ public abstract class ServiceCallee implements Callee {
      */
     protected ServiceCallee(ModuleContext context,
 	    ServiceProfile[] realizedServices) {
-	thisCalleeContext = context;
-	bus = (ServiceBus) context.getContainer().fetchSharedObject(context,
-		ServiceBusImpl.busFetchParams);
-	myID = bus.register(this, realizedServices);
-	localID = myID.substring(myID.lastIndexOf('#') + 1);
+    	this((ServiceBus) context.getContainer().fetchSharedObject(context, ServiceBusImpl.busFetchParams), 
+    			realizedServices);
+
+    	thisCalleeContext = context;
+    }
+    
+    protected ServiceCallee(ServiceBus bus,
+    		ServiceProfile[] realizedServices) {
+    	this(bus);
+    	
+    	myID = bus.register(this, realizedServices);
+    	populateLocalID(myID);
+    }
+    
+    protected ServiceCallee(ServiceBus bus){
+    	this.bus = bus;
     }
 
     /**
@@ -140,5 +151,9 @@ public abstract class ServiceCallee implements Callee {
      */
     public void close() {
 	bus.unregister(myID, this);
+    }
+    
+    protected void populateLocalID(String myID) {
+    	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
 }

@@ -32,6 +32,7 @@ import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.sodapop.AbstractBus;
 import org.universAAL.middleware.sodapop.BusMember;
+import org.universAAL.middleware.sodapop.BusStrategy;
 import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
@@ -101,18 +102,23 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
     }
 
     public ContextBusImpl(SodaPop g) {
-	super(Constants.uAAL_BUS_NAME_CONTEXT, new ContextStrategy(g), g);
+	super(Constants.uAAL_BUS_NAME_CONTEXT, g);
 	busStrategy.setBus(this);
     }
+    
+    protected BusStrategy createBusStrategy(SodaPop sodapop) {
+		return new ContextStrategy(sodapop);
+	}
 
     public void addNewRegParams(String subscriberID,
 	    ContextEventPattern[] newSubscriptions) {
 	if (subscriberID != null
 		&& subscriberID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.get(subscriberID
+		String localID = subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
+			    .length());
+		Object o = registry.getBusMemberByID(localID);
 	    if (o instanceof ContextSubscriber && newSubscriptions != null)
 		((ContextStrategy) busStrategy).addRegParams(
 			(ContextSubscriber) o, newSubscriptions);
@@ -123,9 +129,10 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	if (subscriberID != null
 		&& subscriberID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.get(subscriberID
+		String localID = subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
+			    .length());
+		Object o = registry.getBusMemberByID(localID);
 	    if (o instanceof ContextSubscriber)
 		return ((ContextStrategy) busStrategy)
 			.getAllProvisions((ContextSubscriber) o);
@@ -158,9 +165,10 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	if (subscriberID != null
 		&& subscriberID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.get(subscriberID
+	   String localID = subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
+			    .length());
+		Object o = registry.getBusMemberByID(localID);
 	    if (o instanceof ContextSubscriber && oldSubscriptions != null)
 		((ContextStrategy) busStrategy).removeMatchingRegParams(
 			(ContextSubscriber) o, oldSubscriptions);

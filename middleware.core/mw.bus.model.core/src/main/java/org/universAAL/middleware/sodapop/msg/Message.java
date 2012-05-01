@@ -39,21 +39,8 @@ public class Message {
     private static int idLength;
     public static final String thisJVM;
     static {
-	String host = "localhost";
-	try {
-	    host = InetAddress.getLocalHost().getHostName();
-	} catch (Exception e) {
-	}
-	long now = System.currentTimeMillis();
-	String peerID = System.getProperty("sodapop.peerID");
-	if (peerID == null) {
-	    thisJVM = Long.toHexString(now) + '@' + host + '+'
-		    + Integer.toHexString(new Random(now).nextInt());
-	} else {
-	    thisJVM = peerID + '+'
-		    + Integer.toHexString(new Random(now).nextInt());
-	}
-	idLength = thisJVM.length() + 17;
+    	thisJVM = PeerIDGenerator.generatePeerID();
+    	idLength = thisJVM.length() + 17;
     }
     
     /**
