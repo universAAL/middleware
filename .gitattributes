@@ -31,7 +31,9 @@ middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapo
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/BusStrategy.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/Callee.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/Caller.java -text
+middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/IRegistry.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/Publisher.java -text
+middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/RegistryMap.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/SodaPop.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/Subscriber.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/impl/Base64.java -text
@@ -44,6 +46,7 @@ middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapo
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/msg/MessageContentSerializer.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/msg/MessageContentSerializerEx.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/msg/MessageType.java -text
+middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/msg/PeerIDGenerator.java -text
 middleware.core/mw.bus.model.core/src/main/resources/README.txt -text
 middleware.core/mw.bus.service.core/pom.xml -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/AggregatingFilter.java -text
@@ -59,6 +62,13 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceResponse.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/SimpleServiceRequest.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/SimpleServiceResponse.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/ILocalServiceSearchResultsData.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/ILocalServicesIndexData.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/LocalServiceSearchResultsDataMap.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/LocalServicesIndexDataMap.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/factory/AbstractServiceStrategyDataFactory.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/factory/IServiceStrategyDataFactory.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/factory/ServiceStrategyDataFactory.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceBusFactory.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceBusImpl.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceRealization.java -text

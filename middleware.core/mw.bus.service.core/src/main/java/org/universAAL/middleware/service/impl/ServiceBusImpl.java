@@ -34,6 +34,7 @@ import org.universAAL.middleware.service.owl.ServiceBusOntology;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.sodapop.AbstractBus;
 import org.universAAL.middleware.sodapop.BusMember;
+import org.universAAL.middleware.sodapop.BusStrategy;
 import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
@@ -102,8 +103,12 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     public ServiceBusImpl(SodaPop g) {
-	super(Constants.uAAL_BUS_NAME_SERVICE, new ServiceStrategy(g), g);
+	super(Constants.uAAL_BUS_NAME_SERVICE, g);
 	busStrategy.setBus(this);
+    }
+    
+    protected BusStrategy createBusStrategy(SodaPop sodapop) {
+    	return new ServiceStrategy(sodapop);
     }
 
     /**
@@ -115,7 +120,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	if (callerID != null
 		&& callerID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)
-		&& registry.get(callerID
+		&& registry.getBusMemberByID(callerID
 			.substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 				.length())) instanceof ServiceCaller)
 	    ((ServiceStrategy) busStrategy).addAvailabilitySubscription(
@@ -199,7 +204,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	if (callerID != null
 		&& callerID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)
-		&& registry.get(callerID
+		&& registry.getBusMemberByID(callerID
 			.substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 				.length())) instanceof ServiceCaller)
 	    ((ServiceStrategy) busStrategy).removeAvailabilitySubscription(
