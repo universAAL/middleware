@@ -604,17 +604,21 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 			"processBusMessage", new Object[] { "Bus '", busName,
 				"' is absent locally!" }, null);
 	}
-	if (m == null)
+	if (m == null) {
 	    LogUtils.logDebug(moduleContext, SodaPopImpl.class,
 		    "processBusMessage", new Object[] { "Message '\n", msg,
 			    "\n' received on bus '", busName,
 			    "' could not be parsed!" }, null);
-	else
+	}
+	else {
 	    LogUtils.logDebug(moduleContext, SodaPopImpl.class,
 		    "processBusMessage", new Object[] { "Message '",
 			    Long.toString(m.getSourceTimeOrder()),
 			    "' received on bus '", busName, "' from peer '",
-			    m.getSource(), "'!" }, null);
+			    m.getSource(), "'!" + ", Message Content:\n",
+				m.getContentAsString()}, null);
+	    
+	  }
     }
 
     /**
