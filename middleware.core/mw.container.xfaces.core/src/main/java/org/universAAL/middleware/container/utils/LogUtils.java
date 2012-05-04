@@ -46,15 +46,32 @@ public class LogUtils {
      *            converted to a string object and concatenated.
      * @return The String.
      */
-    private static String buildMsg(String cls, String method, Object[] msgPart) {
+    private static String buildTag(String cls, String method) {
 	StringBuffer sb = new StringBuffer(256);
 	sb.append(cls).append("->").append(method).append("(): ");
-	if (msgPart != null)
-	    for (int i = 0; i < msgPart.length; i++)
-		sb.append(msgPart[i]);
 	return sb.toString();
     }
 
+    /**
+     * Internal method to create a single String from a list of objects.
+     * 
+     * @param cls
+     *            The class which has called the logger.
+     * @param method
+     *            The method in which the logger was called.
+     * @param msgPart
+     *            The message of this log entry. All elements of this array are
+     *            converted to a string object and concatenated.
+     * @return The String.
+     */
+    private static String buildMsg(Object[] msgPart) {
+	StringBuffer sb = new StringBuffer(256);
+	if (msgPart != null)
+	    for (int i = 0; i < msgPart.length; i++)
+		sb.append(msgPart[i]);
+	  return sb.toString();
+    }
+    
     private static void log(int level, ModuleContext mc, Class claz,
 	    String method, Object[] msgPart, Throwable t) {
 
@@ -72,19 +89,19 @@ public class LogUtils {
 	else {
 	    switch (level) {
 	    case LogListener.LOG_LEVEL_TRACE:
-		mc.logTrace(buildMsg(cls, method, msgPart), t);
+		mc.logTrace(buildTag(cls, method),buildMsg(msgPart), t);
 		break;
 	    case LogListener.LOG_LEVEL_DEBUG:
-		mc.logDebug(buildMsg(cls, method, msgPart), t);
+		mc.logDebug(buildTag(cls, method),buildMsg(msgPart), t);
 		break;
 	    case LogListener.LOG_LEVEL_INFO:
-		mc.logInfo(buildMsg(cls, method, msgPart), t);
+		mc.logInfo(buildTag(cls, method),buildMsg(msgPart), t);
 		break;
 	    case LogListener.LOG_LEVEL_WARN:
-		mc.logWarn(buildMsg(cls, method, msgPart), t);
+		mc.logWarn(buildTag(cls, method),buildMsg(msgPart), t);
 		break;
 	    case LogListener.LOG_LEVEL_ERROR:
-		mc.logError(buildMsg(cls, method, msgPart), t);
+		mc.logError(buildTag(cls, method),buildMsg(msgPart), t);
 		break;
 	    }
 	    module = mc.getID();

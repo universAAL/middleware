@@ -123,7 +123,8 @@ public class uAALBundleContext implements ModuleContext {
 	    Bundle b = bundle.installBundle(location);
 	    return new uAALBundleContext(b.getBundleContext());
 	} catch (Exception e) {
-	    logError("Exception while installing bundle at " + location, e);
+	    logError(this.getClass().getName() + "installBundle",
+	    		"Exception while installing bundle at " + location, e);
 	    return null;
 	}
     }
@@ -133,7 +134,8 @@ public class uAALBundleContext implements ModuleContext {
 	    Bundle b = bundle.installBundle(location, is);
 	    return new uAALBundleContext(b.getBundleContext());
 	} catch (Exception e) {
-	    logError("Exception while installing bundle at " + location, e);
+	    logError(this.getClass().getName() + "installBundle",
+	    		"Exception while installing bundle at " + location, e);
 	    return null;
 	}
     }
@@ -154,40 +156,40 @@ public class uAALBundleContext implements ModuleContext {
      * @see org.universAAL.middleware.container.ModuleContext#logDebug(java.lang.String,
      *      java.lang.Throwable)
      */
-    public void logDebug(String message, Throwable t) {
-	logger.debug(message, t);
+    public void logDebug(String tag, String message, Throwable t) {
+	logger.debug(tag + message, t);
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#logError(java.lang.String,
      *      java.lang.Throwable)
      */
-    public void logError(String message, Throwable t) {
-	logger.error(message, t);
+    public void logError(String tag, String message, Throwable t) {
+	logger.error(tag + message, t);
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#logInfo(java.lang.String,
      *      java.lang.Throwable)
      */
-    public void logInfo(String message, Throwable t) {
-	logger.info(message, t);
+    public void logInfo(String tag, String message, Throwable t) {
+	logger.info(tag + message, t);
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#logWarn(java.lang.String,
      *      java.lang.Throwable)
      */
-    public void logWarn(String message, Throwable t) {
-	logger.warn(message, t);
+    public void logWarn(String tag, String message, Throwable t) {
+	logger.warn(tag + message, t);
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#logTrace(java.lang.String,
      *      java.lang.Throwable)
      */
-    public void logTrace(String message, Throwable t) {
-	logger.trace(message, t);
+    public void logTrace(String tag, String message, Throwable t) {
+	logger.trace(tag + message, t);
     }
 
     /**
