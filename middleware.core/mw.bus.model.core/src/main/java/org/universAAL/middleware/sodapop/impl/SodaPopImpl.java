@@ -64,6 +64,7 @@ import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
+
 /**
  * This class provides implementation of the SodaPop layer. It implements the
  * SodaPop interface to the local buses and SodaPopPeer interface to the remote
@@ -131,7 +132,9 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	contactedPeers = new HashSet();
 	peersToNotifyBuses = new HashSet();
 
-	moduleContext.logInfo(CryptUtil.init(configHomePath, base64), null);
+	String cryptUtilInitMessage = CryptUtil.init(configHomePath, base64);
+	LogUtils.logInfo(moduleContext, SodaPopImpl.class, "static initialization", 
+			new Object[]{ cryptUtilInitMessage }, null);
 
 	synchronized (SodaPopImpl.moduleContext) {
 	    try {

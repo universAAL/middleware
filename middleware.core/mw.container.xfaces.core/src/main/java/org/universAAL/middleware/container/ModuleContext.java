@@ -88,61 +88,71 @@ public interface ModuleContext {
      * Provides a standard way for using container-specific loggers, in this
      * case for logging debug messages.
      * 
+     * @param tag
+     *            the log tag, for example the tag of android.util.Log
      * @param message
      *            the log message
      * @param t
      *            An optional {@link Throwable} object like an exception that
      *            might have caused the log request
      */
-    public void logDebug(String message, Throwable t);
+    public void logDebug(String tag, String message, Throwable t);
 
     /**
      * Provides a standard way for using container-specific loggers, in this
      * case for logging error messages.
      * 
+     * @param tag
+     *            the log tag, for example the tag of android.util.Log
      * @param message
      *            the log message
      * @param t
      *            An optional {@link Throwable} object like an exception that
      *            might have caused the log request
      */
-    public void logError(String message, Throwable t);
+    public void logError(String tag, String message, Throwable t);
 
     /**
      * Provides a standard way for using container-specific loggers, in this
      * case for logging info messages.
      * 
+     * @param tag
+     *            the log tag, for example the tag of android.util.Log
      * @param message
      *            the log message
      * @param t
      *            An optional {@link Throwable} object like an exception that
      *            might have caused the log request
      */
-    public void logInfo(String message, Throwable t);
+    public void logInfo(String tag, String message, Throwable t);
 
     /**
      * Provides a standard way for using container-specific loggers, in this
      * case for logging warnings.
      * 
+     * @param tag
+     *            the log tag, for example the tag of android.util.Log
      * @param message
      *            the log message
      * @param t
      *            An optional {@link Throwable} object like an exception that
      *            might have caused the log request
      */
-    public void logWarn(String message, Throwable t);
+    public void logWarn(String tag, String message, Throwable t);
     
     /**
      * Provides a standard way for using container-specific loggers, in this
      * case for logging trace messages.
      * 
+     * @param tag
+     *            the log tag, for example the tag of android.util.Log
      * @param message
      *            the log message
      * @param t
      *            An optional {@link Throwable} object like an exception that
      *            might have caused the log request
      */
-    public void logTrace(String message, Throwable t);
+    public void logTrace(String tag, String message, Throwable t);
 
     /**
      * Modules can use this method of their context to enrich it with info about

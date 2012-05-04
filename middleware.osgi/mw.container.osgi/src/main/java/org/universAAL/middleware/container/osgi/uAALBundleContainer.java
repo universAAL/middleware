@@ -230,7 +230,7 @@ public class uAALBundleContainer implements Container, ServiceListener {
 	if (!(requester instanceof uAALBundleContext) || objToShare == null
 		|| shareParams == null || shareParams.length == 0) {
 	    requester
-		    .logWarn(
+		    .logWarn(this.getClass().getName() + "shareObject",
 			    "Parameters passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
 			    null);
 	    return;
@@ -246,14 +246,14 @@ public class uAALBundleContainer implements Container, ServiceListener {
 			objToShare, (Dictionary) shareParams[0]);
 	    else
 		requester
-			.logWarn(
+			.logWarn(this.getClass().getName() + "shareObject",
 				"'shareParams' passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
 				null);
 	else {
 	    for (int i = 0; i < n; i++)
 		if (!(shareParams[i] instanceof String)) {
 		    requester
-			    .logWarn(
+			    .logWarn(this.getClass().getName() + "shareObject",
 				    "'shareParams' passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
 				    null);
 		    return;
@@ -275,7 +275,7 @@ public class uAALBundleContainer implements Container, ServiceListener {
 		}
 	    else
 		requester
-			.logWarn(
+			.logWarn(this.getClass().getName() + "shareObject",
 				"'shareParams' passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
 				null);
 	}
