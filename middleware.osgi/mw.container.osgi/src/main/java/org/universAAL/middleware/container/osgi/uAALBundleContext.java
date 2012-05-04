@@ -157,7 +157,7 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Throwable)
      */
     public void logDebug(String tag, String message, Throwable t) {
-	logger.debug(tag + message, t);
+	logger.debug(tag + ": " + message, t);
     }
 
     /**
@@ -165,7 +165,7 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Throwable)
      */
     public void logError(String tag, String message, Throwable t) {
-	logger.error(tag + message, t);
+	logger.error(tag + ": " + message, t);
     }
 
     /**
@@ -173,7 +173,7 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Throwable)
      */
     public void logInfo(String tag, String message, Throwable t) {
-	logger.info(tag + message, t);
+	logger.info(tag + ": " + message, t);
     }
 
     /**
@@ -181,7 +181,7 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Throwable)
      */
     public void logWarn(String tag, String message, Throwable t) {
-	logger.warn(tag + message, t);
+	logger.warn(tag + ": " + message, t);
     }
 
     /**
@@ -189,7 +189,7 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Throwable)
      */
     public void logTrace(String tag, String message, Throwable t) {
-	logger.trace(tag + message, t);
+	logger.trace(tag + ": " + message, t);
     }
 
     /**

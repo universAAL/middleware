@@ -48,7 +48,7 @@ public class LogUtils {
      */
     private static String buildTag(String cls, String method) {
 	StringBuffer sb = new StringBuffer(256);
-	sb.append(cls).append("->").append(method).append("(): ");
+	sb.append(cls).append("->").append(method).append("()");
 	return sb.toString();
     }
 
