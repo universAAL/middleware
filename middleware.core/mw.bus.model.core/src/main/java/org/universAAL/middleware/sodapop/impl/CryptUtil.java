@@ -175,6 +175,56 @@ public class CryptUtil {
 	    throw new SecurityException(
 		    "Missing the secret key for message exchange!");
 
+	// performing a test
+	String testMessage = 
+		"@prefix pvn: <http://ontology.universAAL.org/uAAL.owl#> ." +
+			"@prefix ns: <http://ontology.universAAL.org/PhysicalWorld.owl#> ." +
+			"@prefix ns1: <http://ontology.igd.fhg.de/LightingServer.owl#> ." +
+			"@prefix ns2: <urn:aal_space:myHome#> ." +
+			"@prefix ns3: <http://ontology.universaal.org/Lighting.owl#> ." +
+			"@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ." +
+			"@prefix : <http://ontology.universAAL.org/Context.owl#> ." +
+			"<urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0994ce29de816ef3:446> :hasProvider ns1:LightingContextProvider ;" +
+			 " a :ContextEvent ;" +
+			  "rdf:subject ns1:controlledLamp0 ;" +
+			  ":hasTimestamp \"1336273403562\"^^<http://www.w3.org/2001/XMLSchema#long> ;" +
+			  "rdf:predicate ns3:srcBrightness ;" +
+			  "rdf:object 100 ." +
+			"ns1:controlledLamp0 pvn:hasLocation ns2:loc1 ;" +
+			 " a ns3:LightSource ," +
+			  "  <http://ontology.universAAL.org/Device.owl#Device> ," +
+			   " pvn:PhysicalThing ;" +
+			  " ns3:srcBrightness 100 ." +
+			" :controller a :ContextProviderType ." +
+			"ns2:loc1 a ns:Room ," +
+			 "   ns:HomeArea ," +
+			  "  ns:Place ," +
+			   " ns:Location ." +
+			"ns1:LightingContextProvider a :ContextProvider ;" +
+			 " :hasType :controller .";
+	
+	System.out.println("testMessage = " + testMessage);
+	
+	String cipher = "";
+	try {
+  		cipher =  CryptUtil.encrypt(testMessage);
+  	} catch (Exception e) {
+  		System.err.println("CryptUtil.encrypt failed!!!");
+  		e.printStackTrace();
+  	}
+  	
+  	System.out.println("cipher = " + cipher);
+  	
+  	String decryptedCipher = "";
+      try {
+  		decryptedCipher =  CryptUtil.decrypt(cipher);
+  	} catch (Exception e) {
+  		System.err.println("CryptUtil.decrypt failed!!!");
+  		e.printStackTrace();
+  	}	
+  	
+  	System.out.println("decryptedCipher = " + decryptedCipher);
+  	
 	if (newKey)
 	    return "New Key generated. Please copy "
 		    + keyFile.getAbsolutePath()

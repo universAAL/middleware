@@ -413,10 +413,12 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 
 	    }
 	}
-	if (!"".equals(rcvrs))
+	if (!"".equals(rcvrs)) {
 	    LogUtils.logInfo(moduleContext, SodaPopImpl.class,
 		    "propagateMessage", new Object[] { busName,
-			    " - Message sent to ", rcvrs, ":\n", msg }, null);
+			    " - Message sent to ", rcvrs, ":\n", msg , "\nEncrypted Message\n",
+			    cipher}, null);
+	}
 	return result;
     }
 
@@ -615,7 +617,8 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 		    "processBusMessage", new Object[] { "Message '",
 			    Long.toString(m.getSourceTimeOrder()),
 			    "' received on bus '", busName, "' from peer '",
-			    m.getSource(), "'!" + ", Message Content:\n",
+			    m.getSource(), "'!" + ", Encrypted Message:\n, " +
+			    msg, "Message Content:\n",
 				m.getContentAsString()}, null);
 	    
 	  }
