@@ -121,7 +121,7 @@ public class ServiceStrategy extends BusStrategy {
     protected ILocalServicesIndexData localServicesIndex;
     protected ILocalServiceSearchResultsData localServiceSearchResults;
     private boolean isCoordinator;
-    private String theCoordinator = null;
+    protected String theCoordinator = null;
 
     public ServiceStrategy(SodaPop sodapop) {
 	super(sodapop);
@@ -960,7 +960,7 @@ public class ServiceStrategy extends BusStrategy {
 			theCoordinator = res.getURI().substring(
 				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 					.length());
-			notifyAll();
+			notifyOnFoundCoordinator();
 		    }
 		}
 	    }
@@ -1012,7 +1012,7 @@ public class ServiceStrategy extends BusStrategy {
 			theCoordinator = res.getURI().substring(
 				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 					.length());
-			notifyAll();
+			notifyOnFoundCoordinator();
 		    }
 		}
 	    } else if (res.getType().equals(
@@ -1024,7 +1024,6 @@ public class ServiceStrategy extends BusStrategy {
 			    .getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
 
 		    localServiceSearchResults.addProfiles(realizationID, profiles);
-//		    localServiceSearchResults.put(realizationID, profiles);
 
 		    notifyAll();
 		}
@@ -1624,7 +1623,8 @@ public class ServiceStrategy extends BusStrategy {
 	    sodapop.propagateMessage(bus, m);
 	    synchronized (this) {
 		try {
-		    wait(); // TODO We need to have some kind of management here
+		    waitForCoordinatorToBeKnown();
+			// TODO We need to have some kind of management here
 		    // or at least a timeout (but what then? Denote
 		    // itself as coordinator until find the "real" one?)!
 		} catch (Exception e) {
@@ -1733,6 +1733,13 @@ public class ServiceStrategy extends BusStrategy {
 	    m.setReceivers(new String[] { peerID });
 	    sodapop.propagateMessage(bus, m);
 	}
+    }
+    
+    protected void waitForCoordinatorToBeKnown() throws InterruptedException {
+    	wait();
+    }
+    protected void notifyOnFoundCoordinator() {
+    	notifyAll();
     }
 
     /**
