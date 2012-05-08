@@ -39,7 +39,6 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @author Carsten Stockloew
  * @navassoc - "label" 1 Label
  * @navassoc - "parentGroup" 1 Group
- * @navassoc - "formObject" 1 Form
  */
 public abstract class FormControl extends Resource {
 
