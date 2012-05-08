@@ -35,6 +35,7 @@ import java.util.List;
  * 
  * @author mtazari
  * @author Carsten Stockloew
+ * @navassoc - "mandatoryInput" * Input
  */
 public class Submit extends FormControl {
     public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Submit";
