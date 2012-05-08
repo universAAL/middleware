@@ -107,6 +107,8 @@ import org.universAAL.middleware.ui.owl.DialogType;
  *      ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg</a>
  * @author mtazari
  * @author Carsten Stockloew
+ * @navassoc - "IOControlls\n Submits\n StandardButtons" - Group
+ * @navassoc - "parentDialog" 1 Form
  */
 public class Form extends Resource {
     public static final String uAAL_DIALOG_NAMESPACE = uAAL_NAMESPACE_PREFIX
