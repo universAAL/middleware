@@ -31,6 +31,7 @@ import java.util.List;
  * 
  * @author mtazari
  * @author Carsten Stockloew
+ * @navassoc "" children "*" Label
  */
 public class ChoiceList extends Label {
     public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE

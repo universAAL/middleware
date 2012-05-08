@@ -40,6 +40,7 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * 
  * @author mtazari
  * @author Carsten Stockloew
+ * @navassoc "" children * FormControl 
  */
 public class Group extends FormControl {
     public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Group";

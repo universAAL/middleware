@@ -36,6 +36,7 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  * @author mtazari
  * @author Carsten Stockloew
+ * @navassoc "" - "*" Label
  */
 public class Select extends Input {
     public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Select";
