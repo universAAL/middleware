@@ -131,7 +131,7 @@ public abstract class ServiceCallee implements Callee {
     /**
      * @see org.universAAL.middleware.sodapop.Callee#handleRequest(org.universAAL.middleware.sodapop.msg.Message)
      */
-    public final void handleRequest(Message m) {
+    public void handleRequest(Message m) {
 	if (m != null && m.getContent() instanceof ServiceCall) {
 	    LogUtils.logInfo(thisCalleeContext, ServiceCallee.class,
 		    "handleRequest",

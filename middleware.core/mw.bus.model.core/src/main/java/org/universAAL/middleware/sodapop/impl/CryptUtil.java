@@ -158,7 +158,7 @@ public class CryptUtil {
      * @param String dir - the directory where the shared key file resides
      * 
      */
-    static String init(String dir, Base64 base64) throws Exception {
+    public static String init(String dir, Base64 base64) throws Exception {
     	CryptUtil.base64 = base64;
 	File keyFile = new File(dir + System.getProperty("file.separator")
 		+ keyFileName);
@@ -191,7 +191,7 @@ public class CryptUtil {
      * @return the decrypted string
      * 
      */
-    static String decrypt(String cipher) throws Exception {
+    public static String decrypt(String cipher) throws Exception {
 	return decrypt(cipher, skey);
     }
     
@@ -219,7 +219,7 @@ public class CryptUtil {
      * @return the encrypted string
      * 
      */
-    static String encrypt(String clear) throws Exception {
+    public static String encrypt(String clear) throws Exception {
 	return encrypt(clear, skey);
     }
     
