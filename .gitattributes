@@ -48,6 +48,8 @@ middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapo
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/msg/MessageType.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/msg/PeerIDGenerator.java -text
 middleware.core/mw.bus.model.core/src/main/resources/README.txt -text
+middleware.core/mw.bus.service.core/LICENSE.txt -text
+middleware.core/mw.bus.service.core/NOTICE.txt -text
 middleware.core/mw.bus.service.core/pom.xml -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/AggregatingFilter.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/AggregationFunction.java -text
