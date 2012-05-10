@@ -181,7 +181,7 @@ public abstract class AbstractBus implements Bus {
      */
     public void sendMessage(String senderID, Message msg) {
 	LogUtils.logInfo(SodaPopImpl.moduleContext, AbstractBus.class,
-		"handleRemoteMessage", new Object[] { name,
+		"sendMessage", new Object[] { name,
 			" - Received message from bus member ", senderID,
 			":\n", msg.getContentAsString() }, null);
 	busStrategy.handleMessage(msg, senderID);
