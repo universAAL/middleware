@@ -214,6 +214,12 @@ middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serializ
 middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serialization/turtle/TurtleWriter.java -text
 middleware.core/mw.data.serialization.core/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
 middleware.core/pom/pom.xml -text
+middleware.osgi.agg/mw.bus.context.osgi.agg/pom.xml -text
+middleware.osgi.agg/mw.bus.model.osgi.agg/pom.xml -text
+middleware.osgi.agg/mw.bus.service.osgi.agg/pom.xml -text
+middleware.osgi.agg/mw.bus.ui.osgi.agg/pom.xml -text
+middleware.osgi.agg/mw.data.representation.osgi.agg/pom.xml -text
+middleware.osgi.agg/mw.data.serialization.osgi.agg/pom.xml -text
 middleware.osgi/itests/rundir/confadmin/mw.bus.model/sodapop.key -text svneol=unset#application/octet-stream
 middleware.osgi/itests/rundir/confadmin/services/org.ops4j.pax.logging.properties -text
 middleware.osgi/itests/rundir/confadmin/services/org.universAAL.mw.data.representation.properties -text
