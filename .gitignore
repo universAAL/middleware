@@ -1743,6 +1743,7 @@ middleware.osgi/mw.data.serialization.osgi/uAAL.log
 middleware.osgi/pom/.classpath
 middleware.osgi/pom/.project
 middleware.osgi/pom/.settings
+middleware.osgi/pom/composite/target
 middleware.osgi/pom/target
 middleware.osgi/pom/uAAL.log
 middleware.osgi/target
