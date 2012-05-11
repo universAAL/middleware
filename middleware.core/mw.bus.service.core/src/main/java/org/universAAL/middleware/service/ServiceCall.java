@@ -88,7 +88,7 @@ public class ServiceCall extends Resource {
     
     private Hashtable nonSemanticInput;
 
-    private ServiceCall(Object dummy, String uri) {
+    public ServiceCall(Object dummy, String uri) {
 	super(uri);
 	addType(MY_URI, true);
     }
