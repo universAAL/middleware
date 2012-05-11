@@ -20,65 +20,65 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-			  <groupId>org.apache.felix</groupId>
-			  <artifactId>org.osgi.core</artifactId>
-			  <version>1.0.1</version>
-			  <scope>provided</scope>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.osgi.core</artifactId>
+				<version>1.0.1</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
-			  <groupId>org.apache.felix</groupId>
-			  <artifactId>org.osgi.compendium</artifactId>
-			  <version>1.4.0</version>
-			  <scope>provided</scope>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.osgi.compendium</artifactId>
+				<version>1.4.0</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.container.osgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.osgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.container.xfaces.osgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.xfaces.osgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.acl.interfaces.osgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.acl.interfaces.osgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.acl.rosgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.acl.rosgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.acl.upnp.osgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.acl.upnp.osgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.bus.context.osgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.context.osgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.bus.ui.osgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.ui.osgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.bus.model.osgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.model.osgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.bus.service.osgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.service.osgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
-			
+
 			<!--
 			<dependency>
 			  <groupId>org.universAAL.middleware</groupId>
@@ -86,26 +86,26 @@
 			  <version>1.1.2-SNAPSHOT</version>
 			</dependency>
 			-->
-			
-  			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.data.representation.osgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.representation.osgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-			  <groupId>org.universAAL.middleware</groupId>
-			  <artifactId>mw.data.serialization.osgi</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.serialization.osgi</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-			  <groupId>org.universAAL.support</groupId>
-			  <artifactId>itests</artifactId>
-			  <version>1.1.2-SNAPSHOT</version>
-			  <scope>test</scope>
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>itests</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+				<scope>test</scope>
 			</dependency>
-		    </dependencies>
+		</dependencies>
 	</dependencyManagement>
-	
+
 	<modules>
 		<module>../mw.container.xfaces.osgi</module>
 		<module>../mw.container.osgi</module>
@@ -120,30 +120,30 @@
 		<module>../mw.bus.context.osgi</module>
 		<module>../mw.bus.ui.osgi</module>
 	</modules>
-	
+
 
 	<build>
-	  <plugins>
-	    	<!-- temporarily skip tests-->
-	    <plugin>
-	      <groupId>org.apache.maven.plugins</groupId>
-	      <artifactId>maven-surefire-plugin</artifactId>
-	      <configuration>
-		<skipTests>true</skipTests>
-	      </configuration>
-	    </plugin>
+		<plugins>
+			<!-- temporarily skip tests-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
 
-	    <plugin>
-	      <groupId>org.universAAL.support</groupId>
-	      <artifactId>uaal-maven-plugin</artifactId>
-	    </plugin>
-	    <plugin>
-	      <groupId>org.codehaus.mojo</groupId>
-	      <artifactId>build-helper-maven-plugin</artifactId>
-	      <configuration>
-		<skipAttach>false</skipAttach>
-	      </configuration>
-	    </plugin>
-	  </plugins>
+			<plugin>
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>uaal-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<configuration>
+					<skipAttach>false</skipAttach>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>

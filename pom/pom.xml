@@ -25,8 +25,6 @@
 		<gforge.project.name>middleware</gforge.project.name>
 	</properties>
 
-
-
 	<pluginRepositories>
 		<pluginRepository>
 			<id>uaal-snapshots</id>
@@ -82,7 +80,7 @@
 				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 
-  			<dependency>
+			<dependency>
 				<groupId>org.universAAL.middleware</groupId>
 				<artifactId>mw.data.representation.core</artifactId>
 				<version>1.1.2-SNAPSHOT</version>
@@ -110,6 +108,16 @@
 			<id>ffurfari</id>
 			<email>francesco.furfari@isti.cnr.it</email>
 			<name>Francesco Furfari</name>
+			<roles>
+				<role>builder</role>
+				<role>developer</role>
+			</roles>
+			<timezone>CEST/CET</timezone>
+		</developer>
+		<developer>
+			<id>carsten</id>
+			<email>carsten.stockloew@igd.fraunhofer.de</email>
+			<name>Carsten Stockloew</name>
 			<roles>
 				<role>builder</role>
 				<role>developer</role>
