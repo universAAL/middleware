@@ -47,7 +47,7 @@ public class ServiceBusFactory extends ResourceFactoryImpl {
 	case 2:
 	    return new ServiceResponse(instanceURI);
 	case 3:
-	    return new ServiceCall(instanceURI);
+	    return new ServiceCall(null, instanceURI);
 	case 4:
 	    return new ServiceProfile(instanceURI);
 	case 5:
