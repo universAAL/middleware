@@ -25,7 +25,7 @@ package org.universAAL.middleware.sodapop.impl;
  *  @author <a href="mailto:vadime@il.ibm.com"> vadime </a>
  *
  */
-public interface Base64 {
-	public byte[] decode(String base64String);
-	public  byte[] encode(byte[] binaryData);
+public interface Codec {
+	public byte[] decode(String data);
+	public  byte[] encode(byte[] data);
 }
