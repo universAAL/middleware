@@ -34,6 +34,7 @@ import org.universAAL.middleware.service.impl.ServiceBusFactory;
 import org.universAAL.middleware.service.impl.ServiceRealization;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.middleware.service.owls.process.ProcessResult;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
@@ -70,6 +71,7 @@ public class ServiceBusOntology extends Ontology {
 	createNewRDFClassInfo(ServiceRealization.MY_URI, factory, 6);
 	createNewRDFClassInfo(ProcessInput.MY_URI, factory, 7);
 	createNewRDFClassInfo(ProcessOutput.MY_URI, factory, 8);
+	createNewRDFClassInfo(ProcessResult.MY_URI, factory, 9);
 	
 	// load Service
 	oci = createNewAbstractOntClassInfo(Service.MY_URI);
