@@ -41,7 +41,7 @@ public class ProcessResult extends Resource {
 	    + "hasEffect";
     public static final String PROP_OWLS_RESULT_WITH_OUTPUT = ProcessOutput.OWLS_PROCESS_NAMESPACE
 	    + "withOutput";
-    public static final String TYPE_OWLS_RESULT = ProcessOutput.OWLS_PROCESS_NAMESPACE
+    public static final String MY_URI = ProcessOutput.OWLS_PROCESS_NAMESPACE
 	    + "Result";
 
     /**
@@ -122,7 +122,7 @@ public class ProcessResult extends Resource {
 		|| (effects != null && !(effects instanceof List)))
 	    return null;
 
-	ProcessResult result = new ProcessResult();
+	ProcessResult result = new ProcessResult(pr.getURI());
 
 	if (effects != null) {
 	    for (int i = 0; i < ((List) effects).size(); i++)
@@ -143,7 +143,12 @@ public class ProcessResult extends Resource {
 
     public ProcessResult() {
 	super();
-	addType(TYPE_OWLS_RESULT, true);
+	addType(MY_URI, true);
+    }
+    
+    public ProcessResult(String uri) {
+	super(uri);
+	addType(MY_URI, true);
     }
 
     /**

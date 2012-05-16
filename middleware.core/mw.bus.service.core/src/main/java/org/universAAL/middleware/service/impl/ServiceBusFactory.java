@@ -28,6 +28,7 @@ import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owl.InitialServiceDialog;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.middleware.service.owls.process.ProcessResult;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
@@ -60,6 +61,8 @@ public class ServiceBusFactory extends ResourceFactoryImpl {
 	    return new ProcessInput(instanceURI);
 	case 8:
 	    return new ProcessOutput(instanceURI);
+	case 9:
+	    return new ProcessResult(instanceURI);
 	}
 
 	/*
