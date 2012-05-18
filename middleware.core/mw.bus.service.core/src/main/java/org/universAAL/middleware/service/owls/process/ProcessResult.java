@@ -102,6 +102,7 @@ public class ProcessResult extends Resource {
      * @return - the created instance of ProcessResult
      */
     public static ProcessResult toResult(Resource pr) {
+	// TODO: duplicate code with setProperty
 	if (pr == null)
 	    return null;
 
@@ -151,6 +152,43 @@ public class ProcessResult extends Resource {
 	addType(MY_URI, true);
     }
 
+    
+    public void setProperty(String propURI, Object value) {
+	// TODO: duplicate code with toResult
+	if (PROP_OWLS_RESULT_HAS_EFFECT.equals(propURI)) {
+	    if (value instanceof Resource) {
+		ArrayList l = new ArrayList(1);
+		l.add(value);
+		value = l;
+	    }
+
+	    if (value != null && !(value instanceof List))
+		return;
+
+	    if (value != null) {
+		for (int i = 0; i < ((List) value).size(); i++)
+		    if (!ProcessEffect.checkEffect(((List) value).get(i)))
+			return;
+		super.setProperty(PROP_OWLS_RESULT_HAS_EFFECT, value);
+	    }
+	} else if (PROP_OWLS_RESULT_WITH_OUTPUT.equals(propURI)) {
+	    if (value instanceof Resource) {
+		ArrayList l = new ArrayList(1);
+		l.add(value);
+		value = l;
+	    }
+
+	    if (value != null && !(value instanceof List))
+		return;
+
+	    for (int i = 0; i < ((List) value).size(); i++)
+		if (!OutputBinding.checkBinding(((List) value).get(i)))
+		    return;
+	    super.setProperty(PROP_OWLS_RESULT_WITH_OUTPUT, value);
+	}
+    }
+    
+    
     /**
      * Add "add" process effect with property path and value passed as
      * parameters
