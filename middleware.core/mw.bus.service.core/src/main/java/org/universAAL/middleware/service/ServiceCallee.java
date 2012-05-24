@@ -153,7 +153,11 @@ public abstract class ServiceCallee implements Callee {
 	bus.unregister(myID, this);
     }
     
-    protected void populateLocalID(String myID) {
+    public String getMyID() {
+		return myID;
+	}
+
+	protected void populateLocalID(String myID) {
     	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
 }

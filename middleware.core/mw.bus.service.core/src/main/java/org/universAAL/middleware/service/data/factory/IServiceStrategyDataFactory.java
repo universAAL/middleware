@@ -22,6 +22,7 @@ package org.universAAL.middleware.service.data.factory;
 
 import org.universAAL.middleware.service.data.ILocalServiceSearchResultsData;
 import org.universAAL.middleware.service.data.ILocalServicesIndexData;
+import org.universAAL.middleware.service.data.ILocalWaitingCallersData;
 
 /**
  * 
@@ -35,4 +36,6 @@ public interface IServiceStrategyDataFactory {
 	ILocalServicesIndexData createLocalServicesIndexData();
 
 	ILocalServiceSearchResultsData createLocalServiceSearchResultsData();
+	
+	ILocalWaitingCallersData createLocalWaitingCallersData();
 }

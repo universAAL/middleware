@@ -43,6 +43,7 @@ import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.data.ILocalServiceSearchResultsData;
 import org.universAAL.middleware.service.data.ILocalServicesIndexData;
+import org.universAAL.middleware.service.data.ILocalWaitingCallersData;
 import org.universAAL.middleware.service.data.factory.IServiceStrategyDataFactory;
 import org.universAAL.middleware.service.data.factory.ServiceStrategyDataFactory;
 import org.universAAL.middleware.service.owl.InitialServiceDialog;
@@ -112,14 +113,12 @@ public class ServiceStrategy extends BusStrategy {
 	    // Vector(AvailabilitySubscription)
 	    allWaitingCallers, // request.msgID -> Vector(call.context) +
 	    // call.msgID -> call.context
-	    //localServicesIndex, // processURI -> ServiceRealization (was replaced with the new mechanism)
 	    localSubscriptionsIndex, // requestURI -> serviceURI + callerURI ->
 	    // Vector(AvailabilitySubscription)
-	    localWaitingCallers, // request.msgID -> callerID
-	    //localServiceSearchResults, // serviceURI -> List(ServiceRealization) (was replaced with the new mechanism)
 	    startDialogs; // serviceURI -> Vector(ServiceRealization)
-    protected ILocalServicesIndexData localServicesIndex;
-    protected ILocalServiceSearchResultsData localServiceSearchResults;
+    protected ILocalWaitingCallersData localWaitingCallers; // request.msgID -> callerID
+    protected ILocalServicesIndexData localServicesIndex; // processURI -> ServiceRealization
+    protected ILocalServiceSearchResultsData localServiceSearchResults; // serviceURI -> List(ServiceRealization) (was replaced with the new mechanism)
     private boolean isCoordinator;
     protected String theCoordinator = null;
 
@@ -136,7 +135,7 @@ public class ServiceStrategy extends BusStrategy {
 	// until the real ID is found out
 	localSubscriptionsIndex = new Hashtable();
 	localServicesIndex = factory.createLocalServicesIndexData();
-	localWaitingCallers = new Hashtable();
+	localWaitingCallers = factory.createLocalWaitingCallersData();
 	localServiceSearchResults = factory.createLocalServiceSearchResultsData();
 	isCoordinator = Constants.isCoordinatorInstance();
 	if (isCoordinator) {
@@ -1076,7 +1075,7 @@ public class ServiceStrategy extends BusStrategy {
 	    ServiceRequest request = (ServiceRequest) res;
 	    if (isCoordinator) {
 		if (!msg.isRemote())
-		    localWaitingCallers.put(msg.getID(), senderID);
+		    localWaitingCallers.addLocalWaitier(msg.getID(), senderID);
 		if (request.getRequestedService() instanceof InitialServiceDialog) {
 		    Service s = request.getRequestedService();
 		    Object csc = s
@@ -1411,7 +1410,7 @@ public class ServiceStrategy extends BusStrategy {
 		// coordinator?!!
 		// => ignore!
 	    } else if (isCoordinatorKnown()) {
-		localWaitingCallers.put(msg.getID(), senderID);
+		localWaitingCallers.addLocalWaitier(msg.getID(), senderID);
 		msg.setReceivers(new String[] { theCoordinator });
 		sodapop.propagateMessage(bus, msg);
 	    }
@@ -1534,7 +1533,7 @@ public class ServiceStrategy extends BusStrategy {
 	    // very strange! a message of type REPLY without inReplyTo
 	    // => ignore!
 	} else {
-	    String callerID = (String) localWaitingCallers.remove(replyOf);
+	    String callerID = localWaitingCallers.getAndRemoveLocalWaiterCallerID(replyOf);
 	    if (callerID == null) {
 		// very strange! why else may I receive a reply from a peer
 		// => ignore!
