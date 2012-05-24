@@ -23,34 +23,23 @@ package org.universAAL.middleware.service.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.universAAL.middleware.service.impl.ServiceRealization;
-
 /**
  * 
  *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
  *	
- *  Apr 20, 2012
+ *  May 22, 2012
  *
  */
-public class LocalServicesIndexDataMap implements ILocalServicesIndexData {
-	
-	Map map = new HashMap();
+public class LocalWaitingDataMap implements ILocalWaitingCallersData {
 
-	public void addServiceRealization(String id, ServiceRealization serviceRealization) {
-		map.put(id, serviceRealization);
-	}
-	public ServiceRealization removeServiceRealization(String id) {
-		return (ServiceRealization) map.remove(id);
-	}
+	private Map map = new HashMap();
 	
-	public ServiceRealization getServiceRealizationByID(String id) {
-		return (ServiceRealization) map.get(id);
+	public void addLocalWaitier(String msgID, String callerID) {
+		map.put(msgID, callerID);
 	}
-	public ServiceRealization[] getAllServiceRealizations() {
-		return (ServiceRealization[]) map.values().toArray(new ServiceRealization[0]);
+
+	public String getAndRemoveLocalWaiterCallerID(String msgID) {
+		return (String) map.remove(msgID);
 	}
-	
-	public String[] getServiceRealizationIds() {
-		return (String[]) map.keySet().toArray(new String[0]);
-	}
+
 }

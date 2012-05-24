@@ -66,8 +66,10 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/SimpleServiceResponse.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/ILocalServiceSearchResultsData.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/ILocalServicesIndexData.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/ILocalWaitingCallersData.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/LocalServiceSearchResultsDataMap.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/LocalServicesIndexDataMap.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/LocalWaitingDataMap.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/factory/AbstractServiceStrategyDataFactory.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/factory/IServiceStrategyDataFactory.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/factory/ServiceStrategyDataFactory.java -text

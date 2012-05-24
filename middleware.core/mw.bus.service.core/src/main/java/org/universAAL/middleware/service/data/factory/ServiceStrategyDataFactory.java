@@ -22,8 +22,10 @@ package org.universAAL.middleware.service.data.factory;
 
 import org.universAAL.middleware.service.data.ILocalServiceSearchResultsData;
 import org.universAAL.middleware.service.data.ILocalServicesIndexData;
+import org.universAAL.middleware.service.data.ILocalWaitingCallersData;
 import org.universAAL.middleware.service.data.LocalServiceSearchResultsDataMap;
 import org.universAAL.middleware.service.data.LocalServicesIndexDataMap;
+import org.universAAL.middleware.service.data.LocalWaitingDataMap;
 
 /**
  * 
@@ -41,5 +43,9 @@ public class ServiceStrategyDataFactory extends
 
 	public ILocalServiceSearchResultsData createLocalServiceSearchResultsData() {
 		return new LocalServiceSearchResultsDataMap();
+	}
+	
+	public ILocalWaitingCallersData createLocalWaitingCallersData() {
+		return new LocalWaitingDataMap();
 	}
 }
