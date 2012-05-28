@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -16,6 +17,10 @@
 	<packaging>pom</packaging>
 	<name>universAAL Middleware Suite (OSGi)</name>
 	<description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase. (OSGi)</description>
+
+	<properties>
+		<separatedGroupIds>org.universAAL.middleware</separatedGroupIds>
+	</properties>
 
 	<dependencyManagement>
 		<dependencies>
@@ -136,6 +141,7 @@
 			<plugin>
 				<groupId>org.universAAL.support</groupId>
 				<artifactId>uaal-maven-plugin</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
