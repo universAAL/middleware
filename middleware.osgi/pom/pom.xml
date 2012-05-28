@@ -124,6 +124,7 @@
 		<module>../mw.bus.service.osgi</module>
 		<module>../mw.bus.context.osgi</module>
 		<module>../mw.bus.ui.osgi</module>
+		<module>composite</module>
 	</modules>
 
 
