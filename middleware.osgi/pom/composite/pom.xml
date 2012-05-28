@@ -7,6 +7,7 @@
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom.osgi</artifactId>
 		<version>1.1.2-SNAPSHOT</version>
+        <relativePath>../</relativePath>
 	</parent>
 
 	<artifactId>mw.composite</artifactId>
@@ -16,9 +17,9 @@
 	<url/>
 
 	<scm>
-		<connection>${svn.base}/pom/middleware/composite</connection>
-		<developerConnection>${svn.base}/pom/middleware/composite</developerConnection>
-		<url>${svn.base.url}pom/middleware/composite</url>
+		<connection>${svn.base}/middleware.osgi/pom/composite</connection>
+		<developerConnection>${svn.base}/middleware.osgi/pom/composite</developerConnection>
+		<url>${svn.base.url}middleware.osgi/pom/composite</url>
 	</scm>
 
 	<properties>
