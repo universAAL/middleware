@@ -204,6 +204,7 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/IntAggregator.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/RatingAggregator.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/ResourceComparator.java -text
+middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/xsd/NonNegativeInteger.java -text
 middleware.core/mw.data.representation.core/src/main/resources/mw.data.representation[!!-~]dependencies.jpg -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/BoundedValueRestrictionTest.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/OntologiesTest.java -text

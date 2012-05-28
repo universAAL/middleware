@@ -22,7 +22,10 @@ package org.universAAL.middleware.owl;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.xsd.NonNegativeInteger;
 
 /**
  * Implementation of OWL ExactCardinality Restriction: it contains all
@@ -61,7 +64,7 @@ public class ExactCardinalityRestriction extends PropertyRestriction {
 		    "Value of an Exact Cardinality Restriction must be non-negative: "
 			    + value);
 	setOnProperty(propURI);
-	super.setProperty(PROP_OWL_CARDINALITY, new Integer(value));
+	super.setProperty(PROP_OWL_CARDINALITY, new NonNegativeInteger(value));
     }
 
     public ExactCardinalityRestriction(String propURI, int value,
@@ -78,9 +81,10 @@ public class ExactCardinalityRestriction extends PropertyRestriction {
 
     /** Get the value of this cardinality restriction */
     public int getValue() {
-	Integer i = (Integer) props.get(PROP_OWL_CARDINALITY);
+	NonNegativeInteger i = (NonNegativeInteger) props
+		.get(PROP_OWL_CARDINALITY);
 	if (i == null)
-	    return 0;
+	    return -1;
 	return i.intValue();
     }
 
@@ -174,14 +178,20 @@ public class ExactCardinalityRestriction extends PropertyRestriction {
 
 	// handle this restriction
 	if (PROP_OWL_CARDINALITY.equals(propURI)) {
-	    if (o instanceof Integer) {
-		Integer val = (Integer) o;
-		if (val.intValue() < 0)
-		    throw new IllegalArgumentException(
-			    "Value of an Exact Cardinality Restriction must be non-negative: "
-				    + val);
-		super.setProperty(propURI, val);
+	    if (o instanceof NonNegativeInteger) {
+		super.setProperty(propURI, o);
+		return;
 	    }
+	    LogUtils
+		    .logError(
+			    SharedResources.moduleContext,
+			    ExactCardinalityRestriction.class,
+			    "setProperty",
+			    new Object[] {
+				    "Trying to set the exact cardinality with an invalid value: ",
+				    o, " of type ", o.getClass().getName(),
+				    ". It must be a NonNegativeInteger!" },
+			    null);
 	    return;
 	}
 

@@ -34,6 +34,8 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.universAAL.middleware.xsd.NonNegativeInteger;
+
 // import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
@@ -79,6 +81,7 @@ public class TypeMapper {
 	javaXSD.put(Locale.class, "language");
 	javaXSD.put(Long.class, "long");
 	javaXSD.put(String.class, "string");
+	javaXSD.put(NonNegativeInteger.class, "nonNegativeInteger");
 
 	xsdJava.put("anyURI", Resource.class);
 	xsdJava.put("boolean", Boolean.class);
@@ -90,6 +93,7 @@ public class TypeMapper {
 	xsdJava.put("language", Locale.class);
 	xsdJava.put("long", Long.class);
 	xsdJava.put("string", String.class);
+	xsdJava.put("nonNegativeInteger", NonNegativeInteger.class);
 
 	// Retrieve instance of datatype factory which is needed for calendar
 	// and duration objects
