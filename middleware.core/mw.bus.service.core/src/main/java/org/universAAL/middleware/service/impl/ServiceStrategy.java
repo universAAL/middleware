@@ -138,6 +138,14 @@ public class ServiceStrategy extends BusStrategy {
 	localWaitingCallers = factory.createLocalWaitingCallersData();
 	localServiceSearchResults = factory.createLocalServiceSearchResultsData();
 	isCoordinator = Constants.isCoordinatorInstance();
+	LogUtils
+		.logDebug(
+			ServiceBusImpl.moduleContext,
+			ServiceStrategy.class,
+			"ServiceStrategy",
+			new Object[] { "This instance is ",
+				isCoordinator ? "" : "NOT ", "the coordinator." },
+			null);
 	if (isCoordinator) {
 	    allServicesIndex = new Hashtable();
 	    allSubscriptionsIndex = new Hashtable();
