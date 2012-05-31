@@ -156,6 +156,14 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s
 		.getType());
     }
+    
+    /**
+     * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
+     *      String)
+     */
+    public ServiceProfile[] getMatchingService(String callerID, String s) {
+	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s);
+    }
 
     /**
      * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
