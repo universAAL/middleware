@@ -230,6 +230,19 @@ public abstract class ServiceCaller implements Caller {
     public ServiceProfile[] getMatchingService(Service s) {
 	return bus.getMatchingService(myID, s);
     }
+    
+    /**
+     * A method used to retrieve a specified service, available to this
+     * <code>ServiceCaller</code>.
+     * 
+     * @param serviceClassURI
+     *            the class URI of the desired service.
+     * @return the service that is available, or null if no such service is
+     *         available.
+     */
+    public ServiceProfile[] getMatchingService(String serviceClassURI) {
+	return bus.getMatchingService(myID, serviceClassURI);
+    }
 
     /**
      * A method used to retrieve a service available to this caller, that

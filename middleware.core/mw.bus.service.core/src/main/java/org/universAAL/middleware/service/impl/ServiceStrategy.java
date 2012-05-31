@@ -36,6 +36,7 @@ import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.AggregationFunction;
 import org.universAAL.middleware.service.AvailabilitySubscriber;
 import org.universAAL.middleware.service.CallStatus;
+import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceCaller;
@@ -1140,20 +1141,27 @@ public class ServiceStrategy extends BusStrategy {
 			String caller = request.getProperty(
 				ServiceRequest.PROP_uAAL_SERVICE_CALLER)
 				.toString();
+
+			Long logID = Long.valueOf(Thread.currentThread()
+				.getId());
+			LogUtils.logTrace(ServiceBusImpl.moduleContext,
+				ServiceStrategy.class, "handle", new Object[] {
+					ServiceBus.LOG_MATCHING_START, request,
+					" ", logID }, null);
 			for (Iterator i = v.iterator(); i.hasNext();) {
 			    ServiceRealization sr = (ServiceRealization) i
 				    .next();
-			    LogUtils
-				    .logTrace(
-					    ServiceBusImpl.moduleContext,
-					    ServiceStrategy.class,
-					    "handle",
-					    new Object[] {
-						    "Matching offer ",
-						    sr
-							    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE),
-						    " with request ", request },
-					    null);
+			    Service profileService = ((ServiceProfile) sr
+				    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+				    .getTheService();
+			    String profileServiceURI = profileService.getURI();
+
+			    LogUtils.logTrace(ServiceBusImpl.moduleContext,
+				    ServiceStrategy.class, "handle",
+				    new Object[] {
+					    ServiceBus.LOG_MATCHING_PROFILE,
+					    profileService.getType(),
+					    profileServiceURI, logID }, null);
 			    Hashtable context = matches(caller, request, sr);
 			    if (context != null) {
 				matches.add(context);
@@ -1163,14 +1171,23 @@ public class ServiceStrategy extends BusStrategy {
 						ServiceStrategy.class,
 						"handle",
 						new Object[] {
-							"Matching offer ",
-							sr
-								.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE),
-							" with request ",
-							request, " successful" },
-						null);
-			    }
+							ServiceBus.LOG_MATCHING_SUCCESS,
+							logID }, null);
+			    } else
+				LogUtils
+					.logTrace(
+						ServiceBusImpl.moduleContext,
+						ServiceStrategy.class,
+						"handle",
+						new Object[] {
+							ServiceBus.LOG_MATCHING_NOSUCCESS,
+							logID }, null);
 			}
+			LogUtils.logTrace(ServiceBusImpl.moduleContext,
+				ServiceStrategy.class, "handle", new Object[] {
+					ServiceBus.LOG_MATCHING_END, logID },
+				null);
+
 		    }
 		}
 		Hashtable auxMap = new Hashtable();
@@ -1984,8 +2001,8 @@ public class ServiceStrategy extends BusStrategy {
      * @return ServiceProfile[] - the service profiles of the given service
      */
     public ServiceProfile[] getAllServiceProfiles(String serviceURI) {
-	// if (this.isCoordinator)
-	// return getLocalServices(serviceURI);
+	if (this.isCoordinator)
+	    return getCoordinatorServices(serviceURI);
 
 	Resource r = new Resource();
 	r.addType(TYPE_uAAL_SERVICE_PROFILE_INFORMATION, true);
