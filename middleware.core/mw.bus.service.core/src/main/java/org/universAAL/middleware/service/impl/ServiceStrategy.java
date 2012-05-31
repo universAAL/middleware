@@ -1162,7 +1162,7 @@ public class ServiceStrategy extends BusStrategy {
 					    ServiceBus.LOG_MATCHING_PROFILE,
 					    profileService.getType(),
 					    profileServiceURI, logID }, null);
-			    Hashtable context = matches(caller, request, sr);
+			    Hashtable context = matches(caller, request, sr, logID);
 			    if (context != null) {
 				matches.add(context);
 				LogUtils
@@ -1185,8 +1185,9 @@ public class ServiceStrategy extends BusStrategy {
 			}
 			LogUtils.logTrace(ServiceBusImpl.moduleContext,
 				ServiceStrategy.class, "handle", new Object[] {
-					ServiceBus.LOG_MATCHING_END, logID },
-				null);
+					ServiceBus.LOG_MATCHING_END,
+					"found ", Integer.valueOf(matches.size()), " matches",
+					logID }, null);
 
 		    }
 		}
@@ -1688,6 +1689,26 @@ public class ServiceStrategy extends BusStrategy {
      */
     private Hashtable matches(String callerID, ServiceRequest request,
 	    ServiceRealization offer) {
+	return matches(callerID, request, offer, null);
+    }
+
+    /**
+     * Returns true iff a ServiceRealization passed as a parameter matches the
+     * ServiceRequest
+     * 
+     * @param callerID
+     *            - the caller ID of the ServiceRequest
+     * @param request
+     *            - the ServiceRequest
+     * @param offer
+     *            - the Service Realization being matched
+     * @param logID
+     *            - an id to be used for logging, may be null
+     * @return Hashtable - a hashtable of the context of the matching or null if
+     *         the ServiceRealization does not match the ServiceRequest
+     */
+    private Hashtable matches(String callerID, ServiceRequest request,
+	    ServiceRealization offer, Long logID) {
 	Hashtable context = new Hashtable();
 	context.put(Constants.VAR_uAAL_ACCESSING_BUS_MEMBER, callerID);
 	context.put(Constants.VAR_uAAL_CURRENT_DATETIME, TypeMapper
@@ -1697,7 +1718,7 @@ public class ServiceStrategy extends BusStrategy {
 		.getProperty(ServiceRequest.PROP_uAAL_INVOLVED_HUMAN_USER);
 	if (o != null)
 	    context.put(Constants.VAR_uAAL_ACCESSING_HUMAN_USER, o);
-	return offer.matches(request, context) ? context : null;
+	return offer.matches(request, context, logID) ? context : null;
     }
 
     /**
