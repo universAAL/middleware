@@ -106,28 +106,38 @@ public class ServiceStrategy extends BusStrategy {
 	String id;
 	Object reqOrSubs;
     }
-    
-    private Hashtable allServicesIndex, // serviceURI ->
-	    // Vector(ServiceRealization)
-	    allSubscriptionsIndex, // serviceURI ->
-	    // Vector(AvailabilitySubscription)
-	    allWaitingCallers, // request.msgID -> Vector(call.context) +
-	    // call.msgID -> call.context
-	    localSubscriptionsIndex, // requestURI -> serviceURI + callerURI ->
-	    // Vector(AvailabilitySubscription)
-	    startDialogs; // serviceURI -> Vector(ServiceRealization)
-    protected ILocalWaitingCallersData localWaitingCallers; // request.msgID -> callerID
-    protected ILocalServicesIndexData localServicesIndex; // processURI -> ServiceRealization
-    protected ILocalServiceSearchResultsData localServiceSearchResults; // serviceURI -> List(ServiceRealization) (was replaced with the new mechanism)
+
+    // serviceURI -> Vector(ServiceRealization)
+    private Hashtable allServicesIndex;
+
+    // serviceURI -> Vector(AvailabilitySubscription)
+    private Hashtable allSubscriptionsIndex;
+
+    // request.msgID -> Vector(call.context) + call.msgID -> call.context
+    private Hashtable allWaitingCallers;
+
+    // requestURI -> serviceURI + callerURI -> Vector(AvailabilitySubscription)
+    private Hashtable localSubscriptionsIndex;
+
+    // serviceURI -> Vector(ServiceRealization)
+    private Hashtable startDialogs;
+
+    // request.msgID -> callerID
+    protected ILocalWaitingCallersData localWaitingCallers;
+    // processURI -> ServiceRealization
+    protected ILocalServicesIndexData localServicesIndex;
+    // serviceURI -> List(ServiceRealization) (was replaced with the new
+    // mechanism)
+    protected ILocalServiceSearchResultsData localServiceSearchResults;
     private boolean isCoordinator;
     protected String theCoordinator = null;
 
     public ServiceStrategy(SodaPop sodapop) {
 	super(sodapop);
-	
+
 	// Initiated the factory
 	IServiceStrategyDataFactory factory = createServiceStrategyDataFactory();
-	
+
 	// dummy action to force the load of the class InitialServiceDialog
 	theCoordinator = InitialServiceDialog.MY_URI;
 	theCoordinator = null;
@@ -136,7 +146,8 @@ public class ServiceStrategy extends BusStrategy {
 	localSubscriptionsIndex = new Hashtable();
 	localServicesIndex = factory.createLocalServicesIndexData();
 	localWaitingCallers = factory.createLocalWaitingCallersData();
-	localServiceSearchResults = factory.createLocalServiceSearchResultsData();
+	localServiceSearchResults = factory
+		.createLocalServiceSearchResultsData();
 	isCoordinator = Constants.isCoordinatorInstance();
 	LogUtils
 		.logDebug(
@@ -155,14 +166,12 @@ public class ServiceStrategy extends BusStrategy {
 
 	}
     }
-    
 
     protected IServiceStrategyDataFactory createServiceStrategyDataFactory() {
-		return new ServiceStrategyDataFactory();
-	}
+	return new ServiceStrategyDataFactory();
+    }
 
-
-	/**
+    /**
      * Adds availability subscription (registration and un-registration of
      * services), according to the ServiceRequest
      * 
@@ -788,7 +797,7 @@ public class ServiceStrategy extends BusStrategy {
 		    // propagated as it is (with the URI specified on the server
 		    // side).
 		    ServiceResponse sr = (ServiceResponse) context
-		   	.get(CONTEXT_RESPONSE_MESSAGE);
+			    .get(CONTEXT_RESPONSE_MESSAGE);
 		    if (sr.isUnboundOutputAllowed()) {
 			outputs.add(po);
 		    }
@@ -1030,7 +1039,8 @@ public class ServiceStrategy extends BusStrategy {
 		    List profiles = (List) res
 			    .getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
 
-		    localServiceSearchResults.addProfiles(realizationID, profiles);
+		    localServiceSearchResults.addProfiles(realizationID,
+			    profiles);
 
 		    notifyAll();
 		}
@@ -1038,8 +1048,9 @@ public class ServiceStrategy extends BusStrategy {
 	    break;
 	case MessageType.P2P_REQUEST:
 	    if (res instanceof ServiceCall) {
-		ServiceRealization sr = localServicesIndex.getServiceRealizationByID(
-				((ServiceCall) res).getProcessURI());
+		ServiceRealization sr = localServicesIndex
+			.getServiceRealizationByID(((ServiceCall) res)
+				.getProcessURI());
 		if (sr != null) {
 		    ServiceCallee callee = (ServiceCallee) getBusMember(sr
 			    .getProperty(
@@ -1181,7 +1192,8 @@ public class ServiceStrategy extends BusStrategy {
 				    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null) {
 				if (otherMatch
 					.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null) {
-				    // the new service matches better the request
+				    // the new service matches better the
+				    // request
 				    auxMap.put(sr.getProvider(), match);
 				    continue;
 				}
@@ -1190,14 +1202,15 @@ public class ServiceStrategy extends BusStrategy {
 				    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null) {
 				if (match
 					.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null) {
-				    // the new service won't match better the request
+				    // the new service won't match better the
+				    // request
 				    continue;
 				}
 			    }
 			    // If two above are not true then either both
 			    // services have matched their URIs or none of them
-			    // had. Either way regular strategy is applied.			    
-			    
+			    // had. Either way regular strategy is applied.
+
 			    // The strategy: from each provider accept the one
 			    // with more specialization
 			    // and then the one with the smallest context, which
@@ -1541,7 +1554,8 @@ public class ServiceStrategy extends BusStrategy {
 	    // very strange! a message of type REPLY without inReplyTo
 	    // => ignore!
 	} else {
-	    String callerID = localWaitingCallers.getAndRemoveLocalWaiterCallerID(replyOf);
+	    String callerID = localWaitingCallers
+		    .getAndRemoveLocalWaiterCallerID(replyOf);
 	    if (callerID == null) {
 		// very strange! why else may I receive a reply from a peer
 		// => ignore!
@@ -1631,7 +1645,7 @@ public class ServiceStrategy extends BusStrategy {
 	    synchronized (this) {
 		try {
 		    waitForCoordinatorToBeKnown();
-			// TODO We need to have some kind of management here
+		    // TODO We need to have some kind of management here
 		    // or at least a timeout (but what then? Denote
 		    // itself as coordinator until find the "real" one?)!
 		} catch (Exception e) {
@@ -1741,12 +1755,13 @@ public class ServiceStrategy extends BusStrategy {
 	    sodapop.propagateMessage(bus, m);
 	}
     }
-    
+
     protected void waitForCoordinatorToBeKnown() throws InterruptedException {
-    	wait();
+	wait();
     }
+
     protected void notifyOnFoundCoordinator() {
-    	notifyAll();
+	notifyAll();
     }
 
     /**
@@ -1834,7 +1849,8 @@ public class ServiceStrategy extends BusStrategy {
 	    if (processURI == null)
 		continue;
 
-	    ServiceRealization reg = localServicesIndex.removeServiceRealization(processURI);
+	    ServiceRealization reg = localServicesIndex
+		    .removeServiceRealization(processURI);
 	    if (!calleeID.equals(reg
 		    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))
 		    || !processURI
@@ -1879,13 +1895,16 @@ public class ServiceStrategy extends BusStrategy {
 				.length())) instanceof ServiceCallee))
 	    return;
 
-	String[] serviceRealizationsIds = localServicesIndex.getServiceRealizationIds();
+	String[] serviceRealizationsIds = localServicesIndex
+		.getServiceRealizationIds();
 	for (int i = 0; i < serviceRealizationsIds.length; i++) {
-		String id = serviceRealizationsIds[i];
-		ServiceRealization serviceRealization = localServicesIndex.getServiceRealizationByID(id);
-		if (calleeID.equals(serviceRealization.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))) {
-			localServicesIndex.removeServiceRealization(id);
-		}
+	    String id = serviceRealizationsIds[i];
+	    ServiceRealization serviceRealization = localServicesIndex
+		    .getServiceRealizationByID(id);
+	    if (calleeID.equals(serviceRealization
+		    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))) {
+		localServicesIndex.removeServiceRealization(id);
+	    }
 	}
 
 	if (isCoordinator)
@@ -1992,7 +2011,8 @@ public class ServiceStrategy extends BusStrategy {
 	    }
 	}
 
-	List profiles = (List) this.localServiceSearchResults.getProfiles(serviceURI);
+	List profiles = (List) this.localServiceSearchResults
+		.getProfiles(serviceURI);
 	return profileListToArray(profiles);
     }
 
