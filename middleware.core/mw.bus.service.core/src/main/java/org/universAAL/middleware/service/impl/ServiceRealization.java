@@ -393,11 +393,19 @@ public class ServiceRealization extends Resource {
 		.getRestrictedPropsOnInstanceLevel();
 	if (restrProps != null && restrProps.length > 0) {
 	    for (int i = 0; i < restrProps.length; i++) {
+		// request instance level restrictions
 		ClassExpression reqRestr = requestedService
-			.getInstanceLevelRestrictionOnProp(restrProps[i]), offInsRestr = offer
-			.getInstanceLevelRestrictionOnProp(restrProps[i]), offClsRestr = Service
+			.getInstanceLevelRestrictionOnProp(restrProps[i]);
+		
+		// offer instance level restrictions
+		ClassExpression offInsRestr = offer
+			.getInstanceLevelRestrictionOnProp(restrProps[i]);
+		
+		// offer class level restrictions
+		ClassExpression offClsRestr = Service
 			.getClassRestrictionsOnProperty(offer.getClassURI(),
 				restrProps[i]);
+		
 		if (!(reqRestr instanceof MergedRestriction)) {
 		    // makes no sense, because 'restrProps' must have instance
 		    // level restrictions
