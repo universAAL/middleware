@@ -23,12 +23,14 @@ import java.lang.reflect.Method;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.Intersection;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.supply.Rating;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.SimpleServiceRequest;
@@ -342,9 +344,11 @@ public class ServiceRealization extends Resource {
      *            - the ServiceRequest to match
      * @param context
      *            - the Context to match
-     * @return
+     * @param logID
+     *            - an id to be used for logging, may be null
+     * @return true, iff the service request matches.
      */
-    public boolean matches(ServiceRequest request, Hashtable context) {
+    public boolean matches(ServiceRequest request, Hashtable context, Long logID) {
 	if (request == null)
 	    return true;
 
@@ -461,6 +465,8 @@ public class ServiceRealization extends Resource {
 			// we are done with this property
 			continue;
 		    } else {
+			// offInsRestr == null && offClsRestr != null
+			
 			if (reqRestr.matches(offClsRestr, context))
 			    // tag the context that the offer restrictions are a
 			    // subtype of request restrictions
@@ -471,10 +477,26 @@ public class ServiceRealization extends Resource {
 				    .put(
 					    ServiceStrategy.CONTEXT_SPECIALIZED_CLASS_MATCH,
 					    Boolean.TRUE);
-			else if (!offClsRestr.matches(reqRestr, context))
+			else if (!offClsRestr.matches(reqRestr, context)) {
+			    if (logID != null)
+				LogUtils
+					.logTrace(
+						ServiceBusImpl.moduleContext,
+						ServiceRealization.class,
+						"matches",
+						new Object[] {
+							ServiceBus.LOG_MATCHING_MISMATCH,
+							"the property ",
+							restrProps[i],
+							" is restricted in the request. The service offer has class level restrictions, but no instance level restrictions.",
+							" Neither the request is a subset of the offer nor the offer a subset of the request.",
+							logID }, null);
 			    return false;
+			}
 		    }
 		else {
+		    // offInsRestr != null, offClsRestr unknown
+		    
 		    if (reqRestr.matches(offInsRestr, context))
 			// tag the context that the offer restrictions are a
 			// subtype of request restrictions
@@ -484,10 +506,26 @@ public class ServiceRealization extends Resource {
 				.put(
 					ServiceStrategy.CONTEXT_SPECIALIZED_INSTANCE_MATCH,
 					Boolean.TRUE);
-		    else if (!offInsRestr.matches(reqRestr, context))
+		    else if (!offInsRestr.matches(reqRestr, context)) {
+			if (logID != null)
+			    LogUtils
+				    .logTrace(
+					    ServiceBusImpl.moduleContext,
+					    ServiceRealization.class,
+					    "matches",
+					    new Object[] {
+						    ServiceBus.LOG_MATCHING_MISMATCH,
+						    "the property ",
+						    restrProps[i],
+						    " is restricted in the request. The service offer has instance level restrictions.",
+						    " Neither the request is a subset of the offer nor the offer a subset of the request.",
+						    logID }, null);
 			return false;
+		    }
 
 		    if (offClsRestr != null)
+			// offInsRestr != null  &&  offClsRestr != null
+			
 			if (reqRestr.matches(offClsRestr, context))
 			    // tag the context that the offer restrictions are a
 			    // subtype of request restrictions
@@ -498,8 +536,22 @@ public class ServiceRealization extends Resource {
 				    .put(
 					    ServiceStrategy.CONTEXT_SPECIALIZED_CLASS_MATCH,
 					    Boolean.TRUE);
-			else if (!offClsRestr.matches(reqRestr, context))
+			else if (!offClsRestr.matches(reqRestr, context)) {
+			    if (logID != null)
+				LogUtils
+					.logTrace(
+						ServiceBusImpl.moduleContext,
+						ServiceRealization.class,
+						"matches",
+						new Object[] {
+							ServiceBus.LOG_MATCHING_MISMATCH,
+							"the property ",
+							restrProps[i],
+							" is restricted in the request. The service offer has class level and instance level restrictions. The instance level restrictions have been checked already, but class level restriction do not match.",
+							" Neither the request is a subset of the offer nor the offer a subset of the request.",
+							logID }, null);
 			    return false;
+			}
 		}
 	    }
 	}
@@ -509,10 +561,10 @@ public class ServiceRealization extends Resource {
 
 	Hashtable cloned = (Hashtable) context.clone();
 	if (!ProcessResult.checkEffects(request.getRequiredEffects(), prof
-		.getEffects(), cloned)
+		.getEffects(), cloned, logID)
 		|| !ProcessResult
 			.checkOutputBindings(request.getRequiredOutputs(), prof
-				.getOutputBindings(), cloned))
+				.getOutputBindings(), cloned, logID))
 	    return false;
 
 	if (cloned.size() > context.size())

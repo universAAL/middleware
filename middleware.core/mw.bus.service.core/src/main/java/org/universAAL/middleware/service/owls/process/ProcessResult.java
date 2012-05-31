@@ -23,10 +23,13 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
+import org.universAAL.middleware.service.ServiceBus;
+import org.universAAL.middleware.service.impl.ServiceBusImpl;
 
 /**
  * This class represents ProcessResult of OWL-S -
@@ -58,13 +61,68 @@ public class ProcessResult extends Resource {
      */
     public static boolean checkEffects(Resource[] req, Resource[] offer,
 	    Hashtable context) {
-	if (req == null || req.length == 0)
-	    return (offer == null || offer.length == 0);
-	if (offer == null || offer.length != req.length)
-	    return false;
-	for (int i = 0; i < req.length; i++) {
-	    if (!ProcessEffect.findMatchingEffect(req[i], offer, context))
+	return checkEffects(req, offer, context, null);
+    }
+
+    /**
+     * Verify that the process effects of offers match the ones of requests
+     * according to the context
+     * 
+     * @param req
+     *            - a list of requests
+     * @param offer
+     *            - a list of offers
+     * @param context
+     *            - the context
+     * @param logID
+     *            - an id to be used for logging, may be null
+     * @return true iff the process effects match
+     */
+    public static boolean checkEffects(Resource[] req, Resource[] offer,
+	    Hashtable context, Long logID) {
+	if (req == null || req.length == 0) {
+	    if (offer == null || offer.length == 0)
+		return true;
+	    else {
+		if (logID != null)
+		    LogUtils
+			    .logTrace(
+				    ServiceBusImpl.moduleContext,
+				    ProcessResult.class,
+				    "checkEffects",
+				    new Object[] {
+					    ServiceBus.LOG_MATCHING_MISMATCH,
+					    "some effects are provided by the service, but the service request does not contain any effect.",
+					    logID }, null);
 		return false;
+	    }
+	}
+
+	if (offer == null || offer.length != req.length) {
+	    if (logID != null)
+		LogUtils
+			.logTrace(
+				ServiceBusImpl.moduleContext,
+				ProcessResult.class,
+				"checkEffects",
+				new Object[] {
+					ServiceBus.LOG_MATCHING_MISMATCH,
+					"the service request requires some effects, but the service does not offer them.",
+					logID }, null);
+	    return false;
+	}
+	
+	for (int i = 0; i < req.length; i++) {
+	    if (!ProcessEffect.findMatchingEffect(req[i], offer, context)) {
+		if (logID != null)
+		    LogUtils.logTrace(ServiceBusImpl.moduleContext,
+			    ProcessResult.class, "checkEffects", new Object[] {
+				    ServiceBus.LOG_MATCHING_MISMATCH,
+				    "the effect ", req[i],
+				    " is not offered by the service.", logID },
+			    null);
+		return false;
+	    }
 	}
 	return true;
     }
@@ -83,13 +141,48 @@ public class ProcessResult extends Resource {
      */
     public static boolean checkOutputBindings(Resource[] req, Resource[] offer,
 	    Hashtable context) {
+	return checkOutputBindings(req, offer, context, null);
+    }
+    
+    /**
+     * Verify that the output bindings of offers match the ones of requests
+     * according to the context
+     * 
+     * @param req
+     *            - a list of requests
+     * @param offer
+     *            - a list of offers
+     * @param context
+     *            - the context
+     * @param logID
+     *            - an id to be used for logging, may be null
+     * @return true iff the output bindings match
+     */
+    public static boolean checkOutputBindings(Resource[] req, Resource[] offer,
+	    Hashtable context, Long logID) {
+
 	if (req == null || req.length == 0)
 	    return true;
 	if (offer == null || offer.length == 0)
 	    return false;
 	for (int i = 0; i < req.length; i++) {
-	    if (!OutputBinding.findMatchingBinding(req[i], offer, context))
+	    if (!OutputBinding.findMatchingBinding(req[i], offer, context)) {
+		if (logID != null)
+		    LogUtils
+			    .logTrace(
+				    ServiceBusImpl.moduleContext,
+				    ProcessResult.class,
+				    "checkOutputBindings",
+				    new Object[] {
+					    ServiceBus.LOG_MATCHING_MISMATCH,
+					    "the output for ",
+					    ((ProcessOutput) req[i]
+						    .getProperty(OutputBinding.PROP_OWLS_BINDING_TO_PARAM))
+						    .getURI(),
+					    " is not offered by the service.",
+					    logID }, null);
 		return false;
+	    }
 	}
 	return true;
     }
