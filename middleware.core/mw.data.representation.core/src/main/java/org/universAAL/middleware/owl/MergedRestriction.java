@@ -326,8 +326,30 @@ public class MergedRestriction extends Intersection {
 			"Trying to add a restriction for a different property. All restrictions of a MergedRestriction must be defined for the same property.");
 
 	int max = getMaxCardinality();
-	if (max == 0 || getRestriction(hasValueID) != null)
+	if (max == 0) {
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "addRestriction",
+			    new String[] { "Can not add the PropertyRestriction ("
+				    + res.getType()
+				    + ") because the maximum cardinality is 0 (no additional restriction is allowed)." },
+			    null);
 	    return this;
+	}
+	if (getRestriction(hasValueID) != null) {
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "addRestriction",
+			    new String[] { "Can not add the PropertyRestriction ("
+				    + res.getType()
+				    + ") because a HasValueRestriction is already set (no additional restriction is allowed)." },
+			    null);
+	    return this;
+	}
 
 	// id points to the appropriate element in 'index' of the given
 	// Restriction
@@ -615,12 +637,38 @@ public class MergedRestriction extends Intersection {
      *         </ul>
      */
     public MergedRestriction appendTo(MergedRestriction root, String[] path) {
-	if (path == null || path.length == 0)
+	if (path == null || path.length == 0) {
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "appendTo",
+			    new String[] { "Not possible to append a restriction because the specified path is invalid: "
+				    + path == null ? "path is null."
+				    : "path is empty." }, null);
 	    return null;
-	if (getOnProperty() == null)
+	}
+	if (getOnProperty() == null) {
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "appendTo",
+			    new String[] { "Not possible to append a restriction because it does not define a property for which this restriction applies: the onProperty must be set." },
+			    null);
 	    return null;
-	if (!getOnProperty().equals(path[path.length - 1]))
+	}
+	if (!getOnProperty().equals(path[path.length - 1])) {
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "appendTo",
+			    new String[] { "Not possible to append a restriction because "
+				    + "the restriction is not defined for the property at the end of the property path: the onProperty value of the restriction must correspond to the last element of the property path." },
+			    null);
 	    return null;
+	}
 	if (path.length == 1)
 	    if (root == null) {
 		return this;
@@ -638,8 +686,20 @@ public class MergedRestriction extends Intersection {
 	} else {
 	    // just a test: are all restrictions in root defined for the correct
 	    // property?
-	    if (!root.getOnProperty().equals(path[0]))
+	    if (!root.getOnProperty().equals(path[0])) {
+		LogUtils
+			.logDebug(
+				SharedResources.moduleContext,
+				MergedRestriction.class,
+				"appendTo",
+				new String[] { "Not possible to append a new restriction to an existing restriction because "
+					+ "the existing restriction is defined for a different property than what is specified in the property path:\n"
+					+ "the existing restriction restriction is defined for property "
+					+ root.getOnProperty()
+					+ "\nand the property path starts with "
+					+ path[0] }, null);
 		return null;
+	    }
 	}
 
 	// get the AllValuesFromRestriction in root
@@ -650,6 +710,17 @@ public class MergedRestriction extends Intersection {
 	    tmp = new AllValuesFromRestriction();
 	    tmp.setOnProperty(path[0]);
 	    root.addRestriction(tmp);
+	}
+	tmp = root.getRestriction(allValuesFromID);
+	if (tmp == null) {
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "appendTo",
+			    new String[] { "The root object does not contain an AllValuesFromRestriction and it is not possible to add a new AllValuesFromRestriction. Maybe root already contains a different restriction that prevents the AllValuesFromRestriction from being added (e.g. a SomeValuesFromRestriction or a HasValueRestriction)." },
+			    null);
+	    return null;
 	}
 
 	// tmp is now the root AllValuesFromRestriction
