@@ -712,12 +712,15 @@ middleware.osgi.agg/mw.bus.model.osgi.agg/.project
 middleware.osgi.agg/mw.bus.model.osgi.agg/.settings
 middleware.osgi.agg/mw.bus.service.osgi.agg/.project
 middleware.osgi.agg/mw.bus.service.osgi.agg/.settings
+middleware.osgi.agg/mw.bus.service.osgi.agg/target
 middleware.osgi.agg/mw.bus.ui.osgi.agg/.project
 middleware.osgi.agg/mw.bus.ui.osgi.agg/.settings
 middleware.osgi.agg/mw.data.representation.osgi.agg/.project
 middleware.osgi.agg/mw.data.representation.osgi.agg/.settings
+middleware.osgi.agg/mw.data.representation.osgi.agg/target
 middleware.osgi.agg/mw.data.serialization.osgi.agg/.project
 middleware.osgi.agg/mw.data.serialization.osgi.agg/.settings
+middleware.osgi.agg/mw.data.serialization.osgi.agg/target
 middleware.osgi/.classpath
 middleware.osgi/.project
 middleware.osgi/.settings
