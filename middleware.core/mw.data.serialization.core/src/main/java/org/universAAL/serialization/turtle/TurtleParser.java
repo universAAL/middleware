@@ -253,36 +253,35 @@ public class TurtleParser implements MessageContentSerializerEx {
 	Hashtable openItems = new Hashtable();
 	Hashtable specializedResources = new Hashtable();
 
-	if (resources.size() != 0) {
-	    Object[] msgParts = new Object[2];
-	    msgParts[0] = "Parse Tables\n";
-	    String buf = "";
-	    for (Iterator i = resources.values().iterator(); i.hasNext();) {
-		aux = (Resource) i.next();
-		ParseData pd = (ParseData) parseTable.get(aux);
-		buf += "    Resource: " + aux.getURI() + (pd==null?" pd=null\n":"\n");
-		if (pd != null && pd.refs != null) {
-		    for (Iterator j = pd.refs.iterator(); j.hasNext();) {
-			RefData rd = (RefData) j.next();
-			buf += "          src:  " + rd.src + "\n";
-			buf += "          prop: " + rd.prop;
-			if (rd.l != null)
-			    buf += "   (List, index " + rd.i + ")";
-			buf += "\n";
-		    }
-		}
-	    }
-	    msgParts[1] = buf;
-	    LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
-		    "finalizeAndGetRoot", msgParts, null);
-	}
+	// some debug output
+//	if (resources.size() != 0) {
+//	    Object[] msgParts = new Object[2];
+//	    msgParts[0] = "Parse Tables\n";
+//	    String buf = "";
+//	    for (Iterator i = resources.values().iterator(); i.hasNext();) {
+//		aux = (Resource) i.next();
+//		ParseData pd = (ParseData) parseTable.get(aux);
+//		buf += "    Resource: " + aux.getURI() + (pd==null?" pd=null\n":"\n");
+//		if (pd != null && pd.refs != null) {
+//		    for (Iterator j = pd.refs.iterator(); j.hasNext();) {
+//			RefData rd = (RefData) j.next();
+//			buf += "          src:  " + rd.src + "\n";
+//			buf += "          prop: " + rd.prop;
+//			if (rd.l != null)
+//			    buf += "   (List, index " + rd.i + ")";
+//			buf += "\n";
+//		    }
+//		}
+//	    }
+//	    msgParts[1] = buf;
+//	    LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
+//		    "finalizeAndGetRoot", msgParts, null);
+//	}
 	
 	for (Iterator i = resources.values().iterator(); i.hasNext();) {
 	    aux = (Resource) i.next();
 	    i.remove();
 	    ParseData pd = (ParseData) parseTable.remove(aux);
-	    if ("http://ontology.igd.fhg.de/LightingServer.owl#lampURI".equals(aux.getURI()))
-		    System.out.println("");
 	    specialized = (aux.numberOfProperties() == 0) ? aux : specialize(
 		    aux, specializedResources, openItems);
 	    if (resourceURI != null)
@@ -320,7 +319,7 @@ public class TurtleParser implements MessageContentSerializerEx {
 		}
 	}
 
-	logOpenItems("Open Items:", openItems);
+	//logOpenItems("Open Items:", openItems);
 	
 	int size = Integer.MAX_VALUE;
 	while (!openItems.isEmpty() && size > openItems.size()) {
@@ -400,7 +399,6 @@ public class TurtleParser implements MessageContentSerializerEx {
     }
 
     private Resource getResource(String uri) {
-	System.out.print("-- getResource: " + uri);
 	Resource r;
 	if (uri == null) {
 	    r = new Resource();
@@ -417,10 +415,6 @@ public class TurtleParser implements MessageContentSerializerEx {
 		resources.put(uri, r);
 	    }
 	}
-	if (!r.getURI().equals(uri))
-	    System.out.println("  -->  " + r.getURI());
-	else
-	    System.out.println("");
 	return r;
     }
 
