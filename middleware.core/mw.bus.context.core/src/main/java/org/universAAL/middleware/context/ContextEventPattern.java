@@ -27,6 +27,7 @@ import java.util.List;
 import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -41,7 +42,7 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * 
  */
-public class ContextEventPattern extends Resource {
+public class ContextEventPattern extends FinalizedResource {
     public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE
 	    + "ContextEventPattern";
 

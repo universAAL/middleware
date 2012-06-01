@@ -23,6 +23,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
 
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
@@ -49,7 +50,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  *         Tazari</a>
  * @author cstockloew
  */
-public abstract class ManagedIndividual extends Resource {
+public abstract class ManagedIndividual extends FinalizedResource {
 
     /** URI namespace for OWL. */
     public static final String OWL_NAMESPACE = "http://www.w3.org/2002/07/owl#";

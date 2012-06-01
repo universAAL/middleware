@@ -25,6 +25,7 @@ import java.util.Locale;
 
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.owl.supply.LevelRating;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.owl.AccessImpairment;
 import org.universAAL.middleware.ui.owl.DialogType;
@@ -44,7 +45,7 @@ import org.universAAL.middleware.ui.rdf.Form;
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class UIRequest extends Resource {
+public class UIRequest extends FinalizedResource {
 
     /** The Constant uAAL_UI_NAMESPACE. */
     public static final String uAAL_UI_NAMESPACE = uAAL_NAMESPACE_PREFIX

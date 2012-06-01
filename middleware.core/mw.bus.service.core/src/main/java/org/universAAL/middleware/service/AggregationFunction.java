@@ -20,6 +20,7 @@
 package org.universAAL.middleware.service;
 
 import org.universAAL.middleware.owl.supply.AbsLocation;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 
@@ -31,7 +32,7 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * 
  */
-public class AggregationFunction extends Resource {
+public class AggregationFunction extends FinalizedResource {
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "AggregationFunction";
 

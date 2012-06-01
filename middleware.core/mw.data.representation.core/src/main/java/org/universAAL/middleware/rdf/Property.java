@@ -40,7 +40,7 @@ import org.universAAL.middleware.owl.Ontology;
  * @see org.universAAL.middleware.rdf.PropertySetup
  */
 
-public abstract class Property extends Resource {
+public abstract class Property extends FinalizedResource {
 
     /**
      * URI of rdfs:domain that is used to state that any resource that has a

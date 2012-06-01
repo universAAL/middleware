@@ -24,8 +24,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
-import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
@@ -40,7 +40,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @navassoc - "label" 1 Label
  * @navassoc - "parentGroup" 1 Group
  */
-public abstract class FormControl extends Resource {
+public abstract class FormControl extends FinalizedResource {
 
     /**
      * Form controls may have a {@link Label}.

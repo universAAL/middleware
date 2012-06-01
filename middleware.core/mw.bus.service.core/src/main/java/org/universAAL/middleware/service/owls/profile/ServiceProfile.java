@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.TypeURI;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.owl.Service;
@@ -55,7 +56,7 @@ import org.universAAL.middleware.service.owls.process.ProcessResult;
  *         Tazari</a>
  * 
  */
-public class ServiceProfile extends Resource {
+public class ServiceProfile extends FinalizedResource {
     public static final String OWLS_PROFILE_NAMESPACE = Service.OWLS_NAMESPACE_PREFIX
 	    + "Profile.owl#";
     public static final String MY_URI = OWLS_PROFILE_NAMESPACE + "Profile";

@@ -25,6 +25,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.ui.owl.DialogType;
@@ -110,7 +111,7 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * @navassoc - "IOControlls\n Submits\n StandardButtons" - Group
  * @navassoc - "parentDialog" 1 Form
  */
-public class Form extends Resource {
+public class Form extends FinalizedResource {
     public static final String uAAL_DIALOG_NAMESPACE = uAAL_NAMESPACE_PREFIX
 	    + "Dialog.owl#";
     public static final String MY_URI = uAAL_DIALOG_NAMESPACE + "Form";

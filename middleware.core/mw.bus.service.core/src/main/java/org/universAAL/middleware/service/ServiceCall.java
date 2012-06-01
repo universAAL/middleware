@@ -24,6 +24,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
@@ -43,7 +44,7 @@ import org.universAAL.middleware.service.owls.process.ProcessInput;
  *         Tazari</a>
  * 
  */
-public class ServiceCall extends Resource {
+public class ServiceCall extends FinalizedResource {
 
     /**
      * A resource URI that specifies the resource as a service call.

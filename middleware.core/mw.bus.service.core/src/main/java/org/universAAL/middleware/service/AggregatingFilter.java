@@ -22,6 +22,7 @@ package org.universAAL.middleware.service;
 import java.util.List;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 
@@ -33,7 +34,7 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * 
  */
-public class AggregatingFilter extends Resource {
+public class AggregatingFilter extends FinalizedResource {
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "AggregatingFilter";
 

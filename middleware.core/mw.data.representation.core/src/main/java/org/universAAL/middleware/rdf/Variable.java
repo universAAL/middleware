@@ -29,7 +29,7 @@ import java.util.Hashtable;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public abstract class Variable extends Resource {
+public abstract class Variable extends FinalizedResource {
 
     // URIs of standard variables managed by the uAAL middleware
     /**

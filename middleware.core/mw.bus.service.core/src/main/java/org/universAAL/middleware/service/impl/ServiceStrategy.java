@@ -32,6 +32,7 @@ import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.rdf.UnmodifiableResource;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.AggregationFunction;
 import org.universAAL.middleware.service.AvailabilitySubscriber;
@@ -1146,7 +1147,7 @@ public class ServiceStrategy extends BusStrategy {
 				.getId());
 			LogUtils.logTrace(ServiceBusImpl.moduleContext,
 				ServiceStrategy.class, "handle", new Object[] {
-					ServiceBus.LOG_MATCHING_START, request,
+					ServiceBus.LOG_MATCHING_START, new UnmodifiableResource(request),
 					" ", logID }, null);
 			for (Iterator i = v.iterator(); i.hasNext();) {
 			    ServiceRealization sr = (ServiceRealization) i

@@ -43,7 +43,7 @@ import org.universAAL.middleware.owl.OntologyManagement;
  * @see org.universAAL.middleware.owl.OntClassInfo
  * @see org.universAAL.middleware.owl.OntClassInfoSetup
  */
-public class RDFClassInfo extends Resource {
+public class RDFClassInfo extends FinalizedResource {
 
     /**
      * The set of URIs of all super classes.
