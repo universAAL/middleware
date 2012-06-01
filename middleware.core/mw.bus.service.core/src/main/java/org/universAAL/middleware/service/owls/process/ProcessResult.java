@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.TypeURI;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
@@ -39,7 +40,7 @@ import org.universAAL.middleware.service.impl.ServiceBusImpl;
  *         Tazari</a>
  * 
  */
-public class ProcessResult extends Resource {
+public class ProcessResult extends FinalizedResource {
     public static final String PROP_OWLS_RESULT_HAS_EFFECT = ProcessOutput.OWLS_PROCESS_NAMESPACE
 	    + "hasEffect";
     public static final String PROP_OWLS_RESULT_WITH_OUTPUT = ProcessOutput.OWLS_PROCESS_NAMESPACE
@@ -163,8 +164,19 @@ public class ProcessResult extends Resource {
 
 	if (req == null || req.length == 0)
 	    return true;
-	if (offer == null || offer.length == 0)
+	if (offer == null || offer.length == 0) {
+	    if (logID != null)
+		LogUtils
+			.logTrace(
+				ServiceBusImpl.moduleContext,
+				ProcessResult.class,
+				"checkOutputBindings",
+				new Object[] {
+					ServiceBus.LOG_MATCHING_MISMATCH,
+					"some outputs are required by the request but are not provided by the service.",
+					logID }, null);
 	    return false;
+	}
 	for (int i = 0; i < req.length; i++) {
 	    if (!OutputBinding.findMatchingBinding(req[i], offer, context)) {
 		if (logID != null)

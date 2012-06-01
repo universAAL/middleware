@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.service;
 
-import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.FinalizedResource;
 
 /**
  * The CallStatus simply describes the possible status of the services. The
@@ -30,7 +30,7 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * 
  */
-public class CallStatus extends Resource {
+public class CallStatus extends FinalizedResource {
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "CallStatus";
 

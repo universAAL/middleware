@@ -29,6 +29,7 @@ import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.Intersection;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.supply.Rating;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceCall;
@@ -54,7 +55,7 @@ import org.universAAL.middleware.util.RatingAggregator;
  *         Tazari</a>
  * 
  */
-public class ServiceRealization extends Resource {
+public class ServiceRealization extends FinalizedResource {
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "ServiceRealization";
 

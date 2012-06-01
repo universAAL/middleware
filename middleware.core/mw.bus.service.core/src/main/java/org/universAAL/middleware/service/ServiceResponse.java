@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
@@ -36,7 +37,7 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  */
-public class ServiceResponse extends Resource {
+public class ServiceResponse extends FinalizedResource {
 
     /**
      * A resource URI that specifies the resource as a service response.

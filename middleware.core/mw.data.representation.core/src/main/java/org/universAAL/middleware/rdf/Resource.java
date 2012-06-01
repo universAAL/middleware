@@ -362,7 +362,7 @@ public class Resource {
      * @param blockFurtherTypes
      *            If true, no further types can be added.
      */
-    public final void addType(String typeURI, boolean blockFurtherTypes) {
+    public void addType(String typeURI, boolean blockFurtherTypes) {
 	if (!this.blockAddingTypes) {
 	    if (typeURI != null) {
 		Object o = props.get(PROP_RDF_TYPE);
@@ -530,7 +530,7 @@ public class Resource {
      * 
      * @see #getNamespace()
      */
-    public final String getLocalName() {
+    public String getLocalName() {
 	return (ns_delim_index < 0) ? null : uri.substring(ns_delim_index + 1);
     }
 
@@ -540,18 +540,18 @@ public class Resource {
      * 
      * @see #getLocalName()
      */
-    public final String getNamespace() {
+    public String getNamespace() {
 	return (ns_delim_index < 0) ? null : uri.substring(0,
 		ns_delim_index + 1);
     }
 
     /** Get the RDF object for a specified property. */
-    public final Object getProperty(String propURI) {
+    public Object getProperty(String propURI) {
 	return props.get(propURI);
     }
 
     /** Get all properties, i.e. all RDF predicates for this Resource. */
-    public final Enumeration getPropertyURIs() {
+    public Enumeration getPropertyURIs() {
 	return props.keys();
     }
 
@@ -606,7 +606,7 @@ public class Resource {
      * Returns the URI of the first type added to the list of types of this
      * resource.
      */
-    public final String getType() {
+    public String getType() {
 	Object o = props.get(PROP_RDF_TYPE);
 	if (o instanceof List)
 	    if (((List) o).isEmpty())
@@ -622,7 +622,7 @@ public class Resource {
     /**
      * Returns the URIs of all known types of this resource.
      */
-    public final String[] getTypes() {
+    public String[] getTypes() {
 	Object o = props.get(PROP_RDF_TYPE);
 	if (o instanceof List) {
 	    String[] types = new String[((List) o).size()];
@@ -636,7 +636,7 @@ public class Resource {
     }
 
     /** Get the URI. */
-    public final String getURI() {
+    public String getURI() {
 	return uri;
     }
 
@@ -654,12 +654,12 @@ public class Resource {
      * Determines if this Resource has a qualified, i.e. the URI has a delimiter
      * ('#').
      */
-    public final boolean hasQualifiedName() {
+    public boolean hasQualifiedName() {
 	return ns_delim_index >= 0;
     }
 
     /** Determines if this Resource has an anonymous URI. */
-    public final boolean isAnon() {
+    public boolean isAnon() {
 	return uri.startsWith(ANON_URI_PREFIX);
     }
 
@@ -693,7 +693,7 @@ public class Resource {
      * Returns the number of properties, i.e. the number of RDF predicates for
      * this Resource.
      */
-    public final int numberOfProperties() {
+    public int numberOfProperties() {
 	return props.size();
     }
 

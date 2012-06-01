@@ -21,6 +21,7 @@ package org.universAAL.middleware.context;
 
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -35,7 +36,7 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * 
  */
-public class ContextEvent extends Resource {
+public class ContextEvent extends FinalizedResource {
     public static final String uAAL_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX
 	    + "Context.owl#";
 

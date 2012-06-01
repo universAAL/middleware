@@ -20,6 +20,7 @@
 package org.universAAL.middleware.ui;
 
 import org.universAAL.middleware.owl.supply.AbsLocation;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.rdf.Form;
 import org.universAAL.middleware.ui.rdf.SubdialogTrigger;
@@ -31,7 +32,7 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class UIResponse extends Resource {
+public class UIResponse extends FinalizedResource {
 
     /** The Constant MY_URI. */
     public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE

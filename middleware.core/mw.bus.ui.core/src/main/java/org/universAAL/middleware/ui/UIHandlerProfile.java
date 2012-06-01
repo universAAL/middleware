@@ -25,7 +25,7 @@ import java.util.List;
 
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.MergedRestriction;
-import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.ui.owl.Modality;
 
 /**
@@ -34,7 +34,7 @@ import org.universAAL.middleware.ui.owl.Modality;
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class UIHandlerProfile extends Resource {
+public class UIHandlerProfile extends FinalizedResource {
 
     /** The Constant MY_URI. */
     public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE

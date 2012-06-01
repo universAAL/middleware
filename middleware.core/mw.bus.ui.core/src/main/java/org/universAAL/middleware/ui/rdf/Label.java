@@ -20,7 +20,7 @@
 package org.universAAL.middleware.ui.rdf;
 
 import org.universAAL.middleware.container.utils.StringUtils;
-import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.FinalizedResource;
 
 /**
  * The type of possible values for {@link FormControl#PROP_CONTROL_LABEL}. A
@@ -36,7 +36,7 @@ import org.universAAL.middleware.rdf.Resource;
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class Label extends Resource {
+public class Label extends FinalizedResource {
     public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Label";
 
     /**

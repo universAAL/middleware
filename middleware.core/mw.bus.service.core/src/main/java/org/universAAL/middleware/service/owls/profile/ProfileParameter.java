@@ -22,6 +22,7 @@ package org.universAAL.middleware.service.owls.profile;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
@@ -49,7 +50,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  *         Tazari</a>
  * 
  */
-public abstract class ProfileParameter extends Resource {
+public abstract class ProfileParameter extends FinalizedResource {
     public static final String MY_URI = ServiceProfile.OWLS_PROFILE_NAMESPACE
 	    + "ServiceParameter";
     public static final String PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME = ServiceProfile.OWLS_PROFILE_NAMESPACE
