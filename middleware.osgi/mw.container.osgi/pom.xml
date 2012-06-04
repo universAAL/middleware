@@ -118,6 +118,12 @@
 					<version>0.2.2</version>
 					<scope>provided</scope>
 				</dependency>
+				<dependency>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>org.apache.felix.bundlerepository</artifactId>
+					<version>1.4.2</version>
+					<scope>provided</scope>
+				</dependency>
 			</dependencies>
 		</profile>
 	</profiles>
