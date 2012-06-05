@@ -100,19 +100,35 @@ public class ProcessResult extends FinalizedResource {
 	}
 
 	if (offer == null || offer.length != req.length) {
-	    if (logID != null)
-		LogUtils
-			.logTrace(
-				ServiceBusImpl.moduleContext,
-				ProcessResult.class,
-				"checkEffects",
-				new Object[] {
-					ServiceBus.LOG_MATCHING_MISMATCH,
-					"the service request requires some effects, but the service does not offer them.",
-					logID }, null);
+	    // TODO: is the number of effects really a good criteria?
+	    if (logID != null) {
+		if (offer == null)
+		    LogUtils
+			    .logTrace(
+				    ServiceBusImpl.moduleContext,
+				    ProcessResult.class,
+				    "checkEffects",
+				    new Object[] {
+					    ServiceBus.LOG_MATCHING_MISMATCH,
+					    "the service request requires some effects, but the service does not offer any effects.",
+					    logID }, null);
+		else
+		    LogUtils
+			    .logTrace(
+				    ServiceBusImpl.moduleContext,
+				    ProcessResult.class,
+				    "checkEffects",
+				    new Object[] {
+					    ServiceBus.LOG_MATCHING_MISMATCH,
+					    "the service request requires some effects, but the service does not offer these effects. The criteria for a match is the number of effects: the request requires ",
+					    Integer.valueOf(req.length),
+					    " effects and the service offers ",
+					    Integer.valueOf(offer.length),
+					    " effects.", logID }, null);
+	    }
 	    return false;
 	}
-	
+
 	for (int i = 0; i < req.length; i++) {
 	    if (!ProcessEffect.findMatchingEffect(req[i], offer, context)) {
 		if (logID != null)
@@ -203,7 +219,7 @@ public class ProcessResult extends FinalizedResource {
      * Create an instance of ProcessResult from a resource passed as a parameter
      * 
      * @param pr
-     *            - a resource reprenting process result
+     *            - a resource representing process result
      * @return - the created instance of ProcessResult
      */
     public static ProcessResult toResult(Resource pr) {
