@@ -412,4 +412,8 @@ public class UnmodifiableResource extends Resource {
     public final String[] getTypes() {
 	return res.getTypes();
     }
+    
+    public final Class getClassOfUnmodifiable() {
+	return res.getClass();
+    }
 }
