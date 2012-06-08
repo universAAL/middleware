@@ -28,6 +28,7 @@ import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.UnmodifiableResource;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
@@ -195,7 +196,8 @@ public class ProcessResult extends FinalizedResource {
 	}
 	for (int i = 0; i < req.length; i++) {
 	    if (!OutputBinding.findMatchingBinding(req[i], offer, context)) {
-		if (logID != null)
+		if (logID != null) {
+		    System.out.println("-- ProcessResult: " + req[i].getURI());
 		    LogUtils
 			    .logTrace(
 				    ServiceBusImpl.moduleContext,
@@ -208,8 +210,10 @@ public class ProcessResult extends FinalizedResource {
 						    .getProperty(OutputBinding.PROP_OWLS_BINDING_TO_PARAM))
 						    .getURI(),
 					    " is not offered by the service.",
+					    Integer.valueOf(i),
 					    logID }, null);
 		return false;
+		}
 	    }
 	}
 	return true;

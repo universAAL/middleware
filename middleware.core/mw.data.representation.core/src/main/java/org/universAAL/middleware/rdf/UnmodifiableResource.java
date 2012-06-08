@@ -298,6 +298,10 @@ public class UnmodifiableResource extends Resource {
     }
 
     public boolean equals(Object other) {
+	if (this == other)
+	    return true;
+	if (getURI().equals(((Resource) other).getURI()))
+	    return true;
 	return res.equals(other);
     }
 
@@ -412,7 +416,7 @@ public class UnmodifiableResource extends Resource {
     public final String[] getTypes() {
 	return res.getTypes();
     }
-    
+
     public final Class getClassOfUnmodifiable() {
 	return res.getClass();
     }
