@@ -197,7 +197,7 @@ public class ProcessResult extends FinalizedResource {
 	for (int i = 0; i < req.length; i++) {
 	    if (!OutputBinding.findMatchingBinding(req[i], offer, context)) {
 		if (logID != null) {
-		    System.out.println("-- ProcessResult: " + req[i].getURI());
+		    //System.out.println("-- ProcessResult: " + req[i].getURI());
 		    LogUtils
 			    .logTrace(
 				    ServiceBusImpl.moduleContext,
