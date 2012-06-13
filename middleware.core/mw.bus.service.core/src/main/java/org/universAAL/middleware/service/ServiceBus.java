@@ -47,8 +47,10 @@ public interface ServiceBus {
     public static final String LOG_MATCHING_SUCCESS = "successful ";
     public static final String LOG_MATCHING_NOSUCCESS = "not successful ";
     public static final String LOG_MATCHING_END = "Matching done.";
+    
     public static final String LOG_MATCHING_MISMATCH = "Mismatch detected: ";
-
+    public static final String LOG_MATCHING_MISMATCH_CODE = "\nmismatch code: ";
+    public static final String LOG_MATCHING_MISMATCH_DETAILS = "\ndetailed mismatch message: ";
 
 
     /**
