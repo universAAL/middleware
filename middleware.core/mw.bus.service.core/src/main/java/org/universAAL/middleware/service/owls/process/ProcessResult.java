@@ -28,7 +28,6 @@ import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.UnmodifiableResource;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
@@ -94,6 +93,12 @@ public class ProcessResult extends FinalizedResource {
 				    "checkEffects",
 				    new Object[] {
 					    ServiceBus.LOG_MATCHING_MISMATCH,
+					    "offered effect not requested",
+					    "\nnumber of offered effects: ",
+					    Integer.valueOf(offer.length),
+					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+					    Integer.valueOf(1010),
+					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
 					    "some effects are provided by the service, but the service request does not contain any effect.",
 					    logID }, null);
 		return false;
@@ -101,7 +106,6 @@ public class ProcessResult extends FinalizedResource {
 	}
 
 	if (offer == null || offer.length != req.length) {
-	    // TODO: is the number of effects really a good criteria?
 	    if (logID != null) {
 		if (offer == null)
 		    LogUtils
@@ -111,6 +115,12 @@ public class ProcessResult extends FinalizedResource {
 				    "checkEffects",
 				    new Object[] {
 					    ServiceBus.LOG_MATCHING_MISMATCH,
+					    "requested effect not offered",
+					    "\nnumber of requested effects: ",
+					    Integer.valueOf(req.length),
+					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+					    Integer.valueOf(1011),
+					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
 					    "the service request requires some effects, but the service does not offer any effects.",
 					    logID }, null);
 		else
@@ -121,11 +131,16 @@ public class ProcessResult extends FinalizedResource {
 				    "checkEffects",
 				    new Object[] {
 					    ServiceBus.LOG_MATCHING_MISMATCH,
-					    "the service request requires some effects, but the service does not offer these effects. The criteria for a match is the number of effects: the request requires ",
+					    "number of effects do not match",
+					    "\nnumber of requested effects: ",
 					    Integer.valueOf(req.length),
-					    " effects and the service offers ",
+					    "\nnumber of offered effects: ",
 					    Integer.valueOf(offer.length),
-					    " effects.", logID }, null);
+					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+					    Integer.valueOf(1012),
+					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+					    "the service request requires some effects, but the service does not offer these effects. The criteria for a match is the number of effects.",
+					    logID }, null);
 	    }
 	    return false;
 	}
@@ -133,12 +148,21 @@ public class ProcessResult extends FinalizedResource {
 	for (int i = 0; i < req.length; i++) {
 	    if (!ProcessEffect.findMatchingEffect(req[i], offer, context)) {
 		if (logID != null)
-		    LogUtils.logTrace(ServiceBusImpl.moduleContext,
-			    ProcessResult.class, "checkEffects", new Object[] {
-				    ServiceBus.LOG_MATCHING_MISMATCH,
-				    "the effect ", req[i],
-				    " is not offered by the service.", logID },
-			    null);
+		    LogUtils
+			    .logTrace(
+				    ServiceBusImpl.moduleContext,
+				    ProcessResult.class,
+				    "checkEffects",
+				    new Object[] {
+					    ServiceBus.LOG_MATCHING_MISMATCH,
+					    "requested effect not offered",
+					    "\nrequested effect: ",
+					    req[i],
+					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+					    Integer.valueOf(1013),
+					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+					    "at least one of the requested effects is not offered by the service.",
+					    logID }, null);
 		return false;
 	    }
 	}
@@ -161,7 +185,7 @@ public class ProcessResult extends FinalizedResource {
 	    Hashtable context) {
 	return checkOutputBindings(req, offer, context, null);
     }
-    
+
     /**
      * Verify that the output bindings of offers match the ones of requests
      * according to the context
@@ -190,14 +214,19 @@ public class ProcessResult extends FinalizedResource {
 				"checkOutputBindings",
 				new Object[] {
 					ServiceBus.LOG_MATCHING_MISMATCH,
-					"some outputs are required by the request but are not provided by the service.",
+					"requested output not available",
+					"\nnumber of requested outputs: ",
+					Integer.valueOf(req.length),
+					ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+					Integer.valueOf(1000),
+					ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+					"some outputs are required by the service request but the service does not provide any outputs.",
 					logID }, null);
 	    return false;
 	}
 	for (int i = 0; i < req.length; i++) {
 	    if (!OutputBinding.findMatchingBinding(req[i], offer, context)) {
 		if (logID != null) {
-		    //System.out.println("-- ProcessResult: " + req[i].getURI());
 		    LogUtils
 			    .logTrace(
 				    ServiceBusImpl.moduleContext,
@@ -205,14 +234,19 @@ public class ProcessResult extends FinalizedResource {
 				    "checkOutputBindings",
 				    new Object[] {
 					    ServiceBus.LOG_MATCHING_MISMATCH,
-					    "the output for ",
+					    "requested output not available",
+					    "\nrequested output is bound to parameter: ",
 					    ((ProcessOutput) req[i]
 						    .getProperty(OutputBinding.PROP_OWLS_BINDING_TO_PARAM))
 						    .getURI(),
-					    " is not offered by the service.",
+					    "\nindex of requested output: ",
 					    Integer.valueOf(i),
+					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+					    Integer.valueOf(1001),
+					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+					    "an output is required by the service request but the service does not provide this specific output.",
 					    logID }, null);
-		return false;
+		    return false;
 		}
 	    }
 	}
@@ -271,13 +305,12 @@ public class ProcessResult extends FinalizedResource {
 	super();
 	addType(MY_URI, true);
     }
-    
+
     public ProcessResult(String uri) {
 	super(uri);
 	addType(MY_URI, true);
     }
 
-    
     public void setProperty(String propURI, Object value) {
 	// TODO: duplicate code with toResult
 	if (PROP_OWLS_RESULT_HAS_EFFECT.equals(propURI)) {
@@ -312,8 +345,7 @@ public class ProcessResult extends FinalizedResource {
 	    super.setProperty(PROP_OWLS_RESULT_WITH_OUTPUT, value);
 	}
     }
-    
-    
+
     /**
      * Add "add" process effect with property path and value passed as
      * parameters
