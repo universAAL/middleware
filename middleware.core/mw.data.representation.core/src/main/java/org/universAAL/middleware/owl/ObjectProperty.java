@@ -37,7 +37,7 @@ import org.universAAL.middleware.rdf.Property;
 public final class ObjectProperty extends Property {
 
     /** The URI of this class. */
-    public static final String MY_URI = ClassExpression.OWL_NAMESPACE
+    public static final String MY_URI = TypeExpression.OWL_NAMESPACE
 	    + "ObjectProperty";
 
     /** Determines whether this property is inverse-functional. */

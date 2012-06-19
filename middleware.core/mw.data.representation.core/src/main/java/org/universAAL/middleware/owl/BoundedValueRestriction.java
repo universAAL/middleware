@@ -112,9 +112,9 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     /**
      * Helper method to copy Restrictions.
      * 
-     * @see org.universAAL.middleware.owl.ClassExpression#copy()
+     * @see org.universAAL.middleware.owl.TypeExpression#copy()
      */
-    protected ClassExpression copyTo(BoundedValueRestriction copy) {
+    protected TypeExpression copyTo(BoundedValueRestriction copy) {
 	copy.setFacets(min, minInclusive, max, maxInclusive);
 	return copy;
     }
@@ -244,7 +244,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
      *      Hashtable)
      */
     public boolean hasMember(Object member, Hashtable context) {
@@ -408,10 +408,10 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
      *      Hashtable)
      */
-    public boolean isDisjointWith(ClassExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
 	if (other instanceof BoundedValueRestriction) {
 
 	    boolean min1Incl = minInclusive;
@@ -438,16 +438,16 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return restrictions.size() > 0;
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
      *      Hashtable)
      */
-    public boolean matches(ClassExpression subset, Hashtable context) {
+    public boolean matches(TypeExpression subset, Hashtable context) {
 	// TODO: check other ClassExpressions (e.g. Union..)
 
 	if (subset instanceof BoundedValueRestriction) {

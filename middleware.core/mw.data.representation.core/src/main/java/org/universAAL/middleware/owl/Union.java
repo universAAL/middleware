@@ -33,7 +33,7 @@ import java.util.List;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class Union extends ClassExpression {
+public class Union extends TypeExpression {
 
     /** URI for owl:unionOf . */
     public static final String PROP_OWL_UNION_OF;
@@ -59,25 +59,25 @@ public class Union extends ClassExpression {
      * @param type
      *            The class expression to add.
      */
-    public void addType(ClassExpression type) {
+    public void addType(TypeExpression type) {
 	if (type != null && !(type instanceof Union))
 	    types.add(type);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
-    public ClassExpression copy() {
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    public TypeExpression copy() {
 	Union result = new Union();
 	for (Iterator i = types.iterator(); i.hasNext();)
-	    result.types.add(((ClassExpression) i.next()).copy());
+	    result.types.add(((TypeExpression) i.next()).copy());
 	return result;
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
     public String[] getNamedSuperclasses() {
 	ArrayList l = new ArrayList();
 	String[] tmp;
 	for (Iterator i = types.iterator(); i.hasNext();) {
-	    tmp = ((ClassExpression) i.next()).getNamedSuperclasses();
+	    tmp = ((TypeExpression) i.next()).getNamedSuperclasses();
 	    if (tmp != null)
 		for (int j = 0; j < tmp.length; j++)
 		    collectTypesMinimized(tmp[j], l);
@@ -85,12 +85,12 @@ public class Union extends ClassExpression {
 	return (String[]) l.toArray(new String[l.size()]);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
     public Object[] getUpperEnumeration() {
 	ArrayList l = new ArrayList();
 	Object[] tmp;
 	for (Iterator i = types.iterator(); i.hasNext();) {
-	    tmp = ((ClassExpression) i.next()).getUpperEnumeration();
+	    tmp = ((TypeExpression) i.next()).getUpperEnumeration();
 	    if (tmp.length == 0)
 		return new Object[0];
 	    for (int j = 0; j < tmp.length; j++)
@@ -101,21 +101,21 @@ public class Union extends ClassExpression {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
      *      Hashtable)
      */
     public boolean hasMember(Object value, Hashtable context) {
 	for (Iterator i = types.iterator(); i.hasNext();)
-	    if (((ClassExpression) i.next()).hasMember(value, context))
+	    if (((TypeExpression) i.next()).hasMember(value, context))
 		return true;
 	return false;
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
      *      Hashtable)
      */
-    public boolean matches(ClassExpression subtype, Hashtable context) {
+    public boolean matches(TypeExpression subtype, Hashtable context) {
 	// first handle those cases that can be handled specifically
 	if (subtype instanceof Enumeration) {
 	    ((Enumeration) subtype).hasSupertype(this, context);
@@ -125,7 +125,7 @@ public class Union extends ClassExpression {
 	    Hashtable cloned = (context == null) ? null : (Hashtable) context
 		    .clone();
 	    for (Iterator i = ((Union) subtype).types(); i.hasNext();)
-		if (!matches((ClassExpression) i.next(), cloned))
+		if (!matches((TypeExpression) i.next(), cloned))
 		    return false;
 	    synchronize(context, cloned);
 	    return true;
@@ -133,7 +133,7 @@ public class Union extends ClassExpression {
 
 	if (subtype instanceof Intersection) {
 	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();)
-		if (matches((ClassExpression) i.next(), context))
+		if (matches((TypeExpression) i.next(), context))
 		    return true;
 	    // TODO: there is still a chance to return true...
 	    // now fall through to the general cases below to have more chance
@@ -154,7 +154,7 @@ public class Union extends ClassExpression {
 	// for all other cases, it's enough if one of the classes in the union
 	// is a superclass
 	for (Iterator i = types.iterator(); i.hasNext();)
-	    if (((ClassExpression) i.next()).matches(subtype, context))
+	    if (((TypeExpression) i.next()).matches(subtype, context))
 		return true;
 	// TODO: the case, where the whole union is really the supertype
 	// of a complement, an intersection, a TypeURI, or a Restriction
@@ -163,20 +163,20 @@ public class Union extends ClassExpression {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
      *      Hashtable)
      */
-    public boolean isDisjointWith(ClassExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
 	Hashtable cloned = (context == null) ? null : (Hashtable) context
 		.clone();
 	for (Iterator i = types(); i.hasNext();)
-	    if (!((ClassExpression) i.next()).isDisjointWith(other, cloned))
+	    if (!((TypeExpression) i.next()).isDisjointWith(other, cloned))
 		return false;
 	synchronize(context, cloned);
 	return true;
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return types.size() > 1;
     }
@@ -189,8 +189,8 @@ public class Union extends ClassExpression {
 		    Object tmp = TypeURI.asTypeURI(o);
 		    if (tmp != null)
 			o = tmp;
-		    if (o instanceof ClassExpression)
-			addType((ClassExpression) o);
+		    if (o instanceof TypeExpression)
+			addType((TypeExpression) o);
 		    else {
 			types.clear();
 			break;
@@ -200,8 +200,8 @@ public class Union extends ClassExpression {
 		Object tmp = TypeURI.asTypeURI(o);
 		if (tmp != null)
 		    o = tmp;
-		if (o instanceof ClassExpression)
-		    addType((ClassExpression) o);
+		if (o instanceof TypeExpression)
+		    addType((TypeExpression) o);
 	    }
     }
 

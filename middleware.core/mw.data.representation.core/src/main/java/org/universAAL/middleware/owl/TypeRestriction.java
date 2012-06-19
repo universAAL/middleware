@@ -41,7 +41,7 @@ import org.universAAL.middleware.rdf.Resource;
  * 			Base64BinaryRestriction
  * 			...
  */
-public abstract class TypeRestriction extends ClassExpression {
+public abstract class TypeRestriction extends TypeExpression {
 
     public static final String PROP_OWL_ON_DATATYPE;
     public static final String PROP_OWL_WITH_RESTRICTIONS;
@@ -93,12 +93,12 @@ public abstract class TypeRestriction extends ClassExpression {
 	restrictions.add(r);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
     public String[] getNamedSuperclasses() {
 	return new String[0];
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
     public Object[] getUpperEnumeration() {
 	return new Object[0];
     }

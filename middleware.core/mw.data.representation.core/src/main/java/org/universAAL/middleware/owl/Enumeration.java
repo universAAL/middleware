@@ -34,7 +34,7 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class Enumeration extends ClassExpression {
+public class Enumeration extends TypeExpression {
 
     /** URI for owl:oneOf. */
     public static final String PROP_OWL_ONE_OF;
@@ -90,8 +90,8 @@ public class Enumeration extends ClassExpression {
 	}
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
-    public ClassExpression copy() {
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    public TypeExpression copy() {
 	Enumeration result = new Enumeration();
 	for (Iterator i = values.iterator(); i.hasNext();)
 	    result.values.add(i.next());
@@ -144,7 +144,7 @@ public class Enumeration extends ClassExpression {
 	}
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
     public String[] getNamedSuperclasses() {
 	ArrayList l = new ArrayList();
 	for (Iterator i = values.iterator(); i.hasNext();)
@@ -152,7 +152,7 @@ public class Enumeration extends ClassExpression {
 	return (String[]) l.toArray(new String[l.size()]);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
     public Object[] getUpperEnumeration() {
 	Object[] answer = new Object[values.size()];
 	for (int i = 0; i < values.size(); i++)
@@ -161,7 +161,7 @@ public class Enumeration extends ClassExpression {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
      *      Hashtable)
      */
     public boolean hasMember(Object value, Hashtable context) {
@@ -172,10 +172,10 @@ public class Enumeration extends ClassExpression {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
      *      Hashtable)
      */
-    public boolean matches(ClassExpression subtype, Hashtable context) {
+    public boolean matches(TypeExpression subtype, Hashtable context) {
 	if (subtype == null)
 	    return false;
 
@@ -185,13 +185,13 @@ public class Enumeration extends ClassExpression {
 
 	if (subtype instanceof Union) {
 	    for (Iterator i = ((Union) subtype).types(); i.hasNext();) {
-		if (!matches((ClassExpression) i.next(), context))
+		if (!matches((TypeExpression) i.next(), context))
 		    return false;
 	    }
 	    return true;
 	} else if (subtype instanceof Intersection) {
 	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();) {
-		if (matches((ClassExpression) i.next(), context))
+		if (matches((TypeExpression) i.next(), context))
 		    return true;
 	    }
 	    // TODO: there is still a chance to return true...
@@ -215,7 +215,7 @@ public class Enumeration extends ClassExpression {
      * Determines if for all individuals of this Enumeration there is a member
      * in <code>supertype</code>.
      */
-    public boolean hasSupertype(ClassExpression supertype, Hashtable context) {
+    public boolean hasSupertype(TypeExpression supertype, Hashtable context) {
 	if (supertype == null)
 	    return false;
 
@@ -231,10 +231,10 @@ public class Enumeration extends ClassExpression {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
      *      Hashtable)
      */
-    public boolean isDisjointWith(ClassExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
 	if (other == null)
 	    return false;
 
@@ -250,7 +250,7 @@ public class Enumeration extends ClassExpression {
 	return true;
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return !values.isEmpty();
     }

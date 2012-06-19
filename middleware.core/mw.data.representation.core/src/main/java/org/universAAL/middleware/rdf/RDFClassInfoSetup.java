@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.rdf;
 
-import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.Ontology;
 
 /**
@@ -44,7 +44,7 @@ public interface RDFClassInfoSetup {
      * @param superClass
      *            The super class.
      */
-    public void addSuperClass(ClassExpression superClass);
+    public void addSuperClass(TypeExpression superClass);
 
     /**
      * Add a super class. Instances of this class are also instances of the

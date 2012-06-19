@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.owl.PropertyRestriction;
-import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
@@ -79,7 +79,7 @@ public class ContextEventPattern extends FinalizedResource {
 	addType(MY_URI, true);
 	indices = new Indices();
 	restrictions = new ArrayList(5);
-	props.put(ClassExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
+	props.put(TypeExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
 	mergedRestrictions = new HashMap();
     }
     
@@ -88,7 +88,7 @@ public class ContextEventPattern extends FinalizedResource {
 	addType(MY_URI, true);
 	indices = new Indices();
 	restrictions = new ArrayList(5);
-	props.put(ClassExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
+	props.put(TypeExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
 	mergedRestrictions = new HashMap();
     }
    
@@ -117,7 +117,7 @@ public class ContextEventPattern extends FinalizedResource {
 		mergedRestrictions.put(r.getOnProperty(), r);
 		restrictions.addAll(r.getRestrictions());
 		if (prop.equals(ContextEvent.PROP_RDF_SUBJECT)) {
-		    ClassExpression type = (ClassExpression) r
+		    TypeExpression type = (TypeExpression) r
 			    .getConstraint(MergedRestriction.allValuesFromID);
 		    Object value = r
 			    .getConstraint(MergedRestriction.hasValueID);
@@ -150,7 +150,7 @@ public class ContextEventPattern extends FinalizedResource {
 			    .toString() }
 			    : null;
 		    if (indices.props == null) {
-			ClassExpression type = (ClassExpression) r
+			TypeExpression type = (TypeExpression) r
 				.getConstraint(MergedRestriction.allValuesFromID);
 			Object[] elems = (type == null) ? null : type
 				.getUpperEnumeration();
@@ -205,7 +205,7 @@ public class ContextEventPattern extends FinalizedResource {
      * @see org.universAAL.middleware.Resource#isClosedCollection(java.lang.String)
      */
     public boolean isClosedCollection(String propURI) {
-	return !ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)
+	return !TypeExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)
 		&& super.isClosedCollection(propURI);
     }
 
@@ -218,7 +218,7 @@ public class ContextEventPattern extends FinalizedResource {
     }
 
     public void setProperty(String propURI, Object o) {
-	if (ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)) {
+	if (TypeExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)) {
 	    if (mergedRestrictions.isEmpty()) {
 		if (o instanceof PropertyRestriction) {
 		    // a single restriction

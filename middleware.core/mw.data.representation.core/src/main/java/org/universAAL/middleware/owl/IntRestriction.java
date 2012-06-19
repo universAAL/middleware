@@ -49,8 +49,8 @@ public class IntRestriction extends BoundedValueRestriction {
 	return new Integer(((Integer) c).intValue() - 1);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
-    public ClassExpression copy() {
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    public TypeExpression copy() {
 	return copyTo(new IntRestriction());
     }
 }

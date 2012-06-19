@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.ui.owl.Modality;
@@ -63,7 +63,7 @@ public class UIHandlerProfile extends FinalizedResource {
 	super();
 	addType(MY_URI, true);
 	restrictions = new ArrayList(12);
-	props.put(ClassExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
+	props.put(TypeExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
     }
 
     /**
@@ -188,7 +188,7 @@ public class UIHandlerProfile extends FinalizedResource {
      * @see org.universAAL.middleware.rdf.Resource#isClosedCollection(java.lang.String)
      */
     public boolean isClosedCollection(String propURI) {
-	return !ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)
+	return !TypeExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)
 		&& super.isClosedCollection(propURI);
     }
 
@@ -228,7 +228,7 @@ public class UIHandlerProfile extends FinalizedResource {
      *      java.lang.Object)
      */
     public void setProperty(String propURI, Object o) {
-	if (ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)) {
+	if (TypeExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)) {
 	    if (o instanceof MergedRestriction)
 		addRestriction((MergedRestriction) o);
 	    else if (o instanceof List)

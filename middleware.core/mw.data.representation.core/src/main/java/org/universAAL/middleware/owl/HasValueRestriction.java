@@ -67,8 +67,8 @@ public class HasValueRestriction extends PropertyRestriction {
 	return getProperty(PROP_OWL_HAS_VALUE);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
-    public ClassExpression copy() {
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    public TypeExpression copy() {
 	return copyTo(new HasValueRestriction());
     }
 
@@ -190,7 +190,7 @@ public class HasValueRestriction extends PropertyRestriction {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
      *      Hashtable)
      */
     public boolean hasMember(Object member, Hashtable context) {
@@ -204,10 +204,10 @@ public class HasValueRestriction extends PropertyRestriction {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
      *      Hashtable)
      */
-    public boolean isDisjointWith(ClassExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
 	if (!(other instanceof PropertyRestriction))
 	    return other.isDisjointWith(this, context);
 
@@ -236,16 +236,16 @@ public class HasValueRestriction extends PropertyRestriction {
 	return true;
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return getOnProperty() != null && (hasProperty(PROP_OWL_HAS_VALUE));
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
      *      Hashtable)
      */
-    public boolean matches(ClassExpression subset, Hashtable context) {
+    public boolean matches(TypeExpression subset, Hashtable context) {
 	Object noRes = matchesNonRestriction(subset, context);
 	if (noRes instanceof Boolean)
 	    return ((Boolean) noRes).booleanValue();
@@ -275,7 +275,7 @@ public class HasValueRestriction extends PropertyRestriction {
 
 	// handle this restriction
 	if (PROP_OWL_HAS_VALUE.equals(propURI)) {
-	    ClassExpression hasVal = (ClassExpression) getProperty(PROP_OWL_HAS_VALUE);
+	    TypeExpression hasVal = (TypeExpression) getProperty(PROP_OWL_HAS_VALUE);
 	    if (hasVal != null)
 		return;
 	    super.setProperty(PROP_OWL_HAS_VALUE, o);

@@ -33,7 +33,7 @@ import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
-import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.OntClassInfo;
 import org.universAAL.middleware.owl.Ontology;
@@ -408,7 +408,7 @@ public class TurtleWriter {
 
     private void handleNamespace(String ns) throws IOException {
 	String prefix;
-	if (ns.equals(ClassExpression.OWL_NAMESPACE))
+	if (ns.equals(TypeExpression.OWL_NAMESPACE))
 	    prefix = "owl";
 	else if (ns.equals(Resource.uAAL_SERVICE_NAMESPACE))
 	    prefix = "psn";

@@ -187,7 +187,7 @@ public abstract class FormControl extends FinalizedResource {
      * <ul>
      * <li>if value restrictions can be drawn based on available form data, then
      * possible upper enumeration (see
-     * {@link org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration()
+     * {@link org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration()
      * ()} is used
      * <li>if this control is a direct part of a {@link Repeat} object (i.e.,
      * assuming that a {@link Repeat} object can be rendered as a table, then a

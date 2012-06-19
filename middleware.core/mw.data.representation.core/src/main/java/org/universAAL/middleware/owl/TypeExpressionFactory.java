@@ -56,7 +56,7 @@ public class TypeExpressionFactory {
 	datatypeMap.put(LongRestriction.DATATYPE_URI, new Integer(4));
     }
 
-    public static ClassExpression specialize(Resource r) {
+    public static TypeExpression specialize(Resource r) {
 	Integer idx = null;
 	for (java.util.Enumeration e = r.getPropertyURIs(); e.hasMoreElements();) {
 	    idx = (Integer) propMap.get((String) e.nextElement());

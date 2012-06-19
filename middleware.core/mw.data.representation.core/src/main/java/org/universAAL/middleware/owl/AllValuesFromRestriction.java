@@ -49,7 +49,7 @@ public class AllValuesFromRestriction extends PropertyRestriction {
     AllValuesFromRestriction() {
     }
 
-    public AllValuesFromRestriction(String propURI, ClassExpression expr) {
+    public AllValuesFromRestriction(String propURI, TypeExpression expr) {
 	if (propURI == null || expr == null)
 	    throw new NullPointerException();
 	setOnProperty(propURI);
@@ -68,13 +68,13 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 	return getProperty(PROP_OWL_ALL_VALUES_FROM);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
-    public ClassExpression copy() {
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    public TypeExpression copy() {
 	return copyTo(new AllValuesFromRestriction());
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
      *      Hashtable)
      */
     public boolean hasMember(Object member, Hashtable context) {
@@ -93,7 +93,7 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 
 	Hashtable cloned = (context == null) ? null : (Hashtable) context
 		.clone();
-	ClassExpression from = (ClassExpression) props
+	TypeExpression from = (TypeExpression) props
 		.get(PROP_OWL_ALL_VALUES_FROM);
 	if (from != null)
 	    for (int i = 0; i < size; i++)
@@ -105,10 +105,10 @@ public class AllValuesFromRestriction extends PropertyRestriction {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
      *      Hashtable)
      */
-    public boolean isDisjointWith(ClassExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
 	if (!(other instanceof PropertyRestriction))
 	    return other.isDisjointWith(this, context);
 
@@ -120,11 +120,11 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 	Hashtable cloned = (context == null) ? null : (Hashtable) context
 		.clone();
 
-	ClassExpression myValues = (ClassExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);
+	TypeExpression myValues = (TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);
 	if (myValues != null
 		&& myValues
 			.isDisjointWith(
-				(ClassExpression) getProperty(PROP_OWL_ALL_VALUES_FROM),
+				(TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM),
 				cloned)) {
 	    synchronize(context, cloned);
 	    return true;
@@ -133,17 +133,17 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return getOnProperty() != null
 		&& (hasProperty(PROP_OWL_ALL_VALUES_FROM));
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
      *      Hashtable)
      */
-    public boolean matches(ClassExpression subset, Hashtable context) {
+    public boolean matches(TypeExpression subset, Hashtable context) {
 	Object noRes = matchesNonRestriction(subset, context);
 	if (noRes instanceof Boolean)
 	    return ((Boolean) noRes).booleanValue();
@@ -153,8 +153,8 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 	if (otherRes instanceof AllValuesFromRestriction) {
 	    Hashtable cloned = (context == null) ? null : (Hashtable) context
 		    .clone();
-	    ClassExpression my = (ClassExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);
-	    ClassExpression other = (ClassExpression) ((AllValuesFromRestriction) otherRes)
+	    TypeExpression my = (TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);
+	    TypeExpression other = (TypeExpression) ((AllValuesFromRestriction) otherRes)
 		    .getProperty(PROP_OWL_ALL_VALUES_FROM);
 	    if (my != null && other != null) {
 		if (my.matches(other, cloned)) {
@@ -174,7 +174,7 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 
 	// handle this restriction
 	if (PROP_OWL_ALL_VALUES_FROM.equals(propURI)) {
-	    ClassExpression all = (ClassExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);
+	    TypeExpression all = (TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);
 	    if (all != null)
 		return;
 	    Object tmp = TypeURI.asTypeURI(o);

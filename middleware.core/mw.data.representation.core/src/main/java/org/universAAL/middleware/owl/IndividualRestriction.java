@@ -40,8 +40,8 @@ public class IndividualRestriction extends BoundedValueRestriction {
 	return ((ComparableIndividual) c).getPrevious();
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
-    public ClassExpression copy() {
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    public TypeExpression copy() {
 	return copyTo(new IndividualRestriction());
     }
 }
