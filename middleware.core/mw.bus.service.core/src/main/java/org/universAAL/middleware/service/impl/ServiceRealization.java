@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.PropertyRestriction;
-import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.Intersection;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.supply.Rating;
@@ -399,15 +399,15 @@ public class ServiceRealization extends FinalizedResource {
 	if (restrProps != null && restrProps.length > 0) {
 	    for (int i = 0; i < restrProps.length; i++) {
 		// request instance level restrictions
-		ClassExpression reqRestr = requestedService
+		TypeExpression reqRestr = requestedService
 			.getInstanceLevelRestrictionOnProp(restrProps[i]);
 		
 		// offer instance level restrictions
-		ClassExpression offInsRestr = offer
+		TypeExpression offInsRestr = offer
 			.getInstanceLevelRestrictionOnProp(restrProps[i]);
 		
 		// offer class level restrictions
-		ClassExpression offClsRestr = Service
+		TypeExpression offClsRestr = Service
 			.getClassRestrictionsOnProperty(offer.getClassURI(),
 				restrProps[i]);
 		
@@ -423,7 +423,7 @@ public class ServiceRealization extends FinalizedResource {
 			// we may still proceed
 			if (!Service.PROP_OWLS_PRESENTS.equals(restrProps[i]))
 			    return false;
-			reqRestr = (ClassExpression) ((MergedRestriction) reqRestr)
+			reqRestr = (TypeExpression) ((MergedRestriction) reqRestr)
 				.getConstraint(MergedRestriction.allValuesFromID);
 			if (reqRestr instanceof PropertyRestriction) {
 			    restrProps[i] = ((PropertyRestriction) reqRestr)
@@ -445,7 +445,7 @@ public class ServiceRealization extends FinalizedResource {
 				    .hasNext();) {
 				// the same as above, only this time in a loop
 				// over all members of the intersection
-				reqRestr = (ClassExpression) j.next();
+				reqRestr = (TypeExpression) j.next();
 				if (reqRestr instanceof PropertyRestriction) {
 				    restrProps[i] = ((PropertyRestriction) reqRestr)
 					    .getOnProperty();

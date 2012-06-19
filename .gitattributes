@@ -153,7 +153,6 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/AllValuesFromRestriction.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/BoundedValueRestriction.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/BoundingValueRestriction.java -text
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/ClassExpression.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/ComparableIndividual.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/Complement.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/DataRepOntology.java -text
@@ -190,7 +189,6 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/supply/LevelRating.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/supply/Rating.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/FinalizedResource.java -text
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/IResource.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/Property.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/PropertyPath.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/PropertySetup.java -text

@@ -19,12 +19,26 @@
  */
 package org.universAAL.middleware.owl;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 
-import org.universAAL.middleware.rdf.IResource;
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.TypeMapper;
 
-public interface TypeExpression extends IResource {
+/**
+ * A class for the concept of OWL class expressions, which represent sets of
+ * individuals by formally specifying conditions on the individuals' properties.
+ * Example conditions are intersection of individuals, or restrictions.
+ * 
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * @author Carsten Stockloew
+ */
+public abstract class TypeExpression extends Resource {
 
     /** URI namespace for OWL. */
     public static final String OWL_NAMESPACE = "http://www.w3.org/2002/07/owl#";
@@ -43,26 +57,198 @@ public interface TypeExpression extends IResource {
     public static final String PROP_RDFS_SUB_CLASS_OF = Resource.RDFS_NAMESPACE
 	    + "subClassOf";
 
-    
+    /** Parameters for a registered subclass. */
+    private class RegParams {
+	/** The Java class realizing an OWL class expression. */
+	Class clz;
+	String hasSuperClass;
+	String hasProperty;
+	boolean supportsAnonClass;
+	boolean supportsNamedClass;
+    }
+
+    /**
+     * The set of registered class expressions according to the registration
+     * parameters.
+     */
+    private static ArrayList registry = new ArrayList(16);
+
+    /**
+     * The set of registered class expressions. A Hashtable with the type URI
+     * (String) of the expression as key and the Class as value.
+     */
+    private static Hashtable expressionTypes = new Hashtable(8);
+
+    /** Constructor for use with serializers. */
+    protected TypeExpression() {
+	super();
+	addType(OWL_CLASS, true);
+    }
+
+    /** Constructor to create a new instance with the given URI. */
+    protected TypeExpression(String uri) {
+	super(uri);
+	addType(OWL_CLASS, true);
+    }
+
+    /**
+     * Register a new class expression.
+     * 
+     * @param clz
+     * @param hasSuperClass
+     * @param hasProperty
+     * @param expressionTypeURI
+     */
+    // TODO: hasSuperClass is currently always null, is it really needed?
+    protected static final void register(Class clz, String hasSuperClass,
+	    String hasProperty, String expressionTypeURI) {
+
+	if (expressionTypeURI != null && !expressionTypeURI.equals(OWL_CLASS))
+	    expressionTypes.put(expressionTypeURI, clz);
+
+	if (hasSuperClass != null || hasProperty != null
+		|| expressionTypeURI == null) {
+	    RegParams rp = null;
+	    // this is also a test that the given class is a valid subclass
+	    TypeExpression pseudo = getInstance(clz);
+	    if (pseudo == null) {
+		pseudo = getNamedInstance(clz, ManagedIndividual.MY_URI);
+		if (pseudo == null)
+		    return;
+		rp = pseudo.new RegParams();
+		rp.supportsAnonClass = false;
+		rp.supportsNamedClass = true;
+	    } else {
+		rp = pseudo.new RegParams();
+		rp.supportsAnonClass = true;
+		rp.supportsNamedClass = (null != getNamedInstance(clz,
+			ManagedIndividual.MY_URI));
+	    }
+	    rp.clz = clz;
+	    rp.hasSuperClass = hasSuperClass;
+	    rp.hasProperty = hasProperty;
+	    registry.add(rp);
+	}
+    }
+
+    /** Create a new instance of the given class. */
+    private static TypeExpression getInstance(Class clz) {
+	try {
+	    return (TypeExpression) clz.newInstance();
+	} catch (Exception e) {
+	    return null;
+	}
+    }
+
+    /** Create a new instance of the given class and instance URI. */
+    private static TypeExpression getNamedInstance(Class clz,
+	    String instanceURI) {
+	try {
+	    return (TypeExpression) clz.getConstructor(
+		    new Class[] { String.class }).newInstance(
+		    new Object[] { instanceURI });
+	} catch (Exception e) {
+	    return null;
+	}
+    }
+
+    /** Create a new instance with the given type URI and instance URI. */
+    public static final TypeExpression getClassExpressionInstance(
+	    String expressionTypeURI, String instanceURI) {
+
+	LogUtils
+		.logWarn(
+			SharedResources.moduleContext,
+			TypeExpression.class,
+			"getClassExpressionInstance",
+			new String[] { "This method is deprecated, please use 'TypeExpressionFactory.specialize' instead!" },
+			null);
+
+	if (expressionTypeURI == null)
+	    return null;
+
+	Class c = (Class) expressionTypes.get(expressionTypeURI);
+	if (c == null)
+	    return ((OWL_CLASS.equals(expressionTypeURI) && ManagedIndividual
+		    .isRegisteredClassURI(instanceURI)) || (expressionTypeURI == null && TypeMapper
+		    .isRegisteredDatatypeURI(instanceURI))) ? TypeExpression
+		    .getClassExpressionInstance(null, null, instanceURI) : null;
+
+	return isAnonymousURI(instanceURI) ? getInstance(c) : getNamedInstance(
+		c, instanceURI);
+    }
+
+    /** Create a new instance according to the registration parameters. */
+    public static final TypeExpression getClassExpressionInstance(
+	    String superClassURI, String propURI, String instanceURI) {
+
+	LogUtils
+		.logWarn(
+			SharedResources.moduleContext,
+			TypeExpression.class,
+			"getClassExpressionInstance",
+			new String[] { "This method is deprecated, please use 'TypeExpressionFactory.specialize' instead!" },
+			null);
+
+	Class c = null;
+	boolean isAnon = isAnonymousURI(instanceURI);
+	for (Iterator i = registry.iterator(); i.hasNext();) {
+	    RegParams rp = (RegParams) i.next();
+	    if ((superClassURI == rp.hasSuperClass || (superClassURI != null && superClassURI
+		    .equals(rp.hasSuperClass)))
+		    && (propURI == rp.hasProperty || (propURI != null && propURI
+			    .equals(rp.hasProperty)))
+		    && ((isAnon && rp.supportsAnonClass) || (!isAnon && rp.supportsNamedClass))) {
+		c = rp.clz;
+		break;
+	    }
+	}
+	return isAnon ? getInstance(c) : getNamedInstance(c, instanceURI);
+    }
+
+    /**
+     * Provided that the given list is already a minimized list of type URIs,
+     * i.e. no two members have any hierarchical relationships with each other,
+     * adds the given typeURI to the list so that the above condition continues
+     * to hold and no information is lost.
+     */
+    protected void collectTypesMinimized(String typeURI, List l) {
+	if (typeURI != null) {
+	    boolean toAdd = true;
+	    for (Iterator j = l.iterator(); j.hasNext();) {
+		String uri = (String) j.next();
+		if (ManagedIndividual.checkCompatibility(uri, typeURI)) {
+		    j.remove();
+		    break;
+		} else if (ManagedIndividual.checkCompatibility(typeURI, uri)) {
+		    toAdd = false;
+		    break;
+		}
+	    }
+	    if (toAdd)
+		l.add(typeURI);
+	}
+    }
+
     /**
      * Create a copy of this object, i.e. create a new object of this class and
      * copy the necessary properties.
      * 
      * @return The newly created copy.
      */
-    public ClassExpression copy();
+    public abstract TypeExpression copy();
 
     /**
      * Get the set of class URIs for all super classes of the individuals of
      * this class expression.
      */
-    public String[] getNamedSuperclasses();
+    public abstract String[] getNamedSuperclasses();
 
     /**
      * Each class expression can contain multiple objects; this method returns
      * this set of objects.
      */
-    public Object[] getUpperEnumeration();
+    public abstract Object[] getUpperEnumeration();
 
     /**
      * Returns true if the given object is a member of the class represented by
@@ -86,7 +272,7 @@ public interface TypeExpression extends IResource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
      */
-    public boolean hasMember(Object member, Hashtable context);
+    public abstract boolean hasMember(Object member, Hashtable context);
 
     /**
      * Returns true if the given class expression has no member in common with
@@ -110,7 +296,8 @@ public interface TypeExpression extends IResource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
      */
-    public boolean isDisjointWith(ClassExpression other, Hashtable context);
+    public abstract boolean isDisjointWith(TypeExpression other,
+	    Hashtable context);
 
     /**
      * Returns true, if the state of the resource is valid, otherwise false.
@@ -118,7 +305,7 @@ public interface TypeExpression extends IResource {
      * 
      * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
      */
-    public boolean isWellFormed();
+    public abstract boolean isWellFormed();
 
     /**
      * Returns true if the given class expression is a subset of the class
@@ -142,6 +329,28 @@ public interface TypeExpression extends IResource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
      */
-    public boolean matches(ClassExpression subset, Hashtable context);
+    public abstract boolean matches(TypeExpression subset, Hashtable context);
+
+    /**
+     * Synchronize two Hashtables to ensure that the first Hashtable contains a
+     * value for each key of the second Hashtable. The values themselves are not
+     * checked; if 'cloned' contains a key which is not contained in 'context',
+     * then the according (key/value)-pair is added to 'context'. The second
+     * Hashtable, 'cloned', is not changed.
+     * 
+     * @param context
+     *            The Hashtable to be extended by (key/value)-pairs from the
+     *            second Hashtable.
+     * @param cloned
+     *            The second Hashtable.
+     */
+    protected void synchronize(Hashtable context, Hashtable cloned) {
+	if (cloned != null && cloned.size() > context.size())
+	    for (Iterator i = cloned.keySet().iterator(); i.hasNext();) {
+		Object key = i.next();
+		if (!context.containsKey(key))
+		    context.put(key, cloned.get(key));
+	    }
+    }
 
 }

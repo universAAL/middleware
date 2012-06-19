@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.OntClassInfo;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -64,7 +64,7 @@ public class RDFClassInfo extends FinalizedResource {
 
     /**
      * The set of super classes. Members are instances of
-     * {@link ClassExpression}.
+     * {@link TypeExpression}.
      */
     protected ArrayList superClasses = new ArrayList();
 
@@ -117,8 +117,8 @@ public class RDFClassInfo extends FinalizedResource {
 		    instances.put(instance.getURI(), instance);
 	}
 
-	/** @see RDFClassInfoSetup#addSuperClass(ClassExpression) */
-	public void addSuperClass(ClassExpression superClass) {
+	/** @see RDFClassInfoSetup#addSuperClass(TypeExpression) */
+	public void addSuperClass(TypeExpression superClass) {
 	    if (locked)
 		return;
 	    if (superClass != null) {
@@ -162,7 +162,7 @@ public class RDFClassInfo extends FinalizedResource {
 	    ArrayList al = new ArrayList(combinedSuperClasses);
 	    al.add(new Resource(namedSuperClass));
 	    combinedSuperClasses = al;
-	    setProperty(ClassExpression.PROP_RDFS_SUB_CLASS_OF, Collections
+	    setProperty(TypeExpression.PROP_RDFS_SUB_CLASS_OF, Collections
 		    .unmodifiableList(combinedSuperClasses));
 	}
 
@@ -222,7 +222,7 @@ public class RDFClassInfo extends FinalizedResource {
 	    throw new IllegalArgumentException(
 		    "The class URI can not start with the protected namespace of RDFS.");
 
-	if (classURI.startsWith(ClassExpression.OWL_NAMESPACE))
+	if (classURI.startsWith(TypeExpression.OWL_NAMESPACE))
 	    throw new IllegalArgumentException(
 		    "The class URI can not start with the protected namespace of OWL.");
 
@@ -372,9 +372,9 @@ public class RDFClassInfo extends FinalizedResource {
     /**
      * Get the set of all non-named super classes.
      */
-    public ClassExpression[] getSuperClasses() {
-	return (ClassExpression[]) superClasses
-		.toArray(new ClassExpression[superClasses.size()]);
+    public TypeExpression[] getSuperClasses() {
+	return (TypeExpression[]) superClasses
+		.toArray(new TypeExpression[superClasses.size()]);
     }
 
     /**
@@ -411,7 +411,7 @@ public class RDFClassInfo extends FinalizedResource {
      * @see Resource#isClosedCollection(String)
      */
     public boolean isClosedCollection(String propURI) {
-	if (ClassExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI))
+	if (TypeExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI))
 	    return false;
 	return super.isClosedCollection(propURI);
     }

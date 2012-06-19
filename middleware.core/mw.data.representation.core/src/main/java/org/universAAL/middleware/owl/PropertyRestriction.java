@@ -36,7 +36,7 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  * @author Carsten Stockloew
  */
-public abstract class PropertyRestriction extends ClassExpression {
+public abstract class PropertyRestriction extends TypeExpression {
 
     public static final String MY_URI = OWL_NAMESPACE + "Restriction";
     public static final String PROP_OWL_ON_PROPERTY = OWL_NAMESPACE
@@ -90,25 +90,25 @@ public abstract class PropertyRestriction extends ClassExpression {
     /**
      * Helper method to copy Restrictions.
      * 
-     * @see org.universAAL.middleware.owl.ClassExpression#copy()
+     * @see org.universAAL.middleware.owl.TypeExpression#copy()
      */
-    protected ClassExpression copyTo(PropertyRestriction copy) {
+    protected TypeExpression copyTo(PropertyRestriction copy) {
 	for (Iterator i = props.keySet().iterator(); i.hasNext();) {
 	    String key = i.next().toString();
 	    Object o = props.get(key);
-	    if (o instanceof ClassExpression)
-		o = ((ClassExpression) o).copy();
+	    if (o instanceof TypeExpression)
+		o = ((TypeExpression) o).copy();
 	    copy.props.put(key, o);
 	}
 	return copy;
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
     public String[] getNamedSuperclasses() {
 	return new String[0];
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
     public Object[] getUpperEnumeration() {
 	return new Object[0];
     }
@@ -116,12 +116,12 @@ public abstract class PropertyRestriction extends ClassExpression {
     /**
      * Check all cases where the subtype is not a subclass of
      * {@link #PropertyRestriction()}. Helper method for
-     * {@link #matches(ClassExpression, Hashtable)} in subclasses.
+     * {@link #matches(TypeExpression, Hashtable)} in subclasses.
      * 
-     * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
      *      Hashtable)
      */
-    protected Object matchesNonRestriction(ClassExpression subtype,
+    protected Object matchesNonRestriction(TypeExpression subtype,
 	    Hashtable context) {
 	if (subtype == null)
 	    return Boolean.FALSE;
@@ -142,7 +142,7 @@ public abstract class PropertyRestriction extends ClassExpression {
 
 	if (subtype instanceof Intersection)
 	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();)
-		if (matches((ClassExpression) i.next(), context))
+		if (matches((TypeExpression) i.next(), context))
 		    return Boolean.TRUE;
 
 	Hashtable cloned = (context == null) ? null : (Hashtable) context
@@ -170,7 +170,7 @@ public abstract class PropertyRestriction extends ClassExpression {
 	    }
 	    if (subtype instanceof Union) {
 		for (Iterator i = ((Union) subtype).types(); i.hasNext();)
-		    if (!matches((ClassExpression) i.next(), context))
+		    if (!matches((TypeExpression) i.next(), context))
 			return Boolean.FALSE;
 		synchronize(context, cloned);
 		return Boolean.TRUE;
@@ -269,12 +269,12 @@ public abstract class PropertyRestriction extends ClassExpression {
      * be checked.
      */
     public AllValuesFromRestriction getRestrictionOnProperty(String propURI) {
-	ClassExpression all = (ClassExpression) getProperty(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
+	TypeExpression all = (TypeExpression) getProperty(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
 	if (all instanceof Intersection) {
 	    // If the intersection already has an AllValuesFromRestriction for
 	    // the given property, return it.
 	    for (Iterator i = ((Intersection) all).types(); i.hasNext();) {
-		ClassExpression tmp = (ClassExpression) i.next();
+		TypeExpression tmp = (TypeExpression) i.next();
 		if (tmp instanceof AllValuesFromRestriction
 			&& ((AllValuesFromRestriction) tmp).getOnProperty()
 				.equals(propURI))

@@ -94,7 +94,7 @@ public interface OntClassInfoSetup extends RDFClassInfoSetup {
      * @param eq
      *            The equivalent class expression.
      */
-    public void addEquivalentClass(ClassExpression eq);
+    public void addEquivalentClass(TypeExpression eq);
 
     /**
      * Set this class to be disjoint to the given class expression. This means
@@ -104,7 +104,7 @@ public interface OntClassInfoSetup extends RDFClassInfoSetup {
      * @param dj
      *            The disjoint class expression.
      */
-    public void addDisjointClass(ClassExpression dj);
+    public void addDisjointClass(TypeExpression dj);
 
     /**
      * Set this class to be the complement of the given class expression. This
@@ -114,5 +114,5 @@ public interface OntClassInfoSetup extends RDFClassInfoSetup {
      * @param complement
      *            The complement class expression.
      */
-    public void setComplementClass(ClassExpression complement);
+    public void setComplementClass(TypeExpression complement);
 }

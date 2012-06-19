@@ -174,7 +174,7 @@ public class MergedRestriction extends Intersection {
     }
 
     public static final MergedRestriction getAllValuesRestriction(
-	    String propURI, ClassExpression expr) {
+	    String propURI, TypeExpression expr) {
 	if (expr == null || propURI == null)
 	    return null;
 
@@ -184,7 +184,7 @@ public class MergedRestriction extends Intersection {
     }
 
     public static final MergedRestriction getAllValuesRestrictionWithCardinality(
-	    String propURI, ClassExpression expr, int min, int max) {
+	    String propURI, TypeExpression expr, int min, int max) {
 	if (expr == null)
 	    return null;
 
@@ -355,12 +355,12 @@ public class MergedRestriction extends Intersection {
 	// Restriction
 	int id = getIndex(res);
 
-	ClassExpression all = index[allValuesFromID] == -1 ? null
-		: (ClassExpression) ((Resource) (types
+	TypeExpression all = index[allValuesFromID] == -1 ? null
+		: (TypeExpression) ((Resource) (types
 			.get(index[allValuesFromID])))
 			.getProperty(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
-	ClassExpression some = index[someValuesFromID] == -1 ? null
-		: (ClassExpression) ((Resource) (types
+	TypeExpression some = index[someValuesFromID] == -1 ? null
+		: (TypeExpression) ((Resource) (types
 			.get(index[someValuesFromID])))
 			.getProperty(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM);
 
@@ -391,7 +391,7 @@ public class MergedRestriction extends Intersection {
 	    break;
 	case someValuesFromID:
 	    if (some == null
-		    && (all == null || ((ClassExpression) all).matches(res,
+		    && (all == null || ((TypeExpression) all).matches(res,
 			    null))) {
 		if (all != null && max == 1)
 		    removeRestriction(allValuesFromID);
@@ -469,7 +469,7 @@ public class MergedRestriction extends Intersection {
     public MergedRestriction addRestriction(MergedRestriction r) {
 	ArrayList resList = (ArrayList) r.types;
 	for (int i = 0; i < resList.size(); i++)
-	    addRestriction((PropertyRestriction) ((ClassExpression) resList
+	    addRestriction((PropertyRestriction) ((TypeExpression) resList
 		    .get(i)).copy());
 	return this;
     }
@@ -516,8 +516,8 @@ public class MergedRestriction extends Intersection {
 	}
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
-    public ClassExpression copy() {
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    public TypeExpression copy() {
 	ArrayList newList = new ArrayList();
 	for (int i = 0; i < types.size(); i++)
 	    newList.add(((PropertyRestriction) types.get(i)).copy());
@@ -561,10 +561,10 @@ public class MergedRestriction extends Intersection {
 	return r;
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	for (int i = 0; i < types.size(); i++)
-	    if (!((ClassExpression) types.get(i)).isWellFormed())
+	    if (!((TypeExpression) types.get(i)).isWellFormed())
 		return false;
 	return true;
     }
@@ -593,12 +593,12 @@ public class MergedRestriction extends Intersection {
      * @return The URI of the class the property must be an individual of.
      */
     public String getPropTypeURI() {
-	ClassExpression all = null;
+	TypeExpression all = null;
 
 	if (index[allValuesFromID] == -1)
 	    return null;
 
-	all = (ClassExpression) ((AllValuesFromRestriction) types
+	all = (TypeExpression) ((AllValuesFromRestriction) types
 		.get(index[allValuesFromID])).getConstraint();
 
 	return (all instanceof TypeURI) ? ((TypeURI) all).getURI() : null;
@@ -731,7 +731,7 @@ public class MergedRestriction extends Intersection {
 
 	// tmp now points to the AllValuesFromRestriction of the path element
 	// before the last path element
-	ClassExpression all = (ClassExpression) getConstraint(allValuesFromID);
+	TypeExpression all = (TypeExpression) getConstraint(allValuesFromID);
 	if (!(all instanceof Intersection)) {
 	    Intersection i = new Intersection();
 	    if (all != null)
@@ -745,7 +745,7 @@ public class MergedRestriction extends Intersection {
 	// Intersection and can't be set directly)
 	Intersection isec = (Intersection) all;
 	for (int i = 0; i < types.size(); i++)
-	    isec.addType((ClassExpression) types.get(i));
+	    isec.addType((TypeExpression) types.get(i));
 	return root;
     }
 
@@ -770,14 +770,14 @@ public class MergedRestriction extends Intersection {
     }
 
     private MergedRestriction getRestrictionOnPathElement(String pathElement) {
-	ClassExpression all = (ClassExpression) getConstraint(allValuesFromID);
+	TypeExpression all = (TypeExpression) getConstraint(allValuesFromID);
 	if (all instanceof Intersection) {
 	    // create a new MergedRestriction and collect all simple
 	    // Restrictions
 	    MergedRestriction m = new MergedRestriction(pathElement);
 	    PropertyRestriction tmpRes;
 	    for (Iterator i = ((Intersection) all).types(); i.hasNext();) {
-		ClassExpression tmp = (ClassExpression) i.next();
+		TypeExpression tmp = (TypeExpression) i.next();
 		if (tmp instanceof PropertyRestriction) {
 		    tmpRes = (PropertyRestriction) tmp;
 		    if (tmpRes.getOnProperty().equals(pathElement))
@@ -808,7 +808,7 @@ public class MergedRestriction extends Intersection {
 	AllValuesFromRestriction allres = (AllValuesFromRestriction) types
 		.get(index[allValuesFromID]);
 	if (allres != null) {
-	    ClassExpression all = (ClassExpression) allres.getConstraint();
+	    TypeExpression all = (TypeExpression) allres.getConstraint();
 	    if (all instanceof Enumeration)
 		return ((Enumeration) all).getUpperEnumeration();
 	    else if (all instanceof TypeURI) {
@@ -822,7 +822,7 @@ public class MergedRestriction extends Intersection {
 	    HasValueRestriction hasres = (HasValueRestriction) types
 		    .get(index[hasValueID]);
 	    if (hasres != null) {
-		ClassExpression has = (ClassExpression) hasres.getConstraint();
+		TypeExpression has = (TypeExpression) hasres.getConstraint();
 		return (has == null) ? null : new Object[] { has };
 	    }
 	}
@@ -881,7 +881,7 @@ public class MergedRestriction extends Intersection {
 	for (Iterator i = types.iterator(); i.hasNext();) {
 	    if (j != minCardinalityID && j != maxCardinalityID
 		    && j != exactCardinalityID)
-		if (!((ClassExpression) i.next()).hasMember(o, null))
+		if (!((TypeExpression) i.next()).hasMember(o, null))
 		    return false;
 	    j++;
 	}

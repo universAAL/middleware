@@ -21,7 +21,7 @@ package org.universAAL.middleware.rdf;
 
 import java.util.ArrayList;
 
-import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.DatatypeProperty;
 import org.universAAL.middleware.owl.ObjectProperty;
 import org.universAAL.middleware.owl.OntClassInfo;
@@ -64,7 +64,7 @@ public abstract class Property extends FinalizedResource {
     private volatile ArrayList equivalentProperties = new ArrayList();
 
     /** The rdf:domain */
-    private ClassExpression domain = null;
+    private TypeExpression domain = null;
 
     /** The ontology that defines this property. */
     protected OntClassInfo info;
@@ -138,14 +138,14 @@ public abstract class Property extends FinalizedResource {
 	    // TODO Auto-generated method stub
 	}
 
-	/** @see PropertySetup#setDomain(ClassExpression) */
-	public void setDomain(ClassExpression dom) {
+	/** @see PropertySetup#setDomain(TypeExpression) */
+	public void setDomain(TypeExpression dom) {
 	    domain = dom;
 	    setProperty(PROP_RDFS_DOMAIN, domain);
 	}
 
-	/** @see PropertySetup#setRange(ClassExpression) */
-	public void setRange(ClassExpression range) {
+	/** @see PropertySetup#setRange(TypeExpression) */
+	public void setRange(TypeExpression range) {
 	    // TODO Auto-generated method stub
 	}
     }

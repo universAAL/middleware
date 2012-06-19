@@ -55,8 +55,8 @@ public class DoubleRestriction extends BoundedValueRestriction {
 		- DOUBLE_SMALLEST_POSITIVE_VALUE);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
-    public ClassExpression copy() {
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    public TypeExpression copy() {
 	return copyTo(new DoubleRestriction());
     }
 }

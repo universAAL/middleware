@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.rdf;
 
-import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.MaxCardinalityRestriction;
 
 /**
@@ -43,13 +43,13 @@ public interface PropertySetup {
      * Set the domain that is used to state that any resource that has a given
      * property is an instance of one or more classes.
      */
-    public void setDomain(ClassExpression dom);
+    public void setDomain(TypeExpression dom);
 
     /**
      * Set the range that is used to state that the values of a property are
      * instances of one or more classes.
      */
-    public void setRange(ClassExpression range);
+    public void setRange(TypeExpression range);
 
     /**
      * Set this property to be functional. This means that each individual is

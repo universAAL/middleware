@@ -72,7 +72,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     /**
      * The set of all equivalent classes.
      * 
-     * @see OntClassInfoSetup#addEquivalentClass(ClassExpression)
+     * @see OntClassInfoSetup#addEquivalentClass(TypeExpression)
      */
     // Members of this arrays are instances of {@link ClassExpression}.
     private ArrayList equivalentClasses = new ArrayList();
@@ -80,7 +80,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     /**
      * The set of all disjoint classes.
      * 
-     * @see OntClassInfoSetup#addDisjointClass(ClassExpression)
+     * @see OntClassInfoSetup#addDisjointClass(TypeExpression)
      */
     // Members of this arrays are instances of {@link ClassExpression}.
     private ArrayList disjointClasses = new ArrayList();
@@ -88,10 +88,10 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     /**
      * The complement class.
      * 
-     * @see OntClassInfoSetup#setComplementClass(ClassExpression)
+     * @see OntClassInfoSetup#setComplementClass(TypeExpression)
      */
     // Members of this arrays are instances of {@link ClassExpression}.
-    private ClassExpression complementClass = null;
+    private TypeExpression complementClass = null;
 
     /**
      * Determines whether this class is an enumeration class.
@@ -188,7 +188,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    ArrayList al = new ArrayList(combinedSuperClasses);
 	    al.addAll(r.types);
 	    combinedSuperClasses = al;
-	    setProperty(ClassExpression.PROP_RDFS_SUB_CLASS_OF, Collections
+	    setProperty(TypeExpression.PROP_RDFS_SUB_CLASS_OF, Collections
 		    .unmodifiableList(combinedSuperClasses));
 	}
 
@@ -213,20 +213,20 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    isEnumeration = true;
 	}
 
-	/** @see OntClassInfoSetup#addEquivalentClass(ClassExpression) */
-	public void addEquivalentClass(ClassExpression eq) {
+	/** @see OntClassInfoSetup#addEquivalentClass(TypeExpression) */
+	public void addEquivalentClass(TypeExpression eq) {
 	    if (locked)
 		return;
 	    // TODO
 	}
 
-	/** @see OntClassInfoSetup#addDisjointClass(ClassExpression) */
-	public void addDisjointClass(ClassExpression dj) {
+	/** @see OntClassInfoSetup#addDisjointClass(TypeExpression) */
+	public void addDisjointClass(TypeExpression dj) {
 	    // TODO Auto-generated method stub
 	}
 
-	/** @see OntClassInfoSetup#setComplementClass(ClassExpression) */
-	public void setComplementClass(ClassExpression complement) {
+	/** @see OntClassInfoSetup#setComplementClass(TypeExpression) */
+	public void setComplementClass(TypeExpression complement) {
 	    // TODO Auto-generated method stub
 	}
     }
@@ -252,7 +252,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 
 	setup = new PrivateOntSetup(this);
 	super.rdfsetup = setup;
-	props.put(Resource.PROP_RDF_TYPE, ClassExpression.OWL_CLASS);
+	props.put(Resource.PROP_RDF_TYPE, TypeExpression.OWL_CLASS);
     }
 
     /**
@@ -390,15 +390,15 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 
 	it = superClasses.iterator();
 	while (it.hasNext())
-	    info.setup.addSuperClass((ClassExpression) it.next());
+	    info.setup.addSuperClass((TypeExpression) it.next());
 
 	it = equivalentClasses.iterator();
 	while (it.hasNext())
-	    info.setup.addEquivalentClass((ClassExpression) it.next());
+	    info.setup.addEquivalentClass((TypeExpression) it.next());
 
 	it = disjointClasses.iterator();
 	while (it.hasNext())
-	    info.setup.addDisjointClass((ClassExpression) it.next());
+	    info.setup.addDisjointClass((TypeExpression) it.next());
 
 	info.setup.setComplementClass(complementClass);
 

@@ -29,7 +29,7 @@ import java.util.Hashtable;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class Complement extends ClassExpression {
+public class Complement extends TypeExpression {
 
     /** URI for owl:complementOf. */
     public static final String PROP_OWL_COMPLEMENT_OF;
@@ -45,7 +45,7 @@ public class Complement extends ClassExpression {
     }
 
     /** Constructor. */
-    public Complement(ClassExpression toComplement) {
+    public Complement(TypeExpression toComplement) {
 	if (toComplement == null)
 	    throw new NullPointerException();
 	if (toComplement instanceof Complement)
@@ -53,28 +53,28 @@ public class Complement extends ClassExpression {
 	props.put(PROP_OWL_COMPLEMENT_OF, toComplement);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
-    public ClassExpression copy() {
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    public TypeExpression copy() {
 	return new Complement(getComplementedClass().copy());
     }
 
     /** Get the complement class. */
-    public ClassExpression getComplementedClass() {
-	return (ClassExpression) props.get(PROP_OWL_COMPLEMENT_OF);
+    public TypeExpression getComplementedClass() {
+	return (TypeExpression) props.get(PROP_OWL_COMPLEMENT_OF);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
     public String[] getNamedSuperclasses() {
 	return new String[0];
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
     public Object[] getUpperEnumeration() {
 	return new Object[0];
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
      *      Hashtable)
      */
     public boolean hasMember(Object member, Hashtable context) {
@@ -89,22 +89,22 @@ public class Complement extends ClassExpression {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
      *      Hashtable)
      */
-    public boolean matches(ClassExpression subtype, Hashtable context) {
+    public boolean matches(TypeExpression subtype, Hashtable context) {
 	return getComplementedClass().isDisjointWith(subtype, context);
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
      *      Hashtable)
      */
-    public boolean isDisjointWith(ClassExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
 	return getComplementedClass().matches(other, context);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return getComplementedClass() != null;
     }
@@ -115,7 +115,7 @@ public class Complement extends ClassExpression {
 	if (tmp != null)
 	    o = tmp;
 	if (PROP_OWL_COMPLEMENT_OF.equals(propURI)
-		&& o instanceof ClassExpression && !(o instanceof Complement)
+		&& o instanceof TypeExpression && !(o instanceof Complement)
 		&& !props.containsKey(PROP_OWL_COMPLEMENT_OF))
 	    props.put(PROP_OWL_COMPLEMENT_OF, o);
     }

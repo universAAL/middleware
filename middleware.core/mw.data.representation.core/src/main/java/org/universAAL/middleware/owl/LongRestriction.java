@@ -49,8 +49,8 @@ public class LongRestriction extends BoundedValueRestriction {
 	return new Long(((Long) c).longValue() - 1);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#copy() */
-    public ClassExpression copy() {
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    public TypeExpression copy() {
 	return copyTo(new LongRestriction());
     }
 }

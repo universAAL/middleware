@@ -35,7 +35,7 @@ import org.universAAL.middleware.rdf.Variable;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class TypeURI extends ClassExpression {
+public class TypeURI extends TypeExpression {
 
     static {
 	register(TypeURI.class, null, null, null);
@@ -91,16 +91,16 @@ public class TypeURI extends ClassExpression {
     }
 
     /**
-     * No {@link ClassExpression} instances are stored in this class, so we do
+     * No {@link TypeExpression} instances are stored in this class, so we do
      * not need to clone.
      * 
-     * @see org.universAAL.middleware.owl.ClassExpression#copy()
+     * @see org.universAAL.middleware.owl.TypeExpression#copy()
      */
-    public ClassExpression copy() {
+    public TypeExpression copy() {
 	return this;
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getNamedSuperclasses() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
     public String[] getNamedSuperclasses() {
 	return new String[] { getURI() };
     }
@@ -111,11 +111,11 @@ public class TypeURI extends ClassExpression {
      * @see org.universAAL.middleware.owl.ManagedIndividual#getClassRestrictionsOnProperty(String,
      *      String)
      */
-    public ClassExpression getRestrictionOnProperty(String propURI) {
+    public TypeExpression getRestrictionOnProperty(String propURI) {
 	return ManagedIndividual.getClassRestrictionsOnProperty(uri, propURI);
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#getUpperEnumeration() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
     public Object[] getUpperEnumeration() {
 	OntClassInfo info = OntologyManagement.getInstance().getOntClassInfo(
 		getURI());
@@ -124,7 +124,7 @@ public class TypeURI extends ClassExpression {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#hasMember(Object,
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
      *      Hashtable)
      */
     public boolean hasMember(Object value, Hashtable context) {
@@ -149,10 +149,10 @@ public class TypeURI extends ClassExpression {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#matches(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
      *      Hashtable)
      */
-    public boolean matches(ClassExpression subtype, Hashtable context) {
+    public boolean matches(TypeExpression subtype, Hashtable context) {
 	if (uri.equals(TYPE_OWL_THING))
 	    return subtype != null;
 
@@ -167,7 +167,7 @@ public class TypeURI extends ClassExpression {
 	    Hashtable cloned = (context == null) ? null : (Hashtable) context
 		    .clone();
 	    for (Iterator i = ((Union) subtype).types(); i.hasNext();)
-		if (!matches((ClassExpression) i.next(), cloned))
+		if (!matches((TypeExpression) i.next(), cloned))
 		    return false;
 	    synchronize(context, cloned);
 	    return true;
@@ -176,7 +176,7 @@ public class TypeURI extends ClassExpression {
 	if (subtype instanceof Intersection
 		&& !(subtype instanceof MergedRestriction)) {
 	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();)
-		if (matches((ClassExpression) i.next(), context))
+		if (matches((TypeExpression) i.next(), context))
 		    return true;
 	    // TODO: there is still a chance to return true...
 	    // so fall through to the general case at the end
@@ -209,10 +209,10 @@ public class TypeURI extends ClassExpression {
     }
 
     /**
-     * @see org.universAAL.middleware.owl.ClassExpression#isDisjointWith(ClassExpression,
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
      *      Hashtable)
      */
-    public boolean isDisjointWith(ClassExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
 	if (uri.equals(TYPE_OWL_THING))
 	    return false;
 
@@ -246,7 +246,7 @@ public class TypeURI extends ClassExpression {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.owl.ClassExpression#isWellFormed() */
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return true;
     }

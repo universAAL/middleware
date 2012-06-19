@@ -34,7 +34,7 @@ import java.util.List;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.owl.PropertyRestriction;
-import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.TypeExpressionFactory;
 import org.universAAL.middleware.rdf.Resource;
@@ -308,7 +308,7 @@ public class TurtleParser implements MessageContentSerializerEx {
 			if (!specialized.equals(aux.getProperty(rd.prop)))
 			    openItems.put(specialized, rd);
 			else if (!srcSpecialized
-				&& (ClassExpression.OWL_CLASS.equals(aux
+				&& (TypeExpression.OWL_CLASS.equals(aux
 					.getType()) || PropertyRestriction.MY_URI
 					.equals(aux.getType())))
 			    specialize(aux, specializedResources, openItems);
@@ -366,7 +366,7 @@ public class TurtleParser implements MessageContentSerializerEx {
 		if (o.equals(aux.getProperty(rd.prop))) {
 		    i.remove();
 		    if (!srcSpecialiazed
-			    && (ClassExpression.OWL_CLASS.equals(aux.getType()) || PropertyRestriction.MY_URI
+			    && (TypeExpression.OWL_CLASS.equals(aux.getType()) || PropertyRestriction.MY_URI
 				    .equals(aux.getType())))
 			specialize(aux, specializedResources, openItems);
 		}
