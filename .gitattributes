@@ -141,6 +141,7 @@ middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/LogListener.java -text
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/ModuleContext.java -text
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/SharedObjectListener.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/uAALModuleActivator.java -text
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/LogUtils.java -text
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
 middleware.core/mw.data.representation.core/LICENSE.txt -text
@@ -339,6 +340,7 @@ middleware.osgi/mw.container.osgi/doc/resources/inherit.gif -text
 middleware.osgi/mw.container.osgi/doc/stylesheet.css -text
 middleware.osgi/mw.container.osgi/pom.xml -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/run/Activator.java -text
+middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/run/uAALBundleExtender.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundleContainer.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundleContext.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/BundleConfigHome.java -text
