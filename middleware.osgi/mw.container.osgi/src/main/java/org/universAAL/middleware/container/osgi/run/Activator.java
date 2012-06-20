@@ -62,6 +62,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	public void start(BundleContext arg0) throws Exception {
 		context = arg0;
 		context.addServiceListener(this);
+		context.addBundleListener(new uAALBundleExtender(context));
 		try {
 			ServiceReference sr[] = context.getServiceReferences(
 					LogListener.class.getName(), null);

@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>mw.container.xfaces.core</artifactId>
-	<version>1.1.2-SNAPSHOT</version>
+	<version>1.1.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Container Interfaces (Core)</name>
 	<description>Defines the interfaces exported by the Container building block of the universAAL middleware (Core)</description>
