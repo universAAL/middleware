@@ -45,7 +45,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 
 	switch (event.getType()) {
 	case BundleEvent.STARTED: {
-	    Bundle b = event.getBundle();
+	    final Bundle b = event.getBundle();
 	    b.getSymbolicName();
 	    Enumeration entries = b.findEntries("", "*Activator*.class", true);
 	    if (entries != null) {
@@ -57,22 +57,34 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 			try {
 			    Class c = b.loadClass(className);
 			    Class[] ifaces = c.getInterfaces();
+			    boolean shouldLoad = false;
 			    for (int i = 0; i < ifaces.length; i++) {
 				if (ifaces[i] == uAALModuleActivator.class) {
-				    try {
-					uAALModuleActivator theActivator = (uAALModuleActivator) c
-						.newInstance();
-					ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER
-						.registerModule(new Object[] { b
-							.getBundleContext() });
-					theActivator.start(moduleContext);
-				    } catch (Throwable t) {
-					t.printStackTrace();
-				    }
+				    shouldLoad=true;
+				    break;
 				}
 			    }
-			} catch (ClassNotFoundException e) {
-			    e.printStackTrace();
+			    if (shouldLoad) {
+				uAALModuleActivator theActivator = (uAALModuleActivator) c
+					.newInstance();
+				ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER
+					.registerModule(new Object[] { b
+						.getBundleContext() });
+				theActivator.start(moduleContext);
+				break;
+			    }
+			} catch (Throwable t) {
+			    t.printStackTrace();
+			    new Thread(new Runnable() {
+				public void run() {
+				    try {
+					b.stop();
+				    } catch (Exception ex) {
+					ex.printStackTrace();
+				    }
+				}
+			    }).start();
+			    throw new RuntimeException(t);			    
 			}
 		    }
 		}
@@ -92,5 +104,4 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 	    break;
 	}
     }
-
 }
