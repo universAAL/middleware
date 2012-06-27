@@ -28,14 +28,18 @@ import java.util.List;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
+ * <p>
  * Helper class to handle multiple {@link PropertyRestriction}s of the same
  * property.
- * 
+ * </p>
+ * <p>
  * NOTE: If you add this class to another Resource with
  * {@link #setProperty(String, Object)}, it will behave like an
  * {@link Intersection} of the restrictions contained in this MergedRestriction.
+ * </p>
  * 
  * @author Carsten Stockloew
  */
@@ -43,7 +47,7 @@ public class MergedRestriction extends Intersection {
 
     /** A safe iterator that does not allow to remove elements. */
     private class SafeIterator implements Iterator {
-	Iterator it;
+	protected Iterator it;
 
 	SafeIterator(Iterator it) {
 	    this.it = it;
@@ -61,32 +65,64 @@ public class MergedRestriction extends Intersection {
 	}
     }
 
+    /**
+     * ID of the {@link AllValuesFromRestriction}. Only used in the context of
+     * this class.
+     */
     public static final int allValuesFromID = 0;
-    public static final int someValuesFromID = 1;
-    public static final int hasValueID = 2;
-    public static final int boundingValueID = 3;
-    public static final int minCardinalityID = 4;
-    public static final int maxCardinalityID = 5;
-    public static final int exactCardinalityID = 6;
 
-    // All restrictions are stored in an array ('types' from the superclass).
-    // 'index' points to the correct Restriction in this array, e.g.
-    // index[allValuesFromID] is the index of 'types' where the
-    // AllValuesFromRestriction is stored.
-    private int index[] = new int[7];
+    /**
+     * ID of the {@link SomeValuesFromRestriction}. Only used in the context of
+     * this class.
+     */
+    public static final int someValuesFromID = 1;
+
+    /**
+     * ID of the {@link HasValueRestriction}. Only used in the context of this
+     * class.
+     */
+    public static final int hasValueID = 2;
+
+    /**
+     * ID of the {@link MinCardinalityRestriction}. Only used in the context of
+     * this class.
+     */
+    public static final int minCardinalityID = 3;
+
+    /**
+     * ID of the {@link MaxCardinalityRestriction}. Only used in the context of
+     * this class.
+     */
+    public static final int maxCardinalityID = 4;
+
+    /**
+     * ID of the {@link ExactCardinalityRestriction}. Only used in the context
+     * of this class.
+     */
+    public static final int exactCardinalityID = 5;
+
+    /**
+     * Index of all {@link PropertyRestriction}s that are part of this
+     * {@link MergedRestriction}. All restrictions are stored in an array (
+     * <code>types</code> from the superclass). <code>index</code> points to the
+     * correct Restriction in this array, e.g.
+     * <code>index[allValuesFromID]</code> is the index in <code>types</code>
+     * where the AllValuesFromRestriction is stored.
+     */
+    private int index[] = new int[6];
 
     /** The property for which this restriction is defined. */
     private String onProperty = null;
 
     /** Constructor for deserializers. */
     public MergedRestriction() {
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 6; i++)
 	    index[i] = -1;
     }
 
     /**
-     * Constructor for an empty set of restrictions. Restrictions can be add by
-     * calling {@link #addRestriction(PropertyRestriction)} or
+     * Constructor for an empty set of restrictions. Restrictions can be added
+     * by calling {@link #addRestriction(PropertyRestriction)} or
      * {@link #addRestriction(MergedRestriction)}.
      * 
      * @param onProperty
@@ -111,33 +147,120 @@ public class MergedRestriction extends Intersection {
 	setRestrictions(onProperty, restrictions);
     }
 
+    /**
+     * <p>
+     * Create a new restriction to state that no individual of a certain class
+     * has the given property, i.e. the maximum cardinality of the given
+     * property is zero.
+     * </p>
+     * <p>
+     * The new {@link MergedRestriction} contains
+     * <ul>
+     * <li>a {@link MaxCardinalityRestriction} with value <code>0</code>.
+     * </ul>
+     * </p>
+     * 
+     * @param propURI
+     *            The property for which this restriction is defined.
+     * @return the restriction, or <code>null</code> if the parameters are
+     *         invalid.
+     */
     public static final MergedRestriction getPropertyBanningRestriction(
 	    String propURI) {
+	if (propURI == null)
+	    return null;
 	MergedRestriction m = new MergedRestriction(propURI);
 	m.addRestriction(new MaxCardinalityRestriction(propURI, 0));
 	return m;
     }
 
+    /**
+     * <p>
+     * Create a new restriction to state that all individuals of a certain class
+     * must have the given value for the given property.
+     * </p>
+     * <p>
+     * The new {@link MergedRestriction} contains
+     * <ul>
+     * <li>a {@link HasValueRestriction} with value <code>value</code>.
+     * </ul>
+     * </p>
+     * 
+     * @param propURI
+     *            The property for which this restriction is defined.
+     * @param value
+     *            The value that the given property must have. If this value is
+     *            a {@link java.lang.String} that contains a valid URI, then the
+     *            value must be a {@link Resource} with this URI.
+     * @return the restriction, or <code>null</code> if the parameters are
+     *         invalid.
+     */
     public static final MergedRestriction getFixedValueRestriction(
-	    String propURI, Object o) {
-	if (propURI == null || o == null)
+	    String propURI, Object value) {
+	if (propURI == null || value == null)
 	    return null;
 
-	if (o instanceof String && isQualifiedName((String) o))
-	    o = new Resource((String) o);
+	if (value instanceof String && isQualifiedName((String) value))
+	    value = new Resource((String) value);
 
 	MergedRestriction m = new MergedRestriction(propURI);
-	m.addRestriction(new HasValueRestriction(propURI, o));
+	m.addRestriction(new HasValueRestriction(propURI, value));
 	return m;
     }
 
+    /**
+     * <p>
+     * Create a new restriction to state that for all individuals of a certain
+     * class the cardinality of the given property is at least <code>min</code>
+     * and at most <code>max</code>.
+     * </p>
+     * <p>
+     * The new {@link MergedRestriction} contains
+     * <ul>
+     * <li>a {@link MinCardinalityRestriction} if <code>min</code> is valid and
+     * <code>min != max</code>.
+     * <li>a {@link MaxCardinalityRestriction} if <code>max</code> is valid and
+     * <code>min != max</code>.
+     * <li>an {@link ExactCardinalityRestriction} if <code>min</code> and
+     * <code>max</code> are valid and <code>min == max</code>.
+     * </ul>
+     * </p>
+     * 
+     * @param propURI
+     *            The property for which this restriction is defined.
+     * @param min
+     *            The minimum cardinality, or <code>0</code> if undefined.
+     * @param max
+     *            The maximum cardinality, or <code>-1</code> if undefined.
+     * @return the restriction, or <code>null</code> if the parameters are
+     *         invalid.
+     */
     public static final MergedRestriction getCardinalityRestriction(
 	    String propURI, int min, int max) {
 	if (propURI == null)
 	    return null;
-	if ((max > -1 && max < min) // nothing
-		|| (max < 0 && min < 1)) // everything
+	if (max > -1 && max < min) { // invalid
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "getCardinalityRestriction",
+			    new String[] { "Can not create the restriction because of invalid input parameters: "
+				    + "the maximum cardinality is smaller than the minimum cardinality; this does not make sense." },
+			    null);
 	    return null;
+	}
+	if (max < 0 && min < 1) { // everything
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "getCardinalityRestriction",
+			    new String[] { "Can not create the restriction because of invalid input parameters: "
+				    + "both maximum cardinality and minimum cardinality are undefined. This is not a restriction because everything is allowed." },
+			    null);
+	    return null;
+	}
 
 	MergedRestriction ret = new MergedRestriction(propURI);
 
@@ -153,36 +276,97 @@ public class MergedRestriction extends Intersection {
 	return ret;
     }
 
+    /**
+     * <p>
+     * Create a new restriction to state that for all individuals of a certain
+     * class the cardinality of the given property is at least <code>min</code>
+     * and at most <code>max</code> and the value of the given property is of
+     * type <code>typeURI</code>.
+     * </p>
+     * <p>
+     * The new {@link MergedRestriction} contains
+     * <ul>
+     * <li>an {@link AllValuesFromRestriction}
+     * <li>a {@link MinCardinalityRestriction} if <code>min</code> is valid and
+     * <code>min != max</code>.
+     * <li>a {@link MaxCardinalityRestriction} if <code>max</code> is valid and
+     * <code>min != max</code>.
+     * <li>an {@link ExactCardinalityRestriction} if <code>min</code> and
+     * <code>max</code> are valid and <code>min == max</code>.
+     * </ul>
+     * </p>
+     * 
+     * @param propURI
+     *            The property for which this restriction is defined.
+     * @param min
+     *            The minimum cardinality, or <code>0</code> if undefined.
+     * @param max
+     *            The maximum cardinality, or <code>-1</code> if undefined.
+     * @param typeURI
+     *            URI of the type of values for this property.
+     * @return the restriction, or <code>null</code> if the parameters are
+     *         invalid.
+     */
     public static final MergedRestriction getAllValuesRestrictionWithCardinality(
 	    String propURI, String typeURI, int min, int max) {
-
-	MergedRestriction ret = new MergedRestriction(propURI);
-	ret.addRestriction(getAllValuesRestrictionWithCardinality(propURI,
-		TypeURI.asTypeURI(typeURI), min, max));
-	return ret;
-    }
-
-    public static final MergedRestriction getAllValuesRestriction(
-	    String propURI, String typeURI) {
-	if (typeURI == null || propURI == null)
+	if (typeURI == null)
 	    return null;
 
-	MergedRestriction ret = new MergedRestriction(propURI);
-	ret.addRestriction(new AllValuesFromRestriction(propURI, TypeURI
-		.asTypeURI(typeURI)));
-	return ret;
-    }
+	TypeURI type = null;
 
-    public static final MergedRestriction getAllValuesRestriction(
-	    String propURI, TypeExpression expr) {
-	if (expr == null || propURI == null)
+	if (TypeMapper.isRegisteredDatatypeURI(typeURI))
+	    type = new TypeURI(typeURI, true);
+	else if (ManagedIndividual.isRegisteredClassURI(typeURI))
+	    type = new TypeURI(typeURI, false);
+
+	if (type == null) {
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "getAllValuesRestrictionWithCardinality",
+			    new String[] { "Can not create the restriction because of invalid input parameters: "
+				    + "the specified type URI ("
+				    + typeURI
+				    + ") is not registered. It is neither a data type nor a registered ontology class." },
+			    null);
 	    return null;
+	}
 
-	MergedRestriction ret = new MergedRestriction(propURI);
-	ret.addRestriction(new AllValuesFromRestriction(propURI, expr));
-	return ret;
+	return getAllValuesRestrictionWithCardinality(propURI, type, min, max);
     }
 
+    /**
+     * <p>
+     * Create a new restriction to state that for all individuals of a certain
+     * class the cardinality of the given property is at least <code>min</code>
+     * and at most <code>max</code> and the value of the given property is of
+     * type <code>expr</code>.
+     * </p>
+     * <p>
+     * The new {@link MergedRestriction} contains
+     * <ul>
+     * <li>an {@link AllValuesFromRestriction}
+     * <li>a {@link MinCardinalityRestriction} if <code>min</code> is valid and
+     * <code>min != max</code>.
+     * <li>a {@link MaxCardinalityRestriction} if <code>max</code> is valid and
+     * <code>min != max</code>.
+     * <li>an {@link ExactCardinalityRestriction} if <code>min</code> and
+     * <code>max</code> are valid and <code>min == max</code>.
+     * </ul>
+     * </p>
+     * 
+     * @param propURI
+     *            The property for which this restriction is defined.
+     * @param min
+     *            The minimum cardinality, or <code>0</code> if undefined.
+     * @param max
+     *            The maximum cardinality, or <code>-1</code> if undefined.
+     * @param expr
+     *            The type of values for this property.
+     * @return the restriction, or <code>null</code> if the parameters are
+     *         invalid.
+     */
     public static final MergedRestriction getAllValuesRestrictionWithCardinality(
 	    String propURI, TypeExpression expr, int min, int max) {
 	if (expr == null)
@@ -195,6 +379,97 @@ public class MergedRestriction extends Intersection {
 	return ret;
     }
 
+    /**
+     * <p>
+     * Create a new restriction to state that for all individuals of a certain
+     * class the value of the given property is of type <code>typeURI</code>.
+     * </p>
+     * <p>
+     * The new {@link MergedRestriction} contains
+     * <ul>
+     * <li>an {@link AllValuesFromRestriction}
+     * </ul>
+     * </p>
+     * 
+     * @param propURI
+     *            The property for which this restriction is defined.
+     * @param typeURI
+     *            The type of values of the property.
+     * @return the restriction, or <code>null</code> if the parameters are
+     *         invalid.
+     */
+    public static final MergedRestriction getAllValuesRestriction(
+	    String propURI, String typeURI) {
+	if (typeURI == null || propURI == null)
+	    return null;
+
+	TypeURI type = null;
+
+	if (TypeMapper.isRegisteredDatatypeURI(typeURI))
+	    type = new TypeURI(typeURI, true);
+	else if (ManagedIndividual.isRegisteredClassURI(typeURI))
+	    type = new TypeURI(typeURI, false);
+
+	if (type == null) {
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "getAllValuesRestriction",
+			    new String[] { "Can not create the restriction because of invalid input parameters: "
+				    + "the specified type URI ("
+				    + typeURI
+				    + ") is not registered. It is neither a data type nor a registered ontology class." },
+			    null);
+	    return null;
+	}
+
+	MergedRestriction ret = new MergedRestriction(propURI);
+	ret.addRestriction(new AllValuesFromRestriction(propURI, type));
+	return ret;
+    }
+
+    /**
+     * <p>
+     * Create a new restriction to state that for all individuals of a certain
+     * class the value of the given property is of type <code>expr</code>.
+     * </p>
+     * <p>
+     * The new {@link MergedRestriction} contains
+     * <ul>
+     * <li>an {@link AllValuesFromRestriction}
+     * </ul>
+     * </p>
+     * 
+     * @param propURI
+     *            The property for which this restriction is defined.
+     * @param expr
+     *            The type of values of the property.
+     * @return the restriction, or <code>null</code> if the parameters are
+     *         invalid.
+     */
+    public static final MergedRestriction getAllValuesRestriction(
+	    String propURI, TypeExpression expr) {
+	if (expr == null || propURI == null)
+	    return null;
+
+	MergedRestriction ret = new MergedRestriction(propURI);
+	ret.addRestriction(new AllValuesFromRestriction(propURI, expr));
+	return ret;
+    }
+
+    /**
+     * Get a list of {@link MergedRestriction}s from the specified list which
+     * may contain restrictions for <i>different</i> properties. For each
+     * property, there exists exactly one {@link MergedRestriction} in the
+     * returned list.
+     * 
+     * @param o
+     *            The list of {@link PropertyRestriction}s. Elements of this
+     *            list that are not instances of {@link PropertyRestriction} are
+     *            ignored. Restrictions can be defined for different properties.
+     * @return The list of {@link MergedRestriction}.
+     */
     public static ArrayList getFromList(List o) {
 	// multiple restrictions for (possibly multiple) properties
 	// -> build array of MergedRestrictions
@@ -236,6 +511,15 @@ public class MergedRestriction extends Intersection {
 	    index[i] = -1;
     }
 
+    /**
+     * Get the minimum cardinality, if this object specifies one. The minimum
+     * cardinality can be specified be either a
+     * {@link MinCardinalityRestriction} or an
+     * {@link ExactCardinalityRestriction}.
+     * 
+     * @return the minimum cardinality, or <code>0</code> if no minimum
+     *         cardinality is specified.
+     */
     public int getMinCardinality() {
 	if (index[minCardinalityID] != -1)
 	    return ((MinCardinalityRestriction) (types
@@ -246,6 +530,15 @@ public class MergedRestriction extends Intersection {
 	return 0;
     }
 
+    /**
+     * Get the maximum cardinality, if this object specifies one. The maximum
+     * cardinality can be specified be either a
+     * {@link MaxCardinalityRestriction} or an
+     * {@link ExactCardinalityRestriction}.
+     * 
+     * @return the maximum cardinality, or <code>0</code> if no maximum
+     *         cardinality is specified.
+     */
     public int getMaxCardinality() {
 	if (index[maxCardinalityID] != -1)
 	    return ((MaxCardinalityRestriction) (types
@@ -276,6 +569,9 @@ public class MergedRestriction extends Intersection {
 	}
     }
 
+    /**
+     * Get all {@link PropertyRestriction}s.
+     */
     public List getRestrictions() {
 	return Collections.unmodifiableList(types);
     }
@@ -294,6 +590,13 @@ public class MergedRestriction extends Intersection {
 		this.index[i]--;
     }
 
+    /**
+     * Get a specific {@link PropertyRestriction}.
+     * 
+     * @param id
+     *            ID of the property restriction.
+     * @return the property restriction.
+     */
     public PropertyRestriction getRestriction(int id) {
 	if (index[id] == -1)
 	    return null;
@@ -391,8 +694,8 @@ public class MergedRestriction extends Intersection {
 	    break;
 	case someValuesFromID:
 	    if (some == null
-		    && (all == null || ((TypeExpression) all).matches(res,
-			    null))) {
+		    && (all == null || ((TypeExpression) all)
+			    .matches(res, null))) {
 		if (all != null && max == 1)
 		    removeRestriction(allValuesFromID);
 		index[someValuesFromID] = types.size();
@@ -403,12 +706,6 @@ public class MergedRestriction extends Intersection {
 	    if (max == -1 && all == null && some == null
 		    && getRestriction(minCardinalityID) == null) {
 		index[hasValueID] = types.size();
-		types.add(res);
-	    }
-	    break;
-	case boundingValueID:
-	    if (index[boundingValueID] == -1) {
-		index[boundingValueID] = types.size();
 		types.add(res);
 	    }
 	    break;
@@ -466,6 +763,17 @@ public class MergedRestriction extends Intersection {
 	return this;
     }
 
+    /**
+     * Add all restrictions of the given {@link MergedRestriction}, performing a
+     * sanity check. It is not guaranteed that the given restriction will really
+     * be added, e.g. when this {@link MergedRestriction} already has a
+     * {@link MinCardinalityRestriction} and a {@link MaxCardinalityRestriction}
+     * with the same value is added, then the {@link MinCardinalityRestriction}
+     * is removed and an {@link ExactCardinalityRestriction} is added instead.
+     * 
+     * @param r
+     *            The Restriction to add.
+     */
     public MergedRestriction addRestriction(MergedRestriction r) {
 	ArrayList resList = (ArrayList) r.types;
 	for (int i = 0; i < resList.size(); i++)
@@ -482,8 +790,6 @@ public class MergedRestriction extends Intersection {
 	    idx = someValuesFromID;
 	else if (res instanceof HasValueRestriction)
 	    idx = hasValueID;
-	else if (res instanceof BoundingValueRestriction)
-	    idx = boundingValueID;
 	else if (res instanceof MinCardinalityRestriction)
 	    idx = minCardinalityID;
 	else if (res instanceof MaxCardinalityRestriction)
@@ -801,9 +1107,7 @@ public class MergedRestriction extends Intersection {
 	return null;
     }
 
-    /**
-     * Get the set of instances.
-     */
+    /** Get the set of instances. */
     public Object[] getEnumeratedValues() {
 	AllValuesFromRestriction allres = (AllValuesFromRestriction) types
 		.get(index[allValuesFromID]);
