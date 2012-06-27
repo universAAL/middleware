@@ -39,13 +39,23 @@ public interface Container {
      *            to be used.
      * @param fetchParams
      *            Container-specific parameters for fetching shared objects.
-     * @param listener
-     *            If not null, the listener will be notified asynchronously each
-     *            time a new matching object is shared within this container.
      */
     public Object fetchSharedObject(ModuleContext requester,
 	    Object[] fetchParams);
 
+    /**
+     * Returns an object previously shared by another module for usage within
+     * this container.
+     * 
+     * @param requester
+     *            The module in the context of which the shared object is going
+     *            to be used.
+     * @param fetchParams
+     *            Container-specific parameters for fetching shared objects.
+     * @param listener
+     *            If not null, the listener will be notified asynchronously each
+     *            time a new matching object is shared within this container.
+     */
     public Object[] fetchSharedObject(ModuleContext requester,
 	    Object[] fetchParams, SharedObjectListener listener);
 
@@ -66,7 +76,7 @@ public interface Container {
 
     /**
      * Returns an {@link java.util.Iterator} object over all registered
-     * instances of {@LogListener}.
+     * instances of {@link LogListener}.
      */
     public Iterator logListeners();
 

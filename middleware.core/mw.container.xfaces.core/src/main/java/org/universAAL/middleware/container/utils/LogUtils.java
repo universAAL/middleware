@@ -28,6 +28,11 @@ import org.universAAL.middleware.container.ModuleContext;
  * Logging utility class. Call one of the static methods of this class to add
  * new log entries to a logger. Log entries may also be forwarded to various
  * other {@link LogListener}s.
+ * <p>
+ * <b>Security considerations:</b><br>
+ * Since the log entries are forwarded to <i>custom</i> log listeners, the
+ * <code>msgPart</code> should contain only <i>unmodifiable</i> content.
+ * </p>
  * 
  * @author mtazari
  * @author Carsten Stockloew
@@ -41,9 +46,6 @@ public class LogUtils {
      *            The class which has called the logger.
      * @param method
      *            The method in which the logger was called.
-     * @param msgPart
-     *            The message of this log entry. All elements of this array are
-     *            converted to a string object and concatenated.
      * @return The String.
      */
     private static String buildTag(String cls, String method) {
@@ -55,10 +57,6 @@ public class LogUtils {
     /**
      * Internal method to create a single String from a list of objects.
      * 
-     * @param cls
-     *            The class which has called the logger.
-     * @param method
-     *            The method in which the logger was called.
      * @param msgPart
      *            The message of this log entry. All elements of this array are
      *            converted to a string object and concatenated.
@@ -69,9 +67,9 @@ public class LogUtils {
 	if (msgPart != null)
 	    for (int i = 0; i < msgPart.length; i++)
 		sb.append(msgPart[i]);
-	  return sb.toString();
+	return sb.toString();
     }
-    
+
     private static void log(int level, ModuleContext mc, Class claz,
 	    String method, Object[] msgPart, Throwable t) {
 
@@ -89,19 +87,19 @@ public class LogUtils {
 	else {
 	    switch (level) {
 	    case LogListener.LOG_LEVEL_TRACE:
-		mc.logTrace(buildTag(cls, method),buildMsg(msgPart), t);
+		mc.logTrace(buildTag(cls, method), buildMsg(msgPart), t);
 		break;
 	    case LogListener.LOG_LEVEL_DEBUG:
-		mc.logDebug(buildTag(cls, method),buildMsg(msgPart), t);
+		mc.logDebug(buildTag(cls, method), buildMsg(msgPart), t);
 		break;
 	    case LogListener.LOG_LEVEL_INFO:
-		mc.logInfo(buildTag(cls, method),buildMsg(msgPart), t);
+		mc.logInfo(buildTag(cls, method), buildMsg(msgPart), t);
 		break;
 	    case LogListener.LOG_LEVEL_WARN:
-		mc.logWarn(buildTag(cls, method),buildMsg(msgPart), t);
+		mc.logWarn(buildTag(cls, method), buildMsg(msgPart), t);
 		break;
 	    case LogListener.LOG_LEVEL_ERROR:
-		mc.logError(buildTag(cls, method),buildMsg(msgPart), t);
+		mc.logError(buildTag(cls, method), buildMsg(msgPart), t);
 		break;
 	    }
 	    module = mc.getID();
@@ -114,24 +112,25 @@ public class LogUtils {
 
     /**
      * Provides a standard way for using container-specific loggers for logging
-     * debug messages via {@link ModuleContext#logDebug(String, Throwable)}. The
-     * advantage compared to using
-     * {@link ModuleContext#logDebug(String, Throwable)} directly is twofold:
+     * debug messages via
+     * {@link ModuleContext#logDebug(String, String, Throwable)}. The advantage
+     * compared to using
+     * {@link ModuleContext#logDebug(String, String, Throwable)} directly is
+     * twofold:
      * <ol>
      * <li>here registered instances of {@link LogListener} are notified
      * automatically, and</li>
      * <li>the message string needed by
-     * {@link ModuleContext#logDebug(String, Throwable)} is built in a
+     * {@link ModuleContext#logDebug(String, String, Throwable)} is built in a
      * structured way by concatenating several different info (see the
-     * parameters as well as {@link #buildMsg(String, String, Object[])}).
+     * parameters as well as {@link #buildMsg(Object[])}).
      * 
      * @param mc
      *            the {@link ModuleContext} needed for accessing the
      *            container-specific logger for the corresponding module
-     * @param className
-     *            The name of the Java class that wants to generate the log
-     *            message
-     * @param methodName
+     * @param claz
+     *            The Java class that wants to generate the log message
+     * @param method
      *            The name of the method in the above Java class that intends to
      *            generate the log message
      * @param msgPart
@@ -149,24 +148,25 @@ public class LogUtils {
 
     /**
      * Provides a standard way for using container-specific loggers for logging
-     * error messages via {@link ModuleContext#logError(String, Throwable)}. The
-     * advantage compared to using
-     * {@link ModuleContext#logError(String, Throwable)} directly is twofold:
+     * error messages via
+     * {@link ModuleContext#logError(String, String, Throwable)}. The advantage
+     * compared to using
+     * {@link ModuleContext#logError(String, String, Throwable)} directly is
+     * twofold:
      * <ol>
      * <li>here registered instances of {@link LogListener} are notified
      * automatically, and</li>
      * <li>the message string needed by
-     * {@link ModuleContext#logError(String, Throwable)} is built in a
+     * {@link ModuleContext#logError(String, String, Throwable)} is built in a
      * structured way by concatenating several different info (see the
-     * parameters as well as {@link #buildMsg(String, String, Object[])}).
+     * parameters as well as {@link #buildMsg(Object[])}).
      * 
      * @param mc
      *            the {@link ModuleContext} needed for accessing the
      *            container-specific logger for the corresponding module
-     * @param className
-     *            The name of the Java class that wants to generate the log
-     *            message
-     * @param methodName
+     * @param claz
+     *            The Java class that wants to generate the log message
+     * @param method
      *            The name of the method in the above Java class that intends to
      *            generate the log message
      * @param msgPart
@@ -184,24 +184,25 @@ public class LogUtils {
 
     /**
      * Provides a standard way for using container-specific loggers for logging
-     * info messages via {@link ModuleContext#logInfo(String, Throwable)}. The
-     * advantage compared to using
-     * {@link ModuleContext#logInfo(String, Throwable)} directly is twofold:
+     * info messages via
+     * {@link ModuleContext#logInfo(String, String, Throwable)}. The advantage
+     * compared to using
+     * {@link ModuleContext#logInfo(String, String, Throwable)} directly is
+     * twofold:
      * <ol>
      * <li>here registered instances of {@link LogListener} are notified
      * automatically, and</li>
      * <li>the message string needed by
-     * {@link ModuleContext#logInfo(String, Throwable)} is built in a structured
-     * way by concatenating several different info (see the parameters as well
-     * as {@link #buildMsg(String, String, Object[])}).
+     * {@link ModuleContext#logInfo(String, String, Throwable)} is built in a
+     * structured way by concatenating several different info (see the
+     * parameters as well as {@link #buildMsg(Object[])}).
      * 
      * @param mc
      *            the {@link ModuleContext} needed for accessing the
      *            container-specific logger for the corresponding module
-     * @param className
-     *            The name of the Java class that wants to generate the log
-     *            message
-     * @param methodName
+     * @param claz
+     *            The Java class that wants to generate the log message
+     * @param method
      *            The name of the method in the above Java class that intends to
      *            generate the log message
      * @param msgPart
@@ -219,24 +220,25 @@ public class LogUtils {
 
     /**
      * Provides a standard way for using container-specific loggers for logging
-     * warn messages via {@link ModuleContext#logWarn(String, Throwable)}. The
-     * advantage compared to using
-     * {@link ModuleContext#logWarn(String, Throwable)} directly is twofold:
+     * warn messages via
+     * {@link ModuleContext#logWarn(String, String, Throwable)}. The advantage
+     * compared to using
+     * {@link ModuleContext#logWarn(String, String, Throwable)} directly is
+     * twofold:
      * <ol>
      * <li>here registered instances of {@link LogListener} are notified
      * automatically, and</li>
      * <li>the message string needed by
-     * {@link ModuleContext#logWarn(String, Throwable)} is built in a structured
-     * way by concatenating several different info (see the parameters as well
-     * as {@link #buildMsg(String, String, Object[])}).
+     * {@link ModuleContext#logWarn(String, String, Throwable)} is built in a
+     * structured way by concatenating several different info (see the
+     * parameters as well as {@link #buildMsg(Object[])}).
      * 
      * @param mc
      *            the {@link ModuleContext} needed for accessing the
      *            container-specific logger for the corresponding module
-     * @param className
-     *            The name of the Java class that wants to generate the log
-     *            message
-     * @param methodName
+     * @param claz
+     *            The Java class that wants to generate the log message
+     * @param method
      *            The name of the method in the above Java class that intends to
      *            generate the log message
      * @param msgPart
@@ -251,27 +253,28 @@ public class LogUtils {
 	    Object[] msgPart, Throwable t) {
 	log(LogListener.LOG_LEVEL_WARN, mc, claz, method, msgPart, t);
     }
-    
+
     /**
      * Provides a standard way for using container-specific loggers for logging
-     * trace messages via {@link ModuleContext#logTrace(String, Throwable)}. The
-     * advantage compared to using
-     * {@link ModuleContext#logTrace(String, Throwable)} directly is twofold:
+     * trace messages via
+     * {@link ModuleContext#logTrace(String, String, Throwable)}. The advantage
+     * compared to using
+     * {@link ModuleContext#logTrace(String, String, Throwable)} directly is
+     * twofold:
      * <ol>
      * <li>here registered instances of {@link LogListener} are notified
      * automatically, and</li>
      * <li>the message string needed by
-     * {@link ModuleContext#logTrace(String, Throwable)} is built in a structured
-     * way by concatenating several different info (see the parameters as well
-     * as {@link #buildMsg(String, String, Object[])}).
+     * {@link ModuleContext#logTrace(String, String, Throwable)} is built in a
+     * structured way by concatenating several different info (see the
+     * parameters as well as {@link #buildMsg(Object[])}).
      * 
      * @param mc
      *            the {@link ModuleContext} needed for accessing the
      *            container-specific logger for the corresponding module
-     * @param className
-     *            The name of the Java class that wants to generate the log
-     *            message
-     * @param methodName
+     * @param claz
+     *            The Java class that wants to generate the log message
+     * @param method
      *            The name of the method in the above Java class that intends to
      *            generate the log message
      * @param msgPart
