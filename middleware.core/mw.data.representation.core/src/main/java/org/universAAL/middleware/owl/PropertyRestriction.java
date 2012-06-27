@@ -70,6 +70,11 @@ public abstract class PropertyRestriction extends TypeExpression {
 	props.put(PROP_RDF_TYPE, l);
     }
 
+    /**
+     * Get the class URI for this {@link PropertyRestriction}.
+     * 
+     * @return The class URI.
+     */
     public String getClassURI() {
 	return MY_URI;
     }

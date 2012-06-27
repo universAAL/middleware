@@ -59,6 +59,9 @@ public class HasValueRestriction extends PropertyRestriction {
 	super.setProperty(PROP_OWL_HAS_VALUE, o);
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.PropertyRestriction#getClassURI()
+     */
     public String getClassURI() {
 	return MY_URI;
     }

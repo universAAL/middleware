@@ -144,7 +144,7 @@ public final class ObjectProperty extends Property {
     /**
      * Get the inverse of this property.
      * 
-     * @see ObjectPropertySetup#setInverseOf(ObjectProperty)
+     * @see ObjectPropertySetup#setInverseOf(String)
      */
     public ObjectProperty inverseOf() {
 	return null;	//TODO: inverseOf;
