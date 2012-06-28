@@ -36,6 +36,13 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * property.
  * </p>
  * <p>
+ * There is often more than one restriction for a specific property, e.g. a
+ * minimum cardinality restriction and a maximum cardinality restriction. All
+ * these restrictions must be specified separately by an instance of
+ * {@link PropertyRestriction}. This class helps to manage multiple restrictions
+ * for the same property.
+ * </p>
+ * <p>
  * NOTE: If you add this class to another Resource with
  * {@link #setProperty(String, Object)}, it will behave like an
  * {@link Intersection} of the restrictions contained in this MergedRestriction.
@@ -504,7 +511,13 @@ public class MergedRestriction extends Intersection {
 	return ret;
     }
 
-    public void reset() {
+    /**
+     * Reset this object. The object is then in the same state like a newly
+     * created object with {@link #MergedRestriction()}, i.e. the
+     * {@link #onProperty} is not specified and it contains no
+     * {@link PropertyRestriction}.
+     */
+    private void reset() {
 	types.clear();
 	onProperty = null;
 	for (int i = 0; i < index.length; i++)
@@ -536,7 +549,7 @@ public class MergedRestriction extends Intersection {
      * {@link MaxCardinalityRestriction} or an
      * {@link ExactCardinalityRestriction}.
      * 
-     * @return the maximum cardinality, or <code>0</code> if no maximum
+     * @return the maximum cardinality, or <code>-1</code> if no maximum
      *         cardinality is specified.
      */
     public int getMaxCardinality() {
@@ -549,13 +562,35 @@ public class MergedRestriction extends Intersection {
 	return -1;
     }
 
+    /**
+     * Get the constraint of a specific restriction, e.g. the minimum
+     * cardinality for {@link MinCardinalityRestriction}. This method calls
+     * {@link PropertyRestriction#getConstraint()}; the return value depends on
+     * the individual restriction.
+     * 
+     * @param id
+     *            ID of the restriction.
+     * @return The constraint of the restriction.
+     */
     public Object getConstraint(int id) {
 	if (index[id] != -1)
 	    return ((PropertyRestriction) types.get(index[id])).getConstraint();
 	return null;
     }
 
-    public void setRestrictions(String onProperty, ArrayList restrictions) {
+    /**
+     * Set a list of restrictions. The object is first reset before new
+     * restrictions are set. This method is similar to calling the constructor
+     * {@link #MergedRestriction(String, ArrayList)} with the only difference
+     * that no new object is created.
+     * 
+     * @param onProperty
+     *            The property for which this restriction is defined.
+     * @param restrictions
+     *            The list of restrictions. The array must contain only
+     *            instances of {@link PropertyRestriction}.
+     */
+    private void setRestrictions(String onProperty, ArrayList restrictions) {
 	if (restrictions == null || onProperty == null)
 	    throw new NullPointerException();
 	reset();
@@ -570,12 +605,20 @@ public class MergedRestriction extends Intersection {
     }
 
     /**
-     * Get all {@link PropertyRestriction}s.
+     * Get all {@link PropertyRestriction}s. The list is backed by the
+     * {@link MergedRestriction}, so changes to the {@link MergedRestriction}
+     * are reflected in the list.
      */
     public List getRestrictions() {
 	return Collections.unmodifiableList(types);
     }
 
+    /**
+     * Remove a restriction.
+     * 
+     * @param id
+     *            ID of the restriction to remove.
+     */
     private void removeRestriction(int id) {
 	int index = this.index[id];
 	if (index < 0 || index >= types.size())
@@ -656,7 +699,7 @@ public class MergedRestriction extends Intersection {
 
 	// id points to the appropriate element in 'index' of the given
 	// Restriction
-	int id = getIndex(res);
+	int id = getID(res);
 
 	TypeExpression all = index[allValuesFromID] == -1 ? null
 		: (TypeExpression) ((Resource) (types
@@ -772,7 +815,7 @@ public class MergedRestriction extends Intersection {
      * is removed and an {@link ExactCardinalityRestriction} is added instead.
      * 
      * @param r
-     *            The Restriction to add.
+     *            The restriction to add.
      */
     public MergedRestriction addRestriction(MergedRestriction r) {
 	ArrayList resList = (ArrayList) r.types;
@@ -782,7 +825,14 @@ public class MergedRestriction extends Intersection {
 	return this;
     }
 
-    private int getIndex(PropertyRestriction res) {
+    /**
+     * Get the ID of the specified restriction.
+     * 
+     * @param res
+     *            Restriction for which to return the ID.
+     * @return ID of the specified restriction.
+     */
+    private int getID(PropertyRestriction res) {
 	int idx = -1;
 	if (res instanceof AllValuesFromRestriction)
 	    idx = allValuesFromID;
@@ -802,6 +852,14 @@ public class MergedRestriction extends Intersection {
 	return idx;
     }
 
+    /**
+     * Analyze the list of restrictions to check for invalid data. The
+     * restrictions are stored in {@link Intersection#types} and are checked for
+     * duplicate restrictions and restriction that are defined for a different
+     * property. Additionally, the {@link #index} is checked. This analysis is
+     * necessary after setting an unknown list of restriction, e.g. after
+     * calling {@link #setRestrictions(String, ArrayList)}.
+     */
     private void analyze() {
 	for (int i = 0; i < types.size(); i++) {
 	    if (!(types.get(i) instanceof PropertyRestriction))
@@ -814,7 +872,7 @@ public class MergedRestriction extends Intersection {
 			"Restriction defined for wrong property: "
 				+ res.getClassURI() + " " + res.getOnProperty());
 
-	    int idx = getIndex(res);
+	    int idx = getID(res);
 	    if (idx != -1 && index[idx] != -1)
 		throw new IllegalArgumentException("Duplicate Restriction: "
 			+ res.getClassURI());
