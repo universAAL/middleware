@@ -90,7 +90,7 @@ public abstract class AbstractBus implements Bus {
      *            bus member ID
      * @return bus member instance
      */
-    BusMember getBusMember(String memberID) {
+    public BusMember getBusMember(String memberID) {
     	return registry.getBusMemberByID(memberID);
     }
 
@@ -101,7 +101,7 @@ public abstract class AbstractBus implements Bus {
      *            bus member instance
      * @return bus member ID
      */
-    protected String getBusMemberID(BusMember bm) {
+    public String getBusMemberID(BusMember bm) {
     	return registry.getBusMemberID(bm);
     }
 

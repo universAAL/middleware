@@ -48,7 +48,7 @@ import org.universAAL.middleware.sodapop.msg.Message;
 public abstract class ContextSubscriber implements Subscriber {
     private ContextBus bus;
     private ModuleContext thisSubscriberContext;
-    private String myID, localID;
+    protected String myID, localID;
 
     /**
      * Creates a Context Subscriber and immediately registers a set of Context
@@ -62,14 +62,23 @@ public abstract class ContextSubscriber implements Subscriber {
      */
     protected ContextSubscriber(ModuleContext context,
 	    ContextEventPattern[] initialSubscriptions) {
-	thisSubscriberContext = context;
-	bus = (ContextBus) context.getContainer().fetchSharedObject(context,
-		ContextBusImpl.busFetchParams);
-	myID = bus.register(this, initialSubscriptions);
-	localID = myID.substring(myID.lastIndexOf('#') + 1);
+    	this((ContextBus) context.getContainer().fetchSharedObject(context, ContextBusImpl.busFetchParams),
+    			initialSubscriptions,
+    			true);
+    	
+    	thisSubscriberContext = context;
     }
 
-    /**
+    public ContextSubscriber(ContextBus bus, ContextEventPattern[] initialSubscriptions, boolean register) {
+    	this.bus = bus;
+    	
+    	if (register) {
+    		myID = bus.register(this, initialSubscriptions);
+    		populateLocalID(myID);
+    	}
+	}
+
+	/**
      * Registers more ContextEventPattern for this Subscriber in addition to
      * those that might have passed initially
      * 
@@ -143,4 +152,12 @@ public abstract class ContextSubscriber implements Subscriber {
     public void close() {
 	bus.unregister(myID, this);
     }
+    
+    protected void populateLocalID(String myID) {
+    	localID = myID.substring(myID.lastIndexOf('#') + 1);
+    }
+
+	public String getMyID() {
+		return myID;
+	}
 }

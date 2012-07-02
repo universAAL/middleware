@@ -45,8 +45,8 @@ import org.universAAL.middleware.sodapop.msg.Message;
  *         Tazari</a>
  */
 public abstract class ContextPublisher implements Publisher {
-    private ContextBus bus;
-    private String myID;
+    protected ContextBus bus;
+    protected String myID;
     private ContextProvider providerInfo;
 
     /**
@@ -60,13 +60,23 @@ public abstract class ContextPublisher implements Publisher {
      */
     protected ContextPublisher(ModuleContext context,
 	    ContextProvider providerInfo) {
-	if (providerInfo == null || !providerInfo.isWellFormed())
-	    throw new IllegalArgumentException(
-		    "Missing the well-formed provider info!");
-	bus = (ContextBus) context.getContainer().fetchSharedObject(context,
-		ContextBusImpl.busFetchParams);
-	this.providerInfo = providerInfo;
-	myID = bus.register(this, providerInfo.getProvidedEvents());
+    	this((ContextBus) context.getContainer().fetchSharedObject(context, ContextBusImpl.busFetchParams),
+    			providerInfo,
+    			true);
+    }
+    
+    protected ContextPublisher(ContextBus bus, ContextProvider providerInfo, boolean register) {
+    	
+    	if (providerInfo == null || !providerInfo.isWellFormed())
+    	    throw new IllegalArgumentException(
+    		    "Missing the well-formed provider info!");
+    	
+    	this.bus 			= bus;
+    	this.providerInfo 	= providerInfo;
+    	
+    	if (register) {
+    		myID = bus.register(this, providerInfo.getProvidedEvents());
+    	}
     }
 
     /**
@@ -109,4 +119,8 @@ public abstract class ContextPublisher implements Publisher {
     public void close() {
 	bus.unregister(myID, this);
     }
+
+	public String getMyID() {
+		return myID;
+	}
 }
