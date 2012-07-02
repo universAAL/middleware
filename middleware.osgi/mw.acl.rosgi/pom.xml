@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -14,7 +15,7 @@
 	<packaging>bundle</packaging>
 	<name>ACL R-OSGi</name>
 	<description>An implement of the ACL interface using R-OSGi</description>
-	<url/>
+	<url />
 
 	<scm>
 		<connection>${svn.base}/acl.rosgi</connection>
@@ -61,11 +62,21 @@
 						<Bundle-Activator>org.universAAL.middleware.acl.rosgi.Activator</Bundle-Activator>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Export-Package/>
+						<Export-Package />
 						<Import-Package>org.universAAL.middleware.acl,ch.ethz.iks.r_osgi,ch.ethz.iks.r_osgi.service_discovery,org.osgi.framework</Import-Package>
 						<Private-Package>org.universAAL.middleware.acl.rosgi</Private-Package>
 					</instructions>
 				</configuration>
+				<!--
+					Generating of bundle manifest for itests has to be disabled because
+					of some strange interference with cobertura
+				-->
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<phase>null</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
