@@ -26,31 +26,31 @@ import java.util.Map;
 
 import org.universAAL.middleware.context.data.factory.ContextStrategyDataFactory;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 17, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 17, 2012
+ * 
  */
 public class PropsDataMap implements IPropsData {
 
-	private Map map = new HashMap(); 
-	
-	public IFiltererContainer getFiltererContainer(String key) {
-		IFiltererContainer container = null;
-		if (!map.containsKey(key)) {
-			container = new ContextStrategyDataFactory().createFiltererContainer(key);
-			map.put(key, container);
-		} else {
-			container = (IFiltererContainer) map.get(key);
-		}
-		
-		return container;
+    private Map map = new HashMap();
+
+    public IFiltererContainer getFiltererContainer(String key) {
+	IFiltererContainer container = null;
+	if (!map.containsKey(key)) {
+	    container = new ContextStrategyDataFactory()
+		    .createFiltererContainer(key);
+	    map.put(key, container);
+	} else {
+	    container = (IFiltererContainer) map.get(key);
 	}
-	
-	public Collection getAllFiltererContainers() {
-		return map.values();
-	}
+
+	return container;
+    }
+
+    public Collection getAllFiltererContainers() {
+	return map.values();
+    }
 }

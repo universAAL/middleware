@@ -20,19 +20,18 @@
  */
 package org.universAAL.middleware.context.data;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 14, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 14, 2012
+ * 
  */
 public interface INumCalledPeersData {
-	
-	void addCalledPeers(String messageID, ICalledPeers calledPeers);
-	
-	ICalledPeers getCalledPeers(String messageID);
-	
-	void removeCalledPeers(String messageID);
+
+    void addCalledPeers(String messageID, ICalledPeers calledPeers);
+
+    ICalledPeers getCalledPeers(String messageID);
+
+    void removeCalledPeers(String messageID);
 }

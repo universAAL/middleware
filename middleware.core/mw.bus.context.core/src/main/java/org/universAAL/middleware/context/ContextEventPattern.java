@@ -46,7 +46,6 @@ public class ContextEventPattern extends FinalizedResource {
     public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE
 	    + "ContextEventPattern";
 
-    
     public class Indices {
 	private String[] subjects = null, props = null;
 	private String[] subjectTypes = null;
@@ -66,14 +65,13 @@ public class ContextEventPattern extends FinalizedResource {
 
     // the list of restrictions as set as property of the resource
     private List restrictions;
-    
+
     // additional internal management of restrictions
     // maps the URI of the onProperty (String) to a MergedRestriction
     private HashMap mergedRestrictions;
-    
+
     private Indices indices;
 
-    
     public ContextEventPattern() {
 	super();
 	addType(MY_URI, true);
@@ -82,7 +80,7 @@ public class ContextEventPattern extends FinalizedResource {
 	props.put(TypeExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
 	mergedRestrictions = new HashMap();
     }
-    
+
     public ContextEventPattern(String instanceURI) {
 	super(instanceURI);
 	addType(MY_URI, true);
@@ -91,7 +89,6 @@ public class ContextEventPattern extends FinalizedResource {
 	props.put(TypeExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
 	mergedRestrictions = new HashMap();
     }
-   
 
     /**
      * Add a restriction to the pattern, thus narrowing the events that will
@@ -223,11 +220,12 @@ public class ContextEventPattern extends FinalizedResource {
 		if (o instanceof PropertyRestriction) {
 		    // a single restriction
 		    PropertyRestriction res = (PropertyRestriction) o;
-		    MergedRestriction m = new MergedRestriction(res.getOnProperty());
+		    MergedRestriction m = new MergedRestriction(res
+			    .getOnProperty());
 		    addRestriction(m);
 		} else if (o instanceof List) {
 		    ArrayList l = MergedRestriction.getFromList((List) o);
-		    for (int i=0; i<l.size(); i++)
+		    for (int i = 0; i < l.size(); i++)
 			addRestriction((MergedRestriction) l.get(i));
 		}
 	    }

@@ -23,23 +23,22 @@ package org.universAAL.middleware.context.data;
 import java.util.List;
 import java.util.Vector;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 17, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 17, 2012
+ * 
  */
 public class AllProvisionDataVector implements IAllProvisionData {
 
-	private Vector contextEventPatterns = new Vector();
-	
-	public void addContextEventPatterns(List contextEventPatterns) {
-		contextEventPatterns.addAll(contextEventPatterns);
-	}
+    private Vector contextEventPatterns = new Vector();
 
-	public Vector getContextEventPatterns() {
-		return contextEventPatterns;
-	}
+    public void addContextEventPatterns(List contextEventPatterns) {
+	contextEventPatterns.addAll(contextEventPatterns);
+    }
+
+    public Vector getContextEventPatterns() {
+	return contextEventPatterns;
+    }
 }

@@ -105,20 +105,20 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	super(Constants.uAAL_BUS_NAME_CONTEXT, g);
 	busStrategy.setBus(this);
     }
-    
+
     protected BusStrategy createBusStrategy(SodaPop sodapop) {
-		return new ContextStrategy(sodapop);
-	}
+	return new ContextStrategy(sodapop);
+    }
 
     public void addNewRegParams(String subscriberID,
 	    ContextEventPattern[] newSubscriptions) {
 	if (subscriberID != null
 		&& subscriberID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-		String localID = subscriberID
+	    String localID = subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length());
-		Object o = registry.getBusMemberByID(localID);
+	    Object o = registry.getBusMemberByID(localID);
 	    if (o instanceof ContextSubscriber && newSubscriptions != null)
 		((ContextStrategy) busStrategy).addRegParams(
 			(ContextSubscriber) o, newSubscriptions);
@@ -129,10 +129,10 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	if (subscriberID != null
 		&& subscriberID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-		String localID = subscriberID
+	    String localID = subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length());
-		Object o = registry.getBusMemberByID(localID);
+	    Object o = registry.getBusMemberByID(localID);
 	    if (o instanceof ContextSubscriber)
 		return ((ContextStrategy) busStrategy)
 			.getAllProvisions((ContextSubscriber) o);
@@ -165,10 +165,10 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	if (subscriberID != null
 		&& subscriberID
 			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	   String localID = subscriberID
+	    String localID = subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length());
-		Object o = registry.getBusMemberByID(localID);
+	    Object o = registry.getBusMemberByID(localID);
 	    if (o instanceof ContextSubscriber && oldSubscriptions != null)
 		((ContextStrategy) busStrategy).removeMatchingRegParams(
 			(ContextSubscriber) o, oldSubscriptions);

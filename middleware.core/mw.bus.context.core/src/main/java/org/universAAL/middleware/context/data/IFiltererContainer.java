@@ -25,21 +25,20 @@ import java.util.Vector;
 import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.context.impl.ContextStrategy.ContextFilterer;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 17, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 17, 2012
+ * 
  */
 public interface IFiltererContainer {
-	
-	void addFilterer(ContextFilterer contextFilterer);
-	
-	Vector getFilterers();
-	
-//	void removeFilterer(ContextFilterer contextFilterer);
 
-	void removeFilterers(ContextSubscriber subscriber);
+    void addFilterer(ContextFilterer contextFilterer);
+
+    Vector getFilterers();
+
+    // void removeFilterer(ContextFilterer contextFilterer);
+
+    void removeFilterers(ContextSubscriber subscriber);
 }

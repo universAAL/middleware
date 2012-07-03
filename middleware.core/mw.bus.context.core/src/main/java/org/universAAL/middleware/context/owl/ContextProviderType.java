@@ -38,9 +38,9 @@ import org.universAAL.middleware.context.ContextEvent;
  * 
  */
 public class ContextProviderType extends ManagedIndividual {
-    
-    public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE + "ContextProviderType";
 
+    public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE
+	    + "ContextProviderType";
 
     /**
      * The ordering number for controllers, needed for the implementation of the

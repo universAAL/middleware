@@ -60,23 +60,23 @@ public abstract class ContextPublisher implements Publisher {
      */
     protected ContextPublisher(ModuleContext context,
 	    ContextProvider providerInfo) {
-    	this((ContextBus) context.getContainer().fetchSharedObject(context, ContextBusImpl.busFetchParams),
-    			providerInfo,
-    			true);
+	this((ContextBus) context.getContainer().fetchSharedObject(context,
+		ContextBusImpl.busFetchParams), providerInfo, true);
     }
-    
-    protected ContextPublisher(ContextBus bus, ContextProvider providerInfo, boolean register) {
-    	
-    	if (providerInfo == null || !providerInfo.isWellFormed())
-    	    throw new IllegalArgumentException(
-    		    "Missing the well-formed provider info!");
-    	
-    	this.bus 			= bus;
-    	this.providerInfo 	= providerInfo;
-    	
-    	if (register) {
-    		myID = bus.register(this, providerInfo.getProvidedEvents());
-    	}
+
+    protected ContextPublisher(ContextBus bus, ContextProvider providerInfo,
+	    boolean register) {
+
+	if (providerInfo == null || !providerInfo.isWellFormed())
+	    throw new IllegalArgumentException(
+		    "Missing the well-formed provider info!");
+
+	this.bus = bus;
+	this.providerInfo = providerInfo;
+
+	if (register) {
+	    myID = bus.register(this, providerInfo.getProvidedEvents());
+	}
     }
 
     /**
@@ -120,7 +120,7 @@ public abstract class ContextPublisher implements Publisher {
 	bus.unregister(myID, this);
     }
 
-	public String getMyID() {
-		return myID;
-	}
+    public String getMyID() {
+	return myID;
+    }
 }

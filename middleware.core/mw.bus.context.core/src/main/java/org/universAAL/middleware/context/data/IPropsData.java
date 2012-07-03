@@ -22,17 +22,16 @@ package org.universAAL.middleware.context.data;
 
 import java.util.Collection;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 17, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 17, 2012
+ * 
  */
 public interface IPropsData {
 
-	IFiltererContainer getFiltererContainer(String key);
-	
-	Collection getAllFiltererContainers();
+    IFiltererContainer getFiltererContainer(String key);
+
+    Collection getAllFiltererContainers();
 }
