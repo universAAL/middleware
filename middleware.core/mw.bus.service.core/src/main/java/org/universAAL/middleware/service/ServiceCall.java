@@ -86,28 +86,29 @@ public class ServiceCall extends FinalizedResource {
      */
     public static final String TYPE_OWLS_INPUT_BINDING = ProcessInput.OWLS_PROCESS_NAMESPACE
 	    + "InputBinding";
-    
+
     private Hashtable nonSemanticInput;
 
     public ServiceCall(Object dummy, String uri) {
 	super(uri);
 	addType(MY_URI, true);
     }
-    
+
     public void addNonSemanticInput(Hashtable nonSemanticInput) {
-	if (this.nonSemanticInput != null){
-	    throw new IllegalArgumentException("Non-semantic input already added");
+	if (this.nonSemanticInput != null) {
+	    throw new IllegalArgumentException(
+		    "Non-semantic input already added");
 	} else {
 	    this.nonSemanticInput = nonSemanticInput;
 	}
     }
-    
+
     public Object getNonSemanticInput(String uri) {
-	if (this.nonSemanticInput == null){
+	if (this.nonSemanticInput == null) {
 	    return null;
 	}
 	return this.nonSemanticInput.get(uri);
-    }    
+    }
 
     /**
      * Default constructor of the class. Does not set anything besides the

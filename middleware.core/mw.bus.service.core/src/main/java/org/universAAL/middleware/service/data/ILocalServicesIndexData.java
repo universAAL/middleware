@@ -24,20 +24,20 @@ import org.universAAL.middleware.service.impl.ServiceRealization;
 
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Apr 20, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Apr 20, 2012
+ * 
  */
 public interface ILocalServicesIndexData {
 
-	void addServiceRealization(String id, ServiceRealization serviceRealization);
-	
-	ServiceRealization removeServiceRealization(String id);
-	
-	ServiceRealization getServiceRealizationByID(String id);
-	
-	ServiceRealization[] getAllServiceRealizations();
-	
-	String[] getServiceRealizationIds();
+    void addServiceRealization(String id, ServiceRealization serviceRealization);
+
+    ServiceRealization removeServiceRealization(String id);
+
+    ServiceRealization getServiceRealizationByID(String id);
+
+    ServiceRealization[] getAllServiceRealizations();
+
+    String[] getServiceRealizationIds();
 }

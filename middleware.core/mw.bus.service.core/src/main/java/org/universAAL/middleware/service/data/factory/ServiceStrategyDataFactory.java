@@ -29,23 +29,23 @@ import org.universAAL.middleware.service.data.LocalWaitingDataMap;
 
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Apr 20, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Apr 20, 2012
+ * 
  */
 public class ServiceStrategyDataFactory extends
-		AbstractServiceStrategyDataFactory {
+	AbstractServiceStrategyDataFactory {
 
-	public ILocalServicesIndexData createLocalServicesIndexData() {
-		return new LocalServicesIndexDataMap();
-	}
+    public ILocalServicesIndexData createLocalServicesIndexData() {
+	return new LocalServicesIndexDataMap();
+    }
 
-	public ILocalServiceSearchResultsData createLocalServiceSearchResultsData() {
-		return new LocalServiceSearchResultsDataMap();
-	}
-	
-	public ILocalWaitingCallersData createLocalWaitingCallersData() {
-		return new LocalWaitingDataMap();
-	}
+    public ILocalServiceSearchResultsData createLocalServiceSearchResultsData() {
+	return new LocalServiceSearchResultsDataMap();
+    }
+
+    public ILocalWaitingCallersData createLocalWaitingCallersData() {
+	return new LocalWaitingDataMap();
+    }
 }

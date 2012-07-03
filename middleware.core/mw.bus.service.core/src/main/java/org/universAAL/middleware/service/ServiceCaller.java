@@ -44,7 +44,7 @@ import org.universAAL.middleware.sodapop.msg.MessageType;
  * 
  */
 public abstract class ServiceCaller implements Caller {
-	protected ServiceBus bus;
+    protected ServiceBus bus;
     private ModuleContext thisCallerContext;
     private Hashtable waitingCalls, readyResponses;
     protected String myID, localID;
@@ -61,22 +61,22 @@ public abstract class ServiceCaller implements Caller {
      *            The initial set of services that are realized by this callee.
      */
     protected ServiceCaller(ModuleContext context) {
-    	this((ServiceBus) context.getContainer().fetchSharedObject(context,
-    			ServiceBusImpl.busFetchParams), true);
-    	
-    	thisCallerContext = context;
+	this((ServiceBus) context.getContainer().fetchSharedObject(context,
+		ServiceBusImpl.busFetchParams), true);
+
+	thisCallerContext = context;
     }
-    
+
     public ServiceCaller(ServiceBus bus, boolean register) {
-    	waitingCalls 	= new Hashtable();
-    	readyResponses 	= new Hashtable();
-    	this.bus		= bus;
-    	
-    	if (register) {
-    		myID = bus.register(this);
-    		populateLocalID(myID);
-    	}
+	waitingCalls = new Hashtable();
+	readyResponses = new Hashtable();
+	this.bus = bus;
+
+	if (register) {
+	    myID = bus.register(this);
+	    populateLocalID(myID);
 	}
+    }
 
     /*
      * (non-Javadoc)
@@ -110,27 +110,26 @@ public abstract class ServiceCaller implements Caller {
 	}
 	return sr;
     }
-    
+
     /**
      * This method is a way of calling a service using Turtle Strings as input.
-     * Turtle Strings are converted to Service Requests. 
-     *  
+     * Turtle Strings are converted to Service Requests.
+     * 
      * @param request
-     * 				the Turtle String which will be converted into <code>ServiceRequest</code>
-     * @return sr
-     * 		the expected Service Response
+     *            the Turtle String which will be converted into
+     *            <code>ServiceRequest</code>
+     * @return sr the expected Service Response
      */
     public final ServiceResponse call(String request) {
 	ServiceResponse sr = null;
-	Object[] contentSerializerParams = new Object[] {
-			MessageContentSerializer.class.getName() };    	    	
-	      MessageContentSerializer s =
-	 (org.universAAL.middleware.sodapop.msg.MessageContentSerializer)this.thisCallerContext 
-	          .getContainer().fetchSharedObject(this.thisCallerContext, contentSerializerParams);
-	      Resource r = (Resource) s.deserialize(request);
-	     ServiceRequest sRequest = (ServiceRequest)r;
-	     
-	     
+	Object[] contentSerializerParams = new Object[] { MessageContentSerializer.class
+		.getName() };
+	MessageContentSerializer s = (org.universAAL.middleware.sodapop.msg.MessageContentSerializer) this.thisCallerContext
+		.getContainer().fetchSharedObject(this.thisCallerContext,
+			contentSerializerParams);
+	Resource r = (Resource) s.deserialize(request);
+	ServiceRequest sRequest = (ServiceRequest) r;
+
 	synchronized (waitingCalls) {
 	    String callID = sendRequest(sRequest);
 	    waitingCalls.put(callID, this);
@@ -230,7 +229,7 @@ public abstract class ServiceCaller implements Caller {
     public ServiceProfile[] getMatchingService(Service s) {
 	return bus.getMatchingService(myID, s);
     }
-    
+
     /**
      * A method used to retrieve a specified service, available to this
      * <code>ServiceCaller</code>.
@@ -286,12 +285,12 @@ public abstract class ServiceCaller implements Caller {
 	    AvailabilitySubscriber subscriber, String requestURI) {
 	bus.removeAvailabilitySubscription(myID, subscriber, requestURI);
     }
-    
+
     public String getMyID() {
-		return myID;
-	}
-    
+	return myID;
+    }
+
     protected void populateLocalID(String myID) {
-    	localID = myID.substring(myID.lastIndexOf('#') + 1);
+	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
 }

@@ -22,11 +22,12 @@ package org.universAAL.middleware.service.data.factory;
 
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Apr 20, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Apr 20, 2012
+ * 
  */
-public abstract class AbstractServiceStrategyDataFactory implements IServiceStrategyDataFactory {
+public abstract class AbstractServiceStrategyDataFactory implements
+	IServiceStrategyDataFactory {
 
 }

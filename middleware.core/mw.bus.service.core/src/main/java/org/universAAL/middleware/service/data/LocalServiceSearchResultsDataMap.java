@@ -24,28 +24,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Apr 20, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Apr 20, 2012
+ * 
  */
-public class LocalServiceSearchResultsDataMap implements ILocalServiceSearchResultsData {
+public class LocalServiceSearchResultsDataMap implements
+	ILocalServiceSearchResultsData {
 
-	private Map map = new HashMap();
-	
-	public void addProfiles(String id, List profiles) {
-		map.put(id, profiles);
-	}
-	
-	public List getProfiles(String id) {
-		return (List) map.get(id);
-	}
+    private Map map = new HashMap();
 
-	public boolean exist(String id) {
-		return map.containsKey(id);
-	}
-	
+    public void addProfiles(String id, List profiles) {
+	map.put(id, profiles);
+    }
+
+    public List getProfiles(String id) {
+	return (List) map.get(id);
+    }
+
+    public boolean exist(String id) {
+	return map.containsKey(id);
+    }
+
 }

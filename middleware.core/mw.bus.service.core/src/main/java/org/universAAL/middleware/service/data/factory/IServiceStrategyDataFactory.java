@@ -26,16 +26,16 @@ import org.universAAL.middleware.service.data.ILocalWaitingCallersData;
 
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Apr 20, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Apr 20, 2012
+ * 
  */
 public interface IServiceStrategyDataFactory {
-	
-	ILocalServicesIndexData createLocalServicesIndexData();
 
-	ILocalServiceSearchResultsData createLocalServiceSearchResultsData();
-	
-	ILocalWaitingCallersData createLocalWaitingCallersData();
+    ILocalServicesIndexData createLocalServicesIndexData();
+
+    ILocalServiceSearchResultsData createLocalServiceSearchResultsData();
+
+    ILocalWaitingCallersData createLocalWaitingCallersData();
 }

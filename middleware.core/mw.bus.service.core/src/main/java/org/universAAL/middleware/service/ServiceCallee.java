@@ -38,7 +38,7 @@ import org.universAAL.middleware.sodapop.msg.Message;
  *         Tazari</a>
  */
 public abstract class ServiceCallee implements Callee {
-	protected ServiceBus bus;
+    protected ServiceBus bus;
     private ModuleContext thisCalleeContext;
     protected String myID, localID;
 
@@ -54,22 +54,21 @@ public abstract class ServiceCallee implements Callee {
      */
     protected ServiceCallee(ModuleContext context,
 	    ServiceProfile[] realizedServices) {
-    	this((ServiceBus) context.getContainer().fetchSharedObject(context, ServiceBusImpl.busFetchParams), 
-    			realizedServices);
+	this((ServiceBus) context.getContainer().fetchSharedObject(context,
+		ServiceBusImpl.busFetchParams), realizedServices);
 
-    	thisCalleeContext = context;
+	thisCalleeContext = context;
     }
-    
-    protected ServiceCallee(ServiceBus bus,
-    		ServiceProfile[] realizedServices) {
-    	this(bus);
-    	
-    	myID = bus.register(this, realizedServices);
-    	populateLocalID(myID);
+
+    protected ServiceCallee(ServiceBus bus, ServiceProfile[] realizedServices) {
+	this(bus);
+
+	myID = bus.register(this, realizedServices);
+	populateLocalID(myID);
     }
-    
-    protected ServiceCallee(ServiceBus bus){
-    	this.bus = bus;
+
+    protected ServiceCallee(ServiceBus bus) {
+	this.bus = bus;
     }
 
     /**
@@ -152,12 +151,12 @@ public abstract class ServiceCallee implements Callee {
     public void close() {
 	bus.unregister(myID, this);
     }
-    
-    public String getMyID() {
-		return myID;
-	}
 
-	protected void populateLocalID(String myID) {
-    	localID = myID.substring(myID.lastIndexOf('#') + 1);
+    public String getMyID() {
+	return myID;
+    }
+
+    protected void populateLocalID(String myID) {
+	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
 }

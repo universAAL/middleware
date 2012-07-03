@@ -22,14 +22,14 @@ package org.universAAL.middleware.service.data;
 
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  May 22, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         May 22, 2012
+ * 
  */
 public interface ILocalWaitingCallersData {
-	
-	void addLocalWaitier(String msgID, String callerID);
-	
-	String getAndRemoveLocalWaiterCallerID(String msgID);
+
+    void addLocalWaitier(String msgID, String callerID);
+
+    String getAndRemoveLocalWaiterCallerID(String msgID);
 }

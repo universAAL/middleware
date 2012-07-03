@@ -74,7 +74,7 @@ public class ServiceRequest extends FinalizedResource {
 	    + "theServiceCaller";
 
     /**
-     * Constructor for usage by de-serializers, as an ananymous node without a
+     * Constructor for usage by de-serializers, as an anonymous node without a
      * URI.
      */
     public ServiceRequest() {
@@ -301,15 +301,17 @@ public class ServiceRequest extends FinalizedResource {
 		MergedRestriction.getFixedValueRestriction(
 			refPath[refPath.length - 1], hasValue), refPath);
     }
-    
+
     /**
      * Add non-semantic input.
      */
     protected void addInput(String uri, Object input) {
-	Hashtable nonSemanticInput = (Hashtable) props.get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT);
+	Hashtable nonSemanticInput = (Hashtable) props
+		.get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT);
 	if (nonSemanticInput == null) {
 	    nonSemanticInput = new Hashtable();
-	    props.put(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT, nonSemanticInput);
+	    props.put(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT,
+		    nonSemanticInput);
 	}
 	if (nonSemanticInput.contains(uri)) {
 	    throw new IllegalArgumentException();
@@ -317,13 +319,14 @@ public class ServiceRequest extends FinalizedResource {
 	    nonSemanticInput.put(uri, input);
 	}
     }
-    
+
     /**
      * Get hashtable containing non-semantic input or null if none was provided.
      */
     protected Hashtable getInput() {
-	return (Hashtable) props.get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT);
-    }    
+	return (Hashtable) props
+		.get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT);
+    }
 
     private List filters() {
 	List filters = (List) props.get(PROP_AGGREGATING_FILTER);

@@ -67,9 +67,9 @@ public class ServiceResponse extends FinalizedResource {
     /**
      * A key of property indicating that not bound output is allowed.
      */
-    public static final String PROP_UNBOUND_OUTPUT_ALLOWED= uAAL_VOCABULARY_NAMESPACE
-	    + "unboundOutputAllowed";    
-    
+    public static final String PROP_UNBOUND_OUTPUT_ALLOWED = uAAL_VOCABULARY_NAMESPACE
+	    + "unboundOutputAllowed";
+
     /**
      * Default constructor for the class. Only sets the class URI of the
      * <code>Resource</code> to <code>MY_URI</code>.
@@ -100,7 +100,7 @@ public class ServiceResponse extends FinalizedResource {
 	    return false;
 	}
     }
-    
+
     /**
      * Constructor which besides the URI, sets the status of the call.
      * 

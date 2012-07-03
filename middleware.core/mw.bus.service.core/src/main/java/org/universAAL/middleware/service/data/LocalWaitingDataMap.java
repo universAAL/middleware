@@ -25,21 +25,21 @@ import java.util.Map;
 
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  May 22, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         May 22, 2012
+ * 
  */
 public class LocalWaitingDataMap implements ILocalWaitingCallersData {
 
-	private Map map = new HashMap();
-	
-	public void addLocalWaitier(String msgID, String callerID) {
-		map.put(msgID, callerID);
-	}
+    private Map map = new HashMap();
 
-	public String getAndRemoveLocalWaiterCallerID(String msgID) {
-		return (String) map.remove(msgID);
-	}
+    public void addLocalWaitier(String msgID, String callerID) {
+	map.put(msgID, callerID);
+    }
+
+    public String getAndRemoveLocalWaiterCallerID(String msgID) {
+	return (String) map.remove(msgID);
+    }
 
 }
