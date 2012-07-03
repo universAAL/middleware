@@ -35,7 +35,7 @@ public class AllProvisionDataVector implements IAllProvisionData {
     private Vector contextEventPatterns = new Vector();
 
     public void addContextEventPatterns(List contextEventPatterns) {
-	contextEventPatterns.addAll(contextEventPatterns);
+	this.contextEventPatterns.addAll(contextEventPatterns);
     }
 
     public Vector getContextEventPatterns() {
