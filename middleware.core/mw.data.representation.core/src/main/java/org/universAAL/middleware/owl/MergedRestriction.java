@@ -1248,6 +1248,5 @@ public class MergedRestriction extends Intersection {
 	    j++;
 	}
 	return true;
-
     }
 }

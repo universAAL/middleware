@@ -26,33 +26,32 @@ import java.util.Vector;
 import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.context.impl.ContextStrategy.ContextFilterer;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 17, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 17, 2012
+ * 
  */
 public class FiltererContainerData extends AbstractFiltererContainer {
 
-	private Vector filterers = new Vector();
-	
-	public FiltererContainerData(String containerKey) {
-		super(containerKey);
-	}
+    private Vector filterers = new Vector();
 
-	public void addFilterer(ContextFilterer contextFilterer) {
-		filterers.add(contextFilterer);
-	}
+    public FiltererContainerData(String containerKey) {
+	super(containerKey);
+    }
 
-	public Vector getFilterers() {
-		return filterers;
-	}
+    public void addFilterer(ContextFilterer contextFilterer) {
+	filterers.add(contextFilterer);
+    }
 
-	public void removeFilterers(ContextSubscriber subscriber) {
-		for (Iterator i = filterers.iterator(); i.hasNext();)
-    	    if (((ContextFilterer) i.next()).s == subscriber)
-    		i.remove();
-	}
+    public Vector getFilterers() {
+	return filterers;
+    }
+
+    public void removeFilterers(ContextSubscriber subscriber) {
+	for (Iterator i = filterers.iterator(); i.hasNext();)
+	    if (((ContextFilterer) i.next()).s == subscriber)
+		i.remove();
+    }
 }

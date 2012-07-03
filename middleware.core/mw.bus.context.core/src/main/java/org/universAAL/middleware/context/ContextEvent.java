@@ -223,7 +223,7 @@ public class ContextEvent extends FinalizedResource {
     public Integer getConfidence() {
 	return (Integer) getProperty(PROP_CONTEXT_CONFIDENCE);
     }
-    
+
     /**
      * Get the expiration time
      * 
@@ -239,7 +239,7 @@ public class ContextEvent extends FinalizedResource {
 		.equals(propURI)) ? PROP_SERIALIZATION_REDUCED
 		: PROP_SERIALIZATION_FULL;
     }
-    
+
     /**
      * Get the object of the event
      * 
@@ -248,7 +248,7 @@ public class ContextEvent extends FinalizedResource {
     public Object getRDFObject() {
 	return getProperty(PROP_RDF_OBJECT);
     }
-    
+
     /**
      * Get the predicate of the event
      * 
@@ -258,7 +258,7 @@ public class ContextEvent extends FinalizedResource {
 	Object o = getProperty(PROP_RDF_PREDICATE);
 	return (o instanceof Resource) ? o.toString() : null;
     }
-    
+
     /**
      * Get the ContextProvider of the event
      * 
@@ -268,7 +268,7 @@ public class ContextEvent extends FinalizedResource {
     public ContextProvider getProvider() {
 	return (ContextProvider) props.get(PROP_CONTEXT_PROVIDER);
     }
-    
+
     /**
      * Get the subject of the event
      * 
@@ -278,7 +278,7 @@ public class ContextEvent extends FinalizedResource {
     public Resource getRDFSubject() {
 	return (Resource) getProperty(PROP_RDF_SUBJECT);
     }
-    
+
     /**
      * Get the type of the subject of the event
      * 
@@ -288,7 +288,7 @@ public class ContextEvent extends FinalizedResource {
 	Resource subject = (Resource) getProperty(PROP_RDF_SUBJECT);
 	return (subject == null) ? null : subject.getType();
     }
-    
+
     /**
      * Get the URI of the subject of the event
      * 
@@ -298,7 +298,7 @@ public class ContextEvent extends FinalizedResource {
 	Resource subject = (Resource) getProperty(PROP_RDF_SUBJECT);
 	return (subject == null) ? null : subject.getURI();
     }
-    
+
     /**
      * Get the timestamp of the event
      * 
@@ -318,7 +318,7 @@ public class ContextEvent extends FinalizedResource {
      * null && !props.containsKey(PROP_CONTEXT_ACCURACY))
      * props.put(PROP_CONTEXT_ACCURACY, accuracy); }
      */
-    
+
     /**
      * Set the confidence
      * 
@@ -331,7 +331,7 @@ public class ContextEvent extends FinalizedResource {
 		&& !props.containsKey(PROP_CONTEXT_CONFIDENCE))
 	    props.put(PROP_CONTEXT_CONFIDENCE, confidence);
     }
-    
+
     /**
      * Set the expiration time
      * 
@@ -344,7 +344,7 @@ public class ContextEvent extends FinalizedResource {
 		&& !props.containsKey(PROP_CONTEXT_EXPIRATION_TIME))
 	    props.put(PROP_CONTEXT_EXPIRATION_TIME, expirationTime);
     }
-    
+
     /**
      * Set the object
      * 
@@ -354,7 +354,7 @@ public class ContextEvent extends FinalizedResource {
 	if (o != null && !props.containsKey(PROP_RDF_OBJECT))
 	    props.put(PROP_RDF_OBJECT, o);
     }
-    
+
     /**
      * Set the predicate
      * 
@@ -366,7 +366,7 @@ public class ContextEvent extends FinalizedResource {
 		&& !props.containsKey(PROP_RDF_PREDICATE))
 	    props.put(PROP_RDF_PREDICATE, new Resource(propURI));
     }
-    
+
     /**
      * Set the Context Provider
      * 
@@ -376,7 +376,7 @@ public class ContextEvent extends FinalizedResource {
 	if (src != null && !props.containsKey(PROP_CONTEXT_PROVIDER))
 	    props.put(PROP_CONTEXT_PROVIDER, src);
     }
-    
+
     /**
      * Set the subject
      * 
@@ -386,7 +386,7 @@ public class ContextEvent extends FinalizedResource {
 	if (subj != null && !props.containsKey(PROP_RDF_SUBJECT))
 	    props.put(PROP_RDF_SUBJECT, subj);
     }
-    
+
     /**
      * Set the timestamp
      * 

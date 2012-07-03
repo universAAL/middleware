@@ -23,27 +23,26 @@ package org.universAAL.middleware.context.data;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 14, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 14, 2012
+ * 
  */
 public class NumCalledPeersDataMap implements INumCalledPeersData {
 
-	private Map map = new HashMap();
-	
-	public void addCalledPeers(String messageID, ICalledPeers calledPeers) {
-		map.put(messageID, calledPeers);
-	}
-	
-	public ICalledPeers getCalledPeers(String messageID) {
-		return (ICalledPeers) map.get(messageID);
-	}
+    private Map map = new HashMap();
 
-	public void removeCalledPeers(String messageID) {
-		map.remove(messageID);
-	}
+    public void addCalledPeers(String messageID, ICalledPeers calledPeers) {
+	map.put(messageID, calledPeers);
+    }
+
+    public ICalledPeers getCalledPeers(String messageID) {
+	return (ICalledPeers) map.get(messageID);
+    }
+
+    public void removeCalledPeers(String messageID) {
+	map.remove(messageID);
+    }
 }

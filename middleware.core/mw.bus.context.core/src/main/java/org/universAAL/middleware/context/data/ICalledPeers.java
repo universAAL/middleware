@@ -22,29 +22,28 @@ package org.universAAL.middleware.context.data;
 
 import java.util.List;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 14, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 14, 2012
+ * 
  */
 public interface ICalledPeers {
 
-	void setMessageID(String messageID);
-	
-	int getNumOfCalledPeers();
+    void setMessageID(String messageID);
 
-	void setNumOfCalledPeers(int numOfCalledPeers);
-	
-	void reduceNumOfCalledPeers();
-	
-	void resetCalledPeers();
-	
-	boolean gotResponsesFromAllPeers();
+    int getNumOfCalledPeers();
 
-	void addProvisions(List contextEventPatterns);
-	
-	List getProvisions();
+    void setNumOfCalledPeers(int numOfCalledPeers);
+
+    void reduceNumOfCalledPeers();
+
+    void resetCalledPeers();
+
+    boolean gotResponsesFromAllPeers();
+
+    void addProvisions(List contextEventPatterns);
+
+    List getProvisions();
 }

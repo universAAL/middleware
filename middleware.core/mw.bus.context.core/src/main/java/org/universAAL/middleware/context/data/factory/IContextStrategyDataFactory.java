@@ -29,27 +29,32 @@ import org.universAAL.middleware.context.data.IProvisionsData;
 
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Apr 20, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Apr 20, 2012
+ * 
  */
 public interface IContextStrategyDataFactory {
-	
-	IProvisionsData createProvisionsData();
-	
-	INumCalledPeersData createNumCalledPeersData();
 
-	ICalledPeers createCalledPeers();
-	
-	IPropsData createAllPropsOfDomain();
-	IPropsData createAllPropsOfSubject();
+    IProvisionsData createProvisionsData();
+
+    INumCalledPeersData createNumCalledPeersData();
+
+    ICalledPeers createCalledPeers();
+
+    IPropsData createAllPropsOfDomain();
+
+    IPropsData createAllPropsOfSubject();
+
     IPropsData createAllSubjectsWithProp();
+
     IPropsData createSpecificDomainAndProp();
+
     IPropsData createSpecificSubjectAndProp();
+
     IPropsData createNonIndexedProps();
-    
+
     IFiltererContainer createFiltererContainer(String containerKey);
-    
+
     IAllProvisionData createAllProvisions();
 }

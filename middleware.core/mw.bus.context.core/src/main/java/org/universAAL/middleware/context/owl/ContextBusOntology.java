@@ -57,7 +57,6 @@ public class ContextBusOntology extends Ontology {
 	createNewRDFClassInfo(ContextEvent.MY_URI, factory, 0);
 	createNewRDFClassInfo(ContextEventPattern.MY_URI, factory, 1);
 
-	
 	// load ContextProviderType
 	oci = createNewAbstractOntClassInfo(ContextProviderType.MY_URI);
 	oci

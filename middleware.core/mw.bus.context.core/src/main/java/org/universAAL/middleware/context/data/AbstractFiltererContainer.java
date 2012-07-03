@@ -20,23 +20,24 @@
  */
 package org.universAAL.middleware.context.data;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 20, 2012
- *
- */ // TODO: remove this class and move the containerKey to the FiltererContainer class
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 20, 2012
+ * 
+ */
+// TODO: remove this class and move the containerKey to the FiltererContainer
+// class
 public abstract class AbstractFiltererContainer implements IFiltererContainer {
-	
-	protected String containerKey;
 
-	public AbstractFiltererContainer(String containerKey) {
-		this.containerKey = containerKey;
-	}
-	
-	public String getContainerKey() {
-		return containerKey;
-	}
+    protected String containerKey;
+
+    public AbstractFiltererContainer(String containerKey) {
+	this.containerKey = containerKey;
+    }
+
+    public String getContainerKey() {
+	return containerKey;
+    }
 }

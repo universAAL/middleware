@@ -22,17 +22,16 @@ package org.universAAL.middleware.context.data;
 
 import org.universAAL.middleware.context.ContextPublisher;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 14, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 14, 2012
+ * 
  */
 public interface IProvisionsData {
-	
-	void addProvision(ContextPublisher contextPublisher);
-	
-	boolean exist(ContextPublisher contextPublisher);
+
+    void addProvision(ContextPublisher contextPublisher);
+
+    boolean exist(ContextPublisher contextPublisher);
 }

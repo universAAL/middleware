@@ -23,17 +23,16 @@ package org.universAAL.middleware.context.data;
 import java.util.List;
 import java.util.Vector;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Jun 17, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Jun 17, 2012
+ * 
  */
 public interface IAllProvisionData {
 
-	void addContextEventPatterns(List contextEventPatterns);
-	
-	Vector getContextEventPatterns();
+    void addContextEventPatterns(List contextEventPatterns);
+
+    Vector getContextEventPatterns();
 }

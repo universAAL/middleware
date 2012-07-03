@@ -22,11 +22,12 @@ package org.universAAL.middleware.context.data.factory;
 
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Apr 20, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Apr 20, 2012
+ * 
  */
-public abstract class AbstractContextStrategyDataFactory implements IContextStrategyDataFactory {
+public abstract class AbstractContextStrategyDataFactory implements
+	IContextStrategyDataFactory {
 
 }
