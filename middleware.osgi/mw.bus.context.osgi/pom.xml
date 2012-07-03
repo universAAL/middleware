@@ -64,7 +64,10 @@
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>org.universAAL.middleware.context,
 							org.universAAL.middleware.context.owl</Export-Package>
-						<Private-Package>org.universAAL.middleware.context.impl,org.universAAL.middleware.context.impl.osgi</Private-Package>
+						<Private-Package>org.universAAL.middleware.context.impl,
+							org.universAAL.middleware.context.impl.osgi,
+							org.universAAL.middleware.context.data,
+							org.universAAL.middleware.context.data.factory</Private-Package>
 					</instructions>
 				</configuration>
 				<extensions>
