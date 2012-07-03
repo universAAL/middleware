@@ -1147,8 +1147,9 @@ public class ServiceStrategy extends BusStrategy {
 				.getId());
 			LogUtils.logTrace(ServiceBusImpl.moduleContext,
 				ServiceStrategy.class, "handle", new Object[] {
-					ServiceBus.LOG_MATCHING_START, new UnmodifiableResource(request),
-					" ", logID }, null);
+					ServiceBus.LOG_MATCHING_START,
+					new UnmodifiableResource(request), " ",
+					logID }, null);
 			for (Iterator i = v.iterator(); i.hasNext();) {
 			    ServiceRealization sr = (ServiceRealization) i
 				    .next();
@@ -1163,7 +1164,8 @@ public class ServiceStrategy extends BusStrategy {
 					    ServiceBus.LOG_MATCHING_PROFILE,
 					    profileService.getType(),
 					    profileServiceURI, logID }, null);
-			    Hashtable context = matches(caller, request, sr, logID);
+			    Hashtable context = matches(caller, request, sr,
+				    logID);
 			    if (context != null) {
 				matches.add(context);
 				LogUtils
@@ -1186,9 +1188,9 @@ public class ServiceStrategy extends BusStrategy {
 			}
 			LogUtils.logTrace(ServiceBusImpl.moduleContext,
 				ServiceStrategy.class, "handle", new Object[] {
-					ServiceBus.LOG_MATCHING_END,
-					"found ", Integer.valueOf(matches.size()), " matches",
-					logID }, null);
+					ServiceBus.LOG_MATCHING_END, "found ",
+					Integer.valueOf(matches.size()),
+					" matches", logID }, null);
 
 		    }
 		}

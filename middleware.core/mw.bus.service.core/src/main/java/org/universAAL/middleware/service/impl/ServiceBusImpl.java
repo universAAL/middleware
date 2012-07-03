@@ -106,9 +106,9 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	super(Constants.uAAL_BUS_NAME_SERVICE, g);
 	busStrategy.setBus(this);
     }
-    
+
     protected BusStrategy createBusStrategy(SodaPop sodapop) {
-    	return new ServiceStrategy(sodapop);
+	return new ServiceStrategy(sodapop);
     }
 
     /**
@@ -156,7 +156,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s
 		.getType());
     }
-    
+
     /**
      * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
      *      String)

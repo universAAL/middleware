@@ -22,7 +22,6 @@ package org.universAAL.middleware.service;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
-import org.universAAL.middleware.rdf.Resource;
 
 /**
  * The AggregationFunction class includes the required functions in the SELECT

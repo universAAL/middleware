@@ -41,17 +41,16 @@ import org.universAAL.middleware.sodapop.msg.Message;
  *         Tazari</a>
  */
 public interface ServiceBus {
-    
+
     public static final String LOG_MATCHING_START = "Matching the request ";
     public static final String LOG_MATCHING_PROFILE = "Matching offer ";
     public static final String LOG_MATCHING_SUCCESS = "successful ";
     public static final String LOG_MATCHING_NOSUCCESS = "not successful ";
     public static final String LOG_MATCHING_END = "Matching done.";
-    
+
     public static final String LOG_MATCHING_MISMATCH = "Mismatch detected: ";
     public static final String LOG_MATCHING_MISMATCH_CODE = "\nmismatch code: ";
     public static final String LOG_MATCHING_MISMATCH_DETAILS = "\ndetailed mismatch message: ";
-
 
     /**
      * Adds an availability subscription, in other words a listener, to receive
@@ -102,7 +101,7 @@ public interface ServiceBus {
      *         available.
      */
     public ServiceProfile[] getMatchingService(String callerID, Service s);
-    
+
     /**
      * Get all service profile that match the given service.
      * 
@@ -113,7 +112,8 @@ public interface ServiceBus {
      * @return the service that is available, or null if no such service is
      *         available.
      */
-    public ServiceProfile[] getMatchingService(String callerID, String serviceClassURI);
+    public ServiceProfile[] getMatchingService(String callerID,
+	    String serviceClassURI);
 
     /**
      * A method used to retrieve an available service for the specified caller,

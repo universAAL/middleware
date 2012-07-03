@@ -72,7 +72,7 @@ public class ServiceBusOntology extends Ontology {
 	createNewRDFClassInfo(ProcessInput.MY_URI, factory, 7);
 	createNewRDFClassInfo(ProcessOutput.MY_URI, factory, 8);
 	createNewRDFClassInfo(ProcessResult.MY_URI, factory, 9);
-	
+
 	// load Service
 	oci = createNewAbstractOntClassInfo(Service.MY_URI);
 	oci

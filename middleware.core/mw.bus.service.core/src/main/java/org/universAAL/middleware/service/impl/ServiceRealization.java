@@ -74,7 +74,7 @@ public class ServiceRealization extends FinalizedResource {
      * URI specified in the Service Request.
      */
     public static final String uAAL_SERVICE_URI_MATCHED = uAAL_VOCABULARY_NAMESPACE
-    	    + "serviceUriMatched";     
+	    + "serviceUriMatched";
 
     public ServiceRealization() {
 	super();
@@ -89,11 +89,11 @@ public class ServiceRealization extends FinalizedResource {
     }
 
     public ServiceRealization(String instanceURI) {
-    	super(instanceURI);
-    	addType(MY_URI, true);
-	}
+	super(instanceURI);
+	addType(MY_URI, true);
+    }
 
-	/**
+    /**
      * Adds properties of the realization to the hashtable passed as a parameter
      * 
      * @param context
@@ -216,7 +216,7 @@ public class ServiceRealization extends FinalizedResource {
 	if (context.containsKey(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT)) {
 	    result.addNonSemanticInput((Hashtable) context
 		    .get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT));
-	}	
+	}
 	return true;
     }
 
@@ -401,16 +401,16 @@ public class ServiceRealization extends FinalizedResource {
 		// request instance level restrictions
 		TypeExpression reqRestr = requestedService
 			.getInstanceLevelRestrictionOnProp(restrProps[i]);
-		
+
 		// offer instance level restrictions
 		TypeExpression offInsRestr = offer
 			.getInstanceLevelRestrictionOnProp(restrProps[i]);
-		
+
 		// offer class level restrictions
 		TypeExpression offClsRestr = Service
 			.getClassRestrictionsOnProperty(offer.getClassURI(),
 				restrProps[i]);
-		
+
 		if (!(reqRestr instanceof MergedRestriction)) {
 		    // makes no sense, because 'restrProps' must have instance
 		    // level restrictions
@@ -467,7 +467,7 @@ public class ServiceRealization extends FinalizedResource {
 			continue;
 		    } else {
 			// offInsRestr == null && offClsRestr != null
-			
+
 			if (reqRestr.matches(offClsRestr, context))
 			    // tag the context that the offer restrictions are a
 			    // subtype of request restrictions
@@ -497,7 +497,7 @@ public class ServiceRealization extends FinalizedResource {
 		    }
 		else {
 		    // offInsRestr != null, offClsRestr unknown
-		    
+
 		    if (reqRestr.matches(offInsRestr, context))
 			// tag the context that the offer restrictions are a
 			// subtype of request restrictions
@@ -525,8 +525,8 @@ public class ServiceRealization extends FinalizedResource {
 		    }
 
 		    if (offClsRestr != null)
-			// offInsRestr != null  &&  offClsRestr != null
-			
+			// offInsRestr != null && offClsRestr != null
+
 			if (reqRestr.matches(offClsRestr, context))
 			    // tag the context that the offer restrictions are a
 			    // subtype of request restrictions
@@ -563,9 +563,9 @@ public class ServiceRealization extends FinalizedResource {
 	Hashtable cloned = (Hashtable) context.clone();
 	if (!ProcessResult.checkEffects(request.getRequiredEffects(), prof
 		.getEffects(), cloned, logID)
-		|| !ProcessResult
-			.checkOutputBindings(request.getRequiredOutputs(), prof
-				.getOutputBindings(), cloned, logID))
+		|| !ProcessResult.checkOutputBindings(request
+			.getRequiredOutputs(), prof.getOutputBindings(),
+			cloned, logID))
 	    return false;
 
 	if (cloned.size() > context.size())
@@ -575,19 +575,23 @@ public class ServiceRealization extends FinalizedResource {
 		    context.put(key, cloned.get(key));
 	    }
 	// NON_SEMANTIC_INPUT:
-	// if service matches then non-semantic input has to be copied to the context
+	// if service matches then non-semantic input has to be copied to the
+	// context
 	Hashtable nonSemanticInput = null;
 	try {
-	    Method getInputMethod = request.getClass().getDeclaredMethod("getInput", new Class[0]);
+	    Method getInputMethod = request.getClass().getDeclaredMethod(
+		    "getInput", new Class[0]);
 	    getInputMethod.setAccessible(true);
-	    nonSemanticInput = (Hashtable) getInputMethod.invoke(request, new Object[0]);
+	    nonSemanticInput = (Hashtable) getInputMethod.invoke(request,
+		    new Object[0]);
 	} catch (RuntimeException ex) {
 	    throw ex;
 	} catch (Exception ex) {
 	    throw new RuntimeException(ex);
 	}
 	if (nonSemanticInput != null) {
-	    context.put(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT, nonSemanticInput);
+	    context.put(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT,
+		    nonSemanticInput);
 	}
 	// uAAL_SERVICE_URI_MATCHED:
 	// if URI of offered service matches exactly URI specified in

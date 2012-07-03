@@ -24,17 +24,17 @@ import java.util.List;
 
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Apr 20, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Apr 20, 2012
+ * 
  */
 public interface ILocalServiceSearchResultsData {
 
-	void addProfiles(String id, List profiles);
-	
-	public List getProfiles(String id);
-	
-	boolean exist(String id);
+    void addProfiles(String id, List profiles);
+
+    public List getProfiles(String id);
+
+    boolean exist(String id);
 
 }
