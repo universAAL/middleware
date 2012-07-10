@@ -579,15 +579,9 @@ public class ServiceRealization extends FinalizedResource {
 	// context
 	Hashtable nonSemanticInput = null;
 	try {
-	    Method getInputMethod = request.getClass().getDeclaredMethod(
-		    "getInput", new Class[0]);
-	    getInputMethod.setAccessible(true);
-	    nonSemanticInput = (Hashtable) getInputMethod.invoke(request,
-		    new Object[0]);
-	    
-	    //to be uncommented after changes in ServiceRequest
-        //nonSemanticInput = request.getInput();
-
+		if (request instanceof AapiServiceRequest){
+			nonSemanticInput = ((AapiServiceRequest)request).getInput();
+		}
 	} catch (RuntimeException ex) {
 	    throw ex;
 	} catch (Exception ex) {
