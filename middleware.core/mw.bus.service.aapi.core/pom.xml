@@ -5,7 +5,7 @@
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom.core</artifactId>
 		<version>1.1.2-SNAPSHOT</version>
-		<relativePath>../pom</relativePath>
+		<relativePath>../mw.pom.core</relativePath>
 	</parent>
 	<groupId>org.universAAL.middleware</groupId>
 	<packaging>jar</packaging>
