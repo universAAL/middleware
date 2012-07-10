@@ -67,8 +67,7 @@ public class UserInterfaceService extends Service {
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
-     *            the value of <code>Lighting.MY_URI
-	 *                        </code> from the lighting
+     *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
      * @param vendor
      *            the URL of the partner home page that provides the UI e.g.
@@ -102,7 +101,6 @@ public class UserInterfaceService extends Service {
      * Same method with different arguments. This time a User Interface Service
      * will be required to a Services profile for a UI
      */
-
     protected static ServiceProfile createServiceProfile(
 	    UserInterfaceService uis, String serviceClassURI, String vendor,
 	    String description, String startServiceURI) {
@@ -124,8 +122,7 @@ public class UserInterfaceService extends Service {
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
-     *            the value of <code>Lighting.MY_URI
-	 *                        </code> from the lighting
+     *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
      * 
      * @param vendor
@@ -134,7 +131,6 @@ public class UserInterfaceService extends Service {
      * 
      * @return The description service profile.
      */
-
     public static final String getUIServiceDescription(String serviceClassURI,
 	    String vendor, ServiceCaller theCaller) {
 	return getUIServiceDescription(new UserInterfaceService(),
@@ -152,14 +148,12 @@ public class UserInterfaceService extends Service {
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
-     *            the value of <code>Lighting.MY_URI
-	 *                        </code> from the lighting
+     *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
      * 
      * 
      * @return null.
      */
-
     protected static String getUIServiceDescription(
 	    UserInterfaceService requestedService, String serviceClassURI,
 	    String vendor, ServiceCaller theCaller) {
@@ -196,8 +190,7 @@ public class UserInterfaceService extends Service {
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
-     *            the value of <code>Lighting.MY_URI
-	 *                        </code> from the lighting
+     *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
      * @param ServiceCaller
      *            instance is the parameter that will be used to call the
@@ -206,7 +199,6 @@ public class UserInterfaceService extends Service {
      * 
      * @return the US service info.
      */
-
     public static final UserInterfaceService[] getUIServiceInfo(
 	    String serviceClassURI, ServiceCaller theCaller) {
 	return getUIServiceInfo(new UserInterfaceService(), serviceClassURI,
@@ -224,14 +216,12 @@ public class UserInterfaceService extends Service {
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
-     *            the value of <code>Lighting.MY_URI
-	 *                        </code> from the lighting
+     *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
      * 
      * 
      * @return null.
      */
-
     protected static UserInterfaceService[] getUIServiceInfo(
 	    UserInterfaceService requestedService, String serviceClassURI,
 	    ServiceCaller theCaller) {
@@ -276,14 +266,12 @@ public class UserInterfaceService extends Service {
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
-     *            the value of <code>Lighting.MY_URI
-	 *                        </code> from the lighting
+     *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
      * 
      * 
      * @return the UI service request.
      */
-
     public static final ServiceRequest getUIServiceRequest(
 	    String serviceClassURI, String vendor, Resource requestingUser) {
 	return getUIServiceRequest(new UserInterfaceService(), serviceClassURI,
@@ -301,14 +289,12 @@ public class UserInterfaceService extends Service {
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
-     *            the value of <code>Lighting.MY_URI
-	 *                        </code> from the lighting
+     *            the value of <code>Lighting.MY_URI </code> from the lighting
      *            example.
      * 
      * 
      * @return the UI service request.
      */
-
     protected static ServiceRequest getUIServiceRequest(
 	    UserInterfaceService requestedService, String serviceClassURI,
 	    String vendor, Resource requestingUser) {
@@ -355,8 +341,8 @@ public class UserInterfaceService extends Service {
     // }
 
     /**
-	 * 
-	 */
+     * 
+     */
     protected UserInterfaceService() {
 	super();
     }
