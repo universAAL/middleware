@@ -44,6 +44,7 @@
 		<module>../mw.data.representation.core</module>
 		<module>../mw.data.serialization.core</module>
 		<module>../mw.bus.service.core</module>
+		<module>../mw.bus.service.aapi.core</module>
 		<module>../mw.bus.context.core</module>
 		<module>../mw.bus.ui.core</module>
 	</modules>

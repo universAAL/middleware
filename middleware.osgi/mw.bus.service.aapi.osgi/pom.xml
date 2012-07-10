@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.pom.osgi</artifactId>
+		<version>1.1.2-SNAPSHOT</version>
+		<relativePath>../pom</relativePath>
+	</parent>
+
+	<packaging>bundle</packaging>
+	<artifactId>mw.bus.service.aapi.osgi</artifactId>
+	<name>Service Bus Annotated API (OSGI)</name>
+	<version>1.1.2-SNAPSHOT</version>
+	<url/>
+
+	<scm>
+		<connection>${svn.base}/mw.bus.service.aapi.osgi</connection>
+		<developerConnection>${svn.base}/mw.bus.service.aapi.osgi</developerConnection>
+		<url>${svn.base.url}mw.bus.service.aapi.osgi</url>
+	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+					</execution>
+				</executions>	
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Export-Package>
+							org.universAAL.middleware.api,
+							org.universAAL.middleware.api.annotation,
+							org.universAAL.middleware.api.exception
+						</Export-Package>
+						<Private-Package>org.universAAL.middleware.api.impl</Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+			</plugin>            
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service.aapi.core</artifactId>
+			<version>1.1.2-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>
