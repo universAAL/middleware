@@ -713,6 +713,7 @@ middleware.core/target
 middleware.core/uAAL.log
 middleware.osgi.agg/mw.bus.context.osgi.agg/.project
 middleware.osgi.agg/mw.bus.context.osgi.agg/.settings
+middleware.osgi.agg/mw.bus.context.osgi.agg/target
 middleware.osgi.agg/mw.bus.model.osgi.agg/.project
 middleware.osgi.agg/mw.bus.model.osgi.agg/.settings
 middleware.osgi.agg/mw.bus.service.osgi.agg/.project

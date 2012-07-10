@@ -79,7 +79,6 @@ middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware
 middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/annotation/ServiceOperation.java -text
 middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/annotation/UniversAALService.java -text
 middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/exception/SimplifiedRegistrationException.java -text
-middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/impl/Activator.java -text
 middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/impl/AnnotationScanner.java -text
 middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/impl/DynamicServiceProxy.java -text
 middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/impl/ServiceCalleeWrapper.java -text
