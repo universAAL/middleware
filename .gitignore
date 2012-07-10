@@ -269,6 +269,11 @@ middleware.core/mw.bus.model.core/src/test/uAAL.log
 middleware.core/mw.bus.model.core/src/uAAL.log
 middleware.core/mw.bus.model.core/target
 middleware.core/mw.bus.model.core/uAAL.log
+middleware.core/mw.bus.service.aapi.core/.classpath
+middleware.core/mw.bus.service.aapi.core/.project
+middleware.core/mw.bus.service.aapi.core/.settings
+middleware.core/mw.bus.service.aapi.core/src
+middleware.core/mw.bus.service.aapi.core/target
 middleware.core/mw.bus.service.core/.classpath
 middleware.core/mw.bus.service.core/.project
 middleware.core/mw.bus.service.core/.settings
@@ -1223,6 +1228,7 @@ middleware.osgi/mw.bus.model.osgi/src/test/uAAL.log
 middleware.osgi/mw.bus.model.osgi/src/uAAL.log
 middleware.osgi/mw.bus.model.osgi/target
 middleware.osgi/mw.bus.model.osgi/uAAL.log
+middleware.osgi/mw.bus.service.aapi.osgi/target
 middleware.osgi/mw.bus.service.osgi/.classpath
 middleware.osgi/mw.bus.service.osgi/.project
 middleware.osgi/mw.bus.service.osgi/.settings

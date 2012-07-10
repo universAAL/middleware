@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw-simplified.pom</artifactId>
+		<version>1.1.2-SNAPSHOT</version>
+		<relativePath>../pom</relativePath>
+	</parent>
+	<groupId>org.universAAL.middleware</groupId>
+	<packaging>jar</packaging>
+	<artifactId>mw.bus.service.aapi.core</artifactId>
+	<name>Service Bus Annotated API (CORE)</name>
+	<version>1.1.2-SNAPSHOT</version>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>           
+		</plugins>
+	</build>
+
+</project>
