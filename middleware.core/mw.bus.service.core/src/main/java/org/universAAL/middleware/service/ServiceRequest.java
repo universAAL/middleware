@@ -324,7 +324,7 @@ public class ServiceRequest extends FinalizedResource {
     /**
      * Get hashtable containing non-semantic input or null if none was provided.
      */
-    protected Hashtable getInput() {
+    private Hashtable getInput() {
 	return (Hashtable) props
 		.get(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT);
     }

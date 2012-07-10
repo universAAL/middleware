@@ -57,6 +57,7 @@
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>org.universAAL.middleware.service,
+							org.universAAL.middleware.service.aapi,
 							org.universAAL.middleware.service.owl,
 							org.universAAL.middleware.service.owls.process,
 							org.universAAL.middleware.service.owls.profile</Export-Package>
