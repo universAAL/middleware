@@ -123,12 +123,16 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
     /**
      * Get the next value according to the total order of this comparable
      * individual.
+     * 
+     * @return the next value
      */
     public abstract ComparableIndividual getNext();
 
     /**
      * Get the previous value according to the total order of this comparable
      * individual.
+     * 
+     * @return the previous value
      */
     public abstract ComparableIndividual getPrevious();
 
