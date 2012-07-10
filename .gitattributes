@@ -78,8 +78,8 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceCaller.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceRequest.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceResponse.java -text
-middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/SimpleServiceRequest.java -text
-middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/SimpleServiceResponse.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/aapi/AapiServiceRequest.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/aapi/AapiServiceResponse.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/ILocalServiceSearchResultsData.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/ILocalServicesIndexData.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/ILocalWaitingCallersData.java -text

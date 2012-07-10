@@ -28,6 +28,7 @@ import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.service.aapi.AapiServiceRequest;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
@@ -307,10 +308,10 @@ public class ServiceRequest extends FinalizedResource {
      */
     protected void addInput(String uri, Object input) {
 	Hashtable nonSemanticInput = (Hashtable) props
-		.get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT);
+		.get(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT);
 	if (nonSemanticInput == null) {
 	    nonSemanticInput = new Hashtable();
-	    props.put(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT,
+	    props.put(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT,
 		    nonSemanticInput);
 	}
 	if (nonSemanticInput.contains(uri)) {
@@ -325,7 +326,7 @@ public class ServiceRequest extends FinalizedResource {
      */
     protected Hashtable getInput() {
 	return (Hashtable) props
-		.get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT);
+		.get(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT);
     }
 
     private List filters() {
