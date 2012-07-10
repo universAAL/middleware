@@ -34,7 +34,7 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceRequest;
-import org.universAAL.middleware.service.SimpleServiceRequest;
+import org.universAAL.middleware.service.aapi.AapiServiceRequest;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessResult;
@@ -213,9 +213,9 @@ public class ServiceRealization extends FinalizedResource {
 	// NON_SEMANTIC_INPUT:
 	// if ServiceRequest contains non-semantic input than it has to be
 	// propagated to ServiceCall.
-	if (context.containsKey(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT)) {
+	if (context.containsKey(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT)) {
 	    result.addNonSemanticInput((Hashtable) context
-		    .get(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT));
+		    .get(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT));
 	}
 	return true;
     }
@@ -579,18 +579,16 @@ public class ServiceRealization extends FinalizedResource {
 	// context
 	Hashtable nonSemanticInput = null;
 	try {
-	    Method getInputMethod = request.getClass().getDeclaredMethod(
-		    "getInput", new Class[0]);
-	    getInputMethod.setAccessible(true);
-	    nonSemanticInput = (Hashtable) getInputMethod.invoke(request,
-		    new Object[0]);
+	    if (request instanceof AapiServiceRequest){
+            nonSemanticInput = ((AapiServiceRequest)request).getInput();
+	    }
 	} catch (RuntimeException ex) {
 	    throw ex;
 	} catch (Exception ex) {
 	    throw new RuntimeException(ex);
 	}
 	if (nonSemanticInput != null) {
-	    context.put(SimpleServiceRequest.PROP_NON_SEMANTIC_INPUT,
+	    context.put(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT,
 		    nonSemanticInput);
 	}
 	// uAAL_SERVICE_URI_MATCHED:
