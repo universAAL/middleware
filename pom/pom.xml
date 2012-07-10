@@ -150,7 +150,7 @@
 	</repositories>
 
 	<modules>
-		<module>../middleware.osgi/pom</module>
-		<module>../middleware.core/pom</module>
+		<module>../middleware.osgi/mw.pom.osgi</module>
+		<module>../middleware.core/mw.pom.core</module>
 	</modules>
 </project>

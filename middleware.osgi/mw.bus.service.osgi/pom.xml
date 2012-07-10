@@ -6,7 +6,7 @@
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom.osgi</artifactId>
 		<version>1.1.2-SNAPSHOT</version>
-		<relativePath>../pom</relativePath>
+		<relativePath>../mw.pom.osgi</relativePath>
 	</parent>
 
 	<artifactId>mw.bus.service.osgi</artifactId>
