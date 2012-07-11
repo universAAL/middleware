@@ -20,7 +20,6 @@
 package org.universAAL.middleware.service;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,7 +27,6 @@ import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.service.aapi.AapiServiceRequest;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
@@ -301,32 +299,6 @@ public class ServiceRequest extends FinalizedResource {
 	getRequestedService().addInstanceLevelRestriction(
 		MergedRestriction.getFixedValueRestriction(
 			refPath[refPath.length - 1], hasValue), refPath);
-    }
-
-    /**
-     * Add non-semantic input.
-     */
-    protected void addInput(String uri, Object input) {
-	Hashtable nonSemanticInput = (Hashtable) props
-		.get(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT);
-	if (nonSemanticInput == null) {
-	    nonSemanticInput = new Hashtable();
-	    props.put(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT,
-		    nonSemanticInput);
-	}
-	if (nonSemanticInput.contains(uri)) {
-	    throw new IllegalArgumentException();
-	} else {
-	    nonSemanticInput.put(uri, input);
-	}
-    }
-
-    /**
-     * Get hashtable containing non-semantic input or null if none was provided.
-     */
-    protected Hashtable getInput() {
-	return (Hashtable) props
-		.get(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT);
     }
 
     private List filters() {

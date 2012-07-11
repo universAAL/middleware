@@ -13,7 +13,6 @@ public class AapiServiceRequest extends ServiceRequest {
      */
     public static final String PROP_NON_SEMANTIC_INPUT = "http://ontology.universAAL.org/uAAL.owl#nonSemanticInput";
 
-    
     public AapiServiceRequest() {
     }
 
@@ -35,13 +34,30 @@ public class AapiServiceRequest extends ServiceRequest {
 	    Resource involvedHumanUser) {
 	super(uri, requestedService, involvedHumanUser);
     }
-    
+
+    /**
+     * Add non-semantic input.
+     */
     public void addInput(String uri, Object input) {
-	super.addInput(uri, input);
-    }
-    
-    public Hashtable getInput() {
-	return super.getInput();
+	Hashtable nonSemanticInput = (Hashtable) props
+		.get(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT);
+	if (nonSemanticInput == null) {
+	    nonSemanticInput = new Hashtable();
+	    props.put(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT,
+		    nonSemanticInput);
+	}
+	if (nonSemanticInput.contains(uri)) {
+	    throw new IllegalArgumentException();
+	} else {
+	    nonSemanticInput.put(uri, input);
+	}
     }
 
+    /**
+     * Get hashtable containing non-semantic input or null if none was provided.
+     */
+    public Hashtable getInput() {
+	return (Hashtable) props
+		.get(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT);
+    }
 }
