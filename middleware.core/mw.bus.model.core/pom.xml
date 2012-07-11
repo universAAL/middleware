@@ -16,12 +16,6 @@
 	<description>A Soda-Pop implementation based on the ACL (Core)</description>
 	<url/>
 
-	<scm>
-		<connection>${svn.base}/bus.model.core</connection>
-		<developerConnection>${svn.base}/bus.model.core</developerConnection>
-		<url>${svn.base.url}bus.model.core</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>
@@ -36,11 +30,4 @@
 			<artifactId>mw.acl.interfaces.core</artifactId>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-		</plugins>
-	</build>
-	<profiles>
-	</profiles>
 </project>

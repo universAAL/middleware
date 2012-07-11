@@ -17,12 +17,6 @@
 	<description>A Soda-Pop implementation as an OSGi bundle based on the ACL (OSGi)</description>
 	<url />
 
-	<scm>
-		<connection>${svn.base}/bus.model.osgi</connection>
-		<developerConnection>${svn.base}/bus.model.osgi</developerConnection>
-		<url>${svn.base.url}bus.model.osgi</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>

@@ -15,12 +15,6 @@
 	<version>1.1.2-SNAPSHOT</version>
 	<url/>
 
-	<scm>
-		<connection>${svn.base}/mw.bus.service.aapi.osgi</connection>
-		<developerConnection>${svn.base}/mw.bus.service.aapi.osgi</developerConnection>
-		<url>${svn.base.url}mw.bus.service.aapi.osgi</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>

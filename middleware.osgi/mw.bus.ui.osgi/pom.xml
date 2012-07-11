@@ -16,12 +16,6 @@
 	<description>The realization of the user interaction bus on top of Sodapop as part of the universAAL Middleware (OSGi)</description>
 	<url/>
 
-	<scm>
-		<connection>${svn.base}/bus.ui.osgi</connection>
-		<developerConnection>${svn.base}/bus.ui.osgi</developerConnection>
-		<url>${svn.base.url}bus.ui.osgi</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>

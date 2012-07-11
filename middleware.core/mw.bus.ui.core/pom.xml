@@ -16,12 +16,6 @@
 	<description>The realization of the user interaction bus on top of Sodapop as part of the universAAL Middleware (Core)</description>
 	<url/>
 
-	<scm>
-		<connection>${svn.base}/bus.ui.core</connection>
-		<developerConnection>${svn.base}/bus.ui.core</developerConnection>
-		<url>${svn.base.url}bus.ui.core</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>
@@ -44,9 +38,4 @@
 			<artifactId>mw.container.xfaces.core</artifactId>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-		</plugins>
-	</build>
 </project>

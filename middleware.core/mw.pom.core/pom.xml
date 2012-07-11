@@ -18,6 +18,12 @@
 	<name>universAAL Middleware Suite (Core)</name>
 	<description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase. (Core)</description>
 
+	<scm>
+		<connection>${svn.base}/middleware.core/${project.artifactId}</connection>
+		<developerConnection>${svn.base}/middleware.core/${project.artifactId}</developerConnection>
+		<url>${svn.base.url}middleware.core/${project.artifactId}</url>
+	</scm>
+
 	<build>
 		<plugins>
 			<plugin>

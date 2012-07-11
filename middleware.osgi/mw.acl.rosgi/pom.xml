@@ -17,12 +17,6 @@
 	<description>An implement of the ACL interface using R-OSGi</description>
 	<url />
 
-	<scm>
-		<connection>${svn.base}/acl.rosgi</connection>
-		<developerConnection>${svn.base}/acl.rosgi</developerConnection>
-		<url>${svn.base.url}acl.rosgi</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>
