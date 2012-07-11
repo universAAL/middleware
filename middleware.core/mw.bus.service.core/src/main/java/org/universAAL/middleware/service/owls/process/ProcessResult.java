@@ -99,7 +99,7 @@ public class ProcessResult extends FinalizedResource {
 					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
 					    Integer.valueOf(1010),
 					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    "some effects are provided by the service, but the service request does not contain any effect.",
+					    "Some effects are provided by the service, but the service request does not contain any effect.",
 					    logID }, null);
 		return false;
 	    }
@@ -121,7 +121,7 @@ public class ProcessResult extends FinalizedResource {
 					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
 					    Integer.valueOf(1011),
 					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    "the service request requires some effects, but the service does not offer any effects.",
+					    "The service request requires some effects, but the service does not offer any effects.",
 					    logID }, null);
 		else
 		    LogUtils
@@ -139,7 +139,7 @@ public class ProcessResult extends FinalizedResource {
 					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
 					    Integer.valueOf(1012),
 					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    "the service request requires some effects, but the service does not offer these effects. The criteria for a match is the number of effects.",
+					    "The service request requires some effects, but the service does not offer these effects. The criteria for a match is the number of effects.",
 					    logID }, null);
 	    }
 	    return false;
@@ -161,7 +161,7 @@ public class ProcessResult extends FinalizedResource {
 					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
 					    Integer.valueOf(1013),
 					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    "at least one of the requested effects is not offered by the service.",
+					    "At least one of the requested effects is not offered by the service.",
 					    logID }, null);
 		return false;
 	    }
@@ -220,7 +220,7 @@ public class ProcessResult extends FinalizedResource {
 					ServiceBus.LOG_MATCHING_MISMATCH_CODE,
 					Integer.valueOf(1000),
 					ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					"some outputs are required by the service request but the service does not provide any outputs.",
+					"Some outputs are required by the service request but the service does not provide any outputs.",
 					logID }, null);
 	    return false;
 	}
@@ -244,7 +244,7 @@ public class ProcessResult extends FinalizedResource {
 					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
 					    Integer.valueOf(1001),
 					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    "an output is required by the service request but the service does not provide this specific output.",
+					    "An output is required by the service request but the service does not provide this specific output.",
 					    logID }, null);
 		    return false;
 		}

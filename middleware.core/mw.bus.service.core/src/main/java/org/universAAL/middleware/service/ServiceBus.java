@@ -44,8 +44,8 @@ public interface ServiceBus {
 
     public static final String LOG_MATCHING_START = "Matching the request ";
     public static final String LOG_MATCHING_PROFILE = "Matching offer ";
-    public static final String LOG_MATCHING_SUCCESS = "successful ";
-    public static final String LOG_MATCHING_NOSUCCESS = "not successful ";
+    public static final String LOG_MATCHING_SUCCESS = "Matching successful ";
+    public static final String LOG_MATCHING_NOSUCCESS = "Matching not successful ";
     public static final String LOG_MATCHING_END = "Matching done.";
 
     public static final String LOG_MATCHING_MISMATCH = "Mismatch detected: ";
