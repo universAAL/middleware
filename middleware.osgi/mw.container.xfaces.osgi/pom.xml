@@ -16,12 +16,6 @@
 	<description>Defines the interfaces exported by the Container building block of the universAAL middleware (OSGi)</description>
 	<url/>
 
-	<scm>
-		<connection>${svn.base}/container.xfaces.osgi</connection>
-		<developerConnection>${svn.base}/container.xfaces.osgi</developerConnection>
-		<url>${svn.base.url}container.xfaces.osgi</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>

@@ -22,6 +22,12 @@
 		<separatedGroupIds>org.universAAL.middleware</separatedGroupIds>
 	</properties>
 
+	<scm>
+		<connection>${svn.base}/middleware.osgi/${project.artifactId}</connection>
+		<developerConnection>${svn.base}/middleware.osgi/${project.artifactId}</developerConnection>
+		<url>${svn.base.url}middleware.osgi/${project.artifactId}</url>
+	</scm>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

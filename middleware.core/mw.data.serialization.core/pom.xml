@@ -15,12 +15,6 @@
 	<name>RDF/OWL Turtle serializer (Core)</name>
 	<description>The module for message content serialization in Turtle (Core)</description>
 
-	<scm>
-		<connection>${svn.base}/data.serialization.core</connection>
-		<developerConnection>${svn.base}/data.serialization.core</developerConnection>
-		<url>${svn.base.url}data.serialization.core</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>
@@ -39,9 +33,4 @@
 			<artifactId>mw.bus.model.core</artifactId>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-		</plugins>
-	</build>
 </project>

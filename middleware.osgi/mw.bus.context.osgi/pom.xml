@@ -15,12 +15,6 @@
 	<name>Context Bus (OSGi)</name>
 	<description>The realization of the context bus on top of Sodapop as part of the universAAL Middleware (OSGi)</description>
 
-	<scm>
-		<connection>${svn.base}/bus.context.osgi</connection>
-		<developerConnection>${svn.base}/bus.context.osgi</developerConnection>
-		<url>${svn.base.url}bus.context.osgi</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>

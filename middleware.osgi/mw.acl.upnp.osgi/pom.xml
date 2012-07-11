@@ -15,12 +15,6 @@
 	<name>ACL UPnP</name>
 	<description>Implementatation of the SodaPop ACL based on UPnP protocol</description>
 
-	<scm>
-		<connection>${svn.base}/acl.upnp</connection>
-		<developerConnection>${svn.base}/acl.upnp</developerConnection>
-		<url>${svn.base.url}acl.upnp</url>
-	</scm>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.universAAL.support</groupId>

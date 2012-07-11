@@ -16,18 +16,7 @@
 	<description>Defines the interfaces within the Abstract Connection Layer (Core)</description>
 	<url/>
 
-	<scm>
-		<connection>${svn.base}/acl.interfaces.core</connection>
-		<developerConnection>${svn.base}/acl.interfaces.core</developerConnection>
-		<url>${svn.base.url}acl.interfaces.core</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>
-
-	<build>
-		<plugins>
-		</plugins>
-	</build>
 </project>

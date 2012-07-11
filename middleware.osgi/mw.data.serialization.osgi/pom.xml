@@ -15,12 +15,6 @@
 	<name>RDF/OWL Turtle serializer (OSGi)</name>
 	<description>The module for message content serialization in Turtle (OSGi)</description>
 
-	<scm>
-		<connection>${svn.base}/data.serialization.osgi</connection>
-		<developerConnection>${svn.base}/data.serialization.osgi</developerConnection>
-		<url>${svn.base.url}data.serialization.osgi</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>

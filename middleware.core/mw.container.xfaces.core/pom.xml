@@ -16,18 +16,7 @@
 	<description>Defines the interfaces exported by the Container building block of the universAAL middleware (Core)</description>
 	<url/>
 
-	<scm>
-		<connection>${svn.base}/container.xfaces.core</connection>
-		<developerConnection>${svn.base}/container.xfaces.core</developerConnection>
-		<url>${svn.base.url}container.xfaces.core</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>
-
-	<build>
-		<plugins>
-		</plugins>
-	</build>
 </project>

@@ -17,12 +17,6 @@
 	<description>Finds all implementations of the ACL and bridges the proxies by one protocol to all other</description>
 	<url />
 
-	<scm>
-		<connection>${svn.base}/acl.bridge</connection>
-		<developerConnection>${svn.base}/acl.bridge</developerConnection>
-		<url>${svn.base.url}acl.bridge</url>
-	</scm>
-
 	<properties>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>
