@@ -487,10 +487,14 @@ public class ServiceRealization extends FinalizedResource {
 						"matches",
 						new Object[] {
 							ServiceBus.LOG_MATCHING_MISMATCH,
-							"the property ",
+							"no subset relationship for restricted property",
+							"\nrestricted property: ",
 							restrProps[i],
-							" is restricted in the request. The service offer has class level restrictions, but no instance level restrictions.",
-							" Neither the request is a subset of the offer nor the offer a subset of the request.",
+							ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+							Integer.valueOf(1020),
+							ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+							" A property is restricted in the request.  The service offer has class level restrictions, but no instance level restrictions."
+								+ " Neither the request is a subset of the offer nor the offer a subset of the request.",
 							logID }, null);
 			    return false;
 			}
@@ -516,10 +520,14 @@ public class ServiceRealization extends FinalizedResource {
 					    "matches",
 					    new Object[] {
 						    ServiceBus.LOG_MATCHING_MISMATCH,
-						    "the property ",
+						    "no subset relationship for restricted property",
+						    "\nrestricted property: ",
 						    restrProps[i],
-						    " is restricted in the request. The service offer has instance level restrictions.",
-						    " Neither the request is a subset of the offer nor the offer a subset of the request.",
+						    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+						    Integer.valueOf(1021),
+						    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+						    " A property is restricted in the request. The service offer has instance level restrictions."
+							    + " Neither the request is a subset of the offer nor the offer a subset of the request.",
 						    logID }, null);
 			return false;
 		    }
@@ -546,10 +554,14 @@ public class ServiceRealization extends FinalizedResource {
 						"matches",
 						new Object[] {
 							ServiceBus.LOG_MATCHING_MISMATCH,
-							"the property ",
+							"no subset relationship for restricted property",
+							"\nrestricted property: ",
 							restrProps[i],
-							" is restricted in the request. The service offer has class level and instance level restrictions. The instance level restrictions have been checked already, but class level restriction do not match.",
-							" Neither the request is a subset of the offer nor the offer a subset of the request.",
+							ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+							Integer.valueOf(1022),
+							ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+							" A property is restricted in the request.  The service offer has class level and instance level restrictions. The instance level restrictions have been checked already, but class level restriction do not match."
+								+ " Neither the request is a subset of the offer nor the offer a subset of the request.",
 							logID }, null);
 			    return false;
 			}
@@ -579,13 +591,17 @@ public class ServiceRealization extends FinalizedResource {
 	// context
 	Hashtable nonSemanticInput = null;
 	try {
-		if (request instanceof AapiServiceRequest){
-			nonSemanticInput = ((AapiServiceRequest)request).getInput();
-		}
-	} catch (RuntimeException ex) {
-	    throw ex;
+	    if (request instanceof AapiServiceRequest) {
+		nonSemanticInput = ((AapiServiceRequest) request).getInput();
+	    }
 	} catch (Exception ex) {
-	    throw new RuntimeException(ex);
+	    LogUtils
+		    .logDebug(
+			    ServiceBusImpl.moduleContext,
+			    ServiceRealization.class,
+			    "matches",
+			    new Object[] { "Exception occured when trying to get non-semantic parameters from AapiServiceRequest" },
+			    ex);
 	}
 	if (nonSemanticInput != null) {
 	    context.put(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT,
