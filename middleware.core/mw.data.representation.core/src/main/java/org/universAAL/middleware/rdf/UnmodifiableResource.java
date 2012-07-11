@@ -20,12 +20,9 @@
 package org.universAAL.middleware.rdf;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
@@ -37,176 +34,24 @@ import org.universAAL.middleware.datarep.SharedResources;
  */
 public class UnmodifiableResource extends Resource {
 
-    /** A safe iterator that does not allow modifications. */
-    private class SafeIterator implements Iterator {
-	Iterator it;
-
-	SafeIterator(Iterator it) {
-	    this.it = it;
-	}
-
-	public boolean hasNext() {
-	    return it.hasNext();
-	}
-
-	public Object next() {
-	    return handleObject(it.next());
-	}
-
-	public void remove() {
-	}
-    }
-
-    /** A safe iterator that does not allow modifications. */
-    private class SafeListIterator extends SafeIterator implements ListIterator {
-	ListIterator it;
-
-	SafeListIterator(ListIterator it) {
-	    super(it);
-	    this.it = it;
-	}
-
-	public void add(Object arg0) {
-	}
-
-	public boolean hasPrevious() {
-	    return it.hasPrevious();
-	}
-
-	public int nextIndex() {
-	    return it.nextIndex();
-	}
-
-	public Object previous() {
-	    return handleObject(it.previous());
-	}
-
-	public int previousIndex() {
-	    return it.nextIndex();
-	}
-
-	public void set(Object arg0) {
-	}
-    }
-
-    private class UnmodifiableResourceList implements List {
-	List l;
-
-	UnmodifiableResourceList(List l) {
-	    this.l = l;
-	}
-
-	public boolean add(Object arg0) {
-	    return false;
-	}
-
-	public void add(int arg0, Object arg1) {
-	}
-
-	public boolean addAll(Collection arg0) {
-	    return false;
-	}
-
-	public boolean addAll(int arg0, Collection arg1) {
-	    return false;
-	}
-
-	public void clear() {
-	}
-
-	public boolean contains(Object o) {
-	    return l.contains(o);
-	}
-
-	public boolean containsAll(Collection arg0) {
-	    return l.containsAll(arg0);
-	}
-
-	public Object get(int index) {
-	    Object o = l.get(index);
-	    if (o instanceof Resource)
-		return new UnmodifiableResource((Resource) o);
-	    return o;
-	}
-
-	public int indexOf(Object o) {
-	    return l.indexOf(o);
-	}
-
-	public boolean isEmpty() {
-	    return l.isEmpty();
-	}
-
-	public Iterator iterator() {
-	    return new SafeIterator(l.iterator());
-	}
-
-	public int lastIndexOf(Object o) {
-	    return l.lastIndexOf(o);
-	}
-
-	public ListIterator listIterator() {
-	    return new SafeListIterator(l.listIterator());
-	}
-
-	public ListIterator listIterator(int index) {
-	    return new SafeListIterator(l.listIterator(index));
-	}
-
-	public boolean remove(Object o) {
-	    return false;
-	}
-
-	public Object remove(int index) {
-	    return null;
-	}
-
-	public boolean removeAll(Collection arg0) {
-	    return false;
-	}
-
-	public boolean retainAll(Collection arg0) {
-	    return false;
-	}
-
-	public Object set(int arg0, Object arg1) {
-	    return null;
-	}
-
-	public int size() {
-	    return l.size();
-	}
-
-	public List subList(int fromIndex, int toIndex) {
-	    return new UnmodifiableResourceList(l.subList(fromIndex, toIndex));
-	}
-
-	public Object[] toArray() {
-	    Object[] o = l.toArray();
-	    for (int i = 0; i < o.length; i++) {
-		if (o[i] instanceof Resource)
-		    o[i] = new UnmodifiableResource((Resource) o[i]);
-	    }
-	    return o;
-	}
-
-	public Object[] toArray(Object[] arg0) {
-	    Object[] o = l.toArray(arg0);
-	    for (int i = 0; i < o.length; i++) {
-		if (o[i] instanceof Resource)
-		    o[i] = new UnmodifiableResource((Resource) o[i]);
-	    }
-	    return o;
-	}
-    }
-
     Resource res;
 
     public UnmodifiableResource(Resource r) {
 	res = r;
     }
 
-    private Object handleObject(Object o) {
+    /**
+     * Get an unmodifiable version of the given object. If the parameter is a
+     * {@link Resource}, an {@link UnmodifiableResource} is returned. If the
+     * parameter is a {@link java.util.List}, an
+     * {@link UnmodifiableResourceList} is returned.
+     * 
+     * @param o
+     *            The object for which an unmodifiable version should be
+     *            returned.
+     * @return The unmodifiable version.
+     */
+    public static Object getUnmodifiable(Object o) {
 	if (o instanceof Resource)
 	    return new UnmodifiableResource((Resource) o);
 	else if (o instanceof List)
@@ -227,7 +72,7 @@ public class UnmodifiableResource extends Resource {
     /** @see org.universAAL.middleware.rdf.Resource#getProperty(String) */
     public final Object getProperty(String propURI) {
 	Object o = res.getProperty(propURI);
-	return handleObject(o);
+	return getUnmodifiable(o);
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
@@ -285,7 +130,7 @@ public class UnmodifiableResource extends Resource {
 	res.asList(l2);
 	for (int i = 0; i < l2.size(); i++) {
 	    Object o = l2.get(i);
-	    l.add(handleObject(o));
+	    l.add(getUnmodifiable(o));
 	}
     }
 

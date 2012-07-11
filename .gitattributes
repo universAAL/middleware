@@ -234,6 +234,7 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/ResourceFactory.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/TypeMapper.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/UnmodifiableResource.java -text
+middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/UnmodifiableResourceList.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/Variable.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/impl/ResourceFactoryImpl.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/Constants.java -text
