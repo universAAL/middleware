@@ -23,7 +23,8 @@
 		<developerConnection>${svn.base}/middleware.core/${project.artifactId}</developerConnection>
 		<url>${svn.base.url}middleware.core/${project.artifactId}</url>
 	</scm>
-<dependencyManagement>
+	
+	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.universAAL.middleware</groupId>
@@ -49,6 +50,11 @@
 			<dependency>
 				<groupId>org.universAAL.middleware</groupId>
 				<artifactId>mw.bus.service.core</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.service.aapi.core</artifactId>
 				<version>1.1.2-SNAPSHOT</version>
 			</dependency>
 
