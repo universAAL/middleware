@@ -372,6 +372,7 @@ mw.pom-1.0.2-SNAPSHOT/composite/pom.xml -text
 mw.pom-1.0.2-SNAPSHOT/eclipse.setup.bat -text
 mw.pom-1.0.2-SNAPSHOT/eclipse.setup.sh -text
 mw.pom-1.0.2-SNAPSHOT/pom.xml -text
+mw.pom-1.1.2-SNAPSHOT/pom.xml -text
 pom-1.0.1-SNAPSHOT/eclipse.setup.bat -text
 pom-1.0.1-SNAPSHOT/eclipse.setup.sh -text
 pom-1.0.1-SNAPSHOT/pom.xml -text
