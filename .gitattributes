@@ -1,3 +1,13 @@
 * text=auto !eol
+middleware.core/mw.container.xfaces.core/LICENSE.txt -text
+middleware.core/mw.container.xfaces.core/NOTICE.txt -text
+middleware.core/mw.container.xfaces.core/pom.xml -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/Container.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/LogListener.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/ModuleContext.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/SharedObjectListener.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/uAALModuleActivator.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/LogUtils.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
 middleware.core/mw.pom.core/pom.xml -text
 pom/pom.xml -text
