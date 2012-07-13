@@ -1,2 +1,3 @@
 * text=auto !eol
+middleware.core/mw.pom.core/pom.xml -text
 pom/pom.xml -text
