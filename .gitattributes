@@ -293,6 +293,9 @@ mw.container.xfaces.core-1.1.3-SNAPSHOT/src/main/java/org/universAAL/middleware/
 mw.container.xfaces.core-1.1.3-SNAPSHOT/src/main/java/org/universAAL/middleware/container/uAALModuleActivator.java -text
 mw.container.xfaces.core-1.1.3-SNAPSHOT/src/main/java/org/universAAL/middleware/container/utils/LogUtils.java -text
 mw.container.xfaces.core-1.1.3-SNAPSHOT/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
+mw.container.xfaces.osgi-1.1.3-SNAPSHOT/LICENSE.txt -text
+mw.container.xfaces.osgi-1.1.3-SNAPSHOT/NOTICE.txt -text
+mw.container.xfaces.osgi-1.1.3-SNAPSHOT/pom.xml -text
 mw.data.representation-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.data.representation-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.data.representation-1.0.1-SNAPSHOT/artifact_manual.composite -text
