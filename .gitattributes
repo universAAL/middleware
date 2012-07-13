@@ -294,6 +294,13 @@ mw.bus.service.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/servi
 mw.bus.service.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/service/owls/profile/ServiceProfile.java -text
 mw.bus.service.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/service/owls/profile/SingleLocationParameter.java -text
 mw.bus.service.core-1.1.2-SNAPSHOT/src/main/resources/org/persona/middleware/peer.properties -text
+mw.bus.service.osgi-1.1.2-SNAPSHOT/LICENSE.txt -text
+mw.bus.service.osgi-1.1.2-SNAPSHOT/NOTICE.txt -text
+mw.bus.service.osgi-1.1.2-SNAPSHOT/pom.xml -text
+mw.bus.service.osgi-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/service/impl/osgi/Activator.java -text
+mw.bus.service.osgi-1.1.2-SNAPSHOT/src/main/resources/org/persona/middleware/peer.properties -text
+mw.bus.service.osgi-1.1.2-SNAPSHOT/src/test/java/org/universAAL/middleware/service/test/ArtifactIntegrationTest.java -text
+mw.bus.service.osgi-1.1.2-SNAPSHOT/src/test/resources/log4j.properties -text
 mw.bus.ui-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.bus.ui-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.bus.ui-1.0.1-SNAPSHOT/artifact_manual.composite -text
