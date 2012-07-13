@@ -1,64 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-
-	<parent>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.pom.osgi</artifactId>
-		<version>1.1.2-SNAPSHOT</version>
-		<relativePath>../mw.pom.osgi</relativePath>
-	</parent>
-
-	<artifactId>mw.acl.bridge.osgi</artifactId>
-	<version>1.1.2-SNAPSHOT</version>
-	<packaging>bundle</packaging>
-	<name>ACL Bridge</name>
-	<description>Finds all implementations of the ACL and bridges the proxies by one protocol to all other</description>
-	<url />
-
-	<properties>
-		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
-	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.acl.interfaces.osgi</artifactId>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-Name>${project.name}</Bundle-Name>
-						<Bundle-Description>${project.description}</Bundle-Description>
-						<Bundle-Activator>org.universAAL.middleware.acl.bridge.BridgeActivator</Bundle-Activator>
-						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Import-Package>org.universAAL.middleware.acl,org.osgi.framework</Import-Package>
-						<Private-Package>org.universAAL.middleware.acl.bridge</Private-Package>
-					</instructions>
-				</configuration>
-				<!--
-					Generating of bundle manifest for itests has to be disabled because
-					of some strange interference with cobertura
-				-->
-				<executions>
-					<execution>
-						<id>bundle-manifest</id>
-						<phase>null</phase>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>1.2.1-SNAPSHOT</version>
+    <relativePath>../mw.pom.osgi</relativePath>
+  </parent>
+  <artifactId>mw.acl.bridge.osgi</artifactId>
+  <version>1.2.1-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <name>ACL Bridge</name>
+  <description>Finds all implementations of the ACL and bridges the proxies by one protocol to all other</description>
+  <url></url>
+  <properties>
+    <project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.osgi.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.acl.interfaces.osgi</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>bundle-manifest</id>
+            <phase>null</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <instructions>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-Activator>org.universAAL.middleware.acl.bridge.BridgeActivator</Bundle-Activator>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Import-Package>org.universAAL.middleware.acl,org.osgi.framework</Import-Package>
+            <Private-Package>org.universAAL.middleware.acl.bridge</Private-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
