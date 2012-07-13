@@ -589,6 +589,12 @@ mw.data.serialization.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/serializa
 mw.data.serialization.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/serialization/turtle/TurtleUtil.java -text
 mw.data.serialization.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/serialization/turtle/TurtleWriter.java -text
 mw.data.serialization.core-1.1.2-SNAPSHOT/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
+mw.data.serialization.osgi-1.1.2-SNAPSHOT/LICENSE.txt -text
+mw.data.serialization.osgi-1.1.2-SNAPSHOT/NOTICE.txt -text
+mw.data.serialization.osgi-1.1.2-SNAPSHOT/pom.xml -text
+mw.data.serialization.osgi-1.1.2-SNAPSHOT/src/main/java/org/universAAL/serialization/turtle/osgi/Activator.java -text
+mw.data.serialization.osgi-1.1.2-SNAPSHOT/src/test/java/org/universAAL/serialization/test/ArtifactIntegrationTest.java -text
+mw.data.serialization.osgi-1.1.2-SNAPSHOT/src/test/resources/log4j.properties -text
 mw.pom-1.0.2-SNAPSHOT/artifact_manual.composite -text
 mw.pom-1.0.2-SNAPSHOT/composite/pom.xml -text
 mw.pom-1.0.2-SNAPSHOT/eclipse.setup.bat -text
