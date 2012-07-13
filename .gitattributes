@@ -109,6 +109,13 @@ middleware.core/mw.data.representation.core/src/main/resources/mw.data.represent
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/BoundedValueRestrictionTest.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/OntologiesTest.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/rdf/TypeMapperTest.java -text
+middleware.core/mw.data.serialization.core/LICENSE.txt -text
+middleware.core/mw.data.serialization.core/NOTICE.txt -text
+middleware.core/mw.data.serialization.core/pom.xml -text
+middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serialization/turtle/TurtleParser.java -text
+middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serialization/turtle/TurtleUtil.java -text
+middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serialization/turtle/TurtleWriter.java -text
+middleware.core/mw.data.serialization.core/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
 middleware.core/mw.pom.core/pom.xml -text
 middleware.osgi/mw.acl.bridge.osgi/LICENSE.txt -text
 middleware.osgi/mw.acl.bridge.osgi/NOTICE.txt -text
