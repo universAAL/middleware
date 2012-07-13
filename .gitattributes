@@ -563,6 +563,13 @@ mw.data.representation.core-1.1.2-SNAPSHOT/src/main/resources/mw.data.representa
 mw.data.representation.core-1.1.2-SNAPSHOT/src/test/java/org/universAAL/middleware/owl/BoundedValueRestrictionTest.java -text
 mw.data.representation.core-1.1.2-SNAPSHOT/src/test/java/org/universAAL/middleware/owl/OntologiesTest.java -text
 mw.data.representation.core-1.1.2-SNAPSHOT/src/test/java/org/universAAL/middleware/rdf/TypeMapperTest.java -text
+mw.data.representation.osgi-1.1.2-SNAPSHOT/LICENSE.txt -text
+mw.data.representation.osgi-1.1.2-SNAPSHOT/NOTICE.txt -text
+mw.data.representation.osgi-1.1.2-SNAPSHOT/pom.xml -text
+mw.data.representation.osgi-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/datarep/osgi/Activator.java -text
+mw.data.representation.osgi-1.1.2-SNAPSHOT/src/main/resources/mw.data.representation[!!-~]dependencies.jpg -text
+mw.data.representation.osgi-1.1.2-SNAPSHOT/src/test/java/org/universAAL/middleware/datarep/test/ArtifactIntegrationTest.java -text
+mw.data.representation.osgi-1.1.2-SNAPSHOT/src/test/resources/log4j.properties -text
 mw.data.serialization-1.0.1-SNAPSHOT/LICENSE-Aduna-OpenRDF.txt -text
 mw.data.serialization-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.data.serialization-1.0.1-SNAPSHOT/NOTICE.txt -text
