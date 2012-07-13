@@ -16,6 +16,10 @@ middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/LogUtils.java -text
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
 middleware.core/mw.pom.core/pom.xml -text
+middleware.osgi/mw.acl.bridge.osgi/LICENSE.txt -text
+middleware.osgi/mw.acl.bridge.osgi/NOTICE.txt -text
+middleware.osgi/mw.acl.bridge.osgi/pom.xml -text
+middleware.osgi/mw.acl.bridge.osgi/src/main/java/org/universAAL/middleware/acl/bridge/BridgeActivator.java -text
 middleware.osgi/mw.acl.interfaces.osgi/LICENSE.txt -text
 middleware.osgi/mw.acl.interfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.acl.interfaces.osgi/pom.xml -text
