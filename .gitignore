@@ -615,6 +615,11 @@ mw.bus.service-1.0.1-SNAPSHOT/.project
 mw.bus.service-1.0.1-SNAPSHOT/.settings
 mw.bus.service-1.0.1-SNAPSHOT/target
 mw.bus.service-1.0.1-SNAPSHOT/uAAL.log
+mw.bus.service.aapi.core-1.1.2-SNAPSHOT/.classpath
+mw.bus.service.aapi.core-1.1.2-SNAPSHOT/.project
+mw.bus.service.aapi.core-1.1.2-SNAPSHOT/.settings
+mw.bus.service.aapi.core-1.1.2-SNAPSHOT/src
+mw.bus.service.aapi.core-1.1.2-SNAPSHOT/target
 mw.bus.service.core-1.1.2-SNAPSHOT/.classpath
 mw.bus.service.core-1.1.2-SNAPSHOT/.project
 mw.bus.service.core-1.1.2-SNAPSHOT/.settings
