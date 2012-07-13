@@ -1,77 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-
-	<parent>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.pom.osgi</artifactId>
-		<version>1.1.2-SNAPSHOT</version>
-		<relativePath>../mw.pom.osgi</relativePath>
-	</parent>
-
-	<artifactId>mw.acl.rosgi</artifactId>
-	<version>1.1.2-SNAPSHOT</version>
-	<packaging>bundle</packaging>
-	<name>ACL R-OSGi</name>
-	<description>An implement of the ACL interface using R-OSGi</description>
-	<url />
-
-	<properties>
-		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
-	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>ch.ethz.iks.r-osgi</groupId>
-			<artifactId>remote</artifactId>
-			<version>1.0.0.RC4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>ch.ethz.iks.r-osgi</groupId>
-			<artifactId>service_discovery.slp</artifactId>
-			<version>1.0.0.RC4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.acl.interfaces.osgi</artifactId>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-Name>${project.name}</Bundle-Name>
-						<Bundle-Activator>org.universAAL.middleware.acl.rosgi.Activator</Bundle-Activator>
-						<Bundle-Description>${project.description}</Bundle-Description>
-						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Export-Package />
-						<Import-Package>org.universAAL.middleware.acl,ch.ethz.iks.r_osgi,ch.ethz.iks.r_osgi.service_discovery,org.osgi.framework</Import-Package>
-						<Private-Package>org.universAAL.middleware.acl.rosgi</Private-Package>
-					</instructions>
-				</configuration>
-				<!--
-					Generating of bundle manifest for itests has to be disabled because
-					of some strange interference with cobertura
-				-->
-				<executions>
-					<execution>
-						<id>bundle-manifest</id>
-						<phase>null</phase>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>1.2.1-SNAPSHOT</version>
+    <relativePath>../mw.pom.osgi</relativePath>
+  </parent>
+  <artifactId>mw.acl.rosgi</artifactId>
+  <version>1.2.1-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <name>ACL R-OSGi</name>
+  <description>An implement of the ACL interface using R-OSGi</description>
+  <url></url>
+  <properties>
+    <project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.osgi.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.ethz.iks.r-osgi</groupId>
+      <artifactId>remote</artifactId>
+      <version>1.0.0.RC4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.ethz.iks.r-osgi</groupId>
+      <artifactId>service_discovery.slp</artifactId>
+      <version>1.0.0.RC4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.acl.interfaces.osgi</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>bundle-manifest</id>
+            <phase>null</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <instructions>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Activator>org.universAAL.middleware.acl.rosgi.Activator</Bundle-Activator>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Export-Package />
+            <Import-Package>org.universAAL.middleware.acl,ch.ethz.iks.r_osgi,ch.ethz.iks.r_osgi.service_discovery,org.osgi.framework</Import-Package>
+            <Private-Package>org.universAAL.middleware.acl.rosgi</Private-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
