@@ -265,6 +265,7 @@ mw.bus.service.aapi.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/
 mw.bus.service.aapi.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/api/impl/DynamicServiceProxy.java -text
 mw.bus.service.aapi.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/api/impl/ServiceCalleeWrapper.java -text
 mw.bus.service.aapi.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/api/impl/SimplifiedApiService.java -text
+mw.bus.service.aapi.osgi-1.1.2-SNAPSHOT/pom.xml -text
 mw.bus.service.core-1.1.2-SNAPSHOT/LICENSE.txt -text
 mw.bus.service.core-1.1.2-SNAPSHOT/NOTICE.txt -text
 mw.bus.service.core-1.1.2-SNAPSHOT/pom.xml -text
