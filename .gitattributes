@@ -125,6 +125,12 @@ mw.bus.context.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/conte
 mw.bus.context.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/context/owl/ContextProvider.java -text
 mw.bus.context.core-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/context/owl/ContextProviderType.java -text
 mw.bus.context.core-1.1.2-SNAPSHOT/src/test/java/org/universAAL/middleware/context/RoundTest.java -text
+mw.bus.context.osgi-1.1.2-SNAPSHOT/LICENSE.txt -text
+mw.bus.context.osgi-1.1.2-SNAPSHOT/NOTICE.txt -text
+mw.bus.context.osgi-1.1.2-SNAPSHOT/pom.xml -text
+mw.bus.context.osgi-1.1.2-SNAPSHOT/src/main/java/org/universAAL/middleware/context/impl/osgi/Activator.java -text
+mw.bus.context.osgi-1.1.2-SNAPSHOT/src/test/java/org/universAAL/middleware/context/test/ArtifactIntegrationTest.java -text
+mw.bus.context.osgi-1.1.2-SNAPSHOT/src/test/resources/log4j.properties -text
 mw.bus.io-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.bus.io-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.bus.io-1.0.1-SNAPSHOT/artifact.composite -text
