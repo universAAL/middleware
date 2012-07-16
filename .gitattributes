@@ -385,5 +385,4 @@ middleware.osgi/mw.data.serialization.osgi/src/test/java/org/universAAL/serializ
 middleware.osgi/mw.data.serialization.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.pom.osgi/composite/pom.xml -text
 middleware.osgi/mw.pom.osgi/pom.xml -text
-middleware.osgi/pom/composite/pom.xml -text
 pom/pom.xml -text

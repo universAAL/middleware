@@ -1731,10 +1731,6 @@ middleware.osgi/mw.pom.osgi/composite/.settings
 middleware.osgi/mw.pom.osgi/composite/target
 middleware.osgi/mw.pom.osgi/target
 middleware.osgi/mw.pom.osgi/uAAL.log
-middleware.osgi/pom/composite/.classpath
-middleware.osgi/pom/composite/.project
-middleware.osgi/pom/composite/.settings
-middleware.osgi/pom/composite/target
 pom/.classpath
 pom/.project
 pom/.settings
