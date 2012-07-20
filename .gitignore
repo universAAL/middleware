@@ -730,10 +730,6 @@ middleware.osgi.agg/mw.data.serialization.osgi.agg/target
 middleware.osgi/.classpath
 middleware.osgi/.project
 middleware.osgi/.settings
-middleware.osgi/itests/.classpath
-middleware.osgi/itests/.project
-middleware.osgi/itests/.settings
-middleware.osgi/itests/target
 middleware.osgi/mw.acl.bridge.osgi/.classpath
 middleware.osgi/mw.acl.bridge.osgi/.project
 middleware.osgi/mw.acl.bridge.osgi/.settings

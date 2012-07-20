@@ -260,15 +260,6 @@ middleware.osgi.agg/mw.bus.service.osgi.agg/pom.xml -text
 middleware.osgi.agg/mw.bus.ui.osgi.agg/pom.xml -text
 middleware.osgi.agg/mw.data.representation.osgi.agg/pom.xml -text
 middleware.osgi.agg/mw.data.serialization.osgi.agg/pom.xml -text
-middleware.osgi/itests/rundir/confadmin/mw.bus.model/sodapop.key -text svneol=unset#application/octet-stream
-middleware.osgi/itests/rundir/confadmin/services/org.ops4j.pax.logging.properties -text
-middleware.osgi/itests/rundir/confadmin/services/org.universAAL.mw.data.representation.properties -text
-middleware.osgi/itests/rundir/confadmin/ui.dm/main_menu.txt -text
-middleware.osgi/itests/rundir/confadmin/ui.dm/main_menu_de.txt -text
-middleware.osgi/itests/rundir/confadmin/ui.dm/main_menu_saied_en.txt -text
-middleware.osgi/itests/rundir/confadmin/ui.dm/messages.properties -text
-middleware.osgi/itests/rundir/confadmin/ui.dm/messages_de.properties -text
-middleware.osgi/itests/rundir/confadmin/ui.dm/messages_en.properties -text
 middleware.osgi/mw.acl.bridge.osgi/LICENSE.txt -text
 middleware.osgi/mw.acl.bridge.osgi/NOTICE.txt -text
 middleware.osgi/mw.acl.bridge.osgi/pom.xml -text
