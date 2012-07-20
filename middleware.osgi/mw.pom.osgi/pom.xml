@@ -131,8 +131,8 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>mw.composite</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.composite</artifactId>
         <version>1.2.0</version>
       </dependency>
     </dependencies>
