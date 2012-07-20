@@ -69,118 +69,118 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>mw.bus.ui.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.ui.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.bus.service.aapi.core</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.service.aapi.core</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.bus.service.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.service.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.bus.model.core</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.model.core</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.container.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.container.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.data.serialization.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.data.serialization.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.acl.upnp.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.acl.upnp.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.bus.service.aapi.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.service.aapi.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.bus.service.core</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.service.core</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.data.serialization.core</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.data.serialization.core</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.data.representation.core</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.data.representation.core</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.acl.interfaces.core</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.acl.interfaces.core</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.container.xfaces.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.container.xfaces.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.bus.ui.core</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.ui.core</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.container.xfaces.core</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.container.xfaces.core</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.composite</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.composite</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.bus.context.core</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.context.core</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.bus.context.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.context.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.data.representation.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.data.representation.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.acl.interfaces.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.acl.interfaces.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.acl.bridge.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.acl.bridge.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.bus.model.osgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.model.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>mw.acl.rosgi</groupId>
-        <artifactId>org.universAAL.middleware</artifactId>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.acl.rosgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
     </dependencies>
