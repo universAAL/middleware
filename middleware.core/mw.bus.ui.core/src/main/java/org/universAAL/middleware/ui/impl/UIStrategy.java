@@ -121,7 +121,7 @@ public class UIStrategy extends BusStrategy {
     /**
      * 
      * Aborts the dialog with the given ID. If the requester is the
-     * dialogManager and/or the publisher of the dialog the request will handled
+     * dialogManager and/or the publisher (caller) of the dialog the request will be handled
      * directly. Otherwise the request is given to the request-queue.
      * 
      * @param requester
@@ -315,7 +315,7 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * Handle all incoming messages. Every call of this method take place in his
+     * Handle all incoming messages. Every call of this method take place in its
      * own thread.
      * 
      * @param msg
@@ -606,7 +606,7 @@ public class UIStrategy extends BusStrategy {
 
     /**
      * 
-     * @return True if the instance of the strategy is the coordinater, false
+     * @return True if the instance of the strategy is the coordinator, false
      *         otherwise
      */
     private boolean isCoordinator() {
