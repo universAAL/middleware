@@ -2,6 +2,8 @@
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer Gesellschaft - Institut fuer Graphische Datenverarbeitung 
 	
+	2012 Ericsson Nikola Tesla d.d., www.ericsson.com/hr
+	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
 	
@@ -38,16 +40,16 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * removing and/or updating of these parameters.
  * 
  * @author mtazari
+ * @author eandgrg
  * 
  */
 public interface UIBus {
 
     /**
-     * Aborts the dialog upon request from the application oder Dialog Manager.
-     * No matter which one has requested the abort, the bus informs both when
-     * the operation is finished (informing the caller as a sort of
-     * acknowledgement and informing the other one to prevent unnecessary
-     * waiting).
+     * Aborts the dialog upon request from the application or Dialog Manager. No
+     * matter which one has requested the abort, the bus informs both when the
+     * operation is finished (informing the caller as a sort of acknowledgment
+     * and informing the other one to prevent unnecessary waiting).
      * 
      * @param callerID
      *            ID of the application that had originally started the dialog
@@ -60,10 +62,10 @@ public interface UIBus {
     /**
      * Only the Dialog Manager (DM) can call this method. When the DM notices
      * that personal and / or situational parameters relevant for a running
-     * dialog have changed, it notifies the output bus by calling this method.
-     * The output bus may then either notify the UI handler in charge of that
-     * dialog to consider the changes (if the changes in the adaptation
-     * parameters still match its profile -- see also
+     * dialog have changed, it notifies the UI bus by calling this method. The
+     * UI bus may then either notify the UI handler in charge of that dialog to
+     * consider the changes (if the changes in the adaptation parameters still
+     * match its profile -- see also
      * {@link UIHandler#adaptationParametersChanged(String, String, Object)}) or
      * switch to another UI handler (if the new situation cannot be handled by
      * the previous UI handler). In the latter case, the previous UI handler is
@@ -88,7 +90,7 @@ public interface UIBus {
 
     /**
      * Extends the profile of a registered subscriber (UI handler) with regard
-     * to {@link UIRequest}s that it can be handle. Responsible (together with
+     * to {@link UIRequest}s that it can handle. Responsible (together with
      * {@link #removeMatchingRegParams(String, UIHandlerProfile)}) for changing
      * the handler's profile dynamically.
      * 
@@ -117,11 +119,11 @@ public interface UIBus {
     /**
      * Only the Dialog Manager (DM) can call this method. When the DM wants that
      * a running dialog is substituted by another dialog (e.g., because a new
-     * output event with a higher priority than the running one is addressing
-     * the same user, or because the user wants to switch to another dialog
-     * using the "standard buttons"), then it must notify the output bus by
-     * calling this method. The output bus will then ask the UI handler in
-     * charge of handling the running dialog to cut that dialog (see
+     * {@link UIRequest} with a higher priority than the running one is
+     * addressing the same user, or because the user wants to switch to another
+     * dialog using the "standard buttons"), then it must notify the UI bus by
+     * calling this method. The UI bus will then ask the UI handler in charge of
+     * handling the running dialog to cut that dialog (see
      * {@link UIHandler#cutDialog(String)}) and return all user input collected
      * so far so that the dialog can be resumed later without loss of data.
      * 
@@ -133,9 +135,9 @@ public interface UIBus {
     public void dialogSuspended(DialogManager dm, String dialogID);
 
     /**
-     * Applications that need to reach human users must register a UICaller.
-     * They can use this UICaller for sending their UI requests as long as they
-     * remain registered.
+     * Applications that need to reach human users must register a
+     * {@link UICaller}. They can use this UICaller for sending their UI
+     * requests as long as they remain registered.
      * 
      * @param caller
      *            An application's interface for sending UI requests and
@@ -180,7 +182,7 @@ public interface UIBus {
 	    UIHandlerProfile oldSubscription);
 
     /**
-     * Applications can use this method to ask the output bus to resume a dialog
+     * Applications can use this method to ask the UI bus to resume a dialog
      * that was interrupted due to the activation of a sub-dialog of it. This is
      * the only case where the applications are aware about a dialog having been
      * suspended because the resumption depends on them having processed the
@@ -228,6 +230,17 @@ public interface UIBus {
      */
     public void unregister(String handlerID, UIHandler handler);
 
+    /**
+     * Notifies bus that the human user has logged in (using UI handler).
+     * 
+     * @param handlerID
+     *            id of the UIHandler which is received when registering to the
+     *            UIBus. It must be passed to the bus when calling bus methods.
+     * @param user
+     *            human user
+     * @param loginLocation
+     *            login location of the user
+     */
     public void userLoggedIn(String handlerID, Resource user,
 	    AbsLocation loginLocation);
 }

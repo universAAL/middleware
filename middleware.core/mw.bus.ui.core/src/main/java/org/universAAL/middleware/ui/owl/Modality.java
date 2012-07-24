@@ -2,6 +2,8 @@
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer Gesellschaft - Institut fuer Graphische Datenverarbeitung 
 	
+	2012 Ericsson Nikola Tesla d.d., www.ericsson.com/hr
+	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
 	
@@ -22,10 +24,11 @@ package org.universAAL.middleware.ui.owl;
 import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
- * Defines modalities which can be: voice, gui, gesture, sms or web
+ * Defines modalities which can be: voice, gui, gesture, sms, web or mobile
  * 
  * @author mtazari
  * @author Carsten Stockloew
+ * @author eandgrg
  * @see org.universAAL.middleware.owl.ManagedIndividual
  */
 public class Modality extends ManagedIndividual {
@@ -37,15 +40,17 @@ public class Modality extends ManagedIndividual {
     public static final int GESTURE = 2;
     public static final int SMS = 3;
     public static final int WEB = 4;
+    public static final int MOBILE = 5;
 
     private static final String[] names = { "voice", "gui", "gesture", "sms",
-	    "web" };
+	    "web" , "mobile"};
 
     public static final Modality voice = new Modality(VOICE);
     public static final Modality gui = new Modality(GUI);
     public static final Modality gesture = new Modality(GESTURE);
     public static final Modality sms = new Modality(SMS);
     public static final Modality web = new Modality(WEB);
+    public static final Modality mobile = new Modality(MOBILE);
 
     private int order;
 
@@ -66,6 +71,8 @@ public class Modality extends ManagedIndividual {
 	    return sms;
 	case WEB:
 	    return web;
+	case MOBILE:
+	    return mobile;
 	default:
 	    return null;
 	}
@@ -77,7 +84,7 @@ public class Modality extends ManagedIndividual {
      * @return Modality based on name
      */
     public static final Modality valueOf(String name) {
-	for (int i = VOICE; i <= WEB; i++)
+	for (int i = VOICE; i <= MOBILE; i++)
 	    if (names[i].equals(name))
 		return getLevelByOrder(i);
 	return null;

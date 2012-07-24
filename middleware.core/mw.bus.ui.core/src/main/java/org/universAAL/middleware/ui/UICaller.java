@@ -31,7 +31,7 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * code. Only instances of this class can send UI requests. The convention of
  * the UI bus regarding the registration parameters is the following:
  * <ul>
- * <li>UICallers provide no registration params.</li>
+ * <li>UICallers provide no registration parameters</li>
  * <li>UIHandlers may pass an array of
  * {@link org.universAAL.middleware.ui.UIHandlerProfile}s as their initial
  * subscriptions and can always add new (and remove old) subscriptions

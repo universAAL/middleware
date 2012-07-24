@@ -168,15 +168,15 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 
     /**
      * @param dm
-     *            The responsible Dialogmanager
-     * @param oe
-     *            New/Changed output
+     *            The responsible Dialog Manager
+     * @param uiRequest
+     *            New/Changed UIRequest
      * @param changedProp
      *            Property that has been changed since last time
      */
-    public void adaptationParametersChanged(DialogManager dm, UIRequest oe,
+    public void adaptationParametersChanged(DialogManager dm, UIRequest uiRequest,
 	    String changedProp) {
-	((UIStrategy) busStrategy).adaptationParametersChanged(dm, oe,
+	((UIStrategy) busStrategy).adaptationParametersChanged(dm, uiRequest,
 		changedProp);
     }
 
@@ -203,13 +203,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	}
     }
 
-    /**
-     * 
-     * Denotes a regular suspended or closed dialog. ??? I do not understand the
-     * parameters of this method ???
-     * 
-     * @param subscriberID
-     */
+
     public void dialogFinished(String subscriberID, UIResponse input) {
 	if (input != null
 		&& subscriberID != null
