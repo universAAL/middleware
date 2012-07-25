@@ -19,9 +19,6 @@
  */
 package org.universAAL.middleware.sodapop;
 
-import java.util.Hashtable;
-import java.util.Iterator;
-
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.sodapop.impl.SodaPopImpl;
 import org.universAAL.middleware.sodapop.msg.Message;
@@ -41,22 +38,23 @@ public abstract class AbstractBus implements Bus {
     private static int SODAPOP_BUS_MEMBER_COUNT = 0;
 
     private String name;
-    protected Hashtable registry; // <BusMember>
+    protected IRegistry registry;
+    //protected Hashtable registry; // <BusMember>
     protected BusStrategy busStrategy;
-    private SodaPop sodapop;
+    protected SodaPop sodapop;
 
+    protected AbstractBus(){}
+    
     /**
      * Constructor taking bus name, bus strategy and SodaPop instance as an
      * input.
      * 
      * @param name
      *            bus name
-     * @param busStrategy
-     *            bus strategy
      * @param sodapop
      *            SodaPop instance
      */
-    protected AbstractBus(String name, BusStrategy busStrategy, SodaPop sodapop) {
+    protected AbstractBus(String name, SodaPop sodapop) {
 	if (SODAPOP_BUS_MEMBER_ID_PREFIX == null)
 	    SODAPOP_BUS_MEMBER_ID_PREFIX = sodapop.getID();
 	else if (!sodapop.getID().equals(SODAPOP_BUS_MEMBER_ID_PREFIX))
@@ -65,18 +63,24 @@ public abstract class AbstractBus implements Bus {
 
 	this.name = name;
 	this.sodapop = sodapop;
-	this.busStrategy = busStrategy;
+	this.busStrategy = createBusStrategy(sodapop);
 
-	registry = new Hashtable();
+	registry = createReigstry();
 
 	busStrategy.start();
     }
 
-    /**
+    protected IRegistry createReigstry() {
+		return new RegistryMap();
+	}
+    
+    protected abstract BusStrategy createBusStrategy(SodaPop sodapop);
+
+	/**
      * Returns bus name.
      */
     public final String getBusName() {
-	return name;
+    	return name;
     }
 
     /**
@@ -86,8 +90,8 @@ public abstract class AbstractBus implements Bus {
      *            bus member ID
      * @return bus member instance
      */
-    BusMember getBusMember(String memberID) {
-	return (memberID == null) ? null : (BusMember) registry.get(memberID);
+    public BusMember getBusMember(String memberID) {
+    	return registry.getBusMemberByID(memberID);
     }
 
     /**
@@ -97,18 +101,8 @@ public abstract class AbstractBus implements Bus {
      *            bus member instance
      * @return bus member ID
      */
-    protected String getBusMemberID(BusMember bm) {
-	String result = null;
-	if (bm != null) {
-	    for (Iterator i = registry.keySet().iterator(); i.hasNext();) {
-		String id = (String) i.next();
-		if (bm.equals(registry.get(id))) {
-		    result = id;
-		    break;
-		}
-	    }
-	}
-	return result;
+    public String getBusMemberID(BusMember bm) {
+    	return registry.getBusMemberID(bm);
     }
 
     /**
@@ -116,12 +110,11 @@ public abstract class AbstractBus implements Bus {
      * @return all bus members in BusMember array
      */
     public BusMember[] getBusMembers() {
-	BusMember[] members = null;
-	synchronized (registry) {
-	    members = (BusMember[]) registry.values().toArray(
-		    new BusMember[registry.size()]);
-	}
-	return members;
+    	BusMember[] members = null;
+    	synchronized (registry) {
+    		members = registry.getAllBusMembers(); 
+    	}
+    	return members;
     }
 
     /**
@@ -129,12 +122,11 @@ public abstract class AbstractBus implements Bus {
      * @return IDs of all bus members in array
      */
     public String[] getBusMembersByID() {
-	String[] members = null;
-	synchronized (registry) {
-	    members = (String[]) registry.keySet().toArray(
-		    new String[registry.size()]);
-	}
-	return members;
+    	String[] members = null;
+    	synchronized (registry) {
+    		members = registry.getAllBusMembersIds();
+    	}
+    	return members;
     }
 
     /**
@@ -148,23 +140,24 @@ public abstract class AbstractBus implements Bus {
      * member.
      */
     public String register(BusMember m) {
-	if (m == null)
-	    return null;
+    	if (m == null)
+    		return null;
 
-	synchronized (registry) {
-	    String id = getBusMemberID(m);
-	    // register bus member only if it has not been added
-	    // (registered) to the bus before
-	    if (id == null) {
-		// compose bus member ID
-		id = SODAPOP_BUS_MEMBER_ID_PREFIX + "_"
-			+ (++SODAPOP_BUS_MEMBER_COUNT);
-		registry.put(id, m);
-		if (registry.size() == 1)
-		    sodapop.join(this);
-	    }
-	    return id;
-	}
+    	synchronized (registry) {
+    		String id = getBusMemberID(m);
+    		// register bus member only if it has not been added
+    		// (registered) to the bus before
+    		if (id == null) {
+    			// compose bus member ID
+    			id = SODAPOP_BUS_MEMBER_ID_PREFIX + "_"
+    			+ (++SODAPOP_BUS_MEMBER_COUNT);
+    			registry.addBusMember(id, m);
+
+    			if (registry.getBusMembersCount() == 1)
+    				sodapop.join(this);
+    		}
+    		return id;
+    	}
     }
 
     /**
@@ -188,7 +181,7 @@ public abstract class AbstractBus implements Bus {
      */
     public void sendMessage(String senderID, Message msg) {
 	LogUtils.logInfo(SodaPopImpl.moduleContext, AbstractBus.class,
-		"handleRemoteMessage", new Object[] { name,
+		"sendMessage", new Object[] { name,
 			" - Received message from bus member ", senderID,
 			":\n", msg.getContentAsString() }, null);
 	busStrategy.handleMessage(msg, senderID);
@@ -199,11 +192,13 @@ public abstract class AbstractBus implements Bus {
      * thread and announces that the bus is being stopped to its members).
      */
     public void stopBus() {
-	Hashtable members = registry;
-	registry = null;
-	busStrategy.stopThread();
-	for (Iterator i = members.values().iterator(); i.hasNext();)
-	    ((BusMember) i.next()).busDyingOut(this);
+    	BusMember[] members = registry.getAllBusMembers();
+    	registry.reset();
+    	registry = null;
+    	busStrategy.stopThread();
+    	for (int i = 0; i < members.length; i++) {
+    		members[i].busDyingOut(this);
+    	}
     }
 
     /**
@@ -212,15 +207,18 @@ public abstract class AbstractBus implements Bus {
      * SodaPop also.
      */
     public void unregister(String memberID, BusMember m) {
-	if (memberID != null) {
-	    synchronized (registry) {
-		Object o = registry.remove(memberID);
-		if (o != null)
-		    if (o != m)
-			registry.put(memberID, o);
-		    else if (registry.isEmpty())
-			sodapop.leave(this);
-	    }
-	}
+    	if (memberID != null) {
+    		synchronized (registry) {
+    			BusMember o = registry.removeMemberByID(memberID); 
+    			if (o != null) {
+    				if (o.equals(m)) {
+    					registry.addBusMember(memberID, o);
+    				}
+    				else if (registry.getBusMembersCount() == 0) {
+    					sodapop.leave(this);
+    				}
+    			}
+    		}
+    	}
     }
 }

@@ -4,21 +4,21 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.universAAL.middleware</groupId>
-    <artifactId>mw.pom</artifactId>
-    <version>1.1.0</version>
-    <relativePath>../pom/</relativePath>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>1.2.0</version>
+    <!--<relativePath>../pom/</relativePath>-->
   </parent>
-  <artifactId>mw.bus.model</artifactId>
-  <version>1.1.0</version>
+  <artifactId>mw.bus.model.osgi</artifactId>
+  <version>1.2.0</version>
   <packaging>bundle</packaging>
-  <name>Soda-Pop as OSGi Bundle</name>
-  <description>A Soda-Pop implementation as an OSGi bundle based on the ACL</description>
+  <name>Bus Model (OSGi)</name>
+  <description>A Soda-Pop implementation as an OSGi bundle based on the ACL (OSGi)</description>
   <url></url>
-  <scm>
+  <!--<scm>
     <connection>${svn.base}/bus.model</connection>
     <developerConnection>${svn.base}/bus.model</developerConnection>
     <url>${svn.base.url}bus.model</url>
-  </scm>
+  </scm>-->
   <properties>
     <project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
   </properties>
@@ -37,14 +37,14 @@
       <version>1.0</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>jce.jdk13</artifactId>
       <version>144</version>
-    </dependency>
+    </dependency>-->
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.container.xfaces</artifactId>
+      <artifactId>mw.container.xfaces.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
@@ -52,7 +52,7 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.acl.interfaces</artifactId>
+      <artifactId>mw.acl.interfaces.osgi</artifactId>
     </dependency>
   </dependencies>
   <build>
@@ -79,7 +79,8 @@
       <dependencies>
         <dependency>
           <groupId>org.universAAL.middleware</groupId>
-          <artifactId>mw.acl.upnp</artifactId>
+          <artifactId>mw.acl.upnp.osgi</artifactId>
+          <version>1.2.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.felix</groupId>

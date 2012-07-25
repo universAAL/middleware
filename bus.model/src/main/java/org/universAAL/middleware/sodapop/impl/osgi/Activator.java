@@ -19,12 +19,16 @@
  */
 package org.universAAL.middleware.sodapop.impl.osgi;
 
+import java.security.Security;
+
+//import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.acl.P2PConnector;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.sodapop.SodaPop;
+import org.universAAL.middleware.sodapop.impl.Codec;
 import org.universAAL.middleware.sodapop.impl.SodaPopImpl;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
@@ -47,11 +51,20 @@ public class Activator implements BundleActivator {
     public void start(BundleContext context) throws Exception {
 	confHome = new BundleConfigHome(context.getBundle().getSymbolicName());
 	g = new SodaPopImpl(uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context }), confHome
-		.getAbsolutePath(),
+		.registerModule(new Object[] { context }),
+		uAALBundleContainer.THE_CONTAINER, confHome.getAbsolutePath(),
 		new Object[] { P2PConnector.class.getName() },
-		new Object[] { MessageContentSerializer.class.getName() });
-	context.registerService(SodaPop.class.getName(), g, null);
+		new Object[] { MessageContentSerializer.class.getName() },
+		new Object[] { SodaPop.class.getName() }, new Codec() {
+		    public byte[] encode(byte[] data) {
+			return data;
+		    }
+
+		    public byte[] decode(String data) {
+			return data.getBytes();
+		    }
+		});
+//	Security.addProvider(new BouncyCastleProvider());
     }
 
     /*
@@ -62,5 +75,6 @@ public class Activator implements BundleActivator {
      */
     public void stop(BundleContext context) throws Exception {
 	g.stop();
+//	Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
     }
 }
