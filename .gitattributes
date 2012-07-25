@@ -24,6 +24,7 @@ bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/SodaPopImpl.java 
 bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/osgi/Activator.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/Message.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageContentSerializer.java -text
+bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageContentSerializerEx.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageType.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/PeerIDGenerator.java -text
 bus.model/src/main/resources/README.txt -text
