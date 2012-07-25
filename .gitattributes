@@ -10,9 +10,12 @@ bus.model/src/main/java/org/universAAL/middleware/sodapop/BusMember.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/BusStrategy.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/Callee.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/Caller.java -text
+bus.model/src/main/java/org/universAAL/middleware/sodapop/IRegistry.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/Publisher.java -text
+bus.model/src/main/java/org/universAAL/middleware/sodapop/RegistryMap.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/SodaPop.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/Subscriber.java -text
+bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/Codec.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/CommandQueue.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/CryptUtil.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/Dispatcher.java -text
@@ -22,6 +25,7 @@ bus.model/src/main/java/org/universAAL/middleware/sodapop/impl/osgi/Activator.ja
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/Message.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageContentSerializer.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/MessageType.java -text
+bus.model/src/main/java/org/universAAL/middleware/sodapop/msg/PeerIDGenerator.java -text
 bus.model/src/main/resources/README.txt -text
 bus.model/src/test/java/org/universAAL/middleware/sodapop/test/ArtifactIntegrationTest.java -text
 bus.model/src/test/resources/log4j.properties -text
