@@ -63,7 +63,7 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * for later check", respectively. Normally, applications do not need to
  * subscribe for user decision in this regard, but if they want, then they must
  * use the value returned by the method {@link #getDialogID()} of the created
- * form object, for subscribing to the input bus.</dd>
+ * form object, for subscribing to the UI bus.</dd>
  * <dt>System Menu</dt>
  * <dd>Reserved for a dialog management solution to present the system main
  * menu. No submits group is allowed in this type of dialog.</dd>
