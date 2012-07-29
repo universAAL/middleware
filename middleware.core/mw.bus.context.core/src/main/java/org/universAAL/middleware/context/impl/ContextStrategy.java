@@ -158,7 +158,6 @@ public class ContextStrategy extends BusStrategy {
 	    // create a CalledPeers for collecting peer responses
 	    ICalledPeers calledPeers = createContextStrategyDataFactory()
 		    .createCalledPeers();
-	    // Vector v = new Vector();
 	    Resource r = new Resource();
 	    r.addType(TYPE_uAAL_CONTEXT_BUS_PROVISIONS, true);
 	    ContextBusImpl.assessContentSerialization(r);
