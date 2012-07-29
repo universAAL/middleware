@@ -143,7 +143,6 @@ public class ContextStrategy extends BusStrategy {
 		IFiltererContainer container = (IFiltererContainer) filterers
 			.get(j);
 		container.addFilterer(filterer);
-		// ((Vector) filterers.get(j)).add(filterer);
 	    }
 	}
     }
@@ -386,7 +385,7 @@ public class ContextStrategy extends BusStrategy {
 			    .getType())
 		    && ((Resource) o).numberOfProperties() == 1) {
 		((Resource) o).setProperty(PROP_uAAL_CONTEXT_PEER_PROVISIONS,
-			allProvisions);
+			allProvisions.getContextEventPatterns());
 		sodapop.propagateMessage(bus, msg.createReply(o));
 	    } else
 		LogUtils
@@ -421,7 +420,7 @@ public class ContextStrategy extends BusStrategy {
 	    String filtererContainerKey, ContextEvent event,
 	    HashSet allSubscribers) {
 
-	IFiltererContainer filtererContainer = specificSubjectAndProp
+	IFiltererContainer filtererContainer = propsData
 		.getFiltererContainer(filtererContainerKey);
 	if (null != filtererContainer) {
 	    for (int i = 0; i < filtererContainer.getFilterers().size(); i++) {
