@@ -90,7 +90,6 @@ public class ContextStrategy extends BusStrategy {
 	specificDomainAndProp = factory.createSpecificDomainAndProp();
 	specificSubjectAndProp = factory.createSpecificSubjectAndProp();
 	notIndexedProps = factory.createNonIndexedProps();
-	;
 	allProvisions = factory.createAllProvisions();
     }
 
