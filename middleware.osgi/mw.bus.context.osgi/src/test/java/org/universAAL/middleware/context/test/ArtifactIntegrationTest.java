@@ -1,5 +1,6 @@
 package org.universAAL.middleware.context.test;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +20,9 @@ import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.supply.LevelRating;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.ontology.location.Location;
+import org.universAAL.ontology.profile.User;
 
 /**
  * Here developer's of this artifact should code their integration tests.
@@ -33,7 +37,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     public static String DUMMYUSER = NAMESPACE + "dummyUser";
     public static String HAS_LOCATION = NAMESPACE + "hasLocation";
     public static String LOCATION = NAMESPACE + "dummyLocation";
-    private BlockingQueue queue=new SynchronousQueue();
+    private BlockingQueue queue = new SynchronousQueue();
 
     /**
      * Helper method for logging.
@@ -57,8 +61,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	StackTraceElement callingMethod = Thread.currentThread()
 		.getStackTrace()[2];
 	LogUtils.logError(ContextBusImpl.moduleContext, getClass(),
-		callingMethod.getMethodName(), new Object[] { formatMsg(format,
-			new Object[] { args }) }, t);
+		callingMethod.getMethodName(),
+		new Object[] { formatMsg(format, new Object[] { args }) }, t);
     }
 
     /**
@@ -69,7 +73,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	ContextEvent cev1 = ContextEvent.constructSimpleEvent(DUMMYUSER, USER,
 		HAS_LOCATION, LevelRating.high);
     }
-    
+
     /**
      * Test which verifies if JUnit API can be used in integration tests.
      */
@@ -119,7 +123,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    logInfo("Properly launched exception creating bad publisher %s",
 		    e.toString());
 	}
-	
+
 	// Incorrectly create a CP without info
 	try {
 	    info = new ContextProvider();
@@ -170,13 +174,15 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	try {
 	    sub2 = new DummyContextSubscriber(ContextBusImpl.moduleContext,
 		    null);
-	    Assert.notNull(null,"Allowed creation of a Context Subscriber with null context event pattern subscription");
+	    Assert.notNull(
+		    null,
+		    "Allowed creation of a Context Subscriber with null context event pattern subscription");
 	} catch (Exception e) {
 	    Assert.notNull(e);
 	    logInfo("Properly launched exception creating bad subscriber %s",
 		    e.toString());
 	}
-	
+
 	// Try closes of subscriber
 	sub1.communicationChannelBroken();
 	sub1.close();
@@ -245,10 +251,11 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	ContextSubscriber sub;
 	ContextEventPattern cepA = new ContextEventPattern();
 	cepA.addRestriction(MergedRestriction.getFixedValueRestriction(
-		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER+"right")));
+		ContextEvent.PROP_RDF_SUBJECT,
+		new Resource(DUMMYUSER + "right")));
 	cepA.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
-	
+
 	cepA.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextProvider.PROP_CONTEXT_PROVIDER_TYPE,
 		ContextProviderType.gauge).appendTo(
@@ -257,7 +264,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 			ContextProvider.MY_URI),
 		new String[] { ContextEvent.PROP_CONTEXT_PROVIDER,
 			ContextProvider.PROP_CONTEXT_PROVIDER_TYPE }));
-	//TODO: Test "OR" patterns (using several different CEPs)
+	// TODO: Test "OR" patterns (using several different CEPs)
 	sub = new SyncContextSubscriber(ContextBusImpl.moduleContext,
 		new ContextEventPattern[] { cepA });
 	logInfo("Created Context Subscriber", null);
@@ -267,7 +274,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	info.setType(ContextProviderType.gauge);
 	ContextEventPattern cep2 = new ContextEventPattern();
 	cep2.addRestriction(MergedRestriction.getFixedValueRestriction(
-		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER+"right")));
+		ContextEvent.PROP_RDF_SUBJECT,
+		new Resource(DUMMYUSER + "right")));
 	cep2.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
 	info.setProvidedEvents(new ContextEventPattern[] { cep2 });
@@ -279,35 +287,120 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		null);
 
 	// Create and send first event
-	 Boolean retrieved=null;
-	ContextEvent cev1 = ContextEvent.constructSimpleEvent(DUMMYUSER+"right", USER,
-		HAS_LOCATION, LOCATION);
+	Integer retrieved = null;
+	ContextEvent cev1 = ContextEvent.constructSimpleEvent(DUMMYUSER
+		+ "right", USER, HAS_LOCATION, LOCATION);
 	pub.publish(cev1);
 	try {
-	    retrieved=(Boolean) queue.poll(1000, TimeUnit.MILLISECONDS);
-	    Assert.notNull(retrieved,"Not received the expected good event");	    
+	    retrieved = (Integer) queue.poll(1000, TimeUnit.MILLISECONDS);
+	    Assert.notNull(retrieved, "Not received the expected good event");
 	} catch (InterruptedException e) {
-	    logError(e,"Something bad happened %s",
-		    e.toString());
+	    logError(e, "Something bad happened %s", e.toString());
 	    Assert.notNull(null);
 	}
-	
+
 	// Create and send second wrong event
 	retrieved = null;
 	ContextEvent cev2 = ContextEvent.constructSimpleEvent(DUMMYUSER
 		+ "wrong", USER, HAS_LOCATION, LOCATION);
 	pub.publish(cev2);
 	try {
-	    retrieved=(Boolean) queue.poll(1000, TimeUnit.MILLISECONDS);
-	    Assert.isNull(retrieved,"Wrongly received a bad context event");
+	    retrieved = (Integer) queue.poll(1000, TimeUnit.MILLISECONDS);
+	    Assert.isNull(retrieved, "Wrongly received a bad context event");
 	} catch (InterruptedException e) {
-	    logError(e,"Something bad happened %s",
-		    e.toString());
+	    logError(e, "Something bad happened %s", e.toString());
 	    Assert.notNull(null);
 	}
-	
-	//Close subscriber
+
+	// Close subscriber
 	sub.close();
+    }
+
+    public void testSubscriptions() {
+	logInfo("-Test 6-", null);
+	SyncContextSubscriber c1, c2, c3, c4, c5, c6, c7;
+	ContextPublisher cpublisher = null;
+
+	ContextEventPattern cep1 = new ContextEventPattern();
+	cep1.addRestriction(MergedRestriction.getAllValuesRestriction(
+		ContextEvent.PROP_RDF_SUBJECT, User.MY_URI));
+	c1 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
+		new ContextEventPattern[] { cep1 }, 1);
+
+	ContextEventPattern cep2 = new ContextEventPattern();
+	cep2.addRestriction(MergedRestriction.getAllValuesRestriction(
+		ContextEvent.PROP_RDF_SUBJECT, User.MY_URI));
+	cep2.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_PREDICATE, User.PROP_PHYSICAL_LOCATION));
+	c2 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
+		new ContextEventPattern[] { cep2 }, 2);
+
+	ContextEventPattern cep3 = new ContextEventPattern();
+	cep3.addRestriction(MergedRestriction.getAllValuesRestriction(
+		ContextEvent.PROP_RDF_SUBJECT, User.MY_URI));
+	cep3.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_PREDICATE, User.PROP_PHYSICAL_LOCATION));
+	cep3.addRestriction(MergedRestriction.getAllValuesRestriction(
+		ContextEvent.PROP_RDF_OBJECT, Location.MY_URI));
+	c3 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
+		new ContextEventPattern[] { cep3 }, 3);
+
+	ContextEventPattern cep4 = new ContextEventPattern();
+	cep4.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_PREDICATE, User.PROP_PHYSICAL_LOCATION));
+	cep4.addRestriction(MergedRestriction.getAllValuesRestriction(
+		ContextEvent.PROP_RDF_OBJECT, Location.MY_URI));
+	c4 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
+		new ContextEventPattern[] { cep4 }, 4);
+
+	ContextEventPattern cep5 = new ContextEventPattern();
+	cep5.addRestriction(MergedRestriction.getAllValuesRestriction(
+		ContextEvent.PROP_RDF_SUBJECT, User.MY_URI));
+	cep5.addRestriction(MergedRestriction.getAllValuesRestriction(
+		ContextEvent.PROP_RDF_OBJECT, Location.MY_URI));
+	c5 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
+		new ContextEventPattern[] { cep5 }, 5);
+
+	ContextEventPattern cep6 = new ContextEventPattern();
+	cep6.addRestriction(MergedRestriction.getFixedValueRestriction(
+		ContextEvent.PROP_RDF_PREDICATE, User.PROP_PHYSICAL_LOCATION));
+	c6 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
+		new ContextEventPattern[] { cep6 }, 6);
+
+	ContextEventPattern cep7 = new ContextEventPattern();
+	cep7.addRestriction(MergedRestriction.getAllValuesRestriction(
+		ContextEvent.PROP_RDF_OBJECT, Location.MY_URI));
+	c7 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
+		new ContextEventPattern[] { cep7 }, 7);
+
+	User usr = new User(DUMMYUSER);
+	usr.setLocation(new Location(LOCATION));
+	ContextEvent e = new ContextEvent(usr, User.PROP_PHYSICAL_LOCATION);
+
+	ContextProvider p = new ContextProvider();
+	p.setType(ContextProviderType.gauge);
+	p.setProvidedEvents(new ContextEventPattern[] { cep3 });
+	cpublisher = new DefaultContextPublisher(ContextBusImpl.moduleContext,
+		p);
+
+	Integer retrieved = null;
+	ArrayList good = new ArrayList(7);
+	cpublisher.publish(e);
+	try {
+	    for (int i = 0; i < 7; i++) {
+		retrieved = (Integer) queue.poll(1000, TimeUnit.MILLISECONDS);
+		if (retrieved != null) {
+		    good.add(retrieved);
+		}
+		retrieved = null;
+	    }
+	    Assert.isTrue(!good.isEmpty(),
+		    "Not received an expected subscribed event. Received subscriptions "
+			    + good);
+	} catch (InterruptedException ex) {
+	    logError(ex, "Something bad happened %s", ex.toString());
+	    Assert.notNull(null);
+	}
     }
 
     protected class DummyContextPublisher extends ContextPublisher {
@@ -318,7 +411,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	}
 
 	public void communicationChannelBroken() {
-	    logInfo("Publisher: Communication channel broken",null);
+	    logInfo("Publisher: Communication channel broken", null);
 	}
     }
 
@@ -330,7 +423,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	}
 
 	public void communicationChannelBroken() {
-	    logInfo("Subscriber: Communication channel broken",null);
+	    logInfo("Subscriber: Communication channel broken", null);
 	}
 
 	public void handleContextEvent(ContextEvent event) {
@@ -338,33 +431,43 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	}
 
     }
-    
+
     protected class SyncContextSubscriber extends ContextSubscriber {
+	private int ind = 0;
 
-   	protected SyncContextSubscriber(ModuleContext context,
-   		ContextEventPattern[] initialSubscriptions) {
-   	    super(context, initialSubscriptions);
-   	}
+	protected SyncContextSubscriber(ModuleContext context,
+		ContextEventPattern[] initialSubscriptions) {
+	    super(context, initialSubscriptions);
+	}
 
-   	public void communicationChannelBroken() {
-   	    logInfo("Subscriber: Communication channel broken",null);
-   	}
+	protected SyncContextSubscriber(ModuleContext context,
+		ContextEventPattern[] initialSubscriptions, int index) {
+	    super(context, initialSubscriptions);
+	    ind = index;
+	}
 
-   	public void handleContextEvent(ContextEvent event) {
-   	    try {
-   		boolean sent=queue.offer(new Boolean(true),1000,TimeUnit.MILLISECONDS);
-   		if(!sent){
-   		    logError(null,"Received event but was not expected", event);
-   		}
-   	    } catch (InterruptedException e) {
-   		logError(e,"Something bad happened %s",
-   			    e.toString());
-   	    }
-   	    logInfo("Received an event in subscriber SUBJECT: %s", event.getRDFSubject());
-   	    logInfo("Received an event in subscriber PREDICATE: %s", event.getRDFPredicate());
-   	    logInfo("Received an event in subscriber OBJECT: %s", event.getRDFObject());
-   	}
+	public void communicationChannelBroken() {
+	    logInfo("Subscriber: Communication channel broken", null);
+	}
 
-       }
+	public void handleContextEvent(ContextEvent event) {
+	    try {
+		boolean sent = queue.offer(new Integer(ind), 1000,
+			TimeUnit.MILLISECONDS);
+		if (!sent) {
+		    logError(null, "Received event but was not expected", event);
+		}
+	    } catch (InterruptedException e) {
+		logError(e, "Something bad happened %s", e.toString());
+	    }
+	    logInfo("Received an event in subscriber SUBJECT: %s",
+		    event.getRDFSubject());
+	    logInfo("Received an event in subscriber PREDICATE: %s",
+		    event.getRDFPredicate());
+	    logInfo("Received an event in subscriber OBJECT: %s",
+		    event.getRDFObject());
+	}
+
+    }
 
 }
