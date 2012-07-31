@@ -1,6 +1,5 @@
 package org.universAAL.middleware.api.impl;
 
-import java.awt.peer.LightweightPeer;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
