@@ -22,7 +22,7 @@
         <role>architect</role>
         <role>developer</role>
       </roles>
-      <timezone>CEST/CET</timezone>
+      <timezone>1</timezone>
     </developer>
     <developer>
       <id>ffurfari</id>
@@ -32,7 +32,7 @@
         <role>builder</role>
         <role>developer</role>
       </roles>
-      <timezone>CEST/CET</timezone>
+      <timezone>1</timezone>
     </developer>
     <developer>
       <id>carsten</id>
@@ -42,7 +42,7 @@
         <role>builder</role>
         <role>developer</role>
       </roles>
-      <timezone>CEST/CET</timezone>
+      <timezone>1</timezone>
     </developer>
   </developers>
   <modules>
