@@ -90,7 +90,6 @@ public class ContextStrategy extends BusStrategy {
 	specificDomainAndProp = factory.createSpecificDomainAndProp();
 	specificSubjectAndProp = factory.createSpecificSubjectAndProp();
 	notIndexedProps = factory.createNonIndexedProps();
-	;
 	allProvisions = factory.createAllProvisions();
     }
 
@@ -143,7 +142,6 @@ public class ContextStrategy extends BusStrategy {
 		IFiltererContainer container = (IFiltererContainer) filterers
 			.get(j);
 		container.addFilterer(filterer);
-		// ((Vector) filterers.get(j)).add(filterer);
 	    }
 	}
     }
@@ -160,7 +158,6 @@ public class ContextStrategy extends BusStrategy {
 	    // create a CalledPeers for collecting peer responses
 	    ICalledPeers calledPeers = createContextStrategyDataFactory()
 		    .createCalledPeers();
-	    // Vector v = new Vector();
 	    Resource r = new Resource();
 	    r.addType(TYPE_uAAL_CONTEXT_BUS_PROVISIONS, true);
 	    ContextBusImpl.assessContentSerialization(r);
@@ -386,7 +383,7 @@ public class ContextStrategy extends BusStrategy {
 			    .getType())
 		    && ((Resource) o).numberOfProperties() == 1) {
 		((Resource) o).setProperty(PROP_uAAL_CONTEXT_PEER_PROVISIONS,
-			allProvisions);
+			allProvisions.getContextEventPatterns());
 		sodapop.propagateMessage(bus, msg.createReply(o));
 	    } else
 		LogUtils
@@ -421,7 +418,7 @@ public class ContextStrategy extends BusStrategy {
 	    String filtererContainerKey, ContextEvent event,
 	    HashSet allSubscribers) {
 
-	IFiltererContainer filtererContainer = specificSubjectAndProp
+	IFiltererContainer filtererContainer = propsData
 		.getFiltererContainer(filtererContainerKey);
 	if (null != filtererContainer) {
 	    for (int i = 0; i < filtererContainer.getFilterers().size(); i++) {
