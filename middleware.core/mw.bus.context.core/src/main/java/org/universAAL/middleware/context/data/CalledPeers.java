@@ -51,7 +51,7 @@ public class CalledPeers implements ICalledPeers {
     }
 
     public void setNumOfCalledPeers(int numOfCalledPeers) {
-	if (numOfCalledPeers > 0) {
+	if (numOfCalledPeers >= 0) {
 	    this.numOfCalledPeers = numOfCalledPeers;
 	}
     }
