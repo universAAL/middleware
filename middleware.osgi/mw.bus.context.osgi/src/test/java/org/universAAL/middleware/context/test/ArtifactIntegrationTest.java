@@ -18,11 +18,12 @@ import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.supply.LevelRating;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.ontology.location.Location;
-import org.universAAL.ontology.profile.User;
+import org.universAAL.middleware.context.test.ont.Location;
+import org.universAAL.middleware.context.test.ont.TestOntology;
+import org.universAAL.middleware.context.test.ont.User;
 
 /**
  * Here developer's of this artifact should code their integration tests.
@@ -318,6 +319,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     public void testSubscriptions() {
 	logInfo("-Test 6-", null);
+	OntologyManagement.getInstance().register(new TestOntology());
+	
 	SyncContextSubscriber c1, c2, c3, c4, c5, c6, c7;
 	ContextPublisher cpublisher = null;
 
