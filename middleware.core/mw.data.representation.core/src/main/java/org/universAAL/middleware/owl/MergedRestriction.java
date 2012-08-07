@@ -1001,6 +1001,9 @@ public class MergedRestriction extends Intersection {
      *         </ul>
      */
     public MergedRestriction appendTo(MergedRestriction root, String[] path) {
+	//System.out.println("appending \n" + this.toStringRecursive());
+	//System.out.println("\n\nto\n"
+	//	+ (root == null ? "null" : root.toStringRecursive()));
 	if (path == null || path.length == 0) {
 	    LogUtils
 		    .logDebug(
@@ -1092,24 +1095,38 @@ public class MergedRestriction extends Intersection {
 	// appropriate Restrictions and Intersections, if necessary
 	for (int i = 1; i < path.length - 1; i++)
 	    tmp = tmp.getRestrictionOnProperty(path[i]);
+	//System.out.println("TEMP ROOT\n" + root.toStringRecursive());
+	//System.out.println("TMP (last AllValues)\n" + tmp.toStringRecursive());
 
 	// tmp now points to the AllValuesFromRestriction of the path element
 	// before the last path element
-	TypeExpression all = (TypeExpression) getConstraint(allValuesFromID);
-	if (!(all instanceof Intersection)) {
-	    Intersection i = new Intersection();
-	    if (all != null)
-		i.addType(all);
+	TypeExpression all = (TypeExpression) tmp.getConstraint();
+	if (all == null && types.size() == 1) {
+	    // there is only one property restriction at the end of the path, so
+	    // we don't need an intersection
+	    // just add the new restriction from ~this~
 	    tmp.changeProperty(
-		    AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM, i);
-	    all = i;
-	}
+		    AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM, types
+			    .get(0));
+	} else {
+	    // there are multiple property restrictions at the end of the path,
+	    // they are all in an intersection
 
-	// add all restrictions of ~this~ MergedRestriction (which is an
-	// Intersection and can't be set directly)
-	Intersection isec = (Intersection) all;
-	for (int i = 0; i < types.size(); i++)
-	    isec.addType((TypeExpression) types.get(i));
+	    if (!(all instanceof Intersection)) {
+		Intersection i = new Intersection();
+		if (all != null)
+		    i.addType(all);
+		tmp.changeProperty(
+			AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM, i);
+		all = i;
+	    }
+
+	    // add all restrictions of ~this~ MergedRestriction (which is an
+	    // Intersection and can't be set directly)
+	    Intersection isec = (Intersection) all;
+	    for (int i = 0; i < types.size(); i++)
+		isec.addType((TypeExpression) types.get(i));
+	}
 	return root;
     }
 
