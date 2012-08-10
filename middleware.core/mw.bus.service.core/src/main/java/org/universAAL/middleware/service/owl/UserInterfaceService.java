@@ -25,6 +25,8 @@ import java.util.List;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.CallStatus;
+import org.universAAL.middleware.service.ServiceCall;
+import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
@@ -61,9 +63,10 @@ public class UserInterfaceService extends Service {
     }
 
     /**
-     * Creates and returns an appropriate ServiceProfile for a UI service that
-     * upon call would lead to publishing a UI Request by the matching service
-     * component.
+     * Creates and returns an appropriate {@link ServiceProfile} for a UI
+     * service. This service is called from the main menu when the UI service is
+     * selected. Typically, the UI service that registers this ServiceProfile
+     * will then send a UI request to present the main dialog of the UI service.
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
@@ -82,12 +85,12 @@ public class UserInterfaceService extends Service {
      *            a currently selected light source, lead to a unique user
      *            experience in controlling light sources."</code>
      * @param startServiceURI
-     *            is a URI that allows the service component to recognize that
-     *            it should now publish an appropriate UI Request within the
-     *            'handleCall' method of the ServiceCallee subclass implemented
-     *            by the service component.
-     * 
-     * @return The created service profile that can be used to register the
+     *            a URI identifying this service. When the UI service is called,
+     *            i.e. when the method
+     *            {@link ServiceCallee#handleCall(ServiceCall)} is called, the
+     *            {@link ServiceCall} will have this URI as process URI and can
+     *            be retrieved by calling {@link ServiceCall#getProcessURI()}.
+     * @return The created service profile that can be used to register the UI
      *         service with the service bus.
      */
     public static final ServiceProfile createServiceProfile(
@@ -99,7 +102,7 @@ public class UserInterfaceService extends Service {
 
     /**
      * Same method with different arguments. This time a User Interface Service
-     * will be required to a Services profile for a UI
+     * will be required to create a service profile for a UI
      */
     protected static ServiceProfile createServiceProfile(
 	    UserInterfaceService uis, String serviceClassURI, String vendor,
@@ -112,13 +115,6 @@ public class UserInterfaceService extends Service {
     }
 
     /**
-     * Creates and returns an appropriate ServiceProfile for a UI service that
-     * upon call would lead to publishing a UI Request by the matching service
-     * component.
-     * 
-     * @param ServiceCaller
-     *            instance is the parameter that will be used to call the
-     *            service.
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
@@ -126,7 +122,8 @@ public class UserInterfaceService extends Service {
      * @param vendor
      *            the URL of the partner home page that provides the UI e.g.
      *            <code>"http://www.igd.fraunhofer.de"</code>
-     * @return The description service profile.
+     * @param theCaller
+     * @return The description of the service profile.
      */
     public static final String getUIServiceDescription(String serviceClassURI,
 	    String vendor, ServiceCaller theCaller) {
@@ -135,18 +132,20 @@ public class UserInterfaceService extends Service {
     }
 
     /**
-     * Gets the UI service description of the service specify on the request.
+     * Gets the UI service description of the service.
      * 
-     * @param UserInterfaceService
-     *            of the requested service
-     * @param ServiceCaller
-     *            instance is the parameter that will be used to call the
-     *            service.
+     * @param requestedService
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
-     * @return null.
+     * @param vendor
+     *            the URL of the partner home page that provides the UI e.g.
+     *            <code>"http://www.igd.fraunhofer.de"</code>
+     * @param theCaller
+     *            instance is the parameter that will be used to call the
+     *            service.
+     * @return
      */
     protected static String getUIServiceDescription(
 	    UserInterfaceService requestedService, String serviceClassURI,
@@ -179,17 +178,12 @@ public class UserInterfaceService extends Service {
     }
 
     /**
-     * Gets the UI service info of the service specify with the service class
-     * URI.
-     * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
-     * @param ServiceCaller
-     *            instance is the parameter that will be used to call the
-     *            service.
-     * @return the US service info.
+     * @param theCaller
+     * @return
      */
     public static final UserInterfaceService[] getUIServiceInfo(
 	    String serviceClassURI, ServiceCaller theCaller) {
@@ -198,18 +192,13 @@ public class UserInterfaceService extends Service {
     }
 
     /**
-     * Gets the UI service info of the service specify on the request.
-     * 
-     * @param UserInterfaceService
-     *            of the requested service
-     * @param ServiceCaller
-     *            instance is the parameter that will be used to call the
-     *            service.
+     * @param requestedService
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
-     * @return null.
+     * @param theCaller
+     * @return
      */
     protected static UserInterfaceService[] getUIServiceInfo(
 	    UserInterfaceService requestedService, String serviceClassURI,
@@ -245,17 +234,18 @@ public class UserInterfaceService extends Service {
     }
 
     /**
-     * Gets the UI service request of the user specify on the request.
+     * Gets the UI service request. This request is sent at the service bus to
+     * present the main dialog of the UI service.
      * 
-     * @param requestingUser
-     *            the user requested
-     * @param vendor
-     *            the URL of the partner home page that provides the UI e.g.
-     *            <code>"http://www.igd.fraunhofer.de"</code>
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
+     * @param vendor
+     *            the URL of the partner home page that provides the UI e.g.
+     *            <code>"http://www.igd.fraunhofer.de"</code>
+     * @param requestingUser
+     *            the user that requested the UI service.
      * @return the UI service request.
      */
     public static final ServiceRequest getUIServiceRequest(
@@ -265,17 +255,18 @@ public class UserInterfaceService extends Service {
     }
 
     /**
-     * Gets the UI service request of the user specify on the request.
+     * Gets the UI service request. This request is sent at the service bus to
+     * present the main dialog of the UI service.
      * 
-     * @param requestingUser
-     *            the user requested
-     * @param vendor
-     *            the URL of the partner home page that provides the UI e.g.
-     *            <code>"http://www.igd.fraunhofer.de"</code>
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI </code> from the lighting
      *            example.
+     * @param vendor
+     *            the URL of the partner home page that provides the UI e.g.
+     *            <code>"http://www.igd.fraunhofer.de"</code>
+     * @param requestingUser
+     *            the user that requested the UI service.
      * @return the UI service request.
      */
     protected static ServiceRequest getUIServiceRequest(
