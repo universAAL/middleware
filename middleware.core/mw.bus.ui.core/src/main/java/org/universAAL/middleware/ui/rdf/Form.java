@@ -82,16 +82,16 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * applications must call the method
  * {@link org.universAAL.middleware.output.OutputPublisher#resumeDialog(String,org.universAAL.middleware.rdf.Resource)}
  * of their output publisher after the subdialog finishes and they have
- * processed its data and updated the form data of the main dialog. I/O handlers
+ * processed its data and updated the form data of the main dialog. UI handlers
  * may decide to render instances of {@link SubdialogTrigger} and {@link Submit}
  * differently. Additionally, they may differentiate between events from these
  * two types of buttons (and e.g. keep the parent dialog open until the
  * subdialog loop is closed) or not. In any case, the middleware will
  * re-dispatch the main dialog by calling
  * {@link org.universAAL.middleware.ui.UIHandler#handleUICall(org.universAAL.middleware.ui.UIRequest)}
- * of the output subscriber of the selected I/O handler, as soon as the
+ * of the output subscriber of the selected UI handler, as soon as the
  * application requests to resume the dialog. In this way, the freezing and
- * re-activating the main dialog is forced by the middleware even if the I/O
+ * re-activating the main dialog is forced by the middleware even if the UI
  * handler does not differentiate between events from instances of
  * {@link SubdialogTrigger} and {@link Submit}.</dd>
  * <dt>Standard Dialog</dt>
@@ -157,10 +157,10 @@ public class Form extends FinalizedResource {
 
     /**
      * An optional property of form objects to indicate which form control
-     * should receive the focus when I/O handlers start to present the dialog.
+     * should receive the focus when UI handlers start to present the dialog.
      * It will be set automatically by the middleware whenever a running dialog
      * is cut so that a seamless resumption of the dialog at a later point in
-     * time is guaranteed. I/O handlers should check if this property is set. If
+     * time is guaranteed. UI handlers should check if this property is set. If
      * yes, then they must simulate their logic of presenting the form until
      * they reach the form control given as value of this property. At this
      * point they can prompt the user for the next data entry.
@@ -170,7 +170,7 @@ public class Form extends FinalizedResource {
 
     /**
      * The {@link org.universAAL.middleware.rdf.Resource} containing the form
-     * data. Form data can be accessed using property paths; I/O handlers,
+     * data. Form data can be accessed using property paths; UI handlers,
      * however, do not need to explicitly access this data normally, because
      * they normally deal only with data associated with form controls that can
      * be retrieved by calling {@link FormControl#getValue()} or set by calling
@@ -178,7 +178,7 @@ public class Form extends FinalizedResource {
      * of {@link org.universAAL.middleware.rdf.Resource} and set both their
      * hidden data and initial data associated with the form controls using
      * {@link org.universAAL.middleware.rdf.Resource#setPropertyPath(String[], Object)}
-     * . They can retrieve the form data from input events by calling
+     * . They can retrieve the form data from ui responses by calling
      * {@link org.universAAL.middleware.ui.UIResponse#getUserInput(String[])} .
      * Note: initial data to be associated with form controls can be set through
      * their constructors, as well.
@@ -472,7 +472,7 @@ public class Form extends FinalizedResource {
     // }
 
     /**
-     * Returns the standard group for I/O controls in this form. See also the
+     * Returns the standard group for UI controls in this form. See also the
      * above documentation of this class concerning the standard groups within
      * forms.
      */

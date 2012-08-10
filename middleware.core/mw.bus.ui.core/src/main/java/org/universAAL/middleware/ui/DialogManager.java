@@ -37,7 +37,7 @@ import org.universAAL.middleware.rdf.Resource;
  * for another dialog to finish).
  * 
  * This interface is supposed to be implemented by exactly one component. The
- * first component that registers as an output publisher to the output bus (and
+ * first component that registers as a UICaller to the UI bus (and
  * implements this interface) blocks the registration of any further
  * implementation of this interface.
  * 
@@ -56,8 +56,8 @@ public interface DialogManager {
      *         higher priority dialog to finish (return false). In case of
      *         returning true, the Dialog Manager must also add the current
      *         personal and situational parameters to UI request so that the
-     *         matchmaking on the bus results in adaptive selection of I/O
-     *         channels. In case of returning false, the UI Bus ignores the
+     *         matchmaking on the bus results in adaptive selection of UI
+     *         channel. In case of returning false, the UI Bus ignores the
      *         request because it trusts that the Dialog Manager will keep the
      *         request in a queue of suspended dialogs and will re-activate it
      *         whenever appropriate.

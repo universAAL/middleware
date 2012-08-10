@@ -278,7 +278,7 @@ public class Group extends FormControl {
     }
 
     /**
-     * This should help I/O handlers to decide how to "render" a group. A group
+     * This should help UI handlers to decide how to "render" a group. A group
      * with no subgroups is assumed to have no complexity. Up to 3 non-complex
      * subgroups cause low complexity. More than this or up to 3 subgroups with
      * low complexity cause meddle complexity. More than this or up to 3

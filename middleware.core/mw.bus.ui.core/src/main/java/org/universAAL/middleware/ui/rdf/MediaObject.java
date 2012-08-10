@@ -47,42 +47,42 @@ public class MediaObject extends Output {
 	    + "contentURL";
 
     /**
-     * An optional hint for I/O handlers regarding the maximum horizontal size
+     * An optional hint for UI handlers regarding the maximum horizontal size
      * of a visualizable media in number of pixels.
      */
     public static final String PROP_RESOLUTION_MAX_X = Form.uAAL_DIALOG_NAMESPACE
 	    + "resMaxX";
 
     /**
-     * An optional hint for I/O handlers regarding the maximum vertical size of
+     * An optional hint for UI handlers regarding the maximum vertical size of
      * a visualizable media in number of pixels.
      */
     public static final String PROP_RESOLUTION_MAX_Y = Form.uAAL_DIALOG_NAMESPACE
 	    + "resMaxY";
 
     /**
-     * An optional hint for I/O handlers regarding the minimum horizontal size
+     * An optional hint for UI handlers regarding the minimum horizontal size
      * of a visualizable media in number of pixels.
      */
     public static final String PROP_RESOLUTION_MIN_X = Form.uAAL_DIALOG_NAMESPACE
 	    + "resMinX";
 
     /**
-     * An optional hint for I/O handlers regarding the minimum vertical size of
+     * An optional hint for UI handlers regarding the minimum vertical size of
      * a visualizable media in number of pixels.
      */
     public static final String PROP_RESOLUTION_MIN_Y = Form.uAAL_DIALOG_NAMESPACE
 	    + "resMinY";
 
     /**
-     * An optional hint for I/O handlers regarding the preferred horizontal size
+     * An optional hint for UI handlers regarding the preferred horizontal size
      * of a visualizable media in number of pixels.
      */
     public static final String PROP_RESOLUTION_PREFERRED_X = Form.uAAL_DIALOG_NAMESPACE
 	    + "resPreferredX";
 
     /**
-     * An optional hint for I/O handlers regarding the preferred vertical size
+     * An optional hint for UI handlers regarding the preferred vertical size
      * of a visualizable media in number of pixels.
      */
     public static final String PROP_RESOLUTION_PREFERRED_Y = Form.uAAL_DIALOG_NAMESPACE

@@ -31,7 +31,7 @@ import java.util.List;
  * confirmation message to be shown to users in order to make sure that the
  * button was not pressed by mistake. Two types of confirmation messages are
  * supported, either OK/Cancel or Yes/No; the type specifies which buttons
- * should be added by a I/O handler to the confirmation dialog.
+ * should be added by a UI handler to the confirmation dialog.
  * 
  * @author mtazari
  * @author Carsten Stockloew
@@ -45,7 +45,7 @@ public class Submit extends FormControl {
      * shown to users in order to make sure that the button was not pressed by
      * mistake. Two types of confirmation messages are supported, either
      * OK/Cancel or Yes/No; the type specifies which buttons should be added by
-     * a I/O handler to the confirmation dialog.
+     * a UI handler to the confirmation dialog.
      */
     public static final int CONFIRMATION_TYPE_OK_CANCEL = 0;
 
@@ -54,7 +54,7 @@ public class Submit extends FormControl {
      * shown to users in order to make sure that the button was not pressed by
      * mistake. Two types of confirmation messages are supported, either
      * OK/Cancel or Yes/No; the type specifies which buttons should be added by
-     * a I/O handler to the confirmation dialog.
+     * a UI handler to the confirmation dialog.
      */
     public static final int CONFIRMATION_TYPE_YES_NO = 1;
 
@@ -63,7 +63,7 @@ public class Submit extends FormControl {
      * shown to users in order to make sure that the button was not pressed by
      * mistake. Two types of confirmation messages are supported, either
      * OK/Cancel or Yes/No; the type specifies which buttons should be added by
-     * a I/O handler to the confirmation dialog.
+     * a UI handler to the confirmation dialog.
      */
     public static final String PROP_CONFIRMATION_MESSAGE = uAAL_VOCABULARY_NAMESPACE
 	    + "confirmationMessage";
@@ -73,7 +73,7 @@ public class Submit extends FormControl {
      * shown to users in order to make sure that the button was not pressed by
      * mistake. Two types of confirmation messages are supported, either
      * OK/Cancel or Yes/No; the type specifies which buttons should be added by
-     * a I/O handler to the confirmation dialog.
+     * a UI handler to the confirmation dialog.
      */
     public static final String PROP_CONFIRMATION_TYPE = uAAL_VOCABULARY_NAMESPACE
 	    + "confirmationType";
@@ -158,7 +158,7 @@ public class Submit extends FormControl {
     }
 
     /**
-     * For use by I/O handlers.
+     * For use by UI handlers.
      * 
      * @return The ID of the dialog being finished by pressing this button.
      */
@@ -206,7 +206,7 @@ public class Submit extends FormControl {
     }
 
     /**
-     * I/O handlers must call this method as soon as the user decides to submit
+     * UI handlers must call this method as soon as the user decides to submit
      * the form using this submit in oder to make sure if all necessary input
      * has been collected.
      * 
@@ -226,9 +226,9 @@ public class Submit extends FormControl {
     }
 
     /**
-     * Supports I/O handlers that process a form by breaking it into several
+     * Supports UI handlers that process a form by breaking it into several
      * "subdialog"s, one for each alternative submission, by returning all of
-     * the I/O controls that are somehow related to this submit. An I/O control
+     * the UI controls that are somehow related to this submit. An UI control
      * is relevant if it is either a mandatory input for this submit or it has
      * the same parent group as a mandatory input. For answering the demanded
      * array, it first finds the least common parent group among the mandatory

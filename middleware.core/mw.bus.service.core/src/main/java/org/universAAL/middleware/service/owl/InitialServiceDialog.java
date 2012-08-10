@@ -21,6 +21,7 @@ package org.universAAL.middleware.service.owl;
 
 import java.util.Hashtable;
 
+import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceCaller;
@@ -41,13 +42,16 @@ public final class InitialServiceDialog extends UserInterfaceService {
 	MY_URI = uAAL_SERVICE_NAMESPACE + "InitialServiceDialog";
     }
 
+    /**
+     * @see ManagedIndividual#getClassURI()
+     */
     public String getClassURI() {
 	return MY_URI;
     }
 
     /**
      * Creates and returns an appropriate ServiceProfile for an initial dialog
-     * that upon call would lead to publishing an output event by the matching
+     * that upon call would lead to publishing a UI Request by the matching
      * service component.
      * 
      * @param serviceClassURI
@@ -59,16 +63,16 @@ public final class InitialServiceDialog extends UserInterfaceService {
      *            <code>"http://www.igd.fraunhofer.de"</code>
      * @param description
      *            describes what the service does, e.g. <code>"The main screen
-     *                    of a lighting service component by Fraunhofer-IGD that allows
-     *                    human users to view and change the states of light sources
-     *                    found on a connected KNX bus. Special visualization techniques,
-     *                    such as usage of 3D scenes and moving the camera from the
-     *                    current viewpoint of the user all the way towards the location of
-     *                    a currently selected light source, lead to a unique user
-     *                    experience in controlling light sources."</code>
+     *            of a lighting service component by Fraunhofer-IGD that allows
+     *            human users to view and change the states of light sources
+     *            found on a connected KNX bus. Special visualization techniques,
+     *            such as usage of 3D scenes and moving the camera from the
+     *            current viewpoint of the user all the way towards the location of
+     *            a currently selected light source, lead to a unique user
+     *            experience in controlling light sources."</code>
      * @param startServiceURI
      *            is a URI that allows the service component to recognize that
-     *            it should now publish an appropriate output event within the
+     *            it should now publish an appropriate UI Request within the
      *            'handleCall' method of the ServiceCallee subclass implemented
      *            by the service component.
      * 
@@ -84,8 +88,8 @@ public final class InitialServiceDialog extends UserInterfaceService {
 
     /**
      * Returns the UIServiceDescription from an initial Dialog Description that
-     * upon call would lead to publishing an output event by the matching
-     * service component.
+     * upon call would lead to publishing a UI Request by the matching service
+     * component.
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
@@ -94,18 +98,12 @@ public final class InitialServiceDialog extends UserInterfaceService {
      * @param vendor
      *            the URL of the partner home page that provides the UI e.g.
      *            <code>"http://www.igd.fraunhofer.de"</code>
-     * 
      * @param ServiceCaller
      *            instance is the parameter that will be used to call the
      *            service.
-     * 
-     * 
-     * 
-     * 
      * @return The created service profile that can be used to register the
      *         service with the service bus.
      */
-
     public static final String getInitialDialogDescription(
 	    String serviceClassURI, String vendor, ServiceCaller theCaller) {
 	return getUIServiceDescription(new InitialServiceDialog(),
@@ -114,26 +112,19 @@ public final class InitialServiceDialog extends UserInterfaceService {
 
     /**
      * Returns the UIServiceDescription from an initial Dialog Description that
-     * upon call would lead to publishing an output event by the matching
-     * service component.
+     * upon call would lead to publishing a UI Request by the matching service
+     * component.
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
-     * 
-     * 
      * @param ServiceCaller
      *            instance is the parameter that will be used to call the
      *            service.
-     * 
-     * 
-     * 
-     * 
      * @return The created service profile that can be used to register the
      *         service with the service bus.
      */
-
     public static final UserInterfaceService[] getInitialDialogInfo(
 	    String serviceClassURI, ServiceCaller theCaller) {
 	return getUIServiceInfo(new InitialServiceDialog(), serviceClassURI,
@@ -142,28 +133,21 @@ public final class InitialServiceDialog extends UserInterfaceService {
 
     /**
      * Returns the UIServiceDescription from an initial Dialog Description that
-     * upon call would lead to publishing an output event by the matching
-     * service component.
+     * upon call would lead to publishing a UI Request by the matching service
+     * component.
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
-     * 
      * @param vendor
      *            the URL of the partner home page that provides the UI e.g.
      *            <code>"http://www.igd.fraunhofer.de"</code>
-     * 
-     * @param Resource
+     * @param requestingUser
      *            the user associated to the UI requested.
-     * 
-     * 
-     * 
-     * 
      * @return The created service profile that can be used to register the
      *         service with the service bus.
      */
-
     public static final ServiceRequest getInitialDialogRequest(
 	    String serviceClassURI, String vendor, Resource requestingUser) {
 	return getUIServiceRequest(new InitialServiceDialog(), serviceClassURI,
@@ -172,26 +156,19 @@ public final class InitialServiceDialog extends UserInterfaceService {
 
     /**
      * Returns the UIServiceDescription from an initial Dialog Description that
-     * upon call would lead to publishing an output event by the matching
-     * service component.
+     * upon call would lead to publishing a UI Request by the matching service
+     * component.
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
-     * 
-     * 
      * @param ServiceCaller
      *            instance is the parameter that will be used to call the
      *            service.
-     * 
-     * 
-     * 
-     * 
      * @return The created service profile that can be used to register the
      *         service with the service bus.
      */
-
     public static boolean startInitialDialog(String serviceClassURI,
 	    String vendor, Resource requestingUser, ServiceCaller theCaller) {
 	ServiceResponse resp = theCaller.call(getUIServiceRequest(
@@ -200,9 +177,6 @@ public final class InitialServiceDialog extends UserInterfaceService {
 	return resp.getCallStatus() == CallStatus.succeeded;
     }
 
-    /**
-	 * 
-	 */
     public InitialServiceDialog() {
 	super();
     }

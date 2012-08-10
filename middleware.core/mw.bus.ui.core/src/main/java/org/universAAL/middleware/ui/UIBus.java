@@ -30,7 +30,7 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * The UI Bus is responsible for brokerage between applications that need to
  * reach human users (in order to present information to them and / or ask them
  * for intervention) and the so-called UI handlers that can handle the
- * interaction with human users through I/O channels under their control. This
+ * interaction with human users through UI channels under their control. This
  * bus is a call-based bus without any support for synchronized delivery of
  * replies (replies will always be delivered in a new thread). It defines
  * protocols for suspending and resuming dialogs, dynamic adaptation of
