@@ -96,7 +96,7 @@ public class Repeat extends Group {
 
     /**
      * The form control in the repeat that plays the role of a searchable column
-     * in the sense that the I/O handler should provide an additional input
+     * in the sense that the UI handler should provide an additional input
      * field where the user can enter text to be used to select a specific entry
      * in the list of values associated with a repeat control.
      */

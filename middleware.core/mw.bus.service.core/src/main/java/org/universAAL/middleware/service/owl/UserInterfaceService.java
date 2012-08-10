@@ -62,8 +62,8 @@ public class UserInterfaceService extends Service {
 
     /**
      * Creates and returns an appropriate ServiceProfile for a UI service that
-     * upon call would lead to publishing an output event by the matching
-     * service component.
+     * upon call would lead to publishing a UI Request by the matching service
+     * component.
      * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
@@ -74,16 +74,16 @@ public class UserInterfaceService extends Service {
      *            <code>"http://www.igd.fraunhofer.de"</code>
      * @param description
      *            describes what the service does, e.g. <code>"The main screen
-     *                    of a lighting service component by Fraunhofer-IGD that allows
-     *                    human users to view and change the states of light sources
-     *                    found on a connected KNX bus. Special visualization techniques,
-     *                    such as usage of 3D scenes and moving the camera from the
-     *                    current viewpoint of the user all the way towards the location of
-     *                    a currently selected light source, lead to a unique user
-     *                    experience in controlling light sources."</code>
+     *            of a lighting service component by Fraunhofer-IGD that allows
+     *            human users to view and change the states of light sources
+     *            found on a connected KNX bus. Special visualization techniques,
+     *            such as usage of 3D scenes and moving the camera from the
+     *            current viewpoint of the user all the way towards the location of
+     *            a currently selected light source, lead to a unique user
+     *            experience in controlling light sources."</code>
      * @param startServiceURI
      *            is a URI that allows the service component to recognize that
-     *            it should now publish an appropriate output event within the
+     *            it should now publish an appropriate UI Request within the
      *            'handleCall' method of the ServiceCallee subclass implemented
      *            by the service component.
      * 
@@ -113,22 +113,19 @@ public class UserInterfaceService extends Service {
 
     /**
      * Creates and returns an appropriate ServiceProfile for a UI service that
-     * upon call would lead to publishing an output event by the matching
-     * service component.
+     * upon call would lead to publishing a UI Request by the matching service
+     * component.
      * 
      * @param ServiceCaller
      *            instance is the parameter that will be used to call the
      *            service.
-     * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
-     * 
      * @param vendor
      *            the URL of the partner home page that provides the UI e.g.
      *            <code>"http://www.igd.fraunhofer.de"</code>
-     * 
      * @return The description service profile.
      */
     public static final String getUIServiceDescription(String serviceClassURI,
@@ -145,13 +142,10 @@ public class UserInterfaceService extends Service {
      * @param ServiceCaller
      *            instance is the parameter that will be used to call the
      *            service.
-     * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
-     * 
-     * 
      * @return null.
      */
     protected static String getUIServiceDescription(
@@ -195,8 +189,6 @@ public class UserInterfaceService extends Service {
      * @param ServiceCaller
      *            instance is the parameter that will be used to call the
      *            service.
-     * 
-     * 
      * @return the US service info.
      */
     public static final UserInterfaceService[] getUIServiceInfo(
@@ -213,13 +205,10 @@ public class UserInterfaceService extends Service {
      * @param ServiceCaller
      *            instance is the parameter that will be used to call the
      *            service.
-     * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
-     * 
-     * 
      * @return null.
      */
     protected static UserInterfaceService[] getUIServiceInfo(
@@ -263,13 +252,10 @@ public class UserInterfaceService extends Service {
      * @param vendor
      *            the URL of the partner home page that provides the UI e.g.
      *            <code>"http://www.igd.fraunhofer.de"</code>
-     * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI</code> from the lighting
      *            example.
-     * 
-     * 
      * @return the UI service request.
      */
     public static final ServiceRequest getUIServiceRequest(
@@ -286,13 +272,10 @@ public class UserInterfaceService extends Service {
      * @param vendor
      *            the URL of the partner home page that provides the UI e.g.
      *            <code>"http://www.igd.fraunhofer.de"</code>
-     * 
      * @param serviceClassURI
      *            the URI of the service class from an underlying ontology, e.g.
      *            the value of <code>Lighting.MY_URI </code> from the lighting
      *            example.
-     * 
-     * 
      * @return the UI service request.
      */
     protected static ServiceRequest getUIServiceRequest(

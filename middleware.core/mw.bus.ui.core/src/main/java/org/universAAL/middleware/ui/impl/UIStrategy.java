@@ -950,7 +950,7 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * Called only when an I/O handler has called dialogFinished with an
+     * Called only when a UI handler has called dialogFinished with an
      * instance of {@link org.universAAL.middleware.ui.rdf.SubdialogTrigger} so
      * that we must only notify to suspend this dialog until the original
      * publisher calls 'resume'.

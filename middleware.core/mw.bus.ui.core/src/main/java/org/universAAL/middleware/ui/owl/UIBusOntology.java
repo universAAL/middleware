@@ -102,7 +102,7 @@ public class UIBusOntology extends Ontology {
 	// load DialogType
 	oci = createNewAbstractOntClassInfo(DialogType.MY_URI);
 	oci
-		.setResourceComment("An enumeration for specifying the type of a dialog published to the output bus.");
+		.setResourceComment("An enumeration for specifying the type of a dialog published to the UI bus.");
 	oci.setResourceLabel("Dialog Type");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
 	oci

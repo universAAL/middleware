@@ -37,7 +37,7 @@ public class Constants {
     /** Name of the service bus. */
     public static final String uAAL_BUS_NAME_SERVICE = "uAAL.bus.service";
 
-    /** Name of the output bus. */
+    /** Name of the ui bus. */
     public static final String uAAL_BUS_NAME_UI = "uAAL.bus.ui";
 
     // URIs of standard variables managed by the uAAL middleware

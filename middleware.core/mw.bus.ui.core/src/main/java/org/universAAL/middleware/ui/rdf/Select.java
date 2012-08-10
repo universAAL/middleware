@@ -254,7 +254,7 @@ public class Select extends Input {
      * calling {@link #storeUserInput(Object)}. If no hidden value was found,
      * the label itself will be used as user input.
      * 
-     * Note: for use by I/O handlers that can not handle the association between
+     * Note: for use by UI handlers that can not handle the association between
      * labels and values internally.
      * 
      * @return true, if the storage was successful, false otherwise.
