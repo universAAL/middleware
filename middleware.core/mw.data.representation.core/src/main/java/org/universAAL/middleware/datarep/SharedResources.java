@@ -82,7 +82,7 @@ public class SharedResources {
 	Class.forName("org.universAAL.middleware.owl.Union");
 	// Class.forName("org.universAAL.middleware.rdf.PropertyPath");
 	Class.forName("org.universAAL.middleware.owl.AllValuesFromRestriction");
-	Class.forName("org.universAAL.middleware.owl.BoundingValueRestriction");
+	Class.forName("org.universAAL.middleware.owl.BoundedValueRestriction");
 	Class
 		.forName("org.universAAL.middleware.owl.ExactCardinalityRestriction");
 	Class.forName("org.universAAL.middleware.owl.HasValueRestriction");

@@ -188,7 +188,6 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/datarep/SharedResources.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/AllValuesFromRestriction.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/BoundedValueRestriction.java -text
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/BoundingValueRestriction.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/ComparableIndividual.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/Complement.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/DataRepOntology.java -text
