@@ -96,11 +96,38 @@ public class HasValueRestriction extends PropertyRestriction {
 		boolean found = false;
 		for (Iterator j = second.iterator(); !found && j.hasNext();) {
 		    Object oo = j.next();
-		    if (ManagedIndividual.checkMembership(((Variable) o)
-			    .getParameterType(), oo)) {
-			aux.put(((Variable) o).getURI(), oo);
-			j.remove();
-			found = true;
+		    if (oo instanceof Variable) {
+			// check that the type in 'oo' is a subclass of the type
+			// in 'o'
+			boolean found2 = false;
+			String superClassName = ((Variable) o)
+				.getParameterType();
+			String subClassName = ((Variable) oo)
+				.getParameterType();
+
+			if (superClassName.equals(subClassName)) {
+			    found2 = true;
+			} else {
+			    OntClassInfo sub = OntologyManagement.getInstance()
+				    .getOntClassInfo(subClassName);
+			    if (sub != null) {
+				if (sub.hasSuperClass(superClassName, true))
+				    found2 = true;
+			    }
+			}
+
+			if (found2) {
+			    aux.put(((Variable) o).getURI(), oo);
+			    j.remove();
+			    found = true;
+			}
+		    } else {
+			if (ManagedIndividual.checkMembership(((Variable) o)
+				.getParameterType(), oo)) {
+			    aux.put(((Variable) o).getURI(), oo);
+			    j.remove();
+			    found = true;
+			}
 		    }
 		}
 		if (!found)
