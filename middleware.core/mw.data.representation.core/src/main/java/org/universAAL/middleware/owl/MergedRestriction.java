@@ -608,6 +608,8 @@ public class MergedRestriction extends Intersection {
      * Get all {@link PropertyRestriction}s. The list is backed by the
      * {@link MergedRestriction}, so changes to the {@link MergedRestriction}
      * are reflected in the list.
+     * 
+     * @return an unmodifiable list of restrictions.
      */
     public List getRestrictions() {
 	return Collections.unmodifiableList(types);
@@ -656,6 +658,8 @@ public class MergedRestriction extends Intersection {
      * 
      * @param res
      *            The Restriction to add.
+     * @return this restriction. This object is returned to allow for multiple
+     *         calls of this method.
      */
     public MergedRestriction addRestriction(PropertyRestriction res) {
 	// if (types.size()==1) {
@@ -816,6 +820,8 @@ public class MergedRestriction extends Intersection {
      * 
      * @param r
      *            The restriction to add.
+     * @return this restriction. This object is returned to allow for multiple
+     *         calls of this method.
      */
     public MergedRestriction addRestriction(MergedRestriction r) {
 	ArrayList resList = (ArrayList) r.types;
@@ -915,6 +921,9 @@ public class MergedRestriction extends Intersection {
      * 
      * @param onProp
      *            The new URI of the property this restriction is defined for.
+     * @return the new {@link MergedRestriction} which contains all simple
+     *         restrictions of this class, but is defined for a different
+     *         property.
      */
     public MergedRestriction copyOnNewProperty(String onProp) {
 	MergedRestriction r = (MergedRestriction) copy();
@@ -1001,9 +1010,9 @@ public class MergedRestriction extends Intersection {
      *         </ul>
      */
     public MergedRestriction appendTo(MergedRestriction root, String[] path) {
-	//System.out.println("appending \n" + this.toStringRecursive());
-	//System.out.println("\n\nto\n"
-	//	+ (root == null ? "null" : root.toStringRecursive()));
+	// System.out.println("appending \n" + this.toStringRecursive());
+	// System.out.println("\n\nto\n"
+	// + (root == null ? "null" : root.toStringRecursive()));
 	if (path == null || path.length == 0) {
 	    LogUtils
 		    .logDebug(
@@ -1095,8 +1104,9 @@ public class MergedRestriction extends Intersection {
 	// appropriate Restrictions and Intersections, if necessary
 	for (int i = 1; i < path.length - 1; i++)
 	    tmp = tmp.getRestrictionOnProperty(path[i]);
-	//System.out.println("TEMP ROOT\n" + root.toStringRecursive());
-	//System.out.println("TMP (last AllValues)\n" + tmp.toStringRecursive());
+	// System.out.println("TEMP ROOT\n" + root.toStringRecursive());
+	// System.out.println("TMP (last AllValues)\n" +
+	// tmp.toStringRecursive());
 
 	// tmp now points to the AllValuesFromRestriction of the path element
 	// before the last path element
@@ -1182,7 +1192,11 @@ public class MergedRestriction extends Intersection {
 	return null;
     }
 
-    /** Get the set of instances. */
+    /**
+     * Get the set of instances.
+     * 
+     * @return an array of all known instances.
+     */
     public Object[] getEnumeratedValues() {
 	AllValuesFromRestriction allres = (AllValuesFromRestriction) types
 		.get(index[allValuesFromID]);
