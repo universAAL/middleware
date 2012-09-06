@@ -139,7 +139,7 @@ public interface ModuleContext {
      *            might have caused the log request
      */
     public void logWarn(String tag, String message, Throwable t);
-    
+
     /**
      * Provides a standard way for using container-specific loggers, in this
      * case for logging trace messages.

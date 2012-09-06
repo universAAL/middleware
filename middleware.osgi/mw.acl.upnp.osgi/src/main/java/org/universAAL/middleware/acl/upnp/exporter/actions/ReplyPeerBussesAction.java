@@ -28,74 +28,88 @@ import org.universAAL.middleware.acl.SodaPopPeer;
 
 /**
  * UPnP ReplyPeerBussesAction implementation
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+ * 
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
 public class ReplyPeerBussesAction implements UPnPAction {
 
-	public final static String NAME = "ReplyPeerBusses";
-	public final static String BUSSES_NAME = "BussesName";
-	public final static String PEER_ID = "PeerID";
-	final private String[] IN_ARG_NAMES = new String[]{BUSSES_NAME,PEER_ID};
-	private UPnPStateVariable peerId,busName;
-	private SodaPopPeer localPeer;
-	
-	
-	public ReplyPeerBussesAction(SodaPopPeer localPeer,UPnPStateVariable peerId, UPnPStateVariable busName){
-		this.peerId = peerId;
-		this.busName = busName;
-		this.localPeer=localPeer;
-	}
+    public final static String NAME = "ReplyPeerBusses";
+    public final static String BUSSES_NAME = "BussesName";
+    public final static String PEER_ID = "PeerID";
+    final private String[] IN_ARG_NAMES = new String[] { BUSSES_NAME, PEER_ID };
+    private UPnPStateVariable peerId, busName;
+    private SodaPopPeer localPeer;
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getName()
-	 */
-	public String getName() {
-		return NAME;
-	}
+    public ReplyPeerBussesAction(SodaPopPeer localPeer,
+	    UPnPStateVariable peerId, UPnPStateVariable busName) {
+	this.peerId = peerId;
+	this.busName = busName;
+	this.localPeer = localPeer;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getReturnArgumentName()
-	 */
-	public String getReturnArgumentName() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getName()
+     */
+    public String getName() {
+	return NAME;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getInputArgumentNames()
-	 */
-	public String[] getInputArgumentNames() {
-		return IN_ARG_NAMES;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getReturnArgumentName()
+     */
+    public String getReturnArgumentName() {
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getOutputArgumentNames()
-	 */
-	public String[] getOutputArgumentNames() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getInputArgumentNames()
+     */
+    public String[] getInputArgumentNames() {
+	return IN_ARG_NAMES;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getStateVariable(java.lang.String)
-	 */
-	public UPnPStateVariable getStateVariable(String argumentName) {
-		if (argumentName.equals(BUSSES_NAME))
-			return busName;
-		else if (argumentName.equals(PEER_ID))
-			return peerId;
-		else
-			return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getOutputArgumentNames()
+     */
+    public String[] getOutputArgumentNames() {
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#invoke(java.util.Dictionary)
-	 */
-	public synchronized Dictionary invoke(Dictionary args) throws Exception {
-		String bussesName = (String) args.get(BUSSES_NAME);
-		String peerID = (String) args.get(PEER_ID);
-		//System.out.println("LOCAL_PEER:: ReplyPeerBusses invoked ## "+bussesName +", "+peerID);
-		localPeer.replyPeerBusses(peerID,bussesName);
-		//System.out.println("LOCAL_PEER:: ReplyPeerBusses returning");
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getStateVariable(java.lang.String)
+     */
+    public UPnPStateVariable getStateVariable(String argumentName) {
+	if (argumentName.equals(BUSSES_NAME))
+	    return busName;
+	else if (argumentName.equals(PEER_ID))
+	    return peerId;
+	else
+	    return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#invoke(java.util.Dictionary)
+     */
+    public synchronized Dictionary invoke(Dictionary args) throws Exception {
+	String bussesName = (String) args.get(BUSSES_NAME);
+	String peerID = (String) args.get(PEER_ID);
+	// System.out.println("LOCAL_PEER:: ReplyPeerBusses invoked ## "+bussesName
+	// +", "+peerID);
+	localPeer.replyPeerBusses(peerID, bussesName);
+	// System.out.println("LOCAL_PEER:: ReplyPeerBusses returning");
+	return null;
+    }
 }

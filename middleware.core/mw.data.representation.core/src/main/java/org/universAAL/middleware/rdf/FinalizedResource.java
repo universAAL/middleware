@@ -33,7 +33,7 @@ public class FinalizedResource extends Resource {
     protected FinalizedResource() {
 	super();
     }
-    
+
     /** @see org.universAAL.middleware.rdf.Resource#Resource(boolean) */
     public FinalizedResource(boolean isXMLLiteral) {
 	super(isXMLLiteral);

@@ -63,7 +63,8 @@ public class MaxCardinalityRestriction extends PropertyRestriction {
 		    "Value of a Max Cardinality Restriction must be non-negative: "
 			    + value);
 	setOnProperty(propURI);
-	super.setProperty(PROP_OWL_MAX_CARDINALITY, new NonNegativeInteger(value));
+	super.setProperty(PROP_OWL_MAX_CARDINALITY, new NonNegativeInteger(
+		value));
     }
 
     public MaxCardinalityRestriction(String propURI, int value,

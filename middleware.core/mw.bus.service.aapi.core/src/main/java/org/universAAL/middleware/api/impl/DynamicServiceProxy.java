@@ -50,7 +50,7 @@ public class DynamicServiceProxy implements InvocationHandler {
 		    "Cannot find subclass of Service in @ResourceClasses");
 	}
     }
-    
+
     private ServiceOperation.MatchMakingType inferMatchMakingType(
 	    List<Output> outputs, List<Input> inputs,
 	    List<ChangeEffect> changeEffects) {
@@ -67,30 +67,34 @@ public class DynamicServiceProxy implements InvocationHandler {
 	}
 	if (changeEffects.size() > 0) {
 	    inferredType = MatchMakingType.ONTOLOGICAL;
-	}	
+	}
 	return inferredType;
     }
 
     public Object invoke(Object proxy, Method m, Object[] args)
 	    throws Throwable {
 	try {
-	    ServiceOperation so = scanner.getMethodServiceOperation().get(m.getName());
-	    
+	    ServiceOperation so = scanner.getMethodServiceOperation().get(
+		    m.getName());
+
 	    String serviceName = so.value();
 	    if ("".equals(serviceName)) {
 		serviceName = m.getName();
 	    }
-	    String serviceURI = AnnotationScanner.createServiceUri(scanner.getNamespace(), scanner.getName(), serviceName);
-	    
+	    String serviceURI = AnnotationScanner.createServiceUri(scanner
+		    .getNamespace(), scanner.getName(), serviceName);
+
 	    List<Output> outputs = scanner.getMethodOutputs().get(serviceURI);
 	    List<Input> inputs = scanner.getMethodInputs().get(serviceURI);
-	    List<ChangeEffect> changeEffects = scanner.getMethodChangeEffects().get(serviceURI);
-	    
+	    List<ChangeEffect> changeEffects = scanner.getMethodChangeEffects()
+		    .get(serviceURI);
+
 	    ServiceOperation.MatchMakingType matchMakingType = so.type();
 	    if (matchMakingType == MatchMakingType.NOT_SPECIFIED) {
-		matchMakingType = inferMatchMakingType(outputs, inputs, changeEffects);
+		matchMakingType = inferMatchMakingType(outputs, inputs,
+			changeEffects);
 	    }
-	    
+
 	    AapiServiceRequest request = null;
 	    switch (matchMakingType) {
 	    case ONTOLOGICAL:
@@ -98,9 +102,11 @@ public class DynamicServiceProxy implements InvocationHandler {
 			.newInstance(), null);
 		break;
 	    case BY_URI:
-		Constructor serviceClassConstructor = serviceClass.getConstructor(String.class);
-		Service serviceByUri = (Service) serviceClassConstructor.newInstance(serviceURI);
-		request = new AapiServiceRequest(serviceByUri, null);		
+		Constructor serviceClassConstructor = serviceClass
+			.getConstructor(String.class);
+		Service serviceByUri = (Service) serviceClassConstructor
+			.newInstance(serviceURI);
+		request = new AapiServiceRequest(serviceByUri, null);
 		break;
 	    default:
 		throw new IllegalArgumentException();
@@ -167,7 +173,9 @@ public class DynamicServiceProxy implements InvocationHandler {
 		    }
 		    List temp = ((List) resObj);
 		    if (Object[].class.isAssignableFrom(m.getReturnType())) {
-			return temp.toArray((Object[])Array.newInstance(m.getReturnType().getComponentType(), temp.size()));
+			return temp.toArray((Object[]) Array.newInstance(m
+				.getReturnType().getComponentType(), temp
+				.size()));
 		    } else if (List.class.isAssignableFrom(m.getReturnType())) {
 			return temp;
 		    } else {

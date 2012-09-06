@@ -25,34 +25,37 @@ package org.universAAL.middleware.acl;
 
 /**
  * Components willing to be notified whenever a new remote instance of
- * SodaPopPeer is discovered must implement this interface and add themselves
- * to a P2PConnector as such a listener.
+ * SodaPopPeer is discovered must implement this interface and add themselves to
+ * a P2PConnector as such a listener.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * 
  */
 public interface PeerDiscoveryListener {
-	/**
-	 * The method called by a P2PConnector whenever a new remote instance of
-	 * SodaPopPeer is discovered.
-	 * 
-	 * @param peer the actual handle of the discovered remote SodaPopPeer
-	 * @param discoveryProtocol the name of the underlying technology
-	 *                          used by the corresponding P2PConnector
-	 *                          that discovered this peer. It can be useful
-	 *                          for implementing protocol bridging.
-	 */
-	public void noticeNewPeer(SodaPopPeer peer, String discoveryProtocol);
-	
-	/**
-	 * The method called by a P2PConnector when a previously found peer
-	 * gets lost.
-	 * 
-	 * @param peerID The ID of the lost SodaPopPeer.
-	 * @param discoveryProtocol the name of the underlying technology
-	 *                          used by the corresponding P2PConnector
-	 *                          that discovered this peer. It can be useful
-	 *                          for implementing protocol bridging.
-	 */
-	public void noticeLostPeer(String peerID, String discoveryProtocol);
+    /**
+     * The method called by a P2PConnector whenever a new remote instance of
+     * SodaPopPeer is discovered.
+     * 
+     * @param peer
+     *            the actual handle of the discovered remote SodaPopPeer
+     * @param discoveryProtocol
+     *            the name of the underlying technology used by the
+     *            corresponding P2PConnector that discovered this peer. It can
+     *            be useful for implementing protocol bridging.
+     */
+    public void noticeNewPeer(SodaPopPeer peer, String discoveryProtocol);
+
+    /**
+     * The method called by a P2PConnector when a previously found peer gets
+     * lost.
+     * 
+     * @param peerID
+     *            The ID of the lost SodaPopPeer.
+     * @param discoveryProtocol
+     *            the name of the underlying technology used by the
+     *            corresponding P2PConnector that discovered this peer. It can
+     *            be useful for implementing protocol bridging.
+     */
+    public void noticeLostPeer(String peerID, String discoveryProtocol);
 }

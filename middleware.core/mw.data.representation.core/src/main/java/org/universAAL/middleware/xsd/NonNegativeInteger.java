@@ -63,7 +63,7 @@ public class NonNegativeInteger {
 	else
 	    return Integer.MAX_VALUE;
     }
-    
+
     public String toString() {
 	return Integer.toString(intval);
     }

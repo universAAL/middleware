@@ -6,14 +6,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation used for generating ServiceProfile.
- * For each of such annotation a separate createInput call is made on SimpleAPIService.
+ * Annotation used for generating ServiceProfile. For each of such annotation a
+ * separate createInput call is made on SimpleAPIService.
+ * 
  * @author dzmuda
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface Input {
-	String name() default "";
-	Class filteringClass() default void.class;
-	String[] propertyPaths() default {};
+    String name() default "";
+
+    Class filteringClass() default void.class;
+
+    String[] propertyPaths() default {};
 }

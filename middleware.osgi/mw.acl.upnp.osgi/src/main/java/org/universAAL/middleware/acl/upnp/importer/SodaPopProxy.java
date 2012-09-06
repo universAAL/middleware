@@ -39,147 +39,158 @@ import org.universAAL.middleware.acl.SodaPopPeer;
  * 1)prepare a Dictionary object with all the relevant properties
  * 2)fetch the object modeling the required UPnP action
  * 3)invoke the action by passing the Dictionary previously created.
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
-public class SodaPopProxy implements SodaPopPeer{
+public class SodaPopProxy implements SodaPopPeer {
     private final String UUID_PREFIX = "uuid:";
-	private UPnPService sodapopPeerService;
-	private String id;
-	
-	/**
-	 * Proxy constructor. The UPnPDevice parameter is used in order to fetch all the required references able to
-	 * interact with the remote peer.  
-	 * @param device
-	 */
-	public SodaPopProxy(UPnPDevice device){
-		sodapopPeerService = device.getService(SodaPopPeerService.SERVICE_ID);		
-		id  = (String) device.getDescriptions(null).get(UPnPDevice.ID);
-		id = id.substring(UUID_PREFIX.length());
-	}
+    private UPnPService sodapopPeerService;
+    private String id;
 
-	public String getID() {
-		//System.out.println("REMOTE_PEER:: getID invoked (cached)");
-		return id;
-//		try {
-//			
-//			System.out.println("REMOTE_PEER:: getID invoked");
-//			Dictionary dictionary = sodapopPeerService.getAction(GetIdAction.NAME).invoke(null);
-//			String id = (String) dictionary.get(GetIdAction.RESULT_ID);
-//			System.out.println("REMOTE_PEER:: getID returned:" +id);
-//			return id;
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return null;
-	}
+    /**
+     * Proxy constructor. The UPnPDevice parameter is used in order to fetch all
+     * the required references able to interact with the remote peer.
+     * 
+     * @param device
+     */
+    public SodaPopProxy(UPnPDevice device) {
+	sodapopPeerService = device.getService(SodaPopPeerService.SERVICE_ID);
+	id = (String) device.getDescriptions(null).get(UPnPDevice.ID);
+	id = id.substring(UUID_PREFIX.length());
+    }
 
-	public void joinBus(final String busName, final String joiningPeer) {
-//		new Thread(){
-//			public void run(){
-				try {
-					//System.out.println("REMOTE_PEER:: joinBus invoked:" +busName + ", " + joiningPeer);
-					Dictionary dictionary = new Hashtable();
-					dictionary.put(JoinBusAction.BUS_NAME, busName);
-					dictionary.put(JoinBusAction.JOINING_PEER, joiningPeer);
-					sodapopPeerService.getAction(JoinBusAction.NAME).invoke(dictionary);
-					return;
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//			}
-//		}.start();
-		return ;	
-	}
+    public String getID() {
+	// System.out.println("REMOTE_PEER:: getID invoked (cached)");
+	return id;
+	// try {
+	//			
+	// System.out.println("REMOTE_PEER:: getID invoked");
+	// Dictionary dictionary =
+	// sodapopPeerService.getAction(GetIdAction.NAME).invoke(null);
+	// String id = (String) dictionary.get(GetIdAction.RESULT_ID);
+	// System.out.println("REMOTE_PEER:: getID returned:" +id);
+	// return id;
+	// } catch (Exception e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// return null;
+    }
 
-	public void leaveBus(final String busName,final  String leavingPeer) {
-//		new Thread(){
-//			public void run(){
-				try {
-					//System.out.println("REMOTE_PEER:: leaveBus invoked:" +busName + ", " + leavingPeer);
-					Dictionary dictionary = new Hashtable();
-					dictionary.put(LeaveBusAction.BUS_NAME, busName);
-					dictionary.put(LeaveBusAction.LEAVING_PEER, leavingPeer);
-					sodapopPeerService.getAction(LeaveBusAction.NAME).invoke(dictionary);
-					return;
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//			}
-//		}.start();
-		return ;	
-
+    public void joinBus(final String busName, final String joiningPeer) {
+	// new Thread(){
+	// public void run(){
+	try {
+	    // System.out.println("REMOTE_PEER:: joinBus invoked:" +busName +
+	    // ", " + joiningPeer);
+	    Dictionary dictionary = new Hashtable();
+	    dictionary.put(JoinBusAction.BUS_NAME, busName);
+	    dictionary.put(JoinBusAction.JOINING_PEER, joiningPeer);
+	    sodapopPeerService.getAction(JoinBusAction.NAME).invoke(dictionary);
+	    return;
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
+	// }
+	// }.start();
+	return;
+    }
 
-	public void noticePeerBusses(final String peerID, final String busNames) {
-//		new Thread(){
-//			public void run(){
-				try {
-					//System.out.println("REMOTE_PEER:: noticePeerBusses invoked:" +peerID + ", " + busNames);
-					Dictionary dictionary = new Hashtable();
-					dictionary.put(NoticePeerBussesAction.PEER_ID, peerID);
-					dictionary.put(NoticePeerBussesAction.BUSSES_NAME, busNames);
-					sodapopPeerService.getAction(NoticePeerBussesAction.NAME).invoke(dictionary);
-					return;
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//			}
-//		}.start();
-		return ;	
+    public void leaveBus(final String busName, final String leavingPeer) {
+	// new Thread(){
+	// public void run(){
+	try {
+	    // System.out.println("REMOTE_PEER:: leaveBus invoked:" +busName +
+	    // ", " + leavingPeer);
+	    Dictionary dictionary = new Hashtable();
+	    dictionary.put(LeaveBusAction.BUS_NAME, busName);
+	    dictionary.put(LeaveBusAction.LEAVING_PEER, leavingPeer);
+	    sodapopPeerService.getAction(LeaveBusAction.NAME)
+		    .invoke(dictionary);
+	    return;
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
-	
-	public void replyPeerBusses(String peerID, String busNames) {
-//		new Thread(){
-//			public void run(){
-				try {
-					//System.out.println("REMOTE_PEER:: replyPeerBusses invoked:" +peerID + ", " + busNames);
-					Dictionary dictionary = new Hashtable();
-					dictionary.put(ReplyPeerBussesAction.PEER_ID, peerID);
-					dictionary.put(ReplyPeerBussesAction.BUSSES_NAME, busNames);
-					sodapopPeerService.getAction(ReplyPeerBussesAction.NAME).invoke(dictionary);
-					return;
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//			}
-//		}.start();
-		
-	}
+	// }
+	// }.start();
+	return;
 
-	public void processBusMessage(final String busName,final String msg) {
-//		new Thread(){
-//			public void run(){
-				try {
-					//System.out.println("REMOTE_PEER:: processBusMessage invoked:" +busName + ", " + msg);
-					Dictionary dictionary = new Hashtable();
-					dictionary.put(ProcessBusMessageAction.BUS_NAME, busName);
-					dictionary.put(ProcessBusMessageAction.MESSAGE, msg);
-					sodapopPeerService.getAction(ProcessBusMessageAction.NAME).invoke(dictionary);
-					return;
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//			}
-//		}.start();
-		return ;	
-	}
+    }
 
-	public void printStatus() {
-		Dictionary dictionary = new Hashtable();
-		try {
-			sodapopPeerService.getAction(PrintStatusAction.NAME).invoke(dictionary);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public void noticePeerBusses(final String peerID, final String busNames) {
+	// new Thread(){
+	// public void run(){
+	try {
+	    // System.out.println("REMOTE_PEER:: noticePeerBusses invoked:"
+	    // +peerID + ", " + busNames);
+	    Dictionary dictionary = new Hashtable();
+	    dictionary.put(NoticePeerBussesAction.PEER_ID, peerID);
+	    dictionary.put(NoticePeerBussesAction.BUSSES_NAME, busNames);
+	    sodapopPeerService.getAction(NoticePeerBussesAction.NAME).invoke(
+		    dictionary);
+	    return;
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
+	// }
+	// }.start();
+	return;
+    }
 
+    public void replyPeerBusses(String peerID, String busNames) {
+	// new Thread(){
+	// public void run(){
+	try {
+	    // System.out.println("REMOTE_PEER:: replyPeerBusses invoked:"
+	    // +peerID + ", " + busNames);
+	    Dictionary dictionary = new Hashtable();
+	    dictionary.put(ReplyPeerBussesAction.PEER_ID, peerID);
+	    dictionary.put(ReplyPeerBussesAction.BUSSES_NAME, busNames);
+	    sodapopPeerService.getAction(ReplyPeerBussesAction.NAME).invoke(
+		    dictionary);
+	    return;
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	// }
+	// }.start();
+
+    }
+
+    public void processBusMessage(final String busName, final String msg) {
+	// new Thread(){
+	// public void run(){
+	try {
+	    // System.out.println("REMOTE_PEER:: processBusMessage invoked:"
+	    // +busName + ", " + msg);
+	    Dictionary dictionary = new Hashtable();
+	    dictionary.put(ProcessBusMessageAction.BUS_NAME, busName);
+	    dictionary.put(ProcessBusMessageAction.MESSAGE, msg);
+	    sodapopPeerService.getAction(ProcessBusMessageAction.NAME).invoke(
+		    dictionary);
+	    return;
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	// }
+	// }.start();
+	return;
+    }
+
+    public void printStatus() {
+	Dictionary dictionary = new Hashtable();
+	try {
+	    sodapopPeerService.getAction(PrintStatusAction.NAME).invoke(
+		    dictionary);
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+    }
 
 }

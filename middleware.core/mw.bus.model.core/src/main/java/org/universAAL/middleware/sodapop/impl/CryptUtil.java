@@ -45,7 +45,7 @@ import javax.crypto.spec.DESKeySpec;
  * 
  */
 public class CryptUtil {
-    
+
     private static final String cipherTransformation = "DES/ECB/PKCS5Padding";
     private static final String keyFileName = "sodapop.key";
     private static final String randomizationAlgorithm = "SHA1PRNG";
@@ -54,7 +54,7 @@ public class CryptUtil {
     private static boolean tryMore = true;
     private static SecretKey skey = null;
     private static Codec codec = null;
-    
+
     public static void main(String[] args) {
 	try {
 	    final File keyFile = new File(keyFileName);
@@ -149,7 +149,7 @@ public class CryptUtil {
 	    e.printStackTrace();
 	}
     }
-    
+
     /**
      * Initialization method - reads the shared key from the file system or
      * generates a new shared key
@@ -163,7 +163,7 @@ public class CryptUtil {
     public static String init(String dir, Codec codec) throws Exception {
 	if (CryptUtil.codec != null && CryptUtil.codec != codec)
 	    throw new SecurityException("CryptUtil already initialized");
-    	CryptUtil.codec = codec;
+	CryptUtil.codec = codec;
 	File keyFile = new File(dir + System.getProperty("file.separator")
 		+ keyFileName);
 
@@ -186,25 +186,28 @@ public class CryptUtil {
 	else
 	    return "Cryptography utils initialized successfully!";
     }
-    
+
     /**
-     * decrypt the parameter string with the shared key read during 
-     * initialization 
+     * decrypt the parameter string with the shared key read during
+     * initialization
      * 
-     * @param String chiper - the string to decrypt
+     * @param String
+     *            chiper - the string to decrypt
      * @return the decrypted string
      * 
      */
     public static String decrypt(String cipher) throws Exception {
 	return decrypt(cipher, skey);
     }
-    
+
     /**
-     * decrypt the first parameter string with the shared key received as the 
+     * decrypt the first parameter string with the shared key received as the
      * second parameter
      * 
-     * @param String chiper - the string to decrypt
-     * @param SecretKey skey - the shared key
+     * @param String
+     *            chiper - the string to decrypt
+     * @param SecretKey
+     *            skey - the shared key
      * @return the decrypted string
      * 
      */
@@ -216,23 +219,26 @@ public class CryptUtil {
     }
 
     /**
-     * encrypt the parameter string with the shared key read during 
-     * initialization 
+     * encrypt the parameter string with the shared key read during
+     * initialization
      * 
-     * @param String clear - the string to encrypt
+     * @param String
+     *            clear - the string to encrypt
      * @return the encrypted string
      * 
      */
     public static String encrypt(String clear) throws Exception {
 	return encrypt(clear, skey);
     }
-    
+
     /**
-     * encrypt the first parameter string with the shared key received as the 
+     * encrypt the first parameter string with the shared key received as the
      * second parameter
      * 
-     * @param String clear - the string to encrypt
-     * @param SecretKey skey - the shared key
+     * @param String
+     *            clear - the string to encrypt
+     * @param SecretKey
+     *            skey - the shared key
      * @return the encrypted string
      * 
      */
@@ -242,11 +248,12 @@ public class CryptUtil {
 	desCipher.init(Cipher.ENCRYPT_MODE, skey);
 	return new String(codec.encode(desCipher.doFinal(clear.getBytes())));
     }
-    
+
     /**
      * generate the shared key and write it into the file passed as a parameter
      * 
-     * @param File keyFile - the file to write the generated key
+     * @param File
+     *            keyFile - the file to write the generated key
      * @return SecretKey - the generated key
      * 
      */
@@ -264,10 +271,10 @@ public class CryptUtil {
 	out.close();
 	return skey;
     }
-    
+
     /**
      * generate a pair of keys - public and private, and write them to the files
-     * with the names "public.key" and "private.key" 
+     * with the names "public.key" and "private.key"
      * 
      */
     public void generateKeyPair() throws Exception {
@@ -291,7 +298,8 @@ public class CryptUtil {
     /**
      * read the shared key from the file passed as a parameter
      * 
-     * @param File keyFile - the file to read the key from
+     * @param File
+     *            keyFile - the file to read the key from
      * @return SecretKey - the read key
      * 
      */

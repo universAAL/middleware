@@ -14,11 +14,11 @@ public class AapiServiceResponse extends ServiceResponse {
     public AapiServiceResponse(CallStatus status) {
 	super(status);
     }
-    
+
     public void allowUnboundOutput() {
 	super.allowUnboundOutput();
     }
-    
+
     public void disallowUnboundOutput() {
 	super.disallowUnboundOutput();
     }

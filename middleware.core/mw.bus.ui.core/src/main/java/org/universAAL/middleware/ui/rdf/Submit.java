@@ -228,11 +228,11 @@ public class Submit extends FormControl {
     /**
      * Supports UI handlers that process a form by breaking it into several
      * "subdialog"s, one for each alternative submission, by returning all of
-     * the UI controls that are somehow related to this submit. An UI control
-     * is relevant if it is either a mandatory input for this submit or it has
-     * the same parent group as a mandatory input. For answering the demanded
-     * array, it first finds the least common parent group among the mandatory
-     * inputs and then the whole subtree of that group is traversed based on a
+     * the UI controls that are somehow related to this submit. An UI control is
+     * relevant if it is either a mandatory input for this submit or it has the
+     * same parent group as a mandatory input. For answering the demanded array,
+     * it first finds the least common parent group among the mandatory inputs
+     * and then the whole subtree of that group is traversed based on a
      * depth-first search. The elements of the returned array will be instances
      * of {@link Input}, {@link Output}, {@link Repeat} or
      * {@link SubdialogTrigger}.

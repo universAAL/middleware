@@ -124,7 +124,7 @@ public class uAALBundleContext implements ModuleContext {
 	    return new uAALBundleContext(b.getBundleContext());
 	} catch (Exception e) {
 	    logError(this.getClass().getName() + "installBundle",
-	    		"Exception while installing bundle at " + location, e);
+		    "Exception while installing bundle at " + location, e);
 	    return null;
 	}
     }
@@ -135,7 +135,7 @@ public class uAALBundleContext implements ModuleContext {
 	    return new uAALBundleContext(b.getBundleContext());
 	} catch (Exception e) {
 	    logError(this.getClass().getName() + "installBundle",
-	    		"Exception while installing bundle at " + location, e);
+		    "Exception while installing bundle at " + location, e);
 	    return null;
 	}
     }

@@ -24,57 +24,62 @@
 package org.universAAL.middleware.acl;
 
 /**
- * Classes implementing this interface make P2P connection between instances
- * of {@link org.universAAL.middleware.acl.SodaPopPeer SodaPopPeer} using a specific
- * underlying technology like "UPnP" and "R-OSGi", which is called here
+ * Classes implementing this interface make P2P connection between instances of
+ * {@link org.universAAL.middleware.acl.SodaPopPeer SodaPopPeer} using a
+ * specific underlying technology like "UPnP" and "R-OSGi", which is called here
  * the protocol.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
+ * 
  */
 public interface P2PConnector {
-	/**
-	 * Adds a {@link org.universAAL.middleware.acl.PeerDiscoveryListener 
-	 * PeerDiscoveryListener} willing to be notified whenever a new remote
-	 * instance of SodaPopPeer is discovered.
-	 * 
-	 * @param listener the listener to be added.
-	 */
-	public void addPeerDiscoveryListener(PeerDiscoveryListener listener);
-	
-	/**
-	 * Returns the ID of the underlying technology for the implementation of
-	 * this P2PConnector (e.g. "UPnP" or "R-OSGi"), which is called here the
-	 * protocol.
-	 */
-	public String getProtocol();
-	
-	/**
-	 * A component bridging between this P2PConnector and another P2PConnector
-	 * that uses another "protocol" may call this method in order to notify
-	 * this P2PConnector that a peer previously found by the other protocol
-	 * is now lost.
-	 * 
-	 * @param peerID The ID of the lost SodaPopPeer.
-	 */
-	public void noticeLostBridgedPeer(String peerID);
-	
-	/**
-	 * A component bridging between this P2PConnector and another P2PConnector
-	 * that uses another "protocol" may call this method in order to notify
-	 * this P2PConnector that a new peer was found by the other protocol so
-	 * that this P2PConnector can relay it to its own network.
-	 * 
-	 * @param newPeer The new peer.
-	 */
-	public void noticeNewBridgedPeer(SodaPopPeer newPeer);
-	
-	/**
-	 * The single local instance of SodaPopPeer that wants to be accessible
-	 * to its remote peers uses this method to register to this P2PConnector.
-	 * It must allow only for one registration.
-	 * 
-	 * @param localInstance the single local instance of SodaPopPeer
-	 */
-	public void register(SodaPopPeer localInstance);
+    /**
+     * Adds a {@link org.universAAL.middleware.acl.PeerDiscoveryListener
+     * PeerDiscoveryListener} willing to be notified whenever a new remote
+     * instance of SodaPopPeer is discovered.
+     * 
+     * @param listener
+     *            the listener to be added.
+     */
+    public void addPeerDiscoveryListener(PeerDiscoveryListener listener);
+
+    /**
+     * Returns the ID of the underlying technology for the implementation of
+     * this P2PConnector (e.g. "UPnP" or "R-OSGi"), which is called here the
+     * protocol.
+     */
+    public String getProtocol();
+
+    /**
+     * A component bridging between this P2PConnector and another P2PConnector
+     * that uses another "protocol" may call this method in order to notify this
+     * P2PConnector that a peer previously found by the other protocol is now
+     * lost.
+     * 
+     * @param peerID
+     *            The ID of the lost SodaPopPeer.
+     */
+    public void noticeLostBridgedPeer(String peerID);
+
+    /**
+     * A component bridging between this P2PConnector and another P2PConnector
+     * that uses another "protocol" may call this method in order to notify this
+     * P2PConnector that a new peer was found by the other protocol so that this
+     * P2PConnector can relay it to its own network.
+     * 
+     * @param newPeer
+     *            The new peer.
+     */
+    public void noticeNewBridgedPeer(SodaPopPeer newPeer);
+
+    /**
+     * The single local instance of SodaPopPeer that wants to be accessible to
+     * its remote peers uses this method to register to this P2PConnector. It
+     * must allow only for one registration.
+     * 
+     * @param localInstance
+     *            the single local instance of SodaPopPeer
+     */
+    public void register(SodaPopPeer localInstance);
 }

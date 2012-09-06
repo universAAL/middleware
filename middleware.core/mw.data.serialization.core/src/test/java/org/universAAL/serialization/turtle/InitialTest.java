@@ -58,7 +58,7 @@ public class InitialTest extends TestCase {
 	System.out.println();
 	System.out.println();
     }
-    
+
     public void testRestriction() {
 	if (true)
 	    return;
@@ -66,22 +66,26 @@ public class InitialTest extends TestCase {
 	Enumeration e = new Enumeration();
 	e.addValue(Boolean.FALSE);
 	e.addValue(Boolean.TRUE);
-	
-	MergedRestriction r = new MergedRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE);
-	
-	r.addRestriction(new AllValuesFromRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE, new TypeURI(
-		TypeMapper.getDatatypeURI(Boolean.class), true)));
-	r.addRestriction(new ExactCardinalityRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE, one.intValue()));
-	r.addRestriction(new SomeValuesFromRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE, e));
-	
-//	Restriction r = new Restriction();
-//	r.setProperty(Restriction.PROP_OWL_ON_PROPERTY,
-//		Restriction.PROP_OWL_HAS_VALUE);
-//	
-//	r.setProperty(Restriction.PROP_OWL_ALL_VALUES_FROM, new TypeURI(
-//		TypeMapper.getDatatypeURI(Boolean.class), true));
-//	r.setProperty(Restriction.PROP_OWL_CARDINALITY, one);
-//	r.setProperty(Restriction.PROP_OWL_SOME_VALUES_FROM, e);
+
+	MergedRestriction r = new MergedRestriction(
+		HasValueRestriction.PROP_OWL_HAS_VALUE);
+
+	r.addRestriction(new AllValuesFromRestriction(
+		HasValueRestriction.PROP_OWL_HAS_VALUE, new TypeURI(TypeMapper
+			.getDatatypeURI(Boolean.class), true)));
+	r.addRestriction(new ExactCardinalityRestriction(
+		HasValueRestriction.PROP_OWL_HAS_VALUE, one.intValue()));
+	r.addRestriction(new SomeValuesFromRestriction(
+		HasValueRestriction.PROP_OWL_HAS_VALUE, e));
+
+	// Restriction r = new Restriction();
+	// r.setProperty(Restriction.PROP_OWL_ON_PROPERTY,
+	// Restriction.PROP_OWL_HAS_VALUE);
+	//	
+	// r.setProperty(Restriction.PROP_OWL_ALL_VALUES_FROM, new TypeURI(
+	// TypeMapper.getDatatypeURI(Boolean.class), true));
+	// r.setProperty(Restriction.PROP_OWL_CARDINALITY, one);
+	// r.setProperty(Restriction.PROP_OWL_SOME_VALUES_FROM, e);
 
 	String str = s.serialize(r);
 	System.out.println(str);

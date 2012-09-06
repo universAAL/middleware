@@ -22,43 +22,45 @@ import org.universAAL.middleware.api.exception.SimplifiedRegistrationException;
 public class AnnotationScanner {
     private UniversAALService serviceAnnotation;
     private OntologyClasses resourceClasses;
-    private Map<String, ServiceOperation> methodServiceOperation= new HashMap<String, ServiceOperation>();
-    private Map<String, List<Output>> methodOutputs= new HashMap<String, List<Output>>();
-    private Map<String, List<Input>> methodInputs= new HashMap<String, List<Input>>();
-    private Map<String, List<ChangeEffect>> methodChangeEffects= new HashMap<String, List<ChangeEffect>>();
+    private Map<String, ServiceOperation> methodServiceOperation = new HashMap<String, ServiceOperation>();
+    private Map<String, List<Output>> methodOutputs = new HashMap<String, List<Output>>();
+    private Map<String, List<Input>> methodInputs = new HashMap<String, List<Input>>();
+    private Map<String, List<ChangeEffect>> methodChangeEffects = new HashMap<String, List<ChangeEffect>>();
     private Map<String, List<String>> annotatedMethodsParametersNames = new HashMap<String, List<String>>();
-	
+
     private String namespace;
     private String name;
-    
+
     private Class scannedClazz;
-    
-    public AnnotationScanner(Class scannedClazz){
+
+    public AnnotationScanner(Class scannedClazz) {
 	this.scannedClazz = scannedClazz;
     }
-    
-    public static String createServiceUri(String namespace, String serviceName, String methodName) {
+
+    public static String createServiceUri(String namespace, String serviceName,
+	    String methodName) {
 	return namespace + methodName;
     }
-    
-    public static String createParameterUri(String namespace, String serviceName, String parameterUri) {
+
+    public static String createParameterUri(String namespace,
+	    String serviceName, String parameterUri) {
 	return namespace + parameterUri;
-    }    
-    
-    public void scan() throws SimplifiedRegistrationException{
+    }
+
+    public void scan() throws SimplifiedRegistrationException {
 	for (Annotation a : scannedClazz.getAnnotations()) {
-		if (a.annotationType().equals(UniversAALService.class)) {
-		    serviceAnnotation = (UniversAALService) a;
-		    namespace = ((UniversAALService) a).namespace();
-		    name = ((UniversAALService) a).name();
-		    if ("".equals(name)) {
-			name = scannedClazz.getSimpleName();
-		    }
-		} else if (a.annotationType().equals(OntologyClasses.class)) {
-		    resourceClasses = (OntologyClasses) a;
+	    if (a.annotationType().equals(UniversAALService.class)) {
+		serviceAnnotation = (UniversAALService) a;
+		namespace = ((UniversAALService) a).namespace();
+		name = ((UniversAALService) a).name();
+		if ("".equals(name)) {
+		    name = scannedClazz.getSimpleName();
 		}
+	    } else if (a.annotationType().equals(OntologyClasses.class)) {
+		resourceClasses = (OntologyClasses) a;
 	    }
-	
+	}
+
 	for (Method m : scannedClazz.getMethods()) {
 	    List<Output> methodOutputAnnotations = new ArrayList<Output>();
 	    List<Input> methodInputsAnnotations = new ArrayList<Input>();
@@ -66,7 +68,8 @@ public class AnnotationScanner {
 	    String serviceName = "";
 	    for (Annotation a : m.getAnnotations()) {
 		if (a.annotationType().equals(ServiceOperation.class)) {
-		    methodServiceOperation.put(m.getName(), (ServiceOperation)a);
+		    methodServiceOperation.put(m.getName(),
+			    (ServiceOperation) a);
 		    serviceName = ((ServiceOperation) a).value();
 		    if ("".equals(serviceName)) {
 			serviceName = m.getName();
@@ -95,9 +98,9 @@ public class AnnotationScanner {
 		    String name = m.getName();
 		    String outputName = null;
 		    if (name.startsWith("get") && name.length() > 3) {
-			outputName = String.format("%s%s",
-				Character.toLowerCase(name.charAt(3)), name
-					.substring(4));
+			outputName = String
+				.format("%s%s", Character.toLowerCase(name
+					.charAt(3)), name.substring(4));
 		    }
 		    final String finalOutputName = outputName;
 		    Output inferredOutput = new Output() {
@@ -123,84 +126,90 @@ public class AnnotationScanner {
 		    };
 		    methodOutputAnnotations.add(inferredOutput);
 		}
-	    }	    
-	    methodOutputs.put(createServiceUri(namespace, name, serviceName), methodOutputAnnotations);
-	    methodChangeEffects.put(createServiceUri(namespace, name, serviceName), methodChangeEffectsAnnotations);
+	    }
+	    methodOutputs.put(createServiceUri(namespace, name, serviceName),
+		    methodOutputAnnotations);
+	    methodChangeEffects.put(createServiceUri(namespace, name,
+		    serviceName), methodChangeEffectsAnnotations);
 	    Annotation[][] parameterAnnotations = m.getParameterAnnotations();
 	    for (int i = 0; i < parameterAnnotations.length; i++) {
-		Input input = null;    
+		Input input = null;
 		for (int j = 0; j < parameterAnnotations[i].length; j++) {
-			if (parameterAnnotations[i][j].annotationType().equals(
-				Input.class)) {
-			    input = (Input) parameterAnnotations[i][j];
-			    break;
-			}
+		    if (parameterAnnotations[i][j].annotationType().equals(
+			    Input.class)) {
+			input = (Input) parameterAnnotations[i][j];
+			break;
 		    }
-		if (input == null){
-		    throw new SimplifiedRegistrationException("Does not found @input annotation for " + i + " parameter of " + m.getName() + " method!");
+		}
+		if (input == null) {
+		    throw new SimplifiedRegistrationException(
+			    "Does not found @input annotation for " + i
+				    + " parameter of " + m.getName()
+				    + " method!");
 		}
 		methodInputsAnnotations.add(input);
 	    }
-	    methodInputs.put(createServiceUri(namespace, name, serviceName), methodInputsAnnotations);
+	    methodInputs.put(createServiceUri(namespace, name, serviceName),
+		    methodInputsAnnotations);
 	}
     }
 
     public UniversAALService getServiceAnnotation() {
-        return serviceAnnotation;
+	return serviceAnnotation;
     }
 
     public void setServiceAnnotation(UniversAALService serviceAnnotation) {
-        this.serviceAnnotation = serviceAnnotation;
+	this.serviceAnnotation = serviceAnnotation;
     }
 
     public OntologyClasses getResourceClasses() {
-        return resourceClasses;
+	return resourceClasses;
     }
 
     public void setResourceClasses(OntologyClasses resourceClasses) {
-        this.resourceClasses = resourceClasses;
+	this.resourceClasses = resourceClasses;
     }
 
     public Map<String, ServiceOperation> getMethodServiceOperation() {
-        return methodServiceOperation;
+	return methodServiceOperation;
     }
 
     public void setMethodServiceOperation(
-    	Map<String, ServiceOperation> methodServiceOperation) {
-        this.methodServiceOperation = methodServiceOperation;
+	    Map<String, ServiceOperation> methodServiceOperation) {
+	this.methodServiceOperation = methodServiceOperation;
     }
 
     public Map<String, List<Output>> getMethodOutputs() {
-        return methodOutputs;
+	return methodOutputs;
     }
 
     public void setMethodOutputs(Map<String, List<Output>> methodOutputs) {
-        this.methodOutputs = methodOutputs;
+	this.methodOutputs = methodOutputs;
     }
 
     public Map<String, List<Input>> getMethodInputs() {
-        return methodInputs;
+	return methodInputs;
     }
 
     public void setMethodInputs(Map<String, List<Input>> methodInputs) {
-        this.methodInputs = methodInputs;
+	this.methodInputs = methodInputs;
     }
 
     public Map<String, List<ChangeEffect>> getMethodChangeEffects() {
-        return methodChangeEffects;
+	return methodChangeEffects;
     }
 
     public void setMethodChangeEffects(
-    	Map<String, List<ChangeEffect>> methodChangeEffects) {
-        this.methodChangeEffects = methodChangeEffects;
+	    Map<String, List<ChangeEffect>> methodChangeEffects) {
+	this.methodChangeEffects = methodChangeEffects;
     }
 
     public Class getScannedClazz() {
-        return scannedClazz;
+	return scannedClazz;
     }
 
     public void setScannedClazz(Class scannedClazz) {
-        this.scannedClazz = scannedClazz;
+	this.scannedClazz = scannedClazz;
     }
 
     public void setNamespace(String namespace) {

@@ -29,68 +29,80 @@ import org.universAAL.middleware.acl.SodaPopPeer;
 
 /**
  * UpnP GetIDAction implementation
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+ * 
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
 public class GetIdAction implements UPnPAction {
 
-	public final static String NAME = "GetID";
-	public final static String RESULT_ID = "ResultID";
-	final private String[] OUT_ARG_NAMES = new String[]{RESULT_ID};
-	private UPnPStateVariable peerId;
-	private SodaPopPeer localPeer;
-	
-	
-	public GetIdAction(SodaPopPeer localPeer,UPnPStateVariable peerId){
-		this.peerId = peerId;
-		this.localPeer = localPeer;
-	}
+    public final static String NAME = "GetID";
+    public final static String RESULT_ID = "ResultID";
+    final private String[] OUT_ARG_NAMES = new String[] { RESULT_ID };
+    private UPnPStateVariable peerId;
+    private SodaPopPeer localPeer;
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getName()
-	 */
-	public String getName() {
-		return NAME;
-	}
+    public GetIdAction(SodaPopPeer localPeer, UPnPStateVariable peerId) {
+	this.peerId = peerId;
+	this.localPeer = localPeer;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getReturnArgumentName()
-	 */
-	public String getReturnArgumentName() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getName()
+     */
+    public String getName() {
+	return NAME;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getInputArgumentNames()
-	 */
-	public String[] getInputArgumentNames() {
-		
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getReturnArgumentName()
+     */
+    public String getReturnArgumentName() {
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getOutputArgumentNames()
-	 */
-	public String[] getOutputArgumentNames() {
-		return OUT_ARG_NAMES;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getInputArgumentNames()
+     */
+    public String[] getInputArgumentNames() {
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getStateVariable(java.lang.String)
-	 */
-	public UPnPStateVariable getStateVariable(String argumentName) {
-		return peerId;
-	}
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#invoke(java.util.Dictionary)
-	 */
-	public Dictionary invoke(Dictionary args) throws Exception {
-		//System.out.println("LOCAL_PEER:: GetID invoked");
-		String id = localPeer.getID();
-		Hashtable result = new Hashtable();
-		result.put(RESULT_ID,id);
-		//System.out.println("LOCAL_PEER:: GetID returning ## " +id);
-		return result;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getOutputArgumentNames()
+     */
+    public String[] getOutputArgumentNames() {
+	return OUT_ARG_NAMES;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getStateVariable(java.lang.String)
+     */
+    public UPnPStateVariable getStateVariable(String argumentName) {
+	return peerId;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#invoke(java.util.Dictionary)
+     */
+    public Dictionary invoke(Dictionary args) throws Exception {
+	// System.out.println("LOCAL_PEER:: GetID invoked");
+	String id = localPeer.getID();
+	Hashtable result = new Hashtable();
+	result.put(RESULT_ID, id);
+	// System.out.println("LOCAL_PEER:: GetID returning ## " +id);
+	return result;
+    }
 }

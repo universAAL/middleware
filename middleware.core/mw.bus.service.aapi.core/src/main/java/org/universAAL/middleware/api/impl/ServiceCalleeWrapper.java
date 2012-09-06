@@ -51,8 +51,7 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 	    Map<String, List<String>> annotatedOutputNames,
 	    Map<String, List<Output>> annotatedOutputs,
 	    Map<String, List<String>> annotatedMethodsParametersNames,
-	    Map<String, List<Input>> annotatedMethodsParameters
-	    ) {
+	    Map<String, List<Input>> annotatedMethodsParameters) {
 	super(context, realizedServices);
 
 	this.profiles = realizedServices;
@@ -108,7 +107,8 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 		    Object[] inputs = new Object[methodParametersNames.size()];
 		    List<String> conversionErrors = new ArrayList<String>();
 		    for (int i = 0; i < methodParametersNames.size(); i++) {
-			Input inputAnnotation = annotatedMethodsParameters.get(s).get(i);
+			Input inputAnnotation = annotatedMethodsParameters.get(
+				s).get(i);
 			Object input = null;
 			input = call
 				.getInputValue(methodParametersNames.get(i));
@@ -131,7 +131,7 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 				} else {
 				    inputs[i] = input;
 				}
-				
+
 			    } catch (ClassCastException cce) {
 				cce.printStackTrace();
 				conversionErrors.add(methodParametersNames
@@ -161,17 +161,23 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 			    // that means that the return object should be an
 			    // object array and
 			    // each of its elements are single output sequenced
-			    if (retObj instanceof Object[]){
-				Object[] tempObjArray = (Object[])retObj;
-				if (tempObjArray.length != outputs.size()){
+			    if (retObj instanceof Object[]) {
+				Object[] tempObjArray = (Object[]) retObj;
+				if (tempObjArray.length != outputs.size()) {
 				    return prepareErrorResponse("Different @Output annotations numbers than returned array lenght:\n"
-						+ "@Output size: " + outputs.size() + " , returned array lenght : " + tempObjArray.length);  
+					    + "@Output size: "
+					    + outputs.size()
+					    + " , returned array lenght : "
+					    + tempObjArray.length);
 				}
-				for(int i = 0 ; i < outputs.size() ; i++){
-				    sr.addOutput(new ProcessOutput(outputs.get(i), convertArrayToList(tempObjArray[i])));
+				for (int i = 0; i < outputs.size(); i++) {
+				    sr
+					    .addOutput(new ProcessOutput(
+						    outputs.get(i),
+						    convertArrayToList(tempObjArray[i])));
 				}
-				
-			    }else{
+
+			    } else {
 				return prepareErrorResponse("Error during ServiceRequest outputs and results processing:\n"
 					+ "If multiple @Output are provided then method should return Object[]");
 			    }
@@ -184,7 +190,6 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 			    sr.addOutput(new ProcessOutput(outVal, retObj));
 			}
 
-			
 		    }
 		    boolean allowUnbound = false;
 		    for (Output output : annotatedOutputs.get(s)) {
@@ -201,19 +206,19 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 	    return sr;
 	} catch (Exception e) {
 	    e.printStackTrace();
-	    return prepareErrorResponse("Exception during wrapped handleCall:" + e.getMessage());
+	    return prepareErrorResponse("Exception during wrapped handleCall:"
+		    + e.getMessage());
 	}
     }
-    
-    private ServiceResponse prepareErrorResponse(String message){
-	 ServiceResponse invalidInput = new ServiceResponse(
-		    CallStatus.serviceSpecificFailure);
-	    invalidInput.addOutput(new ProcessOutput(
-		    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
-		    message));
-	    return invalidInput;
+
+    private ServiceResponse prepareErrorResponse(String message) {
+	ServiceResponse invalidInput = new ServiceResponse(
+		CallStatus.serviceSpecificFailure);
+	invalidInput.addOutput(new ProcessOutput(
+		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, message));
+	return invalidInput;
     }
-    
+
     private Object convertArrayToList(Object retObj) {
 	if (retObj instanceof Object[]) {
 	    Object[] tempArray = (Object[]) retObj;
@@ -225,7 +230,7 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 	}
 	return retObj;
     }
-    
+
     public void setProfiles(ServiceProfile[] profiles) {
 	this.profiles = profiles;
     }

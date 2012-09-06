@@ -84,7 +84,7 @@ public class TurtleParser implements MessageContentSerializerEx {
      * {@link RefData}.
      */
     private class ParseData {
-	//String label = null;
+	// String label = null;
 	List refs = new ArrayList(3);
     }
 
@@ -168,12 +168,12 @@ public class TurtleParser implements MessageContentSerializerEx {
 
     public synchronized Object deserialize(String serialized) {
 	return deserialize(serialized, null);
-//	if (serialized == null)
-//	    return null;
-//
-//	firstResource = null;
-//
-//	return deserialize(serialized, false, null);
+	// if (serialized == null)
+	// return null;
+	//
+	// firstResource = null;
+	//
+	// return deserialize(serialized, false, null);
     }
 
     public synchronized Object deserialize(String serialized, String resourceURI) {
@@ -187,7 +187,8 @@ public class TurtleParser implements MessageContentSerializerEx {
 	return o;
     }
 
-    private Object deserialize(String serialized, boolean wasXMLLiteral, String resourceURI) {
+    private Object deserialize(String serialized, boolean wasXMLLiteral,
+	    String resourceURI) {
 	try {
 	    parse(new StringReader(serialized), "");
 	    Resource result = finalizeAndGetRoot(resourceURI);
@@ -220,7 +221,6 @@ public class TurtleParser implements MessageContentSerializerEx {
 	}
     }
 
-    
     private String stringifyRefData(Object key, RefData rd) {
 	String buf = "\n        ";
 	if (rd != null) {
@@ -230,7 +230,7 @@ public class TurtleParser implements MessageContentSerializerEx {
 	}
 	return buf;
     }
-    
+
     private void logOpenItems(String text, Hashtable openItems) {
 	Object[] msgParts = new Object[openItems.size() + 1];
 	msgParts[0] = text;
@@ -245,7 +245,7 @@ public class TurtleParser implements MessageContentSerializerEx {
 	LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
 		"logOpenItems", msgParts, null);
     }
-    
+
     private Resource finalizeAndGetRoot(String resourceURI) {
 	Resource aux;
 	Resource specialized;
@@ -254,30 +254,31 @@ public class TurtleParser implements MessageContentSerializerEx {
 	Hashtable specializedResources = new Hashtable();
 
 	// some debug output
-//	if (resources.size() != 0) {
-//	    Object[] msgParts = new Object[2];
-//	    msgParts[0] = "Parse Tables\n";
-//	    String buf = "";
-//	    for (Iterator i = resources.values().iterator(); i.hasNext();) {
-//		aux = (Resource) i.next();
-//		ParseData pd = (ParseData) parseTable.get(aux);
-//		buf += "    Resource: " + aux.getURI() + (pd==null?" pd=null\n":"\n");
-//		if (pd != null && pd.refs != null) {
-//		    for (Iterator j = pd.refs.iterator(); j.hasNext();) {
-//			RefData rd = (RefData) j.next();
-//			buf += "          src:  " + rd.src + "\n";
-//			buf += "          prop: " + rd.prop;
-//			if (rd.l != null)
-//			    buf += "   (List, index " + rd.i + ")";
-//			buf += "\n";
-//		    }
-//		}
-//	    }
-//	    msgParts[1] = buf;
-//	    LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
-//		    "finalizeAndGetRoot", msgParts, null);
-//	}
-	
+	// if (resources.size() != 0) {
+	// Object[] msgParts = new Object[2];
+	// msgParts[0] = "Parse Tables\n";
+	// String buf = "";
+	// for (Iterator i = resources.values().iterator(); i.hasNext();) {
+	// aux = (Resource) i.next();
+	// ParseData pd = (ParseData) parseTable.get(aux);
+	// buf += "    Resource: " + aux.getURI() +
+	// (pd==null?" pd=null\n":"\n");
+	// if (pd != null && pd.refs != null) {
+	// for (Iterator j = pd.refs.iterator(); j.hasNext();) {
+	// RefData rd = (RefData) j.next();
+	// buf += "          src:  " + rd.src + "\n";
+	// buf += "          prop: " + rd.prop;
+	// if (rd.l != null)
+	// buf += "   (List, index " + rd.i + ")";
+	// buf += "\n";
+	// }
+	// }
+	// }
+	// msgParts[1] = buf;
+	// LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
+	// "finalizeAndGetRoot", msgParts, null);
+	// }
+
 	for (Iterator i = resources.values().iterator(); i.hasNext();) {
 	    aux = (Resource) i.next();
 	    i.remove();
@@ -319,8 +320,8 @@ public class TurtleParser implements MessageContentSerializerEx {
 		}
 	}
 
-	//logOpenItems("Open Items:", openItems);
-	
+	// logOpenItems("Open Items:", openItems);
+
 	int size = Integer.MAX_VALUE;
 	while (!openItems.isEmpty() && size > openItems.size()) {
 	    size = openItems.size();
@@ -409,7 +410,7 @@ public class TurtleParser implements MessageContentSerializerEx {
 		if (uri.startsWith("_:")) {
 		    // bNode ID
 		    r = new Resource();
-		    //getData(r).label = uri;
+		    // getData(r).label = uri;
 		} else
 		    r = new Resource(uri);
 		resources.put(uri, r);

@@ -142,9 +142,9 @@ public class UIBusImpl extends AbstractBus implements UIBus {
     }
 
     protected BusStrategy createBusStrategy(SodaPop sodapop) {
-		return new UIStrategy(sodapop);
-	}
-    
+	return new UIStrategy(sodapop);
+    }
+
     /**
      * Closes a running dialog
      * 
@@ -174,8 +174,8 @@ public class UIBusImpl extends AbstractBus implements UIBus {
      * @param changedProp
      *            Property that has been changed since last time
      */
-    public void adaptationParametersChanged(DialogManager dm, UIRequest uiRequest,
-	    String changedProp) {
+    public void adaptationParametersChanged(DialogManager dm,
+	    UIRequest uiRequest, String changedProp) {
 	((UIStrategy) busStrategy).adaptationParametersChanged(dm, uiRequest,
 		changedProp);
     }
@@ -202,7 +202,6 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 			newSubscription);
 	}
     }
-
 
     public void dialogFinished(String subscriberID, UIResponse input) {
 	if (input != null

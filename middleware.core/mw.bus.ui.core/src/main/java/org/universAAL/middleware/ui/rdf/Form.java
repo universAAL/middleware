@@ -157,13 +157,13 @@ public class Form extends FinalizedResource {
 
     /**
      * An optional property of form objects to indicate which form control
-     * should receive the focus when UI handlers start to present the dialog.
-     * It will be set automatically by the middleware whenever a running dialog
-     * is cut so that a seamless resumption of the dialog at a later point in
-     * time is guaranteed. UI handlers should check if this property is set. If
-     * yes, then they must simulate their logic of presenting the form until
-     * they reach the form control given as value of this property. At this
-     * point they can prompt the user for the next data entry.
+     * should receive the focus when UI handlers start to present the dialog. It
+     * will be set automatically by the middleware whenever a running dialog is
+     * cut so that a seamless resumption of the dialog at a later point in time
+     * is guaranteed. UI handlers should check if this property is set. If yes,
+     * then they must simulate their logic of presenting the form until they
+     * reach the form control given as value of this property. At this point
+     * they can prompt the user for the next data entry.
      */
     public static final String PROP_DIALOG_CURRENT_FOCUSED_CONTROL = uAAL_DIALOG_NAMESPACE
 	    + "currentFocus";
