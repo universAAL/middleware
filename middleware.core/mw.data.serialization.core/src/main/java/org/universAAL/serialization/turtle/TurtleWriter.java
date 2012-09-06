@@ -130,7 +130,7 @@ public class TurtleWriter {
 
     /** Counter for URIs of blind nodes. */
     private int counter = 0;
-    
+
     private boolean isOntology = false;
 
     /** Create a new instance with the specified output stream and indentation. */
@@ -474,23 +474,24 @@ public class TurtleWriter {
 	firstPropWritten = true;
     }
 
-//    private void printSerData() {
-//	for (Iterator it = bNodes.keySet().iterator(); it.hasNext();) {
-//	    Object o = it.next();
-//	    SerData d1 = (SerData) bNodes.get(o);
-//	    System.out.println("bNodes: " + o + " nodeid: " + d1.nodeID + " types: " + d1.types + " refs: " + d1.refs);
-//	}
-//	for (Iterator it = uriNodes.keySet().iterator(); it.hasNext();) {
-//	    Object o = it.next();
-//	    SerData d1 = (SerData) uriNodes.get(o);
-//	    System.out.println("uriNodes: " + o + " nodeid: " + d1.nodeID + " types: " + d1.types + " refs: " + d1.refs);
-//	}
-//    }
+    // private void printSerData() {
+    // for (Iterator it = bNodes.keySet().iterator(); it.hasNext();) {
+    // Object o = it.next();
+    // SerData d1 = (SerData) bNodes.get(o);
+    // System.out.println("bNodes: " + o + " nodeid: " + d1.nodeID + " types: "
+    // + d1.types + " refs: " + d1.refs);
+    // }
+    // for (Iterator it = uriNodes.keySet().iterator(); it.hasNext();) {
+    // Object o = it.next();
+    // SerData d1 = (SerData) uriNodes.get(o);
+    // System.out.println("uriNodes: " + o + " nodeid: " + d1.nodeID +
+    // " types: " + d1.types + " refs: " + d1.refs);
+    // }
+    // }
 
     /**
-     * Serialization of an ontology. This method first analyzes the graph
-     * (e.g. to get the namespaces) and then writes the data to the output
-     * stream.
+     * Serialization of an ontology. This method first analyzes the graph (e.g.
+     * to get the namespaces) and then writes the data to the output stream.
      */
     void serialize(Ontology ont) throws IOException {
 	// Note: not the most performant realization, but ontologies are assumed
@@ -505,41 +506,43 @@ public class TurtleWriter {
 	Resource[] infos = ont.getResourceList();
 	SerData d[] = new SerData[infos.length];
 	Resource res;
-	
+
 	// analyze all classes
-	for (int i=0; i<infos.length; i++) {
+	for (int i = 0; i < infos.length; i++) {
 	    d[i] = new SerData();
 	    d[i].redType = Resource.PROP_SERIALIZATION_FULL;
 	    res = infos[i];
 	    (res.isAnon() ? bNodes : uriNodes).put(res, d[i]);
-	    //System.out.println("Analyzing Resource: " + res.toStringRecursive());
+	    // System.out.println("Analyzing Resource: " +
+	    // res.toStringRecursive());
 	    analyzeResource(res, nsTable);
 	    finalizeNodes(res, nsTable);
 	    d[i].refs = 0;
 	    bNodes.clear();
 	    uriNodes.clear();
 	}
-	
-	//printSerData();
-	
+
+	// printSerData();
+
 	// serialize
 	counter = 0;
 	Hashtable dummyNsTable = new Hashtable();
 	writeEOL();
 	writeNamespaces(nsTable);
-	for (int i=0; i<infos.length; i++) {
+	for (int i = 0; i < infos.length; i++) {
 	    res = infos[i];
-	    //System.out.println("Writing Resource: " + res.toStringRecursive());
-	    //writer.write("--- Writing Resource: " + res.toString() + "\n");
-	    
+	    // System.out.println("Writing Resource: " +
+	    // res.toStringRecursive());
+	    // writer.write("--- Writing Resource: " + res.toString() + "\n");
+
 	    (res.isAnon() ? bNodes : uriNodes).put(res, d[i]);
 
 	    analyzeResource(res, dummyNsTable);
 	    finalizeNodes(res, dummyNsTable);
 	    d[i].refs--;
-	    
+
 	    writeResource(res);
-	    
+
 	    bNodes.clear();
 	    uriNodes.clear();
 	}
@@ -548,7 +551,7 @@ public class TurtleWriter {
 	writer.flush();
 	writingStarted = false;
     }
-    
+
     /**
      * Serialization of the RDF graph. This method first analyzes the graph
      * (e.g. to get the namespaces) and then writes the data to the output
@@ -568,8 +571,8 @@ public class TurtleWriter {
 	finalizeNodes(root, nsTable);
 	d.refs--;
 
-	//printSerData();
-	    
+	// printSerData();
+
 	// serialize
 	writeEOL();
 	writeNamespaces(nsTable);
@@ -695,7 +698,7 @@ public class TurtleWriter {
 
     /** Write a Resource to the output stream. */
     private void writeResource(Resource res) throws IOException {
-	//System.out.println("writeResource: " + res);
+	// System.out.println("writeResource: " + res);
 	SerData d = (SerData) bNodes.get(res);
 	if (d == null) {
 	    d = (SerData) uriNodes.get(res);

@@ -37,9 +37,9 @@ import org.universAAL.middleware.rdf.Resource;
  * for another dialog to finish).
  * 
  * This interface is supposed to be implemented by exactly one component. The
- * first component that registers as a UICaller to the UI bus (and
- * implements this interface) blocks the registration of any further
- * implementation of this interface.
+ * first component that registers as a UICaller to the UI bus (and implements
+ * this interface) blocks the registration of any further implementation of this
+ * interface.
  * 
  * @author mtazari
  * @author eandgrg

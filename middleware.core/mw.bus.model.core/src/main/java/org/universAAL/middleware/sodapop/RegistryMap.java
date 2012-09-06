@@ -26,54 +26,54 @@ import java.util.Map;
 
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Apr 20, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Apr 20, 2012
+ * 
  */
 public class RegistryMap extends Object implements IRegistry {
 
-	protected Map map = new HashMap();
-	
-	public void addBusMember(String memberID, BusMember busMember) {
-		map.put(memberID, busMember);
-	}
-	
-	public BusMember removeMemberByID(String memberID) {
-		return (BusMember) map.remove(memberID);
-	}
+    protected Map map = new HashMap();
 
-	public BusMember[] getAllBusMembers() {
-		return (BusMember[]) map.values().toArray(new BusMember[0]);
-	}
+    public void addBusMember(String memberID, BusMember busMember) {
+	map.put(memberID, busMember);
+    }
 
-	public String[] getAllBusMembersIds() {
-		return (String[]) map.keySet().toArray(new String[0]);
-	}
+    public BusMember removeMemberByID(String memberID) {
+	return (BusMember) map.remove(memberID);
+    }
 
-	public BusMember getBusMemberByID(String memberID) {
-		return (memberID == null) ? null : (BusMember) map.get(memberID);
-	}
+    public BusMember[] getAllBusMembers() {
+	return (BusMember[]) map.values().toArray(new BusMember[0]);
+    }
 
-	public String getBusMemberID(BusMember busMember) {
-		String result = null;
-		if (busMember != null) {
-			for (Iterator i = map.keySet().iterator(); i.hasNext();) {
-				String id = (String) i.next();
-				if (busMember.equals(map.get(id))) {
-					result = id;
-					break;
-				}
-			}
+    public String[] getAllBusMembersIds() {
+	return (String[]) map.keySet().toArray(new String[0]);
+    }
+
+    public BusMember getBusMemberByID(String memberID) {
+	return (memberID == null) ? null : (BusMember) map.get(memberID);
+    }
+
+    public String getBusMemberID(BusMember busMember) {
+	String result = null;
+	if (busMember != null) {
+	    for (Iterator i = map.keySet().iterator(); i.hasNext();) {
+		String id = (String) i.next();
+		if (busMember.equals(map.get(id))) {
+		    result = id;
+		    break;
 		}
-		return result;
+	    }
 	}
+	return result;
+    }
 
-	public int getBusMembersCount() {
-		return map.size();
-	}
+    public int getBusMembersCount() {
+	return map.size();
+    }
 
-	public void reset() {
-		map.clear();
-	}
+    public void reset() {
+	map.clear();
+    }
 }

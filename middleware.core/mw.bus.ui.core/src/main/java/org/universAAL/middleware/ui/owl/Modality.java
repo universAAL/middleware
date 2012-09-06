@@ -43,7 +43,7 @@ public class Modality extends ManagedIndividual {
     public static final int MOBILE = 5;
 
     private static final String[] names = { "voice", "gui", "gesture", "sms",
-	    "web" , "mobile"};
+	    "web", "mobile" };
 
     public static final Modality voice = new Modality(VOICE);
     public static final Modality gui = new Modality(GUI);

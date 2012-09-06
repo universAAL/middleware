@@ -49,8 +49,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	StackTraceElement callingMethod = Thread.currentThread()
 		.getStackTrace()[2];
 	LogUtils.logInfo(ContextBusImpl.moduleContext, getClass(),
-		callingMethod.getMethodName(),
-		new Object[] { formatMsg(format, new Object[] { args }) }, null);
+		callingMethod.getMethodName(), new Object[] { formatMsg(format,
+			new Object[] { args }) }, null);
     }
 
     /**
@@ -62,8 +62,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	StackTraceElement callingMethod = Thread.currentThread()
 		.getStackTrace()[2];
 	LogUtils.logError(ContextBusImpl.moduleContext, getClass(),
-		callingMethod.getMethodName(),
-		new Object[] { formatMsg(format, new Object[] { args }) }, t);
+		callingMethod.getMethodName(), new Object[] { formatMsg(format,
+			new Object[] { args }) }, t);
     }
 
     /**
@@ -121,8 +121,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    // Assert.notNull(null,"Allowed creation of a Context Publisher with null provider info");
 	} catch (Exception e) {
 	    Assert.notNull(e);
-	    logInfo("Properly launched exception creating bad publisher %s",
-		    e.toString());
+	    logInfo("Properly launched exception creating bad publisher %s", e
+		    .toString());
 	}
 
 	// Incorrectly create a CP without info
@@ -144,7 +144,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    // Assert.notNull(null,"Allowed creation of a Context Publisher with null provider info");
 	} catch (Exception e) {
 	    Assert.notNull(e);
-	    logInfo("Created Default Context Publisher without full Provider Info",
+	    logInfo(
+		    "Created Default Context Publisher without full Provider Info",
 		    null);
 	}
 
@@ -175,13 +176,14 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	try {
 	    sub2 = new DummyContextSubscriber(ContextBusImpl.moduleContext,
 		    null);
-	    Assert.notNull(
-		    null,
-		    "Allowed creation of a Context Subscriber with null context event pattern subscription");
+	    Assert
+		    .notNull(
+			    null,
+			    "Allowed creation of a Context Subscriber with null context event pattern subscription");
 	} catch (Exception e) {
 	    Assert.notNull(e);
-	    logInfo("Properly launched exception creating bad subscriber %s",
-		    e.toString());
+	    logInfo("Properly launched exception creating bad subscriber %s", e
+		    .toString());
 	}
 
 	// Try closes of subscriber
@@ -238,8 +240,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    // Assert.notNull(null,"Allowed sending a null event");
 	} catch (Exception e) {
 	    Assert.notNull(e);
-	    logInfo("Properly launched exception sending null event %s",
-		    e.toString());
+	    logInfo("Properly launched exception sending null event %s", e
+		    .toString());
 	}
     }
 
@@ -320,7 +322,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     public void testSubscriptions() {
 	logInfo("-Test 6-", null);
 	OntologyManagement.getInstance().register(new TestOntology());
-	
+
 	SyncContextSubscriber c1, c2, c3, c4, c5, c6, c7;
 	ContextPublisher cpublisher = null;
 
@@ -463,12 +465,12 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    } catch (InterruptedException e) {
 		logError(e, "Something bad happened %s", e.toString());
 	    }
-	    logInfo("Received an event in subscriber SUBJECT: %s",
-		    event.getRDFSubject());
-	    logInfo("Received an event in subscriber PREDICATE: %s",
-		    event.getRDFPredicate());
-	    logInfo("Received an event in subscriber OBJECT: %s",
-		    event.getRDFObject());
+	    logInfo("Received an event in subscriber SUBJECT: %s", event
+		    .getRDFSubject());
+	    logInfo("Received an event in subscriber PREDICATE: %s", event
+		    .getRDFPredicate());
+	    logInfo("Received an event in subscriber OBJECT: %s", event
+		    .getRDFObject());
 	}
 
     }

@@ -31,66 +31,72 @@ import org.universAAL.middleware.acl.P2PConnector;
 import org.universAAL.middleware.acl.PeerDiscoveryListener;
 import org.universAAL.middleware.acl.SodaPopPeer;
 
-
 /**
  * @author <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- *
+ * 
  */
-public class BridgeActivator implements BundleActivator, ServiceListener, PeerDiscoveryListener {
-	private Hashtable connectors;
-	private BundleContext myBundleContext;
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-	 */
-	public void start(BundleContext context) throws Exception {
-		connectors = new Hashtable();
-		myBundleContext = context;
-		
-		context.addServiceListener(this);
-		
-		ServiceReference[] aclRefs = context.getAllServiceReferences(
-				P2PConnector.class.getName(), null);
-		for (int i=0; i<aclRefs.length; i++) {
-			ServiceReference acl = aclRefs[i];
-			P2PConnector c = (P2PConnector) context.getService(acl);
-			c.addPeerDiscoveryListener(this);
-			connectors.put(c.getProtocol(), c);
-		}
-	}
+public class BridgeActivator implements BundleActivator, ServiceListener,
+	PeerDiscoveryListener {
+    private Hashtable connectors;
+    private BundleContext myBundleContext;
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-	 */
-	public void stop(BundleContext context) throws Exception {
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
+     * )
+     */
+    public void start(BundleContext context) throws Exception {
+	connectors = new Hashtable();
+	myBundleContext = context;
 
-	public void serviceChanged(ServiceEvent se) {
-		Object service = myBundleContext.getService(se.getServiceReference());
-		if (service instanceof P2PConnector)
-			if (se.getType() == ServiceEvent.REGISTERED) {
-				((P2PConnector) service).addPeerDiscoveryListener(this);
-				connectors.put(((P2PConnector) service).getProtocol(),
-						(P2PConnector) service);
-			} else if (se.getType() == ServiceEvent.UNREGISTERING)
-				connectors.remove(((P2PConnector) service).getProtocol());
-	}
+	context.addServiceListener(this);
 
-	public void noticeLostPeer(String peerID, String discoveryProtocol) {
-		for (Iterator i = connectors.values().iterator(); i.hasNext(); ) {
-			P2PConnector c = (P2PConnector) i.next();
-			if (!c.getProtocol().equals(discoveryProtocol))
-				c.noticeLostBridgedPeer(peerID);
-		}
+	ServiceReference[] aclRefs = context.getAllServiceReferences(
+		P2PConnector.class.getName(), null);
+	for (int i = 0; i < aclRefs.length; i++) {
+	    ServiceReference acl = aclRefs[i];
+	    P2PConnector c = (P2PConnector) context.getService(acl);
+	    c.addPeerDiscoveryListener(this);
+	    connectors.put(c.getProtocol(), c);
 	}
+    }
 
-	public void noticeNewPeer(SodaPopPeer peer, String discoveryProtocol) {
-		for (Iterator i = connectors.values().iterator(); i.hasNext(); ) {
-			P2PConnector c = (P2PConnector) i.next();
-			if (!c.getProtocol().equals(discoveryProtocol))
-				c.noticeNewBridgedPeer(peer);
-		}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+     */
+    public void stop(BundleContext context) throws Exception {
+    }
+
+    public void serviceChanged(ServiceEvent se) {
+	Object service = myBundleContext.getService(se.getServiceReference());
+	if (service instanceof P2PConnector)
+	    if (se.getType() == ServiceEvent.REGISTERED) {
+		((P2PConnector) service).addPeerDiscoveryListener(this);
+		connectors.put(((P2PConnector) service).getProtocol(),
+			(P2PConnector) service);
+	    } else if (se.getType() == ServiceEvent.UNREGISTERING)
+		connectors.remove(((P2PConnector) service).getProtocol());
+    }
+
+    public void noticeLostPeer(String peerID, String discoveryProtocol) {
+	for (Iterator i = connectors.values().iterator(); i.hasNext();) {
+	    P2PConnector c = (P2PConnector) i.next();
+	    if (!c.getProtocol().equals(discoveryProtocol))
+		c.noticeLostBridgedPeer(peerID);
 	}
+    }
+
+    public void noticeNewPeer(SodaPopPeer peer, String discoveryProtocol) {
+	for (Iterator i = connectors.values().iterator(); i.hasNext();) {
+	    P2PConnector c = (P2PConnector) i.next();
+	    if (!c.getProtocol().equals(discoveryProtocol))
+		c.noticeNewBridgedPeer(peer);
+	}
+    }
 
 }

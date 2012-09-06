@@ -27,74 +27,88 @@ import org.universAAL.middleware.acl.SodaPopPeer;
 
 /**
  * UPnP LeaveBusAction implementation
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+ * 
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
 public class LeaveBusAction implements UPnPAction {
 
-	public final static String NAME = "LeaveBus";
-	public final static  String BUS_NAME = "BusName";
-	public final static  String LEAVING_PEER = "LeavingPeer";
-	final private String[] IN_ARG_NAMES = new String[]{BUS_NAME,LEAVING_PEER};
-	private UPnPStateVariable busName,leavingPeer;
-	private SodaPopPeer localPeer;
-	
-	
-	public LeaveBusAction(SodaPopPeer localPeer,UPnPStateVariable busName, UPnPStateVariable leavingPeer){
-		this.busName = busName;
-		this.leavingPeer = leavingPeer;
-		this.localPeer=localPeer;
-	}
+    public final static String NAME = "LeaveBus";
+    public final static String BUS_NAME = "BusName";
+    public final static String LEAVING_PEER = "LeavingPeer";
+    final private String[] IN_ARG_NAMES = new String[] { BUS_NAME, LEAVING_PEER };
+    private UPnPStateVariable busName, leavingPeer;
+    private SodaPopPeer localPeer;
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getName()
-	 */
-	public String getName() {
-		return NAME;
-	}
+    public LeaveBusAction(SodaPopPeer localPeer, UPnPStateVariable busName,
+	    UPnPStateVariable leavingPeer) {
+	this.busName = busName;
+	this.leavingPeer = leavingPeer;
+	this.localPeer = localPeer;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getReturnArgumentName()
-	 */
-	public String getReturnArgumentName() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getName()
+     */
+    public String getName() {
+	return NAME;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getInputArgumentNames()
-	 */
-	public String[] getInputArgumentNames() {
-		return IN_ARG_NAMES;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getReturnArgumentName()
+     */
+    public String getReturnArgumentName() {
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getOutputArgumentNames()
-	 */
-	public String[] getOutputArgumentNames() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getInputArgumentNames()
+     */
+    public String[] getInputArgumentNames() {
+	return IN_ARG_NAMES;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getStateVariable(java.lang.String)
-	 */
-	public UPnPStateVariable getStateVariable(String argumentName) {
-		if (argumentName.equals(BUS_NAME))
-			return busName;
-		else if (argumentName.equals(LEAVING_PEER))
-			return leavingPeer;
-		else
-			return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getOutputArgumentNames()
+     */
+    public String[] getOutputArgumentNames() {
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#invoke(java.util.Dictionary)
-	 */
-	public synchronized Dictionary invoke(Dictionary args) throws Exception {
-		String busName = (String) args.get(BUS_NAME);
-		String leavingPeer = (String) args.get(LEAVING_PEER);
-		//System.out.println("LOCAL_PEER:: leaveBus invoked ## "+busName +", "+leavingPeer);
-		localPeer.leaveBus(busName, leavingPeer);
-		//System.out.println("LOCAL_PEER:: leaveBus returning");
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getStateVariable(java.lang.String)
+     */
+    public UPnPStateVariable getStateVariable(String argumentName) {
+	if (argumentName.equals(BUS_NAME))
+	    return busName;
+	else if (argumentName.equals(LEAVING_PEER))
+	    return leavingPeer;
+	else
+	    return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#invoke(java.util.Dictionary)
+     */
+    public synchronized Dictionary invoke(Dictionary args) throws Exception {
+	String busName = (String) args.get(BUS_NAME);
+	String leavingPeer = (String) args.get(LEAVING_PEER);
+	// System.out.println("LOCAL_PEER:: leaveBus invoked ## "+busName
+	// +", "+leavingPeer);
+	localPeer.leaveBus(busName, leavingPeer);
+	// System.out.println("LOCAL_PEER:: leaveBus returning");
+	return null;
+    }
 }

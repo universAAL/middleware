@@ -63,7 +63,8 @@ public class MinCardinalityRestriction extends PropertyRestriction {
 		    "Value of a Min Cardinality Restriction must be non-negative: "
 			    + value);
 	setOnProperty(propURI);
-	super.setProperty(PROP_OWL_MIN_CARDINALITY, new NonNegativeInteger(value));
+	super.setProperty(PROP_OWL_MIN_CARDINALITY, new NonNegativeInteger(
+		value));
     }
 
     MinCardinalityRestriction(String propURI, int value, TypeExpression ce) {

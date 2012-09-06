@@ -121,8 +121,9 @@ public class UIStrategy extends BusStrategy {
     /**
      * 
      * Aborts the dialog with the given ID. If the requester is the
-     * dialogManager and/or the publisher (caller) of the dialog the request will be handled
-     * directly. Otherwise the request is given to the request-queue.
+     * dialogManager and/or the publisher (caller) of the dialog the request
+     * will be handled directly. Otherwise the request is given to the
+     * request-queue.
      * 
      * @param requester
      *            ID of the subscriber that want to abort the dialog
@@ -950,10 +951,10 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * Called only when a UI handler has called dialogFinished with an
-     * instance of {@link org.universAAL.middleware.ui.rdf.SubdialogTrigger} so
-     * that we must only notify to suspend this dialog until the original
-     * publisher calls 'resume'.
+     * Called only when a UI handler has called dialogFinished with an instance
+     * of {@link org.universAAL.middleware.ui.rdf.SubdialogTrigger} so that we
+     * must only notify to suspend this dialog until the original publisher
+     * calls 'resume'.
      * 
      * @param dialogID
      *            ID of the dialog to suspend

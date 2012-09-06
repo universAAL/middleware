@@ -63,8 +63,8 @@ public class RDFClassInfo extends FinalizedResource {
     protected volatile ArrayList combinedSuperClasses = new ArrayList();
 
     /**
-     * The set of super classes. Members are instances of
-     * {@link TypeExpression}.
+     * The set of super classes. Members are instances of {@link TypeExpression}
+     * .
      */
     protected ArrayList superClasses = new ArrayList();
 

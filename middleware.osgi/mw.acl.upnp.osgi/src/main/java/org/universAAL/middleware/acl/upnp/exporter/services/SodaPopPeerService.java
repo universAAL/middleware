@@ -38,96 +38,115 @@ import org.universAAL.middleware.acl.upnp.exporter.stateVariables.PeerIDStateVar
 import org.universAAL.middleware.acl.SodaPopPeer;
 
 /**
- * Concrete implementation of the UPnPService for the SodaPopPeerService. This class will be used by the SodaPopProxy in order to 
- * invoke the UPnP action. Please note that all the available UPnP actions correspond to the methods described with the org.universAAL.middleware.acl.SodaPopPeer. 
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+ * Concrete implementation of the UPnPService for the SodaPopPeerService. This
+ * class will be used by the SodaPopProxy in order to invoke the UPnP action.
+ * Please note that all the available UPnP actions correspond to the methods
+ * described with the org.universAAL.middleware.acl.SodaPopPeer.
+ * 
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
-public class SodaPopPeerService implements UPnPService{
-	
-	public final static String SERVICE_ID = "urn:upnp-org:serviceId:SodaPopPeer:1";
-	public final static String SERVICE_TYPE = "urn:schemas-upnp-org:service:SodaPopPeer:1";
-	public final static String VERSION ="1";
+public class SodaPopPeerService implements UPnPService {
 
-	private UPnPStateVariable peerId,busName,message;
-	private UPnPStateVariable[] states;
-	private HashMap actions = new HashMap();
-	
-	
-	public SodaPopPeerService(SodaPopPeer localPeer){
-		peerId = new PeerIDStateVariable();
-		busName = new BusNameStateVariable();
-		message = new MessageStateVariable();
-		
-		this.states = new UPnPStateVariable[]{peerId,busName,message};
-		
-		UPnPAction getId = new GetIdAction(localPeer,peerId);
-		UPnPAction joinBus = new JoinBusAction(localPeer,busName,peerId);
-		UPnPAction leaveBus = new LeaveBusAction(localPeer,busName,peerId);
-		UPnPAction noticePeerBusses = new NoticePeerBussesAction(localPeer,peerId,busName);
-		UPnPAction replyPeerBusses = new ReplyPeerBussesAction(localPeer,peerId,busName);
-		UPnPAction processBusMessage = new ProcessBusMessageAction(localPeer,busName,message);
-		UPnPAction printStatus = new PrintStatusAction(localPeer,busName);
-		actions.put(getId.getName(),getId);
-		actions.put(joinBus.getName(),joinBus);
-		actions.put(leaveBus.getName(),leaveBus);
-		actions.put(noticePeerBusses.getName(),noticePeerBusses);
-		actions.put(replyPeerBusses.getName(),replyPeerBusses);
-		actions.put(processBusMessage.getName(),processBusMessage);
-		actions.put(printStatus.getName(),printStatus);
-		
+    public final static String SERVICE_ID = "urn:upnp-org:serviceId:SodaPopPeer:1";
+    public final static String SERVICE_TYPE = "urn:schemas-upnp-org:service:SodaPopPeer:1";
+    public final static String VERSION = "1";
+
+    private UPnPStateVariable peerId, busName, message;
+    private UPnPStateVariable[] states;
+    private HashMap actions = new HashMap();
+
+    public SodaPopPeerService(SodaPopPeer localPeer) {
+	peerId = new PeerIDStateVariable();
+	busName = new BusNameStateVariable();
+	message = new MessageStateVariable();
+
+	this.states = new UPnPStateVariable[] { peerId, busName, message };
+
+	UPnPAction getId = new GetIdAction(localPeer, peerId);
+	UPnPAction joinBus = new JoinBusAction(localPeer, busName, peerId);
+	UPnPAction leaveBus = new LeaveBusAction(localPeer, busName, peerId);
+	UPnPAction noticePeerBusses = new NoticePeerBussesAction(localPeer,
+		peerId, busName);
+	UPnPAction replyPeerBusses = new ReplyPeerBussesAction(localPeer,
+		peerId, busName);
+	UPnPAction processBusMessage = new ProcessBusMessageAction(localPeer,
+		busName, message);
+	UPnPAction printStatus = new PrintStatusAction(localPeer, busName);
+	actions.put(getId.getName(), getId);
+	actions.put(joinBus.getName(), joinBus);
+	actions.put(leaveBus.getName(), leaveBus);
+	actions.put(noticePeerBusses.getName(), noticePeerBusses);
+	actions.put(replyPeerBusses.getName(), replyPeerBusses);
+	actions.put(processBusMessage.getName(), processBusMessage);
+	actions.put(printStatus.getName(), printStatus);
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPService#getId()
+     */
+    public String getId() {
+	return SERVICE_ID;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPService#getType()
+     */
+    public String getType() {
+	return SERVICE_TYPE;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPService#getVersion()
+     */
+    public String getVersion() {
+	return VERSION;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPService#getAction(java.lang.String)
+     */
+    public UPnPAction getAction(String name) {
+	return (UPnPAction) actions.get(name);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPService#getActions()
+     */
+    public UPnPAction[] getActions() {
+	return (UPnPAction[]) (actions.values()).toArray(new UPnPAction[] {});
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPService#getStateVariables()
+     */
+    public UPnPStateVariable[] getStateVariables() {
+	return states;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPService#getStateVariable(java.lang.String)
+     */
+    public UPnPStateVariable getStateVariable(String name) {
+	for (int i = 0; i < states.length; i++) {
+	    if (name.equals(states[i].getName()))
+		return states[i];
 	}
-
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPService#getId()
-	 */
-	public String getId() {
-		return SERVICE_ID;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPService#getType()
-	 */
-	public String getType() {
-		return SERVICE_TYPE;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPService#getVersion()
-	 */
-	public String getVersion() {
-		return VERSION;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPService#getAction(java.lang.String)
-	 */
-	public UPnPAction getAction(String name) {
-		return (UPnPAction)actions.get(name);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPService#getActions()
-	 */
-	public UPnPAction[] getActions() {
-		return (UPnPAction[])(actions.values()).toArray(new UPnPAction[]{});
-	}
-
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPService#getStateVariables()
-	 */
-	public UPnPStateVariable[] getStateVariables() {
-		return states;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPService#getStateVariable(java.lang.String)
-	 */
-	public UPnPStateVariable getStateVariable(String name) {
-		for (int i=0; i<states.length; i++) {
-			if (name.equals(states[i].getName()))
-				return states[i];			
-		}
-		return null;
-	}
+	return null;
+    }
 }

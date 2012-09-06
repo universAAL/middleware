@@ -60,7 +60,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 			    boolean shouldLoad = false;
 			    for (int i = 0; i < ifaces.length; i++) {
 				if (ifaces[i] == uAALModuleActivator.class) {
-				    shouldLoad=true;
+				    shouldLoad = true;
 				    break;
 				}
 			    }
@@ -84,7 +84,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 				    }
 				}
 			    }).start();
-			    throw new RuntimeException(t);			    
+			    throw new RuntimeException(t);
 			}
 		    }
 		}

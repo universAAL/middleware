@@ -122,10 +122,9 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 
 	TypeExpression myValues = (TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);
 	if (myValues != null
-		&& myValues
-			.isDisjointWith(
-				(TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM),
-				cloned)) {
+		&& myValues.isDisjointWith(
+			(TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM),
+			cloned)) {
 	    synchronize(context, cloned);
 	    return true;
 	}

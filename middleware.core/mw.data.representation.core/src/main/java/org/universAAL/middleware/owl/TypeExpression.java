@@ -141,8 +141,7 @@ public abstract class TypeExpression extends Resource {
     }
 
     /** Create a new instance of the given class and instance URI. */
-    private static TypeExpression getNamedInstance(Class clz,
-	    String instanceURI) {
+    private static TypeExpression getNamedInstance(Class clz, String instanceURI) {
 	try {
 	    return (TypeExpression) clz.getConstructor(
 		    new Class[] { String.class }).newInstance(

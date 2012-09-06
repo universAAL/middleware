@@ -11,8 +11,11 @@ public class SimpleServiceLocator {
     public SimpleServiceLocator(ModuleContext mc) {
 	this.mc = mc;
     }
-    
-    public Object lookupService(Class interfaceClazz) throws IllegalArgumentException, SimplifiedRegistrationException, InstantiationException, IllegalAccessException{
-	return DynamicServiceProxy.newInstance(interfaceClazz, new DefaultServiceCaller(mc));
+
+    public Object lookupService(Class interfaceClazz)
+	    throws IllegalArgumentException, SimplifiedRegistrationException,
+	    InstantiationException, IllegalAccessException {
+	return DynamicServiceProxy.newInstance(interfaceClazz,
+		new DefaultServiceCaller(mc));
     }
 }

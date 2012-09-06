@@ -22,10 +22,11 @@ package org.universAAL.middleware.sodapop.impl;
 
 /**
  * 
- *  @author <a href="mailto:vadime@il.ibm.com"> vadime </a>
- *
+ * @author <a href="mailto:vadime@il.ibm.com"> vadime </a>
+ * 
  */
 public interface Codec {
-	public byte[] decode(String data);
-	public  byte[] encode(byte[] data);
+    public byte[] decode(String data);
+
+    public byte[] encode(byte[] data);
 }

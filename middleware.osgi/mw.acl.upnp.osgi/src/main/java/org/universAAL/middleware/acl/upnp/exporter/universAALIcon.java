@@ -18,56 +18,70 @@
  */
 
 package org.universAAL.middleware.acl.upnp.exporter;
+
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.osgi.service.upnp.UPnPIcon;
 
 /* 
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
 public class universAALIcon implements UPnPIcon {
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPIcon#getMimeType()
-	 */
-	public String getMimeType() {
-		return "image/gif";
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPIcon#getMimeType()
+     */
+    public String getMimeType() {
+	return "image/gif";
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPIcon#getWidth()
-	 */
-	public int getWidth() {
-		return 32;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPIcon#getWidth()
+     */
+    public int getWidth() {
+	return 32;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPIcon#getHeight()
-	 */
-	public int getHeight() {
-		return 32;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPIcon#getHeight()
+     */
+    public int getHeight() {
+	return 32;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPIcon#getSize()
-	 */
-	public int getSize() {
-		return 1072;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPIcon#getSize()
+     */
+    public int getSize() {
+	return 1072;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPIcon#getDepth()
-	 */
-	public int getDepth() {
-		return 16;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPIcon#getDepth()
+     */
+    public int getDepth() {
+	return 16;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPIcon#getInputStream()
-	 */
-	public InputStream getInputStream() throws IOException {
-		return universAALIcon.class.getResourceAsStream("images/universAAL.gif");
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPIcon#getInputStream()
+     */
+    public InputStream getInputStream() throws IOException {
+	return universAALIcon.class
+		.getResourceAsStream("images/universAAL.gif");
+    }
 }

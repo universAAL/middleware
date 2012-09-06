@@ -42,10 +42,10 @@ import org.universAAL.middleware.rdf.PropertyPath;
  * ordinal characteristics that do not return null in the implementation of
  * related methods) or a number (double, float, int or long). However, numbers
  * can be used only if the value restrictions are specified with the help of
- * {@link org.universAAL.middleware.owl.BoundedValueRestriction}. Other classes that
- * implement {@link java.lang.Comparable} are not supported because there is no
- * straightforward solution to determine the next or previous values based on a
- * step.
+ * {@link org.universAAL.middleware.owl.BoundedValueRestriction}. Other classes
+ * that implement {@link java.lang.Comparable} are not supported because there
+ * is no straightforward solution to determine the next or previous values based
+ * on a step.
  * 
  * @author mtazari
  * @author Carsten Stockloew

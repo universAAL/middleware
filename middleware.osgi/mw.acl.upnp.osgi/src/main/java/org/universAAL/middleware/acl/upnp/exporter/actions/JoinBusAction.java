@@ -27,74 +27,88 @@ import org.universAAL.middleware.acl.SodaPopPeer;
 
 /**
  * UpnP JoinBusAction implementation
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+ * 
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
 public class JoinBusAction implements UPnPAction {
 
-	public final static String NAME = "JoinBus";
-	public final static String BUS_NAME = "BusName";
-	public final static String JOINING_PEER = "JoiningPeer";
-	final private String[] IN_ARG_NAMES = new String[]{BUS_NAME,JOINING_PEER};
-	private UPnPStateVariable busName,joiningPeer;
-	private SodaPopPeer localPeer;
-	
-	
-	public JoinBusAction(SodaPopPeer localPeer,UPnPStateVariable busName, UPnPStateVariable joiningPeer){
-		this.busName = busName;
-		this.joiningPeer = joiningPeer;
-		this.localPeer=localPeer;
-	}
+    public final static String NAME = "JoinBus";
+    public final static String BUS_NAME = "BusName";
+    public final static String JOINING_PEER = "JoiningPeer";
+    final private String[] IN_ARG_NAMES = new String[] { BUS_NAME, JOINING_PEER };
+    private UPnPStateVariable busName, joiningPeer;
+    private SodaPopPeer localPeer;
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getName()
-	 */
-	public String getName() {
-		return NAME;
-	}
+    public JoinBusAction(SodaPopPeer localPeer, UPnPStateVariable busName,
+	    UPnPStateVariable joiningPeer) {
+	this.busName = busName;
+	this.joiningPeer = joiningPeer;
+	this.localPeer = localPeer;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getReturnArgumentName()
-	 */
-	public String getReturnArgumentName() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getName()
+     */
+    public String getName() {
+	return NAME;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getInputArgumentNames()
-	 */
-	public String[] getInputArgumentNames() {
-		return IN_ARG_NAMES;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getReturnArgumentName()
+     */
+    public String getReturnArgumentName() {
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getOutputArgumentNames()
-	 */
-	public String[] getOutputArgumentNames() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getInputArgumentNames()
+     */
+    public String[] getInputArgumentNames() {
+	return IN_ARG_NAMES;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#getStateVariable(java.lang.String)
-	 */
-	public UPnPStateVariable getStateVariable(String argumentName) {
-		if (argumentName.equals(BUS_NAME))
-			return busName;
-		else if (argumentName.equals(JOINING_PEER))
-			return joiningPeer;
-		else
-			return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getOutputArgumentNames()
+     */
+    public String[] getOutputArgumentNames() {
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPAction#invoke(java.util.Dictionary)
-	 */
-	public synchronized Dictionary invoke(Dictionary args) throws Exception {
-		String busName = (String) args.get(BUS_NAME);
-		String joiningPeer = (String) args.get(JOINING_PEER);
-		//System.out.println("LOCAL_PEER:: joinBus invoked ## "+busName +", "+joiningPeer);
-		localPeer.joinBus(busName, joiningPeer);
-		//System.out.println("LOCAL_PEER:: joinBus returning");
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#getStateVariable(java.lang.String)
+     */
+    public UPnPStateVariable getStateVariable(String argumentName) {
+	if (argumentName.equals(BUS_NAME))
+	    return busName;
+	else if (argumentName.equals(JOINING_PEER))
+	    return joiningPeer;
+	else
+	    return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPAction#invoke(java.util.Dictionary)
+     */
+    public synchronized Dictionary invoke(Dictionary args) throws Exception {
+	String busName = (String) args.get(BUS_NAME);
+	String joiningPeer = (String) args.get(JOINING_PEER);
+	// System.out.println("LOCAL_PEER:: joinBus invoked ## "+busName
+	// +", "+joiningPeer);
+	localPeer.joinBus(busName, joiningPeer);
+	// System.out.println("LOCAL_PEER:: joinBus returning");
+	return null;
+    }
 }

@@ -22,10 +22,9 @@ package org.universAAL.middleware.sodapop.msg;
 import org.universAAL.middleware.sodapop.impl.SodaPopImpl;
 
 /**
- * This class represents messages sent between SodaPop bus members
- * Each message has a unique ID, a list of receivers, the content (the actual 
- * payload), inReplyTo field to correlate with the message its message is a 
- * reply to
+ * This class represents messages sent between SodaPop bus members Each message
+ * has a unique ID, a list of receivers, the content (the actual payload),
+ * inReplyTo field to correlate with the message its message is a reply to
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
@@ -36,12 +35,12 @@ public class Message {
     private static int idLength;
     public static final String thisJVM;
     static {
-    	thisJVM = PeerIDGenerator.generatePeerID();
-    	idLength = thisJVM.length() + 17;
+	thisJVM = PeerIDGenerator.generatePeerID();
+	idLength = thisJVM.length() + 17;
     }
-    
+
     /**
-     * generates a globally unique ID, based on a counter and some string that 
+     * generates a globally unique ID, based on a counter and some string that
      * represents this JVM
      * 
      * @return String - the created unique ID
@@ -52,7 +51,7 @@ public class Message {
 	b.append(':').append(thisJVM);
 	return b.toString();
     }
-    
+
     /**
      * generates a locally unique ID
      * 
@@ -65,13 +64,15 @@ public class Message {
 	    int counter, int counterLen) {
 	return localPrefix + fill0(Long.toHexString(counter), counterLen);
     }
-    
+
     /**
      * Padd the string passed as the first parameter with zeros up to the length
-     * passed as the second parameter 
+     * passed as the second parameter
      * 
-     * @param arg - the string to padd
-     * @param len - the required length of the padded result
+     * @param arg
+     *            - the string to padd
+     * @param len
+     *            - the required length of the padded result
      * @return the padded string
      */
     private static String fill0(String arg, int len) {
@@ -88,11 +89,12 @@ public class Message {
 	b.append(arg);
 	return b.toString();
     }
-    
+
     /**
      * serialize the object passed as a parameter
      * 
-     * @param o - Object to serialize
+     * @param o
+     *            - Object to serialize
      * @return String - the serialization
      */
     public static String trySerializationAsContent(Object o) {
@@ -109,7 +111,7 @@ public class Message {
     private Message() {
 
     }
-    
+
     /**
      * Constructor - a message of particular type with particular content
      * 
@@ -127,10 +129,11 @@ public class Message {
     }
 
     /**
-     * Constructor - parses the string passed as a parameter and creates
-     *  a Message object  
+     * Constructor - parses the string passed as a parameter and creates a
+     * Message object
      * 
-     * @param msg - the string to parse (the serialization of a message object)
+     * @param msg
+     *            - the string to parse (the serialization of a message object)
      */
     public Message(String msg) {
 	if (msg == null)
@@ -180,12 +183,13 @@ public class Message {
 	if (!msg.equals("\n</sodapop:Message>"))
 	    throw new IllegalArgumentException();
     }
-    
+
     /**
-     * Create reply message to this message, with the content passed as a 
+     * Create reply message to this message, with the content passed as a
      * parameter
      * 
-     * @param content - the content of the created reply
+     * @param content
+     *            - the content of the created reply
      * @return Message - the reply message
      */
     public Message createReply(Object content) {
@@ -207,17 +211,18 @@ public class Message {
 	reply.receivers = new String[] { getSource() };
 	return reply;
     }
-    
-    public static Message createReply(String messageIDInReplyTo, String receiver, Object content) {
-    	Message reply = new Message();
-    	
-    	reply.id 		= createUniqueID();
-    	reply.content 	= content;
-    	reply.type 		= MessageType.p2p_reply;
-    	reply.inReplyTo = messageIDInReplyTo;
-    	reply.receivers = new String[] { receiver };
-    	
-    	return reply;
+
+    public static Message createReply(String messageIDInReplyTo,
+	    String receiver, Object content) {
+	Message reply = new Message();
+
+	reply.id = createUniqueID();
+	reply.content = content;
+	reply.type = MessageType.p2p_reply;
+	reply.inReplyTo = messageIDInReplyTo;
+	reply.receivers = new String[] { receiver };
+
+	return reply;
     }
 
     /**
@@ -227,7 +232,7 @@ public class Message {
     public Object getContent() {
 	return content;
     }
-    
+
     /**
      * 
      * @return String - the string serialization of the content
@@ -250,7 +255,7 @@ public class Message {
     /**
      * Returns the ID of the message this message replies to
      * 
-     * @return String - the ID of the message this message replies to 
+     * @return String - the ID of the message this message replies to
      */
     public String getInReplyTo() {
 	return inReplyTo;
@@ -263,21 +268,21 @@ public class Message {
     public String[] getReceivers() {
 	return receivers;
     }
-    
+
     /**
      * 
-     * @return String - the id of the sender. Please note that the id of the 
-     * message is composed of a counter and the ID of the sender (thisJVM 
-     * variable of the message)
+     * @return String - the id of the sender. Please note that the id of the
+     *         message is composed of a counter and the ID of the sender
+     *         (thisJVM variable of the message)
      */
     public String getSource() {
 	return id.substring(17);
     }
-    
+
     /**
      * 
-     * @return the counter of the sender. Please note that the id of the 
-     * message is composed of the counter and the ID of the sender 
+     * @return the counter of the sender. Please note that the id of the message
+     *         is composed of the counter and the ID of the sender
      */
     public long getSourceTimeOrder() {
 	return Long.parseLong(id.substring(0, 16), 16);
@@ -290,7 +295,7 @@ public class Message {
     public MessageType getType() {
 	return type;
     }
-    
+
     /**
      * 
      * @return boolean - true iff this message was sent from a remote peer
@@ -298,9 +303,10 @@ public class Message {
     public boolean isRemote() {
 	return !thisJVM.equals(getSource());
     }
-    
+
     /**
      * sets receivers to this message
+     * 
      * @param receivers
      */
     public void setReceivers(String[] receivers) {
@@ -309,7 +315,7 @@ public class Message {
 	else
 	    throw new RuntimeException("Cannot change the message receiver!");
     }
-    
+
     /**
      * Serialize the message as string
      * 

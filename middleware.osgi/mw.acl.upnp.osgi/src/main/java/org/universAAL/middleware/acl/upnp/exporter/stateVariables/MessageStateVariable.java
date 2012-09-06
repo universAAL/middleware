@@ -18,79 +18,98 @@
  */
 
 package org.universAAL.middleware.acl.upnp.exporter.stateVariables;
+
 import org.osgi.service.upnp.UPnPStateVariable;
+
 /* 
-* @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
-*/
+ * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ */
 
-public class MessageStateVariable implements UPnPStateVariable{
-	
-	final private String NAME = "Message";
-	
-	
-	public MessageStateVariable(){
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPStateVariable#getName()
-	 */
-	public String getName() {
-		return NAME;
-	}
+public class MessageStateVariable implements UPnPStateVariable {
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPStateVariable#getJavaDataType()
-	 */
-	public Class getJavaDataType() {
-		return String.class;
-	}
+    final private String NAME = "Message";
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPStateVariable#getUPnPDataType()
-	 */
-	public String getUPnPDataType() {
-		return TYPE_STRING;
-	}
+    public MessageStateVariable() {
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPStateVariable#getDefaultValue()
-	 */
-	public Object getDefaultValue() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPStateVariable#getName()
+     */
+    public String getName() {
+	return NAME;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPStateVariable#getAllowedValues()
-	 */
-	public String[] getAllowedValues() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPStateVariable#getJavaDataType()
+     */
+    public Class getJavaDataType() {
+	return String.class;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPStateVariable#getMinimum()
-	 */
-	public Number getMinimum() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPStateVariable#getUPnPDataType()
+     */
+    public String getUPnPDataType() {
+	return TYPE_STRING;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPStateVariable#getMaximum()
-	 */
-	public Number getMaximum() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPStateVariable#getDefaultValue()
+     */
+    public Object getDefaultValue() {
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPStateVariable#getStep()
-	 */
-	public Number getStep() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPStateVariable#getAllowedValues()
+     */
+    public String[] getAllowedValues() {
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPStateVariable#sendsEvents()
-	 */
-	public boolean sendsEvents() {
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPStateVariable#getMinimum()
+     */
+    public Number getMinimum() {
+	return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPStateVariable#getMaximum()
+     */
+    public Number getMaximum() {
+	return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPStateVariable#getStep()
+     */
+    public Number getStep() {
+	return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPStateVariable#sendsEvents()
+     */
+    public boolean sendsEvents() {
+	return false;
+    }
 }

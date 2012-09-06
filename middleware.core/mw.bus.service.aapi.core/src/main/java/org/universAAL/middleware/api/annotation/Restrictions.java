@@ -10,10 +10,10 @@ import java.lang.annotation.Target;
  * Not yet supported.
  * 
  * @author dzmuda
- *
+ * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Restrictions {
-	Restriction[] restrictions();
+    Restriction[] restrictions();
 }

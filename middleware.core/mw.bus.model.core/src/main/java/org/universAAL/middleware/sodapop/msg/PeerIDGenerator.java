@@ -23,35 +23,34 @@ package org.universAAL.middleware.sodapop.msg;
 import java.net.InetAddress;
 import java.util.Random;
 
-
 /**
  * 
- *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- *	
- *  Apr 24, 2012
- *
+ * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ * 
+ *         Apr 24, 2012
+ * 
  */
 public class PeerIDGenerator {
-	
-	public final static String SYS_PROPERTY_SODAPOP_PEER_ID = "sodapop.peerID";
-	
-	public static String generatePeerID() {
-		String peerID = "";
-		
-		String host = "localhost";
-		try {
-		    host = InetAddress.getLocalHost().getHostName();
-		} catch (Exception e) {
-		}
-		long now = System.currentTimeMillis();
-		peerID = System.getProperty(SYS_PROPERTY_SODAPOP_PEER_ID);
-		if (peerID == null) {
-		    peerID = Long.toHexString(now) + '@' + host + '+'
-			    + Integer.toHexString(new Random(now).nextInt());
-		    
-		    System.setProperty(SYS_PROPERTY_SODAPOP_PEER_ID, peerID);
-		}
-		
-		return peerID;
+
+    public final static String SYS_PROPERTY_SODAPOP_PEER_ID = "sodapop.peerID";
+
+    public static String generatePeerID() {
+	String peerID = "";
+
+	String host = "localhost";
+	try {
+	    host = InetAddress.getLocalHost().getHostName();
+	} catch (Exception e) {
 	}
+	long now = System.currentTimeMillis();
+	peerID = System.getProperty(SYS_PROPERTY_SODAPOP_PEER_ID);
+	if (peerID == null) {
+	    peerID = Long.toHexString(now) + '@' + host + '+'
+		    + Integer.toHexString(new Random(now).nextInt());
+
+	    System.setProperty(SYS_PROPERTY_SODAPOP_PEER_ID, peerID);
+	}
+
+	return peerID;
+    }
 }

@@ -39,80 +39,82 @@ import org.universAAL.middleware.acl.SodaPopPeer;
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 
-public class SodaPopDevice implements UPnPDevice{
+public class SodaPopDevice implements UPnPDevice {
 
-	public final static String TYPE = "urn:schemas-upnp-org:device:SodaPop-ACL-UPnP:1";
-	private SodaPopPeerService sodapopPeerService;
-	private UPnPService[] services;
-	private Dictionary dictionary; // <String,Object>
-	
-	public SodaPopDevice(SodaPopPeer localPeer) {
-		sodapopPeerService = new SodaPopPeerService(localPeer);
-		services = new UPnPService[]{sodapopPeerService};
-		setupDeviceProperties(localPeer);
-	}
+    public final static String TYPE = "urn:schemas-upnp-org:device:SodaPop-ACL-UPnP:1";
+    private SodaPopPeerService sodapopPeerService;
+    private UPnPService[] services;
+    private Dictionary dictionary; // <String,Object>
 
+    public SodaPopDevice(SodaPopPeer localPeer) {
+	sodapopPeerService = new SodaPopPeerService(localPeer);
+	services = new UPnPService[] { sodapopPeerService };
+	setupDeviceProperties(localPeer);
+    }
 
-	/**
-	 * Configure the local properties in accordance with the SodaPopPeer instance
-	 * @param localPeer
-	 */
-	private void setupDeviceProperties(SodaPopPeer localPeer){
-		
-		final  String DEVICE_ID =  "uuid:" +  localPeer.getID();
+    /**
+     * Configure the local properties in accordance with the SodaPopPeer
+     * instance
+     * 
+     * @param localPeer
+     */
+    private void setupDeviceProperties(SodaPopPeer localPeer) {
 
-		dictionary =  new Hashtable();	// <String,Object>
-		dictionary.put(UPnPDevice.UPNP_EXPORT,"");
-		dictionary.put(
-		        org.osgi.service.device.Constants.DEVICE_CATEGORY,
-	        	new String[]{UPnPDevice.DEVICE_CATEGORY}
-	        );
-		dictionary.put(UPnPDevice.FRIENDLY_NAME,"SodaPop Peer");
-		dictionary.put(UPnPDevice.MANUFACTURER,"ISTI-CNR (Persona Project)");
-		dictionary.put(UPnPDevice.MANUFACTURER_URL,"http://www.isti.cnr.it/ResearchUnits/Labs/wn-lab/");
-		dictionary.put(UPnPDevice.MODEL_DESCRIPTION,"A Sodapop Peer Proxy");
-		dictionary.put(UPnPDevice.MODEL_NAME,"SodaPop ACL UPnP Connector");
-		dictionary.put(UPnPDevice.MODEL_NUMBER,"1.0");
-		dictionary.put(UPnPDevice.MODEL_URL,"http://gforge.aal-persona.org/projects/persona-middlew/");
-		dictionary.put(UPnPDevice.SERIAL_NUMBER,DEVICE_ID);
-		dictionary.put(UPnPDevice.TYPE,SodaPopDevice.TYPE);
-		dictionary.put(UPnPDevice.UDN,DEVICE_ID);
-		dictionary.put(UPnPDevice.UPC,DEVICE_ID);
-	}
-	
-	
-	/**
-	 * @return the service associate with the serviceId parameter.
-	 * @see org.osgi.service.upnp.UPnPDevice#getService(java.lang.String)
-	 */
-	public UPnPService getService(String serviceId) {
-		if  (serviceId.equals(sodapopPeerService.getId())) return sodapopPeerService;
-		return null;
-	}
+	final String DEVICE_ID = "uuid:" + localPeer.getID();
 
-	/** 
-	 * @return An array of UPnPService
-	 * @see org.osgi.service.upnp.UPnPDevice#getServices()
-	 */
-	public UPnPService[] getServices() {
-		return services;
-	}
+	dictionary = new Hashtable(); // <String,Object>
+	dictionary.put(UPnPDevice.UPNP_EXPORT, "");
+	dictionary.put(org.osgi.service.device.Constants.DEVICE_CATEGORY,
+		new String[] { UPnPDevice.DEVICE_CATEGORY });
+	dictionary.put(UPnPDevice.FRIENDLY_NAME, "SodaPop Peer");
+	dictionary.put(UPnPDevice.MANUFACTURER, "ISTI-CNR (Persona Project)");
+	dictionary.put(UPnPDevice.MANUFACTURER_URL,
+		"http://www.isti.cnr.it/ResearchUnits/Labs/wn-lab/");
+	dictionary.put(UPnPDevice.MODEL_DESCRIPTION, "A Sodapop Peer Proxy");
+	dictionary.put(UPnPDevice.MODEL_NAME, "SodaPop ACL UPnP Connector");
+	dictionary.put(UPnPDevice.MODEL_NUMBER, "1.0");
+	dictionary.put(UPnPDevice.MODEL_URL,
+		"http://gforge.aal-persona.org/projects/persona-middlew/");
+	dictionary.put(UPnPDevice.SERIAL_NUMBER, DEVICE_ID);
+	dictionary.put(UPnPDevice.TYPE, SodaPopDevice.TYPE);
+	dictionary.put(UPnPDevice.UDN, DEVICE_ID);
+	dictionary.put(UPnPDevice.UPC, DEVICE_ID);
+    }
 
-	/**
-	 * 
-	 * @see org.osgi.service.upnp.UPnPDevice#getIcons(java.lang.String)
-	 */
-	public UPnPIcon[] getIcons(String locale) {
-		UPnPIcon icon = new universAALIcon();
-		return new UPnPIcon[]{icon} ;
-	}
+    /**
+     * @return the service associate with the serviceId parameter.
+     * @see org.osgi.service.upnp.UPnPDevice#getService(java.lang.String)
+     */
+    public UPnPService getService(String serviceId) {
+	if (serviceId.equals(sodapopPeerService.getId()))
+	    return sodapopPeerService;
+	return null;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.osgi.service.upnp.UPnPDevice#getDescriptions(java.lang.String)
-	 */
-	public Dictionary getDescriptions(String locale) {
-		return dictionary;
-	}
+    /**
+     * @return An array of UPnPService
+     * @see org.osgi.service.upnp.UPnPDevice#getServices()
+     */
+    public UPnPService[] getServices() {
+	return services;
+    }
 
-	
+    /**
+     * 
+     * @see org.osgi.service.upnp.UPnPDevice#getIcons(java.lang.String)
+     */
+    public UPnPIcon[] getIcons(String locale) {
+	UPnPIcon icon = new universAALIcon();
+	return new UPnPIcon[] { icon };
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.osgi.service.upnp.UPnPDevice#getDescriptions(java.lang.String)
+     */
+    public Dictionary getDescriptions(String locale) {
+	return dictionary;
+    }
+
 }
