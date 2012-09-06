@@ -165,7 +165,7 @@ public class Group extends FormControl {
 	    return null;
 
 	String[] subpath, path = pp.getThePath();
-	if (pp == null || path.length == 0)
+	if (path == null || path.length == 0)
 	    return null;
 
 	subpath = new String[path.length + 1];

@@ -1198,8 +1198,13 @@ public class MergedRestriction extends Intersection {
      * @return an array of all known instances.
      */
     public Object[] getEnumeratedValues() {
+	int idx;
+
+	idx = index[allValuesFromID];
+	if (idx < 0)
+	    return null;
 	AllValuesFromRestriction allres = (AllValuesFromRestriction) types
-		.get(index[allValuesFromID]);
+		.get(idx);
 	if (allres != null) {
 	    TypeExpression all = (TypeExpression) allres.getConstraint();
 	    if (all instanceof Enumeration)
@@ -1211,13 +1216,13 @@ public class MergedRestriction extends Intersection {
 	    }
 	}
 
-	if (index[hasValueID] != -1) {
-	    HasValueRestriction hasres = (HasValueRestriction) types
-		    .get(index[hasValueID]);
-	    if (hasres != null) {
-		TypeExpression has = (TypeExpression) hasres.getConstraint();
-		return (has == null) ? null : new Object[] { has };
-	    }
+	idx = index[hasValueID];
+	if (idx < 0)
+	    return null;
+	HasValueRestriction hasres = (HasValueRestriction) types.get(idx);
+	if (hasres != null) {
+	    TypeExpression has = (TypeExpression) hasres.getConstraint();
+	    return (has == null) ? null : new Object[] { has };
 	}
 
 	return null;

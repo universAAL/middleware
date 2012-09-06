@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.universAAL.middleware.rdf.Property;
 import org.universAAL.middleware.rdf.RDFClassInfo;
@@ -297,7 +298,9 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
      * {@link OntClassInfoSetup#addObjectProperty(String)}.
      */
     public String[] getDeclaredProperties() {
-	return (String[]) properties.keySet().toArray();
+	Set set = properties.keySet();
+	String[] p = new String[set.size()];
+	return (String[]) set.toArray(p);
     }
 
     /**
