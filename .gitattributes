@@ -244,6 +244,7 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/resources/mw.data.representation[!!-~]dependencies.jpg -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/BoundedValueRestrictionTest.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/EnumerationTest.java -text
+middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/IntersectionTest.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/ont/OntologiesTest.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/testont/MyClass1.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/testont/MyClass2.java -text
