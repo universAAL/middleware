@@ -8,6 +8,14 @@ public class IntersectionTest extends TestCase {
     protected void setUp() throws Exception {
 	super.setUp();
     }
+    
+    public void testMethods() {
+	// Intersection i0 = new Intersection();
+	// i0.addType(et.e0);
+	// Intersection i1 = new Intersection();
+	// i1.addType(et.e1);
+	// i0.addType(i1);
+    }
 
     public void testHasMember() {
 	Intersection i;

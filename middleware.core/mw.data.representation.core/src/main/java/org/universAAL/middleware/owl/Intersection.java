@@ -54,26 +54,22 @@ public class Intersection extends TypeExpression {
     }
 
     /**
-     * Add a new child class expression <i>CE<sub>i</sub></i>.
+     * Add a new child class expression <i>CE<sub>i</sub></i>. If the given
+     * argument is an instance of Intersection, then the elements of that
+     * Intersection are added instead of the Intersection itself.
      * 
      * @param type
      *            The class expression to add.
      */
     public void addType(TypeExpression type) {
-	if (type != null && !(type instanceof Intersection))
-	    types.add(type);
-    }
-
-    /**
-     * Add all elements of the given intersection.
-     * 
-     * @param type
-     *            The intersection to add.
-     */
-    public void addType(Intersection type) {
-	if (type != null)
-	    for (int i = 0; i < type.types.size(); i++)
-		addType((TypeExpression) type.types.get(i));
+	if (type != null) {
+	    if (type instanceof Intersection) {
+		for (int i = 0; i < ((Intersection) type).types.size(); i++)
+		    types.add(((Intersection) type).types.get(i));
+	    } else {
+		types.add(type);
+	    }
+	}
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
