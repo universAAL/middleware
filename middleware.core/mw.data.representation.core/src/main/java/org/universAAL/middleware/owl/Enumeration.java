@@ -269,4 +269,9 @@ public class Enumeration extends TypeExpression {
     public Iterator values() {
 	return values.iterator();
     }
+
+    /** Returns the number of elements in this enumeration. */
+    public int size() {
+	return values.size();
+    }
 }

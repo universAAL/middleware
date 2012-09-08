@@ -64,6 +64,12 @@ public class Intersection extends TypeExpression {
 	    types.add(type);
     }
 
+    /**
+     * Add all elements of the given intersection.
+     * 
+     * @param type
+     *            The intersection to add.
+     */
     public void addType(Intersection type) {
 	if (type != null)
 	    for (int i = 0; i < type.types.size(); i++)
