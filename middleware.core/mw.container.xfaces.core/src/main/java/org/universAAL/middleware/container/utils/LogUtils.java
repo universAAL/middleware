@@ -105,8 +105,14 @@ public class LogUtils {
 	    module = mc.getID();
 
 	    for (Iterator i = mc.getContainer().logListeners(); i.hasNext();)
-		((LogListener) i.next()).log(level, module, pkg, cls, method,
-			msgPart, t);
+		try {
+		    ((LogListener) i.next()).log(level, module, pkg, cls,
+			    method, msgPart, t);
+		} catch (Exception e) {
+		    mc.logDebug(buildTag("LogUtils", "log"),
+			    "One of the LogListeners has thrown an exception.",
+			    e);
+		}
 	}
     }
 
