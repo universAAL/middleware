@@ -48,9 +48,9 @@ public class OntologiesTest extends TestCase {
 					MyResource.MY_URI })));
 
 	// trying with ManagedIndividuals
-	assertTrue(MySub1Class1.MY_URI.equals(OntologyManagement.getInstance()
+	assertTrue(MyClass1Sub1.MY_URI.equals(OntologyManagement.getInstance()
 		.getMostSpecializedClass(
-			new String[] { MyClass1.MY_URI, MySub1Class1.MY_URI,
+			new String[] { MyClass1.MY_URI, MyClass1Sub1.MY_URI,
 				"somethingNotSoDifferent" })));
     }
 }

@@ -24,7 +24,7 @@ public class MyOntology extends Ontology {
 	oci1 = createNewOntClassInfo(MyClass1.MY_URI, factory, 1);
 	oci2 = createNewOntClassInfo(MyClass2.MY_URI, factory, 2);
 	createNewOntClassInfo(MyClass3.MY_URI, factory, 3);
-	createNewOntClassInfo(MySub1Class1.MY_URI, factory, 4).addSuperClass(
+	createNewOntClassInfo(MyClass1Sub1.MY_URI, factory, 4).addSuperClass(
 		MyClass1.MY_URI);
 
 	oci1.addObjectProperty(MyClass1.PROP_C1C2);
