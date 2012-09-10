@@ -72,6 +72,12 @@ public class MergedRestriction extends Intersection {
 	}
     }
 
+    /** The value of minimum cardinality if not defined. */
+    public static final int MIN_UNDEFINED = 0;
+
+    /** The value of maximum cardinality if not defined. */
+    public static final int MAX_UNDEFINED = -1;
+
     /**
      * ID of the {@link AllValuesFromRestriction}. Only used in the context of
      * this class.
@@ -540,7 +546,7 @@ public class MergedRestriction extends Intersection {
 	if (index[exactCardinalityID] != -1)
 	    return ((ExactCardinalityRestriction) (types
 		    .get(index[exactCardinalityID]))).getValue();
-	return 0;
+	return MIN_UNDEFINED;
     }
 
     /**
@@ -559,7 +565,7 @@ public class MergedRestriction extends Intersection {
 	if (index[exactCardinalityID] != -1)
 	    return ((ExactCardinalityRestriction) (types
 		    .get(index[exactCardinalityID]))).getValue();
-	return -1;
+	return MAX_UNDEFINED;
     }
 
     /**
@@ -660,6 +666,9 @@ public class MergedRestriction extends Intersection {
      *            The Restriction to add.
      * @return this restriction. This object is returned to allow for multiple
      *         calls of this method.
+     * @throws IllegalArgumentException
+     *             If the given restriction is defined for a different property
+     *             than this merged restriction.
      */
     public MergedRestriction addRestriction(PropertyRestriction res) {
 	// if (types.size()==1) {
@@ -688,31 +697,37 @@ public class MergedRestriction extends Intersection {
 			    null);
 	    return this;
 	}
-	if (getRestriction(hasValueID) != null) {
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "addRestriction",
-			    new String[] { "Can not add the PropertyRestriction ("
-				    + res.getType()
-				    + ") because a HasValueRestriction is already set (no additional restriction is allowed)." },
-			    null);
-	    return this;
-	}
+	// if (getRestriction(hasValueID) != null) {
+	// LogUtils
+	// .logDebug(
+	// SharedResources.moduleContext,
+	// MergedRestriction.class,
+	// "addRestriction",
+	// new String[] { "Can not add the PropertyRestriction ("
+	// + res.getType()
+	// +
+	// ") because a HasValueRestriction is already set (no additional restriction is allowed)."
+	// },
+	// null);
+	// return this;
+	// }
 
 	// id points to the appropriate element in 'index' of the given
 	// Restriction
 	int id = getID(res);
 
-	TypeExpression all = index[allValuesFromID] == -1 ? null
-		: (TypeExpression) ((Resource) (types
-			.get(index[allValuesFromID])))
-			.getProperty(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
-	TypeExpression some = index[someValuesFromID] == -1 ? null
-		: (TypeExpression) ((Resource) (types
-			.get(index[someValuesFromID])))
-			.getProperty(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM);
+	PropertyRestriction all = getRestriction(allValuesFromID);
+	PropertyRestriction has = getRestriction(hasValueID);
+	PropertyRestriction some = getRestriction(someValuesFromID);
+
+	// TypeExpression all = index[allValuesFromID] == -1 ? null
+	// : (TypeExpression) ((Resource) (types
+	// .get(index[allValuesFromID])))
+	// .getProperty(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
+	// TypeExpression some = index[someValuesFromID] == -1 ? null
+	// : (TypeExpression) ((Resource) (types
+	// .get(index[someValuesFromID])))
+	// .getProperty(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM);
 
 	switch (id) {
 	case allValuesFromID:
@@ -749,17 +764,18 @@ public class MergedRestriction extends Intersection {
 		types.add(res);
 	    }
 	    break;
-	case hasValueID:
-	    if (max == -1 && all == null && some == null
-		    && getRestriction(minCardinalityID) == null) {
+	case hasValueID: {
+	    int min = getMinCardinality();
+	    if ((max == MAX_UNDEFINED || max > 0) && (min < 2)) {
 		index[hasValueID] = types.size();
 		types.add(res);
 	    }
 	    break;
+	}
 	case minCardinalityID:
 	    int newMin = ((MinCardinalityRestriction) res).getValue();
-	    if (getMinCardinality() == 0)
-		if (max < 0 || max > newMin) {
+	    if (getMinCardinality() == MIN_UNDEFINED)
+		if (max == MAX_UNDEFINED || max > newMin) {
 		    if (index[minCardinalityID] == -1) {
 			index[minCardinalityID] = types.size();
 			types.add(res);
@@ -778,7 +794,7 @@ public class MergedRestriction extends Intersection {
 	case maxCardinalityID:
 	    int newMax = ((MaxCardinalityRestriction) res).getValue();
 	    int min = getMinCardinality();
-	    if (max == -1
+	    if (max == MAX_UNDEFINED
 		    && (newMax > 1
 			    || (newMax == 1 && (some == null || all == null)) || (newMax == 0
 			    && all == null && some == null)))
@@ -794,7 +810,7 @@ public class MergedRestriction extends Intersection {
 	    break;
 	case exactCardinalityID:
 	    int newExact = ((ExactCardinalityRestriction) res).getValue();
-	    if (max == -1
+	    if (max == MAX_UNDEFINED
 		    && getRestriction(minCardinalityID) == null
 		    && (newExact > 1
 			    || (newExact == 1 && (some == null || all == null)) || (newExact == 0
