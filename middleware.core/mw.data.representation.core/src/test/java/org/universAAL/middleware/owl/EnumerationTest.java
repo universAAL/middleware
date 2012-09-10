@@ -2,6 +2,7 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.owl.testont.MyClass1;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.util.ResourceComparator;
 
 import junit.framework.TestCase;
 
@@ -57,6 +58,14 @@ public class EnumerationTest extends TestCase {
 	assertTrue(e_1.size() == 2);
 	e_1.addValue(Integer.valueOf(1));
 	assertTrue(e_1.size() == 3);
+    }
+
+    public void testCopy() {
+	Enumeration e = (Enumeration) e012.copy();
+	assertTrue((new ResourceComparator()).areEqual(e, e012));
+	assertFalse((new ResourceComparator()).areEqual(e, e01));
+	e = (Enumeration) e0.copy();
+	assertTrue((new ResourceComparator()).areEqual(e, e0));
     }
 
     public void testHasMember() {
