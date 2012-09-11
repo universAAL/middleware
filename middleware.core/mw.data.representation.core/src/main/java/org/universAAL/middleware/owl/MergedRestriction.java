@@ -697,37 +697,13 @@ public class MergedRestriction extends Intersection {
 			    null);
 	    return this;
 	}
-	// if (getRestriction(hasValueID) != null) {
-	// LogUtils
-	// .logDebug(
-	// SharedResources.moduleContext,
-	// MergedRestriction.class,
-	// "addRestriction",
-	// new String[] { "Can not add the PropertyRestriction ("
-	// + res.getType()
-	// +
-	// ") because a HasValueRestriction is already set (no additional restriction is allowed)."
-	// },
-	// null);
-	// return this;
-	// }
 
 	// id points to the appropriate element in 'index' of the given
 	// Restriction
 	int id = getID(res);
 
 	PropertyRestriction all = getRestriction(allValuesFromID);
-	PropertyRestriction has = getRestriction(hasValueID);
 	PropertyRestriction some = getRestriction(someValuesFromID);
-
-	// TypeExpression all = index[allValuesFromID] == -1 ? null
-	// : (TypeExpression) ((Resource) (types
-	// .get(index[allValuesFromID])))
-	// .getProperty(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
-	// TypeExpression some = index[someValuesFromID] == -1 ? null
-	// : (TypeExpression) ((Resource) (types
-	// .get(index[someValuesFromID])))
-	// .getProperty(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM);
 
 	switch (id) {
 	case allValuesFromID:
@@ -764,14 +740,31 @@ public class MergedRestriction extends Intersection {
 		types.add(res);
 	    }
 	    break;
-	case hasValueID: {
-	    int min = getMinCardinality();
-	    if ((max == MAX_UNDEFINED || max > 0) && (min < 2)) {
-		index[hasValueID] = types.size();
-		types.add(res);
+	case hasValueID:
+	    PropertyRestriction has = getRestriction(hasValueID);
+	    if (has == null) {
+		if (max != 0) {
+		    index[hasValueID] = types.size();
+		    types.add(res);
+		} else {
+		    LogUtils
+			    .logDebug(
+				    SharedResources.moduleContext,
+				    MergedRestriction.class,
+				    "addRestriction",
+				    new String[] { "Can not add the HasValueRestriction because the maximum cardinality is set to zero, so no instances are allowed." },
+				    null);
+		}
+	    } else {
+		LogUtils
+			.logDebug(
+				SharedResources.moduleContext,
+				MergedRestriction.class,
+				"addRestriction",
+				new String[] { "Can not add the HasValueRestriction because such a restriction is already set." },
+				null);
 	    }
 	    break;
-	}
 	case minCardinalityID:
 	    int newMin = ((MinCardinalityRestriction) res).getValue();
 	    if (getMinCardinality() == MIN_UNDEFINED)
