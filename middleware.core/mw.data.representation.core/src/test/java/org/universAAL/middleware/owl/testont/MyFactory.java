@@ -17,6 +17,8 @@ class MyFactory extends ResourceFactoryImpl {
 	    return new MyClass3(instanceURI);
 	case 4:
 	    return new MyClass1Sub1(instanceURI);
+	case 5:
+	    return new MyClass3Sub1(instanceURI);
 	}
 	return null;
     }
