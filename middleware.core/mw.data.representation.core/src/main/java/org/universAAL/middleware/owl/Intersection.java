@@ -74,7 +74,7 @@ public class Intersection extends TypeExpression {
 
     // TODO: remove when increasing version
     public void addType(Intersection type) {
-	addType((TypeExpression)type);
+	addType((TypeExpression) type);
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
@@ -213,5 +213,10 @@ public class Intersection extends TypeExpression {
     /** Get an iterator for the added child class expressions. */
     public Iterator types() {
 	return types.iterator();
+    }
+
+    /** Returns the number of elements in this intersection. */
+    public int size() {
+	return types.size();
     }
 }
