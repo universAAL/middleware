@@ -3,6 +3,7 @@ package org.universAAL.middleware.owl;
 import org.universAAL.middleware.owl.testont.MyClass1;
 import org.universAAL.middleware.owl.testont.MyClass2;
 import org.universAAL.middleware.owl.testont.MyClass3;
+import org.universAAL.middleware.owl.testont.MyClass3Sub1;
 import org.universAAL.middleware.owl.testont.MyOntology;
 import junit.framework.TestCase;
 
@@ -20,6 +21,7 @@ public class MergedRestrictionTest extends TestCase {
     public void testAppend() {
 	MergedRestriction root = null;
 	MergedRestriction m1;
+	MergedRestriction m2 = null;
 	PropertyRestriction p;
 	TypeURI typeURI;
 
@@ -90,6 +92,30 @@ public class MergedRestrictionTest extends TestCase {
 	    test1.setProperty(MyClass1.PROP_C1C2, new MyClass2(myClass2
 		    .getURI()));
 	    assertTrue(root.hasMember(test1, null));
+
+	    // test matching
+	    if (i == 0) {
+		m2 = root;
+	    } else {
+		assertTrue(m2.matches(root, null));
+		assertFalse(m1.matches(m2, null));
+		assertFalse(m2.matches(m1, null));
+	    }
 	}
+
+	// test matching: create a new root as m2, a specialized version
+	m2 = null;
+	m1 = MergedRestriction.getFixedValueRestriction(MyClass1.PROP_C1C2,
+		myClass2);
+	m2 = m1.appendTo(m2, new String[] { MyClass1.PROP_C1C2 });
+	assertFalse(m2 == null);
+	m1 = MergedRestriction.getAllValuesRestriction(MyClass2.PROP_C2C3,
+		MyClass3Sub1.MY_URI);
+	m2 = m1.appendTo(m2, new String[] { MyClass1.PROP_C1C2,
+		MyClass2.PROP_C2C3 });
+	assertFalse(m2 == null);
+
+	assertTrue(root.matches(m2, null));
+	assertFalse(m2.matches(root, null));
     }
 }

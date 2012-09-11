@@ -26,6 +26,8 @@ public class MyOntology extends Ontology {
 	createNewOntClassInfo(MyClass3.MY_URI, factory, 3);
 	createNewOntClassInfo(MyClass1Sub1.MY_URI, factory, 4).addSuperClass(
 		MyClass1.MY_URI);
+	createNewOntClassInfo(MyClass3Sub1.MY_URI, factory, 5).addSuperClass(
+		MyClass3.MY_URI);
 
 	oci1.addObjectProperty(MyClass1.PROP_C1C2);
 	oci1.addRestriction(MergedRestriction.getAllValuesRestriction(
