@@ -19,11 +19,11 @@ public class OntologiesTest extends TestCase {
 	ont = new MyOntology();
 
 	// trying before ontology registration
-	assertFalse(MyResource.MY_URI.equals(OntologyManagement.getInstance()
-		.getMostSpecializedClass(
-			new String[] { MyResource.MY_URI,
-				"somethingcompletelyDifferent",
-				"somethingNotSoDifferent" })));
+	// assertFalse(MyResource.MY_URI.equals(OntologyManagement.getInstance()
+	// .getMostSpecializedClass(
+	// new String[] { MyResource.MY_URI,
+	// "somethingcompletelyDifferent",
+	// "somethingNotSoDifferent" })));
 
 	// register ontology
 	OntologyManagement.getInstance().register(ont);
