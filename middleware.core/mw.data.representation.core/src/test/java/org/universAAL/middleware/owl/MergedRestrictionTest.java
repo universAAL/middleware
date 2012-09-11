@@ -117,5 +117,21 @@ public class MergedRestrictionTest extends TestCase {
 
 	assertTrue(root.matches(m2, null));
 	assertFalse(m2.matches(root, null));
+
+	// test matching: create a new root as m2, but with different type at
+	// the end
+	m2 = null;
+	m1 = MergedRestriction.getFixedValueRestriction(MyClass1.PROP_C1C2,
+		myClass2);
+	m2 = m1.appendTo(m2, new String[] { MyClass1.PROP_C1C2 });
+	assertFalse(m2 == null);
+	m1 = MergedRestriction.getAllValuesRestriction(MyClass2.PROP_C2C3,
+		MyClass2.MY_URI);
+	m2 = m1.appendTo(m2, new String[] { MyClass1.PROP_C1C2,
+		MyClass2.PROP_C2C3 });
+	assertFalse(m2 == null);
+
+	assertFalse(root.matches(m2, null));
+	assertFalse(m2.matches(root, null));
     }
 }
