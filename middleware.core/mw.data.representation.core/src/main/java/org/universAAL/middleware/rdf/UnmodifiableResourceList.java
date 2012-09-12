@@ -27,7 +27,7 @@ import java.util.ListIterator;
 public class UnmodifiableResourceList implements List {
 
     /** A safe iterator that does not allow modifications. */
-    private class SafeIterator implements Iterator {
+    private static class SafeIterator implements Iterator {
 	Iterator it;
 
 	SafeIterator(Iterator it) {
@@ -47,7 +47,8 @@ public class UnmodifiableResourceList implements List {
     }
 
     /** A safe iterator that does not allow modifications. */
-    private class SafeListIterator extends SafeIterator implements ListIterator {
+    private static class SafeListIterator extends SafeIterator implements
+	    ListIterator {
 	ListIterator it;
 
 	SafeListIterator(ListIterator it) {
@@ -82,6 +83,10 @@ public class UnmodifiableResourceList implements List {
 
     public UnmodifiableResourceList(List l) {
 	this.l = l;
+    }
+
+    public static final SafeIterator getIterator(Iterator it) {
+	return new SafeIterator(it);
     }
 
     public boolean add(Object arg0) {
