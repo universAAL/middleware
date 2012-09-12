@@ -80,7 +80,7 @@ public class UnmodifiableResourceList implements List {
 
     List l;
 
-    UnmodifiableResourceList(List l) {
+    public UnmodifiableResourceList(List l) {
 	this.l = l;
     }
 

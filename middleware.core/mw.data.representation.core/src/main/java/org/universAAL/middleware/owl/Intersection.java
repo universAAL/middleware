@@ -24,6 +24,9 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.rdf.UnmodifiableResource;
+import org.universAAL.middleware.rdf.UnmodifiableResourceList;
+
 /**
  * An intersection of a set of class expressions <i>CE<sub>1</sub> ...
  * CE<sub>n</sub></i> contains all individuals that are instances of all class
@@ -213,6 +216,11 @@ public class Intersection extends TypeExpression {
     /** Get an iterator for the added child class expressions. */
     public Iterator types() {
 	return types.iterator();
+    }
+
+    /** Get an unmodifiable list of the added child class expressions. */
+    public List elements() {
+	return new UnmodifiableResourceList(types);
     }
 
     /** Returns the number of elements in this intersection. */
