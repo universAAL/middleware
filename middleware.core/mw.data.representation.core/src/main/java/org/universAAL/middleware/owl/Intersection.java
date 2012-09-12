@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
-
-import org.universAAL.middleware.rdf.UnmodifiableResource;
 import org.universAAL.middleware.rdf.UnmodifiableResourceList;
 
 /**
@@ -219,7 +217,7 @@ public class Intersection extends TypeExpression {
     }
 
     /** Get an unmodifiable list of the added child class expressions. */
-    public List elements() {
+    public UnmodifiableResourceList elements() {
 	return new UnmodifiableResourceList(types);
     }
 

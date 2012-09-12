@@ -5,6 +5,8 @@ import org.universAAL.middleware.owl.testont.MyClass2;
 import org.universAAL.middleware.owl.testont.MyClass3;
 import org.universAAL.middleware.owl.testont.MyClass3Sub1;
 import org.universAAL.middleware.owl.testont.MyOntology;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.UnmodifiableResource;
 import org.universAAL.middleware.rdf.UnmodifiableResourceList;
 
 import junit.framework.TestCase;
@@ -140,9 +142,7 @@ public class MergedRestrictionTest extends TestCase {
     public void testAppend2() {
 	MergedRestriction root = null;
 	MergedRestriction m1;
-	MergedRestriction m2 = null;
 	PropertyRestriction p;
-	TypeURI typeURI;
 
 	// -----
 	// adding value after type
@@ -165,7 +165,6 @@ public class MergedRestrictionTest extends TestCase {
 	assertFalse(root == null);
 
 	// test the result
-	// System.out.println(root.toStringRecursive());
 	assertTrue(root.size() == 1);
 	p = root.getRestriction(MergedRestriction.allValuesFromID);
 	assertFalse(p == null);
@@ -175,28 +174,21 @@ public class MergedRestrictionTest extends TestCase {
 	assertTrue(i.size() == 2);
 	UnmodifiableResourceList l = (UnmodifiableResourceList) i.elements();
 	// the list has a TypURI and a HasValue
-	TypeURI t = null;
+	// test TypeURI
+	UnmodifiableResource ur = null;
 	for (int j = 0; j < 2; j++)
-	    if (l.get(j) instanceof TypeURI)
-		t = (TypeURI) l.get(j);
-	// assertFalse(t == null);
-	// assertTrue(MyClass2.MY_URI.equals(t.getURI()));
-
-	// assertTrue(p.getConstraint() == myClass3);
-	// // test the result: test type
-	// p = root.getRestriction(MergedRestriction.allValuesFromID);
-	// assertFalse(p == null);
-	// assertTrue(p.getConstraint() instanceof AllValuesFromRestriction);
-	// p = (PropertyRestriction) p.getConstraint();
-	// assertTrue(p.getConstraint() instanceof TypeURI);
-	// typeURI = (TypeURI) p.getConstraint();
-	// assertTrue(MyClass3.MY_URI.equals(typeURI.getURI()));
-
-	// prepare instance for hasMember
-	// MyClass1 test1 = new MyClass1("something1");
-	// MyClass2 test2 = new MyClass2(myClass2.getURI());
-	// MyClass3 test3 = new MyClass3("something3");
-	// test1.setProperty(MyClass1.PROP_C1C2, test2);
-	// test2.setProperty(MyClass2.PROP_C2C3, test3);
+	    if (((UnmodifiableResource) (l.get(j))).instanceOf(TypeURI.class))
+		ur = (UnmodifiableResource) l.get(j);
+	assertFalse(ur == null);
+	assertTrue(MyClass2.MY_URI.equals(ur.getURI()));
+	// test HasValue
+	for (int j = 0; j < 2; j++)
+	    if (((UnmodifiableResource) (l.get(j)))
+		    .instanceOf(HasValueRestriction.class))
+		ur = (UnmodifiableResource) l.get(j);
+	assertFalse(ur == null);
+	assertTrue(((Resource) (ur
+		.getProperty(HasValueRestriction.PROP_OWL_HAS_VALUE))).getURI() == myClass3
+		.getURI());
     }
 }

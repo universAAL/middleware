@@ -8,7 +8,7 @@ public class IntersectionTest extends TestCase {
     protected void setUp() throws Exception {
 	super.setUp();
     }
-    
+
     public void testMethods() {
 	// Intersection i0 = new Intersection();
 	// i0.addType(et.e0);
@@ -77,7 +77,7 @@ public class IntersectionTest extends TestCase {
 	i01.addType(et.e01);
 	Intersection i2 = new Intersection();
 	i2.addType(et.e2);
-	
+
 	assertTrue(i0.isDisjointWith(et.e1, null));
 	assertTrue(i0.isDisjointWith(i1, null));
 	assertFalse(i01.isDisjointWith(et.e1, null));

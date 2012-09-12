@@ -265,4 +265,8 @@ public class UnmodifiableResource extends Resource {
     public final Class getClassOfUnmodifiable() {
 	return res.getClass();
     }
+
+    public final boolean instanceOf(Class c) {
+	return c.isAssignableFrom(res.getClass());
+    }
 }
