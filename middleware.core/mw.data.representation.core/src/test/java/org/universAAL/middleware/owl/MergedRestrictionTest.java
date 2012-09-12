@@ -5,6 +5,8 @@ import org.universAAL.middleware.owl.testont.MyClass2;
 import org.universAAL.middleware.owl.testont.MyClass3;
 import org.universAAL.middleware.owl.testont.MyClass3Sub1;
 import org.universAAL.middleware.owl.testont.MyOntology;
+import org.universAAL.middleware.rdf.UnmodifiableResourceList;
+
 import junit.framework.TestCase;
 
 public class MergedRestrictionTest extends TestCase {
@@ -18,7 +20,7 @@ public class MergedRestrictionTest extends TestCase {
 	OntologyManagement.getInstance().register(ont);
     }
 
-    public void testAppend() {
+    public void testAppend1() {
 	MergedRestriction root = null;
 	MergedRestriction m1;
 	MergedRestriction m2 = null;
@@ -133,5 +135,68 @@ public class MergedRestrictionTest extends TestCase {
 
 	assertFalse(root.matches(m2, null));
 	assertFalse(m2.matches(root, null));
+    }
+
+    public void testAppend2() {
+	MergedRestriction root = null;
+	MergedRestriction m1;
+	MergedRestriction m2 = null;
+	PropertyRestriction p;
+	TypeURI typeURI;
+
+	// -----
+	// adding value after type
+	MyClass3 myClass3 = new MyClass3("MyClass3Instance");
+
+	/*-
+	 * add value then type
+	 *	--PROP_C1C2--> Type
+	 *	--PROP_C1C2-->      --PROP_C2C3--> Val
+	 */
+	m1 = MergedRestriction.getAllValuesRestriction(MyClass1.PROP_C1C2,
+		MyClass2.MY_URI);
+	root = m1.appendTo(root, new String[] { MyClass1.PROP_C1C2 });
+	assertFalse(root == null);
+
+	m1 = MergedRestriction.getFixedValueRestriction(MyClass2.PROP_C2C3,
+		myClass3);
+	root = m1.appendTo(root, new String[] { MyClass1.PROP_C1C2,
+		MyClass2.PROP_C2C3 });
+	assertFalse(root == null);
+
+	// test the result
+	// System.out.println(root.toStringRecursive());
+	assertTrue(root.size() == 1);
+	p = root.getRestriction(MergedRestriction.allValuesFromID);
+	assertFalse(p == null);
+	assertTrue(p.getConstraint() instanceof Intersection);
+	Intersection i = (Intersection) p.getConstraint();
+	assertFalse(i instanceof MergedRestriction);
+	assertTrue(i.size() == 2);
+	UnmodifiableResourceList l = (UnmodifiableResourceList) i.elements();
+	// the list has a TypURI and a HasValue
+	TypeURI t = null;
+	for (int j = 0; j < 2; j++)
+	    if (l.get(j) instanceof TypeURI)
+		t = (TypeURI) l.get(j);
+	// assertFalse(t == null);
+	// assertTrue(MyClass2.MY_URI.equals(t.getURI()));
+
+	// assertTrue(p.getConstraint() == myClass3);
+	// // test the result: test type
+	// p = root.getRestriction(MergedRestriction.allValuesFromID);
+	// assertFalse(p == null);
+	// assertTrue(p.getConstraint() instanceof AllValuesFromRestriction);
+	// p = (PropertyRestriction) p.getConstraint();
+	// assertTrue(p.getConstraint() instanceof TypeURI);
+	// typeURI = (TypeURI) p.getConstraint();
+	// assertTrue(MyClass3.MY_URI.equals(typeURI.getURI()));
+
+	// prepare instance for hasMember
+	// MyClass1 test1 = new MyClass1("something1");
+	// MyClass2 test2 = new MyClass2(myClass2.getURI());
+	// MyClass3 test3 = new MyClass3("something3");
+	// test1.setProperty(MyClass1.PROP_C1C2, test2);
+	// test2.setProperty(MyClass2.PROP_C2C3, test3);
     }
 }
