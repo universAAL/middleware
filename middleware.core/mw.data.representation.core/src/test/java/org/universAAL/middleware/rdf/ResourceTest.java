@@ -34,5 +34,20 @@ public class ResourceTest extends TestCase {
 	assertTrue(r.numberOfProperties() == 1);
 	r.setResourceLabel("label");
 	assertTrue(r.numberOfProperties() == 2);
+	assertTrue("comment".equals(r.getResourceComment()));
+	assertTrue("label".equals(r.getResourceLabel()));
+    }
+
+    public void testGetOrConstructLabel() {
+	Resource r = new Resource(Resource.uAAL_VOCABULARY_NAMESPACE
+		+ "LightSource");
+	//System.out.println(r.getOrConstructLabel(null));
+	assertTrue("\"Light Source\"".equals(r.getOrConstructLabel(null)));
+	//System.out.println(r.getOrConstructLabel("My LightSource"));
+	assertTrue("My LightSource \"Light Source\"".equals(r
+		.getOrConstructLabel("My LightSource")));
+	r.setResourceLabel("mylabel");
+	assertTrue("mylabel".equals(r.getOrConstructLabel(null)));
+	assertTrue("mylabel".equals(r.getOrConstructLabel("ylksdf")));
     }
 }

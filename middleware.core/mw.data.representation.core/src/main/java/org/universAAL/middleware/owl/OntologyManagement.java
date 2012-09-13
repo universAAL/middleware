@@ -163,7 +163,11 @@ public final class OntologyManagement {
     private OntologyManagement() {
     }
 
-    /** Get the Singleton instance. */
+    /**
+     * Get the Singleton instance.
+     * 
+     * @return The Singleton instance.
+     */
     public static final OntologyManagement getInstance() {
 	return instance;
     }
@@ -183,6 +187,112 @@ public final class OntologyManagement {
 		    newPendingOntologies.add(ont);
 	    pendingOntologies = newPendingOntologies;
 	}
+    }
+
+    /**
+     * Perform a sanity check of the given class that is defined in the given
+     * ontology. The check is done during registration of the ontology.
+     * 
+     * @param ont
+     *            The ontology that defined the class.
+     * @param info
+     *            the ontology class.
+     */
+    private boolean testClass(Ontology ont, OntClassInfo info) {
+	if (!Resource.isQualifiedName(info.getURI())) {
+	    LogUtils
+		    .logError(
+			    SharedResources.moduleContext,
+			    OntologyManagement.class,
+			    "register_testClass",
+			    new Object[] {
+				    "The ontology class ",
+				    info.getURI(),
+				    " of the ontology ",
+				    ont.getInfo().getURI(),
+				    " does not have a qualified URI. Please check the URI you give as parameter to creator methods like createNewOntClassInfo()." },
+			    null);
+	    return false;
+	}
+
+	if (info.isAbstract())
+	    return true;
+
+	ResourceFactory fact = info.getFactory();
+	if (fact == null) {
+	    LogUtils
+		    .logError(
+			    SharedResources.moduleContext,
+			    OntologyManagement.class,
+			    "register_testClass",
+			    new Object[] {
+				    "The ontology class ",
+				    info.getURI(),
+				    " of the ontology ",
+				    ont.getInfo().getURI(),
+				    " is not an abstract class but it does not define a factory to create instances of this class." },
+			    null);
+	    return false;
+	}
+
+	Resource testInstance = fact.createInstance(info.getURI(),
+		Resource.uAAL_NAMESPACE_PREFIX + "testInstance", info
+			.getFactoryIndex());
+	if (testInstance == null) {
+	    LogUtils
+		    .logError(
+			    SharedResources.moduleContext,
+			    OntologyManagement.class,
+			    "register_testClass",
+			    new Object[] {
+				    "The ontology class ",
+				    info.getURI(),
+				    " of the ontology ",
+				    ont.getInfo().getURI(),
+				    " is not an abstract class and it defines a factory, but the factory does not create instances for this class." },
+			    null);
+	    return false;
+	}
+
+	if (!(testInstance instanceof ManagedIndividual)) {
+	    LogUtils
+		    .logError(
+			    SharedResources.moduleContext,
+			    OntologyManagement.class,
+			    "register_testClass",
+			    new Object[] {
+				    "The ontology class ",
+				    info.getURI(),
+				    " of the ontology ",
+				    ont.getInfo().getURI(),
+				    " is registered as an ontology class (OWL), but the factory does not return a subclass of ManagedIndividual. All OWL classes must be a subclass of ManagedIndividual." },
+			    null);
+	    return false;
+	}
+
+	ManagedIndividual m = (ManagedIndividual) testInstance;
+	if (!info.getURI().equals(m.getClassURI())) {
+	    LogUtils
+		    .logError(
+			    SharedResources.moduleContext,
+			    OntologyManagement.class,
+			    "register_testClass",
+			    new Object[] {
+				    "The ontology class ",
+				    info.getURI(),
+				    " of the ontology ",
+				    ont.getInfo().getURI(),
+				    " does not return the URI that was used for registration. Please check that the method \"getClassURI()\" is overwritten and matches the URI you specify as parameter to creator methods like createNewOntClassInfo()." },
+			    null);
+	    return false;
+	}
+
+	String[] props = info.getDeclaredProperties();
+	// just test that all properties have a serialization type
+	for (int i = 0; i < props.length; i++)
+	    m.getPropSerializationType(props[i]);
+
+	return true;
     }
 
     /**
@@ -248,6 +358,9 @@ public final class OntologyManagement {
 	    if (ontClassInfos != null) {
 		for (int i = 0; i < ontClassInfos.length; i++) {
 		    OntClassInfo info = ontClassInfos[i];
+
+		    // make some sanity tests
+		    //testClass(ont, info);
 
 		    // add ontology class
 		    ontClassInfoURIPermissionCheck = info.getURI();
