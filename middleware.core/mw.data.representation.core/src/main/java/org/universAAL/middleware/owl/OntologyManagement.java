@@ -168,7 +168,7 @@ public final class OntologyManagement {
      * 
      * @return The Singleton instance.
      */
-    public static final OntologyManagement getInstance() {
+    public static OntologyManagement getInstance() {
 	return instance;
     }
 
@@ -528,7 +528,7 @@ public final class OntologyManagement {
      *            The set of URIs of classes.
      * @return The URI of the most specialized class.
      */
-    public final String getMostSpecializedClass(String[] classURIs) {
+    public String getMostSpecializedClass(String[] classURIs) {
 	if (classURIs == null)
 	    return null;
 
@@ -694,7 +694,7 @@ public final class OntologyManagement {
     }
 
     /** Internal method. */
-    public final boolean checkPermission(String uri) {
+    public boolean checkPermission(String uri) {
 	if (uri == null)
 	    return false;
 	return uri.equals(ontClassInfoURIPermissionCheck);

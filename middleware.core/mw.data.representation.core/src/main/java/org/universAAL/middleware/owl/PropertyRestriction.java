@@ -132,7 +132,7 @@ public abstract class PropertyRestriction extends TypeExpression {
 	    return Boolean.FALSE;
 
 	if (subtype instanceof Enumeration)
-	    return new Boolean(((Enumeration) subtype).hasSupertype(this,
+	    return Boolean.valueOf(((Enumeration) subtype).hasSupertype(this,
 		    context));
 
 	if (subtype instanceof TypeURI) {

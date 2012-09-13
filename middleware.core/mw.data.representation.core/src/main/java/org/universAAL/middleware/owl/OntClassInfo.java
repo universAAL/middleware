@@ -286,7 +286,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     }
 
     /** Internal method. */
-    public final boolean checkPermission(String uri) {
+    public boolean checkPermission(String uri) {
 	if (uri == null)
 	    return false;
 	return uri.equals(propertyURIPermissionCheck);
