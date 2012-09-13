@@ -1,5 +1,6 @@
 package org.universAAL.middleware.owl.testont;
 
+import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntClassInfoSetup;
 import org.universAAL.middleware.owl.Ontology;
@@ -20,10 +21,14 @@ public class MyOntology extends Ontology {
 	OntClassInfoSetup oci1;
 	OntClassInfoSetup oci2;
 
-	createNewRDFClassInfo(MyResource.MY_URI, factory, 0);
+	createNewRDFClassInfo(MyResource.MY_URI, factory, 0).addSuperClass(
+		ManagedIndividual.MY_URI);
 	oci1 = createNewOntClassInfo(MyClass1.MY_URI, factory, 1);
 	oci2 = createNewOntClassInfo(MyClass2.MY_URI, factory, 2);
-	createNewOntClassInfo(MyClass3.MY_URI, factory, 3);
+	oci1.addSuperClass(ManagedIndividual.MY_URI);
+	oci2.addSuperClass(ManagedIndividual.MY_URI);
+	createNewOntClassInfo(MyClass3.MY_URI, factory, 3).addSuperClass(
+		ManagedIndividual.MY_URI);
 	createNewOntClassInfo(MyClass1Sub1.MY_URI, factory, 4).addSuperClass(
 		MyClass1.MY_URI);
 	createNewOntClassInfo(MyClass3Sub1.MY_URI, factory, 5).addSuperClass(

@@ -24,6 +24,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.owl.OntClassInfo;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.FinalizedResource;
@@ -298,12 +299,12 @@ public class ServiceProfile extends FinalizedResource {
 	addType(MY_URI, true);
 	props.put(Service.PROP_OWLS_PRESENTED_BY, s);
 	setProperty(PROP_OWLS_PROFILE_HAS_PROCESS, processURI);
-	String aux = OntologyManagement.getInstance().getOntClassInfo(
-		s.getClassURI()).getResourceLabel();
+	OntClassInfo oci = OntologyManagement.getInstance().getOntClassInfo(
+		s.getClassURI());
+	String aux = oci == null ? "" : oci.getResourceLabel();
 	if (aux != null)
 	    props.put(PROP_OWLS_PROFILE_SERVICE_NAME, aux);
-	aux = OntologyManagement.getInstance().getOntClassInfo(s.getClassURI())
-		.getResourceComment();
+	aux = oci == null ? "" : oci.getResourceComment();
 	if (aux != null)
 	    props.put(PROP_OWLS_PROFILE_TEXT_DESCRIPTION, aux);
     }

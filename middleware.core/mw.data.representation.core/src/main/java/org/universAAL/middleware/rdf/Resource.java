@@ -491,7 +491,12 @@ public class Resource {
 	    return (String) val;
 	if (type == null)
 	    type = StringUtils.deriveLabel(getType());
-	return isAnon() ? "a(n) " + type : type + " \""
+	if (isAnon())
+	    return "a(n) " + type;
+	String retval = "\"";
+	if (type != null)
+	    retval = type + " \"";
+	return retval
 		+ (hasQualifiedName() ? StringUtils.deriveLabel(uri) : uri)
 		+ "\"";
     }
@@ -499,6 +504,8 @@ public class Resource {
     /**
      * Get the local name which is the part of the URI after the delimiter
      * ('#').
+     * 
+     * @return The local name of the URI of this resource.
      * 
      * @see #getNamespace()
      */
@@ -510,6 +517,8 @@ public class Resource {
      * Get the namespace of the URI which is the start of the URI including the
      * delimiter ('#'). It is the URI without the local name.
      * 
+     * @return The namespace of the URI of this resource.
+     * 
      * @see #getLocalName()
      */
     public String getNamespace() {
@@ -517,7 +526,13 @@ public class Resource {
 		ns_delim_index + 1);
     }
 
-    /** Get the RDF object for a specified property. */
+    /**
+     * Get the RDF object for a specified property.
+     * 
+     * @param propURI
+     *            URI of the property.
+     * @return The object for the given property.
+     */
     public Object getProperty(String propURI) {
 	return props.get(propURI);
     }
