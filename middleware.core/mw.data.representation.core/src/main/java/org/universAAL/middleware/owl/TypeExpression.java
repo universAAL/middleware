@@ -168,8 +168,8 @@ public abstract class TypeExpression extends Resource {
 
 	Class c = (Class) expressionTypes.get(expressionTypeURI);
 	if (c == null)
-	    return ((OWL_CLASS.equals(expressionTypeURI) && ManagedIndividual
-		    .isRegisteredClassURI(instanceURI)) || (expressionTypeURI == null && TypeMapper
+	    return ((OWL_CLASS.equals(expressionTypeURI) && OntologyManagement
+		    .getInstance().isRegisteredClass(instanceURI, true)) || (expressionTypeURI == null && TypeMapper
 		    .isRegisteredDatatypeURI(instanceURI))) ? TypeExpression
 		    .getClassExpressionInstance(null, null, instanceURI) : null;
 

@@ -25,7 +25,9 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.util.ResourceComparator;
 
@@ -118,26 +120,6 @@ public class Resource {
     public static final int PROP_SERIALIZATION_FULL = 3;
 
     /**
-     * Used for deserialization: all classes derived from Resource have to
-     * register to the Resource base class with their URI by calling
-     * {@link #addResourceClass(String uri, Class clz)}. The deserializer can
-     * then get an instance of a class given its URI by calling
-     * {@link #getResource(String classURI, String instanceURI)}
-     */
-    // private static Hashtable uriRsrcClass = new Hashtable();
-
-    /**
-     * Registration of specialized objects. When getting a Resource (e.g. by a
-     * serializer), either the specialized Resource is retrieved according to
-     * the URI of the specific instance, or a new object is created which is
-     * derived from Resource according to the class URI. Register an object by
-     * calling {@link #addSpecialResource(Resource r)}. The registered instance
-     * - given its instance URI - can then be retrieved by calling
-     * {@link #getResource(String classURI, String instanceURI)}
-     */
-    // private static Hashtable uriResource = new Hashtable();
-
-    /**
      * URI of this resource, or URIref (URI plus fragment identifier, separated
      * by the symbol '#').
      */
@@ -171,7 +153,7 @@ public class Resource {
     /** true, if this resource is an XML Literal. */
     protected boolean isXMLLiteral = false;
 
-    /*
+    /*-
      * --------------------------------------------------------------
      * Constructors
      * --------------------------------------------------------------
@@ -236,34 +218,11 @@ public class Resource {
 	ns_delim_index = isQualifiedName(uri) ? uri.lastIndexOf('#') : -1;
     }
 
-    /*
-     * -------------------------------------------------------------- Methods
+    /*-
+     * --------------------------------------------------------------
+     *  Methods
      * --------------------------------------------------------------
      */
-
-    /**
-     * Register a new Resource class. This can be used for deserialisation: when
-     * a message arrives with this URI, a new instance of this class can be
-     * generated.
-     */
-    // protected static final void addResourceClass(String uri, Class clz) {
-    // if (StringUtils.isNonEmpty(uri) && clz != null
-    // && !uriRsrcClass.containsKey(uri))
-    // uriRsrcClass.put(uri, clz);
-    // }
-
-    /**
-     * Register a new specialized Resource instance (instead of a Resource
-     * class). The instance can be retrieved by calling
-     * {@link #getResource(String classURI, String instanceURI)}
-     * 
-     * @param r
-     *            The Resource to register.
-     */
-    // protected static final void addSpecialResource(Resource r) {
-    // if (r != null && !r.isAnon())
-    // uriResource.put(r.uri, r);
-    // }
 
     /**
      * Creates a new Resource instance which is treated as an RDF list and
@@ -306,31 +265,8 @@ public class Resource {
      * @see OntologyManagement#getResource(String, String)
      */
     public static Resource getResource(String classURI, String instanceURI) {
-
 	return OntologyManagement.getInstance().getResource(classURI,
 		instanceURI);
-
-	// if (classURI == null)
-	// return null;
-	//
-	// Class clz = (Class) uriRsrcClass.get(classURI);
-	// if (clz == null)
-	// return null;
-	//
-	// try {
-	// if (Resource.isAnonymousURI(instanceURI))
-	// return (Resource) clz.newInstance();
-	// else {
-	// Object o = uriResource.get(instanceURI);
-	// if (o instanceof Resource && o.getClass() == clz)
-	// return (Resource) o;
-	// return (Resource) clz.getConstructor(
-	// new Class[] { String.class }).newInstance(
-	// new Object[] { instanceURI });
-	// }
-	// } catch (Exception e) {
-	// return null;
-	// }
     }
 
     /**
@@ -397,7 +333,7 @@ public class Resource {
     }
 
     /**
-     * If this Resource represents an RDF, retrieve the elements as
+     * If this Resource represents an RDF List, retrieve the elements as
      * {@link java.util.List}.
      * 
      * @param l
@@ -413,12 +349,48 @@ public class Resource {
 		    String type = ((Resource) o).getType();
 		    if (type != null && type.equals(TYPE_RDF_LIST))
 			((Resource) o).asList(l);
-		    // TODO: log that rest must be a list or rdf:nil
-		} else if (o instanceof List)
+		    else {
+			if (!RDF_EMPTY_LIST.equals(((Resource) o).getURI())) {
+			    LogUtils
+				    .logDebug(
+					    SharedResources.moduleContext,
+					    Resource.class,
+					    "asList",
+					    new Object[] {
+						    "The resource ",
+						    getURI(),
+						    " is of type rdf:list and it defines another element with rdf:rest,"
+							    + " but the rdf:rest is neither rdf:nil nor another rdf:list."
+							    + " The rdf:rest is not further taken into account." },
+					    null);
+			}
+		    }
+		} else if (o instanceof List) {
 		    // the rest is already a list object
 		    l.addAll((List) o);
-		// TODO: add a last 'else' with log that rest must be either a
-		// List, or a Resource of type rdf:List, or rdf:nil
+		} else {
+		    LogUtils
+			    .logDebug(
+				    SharedResources.moduleContext,
+				    Resource.class,
+				    "asList",
+				    new Object[] {
+					    "The resource ",
+					    getURI(),
+					    " is of type rdf:list and it defines another element with rdf:rest,"
+						    + " but the rdf:rest is neither rdf:nil nor another rdf:list nor a List."
+						    + " The rdf:rest is not further taken into account." },
+				    null);
+		}
+	    } else {
+		LogUtils
+			.logDebug(
+				SharedResources.moduleContext,
+				Resource.class,
+				"asList",
+				new Object[] { "The resource ", getURI(),
+					" is of type rdf:list, but it does not define a rdf:first property." },
+				null);
 	    }
 	}
     }
@@ -467,7 +439,7 @@ public class Resource {
      * 
      * @return The copied Resource.
      */
-    // TODO: only resources are copies, but not list of resources.
+    // TODO: only resources are copied, but not list of resources.
     // TODO: will create an infinite loop for cycles.
     public Resource deepCopy() {
 	Resource copy = new Resource(uri, isXMLLiteral);
@@ -640,7 +612,7 @@ public class Resource {
 	return uri;
     }
 
-    /** Get the has code for this Resource, calculated from the URI. */
+    /** Get the hash code for this Resource, calculated from the URI. */
     public int hashCode() {
 	return uri.hashCode();
     }
@@ -834,6 +806,9 @@ public class Resource {
 	    return ((Resource) tmp).setPropertyPathFromOffset(propPath,
 		    fromIndex + 1, value, force);
 	} catch (Exception e) {
+	    LogUtils.logDebug(SharedResources.moduleContext, Resource.class,
+		    "setPropertyPathFromOffset",
+		    new Object[] { "An error has occured." }, e);
 	    return false;
 	}
     }

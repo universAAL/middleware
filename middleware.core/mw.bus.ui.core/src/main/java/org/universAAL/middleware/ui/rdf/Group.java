@@ -239,7 +239,8 @@ public class Group extends FormControl {
 				    new Object[] {
 					    "ignoring a property with insufficient restrictions: ",
 					    props[i] }, null);
-		else if (ManagedIndividual.isRegisteredClassURI(tt)) {
+		else if (OntologyManagement.getInstance().isRegisteredClass(tt,
+			true)) {
 		    Group g = new Group(this, new Label(StringUtils
 			    .deriveLabel(props[i]), null),
 			    constructSubpath(props[i]), null, null);

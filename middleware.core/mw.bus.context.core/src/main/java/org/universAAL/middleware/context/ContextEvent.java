@@ -21,6 +21,7 @@ package org.universAAL.middleware.context;
 
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 
@@ -160,7 +161,8 @@ public class ContextEvent extends FinalizedResource {
 	    return null;
 
 	Resource subject = null;
-	if (ManagedIndividual.isRegisteredClassURI(subjectTypeURI))
+	if (OntologyManagement.getInstance().isRegisteredClass(subjectTypeURI,
+		true))
 	    subject = ManagedIndividual.getInstance(subjectTypeURI, subjectURI);
 	else {
 	    subject = new Resource(subjectURI);
