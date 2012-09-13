@@ -255,6 +255,7 @@ middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/testont/MyFactory.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/testont/MyOntology.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/owl/testont/MyResource.java -text
+middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/rdf/ResourceTest.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/rdf/TypeMapperTest.java -text
 middleware.core/mw.data.serialization.core/LICENSE.txt -text
 middleware.core/mw.data.serialization.core/NOTICE.txt -text

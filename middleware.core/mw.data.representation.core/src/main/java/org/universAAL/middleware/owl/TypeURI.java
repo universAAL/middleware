@@ -67,8 +67,8 @@ public class TypeURI extends TypeExpression {
 		    if (OWL_CLASS.equals(tmp))
 			return new TypeURI(((Resource) o).getURI(), false);
 		    else if (tmp == null)
-			if (ManagedIndividual
-				.isRegisteredClassURI(((Resource) o).getURI()))
+			if (OntologyManagement.getInstance().isRegisteredClass(
+				((Resource) o).getURI(), true))
 			    return new TypeURI(((Resource) o).getURI(), false);
 			else if (TypeMapper
 				.isRegisteredDatatypeURI(((Resource) o)
@@ -78,13 +78,14 @@ public class TypeURI extends TypeExpression {
 	    } else if (TypeMapper.isRegisteredDatatypeURI(((Resource) o)
 		    .getURI()))
 		return new TypeURI(((Resource) o).getURI(), true);
-	    else if (ManagedIndividual.isRegisteredClassURI(((Resource) o)
-		    .getURI()))
+	    else if (OntologyManagement.getInstance().isRegisteredClass(
+		    ((Resource) o).getURI(), true))
 		return new TypeURI(((Resource) o).getURI(), false);
 	} else if (o instanceof String)
 	    if (TypeMapper.isRegisteredDatatypeURI((String) o))
 		return new TypeURI((String) o, true);
-	    else if (ManagedIndividual.isRegisteredClassURI((String) o))
+	    else if (OntologyManagement.getInstance().isRegisteredClass(
+		    (String) o, true))
 		return new TypeURI((String) o, false);
 
 	return null;

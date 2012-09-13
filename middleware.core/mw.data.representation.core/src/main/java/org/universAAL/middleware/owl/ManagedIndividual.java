@@ -23,6 +23,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
@@ -67,9 +69,12 @@ public abstract class ManagedIndividual extends FinalizedResource {
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "ManagedIndividual";
 
-    // For performance: when calling #getOntClassInfo(), the OntClassInfo is
-    // retrieved from OntologyManagement and stored here to accelerate
-    // another call
+    /**
+     * The ontological information about the class of this object. For
+     * performance reasons, when the {@link OntClassInfo} is retrieved from
+     * OntologyManagement by calling #getOntClassInfo() it is stored here to
+     * accelerate further calls.
+     */
     private OntClassInfo ontClassInfo = null;
 
     /** The constructor for (de-)serializers. */
@@ -284,6 +289,13 @@ public abstract class ManagedIndividual extends FinalizedResource {
      * Checks if a registered class with the given URI can be found.
      */
     public static final boolean isRegisteredClassURI(String classURI) {
+	LogUtils
+		.logDebug(
+			SharedResources.moduleContext,
+			ManagedIndividual.class,
+			"isRegisteredClassURI",
+			new Object[] { "This method is deprecated, please use OntologyManagement.isRegisteredClass(classURI, true)." },
+			null);
 	return OntologyManagement.getInstance().isRegisteredClass(classURI,
 		true);
     }

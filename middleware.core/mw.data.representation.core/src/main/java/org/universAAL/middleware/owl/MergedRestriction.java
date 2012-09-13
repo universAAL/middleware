@@ -329,7 +329,8 @@ public class MergedRestriction extends Intersection {
 
 	if (TypeMapper.isRegisteredDatatypeURI(typeURI))
 	    type = new TypeURI(typeURI, true);
-	else if (ManagedIndividual.isRegisteredClassURI(typeURI))
+	else if (OntologyManagement.getInstance().isRegisteredClass(typeURI,
+		true))
 	    type = new TypeURI(typeURI, false);
 
 	if (type == null) {
@@ -420,7 +421,8 @@ public class MergedRestriction extends Intersection {
 
 	if (TypeMapper.isRegisteredDatatypeURI(typeURI))
 	    type = new TypeURI(typeURI, true);
-	else if (ManagedIndividual.isRegisteredClassURI(typeURI))
+	else if (OntologyManagement.getInstance().isRegisteredClass(typeURI,
+		true))
 	    type = new TypeURI(typeURI, false);
 
 	if (type == null) {
