@@ -24,7 +24,7 @@ import java.util.HashMap;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
-public class TypeExpressionFactory {
+public final class TypeExpressionFactory {
 
     private static HashMap propMap = new HashMap();
     private static HashMap datatypeMap = new HashMap();
@@ -54,6 +54,9 @@ public class TypeExpressionFactory {
 	datatypeMap.put(DoubleRestriction.DATATYPE_URI, new Integer(2));
 	datatypeMap.put(IndividualRestriction.DATATYPE_URI, new Integer(3));
 	datatypeMap.put(LongRestriction.DATATYPE_URI, new Integer(4));
+    }
+
+    private TypeExpressionFactory() {
     }
 
     public static TypeExpression specialize(Resource r) {

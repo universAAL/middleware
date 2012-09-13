@@ -54,7 +54,7 @@ public class MergedRestriction extends Intersection {
 
     /** A safe iterator that does not allow to remove elements. */
     private class SafeIterator implements Iterator {
-	protected Iterator it;
+	private Iterator it;
 
 	SafeIterator(Iterator it) {
 	    this.it = it;

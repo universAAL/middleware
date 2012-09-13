@@ -80,7 +80,7 @@ public class ExactCardinalityRestriction extends PropertyRestriction {
     }
 
     /** Get the value of this cardinality restriction */
-    public int getValue() {
+    public final int getValue() {
 	NonNegativeInteger i = (NonNegativeInteger) props
 		.get(PROP_OWL_CARDINALITY);
 	if (i == null)

@@ -41,9 +41,9 @@ public class ResourceTest extends TestCase {
     public void testGetOrConstructLabel() {
 	Resource r = new Resource(Resource.uAAL_VOCABULARY_NAMESPACE
 		+ "LightSource");
-	//System.out.println(r.getOrConstructLabel(null));
+	// System.out.println(r.getOrConstructLabel(null));
 	assertTrue("\"Light Source\"".equals(r.getOrConstructLabel(null)));
-	//System.out.println(r.getOrConstructLabel("My LightSource"));
+	// System.out.println(r.getOrConstructLabel("My LightSource"));
 	assertTrue("My LightSource \"Light Source\"".equals(r
 		.getOrConstructLabel("My LightSource")));
 	r.setResourceLabel("mylabel");

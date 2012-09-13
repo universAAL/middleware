@@ -87,6 +87,7 @@ public class Rating extends ComparableIndividual {
 	this.order = order;
     }
 
+    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
     public String getClassURI() {
 	return MY_URI;
     }
