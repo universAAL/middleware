@@ -60,11 +60,11 @@ public abstract class TypeExpression extends Resource {
     /** Parameters for a registered subclass. */
     private class RegParams {
 	/** The Java class realizing an OWL class expression. */
-	Class clz;
-	String hasSuperClass;
-	String hasProperty;
-	boolean supportsAnonClass;
-	boolean supportsNamedClass;
+	private Class clz;
+	private String hasSuperClass;
+	private String hasProperty;
+	private boolean supportsAnonClass;
+	private boolean supportsNamedClass;
     }
 
     /**

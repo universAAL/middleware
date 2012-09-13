@@ -30,7 +30,11 @@ import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
  */
 public class DataRepFactory extends ResourceFactoryImpl {
 
-    public Resource createInstance(String classURI, String instanceURI,
+    /**
+     * @see org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance(String,
+     *      String, int)
+     */
+    public final Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {
 
 	switch (factoryIndex) {

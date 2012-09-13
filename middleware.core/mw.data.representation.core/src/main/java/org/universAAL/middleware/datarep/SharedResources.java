@@ -52,12 +52,15 @@ public class SharedResources {
      */
     public static final String uAAL_IS_DEBUG_MODE = "org.universAAL.middleware.debugMode";
 
-    public static Dictionary middlewareProps = new Hashtable(4);
-    public static Dictionary helpOnMiddlewareProps = new Hashtable(4);
+    public static final Dictionary middlewareProps = new Hashtable(4);
+    public static final Dictionary helpOnMiddlewareProps = new Hashtable(4);
     public static ModuleContext moduleContext;
 
-    public static DataRepFactory factory = new DataRepFactory();
-    public static DataRepOntology dataRepOntology = new DataRepOntology();
+    public static final DataRepFactory factory = new DataRepFactory();
+    public static final DataRepOntology dataRepOntology = new DataRepOntology();
+
+    private SharedResources() {
+    }
 
     public static Container getContainer() {
 	return moduleContext.getContainer();

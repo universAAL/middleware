@@ -35,7 +35,7 @@ public class OntologiesTest extends TestCase {
 	Ontology o = OntologyManagement.getInstance().getOntology(
 		ont.getInfo().getURI());
 	assertFalse(o == null);
-	//assertTrue(o == ont);
+	// assertTrue(o == ont);
 
 	Set subs = OntologyManagement.getInstance().getNamedSubClasses(
 		ManagedIndividual.MY_URI, true, false);

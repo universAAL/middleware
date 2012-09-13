@@ -131,7 +131,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    OntClassInfoSetup {
 
 	/** The info object. */
-	OntClassInfo info;
+	private OntClassInfo info;
 
 	/** Constructor. */
 	public PrivateOntSetup(OntClassInfo info) {
