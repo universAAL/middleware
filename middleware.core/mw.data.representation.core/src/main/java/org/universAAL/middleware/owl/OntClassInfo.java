@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Property;
 import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.RDFClassInfoSetup;
@@ -201,8 +203,33 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 			"Not allowed to add new instances to an enumeration class (class: "
 				+ getURI() + ")!");
 
-	    if (instance != null && uri.equals(instance.getClassURI()))
+	    if (instance != null && uri.equals(instance.getClassURI())) {
 		super.addInstance(instance);
+	    } else {
+		if (instance == null) {
+		    LogUtils
+			    .logDebug(
+				    SharedResources.moduleContext,
+				    OntClassInfo.class,
+				    "addInstance",
+				    new Object[] {
+					    "An instance of the ontology class ",
+					    uri,
+					    " should be added but the given instance is null." },
+				    null);
+		} else {
+		    LogUtils
+			    .logDebug(
+				    SharedResources.moduleContext,
+				    OntClassInfo.class,
+				    "addInstance",
+				    new Object[] {
+					    "An instance of the ontology class ",
+					    uri,
+					    " should be added but the class URI of the given instance does not match the URI of the class it should be added to. The instance is not added." },
+				    null);
+		}
+	    }
 	}
 
 	/** @see OntClassInfoSetup#toEnumeration(ManagedIndividual[]) */
