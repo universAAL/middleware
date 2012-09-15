@@ -19,10 +19,8 @@
  */
 package org.universAAL.middleware.service.impl;
 
-import java.lang.reflect.Method;
 import java.util.Hashtable;
 import java.util.Iterator;
-
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
@@ -615,7 +613,7 @@ public class ServiceRealization extends FinalizedResource {
 	String offeredURI = offer.getURI();
 	if (requestedServiceUri != null) {
 	    if (requestedServiceUri.equals(offeredURI)) {
-		context.put(uAAL_SERVICE_URI_MATCHED, new Boolean(true));
+		context.put(uAAL_SERVICE_URI_MATCHED, Boolean.valueOf(true));
 	    }
 	}
 	return true;

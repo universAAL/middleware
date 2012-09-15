@@ -96,7 +96,6 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 		// System bundle is shutting down; Special handling for
 		// framework shutdown
 		// shutdown();
-	    } else {
 	    }
 	    break;
 	}

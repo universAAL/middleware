@@ -66,7 +66,6 @@ public class ChoiceItem extends Label {
      */
     public Object getValue() {
 	Object o = props.get(PROP_ITEM_VALUE);
-	;
 	return (o == null) ? toString() : o;
     }
 }
