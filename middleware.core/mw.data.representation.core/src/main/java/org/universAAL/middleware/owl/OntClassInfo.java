@@ -224,7 +224,9 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 				    OntClassInfo.class,
 				    "addInstance",
 				    new Object[] {
-					    "An instance of the ontology class ",
+					    "The instance ",
+					    instance.getURI(),
+					    " of the ontology class ",
 					    uri,
 					    " should be added but the class URI of the given instance does not match the URI of the class it should be added to. The instance is not added." },
 				    null);
