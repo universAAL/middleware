@@ -56,7 +56,7 @@ public final class InitialServiceDialog extends UserInterfaceService {
      * @see #createServiceProfile(UserInterfaceService, String, String, String,
      *      String)
      */
-    public static final ServiceProfile createInitialDialogProfile(
+    public static ServiceProfile createInitialDialogProfile(
 	    String serviceClassURI, String vendor, String description,
 	    String startServiceURI) {
 	return createServiceProfile(new InitialServiceDialog(startServiceURI),
@@ -67,7 +67,7 @@ public final class InitialServiceDialog extends UserInterfaceService {
      * @see #getUIServiceDescription(UserInterfaceService, String, String,
      *      ServiceCaller)
      */
-    public static final String getInitialDialogDescription(
+    public static String getInitialDialogDescription(
 	    String serviceClassURI, String vendor, ServiceCaller theCaller) {
 	return getUIServiceDescription(new InitialServiceDialog(),
 		serviceClassURI, vendor, theCaller);
@@ -76,7 +76,7 @@ public final class InitialServiceDialog extends UserInterfaceService {
     /**
      * @see #getUIServiceInfo(UserInterfaceService, String, ServiceCaller)
      */
-    public static final UserInterfaceService[] getInitialDialogInfo(
+    public static UserInterfaceService[] getInitialDialogInfo(
 	    String serviceClassURI, ServiceCaller theCaller) {
 	return getUIServiceInfo(new InitialServiceDialog(), serviceClassURI,
 		theCaller);
@@ -85,7 +85,7 @@ public final class InitialServiceDialog extends UserInterfaceService {
     /**
      * @see #getUIServiceRequest(UserInterfaceService, String, String, Resource)
      */
-    public static final ServiceRequest getInitialDialogRequest(
+    public static ServiceRequest getInitialDialogRequest(
 	    String serviceClassURI, String vendor, Resource requestingUser) {
 	return getUIServiceRequest(new InitialServiceDialog(), serviceClassURI,
 		vendor, requestingUser);

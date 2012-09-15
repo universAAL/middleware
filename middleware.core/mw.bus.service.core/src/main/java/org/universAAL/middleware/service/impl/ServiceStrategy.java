@@ -164,8 +164,6 @@ public class ServiceStrategy extends BusStrategy {
 	    allSubscriptionsIndex = new Hashtable();
 	    allWaitingCallers = new Hashtable();
 	    startDialogs = new Hashtable();
-	} else {
-
 	}
     }
 

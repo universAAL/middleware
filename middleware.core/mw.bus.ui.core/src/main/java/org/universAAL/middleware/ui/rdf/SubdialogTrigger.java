@@ -102,7 +102,6 @@ public class SubdialogTrigger extends Submit {
      */
     public String getRepeatableIDPrefix() {
 	Object o = props.get(PROP_REPEATABLE_ID_PREFIX);
-	;
 	return (o instanceof String) ? (String) o : "";
     }
 
