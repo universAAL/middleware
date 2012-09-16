@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import org.universAAL.middleware.rdf.Property;
 import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.RDFClassInfoSetup;
@@ -173,6 +172,18 @@ public abstract class Ontology {
      */
     private boolean locked = false;
 
+    private class MyInfo extends Resource {
+	public MyInfo(String ontURI) {
+	    super(ontURI);
+	}
+
+	public boolean isClosedCollection(String propURI) {
+	    if (PROP_OWL_IMPORT.equals(propURI))
+		return false;
+	    return super.isClosedCollection(propURI);
+	}
+    }
+
     /**
      * Standard constructor to create a new ontology.
      * 
@@ -185,7 +196,7 @@ public abstract class Ontology {
 	    throw new IllegalArgumentException("Not a valid Ontology URI:"
 		    + ontURI);
 
-	info = new Resource(ontURI);
+	info = new MyInfo(ontURI);
 	info.addType(TYPE_OWL_ONTOLOGY, true);
     }
 
@@ -225,13 +236,14 @@ public abstract class Ontology {
 	if ((ontURI = getValidOntologyURI(ontURI)) == null)
 	    return false;
 	synchronized (imports) {
-	    if (imports.contains(ontURI))
+	    Resource ont = new Resource(ontURI);
+	    if (imports.contains(ont))
 		return true;
 	    ArrayList temp = new ArrayList(imports.size() + 1);
 	    temp.addAll(imports);
-	    temp.add(ontURI);
+	    temp.add(ont);
 	    imports = temp;
-	    info.setProperty(PROP_OWL_IMPORT, ontURI);
+	    info.setProperty(PROP_OWL_IMPORT, imports);
 	}
 	return true;
     }
