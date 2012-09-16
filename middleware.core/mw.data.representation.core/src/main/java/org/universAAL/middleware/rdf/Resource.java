@@ -508,6 +508,7 @@ public class Resource {
      * @return The local name of the URI of this resource.
      * 
      * @see #getNamespace()
+     * @see #getFilename()
      */
     public String getLocalName() {
 	return (ns_delim_index < 0) ? null : uri.substring(ns_delim_index + 1);
@@ -520,10 +521,32 @@ public class Resource {
      * @return The namespace of the URI of this resource.
      * 
      * @see #getLocalName()
+     * @see #getFilename()
      */
     public String getNamespace() {
 	return (ns_delim_index < 0) ? null : uri.substring(0,
 		ns_delim_index + 1);
+    }
+
+    /**
+     * Get the filename of the URI which is the part after the last '/' and
+     * before the symbols '?' and '#'.
+     * 
+     * @return The filename of the URI of this resource.
+     * 
+     * @see #getLocalName()
+     * @see #getNamespace()
+     */
+    public String getFilename() {
+	int end = Math.min(uri.indexOf('?'), ns_delim_index);
+	if (end < 1)
+	    end = uri.length();
+	int start = uri.lastIndexOf('/') + 1;
+	if (start < 0)
+	    start = 0;
+	if (start > end)
+	    return null;
+	return uri.substring(start, end);
     }
 
     /**

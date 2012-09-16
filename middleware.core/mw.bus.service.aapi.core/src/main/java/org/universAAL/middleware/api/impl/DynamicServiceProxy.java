@@ -5,10 +5,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import org.universAAL.middleware.api.annotation.ChangeEffect;
 import org.universAAL.middleware.api.annotation.Input;
 import org.universAAL.middleware.api.annotation.Output;
@@ -17,7 +14,6 @@ import org.universAAL.middleware.api.annotation.ServiceOperation.MatchMakingType
 import org.universAAL.middleware.api.exception.SimplifiedRegistrationException;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.ServiceCaller;
-import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.aapi.AapiServiceRequest;
 import org.universAAL.middleware.service.owl.Service;
@@ -27,16 +23,16 @@ public class DynamicServiceProxy implements InvocationHandler {
 
     private AnnotationScanner scanner;
 
-    private Class serviceClass;
+    private Class<?> serviceClass;
 
-    public DynamicServiceProxy(ServiceCaller caller, Class intefaceClazz)
+    public DynamicServiceProxy(ServiceCaller caller, Class<?> intefaceClazz)
 	    throws SimplifiedRegistrationException, InstantiationException,
 	    IllegalAccessException {
 	this.caller = caller;
 	scanner = new AnnotationScanner(intefaceClazz);
 	scanner.scan();
 
-	Class[] rscClasses = scanner.getResourceClasses().value();
+	Class<?>[] rscClasses = scanner.getResourceClasses().value();
 	Service service = null;
 	for (int i = 0; i < rscClasses.length; i++) {
 	    if (Service.class.isAssignableFrom(rscClasses[i])) {
@@ -102,7 +98,7 @@ public class DynamicServiceProxy implements InvocationHandler {
 			.newInstance(), null);
 		break;
 	    case BY_URI:
-		Constructor serviceClassConstructor = serviceClass
+		Constructor<?> serviceClassConstructor = serviceClass
 			.getConstructor(String.class);
 		Service serviceByUri = (Service) serviceClassConstructor
 			.newInstance(serviceURI);
@@ -141,7 +137,7 @@ public class DynamicServiceProxy implements InvocationHandler {
 		    Object[] retObj = new Object[outputs.size()];
 		    for (int i = 0; i < outputs.size(); i++) {
 			Output outputAnnotation = outputs.get(i);
-			List output = null;
+			List<?> output = null;
 			if (outputAnnotation.propertyPaths().length > 0) {
 			    output = response.getOutput("output" + i, true);
 			} else {
@@ -159,7 +155,7 @@ public class DynamicServiceProxy implements InvocationHandler {
 		    return retObj;
 		} else {
 		    Output outputAnnotation = outputs.get(0);
-		    List output = null;
+		    //List<?> output = null;
 		    Object resObj = null;
 		    if (outputAnnotation.propertyPaths().length > 0) {
 			resObj = response.getOutput("output0", true);
@@ -171,7 +167,7 @@ public class DynamicServiceProxy implements InvocationHandler {
 		    if (resObj == null) {
 			return null;
 		    }
-		    List temp = ((List) resObj);
+		    List<?> temp = ((List<?>) resObj);
 		    if (Object[].class.isAssignableFrom(m.getReturnType())) {
 			return temp.toArray((Object[]) Array.newInstance(m
 				.getReturnType().getComponentType(), temp
@@ -192,7 +188,7 @@ public class DynamicServiceProxy implements InvocationHandler {
 	}
     }
 
-    public static Object newInstance(Class interfaceClazz, ServiceCaller caller)
+    public static Object newInstance(Class<?> interfaceClazz, ServiceCaller caller)
 	    throws IllegalArgumentException, SimplifiedRegistrationException,
 	    InstantiationException, IllegalAccessException {
 	return Proxy.newProxyInstance(interfaceClazz.getClassLoader(),

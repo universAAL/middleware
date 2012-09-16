@@ -8,7 +8,6 @@ import java.util.Map;
 import org.universAAL.middleware.api.SimpleServiceRegistrator;
 import org.universAAL.middleware.api.annotation.Input;
 import org.universAAL.middleware.api.annotation.Output;
-import org.universAAL.middleware.api.annotation.ServiceOperation;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
@@ -41,8 +40,8 @@ public class ServiceCalleeWrapper extends ServiceCallee {
     private Map<String, List<String>> annotatedMethodsParametersNames;
     private Map<String, List<Input>> annotatedMethodsParameters;
 
-    private String namespace;
-    private String serviceURI;
+    //private String namespace;
+    //private String serviceURI;
 
     public ServiceCalleeWrapper(ModuleContext context,
 	    ServiceProfile[] realizedServices, Object wrappedObject,
@@ -61,8 +60,8 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 	this.annotatedOutputs = annotatedOutputs;
 	this.annotatedMethodsParametersNames = annotatedMethodsParametersNames;
 	this.annotatedMethodsParameters = annotatedMethodsParameters;
-	this.namespace = namespace;
-	this.serviceURI = serviceURI;
+	//this.namespace = namespace;
+	//this.serviceURI = serviceURI;
     }
 
     private ServiceCalleeWrapper(ModuleContext context,
@@ -72,7 +71,6 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 
     @Override
     public void communicationChannelBroken() {
-	// TODO Auto-generated method stub
     }
 
     /**
@@ -103,7 +101,7 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 		    m = annotatedMethods.get(s);
 		    List<String> methodParametersNames = annotatedMethodsParametersNames
 			    .get(s);
-		    Class[] methodParametersTypes = m.getParameterTypes();
+		    Class<?>[] methodParametersTypes = m.getParameterTypes();
 		    Object[] inputs = new Object[methodParametersNames.size()];
 		    List<String> conversionErrors = new ArrayList<String>();
 		    for (int i = 0; i < methodParametersNames.size(); i++) {
@@ -222,7 +220,7 @@ public class ServiceCalleeWrapper extends ServiceCallee {
     private Object convertArrayToList(Object retObj) {
 	if (retObj instanceof Object[]) {
 	    Object[] tempArray = (Object[]) retObj;
-	    List list = new ArrayList();
+	    List<Object> list = new ArrayList<Object>();
 	    for (Object o : tempArray) {
 		list.add(o);
 	    }
@@ -243,7 +241,6 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 	SimpleServiceRegistrator ssr = new SimpleServiceRegistrator(null);
 	for (Method m : ssr.getClass().getMethods()) {
 	    System.out.println(m.getName() + "\t" + m.getReturnType());
-
 	}
     }
 }

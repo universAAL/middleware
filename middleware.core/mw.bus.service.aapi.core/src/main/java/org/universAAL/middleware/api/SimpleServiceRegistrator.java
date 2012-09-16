@@ -5,10 +5,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-
 import org.universAAL.middleware.api.annotation.Cardinality;
 import org.universAAL.middleware.api.annotation.ChangeEffect;
 import org.universAAL.middleware.api.annotation.ChangeEffects;
@@ -65,9 +63,9 @@ public class SimpleServiceRegistrator {
      */
     private String exctractUriFromResourceClass(OntologyClasses resourceClass)
 	    throws SimplifiedRegistrationException {
-	Class[] classes = resourceClass.value();
+	Class<?>[] classes = resourceClass.value();
 	String myUri = "";
-	for (Class clazz : classes) {
+	for (Class<?> clazz : classes) {
 	    try {
 		Object value = clazz.getField("MY_URI").get(null);
 		myUri = (String) value;
@@ -107,7 +105,7 @@ public class SimpleServiceRegistrator {
      */
     public void registerService(Object o)
 	    throws SimplifiedRegistrationException {
-	Class annotatedInterface = null;
+	Class<?> annotatedInterface = null;
 	OntologyClasses resourceClasses = null;
 	Map<String, Method> annotatedMethods = new HashMap<String, Method>();
 	Map<String, List<String>> annotatedOutputNames = new HashMap<String, List<String>>();
@@ -117,10 +115,10 @@ public class SimpleServiceRegistrator {
 	List<ServiceProfile> profiles = new ArrayList<ServiceProfile>();
 	String namespace = null;
 	String name = null;
-	List<Class> classes = new ArrayList<Class>();
+	List<Class<?>> classes = new ArrayList<Class<?>>();
 	classes.add(o.getClass());
 	classes.addAll(Arrays.asList(o.getClass().getInterfaces()));
-	for (Class clazz : classes) {
+	for (Class<?> clazz : classes) {
 	    annotatedInterface = null;
 	    resourceClasses = null;
 	    for (Annotation a : clazz.getAnnotations()) {
@@ -149,7 +147,7 @@ public class SimpleServiceRegistrator {
 	    throw new SimplifiedRegistrationException(
 		    "Cannot found @ResourceClass annotation in interfaces of provided service instance.");
 	}
-	String myUri = namespace + name;
+	//String myUri = namespace + name;
 	String ontologyUri = exctractUriFromResourceClass(resourceClasses);
 	registerOntology(namespace, name, ontologyUri);
 
@@ -177,11 +175,11 @@ public class SimpleServiceRegistrator {
 			|| a.annotationType().equals(Outputs.class)) {
 		    Output[] temp = null;
 		    if (a.annotationType().equals(Output.class)) {
-			Class returnType = m.getReturnType();
+			Class<?> returnType = m.getReturnType();
 			if (returnType.isArray()) {
 			    defaultOutputCardinality = Cardinality.MANY_TO_MANY;
 			}
-			if (returnType.isInstance(new ArrayList())) {
+			if (returnType.isInstance(new ArrayList<Object>())) {
 			    defaultOutputCardinality = Cardinality.MANY_TO_MANY;
 			}
 			temp = new Output[] { (Output) a };
@@ -209,7 +207,7 @@ public class SimpleServiceRegistrator {
 	    }
 
 	    if (outputs.size() == 0) {
-		Class returnType = m.getReturnType();
+		Class<?> returnType = m.getReturnType();
 		if (returnType != void.class) {
 		    String methodName = m.getName();
 		    if (methodName.startsWith("get") && methodName.length() > 3) {
@@ -232,7 +230,7 @@ public class SimpleServiceRegistrator {
 			    return finalOutputName;
 			}
 
-			public Class filteringClass() {
+			public Class<?> filteringClass() {
 			    return void.class;
 			}
 
@@ -261,7 +259,7 @@ public class SimpleServiceRegistrator {
 				    + parameterAnnotations.length);
 		}
 		List<Input> methodParameterAnnotations = new ArrayList<Input>();
-		Class[] methodParameterTypes = m.getParameterTypes();
+		Class<?>[] methodParameterTypes = m.getParameterTypes();
 		for (int i = 0; i < parameterAnnotations.length; i++) {
 		    String parameterName = "arg" + (i + 1);
 		    for (int j = 0; j < parameterAnnotations[i].length; j++) {
@@ -369,14 +367,14 @@ public class SimpleServiceRegistrator {
     private ServiceProfile createServiceProfileForMethod(String namespace,
 	    String name, String serviceName,
 	    List<Input> methodParametersAnnotations,
-	    Class[] methodParameterTypes, List<Output> methodOutputAnnotations,
-	    Class methodOutputType, List<ChangeEffect> methodChangeEffects,
+	    Class<?>[] methodParameterTypes, List<Output> methodOutputAnnotations,
+	    Class<?> methodOutputType, List<ChangeEffect> methodChangeEffects,
 	    String ontologyUri, Cardinality defaultOutputCardinality)
 	    throws SimplifiedRegistrationException {
 	SimplifiedApiService srv = SimplifiedApiService.createService(
 		namespace, serviceName, ontologyUri);
 
-	Class filteringClass = null;
+	Class<?> filteringClass = null;
 	Cardinality defaultInputCardinality = Cardinality.ONE_TO_ONE;
 
 	String parameterURI = "";

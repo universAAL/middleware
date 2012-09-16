@@ -12,7 +12,7 @@ public class SimpleServiceLocator {
 	this.mc = mc;
     }
 
-    public Object lookupService(Class interfaceClazz)
+    public Object lookupService(Class<?> interfaceClazz)
 	    throws IllegalArgumentException, SimplifiedRegistrationException,
 	    InstantiationException, IllegalAccessException {
 	return DynamicServiceProxy.newInstance(interfaceClazz,

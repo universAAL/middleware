@@ -18,5 +18,5 @@ public @interface ChangeEffect {
 
     String value();
 
-    Class valueType();
+    Class<?> valueType();
 }

@@ -26,14 +26,14 @@ public class AnnotationScanner {
     private Map<String, List<Output>> methodOutputs = new HashMap<String, List<Output>>();
     private Map<String, List<Input>> methodInputs = new HashMap<String, List<Input>>();
     private Map<String, List<ChangeEffect>> methodChangeEffects = new HashMap<String, List<ChangeEffect>>();
-    private Map<String, List<String>> annotatedMethodsParametersNames = new HashMap<String, List<String>>();
+    //private Map<String, List<String>> annotatedMethodsParametersNames = new HashMap<String, List<String>>();
 
     private String namespace;
     private String name;
 
-    private Class scannedClazz;
+    private Class<?> scannedClazz;
 
-    public AnnotationScanner(Class scannedClazz) {
+    public AnnotationScanner(Class<?> scannedClazz) {
 	this.scannedClazz = scannedClazz;
     }
 
@@ -93,7 +93,7 @@ public class AnnotationScanner {
 		}
 	    }
 	    if (methodOutputAnnotations.isEmpty()) {
-		Class returnType = m.getReturnType();
+		Class<?> returnType = m.getReturnType();
 		if (returnType != void.class) {
 		    String name = m.getName();
 		    String outputName = null;
@@ -116,7 +116,7 @@ public class AnnotationScanner {
 			    return finalOutputName;
 			}
 
-			public Class filteringClass() {
+			public Class<Void> filteringClass() {
 			    return void.class;
 			}
 
@@ -204,11 +204,11 @@ public class AnnotationScanner {
 	this.methodChangeEffects = methodChangeEffects;
     }
 
-    public Class getScannedClazz() {
+    public Class<?> getScannedClazz() {
 	return scannedClazz;
     }
 
-    public void setScannedClazz(Class scannedClazz) {
+    public void setScannedClazz(Class<?> scannedClazz) {
 	this.scannedClazz = scannedClazz;
     }
 

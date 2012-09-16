@@ -18,7 +18,7 @@ public @interface Output {
 
     String[] propertyPaths() default {};
 
-    Class filteringClass() default void.class;
+    Class<?> filteringClass() default void.class;
 
     Cardinality cardinality() default Cardinality.NOT_SPECIFIED;
 }
