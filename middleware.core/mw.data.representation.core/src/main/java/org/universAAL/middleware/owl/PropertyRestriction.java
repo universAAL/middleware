@@ -42,7 +42,7 @@ public abstract class PropertyRestriction extends TypeExpression {
     public static final String PROP_OWL_ON_PROPERTY = OWL_NAMESPACE
 	    + "onProperty";
 
-    protected static HashMap propMap = new HashMap();
+    protected static final HashMap propMap = new HashMap();
 
     static {
 	// for not handling properties of other restrictions, to be used in

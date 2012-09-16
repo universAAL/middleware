@@ -36,7 +36,7 @@ import java.security.Security;
  *         Tazari</a>
  * 
  */
-public class Activator implements BundleActivator {
+public final class Activator implements BundleActivator {
     public static BundleConfigHome confHome;
     private SodaPopImpl g = null;
 

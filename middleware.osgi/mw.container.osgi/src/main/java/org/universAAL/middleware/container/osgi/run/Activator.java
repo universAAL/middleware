@@ -34,7 +34,7 @@ import org.universAAL.middleware.container.LogListener;
  * @author mtazari
  * 
  */
-public class Activator implements BundleActivator, ServiceListener {
+public final class Activator implements BundleActivator, ServiceListener {
     private BundleContext context;
     private static ArrayList logListeners = new ArrayList(2);
 

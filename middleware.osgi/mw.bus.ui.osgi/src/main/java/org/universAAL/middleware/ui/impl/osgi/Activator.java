@@ -27,7 +27,7 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 import org.universAAL.middleware.ui.UIBus;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
 
-public class Activator implements BundleActivator {
+public final class Activator implements BundleActivator {
 
     /**
      * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)

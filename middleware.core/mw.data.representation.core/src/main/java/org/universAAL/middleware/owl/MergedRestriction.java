@@ -1030,9 +1030,10 @@ public class MergedRestriction extends Intersection {
 			    SharedResources.moduleContext,
 			    MergedRestriction.class,
 			    "appendTo",
-			    new String[] { "Not possible to append a restriction because the specified path is invalid: "
-				    + path == null ? "path is null."
-				    : "path is empty." }, null);
+			    new String[] {
+				    "Not possible to append a restriction because the specified path is invalid: ",
+				    path == null ? "path is null."
+					    : "path is empty." }, null);
 	    return null;
 	}
 	if (getOnProperty() == null) {
