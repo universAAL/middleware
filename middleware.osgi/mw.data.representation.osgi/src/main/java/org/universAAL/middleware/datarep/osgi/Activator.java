@@ -31,7 +31,7 @@ import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.datarep.SharedResources;
 
-public class Activator implements BundleActivator, ManagedService {
+public final class Activator implements BundleActivator, ManagedService {
     private static ServiceRegistration registration;
 
     /**

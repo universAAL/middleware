@@ -61,7 +61,6 @@ public final class DatatypeProperty extends Property {
     protected DatatypeProperty(String uri, OntClassInfo info) {
 	super(uri, info);
 	setup = new PrivateDataTypePropertySetup(this);
-	super.setup = setup;
 	addType(MY_URI, true);
     }
 

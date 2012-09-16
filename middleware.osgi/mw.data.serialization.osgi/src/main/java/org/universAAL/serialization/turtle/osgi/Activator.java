@@ -33,7 +33,7 @@ import org.universAAL.serialization.turtle.TurtleUtil;
  *         Tazari</a>
  * 
  */
-public class Activator implements BundleActivator {
+public final class Activator implements BundleActivator {
 
     public void start(BundleContext context) throws Exception {
 	TurtleUtil.moduleContext = uAALBundleContainer.THE_CONTAINER
@@ -47,6 +47,5 @@ public class Activator implements BundleActivator {
     }
 
     public void stop(BundleContext arg0) throws Exception {
-	// TODO Auto-generated method stub
     }
 }

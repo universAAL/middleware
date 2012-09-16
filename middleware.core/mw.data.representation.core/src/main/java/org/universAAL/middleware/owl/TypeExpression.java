@@ -193,7 +193,7 @@ public abstract class TypeExpression extends Resource {
 	boolean isAnon = isAnonymousURI(instanceURI);
 	for (Iterator i = registry.iterator(); i.hasNext();) {
 	    RegParams rp = (RegParams) i.next();
-	    if ((superClassURI == rp.hasSuperClass || (superClassURI != null && superClassURI
+	    if ((superClassURI.equals(rp.hasSuperClass) || (superClassURI != null && superClassURI
 		    .equals(rp.hasSuperClass)))
 		    && (propURI == rp.hasProperty || (propURI != null && propURI
 			    .equals(rp.hasProperty)))
