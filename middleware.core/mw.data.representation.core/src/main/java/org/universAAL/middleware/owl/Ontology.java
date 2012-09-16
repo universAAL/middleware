@@ -469,13 +469,24 @@ public abstract class Ontology {
 
 	for (Iterator it = ontClassInfoMap.values().iterator(); it.hasNext();) {
 	    OntClassInfo info = (OntClassInfo) it.next();
+	    // add class
 	    list.add(info);
+	    // add properties
 	    Property[] propArr = info.getProperties();
 	    if (propArr.length != 0)
 		Collections.addAll(list, propArr);
+	    // add instances
+	    Collections.addAll(list, info.getInstances());
 	}
 
-	list.addAll(rdfClassInfoMap.values());
+	for (Iterator it = rdfClassInfoMap.values().iterator(); it.hasNext();) {
+	    RDFClassInfo info = (RDFClassInfo) it.next();
+	    // add class
+	    list.add(info);
+	    // add instances
+	    Collections.addAll(list, info.getInstances());
+	}
+	// list.addAll(rdfClassInfoMap.values());
 
 	return (Resource[]) list.toArray(new Resource[list.size()]);
     }
