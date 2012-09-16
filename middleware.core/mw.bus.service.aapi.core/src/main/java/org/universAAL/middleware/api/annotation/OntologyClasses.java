@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.universAAL.middleware.owl.OntologyManagement;
-
 /**
  * Annotation which is used for Ontology registering. Classes provided as a
  * value is scanned for occurence of MY_URI field and then registered with the
@@ -21,5 +19,5 @@ import org.universAAL.middleware.owl.OntologyManagement;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface OntologyClasses {
-    Class[] value();
+    Class<?>[] value();
 }

@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 public @interface Input {
     String name() default "";
 
-    Class filteringClass() default void.class;
+    Class<?> filteringClass() default void.class;
 
     String[] propertyPaths() default {};
 }

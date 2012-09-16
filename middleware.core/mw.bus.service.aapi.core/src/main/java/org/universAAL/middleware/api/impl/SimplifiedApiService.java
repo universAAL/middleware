@@ -4,7 +4,6 @@ import org.universAAL.middleware.api.annotation.Cardinality;
 import org.universAAL.middleware.api.exception.SimplifiedRegistrationException;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owl.Service;
-import org.universAAL.middleware.service.owls.process.ProcessInput;
 
 /**
  * This is a simple helper class used for generating the profiles in the persona
@@ -70,7 +69,7 @@ public class SimplifiedApiService extends Service {
      *             - thrown when provided clazz parameter does not have field
      *             MY_URI or it is not accessible.
      */
-    public void createInputWrapper(String baseURI, Class clazz,
+    public void createInputWrapper(String baseURI, Class<?> clazz,
 	    Cardinality card, String[] propertyPaths)
 	    throws SimplifiedRegistrationException {
 	int minCard, maxCard;
@@ -125,7 +124,7 @@ public class SimplifiedApiService extends Service {
      *             - thrown when provided clazz parameter does not have field
      *             MY_URI or it is not accessible.
      */
-    public void addOutputWrapper(String baseURI, Class clazz, Cardinality card,
+    public void addOutputWrapper(String baseURI, Class<?> clazz, Cardinality card,
 	    String[] propertyPaths) throws SimplifiedRegistrationException {
 	int minCard, maxCard;
 	switch (card) {
@@ -163,7 +162,7 @@ public class SimplifiedApiService extends Service {
      * @throws SimplifiedRegistrationException
      */
     public void addChangeEffectWrapper(String[] propPaths, String val,
-	    Class type) throws SimplifiedRegistrationException {
+	    Class<?> type) throws SimplifiedRegistrationException {
 	Object value = null;
 	// try{
 	value = TypeMapper
