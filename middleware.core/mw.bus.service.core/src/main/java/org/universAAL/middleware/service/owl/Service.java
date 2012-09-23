@@ -27,6 +27,7 @@ import java.util.List;
 import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
@@ -157,7 +158,7 @@ public abstract class Service extends ManagedIndividual {
 
     protected Service(String uri) {
 	super(uri);
-	if (uri != null) {
+	if (uri != null && !Resource.isAnonymousURI(uri)) {
 	    myProfile = new ServiceProfile(this, uri + "Process");
 	    props.put(PROP_OWLS_PRESENTS, myProfile);
 	}
