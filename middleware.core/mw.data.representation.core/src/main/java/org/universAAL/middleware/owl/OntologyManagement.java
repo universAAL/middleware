@@ -190,6 +190,69 @@ public final class OntologyManagement {
     }
 
     /**
+     * Perform a sanity check of the given ontology. The check is done during
+     * registration of the ontology.
+     * 
+     * @param ont
+     *            The ontology that defined the class.
+     */
+    private boolean register_testOntology(Ontology ont) {
+	try {
+	    boolean retVal = true;
+
+	    Resource[] rsc = ont.getResourceList();
+	    Resource r;
+	    // maps factoryIndex to RDFClassInfo
+	    HashMap factories = new HashMap();
+
+	    for (int i = 0; i < rsc.length; i++) {
+		r = rsc[i];
+		if (r instanceof RDFClassInfo) {
+		    RDFClassInfo rci = (RDFClassInfo) r;
+		    if (rci.isAbstract())
+			continue;
+
+		    Integer factoryIndex = Integer.valueOf(rci
+			    .getFactoryIndex());
+
+		    // test factory
+		    Object o = factories.get(factoryIndex);
+		    if (o != null) {
+			LogUtils
+				.logWarn(
+					SharedResources.moduleContext,
+					OntologyManagement.class,
+					"register_testOntology",
+					new Object[] {
+						"Duplicate factory index: the classes ",
+						rci.getURI(), " and ",
+						((RDFClassInfo) o).getURI(),
+						" of the ontology ",
+						ont.getInfo().getURI(),
+						" have the same factory index. Is this intended?" },
+					null);
+		    } else {
+			factories.put(factoryIndex, rci);
+		    }
+		}
+	    }
+
+	    return retVal;
+	} catch (Exception e) {
+	    LogUtils
+		    .logError(
+			    SharedResources.moduleContext,
+			    OntologyManagement.class,
+			    "register_testOntology",
+			    new Object[] {
+				    "An unknown exception occured while testing the ontology ",
+				    ont.getInfo().getURI(),
+				    " during registration." }, e);
+	}
+	return false;
+    }
+
+    /**
      * Perform a sanity check of the given class that is defined in the given
      * ontology. The check is done during registration of the ontology.
      * 
@@ -198,7 +261,7 @@ public final class OntologyManagement {
      * @param info
      *            the ontology class.
      */
-    private boolean testClass(Ontology ont, OntClassInfo info) {
+    private boolean register_testClass(Ontology ont, OntClassInfo info) {
 	try {
 	    if (!Resource.isQualifiedName(info.getURI())) {
 		LogUtils
@@ -207,7 +270,7 @@ public final class OntologyManagement {
 				OntologyManagement.class,
 				"register_testClass",
 				new Object[] {
-					"The ontology class ",
+					"Unqualified URI: the ontology class ",
 					info.getURI(),
 					" of the ontology ",
 					ont.getInfo().getURI(),
@@ -227,7 +290,7 @@ public final class OntologyManagement {
 				OntologyManagement.class,
 				"register_testClass",
 				new Object[] {
-					"The ontology class ",
+					"Missing factory: the ontology class ",
 					info.getURI(),
 					" of the ontology ",
 					ont.getInfo().getURI(),
@@ -246,11 +309,11 @@ public final class OntologyManagement {
 				OntologyManagement.class,
 				"register_testClass",
 				new Object[] {
-					"The ontology class ",
+					"Missing factory result: the ontology class ",
 					info.getURI(),
 					" of the ontology ",
 					ont.getInfo().getURI(),
-					" is not an abstract class and it defines a factory, but the factory does not create instances for this class." },
+					" is not an abstract class and it defines a factory, but the factory does not create instances for this class (the factory returned null)." },
 				null);
 		return false;
 	    }
@@ -262,11 +325,12 @@ public final class OntologyManagement {
 				OntologyManagement.class,
 				"register_testClass",
 				new Object[] {
-					"The ontology class ",
+					"Factory returned non-ManagedIndividual: the ontology class ",
 					info.getURI(),
 					" of the ontology ",
 					ont.getInfo().getURI(),
-					" is registered as an ontology class (OWL), but the factory does not return a subclass of ManagedIndividual. All OWL classes must be a subclass of ManagedIndividual." },
+					" is registered as an ontology class (OWL), but the factory does not return a subclass of ManagedIndividual."
+						+ " All OWL classes must be a subclass of ManagedIndividual." },
 				null);
 		return false;
 	    }
@@ -279,19 +343,40 @@ public final class OntologyManagement {
 				OntologyManagement.class,
 				"register_testClass",
 				new Object[] {
-					"The ontology class ",
+					"Wrong class URI: the ontology class ",
 					info.getURI(),
 					" of the ontology ",
 					ont.getInfo().getURI(),
-					" does not return the URI that was used for registration. Please check that the method \"getClassURI()\" is overwritten and matches the URI you specify as parameter to creator methods like createNewOntClassInfo()." },
+					" does not return the URI that was used for registration."
+						+ " Please check that the method \"getClassURI()\" is overwritten and matches the URI you specify as parameter to creator methods like createNewOntClassInfo()."
+						+ " The factory could also be the source of this error: please check that the factoryIndex is correct." },
 				null);
 		return false;
 	    }
 
 	    String[] props = info.getDeclaredProperties();
 	    // just test that all properties have a serialization type
-	    for (int i = 0; i < props.length; i++)
-		m.getPropSerializationType(props[i]);
+	    for (int i = 0; i < props.length; i++) {
+		int serType = m.getPropSerializationType(props[i]);
+		if (serType == Resource.PROP_SERIALIZATION_UNDEFINED)
+		    LogUtils
+			    .logWarn(
+				    SharedResources.moduleContext,
+				    OntologyManagement.class,
+				    "register_testClass",
+				    new Object[] {
+					    "Undefined serialization type: the property ",
+					    props[i],
+					    " of the ontology class ",
+					    info.getURI(),
+					    " of the ontology ",
+					    ont.getInfo().getURI(),
+					    " returns <undefined> as serialization type for a declared property."
+						    + " Is this intended? If not,"
+						    + " please check the method getPropSerializationType(String propURI);"
+						    + " this might cause an incomplete serialization result." },
+				    null);
+	    }
 
 	    return true;
 	} catch (Exception e) {
@@ -353,6 +438,9 @@ public final class OntologyManagement {
 			    "Registering ontology: ", ont.getInfo().getURI() },
 		    null);
 
+	    // make some sanity tests
+	    register_testOntology(ont);
+
 	    // copy all existing ontologies to temp
 	    OntClassInfo[] ontClassInfos = ont.getOntClassInfo();
 
@@ -374,7 +462,7 @@ public final class OntologyManagement {
 		    OntClassInfo info = ontClassInfos[i];
 
 		    // make some sanity tests
-		    testClass(ont, info);
+		    register_testClass(ont, info);
 
 		    // add ontology class
 		    ontClassInfoURIPermissionCheck = info.getURI();
@@ -610,7 +698,14 @@ public final class OntologyManagement {
 	// TODO
     }
 
-    /** Get an ontology by its URI. */
+    /**
+     * Get an ontology by its URI. The ontology must be registered by calling
+     * {@link #register(Ontology)}.
+     * 
+     * @param uri
+     *            URI of the ontology.
+     * @return The ontology.
+     */
     public Ontology getOntology(String uri) {
 	return (Ontology) ontologies.get(uri);
     }
@@ -688,12 +783,21 @@ public final class OntologyManagement {
 
     /**
      * Get the set of URIs of all registered ontologies.
+     * 
+     * @return an array with the URIs of all registered ontologies.
      */
     public String[] getOntoloyURIs() {
 	return (String[]) ontologies.keySet().toArray(new String[0]);
     }
 
-    /** Internal method. */
+    /**
+     * Internal method. Used to verify that an ontology is currently in the
+     * registration phase.
+     * 
+     * @param uri
+     *            URI of the ontology.
+     * @return true, iff the ontology is currently in the registration phase.
+     */
     public boolean checkPermission(String uri) {
 	if (uri == null)
 	    return false;
