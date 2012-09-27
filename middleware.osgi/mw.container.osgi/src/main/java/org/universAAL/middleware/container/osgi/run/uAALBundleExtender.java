@@ -190,11 +190,21 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 	public void start() throws Exception {
 	    if (!logError()) {
 		activator.start(mc);
+	    } else {
+		new Thread(new Runnable() {
+		    public void run() {
+			try {
+			    b.stop();
+			} catch (Exception ex) {
+			    ex.printStackTrace();
+			}
+		    }
+		}).start();
 	    }
 	}
 
 	public void stop() throws Exception {
-	    if (!logError()) {
+	    if (errorMsg == null) {
 		activator.stop(mc);
 	    }
 	}
