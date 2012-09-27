@@ -203,6 +203,9 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	}
     }
 
+    /**
+     * @see UIBus#dialogFinished(String, UIResponse)
+     */
     public void dialogFinished(String subscriberID, UIResponse input) {
 	if (input != null
 		&& subscriberID != null
@@ -211,18 +214,21 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	    Object o = registry.getBusMemberByID(subscriberID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length()));
-	    if (o instanceof UIHandler)
+	    if (o instanceof UIHandler) {
 		if (input.isSubdialogCall())
 		    ((UIStrategy) busStrategy).suspendDialog(input
 			    .getDialogID());
 		else
 		    ((UIStrategy) busStrategy).dialogFinished(subscriberID,
 			    input);
+
+		// send a notification to the calling app with the UI Response
+		((UIStrategy) busStrategy).notifyUserInput(input);
+	    }
 	}
     }
 
     /**
-     * 
      * Can only be called by the DialogManager. Suspend the given dialog
      * 
      * @param dm

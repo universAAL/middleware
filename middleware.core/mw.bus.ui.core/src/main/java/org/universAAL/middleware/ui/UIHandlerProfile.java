@@ -130,11 +130,19 @@ public class UIHandlerProfile extends FinalizedResource {
     }
 
     /**
-     * Matches.
+     * Determines whether the given {@link UIRequest} matches this profile.
      * 
      * @param oe
      *            the ui request
-     * @return the int
+     * @return a value indicating to which degree the {@link UIRequest} matches:
+     *         {@link #MATCH_LEVEL_SUCCESS} if all restrictions match the
+     *         request, {@link #MATCH_LEVEL_ALT} if at least one of the
+     *         restrictions does not match the request, but this non-matching
+     *         restriction is on the modality (
+     *         {@link UIRequest#PROP_PRESENTATION_MODALITY}) and the alternative
+     *         modality ({@link UIRequest#PROP_PRESENTATION_MODALITY_ALT})
+     *         matches, or {@link #MATCH_LEVEL_FAILED} if the restrictions do
+     *         not match or the given request is null.
      */
     public int matches(UIRequest oe) {
 	if (oe == null)

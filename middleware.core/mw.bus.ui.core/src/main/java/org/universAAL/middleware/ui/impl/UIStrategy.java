@@ -38,6 +38,8 @@ import org.universAAL.middleware.ui.UIHandlerProfile;
 import org.universAAL.middleware.ui.UIRequest;
 import org.universAAL.middleware.ui.UIResponse;
 import org.universAAL.middleware.ui.rdf.Form;
+import org.universAAL.middleware.ui.rdf.SubdialogTrigger;
+import org.universAAL.middleware.ui.rdf.Submit;
 import org.universAAL.middleware.util.Constants;
 
 /**
@@ -259,6 +261,8 @@ public class UIStrategy extends BusStrategy {
      * 
      * @param subscriberID
      *            ID of the subscriber that handles the dialog
+     * @param input
+     *            the response to send.
      */
     void dialogFinished(final String subscriberID, final UIResponse input) {
 	final String dialogID = input.getDialogID();
@@ -285,8 +289,18 @@ public class UIStrategy extends BusStrategy {
 	    m.setReceivers(theCoordinator);
 	    sodapop.propagateMessage(bus, m);
 	}
+    }
 
-	// now, inform the application that user input is ready
+    /**
+     * Send a UI Response to the application. Call this message after a
+     * {@link Submit} or {@link SubdialogTrigger} was pressed.
+     * 
+     * @param input
+     *            the response to send.
+     */
+    void notifyUserInput(final UIResponse input) {
+	final String dialogID = input.getDialogID();
+	// inform the application that user input is ready
 	UICaller caller = (UICaller) pendingRequests.get(dialogID);
 	if (caller == null) {
 	    // some other node is hosting the application
@@ -301,7 +315,6 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * 
      * Only called by the DialogManager. Simply removes dialogs from the active
      * list.
      * 
@@ -563,9 +576,8 @@ public class UIStrategy extends BusStrategy {
 			res.setProperty(PROP_uAAL_UI_CALL, msg
 				.getContentAsString());
 			// we call adaptationParametersChanged() because the
-			// matchmaking
-			// logic is the same; we needed only to add an 'if'
-			// there
+			// matchmaking logic is the same; we needed only to add
+			// an 'if' there
 			adaptationParametersChanged(dialogManager,
 				(UIRequest) res, null);
 			// remove the temporary prop not needed
@@ -706,9 +718,10 @@ public class UIStrategy extends BusStrategy {
 			"notifyHandler_apChanged",
 			new Object[] { "Notified handler ", handlerID, ":\n",
 				content }, null);
-		((UIHandler) o).adaptationParametersChanged(request
-			.getDialogID(), changedProp, request
-			.getProperty(changedProp));
+		if (changedProp != null)
+		    ((UIHandler) o).adaptationParametersChanged(request
+			    .getDialogID(), changedProp, request
+			    .getProperty(changedProp));
 	    }
 	    // if handler is not the local instance but it is the coordinator
 	    // forward the notification to the appropriate node
