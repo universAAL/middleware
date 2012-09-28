@@ -1251,12 +1251,15 @@ public class ServiceStrategy extends BusStrategy {
 			    if (Boolean.TRUE.equals(otherMatch
 				    .get(CONTEXT_SPECIALIZED_INSTANCE_MATCH)))
 				sp1 += 2;
-			    if (sp1 < sp0 || otherMatch.size() > match.size())
+			    if (sp1 < sp0
+				    || (sp1 == sp0 && otherMatch.size() > match
+					    .size()))
 				auxMap.put(sr.getProvider(), match);
 			}
 		    }
 		}
 		matches = new Vector(auxMap.values());
+
 		if (matches.size() > 1 && request.acceptsRandomSelection()) {
 		    // the strategy is to select the match with the lowest
 		    // number of entries in 'context'
