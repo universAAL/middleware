@@ -24,6 +24,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.owl.OntClassInfo;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.TypeURI;
@@ -34,6 +35,7 @@ import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.process.ProcessResult;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * A "registration parameter" as accepted by the service bus of the uAAL
@@ -276,7 +278,7 @@ public class ServiceProfile extends FinalizedResource {
 	addType(MY_URI, true);
     }
 
-    /**
+        /**
      * The constructor to be used by
      * {@link org.universAAL.middleware.service.ServiceCallee}s. Effects,
      * inputs, outputs and output bindings must be added to the profile using
@@ -597,4 +599,33 @@ public class ServiceProfile extends FinalizedResource {
 		props.put(propURI, value);
 	}
     }
+    
+	/**
+	 * Returns the serialized profile as String
+	 */
+	public String serializeProfile(ModuleContext mc) {
+
+		Object[] contentSerializerParams = new Object[] { MessageContentSerializer.class
+				.getName() };
+		MessageContentSerializer s = (org.universAAL.middleware.sodapop.msg.MessageContentSerializer) mc
+				.getContainer().fetchSharedObject(mc, contentSerializerParams);
+		String st = (String) s.serialize(this);
+		return st;
+	}
+
+	/**
+	 * Returns the de-serialized profile
+	 */
+	public static ServiceProfile deserializeProfile(String turtleSP,
+			ModuleContext mc) {
+
+		Object[] contentSerializerParams = new Object[] { MessageContentSerializer.class
+				.getName() };
+		MessageContentSerializer s = (org.universAAL.middleware.sodapop.msg.MessageContentSerializer) mc
+				.getContainer().fetchSharedObject(mc, contentSerializerParams);
+		Resource r = (Resource) s.deserialize(turtleSP);
+		ServiceProfile sp = (ServiceProfile) r;
+		return sp;
+	}
+
 }
