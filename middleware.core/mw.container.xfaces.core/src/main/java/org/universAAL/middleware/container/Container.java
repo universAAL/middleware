@@ -59,12 +59,15 @@ public interface Container {
     public Object[] fetchSharedObject(ModuleContext requester,
 	    Object[] fetchParams, SharedObjectListener listener);
 
-    
     /**
-     * This method allows a SharedObjectListener instance to be removed from the list of listeners managed by this container
-     * @param listener the SharedObjectListener to be removed
+     * This method allows a SharedObjectListener instance to be removed from the
+     * list of listeners managed by this container
+     * 
+     * @param listener
+     *            the SharedObjectListener to be removed
      */
     public void removeSharedObjectListener(SharedObjectListener listener);
+
     /**
      * Provides possibility for programmatically installing (downloaded)
      * modules.
