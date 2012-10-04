@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.ui.impl;
 
+import java.security.acl.Group;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
@@ -301,7 +302,21 @@ public class UIStrategy extends BusStrategy {
     void notifyUserInput(final UIResponse input) {
 	final String dialogID = input.getDialogID();
 	// inform the application that user input is ready
-	UICaller caller = (UICaller) pendingRequests.get(dialogID);
+	if (input.isForDialogManagerCall()){
+		notifyUICaller((UICaller)dialogManager, input);	    
+	}
+	else {
+	    UICaller caller = (UICaller) pendingRequests.get(dialogID);
+	    notifyUICaller(caller, input);
+	}
+    }
+    
+    /**
+     * Notify user input to a specific {@link UICaller}
+     * @param caller the UICaller to be notified
+     * @param input the UIResponse to send.
+     */
+    private void notifyUICaller(final UICaller caller, final UIResponse input ){
 	if (caller == null) {
 	    // some other node is hosting the application
 	    Resource pr = new Resource();
