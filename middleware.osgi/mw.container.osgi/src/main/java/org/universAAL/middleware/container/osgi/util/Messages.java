@@ -37,6 +37,7 @@ import java.util.Properties;
  * 
  * @author mtazari
  * @author Carsten Stockloew
+ * @author amedrano
  */
 public class Messages extends BundleConfigHome {
 
@@ -47,7 +48,7 @@ public class Messages extends BundleConfigHome {
     private Properties defaultMessages;
 
     /** The localized language. */
-    private String lang = null;
+    private String lang = "";
 
     /**
      * Constructor: opens the file with the given ID and loads all messages.
@@ -59,10 +60,20 @@ public class Messages extends BundleConfigHome {
      */
     public Messages(String id) throws IOException {
 	super(id);
-	defaultMessages = new Properties();
-	InputStream fis = getConfFileAsStream("messages.properties");
-	defaultMessages.load(fis);
-	fis.close();
+	defaultMessages = load("messages.properties");
+	setLocale(Locale.getDefault());
+    }
+
+    /**
+     * Change the locale for messages.
+     * @param loc
+     */
+    public void setLocale(Locale loc) {
+	if (!lang.equals(loc.getLanguage())){
+	    lang = loc.getLanguage();
+	    localizedMessages = load("messages_" + loc.getLanguage()
+			+ ".properties");
+	}
     }
 
     /**
@@ -73,23 +84,21 @@ public class Messages extends BundleConfigHome {
      * @return The value.
      */
     public String getString(String key) {
-	String l = Locale.getDefault().getLanguage();
-	if (!l.equals(lang)) {
-	    lang = l;
-	    localizedMessages = new Properties();
-	    try {
-		InputStream fis = getConfFileAsStream("messages_" + l
-			+ ".properties");
-		localizedMessages.load(fis);
-		fis.close();
-	    } catch (Exception e) {
-	    }
-	}
-
-	l = localizedMessages.getProperty(key);
+	String l = localizedMessages.getProperty(key);
 	if (l == null)
 	    l = defaultMessages.getProperty(key);
 
 	return (l == null) ? key : l;
+    }
+    
+    private Properties load(String filename) {
+	Properties props = new Properties();
+	try {
+	    InputStream fis = getConfFileAsStream(filename);
+	    props.load(fis);
+	    fis.close();
+	} catch (Exception e) {
+	}
+	return props;
     }
 }
