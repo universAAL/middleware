@@ -67,4 +67,14 @@ public class NonNegativeInteger {
     public String toString() {
 	return Integer.toString(intval);
     }
+
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj instanceof NonNegativeInteger)
+	    return this.intval == ((NonNegativeInteger) obj).intval;
+	if (obj instanceof Integer)
+	    return this.intval == ((Integer) obj).intValue();
+	return false;
+    }
 }
