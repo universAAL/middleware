@@ -234,15 +234,28 @@ public class TurtleUtil {
     }
 
     /**
-     * Determines if the specified character is either an ASCII letter, a digit,
-     * or the symbol '-'.
+     * Determines if the specified character is part of a language tag. A
+     * language tag can appear after a plain literal of type Sting and denotes
+     * the language of that String. The character must be either an ASCII
+     * letter, a digit, or the symbol '-'. For example, the plain literal
+     * <code>"Hello"@en</code> contains the language tag "en".
+     * 
+     * @see #isLanguageStartChar(int)
      */
     static boolean isLanguageChar(int c) {
 	return StringUtils.isAsciiLetter((char) c)
 		|| StringUtils.isDigit((char) c) || c == '-';
     }
 
-    /** Determines if the specified character is a letter [a-z,A-Z]. */
+    /**
+     * Determines if the specified character is the beginning of a language tag.
+     * A language tag can appear after a plain literal of type Sting and denotes
+     * the language of that String. The character must be a letter [a-z,A-Z].
+     * For example, the plain literal <code>"Hello"@en</code> contains the
+     * language tag "en" and starts with the character "e".
+     * 
+     * @see #isLanguageChar(int)
+     */
     static boolean isLanguageStartChar(int c) {
 	return StringUtils.isAsciiLetter((char) c);
     }
