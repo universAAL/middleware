@@ -198,7 +198,7 @@ public class Group extends FormControl {
     public void doModelBasedExpansion() {
 	String t = getTypeURI();
 	if (t == null) {
-	    LogUtils.logWarn(UIBusImpl.moduleContext, Group.class,
+	    LogUtils.logWarn(UIBusImpl.getModuleContext(), Group.class,
 		    "doModelBasedExpansion",
 		    new Object[] { "missing model ref!" }, null);
 	    return;
@@ -207,7 +207,7 @@ public class Group extends FormControl {
 	String[] props = OntologyManagement.getInstance().getOntClassInfo(t)
 		.getDeclaredProperties();
 	if (props == null || props.length == 0) {
-	    LogUtils.logWarn(UIBusImpl.moduleContext, Group.class,
+	    LogUtils.logWarn(UIBusImpl.getModuleContext(), Group.class,
 		    "doModelBasedExpansion",
 		    new Object[] { "not a ManagedIndividual!" }, null);
 	    return;
@@ -219,7 +219,7 @@ public class Group extends FormControl {
 	    if (r == null) {
 		LogUtils
 			.logWarn(
-				UIBusImpl.moduleContext,
+				UIBusImpl.getModuleContext(),
 				Group.class,
 				"doModelBasedExpansion",
 				new Object[] {
@@ -233,7 +233,7 @@ public class Group extends FormControl {
 		if (tt == null)
 		    LogUtils
 			    .logWarn(
-				    UIBusImpl.moduleContext,
+				    UIBusImpl.getModuleContext(),
 				    Group.class,
 				    "doModelBasedExpansion",
 				    new Object[] {
@@ -250,7 +250,7 @@ public class Group extends FormControl {
 			    .deriveLabel(props[i]), null),
 			    constructSubpath(props[i]), null, null);
 		else
-		    LogUtils.logWarn(UIBusImpl.moduleContext, Group.class,
+		    LogUtils.logWarn(UIBusImpl.getModuleContext(), Group.class,
 			    "doModelBasedExpansion", new Object[] {
 				    "ignoring a property with unknown type: ",
 				    props[i] }, null);
