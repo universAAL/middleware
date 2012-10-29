@@ -52,8 +52,14 @@ import org.universAAL.middleware.util.ResourceComparator;
 public class UIBusImpl extends AbstractBus implements UIBus {
     public static final String uAAL_BUS_NAME_UI = "uAAL.bus.ui";
     public static MessageContentSerializer contentSerializer = null;
+    /**
+     * The {@link Container} reference.
+     */
     public static Container container;
-    public static ModuleContext moduleContext;
+    /**
+     * The {@link ModuleContext} reference.
+     */
+    private static ModuleContext moduleContext;
     public static Object[] contentSerializerParams;
     public static Object[] busFetchParams;
     public static Object[] busShareParams;
@@ -104,32 +110,6 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	OntologyManagement.getInstance().unregister(uiBusOntology);
     }
 
-    /*
-     * public static void loadExportedClasses() throws ClassNotFoundException {
-     * Class.forName("org.universAAL.middleware.ui.UIResponse");
-     * Class.forName("org.universAAL.middleware.ui.owl.AccessImpairment");
-     * Class.forName("org.universAAL.middleware.ui.owl.DialogType");
-     * Class.forName("org.universAAL.middleware.ui.owl.Gender");
-     * Class.forName("org.universAAL.middleware.ui.owl.Modality");
-     * Class.forName("org.universAAL.middleware.ui.owl.PrivacyLevel");
-     * Class.forName("org.universAAL.middleware.ui.rdf.ChoiceItem");
-     * Class.forName("org.universAAL.middleware.ui.rdf.ChoiceList");
-     * Class.forName("org.universAAL.middleware.ui.rdf.Form");
-     * Class.forName("org.universAAL.middleware.ui.rdf.Group");
-     * Class.forName("org.universAAL.middleware.ui.rdf.InputField");
-     * Class.forName("org.universAAL.middleware.ui.rdf.Label");
-     * Class.forName("org.universAAL.middleware.ui.rdf.MediaObject");
-     * Class.forName("org.universAAL.middleware.ui.rdf.Range");
-     * Class.forName("org.universAAL.middleware.ui.rdf.Repeat");
-     * Class.forName("org.universAAL.middleware.ui.rdf.Select");
-     * Class.forName("org.universAAL.middleware.ui.rdf.Select1");
-     * Class.forName("org.universAAL.middleware.ui.rdf.SimpleOutput");
-     * Class.forName("org.universAAL.middleware.ui.rdf.SubdialogTrigger");
-     * Class.forName("org.universAAL.middleware.ui.rdf.Submit");
-     * Class.forName("org.universAAL.middleware.ui.rdf.TextArea");
-     * Class.forName("org.universAAL.middleware.ui.UIRequest");
-     * Class.forName("org.universAAL.middleware.ui.UIHandlerProfile"); }
-     */
     /**
      * Create an instance of the UIBus.
      * 
@@ -142,7 +122,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
     }
 
     protected BusStrategy createBusStrategy(SodaPop sodapop) {
-	return new UIStrategy(sodapop);
+	return new UIStrategy(sodapop, getModuleContext());
     }
 
     /**
@@ -332,13 +312,10 @@ public class UIBusImpl extends AbstractBus implements UIBus {
      * here and simply do nothing.
      */
     public final void sendMessage(String senderID, Message msg) {
-	    LogUtils
-	    .logError(
-		    moduleContext,
-		    UIBusImpl.class,
-		    "sendMessage from AbstractBus",
-		    new Object[] { "Method is empty and we shouldn't be here!!"},
-		    null);
+	LogUtils.logError(moduleContext, UIBusImpl.class,
+		"sendMessage from AbstractBus",
+		new Object[] { "Method is empty and we shouldn't be here!!" },
+		null);
     }
 
     /**
@@ -419,5 +396,14 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 		((UIStrategy) busStrategy).userLoggedIn(user, loginLocation);
 	}
 
+    }
+
+    /**
+     * The module context reference.
+     * 
+     * @returnThe module context reference.
+     */
+    public static ModuleContext getModuleContext() {
+	return moduleContext;
     }
 }
