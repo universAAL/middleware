@@ -332,6 +332,13 @@ public class UIBusImpl extends AbstractBus implements UIBus {
      * here and simply do nothing.
      */
     public final void sendMessage(String senderID, Message msg) {
+	    LogUtils
+	    .logError(
+		    moduleContext,
+		    UIBusImpl.class,
+		    "sendMessage from AbstractBus",
+		    new Object[] { "Method is empty and we shouldn't be here!!"},
+		    null);
     }
 
     /**
