@@ -19,11 +19,11 @@
  */
 package org.universAAL.middleware.ui.impl;
 
-import java.security.acl.Group;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
@@ -44,14 +44,11 @@ import org.universAAL.middleware.ui.rdf.Submit;
 import org.universAAL.middleware.util.Constants;
 
 /**
- * @author mtazari
+ * The strategy of a bus is responsible to handle all messages passing the local
+ * instance. The central method is "handle(Message msg, String senderID)" that
+ * is called for every message given to the bus.
  * 
- *         The strategy of a bus is responsible to handle all messages passing
- *         the local instance. The central method is
- *         "handle(Message msg, String senderID)" that is called for every
- *         message given to the bus.
- */
-/**
+ * @author mtazari
  * @author eandgrg
  * 
  */
@@ -110,6 +107,10 @@ public class UIStrategy extends BusStrategy {
     private String[] theCoordinator = null;
     private Hashtable waitingForCut = null;
     private Hashtable pendingRequests = new Hashtable();
+    /**
+     * The {@link ModuleContext} reference.
+     */
+    private static ModuleContext moduleContext;
 
     /**
      * Creates a new instance of the UIStrategy
@@ -117,8 +118,9 @@ public class UIStrategy extends BusStrategy {
      * @param sodapop
      *            SodaPop network instance
      */
-    public UIStrategy(SodaPop sodapop) {
+    public UIStrategy(SodaPop sodapop, ModuleContext mContext) {
 	super(sodapop);
+	moduleContext = mContext;
     }
 
     /**
@@ -137,7 +139,8 @@ public class UIStrategy extends BusStrategy {
 	BusMember bm = getBusMember(requester);
 	if (bm instanceof UICaller && dialogID != null) {
 	    UICaller publisher = (UICaller) pendingRequests.remove(dialogID);
-	    // only dialog manager & the original publisher are allowed to ask
+	    // only dialog manager & the original publisher (uicaller) are
+	    // allowed to ask
 	    // for abortion of dialogs
 	    if (bm == dialogManager || bm == publisher)
 		notifyHandler_abortDialog(dialogID, publisher);
@@ -148,8 +151,8 @@ public class UIStrategy extends BusStrategy {
 
     /**
      * 
-     * This method is responsible to adapt existing dialogs to new environmental
-     * conditions.
+     * This method is responsible for adapting existing dialogs to new
+     * environmental conditions.
      * 
      * @param dm
      *            Instance of the DialogManager
@@ -167,20 +170,33 @@ public class UIStrategy extends BusStrategy {
 			.get(request.getDialogID());
 		if (changedProp == null) {
 		    // this is a new dialog published to the bus
-		    if (pendingRequests.get(request.getDialogID()) == null)
-			// the UICaller is the dialog manager
+		    if (pendingRequests.get(request.getDialogID()) == null) {
 			pendingRequests.put(request.getDialogID(), dm);
+			LogUtils
+				.logDebug(
+					getModuleContext(),
+					UIStrategy.class,
+					"adaptationParametersChanged",
+					new Object[] { "ui.dm has published new dialog on the ui bus !" },
+					null);
+		    }
 		    if (currentHandler != null) {
-			// strange situation: duplication dialog ID??!!
-			// TODO: a log entry!
-			System.out
-				.println("??!! strange situation: duplicate dialog ID??!!");
+			LogUtils
+				.logWarn(
+					getModuleContext(),
+					UIStrategy.class,
+					"adaptationParametersChanged",
+					new Object[] { "strange situation: duplication dialog ID?" },
+					null);
 		    }
 		} else if (currentHandler == null) {
-		    // dialog manager data is inconsistent with my data
-		    // TODO: a log entry!
-		    System.out
-			    .println("??!! dialog manager data is inconsistent with my data??!!");
+		    LogUtils
+			    .logError(
+				    getModuleContext(),
+				    UIStrategy.class,
+				    "adaptationParametersChanged",
+				    new Object[] { "Current UI Handler could not be determined from running dialogs. Inconsistent data between ui.dm data and UIStrategy data!" },
+				    null);
 		}
 		for (Iterator i = globalSubscriptions.iterator(); i.hasNext();) {
 		    Subscription s = (Subscription) i.next();
@@ -200,13 +216,12 @@ public class UIStrategy extends BusStrategy {
 		    }
 		}
 		if (selectedHandler == null) {
-		    // TODO: what to do here? At least a log entry
 		    LogUtils
-			    .logDebug(
-				    UIBusImpl.moduleContext,
+			    .logError(
+				    getModuleContext(),
 				    UIStrategy.class,
 				    "adaptationParametersChanged",
-				    new Object[] { "!!!! no handler could be selected!!!!" },
+				    new Object[] { "!!!! no UI Handler could be selected!!!!" },
 				    null);
 		    return;
 		}
@@ -241,7 +256,7 @@ public class UIStrategy extends BusStrategy {
 	if (isCoordinator())
 	    globalSubscriptions.add(new Subscription(subscriberID,
 		    newSubscription));
-	// so if not is the coordinator publish the pattern to the bus
+	// so if it is not the coordinator; publish the pattern to the bus
 	else {
 	    Resource pr = new Resource();
 	    pr.addType(TYPE_uAAL_UI_BUS_SUBSCRIPTION, true);
@@ -302,21 +317,23 @@ public class UIStrategy extends BusStrategy {
     void notifyUserInput(final UIResponse input) {
 	final String dialogID = input.getDialogID();
 	// inform the application that user input is ready
-	if (input.isForDialogManagerCall()){
-		notifyUICaller((UICaller)dialogManager, input);	    
-	}
-	else {
+	if (input.isForDialogManagerCall()) {
+	    notifyUICaller((UICaller) dialogManager, input);
+	} else {
 	    UICaller caller = (UICaller) pendingRequests.get(dialogID);
 	    notifyUICaller(caller, input);
 	}
     }
-    
+
     /**
      * Notify user input to a specific {@link UICaller}
-     * @param caller the UICaller to be notified
-     * @param input the UIResponse to send.
+     * 
+     * @param caller
+     *            the UICaller to be notified
+     * @param input
+     *            the UIResponse to send.
      */
-    private void notifyUICaller(final UICaller caller, final UIResponse input ){
+    private void notifyUICaller(final UICaller caller, final UIResponse input) {
 	if (caller == null) {
 	    // some other node is hosting the application
 	    Resource pr = new Resource();
@@ -367,20 +384,27 @@ public class UIStrategy extends BusStrategy {
 	    if (res.getType().equals(TYPE_uAAL_UI_BUS_NOTIFICATION)) {
 		String handlerID = (String) res
 			.getProperty(PROP_uAAL_UI_HANDLER_ID);
-		UIRequest oe = (UIRequest) res.getProperty(PROP_uAAL_UI_CALL);
+		UIRequest uiRequest = (UIRequest) res
+			.getProperty(PROP_uAAL_UI_CALL);
 		Boolean isNew = (Boolean) res
 			.getProperty(PROP_uAAL_UI_IS_NEW_REQUEST);
-		if (handlerID == null || oe == null || isNew == null) {
-		    // TODO: a log entry!
+		if (handlerID == null || uiRequest == null || isNew == null) {
+		    LogUtils
+			    .logError(
+				    getModuleContext(),
+				    UIStrategy.class,
+				    "handle",
+				    new Object[] { "While handling incoming message (event) at least one of the following was true: 1) Handler was null, 2) UIRequest was null, 3) it was not new request!" },
+				    null);
 		    return;
 		} else if (isNew.booleanValue()) {
-		    oe.setProperty(PROP_uAAL_UI_CALL, Message
-			    .trySerializationAsContent(oe));
-		    notifyHandler_handle(handlerID, oe);
-		    oe.changeProperty(PROP_uAAL_UI_CALL, null);
+		    uiRequest.setProperty(PROP_uAAL_UI_CALL, Message
+			    .trySerializationAsContent(uiRequest));
+		    notifyHandler_handle(handlerID, uiRequest);
+		    uiRequest.changeProperty(PROP_uAAL_UI_CALL, null);
 		} else
-		    notifyHandler_apChanged(handlerID, oe, res.getProperty(
-			    PROP_uAAL_CHANGED_PROPERTY).toString());
+		    notifyHandler_apChanged(handlerID, uiRequest, res
+			    .getProperty(PROP_uAAL_CHANGED_PROPERTY).toString());
 		// handle UI requests
 	    }
 	    break;
@@ -489,9 +513,16 @@ public class UIStrategy extends BusStrategy {
 		String handlerID = (String) res
 			.getProperty(PROP_uAAL_UI_HANDLER_ID);
 		String dialogID = (String) res.getProperty(PROP_uAAL_DIALOG_ID);
-		if (dialogID == null || handlerID == null)
-		    // TODO: a log entry!
+		if (dialogID == null || handlerID == null) {
+		    LogUtils
+			    .logError(
+				    getModuleContext(),
+				    UIStrategy.class,
+				    "handle",
+				    new Object[] { "While handling incoming message (p2p) either UI Handler was null or dialog id was null!" },
+				    null);
 		    return;
+		}
 		// here, we are in the case where the coordinator asks for
 		// dialog abort => if the handler and 7 or the original
 		// publisher are on this node, then perform accordingly
@@ -554,16 +585,28 @@ public class UIStrategy extends BusStrategy {
 		if (!msg.isRemote()) {
 		    Form f = ((UIRequest) res).getDialogForm();
 		    if (f == null) {
-			// TODO: ERROR... add a log entry... not allowed!
+			LogUtils
+				.logError(
+					getModuleContext(),
+					UIStrategy.class,
+					"handle",
+					new Object[] { "Dialog form of the UIRequest could not be determined! Not allowed!" },
+					null);
 			return;
 		    }
 		    if (!f.isMessage()) {
 			// remember whom to notify once the response is received
 			BusMember sender = getBusMember(senderID);
-			if (sender instanceof UICaller)
+			if (sender instanceof UICaller) {
 			    pendingRequests.put(f.getDialogID(), sender);
-			else {
-			    // TODO: log entry... we shouldn't get here!
+			} else {
+			    LogUtils
+				    .logError(
+					    getModuleContext(),
+					    UIStrategy.class,
+					    "handle",
+					    new Object[] { "Method is empty and we shouldn't be here!!" },
+					    null);
 			}
 		    }
 		    if (!isCoordinator()) {
@@ -597,11 +640,23 @@ public class UIStrategy extends BusStrategy {
 				(UIRequest) res, null);
 			// remove the temporary prop not needed
 			res.changeProperty(PROP_uAAL_UI_CALL, null);
+		    } else {
+			LogUtils
+				.logDebug(
+					getModuleContext(),
+					UIStrategy.class,
+					"handle",
+					new Object[] { "The UI Bus ignores the request because it trusts that the Dialog Manager will keep the request in a queue of suspended dialogs and will re-activate it whenever appropriate." },
+					null);
 		    }
 		} else {
-		    // this is the combination non-coordinator + remote because
-		    // non-coordinator + local returns immediately
-		    // TODO: we shouldn't get here
+		    LogUtils
+			    .logError(
+				    getModuleContext(),
+				    UIStrategy.class,
+				    "handle",
+				    new Object[] { "combination non-coordinator + remote. We shouldn't get here!!" },
+				    null);
 		}
 	    } else if (!isCoordinator()
 		    && res.getType().equals(TYPE_uAAL_UI_BUS_NOTIFICATION)) {
@@ -675,7 +730,13 @@ public class UIStrategy extends BusStrategy {
 		publisher.dialogAborted(dialogID);
 	    String handlerID = (String) runningDialogs.remove(dialogID);
 	    if (handlerID == null) {
-		// TODO: log about inconsistent data!
+		LogUtils
+			.logError(
+				getModuleContext(),
+				UIStrategy.class,
+				"notifyHandler_abortDialog",
+				new Object[] { "Ui dialog remowed from runnign dialogs. UI Handler of that dialog could not be determined. Inconsistent data!!" },
+				null);
 		return;
 	    }
 	    String peerID = Constants.extractPeerID(handlerID);
@@ -722,14 +783,14 @@ public class UIStrategy extends BusStrategy {
 	    String changedProp) {
 	String content = (String) request.getProperty(PROP_uAAL_UI_CALL);
 	String peerID = Constants.extractPeerID(handlerID);
-	// if handler is at local note perform the adaption
+	// if handler is at local node perform the adaption
 	if (sodapop.getID().equals(peerID)) {
 	    handlerID = handlerID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
 			    .length());
 	    Object o = getBusMember(handlerID);
 	    if (o instanceof UIHandler) {
-		LogUtils.logInfo(UIBusImpl.moduleContext, UIStrategy.class,
+		LogUtils.logInfo(getModuleContext(), UIStrategy.class,
 			"notifyHandler_apChanged",
 			new Object[] { "Notified handler ", handlerID, ":\n",
 				content }, null);
@@ -822,7 +883,7 @@ public class UIStrategy extends BusStrategy {
 			    .length());
 	    Object o = getBusMember(handlerID);
 	    if (o instanceof UIHandler) {
-		LogUtils.logInfo(UIBusImpl.moduleContext, UIStrategy.class,
+		LogUtils.logInfo(getModuleContext(), UIStrategy.class,
 			"notifyHandler_handle",
 			new Object[] { "Notified handler ", handlerID, ":\n",
 				content }, null);
@@ -950,16 +1011,23 @@ public class UIStrategy extends BusStrategy {
 
     /**
      * 
-     * Set the Dialogmanager of the bus. There must be only one instance of this
-     * in the whole remote system.
+     * Set the Dialog Manager of the bus. There must be only one instance of
+     * this in the whole remote system.
      * 
      * @param dm
      *            Instance of the Dialogmanager
      */
     void setDialogManager(DialogManager dm) {
-	if (dm == null || dialogManager != null || theCoordinator != null)
-	    // TODO: a log entry!?!
+	if (dm == null || dialogManager != null || theCoordinator != null) {
+	    LogUtils
+		    .logError(
+			    getModuleContext(),
+			    UIStrategy.class,
+			    "setDialogManager",
+			    new Object[] { "At least one of the following happened: newly given ui.dm is null, ui.dm already exists, coordinator already exists" },
+			    null);
 	    return;
+	}
 
 	globalSubscriptions = new Vector();
 	runningDialogs = new Hashtable();
@@ -1026,8 +1094,10 @@ public class UIStrategy extends BusStrategy {
 
     void userLoggedIn(Resource user, AbsLocation loginLocation) {
 	if (isCoordinator()) {
+	    // FIXME august 2012 added; end running dialog when user asks main menu
+	    //dialogManager.clearRunningDialogsForUser(user);
 	    dialogManager.getMainMenu(user, loginLocation);
-	    // }
+
 	} else {
 	    Resource res = new Resource();
 	    res.addType(TYPE_uAAL_UI_MAIN_MENU, true);
@@ -1040,5 +1110,14 @@ public class UIStrategy extends BusStrategy {
 	    m.setReceivers(theCoordinator);
 	    sodapop.propagateMessage(bus, m);
 	}
+    }
+
+    /**
+     * The module context reference.
+     * 
+     * @returnThe module context reference.
+     */
+    public static ModuleContext getModuleContext() {
+	return moduleContext;
     }
 }
