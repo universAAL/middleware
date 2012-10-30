@@ -406,4 +406,13 @@ public class UIBusImpl extends AbstractBus implements UIBus {
     public static ModuleContext getModuleContext() {
 	return moduleContext;
     }
+    
+    /**
+     * The module context reference.
+     * 
+     * @returnThe module context reference.
+     */
+    public static void setModuleContext(ModuleContext mc) {
+	moduleContext=mc;
+    }
 }
