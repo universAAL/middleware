@@ -34,8 +34,8 @@ public final class Activator implements BundleActivator {
      */
     public void start(BundleContext context) throws Exception {
 	UIBusImpl.container = uAALBundleContainer.THE_CONTAINER;
-	UIBusImpl.moduleContext = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
+	UIBusImpl.setModuleContext(uAALBundleContainer.THE_CONTAINER
+		.registerModule(new Object[] { context }));
 	UIBusImpl.contentSerializerParams = new Object[] { MessageContentSerializer.class
 		.getName() };
 	UIBusImpl.busFetchParams = UIBusImpl.busShareParams = new Object[] { UIBus.class
