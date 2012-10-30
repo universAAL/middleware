@@ -370,9 +370,16 @@ public class UIStrategy extends BusStrategy {
      *            ID of the sender of the message
      */
     public void handle(Message msg, String senderID) {
-	if (msg == null || !(msg.getContent() instanceof Resource))
+	if (msg == null || !(msg.getContent() instanceof Resource)) {
+	    LogUtils
+		    .logError(
+			    getModuleContext(),
+			    UIStrategy.class,
+			    "handle",
+			    new Object[] { "Cannot handle message since there is no reference to it or the content of the message is wrong!!" },
+			    null);
 	    return;
-
+	}
 	// Get the content of the message
 	Resource res = (Resource) msg.getContent();
 	// Decide from the type of the message how to handle it
@@ -1094,8 +1101,9 @@ public class UIStrategy extends BusStrategy {
 
     void userLoggedIn(Resource user, AbsLocation loginLocation) {
 	if (isCoordinator()) {
-	    // FIXME august 2012 added; end running dialog when user asks main menu
-	    //dialogManager.clearRunningDialogsForUser(user);
+	    // FIXME august 2012 added; end running dialog when user asks main
+	    // menu
+	    // dialogManager.clearRunningDialogsForUser(user);
 	    dialogManager.getMainMenu(user, loginLocation);
 
 	} else {
