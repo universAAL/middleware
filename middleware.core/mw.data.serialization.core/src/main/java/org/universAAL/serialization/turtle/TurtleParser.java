@@ -37,6 +37,7 @@ import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.TypeExpressionFactory;
+import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
@@ -896,7 +897,8 @@ public class TurtleParser implements MessageContentSerializerEx {
 
 	    unread(c);
 
-	    return TypeMapper.getJavaInstance(label, null);
+	    return new LangString(label, lang.toString());
+	    // return TypeMapper.getJavaInstance(label, null);
 	} else if (c == '^') {
 	    read();
 

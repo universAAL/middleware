@@ -463,16 +463,36 @@ public class Resource {
 			: false;
     }
 
-    /** Get the Resource comment. Convenient method to retrieve rdfs:comment. */
+    /**
+     * Get the Resource comment. Convenient method to retrieve rdfs:comment.
+     * 
+     * @return the comment of this resource.
+     */
     public String getResourceComment() {
-	Object val = props.get(PROP_RDFS_COMMENT);
-	return (val instanceof String) ? (String) val : null;
+	LangString ls = getMultiLangProp(PROP_RDFS_COMMENT, getDefaultLang(),
+		true);
+	return ls == null ? null : ls.getString();
     }
 
-    /** Get the Resource label. Convenient method to retrieve rdfs:label. */
+    /**
+     * Get the Resource label. Convenient method to retrieve rdfs:label.
+     * 
+     * @return the label of this resource.
+     */
     public String getResourceLabel() {
-	Object val = props.get(PROP_RDFS_LABEL);
-	return (val instanceof String) ? (String) val : null;
+	LangString ls = getMultiLangProp(PROP_RDFS_LABEL, getDefaultLang(),
+		true);
+	return ls == null ? null : ls.getString();
+    }
+
+    /**
+     * Get the default language. The language has the form of a language tag
+     * according to ISO 639-1 (e.g. "en").
+     * 
+     * @return the default language.
+     */
+    public String getDefaultLang() {
+	return LangString.LANG_ENGLISH;
     }
 
     /**
@@ -486,9 +506,9 @@ public class Resource {
      *         label constructed on-the-fly will be returned
      */
     public String getOrConstructLabel(String type) {
-	Object val = props.get(PROP_RDFS_LABEL);
-	if (val instanceof String)
-	    return (String) val;
+	String val = getResourceLabel();
+	if (val != null)
+	    return val;
 	if (type == null)
 	    type = StringUtils.deriveLabel(getType());
 	if (isAnon())
@@ -733,6 +753,93 @@ public class Resource {
     }
 
     /**
+     * Add a new String literal (with optional language tag) to a multi-value
+     * property.
+     * 
+     * @param propURI
+     *            URI of the property. Typical values are
+     *            {@link #PROP_RDFS_LABEL} or {@link #PROP_RDFS_COMMENT}.
+     * @param ls
+     *            The String to add.
+     */
+    public void addMultiLangProp(String propURI, LangString ls) {
+	// TODO: should we check if the language already exists?
+	if (propURI == null || ls == null)
+	    return; // TODO: a log entry?
+
+	Object o = getProperty(propURI);
+	List l;
+	if (o instanceof List)
+	    l = (List) o;
+	else {
+	    l = new ArrayList();
+	    if (o != null)
+		l.add(o);
+	    setProperty(propURI, l);
+	}
+	l.add(ls);
+    }
+
+    /**
+     * Get a String literal (with optional language tag) from a multi-value
+     * property.
+     * 
+     * @param propURI
+     *            URI of the property. Typical values are
+     *            {@link #PROP_RDFS_LABEL} or {@link #PROP_RDFS_COMMENT}.
+     * @param lang
+     *            The preferred language.
+     * @param includeDefault
+     *            If no String with the preferred language could be found, this
+     *            variable determines if a String without language specifier
+     *            could also be returned.
+     * @return The value of the multi-value property.
+     */
+    public LangString getMultiLangProp(String propURI, String lang,
+	    boolean includeDefault) {
+	if (propURI == null || lang == null)
+	    return null; // TODO: a log entry?
+
+	Object o = getProperty(propURI);
+	if (o == null)
+	    return null;
+	if (o instanceof List) {
+	    String defStr = null;
+	    LangString defLangStr = null;
+	    Iterator it = ((List) o).iterator();
+	    while (it.hasNext()) {
+		o = it.next();
+		if (o instanceof String)
+		    defStr = (String) o;
+		else if (o instanceof LangString) {
+		    LangString ls = (LangString) o;
+		    if (ls.getLang().equals(lang))
+			return ls;
+		    if (ls.getLang().equals(""))
+			defLangStr = ls;
+		}
+	    }
+	    if (includeDefault) {
+		if (defLangStr != null)
+		    return defLangStr;
+		if (defStr != null)
+		    return new LangString(defStr, "");
+	    }
+	} else {
+	    if (o instanceof String && includeDefault)
+		return new LangString((String) o, "");
+	    else if (o instanceof LangString) {
+		LangString ls = (LangString) o;
+		if (lang.equals(ls.getLang())
+			|| (includeDefault && ls.getLang().equals("")))
+		    return ls;
+	    }
+	}
+
+	return null;
+    }
+
+    /**
      * Adds a statement with this resource as the subject, the given
      * <code>propURI</code> as the predicate and the given value as the object.
      * Subclasses must override this in order to decide if the statement to be
@@ -772,8 +879,22 @@ public class Resource {
 			setProperty(propURI, ((List) value).get(i));
 	    } else if (PROP_RDFS_COMMENT.equals(propURI)
 		    || PROP_RDFS_LABEL.equals(propURI)) {
-		if (!props.containsKey(propURI) && value instanceof String)
-		    props.put(propURI, value);
+		if (!props.containsKey(propURI)) {
+		    if (value instanceof String || value instanceof LangString)
+			props.put(propURI, value);
+		    else {
+			if (value instanceof List) {
+			    List l = (List) value;
+			    for (int i = 0; i < l.size(); i++) {
+				Object o = l.get(i);
+				if (!(o instanceof String)
+					&& !(o instanceof LangString))
+				    return;
+			    }
+			    props.put(propURI, l);
+			}
+		    }
+		}
 	    } else
 		props.put(propURI, value);
     }
@@ -919,7 +1040,7 @@ public class Resource {
 				prefix + "      ", true, visitedElements);
 		    else
 			s += prefix + "      " + "unknown: "
-				+ val.getClass().getName() + "\n";
+				+ o.getClass().getName() + "\n";
 		}
 	    } else {
 		String type = TypeMapper.getDatatypeURI(val);
