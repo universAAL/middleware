@@ -156,10 +156,10 @@ public abstract class UICaller implements Caller {
     /**
      * Handle ui response.
      * 
-     * @param input
-     *            the input
+     * @param uiResponse
+     *            the user input
      */
-    public abstract void handleUIResponse(UIResponse input);
+    public abstract void handleUIResponse(UIResponse uiResponse);
 
     /**
      * Resume dialog.
@@ -176,12 +176,12 @@ public abstract class UICaller implements Caller {
     /**
      * Send ui request.
      * 
-     * @param e
-     *            the e
+     * @param uiRequest
+     *            the ui request
      */
-    public final void sendUIRequest(UIRequest e) {
-	if (e != null) {
-	    bus.sendMessage(myID, e);
+    public final void sendUIRequest(UIRequest uiRequest) {
+	if (uiRequest != null) {
+	    bus.sendMessage(myID, uiRequest);
 	}
     }
 }
