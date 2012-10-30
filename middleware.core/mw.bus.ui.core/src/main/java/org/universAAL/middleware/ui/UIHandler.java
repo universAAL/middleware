@@ -44,14 +44,14 @@ public abstract class UIHandler implements Callee {
     /** The bus. */
     private UIBus bus;
 
-    /** The this callee context. */
+    /** This callee context. */
     private ModuleContext thisCalleeContext;
 
     /** The local id. */
     private String myID, localID;
 
     /**
-     * Instantiates a new uI handler.
+     * Instantiates a new UI handler.
      * 
      * @param context
      *            the context
@@ -75,13 +75,13 @@ public abstract class UIHandler implements Callee {
      * @param changedProp
      *            the changed prop
      * @param newVal
-     *            the new val
+     *            the new value
      */
     public abstract void adaptationParametersChanged(String dialogID,
 	    String changedProp, Object newVal);
 
     /**
-     * Adds the new reg params.
+     * Adds the new registration parameters.
      * 
      * @param newSubscription
      *            the new subscription
@@ -136,7 +136,7 @@ public abstract class UIHandler implements Callee {
 
     /**
      * @param m
-     *            the m
+     *            the message
      * @return true, if successful
      * @see org.universAAL.middleware.sodapop.Callee#eval(Message)
      */
@@ -170,7 +170,7 @@ public abstract class UIHandler implements Callee {
     public abstract void handleUICall(UIRequest uicall);
 
     /**
-     * Removes the matching reg params.
+     * Removes the matching registration parameters.
      * 
      * @param oldSubscription
      *            the old subscription
