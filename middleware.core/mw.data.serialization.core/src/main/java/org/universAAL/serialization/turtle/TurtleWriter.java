@@ -34,6 +34,7 @@ import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.Ontology;
+import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.sodapop.msg.Message;
@@ -843,7 +844,18 @@ public class TurtleWriter {
 	else if (val instanceof Boolean || val instanceof Double
 		|| val instanceof Integer)
 	    writer.write(val.toString());
-	else {
+	else if (val instanceof LangString) {
+	    LangString ls = (LangString) val;
+	    writer.write("\"");
+	    writer.write(ls.getString());
+	    if (((LangString) val).getLang().equals("")) {
+		writer.write("\"^^");
+		writeURI(TypeMapper.getDatatypeURI(String.class));
+	    } else {
+		writer.write("\"@");
+		writer.write(ls.getLang());
+	    }
+	} else {
 	    String[] pair = TypeMapper.getXMLInstance(val);
 	    writeLiteral(pair[0], pair[1]);
 	}

@@ -267,6 +267,7 @@ middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serializ
 middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serialization/turtle/TurtleUtil.java -text
 middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serialization/turtle/TurtleWriter.java -text
 middleware.core/mw.data.serialization.core/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
+middleware.core/mw.data.serialization.core/src/test/java/org/universAAL/serialization/turtle/TurtleTest.java -text
 middleware.core/mw.pom.core/pom.xml -text
 middleware.osgi.agg/mw.bus.context.osgi.agg/pom.xml -text
 middleware.osgi.agg/mw.bus.model.osgi.agg/pom.xml -text
