@@ -21,8 +21,10 @@ package org.universAAL.middleware.container.osgi.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * The base class for configuration files in universAAL. All configuration files
@@ -89,6 +91,20 @@ public class BundleConfigHome {
      */
     public InputStream getConfFileAsStream(String filename) throws IOException {
 	return new FileInputStream(new File(confHome, filename));
+    }
+
+    /**
+     * Get an OutputStream for the file of the given file name in the home
+     * directory of the configuration file.
+     * 
+     * @param filename
+     *            The name of the file.
+     * @return An OutputStream for the file.
+     * @throws IOException
+     */
+    public OutputStream getConfFileAsOutputStream(String filename)
+	    throws IOException {
+	return new FileOutputStream(new File(confHome, filename));
     }
 
     public File getPropFile(String nameWithoutExtension) {
