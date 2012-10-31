@@ -1039,6 +1039,8 @@ public class Resource {
 			s += ((Resource) o).toStringRecursive(
 				prefix + "      ", true, visitedElements);
 		    else
+			// TODO: this is most likely a literal, so do the same
+			// as below
 			s += prefix + "      " + "unknown: "
 				+ o.getClass().getName() + "\n";
 		}
