@@ -392,6 +392,9 @@ public class UIStrategy extends BusStrategy {
 	switch (msg.getType().ord()) {
 	// If it is of type event this can either be a notification or an
 	// UI request
+	// FIXME all UIRequest are mapped with MessageType.request in UIBusImpl
+	// public void sendMessage(String publisherID, UIRequest msg)
+	// see what is happening here??
 	case MessageType.EVENT:
 	    // pass notifications to the according methods
 	    if (res.getType().equals(TYPE_uAAL_UI_BUS_NOTIFICATION)) {
