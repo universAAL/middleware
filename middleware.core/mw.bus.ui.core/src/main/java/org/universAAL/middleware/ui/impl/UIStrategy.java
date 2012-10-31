@@ -203,9 +203,15 @@ public class UIStrategy extends BusStrategy {
 		    aux = s.filter.matches(request);
 		    if (aux > UIHandlerProfile.MATCH_LEVEL_FAILED) {
 			if (s.subscriberID.equals(currentHandler)) {
-			    notifyHandler_apChanged(currentHandler, request,
-				    changedProp);
-			    return;
+				if (changedProp != null) {
+					notifyHandler_apChanged(currentHandler, request,
+							changedProp);
+					return;
+				}
+				else {
+					notifyHandler_handle(currentHandler, request);
+					return;
+				}
 			}
 			int n = s.filter.getNumberOfSupportedInputModalities();
 			if (aux > matchResult || n > numInMod) {
