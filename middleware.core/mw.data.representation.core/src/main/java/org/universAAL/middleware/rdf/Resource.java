@@ -1054,4 +1054,9 @@ public class Resource {
 	}
 	return s;
     }
+
+    /** Make this object not being an XMLLiteral */
+    public void unliteral() {
+	isXMLLiteral = false;
+    }
 }
