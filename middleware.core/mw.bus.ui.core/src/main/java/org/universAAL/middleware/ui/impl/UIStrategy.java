@@ -1110,9 +1110,6 @@ public class UIStrategy extends BusStrategy {
 
     void userLoggedIn(Resource user, AbsLocation loginLocation) {
 	if (isCoordinator()) {
-	    // FIXME august 2012 added; end running dialog when user asks main
-	    // menu
-	    // dialogManager.clearRunningDialogsForUser(user);
 	    dialogManager.getMainMenu(user, loginLocation);
 
 	} else {
