@@ -86,7 +86,7 @@ public abstract class UIHandler implements Callee {
      * @param newSubscription
      *            the new subscription
      */
-    protected final void addNewRegParams(UIHandlerProfile newSubscription) {
+    public final void addNewRegParams(UIHandlerProfile newSubscription) {
 	bus.addNewRegParams(myID, newSubscription);
     }
 
