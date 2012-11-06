@@ -7,7 +7,6 @@ middleware.core/mw.acl.interfaces.core/src/main/java/org/universAAL/middleware/a
 middleware.core/mw.acl.interfaces.core/src/main/java/org/universAAL/middleware/acl/PeerDiscoveryListener.java -text
 middleware.core/mw.acl.interfaces.core/src/main/java/org/universAAL/middleware/acl/SodaPopPeer.java -text
 middleware.core/mw.bus.context.core/ASL2.0.txt -text
-middleware.core/mw.bus.context.core/LICENSE.txt -text
 middleware.core/mw.bus.context.core/MITX.txt -text
 middleware.core/mw.bus.context.core/NOTICE.txt -text
 middleware.core/mw.bus.context.core/pom.xml -text
@@ -42,7 +41,6 @@ middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/cont
 middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/owl/ContextProviderType.java -text
 middleware.core/mw.bus.context.core/src/test/java/org/universAAL/middleware/context/RoundTest.java -text
 middleware.core/mw.bus.model.core/ASL2.0.txt -text
-middleware.core/mw.bus.model.core/LICENSE.txt -text
 middleware.core/mw.bus.model.core/MITX.txt -text
 middleware.core/mw.bus.model.core/NOTICE.txt -text
 middleware.core/mw.bus.model.core/documentation/bus.model.sodapop[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
@@ -93,7 +91,6 @@ middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware
 middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/impl/ServiceCalleeWrapper.java -text
 middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/impl/SimplifiedApiService.java -text
 middleware.core/mw.bus.service.core/ASL2.0.txt -text
-middleware.core/mw.bus.service.core/LICENSE.txt -text
 middleware.core/mw.bus.service.core/MITX.txt -text
 middleware.core/mw.bus.service.core/NOTICE.txt -text
 middleware.core/mw.bus.service.core/pom.xml -text
@@ -149,7 +146,6 @@ middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/trac
 middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/IBusMemberRegistryListener.java -text
 middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/impl/BusMemberRegistryImpl.java -text
 middleware.core/mw.bus.ui.core/ASL2.0.txt -text
-middleware.core/mw.bus.ui.core/LICENSE.txt -text
 middleware.core/mw.bus.ui.core/MITX.txt -text
 middleware.core/mw.bus.ui.core/NOTICE.txt -text
 middleware.core/mw.bus.ui.core/pom.xml -text
@@ -190,7 +186,6 @@ middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/Su
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/TextArea.java -text
 middleware.core/mw.bus.ui.core/src/test/java/org/universAAL/middleware/ui/rdf/RangeTest.java -text
 middleware.core/mw.container.xfaces.core/ASL2.0.txt -text
-middleware.core/mw.container.xfaces.core/LICENSE.txt -text
 middleware.core/mw.container.xfaces.core/MITX.txt -text
 middleware.core/mw.container.xfaces.core/NOTICE.txt -text
 middleware.core/mw.container.xfaces.core/pom.xml -text
@@ -202,7 +197,6 @@ middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/LogUtils.java -text
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
 middleware.core/mw.data.representation.core/ASL2.0.txt -text
-middleware.core/mw.data.representation.core/LICENSE.txt -text
 middleware.core/mw.data.representation.core/MITX.txt -text
 middleware.core/mw.data.representation.core/NOTICE.txt -text
 middleware.core/mw.data.representation.core/documentation/dataRep[!!-~]class[!!-~]diagram.PNG -text
@@ -285,7 +279,6 @@ middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/rdf/ResourceTest.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/rdf/TypeMapperTest.java -text
 middleware.core/mw.data.serialization.core/ASL2.0.txt -text
-middleware.core/mw.data.serialization.core/LICENSE.txt -text
 middleware.core/mw.data.serialization.core/MITX.txt -text
 middleware.core/mw.data.serialization.core/NOTICE.txt -text
 middleware.core/mw.data.serialization.core/pom.xml -text
@@ -302,24 +295,20 @@ middleware.osgi.agg/mw.bus.ui.osgi.agg/pom.xml -text
 middleware.osgi.agg/mw.data.representation.osgi.agg/pom.xml -text
 middleware.osgi.agg/mw.data.serialization.osgi.agg/pom.xml -text
 middleware.osgi/mw.acl.bridge.osgi/ASL2.0.txt -text
-middleware.osgi/mw.acl.bridge.osgi/LICENSE.txt -text
 middleware.osgi/mw.acl.bridge.osgi/MITX.txt -text
 middleware.osgi/mw.acl.bridge.osgi/NOTICE.txt -text
 middleware.osgi/mw.acl.bridge.osgi/pom.xml -text
 middleware.osgi/mw.acl.bridge.osgi/src/main/java/org/universAAL/middleware/acl/bridge/BridgeActivator.java -text
 middleware.osgi/mw.acl.interfaces.osgi/ASL2.0.txt -text
-middleware.osgi/mw.acl.interfaces.osgi/LICENSE.txt -text
 middleware.osgi/mw.acl.interfaces.osgi/MITX.txt -text
 middleware.osgi/mw.acl.interfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.acl.interfaces.osgi/pom.xml -text
 middleware.osgi/mw.acl.rosgi/ASL2.0.txt -text
-middleware.osgi/mw.acl.rosgi/LICENSE.txt -text
 middleware.osgi/mw.acl.rosgi/MITX.txt -text
 middleware.osgi/mw.acl.rosgi/NOTICE.txt -text
 middleware.osgi/mw.acl.rosgi/pom.xml -text
 middleware.osgi/mw.acl.rosgi/src/main/java/org/universAAL/middleware/acl/rosgi/Activator.java -text
 middleware.osgi/mw.acl.upnp.osgi/ASL2.0.txt -text
-middleware.osgi/mw.acl.upnp.osgi/LICENSE.txt -text
 middleware.osgi/mw.acl.upnp.osgi/MITX.txt -text
 middleware.osgi/mw.acl.upnp.osgi/pom.xml -text
 middleware.osgi/mw.acl.upnp.osgi/src/main/java/org/universAAL/middleware/acl/upnp/Activator.java -text
@@ -341,7 +330,6 @@ middleware.osgi/mw.acl.upnp.osgi/src/main/java/org/universAAL/middleware/acl/upn
 middleware.osgi/mw.acl.upnp.osgi/src/test/java/org/universAAL/middleware/acl/upnp/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.acl.upnp.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.bus.context.osgi/ASL2.0.txt -text
-middleware.osgi/mw.bus.context.osgi/LICENSE.txt -text
 middleware.osgi/mw.bus.context.osgi/MITX.txt -text
 middleware.osgi/mw.bus.context.osgi/NOTICE.txt -text
 middleware.osgi/mw.bus.context.osgi/pom.xml -text
@@ -352,7 +340,6 @@ middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/cont
 middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/context/test/ont/User.java -text
 middleware.osgi/mw.bus.context.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.bus.model.osgi/ASL2.0.txt -text
-middleware.osgi/mw.bus.model.osgi/LICENSE.txt -text
 middleware.osgi/mw.bus.model.osgi/MITX.txt -text
 middleware.osgi/mw.bus.model.osgi/NOTICE.txt -text
 middleware.osgi/mw.bus.model.osgi/pom.xml -text
@@ -364,7 +351,6 @@ middleware.osgi/mw.bus.service.aapi.osgi/ASL2.0.txt -text
 middleware.osgi/mw.bus.service.aapi.osgi/MITX.txt -text
 middleware.osgi/mw.bus.service.aapi.osgi/pom.xml -text
 middleware.osgi/mw.bus.service.osgi/ASL2.0.txt -text
-middleware.osgi/mw.bus.service.osgi/LICENSE.txt -text
 middleware.osgi/mw.bus.service.osgi/MITX.txt -text
 middleware.osgi/mw.bus.service.osgi/NOTICE.txt -text
 middleware.osgi/mw.bus.service.osgi/pom.xml -text
@@ -376,13 +362,11 @@ middleware.osgi/mw.bus.tracker.osgi/pom.xml -text
 middleware.osgi/mw.bus.tracker.osgi/src/main/java/org/universAAL/middleware/tracker/osgi/Activator.java -text
 middleware.osgi/mw.bus.tracker.osgi/src/test/java/org/universAAL/middleware/gateway/test/BusRegistryTest.java -text
 middleware.osgi/mw.bus.ui.osgi/ASL2.0.txt -text
-middleware.osgi/mw.bus.ui.osgi/LICENSE.txt -text
 middleware.osgi/mw.bus.ui.osgi/MITX.txt -text
 middleware.osgi/mw.bus.ui.osgi/NOTICE.txt -text
 middleware.osgi/mw.bus.ui.osgi/pom.xml -text
 middleware.osgi/mw.bus.ui.osgi/src/main/java/org/universAAL/middleware/ui/impl/osgi/Activator.java -text
 middleware.osgi/mw.container.osgi/ASL2.0.txt -text
-middleware.osgi/mw.container.osgi/LICENSE.txt -text
 middleware.osgi/mw.container.osgi/MITX.txt -text
 middleware.osgi/mw.container.osgi/NOTICE.txt -text
 middleware.osgi/mw.container.osgi/doc/allclasses-frame.html -text
@@ -441,12 +425,10 @@ middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/contai
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/BundleConfigHome.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/Messages.java -text
 middleware.osgi/mw.container.xfaces.osgi/ASL2.0.txt -text
-middleware.osgi/mw.container.xfaces.osgi/LICENSE.txt -text
 middleware.osgi/mw.container.xfaces.osgi/MITX.txt -text
 middleware.osgi/mw.container.xfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.container.xfaces.osgi/pom.xml -text
 middleware.osgi/mw.data.representation.osgi/ASL2.0.txt -text
-middleware.osgi/mw.data.representation.osgi/LICENSE.txt -text
 middleware.osgi/mw.data.representation.osgi/MITX.txt -text
 middleware.osgi/mw.data.representation.osgi/NOTICE.txt -text
 middleware.osgi/mw.data.representation.osgi/pom.xml -text
@@ -455,7 +437,6 @@ middleware.osgi/mw.data.representation.osgi/src/main/resources/mw.data.represent
 middleware.osgi/mw.data.representation.osgi/src/test/java/org/universAAL/middleware/datarep/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.data.representation.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.data.serialization.osgi/ASL2.0.txt -text
-middleware.osgi/mw.data.serialization.osgi/LICENSE.txt -text
 middleware.osgi/mw.data.serialization.osgi/MITX.txt -text
 middleware.osgi/mw.data.serialization.osgi/NOTICE.txt -text
 middleware.osgi/mw.data.serialization.osgi/pom.xml -text
