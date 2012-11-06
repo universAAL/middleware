@@ -19,6 +19,10 @@
  */
 package org.universAAL.middleware.context;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
@@ -49,7 +53,8 @@ public abstract class ContextSubscriber implements Subscriber {
     private ContextBus bus;
     private ModuleContext thisSubscriberContext;
     protected String myID, localID;
-
+    private List realizedSubscriptions;
+    
     /**
      * Creates a Context Subscriber and immediately registers a set of Context
      * Event Patterns for it, so it receives the matching events.
@@ -64,7 +69,7 @@ public abstract class ContextSubscriber implements Subscriber {
 	    ContextEventPattern[] initialSubscriptions) {
 	this((ContextBus) context.getContainer().fetchSharedObject(context,
 		ContextBusImpl.busFetchParams), initialSubscriptions, true);
-
+	
 	thisSubscriberContext = context;
     }
 
@@ -75,7 +80,12 @@ public abstract class ContextSubscriber implements Subscriber {
 	if (register) {
 	    myID = bus.register(this, initialSubscriptions);
 	    populateLocalID(myID);
+	    if (this.realizedSubscriptions ==null){
+	    	this.realizedSubscriptions = new ArrayList();
+	    }
+	    this.realizedSubscriptions.addAll(Arrays.asList(initialSubscriptions));
 	}
+	
     }
 
     /**
@@ -87,6 +97,7 @@ public abstract class ContextSubscriber implements Subscriber {
      */
     protected final void addNewRegParams(ContextEventPattern[] newSubscriptions) {
 	bus.addNewRegParams(myID, newSubscriptions);
+	this.realizedSubscriptions.addAll(Arrays.asList(newSubscriptions));
     }
 
     /**
@@ -99,6 +110,7 @@ public abstract class ContextSubscriber implements Subscriber {
     protected final void removeMatchingRegParams(
 	    ContextEventPattern[] oldSubscriptions) {
 	bus.removeMatchingRegParams(myID, oldSubscriptions);
+	this.realizedSubscriptions.removeAll(Arrays.asList(oldSubscriptions));
     }
 
     /**
@@ -160,4 +172,9 @@ public abstract class ContextSubscriber implements Subscriber {
     public String getMyID() {
 	return myID;
     }
+
+	public List getRealizedSubscriptions() {
+		return realizedSubscriptions;
+	}
+
 }

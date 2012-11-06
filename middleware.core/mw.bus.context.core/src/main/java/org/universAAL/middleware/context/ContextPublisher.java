@@ -19,6 +19,9 @@
  */
 package org.universAAL.middleware.context;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.context.owl.ContextProvider;
@@ -48,7 +51,6 @@ public abstract class ContextPublisher implements Publisher {
     protected ContextBus bus;
     protected String myID;
     private ContextProvider providerInfo;
-
     /**
      * Creates a Context Publisher with the associated Context Provider
      * Information
@@ -123,4 +125,9 @@ public abstract class ContextPublisher implements Publisher {
     public String getMyID() {
 	return myID;
     }
+
+    public List getProvidedEvents() {
+	return Arrays.asList(providerInfo.getProvidedEvents());
+    }
+
 }

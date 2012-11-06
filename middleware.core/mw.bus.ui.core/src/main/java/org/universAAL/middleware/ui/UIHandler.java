@@ -19,6 +19,10 @@
  */
 package org.universAAL.middleware.ui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.supply.AbsLocation;
@@ -44,14 +48,16 @@ public abstract class UIHandler implements Callee {
     /** The bus. */
     private UIBus bus;
 
-    /** This callee context. */
+    /** The this callee context. */
     private ModuleContext thisCalleeContext;
 
     /** The local id. */
     private String myID, localID;
 
+    private List realizedHandlerProfiles;
+
     /**
-     * Instantiates a new UI handler.
+     * Instantiates a new uI handler.
      * 
      * @param context
      *            the context
@@ -65,6 +71,11 @@ public abstract class UIHandler implements Callee {
 		UIBusImpl.busFetchParams);
 	myID = bus.register(this, initialSubscription);
 	localID = myID.substring(myID.lastIndexOf('#') + 1);
+
+	if (this.realizedHandlerProfiles == null) {
+	    this.realizedHandlerProfiles = new ArrayList();
+	}
+	this.realizedHandlerProfiles.add(initialSubscription);
     }
 
     /**
@@ -75,19 +86,20 @@ public abstract class UIHandler implements Callee {
      * @param changedProp
      *            the changed prop
      * @param newVal
-     *            the new value
+     *            the new val
      */
     public abstract void adaptationParametersChanged(String dialogID,
 	    String changedProp, Object newVal);
 
     /**
-     * Adds the new registration parameters.
+     * Adds the new reg params.
      * 
      * @param newSubscription
      *            the new subscription
      */
     public final void addNewRegParams(UIHandlerProfile newSubscription) {
 	bus.addNewRegParams(myID, newSubscription);
+	this.realizedHandlerProfiles.add(newSubscription);
     }
 
     /**
@@ -136,7 +148,7 @@ public abstract class UIHandler implements Callee {
 
     /**
      * @param m
-     *            the message
+     *            the m
      * @return true, if successful
      * @see org.universAAL.middleware.sodapop.Callee#eval(Message)
      */
@@ -153,7 +165,9 @@ public abstract class UIHandler implements Callee {
      */
     public final void handleRequest(Message m) {
 	if (m.getContent() instanceof UIRequest) {
-	    LogUtils.logInfo(thisCalleeContext, UIHandler.class,
+	    LogUtils.logInfo(
+		    thisCalleeContext,
+		    UIHandler.class,
 		    "handleRequest",
 		    new Object[] { localID, " received UI request:\n",
 			    m.getContentAsString() }, null);
@@ -170,7 +184,7 @@ public abstract class UIHandler implements Callee {
     public abstract void handleUICall(UIRequest uicall);
 
     /**
-     * Removes the matching registration parameters.
+     * Removes the matching reg params.
      * 
      * @param oldSubscription
      *            the old subscription
@@ -178,6 +192,7 @@ public abstract class UIHandler implements Callee {
     protected final void removeMatchingRegParams(
 	    UIHandlerProfile oldSubscription) {
 	bus.removeMatchingRegParams(myID, oldSubscription);
+	this.realizedHandlerProfiles.remove(oldSubscription);
     }
 
     /**
@@ -191,4 +206,13 @@ public abstract class UIHandler implements Callee {
     public final void userLoggedIn(Resource user, AbsLocation loginLocation) {
 	bus.userLoggedIn(myID, user, loginLocation);
     }
+
+    public List getRealizedHandlerProfiles() {
+	return realizedHandlerProfiles;
+    }
+
+    public String getMyID() {
+	return myID;
+    }
+
 }

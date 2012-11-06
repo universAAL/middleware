@@ -19,6 +19,10 @@
  */
 package org.universAAL.middleware.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
@@ -41,6 +45,7 @@ public abstract class ServiceCallee implements Callee {
     protected ServiceBus bus;
     private ModuleContext thisCalleeContext;
     protected String myID, localID;
+    private List realizedServices;
 
     /**
      * The default constructor for this class.
@@ -56,7 +61,6 @@ public abstract class ServiceCallee implements Callee {
 	    ServiceProfile[] realizedServices) {
 	this((ServiceBus) context.getContainer().fetchSharedObject(context,
 		ServiceBusImpl.busFetchParams), realizedServices);
-
 	thisCalleeContext = context;
     }
 
@@ -65,10 +69,15 @@ public abstract class ServiceCallee implements Callee {
 
 	myID = bus.register(this, realizedServices);
 	populateLocalID(myID);
+
+	this.realizedServices.addAll(Arrays.asList(realizedServices));
     }
 
     protected ServiceCallee(ServiceBus bus) {
 	this.bus = bus;
+	if (this.realizedServices == null) {
+	    this.realizedServices = new ArrayList();
+	}
     }
 
     /**
@@ -80,6 +89,7 @@ public abstract class ServiceCallee implements Callee {
      */
     protected final void addNewRegParams(ServiceProfile[] realizedServices) {
 	bus.addNewRegParams(myID, realizedServices);
+	this.realizedServices.addAll(Arrays.asList(realizedServices));
     }
 
     /**
@@ -92,6 +102,7 @@ public abstract class ServiceCallee implements Callee {
     protected final void removeMatchingRegParams(
 	    ServiceProfile[] realizedServices) {
 	bus.removeMatchingRegParams(myID, realizedServices);
+	this.realizedServices.removeAll(Arrays.asList(realizedServices));
     }
 
     /**
@@ -132,7 +143,9 @@ public abstract class ServiceCallee implements Callee {
      */
     public void handleRequest(Message m) {
 	if (m != null && m.getContent() instanceof ServiceCall) {
-	    LogUtils.logInfo(thisCalleeContext, ServiceCallee.class,
+	    LogUtils.logInfo(
+		    thisCalleeContext,
+		    ServiceCallee.class,
 		    "handleRequest",
 		    new Object[] { localID, " received service call:\n",
 			    m.getContentAsString() }, null);
@@ -159,4 +172,9 @@ public abstract class ServiceCallee implements Callee {
     protected void populateLocalID(String myID) {
 	localID = myID.substring(myID.lastIndexOf('#') + 1);
     }
+
+    public List getRealizedServices() {
+	return realizedServices;
+    }
+
 }

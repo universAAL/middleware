@@ -24,6 +24,7 @@
     <module>../mw.bus.service.aapi.core</module>
     <module>../mw.bus.context.core</module>
     <module>../mw.bus.ui.core</module>
+    <module>../mw.bus.tracker.core</module>
   </modules>
   <scm>
     <connection>${svn.base}/middleware.core/${project.artifactId}</connection>

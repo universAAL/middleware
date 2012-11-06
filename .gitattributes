@@ -9,6 +9,7 @@ middleware.core/mw.bus.context.core/LICENSE.txt -text
 middleware.core/mw.bus.context.core/NOTICE.txt -text
 middleware.core/mw.bus.context.core/pom.xml -text
 middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/ContextBus.java -text
+middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/ContextBusFacade.java -text
 middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/ContextEvent.java -text
 middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/ContextEventPattern.java -text
 middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/ContextPublisher.java -text
@@ -48,6 +49,7 @@ middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapo
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/Callee.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/Caller.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/IRegistry.java -text
+middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/IRegistryListener.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/Publisher.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/RegistryMap.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapop/SodaPop.java -text
@@ -92,6 +94,7 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/CallStatus.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/DefaultServiceCaller.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceBus.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceBusFacade.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceCall.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceCallee.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceCaller.java -text
@@ -131,11 +134,17 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/profile/ServiceProfile.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/profile/SingleLocationParameter.java -text
 middleware.core/mw.bus.service.core/src/main/resources/org/persona/middleware/peer.properties -text
+middleware.core/mw.bus.tracker.core/pom.xml -text
+middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/Activator.java -text
+middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/IBusMemberRegistry.java -text
+middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/IBusMemberRegistryListener.java -text
+middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/impl/BusMemberRegistryImpl.java -text
 middleware.core/mw.bus.ui.core/LICENSE.txt -text
 middleware.core/mw.bus.ui.core/NOTICE.txt -text
 middleware.core/mw.bus.ui.core/pom.xml -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/DialogManager.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIBus.java -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIBusFacade.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UICaller.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIHandler.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIHandlerProfile.java -text
@@ -330,6 +339,9 @@ middleware.osgi/mw.bus.service.osgi/src/main/java/org/universAAL/middleware/serv
 middleware.osgi/mw.bus.service.osgi/src/main/resources/org/persona/middleware/peer.properties -text
 middleware.osgi/mw.bus.service.osgi/src/test/java/org/universAAL/middleware/service/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.bus.service.osgi/src/test/resources/log4j.properties -text
+middleware.osgi/mw.bus.tracker.osgi/pom.xml -text
+middleware.osgi/mw.bus.tracker.osgi/src/main/java/org/universAAL/middleware/tracker/osgi/Activator.java -text
+middleware.osgi/mw.bus.tracker.osgi/src/test/java/org/universAAL/middleware/gateway/test/BusRegistryTest.java -text
 middleware.osgi/mw.bus.ui.osgi/LICENSE.txt -text
 middleware.osgi/mw.bus.ui.osgi/NOTICE.txt -text
 middleware.osgi/mw.bus.ui.osgi/pom.xml -text

@@ -39,6 +39,7 @@ public abstract class AbstractBus implements Bus {
 
     private String name;
     protected IRegistry registry;
+
     // protected Hashtable registry; // <BusMember>
     protected BusStrategy busStrategy;
     protected SodaPop sodapop;
@@ -212,13 +213,22 @@ public abstract class AbstractBus implements Bus {
 	    synchronized (registry) {
 		BusMember o = registry.removeMemberByID(memberID);
 		if (o != null) {
-		    if (o.equals(m)) {
-			registry.addBusMember(memberID, o);
-		    } else if (registry.getBusMembersCount() == 0) {
+		    //if (o.equals(m)) {
+			//registry.addBusMember(memberID, o);
+		    //} else 
+		    if (registry.getBusMembersCount() == 0) {
 			sodapop.leave(this);
 		    }
 		}
 	    }
 	}
+    }
+
+    public boolean addRegistryListener(IRegistryListener listener) {
+	return registry.addRegistryListener(listener);
+    }
+
+    public boolean removeRegistryListener(IRegistryListener listener) {
+	return registry.removeRegistryListener(listener);
     }
 }

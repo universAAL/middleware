@@ -22,26 +22,30 @@ package org.universAAL.middleware.sodapop;
 
 /**
  * 
- * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- * 
- *         Apr 20, 2012
- * 
+ *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ *	
+ *  Apr 20, 2012
+ *
  */
 public interface IRegistry {
+	
+	void addBusMember(String memberID, BusMember busMember);
+	
+	BusMember removeMemberByID(String memberID);
+	
+	BusMember getBusMemberByID(String memberID);
+	
+	String getBusMemberID(BusMember busMember);
+	
+	BusMember[] getAllBusMembers();
+	
+	String[] getAllBusMembersIds();
+	
+	int getBusMembersCount();
 
-    void addBusMember(String memberID, BusMember busMember);
-
-    BusMember removeMemberByID(String memberID);
-
-    BusMember getBusMemberByID(String memberID);
-
-    String getBusMemberID(BusMember busMember);
-
-    BusMember[] getAllBusMembers();
-
-    String[] getAllBusMembersIds();
-
-    int getBusMembersCount();
-
-    void reset();
+	void reset();
+	
+	boolean addRegistryListener(IRegistryListener listener);
+	
+	boolean removeRegistryListener(IRegistryListener listener);
 }

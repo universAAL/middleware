@@ -88,7 +88,8 @@ public class ServiceCall extends FinalizedResource {
 	    + "InputBinding";
 
     private Hashtable nonSemanticInput;
-
+    private ServiceRequest request;
+    
     public ServiceCall(Object dummy, String uri) {
 	super(uri);
 	addType(MY_URI, true);
@@ -102,7 +103,15 @@ public class ServiceCall extends FinalizedResource {
 	    this.nonSemanticInput = nonSemanticInput;
 	}
     }
-
+    
+    public void setRequest(ServiceRequest request){
+	this.request = request;
+    }
+    
+    public ServiceRequest getRequest(){
+	return this.request;
+    }
+    
     public Object getNonSemanticInput(String uri) {
 	if (this.nonSemanticInput == null) {
 	    return null;

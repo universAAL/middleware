@@ -164,6 +164,8 @@ public class ServiceStrategy extends BusStrategy {
 	    allSubscriptionsIndex = new Hashtable();
 	    allWaitingCallers = new Hashtable();
 	    startDialogs = new Hashtable();
+	} else {
+
 	}
     }
 
@@ -246,7 +248,7 @@ public class ServiceStrategy extends BusStrategy {
 		    realizedServices[i]);
 	    // index it over the ID of the operation registered
 	    localServicesIndex.addServiceRealization(processURI, registration);
-
+	    
 	    if (isCoordinator)
 		// more complex indexing of services by the coordinator
 		indexServices(realizedServices[i], registration, processURI);
@@ -355,6 +357,9 @@ public class ServiceStrategy extends BusStrategy {
 		    ServiceRealization.uAAL_SERVICE_PROVIDER).toString());
 	    ServiceCall sc = (ServiceCall) match
 		    .remove(ServiceRealization.uAAL_ASSERTED_SERVICE_CALL);
+	    if (m.getContent() instanceof ServiceRequest){
+		sc.setRequest((ServiceRequest)m.getContent());
+	    }
 	    ServiceBusImpl.assessContentSerialization(sc);
 	    Message call = new Message(MessageType.p2p_request, sc);
 	    allWaitingCallers.put(call.getID(), match);
@@ -1251,15 +1256,12 @@ public class ServiceStrategy extends BusStrategy {
 			    if (Boolean.TRUE.equals(otherMatch
 				    .get(CONTEXT_SPECIALIZED_INSTANCE_MATCH)))
 				sp1 += 2;
-			    if (sp1 < sp0
-				    || (sp1 == sp0 && otherMatch.size() > match
-					    .size()))
+			    if (sp1 < sp0 || otherMatch.size() > match.size())
 				auxMap.put(sr.getProvider(), match);
 			}
 		    }
 		}
 		matches = new Vector(auxMap.values());
-
 		if (matches.size() > 1 && request.acceptsRandomSelection()) {
 		    // the strategy is to select the match with the lowest
 		    // number of entries in 'context'
