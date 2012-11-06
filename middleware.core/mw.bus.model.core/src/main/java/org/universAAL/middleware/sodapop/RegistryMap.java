@@ -20,60 +20,81 @@
  */
 package org.universAAL.middleware.sodapop;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
  * 
- * @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
- * 
- *         Apr 20, 2012
- * 
+ *  @author <a href="mailto:noamsh@il.ibm.com">noamsh </a>
+ *	
+ *  Apr 20, 2012
+ *
  */
 public class RegistryMap extends Object implements IRegistry {
 
-    protected Map map = new HashMap();
-
-    public void addBusMember(String memberID, BusMember busMember) {
-	map.put(memberID, busMember);
-    }
-
-    public BusMember removeMemberByID(String memberID) {
-	return (BusMember) map.remove(memberID);
-    }
-
-    public BusMember[] getAllBusMembers() {
-	return (BusMember[]) map.values().toArray(new BusMember[0]);
-    }
-
-    public String[] getAllBusMembersIds() {
-	return (String[]) map.keySet().toArray(new String[0]);
-    }
-
-    public BusMember getBusMemberByID(String memberID) {
-	return (memberID == null) ? null : (BusMember) map.get(memberID);
-    }
-
-    public String getBusMemberID(BusMember busMember) {
-	String result = null;
-	if (busMember != null) {
-	    for (Iterator i = map.keySet().iterator(); i.hasNext();) {
-		String id = (String) i.next();
-		if (busMember.equals(map.get(id))) {
-		    result = id;
-		    break;
+	protected Map map = new HashMap();
+	protected List listeners = new ArrayList();
+	
+	public void addBusMember(String memberID, BusMember busMember) {
+		map.put(memberID, busMember);
+		for(int i = 0 ; i < listeners.size() ; i++){
+			((IRegistryListener)listeners.get(i)).busMemberAdded(busMember);
 		}
-	    }
 	}
-	return result;
-    }
+	
+	public BusMember removeMemberByID(String memberID) {
+		BusMember busMember = (BusMember) map.remove(memberID);
+		for(int i = 0 ; i < listeners.size() ; i++){
+			((IRegistryListener)listeners.get(i)).busMemberRemoved(busMember);
+		}
+		return busMember; 
+	}
 
-    public int getBusMembersCount() {
-	return map.size();
-    }
+	public BusMember[] getAllBusMembers() {
+		return (BusMember[]) map.values().toArray(new BusMember[0]);
+	}
 
-    public void reset() {
-	map.clear();
-    }
+	public String[] getAllBusMembersIds() {
+		return (String[]) map.keySet().toArray(new String[0]);
+	}
+
+	public BusMember getBusMemberByID(String memberID) {
+		return (memberID == null) ? null : (BusMember) map.get(memberID);
+	}
+
+	public String getBusMemberID(BusMember busMember) {
+		String result = null;
+		if (busMember != null) {
+			for (Iterator i = map.keySet().iterator(); i.hasNext();) {
+				String id = (String) i.next();
+				if (busMember.equals(map.get(id))) {
+					result = id;
+					break;
+				}
+			}
+		}
+		return result;
+	}
+
+	public int getBusMembersCount() {
+		return map.size();
+	}
+
+	public void reset() {
+		map.clear();
+		for(int i = 0 ; i < listeners.size() ; i++){
+			((IRegistryListener)listeners.get(i)).busCleared();
+		}
+	}
+
+	public boolean addRegistryListener(IRegistryListener listener) {
+		return listeners.add(listener);
+	}
+
+	public boolean removeRegistryListener(IRegistryListener listener) {
+		return listeners.remove(listener);
+	}
 }

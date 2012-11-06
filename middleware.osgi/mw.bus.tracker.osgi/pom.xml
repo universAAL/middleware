@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.pom.osgi</artifactId>
+		<version>1.2.1-SNAPSHOT</version>
+		<relativePath>../pom</relativePath>
+	</parent>
+	<packaging>bundle</packaging>
+	<artifactId>mw.bus.tracker.osgi</artifactId>
+	<name>Module for tracking BusMembers registered in the MW buses (OSGi)</name>
+	<version>1.2.1-SNAPSHOT</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.tracker.core</artifactId>
+			<version>1.2.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.osgi</artifactId>
+		</dependency>
+		<dependency>
+	      <groupId>org.apache.felix</groupId>
+	      <artifactId>org.osgi.core</artifactId>
+	    </dependency>
+	</dependencies>
+
+	<build>
+	<plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Activator>org.universAAL.middleware.tracker.osgi.Activator</Bundle-Activator>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Export-Package>org.universAAL.middleware.tracker.osgi, org.universAAL.middleware.tracker</Export-Package>
+          	<Private-Package>org.universAAL.middleware.tracker.impl</Private-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
