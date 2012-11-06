@@ -394,6 +394,10 @@ middleware.core/mw.bus.service.core/src/test/uAAL.log
 middleware.core/mw.bus.service.core/src/uAAL.log
 middleware.core/mw.bus.service.core/target
 middleware.core/mw.bus.service.core/uAAL.log
+middleware.core/mw.bus.tracker.core/.classpath
+middleware.core/mw.bus.tracker.core/.project
+middleware.core/mw.bus.tracker.core/.settings
+middleware.core/mw.bus.tracker.core/target
 middleware.core/mw.bus.ui.core/.classpath
 middleware.core/mw.bus.ui.core/.project
 middleware.core/mw.bus.ui.core/.settings
@@ -1335,6 +1339,10 @@ middleware.osgi/mw.bus.service.osgi/src/test/uAAL.log
 middleware.osgi/mw.bus.service.osgi/src/uAAL.log
 middleware.osgi/mw.bus.service.osgi/target
 middleware.osgi/mw.bus.service.osgi/uAAL.log
+middleware.osgi/mw.bus.tracker.osgi/.classpath
+middleware.osgi/mw.bus.tracker.osgi/.project
+middleware.osgi/mw.bus.tracker.osgi/.settings
+middleware.osgi/mw.bus.tracker.osgi/target
 middleware.osgi/mw.bus.ui.osgi/.classpath
 middleware.osgi/mw.bus.ui.osgi/.project
 middleware.osgi/mw.bus.ui.osgi/.settings
