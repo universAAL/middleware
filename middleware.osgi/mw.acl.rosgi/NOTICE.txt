@@ -25,4 +25,5 @@ Licensed under modified BSD license
 
 III. License Summary
 - Apache License 2.0
+- MIT License
 - Modified BSD License

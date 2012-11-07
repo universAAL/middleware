@@ -36,3 +36,4 @@ Licensed under modified MIT X11 License.
 III. License Summary
 - Apache License 2.0
 - Modified MIT X11 License
+- MIT License

@@ -17,3 +17,6 @@ II. Used Software
 
 This does not use any software developed by 3rd parties
 
+III. License Summary
+- Apache License 2.0
+- MIT License
