@@ -71,6 +71,7 @@ middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/sodapo
 middleware.core/mw.bus.model.core/src/main/resources/README.txt -text
 middleware.core/mw.bus.service.aapi.core/ASL2.0.txt -text
 middleware.core/mw.bus.service.aapi.core/MITX.txt -text
+middleware.core/mw.bus.service.aapi.core/NOTICE.txt -text
 middleware.core/mw.bus.service.aapi.core/pom.xml -text
 middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/SimpleServiceLocator.java -text
 middleware.core/mw.bus.service.aapi.core/src/main/java/org/universAAL/middleware/api/SimpleServiceRegistrator.java -text
@@ -312,6 +313,7 @@ middleware.osgi/mw.acl.rosgi/pom.xml -text
 middleware.osgi/mw.acl.rosgi/src/main/java/org/universAAL/middleware/acl/rosgi/Activator.java -text
 middleware.osgi/mw.acl.upnp.osgi/ASL2.0.txt -text
 middleware.osgi/mw.acl.upnp.osgi/MITX.txt -text
+middleware.osgi/mw.acl.upnp.osgi/NOTICE.txt -text
 middleware.osgi/mw.acl.upnp.osgi/pom.xml -text
 middleware.osgi/mw.acl.upnp.osgi/src/main/java/org/universAAL/middleware/acl/upnp/Activator.java -text
 middleware.osgi/mw.acl.upnp.osgi/src/main/java/org/universAAL/middleware/acl/upnp/exporter/SodaPopDevice.java -text
@@ -351,6 +353,7 @@ middleware.osgi/mw.bus.model.osgi/src/test/java/org/universAAL/middleware/sodapo
 middleware.osgi/mw.bus.model.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.bus.service.aapi.osgi/ASL2.0.txt -text
 middleware.osgi/mw.bus.service.aapi.osgi/MITX.txt -text
+middleware.osgi/mw.bus.service.aapi.osgi/NOTICE.txt -text
 middleware.osgi/mw.bus.service.aapi.osgi/pom.xml -text
 middleware.osgi/mw.bus.service.osgi/ASL2.0.txt -text
 middleware.osgi/mw.bus.service.osgi/MITX.txt -text
