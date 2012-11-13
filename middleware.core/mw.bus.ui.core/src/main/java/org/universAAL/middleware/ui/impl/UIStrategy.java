@@ -170,6 +170,7 @@ public class UIStrategy extends BusStrategy {
 						.get(request.getDialogID());
 				if (changedProp == null) {
 					// this is a new dialog published to the bus
+					// Or a dialog is being resumed by the DM.
 					if (pendingRequests.get(request.getDialogID()) == null) {
 						pendingRequests.put(request.getDialogID(), dm);
 						LogUtils
@@ -208,10 +209,10 @@ public class UIStrategy extends BusStrategy {
 										changedProp);
 								return;
 							}
-							else {
-								notifyHandler_handle(currentHandler, request);
-								return;
-							}
+//							else {
+//								notifyHandler_handle(currentHandler, request);
+//								//return;
+//							}
 						}
 						int n = s.filter.getNumberOfSupportedInputModalities();
 						if (aux > matchResult || n > numInMod) {
