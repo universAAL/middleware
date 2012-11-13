@@ -299,10 +299,14 @@ public abstract class FormControl extends FinalizedResource {
 	ArrayList al = new ArrayList();
 	for (Group fc = getParentGroup(); fc != null; fc = fc.getParentGroup())
 	    al.add(fc);
+	// remove last since it is the place holder for root groups
+	al.remove(al.size() -1);
 	// reverse the order
-	Group[] result = new Group[al.size()];
-	for (int i = al.size() - 2; i > -1; i--)
-	    result[i] = (Group) al.get(i);
+	int size = al.size();
+	Group[] result = new Group[size];
+	for (int i = 0; i < size; i++) {
+	    result[i] = (Group) al.get(size - i -1);
+	}
 	return result;
     }
 
