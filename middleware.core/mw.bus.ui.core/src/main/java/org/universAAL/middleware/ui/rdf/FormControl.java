@@ -19,7 +19,6 @@
  */
 package org.universAAL.middleware.ui.rdf;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
