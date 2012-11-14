@@ -21,6 +21,7 @@ package org.universAAL.middleware.ui.rdf;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.universAAL.middleware.owl.MergedRestriction;
@@ -296,18 +297,13 @@ public abstract class FormControl extends FinalizedResource {
      * direct parent group.
      */
     public Group[] getSuperGroups() {
-	ArrayList al = new ArrayList();
-	for (Group fc = getParentGroup(); fc != null; fc = fc.getParentGroup())
-	    al.add(fc);
-	// remove last since it is the place holder for root groups
-	al.remove(al.size() -1);
-	// reverse the order
-	int size = al.size();
-	Group[] result = new Group[size];
-	for (int i = 0; i < size; i++) {
-	    result[i] = (Group) al.get(size - i -1);
-	}
-	return result;
+    	LinkedList gl = new LinkedList();
+    	for (Group fc = getParentGroup(); fc != null; fc = fc.getParentGroup()) {
+    		gl.addFirst(fc);
+    	}
+    	// remove last added since it is the place holder for root groups
+    	gl.removeFirst();
+    	return (Group[]) gl.toArray(new Group[] {});
     }
 
     /**
