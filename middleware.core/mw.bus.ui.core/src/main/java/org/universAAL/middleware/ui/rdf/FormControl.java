@@ -296,13 +296,13 @@ public abstract class FormControl extends FinalizedResource {
      * direct parent group.
      */
     public Group[] getSuperGroups() {
-    	LinkedList gl = new LinkedList();
-    	for (Group fc = getParentGroup(); fc != null; fc = fc.getParentGroup()) {
-    		gl.addFirst(fc);
-    	}
-    	// remove last added since it is the place holder for root groups
-    	gl.removeFirst();
-    	return (Group[]) gl.toArray(new Group[] {});
+	LinkedList gl = new LinkedList();
+	for (Group fc = getParentGroup(); fc != null; fc = fc.getParentGroup()) {
+	    gl.addFirst(fc);
+	}
+	// remove last added since it is the place holder for root groups
+	gl.removeFirst();
+	return (Group[]) gl.toArray(new Group[] {});
     }
 
     /**

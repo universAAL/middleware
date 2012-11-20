@@ -165,9 +165,7 @@ public abstract class UIHandler implements Callee {
      */
     public final void handleRequest(Message m) {
 	if (m.getContent() instanceof UIRequest) {
-	    LogUtils.logInfo(
-		    thisCalleeContext,
-		    UIHandler.class,
+	    LogUtils.logInfo(thisCalleeContext, UIHandler.class,
 		    "handleRequest",
 		    new Object[] { localID, " received UI request:\n",
 			    m.getContentAsString() }, null);

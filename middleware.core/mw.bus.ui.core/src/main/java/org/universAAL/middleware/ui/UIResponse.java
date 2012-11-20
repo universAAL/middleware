@@ -57,7 +57,7 @@ public class UIResponse extends FinalizedResource {
     /** The Constant PROP_SUBMISSION_ID. */
     public static final String PROP_SUBMISSION_ID = UIRequest.uAAL_UI_NAMESPACE
 	    + "submissionID";
-    
+
     /** The Constant PROP_IS_DIALOG_MANAGER_RESPONSE. */
     public static final String PROP_IS_DIALOG_MANAGER_RESPONSE = UIRequest.uAAL_UI_NAMESPACE
 	    + "forDialogManager";
@@ -95,8 +95,7 @@ public class UIResponse extends FinalizedResource {
 	    props.put(PROP_SUBMISSION_LOCATION, inputLocation);
 	if (submit instanceof SubdialogTrigger)
 	    props.put(PROP_IS_SUBDIALOG_CALL, Boolean.TRUE);
-	if (submit.getSuperGroups()[0]
-		.equals(f.getStandardButtons())){
+	if (submit.getSuperGroups()[0].equals(f.getStandardButtons())) {
 	    props.put(PROP_IS_DIALOG_MANAGER_RESPONSE, Boolean.TRUE);
 	}
     }
@@ -213,7 +212,7 @@ public class UIResponse extends FinalizedResource {
     public boolean isSubdialogSubmission() {
 	return props.containsKey(Form.PROP_PARENT_DIALOG_URI);
     }
-    
+
     /**
      * Checks if is the response is for the DialogManager.
      * 
