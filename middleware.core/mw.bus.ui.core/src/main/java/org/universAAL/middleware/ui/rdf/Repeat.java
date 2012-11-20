@@ -73,8 +73,8 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @author Carsten Stockloew
  */
 public class Repeat extends Group {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Repeat";
-	
+    public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Repeat";
+
     /**
      * Indicates if entries can be removed from the list of initial values
      * associated with a repeat control.
