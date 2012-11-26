@@ -13,7 +13,7 @@ import org.osgi.framework.SynchronousBundleListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.uAALModuleActivator;
+import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 
 public class uAALBundleExtender implements SynchronousBundleListener {
@@ -49,7 +49,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 	    Class[] ifaces = c.getInterfaces();
 	    boolean shouldLoad = false;
 	    for (int i = 0; i < ifaces.length; i++) {
-		if (ifaces[i] == uAALModuleActivator.class) {
+		if (ifaces[i] == ModuleActivator.class) {
 		    return c;
 		}
 	    }
@@ -93,7 +93,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 		    ActivatorExecutor executor = null;
 		    if (activatorsClasses.size() == 1) {
 			Class c = (Class) activatorsClasses.get(0);
-			uAALModuleActivator theActivator = (uAALModuleActivator) c
+			ModuleActivator theActivator = (ModuleActivator) c
 				.newInstance();
 			executor = new ActivatorExecutor(theActivator, bundle);
 		    } else {
@@ -157,13 +157,13 @@ public class uAALBundleExtender implements SynchronousBundleListener {
     }
 
     private class ActivatorExecutor {
-	private uAALModuleActivator activator;
+	private ModuleActivator activator;
 	private ModuleContext mc;
 	private Bundle b;
 	private String errorMsg;
 	private Logger logger;
 
-	public ActivatorExecutor(uAALModuleActivator activator, Bundle b) {
+	public ActivatorExecutor(ModuleActivator activator, Bundle b) {
 	    this.activator = activator;
 	    this.b = b;
 	    this.mc = uAALBundleContainer.THE_CONTAINER

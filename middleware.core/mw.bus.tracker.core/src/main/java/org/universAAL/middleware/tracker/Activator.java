@@ -1,10 +1,10 @@
 package org.universAAL.middleware.tracker;
 
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.uAALModuleActivator;
+import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl;
 
-public class Activator implements uAALModuleActivator {
+public class Activator implements ModuleActivator {
 
     public static ModuleContext mc;
     
