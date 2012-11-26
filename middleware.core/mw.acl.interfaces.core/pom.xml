@@ -10,7 +10,7 @@
   </parent>
   <artifactId>mw.acl.interfaces.core</artifactId>
   <version>1.2.1-SNAPSHOT</version>
-  <name>ACL Interfaces (Core)</name>
+  <name>universAAL middleware ACL Interfaces (Core)</name>
   <description>Defines the interfaces within the Abstract Connection Layer (Core)</description>
   <url></url>
   <properties>

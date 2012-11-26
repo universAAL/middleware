@@ -12,7 +12,7 @@
 	<artifactId>mw.data.representation.osgi.agg</artifactId>
 	<version>1.2.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Data Representation (AGG)</name>
+	<name>universAAL middleware Data Representation (AGG)</name>
 
 	<modules>
 		<module>../../middleware.osgi/mw.data.representation.osgi</module>

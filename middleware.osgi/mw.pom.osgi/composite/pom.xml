@@ -10,7 +10,7 @@
   </parent>
   <artifactId>mw.composite</artifactId>
   <version>1.2.1-SNAPSHOT</version>
-  <name>universAAL Middleware Suite Composite</name>
+  <name>universAAL middleware Suite Composite</name>
   <description>Artifact responsible for generating composite file of universAAL middleware</description>
   <url></url>
   <scm>
@@ -37,6 +37,10 @@
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.data.serialization.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.tracker.osgi</artifactId>
     </dependency>
   </dependencies>
 </project>

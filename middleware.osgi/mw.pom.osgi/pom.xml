@@ -12,7 +12,7 @@
   <artifactId>mw.pom.osgi</artifactId>
   <version>1.2.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>universAAL Middleware Suite (OSGi)</name>
+  <name>universAAL middleware Suite (OSGi)</name>
   <description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase. (OSGi)</description>
   <modules>
     <module>../mw.container.xfaces.osgi</module>
@@ -123,6 +123,11 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.data.serialization.osgi</artifactId>
+        <version>1.2.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.bus.tracker.osgi</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
