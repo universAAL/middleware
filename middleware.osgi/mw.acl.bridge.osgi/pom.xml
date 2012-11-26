@@ -11,7 +11,7 @@
   <artifactId>mw.acl.bridge.osgi</artifactId>
   <version>1.2.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>ACL Bridge</name>
+  <name>universAAL middleware ACL Bridge</name>
   <description>Finds all implementations of the ACL and bridges the proxies by one protocol to all other</description>
   <url></url>
   <properties>

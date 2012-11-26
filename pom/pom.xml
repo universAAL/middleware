@@ -11,7 +11,7 @@
   <artifactId>mw.pom</artifactId>
   <version>1.2.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>universAAL Middleware Suite</name>
+  <name>universAAL middleware Suite</name>
   <description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase.</description>
   <developers>
     <developer>

@@ -11,7 +11,7 @@
   <artifactId>mw.container.osgi</artifactId>
   <version>1.2.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>OSGi Container</name>
+  <name>universAAL middleware OSGi Container</name>
   <description>An implementation of the interfaces exported by the Container building block of the universAAL middleware on top of the OSGi runtime</description>
   <url></url>
   <properties>
