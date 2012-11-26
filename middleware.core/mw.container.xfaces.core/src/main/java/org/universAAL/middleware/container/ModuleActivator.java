@@ -1,6 +1,6 @@
 package org.universAAL.middleware.container;
 
-public interface uAALModuleActivator {
+public interface ModuleActivator {
 
     public void start(ModuleContext mc) throws Exception;
 
