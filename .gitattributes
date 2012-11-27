@@ -1089,6 +1089,7 @@ mw.pom-1.0.2-SNAPSHOT/eclipse.setup.bat -text
 mw.pom-1.0.2-SNAPSHOT/eclipse.setup.sh -text
 mw.pom-1.0.2-SNAPSHOT/pom.xml -text
 mw.pom-1.1.2-SNAPSHOT/pom.xml -text
+mw.pom-1.2.1-SNAPSHOT/pom.xml -text
 mw.pom.core-1.1.2-SNAPSHOT/pom.xml -text
 mw.pom.osgi-1.1.2-SNAPSHOT/composite/pom.xml -text
 mw.pom.osgi-1.1.2-SNAPSHOT/pom.xml -text
