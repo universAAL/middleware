@@ -327,6 +327,16 @@ middleware.osgi/mw.acl.upnp.osgi/src/main/java/org/universAAL/middleware/acl/upn
 middleware.osgi/mw.acl.upnp.osgi/src/main/java/org/universAAL/middleware/acl/upnp/importer/SodaPopProxy.java -text
 middleware.osgi/mw.acl.upnp.osgi/src/test/java/org/universAAL/middleware/acl/upnp/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.acl.upnp.osgi/src/test/resources/log4j.properties -text
+middleware.osgi/mw.bus.context.osgi/ASL2.0.txt -text
+middleware.osgi/mw.bus.context.osgi/MITX.txt -text
+middleware.osgi/mw.bus.context.osgi/NOTICE.txt -text
+middleware.osgi/mw.bus.context.osgi/pom.xml -text
+middleware.osgi/mw.bus.context.osgi/src/main/java/org/universAAL/middleware/context/impl/osgi/Activator.java -text
+middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/context/test/ArtifactIntegrationTest.java -text
+middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/context/test/ont/Location.java -text
+middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/context/test/ont/TestOntology.java -text
+middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/context/test/ont/User.java -text
+middleware.osgi/mw.bus.context.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.bus.model.osgi/ASL2.0.txt -text
 middleware.osgi/mw.bus.model.osgi/MITX.txt -text
 middleware.osgi/mw.bus.model.osgi/NOTICE.txt -text
