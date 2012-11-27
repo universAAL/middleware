@@ -327,6 +327,14 @@ middleware.osgi/mw.acl.upnp.osgi/src/main/java/org/universAAL/middleware/acl/upn
 middleware.osgi/mw.acl.upnp.osgi/src/main/java/org/universAAL/middleware/acl/upnp/importer/SodaPopProxy.java -text
 middleware.osgi/mw.acl.upnp.osgi/src/test/java/org/universAAL/middleware/acl/upnp/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.acl.upnp.osgi/src/test/resources/log4j.properties -text
+middleware.osgi/mw.bus.model.osgi/ASL2.0.txt -text
+middleware.osgi/mw.bus.model.osgi/MITX.txt -text
+middleware.osgi/mw.bus.model.osgi/NOTICE.txt -text
+middleware.osgi/mw.bus.model.osgi/pom.xml -text
+middleware.osgi/mw.bus.model.osgi/src/main/java/org/universAAL/middleware/sodapop/impl/osgi/Activator.java -text
+middleware.osgi/mw.bus.model.osgi/src/main/resources/README.txt -text
+middleware.osgi/mw.bus.model.osgi/src/test/java/org/universAAL/middleware/sodapop/test/ArtifactIntegrationTest.java -text
+middleware.osgi/mw.bus.model.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.container.osgi/ASL2.0.txt -text
 middleware.osgi/mw.container.osgi/MITX.txt -text
 middleware.osgi/mw.container.osgi/NOTICE.txt -text
