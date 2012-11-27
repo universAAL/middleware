@@ -1112,6 +1112,10 @@ middleware.osgi/mw.bus.model.osgi/src/test/uAAL.log
 middleware.osgi/mw.bus.model.osgi/src/uAAL.log
 middleware.osgi/mw.bus.model.osgi/target
 middleware.osgi/mw.bus.model.osgi/uAAL.log
+middleware.osgi/mw.bus.service.aapi.osgi/.classpath
+middleware.osgi/mw.bus.service.aapi.osgi/.project
+middleware.osgi/mw.bus.service.aapi.osgi/.settings
+middleware.osgi/mw.bus.service.aapi.osgi/target
 middleware.osgi/mw.bus.service.osgi/.classpath
 middleware.osgi/mw.bus.service.osgi/.project
 middleware.osgi/mw.bus.service.osgi/.settings
