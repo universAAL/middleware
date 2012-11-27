@@ -11,7 +11,7 @@
   <artifactId>mw.acl.interfaces.osgi</artifactId>
   <version>1.2.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>universAAL middleware ACL Interfaces (OSGi)</name>
+  <name>universAAL Middleware ACL Interfaces (OSGi)</name>
   <description>Defines the interfaces within the Abstract Connection Layer (OSGi)</description>
   <url></url>
   <properties>

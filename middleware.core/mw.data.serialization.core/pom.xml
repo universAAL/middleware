@@ -10,7 +10,7 @@
   </parent>
   <artifactId>mw.data.serialization.core</artifactId>
   <version>1.2.1-SNAPSHOT</version>
-  <name>universAAL middleware RDF Turtle serializer (Core)</name>
+  <name>universAAL Middleware RDF Turtle serializer (Core)</name>
   <description>The module for message content serialization in Turtle (Core)</description>
   <properties>
     <project.build.sourceEncoding>cp1252</project.build.sourceEncoding>

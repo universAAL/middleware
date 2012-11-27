@@ -10,7 +10,7 @@
   </parent>
   <artifactId>mw.composite</artifactId>
   <version>1.2.1-SNAPSHOT</version>
-  <name>universAAL middleware Suite Composite</name>
+  <name>universAAL Middleware Suite Composite</name>
   <description>Artifact responsible for generating composite file of universAAL middleware</description>
   <url></url>
   <scm>
