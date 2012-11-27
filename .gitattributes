@@ -1,4 +1,11 @@
 * text=auto !eol
+middleware.core/mw.acl.interfaces.core/ASL2.0.txt -text
+middleware.core/mw.acl.interfaces.core/MITX.txt -text
+middleware.core/mw.acl.interfaces.core/NOTICE.txt -text
+middleware.core/mw.acl.interfaces.core/pom.xml -text
+middleware.core/mw.acl.interfaces.core/src/main/java/org/universAAL/middleware/acl/P2PConnector.java -text
+middleware.core/mw.acl.interfaces.core/src/main/java/org/universAAL/middleware/acl/PeerDiscoveryListener.java -text
+middleware.core/mw.acl.interfaces.core/src/main/java/org/universAAL/middleware/acl/SodaPopPeer.java -text
 middleware.core/mw.container.xfaces.core/ASL2.0.txt -text
 middleware.core/mw.container.xfaces.core/MITX.txt -text
 middleware.core/mw.container.xfaces.core/NOTICE.txt -text
