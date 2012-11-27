@@ -397,6 +397,14 @@ middleware.osgi/mw.container.xfaces.osgi/ASL2.0.txt -text
 middleware.osgi/mw.container.xfaces.osgi/MITX.txt -text
 middleware.osgi/mw.container.xfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.container.xfaces.osgi/pom.xml -text
+middleware.osgi/mw.data.representation.osgi/ASL2.0.txt -text
+middleware.osgi/mw.data.representation.osgi/MITX.txt -text
+middleware.osgi/mw.data.representation.osgi/NOTICE.txt -text
+middleware.osgi/mw.data.representation.osgi/pom.xml -text
+middleware.osgi/mw.data.representation.osgi/src/main/java/org/universAAL/middleware/datarep/osgi/Activator.java -text
+middleware.osgi/mw.data.representation.osgi/src/main/resources/mw.data.representation[!!-~]dependencies.jpg -text
+middleware.osgi/mw.data.representation.osgi/src/test/java/org/universAAL/middleware/datarep/test/ArtifactIntegrationTest.java -text
+middleware.osgi/mw.data.representation.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.pom.osgi/composite/pom.xml -text
 middleware.osgi/mw.pom.osgi/pom.xml -text
 pom/pom.xml -text
