@@ -295,6 +295,11 @@ middleware.osgi/mw.acl.interfaces.osgi/ASL2.0.txt -text
 middleware.osgi/mw.acl.interfaces.osgi/MITX.txt -text
 middleware.osgi/mw.acl.interfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.acl.interfaces.osgi/pom.xml -text
+middleware.osgi/mw.acl.rosgi/ASL2.0.txt -text
+middleware.osgi/mw.acl.rosgi/MITX.txt -text
+middleware.osgi/mw.acl.rosgi/NOTICE.txt -text
+middleware.osgi/mw.acl.rosgi/pom.xml -text
+middleware.osgi/mw.acl.rosgi/src/main/java/org/universAAL/middleware/acl/rosgi/Activator.java -text
 middleware.osgi/mw.container.osgi/ASL2.0.txt -text
 middleware.osgi/mw.container.osgi/MITX.txt -text
 middleware.osgi/mw.container.osgi/NOTICE.txt -text
