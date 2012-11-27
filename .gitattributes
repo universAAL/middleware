@@ -291,6 +291,10 @@ middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/serializ
 middleware.core/mw.data.serialization.core/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
 middleware.core/mw.data.serialization.core/src/test/java/org/universAAL/serialization/turtle/TurtleTest.java -text
 middleware.core/mw.pom.core/pom.xml -text
+middleware.osgi/mw.acl.interfaces.osgi/ASL2.0.txt -text
+middleware.osgi/mw.acl.interfaces.osgi/MITX.txt -text
+middleware.osgi/mw.acl.interfaces.osgi/NOTICE.txt -text
+middleware.osgi/mw.acl.interfaces.osgi/pom.xml -text
 middleware.osgi/mw.container.osgi/ASL2.0.txt -text
 middleware.osgi/mw.container.osgi/MITX.txt -text
 middleware.osgi/mw.container.osgi/NOTICE.txt -text
