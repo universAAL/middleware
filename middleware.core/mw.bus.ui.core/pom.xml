@@ -10,7 +10,7 @@
   </parent>
   <artifactId>mw.bus.ui.core</artifactId>
   <version>1.2.1-SNAPSHOT</version>
-  <name>universAAL middleware User Interaction Bus (Core)</name>
+  <name>universAAL Middleware User Interaction Bus (Core)</name>
   <description>The realization of the user interaction bus on top of Sodapop as part of the universAAL Middleware (Core)</description>
   <url></url>
   <properties>

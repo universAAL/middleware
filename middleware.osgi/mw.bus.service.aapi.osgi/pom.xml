@@ -11,7 +11,7 @@
   <artifactId>mw.bus.service.aapi.osgi</artifactId>
   <version>1.2.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>universAAL middleware Service Annotated API (OSGi)</name>
+  <name>universAAL Middleware Service Annotated API (OSGi)</name>
   <url></url>
   <properties>
     <project.build.sourceEncoding>cp1252</project.build.sourceEncoding>

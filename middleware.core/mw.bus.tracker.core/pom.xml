@@ -8,7 +8,7 @@
 		<relativePath>../mw.pom.core</relativePath>
 	</parent>
 	<artifactId>mw.bus.tracker.core</artifactId>
-	<name>universAAL middleware BusMember Tracker (CORE)</name>
+	<name>universAAL Middleware BusMember Tracker (Core)</name>
 	<version>1.2.1-SNAPSHOT</version>
 	<description>Module for tracking BusMembers registered in the MW buses</description>
 
