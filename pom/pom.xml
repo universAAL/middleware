@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL</groupId>
     <artifactId>uAAL.pom</artifactId>
-    <version>1.2.1-SNAPSHOT</version>
+    <version>1.3.0</version>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.pom</artifactId>
-  <version>1.2.1-SNAPSHOT</version>
+  <version>1.3.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>universAAL Middleware Suite</name>
   <description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase.</description>
@@ -46,8 +46,8 @@
     </developer>
   </developers>
   <modules>
-    <module>../middleware.osgi/mw.pom.osgi</module>
     <module>../middleware.core/mw.pom.core</module>
+    <module>../middleware.osgi/mw.pom.osgi</module>
   </modules>
   <scm>
     <connection>${svn.base}/pom</connection>

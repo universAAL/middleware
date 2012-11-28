@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>1.2.1-SNAPSHOT</version>
+    <version>1.3.1-SNAPSHOT</version>
     <relativePath>../mw.pom.osgi</relativePath>
   </parent>
   <artifactId>mw.container.osgi</artifactId>
-  <version>1.2.1-SNAPSHOT</version>
+  <version>1.3.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Middleware OSGi Container</name>
   <description>An implementation of the interfaces exported by the Container building block of the universAAL middleware on top of the OSGi runtime</description>
