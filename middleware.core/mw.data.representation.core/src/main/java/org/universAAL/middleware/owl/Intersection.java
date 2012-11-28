@@ -73,11 +73,6 @@ public class Intersection extends TypeExpression {
 	}
     }
 
-    // TODO: remove when increasing version
-    public void addType(Intersection type) {
-	addType((TypeExpression) type);
-    }
-
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
     public TypeExpression copy() {
 	Intersection result = new Intersection();
