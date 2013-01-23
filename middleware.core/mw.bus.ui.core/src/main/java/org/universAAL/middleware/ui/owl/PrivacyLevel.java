@@ -38,12 +38,12 @@ public class PrivacyLevel extends ComparableIndividual {
     public static final int KNOWN_PEOPLE_ONLY = 1;
     public static final int INTIMATES_ONLY = 2;
     public static final int HOME_MATES_ONLY = 3;
-    public static final int uAAL = 4;
+    public static final int PERSONAL = 4;
 
     private static final String[] names = { "insensible", "known_people_only",
 	    "intimates_only", "home_mates_only", "personal" };
 
-    public static final PrivacyLevel personal = new PrivacyLevel(uAAL);
+    public static final PrivacyLevel personal = new PrivacyLevel(PERSONAL);
     public static final PrivacyLevel homeMatesOnly = new PrivacyLevel(
 	    HOME_MATES_ONLY);
     public static final PrivacyLevel intimatesOnly = new PrivacyLevel(
@@ -84,7 +84,7 @@ public class PrivacyLevel extends ComparableIndividual {
 	    return intimatesOnly;
 	case HOME_MATES_ONLY:
 	    return homeMatesOnly;
-	case uAAL:
+	case PERSONAL:
 	    return personal;
 	default:
 	    return null;
@@ -97,7 +97,7 @@ public class PrivacyLevel extends ComparableIndividual {
      * @return privacy level
      */
     public static final PrivacyLevel valueOf(String name) {
-	for (int i = INSENSIBLE; i <= uAAL; i++)
+	for (int i = INSENSIBLE; i <= PERSONAL; i++)
 	    if (names[i].equals(name))
 		return getLevelByOrder(i);
 	return null;
