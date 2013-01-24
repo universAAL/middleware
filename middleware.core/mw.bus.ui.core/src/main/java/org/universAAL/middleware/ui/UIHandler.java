@@ -37,7 +37,8 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * code. Only instances of this class can handle UI requests. The convention of
  * the UI bus regarding the registration parameters is the following:
  * <ul>
- * <li>UI Handlers provide only at the registration time info about themselves</li>
+ * <li>UI Handlers provide at the registration time info about themselves, but
+ * this info can also be updated in the future if there is a need</li>
  * </ul>
  * 
  * @author mtazari
