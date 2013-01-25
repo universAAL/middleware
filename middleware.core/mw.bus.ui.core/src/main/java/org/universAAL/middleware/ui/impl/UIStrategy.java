@@ -462,10 +462,10 @@ public class UIStrategy extends BusStrategy {
 		// => this is the announcement
 		if (dialogManager == null // I am not the coordinator
 			&& theCoordinator == null // I do not know the
-						  // coordinator
-			// this check is probably not needed at all
-			// && res.getURI().startsWith(
-			// Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)
+		// coordinator
+		// this check is probably not needed at all
+		// && res.getURI().startsWith(
+		// Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)
 		) {
 		    // oh, I didn't know who is the coordinator => store this
 		    // info
@@ -630,6 +630,7 @@ public class UIStrategy extends BusStrategy {
 	case MessageType.REQUEST:
 	    if (res instanceof UIRequest) {
 		if (!msg.isRemote()) {
+		    // message is local (not from remote peer)
 		    Form f = ((UIRequest) res).getDialogForm();
 		    if (f == null) {
 			LogUtils
@@ -643,6 +644,9 @@ public class UIStrategy extends BusStrategy {
 		    }
 		    if (!f.isMessage()) {
 			// remember whom to notify once the response is received
+			// (if the form is a Message there will be no response
+			// to the application since Message does not take input
+			// from  user)
 			BusMember sender = getBusMember(senderID);
 			if (sender instanceof UICaller) {
 			    pendingRequests.put(f.getDialogID(), sender);
