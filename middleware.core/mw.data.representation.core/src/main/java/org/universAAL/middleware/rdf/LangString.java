@@ -81,7 +81,7 @@ public class LangString {
     public static final String LANG_GEORGIAN = "ka";
     public static final String LANG_GERMAN = "de";
     public static final String LANG_GREEK = "el";
-    public static final String LANG_GUARANÍ = "gn";
+    public static final String LANG_GUARANI = "gn";
     public static final String LANG_GUJARATI = "gu";
     public static final String LANG_HAITIAN = "ht";
     public static final String LANG_HAUSA = "ha";
