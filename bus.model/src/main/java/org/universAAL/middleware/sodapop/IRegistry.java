@@ -44,4 +44,8 @@ public interface IRegistry {
 	int getBusMembersCount();
 
 	void reset();
+	
+	boolean addRegistryListener(IRegistryListener listener);
+	
+	boolean removeRegistryListener(IRegistryListener listener);
 }

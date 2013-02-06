@@ -22,7 +22,8 @@ package org.universAAL.middleware.sodapop;
 /**
  * Publishes events to an event-bus and may receive requests to be replied.
  * 
- * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
+ * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
+ *         Tazari</a>
  */
 public interface Publisher extends Callee {
 }

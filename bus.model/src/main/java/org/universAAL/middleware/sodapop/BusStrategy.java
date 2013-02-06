@@ -80,9 +80,9 @@ public abstract class BusStrategy extends Thread {
     }
 
     /**
-     * Handle the message. This method is different from the handleMessage(), in 
-     * that handeMessage() handle the message asynchronously, while queuing the 
-     * messages to preserve the order of the messages. This method is executed 
+     * Handle the message. This method is different from the handleMessage(), in
+     * that handeMessage() handle the message asynchronously, while queuing the
+     * messages to preserve the order of the messages. This method is executed
      * synchronously, without any queuing.
      * 
      * @param m
@@ -103,13 +103,12 @@ public abstract class BusStrategy extends Thread {
 	return sodapop.getLocalBusByName(name);
     }
 
-    
     /**
-     * This method handles the message asynchronously, while trying to preserve 
-     * the order of the messages from the same source, according to the counters 
-     * of the messages. (The counters are part of the message ID). The messages 
-     * are queued, and they are inserted into the queue according to their 
-     * counter. 
+     * This method handles the message asynchronously, while trying to preserve
+     * the order of the messages from the same source, according to the counters
+     * of the messages. (The counters are part of the message ID). The messages
+     * are queued, and they are inserted into the queue according to their
+     * counter.
      * 
      * @param m
      *            message to be handled

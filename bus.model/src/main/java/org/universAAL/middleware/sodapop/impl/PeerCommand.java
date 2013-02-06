@@ -19,27 +19,28 @@
 	limitations under the License.
  */
 package org.universAAL.middleware.sodapop.impl;
-/** 
- * This class represent a command sent to peers. It is needed in order to 
- * process a queue of commands to execute (instead of sending the commands to 
+
+/**
+ * This class represent a command sent to peers. It is needed in order to
+ * process a queue of commands to execute (instead of sending the commands to
  * the remote peers immediately).
  * 
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 
 public class PeerCommand {
-	public static final int NOTICE_PEER_BUSES = 1;
-	public static final int REPLY_PEER_BUSES = 2;
-	public static final int JOIN_BUS = 3;
-	public static final int LEAVE_BUS = 4;
-	public static final int PROCESS_MESSAGE = 5;
-	String peerId;
-	String message;
-	int mesageType;
-	
-	public PeerCommand(int messageType, String peerId,String message ) {
-		this.mesageType = messageType;
-		this.peerId=peerId;
-		this.message=message;
-	}
+    public static final int NOTICE_PEER_BUSES = 1;
+    public static final int REPLY_PEER_BUSES = 2;
+    public static final int JOIN_BUS = 3;
+    public static final int LEAVE_BUS = 4;
+    public static final int PROCESS_MESSAGE = 5;
+    String peerId;
+    String message;
+    int mesageType;
+
+    public PeerCommand(int messageType, String peerId, String message) {
+	this.mesageType = messageType;
+	this.peerId = peerId;
+	this.message = message;
+    }
 }

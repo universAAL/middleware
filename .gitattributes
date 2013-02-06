@@ -1,5 +1,6 @@
 * text=auto !eol
-bus.model/LICENSE.txt -text
+bus.model/ASL2.0.txt -text
+bus.model/MITX.txt -text
 bus.model/NOTICE.txt -text
 bus.model/artifact_manual.composite -text
 bus.model/documentation/bus.model.sodapop[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
@@ -11,6 +12,7 @@ bus.model/src/main/java/org/universAAL/middleware/sodapop/BusStrategy.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/Callee.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/Caller.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/IRegistry.java -text
+bus.model/src/main/java/org/universAAL/middleware/sodapop/IRegistryListener.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/Publisher.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/RegistryMap.java -text
 bus.model/src/main/java/org/universAAL/middleware/sodapop/SodaPop.java -text

@@ -22,61 +22,62 @@ package org.universAAL.middleware.sodapop.impl;
 
 import java.util.Vector;
 
-/** 
- * This class implements a thread-safe queue of PeerCommands. 
- * All the methods are synchronized.
+/**
+ * This class implements a thread-safe queue of PeerCommands. All the methods
+ * are synchronized.
  * 
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 
 public class CommandQueue {
-	private Vector queue;
-	private boolean running = true;
-	
-	public CommandQueue(){
-		queue=new Vector();
-	}
-	
+    private Vector queue;
+    private boolean running = true;
+
+    public CommandQueue() {
+	queue = new Vector();
+    }
+
     /**
      * enqueue a command
      * 
-     * @param Object cmd - command to enqueue 
+     * @param Object
+     *            cmd - command to enqueue
      * 
      */
-	public synchronized void enqueue(Object cmd){
-		queue.add(cmd);
-		if(queue.size() == 1){
-			notify();
-		}
-		
+    public synchronized void enqueue(Object cmd) {
+	queue.add(cmd);
+	if (queue.size() == 1) {
+	    notify();
 	}
-	
+
+    }
+
     /**
      * dequeue a command
      * 
-     * @return Object - the dequeued command 
+     * @return Object - the dequeued command
      * 
      */
-	public synchronized Object dequeue(){
-		while(queue.size()==0 && running){
-			try {
-				wait();
-			} catch (InterruptedException ignored) {
-			}
-		}
-		if (running)
-			return queue.remove(0);
-		else
-			return null;
+    public synchronized Object dequeue() {
+	while (queue.size() == 0 && running) {
+	    try {
+		wait();
+	    } catch (InterruptedException ignored) {
+	    }
 	}
+	if (running)
+	    return queue.remove(0);
+	else
+	    return null;
+    }
 
     /**
      * close the queue
      * 
      */
-	public synchronized void close() {
-		running  = false;
-		notify();		
-	}
+    public synchronized void close() {
+	running = false;
+	notify();
+    }
 
 }
