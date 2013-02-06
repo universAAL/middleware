@@ -23,9 +23,12 @@ package org.universAAL.middleware.sodapop.msg;
 public interface MessageContentSerializerEx extends MessageContentSerializer {
 
     /**
-     * 
      * @param serialized
      *            serialized object
+     * @param resourceURI
+     *            if the serialized String contains multiple resources then this
+     *            parameter determines which resource is returned as root
+     *            object.
      * @return deserialized content of the SodaPop message
      */
     public Object deserialize(String serialized, String resourceURI);

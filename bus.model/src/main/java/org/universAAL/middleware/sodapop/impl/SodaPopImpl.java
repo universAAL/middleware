@@ -64,7 +64,6 @@ import org.universAAL.middleware.sodapop.SodaPop;
 import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
-
 /**
  * This class provides implementation of the SodaPop layer. It implements the
  * SodaPop interface to the local buses and SodaPopPeer interface to the remote
@@ -89,10 +88,11 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 			SodaPopImpl.contentSerializerParams);
     }
 
-    public static void updateContentSerializerParams(Object[] contentSerializerParams) {
-    	SodaPopImpl.contentSerializerParams = contentSerializerParams;
+    public static void updateContentSerializerParams(
+	    Object[] contentSerializerParams) {
+	SodaPopImpl.contentSerializerParams = contentSerializerParams;
     }
-    
+
     /**
      * @param ModuleContext
      *            context
@@ -119,8 +119,8 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 
     public SodaPopImpl(ModuleContext mc, Container container,
 	    String configHomePath, Object[] connectorFetchParams,
-	    Object[] csFetchParams, Object[] myShareParams,
-	    Codec codec) throws Exception {
+	    Object[] csFetchParams, Object[] myShareParams, Codec codec)
+	    throws Exception {
 	SodaPopImpl.moduleContext = mc;
 	SodaPopImpl.contentSerializerParams = csFetchParams;
 	myID = Message.thisJVM;
@@ -414,8 +414,8 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 	if (!"".equals(rcvrs)) {
 	    LogUtils.logInfo(moduleContext, SodaPopImpl.class,
 		    "propagateMessage", new Object[] { busName,
-			    " - Message sent to ", rcvrs, ":\n", msg , "\nEncrypted Message\n",
-			    cipher}, null);
+			    " - Message sent to ", rcvrs, ":\n", msg,
+			    "\nEncrypted Message\n", cipher }, null);
 	}
 	return result;
     }
@@ -609,17 +609,17 @@ public class SodaPopImpl implements SodaPop, SodaPopPeer,
 		    "processBusMessage", new Object[] { "Message '\n", msg,
 			    "\n' received on bus '", busName,
 			    "' could not be parsed!" }, null);
-	}
-	else {
+	} else {
 	    LogUtils.logDebug(moduleContext, SodaPopImpl.class,
 		    "processBusMessage", new Object[] { "Message '",
 			    Long.toString(m.getSourceTimeOrder()),
 			    "' received on bus '", busName, "' from peer '",
-			    m.getSource(), "'!" + ", Encrypted Message:\n, " +
-			    msg, "Message Content:\n",
-				m.getContentAsString()}, null);
-	    
-	  }
+			    m.getSource(),
+			    "'!" + ", Encrypted Message:\n, " + msg,
+			    "Message Content:\n", m.getContentAsString() },
+		    null);
+
+	}
     }
 
     /**

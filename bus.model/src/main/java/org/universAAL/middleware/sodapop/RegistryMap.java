@@ -20,8 +20,10 @@
  */
 package org.universAAL.middleware.sodapop;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,13 +36,21 @@ import java.util.Map;
 public class RegistryMap extends Object implements IRegistry {
 
 	protected Map map = new HashMap();
+	protected List listeners = new ArrayList();
 	
 	public void addBusMember(String memberID, BusMember busMember) {
 		map.put(memberID, busMember);
+		for(int i = 0 ; i < listeners.size() ; i++){
+			((IRegistryListener)listeners.get(i)).busMemberAdded(busMember);
+		}
 	}
 	
 	public BusMember removeMemberByID(String memberID) {
-		return (BusMember) map.remove(memberID);
+		BusMember busMember = (BusMember) map.remove(memberID);
+		for(int i = 0 ; i < listeners.size() ; i++){
+			((IRegistryListener)listeners.get(i)).busMemberRemoved(busMember);
+		}
+		return busMember; 
 	}
 
 	public BusMember[] getAllBusMembers() {
@@ -75,5 +85,16 @@ public class RegistryMap extends Object implements IRegistry {
 
 	public void reset() {
 		map.clear();
+		for(int i = 0 ; i < listeners.size() ; i++){
+			((IRegistryListener)listeners.get(i)).busCleared();
+		}
+	}
+
+	public boolean addRegistryListener(IRegistryListener listener) {
+		return listeners.add(listener);
+	}
+
+	public boolean removeRegistryListener(IRegistryListener listener) {
+		return listeners.remove(listener);
 	}
 }
