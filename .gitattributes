@@ -244,8 +244,11 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/supply/AbsLocation.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/supply/LevelRating.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/owl/supply/Rating.java -text
+middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/ClosedCollection.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/FinalizedResource.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/LangString.java -text
+middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/ObjectCollection.java -text
+middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/OpenCollection.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/Property.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/PropertyPath.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/PropertySetup.java -text
