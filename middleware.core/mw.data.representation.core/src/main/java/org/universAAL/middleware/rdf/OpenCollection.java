@@ -19,6 +19,19 @@
  */
 package org.universAAL.middleware.rdf;
 
+/**
+ * Class for handling multiple values of a property in RDF. As compared to
+ * {@link ClosedCollection}, the OpenCollection defines that the collection of
+ * objects is open, i.e. there can be more objects.
+ * 
+ * Example: If you have some sensors in a room that can determine that a person
+ * is in a room but you do not know if there are more persons in that room then
+ * you can express this with an OpenCollection, e.g. the LivingRoom contains at
+ * least the people {Joe, Juan} (but maybe also Carlos or Pablo).
+ * 
+ * @author Carsten Stockloew
+ * @see ClosedCollection
+ */
 public class OpenCollection extends ObjectCollection {
     private static final long serialVersionUID = 1L;
 }

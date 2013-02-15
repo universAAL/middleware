@@ -21,6 +21,14 @@ package org.universAAL.middleware.rdf;
 
 import java.util.ArrayList;
 
+/**
+ * Base class for handling multiple values of a property in RDF. The super class
+ * is {@link ArrayList}, but this may change in the future.
+ * 
+ * @author Carsten Stockloew
+ * @see OpenCollection
+ * @see ClosedCollection
+ */
 public abstract class ObjectCollection extends ArrayList {
     private static final long serialVersionUID = 1L;
 }
