@@ -19,9 +19,19 @@
  */
 package org.universAAL.middleware.rdf;
 
+/**
+ * Class for handling multiple values of a property in RDF. As compared to
+ * {@link OpenCollection}, the ClosedCollection defines that the collection of
+ * objects is closed, i.e. there can not be more objects.
+ * 
+ * Example: If you have some sensors in a room that can determine the exact set
+ * of persons in a room and you know that no one else can be there then you can
+ * express this with a ClosedCollection, e.g. the LivingRoom contains exactly
+ * the people {Joe, Juan}.
+ * 
+ * @author Carsten Stockloew
+ * @see OpenCollection
+ */
 public class ClosedCollection extends ObjectCollection {
     private static final long serialVersionUID = 1L;
-
-    //private boolean isClosed = false;
-    
 }

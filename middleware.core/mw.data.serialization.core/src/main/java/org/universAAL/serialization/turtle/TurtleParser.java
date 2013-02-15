@@ -37,7 +37,9 @@ import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.TypeExpressionFactory;
+import org.universAAL.middleware.rdf.ClosedCollection;
 import org.universAAL.middleware.rdf.LangString;
+import org.universAAL.middleware.rdf.OpenCollection;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
@@ -445,7 +447,7 @@ public class TurtleParser implements MessageContentSerializerEx {
 
 	int c = skipWSC();
 
-	List l = new ArrayList();
+	List l = new ClosedCollection();
 	if (c == ')')
 	    // Empty list
 	    read();
@@ -681,7 +683,7 @@ public class TurtleParser implements MessageContentSerializerEx {
     }
 
     private void parseObjectList() {
-	List l = new ArrayList(3);
+	List l = new OpenCollection();
 	parseObject();
 
 	int i = 0;

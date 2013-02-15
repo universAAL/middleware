@@ -282,7 +282,8 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 
 	setup = new PrivateOntSetup(this);
 	super.rdfsetup = setup;
-	props.put(Resource.PROP_RDF_TYPE, new Resource(TypeExpression.OWL_CLASS));
+	props.put(Resource.PROP_RDF_TYPE,
+		new Resource(TypeExpression.OWL_CLASS));
     }
 
     /**

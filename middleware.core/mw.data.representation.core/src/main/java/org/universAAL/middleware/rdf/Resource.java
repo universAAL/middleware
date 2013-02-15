@@ -702,11 +702,16 @@ public class Resource {
      * instance of {@link java.util.List} is assumed to be a closed collection.
      * Subclasses can change this, if needed.
      */
+    // TODO: update Javadoc
     public boolean isClosedCollection(String propURI) {
-	if (PROP_RDF_TYPE.equals(propURI) || propURI == null)
+	if (propURI == null || PROP_RDF_TYPE.equals(propURI))
 	    return false;
 
-	return (props.get(propURI) instanceof List);
+	Object o = props.get(propURI);
+	if (o instanceof ClosedCollection)
+	    return true;
+
+	return false;
     }
 
     /**
