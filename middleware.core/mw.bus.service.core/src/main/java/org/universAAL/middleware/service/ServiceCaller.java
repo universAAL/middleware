@@ -122,11 +122,9 @@ public abstract class ServiceCaller implements Caller {
      */
     public final ServiceResponse call(String request) {
 	ServiceResponse sr = null;
-	Object[] contentSerializerParams = new Object[] { MessageContentSerializer.class
-		.getName() };
-	MessageContentSerializer s = (org.universAAL.middleware.sodapop.msg.MessageContentSerializer) this.thisCallerContext
+	MessageContentSerializer s = (MessageContentSerializer) this.thisCallerContext
 		.getContainer().fetchSharedObject(this.thisCallerContext,
-			contentSerializerParams);
+			ServiceBusImpl.contentSerializerParams);
 	Resource r = (Resource) s.deserialize(request);
 	ServiceRequest sRequest = (ServiceRequest) r;
 
