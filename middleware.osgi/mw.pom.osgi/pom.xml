@@ -38,6 +38,9 @@
   </scm>
   <properties>
     <separatedGroupIds>org.universAAL.middleware</separatedGroupIds>
+    <groupIdMatchString>^org\.universAAL\.middleware</groupIdMatchString>
+    <artifactIdMatchString>^mw\..*\.osgi$</artifactIdMatchString>
+    <nameMatchString>^universAAL Middleware .* \(OSGi\)$</nameMatchString>
   </properties>
   <dependencyManagement>
     <dependencies>
