@@ -14,6 +14,11 @@
   <packaging>pom</packaging>
   <name>universAAL Middleware Suite (Core)</name>
   <description>The set of artefacts realizing the universAAL middleware based on the PERSONA codebase. (Core)</description>
+  <properties>
+    <groupIdMatchString>^org\.universAAL\.middleware</groupIdMatchString>
+    <artifactIdMatchString>^mw\..*\.core$</artifactIdMatchString>
+    <nameMatchString>^universAAL Middleware .* \(Core\)$</nameMatchString>
+  </properties>
   <modules>
     <module>../mw.container.xfaces.core</module>
     <module>../mw.acl.interfaces.core</module>
