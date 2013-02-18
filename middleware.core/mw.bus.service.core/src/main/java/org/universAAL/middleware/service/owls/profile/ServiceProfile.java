@@ -31,6 +31,7 @@ import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
@@ -599,33 +600,28 @@ public class ServiceProfile extends FinalizedResource {
 		props.put(propURI, value);
 	}
     }
-    
-	/**
-	 * Returns the serialized profile as String
-	 */
-	public String serializeProfile(ModuleContext mc) {
 
-		Object[] contentSerializerParams = new Object[] { MessageContentSerializer.class
-				.getName() };
-		MessageContentSerializer s = (org.universAAL.middleware.sodapop.msg.MessageContentSerializer) mc
-				.getContainer().fetchSharedObject(mc, contentSerializerParams);
-		String st = (String) s.serialize(this);
-		return st;
-	}
+    /**
+     * Returns the serialized profile as String
+     */
+    public String serializeProfile(ModuleContext mc) {
+	MessageContentSerializer s = (org.universAAL.middleware.sodapop.msg.MessageContentSerializer) mc
+		.getContainer().fetchSharedObject(mc,
+			ServiceBusImpl.contentSerializerParams);
+	String st = (String) s.serialize(this);
+	return st;
+    }
 
-	/**
-	 * Returns the de-serialized profile
-	 */
-	public static ServiceProfile deserializeProfile(String turtleSP,
-			ModuleContext mc) {
-
-		Object[] contentSerializerParams = new Object[] { MessageContentSerializer.class
-				.getName() };
-		MessageContentSerializer s = (org.universAAL.middleware.sodapop.msg.MessageContentSerializer) mc
-				.getContainer().fetchSharedObject(mc, contentSerializerParams);
-		Resource r = (Resource) s.deserialize(turtleSP);
-		ServiceProfile sp = (ServiceProfile) r;
-		return sp;
-	}
-
+    /**
+     * Returns the de-serialized profile
+     */
+    public static ServiceProfile deserializeProfile(String turtleSP,
+	    ModuleContext mc) {
+	MessageContentSerializer s = (org.universAAL.middleware.sodapop.msg.MessageContentSerializer) mc
+		.getContainer().fetchSharedObject(mc,
+			ServiceBusImpl.contentSerializerParams);
+	Resource r = (Resource) s.deserialize(turtleSP);
+	ServiceProfile sp = (ServiceProfile) r;
+	return sp;
+    }
 }
