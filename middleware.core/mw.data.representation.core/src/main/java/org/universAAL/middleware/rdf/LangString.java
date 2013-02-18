@@ -201,7 +201,7 @@ public class LangString {
     public static final String LANG_UZBEK = "uz";
     public static final String LANG_VENDA = "ve";
     public static final String LANG_VIETNAMESE = "vi";
-    public static final String LANG_VOLAPÜK = "vo";
+    public static final String LANG_VOLAPUK = "vo";
     public static final String LANG_WALLOON = "wa";
     public static final String LANG_WELSH = "cy";
     public static final String LANG_WESTERN_FRISIAN = "fy";
