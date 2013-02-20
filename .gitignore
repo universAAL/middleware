@@ -713,6 +713,10 @@ middleware.core/mw.pom.core/.project
 middleware.core/mw.pom.core/.settings
 middleware.core/mw.pom.core/target
 middleware.core/mw.pom.core/uAAL.log
+middleware.core/mw.reliability.EventDuplication/.classpath
+middleware.core/mw.reliability.EventDuplication/.project
+middleware.core/mw.reliability.EventDuplication/.settings
+middleware.core/mw.reliability.EventDuplication/target
 middleware.core/target
 middleware.core/uAAL.log
 middleware.osgi.agg/mw.bus.context.osgi.agg/.project
