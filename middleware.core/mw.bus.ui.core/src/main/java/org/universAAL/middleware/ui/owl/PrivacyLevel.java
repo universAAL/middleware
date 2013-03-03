@@ -118,6 +118,11 @@ public class PrivacyLevel extends ComparableIndividual {
 	this.order = order;
     }
 
+    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+    public String getClassURI() {
+	return MY_URI;
+    }
+
     /**
      * @see org.universAAL.middleware.owl.ComparableIndividual
      */
