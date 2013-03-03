@@ -53,6 +53,11 @@ public class AccessImpairment extends ManagedIndividual {
 	props.put(PROP_IMPAIRMENT_LEVEL, impairmentLevel);
     }
 
+    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+    public String getClassURI() {
+	return MY_URI;
+    }
+
     /**
      * @return level rating
      */

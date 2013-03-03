@@ -83,6 +83,11 @@ public class Gender extends ManagedIndividual {
 	this.order = order;
     }
 
+    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+    public String getClassURI() {
+	return MY_URI;
+    }
+
     /**
      * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType(String)
      */

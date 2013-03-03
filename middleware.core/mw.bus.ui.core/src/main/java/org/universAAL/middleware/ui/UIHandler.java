@@ -20,7 +20,6 @@
 package org.universAAL.middleware.ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.universAAL.middleware.container.ModuleContext;
