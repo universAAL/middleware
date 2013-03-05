@@ -279,7 +279,7 @@ public class ServiceProfile extends FinalizedResource {
 	addType(MY_URI, true);
     }
 
-        /**
+    /**
      * The constructor to be used by
      * {@link org.universAAL.middleware.service.ServiceCallee}s. Effects,
      * inputs, outputs and output bindings must be added to the profile using

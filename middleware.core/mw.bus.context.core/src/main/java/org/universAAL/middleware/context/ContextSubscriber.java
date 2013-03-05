@@ -54,7 +54,7 @@ public abstract class ContextSubscriber implements Subscriber {
     private ModuleContext thisSubscriberContext;
     protected String myID, localID;
     private List realizedSubscriptions;
-    
+
     /**
      * Creates a Context Subscriber and immediately registers a set of Context
      * Event Patterns for it, so it receives the matching events.
@@ -69,7 +69,7 @@ public abstract class ContextSubscriber implements Subscriber {
 	    ContextEventPattern[] initialSubscriptions) {
 	this((ContextBus) context.getContainer().fetchSharedObject(context,
 		ContextBusImpl.busFetchParams), initialSubscriptions, true);
-	
+
 	thisSubscriberContext = context;
     }
 
@@ -80,12 +80,13 @@ public abstract class ContextSubscriber implements Subscriber {
 	if (register) {
 	    myID = bus.register(this, initialSubscriptions);
 	    populateLocalID(myID);
-	    if (this.realizedSubscriptions ==null){
-	    	this.realizedSubscriptions = new ArrayList();
+	    if (this.realizedSubscriptions == null) {
+		this.realizedSubscriptions = new ArrayList();
 	    }
-	    this.realizedSubscriptions.addAll(Arrays.asList(initialSubscriptions));
+	    this.realizedSubscriptions.addAll(Arrays
+		    .asList(initialSubscriptions));
 	}
-	
+
     }
 
     /**
@@ -173,8 +174,8 @@ public abstract class ContextSubscriber implements Subscriber {
 	return myID;
     }
 
-	public List getRealizedSubscriptions() {
-		return realizedSubscriptions;
-	}
+    public List getRealizedSubscriptions() {
+	return realizedSubscriptions;
+    }
 
 }

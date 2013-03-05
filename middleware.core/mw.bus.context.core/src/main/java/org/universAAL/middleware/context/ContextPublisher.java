@@ -51,6 +51,7 @@ public abstract class ContextPublisher implements Publisher {
     protected ContextBus bus;
     protected String myID;
     private ContextProvider providerInfo;
+
     /**
      * Creates a Context Publisher with the associated Context Provider
      * Information

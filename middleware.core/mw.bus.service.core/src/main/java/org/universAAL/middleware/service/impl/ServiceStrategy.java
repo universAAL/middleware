@@ -248,7 +248,7 @@ public class ServiceStrategy extends BusStrategy {
 		    realizedServices[i]);
 	    // index it over the ID of the operation registered
 	    localServicesIndex.addServiceRealization(processURI, registration);
-	    
+
 	    if (isCoordinator)
 		// more complex indexing of services by the coordinator
 		indexServices(realizedServices[i], registration, processURI);
@@ -357,8 +357,8 @@ public class ServiceStrategy extends BusStrategy {
 		    ServiceRealization.uAAL_SERVICE_PROVIDER).toString());
 	    ServiceCall sc = (ServiceCall) match
 		    .remove(ServiceRealization.uAAL_ASSERTED_SERVICE_CALL);
-	    if (m.getContent() instanceof ServiceRequest){
-		sc.setRequest((ServiceRequest)m.getContent());
+	    if (m.getContent() instanceof ServiceRequest) {
+		sc.setRequest((ServiceRequest) m.getContent());
 	    }
 	    ServiceBusImpl.assessContentSerialization(sc);
 	    Message call = new Message(MessageType.p2p_request, sc);

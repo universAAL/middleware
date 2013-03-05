@@ -66,13 +66,14 @@ public class Messages extends BundleConfigHome {
 
     /**
      * Change the locale for messages.
+     * 
      * @param loc
      */
     public void setLocale(Locale loc) {
-	if (!lang.equals(loc.getLanguage())){
+	if (!lang.equals(loc.getLanguage())) {
 	    lang = loc.getLanguage();
 	    localizedMessages = load("messages_" + loc.getLanguage()
-			+ ".properties");
+		    + ".properties");
 	}
     }
 
@@ -90,7 +91,7 @@ public class Messages extends BundleConfigHome {
 
 	return (l == null) ? key : l;
     }
-    
+
     private Properties load(String filename) {
 	Properties props = new Properties();
 	try {

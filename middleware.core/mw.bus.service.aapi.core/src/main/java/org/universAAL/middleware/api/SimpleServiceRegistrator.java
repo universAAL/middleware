@@ -147,7 +147,7 @@ public class SimpleServiceRegistrator {
 	    throw new SimplifiedRegistrationException(
 		    "Cannot found @ResourceClass annotation in interfaces of provided service instance.");
 	}
-	//String myUri = namespace + name;
+	// String myUri = namespace + name;
 	String ontologyUri = exctractUriFromResourceClass(resourceClasses);
 	registerOntology(namespace, name, ontologyUri);
 
@@ -367,9 +367,10 @@ public class SimpleServiceRegistrator {
     private ServiceProfile createServiceProfileForMethod(String namespace,
 	    String name, String serviceName,
 	    List<Input> methodParametersAnnotations,
-	    Class<?>[] methodParameterTypes, List<Output> methodOutputAnnotations,
-	    Class<?> methodOutputType, List<ChangeEffect> methodChangeEffects,
-	    String ontologyUri, Cardinality defaultOutputCardinality)
+	    Class<?>[] methodParameterTypes,
+	    List<Output> methodOutputAnnotations, Class<?> methodOutputType,
+	    List<ChangeEffect> methodChangeEffects, String ontologyUri,
+	    Cardinality defaultOutputCardinality)
 	    throws SimplifiedRegistrationException {
 	SimplifiedApiService srv = SimplifiedApiService.createService(
 		namespace, serviceName, ontologyUri);
