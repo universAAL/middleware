@@ -213,9 +213,9 @@ public abstract class AbstractBus implements Bus {
 	    synchronized (registry) {
 		BusMember o = registry.removeMemberByID(memberID);
 		if (o != null) {
-		    //if (o.equals(m)) {
-			//registry.addBusMember(memberID, o);
-		    //} else 
+		    // if (o.equals(m)) {
+		    // registry.addBusMember(memberID, o);
+		    // } else
 		    if (registry.getBusMembersCount() == 0) {
 			sodapop.leave(this);
 		    }

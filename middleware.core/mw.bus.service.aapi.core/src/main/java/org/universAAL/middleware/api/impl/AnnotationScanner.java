@@ -26,7 +26,8 @@ public class AnnotationScanner {
     private Map<String, List<Output>> methodOutputs = new HashMap<String, List<Output>>();
     private Map<String, List<Input>> methodInputs = new HashMap<String, List<Input>>();
     private Map<String, List<ChangeEffect>> methodChangeEffects = new HashMap<String, List<ChangeEffect>>();
-    //private Map<String, List<String>> annotatedMethodsParametersNames = new HashMap<String, List<String>>();
+    // private Map<String, List<String>> annotatedMethodsParametersNames = new
+    // HashMap<String, List<String>>();
 
     private String namespace;
     private String name;

@@ -40,8 +40,8 @@ public class ServiceCalleeWrapper extends ServiceCallee {
     private Map<String, List<String>> annotatedMethodsParametersNames;
     private Map<String, List<Input>> annotatedMethodsParameters;
 
-    //private String namespace;
-    //private String serviceURI;
+    // private String namespace;
+    // private String serviceURI;
 
     public ServiceCalleeWrapper(ModuleContext context,
 	    ServiceProfile[] realizedServices, Object wrappedObject,
@@ -60,8 +60,8 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 	this.annotatedOutputs = annotatedOutputs;
 	this.annotatedMethodsParametersNames = annotatedMethodsParametersNames;
 	this.annotatedMethodsParameters = annotatedMethodsParameters;
-	//this.namespace = namespace;
-	//this.serviceURI = serviceURI;
+	// this.namespace = namespace;
+	// this.serviceURI = serviceURI;
     }
 
     private ServiceCalleeWrapper(ModuleContext context,

@@ -124,8 +124,9 @@ public class SimplifiedApiService extends Service {
      *             - thrown when provided clazz parameter does not have field
      *             MY_URI or it is not accessible.
      */
-    public void addOutputWrapper(String baseURI, Class<?> clazz, Cardinality card,
-	    String[] propertyPaths) throws SimplifiedRegistrationException {
+    public void addOutputWrapper(String baseURI, Class<?> clazz,
+	    Cardinality card, String[] propertyPaths)
+	    throws SimplifiedRegistrationException {
 	int minCard, maxCard;
 	switch (card) {
 	case ONE_TO_ONE:

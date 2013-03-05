@@ -155,7 +155,7 @@ public class DynamicServiceProxy implements InvocationHandler {
 		    return retObj;
 		} else {
 		    Output outputAnnotation = outputs.get(0);
-		    //List<?> output = null;
+		    // List<?> output = null;
 		    Object resObj = null;
 		    if (outputAnnotation.propertyPaths().length > 0) {
 			resObj = response.getOutput("output0", true);
@@ -188,9 +188,10 @@ public class DynamicServiceProxy implements InvocationHandler {
 	}
     }
 
-    public static Object newInstance(Class<?> interfaceClazz, ServiceCaller caller)
-	    throws IllegalArgumentException, SimplifiedRegistrationException,
-	    InstantiationException, IllegalAccessException {
+    public static Object newInstance(Class<?> interfaceClazz,
+	    ServiceCaller caller) throws IllegalArgumentException,
+	    SimplifiedRegistrationException, InstantiationException,
+	    IllegalAccessException {
 	return Proxy.newProxyInstance(interfaceClazz.getClassLoader(),
 		new Class[] { interfaceClazz }, new DynamicServiceProxy(caller,
 			interfaceClazz));

@@ -67,8 +67,8 @@ public final class InitialServiceDialog extends UserInterfaceService {
      * @see #getUIServiceDescription(UserInterfaceService, String, String,
      *      ServiceCaller)
      */
-    public static String getInitialDialogDescription(
-	    String serviceClassURI, String vendor, ServiceCaller theCaller) {
+    public static String getInitialDialogDescription(String serviceClassURI,
+	    String vendor, ServiceCaller theCaller) {
 	return getUIServiceDescription(new InitialServiceDialog(),
 		serviceClassURI, vendor, theCaller);
     }

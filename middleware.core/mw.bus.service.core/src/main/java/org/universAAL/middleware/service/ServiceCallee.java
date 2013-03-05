@@ -143,9 +143,7 @@ public abstract class ServiceCallee implements Callee {
      */
     public void handleRequest(Message m) {
 	if (m != null && m.getContent() instanceof ServiceCall) {
-	    LogUtils.logInfo(
-		    thisCalleeContext,
-		    ServiceCallee.class,
+	    LogUtils.logInfo(thisCalleeContext, ServiceCallee.class,
 		    "handleRequest",
 		    new Object[] { localID, " received service call:\n",
 			    m.getContentAsString() }, null);

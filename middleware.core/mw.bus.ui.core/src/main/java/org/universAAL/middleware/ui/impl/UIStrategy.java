@@ -646,7 +646,7 @@ public class UIStrategy extends BusStrategy {
 			// remember whom to notify once the response is received
 			// (if the form is a Message there will be no response
 			// to the application since Message does not take input
-			// from  user)
+			// from user)
 			BusMember sender = getBusMember(senderID);
 			if (sender instanceof UICaller) {
 			    pendingRequests.put(f.getDialogID(), sender);
