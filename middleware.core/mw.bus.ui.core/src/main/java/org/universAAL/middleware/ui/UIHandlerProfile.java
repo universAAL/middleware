@@ -78,6 +78,7 @@ public class UIHandlerProfile extends FinalizedResource {
 
 	String prop = r.getOnProperty();
 	if (UIRequest.PROP_HAS_ACCESS_IMPAIRMENT.equals(prop)
+		|| UIRequest.PROP_ADDRESSED_USER.equals(prop)  //added in Krakow
 		|| UIRequest.PROP_DIALOG_LANGUAGE.equals(prop)
 		|| UIRequest.PROP_PRESENTATION_MODALITY.equals(prop)
 		|| UIRequest.PROP_PRESENTATION_LOCATION.equals(prop)
@@ -151,16 +152,28 @@ public class UIHandlerProfile extends FinalizedResource {
 	int result = MATCH_LEVEL_SUCCESS;
 	for (int i = 0; i < restrictions.size(); i++) {
 	    MergedRestriction r = (MergedRestriction) restrictions.get(i);
-	    if (!r.hasMember(oe, null))
-		if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
+
+	    // TODO added matching on the addressed user. Revise necessary on
+	    // follow me scenario, we should have location of the user known
+	    // for best UIstrategy but question is how do we get it and if this
+	    // will be feasible in most cases. 
+	    //If there is a location of the user than match on the location; if there is no location - see logged in location
+	    if (!r.hasMember(oe, null)) {
+//		if (UIRequest.PROP_ADDRESSED_USER.equals(r.getOnProperty())) {
+//		    continue;
+//		} else 
+		    
+		    if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
 			.getOnProperty())
 			&& r.copyOnNewProperty(
 				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
 				.hasMember(oe, null)) {
 		    result = MATCH_LEVEL_ALT;
 		    continue;
+
 		} else
 		    return MATCH_LEVEL_FAILED;
+	    }
 	}
 
 	return result;
