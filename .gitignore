@@ -2315,6 +2315,10 @@ mw.bus.service.aapi.osgi-1.2.1-SNAPSHOT/.classpath
 mw.bus.service.aapi.osgi-1.2.1-SNAPSHOT/.project
 mw.bus.service.aapi.osgi-1.2.1-SNAPSHOT/.settings
 mw.bus.service.aapi.osgi-1.2.1-SNAPSHOT/target
+mw.bus.service.aapi.osgi-1.3.1-SNAPSHOT/.classpath
+mw.bus.service.aapi.osgi-1.3.1-SNAPSHOT/.project
+mw.bus.service.aapi.osgi-1.3.1-SNAPSHOT/.settings
+mw.bus.service.aapi.osgi-1.3.1-SNAPSHOT/target
 mw.bus.service.core-1.1.2-SNAPSHOT/.classpath
 mw.bus.service.core-1.1.2-SNAPSHOT/.project
 mw.bus.service.core-1.1.2-SNAPSHOT/.settings
