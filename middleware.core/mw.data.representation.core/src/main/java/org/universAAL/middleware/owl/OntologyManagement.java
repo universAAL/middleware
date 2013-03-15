@@ -26,6 +26,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.RDFClassInfo;
@@ -401,7 +402,7 @@ public final class OntologyManagement {
      *            the ontology.
      * @return false, if the Ontology is already available.
      */
-    public boolean register(Ontology ont) {
+    public boolean register(ModuleContext mc, Ontology ont) {
 	// add to pending
 	synchronized (pendingOntologies) {
 	    ArrayList newPendingOntologies = new ArrayList(pendingOntologies
@@ -694,7 +695,7 @@ public final class OntologyManagement {
      * @param ont
      *            The ontology to unregister.
      */
-    public void unregister(Ontology ont) {
+    public void unregister(ModuleContext mc, Ontology ont) {
 	// TODO
     }
 

@@ -89,7 +89,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	    Object[] uiBusShareParams, Object[] uiBusFetchParams) {
 	if (theUIBus == null) {
 	    UIBusImpl.mc = mc;
-	    OntologyManagement.getInstance().register(uiBusOntology);
+	    OntologyManagement.getInstance().register(mc, uiBusOntology);
 	    theUIBus = new UIBusImpl(mc);
 	    busFetchParams = uiBusFetchParams;
 	    c.shareObject(mc, theUIBus, uiBusShareParams);
@@ -98,7 +98,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 
     public static void stopModule() {
 	if (theUIBus != null) {
-	    OntologyManagement.getInstance().unregister(uiBusOntology);
+	    OntologyManagement.getInstance().unregister(mc, uiBusOntology);
 	    theUIBus.dispose();
 	    theUIBus = null;
 	}

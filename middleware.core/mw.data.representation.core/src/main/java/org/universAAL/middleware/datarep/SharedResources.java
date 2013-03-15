@@ -72,7 +72,7 @@ public class SharedResources {
     }
 
     public static void loadReasoningEngine() throws ClassNotFoundException {
-	OntologyManagement.getInstance().register(dataRepOntology);
+	OntologyManagement.getInstance().register(moduleContext, dataRepOntology);
 	// the subclasses (e.g., Restriction & ClassExpression) will be loaded
 	// automatically
 	Class.forName("org.universAAL.middleware.owl.Complement");
@@ -97,7 +97,7 @@ public class SharedResources {
     }
 
     public static void unloadReasoningEngine() {
-	OntologyManagement.getInstance().unregister(dataRepOntology);
+	OntologyManagement.getInstance().unregister(moduleContext, dataRepOntology);
     }
 
     public static void setDefaults() {
