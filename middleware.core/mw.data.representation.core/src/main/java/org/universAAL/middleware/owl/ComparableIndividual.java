@@ -18,8 +18,6 @@
  */
 package org.universAAL.middleware.owl;
 
-import java.lang.reflect.Method;
-
 /**
  * Represents the class of individuals that can be compared to other individuals
  * for finding out their (partial) order. The conventions described for the
