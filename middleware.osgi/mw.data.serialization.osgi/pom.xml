@@ -5,17 +5,14 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>1.3.1-SNAPSHOT</version>
+    <version>1.3.2-SNAPSHOT</version>
     <relativePath>../mw.pom.osgi</relativePath>
   </parent>
   <artifactId>mw.data.serialization.osgi</artifactId>
-  <version>1.3.1-SNAPSHOT</version>
+  <version>1.3.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Middleware RDF Turtle serializer (OSGi)</name>
   <description>The module for message content serialization in Turtle (OSGi)</description>
-  <properties>
-    <project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
@@ -43,10 +40,11 @@
         <configuration>
           <instructions>
             <Bundle-Name>${project.name}</Bundle-Name>
-            <Bundle-Activator>org.universAAL.serialization.turtle.osgi.Activator</Bundle-Activator>
+            <Bundle-Activator>org.universAAL.middleware.serialization.turtle.osgi.Activator</Bundle-Activator>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Private-Package>org.universAAL.serialization.turtle,org.universAAL.serialization.turtle.osgi</Private-Package>
+            <Private-Package>org.universAAL.middleware.serialization.turtle,
+            	org.universAAL.middleware.serialization.turtle.osgi</Private-Package>
             <Inport-Package>org.universAAL.middleware.rdf.impl,*</Inport-Package>
           </instructions>
         </configuration>
