@@ -18,6 +18,8 @@
  */
 package org.universAAL.middleware.owl;
 
+import java.lang.reflect.Method;
+
 /**
  * Represents the class of individuals that can be compared to other individuals
  * for finding out their (partial) order. The conventions described for the
@@ -57,8 +59,8 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
     public static final ComparableIndividual getClassMaximum(Class claz) {
 	// TODO: change to getMaxValue?
 	try {
-	    return (ComparableIndividual) claz.getMethod("getMaximum", null)
-		    .invoke(null, null);
+	    return (ComparableIndividual) claz.getMethod("getMaximum",
+		    (Class[]) null).invoke(null, (Object[]) null);
 	} catch (Exception e) {
 	    return null;
 	}
@@ -67,8 +69,8 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
     public static final ComparableIndividual getClassMinimum(Class claz) {
 	// TODO: change to getMinValue?
 	try {
-	    return (ComparableIndividual) claz.getMethod("getMinimum", null)
-		    .invoke(null, null);
+	    return (ComparableIndividual) claz.getMethod("getMinimum",
+		    (Class[]) null).invoke(null, (Object[]) null);
 	} catch (Exception e) {
 	    return null;
 	}
@@ -105,7 +107,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
     public final ComparableIndividual getClassMaximum() {
 	try {
 	    return (ComparableIndividual) this.getClass().getMethod(
-		    "getMaximum", null).invoke(null, null);
+		    "getMaximum", (Class[]) null).invoke(null, (Object[]) null);
 	} catch (Exception e) {
 	    return null;
 	}
@@ -114,7 +116,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
     public final ComparableIndividual getClassMinimum() {
 	try {
 	    return (ComparableIndividual) this.getClass().getMethod(
-		    "getMinimum", null).invoke(null, null);
+		    "getMinimum", (Class[]) null).invoke(null, (Object[]) null);
 	} catch (Exception e) {
 	    return null;
 	}
