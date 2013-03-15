@@ -5,22 +5,20 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>1.3.1-SNAPSHOT</version>
+    <version>1.3.2-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
   <artifactId>mw.composite</artifactId>
-  <version>1.3.1-SNAPSHOT</version>
+  <version>1.3.2-SNAPSHOT</version>
   <name>universAAL Middleware Suite Composite</name>
   <description>Artifact responsible for generating composite file of universAAL middleware</description>
-  <url></url>
+
   <scm>
     <connection>${svn.base}/middleware.osgi/pom/composite</connection>
     <developerConnection>${svn.base}/middleware.osgi/pom/composite</developerConnection>
     <url>${svn.base.url}middleware.osgi/pom/composite</url>
   </scm>
-  <properties>
-    <project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
-  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
@@ -41,6 +39,10 @@
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.bus.tracker.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.deploy.osgi</artifactId>
     </dependency>
   </dependencies>
 </project>
