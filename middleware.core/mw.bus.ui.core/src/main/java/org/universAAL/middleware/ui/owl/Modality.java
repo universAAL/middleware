@@ -141,7 +141,7 @@ public class Modality extends ManagedIndividual {
     /**
      * @return order defined at the time of construction
      */
-    public int getSize() {
+    public static int getSize() {
 	return names.length;
     }
 
