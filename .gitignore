@@ -1792,6 +1792,10 @@ middleware.osgi/mw.pom.osgi/target
 middleware.osgi/mw.pom.osgi/uAAL.log
 middleware.osgi/target
 middleware.osgi/uAAL.log
+middleware.resources/mw.schemas.resources/.classpath
+middleware.resources/mw.schemas.resources/.project
+middleware.resources/mw.schemas.resources/.settings
+middleware.resources/mw.schemas.resources/target
 pom/.classpath
 pom/.project
 pom/.settings

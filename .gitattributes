@@ -497,4 +497,14 @@ middleware.osgi/mw.data.serialization.osgi/src/test/java/org/universAAL/serializ
 middleware.osgi/mw.data.serialization.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.pom.osgi/composite/pom.xml -text
 middleware.osgi/mw.pom.osgi/pom.xml -text
+middleware.resources/mw.schemas.resources/LICENSE.txt -text
+middleware.resources/mw.schemas.resources/NOTICE.txt -text
+middleware.resources/mw.schemas.resources/pom.xml -text
+middleware.resources/mw.schemas.resources/src/main/java/org/universaal/testing/JXBMavenIntegration.java -text
+middleware.resources/mw.schemas.resources/src/main/resources/AAL-UAPP.xsd svneol=native#text/xml
+middleware.resources/mw.schemas.resources/src/main/resources/AAL-USRV.xsd svneol=native#text/xml
+middleware.resources/mw.schemas.resources/src/main/resources/aalspace-channel.xsd -text
+middleware.resources/mw.schemas.resources/src/main/resources/aalspace.xsd -text
+middleware.resources/mw.schemas.resources/src/main/resources/binding.xjb -text
+middleware.resources/mw.schemas.resources/src/main/resources/karaf-provvisioning-v1.0.0.xsd -text
 pom/pom.xml -text
