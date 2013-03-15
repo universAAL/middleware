@@ -469,9 +469,9 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     }
 
     /** @see Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (locked)
-	    return;
-	super.setProperty(propURI, value);
+	    return false;
+	return super.setProperty(propURI, value);
     }
 }

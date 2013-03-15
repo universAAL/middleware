@@ -411,9 +411,9 @@ public abstract class FormControl extends FinalizedResource {
      * 
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI == null || value == null || props.containsKey(propURI))
-	    return;
+	    return false;
 
 	boolean knownProp = false;
 
@@ -421,40 +421,41 @@ public abstract class FormControl extends FinalizedResource {
 	    if (value instanceof Label)
 		knownProp = true;
 	    else
-		return;
+		return false;
 	} else if (propURI.equals(PROP_HELP)) {
 	    if (value instanceof String)
 		knownProp = true;
 	    else
-		return;
+		return false;
 	} else if (propURI.equals(PROP_HINT)) {
 	    if (value instanceof String)
 		knownProp = true;
 	    else
-		return;
+		return false;
 	} else if (propURI.equals(PROP_PARENT_CONTROL)) {
 	    if (value instanceof FormControl
 		    || (value instanceof Form && this instanceof Group))
 		knownProp = true;
 	    else
-		return;
+		return false;
 	} else if (propURI.equals(PROP_REFERENCED_PPATH)) {
 	    if (value instanceof PropertyPath)
 		knownProp = true;
 	    else
-		return;
+		return false;
 	} else if (propURI.equals(PROP_VALUE_RESTRICTION)) {
 	    if (value instanceof MergedRestriction
 		    && !props.containsKey(propURI))
 		knownProp = true;
 	    else
-		return;
+		return false;
 	}
 
-	if (knownProp)
+	if (knownProp) {
 	    props.put(propURI, value);
-	else
-	    super.setProperty(propURI, value);
+	    return true;
+	} else
+	    return super.setProperty(propURI, value);
     }
 
     /**

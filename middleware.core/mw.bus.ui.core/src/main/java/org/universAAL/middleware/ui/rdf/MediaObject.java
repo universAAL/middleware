@@ -236,23 +236,28 @@ public class MediaObject extends Output {
     /**
      * @see FormControl#setProperty(String, Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI == null || value == null || props.containsKey(propURI))
-	    return;
+	    return false;
 
 	if (PROP_CONTENT_TYPE.equals(propURI)
 		|| PROP_CONTENT_URL.equals(propURI)) {
-	    if (value instanceof String)
+	    if (value instanceof String) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else if (PROP_RESOLUTION_MAX_X.equals(propURI)
 		|| PROP_RESOLUTION_MAX_Y.equals(propURI)
 		|| PROP_RESOLUTION_MIN_X.equals(propURI)
 		|| PROP_RESOLUTION_MIN_Y.equals(propURI)
 		|| PROP_RESOLUTION_PREFERRED_X.equals(propURI)
 		|| PROP_RESOLUTION_PREFERRED_Y.equals(propURI)) {
-	    if (value instanceof Integer && ((Integer) value).intValue() > 0)
+	    if (value instanceof Integer && ((Integer) value).intValue() > 0) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
+	return false;
     }
 }

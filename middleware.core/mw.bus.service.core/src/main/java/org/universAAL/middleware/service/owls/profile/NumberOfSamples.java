@@ -61,15 +61,20 @@ public class NumberOfSamples extends ProfileParameter {
     /**
      * This method sets the property of <propURI> with <value>.
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI != null && value != null && !props.containsKey(propURI))
 	    if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
-		if (value instanceof String)
+		if (value instanceof String) {
 		    props.put(propURI, value);
+		    return true;
+		}
 	    } else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
 		if (value instanceof Integer
-			&& ((Integer) value).intValue() > -1)
+			&& ((Integer) value).intValue() > -1) {
 		    props.put(propURI, value);
+		    return true;
+		}
 	    }
+	return false;
     }
 }

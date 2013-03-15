@@ -21,17 +21,15 @@ package org.universAAL.middleware.service;
 
 import java.util.Hashtable;
 
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.Caller;
+import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.msg.MessageType;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
-import org.universAAL.middleware.sodapop.Bus;
-import org.universAAL.middleware.sodapop.Caller;
-import org.universAAL.middleware.sodapop.msg.Message;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
-import org.universAAL.middleware.sodapop.msg.MessageType;
 
 /**
  * /** This is an abstract class that the service caller members of the service
@@ -43,11 +41,8 @@ import org.universAAL.middleware.sodapop.msg.MessageType;
  *         Tazari</a>
  * 
  */
-public abstract class ServiceCaller implements Caller {
-    protected ServiceBus bus;
-    private ModuleContext thisCallerContext;
+public abstract class ServiceCaller extends Caller {
     private Hashtable waitingCalls, readyResponses;
-    protected String myID, localID;
 
     /**
      * The default constructor for this class.
@@ -61,32 +56,18 @@ public abstract class ServiceCaller implements Caller {
      *            The initial set of services that are realized by this callee.
      */
     protected ServiceCaller(ModuleContext context) {
-	this((ServiceBus) context.getContainer().fetchSharedObject(context,
-		ServiceBusImpl.busFetchParams), true);
-
-	thisCallerContext = context;
-    }
-
-    public ServiceCaller(ServiceBus bus, boolean register) {
+	super(context, ServiceBusImpl.getServiceBusFetchParams());
 	waitingCalls = new Hashtable();
 	readyResponses = new Hashtable();
-	this.bus = bus;
-
-	if (register) {
-	    myID = bus.register(this);
-	    populateLocalID(myID);
-	}
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.universAAL.middleware.sodapop.BusMember#busDyingOut(org.universAAL
-     * .middleware.sodapop.Bus)
+     * @see BusMember#busDyingOut(AbstractBus)
      */
-    public final void busDyingOut(Bus b) {
-	if (b == bus)
+    public final void busDyingOut(AbstractBus b) {
+	if (b == theBus)
 	    communicationChannelBroken();
     }
 
@@ -118,35 +99,18 @@ public abstract class ServiceCaller implements Caller {
      * @param request
      *            the Turtle String which will be converted into
      *            <code>ServiceRequest</code>
-     * @return sr the expected Service Response
+     * @return the expected Service Response
      */
     public final ServiceResponse call(String request) {
-	ServiceResponse sr = null;
-	MessageContentSerializer s = (MessageContentSerializer) this.thisCallerContext
-		.getContainer().fetchSharedObject(this.thisCallerContext,
-			ServiceBusImpl.contentSerializerParams);
-	Resource r = (Resource) s.deserialize(request);
-	ServiceRequest sRequest = (ServiceRequest) r;
-
-	synchronized (waitingCalls) {
-	    String callID = sendRequest(sRequest);
-	    waitingCalls.put(callID, this);
-	    while (sr == null) {
-		try {
-		    waitingCalls.wait();
-		    sr = (ServiceResponse) readyResponses.remove(callID);
-		} catch (InterruptedException e) {
-		}
-	    }
-	}
-	return sr;
+	Object o = BusMessage.deserializeAsContent(request);
+	return (o instanceof ServiceRequest) ? call((ServiceRequest) o) : null;
     }
 
     /**
      * Unregisters this <code>ServiceCaller</code> from the bus.
      */
     public void close() {
-	bus.unregister(myID, this);
+	theBus.unregister(busResourceURI, this);
     }
 
     /**
@@ -155,11 +119,11 @@ public abstract class ServiceCaller implements Caller {
      */
     public abstract void communicationChannelBroken();
 
-    public final void handleReply(Message m) {
+    public final void handleReply(BusMessage m) {
 	if (m.getType() == MessageType.reply
 		&& (m.getContent() instanceof ServiceResponse)) {
-	    LogUtils.logInfo(thisCallerContext, ServiceCaller.class,
-		    "handleReply", new Object[] { localID,
+	    LogUtils.logInfo(owner, ServiceCaller.class, "handleReply",
+		    new Object[] { busResourceURI,
 			    " received service response:\n",
 			    m.getContentAsString() }, null);
 	    String reqID = m.getInReplyTo();
@@ -198,10 +162,11 @@ public abstract class ServiceCaller implements Caller {
      *         unambiguous mapping of responses to requests.
      */
     public final String sendRequest(ServiceRequest request) {
-	request.setProperty(ServiceRequest.PROP_uAAL_SERVICE_CALLER, myID);
-	ServiceBusImpl.assessContentSerialization(request);
-	Message reqMsg = new Message(MessageType.request, request);
-	bus.sendMessage(myID, reqMsg);
+	request.setProperty(ServiceRequest.PROP_uAAL_SERVICE_CALLER,
+		busResourceURI);
+	((ServiceBusImpl) theBus).assessContentSerialization(request);
+	BusMessage reqMsg = new BusMessage(MessageType.request, request, theBus);
+	((ServiceBus) theBus).brokerRequest(busResourceURI, reqMsg);
 	return reqMsg.getID();
     }
 
@@ -212,7 +177,7 @@ public abstract class ServiceCaller implements Caller {
      * @return all available services.
      */
     public ServiceProfile[] getAllServices() {
-	return bus.getAllServices(myID);
+	return ((ServiceBus) theBus).getAllServices(busResourceURI);
     }
 
     /**
@@ -225,7 +190,7 @@ public abstract class ServiceCaller implements Caller {
      *         available.
      */
     public ServiceProfile[] getMatchingService(Service s) {
-	return bus.getMatchingService(myID, s);
+	return ((ServiceBus) theBus).getMatchingServices(busResourceURI, s);
     }
 
     /**
@@ -238,7 +203,8 @@ public abstract class ServiceCaller implements Caller {
      *         available.
      */
     public ServiceProfile[] getMatchingService(String serviceClassURI) {
-	return bus.getMatchingService(myID, serviceClassURI);
+	return ((ServiceBus) theBus).getMatchingServices(busResourceURI,
+		serviceClassURI);
     }
 
     /**
@@ -251,7 +217,8 @@ public abstract class ServiceCaller implements Caller {
      *         is available.
      */
     public ServiceProfile[] getMatchingService(String[] keywords) {
-	return bus.getMatchingService(myID, keywords);
+	return ((ServiceBus) theBus).getMatchingServices(busResourceURI,
+		keywords);
     }
 
     /**
@@ -266,7 +233,8 @@ public abstract class ServiceCaller implements Caller {
      */
     public void addAvailabilitySubscription(AvailabilitySubscriber subscriber,
 	    ServiceRequest request) {
-	bus.addAvailabilitySubscription(myID, subscriber, request);
+	((ServiceBus) theBus).addAvailabilitySubscription(busResourceURI,
+		subscriber, request);
     }
 
     /**
@@ -281,14 +249,11 @@ public abstract class ServiceCaller implements Caller {
      */
     public void removeAvailabilitySubscription(
 	    AvailabilitySubscriber subscriber, String requestURI) {
-	bus.removeAvailabilitySubscription(myID, subscriber, requestURI);
+	((ServiceBus) theBus).removeAvailabilitySubscription(busResourceURI,
+		subscriber, requestURI);
     }
 
     public String getMyID() {
-	return myID;
-    }
-
-    protected void populateLocalID(String myID) {
-	localID = myID.substring(myID.lastIndexOf('#') + 1);
+	return busResourceURI;
     }
 }

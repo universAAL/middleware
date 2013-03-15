@@ -110,14 +110,16 @@ public class Complement extends TypeExpression {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	Object tmp = TypeURI.asTypeURI(o);
 	if (tmp != null)
 	    o = tmp;
 	if (PROP_OWL_COMPLEMENT_OF.equals(propURI)
 		&& o instanceof TypeExpression && !(o instanceof Complement)
-		&& !props.containsKey(PROP_OWL_COMPLEMENT_OF))
+		&& !props.containsKey(PROP_OWL_COMPLEMENT_OF)) {
 	    props.put(PROP_OWL_COMPLEMENT_OF, o);
+	    return true;
+	}
+	return false;
     }
-
 }

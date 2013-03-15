@@ -299,25 +299,24 @@ public class HasValueRestriction extends PropertyRestriction {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null || props.containsKey(propURI))
-	    return;
+	    return false;
 
 	// handle this restriction
 	if (PROP_OWL_HAS_VALUE.equals(propURI)) {
 	    TypeExpression hasVal = (TypeExpression) getProperty(PROP_OWL_HAS_VALUE);
 	    if (hasVal != null)
-		return;
-	    super.setProperty(PROP_OWL_HAS_VALUE, o);
+		return false;
 	    hasVarRefAsValue = Variable.isVarRef(o);
-	    return;
+	    return super.setProperty(PROP_OWL_HAS_VALUE, o);
 	}
 
 	// do not handle other restrictions
 	if (propMap.containsKey(propURI))
-	    return;
+	    return false;
 
 	// for everything else: call super
-	super.setProperty(propURI, o);
+	return super.setProperty(propURI, o);
     }
 }

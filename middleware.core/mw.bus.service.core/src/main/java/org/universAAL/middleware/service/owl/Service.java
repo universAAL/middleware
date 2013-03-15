@@ -330,17 +330,19 @@ public abstract class Service extends ManagedIndividual {
 		new String[instanceLevelRestrictions.size()]);
     }
 
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_OWLS_PRESENTS.equals(propURI)
 		&& value instanceof ServiceProfile
 		&& (myProfile == null || myProfile.isEmpty())) {
 	    myProfile = (ServiceProfile) value;
 	    props.put(PROP_OWLS_PRESENTS, myProfile);
+	    return true;
 	} else if (PROP_NUMBER_OF_VALUE_RESTRICTIONS.equals(propURI)
 		&& value instanceof Integer && numberOfValueRestrictions == 0) {
 	    numberOfValueRestrictions = ((Integer) value).intValue();
 	    props.put(PROP_NUMBER_OF_VALUE_RESTRICTIONS, new Integer(
 		    numberOfValueRestrictions));
+	    return true;
 	} else if (PROP_INSTANCE_LEVEL_RESTRICTIONS.equals(propURI)
 		&& value != null
 		&& !props.containsKey(PROP_INSTANCE_LEVEL_RESTRICTIONS)) {
@@ -358,7 +360,7 @@ public abstract class Service extends ManagedIndividual {
 			m.addRestriction(res);
 			instanceLevelRestrictions.put(res.getOnProperty(), m);
 		    } else
-			return;
+			return false;
 		}
 	    else if (value instanceof PropertyRestriction) {
 		PropertyRestriction res = (PropertyRestriction) value;
@@ -369,9 +371,10 @@ public abstract class Service extends ManagedIndividual {
 		aux.add(value);
 		value = aux;
 	    } else
-		return;
+		return false;
 	    props.put(propURI, value);
+	    return true;
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
     }
 }

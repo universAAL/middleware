@@ -99,11 +99,14 @@ public class SimpleOutput extends Output {
     /**
      * For usage by de-serializers.
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_CONTENT.equals(propURI)) {
-	    if (!props.containsKey(propURI) && value != null)
+	    if (!props.containsKey(propURI) && value != null) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
+	return false;
     }
 }

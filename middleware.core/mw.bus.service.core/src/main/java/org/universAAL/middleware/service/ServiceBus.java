@@ -19,9 +19,9 @@
  */
 package org.universAAL.middleware.service;
 
+import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
-import org.universAAL.middleware.sodapop.msg.Message;
 
 /**
  * The service bus is a call-based bus, i.e., the <code>ServiceCaller</code>
@@ -52,152 +52,151 @@ public interface ServiceBus {
     public static final String LOG_MATCHING_MISMATCH_CODE = "\nmismatch code: ";
     public static final String LOG_MATCHING_MISMATCH_DETAILS = "\ndetailed mismatch message: ";
 
+    public static final String uAAL_SERVICE_BUS_MODULE_CONTEXT = "uaal:mw.bus.service#moduleContext";
+
     /**
      * Adds an availability subscription, in other words a listener, to receive
-     * events about the availability of a specified service.
+     * events about the availability of services matching the given request.
      * 
      * @param callerID
-     *            the ID of the caller to which the desired service should be
-     *            relevant.
+     *            the ID of the caller that is registering a subscriber.
      * @param subscriber
-     *            the object which will receive events when the appropriate
-     *            service registers or unregisters.
+     *            the object which will be notified when matching services are
+     *            advertised or removed from the service bus.
      * @param request
-     *            the request that describes the desired service.
+     *            the request to which newly registered or unregistered services
+     *            must match in order to notify the subscriber about the
+     *            corresponding events.
      */
     public void addAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, ServiceRequest request);
 
     /**
-     * Registers additional services to be provided by the ServiceCalee with the
-     * specified ID.
+     * Registers (advertises) new services (by providing descriptions of them)
+     * that will be provided by the ServiceCalee with the specified ID.
      * 
      * @param calleeID
-     *            the ID of the ServiceCalee to register additional services
-     *            for.
+     *            the ID of the ServiceCalee that is advertising new services on
+     *            the service bus.
      * @param realizedServices
-     *            the new services.
+     *            the description of the new services in terms of an array of
+     *            service profiles.
      */
-    public void addNewRegParams(String calleeID,
+    public void addNewServiceProfiles(String calleeID,
 	    ServiceProfile[] realizedServices);
 
     /**
-     * A method used to instantly retrieve all services for a specified caller.
+     * A method used to retrieve the descriptions of all services advertised on
+     * the service bus.
      * 
      * @param callerID
-     *            the ID of the caller that the services must be relevant to.
-     * @return all available services.
+     *            the ID of the caller that is asking the service bus.
+     * @return descriptions of all registered services in terms of an array of
+     *         service profiles.
      */
     public ServiceProfile[] getAllServices(String callerID);
 
     /**
-     * Get all service profile that match the given service.
+     * Get all service profiles that describe services that match the given
+     * template in terms of "query by example". This version of the method makes
+     * it possible to make more specific queries by specifying restrictions for
+     * certain properties of services.
      * 
      * @param callerID
-     *            the ID of the caller that the services must be relevant to.
-     * @param s
-     *            the desired service.
-     * @return the service that is available, or null if no such service is
-     *         available.
+     *            the ID of the caller that is asking the service bus.
+     * @param temmplate
+     *            the template to be used for making a "query by example"..
+     * @return profiles of services registered with the service bus that match
+     *         the given template, or null if no such service has been
+     *         registered.
      */
-    public ServiceProfile[] getMatchingService(String callerID, Service s);
+    public ServiceProfile[] getMatchingServices(String callerID,
+	    Service template);
 
     /**
-     * Get all service profile that match the given service.
+     * Get all service profiles that describe services of the given service
+     * class. This version of the method makes it easier to make a simple query
+     * of all instances of a named service class by specifying its URI.
      * 
      * @param callerID
-     *            the ID of the caller that the services must be relevant to.
+     *            the ID of the caller that is asking the service bus.
      * @param serviceClassURI
-     *            the class URI of the desired service.
-     * @return the service that is available, or null if no such service is
-     *         available.
+     *            the URI of the desired service class.
+     * @return profiles of services registered with the service bus that are
+     *         instances of the given service class, or null if no such service
+     *         has been registered.
      */
-    public ServiceProfile[] getMatchingService(String callerID,
+    public ServiceProfile[] getMatchingServices(String callerID,
 	    String serviceClassURI);
 
     /**
-     * A method used to retrieve an available service for the specified caller,
-     * that matches the specified keywords.
+     * This version of the method accepts simple keyword-based queries about
+     * registered services. The given keywords are checked against all names and
+     * textual descriptions used in the service profiles. A match is there only
+     * if all the given keywords have at least one occurrence.
      * 
      * @param callerID
-     *            the ID of the caller that the services must be relevant to.
+     *            the ID of the caller that is asking the service bus.
      * @param keywords
-     *            the keywords that should be matched by the service.
-     * @return the service that matches the keywords, or null if no such service
+     *            the set of keywords to be used for textual match.
+     * @return the profiles of the matched services, or null if no such service
      *         is available.
      */
-    public ServiceProfile[] getMatchingService(String callerID,
+    public ServiceProfile[] getMatchingServices(String callerID,
 	    String[] keywords);
-
-    /**
-     * Registers a service caller to the bus.
-     * 
-     * @param caller
-     *            the caller to be registered.
-     * @return the ID by which the caller was registered.
-     */
-    public String register(ServiceCaller caller);
-
-    /**
-     * Registers a service callee to the bus.
-     * 
-     * @param callee
-     *            the callee to be registered.
-     * @param realizedServices
-     *            the list of the services that are initially realized by this
-     *            callee.
-     * @return the ID by which the callee was registered.
-     */
-    public String register(ServiceCallee callee,
-	    ServiceProfile[] realizedServices);
 
     /**
      * Removes an availability subscription from the bus, which was previously
      * added using <code>addAvailabilitySubscription</code> method.
      * 
      * @param callerID
-     *            the ID of the caller to which the listener was previously
-     *            attached.
+     *            the ID of the caller that owns the listener
      * @param subscriber
-     *            the object which used to receive the events.
+     *            the listeners registered by the caller
      * @param requestURI
-     *            the service that was being monitored.
+     *            the URI of the request used previously for subscription
      */
     public void removeAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, String requestURI);
 
     /**
-     * Removes specified services that were previously provided by the
+     * Removes specified service profiles that were previously registered by the
      * ServiceCalee with the specified ID.
      * 
      * @param calleeID
-     *            the ID of the ServiceCalee to remove the services from.
+     *            the ID of the ServiceCalee that owns the service profiles.
      * @param realizedServices
-     *            the services that need to be removed.
+     *            the service profiles to be removed.
      */
-    public void removeMatchingRegParams(String calleeID,
+    public void removeMatchingProfiles(String calleeID,
 	    ServiceProfile[] realizedServices);
 
     /**
-     * Sends a request to the bus. Any matching callees will be invoked.
+     * Can be used by ServiceCallers to send a request to the bus. The bus will
+     * then try to find matching services using the set of registered service
+     * profiles; for each match, the provider ServiceCallee will be asked by the
+     * bus to invoke the corresponding service utility and inform the bus about
+     * the results by calling {@link #brokerReply(String, BusMessage)}. The bus
+     * will then inform the original requester (the ServiceCaller that has
+     * called this method) about the result.
      * 
      * @param callerID
      *            the ID of the caller that is sending the request.
      * @param request
      *            the actual request message.
      */
-    public void sendMessage(String callerID, Message request);
+    public void brokerRequest(String callerID, BusMessage request);
 
     /**
-     * Sends a response to the bus which will be delivered to the caller who
-     * initiated the initial request.
+     * Can be used by ServiceCallees to send a response to the bus which will be
+     * delivered to the caller who initiated the initial request.
      * 
      * @param calleeID
      *            the ID of the service callee which processed the request.
      * @param response
      *            the actual response message.
      */
-    public void sendReply(String calleeID, Message response);
+    public void brokerReply(String calleeID, BusMessage response);
 
     /**
      * Unregisters a service caller from the bus.

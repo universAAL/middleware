@@ -91,18 +91,17 @@ public interface UIBus {
     /**
      * Extends the profile of a registered subscriber (UI handler) with regard
      * to {@link UIRequest}s that it can handle. Responsible (together with
-     * {@link #removeMatchingRegParams(String, UIHandlerProfile)}) for changing
+     * {@link #removeMatchingProfile(String, UIHandlerProfile)}) for changing
      * the handler's profile dynamically.
      * 
      * @param handlerID
      *            ID of the UI handler introducing the new registration
      *            parameters
-     * @param newSubscription
+     * @param handlerProfile
      *            the new class of {@link UIRequest}s that can additionally be
      *            handled by the given UI handler
      */
-    public void addNewRegParams(String handlerID,
-	    UIHandlerProfile newSubscription);
+    public void addNewProfile(String handlerID, UIHandlerProfile handlerProfile);
 
     /**
      * Whenever a dialog is finished, UI handlers must inform the UI Bus by
@@ -135,51 +134,19 @@ public interface UIBus {
     public void dialogSuspended(DialogManager dm, String dialogID);
 
     /**
-     * Applications that need to reach human users must register a
-     * {@link UICaller}. They can use this UICaller for sending their UI
-     * requests as long as they remain registered.
-     * 
-     * @param caller
-     *            An application's interface for sending UI requests and
-     *            receiving handlers' replies.
-     * @return An ID for this bus member that is used as a kind of "password" of
-     *         the caller. It must be passed to the bus when calling the other
-     *         bus methods.
-     */
-    public String register(UICaller caller);
-
-    /**
-     * UI handlers that can handle the interaction with human users must
-     * register a UIHandler. The bus will use this interface for realizing the
-     * protocols between the bus and the handler.
-     * 
-     * @param handler
-     *            A UI handler's interface for receiving UI requests and sending
-     *            replies.
-     * @param initialSubscription
-     *            The initial profile of the handler (see also
-     *            {@link #addNewRegParams(String, UIHandlerProfile)} and
-     *            {@link #removeMatchingRegParams(String, UIHandlerProfile)}).
-     * @return An ID for this bus member that is used as a kind of "password" of
-     *         the handler. It must be passed to the bus when calling the other
-     *         bus methods.
-     */
-    public String register(UIHandler handler,
-	    UIHandlerProfile initialSubscription);
-
-    /**
      * Removes matching patterns of {@link UIRequest}s from the profile of the
      * UI handler. Responsible (together with
-     * {@link #addNewRegParams(String, UIHandlerProfile)}) for changing the
+     * {@link #addNewProfile(String, UIHandlerProfile)}) for changing the
      * handler's profile dynamically.
      * 
-     * @param subscriberID
-     *            ID of subscriber
-     * @param oldSubscription
-     *            old subscription
+     * @param handlerID
+     *            ID of the calling UIHandler that had previously registered
+     *            'oldProfile'
+     * @param oldProfile
+     *            the profile registered previously
      */
-    public void removeMatchingRegParams(String subscriberID,
-	    UIHandlerProfile oldSubscription);
+    public void removeMatchingProfile(String handlerID,
+	    UIHandlerProfile oldProfile);
 
     /**
      * Applications can use this method to ask the UI bus to resume a dialog
@@ -208,7 +175,7 @@ public interface UIBus {
      * @param uicall
      *            The actual UI request
      */
-    public void sendMessage(String callerID, UIRequest uicall);
+    public void brokerUIRequest(String callerID, UIRequest uicall);
 
     /**
      * Unregisters an application's caller from the bus.

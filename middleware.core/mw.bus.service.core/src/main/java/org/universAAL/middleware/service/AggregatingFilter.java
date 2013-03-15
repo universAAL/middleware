@@ -135,9 +135,9 @@ public class AggregatingFilter extends FinalizedResource {
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String propURI,
      *      Object value)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI == null || value == null || props.containsKey(propURI))
-	    return;
+	    return false;
 	AggregationFunction func = null;
 	List params = null;
 	if (propURI.equals(PROP_uAAL_AGGREGATION_FUNCTION)) {
@@ -149,9 +149,9 @@ public class AggregatingFilter extends FinalizedResource {
 		else if (value instanceof String)
 		    value = AggregationFunction.valueOf((String) value);
 		else
-		    return;
+		    return false;
 		if (value == null)
-		    return;
+		    return false;
 	    }
 	    func = (AggregationFunction) value;
 	    params = getFunctionParams();
@@ -160,9 +160,12 @@ public class AggregatingFilter extends FinalizedResource {
 	    func = getTheFunction();
 	    params = (List) value;
 	} else
-	    return;
-	if (func == null || params == null || checkIntegrity(func, params))
+	    return false;
+	if (func == null || params == null || checkIntegrity(func, params)) {
 	    props.put(propURI, value);
+	    return true;
+	}
+	return false;
     }
 
     /**

@@ -20,9 +20,14 @@
 package org.universAAL.middleware.ui;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import org.universAAL.middleware.bus.model.matchable.Advertisement;
+import org.universAAL.middleware.bus.model.matchable.Matchable;
+import org.universAAL.middleware.bus.model.matchable.Request;
+import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.owl.supply.LevelRating;
 import org.universAAL.middleware.rdf.FinalizedResource;
@@ -45,7 +50,7 @@ import org.universAAL.middleware.ui.rdf.Form;
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class UIRequest extends FinalizedResource {
+public class UIRequest extends FinalizedResource implements Request {
 
     /** The Constant uAAL_UI_NAMESPACE. */
     public static final String uAAL_UI_NAMESPACE = uAAL_NAMESPACE_PREFIX
@@ -144,7 +149,7 @@ public class UIRequest extends FinalizedResource {
 	props.put(PROP_ADDRESSED_USER, user);
 	props.put(PROP_DIALOG_FORM, dialogForm);
 	props.put(PROP_DIALOG_PRIORITY,
-		(dialogPriority == null) ? LevelRating.low : dialogPriority);
+		dialogPriority == null ? LevelRating.low : dialogPriority);
 	props.put(PROP_DIALOG_LANGUAGE, dialogLang);
 	props.put(PROP_DIALOG_PRIVACY_LEVEL, dialogPrivacy);
     }
@@ -183,7 +188,7 @@ public class UIRequest extends FinalizedResource {
      */
     public String getDialogID() {
 	Form f = getDialogForm();
-	return (f == null) ? null : f.getDialogID();
+	return f == null ? null : f.getDialogID();
     }
 
     /**
@@ -220,7 +225,7 @@ public class UIRequest extends FinalizedResource {
      */
     public DialogType getDialogType() {
 	Form f = getDialogForm();
-	return (f == null) ? null : f.getDialogType();
+	return f == null ? null : f.getDialogType();
     }
 
     /**
@@ -230,7 +235,7 @@ public class UIRequest extends FinalizedResource {
      */
     public AccessImpairment[] getImpairments() {
 	List l = (List) props.get(PROP_HAS_ACCESS_IMPAIRMENT);
-	return (l == null) ? null : (AccessImpairment[]) l
+	return l == null ? null : (AccessImpairment[]) l
 		.toArray(new AccessImpairment[l.size()]);
     }
 
@@ -255,6 +260,7 @@ public class UIRequest extends FinalizedResource {
     /**
      * @see org.universAAL.middleware.rdf.Resource#getPropSerializationType(java.lang.String)
      */
+    @Override
     public int getPropSerializationType(String propURI) {
 	return PROP_DIALOG_FORM.equals(propURI) ? PROP_SERIALIZATION_FULL
 		: PROP_SERIALIZATION_REDUCED;
@@ -267,7 +273,7 @@ public class UIRequest extends FinalizedResource {
      */
     public int getScreenResolutionMaxX() {
 	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MAX_X);
-	return (i == null) ? -1 : i.intValue();
+	return i == null ? -1 : i.intValue();
     }
 
     /**
@@ -277,7 +283,7 @@ public class UIRequest extends FinalizedResource {
      */
     public int getScreenResolutionMaxY() {
 	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MAX_Y);
-	return (i == null) ? -1 : i.intValue();
+	return i == null ? -1 : i.intValue();
     }
 
     /**
@@ -287,7 +293,7 @@ public class UIRequest extends FinalizedResource {
      */
     public int getScreenResolutionMinX() {
 	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MIN_X);
-	return (i == null) ? -1 : i.intValue();
+	return i == null ? -1 : i.intValue();
     }
 
     /**
@@ -297,7 +303,7 @@ public class UIRequest extends FinalizedResource {
      */
     public int getScreenResolutionMinY() {
 	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MIN_Y);
-	return (i == null) ? -1 : i.intValue();
+	return i == null ? -1 : i.intValue();
     }
 
     /**
@@ -316,7 +322,7 @@ public class UIRequest extends FinalizedResource {
      */
     public int getVoiceLevel() {
 	Integer i = (Integer) props.get(PROP_VOICE_LEVEL);
-	return (i == null) ? -1 : i.intValue();
+	return i == null ? -1 : i.intValue();
     }
 
     /**
@@ -327,8 +333,9 @@ public class UIRequest extends FinalizedResource {
      */
     public void setAltPresentationModality(Modality outputModality) {
 	if (outputModality != null
-		&& !props.containsKey(PROP_PRESENTATION_MODALITY_ALT))
+		&& !props.containsKey(PROP_PRESENTATION_MODALITY_ALT)) {
 	    props.put(PROP_PRESENTATION_MODALITY_ALT, outputModality);
+	}
     }
 
     /**
@@ -339,8 +346,9 @@ public class UIRequest extends FinalizedResource {
      */
     public void setCollectedInput(Resource data) {
 	Form f = getDialogForm();
-	if (f != null)
+	if (f != null) {
 	    f.substituteData(data);
+	}
     }
 
     /**
@@ -351,8 +359,9 @@ public class UIRequest extends FinalizedResource {
      */
     public void setImpairments(AccessImpairment[] impairments) {
 	if (impairments != null && impairments.length > 0
-		&& !props.containsKey(PROP_HAS_ACCESS_IMPAIRMENT))
+		&& !props.containsKey(PROP_HAS_ACCESS_IMPAIRMENT)) {
 	    props.put(PROP_HAS_ACCESS_IMPAIRMENT, Arrays.asList(impairments));
+	}
     }
 
     /**
@@ -363,8 +372,9 @@ public class UIRequest extends FinalizedResource {
      */
     public void setPresentationLocation(AbsLocation presentationLocation) {
 	if (presentationLocation != null
-		&& !props.containsKey(PROP_PRESENTATION_LOCATION))
+		&& !props.containsKey(PROP_PRESENTATION_LOCATION)) {
 	    props.put(PROP_PRESENTATION_LOCATION, presentationLocation);
+	}
     }
 
     /**
@@ -375,8 +385,9 @@ public class UIRequest extends FinalizedResource {
      */
     public void setPresentationModality(Modality outputModality) {
 	if (outputModality != null
-		&& !props.containsKey(PROP_PRESENTATION_MODALITY))
+		&& !props.containsKey(PROP_PRESENTATION_MODALITY)) {
 	    props.put(PROP_PRESENTATION_MODALITY, outputModality);
+	}
     }
 
     /**
@@ -387,8 +398,9 @@ public class UIRequest extends FinalizedResource {
      */
     public void setPrivacyMapping(PrivacyLevel pl) {
 	if (props.containsKey(PROP_DIALOG_PRIVACY_LEVEL)
-		&& (pl == PrivacyLevel.insensible || pl == PrivacyLevel.personal))
+		&& (pl == PrivacyLevel.insensible || pl == PrivacyLevel.personal)) {
 	    props.put(PROP_DIALOG_PRIVACY_LEVEL, pl);
+	}
     }
 
     /**
@@ -398,8 +410,9 @@ public class UIRequest extends FinalizedResource {
      *            the new screen resolution max x
      */
     public void setScreenResolutionMaxX(int x) {
-	if (x > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MAX_X))
+	if (x > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MAX_X)) {
 	    props.put(PROP_SCREEN_RESOLUTION_MAX_X, new Integer(x));
+	}
     }
 
     /**
@@ -409,8 +422,9 @@ public class UIRequest extends FinalizedResource {
      *            the new screen resolution max y
      */
     public void setScreenResolutionMaxY(int y) {
-	if (y > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MAX_Y))
+	if (y > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MAX_Y)) {
 	    props.put(PROP_SCREEN_RESOLUTION_MAX_Y, new Integer(y));
+	}
     }
 
     /**
@@ -420,8 +434,9 @@ public class UIRequest extends FinalizedResource {
      *            the new screen resolution min x
      */
     public void setScreenResolutionMinX(int x) {
-	if (x > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MIN_X))
+	if (x > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MIN_X)) {
 	    props.put(PROP_SCREEN_RESOLUTION_MIN_X, new Integer(x));
+	}
     }
 
     /**
@@ -431,8 +446,9 @@ public class UIRequest extends FinalizedResource {
      *            the new screen resolution min y
      */
     public void setScreenResolutionMinY(int y) {
-	if (y > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MIN_Y))
+	if (y > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MIN_Y)) {
 	    props.put(PROP_SCREEN_RESOLUTION_MIN_Y, new Integer(y));
+	}
     }
 
     /**
@@ -442,8 +458,9 @@ public class UIRequest extends FinalizedResource {
      *            the new voice gender
      */
     public void setVoiceGender(Gender g) {
-	if (g != null && !props.containsKey(PROP_VOICE_GENDER))
+	if (g != null && !props.containsKey(PROP_VOICE_GENDER)) {
 	    props.put(PROP_VOICE_GENDER, g);
+	}
     }
 
     /**
@@ -454,7 +471,64 @@ public class UIRequest extends FinalizedResource {
      */
     public void setVoiceLevel(int loudnessPercentage) {
 	if (loudnessPercentage > -1 && loudnessPercentage < 101
-		&& !props.containsKey(PROP_VOICE_LEVEL))
+		&& !props.containsKey(PROP_VOICE_LEVEL)) {
 	    props.put(PROP_VOICE_LEVEL, new Integer(loudnessPercentage));
+	}
+    }
+
+    /**
+     * @see #matches(Advertisement)
+     */
+    public boolean matches(Matchable other) {
+	return false;
+    }
+
+    /**
+     * Will only be called with non-matching types of {@link Advertisement}, so
+     * <tt>false</tt> is returned always.
+     * 
+     * @param advertisement
+     *            the advertisement to be matched against
+     * @return <tt>false</tt>, as described above
+     */
+    public boolean matches(Advertisement advertisement) {
+	return false;
+    }
+
+    /**
+     * Switches over different types of {@link UtilityAdvertisement} to call
+     * appropriate methods with them.
+     * 
+     * @param advertisement
+     *            the advertisement to be matched against
+     * @return <tt>true</tt> if the advertisement matches, <tt>false</tt> if not
+     */
+    public boolean matches(UtilityAdvertisement advertisement) {
+	if (advertisement instanceof UIHandlerProfile) {
+	    return isMatchingUIHandlerProfile((UIHandlerProfile) advertisement);
+	} else {
+	    return false;
+	}
+    }
+
+    private boolean isMatchingUIHandlerProfile(UIHandlerProfile advertisement) {
+	// TODO method not implemented
+	return false;
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean matches(UIRequest other) {
+	boolean matches = true;
+	for (Object current : Collections.list(getPropertyURIs())) {
+	    String propertyURI = (String) current;
+	    Object thisProperty = getProperty(propertyURI);
+	    Object otherProperty = other.getProperty(propertyURI);
+
+	    // TODO add good matching algorithm, not that shit!
+	    if (!thisProperty.equals(otherProperty)) {
+		matches = false;
+	    }
+	}
+	return matches;
     }
 }

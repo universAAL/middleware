@@ -24,6 +24,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.bus.model.matchable.UtilityCall;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
@@ -44,7 +45,7 @@ import org.universAAL.middleware.service.owls.process.ProcessInput;
  *         Tazari</a>
  * 
  */
-public class ServiceCall extends FinalizedResource {
+public class ServiceCall extends FinalizedResource implements UtilityCall {
 
     /**
      * A resource URI that specifies the resource as a service call.
@@ -88,7 +89,6 @@ public class ServiceCall extends FinalizedResource {
 	    + "InputBinding";
 
     private Hashtable nonSemanticInput;
-    private ServiceRequest request;
 
     public ServiceCall(Object dummy, String uri) {
 	super(uri);
@@ -102,14 +102,6 @@ public class ServiceCall extends FinalizedResource {
 	} else {
 	    this.nonSemanticInput = nonSemanticInput;
 	}
-    }
-
-    public void setRequest(ServiceRequest request) {
-	this.request = request;
-    }
-
-    public ServiceRequest getRequest() {
-	return this.request;
     }
 
     public Object getNonSemanticInput(String uri) {
@@ -293,14 +285,15 @@ public class ServiceCall extends FinalizedResource {
      * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
      *      java.lang.Object)
      */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	if (propURI != null && o != null && !props.containsKey(propURI)) {
 	    if (PROP_OWLS_PERFORM_PROCESS.equals(propURI)
 		    && o instanceof Resource && !((Resource) o).isAnon()
-		    && ((Resource) o).numberOfProperties() == 0)
+		    && ((Resource) o).numberOfProperties() == 0) {
 		props.put(PROP_OWLS_PERFORM_PROCESS, o);
-	    else if (PROP_OWLS_PERFORM_HAS_DATA_FROM.equals(propURI)) {
-		if (o instanceof List && !((List) o).isEmpty())
+	    	return true;
+	    } else if (PROP_OWLS_PERFORM_HAS_DATA_FROM.equals(propURI)) {
+		if (o instanceof List && !((List) o).isEmpty()) {
 		    for (Iterator i = ((List) o).iterator(); i.hasNext();) {
 			Object binding = i.next();
 			if (binding instanceof Resource
@@ -318,18 +311,19 @@ public class ServiceCall extends FinalizedResource {
 					((Resource) binding)
 						.getProperty(PROP_OWLS_BINDING_VALUE_DATA))) {
 				    inputs().clear();
-				    return;
+				    return false;
 				}
 			    } else {
 				inputs().clear();
-				return;
+				return false;
 			    }
 			} else {
 			    inputs().clear();
-			    return;
+			    return false;
 			}
 		    }
-		else if (o instanceof Resource
+		    return true;
+		} else if (o instanceof Resource
 			&& TYPE_OWLS_INPUT_BINDING.equals(((Resource) o)
 				.getType())) {
 		    Object toParam = ((Resource) o)
@@ -338,12 +332,15 @@ public class ServiceCall extends FinalizedResource {
 			    && !((Resource) toParam).isAnon()
 			    && ProcessInput.MY_URI.equals(((Resource) toParam)
 				    .getType()))
-			addInput(toParam.toString(), ((Resource) o)
+			return addInput(toParam.toString(), ((Resource) o)
 				.getProperty(PROP_OWLS_BINDING_VALUE_DATA));
 		}
 	    } else if (PROP_uAAL_INVOLVED_HUMAN_USER.equals(propURI)
-		    && o instanceof Resource)
+		    && o instanceof Resource) {
 		props.put(PROP_uAAL_INVOLVED_HUMAN_USER, o);
+		return true;
+	    }
 	}
+	return false;
     }
 }

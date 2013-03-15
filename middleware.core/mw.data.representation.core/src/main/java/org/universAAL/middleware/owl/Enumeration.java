@@ -79,7 +79,7 @@ public class Enumeration extends TypeExpression {
     }
 
     /** Add a new individual. */
-    public void addValue(Object o) {
+    public boolean addValue(Object o) {
 	// TODO: what if o is a list?
 	if (o != null) {
 	    if (!datarange && !(o instanceof Resource)) {
@@ -87,7 +87,9 @@ public class Enumeration extends TypeExpression {
 		datarange = true;
 	    }
 	    values.add(o);
+	    return true;
 	}
+	return false;
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
@@ -256,13 +258,21 @@ public class Enumeration extends TypeExpression {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object o) {
-	if (PROP_OWL_ONE_OF.equals(propURI) && values.isEmpty() && o != null)
-	    if (o instanceof List)
-		for (Iterator i = ((List) o).iterator(); i.hasNext();)
-		    addValue(i.next());
-	    else
+    public boolean setProperty(String propURI, Object o) {
+	if (PROP_OWL_ONE_OF.equals(propURI) && values.isEmpty() && o != null) {
+	    if (o instanceof List) {
+		boolean retVal = true;
+		for (Iterator i = ((List) o).iterator(); i.hasNext();) {
+		    if (!addValue(i.next()))
+			retVal = false;
+		}
+		return retVal;
+	    } else {
 		addValue(o);
+		return true;
+	    }
+	}
+	return false;
     }
 
     /** Get an iterator for the individuals. */

@@ -98,12 +98,15 @@ public class Label extends FinalizedResource {
     /**
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_ICON_URL.equals(propURI)) {
-	    if (!props.containsKey(propURI) && value instanceof String)
+	    if (!props.containsKey(propURI) && value instanceof String) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
+	return false;
     }
 
     /**

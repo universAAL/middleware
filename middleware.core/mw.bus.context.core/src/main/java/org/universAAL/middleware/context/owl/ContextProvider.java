@@ -140,52 +140,60 @@ public class ContextProvider extends ManagedIndividual {
      *            whatever) that generate the actual information provided by
      *            this ContextProvider
      */
-    public void setContextSources(ManagedIndividual[] devices) {
+    public boolean setContextSources(ManagedIndividual[] devices) {
 	if (devices != null && devices.length > 0
 		&& !props.containsKey(PROP_CONTEXT_SOURCE)) {
 	    List l = new ArrayList(devices.length);
 	    for (int i = 0; i < devices.length; i++)
 		l.add(devices[i]);
 	    props.put(PROP_CONTEXT_SOURCE, l);
+	    return true;
 	}
+	return false;
     }
 
     /**
-     * @see org.universAAL.middleware.PResource#setProperty(java.lang.String,
+     * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
      *      java.lang.Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_CONTEXT_SOURCE.equals(propURI)) {
 	    if (value instanceof ManagedIndividual[])
-		setContextSources((ManagedIndividual[]) value);
+		return setContextSources((ManagedIndividual[]) value);
 	    else if (value instanceof ManagedIndividual) {
 		List l = new ArrayList(1);
 		l.add(value);
 		props.put(PROP_CONTEXT_SOURCE, l);
+		return true;
 	    } else if (value instanceof List) {
 		for (int i = 0; i < ((List) value).size(); i++)
 		    if (!(((List) value).get(i) instanceof ManagedIndividual))
-			return;
+			return false;
 		props.put(PROP_CONTEXT_SOURCE, (List) value);
+		return true;
 	    }
+	    return false;
 	} else if (PROP_CONTEXT_PROVIDER_TYPE.equals(propURI)
 		&& value instanceof ContextProviderType)
-	    setType((ContextProviderType) value);
+	    return setType((ContextProviderType) value);
 	else if (PROP_CONTEXT_PROVIDED_EVENTS.equals(propURI)) {
 	    if (value instanceof ContextEventPattern[])
-		setProvidedEvents((ContextEventPattern[]) value);
+		return setProvidedEvents((ContextEventPattern[]) value);
 	    else if (value instanceof ContextEventPattern) {
 		List l = new ArrayList(1);
 		l.add(value);
 		props.put(PROP_CONTEXT_PROVIDED_EVENTS, l);
+		return true;
 	    } else if (value instanceof List) {
 		for (int i = 0; i < ((List) value).size(); i++)
 		    if (!(((List) value).get(i) instanceof ContextEventPattern))
-			return;
+			return false;
 		props.put(PROP_CONTEXT_PROVIDED_EVENTS, (List) value);
+		return true;
 	    }
+	    return false;
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
     }
 
     /**
@@ -197,14 +205,16 @@ public class ContextProvider extends ManagedIndividual {
      *            whatever) that generate the actual information provided by
      *            this ContextProvider
      */
-    public void setProvidedEvents(ContextEventPattern[] myEvents) {
+    public boolean setProvidedEvents(ContextEventPattern[] myEvents) {
 	if (myEvents != null && myEvents.length > 0
 		&& !props.containsKey(PROP_CONTEXT_PROVIDED_EVENTS)) {
 	    List l = new ArrayList(myEvents.length);
 	    for (int i = 0; i < myEvents.length; i++)
 		l.add(myEvents[i]);
 	    props.put(PROP_CONTEXT_PROVIDED_EVENTS, l);
+	    return true;
 	}
+	return false;
     }
 
     /**
@@ -214,8 +224,11 @@ public class ContextProvider extends ManagedIndividual {
      * @param type
      *            The ContextProviderType of the ContextProvider
      */
-    public void setType(ContextProviderType type) {
-	if (type != null && !props.containsKey(PROP_CONTEXT_PROVIDER_TYPE))
+    public boolean setType(ContextProviderType type) {
+	if (type != null && !props.containsKey(PROP_CONTEXT_PROVIDER_TYPE)) {
 	    props.put(PROP_CONTEXT_PROVIDER_TYPE, type);
+	    return true;
+	}
+	return false;
     }
 }

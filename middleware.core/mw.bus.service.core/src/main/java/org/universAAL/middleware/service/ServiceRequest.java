@@ -20,9 +20,15 @@
 package org.universAAL.middleware.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
+import org.universAAL.middleware.bus.model.matchable.Advertisement;
+import org.universAAL.middleware.bus.model.matchable.Matchable;
+import org.universAAL.middleware.bus.model.matchable.Request;
+import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
@@ -31,6 +37,7 @@ import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.process.ProcessResult;
+import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
  * A class that represents a service request resource, which is used by the
@@ -40,7 +47,7 @@ import org.universAAL.middleware.service.owls.process.ProcessResult;
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  */
-public class ServiceRequest extends FinalizedResource {
+public class ServiceRequest extends FinalizedResource implements Request {
 
     /**
      * A resource URI that specifies the resource as a service request.
@@ -116,12 +123,14 @@ public class ServiceRequest extends FinalizedResource {
      */
     public ServiceRequest(Service requestedService, Resource involvedHumanUser) {
 	super();
-	if (requestedService == null)
+	if (requestedService == null) {
 	    throw new NullPointerException();
+	}
 	addType(MY_URI, true);
 	props.put(PROP_REQUESTED_SERVICE, requestedService);
-	if (involvedHumanUser != null && !involvedHumanUser.isAnon())
+	if (involvedHumanUser != null && !involvedHumanUser.isAnon()) {
 	    props.put(PROP_uAAL_INVOLVED_HUMAN_USER, involvedHumanUser);
+	}
     }
 
     /**
@@ -149,12 +158,14 @@ public class ServiceRequest extends FinalizedResource {
     public ServiceRequest(String uriPrefix, int numProps,
 	    Service requestedService, Resource involvedHumanUser) {
 	super(uriPrefix, numProps);
-	if (requestedService == null)
+	if (requestedService == null) {
 	    throw new NullPointerException();
+	}
 	addType(MY_URI, true);
 	props.put(PROP_REQUESTED_SERVICE, requestedService);
-	if (involvedHumanUser != null && !involvedHumanUser.isAnon())
+	if (involvedHumanUser != null && !involvedHumanUser.isAnon()) {
 	    props.put(PROP_uAAL_INVOLVED_HUMAN_USER, involvedHumanUser);
+	}
     }
 
     /**
@@ -177,12 +188,14 @@ public class ServiceRequest extends FinalizedResource {
     public ServiceRequest(String uri, Service requestedService,
 	    Resource involvedHumanUser) {
 	super(uri);
-	if (requestedService == null)
+	if (requestedService == null) {
 	    throw new NullPointerException();
+	}
 	addType(MY_URI, true);
 	props.put(PROP_REQUESTED_SERVICE, requestedService);
-	if (involvedHumanUser != null && !involvedHumanUser.isAnon())
+	if (involvedHumanUser != null && !involvedHumanUser.isAnon()) {
 	    props.put(PROP_uAAL_INVOLVED_HUMAN_USER, involvedHumanUser);
+	}
     }
 
     /**
@@ -191,12 +204,15 @@ public class ServiceRequest extends FinalizedResource {
      */
     public boolean acceptsRandomSelection() {
 	List filters = (List) props.get(PROP_AGGREGATING_FILTER);
-	if (filters == null)
+	if (filters == null) {
 	    return false;
+	}
 
-	for (Iterator i = filters.iterator(); i.hasNext();)
-	    if (((AggregatingFilter) i.next()).getTheFunction() != AggregationFunction.oneOf)
+	for (Iterator i = filters.iterator(); i.hasNext();) {
+	    if (((AggregatingFilter) i.next()).getTheFunction() != AggregationFunction.oneOf) {
 		return false;
+	    }
+	}
 
 	return true;
     }
@@ -208,9 +224,10 @@ public class ServiceRequest extends FinalizedResource {
      * property.
      */
     public void addAddEffect(String[] ppath, Object value) {
-	if (ppath != null && value != null)
+	if (ppath != null && value != null) {
 	    theResult()
 		    .addAddEffect(new PropertyPath(null, true, ppath), value);
+	}
     }
 
     /**
@@ -218,8 +235,9 @@ public class ServiceRequest extends FinalizedResource {
      * be used by the service bus for match-making and service selection.
      */
     public void addAggregatingFilter(AggregatingFilter f) {
-	if (f != null && f.isWellFormed())
+	if (f != null && f.isWellFormed()) {
 	    filters().add(f);
+	}
     }
 
     /**
@@ -230,8 +248,9 @@ public class ServiceRequest extends FinalizedResource {
      */
     public void addAggregatingOutputBinding(ProcessOutput toParam,
 	    AggregatingFilter f) {
-	if (toParam != null && f != null)
+	if (toParam != null && f != null) {
 	    theResult().addAggregatingOutputBinding(toParam, f);
+	}
     }
 
     /**
@@ -240,9 +259,10 @@ public class ServiceRequest extends FinalizedResource {
      * <code>ppath</code> to the given <code>value</code>.
      */
     public void addChangeEffect(String[] ppath, Object value) {
-	if (ppath != null && value != null)
+	if (ppath != null && value != null) {
 	    theResult().addChangeEffect(new PropertyPath(null, true, ppath),
 		    value);
+	}
     }
 
     /**
@@ -251,8 +271,9 @@ public class ServiceRequest extends FinalizedResource {
      * <code>ppath</code>.
      */
     public void addRemoveEffect(String[] ppath) {
-	if (ppath != null)
+	if (ppath != null) {
 	    theResult().addRemoveEffect(new PropertyPath(null, true, ppath));
+	}
     }
 
     /**
@@ -262,9 +283,10 @@ public class ServiceRequest extends FinalizedResource {
      * <code>sourceProp</code>.
      */
     public void addRequiredOutput(String paramURI, String[] fromProp) {
-	if (paramURI != null && fromProp != null && fromProp.length > 0)
+	if (paramURI != null && fromProp != null && fromProp.length > 0) {
 	    theResult().addSimpleOutputBinding(new ProcessOutput(paramURI),
 		    new PropertyPath(null, true, fromProp));
+	}
     }
 
     /**
@@ -275,9 +297,10 @@ public class ServiceRequest extends FinalizedResource {
      */
     public void addSimpleOutputBinding(ProcessOutput toParam,
 	    String[] sourceProp) {
-	if (toParam != null && sourceProp != null)
+	if (toParam != null && sourceProp != null) {
 	    theResult().addSimpleOutputBinding(toParam,
 		    new PropertyPath(null, true, sourceProp));
+	}
     }
 
     /**
@@ -315,8 +338,18 @@ public class ServiceRequest extends FinalizedResource {
      * {@link #addAggregatingFilter(AggregatingFilter)}. The service bus will be
      * the main user of this method.
      */
-    public List getFilters() {
-	return (List) props.get(PROP_AGGREGATING_FILTER);
+    @SuppressWarnings( { "unchecked", "rawtypes" })
+    public List<AggregatingFilter> getFilters() {
+	Object propAggregatingFilterList = props.get(PROP_AGGREGATING_FILTER);
+	if (propAggregatingFilterList instanceof List<?>) {
+	    List aggregatingFilterList = (List) propAggregatingFilterList;
+	    if (aggregatingFilterList.isEmpty()) {
+		return aggregatingFilterList;
+	    } else if (aggregatingFilterList.get(0) instanceof AggregatingFilter) {
+		return (List<AggregatingFilter>) propAggregatingFilterList;
+	    }
+	}
+	return new LinkedList<AggregatingFilter>();
     }
 
     /**
@@ -334,8 +367,8 @@ public class ServiceRequest extends FinalizedResource {
     public Resource[] getRequiredEffects() {
 	ProcessResult pr = (ProcessResult) props
 		.get(PROP_REQUIRED_PROCESS_RESULT);
-	List effects = (pr == null) ? null : pr.getEffects();
-	return (effects == null) ? new Resource[0] : (Resource[]) effects
+	List effects = pr == null ? null : pr.getEffects();
+	return effects == null ? new Resource[0] : (Resource[]) effects
 		.toArray(new Resource[effects.size()]);
     }
 
@@ -346,8 +379,8 @@ public class ServiceRequest extends FinalizedResource {
     public Resource[] getRequiredOutputs() {
 	ProcessResult pr = (ProcessResult) props
 		.get(PROP_REQUIRED_PROCESS_RESULT);
-	List bindings = (pr == null) ? null : pr.getBindings();
-	return (bindings == null) ? new Resource[0] : (Resource[]) bindings
+	List bindings = pr == null ? null : pr.getBindings();
+	return bindings == null ? new Resource[0] : (Resource[]) bindings
 		.toArray(new Resource[bindings.size()]);
     }
 
@@ -358,11 +391,12 @@ public class ServiceRequest extends FinalizedResource {
     public List getOutputAggregations() {
 	Resource[] bindings = getRequiredOutputs();
 	List result = new ArrayList(bindings.length);
-	for (int i = 0; i < bindings.length; i++) {
-	    Object o = bindings[i]
+	for (Resource binding : bindings) {
+	    Object o = binding
 		    .getProperty(OutputBinding.PROP_OWLS_BINDING_VALUE_FUNCTION);
-	    if (o instanceof AggregatingFilter)
+	    if (o instanceof AggregatingFilter) {
 		result.add(o);
+	    }
 	}
 	return result;
     }
@@ -370,6 +404,7 @@ public class ServiceRequest extends FinalizedResource {
     /**
      * @see Resource#getPropSerializationType(String)
      */
+    @Override
     public int getPropSerializationType(String propURI) {
 	return PROP_uAAL_INVOLVED_HUMAN_USER.equals(propURI) ? PROP_SERIALIZATION_REDUCED
 		: PROP_SERIALIZATION_FULL;
@@ -378,6 +413,7 @@ public class ServiceRequest extends FinalizedResource {
     /**
      * @see Resource#isWellFormed()
      */
+    @Override
     public boolean isWellFormed() {
 	return props.containsKey(PROP_REQUESTED_SERVICE);
     }
@@ -386,49 +422,60 @@ public class ServiceRequest extends FinalizedResource {
      * Overrides {@link Resource#setProperty(String, Object)}. Main user of this
      * method are the de-serializers.
      */
-    public void setProperty(String propURI, Object value) {
-	if (propURI == null || value == null || props.containsKey(propURI))
-	    return;
+    @Override
+    public boolean setProperty(String propURI, Object value) {
+	if (propURI == null || value == null || props.containsKey(propURI)) {
+	    return false;
+	}
 
-	if (propURI.equals(PROP_AGGREGATING_FILTER) && value instanceof List)
+	if (propURI.equals(PROP_AGGREGATING_FILTER) && value instanceof List) {
 	    for (Iterator i = ((List) value).iterator(); i.hasNext();) {
 		Object o = i.next();
 		if (!(o instanceof AggregatingFilter)
-			|| !((AggregatingFilter) o).isWellFormed())
-		    return;
+			|| !((AggregatingFilter) o).isWellFormed()) {
+		    return false;
+		}
 	    }
-	else if (propURI.equals(PROP_REQUIRED_PROCESS_RESULT))
+	} else if (propURI.equals(PROP_REQUIRED_PROCESS_RESULT)) {
 	    if (value instanceof ProcessResult) {
-		if (!((ProcessResult) value).isWellFormed())
-		    return;
+		if (!((ProcessResult) value).isWellFormed()) {
+		    return false;
+		}
 	    } else if (value instanceof Resource) {
 		value = ProcessResult.toResult((Resource) value);
-		if (value == null)
-		    return;
-	    } else
-		return;
-	else if (propURI.equals(PROP_uAAL_INVOLVED_HUMAN_USER)) {
+		if (value == null) {
+		    return false;
+		}
+	    } else {
+		return false;
+	    }
+	} else if (propURI.equals(PROP_uAAL_INVOLVED_HUMAN_USER)) {
 	    if (value instanceof String
-		    && Resource.isQualifiedName((String) value))
+		    && Resource.isQualifiedName((String) value)) {
 		value = new Resource((String) value);
-	    else if (!(value instanceof Resource)
-		    || ((Resource) value).isAnon())
-		return;
+	    } else if (!(value instanceof Resource)
+		    || ((Resource) value).isAnon()) {
+		return false;
+	    }
 	} else if (propURI.equals(PROP_uAAL_SERVICE_CALLER)) {
 	    if (value instanceof String
-		    && Resource.isQualifiedName((String) value))
+		    && Resource.isQualifiedName((String) value)) {
 		value = new Resource((String) value);
-	    else {
-		if (!(value instanceof Resource) || ((Resource) value).isAnon())
-		    return;
-		if (((Resource) value).numberOfProperties() > 0)
+	    } else {
+		if (!(value instanceof Resource) || ((Resource) value).isAnon()) {
+		    return false;
+		}
+		if (((Resource) value).numberOfProperties() > 0) {
 		    value = new Resource(((Resource) value).getURI());
+		}
 	    }
 	} else if (!propURI.equals(PROP_REQUESTED_SERVICE)
-		|| !(value instanceof Service))
-	    return;
+		|| !(value instanceof Service)) {
+	    return false;
+	}
 
 	props.put(propURI, value);
+	return true;
     }
 
     private ProcessResult theResult() {
@@ -439,5 +486,61 @@ public class ServiceRequest extends FinalizedResource {
 	    props.put(PROP_REQUIRED_PROCESS_RESULT, pr);
 	}
 	return pr;
+    }
+
+    /**
+     * @see #matches(Advertisement)
+     */
+    public boolean matches(Matchable other) {
+	return false;
+    }
+
+    /**
+     * Will never match (any matching advertisement would be of a (sub)-Type of
+     * {@link UtilityAdvertisement}), so <tt>false</tt> is returned.
+     * 
+     * @param advertisement
+     *            the advertisement to be matched against
+     * @return <tt>false</tt> as described above
+     */
+    public boolean matches(Advertisement advertisement) {
+	return false;
+    }
+
+    /**
+     * Switches over different types of {@link UtilityAdvertisement}, calls the
+     * appropriate methods for each type.
+     * 
+     * @param advertisement
+     *            the advertisement to be matched against
+     * @return <tt>true</tt> if the advertisement matches, <tt>false</tt> if not
+     */
+    public boolean matches(UtilityAdvertisement advertisement) {
+	if (advertisement instanceof ServiceProfile) {
+	    return isMatchingServiceProfile((ServiceProfile) advertisement);
+	} else {
+	    return false;
+	}
+    }
+
+    private boolean isMatchingServiceProfile(ServiceProfile advertisement) {
+	// TODO unimplemented method stub
+	return false;
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean matches(ServiceRequest other) {
+	boolean matches = true;
+	for (Object current : Collections.list(getPropertyURIs())) {
+	    String propertyURI = (String) current;
+	    Object thisProperty = getProperty(propertyURI);
+	    Object otherProperty = other.getProperty(propertyURI);
+
+	    // TODO add good matching algorithm, not that shit!
+	    if (!thisProperty.equals(otherProperty)) {
+		matches = false;
+	    }
+	}
+	return matches;
     }
 }

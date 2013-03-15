@@ -29,82 +29,54 @@ package org.universAAL.middleware.context;
  */
 public interface ContextBus {
     /**
-     * Allows a Context Subscriber to register to events in the bus that match
-     * the given patterns
+     * Allows the members of the context bus to provide registration parameters;
+     * for the meaning of the provided "registration parameters" see the
+     * explanation for the input parameter <code>registrParams</code>.
      * 
-     * @param subscriberID
-     *            The ID of the subscriber, received when registered to the bus
-     * @param newSubscriptions
-     *            An array of ConntextEventPattern containing the restrictions
-     *            on Context Events that define the patterns to register to
+     * @param memberID
+     *            The ID of the subscriber or publisher registered to the
+     *            context bus
+     * @param registrParams
+     *            If the memberID refers to a context subscriber,
+     *            <code>registrParams</code> will be interpreted as the patterns
+     *            of the context events to which the subscriber wants to
+     *            subscribe, and if the memberID refers to a context publisher,
+     *            it will be interpreted as the patterns of the context events
+     *            that the publisher will publish
      */
-    public void addNewRegParams(String subscriberID,
-	    ContextEventPattern[] newSubscriptions);
+    public void addNewRegParams(String memberID,
+	    ContextEventPattern[] registrParams);
 
     /**
      * Returns all provisions registered by all {@link ContextPublisher}s on all
      * instances of this bus in the current AAL Space. Only
-     * {@link ContextSubscriber}s are allowed to call this method, hence they
+     * {@link ContextPublisher}s are allowed to call this method, hence they
      * must provide their member-ID so that the bus can check this.
      */
-    public ContextEventPattern[] getAllProvisions(String subscriberID);
+    public ContextEventPattern[] getAllProvisions(String publisherID);
 
     /**
-     * Register a ContextPublisher into the Context Bus
-     * 
-     * @param publisher
-     *            the Context Publisher to register
-     * @param providedEvents
-     *            the classes of context events that this publisher is going to
-     *            publish.
-     * @return The ID of the Context Publisher within the bus
+     * Removes registration parameters introduced previously through
+     * {@link #addNewRegParams(String, ContextEventPattern[])}.
      */
-    public String register(ContextPublisher publisher,
-	    ContextEventPattern[] providedEvents);
-
-    /**
-     * Register a Context Subscriber into the Context Bus and immediately
-     * register for certain patterns of Context Events
-     * 
-     * @param subscriber
-     *            the Context Subscriber to register
-     * @param initialSubscriptions
-     *            An array of ConntextEventPattern containing the restrictions
-     *            on Context Events that define the patterns to register to
-     * @return The ID of the Context Publisher within the bus
-     */
-    public String register(ContextSubscriber subscriber,
-	    ContextEventPattern[] initialSubscriptions);
-
-    /**
-     * Remove the patterns of Context Events that a Context Subscriber is
-     * interested in, so it no longer receives Events matching them
-     * 
-     * @param subscriberID
-     *            ID of the Subscriber, received when registered
-     * @param oldSubscriptions
-     *            An array of ConntextEventPattern containing the restrictions
-     *            on Context Events that define the patterns to unregister. Must
-     *            be equal to those registered at first.
-     */
-    public void removeMatchingRegParams(String subscriberID,
-	    ContextEventPattern[] oldSubscriptions);
+    public void removeMatchingRegParams(String memberID,
+	    ContextEventPattern[] oldRegistrParams);
 
     /**
      * Send a Context Event through the Context Bus
      * 
      * @param publisherID
-     *            ID of the Publisher, received when registered.
+     *            ID of the Publisher registered to the context bus
      * @param event
      *            Context Event to forward through the bus
      */
-    public void sendMessage(String publisherID, ContextEvent event);
+    public void brokerContextEvent(String publisherID, ContextEvent event);
 
     /**
      * Unregister a Context Publisher from the Context Bus
      * 
      * @param publisherID
-     *            ID of the Publisher, received when registered.
+     *            ID of the Publisher registered to the context bus
      * @param publisher
      *            The Publisher to unregister.
      */
@@ -114,7 +86,7 @@ public interface ContextBus {
      * Unregister a Context Subscriber from the Context Bus
      * 
      * @param subscriberID
-     *            ID of the Subscriber, received when registered.
+     *            ID of the Subscriber registered to the context bus
      * @param subscriber
      *            The Subscriber to unregister.
      */

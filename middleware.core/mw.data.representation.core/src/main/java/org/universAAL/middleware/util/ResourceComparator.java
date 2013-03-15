@@ -209,6 +209,10 @@ public class ResourceComparator {
 		    r1.getClass().getName(), " <-> ", r2.getClass().getName() });
 	} else if (differ(1, r1, r2)) {
 	    // do nothing
+	    // s.push("\nFirst Resource:\n");
+	    // s.push(r1.toStringRecursive());
+	    // s.push("\nSecond Resource:\n");
+	    // s.push(r2.toStringRecursive());
 	} else
 	    s.push("  No diffs found!");
 

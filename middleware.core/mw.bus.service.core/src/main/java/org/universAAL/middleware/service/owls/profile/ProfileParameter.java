@@ -117,33 +117,40 @@ public abstract class ProfileParameter extends FinalizedResource {
 		.get(PROP_uAAL_PARAMETER_VALUE_DATA) != null);
     }
 
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI != null && value != null && !props.containsKey(propURI))
 	    if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
-		if (value instanceof String)
+		if (value instanceof String) {
 		    props.put(propURI, value);
+		    return true;
+		}
 	    } else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
 		if (props.containsKey(PROP_uAAL_PARAMETER_VALUE_DATA))
-		    return;
-		if (value instanceof Resource)
+		    return false;
+		if (value instanceof Resource) {
 		    props.put(propURI, value);
-		else if (value instanceof List && !((List) value).isEmpty()) {
+		    return true;
+		} else if (value instanceof List && !((List) value).isEmpty()) {
 		    for (Iterator i = ((List) value).iterator(); i.hasNext();)
 			if (!(i.next() instanceof Resource))
-			    return;
+			    return false;
 		    props.put(propURI, value);
+		    return true;
 		}
 	    } else if (propURI.equals(PROP_uAAL_PARAMETER_VALUE_DATA)) {
 		if (props.containsKey(PROP_OWLS_PROFILE_S_PARAMETER))
-		    return;
-		if (TypeMapper.getDatatypeURI(value) != null)
+		    return false;
+		if (TypeMapper.getDatatypeURI(value) != null) {
 		    props.put(propURI, value);
-		else if (value instanceof List && !((List) value).isEmpty()) {
+		    return true;
+		} else if (value instanceof List && !((List) value).isEmpty()) {
 		    for (Iterator i = ((List) value).iterator(); i.hasNext();)
 			if (TypeMapper.getDatatypeURI(i.next()) == null)
-			    return;
+			    return false;
 		    props.put(propURI, value);
+		    return true;
 		}
 	    }
+	return false;
     }
 }

@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.bus.model.matchable.Response;
+import org.universAAL.middleware.bus.model.matchable.UtilityReply;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 
 /**
@@ -37,7 +37,8 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  */
-public class ServiceResponse extends FinalizedResource {
+public class ServiceResponse extends FinalizedResource implements Response,
+	UtilityReply {
 
     /**
      * A resource URI that specifies the resource as a service response.
@@ -159,13 +160,6 @@ public class ServiceResponse extends FinalizedResource {
     public List getOutput(String paramURI, boolean asMergedList) {
 	List outputs = getOutputs();
 	if (outputs == null || outputs.size() == 0) {
-	    LogUtils
-		    .logWarn(
-			    ServiceBusImpl.moduleContext,
-			    ServiceResponse.class,
-			    "getOutput",
-			    new Object[] { "The response contains no output parameters!" },
-			    null);
 	    return null;
 	}
 
@@ -230,21 +224,26 @@ public class ServiceResponse extends FinalizedResource {
      * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
      *      java.lang.Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI == null || value == null || props.containsKey(propURI))
-	    return;
+	    return false;
 	if (propURI.equals(PROP_SERVICE_CALL_STATUS)) {
 	    if (!(value instanceof CallStatus))
 		if (value instanceof Resource || value instanceof String)
 		    value = CallStatus.valueOf(value.toString());
 		else
-		    return;
-	    if (value != null)
+		    return false;
+	    if (value != null) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else if (propURI.equals(PROP_SERVICE_HAS_OUTPUT)) {
 	    value = ProcessOutput.checkParameterList(value);
-	    if (value != null)
+	    if (value != null) {
 		props.put(propURI, value);
+		return true;
+	    }
 	}
+	return false;
     }
 }

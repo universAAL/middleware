@@ -104,16 +104,16 @@ public abstract class TypeRestriction extends TypeExpression {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null)
-	    return;
+	    return false;
 
 	// do not handle our properties
 	if (PROP_OWL_ON_DATATYPE.equals(propURI))
-	    return;
+	    return false;
 	if (PROP_OWL_WITH_RESTRICTIONS.equals(propURI))
-	    return;
+	    return false;
 
-	super.setProperty(propURI, o);
+	return super.setProperty(propURI, o);
     }
 }

@@ -20,23 +20,27 @@
 package org.universAAL.middleware.service.owls.profile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.bus.model.matchable.Matchable;
+import org.universAAL.middleware.bus.model.matchable.Request;
+import org.universAAL.middleware.bus.model.matchable.Requirement;
+import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
+import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.owl.OntClassInfo;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.service.impl.ServiceBusImpl;
+import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.process.ProcessResult;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * A "registration parameter" as accepted by the service bus of the uAAL
@@ -60,7 +64,8 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
  *         Tazari</a>
  * 
  */
-public class ServiceProfile extends FinalizedResource {
+public class ServiceProfile extends FinalizedResource implements
+	UtilityAdvertisement {
     public static final String OWLS_PROFILE_NAMESPACE = Service.OWLS_NAMESPACE_PREFIX
 	    + "Profile.owl#";
     public static final String MY_URI = OWLS_PROFILE_NAMESPACE + "Profile";
@@ -261,9 +266,10 @@ public class ServiceProfile extends FinalizedResource {
 		&& !nonFunctionalParams
 			.containsKey(subPropertyOfServiceParameter)
 		&& ProfileParameter.class
-			.isAssignableFrom(subclassOfProfileParameter))
+			.isAssignableFrom(subclassOfProfileParameter)) {
 	    nonFunctionalParams.put(subPropertyOfServiceParameter,
 		    subclassOfProfileParameter);
+	}
     }
 
     /**
@@ -297,19 +303,22 @@ public class ServiceProfile extends FinalizedResource {
      */
     public ServiceProfile(Service s, String processURI) {
 	super();
-	if (s == null || processURI == null)
+	if (s == null || processURI == null) {
 	    throw new NullPointerException("Parameter null!");
+	}
 	addType(MY_URI, true);
 	props.put(Service.PROP_OWLS_PRESENTED_BY, s);
 	setProperty(PROP_OWLS_PROFILE_HAS_PROCESS, processURI);
 	OntClassInfo oci = OntologyManagement.getInstance().getOntClassInfo(
 		s.getClassURI());
 	String aux = oci == null ? "" : oci.getResourceLabel();
-	if (aux != null)
+	if (aux != null) {
 	    props.put(PROP_OWLS_PROFILE_SERVICE_NAME, aux);
+	}
 	aux = oci == null ? "" : oci.getResourceComment();
-	if (aux != null)
+	if (aux != null) {
 	    props.put(PROP_OWLS_PROFILE_TEXT_DESCRIPTION, aux);
+	}
     }
 
     /**
@@ -319,9 +328,10 @@ public class ServiceProfile extends FinalizedResource {
      * property.
      */
     public void addAddEffect(String[] ppath, Object value) {
-	if (ppath != null && value != null)
+	if (ppath != null && value != null) {
 	    theResult()
 		    .addAddEffect(new PropertyPath(null, true, ppath), value);
+	}
     }
 
     /**
@@ -330,9 +340,10 @@ public class ServiceProfile extends FinalizedResource {
      * given <code>value</code>.
      */
     public void addChangeEffect(String[] ppath, Object value) {
-	if (ppath != null && value != null)
+	if (ppath != null && value != null) {
 	    theResult().addChangeEffect(new PropertyPath(null, true, ppath),
 		    value);
+	}
     }
 
     /**
@@ -343,9 +354,10 @@ public class ServiceProfile extends FinalizedResource {
      */
     public void addClassConversionOutputBinding(ProcessOutput toParam,
 	    String[] sourceProp, TypeURI targetClass) {
-	if (toParam != null && sourceProp != null && targetClass != null)
+	if (toParam != null && sourceProp != null && targetClass != null) {
 	    theResult().addClassConversionOutputBinding(toParam,
 		    new PropertyPath(null, true, sourceProp), targetClass);
+	}
     }
 
     /**
@@ -353,8 +365,9 @@ public class ServiceProfile extends FinalizedResource {
      * parameters.
      */
     public void addInput(ProcessInput in) {
-	if (in != null)
+	if (in != null) {
 	    inputs().add(in);
+	}
     }
 
     /**
@@ -365,9 +378,10 @@ public class ServiceProfile extends FinalizedResource {
      */
     public void addLangConversionOutputBinding(ProcessOutput toParam,
 	    String[] sourceProp, String targetLang) {
-	if (toParam != null && sourceProp != null && targetLang != null)
+	if (toParam != null && sourceProp != null && targetLang != null) {
 	    theResult().addLangConversionOutputBinding(toParam,
 		    new PropertyPath(null, true, sourceProp), targetLang);
+	}
     }
 
     /**
@@ -375,8 +389,9 @@ public class ServiceProfile extends FinalizedResource {
      * parameters.
      */
     public void addOutput(ProcessOutput out) {
-	if (out != null)
+	if (out != null) {
 	    outputs().add(out);
+	}
     }
 
     /**
@@ -384,8 +399,9 @@ public class ServiceProfile extends FinalizedResource {
      * value of the property reachable by the given <code>ppath</code>.
      */
     public void addRemoveEffect(String[] ppath) {
-	if (ppath != null)
+	if (ppath != null) {
 	    theResult().addRemoveEffect(new PropertyPath(null, true, ppath));
+	}
     }
 
     /**
@@ -395,9 +411,10 @@ public class ServiceProfile extends FinalizedResource {
      */
     public void addSimpleOutputBinding(ProcessOutput toParam,
 	    String[] sourceProp) {
-	if (toParam != null && sourceProp != null)
+	if (toParam != null && sourceProp != null) {
 	    theResult().addSimpleOutputBinding(toParam,
 		    new PropertyPath(null, true, sourceProp));
+	}
     }
 
     /**
@@ -408,9 +425,10 @@ public class ServiceProfile extends FinalizedResource {
      */
     public void addUnitConversionOutputBinding(ProcessOutput toParam,
 	    String[] sourceProp, String targetUnit) {
-	if (toParam != null && sourceProp != null && targetUnit != null)
+	if (toParam != null && sourceProp != null && targetUnit != null) {
 	    theResult().addUnitConversionOutputBinding(toParam,
 		    new PropertyPath(null, true, sourceProp), targetUnit);
+	}
     }
 
     /**
@@ -420,8 +438,8 @@ public class ServiceProfile extends FinalizedResource {
     public Resource[] getEffects() {
 	ProcessResult pr = (ProcessResult) props
 		.get(PROP_OWLS_PROFILE_HAS_RESULT);
-	List effects = (pr == null) ? null : pr.getEffects();
-	return (effects == null) ? new Resource[0] : (Resource[]) effects
+	List effects = pr == null ? null : pr.getEffects();
+	return effects == null ? new Resource[0] : (Resource[]) effects
 		.toArray(new Resource[effects.size()]);
     }
 
@@ -431,21 +449,22 @@ public class ServiceProfile extends FinalizedResource {
      */
     public Iterator getInputs() {
 	List answer = (List) props.get(PROP_OWLS_PROFILE_HAS_INPUT);
-	return (answer == null) ? new ArrayList(0).iterator() : answer
-		.iterator();
+	return answer == null ? new ArrayList(0).iterator() : answer.iterator();
     }
 
     public int getNumberOfInputs() {
 	List answer = (List) props.get(PROP_OWLS_PROFILE_HAS_INPUT);
-	return (answer == null) ? 0 : answer.size();
+	return answer == null ? 0 : answer.size();
     }
 
     public int getNumberOfMandatoryInputs() {
 	int result = 0;
 	Iterator i = getInputs();
-	while (i.hasNext())
-	    if (((ProcessInput) i.next()).getMinCardinality() > 0)
+	while (i.hasNext()) {
+	    if (((ProcessInput) i.next()).getMinCardinality() > 0) {
 		result++;
+	    }
+	}
 	return result;
     }
 
@@ -455,8 +474,7 @@ public class ServiceProfile extends FinalizedResource {
      */
     public Iterator getOutputs() {
 	List answer = (List) props.get(PROP_OWLS_PROFILE_HAS_OUTPUT);
-	return (answer == null) ? new ArrayList(0).iterator() : answer
-		.iterator();
+	return answer == null ? new ArrayList(0).iterator() : answer.iterator();
     }
 
     /**
@@ -466,8 +484,8 @@ public class ServiceProfile extends FinalizedResource {
     public Resource[] getOutputBindings() {
 	ProcessResult pr = (ProcessResult) props
 		.get(PROP_OWLS_PROFILE_HAS_RESULT);
-	List bindings = (pr == null) ? null : pr.getBindings();
-	return (bindings == null) ? new Resource[0] : (Resource[]) bindings
+	List bindings = pr == null ? null : pr.getBindings();
+	return bindings == null ? new Resource[0] : (Resource[]) bindings
 		.toArray(new Resource[bindings.size()]);
     }
 
@@ -545,83 +563,165 @@ public class ServiceProfile extends FinalizedResource {
     /**
      * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,java.lang.Object)
      */
-    public void setProperty(String propURI, Object value) {
+    @Override
+    public boolean setProperty(String propURI, Object value) {
 	// the only changeable props are the sub-properties of OWL-S
 	// profile:serviceParameter
-	if (propURI == null
-		|| value == null
-		|| (!(value instanceof ProfileParameter) && props
-			.containsKey(propURI)))
-	    return;
+	if (propURI == null || value == null
+		|| !(value instanceof ProfileParameter)
+		&& props.containsKey(propURI)) {
+	    return false;
+	}
 	if (Service.PROP_OWLS_PRESENTED_BY.equals(propURI)) {
-	    if (value instanceof Service)
+	    if (value instanceof Service) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else if (PROP_OWLS_PROFILE_SERVICE_NAME.equals(propURI)
 		|| PROP_OWLS_PROFILE_TEXT_DESCRIPTION.equals(propURI)) {
-	    if (value instanceof String)
+	    if (value instanceof String) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else if (PROP_OWLS_PROFILE_HAS_PROCESS.equals(propURI)) {
-	    if (value instanceof String)
+	    if (value instanceof String) {
 		value = new Resource((String) value);
-	    else if (!(value instanceof Resource)
-		    || ((Resource) value).numberOfProperties() != 0)
-		return;
+	    } else if (!(value instanceof Resource)
+		    || ((Resource) value).numberOfProperties() != 0) {
+		return false;
+	    }
 	    if (!((Resource) value).isAnon()
-		    && Resource.isQualifiedName(((Resource) value).getURI()))
+		    && Resource.isQualifiedName(((Resource) value).getURI())) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else if (PROP_OWLS_PROFILE_HAS_INPUT.equals(propURI)) {
 	    value = ProcessInput.checkParameterList(value);
-	    if (value == null)
-		return;
+	    if (value == null) {
+		return false;
+	    }
 	    props.put(propURI, value);
+	    return true;
 	} else if (PROP_OWLS_PROFILE_HAS_OUTPUT.equals(propURI)) {
 	    value = ProcessOutput.checkParameterList(value);
-	    if (value == null)
-		return;
+	    if (value == null) {
+		return false;
+	    }
 	    props.put(propURI, value);
+	    return true;
 	} else if (PROP_OWLS_PROFILE_HAS_RESULT.equals(propURI)) {
 	    if (value instanceof ProcessResult) {
-		if (!((ProcessResult) value).isWellFormed())
-		    return;
+		if (!((ProcessResult) value).isWellFormed()) {
+		    return false;
+		}
 	    } else if (value instanceof Resource) {
 		value = ProcessResult.toResult((Resource) value);
-		if (value == null)
-		    return;
-	    } else
-		return;
+		if (value == null) {
+		    return false;
+		}
+	    } else {
+		return false;
+	    }
 	    props.put(propURI, value);
+	    return true;
 	} else if (value instanceof ProfileParameter
 		&& ((ProfileParameter) value).isWellFormed()) {
 	    Class subclassOfProfileParameter = (Class) nonFunctionalParams
 		    .get(propURI);
 	    if (subclassOfProfileParameter != null
 		    && subclassOfProfileParameter.isAssignableFrom(value
-			    .getClass()))
+			    .getClass())) {
 		props.put(propURI, value);
+		return true;
+	    }
 	}
+	return false;
     }
 
     /**
      * Returns the serialized profile as String
      */
-    public String serializeProfile(ModuleContext mc) {
-	MessageContentSerializer s = (org.universAAL.middleware.sodapop.msg.MessageContentSerializer) mc
-		.getContainer().fetchSharedObject(mc,
-			ServiceBusImpl.contentSerializerParams);
-	String st = (String) s.serialize(this);
-	return st;
+    public String serializeProfile() {
+	return BusMessage.trySerializationAsContent(this);
     }
 
     /**
      * Returns the de-serialized profile
      */
-    public static ServiceProfile deserializeProfile(String turtleSP,
-	    ModuleContext mc) {
-	MessageContentSerializer s = (org.universAAL.middleware.sodapop.msg.MessageContentSerializer) mc
-		.getContainer().fetchSharedObject(mc,
-			ServiceBusImpl.contentSerializerParams);
-	Resource r = (Resource) s.deserialize(turtleSP);
-	ServiceProfile sp = (ServiceProfile) r;
-	return sp;
+    public static ServiceProfile deserializeProfile(String turtleSP) {
+
+	Object o = BusMessage.deserializeAsContent(turtleSP);
+	return o instanceof ServiceProfile ? (ServiceProfile) o : null;
+    }
+
+    /**
+     * This method is called if the caller does not have any clue about what
+     * type the Matchables have. Therefore here must an implementation of
+     * matches(ServiceProfile) be given (as matching against another instance of
+     * the same type must always be possible).
+     * 
+     * @param other
+     *            the {@link Matchable} that this instance should be matched
+     *            against
+     * @return <tt>false</tt> if <tt>other</tt> is not an instance of
+     *         {@link ServiceProfile},
+     *         {@link #isMatchingServiceProfile(ServiceProfile)} else
+     */
+    public boolean matches(Matchable other) {
+	if (other instanceof ServiceProfile) {
+	    return isMatchingServiceProfile((ServiceProfile) other);
+	} else {
+	    return false;
+	}
+    }
+
+    @SuppressWarnings("unchecked")
+    private boolean isMatchingServiceProfile(ServiceProfile other) {
+	boolean matches = true;
+	for (Object current : Collections.list(getPropertyURIs())) {
+	    String propertyURI = (String) current;
+	    Object thisProperty = getProperty(propertyURI);
+	    Object otherProperty = other.getProperty(propertyURI);
+
+	    // TODO add a good matching algorithm, not that shit!
+	    if (!thisProperty.equals(otherProperty)) {
+		matches = false;
+	    }
+	}
+	return matches;
+    }
+
+    /**
+     * This method will only be called if d is not of type {@link Request}, so
+     * the {@link ServiceProfile} will never match it and <tt>false</tt> is
+     * returned.
+     * 
+     * @param d
+     *            the requirement to be matched against
+     * @return <tt>false</tt> as mentioned above
+     */
+    public boolean matches(Requirement d) {
+	return false;
+    }
+
+    /**
+     * Switches over the types of a possibly matching {@link Request}. Calls
+     * appropriate methods for the different types.
+     * 
+     * @param r
+     *            the request to be matched
+     * @return <tt>true</tt>, if the Request matches, <tt>false</tt> if not
+     */
+    public boolean matches(Request r) {
+	if (r instanceof ServiceRequest) {
+	    return isMatchingServiceRequest((ServiceRequest) r);
+	} else {
+	    return false;
+	}
+    }
+
+    private boolean isMatchingServiceRequest(ServiceRequest r) {
+	// TODO method not implemented
+	return false;
     }
 }

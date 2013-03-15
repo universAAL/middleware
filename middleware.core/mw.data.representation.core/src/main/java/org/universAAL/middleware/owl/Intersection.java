@@ -62,15 +62,18 @@ public class Intersection extends TypeExpression {
      * @param type
      *            The class expression to add.
      */
-    public void addType(TypeExpression type) {
-	if (type != null) {
-	    if (type instanceof Intersection) {
-		for (int i = 0; i < ((Intersection) type).types.size(); i++)
-		    types.add(((Intersection) type).types.get(i));
-	    } else {
-		types.add(type);
+    public boolean addType(TypeExpression type) {
+	if (type == null)
+	    return false;
+
+	if (type instanceof Intersection) {
+	    for (int i = 0; i < ((Intersection) type).types.size(); i++) {
+		types.add(((Intersection) type).types.get(i));
 	    }
+	} else {
+	    types.add(type);
 	}
+	return true;
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
@@ -181,29 +184,33 @@ public class Intersection extends TypeExpression {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	if (PROP_OWL_INTERSECTION_OF.equals(propURI) && types.isEmpty()
-		&& o != null)
-	    if (o instanceof List)
+		&& o != null) {
+	    if (o instanceof List) {
+		boolean retVal = true;
 		for (Iterator i = ((List) o).iterator(); i.hasNext();) {
 		    o = i.next();
 		    Object tmp = TypeURI.asTypeURI(o);
 		    if (tmp != null)
 			o = tmp;
 		    if (o instanceof TypeExpression)
-			addType((TypeExpression) o);
+			retVal = retVal && addType((TypeExpression) o);
 		    else {
 			types.clear();
 			break;
 		    }
 		}
-	    else {
+		return retVal;
+	    } else {
 		Object tmp = TypeURI.asTypeURI(o);
 		if (tmp != null)
 		    o = tmp;
 		if (o instanceof TypeExpression)
-		    addType((TypeExpression) o);
+		    return addType((TypeExpression) o);
 	    }
+	}
+	return false;
     }
 
     /** Get an iterator for the added child class expressions. */

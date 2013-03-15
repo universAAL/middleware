@@ -480,7 +480,7 @@ public class ServiceRealization extends FinalizedResource {
 			    if (logID != null)
 				LogUtils
 					.logTrace(
-						ServiceBusImpl.moduleContext,
+						ServiceBusImpl.getModuleContext(),
 						ServiceRealization.class,
 						"matches",
 						new Object[] {
@@ -513,7 +513,7 @@ public class ServiceRealization extends FinalizedResource {
 			if (logID != null)
 			    LogUtils
 				    .logTrace(
-					    ServiceBusImpl.moduleContext,
+					    ServiceBusImpl.getModuleContext(),
 					    ServiceRealization.class,
 					    "matches",
 					    new Object[] {
@@ -547,7 +547,7 @@ public class ServiceRealization extends FinalizedResource {
 			    if (logID != null)
 				LogUtils
 					.logTrace(
-						ServiceBusImpl.moduleContext,
+						ServiceBusImpl.getModuleContext(),
 						ServiceRealization.class,
 						"matches",
 						new Object[] {
@@ -595,7 +595,7 @@ public class ServiceRealization extends FinalizedResource {
 	} catch (Exception ex) {
 	    LogUtils
 		    .logDebug(
-			    ServiceBusImpl.moduleContext,
+			    ServiceBusImpl.getModuleContext(),
 			    ServiceRealization.class,
 			    "matches",
 			    new Object[] { "Exception occured when trying to get non-semantic parameters from AapiServiceRequest" },
@@ -734,13 +734,16 @@ public class ServiceRealization extends FinalizedResource {
      * @param Object
      *            value - the value of the property to set
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI == null || value == null || props.containsKey(propURI))
-	    return;
+	    return false;
 	if ((propURI.equals(uAAL_SERVICE_PROFILE)
 		&& value instanceof ServiceProfile && ((ServiceProfile) value)
 		.isWellFormed())
-		|| (propURI.equals(uAAL_SERVICE_PROVIDER) && value instanceof String))
+		|| (propURI.equals(uAAL_SERVICE_PROVIDER) && value instanceof String)) {
 	    props.put(propURI, value);
+	    return true;
+	}
+	return false;
     }
 }

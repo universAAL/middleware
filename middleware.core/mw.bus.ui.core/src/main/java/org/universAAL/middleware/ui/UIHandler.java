@@ -22,13 +22,13 @@ package org.universAAL.middleware.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.Callee;
+import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.sodapop.Bus;
-import org.universAAL.middleware.sodapop.Callee;
-import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
 
 /**
@@ -36,23 +36,13 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * code. Only instances of this class can handle UI requests. The convention of
  * the UI bus regarding the registration parameters is the following:
  * <ul>
- * <li>UI Handlers provide at the registration time info about themselves, but
- * this info can also be updated in the future if there is a need</li>
+ * <li>UI Handlers provide only at the registration time info about themselves</li>
  * </ul>
  * 
  * @author mtazari
  * 
  */
-public abstract class UIHandler implements Callee {
-
-    /** The bus. */
-    private UIBus bus;
-
-    /** The this callee context. */
-    private ModuleContext thisCalleeContext;
-
-    /** The local id. */
-    private String myID, localID;
+public abstract class UIHandler extends Callee {
 
     private List realizedHandlerProfiles;
 
@@ -66,16 +56,13 @@ public abstract class UIHandler implements Callee {
      */
     protected UIHandler(ModuleContext context,
 	    UIHandlerProfile initialSubscription) {
-	thisCalleeContext = context;
-	bus = (UIBus) context.getContainer().fetchSharedObject(context,
-		UIBusImpl.busFetchParams);
-	myID = bus.register(this, initialSubscription);
-	localID = myID.substring(myID.lastIndexOf('#') + 1);
+	super(context, UIBusImpl.getUIBusFetchParams());
 
-	if (this.realizedHandlerProfiles == null) {
-	    this.realizedHandlerProfiles = new ArrayList();
+	this.realizedHandlerProfiles = new ArrayList();
+	if (initialSubscription != null) {
+	    this.realizedHandlerProfiles.add(initialSubscription);
+	    ((UIBus) theBus).addNewProfile(busResourceURI, initialSubscription);
 	}
-	this.realizedHandlerProfiles.add(initialSubscription);
     }
 
     /**
@@ -98,7 +85,7 @@ public abstract class UIHandler implements Callee {
      *            the new subscription
      */
     public final void addNewRegParams(UIHandlerProfile newSubscription) {
-	bus.addNewRegParams(myID, newSubscription);
+	((UIBus) theBus).addNewProfile(busResourceURI, newSubscription);
 	this.realizedHandlerProfiles.add(newSubscription);
     }
 
@@ -109,8 +96,8 @@ public abstract class UIHandler implements Callee {
      *            the bus
      * @see org.universAAL.middleware.sodapop.BusMember#busDyingOut(Bus)
      */
-    public final void busDyingOut(Bus b) {
-	if (b == bus)
+    public final void busDyingOut(AbstractBus b) {
+	if (b == theBus)
 	    communicationChannelBroken();
     }
 
@@ -118,7 +105,7 @@ public abstract class UIHandler implements Callee {
      * Unregisters the UI Handler from the UI Bus.
      */
     public void close() {
-	bus.unregister(myID, this);
+	theBus.unregister(busResourceURI, this);
     }
 
     /**
@@ -143,17 +130,7 @@ public abstract class UIHandler implements Callee {
      *            the input
      */
     public final void dialogFinished(UIResponse input) {
-	bus.dialogFinished(myID, input);
-    }
-
-    /**
-     * @param m
-     *            the m
-     * @return true, if successful
-     * @see org.universAAL.middleware.sodapop.Callee#eval(Message)
-     */
-    public final boolean eval(Message m) {
-	return false;
+	((UIBus) theBus).dialogFinished(busResourceURI, input);
     }
 
     /**
@@ -161,13 +138,12 @@ public abstract class UIHandler implements Callee {
      * 
      * @param m
      *            the message
-     * @see org.universAAL.middleware.sodapop.Callee#handleRequest(Message)
+     * @see org.universAAL.middleware.bus.model.Callee#handleRequest(Message)
      */
-    public final void handleRequest(Message m) {
+    public final void handleRequest(BusMessage m) {
 	if (m.getContent() instanceof UIRequest) {
-	    LogUtils.logInfo(thisCalleeContext, UIHandler.class,
-		    "handleRequest",
-		    new Object[] { localID, " received UI request:\n",
+	    LogUtils.logInfo(owner, UIHandler.class, "handleRequest",
+		    new Object[] { busResourceURI, " received UI request:\n",
 			    m.getContentAsString() }, null);
 	    handleUICall((UIRequest) m.getContent());
 	}
@@ -189,7 +165,7 @@ public abstract class UIHandler implements Callee {
      */
     protected final void removeMatchingRegParams(
 	    UIHandlerProfile oldSubscription) {
-	bus.removeMatchingRegParams(myID, oldSubscription);
+	((UIBus) theBus).removeMatchingProfile(busResourceURI, oldSubscription);
 	this.realizedHandlerProfiles.remove(oldSubscription);
     }
 
@@ -202,7 +178,7 @@ public abstract class UIHandler implements Callee {
      *            the login location
      */
     public final void userLoggedIn(Resource user, AbsLocation loginLocation) {
-	bus.userLoggedIn(myID, user, loginLocation);
+	((UIBus) theBus).userLoggedIn(busResourceURI, user, loginLocation);
     }
 
     public List getRealizedHandlerProfiles() {
@@ -210,7 +186,7 @@ public abstract class UIHandler implements Callee {
     }
 
     public String getMyID() {
-	return myID;
+	return busResourceURI;
     }
 
 }

@@ -498,22 +498,25 @@ public class Group extends FormControl {
     /**
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_CHILDREN.equals(propURI)) {
 	    if (props.containsKey(propURI))
-		return;
+		return false;
 	    else if (value instanceof List) {
 		for (Iterator i = ((List) value).iterator(); i.hasNext();)
 		    if (!(i.next() instanceof FormControl))
-			return;
+			return false;
 		props.put(propURI, value);
+		return true;
 	    } else if (value instanceof FormControl) {
 		List l = new ArrayList(1);
 		l.add(value);
 		props.put(propURI, l);
+		return true;
 	    }
+	    return false;
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
     }
 
     boolean setValue(String[] pp, Object value,
