@@ -23,6 +23,10 @@ middleware.config/mw.pom.config/target
 middleware.core/.classpath
 middleware.core/.project
 middleware.core/.settings
+middleware.core/mw.brokers.api.core/.classpath
+middleware.core/mw.brokers.api.core/.project
+middleware.core/mw.brokers.api.core/.settings
+middleware.core/mw.brokers.api.core/target
 middleware.core/mw.bus.context.core/.classpath
 middleware.core/mw.bus.context.core/.project
 middleware.core/mw.bus.context.core/.settings
