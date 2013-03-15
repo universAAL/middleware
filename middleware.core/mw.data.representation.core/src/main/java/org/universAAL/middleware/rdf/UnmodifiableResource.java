@@ -76,11 +76,12 @@ public class UnmodifiableResource extends Resource {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	LogUtils.logDebug(SharedResources.moduleContext,
 		UnmodifiableResource.class, "setProperty",
 		new String[] { "Can not change an unmodifiable resource." },
 		null);
+	return false;
     }
 
     /**
@@ -239,7 +240,8 @@ public class UnmodifiableResource extends Resource {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#addType(String, boolean) */
-    public final void addType(String typeURI, boolean blockFurtherTypes) {
+    public final boolean addType(String typeURI, boolean blockFurtherTypes) {
+	return false;
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#getLocalName() */

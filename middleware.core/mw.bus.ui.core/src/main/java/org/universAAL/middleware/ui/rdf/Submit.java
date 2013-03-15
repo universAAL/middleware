@@ -298,33 +298,42 @@ public class Submit extends FormControl {
     /**
      * For use by de-serializers.
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_MANDATORY_INPUT.equals(propURI)) {
 	    if (l.isEmpty()) {
 		if (value instanceof List) {
+		    boolean retVal = true;
 		    for (Iterator i = ((List) value).iterator(); i.hasNext();) {
 			value = i.next();
 			if (!(value instanceof Input)) {
 			    l.clear();
-			    return;
+			    return false;
 			} else
-			    l.add(value);
+			    retVal = retVal && l.add(value);
 		    }
+		    return retVal;
 		} else if (value instanceof Input)
-		    l.add(value);
+		    return l.add(value);
 		else
-		    return;
+		    return false;
 	    }
 	} else if (PROP_SUBMISSION_ID.equals(propURI)) {
-	    if (value instanceof String && !"".equals(value))
+	    if (value instanceof String && !"".equals(value)) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else if (PROP_CONFIRMATION_MESSAGE.equals(propURI)) {
-	    if (value instanceof String && !"".equals(value))
+	    if (value instanceof String && !"".equals(value)) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else if (PROP_CONFIRMATION_TYPE.equals(propURI)) {
-	    if (value instanceof Integer)
+	    if (value instanceof Integer) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
+	return false;
     }
 }

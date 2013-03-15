@@ -19,6 +19,12 @@
  */
 package org.universAAL.middleware.context.impl;
 
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.model.BusStrategy;
+import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.msg.MessageType;
+import org.universAAL.middleware.connectors.exception.CommunicationConnectorException;
+import org.universAAL.middleware.connectors.util.ChannelMessage;
 import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -28,15 +34,9 @@ import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.context.owl.ContextBusOntology;
+import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.sodapop.AbstractBus;
-import org.universAAL.middleware.sodapop.BusMember;
-import org.universAAL.middleware.sodapop.BusStrategy;
-import org.universAAL.middleware.sodapop.SodaPop;
-import org.universAAL.middleware.sodapop.msg.Message;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
-import org.universAAL.middleware.sodapop.msg.MessageType;
 import org.universAAL.middleware.util.Constants;
 import org.universAAL.middleware.util.ResourceComparator;
 
@@ -47,166 +47,126 @@ import org.universAAL.middleware.util.ResourceComparator;
  */
 public class ContextBusImpl extends AbstractBus implements ContextBus {
 
-    public static Container container;
-    public static ModuleContext moduleContext;
-    public static Object[] busFetchParams;
-    public static Object[] busShareParams;
-    public static Object[] contentSerializerParams;
-    public static Object[] sodapopFetchParams;
-    private static MessageContentSerializer contentSerializer = null;
+    private static Object[] busFetchParams;
+    private static ContextBusImpl theContextBus;
     private static ContextBusOntology contextBusOntology = new ContextBusOntology();
 
-    public static synchronized void assessContentSerialization(Resource content) {
-	if (Constants.debugMode()) {
-	    if (contentSerializer == null) {
-		contentSerializer = (MessageContentSerializer) moduleContext
-			.getContainer().fetchSharedObject(moduleContext,
-				contentSerializerParams);
-		if (contentSerializer == null)
-		    return;
-	    }
+    public static Object[] getContextBusFetchParams() {
+	return busFetchParams.clone();
+    }
 
+    public synchronized void assessContentSerialization(Resource content) {
+	if (Constants.debugMode()) {
 	    LogUtils
 		    .logDebug(
-			    moduleContext,
+			    context,
 			    ContextBusImpl.class,
 			    "assessContentSerialization",
 			    new Object[] { "Assessing message content serialization:" },
 			    null);
 	    // System.out.println(new RuntimeException().getStackTrace()[1]);
 
-	    String str = contentSerializer.serialize(content);
+	    String str = BusMessage.trySerializationAsContent(content);
 	    LogUtils
 		    .logDebug(
-			    moduleContext,
+			    context,
 			    ContextBusImpl.class,
 			    "assessContentSerialization",
 			    new Object[] { "\n      1. serialization dump\n",
 				    str,
 				    "\n      2. deserialize & compare with the original resource\n" },
 			    null);
-	    new ResourceComparator().printDiffs(content,
-		    (Resource) contentSerializer.deserialize(str));
+	    new ResourceComparator().printDiffs(content, (Resource) BusMessage
+		    .deserializeAsContent(str));
 	}
     }
 
-    public static void startModule() {
-	OntologyManagement.getInstance().register(contextBusOntology);
-	container.shareObject(moduleContext, new ContextBusImpl(
-		(SodaPop) container.fetchSharedObject(moduleContext,
-			sodapopFetchParams)), busShareParams);
+    public static void startModule(Container c, ModuleContext mc,
+	    Object[] contextBusShareParams, Object[] contextBusFetchParams) {
+	if (theContextBus == null) {
+	    OntologyManagement.getInstance().register(contextBusOntology);
+	    theContextBus = new ContextBusImpl(mc);
+	    busFetchParams = contextBusFetchParams;
+	    c.shareObject(mc, theContextBus, contextBusShareParams);
+	}
     }
 
     public static void stopModule() {
-	OntologyManagement.getInstance().unregister(contextBusOntology);
+	if (theContextBus != null) {
+	    OntologyManagement.getInstance().unregister(contextBusOntology);
+	    theContextBus.dispose();
+	    theContextBus = null;
+	}
     }
 
-    public ContextBusImpl(SodaPop g) {
-	super(Constants.uAAL_BUS_NAME_CONTEXT, g);
+    private ContextBusImpl(ModuleContext mc) {
+	super(mc);
 	busStrategy.setBus(this);
     }
 
-    protected BusStrategy createBusStrategy(SodaPop sodapop) {
-	return new ContextStrategy(sodapop);
+    protected BusStrategy createBusStrategy(CommunicationModule commModule) {
+	return new ContextStrategy(commModule);
     }
 
-    public void addNewRegParams(String subscriberID,
-	    ContextEventPattern[] newSubscriptions) {
-	if (subscriberID != null
-		&& subscriberID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    String localID = subscriberID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length());
-	    Object o = registry.getBusMemberByID(localID);
-	    if (o instanceof ContextSubscriber && newSubscriptions != null)
+    public void addNewRegParams(String memberID,
+	    ContextEventPattern[] registrParams) {
+	if (memberID != null && registrParams != null) {
+	    Object o = registry.getBusMemberByID(memberID);
+	    if (o instanceof ContextSubscriber) {
 		((ContextStrategy) busStrategy).addRegParams(
-			(ContextSubscriber) o, newSubscriptions);
+			(ContextSubscriber) o, registrParams);
+	    } else if (o instanceof ContextPublisher) {
+		((ContextStrategy) busStrategy).addRegParams(
+			(ContextPublisher) o, registrParams);
+	    }
 	}
     }
 
-    public ContextEventPattern[] getAllProvisions(String subscriberID) {
-	if (subscriberID != null
-		&& subscriberID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    String localID = subscriberID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length());
-	    Object o = registry.getBusMemberByID(localID);
-	    if (o instanceof ContextSubscriber)
+    public ContextEventPattern[] getAllProvisions(String publisherID) {
+	if (publisherID != null) {
+	    Object o = registry.getBusMemberByID(publisherID);
+	    if (o instanceof ContextPublisher) {
 		return ((ContextStrategy) busStrategy)
-			.getAllProvisions((ContextSubscriber) o);
+			.getAllProvisions((ContextPublisher) o);
+	    }
 	}
 	return null;
     }
 
-    public String register(BusMember member) {
-	return null;
-    }
-
-    public String register(ContextPublisher publisher,
-	    ContextEventPattern[] providedEvents) {
-	String id = super.register(publisher);
-	((ContextStrategy) busStrategy).addRegParams(publisher, providedEvents);
-	return Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + id;
-    }
-
-    public String register(ContextSubscriber subscriber,
-	    ContextEventPattern[] initialSubscriptions) {
-	String id = super.register(subscriber);
-	if (initialSubscriptions != null)
-	    ((ContextStrategy) busStrategy).addRegParams(subscriber,
-		    initialSubscriptions);
-	return Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + id;
-    }
-
-    public void removeMatchingRegParams(String subscriberID,
-	    ContextEventPattern[] oldSubscriptions) {
-	if (subscriberID != null
-		&& subscriberID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    String localID = subscriberID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length());
-	    Object o = registry.getBusMemberByID(localID);
-	    if (o instanceof ContextSubscriber && oldSubscriptions != null)
+    public void removeMatchingRegParams(String memberID,
+	    ContextEventPattern[] oldRegistrParams) {
+	if (memberID != null && oldRegistrParams != null) {
+	    Object o = registry.getBusMemberByID(memberID);
+	    if (o instanceof ContextSubscriber) {
 		((ContextStrategy) busStrategy).removeMatchingRegParams(
-			(ContextSubscriber) o, oldSubscriptions);
+			(ContextSubscriber) o, oldRegistrParams);
+	    } else if (o instanceof ContextPublisher) {
+		((ContextStrategy) busStrategy).removeMatchingRegParams(
+			(ContextPublisher) o, oldRegistrParams);
+	    }
 	}
     }
 
-    public void sendMessage(String publisherID, ContextEvent msg) {
+    public void brokerContextEvent(String publisherID, ContextEvent msg) {
 	assessContentSerialization(msg);
-	if (publisherID != null
-		&& publisherID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-	    super.sendMessage(publisherID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()), new Message(MessageType.event, msg));
-    }
-
-    public void sendMessage(String senderID, Message msg) {
-    }
-
-    public void unregister(String id, BusMember member) {
+	if (publisherID != null) {
+	    super.brokerMessage(publisherID, new BusMessage(MessageType.event,
+		    msg, this));
+	}
     }
 
     public void unregister(String publisherID, ContextPublisher publisher) {
-	if (publisherID != null
-		&& publisherID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-	    super.unregister(publisherID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()), publisher);
+	super.unregister(publisherID, publisher);
+	((ContextStrategy) busStrategy).removeRegParams(publisher);
     }
 
     public void unregister(String subscriberID, ContextSubscriber subscriber) {
-	if (subscriberID != null
-		&& subscriberID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-	    super.unregister(subscriberID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()), subscriber);
+	super.unregister(subscriberID, subscriber);
 	((ContextStrategy) busStrategy).removeRegParams(subscriber);
+    }
+
+    public void handleSendError(ChannelMessage message,
+	    CommunicationConnectorException e) {
+	// TODO Auto-generated method stub
     }
 }

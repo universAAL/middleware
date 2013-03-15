@@ -192,23 +192,26 @@ public abstract class PropertyRestriction extends TypeExpression {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	// the subclasses already checked the input parameters, so they are not
 	// null
 
 	// handle owl:onProperty
 	if (PROP_OWL_ON_PROPERTY.equals(propURI)) {
-	    if (value instanceof String)
+	    if (value instanceof String) {
 		props.put(PROP_OWL_ON_PROPERTY, new Resource((String) value));
-	    else if (value instanceof Resource)
+	    } else if (value instanceof Resource) {
 		props.put(PROP_OWL_ON_PROPERTY, new Resource(((Resource) value)
 			.getURI()));
-	    return;
+	    } else {
+		return false;
+	    }
+	    return true;
 	}
 
 	// for everything else: call super
 	// TODO: should we really do this?
-	super.setProperty(propURI, value);
+	return super.setProperty(propURI, value);
     }
 
     /* *******************************************

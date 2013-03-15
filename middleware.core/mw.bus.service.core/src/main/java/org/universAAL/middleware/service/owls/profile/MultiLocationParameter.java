@@ -82,22 +82,27 @@ public class MultiLocationParameter extends ProfileParameter {
      * @param value
      *            value of the property
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI != null && value != null && !props.containsKey(propURI))
 	    if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
-		if (value instanceof String)
+		if (value instanceof String) {
 		    props.put(propURI, value);
+		    return true;
+		}
 	    } else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
 		if (value instanceof AbsLocation) {
 		    ArrayList l = new ArrayList(1);
 		    l.add(value);
 		    props.put(propURI, l);
+		    return true;
 		} else if (value instanceof List && !((List) value).isEmpty()) {
 		    for (Iterator i = ((List) value).iterator(); i.hasNext();)
 			if (!(i.next() instanceof AbsLocation))
-			    return;
+			    return false;
 		    props.put(propURI, value);
+		    return true;
 		}
 	    }
+	return false;
     }
 }

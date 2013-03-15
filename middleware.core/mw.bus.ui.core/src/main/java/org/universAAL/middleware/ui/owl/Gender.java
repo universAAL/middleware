@@ -120,7 +120,8 @@ public class Gender extends ManagedIndividual {
      * @see org.universAAL.middleware.owl.ManagedIndividual#setProperty(String,
      *      Object)
      */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	// do nothing
+	return false;
     }
 }

@@ -26,6 +26,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.model.BusStrategy;
+import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.msg.MessageType;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
@@ -39,12 +43,9 @@ import org.universAAL.middleware.context.data.IPropsData;
 import org.universAAL.middleware.context.data.IProvisionsData;
 import org.universAAL.middleware.context.data.factory.ContextStrategyDataFactory;
 import org.universAAL.middleware.context.data.factory.IContextStrategyDataFactory;
+import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.sodapop.BusStrategy;
-import org.universAAL.middleware.sodapop.SodaPop;
-import org.universAAL.middleware.sodapop.msg.Message;
-import org.universAAL.middleware.sodapop.msg.MessageType;
 
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
@@ -76,8 +77,8 @@ public class ContextStrategy extends BusStrategy {
     private IPropsData notIndexedProps;
     private IAllProvisionData allProvisions;
 
-    public ContextStrategy(SodaPop sodapop) {
-	super(sodapop);
+    public ContextStrategy(CommunicationModule cm) {
+	super(cm);
 
 	// Initiated the factory
 	IContextStrategyDataFactory factory = createContextStrategyDataFactory();
@@ -146,7 +147,7 @@ public class ContextStrategy extends BusStrategy {
 	}
     }
 
-    ContextEventPattern[] getAllProvisions(ContextSubscriber cs) {
+    ContextEventPattern[] getAllProvisions(ContextPublisher cs) {
 	if (cs == null)
 	    return null;
 
@@ -160,15 +161,16 @@ public class ContextStrategy extends BusStrategy {
 		    .createCalledPeers();
 	    Resource r = new Resource();
 	    r.addType(TYPE_uAAL_CONTEXT_BUS_PROVISIONS, true);
-	    ContextBusImpl.assessContentSerialization(r);
-	    Message m = new Message(MessageType.p2p_request, r);
-	    int numPeers = sodapop.propagateMessage(bus, m);
+	    ((ContextBusImpl) bus).assessContentSerialization(r);
+	    BusMessage message = new BusMessage(MessageType.p2p_request, r, bus);
+	    send(message);
+	    int numPeers = AbstractBus.getCurrentNumberOfPeers();
 	    if (numPeers > 0) {
 		Integer latePeers = null;
 		synchronized (calledPeers) {
 		    // in #handle() the vector is found using the ID of the
 		    // message sent to the peers
-		    numCalledPeers.addCalledPeers(m.getID(), calledPeers);
+		    numCalledPeers.addCalledPeers(message.getID(), calledPeers);
 		    // Set the the number of responses waiting for
 		    // in #handle() this number is reduced for each response
 		    // received from the peers
@@ -189,21 +191,24 @@ public class ContextStrategy extends BusStrategy {
 				.getNumOfCalledPeers());
 		    }
 		    // after timeout resp. notify, the map entry must be removed
-		    numCalledPeers.removeCalledPeers(m.getID());
+		    numCalledPeers.removeCalledPeers(message.getID());
 		}
-		if (latePeers != null && latePeers.intValue() > 0)
+		if (latePeers != null && latePeers.intValue() > 0) {
 		    LogUtils
 			    .logWarn(
-				    ContextBusImpl.moduleContext,
+				    busModule,
 				    getClass(),
 				    "getAllProvisions",
 				    new Object[] { latePeers,
 					    " peers have still not replied to the query after 5 seconds waiting!" },
 				    null);
+		}
 	    }
 	    calledPeers.addProvisions(allProvisions.getContextEventPatterns());
-	    return (ContextEventPattern[]) calledPeers.getProvisions().toArray(
-		    new ContextEventPattern[0]);
+	    return (ContextEventPattern[]) calledPeers.getProvisions()
+		    .toArray(
+			    new ContextEventPattern[calledPeers.getProvisions()
+				    .size()]);
 	}
     }
 
@@ -229,8 +234,8 @@ public class ContextStrategy extends BusStrategy {
 	String[] subjects = f.getIndices().getSubjects();
 	String[] subjectTypes = f.getIndices().getSubjectTypes();
 
-	if (subjects.length == 0)
-	    if (subjectTypes.length == 0)
+	if (subjects.length == 0) {
+	    if (subjectTypes.length == 0) {
 		if (props.length == 0) {
 		    result.add(notIndexedProps.getFiltererContainer(""));
 		} else {
@@ -239,7 +244,7 @@ public class ContextStrategy extends BusStrategy {
 				.getFiltererContainer(props[i]));
 		    }
 		}
-	    else if (props.length == 0) {
+	    } else if (props.length == 0) {
 		String[] subjectTypesSubClasses = getSubClasses(subjectTypes);
 		for (int i = 0; i < subjectTypesSubClasses.length; i++) {
 		    result.add(allPropsOfDomain
@@ -255,7 +260,7 @@ public class ContextStrategy extends BusStrategy {
 		    }
 		}
 	    }
-	else if (props.length == 0) {
+	} else if (props.length == 0) {
 	    for (int i = 0; i < subjects.length; i++) {
 		result.add(allPropsOfSubject.getFiltererContainer(subjects[i]));
 	    }
@@ -271,84 +276,77 @@ public class ContextStrategy extends BusStrategy {
 	return result;
     }
 
+    protected void handleDeniedMessage(BusMessage message, String senderID) {
+	// TODO Auto-generated method stub
+    }
+
     /**
      * @see org.universAAL.middleware.sodapop.BusStrategy#handle(org.universAAL.middleware.sodapop.msg.Message,
      *      String)
      */
-    public void handle(Message msg, String senderID) {
-	Object o = msg.getContent();
-	switch (msg.getType().ord()) {
+    public void handle(BusMessage message, String senderID) {
+	switch (message.getType().ord()) {
 	case MessageType.EVENT:
-	    if (!(o instanceof ContextEvent)) {
-		LogUtils
-			.logWarn(
-				ContextBusImpl.moduleContext,
-				getClass(),
-				"handle",
-				new Object[] { "Event to handle is no instance of ContextEvent!" },
-				null);
-		return;
-	    }
-
-	    if (!msg.isRemote())
-		sodapop.propagateMessage(bus, msg);
-
-	    HashSet allSubscribers = new HashSet();
-	    ContextEvent event = (ContextEvent) o;
-	    String propertyURI = event.getRDFPredicate(),
-	    subjectURI = event.getSubjectURI(),
-	    subjectTypeURI = event.getSubjectTypeURI();
-
-	    addSubscribersFitToFilter(specificSubjectAndProp, subjectURI
-		    + COMPOUND_INDEX_CONNECTOR + propertyURI, event,
-		    allSubscribers);
-
-	    addSubscribersFitToFilter(specificDomainAndProp, subjectTypeURI
-		    + COMPOUND_INDEX_CONNECTOR + propertyURI, event,
-		    allSubscribers);
-
-	    addSubscribersFitToFilter(allPropsOfSubject, subjectURI, event,
-		    allSubscribers);
-
-	    addSubscribersFitToFilter(allPropsOfDomain, subjectTypeURI, event,
-		    allSubscribers);
-
-	    addSubscribersFitToFilter(allSubjectsWithProp, propertyURI, event,
-		    allSubscribers);
-
-	    Vector filterers = notIndexedProps.getFiltererContainer("")
-		    .getFilterers();
-	    for (int i = 0; i < filterers.size(); i++)
-		if (((ContextFilterer) filterers.get(i)).f.matches(event))
-		    allSubscribers.add(((ContextFilterer) filterers.get(i)).s);
-
-	    for (Iterator i = allSubscribers.iterator(); i.hasNext();) {
-		handleEvent(((ContextSubscriber) i.next()), msg);
-	    }
-
+	    handleEvent(message);
 	    break;
 	case MessageType.P2P_EVENT:
+	    LogUtils.logWarn(busModule, getClass(),
+		    "handle",
+		    new Object[] { "Unexpected P2P_EVENT message ignored!" }, null);
 	    break;
 	case MessageType.P2P_REPLY:
-	    if (o instanceof Resource
-		    && TYPE_uAAL_CONTEXT_BUS_PROVISIONS.equals(((Resource) o)
-			    .getType())) {
-		o = ((Resource) o)
+	    handleP2PReply(message);
+	    break;
+	case MessageType.P2P_REQUEST:
+	    handleP2PRequest(message);
+	    break;
+	case MessageType.REPLY:
+	    LogUtils.logWarn(busModule, getClass(), "handle",
+		    new Object[] { "Unexpected Reply message ignored!" }, null);
+	    break;
+	case MessageType.REQUEST:
+	    LogUtils.logWarn(busModule, getClass(), "handle",
+		    new Object[] { "Unexpected Request message ignored!" },
+		    null);
+	    break;
+	default:
+	    LogUtils.logWarn(busModule, getClass(), "handle",
+		    new Object[] { "Message of unknown type ignored!" }, null);
+	    break;
+	}
+    }
+
+    private void handleP2PRequest(BusMessage message) {
+	Object content = message.getContent();
+	if (content instanceof Resource) {
+	    Resource resource = (Resource) content;
+	    if (isContextBusProvisionList(resource)
+		    && resource.numberOfProperties() == 1) {
+		resource.setProperty(PROP_uAAL_CONTEXT_PEER_PROVISIONS,
+			allProvisions.getContextEventPatterns());
+		send(message.createReply(content));
+	    }
+	} else {
+	    LogUtils.logWarn(busModule, getClass(), "handle",
+		    new Object[] { "Unknown P2P-Request!" }, null);
+	}
+    }
+
+    private void handleP2PReply(BusMessage message) {
+	Object content = message.getContent();
+	if (content instanceof Resource) {
+	    Resource resource = (Resource) content;
+	    if (isContextBusProvisionList(resource)) {
+		Object provisionList = resource
 			.getProperty(PROP_uAAL_CONTEXT_PEER_PROVISIONS);
-		if (o instanceof List && !((List) o).isEmpty()) {
+		if (provisionList instanceof List
+			&& !((List) provisionList).isEmpty()) {
 		    ICalledPeers calledPeers = numCalledPeers
-			    .getCalledPeers(msg.getInReplyTo());
-		    if (calledPeers == null) {
-			LogUtils
-				.logDebug(
-					ContextBusImpl.moduleContext,
-					getClass(),
-					"handle",
-					new Object[] { "Ignoring peer provisions received after timeout!" },
-					null);
-		    } else {
+			    .getCalledPeers(message.getInReplyTo());
+		    if (calledPeers != null) {
+			List<ContextEventPattern> contextEventPatterns = (List<ContextEventPattern>) provisionList;
 			synchronized (calledPeers) {
-			    calledPeers.addProvisions((List) o);
+			    calledPeers.addProvisions(contextEventPatterns);
 			    if (!calledPeers.gotResponsesFromAllPeers()) {
 				int remaining = calledPeers
 					.getNumOfCalledPeers();
@@ -359,74 +357,111 @@ public class ContextStrategy extends BusStrategy {
 				}
 			    }
 			}
+		    } else {
+			LogUtils
+				.logDebug(
+					busModule,
+					getClass(),
+					"handle",
+					new Object[] { "Ignoring peer provisions received after timeout!" },
+					null);
 		    }
-		} else
+		} else {
 		    LogUtils
 			    .logDebug(
-				    ContextBusImpl.moduleContext,
+				    busModule,
 				    getClass(),
 				    "handle",
 				    new Object[] { "Ignoring a P2P-Reply not containing any peer provisions!" },
 				    null);
-	    } else
-		LogUtils
-			.logWarn(
-				ContextBusImpl.moduleContext,
-				getClass(),
-				"handle",
-				new Object[] { "P2P-Reply to handle does not contain peer provisions!" },
-				null);
-	    break;
-	case MessageType.P2P_REQUEST:
-	    if (o instanceof Resource
-		    && TYPE_uAAL_CONTEXT_BUS_PROVISIONS.equals(((Resource) o)
-			    .getType())
-		    && ((Resource) o).numberOfProperties() == 1) {
-		((Resource) o).setProperty(PROP_uAAL_CONTEXT_PEER_PROVISIONS,
-			allProvisions.getContextEventPatterns());
-		sodapop.propagateMessage(bus, msg.createReply(o));
-	    } else
-		LogUtils
-			.logWarn(ContextBusImpl.moduleContext, getClass(),
-				"handle",
-				new Object[] { "Unknown P2P-Request!" }, null);
-	    break;
-	case MessageType.REPLY:
-	    LogUtils.logWarn(ContextBusImpl.moduleContext, getClass(),
-		    "handle",
-		    new Object[] { "Unexpected Reply message ignored!" }, null);
-	    break;
-	case MessageType.REQUEST:
-	    LogUtils.logWarn(ContextBusImpl.moduleContext, getClass(),
-		    "handle",
-		    new Object[] { "Unexpected Request message ignored!" },
-		    null);
-	    break;
-	default:
-	    LogUtils.logWarn(ContextBusImpl.moduleContext, getClass(),
-		    "handle",
-		    new Object[] { "Message of unknown type ignored!" }, null);
-	    break;
+		}
+	    }
+	} else {
+	    LogUtils
+		    .logWarn(
+			    busModule,
+			    getClass(),
+			    "handle",
+			    new Object[] { "P2P-Reply to handle does not contain peer provisions!" },
+			    null);
 	}
     }
 
-    protected void handleEvent(ContextSubscriber contextSubscriber, Message msg) {
-	contextSubscriber.handleEvent(msg);
+    private boolean isContextBusProvisionList(Resource resource) {
+	return TYPE_uAAL_CONTEXT_BUS_PROVISIONS.equals(resource.getType());
     }
 
-    private void addSubscribersFitToFilter(IPropsData propsData,
-	    String filtererContainerKey, ContextEvent event,
-	    HashSet allSubscribers) {
+    private void handleEvent(BusMessage message) {
+	if (!(message.getContent() instanceof ContextEvent)) {
+	    LogUtils
+		    .logWarn(
+			    busModule,
+			    getClass(),
+			    "handle",
+			    new Object[] { "Event to handle is no instance of ContextEvent!" },
+			    null);
+	    return;
+	}
 
+	if (!message.senderResidesOnDifferentPeer())
+	    send(message);
+	notifyAllLocalSubscribers(message);
+    }
+
+    // the message content must be a ContextEvent
+    private void notifyAllLocalSubscribers(BusMessage message) {
+	ContextEvent event = (ContextEvent) message.getContent();
+	Set<ContextSubscriber> subscribers = getAllSubscribersOfEvent(event);
+	for (ContextSubscriber subscriber : subscribers)
+	    subscriber.handleEvent(message);
+    }
+
+    private Set<ContextSubscriber> getAllSubscribersOfEvent(ContextEvent event) {
+	Set<ContextSubscriber> subscribers = new HashSet<ContextSubscriber>();
+
+	String propertyURI = event.getRDFPredicate();
+	String subjectURI = event.getSubjectURI();
+	String subjectTypeURI = event.getSubjectTypeURI();
+	String specificSubjectProperty = subjectURI + COMPOUND_INDEX_CONNECTOR
+		+ propertyURI;
+	String specificDomainProperty = subjectTypeURI
+		+ COMPOUND_INDEX_CONNECTOR + propertyURI;
+
+	addSubscribersForFilter(specificSubjectAndProp,
+		specificSubjectProperty, event, subscribers);
+	addSubscribersForFilter(specificDomainAndProp, specificDomainProperty,
+		event, subscribers);
+	addSubscribersForFilter(allPropsOfSubject, subjectURI, event,
+		subscribers);
+	addSubscribersForFilter(allPropsOfDomain, subjectTypeURI, event,
+		subscribers);
+	addSubscribersForFilter(allSubjectsWithProp, propertyURI, event,
+		subscribers);
+
+	List<ContextFilterer> notIndexedPropsFilterers = notIndexedProps
+		.getFiltererContainer("").getFilterers();
+	addSubscribersForMatchingFilterers(notIndexedPropsFilterers, event,
+		subscribers);
+
+	return subscribers;
+    }
+
+    private void addSubscribersForFilter(IPropsData propsData, String filter,
+	    ContextEvent event, Set<ContextSubscriber> allSubscribers) {
 	IFiltererContainer filtererContainer = propsData
-		.getFiltererContainer(filtererContainerKey);
-	if (null != filtererContainer) {
-	    for (int i = 0; i < filtererContainer.getFilterers().size(); i++) {
-		if (((ContextFilterer) filtererContainer.getFilterers().get(i)).f
-			.matches(event)) {
-		    allSubscribers.add(((ContextFilterer) filtererContainer
-			    .getFilterers().get(i)).s);
-		}
+		.getFiltererContainer(filter);
+	if (filtererContainer != null) {
+	    addSubscribersForMatchingFilterers(
+		    filtererContainer.getFilterers(), event, allSubscribers);
+	}
+    }
+
+    private void addSubscribersForMatchingFilterers(
+	    List<ContextFilterer> notIndexedPropsFilterers, ContextEvent event,
+	    Set<ContextSubscriber> subscribers) {
+	for (ContextFilterer filterer : notIndexedPropsFilterers) {
+	    if (filterer.f.matches(event)) { // NOTE
+		subscribers.add(filterer.s);
 	    }
 	}
     }
@@ -458,6 +493,15 @@ public class ContextStrategy extends BusStrategy {
 		container.removeFilterers(subscriber);
 	    }
 	}
+    }
+
+    void removeMatchingRegParams(ContextPublisher publisher,
+	    ContextEventPattern[] oldParams) {
+	// TODO:
+    }
+
+    void removeRegParams(ContextPublisher publisher) {
+	// TODO:
     }
 
     private void remove(ContextSubscriber subscriber, IPropsData propsData) {

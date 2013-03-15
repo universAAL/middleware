@@ -298,27 +298,30 @@ public class Resource {
      * @param blockFurtherTypes
      *            If true, no further types can be added.
      */
-    public void addType(String typeURI, boolean blockFurtherTypes) {
-	if (!this.blockAddingTypes) {
-	    if (typeURI != null) {
-		Object o = props.get(PROP_RDF_TYPE);
-		Resource type = new Resource(typeURI);
-		if (o instanceof List && !((List) o).contains(type))
-		    ((List) o).add(type);
-		else {
-		    List l = new ArrayList(2);
-		    if (o instanceof Resource && !type.equals(o))
-			l.add(o);
-		    l.add(type);
-		    props.put(PROP_RDF_TYPE, l);
-		}
+    public boolean addType(String typeURI, boolean blockFurtherTypes) {
+	if (this.blockAddingTypes)
+	    return false;
+
+	this.blockAddingTypes = blockFurtherTypes;
+	if (typeURI != null) {
+	    Object o = props.get(PROP_RDF_TYPE);
+	    Resource type = new Resource(typeURI);
+	    if (o instanceof List && !((List) o).contains(type))
+		((List) o).add(type);
+	    else {
+		List l = new ArrayList(2);
+		if (o instanceof Resource && !type.equals(o))
+		    l.add(o);
+		l.add(type);
+		props.put(PROP_RDF_TYPE, l);
 	    }
-	    this.blockAddingTypes = blockFurtherTypes;
+	    return true;
 	}
+	return false;
     }
 
     /**
-     * If this Resource represents an RDF, retrieve the elements as
+     * If this Resource represents an RDF List, retrieve the elements as
      * {@link java.util.List}.
      * 
      * @return The list containing the elements of this RDF list.
@@ -421,9 +424,37 @@ public class Resource {
 	return false;
     }
 
-    /** If this object is an XML Literal, create a copy of it. */
+    /**
+     * Create a copy of this resource as an XML Literal. This method only
+     * creates a copy of this resource and the property references, but not of
+     * the property values. If all resources of the RDF graph should be copied,
+     * use {@link #deepCopy()}.
+     * 
+     * @return the copied resource as a non-specialized instance of
+     *         {@link Resource}, not a subclass of it.
+     * @see #copyAsNonXMLLiteral()
+     */
     public Resource copyAsXMLLiteral() {
 	Resource copy = new Resource(uri, true);
+	for (Enumeration e = props.keys(); e.hasMoreElements();) {
+	    Object key = e.nextElement();
+	    copy.props.put(key, props.get(key));
+	}
+	return copy;
+    }
+
+    /**
+     * Create a copy of this resource as a non-XML Literal. This method only
+     * creates a copy of this resource and the property references, but not of
+     * the property values. If all resources of the RDF graph should be copied,
+     * use {@link #deepCopy()}.
+     * 
+     * @return the copied resource as a non-specialized instance of
+     *         {@link Resource}, not a subclass of it.
+     * @see #copyAsXMLLiteral()
+     */
+    public Resource copyAsNonXMLLiteral() {
+	Resource copy = new Resource(uri, false);
 	for (Enumeration e = props.keys(); e.hasMoreElements();) {
 	    Object key = e.nextElement();
 	    copy.props.put(key, props.get(key));
@@ -872,16 +903,17 @@ public class Resource {
      * settings via subclasses may be overwritten by this class if a subsequent
      * call to {@link #addType(String, boolean)} is made.
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI != null && value != null)
 	    if (PROP_RDF_TYPE.equals(propURI)) {
 		if (value instanceof String)
-		    addType((String) value, false);
+		    return addType((String) value, false);
 		else if (value instanceof Resource)
-		    addType(((Resource) value).uri, false);
+		    return addType(((Resource) value).uri, false);
 		else if (value instanceof List)
 		    for (int i = 0; i < ((List) value).size(); i++)
-			setProperty(propURI, ((List) value).get(i));
+			if (!setProperty(propURI, ((List) value).get(i)))
+			    return false;
 	    } else if (PROP_RDFS_COMMENT.equals(propURI)
 		    || PROP_RDFS_LABEL.equals(propURI)) {
 		if (!props.containsKey(propURI)) {
@@ -894,14 +926,16 @@ public class Resource {
 				Object o = l.get(i);
 				if (!(o instanceof String)
 					&& !(o instanceof LangString))
-				    return;
+				    return false;
 			    }
 			    props.put(propURI, l);
 			}
 		    }
 		}
-	    } else
+	    } else {
 		props.put(propURI, value);
+	    }
+	return true;
     }
 
     /**

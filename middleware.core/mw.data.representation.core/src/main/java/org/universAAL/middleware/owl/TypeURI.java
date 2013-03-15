@@ -253,7 +253,8 @@ public class TypeURI extends TypeExpression {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	// ignore
+	return false;
     }
 }

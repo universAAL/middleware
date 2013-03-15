@@ -23,38 +23,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.universAAL.middleware.owl.TypeExpression;
+import org.universAAL.middleware.bus.model.matchable.Matchable;
+import org.universAAL.middleware.bus.model.matchable.Request;
+import org.universAAL.middleware.bus.model.matchable.Requirement;
+import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.ui.owl.Modality;
 
 /**
- * The Class UIHandlerProfile.
- * 
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class UIHandlerProfile extends FinalizedResource {
+public class UIHandlerProfile extends FinalizedResource implements
+	UtilityAdvertisement {
 
-    /** The Constant MY_URI. */
     public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE
 	    + "UIHandlerProfile";
-
-    /** The Constant PROP_INPUT_MODALITY. */
     public static final String PROP_INPUT_MODALITY = UIRequest.uAAL_UI_NAMESPACE
 	    + "inputModality";
 
-    /** The Constant MATCH_LEVEL_FAILED. */
     public static final int MATCH_LEVEL_FAILED = 0;
-
-    /** The Constant MATCH_LEVEL_ALT. */
     public static final int MATCH_LEVEL_ALT = 1;
-
-    /** The Constant MATCH_LEVEL_SUCCESS. */
     public static final int MATCH_LEVEL_SUCCESS = 2;
 
-    /** The restrictions. */
-    private List restrictions;
+    private List<MergedRestriction> restrictions;
 
     /**
      * Instantiates a new UI handler profile.
@@ -62,7 +56,7 @@ public class UIHandlerProfile extends FinalizedResource {
     public UIHandlerProfile() {
 	super();
 	addType(MY_URI, true);
-	restrictions = new ArrayList(12);
+	restrictions = new ArrayList<MergedRestriction>(12);
 	props.put(TypeExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
     }
 
@@ -72,9 +66,10 @@ public class UIHandlerProfile extends FinalizedResource {
      * @param r
      *            the restriction
      */
-    public void addRestriction(MergedRestriction r) {
-	if (r == null)
-	    return;
+    public boolean addRestriction(MergedRestriction r) {
+	if (r == null) {
+	    return false;
+	}
 
 	String prop = r.getOnProperty();
 	if (UIRequest.PROP_HAS_ACCESS_IMPAIRMENT.equals(prop)
@@ -88,9 +83,13 @@ public class UIHandlerProfile extends FinalizedResource {
 		|| UIRequest.PROP_SCREEN_RESOLUTION_MIN_X.equals(prop)
 		|| UIRequest.PROP_SCREEN_RESOLUTION_MIN_Y.equals(prop)
 		|| UIRequest.PROP_VOICE_GENDER.equals(prop)
-		|| UIRequest.PROP_VOICE_LEVEL.equals(prop))
-	    if (propRestrictionAllowed(prop))
+		|| UIRequest.PROP_VOICE_LEVEL.equals(prop)) {
+	    if (propRestrictionAllowed(prop)) {
 		restrictions.add(r);
+		return true;
+	    }
+	}
+	return false;
     }
 
     /**
@@ -100,7 +99,7 @@ public class UIHandlerProfile extends FinalizedResource {
      */
     public int getNumberOfSupportedInputModalities() {
 	List l = (List) props.get(PROP_INPUT_MODALITY);
-	return (l == null) ? 0 : l.size();
+	return l == null ? 0 : l.size();
     }
 
     /**
@@ -112,9 +111,10 @@ public class UIHandlerProfile extends FinalizedResource {
      */
     private MergedRestriction getRestriction(String onProp) {
 	for (int i = 0; i < restrictions.size(); i++) {
-	    MergedRestriction r = (MergedRestriction) restrictions.get(i);
-	    if (r.getOnProperty().equals(onProp))
+	    MergedRestriction r = restrictions.get(i);
+	    if (r.getOnProperty().equals(onProp)) {
 		return r;
+	    }
 	}
 	return null;
     }
@@ -126,57 +126,66 @@ public class UIHandlerProfile extends FinalizedResource {
      */
     public Modality[] getSupportedInputModalities() {
 	List l = (List) props.get(PROP_INPUT_MODALITY);
-	return (l == null) ? null : (Modality[]) l.toArray(new Modality[l
-		.size()]);
+	return l == null ? null : (Modality[]) l
+		.toArray(new Modality[l.size()]);
     }
 
     /**
      * Determines whether the given {@link UIRequest} matches this profile.
      * 
-     * @param oe
+     * @param request
      *            the ui request
      * @return a value indicating to which degree the {@link UIRequest} matches:
-     *         {@link #MATCH_LEVEL_SUCCESS} if all restrictions match the
-     *         request, {@link #MATCH_LEVEL_ALT} if at least one of the
-     *         restrictions does not match the request, but this non-matching
-     *         restriction is on the modality (
-     *         {@link UIRequest#PROP_PRESENTATION_MODALITY}) and the alternative
-     *         modality ({@link UIRequest#PROP_PRESENTATION_MODALITY_ALT})
-     *         matches, or {@link #MATCH_LEVEL_FAILED} if the restrictions do
-     *         not match or the given request is null.
+     *         <ul>
+     *         <li>{@link #MATCH_LEVEL_SUCCESS} if all restrictions match the
+     *         request,</li>
+     *         <li>{@link #MATCH_LEVEL_ALT} if at least one of the restrictions
+     *         does not match the request, but this non-matching restriction is
+     *         on the modality ( {@link UIRequest#PROP_PRESENTATION_MODALITY})
+     *         and the alternative modality (
+     *         {@link UIRequest#PROP_PRESENTATION_MODALITY_ALT}) matches, or</li>
+     *         <li>{@link #MATCH_LEVEL_FAILED} if the restrictions do not match
+     *         or the given request is null.</li>
+     *         </ul>
      */
-    public int matches(UIRequest oe) {
-	if (oe == null)
+    public int getMatchingDegree(UIRequest request) {
+	if (request == null) {
 	    return MATCH_LEVEL_FAILED;
+	}
 
 	int result = MATCH_LEVEL_SUCCESS;
-	for (int i = 0; i < restrictions.size(); i++) {
-	    MergedRestriction r = (MergedRestriction) restrictions.get(i);
-
+	for (MergedRestriction r : restrictions) {
 	    // TODO added matching on the addressed user. Revise necessary on
 	    // follow me scenario, we should have location of the user known
 	    // for best UIstrategy but question is how do we get it and if this
 	    // will be feasible in most cases. 
-	    //If there is a location of the user than match on the location; if there is no location - see logged in location
-	    if (!r.hasMember(oe, null)) {
-//		if (UIRequest.PROP_ADDRESSED_USER.equals(r.getOnProperty())) {
-//		    continue;
-//		} else 
-		    
-		    if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
-			.getOnProperty())
-			&& r.copyOnNewProperty(
-				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-				.hasMember(oe, null)) {
+	    if (!r.hasMember(request, null)) {
+		//If there is a location of the user than match on the location; if there is no location - see logged in location
+//			if (UIRequest.PROP_ADDRESSED_USER.equals(r.getOnProperty())) {
+//			    continue;
+//			} else 
+		if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
+				.getOnProperty())
+				&& r.copyOnNewProperty(
+					UIRequest.PROP_PRESENTATION_MODALITY_ALT)
+					.hasMember(request, null)) {
 		    result = MATCH_LEVEL_ALT;
 		    continue;
-
-		} else
+		} else {
 		    return MATCH_LEVEL_FAILED;
+		}
 	    }
 	}
 
 	return result;
+    }
+
+    private boolean isRestrictionOnModality(UIRequest oe, MergedRestriction r) {
+	return UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
+		&& r
+			.copyOnNewProperty(
+				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
+			.hasMember(oe, null);
     }
 
     /**
@@ -184,17 +193,18 @@ public class UIHandlerProfile extends FinalizedResource {
      * 
      * @param subtype
      *            the subtype
-     * @return true, if successful
+     * @return <tt>true</tt>, if successful
      */
     public boolean matches(UIHandlerProfile subtype) {
-	if (subtype == null)
+	if (subtype == null) {
 	    return false;
+	}
 
-	for (int i = 0; i < restrictions.size(); i++) {
-	    MergedRestriction r = (MergedRestriction) restrictions.get(i), subR = subtype
-		    .getRestriction(r.getOnProperty());
-	    if (subR == null || !r.matches(subR, null))
+	for (MergedRestriction r : restrictions) {
+	    MergedRestriction subR = subtype.getRestriction(r.getOnProperty());
+	    if (subR == null || !r.matches(subR, null)) {
 		return false;
+	    }
 	}
 
 	return true;
@@ -208,6 +218,7 @@ public class UIHandlerProfile extends FinalizedResource {
      * @return true, if is closed collection
      * @see org.universAAL.middleware.rdf.Resource#isClosedCollection(java.lang.String)
      */
+    @Override
     public boolean isClosedCollection(String propURI) {
 	return !TypeExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)
 		&& super.isClosedCollection(propURI);
@@ -219,6 +230,7 @@ public class UIHandlerProfile extends FinalizedResource {
      * @return true, if is well formed
      * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
      */
+    @Override
     public boolean isWellFormed() {
 	return true;
     }
@@ -231,10 +243,11 @@ public class UIHandlerProfile extends FinalizedResource {
      * @return true, if successful
      */
     private boolean propRestrictionAllowed(String prop) {
-	for (int i = 0; i < restrictions.size(); i++)
-	    if (prop.equals(((MergedRestriction) restrictions.get(i))
-		    .getOnProperty()))
+	for (int i = 0; i < restrictions.size(); i++) {
+	    if (prop.equals(restrictions.get(i).getOnProperty())) {
 		return false;
+	    }
+	}
 	return true;
     }
 
@@ -242,23 +255,32 @@ public class UIHandlerProfile extends FinalizedResource {
      * Sets the property.
      * 
      * @param propURI
-     *            the prop uri
-     * @param o
-     *            the o
+     *            the uri of the property to be set
+     * @param value
+     *            the value to be assigned to the property
      * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
      *      java.lang.Object)
      */
-    public void setProperty(String propURI, Object o) {
+    @Override
+    public boolean setProperty(String propURI, Object value) {
 	if (TypeExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)) {
-	    if (o instanceof MergedRestriction)
-		addRestriction((MergedRestriction) o);
-	    else if (o instanceof List)
-		for (int i = 0; i < ((List) o).size(); i++)
-		    if (((List) o).get(i) instanceof MergedRestriction)
-			addRestriction((MergedRestriction) ((List) o).get(i));
+	    if (value instanceof MergedRestriction) {
+		return addRestriction((MergedRestriction) value);
+	    } else if (value instanceof List) {
+		List<?> property = (List) value;
+		boolean retVal = true;
+		for (Object current : property) {
+		    if (current instanceof MergedRestriction) {
+			retVal = retVal && addRestriction((MergedRestriction) current);
+		    }
+		}
+		return retVal;
+	    }
 	} else if (PROP_INPUT_MODALITY.equals(propURI)
-		&& o instanceof Modality[])
-	    setSupportedInputModalities((Modality[]) o);
+		&& value instanceof Modality[]) {
+	    return setSupportedInputModalities((Modality[]) value);
+	}
+	return false;
     }
 
     /**
@@ -267,9 +289,51 @@ public class UIHandlerProfile extends FinalizedResource {
      * @param modalities
      *            the new supported input modalities
      */
-    public void setSupportedInputModalities(Modality[] modalities) {
+    public boolean setSupportedInputModalities(Modality[] modalities) {
 	if (modalities != null && modalities.length > 0
-		&& !props.containsKey(PROP_INPUT_MODALITY))
+		&& !props.containsKey(PROP_INPUT_MODALITY)) {
 	    props.put(PROP_INPUT_MODALITY, Arrays.asList(modalities));
+	    return true;
+	}
+	return false;
+    }
+
+    /**
+     * @see #matches(Requirement)
+     */
+    public boolean matches(Matchable other) {
+	return false;
+    }
+
+    /**
+     * Only called if d is not of type {@link Requirement}. Therefore no match
+     * is possible and <tt>false</tt> is returned always.
+     * 
+     * @param d
+     *            the Requirement to be matched against
+     * @return <tt>false</tt> as described above
+     */
+    public boolean matches(Requirement d) {
+	return false;
+    }
+
+    /**
+     * Switches over possible types of {@link Requirement}. Calls appropriate
+     * methods for the different types.
+     * 
+     * @param d
+     *            the Requirement to be matched
+     * @return <tt>true</tt> if the Requirement matches, <tt>false</tt> if not
+     */
+    public boolean matches(Request r) {
+	if (r instanceof UIRequest) {
+	    return isMatchingUIRequest((UIRequest) r);
+	} else {
+	    return false;
+	}
+    }
+
+    private boolean isMatchingUIRequest(UIRequest r) {
+	return getMatchingDegree(r) > MATCH_LEVEL_FAILED;
     }
 }

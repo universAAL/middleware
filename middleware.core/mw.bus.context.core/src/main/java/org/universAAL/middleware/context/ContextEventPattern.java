@@ -23,10 +23,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.universAAL.middleware.bus.model.matchable.Advertisement;
+import org.universAAL.middleware.bus.model.matchable.Event;
+import org.universAAL.middleware.bus.model.matchable.EventAdvertisement;
+import org.universAAL.middleware.bus.model.matchable.Matchable;
+import org.universAAL.middleware.bus.model.matchable.Requirement;
+import org.universAAL.middleware.bus.model.matchable.Subscription;
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
-import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 
@@ -42,7 +49,8 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * 
  */
-public class ContextEventPattern extends FinalizedResource {
+public class ContextEventPattern extends FinalizedResource implements
+	EventAdvertisement, Subscription {
     public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE
 	    + "ContextEventPattern";
 
@@ -97,9 +105,9 @@ public class ContextEventPattern extends FinalizedResource {
      * @param r
      *            The Restriction to add
      */
-    public void addRestriction(MergedRestriction r) {
+    public boolean addRestriction(MergedRestriction r) {
 	if (r == null)
-	    return;
+	    return false;
 
 	String prop = r.getOnProperty();
 	if (// deprecated -> ContextEvent.PROP_CONTEXT_ACCURACY.equals(prop) ||
@@ -165,7 +173,9 @@ public class ContextEventPattern extends FinalizedResource {
 			}
 		    }
 		}
+		return true;
 	    }
+	return false;
     }
 
     public Indices getIndices() {
@@ -177,25 +187,6 @@ public class ContextEventPattern extends FinalizedResource {
 	if (indices.subjectTypes == null)
 	    indices.subjectTypes = empty;
 	return indices;
-    }
-
-    /**
-     * Determines if a Context Event matches the Restrictions of this Pattern
-     * 
-     * @param ce
-     *            The Context Event to analyze
-     * @return {@code true} if the Event matched the pattern
-     */
-    public boolean matches(ContextEvent ce) {
-	if (ce == null)
-	    return false;
-
-	Iterator it = mergedRestrictions.values().iterator();
-	while (it.hasNext())
-	    if (!((MergedRestriction) it.next()).hasMember(ce, null))
-		return false;
-
-	return true;
     }
 
     /**
@@ -214,22 +205,130 @@ public class ContextEventPattern extends FinalizedResource {
 	return !mergedRestrictions.containsKey(prop);
     }
 
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object property) {
 	if (TypeExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)) {
 	    if (mergedRestrictions.isEmpty()) {
-		if (o instanceof PropertyRestriction) {
+		if (property instanceof PropertyRestriction) {
 		    // a single restriction
-		    PropertyRestriction res = (PropertyRestriction) o;
+		    PropertyRestriction res = (PropertyRestriction) property;
 		    MergedRestriction m = new MergedRestriction(res
 			    .getOnProperty());
-		    addRestriction(m);
-		} else if (o instanceof List) {
-		    ArrayList l = MergedRestriction.getFromList((List) o);
-		    for (int i = 0; i < l.size(); i++)
-			addRestriction((MergedRestriction) l.get(i));
+		    return addRestriction(m);
+		} else if (property instanceof List) {
+		    ArrayList l = MergedRestriction.getFromList((List) property);
+		    boolean retVal = true;
+		    for (int i = 0; i < l.size(); i++) {
+			retVal = retVal && addRestriction((MergedRestriction) l.get(i));
+		    }
+		    return retVal;
 		}
 	    }
-	} else
-	    super.setProperty(propURI, o);
+	} else {
+	    return super.setProperty(propURI, property);
+	}
+	return false;
+    }
+
+    /**
+     * @see #matches(Advertisement)
+     */
+    public boolean matches(Matchable other) {
+	return false;
+    }
+
+    /**
+     * This method will be called if advertisement is no
+     * {@link EventAdvertisement}. Therefore it will never match this
+     * {@link ContextEventPattern}, so <tt>false</tt> is returned.
+     * 
+     * @param advertisement
+     *            the advertisement to be matched against
+     * @return <tt>false</tt> as mentioned above
+     */
+    public boolean matches(Advertisement advertisement) {
+	return false;
+    }
+
+    /**
+     * If the advertisement is of the possibly matching type
+     * {@link EventAdvertisement}, this method is called. It switches over
+     * possible types of advertisement and calls the appropriate methods.
+     * 
+     * @param advertisement
+     *            the advertisement to be matched against
+     * @return <tt>true</tt> if the advertisement matches this
+     *         {@link ContextEventPattern}, <tt>false</tt> if not
+     */
+    public boolean matches(EventAdvertisement advertisement) {
+	if (advertisement instanceof ContextEventPattern) {
+	    return isMatchingContextEventPattern((ContextEventPattern) advertisement);
+	} else {
+	    return false;
+	}
+    }
+
+    /**
+     * @see #matches(Advertisement)
+     */
+    public boolean matches(Requirement d) {
+	return false;
+    }
+
+    /**
+     * Switches over different types of {@link Event} to call appropriate
+     * methods for them.
+     * 
+     * @param e
+     *            the Event to match
+     * @return <tt>true</tt> if matching, <tt>false</tt> if not
+     */
+    public boolean matches(Event e) {
+	if (e instanceof ContextEvent) {
+	    return isMatchingContextEvent((ContextEvent) e);
+	} else {
+	    return false;
+	}
+    }
+
+    private boolean isMatchingContextEvent(ContextEvent ce) {
+	if (ce == null)
+	    return false;
+
+	Iterator it = mergedRestrictions.values().iterator();
+	while (it.hasNext())
+	    if (!((MergedRestriction) it.next()).hasMember(ce, null))
+		return false;
+
+	return true;
+    }
+
+    /**
+     * As with {@link #matches(Event)}, this method switches over
+     * {@link Subscription}s, calling the appropriate methods for each.
+     * 
+     * @param s
+     *            the Subscription to match
+     * @return <tt>true</tt> if s matches, <tt>false</tt> if not
+     */
+    public boolean matches(Subscription s) {
+	if (s instanceof ContextEventPattern) {
+	    return isMatchingContextEventPattern((ContextEventPattern) s);
+	} else {
+	    return false;
+	}
+    }
+
+    /**
+     * As both {@link EventAdvertisement} and {@link Subscription} are
+     * implemented by {@link ContextEventPattern}, both redirect here. TODO this
+     * could be a problem in the future
+     * 
+     * @param pattern
+     *            the ContextEventPattern to match
+     * @return <tt>true</tt> if the pattern matches, <tt>false</tt> if not
+     */
+    private boolean isMatchingContextEventPattern(ContextEventPattern pattern) {
+	// TODO method not implemented
+	return false;
     }
 }

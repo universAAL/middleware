@@ -176,9 +176,9 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null)
-	    return;
+	    return false;
 
 	if (PROP_OWL_WITH_RESTRICTIONS.equals(propURI)) {
 	    if (min == null && max == null) {
@@ -212,13 +212,14 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 			    }
 			}
 		    }
+		    return true;
 		}
 	    }
-	    return;
+	    return false;
 	}
 
 	// call super for other properties (or for more general facets)
-	super.setProperty(propURI, o);
+	return super.setProperty(propURI, o);
     }
 
     private Comparable resolveVarByGreaterEqual(Variable v,

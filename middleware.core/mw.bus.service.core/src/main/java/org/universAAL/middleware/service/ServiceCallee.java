@@ -19,17 +19,13 @@
  */
 package org.universAAL.middleware.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.Callee;
+import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
-import org.universAAL.middleware.sodapop.Bus;
-import org.universAAL.middleware.sodapop.Callee;
-import org.universAAL.middleware.sodapop.msg.Message;
 
 /**
  * This is an abstract class that the service callee members of the service bus
@@ -41,11 +37,7 @@ import org.universAAL.middleware.sodapop.msg.Message;
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  */
-public abstract class ServiceCallee implements Callee {
-    protected ServiceBus bus;
-    private ModuleContext thisCalleeContext;
-    protected String myID, localID;
-    private List realizedServices;
+public abstract class ServiceCallee extends Callee {
 
     /**
      * The default constructor for this class.
@@ -59,25 +51,8 @@ public abstract class ServiceCallee implements Callee {
      */
     protected ServiceCallee(ModuleContext context,
 	    ServiceProfile[] realizedServices) {
-	this((ServiceBus) context.getContainer().fetchSharedObject(context,
-		ServiceBusImpl.busFetchParams), realizedServices);
-	thisCalleeContext = context;
-    }
-
-    protected ServiceCallee(ServiceBus bus, ServiceProfile[] realizedServices) {
-	this(bus);
-
-	myID = bus.register(this, realizedServices);
-	populateLocalID(myID);
-
-	this.realizedServices.addAll(Arrays.asList(realizedServices));
-    }
-
-    protected ServiceCallee(ServiceBus bus) {
-	this.bus = bus;
-	if (this.realizedServices == null) {
-	    this.realizedServices = new ArrayList();
-	}
+	super(context, ServiceBusImpl.getServiceBusFetchParams());
+	addNewServiceProfiles(realizedServices);
     }
 
     /**
@@ -87,9 +62,9 @@ public abstract class ServiceCallee implements Callee {
      * @param realizedServices
      *            the new services.
      */
-    protected final void addNewRegParams(ServiceProfile[] realizedServices) {
-	bus.addNewRegParams(myID, realizedServices);
-	this.realizedServices.addAll(Arrays.asList(realizedServices));
+    protected final void addNewServiceProfiles(ServiceProfile[] realizedServices) {
+	((ServiceBus) theBus).addNewServiceProfiles(busResourceURI,
+		realizedServices);
     }
 
     /**
@@ -99,10 +74,10 @@ public abstract class ServiceCallee implements Callee {
      * @param realizedServices
      *            the services that need to be removed.
      */
-    protected final void removeMatchingRegParams(
+    protected final void removeMatchingProfiles(
 	    ServiceProfile[] realizedServices) {
-	bus.removeMatchingRegParams(myID, realizedServices);
-	this.realizedServices.removeAll(Arrays.asList(realizedServices));
+	((ServiceBus) theBus).removeMatchingProfiles(busResourceURI,
+		realizedServices);
     }
 
     /**
@@ -118,13 +93,9 @@ public abstract class ServiceCallee implements Callee {
      * org.universAAL.middleware.sodapop.BusMember#busDyingOut(org.universAAL
      * .middleware.sodapop.Bus)
      */
-    public final void busDyingOut(Bus b) {
-	if (b == bus)
+    public final void busDyingOut(AbstractBus b) {
+	if (b == theBus)
 	    communicationChannelBroken();
-    }
-
-    public final boolean eval(Message m) {
-	return false; // TODO add javadoc for this method
     }
 
     /**
@@ -139,20 +110,19 @@ public abstract class ServiceCallee implements Callee {
     public abstract ServiceResponse handleCall(ServiceCall call);
 
     /**
-     * @see org.universAAL.middleware.sodapop.Callee#handleRequest(org.universAAL.middleware.sodapop.msg.Message)
+     * @see org.universAAL.middleware.bus.model.Callee#handleRequest(org.universAAL.middleware.bus.model.msg.Message)
      */
-    public void handleRequest(Message m) {
+    public void handleRequest(BusMessage m) {
 	if (m != null && m.getContent() instanceof ServiceCall) {
-	    LogUtils.logInfo(thisCalleeContext, ServiceCallee.class,
-		    "handleRequest",
-		    new Object[] { localID, " received service call:\n",
+	    LogUtils.logInfo(owner, ServiceCallee.class, "handleRequest",
+		    new Object[] { busResourceURI, " received service call:\n",
 			    m.getContentAsString() }, null);
 	    ServiceResponse sr = handleCall((ServiceCall) m.getContent());
 	    if (sr == null)
 		sr = new ServiceResponse(CallStatus.serviceSpecificFailure);
-	    Message reply = m.createReply(sr);
+	    BusMessage reply = m.createReply(sr);
 	    if (reply != null)
-		bus.sendReply(myID, reply);
+		((ServiceBus) theBus).brokerReply(busResourceURI, reply);
 	}
     }
 
@@ -160,19 +130,10 @@ public abstract class ServiceCallee implements Callee {
      * Unregisters this <code>ServiceCallee</code> from the bus.
      */
     public void close() {
-	bus.unregister(myID, this);
+	theBus.unregister(busResourceURI, this);
     }
 
     public String getMyID() {
-	return myID;
+	return busResourceURI;
     }
-
-    protected void populateLocalID(String myID) {
-	localID = myID.substring(myID.lastIndexOf('#') + 1);
-    }
-
-    public List getRealizedServices() {
-	return realizedServices;
-    }
-
 }

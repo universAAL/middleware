@@ -954,12 +954,13 @@ public class MergedRestriction extends Intersection {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	// TODO: handle the restriction-related stuff here?
 	// for now, it is not necessary, the restrictions themselves implement
 	// the setProperty() method and perform a sanity-check for the
 	// restriction itself, and the addRestriction() method performs the
 	// sanity check for the set of restrictions.
+	return false;
     }
 
     /** Get an iterator for the added child class expressions. */

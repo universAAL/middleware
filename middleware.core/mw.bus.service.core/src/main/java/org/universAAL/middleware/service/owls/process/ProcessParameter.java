@@ -321,18 +321,24 @@ public abstract class ProcessParameter extends Variable {
      * @param min
      *            - minimal cardinality
      */
-    public final void setCardinality(int max, int min) {
+    public final boolean setCardinality(int max, int min) {
 	if (!props.containsKey(PROP_PARAMETER_CARDINALITY)
 		&& !props.containsKey(PROP_PARAMETER_MAX_CARDINALITY)
 		&& !props.containsKey(PROP_PARAMETER_MIN_CARDINALITY)) {
 	    if (max > 0)
-		if (max == min)
+		if (max == min) {
 		    props.put(PROP_PARAMETER_CARDINALITY, new Integer(max));
-		else
+		    return true;
+		} else {
 		    props.put(PROP_PARAMETER_MAX_CARDINALITY, new Integer(max));
-	    if (min > 0 && min != max)
+		    return true;
+		}
+	    if (min > 0 && min != max) {
 		props.put(PROP_PARAMETER_MIN_CARDINALITY, new Integer(min));
+		return true;
+	    }
 	}
+	return false;
     }
 
     /**
@@ -341,13 +347,16 @@ public abstract class ProcessParameter extends Variable {
      * @param value
      *            - the object representing the default value
      */
-    public final void setDefaultValue(Object value) {
+    public final boolean setDefaultValue(Object value) {
 	if (props.containsKey(PROP_PARAMETER_DEFAULT_VALUE))
-	    return;
+	    return false;
 
 	value = TypeMapper.asLiteral(value);
-	if (value != null)
+	if (value != null) {
 	    props.put(PROP_PARAMETER_DEFAULT_VALUE, value);
+	    return true;
+	}
+	return false;
     }
 
     /**
@@ -356,11 +365,14 @@ public abstract class ProcessParameter extends Variable {
      * @param typeURI
      *            - the URI of the parameter type
      */
-    public final void setParameterType(String typeURI) {
+    public final boolean setParameterType(String typeURI) {
 	if (StringUtils.isQualifiedName(typeURI)
-		&& !props.containsKey(PROP_OWLS_PROCESS_PARAMETER_TYPE))
+		&& !props.containsKey(PROP_OWLS_PROCESS_PARAMETER_TYPE)) {
 	    props.put(PROP_OWLS_PROCESS_PARAMETER_TYPE, new Resource(typeURI,
 		    true));
+	    return true;
+	}
+	return false;
     }
 
     /**
@@ -369,12 +381,15 @@ public abstract class ProcessParameter extends Variable {
      * @param value
      *            - the object representing the value
      */
-    public final void setParameterValue(Object value) {
+    public final boolean setParameterValue(Object value) {
 	if (!props.containsKey(PROP_OWLS_PROCESS_PARAMETER_VALUE)) {
 	    value = TypeMapper.asLiteral(value);
-	    if (value != null)
+	    if (value != null) {
 		props.put(PROP_OWLS_PROCESS_PARAMETER_VALUE, value);
+		return true;
+	    }
 	}
+	return false;
     }
 
     /**
@@ -385,30 +400,35 @@ public abstract class ProcessParameter extends Variable {
      * @param val
      *            - the value to set for the property
      */
-    public void setProperty(String prop, Object val) {
+    public boolean setProperty(String prop, Object val) {
 	if (prop == null || val == null || props.containsKey(prop))
-	    return;
+	    return false;
 
 	if (prop.equals(PROP_PARAMETER_CARDINALITY)) {
 	    if (val instanceof Integer) {
 		int i = ((Integer) val).intValue();
-		setCardinality(i, i);
+		return setCardinality(i, i);
 	    }
 	} else if (prop.equals(PROP_PARAMETER_DEFAULT_VALUE)) {
-	    setDefaultValue(val);
+	    return setDefaultValue(val);
 	} else if (prop.equals(PROP_PARAMETER_MAX_CARDINALITY)) {
 	    if (!props.containsKey(PROP_PARAMETER_CARDINALITY)
-		    && val instanceof Integer)
+		    && val instanceof Integer) {
 		props.put(prop, val);
+		return true;
+	    }
 	} else if (prop.equals(PROP_PARAMETER_MIN_CARDINALITY)) {
 	    if (!props.containsKey(PROP_PARAMETER_CARDINALITY)
-		    && val instanceof Integer)
+		    && val instanceof Integer) {
 		props.put(prop, val);
+		return true;
+	    }
 	} else if (prop.equals(PROP_OWLS_PROCESS_PARAMETER_TYPE)) {
-	    setParameterType(val.toString());
+	    return setParameterType(val.toString());
 	} else if (prop.equals(PROP_OWLS_PROCESS_PARAMETER_VALUE)) {
-	    setParameterValue(val);
+	    return setParameterValue(val);
 	} else
-	    super.setProperty(prop, val);
+	    return super.setProperty(prop, val);
+	return false;
     }
 }

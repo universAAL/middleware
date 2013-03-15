@@ -5,16 +5,13 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.core</artifactId>
-    <version>1.3.1-SNAPSHOT</version>
+    <version>1.3.2-SNAPSHOT</version>
     <relativePath>../mw.pom.core</relativePath>
   </parent>
   <artifactId>mw.data.representation.core</artifactId>
-  <version>1.3.1-SNAPSHOT</version>
+  <version>1.3.2-SNAPSHOT</version>
   <name>universAAL Middleware Data Representation (Core)</name>
   <description>Using RDF/OWL model for data representation in universAAL (Core)</description>
-  <properties>
-    <project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

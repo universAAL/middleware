@@ -177,7 +177,8 @@ public class AggregationFunction extends FinalizedResource {
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String propURI,
      *      Object value)
      */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	// do nothing
+	return false;
     }
 }

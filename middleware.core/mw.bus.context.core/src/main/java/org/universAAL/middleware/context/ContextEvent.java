@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.context;
 
+import org.universAAL.middleware.bus.model.matchable.Event;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -37,7 +38,7 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * 
  */
-public class ContextEvent extends FinalizedResource {
+public class ContextEvent extends FinalizedResource implements Event {
     public static final String uAAL_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX
 	    + "Context.owl#";
 
@@ -327,11 +328,14 @@ public class ContextEvent extends FinalizedResource {
      * @param confidence
      *            The confidence in percentage (0 to 100)
      */
-    public void setConfidence(Integer confidence) {
+    public boolean setConfidence(Integer confidence) {
 	if (confidence != null && confidence.intValue() >= 0
 		&& confidence.intValue() <= 100
-		&& !props.containsKey(PROP_CONTEXT_CONFIDENCE))
+		&& !props.containsKey(PROP_CONTEXT_CONFIDENCE)) {
 	    props.put(PROP_CONTEXT_CONFIDENCE, confidence);
+	    return true;
+	}
+	return false;
     }
 
     /**
@@ -341,10 +345,13 @@ public class ContextEvent extends FinalizedResource {
      *            The amount of millisecond after which the event is not valid
      *            afer reception
      */
-    public void setExpirationTime(Long expirationTime) {
+    public boolean setExpirationTime(Long expirationTime) {
 	if (expirationTime != null && expirationTime.longValue() > 0
-		&& !props.containsKey(PROP_CONTEXT_EXPIRATION_TIME))
+		&& !props.containsKey(PROP_CONTEXT_EXPIRATION_TIME)) {
 	    props.put(PROP_CONTEXT_EXPIRATION_TIME, expirationTime);
+	    return true;
+	}
+	return false;
     }
 
     /**
@@ -352,9 +359,12 @@ public class ContextEvent extends FinalizedResource {
      * 
      * @param o
      */
-    public void setRDFObject(Object o) {
-	if (o != null && !props.containsKey(PROP_RDF_OBJECT))
+    public boolean setRDFObject(Object o) {
+	if (o != null && !props.containsKey(PROP_RDF_OBJECT)) {
 	    props.put(PROP_RDF_OBJECT, o);
+	    return true;
+	}
+	return false;
     }
 
     /**
@@ -363,10 +373,13 @@ public class ContextEvent extends FinalizedResource {
      * @param propURI
      *            The URI of the predicate
      */
-    public void setRDFPredicate(String propURI) {
+    public boolean setRDFPredicate(String propURI) {
 	if (propURI != null && propURI.lastIndexOf('#') > 0
-		&& !props.containsKey(PROP_RDF_PREDICATE))
+		&& !props.containsKey(PROP_RDF_PREDICATE)) {
 	    props.put(PROP_RDF_PREDICATE, new Resource(propURI));
+	    return true;
+	}
+	return false;
     }
 
     /**
@@ -374,9 +387,12 @@ public class ContextEvent extends FinalizedResource {
      * 
      * @param src
      */
-    public void setProvider(ContextProvider src) {
-	if (src != null && !props.containsKey(PROP_CONTEXT_PROVIDER))
+    public boolean setProvider(ContextProvider src) {
+	if (src != null && !props.containsKey(PROP_CONTEXT_PROVIDER)) {
 	    props.put(PROP_CONTEXT_PROVIDER, src);
+	    return true;
+	}
+	return false;
     }
 
     /**
@@ -384,9 +400,12 @@ public class ContextEvent extends FinalizedResource {
      * 
      * @param subj
      */
-    public void setRDFSubject(Resource subj) {
-	if (subj != null && !props.containsKey(PROP_RDF_SUBJECT))
+    public boolean setRDFSubject(Resource subj) {
+	if (subj != null && !props.containsKey(PROP_RDF_SUBJECT)) {
 	    props.put(PROP_RDF_SUBJECT, subj);
+	    return true;
+	}
+	return false;
     }
 
     /**
@@ -395,18 +414,21 @@ public class ContextEvent extends FinalizedResource {
      * @param timestamp
      *            The timestamp in UNIX format
      */
-    public void setTimestamp(Long timestamp) {
+    public boolean setTimestamp(Long timestamp) {
 	if (timestamp != null && timestamp.longValue() > 0
-		&& !props.containsKey(PROP_CONTEXT_TIMESTAMP))
+		&& !props.containsKey(PROP_CONTEXT_TIMESTAMP)) {
 	    props.put(PROP_CONTEXT_TIMESTAMP, timestamp);
+	    return true;
+	}
+	return false;
     }
 
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI == null)
-	    return;
+	    return false;
 
 	if (propURI.equals(PROP_RDF_OBJECT)) {
-	    setRDFObject(value);
+	    return setRDFObject(value);
 	    /*
 	     * deprecated } else if (value instanceof Rating) { if
 	     * (propURI.equals(PROP_CONTEXT_ACCURACY)) setAccuracy((Rating)
@@ -414,23 +436,24 @@ public class ContextEvent extends FinalizedResource {
 	     */
 	} else if (value instanceof ContextProvider) {
 	    if (propURI.equals(PROP_CONTEXT_PROVIDER))
-		setProvider((ContextProvider) value);
+		return setProvider((ContextProvider) value);
 	} else if (value instanceof Resource) {
 	    if (propURI.equals(PROP_RDF_SUBJECT))
-		setRDFSubject((Resource) value);
+		return setRDFSubject((Resource) value);
 	    else if (propURI.equals(PROP_RDF_PREDICATE))
-		setRDFPredicate(((Resource) value).getURI());
+		return setRDFPredicate(((Resource) value).getURI());
 	} else if (value instanceof String) {
 	    if (propURI.equals(PROP_RDF_PREDICATE))
-		setRDFPredicate((String) value);
+		return setRDFPredicate((String) value);
 	} else if (value instanceof Long) {
 	    if (propURI.equals(PROP_CONTEXT_TIMESTAMP))
-		setTimestamp((Long) value);
+		return setTimestamp((Long) value);
 	    else if (propURI.equals(PROP_CONTEXT_EXPIRATION_TIME))
-		setExpirationTime((Long) value);
+		return setExpirationTime((Long) value);
 	} else if (value instanceof Integer) {
 	    if (propURI.equals(PROP_CONTEXT_CONFIDENCE))
-		setConfidence((Integer) value);
+		return setConfidence((Integer) value);
 	}
+	return false;
     }
 }

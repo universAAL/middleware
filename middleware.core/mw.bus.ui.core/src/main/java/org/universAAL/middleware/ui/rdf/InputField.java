@@ -106,15 +106,20 @@ public class InputField extends Input {
     /**
      * @see Input#setProperty(String, Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_IS_SECRET.equals(propURI)) {
-	    if (Boolean.TRUE.equals(value))
+	    if (Boolean.TRUE.equals(value)) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else if (PROP_MAX_LENGTH.equals(propURI)) {
-	    if (value instanceof Integer)
+	    if (value instanceof Integer) {
 		props.put(propURI, value);
+		return true;
+	    }
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
+	return false;
     }
 
     /**

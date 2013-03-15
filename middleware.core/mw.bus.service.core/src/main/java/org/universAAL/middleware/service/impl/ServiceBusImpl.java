@@ -19,9 +19,15 @@
  */
 package org.universAAL.middleware.service.impl;
 
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.model.BusStrategy;
+import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.connectors.exception.CommunicationConnectorException;
+import org.universAAL.middleware.connectors.util.ChannelMessage;
 import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AvailabilitySubscriber;
@@ -32,12 +38,6 @@ import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owl.ServiceBusOntology;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
-import org.universAAL.middleware.sodapop.AbstractBus;
-import org.universAAL.middleware.sodapop.BusMember;
-import org.universAAL.middleware.sodapop.BusStrategy;
-import org.universAAL.middleware.sodapop.SodaPop;
-import org.universAAL.middleware.sodapop.msg.Message;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 import org.universAAL.middleware.util.Constants;
 import org.universAAL.middleware.util.ResourceComparator;
 
@@ -48,67 +48,67 @@ import org.universAAL.middleware.util.ResourceComparator;
  */
 public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
-    public static Container container;
-    public static ModuleContext moduleContext;
-    public static Object[] busFetchParams;
-    public static Object[] busShareParams;
-    public static Object[] contentSerializerParams;
-    public static Object[] sodapopFetchParams;
-    private static MessageContentSerializer contentSerializer = null;
+    private static Object[] busFetchParams;
+    private static ServiceBusImpl theServiceBus = null;
     private static ServiceBusOntology serviceOntology = new ServiceBusOntology();
+    private static ModuleContext mc;
 
-    public static synchronized void assessContentSerialization(Resource content) {
+    public static Object[] getServiceBusFetchParams() {
+	return busFetchParams.clone();
+    }
+
+    public synchronized void assessContentSerialization(Resource content) {
 	if (Constants.debugMode()) {
-	    if (contentSerializer == null) {
-		contentSerializer = (MessageContentSerializer) moduleContext
-			.getContainer().fetchSharedObject(moduleContext,
-				contentSerializerParams);
-		if (contentSerializer == null)
-		    return;
-	    }
-
 	    LogUtils
 		    .logDebug(
-			    moduleContext,
+			    context,
 			    ServiceBusImpl.class,
 			    "assessContentSerialization",
 			    new Object[] { "Assessing message content serialization:" },
 			    null);
-	    // System.out.println(new RuntimeException().getStackTrace()[1]);
 
-	    String str = contentSerializer.serialize(content);
+	    String str = BusMessage.trySerializationAsContent(content);
 	    LogUtils
 		    .logDebug(
-			    moduleContext,
+			    context,
 			    ServiceBusImpl.class,
 			    "assessContentSerialization",
 			    new Object[] { "\n      1. serialization dump\n",
 				    str,
 				    "\n      2. deserialize & compare with the original resource\n" },
 			    null);
-	    new ResourceComparator().printDiffs(content,
-		    (Resource) contentSerializer.deserialize(str));
+	    new ResourceComparator().printDiffs(content, (Resource) BusMessage
+		    .deserializeAsContent(str));
 	}
     }
 
-    public static void startModule() {
-	OntologyManagement.getInstance().register(serviceOntology);
-	container.shareObject(moduleContext, new ServiceBusImpl(
-		(SodaPop) container.fetchSharedObject(moduleContext,
-			sodapopFetchParams)), busShareParams);
+    public static void startModule(Container c, ModuleContext mc,
+	    Object[] serviceBusShareParams, Object[] serviceBusFetchParams) {
+	if (theServiceBus == null) {
+	    ServiceBusImpl.mc = mc;
+	    OntologyManagement.getInstance().register(serviceOntology);
+	    theServiceBus = new ServiceBusImpl(mc);
+	    busFetchParams = serviceBusFetchParams;
+	    c.shareObject(mc, theServiceBus, serviceBusShareParams);
+	}
     }
 
     public static void stopModule() {
-	OntologyManagement.getInstance().unregister(serviceOntology);
+	if (theServiceBus != null) {
+	    OntologyManagement.getInstance().unregister(serviceOntology);
+	    theServiceBus.dispose();
+	    theServiceBus = null;
+	}
+
     }
 
-    public ServiceBusImpl(SodaPop g) {
-	super(Constants.uAAL_BUS_NAME_SERVICE, g);
+    private ServiceBusImpl(ModuleContext mc) {
+	super(mc);
 	busStrategy.setBus(this);
     }
-
-    protected BusStrategy createBusStrategy(SodaPop sodapop) {
-	return new ServiceStrategy(sodapop);
+    
+    public static ModuleContext getModuleContext() {
+	return mc;
     }
 
     /**
@@ -118,26 +118,22 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public void addAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, ServiceRequest request) {
 	if (callerID != null
-		&& callerID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)
-		&& registry.getBusMemberByID(callerID
-			.substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-				.length())) instanceof ServiceCaller)
+		&& registry.getBusMemberByID(callerID) instanceof ServiceCaller) {
 	    ((ServiceStrategy) busStrategy).addAvailabilitySubscription(
 		    callerID, subscriber, request);
+	}
     }
 
     /**
      * @see org.universAAL.middleware.service.ServiceBus#addNewRegParams(String,
      *      ServiceProfile[])
      */
-    public void addNewRegParams(String calleeID,
+    public void addNewServiceProfiles(String calleeID,
 	    ServiceProfile[] realizedServices) {
-	if (calleeID != null
-		&& calleeID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
+	if (calleeID != null) {
 	    ((ServiceStrategy) busStrategy).addRegParams(calleeID,
 		    realizedServices);
+	}
     }
 
     /**
@@ -152,7 +148,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
      * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
      *      Service)
      */
-    public ServiceProfile[] getMatchingService(String callerID, Service s) {
+    public ServiceProfile[] getMatchingServices(String callerID, Service s) {
 	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s
 		.getType());
     }
@@ -161,7 +157,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
      * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
      *      String)
      */
-    public ServiceProfile[] getMatchingService(String callerID, String s) {
+    public ServiceProfile[] getMatchingServices(String callerID, String s) {
 	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s);
     }
 
@@ -169,38 +165,10 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
      * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
      *      Service[])
      */
-    public ServiceProfile[] getMatchingService(String callerID,
+    public ServiceProfile[] getMatchingServices(String callerID,
 	    String[] keywords) {
 	// TODO Auto-generated method stub
 	return null;
-    }
-
-    /**
-     * not used method
-     */
-    public String register(BusMember member) {
-	return null;
-    }
-
-    /**
-     * @see org.universAAL.middleware.service.ServiceBus#register(ServiceCallee,
-     *      ServiceProfile[])
-     */
-    public String register(ServiceCallee callee,
-	    ServiceProfile[] realizedServices) {
-	String id = Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-		+ super.register(callee);
-	if (realizedServices != null)
-	    ((ServiceStrategy) busStrategy).addRegParams(id, realizedServices);
-	return id;
-    }
-
-    /**
-     * @see org.universAAL.middleware.service.ServiceBus#register(ServiceCaller)
-     */
-    public String register(ServiceCaller caller) {
-	return Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-		+ super.register(caller);
     }
 
     /**
@@ -210,58 +178,42 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public void removeAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, String requestURI) {
 	if (callerID != null
-		&& callerID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)
-		&& registry.getBusMemberByID(callerID
-			.substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-				.length())) instanceof ServiceCaller)
+		&& registry.getBusMemberByID(callerID) instanceof ServiceCaller) {
 	    ((ServiceStrategy) busStrategy).removeAvailabilitySubscription(
 		    callerID, subscriber, requestURI);
+	}
     }
 
     /**
      * @see org.universAAL.middleware.service.ServiceBus#removeMatchingRegParams(String,
      *      ServiceProfile[])
      */
-    public void removeMatchingRegParams(String calleeID,
+    public void removeMatchingProfiles(String calleeID,
 	    ServiceProfile[] realizedServices) {
-	if (calleeID != null
-		&& calleeID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
+	if (calleeID != null) {
 	    ((ServiceStrategy) busStrategy).removeMatchingRegParams(calleeID,
 		    realizedServices);
+	}
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#sendReply(String,
+     * @see org.universAAL.middleware.service.ServiceBus#brokerReply(String,
      *      Message)
      */
-    public void sendReply(String calleeID, Message response) {
-	if (calleeID != null
-		&& calleeID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-	    super.sendMessage(calleeID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()), response);
+    public void brokerReply(String calleeID, BusMessage response) {
+	if (calleeID != null) {
+	    super.brokerMessage(calleeID, response);
+	}
     }
 
     /**
      * @see org.universAAL.middleware.service.ServiceBus#sendMessage(String,
      *      Message)
      */
-    public void sendMessage(String callerID, Message request) {
-	if (callerID != null
-		&& callerID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-	    super.sendMessage(callerID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()), request);
-    }
-
-    /**
-     * the method is not used
-     */
-    public void unregister(String id, BusMember member) {
+    public void brokerRequest(String callerID, BusMessage request) {
+	if (callerID != null) {
+	    super.brokerMessage(callerID, request);
+	}
     }
 
     /**
@@ -269,13 +221,9 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
      *      ServiceCallee)
      */
     public void unregister(String calleeID, ServiceCallee callee) {
-	if (calleeID != null
-		&& calleeID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
+	if (calleeID != null) {
 	    ((ServiceStrategy) busStrategy).removeRegParams(calleeID);
-	    super.unregister(calleeID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()), callee);
+	    super.unregister(calleeID, callee);
 	}
     }
 
@@ -284,11 +232,19 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
      *      ServiceCaller)
      */
     public void unregister(String callerID, ServiceCaller caller) {
-	if (callerID != null
-		&& callerID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-	    super.unregister(callerID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()), caller);
+	if (callerID != null) {
+	    super.unregister(callerID, caller);
+	}
+    }
+
+    @Override
+    protected BusStrategy createBusStrategy(CommunicationModule commModule) {
+	return new ServiceStrategy(commModule, context);
+    }
+
+    public void handleSendError(ChannelMessage message,
+	    CommunicationConnectorException e) {
+	// TODO Auto-generated method stub
+
     }
 }

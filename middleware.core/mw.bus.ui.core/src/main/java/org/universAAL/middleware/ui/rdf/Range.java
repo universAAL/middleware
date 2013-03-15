@@ -248,21 +248,25 @@ public class Range extends Input {
     /**
      * @see #PROP_STEP
      */
-    public void setStep(Number step) {
+    public boolean setStep(Number step) {
 	if (step != null && !props.containsKey(PROP_STEP)
 		&& (step instanceof Integer || max instanceof Number)
-		&& step.doubleValue() > 0)
+		&& step.doubleValue() > 0) {
 	    props.put(PROP_STEP, step);
+	    return true;
+	}
+	return false;
     }
 
     /**
      * @see Input#setProperty(String, Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_STEP.equals(propURI)) {
 	    if (value instanceof Number)
-		setStep((Number) value);
+		return setStep((Number) value);
+	    return false;
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
     }
 }

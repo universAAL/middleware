@@ -19,16 +19,12 @@
  */
 package org.universAAL.middleware.context;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.Subscriber;
+import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
-import org.universAAL.middleware.sodapop.Bus;
-import org.universAAL.middleware.sodapop.Subscriber;
-import org.universAAL.middleware.sodapop.msg.Message;
 
 /**
  * Provides the interface to be implemented by context subscribers together with
@@ -49,11 +45,7 @@ import org.universAAL.middleware.sodapop.msg.Message;
  *         Tazari</a>
  * 
  */
-public abstract class ContextSubscriber implements Subscriber {
-    private ContextBus bus;
-    private ModuleContext thisSubscriberContext;
-    protected String myID, localID;
-    private List realizedSubscriptions;
+public abstract class ContextSubscriber extends Subscriber {
 
     /**
      * Creates a Context Subscriber and immediately registers a set of Context
@@ -65,28 +57,10 @@ public abstract class ContextSubscriber implements Subscriber {
      *            Array of ContextEventPattern that are immediately registered
      *            for this Subscriber
      */
-    protected ContextSubscriber(ModuleContext context,
+    protected ContextSubscriber(ModuleContext connectingModule,
 	    ContextEventPattern[] initialSubscriptions) {
-	this((ContextBus) context.getContainer().fetchSharedObject(context,
-		ContextBusImpl.busFetchParams), initialSubscriptions, true);
-
-	thisSubscriberContext = context;
-    }
-
-    public ContextSubscriber(ContextBus bus,
-	    ContextEventPattern[] initialSubscriptions, boolean register) {
-	this.bus = bus;
-
-	if (register) {
-	    myID = bus.register(this, initialSubscriptions);
-	    populateLocalID(myID);
-	    if (this.realizedSubscriptions == null) {
-		this.realizedSubscriptions = new ArrayList();
-	    }
-	    this.realizedSubscriptions.addAll(Arrays
-		    .asList(initialSubscriptions));
-	}
-
+	super(connectingModule, ContextBusImpl.getContextBusFetchParams());
+	addNewRegParams(initialSubscriptions);
     }
 
     /**
@@ -97,8 +71,7 @@ public abstract class ContextSubscriber implements Subscriber {
      *            The additional array of ContextEventPattern
      */
     protected final void addNewRegParams(ContextEventPattern[] newSubscriptions) {
-	bus.addNewRegParams(myID, newSubscriptions);
-	this.realizedSubscriptions.addAll(Arrays.asList(newSubscriptions));
+	((ContextBus) theBus).addNewRegParams(busResourceURI, newSubscriptions);
     }
 
     /**
@@ -110,8 +83,8 @@ public abstract class ContextSubscriber implements Subscriber {
      */
     protected final void removeMatchingRegParams(
 	    ContextEventPattern[] oldSubscriptions) {
-	bus.removeMatchingRegParams(myID, oldSubscriptions);
-	this.realizedSubscriptions.removeAll(Arrays.asList(oldSubscriptions));
+	((ContextBus) theBus).removeMatchingRegParams(busResourceURI,
+		oldSubscriptions);
     }
 
     /**
@@ -120,8 +93,8 @@ public abstract class ContextSubscriber implements Subscriber {
      */
     public abstract void communicationChannelBroken();
 
-    public final void busDyingOut(Bus b) {
-	if (b == bus)
+    public final void busDyingOut(AbstractBus b) {
+	if (b == theBus)
 	    communicationChannelBroken();
     }
 
@@ -130,11 +103,7 @@ public abstract class ContextSubscriber implements Subscriber {
      * instances of context bus in the current AAL Space.
      */
     public ContextEventPattern[] getAllProvisions() {
-	return bus.getAllProvisions(myID);
-    }
-
-    public final boolean eval(Message m) {
-	return false;
+	return ((ContextBus) theBus).getAllProvisions(busResourceURI);
     }
 
     /**
@@ -146,36 +115,24 @@ public abstract class ContextSubscriber implements Subscriber {
      */
     public abstract void handleContextEvent(ContextEvent event);
 
-    public final void handleEvent(Message m) {
+    public final void handleEvent(BusMessage m) {
 	if (m.getContent() instanceof ContextEvent) {
-	    LogUtils.logInfo(thisSubscriberContext, ContextSubscriber.class,
-		    "handleEvent", new Object[] { localID,
+	    LogUtils.logInfo(owner, ContextSubscriber.class, "handleEvent",
+		    new Object[] { busResourceURI,
 			    " received context event:\n",
 			    m.getContentAsString() }, null);
 	    handleContextEvent((ContextEvent) m.getContent());
 	}
     }
 
-    public final void handleReply(Message m) {
-    }
-
     /**
      * Unregisters the Subscriber from the Context bus.
      */
     public void close() {
-	bus.unregister(myID, this);
-    }
-
-    protected void populateLocalID(String myID) {
-	localID = myID.substring(myID.lastIndexOf('#') + 1);
+	theBus.unregister(busResourceURI, this);
     }
 
     public String getMyID() {
-	return myID;
+	return busResourceURI;
     }
-
-    public List getRealizedSubscriptions() {
-	return realizedSubscriptions;
-    }
-
 }

@@ -19,19 +19,20 @@
  */
 package org.universAAL.middleware.ui.impl;
 
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.BusMember;
+import org.universAAL.middleware.bus.model.BusStrategy;
+import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.msg.MessageType;
+import org.universAAL.middleware.connectors.exception.CommunicationConnectorException;
+import org.universAAL.middleware.connectors.util.ChannelMessage;
 import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.sodapop.AbstractBus;
-import org.universAAL.middleware.sodapop.BusMember;
-import org.universAAL.middleware.sodapop.BusStrategy;
-import org.universAAL.middleware.sodapop.SodaPop;
-import org.universAAL.middleware.sodapop.msg.Message;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
-import org.universAAL.middleware.sodapop.msg.MessageType;
 import org.universAAL.middleware.ui.DialogManager;
 import org.universAAL.middleware.ui.UIBus;
 import org.universAAL.middleware.ui.UICaller;
@@ -50,64 +51,57 @@ import org.universAAL.middleware.util.ResourceComparator;
  * @author Carsten Stockloew
  */
 public class UIBusImpl extends AbstractBus implements UIBus {
-    public static final String uAAL_BUS_NAME_UI = "uAAL.bus.ui";
-    public static MessageContentSerializer contentSerializer = null;
-    /**
-     * The {@link Container} reference.
-     */
-    public static Container container;
-    /**
-     * The {@link ModuleContext} reference.
-     */
-    private static ModuleContext moduleContext;
-    public static Object[] contentSerializerParams;
-    public static Object[] busFetchParams;
-    public static Object[] busShareParams;
-    public static Object[] sodapopFetchParams;
+    private static Object[] busFetchParams;
+    private static UIBusImpl theUIBus = null;
     private static UIBusOntology uiBusOntology = new UIBusOntology();
+    private static ModuleContext mc;
 
-    public static synchronized void assessContentSerialization(Resource content) {
+    public static Object[] getUIBusFetchParams() {
+	return busFetchParams.clone();
+    }
+
+    public synchronized void assessContentSerialization(Resource content) {
 	if (org.universAAL.middleware.util.Constants.debugMode()) {
-	    if (contentSerializer == null) {
-		contentSerializer = (MessageContentSerializer) moduleContext
-			.getContainer().fetchSharedObject(moduleContext,
-				contentSerializerParams);
-		if (contentSerializer == null)
-		    return;
-	    }
-
 	    LogUtils
 		    .logDebug(
-			    moduleContext,
+			    context,
 			    UIBusImpl.class,
 			    "assessContentSerialization",
 			    new Object[] { "Assessing message content serialization:" },
 			    null);
 
-	    String str = contentSerializer.serialize(content);
+	    String str = BusMessage.trySerializationAsContent(content);
 	    LogUtils
 		    .logDebug(
-			    moduleContext,
+			    context,
 			    UIBusImpl.class,
 			    "assessContentSerialization",
 			    new Object[] { "\n      1. serialization dump\n",
 				    str,
 				    "\n      2. deserialize & compare with the original resource\n" },
 			    null);
-	    new ResourceComparator().printDiffs(content,
-		    (Resource) contentSerializer.deserialize(str));
+	    new ResourceComparator().printDiffs(content, (Resource) BusMessage
+		    .deserializeAsContent(str));
 	}
     }
 
-    public static void startModule() {
-	OntologyManagement.getInstance().register(uiBusOntology);
-	container.shareObject(moduleContext, new UIBusImpl((SodaPop) container
-		.fetchSharedObject(moduleContext, sodapopFetchParams)),
-		busShareParams);
+    public static void startModule(Container c, ModuleContext mc,
+	    Object[] uiBusShareParams, Object[] uiBusFetchParams) {
+	if (theUIBus == null) {
+	    UIBusImpl.mc = mc;
+	    OntologyManagement.getInstance().register(uiBusOntology);
+	    theUIBus = new UIBusImpl(mc);
+	    busFetchParams = uiBusFetchParams;
+	    c.shareObject(mc, theUIBus, uiBusShareParams);
+	}
     }
 
     public static void stopModule() {
-	OntologyManagement.getInstance().unregister(uiBusOntology);
+	if (theUIBus != null) {
+	    OntologyManagement.getInstance().unregister(uiBusOntology);
+	    theUIBus.dispose();
+	    theUIBus = null;
+	}
     }
 
     /**
@@ -116,33 +110,36 @@ public class UIBusImpl extends AbstractBus implements UIBus {
      * @param g
      *            Pointer to the local instance of the SodaPop bus-system
      */
-    public UIBusImpl(SodaPop g) {
-	super(uAAL_BUS_NAME_UI, g);
+    private UIBusImpl(ModuleContext mc) {
+	super(mc);
 	busStrategy.setBus(this);
     }
 
-    protected BusStrategy createBusStrategy(SodaPop sodapop) {
-	return new UIStrategy(sodapop, getModuleContext());
+    public static ModuleContext getModuleContext() {
+	return mc;
+    }
+
+    @Override
+    protected BusStrategy createBusStrategy(CommunicationModule commModule) {
+	return new UIStrategy(commModule);
+    }
+
+    public void setDialogManager(DialogManager dm) {
+	((UIStrategy) busStrategy).setDialogManager(dm);
     }
 
     /**
      * Closes a running dialog
      * 
-     * @param publisherID
+     * @param callerID
      *            ID of the publisher of the Dialog
      * @param dialogID
      *            ID of the dialog to delete
      */
-    public void abortDialog(String publisherID, String dialogID) {
-	if (publisherID != null
-		&& publisherID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    String localID = publisherID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length());
-	    Object o = registry.getBusMemberByID(localID);
-	    if (o instanceof UICaller)
-		((UIStrategy) busStrategy).abortDialog(localID, dialogID);
+    public void abortDialog(String callerID, String dialogID) {
+	BusMember bm = getBusMember(callerID);
+	if (bm instanceof UICaller) {
+	    ((UIStrategy) busStrategy).abortDialog(callerID, dialogID);
 	}
     }
 
@@ -164,46 +161,35 @@ public class UIBusImpl extends AbstractBus implements UIBus {
      * 
      * Adds a new subscription to the bus
      * 
-     * @param subscriberID
+     * @param handlerID
      *            ID of the subscriber like given by register
-     * @param newSubscription
+     * @param newProfile
      *            Description of the subscription
      */
-    public void addNewRegParams(String subscriberID,
-	    UIHandlerProfile newSubscription) {
-	if (subscriberID != null
-		&& subscriberID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.getBusMemberByID(subscriberID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
-	    if (o instanceof UIHandler)
-		((UIStrategy) busStrategy).addRegParams(subscriberID,
-			newSubscription);
+    public void addNewProfile(String handlerID, UIHandlerProfile newProfile) {
+	Object o = registry.getBusMemberByID(handlerID);
+	if (o instanceof UIHandler) {
+	    ((UIStrategy) busStrategy).addRegParams(handlerID, newProfile);
 	}
     }
 
     /**
      * @see UIBus#dialogFinished(String, UIResponse)
      */
-    public void dialogFinished(String subscriberID, UIResponse input) {
-	if (input != null
-		&& subscriberID != null
-		&& subscriberID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.getBusMemberByID(subscriberID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
+    public void dialogFinished(String handlerID, UIResponse response) {
+	if (response != null) {
+	    Object o = registry.getBusMemberByID(handlerID);
 	    if (o instanceof UIHandler) {
-		if (input.isSubdialogCall())
-		    ((UIStrategy) busStrategy).suspendDialog(input
+		if (response.isSubdialogCall()) {
+		    ((UIStrategy) busStrategy).suspendDialog(response
 			    .getDialogID());
-		else
-		    ((UIStrategy) busStrategy).dialogFinished(subscriberID,
-			    input);
+		} else {
+		    ((UIStrategy) busStrategy).dialogFinished(handlerID,
+			    response);
+		}
 
 		// send a notification to the calling app with the UI Response
-		((UIStrategy) busStrategy).notifyUserInput(input);
+		((UIStrategy) busStrategy).notifyUserInput(response);
 	    }
 	}
     }
@@ -221,68 +207,19 @@ public class UIBusImpl extends AbstractBus implements UIBus {
     }
 
     /**
-     * Standard implementation of AbstractBus will not be used here and always
-     * return null.
-     */
-    public String register(BusMember member) {
-	return null;
-    }
-
-    /**
-     * Method to register an UICaller at the bus
-     * 
-     * @param publisher
-     *            Instance of the Publisher to register
-     * 
-     * @return ID of the publisher
-     */
-    public String register(UICaller publisher) {
-	String id = super.register(publisher);
-	if (publisher instanceof DialogManager)
-	    ((UIStrategy) busStrategy)
-		    .setDialogManager((DialogManager) publisher);
-	return Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + id;
-    }
-
-    /**
-     * Method to register an UIHandler at the bus
-     * 
-     * @param subscriber
-     *            Instance of a Subscriber to register
-     * @param initialSubscription
-     *            Initial description of the Outputevents the subscriber is
-     *            asking for
-     * 
-     * @return ID of the subscriber
-     */
-    public String register(UIHandler subscriber,
-	    UIHandlerProfile initialSubscription) {
-	String id = Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-		+ super.register(subscriber);
-	if (initialSubscription != null)
-	    ((UIStrategy) busStrategy).addRegParams(id, initialSubscription);
-	return id;
-    }
-
-    /**
      * Removes a subscription from the bus
      * 
-     * @param subscriberID
+     * @param handlerID
      *            ID from the owner of the subscription
-     * @param oldSubscription
+     * @param oldProfile
      *            Subscription to remove
      */
-    public void removeMatchingRegParams(String subscriberID,
-	    UIHandlerProfile oldSubscription) {
-	if (subscriberID != null
-		&& subscriberID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.getBusMemberByID(subscriberID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
-	    if (o instanceof UIHandler)
-		((UIStrategy) busStrategy).removeMatchingRegParams(
-			subscriberID, oldSubscription);
+    public void removeMatchingProfile(String handlerID,
+	    UIHandlerProfile oldProfile) {
+	Object o = registry.getBusMemberByID(handlerID);
+	if (o instanceof UIHandler) {
+	    ((UIStrategy) busStrategy).removeMatchingProfile(handlerID,
+		    oldProfile);
 	}
     }
 
@@ -290,92 +227,56 @@ public class UIBusImpl extends AbstractBus implements UIBus {
      * 
      * @see UIBus#resumeDialog(String, String, Resource)
      */
-    public void resumeDialog(String publisherID, String dialogID,
+    public void resumeDialog(String callerID, String dialogID,
 	    Resource dialogData) {
-	if (publisherID != null
-		&& publisherID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    String localID = publisherID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length());
-	    Object o = registry.getBusMemberByID(localID);
-	    if (o instanceof DialogManager && dialogData instanceof UIRequest)
-		((UIStrategy) busStrategy).adaptationParametersChanged(
-			(DialogManager) o, (UIRequest) dialogData, null);
-	    else if (o instanceof UICaller)
-		((UIStrategy) busStrategy).resumeDialog(dialogID, dialogData);
+	BusMember bm = getBusMember(callerID);
+	if (bm instanceof DialogManager && dialogData instanceof UIRequest) {
+	    ((UIStrategy) busStrategy).adaptationParametersChanged(
+		    (DialogManager) bm, (UIRequest) dialogData, null);
+	} else if (bm instanceof UICaller) {
+	    ((UIStrategy) busStrategy).resumeDialog(dialogID, dialogData);
 	}
     }
 
     /**
-     * Standard implementation of sendMessage from AbstractBus will not be used
-     * here and simply do nothing.
-     */
-    public final void sendMessage(String senderID, Message msg) {
-	LogUtils.logError(moduleContext, UIBusImpl.class,
-		"sendMessage from AbstractBus",
-		new Object[] { "Method is empty and we shouldn't be here!!" },
-		null);
-    }
-
-    /**
      * 
-     * Publish the given UIRequest on the bus
+     * Asks the bus to find an appropriate UI handler and forward the request to
+     * it for handling
      * 
-     * @param publisherID
-     *            Publisher of the event
-     * @param msg
-     *            Message to be sent
+     * @param callerID
+     *            the ID of the UICaller that is asking the bus
+     * @param req
+     *            the request to be forwarded to a UI handler
      * 
      */
-    public void sendMessage(String publisherID, UIRequest msg) {
-	assessContentSerialization(msg);
-	if (publisherID != null
-		&& publisherID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-	    super.sendMessage(publisherID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()), new Message(MessageType.request, msg));
-    }
-
-    /**
-     * Standard implementation of unregister from AbstractBus will not be used
-     * here and simply do nothing.
-     */
-    public void unregister(String id, BusMember member) {
-
+    public void brokerUIRequest(String callerID, UIRequest req) {
+	BusMember bm = getBusMember(callerID);
+	if (bm instanceof UICaller) {
+	    assessContentSerialization(req);
+	    brokerMessage(callerID, new BusMessage(MessageType.request, req,
+		    this));
+	}
     }
 
     /**
      * @see org.universAAL.middleware.ui.UIBus#unregister(java.lang.String,
      *      org.universAAL.middleware.ui.UICaller)
      */
-    public void unregister(String publisherID, UICaller publisher) {
-	if (publisherID != null
-		&& publisherID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-	    super.unregister(publisherID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()), publisher);
+    public void unregister(String handlerID, UICaller handler) {
+	super.unregister(handlerID, handler);
     }
 
     /**
      * @see org.universAAL.middleware.ui.UIBus#unregister(java.lang.String,
      *      org.universAAL.middleware.ui.UIHandler)
      */
-    public void unregister(String subscriberID, UIHandler subscriber) {
-	if (subscriberID != null
-		&& subscriberID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.getBusMemberByID(subscriberID
+    public void unregister(String handlerID, UIHandler handler) {
+	Object o = registry.getBusMemberByID(handlerID);
+	if (o != null && o == handler) {
+	    super.unregister(handlerID
 		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
-	    if (o == subscriber) {
-		super.unregister(subscriberID
-			.substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-				.length()), subscriber);
-		((UIStrategy) busStrategy).removeRegParams(subscriberID);
-	    }
+			    .length()), handler);
+	    ((UIStrategy) busStrategy).removeRegParams(handlerID);
 	}
     }
 
@@ -386,33 +287,16 @@ public class UIBusImpl extends AbstractBus implements UIBus {
      */
     public void userLoggedIn(String handlerID, Resource user,
 	    AbsLocation loginLocation) {
-	if (handlerID != null
-		&& handlerID
-			.startsWith(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX)) {
-	    Object o = registry.getBusMemberByID(handlerID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()));
-	    if (o instanceof UIHandler && user != null)
-		((UIStrategy) busStrategy).userLoggedIn(user, loginLocation);
+	Object o = registry.getBusMemberByID(handlerID);
+	if (o instanceof UIHandler && user != null) {
+	    ((UIStrategy) busStrategy).userLoggedIn(user, loginLocation);
 	}
 
     }
 
-    /**
-     * The module context reference.
-     * 
-     * @returnThe module context reference.
-     */
-    public static ModuleContext getModuleContext() {
-	return moduleContext;
-    }
+    public void handleSendError(ChannelMessage message,
+	    CommunicationConnectorException e) {
+	// TODO Auto-generated method stub
 
-    /**
-     * The module context reference.
-     * 
-     * @returnThe module context reference.
-     */
-    public static void setModuleContext(ModuleContext mc) {
-	moduleContext = mc;
     }
 }

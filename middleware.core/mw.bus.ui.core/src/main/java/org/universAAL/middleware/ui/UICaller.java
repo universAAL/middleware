@@ -19,11 +19,11 @@
  */
 package org.universAAL.middleware.ui;
 
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.Caller;
+import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.sodapop.Bus;
-import org.universAAL.middleware.sodapop.Caller;
-import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
 
 /**
@@ -41,13 +41,7 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * @author mtazari
  */
 
-public abstract class UICaller implements Caller {
-
-    /** The bus. */
-    private UIBus bus;
-
-    /** The my id. */
-    private String myID;
+public abstract class UICaller extends Caller {
 
     /**
      * Instantiates a new uI caller.
@@ -56,9 +50,9 @@ public abstract class UICaller implements Caller {
      *            the module context
      */
     protected UICaller(ModuleContext context) {
-	bus = (UIBus) context.getContainer().fetchSharedObject(context,
-		UIBusImpl.busFetchParams);
-	myID = bus.register(this);
+	super(context, UIBusImpl.getUIBusFetchParams());
+	if (this instanceof DialogManager)
+	    ((UIBusImpl) theBus).setDialogManager((DialogManager) this);
     }
 
     /**
@@ -68,7 +62,7 @@ public abstract class UICaller implements Caller {
      *            the dialog id
      */
     public void abortDialog(String dialogID) {
-	bus.abortDialog(myID, dialogID);
+	((UIBus) theBus).abortDialog(busResourceURI, dialogID);
     }
 
     /**
@@ -81,8 +75,8 @@ public abstract class UICaller implements Caller {
      */
     public void adaptationParametersChanged(UIRequest call, String changedProp) {
 	if (this instanceof DialogManager)
-	    bus.adaptationParametersChanged((DialogManager) this, call,
-		    changedProp);
+	    ((UIBus) theBus).adaptationParametersChanged((DialogManager) this,
+		    call, changedProp);
     }
 
     /**
@@ -92,8 +86,8 @@ public abstract class UICaller implements Caller {
      *            the bus
      * @see org.universAAL.middleware.sodapop.BusMember#busDyingOut(Bus)
      */
-    public final void busDyingOut(Bus b) {
-	if (b == bus)
+    public final void busDyingOut(AbstractBus b) {
+	if (b == theBus)
 	    communicationChannelBroken();
     }
 
@@ -101,7 +95,7 @@ public abstract class UICaller implements Caller {
      * Unregisters the UI Caller from the UI Bus.
      */
     public void close() {
-	bus.unregister(myID, this);
+	theBus.unregister(busResourceURI, this);
     }
 
     /**
@@ -126,18 +120,7 @@ public abstract class UICaller implements Caller {
      */
     public void dialogSuspended(String dialogID) {
 	if (this instanceof DialogManager)
-	    bus.dialogSuspended((DialogManager) this, dialogID);
-    }
-
-    /**
-     * 
-     * @param m
-     *            the message
-     * @return true, if successful
-     * @see org.universAAL.middleware.sodapop.Callee#eval(Message)
-     */
-    public final boolean eval(Message m) {
-	return false;
+	    ((UIBus) theBus).dialogSuspended((DialogManager) this, dialogID);
     }
 
     /**
@@ -145,10 +128,9 @@ public abstract class UICaller implements Caller {
      * 
      * @param m
      *            the message
-     * @see org.universAAL.middleware.sodapop.Caller#handleReply(org.universAAL.
-     *      middleware.sodapop.msg.Message)
+     * @see org.universAAL.middleware.bus.model.Caller#handleReply(org.universAAL.middleware.bus.model.msg.Message)
      */
-    public final void handleReply(Message m) {
+    public final void handleReply(BusMessage m) {
 	if (m != null && m.getContent() instanceof UIResponse)
 	    handleUIResponse((UIResponse) m.getContent());
     }
@@ -170,7 +152,7 @@ public abstract class UICaller implements Caller {
      *            the dialog data
      */
     public void resumeDialog(String dialogID, Resource dialogData) {
-	bus.resumeDialog(myID, dialogID, dialogData);
+	((UIBus) theBus).resumeDialog(busResourceURI, dialogID, dialogData);
     }
 
     /**
@@ -181,12 +163,12 @@ public abstract class UICaller implements Caller {
      */
     public final void sendUIRequest(UIRequest e) {
 	if (e != null) {
-	    bus.sendMessage(myID, e);
+	    ((UIBus) theBus).brokerUIRequest(busResourceURI, e);
 	}
     }
 
     public String getMyID() {
-	return myID;
+	return busResourceURI;
     }
 
 }

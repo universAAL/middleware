@@ -88,7 +88,7 @@ public class ProcessResult extends FinalizedResource {
 		if (logID != null)
 		    LogUtils
 			    .logTrace(
-				    ServiceBusImpl.moduleContext,
+				    ServiceBusImpl.getModuleContext(),
 				    ProcessResult.class,
 				    "checkEffects",
 				    new Object[] {
@@ -110,7 +110,7 @@ public class ProcessResult extends FinalizedResource {
 		if (offer == null)
 		    LogUtils
 			    .logTrace(
-				    ServiceBusImpl.moduleContext,
+				    ServiceBusImpl.getModuleContext(),
 				    ProcessResult.class,
 				    "checkEffects",
 				    new Object[] {
@@ -126,7 +126,7 @@ public class ProcessResult extends FinalizedResource {
 		else
 		    LogUtils
 			    .logTrace(
-				    ServiceBusImpl.moduleContext,
+				    ServiceBusImpl.getModuleContext(),
 				    ProcessResult.class,
 				    "checkEffects",
 				    new Object[] {
@@ -150,7 +150,7 @@ public class ProcessResult extends FinalizedResource {
 		if (logID != null)
 		    LogUtils
 			    .logTrace(
-				    ServiceBusImpl.moduleContext,
+				    ServiceBusImpl.getModuleContext(),
 				    ProcessResult.class,
 				    "checkEffects",
 				    new Object[] {
@@ -209,7 +209,7 @@ public class ProcessResult extends FinalizedResource {
 	    if (logID != null)
 		LogUtils
 			.logTrace(
-				ServiceBusImpl.moduleContext,
+				ServiceBusImpl.getModuleContext(),
 				ProcessResult.class,
 				"checkOutputBindings",
 				new Object[] {
@@ -229,7 +229,7 @@ public class ProcessResult extends FinalizedResource {
 		if (logID != null) {
 		    LogUtils
 			    .logTrace(
-				    ServiceBusImpl.moduleContext,
+				    ServiceBusImpl.getModuleContext(),
 				    ProcessResult.class,
 				    "checkOutputBindings",
 				    new Object[] {
@@ -311,7 +311,7 @@ public class ProcessResult extends FinalizedResource {
 	addType(MY_URI, true);
     }
 
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	// TODO: duplicate code with toResult
 	if (PROP_OWLS_RESULT_HAS_EFFECT.equals(propURI)) {
 	    if (value instanceof Resource) {
@@ -321,13 +321,13 @@ public class ProcessResult extends FinalizedResource {
 	    }
 
 	    if (value != null && !(value instanceof List))
-		return;
+		return false;
 
 	    if (value != null) {
 		for (int i = 0; i < ((List) value).size(); i++)
 		    if (!ProcessEffect.checkEffect(((List) value).get(i)))
-			return;
-		super.setProperty(PROP_OWLS_RESULT_HAS_EFFECT, value);
+			return false;
+		return super.setProperty(PROP_OWLS_RESULT_HAS_EFFECT, value);
 	    }
 	} else if (PROP_OWLS_RESULT_WITH_OUTPUT.equals(propURI)) {
 	    if (value instanceof Resource) {
@@ -337,13 +337,14 @@ public class ProcessResult extends FinalizedResource {
 	    }
 
 	    if (value != null && !(value instanceof List))
-		return;
+		return false;
 
 	    for (int i = 0; i < ((List) value).size(); i++)
 		if (!OutputBinding.checkBinding(((List) value).get(i)))
-		    return;
-	    super.setProperty(PROP_OWLS_RESULT_WITH_OUTPUT, value);
+		    return false;
+	    return super.setProperty(PROP_OWLS_RESULT_WITH_OUTPUT, value);
 	}
+	return false;
     }
 
     /**

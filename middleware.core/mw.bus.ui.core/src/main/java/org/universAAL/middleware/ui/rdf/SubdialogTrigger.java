@@ -120,15 +120,16 @@ public class SubdialogTrigger extends Submit {
     /**
      * For exclusive use by de-serializers.
      */
-    public void setProperty(String propURI, Object value) {
-	if (PROP_REPEATABLE_ID_PREFIX.equals(propURI))
+    public boolean setProperty(String propURI, Object value) {
+	if (PROP_REPEATABLE_ID_PREFIX.equals(propURI)) {
 	    if (value instanceof String
-		    && !props.containsKey(PROP_REPEATABLE_ID_PREFIX))
+		    && !props.containsKey(PROP_REPEATABLE_ID_PREFIX)) {
 		props.put(propURI, value);
-	    else
-		return;
-	else
-	    super.setProperty(propURI, value);
+		return true;
+	    }
+	    return false;
+	} else
+	    return super.setProperty(propURI, value);
     }
 
     /**

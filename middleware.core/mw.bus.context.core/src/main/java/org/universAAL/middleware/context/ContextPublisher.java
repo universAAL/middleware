@@ -19,15 +19,11 @@
  */
 package org.universAAL.middleware.context;
 
-import java.util.Arrays;
-import java.util.List;
-
+import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.Publisher;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.context.owl.ContextProvider;
-import org.universAAL.middleware.sodapop.Bus;
-import org.universAAL.middleware.sodapop.Publisher;
-import org.universAAL.middleware.sodapop.msg.Message;
 
 /**
  * Provides the interface to be implemented by context publishers together with
@@ -47,9 +43,7 @@ import org.universAAL.middleware.sodapop.msg.Message;
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  */
-public abstract class ContextPublisher implements Publisher {
-    protected ContextBus bus;
-    protected String myID;
+public abstract class ContextPublisher extends Publisher {
     private ContextProvider providerInfo;
 
     /**
@@ -63,23 +57,12 @@ public abstract class ContextPublisher implements Publisher {
      */
     protected ContextPublisher(ModuleContext context,
 	    ContextProvider providerInfo) {
-	this((ContextBus) context.getContainer().fetchSharedObject(context,
-		ContextBusImpl.busFetchParams), providerInfo, true);
-    }
-
-    protected ContextPublisher(ContextBus bus, ContextProvider providerInfo,
-	    boolean register) {
-
+	super(context, ContextBusImpl.getContextBusFetchParams());
 	if (providerInfo == null || !providerInfo.isWellFormed())
 	    throw new IllegalArgumentException(
 		    "Missing the well-formed provider info!");
 
-	this.bus = bus;
 	this.providerInfo = providerInfo;
-
-	if (register) {
-	    myID = bus.register(this, providerInfo.getProvidedEvents());
-	}
     }
 
     /**
@@ -88,15 +71,8 @@ public abstract class ContextPublisher implements Publisher {
      */
     public abstract void communicationChannelBroken();
 
-    public final boolean eval(Message m) {
-	return false;
-    }
-
-    public final void handleRequest(Message m) {
-    }
-
-    public final void busDyingOut(Bus b) {
-	if (b == bus)
+    public final void busDyingOut(AbstractBus b) {
+	if (b == theBus)
 	    communicationChannelBroken();
     }
 
@@ -112,7 +88,7 @@ public abstract class ContextPublisher implements Publisher {
 		e.setProvider(providerInfo);
 	    else if (providerInfo != e.getProvider())
 		return;
-	    bus.sendMessage(myID, e);
+	    ((ContextBus) theBus).brokerContextEvent(busResourceURI, e);
 	}
     }
 
@@ -120,15 +96,10 @@ public abstract class ContextPublisher implements Publisher {
      * Unregisters the Publisher from the Context bus.
      */
     public void close() {
-	bus.unregister(myID, this);
+	theBus.unregister(busResourceURI, this);
     }
 
     public String getMyID() {
-	return myID;
+	return busResourceURI;
     }
-
-    public List getProvidedEvents() {
-	return Arrays.asList(providerInfo.getProvidedEvents());
-    }
-
 }

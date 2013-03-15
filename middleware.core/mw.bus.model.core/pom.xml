@@ -5,25 +5,38 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.core</artifactId>
-    <version>1.3.1-SNAPSHOT</version>
+    <version>1.3.2-SNAPSHOT</version>
     <relativePath>../mw.pom.core</relativePath>
   </parent>
   <artifactId>mw.bus.model.core</artifactId>
-  <version>1.3.1-SNAPSHOT</version>
+  <version>1.3.2-SNAPSHOT</version>
   <name>universAAL Middleware Bus Model (Core)</name>
   <description>A Soda-Pop implementation based on the ACL (Core)</description>
-  <url></url>
-  <properties>
-    <project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
-  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.container.xfaces.core</artifactId>
     </dependency>
+	<dependency>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.brokers.api.core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.interfaces.core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.managers.api.core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.modules.api.core</artifactId>
+	</dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.acl.interfaces.core</artifactId>
+      <artifactId>mw.data.representation.core</artifactId>
     </dependency>
   </dependencies>
 </project>

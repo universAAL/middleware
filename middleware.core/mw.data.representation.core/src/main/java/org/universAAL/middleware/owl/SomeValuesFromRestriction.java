@@ -164,29 +164,28 @@ public class SomeValuesFromRestriction extends PropertyRestriction {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null || props.containsKey(propURI))
-	    return;
+	    return false;
 
 	// handle this restriction
 	if (PROP_OWL_SOME_VALUES_FROM.equals(propURI)) {
 	    TypeExpression some = (TypeExpression) getProperty(PROP_OWL_SOME_VALUES_FROM);
 	    if (some != null)
-		return;
+		return false;
 
 	    Object tmp = TypeURI.asTypeURI(o);
 	    if (tmp != null)
 		o = tmp;
 
-	    super.setProperty(PROP_OWL_SOME_VALUES_FROM, o);
-	    return;
+	    return super.setProperty(PROP_OWL_SOME_VALUES_FROM, o);
 	}
 
 	// do not handle other restrictions
 	if (propMap.containsKey(propURI))
-	    return;
+	    return false;
 
 	// for everything else: call super
-	super.setProperty(propURI, o);
+	return super.setProperty(propURI, o);
     }
 }

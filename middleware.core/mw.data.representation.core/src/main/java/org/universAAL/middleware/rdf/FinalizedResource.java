@@ -85,8 +85,8 @@ public class FinalizedResource extends Resource {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#addType(String, boolean) */
-    public final void addType(String typeURI, boolean blockFurtherTypes) {
-	super.addType(typeURI, blockFurtherTypes);
+    public final boolean addType(String typeURI, boolean blockFurtherTypes) {
+	return super.addType(typeURI, blockFurtherTypes);
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#getLocalName() */

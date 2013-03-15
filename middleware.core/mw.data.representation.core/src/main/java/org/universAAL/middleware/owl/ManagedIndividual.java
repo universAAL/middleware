@@ -423,18 +423,18 @@ public abstract class ManagedIndividual extends FinalizedResource {
      * before and the given value complies with the restrictions defined by this
      * class of managed individuals for the given propURI.
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI == null || value == null || props.containsKey(propURI))
-	    return;
+	    return false;
 
 	MergedRestriction r = OntologyManagement.getInstance().getOntClassInfo(
 		getClassURI()).getRestrictionsOnProp(propURI);
 
-	if (r == null)
-	    super.setProperty(propURI, value);
-	else {
+	if (r == null) {
+	    return super.setProperty(propURI, value);
+	} else {
 	    if (r.getMaxCardinality() == 0)
-		return;
+		return false;
 
 	    if (value instanceof Resource
 		    && !(value instanceof ManagedIndividual))
@@ -444,8 +444,11 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	    // we have to put the value first, because the Restriction 'r' needs
 	    // to read it for checking the membership
 	    props.put(propURI, value);
-	    if (!r.hasMember(this, null))
+	    if (!r.hasMember(this, null)) {
 		props.remove(propURI);
+		return false;
+	    }
+	    return true;
 	}
     }
 

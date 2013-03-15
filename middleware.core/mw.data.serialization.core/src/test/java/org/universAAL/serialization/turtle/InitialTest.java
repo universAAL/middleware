@@ -30,21 +30,22 @@ import org.universAAL.middleware.owl.SomeValuesFromRestriction;
 import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.util.ResourceComparator;
 
 public class InitialTest extends TestCase {
 
-    TurtleParser s;
+    TurtleSerializer s;
 
     public InitialTest(String name) {
 	super(name);
 
-	s = new TurtleParser();
+	s = new TurtleSerializer();
     }
 
     public void testDataRange() {
-	if (true)
-	    return;
+//	if (true)
+//	    return;
 	Enumeration e1 = new Enumeration();
 	e1.addValue(new Integer(0));
 	e1.addValue(new Integer(1));
@@ -53,8 +54,10 @@ public class InitialTest extends TestCase {
 	e1.addValue(new Integer(4));
 
 	String str = s.serialize(e1);
+	Resource r = (Resource) s.deserialize(str);
+	assertTrue(new ResourceComparator().areEqual(e1, r));
 	System.out.println(str);
-	new ResourceComparator().printDiffs(e1, (Resource) s.deserialize(str));
+	new ResourceComparator().printDiffs(e1, r);
 	System.out.println();
 	System.out.println();
     }
@@ -88,7 +91,9 @@ public class InitialTest extends TestCase {
 	// r.setProperty(Restriction.PROP_OWL_SOME_VALUES_FROM, e);
 
 	String str = s.serialize(r);
+	Resource r2 = (Resource) s.deserialize(str);
 	System.out.println(str);
-	new ResourceComparator().printDiffs(r, (Resource) s.deserialize(str));
+	new ResourceComparator().printDiffs(r, r2);
+	assertTrue(new ResourceComparator().areEqual(r, r2));
     }
 }

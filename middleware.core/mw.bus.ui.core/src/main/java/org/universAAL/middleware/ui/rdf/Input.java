@@ -125,12 +125,15 @@ public abstract class Input extends FormControl {
     /**
      * @see FormControl#setProperty(String, Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_INPUT_ALERT.equals(propURI)) {
-	    if (value instanceof String && !props.containsKey(propURI))
+	    if (value instanceof String && !props.containsKey(propURI)) {
 		props.put(propURI, value);
+		return true;
+	    }
+	    return false;
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
     }
 
     /**

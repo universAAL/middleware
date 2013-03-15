@@ -174,10 +174,35 @@ public class PropertyPath extends FinalizedResource {
      * of another object. The set of properties is compared piece-wise.
      */
     public boolean equals(Object other) {
-	return (other instanceof PropertyPath
-		&& props.get(PROP_PROPERTY_PATH) != null && props.get(
-		PROP_PROPERTY_PATH).equals(
-		((PropertyPath) other).props.get(PROP_PROPERTY_PATH)));
+	if (!(other instanceof PropertyPath))
+	    return false;
+	
+	List thisPath = (List) props.get(PROP_PROPERTY_PATH);
+	List otherPath = (List) ((Resource)other).props.get(PROP_PROPERTY_PATH);
+	if (thisPath == null) {
+	    if (otherPath == null)
+		return true;
+	} else {
+	    if (otherPath == null)
+		return false;
+	    
+	    // both paths are != null -> compare
+	    if (thisPath.size() != otherPath.size())
+		    return false;
+	    
+	    Iterator thisIt = thisPath.iterator();
+	    Iterator otherIt = otherPath.iterator();
+	    Object thisObj;
+	    Object otherObj;
+	    while (thisIt.hasNext()) {
+		thisObj = thisIt.next();
+		otherObj = otherIt.next();
+		if (!thisObj.equals(otherObj))
+		    return false;
+	    }
+	    return true;
+	}
+	return false;
     }
 
     /** Get the last element of the path. */
@@ -213,7 +238,7 @@ public class PropertyPath extends FinalizedResource {
      * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
      *      java.lang.Object)
      */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	if (PROP_PROPERTY_PATH.equals(propURI)
 		&& !props.containsKey(PROP_PROPERTY_PATH)) {
 	    ArrayList l = new ArrayList();
@@ -227,17 +252,22 @@ public class PropertyPath extends FinalizedResource {
 			    && Resource.isQualifiedName((String) o))
 			l.add(new Resource((String) o));
 		    else
-			return;
+			return false;
 		}
 	    } else if (o instanceof Resource
-		    && ((Resource) o).representsQualifiedURI())
+		    && ((Resource) o).representsQualifiedURI()) {
 		l.add(o);
-	    else if (o instanceof String
-		    && Resource.isQualifiedName((String) o))
+	    } else if (o instanceof String
+		    && Resource.isQualifiedName((String) o)) {
 		l.add(new Resource((String) o));
-	    else
-		return;
+	    } else {
+		return false;
+	    }
+
 	    props.put(PROP_PROPERTY_PATH, l);
+	    return true;
+	} else {
+	    return false;
 	}
     }
 

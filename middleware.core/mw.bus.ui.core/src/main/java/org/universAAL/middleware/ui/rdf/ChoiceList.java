@@ -131,20 +131,21 @@ public class ChoiceList extends Label {
     /**
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_CHILDREN.equals(propURI))
 	    if (value instanceof List && children == null) {
 		for (Iterator i = ((List) value).iterator(); i.hasNext();) {
 		    Object o = i.next();
 		    if (!(o instanceof ChoiceItem)
 			    && !(o instanceof ChoiceList))
-			return;
+			return false;
 		}
 		children = (List) value;
 		props.put(PROP_CHILDREN, children);
+		return true;
 	    } else
-		return;
+		return false;
 	else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
     }
 }

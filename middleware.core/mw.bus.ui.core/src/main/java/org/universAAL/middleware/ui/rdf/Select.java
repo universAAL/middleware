@@ -226,26 +226,29 @@ public class Select extends Input {
      * 
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
      */
-    public void setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (PROP_CHOICES.equals(propURI)) {
 	    if (props.containsKey(propURI))
-		return;
+		return false;
 	    else if (value instanceof List) {
 		for (Iterator i = ((List) value).iterator(); i.hasNext();) {
 		    Object o = i.next();
 		    if (!(o instanceof ChoiceItem)
 			    && !(o instanceof ChoiceList))
-			return;
+			return false;
 		}
 		props.put(propURI, value);
+		return true;
 	    } else if (value instanceof ChoiceItem
 		    || value instanceof ChoiceList) {
 		List l = new ArrayList(1);
 		l.add(value);
 		props.put(propURI, l);
+		return true;
 	    }
 	} else
-	    super.setProperty(propURI, value);
+	    return super.setProperty(propURI, value);
+	return false;
     }
 
     /**

@@ -19,6 +19,9 @@
  */
 package org.universAAL.middleware.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.universAAL.middleware.rdf.FinalizedResource;
 
 /**
@@ -38,10 +41,18 @@ public class CallStatus extends FinalizedResource {
     public static final int NO_MATCHING_SERVICE_FOUND = 1;
     public static final int RESPONSE_TIMED_OUT = 2;
     public static final int SERVICE_SPECIFIC_FAILURE = 3;
+    public static final int DENIED = 4;
 
-    private static final String[] names = { "call_succeeded",
-	    "no_matching_service_found", "response_timed_out",
-	    "service_specific_failure" };
+    private static final Map<Integer, String> names = new HashMap<Integer, String>();
+    
+    static
+    {
+	names.put(SUCCEEDED, "call_succeeded");
+	names.put(NO_MATCHING_SERVICE_FOUND, "no_matching_service_found");
+	names.put(RESPONSE_TIMED_OUT, "response_timed_out");
+	names.put(SERVICE_SPECIFIC_FAILURE, "service_specific_failure");
+	names.put(DENIED, "denied");
+    }
 
     public static final CallStatus succeeded = new CallStatus(SUCCEEDED);
     public static final CallStatus noMatchingServiceFound = new CallStatus(
@@ -50,6 +61,7 @@ public class CallStatus extends FinalizedResource {
 	    RESPONSE_TIMED_OUT);
     public static final CallStatus serviceSpecificFailure = new CallStatus(
 	    SERVICE_SPECIFIC_FAILURE);
+    public static final CallStatus denied = new CallStatus(DENIED);
 
     /**
      * Returns the value of the call status. It returns the predefined names for
@@ -59,23 +71,28 @@ public class CallStatus extends FinalizedResource {
      *            gets the status value
      */
     public static CallStatus valueOf(String name) {
-	if (name == null)
-	    return null;
-	if (name.startsWith(uAAL_VOCABULARY_NAMESPACE))
-	    name = name.substring(uAAL_VOCABULARY_NAMESPACE.length());
-	for (int i = SUCCEEDED; i <= SERVICE_SPECIFIC_FAILURE; i++)
-	    if (names[i].equals(name)) {
-		switch (i) {
-		case SUCCEEDED:
-		    return succeeded;
-		case NO_MATCHING_SERVICE_FOUND:
-		    return noMatchingServiceFound;
-		case RESPONSE_TIMED_OUT:
-		    return responseTimedOut;
-		case SERVICE_SPECIFIC_FAILURE:
-		    return serviceSpecificFailure;
+	if (name != null) {
+	    if (name.startsWith(uAAL_VOCABULARY_NAMESPACE)) {
+		name = name.substring(uAAL_VOCABULARY_NAMESPACE.length());
+	    }
+	    for (Integer status : names.keySet()) {
+		if (names.get(status).equals(name)) {
+		    switch (status) {
+		    case SUCCEEDED:
+			return succeeded;
+		    case NO_MATCHING_SERVICE_FOUND:
+			return noMatchingServiceFound;
+		    case RESPONSE_TIMED_OUT:
+			return responseTimedOut;
+		    case SERVICE_SPECIFIC_FAILURE:
+			return serviceSpecificFailure;
+		    case DENIED:
+			return denied;
+		    }
 		}
 	    }
+	    return null;
+	}
 	return null;
     }
 
@@ -96,7 +113,7 @@ public class CallStatus extends FinalizedResource {
      *            defines the order of each service call status
      */
     private CallStatus(int order) {
-	super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+	super(uAAL_VOCABULARY_NAMESPACE + names.get(order));
 	addType(MY_URI, true);
 	this.order = order;
     }
@@ -107,19 +124,20 @@ public class CallStatus extends FinalizedResource {
      * @param propURI
      *            the URI of the property
      */
+    @Override
     public int getPropSerializationType(String propURI) {
 	return PROP_SERIALIZATION_OPTIONAL;
     }
 
     /**
-     * Returns the array with a possible service situation
+     * Returns the name of the {@link CallStatus} as specified by the order
      */
     public String name() {
-	return names[order];
+	return names.get(order);
     }
 
     /**
-     *Returns the number of the order (integer).
+     * Returns the number of the order (integer).
      */
     public int ord() {
 	return order;
@@ -129,7 +147,9 @@ public class CallStatus extends FinalizedResource {
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String propURI,
      *      Object value)
      */
-    public void setProperty(String propURI, Object o) {
+    @Override
+    public boolean setProperty(String propURI, Object o) {
 	// do nothing
+	return false;
     }
 }

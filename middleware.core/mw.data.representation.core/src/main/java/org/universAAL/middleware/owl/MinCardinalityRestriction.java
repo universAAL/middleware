@@ -166,15 +166,14 @@ public class MinCardinalityRestriction extends PropertyRestriction {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null || props.containsKey(propURI))
-	    return;
+	    return false;
 
 	// handle this restriction
 	if (PROP_OWL_MIN_CARDINALITY.equals(propURI)) {
 	    if (o instanceof NonNegativeInteger) {
-		super.setProperty(propURI, o);
-		return;
+		return super.setProperty(propURI, o);
 	    }
 	    LogUtils
 		    .logError(
@@ -186,14 +185,14 @@ public class MinCardinalityRestriction extends PropertyRestriction {
 				    o, " of type ", o.getClass().getName(),
 				    ". It must be a NonNegativeInteger!" },
 			    null);
-	    return;
+	    return false;
 	}
 
 	// do not handle other restrictions
 	if (propMap.containsKey(propURI))
-	    return;
+	    return false;
 
 	// for everything else: call super
-	super.setProperty(propURI, o);
+	return super.setProperty(propURI, o);
     }
 }

@@ -175,7 +175,8 @@ public class Rating extends ComparableIndividual {
      * 
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
      */
-    public void setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object o) {
 	// do nothing
+	return false;
     }
 }
