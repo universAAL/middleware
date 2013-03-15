@@ -1,7 +1,7 @@
 /**
  * 
  *  OCO Source Materials 
- *      © Copyright IBM Corp. 2012 
+ *      Copyright IBM Corp. 2012 
  *
  *      See the NOTICE file distributed with this work for additional 
  *      information regarding copyright ownership 

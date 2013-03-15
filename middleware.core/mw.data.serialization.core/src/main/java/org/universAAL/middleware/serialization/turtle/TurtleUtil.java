@@ -1,8 +1,8 @@
 /*
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research 
 	
-	Copyright Aduna (http://www.aduna-software.com/) © 2001-2007
+	Copyright Aduna (http://www.aduna-software.com/) 2001-2007
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
