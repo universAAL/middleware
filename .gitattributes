@@ -491,9 +491,9 @@ middleware.osgi/mw.bus.model.osgi/ASL2.0.txt -text
 middleware.osgi/mw.bus.model.osgi/MITX.txt -text
 middleware.osgi/mw.bus.model.osgi/NOTICE.txt -text
 middleware.osgi/mw.bus.model.osgi/pom.xml -text
-middleware.osgi/mw.bus.model.osgi/src/main/java/org/universAAL/middleware/sodapop/impl/osgi/Activator.java -text
+middleware.osgi/mw.bus.model.osgi/src/main/java/org/universAAL/middleware/bus/model/osgi/Activator.java -text
 middleware.osgi/mw.bus.model.osgi/src/main/resources/README.txt -text
-middleware.osgi/mw.bus.model.osgi/src/test/java/org/universAAL/middleware/sodapop/test/ArtifactIntegrationTest.java -text
+middleware.osgi/mw.bus.model.osgi/src/test/java/org/universAAL/middleware/bus/model/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.bus.model.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.bus.service.aapi.osgi/ASL2.0.txt -text
 middleware.osgi/mw.bus.service.aapi.osgi/MITX.txt -text
@@ -591,7 +591,7 @@ middleware.osgi/mw.data.serialization.osgi/ASL2.0.txt -text
 middleware.osgi/mw.data.serialization.osgi/MITX.txt -text
 middleware.osgi/mw.data.serialization.osgi/NOTICE.txt -text
 middleware.osgi/mw.data.serialization.osgi/pom.xml -text
-middleware.osgi/mw.data.serialization.osgi/src/main/java/org/universAAL/serialization/turtle/osgi/Activator.java -text
+middleware.osgi/mw.data.serialization.osgi/src/main/java/org/universAAL/middleware/serialization/turtle/osgi/Activator.java -text
 middleware.osgi/mw.data.serialization.osgi/src/test/java/org/universAAL/serialization/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.data.serialization.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.pom.osgi/composite/pom.xml -text

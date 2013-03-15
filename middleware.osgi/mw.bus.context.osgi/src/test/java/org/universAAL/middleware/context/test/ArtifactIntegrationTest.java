@@ -7,14 +7,13 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.util.Assert;
 import org.universAAL.itests.IntegrationTest;
-import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.context.DefaultContextPublisher;
-import org.universAAL.middleware.context.impl.ContextBusImpl;
+import org.universAAL.middleware.context.impl.osgi.Activator;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.owl.MergedRestriction;
@@ -40,6 +39,14 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     public static String LOCATION = NAMESPACE + "dummyLocation";
     private BlockingQueue queue = new SynchronousQueue();
 
+    public ArtifactIntegrationTest() {
+	// setBundleConfLocation("etc");
+	// // Arguments for MW2.0
+	setRunArguments("net.slp.multicastTimeouts", "500,750");
+	setRunArguments("java.net.preferIPv4Stack", "true");
+	setRunArguments("net.slp.port", "7000");
+    }
+
     /**
      * Helper method for logging.
      * 
@@ -48,9 +55,9 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     protected void logInfo(String format, Object args) {
 	StackTraceElement callingMethod = Thread.currentThread()
 		.getStackTrace()[2];
-	LogUtils.logInfo(ContextBusImpl.moduleContext, getClass(),
-		callingMethod.getMethodName(), new Object[] { formatMsg(format,
-			new Object[] { args }) }, null);
+	LogUtils.logInfo(Activator.getModuleContext(), getClass(),
+		callingMethod.getMethodName(),
+		new Object[] { formatMsg(format, new Object[] { args }) }, null);
     }
 
     /**
@@ -61,9 +68,9 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     protected void logError(Throwable t, String format, Object args) {
 	StackTraceElement callingMethod = Thread.currentThread()
 		.getStackTrace()[2];
-	LogUtils.logError(ContextBusImpl.moduleContext, getClass(),
-		callingMethod.getMethodName(), new Object[] { formatMsg(format,
-			new Object[] { args }) }, t);
+	LogUtils.logError(Activator.getModuleContext(), getClass(),
+		callingMethod.getMethodName(),
+		new Object[] { formatMsg(format, new Object[] { args }) }, t);
     }
 
     /**
@@ -107,28 +114,28 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	info.setProvidedEvents(new ContextEventPattern[] { cep });
 	// info.setContextSources(new ManagedIndividual[]{new
 	// ManagedIndividual(SOURCE)}); //Until we can use outer classes...
-	pub1 = new DummyContextPublisher(ContextBusImpl.moduleContext, info);
+	pub1 = new DummyContextPublisher(info);
 	logInfo("Created COntext Publisher with full Provider Info", null);
 
 	// Correctly create a DefCP with full info
-	pub2 = new DefaultContextPublisher(ContextBusImpl.moduleContext, info);
+	pub2 = new DefaultContextPublisher(Activator.getModuleContext(), info);
 	logInfo("Created Default Context Publisher with full Provider Info",
 		null);
 
 	// Incorrectly create a CP without info
 	try {
-	    pub5 = new DummyContextPublisher(ContextBusImpl.moduleContext, null);
+	    pub5 = new DummyContextPublisher(null);
 	    // Assert.notNull(null,"Allowed creation of a Context Publisher with null provider info");
 	} catch (Exception e) {
 	    Assert.notNull(e);
-	    logInfo("Properly launched exception creating bad publisher %s", e
-		    .toString());
+	    logInfo("Properly launched exception creating bad publisher %s",
+		    e.toString());
 	}
 
 	// Incorrectly create a CP without info
 	try {
 	    info = new ContextProvider();
-	    pub3 = new DummyContextPublisher(ContextBusImpl.moduleContext, info);
+	    pub3 = new DummyContextPublisher(info);
 	    // Assert.notNull(null,"Allowed creation of a Context Publisher with null provider info");
 	} catch (Exception e) {
 	    Assert.notNull(e);
@@ -139,13 +146,12 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	// Incorrectly create a CP without info
 	try {
 	    info = new ContextProvider();
-	    pub4 = new DefaultContextPublisher(ContextBusImpl.moduleContext,
+	    pub4 = new DefaultContextPublisher(Activator.getModuleContext(),
 		    info);
 	    // Assert.notNull(null,"Allowed creation of a Context Publisher with null provider info");
 	} catch (Exception e) {
 	    Assert.notNull(e);
-	    logInfo(
-		    "Created Default Context Publisher without full Provider Info",
+	    logInfo("Created Default Context Publisher without full Provider Info",
 		    null);
 	}
 
@@ -168,22 +174,19 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		ContextEvent.PROP_RDF_SUBJECT, new Resource(DUMMYUSER)));
 	cep.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextEvent.PROP_RDF_PREDICATE, new Resource(HAS_LOCATION)));
-	sub1 = new DummyContextSubscriber(ContextBusImpl.moduleContext,
-		new ContextEventPattern[] { cep });
+	sub1 = new DummyContextSubscriber(new ContextEventPattern[] { cep });
 	logInfo("Created Context Subscriber", null);
 
 	// Incorrectly create a context subscriber with null cep
 	try {
-	    sub2 = new DummyContextSubscriber(ContextBusImpl.moduleContext,
-		    null);
-	    Assert
-		    .notNull(
-			    null,
-			    "Allowed creation of a Context Subscriber with null context event pattern subscription");
+	    sub2 = new DummyContextSubscriber(null);
+	    Assert.notNull(
+		    null,
+		    "Allowed creation of a Context Subscriber with null context event pattern subscription");
 	} catch (Exception e) {
 	    Assert.notNull(e);
-	    logInfo("Properly launched exception creating bad subscriber %s", e
-		    .toString());
+	    logInfo("Properly launched exception creating bad subscriber %s",
+		    e.toString());
 	}
 
 	// Try closes of subscriber
@@ -208,7 +211,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	// info.setContextSources(new ManagedIndividual[]{new
 	// ManagedIndividual(SOURCE)}); //Until we can use outer classes...
 	ContextPublisher pub = new DefaultContextPublisher(
-		ContextBusImpl.moduleContext, info);
+		Activator.getModuleContext(), info);
 	logInfo("Created Default Context Publisher with full Provider Info",
 		null);
 
@@ -240,8 +243,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    // Assert.notNull(null,"Allowed sending a null event");
 	} catch (Exception e) {
 	    Assert.notNull(e);
-	    logInfo("Properly launched exception sending null event %s", e
-		    .toString());
+	    logInfo("Properly launched exception sending null event %s",
+		    e.toString());
 	}
     }
 
@@ -268,8 +271,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		new String[] { ContextEvent.PROP_CONTEXT_PROVIDER,
 			ContextProvider.PROP_CONTEXT_PROVIDER_TYPE }));
 	// TODO: Test "OR" patterns (using several different CEPs)
-	sub = new SyncContextSubscriber(ContextBusImpl.moduleContext,
-		new ContextEventPattern[] { cepA });
+	sub = new SyncContextSubscriber(new ContextEventPattern[] { cepA });
 	logInfo("Created Context Subscriber", null);
 
 	// Correctly create a DefCP with full info
@@ -285,7 +287,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	// info.setContextSources(new ManagedIndividual[]{new
 	// ManagedIndividual(SOURCE)}); //Until we can use outer classes...
 	ContextPublisher pub = new DefaultContextPublisher(
-		ContextBusImpl.moduleContext, info);
+		Activator.getModuleContext(), info);
 	logInfo("Created Default Context Publisher with full Provider Info",
 		null);
 
@@ -329,16 +331,14 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	ContextEventPattern cep1 = new ContextEventPattern();
 	cep1.addRestriction(MergedRestriction.getAllValuesRestriction(
 		ContextEvent.PROP_RDF_SUBJECT, User.MY_URI));
-	c1 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
-		new ContextEventPattern[] { cep1 }, 1);
+	c1 = new SyncContextSubscriber(new ContextEventPattern[] { cep1 }, 1);
 
 	ContextEventPattern cep2 = new ContextEventPattern();
 	cep2.addRestriction(MergedRestriction.getAllValuesRestriction(
 		ContextEvent.PROP_RDF_SUBJECT, User.MY_URI));
 	cep2.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextEvent.PROP_RDF_PREDICATE, User.PROP_PHYSICAL_LOCATION));
-	c2 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
-		new ContextEventPattern[] { cep2 }, 2);
+	c2 = new SyncContextSubscriber(new ContextEventPattern[] { cep2 }, 2);
 
 	ContextEventPattern cep3 = new ContextEventPattern();
 	cep3.addRestriction(MergedRestriction.getAllValuesRestriction(
@@ -347,36 +347,31 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		ContextEvent.PROP_RDF_PREDICATE, User.PROP_PHYSICAL_LOCATION));
 	cep3.addRestriction(MergedRestriction.getAllValuesRestriction(
 		ContextEvent.PROP_RDF_OBJECT, Location.MY_URI));
-	c3 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
-		new ContextEventPattern[] { cep3 }, 3);
+	c3 = new SyncContextSubscriber(new ContextEventPattern[] { cep3 }, 3);
 
 	ContextEventPattern cep4 = new ContextEventPattern();
 	cep4.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextEvent.PROP_RDF_PREDICATE, User.PROP_PHYSICAL_LOCATION));
 	cep4.addRestriction(MergedRestriction.getAllValuesRestriction(
 		ContextEvent.PROP_RDF_OBJECT, Location.MY_URI));
-	c4 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
-		new ContextEventPattern[] { cep4 }, 4);
+	c4 = new SyncContextSubscriber(new ContextEventPattern[] { cep4 }, 4);
 
 	ContextEventPattern cep5 = new ContextEventPattern();
 	cep5.addRestriction(MergedRestriction.getAllValuesRestriction(
 		ContextEvent.PROP_RDF_SUBJECT, User.MY_URI));
 	cep5.addRestriction(MergedRestriction.getAllValuesRestriction(
 		ContextEvent.PROP_RDF_OBJECT, Location.MY_URI));
-	c5 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
-		new ContextEventPattern[] { cep5 }, 5);
+	c5 = new SyncContextSubscriber(new ContextEventPattern[] { cep5 }, 5);
 
 	ContextEventPattern cep6 = new ContextEventPattern();
 	cep6.addRestriction(MergedRestriction.getFixedValueRestriction(
 		ContextEvent.PROP_RDF_PREDICATE, User.PROP_PHYSICAL_LOCATION));
-	c6 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
-		new ContextEventPattern[] { cep6 }, 6);
+	c6 = new SyncContextSubscriber(new ContextEventPattern[] { cep6 }, 6);
 
 	ContextEventPattern cep7 = new ContextEventPattern();
 	cep7.addRestriction(MergedRestriction.getAllValuesRestriction(
 		ContextEvent.PROP_RDF_OBJECT, Location.MY_URI));
-	c7 = new SyncContextSubscriber(ContextBusImpl.moduleContext,
-		new ContextEventPattern[] { cep7 }, 7);
+	c7 = new SyncContextSubscriber(new ContextEventPattern[] { cep7 }, 7);
 
 	User usr = new User(DUMMYUSER);
 	usr.setLocation(new Location(LOCATION));
@@ -385,7 +380,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	ContextProvider p = new ContextProvider();
 	p.setType(ContextProviderType.gauge);
 	p.setProvidedEvents(new ContextEventPattern[] { cep3 });
-	cpublisher = new DefaultContextPublisher(ContextBusImpl.moduleContext,
+	cpublisher = new DefaultContextPublisher(Activator.getModuleContext(),
 		p);
 
 	Integer retrieved = null;
@@ -410,9 +405,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     protected class DummyContextPublisher extends ContextPublisher {
 
-	protected DummyContextPublisher(ModuleContext context,
-		ContextProvider providerInfo) {
-	    super(context, providerInfo);
+	protected DummyContextPublisher(ContextProvider providerInfo) {
+	    super(Activator.getModuleContext(), providerInfo);
 	}
 
 	public void communicationChannelBroken() {
@@ -422,9 +416,9 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     protected class DummyContextSubscriber extends ContextSubscriber {
 
-	protected DummyContextSubscriber(ModuleContext context,
+	protected DummyContextSubscriber(
 		ContextEventPattern[] initialSubscriptions) {
-	    super(context, initialSubscriptions);
+	    super(Activator.getModuleContext(), initialSubscriptions);
 	}
 
 	public void communicationChannelBroken() {
@@ -440,14 +434,14 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     protected class SyncContextSubscriber extends ContextSubscriber {
 	private int ind = 0;
 
-	protected SyncContextSubscriber(ModuleContext context,
+	protected SyncContextSubscriber(
 		ContextEventPattern[] initialSubscriptions) {
-	    super(context, initialSubscriptions);
+	    super(Activator.getModuleContext(), initialSubscriptions);
 	}
 
-	protected SyncContextSubscriber(ModuleContext context,
+	protected SyncContextSubscriber(
 		ContextEventPattern[] initialSubscriptions, int index) {
-	    super(context, initialSubscriptions);
+	    super(Activator.getModuleContext(), initialSubscriptions);
 	    ind = index;
 	}
 
@@ -465,12 +459,12 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    } catch (InterruptedException e) {
 		logError(e, "Something bad happened %s", e.toString());
 	    }
-	    logInfo("Received an event in subscriber SUBJECT: %s", event
-		    .getRDFSubject());
-	    logInfo("Received an event in subscriber PREDICATE: %s", event
-		    .getRDFPredicate());
-	    logInfo("Received an event in subscriber OBJECT: %s", event
-		    .getRDFObject());
+	    logInfo("Received an event in subscriber SUBJECT: %s",
+		    event.getRDFSubject());
+	    logInfo("Received an event in subscriber PREDICATE: %s",
+		    event.getRDFPredicate());
+	    logInfo("Received an event in subscriber OBJECT: %s",
+		    event.getRDFObject());
 	}
 
     }

@@ -17,15 +17,15 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.serialization.turtle.osgi;
+package org.universAAL.middleware.serialization.turtle.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
-import org.universAAL.serialization.turtle.TurtleParser;
-import org.universAAL.serialization.turtle.TurtleUtil;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializerEx;
+import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
+import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 /**
  * 
@@ -39,10 +39,10 @@ public final class Activator implements BundleActivator {
 	TurtleUtil.moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	uAALBundleContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext,
-		new TurtleParser(),
+		new TurtleSerializer(),
 		new Object[] { MessageContentSerializer.class.getName() });
 	uAALBundleContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext,
-		new TurtleParser(),
+		new TurtleSerializer(),
 		new Object[] { MessageContentSerializerEx.class.getName() });
     }
 

@@ -21,9 +21,8 @@ package org.universAAL.middleware.ui.impl.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.sodapop.SodaPop;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 import org.universAAL.middleware.ui.UIBus;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
 
@@ -33,15 +32,11 @@ public final class Activator implements BundleActivator {
      * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
      */
     public void start(BundleContext context) throws Exception {
-	UIBusImpl.container = uAALBundleContainer.THE_CONTAINER;
-	UIBusImpl.setModuleContext(uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context }));
-	UIBusImpl.contentSerializerParams = new Object[] { MessageContentSerializer.class
-		.getName() };
-	UIBusImpl.busFetchParams = UIBusImpl.busShareParams = new Object[] { UIBus.class
-		.getName() };
-	UIBusImpl.sodapopFetchParams = new Object[] { SodaPop.class.getName() };
-	UIBusImpl.startModule();
+	Object[] busFetchParams = new Object[] { UIBus.class.getName() };
+	ModuleContext mc = uAALBundleContainer.THE_CONTAINER
+		.registerModule(new Object[] { context });
+	UIBusImpl.startModule(uAALBundleContainer.THE_CONTAINER, mc,
+		busFetchParams, busFetchParams);
     }
 
     /**

@@ -21,11 +21,10 @@ package org.universAAL.middleware.context.impl.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
-import org.universAAL.middleware.sodapop.SodaPop;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * 
@@ -34,21 +33,21 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
  * 
  */
 public final class Activator implements BundleActivator {
+    private static ModuleContext mc = null;
+
+    public static ModuleContext getModuleContext() {
+	return mc;
+    }
 
     /**
      * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
      */
     public void start(BundleContext context) throws Exception {
-	ContextBusImpl.container = uAALBundleContainer.THE_CONTAINER;
-	ContextBusImpl.moduleContext = uAALBundleContainer.THE_CONTAINER
+	Object[] busFetchParams = new Object[] { ContextBus.class.getName() };
+	mc = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
-	ContextBusImpl.busFetchParams = ContextBusImpl.busShareParams = new Object[] { ContextBus.class
-		.getName() };
-	ContextBusImpl.contentSerializerParams = new Object[] { MessageContentSerializer.class
-		.getName() };
-	ContextBusImpl.sodapopFetchParams = new Object[] { SodaPop.class
-		.getName() };
-	ContextBusImpl.startModule();
+	ContextBusImpl.startModule(uAALBundleContainer.THE_CONTAINER, mc,
+		busFetchParams, busFetchParams);
     }
 
     /**
