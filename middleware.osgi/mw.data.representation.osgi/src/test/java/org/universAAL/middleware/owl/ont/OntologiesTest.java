@@ -18,8 +18,8 @@ public class OntologiesTest extends TestCase {
 
     protected void setUp() throws Exception {
 	super.setUp();
-	OntologyManagement.getInstance().register(new DataRepOntology());
-	OntologyManagement.getInstance().register(ont);
+	OntologyManagement.getInstance().register(SharedResources.moduleContext, new DataRepOntology());
+	OntologyManagement.getInstance().register(SharedResources.moduleContext, ont);
     }
 
     /** Helper method for logging. */

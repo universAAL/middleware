@@ -323,7 +323,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     public void testSubscriptions() {
 	logInfo("-Test 6-", null);
-	OntologyManagement.getInstance().register(new TestOntology());
+	OntologyManagement.getInstance().register(Activator.getModuleContext(), new TestOntology());
 
 	SyncContextSubscriber c1, c2, c3, c4, c5, c6, c7;
 	ContextPublisher cpublisher = null;

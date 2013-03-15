@@ -1,5 +1,6 @@
 package org.universAAL.middleware.owl;
 
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.owl.testont.MyClass1;
 import org.universAAL.middleware.owl.testont.MyClass2;
 import org.universAAL.middleware.owl.testont.MyClass3;
@@ -18,8 +19,8 @@ public class MergedRestrictionTest extends TestCase {
     protected void setUp() throws Exception {
 	super.setUp();
 
-	OntologyManagement.getInstance().register(new DataRepOntology());
-	OntologyManagement.getInstance().register(ont);
+	OntologyManagement.getInstance().register(SharedResources.moduleContext, new DataRepOntology());
+	OntologyManagement.getInstance().register(SharedResources.moduleContext, ont);
     }
 
     public void testAppend1() {

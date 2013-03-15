@@ -84,7 +84,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
     public static void startModule(Container c, ModuleContext mc,
 	    Object[] contextBusShareParams, Object[] contextBusFetchParams) {
 	if (theContextBus == null) {
-	    OntologyManagement.getInstance().register(contextBusOntology);
+	    OntologyManagement.getInstance().register(mc, contextBusOntology);
 	    theContextBus = new ContextBusImpl(mc);
 	    busFetchParams = contextBusFetchParams;
 	    c.shareObject(mc, theContextBus, contextBusShareParams);
@@ -93,7 +93,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 
     public static void stopModule() {
 	if (theContextBus != null) {
-	    OntologyManagement.getInstance().unregister(contextBusOntology);
+	    OntologyManagement.getInstance().unregister(theContextBus.context, contextBusOntology);
 	    theContextBus.dispose();
 	    theContextBus = null;
 	}

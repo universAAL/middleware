@@ -86,7 +86,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    Object[] serviceBusShareParams, Object[] serviceBusFetchParams) {
 	if (theServiceBus == null) {
 	    ServiceBusImpl.mc = mc;
-	    OntologyManagement.getInstance().register(serviceOntology);
+	    OntologyManagement.getInstance().register(mc, serviceOntology);
 	    theServiceBus = new ServiceBusImpl(mc);
 	    busFetchParams = serviceBusFetchParams;
 	    c.shareObject(mc, theServiceBus, serviceBusShareParams);
@@ -95,7 +95,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     public static void stopModule() {
 	if (theServiceBus != null) {
-	    OntologyManagement.getInstance().unregister(serviceOntology);
+	    OntologyManagement.getInstance().unregister(mc, serviceOntology);
 	    theServiceBus.dispose();
 	    theServiceBus = null;
 	}
