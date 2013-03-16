@@ -24,6 +24,7 @@ import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.BusMemberType;
 import org.universAAL.middleware.bus.model.util.IRegistry;
+import org.universAAL.middleware.bus.model.util.IRegistryListener;
 import org.universAAL.middleware.bus.model.util.RegistryMap;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
@@ -347,5 +348,13 @@ public abstract class AbstractBus implements Broker, MessageListener {
 
     public BrokerMessage unmarshall(String serializedBusMessage) {
 	return new BusMessage(serializedBusMessage);
+    }
+
+    public boolean addRegistryListener(IRegistryListener listener) {
+	return registry.addRegistryListener(listener);
+    }
+
+    public boolean removeRegistryListener(IRegistryListener listener) {
+	return registry.removeRegistryListener(listener);
     }
 }

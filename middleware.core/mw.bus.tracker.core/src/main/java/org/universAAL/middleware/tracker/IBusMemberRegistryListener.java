@@ -1,7 +1,6 @@
 package org.universAAL.middleware.tracker;
 
-import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.sodapop.BusMember;
+import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.tracker.IBusMemberRegistry.BusType;
 
 /**
