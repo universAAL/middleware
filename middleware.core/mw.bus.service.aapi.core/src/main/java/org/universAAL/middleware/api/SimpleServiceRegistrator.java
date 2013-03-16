@@ -335,7 +335,7 @@ public class SimpleServiceRegistrator {
      */
     private void registerOntology(String namespace, String name,
 	    String ontologyUri) throws SimplifiedRegistrationException {
-	OntologyManagement.getInstance().register(
+	OntologyManagement.getInstance().register(mc,
 		new SimpleOntology(namespace + name, ontologyUri));
     }
 

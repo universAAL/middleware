@@ -15,6 +15,10 @@
   <description>Module for tracking BusMembers registered in the MW buses</description>
   <dependencies>
     <dependency>
+      <groupId>org.universAAL.support</groupId>
+      <artifactId>itests</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.bus.tracker.core</artifactId>
     </dependency>
@@ -39,8 +43,11 @@
             <Bundle-Activator>org.universAAL.middleware.tracker.osgi.Activator</Bundle-Activator>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Export-Package>org.universAAL.middleware.tracker.osgi, org.universAAL.middleware.tracker</Export-Package>
-            <Private-Package>org.universAAL.middleware.tracker.impl</Private-Package>
+            <Export-Package>org.universAAL.middleware.tracker</Export-Package>
+            <Private-Package>
+            	org.universAAL.middleware.tracker.osgi,
+            	org.universAAL.middleware.tracker.impl
+            </Private-Package>
           </instructions>
         </configuration>
       </plugin>
