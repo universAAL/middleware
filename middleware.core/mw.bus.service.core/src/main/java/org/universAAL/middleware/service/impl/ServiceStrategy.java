@@ -377,7 +377,52 @@ public class ServiceStrategy extends BusStrategy {
 	    allWaitingCallers.put(call.getID(), match);
 	    // call.getSender is there at least since r2064
 	    // (the first revision in saieds sandbox)
-	    if (call.getSender().getPeerID().equals(receiver.getPeerID())) {
+	    boolean handleLocally = true;
+	    try {
+		handleLocally = call.getSender().getPeerID().equals(receiver.getPeerID());
+	    } catch (NullPointerException e) {
+		// find out which element is null and log
+		if (call == null) {
+		    LogUtils.logError(ServiceBusImpl.getModuleContext(),
+			    ServiceStrategy.class, "callServices",
+			    new Object[] { "Call is null - ignoring." }, null);
+		} else if (call.getSender() == null) {
+		    LogUtils
+			    .logError(
+				    ServiceBusImpl.getModuleContext(),
+				    ServiceStrategy.class,
+				    "callServices",
+				    new Object[] { "Call.getSender() is null - ignoring." },
+				    null);
+		} else if (call.getSender().getPeerID() == null) {
+		    LogUtils
+			    .logError(
+				    ServiceBusImpl.getModuleContext(),
+				    ServiceStrategy.class,
+				    "callServices",
+				    new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
+				    null);
+		}
+
+		if (receiver == null) {
+		    LogUtils.logError(ServiceBusImpl.getModuleContext(),
+			    ServiceStrategy.class, "callServices",
+			    new Object[] { "Receiver is null - ignoring." },
+			    null);
+		} else if (receiver.getPeerID() == null) {
+		    LogUtils
+			    .logError(
+				    ServiceBusImpl.getModuleContext(),
+				    ServiceStrategy.class,
+				    "callServices",
+				    new Object[] { "Receiver.getPeerID() is null - ignoring." },
+				    null);
+		}
+
+		// don't handle
+		continue;
+	    }
+	    if (handleLocally) {
 		handleMessage(call, null);
 	    } else {
 		List l = new ArrayList(1);
