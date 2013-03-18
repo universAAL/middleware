@@ -137,14 +137,13 @@ public class Modality extends ManagedIndividual {
     public int ord() {
 	return order;
     }
-    
+
     /**
-     * @return order defined at the time of construction
+     * @return number of defined modalities
      */
     public static int getSize() {
 	return names.length;
     }
-
 
     /**
      * @see org.universAAL.middleware.owl.ManagedIndividual#setProperty(String,
