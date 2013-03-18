@@ -11,7 +11,6 @@ import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.ContextBusFacade;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.ContextSubscriber;
-import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceBusFacade;
 import org.universAAL.middleware.service.ServiceCallee;
