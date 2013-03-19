@@ -671,7 +671,6 @@ middleware.osgi/mw.pom.osgi/pom.xml -text
 middleware.resources/mw.schemas.resources.osgi/LICENSE.txt -text
 middleware.resources/mw.schemas.resources.osgi/NOTICE.txt -text
 middleware.resources/mw.schemas.resources.osgi/pom.xml -text
-middleware.resources/mw.schemas.resources.osgi/src/main/java/org/universaal/testing/JXBMavenIntegration.java -text
 middleware.resources/mw.schemas.resources.osgi/src/main/resources/AAL-UAPP.xsd svneol=native#text/xml
 middleware.resources/mw.schemas.resources.osgi/src/main/resources/AAL-USRV.xsd svneol=native#text/xml
 middleware.resources/mw.schemas.resources.osgi/src/main/resources/aalspace-channel.xsd -text
