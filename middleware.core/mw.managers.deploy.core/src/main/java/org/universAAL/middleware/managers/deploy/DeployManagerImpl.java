@@ -44,26 +44,26 @@ import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.deploymaneger.uapp.model.AalUapp;
+import org.universAAL.middleware.deploymaneger.uapp.model.DeploymentUnit;
+import org.universAAL.middleware.deploymaneger.uapp.model.DeploymentUnit.ContainerUnit.Karaf;
+import org.universAAL.middleware.deploymaneger.uapp.model.ObjectFactory;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
 import org.universAAL.middleware.interfaces.mpa.UAPPStatus;
-import org.universAAL.middleware.interfaces.mpa.model.AalMpa;
 import org.universAAL.middleware.interfaces.mpa.model.Bundle;
-import org.universAAL.middleware.interfaces.mpa.model.DeploymentUnit;
 import org.universAAL.middleware.interfaces.mpa.model.Feature;
-import org.universAAL.middleware.interfaces.mpa.model.ObjectFactory;
-import org.universAAL.middleware.interfaces.mpa.model.Part;
-import org.universAAL.middleware.interfaces.mpa.model.DeploymentUnit.ContainerUnit.Karaf;
+import org.universAAL.middleware.deploymaneger.uapp.model.Part;
 import org.universAAL.middleware.interfaces.utils.Util;
 import org.universAAL.middleware.managers.api.AALSpaceEventHandler;
+import org.universAAL.middleware.managers.api.AALSpaceListener;
 import org.universAAL.middleware.managers.api.AALSpaceManager;
 import org.universAAL.middleware.managers.api.DeployManager;
 import org.universAAL.middleware.managers.api.DeployManagerEventHandler;
 import org.universAAL.middleware.managers.api.InstallationResults;
-import org.universAAL.middleware.managers.api.AALSpaceListener;
 import org.universAAL.middleware.managers.api.UAPPPackage;
 import org.universAAL.middleware.managers.deploy.util.Consts;
 
@@ -285,27 +285,27 @@ public class DeployManagerImpl implements DeployManager,
 	 * InstallationResults.FAILED; }
 	 */
 
-	File mpaFile = Util.getFile(uappSuffix, deployFolder);
-	AalMpa mpa = null;
+	File uappFile = Util.getFile(uappSuffix, deployFolder);
+	AalUapp uapp = null;
 
-	if (mpaFile != null && mpaFile.canRead()) {
+	if (uappFile != null && uappFile.canRead()) {
 	    try {
-		mpa = (AalMpa) unmarshaller.unmarshal(mpaFile);
+		uapp = (AalUapp) unmarshaller.unmarshal(uappFile);
 	    } catch (JAXBException e) {
 		LogUtils.logError(
 			context,
 			DeployManagerImpl.class,
 			"DeployManagerImpl",
-			new Object[] { "MPA file cannot be parsed. Aborting..." },
+			new Object[] { "uAAP file cannot be parsed. Aborting..." },
 			null);
 		return InstallationResults.MPA_FILE_NOT_VALID;
 
 	    }
 	}
-	UAPPCard mpaCard = new UAPPCard(mpa.getApp().getName(), mpa.getApp()
-		.getAppId(), mpa.getApp().getDescription());
+	UAPPCard uAPPCard = new UAPPCard(uapp.getApp().getName(), uapp.getApp()
+		.getAppId(), uapp.getApp().getDescription());
 	// adding an entry to the registry
-	this.registry.put(mpaCard.getId(), new UAPPStatus(mpaCard));
+	this.registry.put(uAPPCard.getId(), new UAPPStatus(uAPPCard));
 
 	for (PeerCard peer : layout.keySet()) {
 	    Part target = layout.get(peer);
@@ -313,7 +313,7 @@ public class DeployManagerImpl implements DeployManager,
 	    // send the part to the target node
 	    LogUtils.logInfo(context, DeployManagerImpl.class,
 		    "DeployManagerImpl",
-		    new Object[] { "Sending request to install MPA part to: "
+		    new Object[] { "Sending request to install uAPP part to: "
 			    + peer.getPeerID() }, null);
 	    byte[] fileContent = createZippedPart(deployFolder, target);
 	    LogUtils.logDebug(
@@ -322,7 +322,7 @@ public class DeployManagerImpl implements DeployManager,
 		    "DeployManagerImpl",
 		    new Object[] { "ZipFile created ready to sent it to the target node" },
 		    null);
-	    controlBroker.requestToInstallPart(fileContent, peer, mpaCard);
+	    controlBroker.requestToInstallPart(fileContent, peer, uAPPCard);
 
 	}
 
@@ -431,7 +431,7 @@ public class DeployManagerImpl implements DeployManager,
     }
 
     /**
-     * Creates a zip file containing the artifacts previously downloaded
+     * Creates a zip file containing the artifacts to send
      * 
      * @param deployFolder
      * @param part
@@ -442,11 +442,13 @@ public class DeployManagerImpl implements DeployManager,
 	File zippedPart = null;
 	byte[] buf = new byte[1024];
 	try {
+	    // create the zip file
 	    zippedPart = new File(deployDir + File.separatorChar
 		    + TMP_DEPLOY_DIR + File.separatorChar + "part.zip");
 	    out = new ZipOutputStream(new FileOutputStream(zippedPart));
+	    // pit the part descriptor in the zip
 	    File partDescription = new File(deployDir + File.separatorChar
-		    + TMP_DEPLOY_DIR + File.separatorChar + "partDesc-mpa");
+		    + TMP_DEPLOY_DIR + File.separatorChar + "partDesc-uapp");
 	    marshaller.marshal(part, partDescription);
 	    FileInputStream in = new FileInputStream(partDescription);
 	    out.putNextEntry(new ZipEntry(partDescription.getName()));
@@ -477,72 +479,66 @@ public class DeployManagerImpl implements DeployManager,
 			    + e }, null);
 	    return null;
 	}
-	for (DeploymentUnit dUnit : part.getDeploymentUnit()) {
-	    if (dUnit.isSetContainerUnit()
-		    && dUnit.getContainerUnit().isSetKaraf()) {
-		Karaf karafDUnit = dUnit.getContainerUnit().getKaraf();
-		if (karafDUnit.isSetEmbeddingName()
-			&& karafDUnit.getFeatures().isSetRepositoryOrFeature()) {
-		    for (Serializable element : karafDUnit.getFeatures()
-			    .getRepositoryOrFeature()) {
-			if (element instanceof Feature) {
-			    // get the feature
-			    Feature feature = (Feature) element;
-			    if (feature.isSetDetailsOrConfigOrConfigfile()) {
-				for (Serializable element1 : feature
-					.getDetailsOrConfigOrConfigfile()) {
-				    // get the bundles
-				    if (element1 instanceof Bundle) {
-					Bundle bundle = (Bundle) element1;
-					try {
-					    // add to the zip file only the
-					    // artefacts that has been locally
-					    // downloaded
-					    if (bundle.getValue().startsWith(
-						    "file")) {
-						URI uri = new URI(
-							bundle.getValue());
-						File file = new File(
-							uri.getSchemeSpecificPart());
-						FileInputStream in = new FileInputStream(
-							deployFolder.getPath()
-								+ "/"
-								+ file.getName());
-						out.putNextEntry(new ZipEntry(
-							file.getName()));
-						int len;
-						while ((len = in.read(buf)) > 0) {
-						    out.write(buf, 0, len);
-						}
-						out.closeEntry();
-						in.close();
-					    }
-					} catch (URISyntaxException e) {
-					    LogUtils.logError(
-						    context,
-						    DeployManagerImpl.class,
-						    "DeployManagerImpl",
-						    new Object[] { "Error while creating the zip file part: "
-							    + e }, null);
-					    return null;
-					} catch (IOException e) {
-					    LogUtils.logError(
-						    context,
-						    DeployManagerImpl.class,
-						    "DeployManagerImpl",
-						    new Object[] { "Error while creating the zip file part: "
-							    + e }, null);
-					    return null;
-					}
-				    }
 
-				}
-			    }
-			}
-		    }
-		}
+	// zip the part folder
+	// get the part id
+	try {
+	    String partID = part.getPartId();
+	    File partDescription = new File(deployDir + File.separatorChar
+		    + "bin" + File.separatorChar + partID);
+	    FileInputStream in = new FileInputStream(partDescription);
+	    out.putNextEntry(new ZipEntry(partDescription.getName()));
+	    int len;
+	    while ((len = in.read(buf)) > 0) {
+		out.write(buf, 0, len);
 	    }
+	    out.closeEntry();
+	    in.close();
+	} catch (FileNotFoundException e1) {
+	    LogUtils.logError(
+		    context,
+		    DeployManagerImpl.class,
+		    "DeployManagerImpl",
+		    new Object[] { "Error while creating the zip file part. Aborting: "
+			    + e1 }, null);
+	    return null;
+	} catch (IOException e) {
+	    LogUtils.logError(context, DeployManagerImpl.class,
+		    "DeployManagerImpl",
+		    new Object[] { "Error while creating the zip file part: "
+			    + e }, null);
+	    return null;
 	}
+
+	/*
+	 * //put the artifacts in the zip file for (DeploymentUnit dUnit :
+	 * part.getDeploymentUnit()) { if (dUnit.isSetContainerUnit() &&
+	 * dUnit.getContainerUnit().isSetKaraf()) { Karaf karafDUnit =
+	 * dUnit.getContainerUnit().getKaraf(); if (karafDUnit.isSetEmbedding()
+	 * && karafDUnit.getFeatures().isSetRepositoryOrFeature()) { for
+	 * (Serializable element : karafDUnit.getFeatures()
+	 * .getRepositoryOrFeature()) { if (element instanceof Feature) { // get
+	 * the feature Feature feature = (Feature) element; if
+	 * (feature.isSetDetailsOrConfigOrConfigfile()) { for (Serializable
+	 * element1 : feature .getDetailsOrConfigOrConfigfile()) { // get the
+	 * bundles if (element1 instanceof Bundle) { Bundle bundle = (Bundle)
+	 * element1; try { // add to the zip file only the // artefacts that has
+	 * been locally // downloaded if (bundle.getValue().startsWith( "file"))
+	 * { URI uri = new URI( bundle.getValue()); File file = new File(
+	 * uri.getSchemeSpecificPart()); FileInputStream in = new
+	 * FileInputStream( deployFolder.getPath() + "/" + file.getName());
+	 * out.putNextEntry(new ZipEntry( file.getName())); int len; while ((len
+	 * = in.read(buf)) > 0) { out.write(buf, 0, len); } out.closeEntry();
+	 * in.close(); } } catch (URISyntaxException e) { LogUtils.logError(
+	 * context, DeployManagerImpl.class, "DeployManagerImpl", new Object[] {
+	 * "Error while creating the zip file part: " + e }, null); return null;
+	 * } catch (IOException e) { LogUtils.logError( context,
+	 * DeployManagerImpl.class, "DeployManagerImpl", new Object[] {
+	 * "Error while creating the zip file part: " + e }, null); return null;
+	 * } }
+	 * 
+	 * } } } } } } }
+	 */
 	try {
 	    out.flush();
 	    out.close();
@@ -554,9 +550,9 @@ public class DeployManagerImpl implements DeployManager,
 	    return null;
 	}
 	try {
-	    FileInputStream in = new FileInputStream(zippedPart);
+	    FileInputStream inZip = new FileInputStream(zippedPart);
 	    byte[] fileContent = new byte[(int) zippedPart.length()];
-	    in.read(fileContent);
+	    inZip.read(fileContent);
 	    return fileContent;
 	} catch (FileNotFoundException e) {
 	    LogUtils.logError(context, DeployManagerImpl.class,
