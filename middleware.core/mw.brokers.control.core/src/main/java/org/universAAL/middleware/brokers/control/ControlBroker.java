@@ -633,7 +633,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
      *            MPA description
      */
     public void requestToInstallPart(byte[] zippedPart, PeerCard targetNode,
-	    UAPPCard mpaCard) {
+	    UAPPCard uAPPCard) {
 	if (!init()) {
 	    LogUtils.logWarn(context, ControlBroker.class, "controlBroker",
 		    new Object[] { "ControlBroker not initialized." }, null);
@@ -651,7 +651,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		fos.write(zippedPart);
 		fos.flush();
 		fos.close();
-		deployConnector.installPart(file, mpaCard);
+		deployConnector.installPart(file, uAPPCard);
 	    } catch (FileNotFoundException e) {
 		LogUtils.logError(
 			context,
@@ -670,7 +670,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	} else {
 	    // Send the message to the target node
 
-	    DeployPayload payload = new DeployPayload(zippedPart, mpaCard);
+	    DeployPayload payload = new DeployPayload(zippedPart, uAPPCard);
 	    DeployMessage deployMessage = new DeployMessage(
 		    DeployMessageType.REQUEST_TO_INSTALL_PART, payload);
 
