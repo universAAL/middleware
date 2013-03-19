@@ -24,7 +24,7 @@ import java.net.URI;
 import java.util.Map;
 
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.mpa.model.Part;
+import org.universAAL.middleware.deploymaneger.uapp.model.Part;
 
 /**
  * The deployment data required for installing an uApp on the platform, which is
