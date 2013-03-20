@@ -129,7 +129,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	// then)
 	uAAL_SPACE_INSTANCE_URI_PREFIX = "";
 
-	PeerCard pc = aalSpaceMgr.getmyPeerCard();
+	PeerCard pc = aalSpaceMgr.getMyPeerCard();
 	if (pc != null) {
 	    uAAL_MW_INSTANCE_URI_PREFIX = uAAL_SPACE_INSTANCE_URI_PREFIX
 		    + pc.getPeerID() + "#";
@@ -164,7 +164,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	PeerCard retVal = aalSpaceManager.getPeers().get(uri);
 	if (retVal == null) {
 	    String myPeerID = "<unknown>";
-	    PeerCard myPeerCard = aalSpaceManager.getmyPeerCard();
+	    PeerCard myPeerCard = aalSpaceManager.getMyPeerCard();
 	    if (myPeerCard != null)
 		myPeerID = myPeerCard.getPeerID();
 	    LogUtils.logDebug(myContext, AbstractBus.class,
@@ -224,7 +224,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
     }
 
     public PeerCard getPeerCard() {
-	return aalSpaceManager.getmyPeerCard();
+	return aalSpaceManager.getMyPeerCard();
     }
 
     /**

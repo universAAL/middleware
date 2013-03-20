@@ -158,7 +158,7 @@ public class DeployManagerImpl implements DeployManager,
 				.getAALSpaceDescriptor()
 				.getDeployManager()
 				.getPeerID()
-				.equals(aalSpaceManager.getmyPeerCard()
+				.equals(aalSpaceManager.getMyPeerCard()
 					.getPeerID())) {
 		    isDeployCoordinator = true;
 		}
@@ -280,7 +280,7 @@ public class DeployManagerImpl implements DeployManager,
 	// 3 - verify if I'm the DeployCoordinator
 	if (!aalSpaceManager.getAALSpaceDescriptor().getDeployManager()
 		.getPeerID()
-		.equals(aalSpaceManager.getmyPeerCard().getPeerID())) {
+		.equals(aalSpaceManager.getMyPeerCard().getPeerID())) {
 	    return InstallationResults.NOT_A_DEPLOYMANAGER;
 	}
 
@@ -618,7 +618,7 @@ public class DeployManagerImpl implements DeployManager,
 			    .getAALSpaceDescriptor()
 			    .getDeployManager()
 			    .getPeerID()
-			    .equals(aalSpaceManager.getmyPeerCard().getPeerID())) {
+			    .equals(aalSpaceManager.getMyPeerCard().getPeerID())) {
 		isDeployCoordinator = true;
 	    }
 
@@ -776,7 +776,7 @@ public class DeployManagerImpl implements DeployManager,
 		null);
 	// if I'm also the deploy manager, set this property
 	if (spaceDescriptor.getDeployManager().getPeerID()
-		.equals(aalSpaceManager.getmyPeerCard().getPeerID())) {
+		.equals(aalSpaceManager.getMyPeerCard().getPeerID())) {
 	    isDeployCoordinator = true;
 	}
 

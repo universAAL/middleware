@@ -39,7 +39,7 @@ public interface AALSpaceManager extends Manager {
      * 
      * @return PeerCard
      */
-    public PeerCard getmyPeerCard();
+    public PeerCard getMyPeerCard();
 
     /**
      * This method returns the list of AALSpace discovered

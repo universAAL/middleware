@@ -177,7 +177,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	return currentAALSpace;
     }
 
-    public PeerCard getmyPeerCard() {
+    public PeerCard getMyPeerCard() {
 	return myPeerCard;
     }
 

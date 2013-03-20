@@ -489,7 +489,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		    null);
 	    return null;
 	}
-	return aalSpaceManager.getmyPeerCard();
+	return aalSpaceManager.getMyPeerCard();
     }
 
     /**
@@ -642,7 +642,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 
 	// I'm the target node install the part locally
 	if (targetNode.getPeerID().equals(
-		aalSpaceManager.getmyPeerCard().getPeerID())) {
+		aalSpaceManager.getMyPeerCard().getPeerID())) {
 	    File file = new File(TMP_DEPLOY_FOLDER + "part");
 	    try {
 		file.createNewFile();
@@ -703,7 +703,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    if (deployManager instanceof DeployManagerEventHandler)
 		((DeployManagerEventHandler) deployManager)
 			.installationPartNotification(mpaCard, partID,
-				aalSpaceManager.getmyPeerCard(), partStatus);
+				aalSpaceManager.getMyPeerCard(), partStatus);
 
 	} else {
 	    // send the message to the remote DeployManager

@@ -34,7 +34,7 @@ public class ListOfPeerCommand extends OsgiCommandSupport {
 	    System.out.println(" Found: " + peers.size() + " Peers");
 	    System.out.println(" ----------------------------------------");
 	    for (String key : peers.keySet()) {
-		if (key.equals(aalSpaceManager.getmyPeerCard().getPeerID()))
+		if (key.equals(aalSpaceManager.getMyPeerCard().getPeerID()))
 		    System.out.println(" * " + peers.get(key));
 		else
 		    System.out.println(peers.get(key));
