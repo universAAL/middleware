@@ -992,7 +992,7 @@ public class ServiceStrategy extends BusStrategy {
 
     @Override
     protected void handleDeniedMessage(BusMessage message, String senderID) {
-	sendMessageDenied(message);
+	sendSimpleReply(message, CallStatus.denied);
     }
 
     /**
@@ -1113,7 +1113,9 @@ public class ServiceStrategy extends BusStrategy {
 
     private int[] scoresForFilters(List<Map<String, Object>> matches,
 	    List<AggregatingFilter> filters) {
-	int[] scores = createZeroInitializedArrayOfLength(matches.size());
+	int[] scores = new int[matches.size()];
+	Arrays.fill(scores,0);
+
 	for (AggregatingFilter filter : filters) {
 	    updateScoresForFilter(matches, scores, filter);
 	}
@@ -1285,27 +1287,22 @@ public class ServiceStrategy extends BusStrategy {
     }
 
     private boolean startsWithWellformedPropertyPath(List<?> params) {
-	return startsWithPropertyPath(params)
-		&& isWellformedPropertyPath(((PropertyPath) params.get(0))
-			.getThePath());
-    }
+	// does the list start with a PropertyPath?
+	if (params == null)
+	    return false;
+	if (params.isEmpty())
+	    return false;
+	Object firstElem = params.get(0);
+	if (!(firstElem instanceof PropertyPath))
+	    return false;
 
-    private boolean isWellformedPropertyPath(String[] propertyPath) {
-	return propertyPath != null && propertyPath.length == 2
-		&& Service.PROP_OWLS_PRESENTS.equals(propertyPath[0]);
-    }
-
-    private boolean startsWithPropertyPath(List<?> params) {
-	return params != null && !params.isEmpty()
-		&& params.get(0) instanceof PropertyPath;
-    }
-
-    private int[] createZeroInitializedArrayOfLength(int length) {
-	int[] array = new int[length];
-	for (int i = 0; i < array.length; i++) {
-	    array[i] = 0;
-	}
-	return array;
+	// is the property path well formed?
+	String[] propertyPath = ((PropertyPath) firstElem).getThePath();
+	if (propertyPath == null)
+	    return false;
+	if (propertyPath.length != 2)
+	    return false;
+	return Service.PROP_OWLS_PRESENTS.equals(propertyPath[0]);
     }
 
     private void addLocalMessageToWaitingCallers(BusMessage message,
@@ -1428,7 +1425,7 @@ public class ServiceStrategy extends BusStrategy {
      * uAAL_SERVICE_URI_MATCHED:
      * 
      * New strategy: if service matches exactly URI specified in Service Request
-     * than this service is always preferred over others.
+     * then this service is always preferred over others.
      */
     private boolean matchesServiceURIExactly(Map<String, Object> match,
 	    Map<String, Object> otherMatch) {
@@ -1616,7 +1613,7 @@ public class ServiceStrategy extends BusStrategy {
 	    if (theCoordinator == null && coord != null) {
 		synchronized (this) {
 		    theCoordinator = coord;
-		    notifyOnFoundCoordinator();
+		    notifyAll();
 		}
 	    }
 	} else if (resource.getType().equals(
@@ -1636,7 +1633,9 @@ public class ServiceStrategy extends BusStrategy {
 
     @SuppressWarnings("unchecked")
     private void handleP2PEvent(Resource resource) {
-	if (isServiceBusSubscription(resource) && isCoordinator) {
+	if (isCoordinator
+		&& resource.getType()
+			.equals(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION)) {
 	    if (isDeregistered(resource)) {
 		String subscriber = resource.getURI();
 		String serviceURI = resource
@@ -1661,7 +1660,9 @@ public class ServiceStrategy extends BusStrategy {
 		addSubscriber(resource.getURI(), (ServiceRequest) resource
 			.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST));
 	    }
-	} else if (isServiceBusRegistration(resource) && isCoordinator) {
+	} else if (resource.getType()
+		.equals(TYPE_uAAL_SERVICE_BUS_REGISTRATION)
+		&& isCoordinator) {
 	    List<ServiceProfile> profiles = (List<ServiceProfile>) resource
 		    .getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
 	    String theCallee = resource.getProperty(
@@ -1684,7 +1685,7 @@ public class ServiceStrategy extends BusStrategy {
 	    if (theCoordinator == null && coord != null) {
 		synchronized (this) {
 		    theCoordinator = coord;
-		    notifyOnFoundCoordinator();
+		    notifyAll();
 		}
 	    }
 	}
@@ -1700,16 +1701,8 @@ public class ServiceStrategy extends BusStrategy {
 		.getProperty(PROP_uAAL_REGISTERATION_STATUS));
     }
 
-    private boolean isServiceBusRegistration(Resource resource) {
-	return resource.getType().equals(TYPE_uAAL_SERVICE_BUS_REGISTRATION);
-    }
-
     private boolean isServiceBusCoordinator(Resource resource) {
 	return resource.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR);
-    }
-
-    private boolean isServiceBusSubscription(Resource resource) {
-	return resource.getType().equals(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION);
     }
 
     private void handleEvent(Resource res) {
@@ -1885,15 +1878,6 @@ public class ServiceStrategy extends BusStrategy {
 	sendSimpleReply(message, CallStatus.noMatchingServiceFound);
     }
 
-    /**
-     * Send a denied! message as a reply to the message passed as a parameter
-     * 
-     * @param message
-     *            the message to send a reply to
-     */
-    private void sendMessageDenied(BusMessage message) {
-	sendSimpleReply(message, CallStatus.denied);
-    }
 
     /**
      * Send a message of type <tt>status</tt> as a reply to the message passed
@@ -1967,7 +1951,7 @@ public class ServiceStrategy extends BusStrategy {
 	    send(message);
 	    synchronized (this) {
 		try {
-		    waitForCoordinatorToBeKnown();
+		    wait();
 		    // TODO We need to have some kind of management here
 		    // or at least a timeout (but what then? Denote
 		    // itself as coordinator until find the "real" one?)!
@@ -2103,14 +2087,6 @@ public class ServiceStrategy extends BusStrategy {
 		    .getPeerFromBusResourceURI(as.callerID));
 	    send(message);
 	}
-    }
-
-    protected void waitForCoordinatorToBeKnown() throws InterruptedException {
-	wait();
-    }
-
-    protected void notifyOnFoundCoordinator() {
-	notifyAll();
     }
 
     /**
