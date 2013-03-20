@@ -52,15 +52,19 @@
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Bundle-Activator>org.universAAL.middleware.container.osgi.run.Activator</Bundle-Activator>
+						<Import-Package>javax.xml.bind,
+							javax.xml.bind.annotation,
+							javax.xml.bind.annotation.adapters,
+							javax.xml.namespace,
+							org.w3c.dom</Import-Package>
 						<Export-Package>org.universAAL.middleware.connectors.deploy.karaf.model,
-							org.universAAL.middleware.deploymaneger.uapp.model
+							org.universAAL.middleware.deploymaneger.uapp.model,
 							org.universAAL.middleware.interfaces.aalspace.model</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>
 
-			</plugins>
+		</plugins>
 	</build>
 
 	<description>XSD Schema for universAAL common data model</description>
