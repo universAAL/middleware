@@ -59,7 +59,7 @@ public class Activator implements BundleActivator, ServiceListener {
 				.getName()));
 	AbstractBus.initBrokerage(mc, mgr, mdl);
 
-	BusMessage.setThisPeer(mgr.getmyPeerCard());
+	BusMessage.setThisPeer(mgr.getMyPeerCard());
 
 	ServiceReference sr = context
 		.getServiceReference(MessageContentSerializer.class.getName());

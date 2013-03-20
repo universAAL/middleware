@@ -106,7 +106,7 @@ public class Joiner implements Runnable {
 		// if not and I am a Coordinator I run the initialization of an
 		// AALSpace
 		if (spaceManager.getAALSpaceDescriptor() == null
-			&& spaceManager.getmyPeerCard().isCoordinator()) {
+			&& spaceManager.getMyPeerCard().isCoordinator()) {
 		    spaceManager.initAALSpace(spaceManager
 			    .getAalSpaceDefaultConfiguration());
 		}
@@ -116,7 +116,7 @@ public class Joiner implements Runnable {
 	    // if not and I am a Coordinator I run the initialization of an
 	    // AALSpace
 	    if (spaceManager.getAALSpaceDescriptor() == null
-		    && spaceManager.getmyPeerCard().isCoordinator()) {
+		    && spaceManager.getMyPeerCard().isCoordinator()) {
 		spaceManager.initAALSpace(spaceManager
 			.getAalSpaceDefaultConfiguration());
 	    }
