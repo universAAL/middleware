@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
+	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
@@ -116,17 +115,20 @@ public class ServiceStrategy extends BusStrategy {
 	Object reqOrSubs;
     }
 
-    private Map<String, List<ServiceRealization>> allServicesIndex;
-    private Map<String, List<ServiceRealization>> startDialogs;
-    private Map<String, List<AvailabilitySubscription>> allSubscriptionsIndex;
+    // serviceURI -> Vector(ServiceRealization)
+    private Hashtable allServicesIndex;
 
-    /** request.msgID -> Vector(call.context) + call.msgID -> call.context */
-    private Map<String, Object> allWaitingCallers; // Map<String,
-    // List<Map<String, Object>>>
-    private Map<String, Map<String, Object>> allCallContextsForWaitingMessageIDs;
+    // serviceURI -> Vector(AvailabilitySubscription)
+    private Hashtable allSubscriptionsIndex;
 
-    private Map<String, String> localSubscriptionsIndex;
-    private Map<String, List<AvailabilitySubscription>> localSubscriptions;
+    // request.msgID -> Vector(call.context) + call.msgID -> call.context
+    private Hashtable allWaitingCallers;
+
+    // requestURI -> serviceURI + callerURI -> Vector(AvailabilitySubscription)
+    private Hashtable localSubscriptionsIndex;
+
+    // serviceURI -> Vector(ServiceRealization)
+    private Hashtable startDialogs;
 
     // request.msgID -> callerID
     protected ILocalWaitingCallersData localWaitingCallers;
@@ -144,30 +146,28 @@ public class ServiceStrategy extends BusStrategy {
 	// Initiated the factory
 	IServiceStrategyDataFactory factory = createServiceStrategyDataFactory();
 
-	// dummy call to force the load of the class InitialServiceDialog
+	// dummy action to force the load of the class InitialServiceDialog
 	StringUtils.isNonEmpty(InitialServiceDialog.MY_URI);
 
-	localSubscriptionsIndex = new Hashtable<String, String>();
-	localSubscriptions = new Hashtable<String, List<AvailabilitySubscription>>();
+	// end of dummy action: we had to set the coordinator ID back to null
+	// until the real ID is found out
+	localSubscriptionsIndex = new Hashtable();
 	localServicesIndex = factory.createLocalServicesIndexData();
 	localWaitingCallers = factory.createLocalWaitingCallersData();
 	localServiceSearchResults = factory
 		.createLocalServiceSearchResultsData();
 	isCoordinator = Constants.isCoordinatorInstance();
-	LogUtils
-		.logDebug(
-			ServiceBusImpl.getModuleContext(),
-			ServiceStrategy.class,
-			"ServiceStrategy",
-			new Object[] { "This instance is ",
-				isCoordinator ? "" : "NOT ", "the coordinator." },
-			null);
+	LogUtils.logDebug(ServiceBusImpl.getModuleContext(),
+		ServiceStrategy.class, "ServiceStrategy", new Object[] {
+			"This instance is ", isCoordinator ? "" : "NOT ",
+			"the coordinator." }, null);
 	if (isCoordinator) {
-	    allServicesIndex = new Hashtable<String, List<ServiceRealization>>();
-	    allSubscriptionsIndex = new Hashtable<String, List<AvailabilitySubscription>>();
-	    allWaitingCallers = new Hashtable<String, Object>();
-	    allCallContextsForWaitingMessageIDs = new Hashtable<String, Map<String, Object>>();
-	    startDialogs = new Hashtable<String, List<ServiceRealization>>();
+	    allServicesIndex = new Hashtable();
+	    allSubscriptionsIndex = new Hashtable();
+	    allWaitingCallers = new Hashtable();
+	    startDialogs = new Hashtable();
+	} else {
+
 	}
     }
 
@@ -192,22 +192,20 @@ public class ServiceStrategy extends BusStrategy {
      */
     void addAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, ServiceRequest request) {
-	if (request == null || subscriber == null || request.isAnon()) {
+	if (request == null || subscriber == null || request.isAnon())
 	    return;
-	}
 
-	AvailabilitySubscription availabilitySubscription = new AvailabilitySubscription();
-	availabilitySubscription.callerID = callerID;
-	availabilitySubscription.id = request.getURI();
-	availabilitySubscription.reqOrSubs = subscriber;
+	AvailabilitySubscription as = new AvailabilitySubscription();
+	as.callerID = callerID;
+	as.id = request.getURI();
+	as.reqOrSubs = subscriber;
+	getVector(localSubscriptionsIndex, callerID).add(as);
+	localSubscriptionsIndex.put(as.id, request.getRequestedService()
+		.getType());
 
-	safeGet(localSubscriptions, callerID).add(availabilitySubscription);
-	localSubscriptionsIndex.put(availabilitySubscription.id, request
-		.getRequestedService().getType());
-
-	if (isCoordinator) {
+	if (isCoordinator)
 	    addSubscriber(callerID, request);
-	} else if (isCoordinatorKnown()) {
+	else if (isCoordinatorKnown()) {
 	    Resource res = new Resource(callerID);
 	    res.addType(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION, true);
 	    res.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST, request);
@@ -229,36 +227,31 @@ public class ServiceStrategy extends BusStrategy {
      *            - the profiles to add
      */
     void addRegParams(String calleeID, ServiceProfile[] realizedServices) {
-	if (realizedServices == null
-		|| calleeID == null
-		|| !(getBusMember(calleeID) instanceof ServiceCallee)) {
+	if (realizedServices == null || calleeID == null
+		|| !(getBusMember(calleeID) instanceof ServiceCallee))
 	    return;
-	}
 
-	for (ServiceProfile realizedService : realizedServices) {
+	for (int i = 0; i < realizedServices.length; i++) {
 	    // check for qualifications of each realized service
-	    if (realizedService == null
-		    || realizedService.getTheService() == null) {
+	    if (realizedServices[i] == null
+		    || realizedServices[i].getTheService() == null)
 		// ignore not-qualified ones
 		continue;
-	    }
 
-	    String processURI = realizedService.getProcessURI();
-	    if (processURI == null) {
+	    String processURI = realizedServices[i].getProcessURI();
+	    if (processURI == null)
 		// ignore not-qualified ones
 		continue;
-	    }
 
 	    // qualifications fulfilled -> associate service with its provider
 	    ServiceRealization registration = new ServiceRealization(calleeID,
-		    realizedService);
+		    realizedServices[i]);
 	    // index it over the ID of the operation registered
 	    localServicesIndex.addServiceRealization(processURI, registration);
 
-	    if (isCoordinator) {
+	    if (isCoordinator)
 		// more complex indexing of services by the coordinator
-		indexServices(realizedService, registration, processURI);
-	    }
+		indexServices(realizedServices[i], registration, processURI);
 	}
 
 	if (!isCoordinator && isCoordinatorKnown()) {
@@ -277,20 +270,15 @@ public class ServiceStrategy extends BusStrategy {
 	    m.setReceiver(theCoordinator);
 	    send(m);
 	} else if (theCoordinator == null) {
-	    // we get here only if this peer provides the coordinator instance
-	    // and this is the first time that service profiles are being
-	    // registered
-	    // => use this deterministic situation for announcing to all other
-	    // peers that the coordinator is here
-	    // first prevent repeating the broadcast by making the variable
-	    // not-null
+	    // using the dummy value "this" to indicate that the coordinator has
+	    // at least one registration
 	    theCoordinator = bus.getPeerCard();
 	    // publish an event informing all peers started prior to the
-	    // coordinator about the availability of the coordinator
-	    // do this in a thread after waiting 10 seconds to give it a chance
-	    // that any running join process within the AAL Space is finished
+	    // coordinator
+	    // about the availability of the coordinator
+	    // do this in a thread after waiting 10 seconds to make sure that
+	    // the join process within the sodapop engine is closed
 	    new Thread() {
-		@Override
 		public void run() {
 		    try {
 			sleep(10000);
@@ -320,66 +308,63 @@ public class ServiceStrategy extends BusStrategy {
     private void addSubscriber(String callerID, ServiceRequest request) {
 	String serviceURI = request.getRequestedService().getType();
 	synchronized (allServicesIndex) {
-	    AvailabilitySubscription availabilitySubscription = new AvailabilitySubscription();
-	    availabilitySubscription.id = callerID;
-	    availabilitySubscription.reqOrSubs = request;
-
-	    allSubscriptionsIndex.put(serviceURI,
-		    new Vector<AvailabilitySubscription>());
-	    allSubscriptionsIndex.get(serviceURI).add(availabilitySubscription);
-
-	    List<ServiceRealization> realizations = allServicesIndex
-		    .get(serviceURI);
-	    if (realizations != null) {
-		for (ServiceRealization realization : realizations) {
-		    if (null != matches(callerID, request, realization)) {
-			notifySubscriber(availabilitySubscription,
-				getProcessURIOfServiceProfile(realization),
-				true);
-		    }
+	    AvailabilitySubscription as = new AvailabilitySubscription();
+	    as.id = callerID;
+	    as.reqOrSubs = request;
+	    getVector(allSubscriptionsIndex, serviceURI).add(as);
+	    Vector realizations = (Vector) allServicesIndex.get(serviceURI);
+	    if (realizations != null)
+		for (Iterator i = realizations.iterator(); i.hasNext();) {
+		    ServiceRealization sr = (ServiceRealization) i.next();
+		    if (null != matches(callerID, request, sr))
+			notifySubscriber(
+				as,
+				((ServiceProfile) sr
+					.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+					.getProcessURI(), true);
 		}
-	    }
 	}
     }
 
     /**
      * Pass the call message to the matching service callees
      * 
-     * @param message
+     * @param m
      *            - the message
      * @param matches
      *            - a list of hashtables that describe the matched services
      */
-    private void callServices(BusMessage message, List matches) {
+    private void callServices(BusMessage m, Vector matches) {
 	int size = matches.size();
 	matches.add(new Integer(size));
-	allWaitingCallers.put(message.getID(), matches);
+	allWaitingCallers.put(m.getID(), matches);
 	int maxTimeout = 0;
 	for (int i = 0; i < size; i++) {
 	    Hashtable match = (Hashtable) matches.get(i);
-	    match.put(CONTEXT_REQUEST_MESSAGE, message);
+	    match.put(CONTEXT_REQUEST_MESSAGE, m);
 	    ServiceRealization sr = (ServiceRealization) match
 		    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
 	    Object timeout = ((ServiceProfile) sr
 		    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
 		    .getProperty(ServiceProfile.PROP_uAAL_RESPONSE_TIMEOUT);
 	    if (timeout instanceof Integer
-		    && ((Integer) timeout).intValue() > maxTimeout) {
+		    && ((Integer) timeout).intValue() > maxTimeout)
 		maxTimeout = ((Integer) timeout).intValue();
-	    }
 	    PeerCard receiver = AbstractBus.getPeerFromBusResourceURI(sr
 		    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER)
 		    .toString());
 	    ServiceCall sc = (ServiceCall) match
 		    .remove(ServiceRealization.uAAL_ASSERTED_SERVICE_CALL);
+	    // if (m.getContent() instanceof ServiceRequest) {
+	    // sc.setRequest((ServiceRequest) m.getContent());
+	    // }
 	    ((ServiceBusImpl) bus).assessContentSerialization(sc);
 	    BusMessage call = new BusMessage(MessageType.p2p_request, sc, bus);
-	    allWaitingCallers.put(call.getID(), match);
-	    // call.getSender is there at least since r2064
-	    // (the first revision in saieds sandbox)
+
 	    boolean handleLocally = true;
 	    try {
-		handleLocally = call.getSender().getPeerID().equals(receiver.getPeerID());
+		handleLocally = call.getSender().getPeerID().equals(
+			receiver.getPeerID());
 	    } catch (NullPointerException e) {
 		// find out which element is null and log
 		if (call == null) {
@@ -422,12 +407,13 @@ public class ServiceStrategy extends BusStrategy {
 		// don't handle
 		continue;
 	    }
-	    if (handleLocally) {
+
+	    allWaitingCallers.put(call.getID(), match);
+
+	    if (handleLocally)
 		handleMessage(call, null);
-	    } else {
-		List l = new ArrayList(1);
-		l.add(receiver);
-		call.setReceivers(l);
+	    else {
+		call.setReceiver(receiver);
 		send(call);
 	    }
 	}
@@ -436,7 +422,7 @@ public class ServiceStrategy extends BusStrategy {
 		Thread.sleep(maxTimeout);
 	    } catch (Exception e) {
 	    }
-	    sendServiceResponse(message);
+	    sendServiceResponse(m);
 	}
     }
 
@@ -453,40 +439,38 @@ public class ServiceStrategy extends BusStrategy {
      * @param m
      *            - the message request for general purpose user interaction
      */
-    private void callStartDialog(List<ServiceRealization> matchingServices,
-	    String vendor, BusMessage m) {
+    private void callStartDialog(Vector matchingServices, String vendor,
+	    BusMessage m) {
 	if (matchingServices == null) {
 	    sendNoMatchingFound(m);
 	    return;
 	}
 
 	Object calleeID = null, processURI = null;
-	for (ServiceRealization realization : matchingServices) {
-	    if (realization == null) {
+	for (Iterator i = matchingServices.iterator(); i.hasNext();) {
+	    ServiceRealization sr = (ServiceRealization) i.next();
+	    if (sr == null)
 		continue;
-	    }
-	    ServiceProfile profile = (ServiceProfile) realization
+	    ServiceProfile sp = (ServiceProfile) sr
 		    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
-	    if (profile == null) {
+	    if (sp == null)
 		continue;
-	    }
-	    Service service = profile.getTheService();
-	    if (service == null) {
+	    Service s = sp.getTheService();
+	    if (s == null)
 		continue;
-	    }
-	    if (isMatchingVendor(vendor, service)) {
-		processURI = profile.getProcessURI();
-		calleeID = realization
+	    if (vendor.equals(String.valueOf(s
+		    .getProperty(InitialServiceDialog.PROP_HAS_VENDOR)))) {
+		processURI = sp.getProcessURI();
+		calleeID = sr
 			.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER);
 		if (processURI instanceof String && calleeID instanceof String) {
 		    Object user = (m.getContent() instanceof ServiceRequest) ? ((ServiceRequest) m
 			    .getContent())
-			    .getProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER)
+			    .getProperty(ServiceRequest.PROP_uAAL_INVOLVED_HUMAN_USER)
 			    : null;
 		    ServiceCall sc = new ServiceCall((String) processURI);
-		    if (user instanceof Resource) {
+		    if (user instanceof Resource)
 			sc.setInvolvedUser((Resource) user);
-		    }
 		    ((ServiceBusImpl) bus).assessContentSerialization(sc);
 		    BusMessage call = new BusMessage(MessageType.p2p_request,
 			    sc, bus);
@@ -499,22 +483,20 @@ public class ServiceStrategy extends BusStrategy {
 			handleMessage(call, null);
 		    }
 		    break;
-		} else {
+		} else
 		    processURI = null;
-		}
 	    }
 	}
 
-	if (processURI == null) {
+	if (processURI == null)
 	    sendNoMatchingFound(m);
-	} else {
+	else {
 	    ServiceResponse resp = new ServiceResponse(CallStatus.succeeded);
 	    m = m.createReply(resp);
-	    if (m.receiverResidesOnDifferentPeer()) {
+	    if (m.receiverResidesOnDifferentPeer())
 		send(m);
-	    } else {
+	    else
 		replyToLocalCaller(m);
-	    }
 	}
     }
 
@@ -526,19 +508,18 @@ public class ServiceStrategy extends BusStrategy {
      */
     private void sendServiceResponse(BusMessage m) {
 	Vector matches = (Vector) allWaitingCallers.remove(m.getID());
-	if (matches == null) {
+	if (matches == null)
 	    return;
-	}
 
 	synchronized (matches) {
 	    int size = matches.size() - 1;
 	    int numTimedOut = ((Integer) matches.remove(size)).intValue();
-	    if (size == numTimedOut) {
+	    if (size == numTimedOut)
 		// there has been no one response => this method is called
 		// because of timeout!
 		m = m.createReply(new ServiceResponse(
 			CallStatus.responseTimedOut));
-	    } else {
+	    else {
 		// boolean arrays to indicate which of the responses had which
 		// kind of failure
 		// nmsf for NO_MATCHING_SERVICE_FOUND, rto for
@@ -602,11 +583,11 @@ public class ServiceStrategy extends BusStrategy {
 		}
 		switch (goods.size()) {
 		case 0:
-		    if (bads == 0) {
+		    if (bads == 0)
 			// shouldn't be the case...
 			m = m.createReply(new ServiceResponse(
 				CallStatus.responseTimedOut));
-		    } else {
+		    else {
 			Hashtable bad = null;
 			// if there is one response with
 			// SERVICE_SPECIFIC_FAILURE take that one
@@ -614,19 +595,17 @@ public class ServiceStrategy extends BusStrategy {
 			    if (ssf[i]) {
 				bad = (Hashtable) matches.get(i);
 				break;
-			    } else if (rto[i]) {
+			    } else if (rto[i])
 				bad = (Hashtable) matches.get(i);
-			    } else if (bad == null) {
+			    else if (bad == null)
 				bad = (Hashtable) matches.get(i);
-			    }
 			}
 			ServiceResponse sr = (ServiceResponse) bad
 				.get(CONTEXT_RESPONSE_MESSAGE);
-			if (sr == null) {
+			if (sr == null)
 			    // see the 'sr == null' comment a dozen lines above
 			    sr = new ServiceResponse(
 				    CallStatus.responseTimedOut);
-			}
 			m = m.createReply(sr);
 		    }
 		    break;
@@ -643,9 +622,8 @@ public class ServiceStrategy extends BusStrategy {
 			    .getOutputAggregations();
 		    if (!aggregations.isEmpty()) {
 			int[] points = new int[size];
-			for (int i = 0; i < points.length; i++) {
+			for (int i = 0; i < points.length; i++)
 			    points[i] = 0;
-			}
 			for (Iterator i = aggregations.iterator(); i.hasNext();) {
 			    AggregatingFilter af = (AggregatingFilter) i.next();
 			    List params = af.getFunctionParams();
@@ -659,23 +637,21 @@ public class ServiceStrategy extends BusStrategy {
 				    for (int k = j + 1; k < size; k++) {
 					Object ok = getOutputValue(
 						(Hashtable) goods.get(k), af);
-					if (oj instanceof Comparable) {
-					    if (ok == null) {
+					if (oj instanceof Comparable)
+					    if (ok == null)
 						points[k]++;
-					    } else {
+					    else {
 						int l = ((Comparable) oj)
 							.compareTo(ok);
-						if (l < 0) {
+						if (l < 0)
 						    points[k]++;
-						} else if (l > 0) {
+						else if (l > 0)
 						    points[j]++;
-						}
 					    }
-					} else {
+					else {
 					    points[j]++;
-					    if (!(ok instanceof Comparable)) {
+					    if (!(ok instanceof Comparable))
 						points[k]++;
-					    }
 					}
 				    }
 				}
@@ -687,23 +663,21 @@ public class ServiceStrategy extends BusStrategy {
 				    for (int k = j + 1; k < size; k++) {
 					Object ok = getOutputValue(
 						(Hashtable) goods.get(k), af);
-					if (oj instanceof Comparable) {
-					    if (ok == null) {
+					if (oj instanceof Comparable)
+					    if (ok == null)
 						points[k]++;
-					    } else {
+					    else {
 						int l = ((Comparable) oj)
 							.compareTo(ok);
-						if (l > 0) {
+						if (l > 0)
 						    points[k]++;
-						} else if (l < 0) {
+						else if (l < 0)
 						    points[j]++;
-						}
 					    }
-					} else {
+					else {
 					    points[j]++;
-					    if (!(ok instanceof Comparable)) {
+					    if (!(ok instanceof Comparable))
 						points[k]++;
-					    }
 					}
 				    }
 				}
@@ -715,27 +689,25 @@ public class ServiceStrategy extends BusStrategy {
 				    for (int k = j + 1; k < size; k++) {
 					Object ok = getOutputValue(
 						(Hashtable) goods.get(k), af);
-					if (oj instanceof AbsLocation) {
-					    if (ok == null) {
+					if (oj instanceof AbsLocation)
+					    if (ok == null)
 						points[k]++;
-					    } else {
+					    else {
 						float dj = ((AbsLocation) oj)
 							.getDistanceTo((AbsLocation) params
 								.get(1));
 						float dk = ((AbsLocation) ok)
 							.getDistanceTo((AbsLocation) params
 								.get(1));
-						if (dj < dk) {
+						if (dj < dk)
 						    points[k]++;
-						} else if (dk < dj) {
+						else if (dk < dj)
 						    points[j]++;
-						}
 					    }
-					} else {
+					else {
 					    points[j]++;
-					    if (!(ok instanceof AbsLocation)) {
+					    if (!(ok instanceof AbsLocation))
 						points[k]++;
-					    }
 					}
 				    }
 				}
@@ -747,27 +719,25 @@ public class ServiceStrategy extends BusStrategy {
 				    for (int k = j + 1; k < size; k++) {
 					Object ok = getOutputValue(
 						(Hashtable) goods.get(k), af);
-					if (oj instanceof AbsLocation) {
-					    if (ok == null) {
+					if (oj instanceof AbsLocation)
+					    if (ok == null)
 						points[k]++;
-					    } else {
+					    else {
 						float dj = ((AbsLocation) oj)
 							.getDistanceTo((AbsLocation) params
 								.get(1));
 						float dk = ((AbsLocation) ok)
 							.getDistanceTo((AbsLocation) params
 								.get(1));
-						if (dj > dk) {
+						if (dj > dk)
 						    points[k]++;
-						} else if (dk > dj) {
+						else if (dk > dj)
 						    points[j]++;
-						}
 					    }
-					} else {
+					else {
 					    points[j]++;
-					    if (!(ok instanceof AbsLocation)) {
+					    if (!(ok instanceof AbsLocation))
 						points[k]++;
-					    }
 					}
 				    }
 				}
@@ -775,18 +745,15 @@ public class ServiceStrategy extends BusStrategy {
 			    }
 			}
 			int ind = 0, min = points[0];
-			for (int i = 1; i < size; i++) {
+			for (int i = 1; i < size; i++)
 			    if (points[i] < min) {
 				ind = i;
 				min = points[i];
 			    }
-			}
-			for (int j = 0; j < ind; j++, size--) {
+			for (int j = 0; j < ind; j++, size--)
 			    goods.remove(0);
-			}
-			while (size > 1) {
+			while (size > 1)
 			    goods.remove(--size);
-			}
 		    }
 		    if (size == 1) {
 			// the above aggregations have reduced the number of
@@ -824,9 +791,8 @@ public class ServiceStrategy extends BusStrategy {
 				ctxt = (Hashtable) goods.get(i);
 				ServiceResponse tmp = (ServiceResponse) ctxt
 					.get(CONTEXT_RESPONSE_MESSAGE);
-				if (tmp == resp) {
+				if (tmp == resp)
 				    continue;
-				}
 				List aux = tmp.getOutputs();
 				if (aux != null && !aux.isEmpty()) {
 				    prepareRequestedOutput(aux, ctxt);
@@ -860,24 +826,21 @@ public class ServiceStrategy extends BusStrategy {
      *            - hashtable of bindings for the ProcessOutputs
      */
     private void prepareRequestedOutput(List outputs, Hashtable context) {
-	if (outputs != null && !outputs.isEmpty()) {
+	if (outputs != null && !outputs.isEmpty())
 	    for (int i = outputs.size() - 1; i > -1; i--) {
 		ProcessOutput po = (ProcessOutput) outputs.remove(i);
-		if (po == null) {
+		if (po == null)
 		    continue;
-		}
 		Resource binding = (Resource) context.get(po.getURI());
 		if (binding != null) {
 		    String mappedURI = binding.getProperty(
 			    OutputBinding.PROP_OWLS_BINDING_TO_PARAM)
 			    .toString();
-		    if (mappedURI == null) {
+		    if (mappedURI == null)
 			continue;
-		    }
 		    Object val = po.getParameterValue();
-		    if (val == null) {
+		    if (val == null)
 			continue;
-		    }
 		    ProcessOutput substitution = new ProcessOutput(mappedURI);
 		    substitution.setParameterValue(val);
 		    outputs.add(substitution);
@@ -894,7 +857,6 @@ public class ServiceStrategy extends BusStrategy {
 		    }
 		}
 	    }
-	}
     }
 
     /**
@@ -905,9 +867,20 @@ public class ServiceStrategy extends BusStrategy {
      *            - the service
      * @return Vector - the non-abstract superclasses
      */
-    @SuppressWarnings("unchecked")
-    private List<String> getNonAbstractSuperClasses(Service s) {
+    private Vector getNonAbstractSuperClasses(Service s) {
 	return ManagedIndividual.getNonAbstractSuperClasses(s);
+	// Vector result = new Vector();
+	// Class superClass = s.getClass();
+	// while (superClass != null) {
+	// if (!Modifier.isAbstract(superClass.getModifiers())) {
+	// String uri = ManagedIndividual.getRegisteredClassURI(superClass
+	// .getName());
+	// if (uri != null)
+	// result.add(uri);
+	// }
+	// superClass = superClass.getSuperclass();
+	// }
+	// return result;
     }
 
     /**
@@ -923,9 +896,8 @@ public class ServiceStrategy extends BusStrategy {
     private Object getOutputValue(Hashtable context, AggregatingFilter af) {
 	List outputs = ((ServiceResponse) context.get(CONTEXT_RESPONSE_MESSAGE))
 		.getOutputs();
-	if (outputs == null || outputs.isEmpty()) {
+	if (outputs == null || outputs.isEmpty())
 	    return null;
-	}
 
 	for (Iterator i = context.keySet().iterator(); i.hasNext();) {
 	    String key = i.next().toString();
@@ -937,14 +909,12 @@ public class ServiceStrategy extends BusStrategy {
 			&& ((AggregatingFilter) o).getTheFunction() == af
 				.getTheFunction()
 			&& af.getFunctionParams().equals(
-				((AggregatingFilter) o).getFunctionParams())) {
+				((AggregatingFilter) o).getFunctionParams()))
 		    for (Iterator j = outputs.iterator(); j.hasNext();) {
 			ProcessOutput po = (ProcessOutput) j.next();
-			if (key.equals(po.getURI())) {
+			if (key.equals(po.getURI()))
 			    return po.getParameterValue();
-			}
 		    }
-		}
 	    }
 	}
 
@@ -960,13 +930,12 @@ public class ServiceStrategy extends BusStrategy {
      *            - the property of the profile paramter to return
      * @return Object - the profile parameter
      */
-    private Object getProfileParameter(Map<String, Object> context, String prop) {
+    private Object getProfileParameter(Hashtable context, String prop) {
 	Object o = context.get(prop);
-	if (o == null) {
+	if (o == null)
 	    o = ((ServiceProfile) context
 		    .get(ServiceRealization.uAAL_SERVICE_PROFILE))
 		    .getProperty(prop);
-	}
 	return o;
     }
 
@@ -977,741 +946,562 @@ public class ServiceStrategy extends BusStrategy {
      * 
      * @param t
      *            - the hashtable
-     * @param key
+     * @param k
      *            - the key
      * @return Vector - the value of the key from the hashtable
      */
-    private <T> List<T> safeGet(Map<String, List<T>> t, String key) {
-	List<T> m = t.get(key);
+    private Vector getVector(Hashtable t, String k) {
+	Vector m = (Vector) t.get(k);
 	if (m == null) {
-	    m = new Vector<T>();
-	    t.put(key, m);
+	    m = new Vector();
+	    t.put(k, m);
 	}
 	return m;
     }
 
-    @Override
-    protected void handleDeniedMessage(BusMessage message, String senderID) {
-	sendSimpleReply(message, CallStatus.denied);
-    }
-
     /**
-     * @see org.universAAL.middleware.sodapop.BusStrategy#handle(org.universAAL.middleware.sodapop.msg.BusMessage,
+     * @see BusStrategy #handle(org.universAAL.middleware.sodapop.msg.Message,
      *      String)
      */
-    @Override
     public void handle(BusMessage msg, String senderID) {
-	Resource resource = (Resource) msg.getContent();
+	Resource res = (Resource) msg.getContent();
 	switch (msg.getType().ord()) {
 	case MessageType.EVENT:
-	    handleEvent(resource);
+	    if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_NOTIFICATION))
+		notifyLocalSubscriber(res.getProperty(
+			PROP_uAAL_SERVICE_SUBSCRIBER).toString(), res
+			.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST)
+			.toString(), res.getProperty(
+			PROP_uAAL_SERVICE_REALIZATION_ID).toString(),
+			RES_STATUS_REGISTERED.equals(res
+				.getProperty(PROP_uAAL_REGISTERATION_STATUS)));
 	    break;
 	case MessageType.P2P_EVENT:
-	    handleP2PEvent(resource);
+	    if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION)
+		    && isCoordinator) {
+		if (RES_STATUS_DEREGISTERED.equals(res
+			.getProperty(PROP_uAAL_REGISTERATION_STATUS))) {
+		    String serviceURI = res.getProperty(PROP_uAAL_SERVICE_TYPE)
+			    .toString(), subscriber = res.getURI(), requestURI = res
+			    .getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST)
+			    .toString();
+		    synchronized (allServicesIndex) {
+			Vector v = (Vector) allSubscriptionsIndex
+				.get(serviceURI);
+			if (v != null)
+			    for (Iterator i = v.iterator(); i.hasNext();) {
+				AvailabilitySubscription as = (AvailabilitySubscription) i
+					.next();
+				if (as.id.equals(subscriber)
+					&& as.reqOrSubs.toString().equals(
+						requestURI)) {
+				    i.remove();
+				    return;
+				}
+			    }
+		    }
+		} else
+		    addSubscriber(res.getURI(), (ServiceRequest) res
+			    .getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST));
+	    } else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_REGISTRATION)
+		    && isCoordinator) {
+		List profiles = (List) res
+			.getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
+		String theCallee = res.getProperty(
+			PROP_uAAL_SERVICE_PROVIDED_BY).toString();
+		if (RES_STATUS_REGISTERED.equals(res
+			.getProperty(PROP_uAAL_REGISTERATION_STATUS)))
+		    for (Iterator i = profiles.iterator(); i.hasNext();) {
+			ServiceProfile prof = (ServiceProfile) i.next();
+			indexServices(prof, new ServiceRealization(theCallee,
+				prof), prof.getProcessURI());
+		    }
+		else if (profiles == null)
+		    unindexServices(theCallee, null);
+		else
+		    for (Iterator i = profiles.iterator(); i.hasNext();)
+			unindexServices(theCallee, ((ServiceProfile) i.next())
+				.getProcessURI());
+	    } else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
+		PeerCard coord = AbstractBus.getPeerFromBusResourceURI(res
+			.getURI());
+		if (theCoordinator == null && coord != null) {
+		    synchronized (this) {
+			theCoordinator = coord;
+			notifyAll();
+		    }
+		}
+	    }
 	    break;
 	case MessageType.P2P_REPLY:
-	    handleP2PReply(msg);
+	    if (res instanceof ServiceResponse) {
+		if (isCoordinator) {
+		    Hashtable callContext = (Hashtable) allWaitingCallers
+			    .remove(msg.getInReplyTo());
+		    if (callContext == null) {
+			// this must be UI service response, because they are
+			// answered
+			// immediately after the request has been handled and no
+			// call context
+			// is put in allWaitingCallers
+			// TODO: add a log entry for checking if the above
+			// assumption is true
+			return;
+		    }
+		    BusMessage request = (BusMessage) callContext
+			    .get(CONTEXT_REQUEST_MESSAGE);
+		    Vector allCalls = (Vector) allWaitingCallers.get(request
+			    .getID());
+		    if (allCalls == null)
+			// response already timed out => ignore this delayed one
+			// TODO: add a log entry
+			return;
+		    synchronized (allCalls) {
+			callContext.put(CONTEXT_RESPONSE_MESSAGE, res);
+			int pending = ((Integer) allCalls.remove(allCalls
+				.size() - 1)).intValue() - 1;
+			allCalls.add(new Integer(pending));
+			if (pending == 0)
+			    sendServiceResponse(request);
+		    }
+		} else if (msg.hasReceiver(theCoordinator)) {
+		    send(msg);
+		} else {
+		    // this case shouldn't occur at all!
+		}
+	    } else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
+		PeerCard coord = AbstractBus.getPeerFromBusResourceURI(res
+			.getURI());
+		if (theCoordinator == null && coord != null) {
+		    synchronized (this) {
+			theCoordinator = coord;
+			notifyAll();
+		    }
+		}
+	    } else if (res.getType().equals(
+		    TYPE_uAAL_SERVICE_PROFILE_INFORMATION)) {
+		synchronized (this) {
+		    String realizationID = (String) res
+			    .getProperty(PROP_uAAL_SERVICE_REALIZATION_ID);
+		    List profiles = (List) res
+			    .getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
+
+		    localServiceSearchResults.addProfiles(realizationID,
+			    profiles);
+
+		    notifyAll();
+		}
+	    }
 	    break;
 	case MessageType.P2P_REQUEST:
-	    handleP2PRequest(msg);
+	    if (res instanceof ServiceCall) {
+		ServiceRealization sr = localServicesIndex
+			.getServiceRealizationByID(((ServiceCall) res)
+				.getProcessURI());
+		if (sr != null) {
+		    ServiceCallee callee = (ServiceCallee) getBusMember(sr
+			    .getProperty(
+				    ServiceRealization.uAAL_SERVICE_PROVIDER)
+			    .toString());
+		    if (callee != null)
+			callee.handleRequest(msg);
+		}
+	    } else if (isCoordinator
+		    && res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
+		res = new Resource(bus.getURI());
+		res.addType(TYPE_uAAL_SERVICE_BUS_COORDINATOR, true);
+		((ServiceBusImpl) bus).assessContentSerialization(res);
+		send(msg.createReply(res));
+	    } else if (isCoordinator
+		    && res.getType().equals(
+			    TYPE_uAAL_SERVICE_PROFILE_INFORMATION)) {
+
+		Resource r = new Resource();
+		String realizationID = (String) res
+			.getProperty(PROP_uAAL_SERVICE_REALIZATION_ID);
+		r.addType(TYPE_uAAL_SERVICE_PROFILE_INFORMATION, true);
+		r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE, Arrays
+			.asList(getCoordinatorServices(realizationID)));
+		r.setProperty(PROP_uAAL_SERVICE_REALIZATION_ID, realizationID);
+
+		((ServiceBusImpl) bus).assessContentSerialization(r);
+
+		send(msg.createReply(r));
+	    }
 	    break;
 	case MessageType.REPLY:
 	    replyToLocalCaller(msg);
 	    break;
 	case MessageType.REQUEST:
-	    handleRequest(msg, senderID);
-	    break;
-	}
-    }
-
-    private void handleRequest(BusMessage msg, String senderID) {
-	if (msg.getContent() instanceof ServiceRequest) {
-	    handleServiceRequest(msg, senderID);
-	} else {
-	    LogUtils
-		    .logWarn(
-			    ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class,
-			    "handleRequest",
-			    new Object[] { "Request is no ServiceRequest. Aborted processing." },
-			    null);
-	}
-    }
-
-    private void handleServiceRequest(BusMessage message, String senderID) {
-	if (isCoordinator) {
-	    coordinateServiceRequest(message, senderID);
-	} else if (message.senderResidesOnDifferentPeer()) {
-	    LogUtils
-		    .logWarn(
-			    ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class,
-			    "handleRequest",
-			    new Object[] { "Someone thought I am the coordinator, but actually I am not! I'll ignore this message." },
-			    null);
-	} else if (isCoordinatorKnown()) {
-	    forwardMessageToCoordinator(message, senderID);
-	}
-    }
-
-    private void forwardMessageToCoordinator(BusMessage message, String senderID) {
-	localWaitingCallers.addLocalWaitier(message.getID(), senderID);
-	message.setReceiver(theCoordinator);
-	send(message);
-    }
-
-    private void coordinateServiceRequest(BusMessage message, String senderID) {
-	ServiceRequest request = (ServiceRequest) message.getContent();
-	Service requestedService = request.getRequestedService();
-	String serviceURI = requestedService.getClassURI();
-
-	addLocalMessageToWaitingCallers(message, senderID);
-
-	if (requestedService instanceof InitialServiceDialog) {
-	    createInitialServiceDialog(message);
-	} else {
-	    callMatchingServices(message, serviceURI);
-	}
-    }
-
-    private void callMatchingServices(BusMessage message, String serviceURI) {
-	ServiceRequest request = (ServiceRequest) message.getContent();
-	List<Map<String, Object>> matches = getBestMatchesForMessage(message,
-		serviceURI);
-
-	if (matches.isEmpty()) {
-	    sendNoMatchingFound(message);
-	    return;
-	} else if (matches.size() > 1) {
-	    matches = bestMatchingSublist(matches, request);
-	}
-	callServices(message, matches);
-    }
-
-    private List<Map<String, Object>> bestMatchingSublist(
-	    List<Map<String, Object>> matches, ServiceRequest request) {
-	List<AggregatingFilter> filters = request.getFilters();
-	if (filters != null) {
-	    int[] scores = scoresForFilters(matches, filters);
-	    int minIndex = getIndexOfMinimalElement(scores);
-	    matches = matches.subList(minIndex, minIndex + 1);
-	}
-	return matches;
-    }
-
-    private int getIndexOfMinimalElement(int[] array) {
-	int index = 0;
-	int minimal = array[index];
-	for (int i = 1; i < array.length; i++) {
-	    if (array[i] < minimal) {
-		index = 0;
-		minimal = array[i];
-	    }
-	}
-	return index;
-    }
-
-    private int[] scoresForFilters(List<Map<String, Object>> matches,
-	    List<AggregatingFilter> filters) {
-	int[] scores = new int[matches.size()];
-	Arrays.fill(scores,0);
-
-	for (AggregatingFilter filter : filters) {
-	    updateScoresForFilter(matches, scores, filter);
-	}
-	return scores;
-    }
-
-    private void updateScoresForFilter(List<Map<String, Object>> matches,
-	    int[] scores, AggregatingFilter filter) {
-	List<?> functionParameterList = filter.getFunctionParams();
-
-	if (startsWithWellformedPropertyPath(functionParameterList)) {
-	    String[] propertyPath = ((PropertyPath) functionParameterList
-		    .get(0)).getThePath();
-	    String target = propertyPath[1];
-	    AbsLocation referencedLocation = (AbsLocation) functionParameterList
-		    .get(1);
-
-	    switch (filter.getTheFunction().ord()) {
-	    case AggregationFunction.ONE_OF:
-		break;
-	    case AggregationFunction.MIN_OF:
-		scoresForMinOf(matches, scores, target);
-		break;
-	    case AggregationFunction.MAX_OF:
-		scoresForMaxOf(matches, scores, target);
-		break;
-	    case AggregationFunction.MIN_DISTANCE_TO_REF_LOC:
-		scoresForMinDistanceToRefLoc(matches, scores, target,
-			referencedLocation);
-		break;
-	    case AggregationFunction.MAX_DISTANCE_TO_REF_LOC:
-		scoresForMaxDistanceToRefLoc(matches, scores, target,
-			referencedLocation);
-		break;
-	    }
-	}
-    }
-
-    private void scoresForMaxDistanceToRefLoc(
-	    List<Map<String, Object>> matches, int[] scores, String target,
-	    AbsLocation referencedLocation) {
-	int numberOfMatches = matches.size();
-	for (int currentMatch = 0; currentMatch < numberOfMatches; currentMatch++) {
-	    Object current = getProfileParameter(matches.get(currentMatch),
-		    target);
-	    for (int followingMatch = currentMatch + 1; followingMatch < numberOfMatches; followingMatch++) {
-		Object following = getProfileParameter(matches
-			.get(followingMatch), target);
-		if (current instanceof AbsLocation) {
-		    if (following == null) {
-			scores[followingMatch]++;
-		    } else {
-			float currentDistance = ((AbsLocation) current)
-				.getDistanceTo(referencedLocation);
-			float followingDistance = ((AbsLocation) following)
-				.getDistanceTo(referencedLocation);
-			if (currentDistance > followingDistance) {
-			    scores[followingMatch]++;
-			} else if (followingDistance > currentDistance) {
-			    scores[currentMatch]++;
-			}
-		    }
-		} else {
-		    scores[currentMatch]++;
-		    if (!(following instanceof AbsLocation)) {
-			scores[followingMatch]++;
-		    }
+	    if (!(res instanceof ServiceRequest))
+		return;
+	    ServiceRequest request = (ServiceRequest) res;
+	    if (isCoordinator) {
+		if (!msg.senderResidesOnDifferentPeer())
+		    localWaitingCallers.addLocalWaitier(msg.getID(), senderID);
+		if (request.getRequestedService() instanceof InitialServiceDialog) {
+		    Service s = request.getRequestedService();
+		    Object csc = s
+			    .getInstanceLevelFixedValueOnProp(InitialServiceDialog.PROP_CORRELATED_SERVICE_CLASS);
+		    if (csc instanceof Resource) {
+			Object hv = s
+				.getInstanceLevelFixedValueOnProp(InitialServiceDialog.PROP_HAS_VENDOR);
+			if (request
+				.getURI()
+				.startsWith(
+					InitialServiceDialog.SERVICE_REQUEST_URI_PREFIX_INFO)) {
+			    synchronized (startDialogs) {
+				Vector v = (Vector) startDialogs.get(csc
+					.toString());
+				if (hv instanceof Resource)
+				    replyToInitialDialogInfoRequest(msg, v, hv
+					    .toString());
+				else
+				    replyToInitialDialogInfoRequest(msg, v);
+			    }
+			} else if (hv instanceof Resource
+				&& request
+					.getURI()
+					.startsWith(
+						InitialServiceDialog.SERVICE_REQUEST_URI_PREFIX_START)) {
+			    synchronized (startDialogs) {
+				callStartDialog((Vector) startDialogs.get(csc
+					.toString()), hv.toString(), msg);
+			    }
+			} else
+			    sendNoMatchingFound(msg);
+		    } else
+			sendNoMatchingFound(msg);
+		    return;
 		}
-	    }
-	}
-    }
+		Vector matches = new Vector();
+		String serviceURI = request.getRequestedService().getClassURI();
+		synchronized (allServicesIndex) {
+		    Vector v = (Vector) allServicesIndex.get(serviceURI);
+		    if (v == null)
+			sendNoMatchingFound(msg);
+		    else {
+			String caller = request.getProperty(
+				ServiceRequest.PROP_uAAL_SERVICE_CALLER)
+				.toString();
 
-    private void scoresForMinDistanceToRefLoc(
-	    List<Map<String, Object>> matches, int[] scores, String target,
-	    AbsLocation referencedLocation) {
-	int numberOfMatches = matches.size();
-	for (int currentMatch = 0; currentMatch < numberOfMatches; currentMatch++) {
-	    Object current = getProfileParameter(matches.get(currentMatch),
-		    target);
-	    for (int followingMatch = currentMatch + 1; followingMatch < numberOfMatches; followingMatch++) {
-		Object following = getProfileParameter(matches
-			.get(followingMatch), target);
-		if (current instanceof AbsLocation) {
-		    if (following == null) {
-			scores[followingMatch]++;
-		    } else {
-			float currentDistance = ((AbsLocation) current)
-				.getDistanceTo(referencedLocation);
-			float followingDistance = ((AbsLocation) following)
-				.getDistanceTo(referencedLocation);
-			if (currentDistance < followingDistance) {
-			    scores[followingMatch]++;
-			} else if (followingDistance < currentDistance) {
-			    scores[currentMatch]++;
-			}
-		    }
-		} else {
-		    scores[currentMatch]++;
-		    if (!(following instanceof AbsLocation)) {
-			scores[followingMatch]++;
-		    }
-		}
-	    }
-	}
-    }
-
-    @SuppressWarnings( { "rawtypes", "unchecked" })
-    private void scoresForMaxOf(List<Map<String, Object>> matches, int[] score,
-	    String target) {
-	int numberOfMatches = matches.size();
-	for (int currentMatch = 0; currentMatch < numberOfMatches; currentMatch++) {
-	    Object current = getProfileParameter(matches.get(currentMatch),
-		    target);
-	    for (int followingMatch = currentMatch + 1; followingMatch < numberOfMatches; followingMatch++) {
-		Object following = getProfileParameter(matches
-			.get(followingMatch), target);
-		if (current instanceof Comparable) {
-		    if (following == null) {
-			score[followingMatch]++;
-		    } else {
-			int comparison = ((Comparable) current)
-				.compareTo(following);
-			if (comparison > 0) {
-			    score[followingMatch]++;
-			} else if (comparison < 0) {
-			    score[currentMatch]++;
-			}
-		    }
-		} else {
-		    score[currentMatch]++;
-		    if (!(following instanceof Comparable)) {
-			score[followingMatch]++;
-		    }
-		}
-	    }
-	}
-    }
-
-    @SuppressWarnings( { "rawtypes", "unchecked" })
-    private void scoresForMinOf(List<Map<String, Object>> matches, int[] score,
-	    String target) {
-	int numberOfMatches = matches.size();
-	for (int currentMatch = 0; currentMatch < numberOfMatches; currentMatch++) {
-	    Object current = getProfileParameter(matches.get(currentMatch),
-		    target);
-	    for (int followingMatch = currentMatch + 1; followingMatch < numberOfMatches; followingMatch++) {
-		Object following = getProfileParameter(matches
-			.get(followingMatch), target);
-		if (current instanceof Comparable) {
-		    if (following == null) {
-			score[followingMatch]++;
-		    } else {
-			int comparison = ((Comparable) current)
-				.compareTo(following);
-			if (comparison < 0) {
-			    score[followingMatch]++;
-			} else if (comparison > 0) {
-			    score[currentMatch]++;
-			}
-		    }
-		} else {
-		    score[currentMatch]++;
-		    if (!(following instanceof Comparable)) {
-			score[followingMatch]++;
-		    }
-		}
-	    }
-	}
-    }
-
-    private boolean startsWithWellformedPropertyPath(List<?> params) {
-	// does the list start with a PropertyPath?
-	if (params == null)
-	    return false;
-	if (params.isEmpty())
-	    return false;
-	Object firstElem = params.get(0);
-	if (!(firstElem instanceof PropertyPath))
-	    return false;
-
-	// is the property path well formed?
-	String[] propertyPath = ((PropertyPath) firstElem).getThePath();
-	if (propertyPath == null)
-	    return false;
-	if (propertyPath.length != 2)
-	    return false;
-	return Service.PROP_OWLS_PRESENTS.equals(propertyPath[0]);
-    }
-
-    private void addLocalMessageToWaitingCallers(BusMessage message,
-	    String senderID) {
-	if (!message.senderResidesOnDifferentPeer()) {
-	    localWaitingCallers.addLocalWaitier(message.getID(), senderID);
-	}
-    }
-
-    private List<Map<String, Object>> getBestMatchesForMessage(
-	    BusMessage message, String serviceURI) {
-	ServiceRequest request = (ServiceRequest) message.getContent();
-
-	List<Map<String, Object>> matches = matchingContextsForServiceRealizations(
-		message, serviceURI);
-	Map<Object, Map<String, Object>> currentBestMatches = findBestMatches(matches);
-	matches = new Vector<Map<String, Object>>(currentBestMatches.values());
-	reduceNumberOfMatchesIfAllowed(request, matches);
-
-	for (Map<String, Object> match : matches) {
-	    ServiceRealization sr = (ServiceRealization) match
-		    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
-	    ServiceProfile profile = (ServiceProfile) sr
-		    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
-	}
-
-	return matches;
-    }
-
-    /**
-     * the strategy is to select the match with the lowest number of entries in
-     * 'context' => first those services are preferred that are not used or
-     * rated at all => after all have been called and rated at least once,
-     * select those with lowest number of needed input, to produce shorter
-     * messages
-     * 
-     * Comment added on 6.Oct.2009: the second argument above is not always the
-     * best:
-     * <ul>
-     * <li>case 1: setBrightness(0) vs. turnOff()</li>
-     * <li>case 2: getLampsByAbsLocation(loc) vs. getAllLamps()</li>
-     * </ul>
-     * where by class restrictions all lamps are in loc and generally, isn't it
-     * better to postpone this decision to a later phase where we have gathered
-     * all responses?
-     */
-    private void reduceNumberOfMatchesIfAllowed(ServiceRequest request,
-	    List<Map<String, Object>> matches) {
-	if (request.acceptsRandomSelection()) {
-	    Map<String, Object> context = matches.remove(0);
-	    for (Map<String, Object> match : matches) {
-		if (match.size() < context.size()) {
-		    context = match;
-		}
-	    }
-	    matches.add(context);
-	}
-    }
-
-    private Map<Object, Map<String, Object>> findBestMatches(
-	    List<Map<String, Object>> matches) {
-	Map<Object, Map<String, Object>> currentBestMatches = new Hashtable<Object, Map<String, Object>>();
-	for (Map<String, Object> match : matches) {
-	    ServiceRealization serviceRealization = (ServiceRealization) match
-		    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
-	    if (serviceRealization
-		    .assertServiceCall((Hashtable<String, Object>) match)) {
-		Map<String, Object> otherMatch = currentBestMatches
-			.get(serviceRealization.getProvider());
-		if (otherMatch == null) {
-		    currentBestMatches.put(serviceRealization.getProvider(),
-			    match);
-		} else {
-		    if (matchesServiceURIExactly(match, otherMatch)) {
-			currentBestMatches.put(
-				serviceRealization.getProvider(), match);
-		    } else if (!matchesServiceURIExactly(otherMatch, match)
-			    && isOtherMatchPreferred(match, otherMatch)) {
-			currentBestMatches.put(
-				serviceRealization.getProvider(), match);
-		    }
-		}
-	    }
-	}
-	return currentBestMatches;
-    }
-
-    /**
-     * If two above are not true then either both services have matched their
-     * URIs or none of them had. Either way regular strategy is applied.
-     * 
-     * The strategy: from each provider accept the one with more specialization
-     * and then the one with the smallest context, which produces shorter
-     * messages
-     * 
-     * TODO: is the above strategy ok? The issues are:
-     * <ol>
-     * <li>is instance-match specialization really more important than
-     * class-match specialization?</li>
-     * <li>2. is the length of messages a good criteria?</li>
-     * </ol>
-     */
-    private boolean isOtherMatchPreferred(Map<String, Object> match,
-	    Map<String, Object> otherMatch) {
-	int sp0 = getSpecializationIndex(match);
-	int sp1 = getSpecializationIndex(otherMatch);
-	return sp1 < sp0 || (sp1 == sp0 && otherMatch.size() > match.size());
-    }
-
-    private int getSpecializationIndex(Map<String, Object> match) {
-	int sp0 = Boolean.TRUE.equals(match
-		.get(CONTEXT_SPECIALIZED_CLASS_MATCH)) ? 1 : 0;
-	if (Boolean.TRUE.equals(match.get(CONTEXT_SPECIALIZED_INSTANCE_MATCH))) {
-	    sp0 += 2;
-	}
-	return sp0;
-    }
-
-    /**
-     * uAAL_SERVICE_URI_MATCHED:
-     * 
-     * New strategy: if service matches exactly URI specified in Service Request
-     * then this service is always preferred over others.
-     */
-    private boolean matchesServiceURIExactly(Map<String, Object> match,
-	    Map<String, Object> otherMatch) {
-	return match.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null
-		&& otherMatch.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null;
-    }
-
-    private List<Map<String, Object>> matchingContextsForServiceRealizations(
-	    BusMessage message, String serviceURI) {
-	ServiceRequest request = (ServiceRequest) message.getContent();
-	List<Map<String, Object>> matches = new Vector<Map<String, Object>>();
-	synchronized (allServicesIndex) {
-	    List<ServiceRealization> serviceRealizations = allServicesIndex
-		    .get(serviceURI);
-	    if (serviceRealizations == null) {
-		sendNoMatchingFound(message);
-	    } else {
-		String caller = request.getProperty(
-			ServiceRequest.PROP_uAAL_SERVICE_CALLER).toString();
-
-		Long logID = Long.valueOf(Thread.currentThread().getId());
-		LogUtils
-			.logTrace(ServiceBusImpl.getModuleContext(),
+			Long logID = Long.valueOf(Thread.currentThread()
+				.getId());
+			LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
 				ServiceStrategy.class, "handle", new Object[] {
 					ServiceBus.LOG_MATCHING_START,
 					new UnmodifiableResource(request), " ",
 					logID }, null);
-		for (ServiceRealization serviceRealization : serviceRealizations) {
-		    Service profileService = ((ServiceProfile) serviceRealization
-			    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
-			    .getTheService();
-		    String profileServiceURI = profileService.getURI();
+			for (Iterator i = v.iterator(); i.hasNext();) {
+			    ServiceRealization sr = (ServiceRealization) i
+				    .next();
+			    Service profileService = ((ServiceProfile) sr
+				    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+				    .getTheService();
+			    String profileServiceURI = profileService.getURI();
 
-		    LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class, "handle", new Object[] {
-				    ServiceBus.LOG_MATCHING_PROFILE,
-				    profileService.getType(),
-				    profileServiceURI, logID }, null);
-		    Map<String, Object> context = matches(caller, request,
-			    serviceRealization, logID);
-		    if (context != null) {
-			matches.add(context);
-			LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
-				ServiceStrategy.class, "handle",
-				new Object[] { ServiceBus.LOG_MATCHING_SUCCESS,
-					logID }, null);
-		    } else {
+			    LogUtils.logTrace(
+				    ServiceBusImpl.getModuleContext(),
+				    ServiceStrategy.class, "handle",
+				    new Object[] {
+					    ServiceBus.LOG_MATCHING_PROFILE,
+					    profileService.getType(),
+					    profileServiceURI, logID }, null);
+			    Hashtable context = matches(caller, request, sr,
+				    logID);
+			    if (context != null) {
+				matches.add(context);
+				LogUtils
+					.logTrace(
+						ServiceBusImpl
+							.getModuleContext(),
+						ServiceStrategy.class,
+						"handle",
+						new Object[] {
+							ServiceBus.LOG_MATCHING_SUCCESS,
+							logID }, null);
+			    } else
+				LogUtils
+					.logTrace(
+						ServiceBusImpl
+							.getModuleContext(),
+						ServiceStrategy.class,
+						"handle",
+						new Object[] {
+							ServiceBus.LOG_MATCHING_NOSUCCESS,
+							logID }, null);
+			}
 			LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
 				ServiceStrategy.class, "handle", new Object[] {
-					ServiceBus.LOG_MATCHING_NOSUCCESS,
-					logID }, null);
+					ServiceBus.LOG_MATCHING_END, "found ",
+					Integer.valueOf(matches.size()),
+					" matches", logID }, null);
+
 		    }
 		}
-		LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
-			ServiceStrategy.class, "handle", new Object[] {
-				ServiceBus.LOG_MATCHING_END, "found ",
-				Integer.valueOf(matches.size()), " matches",
-				logID }, null);
-	    }
-	}
-	return matches;
-    }
-
-    private void createInitialServiceDialog(BusMessage message) {
-	ServiceRequest request = (ServiceRequest) message.getContent();
-	Service requestedService = request.getRequestedService();
-
-	Object correlatedServiceClass = requestedService
-		.getInstanceLevelFixedValueOnProp(UserInterfaceService.PROP_CORRELATED_SERVICE_CLASS);
-	if (correlatedServiceClass instanceof Resource) {
-	    Object vendor = requestedService
-		    .getInstanceLevelFixedValueOnProp(UserInterfaceService.PROP_HAS_VENDOR);
-	    if (request.getURI().startsWith(
-		    UserInterfaceService.SERVICE_REQUEST_URI_PREFIX_INFO)) {
-		synchronized (startDialogs) {
-		    List<ServiceRealization> serviceRealizations = startDialogs
-			    .get(correlatedServiceClass.toString());
-		    if (vendor instanceof Resource) {
-			replyToInitialDialogInfoRequest(message,
-				serviceRealizations, vendor.toString());
-		    } else {
-			replyToInitialDialogInfoRequest(message,
-				serviceRealizations);
-		    }
-		}
-	    } else if (vendor instanceof Resource
-		    && request
-			    .getURI()
-			    .startsWith(
-				    UserInterfaceService.SERVICE_REQUEST_URI_PREFIX_START)) {
-		synchronized (startDialogs) {
-		    callStartDialog(startDialogs.get(correlatedServiceClass
-			    .toString()), vendor.toString(), message);
-		}
-	    } else {
-		sendNoMatchingFound(message);
-	    }
-	} else {
-	    sendNoMatchingFound(message);
-	}
-    }
-
-    private void handleP2PRequest(BusMessage msg) {
-	Resource resource = (Resource) msg.getContent();
-	if (resource instanceof ServiceCall) {
-	    ServiceRealization serviceRealization = localServicesIndex
-		    .getServiceRealizationByID(((ServiceCall) resource)
-			    .getProcessURI());
-	    if (serviceRealization != null) {
-		ServiceCallee callee = (ServiceCallee) getBusMember(serviceRealization
-			.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER)
-			.toString());
-		if (callee != null) {
-		    callee.handleRequest(msg);
-		}
-	    }
-	} else if (isCoordinator && isServiceBusCoordinator(resource)) {
-	    resource = new Resource(bus.getURI());
-	    resource.addType(TYPE_uAAL_SERVICE_BUS_COORDINATOR, true);
-	    ((ServiceBusImpl) bus).assessContentSerialization(resource);
-	    send(msg.createReply(resource));
-	} else if (isCoordinator
-		&& resource.getType().equals(
-			TYPE_uAAL_SERVICE_PROFILE_INFORMATION)) {
-
-	    Resource r = new Resource();
-	    String realizationID = (String) resource
-		    .getProperty(PROP_uAAL_SERVICE_REALIZATION_ID);
-	    r.addType(TYPE_uAAL_SERVICE_PROFILE_INFORMATION, true);
-	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE, Arrays
-		    .asList(getCoordinatorServices(realizationID)));
-	    r.setProperty(PROP_uAAL_SERVICE_REALIZATION_ID, realizationID);
-
-	    ((ServiceBusImpl) bus).assessContentSerialization(r);
-
-	    send(msg.createReply(r));
-	}
-    }
-
-    private void handleP2PReply(BusMessage msg) {
-	Resource resource = (Resource) msg.getContent();
-	if (resource instanceof ServiceResponse) {
-	    if (isCoordinator) {
-		Hashtable callContext = (Hashtable) allWaitingCallers
-			.remove(msg.getInReplyTo());
-		if (callContext == null) {
-		    // this must be UI service response, because they are
-		    // answered
-		    // immediately after the request has been handled and no
-		    // call context
-		    // is put in allWaitingCallers
-		    // TODO: add a log entry for checking if the above
-		    // assumption is true
-		    return;
-		}
-		BusMessage request = (BusMessage) callContext
-			.get(CONTEXT_REQUEST_MESSAGE);
-		Vector allCalls = (Vector) allWaitingCallers.get(request
-			.getID());
-		if (allCalls == null) {
-		    // response already timed out => ignore this delayed one
-		    // TODO: add a log entry
-		    return;
-		}
-		synchronized (allCalls) {
-		    callContext.put(CONTEXT_RESPONSE_MESSAGE, resource);
-		    int pending = ((Integer) allCalls
-			    .remove(allCalls.size() - 1)).intValue() - 1;
-		    allCalls.add(new Integer(pending));
-		    if (pending == 0) {
-			sendServiceResponse(request);
-		    }
-		}
-	    } else
-	    // msg.hasReceiver was there at least since r2064
-	    // (the first revision in saieds sandbox)
-	    if (msg.hasReceiver(theCoordinator)) {
-		send(msg);
-	    } else {
-		// this case shouldn't occur at all!
-	    }
-	} else if (isServiceBusCoordinator(resource)) {
-	    PeerCard coord = AbstractBus.getPeerFromBusResourceURI(resource
-		    .getURI());
-	    if (theCoordinator == null && coord != null) {
-		synchronized (this) {
-		    theCoordinator = coord;
-		    notifyAll();
-		}
-	    }
-	} else if (resource.getType().equals(
-		TYPE_uAAL_SERVICE_PROFILE_INFORMATION)) {
-	    synchronized (this) {
-		String realizationID = (String) resource
-			.getProperty(PROP_uAAL_SERVICE_REALIZATION_ID);
-		List profiles = (List) resource
-			.getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
-
-		localServiceSearchResults.addProfiles(realizationID, profiles);
-
-		notifyAll();
-	    }
-	}
-    }
-
-    @SuppressWarnings("unchecked")
-    private void handleP2PEvent(Resource resource) {
-	if (isCoordinator
-		&& resource.getType()
-			.equals(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION)) {
-	    if (isDeregistered(resource)) {
-		String subscriber = resource.getURI();
-		String serviceURI = resource
-			.getProperty(PROP_uAAL_SERVICE_TYPE).toString();
-		String requestURI = resource.getProperty(
-			PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST).toString();
-		synchronized (allServicesIndex) {
-		    List<AvailabilitySubscription> subscriptions = allSubscriptionsIndex
-			    .get(serviceURI);
-		    if (subscriptions != null) {
-			for (AvailabilitySubscription subscription : subscriptions) {
-			    if (subscription.id.equals(subscriber)
-				    && subscription.reqOrSubs.toString()
-					    .equals(requestURI)) {
-				subscriptions.remove(subscription);
-				return;
+		Hashtable auxMap = new Hashtable();
+		for (Iterator i = matches.iterator(); i.hasNext();) {
+		    Hashtable match = (Hashtable) i.next();
+		    ServiceRealization sr = (ServiceRealization) match
+			    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
+		    if (sr.assertServiceCall(match)) {
+			Hashtable otherMatch = (Hashtable) auxMap.get(sr
+				.getProvider());
+			if (otherMatch == null)
+			    auxMap.put(sr.getProvider(), match);
+			else {
+			    // uAAL_SERVICE_URI_MATCHED:
+			    // New strategy: if service matches exactly URI
+			    // specified in Service Request than this service is
+			    // always preferred over others.
+			    if (match
+				    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null) {
+				if (otherMatch
+					.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null) {
+				    // the new service matches better the
+				    // request
+				    auxMap.put(sr.getProvider(), match);
+				    continue;
+				}
 			    }
+			    if (otherMatch
+				    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null) {
+				if (match
+					.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null) {
+				    // the new service won't match better the
+				    // request
+				    continue;
+				}
+			    }
+			    // If two above are not true then either both
+			    // services have matched their URIs or none of them
+			    // had. Either way regular strategy is applied.
+
+			    // The strategy: from each provider accept the one
+			    // with more specialization
+			    // and then the one with the smallest context, which
+			    // produces shorter messages
+
+			    // TODO: is the above strategy ok? The issues are:
+			    // 1. is instance-match specialization really more
+			    // important than class-match specialization?
+			    // 2. is the length of messages a good criteria?
+			    int sp0 = Boolean.TRUE.equals(match
+				    .get(CONTEXT_SPECIALIZED_CLASS_MATCH)) ? 1
+				    : 0;
+			    if (Boolean.TRUE.equals(match
+				    .get(CONTEXT_SPECIALIZED_INSTANCE_MATCH)))
+				sp0 += 2;
+			    int sp1 = Boolean.TRUE.equals(otherMatch
+				    .get(CONTEXT_SPECIALIZED_CLASS_MATCH)) ? 1
+				    : 0;
+			    if (Boolean.TRUE.equals(otherMatch
+				    .get(CONTEXT_SPECIALIZED_INSTANCE_MATCH)))
+				sp1 += 2;
+			    if (sp1 < sp0 || otherMatch.size() > match.size())
+				auxMap.put(sr.getProvider(), match);
 			}
 		    }
 		}
-	    } else {
-		addSubscriber(resource.getURI(), (ServiceRequest) resource
-			.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST));
-	    }
-	} else if (resource.getType()
-		.equals(TYPE_uAAL_SERVICE_BUS_REGISTRATION)
-		&& isCoordinator) {
-	    List<ServiceProfile> profiles = (List<ServiceProfile>) resource
-		    .getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
-	    String theCallee = resource.getProperty(
-		    PROP_uAAL_SERVICE_PROVIDED_BY).toString();
-	    if (isRegistered(resource)) {
-		for (ServiceProfile profile : profiles) {
-		    indexServices(profile, new ServiceRealization(theCallee,
-			    profile), profile.getProcessURI());
+		matches = new Vector(auxMap.values());
+		if (matches.size() > 1 && request.acceptsRandomSelection()) {
+		    // the strategy is to select the match with the lowest
+		    // number of entries in 'context'
+		    // => first those services are preferred that are not used
+		    // or rated at all
+		    // => after all have been called and rated at least once,
+		    // select those with lowest
+		    // number of needed input, to produce shorter messages
+
+		    // Comment added on 6.Oct.2009:
+		    // the second argument above is not always the best:
+		    // case 1: setBrightness(0) vs. turnOff()
+		    // case 2: getLampsByAbsLocation(loc) vs. getAllLamps()
+		    // where by class restrictions all lamps are in loc
+		    // and generally, isn't it better to postpone this decision
+		    // to a later phase where we have gathered all responses?
+		    Hashtable context = (Hashtable) matches.remove(0);
+		    while (!matches.isEmpty()) {
+			Hashtable aux = (Hashtable) matches.remove(0);
+			if (aux.size() < context.size())
+			    context = aux;
+		    }
+		    matches.add(context);
 		}
-	    } else if (profiles == null) {
-		unindexServices(theCallee, null);
-	    } else {
-		for (ServiceProfile profile : profiles) {
-		    unindexServices(theCallee, profile.getProcessURI());
+		int size = matches.size();
+		if (size == 0)
+		    sendNoMatchingFound(msg);
+		else {
+		    if (size > 1) {
+			List filters = request.getFilters();
+			if (filters != null) {
+			    int[] points = new int[size];
+			    for (int i = 0; i < points.length; i++)
+				points[i] = 0;
+			    for (Iterator i = filters.iterator(); i.hasNext();) {
+				AggregatingFilter af = (AggregatingFilter) i
+					.next();
+				List params = af.getFunctionParams();
+				String[] pp = null;
+				if (params != null
+					&& !params.isEmpty()
+					&& params.get(0) instanceof PropertyPath)
+				    pp = ((PropertyPath) params.get(0))
+					    .getThePath();
+				if (pp == null
+					|| pp.length != 2
+					|| !Service.PROP_OWLS_PRESENTS
+						.equals(pp[0]))
+				    continue;
+				switch (af.getTheFunction().ord()) {
+				case AggregationFunction.ONE_OF:
+				    break;
+				case AggregationFunction.MIN_OF:
+				    for (int j = 0; j < size; j++) {
+					Object oj = getProfileParameter(
+						(Hashtable) matches.get(j),
+						pp[1]);
+					for (int k = j + 1; k < size; k++) {
+					    Object ok = getProfileParameter(
+						    (Hashtable) matches.get(k),
+						    pp[1]);
+					    if (oj instanceof Comparable)
+						if (ok == null)
+						    points[k]++;
+						else {
+						    int l = ((Comparable) oj)
+							    .compareTo(ok);
+						    if (l < 0)
+							points[k]++;
+						    else if (l > 0)
+							points[j]++;
+						}
+					    else {
+						points[j]++;
+						if (!(ok instanceof Comparable))
+						    points[k]++;
+					    }
+					}
+				    }
+				    break;
+				case AggregationFunction.MAX_OF:
+				    for (int j = 0; j < size; j++) {
+					Object oj = getProfileParameter(
+						(Hashtable) matches.get(j),
+						pp[1]);
+					for (int k = j + 1; k < size; k++) {
+					    Object ok = getProfileParameter(
+						    (Hashtable) matches.get(k),
+						    pp[1]);
+					    if (oj instanceof Comparable)
+						if (ok == null)
+						    points[k]++;
+						else {
+						    int l = ((Comparable) oj)
+							    .compareTo(ok);
+						    if (l > 0)
+							points[k]++;
+						    else if (l < 0)
+							points[j]++;
+						}
+					    else {
+						points[j]++;
+						if (!(ok instanceof Comparable))
+						    points[k]++;
+					    }
+					}
+				    }
+				    break;
+				case AggregationFunction.MIN_DISTANCE_TO_REF_LOC:
+				    for (int j = 0; j < size; j++) {
+					Object oj = getProfileParameter(
+						(Hashtable) matches.get(j),
+						pp[1]);
+					for (int k = j + 1; k < size; k++) {
+					    Object ok = getProfileParameter(
+						    (Hashtable) matches.get(k),
+						    pp[1]);
+					    if (oj instanceof AbsLocation)
+						if (ok == null)
+						    points[k]++;
+						else {
+						    float dj = ((AbsLocation) oj)
+							    .getDistanceTo((AbsLocation) params
+								    .get(1));
+						    float dk = ((AbsLocation) ok)
+							    .getDistanceTo((AbsLocation) params
+								    .get(1));
+						    if (dj < dk)
+							points[k]++;
+						    else if (dk < dj)
+							points[j]++;
+						}
+					    else {
+						points[j]++;
+						if (!(ok instanceof AbsLocation))
+						    points[k]++;
+					    }
+					}
+				    }
+				    break;
+				case AggregationFunction.MAX_DISTANCE_TO_REF_LOC:
+				    for (int j = 0; j < size; j++) {
+					Object oj = getProfileParameter(
+						(Hashtable) matches.get(j),
+						pp[1]);
+					for (int k = j + 1; k < size; k++) {
+					    Object ok = getProfileParameter(
+						    (Hashtable) matches.get(k),
+						    pp[1]);
+					    if (oj instanceof AbsLocation)
+						if (ok == null)
+						    points[k]++;
+						else {
+						    float dj = ((AbsLocation) oj)
+							    .getDistanceTo((AbsLocation) params
+								    .get(1));
+						    float dk = ((AbsLocation) ok)
+							    .getDistanceTo((AbsLocation) params
+								    .get(1));
+						    if (dj > dk)
+							points[k]++;
+						    else if (dk > dj)
+							points[j]++;
+						}
+					    else {
+						points[j]++;
+						if (!(ok instanceof AbsLocation))
+						    points[k]++;
+					    }
+					}
+				    }
+				    break;
+				}
+			    }
+			    int ind = 0, min = points[0];
+			    for (int i = 1; i < size; i++)
+				if (points[i] < min) {
+				    ind = i;
+				    min = points[i];
+				}
+			    for (int j = 0; j < ind; j++, size--)
+				matches.remove(0);
+			    while (size > 1)
+				matches.remove(--size);
+			}
+		    }
+		    callServices(msg, matches);
 		}
+	    } else if (msg.senderResidesOnDifferentPeer()) {
+		// strange situation: some peer has thought i am the
+		// coordinator?!!
+		// => ignore!
+	    } else if (isCoordinatorKnown()) {
+		localWaitingCallers.addLocalWaitier(msg.getID(), senderID);
+		msg.setReceiver(theCoordinator);
+		send(msg);
 	    }
-	} else if (isServiceBusCoordinator(resource)) {
-	    PeerCard coord = AbstractBus.getPeerFromBusResourceURI(resource
-		    .getURI());
-	    if (theCoordinator == null && coord != null) {
-		synchronized (this) {
-		    theCoordinator = coord;
-		    notifyAll();
-		}
-	    }
-	}
-    }
-
-    private boolean isRegistered(Resource resource) {
-	return RES_STATUS_REGISTERED.equals(resource
-		.getProperty(PROP_uAAL_REGISTERATION_STATUS));
-    }
-
-    private boolean isDeregistered(Resource resource) {
-	return RES_STATUS_DEREGISTERED.equals(resource
-		.getProperty(PROP_uAAL_REGISTERATION_STATUS));
-    }
-
-    private boolean isServiceBusCoordinator(Resource resource) {
-	return resource.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR);
-    }
-
-    private void handleEvent(Resource res) {
-	if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_NOTIFICATION)) {
-	    notifyLocalSubscriber(res.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER)
-		    .toString(), res.getProperty(
-		    PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST).toString(), res
-		    .getProperty(PROP_uAAL_SERVICE_REALIZATION_ID).toString(),
-		    isRegistered(res));
+	    break;
 	}
     }
 
@@ -1719,56 +1509,48 @@ public class ServiceStrategy extends BusStrategy {
      * Sends a reply to the initial dialog info request message. The reply will
      * contain the matched services.
      * 
-     * @param message
+     * @param m
      *            - the initial dialog info request message
      * @param matchingServices
      */
-    private void replyToInitialDialogInfoRequest(BusMessage message,
-	    List<ServiceRealization> matchingServices) {
+    private void replyToInitialDialogInfoRequest(BusMessage m,
+	    Vector matchingServices) {
 	if (matchingServices == null) {
-	    sendNoMatchingFound(message);
-	} else {
-	    List<Service> matching = extractMatchingServices(matchingServices);
-
-	    if (matching.isEmpty()) {
-		sendNoMatchingFound(message);
-	    } else {
-		sendMatchingFound(message, matching);
-	    }
+	    sendNoMatchingFound(m);
+	    return;
 	}
-    }
 
-    private void sendMatchingFound(BusMessage message, Object value) {
-	ProcessOutput instanceInfo = new ProcessOutput(
-		UserInterfaceService.OUTPUT_INSTANCE_INFO);
-	instanceInfo.setParameterValue(value);
-	ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	response.addOutput(instanceInfo);
-	((ServiceBusImpl) bus).assessContentSerialization(response);
-	message = message.createReply(response);
-	if (message.receiverResidesOnDifferentPeer()) {
-	    send(message);
-	} else {
-	    replyToLocalCaller(message);
+	List result = new ArrayList(matchingServices.size());
+	for (Iterator i = matchingServices.iterator(); i.hasNext();) {
+	    ServiceRealization sr = (ServiceRealization) i.next();
+	    if (sr == null)
+		continue;
+	    ServiceProfile sp = (ServiceProfile) sr
+		    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
+	    if (sp == null)
+		continue;
+	    Service s = sp.getTheService();
+	    if (s == null)
+		continue;
+	    result.add(s);
 	}
-    }
 
-    private List<Service> extractMatchingServices(
-	    List<ServiceRealization> matchingServices) {
-	List<Service> result = new Vector<Service>();
-	for (ServiceRealization realization : matchingServices) {
-	    if (realization != null) {
-		ServiceProfile profile = (ServiceProfile) realization
-			.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
-		if (profile != null) {
-		    Service service = profile.getTheService();
-		    if (service != null) {
-			result.add(service);
-		    }
-		}
-	    }
+	if (result.isEmpty()) {
+	    sendNoMatchingFound(m);
+	    return;
 	}
-	return result;
+
+	ProcessOutput output = new ProcessOutput(
+		InitialServiceDialog.OUTPUT_INSTANCE_INFO);
+	output.setParameterValue(result);
+	ServiceResponse resp = new ServiceResponse(CallStatus.succeeded);
+	resp.addOutput(output);
+	((ServiceBusImpl) bus).assessContentSerialization(resp);
+	m = m.createReply(resp);
+	if (m.receiverResidesOnDifferentPeer())
+	    send(m);
+	else
+	    replyToLocalCaller(m);
     }
 
     /**
@@ -1776,53 +1558,54 @@ public class ServiceStrategy extends BusStrategy {
      * contain a description of a matched service of the vendor whose ID is
      * passed as a parameter
      * 
-     * @param message
+     * @param m
      *            - the initial dialog info request message
      * @param matchingServices
      */
-    private void replyToInitialDialogInfoRequest(BusMessage message,
-	    List<ServiceRealization> matchingServices, String vendor) {
+    private void replyToInitialDialogInfoRequest(BusMessage m,
+	    Vector matchingServices, String vendor) {
 	if (matchingServices == null) {
-	    sendNoMatchingFound(message);
-	} else {
-	    Object description = extractServiceDescription(matchingServices,
-		    vendor);
-
-	    if (description == null) {
-		sendNoMatchingFound(message);
-	    } else {
-		sendMatchingFound(message, description);
-	    }
+	    sendNoMatchingFound(m);
+	    return;
 	}
-    }
 
-    private Object extractServiceDescription(
-	    List<ServiceRealization> matchingServices, String vendor) {
 	Object description = null;
-	for (ServiceRealization realization : matchingServices) {
-	    if (realization != null) {
-		ServiceProfile profile = (ServiceProfile) realization
-			.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
-		if (profile != null) {
-		    Service service = profile.getTheService();
-		    if (service != null) {
-			if (isMatchingVendor(vendor, service)) {
-			    description = service
-				    .getProperty(UserInterfaceService.PROP_DESCRIPTION);
-			    if (description instanceof String) {
-				break;
-			    }
-			}
-		    }
-		}
+	for (Iterator i = matchingServices.iterator(); i.hasNext();) {
+	    ServiceRealization sr = (ServiceRealization) i.next();
+	    if (sr == null)
+		continue;
+	    ServiceProfile sp = (ServiceProfile) sr
+		    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
+	    if (sp == null)
+		continue;
+	    Service s = sp.getTheService();
+	    if (s == null)
+		continue;
+	    if (vendor.equals(String.valueOf(s
+		    .getProperty(InitialServiceDialog.PROP_HAS_VENDOR)))) {
+		description = s
+			.getProperty(InitialServiceDialog.PROP_DESCRIPTION);
+		if (description instanceof String)
+		    break;
 	    }
 	}
-	return description;
-    }
 
-    private boolean isMatchingVendor(String vendor, Service service) {
-	return vendor.equals(String.valueOf(service
-		.getProperty(UserInterfaceService.PROP_HAS_VENDOR)));
+	if (description == null) {
+	    sendNoMatchingFound(m);
+	    return;
+	}
+
+	ProcessOutput output = new ProcessOutput(
+		InitialServiceDialog.OUTPUT_INSTANCE_INFO);
+	output.setParameterValue(description);
+	ServiceResponse resp = new ServiceResponse(CallStatus.succeeded);
+	resp.addOutput(output);
+	((ServiceBusImpl) bus).assessContentSerialization(resp);
+	m = m.createReply(resp);
+	if (m.receiverResidesOnDifferentPeer())
+	    send(m);
+	else
+	    replyToLocalCaller(m);
     }
 
     /**
@@ -1834,6 +1617,8 @@ public class ServiceStrategy extends BusStrategy {
     private void replyToLocalCaller(BusMessage msg) {
 	String replyOf = msg.getInReplyTo();
 	if (replyOf == null) {
+	    // very strange! a message of type REPLY without inReplyTo
+	    // => ignore!
 	    LogUtils
 		    .logDebug(
 			    ServiceBusImpl.getModuleContext(),
@@ -1845,6 +1630,8 @@ public class ServiceStrategy extends BusStrategy {
 	    String callerID = localWaitingCallers
 		    .getAndRemoveLocalWaiterCallerID(replyOf);
 	    if (callerID == null) {
+		// very strange! why else may I receive a reply from a peer
+		// => ignore!
 		LogUtils
 			.logDebug(
 				ServiceBusImpl.getModuleContext(),
@@ -1854,9 +1641,11 @@ public class ServiceStrategy extends BusStrategy {
 				null);
 	    } else {
 		Object caller = getBusMember(callerID);
-		if (caller instanceof ServiceCaller) {
+		if (caller instanceof ServiceCaller)
 		    ((ServiceCaller) caller).handleReply(msg);
-		} else {
+		else {
+		    // very strange! why else may I receive a reply from a peer
+		    // => ignore!
 		    LogUtils.logDebug(ServiceBusImpl.getModuleContext(),
 			    ServiceStrategy.class, "replyToLocalCaller",
 			    new Object[] { "The caller '" + callerID
@@ -1871,13 +1660,12 @@ public class ServiceStrategy extends BusStrategy {
      * Send a no-matching-found message as a reply to the message passed as a
      * parameter
      * 
-     * @param message
+     * @param m
      *            - the message to send a reply to
      */
-    private void sendNoMatchingFound(BusMessage message) {
-	sendSimpleReply(message, CallStatus.noMatchingServiceFound);
+    private void sendNoMatchingFound(BusMessage m) {
+	sendSimpleReply(m, CallStatus.noMatchingServiceFound);
     }
-
 
     /**
      * Send a message of type <tt>status</tt> as a reply to the message passed
@@ -1908,35 +1696,35 @@ public class ServiceStrategy extends BusStrategy {
     private void indexServices(ServiceProfile prof,
 	    ServiceRealization registration, String processURI) {
 	Service theService = prof.getTheService();
-	if (theService == null) {
+	if (theService == null)
 	    return;
-	}
 	if (theService instanceof InitialServiceDialog) {
 	    Object correlService = theService
-		    .getProperty(UserInterfaceService.PROP_CORRELATED_SERVICE_CLASS);
+		    .getProperty(InitialServiceDialog.PROP_CORRELATED_SERVICE_CLASS);
 	    if (!(correlService instanceof Resource)) {
 		// TODO: add a log entry
 		return;
 	    }
 	    synchronized (startDialogs) {
-		safeGet(startDialogs, correlService.toString()).add(
+		getVector(startDialogs, correlService.toString()).add(
 			registration);
 	    }
 	} else {
-	    List<String> serviceURIs = getNonAbstractSuperClasses(theService);
+	    Vector serviceURIs = getNonAbstractSuperClasses(theService);
 	    synchronized (allServicesIndex) {
-		for (String serviceURI : serviceURIs) {
-		    safeGet(allServicesIndex, serviceURI).add(registration);
-		    List<AvailabilitySubscription> subscribers = allSubscriptionsIndex
+		for (Iterator it = serviceURIs.iterator(); it.hasNext();) {
+		    String serviceURI = (String) it.next();
+		    getVector(allServicesIndex, serviceURI).add(registration);
+		    Vector subscribers = (Vector) allSubscriptionsIndex
 			    .get(serviceURI);
-		    if (subscribers != null) {
-			for (AvailabilitySubscription as : subscribers) {
+		    if (subscribers != null)
+			for (Iterator j = subscribers.iterator(); j.hasNext();) {
+			    AvailabilitySubscription as = (AvailabilitySubscription) j
+				    .next();
 			    if (null != matches(as.id,
-				    (ServiceRequest) as.reqOrSubs, registration)) {
+				    (ServiceRequest) as.reqOrSubs, registration))
 				notifySubscriber(as, processURI, true);
-			    }
 			}
-		    }
 		}
 	    }
 	}
@@ -1947,11 +1735,11 @@ public class ServiceStrategy extends BusStrategy {
 	    Resource r = new Resource();
 	    r.addType(TYPE_uAAL_SERVICE_BUS_COORDINATOR, true);
 	    ((ServiceBusImpl) bus).assessContentSerialization(r);
-	    BusMessage message = new BusMessage(MessageType.p2p_request, r, bus);
-	    send(message);
+	    BusMessage m = new BusMessage(MessageType.p2p_request, r, bus);
+	    send(m);
 	    synchronized (this) {
 		try {
-		    wait();
+		    waitForCoordinatorToBeKnown();
 		    // TODO We need to have some kind of management here
 		    // or at least a timeout (but what then? Denote
 		    // itself as coordinator until find the "real" one?)!
@@ -1959,9 +1747,8 @@ public class ServiceStrategy extends BusStrategy {
 		}
 	    }
 	    return theCoordinator != null;
-	} else {
+	} else
 	    return true;
-	}
     }
 
     /**
@@ -1977,13 +1764,14 @@ public class ServiceStrategy extends BusStrategy {
      * @return Hashtable - a hashtable of the context of the matching or null if
      *         the ServiceRealization does not match the ServiceRequest
      */
-    private Map<String, Object> matches(String callerID,
-	    ServiceRequest request, ServiceRealization offer) {
+    private Hashtable matches(String callerID, ServiceRequest request,
+	    ServiceRealization offer) {
 	return matches(callerID, request, offer, null);
     }
 
     /**
-     * Returns the context in which the offer matches the request
+     * Returns true iff a ServiceRealization passed as a parameter matches the
+     * ServiceRequest
      * 
      * @param callerID
      *            - the caller ID of the ServiceRequest
@@ -1996,20 +1784,17 @@ public class ServiceStrategy extends BusStrategy {
      * @return Hashtable - a hashtable of the context of the matching or null if
      *         the ServiceRealization does not match the ServiceRequest
      */
-    private Map<String, Object> matches(String callerID,
-	    ServiceRequest request, ServiceRealization offer, Long logID) {
-	Hashtable<String, Object> context = new Hashtable<String, Object>();
-	context.put(ServiceBus.uAAL_SERVICE_BUS_MODULE_CONTEXT, busModule);
+    private Hashtable matches(String callerID, ServiceRequest request,
+	    ServiceRealization offer, Long logID) {
+	Hashtable context = new Hashtable();
 	context.put(Constants.VAR_uAAL_ACCESSING_BUS_MEMBER, callerID);
 	context.put(Constants.VAR_uAAL_CURRENT_DATETIME, TypeMapper
 		.getCurrentDateTime());
 	context.put(Constants.VAR_uAAL_SERVICE_TO_SELECT, offer);
-	Object involvedHumanUser = request
-		.getProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER);
-	if (involvedHumanUser != null) {
-	    context.put(Constants.VAR_uAAL_ACCESSING_HUMAN_USER,
-		    involvedHumanUser);
-	}
+	Object o = request
+		.getProperty(ServiceRequest.PROP_uAAL_INVOLVED_HUMAN_USER);
+	if (o != null)
+	    context.put(Constants.VAR_uAAL_ACCESSING_HUMAN_USER, o);
 	return offer.matches(request, context, logID) ? context : null;
     }
 
@@ -2017,7 +1802,7 @@ public class ServiceStrategy extends BusStrategy {
      * Notify the Availability Subscribers about registration/unregistration of
      * Services (ServiceRealization representing the Services)
      * 
-     * @param callerID
+     * @param caller
      *            - the subscriber
      * @param request
      *            - the ID of the subscription
@@ -2029,24 +1814,23 @@ public class ServiceStrategy extends BusStrategy {
      *            service
      */
 
-    private void notifyLocalSubscriber(String callerID, String request,
+    private void notifyLocalSubscriber(String caller, String request,
 	    String realization, boolean registers) {
-	List<AvailabilitySubscription> subscriptions = localSubscriptions
-		.get(callerID);
-	if (subscriptions != null) {
-	    for (AvailabilitySubscription subscription : subscriptions) {
-		if (request.equals(subscription.id)) {
-		    if (registers) {
-			((AvailabilitySubscriber) subscription.reqOrSubs)
+	Vector v = (Vector) localSubscriptionsIndex.get(caller);
+	if (v != null)
+	    for (Iterator i = v.iterator(); i.hasNext();) {
+		AvailabilitySubscription as = (AvailabilitySubscription) i
+			.next();
+		if (request.equals(as.id)) {
+		    if (registers)
+			((AvailabilitySubscriber) as.reqOrSubs)
 				.serviceRegistered(request, realization);
-		    } else {
-			((AvailabilitySubscriber) subscription.reqOrSubs)
+		    else
+			((AvailabilitySubscriber) as.reqOrSubs)
 				.serviceUnregistered(request, realization);
-		    }
 		    break;
 		}
 	    }
-	}
     }
 
     /**
@@ -2065,28 +1849,34 @@ public class ServiceStrategy extends BusStrategy {
 
     private void notifySubscriber(AvailabilitySubscription as,
 	    String realizationID, boolean registers) {
-	if (bus.isValidMember(as.callerID)) {
+	String peerID = Constants.extractPeerID(as.id);
+	if (bus.isValidMember(as.callerID))
 	    notifyLocalSubscriber(as.id, ((Resource) as.reqOrSubs).getURI(),
 		    realizationID, registers);
-	} else {
-	    Resource resource = new Resource();
-	    resource.addType(TYPE_uAAL_SERVICE_BUS_NOTIFICATION, true);
-	    resource.setProperty(PROP_uAAL_REGISTERATION_STATUS,
+	else {
+	    Resource res = new Resource();
+	    res.addType(TYPE_uAAL_SERVICE_BUS_NOTIFICATION, true);
+	    res.setProperty(PROP_uAAL_REGISTERATION_STATUS,
 		    (registers ? RES_STATUS_REGISTERED
 			    : RES_STATUS_DEREGISTERED));
-	    resource.setProperty(PROP_uAAL_SERVICE_REALIZATION_ID,
-		    new Resource(realizationID));
-	    resource.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER, new Resource(
-		    as.id));
-	    resource.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST,
-		    new Resource(((Resource) as.reqOrSubs).getURI()));
-	    ((ServiceBusImpl) bus).assessContentSerialization(resource);
-	    BusMessage message = new BusMessage(MessageType.event, resource,
-		    bus);
-	    message.setReceiver(AbstractBus
-		    .getPeerFromBusResourceURI(as.callerID));
-	    send(message);
+	    res.setProperty(PROP_uAAL_SERVICE_REALIZATION_ID, new Resource(
+		    realizationID));
+	    res.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER, new Resource(as.id));
+	    res.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST, new Resource(
+		    ((Resource) as.reqOrSubs).getURI()));
+	    ((ServiceBusImpl) bus).assessContentSerialization(res);
+	    BusMessage m = new BusMessage(MessageType.event, res, bus);
+	    m.setReceiver(AbstractBus.getPeerFromBusResourceURI(as.callerID));
+	    send(m);
 	}
+    }
+
+    protected void waitForCoordinatorToBeKnown() throws InterruptedException {
+	wait();
+    }
+
+    protected void notifyOnFoundCoordinator() {
+	notifyAll();
     }
 
     /**
@@ -2103,38 +1893,36 @@ public class ServiceStrategy extends BusStrategy {
     void removeAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, String requestURI) {
 	if (requestURI == null || subscriber == null
-		|| localSubscriptionsIndex.get(requestURI) == null) {
+		|| localSubscriptionsIndex.get(requestURI) == null)
 	    // TODO - check if the above line should be:
 	    // localSubscriptionsIndex.get(callerID)...
 	    return;
-	}
 
-	List<AvailabilitySubscription> subscriptions = localSubscriptions
-		.get(callerID);
-	if (subscriptions != null) {
-	    for (AvailabilitySubscription subscription : subscriptions) {
-		if (requestURI.equals(subscription.id)
-			&& subscriber == subscription.reqOrSubs) {
-		    subscriptions.remove(subscription);
+	Vector v = (Vector) localSubscriptionsIndex.get(callerID);
+	if (v != null)
+	    for (Iterator i = v.iterator(); i.hasNext();) {
+		AvailabilitySubscription as = (AvailabilitySubscription) i
+			.next();
+		if (requestURI.equals(as.id) && subscriber == as.reqOrSubs) {
+		    i.remove();
 		    break;
 		}
 	    }
-	}
 
-	String serviceURI = localSubscriptionsIndex.remove(requestURI);
+	String serviceURI = (String) localSubscriptionsIndex.remove(requestURI);
 	if (isCoordinator) {
-	    List<AvailabilitySubscription> allSubscriptions = allSubscriptionsIndex
-		    .get(serviceURI);
-	    if (allSubscriptions != null) {
-		for (AvailabilitySubscription subscription : allSubscriptions) {
-		    if (callerID.equals(subscription.id)
-			    && ((Resource) subscription.reqOrSubs).getURI()
-				    .equals(requestURI)) {
-			allSubscriptions.remove(subscription);
+	    v = (Vector) allSubscriptionsIndex.get(serviceURI);
+	    if (v != null)
+		for (Iterator i = v.iterator(); i.hasNext();) {
+		    AvailabilitySubscription as = (AvailabilitySubscription) i
+			    .next();
+		    if (callerID.equals(as.id)
+			    && ((Resource) as.reqOrSubs).getURI().equals(
+				    requestURI)) {
+			i.remove();
 			break;
 		    }
 		}
-	    }
 	} else if (isCoordinatorKnown()) {
 	    Resource res = new Resource(callerID);
 	    res.addType(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION, true);
@@ -2161,32 +1949,31 @@ public class ServiceStrategy extends BusStrategy {
 
     void removeMatchingRegParams(String calleeID,
 	    ServiceProfile[] realizedServices) {
-	if (realizedServices == null
-		|| calleeID == null
-		|| !(getBusMember(calleeID) instanceof ServiceCallee)) {
+	if (realizedServices == null || calleeID == null
+		|| !(getBusMember(calleeID) instanceof ServiceCallee))
 	    return;
-	}
 
-	for (ServiceProfile realizedService : realizedServices) {
-	    if (realizedService == null) {
+	for (int i = 0; i < realizedServices.length; i++) {
+	    if (realizedServices[i] == null)
 		continue;
-	    }
 
-	    String processURI = realizedService.getProcessURI();
-	    if (processURI == null) {
+	    String processURI = realizedServices[i].getProcessURI();
+	    if (processURI == null)
 		continue;
-	    }
 
 	    ServiceRealization reg = localServicesIndex
 		    .removeServiceRealization(processURI);
-	    if (!isMatchingServiceProvider(calleeID, reg)
-		    || !processURI.equals(getProcessURIOfServiceProfile(reg))) {
+	    if (!calleeID.equals(reg
+		    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))
+		    || !processURI
+			    .equals(((ServiceProfile) reg
+				    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+				    .getProcessURI())) {
 		localServicesIndex.addServiceRealization(processURI, reg);
 	    }
 
-	    if (isCoordinator) {
+	    if (isCoordinator)
 		unindexServices(calleeID, processURI);
-	    }
 	}
 
 	if (!isCoordinator && isCoordinatorKnown()) {
@@ -2215,23 +2002,24 @@ public class ServiceStrategy extends BusStrategy {
      */
     void removeRegParams(String calleeID) {
 	if (calleeID == null
-		|| !(getBusMember(calleeID) instanceof ServiceCallee)) {
+		|| !(getBusMember(calleeID) instanceof ServiceCallee))
 	    return;
-	}
 
 	String[] serviceRealizationsIds = localServicesIndex
 		.getServiceRealizationIds();
-	for (String id : serviceRealizationsIds) {
+	for (int i = 0; i < serviceRealizationsIds.length; i++) {
+	    String id = serviceRealizationsIds[i];
 	    ServiceRealization serviceRealization = localServicesIndex
 		    .getServiceRealizationByID(id);
-	    if (isMatchingServiceProvider(calleeID, serviceRealization)) {
+	    if (calleeID.equals(serviceRealization
+		    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))) {
 		localServicesIndex.removeServiceRealization(id);
 	    }
 	}
 
-	if (isCoordinator) {
+	if (isCoordinator)
 	    unindexServices(calleeID, null);
-	} else if (isCoordinatorKnown()) {
+	else if (isCoordinatorKnown()) {
 	    Resource r = new Resource();
 	    r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
 	    r.setProperty(PROP_uAAL_REGISTERATION_STATUS,
@@ -2260,52 +2048,41 @@ public class ServiceStrategy extends BusStrategy {
 
 	boolean deleteAll = (processURI == null);
 	synchronized (allServicesIndex) {
-	    for (List<ServiceRealization> element : allServicesIndex.values()) {
-		for (ServiceRealization reg : element) {
-		    if (isMatchingServiceProvider(calleeID, reg)) {
-			if (deleteAll) {
-			    processURI = getProcessURIOfServiceProfile(reg);
-			} else if (processURI
-				.equals(getProcessURIOfServiceProfile(reg))) {
+	    for (Iterator i = allServicesIndex.values().iterator(); i.hasNext();) {
+		for (Iterator j = ((Vector) i.next()).iterator(); j.hasNext();) {
+		    ServiceRealization reg = (ServiceRealization) j.next();
+		    if (calleeID
+			    .equals(reg
+				    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))) {
+			if (deleteAll)
+			    processURI = ((ServiceProfile) reg
+				    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+				    .getProcessURI();
+			else if (!processURI
+				.equals(((ServiceProfile) reg
+					.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+					.getProcessURI()))
 			    continue;
-			}
 
-			element.remove(reg);
-			String serviceURI = getServiceURIOfServiceProfile(reg);
-			List<AvailabilitySubscription> subscribers = allSubscriptionsIndex
+			j.remove();
+			String serviceURI = ((ServiceProfile) reg
+				.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+				.getTheService().getClassURI();
+			Vector subscribers = (Vector) allSubscriptionsIndex
 				.get(serviceURI);
-			if (subscribers != null) {
-			    for (AvailabilitySubscription subscriber : subscribers) {
-				if (null != matches(subscriber.id,
-					(ServiceRequest) subscriber.reqOrSubs,
-					reg)) {
-				    notifySubscriber(subscriber, processURI,
-					    false);
-				}
+			if (subscribers != null)
+			    for (Iterator k = subscribers.iterator(); k
+				    .hasNext();) {
+				AvailabilitySubscription as = (AvailabilitySubscription) k
+					.next();
+				if (null != matches(as.id,
+					(ServiceRequest) as.reqOrSubs, reg))
+				    notifySubscriber(as, processURI, false);
 			    }
-			}
 		    }
 		}
 	    }
 	}
-    }
-
-    private String getServiceURIOfServiceProfile(ServiceRealization reg) {
-	return ((ServiceProfile) reg
-		.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
-		.getTheService().getClassURI();
-    }
-
-    private String getProcessURIOfServiceProfile(ServiceRealization reg) {
-	return ((ServiceProfile) reg
-		.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
-		.getProcessURI();
-    }
-
-    private boolean isMatchingServiceProvider(String calleeID,
-	    ServiceRealization reg) {
-	return calleeID.equals(reg
-		.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER));
     }
 
     /**
@@ -2317,9 +2094,8 @@ public class ServiceStrategy extends BusStrategy {
      * @return ServiceProfile[] - the service profiles of the given service
      */
     public ServiceProfile[] getAllServiceProfiles(String serviceURI) {
-	if (isCoordinator) {
+	if (this.isCoordinator)
 	    return getCoordinatorServices(serviceURI);
-	}
 
 	Resource r = new Resource();
 	r.addType(TYPE_uAAL_SERVICE_PROFILE_INFORMATION, true);
@@ -2334,7 +2110,7 @@ public class ServiceStrategy extends BusStrategy {
 	int retryCount = 0;
 
 	synchronized (this) {
-	    while (!localServiceSearchResults.exist(serviceURI)
+	    while (!this.localServiceSearchResults.exist(serviceURI)
 		    && maxRetry > retryCount) {
 		try {
 		    wait(msTimeout);
@@ -2345,7 +2121,8 @@ public class ServiceStrategy extends BusStrategy {
 	    }
 	}
 
-	List profiles = localServiceSearchResults.getProfiles(serviceURI);
+	List profiles = (List) this.localServiceSearchResults
+		.getProfiles(serviceURI);
 	return profileListToArray(profiles);
     }
 
@@ -2358,20 +2135,20 @@ public class ServiceStrategy extends BusStrategy {
      * @return - the profiles of the service passed as a parameter
      */
     private ServiceProfile[] getCoordinatorServices(String serviceURI) {
-	List<ServiceProfile> profiles = new ArrayList<ServiceProfile>();
 
-	if (isCoordinator) {
-	    List<ServiceRealization> neededProfiles = allServicesIndex
+	ArrayList profiles = new ArrayList();
+
+	if (this.isCoordinator) {
+	    Vector neededProfiles = (Vector) this.allServicesIndex
 		    .get(serviceURI);
-	    if (neededProfiles != null) {
-		for (ServiceRealization realization : neededProfiles) {
-		    ServiceProfile profile = (ServiceProfile) realization
+	    if (neededProfiles != null)
+		for (Iterator j = neededProfiles.iterator(); j.hasNext();) {
+		    ServiceRealization reg = (ServiceRealization) j.next();
+		    ServiceProfile profile = (ServiceProfile) reg
 			    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
-		    if (profile != null) {
+		    if (profile != null)
 			profiles.add(profile);
-		    }
 		}
-	    }
 	}
 
 	return profileListToArray(profiles);
@@ -2385,17 +2162,18 @@ public class ServiceStrategy extends BusStrategy {
      *            - the list to translate
      * @return ServiceProfile[] - the translated array of ServiceProfiles
      */
-    private ServiceProfile[] profileListToArray(List<ServiceProfile> list) {
-	if (list != null) {
-	    ServiceProfile[] result = new ServiceProfile[list.size()];
-	    int index = 0;
-	    for (ServiceProfile profile : list) {
-		result[index++] = profile;
-	    }
-
-	    return result;
-	} else {
+    private ServiceProfile[] profileListToArray(List list) {
+	if (list == null)
 	    return new ServiceProfile[0];
-	}
+	ServiceProfile[] result = new ServiceProfile[list.size()];
+	for (int i = 0; i < result.length; i++)
+	    result[i] = (ServiceProfile) list.get(i);
+
+	return result;
+    }
+
+    @Override
+    protected void handleDeniedMessage(BusMessage message, String senderID) {
+	// TODO Auto-generated method stub
     }
 }
