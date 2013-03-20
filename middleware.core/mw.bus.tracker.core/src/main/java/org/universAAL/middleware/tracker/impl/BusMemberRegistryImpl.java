@@ -341,7 +341,7 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
     static void logInfo(String format, Object... args) {
 	StackTraceElement callingMethod = Thread.currentThread()
 		.getStackTrace()[2];
-	LogUtils.logInfo(Activator.mc, Activator.class.getClass(),
+	LogUtils.logInfo(Activator.mc, BusMemberRegistryImpl.class,
 		callingMethod.getMethodName(),
 		new Object[] { String.format(format, args) }, null);
     }
