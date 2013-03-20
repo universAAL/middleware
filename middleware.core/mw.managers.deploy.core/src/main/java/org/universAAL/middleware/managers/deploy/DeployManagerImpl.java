@@ -20,6 +20,7 @@
  */
 package org.universAAL.middleware.managers.deploy;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -85,8 +86,10 @@ public class DeployManagerImpl implements DeployManager,
     private boolean initialized = false;
 
     // Configuration param configured with default value
-    private String uappSuffix = "-uapp";
+    private String uappSuffix = ".uapp";
     private String deployDir = "etc/deploy";
+    private String APPLICATION_CONFIGURATION_PATH = "config";
+    private String APPLICATION_BINARYPART_PATH = "bin";
     private static String TMP_DEPLOY_DIR = "tmp";
 
     // JAXB
@@ -245,8 +248,23 @@ public class DeployManagerImpl implements DeployManager,
 	}
 
 	final Map<PeerCard, Part> layout = application.getDeploy();
-	final URI deployFolder = application.getFolder();
-	if (application == null || deployFolder == null || layout == null) {
+	String applicationFolderPAth = application.getFolder().toString()
+		+ File.separatorChar + APPLICATION_CONFIGURATION_PATH;
+	URI applicationConfigurationFolder = null;
+	try {
+	    applicationConfigurationFolder = new URI(applicationFolderPAth);
+	} catch (URISyntaxException e1) {
+
+	    LogUtils.logError(
+		    context,
+		    DeployManagerImpl.class,
+		    "DeployManagerImpl",
+		    new Object[] { "The application configuration path is null...aborting: "
+			    + e1.toString() }, null);
+	    return InstallationResults.UAPP_URI_INVALID;
+	}
+	if (application == null || applicationConfigurationFolder == null
+		|| layout == null) {
 	    LogUtils.logWarn(
 		    context,
 		    DeployManagerImpl.class,
@@ -285,7 +303,8 @@ public class DeployManagerImpl implements DeployManager,
 	 * InstallationResults.FAILED; }
 	 */
 
-	File uappFile = Util.getFile(uappSuffix, deployFolder);
+	File uappFile = Util
+		.getFile(uappSuffix, applicationConfigurationFolder);
 	AalUapp uapp = null;
 
 	if (uappFile != null && uappFile.canRead()) {
@@ -315,7 +334,8 @@ public class DeployManagerImpl implements DeployManager,
 		    "DeployManagerImpl",
 		    new Object[] { "Sending request to install uAPP part to: "
 			    + peer.getPeerID() }, null);
-	    byte[] fileContent = createZippedPart(deployFolder, target);
+	    byte[] fileContent = createZippedPart(application.getFolder(),
+		    target);
 	    LogUtils.logDebug(
 		    context,
 		    DeployManagerImpl.class,
@@ -433,16 +453,16 @@ public class DeployManagerImpl implements DeployManager,
     /**
      * Creates a zip file containing the artifacts to send
      * 
-     * @param deployFolder
+     * @param applicationFolder
      * @param part
      * @return
      */
-    private byte[] createZippedPart(URI deployFolder, Part part) {
+    private byte[] createZippedPart(URI applicationFolder, Part part) {
 	ZipOutputStream out = null;
 	File zippedPart = null;
 	byte[] buf = new byte[1024];
 	try {
-	    // create the zip file
+	    // create the zip file in a tmp dir
 	    zippedPart = new File(deployDir + File.separatorChar
 		    + TMP_DEPLOY_DIR + File.separatorChar + "part.zip");
 	    out = new ZipOutputStream(new FileOutputStream(zippedPart));
@@ -484,16 +504,27 @@ public class DeployManagerImpl implements DeployManager,
 	// get the part id
 	try {
 	    String partID = part.getPartId();
-	    File partDescription = new File(deployDir + File.separatorChar
-		    + "bin" + File.separatorChar + partID);
-	    FileInputStream in = new FileInputStream(partDescription);
-	    out.putNextEntry(new ZipEntry(partDescription.getName()));
-	    int len;
-	    while ((len = in.read(buf)) > 0) {
-		out.write(buf, 0, len);
+	    String partFolderString = applicationFolder.toString()
+		    + File.separatorChar + APPLICATION_BINARYPART_PATH
+		    + File.separatorChar + partID +File.separatorChar;
+	    File partFolder = new File(partFolderString);
+	    BufferedInputStream inPartFile = null;
+	    byte[] data = new byte[1000];
+	    String[] partFiles = partFolder.list();
+	    for (String fileName : partFiles) {
+		inPartFile = new BufferedInputStream(new FileInputStream(
+			partFolder.getPath() + File.separatorChar + fileName),
+			1000);
+		out.putNextEntry(new ZipEntry(fileName));
+		int count;
+		while ((count = inPartFile.read(data, 0, 1000)) != -1) {
+		    out.write(data, 0, count);
+		}
+		out.closeEntry();
 	    }
-	    out.closeEntry();
-	    in.close();
+	    out.flush();
+	    out.close();
+	    inPartFile.close();
 	} catch (FileNotFoundException e1) {
 	    LogUtils.logError(
 		    context,
