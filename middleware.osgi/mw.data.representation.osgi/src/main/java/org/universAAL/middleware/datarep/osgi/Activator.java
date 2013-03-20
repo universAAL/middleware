@@ -29,10 +29,21 @@ import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 
 public final class Activator implements BundleActivator, ManagedService {
     private static ServiceRegistration registration;
+
+    private void log(String method, Object[] msgPart) {
+	LogUtils.logDebug(SharedResources.moduleContext, Activator.class,
+		method, msgPart, null);
+    }
+
+    private void log(String method, String msgPart) {
+	LogUtils.logDebug(SharedResources.moduleContext, Activator.class,
+		method, new Object[] { msgPart }, null);
+    }
 
     /**
      * 
@@ -49,8 +60,12 @@ public final class Activator implements BundleActivator, ManagedService {
 	Dictionary props = new Hashtable(1);
 	props.put(Constants.SERVICE_PID,
 		SharedResources.uAAL_MW_SHARED_PROPERTY_FILE);
+	log("start", new Object[] { "starting data representation.." });
 	registration = context.registerService(ManagedService.class.getName(),
 		this, props);
+	log("start", new Object[] {
+		"..data representation started, registration: ", registration,
+		" thread ID: ", Thread.currentThread().getId() });
     }
 
     /**
@@ -67,6 +82,8 @@ public final class Activator implements BundleActivator, ManagedService {
     public synchronized void updated(Dictionary properties)
 	    throws ConfigurationException {
 
+	log("updated", "starting updated..   thread ID: "
+		+ Thread.currentThread().getId());
 	SharedResources.updateProps(properties);
 
 	// according to the documentation of ManagedService: "As a
@@ -78,6 +95,12 @@ public final class Activator implements BundleActivator, ManagedService {
 	// This will allow the Configuration Admin service to set properties
 	// on
 	// services which can then be used by other applications."
+	if (registration == null)
+	    log("updated", "-- ERROR: registration is null");
+	if (properties == null)
+	    log("updated", "-- WARNING: properties is null");
+
 	registration.setProperties(properties);
+	log("updated", "..updated done.");
     }
 }
