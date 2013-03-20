@@ -33,11 +33,13 @@
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Export-Package>org.universAAL.middleware.managers.aalspace</Export-Package>
 						<Export-Package>
 							org.universAAL.middleware.managers.api
 						</Export-Package>
-						<Private-Package />
+						<Import-Package>org.universAAL.middleware.deploymaneger.uapp.model,
+							org.universAAL.middleware.interfaces,
+							org.universAAL.middleware.interfaces.aalspace,
+							org.universAAL.middleware.interfaces.mpa</Import-Package>
 					</instructions>
 				</configuration>
 			</plugin>
