@@ -93,7 +93,9 @@ public class BusMessage implements BrokerMessage {
     }
 
     private Object content;
-    private String contentStr = null, id, inReplyTo = null;
+    private String contentStr = null;
+    private String id;
+    private String inReplyTo = null;
     private MessageType type;
     private BrokerMessageTypes mType;
 
