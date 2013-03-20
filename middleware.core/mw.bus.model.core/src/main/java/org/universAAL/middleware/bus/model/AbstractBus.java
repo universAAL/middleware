@@ -84,7 +84,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
      * <tt>urn:uaal_space:8224/7ca58fd6-fb5f-4c8e-8db2-4ba6807fa1bf#</tt>
      */
     private static String uAAL_MW_INSTANCE_URI_PREFIX = null;
-    
+
     /**
      * A counter for {@link BusMember}s. Each time a new bus member registers at
      * the bus, this counter is used as part of the URI of the bus member, and
@@ -94,14 +94,30 @@ public abstract class AbstractBus implements Broker, MessageListener {
 
     protected static AALSpaceManager aalSpaceManager;
     protected static CommunicationModule communicationModule;
+    private static ModuleContext myContext;
 
-    public static void initBrokerage(AALSpaceManager aalSpaceMgr,
-	    CommunicationModule commModule) {
+    public static void initBrokerage(ModuleContext mc,
+	    AALSpaceManager aalSpaceMgr, CommunicationModule commModule) {
+	if (myContext != null) {
+	    LogUtils
+		    .logError(
+			    myContext,
+			    AbstractBus.class,
+			    "initBrokerage",
+			    new Object[] {
+				    "The init method was called already, it cannot be called a second time. The original caller was ",
+				    myContext.getID(),
+				    " and the current caller is ", mc.getID() },
+			    null);
+	    return;
+	}
+	myContext = mc;
+	
 	aalSpaceManager = aalSpaceMgr;
 	communicationModule = commModule;
 	// configure the MW's URI instance
 	// first check if I already join an AALSpace
-	
+
 	AALSpaceDescriptor sd = aalSpaceMgr.getAALSpaceDescriptor();
 	if (sd != null) {
 	    uAAL_SPACE_INSTANCE_URI_PREFIX = sd.getSpaceCard().getSpaceID()
@@ -109,7 +125,8 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	} else {
 	    uAAL_SPACE_INSTANCE_URI_PREFIX = "unknown-space/";
 	}
-	// TODO: workaround for non-space-coordinators (space ID is unknown then)
+	// TODO: workaround for non-space-coordinators (space ID is unknown
+	// then)
 	uAAL_SPACE_INSTANCE_URI_PREFIX = "";
 
 	PeerCard pc = aalSpaceMgr.getmyPeerCard();
@@ -144,7 +161,27 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	}
 	uri = uri.substring(uAAL_SPACE_INSTANCE_URI_PREFIX.length(), end);
 
-	return aalSpaceManager.getPeers().get(uri);
+	PeerCard retVal = aalSpaceManager.getPeers().get(uri);
+	if (retVal == null) {
+	    String myPeerID = "<unknown>";
+	    PeerCard myPeerCard = aalSpaceManager.getmyPeerCard();
+	    if (myPeerCard != null)
+		myPeerID = myPeerCard.getPeerID();
+	    LogUtils.logDebug(myContext, AbstractBus.class,
+		    "getPeerFromBusResourceURI", new Object[] {
+			    "The peer with ID ", uri,
+			    " could not be retrieved. There are ",
+			    aalSpaceManager.getPeers().size(),
+			    " peers known and our own peer ID is ", myPeerID },
+		    null);
+
+	    if (uri.equals(myPeerID)) {
+		// this case can happen if the space is not yet initialized
+		// correctly
+		retVal = myPeerCard;
+	    }
+	}
+	return retVal;
     }
 
     protected ModuleContext context;
