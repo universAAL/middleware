@@ -14,9 +14,9 @@ public class DeployMessageFields {
     public static String PART = "part";
     public static String PART_STATUS = "partstatus";
 
-    public static String MPA_NAME = "mpaName";
-    public static String MPA_ID = "mpaID";
-    public static String MPA_DESC = "mpDesc";
+    public static String UAPP_NAME = "uAPPName";
+    public static String UAPP_ID = "APPID";
+    public static String UAPP_DESC = "APPDesc";
 
     public static String DEPLOY_PAYLOAD = "deployPayload";
 
