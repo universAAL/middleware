@@ -504,7 +504,7 @@ public class DeployManagerImpl implements DeployManager,
 	// get the part id
 	try {
 	    String partID = part.getPartId();
-	    String partFolderString = applicationFolder.toString()
+	    String partFolderString = applicationFolder.getPath()
 		    + File.separatorChar + APPLICATION_BINARYPART_PATH
 		    + File.separatorChar + partID +File.separatorChar;
 	    File partFolder = new File(partFolderString);
