@@ -781,7 +781,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 				fos.flush();
 				fos.close();
 				deployConnector.installPart(file, deployMessage
-					.getPayload().getMpaCard());
+					.getPayload().getuappCard());
 			    } catch (FileNotFoundException e) {
 				LogUtils.logError(
 					context,
@@ -814,7 +814,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 			    if (deployManager instanceof DeployManagerEventHandler) {
 				((DeployManagerEventHandler) deployManager)
 					.installationPartNotification(
-						payload.getMpaCard(),
+						payload.getuappCard(),
 						payload.getPartID(),
 						message.getSender(),
 						payload.getMpaPartStatus());
@@ -987,13 +987,13 @@ public class ControlBroker implements SharedObjectListener, Broker,
 				.getString(DeployMessageFields.DEPLOY_MTYPE));
 
 		// unmarhsall MPACard
-		String mpaCardName = obj
-			.getString(DeployMessageFields.MPA_NAME);
-		String mpaCardID = obj.getString(DeployMessageFields.MPA_ID);
-		String mpaCardDescr = obj
-			.getString(DeployMessageFields.MPA_DESC);
-		UAPPCard mpaCard = new UAPPCard(mpaCardName, mpaCardID,
-			mpaCardDescr);
+		String uappCardName = obj
+			.getString(DeployMessageFields.UAPP_NAME);
+		String uappCardID = obj.getString(DeployMessageFields.UAPP_ID);
+		String uappCardDescr = obj
+			.getString(DeployMessageFields.UAPP_DESC);
+		UAPPCard mpaCard = new UAPPCard(uappCardName, uappCardID,
+			uappCardDescr);
 
 		int payloadType = obj
 			.getInt(DeployMessageFields.DEPLOY_PAYLOAD);
