@@ -43,6 +43,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
 
+import org.apache.karaf.deployer.kar.KarArtifactInstaller;
 import org.apache.karaf.features.Feature;
 import org.apache.karaf.features.FeaturesService;
 import org.apache.karaf.features.Repository;
@@ -78,11 +79,15 @@ public class KarafDeployConnector implements DeployConnector,
     private String version;
 
     private ModuleContext context;
+
+    // Karaf services for installing artefacts
     private FeaturesService karafFeatureService;
     private ControlBroker controlBroker;
 
     private boolean initialized = false;
-    private static String MPA_SUFFIX = "-mpa";
+    private static String UAPP_SUFFIX = ".uapp";
+    private static String KAR_EXTENSION = "kar";
+    private static String KAR_DEPLOY_DIR = "deploy";
     // JAXB
     private JAXBContext jc;
     private JAXBContext jcKaraf;
@@ -140,6 +145,7 @@ public class KarafDeployConnector implements DeployConnector,
 		initialized = false;
 		return initialized;
 	    }
+
 	    initialized = true;
 	}
 	return initialized;
@@ -249,15 +255,15 @@ public class KarafDeployConnector implements DeployConnector,
 
     }
 
-    public void installPart(File applicationFilePart, UAPPCard mpaCard) {
+    public void installPart(File applicationFilePart, UAPPCard uAPPCard) {
 	// String installationDir = applicationFilePart.getParent();
 	Part applicationPart = null;
 	if (init()) {
 	    try {
 		LogUtils.logInfo(context, KarafDeployConnector.class,
 			"KarafDeployConnector",
-			new Object[] { "Installing application part for MPA:"
-				+ mpaCard.toString() }, null);
+			new Object[] { "Installing application part for uAAP:"
+				+ uAPPCard.toString() }, null);
 		ZipInputStream zipFile = new ZipInputStream(
 			new FileInputStream(applicationFilePart));
 		ZipEntry zipEntry = null;
@@ -265,7 +271,7 @@ public class KarafDeployConnector implements DeployConnector,
 		while (!end) {
 		    ZipEntry entry = zipFile.getNextEntry();
 		    if (entry != null) {
-			String outFilename = entry.getName();
+			String outFilename = applicationFilePart.getParent()+File.separatorChar+entry.getName();
 			OutputStream out = new FileOutputStream(outFilename);
 
 			// Transfer bytes from the ZIP file to the output file
@@ -279,82 +285,92 @@ public class KarafDeployConnector implements DeployConnector,
 			end = true;
 		    }
 		}
-		applicationPart = (Part) unmarshaller.unmarshal(Util.getFile(
-			MPA_SUFFIX, new File(".").toURI()));
-
-		StringWriter writer = null;
-		for (DeploymentUnit dUnit : applicationPart.getDeploymentUnit()) {
-		    if (dUnit.isSetContainerUnit()
-			    && dUnit.getContainerUnit().isSetKaraf()
-			    && dUnit.getContainerUnit().getKaraf()
-				    .isSetFeatures()) {
-			writer = new StringWriter();
-			// NamespacePrefixMapper m = new PreferredMapper();
-			// marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper",
-			// m);
-
-			JAXBElement p = new JAXBElement<FeaturesRoot>(
-				new QName(
-					"http://karaf.apache.org/xmlns/features/v1.0.0",
-					"features"), FeaturesRoot.class, dUnit
-					.getContainerUnit().getKaraf()
-					.getFeatures());
-			// marshaller.marshal(dUnit.getContainerUnit().getKaraf().getFeatures(),
-			// writer);
-			marshaller.marshal(p, writer);
-
-		    }
-		}
-		// NamespacePrefixMapper m = new Prefer
-		InputStream karafStream = new ByteArrayInputStream(writer
-			.toString().getBytes("UTF-8"));
-		// org.universAAL.middleware.connectors.deploy.karaf.core.model.FeaturesRoot
-		// fRoot =
-		// (org.universAAL.middleware.connectors.deploy.karaf.core.model.FeaturesRoot)unmarshallerKaraf.unmarshal(karafStream);
-
-		javax.xml.bind.JAXBElement stream = (JAXBElement) unmarshallerKaraf
-			.unmarshal(karafStream);
-		File localRepo = new File("locaRepo.xml");
-		marshallerKaraf.marshal(stream, localRepo);
-
-		karafFeatureService.addRepository(localRepo.toURI());
-		localRepo.toString();
-
-		Repository[] karafRepositories = karafFeatureService
-			.listRepositories();
-		for (Repository repo : karafRepositories) {
-		    if (repo.getURI().compareTo(localRepo.toURI()) == 0) {
-			Feature[] featuresToInstall = repo.getFeatures();
-			// install all the features on the Karaf container
-			List listOffeaturesToInstall = Arrays
-				.asList(featuresToInstall);
-			Set setOfFeaturesToInstall = new HashSet<Feature>(
-				listOffeaturesToInstall);
-			karafFeatureService.installFeatures(
-				setOfFeaturesToInstall,
-				EnumSet.noneOf(Option.class));
+		// check if I find a KAR archive
+		File parentPartDir = applicationFilePart.getParentFile();
+		if (parentPartDir.canRead()) {
+		    File[] listFiles = parentPartDir.listFiles();
+		    for (File file : listFiles) {
+			if (file.getName().endsWith(KAR_EXTENSION)) {
+			    // copy kar file in the deploy dir
+			    file.renameTo(new File(KAR_DEPLOY_DIR+File.separatorChar+file.getName()));
+			}
+			LogUtils.logInfo(context, KarafDeployConnector.class,
+				"KarafDeployConnector",
+				new Object[] { "Application part installed for uAAP:"
+					+ uAPPCard.toString() }, null);
 		    }
 		}
 
-		// send the installation result to the Deploy Manager in the AAL
-		controlBroker.notifyRequestToInstallPart(mpaCard,
+		/*
+		 * 
+		 * applicationPart = (Part) unmarshaller.unmarshal(Util.getFile(
+		 * UAPP_SUFFIX, new File(".").toURI()));
+		 * 
+		 * StringWriter writer = null; for (DeploymentUnit dUnit :
+		 * applicationPart.getDeploymentUnit()) { if
+		 * (dUnit.isSetContainerUnit() &&
+		 * dUnit.getContainerUnit().isSetKaraf() &&
+		 * dUnit.getContainerUnit().getKaraf() .isSetFeatures()) {
+		 * writer = new StringWriter(); // NamespacePrefixMapper m = new
+		 * PreferredMapper(); // marshaller.setProperty(
+		 * "com.sun.xml.internal.bind.namespacePrefixMapper", // m);
+		 * 
+		 * JAXBElement p = new JAXBElement<FeaturesRoot>( new QName(
+		 * "http://karaf.apache.org/xmlns/features/v1.0.0", "features"),
+		 * FeaturesRoot.class, dUnit .getContainerUnit().getKaraf()
+		 * .getFeatures()); //
+		 * marshaller.marshal(dUnit.getContainerUnit(
+		 * ).getKaraf().getFeatures(), // writer); marshaller.marshal(p,
+		 * writer);
+		 * 
+		 * } } // NamespacePrefixMapper m = new Prefer InputStream
+		 * karafStream = new ByteArrayInputStream(writer
+		 * .toString().getBytes("UTF-8")); //
+		 * org.universAAL.middleware.connectors
+		 * .deploy.karaf.core.model.FeaturesRoot // fRoot = //
+		 * (org.universAAL
+		 * .middleware.connectors.deploy.karaf.core.model.
+		 * FeaturesRoot)unmarshallerKaraf.unmarshal(karafStream);
+		 * 
+		 * javax.xml.bind.JAXBElement stream = (JAXBElement)
+		 * unmarshallerKaraf .unmarshal(karafStream); File localRepo =
+		 * new File("locaRepo.xml"); marshallerKaraf.marshal(stream,
+		 * localRepo);
+		 * 
+		 * karafFeatureService.addRepository(localRepo.toURI());
+		 * localRepo.toString();
+		 * 
+		 * Repository[] karafRepositories = karafFeatureService
+		 * .listRepositories(); for (Repository repo :
+		 * karafRepositories) { if
+		 * (repo.getURI().compareTo(localRepo.toURI()) == 0) { Feature[]
+		 * featuresToInstall = repo.getFeatures(); // install all the
+		 * features on the Karaf container List listOffeaturesToInstall
+		 * = Arrays .asList(featuresToInstall); Set
+		 * setOfFeaturesToInstall = new HashSet<Feature>(
+		 * listOffeaturesToInstall);
+		 * karafFeatureService.installFeatures( setOfFeaturesToInstall,
+		 * EnumSet.noneOf(Option.class)); } }
+		 */
+		/* send the installation result to the Deploy Manager in the AAL
+		controlBroker.notifyRequestToInstallPart(uAPPCard,
 			applicationPart.getPartId(),
-			UAPPPartStatus.PART_INSTALLED);
+			UAPPPartStatus.PART_INSTALLED);*/
 
 	    } catch (Exception e) {
 		LogUtils.logError(
 			context,
 			KarafDeployConnector.class,
 			"KarafDeployConnector",
-			new Object[] { "Error during installation of MPA: " + e },
+			new Object[] { "Error during installation of uAPP: " + e },
 			null);
 		// send the installation result to the Deploy Manager in the AAL
 		if (applicationPart != null)
-		    controlBroker.notifyRequestToInstallPart(mpaCard,
+		    controlBroker.notifyRequestToInstallPart(uAPPCard,
 			    applicationPart.getPartId(),
 			    UAPPPartStatus.PART_NOT_INSTALLED);
 		else
-		    controlBroker.notifyRequestToInstallPart(mpaCard, "",
+		    controlBroker.notifyRequestToInstallPart(uAPPCard, "",
 			    UAPPPartStatus.PART_NOT_INSTALLED);
 	    }
 	} else {
@@ -366,11 +382,11 @@ public class KarafDeployConnector implements DeployConnector,
 		    null);
 	    // send the installation result to the Deploy Manager in the AAL
 	    if (applicationPart != null)
-		controlBroker.notifyRequestToInstallPart(mpaCard,
+		controlBroker.notifyRequestToInstallPart(uAPPCard,
 			applicationPart.getPartId(),
 			UAPPPartStatus.PART_NOT_INSTALLED);
 	    else
-		controlBroker.notifyRequestToInstallPart(mpaCard, "",
+		controlBroker.notifyRequestToInstallPart(uAPPCard, "",
 			UAPPPartStatus.PART_NOT_INSTALLED);
 
 	}
