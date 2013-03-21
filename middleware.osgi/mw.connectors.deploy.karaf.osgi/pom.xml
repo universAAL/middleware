@@ -17,7 +17,7 @@
 	<properties>
 		<ignore.dep.conflict>true</ignore.dep.conflict>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
@@ -52,7 +52,7 @@
 			<artifactId>mw.brokers.control.core</artifactId>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -67,7 +67,8 @@
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Activator>org.universAAL.middleware.connectors.deploy.karaf.osgi.Activator</Bundle-Activator>
 						<Bundle-Provider>ISTI-CNR</Bundle-Provider>
-						<Export-Package>org.universAAL.middleware.connectors.deploy.karaf, org.universAAL.middleware.connectors.deploy.karaf.osgi</Export-Package>
+						<Export-Package>org.universAAL.middleware.connectors.deploy.karaf,
+							org.universAAL.middleware.connectors.deploy.karaf.osgi</Export-Package>
 						<Import-Package>org.osgi.framework,javax.xml.bind,javax.xml.namespace,
 							org.apache.karaf.features,
 							org.universAAL.middleware.brokers.control,
@@ -81,7 +82,8 @@
 							org.universAAL.middleware.interfaces.mpa,
 							org.universAAL.middleware.interfaces.mpa.model,
 							org.universAAL.middleware.interfaces.utils,
-							javax.xml.bind.annotation
+							javax.xml.bind.annotation,
+							org.apache.karaf.deployer.kar
 						</Import-Package>
 						<Private-Package />
 					</instructions>
