@@ -52,9 +52,10 @@ public class Activator implements BundleActivator, ManagedService {
     private DeployManager deployManager;
     private static String SERVICE_PID = "mw.managers.deploy.core";
     private ServiceRegistration myRegistration;
+    private ModuleContext moduleContext;
 
     public void start(BundleContext context) throws Exception {
-	ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER
+	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 		new Object[] { "Starting the Deploymanager..." }, null);
@@ -84,16 +85,35 @@ public class Activator implements BundleActivator, ManagedService {
 	deployManager.init();
 	uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
 		deployManager, new Object[] { DeployManager.class.getName() });
-
     }
 
     public void stop(BundleContext context) throws Exception {
 	deployManager.dispose();
+	myRegistration.unregister();
     }
 
     public void updated(Dictionary properties) throws ConfigurationException {
 	deployManager.loadConfigurations(properties);
-	myRegistration.setProperties(properties);
+	if (myRegistration == null) {
+	    LogUtils
+		    .logDebug(
+			    moduleContext,
+			    Activator.class,
+			    "updated",
+			    new Object[] { "Race Condition: the ServiceRegistration"
+				    + " is not yet initialized, waiting for registerService." },
+			    null);
+	    int numLoops = 20;
+	    while (myRegistration == null && numLoops != 0) {
+		numLoops--;
+		try {
+		    Thread.sleep(500);
+		} catch (InterruptedException e) {
+		    e.printStackTrace();
+		}
+	    }
+	}
+	if (myRegistration != null)
+	    myRegistration.setProperties(properties);
     }
-
 }

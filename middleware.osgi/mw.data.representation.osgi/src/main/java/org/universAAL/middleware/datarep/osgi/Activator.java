@@ -74,6 +74,7 @@ public final class Activator implements BundleActivator, ManagedService {
      */
     public void stop(BundleContext context) throws Exception {
 	SharedResources.unloadReasoningEngine();
+	registration.unregister();
     }
 
     /**
@@ -100,7 +101,27 @@ public final class Activator implements BundleActivator, ManagedService {
 	if (properties == null)
 	    log("updated", "-- WARNING: properties is null");
 
-	registration.setProperties(properties);
+	if (registration == null) {
+	    LogUtils
+		    .logDebug(
+			    SharedResources.moduleContext,
+			    Activator.class,
+			    "updated",
+			    new Object[] { "Race Condition: the ServiceRegistration"
+				    + " is not yet initialized, waiting for registerService." },
+			    null);
+	    int numLoops = 20;
+	    while (registration == null && numLoops != 0) {
+		numLoops--;
+		try {
+		    Thread.sleep(500);
+		} catch (InterruptedException e) {
+		    e.printStackTrace();
+		}
+	    }
+	}
+	if (registration != null)
+	    registration.setProperties(properties);
 	log("updated", "..updated done.");
     }
 }
