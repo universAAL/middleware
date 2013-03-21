@@ -50,9 +50,10 @@ public class Activator implements BundleActivator, ManagedService {
     private static String SERVICE_PID = "mw.managers.aalspace.core";
     private AALSpaceManager spaceManager;
     private ServiceRegistration myRegistration;
+    private ModuleContext moduleContext;
 
     public void start(BundleContext context) throws Exception {
-	ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER
+	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	BundleConfigHome confHome = new BundleConfigHome(moduleContext.getID());
 	spaceManager = new AALSpaceManagerImpl(moduleContext,
@@ -95,12 +96,31 @@ public class Activator implements BundleActivator, ManagedService {
     public void stop(BundleContext context) throws Exception {
 	spaceManager.dispose();
 	myRegistration.unregister();
-
     }
 
     public void updated(Dictionary properties) throws ConfigurationException {
 	spaceManager.loadConfigurations(properties);
-	myRegistration.setProperties(properties);
+	if (myRegistration == null) {
+	    LogUtils
+		    .logDebug(
+			    moduleContext,
+			    Activator.class,
+			    "updated",
+			    new Object[] { "Race Condition: the ServiceRegistration"
+				    + " is not yet initialized, waiting for registerService." },
+			    null);
+	    int numLoops = 20;
+	    while (myRegistration == null && numLoops != 0) {
+		numLoops--;
+		try {
+		    Thread.sleep(500);
+		} catch (InterruptedException e) {
+		    e.printStackTrace();
+		}
+	    }
+	}
+	if (myRegistration != null)
+	    myRegistration.setProperties(properties);
 	// spaceManager.init();
     }
 }
