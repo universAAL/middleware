@@ -13,12 +13,12 @@ public class DeployPayload extends Payload {
 
     private byte[] part;
     private static final long serialVersionUID = 4155680139788101950L;
-    private UAPPCard mpaCard;
+    private UAPPCard uappCard;
 
     public DeployPayload(byte[] part, UAPPCard mpaCard) {
 
 	this.part = part;
-	this.mpaCard = mpaCard;
+	this.uappCard = mpaCard;
     }
 
     public byte[] getPart() {
@@ -29,12 +29,12 @@ public class DeployPayload extends Payload {
 	this.part = part;
     }
 
-    public UAPPCard getMpaCard() {
-	return mpaCard;
+    public UAPPCard getuappCard() {
+	return uappCard;
     }
 
-    public void setMpaCard(UAPPCard mpaCard) {
-	this.mpaCard = mpaCard;
+    public void setuappCard(UAPPCard mpaCard) {
+	this.uappCard = mpaCard;
     }
 
 }

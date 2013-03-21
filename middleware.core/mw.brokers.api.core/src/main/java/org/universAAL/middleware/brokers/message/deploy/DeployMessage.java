@@ -70,11 +70,11 @@ public class DeployMessage implements BrokerMessage {
 	    obj.put(DeployMessageFields.DEPLOY_MTYPE,
 		    deployMessageType.toString());
 
-	    // marshall MPA Card
-	    obj.put(DeployMessageFields.MPA_NAME, payload.getMpaCard()
+	    // marshall uAPP Card
+	    obj.put(DeployMessageFields.UAPP_NAME, payload.getuappCard()
 		    .getName());
-	    obj.put(DeployMessageFields.MPA_ID, payload.getMpaCard().getId());
-	    obj.put(DeployMessageFields.MPA_DESC, payload.getMpaCard()
+	    obj.put(DeployMessageFields.UAPP_ID, payload.getuappCard().getId());
+	    obj.put(DeployMessageFields.UAPP_DESC, payload.getuappCard()
 		    .getDescription());
 
 	    // marhall payload
@@ -92,11 +92,11 @@ public class DeployMessage implements BrokerMessage {
 
 		DeployNotificationPayload deployNoPayload = (DeployNotificationPayload) payload;
 
-		// marhsall MPA PArt ID
+		// marhsall uAPP PArt ID
 		obj.put(DeployMessageFields.PART_ID,
 			deployNoPayload.getPartID());
 
-		// Marshall MPA part status
+		// Marshall UAPP part status
 		obj.put(DeployMessageFields.PART_STATUS, deployNoPayload
 			.getMpaPartStatus().ordinal());
 
