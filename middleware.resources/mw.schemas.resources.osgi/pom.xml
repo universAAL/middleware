@@ -23,7 +23,7 @@
 	<groupId>org.universAAL.middleware</groupId>
 	<artifactId>mw.schemas</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.3.2-SNAPSHOT</version>
 	<name>MW XSD Schema </name>
 
 	<url>http://universaal.org/</url>
