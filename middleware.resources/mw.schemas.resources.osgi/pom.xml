@@ -15,9 +15,9 @@
 
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.pom</artifactId>
+		<artifactId>mw.pom.osgi</artifactId>
 		<version>1.3.2-SNAPSHOT</version>
-		<relativePath>../../middleware.pom</relativePath>
+		<relativePath>../../middleware.osgi/mw.pom.osgi</relativePath>
 	</parent>
 
 	<groupId>org.universAAL.middleware</groupId>
