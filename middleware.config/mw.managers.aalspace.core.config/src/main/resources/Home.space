@@ -173,7 +173,6 @@
             
       ]]></aalChannel:channelValue>
     </channel-descriptor>
-  <communicationChannels>
     <channel-descriptor>
       <aalChannel:channelName>mw.brokers.control.osgi</aalChannel:channelName>
       <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
