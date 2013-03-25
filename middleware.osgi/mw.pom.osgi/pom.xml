@@ -17,7 +17,7 @@
 	<description>The set of artefacts realizing the universAAL middleware 2.0 (OSGi)</description>
 
 	<modules>
-		<module>../../middleware.resources/mw.schemas.resources.osgi</module>
+		<module>../../middleware.resources/mw.schemas</module>
 		<module>../mw.container.xfaces.osgi</module>
 		<module>../mw.container.osgi</module>
 		<module>../mw.interfaces.osgi</module>
