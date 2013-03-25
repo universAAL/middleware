@@ -173,6 +173,7 @@
             
       ]]></aalChannel:channelValue>
     </channel-descriptor>
+        <!--Channel used by the context bus-->
     <channel-descriptor>
       <aalChannel:channelName>mw.bus.context.osgi</aalChannel:channelName>
       <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
@@ -256,6 +257,28 @@
       ]]>
       </aalChannel:channelValue>
     </channel-descriptor>
+    <!--Channel used by the model bus-->
+    <channel-descriptor>
+      <aalChannel:channelName>mw.bus.model.osgi</aalChannel:channelName>
+      <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
+    </channel-descriptor>
+        <!--Channel used by the service aapi bus-->
+    <channel-descriptor>
+      <aalChannel:channelName>mw.bus.service.aapi.osgi</aalChannel:channelName>
+      <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
+    </channel-descriptor>
+            <!--Channel used by the tracker bus-->
+    <channel-descriptor>
+      <aalChannel:channelName>mw.bus.tracker.osgi</aalChannel:channelName>
+      <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
+    </channel-descriptor>
+    <!--Channel used by the tracker bus-->
+    <channel-descriptor>
+      <aalChannel:channelName>mw.bus.ui.osgi</aalChannel:channelName>
+      <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
+    </channel-descriptor>
+
+        <!--Channel used by the service bus-->
         <channel-descriptor>
       <aalChannel:channelName>mw.bus.service.osgi</aalChannel:channelName>
       <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
