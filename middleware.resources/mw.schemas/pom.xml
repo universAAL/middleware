@@ -72,19 +72,4 @@
 		<name>universAAL Consortium</name>
 		<url>http://universaal.org/</url>
 	</organization>
-
-	<distributionManagement>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>uAAL-release-repo</id>
-			<name>universAAL Release Nexus Repository</name>
-			<url>http://depot.universaal.org/maven-repo/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<uniqueVersion>true</uniqueVersion>
-			<id>uAAL-snapshot-repo</id>
-			<name>universAAL Snapshots Nexus Repository</name>
-			<url>http://depot.universaal.org/maven-repo/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>
