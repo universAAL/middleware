@@ -273,9 +273,7 @@ public class UIBusImpl extends AbstractBus implements UIBus {
     public void unregister(String handlerID, UIHandler handler) {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o != null && o == handler) {
-	    super.unregister(handlerID
-		    .substring(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-			    .length()), handler);
+	    super.unregister(handlerID, handler);
 	    ((UIStrategy) busStrategy).removeRegParams(handlerID);
 	}
     }

@@ -1849,7 +1849,6 @@ public class ServiceStrategy extends BusStrategy {
 
     private void notifySubscriber(AvailabilitySubscription as,
 	    String realizationID, boolean registers) {
-	String peerID = Constants.extractPeerID(as.id);
 	if (bus.isValidMember(as.callerID))
 	    notifyLocalSubscriber(as.id, ((Resource) as.reqOrSubs).getURI(),
 		    realizationID, registers);
