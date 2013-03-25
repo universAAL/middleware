@@ -30,16 +30,6 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Carsten Stockloew
  */
 public class Constants {
-
-    /** Name of the context bus. */
-    public static final String uAAL_BUS_NAME_CONTEXT = "uAAL.bus.context";
-
-    /** Name of the service bus. */
-    public static final String uAAL_BUS_NAME_SERVICE = "uAAL.bus.service";
-
-    /** Name of the ui bus. */
-    public static final String uAAL_BUS_NAME_UI = "uAAL.bus.ui";
-
     // URIs of standard variables managed by the uAAL middleware
     /**
      * The URI of a standard variable managed by the uAAL middleware indicating
@@ -89,24 +79,6 @@ public class Constants {
     public static boolean debugMode() {
 	return "true".equals(SharedResources
 		.getMiddlewareProp(SharedResources.uAAL_IS_DEBUG_MODE));
-    }
-
-    /**
-     * Extract the peer ID for a given URI of a bus member.
-     * 
-     * @param busMemberURI
-     *            URI of the bus member.
-     * @return The peer ID from the URI.
-     */
-    public static String extractPeerID(String busMemberURI) {
-	if (busMemberURI == null
-		|| !busMemberURI.startsWith(uAAL_MIDDLEWARE_LOCAL_ID_PREFIX))
-	    return null;
-	int i = busMemberURI.lastIndexOf('_');
-	if (i < uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.length())
-	    return null;
-	return busMemberURI.substring(uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.length(),
-		i);
     }
 
     /**
