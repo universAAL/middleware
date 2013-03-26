@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1364292197038
+Build-Jdk: 1.6.0_38
+Built-By: michele
+Bundle-Author: Michele Girolami <michele.girolami@isti.cnr.it>,  Frances
+ co Furfari <francesco.furfari@isti.cnr.it>
+Bundle-Description: The set of artefacts realizing the universAAL middle
+ ware 2.0 (OSGi)
+Bundle-DocURL: http://www.universAAL.org/
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: universAAL Felix Commands
+Bundle-Provider: ISTI-CNR
+Bundle-SymbolicName: mw.felix.shell.universAAL.osgi
+Bundle-Vendor: universAAL Consortium
+Bundle-Version: 1.3.2.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.universAAL.middleware.felix.shell.commands;uses:="or
+ g.apache.felix.shell,org.universAAL.middleware.managers.api,org.univers
+ AAL.middleware.interfaces.aalspace,org.osgi.framework";version="1.3.2.S
+ NAPSHOT"
+Import-Package: org.apache.felix.shell;version="[1.0,2)",org.osgi.framew
+ ork;version="[1.7,2)",org.universAAL.middleware.interfaces.aalspace,org
+ .universAAL.middleware.managers.api
+Tool: Bnd-1.50.0
