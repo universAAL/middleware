@@ -35,6 +35,7 @@
 		<module>../mw.connectors.deploy.karaf.osgi</module>
 		<module>../mw.karaf.branding.osgi</module>
 		<module>../mw.karaf.shell.universAAL.osgi</module>
+		<module>../mw.felix.shell.universAAL.osgi</module>
 		<module>../mw.bus.model.osgi</module>
 		<module>../mw.data.representation.osgi</module>
 		<module>../mw.data.serialization.osgi</module>
@@ -227,6 +228,18 @@
 				<artifactId>mw.bus.tracker.osgi</artifactId>
 				<version>1.3.2-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.framework</artifactId>
+				<version>4.2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.shell</artifactId>
+				<version>1.4.3</version>
+			</dependency>
+
+
 		</dependencies>
 	</dependencyManagement>
 
