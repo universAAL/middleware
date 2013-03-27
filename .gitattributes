@@ -328,9 +328,6 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/impl/ResourceFactoryImpl.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/serialization/MessageContentSerializer.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/serialization/MessageContentSerializerEx.java -text
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/serialization/RDFSerializationResult.java -text
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/serialization/RDFSerializer.java -text
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/serialization/TurtleSerializerImpl.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/Constants.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/IntAggregator.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/RatingAggregator.java -text
