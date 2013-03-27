@@ -1298,7 +1298,9 @@ public class ServiceStrategy extends BusStrategy {
 			    if (Boolean.TRUE.equals(otherMatch
 				    .get(CONTEXT_SPECIALIZED_INSTANCE_MATCH)))
 				sp1 += 2;
-			    if (sp1 < sp0 || otherMatch.size() > match.size())
+			    if (sp1 < sp0
+				    || (sp1 == sp0 && otherMatch.size() > match
+					    .size()))
 				auxMap.put(sr.getProvider(), match);
 			}
 		    }
