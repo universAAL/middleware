@@ -117,8 +117,47 @@ public class GraphIteratorTest extends TestCase {
 	verify();
     }
 
+    public void test3() {
+	init();
+
+	add(0, 0, 1);
+	add(0, 1, 1);
+	add(0, 2, 2);
+	add(1, 2, 2);
+
+	// test without cycles
+	Set resources2 = new HashSet(resources);
+	Iterator it = GraphIterator.getResourceIterator(r[0]);
+	while (it.hasNext()) {
+	    Resource r = (Resource) it.next();
+	    //System.out.println(r.getURI());
+	    assertTrue(resources2.contains(r));
+	    resources2.remove(r);
+	}
+	assertTrue(resources2.isEmpty());
+
+	add(2, 3, 0);
+	add(r[1], p[4], Integer.valueOf(42));
+	ArrayList arr = new ArrayList();
+	arr.add(r[0]);
+	arr.add(r[2]);
+	arr.add(r[3]);
+	add(r[1], p[5], arr);
+
+	// test without cycles (and list and literal)
+	resources2 = new HashSet(resources);
+	it = GraphIterator.getResourceIterator(r[0]);
+	while (it.hasNext()) {
+	    Resource r = (Resource) it.next();
+	    //System.out.println(r.getURI());
+	    assertTrue(resources2.contains(r));
+	    resources2.remove(r);
+	}
+	assertTrue(resources2.isEmpty());
+    }
+
     /*
-     * public void test3() { for (int loops = 0; loops < 500; loops++) { init();
+     * public void test4() { for (int loops = 0; loops < 500; loops++) { init();
      * 
      * resources.add(r[0]); for (int iRes = 0; iRes < 50; iRes++) { int numProps
      * = (int) (Math.random() * 6); Resource res = (Resource)
