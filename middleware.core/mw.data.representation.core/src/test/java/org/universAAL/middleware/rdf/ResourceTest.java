@@ -1,5 +1,10 @@
 package org.universAAL.middleware.rdf;
 
+import org.universAAL.middleware.owl.MaxCardinalityRestriction;
+import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.MinCardinalityRestriction;
+import org.universAAL.middleware.util.ResourceComparator;
+
 import junit.framework.TestCase;
 
 public class ResourceTest extends TestCase {
@@ -49,5 +54,26 @@ public class ResourceTest extends TestCase {
 	r.setResourceLabel("mylabel");
 	assertTrue("mylabel".equals(r.getOrConstructLabel(null)));
 	assertTrue("mylabel".equals(r.getOrConstructLabel("ylksdf")));
+    }
+
+    public void testDeepCopy() {
+	Resource r1 = new Resource();
+	Resource r2 = r1.deepCopy();
+	assertTrue((new ResourceComparator()).areEqual(r1, r2));
+
+	r1.setProperty("testprop",
+		new MergedRestriction("onProperty").addRestriction(
+			new MinCardinalityRestriction("onProperty", 32))
+			.addRestriction(
+				new MaxCardinalityRestriction("onProperty", 42)
+
+			));
+	r1.setProperty("testprop2", Integer.valueOf(1));
+	r1.setProperty("testprop3", r1);
+	r2 = r1.deepCopy();
+	
+	//System.out.println(r1.toStringRecursive());
+	//System.out.println(r2.toStringRecursive());
+	assertTrue((new ResourceComparator()).areEqual(r1, r2));
     }
 }
