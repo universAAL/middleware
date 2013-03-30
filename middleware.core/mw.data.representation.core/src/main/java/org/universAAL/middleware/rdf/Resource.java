@@ -21,6 +21,7 @@ package org.universAAL.middleware.rdf;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +30,8 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.owl.OntologyManagement;
+import org.universAAL.middleware.owl.TypeExpressionFactory;
+import org.universAAL.middleware.util.GraphIterator;
 import org.universAAL.middleware.util.ResourceComparator;
 
 /**
@@ -464,25 +467,79 @@ public class Resource {
 
     /**
      * Create a deep copy of this Resource, i.e. create a new Resource for this
-     * object (only a Resource, but not a derived class) and for the resources
-     * of all properties.<br>
-     * Currently, only resources are copies, but not list of resources.
+     * object and for the resources of all properties. The copied resources are
+     * specialized according to the type information stored in the rdf:type
+     * property.
      * 
      * @return The copied Resource.
      */
-    // TODO: only resources are copied, but not list of resources.
-    // TODO: will create an infinite loop for cycles.
     public Resource deepCopy() {
-	Resource copy = new Resource(uri, isXMLLiteral);
-	copy.blockAddingTypes = blockAddingTypes;
-	for (Enumeration e = props.keys(); e.hasMoreElements();) {
-	    Object key = e.nextElement();
-	    Object value = props.get(key);
-	    if (value instanceof Resource)
-		value = ((Resource) value).deepCopy();
-	    copy.props.put(key, value);
+	HashMap specialized = new HashMap();
+
+	// iterate over all Resources and specialize
+	Iterator it = GraphIterator.getResourceIterator(this);
+	while (it.hasNext()) {
+	    Resource r = (Resource) it.next();
+	    Resource spec = null;
+
+	    String[] types = r.getTypes();
+	    if (types == null || types.length == 0) {
+		// no type info -> this resource cannot be specialized
+	    } else {
+		String type = OntologyManagement.getInstance()
+			.getMostSpecializedClass(types);
+		if (type == null) {
+		    spec = TypeExpressionFactory.specialize(r);
+		} else {
+		    spec = OntologyManagement.getInstance().getResource(type,
+			    r.getURI());
+		}
+	    }
+	    if (spec == null) {
+		// the resource cannot be specialized
+		specialized.put(r, r);
+	    } else {
+		specialized.put(r, spec);
+	    }
 	}
-	return copy;
+
+	// copy the properties to the specialized resources
+	it = specialized.keySet().iterator();
+	while (it.hasNext()) {
+	    Resource r = (Resource) it.next();
+	    Resource spec = (Resource) specialized.get(r);
+
+	    spec.blockAddingTypes = r.blockAddingTypes;
+	    spec.isXMLLiteral = r.isXMLLiteral;
+
+	    for (Enumeration e = r.props.keys(); e.hasMoreElements();) {
+		Object propURI = e.nextElement();
+		Object value = r.props.get(propURI);
+		if (value instanceof Resource) {
+		    value = (Resource) specialized.get(value);
+		} else if (value instanceof List) {
+		    List list;
+		    if (value instanceof ClosedCollection)
+			list = new ClosedCollection();
+		    else if (value instanceof OpenCollection)
+			list = new OpenCollection();
+		    else
+			list = new ArrayList();
+
+		    Iterator itList = ((List) value).iterator();
+		    while (itList.hasNext()) {
+			Object elList = itList.next();
+			if (elList instanceof Resource)
+			    elList = specialized.get(elList);
+			list.add(elList);
+		    }
+		    value = list;
+		}
+		spec.props.put(propURI, value);
+	    }
+	}
+
+	return (Resource) specialized.get(this);
     }
 
     /** Determines if this Resource equals the specified Resource. */
