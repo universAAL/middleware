@@ -39,12 +39,12 @@ public class GraphIterator implements Iterator {
      * The set of resources that have been visited before. During iteration,
      * this will be used to avoid endless loop in case of cycles.
      */
-    private Set visitedResources = new HashSet();
+    protected Set visitedResources = new HashSet();
 
     /**
      * The current information at a certain depth.
      */
-    private StackElement se;
+    protected StackElement se;
 
     /**
      * The stack contains information for previous depth. When going one level
@@ -52,18 +52,18 @@ public class GraphIterator implements Iterator {
      * enumerator of properties, is stored in the stack to be restored when all
      * child nodes have been processed.
      */
-    private Stack stack = new Stack();
+    protected Stack stack = new Stack();
 
     /**
      * The next element as being returned by {@link #next()}. It can be
      * calculated by {@link #next()} and by {@link #hasNext()}.
      */
-    private GraphIteratorElement nextElement = null;
+    protected GraphIteratorElement nextElement = null;
 
     /**
      * Element to be stored in the stack.
      */
-    private class StackElement {
+    protected class StackElement {
 	/** The parent node. */
 	Resource nodeParent;
 
@@ -101,16 +101,67 @@ public class GraphIterator implements Iterator {
 	Object lstElement = null;
     }
 
-    private GraphIterator(Resource root) {
+    /**
+     * A specialized iterator to iterate only over instances of {@link Resource}
+     * .
+     */
+    protected class GraphIteratorResources extends GraphIterator {
+	boolean first = true;
+	protected Set visitedResources = new HashSet();
+
+	GraphIteratorResources(Resource root) {
+	    super(root);
+	}
+
+	protected void createNext() {
+	    if (first)
+		return;
+
+	    while (true) {
+		super.createNext();
+		if (nextElement == null)
+		    return;
+		if (nextElement.getObject() instanceof Resource) {
+		    if (!visitedResources.contains(nextElement.getObject()))
+			return;
+		}
+		// force createNext
+		nextElement = null;
+	    }
+	}
+
+	public boolean hasNext() {
+	    if (first)
+		return true;
+	    return super.hasNext();
+	}
+
+	public Object next() {
+	    if (first) {
+		first = false;
+		visitedResources.add(se.nodeParent);
+		return se.nodeParent;
+	    } else {
+		GraphIteratorElement el = (GraphIteratorElement) super.next();
+		if (el == null)
+		    return null;
+		visitedResources.add(el.getObject());
+		return el.getObject();
+	    }
+	}
+    }
+
+    protected GraphIterator(Resource root) {
 	stepDeeper(root);
     }
 
     /**
-     * Create a new Iterator.
+     * Create a new Iterator that iterates over all triples. The return value of
+     * {@link #next()} is of type {@link GraphIteratorElement}.
      * 
      * @param root
      *            the {@link Resource} that is the root of the graph.
-     * @return an {@link Iterator} to iterate over elements of the list.
+     * @return an {@link Iterator} to iterate over elements of the graph.
      */
     public static Iterator getIterator(Resource root) {
 	if (root == null)
@@ -119,13 +170,28 @@ public class GraphIterator implements Iterator {
 	return new GraphIterator(root);
     }
 
+    /**
+     * Create a new Iterator that iterates over all Resources. The return value
+     * of {@link #next()} is of type {@link Resource}.
+     * 
+     * @param root
+     *            the {@link Resource} that is the root of the graph.
+     * @return an {@link Iterator} to iterate over elements of the graph.
+     */
+    public static Iterator getResourceIterator(Resource root) {
+	if (root == null)
+	    throw new NullPointerException(
+		    "The argument of a GraphIterator can not be null.");
+	return (new GraphIterator(root)).new GraphIteratorResources(root);
+    }
+
     // this is as a separate method so that it can be overwritten, e.g. to
     // provide a sorted list of properties
-    private Enumeration getPropertyEnumeration(Resource r) {
+    protected Enumeration getPropertyEnumeration(Resource r) {
 	return r.getPropertyURIs();
     }
 
-    private void stepDeeper(Resource root) {
+    protected void stepDeeper(Resource root) {
 	visitedResources.add(root.getURI());
 	StackElement newSe = new StackElement();
 	newSe.nodeParent = root;
@@ -139,14 +205,14 @@ public class GraphIterator implements Iterator {
 	se = newSe;
     }
 
-    private boolean stepHigher() {
+    protected boolean stepHigher() {
 	if (stack.isEmpty())
 	    return false;
 	se = (StackElement) stack.pop();
 	return true;
     }
 
-    private void createResult() {
+    protected void createResult() {
 	if (se.nodeChild instanceof List)
 	    nextElement = new GraphIteratorElement(se.nodeParent, se.propURI,
 		    se.lstElement, se.depth, true, se.lstIndex,
@@ -156,7 +222,7 @@ public class GraphIterator implements Iterator {
 		    se.nodeChild, se.depth, false, 0, null);
     }
 
-    private void createNext() {
+    protected void createNext() {
 	if (nextElement != null)
 	    return;
 
@@ -227,8 +293,8 @@ public class GraphIterator implements Iterator {
 
     /**
      * @see java.util.Iterator#next()
-     * @return the next element of the graph as instance of
-     *         {@link GraphIteratorElement}.
+     * @return the next element of the iterator. The type of the return value
+     *         depends on the type of the iterator.
      */
     public Object next() {
 	createNext();
