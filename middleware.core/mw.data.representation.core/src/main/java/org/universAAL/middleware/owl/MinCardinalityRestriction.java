@@ -55,7 +55,7 @@ public class MinCardinalityRestriction extends PropertyRestriction {
     MinCardinalityRestriction() {
     }
 
-    MinCardinalityRestriction(String propURI, int value) {
+    public MinCardinalityRestriction(String propURI, int value) {
 	if (propURI == null)
 	    throw new NullPointerException();
 	if (value < 0)
@@ -67,7 +67,7 @@ public class MinCardinalityRestriction extends PropertyRestriction {
 		value));
     }
 
-    MinCardinalityRestriction(String propURI, int value, TypeExpression ce) {
+    public MinCardinalityRestriction(String propURI, int value, TypeExpression ce) {
 	throw new UnsupportedOperationException("Not yet implemented");
 	// setOnProperty(propURI);
 	// super.setProperty(PROP_OWL_MIN_QUALIFIED_CARDINALITY, new
