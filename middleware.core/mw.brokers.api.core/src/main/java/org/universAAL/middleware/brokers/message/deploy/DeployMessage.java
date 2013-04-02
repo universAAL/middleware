@@ -1,22 +1,22 @@
-/*	
-	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+/*
+        Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
+        Institute of Information Science and Technologies
+        of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
-	information regarding copyright ownership
+        See the NOTICE file distributed with this work for additional
+        information regarding copyright ownership
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
 
-	  http://www.apache.org/licenses/LICENSE-2.0
+          http://www.apache.org/licenses/LICENSE-2.0
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
  */
 package org.universAAL.middleware.brokers.message.deploy;
 
@@ -28,14 +28,14 @@ import org.universAAL.middleware.interfaces.PeerCard;
 
 /**
  * Deploy message
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class DeployMessage implements BrokerMessage {
 
     public enum DeployMessageType {
-	REQUEST_TO_INSTALL_PART, REQUEST_TO_UNINSTALL_PART, PART_NOTIFICATION;
+        REQUEST_TO_INSTALL_PART, REQUEST_TO_UNINSTALL_PART, PART_NOTIFICATION;
 
     }
 
@@ -45,88 +45,88 @@ public class DeployMessage implements BrokerMessage {
 
     public DeployMessage(DeployMessageType messageType, DeployPayload payload) {
 
-	this.deployMessageType = messageType;
-	this.payload = payload;
-	this.mType = BrokerMessageTypes.DeployMessage;
+        this.deployMessageType = messageType;
+        this.payload = payload;
+        this.mType = BrokerMessageTypes.DeployMessage;
     }
 
     public DeployMessageType getMessageType() {
-	return deployMessageType;
+        return deployMessageType;
     }
 
     public void setMessageType(DeployMessageType messageType) {
-	this.deployMessageType = messageType;
+        this.deployMessageType = messageType;
     }
 
     public String toString() {
-	JSONObject obj = new JSONObject();
+        JSONObject obj = new JSONObject();
 
-	try {
+        try {
 
-	    // marhall the type
-	    obj.put(BrokerMessageFields.BROKER_MESSAGE_TYPE, mType.toString());
+            // marhall the type
+            obj.put(BrokerMessageFields.BROKER_MESSAGE_TYPE, mType.toString());
 
-	    // marhall deploy message type
-	    obj.put(DeployMessageFields.DEPLOY_MTYPE,
-		    deployMessageType.toString());
+            // marhall deploy message type
+            obj.put(DeployMessageFields.DEPLOY_MTYPE,
+                    deployMessageType.toString());
 
-	    // marshall uAPP Card
-	    obj.put(DeployMessageFields.UAPP_NAME, payload.getuappCard()
-		    .getName());
-	    obj.put(DeployMessageFields.UAPP_ID, payload.getuappCard().getId());
-	    obj.put(DeployMessageFields.UAPP_DESC, payload.getuappCard()
-		    .getDescription());
+            // marshall uAPP Card
+            obj.put(DeployMessageFields.UAPP_NAME, payload.getuappCard()
+                    .getName());
+            obj.put(DeployMessageFields.UAPP_ID, payload.getuappCard().getId());
+            obj.put(DeployMessageFields.UAPP_DESC, payload.getuappCard()
+                    .getDescription());
 
-	    // marhall payload
-	    if (payload != null
-		    && payload instanceof DeployNotificationPayload == false) {
-		obj.put(DeployMessageFields.DEPLOY_PAYLOAD, "1");
+            // marhall payload
+            if (payload != null
+                    && payload instanceof DeployNotificationPayload == false) {
+                obj.put(DeployMessageFields.DEPLOY_PAYLOAD, "1");
 
-		// marshall the part as a String
-		obj.put(DeployMessageFields.PART, new String(payload.getPart()));
+                // marshall the part as a String
+                obj.put(DeployMessageFields.PART, new String(payload.getPart()));
 
-	    } else if (payload != null
-		    && payload instanceof DeployNotificationPayload) {
+            } else if (payload != null
+                    && payload instanceof DeployNotificationPayload) {
 
-		obj.put(DeployMessageFields.DEPLOY_PAYLOAD, "2");
+                obj.put(DeployMessageFields.DEPLOY_PAYLOAD, "2");
 
-		DeployNotificationPayload deployNoPayload = (DeployNotificationPayload) payload;
+                DeployNotificationPayload deployNoPayload = (DeployNotificationPayload) payload;
 
-		// marhsall uAPP PArt ID
-		obj.put(DeployMessageFields.PART_ID,
-			deployNoPayload.getPartID());
+                // marhsall uAPP PArt ID
+                obj.put(DeployMessageFields.PART_ID,
+                        deployNoPayload.getPartID());
 
-		// Marshall UAPP part status
-		obj.put(DeployMessageFields.PART_STATUS, deployNoPayload
-			.getMpaPartStatus().ordinal());
+                // Marshall UAPP part status
+                obj.put(DeployMessageFields.PART_STATUS, deployNoPayload
+                        .getMpaPartStatus().ordinal());
 
-	    }
+            }
 
-	} catch (JSONException e) {
-	    new DeployMessageException("Unable to unmarshall message: "
-		    + e.toString());
-	} catch (Exception e) {
-	    new DeployMessageException("Unable to unmarshall message: "
-		    + e.toString());
-	}
-	return obj.toString();
+        } catch (JSONException e) {
+            new DeployMessageException("Unable to unmarshall message: "
+                    + e.toString(), e);
+        } catch (Exception e) {
+            new DeployMessageException("Unable to unmarshall message: "
+                    + e.toString(), e);
+        }
+        return obj.toString();
     }
 
     public DeployPayload getPayload() {
-	return payload;
+        return payload;
 
     }
 
     public BrokerMessageTypes getMType() {
-	return mType;
+        return mType;
     }
 
     /**
      * To implement
      */
     public PeerCard[] getReceivers() {
-	// TODO Auto-generated method stub
-	return null;
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

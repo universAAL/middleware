@@ -44,6 +44,8 @@ middleware.core/mw.brokers.control.core/LICENSE.txt -text
 middleware.core/mw.brokers.control.core/NOTICE.txt -text
 middleware.core/mw.brokers.control.core/pom.xml -text
 middleware.core/mw.brokers.control.core/src/main/java/org/universAAL/middleware/brokers/control/ControlBroker.java -text
+middleware.core/mw.brokers.control.core/src/main/java/org/universAAL/middleware/brokers/control/ExceptionUtils.java svneol=native#text/plain
+middleware.core/mw.brokers.control.core/src/main/java/org/universAAL/middleware/brokers/control/FileUtils.java svneol=native#text/plain
 middleware.core/mw.bus.context.core/ASL2.0.txt -text
 middleware.core/mw.bus.context.core/MITX.txt -text
 middleware.core/mw.bus.context.core/NOTICE.txt -text
