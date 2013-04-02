@@ -21,12 +21,12 @@
 package org.universAAL.middleware.brokers.control;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Set;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.universAAL.middleware.brokers.Broker;
@@ -642,12 +642,15 @@ public class ControlBroker implements SharedObjectListener, Broker,
         // I'm the target node install the part locally
         if (targetNode.getPeerID().equals(
                 aalSpaceManager.getMyPeerCard().getPeerID())) {
-            File file = FileUtils.createFileFromByte(context, zippedPart, TMP_DEPLOY_FOLDER + "part", false) ;
-            if ( file == null ){
+            File file = FileUtils.createFileFromByte(context, zippedPart,
+                    TMP_DEPLOY_FOLDER + "part", false);
+            if (file == null) {
                 LogUtils.logError(
-                        context, ControlBroker.class, METHOD,
-                        new Object[] { "Error while installing artifact locally: unable to create file"}, null
-                );
+                        context,
+                        ControlBroker.class,
+                        METHOD,
+                        new Object[] { "Error while installing artifact locally: unable to create file" },
+                        null);
             }
             deployConnector.installPart(file, uAPPCard);
         } else {
@@ -754,17 +757,23 @@ public class ControlBroker implements SharedObjectListener, Broker,
                                 "controlBroker",
                                 new Object[] { "Request to install artefact. Passig it to the DeployConnector" },
                                 null);
-                        if (deployMessage.getPayload() != null && deployMessage.getPayload().getPart() != null) {
-                            File file = FileUtils.createFileFromByte(context, deployMessage.getPayload().getPart(), "part", false);
-                            if ( file == null ){
+                        if (deployMessage.getPayload() != null
+                                && deployMessage.getPayload().getPart() != null) {
+                            File file = FileUtils.createFileFromByte(context,
+                                    deployMessage.getPayload().getPart(),
+                                    "part", false);
+                            if (file == null) {
                                 LogUtils.logError(
-                                        context, ControlBroker.class, METHOD,
-                                        new Object[] { "Error while extracing artifact from message: unable to create file"}, null
-                                );
+                                        context,
+                                        ControlBroker.class,
+                                        METHOD,
+                                        new Object[] { "Error while extracing artifact from message: unable to create file" },
+                                        null);
                             }
-                            deployConnector.installPart(file, deployMessage.getPayload().getuappCard());
+                            deployConnector.installPart(file, deployMessage
+                                    .getPayload().getuappCard());
                         }
-                        break; //TODO Ask michele if it was missing by reason
+                        break; // TODO Ask michele if it was missing by reason
                     case PART_NOTIFICATION:
                         LogUtils.logDebug(
                                 context,
@@ -938,7 +947,17 @@ public class ControlBroker implements SharedObjectListener, Broker,
             mtype = BrokerMessageTypes.valueOf(obj
                     .getString(BrokerMessageFields.BROKER_MESSAGE_TYPE));
         } catch (JSONException e) {
-            return null;
+            final String MSG = "Unable to unmarshall message due to JSON parsing issue, while retriving file "
+                    + BrokerMessageFields.BROKER_MESSAGE_TYPE + ":";
+            LogUtils.logDebug(context, ControlBroker.class, "unmarshall",
+                    new Object[] { MSG + e }, e);
+            LogUtils.logDebug(
+                    context,
+                    ControlBroker.class,
+                    "unmarshall",
+                    new Object[] { MSG + ExceptionUtils.stackTraceAsString(e) },
+                    e);
+            new DeployMessageException(MSG + e.toString(), e);
         }
         switch (mtype) {
         case DeployMessage:
@@ -966,8 +985,14 @@ public class ControlBroker implements SharedObjectListener, Broker,
                 if (payloadType == 1) {
 
                     // unmarhall DeployPayload
-                    byte[] thePart = obj.getString(DeployMessageFields.PART)
-                            .getBytes();
+                    // byte[] thePart =
+                    // obj.getString(DeployMessageFields.PART).getBytes();
+                    JSONArray bytes = obj
+                            .getJSONArray(DeployMessageFields.PART).getJSONArray(0);
+                    byte[] thePart = new byte[bytes.length()];
+                    for (int i = 0; i < thePart.length; i++) {
+                        thePart[i] = (byte) bytes.getInt(i);
+                    }
                     deployPayload = new DeployPayload(thePart, mpaCard);
 
                 } else if (payloadType == 2) {
@@ -985,11 +1010,27 @@ public class ControlBroker implements SharedObjectListener, Broker,
                         deployPayload);
 
             } catch (JSONException e) {
-                new DeployMessageException("Unable to unmarshall message: "
-                        + e.toString());
+                final String MSG = "Unable to unmarshall message due to JSON parsing issue:";
+                LogUtils.logDebug(context, ControlBroker.class, "unmarshall",
+                        new Object[] { MSG + e }, e);
+                LogUtils.logDebug(
+                        context,
+                        ControlBroker.class,
+                        "unmarshall",
+                        new Object[] { MSG
+                                + ExceptionUtils.stackTraceAsString(e) }, e);
+                new DeployMessageException(MSG + e.toString(), e);
             } catch (Exception e) {
-                new DeployMessageException("Unable to unmarshall message: "
-                        + e.toString());
+                final String MSG = "Unable to unmarshall message due to generic error: ";
+                LogUtils.logDebug(context, ControlBroker.class, "unmarshall",
+                        new Object[] { MSG + e }, e);
+                LogUtils.logDebug(
+                        context,
+                        ControlBroker.class,
+                        "unmarshall",
+                        new Object[] { MSG
+                                + ExceptionUtils.stackTraceAsString(e) }, e);
+                new DeployMessageException(MSG + e.toString(), e);
             }
             return deployMessage;
 
