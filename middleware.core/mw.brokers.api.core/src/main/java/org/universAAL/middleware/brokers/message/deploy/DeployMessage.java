@@ -20,6 +20,9 @@
  */
 package org.universAAL.middleware.brokers.message.deploy;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
@@ -31,6 +34,9 @@ import org.universAAL.middleware.interfaces.PeerCard;
  *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @version $LastChangedRevision$ ($LastChangedDate$)
+ *
  */
 public class DeployMessage implements BrokerMessage {
 
@@ -83,8 +89,8 @@ public class DeployMessage implements BrokerMessage {
                 obj.put(DeployMessageFields.DEPLOY_PAYLOAD, "1");
 
                 // marshall the part as a String
-                obj.put(DeployMessageFields.PART, new String(payload.getPart()));
-
+                //obj.put(DeployMessageFields.PART, new String(payload.getPart()).getBytes("UTF-8"));
+                obj.put(DeployMessageFields.PART, Arrays.asList( payload.getPart() ) );
             } else if (payload != null
                     && payload instanceof DeployNotificationPayload) {
 
