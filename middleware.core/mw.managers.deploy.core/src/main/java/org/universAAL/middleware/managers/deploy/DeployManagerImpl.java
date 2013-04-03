@@ -86,14 +86,14 @@ public class DeployManagerImpl implements DeployManager,
 
     // Configuration param configured with default value
     private String uappSuffix = ".uapp";
-    private String deployDir = "etc/deploy";
+    private String deployDir = "etc" + File.separator + "deploy";
     private String APPLICATION_CONFIGURATION_PATH = "config";
     private String APPLICATION_BINARYPART_PATH = "bin";
     private static String TMP_DEPLOY_DIR = "tmp";
 
-    private final String DM_ROOT_DIR = "etc" + File.pathSeparator + "uAAL"
-            + File.pathSeparator + "dm";
-    private final String APP_REGISTRY = DM_ROOT_DIR + File.pathSeparator
+    private final String DM_ROOT_DIR = "etc" + File.separator + "uAAL"
+            + File.separator + "dm";
+    private final String APP_REGISTRY = DM_ROOT_DIR + File.separator
             + "installation.registry";
 
     // JAXB
@@ -610,11 +610,11 @@ public class DeployManagerImpl implements DeployManager,
         try {
             // create the zip file in a tmp dir
             zippedPart = new File(deployDir + File.separatorChar
-                    + TMP_DEPLOY_DIR + File.separatorChar + "part.zip");
+                    + TMP_DEPLOY_DIR + File.separator + "part.zip");
             out = new ZipOutputStream(new FileOutputStream(zippedPart));
             // pit the part descriptor in the zip
             File partDescription = new File(deployDir + File.separatorChar
-                    + TMP_DEPLOY_DIR + File.separatorChar + "partDesc-uapp");
+                    + TMP_DEPLOY_DIR + File.separator + "partDesc-uapp");
             marshaller.marshal(part, partDescription);
             FileInputStream in = new FileInputStream(partDescription);
             out.putNextEntry(new ZipEntry(partDescription.getName()));
