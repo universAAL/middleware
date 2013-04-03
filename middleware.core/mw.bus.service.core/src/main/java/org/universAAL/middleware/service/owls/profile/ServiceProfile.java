@@ -661,7 +661,7 @@ public class ServiceProfile extends FinalizedResource implements
      * the same type must always be possible).
      * 
      * @param other
-     *            the {@link Matchable} that this instance should be matched
+     *            the {@link Matchable} that this instance should be matched
      *            against
      * @return <tt>false</tt> if <tt>other</tt> is not an instance of
      *         {@link ServiceProfile},
@@ -693,7 +693,7 @@ public class ServiceProfile extends FinalizedResource implements
 
     /**
      * This method will only be called if d is not of type {@link Request}, so
-     * the {@link ServiceProfile} will never match it and <tt>false</tt> is
+     * the {@link ServiceProfile} will never match it and <tt>false</tt> is
      * returned.
      * 
      * @param d

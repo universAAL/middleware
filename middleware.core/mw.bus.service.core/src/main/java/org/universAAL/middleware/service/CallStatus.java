@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - InstitutInstitut für Graphische Datenverarbeitung
+	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -130,7 +130,7 @@ public class CallStatus extends FinalizedResource {
     }
 
     /**
-     * Returns the name of the {@link CallStatus} as specified by the order
+     * Returns the name of the {@link CallStatus} as specified by the order
      */
     public String name() {
 	return names.get(order);
