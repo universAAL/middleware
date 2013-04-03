@@ -622,27 +622,67 @@ public class ControlBroker implements SharedObjectListener, Broker,
      * This method allows to request the installation of an uApp part to a
      * target node
      *
-     * @param serializedPart
-     *            The part serialized as a String. The payload of the
-     *            DeployMessage has to be a string
-     * @param targetNode
+     * @param target
      *            The node into which to install the part
-     * @param mpaCardCard
-     *            MPA description
+     * @param card
+     *            The reference information of the part of the application
+     *            within a service to install
      */
-    public void requestToInstallPart(byte[] zippedPart, PeerCard targetNode,
-            UAPPCard uAPPCard) {
-        final String METHOD = "requestToInstallPart";
+    public void requestToUninstallPart(PeerCard target, UAPPCard card) {
+        final String METHOD = "requestToUninstallPart";
         if (!init()) {
-            LogUtils.logWarn(context, ControlBroker.class, "controlBroker",
+            LogUtils.logWarn(context, ControlBroker.class, METHOD,
                     new Object[] { "ControlBroker not initialized." }, null);
             return;
         }
 
         // I'm the target node install the part locally
-        if (targetNode.getPeerID().equals(
+        if (target.getPeerID().equals(
                 aalSpaceManager.getMyPeerCard().getPeerID())) {
-            File file = FileUtils.createFileFromByte(context, zippedPart,
+            // TODO Handle local uninstallation
+            deployConnector.uninstallPart(card);
+        } else {
+            // Send the message to the target node
+
+            DeployPayload payload = new DeployPayload(new byte[] {}, card);
+            DeployMessage deployMessage = new DeployMessage(
+                    DeployMessageType.REQUEST_TO_UNINSTALL_PART, payload);
+
+            // ...and wrap it as ChannelMessage
+            List<String> channelName = new ArrayList<String>();
+            channelName.add(getBrokerName());
+            ChannelMessage channelMessage = new ChannelMessage(getmyPeerCard(),
+                    deployMessage.toString(), channelName);
+            communicationModule.send(channelMessage, this, target);
+        }
+    }
+
+    /**
+     * This method allows to request the installation of an uApp part to a
+     * target node
+     *
+     * @param partAsZip
+     *            The part serialized as a String. The payload of the
+     *            DeployMessage has to be a string
+     * @param target
+     *            The node into which to install the part
+     * @param card
+     *            The reference information of the part of the application
+     *            within a service to install
+     */
+    public void requestToInstallPart(byte[] partAsZip, PeerCard target,
+            UAPPCard card) {
+        final String METHOD = "requestToInstallPart";
+        if (!init()) {
+            LogUtils.logWarn(context, ControlBroker.class, METHOD,
+                    new Object[] { "ControlBroker not initialized." }, null);
+            return;
+        }
+
+        // I'm the target node install the part locally
+        if (target.getPeerID().equals(
+                aalSpaceManager.getMyPeerCard().getPeerID())) {
+            File file = FileUtils.createFileFromByte(context, partAsZip,
                     TMP_DEPLOY_FOLDER + "part", false);
             if (file == null) {
                 LogUtils.logError(
@@ -652,11 +692,11 @@ public class ControlBroker implements SharedObjectListener, Broker,
                         new Object[] { "Error while installing artifact locally: unable to create file" },
                         null);
             }
-            deployConnector.installPart(file, uAPPCard);
+            deployConnector.installPart(file, card);
         } else {
             // Send the message to the target node
 
-            DeployPayload payload = new DeployPayload(zippedPart, uAPPCard);
+            DeployPayload payload = new DeployPayload(partAsZip, card);
             DeployMessage deployMessage = new DeployMessage(
                     DeployMessageType.REQUEST_TO_INSTALL_PART, payload);
 
@@ -665,7 +705,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
             channelName.add(getBrokerName());
             ChannelMessage channelMessage = new ChannelMessage(getmyPeerCard(),
                     deployMessage.toString(), channelName);
-            communicationModule.send(channelMessage, this, targetNode);
+            communicationModule.send(channelMessage, this, target);
         }
     }
 
@@ -972,13 +1012,18 @@ public class ControlBroker implements SharedObjectListener, Broker,
                                 .getString(DeployMessageFields.DEPLOY_MTYPE));
 
                 // unmarhsall MPACard
+                String uappCardServiceId = obj
+                        .getString(DeployMessageFields.UAPP_CARD_SERVICE_ID);
+                String uappCardPartId = obj
+                        .getString(DeployMessageFields.UAPP_CARD_PART_ID);
+
                 String uappCardName = obj
                         .getString(DeployMessageFields.UAPP_NAME);
                 String uappCardID = obj.getString(DeployMessageFields.UAPP_ID);
                 String uappCardDescr = obj
                         .getString(DeployMessageFields.UAPP_DESC);
-                UAPPCard mpaCard = new UAPPCard(uappCardName, uappCardID,
-                        uappCardDescr);
+                UAPPCard mpaCard = new UAPPCard(uappCardServiceId, uappCardID,
+                        uappCardPartId, uappCardName, uappCardDescr);
 
                 int payloadType = obj
                         .getInt(DeployMessageFields.DEPLOY_PAYLOAD);
@@ -988,7 +1033,8 @@ public class ControlBroker implements SharedObjectListener, Broker,
                     // byte[] thePart =
                     // obj.getString(DeployMessageFields.PART).getBytes();
                     JSONArray bytes = obj
-                            .getJSONArray(DeployMessageFields.PART).getJSONArray(0);
+                            .getJSONArray(DeployMessageFields.PART)
+                            .getJSONArray(0);
                     byte[] thePart = new byte[bytes.length()];
                     for (int i = 0; i < thePart.length; i++) {
                         thePart[i] = (byte) bytes.getInt(i);

@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.BrokerMessageFields;
 import org.universAAL.middleware.interfaces.PeerCard;
+import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 
 /**
  * Deploy message
@@ -76,12 +77,8 @@ public class DeployMessage implements BrokerMessage {
             obj.put(DeployMessageFields.DEPLOY_MTYPE,
                     deployMessageType.toString());
 
-            // marshall uAPP Card
-            obj.put(DeployMessageFields.UAPP_NAME, payload.getuappCard()
-                    .getName());
-            obj.put(DeployMessageFields.UAPP_ID, payload.getuappCard().getId());
-            obj.put(DeployMessageFields.UAPP_DESC, payload.getuappCard()
-                    .getDescription());
+            marshallUAPPCard(obj, payload.getuappCard());
+
 
             // marhall payload
             if (payload != null
@@ -116,6 +113,15 @@ public class DeployMessage implements BrokerMessage {
                     + e.toString(), e);
         }
         return obj.toString();
+    }
+
+    private void marshallUAPPCard(JSONObject obj, UAPPCard card) throws JSONException {
+        // marshall uAPP Card
+        obj.put(DeployMessageFields.UAPP_NAME, card.getName());
+        obj.put(DeployMessageFields.UAPP_ID, card.getId());
+        obj.put(DeployMessageFields.UAPP_DESC, card.getDescription());
+        obj.put(DeployMessageFields.UAPP_CARD_PART_ID, card.getPartId());
+        obj.put(DeployMessageFields.UAPP_CARD_SERVICE_ID, card.getServiceId());
     }
 
     public DeployPayload getPayload() {

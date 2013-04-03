@@ -33,6 +33,7 @@ import java.net.URISyntaxException;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -42,22 +43,20 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.universAAL.middleware.brokers.control.ControlBroker;
+import org.universAAL.middleware.brokers.control.ExceptionUtils;
+import org.universAAL.middleware.brokers.control.FileUtils;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.deploymaneger.uapp.model.AalUapp;
-import org.universAAL.middleware.deploymaneger.uapp.model.DeploymentUnit;
-import org.universAAL.middleware.deploymaneger.uapp.model.DeploymentUnit.ContainerUnit.Karaf;
 import org.universAAL.middleware.deploymaneger.uapp.model.ObjectFactory;
+import org.universAAL.middleware.deploymaneger.uapp.model.Part;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
 import org.universAAL.middleware.interfaces.mpa.UAPPStatus;
-import org.universAAL.middleware.interfaces.mpa.model.Bundle;
-import org.universAAL.middleware.interfaces.mpa.model.Feature;
-import org.universAAL.middleware.deploymaneger.uapp.model.Part;
 import org.universAAL.middleware.interfaces.utils.Util;
 import org.universAAL.middleware.managers.api.AALSpaceEventHandler;
 import org.universAAL.middleware.managers.api.AALSpaceListener;
@@ -92,6 +91,11 @@ public class DeployManagerImpl implements DeployManager,
     private String APPLICATION_BINARYPART_PATH = "bin";
     private static String TMP_DEPLOY_DIR = "tmp";
 
+    private final String DM_ROOT_DIR = "etc" + File.pathSeparator + "uAAL"
+            + File.pathSeparator + "dm";
+    private final String APP_REGISTRY = DM_ROOT_DIR + File.pathSeparator
+            + "installation.registry";
+
     // JAXB
     private JAXBContext jc;
     private Unmarshaller unmarshaller;
@@ -101,12 +105,14 @@ public class DeployManagerImpl implements DeployManager,
     // MPA ID, status
     private Map<String, UAPPStatus> registry;
     private boolean isDeployCoordinator = false;
+    private HashMap<String, UAPPPackage> wip = new HashMap<String, UAPPPackage>();
+    private HashMap<String, Long> installingParts = new HashMap<String, Long>();
+    private Properties applicationRegistry;
 
     public DeployManagerImpl(ModuleContext context) {
 
         this.context = context;
         init();
-        loadInstalledApplication();
         registry = new HashMap<String, UAPPStatus>();
         try {
             jc = JAXBContext.newInstance(ObjectFactory.class);
@@ -123,17 +129,9 @@ public class DeployManagerImpl implements DeployManager,
 
     }
 
-    private void loadInstalledApplication() {
-        // TODO Creating a way for storing the installed application
-
-    }
-
-    private void saveInstalledApplication() {
-        // TODO Creating a way for saving the current list of installed
-        // application
-    }
-
     public boolean init() {
+        FileUtils.createFileFromByte(context, new byte[] {}, APP_REGISTRY,
+                false);
         if (!initialized) {
 
             LogUtils.logDebug(context, DeployManagerImpl.class,
@@ -228,12 +226,20 @@ public class DeployManagerImpl implements DeployManager,
         return initialized;
     }
 
-    public InstallationResults requestToUninstall(String serviceId, String id) {
-        throw new RuntimeException("Method not implemented yet");
-        // TODO Creating the method
+    public InstallationResults requestToInstall(UAPPPackage application) {
+        InstallationResults result = null;
+        try {
+            result = m_requestToInstall(application);
+        } catch (Exception ex) {
+            result = InstallationResults.FAILURE;
+        }
+        synchronized (wip) {
+            wip.remove(application.getServiceId() + ":" + application.getId());
+        }
+        return result;
     }
 
-    public InstallationResults requestToInstall(UAPPPackage application) {
+    private InstallationResults m_requestToInstall(UAPPPackage application) {
 
         // checks
         // 1 - get the MPA file
@@ -241,27 +247,29 @@ public class DeployManagerImpl implements DeployManager,
             LogUtils.logWarn(
                     context,
                     DeployManagerImpl.class,
-                    "DeployManagerImpl",
+                    "requestToInstall",
                     new Object[] { "The application object is null...aborting" },
                     null);
             return InstallationResults.UAPP_URI_INVALID;
         }
 
         final Map<PeerCard, Part> layout = application.getDeploy();
-        String applicationFolderURI = application.getFolder().toString() + "/" + APPLICATION_CONFIGURATION_PATH;
+        String applicationFolderURI = application.getFolder().toString() + "/"
+                + APPLICATION_CONFIGURATION_PATH;
         URI applicationConfigurationFolder = null;
         try {
             LogUtils.logInfo(
-                    context, DeployManagerImpl.class, "requestToInstall(UAPPPackage application)",
-                    new Object[] { "Trying to access to application folder identified by the URI " + applicationFolderURI }, null
-            );
-            System.out.println( "Trying to access to application folder identified by the URI " + applicationFolderURI );
+                    context,
+                    DeployManagerImpl.class,
+                    "requestToInstall",
+                    new Object[] { "Trying to access to application folder identified by the URI "
+                            + applicationFolderURI }, null);
             applicationConfigurationFolder = new URI(applicationFolderURI);
         } catch (URISyntaxException e1) {
             LogUtils.logError(
                     context,
                     DeployManagerImpl.class,
-                    "DeployManagerImpl",
+                    "requestToInstall",
                     new Object[] { "The application configuration path is null...aborting: "
                             + e1.toString() }, null);
             return InstallationResults.UAPP_URI_INVALID;
@@ -271,7 +279,7 @@ public class DeployManagerImpl implements DeployManager,
             LogUtils.logWarn(
                     context,
                     DeployManagerImpl.class,
-                    "DeployManagerImpl",
+                    "requestToInstall",
                     new Object[] { "The deploy folder or layout are null...aborting" },
                     null);
             return InstallationResults.UAPP_URI_INVALID;
@@ -281,30 +289,9 @@ public class DeployManagerImpl implements DeployManager,
             return InstallationResults.NO_AALSPACE_JOINED;
 
         // 3 - verify if I'm the DeployCoordinator
-        if (!aalSpaceManager.getAALSpaceDescriptor().getDeployManager()
-                .getPeerID()
-                .equals(aalSpaceManager.getMyPeerCard().getPeerID())) {
+        if (isDeployCoordinator() == false) {
             return InstallationResults.NOT_A_DEPLOYMANAGER;
         }
-
-        // 4 - send event to the AAL Space
-        aalSpaceEventHandler.mpaInstalling(aalSpaceManager
-                .getAALSpaceDescriptor());
-
-        /*
-         * File mpaFile = getMpaFile(deployFolder); if(mpaFile == null &&
-         * !mpaFile.isFile()){ LogUtils.logWarn(context,
-         * DeployManagerImpl.class,"DeployManagerImpl", new Object[]
-         * {"No MPA file found...aborting", null); return
-         * InstallationResults.FAILED; }
-         *
-         * AalMpa mpa = null; try{ mpa =
-         * (AalMpa)unmarshaller.unmarshal(mpaFile); }catch (JAXBException e) {
-         * LogUtils.logError(context,
-         * DeployManagerImpl.class,"DeployManagerImpl", new Object[]
-         * {"Error while parsing the MPA file: "+e, null); return
-         * InstallationResults.FAILED; }
-         */
 
         File uappFile = Util
                 .getFile(uappSuffix, applicationConfigurationFolder);
@@ -317,94 +304,242 @@ public class DeployManagerImpl implements DeployManager,
                 LogUtils.logError(
                         context,
                         DeployManagerImpl.class,
-                        "DeployManagerImpl",
+                        "requestToInstall",
                         new Object[] { "uAAP file cannot be parsed. Aborting..." },
                         null);
                 return InstallationResults.MPA_FILE_NOT_VALID;
-
             }
+        } else {
+            LogUtils.logError(context, DeployManagerImpl.class,
+                    "requestToInstall",
+                    new Object[] { "uAAP file cannot be found. Aborting..." },
+                    null);
+            return InstallationResults.FAILURE;
         }
-        UAPPCard uAPPCard = new UAPPCard(uapp.getApp().getName(), uapp.getApp()
-                .getAppId(), uapp.getApp().getDescription());
+
+        if (continueIfNotInstalling(application) == false) {
+            LogUtils.logWarn(
+                    context,
+                    DeployManagerImpl.class,
+                    "requestToInstall",
+                    new Object[] { "The deploy coordinataor is already installing the uApp with idenitfied by "
+                            + application.getServiceId()
+                            + ":"
+                            + application.getId() }, null);
+            return InstallationResults.FAILURE;
+        }
+
+        // 4 - send event to the AAL Space
+        aalSpaceEventHandler.mpaInstalling(aalSpaceManager
+                .getAALSpaceDescriptor());
+
         // adding an entry to the registry
-        this.registry.put(uAPPCard.getId(), new UAPPStatus(uAPPCard));
+        // this.registry.put(card.getId(), new UAPPStatus(card));
+        final long TIMEOUT = 60 * 1000;
 
         for (PeerCard peer : layout.keySet()) {
             Part target = layout.get(peer);
-
+            UAPPCard card = new UAPPCard(application.getServiceId(),
+                    target.getPartId(), uapp.getApp());
+            if (aalSpaceManager.getPeers().get(peer.getPeerID()) == null) {
+                // TODO Send a failure without waiting for timeout
+            }
             // send the part to the target node
             LogUtils.logInfo(context, DeployManagerImpl.class,
-                    "DeployManagerImpl",
+                    "requestToInstall",
                     new Object[] { "Sending request to install uAPP part to: "
                             + peer.getPeerID() }, null);
-            byte[] fileContent = createZippedPart(application.getFolder(),
-                    target);
+            byte[] content = createZippedPart(application.getFolder(), target);
             LogUtils.logDebug(
                     context,
                     DeployManagerImpl.class,
                     "DeployManagerImpl",
                     new Object[] { "ZipFile created ready to sent it to the target node" },
                     null);
-            controlBroker.requestToInstallPart(fileContent, peer, uAPPCard);
+            // TODO On failure of installation of a part we could retry up-to
+            // n-times
+            // TODO On permanent failure we should roll back the installation by
+            // removing the parts from peers
+            boolean partInstallationResult = synchronousInstallPart(
+                    controlBroker, content, peer, card, TIMEOUT);
+            if (partInstallationResult == false) {
+                return InstallationResults.FAILURE;
+            }
 
         }
 
-        /*
-         * AALSpaceDescriptor currentAALSpace = getCurrentAALSpace(); //check if
-         * I'm he DeployCoordinator //if(currentAALSpace != null &&
-         * currentAALSpace
-         * .getDeployManager().getPeerID().equals(aalSpaceManager.
-         * getmyPeerCard().getPeerID())){ LogUtils.logInfo(context,
-         * DeployManagerImpl.class,"DeployManagerImpl", new Object[]
-         * {"Installing MPA application", null); //manage the whole process
-         * //check the MPA against the AALSpace Writer writer = new
-         * StringWriter();
-         *
-         * if(layout != null){ for(PeerCard peer: layout.keySet()){ try {
-         * //serialized a part as a string and send the request to install to
-         * the target node writer = new StringWriter();
-         * marshaller.marshal(layout.get(peer), writer);
-         *
-         * } catch (JAXBException e) { LogUtils.logError(context,
-         * DeployManagerImpl.class,"DeployManagerImpl", new Object[]
-         * {"Error marshalling MPA part: "+e.toString(), null); }
-         * if(peer.getPeerID
-         * ().equals(aalSpaceManager.getmyPeerCard().getPeerID()))
-         * controlBroker.installArtefactLocally(writer.toString()); else{
-         * LogUtils.logInfo(context,
-         * DeployManagerImpl.class,"DeployManagerImpl", new Object[]
-         * {"Sending requesto to install MPA part to: "+peer.getPeerID(), null);
-         * controlBroker.requestToInstallPart(writer.toString(), peer); } } }
-         * //} //check the peer acting as DeployCoordinator and delegate the
-         * installation /* else if(currentAALSpace != null){
-         * LogUtils.logInfo(context,
-         * DeployManagerImpl.class,"DeployManagerImpl", new Object[]
-         * {"Sending request to install MPA to: "
-         * +currentAALSpace.getDeployManager().getPeerID(), null);
-         * controlBroker.requestToInstallMPA(multiPartApplication,
-         * currentAALSpace.getDeployManager()); return
-         * InstallationResults.DELEGATED; }else{ LogUtils.logWarn(context,
-         * DeployManagerImpl.class,"DeployManagerImpl", new Object[]
-         * {"No able to install a distibuted MPA without an AALSpace", null);
-         * return InstallationResults.NO_AALSPACE_JOINED; }
-         *
-         * }else{ //TODO: installation return
-         * InstallationResults.LOCALLY_DELEGATED; }
-         */
         // 4 - send event to the AAL Space
         aalSpaceEventHandler.mpaInstalled(aalSpaceManager
                 .getAALSpaceDescriptor());
 
+        storeInstallationStatus(application);
+
         return InstallationResults.SUCCESS;
     }
 
-    public void installationPartNotification(UAPPCard mpaCard, String partID,
-            PeerCard peer, UAPPPartStatus partStatus) {
+    private Properties getApplicationRegistry() {
+        if (applicationRegistry == null) {
+            try {
+                applicationRegistry = new Properties();
+                applicationRegistry.load(new FileInputStream(APP_REGISTRY));
+                applicationRegistry = null;
+            } catch (Exception ex) {
+                LogUtils.logError(
+                        context,
+                        DeployManagerImpl.class,
+                        "getApplicationRegistry",
+                        new Object[] { "Failed to load application registry due to: "
+                                + ExceptionUtils.stackTraceAsString(ex) }, ex);
+            }
+        }
+        return applicationRegistry;
+    }
+
+    private void updateApplicationRegistry() throws IOException {
+        if (applicationRegistry == null)
+            return;
+
+        FileOutputStream fos = new FileOutputStream(APP_REGISTRY);
+        applicationRegistry.store(fos,
+                "universAAL Deploy Manager Installation registry, the format is serviceId:applicationId=<application layout registry file>");
+        fos.flush();
+        fos.close();
+
+    }
+
+    private void storeInstallationStatus(UAPPPackage app) {
+        try {
+            Properties apps = getApplicationRegistry();
+            String appKey = app.getServiceId() + ":" + app.getId();
+            String partRegistry = appKey.hashCode() + "_"
+                    + System.currentTimeMillis() + ".registry";
+            apps.setProperty(appKey, partRegistry);
+            updateApplicationRegistry();
+
+            Properties parts = new Properties();
+            Map<PeerCard, Part> layout = app.getDeploy();
+            for (PeerCard peer : layout.keySet()) {
+                final String partId = layout.get(peer).getPartId();
+                parts.setProperty(peer.getPeerID(), partId);
+            }
+            FileOutputStream fos = new FileOutputStream(new File(DM_ROOT_DIR,
+                    partRegistry));
+            apps.store(fos, "universAAL " + appKey + " Deploy layout, the format is peerId=partId");
+            fos.flush();
+            fos.close();
+        } catch (Exception ex) {
+            LogUtils.logError(
+                    context,
+                    DeployManagerImpl.class,
+                    "storeInstallationStatus",
+                    new Object[] { "Failed to update application registry due to: "
+                            + ExceptionUtils.stackTraceAsString(ex) }, ex);
+        }
+    }
+
+    private boolean isInstalled(String serviceId, String id) {
+        final String appKey = serviceId + ":" + id;
+        return getApplicationRegistry().containsKey(appKey);
+    }
+
+    private Properties getInstallationLayout(String serviceId, String id) {
+        try{
+            final String appKey = serviceId + ":" + id;
+            String layoutFile = getApplicationRegistry().getProperty(appKey);
+            FileInputStream fis = new FileInputStream(new File(DM_ROOT_DIR,
+                    layoutFile));
+            Properties layout = new Properties();
+            layout.load(fis);
+            return layout;
+        }catch(Exception ex){
+            LogUtils.logError(
+                    context,
+                    DeployManagerImpl.class,
+                    "getInstallationLayout",
+                    new Object[] { "Failed to load application installation layout due to: "
+                            + ExceptionUtils.stackTraceAsString(ex) }, ex);
+            return null;
+        }
+
+    }
+
+    public InstallationResults requestToUninstall(String serviceId, String id) {
+        final String METHOD = "requestToUninstall";
+        if ( isInstalled(serviceId, id) == false ) {
+            LogUtils.logDebug(
+                    context,
+                    DeployManagerImpl.class,
+                    METHOD,
+                    new Object[] { "No aplication installed with uSrvId "+serviceId+" and uAppId "+id}, null);
+            return InstallationResults.FAILURE;
+        }
+        Properties layout = getInstallationLayout(serviceId, id);
+        while (layout.propertyNames().hasMoreElements()) {
+            String peer = (String) layout.propertyNames().nextElement();
+            UAPPCard card = new UAPPCard(serviceId, layout.getProperty(peer), id, "", "");
+            PeerCard target = aalSpaceManager.getPeers().get(peer);
+            controlBroker.requestToUninstallPart(target,card);
+        }
+
+        return InstallationResults.SUCCESS;
+    }
+
+    private boolean synchronousInstallPart(ControlBroker broker,
+            byte[] content, PeerCard peer, UAPPCard card, long timeout) {
+
+        final long fireTimeout;
+        synchronized (installingParts) {
+            fireTimeout = System.currentTimeMillis() + timeout;
+            installingParts.put(card.toString(), fireTimeout);
+        }
+        broker.requestToInstallPart(content, peer, card);
+        synchronized (installingParts) {
+            while (true) {
+                final Long currentTimeout = installingParts
+                        .get(card.toString());
+                /*
+                 * Received the installationPartNotification callback with a
+                 * SUCCESS status so we can stop to wait
+                 */
+                if (currentTimeout == null)
+                    return true;
+
+                /*
+                 * Received the installationPartNotification callback with a
+                 * FAILURE code so timeout has been reset to -1 which means that
+                 * the installation of the part has been failed
+                 */
+                if (currentTimeout == -1)
+                    return false;
+
+                /*
+                 * The standard timeout fired
+                 */
+                if (System.currentTimeMillis() > currentTimeout)
+                    return false;
+            }
+
+        }
+
+    }
+
+    private boolean continueIfNotInstalling(UAPPPackage app) {
+        synchronized (wip) {
+            if (wip.containsKey(app.getServiceId() + ":" + app.getId())) {
+                return false;
+            }
+            wip.put(app.getServiceId() + ":" + app.getId(), app);
+        }
+        return true;
+    }
+
+    public void installationPartNotification(UAPPCard card, String partID,
+            PeerCard peer, UAPPPartStatus status) {
         LogUtils.logDebug(context, DeployManagerImpl.class,
-                "DeployManagerImpl", new Object[] { "Updating the MPA: "
-                        + mpaCard.getId() }, null);
-        if (mpaCard != null && peer != null && partStatus != null) {
-            UAPPStatus mpaStatus = registry.get(mpaCard.getId());
+                "DeployManagerImpl",
+                new Object[] { "Updating the MPA: " + card.getId() }, null);
+        if (card != null && peer != null && status != null) {
+            UAPPStatus mpaStatus = registry.get(card.getId());
             if (mpaStatus != null) {
                 LogUtils.logDebug(
                         context,
@@ -412,19 +547,26 @@ public class DeployManagerImpl implements DeployManager,
                         "DeployManagerImpl",
                         new Object[] { "Updating the MPA with data: " + partID
                                 + " - " + peer.getPeerID() + " - "
-                                + partStatus.toString() }, null);
-                mpaStatus.updatePart(partID, peer.getPeerID(), partStatus);
+                                + status.toString() }, null);
+                mpaStatus.updatePart(partID, peer.getPeerID(), status);
             } else {
                 LogUtils.logWarn(
                         context,
                         DeployManagerImpl.class,
                         "DeployManagerImpl",
                         new Object[] { "Received a install part notification for an MPA unknows: "
-                                + mpaCard.getId() + "...Aborting." }, null);
+                                + card.getId() + "...Aborting." }, null);
 
             }
         }
-
+        synchronized (installingParts) {
+            final String key = card.toString();
+            if (status == UAPPPartStatus.PART_INSTALLED) {
+                installingParts.remove(key);
+            } else if (status == UAPPPartStatus.PART_NOT_INSTALLED) {
+                installingParts.put(key, -1L);
+            }
+        }
     }
 
     private void addRegistryEntry(UAPPCard mpaCard, Map<PeerCard, Part> layout) {
@@ -449,7 +591,8 @@ public class DeployManagerImpl implements DeployManager,
         if (mpaFiles.length < 0) {
             return null;
         } else {
-            return new File(deployFolder.toString() + File.pathSeparator + mpaFiles[0]);
+            return new File(deployFolder.toString() + File.pathSeparator
+                    + mpaFiles[0]);
         }
     }
 
@@ -509,7 +652,7 @@ public class DeployManagerImpl implements DeployManager,
             String partID = part.getPartId();
             String partFolderString = applicationFolder.getPath()
                     + File.separatorChar + APPLICATION_BINARYPART_PATH
-                    + File.separatorChar + partID +File.separatorChar;
+                    + File.separatorChar + partID + File.separatorChar;
             File partFolder = new File(partFolderString);
             BufferedInputStream inPartFile = null;
             byte[] data = new byte[1000];
