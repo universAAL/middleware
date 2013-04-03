@@ -317,7 +317,7 @@ public class ContextEventPattern extends FinalizedResource implements
     }
 
     /**
-     * As both {@link EventAdvertisement} and {@link Subscription} are
+     * As both {@link EventAdvertisement} and {@link Subscription} are
      * implemented by {@link ContextEventPattern}, both redirect here. TODO this
      * could be a problem in the future
      * 
