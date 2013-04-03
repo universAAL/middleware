@@ -140,9 +140,9 @@ public class StringUtils {
 	return sb.toString();
     }
 
-    /** Determines if the specified character is one of <code>" ' ` ´</code>. */
+    /** Determines if the specified character is one of <code>" ' ` Â´</code>. */
     public static boolean isQuote(char c) {
-	return "\"'`´".indexOf(c) > -1;
+	return "\"'`Â´".indexOf(c) > -1;
     }
 
     /** Determines if the specified character is a digit [0-9]. */
@@ -211,9 +211,5 @@ public class StringUtils {
 	}
 
 	return true;
-    }
-
-    public static void main(String args[]) {
-	System.out.println(deriveLabel("kjD2390 ösd ydg: öasä"));
     }
 }
