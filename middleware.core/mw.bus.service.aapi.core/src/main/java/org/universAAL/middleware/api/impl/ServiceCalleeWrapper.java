@@ -237,10 +237,10 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 	return profiles;
     }
 
-    public static void main(String args[]) {
-	SimpleServiceRegistrator ssr = new SimpleServiceRegistrator(null);
-	for (Method m : ssr.getClass().getMethods()) {
-	    System.out.println(m.getName() + "\t" + m.getReturnType());
-	}
-    }
+    // public static void main(String args[]) {
+    // SimpleServiceRegistrator ssr = new SimpleServiceRegistrator(null);
+    // for (Method m : ssr.getClass().getMethods()) {
+    // System.out.println(m.getName() + "\t" + m.getReturnType());
+    // }
+    // }
 }
