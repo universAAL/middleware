@@ -12,7 +12,7 @@
 	<artifactId>mw.felix.shell.universAAL.osgi</artifactId>
 	<packaging>bundle</packaging>
 	<version>1.3.2-SNAPSHOT</version>
-	<name>universAAL Felix Commands</name>
+	<name>universAAL Middleware Felix Shell</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
