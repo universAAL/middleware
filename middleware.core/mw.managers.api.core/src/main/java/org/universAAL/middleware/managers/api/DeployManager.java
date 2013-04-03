@@ -20,16 +20,13 @@
  */
 package org.universAAL.middleware.managers.api;
 
-import java.net.URI;
 import java.util.Map;
 
-import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPStatus;
-import org.universAAL.middleware.interfaces.mpa.model.Part;
 
 /**
  * Deploy Manager Service interface
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
@@ -38,7 +35,7 @@ import org.universAAL.middleware.interfaces.mpa.model.Part;
 public interface DeployManager extends Manager {
 
     /**
-     * 
+     *
      * @param app
      *            {@link UAPPPackage} the representing the uAPP application
      *            deployment plan to install on uAAL
@@ -48,22 +45,23 @@ public interface DeployManager extends Manager {
 
     /**
      * True if I'm the Deploy coordinator
-     * 
+     *
      * @return <code>true</code>if and only if the node has the Deploy Manager
      *         Coordinator role
      */
     public boolean isDeployCoordinator();
 
     /**
-     * 
+     *
      * @return
+     * @deprecated
      */
     public Map<String, UAPPStatus> getUAPPRegistry();
 
     /**
      * Remove an installed uApp by means of the unique pair {@link String}
      * serviceId and {@link String} id
-     * 
+     *
      * @param serviceId
      *            the {@link String} representing the unique identifier of the
      *            service provided by the uStore
