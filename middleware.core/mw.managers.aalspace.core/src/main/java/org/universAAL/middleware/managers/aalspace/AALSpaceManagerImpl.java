@@ -22,6 +22,7 @@ package org.universAAL.middleware.managers.aalspace;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Dictionary;
@@ -143,12 +144,13 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	    listeners = new ArrayList<AALSpaceListener>();
 	} catch (JAXBException e) {
 
-	    LogUtils.logError(
-		    context,
-		    AALSpaceManagerImpl.class,
-		    "AALSpaceManagerImpl",
-		    new Object[] { "Error during AALSpace parser intialization: "
-			    + e.toString() }, null);
+	    LogUtils
+		    .logError(
+			    context,
+			    AALSpaceManagerImpl.class,
+			    "AALSpaceManagerImpl",
+			    new Object[] { "Error during AALSpace parser intialization: "
+				    + e.toString() }, null);
 	}
     }
 
@@ -196,9 +198,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	    // to fix empty fields
 	    myPeerCard = new PeerCard(peerRole, "", "");
 	    myPeerCard.setRole(peerRole);
-	    LogUtils.logInfo(
-		    context,
-		    AALSpaceManagerImpl.class,
+	    LogUtils.logInfo(context, AALSpaceManagerImpl.class,
 		    "AALSpaceManagerImpl",
 		    new Object[] { "--->PeerCard created: "
 			    + myPeerCard.toString() }, null);
@@ -232,12 +232,13 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	    // XML Schema validation
 	    if (aalSpaceValidation && aalSpaceConfigurationPath != null
 		    && aalSpaceSchemaName != null) {
-		LogUtils.logDebug(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "Initialize AALSpace schema validation" },
-			null);
+		LogUtils
+			.logDebug(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "Initialize AALSpace schema validation" },
+				null);
 		SchemaFactory sf = SchemaFactory
 			.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		try {
@@ -251,35 +252,40 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 				.setEventHandler(new AALSpaceSchemaEventHandler(
 					context));
 		    } else
-			LogUtils.logWarn(
-				context,
-				AALSpaceManagerImpl.class,
-				"AALSpaceManagerImpl",
-				new Object[] { "Unable to read AALSpace Scham from path: "
-					+ aalSpaceSchemaFile.getAbsolutePath() },
-				null);
+			LogUtils
+				.logWarn(
+					context,
+					AALSpaceManagerImpl.class,
+					"AALSpaceManagerImpl",
+					new Object[] { "Unable to read AALSpace Scham from path: "
+						+ aalSpaceSchemaFile
+							.getAbsolutePath() },
+					null);
 
 		} catch (SAXException e) {
-		    LogUtils.logError(
-			    context,
-			    AALSpaceManagerImpl.class,
-			    "AALSpaceManagerImpl",
-			    new Object[] { "Error during AALSpace schema initialization: "
-				    + e.toString() }, null);
+		    LogUtils
+			    .logError(
+				    context,
+				    AALSpaceManagerImpl.class,
+				    "AALSpaceManagerImpl",
+				    new Object[] { "Error during AALSpace schema initialization: "
+					    + e.toString() }, null);
 		} catch (NullPointerException e) {
-		    LogUtils.logError(
-			    context,
-			    AALSpaceManagerImpl.class,
-			    "AALSpaceManagerImpl",
-			    new Object[] { "Error during AALSpace schema initialization: "
-				    + e.toString() }, null);
+		    LogUtils
+			    .logError(
+				    context,
+				    AALSpaceManagerImpl.class,
+				    "AALSpaceManagerImpl",
+				    new Object[] { "Error during AALSpace schema initialization: "
+					    + e.toString() }, null);
 		} catch (JAXBException e) {
-		    LogUtils.logError(
-			    context,
-			    AALSpaceManagerImpl.class,
-			    "AALSpaceManagerImpl",
-			    new Object[] { "Error during AALSpace Schema Event handler initialization: "
-				    + e.toString() }, null);
+		    LogUtils
+			    .logError(
+				    context,
+				    AALSpaceManagerImpl.class,
+				    "AALSpaceManagerImpl",
+				    new Object[] { "Error during AALSpace Schema Event handler initialization: "
+					    + e.toString() }, null);
 		}
 		initialized = true;
 	    }
@@ -293,20 +299,22 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	    // Configure the AAL Space
 	    if (aalSpaceConfigurationPath == null
 		    || aalSpaceConfigurationPath.length() == 0) {
-		LogUtils.logWarn(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "AALSpace default configurations are null" },
-			null);
+		LogUtils
+			.logWarn(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "AALSpace default configurations are null" },
+				null);
 		initialized = true;
 	    } else {
-		LogUtils.logDebug(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "Parse the AALSpace default configurations" },
-			null);
+		LogUtils
+			.logDebug(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "Parse the AALSpace default configurations" },
+				null);
 		aalSpaceDefaultConfiguration = readAALSpaceDefaultConfigurations();
 		initAALSpace(aalSpaceDefaultConfiguration);
 		initialized = true;
@@ -328,12 +336,13 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	try {
 	    if (currentAALSpace == null && aalSpaceDefaultConfiguration != null) {
 
-		LogUtils.logDebug(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "AALSpace default configuration found" },
-			null);
+		LogUtils
+			.logDebug(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "AALSpace default configuration found" },
+				null);
 		// first look for existing AALSpace with the same name as the
 		// one reported in the default config.file
 		List<AALSpaceCard> spaceCards = controlBroker
@@ -348,12 +357,13 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		} else {
 		    if (myPeerCard.getRole().equals(PeerRole.COORDINATOR)) {
 
-			LogUtils.logInfo(
-				context,
-				AALSpaceManagerImpl.class,
-				"AALSpaceManagerImpl",
-				new Object[] { "No default AALSpace found...creating it " },
-				null);
+			LogUtils
+				.logInfo(
+					context,
+					AALSpaceManagerImpl.class,
+					"AALSpaceManagerImpl",
+					new Object[] { "No default AALSpace found...creating it " },
+					null);
 
 			List<org.universAAL.middleware.interfaces.ChannelDescriptor> communicationChannels = new ArrayList<org.universAAL.middleware.interfaces.ChannelDescriptor>();
 			// fetch the communication channels
@@ -368,8 +378,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 			    controlBroker.configurePeeringChannel(
 				    peeringChannel, myPeerCard.getPeerID());
 			    controlBroker.configureChannels(
-				    communicationChannels,
-				    myPeerCard.getPeerID());
+				    communicationChannels, myPeerCard
+					    .getPeerID());
 
 			    // create the new AALSpace
 			    AALSpaceCard myAALSpace = new AALSpaceCard(
@@ -416,44 +426,44 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 				    null);
 
 			} else {
-			    LogUtils.logWarn(
-				    context,
-				    AALSpaceManagerImpl.class,
-				    "AALSpaceManagerImpl",
-				    new Object[] { "Control Broker is not initialize" },
-				    null);
+			    LogUtils
+				    .logWarn(
+					    context,
+					    AALSpaceManagerImpl.class,
+					    "AALSpaceManagerImpl",
+					    new Object[] { "Control Broker is not initialize" },
+					    null);
 			}
 
 		    } else {
-			LogUtils.logInfo(
-				context,
-				AALSpaceManagerImpl.class,
-				"AALSpaceManagerImpl",
-				new Object[] { "No default AALSpace found...waiting to join an AALSpace as :"
-					+ myPeerCard.getRole() }, null);
+			LogUtils
+				.logInfo(
+					context,
+					AALSpaceManagerImpl.class,
+					"AALSpaceManagerImpl",
+					new Object[] { "No default AALSpace found...waiting to join an AALSpace as :"
+						+ myPeerCard.getRole() }, null);
 		    }
 		}
 	    } else {
 		if (currentAALSpace != null)
-		    LogUtils.logDebug(
-			    context,
-			    AALSpaceManagerImpl.class,
-			    "AALSpaceManagerImpl",
-			    new Object[] { "The MW belongs to: "
-				    + currentAALSpace.getSpaceCard().toString() },
-			    null);
+		    LogUtils
+			    .logDebug(context, AALSpaceManagerImpl.class,
+				    "AALSpaceManagerImpl",
+				    new Object[] { "The MW belongs to: "
+					    + currentAALSpace.getSpaceCard()
+						    .toString() }, null);
 		else
-		    LogUtils.logDebug(
-			    context,
-			    AALSpaceManagerImpl.class,
-			    "AALSpaceManagerImpl",
-			    new Object[] { "No AALSpace default configuration found on the path: "
-				    + aalSpaceConfigurationPath }, null);
+		    LogUtils
+			    .logDebug(
+				    context,
+				    AALSpaceManagerImpl.class,
+				    "AALSpaceManagerImpl",
+				    new Object[] { "No AALSpace default configuration found on the path: "
+					    + aalSpaceConfigurationPath }, null);
 	    }
 	} catch (Exception e) {
-	    LogUtils.logError(
-		    context,
-		    AALSpaceManagerImpl.class,
+	    LogUtils.logError(context, AALSpaceManagerImpl.class,
 		    "AALSpaceManagerImpl",
 		    new Object[] { "Error during AALSpace initialization: "
 			    + e.toString() }, null);
@@ -463,12 +473,13 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 
     public void join(AALSpaceCard spaceCard) {
 	if (currentAALSpace != null) {
-	    LogUtils.logWarn(
-		    context,
-		    AALSpaceManagerImpl.class,
-		    "AALSpaceManagerImpl",
-		    new Object[] { "Cannot join to multiple AALSpace. First leave the current AALSpace " },
-		    null);
+	    LogUtils
+		    .logWarn(
+			    context,
+			    AALSpaceManagerImpl.class,
+			    "AALSpaceManagerImpl",
+			    new Object[] { "Cannot join to multiple AALSpace. First leave the current AALSpace " },
+			    null);
 
 	}
 	if (init()) {
@@ -500,8 +511,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 					.getChannelDescriptorFileURL())) {
 		    peeringChannel = defaultPeeringChannel;
 		} else {
-		    peeringChannel = new ChannelDescriptor(
-			    spaceCard.getPeeringChannelName(), "", null);
+		    peeringChannel = new ChannelDescriptor(spaceCard
+			    .getPeeringChannelName(), "", null);
 		    peeringChannel
 			    .setChannelDescriptorFileURL(peeringChannelSerialized);
 		}
@@ -517,26 +528,28 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 
 			controlBroker.configurePeeringChannel(peeringChannel,
 				myPeerCard.getPeerID());
-			LogUtils.logInfo(
-				context,
-				AALSpaceManagerImpl.class,
-				"AALSpaceManagerImpl",
-				new Object[] { "--->Peering channel configured!" },
-				null);
+			LogUtils
+				.logInfo(
+					context,
+					AALSpaceManagerImpl.class,
+					"AALSpaceManagerImpl",
+					new Object[] { "--->Peering channel configured!" },
+					null);
 		    } else {
-			LogUtils.logWarn(
-				context,
-				AALSpaceManagerImpl.class,
-				"AALSpaceManagerImpl",
-				new Object[] { "Peering channel is null not able to join the AALSpace" },
-				null);
+			LogUtils
+				.logWarn(
+					context,
+					AALSpaceManagerImpl.class,
+					"AALSpaceManagerImpl",
+					new Object[] { "Peering channel is null not able to join the AALSpace" },
+					null);
 		    }
 		    LogUtils.logInfo(context, AALSpaceManagerImpl.class,
 			    "AALSpaceManagerImpl",
 			    new Object[] { "--->Sending join request..." },
 			    null);
-		    PeerCard spaceCoordinator = new PeerCard(
-			    spaceCard.getCoordinatorID(), PeerRole.COORDINATOR);
+		    PeerCard spaceCoordinator = new PeerCard(spaceCard
+			    .getCoordinatorID(), PeerRole.COORDINATOR);
 		    controlBroker.join(spaceCoordinator, spaceCard);
 
 		} catch (Exception e) {
@@ -582,9 +595,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		try {
 		    pendingAALSpace.notifyAll();
 		} catch (Exception e) {
-		    LogUtils.logError(
-			    context,
-			    AALSpaceManagerImpl.class,
+		    LogUtils.logError(context, AALSpaceManagerImpl.class,
 			    "AALSpaceManagerImpl",
 			    new Object[] { "Error during notify: "
 				    + e.toString() }, null);
@@ -614,12 +625,13 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	    }
 
 	} else {
-	    LogUtils.logWarn(
-		    context,
-		    AALSpaceManagerImpl.class,
-		    "AALSpaceManagerImpl",
-		    new Object[] { "AALSpace Manager is not initialized aborting." },
-		    null);
+	    LogUtils
+		    .logWarn(
+			    context,
+			    AALSpaceManagerImpl.class,
+			    "AALSpaceManagerImpl",
+			    new Object[] { "AALSpace Manager is not initialized aborting." },
+			    null);
 	    pendingAALSpace = false;
 	}
 
@@ -635,20 +647,22 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 			"AALSpaceManagerImpl",
 			new Object[] { "Filter created" }, null);
 	    } catch (NullPointerException e) {
-		LogUtils.logError(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "Error while building AALSpace filter...returning empty filter"
-				+ e.toString() }, null);
+		LogUtils
+			.logError(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "Error while building AALSpace filter...returning empty filter"
+					+ e.toString() }, null);
 		return filters;
 	    } catch (Exception e) {
-		LogUtils.logError(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "Error while building AALSpace filter...returning empty filter"
-				+ e.toString() }, null);
+		LogUtils
+			.logError(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "Error while building AALSpace filter...returning empty filter"
+					+ e.toString() }, null);
 		return filters;
 	    }
 	}
@@ -660,9 +674,9 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	List<ChannelDescriptor> theChannels = new ArrayList<ChannelDescriptor>();
 
 	for (org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor channel : channels) {
-	    ChannelDescriptor singleChannel = new ChannelDescriptor(
-		    channel.getChannelName(), channel.getChannelURL(),
-		    channel.getChannelValue());
+	    ChannelDescriptor singleChannel = new ChannelDescriptor(channel
+		    .getChannelName(), channel.getChannelURL(), channel
+		    .getChannelValue());
 	    theChannels.add(singleChannel);
 	}
 	return theChannels;
@@ -671,9 +685,9 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 
     private ChannelDescriptor getChannel(
 	    org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor channel) {
-	ChannelDescriptor singleChannel = new ChannelDescriptor(
-		channel.getChannelName(), channel.getChannelURL(),
-		channel.getChannelValue());
+	ChannelDescriptor singleChannel = new ChannelDescriptor(channel
+		.getChannelName(), channel.getChannelURL(), channel
+		.getChannelValue());
 	return singleChannel;
 
     }
@@ -723,12 +737,22 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     public Aalspace readAALSpaceDefaultConfigurations() {
 	LogUtils.logDebug(context, AALSpaceManagerImpl.class,
 		"AALSpaceManagerImpl",
-		new Object[] { "Reading AALSpace configuration from file" },
-		null);
-	Dictionary<String, String> configs = new Hashtable<String, String>();
+		new Object[] { "Reading AALSpace configuration." }, null);
 	try {
 	    String aalSpaceConfigurationPath = this.aalSpaceConfigurationPath;
 	    File spaceConfigDirectory = new File(aalSpaceConfigurationPath);
+
+	    String currPath = "";
+	    try {
+		currPath = new java.io.File(".").getCanonicalPath();
+	    } catch (IOException e) {
+	    }
+	    LogUtils.logDebug(context, AALSpaceManagerImpl.class,
+		    "AALSpaceManagerImpl", new Object[] {
+			    "Reading AALSpace configuration from directory: ",
+			    spaceConfigDirectory.toString(),
+			    " The current path is: ", currPath }, null);
+
 	    if (!spaceConfigDirectory.canRead()) {
 		LogUtils.logWarn(context, AALSpaceManagerImpl.class,
 			"AALSpaceManagerImpl", new Object[] { "File: "
@@ -753,14 +777,15 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		}
 	    });
 	    if (spaces != null && spaces.length > 0) {
-		LogUtils.logDebug(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "Found: "
-				+ spaces.length
-				+ " space configurations...picking up the default one" },
-			null);
+		LogUtils
+			.logDebug(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "Found: "
+					+ spaces.length
+					+ " space configurations...picking up the default one" },
+				null);
 		// Currently only one space is read from the file system
 		File defaultSpaceConfiguration = new File(
 			aalSpaceConfigurationPath + File.separatorChar
@@ -772,21 +797,23 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    if (space != null) {
 			return space;
 		    } else {
-			LogUtils.logWarn(
-				context,
-				AALSpaceManagerImpl.class,
-				"AALSpaceManagerImpl",
-				new Object[] { "Unable to parse default AALSpace configuration" },
-				null);
+			LogUtils
+				.logWarn(
+					context,
+					AALSpaceManagerImpl.class,
+					"AALSpaceManagerImpl",
+					new Object[] { "Unable to parse default AALSpace configuration" },
+					null);
 			return null;
 		    }
 		} else {
-		    LogUtils.logWarn(
-			    context,
-			    AALSpaceManagerImpl.class,
-			    "AALSpaceManagerImpl",
-			    new Object[] { "Directory were files are located is not accessible" },
-			    null);
+		    LogUtils
+			    .logWarn(
+				    context,
+				    AALSpaceManagerImpl.class,
+				    "AALSpaceManagerImpl",
+				    new Object[] { "Directory were files are located is not accessible" },
+				    null);
 		    return null;
 		}
 	    } else {
@@ -796,9 +823,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		return null;
 	    }
 	} catch (JAXBException e) {
-	    LogUtils.logError(
-		    context,
-		    AALSpaceManagerImpl.class,
+	    LogUtils.logError(context, AALSpaceManagerImpl.class,
 		    "AALSpaceManagerImpl",
 		    new Object[] { "Error during JAXB initialization: "
 			    + e.toString() }, null);
@@ -823,19 +848,21 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    new Object[] { "Fetching the PeerRole" }, null);
 	    String role = (String) configurations
 		    .get(org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ROLE);
-	    String roleOverride = System.getProperty(org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ROLE);
+	    String roleOverride = System
+		    .getProperty(org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ROLE);
 	    if (roleOverride != null)
 		role = roleOverride;
 	    if (role != null) {
 		try {
 		    peerRole = PeerRole.valueOf(role);
 		} catch (IllegalArgumentException e) {
-		    LogUtils.logError(
-			    context,
-			    AALSpaceManagerImpl.class,
-			    "AALSpaceManagerImpl",
-			    new Object[] { "Unable to initialize the peer with the role: "
-				    + role }, null);
+		    LogUtils
+			    .logError(
+				    context,
+				    AALSpaceManagerImpl.class,
+				    "AALSpaceManagerImpl",
+				    new Object[] { "Unable to initialize the peer with the role: "
+					    + role }, null);
 		    LogUtils.logError(context, AALSpaceManagerImpl.class,
 			    "AALSpaceManagerImpl",
 			    new Object[] { "...configuring as regular PEER: "
@@ -843,37 +870,41 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    peerRole = PeerRole.PEER;
 		}
 	    } else {
-		LogUtils.logWarn(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "The role is null...configuring as regular PEER: "
-				+ role }, null);
+		LogUtils
+			.logWarn(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "The role is null...configuring as regular PEER: "
+					+ role }, null);
 		peerRole = PeerRole.PEER;
 	    }
 
-	    LogUtils.logDebug(
-		    context,
-		    AALSpaceManagerImpl.class,
-		    "AALSpaceManagerImpl",
-		    new Object[] { "Fetching AALSpace default configurations" },
-		    null);
+	    LogUtils
+		    .logDebug(
+			    context,
+			    AALSpaceManagerImpl.class,
+			    "AALSpaceManagerImpl",
+			    new Object[] { "Fetching AALSpace default configurations" },
+			    null);
 	    aalSpaceConfigurationPath = (String) configurations
 		    .get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_CONFIGURATION_PATH);
 	    if (aalSpaceConfigurationPath != null)
-		LogUtils.logDebug(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "AALSpace defualt configurations fetched: "
-				+ aalSpaceConfigurationPath }, null);
+		LogUtils
+			.logDebug(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "AALSpace default configurations fetched: "
+					+ aalSpaceConfigurationPath }, null);
 	    else
-		LogUtils.logWarn(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "AALSpace defualt configurations are null!" },
-			null);
+		LogUtils
+			.logWarn(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "AALSpace default configurations are null!" },
+				null);
 	    LogUtils.logDebug(context, AALSpaceManagerImpl.class,
 		    "AALSpaceManagerImpl",
 		    new Object[] { "Fetching AALSpace extension" }, null);
@@ -910,15 +941,16 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 				+ " requests to join to the AAL Space: " },
 			null);
 		if (!managedAALspaces.containsKey(spaceCard.getSpaceID())) {
-		    LogUtils.logWarn(
-			    context,
-			    AALSpaceManagerImpl.class,
-			    "AALSpaceManagerImpl",
-			    new Object[] { "Received a join request to an AALSpace not managed: my AALSpace: "
-				    + currentAALSpace.getSpaceCard()
-					    .getSpaceID()
-				    + " while received: "
-				    + spaceCard.getSpaceID() }, null);
+		    LogUtils
+			    .logWarn(
+				    context,
+				    AALSpaceManagerImpl.class,
+				    "AALSpaceManagerImpl",
+				    new Object[] { "Received a join request to an AALSpace not managed: my AALSpace: "
+					    + currentAALSpace.getSpaceCard()
+						    .getSpaceID()
+					    + " while received: "
+					    + spaceCard.getSpaceID() }, null);
 
 		} else {
 		    // send unicast message to the peer with the space
@@ -938,15 +970,23 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    // newPeerJoined(peer)
 
 		    // announce bcast the new peer
-		    LogUtils.logDebug(context, AALSpaceManagerImpl.class,
-			    "AALSpaceManagerImpl",
-			    new Object[] { "Announcing the new peer..." }, null);
+		    LogUtils
+			    .logDebug(
+				    context,
+				    AALSpaceManagerImpl.class,
+				    "AALSpaceManagerImpl",
+				    new Object[] { "Announcing the new peer..." },
+				    null);
 		}
 
 	    } else
-		LogUtils.logDebug(context, AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "Invalid join request parameter" }, null);
+		LogUtils
+			.logDebug(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "Invalid join request parameter" },
+				null);
 	} else {
 	    LogUtils.logWarn(context, AALSpaceManagerImpl.class,
 		    "AALSpaceManagerImpl",
@@ -963,12 +1003,13 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		foundAALSpaces = spaceCards;
 	    }
 	    if (foundAALSpaces.size() > 0) {
-		LogUtils.logTrace(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "--->The list of AAL Spaces has been updated:"
-				+ foundAALSpaces.toString() }, null);
+		LogUtils
+			.logTrace(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "--->The list of AAL Spaces has been updated:"
+					+ foundAALSpaces.toString() }, null);
 	    }
 	}
     }
@@ -987,9 +1028,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     public synchronized void peerLost(PeerCard peer) {
 	if (peer != null) {
 	    LogUtils.logInfo(context, AALSpaceManagerImpl.class,
-		    "AALSpaceManagerImpl",
-		    new Object[] { "--->Peer +" + peer.getPeerID()
-			    + " left the AALSpace" }, null);
+		    "AALSpaceManagerImpl", new Object[] { "--->Peer +"
+			    + peer.getPeerID() + " left the AALSpace" }, null);
 	    peers.remove(peer.getPeerID());
 	}
     }
@@ -1044,29 +1084,29 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	    if (spaceDescriptor != null
 		    && managedAALspaces.containsKey(spaceDescriptor
 			    .getSpaceCard().getSpaceID())) {
-		LogUtils.logInfo(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "--->Leaving a managed AALSpace: "
-				+ spaceDescriptor.getSpaceCard().getSpaceName() },
-			null);
+		LogUtils
+			.logInfo(
+				context,
+				AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "--->Leaving a managed AALSpace: "
+					+ spaceDescriptor.getSpaceCard()
+						.getSpaceName() }, null);
 		closeManagedSpace(spaceDescriptor);
-	    } else if (spaceDescriptor.getSpaceCard().getSpaceID()
-		    .equals(currentAALSpace.getSpaceCard().getSpaceID())) {
+	    } else if (spaceDescriptor.getSpaceCard().getSpaceID().equals(
+		    currentAALSpace.getSpaceCard().getSpaceID())) {
 		// send a leave message
-		LogUtils.logInfo(
-			context,
-			AALSpaceManagerImpl.class,
-			"AALSpaceManagerImpl",
-			new Object[] { "--->Leaving the AALSpace: "
-				+ spaceDescriptor.getSpaceCard().getSpaceName() },
-			null);
+		LogUtils
+			.logInfo(context, AALSpaceManagerImpl.class,
+				"AALSpaceManagerImpl",
+				new Object[] { "--->Leaving the AALSpace: "
+					+ spaceDescriptor.getSpaceCard()
+						.getSpaceName() }, null);
 		PeerCard spaceCoordinator = new PeerCard(spaceDescriptor
 			.getSpaceCard().getCoordinatorID(),
 			PeerRole.COORDINATOR);
-		controlBroker.leaveAALSpace(spaceCoordinator,
-			spaceDescriptor.getSpaceCard());
+		controlBroker.leaveAALSpace(spaceCoordinator, spaceDescriptor
+			.getSpaceCard());
 		LogUtils.logDebug(context, AALSpaceManagerImpl.class,
 			"AALSpaceManagerImpl",
 			new Object[] { "Leave message sent!" }, null);
@@ -1116,9 +1156,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 			closeManagedSpace(managedAALspaces.get(spaceID));
 		    }
 		} catch (Exception e) {
-		    LogUtils.logError(
-			    context,
-			    AALSpaceManagerImpl.class,
+		    LogUtils.logError(context, AALSpaceManagerImpl.class,
 			    "AALSpaceManagerImpl",
 			    new Object[] { "Error during dispose: "
 				    + e.toString() }, null);
@@ -1209,9 +1247,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     }
 
     public void aalSpaceEvent(AALSpaceStatus newStatus) {
-	LogUtils.logInfo(
-		context,
-		AALSpaceManagerImpl.class,
+	LogUtils.logInfo(context, AALSpaceManagerImpl.class,
 		"AALSpaceManagerImpl",
 		new Object[] { "--->New event from AALSpace: "
 			+ newStatus.toString() }, null);
