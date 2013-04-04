@@ -355,9 +355,9 @@ public class ServiceStrategy extends BusStrategy {
 		    .toString());
 	    ServiceCall sc = (ServiceCall) match
 		    .remove(ServiceRealization.uAAL_ASSERTED_SERVICE_CALL);
-	    // if (m.getContent() instanceof ServiceRequest) {
-	    // sc.setRequest((ServiceRequest) m.getContent());
-	    // }
+	    if (m.getContent() instanceof ServiceRequest) {
+	    	sc.setRequest((ServiceRequest) m.getContent());
+	    }
 	    ((ServiceBusImpl) bus).assessContentSerialization(sc);
 	    BusMessage call = new BusMessage(MessageType.p2p_request, sc, bus);
 
