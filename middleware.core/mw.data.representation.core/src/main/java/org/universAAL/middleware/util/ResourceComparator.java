@@ -200,8 +200,10 @@ public class ResourceComparator {
      */
     public void printDiffs(Resource r1, Resource r2) {
 	isPrinting = true;
-	writeLine(0, new Object[] { "Comparing ", r1.getOrConstructLabel(null),
-		" with ", r2.getOrConstructLabel(null), ":" });
+	if (r1 != null && r2 != null)
+	    writeLine(0, new Object[] { "Comparing ",
+		    r1.getOrConstructLabel(null), " with ",
+		    r2.getOrConstructLabel(null), ":" });
 	if (r1 == null || r2 == null)
 	    s.push("NULL values cannot be compared!");
 	else if (r1.getClass() != r2.getClass()) {
