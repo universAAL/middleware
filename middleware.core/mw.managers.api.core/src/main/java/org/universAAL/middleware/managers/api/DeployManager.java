@@ -41,7 +41,7 @@ public interface DeployManager extends Manager {
      *            deployment plan to install on uAAL
      * @return {@link InstallationResults} as result of the installation
      */
-    public InstallationResults requestToInstall(UAPPPackage app);
+    public InstallationResultsDetails requestToInstall(UAPPPackage app);
 
     /**
      * True if I'm the Deploy coordinator
@@ -70,5 +70,5 @@ public interface DeployManager extends Manager {
      *            service) of the uApp to remove
      * @return the result of the uninstall task of the uApp
      */
-    public InstallationResults requestToUninstall(String serviceId, String id);
+    public InstallationResultsDetails requestToUninstall(String serviceId, String id);
 }

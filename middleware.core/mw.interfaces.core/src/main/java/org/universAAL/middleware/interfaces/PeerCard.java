@@ -96,6 +96,18 @@ public class PeerCard {
         return "Peer ID: " + peerID + " - Peer Role: " + role.toString();
     }
 
+    public int hashCode() {
+        return peerID.hashCode();
+    }
+
+    public boolean equals(Object o){
+        if (o instanceof PeerCard) {
+            PeerCard peer = (PeerCard) o;
+            return peer.peerID.equals(peerID);
+        }
+        return false;
+    }
+
     public String getPLATFORM_UNIT() {
         return PLATFORM_UNIT;
     }

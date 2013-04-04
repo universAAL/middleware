@@ -412,6 +412,7 @@ middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/man
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/DeployManager.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/DeployManagerEventHandler.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/InstallationResults.java -text
+middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/InstallationResultsDetails.java svneol=native#text/plain
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/Manager.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/UAPPPackage.java -text
 middleware.core/mw.managers.deploy.core/LICENSE.txt -text
