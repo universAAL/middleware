@@ -78,6 +78,7 @@ public class KarafDeployConnector implements DeployConnector,
     private final static String UAAL_TMP_DIR = System.getProperty(
             "org.universeAAL.deploy.connector.tmpdir", "uAAL"
                     + File.pathSeparator + "tmp");
+    private static final String JAR_EXTENSION = "jar";
 
     // JAXB
     private JAXBContext jc;
@@ -305,25 +306,14 @@ public class KarafDeployConnector implements DeployConnector,
             // check if I find a KAR archive
             File[] listFiles = parentPartDir.listFiles();
             for (File file : listFiles) {
-                if (!file.getName().endsWith(KAR_EXTENSION))
+                String name = file.getName();
+                if ( name.endsWith(KAR_EXTENSION) == false)
                     continue;
-                String uniqueName = file.getName() + System.currentTimeMillis()
-                        + ".kar";
-                // copy kar file in the deploy dir
-                boolean result = file.renameTo(new File(KAR_DEPLOY_DIR,
-                        uniqueName));
-                if (result == false) {
-                    LogUtils.logError(context, KarafDeployConnector.class,
-                            METHOD,
-                            new Object[] { "Error during installation of file "
-                                    + file + " as " + uniqueName + " for part "
-                                    + card }, null);
+                String uniquePrefix = installFile(file);
+                if ( uniquePrefix == null )
                     return UAPPPartStatus.PART_NOT_INSTALLED;
-                }
-                LogUtils.logInfo(context, KarafDeployConnector.class, METHOD,
-                        new Object[] { "Application part installed for uAAP:"
-                                + card.toString() }, null);
-                updateInstalltionRegistry(card, uniqueName);
+
+                updateInstalltionRegistry(card, uniquePrefix);
             }
         } catch (Exception e) {
             LogUtils.logError(context, KarafDeployConnector.class, METHOD,
@@ -332,6 +322,42 @@ public class KarafDeployConnector implements DeployConnector,
             return UAPPPartStatus.PART_NOT_INSTALLED;
         }
         return UAPPPartStatus.PART_INSTALLED;
+    }
+
+    private String installFile(File file) {
+        final String METHOD = "installFile";
+        String fileName = file.getName();
+        fileName = fileName.substring(0, fileName.lastIndexOf("."+KAR_EXTENSION));
+        String uniquePrefix = name + System.currentTimeMillis();
+        String karfile = uniquePrefix
+                + "." + KAR_EXTENSION;
+        String jarfile = uniquePrefix
+                + "." + JAR_EXTENSION;
+        // copy kar file in the deploy dir
+        boolean result = file.renameTo(new File(KAR_DEPLOY_DIR,
+                karfile));
+        if (result == false) {
+            LogUtils.logError(context, KarafDeployConnector.class,
+                    METHOD,
+                    new Object[] { "Error during KAR installation of file "
+                            + file + " as " + uniquePrefix + "." + KAR_EXTENSION  }, null);
+            return null;
+        }
+
+        LogUtils.logInfo(context, KarafDeployConnector.class, METHOD,
+                new Object[] { "Application part installed for uAAP:"
+                        }, null);
+        File jar = new File( file.getAbsolutePath(), fileName + "." + JAR_EXTENSION );
+        result = jar.renameTo(new File(KAR_DEPLOY_DIR,
+                jarfile));
+        if (result == false) {
+            LogUtils.logError(context, KarafDeployConnector.class,
+                    METHOD,
+                    new Object[] { "Error during JAR installation of file "
+                            + jar + " as " + uniquePrefix + "." + JAR_EXTENSION  }, null);
+            return null;
+        }
+        return uniquePrefix;
     }
 
     public void dispose() {
@@ -356,12 +382,16 @@ public class KarafDeployConnector implements DeployConnector,
     }
 
     private UAPPPartStatus m_uninstallPart(UAPPCard card) throws IOException {
-        String karafFilePath = getInstalledKarafFile(card);
-        if ( karafFilePath == null ) {
+        String uniquePrefix = getInstalledKarafFile(card);
+        if ( uniquePrefix == null ) {
             return UAPPPartStatus.PART_NOT_INSTALLED;
         }
-        File karafFile = new File(KAR_DEPLOY_DIR, karafFilePath);
+        File karafFile = new File(KAR_DEPLOY_DIR, uniquePrefix + "." + KAR_EXTENSION);
         if ( karafFile.delete() == false ) {
+            return UAPPPartStatus.PART_NOT_UNINSTALLED;
+        }
+        File jarFile = new File(KAR_DEPLOY_DIR, uniquePrefix + "." + JAR_EXTENSION);
+        if ( jarFile.delete() == false ) {
             return UAPPPartStatus.PART_NOT_UNINSTALLED;
         }
         updateInstalltionRegistry(card, null);
