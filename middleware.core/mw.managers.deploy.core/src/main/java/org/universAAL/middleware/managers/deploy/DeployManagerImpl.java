@@ -32,6 +32,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
@@ -64,6 +65,7 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 import org.universAAL.middleware.managers.api.DeployManager;
 import org.universAAL.middleware.managers.api.DeployManagerEventHandler;
 import org.universAAL.middleware.managers.api.InstallationResults;
+import org.universAAL.middleware.managers.api.InstallationResultsDetails;
 import org.universAAL.middleware.managers.api.UAPPPackage;
 import org.universAAL.middleware.managers.deploy.util.Consts;
 
@@ -130,9 +132,9 @@ public class DeployManagerImpl implements DeployManager,
     }
 
     public boolean init() {
-        FileUtils.createFileFromByte(context, new byte[] {}, APP_REGISTRY,
-                false);
         if (!initialized) {
+            FileUtils.createFileFromByte(context, new byte[] {}, APP_REGISTRY,
+                    false);
 
             LogUtils.logDebug(context, DeployManagerImpl.class,
                     "DeployManagerImpl",
@@ -226,12 +228,13 @@ public class DeployManagerImpl implements DeployManager,
         return initialized;
     }
 
-    public InstallationResults requestToInstall(UAPPPackage application) {
-        InstallationResults result = null;
+    public InstallationResultsDetails requestToInstall(UAPPPackage application) {
+        InstallationResultsDetails result = new InstallationResultsDetails(
+                InstallationResults.FAILURE);
         try {
-            result = m_requestToInstall(application);
+            InstallationResults global = m_requestToInstall(application, result);
+            result.setGlobalResult(global);
         } catch (Exception ex) {
-            result = InstallationResults.FAILURE;
         }
         synchronized (wip) {
             wip.remove(application.getServiceId() + ":" + application.getId());
@@ -239,7 +242,8 @@ public class DeployManagerImpl implements DeployManager,
         return result;
     }
 
-    private InstallationResults m_requestToInstall(UAPPPackage application) {
+    private InstallationResults m_requestToInstall(UAPPPackage application,
+            InstallationResultsDetails result) {
 
         // checks
         // 1 - get the MPA file
@@ -253,7 +257,7 @@ public class DeployManagerImpl implements DeployManager,
             return InstallationResults.UAPP_URI_INVALID;
         }
 
-        final Map<PeerCard, Part> layout = application.getDeploy();
+        final Map<PeerCard, List<Part>> layout = application.getDeploy();
         String applicationFolderURI = application.getFolder().toString() + "/"
                 + APPLICATION_CONFIGURATION_PATH;
         URI applicationConfigurationFolder = null;
@@ -317,6 +321,13 @@ public class DeployManagerImpl implements DeployManager,
             return InstallationResults.FAILURE;
         }
 
+        if (isInstalled(application.getServiceId(), application.getId()) == false) {
+            LogUtils.logDebug(context, DeployManagerImpl.class,
+                    "requestToInstall",
+                    new Object[] { "Aplication already installed" }, null);
+            return InstallationResults.APPLICATION_ALREADY_INSTALLED;
+        }
+
         if (continueIfNotInstalling(application) == false) {
             LogUtils.logWarn(
                     context,
@@ -335,37 +346,22 @@ public class DeployManagerImpl implements DeployManager,
 
         // adding an entry to the registry
         // this.registry.put(card.getId(), new UAPPStatus(card));
-        final long TIMEOUT = 60 * 1000;
-
+        uapp.getApp();
         for (PeerCard peer : layout.keySet()) {
-            Part target = layout.get(peer);
-            UAPPCard card = new UAPPCard(application.getServiceId(),
-                    target.getPartId(), uapp.getApp());
-            if (aalSpaceManager.getPeers().get(peer.getPeerID()) == null) {
-                // TODO Send a failure without waiting for timeout
+            List<Part> parts = layout.get(peer);
+            for (Part part : parts) {
+                UAPPCard card = new UAPPCard(application.getServiceId(),
+                        part.getPartId(), uapp.getApp());
+                byte[] content = createZippedPart(application.getFolder(), part);
+                InstallationResults partState = requestToInstallPart(card,
+                        peer, content);
+                result.setDetailedResult(peer, part, partState);
+                if (partState == InstallationResults.MISSING_PEER) {
+                    return InstallationResults.INVALID_DEPLOY_LAYOUT;
+                } else if (partState != InstallationResults.SUCCESS) {
+                    return partState;
+                }
             }
-            // send the part to the target node
-            LogUtils.logInfo(context, DeployManagerImpl.class,
-                    "requestToInstall",
-                    new Object[] { "Sending request to install uAPP part to: "
-                            + peer.getPeerID() }, null);
-            byte[] content = createZippedPart(application.getFolder(), target);
-            LogUtils.logDebug(
-                    context,
-                    DeployManagerImpl.class,
-                    "DeployManagerImpl",
-                    new Object[] { "ZipFile created ready to sent it to the target node" },
-                    null);
-            // TODO On failure of installation of a part we could retry up-to
-            // n-times
-            // TODO On permanent failure we should roll back the installation by
-            // removing the parts from peers
-            boolean partInstallationResult = synchronousInstallPart(
-                    controlBroker, content, peer, card, TIMEOUT);
-            if (partInstallationResult == false) {
-                return InstallationResults.FAILURE;
-            }
-
         }
 
         // 4 - send event to the AAL Space
@@ -375,6 +371,27 @@ public class DeployManagerImpl implements DeployManager,
         storeInstallationStatus(application);
 
         return InstallationResults.SUCCESS;
+    }
+
+    private InstallationResults requestToInstallPart(UAPPCard card,
+            PeerCard peer, byte[] content) {
+        final long TIMEOUT = 60 * 1000;
+
+        if (aalSpaceManager.getPeers().get(peer.getPeerID()) == null) {
+            return InstallationResults.MISSING_PEER;
+        }
+        // send the part to the target node
+        LogUtils.logInfo(context, DeployManagerImpl.class, "requestToInstall",
+                new Object[] { "Sending request to install uAPP part to: "
+                        + peer.getPeerID() }, null);
+
+        // TODO On failure of installation of a part we could retry up-to
+        // n-times
+        // TODO On permanent failure we should roll back the installation by
+        // removing the parts from peers
+        InstallationResults result = synchronousInstallPart(controlBroker,
+                content, peer, card, TIMEOUT);
+        return result;
     }
 
     private Properties getApplicationRegistry() {
@@ -400,8 +417,9 @@ public class DeployManagerImpl implements DeployManager,
             return;
 
         FileOutputStream fos = new FileOutputStream(APP_REGISTRY);
-        applicationRegistry.store(fos,
-                "universAAL Deploy Manager Installation registry, the format is serviceId:applicationId=<application layout registry file>");
+        applicationRegistry
+                .store(fos,
+                        "universAAL Deploy Manager Installation registry, the format is serviceId:applicationId=<application layout registry file>");
         fos.flush();
         fos.close();
 
@@ -417,14 +435,20 @@ public class DeployManagerImpl implements DeployManager,
             updateApplicationRegistry();
 
             Properties parts = new Properties();
-            Map<PeerCard, Part> layout = app.getDeploy();
+            Map<PeerCard, List<Part>> layout = app.getDeploy();
             for (PeerCard peer : layout.keySet()) {
-                final String partId = layout.get(peer).getPartId();
-                parts.setProperty(peer.getPeerID(), partId);
+                List<Part> partList = layout.get(peer);
+                int i = 0;
+                for (Part part : partList) {
+                    final String partId = part.getPartId();
+                    i++;
+                    parts.setProperty(peer.getPeerID() + "/" + i, partId);
+                }
             }
             FileOutputStream fos = new FileOutputStream(new File(DM_ROOT_DIR,
                     partRegistry));
-            apps.store(fos, "universAAL " + appKey + " Deploy layout, the format is peerId=partId");
+            apps.store(fos, "universAAL " + appKey
+                    + " Deploy layout, the format is peerId/<index>=partId");
             fos.flush();
             fos.close();
         } catch (Exception ex) {
@@ -443,7 +467,7 @@ public class DeployManagerImpl implements DeployManager,
     }
 
     private Properties getInstallationLayout(String serviceId, String id) {
-        try{
+        try {
             final String appKey = serviceId + ":" + id;
             String layoutFile = getApplicationRegistry().getProperty(appKey);
             FileInputStream fis = new FileInputStream(new File(DM_ROOT_DIR,
@@ -451,7 +475,7 @@ public class DeployManagerImpl implements DeployManager,
             Properties layout = new Properties();
             layout.load(fis);
             return layout;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             LogUtils.logError(
                     context,
                     DeployManagerImpl.class,
@@ -463,28 +487,51 @@ public class DeployManagerImpl implements DeployManager,
 
     }
 
-    public InstallationResults requestToUninstall(String serviceId, String id) {
+    public InstallationResultsDetails requestToUninstall(String serviceId,
+            String id) {
         final String METHOD = "requestToUninstall";
-        if ( isInstalled(serviceId, id) == false ) {
-            LogUtils.logDebug(
-                    context,
-                    DeployManagerImpl.class,
-                    METHOD,
-                    new Object[] { "No aplication installed with uSrvId "+serviceId+" and uAppId "+id}, null);
-            return InstallationResults.FAILURE;
+        InstallationResultsDetails result = new InstallationResultsDetails(
+                InstallationResults.FAILURE);
+        if (isInstalled(serviceId, id) == false) {
+            LogUtils.logDebug(context, DeployManagerImpl.class, METHOD,
+                    new Object[] { "No aplication installed with uSrvId "
+                            + serviceId + " and uAppId " + id }, null);
+            result.setGlobalResult(InstallationResults.APPLICATION_NOT_INSTALLED);
+            return result;
         }
         Properties layout = getInstallationLayout(serviceId, id);
         while (layout.propertyNames().hasMoreElements()) {
-            String peer = (String) layout.propertyNames().nextElement();
-            UAPPCard card = new UAPPCard(serviceId, layout.getProperty(peer), id, "", "");
+            String peerLine = (String) layout.propertyNames().nextElement();
+            String[] parts = peerLine.split("/");
+            String peer = parts[0];
+            if (aalSpaceManager.getPeers().containsKey(peer) == false) {
+                LogUtils.logDebug(
+                        context,
+                        DeployManagerImpl.class,
+                        METHOD,
+                        new Object[] { "Not all the peers used during the installation phase are available" },
+                        null);
+                result.setGlobalResult(InstallationResults.MISSING_PEER);
+                return result;
+            }
+        }
+        while (layout.propertyNames().hasMoreElements()) {
+            String peerLine = (String) layout.propertyNames().nextElement();
+            String[] parts = peerLine.split("/");
+            String peer = parts[0];
+            UAPPCard card = new UAPPCard(serviceId,
+                    layout.getProperty(peerLine), id, "", "");
             PeerCard target = aalSpaceManager.getPeers().get(peer);
-            controlBroker.requestToUninstallPart(target,card);
+            controlBroker.requestToUninstallPart(target, card);
+            result.setDetailedResult(peer, card.getPartId(),
+                    InstallationResults.SUCCESS);
         }
 
-        return InstallationResults.SUCCESS;
+        result.setGlobalResult(InstallationResults.SUCCESS);
+        return result;
     }
 
-    private boolean synchronousInstallPart(ControlBroker broker,
+    private InstallationResults synchronousInstallPart(ControlBroker broker,
             byte[] content, PeerCard peer, UAPPCard card, long timeout) {
 
         final long fireTimeout;
@@ -502,7 +549,7 @@ public class DeployManagerImpl implements DeployManager,
                  * SUCCESS status so we can stop to wait
                  */
                 if (currentTimeout == null)
-                    return true;
+                    return InstallationResults.SUCCESS;
 
                 /*
                  * Received the installationPartNotification callback with a
@@ -510,13 +557,13 @@ public class DeployManagerImpl implements DeployManager,
                  * the installation of the part has been failed
                  */
                 if (currentTimeout == -1)
-                    return false;
+                    return InstallationResults.FAILURE;
 
                 /*
                  * The standard timeout fired
                  */
                 if (System.currentTimeMillis() > currentTimeout)
-                    return false;
+                    return InstallationResults.OPERATION_TIMEOUT;
             }
 
         }
@@ -604,6 +651,7 @@ public class DeployManagerImpl implements DeployManager,
      * @return
      */
     private byte[] createZippedPart(URI applicationFolder, Part part) {
+        final String METHOD = "createZippedPart";
         ZipOutputStream out = null;
         File zippedPart = null;
         byte[] buf = new byte[1024];
@@ -628,19 +676,17 @@ public class DeployManagerImpl implements DeployManager,
             LogUtils.logError(
                     context,
                     DeployManagerImpl.class,
-                    "DeployManagerImpl",
+                    METHOD,
                     new Object[] { "Error while creating the zip file part. Aborting: "
                             + e1 }, null);
             return null;
         } catch (JAXBException e) {
-            LogUtils.logError(context, DeployManagerImpl.class,
-                    "DeployManagerImpl",
+            LogUtils.logError(context, DeployManagerImpl.class, METHOD,
                     new Object[] { "Error while creating the zip file part: "
                             + e }, null);
             return null;
         } catch (IOException e) {
-            LogUtils.logError(context, DeployManagerImpl.class,
-                    "DeployManagerImpl",
+            LogUtils.logError(context, DeployManagerImpl.class, METHOD,
                     new Object[] { "Error while creating the zip file part: "
                             + e }, null);
             return null;
@@ -675,53 +721,22 @@ public class DeployManagerImpl implements DeployManager,
             LogUtils.logError(
                     context,
                     DeployManagerImpl.class,
-                    "DeployManagerImpl",
+                    METHOD,
                     new Object[] { "Error while creating the zip file part. Aborting: "
                             + e1 }, null);
             return null;
         } catch (IOException e) {
-            LogUtils.logError(context, DeployManagerImpl.class,
-                    "DeployManagerImpl",
+            LogUtils.logError(context, DeployManagerImpl.class, METHOD,
                     new Object[] { "Error while creating the zip file part: "
                             + e }, null);
             return null;
         }
 
-        /*
-         * //put the artifacts in the zip file for (DeploymentUnit dUnit :
-         * part.getDeploymentUnit()) { if (dUnit.isSetContainerUnit() &&
-         * dUnit.getContainerUnit().isSetKaraf()) { Karaf karafDUnit =
-         * dUnit.getContainerUnit().getKaraf(); if (karafDUnit.isSetEmbedding()
-         * && karafDUnit.getFeatures().isSetRepositoryOrFeature()) { for
-         * (Serializable element : karafDUnit.getFeatures()
-         * .getRepositoryOrFeature()) { if (element instanceof Feature) { // get
-         * the feature Feature feature = (Feature) element; if
-         * (feature.isSetDetailsOrConfigOrConfigfile()) { for (Serializable
-         * element1 : feature .getDetailsOrConfigOrConfigfile()) { // get the
-         * bundles if (element1 instanceof Bundle) { Bundle bundle = (Bundle)
-         * element1; try { // add to the zip file only the // artefacts that has
-         * been locally // downloaded if (bundle.getValue().startsWith( "file"))
-         * { URI uri = new URI( bundle.getValue()); File file = new File(
-         * uri.getSchemeSpecificPart()); FileInputStream in = new
-         * FileInputStream( deployFolder.getPath() + "/" + file.getName());
-         * out.putNextEntry(new ZipEntry( file.getName())); int len; while ((len
-         * = in.read(buf)) > 0) { out.write(buf, 0, len); } out.closeEntry();
-         * in.close(); } } catch (URISyntaxException e) { LogUtils.logError(
-         * context, DeployManagerImpl.class, "DeployManagerImpl", new Object[] {
-         * "Error while creating the zip file part: " + e }, null); return null;
-         * } catch (IOException e) { LogUtils.logError( context,
-         * DeployManagerImpl.class, "DeployManagerImpl", new Object[] {
-         * "Error while creating the zip file part: " + e }, null); return null;
-         * } }
-         *
-         * } } } } } } }
-         */
         try {
             out.flush();
             out.close();
         } catch (IOException e) {
-            LogUtils.logError(context, DeployManagerImpl.class,
-                    "DeployManagerImpl",
+            LogUtils.logError(context, DeployManagerImpl.class, METHOD,
                     new Object[] { "Error while creating the zip file part: "
                             + e }, null);
             return null;
@@ -730,16 +745,20 @@ public class DeployManagerImpl implements DeployManager,
             FileInputStream inZip = new FileInputStream(zippedPart);
             byte[] fileContent = new byte[(int) zippedPart.length()];
             inZip.read(fileContent);
+            LogUtils.logDebug(
+                    context,
+                    DeployManagerImpl.class,
+                    METHOD,
+                    new Object[] { "ZipFile created ready to sent it to the target node" },
+                    null);
             return fileContent;
         } catch (FileNotFoundException e) {
-            LogUtils.logError(context, DeployManagerImpl.class,
-                    "DeployManagerImpl",
+            LogUtils.logError(context, DeployManagerImpl.class, METHOD,
                     new Object[] { "Error while creating the zip file part: "
                             + e }, null);
             return null;
         } catch (IOException e) {
-            LogUtils.logError(context, DeployManagerImpl.class,
-                    "DeployManagerImpl",
+            LogUtils.logError(context, DeployManagerImpl.class, METHOD,
                     new Object[] { "Error while creating the zip file part: "
                             + e }, null);
             return null;
@@ -954,13 +973,6 @@ public class DeployManagerImpl implements DeployManager,
             uappSuffix = (String) configurations.get(Consts.MPA_SUFFIX);
         }
 
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        ZipOutputStream z = new ZipOutputStream(new FileOutputStream(new File(
-                "prova")));
-        if (z instanceof Serializable)
-            System.out.println("d");
     }
 
     public void newPeerJoined(PeerCard peer) {

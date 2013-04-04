@@ -21,6 +21,7 @@
 package org.universAAL.middleware.managers.api;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 import org.universAAL.middleware.interfaces.PeerCard;
@@ -40,7 +41,7 @@ public class UAPPPackage {
     private final URI folder;
     private final String id;
     private final String serviceId;
-    private final Map<PeerCard, Part> deploy;
+    private final Map<PeerCard, List<Part> > deploy;
 
     /**
      * This method is invoked in order to install a multi-part application in
@@ -63,7 +64,7 @@ public class UAPPPackage {
      *            contained in the uSrv has to be installed
      */
     public UAPPPackage(String serviceId, String id, URI folder,
-            Map<PeerCard, Part> layout) {
+            Map<PeerCard, List<Part>> layout) {
         super();
         this.serviceId = serviceId;
         this.folder = folder;
@@ -101,7 +102,7 @@ public class UAPPPackage {
      *
      * @return the deployment plan for the uApp application
      */
-    public Map<PeerCard, Part> getDeploy() {
+    public Map<PeerCard, List<Part>> getDeploy() {
         return deploy;
     }
 
