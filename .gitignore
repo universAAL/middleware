@@ -1455,6 +1455,7 @@ middleware.osgi/mw.managers.api.osgi/target
 middleware.osgi/mw.managers.deploy.osgi/.classpath
 middleware.osgi/mw.managers.deploy.osgi/.project
 middleware.osgi/mw.managers.deploy.osgi/.settings
+middleware.osgi/mw.managers.deploy.osgi/etc
 middleware.osgi/mw.managers.deploy.osgi/target
 middleware.osgi/mw.modules.aalspace.osgi/.classpath
 middleware.osgi/mw.modules.aalspace.osgi/.project
