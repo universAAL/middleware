@@ -723,4 +723,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 
     }
 
+    public boolean hasChannel(String channelName) {
+	return channelMap.containsKey(channelName);
+    }
 }

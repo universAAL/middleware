@@ -133,4 +133,12 @@ public interface CommunicationModule extends Module {
      */
     public MessageListener getListenerByNameAndType(String name, Class clz);
 
+    /**
+     * Determines whether a channel with the specified name exists.
+     * 
+     * @param channelName
+     *            name of the channel.
+     * @return true, iff the channel exists.
+     */
+    public boolean hasChannel(String channelName);
 }
