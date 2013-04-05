@@ -1044,7 +1044,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	if (removeHook instanceof ControlBroker) {
 	    LogUtils.logDebug(context, AALSpaceManagerImpl.class,
 		    "sharedObjectRemoved",
-		    new Object[] { "ControlBroker service added" }, null);
+		    new Object[] { "ControlBroker service removed" }, null);
 	    this.controlBroker = null;
 	    initialized = false;
 	}
