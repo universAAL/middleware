@@ -72,4 +72,6 @@ public interface CommunicationConnector extends Connector {
     public String toString();
 
     public List<String> getGroupMembers(String groupName);
+    
+    public boolean hasChannel(String channelName);
 }

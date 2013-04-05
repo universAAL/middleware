@@ -426,4 +426,7 @@ public class CommunicationModuleImpl implements CommunicationModule,
 	return communicationConnector.getGroupMembers(group);
     }
 
+    public boolean hasChannel(String channelName) {
+	return communicationConnector.hasChannel(channelName);
+    }
 }

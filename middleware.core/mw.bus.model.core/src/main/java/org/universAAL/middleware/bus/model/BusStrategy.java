@@ -28,6 +28,7 @@ import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.modules.CommunicationModule;
 
@@ -233,6 +234,30 @@ public abstract class BusStrategy extends Thread {
 
     protected void send(BusMessage message) {
 	PeerCard[] receivers = message.getReceivers();
+	
+	// wait until the communication connector has configured this channel
+	int cnt = -1;
+	while (!commModule.hasChannel(busModule.getID())) {
+	    try {
+		Thread.sleep(100);
+	    } catch (InterruptedException e) {
+		e.printStackTrace();
+	    }
+	    cnt++;
+	    if (cnt % 50 == 0) // log a message every 5 seconds
+		LogUtils
+			.logError(
+				busModule,
+				BusStrategy.class,
+				"send",
+				new Object[] {
+					"The communication connector is not yet configured correctly (channel ",
+					busModule.getID(),
+					" is unknown). Waiting for the configuration to send the message. Time elapsed: ",
+					cnt / 10, " seconds." }, null);
+	}
+	
+	// send the message
 	if (isBroadcast(receivers)) {
 	    commModule.sendAll(buildChannelMessage(message), bus);
 	} else if (isUnicast(receivers)) {
