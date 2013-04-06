@@ -52,390 +52,221 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.xfaces.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.interfaces.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.interfaces.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.connectors.api.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.connectors.api.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.managers.api.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.managers.api.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.modules.api.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.modules.api.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.brokers.api.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.brokers.api.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.karaf.shell.universAAL.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.connectors.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.interfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.managers.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.brokers.control.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.interfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>*.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<!--  WARNING THIS VERSION SHOULD BE IN A PARENT!!!!!! -->
+<!-- 			 WARNING THIS VERSION SHOULD BE IN A PARENT!!!!!! -->
 			<version>2.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		
 		
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.connectors.communication.jgroups.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.interfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.connectors.communication.jgroups.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.connectors.discovery.slp.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.interfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.connectors.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.connectors.discovery.slp.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.connectors.deploy.karaf.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.interfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.connectors.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.brokers.control.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.brokers.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.connectors.deploy.karaf.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		
 		
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.modules.communication.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.interfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.connectors.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.modules.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.modules.communication.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.modules.aalspace.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.interfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.connectors.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.modules.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.brokers.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.modules.aalspace.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.brokers.control.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.brokers.control.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		
 
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.managers.deploy.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.interfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.managers.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.brokers.api.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.managers.deploy.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.serialization.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.data.serialization.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.model.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.data.representation.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.bus.model.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.data.representation.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.tracker.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.bus.tracker.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.context.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.bus.context.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>		
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.service.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.bus.service.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.ui.osgi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.container.xfaces.core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.universAAL.middleware</groupId>
-					<artifactId>mw.bus.ui.core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.interfaces.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.connectors.api.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.connectors.communication.jgroups.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.connectors.discovery.slp.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.connectors.deploy.karaf.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.modules.aalspace.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.modules.communication.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.brokers.api.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.brokers.control.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.managers.api.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.managers.aalspace.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.managers.deploy.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.modules.api.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.xfaces.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.model.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.context.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.service.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.service.aapi.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.ui.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.representation.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.serialization.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+			  <groupId>org.universAAL.middleware</groupId>
+			  <artifactId>mw.bus.tracker.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>	
+	</dependencyManagement>
 
 	<build>
 		<pluginManagement>
