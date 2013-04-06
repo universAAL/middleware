@@ -676,6 +676,9 @@ middleware.osgi/mw.modules.communication.osgi/NOTICE.txt -text
 middleware.osgi/mw.modules.communication.osgi/pom.xml -text
 middleware.osgi/mw.modules.communication.osgi/src/main/java/org/universAAL/middleware/modules/communication/osgi/Activator.java -text
 middleware.osgi/mw.pom.osgi/composite/pom.xml -text
+middleware.osgi/mw.pom.osgi/karaf.feature/pom.xml -text
+middleware.osgi/mw.pom.osgi/karaf.feature/src/main/feature/feature.xml -text
+middleware.osgi/mw.pom.osgi/karaf.feature/src/main/history/dependencies.xml -text
 middleware.osgi/mw.pom.osgi/pom.xml -text
 middleware.resources/mw.schemas/LICENSE.txt -text
 middleware.resources/mw.schemas/NOTICE.txt -text
