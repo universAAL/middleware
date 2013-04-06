@@ -23,5 +23,9 @@
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.brokers.api.core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.schemas</artifactId>
+		</dependency>
 	</dependencies>
 </project>
