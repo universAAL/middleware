@@ -571,13 +571,18 @@ public class ServiceRealization extends FinalizedResource {
 	    return false;
 
 	Hashtable cloned = (Hashtable) context.clone();
+	
+	// check effects
 	if (!ProcessResult.checkEffects(request.getRequiredEffects(), prof
-		.getEffects(), cloned, logID)
-		|| !ProcessResult.checkOutputBindings(request
-			.getRequiredOutputs(), prof.getOutputBindings(),
-			cloned, logID))
+		.getEffects(), cloned, logID))
+	    return false;
+	
+	// check output bindings
+	if (!ProcessResult.checkOutputBindings(request.getRequiredOutputs(),
+		prof.getOutputBindings(), cloned, requestedService, logID))
 	    return false;
 
+	// synchronize the context for the effect and output bindings check
 	if (cloned.size() > context.size())
 	    for (Iterator i = cloned.keySet().iterator(); i.hasNext();) {
 		Object key = i.next();
