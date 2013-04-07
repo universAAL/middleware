@@ -229,11 +229,14 @@ public abstract class ProcessParameter extends Variable {
      * @return String - the parameter type
      */
     public String getParameterType() {
-	return ((Resource) props.get(PROP_OWLS_PROCESS_PARAMETER_TYPE))
-		.getURI();
+	Resource parameterType = (Resource) props
+		.get(PROP_OWLS_PROCESS_PARAMETER_TYPE);
+	if (parameterType == null)
+	    return null;
+	return parameterType.getURI();
     }
 
-    /**
+   /**
      * Returns the value of this parameter
      * 
      * @return - the object representing the value

@@ -31,6 +31,7 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
+import org.universAAL.middleware.service.owl.Service;
 
 /**
  * This class represents ProcessResult of OWL-S -
@@ -183,7 +184,7 @@ public class ProcessResult extends FinalizedResource {
      */
     public static boolean checkOutputBindings(Resource[] req, Resource[] offer,
 	    Hashtable context) {
-	return checkOutputBindings(req, offer, context, null);
+	return checkOutputBindings(req, offer, context, null, null);
     }
 
     /**
@@ -201,7 +202,7 @@ public class ProcessResult extends FinalizedResource {
      * @return true iff the output bindings match
      */
     public static boolean checkOutputBindings(Resource[] req, Resource[] offer,
-	    Hashtable context, Long logID) {
+	    Hashtable context, Service requestedService, Long logID) {
 
 	if (req == null || req.length == 0)
 	    return true;
@@ -225,7 +226,7 @@ public class ProcessResult extends FinalizedResource {
 	    return false;
 	}
 	for (int i = 0; i < req.length; i++) {
-	    if (!OutputBinding.findMatchingBinding(req[i], offer, context)) {
+	    if (!OutputBinding.findMatchingBinding(req[i], offer, context, requestedService)) {
 		if (logID != null) {
 		    LogUtils
 			    .logTrace(
