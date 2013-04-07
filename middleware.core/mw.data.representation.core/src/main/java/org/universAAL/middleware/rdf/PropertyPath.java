@@ -205,6 +205,16 @@ public class PropertyPath extends FinalizedResource {
 	return false;
     }
 
+    /** Get the first element of the path. */
+    public String getFirstPathElement() {
+	List l = (List) props.get(PROP_PROPERTY_PATH);
+	if (l == null || l.isEmpty())
+	    return null;
+
+	Object o = l.get(0);
+	return (o == null) ? null : o.toString();
+    }
+    
     /** Get the last element of the path. */
     public String getLastPathElement() {
 	List l = (List) props.get(PROP_PROPERTY_PATH);
