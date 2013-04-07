@@ -38,7 +38,7 @@
 		<!-- Deploy Manager -->
 		<configfile finalname="/etc/mw.managers.deploy.core.cfg">mvn:org.universAAL.middleware/mw.managers.deploy.core.config/${project.version}/cfg</configfile>
 
-		<!-- AAL Spacde Module -->
+		<!-- AAL Space Module -->
 		<configfile finalname="/etc/mw.modules.aalspace.core.cfg">mvn:org.universAAL.middleware/mw.modules.aalspace.core.config/${project.version}/cfg</configfile>
     </feature>
 
