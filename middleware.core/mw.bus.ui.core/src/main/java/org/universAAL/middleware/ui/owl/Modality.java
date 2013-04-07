@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut fuer Graphische Datenverarbeitung 
+	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 	
 	2012 Ericsson Nikola Tesla d.d., www.ericsson.com/hr
 	
@@ -15,7 +15,7 @@
 	
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either.ss or implied.
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
