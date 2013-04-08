@@ -63,7 +63,7 @@
             	org.universAAL.middleware.tracker.osgi,
             	org.universAAL.middleware.tracker.impl
             </Private-Package>
-            <Import-Packed>org.osgi.framework;version="[1,2)",*</Import-Packed>
+            <Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
