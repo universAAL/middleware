@@ -2,7 +2,7 @@
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 	
-	2012 Ericsson Nikola Tesla d.d., www.ericsson.com/hr
+	Copyright 2012-2014 Ericsson Nikola Tesla d.d., www.ericsson.com/hr/
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership

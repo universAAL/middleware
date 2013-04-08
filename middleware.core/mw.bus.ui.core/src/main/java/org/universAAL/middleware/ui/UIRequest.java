@@ -2,6 +2,8 @@
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 	
+	Copyright 2013-2014 Ericsson Nikola Tesla d.d., www.ericsson.com/hr/
+	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
 	
@@ -34,8 +36,7 @@ import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.owl.AccessImpairment;
 import org.universAAL.middleware.ui.owl.DialogType;
-import org.universAAL.middleware.ui.owl.Gender;
-import org.universAAL.middleware.ui.owl.Modality;
+import org.universAAL.middleware.ui.owl.Preference;
 import org.universAAL.middleware.ui.owl.PrivacyLevel;
 import org.universAAL.middleware.ui.rdf.Form;
 
@@ -45,9 +46,10 @@ import org.universAAL.middleware.ui.rdf.Form;
  * the addressed user, the priority of the dialog, and the language and privacy
  * level of the content. The UI bus will then add the current adaptation
  * parameters to the call (by asking the Dialog Manager) before selecting the
- * appropriate UI handler and forwarding the call to it.
+ * appropriate UI Handler and forwarding the call to it.
  * 
  * @author mtazari
+ * @author eandgrg
  * @author Carsten Stockloew
  */
 public class UIRequest extends FinalizedResource implements Request {
@@ -59,6 +61,9 @@ public class UIRequest extends FinalizedResource implements Request {
     /** The Constant MY_URI. */
     public static final String MY_URI = uAAL_UI_NAMESPACE + "UIRequest";
 
+    // ////////////////////////////////////////////////////////////////
+    // Data added by applications when creating UIRequest)
+    // ////////////////////////////////////////////////////////////////
     /** The Constant PROP_ADDRESSED_USER. */
     public static final String PROP_ADDRESSED_USER = uAAL_UI_NAMESPACE
 	    + "addressedUser";
@@ -71,53 +76,29 @@ public class UIRequest extends FinalizedResource implements Request {
     public static final String PROP_DIALOG_PRIORITY = uAAL_UI_NAMESPACE
 	    + "dialogPriority";
 
-    /** The Constant PROP_HAS_ACCESS_IMPAIRMENT. */
-    public static final String PROP_HAS_ACCESS_IMPAIRMENT = uAAL_UI_NAMESPACE
-	    + "hasAccessImpairment";
-
     /** The Constant PROP_DIALOG_LANGUAGE. */
     public static final String PROP_DIALOG_LANGUAGE = uAAL_UI_NAMESPACE
 	    + "dialogLanguage";
-
-    /** The Constant PROP_PRESENTATION_MODALITY. */
-    public static final String PROP_PRESENTATION_MODALITY = uAAL_UI_NAMESPACE
-	    + "presentationModality";
-
-    /** The Constant PROP_PRESENTATION_MODALITY_ALT. */
-    public static final String PROP_PRESENTATION_MODALITY_ALT = uAAL_UI_NAMESPACE
-	    + "altPresentationModality";
-
-    /** The Constant PROP_PRESENTATION_LOCATION. */
-    public static final String PROP_PRESENTATION_LOCATION = uAAL_UI_NAMESPACE
-	    + "presentationLocation";
 
     /** The Constant PROP_DIALOG_PRIVACY_LEVEL. */
     public static final String PROP_DIALOG_PRIVACY_LEVEL = uAAL_UI_NAMESPACE
 	    + "dialogPrivacyLevel";
 
-    /** The Constant PROP_SCREEN_RESOLUTION_MAX_X. */
-    public static final String PROP_SCREEN_RESOLUTION_MAX_X = uAAL_UI_NAMESPACE
-	    + "screenResolutionMaxX";
+    // ///////////////////////////////////////////////////////////////
+    // Additional data (added by ui.dm)
+    // ///////////////////////////////////////////////////////////////
 
-    /** The Constant PROP_SCREEN_RESOLUTION_MAX_Y. */
-    public static final String PROP_SCREEN_RESOLUTION_MAX_Y = uAAL_UI_NAMESPACE
-	    + "screenResolutionMaxY";
+    /** The Constant PROP_PRESENTATION_LOCATION. */
+    public static final String PROP_PRESENTATION_LOCATION = uAAL_UI_NAMESPACE
+	    + "presentationLocation";
 
-    /** The Constant PROP_SCREEN_RESOLUTION_MIN_X. */
-    public static final String PROP_SCREEN_RESOLUTION_MIN_X = uAAL_UI_NAMESPACE
-	    + "screenResolutionMinX";
+    /** The Constant PROP_HAS_ACCESS_IMPAIRMENT. */
+    public static final String PROP_HAS_ACCESS_IMPAIRMENT = uAAL_UI_NAMESPACE
+	    + "hasAccessImpairment";
 
-    /** The Constant PROP_SCREEN_RESOLUTION_MIN_Y. */
-    public static final String PROP_SCREEN_RESOLUTION_MIN_Y = uAAL_UI_NAMESPACE
-	    + "screenResolutionMinY";
-
-    /** The Constant PROP_VOICE_GENDER. */
-    public static final String PROP_VOICE_GENDER = uAAL_UI_NAMESPACE
-	    + "voiceGander";
-
-    /** The Constant PROP_VOICE_LEVEL. */
-    public static final String PROP_VOICE_LEVEL = uAAL_UI_NAMESPACE
-	    + "voiceLevel";
+    /** The Constant PROP_HAS_PREFERENCE. */
+    public static final String PROP_HAS_PREFERENCE = uAAL_UI_NAMESPACE
+	    + "hasPreference";
 
     /**
      * This constructor is for the exclusive usage by deserializers.
@@ -127,7 +108,7 @@ public class UIRequest extends FinalizedResource implements Request {
     }
 
     /**
-     * Instantiates a new UI request.
+     * Instantiates a new {@link UIRequest}.
      * 
      * @param user
      *            the user
@@ -136,7 +117,7 @@ public class UIRequest extends FinalizedResource implements Request {
      * @param dialogPriority
      *            the dialog priority
      * @param dialogLang
-     *            the dialog lang
+     *            the dialog language
      * @param dialogPrivacy
      *            the dialog privacy
      */
@@ -155,21 +136,21 @@ public class UIRequest extends FinalizedResource implements Request {
     }
 
     /**
+     * @see org.universAAL.middleware.rdf.Resource#getPropSerializationType(java.lang.String)
+     */
+    @Override
+    public int getPropSerializationType(String propURI) {
+	return PROP_DIALOG_FORM.equals(propURI) ? PROP_SERIALIZATION_FULL
+		: PROP_SERIALIZATION_REDUCED;
+    }
+
+    /**
      * Gets the addressed user.
      * 
      * @return the addressed user
      */
     public Resource getAddressedUser() {
 	return (Resource) props.get(PROP_ADDRESSED_USER);
-    }
-
-    /**
-     * Gets the alt presentation modality.
-     * 
-     * @return the alt presentation modality
-     */
-    public Modality getAltPresentationModality() {
-	return (Modality) props.get(PROP_PRESENTATION_MODALITY_ALT);
     }
 
     /**
@@ -240,102 +221,23 @@ public class UIRequest extends FinalizedResource implements Request {
     }
 
     /**
+     * Gets the Preferences.
+     * 
+     * @return the preferences
+     */
+    public Preference[] getPreferences() {
+	List l = (List) props.get(PROP_HAS_PREFERENCE);
+	return l == null ? null : (Preference[]) l.toArray(new Preference[l
+		.size()]);
+    }
+
+    /**
      * Gets the presentation location.
      * 
      * @return the presentation location
      */
     public AbsLocation getPresentationLocation() {
 	return (AbsLocation) props.get(PROP_PRESENTATION_LOCATION);
-    }
-
-    /**
-     * Gets the presentation modality.
-     * 
-     * @return the presentation modality
-     */
-    public Modality getPresentationModality() {
-	return (Modality) props.get(PROP_PRESENTATION_MODALITY);
-    }
-
-    /**
-     * @see org.universAAL.middleware.rdf.Resource#getPropSerializationType(java.lang.String)
-     */
-    @Override
-    public int getPropSerializationType(String propURI) {
-	return PROP_DIALOG_FORM.equals(propURI) ? PROP_SERIALIZATION_FULL
-		: PROP_SERIALIZATION_REDUCED;
-    }
-
-    /**
-     * Gets the screen resolution max x.
-     * 
-     * @return the screen resolution max x
-     */
-    public int getScreenResolutionMaxX() {
-	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MAX_X);
-	return i == null ? -1 : i.intValue();
-    }
-
-    /**
-     * Gets the screen resolution max y.
-     * 
-     * @return the screen resolution max y
-     */
-    public int getScreenResolutionMaxY() {
-	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MAX_Y);
-	return i == null ? -1 : i.intValue();
-    }
-
-    /**
-     * Gets the screen resolution min x.
-     * 
-     * @return the screen resolution min x
-     */
-    public int getScreenResolutionMinX() {
-	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MIN_X);
-	return i == null ? -1 : i.intValue();
-    }
-
-    /**
-     * Gets the screen resolution min y.
-     * 
-     * @return the screen resolution min y
-     */
-    public int getScreenResolutionMinY() {
-	Integer i = (Integer) props.get(PROP_SCREEN_RESOLUTION_MIN_Y);
-	return i == null ? -1 : i.intValue();
-    }
-
-    /**
-     * Gets the voice gender.
-     * 
-     * @return the voice gender
-     */
-    public Gender getVoiceGender() {
-	return (Gender) props.get(PROP_VOICE_GENDER);
-    }
-
-    /**
-     * Gets the voice level.
-     * 
-     * @return the voice level
-     */
-    public int getVoiceLevel() {
-	Integer i = (Integer) props.get(PROP_VOICE_LEVEL);
-	return i == null ? -1 : i.intValue();
-    }
-
-    /**
-     * Sets the alt presentation modality.
-     * 
-     * @param outputModality
-     *            the new alt presentation modality
-     */
-    public void setAltPresentationModality(Modality outputModality) {
-	if (outputModality != null
-		&& !props.containsKey(PROP_PRESENTATION_MODALITY_ALT)) {
-	    props.put(PROP_PRESENTATION_MODALITY_ALT, outputModality);
-	}
     }
 
     /**
@@ -365,6 +267,19 @@ public class UIRequest extends FinalizedResource implements Request {
     }
 
     /**
+     * Sets the preferences.
+     * 
+     * @param preference
+     *            the new preferences
+     */
+    public void setPreferences(Preference[] preferences) {
+	if (preferences != null && preferences.length > 0
+		&& !props.containsKey(PROP_HAS_PREFERENCE)) {
+	    props.put(PROP_HAS_PREFERENCE, Arrays.asList(preferences));
+	}
+    }
+
+    /**
      * Sets the presentation location.
      * 
      * @param presentationLocation
@@ -374,105 +289,6 @@ public class UIRequest extends FinalizedResource implements Request {
 	if (presentationLocation != null
 		&& !props.containsKey(PROP_PRESENTATION_LOCATION)) {
 	    props.put(PROP_PRESENTATION_LOCATION, presentationLocation);
-	}
-    }
-
-    /**
-     * Sets the presentation modality.
-     * 
-     * @param outputModality
-     *            the new presentation modality
-     */
-    public void setPresentationModality(Modality outputModality) {
-	if (outputModality != null
-		&& !props.containsKey(PROP_PRESENTATION_MODALITY)) {
-	    props.put(PROP_PRESENTATION_MODALITY, outputModality);
-	}
-    }
-
-    /**
-     * Sets the privacy mapping.
-     * 
-     * @param pl
-     *            the new privacy mapping
-     */
-    public void setPrivacyMapping(PrivacyLevel pl) {
-	if (props.containsKey(PROP_DIALOG_PRIVACY_LEVEL)
-		&& (pl == PrivacyLevel.insensible || pl == PrivacyLevel.personal)) {
-	    props.put(PROP_DIALOG_PRIVACY_LEVEL, pl);
-	}
-    }
-
-    /**
-     * Sets the screen resolution max x.
-     * 
-     * @param x
-     *            the new screen resolution max x
-     */
-    public void setScreenResolutionMaxX(int x) {
-	if (x > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MAX_X)) {
-	    props.put(PROP_SCREEN_RESOLUTION_MAX_X, new Integer(x));
-	}
-    }
-
-    /**
-     * Sets the screen resolution max y.
-     * 
-     * @param y
-     *            the new screen resolution max y
-     */
-    public void setScreenResolutionMaxY(int y) {
-	if (y > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MAX_Y)) {
-	    props.put(PROP_SCREEN_RESOLUTION_MAX_Y, new Integer(y));
-	}
-    }
-
-    /**
-     * Sets the screen resolution min x.
-     * 
-     * @param x
-     *            the new screen resolution min x
-     */
-    public void setScreenResolutionMinX(int x) {
-	if (x > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MIN_X)) {
-	    props.put(PROP_SCREEN_RESOLUTION_MIN_X, new Integer(x));
-	}
-    }
-
-    /**
-     * Sets the screen resolution min y.
-     * 
-     * @param y
-     *            the new screen resolution min y
-     */
-    public void setScreenResolutionMinY(int y) {
-	if (y > 0 && !props.containsKey(PROP_SCREEN_RESOLUTION_MIN_Y)) {
-	    props.put(PROP_SCREEN_RESOLUTION_MIN_Y, new Integer(y));
-	}
-    }
-
-    /**
-     * Sets the voice gender.
-     * 
-     * @param g
-     *            the new voice gender
-     */
-    public void setVoiceGender(Gender g) {
-	if (g != null && !props.containsKey(PROP_VOICE_GENDER)) {
-	    props.put(PROP_VOICE_GENDER, g);
-	}
-    }
-
-    /**
-     * Sets the voice level.
-     * 
-     * @param loudnessPercentage
-     *            the new voice level
-     */
-    public void setVoiceLevel(int loudnessPercentage) {
-	if (loudnessPercentage > -1 && loudnessPercentage < 101
-		&& !props.containsKey(PROP_VOICE_LEVEL)) {
-	    props.put(PROP_VOICE_LEVEL, new Integer(loudnessPercentage));
 	}
     }
 
@@ -511,7 +327,13 @@ public class UIRequest extends FinalizedResource implements Request {
 	}
     }
 
-    private boolean isMatchingUIHandlerProfile(UIHandlerProfile advertisement) {
+    /**
+     * 
+     * @param uiHandlerProfile
+     *            {@link UIHandlerProfile}
+     * @return currently always false!!!!
+     */
+    private boolean isMatchingUIHandlerProfile(UIHandlerProfile uiHandlerProfile) {
 	// TODO method not implemented
 	return false;
     }
@@ -524,7 +346,7 @@ public class UIRequest extends FinalizedResource implements Request {
 	    Object thisProperty = getProperty(propertyURI);
 	    Object otherProperty = other.getProperty(propertyURI);
 
-	    // TODO add good matching algorithm, not that shit!
+	    // TODO add good matching algorithm!!
 	    if (!thisProperty.equals(otherProperty)) {
 		matches = false;
 	    }

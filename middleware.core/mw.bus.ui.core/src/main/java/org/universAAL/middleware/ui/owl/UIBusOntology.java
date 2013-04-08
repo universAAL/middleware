@@ -2,6 +2,8 @@
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 	
+	Copyright 2013-2014 Ericsson Nikola Tesla d.d., www.ericsson.com/hr/
+	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
 	
@@ -109,16 +111,6 @@ public class UIBusOntology extends Ontology {
 		.toEnumeration(new ManagedIndividual[] { DialogType.sysMenu,
 			DialogType.message, DialogType.subdialog,
 			DialogType.stdDialog });
-
-	// load Gender
-	oci = createNewAbstractOntClassInfo(Gender.MY_URI);
-	oci
-		.setResourceComment("An enumeration for specifying the gender in different contexts");
-	oci.setResourceLabel("Gender");
-	oci.addSuperClass(ManagedIndividual.MY_URI);
-	oci
-		.toEnumeration(new ManagedIndividual[] { Gender.female,
-			Gender.male });
 
 	// load Modality
 	oci = createNewAbstractOntClassInfo(Modality.MY_URI);

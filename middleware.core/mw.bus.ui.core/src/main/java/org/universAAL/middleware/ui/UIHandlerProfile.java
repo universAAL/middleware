@@ -2,6 +2,8 @@
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 	
+	Copyright 2013-2014 Ericsson Nikola Tesla d.d., www.ericsson.com/hr/
+	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
 	
@@ -35,6 +37,8 @@ import org.universAAL.middleware.ui.owl.Modality;
 /**
  * @author mtazari
  * @author Carsten Stockloew
+ * @author eandgrg
+ *
  */
 public class UIHandlerProfile extends FinalizedResource implements
 	UtilityAdvertisement {
@@ -72,18 +76,14 @@ public class UIHandlerProfile extends FinalizedResource implements
 	}
 
 	String prop = r.getOnProperty();
-	if (UIRequest.PROP_HAS_ACCESS_IMPAIRMENT.equals(prop)
-		|| UIRequest.PROP_ADDRESSED_USER.equals(prop)  //added in Krakow
+	if (UIRequest.PROP_ADDRESSED_USER.equals(prop)
+		|| UIRequest.PROP_DIALOG_FORM.equals(prop)
+		|| UIRequest.PROP_DIALOG_PRIORITY.equals(prop)
 		|| UIRequest.PROP_DIALOG_LANGUAGE.equals(prop)
-		|| UIRequest.PROP_PRESENTATION_MODALITY.equals(prop)
-		|| UIRequest.PROP_PRESENTATION_LOCATION.equals(prop)
 		|| UIRequest.PROP_DIALOG_PRIVACY_LEVEL.equals(prop)
-		|| UIRequest.PROP_SCREEN_RESOLUTION_MAX_X.equals(prop)
-		|| UIRequest.PROP_SCREEN_RESOLUTION_MAX_Y.equals(prop)
-		|| UIRequest.PROP_SCREEN_RESOLUTION_MIN_X.equals(prop)
-		|| UIRequest.PROP_SCREEN_RESOLUTION_MIN_Y.equals(prop)
-		|| UIRequest.PROP_VOICE_GENDER.equals(prop)
-		|| UIRequest.PROP_VOICE_LEVEL.equals(prop)) {
+		|| UIRequest.PROP_HAS_ACCESS_IMPAIRMENT.equals(prop)
+		|| UIRequest.PROP_HAS_PREFERENCE.equals(prop)
+		|| UIRequest.PROP_PRESENTATION_LOCATION.equals(prop)) {
 	    if (propRestrictionAllowed(prop)) {
 		restrictions.add(r);
 		return true;
@@ -158,35 +158,41 @@ public class UIHandlerProfile extends FinalizedResource implements
 	    // TODO added matching on the addressed user. Revise necessary on
 	    // follow me scenario, we should have location of the user known
 	    // for best UIstrategy but question is how do we get it and if this
-	    // will be feasible in most cases. 
+	    // will be feasible in most cases.
 	    if (!r.hasMember(request, null)) {
-		//If there is a location of the user than match on the location; if there is no location - see logged in location
-//			if (UIRequest.PROP_ADDRESSED_USER.equals(r.getOnProperty())) {
-//			    continue;
-//			} else 
-		if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
-				.getOnProperty())
-				&& r.copyOnNewProperty(
-					UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-					.hasMember(request, null)) {
-		    result = MATCH_LEVEL_ALT;
-		    continue;
-		} else {
-		    return MATCH_LEVEL_FAILED;
-		}
+		// If there is a location of the user than match on the
+		// location; if there is no location - see logged in location
+		// if (UIRequest.PROP_ADDRESSED_USER.equals(r.getOnProperty()))
+		// {
+		// continue;
+		// } else
+
+		// FIXME commented when applying new ui preferences (before
+		// Vienna plenary)
+		// if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
+		// .getOnProperty())
+		// && r.copyOnNewProperty(
+		// UIRequest.PROP_PRESENTATION_MODALITY_ALT)
+		// .hasMember(request, null)) {
+		// result = MATCH_LEVEL_ALT;
+		// continue;
+	    } else {
+		return MATCH_LEVEL_FAILED;
 	    }
 	}
 
 	return result;
     }
 
-    private boolean isRestrictionOnModality(UIRequest oe, MergedRestriction r) {
-	return UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
-		&& r
-			.copyOnNewProperty(
-				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-			.hasMember(oe, null);
-    }
+    // FIXME commented when applying new ui preferences (before Vienna plenary)
+    // private boolean isRestrictionOnModality(UIRequest oe, MergedRestriction
+    // r) {
+    // return UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
+    // && r
+    // .copyOnNewProperty(
+    // UIRequest.PROP_PRESENTATION_MODALITY_ALT)
+    // .hasMember(oe, null);
+    // }
 
     /**
      * Matches.
@@ -227,12 +233,12 @@ public class UIHandlerProfile extends FinalizedResource implements
     /**
      * Checks if is well formed.
      * 
-     * @return true, if is well formed
-     * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
-     */
+     * @return true, if is well formed (if the input modality is set)
+     * 
+     * */
     @Override
     public boolean isWellFormed() {
-	return true;
+	return true && hasProperty(PROP_INPUT_MODALITY);
     }
 
     /**
@@ -271,7 +277,8 @@ public class UIHandlerProfile extends FinalizedResource implements
 		boolean retVal = true;
 		for (Object current : property) {
 		    if (current instanceof MergedRestriction) {
-			retVal = retVal && addRestriction((MergedRestriction) current);
+			retVal = retVal
+				&& addRestriction((MergedRestriction) current);
 		    }
 		}
 		return retVal;
@@ -333,6 +340,13 @@ public class UIHandlerProfile extends FinalizedResource implements
 	}
     }
 
+    /**
+     * 
+     * 
+     * @param r
+     *            {@link UIRequest}
+     * @return true if the matching level is higher than failed
+     */
     private boolean isMatchingUIRequest(UIRequest r) {
 	return getMatchingDegree(r) > MATCH_LEVEL_FAILED;
     }
