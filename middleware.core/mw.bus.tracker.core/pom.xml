@@ -17,6 +17,18 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>
+	<dependency>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.container.xfaces.core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.brokers.api.core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.universAAL.middleware</groupId>
+		<artifactId>mw.modules.api.core</artifactId>
+	</dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.bus.service.core</artifactId>
