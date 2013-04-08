@@ -282,9 +282,9 @@ public abstract class AbstractBus implements Broker, MessageListener {
      */
     public void brokerMessage(String senderID, BusMessage msg) {
 	if (isValidMember(senderID)) {
-	    LogUtils.logInfo(context, AbstractBus.class, "sendMessage",
-		    new Object[] { " - ", senderID, "sending:\n",
-			    msg.toString() }, null);
+//	    LogUtils.logDebug(context, AbstractBus.class, "sendMessage",
+//		    new Object[] { " - ", senderID, " sending:\n",
+//			    msg.toString() }, null);
 	    busStrategy.handleMessage(msg, senderID);
 	}
     }
