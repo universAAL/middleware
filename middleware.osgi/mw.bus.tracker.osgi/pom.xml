@@ -30,6 +30,21 @@
       <groupId>org.apache.felix</groupId>
       <artifactId>org.osgi.core</artifactId>
     </dependency>
+    <dependency>
+    	<groupId>org.universAAL.middleware</groupId>
+    	<artifactId>mw.bus.context.osgi</artifactId>
+    	<scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.universAAL.middleware</groupId>
+    	<artifactId>mw.bus.service.osgi</artifactId>
+    	<scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.universAAL.middleware</groupId>
+    	<artifactId>mw.bus.ui.osgi</artifactId>
+    	<scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

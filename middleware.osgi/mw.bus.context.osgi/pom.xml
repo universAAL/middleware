@@ -15,10 +15,6 @@
   <description>The realization of the context bus on top of Sodapop as part of the universAAL Middleware (OSGi)</description>
   <dependencies>
     <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.context.core</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.universAAL.support</groupId>
       <artifactId>itests</artifactId>
     </dependency>
@@ -30,6 +26,14 @@
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.container.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.model.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.context.core</artifactId>
     </dependency>
   </dependencies>
   <build>
