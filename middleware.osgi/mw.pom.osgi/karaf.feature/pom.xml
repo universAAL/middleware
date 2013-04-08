@@ -27,10 +27,6 @@
 
 	<name>UniversAAL Middleware</name>
 	<description>universAAL Core Feature</description>
-	
-	<properties>
-		<karaf.version>3.0.0.RC1</karaf.version>
-	</properties>
 
 	<dependencies>
 		<dependency>

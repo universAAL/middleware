@@ -31,5 +31,9 @@
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.interfaces.core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.xfaces.core</artifactId>
+		</dependency>
 	</dependencies>
 </project>
