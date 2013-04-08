@@ -24,19 +24,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.connectors.api.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.connectors.communication.jgroups.core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.interfaces.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
 		</dependency>
 	</dependencies>
 	<!-- Note that since we are using .osgi bundle that wraps .core ones, in 

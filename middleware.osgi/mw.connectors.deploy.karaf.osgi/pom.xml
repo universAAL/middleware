@@ -33,19 +33,20 @@
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.xfaces.core</artifactId>
+			<artifactId>mw.container.xfaces.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.connectors.api.core</artifactId>
+			<artifactId>mw.connectors.api.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.interfaces.core</artifactId>
+			<artifactId>mw.interfaces.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.karaf.features</groupId>
 			<artifactId>org.apache.karaf.features.core</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>

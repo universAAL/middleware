@@ -15,10 +15,6 @@
   <description>The module for message content serialization in Turtle (OSGi)</description>
   <dependencies>
     <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.serialization.core</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.universAAL.support</groupId>
       <artifactId>itests</artifactId>
     </dependency>
@@ -29,6 +25,14 @@
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.container.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.data.representation.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.data.serialization.core</artifactId>
     </dependency>
   </dependencies>
   <build>

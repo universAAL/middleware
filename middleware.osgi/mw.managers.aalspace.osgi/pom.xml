@@ -22,10 +22,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.compendium</artifactId>
 		</dependency>
 		<dependency>
@@ -34,17 +30,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.managers.api.core</artifactId>
+			<artifactId>mw.managers.api.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.managers.aalspace.core</artifactId>
 		</dependency>
-		<!--dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.schemas</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency-->
 	</dependencies>
 
 	<build>
