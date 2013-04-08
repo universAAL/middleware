@@ -50,7 +50,7 @@
 							org.universAAL.middleware.managers.deploy.osgi</Export-Package>
 						<Import-Package>
 							org.universAAL.middleware.managers.deploy,
-							org.osgi.framework, org.osgi.service.log,
+							org.osgi.framework;version="[1,2)", org.osgi.service.log,
 							org.universAAL.middleware.container,
 							org.universAAL.middleware.container.osgi,
 							org.universAAL.middleware.managers.api,

@@ -54,6 +54,7 @@
 							org.universAAL.middleware.context.impl.osgi,
 							org.universAAL.middleware.context.data,
 							org.universAAL.middleware.context.data.factory</Private-Package>
+			<Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
