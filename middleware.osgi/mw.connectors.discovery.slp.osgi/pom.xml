@@ -77,7 +77,7 @@
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Provider>ISTI-CNR</Bundle-Provider>
 						<Import-Package>
-							ch.ethz.iks.slp, org.osgi.framework,
+							ch.ethz.iks.slp, org.osgi.framework;version="[1,2)",
 							org.osgi.service.cm, org.universAAL.middleware.connectors,
 							org.universAAL.middleware.connectors.discovery.slp.util,
 							org.universAAL.middleware.connectors.exception,

@@ -66,6 +66,7 @@
             	org.universAAL.middleware.bus.model.util,
             	org.universAAL.middleware.bus.msg</Export-Package>
             <Private-Package>org.universAAL.middleware.bus.model.osgi</Private-Package>
+            <Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

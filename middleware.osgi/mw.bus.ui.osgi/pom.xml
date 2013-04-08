@@ -53,6 +53,7 @@
 						  org.universAAL.middleware.ui.rdf</Export-Package>
             <Private-Package>org.universAAL.middleware.ui.impl.osgi,
 						  org.universAAL.middleware.ui.impl</Private-Package>
+			<Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

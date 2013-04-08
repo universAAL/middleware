@@ -56,7 +56,7 @@
 							org.jgroups.blocks,
 							org.jgroups.conf,
 							org.jgroups.util,
-							org.osgi.framework,
+							org.osgi.framework;version="[1,2)",
 							org.osgi.service.cm,
 							org.universAAL.middleware.connectors,
 							org.universAAL.middleware.connectors.exception,

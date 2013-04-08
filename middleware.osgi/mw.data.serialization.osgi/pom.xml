@@ -49,7 +49,7 @@
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Private-Package>org.universAAL.middleware.serialization.turtle,
             	org.universAAL.middleware.serialization.turtle.osgi</Private-Package>
-            <Inport-Package>org.universAAL.middleware.rdf.impl,*</Inport-Package>
+            <Import-Package>org.osgi.framework;version="[1,2)",org.universAAL.middleware.rdf.impl,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

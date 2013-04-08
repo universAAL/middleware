@@ -49,6 +49,7 @@
             <Private-Package>org.universAAL.middleware.datarep,
 							org.universAAL.middleware.xsd.util,
 							org.universAAL.middleware.datarep.osgi</Private-Package>
+			<Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
