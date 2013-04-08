@@ -42,44 +42,30 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.schemas</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.xfaces.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.interfaces.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.connectors.api.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.managers.api.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.modules.api.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.brokers.api.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.karaf.shell.universAAL.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.osgi</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.interfaces.osgi</artifactId>
+		</dependency>
 		
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.connectors.api.osgi</artifactId>
+		</dependency>		
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.connectors.communication.jgroups.osgi</artifactId>
@@ -93,7 +79,10 @@
 			<artifactId>mw.connectors.deploy.karaf.osgi</artifactId>
 		</dependency>
 		
-		
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.modules.api.osgi</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.modules.communication.osgi</artifactId>
@@ -101,10 +90,20 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.modules.aalspace.osgi</artifactId>
-		</dependency>		
+		</dependency>	
+		
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.brokers.api.osgi</artifactId>
+		</dependency>			
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.brokers.control.osgi</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.managers.api.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
@@ -113,22 +112,20 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.managers.deploy.osgi</artifactId>
-		</dependency>			
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.data.serialization.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.model.osgi</artifactId>
-		</dependency>
+		</dependency>	
+				
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.tracker.osgi</artifactId>
+			<artifactId>mw.data.serialization.osgi</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.model.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
@@ -141,6 +138,19 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.ui.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.tracker.osgi</artifactId>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.karaf.shell.universAAL.osgi</artifactId>
+		</dependency><dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.karaf.branding.osgi</artifactId>
 		</dependency>
 	</dependencies>
 	
