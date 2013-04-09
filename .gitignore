@@ -1082,6 +1082,7 @@ middleware.osgi/mw.connectors.api.osgi/target
 middleware.osgi/mw.connectors.communication.jgroups.osgi/.classpath
 middleware.osgi/mw.connectors.communication.jgroups.osgi/.project
 middleware.osgi/mw.connectors.communication.jgroups.osgi/.settings
+middleware.osgi/mw.connectors.communication.jgroups.osgi/etc
 middleware.osgi/mw.connectors.communication.jgroups.osgi/target
 middleware.osgi/mw.connectors.deploy.karaf.osgi/.classpath
 middleware.osgi/mw.connectors.deploy.karaf.osgi/.project
