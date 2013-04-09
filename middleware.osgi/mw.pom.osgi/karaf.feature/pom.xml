@@ -172,7 +172,7 @@
 
 				<configuration>
 					<startLevel>50</startLevel>
-					<aggregateFeatures>flase</aggregateFeatures>
+					<aggregateFeatures>false</aggregateFeatures>
 					<resolver>(obr)</resolver>
 					<checkDependencyChange>false</checkDependencyChange>
 					<failOnDependencyChange>false</failOnDependencyChange>
