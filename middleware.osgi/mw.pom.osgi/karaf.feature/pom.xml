@@ -25,7 +25,7 @@
 	<artifactId>mw.karaf.feature</artifactId>
 	<packaging>feature</packaging>
 
-	<name>UniversAAL Middleware</name>
+	<name>universAAL Middleware Karaf Feature</name>
 	<description>universAAL Core Feature</description>
 
 	<dependencies>
