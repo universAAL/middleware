@@ -38,6 +38,18 @@
 	<!-- Note that since we are using .osgi bundle that wraps .core ones, in 
 		the import section we must add all the runtime and compile time imports of 
 		the .core bundle -->
+	<profiles>
+	  <profile>
+	    <id>uAAL-Test-Runtime</id>
+	    <dependencies>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.managers.deploy.osgi</artifactId>
+	      		<scope>compile</scope>
+			</dependency>
+	    </dependencies>
+	  </profile>
+	</profiles>
 	<build>
 		<plugins>
 			<plugin>

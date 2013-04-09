@@ -47,17 +47,7 @@
     <dependencies>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.osgi</artifactId>
-      		<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.connectors.api.core</artifactId>
-      		<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.connectors.discovery.slp.core</artifactId>
+			<artifactId>mw.interfaces.osgi</artifactId>
       		<scope>compile</scope>
 		</dependency>
     </dependencies>
