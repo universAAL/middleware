@@ -1476,6 +1476,7 @@ middleware.osgi/mw.pom.osgi/composite/.classpath
 middleware.osgi/mw.pom.osgi/composite/.project
 middleware.osgi/mw.pom.osgi/composite/.settings
 middleware.osgi/mw.pom.osgi/composite/target
+middleware.osgi/mw.pom.osgi/karaf.feature/.classpath
 middleware.osgi/mw.pom.osgi/karaf.feature/.project
 middleware.osgi/mw.pom.osgi/karaf.feature/.settings
 middleware.osgi/mw.pom.osgi/karaf.feature/src/main/history
