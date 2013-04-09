@@ -206,7 +206,6 @@ middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/U
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/UIStrategy.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/AccessImpairment.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/DialogType.java -text
-middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/Gender.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/Modality.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/Preference.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/PrivacyLevel.java -text
