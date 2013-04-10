@@ -29,17 +29,28 @@
 	<description>universAAL Core Feature</description>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.karaf.feature.3</artifactId>
-			<version>${project.version}</version>
-			<type>xml</type>
-			<classifier>features</classifier>
-		</dependency>
 		
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.karaf.shell.universAAL.osgi</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.interfaces.osgi</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.connectors.api.osgi</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.managers.api.osgi</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.brokers.control.osgi</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency><dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.karaf.branding.osgi</artifactId>
