@@ -36,6 +36,7 @@ import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.owl.AccessImpairment;
 import org.universAAL.middleware.ui.owl.DialogType;
+import org.universAAL.middleware.ui.owl.Modality;
 import org.universAAL.middleware.ui.owl.Preference;
 import org.universAAL.middleware.ui.owl.PrivacyLevel;
 import org.universAAL.middleware.ui.rdf.Form;
@@ -99,6 +100,10 @@ public class UIRequest extends FinalizedResource implements Request {
     /** The Constant PROP_HAS_PREFERENCE. */
     public static final String PROP_HAS_PREFERENCE = uAAL_UI_NAMESPACE
 	    + "hasPreference";
+    
+    //TODO remove later?
+    public static final String PROP_PRESENTATION_MODALITY = uAAL_UI_NAMESPACE
+    + "presentationModality";
 
     /**
      * This constructor is for the exclusive usage by deserializers.
@@ -289,6 +294,19 @@ public class UIRequest extends FinalizedResource implements Request {
 	if (presentationLocation != null
 		&& !props.containsKey(PROP_PRESENTATION_LOCATION)) {
 	    props.put(PROP_PRESENTATION_LOCATION, presentationLocation);
+	}
+    }
+    
+    /**
+     * Sets the presentation modality.
+     * 
+     * @param presentationmodality
+     *            the new presentation modality
+     */
+    public void setPresentationModality(Modality modality) {
+	if (modality != null
+		&& !props.containsKey(PROP_PRESENTATION_MODALITY)) {
+	    props.put(PROP_PRESENTATION_MODALITY, modality);
 	}
     }
 
