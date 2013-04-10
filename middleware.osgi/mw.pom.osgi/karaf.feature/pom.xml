@@ -22,138 +22,141 @@
 		<relativePath>../</relativePath>
 	</parent>
 
-	<artifactId>mw.karaf.feature</artifactId>
-	<packaging>feature</packaging>
+	<artifactId>karaf.feature</artifactId>
+	<packaging>pom</packaging>
 
-	<name>universAAL Middleware Karaf Feature</name>
+	<name>UniversAAL Middleware</name>
 	<description>universAAL Core Feature</description>
 
-	<dependencies>
-		<dependency>
-			<groupId>ch.ethz.iks.slp</groupId>
-			<artifactId>jslp-osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jgroups</groupId>
-			<artifactId>jgroups</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.schemas</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.xfaces.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.osgi</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.interfaces.osgi</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.connectors.api.osgi</artifactId>
-		</dependency>		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.connectors.communication.jgroups.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.connectors.discovery.slp.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.connectors.deploy.karaf.osgi</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.modules.api.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.modules.communication.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.modules.aalspace.osgi</artifactId>
-		</dependency>	
-		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.brokers.api.osgi</artifactId>
-		</dependency>			
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.brokers.control.osgi</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.managers.api.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.managers.aalspace.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.managers.deploy.osgi</artifactId>
-		</dependency>	
-				
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.data.representation.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.data.serialization.osgi</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.model.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.context.osgi</artifactId>
-		</dependency>		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.service.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.ui.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.tracker.osgi</artifactId>
-		</dependency>
-		
-		
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.karaf.shell.universAAL.osgi</artifactId>
-		</dependency><dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.karaf.branding.osgi</artifactId>
-		</dependency>
-	</dependencies>
-	
+	<modules>
+		<module>mw.karaf.feature.1</module>
+		<module>mw.karaf.feature.2</module>
+		<module>mw.karaf.feature.3</module>
+		<module>mw.karaf.feature.shell</module>
+		<module>mw.karaf.feature</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.schemas</artifactId>
+				<version>1.3.2-SNAPSHOT</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.interfaces.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.connectors.api.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.connectors.communication.jgroups.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.connectors.discovery.slp.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.connectors.deploy.karaf.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.modules.aalspace.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.modules.communication.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.brokers.api.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.brokers.control.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.managers.api.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.managers.aalspace.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.managers.deploy.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.modules.api.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.xfaces.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.model.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.context.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.service.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.service.aapi.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.ui.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.representation.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.serialization.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.tracker.core</artifactId>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -162,52 +165,46 @@
 					<artifactId>karaf-maven-plugin</artifactId>
 					<version>3.0.0.RC1</version>
 					<extensions>true</extensions>
+					<configuration>
+						<aggregateFeatures>flase</aggregateFeatures>
+						<resolver>(obr)</resolver>
+						<checkDependencyChange>false</checkDependencyChange>
+						<failOnDependencyChange>false</failOnDependencyChange>
+						<logDependencyChanges>false</logDependencyChanges>
+						<overwriteChangedDependencies>true</overwriteChangedDependencies>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.karaf.tooling</groupId>
-				<artifactId>karaf-maven-plugin</artifactId>
-
-				<configuration>
-					<startLevel>50</startLevel>
-					<aggregateFeatures>false</aggregateFeatures>
-					<resolver>(obr)</resolver>
-					<checkDependencyChange>false</checkDependencyChange>
-					<failOnDependencyChange>false</failOnDependencyChange>
-					<logDependencyChanges>false</logDependencyChanges>
-					<overwriteChangedDependencies>true</overwriteChangedDependencies>
-				</configuration>
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>uaal-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>CompositeMojo</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>TestMojo</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
 			</plugin>
-		<plugin>
-			<groupId>org.universAAL.support</groupId>
-			<artifactId>uaal-maven-plugin</artifactId>
-			<executions>
-				<execution>
-					<id>CompositeMojo</id>
-					<phase>none</phase>
-				</execution>
-				<execution>
-					<id>TestMojo</id>
-					<phase>none</phase>
-				</execution>
-			</executions>				
-		</plugin>
-		<plugin>
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>build-helper-maven-plugin</artifactId>
-			<executions>
-				<execution>
-					<id>attach-composite</id>
-					<phase>none</phase>
-					<configuration>
-						<artifacts>								
-						</artifacts>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-composite</id>
+						<phase>none</phase>
+						<configuration>
+							<artifacts>
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
