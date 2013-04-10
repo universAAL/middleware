@@ -1,45 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<features name="${project.artifactId}-${project.version}"
+	xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
 
-    Licensed to the Apache Software Foundation (ASF) under one or more
-    contributor license agreements.  See the NOTICE file distributed with
-    this work for additional information regarding copyright ownership.
-    The ASF licenses this file to You under the Apache License, Version 2.0
-    (the "License"); you may not use this file except in compliance with
-    the License.  You may obtain a copy of the License at
+	<feature name='${project.artifactId}' description='${project.name}'
+		version='${project.version}'>
+		<details>${project.description}</details>
+		<!-- <config>foo=bar</config> -->
 
-       http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
-<features name="${project.artifactId}-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
+		<feature version="${project.version}">mw.karaf.feature.1</feature>
+		<feature version="${project.version}">mw.karaf.feature.2</feature>
+		<feature version="${project.version}">mw.karaf.feature.3</feature>
+		<feature version="${project.version}">mw.karaf.feature.shell</feature>
 
-    <feature name='${project.artifactId}' description='${project.name}' version='${project.version}'>
-        <details>${project.description}</details>
-        <!-- <config>foo=bar</config> -->
-        
-        
-        <!-- Configuration file section -->
-
-		<!-- AAL Space Manager -->
-		<configfile finalname="/etc/mw.managers.aalspace.core.cfg">mvn:org.universAAL.middleware/mw.managers.aalspace.core.config/${project.version}/cfg</configfile>
-		<configfile finalname="/etc/Home.space">mvn:org.universAAL.middleware/mw.managers.aalspace.core.config/${project.version}/space</configfile>
-
-		<!-- jGroups Communication Connector -->
-		<configfile finalname="/etc/mw.connectors.communication.jgroups.core.cfg">mvn:org.universAAL.middleware/mw.connectors.communication.jgroups.core.config/${project.version}/cfg</configfile>
-
-		<!-- SLP Discovery Connector -->
-		<configfile finalname="/etc/mw.connectors.discovery.slp.core.cfg">mvn:org.universAAL.middleware/mw.connectors.discovery.slp.core.config/${project.version}/cfg</configfile>
-
-		<!-- Deploy Manager -->
-		<configfile finalname="/etc/mw.managers.deploy.core.cfg">mvn:org.universAAL.middleware/mw.managers.deploy.core.config/${project.version}/cfg</configfile>
-
-		<!-- AAL Space Module -->
-		<configfile finalname="/etc/mw.modules.aalspace.core.cfg">mvn:org.universAAL.middleware/mw.modules.aalspace.core.config/${project.version}/cfg</configfile>
-    </feature>
+	</feature>
 
 </features>
