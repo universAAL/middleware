@@ -398,6 +398,7 @@ middleware.core/mw.managers.aalspace.core/LICENSE.txt -text
 middleware.core/mw.managers.aalspace.core/NOTICE.txt -text
 middleware.core/mw.managers.aalspace.core/pom.xml -text
 middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/AALSpaceManagerImpl.java -text
+middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/MatchingResultImpl.java -text
 middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/AALSpaceSchemaEventHandler.java -text
 middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/CheckPeerThread.java -text
 middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/Consts.java -text
@@ -414,6 +415,7 @@ middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/man
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/InstallationResults.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/InstallationResultsDetails.java svneol=native#text/plain
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/Manager.java -text
+middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/MatchingResult.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/UAPPPackage.java -text
 middleware.core/mw.managers.deploy.core/LICENSE.txt -text
 middleware.core/mw.managers.deploy.core/NOTICE.txt -text

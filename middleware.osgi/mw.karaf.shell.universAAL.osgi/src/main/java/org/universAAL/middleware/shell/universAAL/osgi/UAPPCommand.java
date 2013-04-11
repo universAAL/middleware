@@ -21,43 +21,10 @@ import org.universAAL.middleware.managers.api.DeployManager;
 @Command(scope = "universAAL", name = "uaap", description = "Get the list of MPA applications and the status")
 public class UAPPCommand extends OsgiCommandSupport {
 
-    private DeployManager deployManager;
-
     protected Object doExecute() throws Exception {
-	log.debug("Executing command...");
-	ServiceReference ref = bundleContext
-		.getServiceReference(DeployManager.class.getName());
-	if (ref != null) {
-	    deployManager = (DeployManager) bundleContext.getService(ref);
-	} else {
-	    return null;
-	}
-
-	if (deployManager.isDeployCoordinator()) {
-	    if (deployManager.getUAPPRegistry() != null) {
-		Map<String, UAPPStatus> registry = deployManager
-			.getUAPPRegistry();
-		System.out.println("Multi Part applications");
-		System.out.println("---------------------------------------");
-
-		for (String mpaID : registry.keySet()) {
-
-		    UAPPStatus mpaStatus = registry.get(mpaID);
-		    System.out.println("MPA: "
-			    + mpaStatus.getMpaCard().toString());
-		    Map<String, Pair> parts = mpaStatus.getMpaParts();
-		    for (String partID : parts.keySet()) {
-			Pair pair = parts.get(partID);
-			System.out.println("Part ID: " + partID
-				+ " - Peer ID: " + pair.getPeerID()
-				+ " - Part status : "
-				+ pair.getPartStatus().name());
-		    }
-		}
-	    }
-	}
-	return null;
-
+		log.debug("Executing command...");
+		System.out.println("Command not existing anymore");
+		return null;
     }
 
 }
