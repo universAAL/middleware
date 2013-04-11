@@ -38,7 +38,7 @@ import org.universAAL.middleware.ui.owl.Modality;
  * @author mtazari
  * @author Carsten Stockloew
  * @author eandgrg
- *
+ * 
  */
 public class UIHandlerProfile extends FinalizedResource implements
 	UtilityAdvertisement {
@@ -83,7 +83,8 @@ public class UIHandlerProfile extends FinalizedResource implements
 		|| UIRequest.PROP_DIALOG_PRIVACY_LEVEL.equals(prop)
 		|| UIRequest.PROP_HAS_ACCESS_IMPAIRMENT.equals(prop)
 		|| UIRequest.PROP_HAS_PREFERENCE.equals(prop)
-		|| UIRequest.PROP_PRESENTATION_LOCATION.equals(prop)) {
+		|| UIRequest.PROP_PRESENTATION_LOCATION.equals(prop)
+		|| UIRequest.PROP_PRESENTATION_MODALITY.equals(prop)) {
 	    if (propRestrictionAllowed(prop)) {
 		restrictions.add(r);
 		return true;
@@ -167,32 +168,32 @@ public class UIHandlerProfile extends FinalizedResource implements
 		// continue;
 		// } else
 
-		// FIXME commented when applying new ui preferences (before
-		// Vienna plenary)
-		// if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
-		// .getOnProperty())
-		// && r.copyOnNewProperty(
-		// UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-		// .hasMember(request, null)) {
-		// result = MATCH_LEVEL_ALT;
-		// continue;
-	    } else {
-		return MATCH_LEVEL_FAILED;
+		if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
+			.getOnProperty())
+			&& r.copyOnNewProperty(
+				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
+				.hasMember(request, null)) {
+		    result = MATCH_LEVEL_ALT;
+
+		    continue;
+		} else {
+		    return MATCH_LEVEL_FAILED;
+		}
 	    }
+
 	}
 
 	return result;
     }
 
-    // FIXME commented when applying new ui preferences (before Vienna plenary)
-    // private boolean isRestrictionOnModality(UIRequest oe, MergedRestriction
-    // r) {
-    // return UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
-    // && r
-    // .copyOnNewProperty(
-    // UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-    // .hasMember(oe, null);
-    // }
+    private boolean isRestrictionOnModality(UIRequest oe, MergedRestriction r) {
+	return UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
+		&& r
+			.copyOnNewProperty(
+				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
+			.hasMember(oe, null);
+
+    }
 
     /**
      * Matches.

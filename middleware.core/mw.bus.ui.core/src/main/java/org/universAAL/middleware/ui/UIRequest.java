@@ -104,6 +104,9 @@ public class UIRequest extends FinalizedResource implements Request {
     //TODO remove later?
     public static final String PROP_PRESENTATION_MODALITY = uAAL_UI_NAMESPACE
     + "presentationModality";
+    
+    public static final String PROP_PRESENTATION_MODALITY_ALT = uAAL_UI_NAMESPACE
+	    + "altPresentationModality";
 
     /**
      * This constructor is for the exclusive usage by deserializers.
@@ -309,7 +312,27 @@ public class UIRequest extends FinalizedResource implements Request {
 	    props.put(PROP_PRESENTATION_MODALITY, modality);
 	}
     }
-
+    /**
+     * Gets the alt presentation modality.
+     * 
+     * @return the alt presentation modality
+     */
+    public Modality getAltPresentationModality() {
+	return (Modality) props.get(PROP_PRESENTATION_MODALITY_ALT);
+    }
+    
+    /**
+     * Sets the alt presentation modality.
+     * 
+     * @param outputModality
+     *            the new alt presentation modality
+     */
+    public void setAltPresentationModality(Modality outputModality) {
+	if (outputModality != null
+		&& !props.containsKey(PROP_PRESENTATION_MODALITY_ALT)) {
+	    props.put(PROP_PRESENTATION_MODALITY_ALT, outputModality);
+	}
+    }
     /**
      * @see #matches(Advertisement)
      */
