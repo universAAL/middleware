@@ -1,4 +1,5 @@
 /*
+
     Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
     Institute of Information Science and Technologies
     of the Italian National Research Council
@@ -22,6 +23,7 @@ package org.universAAL.middleware.managers.api;
 
 import java.util.Map;
 
+import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPStatus;
 
 /**
@@ -52,13 +54,6 @@ public interface DeployManager extends Manager {
     public boolean isDeployCoordinator();
 
     /**
-     *
-     * @return
-     * @deprecated
-     */
-    public Map<String, UAPPStatus> getUAPPRegistry();
-
-    /**
      * Remove an installed uApp by means of the unique pair {@link String}
      * serviceId and {@link String} id
      *
@@ -71,4 +66,5 @@ public interface DeployManager extends Manager {
      * @return the result of the uninstall task of the uApp
      */
     public InstallationResultsDetails requestToUninstall(String serviceId, String id);
+        
 }

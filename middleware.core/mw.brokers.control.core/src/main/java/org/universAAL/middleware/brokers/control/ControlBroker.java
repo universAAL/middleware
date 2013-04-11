@@ -21,9 +21,12 @@
 package org.universAAL.middleware.brokers.control;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Dictionary;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -33,6 +36,8 @@ import org.universAAL.middleware.brokers.Broker;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.BrokerMessage.BrokerMessageTypes;
 import org.universAAL.middleware.brokers.message.BrokerMessageFields;
+import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage;
+import org.universAAL.middleware.brokers.message.control.ControlMessage;
 import org.universAAL.middleware.brokers.message.deploy.DeployMessage;
 import org.universAAL.middleware.brokers.message.deploy.DeployMessage.DeployMessageType;
 import org.universAAL.middleware.brokers.message.deploy.DeployMessageException;
@@ -1084,5 +1089,31 @@ public class ControlBroker implements SharedObjectListener, Broker,
         return null;
 
     }
+
+	public Map<String, Serializable> requestPeerAttributes(
+			List<String> attributes, PeerCard target, int limit, int timeout) {
+		CommunicationModule bus = getCommunicationModule();
+        // send the message to the remote DeployManager
+		ControlMessage controlMsg = new ControlMessage( 
+        		aalSpaceManager.getAALSpaceDescriptor(),
+        		ControlMessage.ControlMessageType.GET_ATTRIBUTES,
+        		attributes.toString()
+        );
+
+        // ...and wrap it as ChannelMessage
+        List<String> chName = new ArrayList<String>();
+        chName.add(getBrokerName());
+        ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
+                controlMsg.toString(), chName);
+        bus.send(chMsg, this, target);
+		
+		return null;
+	}
+
+	public Map<PeerCard, Map<String, Serializable>> findMatchingPeers(
+			Map<String, Serializable> filter, int limit, int timeout) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
