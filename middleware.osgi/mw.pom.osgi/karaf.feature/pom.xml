@@ -36,6 +36,18 @@
 		<module>mw.karaf.feature</module>
 	</modules>
 
+	<properties>
+		<groupIdMatchString>^org\.universAAL\.middleware</groupIdMatchString>
+		<artifactIdMatchString>^(mw\.)?karaf.*$</artifactIdMatchString>
+		<nameMatchString>^universAAL Middleware .* (\(OSGi\))|(\(KARAF\))$</nameMatchString>
+	</properties>
+	
+		<scm>
+		<connection>${svn.base}/middleware.osgi/mw.pom.osgi/karaf.feature/${project.artifactId}</connection>
+		<developerConnection>${svn.base}/middleware.osgi/mw.pom.osgi/karaf.feature$/{project.artifactId}</developerConnection>
+		<url>${svn.base.url}middleware.osgi/mw.pom.osgi/karaf.feature/${project.artifactId}</url>
+	</scm>
+	
 	<build>
 		<pluginManagement>
 			<plugins>
