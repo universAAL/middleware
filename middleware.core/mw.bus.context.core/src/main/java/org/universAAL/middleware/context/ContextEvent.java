@@ -153,7 +153,7 @@ public class ContextEvent extends FinalizedResource implements Event {
      *            URI of the predicate. Must not be null.
      * @param object
      *            The object of the event. Must not be null.
-     * @return
+     * @return the ContextEvent.
      */
     public static ContextEvent constructSimpleEvent(String subjectURI,
 	    String subjectTypeURI, String predicate, Object object) {

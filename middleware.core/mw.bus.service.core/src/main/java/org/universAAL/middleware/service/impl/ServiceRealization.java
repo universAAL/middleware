@@ -480,7 +480,8 @@ public class ServiceRealization extends FinalizedResource {
 			    if (logID != null)
 				LogUtils
 					.logTrace(
-						ServiceBusImpl.getModuleContext(),
+						ServiceBusImpl
+							.getModuleContext(),
 						ServiceRealization.class,
 						"matches",
 						new Object[] {
@@ -547,7 +548,8 @@ public class ServiceRealization extends FinalizedResource {
 			    if (logID != null)
 				LogUtils
 					.logTrace(
-						ServiceBusImpl.getModuleContext(),
+						ServiceBusImpl
+							.getModuleContext(),
 						ServiceRealization.class,
 						"matches",
 						new Object[] {
@@ -571,12 +573,12 @@ public class ServiceRealization extends FinalizedResource {
 	    return false;
 
 	Hashtable cloned = (Hashtable) context.clone();
-	
+
 	// check effects
 	if (!ProcessResult.checkEffects(request.getRequiredEffects(), prof
 		.getEffects(), cloned, logID))
 	    return false;
-	
+
 	// check output bindings
 	if (!ProcessResult.checkOutputBindings(request.getRequiredOutputs(),
 		prof.getOutputBindings(), cloned, requestedService, logID))
@@ -710,10 +712,7 @@ public class ServiceRealization extends FinalizedResource {
     }
 
     /**
-     * Return a flag designating the serialization type of this
-     * ServiceRealization
-     * 
-     * @return int - the serialization type
+     * @see Resource#getPropSerializationType(String)
      */
     public int getPropSerializationType(String propURI) {
 	return (uAAL_SERVICE_PROFILE.equals(propURI) || uAAL_SERVICE_PROVIDER
@@ -722,9 +721,7 @@ public class ServiceRealization extends FinalizedResource {
     }
 
     /**
-     * Return true iff this ServiceRealization is well formed
-     * 
-     * @return boolean - true iff this ServiceRealization is well formed
+     * @see Resource#isWellFormed()
      */
     public boolean isWellFormed() {
 	return props.containsKey(uAAL_SERVICE_PROFILE)
@@ -732,12 +729,7 @@ public class ServiceRealization extends FinalizedResource {
     }
 
     /**
-     * Set a property of this service realization
-     * 
-     * @param String
-     *            propURI - the URI of the property to set
-     * @param Object
-     *            value - the value of the property to set
+     * @see Resource#setProperty(String, Object)
      */
     public boolean setProperty(String propURI, Object value) {
 	if (propURI == null || value == null || props.containsKey(propURI))

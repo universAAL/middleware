@@ -28,6 +28,7 @@ import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.ui.UICaller;
 import org.universAAL.middleware.ui.owl.DialogType;
 
 /**
@@ -80,7 +81,7 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * to be used within the main dialog and hence the main dialog must be frozen
  * until the application requests to continue with it. For this purpose,
  * applications must call the method
- * {@link org.universAAL.middleware.output.OutputPublisher#resumeDialog(String,org.universAAL.middleware.rdf.Resource)}
+ * {@link UICaller#resumeDialog(String,org.universAAL.middleware.rdf.Resource)}
  * of their output publisher after the subdialog finishes and they have
  * processed its data and updated the form data of the main dialog. UI handlers
  * may decide to render instances of {@link SubdialogTrigger} and {@link Submit}

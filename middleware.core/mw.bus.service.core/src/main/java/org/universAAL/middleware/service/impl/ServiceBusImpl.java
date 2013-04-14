@@ -106,7 +106,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	super(mc);
 	busStrategy.setBus(this);
     }
-    
+
     public static ModuleContext getModuleContext() {
 	return mc;
     }
@@ -125,7 +125,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#addNewRegParams(String,
+     * @see org.universAAL.middleware.service.ServiceBus#addNewServiceProfiles(String,
      *      ServiceProfile[])
      */
     public void addNewServiceProfiles(String calleeID,
@@ -145,8 +145,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
-     *      Service)
+     * @see ServiceBus#getMatchingServices(String, Service)
      */
     public ServiceProfile[] getMatchingServices(String callerID, Service s) {
 	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s
@@ -154,16 +153,14 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
-     *      String)
+     * @see ServiceBus#getMatchingService(String, String)
      */
     public ServiceProfile[] getMatchingServices(String callerID, String s) {
 	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s);
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#getMatchingService(String,
-     *      Service[])
+     * @see ServiceBus#getMatchingServices(String, String[])
      */
     public ServiceProfile[] getMatchingServices(String callerID,
 	    String[] keywords) {
@@ -172,7 +169,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#removeAvailabilitySubscription(String,
+     * @see ServiceBus#removeAvailabilitySubscription(String,
      *      AvailabilitySubscriber, String)
      */
     public void removeAvailabilitySubscription(String callerID,
@@ -185,8 +182,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#removeMatchingRegParams(String,
-     *      ServiceProfile[])
+     * @see ServiceBus#removeMatchingRegParams(String, ServiceProfile[])
      */
     public void removeMatchingProfiles(String calleeID,
 	    ServiceProfile[] realizedServices) {
@@ -197,8 +193,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#brokerReply(String,
-     *      Message)
+     * @see AbstractBus#brokerMessage(String, BusMessage)
      */
     public void brokerReply(String calleeID, BusMessage response) {
 	if (calleeID != null) {
@@ -207,8 +202,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#sendMessage(String,
-     *      Message)
+     * @see AbstractBus#brokerMessage(String, BusMessage)
      */
     public void brokerRequest(String callerID, BusMessage request) {
 	if (callerID != null) {
@@ -217,8 +211,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#unregister(String,
-     *      ServiceCallee)
+     * @see ServiceBus#unregister(String, ServiceCallee)
      */
     public void unregister(String calleeID, ServiceCallee callee) {
 	if (calleeID != null) {
@@ -228,8 +221,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceBus#unregister(String,
-     *      ServiceCaller)
+     * @see ServiceBus#unregister(String, ServiceCaller)
      */
     public void unregister(String callerID, ServiceCaller caller) {
 	if (callerID != null) {
@@ -245,6 +237,5 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public void handleSendError(ChannelMessage message,
 	    CommunicationConnectorException e) {
 	// TODO Auto-generated method stub
-
     }
 }

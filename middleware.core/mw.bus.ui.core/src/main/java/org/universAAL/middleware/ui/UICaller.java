@@ -20,6 +20,7 @@
 package org.universAAL.middleware.ui;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Caller;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
@@ -80,11 +81,7 @@ public abstract class UICaller extends Caller {
     }
 
     /**
-     * Bus dying out.
-     * 
-     * @param b
-     *            the bus
-     * @see org.universAAL.middleware.sodapop.BusMember#busDyingOut(Bus)
+     * @see BusMember#busDyingOut(AbstractBus)
      */
     public final void busDyingOut(AbstractBus b) {
 	if (b == theBus)
@@ -128,7 +125,6 @@ public abstract class UICaller extends Caller {
      * 
      * @param m
      *            the message
-     * @see org.universAAL.middleware.bus.model.Caller#handleReply(org.universAAL.middleware.bus.model.msg.Message)
      */
     public final void handleReply(BusMessage m) {
 	if (m != null && m.getContent() instanceof UIResponse)
@@ -156,7 +152,7 @@ public abstract class UICaller extends Caller {
     }
 
     /**
-     * Send ui request.
+     * Send UI request.
      * 
      * @param e
      *            the e
@@ -170,5 +166,4 @@ public abstract class UICaller extends Caller {
     public String getMyID() {
 	return busResourceURI;
     }
-
 }

@@ -104,7 +104,7 @@ public interface ServiceBus {
      * 
      * @param callerID
      *            the ID of the caller that is asking the service bus.
-     * @param temmplate
+     * @param template
      *            the template to be used for making a "query by example"..
      * @return profiles of services registered with the service bus that match
      *         the given template, or null if no such service has been

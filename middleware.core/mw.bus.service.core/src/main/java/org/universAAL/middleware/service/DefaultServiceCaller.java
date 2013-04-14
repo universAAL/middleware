@@ -43,14 +43,13 @@ public class DefaultServiceCaller extends ServiceCaller {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceCaller#communicationChannelBroken()
+     * @see ServiceCaller#communicationChannelBroken()
      */
     public void communicationChannelBroken() {
     }
 
     /**
-     * @see org.universAAL.middleware.service.ServiceCaller#handleResponse(java.lang.String,
-     *      org.persona.ontology.service.ServiceResponse)
+     * @see ServiceCaller#handleResponse(String, ServiceResponse)
      */
     public void handleResponse(String reqID, ServiceResponse response) {
     }

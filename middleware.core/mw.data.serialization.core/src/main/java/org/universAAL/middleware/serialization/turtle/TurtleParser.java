@@ -47,8 +47,8 @@ import org.universAAL.middleware.rdf.TypeMapper;
 /**
  * Serialization and Deserialization of RDF graphs. This class implements the
  * interface
- * {@link org.universAAL.middleware.serialization.sodapop.msg.MessageContentSerializer}
- * and can be called to translate RDF graphs into <i>Terse RDF Triple Language
+ * {@link org.universAAL.middleware.serialization.MessageContentSerializer} and
+ * can be called to translate RDF graphs into <i>Terse RDF Triple Language
  * (Turtle)</i> and vice versa. While this class handles the deserialization,
  * the actual serialization is realized by {@link TurtleWriter}.
  * 

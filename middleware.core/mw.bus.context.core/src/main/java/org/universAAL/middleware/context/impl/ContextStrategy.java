@@ -281,8 +281,7 @@ public class ContextStrategy extends BusStrategy {
     }
 
     /**
-     * @see org.universAAL.middleware.sodapop.BusStrategy#handle(org.universAAL.middleware.sodapop.msg.Message,
-     *      String)
+     * @see BusStrategy#handleMessage(BusMessage, String)
      */
     public void handle(BusMessage message, String senderID) {
 	switch (message.getType().ord()) {
@@ -290,9 +289,9 @@ public class ContextStrategy extends BusStrategy {
 	    handleEvent(message);
 	    break;
 	case MessageType.P2P_EVENT:
-	    LogUtils.logWarn(busModule, getClass(),
-		    "handle",
-		    new Object[] { "Unexpected P2P_EVENT message ignored!" }, null);
+	    LogUtils.logWarn(busModule, getClass(), "handle",
+		    new Object[] { "Unexpected P2P_EVENT message ignored!" },
+		    null);
 	    break;
 	case MessageType.P2P_REPLY:
 	    handleP2PReply(message);

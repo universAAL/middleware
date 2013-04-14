@@ -59,7 +59,7 @@ public abstract class BusMember {
      * This method is called when the bus is stopped to announce this to the bus
      * members.
      * 
-     * @see org.universAAL.middleware.sodapop.AbstractBus
+     * @see AbstractBus
      * 
      * @param b
      *            bus on which this member has been registered

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Callee;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
@@ -90,11 +91,7 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Bus dying out.
-     * 
-     * @param b
-     *            the bus
-     * @see org.universAAL.middleware.sodapop.BusMember#busDyingOut(Bus)
+     * @see BusMember#busDyingOut(AbstractBus)
      */
     public final void busDyingOut(AbstractBus b) {
 	if (b == theBus)
@@ -138,7 +135,6 @@ public abstract class UIHandler extends Callee {
      * 
      * @param m
      *            the message
-     * @see org.universAAL.middleware.bus.model.Callee#handleRequest(Message)
      */
     public final void handleRequest(BusMessage m) {
 	if (m.getContent() instanceof UIRequest) {
