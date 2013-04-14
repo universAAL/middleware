@@ -22,6 +22,7 @@ package org.universAAL.middleware.service.owl;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.CallStatus;
@@ -38,6 +39,8 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  *         Tazari</a>
  * 
  */
+// TODO: check the methods, especially getUIServiceInfo; there seems to be
+// something wrong (using MY_URI as property path??)
 public class UserInterfaceService extends Service {
     public static final String SERVICE_REQUEST_URI_PREFIX_INFO = uAAL_SERVICE_NAMESPACE
 	    + "UIServiceInfo";
@@ -91,7 +94,7 @@ public class UserInterfaceService extends Service {
      *            {@link ServiceCall} will have this URI as process URI and can
      *            be retrieved by calling {@link ServiceCall#getProcessURI()}.
      * @return The created service profile that can be used to register the UI
-     *         service with the service bus.
+     *         service at the service bus.
      */
     public static final ServiceProfile createServiceProfile(
 	    String serviceClassURI, String vendor, String description,
@@ -102,7 +105,10 @@ public class UserInterfaceService extends Service {
 
     /**
      * Same method with different arguments. This time a User Interface Service
-     * will be required to create a service profile for a UI
+     * will be required to create a service profile for a UI.
+     * 
+     * @return The created service profile that can be used to register the UI
+     *         service at the service bus.
      */
     protected static ServiceProfile createServiceProfile(
 	    UserInterfaceService uis, String serviceClassURI, String vendor,
@@ -123,6 +129,8 @@ public class UserInterfaceService extends Service {
      *            the URL of the partner home page that provides the UI e.g.
      *            <code>"http://www.igd.fraunhofer.de"</code>
      * @param theCaller
+     *            instance of {@link ServiceCaller} that will be used to issue
+     *            the service request to get the information.
      * @return The description of the service profile.
      */
     public static final String getUIServiceDescription(String serviceClassURI,
@@ -143,9 +151,9 @@ public class UserInterfaceService extends Service {
      *            the URL of the partner home page that provides the UI e.g.
      *            <code>"http://www.igd.fraunhofer.de"</code>
      * @param theCaller
-     *            instance is the parameter that will be used to call the
-     *            service.
-     * @return
+     *            instance of {@link ServiceCaller} that will be used to issue
+     *            the service request to get the information.
+     * @return The description of the service profile.
      */
     protected static String getUIServiceDescription(
 	    UserInterfaceService requestedService, String serviceClassURI,
@@ -329,7 +337,7 @@ public class UserInterfaceService extends Service {
     }
 
     /**
-     * @see org.persona.ontology.ManagedIndividual#getPropSerializationType(java.lang.String)
+     * @see ManagedIndividual#getPropSerializationType(String)
      */
     public int getPropSerializationType(String propURI) {
 	return PROP_SERIALIZATION_FULL;

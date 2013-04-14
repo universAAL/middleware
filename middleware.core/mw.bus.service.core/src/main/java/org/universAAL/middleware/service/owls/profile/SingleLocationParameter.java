@@ -25,9 +25,9 @@ import org.universAAL.middleware.owl.supply.AbsLocation;
  * The superclass for profile parameters that deal with locations in relation to
  * services, hence the restriction for the property 'valueData' is not supported
  * by this class but 'sParameter' will be mandatory accepting a single
- * {@link org.persona.ontology.Location}. For the sake of well-formedness,
- * serialization type of properties and setting property values, it relies on
- * the default implementations provided by the superclasses.
+ * {@link AbsLocation}. For the sake of well-formedness, serialization type of
+ * properties and setting property values, it relies on the default
+ * implementations provided by the superclasses.
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>

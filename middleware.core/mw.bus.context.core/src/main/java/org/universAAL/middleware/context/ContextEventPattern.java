@@ -188,7 +188,7 @@ public class ContextEventPattern extends FinalizedResource implements
     }
 
     /**
-     * @see org.universAAL.middleware.Resource#isClosedCollection(java.lang.String)
+     * @see org.universAAL.middleware.rdf.Resource#isClosedCollection(java.lang.String)
      */
     public boolean isClosedCollection(String propURI) {
 	return !TypeExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI)

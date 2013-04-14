@@ -47,14 +47,14 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * {@link java.util.Hashtable} and add their class-level restrictions to this
  * repository in the same static code segment, where they call
  * {@link #register(Class)}, using the help method
- * {@link #addRestriction(Restriction, String[], java.util.Hashtable)}.
+ * {@link #addRestriction(MergedRestriction, String[], Hashtable)}.
  * <p>
  * In addition to class-level restrictions, concrete instances can add
  * instance-level restrictions using references to their input parameters (see
  * {@link org.universAAL.middleware.service.owls.process.ProcessInput#asVariableReference()}
  * ). The help method
- * {@link #addInstanceLevelRestriction(Restriction, String[])} facilitates the
- * addition of such instance-level restrictions.
+ * {@link #addInstanceLevelRestriction(MergedRestriction, String[])} facilitates
+ * the addition of such instance-level restrictions.
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
@@ -178,7 +178,7 @@ public abstract class Service extends ManagedIndividual {
      * A method for adding instance-level restrictions.
      * 
      * @see #instanceLevelRestrictions
-     * @see #addRestriction(Restriction, String[], Hashtable)
+     * @see #addRestriction(MergedRestriction, String[], Hashtable)
      */
     public final boolean addInstanceLevelRestriction(MergedRestriction r,
 	    String[] toPath) {
@@ -193,13 +193,13 @@ public abstract class Service extends ManagedIndividual {
 	return false;
     }
 
-    /**
+    /*
      * Must return a hash-table defined statically by the subclass. Each
      * subclass must have its own static repository of restrictions as
      * hash-table.
      * 
      * @see {@link #instanceLevelRestrictions}, which is a similar repository
-     *      but at instance level
+     * but at instance level
      */
     // protected abstract Hashtable getClassLevelRestrictions();
 
@@ -220,7 +220,7 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Returns the restriction on the given <code>propPeth</code>, if it was
      * previously added to {@link #instanceLevelRestrictions} using
-     * {@link #addRestriction(Restriction, String[], java.util.Hashtable)}.
+     * {@link #addRestriction(MergedRestriction, String[], Hashtable)}.
      */
     public final MergedRestriction getInstanceLevelRestrictionOnProp(
 	    String propURI) {

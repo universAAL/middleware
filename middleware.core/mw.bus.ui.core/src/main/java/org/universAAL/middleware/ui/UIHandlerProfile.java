@@ -32,6 +32,7 @@ import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.rdf.FinalizedResource;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.owl.Modality;
 
 /**
@@ -192,11 +193,10 @@ public class UIHandlerProfile extends FinalizedResource implements
 			.copyOnNewProperty(
 				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
 			.hasMember(oe, null);
-
     }
 
     /**
-     * Matches.
+     * Determines whether this profile matches the given profile.
      * 
      * @param subtype
      *            the subtype
@@ -218,12 +218,7 @@ public class UIHandlerProfile extends FinalizedResource implements
     }
 
     /**
-     * Checks if is closed collection.
-     * 
-     * @param propURI
-     *            the prop uri
-     * @return true, if is closed collection
-     * @see org.universAAL.middleware.rdf.Resource#isClosedCollection(java.lang.String)
+     * @see Resource#isClosedCollection(java.lang.String)
      */
     @Override
     public boolean isClosedCollection(String propURI) {
@@ -232,11 +227,8 @@ public class UIHandlerProfile extends FinalizedResource implements
     }
 
     /**
-     * Checks if is well formed.
-     * 
-     * @return true, if is well formed (if the input modality is set)
-     * 
-     * */
+     * @see Resource#isWellFormed()
+     */
     @Override
     public boolean isWellFormed() {
 	return true && hasProperty(PROP_INPUT_MODALITY);
@@ -259,14 +251,7 @@ public class UIHandlerProfile extends FinalizedResource implements
     }
 
     /**
-     * Sets the property.
-     * 
-     * @param propURI
-     *            the uri of the property to be set
-     * @param value
-     *            the value to be assigned to the property
-     * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
-     *      java.lang.Object)
+     * @see Resource#setProperty(String, Object)
      */
     @Override
     public boolean setProperty(String propURI, Object value) {
@@ -329,7 +314,7 @@ public class UIHandlerProfile extends FinalizedResource implements
      * Switches over possible types of {@link Requirement}. Calls appropriate
      * methods for the different types.
      * 
-     * @param d
+     * @param r
      *            the Requirement to be matched
      * @return <tt>true</tt> if the Requirement matches, <tt>false</tt> if not
      */
@@ -342,13 +327,13 @@ public class UIHandlerProfile extends FinalizedResource implements
     }
 
     /**
+     * Determines whether this profile matches the given {@link UIRequest}.
      * 
-     * 
-     * @param r
-     *            {@link UIRequest}
+     * @param request
+     *            the {@link UIRequest} to match.
      * @return true if the matching level is higher than failed
      */
-    private boolean isMatchingUIRequest(UIRequest r) {
-	return getMatchingDegree(r) > MATCH_LEVEL_FAILED;
+    private boolean isMatchingUIRequest(UIRequest request) {
+	return getMatchingDegree(request) > MATCH_LEVEL_FAILED;
     }
 }

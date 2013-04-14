@@ -59,11 +59,11 @@ public abstract class BusStrategy extends Thread {
 		BusMessage message = (BusMessage) msg[0];
 		String senderID = (String) msg[1];
 
-//		if (AccessControl.INSTANCE.check(message, senderID)) {
-		    handle(message, senderID);
-//		} else {
-//		    handleDeniedMessage(message, senderID);
-//		}
+		// if (AccessControl.INSTANCE.check(message, senderID)) {
+		handle(message, senderID);
+		// } else {
+		// handleDeniedMessage(message, senderID);
+		// }
 	    }
 	}
 
@@ -76,11 +76,11 @@ public abstract class BusStrategy extends Thread {
     private boolean stopped = false;
 
     /**
-     * Constructor receiving SodaPop instance and creating queue for the
-     * messages.
+     * Constructor receiving the {@link CommunicationModule} instance and
+     * creating queue for the messages.
      * 
-     * @param sodapop
-     *            SodaPop instance
+     * @param commModule
+     *            {@link CommunicationModule} instance
      */
     protected BusStrategy(CommunicationModule commModule) {
 	this.commModule = commModule;
@@ -161,8 +161,8 @@ public abstract class BusStrategy extends Thread {
 		boolean inserted = false;
 		for (int i = 0; !inserted && i < queue.size(); i++) {
 		    BusMessage current = (BusMessage) queue.get(i)[0];
-		    if (m.getSender().getPeerID()
-			    .equals(current.getSender().getPeerID())
+		    if (m.getSender().getPeerID().equals(
+			    current.getSender().getPeerID())
 			    && m.getIDAsLong() < current.getIDAsLong()) {
 			queue.add(i, toAdd);
 			inserted = true;
@@ -227,14 +227,14 @@ public abstract class BusStrategy extends Thread {
 	// ...and wrap it as ChannelMessage
 	List<String> channelName = new ArrayList<String>();
 	channelName.add(bus.getBrokerName());
-	ChannelMessage channelMessage = new ChannelMessage(bus.getPeerCard(),
-		m.toString(), channelName);
+	ChannelMessage channelMessage = new ChannelMessage(bus.getPeerCard(), m
+		.toString(), channelName);
 	return channelMessage;
     }
 
     protected void send(BusMessage message) {
 	PeerCard[] receivers = message.getReceivers();
-	
+
 	// wait until the communication connector has configured this channel
 	int cnt = -1;
 	while (!commModule.hasChannel(busModule.getID())) {
@@ -256,15 +256,15 @@ public abstract class BusStrategy extends Thread {
 					" is unknown). Waiting for the configuration to send the message. Time elapsed: ",
 					cnt / 10, " seconds." }, null);
 	}
-	
+
 	// send the message
 	if (isBroadcast(receivers)) {
 	    commModule.sendAll(buildChannelMessage(message), bus);
 	} else if (isUnicast(receivers)) {
 	    commModule.send(buildChannelMessage(message), receivers[0]);
 	} else {
-	    commModule.sendAll(buildChannelMessage(message),
-		    Arrays.asList(receivers), bus);
+	    commModule.sendAll(buildChannelMessage(message), Arrays
+		    .asList(receivers), bus);
 	}
     }
 

@@ -50,7 +50,7 @@ public class ContextProvider extends ManagedIndividual {
     /**
      * The underlying device(s) used by a context provider to determine the
      * state of the provided context elements. The range is
-     * {@link org.universAAL.middleware.context.owl.ManagedIndividual}.
+     * {@link org.universAAL.middleware.owl.ManagedIndividual}.
      */
     public static final String PROP_CONTEXT_SOURCE;
 
@@ -133,19 +133,19 @@ public class ContextProvider extends ManagedIndividual {
 
     /**
      * Allows to assign a set of ManagedIndividuals as the origin of the Context
-     * Information provided by this ContextProvider
+     * Information provided by this ContextProvider.
      * 
-     * @param devices
-     *            An Array of ManagedIndividuals representing the Devices (or
-     *            whatever) that generate the actual information provided by
-     *            this ContextProvider
+     * @param sources
+     *            An Array of ManagedIndividuals representing the source of
+     *            context events that generate the actual information provided
+     *            by this ContextProvider.
      */
-    public boolean setContextSources(ManagedIndividual[] devices) {
-	if (devices != null && devices.length > 0
+    public boolean setContextSources(ManagedIndividual[] sources) {
+	if (sources != null && sources.length > 0
 		&& !props.containsKey(PROP_CONTEXT_SOURCE)) {
-	    List l = new ArrayList(devices.length);
-	    for (int i = 0; i < devices.length; i++)
-		l.add(devices[i]);
+	    List l = new ArrayList(sources.length);
+	    for (int i = 0; i < sources.length; i++)
+		l.add(sources[i]);
 	    props.put(PROP_CONTEXT_SOURCE, l);
 	    return true;
 	}
@@ -198,12 +198,11 @@ public class ContextProvider extends ManagedIndividual {
 
     /**
      * Allows to assign a set of {@link ContextEventPattern}s as the classes of
-     * context events provided by this ContextProvider
+     * context events provided by this ContextProvider.
      * 
-     * @param devices
-     *            An Array of ManagedIndividuals representing the Devices (or
-     *            whatever) that generate the actual information provided by
-     *            this ContextProvider
+     * @param myEvents
+     *            An Array of {@link ContextEventPattern}s describing the
+     *            context events provided by this ContextProvider.
      */
     public boolean setProvidedEvents(ContextEventPattern[] myEvents) {
 	if (myEvents != null && myEvents.length > 0
@@ -219,10 +218,10 @@ public class ContextProvider extends ManagedIndividual {
 
     /**
      * Set the type of this ContextProvider to one of those defined in
-     * ContextProviderType
+     * ContextProviderType.
      * 
      * @param type
-     *            The ContextProviderType of the ContextProvider
+     *            The ContextProviderType of the ContextProvider.
      */
     public boolean setType(ContextProviderType type) {
 	if (type != null && !props.containsKey(PROP_CONTEXT_PROVIDER_TYPE)) {

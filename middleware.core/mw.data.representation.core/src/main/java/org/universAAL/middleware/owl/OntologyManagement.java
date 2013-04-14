@@ -41,21 +41,24 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  * </ol>
  * <p>
  * The management of {@link Ontology ontologies} is achieved by providing
- * methods to {@link #register(Ontology) register} and
- * {@link #unregister(Ontology) unregister} an ontology as well as to query
- * information about ontologies, i.e. to get a list of URIs of all registered
- * ontologies with {@link #getOntoloyURIs()} and to get a specific ontology with
+ * methods to
+ * {@link #register(org.universAAL.middleware.container.ModuleContext, Ontology)
+ * register} and
+ * {@link #unregister(org.universAAL.middleware.container.ModuleContext, Ontology)
+ * unregister} an ontology as well as to query information about ontologies,
+ * i.e. to get a list of URIs of all registered ontologies with
+ * {@link #getOntoloyURIs()} and to get a specific ontology with
  * {@link #getOntology(String)}.
  * </p>
  * <p>
  * To add a new ontology, the method {@link Ontology#create()} has to be
  * overwritten and the ontology needs to be registered by calling
- * {@link #register(Ontology)}. The ontology is then added to the internal list
- * of <i>pending</i> ontologies. That means, that the information of the
- * ontology is available for some special methods (e.g.
- * {@link #isRegisteredClass(String, boolean)}) to provide the possibility to
- * create instances of the classes of that ontology. Then, the
- * <code>create()</code> method is called to actually create all this
+ * {@link #register(org.universAAL.middleware.container.ModuleContext, Ontology)}
+ * . The ontology is then added to the internal list of <i>pending</i>
+ * ontologies. That means, that the information of the ontology is available for
+ * some special methods (e.g. {@link #isRegisteredClass(String, boolean)}) to
+ * provide the possibility to create instances of the classes of that ontology.
+ * Then, the <code>create()</code> method is called to actually create all this
  * information. If <code>create()</code> returns without errors, the ontology is
  * removed from the list of <i>pending</i> ontologies and is then available in
  * the system.
@@ -701,7 +704,8 @@ public final class OntologyManagement {
 
     /**
      * Get an ontology by its URI. The ontology must be registered by calling
-     * {@link #register(Ontology)}.
+     * {@link #register(org.universAAL.middleware.container.ModuleContext, Ontology)}
+     * .
      * 
      * @param uri
      *            URI of the ontology.

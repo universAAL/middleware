@@ -82,7 +82,6 @@ public interface DialogManager {
      *            user of a system
      * @param loginLocation
      *            location from which user has logged to the system
-     * @return the main menu
      */
     public void getMainMenu(Resource user, AbsLocation loginLocation);
 

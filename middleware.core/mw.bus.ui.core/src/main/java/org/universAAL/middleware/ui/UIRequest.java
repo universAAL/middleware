@@ -277,7 +277,7 @@ public class UIRequest extends FinalizedResource implements Request {
     /**
      * Sets the preferences.
      * 
-     * @param preference
+     * @param preferences
      *            the new preferences
      */
     public void setPreferences(Preference[] preferences) {
@@ -303,7 +303,7 @@ public class UIRequest extends FinalizedResource implements Request {
     /**
      * Sets the presentation modality.
      * 
-     * @param presentationmodality
+     * @param modality
      *            the new presentation modality
      */
     public void setPresentationModality(Modality modality) {
@@ -313,19 +313,19 @@ public class UIRequest extends FinalizedResource implements Request {
 	}
     }
     /**
-     * Gets the alt presentation modality.
+     * Gets the alternative presentation modality.
      * 
-     * @return the alt presentation modality
+     * @return the alternative presentation modality
      */
     public Modality getAltPresentationModality() {
 	return (Modality) props.get(PROP_PRESENTATION_MODALITY_ALT);
     }
     
     /**
-     * Sets the alt presentation modality.
+     * Sets the alternative presentation modality.
      * 
      * @param outputModality
-     *            the new alt presentation modality
+     *            the new alternative presentation modality
      */
     public void setAltPresentationModality(Modality outputModality) {
 	if (outputModality != null

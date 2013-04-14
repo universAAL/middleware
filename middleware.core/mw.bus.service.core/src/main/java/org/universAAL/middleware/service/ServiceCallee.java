@@ -20,6 +20,7 @@
 package org.universAAL.middleware.service;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Callee;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
@@ -86,12 +87,8 @@ public abstract class ServiceCallee extends Callee {
      */
     public abstract void communicationChannelBroken();
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.universAAL.middleware.sodapop.BusMember#busDyingOut(org.universAAL
-     * .middleware.sodapop.Bus)
+    /**
+     * @see BusMember#busDyingOut(AbstractBus)
      */
     public final void busDyingOut(AbstractBus b) {
 	if (b == theBus)
@@ -110,7 +107,11 @@ public abstract class ServiceCallee extends Callee {
     public abstract ServiceResponse handleCall(ServiceCall call);
 
     /**
-     * @see org.universAAL.middleware.bus.model.Callee#handleRequest(org.universAAL.middleware.bus.model.msg.Message)
+     * Handles a peer-to-peer request representing a {@link ServiceCall} coming
+     * from the bus.
+     * 
+     * @param m
+     *            request message coming from the bus.
      */
     public void handleRequest(BusMessage m) {
 	if (m != null && m.getContent() instanceof ServiceCall) {
@@ -133,6 +134,11 @@ public abstract class ServiceCallee extends Callee {
 	theBus.unregister(busResourceURI, this);
     }
 
+    /**
+     * Get the ID of this bus member.
+     * 
+     * @return the ID of this bus member.
+     */
     public String getMyID() {
 	return busResourceURI;
     }

@@ -93,8 +93,9 @@ import org.universAAL.middleware.container.utils.StringUtils;
  * defined and the method {@link #create()} has to be overwritten. The
  * {@link #create()} method will set up all characteristics of the ontology.
  * Each {@link Ontology} has to be registered at the {@link OntologyManagement}
- * by calling {@link OntologyManagement#register(Ontology)} before it can be
- * used.
+ * by calling
+ * {@link OntologyManagement#register(org.universAAL.middleware.container.ModuleContext, Ontology)}
+ * before it can be used.
  * </p>
  * 
  * <p>
@@ -258,8 +259,8 @@ public abstract class Ontology {
 
     /**
      * Create this ontology. This method is called by
-     * {@link OntologyManagement#register(Ontology)} and MUST be overwritten by
-     * all subclasses.
+     * {@link OntologyManagement#register(org.universAAL.middleware.container.ModuleContext, Ontology)}
+     * and MUST be overwritten by all subclasses.
      */
     public abstract void create();
 

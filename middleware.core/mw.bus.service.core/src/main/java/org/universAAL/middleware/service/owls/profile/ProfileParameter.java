@@ -78,7 +78,7 @@ public abstract class ProfileParameter extends FinalizedResource {
      * difference to return {@link Resource#PROP_SERIALIZATION_REDUCED} or
      * {@link Resource#PROP_SERIALIZATION_FULL}.
      * 
-     * @see org.universAAL.middleware.Resource#getPropSerializationType(java.lang.String)
+     * @see Resource#getPropSerializationType(java.lang.String)
      */
     public int getPropSerializationType(String propURI) {
 	if (PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME.equals(propURI)
@@ -110,14 +110,17 @@ public abstract class ProfileParameter extends FinalizedResource {
     }
 
     /**
-     * @see org.universAAL.middleware.Resource#isWellFormed()
+     * @see Resource#isWellFormed()
      */
     public boolean isWellFormed() {
 	return (props.get(PROP_OWLS_PROFILE_S_PARAMETER) != null || props
 		.get(PROP_uAAL_PARAMETER_VALUE_DATA) != null);
     }
 
-    public boolean setProperty(String propURI, Object value) {
+    /**
+     * @see Resource#setProperty(String, Object)
+     */
+   public boolean setProperty(String propURI, Object value) {
 	if (propURI != null && value != null && !props.containsKey(propURI))
 	    if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
 		if (value instanceof String) {

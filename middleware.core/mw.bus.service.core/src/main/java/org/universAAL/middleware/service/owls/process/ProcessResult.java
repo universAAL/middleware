@@ -226,7 +226,8 @@ public class ProcessResult extends FinalizedResource {
 	    return false;
 	}
 	for (int i = 0; i < req.length; i++) {
-	    if (!OutputBinding.findMatchingBinding(req[i], offer, context, requestedService)) {
+	    if (!OutputBinding.findMatchingBinding(req[i], offer, context,
+		    requestedService)) {
 		if (logID != null) {
 		    LogUtils
 			    .logTrace(
@@ -497,7 +498,7 @@ public class ProcessResult extends FinalizedResource {
     /**
      * Return the list of output bindings ( a reference) of this process result
      * 
-     * @return
+     * @return list of output bindings
      */
     public List getBindings() {
 	return (List) props.get(PROP_OWLS_RESULT_WITH_OUTPUT);

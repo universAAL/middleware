@@ -51,8 +51,8 @@ public abstract class ContextSubscriber extends Subscriber {
      * Creates a Context Subscriber and immediately registers a set of Context
      * Event Patterns for it, so it receives the matching events.
      * 
-     * @param context
-     *            The context of the Bundle creating the Publisher
+     * @param connectingModule
+     *            The module context of the module creating the Publisher
      * @param initialSubscriptions
      *            Array of ContextEventPattern that are immediately registered
      *            for this Subscriber

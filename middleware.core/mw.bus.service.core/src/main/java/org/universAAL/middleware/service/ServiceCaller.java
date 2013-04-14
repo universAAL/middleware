@@ -22,6 +22,7 @@ package org.universAAL.middleware.service;
 import java.util.Hashtable;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Caller;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.bus.msg.MessageType;
@@ -48,12 +49,10 @@ public abstract class ServiceCaller extends Caller {
      * The default constructor for this class.
      * 
      * @param context
-     *            The OSGI bundle context where the ServiceBus is registered.
+     *            The module context where the {@link ServiceBus} is registered.
      *            Note that if no service bus is registered within the passed
-     *            <code>BundleContext</code> at the time of creation, this
+     *            <code>ModuleContext</code> at the time of creation, this
      *            object will not be operational.
-     * @param realizedServices
-     *            The initial set of services that are realized by this callee.
      */
     protected ServiceCaller(ModuleContext context) {
 	super(context, ServiceBusImpl.getServiceBusFetchParams());
@@ -61,9 +60,7 @@ public abstract class ServiceCaller extends Caller {
 	readyResponses = new Hashtable();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
      * @see BusMember#busDyingOut(AbstractBus)
      */
     public final void busDyingOut(AbstractBus b) {

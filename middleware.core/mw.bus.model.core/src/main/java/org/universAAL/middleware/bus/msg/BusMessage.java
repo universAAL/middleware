@@ -26,6 +26,7 @@ import java.util.UUID;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.interfaces.PeerCard;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
@@ -109,6 +110,7 @@ public class BusMessage implements BrokerMessage {
      * 
      * @param type
      * @param content
+     *            Content of the message, typically a {@link Resource}.
      */
     public BusMessage(MessageType type, Object content, AbstractBus creator) {
 	if (type == null || content == null || type == MessageType.p2p_reply
@@ -126,10 +128,10 @@ public class BusMessage implements BrokerMessage {
 
     /**
      * Constructor - parses the string passed as a parameter and creates a
-     * Message object
+     * Message object.
      * 
      * @param message
-     *            - the string to parse (the serialization of a message object)
+     *            the string to parse (the serialization of a message object).
      */
     public BusMessage(String message) {
 	if (message == null) {
@@ -246,8 +248,9 @@ public class BusMessage implements BrokerMessage {
      * parameter.
      * 
      * @param content
-     *            - the content of the created reply
-     * @return Message - the reply message
+     *            the content of the created reply, typically a {@link Resource}
+     *            .
+     * @return Message the reply message.
      */
     public BusMessage createReply(Object content) {
 	if (content == null) {
@@ -279,9 +282,12 @@ public class BusMessage implements BrokerMessage {
      * and receiver passed as a parameter.
      * 
      * @param messageIDInReplyTo
+     *            ID of the message to which the returned message is a reply to.
      * @param receiver
+     *            the receiving peer.
      * @param content
-     * @return
+     *            Content of the message, typically a {@link Resource}.
+     * @return a new {@link BusMessage}, or null if the parameters are invalid.
      */
     public static BusMessage createP2PReply(String messageIDInReplyTo,
 	    PeerCard receiver, Object content, AbstractBus creator) {
@@ -307,7 +313,7 @@ public class BusMessage implements BrokerMessage {
 
     /**
      * 
-     * @return Object - the content of the message
+     * @return Object the content of the message.
      */
     public Object getContent() {
 	return content;
@@ -315,7 +321,7 @@ public class BusMessage implements BrokerMessage {
 
     /**
      * 
-     * @return String - the string serialization of the content
+     * @return String the string serialization of the content.
      */
     public String getContentAsString() {
 	if (contentStr == null && contentSerializer != null) {
@@ -326,7 +332,7 @@ public class BusMessage implements BrokerMessage {
 
     /**
      * 
-     * @return - the unique ID of the message
+     * @return the unique ID of the message.
      */
 
     public String getID() {
@@ -338,9 +344,9 @@ public class BusMessage implements BrokerMessage {
     }
 
     /**
-     * Returns the ID of the message this message replies to
+     * Returns the ID of the message this message replies to.
      * 
-     * @return String - the ID of the message this message replies to
+     * @return String the ID of the message this message replies to.
      */
     public String getInReplyTo() {
 	return inReplyTo;
@@ -348,7 +354,7 @@ public class BusMessage implements BrokerMessage {
 
     /**
      * 
-     * @return MessageType
+     * @return {@link MessageType}
      */
     public MessageType getType() {
 	return type;
@@ -394,27 +400,28 @@ public class BusMessage implements BrokerMessage {
     }
 
     /**
-     * Serialize the message as string
+     * Serialize the message as string.
      * 
-     * @return String - the serialized message
+     * @return String the serialized message.
      */
     @Override
     public String toString() {
 	StringBuffer sb = new StringBuffer();
 	// sb.append("<![CDATA[<uAAL:BusMessage>");
 	sb.append("<uAAL:BusMessage>");
-	sb.append("\n  <uAAL:BusMessage#id>").append(id)
-		.append("</uAAL:BusMessage#id>");
-	sb.append("\n  <uAAL:BusMessage#type>").append(type.name())
-		.append("</uAAL:BusMessage#type>");
-	sb.append("\n  <uAAL:BusMessage#content>\n").append(getContentAsString())
+	sb.append("\n  <uAAL:BusMessage#id>").append(id).append(
+		"</uAAL:BusMessage#id>");
+	sb.append("\n  <uAAL:BusMessage#type>").append(type.name()).append(
+		"</uAAL:BusMessage#type>");
+	sb.append("\n  <uAAL:BusMessage#content>\n").append(
+		getContentAsString())
 		.append("\n    </uAAL:BusMessage#content>");
 	if (inReplyTo != null) {
 	    sb.append("\n  <uAAL:BusMessage#inReplyTo>").append(inReplyTo)
 		    .append("</uAAL:BusMessage#inReplyTo>");
 	}
-	sb.append("\n  <uAAL:BusMessage#sender>\n").append(sender)
-		.append("\n    </uAAL:BusMessage#sender>");
+	sb.append("\n  <uAAL:BusMessage#sender>\n").append(sender).append(
+		"\n    </uAAL:BusMessage#sender>");
 	if (receiver != null && !receiver.isEmpty()) {
 	    sb.append("\n  <uAAL:BusMessage#receiver>").append(receiver.get(0));
 	    for (int i = 1; i < receiver.size(); i++) {
