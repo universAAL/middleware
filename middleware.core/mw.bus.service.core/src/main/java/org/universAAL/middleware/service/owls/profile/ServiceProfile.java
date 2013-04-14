@@ -676,6 +676,7 @@ public class ServiceProfile extends FinalizedResource implements
     }
 
     @SuppressWarnings("unchecked")
+    // TODO add a good matching algorithm
     private boolean isMatchingServiceProfile(ServiceProfile other) {
 	boolean matches = true;
 	for (Object current : Collections.list(getPropertyURIs())) {
@@ -683,7 +684,6 @@ public class ServiceProfile extends FinalizedResource implements
 	    Object thisProperty = getProperty(propertyURI);
 	    Object otherProperty = other.getProperty(propertyURI);
 
-	    // TODO add a good matching algorithm, not that shit!
 	    if (!thisProperty.equals(otherProperty)) {
 		matches = false;
 	    }
