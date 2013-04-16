@@ -34,16 +34,16 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * {@link ServiceProfile}) should reflect the semantic of the parameter. Two
  * standard properties are defined by OWL-S: <code>serviceParameterName</code>
  * (the name of the actual parameter) and <code>sParameter</code> (an owl:Thing
- * pointing to the value of the parameter), both mandatory. uAAL modifies this
- * class the following way:
+ * pointing to the value of the parameter), both mandatory. universAAL modifies
+ * this class the following way:
  * <ul>
  * <li>ignoring the cardinality restriction on both profile:serviceParameterName
  * and profile:sParameter;
- * <li>adding a new owl:DatatypeProperty called 'persona:valueData' for
+ * <li>adding a new owl:DatatypeProperty called 'uaal:valueData' for
  * literal-valued parameters; and
  * <li>requiring that the subclasses of profie:ServiceProperty restrict one of
- * profile:sParameter or persona:valueData to have a cardinality of 0 and the
- * other one to have minCardinality 1.
+ * profile:sParameter or uaal:valueData to have a cardinality of 0 and the other
+ * one to have minCardinality 1.
  * </ul>
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
@@ -120,7 +120,7 @@ public abstract class ProfileParameter extends FinalizedResource {
     /**
      * @see Resource#setProperty(String, Object)
      */
-   public boolean setProperty(String propURI, Object value) {
+    public boolean setProperty(String propURI, Object value) {
 	if (propURI != null && value != null && !props.containsKey(propURI))
 	    if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
 		if (value instanceof String) {
