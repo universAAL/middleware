@@ -44,7 +44,6 @@
 		<module>../mw.bus.service.aapi.osgi</module>
 		<module>../mw.bus.tracker.osgi</module>
 		<module>composite</module>
-		<module>karaf.feature</module>
 	</modules>
 
 	<scm>
