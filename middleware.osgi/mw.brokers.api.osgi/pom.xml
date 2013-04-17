@@ -37,7 +37,7 @@
 						<Import-Package>org.json, org.universAAL.middleware.interfaces,
 							org.universAAL.middleware.interfaces.aalspace,
 							org.universAAL.middleware.interfaces.mpa</Import-Package>
-						<Export-Package>org.json, org.universAAL.middleware.brokers,
+						<Export-Package>org.universAAL.middleware.brokers,
 							org.universAAL.middleware.brokers.message.*</Export-Package>
 						<Private-Package />
 					</instructions>
