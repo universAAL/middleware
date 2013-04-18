@@ -2,6 +2,10 @@
         Copyright 2011-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
         Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 
+        Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
+        Institute of Information Science and Technologies
+        of the Italian National Research Council
+
         See the NOTICE file distributed with this work for additional
         information regarding copyright ownership
 
@@ -27,6 +31,7 @@ import java.util.Hashtable;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +43,8 @@ import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
  * An implementation of the concept of {@link ModuleContext} for OSGi.
  *
  * @author mtazari
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @version $LastChangedRevision$ ( $LastChangedDate$ )
  *
  */
 public class uAALBundleContext implements ModuleContext {
@@ -272,6 +279,44 @@ public class uAALBundleContext implements ModuleContext {
             }
         }
         return false;
+    }
+
+    private String[] getBundleList() {
+        Bundle[] bundles = bundle.getBundles();
+        String[] values = new String[bundles.length];
+        for (int i = 0; i < bundles.length; i++) {
+            values[i] = bundles[i].getSymbolicName() + "-"
+                    + bundles[i].getHeaders(Constants.BUNDLE_VERSION);
+        }
+        return values;
+    }
+
+    public Object getProperty(String name) {
+
+        Object value = getAttribute(name);
+        if (value != null)
+            return value;
+
+        value = bundle.getProperty(name);
+        if (value != null)
+            return value;
+
+        value = System.getProperty(name);
+        if (value != null)
+            return value;
+
+        value = System.getenv(name);
+        if (value != null)
+            return value;
+
+        return null;
+    }
+
+    public Object getProperty(String name, Object def) {
+        Object value = getProperty(name);
+        if (value == null)
+            return def;
+        return value;
     }
 
 }

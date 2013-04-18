@@ -21,7 +21,6 @@
 package org.universAAL.middleware.brokers.message.deploy;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,15 +78,16 @@ public class DeployMessage implements BrokerMessage {
 
             marshallUAPPCard(obj, payload.getuappCard());
 
-
             // marhall payload
             if (payload != null
                     && payload instanceof DeployNotificationPayload == false) {
                 obj.put(DeployMessageFields.DEPLOY_PAYLOAD, "1");
 
                 // marshall the part as a String
-                //obj.put(DeployMessageFields.PART, new String(payload.getPart()).getBytes("UTF-8"));
-                obj.put(DeployMessageFields.PART, Arrays.asList( payload.getPart() ) );
+                // obj.put(DeployMessageFields.PART, new
+                // String(payload.getPart()).getBytes("UTF-8"));
+                obj.put(DeployMessageFields.PART,
+                        Arrays.asList(payload.getPart()));
             } else if (payload != null
                     && payload instanceof DeployNotificationPayload) {
 
@@ -115,7 +115,8 @@ public class DeployMessage implements BrokerMessage {
         return obj.toString();
     }
 
-    private void marshallUAPPCard(JSONObject obj, UAPPCard card) throws JSONException {
+    private void marshallUAPPCard(JSONObject obj, UAPPCard card)
+            throws JSONException {
         // marshall uAPP Card
         obj.put(DeployMessageFields.UAPP_NAME, card.getName());
         obj.put(DeployMessageFields.UAPP_ID, card.getId());
