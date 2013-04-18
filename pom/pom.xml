@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.universAAL</groupId>
@@ -14,51 +14,60 @@
   <name>universAAL Middleware Suite</name>
   <description>The set of artefacts realizing the universAAL middleware 2.0</description>
   <developers>
-		<developer>
-			<id>ffurfari</id>
-			<name>Francesco Furfari</name>
-			<email>francesco.furfari@isti.cnr.it</email>
-			<roles>
-				<role>architect</role>
-			</roles>
-			<timezone>1</timezone>
-		</developer>
-		<developer>
-			<id>michele</id>
-			<name>Michele Girolami</name>
-			<email>michele.girolami@isti.cnr.it.it</email>
-			<roles>
-				<role>architect</role>
-				<role>developer</role>
-			</roles>
-			<timezone>1</timezone>
-		</developer>
-		<developer>
-			<id>carsten</id>
-			<name>Carsten Stockloew</name>
-			<email>carsten.stockloew@igd.fraunhofer.de</email>
-			<roles>
-				<role>architect</role>
-				<role>developer</role>
-			</roles>
-			<timezone>1</timezone>
-		</developer>
-		<developer>
-			<id>saied</id>
-			<name>Saied Tazari</name>
-			<email>saied.tazari@igd.fraunhofer.de</email>
-			<roles>
-				<role>architect</role>
-				<role>developer</role>
-			</roles>
-			<timezone>1</timezone>
-		</developer>
+    <developer>
+      <id>ffurfari</id>
+      <name>Francesco Furfari</name>
+      <email>francesco.furfari@isti.cnr.it</email>
+      <roles>
+        <role>architect</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>michele</id>
+      <name>Michele Girolami</name>
+      <email>michele.girolami@isti.cnr.it.it</email>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>stefano.lenzi</id>
+      <name>Stefano Lenzi</name>
+      <email>stefano.lenzi@isti.cnr.it.it</email>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>carsten</id>
+      <name>Carsten Stockloew</name>
+      <email>carsten.stockloew@igd.fraunhofer.de</email>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>saied</id>
+      <name>Saied Tazari</name>
+      <email>saied.tazari@igd.fraunhofer.de</email>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
   </developers>
   <modules>
     <module>../middleware.core/mw.pom.core</module>
     <module>../middleware.osgi/mw.pom.osgi</module>
     <module>../middleware.config/mw.pom.config</module>
-    <!--module>../middleware.resources/mw.schemas.resources</module-->
+    <!--module>../middleware.resources/mw.schemas.resources</module -->
   </modules>
   <scm>
     <connection>${svn.base}/pom</connection>
