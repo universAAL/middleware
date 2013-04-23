@@ -210,4 +210,11 @@ public interface UIBus {
      */
     public void userLoggedIn(String handlerID, Resource user,
 	    AbsLocation loginLocation);
+    
+    /**
+     * Retrieves all registered UIHandlerProfiles that has restriction for modality matched by modalityRegex
+     * @param modalityRegex - regular expression used for matching UiHandlerProfiles modalities
+     * @return Array of matched UIHandlerProfiles
+     */
+    public UIHandlerProfile[] getMatchingProfiles(String modalityRegex);
 }

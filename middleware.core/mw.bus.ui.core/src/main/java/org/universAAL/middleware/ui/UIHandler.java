@@ -65,6 +65,27 @@ public abstract class UIHandler extends Callee {
 	    ((UIBus) theBus).addNewProfile(busResourceURI, initialSubscription);
 	}
     }
+    
+    /**
+     * Instantiates a new uI handler.
+     * 
+     * @param context
+     *            the context
+     * @param initialSubscription
+     *            the initial subscription
+     */
+    protected UIHandler(ModuleContext context,
+	    UIHandlerProfile[] initialSubscriptions) {
+	super(context, UIBusImpl.getUIBusFetchParams());
+
+	this.realizedHandlerProfiles = new ArrayList();
+	if (initialSubscriptions != null) {
+		for(UIHandlerProfile profile : initialSubscriptions){
+		    this.realizedHandlerProfiles.add(profile);
+		    ((UIBus) theBus).addNewProfile(busResourceURI, profile);
+			}
+	}
+    }
 
     /**
      * Adaptation parameters changed.

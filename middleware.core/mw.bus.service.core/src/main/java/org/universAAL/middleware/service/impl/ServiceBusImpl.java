@@ -19,6 +19,9 @@
  */
 package org.universAAL.middleware.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.model.BusStrategy;
 import org.universAAL.middleware.bus.msg.BusMessage;
@@ -158,6 +161,14 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public ServiceProfile[] getMatchingServices(String callerID, String s) {
 	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s);
     }
+    
+    /**
+     * @see ServiceBus#getMatchingService(String)
+     */
+    public HashMap getMatchingServices(String s) {
+	return ((ServiceStrategy) busStrategy).getAllServiceProfilesWithCalleeIDs(s);
+    }
+    
 
     /**
      * @see ServiceBus#getMatchingServices(String, String[])
@@ -238,4 +249,5 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    CommunicationConnectorException e) {
 	// TODO Auto-generated method stub
     }
+
 }

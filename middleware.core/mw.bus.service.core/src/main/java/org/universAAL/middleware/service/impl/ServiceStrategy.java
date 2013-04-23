@@ -21,9 +21,11 @@ package org.universAAL.middleware.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
@@ -2126,7 +2128,35 @@ public class ServiceStrategy extends BusStrategy {
 		.getProfiles(serviceURI);
 	return profileListToArray(profiles);
     }
+    
+    public HashMap getAllServiceProfilesWithCalleeIDs(String serviceURI){
+    	    return getCoordinatorServicesWithCalleeIDs(serviceURI);
+    }
 
+    private HashMap getCoordinatorServicesWithCalleeIDs(String serviceURI) {
+
+	HashMap map = new HashMap();
+
+	if (this.isCoordinator) {
+	    Vector neededProfiles = (Vector) this.allServicesIndex
+		    .get(serviceURI);
+	    if (neededProfiles != null)
+		for (Iterator j = neededProfiles.iterator(); j.hasNext();) {
+		    ServiceRealization reg = (ServiceRealization) j.next();
+		    ServiceProfile profile = (ServiceProfile) reg
+			    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
+		    
+		    String provider = (String)reg.getProvider();
+		    if (map.get(provider) == null){
+		    	map.put(provider, new ArrayList());
+		    }
+		    ((List)map.get(provider)).add(profile);
+		}
+	}
+
+	return map;
+    }
+    
     /**
      * Return the profiles registered for the service passed as a parameter,
      * only if this peer is a coordinator. Otherwise, an empty list is returned.
