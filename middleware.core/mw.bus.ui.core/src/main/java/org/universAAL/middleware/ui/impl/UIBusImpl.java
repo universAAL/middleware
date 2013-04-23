@@ -19,6 +19,9 @@
  */
 package org.universAAL.middleware.ui.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.model.BusStrategy;
@@ -30,6 +33,7 @@ import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.modules.CommunicationModule;
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
@@ -40,6 +44,7 @@ import org.universAAL.middleware.ui.UIHandler;
 import org.universAAL.middleware.ui.UIHandlerProfile;
 import org.universAAL.middleware.ui.UIRequest;
 import org.universAAL.middleware.ui.UIResponse;
+import org.universAAL.middleware.ui.owl.Modality;
 import org.universAAL.middleware.ui.owl.UIBusOntology;
 import org.universAAL.middleware.util.ResourceComparator;
 
@@ -156,6 +161,10 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 		changedProp);
     }
 
+   // public UIHandlerProfile getMatchingUiHandler(){
+   // 	return ((UIStrategy) busStrategy).get
+   // }
+    
     /**
      * 
      * Adds a new subscription to the bus
@@ -295,5 +304,27 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	    CommunicationConnectorException e) {
 	// TODO Auto-generated method stub
 
+    }
+    
+    public UIHandlerProfile[] getMatchingProfiles(String modalityRegex){
+    	String lowerCaseModality = modalityRegex.toLowerCase();
+    	List<UIHandlerProfile> matchedProfiles = new ArrayList<UIHandlerProfile>();
+    	BusMember[] members = registry.getAllBusMembers();
+    	for(BusMember member : members){
+    		if (member instanceof UIHandler) {
+    			UIHandler handler = (UIHandler) member;
+    			List<UIHandlerProfile> realizedProfiles = (List<UIHandlerProfile>)handler.getRealizedHandlerProfiles();
+    			for(UIHandlerProfile profile : realizedProfiles){
+    				Modality[] supportedModalities = profile.getSupportedInputModalities();
+    				for(Modality m : supportedModalities){
+    					if (m.toString().toLowerCase().matches(lowerCaseModality)){
+    						matchedProfiles.add(profile);
+    						break;
+    					}
+    				}
+    			}
+    		}
+    	}
+    	return matchedProfiles.toArray(new UIHandlerProfile[0]);
     }
 }

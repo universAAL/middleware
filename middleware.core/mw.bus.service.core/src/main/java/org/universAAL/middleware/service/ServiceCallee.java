@@ -131,7 +131,7 @@ public abstract class ServiceCallee extends Callee {
      * Unregisters this <code>ServiceCallee</code> from the bus.
      */
     public void close() {
-	theBus.unregister(busResourceURI, this);
+    	((ServiceBus) theBus).unregister(busResourceURI, this);
     }
 
     /**
