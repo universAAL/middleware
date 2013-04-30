@@ -42,6 +42,11 @@ import java.util.Properties;
  */
 public class Messages {
 
+	/**
+	 * The file Extension to be used, it should always be ".properties"
+	 */
+	private static final String FILE_EXTENSION = ".properties";
+
 	/** The set of messages in a localized language. */
 	private Properties localizedMessages;
 
@@ -80,7 +85,10 @@ public class Messages {
 	 * @throws IOException
 	 */
 	public Messages(File propertiesFile, Locale initialLocale)
-			throws IOException {
+			throws IOException, IllegalArgumentException {
+		if (!propertiesFile.getName().endsWith(FILE_EXTENSION)) {
+			throw new IllegalArgumentException("File should be a \"" +FILE_EXTENSION +"\" file");
+		}
 		defaultFile = propertiesFile;
 		defaultMessages = load(propertiesFile);
 		setLocale(initialLocale);
@@ -109,8 +117,8 @@ public class Messages {
 	 * @return {defaultFileName}_{localeLanguaje}.properties
 	 */
 	private File internationalizedFile(Locale loc) {
-		return new File(defaultFile.getAbsolutePath().replace(".properties",
-				"_" + loc.getLanguage() + ".properties"));
+		return new File(defaultFile.getAbsolutePath().replace(FILE_EXTENSION,
+				"_" + loc.getLanguage() + FILE_EXTENSION));
 	}
 
 	/**
@@ -128,6 +136,12 @@ public class Messages {
 		return (l == null) ? key : l;
 	}
 
+	/**
+	 * Loads the property file into {@link Properties}.
+	 * @param f the file from which to load.
+	 * @return the {@link Properties} conained in file f.
+	 * @throws IOException if file not found, or could not read.
+	 */
 	private Properties load(File f) throws IOException {
 		Properties props = new Properties();
 		InputStream fis = new FileInputStream(f);
