@@ -20,9 +20,10 @@
 package org.universAAL.middleware.container.utils;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -60,37 +61,79 @@ public class Messages {
 	 * The default properties file used as default, and base for
 	 * internationalization.
 	 */
-	private File defaultFile;
+	private URL defaultResource;
 
 	/**
 	 * Constructor: opens the file with the given descriptor and loads all
-	 * messages. Initialises to default Locale.
+	 * messages. Initializes to default Locale.
 	 * 
 	 * @param propertiesFile
 	 *            the properties file to use to load the messages.
-	 * @throws IOException
+	 * @throws IOException if the propertiesFile does not exist
+	 * @throws IllegalArgumentException if propertiesFile has incorrect extension
 	 */
-	public Messages(File propertiesFile) throws IOException {
+	public Messages(File propertiesFile) throws IOException
+	, IllegalArgumentException {
 		this(propertiesFile, Locale.getDefault());
 	}
 
 	/**
 	 * Constructor: opens the file with the given descriptor and loads all
-	 * messages. Initialises a default Locale.
+	 * messages. Initializes a default Locale.
 	 * 
 	 * @param propertiesFile
 	 *            the properties file to use to load the messages.
 	 * @param initialLocale
 	 *            the initialLocale to be used.
-	 * @throws IOException
+	 * @throws IOException if the propertiesFile does not exist
+	 * 	(but not if the internationalized file does not exist)
+	 * @throws IllegalArgumentException if propertiesFile has incorrect extension
 	 */
 	public Messages(File propertiesFile, Locale initialLocale)
 			throws IOException, IllegalArgumentException {
-		if (!propertiesFile.getName().endsWith(FILE_EXTENSION)) {
+		this(propertiesFile.toURI().toURL(), initialLocale);
+	}
+	
+	/**
+	 * Constructor: opens the file with the given descriptor and loads all
+	 * messages. Initializes to default Locale.
+	 * 
+	 * @param propertiesURL
+	 *            the properties file to use to load the messages.
+	 * @throws IOException if the propertiesURL does not exist
+	 * @throws IllegalArgumentException if propertiesURL has incorrect extension
+	 */
+	public Messages(URL propertiesURL)
+			throws IOException, IllegalArgumentException {
+		this(propertiesURL, Locale.getDefault());
+	}
+	
+	/**
+	 * Constructor: opens the file with the given descriptor and loads all
+	 * messages. Initializes a default Locale.
+	 * 
+	 * @param propertiesURL
+	 *            the properties file to use to load the messages.
+	 * @param initialLocale
+	 *            the initialLocale to be used.
+	 *            
+	 * @throws IOException if the propertiesURL does not exist 
+	 * 	(but not if the internationalized file does not exist)
+	 * @throws IllegalArgumentException if propertiesURL has incorrect extension
+	 */
+	public Messages(URL propertiesURL, Locale initialLocale)
+			throws IOException, IllegalArgumentException {
+		if (propertiesURL == null )
+			throw new IllegalArgumentException("URL should not be null.");
+		else if ( propertiesURL.getFile()== null )
+			throw new IllegalArgumentException("Not accessible resource.");
+		else if (!propertiesURL.getFile().endsWith(FILE_EXTENSION)) 
 			throw new IllegalArgumentException("File should be a \"" +FILE_EXTENSION +"\" file");
-		}
-		defaultFile = propertiesFile;
-		defaultMessages = load(propertiesFile);
+		if (initialLocale == null)
+			initialLocale = Locale.getDefault();
+		
+		defaultResource = propertiesURL;
+		defaultMessages = load(propertiesURL);
 		setLocale(initialLocale);
 	}
 
@@ -100,7 +143,8 @@ public class Messages {
 	 * @param loc
 	 */
 	public void setLocale(Locale loc) {
-		if (lang.equals(loc)) {
+		if (lang == null 
+				|| !lang.equals(loc)) {
 			try {
 				localizedMessages = load(internationalizedFile(loc));
 				lang = loc;
@@ -116,9 +160,15 @@ public class Messages {
 	 * @param loc
 	 * @return {defaultFileName}_{localeLanguaje}.properties
 	 */
-	private File internationalizedFile(Locale loc) {
-		return new File(defaultFile.getAbsolutePath().replace(FILE_EXTENSION,
-				"_" + loc.getLanguage() + FILE_EXTENSION));
+	private URL internationalizedFile(Locale loc) {
+			try {
+				return 
+					new URL(defaultResource.getProtocol(), defaultResource.getHost(),
+						defaultResource.getFile().replace(FILE_EXTENSION,
+								"_" + loc.getLanguage() + FILE_EXTENSION));
+			} catch (MalformedURLException e) {
+				return null;
+			}
 	}
 
 	/**
@@ -138,13 +188,13 @@ public class Messages {
 
 	/**
 	 * Loads the property file into {@link Properties}.
-	 * @param f the file from which to load.
+	 * @param propertiesURL the file from which to load.
 	 * @return the {@link Properties} conained in file f.
 	 * @throws IOException if file not found, or could not read.
 	 */
-	private Properties load(File f) throws IOException {
+	private Properties load(URL propertiesURL) throws IOException {
 		Properties props = new Properties();
-		InputStream fis = new FileInputStream(f);
+		InputStream fis = propertiesURL.openStream();
 		props.load(fis);
 		fis.close();
 		return props;
