@@ -30,7 +30,7 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
 /**
  * Provides the interface to be implemented by applications together with shared
  * code. Only instances of this class can send {@link UIRequest}s. The
- * convention of the {@link UIBus} regarding the registration parameters is the
+ * convention of the {@link IUIBus} regarding the registration parameters is the
  * following:
  * <ul>
  * <li>{@link UICaller}s provide no registration parameters</li>
@@ -54,8 +54,8 @@ public abstract class UICaller extends Caller {
      */
     protected UICaller(ModuleContext context) {
 	super(context, UIBusImpl.getUIBusFetchParams());
-	if (this instanceof DialogManager)
-	    ((UIBusImpl) theBus).setDialogManager((DialogManager) this);
+	if (this instanceof IDialogManager)
+	    ((UIBusImpl) theBus).setDialogManager((IDialogManager) this);
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class UICaller extends Caller {
      *            the dialog id
      */
     public void abortDialog(String dialogID) {
-	((UIBus) theBus).abortDialog(busResourceURI, dialogID);
+	((IUIBus) theBus).abortDialog(busResourceURI, dialogID);
     }
 
     /**
@@ -77,8 +77,8 @@ public abstract class UICaller extends Caller {
      *            the changed prop
      */
     public void adaptationParametersChanged(UIRequest call, String changedProp) {
-	if (this instanceof DialogManager)
-	    ((UIBus) theBus).adaptationParametersChanged((DialogManager) this,
+	if (this instanceof IDialogManager)
+	    ((IUIBus) theBus).adaptationParametersChanged((IDialogManager) this,
 		    call, changedProp);
     }
 
@@ -91,7 +91,7 @@ public abstract class UICaller extends Caller {
     }
 
     /**
-     * Unregisters the {@link UICaller} from the {@link UIBus}.
+     * Unregisters the {@link UICaller} from the {@link IUIBus}.
      */
     public void close() {
 	theBus.unregister(busResourceURI, this);
@@ -118,8 +118,8 @@ public abstract class UICaller extends Caller {
      *            the dialog id
      */
     public void dialogSuspended(String dialogID) {
-	if (this instanceof DialogManager)
-	    ((UIBus) theBus).dialogSuspended((DialogManager) this, dialogID);
+	if (this instanceof IDialogManager)
+	    ((IUIBus) theBus).dialogSuspended((IDialogManager) this, dialogID);
     }
 
     /**
@@ -150,7 +150,7 @@ public abstract class UICaller extends Caller {
      *            the dialog data
      */
     public void resumeDialog(String dialogID, Resource dialogData) {
-	((UIBus) theBus).resumeDialog(busResourceURI, dialogID, dialogData);
+	((IUIBus) theBus).resumeDialog(busResourceURI, dialogID, dialogData);
     }
 
     /**
@@ -161,12 +161,12 @@ public abstract class UICaller extends Caller {
      */
     public final void sendUIRequest(UIRequest uiRequest) {
 	if (uiRequest != null) {
-	    ((UIBus) theBus).brokerUIRequest(busResourceURI, uiRequest);
+	    ((IUIBus) theBus).brokerUIRequest(busResourceURI, uiRequest);
 	}
     }
 
     /**
-     * Id with which the {@link UICaller} is registered in the {@link UIBus}
+     * Id with which the {@link UICaller} is registered in the {@link IUIBus}
      * 
      * @return {@link UICaller} ID
      */

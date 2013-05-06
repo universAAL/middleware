@@ -52,7 +52,7 @@ import org.universAAL.middleware.ui.rdf.TextArea;
 public class UIBusOntology extends Ontology {
 
     public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX
-	    + "UIBus.owl#";
+	    + "IUIBus.owl#";
 
     private static UIBusFactory factory = new UIBusFactory();
 

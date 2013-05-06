@@ -35,7 +35,7 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
 /**
  * Provides the interface to be implemented by {@link UIHandler}s together with
  * shared code. Only instances of this class can handle {@link UIRequest}s. The
- * convention of the {@link UIBus} regarding the registration parameters is the
+ * convention of the {@link IUIBus} regarding the registration parameters is the
  * following:
  * <ul>
  * <li>{@link UIHandler}s provide only at the registration time info about
@@ -65,7 +65,7 @@ public abstract class UIHandler extends Callee {
 	this.realizedHandlerProfiles = new ArrayList<UIHandlerProfile>();
 	if (initialSubscription != null) {
 	    this.realizedHandlerProfiles.add(initialSubscription);
-	    ((UIBus) theBus).addNewProfile(busResourceURI, initialSubscription);
+	    ((IUIBus) theBus).addNewProfile(busResourceURI, initialSubscription);
 	}
     }
 
@@ -85,7 +85,7 @@ public abstract class UIHandler extends Callee {
 	if (initialSubscriptions != null) {
 	    for (UIHandlerProfile profile : initialSubscriptions) {
 		this.realizedHandlerProfiles.add(profile);
-		((UIBus) theBus).addNewProfile(busResourceURI, profile);
+		((IUIBus) theBus).addNewProfile(busResourceURI, profile);
 	    }
 	}
     }
@@ -110,7 +110,7 @@ public abstract class UIHandler extends Callee {
      *            the new subscription
      */
     public final void addNewRegParams(UIHandlerProfile newSubscription) {
-	((UIBus) theBus).addNewProfile(busResourceURI, newSubscription);
+	((IUIBus) theBus).addNewProfile(busResourceURI, newSubscription);
 	this.realizedHandlerProfiles.add(newSubscription);
     }
 
@@ -123,7 +123,7 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Unregisters the {@link UIHandler} from the {@link UIBus}.
+     * Unregisters the {@link UIHandler} from the {@link IUIBus}.
      */
     public void close() {
 	theBus.unregister(busResourceURI, this);
@@ -131,7 +131,7 @@ public abstract class UIHandler extends Callee {
 
     /**
      * Method to be called when the communication of the {@link UIHandler} with
-     * the {@link UIBus} is lost.
+     * the {@link IUIBus} is lost.
      */
     public abstract void communicationChannelBroken();
 
@@ -151,7 +151,7 @@ public abstract class UIHandler extends Callee {
      *            the {@link UIResponse}
      */
     public final void dialogFinished(UIResponse uiResponse) {
-	((UIBus) theBus).dialogFinished(busResourceURI, uiResponse);
+	((IUIBus) theBus).dialogFinished(busResourceURI, uiResponse);
     }
 
     /**
@@ -185,7 +185,7 @@ public abstract class UIHandler extends Callee {
      */
     protected final void removeMatchingRegParams(
 	    UIHandlerProfile oldSubscription) {
-	((UIBus) theBus).removeMatchingProfile(busResourceURI, oldSubscription);
+	((IUIBus) theBus).removeMatchingProfile(busResourceURI, oldSubscription);
 	this.realizedHandlerProfiles.remove(oldSubscription);
     }
 
@@ -198,7 +198,7 @@ public abstract class UIHandler extends Callee {
      *            the login location
      */
     public final void userLoggedIn(Resource user, AbsLocation loginLocation) {
-	((UIBus) theBus).userLoggedIn(busResourceURI, user, loginLocation);
+	((IUIBus) theBus).userLoggedIn(busResourceURI, user, loginLocation);
     }
 
     public List<UIHandlerProfile> getRealizedHandlerProfiles() {
@@ -206,7 +206,7 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Id with which the {@link UIHandler} is registered in the {@link UIBus}
+     * Id with which the {@link UIHandler} is registered in the {@link IUIBus}
      * 
      * @return {@link UIHandler} ID
      */

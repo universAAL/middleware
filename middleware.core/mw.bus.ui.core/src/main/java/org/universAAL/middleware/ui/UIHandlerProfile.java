@@ -38,7 +38,7 @@ import org.universAAL.middleware.ui.owl.Modality;
 /**
  * A profile of the {@link UIHandler} that describes its capabilites so that
  * they can be matched with {@link UIRequest} ( more specifically {@link User}
- * preferences and abilities added by the {@link DialogManager}) and possibly
+ * preferences and abilities added by the {@link IDialogManager}) and possibly
  * some additional parameters.
  * 
  * @author mtazari
