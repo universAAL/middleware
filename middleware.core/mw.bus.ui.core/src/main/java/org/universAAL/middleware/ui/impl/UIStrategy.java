@@ -34,7 +34,7 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.ui.DialogManager;
+import org.universAAL.middleware.ui.IDialogManager;
 import org.universAAL.middleware.ui.UICaller;
 import org.universAAL.middleware.ui.UIHandler;
 import org.universAAL.middleware.ui.UIHandlerProfile;
@@ -102,7 +102,7 @@ public class UIStrategy extends BusStrategy {
     public static final String TYPE_uAAL_SUSPEND_DIALOG = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "SuspendDialog";
 
-    private DialogManager dialogManager = null;
+    private IDialogManager dialogManager = null;
     private List<Subscription> globalSubscriptions = null;
     private Map<String, String> runningDialogs = null;
     private PeerCard theCoordinator = null;
@@ -149,13 +149,13 @@ public class UIStrategy extends BusStrategy {
      * environmental conditions.
      * 
      * @param dm
-     *            Instance of the DialogManager
+     *            Instance of the IDialogManager
      * @param request
      *            The request containing the new content
      * @param changedProp
      *            Changed property from the request
      */
-    void adaptationParametersChanged(DialogManager dm, UIRequest request,
+    void adaptationParametersChanged(IDialogManager dm, UIRequest request,
 	    String changedProp) {
 	if (dm != null && dm == dialogManager) {
 	    int aux;
@@ -347,13 +347,13 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * Only called by the DialogManager. Simply removes dialogs from the active
+     * Only called by the IDialogManager. Simply removes dialogs from the active
      * list.
      * 
      * @param dm
      * @param dialogID
      */
-    void dialogSuspended(DialogManager dm, String dialogID) {
+    void dialogSuspended(IDialogManager dm, String dialogID) {
 	if (dialogID != null && dm != null && dm == dialogManager) {
 	    // most probably does not need 'synchronized(globalSubscriptions)'
 	    runningDialogs.remove(dialogID);
@@ -512,7 +512,7 @@ public class UIStrategy extends BusStrategy {
      * this dialog should be presented to the user immediately or the DM will
      * queue it for later;
      * 
-     * as a side effect of {@link DialogManager#checkNewDialog(UIRequest)}, the
+     * as a side effect of {@link IDialogManager#checkNewDialog(UIRequest)}, the
      * request should have been enriched by the current adaptation parameters
      */
     private void askDialogManagerForPresentation(BusMessage message) {
@@ -1070,8 +1070,8 @@ public class UIStrategy extends BusStrategy {
     /**
      * Called only when an application is finished with a subdialog and wants to
      * resume the original dialog passing the changed dialog data. Also called
-     * by the {@link DialogManager} when the user has instructed to resume a
-     * specific dialog; Or when the {@link DialogManager} wants to resume a
+     * by the {@link IDialogManager} when the user has instructed to resume a
+     * specific dialog; Or when the {@link IDialogManager} wants to resume a
      * previously suspended dialog because of higher priority dialog
      * interrupted.
      * 
@@ -1108,7 +1108,7 @@ public class UIStrategy extends BusStrategy {
      * @param dm
      *            Instance of the Dialogmanager
      */
-    void setDialogManager(DialogManager dm) {
+    void setDialogManager(IDialogManager dm) {
 	if (dm == null || dialogManager != null || theCoordinator != null) {
 	    LogUtils
 		    .logError(

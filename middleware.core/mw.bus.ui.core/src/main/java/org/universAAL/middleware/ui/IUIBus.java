@@ -27,7 +27,7 @@ import org.universAAL.middleware.ui.rdf.Form;
 import org.universAAL.middleware.ui.rdf.Submit;
 
 /**
- * The {@link UIBus} is responsible for brokerage between applications that need
+ * The {@link IUIBus} is responsible for brokerage between applications that need
  * to reach human users (in order to present information to them and / or ask
  * them for intervention) and the so-called {@link UIHandler}s that can handle
  * the interaction with human users through UI channels under their control.
@@ -43,7 +43,7 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * @author eandgrg
  * 
  */
-public interface UIBus {
+public interface IUIBus {
 
     /**
      * Aborts the dialog upon request from the application or Dialog Manager. No
@@ -85,7 +85,7 @@ public interface UIBus {
      *            the property (from among all properties of the call context)
      *            that has changed
      */
-    public void adaptationParametersChanged(DialogManager dm, UIRequest uicall,
+    public void adaptationParametersChanged(IDialogManager dm, UIRequest uicall,
 	    String changedProp);
 
     /**
@@ -131,7 +131,7 @@ public interface UIBus {
      * @param dialogID
      *            ID of the dialog to suspend
      */
-    public void dialogSuspended(DialogManager dm, String dialogID);
+    public void dialogSuspended(IDialogManager dm, String dialogID);
 
     /**
      * Removes matching patterns of {@link UIRequest}s from the profile of the
@@ -202,7 +202,7 @@ public interface UIBus {
      * 
      * @param handlerID
      *            id of the UIHandler which is received when registering to the
-     *            UIBus. It must be passed to the bus when calling bus methods.
+     *            IUIBus. It must be passed to the bus when calling bus methods.
      * @param user
      *            human user
      * @param loginLocation

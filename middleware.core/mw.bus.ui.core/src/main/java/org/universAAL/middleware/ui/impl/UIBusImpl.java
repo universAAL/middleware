@@ -33,12 +33,11 @@ import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.modules.CommunicationModule;
-import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.ui.DialogManager;
-import org.universAAL.middleware.ui.UIBus;
+import org.universAAL.middleware.ui.IDialogManager;
+import org.universAAL.middleware.ui.IUIBus;
 import org.universAAL.middleware.ui.UICaller;
 import org.universAAL.middleware.ui.UIHandler;
 import org.universAAL.middleware.ui.UIHandlerProfile;
@@ -49,12 +48,15 @@ import org.universAAL.middleware.ui.owl.UIBusOntology;
 import org.universAAL.middleware.util.ResourceComparator;
 
 /**
- * @author mtazari
  * 
- * @see org.universAAL.middleware.ui.UIBus
+ * Implementation of {@link IUIBus} interface
+ * 
+ * @author mtazari
  * @author Carsten Stockloew
+ * @author eandgrg
+ * 
  */
-public class UIBusImpl extends AbstractBus implements UIBus {
+public class UIBusImpl extends AbstractBus implements IUIBus {
     private static Object[] busFetchParams;
     private static UIBusImpl theUIBus = null;
     private static UIBusOntology uiBusOntology = new UIBusOntology();
@@ -109,16 +111,19 @@ public class UIBusImpl extends AbstractBus implements UIBus {
     }
 
     /**
-     * Create an instance of the UIBus.
+     * Create an instance of the {@link IUIBus}.
      * 
-     * @param g
-     *            Pointer to the local instance of the SodaPop bus-system
+     * @param mc
+     *            {@link ModuleContext}
      */
     private UIBusImpl(ModuleContext mc) {
 	super(mc);
 	busStrategy.setBus(this);
     }
 
+    /**
+     * @return {@link ModuleContext}
+     */
     public static ModuleContext getModuleContext() {
 	return mc;
     }
@@ -128,17 +133,19 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	return new UIStrategy(commModule);
     }
 
-    public void setDialogManager(DialogManager dm) {
+    /**
+     * @param dm
+     *            {@link IDialogManager}
+     */
+    public void setDialogManager(IDialogManager dm) {
 	((UIStrategy) busStrategy).setDialogManager(dm);
     }
 
-    /**
-     * Closes a running dialog
+    /*
+     * (non-Javadoc)
      * 
-     * @param callerID
-     *            ID of the publisher of the Dialog
-     * @param dialogID
-     *            ID of the dialog to delete
+     * @see org.universAAL.middleware.ui.IUIBus#abortDialog(java.lang.String,
+     * java.lang.String)
      */
     public void abortDialog(String callerID, String dialogID) {
 	BusMember bm = getBusMember(callerID);
@@ -147,32 +154,29 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	}
     }
 
-    /**
-     * @param dm
-     *            The responsible Dialog Manager
-     * @param uiRequest
-     *            New/Changed UIRequest
-     * @param changedProp
-     *            Property that has been changed since last time
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.ui.IUIBus#adaptationParametersChanged(org.universAAL
+     * .middleware.ui.DialogManager, org.universAAL.middleware.ui.UIRequest,
+     * java.lang.String)
      */
-    public void adaptationParametersChanged(DialogManager dm,
+    public void adaptationParametersChanged(IDialogManager dm,
 	    UIRequest uiRequest, String changedProp) {
 	((UIStrategy) busStrategy).adaptationParametersChanged(dm, uiRequest,
 		changedProp);
     }
 
-   // public UIHandlerProfile getMatchingUiHandler(){
-   // 	return ((UIStrategy) busStrategy).get
-   // }
-    
-    /**
+    // public UIHandlerProfile getMatchingUiHandler(){
+    // return ((UIStrategy) busStrategy).get
+    // }
+
+    /*
+     * (non-Javadoc)
      * 
-     * Adds a new subscription to the bus
-     * 
-     * @param handlerID
-     *            ID of the subscriber like given by register
-     * @param newProfile
-     *            Description of the subscription
+     * @see org.universAAL.middleware.ui.IUIBus#addNewProfile(java.lang.String,
+     * org.universAAL.middleware.ui.UIHandlerProfile)
      */
     public void addNewProfile(String handlerID, UIHandlerProfile newProfile) {
 	Object o = registry.getBusMemberByID(handlerID);
@@ -181,8 +185,11 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	}
     }
 
-    /**
-     * @see UIBus#dialogFinished(String, UIResponse)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.ui.IUIBus#dialogFinished(java.lang.String,
+     * org.universAAL.middleware.ui.UIResponse)
      */
     public void dialogFinished(String handlerID, UIResponse response) {
 	if (response != null) {
@@ -202,25 +209,23 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	}
     }
 
-    /**
-     * Can only be called by the DialogManager. Suspend the given dialog
+    /*
+     * (non-Javadoc)
      * 
-     * @param dm
-     *            Instance of the DialogManager
-     * @param dialogID
-     *            ID of the dialog to suspend
+     * @see
+     * org.universAAL.middleware.ui.IUIBus#dialogSuspended(org.universAAL.middleware
+     * .ui.DialogManager, java.lang.String)
      */
-    public void dialogSuspended(DialogManager dm, String dialogID) {
+    public void dialogSuspended(IDialogManager dm, String dialogID) {
 	((UIStrategy) busStrategy).dialogSuspended(dm, dialogID);
     }
 
-    /**
-     * Removes a subscription from the bus
+    /*
+     * (non-Javadoc)
      * 
-     * @param handlerID
-     *            ID from the owner of the subscription
-     * @param oldProfile
-     *            Subscription to remove
+     * @see
+     * org.universAAL.middleware.ui.IUIBus#removeMatchingProfile(java.lang.String
+     * , org.universAAL.middleware.ui.UIHandlerProfile)
      */
     public void removeMatchingProfile(String handlerID,
 	    UIHandlerProfile oldProfile) {
@@ -231,16 +236,18 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	}
     }
 
-    /**
+    /*
+     * (non-Javadoc)
      * 
-     * @see UIBus#resumeDialog(String, String, Resource)
+     * @see org.universAAL.middleware.ui.IUIBus#resumeDialog(java.lang.String,
+     * java.lang.String, org.universAAL.middleware.rdf.Resource)
      */
     public void resumeDialog(String callerID, String dialogID,
 	    Resource dialogData) {
 	BusMember bm = getBusMember(callerID);
-	if (bm instanceof DialogManager && dialogData instanceof UIRequest) {
+	if (bm instanceof IDialogManager && dialogData instanceof UIRequest) {
 	    ((UIStrategy) busStrategy).adaptationParametersChanged(
-		    (DialogManager) bm, (UIRequest) dialogData, null);
+		    (IDialogManager) bm, (UIRequest) dialogData, null);
 	} else if (bm instanceof UICaller) {
 	    ((UIStrategy) busStrategy).resumeDialog(dialogID, dialogData);
 	}
@@ -250,6 +257,9 @@ public class UIBusImpl extends AbstractBus implements UIBus {
      * 
      * Asks the bus to find an appropriate UI handler and forward the request to
      * it for handling
+     * 
+     * @see org.universAAL.middleware.ui.IUIBus#brokerUIRequest(java.lang.String,
+     *      org.universAAL.middleware.ui.UIRequest)
      * 
      * @param callerID
      *            the ID of the UICaller that is asking the bus
@@ -266,17 +276,21 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	}
     }
 
-    /**
-     * @see org.universAAL.middleware.ui.UIBus#unregister(java.lang.String,
-     *      org.universAAL.middleware.ui.UICaller)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.ui.IUIBus#unregister(java.lang.String,
+     * org.universAAL.middleware.ui.UICaller)
      */
     public void unregister(String handlerID, UICaller handler) {
 	super.unregister(handlerID, handler);
     }
 
-    /**
-     * @see org.universAAL.middleware.ui.UIBus#unregister(java.lang.String,
-     *      org.universAAL.middleware.ui.UIHandler)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.ui.IUIBus#unregister(java.lang.String,
+     * org.universAAL.middleware.ui.UIHandler)
      */
     public void unregister(String handlerID, UIHandler handler) {
 	Object o = registry.getBusMemberByID(handlerID);
@@ -286,10 +300,12 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	}
     }
 
-    /**
-     * @see org.universAAL.middleware.ui.UIBus#userLoggedIn(java.lang.String,
-     *      org.universAAL.middleware.rdf.Resource,
-     *      org.universAAL.middleware.owl.supply.AbsLocation)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.ui.IUIBus#userLoggedIn(java.lang.String,
+     * org.universAAL.middleware.rdf.Resource,
+     * org.universAAL.middleware.owl.supply.AbsLocation)
      */
     public void userLoggedIn(String handlerID, Resource user,
 	    AbsLocation loginLocation) {
@@ -305,26 +321,32 @@ public class UIBusImpl extends AbstractBus implements UIBus {
 	// TODO Auto-generated method stub
 
     }
-    
-    public UIHandlerProfile[] getMatchingProfiles(String modalityRegex){
-    	String lowerCaseModality = modalityRegex.toLowerCase();
-    	List<UIHandlerProfile> matchedProfiles = new ArrayList<UIHandlerProfile>();
-    	BusMember[] members = registry.getAllBusMembers();
-    	for(BusMember member : members){
-    		if (member instanceof UIHandler) {
-    			UIHandler handler = (UIHandler) member;
-    			List<UIHandlerProfile> realizedProfiles = (List<UIHandlerProfile>)handler.getRealizedHandlerProfiles();
-    			for(UIHandlerProfile profile : realizedProfiles){
-    				Modality[] supportedModalities = profile.getSupportedInputModalities();
-    				for(Modality m : supportedModalities){
-    					if (m.toString().toLowerCase().matches(lowerCaseModality)){
-    						matchedProfiles.add(profile);
-    						break;
-    					}
-    				}
-    			}
-    		}
-    	}
-    	return matchedProfiles.toArray(new UIHandlerProfile[0]);
+
+    /**
+     * Returns list of {@link UIHandlerProfile}s that match the given expression
+     */
+    public UIHandlerProfile[] getMatchingProfiles(String modalityRegex) {
+	String lowerCaseModality = modalityRegex.toLowerCase();
+	List<UIHandlerProfile> matchedProfiles = new ArrayList<UIHandlerProfile>();
+	BusMember[] members = registry.getAllBusMembers();
+	for (BusMember member : members) {
+	    if (member instanceof UIHandler) {
+		UIHandler handler = (UIHandler) member;
+		List<UIHandlerProfile> realizedProfiles = (List<UIHandlerProfile>) handler
+			.getRealizedHandlerProfiles();
+		for (UIHandlerProfile profile : realizedProfiles) {
+		    Modality[] supportedModalities = profile
+			    .getSupportedInputModalities();
+		    for (Modality m : supportedModalities) {
+			if (m.toString().toLowerCase().matches(
+				lowerCaseModality)) {
+			    matchedProfiles.add(profile);
+			    break;
+			}
+		    }
+		}
+	    }
+	}
+	return matchedProfiles.toArray(new UIHandlerProfile[0]);
     }
 }

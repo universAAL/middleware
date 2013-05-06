@@ -195,8 +195,8 @@ middleware.core/mw.bus.ui.core/ASL2.0.txt -text
 middleware.core/mw.bus.ui.core/MITX.txt -text
 middleware.core/mw.bus.ui.core/NOTICE.txt -text
 middleware.core/mw.bus.ui.core/pom.xml -text
-middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/DialogManager.java -text
-middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIBus.java -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/IDialogManager.java -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/IUIBus.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIBusFacade.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UICaller.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIHandler.java -text

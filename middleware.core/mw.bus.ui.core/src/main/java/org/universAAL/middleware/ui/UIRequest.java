@@ -45,7 +45,7 @@ import org.universAAL.middleware.ui.rdf.Form;
  * Instances of this class can be used to user interaction requests.
  * Applications just need to provide the dialog's {@link Form} object along with
  * the addressed {@link User}, the priority of the dialog, and the language and
- * privacy level of the content. The {@link UIBus} will then add the current
+ * privacy level of the content. The {@link IUIBus} will then add the current
  * adaptation parameters to the call (by asking the Dialog Manager) before
  * selecting the appropriate {@link UIHandler} and forwarding the call to it.
  * 

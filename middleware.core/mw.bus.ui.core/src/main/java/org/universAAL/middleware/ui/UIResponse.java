@@ -216,7 +216,7 @@ public class UIResponse extends FinalizedResource implements Response {
     }
 
     /**
-     * Checks if is the response is for the DialogManager.
+     * Checks if is the response is for the IDialogManager.
      * 
      * @return true, if the submit was in a standardButton group.
      */
