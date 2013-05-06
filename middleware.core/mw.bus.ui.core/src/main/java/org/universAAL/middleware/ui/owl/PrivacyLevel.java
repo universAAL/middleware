@@ -118,13 +118,21 @@ public class PrivacyLevel extends ComparableIndividual {
 	this.order = order;
     }
 
-    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.owl.ComparableIndividual#getClassURI()
+     */
     public String getClassURI() {
 	return MY_URI;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.ComparableIndividual
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.owl.ComparableIndividual#compareTo(java.lang
+     * .Object)
      */
     public int compareTo(Object other) {
 	return (this == other) ? 0
@@ -145,14 +153,20 @@ public class PrivacyLevel extends ComparableIndividual {
 	return getLevelByOrder(order - 1);
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType(String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
+     * (java.lang.String)
      */
     public int getPropSerializationType(String propURI) {
 	return PROP_SERIALIZATION_OPTIONAL;
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
      */
     public boolean isWellFormed() {
@@ -178,8 +192,8 @@ public class PrivacyLevel extends ComparableIndividual {
      * @see org.universAAL.middleware.owl.ManagedIndividual#setProperty(String,
      *      Object)
      */
-    public boolean setProperty(String propURI, Object o) {
-	// do nothing
-	return false;
-    }
+//    public boolean setProperty(String propURI, Object o) {
+//	// do nothing
+//	return false;
+//    }
 }

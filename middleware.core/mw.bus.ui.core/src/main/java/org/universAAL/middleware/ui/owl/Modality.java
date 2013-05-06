@@ -29,7 +29,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * @author mtazari
  * @author Carsten Stockloew
  * @author eandgrg
- * @see org.universAAL.middleware.owl.ManagedIndividual
+ * 
  */
 public class Modality extends ManagedIndividual {
 
@@ -105,19 +105,29 @@ public class Modality extends ManagedIndividual {
 	this.order = order;
     }
 
-    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI()
+     */
     public String getClassURI() {
 	return MY_URI;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType(String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
+     * (java.lang.String)
      */
     public int getPropSerializationType(String propURI) {
 	return PROP_SERIALIZATION_OPTIONAL;
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
      */
     public boolean isWellFormed() {
