@@ -36,6 +36,11 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.owl.Modality;
 
 /**
+ * A profile of the {@link UIHandler} that describes its capabilites so that
+ * they can be matched with {@link UIRequest} ( more specifically {@link User}
+ * preferences and abilities added by the {@link DialogManager}) and possibly
+ * some additional parameters.
+ * 
  * @author mtazari
  * @author Carsten Stockloew
  * @author eandgrg
@@ -68,15 +73,15 @@ public class UIHandlerProfile extends FinalizedResource implements
     /**
      * Adds the restriction.
      * 
-     * @param r
+     * @param mergedRestriction
      *            the restriction
      */
-    public boolean addRestriction(MergedRestriction r) {
-	if (r == null) {
+    public boolean addRestriction(MergedRestriction mergedRestriction) {
+	if (mergedRestriction == null) {
 	    return false;
 	}
 
-	String prop = r.getOnProperty();
+	String prop = mergedRestriction.getOnProperty();
 	if (UIRequest.PROP_ADDRESSED_USER.equals(prop)
 		|| UIRequest.PROP_DIALOG_FORM.equals(prop)
 		|| UIRequest.PROP_DIALOG_PRIORITY.equals(prop)
@@ -87,7 +92,7 @@ public class UIHandlerProfile extends FinalizedResource implements
 		|| UIRequest.PROP_PRESENTATION_LOCATION.equals(prop)
 		|| UIRequest.PROP_PRESENTATION_MODALITY.equals(prop)) {
 	    if (propRestrictionAllowed(prop)) {
-		restrictions.add(r);
+		restrictions.add(mergedRestriction);
 		return true;
 	    }
 	}
@@ -135,8 +140,8 @@ public class UIHandlerProfile extends FinalizedResource implements
     /**
      * Determines whether the given {@link UIRequest} matches this profile.
      * 
-     * @param request
-     *            the ui request
+     * @param uiRequest
+     *            the {@link UIRequest}
      * @return a value indicating to which degree the {@link UIRequest} matches:
      *         <ul>
      *         <li>{@link #MATCH_LEVEL_SUCCESS} if all restrictions match the
@@ -150,8 +155,8 @@ public class UIHandlerProfile extends FinalizedResource implements
      *         or the given request is null.</li>
      *         </ul>
      */
-    public int getMatchingDegree(UIRequest request) {
-	if (request == null) {
+    public int getMatchingDegree(UIRequest uiRequest) {
+	if (uiRequest == null) {
 	    return MATCH_LEVEL_FAILED;
 	}
 
@@ -161,7 +166,7 @@ public class UIHandlerProfile extends FinalizedResource implements
 	    // follow me scenario, we should have location of the user known
 	    // for best UIstrategy but question is how do we get it and if this
 	    // will be feasible in most cases.
-	    if (!r.hasMember(request, null)) {
+	    if (!r.hasMember(uiRequest, null)) {
 		// If there is a location of the user than match on the
 		// location; if there is no location - see logged in location
 		// if (UIRequest.PROP_ADDRESSED_USER.equals(r.getOnProperty()))
@@ -173,7 +178,7 @@ public class UIHandlerProfile extends FinalizedResource implements
 			.getOnProperty())
 			&& r.copyOnNewProperty(
 				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-				.hasMember(request, null)) {
+				.hasMember(uiRequest, null)) {
 		    result = MATCH_LEVEL_ALT;
 
 		    continue;
@@ -187,28 +192,28 @@ public class UIHandlerProfile extends FinalizedResource implements
 	return result;
     }
 
-    private boolean isRestrictionOnModality(UIRequest oe, MergedRestriction r) {
+    private boolean isRestrictionOnModality(UIRequest uiRequest, MergedRestriction r) {
 	return UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
 		&& r
 			.copyOnNewProperty(
 				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-			.hasMember(oe, null);
+			.hasMember(uiRequest, null);
     }
 
     /**
      * Determines whether this profile matches the given profile.
      * 
-     * @param subtype
+     * @param uiHandlerProfile
      *            the subtype
      * @return <tt>true</tt>, if successful
      */
-    public boolean matches(UIHandlerProfile subtype) {
-	if (subtype == null) {
+    public boolean matches(UIHandlerProfile uiHandlerProfile) {
+	if (uiHandlerProfile == null) {
 	    return false;
 	}
 
 	for (MergedRestriction r : restrictions) {
-	    MergedRestriction subR = subtype.getRestriction(r.getOnProperty());
+	    MergedRestriction subR = uiHandlerProfile.getRestriction(r.getOnProperty());
 	    if (subR == null || !r.matches(subR, null)) {
 		return false;
 	    }
@@ -302,11 +307,11 @@ public class UIHandlerProfile extends FinalizedResource implements
      * Only called if d is not of type {@link Requirement}. Therefore no match
      * is possible and <tt>false</tt> is returned always.
      * 
-     * @param d
+     * @param requirement
      *            the Requirement to be matched against
      * @return <tt>false</tt> as described above
      */
-    public boolean matches(Requirement d) {
+    public boolean matches(Requirement requirement) {
 	return false;
     }
 
@@ -314,13 +319,13 @@ public class UIHandlerProfile extends FinalizedResource implements
      * Switches over possible types of {@link Requirement}. Calls appropriate
      * methods for the different types.
      * 
-     * @param r
+     * @param request
      *            the Requirement to be matched
      * @return <tt>true</tt> if the Requirement matches, <tt>false</tt> if not
      */
-    public boolean matches(Request r) {
-	if (r instanceof UIRequest) {
-	    return isMatchingUIRequest((UIRequest) r);
+    public boolean matches(Request request) {
+	if (request instanceof UIRequest) {
+	    return isMatchingUIRequest((UIRequest) request);
 	} else {
 	    return false;
 	}
@@ -329,11 +334,11 @@ public class UIHandlerProfile extends FinalizedResource implements
     /**
      * Determines whether this profile matches the given {@link UIRequest}.
      * 
-     * @param request
+     * @param uiRequest
      *            the {@link UIRequest} to match.
      * @return true if the matching level is higher than failed
      */
-    private boolean isMatchingUIRequest(UIRequest request) {
-	return getMatchingDegree(request) > MATCH_LEVEL_FAILED;
+    private boolean isMatchingUIRequest(UIRequest uiRequest) {
+	return getMatchingDegree(uiRequest) > MATCH_LEVEL_FAILED;
     }
 }

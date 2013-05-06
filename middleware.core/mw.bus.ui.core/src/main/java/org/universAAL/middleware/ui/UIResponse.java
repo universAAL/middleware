@@ -32,6 +32,7 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * 
  * @author mtazari
  * @author Carsten Stockloew
+ * @author eandgrg
  */
 public class UIResponse extends FinalizedResource implements Response {
 
@@ -74,9 +75,9 @@ public class UIResponse extends FinalizedResource implements Response {
      * This constructor is used in the context of a running dialog.
      * 
      * @param user
-     *            reference to the user
+     *            reference to the {@link User}
      * @param inputLocation
-     *            location of the user
+     *            location of the {@link User}
      * @param submit
      *            instance of a submit button that has finished the dialog
      */
@@ -163,9 +164,9 @@ public class UIResponse extends FinalizedResource implements Response {
     }
 
     /**
-     * Gets the user.
+     * Gets the {@link User}.
      * 
-     * @return the user
+     * @return the {@link User}
      */
     public Resource getUser() {
 	Object user = props.get(PROP_uAAL_INVOLVED_HUMAN_USER);
