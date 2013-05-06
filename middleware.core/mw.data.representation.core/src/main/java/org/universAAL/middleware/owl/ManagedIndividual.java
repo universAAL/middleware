@@ -419,7 +419,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
     }
 
     /**
-     * The default implementation that will set a property iff it was not set
+     * The default implementation that will set a property if it was not set
      * before and the given value complies with the restrictions defined by this
      * class of managed individuals for the given propURI.
      */
