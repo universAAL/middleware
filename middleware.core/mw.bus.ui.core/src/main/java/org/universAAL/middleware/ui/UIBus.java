@@ -27,17 +27,17 @@ import org.universAAL.middleware.ui.rdf.Form;
 import org.universAAL.middleware.ui.rdf.Submit;
 
 /**
- * The UI Bus is responsible for brokerage between applications that need to
- * reach human users (in order to present information to them and / or ask them
- * for intervention) and the so-called UI handlers that can handle the
- * interaction with human users through UI channels under their control. This
- * bus is a call-based bus without any support for synchronized delivery of
+ * The {@link UIBus} is responsible for brokerage between applications that need
+ * to reach human users (in order to present information to them and / or ask
+ * them for intervention) and the so-called {@link UIHandler}s that can handle
+ * the interaction with human users through UI channels under their control.
+ * This bus is a call-based bus without any support for synchronized delivery of
  * replies (replies will always be delivered in a new thread). It defines
  * protocols for suspending and resuming dialogs, dynamic adaptation of
- * "rendering" by a previously selected UI handler during the dialog is running,
- * and transfer of responsibility to another UI handler. It accepts registration
- * parameters from UI handlers (when they register to the bus) and allows
- * removing and/or updating of these parameters.
+ * "rendering" by a previously selected {@link UIHandler} during the dialog is
+ * running, and transfer of responsibility to another {@link UIHandler}. It
+ * accepts registration parameters from {@link UIHandler}s (when they register
+ * to the bus) and allows removing and/or updating of these parameters.
  * 
  * @author mtazari
  * @author eandgrg
@@ -63,17 +63,17 @@ public interface UIBus {
      * Only the Dialog Manager (DM) can call this method. When the DM notices
      * that personal and / or situational parameters relevant for a running
      * dialog have changed, it notifies the UI bus by calling this method. The
-     * UI bus may then either notify the UI handler in charge of that dialog to
-     * consider the changes (if the changes in the adaptation parameters still
-     * match its profile -- see also
+     * UI bus may then either notify the {@link UIHandler} in charge of that
+     * dialog to consider the changes (if the changes in the adaptation
+     * parameters still match its profile -- see also
      * {@link UIHandler#adaptationParametersChanged(String, String, Object)}) or
-     * switch to another UI handler (if the new situation cannot be handled by
-     * the previous UI handler). In the latter case, the previous UI handler is
-     * notified to abort the dialog while returning any intermediate user input
-     * collected so far (by calling {@link UIHandler#cutDialog(String)}), and
-     * then the new UI handler is mandated (by calling
-     * {@link UIHandler#handleUICall(UIRequest)}) to continue with the dialog
-     * presentation without loss of data.
+     * switch to another {@link UIHandler} (if the new situation cannot be
+     * handled by the previous {@link UIHandler}). In the latter case, the
+     * previous {@link UIHandler} is notified to abort the dialog while
+     * returning any intermediate user input collected so far (by calling
+     * {@link UIHandler#cutDialog(String)}), and then the new {@link UIHandler}
+     * is mandated (by calling {@link UIHandler#handleUICall(UIRequest)}) to
+     * continue with the dialog presentation without loss of data.
      * 
      * @param dm
      *            Dialog Manager
@@ -89,31 +89,31 @@ public interface UIBus {
 	    String changedProp);
 
     /**
-     * Extends the profile of a registered subscriber (UI handler) with regard
-     * to {@link UIRequest}s that it can handle. Responsible (together with
-     * {@link #removeMatchingProfile(String, UIHandlerProfile)}) for changing
-     * the handler's profile dynamically.
+     * Extends the profile of a registered subscriber ({@link UIHandler}) with
+     * regard to {@link UIRequest}s that it can handle. Responsible (together
+     * with {@link #removeMatchingProfile(String, UIHandlerProfile)}) for
+     * changing the handler's profile dynamically.
      * 
      * @param handlerID
-     *            ID of the UI handler introducing the new registration
+     *            ID of the {@link UIHandler} introducing the new registration
      *            parameters
-     * @param handlerProfile
+     * @param uiHandlerProfile
      *            the new class of {@link UIRequest}s that can additionally be
-     *            handled by the given UI handler
+     *            handled by the given {@link UIHandler}
      */
-    public void addNewProfile(String handlerID, UIHandlerProfile handlerProfile);
+    public void addNewProfile(String handlerID,
+	    UIHandlerProfile uiHandlerProfile);
 
     /**
-     * Whenever a dialog is finished, UI handlers must inform the UI Bus by
-     * calling this method.
+     * Whenever a dialog is finished, {@link UIHandler}s must inform the UI Bus
+     * by calling this method.
      * 
      * @param handlerID
-     *            ID of the UI handler that has finished the dialog
-     * @param input
-     *            The user input constructed by calling
-     *            {@link UIResponse#UIResponse(Resource, AbsLocation, Submit)}
+     *            ID of the {@link UIHandler} that has finished the dialog
+     * @param {@link UIHandler}esponse The user input constructed by calling
+     *        {@link UIResponse#UIResponse(Resource, AbsLocation, Submit)}
      */
-    public void dialogFinished(String handlerID, UIResponse input);
+    public void dialogFinished(String handlerID, UIResponse uiResponse);
 
     /**
      * Only the Dialog Manager (DM) can call this method. When the DM wants that
@@ -121,8 +121,8 @@ public interface UIBus {
      * {@link UIRequest} with a higher priority than the running one is
      * addressing the same user, or because the user wants to switch to another
      * dialog using the "standard buttons"), then it must notify the UI bus by
-     * calling this method. The UI bus will then ask the UI handler in charge of
-     * handling the running dialog to cut that dialog (see
+     * calling this method. The UI bus will then ask the {@link UIHandler} in
+     * charge of handling the running dialog to cut that dialog (see
      * {@link UIHandler#cutDialog(String)}) and return all user input collected
      * so far so that the dialog can be resumed later without loss of data.
      * 
@@ -135,7 +135,7 @@ public interface UIBus {
 
     /**
      * Removes matching patterns of {@link UIRequest}s from the profile of the
-     * UI handler. Responsible (together with
+     * {@link UIHandler}. Responsible (together with
      * {@link #addNewProfile(String, UIHandlerProfile)}) for changing the
      * handler's profile dynamically.
      * 
@@ -146,7 +146,7 @@ public interface UIBus {
      *            the profile registered previously
      */
     public void removeMatchingProfile(String handlerID,
-	    UIHandlerProfile oldProfile);
+	    UIHandlerProfile oldUIHandlerProfile);
 
     /**
      * Applications can use this method to ask the UI bus to resume a dialog
@@ -188,17 +188,17 @@ public interface UIBus {
     public void unregister(String callerID, UICaller uicaller);
 
     /**
-     * Unregisters the given UI handler from the bus..
+     * Unregisters the given {@link UIHandler} from the bus..
      * 
      * @param handlerID
      *            ID of the handler to be unregistered
-     * @param handler
+     * @param uiHandler
      *            the handler to be unregistered
      */
-    public void unregister(String handlerID, UIHandler handler);
+    public void unregister(String handlerID, UIHandler uiHandler);
 
     /**
-     * Notifies bus that the human user has logged in (using UI handler).
+     * Notifies bus that the human user has logged in (using {@link UIHandler}).
      * 
      * @param handlerID
      *            id of the UIHandler which is received when registering to the
@@ -210,10 +210,14 @@ public interface UIBus {
      */
     public void userLoggedIn(String handlerID, Resource user,
 	    AbsLocation loginLocation);
-    
+
     /**
-     * Retrieves all registered UIHandlerProfiles that has restriction for modality matched by modalityRegex
-     * @param modalityRegex - regular expression used for matching UiHandlerProfiles modalities
+     * Retrieves all registered UIHandlerProfiles that has restriction for
+     * modality matched by modalityRegex
+     * 
+     * @param modalityRegex
+     *            - regular expression used for matching UiHandlerProfiles
+     *            modalities
      * @return Array of matched UIHandlerProfiles
      */
     public UIHandlerProfile[] getMatchingProfiles(String modalityRegex);
