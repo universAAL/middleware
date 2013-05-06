@@ -29,23 +29,25 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
 
 /**
  * Provides the interface to be implemented by applications together with shared
- * code. Only instances of this class can send UI requests. The convention of
- * the UI bus regarding the registration parameters is the following:
+ * code. Only instances of this class can send {@link UIRequest}s. The
+ * convention of the {@link UIBus} regarding the registration parameters is the
+ * following:
  * <ul>
- * <li>UICallers provide no registration parameters</li>
- * <li>UIHandlers may pass an array of
+ * <li>{@link UICaller}s provide no registration parameters</li>
+ * <li>{@link UIHandler}s may pass an array of
  * {@link org.universAAL.middleware.ui.UIHandlerProfile}s as their initial
  * subscriptions and can always add new (and remove old) subscriptions
  * dynamically.</li>
  * </ul>
  * 
  * @author mtazari
+ * @author eandgrg
  */
 
 public abstract class UICaller extends Caller {
 
     /**
-     * Instantiates a new uI caller.
+     * Instantiates a new {@link UICaller}.
      * 
      * @param context
      *            the module context
@@ -83,21 +85,21 @@ public abstract class UICaller extends Caller {
     /**
      * @see BusMember#busDyingOut(AbstractBus)
      */
-    public final void busDyingOut(AbstractBus b) {
-	if (b == theBus)
+    public final void busDyingOut(AbstractBus bus) {
+	if (bus == theBus)
 	    communicationChannelBroken();
     }
 
     /**
-     * Unregisters the UI Caller from the UI Bus.
+     * Unregisters the {@link UICaller} from the {@link UIBus}.
      */
     public void close() {
 	theBus.unregister(busResourceURI, this);
     }
 
     /**
-     * Method to be called when the communication of the UI Caller with the UI
-     * Bus is lost.
+     * Method to be called when the communication of the {@link UICaller} with
+     * the UI Bus is lost.
      */
     public abstract void communicationChannelBroken();
 
@@ -123,21 +125,21 @@ public abstract class UICaller extends Caller {
     /**
      * Handle reply.
      * 
-     * @param m
-     *            the message
+     * @param msg
+     *            the {@link BusMessage}
      */
-    public final void handleReply(BusMessage m) {
-	if (m != null && m.getContent() instanceof UIResponse)
-	    handleUIResponse((UIResponse) m.getContent());
+    public final void handleReply(BusMessage msg) {
+	if (msg != null && msg.getContent() instanceof UIResponse)
+	    handleUIResponse((UIResponse) msg.getContent());
     }
 
     /**
-     * Handle ui response.
+     * Handle {@link UIResponse}.
      * 
-     * @param input
-     *            the input
+     * @param uiResponse
+     *            the {@link UIResponse}
      */
-    public abstract void handleUIResponse(UIResponse input);
+    public abstract void handleUIResponse(UIResponse uiResponse);
 
     /**
      * Resume dialog.
@@ -152,17 +154,22 @@ public abstract class UICaller extends Caller {
     }
 
     /**
-     * Send UI request.
+     * Sends {@link UIRequest}.
      * 
-     * @param e
-     *            the e
+     * @param uiRequest
+     *            the {@link UIRequest}
      */
-    public final void sendUIRequest(UIRequest e) {
-	if (e != null) {
-	    ((UIBus) theBus).brokerUIRequest(busResourceURI, e);
+    public final void sendUIRequest(UIRequest uiRequest) {
+	if (uiRequest != null) {
+	    ((UIBus) theBus).brokerUIRequest(busResourceURI, uiRequest);
 	}
     }
 
+    /**
+     * Id with which the {@link UICaller} is registered in the {@link UIBus}
+     * 
+     * @return {@link UICaller} ID
+     */
     public String getMyID() {
 	return busResourceURI;
     }

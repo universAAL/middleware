@@ -44,10 +44,10 @@ import org.universAAL.middleware.ui.rdf.Form;
 /**
  * Instances of this class can be used to user interaction requests.
  * Applications just need to provide the dialog's {@link Form} object along with
- * the addressed user, the priority of the dialog, and the language and privacy
- * level of the content. The UI bus will then add the current adaptation
- * parameters to the call (by asking the Dialog Manager) before selecting the
- * appropriate UI Handler and forwarding the call to it.
+ * the addressed {@link User}, the priority of the dialog, and the language and
+ * privacy level of the content. The {@link UIBus} will then add the current
+ * adaptation parameters to the call (by asking the Dialog Manager) before
+ * selecting the appropriate {@link UIHandler} and forwarding the call to it.
  * 
  * @author mtazari
  * @author eandgrg
@@ -63,7 +63,7 @@ public class UIRequest extends FinalizedResource implements Request {
     public static final String MY_URI = uAAL_UI_NAMESPACE + "UIRequest";
 
     // ////////////////////////////////////////////////////////////////
-    // Data added by applications when creating UIRequest)
+    // Data added by applications when creating UIRequest
     // ////////////////////////////////////////////////////////////////
     /** The Constant PROP_ADDRESSED_USER. */
     public static final String PROP_ADDRESSED_USER = uAAL_UI_NAMESPACE
@@ -100,11 +100,14 @@ public class UIRequest extends FinalizedResource implements Request {
     /** The Constant PROP_HAS_PREFERENCE. */
     public static final String PROP_HAS_PREFERENCE = uAAL_UI_NAMESPACE
 	    + "hasPreference";
-    
-    //TODO remove later?
+
+    // TODO remove later? since also obtainable by accessing
+    // InteractionPreferences.preferredModality contained within
+    // uiRequest.getProperty(
+    // UIPreferencesSubProfile.PROP_INTERACTION_PREFERENCES)
     public static final String PROP_PRESENTATION_MODALITY = uAAL_UI_NAMESPACE
-    + "presentationModality";
-    
+	    + "presentationModality";
+
     public static final String PROP_PRESENTATION_MODALITY_ALT = uAAL_UI_NAMESPACE
 	    + "altPresentationModality";
 
@@ -119,13 +122,13 @@ public class UIRequest extends FinalizedResource implements Request {
      * Instantiates a new {@link UIRequest}.
      * 
      * @param user
-     *            the user
+     *            the {@link User}
      * @param dialogForm
      *            the dialog form
      * @param dialogPriority
      *            the dialog priority
      * @param dialogLang
-     *            the dialog language
+     *            the dialog {@link Language}
      * @param dialogPrivacy
      *            the dialog privacy
      */
@@ -153,18 +156,18 @@ public class UIRequest extends FinalizedResource implements Request {
     }
 
     /**
-     * Gets the addressed user.
+     * Gets the addressed {@link User}.
      * 
-     * @return the addressed user
+     * @return the addressed {@link User}
      */
     public Resource getAddressedUser() {
 	return (Resource) props.get(PROP_ADDRESSED_USER);
     }
 
     /**
-     * Gets the dialog form.
+     * Gets the dialog {@link Form}.
      * 
-     * @return the dialog form
+     * @return the dialog {@link Form}
      */
     public Form getDialogForm() {
 	return (Form) props.get(PROP_DIALOG_FORM);
@@ -299,7 +302,7 @@ public class UIRequest extends FinalizedResource implements Request {
 	    props.put(PROP_PRESENTATION_LOCATION, presentationLocation);
 	}
     }
-    
+
     /**
      * Sets the presentation modality.
      * 
@@ -307,11 +310,11 @@ public class UIRequest extends FinalizedResource implements Request {
      *            the new presentation modality
      */
     public void setPresentationModality(Modality modality) {
-	if (modality != null
-		&& !props.containsKey(PROP_PRESENTATION_MODALITY)) {
+	if (modality != null && !props.containsKey(PROP_PRESENTATION_MODALITY)) {
 	    props.put(PROP_PRESENTATION_MODALITY, modality);
 	}
     }
+
     /**
      * Gets the alternative presentation modality.
      * 
@@ -320,7 +323,7 @@ public class UIRequest extends FinalizedResource implements Request {
     public Modality getAltPresentationModality() {
 	return (Modality) props.get(PROP_PRESENTATION_MODALITY_ALT);
     }
-    
+
     /**
      * Sets the alternative presentation modality.
      * 
@@ -333,6 +336,7 @@ public class UIRequest extends FinalizedResource implements Request {
 	    props.put(PROP_PRESENTATION_MODALITY_ALT, outputModality);
 	}
     }
+
     /**
      * @see #matches(Advertisement)
      */

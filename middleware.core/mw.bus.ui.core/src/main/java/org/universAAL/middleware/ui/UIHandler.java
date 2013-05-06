@@ -33,22 +33,25 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
 
 /**
- * Provides the interface to be implemented by UI Handlers together with shared
- * code. Only instances of this class can handle UI requests. The convention of
- * the UI bus regarding the registration parameters is the following:
+ * Provides the interface to be implemented by {@link UIHandler}s together with
+ * shared code. Only instances of this class can handle {@link UIRequest}s. The
+ * convention of the {@link UIBus} regarding the registration parameters is the
+ * following:
  * <ul>
- * <li>UI Handlers provide only at the registration time info about themselves</li>
+ * <li>{@link UIHandler}s provide only at the registration time info about
+ * themselves</li>
  * </ul>
  * 
  * @author mtazari
+ * @author eandgrg
  * 
  */
 public abstract class UIHandler extends Callee {
 
-    private List realizedHandlerProfiles;
+    private List<UIHandlerProfile> realizedHandlerProfiles;
 
     /**
-     * Instantiates a new uI handler.
+     * Instantiates a new {@link UIHandler}.
      * 
      * @param context
      *            the context
@@ -59,15 +62,15 @@ public abstract class UIHandler extends Callee {
 	    UIHandlerProfile initialSubscription) {
 	super(context, UIBusImpl.getUIBusFetchParams());
 
-	this.realizedHandlerProfiles = new ArrayList();
+	this.realizedHandlerProfiles = new ArrayList<UIHandlerProfile>();
 	if (initialSubscription != null) {
 	    this.realizedHandlerProfiles.add(initialSubscription);
 	    ((UIBus) theBus).addNewProfile(busResourceURI, initialSubscription);
 	}
     }
-    
+
     /**
-     * Instantiates a new uI handler.
+     * Instantiates a new {@link UIHandler}.
      * 
      * @param context
      *            the context
@@ -78,12 +81,12 @@ public abstract class UIHandler extends Callee {
 	    UIHandlerProfile[] initialSubscriptions) {
 	super(context, UIBusImpl.getUIBusFetchParams());
 
-	this.realizedHandlerProfiles = new ArrayList();
+	this.realizedHandlerProfiles = new ArrayList<UIHandlerProfile>();
 	if (initialSubscriptions != null) {
-		for(UIHandlerProfile profile : initialSubscriptions){
-		    this.realizedHandlerProfiles.add(profile);
-		    ((UIBus) theBus).addNewProfile(busResourceURI, profile);
-			}
+	    for (UIHandlerProfile profile : initialSubscriptions) {
+		this.realizedHandlerProfiles.add(profile);
+		((UIBus) theBus).addNewProfile(busResourceURI, profile);
+	    }
 	}
     }
 
@@ -120,15 +123,15 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Unregisters the UI Handler from the UI Bus.
+     * Unregisters the {@link UIHandler} from the {@link UIBus}.
      */
     public void close() {
 	theBus.unregister(busResourceURI, this);
     }
 
     /**
-     * Method to be called when the communication of the UI Handler with the UI
-     * Bus is lost.
+     * Method to be called when the communication of the {@link UIHandler} with
+     * the {@link UIBus} is lost.
      */
     public abstract void communicationChannelBroken();
 
@@ -144,35 +147,35 @@ public abstract class UIHandler extends Callee {
     /**
      * Dialog finished.
      * 
-     * @param input
-     *            the input
+     * @param uiResponse
+     *            the {@link UIResponse}
      */
-    public final void dialogFinished(UIResponse input) {
-	((UIBus) theBus).dialogFinished(busResourceURI, input);
+    public final void dialogFinished(UIResponse uiResponse) {
+	((UIBus) theBus).dialogFinished(busResourceURI, uiResponse);
     }
 
     /**
      * Handle request.
      * 
-     * @param m
+     * @param msg
      *            the message
      */
-    public final void handleRequest(BusMessage m) {
-	if (m.getContent() instanceof UIRequest) {
+    public final void handleRequest(BusMessage msg) {
+	if (msg.getContent() instanceof UIRequest) {
 	    LogUtils.logInfo(owner, UIHandler.class, "handleRequest",
 		    new Object[] { busResourceURI, " received UI request:\n",
-			    m.getContentAsString() }, null);
-	    handleUICall((UIRequest) m.getContent());
+			    msg.getContentAsString() }, null);
+	    handleUICall((UIRequest) msg.getContent());
 	}
     }
 
     /**
-     * Handle ui call.
+     * Handle ui call ({@link UIRequest}).
      * 
-     * @param uicall
-     *            the uicall
+     * @param uiRequest
+     *            the {@link UIRequest}
      */
-    public abstract void handleUICall(UIRequest uicall);
+    public abstract void handleUICall(UIRequest uiRequest);
 
     /**
      * Removes the matching reg params.
@@ -190,7 +193,7 @@ public abstract class UIHandler extends Callee {
      * User logged in.
      * 
      * @param user
-     *            the user
+     *            the {@link User}
      * @param loginLocation
      *            the login location
      */
@@ -198,10 +201,15 @@ public abstract class UIHandler extends Callee {
 	((UIBus) theBus).userLoggedIn(busResourceURI, user, loginLocation);
     }
 
-    public List getRealizedHandlerProfiles() {
+    public List<UIHandlerProfile> getRealizedHandlerProfiles() {
 	return realizedHandlerProfiles;
     }
 
+    /**
+     * Id with which the {@link UIHandler} is registered in the {@link UIBus}
+     * 
+     * @return {@link UIHandler} ID
+     */
     public String getMyID() {
 	return busResourceURI;
     }
