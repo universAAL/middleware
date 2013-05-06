@@ -28,8 +28,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * 
  * @author mtazari
  * @author Carsten Stockloew
- * @see org.universAAL.middleware.owl.ManagedIndividual
- */
+ * */
 public class DialogType extends ManagedIndividual {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
@@ -79,7 +78,7 @@ public class DialogType extends ManagedIndividual {
 
     /**
      * Constructor with order (it is private so that instantiation by other
-     * callers is prevented?)
+     * callers is prevented)
      * 
      * @param order
      *            order of dialog
@@ -89,19 +88,29 @@ public class DialogType extends ManagedIndividual {
 	this.order = order;
     }
 
-    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI()
+     */
     public String getClassURI() {
 	return MY_URI;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType(String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
+     * (java.lang.String)
      */
     public int getPropSerializationType(String propURI) {
 	return PROP_SERIALIZATION_OPTIONAL;
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
      */
     public boolean isWellFormed() {
@@ -123,12 +132,4 @@ public class DialogType extends ManagedIndividual {
 	return order;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.ManagedIndividual#setProperty(String,
-     *      Object)
-     */
-    public boolean setProperty(String propURI, Object o) {
-	// do nothing
-	return false;
-    }
 }
