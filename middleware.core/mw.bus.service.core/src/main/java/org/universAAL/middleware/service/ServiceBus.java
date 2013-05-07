@@ -20,10 +20,8 @@
 package org.universAAL.middleware.service;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.universAAL.middleware.bus.msg.BusMessage;
-import org.universAAL.middleware.service.impl.ServiceStrategy;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
