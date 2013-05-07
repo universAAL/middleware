@@ -151,6 +151,26 @@ public class LogUtils {
 	    Object[] msgPart, Throwable t) {
 	log(LogListener.LOG_LEVEL_DEBUG, mc, claz, method, msgPart, t);
     }
+    
+    /**
+     * Simplified proxy method for {@link #logDebug(ModuleContext, Class, String, Object[], Throwable)},
+     * added for convenience.
+     * 
+     * @param mc
+     *            the {@link ModuleContext} needed for accessing the
+     *            container-specific logger for the corresponding module
+     * @param claz
+     *            The Java class that wants to generate the log message
+     * @param method
+     *            The name of the method in the above Java class that intends to
+     *            generate the log message
+     * @param msg
+     *            The log message as a simple String
+     */
+    public static void logDebug(ModuleContext mc, Class claz, String method,
+	    String msg) {
+	logDebug(mc, claz, method, new String[] { msg }, null);
+    }
 
     /**
      * Provides a standard way for using container-specific loggers for logging
@@ -186,6 +206,26 @@ public class LogUtils {
     public static void logError(ModuleContext mc, Class claz, String method,
 	    Object[] msgPart, Throwable t) {
 	log(LogListener.LOG_LEVEL_ERROR, mc, claz, method, msgPart, t);
+    }
+    
+    /**
+     * Simplified proxy method for {@link #logError(ModuleContext, Class, String, Object[], Throwable)},
+     * added for convenience.
+     * 
+     * @param mc
+     *            the {@link ModuleContext} needed for accessing the
+     *            container-specific logger for the corresponding module
+     * @param claz
+     *            The Java class that wants to generate the log message
+     * @param method
+     *            The name of the method in the above Java class that intends to
+     *            generate the log message
+     * @param msg
+     *            The log message as a simple String
+     */
+    public static void logError(ModuleContext mc, Class claz, String method,
+	    String msg) {
+	logError(mc, claz, method, new String[] { msg }, null);
     }
 
     /**
@@ -225,6 +265,26 @@ public class LogUtils {
     }
 
     /**
+     * Simplified proxy method for {@link #logInfo(ModuleContext, Class, String, Object[], Throwable)},
+     * added for convenience.
+     * 
+     * @param mc
+     *            the {@link ModuleContext} needed for accessing the
+     *            container-specific logger for the corresponding module
+     * @param claz
+     *            The Java class that wants to generate the log message
+     * @param method
+     *            The name of the method in the above Java class that intends to
+     *            generate the log message
+     * @param msg
+     *            The log message as a simple String
+     */
+    public static void logInfo(ModuleContext mc, Class claz, String method,
+	    String msg) {
+	logInfo(mc, claz, method, new String[] { msg }, null);
+    }
+    
+    /**
      * Provides a standard way for using container-specific loggers for logging
      * warn messages via
      * {@link ModuleContext#logWarn(String, String, Throwable)}. The advantage
@@ -261,6 +321,26 @@ public class LogUtils {
     }
 
     /**
+     * Simplified proxy method for {@link #logWarn(ModuleContext, Class, String, Object[], Throwable)},
+     * added for convenience.
+     * 
+     * @param mc
+     *            the {@link ModuleContext} needed for accessing the
+     *            container-specific logger for the corresponding module
+     * @param claz
+     *            The Java class that wants to generate the log message
+     * @param method
+     *            The name of the method in the above Java class that intends to
+     *            generate the log message
+     * @param msg
+     *            The log message as a simple String
+     */
+    public static void logWarn(ModuleContext mc, Class claz, String method,
+	    String msg) {
+	logWarn(mc, claz, method, new String[] { msg }, null);
+    }
+    
+    /**
      * Provides a standard way for using container-specific loggers for logging
      * trace messages via
      * {@link ModuleContext#logTrace(String, String, Throwable)}. The advantage
@@ -294,5 +374,25 @@ public class LogUtils {
     public static void logTrace(ModuleContext mc, Class claz, String method,
 	    Object[] msgPart, Throwable t) {
 	log(LogListener.LOG_LEVEL_TRACE, mc, claz, method, msgPart, t);
+    }
+    
+    /**
+     * Simplified proxy method for {@link #logTrace(ModuleContext, Class, String, Object[], Throwable)},
+     * added for convenience.
+     * 
+     * @param mc
+     *            the {@link ModuleContext} needed for accessing the
+     *            container-specific logger for the corresponding module
+     * @param claz
+     *            The Java class that wants to generate the log message
+     * @param method
+     *            The name of the method in the above Java class that intends to
+     *            generate the log message
+     * @param msg
+     *            The log message as a simple String
+     */
+    public static void logTrace(ModuleContext mc, Class claz, String method,
+	    String msg) {
+	logTrace(mc, claz, method, new String[] { msg }, null);
     }
 }
