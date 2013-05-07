@@ -345,7 +345,7 @@ public class ServiceRealization extends FinalizedResource {
      *            - the Context to match
      * @param logID
      *            - an id to be used for logging, may be null
-     * @return true, iff the service request matches.
+     * @return true, if the service request matches.
      */
     public boolean matches(ServiceRequest request, Hashtable context, Long logID) {
 	if (request == null)
