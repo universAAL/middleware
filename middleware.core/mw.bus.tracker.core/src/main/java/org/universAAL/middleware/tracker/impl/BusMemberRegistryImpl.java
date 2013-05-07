@@ -21,7 +21,7 @@ import org.universAAL.middleware.bus.model.util.IRegistryListener;
 import org.universAAL.middleware.tracker.Activator;
 import org.universAAL.middleware.tracker.IBusMemberRegistry;
 import org.universAAL.middleware.tracker.IBusMemberRegistryListener;
-import org.universAAL.middleware.ui.UIBus;
+import org.universAAL.middleware.ui.IUIBus;
 import org.universAAL.middleware.ui.UIBusFacade;
 import org.universAAL.middleware.ui.UICaller;
 import org.universAAL.middleware.ui.UIHandler;
@@ -84,7 +84,7 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	}
 
 	if (uiListener != null) {
-	    UIBus uiBus = UIBusFacade.fetchBus(mc);
+	    IUIBus uiBus = UIBusFacade.fetchBus(mc);
 	    ((AbstractBus) uiBus).removeRegistryListener(uiListener);
 	}
     }
@@ -178,7 +178,7 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
     }
 
     private void addUIListener() {
-	final UIBus uiBus = UIBusFacade.fetchBus(mc);
+	final IUIBus uiBus = UIBusFacade.fetchBus(mc);
 
 	uiListener = new IRegistryListener() {
 
@@ -213,7 +213,7 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	    }
 
 	    public void busCleared() {
-		logInfo("%s", "[BusCleared] UIBus");
+		logInfo("%s", "[BusCleared] IUIBus");
 	    }
 	};
 	((AbstractBus) uiBus).addRegistryListener(uiListener);
