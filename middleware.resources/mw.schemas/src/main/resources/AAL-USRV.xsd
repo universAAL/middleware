@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 	<!--
-		Author: 	Venelin Arnaudov v.arnaudov@prosyst.com
+		Author(s): 	Venelin Arnaudov v.arnaudov@prosyst.com
+					Stefano Lenzi stefano.lenzi@isti.cnr.it
+		
 		XML Schema describing the usrv descriptor
 	-->
 <xs:schema attributeFormDefault="unqualified" 
 				elementFormDefault="qualified" 
 				jaxb:extensionBindingPrefixes="xjc" jaxb:version="1.0" 
-				targetNamespace="http://www.venstar.de" 
+				targetNamespace="http://universaal.org/aal-uapp/v1.0.0" 
 				uapp:schemaLocation="AAL-UAPP.xsd"
 				xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
-				xmlns:uapp="http://www.venstar.de" 
-				xmlns:usrv="http://www.venstar.de" 
+				xmlns:uapp="http://universaal.org/aal-uapp/v1.0.0" 
+				xmlns:usrv="http://universaal.org/aal-uapp/v1.0.0" 
 				xmlns:v="http://www.w3.org/2006/vcard/ns#" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<!--				<xs:import namespace="http://www.venstar.de" schemaLocation="AAL-UAPP.xsd"/>-->
+<!--				<xs:import namespace="http://universaal.org/aal-uapp/v1.0.0" schemaLocation="AAL-UAPP.xsd"/>-->
 				<xs:annotation>
 								<xs:appinfo>
 												<!--jaxb:globalBindings generateIsSetMethod="true">
