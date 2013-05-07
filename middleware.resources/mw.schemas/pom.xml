@@ -64,9 +64,34 @@
 				</configuration>
 			</plugin>
 
+			
+         <!--plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <packageName />
+                </configuration>
+            </plugin-->			
 		</plugins>
 	</build>
-
+	
+    <dependencies>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.1</version>
+        </dependency>
+    </dependencies>
+	
 	<description>XSD Schema for universAAL common data model</description>
 	<organization>
 		<name>universAAL Consortium</name>

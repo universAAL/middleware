@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 	<!--
-		Authors: Michele Girolami michele.girolami@isti.cnr.it, Francesco
-		Furfari furfari@isti.cnr.it, Filippo Palumbo palumbo.isti.cnr.it
-, 
-		Venelin Arnaudov v.arnaudov@prosyst.com
+		Author(s):	Michele Girolami michele.girolami@isti.cnr.it
+					Francesco Furfari furfari@isti.cnr.it
+					Filippo Palumbo palumbo@isti.cnr.it
+					Stefano Lenzi stefano.lenzi@isti.cnr.it
+					Venelin Arnaudov v.arnaudov@prosyst.com
 	-->
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" jaxb:extensionBindingPrefixes="xjc" jaxb:version="1.0" targetNamespace="http://www.venstar.de" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:krf="http://karaf.apache.org/xmlns/features/v1.0.0" xmlns:uapp="http://www.venstar.de" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" jaxb:extensionBindingPrefixes="xjc" jaxb:version="1.0" targetNamespace="http://universaal.org/aal-uapp/v1.0.0" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:krf="http://karaf.apache.org/xmlns/features/v1.0.0" xmlns:uapp="http://universaal.org/aal-uapp/v1.0.0" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 				<xs:import namespace="http://karaf.apache.org/xmlns/features/v1.0.0" schemaLocation="karaf-provvisioning-v1.0.0.xsd"/>
 				<xs:annotation>
 								<xs:appinfo>
