@@ -20,7 +20,6 @@
 package org.universAAL.middleware.service.impl;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.model.BusStrategy;
