@@ -336,7 +336,7 @@ public class ServiceRealization extends FinalizedResource {
     }
 
     /**
-     * Return true iff the ServiceRequest matches this ServiceRealization +
+     * Return true if the ServiceRequest matches this ServiceRealization +
      * Context
      * 
      * @param request
