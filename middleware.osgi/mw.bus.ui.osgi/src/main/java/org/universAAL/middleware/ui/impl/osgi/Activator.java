@@ -23,7 +23,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.ui.UIBus;
+import org.universAAL.middleware.ui.IUIBus;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
 
 public final class Activator implements BundleActivator {
@@ -32,7 +32,7 @@ public final class Activator implements BundleActivator {
      * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
      */
     public void start(BundleContext context) throws Exception {
-	Object[] busFetchParams = new Object[] { UIBus.class.getName() };
+	Object[] busFetchParams = new Object[] { IUIBus.class.getName() };
 	ModuleContext mc = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	UIBusImpl.startModule(uAALBundleContainer.THE_CONTAINER, mc,
