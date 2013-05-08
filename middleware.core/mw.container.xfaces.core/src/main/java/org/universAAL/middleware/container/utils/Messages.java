@@ -138,7 +138,7 @@ public class Messages {
 	}
 
 	/**
-	 * Change the locale for messages.
+	 * Try to change the locale for messages.
 	 * 
 	 * @param loc
 	 */
@@ -154,6 +154,14 @@ public class Messages {
 		}
 	}
 
+	/**
+	 * Get the current Locale used for messages.
+	 * @return the current Locale, null if default.
+	 */
+	public Locale getCurrentLocale(){
+		return lang;
+	}
+	
 	/**
 	 * Gets the file descriptor for the international {@link Locale} set.
 	 * 
