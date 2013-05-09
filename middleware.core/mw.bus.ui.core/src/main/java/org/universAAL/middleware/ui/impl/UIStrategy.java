@@ -99,6 +99,8 @@ public class UIStrategy extends BusStrategy {
 	    + "Subscription";
     public static final String TYPE_uAAL_UI_MAIN_MENU = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "GetMainMenu";
+    public static final String TYPE_uAAL_UI_LOGIN_SCREEN = Resource.uAAL_VOCABULARY_NAMESPACE
+	    + "GetUserLoginScreen";
     public static final String TYPE_uAAL_SUSPEND_DIALOG = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "SuspendDialog";
 
@@ -400,12 +402,12 @@ public class UIStrategy extends BusStrategy {
 	    }
 	} else {
 	    LogUtils
-	    .logError(
-		    busModule,
-		    UIStrategy.class,
-		    "handle",
-		    new Object[] { "Cannot handle message since there is no reference to it or the content of the message is wrong!!" },
-		    null);
+		    .logError(
+			    busModule,
+			    UIStrategy.class,
+			    "handle",
+			    new Object[] { "Cannot handle message since there is no reference to it or the content of the message is wrong!!" },
+			    null);
 	}
     }
 
@@ -535,7 +537,7 @@ public class UIStrategy extends BusStrategy {
 			    new Object[] { "The UI Bus ignores the request because it trusts that the Dialog Manager will keep the request in a queue of suspended dialogs and will re-activate it whenever appropriate." },
 			    null);
 	}
-  }
+    }
 
     private void removeTemporaryProperty(Resource resource) {
 	removeProperty(resource, PROP_uAAL_UI_CALL);
@@ -600,7 +602,7 @@ public class UIStrategy extends BusStrategy {
 	}
     }
 
-   private void handleP2PEvent(Resource res) {
+    private void handleP2PEvent(Resource res) {
 	// the highest priority should be given to handling user input
 	// this happens when the message content is a "parametrized" one,
 	// with the user input as the parameter
@@ -661,6 +663,12 @@ public class UIStrategy extends BusStrategy {
 		// suspend a dialog
 	    } else if (res.getType().equals(TYPE_uAAL_SUSPEND_DIALOG)) {
 		suspendDialog((String) res.getProperty(PROP_uAAL_DIALOG_ID));
+	    } else if (res.getType().equals(TYPE_uAAL_UI_LOGIN_SCREEN)) {
+		Resource user = (Resource) res
+			.getProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER);
+		AbsLocation loginLocation = (AbsLocation) res
+			.getProperty(UIResponse.PROP_SUBMISSION_LOCATION);
+		dialogManager.getLoginScreen(user, loginLocation);
 	    } else if (res.getType().equals(TYPE_uAAL_UI_BUS_SUBSCRIPTION)) {
 		String handler = (String) res
 			.getProperty(PROP_uAAL_UI_HANDLER_ID);
@@ -985,11 +993,10 @@ public class UIStrategy extends BusStrategy {
 	Object o = getBusMember(handlerID);
 	if (o instanceof UIHandler) {
 	    // I have the handler => i can handle it
-		LogUtils.logInfo(busModule, UIStrategy.class,
-			"notifyHandler_handle",
-			new Object[] { "Notified handler ", handlerID, ":\n",
-				content }, null);
-		((UIHandler) o).handleUICall(request);
+	    LogUtils.logInfo(busModule, UIStrategy.class,
+		    "notifyHandler_handle", new Object[] { "Notified handler ",
+			    handlerID, ":\n", content }, null);
+	    ((UIHandler) o).handleUICall(request);
 
 	} else if (isCoordinator()) {
 	    // I am the coordinator, but the handler is not here
@@ -1162,7 +1169,6 @@ public class UIStrategy extends BusStrategy {
     void userLoggedIn(Resource user, AbsLocation loginLocation) {
 	if (isCoordinator()) {
 	    dialogManager.getMainMenu(user, loginLocation);
-
 	} else {
 	    Resource res = new Resource();
 	    res.addType(TYPE_uAAL_UI_MAIN_MENU, true);
@@ -1170,6 +1176,21 @@ public class UIStrategy extends BusStrategy {
 	    if (loginLocation != null) {
 		res.setProperty(UIResponse.PROP_SUBMISSION_LOCATION,
 			loginLocation);
+	    }
+	    sendMessageToCoordinator(MessageType.p2p_event, res);
+	}
+    }
+
+    void userLoggedOut(Resource user, AbsLocation logoutLocation) {
+	if (isCoordinator()) {
+	    dialogManager.getLoginScreen(user, logoutLocation);
+	} else {
+	    Resource res = new Resource();
+	    res.addType(TYPE_uAAL_UI_LOGIN_SCREEN, true);
+	    res.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, user);
+	    if (logoutLocation != null) {
+		res.setProperty(UIResponse.PROP_SUBMISSION_LOCATION,
+			logoutLocation);
 	    }
 	    sendMessageToCoordinator(MessageType.p2p_event, res);
 	}
