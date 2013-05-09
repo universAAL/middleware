@@ -51,17 +51,17 @@ public interface IDialogManager {
      * 
      * @param request
      *            {@link UIRequest} to {@link IUIBus}
-     * @return the decision if the new {@link UIRequest} to {@link IUIBus} can be
-     *         immediately forwarded to an {@link UIHandler} (returns true) or
-     *         must wait for a higher priority dialog to finish (return false).
-     *         In case of returning true, the {@link IDialogManager} must also
-     *         add the current adaptation parameters to {@link UIRequest} so
-     *         that the matchmaking on the {@link IUIBus} results in adaptive
-     *         selection of UI channel. In case of returning false, the
-     *         {@link IUIBus} ignores the {@link UIRequest} because it trusts
-     *         that the {@link IDialogManager} will keep the {@link UIRequest} in
-     *         a queue of suspended dialogs and will re-activate it whenever
-     *         appropriate.
+     * @return the decision if the new {@link UIRequest} to {@link IUIBus} can
+     *         be immediately forwarded to an {@link UIHandler} (returns true)
+     *         or must wait for a higher priority dialog to finish (return
+     *         false). In case of returning true, the {@link IDialogManager}
+     *         must also add the current adaptation parameters to
+     *         {@link UIRequest} so that the matchmaking on the {@link IUIBus}
+     *         results in adaptive selection of UI channel. In case of returning
+     *         false, the {@link IUIBus} ignores the {@link UIRequest} because
+     *         it trusts that the {@link IDialogManager} will keep the
+     *         {@link UIRequest} in a queue of suspended dialogs and will
+     *         re-activate it whenever appropriate.
      */
     public boolean checkNewDialog(UIRequest request);
 
@@ -88,6 +88,18 @@ public interface IDialogManager {
     public void getMainMenu(Resource user, AbsLocation loginLocation);
 
     /**
+     * Show default login screen for the system. To be shown when no user is
+     * logged in.
+     * 
+     * @param user
+     *            {@link User} of a system
+     * 
+     * @param loginLocation
+     *            {@link Location} from which {@link User} has logged out
+     */
+    public void getLoginScreen(Resource user, AbsLocation loginLocation);
+
+    /**
      * When the application has informed the bus that a suspended parent dialog
      * is now ready to be resumed, then the bus uses this method in order to
      * fetch the suspended parent dialog.
@@ -99,11 +111,11 @@ public interface IDialogManager {
     public UIRequest getSuspendedDialog(String dialogID);
 
     /**
-     * The bus must use this method in order to inform the {@link IDialogManager}
-     * that a dialog has to be suspended. This is the case when during a dialog
-     * is running the user steps into a subdialog so the parent dialog must be
-     * suspended until the application receives the user input from the
-     * subdialog.
+     * The bus must use this method in order to inform the
+     * {@link IDialogManager} that a dialog has to be suspended. This is the
+     * case when during a dialog is running the user steps into a subdialog so
+     * the parent dialog must be suspended until the application receives the
+     * user input from the subdialog.
      * 
      * @param dialogID
      *            ID of the dialog

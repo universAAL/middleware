@@ -157,10 +157,9 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.universAAL.middleware.ui.IUIBus#adaptationParametersChanged(org.universAAL
-     * .middleware.ui.DialogManager, org.universAAL.middleware.ui.UIRequest,
-     * java.lang.String)
+     * @seeorg.universAAL.middleware.ui.IUIBus#adaptationParametersChanged(org.
+     * universAAL .middleware.ui.DialogManager,
+     * org.universAAL.middleware.ui.UIRequest, java.lang.String)
      */
     public void adaptationParametersChanged(IDialogManager dm,
 	    UIRequest uiRequest, String changedProp) {
@@ -312,6 +311,22 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o instanceof UIHandler && user != null) {
 	    ((UIStrategy) busStrategy).userLoggedIn(user, loginLocation);
+	}
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.ui.IUIBus#userLoggedOut(java.lang.String,
+     * org.universAAL.middleware.rdf.Resource,
+     * org.universAAL.middleware.owl.supply.AbsLocation)
+     */
+    public void userLoggedOut(String handlerID, Resource user,
+	    AbsLocation logoutLocation) {
+	Object o = registry.getBusMemberByID(handlerID);
+	if (o instanceof UIHandler && user != null) {
+	    ((UIStrategy) busStrategy).userLoggedOut(user, logoutLocation);
 	}
 
     }
