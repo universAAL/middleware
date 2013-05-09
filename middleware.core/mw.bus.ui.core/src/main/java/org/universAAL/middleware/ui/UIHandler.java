@@ -201,18 +201,10 @@ public abstract class UIHandler extends Callee {
 	((IUIBus) theBus).userLoggedIn(busResourceURI, user, loginLocation);
     }
     
+ 
     /**
-     * User logged out.
-     * 
-     * @param user
-     *            the {@link User}
-     * @param loginLocation
-     *            the login location
+     * @return realized {@link UIHandlerProfile}s
      */
-    public final void userLoggedOut(Resource user, AbsLocation logoutLocation) {
-	((IUIBus) theBus).userLoggedOut(busResourceURI, user, logoutLocation);
-    }
-
     public List<UIHandlerProfile> getRealizedHandlerProfiles() {
 	return realizedHandlerProfiles;
     }

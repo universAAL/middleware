@@ -214,21 +214,6 @@ public interface IUIBus {
     public void userLoggedIn(String handlerID, Resource user,
 	    AbsLocation loginLocation);
 
-    /**
-     * Notifies {@link IUIBus} that the human {@link User} has logged out (using
-     * {@link UIHandler}).
-     * 
-     * @param handlerID
-     *            id of the {@link UIHandler} which is received when registering
-     *            to the {@link IUIBus}. It must be passed to the bus when
-     *            calling bus methods.
-     * @param user
-     *            human {@link User}
-     * @param loginLocation
-     *            login {@link Location} of the {@link User}
-     */
-    public void userLoggedOut(String handlerID, Resource user,
-	    AbsLocation loginLocation);
 
     /**
      * Retrieves all registered UIHandlerProfiles that has restriction for

@@ -99,8 +99,6 @@ public class UIStrategy extends BusStrategy {
 	    + "Subscription";
     public static final String TYPE_uAAL_UI_MAIN_MENU = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "GetMainMenu";
-    public static final String TYPE_uAAL_UI_LOGIN_SCREEN = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "GetUserLoginScreen";
     public static final String TYPE_uAAL_SUSPEND_DIALOG = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "SuspendDialog";
 
