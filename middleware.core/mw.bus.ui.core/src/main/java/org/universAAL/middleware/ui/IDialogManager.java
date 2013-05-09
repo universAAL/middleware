@@ -88,18 +88,6 @@ public interface IDialogManager {
     public void getMainMenu(Resource user, AbsLocation loginLocation);
 
     /**
-     * Show default login screen for the system. To be shown when no user is
-     * logged in.
-     * 
-     * @param user
-     *            {@link User} of a system
-     * 
-     * @param loginLocation
-     *            {@link Location} from which {@link User} has logged out
-     */
-    public void getLoginScreen(Resource user, AbsLocation loginLocation);
-
-    /**
      * When the application has informed the bus that a suspended parent dialog
      * is now ready to be resumed, then the bus uses this method in order to
      * fetch the suspended parent dialog.

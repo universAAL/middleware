@@ -663,12 +663,6 @@ public class UIStrategy extends BusStrategy {
 		// suspend a dialog
 	    } else if (res.getType().equals(TYPE_uAAL_SUSPEND_DIALOG)) {
 		suspendDialog((String) res.getProperty(PROP_uAAL_DIALOG_ID));
-	    } else if (res.getType().equals(TYPE_uAAL_UI_LOGIN_SCREEN)) {
-		Resource user = (Resource) res
-			.getProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER);
-		AbsLocation loginLocation = (AbsLocation) res
-			.getProperty(UIResponse.PROP_SUBMISSION_LOCATION);
-		dialogManager.getLoginScreen(user, loginLocation);
 	    } else if (res.getType().equals(TYPE_uAAL_UI_BUS_SUBSCRIPTION)) {
 		String handler = (String) res
 			.getProperty(PROP_uAAL_UI_HANDLER_ID);
@@ -1181,18 +1175,4 @@ public class UIStrategy extends BusStrategy {
 	}
     }
 
-    void userLoggedOut(Resource user, AbsLocation logoutLocation) {
-	if (isCoordinator()) {
-	    dialogManager.getLoginScreen(user, logoutLocation);
-	} else {
-	    Resource res = new Resource();
-	    res.addType(TYPE_uAAL_UI_LOGIN_SCREEN, true);
-	    res.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, user);
-	    if (logoutLocation != null) {
-		res.setProperty(UIResponse.PROP_SUBMISSION_LOCATION,
-			logoutLocation);
-	    }
-	    sendMessageToCoordinator(MessageType.p2p_event, res);
-	}
-    }
 }
