@@ -315,22 +315,6 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.ui.IUIBus#userLoggedOut(java.lang.String,
-     * org.universAAL.middleware.rdf.Resource,
-     * org.universAAL.middleware.owl.supply.AbsLocation)
-     */
-    public void userLoggedOut(String handlerID, Resource user,
-	    AbsLocation logoutLocation) {
-	Object o = registry.getBusMemberByID(handlerID);
-	if (o instanceof UIHandler && user != null) {
-	    ((UIStrategy) busStrategy).userLoggedOut(user, logoutLocation);
-	}
-
-    }
-
     public void handleSendError(ChannelMessage message,
 	    CommunicationConnectorException e) {
 	// TODO Auto-generated method stub
