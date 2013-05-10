@@ -49,6 +49,11 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * instance. The central method is "handle(Message msg, String senderID)" that
  * is called for every message given to the bus.
  * 
+ * It provides mechanism to match user preferences, abilities and some other
+ * important information with {@link UIHandlerProfile} that describes
+ * {@link UIHandler} capabilities. Based upon this matching the appropriate UI
+ * Handler to communicate with the user is selected.
+ * 
  * @author mtazari
  * @author eandgrg
  * 
