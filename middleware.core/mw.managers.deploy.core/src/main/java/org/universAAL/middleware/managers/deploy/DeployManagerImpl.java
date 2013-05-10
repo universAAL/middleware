@@ -377,7 +377,7 @@ public class DeployManagerImpl implements DeployManager,
             PeerCard peer, byte[] content) {
         final long TIMEOUT = 60 * 1000;
 
-        if (aalSpaceManager.getPeers().get(peer.getPeerID()) == null) {
+        if ( isPeerPartOfSpace(peer.getPeerID()) == false ) {
             return InstallationResults.MISSING_PEER;
         }
         // send the part to the target node
@@ -487,6 +487,17 @@ public class DeployManagerImpl implements DeployManager,
 
     }
 
+    private boolean isPeerPartOfSpace(String peerId){
+        if ( aalSpaceManager.getMyPeerCard().getPeerID().equals(peerId) ) {
+            return true;
+        }
+
+        if ( aalSpaceManager.getPeers().get(peerId) != null) {
+            return true;
+        }
+        return false;
+    }
+
     public InstallationResultsDetails requestToUninstall(String serviceId,
             String id) {
         final String METHOD = "requestToUninstall";
@@ -504,7 +515,9 @@ public class DeployManagerImpl implements DeployManager,
             String peerLine = (String) layout.propertyNames().nextElement();
             String[] parts = peerLine.split("/");
             String peer = parts[0];
-            if (aalSpaceManager.getPeers().containsKey(peer) == false) {
+
+
+            if ( isPeerPartOfSpace(peer) == false) {
                 LogUtils.logDebug(
                         context,
                         DeployManagerImpl.class,
@@ -522,6 +535,9 @@ public class DeployManagerImpl implements DeployManager,
             UAPPCard card = new UAPPCard(serviceId,
                     layout.getProperty(peerLine), id, "", "");
             PeerCard target = aalSpaceManager.getPeers().get(peer);
+            if ( target == null && peer.equals(aalSpaceManager.getMyPeerCard().getPeerID()) ) {
+                target = aalSpaceManager.getMyPeerCard();
+            }
             controlBroker.requestToUninstallPart(target, card);
             result.setDetailedResult(peer, card.getPartId(),
                     InstallationResults.SUCCESS);

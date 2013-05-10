@@ -39,7 +39,7 @@ public class WaitForResponse<T> {
     public WaitForResponse(int maxresponses, int timeout) {
         this.endAt = System.currentTimeMillis() + timeout;
         this.timeout = timeout;
-        this.responses = new Object[maxresponses];
+        this.responses = new Object[maxresponses < 0 ? 1 : maxresponses];
         this.idx = 0;
     }
 
