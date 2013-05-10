@@ -78,14 +78,16 @@ public class WaitForResponse<T> {
                     break;
                 }
                 try {
-                    wait(nextStop);
+                    responses.wait(nextStop);
                 } catch (InterruptedException e) {
                 }
             }
             n = idx;
         }
-        for (int i = 0; i < n; i++) {
-            list.add((T) responses[i]);
+        synchronized (responses) {
+            for (int i = 0; i < n; i++) {
+                list.add((T) responses[i]);
+            }
         }
         return list;
     }
