@@ -20,9 +20,11 @@
  */
 package org.universAAL.middleware.connectors.communication.jgroups.osgi;
 
+import java.security.Security;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
@@ -38,6 +40,7 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 
+
 /**
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
@@ -45,12 +48,14 @@ import org.universAAL.middleware.container.utils.LogUtils;
  */
 public class Activator implements BundleActivator, ManagedService {
 
+	
     private static String SERVICE_PID = "mw.connectors.communication.jgroups.core";
     private JGroupsCommunicationConnector jgroupsCommunicationConnector;
     private ServiceRegistration myRegistration;
 
     public void start(BundleContext context) throws Exception {
 
+    	Security.addProvider(new BouncyCastleProvider());
 	ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	LogUtils.logDebug(

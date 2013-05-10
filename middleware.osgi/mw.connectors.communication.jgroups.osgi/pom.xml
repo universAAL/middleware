@@ -83,7 +83,12 @@
 							javax.xml.namespace,
 							org.w3c.dom,
 							org.universAAL.middleware.connectors.communication.jgroups.util,
-							org.universAAL.middleware.connectors.communication.jgroups.osgi
+							org.universAAL.middleware.connectors.communication.jgroups.osgi,
+							javax.crypto,
+							javax.crypto.spec,
+							org.bouncycastle.jce.provider,
+							org.bouncycastle.util.encoders,
+							org.universAAL.middleware.modules.communication
 						</Import-Package>
 						<Bundle-Activator>org.universAAL.middleware.connectors.communication.jgroups.osgi.Activator</Bundle-Activator>
 						<Private-Package />
