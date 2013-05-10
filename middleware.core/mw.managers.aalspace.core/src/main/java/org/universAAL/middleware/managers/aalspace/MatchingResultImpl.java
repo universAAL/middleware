@@ -36,23 +36,23 @@ import org.universAAL.middleware.managers.api.MatchingResult;
  */
 public class MatchingResultImpl implements MatchingResult {
 
-	final private Map<PeerCard, Map<String, Serializable>> peerMap;
-	private PeerCard[] peers;
+    final private Map<PeerCard, Map<String, Serializable>> peerMap;
+    private PeerCard[] peers;
 
-	public MatchingResultImpl(Map<PeerCard, Map<String, Serializable>> data) {
-		this.peerMap = data;
-	}
+    public MatchingResultImpl(Map<PeerCard, Map<String, Serializable>> data) {
+        this.peerMap = data;
+    }
 
-	public PeerCard[] getPeers() {
-		if (peers == null) {
-			Set<PeerCard> keys = peerMap.keySet();
-			peers = keys.toArray(new PeerCard[] {});
-		}
-		return peers;
-	}
+    public PeerCard[] getPeers() {
+        if (peers == null) {
+            Set<PeerCard> keys = peerMap.keySet();
+            peers = keys.toArray(new PeerCard[] {});
+        }
+        return peers;
+    }
 
-	public Map<String, Serializable> getPeerAttribute(PeerCard peer) {
-		Map<String, Serializable> attributes = peerMap.get(peer);
-		return attributes;
-	}
+    public Map<String, Serializable> getPeerAttribute(PeerCard peer) {
+        Map<String, Serializable> attributes = peerMap.get(peer);
+        return attributes;
+    }
 }

@@ -1222,7 +1222,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
         chName.add(getBrokerName());
         ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
                 controlMsg.toString(), chName);
-        WaitForResponse<Response> waiter = new WaitForResponse<Response>(limit,
+        WaitForResponse<Response> waiter = new WaitForResponse<Response>(aalSpaceManager.getPeers().keySet().size() + 1,
                 timeout);
         openTransaction.put(controlMsg.getTransactionId(), waiter);
         bus.sendAll(chMsg, this);
