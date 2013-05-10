@@ -841,7 +841,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
             break;
         case MATCH_ATTRIBUTES: {
             handleMatchAttributes(sender, msg.getTransactionId(),
-                    msg.getAttributeValues());
+                    msg.getAttributeFilter());
         }
             break;
         case MATCH_ATTRIBUTES_RESPONSE: {
@@ -865,10 +865,22 @@ public class ControlBroker implements SharedObjectListener, Broker,
     private void handleMatchAttributes(PeerCard sender, String transactionId,
             Map<String, Serializable> attributeValues) {
 
+        ControlMessage controlMsg = prepareMatchingResponse(transactionId,attributeValues);
+        CommunicationModule bus = getCommunicationModule();
+        List<String> chName = new ArrayList<String>();
+        chName.add(getBrokerName());
+        ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
+                controlMsg.toString(), chName);
+        bus.send(chMsg, this, sender);
+    }
+
+    private ControlMessage prepareMatchingResponse(String transactionId,
+            Map<String, Serializable> attributeValues) {
         boolean match = true;
 
+
         HashMap<String, Serializable> attributes = new HashMap<String, Serializable>();
-        Set<String> names = attributes.keySet();
+        Set<String> names = attributeValues.keySet();
         for (String name : names) {
             Object value = context.getProperty(name);
             if (value == null) {
@@ -886,11 +898,19 @@ public class ControlBroker implements SharedObjectListener, Broker,
                 attributes.put(name, value.toString());
             }
         }
-
-        CommunicationModule bus = getCommunicationModule();
-        ControlMessage controlMsg = new ControlMessage(
+        return new ControlMessage(
                 aalSpaceManager.getAALSpaceDescriptor(), transactionId,
                 attributes, match);
+    }
+
+
+
+    private void handleGetAttributes(PeerCard sender, String transactionId,
+            List<String> requestedAttributes) {
+
+        ControlMessage controlMsg = prepareGetAttributesResponse(transactionId,requestedAttributes);
+
+        CommunicationModule bus = getCommunicationModule();
         List<String> chName = new ArrayList<String>();
         chName.add(getBrokerName());
         ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
@@ -898,7 +918,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
         bus.send(chMsg, this, sender);
     }
 
-    private void handleGetAttributes(PeerCard sender, String transactionId,
+    private ControlMessage prepareGetAttributesResponse(String transactionId,
             List<String> requestedAttributes) {
         HashMap<String, Serializable> attributes = new HashMap<String, Serializable>();
         for (String name : requestedAttributes) {
@@ -911,16 +931,10 @@ public class ControlBroker implements SharedObjectListener, Broker,
                 attributes.put(name, value.toString());
             }
         }
-
-        CommunicationModule bus = getCommunicationModule();
-        ControlMessage controlMsg = new ControlMessage(
+        return new ControlMessage(
                 aalSpaceManager.getAALSpaceDescriptor(), transactionId,
                 attributes);
-        List<String> chName = new ArrayList<String>();
-        chName.add(getBrokerName());
-        ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
-                controlMsg.toString(), chName);
-        bus.send(chMsg, this, sender);
+
     }
 
     private void handleDeployMessage(PeerCard sender, DeployMessage msg) {
@@ -1197,6 +1211,12 @@ public class ControlBroker implements SharedObjectListener, Broker,
 
     public Map<String, Serializable> requestPeerAttributes(
             List<String> attributes, PeerCard target, int limit, int timeout) {
+
+        if ( target.equals(aalSpaceManager.getMyPeerCard() ) ) {
+            ControlMessage response = prepareGetAttributesResponse("local", attributes);
+            return response.getAttributeValues();
+        }
+
         CommunicationModule bus = getCommunicationModule();
         ControlMessage controlMsg = new ControlMessage(
                 aalSpaceManager.getAALSpaceDescriptor(), attributes);
@@ -1222,19 +1242,33 @@ public class ControlBroker implements SharedObjectListener, Broker,
         chName.add(getBrokerName());
         ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
                 controlMsg.toString(), chName);
-        WaitForResponse<Response> waiter = new WaitForResponse<Response>(aalSpaceManager.getPeers().keySet().size() + 1,
+        WaitForResponse<Response> waiter = new WaitForResponse<Response>(aalSpaceManager.getPeers().keySet().size(),
                 timeout);
         openTransaction.put(controlMsg.getTransactionId(), waiter);
         bus.sendAll(chMsg, this);
-        List<Response> responses = waiter.getReponses();
+        List<Response> responses = new ArrayList<ControlBroker.Response>();
+        handleLocalMatchingPeers(controlMsg, responses);
+        responses.addAll( waiter.getReponses() );
         HashMap<PeerCard, Map<String, Serializable>> results = new HashMap<PeerCard, Map<String, Serializable>>();
         for (Response response : responses) {
+            if ( response.msg.getMatchFilter() == false ) {
+                continue;
+            }
             Map<String, Serializable> values = response.msg
                     .getAttributeValues();
             results.put(response.sender, values);
         }
         openTransaction.remove(controlMsg.getTransactionId());
         return results;
+    }
+
+    private void handleLocalMatchingPeers(ControlMessage controlMsg,
+            List<Response> responses) {
+
+        Response r = new Response();
+        r.msg = prepareMatchingResponse(controlMsg.getTransactionId(),controlMsg.getAttributeFilter() );
+        r.sender = aalSpaceManager.getMyPeerCard();
+        responses.add( r );
     }
 
 }
