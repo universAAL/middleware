@@ -105,6 +105,7 @@ public class ControlMessage implements BrokerMessage {
     public ControlMessage(AALSpaceDescriptor space, String id,
             HashMap<String, Serializable> map, boolean match) {
         this(space, ControlMessageType.MATCH_ATTRIBUTES_RESPONSE, id);
+        this.values = map;
         this.match = match;
     }
 
@@ -143,6 +144,10 @@ public class ControlMessage implements BrokerMessage {
             parsed = obj.toString();
         }
         return parsed;
+    }
+
+    public boolean getMatchFilter() {
+        return match;
     }
 
     private void generatePaylod() {
@@ -267,6 +272,10 @@ public class ControlMessage implements BrokerMessage {
 
     public String getTransactionId() {
         return transactionId;
+    }
+
+    public Map<String, Serializable> getAttributeFilter() {
+        return filter;
     }
 
     public Map<String, Serializable> getAttributeValues() {
