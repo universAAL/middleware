@@ -536,7 +536,7 @@ public class ServiceRequest extends FinalizedResource implements Request {
 	    Object thisProperty = getProperty(propertyURI);
 	    Object otherProperty = other.getProperty(propertyURI);
 
-	    // TODO add good matching algorithm, not that shit!
+	    // TODO add good matching algorithm
 	    if (!thisProperty.equals(otherProperty)) {
 		matches = false;
 	    }
