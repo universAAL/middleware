@@ -29,6 +29,7 @@ import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.owl.Service;
+import org.universAAL.middleware.util.ResourceUtil;
 
 /**
  * Support for constructing an OWL-S
@@ -137,8 +138,8 @@ public class OutputBinding {
 	Resource result = new Resource();
 	result.addType(TYPE_OWLS_OUTPUT_BINDING, true);
 	result.setProperty(PROP_OWLS_BINDING_TO_PARAM, toParam);
-	result.setProperty(PROP_OWLS_BINDING_VALUE_FUNCTION, (filter
-		.serializesAsXMLLiteral() ? filter : filter.toLiteral()));
+	result.setProperty(PROP_OWLS_BINDING_VALUE_FUNCTION,
+		(filter.serializesAsXMLLiteral() ? filter : filter.toLiteral()));
 	return result;
     }
 
@@ -159,8 +160,8 @@ public class OutputBinding {
 	Resource result = new Resource();
 	result.addType(TYPE_OWLS_OUTPUT_BINDING, true);
 	result.setProperty(PROP_OWLS_BINDING_TO_PARAM, toParam);
-	result.setProperty(PROP_OWLS_BINDING_VALUE_FUNCTION, Conversion
-		.constructClassConversion(sourceProp, targetClass));
+	result.setProperty(PROP_OWLS_BINDING_VALUE_FUNCTION,
+		Conversion.constructClassConversion(sourceProp, targetClass));
 	return result;
     }
 
@@ -181,8 +182,8 @@ public class OutputBinding {
 	Resource result = new Resource();
 	result.addType(TYPE_OWLS_OUTPUT_BINDING, true);
 	result.setProperty(PROP_OWLS_BINDING_TO_PARAM, toParam);
-	result.setProperty(PROP_OWLS_BINDING_VALUE_FUNCTION, Conversion
-		.constructLanguageConversion(sourceProp, targetLang));
+	result.setProperty(PROP_OWLS_BINDING_VALUE_FUNCTION,
+		Conversion.constructLanguageConversion(sourceProp, targetLang));
 	return result;
     }
 
@@ -201,7 +202,8 @@ public class OutputBinding {
 	Resource result = new Resource();
 	result.addType(TYPE_OWLS_OUTPUT_BINDING, true);
 	result.setProperty(PROP_OWLS_BINDING_TO_PARAM, toParam);
-	result.setProperty(PROP_OWLS_BINDING_VALUE_FORM,
+	result.setProperty(
+		PROP_OWLS_BINDING_VALUE_FORM,
 		(sourceProp.serializesAsXMLLiteral() ? sourceProp : sourceProp
 			.toLiteral()));
 	return result;
@@ -224,8 +226,8 @@ public class OutputBinding {
 	Resource result = new Resource();
 	result.addType(TYPE_OWLS_OUTPUT_BINDING, true);
 	result.setProperty(PROP_OWLS_BINDING_TO_PARAM, toParam);
-	result.setProperty(PROP_OWLS_BINDING_VALUE_FUNCTION, Conversion
-		.constructUnitConversion(sourceProp, targetUnit));
+	result.setProperty(PROP_OWLS_BINDING_VALUE_FUNCTION,
+		Conversion.constructUnitConversion(sourceProp, targetUnit));
 	return result;
     }
 
@@ -257,34 +259,39 @@ public class OutputBinding {
 	    PropertyPath offeredValue = (PropertyPath) offer[i]
 		    .getProperty(PROP_OWLS_BINDING_VALUE_FORM);
 	    if (offeredValue != null && offeredValue.equals(srcPath)) {
-		// we found an offer for the property path that was requested as
-		// output value
-		// -> we now have to check if the type at that path also
-		// matches.
-
-		// create the AllValuesRestriction for the offer
-		ProcessOutput toParam = (ProcessOutput) offer[i]
-			.getProperty(PROP_OWLS_BINDING_TO_PARAM);
-		String parameterType = toParam.getParameterType();
-		if (parameterType != null) {
-		    MergedRestriction allValuesRestriction = MergedRestriction
-			    .getAllValuesRestriction(offeredValue
-				    .getLastPathElement(), parameterType);
-		    MergedRestriction allValuesRestrictionOnPath = allValuesRestriction
-			    .appendTo(null, offeredValue.getThePath());
-
-		    MergedRestriction requestRestrictions = requestedService
-			    .getInstanceLevelRestrictionOnProp(offeredValue
-				    .getFirstPathElement());
-
-		    if (requestRestrictions != null) {
-			if (!requestRestrictions.matches(
-				allValuesRestrictionOnPath, null))
-			    continue;
-		    }
-		}
-
-		context.put(toParam.getURI(), req);
+		context.put(((ProcessOutput) offer[i]
+			.getProperty(PROP_OWLS_BINDING_TO_PARAM)).getURI(), req);
+		/*
+		 * // we found an offer for the property path that was requested
+		 * as // output value // -> we now have to check if the type at
+		 * that path also // matches.
+		 * 
+		 * // create the AllValuesRestriction for the offer
+		 * ProcessOutput toParam = (ProcessOutput) offer[i]
+		 * .getProperty(PROP_OWLS_BINDING_TO_PARAM); String
+		 * parameterType = toParam.getParameterType(); if (parameterType
+		 * != null) { MergedRestriction allValuesRestriction =
+		 * MergedRestriction .getAllValuesRestriction(offeredValue
+		 * .getLastPathElement(), parameterType); MergedRestriction
+		 * allValuesRestrictionOnPath = allValuesRestriction
+		 * .appendTo(null, offeredValue.getThePath());
+		 * 
+		 * MergedRestriction requestRestrictions = requestedService
+		 * .getInstanceLevelRestrictionOnProp(offeredValue
+		 * .getFirstPathElement());
+		 * 
+		 * if (requestRestrictions != null) {
+		 * System.out.println("-- matching :\n"+
+		 * //requestRestrictions.toStringRecursive()+"\n-- with\n"+
+		 * //allValuesRestrictionOnPath.toStringRecursive());
+		 * ResourceUtil.toString(requestRestrictions)+"\n-- with\n"+
+		 * ResourceUtil.toString(allValuesRestrictionOnPath)); if
+		 * (!requestRestrictions.matches( allValuesRestrictionOnPath,
+		 * null)) { System.out.println("-- .. did not match!");
+		 * continue; } } }
+		 * 
+		 * context.put(toParam.getURI(), req);
+		 */
 		return true;
 	    }
 	}
