@@ -23,7 +23,7 @@ package org.universAAL.middleware.managers.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.universAAL.middleware.deploymaneger.uapp.model.Part;
+import org.universAAL.middleware.deploymanager.uapp.model.Part;
 import org.universAAL.middleware.interfaces.PeerCard;
 
 /**
