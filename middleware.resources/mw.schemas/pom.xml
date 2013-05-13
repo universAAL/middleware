@@ -62,7 +62,8 @@
                      javax.xml.bind.annotation,
                      javax.xml.bind.annotation.adapters,
                      javax.xml.namespace,
-                     org.w3c.dom</Import-Package>
+                     org.w3c.dom
+                  </Import-Package>
                   <Export-Package>
                      org.universAAL.middleware.connectors.deploy.karaf.model,
                      org.universAAL.middleware.deploymanager.uapp.model,
