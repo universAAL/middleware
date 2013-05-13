@@ -1225,7 +1225,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
         ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
                 controlMsg.toString(), chName);
         WaitForResponse<ControlMessage> waiter = new WaitForResponse<ControlMessage>(
-                1, timeout);
+                limit, timeout);
         openTransaction.put(controlMsg.getTransactionId(), waiter);
         bus.send(chMsg, this, target);
         ControlMessage response = waiter.getFirstReponse();
@@ -1242,8 +1242,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
         chName.add(getBrokerName());
         ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
                 controlMsg.toString(), chName);
-        WaitForResponse<Response> waiter = new WaitForResponse<Response>(aalSpaceManager.getPeers().keySet().size(),
-                timeout);
+        WaitForResponse<Response> waiter = new WaitForResponse<Response>(limit, timeout);
         openTransaction.put(controlMsg.getTransactionId(), waiter);
         bus.sendAll(chMsg, this);
         List<Response> responses = new ArrayList<ControlBroker.Response>();
