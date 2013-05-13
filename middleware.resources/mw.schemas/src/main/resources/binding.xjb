@@ -30,18 +30,18 @@
 
   <jxb:bindings schemaLocation="AAL-UAPP.xsd" node="/xs:schema">
    <jxb:schemaBindings>
-      <jxb:package name="org.universAAL.middleware.deploymaneger.uapp.model">
+      <jxb:package name="org.universAAL.middleware.deploymanager.uapp.model">
     </jxb:package>
   </jxb:schemaBindings>
   </jxb:bindings>
 
-  <!--jxb:bindings schemaLocation="AAL-USRV.xsd" node="/xs:schema">
+  <!-- jxb:bindings schemaLocation="AAL-USRV.xsd" node="/xs:schema">
    <jxb:schemaBindings>
       <jxb:package name="org.universAAL.middleware.deploymaneger.usrv.model">
     </jxb:package>
   </jxb:schemaBindings>
-  </jxb:bindings-->
-  
+  </jxb:bindings -->
+
   <jxb:bindings schemaLocation="karaf-provvisioning-v1.0.0.xsd" node="/xs:schema">
    <jxb:schemaBindings>
       <jxb:package name="org.universAAL.middleware.connectors.deploy.karaf.model">
