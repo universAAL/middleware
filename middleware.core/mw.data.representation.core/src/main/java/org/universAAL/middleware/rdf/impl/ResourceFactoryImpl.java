@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.rdf.impl;
 
-import org.universAAL.middleware.owl.OntologyManagement;
+//import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 
@@ -32,14 +32,14 @@ public abstract class ResourceFactoryImpl implements ResourceFactory {
     public abstract Resource createInstance(String classURI,
 	    String instanceURI, int factoryIndex);
 
-    /**
-     * @see org.universAAL.middleware.rdf.ResourceFactory#castAs(org.universAAL.middleware.rdf.Resource,
-     *      java.lang.String)
-     */
-    public Resource castAs(Resource r, String classURI) {
-	Resource r2 = OntologyManagement.getInstance().getResource(classURI,
-		r.getURI());
-	// TODO: copy all properties from r to r2
-	return r2;
-    }
+//    /**
+//     * @see org.universAAL.middleware.rdf.ResourceFactory#castAs(org.universAAL.middleware.rdf.Resource,
+//     *      java.lang.String)
+//     */
+//    public Resource castAs(Resource r, String classURI) {
+//	Resource r2 = OntologyManagement.getInstance().getResource(classURI,
+//		r.getURI());
+//	// TODO: copy all properties from r to r2
+//	return r2;
+//    }
 }

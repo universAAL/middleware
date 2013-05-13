@@ -24,6 +24,5 @@ public interface ResourceFactory {
     public abstract Resource createInstance(String classURI,
 	    String instanceURI, int factoryIndex);
 
-    public abstract Resource castAs(Resource r, String classURI);
-
+    //public abstract Resource castAs(Resource r, String classURI);
 }
