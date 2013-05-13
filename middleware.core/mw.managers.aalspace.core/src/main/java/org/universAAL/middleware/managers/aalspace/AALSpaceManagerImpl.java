@@ -1241,7 +1241,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     }
 
     public MatchingResult getMatchingPeers(Map<String, Serializable> filter) {
-        final int limit = -1;
+        final int limit = getPeers().size();
         final long timeout = TIMEOUT;
         final Map<PeerCard, Map<String, Serializable>> result = controlBroker
                 .findMatchingPeers(filter, limit, (int) timeout);
@@ -1251,7 +1251,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 
     public Map<String, Serializable> getPeerAttributes(List<String> attributes,
             PeerCard target) {
-        final int limit = -1;
+        final int limit = 1;
         final long timeout = TIMEOUT;
         final Map<String, Serializable> result = controlBroker
                 .requestPeerAttributes(attributes, target, limit, (int) timeout);
