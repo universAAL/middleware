@@ -1,8 +1,7 @@
 package org.universAAL.middleware.deploymanager.uapp.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
-import java.io.File;
 import java.io.InputStream;
 
 import javax.xml.bind.JAXBContext;
@@ -11,8 +10,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
-import org.universAAL.middleware.deploymanager.uapp.model.AalUapp;
-import org.universAAL.middleware.deploymanager.uapp.model.ObjectFactory;
 
 public class TestDeployMangerModel {
 

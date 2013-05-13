@@ -41,8 +41,13 @@
    </developers>
 
    <build>
-      <plugins>
+      <!-- testResources>
+        <testResource>
+          <directory>${project.basedir}/src/test/resources</directory>
+        </testResource>
+      </testResources-->
 
+      <plugins>
          <plugin>
             <groupId>org.apache.felix</groupId>
             <artifactId>maven-bundle-plugin</artifactId>
@@ -52,14 +57,17 @@
                   <Bundle-Name>${project.name}</Bundle-Name>
                   <Bundle-Description>${project.description}</Bundle-Description>
                   <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                  <Import-Package>javax.xml.bind,
+                  <Import-Package>
+                     javax.xml.bind,
                      javax.xml.bind.annotation,
                      javax.xml.bind.annotation.adapters,
                      javax.xml.namespace,
                      org.w3c.dom</Import-Package>
-                  <Export-Package>org.universAAL.middleware.connectors.deploy.karaf.model,
-                     org.universAAL.middleware.deploymaneger.uapp.model,
-                     org.universAAL.middleware.interfaces.aalspace.model</Export-Package>
+                  <Export-Package>
+                     org.universAAL.middleware.connectors.deploy.karaf.model,
+                     org.universAAL.middleware.deploymanager.uapp.model,
+                     org.universAAL.middleware.interfaces.aalspace.model
+                  </Export-Package>
                </instructions>
             </configuration>
          </plugin>
