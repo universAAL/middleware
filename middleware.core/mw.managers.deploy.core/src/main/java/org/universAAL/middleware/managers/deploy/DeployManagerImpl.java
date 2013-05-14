@@ -27,7 +27,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Dictionary;
@@ -48,6 +47,7 @@ import org.universAAL.middleware.brokers.control.ExceptionUtils;
 import org.universAAL.middleware.brokers.control.FileUtils;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
+import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.deploymanager.uapp.model.AalUapp;
 import org.universAAL.middleware.deploymanager.uapp.model.ObjectFactory;
@@ -89,14 +89,6 @@ public class DeployManagerImpl implements DeployManager,
     // Configuration param configured with default value
     private String uappSuffix = ".uapp";
     private String deployDir = "etc" + File.separator + "deploy";
-    private String APPLICATION_CONFIGURATION_PATH = "config";
-    private String APPLICATION_BINARYPART_PATH = "bin";
-    private static String TMP_DEPLOY_DIR = "tmp";
-
-    private final String DM_ROOT_DIR = "etc" + File.separator + "uAAL"
-            + File.separator + "dm";
-    private final String APP_REGISTRY = DM_ROOT_DIR + File.separator
-            + "installation.registry";
 
     // JAXB
     private JAXBContext jc;
@@ -110,9 +102,10 @@ public class DeployManagerImpl implements DeployManager,
     private HashMap<String, UAPPPackage> wip = new HashMap<String, UAPPPackage>();
     private HashMap<String, Long> installingParts = new HashMap<String, Long>();
     private Properties applicationRegistry;
+    private BundleConfigHome configHome;
 
     public DeployManagerImpl(ModuleContext context) {
-
+        configHome = new BundleConfigHome(Consts.DEPLOY_MANAGER_ID);
         this.context = context;
         init();
         registry = new HashMap<String, UAPPStatus>();
@@ -133,8 +126,8 @@ public class DeployManagerImpl implements DeployManager,
 
     public boolean init() {
         if (!initialized) {
-            FileUtils.createFileFromByte(context, new byte[] {}, APP_REGISTRY,
-                    false);
+            FileUtils.createFileFromByte(context, new byte[] {},
+                    Consts.APP_REGISTRY, false);
 
             LogUtils.logDebug(context, DeployManagerImpl.class,
                     "DeployManagerImpl",
@@ -259,7 +252,7 @@ public class DeployManagerImpl implements DeployManager,
 
         final Map<PeerCard, List<Part>> layout = application.getDeploy();
         String applicationFolderURI = application.getFolder().toString() + "/"
-                + APPLICATION_CONFIGURATION_PATH;
+                + Consts.APPLICATION_CONFIGURATION_PATH;
         URI applicationConfigurationFolder = null;
         try {
             LogUtils.logInfo(
@@ -321,7 +314,7 @@ public class DeployManagerImpl implements DeployManager,
             return InstallationResults.FAILURE;
         }
 
-        if (isInstalled(application.getServiceId(), application.getId()) == false) {
+        if (isInstalled(application.getServiceId(), application.getId())) {
             LogUtils.logDebug(context, DeployManagerImpl.class,
                     "requestToInstall",
                     new Object[] { "Aplication already installed" }, null);
@@ -377,7 +370,7 @@ public class DeployManagerImpl implements DeployManager,
             PeerCard peer, byte[] content) {
         final long TIMEOUT = 60 * 1000;
 
-        if ( isPeerPartOfSpace(peer.getPeerID()) == false ) {
+        if (isPeerPartOfSpace(peer.getPeerID()) == false) {
             return InstallationResults.MISSING_PEER;
         }
         // send the part to the target node
@@ -398,9 +391,10 @@ public class DeployManagerImpl implements DeployManager,
         if (applicationRegistry == null) {
             try {
                 applicationRegistry = new Properties();
-                applicationRegistry.load(new FileInputStream(APP_REGISTRY));
-                applicationRegistry = null;
+                applicationRegistry.load(new FileInputStream(configHome
+                        .getPropFile(Consts.APP_REGISTRY)));
             } catch (Exception ex) {
+                applicationRegistry = null;
                 LogUtils.logError(
                         context,
                         DeployManagerImpl.class,
@@ -416,7 +410,7 @@ public class DeployManagerImpl implements DeployManager,
         if (applicationRegistry == null)
             return;
 
-        FileOutputStream fos = new FileOutputStream(APP_REGISTRY);
+        FileOutputStream fos = new FileOutputStream(Consts.APP_REGISTRY);
         applicationRegistry
                 .store(fos,
                         "universAAL Deploy Manager Installation registry, the format is serviceId:applicationId=<application layout registry file>");
@@ -445,8 +439,8 @@ public class DeployManagerImpl implements DeployManager,
                     parts.setProperty(peer.getPeerID() + "/" + i, partId);
                 }
             }
-            FileOutputStream fos = new FileOutputStream(new File(DM_ROOT_DIR,
-                    partRegistry));
+            FileOutputStream fos = new FileOutputStream(
+                    configHome.getPropFile(partRegistry));
             apps.store(fos, "universAAL " + appKey
                     + " Deploy layout, the format is peerId/<index>=partId");
             fos.flush();
@@ -470,8 +464,8 @@ public class DeployManagerImpl implements DeployManager,
         try {
             final String appKey = serviceId + ":" + id;
             String layoutFile = getApplicationRegistry().getProperty(appKey);
-            FileInputStream fis = new FileInputStream(new File(DM_ROOT_DIR,
-                    layoutFile));
+            FileInputStream fis = new FileInputStream(
+                    configHome.getPropFile(layoutFile));
             Properties layout = new Properties();
             layout.load(fis);
             return layout;
@@ -487,12 +481,12 @@ public class DeployManagerImpl implements DeployManager,
 
     }
 
-    private boolean isPeerPartOfSpace(String peerId){
-        if ( aalSpaceManager.getMyPeerCard().getPeerID().equals(peerId) ) {
+    private boolean isPeerPartOfSpace(String peerId) {
+        if (aalSpaceManager.getMyPeerCard().getPeerID().equals(peerId)) {
             return true;
         }
 
-        if ( aalSpaceManager.getPeers().get(peerId) != null) {
+        if (aalSpaceManager.getPeers().get(peerId) != null) {
             return true;
         }
         return false;
@@ -516,8 +510,7 @@ public class DeployManagerImpl implements DeployManager,
             String[] parts = peerLine.split("/");
             String peer = parts[0];
 
-
-            if ( isPeerPartOfSpace(peer) == false) {
+            if (isPeerPartOfSpace(peer) == false) {
                 LogUtils.logDebug(
                         context,
                         DeployManagerImpl.class,
@@ -535,7 +528,8 @@ public class DeployManagerImpl implements DeployManager,
             UAPPCard card = new UAPPCard(serviceId,
                     layout.getProperty(peerLine), id, "", "");
             PeerCard target = aalSpaceManager.getPeers().get(peer);
-            if ( target == null && peer.equals(aalSpaceManager.getMyPeerCard().getPeerID()) ) {
+            if (target == null
+                    && peer.equals(aalSpaceManager.getMyPeerCard().getPeerID())) {
                 target = aalSpaceManager.getMyPeerCard();
             }
             controlBroker.requestToUninstallPart(target, card);
@@ -674,11 +668,11 @@ public class DeployManagerImpl implements DeployManager,
         try {
             // create the zip file in a tmp dir
             zippedPart = new File(deployDir + File.separatorChar
-                    + TMP_DEPLOY_DIR + File.separator + "part.zip");
+                    + Consts.TMP_DEPLOY_DIR + File.separator + "part.zip");
             out = new ZipOutputStream(new FileOutputStream(zippedPart));
             // pit the part descriptor in the zip
             File partDescription = new File(deployDir + File.separatorChar
-                    + TMP_DEPLOY_DIR + File.separator + "partDesc-uapp");
+                    + Consts.TMP_DEPLOY_DIR + File.separator + "partDesc-uapp");
             marshaller.marshal(part, partDescription);
             FileInputStream in = new FileInputStream(partDescription);
             out.putNextEntry(new ZipEntry(partDescription.getName()));
@@ -713,7 +707,7 @@ public class DeployManagerImpl implements DeployManager,
         try {
             String partID = part.getPartId();
             String partFolderString = applicationFolder.getPath()
-                    + File.separatorChar + APPLICATION_BINARYPART_PATH
+                    + File.separatorChar + Consts.APPLICATION_BINARYPART_PATH
                     + File.separatorChar + partID + File.separatorChar;
             File partFolder = new File(partFolderString);
             BufferedInputStream inPartFile = null;
