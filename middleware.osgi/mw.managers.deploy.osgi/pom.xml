@@ -40,7 +40,11 @@
             <extensions>true</extensions>
             <configuration>
                <instructions>
-                  <Bundle-Author><![CDATA[Michele Girolami <michele.girolami@isti.cnr.it>,  Francesco Furfari <francesco.furfari@isti.cnr.it>]]></Bundle-Author>
+                  <Bundle-Author><![CDATA[
+                    Michele Girolami <michele.girolami@isti.cnr.it>,
+                    Francesco Furfari <francesco.furfari@isti.cnr.it>,
+                    Stefano "Kismet" Lenzi <stefano.lenzi@isti.cnr.it>
+                  ]]></Bundle-Author>
                   <Bundle-Name>${project.name}</Bundle-Name>
                   <Bundle-Description>${project.description}</Bundle-Description>
                   <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
@@ -49,6 +53,7 @@
                      org.universAAL.middleware.managers.deploy.util,
                      org.universAAL.middleware.managers.deploy.osgi</Export-Package>
                   <Import-Package>
+                     org.universAAL.middleware.container.osgi.util,
                      org.universAAL.middleware.managers.deploy,
                      org.osgi.framework;version="[1,2)", org.osgi.service.log,
                      org.universAAL.middleware.container,
