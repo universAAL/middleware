@@ -29,8 +29,8 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 	    int index = entryPath.indexOf("/");
 	    if (index >= 0) {
 		String realEntryPath = entryPath.substring(index + 1);
-		realEntryPath = realEntryPath.substring(0, realEntryPath
-			.length() - 6);
+		realEntryPath = realEntryPath.substring(0,
+			realEntryPath.length() - 6);
 		String className = realEntryPath.replace('/', '.');
 		return className;
 	    }
@@ -102,8 +102,8 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 			executor = new ActivatorExecutor(errorMsg, bundle);
 		    }
 		    executor.start();
-		    bundleIdToActivatorExecutor.put(new Long(bundle
-			    .getBundleId()), executor);
+		    bundleIdToActivatorExecutor.put(
+			    new Long(bundle.getBundleId()), executor);
 		}
 	    }
 	} catch (Exception t) {
@@ -179,9 +179,11 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 
 	private boolean logError() {
 	    if (errorMsg != null) {
-		logger.error(errorMsg, new IllegalStateException("Bundle "
-			+ b.getSymbolicName()
-			+ " has more than one uAALModuleActivator"));
+		logger.error(
+			errorMsg,
+			new IllegalStateException("Bundle "
+				+ b.getSymbolicName()
+				+ " has more than one uAALModuleActivator"));
 		return true;
 	    }
 	    return false;
