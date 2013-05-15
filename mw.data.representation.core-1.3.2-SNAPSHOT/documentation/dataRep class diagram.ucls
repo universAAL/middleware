@@ -1,0 +1,1121 @@
+<class-diagram version="1.0.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <interface id="1" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.ObjectPropertySetup" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/ObjectPropertySetup.java" binary="false">    
+    <position x="2430" y="347" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" 
+    name="org.universAAL.middleware.owl.ObjectProperty.PrivateObjectPropertySetup" project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/ObjectProperty.java" binary="false">    
+    <position x="2446" y="578" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.MaxCardinalityRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/MaxCardinalityRestriction.java" 
+    binary="false">    
+    <position x="1355" y="1749" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.TypeRestriction.Facet" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/TypeRestriction.java" binary="false">    
+    <position x="843" y="1451" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.MergedRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/MergedRestriction.java" binary="false">    
+    <position x="521" y="1779" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" 
+    name="org.universAAL.middleware.owl.DatatypeProperty.PrivateDataTypePropertySetup" project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/DatatypeProperty.java" binary="false">    
+    <position x="2013" y="436" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.OntClassInfo.PrivateOntSetup" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/OntClassInfo.java" binary="false">    
+    <position x="2057" y="15" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.FloatRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/FloatRestriction.java" binary="false">    
+    <position x="577" y="2272" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.AllValuesFromRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/AllValuesFromRestriction.java" 
+    binary="false">    
+    <position x="1605" y="2029" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.ObjectProperty" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/ObjectProperty.java" binary="false">    
+    <position x="2449" y="893" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.BoundingValueRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/BoundingValueRestriction.java" 
+    binary="false">    
+    <position x="1962" y="2283" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.DatatypeProperty" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/DatatypeProperty.java" binary="false">    
+    <position x="1725" y="627" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.ClassExpression.RegParams" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/ClassExpression.java" binary="false">    
+    <position x="967" y="448" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="14" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.OntClassInfoSetup" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/OntClassInfoSetup.java" binary="false">    
+    <position x="2372" y="-84" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.Complement" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/Complement.java" binary="false">    
+    <position x="1660" y="832" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.IndividualRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/IndividualRestriction.java" binary="false">    
+    <position x="648" y="2444" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.Intersection" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/Intersection.java" binary="false">    
+    <position x="760" y="1212" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.OntologyManagement" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/OntologyManagement.java" binary="false">    
+    <position x="267" y="279" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.DataRepOntology" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/DataRepOntology.java" binary="false">    
+    <position x="2369" y="1136" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="20" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.DoubleRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/DoubleRestriction.java" binary="false">    
+    <position x="913" y="2296" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.Enumeration" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/Enumeration.java" binary="false">    
+    <position x="1008" y="870" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="22" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.ClassExpression" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/ClassExpression.java" binary="false">    
+    <position x="1332" y="873" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="23" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.SomeValuesFromRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/SomeValuesFromRestriction.java" 
+    binary="false">    
+    <position x="1937" y="1881" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="24" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.SimpleOntology" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/SimpleOntology.java" binary="false">    
+    <position x="2292" y="1236" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="25" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.MinCardinalityRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/MinCardinalityRestriction.java" 
+    binary="false">    
+    <position x="2049" y="1445" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="26" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.TypeRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/TypeRestriction.java" binary="false">    
+    <position x="1072" y="1290" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="27" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.ComparableIndividual" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/ComparableIndividual.java" binary="false">    
+    <position x="736" y="770" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="28" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.ExactCardinalityRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/ExactCardinalityRestriction.java" 
+    binary="false">    
+    <position x="2322" y="1767" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="29" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.OntClassInfo" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/OntClassInfo.java" binary="false">    
+    <position x="1685" y="83" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="30" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.AbstractRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/AbstractRestriction.java" binary="false">    
+    <position x="1412" y="1340" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="31" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.DatatypePropertySetup" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/DatatypePropertySetup.java" binary="false">    
+    <position x="2237" y="281" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="32" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.LongRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/LongRestriction.java" binary="false">    
+    <position x="1084" y="2150" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="33" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.Union" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/Union.java" binary="false">    
+    <position x="2012" y="1158" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="34" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.TypeURI" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/TypeURI.java" binary="false">    
+    <position x="1723" y="1242" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="35" corner="BOTTOM_RIGHT" language="java" 
+    name="org.universAAL.middleware.owl.MergedRestriction.SafeIterator" project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/MergedRestriction.java" binary="false">    
+    <position x="212" y="1582" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="36" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.HasValueRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/HasValueRestriction.java" binary="false">    
+    <position x="2316" y="2091" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="37" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.Ontology" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/Ontology.java" binary="false">    
+    <position x="2093" y="774" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="38" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.ComparableRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/ComparableRestriction.java" binary="false">    
+    <position x="1019" y="1731" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="39" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.IntRestriction" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/IntRestriction.java" binary="false">    
+    <position x="1310" y="2074" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="40" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.ManagedIndividual" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/ManagedIndividual.java" binary="false">    
+    <position x="662" y="310" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="41" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.Variable" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/Variable.java" binary="false">    
+    <position x="875" y="-458" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="42" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.TypeMapper" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/TypeMapper.java" binary="false">    
+    <position x="530" y="-427" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="43" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.PropertyPath" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/PropertyPath.java" binary="false">    
+    <position x="863" y="-132" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="44" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.RDFClassInfo.PrivateRDFSetup" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/RDFClassInfo.java" binary="false">    
+    <position x="1960" y="-329" width="209" height="185"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="45" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.ResourceFactory" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/ResourceFactory.java" binary="false">    
+    <position x="2045" y="-533" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="46" corner="BOTTOM_RIGHT" language="java" 
+    name="org.universAAL.middleware.rdf.Property.PrivatePropertySetup" project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/Property.java" binary="false">    
+    <position x="2032" y="234" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="47" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.PropertySetup" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/PropertySetup.java" binary="false">    
+    <position x="2398" y="124" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="48" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.ResourceRegistry" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/ResourceRegistry.java" binary="false">    
+    <position x="2347" y="-478" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="49" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.Resource" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/Resource.java" binary="false">    
+    <position x="1262" y="6" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="50" corner="BOTTOM_RIGHT" language="java" 
+    name="org.universAAL.middleware.rdf.ResourceRegistry.FactoryEntry" project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/ResourceRegistry.java" binary="false">    
+    <position x="2035" y="-407" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="51" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.RDFClassInfoSetup" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/RDFClassInfoSetup.java" binary="false">    
+    <position x="2371" y="-274" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="52" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.RDFClassInfo" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/RDFClassInfo.java" binary="false">    
+    <position x="1678" y="-306" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="53" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.Property" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/Property.java" binary="false">    
+    <position x="1699" y="421" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="54" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.datarep.osgi.Activator" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/datarep/osgi/Activator.java" binary="false">    
+    <position x="217" y="-509" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="55" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.util.IntAggregator" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/util/IntAggregator.java" binary="false">    
+    <position x="509" y="-123" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="56" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.util.Constants" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/util/Constants.java" binary="false">    
+    <position x="251" y="-292" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="57" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.util.ResourceComparator" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/util/ResourceComparator.java" binary="false">    
+    <position x="253" y="-42" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="58" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.util.RatingAggregator" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/util/RatingAggregator.java" binary="false">    
+    <position x="225" y="1192" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="59" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.rdf.impl.ResourceFactoryImpl" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/rdf/impl/ResourceFactoryImpl.java" 
+    binary="false">    
+    <position x="1620" y="-532" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="60" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.supply.Rating" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/supply/Rating.java" binary="false">    
+    <position x="222" y="759" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="61" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.supply.AbsLocation" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/supply/AbsLocation.java" binary="false">    
+    <position x="451" y="638" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="62" corner="BOTTOM_RIGHT" language="java" name="org.universAAL.middleware.owl.supply.LevelRating" 
+    project="mw.data.representation" 
+    file="/mw.data.representation/src/main/java/org/universAAL/middleware/owl/supply/LevelRating.java" binary="false">    
+    <position x="485" y="1088" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <nesting>    
+    <end type="SOURCE" nodeId="48"/>    
+    <end type="TARGET" nodeId="50"/>  
+  </nesting>  
+  <association>    
+    <end type="SOURCE" nodeId="53" navigable="false">      
+      <attribute name="info"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="62"/>    
+    <end type="TARGET" nodeId="27"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="46" navigable="false">      
+      <attribute name="prop"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="richGood"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization>    
+    <end type="SOURCE" nodeId="46"/>    
+    <end type="TARGET" nodeId="47"/>  
+  </realization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="17"/>    
+    <end type="TARGET" nodeId="22"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="33"/>    
+    <end type="TARGET" nodeId="22"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="62" navigable="false">      
+      <attribute name="high"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="48" navigable="false">      
+      <attribute name="instance"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="48" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="62" navigable="false">      
+      <attribute name="low"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="34"/>    
+    <end type="TARGET" nodeId="22"/>  
+  </generalization>  
+  <nesting>    
+    <end type="SOURCE" nodeId="12"/>    
+    <end type="TARGET" nodeId="6"/>  
+  </nesting>  
+  <association>    
+    <end type="SOURCE" nodeId="10" navigable="false">      
+      <attribute name="inverseOf"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="60"/>    
+    <end type="TARGET" nodeId="27"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="29" navigable="false">      
+      <attribute name="complementClass"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="58" navigable="false">      
+      <attribute name="max"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="2"/>    
+    <end type="TARGET" nodeId="46"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="40" navigable="false">      
+      <attribute name="ontClassInfo"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="53" navigable="false">      
+      <attribute name="setup"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="46" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="10"/>    
+    <end type="TARGET" nodeId="53"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="53"/>    
+    <end type="TARGET" nodeId="49"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="9"/>    
+    <end type="TARGET" nodeId="30"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="15"/>    
+    <end type="TARGET" nodeId="22"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="good"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="58" navigable="false">      
+      <attribute name="avg"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization>    
+    <end type="SOURCE" nodeId="59"/>    
+    <end type="TARGET" nodeId="45"/>  
+  </realization>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="poor"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="38"/>    
+    <end type="TARGET" nodeId="26"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="36"/>    
+    <end type="TARGET" nodeId="30"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="23"/>    
+    <end type="TARGET" nodeId="30"/>  
+  </generalization>  
+  <nesting>    
+    <end type="SOURCE" nodeId="26"/>    
+    <end type="TARGET" nodeId="4"/>  
+  </nesting>  
+  <generalization>    
+    <end type="SOURCE" nodeId="26"/>    
+    <end type="TARGET" nodeId="22"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="1"/>    
+    <end type="TARGET" nodeId="47"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="3"/>    
+    <end type="TARGET" nodeId="30"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="52" navigable="false">      
+      <attribute name="factory"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="45" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="7" navigable="false">      
+      <attribute name="info"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="8"/>    
+    <end type="TARGET" nodeId="38"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="almostExcellent"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="12"/>    
+    <end type="TARGET" nodeId="53"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="62" navigable="false">      
+      <attribute name="middle"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="28"/>    
+    <end type="TARGET" nodeId="30"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="32"/>    
+    <end type="TARGET" nodeId="38"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="satisfying"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="14"/>    
+    <end type="TARGET" nodeId="51"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="richSufficient"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="16"/>    
+    <end type="TARGET" nodeId="38"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="52" navigable="false">      
+      <attribute name="ont"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="37" navigable="true"/>    
+    <display labels="true" multiplicity="false"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="almostSatisfying"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="29"/>    
+    <end type="TARGET" nodeId="52"/>  
+  </generalization>  
+  <realization>    
+    <end type="SOURCE" nodeId="2"/>    
+    <end type="TARGET" nodeId="1"/>  
+  </realization>  
+  <association>    
+    <end type="SOURCE" nodeId="50" navigable="false">      
+      <attribute name="factory"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="45" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="52" navigable="false">      
+      <attribute name="rdfsetup"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="44" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting>    
+    <end type="SOURCE" nodeId="29"/>    
+    <end type="TARGET" nodeId="7"/>  
+  </nesting>  
+  <generalization>    
+    <end type="SOURCE" nodeId="7"/>    
+    <end type="TARGET" nodeId="44"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="29" navigable="false">      
+      <attribute name="setup"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="40"/>    
+    <end type="TARGET" nodeId="49"/>  
+  </generalization>  
+  <nesting>    
+    <end type="SOURCE" nodeId="52"/>    
+    <end type="TARGET" nodeId="44"/>  
+  </nesting>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="almostSufficient"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="10" navigable="false">      
+      <attribute name="setup"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="richSatisfying"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="62" navigable="false">      
+      <attribute name="none"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="2" navigable="false">      
+      <attribute name="prop"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="21"/>    
+    <end type="TARGET" nodeId="22"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="53" navigable="false">      
+      <attribute name="domain"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="44" navigable="false">      
+      <attribute name="info"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="52" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="43"/>    
+    <end type="TARGET" nodeId="49"/>  
+  </generalization>  
+  <nesting>    
+    <end type="SOURCE" nodeId="10"/>    
+    <end type="TARGET" nodeId="2"/>  
+  </nesting>  
+  <generalization>    
+    <end type="SOURCE" nodeId="61"/>    
+    <end type="TARGET" nodeId="27"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="58" navigable="false">      
+      <attribute name="min"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="62" navigable="false">      
+      <attribute name="full"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="62" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization>    
+    <end type="SOURCE" nodeId="7"/>    
+    <end type="TARGET" nodeId="14"/>  
+  </realization>  
+  <realization>    
+    <end type="SOURCE" nodeId="44"/>    
+    <end type="TARGET" nodeId="51"/>  
+  </realization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="22"/>    
+    <end type="TARGET" nodeId="49"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="24"/>    
+    <end type="TARGET" nodeId="37"/>  
+  </generalization>  
+  <realization>    
+    <end type="SOURCE" nodeId="6"/>    
+    <end type="TARGET" nodeId="31"/>  
+  </realization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="52"/>    
+    <end type="TARGET" nodeId="49"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="37" navigable="false">      
+      <attribute name="info"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="49" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting>    
+    <end type="SOURCE" nodeId="22"/>    
+    <end type="TARGET" nodeId="13"/>  
+  </nesting>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="sufficient"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="41"/>    
+    <end type="TARGET" nodeId="49"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="5"/>    
+    <end type="TARGET" nodeId="17"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="31"/>    
+    <end type="TARGET" nodeId="47"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="almostPoor"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="20"/>    
+    <end type="TARGET" nodeId="38"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="6"/>    
+    <end type="TARGET" nodeId="46"/>  
+  </generalization>  
+  <nesting>    
+    <end type="SOURCE" nodeId="5"/>    
+    <end type="TARGET" nodeId="35"/>  
+  </nesting>  
+  <generalization>    
+    <end type="SOURCE" nodeId="27"/>    
+    <end type="TARGET" nodeId="40"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="18" navigable="false">      
+      <attribute name="instance"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="19"/>    
+    <end type="TARGET" nodeId="37"/>  
+  </generalization>  
+  <nesting>    
+    <end type="SOURCE" nodeId="53"/>    
+    <end type="TARGET" nodeId="46"/>  
+  </nesting>  
+  <generalization>    
+    <end type="SOURCE" nodeId="39"/>    
+    <end type="TARGET" nodeId="38"/>  
+  </generalization>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="excellent"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association>    
+    <end type="SOURCE" nodeId="60" navigable="false">      
+      <attribute name="almostGood"/>      
+      <multiplicity minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" nodeId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization>    
+    <end type="SOURCE" nodeId="30"/>    
+    <end type="TARGET" nodeId="22"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="25"/>    
+    <end type="TARGET" nodeId="30"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="11"/>    
+    <end type="TARGET" nodeId="30"/>  
+  </generalization>  
+  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
