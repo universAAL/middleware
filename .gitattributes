@@ -1340,6 +1340,13 @@ mw.connectors.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/co
 mw.connectors.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/util/ChannelMessageFields.java -text
 mw.connectors.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/util/Consts.java -text
 mw.connectors.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/util/ExceptionUtils.java svneol=native#text/plain
+mw.connectors.communication.jgroups.core-1.3.2-SNAPSHOT/LICENSE.txt -text
+mw.connectors.communication.jgroups.core-1.3.2-SNAPSHOT/NOTICE.txt -text
+mw.connectors.communication.jgroups.core-1.3.2-SNAPSHOT/pom.xml -text
+mw.connectors.communication.jgroups.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/JGroupsCommunicationConnector.java -text
+mw.connectors.communication.jgroups.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/Codec.java -text
+mw.connectors.communication.jgroups.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/Consts.java -text svneol=unset#text/plain
+mw.connectors.communication.jgroups.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/CryptUtil.java -text
 mw.container.osgi-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.container.osgi-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.container.osgi-1.0.1-SNAPSHOT/artifact_manual.composite -text
