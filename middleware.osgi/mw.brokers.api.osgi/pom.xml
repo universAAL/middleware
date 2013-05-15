@@ -1,48 +1,46 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<artifactId>mw.pom.osgi</artifactId>
-		<groupId>org.universAAL.middleware</groupId>
-		<version>1.3.2-SNAPSHOT</version>
-		<relativePath>../mw.pom.osgi</relativePath>
-	</parent>
-
-	<groupId>org.universAAL.middleware</groupId>
-	<artifactId>mw.brokers.api.osgi</artifactId>
-	<packaging>bundle</packaging>
-	<version>1.3.2-SNAPSHOT</version>
-	<name>universAAL Middleware Broker API (OSGi)</name>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.brokers.api.core</artifactId>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-Author><![CDATA[Michele Girolami <michele.girolami@isti.cnr.it>, Francesco Furfari <francesco.furfari@isti.cnr.it>]]></Bundle-Author>
-						<Bundle-Name>${project.name}</Bundle-Name>
-						<Bundle-Description>${project.description}</Bundle-Description>
-						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Bundle-Provider>ISTI-CNR</Bundle-Provider>
-						<Import-Package>org.json, org.universAAL.middleware.interfaces,
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>1.3.3-SNAPSHOT</version>
+    <relativePath>../mw.pom.osgi</relativePath>
+  </parent>
+  <groupId>org.universAAL.middleware</groupId>
+  <artifactId>mw.brokers.api.osgi</artifactId>
+  <version>1.3.3-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <name>universAAL Middleware Broker API (OSGi)</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.brokers.api.core</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Author>Michele Girolami &lt;michele.girolami@isti.cnr.it>, Francesco Furfari &lt;francesco.furfari@isti.cnr.it></Bundle-Author>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Bundle-Provider>ISTI-CNR</Bundle-Provider>
+            <Import-Package>org.json, org.universAAL.middleware.interfaces,
 							org.universAAL.middleware.interfaces.aalspace,
 							org.universAAL.middleware.interfaces.mpa</Import-Package>
-						<Export-Package>org.universAAL.middleware.brokers,
+            <Export-Package>org.universAAL.middleware.brokers,
 							org.universAAL.middleware.brokers.message.*</Export-Package>
-						<Private-Package />
-					</instructions>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+            <Private-Package />
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

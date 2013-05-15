@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.universAAL.middleware</groupId>
 		<artifactId>mw.pom.osgi</artifactId>
-		<version>1.3.2-SNAPSHOT</version>
+		<version>1.3.3-SNAPSHOT</version>
 		<relativePath>../../middleware.osgi/pom</relativePath>
 	</parent>
 
 	<artifactId>mw.bus.model.osgi.agg</artifactId>
-	<version>1.3.2-SNAPSHOT</version>
+	<version>1.3.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>universAAL Middleware Bus Model (AGG)</name>
 
