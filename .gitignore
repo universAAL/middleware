@@ -5399,6 +5399,11 @@ mw.data.serialization.osgi-1.3.1-SNAPSHOT/src/test/uAAL.log
 mw.data.serialization.osgi-1.3.1-SNAPSHOT/src/uAAL.log
 mw.data.serialization.osgi-1.3.1-SNAPSHOT/target
 mw.data.serialization.osgi-1.3.1-SNAPSHOT/uAAL.log
+mw.interfaces.core-1.3.2-SNAPSHOT/.classpath
+mw.interfaces.core-1.3.2-SNAPSHOT/.project
+mw.interfaces.core-1.3.2-SNAPSHOT/.settings
+mw.interfaces.core-1.3.2-SNAPSHOT/bin
+mw.interfaces.core-1.3.2-SNAPSHOT/target
 mw.pom-1.0.2-SNAPSHOT/.classpath
 mw.pom-1.0.2-SNAPSHOT/.project
 mw.pom-1.0.2-SNAPSHOT/.settings
