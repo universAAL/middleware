@@ -2109,6 +2109,11 @@ mw.managers.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/mana
 mw.managers.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/managers/api/Manager.java -text
 mw.managers.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/managers/api/MatchingResult.java -text
 mw.managers.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/managers/api/UAPPPackage.java -text
+mw.managers.deploy.core-1.3.2-SNAPSHOT/LICENSE.txt -text
+mw.managers.deploy.core-1.3.2-SNAPSHOT/NOTICE.txt -text
+mw.managers.deploy.core-1.3.2-SNAPSHOT/pom.xml -text
+mw.managers.deploy.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/managers/deploy/DeployManagerImpl.java -text
+mw.managers.deploy.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/managers/deploy/util/Consts.java -text
 mw.modules.aalspace.core-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.modules.aalspace.core-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.modules.aalspace.core-1.3.2-SNAPSHOT/pom.xml -text
