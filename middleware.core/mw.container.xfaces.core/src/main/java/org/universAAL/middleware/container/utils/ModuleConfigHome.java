@@ -49,6 +49,12 @@ public class ModuleConfigHome {
     protected File confHome;
 
     /**
+     * Default constructor to allow overwriting the default implementation.
+     */
+    protected ModuleConfigHome() {
+    }
+
+    /**
      * Constructor the create a new object for accessing configuration files.
      * The actual file name consists of the root directory of the universAAL
      * runtime, the given ID (which is by Best Practice the module name), and a
@@ -61,8 +67,10 @@ public class ModuleConfigHome {
      * @param id
      *            The ID of this module.
      */
-    public ModuleConfigHome(String confHome, String id) {
-	this.confHome = new File(confHome, id);
+    public ModuleConfigHome(String _confHome, String id) {
+	confHome = new File(_confHome, id);
+	if (!confHome.exists())
+	    confHome.mkdirs();
     }
 
     /**
@@ -85,7 +93,10 @@ public class ModuleConfigHome {
      * @throws IOException
      */
     public InputStream getConfFileAsStream(String filename) throws IOException {
-	return new FileInputStream(new File(confHome, filename));
+	File f = new File(confHome, filename);
+	if (!f.exists())
+	    f.createNewFile();
+	return new FileInputStream(f);
     }
 
     /**
@@ -99,7 +110,10 @@ public class ModuleConfigHome {
      */
     public OutputStream getConfFileAsOutputStream(String filename)
 	    throws IOException {
-	return new FileOutputStream(new File(confHome, filename));
+	File f = new File(confHome, filename);
+	if (!f.exists())
+	    f.createNewFile();
+	return new FileOutputStream(f);
     }
 
     /**
