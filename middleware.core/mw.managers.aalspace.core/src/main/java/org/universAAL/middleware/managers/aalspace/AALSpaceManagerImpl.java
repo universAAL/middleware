@@ -770,14 +770,14 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
             // get the list of config files
             String[] spaces = getFileList(aalSpaceConfigurationPath);
             if (spaces == null || spaces.length == 0) {
-                LogUtils.logWarn(context, AALSpaceManagerImpl.class,
-                        "readAALSpaceDefaultConfigurations",
-                        new Object[] { "File: " + aalSpaceConfigurationPath
-                                + " cannot be read, trying alternative." },
-                        null);
+		LogUtils.logWarn(context, AALSpaceManagerImpl.class,
+			"readAALSpaceDefaultConfigurations",
+			new Object[] { "File: " + aalSpaceConfigurationPath
+				+ " cannot be read, trying alternative: "
+				+ altConfigDir }, null);
 
-                aalSpaceConfigurationPath = altConfigDir;
-                spaces = getFileList(aalSpaceConfigurationPath);
+		aalSpaceConfigurationPath = altConfigDir;
+		spaces = getFileList(aalSpaceConfigurationPath);
             }
 
             // evaluate the list of config files
