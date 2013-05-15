@@ -21,10 +21,10 @@ package org.universAAL.middleware.container.osgi.util;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+
+import org.universAAL.middleware.container.utils.ModuleConfigHome;
 
 /**
  * The base class for configuration files in universAAL. All configuration files
@@ -32,10 +32,9 @@ import java.io.OutputStream;
  * configuration files of a bundle are contained in a subdirectory with the name
  * of that bundle (Best Practice).
  * 
- * @author climberg
  * @author Carsten Stockloew
  */
-public class BundleConfigHome {
+public class BundleConfigHome extends ModuleConfigHome {
 
     /**
      * The root directory of the runtime configuration.
@@ -43,29 +42,18 @@ public class BundleConfigHome {
     public static final String uAAL_CONF_ROOT_DIR = "bundles.configuration.location";
 
     /**
-     * The {@link java.io.File} containing the path for the configuration file
-     * (the home directory of the configuration file).
-     */
-    protected File confHome;
-
-    /**
      * Constructor the create a new object for accessing configuration files.
+     * The actual file name consists of the root directory of the universAAL
+     * runtime, the given ID (which is by Best Practice the bundle name), and a
+     * file name which is given to the methods
+     * {@link #getConfFileAsStream(String)} or
+     * {@link #getConfFileAsOutputStream(String)}.
      * 
      * @param id
-     *            The ID for the configuration file. The actual file name
-     *            consists of the root directory of the universAAL runtime, the
-     *            given ID (which is by Best Practice the bundle name), and a
-     *            file name which is given to the methods
-     *            {@link #getConfFileAsStream(File)} or
-     *            {@link #getConfFileAsStream(String)}.
+     *            The ID of this module.
      */
     public BundleConfigHome(String id) {
-	confHome = new File(new File(System.getProperty(uAAL_CONF_ROOT_DIR,
-		System.getProperty("user.dir"))), id);
-    }
-
-    public String getAbsolutePath() {
-	return confHome.getAbsolutePath();
+	super(uAAL_CONF_ROOT_DIR, id);
     }
 
     /**
@@ -81,43 +69,14 @@ public class BundleConfigHome {
     }
 
     /**
-     * Get an InputStream for the file of the given file name in the home
-     * directory of the configuration file.
+     * Get a {@link File} of the configuration file. The file name is created by
+     * the home directory (as created in the constructor), the parameter given
+     * to this method and the suffix ".properties".
      * 
-     * @param filename
-     *            The name of the file.
-     * @return An InputStream for the file.
-     * @throws IOException
+     * @param nameWithoutExtension
+     * @return
      */
-    public InputStream getConfFileAsStream(String filename) throws IOException {
-	return new FileInputStream(new File(confHome, filename));
-    }
-
-    /**
-     * Get an OutputStream for the file of the given file name in the home
-     * directory of the configuration file.
-     * 
-     * @param filename
-     *            The name of the file.
-     * @return An OutputStream for the file.
-     * @throws IOException
-     */
-    public OutputStream getConfFileAsOutputStream(String filename)
-	    throws IOException {
-	return new FileOutputStream(new File(confHome, filename));
-    }
-
     public File getPropFile(String nameWithoutExtension) {
 	return new File(confHome, nameWithoutExtension + ".properties");
     }
-
-    /**
-     * List all files in the home directory of the configuration file.
-     * 
-     * @return The list of files.
-     */
-    public File[] listFiles() {
-	return confHome.listFiles();
-    }
-
 }
