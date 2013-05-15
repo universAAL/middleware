@@ -506,6 +506,13 @@ mw.brokers.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/broke
 mw.brokers.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployNotificationPayload.java -text
 mw.brokers.api.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployPayload.java -text
 mw.brokers.api.core-1.3.2-SNAPSHOT/src/test/java/org/universAAL/middleware/brokers/message/control/ControlMessageTest.java -text
+mw.brokers.control.core-1.3.2-SNAPSHOT/LICENSE.txt -text
+mw.brokers.control.core-1.3.2-SNAPSHOT/NOTICE.txt -text
+mw.brokers.control.core-1.3.2-SNAPSHOT/pom.xml -text
+mw.brokers.control.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/ControlBroker.java -text
+mw.brokers.control.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/ExceptionUtils.java svneol=native#text/plain
+mw.brokers.control.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/FileUtils.java svneol=native#text/plain
+mw.brokers.control.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/WaitForResponse.java -text
 mw.bus.context-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.bus.context-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.bus.context-1.0.1-SNAPSHOT/artifact_manual.composite -text
