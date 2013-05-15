@@ -697,7 +697,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
         if (target.getPeerID().equals(
                 aalSpaceManager.getMyPeerCard().getPeerID())) {
             File file = FileUtils.createFileFromByte(context, partAsZip,
-                    TMP_DEPLOY_FOLDER + "part", false);
+                    TMP_DEPLOY_FOLDER + "part", true);
             if (file == null) {
                 LogUtils.logError(
                         context,
@@ -705,6 +705,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
                         METHOD,
                         new Object[] { "Error while installing artifact locally: unable to create file" },
                         null);
+                return;
             }
             deployConnector.installPart(file, card);
         } else {

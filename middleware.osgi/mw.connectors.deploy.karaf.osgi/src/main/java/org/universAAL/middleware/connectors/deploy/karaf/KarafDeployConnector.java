@@ -39,6 +39,7 @@ import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.connectors.DeployConnector;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
+import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
@@ -74,10 +75,10 @@ public class KarafDeployConnector implements DeployConnector,
             "org.universeAAL.connector.karaf.deploydir", "deploy");
     private final static String UAAL_DEPLOY_DIR = System.getProperty(
             "org.universeAAL.deploy.connector.deploydir", "uAAL"
-                    + File.pathSeparator + "deploy");
+                    + File.separator + "deploy");
     private final static String UAAL_TMP_DIR = System.getProperty(
             "org.universeAAL.deploy.connector.tmpdir", "uAAL"
-                    + File.pathSeparator + "tmp");
+                    + File.separator + "tmp");
     private static final String JAR_EXTENSION = "jar";
 
     // JAXB
@@ -272,8 +273,14 @@ public class KarafDeployConnector implements DeployConnector,
     private Properties getInstallationRegistry() throws IOException {
         if (registry == null) {
             registry = new Properties();
-            registry.load(new FileInputStream(new File(UAAL_DEPLOY_DIR,
-                    "deploy.registry")));
+            //TODO Using BundleConfigHome
+            File in = new File(UAAL_DEPLOY_DIR,
+                    "deploy.registry");
+            if ( in.exists() == false ) {
+                in.getParentFile().mkdirs();
+                in.createNewFile();
+            }
+            registry.load(new FileInputStream(in));
         }
         return registry;
     }
@@ -328,7 +335,7 @@ public class KarafDeployConnector implements DeployConnector,
         final String METHOD = "installFile";
         String fileName = file.getName();
         fileName = fileName.substring(0, fileName.lastIndexOf("."+KAR_EXTENSION));
-        String uniquePrefix = name + System.currentTimeMillis();
+        String uniquePrefix = fileName + "-" + System.currentTimeMillis();
         String karfile = uniquePrefix
                 + "." + KAR_EXTENSION;
         String jarfile = uniquePrefix
@@ -347,7 +354,7 @@ public class KarafDeployConnector implements DeployConnector,
         LogUtils.logInfo(context, KarafDeployConnector.class, METHOD,
                 new Object[] { "Application part installed for uAAP:"
                         }, null);
-        File jar = new File( file.getAbsolutePath(), fileName + "." + JAR_EXTENSION );
+        File jar = new File( file.getParent(), fileName + "." + JAR_EXTENSION );
         result = jar.renameTo(new File(KAR_DEPLOY_DIR,
                 jarfile));
         if (result == false) {
