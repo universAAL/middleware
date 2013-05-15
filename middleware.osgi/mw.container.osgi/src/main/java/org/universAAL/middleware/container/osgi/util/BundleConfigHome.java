@@ -53,7 +53,8 @@ public class BundleConfigHome extends ModuleConfigHome {
      *            The ID of this module.
      */
     public BundleConfigHome(String id) {
-	super(uAAL_CONF_ROOT_DIR, id);
+	super(System.getProperty(uAAL_CONF_ROOT_DIR,
+		System.getProperty("user.dir")), id);
     }
 
     /**
