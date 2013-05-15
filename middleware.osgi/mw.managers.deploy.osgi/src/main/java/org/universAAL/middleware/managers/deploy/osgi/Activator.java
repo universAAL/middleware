@@ -61,7 +61,7 @@ public class Activator implements BundleActivator, ManagedService {
 	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 		new Object[] { "Starting the Deploymanager..." }, null);
 
-	BundleConfigHome configHome = new BundleConfigHome("mw.manager.deploy");
+	BundleConfigHome configHome = new BundleConfigHome("mw.managers.deploy");
 	deployManager = new DeployManagerImpl(moduleContext, configHome);
 
 	Dictionary props = new Hashtable();
