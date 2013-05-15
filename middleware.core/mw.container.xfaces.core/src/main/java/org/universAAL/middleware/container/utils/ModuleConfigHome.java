@@ -60,7 +60,8 @@ public class ModuleConfigHome {
      * runtime, the given ID (which is by Best Practice the module name), and a
      * file name which is given to the methods
      * {@link #getConfFileAsStream(File)} or
-     * {@link #getConfFileAsStream(String)}.
+     * {@link #getConfFileAsStream(String)}. The directory is created if it does
+     * not exist.
      * 
      * @param confHome
      *            The home directory.
@@ -85,7 +86,8 @@ public class ModuleConfigHome {
 
     /**
      * Get an InputStream for the file of the given file name in the home
-     * directory of the configuration file.
+     * directory of the configuration file. The file is created if it does not
+     * exist.
      * 
      * @param filename
      *            The name of the file.
@@ -101,7 +103,8 @@ public class ModuleConfigHome {
 
     /**
      * Get an OutputStream for the file of the given file name in the home
-     * directory of the configuration file.
+     * directory of the configuration file. The file is created if it does not
+     * exist.
      * 
      * @param filename
      *            The name of the file.
