@@ -34,6 +34,7 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.api.DeployManager;
 import org.universAAL.middleware.managers.deploy.DeployManagerImpl;
@@ -60,7 +61,8 @@ public class Activator implements BundleActivator, ManagedService {
 	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 		new Object[] { "Starting the Deploymanager..." }, null);
 
-	deployManager = new DeployManagerImpl(moduleContext);
+	BundleConfigHome configHome = new BundleConfigHome("mw.manager.deploy");
+	deployManager = new DeployManagerImpl(moduleContext, configHome);
 
 	Dictionary props = new Hashtable();
 	props.put(Constants.SERVICE_PID, SERVICE_PID);

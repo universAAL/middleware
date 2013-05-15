@@ -27,6 +27,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Dictionary;
@@ -47,8 +49,8 @@ import org.universAAL.middleware.brokers.control.ExceptionUtils;
 import org.universAAL.middleware.brokers.control.FileUtils;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.container.utils.ModuleConfigHome;
 import org.universAAL.middleware.deploymanager.uapp.model.AalUapp;
 import org.universAAL.middleware.deploymanager.uapp.model.ObjectFactory;
 import org.universAAL.middleware.deploymanager.uapp.model.Part;
@@ -102,10 +104,10 @@ public class DeployManagerImpl implements DeployManager,
     private HashMap<String, UAPPPackage> wip = new HashMap<String, UAPPPackage>();
     private HashMap<String, Long> installingParts = new HashMap<String, Long>();
     private Properties applicationRegistry;
-    private BundleConfigHome configHome;
+    private ModuleConfigHome configHome;
 
-    public DeployManagerImpl(ModuleContext context) {
-        configHome = new BundleConfigHome(Consts.DEPLOY_MANAGER_ID);
+    public DeployManagerImpl(ModuleContext context, ModuleConfigHome configHome) {
+        this.configHome = configHome;
         this.context = context;
         init();
         registry = new HashMap<String, UAPPStatus>();
@@ -391,12 +393,7 @@ public class DeployManagerImpl implements DeployManager,
         if (applicationRegistry == null) {
             try {
                 applicationRegistry = new Properties();
-                File appRegistry = configHome.getPropFile(Consts.APP_REGISTRY);
-                if (appRegistry.exists() == false) {
-                    appRegistry.getParentFile().mkdirs();
-                    appRegistry.createNewFile();
-                }
-                applicationRegistry.load(new FileInputStream(appRegistry));
+                applicationRegistry.load(configHome.getConfFileAsStream(Consts.APP_REGISTRY));
             } catch (Exception ex) {
                 applicationRegistry = null;
                 LogUtils.logError(
@@ -414,12 +411,12 @@ public class DeployManagerImpl implements DeployManager,
         if (applicationRegistry == null)
             return;
 
-        FileOutputStream fos = new FileOutputStream(Consts.APP_REGISTRY);
+        OutputStream os = configHome.getConfFileAsOutputStream(Consts.APP_REGISTRY);
         applicationRegistry
-                .store(fos,
+                .store(os,
                         "universAAL Deploy Manager Installation registry, the format is serviceId:applicationId=<application layout registry file>");
-        fos.flush();
-        fos.close();
+        os.flush();
+        os.close();
 
     }
 
@@ -443,15 +440,12 @@ public class DeployManagerImpl implements DeployManager,
                     parts.setProperty(peer.getPeerID() + "/" + i, partId);
                 }
             }
-            File partsRegistryFile = configHome.getPropFile(partRegistry);
-            if (partsRegistryFile.exists() == false) {
-                partsRegistryFile.getParentFile().mkdirs();
-            }
-            FileOutputStream fos = new FileOutputStream(partsRegistryFile);
-            apps.store(fos, "universAAL Deploy layout details for application '" + appKey
+
+            OutputStream os = configHome.getConfFileAsOutputStream(partRegistry);
+            apps.store(os, "universAAL Deploy layout details for application '" + appKey
                     + "', the format is peerId/<index>=partId");
-            fos.flush();
-            fos.close();
+            os.flush();
+            os.close();
         } catch (Exception ex) {
             LogUtils.logError(
                     context,
@@ -470,15 +464,11 @@ public class DeployManagerImpl implements DeployManager,
     private Properties getInstallationLayout(String serviceId, String id) {
         try {
             final String appKey = serviceId + ":" + id;
-            File layoutFile = configHome.getPropFile(getApplicationRegistry()
-                    .getProperty(appKey));
-            if (layoutFile.exists() == false) {
-                layoutFile.getParentFile().mkdirs();
-                layoutFile.createNewFile();
-            }
-            FileInputStream fis = new FileInputStream(layoutFile);
+            String layoutFile = getApplicationRegistry().getProperty(appKey);
+            
+            InputStream is = configHome.getConfFileAsStream(layoutFile);
             Properties layout = new Properties();
-            layout.load(fis);
+            layout.load(is);
             return layout;
         } catch (Exception ex) {
             LogUtils.logError(
