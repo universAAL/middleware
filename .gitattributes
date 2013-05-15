@@ -2419,6 +2419,9 @@ mw.interfaces.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/interf
 mw.interfaces.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/mpa/model/VersionType.java -text
 mw.interfaces.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/mpa/model/package-info.java -text
 mw.interfaces.core-1.3.2-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/utils/Util.java -text
+mw.interfaces.osgi-1.3.2-SNAPSHOT/LICENSE.txt -text
+mw.interfaces.osgi-1.3.2-SNAPSHOT/NOTICE.txt -text
+mw.interfaces.osgi-1.3.2-SNAPSHOT/pom.xml -text
 mw.managers.aalspace.core-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.managers.aalspace.core-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.managers.aalspace.core-1.3.2-SNAPSHOT/pom.xml -text

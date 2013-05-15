@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>mw.pom.osgi</artifactId>
+		<groupId>org.universAAL.middleware</groupId>
+		<version>1.3.2-SNAPSHOT</version>
+		<relativePath>../mw.pom.osgi</relativePath>
+	</parent>
+
+	<groupId>org.universAAL.middleware</groupId>
+	<artifactId>mw.interfaces.osgi</artifactId>
+	<packaging>bundle</packaging>
+	<version>1.3.2-SNAPSHOT</version>
+	<name>universAAL Middleware Interfaces (OSGi)</name>
+	
+	<dependencies>
+		<dependency>
+		  <groupId>org.universAAL.support</groupId>
+		  <artifactId>itests</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.interfaces.core</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Author><![CDATA[Michele Girolami <michele.girolami@isti.cnr.it>, Francesco Furfari <francesco.furfari@isti.cnr.it>]]></Bundle-Author>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Provider>ISTI-CNR</Bundle-Provider>
+						<Export-Package>
+							org.universAAL.middleware.interfaces,
+							org.universAAL.middleware.interfaces.aalspace,
+							org.universAAL.middleware.interfaces.mpa.model,
+							org.universAAL.middleware.interfaces.mpa,
+							org.universAAL.middleware.interfaces.utils</Export-Package>
+						<Private-Package />
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
