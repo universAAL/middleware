@@ -6210,6 +6210,11 @@ mw.managers.deploy.core-1.3.2-SNAPSHOT/.classpath
 mw.managers.deploy.core-1.3.2-SNAPSHOT/.project
 mw.managers.deploy.core-1.3.2-SNAPSHOT/.settings
 mw.managers.deploy.core-1.3.2-SNAPSHOT/target
+mw.managers.deploy.osgi-1.3.2-SNAPSHOT/.classpath
+mw.managers.deploy.osgi-1.3.2-SNAPSHOT/.project
+mw.managers.deploy.osgi-1.3.2-SNAPSHOT/.settings
+mw.managers.deploy.osgi-1.3.2-SNAPSHOT/etc
+mw.managers.deploy.osgi-1.3.2-SNAPSHOT/target
 mw.modules.aalspace.core-1.3.2-SNAPSHOT/.classpath
 mw.modules.aalspace.core-1.3.2-SNAPSHOT/.project
 mw.modules.aalspace.core-1.3.2-SNAPSHOT/.settings
