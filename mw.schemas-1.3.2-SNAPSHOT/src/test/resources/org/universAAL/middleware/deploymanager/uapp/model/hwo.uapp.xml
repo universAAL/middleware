@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?><aal-uapp xmlns='http://universaal.org/aal-uapp/v1.0.0' xmlns:krf='http://karaf.apache.org/xmlns/features/v1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://universaal.org/aal-uapp/v1.0.0 AAL-UAPP.xsd'><app><name>Help When Outdoor </name><version><major>0</major><minor>3</minor><micro>0</micro><build></build></version><appId>32453</appId><description>Help When Outdoor application</description><multipart>true</multipart><tags></tags><applicationProvider><organizationName>UPV</organizationName><certificate></certificate><contactPerson>Gema Ibanez</contactPerson><streetAddress></streetAddress><email>geibsan@itaca.upv.es</email><webAddress>http://www.upv.es</webAddress><phone></phone></applicationProvider><licenses><license><category>EXTERNAL</category><name>MIT</name><link>MITX.txt</link></license><sla><name>ASL 2.0</name><link>ASL2.0.txt</link></sla></licenses><applicationProfile>org.universAAL.ontology.profile.AALAppSubProfile</applicationProfile></app><applicationCapabilities><capability><name>TARGET_SPACE_VERSION</name><value>1.0.0</value></capability><capability><name>TARGET_SPACE</name><value>HOME</value></capability><capability><name>ONTOLOGIES</name><value>ont.profile, ont.phWorld</value></capability></applicationCapabilities><applicationRequirements></applicationRequirements><applicationManagement><contactPoint>Gema Ibanez</contactPoint><remoteManagement><protocols></protocols><software><artifactId>hwo.mobile</artifactId><version><major>D</major><minor>0</minor><micro>1</micro><build>SNAPSHOT</build></version></software><protocols></protocols><software><artifactId>hwo.servlet</artifactId><version><major>D</major><minor>0</minor><micro>1</micro><build>SNAPSHOT</build></version></software></remoteManagement></applicationManagement><applicationPart><part partId='part1'><partCapabilities><capability><name>TARGET_CONTAINER_VERSION</name><value>2.3</value></capability><capability><name>TARGET_SPACE_VERSION</name><value>1.0.0</value></capability><capability><name>TARGET_DEPLOYMENT_TOOL</name><value>uCC</value></capability></partCapabilities><partRequirements></partRequirements><deploymentUnit id='_1A'><containerUnit><karaf><embedding>ANY_CONTAINER</embedding>
+<krf:features>
+ <krf:feature  name='mw.data.representation.osgi'  version='1.3.0'   >
+    <krf:bundle>mvn:org.universAAL.middleware/mw.data.representation.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='mw.bus.ui.osgi'  version='1.3.0'   >
+    <krf:feature version='1.3.0'>mw.data.representation.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.middleware/mw.bus.ui.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='mw.bus.service.osgi'  version='1.3.0'   >
+    <krf:feature version='1.3.0'>mw.data.representation.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.middleware/mw.bus.service.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='ui.handler.sms'  version='1.3.0'   >
+    <krf:feature version='1.3.0'>mw.bus.ui.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.ontology/ont.impairment/1.3.1-SNAPSHOT</krf:bundle>
+    <krf:bundle>mvn:org.universAAL.ui/ui.handler.sms/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='ont.phWorld'  version='1.3.1-SNAPSHOT'   >
+    <krf:feature version='1.3.0'>mw.bus.service.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.ontology/ont.phWorld/1.3.1-SNAPSHOT</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='mw.bus.context.osgi'  version='1.3.0'   >
+    <krf:feature version='1.3.0'>mw.data.representation.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.middleware/mw.bus.context.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='ont.profile'  version='1.3.2-SNAPSHOT'   >
+    <krf:feature version='1.3.1-SNAPSHOT'>ont.phWorld</krf:feature>
+    <krf:bundle>mvn:org.universAAL.ontology/ont.profile/1.3.2-SNAPSHOT</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='mw.container.osgi'  version='1.3.0'   >
+    <krf:bundle>mvn:org.ops4j.pax.logging/pax-logging-api/1.6.2</krf:bundle>
+    <krf:bundle>mvn:org.universAAL.middleware/mw.container.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='mw.container.xfaces.osgi'  version='1.3.0'   >
+    <krf:bundle>mvn:org.universAAL.middleware/mw.container.xfaces.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+<krf:feature name='Help When Outdoor - Mobile application' description='' version='D.0.1-SNAPSHOT' resolver=''><krf:feature version='1.3.0'>mw.bus.service.osgi</krf:feature><krf:feature version='1.3.0'>mw.container.xfaces.osgi</krf:feature><krf:feature version='1.3.0'>mw.container.osgi</krf:feature><krf:feature version='1.3.0'>mw.bus.ui.osgi</krf:feature><krf:feature version='1.3.0'>ui.handler.sms</krf:feature><krf:feature version='1.3.2-SNAPSHOT'>ont.profile</krf:feature><krf:feature version='1.3.1-SNAPSHOT'>ont.phWorld</krf:feature><krf:feature version='1.3.0'>mw.bus.context.osgi</krf:feature><krf:feature version='1.3.0'>mw.data.representation.osgi</krf:feature><krf:bundle start-level='0' start='false'>file://../bin/part1/hwo.mobile-D.0.1-SNAPSHOT.jar</krf:bundle></krf:feature></krf:features>
+</karaf></containerUnit></deploymentUnit></part><part partId='part2'><partCapabilities><capability><name>TARGET_CONTAINER_VERSION</name><value>2.3.1</value></capability><capability><name>MW_VERSION</name><value>2.0.0 Preview</value></capability><capability><name>TARGET_SPACE_VERSION</name><value>1.0.0</value></capability><capability><name>TARGET_DEPLOYMENT_TOOL</name><value>Karaf</value></capability></partCapabilities><partRequirements></partRequirements><deploymentUnit id='_2A'><containerUnit><karaf><embedding>ANY_CONTAINER</embedding>
+<krf:features>
+ <krf:feature  name='mw.data.representation.osgi'  version='1.3.0'   >
+    <krf:bundle>mvn:org.universAAL.middleware/mw.data.representation.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='mw.bus.ui.osgi'  version='1.3.0'   >
+    <krf:feature version='1.3.0'>mw.data.representation.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.middleware/mw.bus.ui.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='mw.bus.service.osgi'  version='1.3.0'   >
+    <krf:feature version='1.3.0'>mw.data.representation.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.middleware/mw.bus.service.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='ont.phWorld'  version='1.3.1-SNAPSHOT'   >
+    <krf:feature version='1.3.0'>mw.bus.service.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.ontology/ont.phWorld/1.3.1-SNAPSHOT</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='mw.bus.context.osgi'  version='1.3.0'   >
+    <krf:feature version='1.3.0'>mw.data.representation.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.middleware/mw.bus.context.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='mw.container.osgi'  version='1.3.0'   >
+    <krf:bundle>mvn:org.ops4j.pax.logging/pax-logging-api/1.6.2</krf:bundle>
+    <krf:bundle>mvn:org.universAAL.middleware/mw.container.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='mw.container.xfaces.osgi'  version='1.3.0'   >
+    <krf:bundle>mvn:org.universAAL.middleware/mw.container.xfaces.osgi/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='ri.servicegateway'  version='1.3.0'   >
+    <krf:feature version='1.3.0'>mw.bus.service.osgi</krf:feature>
+    <krf:feature version='1.3.0'>mw.container.xfaces.osgi</krf:feature>
+    <krf:feature version='1.3.0'>mw.container.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.security/security.authorizator/1.3.0</krf:bundle>
+    <krf:bundle>mvn:org.ops4j.pax.web/pax-web-jetty-bundle/1.0.3</krf:bundle>
+    <krf:bundle>mvn:org.universAAL.remote/ri.servicegateway/1.3.0</krf:bundle>
+ </krf:feature>
+ <krf:feature  name='ri.gateway.communicator'  version='1.3.0'   >
+    <krf:feature version='1.3.0'>mw.bus.ui.osgi</krf:feature>
+    <krf:feature version='1.3.0'>mw.bus.service.osgi</krf:feature>
+    <krf:feature version='1.3.0'>mw.bus.context.osgi</krf:feature>
+    <krf:feature version='1.3.0'>mw.container.xfaces.osgi</krf:feature>
+    <krf:feature version='1.3.0'>mw.container.osgi</krf:feature>
+    <krf:bundle>mvn:org.universAAL.middleware/mw.bus.tracker.osgi/1.3.0</krf:bundle>
+    <krf:bundle>mvn:org.universAAL.remote/ri.gateway.communicator/1.3.0</krf:bundle>
+ </krf:feature>
+<krf:feature name='Help When Outdoor' description='' version='D.0.1-SNAPSHOT' resolver=''><krf:feature version='1.3.0'>mw.bus.service.osgi</krf:feature><krf:feature version='1.3.0'>ri.servicegateway</krf:feature><krf:feature version='1.3.0'>mw.container.xfaces.osgi</krf:feature><krf:feature version='1.3.0'>mw.container.osgi</krf:feature><krf:feature version='1.3.0'>mw.bus.ui.osgi</krf:feature><krf:feature version='1.3.0'>ri.gateway.communicator</krf:feature><krf:feature version='1.3.1-SNAPSHOT'>ont.phWorld</krf:feature><krf:feature version='1.3.0'>mw.bus.context.osgi</krf:feature><krf:feature version='1.3.0'>mw.data.representation.osgi</krf:feature><krf:bundle start-level='0' start='false'>file://../bin/part2/hwo.servlet-D.0.1-SNAPSHOT.jar</krf:bundle></krf:feature></krf:features>
+</karaf></containerUnit></deploymentUnit><executionUnit><deploymentUnit>_2A</deploymentUnit><configFiles>config.properties</configFiles><spaceStartLevel>0</spaceStartLevel></executionUnit></part></applicationPart></aal-uapp>
