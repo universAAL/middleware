@@ -5425,6 +5425,10 @@ mw.interfaces.core-1.3.2-SNAPSHOT/.project
 mw.interfaces.core-1.3.2-SNAPSHOT/.settings
 mw.interfaces.core-1.3.2-SNAPSHOT/bin
 mw.interfaces.core-1.3.2-SNAPSHOT/target
+mw.managers.aalspace.core-1.3.2-SNAPSHOT/.classpath
+mw.managers.aalspace.core-1.3.2-SNAPSHOT/.project
+mw.managers.aalspace.core-1.3.2-SNAPSHOT/.settings
+mw.managers.aalspace.core-1.3.2-SNAPSHOT/target
 mw.managers.api.core-1.3.2-SNAPSHOT/.classpath
 mw.managers.api.core-1.3.2-SNAPSHOT/.project
 mw.managers.api.core-1.3.2-SNAPSHOT/.settings
