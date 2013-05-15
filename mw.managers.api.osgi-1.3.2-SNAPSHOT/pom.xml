@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <artifactId>mw.pom.osgi</artifactId>
+      <groupId>org.universAAL.middleware</groupId>
+      <version>1.3.2-SNAPSHOT</version>
+      <relativePath>../mw.pom.osgi</relativePath>
+   </parent>
+
+   <groupId>org.universAAL.middleware</groupId>
+   <artifactId>mw.managers.api.osgi</artifactId>
+   <packaging>bundle</packaging>
+   <version>1.3.2-SNAPSHOT</version>
+   <name>universAAL Middleware Manager API (OSGi)</name>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.universAAL.middleware</groupId>
+         <artifactId>mw.managers.api.core</artifactId>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <extensions>true</extensions>
+            <configuration>
+               <instructions>
+                  <Bundle-Author><![CDATA[Michele Girolami <michele.girolami@isti.cnr.it>, Filippo Palumbo <filippo.palumbo@isti.cnr.it>, Francesco Furfari <francesco.furfari@isti.cnr.it>]]></Bundle-Author>
+                  <Bundle-Name>${project.name}</Bundle-Name>
+                  <Bundle-Description>${project.description}</Bundle-Description>
+                  <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                  <Export-Package>
+                     org.universAAL.middleware.managers.api
+                  </Export-Package>
+                  <Import-Package>
+                     org.universAAL.middleware.interfaces,
+                     org.universAAL.middleware.deploymanager.uapp.model,
+                     org.universAAL.middleware.interfaces.aalspace,
+                     org.universAAL.middleware.interfaces.mpa
+                   </Import-Package>
+               </instructions>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+</project>
