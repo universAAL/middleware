@@ -391,8 +391,12 @@ public class DeployManagerImpl implements DeployManager,
         if (applicationRegistry == null) {
             try {
                 applicationRegistry = new Properties();
-                applicationRegistry.load(new FileInputStream(configHome
-                        .getPropFile(Consts.APP_REGISTRY)));
+                File appRegistry = configHome.getPropFile(Consts.APP_REGISTRY);
+                if (appRegistry.exists() == false) {
+                    appRegistry.getParentFile().mkdirs();
+                    appRegistry.createNewFile();
+                }
+                applicationRegistry.load(new FileInputStream(appRegistry));
             } catch (Exception ex) {
                 applicationRegistry = null;
                 LogUtils.logError(
@@ -439,10 +443,13 @@ public class DeployManagerImpl implements DeployManager,
                     parts.setProperty(peer.getPeerID() + "/" + i, partId);
                 }
             }
-            FileOutputStream fos = new FileOutputStream(
-                    configHome.getPropFile(partRegistry));
-            apps.store(fos, "universAAL " + appKey
-                    + " Deploy layout, the format is peerId/<index>=partId");
+            File partsRegistryFile = configHome.getPropFile(partRegistry);
+            if (partsRegistryFile.exists() == false) {
+                partsRegistryFile.getParentFile().mkdirs();
+            }
+            FileOutputStream fos = new FileOutputStream(partsRegistryFile);
+            apps.store(fos, "universAAL Deploy layout details for application '" + appKey
+                    + "', the format is peerId/<index>=partId");
             fos.flush();
             fos.close();
         } catch (Exception ex) {
@@ -463,9 +470,13 @@ public class DeployManagerImpl implements DeployManager,
     private Properties getInstallationLayout(String serviceId, String id) {
         try {
             final String appKey = serviceId + ":" + id;
-            String layoutFile = getApplicationRegistry().getProperty(appKey);
-            FileInputStream fis = new FileInputStream(
-                    configHome.getPropFile(layoutFile));
+            File layoutFile = configHome.getPropFile(getApplicationRegistry()
+                    .getProperty(appKey));
+            if (layoutFile.exists() == false) {
+                layoutFile.getParentFile().mkdirs();
+                layoutFile.createNewFile();
+            }
+            FileInputStream fis = new FileInputStream(layoutFile);
             Properties layout = new Properties();
             layout.load(fis);
             return layout;
