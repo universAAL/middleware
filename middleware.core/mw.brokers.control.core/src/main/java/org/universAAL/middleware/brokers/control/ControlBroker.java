@@ -951,7 +951,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
                     null);
             if (msg.getPayload() != null && msg.getPayload().getPart() != null) {
                 File file = FileUtils.createFileFromByte(context, msg
-                        .getPayload().getPart(), "part", false);
+                        .getPayload().getPart(), TMP_DEPLOY_FOLDER + "part", true);
                 if (file == null) {
                     LogUtils.logError(
                             context,
