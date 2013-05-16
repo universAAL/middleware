@@ -7,10 +7,10 @@ import org.universAAL.middleware.rdf.Resource;
 
 public class RoundTest extends TestCase {
 
-    public static String ELLA = "urn:org.aal-persona.profiling:12345:ella";
-    public static String STB = "urn:org.aal-persona.profiling:12345:STB_LivingRoom";
-    public static String HAS_LOCATION = "http://ontology.aal-persona.org/fake.owl#hasIndoorLocation";
-    public static String USER = "http://ontology.aal-persona.org/PERSONA.owl#User";
+    public static String ELLA = "urn:org.universAAL.profiling:12345:ella";
+    public static String STB = "urn:org.universAAL.profiling:12345:STB_LivingRoom";
+    public static String HAS_LOCATION = "http://ontology.universAAL.org/fake.owl#hasIndoorLocation";
+    public static String USER = "http://ontology.universAAL.org/profile.owl#User";
 
     public RoundTest(String name) {
 	super(name);
