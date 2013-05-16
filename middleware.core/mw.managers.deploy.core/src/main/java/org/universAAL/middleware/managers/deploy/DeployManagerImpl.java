@@ -253,8 +253,12 @@ public class DeployManagerImpl implements DeployManager,
         }
 
         final Map<PeerCard, List<Part>> layout = application.getDeploy();
-        String applicationFolderURI = application.getFolder().toString() + "/"
-                + Consts.APPLICATION_CONFIGURATION_PATH;
+        String appSrcDir = application.getFolder().toString();
+        if ( appSrcDir.endsWith( "/" ) ) {
+            appSrcDir = appSrcDir + Consts.APPLICATION_CONFIGURATION_PATH;
+        } else {
+            appSrcDir = appSrcDir +"/" +Consts.APPLICATION_CONFIGURATION_PATH;
+        }
         URI applicationConfigurationFolder = null;
         try {
             LogUtils.logInfo(
@@ -262,8 +266,8 @@ public class DeployManagerImpl implements DeployManager,
                     DeployManagerImpl.class,
                     "requestToInstall",
                     new Object[] { "Trying to access to application folder identified by the URI "
-                            + applicationFolderURI }, null);
-            applicationConfigurationFolder = new URI(applicationFolderURI);
+                            + appSrcDir }, null);
+            applicationConfigurationFolder = new URI(appSrcDir);
         } catch (URISyntaxException e1) {
             LogUtils.logError(
                     context,
@@ -465,7 +469,7 @@ public class DeployManagerImpl implements DeployManager,
         try {
             final String appKey = serviceId + ":" + id;
             String layoutFile = getApplicationRegistry().getProperty(appKey);
-            
+
             InputStream is = configHome.getConfFileAsStream(layoutFile);
             Properties layout = new Properties();
             layout.load(is);
