@@ -183,7 +183,6 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/profile/ResponseTimeInMilliseconds.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/profile/ServiceProfile.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/profile/SingleLocationParameter.java -text
-middleware.core/mw.bus.service.core/src/main/resources/org/persona/middleware/peer.properties -text
 middleware.core/mw.bus.tracker.core/ASL2.0.txt -text
 middleware.core/mw.bus.tracker.core/MITX.txt -text
 middleware.core/mw.bus.tracker.core/pom.xml -text
