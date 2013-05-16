@@ -128,9 +128,6 @@ public class DeployManagerImpl implements DeployManager,
 
     public boolean init() {
         if (!initialized) {
-            FileUtils.createFileFromByte(context, new byte[] {},
-                    Consts.APP_REGISTRY, false);
-
             LogUtils.logDebug(context, DeployManagerImpl.class,
                     "DeployManagerImpl",
                     new Object[] { "Initializing the DeployManager..." }, null);
