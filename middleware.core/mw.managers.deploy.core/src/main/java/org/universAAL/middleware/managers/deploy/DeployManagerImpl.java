@@ -446,7 +446,7 @@ public class DeployManagerImpl implements DeployManager,
             }
 
             OutputStream os = configHome.getConfFileAsOutputStream(partRegistry);
-            apps.store(os, "universAAL Deploy layout details for application '" + appKey
+            parts.store(os, "universAAL Deploy layout details for application '" + appKey
                     + "', the format is peerId/<index>=partId");
             os.flush();
             os.close();
