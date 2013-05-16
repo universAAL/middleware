@@ -181,11 +181,6 @@ public class ControlMessage implements BrokerMessage {
         return messageType;
     }
 
-    public String marshall(BrokerMessage message) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     public static ControlMessage unmarshall(String message) throws Exception {
         JSONObject obj = new JSONObject(message);
         BrokerMessageTypes type = BrokerMessageTypes.valueOf(obj
