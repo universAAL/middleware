@@ -702,11 +702,17 @@ middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connecto
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/AalUapp.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ArtifactType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Broker.java -text
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Bundle.java svneol=native#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/CapabilityType.java -text
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Config.java svneol=native#text/plain
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ConfigFile.java svneol=native#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ContactType.java -text
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Dependency.java svneol=native#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/DeploymentUnit.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/EmbeddingType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ExecutionUnit.java -text
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Feature.java svneol=native#text/plain
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/FeaturesRoot.java svneol=native#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LicenseCategoryType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LicenseType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LogicalCriteriaType.java -text
