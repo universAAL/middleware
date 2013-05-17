@@ -700,8 +700,6 @@ middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connecto
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/ObjectFactory.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/package-info.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/AalUapp.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/AalUsrv.java svneol=native#text/plain
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ApplicationType.java svneol=native#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ArtifactType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Broker.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/CapabilityType.java -text
@@ -709,8 +707,6 @@ middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deployma
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/DeploymentUnit.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/EmbeddingType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ExecutionUnit.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/HardwareType.java svneol=native#text/plain
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/HumanType.java svneol=native#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LicenseCategoryType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LicenseType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LogicalCriteriaType.java -text
@@ -727,7 +723,6 @@ middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deployma
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ReqType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/SpaceType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ToBeDefined.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ToBeDefinedUSRVField.java svneol=native#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/VersionType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/package-info.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/Aalspace.java -text
