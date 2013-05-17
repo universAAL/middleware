@@ -4,10 +4,17 @@
 					Francesco Furfari furfari@isti.cnr.it
 					Filippo Palumbo palumbo@isti.cnr.it
 					Stefano Lenzi stefano.lenzi@isti.cnr.it
-					Venelin Arnaudov v.arnaudov@prosyst.com
+		Venelin Arnaudov v.arnaudov@prosyst.com
 	-->
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" jaxb:extensionBindingPrefixes="xjc" jaxb:version="1.0" targetNamespace="http://universaal.org/aal-uapp/v1.0.0" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:krf="http://karaf.apache.org/xmlns/features/v1.0.0" xmlns:uapp="http://universaal.org/aal-uapp/v1.0.0" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-				<xs:import namespace="http://karaf.apache.org/xmlns/features/v1.0.0" schemaLocation="karaf-provvisioning-v1.0.0.xsd"/>
+<xs:schema attributeFormDefault="unqualified" 
+elementFormDefault="qualified" 
+jaxb:extensionBindingPrefixes="xjc" jaxb:version="1.0" 
+targetNamespace="http://www.universaal.org/aal-uapp/v1.0.0" 
+xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+xmlns:krf="http://karaf.apache.org/xmlns/features/v1.0.0" 
+xmlns:uapp="http://www.universaal.org/aal-uapp/v1.0.0" 
+xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+				<xs:import namespace="http://karaf.apache.org/xmlns/features/v1.0.0" schemaLocation="http://karaf.apache.org/xmlns/features/v1.0.0"/>
 				<xs:annotation>
 								<xs:appinfo>
 												<jaxb:globalBindings generateIsSetMethod="true">
@@ -234,8 +241,7 @@
 				<xs:element name="executionUnit">
 								<xs:complexType>
 												<xs:sequence>
-<!--																<xs:element name="deploymentUnit" type="xs:IDREF"/>
--->
+																<xs:element name="deploymentUnit" type="xs:IDREF"/>
 																<xs:element name="configFiles"/>
 																<xs:element name="spaceStartLevel" minOccurs="0"/>
 												</xs:sequence>
