@@ -798,6 +798,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
                         .getString(BrokerMessageFields.BROKER_MESSAGE_TYPE));
                 BrokerMessage msg = (BrokerMessage) unmarshall(message
                         .getContent());
+
                 switch (mtype) {
                 case DeployMessage:
                     handleDeployMessage(message.getSender(),

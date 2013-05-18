@@ -51,9 +51,6 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.ModuleConfigHome;
-import org.universAAL.middleware.deploymanager.uapp.model.AalUapp;
-import org.universAAL.middleware.deploymanager.uapp.model.ObjectFactory;
-import org.universAAL.middleware.deploymanager.uapp.model.Part;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
@@ -371,7 +368,7 @@ public class DeployManagerImpl implements DeployManager,
 
     private InstallationResults requestToInstallPart(UAPPCard card,
             PeerCard peer, byte[] content) {
-        final long TIMEOUT = 60 * 1000;
+        final long TIMEOUT = Long.parseLong( System.getProperty("uAAL.dm.timeout", "" + 5*60*1000), 5*60*1000 );
 
         if (isPeerPartOfSpace(peer.getPeerID()) == false) {
             return InstallationResults.MISSING_PEER;
