@@ -22,7 +22,7 @@ package org.universAAL.middleware.interfaces.mpa;
 
 import java.io.Serializable;
 
-import org.universAAL.middleware.deploymanager.uapp.model.AalUapp.App;
+import org.universAAL.middleware.deploymanager.uapp.model.model.AalUapp.App;
 
 /**
  * Compact representation of an uApp
