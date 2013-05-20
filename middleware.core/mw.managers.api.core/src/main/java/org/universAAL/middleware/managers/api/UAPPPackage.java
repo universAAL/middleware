@@ -20,12 +20,13 @@
  */
 package org.universAAL.middleware.managers.api;
 
+
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.deploymanager.uapp.model.model.Part;
+import org.universAAL.middleware.deploymanager.uapp.model.Part;
 
 /**
  * The deployment data required for installing an uApp on the platform, which is
