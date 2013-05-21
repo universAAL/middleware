@@ -224,10 +224,12 @@ public class uAALBundleContainer implements Container, ServiceListener {
 			bc.getService(sr), sr);
 	    break;
 	case ServiceEvent.UNREGISTERING:
-	    for (Iterator i = listenersLocalCopy.iterator(); i.hasNext();)
-		((SharedObjectListener) i.next()).sharedObjectRemoved(bc
-			.getService(sr));
-
+		for (Iterator i = listenersLocalCopy.iterator(); i.hasNext();) {
+			SharedObjectListener sol = (SharedObjectListener) i.next();
+			if (sol != null && bc != null) {
+					sol.sharedObjectRemoved(bc.getService(sr));
+			}
+		}
 	    break;
 	}
     }
