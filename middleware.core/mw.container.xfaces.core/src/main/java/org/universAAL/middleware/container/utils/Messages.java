@@ -187,8 +187,11 @@ public class Messages {
 	 * @return The value.
 	 */
 	public String getString(String key) {
-		String l = localizedMessages.getProperty(key);
-		if (l == null)
+		String l = null;
+		if (localizedMessages != null){
+			l = localizedMessages.getProperty(key);
+		}
+		if (l == null && defaultMessages != null)
 			l = defaultMessages.getProperty(key);
 
 		return (l == null) ? key : l;
