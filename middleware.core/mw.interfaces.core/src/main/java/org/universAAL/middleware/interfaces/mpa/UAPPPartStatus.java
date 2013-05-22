@@ -29,5 +29,5 @@ package org.universAAL.middleware.interfaces.mpa;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public enum UAPPPartStatus {
-    PART_INSTALLED, PART_NOT_INSTALLED, PART_PENDING, PART_UNINSTALLED, PART_NOT_UNINSTALLED;
+    PART_INSTALLED, PART_NOT_INSTALLED, PART_PENDING, PART_UNINSTALLED, PART_NOT_UNINSTALLED, PART_MISSING_NEEDED_FILES;
 }
