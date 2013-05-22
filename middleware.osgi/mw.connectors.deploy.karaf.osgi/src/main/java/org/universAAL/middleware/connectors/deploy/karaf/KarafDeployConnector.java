@@ -50,13 +50,13 @@ import org.universAAL.middleware.interfaces.mpa.model.Part;
 
 /**
  * Implementation of the deploy Connector for the Karaf OSGi implementation
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class KarafDeployConnector implements DeployConnector,
-        SharedObjectListener {
+	SharedObjectListener {
 
     private String description;
     private String name;
@@ -72,13 +72,13 @@ public class KarafDeployConnector implements DeployConnector,
     private final static String UAPP_SUFFIX = ".uapp";
     private final static String KAR_EXTENSION = "kar";
     private final static String KAR_DEPLOY_DIR = System.getProperty(
-            "org.universeAAL.connector.karaf.deploydir", "deploy");
+	    "org.universeAAL.connector.karaf.deploydir", "deploy");
     private final static String UAAL_DEPLOY_DIR = System.getProperty(
-            "org.universeAAL.deploy.connector.deploydir", "uAAL"
-                    + File.separator + "deploy");
+	    "org.universeAAL.deploy.connector.deploydir", "uAAL"
+		    + File.separator + "deploy");
     private final static String UAAL_TMP_DIR = System.getProperty(
-            "org.universeAAL.deploy.connector.tmpdir", "uAAL"
-                    + File.separator + "tmp");
+	    "org.universeAAL.deploy.connector.tmpdir", "uAAL" + File.separator
+		    + "tmp");
     private static final String JAR_EXTENSION = "jar";
 
     // JAXB
@@ -91,317 +91,390 @@ public class KarafDeployConnector implements DeployConnector,
     private Properties registry;
 
     private ControlBroker getControlBroker() {
-        synchronized (this) {
-            if (controlBroker != null) {
-                return controlBroker;
-            }
-            Object[] cBrokers = context.getContainer().fetchSharedObject(
-                    context,
-                    new Object[] { ControlBroker.class.getName().toString() },
-                    this);
-            if (cBrokers != null) {
-                LogUtils.logDebug(context, KarafDeployConnector.class,
-                        "DeployManagerImpl",
-                        new Object[] { "Found  ContextBrokers..." }, null);
-                if (cBrokers[0] instanceof ControlBroker) {
-                    controlBroker = (ControlBroker) cBrokers[0];
-                } else {
-                    return null;
-                }
-            }
-            return controlBroker;
-        }
+	synchronized (this) {
+	    if (controlBroker != null) {
+		return controlBroker;
+	    }
+	    Object[] cBrokers = context.getContainer().fetchSharedObject(
+		    context,
+		    new Object[] { ControlBroker.class.getName().toString() },
+		    this);
+	    if (cBrokers != null) {
+		LogUtils.logDebug(context, KarafDeployConnector.class,
+			"DeployManagerImpl",
+			new Object[] { "Found  ContextBrokers..." }, null);
+		if (cBrokers[0] instanceof ControlBroker) {
+		    controlBroker = (ControlBroker) cBrokers[0];
+		} else {
+		    return null;
+		}
+	    }
+	    return controlBroker;
+	}
     }
 
     public boolean init() {
-        return getControlBroker() != null;
+	return getControlBroker() != null;
     }
 
     public KarafDeployConnector(ModuleContext context) {
-        this.context = context;
-        try {
-            jc = JAXBContext.newInstance(ObjectFactory.class);
+	this.context = context;
+	try {
+	    jc = JAXBContext.newInstance(ObjectFactory.class);
 
-            jcKaraf = JAXBContext
-                    .newInstance(org.universAAL.middleware.connectors.deploy.karaf.model.ObjectFactory.class);
-            unmarshallerKaraf = jcKaraf.createUnmarshaller();
-            unmarshaller = jc.createUnmarshaller();
-            marshaller = jc.createMarshaller();
-            marshallerKaraf = jcKaraf.createMarshaller();
-        } catch (JAXBException e) {
-            LogUtils.logError(
-                    context,
-                    KarafDeployConnector.class,
-                    "KarafDeployConnector",
-                    new Object[] { "Error during Deploy Karaf parser intialization: "
-                            + e.toString() }, null);
-        }
+	    jcKaraf = JAXBContext
+		    .newInstance(org.universAAL.middleware.connectors.deploy.karaf.model.ObjectFactory.class);
+	    unmarshallerKaraf = jcKaraf.createUnmarshaller();
+	    unmarshaller = jc.createUnmarshaller();
+	    marshaller = jc.createMarshaller();
+	    marshallerKaraf = jcKaraf.createMarshaller();
+	} catch (JAXBException e) {
+	    LogUtils.logError(
+		    context,
+		    KarafDeployConnector.class,
+		    "KarafDeployConnector",
+		    new Object[] { "Error during Deploy Karaf parser intialization: "
+			    + e.toString() }, null);
+	}
     }
 
     public String getDescription() {
-        return this.description;
+	return this.description;
     }
 
     public String getName() {
-        return this.name;
+	return this.name;
     }
 
     public String getProvider() {
-        return this.provider;
+	return this.provider;
     }
 
     public String getVersion() {
-        return this.version;
+	return this.version;
     }
 
     public void loadConfigurations(Dictionary configurations) {
-        LogUtils.logDebug(context, KarafDeployConnector.class,
-                "KarafDeployConnector",
-                new Object[] { "updating Karaf Deploy Connector properties" },
-                null);
-        if (configurations == null) {
-            LogUtils.logDebug(
-                    context,
-                    KarafDeployConnector.class,
-                    "KarafDeployConnector",
-                    new Object[] { "Karaf Deploy Connector properties are null" },
-                    null);
-            return;
-        }
-        try {
-            this.name = (String) configurations
-                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_NAME);
-            this.version = (String) configurations
-                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_VERSION);
-            this.description = (String) configurations
-                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_DESCRIPTION);
-            this.provider = (String) configurations
-                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_PROVIDER);
+	LogUtils.logDebug(context, KarafDeployConnector.class,
+		"KarafDeployConnector",
+		new Object[] { "updating Karaf Deploy Connector properties" },
+		null);
+	if (configurations == null) {
+	    LogUtils.logDebug(
+		    context,
+		    KarafDeployConnector.class,
+		    "KarafDeployConnector",
+		    new Object[] { "Karaf Deploy Connector properties are null" },
+		    null);
+	    return;
+	}
+	try {
+	    this.name = (String) configurations
+		    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_NAME);
+	    this.version = (String) configurations
+		    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_VERSION);
+	    this.description = (String) configurations
+		    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_DESCRIPTION);
+	    this.provider = (String) configurations
+		    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_PROVIDER);
 
-        } catch (NullPointerException e) {
-            LogUtils.logError(
-                    context,
-                    KarafDeployConnector.class,
-                    "KarafDeployConnector",
-                    new Object[] { "Error during Karaf Deploy properties update" },
-                    null);
-        } catch (Exception e) {
-            LogUtils.logError(
-                    context,
-                    KarafDeployConnector.class,
-                    "KarafDeployConnector",
-                    new Object[] { "Error during Karaf Deploy properties update" },
-                    null);
-        }
-        LogUtils.logDebug(context, KarafDeployConnector.class,
-                "KarafDeployConnector",
-                new Object[] { "Error during Karaf Deploy properties update" },
-                null);
+	} catch (NullPointerException e) {
+	    LogUtils.logError(
+		    context,
+		    KarafDeployConnector.class,
+		    "KarafDeployConnector",
+		    new Object[] { "Error during Karaf Deploy properties update" },
+		    null);
+	} catch (Exception e) {
+	    LogUtils.logError(
+		    context,
+		    KarafDeployConnector.class,
+		    "KarafDeployConnector",
+		    new Object[] { "Error during Karaf Deploy properties update" },
+		    null);
+	}
+	LogUtils.logDebug(context, KarafDeployConnector.class,
+		"KarafDeployConnector",
+		new Object[] { "Error during Karaf Deploy properties update" },
+		null);
     }
 
     public void sharedObjectAdded(Object service, Object arg1) {
-        if (service instanceof ControlBroker) {
-            LogUtils.logDebug(context, KarafDeployConnector.class,
-                    "DeployManagerImpl",
-                    new Object[] { "ControlBroker service added" }, null);
-            synchronized (this) {
-                this.controlBroker = (ControlBroker) service;
-            }
-        }
+	if (service instanceof ControlBroker) {
+	    LogUtils.logDebug(context, KarafDeployConnector.class,
+		    "DeployManagerImpl",
+		    new Object[] { "ControlBroker service added" }, null);
+	    synchronized (this) {
+		this.controlBroker = (ControlBroker) service;
+	    }
+	}
 
     }
 
     public void sharedObjectRemoved(Object service) {
-        synchronized (this) {
-            if (controlBroker == service) {
-                controlBroker = null;
-            }
-        }
+	synchronized (this) {
+	    if (controlBroker == service) {
+		controlBroker = null;
+	    }
+	}
 
     }
 
     private void unzipTo(File zip, File dir) throws IOException {
-        dir.mkdirs();
-        ZipInputStream zipFile = new ZipInputStream(new FileInputStream(zip));
-        ZipEntry zipEntry = null;
-        boolean end = false;
-        while (!end) {
-            ZipEntry entry = zipFile.getNextEntry();
-            if (entry != null) {
-                OutputStream out = null;
-                out = new FileOutputStream(new File(dir, entry.getName()));
+	dir.mkdirs();
+	ZipInputStream zipFile = new ZipInputStream(new FileInputStream(zip));
+	ZipEntry zipEntry = null;
+	boolean end = false;
+	while (!end) {
+	    ZipEntry entry = zipFile.getNextEntry();
+	    if (entry != null) {
+		OutputStream out = null;
+		out = new FileOutputStream(new File(dir, entry.getName()));
 
-                // Transfer bytes from the ZIP file to the output file
-                byte[] buf = new byte[1024];
-                int len;
-                while ((len = zipFile.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-                out.close();
-            } else {
-                end = true;
-            }
-        }
+		// Transfer bytes from the ZIP file to the output file
+		byte[] buf = new byte[1024];
+		int len;
+		while ((len = zipFile.read(buf)) > 0) {
+		    out.write(buf, 0, len);
+		}
+		out.close();
+	    } else {
+		end = true;
+	    }
+	}
 
     }
 
-
-    private String getInstalledKarafFile(UAPPCard card) throws IOException{
-        registry = getInstallationRegistry();
-        String key = card.getServiceId() + ":" + card.getId() + ":"
-                + card.getPartId();
-        return registry.getProperty(key);
+    private String getInstalledKarafFile(UAPPCard card) throws IOException {
+	registry = getInstallationRegistry();
+	String key = card.getServiceId() + ":" + card.getId() + ":"
+		+ card.getPartId();
+	return registry.getProperty(key);
     }
 
     private void updateInstalltionRegistry(UAPPCard card, String karFile)
-            throws IOException {
-        registry = getInstallationRegistry();
-        String key = card.getServiceId() + ":" + card.getId() + ":"
-                + card.getPartId();
-        if ( karFile == null ) {
-            registry.remove(key);
-        } else {
-            registry.setProperty(key, karFile);
-        }
-        FileOutputStream fos = new FileOutputStream(new File(UAAL_DEPLOY_DIR,
-                "deploy.registry"));
-        registry.store(fos, "universAAL Installation registry, format is serviceId:appId:partId=<path-to-karaf-file>");
-        fos.flush();
-        fos.close();
+	    throws IOException {
+	registry = getInstallationRegistry();
+	String key = card.getServiceId() + ":" + card.getId() + ":"
+		+ card.getPartId();
+	if (karFile == null) {
+	    registry.remove(key);
+	} else {
+	    registry.setProperty(key, karFile);
+	}
+	FileOutputStream fos = new FileOutputStream(new File(UAAL_DEPLOY_DIR,
+		"deploy.registry"));
+	registry.store(
+		fos,
+		"universAAL Installation registry, format is serviceId:appId:partId=<path-to-karaf-file>");
+	fos.flush();
+	fos.close();
     }
 
     private Properties getInstallationRegistry() throws IOException {
-        if (registry == null) {
-            registry = new Properties();
-            //TODO Using BundleConfigHome
-            File in = new File(UAAL_DEPLOY_DIR,
-                    "deploy.registry");
-            if ( in.exists() == false ) {
-                in.getParentFile().mkdirs();
-                in.createNewFile();
-            }
-            registry.load(new FileInputStream(in));
-        }
-        return registry;
+	if (registry == null) {
+	    registry = new Properties();
+	    // TODO Using BundleConfigHome
+	    File in = new File(UAAL_DEPLOY_DIR, "deploy.registry");
+	    if (in.exists() == false) {
+		in.getParentFile().mkdirs();
+		in.createNewFile();
+	    }
+	    registry.load(new FileInputStream(in));
+	}
+	return registry;
     }
 
     public void installPart(File zipfile, UAPPCard card) {
-        UAPPPartStatus result = UAPPPartStatus.PART_NOT_INSTALLED;
-        try {
-            result = m_installPart(zipfile, card);
-        } catch (Exception ex) {
+	UAPPPartStatus result = UAPPPartStatus.PART_NOT_INSTALLED;
+	try {
+	    result = m_installPart(zipfile, card);
+	} catch (Exception ex) {
 
-        }
-        synchronized (this) {
-            final ControlBroker broker = getControlBroker();
-            if (broker != null) {
-                broker.notifyRequestToInstallPart(card, card.getPartId(),
-                        result);
-            }
-        }
+	}
+	synchronized (this) {
+	    final ControlBroker broker = getControlBroker();
+	    if (broker != null) {
+		broker.notifyRequestToInstallPart(card, card.getPartId(),
+			result);
+	    }
+	}
     }
 
     public UAPPPartStatus m_installPart(File zipfile, UAPPCard card) {
-        final String METHOD = "installPart";
-        Part applicationPart = null;
-        try {
-            LogUtils.logInfo(context, KarafDeployConnector.class, METHOD,
-                    new Object[] { "Installing application part for uAAP:"
-                            + card.toString() }, null);
-            File parentPartDir = new File(UAAL_TMP_DIR);
-            unzipTo(zipfile, parentPartDir);
-            // check if I find a KAR archive
-            File[] listFiles = parentPartDir.listFiles();
-            for (File file : listFiles) {
-                String name = file.getName();
-                if ( name.endsWith(KAR_EXTENSION) == false)
-                    continue;
-                String uniquePrefix = installFile(file);
-                if ( uniquePrefix == null )
-                    return UAPPPartStatus.PART_NOT_INSTALLED;
+	final String METHOD = "installPart";
+	Part applicationPart = null;
+	try {
+	    LogUtils.logInfo(context, KarafDeployConnector.class, METHOD,
+		    new Object[] { "Installing application part for uAAP:"
+			    + card.toString() }, null);
+	    File parentPartDir = new File(UAAL_TMP_DIR);
+	    unzipTo(zipfile, parentPartDir);
+	    // check if I find a KAR archive
+	    File[] listFiles = parentPartDir.listFiles();
+	    File karFile = verifyValidZipContent(listFiles);
+	    if ( karFile == null ){
+		    LogUtils.logError(context, KarafDeployConnector.class, METHOD,
+			    new Object[] { "No valid part for installation" },
+			    null);
+		    return UAPPPartStatus.PART_MISSING_NEEDED_FILES;
+	    }
+	    String uniquePrefix = installFile(karFile);
+	    if (uniquePrefix == null)
+		return UAPPPartStatus.PART_NOT_INSTALLED;
 
-                updateInstalltionRegistry(card, uniquePrefix);
-            }
-        } catch (Exception e) {
-            LogUtils.logError(context, KarafDeployConnector.class, METHOD,
-                    new Object[] { "Error during installation of uAPP: " + e },
-                    e);
-            return UAPPPartStatus.PART_NOT_INSTALLED;
-        }
-        return UAPPPartStatus.PART_INSTALLED;
+	    updateInstalltionRegistry(card, uniquePrefix);
+	} catch (Exception e) {
+	    LogUtils.logError(context, KarafDeployConnector.class, METHOD,
+		    new Object[] { "Error during installation of uAPP: " + e },
+		    e);
+	    return UAPPPartStatus.PART_NOT_INSTALLED;
+	}
+	return UAPPPartStatus.PART_INSTALLED;
+    }
+
+    private File verifyValidZipContent(File[] listFiles) {
+	final String METHOD = "verifyValidZipContent";
+	int karFiles = 0;
+	File validKarafFile = null;
+	for (File file : listFiles) {
+	    String name = file.getName();
+	    if (name.endsWith(KAR_EXTENSION) == false
+		    && name.endsWith(JAR_EXTENSION) == false) {
+		LogUtils.logWarn(
+			context,
+			KarafDeployConnector.class,
+			METHOD,
+			new Object[] { "The part contain unexpected file that will be ignored "
+				+ file.getAbsolutePath() }, null);
+		continue;
+	    } else if (name.endsWith(KAR_EXTENSION) == false
+		    && name.endsWith(JAR_EXTENSION) == true) {
+		continue;
+	    } else if (name.endsWith(KAR_EXTENSION) == true
+		    && name.endsWith(JAR_EXTENSION) == false) {
+		karFiles++;
+	    }
+
+	    final String jarname = extractExentsion(name, KAR_EXTENSION) + "."
+		    + JAR_EXTENSION;
+	    File jarFile = new File(file.getParent(), jarname);
+	    if (jarFile.exists() == false) {
+		validKarafFile = file;
+	    } else {
+		LogUtils.logWarn(
+			context,
+			KarafDeployConnector.class,
+			METHOD,
+			new Object[] { "The part has karaf file "
+				+ file.getAbsolutePath()
+				+ " but it miss the twin JAR file " + jarname },
+			null);
+	    }
+	}
+	if (karFiles > 1 && validKarafFile != null) {
+	    LogUtils.logWarn(
+		    context,
+		    KarafDeployConnector.class,
+		    METHOD,
+		    new Object[] { "The part contains too many karaf file only "
+			    + validKarafFile.getAbsolutePath()
+			    + " and the twin JAR file will be installed" },
+		    null);
+	} else if (karFiles > 1 && validKarafFile == null) {
+	    LogUtils.logWarn(
+		    context,
+		    KarafDeployConnector.class,
+		    METHOD,
+		    new Object[] { "The part contains too many karaf file and none of them with a twin JAR so nothing will be installed" },
+		    null);
+	} else if (karFiles == 0 ) {
+	    LogUtils.logWarn(
+		    context,
+		    KarafDeployConnector.class,
+		    METHOD,
+		    new Object[] { "The part contains no karaf file nothing will be installed" },
+		    null);
+	}
+	return validKarafFile;
     }
 
     private String installFile(File file) {
-        final String METHOD = "installFile";
-        String fileName = file.getName();
-        fileName = fileName.substring(0, fileName.lastIndexOf("."+KAR_EXTENSION));
-        String uniquePrefix = fileName + "-" + System.currentTimeMillis();
-        String karfile = uniquePrefix
-                + "." + KAR_EXTENSION;
-        String jarfile = uniquePrefix
-                + "." + JAR_EXTENSION;
-        // copy kar file in the deploy dir
-        boolean result = file.renameTo(new File(KAR_DEPLOY_DIR,
-                karfile));
-        if (result == false) {
-            LogUtils.logError(context, KarafDeployConnector.class,
-                    METHOD,
-                    new Object[] { "Error during KAR installation of file "
-                            + file + " as " + uniquePrefix + "." + KAR_EXTENSION  }, null);
-            return null;
-        }
+	final String METHOD = "installFile";
+	String fileName = file.getName();
+	fileName = extractExentsion(fileName, KAR_EXTENSION);
 
-        LogUtils.logInfo(context, KarafDeployConnector.class, METHOD,
-                new Object[] { "Application part installed for uAAP:"
-                        }, null);
-        File jar = new File( file.getParent(), fileName + "." + JAR_EXTENSION );
-        result = jar.renameTo(new File(KAR_DEPLOY_DIR,
-                jarfile));
-        if (result == false) {
-            LogUtils.logError(context, KarafDeployConnector.class,
-                    METHOD,
-                    new Object[] { "Error during JAR installation of file "
-                            + jar + " as " + uniquePrefix + "." + JAR_EXTENSION  }, null);
-            return null;
-        }
-        return uniquePrefix;
+	String uniquePrefix = fileName + "-" + System.currentTimeMillis();
+	String karfile = uniquePrefix + "." + KAR_EXTENSION;
+	String jarfile = uniquePrefix + "." + JAR_EXTENSION;
+	// copy kar file in the deploy dir
+	boolean result = file.renameTo(new File(KAR_DEPLOY_DIR, karfile));
+	if (result == false) {
+	    LogUtils.logError(context, KarafDeployConnector.class, METHOD,
+		    new Object[] { "Error during KAR installation of file "
+			    + file + " as " + uniquePrefix + "."
+			    + KAR_EXTENSION }, null);
+	    return null;
+	}
+
+	LogUtils.logInfo(context, KarafDeployConnector.class, METHOD,
+		new Object[] { "Application part installed for uAAP:" }, null);
+	File jar = new File(file.getParent(), fileName + "." + JAR_EXTENSION);
+	result = jar.renameTo(new File(KAR_DEPLOY_DIR, jarfile));
+	if (result == false) {
+	    LogUtils.logError(
+		    context,
+		    KarafDeployConnector.class,
+		    METHOD,
+		    new Object[] { "Error during JAR installation of file "
+			    + jar + " as " + uniquePrefix + "." + JAR_EXTENSION },
+		    null);
+	    return null;
+	}
+	return uniquePrefix;
+    }
+
+    private String extractExentsion(String fn, String ext) {
+	return fn = fn.substring(0, fn.lastIndexOf("." + ext));
     }
 
     public void dispose() {
-        context.getContainer().removeSharedObjectListener(this);
+	context.getContainer().removeSharedObjectListener(this);
 
     }
 
     public void uninstallPart(UAPPCard card) {
-        UAPPPartStatus result = UAPPPartStatus.PART_NOT_INSTALLED;
-        try {
-            result = m_uninstallPart(card);
-        } catch (Exception ex) {
+	UAPPPartStatus result = UAPPPartStatus.PART_NOT_INSTALLED;
+	try {
+	    result = m_uninstallPart(card);
+	} catch (Exception ex) {
 
-        }
-        synchronized (this) {
-            final ControlBroker broker = getControlBroker();
-            if (broker != null) {
-                broker.notifyRequestToInstallPart(card, card.getPartId(),
-                        result);
-            }
-        }
+	}
+	synchronized (this) {
+	    final ControlBroker broker = getControlBroker();
+	    if (broker != null) {
+		broker.notifyRequestToInstallPart(card, card.getPartId(),
+			result);
+	    }
+	}
     }
 
     private UAPPPartStatus m_uninstallPart(UAPPCard card) throws IOException {
-        String uniquePrefix = getInstalledKarafFile(card);
-        if ( uniquePrefix == null ) {
-            return UAPPPartStatus.PART_NOT_INSTALLED;
-        }
-        File karafFile = new File(KAR_DEPLOY_DIR, uniquePrefix + "." + KAR_EXTENSION);
-        if ( karafFile.delete() == false ) {
-            return UAPPPartStatus.PART_NOT_UNINSTALLED;
-        }
-        File jarFile = new File(KAR_DEPLOY_DIR, uniquePrefix + "." + JAR_EXTENSION);
-        if ( jarFile.delete() == false ) {
-            return UAPPPartStatus.PART_NOT_UNINSTALLED;
-        }
-        updateInstalltionRegistry(card, null);
-        return UAPPPartStatus.PART_UNINSTALLED;
+	String uniquePrefix = getInstalledKarafFile(card);
+	if (uniquePrefix == null) {
+	    return UAPPPartStatus.PART_NOT_INSTALLED;
+	}
+	File karafFile = new File(KAR_DEPLOY_DIR, uniquePrefix + "."
+		+ KAR_EXTENSION);
+	if (karafFile.delete() == false) {
+	    return UAPPPartStatus.PART_NOT_UNINSTALLED;
+	}
+	File jarFile = new File(KAR_DEPLOY_DIR, uniquePrefix + "."
+		+ JAR_EXTENSION);
+	if (jarFile.delete() == false) {
+	    return UAPPPartStatus.PART_NOT_UNINSTALLED;
+	}
+	updateInstalltionRegistry(card, null);
+	return UAPPPartStatus.PART_UNINSTALLED;
     }
 }

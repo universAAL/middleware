@@ -224,7 +224,7 @@ public class DeployManagerImpl implements DeployManager,
 	InstallationResultsDetails result = new InstallationResultsDetails(
 		InstallationResults.FAILURE);
 	try {
-	    InstallationResults global = m_requestToInstall(application, result);
+	    InstallationResults global = m_requestToInstall(application, result);	    
 	    result.setGlobalResult(global);
 	} catch (Exception ex) {
 	    LogUtils.logDebug(
@@ -606,6 +606,7 @@ public class DeployManagerImpl implements DeployManager,
 
     public void installationPartNotification(UAPPCard card, String partID,
 	    PeerCard peer, UAPPPartStatus status) {
+	//TODO Empty this method it is deprecated
 	LogUtils.logDebug(context, DeployManagerImpl.class,
 		"DeployManagerImpl",
 		new Object[] { "Updating the MPA: " + card.getId() }, null);
