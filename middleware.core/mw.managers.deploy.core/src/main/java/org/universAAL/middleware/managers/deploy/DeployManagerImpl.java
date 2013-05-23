@@ -97,20 +97,21 @@ public class DeployManagerImpl implements DeployManager,
     private Unmarshaller unmarshaller;
     private Marshaller marshaller;
 
-    // Application Registry. Local and trivial implementation
-    // MPA ID, status
-    private Map<String, UAPPStatus> registry;
     private boolean isDeployCoordinator = false;
     private HashMap<String, UAPPPackage> wip = new HashMap<String, UAPPPackage>();
     private HashMap<String, Long> installingParts = new HashMap<String, Long>();
+    private HashMap<String, Long> uninstallingParts = new HashMap<String, Long>();
     private Properties applicationRegistry;
     private ModuleConfigHome configHome;
 
+    private final long TIMEOUT;
+
     public DeployManagerImpl(ModuleContext context, ModuleConfigHome configHome) {
+	TIMEOUT = Long.parseLong(System.getProperty("uAAL.dm.timeout",
+		"" + 5 * 60 * 1000));
 	this.configHome = configHome;
 	this.context = context;
 	init();
-	registry = new HashMap<String, UAPPStatus>();
 	try {
 	    jc = JAXBContext.newInstance(ObjectFactory.class);
 	    unmarshaller = jc.createUnmarshaller();
@@ -224,7 +225,7 @@ public class DeployManagerImpl implements DeployManager,
 	InstallationResultsDetails result = new InstallationResultsDetails(
 		InstallationResults.FAILURE);
 	try {
-	    InstallationResults global = m_requestToInstall(application, result);	    
+	    InstallationResults global = m_requestToInstall(application, result);
 	    result.setGlobalResult(global);
 	} catch (Exception ex) {
 	    LogUtils.logDebug(
@@ -378,9 +379,6 @@ public class DeployManagerImpl implements DeployManager,
 
     private InstallationResults requestToInstallPart(UAPPCard card,
 	    PeerCard peer, byte[] content) {
-	final long TIMEOUT = Long.parseLong(System.getProperty(
-		"uAAL.dm.timeout", "" + 5 * 60 * 1000));
-
 	if (isPeerPartOfSpace(peer.getPeerID()) == false) {
 	    return InstallationResults.MISSING_PEER;
 	}
@@ -535,6 +533,7 @@ public class DeployManagerImpl implements DeployManager,
 		return result;
 	    }
 	}
+	result.setGlobalResult(InstallationResults.SUCCESS);
 	while (layout.propertyNames().hasMoreElements()) {
 	    String peerLine = (String) layout.propertyNames().nextElement();
 	    String[] parts = peerLine.split("/");
@@ -546,28 +545,41 @@ public class DeployManagerImpl implements DeployManager,
 		    && peer.equals(aalSpaceManager.getMyPeerCard().getPeerID())) {
 		target = aalSpaceManager.getMyPeerCard();
 	    }
-	    controlBroker.requestToUninstallPart(target, card);
-	    result.setDetailedResult(peer, card.getPartId(),
-		    InstallationResults.SUCCESS);
+	    InstallationResults status = synchronousUninstallPart(
+		    controlBroker, target, card, TIMEOUT);
+	    result.setDetailedResult(peer, card.getPartId(), status);
+	    if (status != InstallationResults.SUCCESS) {
+		result.setGlobalResult(InstallationResults.FAILURE);
+	    }
 	}
 
-	result.setGlobalResult(InstallationResults.SUCCESS);
 	return result;
     }
 
-    private InstallationResults synchronousInstallPart(ControlBroker broker,
-	    byte[] content, PeerCard peer, UAPPCard card, long timeout) {
-
+    private InstallationResults synchronousUninstallPart(ControlBroker broker,
+	    PeerCard target, UAPPCard card, long timeout) {
 	final long fireTimeout;
-	synchronized (installingParts) {
+	synchronized (uninstallingParts) {
 	    fireTimeout = System.currentTimeMillis() + timeout;
-	    installingParts.put(card.toString(), fireTimeout);
+	    uninstallingParts.put(card.toString(), fireTimeout);
 	}
-	broker.requestToInstallPart(content, peer, card);
-	synchronized (installingParts) {
+	try {
+	    broker.requestToUninstallPart(target, card);
+	    return waitForOperation(uninstallingParts, card.toString(), timeout);
+	} catch (Exception ex) {
+	    LogUtils.logDebug(context, DeployManagerImpl.class,
+		    "synchronousUninstallPart", new Object[] {
+			    "Failed to request part UNinstallation due to",
+			    ExceptionUtils.stackTraceAsString(ex) }, null);
+	    return InstallationResults.UNKNOWN;
+	}
+    }
+
+    private InstallationResults waitForOperation(HashMap<String, Long> monitor,
+	    String item, long timeout) {
+	synchronized (monitor) {
 	    while (true) {
-		final Long currentTimeout = installingParts
-			.get(card.toString());
+		final Long currentTimeout = monitor.get(item);
 		/*
 		 * Received the installationPartNotification callback with a
 		 * SUCCESS status so we can stop to wait
@@ -580,9 +592,18 @@ public class DeployManagerImpl implements DeployManager,
 		 * FAILURE code so timeout has been reset to -1 which means that
 		 * the installation of the part has been failed
 		 */
-		if (currentTimeout == -1)
-		    return InstallationResults.FAILURE;
+		if (currentTimeout < 0) {
+		    UAPPPartStatus status = convertTimeout2UAPPPartStatus(currentTimeout
+			    .intValue());
 
+		    if (status == null) {
+			return InstallationResults.FAILURE;
+		    } else if (status == UAPPPartStatus.PART_MISSING_NEEDED_FILES) {
+			return InstallationResults.MPA_FILE_NOT_VALID;
+		    } else {
+			return InstallationResults.FAILURE;
+		    }
+		}
 		/*
 		 * The standard timeout fired
 		 */
@@ -591,7 +612,37 @@ public class DeployManagerImpl implements DeployManager,
 	    }
 
 	}
+    }
 
+    private InstallationResults synchronousInstallPart(ControlBroker broker,
+	    byte[] content, PeerCard peer, UAPPCard card, long timeout) {
+
+	final long fireTimeout;
+	synchronized (installingParts) {
+	    fireTimeout = System.currentTimeMillis() + timeout;
+	    installingParts.put(card.toString(), fireTimeout);
+	}
+	try {
+	    broker.requestToInstallPart(content, peer, card);
+	    return waitForOperation(installingParts, card.toString(), timeout);
+	} catch (Exception ex) {
+	    LogUtils.logDebug(context, DeployManagerImpl.class,
+		    "synchronousInstallPart", new Object[] {
+			    "Failed to request part installation due to",
+			    ExceptionUtils.stackTraceAsString(ex) }, null);
+	    return InstallationResults.UNKNOWN;
+	}
+    }
+
+    private UAPPPartStatus convertTimeout2UAPPPartStatus(int v) {
+	if (v >= 0) {
+	    throw new IllegalArgumentException("Exepected only negative values");
+	}
+	v = Math.abs(v);
+	UAPPPartStatus[] values = UAPPPartStatus.values();
+	if (v >= values.length)
+	    return null;
+	return values[v];
     }
 
     private boolean continueIfNotInstalling(UAPPPackage app) {
@@ -606,65 +657,50 @@ public class DeployManagerImpl implements DeployManager,
 
     public void installationPartNotification(UAPPCard card, String partID,
 	    PeerCard peer, UAPPPartStatus status) {
-	//TODO Empty this method it is deprecated
 	LogUtils.logDebug(context, DeployManagerImpl.class,
-		"DeployManagerImpl",
-		new Object[] { "Updating the MPA: " + card.getId() }, null);
-	if (card != null && peer != null && status != null) {
-	    UAPPStatus mpaStatus = registry.get(card.getId());
-	    if (mpaStatus != null) {
-		LogUtils.logDebug(
-			context,
-			DeployManagerImpl.class,
-			"DeployManagerImpl",
-			new Object[] { "Updating the MPA with data: " + partID
-				+ " - " + peer.getPeerID() + " - "
-				+ status.toString() }, null);
-		mpaStatus.updatePart(partID, peer.getPeerID(), status);
-	    } else {
-		LogUtils.logWarn(
-			context,
-			DeployManagerImpl.class,
-			"DeployManagerImpl",
-			new Object[] { "Received a install part notification for an MPA unknows: "
-				+ card.getId() + "...Aborting." }, null);
-
-	    }
-	}
+		"installationPartNotification",
+		new Object[] { "Updating notification status of the part: "
+			+ partID + " from peer " + peer.getPeerID() }, null);
 	synchronized (installingParts) {
-	    final String key = card.toString();
-	    if (status == UAPPPartStatus.PART_INSTALLED) {
-		installingParts.remove(key);
-	    } else if (status == UAPPPartStatus.PART_NOT_INSTALLED) {
-		installingParts.put(key, -1L);
+	    synchronized (uninstallingParts) {
+		final String key = card.toString();
+		if (installingParts.containsKey(key) == false
+			&& uninstallingParts.containsKey(key) == false) {
+		    LogUtils.logWarn(
+			    context,
+			    DeployManagerImpl.class,
+			    "installationPartNotification",
+			    new Object[] { "Received notification"
+				    + status
+				    + " for "
+				    + partID
+				    + " from peer "
+				    + peer.getPeerID()
+				    + " which was not valid or that has already been TIMEOUT" },
+			    null);
+		    return;
+		}
+		switch (status) {
+		case PART_INSTALLED:
+		    installingParts.remove(key);
+		    break;
+		// TODO following aggregation has been done on purpose
+		case PART_MISSING_NEEDED_FILES:
+		case PART_NOT_INSTALLED:
+		    installingParts.put(key, (long) (status.ordinal()*-1));
+		    break;
+		// TODO we should handle the above cases PART_NOT_UNINSTALLED,
+		// PART_UNINSTALLED
+		case PART_NOT_UNINSTALLED:
+		    installingParts.put(key, (long) (status.ordinal()*-1));
+		    break;
+		case PART_UNINSTALLED:
+		    uninstallingParts.remove(key);
+		    break;
+		case PART_PENDING:
+		    break;
+		}
 	    }
-	}
-    }
-
-    private void addRegistryEntry(UAPPCard mpaCard, Map<PeerCard, Part> layout) {
-	// add entry to the registry
-	UAPPStatus mpaStatus = this.registry.put(mpaCard.getId(),
-		new UAPPStatus(mpaCard));
-	for (PeerCard peer : layout.keySet()) {
-	    Part part = layout.get(peer);
-	    mpaStatus.updatePart(part.getPartId(), peer.getPeerID(),
-		    UAPPPartStatus.PART_PENDING);
-
-	}
-    }
-
-    private File getMpaFile(URI deployFolder) {
-	File deployFolderFile = new File(deployFolder);
-	String[] mpaFiles = deployFolderFile.list(new FilenameFilter() {
-	    public boolean accept(File dir, String name) {
-		return (name.contains(uappSuffix));
-	    }
-	});
-	if (mpaFiles.length < 0) {
-	    return null;
-	} else {
-	    return new File(deployFolder.toString() + File.pathSeparator
-		    + mpaFiles[0]);
 	}
     }
 
@@ -1012,10 +1048,6 @@ public class DeployManagerImpl implements DeployManager,
 
     public boolean isDeployCoordinator() {
 	return isDeployCoordinator;
-    }
-
-    public Map<String, UAPPStatus> getUAPPRegistry() {
-	return registry;
     }
 
     public void aalSpaceStatusChanged(AALSpaceStatus status) {
