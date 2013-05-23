@@ -101,10 +101,11 @@ public class UIRequest extends FinalizedResource implements Request {
     public static final String PROP_HAS_PREFERENCE = uAAL_UI_NAMESPACE
 	    + "hasPreference";
 
-    // TODO remove later? since also obtainable by accessing
+    // also obtainable by accessing
     // InteractionPreferences.preferredModality contained within
     // uiRequest.getProperty(
-    // UIPreferencesSubProfile.PROP_INTERACTION_PREFERENCES)
+    // UIPreferencesSubProfile.PROP_INTERACTION_PREFERENCES) but this eases the
+    // checks in UIHandlerProfile.getMatchingDegree()
     public static final String PROP_PRESENTATION_MODALITY = uAAL_UI_NAMESPACE
 	    + "presentationModality";
 
