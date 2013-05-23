@@ -22,12 +22,37 @@ package org.universAAL.middleware.interfaces.mpa;
 
 /**
  * Installation status of an uApp
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public enum UAPPPartStatus {
-    PART_INSTALLED, PART_NOT_INSTALLED, PART_PENDING, PART_UNINSTALLED, PART_NOT_UNINSTALLED, PART_MISSING_NEEDED_FILES;
+    /**
+     * It means that the part has been installed SUCCESFULLY
+     */
+    PART_INSTALLED,
+    /**
+     * It means that the part installation FAILED somehow
+     */
+    PART_NOT_INSTALLED,
+    /**
+     * Not in use
+     * @deprecated
+     */
+    PART_PENDING,
+    /**
+     * It means that the part has been UNinstalled SUCCESFULLY
+     */
+    PART_UNINSTALLED,
+    /**
+     * It means that the part UNinstallation FAILED somehow
+     */
+    PART_NOT_UNINSTALLED,
+    /**
+     * It means that the part installation FAILED because missing file need for
+     * the container for installing the parts
+     */
+    PART_MISSING_NEEDED_FILES;
 }
