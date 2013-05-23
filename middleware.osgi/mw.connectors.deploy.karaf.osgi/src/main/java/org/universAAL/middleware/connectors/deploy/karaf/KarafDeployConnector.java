@@ -36,6 +36,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.universAAL.middleware.brokers.control.ControlBroker;
+import org.universAAL.middleware.brokers.control.ExceptionUtils;
 import org.universAAL.middleware.connectors.DeployConnector;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
@@ -290,7 +291,12 @@ public class KarafDeployConnector implements DeployConnector,
 	try {
 	    result = m_installPart(zipfile, card);
 	} catch (Exception ex) {
-
+	    if (zipfile == null)
+		zipfile = new File("NULL_ZIP_FILE");
+	    LogUtils.logError(context, KarafDeployConnector.class,
+		    "installPart", new Object[] { "Error installing a "
+			    + zipfile.getAbsolutePath() + " due to "
+			    + ExceptionUtils.stackTraceAsString(ex) }, ex);
 	}
 	synchronized (this) {
 	    final ControlBroker broker = getControlBroker();
@@ -313,24 +319,23 @@ public class KarafDeployConnector implements DeployConnector,
 	    // check if I find a KAR archive
 	    File[] listFiles = parentPartDir.listFiles();
 	    File karFile = verifyValidZipContent(listFiles);
-	    if ( karFile == null ){
-		    LogUtils.logError(context, KarafDeployConnector.class, METHOD,
-			    new Object[] { "No valid part for installation" },
-			    null);
-		    return UAPPPartStatus.PART_MISSING_NEEDED_FILES;
+	    if (karFile == null) {
+		LogUtils.logError(context, KarafDeployConnector.class, METHOD,
+			new Object[] { "No valid part for installation" }, null);
+		return UAPPPartStatus.PART_MISSING_NEEDED_FILES;
 	    }
 	    String uniquePrefix = installFile(karFile);
 	    if (uniquePrefix == null)
 		return UAPPPartStatus.PART_NOT_INSTALLED;
 
 	    updateInstalltionRegistry(card, uniquePrefix);
+	    return UAPPPartStatus.PART_INSTALLED;
 	} catch (Exception e) {
 	    LogUtils.logError(context, KarafDeployConnector.class, METHOD,
 		    new Object[] { "Error during installation of uAPP: " + e },
 		    e);
 	    return UAPPPartStatus.PART_NOT_INSTALLED;
 	}
-	return UAPPPartStatus.PART_INSTALLED;
     }
 
     private File verifyValidZipContent(File[] listFiles) {
@@ -359,7 +364,7 @@ public class KarafDeployConnector implements DeployConnector,
 	    final String jarname = extractExentsion(name, KAR_EXTENSION) + "."
 		    + JAR_EXTENSION;
 	    File jarFile = new File(file.getParent(), jarname);
-	    if (jarFile.exists() == false) {
+	    if (jarFile.exists() == true) {
 		validKarafFile = file;
 	    } else {
 		LogUtils.logWarn(
@@ -388,8 +393,8 @@ public class KarafDeployConnector implements DeployConnector,
 		    METHOD,
 		    new Object[] { "The part contains too many karaf file and none of them with a twin JAR so nothing will be installed" },
 		    null);
-	} else if (karFiles == 0 ) {
-	    LogUtils.logWarn(
+	} else if (karFiles == 0) {
+	    LogUtils.logError(
 		    context,
 		    KarafDeployConnector.class,
 		    METHOD,
@@ -448,7 +453,14 @@ public class KarafDeployConnector implements DeployConnector,
 	try {
 	    result = m_uninstallPart(card);
 	} catch (Exception ex) {
-
+	    LogUtils.logError(
+		    context,
+		    KarafDeployConnector.class,
+		    "installPart",
+		    new Object[] { "Error UNinstalling a " + card.getName()
+			    + "/" + card.getServiceId() + ":"
+			    + card.getPartId() + " due to "
+			    + ExceptionUtils.stackTraceAsString(ex) }, ex);
 	}
 	synchronized (this) {
 	    final ControlBroker broker = getControlBroker();
