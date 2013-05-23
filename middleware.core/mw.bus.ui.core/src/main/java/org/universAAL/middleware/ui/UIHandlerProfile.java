@@ -152,7 +152,7 @@ public class UIHandlerProfile extends FinalizedResource implements
      *         and the alternative modality (
      *         {@link UIRequest#PROP_PRESENTATION_MODALITY_ALT}) matches, or</li>
      *         <li>{@link #MATCH_LEVEL_FAILED} if the restrictions do not match
-     *         or the given request is null.</li>
+     *         or the given {@link UIRequest} is null.</li>
      *         </ul>
      */
     public int getMatchingDegree(UIRequest uiRequest) {
