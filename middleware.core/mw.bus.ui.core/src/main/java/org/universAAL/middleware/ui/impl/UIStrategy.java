@@ -191,7 +191,7 @@ public class UIStrategy extends BusStrategy {
 					busModule,
 					UIStrategy.class,
 					"adaptationParametersChanged",
-					new Object[] { "strange situation: duplication dialog ID?" },
+					new Object[] { "strange situation: duplication dialog ID?\n", request },
 					null);
 		    }
 		} else if (currentHandler == null) {
@@ -228,7 +228,7 @@ public class UIStrategy extends BusStrategy {
 				    busModule,
 				    UIStrategy.class,
 				    "adaptationParametersChanged",
-				    new Object[] { "!!!! no UI Handler could be selected!!!!" },
+				    new Object[] { "!!!! no UI Handler could be selected!!!!\n", request },
 				    null);
 		    return;
 		}
