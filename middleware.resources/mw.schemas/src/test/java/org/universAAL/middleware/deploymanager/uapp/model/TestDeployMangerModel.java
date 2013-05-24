@@ -1,6 +1,6 @@
 package org.universAAL.middleware.deploymanager.uapp.model;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.InputStream;
 
@@ -21,6 +21,11 @@ public class TestDeployMangerModel {
             Marshaller marshaller = jc.createMarshaller();
             InputStream is = TestDeployMangerModel.class.getResourceAsStream("./hwo.uapp.xml");
             AalUapp uAAP = (AalUapp)unmarshaller.unmarshal(is);
+            Part part = uAAP.getApplicationPart().getPart().get(0);
+            System.out.println(part.getBundleId());
+            DeploymentUnit unit = part.getDeploymentUnit().get(0);
+            FeaturesRoot f = unit.getContainerUnit().getKaraf().getFeatures();
+            assertNotNull("Features file must not be null",f);
         } catch (JAXBException e) {
             e.printStackTrace(System.err);
             fail(e.getMessage());
