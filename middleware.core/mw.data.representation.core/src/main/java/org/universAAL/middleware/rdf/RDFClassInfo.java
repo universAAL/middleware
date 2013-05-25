@@ -210,7 +210,7 @@ public class RDFClassInfo extends FinalizedResource {
 	if (classURI == null)
 	    throw new NullPointerException("The class URI must be not null.");
 
-	if (isAnonymousURI(classURI))
+	if (isAnon(classURI))
 	    throw new IllegalArgumentException(
 		    "The class URI must be not anonymous.");
 

@@ -173,7 +173,7 @@ public abstract class TypeExpression extends Resource {
 		    .isRegisteredDatatypeURI(instanceURI))) ? TypeExpression
 		    .getClassExpressionInstance(null, null, instanceURI) : null;
 
-	return isAnonymousURI(instanceURI) ? getInstance(c) : getNamedInstance(
+	return isAnon(instanceURI) ? getInstance(c) : getNamedInstance(
 		c, instanceURI);
     }
 
@@ -190,7 +190,7 @@ public abstract class TypeExpression extends Resource {
 			null);
 
 	Class c = null;
-	boolean isAnon = isAnonymousURI(instanceURI);
+	boolean isAnon = isAnon(instanceURI);
 	for (Iterator i = registry.iterator(); i.hasNext();) {
 	    RegParams rp = (RegParams) i.next();
 	    if ((superClassURI.equals(rp.hasSuperClass) || (superClassURI != null && superClassURI

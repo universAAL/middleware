@@ -278,7 +278,7 @@ public class Resource {
      * 
      * @see #ANON_URI_PREFIX
      */
-    public static final boolean isAnonymousURI(String uri) {
+    public static final boolean isAnon(String uri) {
 	return uri == null || uri.startsWith(ANON_URI_PREFIX);
     }
 
