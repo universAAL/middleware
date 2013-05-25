@@ -302,14 +302,14 @@ public class Submit extends FormControl {
 	if (PROP_MANDATORY_INPUT.equals(propURI)) {
 	    if (l.isEmpty()) {
 		if (value instanceof List) {
-		    boolean retVal = true;
+		    boolean retVal = false;
 		    for (Iterator i = ((List) value).iterator(); i.hasNext();) {
 			value = i.next();
 			if (!(value instanceof Input)) {
 			    l.clear();
 			    return false;
 			} else
-			    retVal = retVal && l.add(value);
+			    retVal = l.add(value) || retVal;
 		    }
 		    return retVal;
 		} else if (value instanceof Input)

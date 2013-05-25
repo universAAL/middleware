@@ -187,13 +187,13 @@ public class Union extends TypeExpression {
     public boolean setProperty(String propURI, Object o) {
 	if (PROP_OWL_UNION_OF.equals(propURI) && o != null && types.isEmpty()) {
 	    if (o instanceof List) {
-		boolean retVal = true;
+		boolean retVal = false;
 		for (Iterator i = ((List) o).iterator(); i.hasNext();) {
 		    Object tmp = TypeURI.asTypeURI(o);
 		    if (tmp != null)
 			o = tmp;
 		    if (o instanceof TypeExpression)
-			retVal = retVal && addType((TypeExpression) o);
+			retVal = addType((TypeExpression) o) || retVal;
 		    else {
 			types.clear();
 			break;

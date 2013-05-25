@@ -261,15 +261,13 @@ public class Enumeration extends TypeExpression {
     public boolean setProperty(String propURI, Object o) {
 	if (PROP_OWL_ONE_OF.equals(propURI) && values.isEmpty() && o != null) {
 	    if (o instanceof List) {
-		boolean retVal = true;
+		boolean retVal = false;
 		for (Iterator i = ((List) o).iterator(); i.hasNext();) {
-		    if (!addValue(i.next()))
-			retVal = false;
+		    retVal = addValue(i.next()) || retVal;
 		}
 		return retVal;
 	    } else {
-		addValue(o);
-		return true;
+		return addValue(o);
 	    }
 	}
 	return false;
