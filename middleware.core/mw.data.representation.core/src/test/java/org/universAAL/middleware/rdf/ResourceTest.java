@@ -20,19 +20,19 @@ public class ResourceTest extends TestCase {
 	assertTrue("prefix".length() < r.getURI().length());
 	assertTrue(r.getURI().startsWith("prefix"));
 	r = new Resource();
-	assertTrue(Resource.isAnonymousURI(r.toString()));
+	assertTrue(Resource.isAnon(r.toString()));
 	assertTrue(r.isAnon());
 	assertFalse(r.serializesAsXMLLiteral());
 	r = new Resource(true);
 	assertTrue(r.serializesAsXMLLiteral());
 	r = new Resource(null);
-	assertTrue(Resource.isAnonymousURI(r.toString()));
+	assertTrue(Resource.isAnon(r.toString()));
 	r = new Resource(Resource.PROP_RDF_FIRST); // just any valid URI
-	assertFalse(Resource.isAnonymousURI(r.toString()));
+	assertFalse(Resource.isAnon(r.toString()));
 	r = new Resource(null, true);
-	assertTrue(Resource.isAnonymousURI(r.toString()));
+	assertTrue(Resource.isAnon(r.toString()));
 	r = new Resource(Resource.PROP_RDF_FIRST, true); // just any valid URI
-	assertFalse(Resource.isAnonymousURI(r.toString()));
+	assertFalse(Resource.isAnon(r.toString()));
 	assertTrue(r.hasQualifiedName());
 	assertTrue(r.numberOfProperties() == 0);
 	r.setResourceComment("comment");

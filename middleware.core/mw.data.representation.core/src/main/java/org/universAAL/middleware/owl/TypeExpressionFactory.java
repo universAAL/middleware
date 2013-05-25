@@ -70,7 +70,7 @@ public final class TypeExpressionFactory {
 	if (idx == null) {
 	    // none of the properties matches, so it may be a TypeURI
 	    String uri = r.getURI();
-	    if (Resource.isAnonymousURI(uri))
+	    if (Resource.isAnon(uri))
 		return null;
 
 	    if (OntologyManagement.getInstance().isRegisteredClass(uri, false))

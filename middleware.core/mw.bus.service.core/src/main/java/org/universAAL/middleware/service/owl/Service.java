@@ -158,7 +158,7 @@ public abstract class Service extends ManagedIndividual {
 
     protected Service(String uri) {
 	super(uri);
-	if (uri != null && !Resource.isAnonymousURI(uri)) {
+	if (uri != null && !Resource.isAnon(uri)) {
 	    myProfile = new ServiceProfile(this, uri + "Process");
 	    props.put(PROP_OWLS_PRESENTS, myProfile);
 	}
