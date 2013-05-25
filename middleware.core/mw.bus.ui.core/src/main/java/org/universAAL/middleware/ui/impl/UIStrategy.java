@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.ui.impl;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -1024,13 +1025,16 @@ public class UIStrategy extends BusStrategy {
 	}
 
 	if (isCoordinator()) {
+		
+		List<Subscription> remove = new ArrayList<Subscription>();
 	    synchronized (globalSubscriptions) {
 		for (Subscription s : globalSubscriptions) {
 		    if (s.subscriberID.equals(subscriberID)
 			    && oldSubscription.matches(s.filter)) {
-			globalSubscriptions.remove(s);
+			remove.add(s);
 		    }
 		}
+		globalSubscriptions.removeAll(remove);
 	    }
 	} else {
 	    Resource pr = new Resource();
