@@ -265,11 +265,10 @@ public class UIHandlerProfile extends FinalizedResource implements
 		return addRestriction((MergedRestriction) value);
 	    } else if (value instanceof List) {
 		List<?> property = (List) value;
-		boolean retVal = true;
+		boolean retVal = false;
 		for (Object current : property) {
 		    if (current instanceof MergedRestriction) {
-			retVal = retVal
-				&& addRestriction((MergedRestriction) current);
+			retVal = addRestriction((MergedRestriction) current) || retVal;
 		    }
 		}
 		return retVal;

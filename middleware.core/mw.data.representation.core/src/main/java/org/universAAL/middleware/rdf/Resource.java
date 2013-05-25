@@ -959,6 +959,8 @@ public class Resource {
      * URI and (2) the serializers get no problems with the value. Also,
      * settings via subclasses may be overwritten by this class if a subsequent
      * call to {@link #addType(String, boolean)} is made.
+     * 
+     * @return <tt>true</tt> if the property changed as a result of the call
      */
     public boolean setProperty(String propURI, Object value) {
 	if (propURI != null && value != null)

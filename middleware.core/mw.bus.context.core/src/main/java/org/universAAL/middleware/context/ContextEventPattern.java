@@ -214,9 +214,9 @@ public class ContextEventPattern extends FinalizedResource implements
 		    return addRestriction(m);
 		} else if (property instanceof List) {
 		    ArrayList l = MergedRestriction.getFromList((List) property);
-		    boolean retVal = true;
+		    boolean retVal = false;
 		    for (int i = 0; i < l.size(); i++) {
-			retVal = retVal && addRestriction((MergedRestriction) l.get(i));
+			retVal = addRestriction((MergedRestriction) l.get(i)) || retVal;
 		    }
 		    return retVal;
 		}

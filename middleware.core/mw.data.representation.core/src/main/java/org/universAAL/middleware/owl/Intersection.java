@@ -188,14 +188,14 @@ public class Intersection extends TypeExpression {
 	if (PROP_OWL_INTERSECTION_OF.equals(propURI) && types.isEmpty()
 		&& o != null) {
 	    if (o instanceof List) {
-		boolean retVal = true;
+		boolean retVal = false;
 		for (Iterator i = ((List) o).iterator(); i.hasNext();) {
 		    o = i.next();
 		    Object tmp = TypeURI.asTypeURI(o);
 		    if (tmp != null)
 			o = tmp;
 		    if (o instanceof TypeExpression)
-			retVal = retVal && addType((TypeExpression) o);
+			retVal = addType((TypeExpression) o) || retVal;
 		    else {
 			types.clear();
 			break;
