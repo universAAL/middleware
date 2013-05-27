@@ -104,13 +104,6 @@ public class ServiceCall extends FinalizedResource implements UtilityCall {
 	    this.nonSemanticInput = nonSemanticInput;
 	}
     }
-    public void setRequest(ServiceRequest request){
-	this.request = request;
-    }
-    
-    public ServiceRequest getRequest(){
-	return this.request;
-    }
     
     public Object getNonSemanticInput(String uri) {
 	if (this.nonSemanticInput == null) {
