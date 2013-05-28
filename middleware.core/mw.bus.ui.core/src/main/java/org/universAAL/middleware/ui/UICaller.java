@@ -76,7 +76,7 @@ public abstract class UICaller extends Caller {
      * @param changedProp
      *            the changed prop
      */
-    public void adaptationParametersChanged(UIRequest call, String changedProp) {
+    public final void adaptationParametersChanged(UIRequest call, String changedProp) {
 	if (this instanceof IDialogManager)
 	    ((IUIBus) theBus).adaptationParametersChanged((IDialogManager) this,
 		    call, changedProp);
@@ -117,7 +117,7 @@ public abstract class UICaller extends Caller {
      * @param dialogID
      *            the dialog id
      */
-    public void dialogSuspended(String dialogID) {
+    public final void dialogSuspended(String dialogID) {
 	if (this instanceof IDialogManager)
 	    ((IUIBus) theBus).dialogSuspended((IDialogManager) this, dialogID);
     }
