@@ -45,8 +45,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * {@link org.universAAL.middleware.rdf.PropertyPath}. Subclasses must define a
  * static repository for such restrictions as an empty instance of
  * {@link java.util.Hashtable} and add their class-level restrictions to this
- * repository in the same static code segment, where they call
- * {@link #register(Class)}, using the help method
+ * repository a static code segment using the help method
  * {@link #addRestriction(MergedRestriction, String[], Hashtable)}.
  * <p>
  * In addition to class-level restrictions, concrete instances can add
@@ -318,7 +317,7 @@ public abstract class Service extends ManagedIndividual {
     public int getPropSerializationType(String propURI) {
 	return (PROP_OWLS_PRESENTS.equals(propURI)
 		|| PROP_INSTANCE_LEVEL_RESTRICTIONS.equals(propURI) || PROP_NUMBER_OF_VALUE_RESTRICTIONS
-		.equals(propURI)) ? PROP_SERIALIZATION_FULL
+		    .equals(propURI)) ? PROP_SERIALIZATION_FULL
 		: PROP_SERIALIZATION_UNDEFINED;
     }
 
