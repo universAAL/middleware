@@ -58,8 +58,7 @@ public class ModuleConfigHome {
      * Constructor the create a new object for accessing configuration files.
      * The actual file name consists of the root directory of the universAAL
      * runtime, the given ID (which is by Best Practice the module name), and a
-     * file name which is given to the methods
-     * {@link #getConfFileAsStream(File)} or
+     * file name which is given to the method
      * {@link #getConfFileAsStream(String)}. The directory is created if it does
      * not exist.
      * 
@@ -68,10 +67,10 @@ public class ModuleConfigHome {
      * @param id
      *            The ID of this module.
      */
-    public ModuleConfigHome(String _confHome, String id) {
-	confHome = new File(_confHome, id);
-	if (!confHome.exists())
-	    confHome.mkdirs();
+    public ModuleConfigHome(String confHome, String id) {
+	this.confHome = new File(confHome, id);
+	if (!this.confHome.exists())
+	    this.confHome.mkdirs();
     }
 
     /**

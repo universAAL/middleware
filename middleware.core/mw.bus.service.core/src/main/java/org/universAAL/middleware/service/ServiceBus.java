@@ -230,5 +230,5 @@ public interface ServiceBus {
      * @return Map containing as a key calleeID which registered ServiceProfiles in the service bus that are
      *         instances of the given service class. Returned profiles are stored in value part of map in a List.
      */
-    public HashMap getMatchingServices(String s);
+    public HashMap getMatchingServices(String serviceClassURI);
 }
