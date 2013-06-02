@@ -207,6 +207,13 @@ public class UIStrategy extends BusStrategy {
 		for (Subscription subscription : globalSubscriptions) {
 		    aux = subscription.filter.getMatchingDegree(request);
 		    if (aux > UIHandlerProfile.MATCH_LEVEL_FAILED) {
+		    	/*
+		    	 * FIXME: This selects the first handler in the list, it may not be the best
+		    	 * since getMatchingDegree() can be higher for other handlers in the globalSubcriptions.
+		    	 * The selection mechanism may also yield several handlers for the same request.
+		    	 * Matching may be done by a weighed matching taking into account, addressed user, modality,
+		    	 * location of the user, adaptations ... 
+		    	 */
 			if (subscription.subscriberID.equals(currentHandler)) {
 			    if (changedProp != null) {
 				notifyHandler_apChanged(currentHandler,
@@ -224,6 +231,12 @@ public class UIStrategy extends BusStrategy {
 		    }
 		}
 		if (selectedHandler == null) {
+			/*
+			 * FIXME: when handler could not be selected SOMETHING SHOULD BE DONE:
+			 *    - Notify DM? suspend Request?
+			 *    - Notify UICaller?
+			 *    - Schedule retry for later?
+			 */
 		    LogUtils
 			    .logError(
 				    busModule,
@@ -287,6 +300,7 @@ public class UIStrategy extends BusStrategy {
      *            the response to send.
      */
     void dialogFinished(final String subscriberID, final UIResponse input) {
+    	// TODO: add safety input != null?
 	final String dialogID = input.getDialogID();
 	// first handle the bus internal handling of this request
 	if (isCoordinator()) {
@@ -319,6 +333,7 @@ public class UIStrategy extends BusStrategy {
      *            the response to send.
      */
     void notifyUserInput(final UIResponse input) {
+    	//TODO add safety input != null?
 	final String dialogID = input.getDialogID();
 	// inform the application that user input is ready
 	if (input.isForDialogManagerCall()) {
@@ -353,7 +368,7 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * Only called by the IDialogManager. Simply removes dialogs from the active
+     * Only called by the {@link IDialogManager}. Simply removes dialogs from the active
      * list.
      * 
      * @param dm
