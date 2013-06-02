@@ -212,7 +212,8 @@ public class UIStrategy extends BusStrategy {
 		    	 * since getMatchingDegree() can be higher for other handlers in the globalSubcriptions.
 		    	 * The selection mechanism may also yield several handlers for the same request.
 		    	 * Matching may be done by a weighed matching taking into account, addressed user, modality,
-		    	 * location of the user, adaptations ... 
+		    	 * location of the user, whether it was the last handler actually used by the user,
+		    	 * time since it's last UIResponse, adaptations ... 
 		    	 */
 			if (subscription.subscriberID.equals(currentHandler)) {
 			    if (changedProp != null) {
