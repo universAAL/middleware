@@ -184,8 +184,8 @@ public final class OntologyManagement {
      */
     private void removePendingOntology(Ontology ont) {
 	synchronized (pendingOntologies) {
-	    ArrayList newPendingOntologies = new ArrayList(pendingOntologies
-		    .size() - 1);
+	    ArrayList newPendingOntologies = new ArrayList(
+		    pendingOntologies.size() - 1);
 	    for (int i = 0; i < pendingOntologies.size(); i++)
 		if (pendingOntologies.get(i) != ont)
 		    newPendingOntologies.add(ont);
@@ -222,19 +222,18 @@ public final class OntologyManagement {
 		    // test factory
 		    Object o = factories.get(factoryIndex);
 		    if (o != null) {
-			LogUtils
-				.logWarn(
-					SharedResources.moduleContext,
-					OntologyManagement.class,
-					"register_testOntology",
-					new Object[] {
-						"Duplicate factory index: the classes ",
-						rci.getURI(), " and ",
-						((RDFClassInfo) o).getURI(),
-						" of the ontology ",
-						ont.getInfo().getURI(),
-						" have the same factory index. Is this intended?" },
-					null);
+			LogUtils.logWarn(
+				SharedResources.moduleContext,
+				OntologyManagement.class,
+				"register_testOntology",
+				new Object[] {
+					"Duplicate factory index: the classes ",
+					rci.getURI(), " and ",
+					((RDFClassInfo) o).getURI(),
+					" of the ontology ",
+					ont.getInfo().getURI(),
+					" have the same factory index. Is this intended?" },
+				null);
 		    } else {
 			factories.put(factoryIndex, rci);
 		    }
@@ -243,15 +242,14 @@ public final class OntologyManagement {
 
 	    return retVal;
 	} catch (Exception e) {
-	    LogUtils
-		    .logError(
-			    SharedResources.moduleContext,
-			    OntologyManagement.class,
-			    "register_testOntology",
-			    new Object[] {
-				    "An unknown exception occured while testing the ontology ",
-				    ont.getInfo().getURI(),
-				    " during registration." }, e);
+	    LogUtils.logError(
+		    SharedResources.moduleContext,
+		    OntologyManagement.class,
+		    "register_testOntology",
+		    new Object[] {
+			    "An unknown exception occured while testing the ontology ",
+			    ont.getInfo().getURI(), " during registration." },
+		    e);
 	}
 	return false;
     }
@@ -268,18 +266,17 @@ public final class OntologyManagement {
     private boolean register_testClass(Ontology ont, OntClassInfo info) {
 	try {
 	    if (!Resource.isQualifiedName(info.getURI())) {
-		LogUtils
-			.logError(
-				SharedResources.moduleContext,
-				OntologyManagement.class,
-				"register_testClass",
-				new Object[] {
-					"Unqualified URI: the ontology class ",
-					info.getURI(),
-					" of the ontology ",
-					ont.getInfo().getURI(),
-					" does not have a qualified URI. Please check the URI you give as parameter to creator methods like createNewOntClassInfo()." },
-				null);
+		LogUtils.logError(
+			SharedResources.moduleContext,
+			OntologyManagement.class,
+			"register_testClass",
+			new Object[] {
+				"Unqualified URI: the ontology class ",
+				info.getURI(),
+				" of the ontology ",
+				ont.getInfo().getURI(),
+				" does not have a qualified URI. Please check the URI you give as parameter to creator methods like createNewOntClassInfo()." },
+			null);
 		return false;
 	    }
 
@@ -288,73 +285,69 @@ public final class OntologyManagement {
 
 	    ResourceFactory fact = info.getFactory();
 	    if (fact == null) {
-		LogUtils
-			.logError(
-				SharedResources.moduleContext,
-				OntologyManagement.class,
-				"register_testClass",
-				new Object[] {
-					"Missing factory: the ontology class ",
-					info.getURI(),
-					" of the ontology ",
-					ont.getInfo().getURI(),
-					" is not an abstract class but it does not define a factory to create instances of this class." },
-				null);
+		LogUtils.logError(
+			SharedResources.moduleContext,
+			OntologyManagement.class,
+			"register_testClass",
+			new Object[] {
+				"Missing factory: the ontology class ",
+				info.getURI(),
+				" of the ontology ",
+				ont.getInfo().getURI(),
+				" is not an abstract class but it does not define a factory to create instances of this class." },
+			null);
 		return false;
 	    }
 
 	    Resource testInstance = fact.createInstance(info.getURI(),
-		    Resource.uAAL_NAMESPACE_PREFIX + "testInstance", info
-			    .getFactoryIndex());
+		    Resource.uAAL_NAMESPACE_PREFIX + "testInstance",
+		    info.getFactoryIndex());
 	    if (testInstance == null) {
-		LogUtils
-			.logError(
-				SharedResources.moduleContext,
-				OntologyManagement.class,
-				"register_testClass",
-				new Object[] {
-					"Missing factory result: the ontology class ",
-					info.getURI(),
-					" of the ontology ",
-					ont.getInfo().getURI(),
-					" is not an abstract class and it defines a factory, but the factory does not create instances for this class (the factory returned null)." },
-				null);
+		LogUtils.logError(
+			SharedResources.moduleContext,
+			OntologyManagement.class,
+			"register_testClass",
+			new Object[] {
+				"Missing factory result: the ontology class ",
+				info.getURI(),
+				" of the ontology ",
+				ont.getInfo().getURI(),
+				" is not an abstract class and it defines a factory, but the factory does not create instances for this class (the factory returned null)." },
+			null);
 		return false;
 	    }
 
 	    if (!(testInstance instanceof ManagedIndividual)) {
-		LogUtils
-			.logError(
-				SharedResources.moduleContext,
-				OntologyManagement.class,
-				"register_testClass",
-				new Object[] {
-					"Factory returned non-ManagedIndividual: the ontology class ",
-					info.getURI(),
-					" of the ontology ",
-					ont.getInfo().getURI(),
-					" is registered as an ontology class (OWL), but the factory does not return a subclass of ManagedIndividual."
-						+ " All OWL classes must be a subclass of ManagedIndividual." },
-				null);
+		LogUtils.logError(
+			SharedResources.moduleContext,
+			OntologyManagement.class,
+			"register_testClass",
+			new Object[] {
+				"Factory returned non-ManagedIndividual: the ontology class ",
+				info.getURI(),
+				" of the ontology ",
+				ont.getInfo().getURI(),
+				" is registered as an ontology class (OWL), but the factory does not return a subclass of ManagedIndividual."
+					+ " All OWL classes must be a subclass of ManagedIndividual." },
+			null);
 		return false;
 	    }
 
 	    ManagedIndividual m = (ManagedIndividual) testInstance;
 	    if (!info.getURI().equals(m.getClassURI())) {
-		LogUtils
-			.logError(
-				SharedResources.moduleContext,
-				OntologyManagement.class,
-				"register_testClass",
-				new Object[] {
-					"Wrong class URI: the ontology class ",
-					info.getURI(),
-					" of the ontology ",
-					ont.getInfo().getURI(),
-					" does not return the URI that was used for registration."
-						+ " Please check that the method \"getClassURI()\" is overwritten and matches the URI you specify as parameter to creator methods like createNewOntClassInfo()."
-						+ " The factory could also be the source of this error: please check that the factoryIndex is correct." },
-				null);
+		LogUtils.logError(
+			SharedResources.moduleContext,
+			OntologyManagement.class,
+			"register_testClass",
+			new Object[] {
+				"Wrong class URI: the ontology class ",
+				info.getURI(),
+				" of the ontology ",
+				ont.getInfo().getURI(),
+				" does not return the URI that was used for registration."
+					+ " Please check that the method \"getClassURI()\" is overwritten and matches the URI you specify as parameter to creator methods like createNewOntClassInfo()."
+					+ " The factory could also be the source of this error: please check that the factoryIndex is correct." },
+			null);
 		return false;
 	    }
 
@@ -363,37 +356,35 @@ public final class OntologyManagement {
 	    for (int i = 0; i < props.length; i++) {
 		int serType = m.getPropSerializationType(props[i]);
 		if (serType == Resource.PROP_SERIALIZATION_UNDEFINED)
-		    LogUtils
-			    .logWarn(
-				    SharedResources.moduleContext,
-				    OntologyManagement.class,
-				    "register_testClass",
-				    new Object[] {
-					    "Undefined serialization type: the property ",
-					    props[i],
-					    " of the ontology class ",
-					    info.getURI(),
-					    " of the ontology ",
-					    ont.getInfo().getURI(),
-					    " returns <undefined> as serialization type for a declared property."
-						    + " Is this intended? If not,"
-						    + " please check the method getPropSerializationType(String propURI);"
-						    + " this might cause an incomplete serialization result." },
-				    null);
-	    }
-
-	    return true;
-	} catch (Exception e) {
-	    LogUtils
-		    .logError(
+		    LogUtils.logWarn(
 			    SharedResources.moduleContext,
 			    OntologyManagement.class,
 			    "register_testClass",
 			    new Object[] {
-				    "An unknown exception occured while testing the ontology class ",
+				    "Undefined serialization type: the property ",
+				    props[i],
+				    " of the ontology class ",
 				    info.getURI(),
-				    " during registration of the ontology ",
-				    ont.getInfo().getURI(), "." }, e);
+				    " of the ontology ",
+				    ont.getInfo().getURI(),
+				    " returns <undefined> as serialization type for a declared property."
+					    + " Is this intended? If not,"
+					    + " please check the method getPropSerializationType(String propURI);"
+					    + " this might cause an incomplete serialization result." },
+			    null);
+	    }
+
+	    return true;
+	} catch (Exception e) {
+	    LogUtils.logError(
+		    SharedResources.moduleContext,
+		    OntologyManagement.class,
+		    "register_testClass",
+		    new Object[] {
+			    "An unknown exception occured while testing the ontology class ",
+			    info.getURI(),
+			    " during registration of the ontology ",
+			    ont.getInfo().getURI(), "." }, e);
 	}
 	return false;
     }
@@ -408,8 +399,8 @@ public final class OntologyManagement {
     public boolean register(ModuleContext mc, Ontology ont) {
 	// add to pending
 	synchronized (pendingOntologies) {
-	    ArrayList newPendingOntologies = new ArrayList(pendingOntologies
-		    .size() + 1);
+	    ArrayList newPendingOntologies = new ArrayList(
+		    pendingOntologies.size() + 1);
 	    newPendingOntologies.addAll(pendingOntologies);
 	    newPendingOntologies.add(ont);
 	    pendingOntologies = newPendingOntologies;
@@ -424,22 +415,21 @@ public final class OntologyManagement {
 	    // don't add if already existing
 	    if (ontologies.containsKey(ont.getInfo().getURI())) {
 		removePendingOntology(ont);
-		LogUtils
-			.logError(
-				SharedResources.moduleContext,
-				OntologyManagement.class,
-				"register",
-				new Object[] { "The ontology ",
-					ont.getInfo().getURI(),
-					" is already registered; it can not be registered a second time." },
-				null);
+		LogUtils.logError(
+			SharedResources.moduleContext,
+			OntologyManagement.class,
+			"register",
+			new Object[] { "The ontology ", ont.getInfo().getURI(),
+				" is already registered; it can not be registered a second time." },
+			null);
 		return false;
 	    }
 
 	    // add new ontology
 	    LogUtils.logDebug(SharedResources.moduleContext,
 		    OntologyManagement.class, "register", new Object[] {
-			    "Registering ontology: ", ont.getInfo().getURI() },
+			    "Registering ontology: ", ont.getInfo().getURI(),
+			    " (classes: ", ont.getResourceList().length, ")" },
 		    null);
 
 	    // make some sanity tests
@@ -489,8 +479,10 @@ public final class OntologyManagement {
 
 		    // add factories
 		    if (info.getFactory() != null)
-			tempFactories.put(info.getURI(), new FactoryEntry(info
-				.getFactory(), info.getFactoryIndex()));
+			tempFactories.put(
+				info.getURI(),
+				new FactoryEntry(info.getFactory(), info
+					.getFactoryIndex()));
 
 		    // process namedSuperClasses -> put in namedSubClasses
 		    String namedSuperClasses[] = info.getNamedSuperClasses(
@@ -525,8 +517,10 @@ public final class OntologyManagement {
 
 		    // add factories
 		    if (info.getFactory() != null)
-			tempFactories.put(info.getURI(), new FactoryEntry(info
-				.getFactory(), info.getFactoryIndex()));
+			tempFactories.put(
+				info.getURI(),
+				new FactoryEntry(info.getFactory(), info
+					.getFactoryIndex()));
 
 		    // add rdf classes
 		    if (!rdfClassInfoMap.containsKey(info.getURI()))
