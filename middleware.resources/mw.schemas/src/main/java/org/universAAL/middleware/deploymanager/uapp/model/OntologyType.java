@@ -189,9 +189,9 @@ public class OntologyType
 
         private final static long serialVersionUID = 12343L;
         @XmlElementRefs({
-            @XmlElementRef(name = "runtimeId", namespace = "http://www.universaal.org/aal-uapp/v1.0.0", type = JAXBElement.class, required = false),
-            @XmlElementRef(name = "url", namespace = "http://www.universaal.org/aal-uapp/v1.0.0", type = JAXBElement.class, required = false),
-            @XmlElementRef(name = "path", namespace = "http://www.universaal.org/aal-uapp/v1.0.0", type = JAXBElement.class, required = false)
+            @XmlElementRef(name = "runtimeId", namespace = "http://www.universaal.org/aal-uapp/v1.0.0", type = JAXBElement.class),
+            @XmlElementRef(name = "url", namespace = "http://www.universaal.org/aal-uapp/v1.0.0", type = JAXBElement.class ),
+            @XmlElementRef(name = "path", namespace = "http://www.universaal.org/aal-uapp/v1.0.0", type = JAXBElement.class )
         })
         protected List<JAXBElement<?>> pathOrRuntimeIdOrUrl;
 
