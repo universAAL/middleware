@@ -23,7 +23,6 @@ package org.universAAL.middleware.shell.universAAL.osgi;
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.ServiceReference;
-import org.universAAL.middleware.interfaces.aalspace.model.Aalspace;
 import org.universAAL.middleware.managers.api.AALSpaceManager;
 
 /**
