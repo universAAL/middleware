@@ -38,6 +38,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     public static String HAS_LOCATION = NAMESPACE + "hasLocation";
     public static String LOCATION = NAMESPACE + "dummyLocation";
     private BlockingQueue queue = new SynchronousQueue();
+    public int timeout = 2000;
 
     public ArtifactIntegrationTest() {
 	// setBundleConfLocation("etc");
@@ -297,7 +298,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		+ "right", USER, HAS_LOCATION, LOCATION);
 	pub.publish(cev1);
 	try {
-	    retrieved = (Integer) queue.poll(1000, TimeUnit.MILLISECONDS);
+	    retrieved = (Integer) queue.poll(timeout, TimeUnit.MILLISECONDS);
 	    Assert.notNull(retrieved, "Not received the expected good event");
 	} catch (InterruptedException e) {
 	    logError(e, "Something bad happened %s", e.toString());
@@ -310,7 +311,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		+ "wrong", USER, HAS_LOCATION, LOCATION);
 	pub.publish(cev2);
 	try {
-	    retrieved = (Integer) queue.poll(1000, TimeUnit.MILLISECONDS);
+	    retrieved = (Integer) queue.poll(timeout, TimeUnit.MILLISECONDS);
 	    Assert.isNull(retrieved, "Wrongly received a bad context event");
 	} catch (InterruptedException e) {
 	    logError(e, "Something bad happened %s", e.toString());
@@ -388,7 +389,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	cpublisher.publish(e);
 	try {
 	    for (int i = 0; i < 7; i++) {
-		retrieved = (Integer) queue.poll(1000, TimeUnit.MILLISECONDS);
+		retrieved = (Integer) queue.poll(timeout, TimeUnit.MILLISECONDS);
 		if (retrieved != null) {
 		    good.add(retrieved);
 		}
@@ -451,7 +452,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
 	public void handleContextEvent(ContextEvent event) {
 	    try {
-		boolean sent = queue.offer(new Integer(ind), 1000,
+		boolean sent = queue.offer(new Integer(ind), timeout,
 			TimeUnit.MILLISECONDS);
 		if (!sent) {
 		    logError(null, "Received event but was not expected", event);
