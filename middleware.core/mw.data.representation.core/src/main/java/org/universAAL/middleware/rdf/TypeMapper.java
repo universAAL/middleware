@@ -226,7 +226,7 @@ public class TypeMapper {
 		// if (o instanceof ManagedIndividual)
 		// return ((ManagedIndividual) o).copyAsXMLLiteral();
 		// else
-		return ((Resource) o).copyAsXMLLiteral();
+		return ((Resource) o).copy(true);
 	} else if (getDatatypeURI(o) == null)
 	    return null;
 	return o;

@@ -428,36 +428,17 @@ public class Resource {
     }
 
     /**
-     * Create a copy of this resource as an XML Literal. This method only
-     * creates a copy of this resource and the property references, but not of
-     * the property values. If all resources of the RDF graph should be copied,
-     * use {@link #deepCopy()}.
+     * Create a copy of this resource. This method only creates a copy of this
+     * resource and the property references, but not of the property values. If
+     * all resources of the RDF graph should be copied, use {@link #deepCopy()}.
      * 
      * @return the copied resource as a non-specialized instance of
-     *         {@link Resource}, not a subclass of it.
+     *         {@link Resource}, not a subclass of it (Note: future versions may
+     *         change this and return a specialized copy).
      * @see #copyAsNonXMLLiteral()
      */
-    public Resource copyAsXMLLiteral() {
-	Resource copy = new Resource(uri, true);
-	for (Enumeration e = props.keys(); e.hasMoreElements();) {
-	    Object key = e.nextElement();
-	    copy.props.put(key, props.get(key));
-	}
-	return copy;
-    }
-
-    /**
-     * Create a copy of this resource as a non-XML Literal. This method only
-     * creates a copy of this resource and the property references, but not of
-     * the property values. If all resources of the RDF graph should be copied,
-     * use {@link #deepCopy()}.
-     * 
-     * @return the copied resource as a non-specialized instance of
-     *         {@link Resource}, not a subclass of it.
-     * @see #copyAsXMLLiteral()
-     */
-    public Resource copyAsNonXMLLiteral() {
-	Resource copy = new Resource(uri, false);
+    public Resource copy(boolean isXMLLiteral) {
+	Resource copy = new Resource(uri, isXMLLiteral);
 	for (Enumeration e = props.keys(); e.hasMoreElements();) {
 	    Object key = e.nextElement();
 	    copy.props.put(key, props.get(key));
