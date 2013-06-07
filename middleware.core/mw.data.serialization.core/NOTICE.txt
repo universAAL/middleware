@@ -1,4 +1,4 @@
-PERSONA Turtle Serializer for RDF
+Turtle Serializer for RDF
 
 Copyright 2009-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung
@@ -32,5 +32,4 @@ Licensed under the Apache License 2.0.
 
 III. License Summary
 - Apache License 2.0
-- MIT License
 - Aduna BSD-style license

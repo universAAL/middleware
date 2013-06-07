@@ -1,4 +1,4 @@
-SODAPOP OSGI Bundle
+Felix Shell
 
 Copyright 
 

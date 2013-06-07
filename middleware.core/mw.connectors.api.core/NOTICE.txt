@@ -1,4 +1,4 @@
-SODAPOP OSGI Bundle
+Connector API
 
 Copyright 
 
