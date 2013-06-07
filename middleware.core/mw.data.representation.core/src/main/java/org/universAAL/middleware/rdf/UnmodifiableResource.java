@@ -135,8 +135,8 @@ public class UnmodifiableResource extends Resource {
 	}
     }
 
-    public Resource copyAsXMLLiteral() {
-	return new UnmodifiableResource(res.copyAsXMLLiteral());
+    public Resource copy(boolean isXMLLitera) {
+	return new UnmodifiableResource(res.copy(isXMLLitera));
     }
 
     public Resource deepCopy() {

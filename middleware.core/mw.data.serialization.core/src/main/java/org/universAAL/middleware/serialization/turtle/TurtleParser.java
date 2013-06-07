@@ -176,7 +176,7 @@ public class TurtleParser {
 	    Resource result = finalizeAndGetRoot(resourceURI);
 	    if (result != null) {
 		if (wasXMLLiteral)
-		    result = result.copyAsXMLLiteral();
+		    result = result.copy(true);
 		else if (Resource.TYPE_RDF_LIST.equals(result.getType())) {
 		    // Object first =
 		    // result.getProperty(Resource.PROP_RDF_FIRST);

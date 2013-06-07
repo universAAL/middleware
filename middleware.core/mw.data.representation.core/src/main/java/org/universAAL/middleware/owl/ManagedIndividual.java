@@ -330,12 +330,16 @@ public abstract class ManagedIndividual extends FinalizedResource {
     }
 
     /**
-     * If this object is an XML Literal, create a copy of it.
+     * Create a copy of this resource.
+     * 
+     * @return the copied resource. If possible, this is a specialized instance
+     *         of {@link ManagedIndividual}, i.e. a subclass of it.
+     * @see Resource#copy(boolean)
      */
-    public Resource copyAsXMLLiteral() {
+    public Resource copy(boolean isXMLLiteral) {
 	ManagedIndividual copy = getInstance(getClassURI(), uri);
 	if (copy == null)
-	    return super.copyAsXMLLiteral();
+	    return super.copy(isXMLLiteral);
 	copy.isXMLLiteral = true;
 	for (Enumeration e = props.keys(); e.hasMoreElements();) {
 	    Object key = e.nextElement();
