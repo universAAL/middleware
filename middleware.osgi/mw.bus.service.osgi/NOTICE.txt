@@ -1,4 +1,4 @@
-SODAPOP OSGI Bundle
+Service Bus
 
 Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung 
@@ -33,5 +33,4 @@ Licensed under Common Public License 1.0.
 
 III. License Summary
 - Apache License 2.0
-- MIT License
 - Common Public License 1.0

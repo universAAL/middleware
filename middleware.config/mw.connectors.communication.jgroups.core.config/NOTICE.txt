@@ -1,4 +1,4 @@
-SODAPOP OSGI Bundle
+JGroups Communication Connector Configuration
 
 Copyright 
 

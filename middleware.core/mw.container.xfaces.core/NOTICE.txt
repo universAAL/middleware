@@ -1,4 +1,4 @@
-ACL (Abstract Connection Layer) Interfaces
+Container Interfaces
 
 Copyright 2011-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 Fraunhofer Gesellschaft - Institut für Graphische Verarbeitung 
@@ -15,5 +15,3 @@ This does not use any software developed by 3rd parties
 
 III. License Summary
 - Apache License 2.0
-- MIT License
-- Common Public License 1.0

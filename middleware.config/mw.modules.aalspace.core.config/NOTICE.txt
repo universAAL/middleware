@@ -1,4 +1,4 @@
-SODAPOP OSGI Bundle
+AAL Space Module Configuration
 
 Copyright 
 
