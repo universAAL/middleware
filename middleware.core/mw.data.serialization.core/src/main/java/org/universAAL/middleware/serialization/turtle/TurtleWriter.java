@@ -843,7 +843,7 @@ public class TurtleWriter {
 
     /** Write a new value (Resource or Literal) to the output stream. */
     private void writeValue(Object val, boolean closed) throws IOException {
-	if (val instanceof List)
+	if (val instanceof List) {
 	    if (closed) {
 		writer.write("(");
 		embedLevel++;
@@ -867,21 +867,30 @@ public class TurtleWriter {
 		writeValue(((List) val).get(last), false);
 		embedLevel--;
 	    }
-	else if (val instanceof Resource)
-	    if (((Resource) val).serializesAsXMLLiteral())
+	} else if (val instanceof Resource) {
+	    if (((Resource) val).serializesAsXMLLiteral()) {
 		if (((Resource) val).isAnon()
-			|| ((Resource) val).numberOfProperties() > 0)
+			|| ((Resource) val).numberOfProperties() > 0) {
 		    writeLiteral(TurtleWriter.serialize(val, embedLevel + 2),
 			    TurtleUtil.xmlLiteral);
-		else
+		} else {
 		    writeLiteral(((Resource) val).getURI(), TypeMapper
 			    .getDatatypeURI(Resource.class));
-	    else
+		}
+	    } else {
 		writeResource((Resource) val);
-	else if (val instanceof Boolean || val instanceof Double
-		|| val instanceof Integer)
+	    }
+	} else if (val instanceof Boolean || val instanceof Integer) {
 	    writer.write(val.toString());
-	else if (val instanceof LangString) {
+	} else if (val instanceof Double) {
+	    if (((Double)val) == Double.POSITIVE_INFINITY) {
+		writer.write("INF");
+	    } else if (((Double)val) == Double.NEGATIVE_INFINITY) {
+		writer.write("-INF");
+	    } else {
+		writer.write(val.toString());
+	    }
+	} else if (val instanceof LangString) {
 	    LangString ls = (LangString) val;
 	    writer.write("\"");
 	    writer.write(ls.getString());

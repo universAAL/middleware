@@ -30,6 +30,7 @@ public class TurtleTest extends TestCase {
 
 	s = new TurtleSerializer();
 	str = s.serialize(r1);
+	System.out.println("Serialized String:\n"+str);
 	s = new TurtleSerializer();
 	r2 = (Resource) s.deserialize(str);
 	ResourceComparator rc = new ResourceComparator();
@@ -108,5 +109,22 @@ public class TurtleTest extends TestCase {
 	 Resource r = (Resource) o;
 	 System.out.println(r.getURI());
 	 assertTrue(uri.equals(r.getURI()));
+    }
+    
+    public void testNaN() {
+	Resource r1 = new Resource(); // input resource
+	r1.setProperty("test", Double.NaN);
+	assertTrue(check(r1));
+    }
+    
+    public void testPosINF() {
+	Resource r1 = new Resource(); // input resource
+	r1.setProperty("test", Double.POSITIVE_INFINITY);
+	assertTrue(check(r1));
+    }
+    public void testNegINF() {
+	Resource r1 = new Resource(); // input resource
+	r1.setProperty("test", Double.NEGATIVE_INFINITY);
+	assertTrue(check(r1));
     }
 }
