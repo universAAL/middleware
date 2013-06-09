@@ -133,6 +133,11 @@ public class TurtleParser {
 
     // debug: TODO: remove
     private List lstResources = new LinkedList();
+    
+    private static final String stringifiedPosInf = new Double(
+	    Double.POSITIVE_INFINITY).toString();
+    private static final String stringifiedNegInf = new Double(
+	    Double.NEGATIVE_INFINITY).toString();
 
     public TurtleParser() {
     }
@@ -663,9 +668,28 @@ public class TurtleParser {
 	int c = read();
 
 	// read optional sign character
-	if (c == '+' || c == '-') {
+	if (c == '+') {
 	    value.append((char) c);
 	    c = read();
+	} else if (c == '-') {
+	    value.append((char) c);
+	    c = read();
+	    if (c == 'I') {
+		int c2 = read();
+		if (c2 == 'N') {
+		    int c3 = read();
+		    if (c3 == 'F') {
+			// special value '-INF'
+			return TypeMapper.getJavaInstance(stringifiedNegInf,
+				TypeMapper.getDatatypeURI(Double.class));
+		    } else {
+			unread(c3);
+			unread(c2);
+		    }
+		} else {
+		    unread(c2);
+		}
+	    }
 	}
 
 	while (StringUtils.isDigit((char) c)) {
@@ -898,6 +922,12 @@ public class TurtleParser {
 		if (value.equals("true") || value.equals("false")) {
 		    return TypeMapper.getJavaInstance(value, TypeMapper
 			    .getDatatypeURI(Boolean.class));
+		} else if (value.equals("NaN")) {
+		    return TypeMapper.getJavaInstance(value, TypeMapper
+			    .getDatatypeURI(Double.class));
+		} else if (value.equals("INF")) {
+		    return TypeMapper.getJavaInstance(stringifiedPosInf, TypeMapper
+			    .getDatatypeURI(Double.class));
 		}
 	    }
 
