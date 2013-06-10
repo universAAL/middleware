@@ -1,0 +1,38 @@
+
+@prefix ns: <http://ontology.universaal.org/Lighting.owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://ontology.universaal.org/UIMainMenuProfile.owl#> .
+_:BN000000 :hasEntry (
+    [
+      :hasVendor <http://www.igd.fraunhofer.de> ;
+      a :MenuEntry ;
+      :hasPath (
+        [
+          rdfs:label "Lighting UI Client"^^xsd:string
+        ]
+      ) ;
+      :hasServiceClass ns:Lighting
+    ]
+    [
+      :hasVendor <http://www.tsb.upv.es> ;
+      a :MenuEntry ;
+      :hasPath (
+        [
+          rdfs:label "Nutritional Advisor"^^xsd:string
+        ]
+      ) ;
+      :hasServiceClass <http://ontology.persona.ima.igd.fhg.de/Nutritional.owl#Nutritional>
+    ]
+    [
+      :hasVendor <http://www.spirit.gr> ;
+      a :MenuEntry ;
+      :hasPath (
+        [
+          rdfs:label "Profile Editor"^^xsd:string
+        ]
+      ) ;
+      :hasServiceClass <http://ontology.persona.upm.es/Profile.owl#ProfilingService>
+    ]
+  ) ;
+  a :MenuProfile .
