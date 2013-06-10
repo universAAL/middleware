@@ -1,0 +1,22 @@
+Service Bus Annotated API (CORE)
+
+Copyright by ***ADD HERE PARTNER***
+
+
+I. Included Software
+
+Software developed by XXXXXXXXX?
+
+
+II. Used Software
+
+This product uses software developed at
+The Apache Software Foundation (http://www.apache.org/).
+Licensed under the Apache License 2.0.
+
+This product uses software developed at
+ASM (http://asm.objectweb.org).
+Licensed under modified BSD license
+
+III. License Summary
+- Apache License 2.0
