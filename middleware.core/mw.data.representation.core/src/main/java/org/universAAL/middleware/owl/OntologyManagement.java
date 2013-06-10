@@ -426,11 +426,16 @@ public final class OntologyManagement {
 	    }
 
 	    // add new ontology
-	    LogUtils.logDebug(SharedResources.moduleContext,
-		    OntologyManagement.class, "register", new Object[] {
-			    "Registering ontology: ", ont.getInfo().getURI(),
-			    " (classes: ", ont.getResourceList().length, ")" },
-		    null);
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    OntologyManagement.class,
+		    "register",
+		    new Object[] {
+			    "Registering ontology: ",
+			    ont.getInfo().getURI(),
+			    " (classes: ",
+			    ont.getOntClassInfo().length
+				    + ont.getRDFClassInfo().length, ")" }, null);
 
 	    // make some sanity tests
 	    register_testOntology(ont);
