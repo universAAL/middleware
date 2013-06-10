@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.core</artifactId>
+    <version>1.3.3-SNAPSHOT</version>
+    <relativePath>../mw.pom.core</relativePath>
+  </parent>
+  <artifactId>mw.container.xfaces.core</artifactId>
+  <version>1.3.3-SNAPSHOT</version>
+  <name>universAAL Middleware Container Interfaces (Core)</name>
+  <description>Defines the interfaces exported by the Container building block of the universAAL middleware (Core)</description>
+  <url></url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+  </dependencies>
+</project>

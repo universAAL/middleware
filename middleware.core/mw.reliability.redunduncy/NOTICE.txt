@@ -1,0 +1,21 @@
+
+universAAL TMR Voter
+
+Copyright 2011-2014 USIG, http://www.uni-siegen.de
+University of Siegen
+
+
+I. Included Software
+final version of artifact universAAL TMR Voter by USIG within the universAAL project.
+
+II. Used Software
+
+This product uses software developed at
+The Apache Software Foundation (http://www.apache.org/).
+Licensed under the Apache License 2.0.
+
+III. License Summary
+- Apache License 2.0
+
+
+
