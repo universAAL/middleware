@@ -41,4 +41,13 @@ public class ExceptionUtils {
         return bos.toString();
     }
 
+    public static String stackTraceAsString(Throwable t) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(bos);
+        t.printStackTrace(ps);
+        ps.flush();
+        ps.close();
+        return bos.toString();
+    }
+
 }

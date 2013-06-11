@@ -337,7 +337,7 @@ public class CommunicationModuleImpl implements CommunicationModule,
 			 */
 			List<MessageListener> listeners = new ArrayList<MessageListener>();
 			listeners.add(listener);Thread t = new Thread(new UnicastExecutor(message,
-					communicationConnector, receiver, listeners));
+					communicationConnector, receiver, listeners, context));
 			t.start();
 		} catch (Exception e) {
 			LogUtils.logError(
@@ -362,7 +362,7 @@ public class CommunicationModuleImpl implements CommunicationModule,
 			List<MessageListener> listeners = getMessageListeners(message
 					.getChannelNames());
 			Thread t = new Thread(new UnicastExecutor(message,
-					communicationConnector, receiver, listeners));
+					communicationConnector, receiver, listeners, context));
 			t.start();
 
 		} catch (NullPointerException e) {
@@ -420,7 +420,7 @@ public class CommunicationModuleImpl implements CommunicationModule,
 		 * communicationConnector, listener));
 		 */
 		Thread t = new Thread(new BroadcastExecutor(message,
-				communicationConnector, listener));
+				communicationConnector, listener, context));
 		t.start();
 	}
 

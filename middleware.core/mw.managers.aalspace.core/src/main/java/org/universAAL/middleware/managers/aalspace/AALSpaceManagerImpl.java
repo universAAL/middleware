@@ -72,7 +72,8 @@ import org.xml.sax.SAXException;
  * The implementation of the AALSpaceManager and AALSpaceEventHandler
  *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
- * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano "Kismet" Lenzi</a>
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class AALSpaceManagerImpl implements AALSpaceEventHandler,
         AALSpaceManager, SharedObjectListener {
