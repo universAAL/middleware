@@ -26,23 +26,40 @@ package org.universAAL.middleware.connectors.exception;
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class CommunicationConnectorException extends RuntimeException {
 
     private String description;
-    private short errorCode;
+    private int errorCode;
 
-    public CommunicationConnectorException(short errorCode, String description) {
-	super();
+    public CommunicationConnectorException(int i, String description) {
+	super(description);
 	this.description = description;
-	this.errorCode = errorCode;
+	this.errorCode = i;
     }
 
+    
+    public CommunicationConnectorException(CommunicationConnectorErrorCode code, String description) {
+	this(code.ordinal(),description);
+    }
+    
+    public CommunicationConnectorException(CommunicationConnectorErrorCode code) {
+	this(code.ordinal(),code.toString());
+    }
+    
+    public CommunicationConnectorException(CommunicationConnectorErrorCode code, Throwable t) {
+	super("Internal exception",t);
+	this.errorCode = code.ordinal();
+	this.description = code.toString();
+    }
+    
     public String getDescription() {
 	return description;
     }
 
-    public short getErrorCode() {
+    public int getErrorCode() {
 	return errorCode;
     }
 

@@ -17,7 +17,7 @@
  *		©2012
  */
  
-package mw.faultTolerance.EventDuplication;
+package mw.reliability.EventDuplication;
 
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextEvent;

@@ -26,11 +26,12 @@ package org.universAAL.middleware.connectors.exception;
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
-public class CommunicationConnectorErrorCode {
-
-    public static final short NEW_CHANNEL_ERROR = 0;
-    public static final short SEND_MESSAGE_ERROR = 1;
-
-    public static final short CHANNEL_INIT_ERROR = 2;
+public enum CommunicationConnectorErrorCode {
+    NEW_CHANNEL_ERROR,
+    SEND_MESSAGE_ERROR,
+    CHANNEL_INIT_ERROR,
+    SEND_UNICAST_MESSAGE_ERROR_RECIEVER_IS_NOT_A_MEMBER;
 }

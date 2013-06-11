@@ -465,6 +465,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
                             }
                         } else {
                             msg = new Message(address, null, message.toString());
+                            break;
                         }
                     }
                 }
@@ -489,6 +490,9 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
                             "JGroupsCommunicationConnector",
                             new Object[] { "The JChannel cannot be created with ChannelMessage:"
                                     + message.toString() }, null);
+                    throw new CommunicationConnectorException(
+                            CommunicationConnectorErrorCode.SEND_UNICAST_MESSAGE_ERROR_RECIEVER_IS_NOT_A_MEMBER,
+                            "Trying to send message to "+receiver+" but it is not a memeber of "+ch.getName()+"/"+ch.getClusterName());
                 }
             }
         }
