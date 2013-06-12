@@ -88,6 +88,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     // Security stuff
     private boolean security = false;
     private String key;
+    private String enableRemoteChannelURL = null;
 
     public JGroupsCommunicationConnector(ModuleContext context)
 	    throws Exception {
@@ -253,23 +254,25 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 			    + element.getChannelName());
 	    return new JChannel();
 	}
-	if (enableRemoteChannelConfigurarion
+	URL urlConfig = null;
+	if (enableRemoteChannelConfigurarion && enableRemoteChannelURL != null) {
+	    urlConfig = new URL(enableRemoteChannelURL);
+	}
+	if (enableRemoteChannelConfigurarion && urlConfig == null
 		&& element.getChannelDescriptorFileURL() != null) {
 	    // Set up the jChannel from the URL or the value
-	    URL channelURL = new URL(element.getChannelDescriptorFileURL());
+	    urlConfig = new URL(element.getChannelDescriptorFileURL());
+	}
+	if (urlConfig != null) {
 	    try {
-		ch = createSharedChannel(channelURL);
+		ch = createSharedChannel(urlConfig);
 		return ch;
 	    } catch (Exception e) {
-		LogUtils.logInfo(
-			context,
-			JGroupsCommunicationConnector.class,
-			METHOD,
-			new Object[] {
+		LogUtils.logInfo(context, JGroupsCommunicationConnector.class,
+			METHOD, new Object[] {
 				"Failed to load remote configuration for ",
 				element.getChannelName(), " from URL -> ",
-				element.getChannelDescriptorFileURL(),
-				" due to internal exception ",
+				urlConfig, " due to internal exception ",
 				ExceptionUtils.stackTraceAsString(e), "\n",
 				"Trying to initializee the channels locally" },
 			e);
@@ -694,6 +697,8 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 	    this.enableRemoteChannelConfigurarion = Boolean
 		    .valueOf((String) configurations
 			    .get(Consts.ENABLE_REMOTE_CHANNEL_CONFIG));
+	    this.enableRemoteChannelURL = (String) configurations
+		    .get(Consts.ENABLE_REMOTE_CHANNEL_URL_CONFIG);
 	} catch (Throwable t) {
 	    LogUtils.logError(context, JGroupsCommunicationConnector.class,
 		    METHOD,
