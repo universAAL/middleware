@@ -55,6 +55,12 @@ public class CommunicationConnectorException extends RuntimeException {
 	this.description = code.toString();
     }
     
+    public CommunicationConnectorException(CommunicationConnectorErrorCode code, String msg, Throwable t) {
+	super(msg,t);
+	this.errorCode = code.ordinal();
+	this.description = msg;
+    }
+    
     public String getDescription() {
 	return description;
     }

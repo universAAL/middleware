@@ -30,8 +30,38 @@ package org.universAAL.middleware.connectors.exception;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public enum CommunicationConnectorErrorCode {
-    NEW_CHANNEL_ERROR,
-    SEND_MESSAGE_ERROR,
-    CHANNEL_INIT_ERROR,
-    SEND_UNICAST_MESSAGE_ERROR_RECIEVER_IS_NOT_A_MEMBER;
+    NEW_CHANNEL_ERROR, SEND_MESSAGE_ERROR, CHANNEL_INIT_ERROR,
+
+    /**
+     * This error code means that the message was not sent because the
+     * destination of the message was not found among the member of the JGroups
+     * cluster (e.g. the channel in uAAL jargon)
+     */
+    RECEIVER_NOT_EXISTS,
+
+    /**
+     * This error code means that the message that we are trying to send does
+     * not contain the name of the JGroup cluster (e.g. the channel in uAAL
+     * jargon) where JGroups has to push the message
+     */
+    NO_CHANNEL_SPECIFIED,
+
+    /**
+     * This error code means that we are trying to perform and unicast
+     * communication, but the message contains multiple receivers
+     */
+    MULTIPLE_RECEIVERS,
+
+    /**
+     * This error code means that the JGroup cluster (e.g. the channel in uAAL
+     * jargon) destination has not been found among our JGroups cluster that we
+     * are joined to
+     */
+    CHANNEL_NOT_FOUND,
+
+    /**
+     * This error code means that we are not connected to the JGroup cluster
+     * (e.g. the channel in uAAL jargon) destination
+     */
+    NOT_CONNECTED_TO_CHANNEL;
 }
