@@ -45,6 +45,8 @@ import org.universAAL.middleware.container.utils.LogUtils;
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @version $LastChangedRevision$ ($LastChangedDate$)
  */
 public class Activator implements BundleActivator, ManagedService {
 
@@ -53,11 +55,11 @@ public class Activator implements BundleActivator, ManagedService {
     private JGroupsCommunicationConnector jgroupsCommunicationConnector;
     private ServiceRegistration myRegistration;
 
-    public void start(BundleContext context) throws Exception {
+    public void start(BundleContext bc) throws Exception {
 
     	Security.addProvider(new BouncyCastleProvider());
 	ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
+		.registerModule(new Object[] { bc });
 	LogUtils.logDebug(
 		moduleContext,
 		Activator.class,
@@ -70,14 +72,14 @@ public class Activator implements BundleActivator, ManagedService {
 
 	Dictionary props = new Hashtable();
 	props.put(Constants.SERVICE_PID, SERVICE_PID);
-	myRegistration = context.registerService(
+	myRegistration = bc.registerService(
 		ManagedService.class.getName(), this, props);
 
 	ConfigurationAdmin configurationAdmin = null;
-	ServiceReference sr = context
+	ServiceReference sr = bc
 		.getServiceReference(ConfigurationAdmin.class.getName());
-	if (sr != null && context.getService(sr) instanceof ConfigurationAdmin)
-	    configurationAdmin = (ConfigurationAdmin) context.getService(sr);
+	if (sr != null && bc.getService(sr) instanceof ConfigurationAdmin)
+	    configurationAdmin = (ConfigurationAdmin) bc.getService(sr);
 	Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
 
 	Dictionary jGroupDCOnnector = config.getProperties();
@@ -94,13 +96,13 @@ public class Activator implements BundleActivator, ManagedService {
 		null);
     }
 
-    public void stop(BundleContext arg0) throws Exception {
+    public void stop(BundleContext bc) throws Exception {
 	jgroupsCommunicationConnector.dispose();
 	myRegistration.unregister();
     }
 
-    public void updated(Dictionary arg0) throws ConfigurationException {
-	jgroupsCommunicationConnector.loadProperties(arg0);
+    public void updated(Dictionary props) throws ConfigurationException {
+	jgroupsCommunicationConnector.loadConfigurations(props);
     }
 
 }

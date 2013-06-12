@@ -646,50 +646,8 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
                     .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_DESCRIPTION);
             this.provider = (String) configurations
                     .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_PROVIDER);
-            this.enableRemoteChannelConfigurarion = Boolean
-                    .getBoolean(((String) configurations
-                            .get(Consts.ENABLE_REMOTE_CHANNEL_CONFIG)));
-        } catch (NumberFormatException e) {
-            LogUtils.logError(context, JGroupsCommunicationConnector.class,
-                    "JGroupsCommunicationConnector",
-                    new Object[] { "Error during JGroups properties update" },
-                    null);
-        } catch (NullPointerException e) {
-            LogUtils.logError(context, JGroupsCommunicationConnector.class,
-                    "JGroupsCommunicationConnector",
-                    new Object[] { "Error during JGroups properties update" },
-                    null);
-        } catch (Exception e) {
-            LogUtils.logError(context, JGroupsCommunicationConnector.class,
-                    "JGroupsCommunicationConnector",
-                    new Object[] { "Error during JGroups properties update" },
-                    null);
-        }
-        LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
-                "JGroupsCommunicationConnector",
-                new Object[] { "JGroups Connector properties updated" }, null);
-    }
-
-    public void loadProperties(Dictionary properties) {
-        LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
-                "JGroupsCommunicationConnector",
-                new Object[] { "updating JGroups Connector properties" }, null);
-        if (properties == null) {
-            LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
-                    "JGroupsCommunicationConnector",
-                    new Object[] { "JGroups Connector properties are null" },
-                    null);
-            return;
-        }
-        try {
-            this.name = (String) properties
-                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_NAME);
-            this.version = (String) properties
-                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_VERSION);
-            this.description = (String) properties
-                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_DESCRIPTION);
-            this.provider = (String) properties
-                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_PROVIDER);
+            this.enableRemoteChannelConfigurarion = Boolean.valueOf((String) configurations
+                            .get(Consts.ENABLE_REMOTE_CHANNEL_CONFIG));
         } catch (NumberFormatException e) {
             LogUtils.logError(context, JGroupsCommunicationConnector.class,
                     "JGroupsCommunicationConnector",
