@@ -74,7 +74,7 @@ public abstract class SLPCore {
     private static boolean multicastThreadRunning = true;
     private static volatile boolean isInitialized = false;
 
-    protected static PlatformAbstraction platform;
+    public static PlatformAbstraction platform;
 
     /**
      * the default empty locale. Used for messages that don't specify a locale.
@@ -84,7 +84,7 @@ public abstract class SLPCore {
     /**
      * the port for SLP communication.
      */
-    static final int SLP_PORT;
+    static int SLP_PORT = -1;
 
     /**
      * the reserved (standard) port.
@@ -97,14 +97,14 @@ public abstract class SLPCore {
     static final String SLP_MCAST_ADDRESS = "239.255.255.253";
 
     /**
-	 * 
-	 */
-    static final InetAddress MCAST_ADDRESS;
+     * 
+     */
+    static InetAddress MCAST_ADDRESS = null;
 
     /**
      * the SLP configuration.
      */
-    static final SLPConfiguration CONFIG;
+    static SLPConfiguration CONFIG = null;
 
     /**
      * currently only for debugging.
@@ -125,25 +125,25 @@ public abstract class SLPCore {
     /**
      * configured to perform no DA discovery ?
      */
-    static final boolean noDiscovery;
+    static boolean noDiscovery;
 
     /**
      * the constructor for <code>Advertiser</code> instances, if an
      * implementation exists.
      */
-    protected static final Constructor advertiser;
+    protected static Constructor advertiser;
 
     /**
      * the constructor for <code>Locator</code> instances, if an implementation
      * exists.
      */
-    protected static final Constructor locator;
+    protected static Constructor locator;
 
     /**
      * the constructor for <code>SLPDaemon</code> instances, if an
      * implementation exists.
      */
-    private static final Constructor daemonConstr;
+    // private static Constructor daemonConstr;
 
     /**
      * the daemon instance, if the implementation exists and no other daemon is
@@ -190,7 +190,7 @@ public abstract class SLPCore {
     /**
      * initialize the core class.
      */
-    static {
+    static void iniSLPLibrary() {
 	try {
 	    LOCALHOST = InetAddress.getLocalHost();
 	} catch (Throwable t) {
@@ -224,7 +224,7 @@ public abstract class SLPCore {
 		    .getConstructor(null);
 	} catch (Exception e) {
 	}
-	daemonConstr = constr;
+	// daemonConstr = constr;
 
 	// read in the property file, if it exists
 	File propFile = new File("jslp.properties");
@@ -233,8 +233,8 @@ public abstract class SLPCore {
 	    config = propFile.exists() ? new SLPConfiguration(propFile)
 		    : new SLPConfiguration();
 	} catch (IOException e1) {
-	    System.out.println("Could not parse the property file"
-		    + propFile.toString());
+	    System.out.println(
+		    "Could not parse the property file" + propFile.toString());
 	    e1.printStackTrace();
 	    config = new SLPConfiguration();
 	}
@@ -247,17 +247,18 @@ public abstract class SLPCore {
 	if (IPs == null) {
 	    InetAddress[] addresses = null;
 	    try {
-		addresses = InetAddress.getAllByName(InetAddress.getLocalHost()
-			.getHostName());
+		addresses = InetAddress
+			.getAllByName(InetAddress.getLocalHost().getHostName());
 		IPs = new String[addresses.length];
 		for (int i = 0; i < addresses.length; i++) {
 		    IPs[i] = addresses[i].getHostAddress();
 		}
 	    } catch (UnknownHostException e) {
-		System.err
-			.println("Reverse lookup of host name failed. Running service discovery on localloop.");
+		System.err.println(
+			"Reverse lookup of host name failed. Running service discovery on localloop.");
 		try {
-		    addresses = new InetAddress[] { InetAddress.getLocalHost() };
+		    addresses = new InetAddress[] {
+			    InetAddress.getLocalHost() };
 		} catch (UnknownHostException e1) {
 		    e1.printStackTrace();
 		}
@@ -279,11 +280,13 @@ public abstract class SLPCore {
 	MCAST_ADDRESS = mcast;
     }
 
-    protected static void init() {
+    public static void init() {
 	if (isInitialized) {
 	    return;
 	}
 	isInitialized = true;
+
+	iniSLPLibrary();
 
 	platform.logDebug("jSLP is running on the following interfaces: "
 		+ java.util.Arrays.asList(myIPs));
@@ -298,30 +301,32 @@ public abstract class SLPCore {
 	} else {
 	    try {
 		// process the preconfigured DAs
-		final ServiceRequest req = new ServiceRequest(new ServiceType(
-			SLP_DA_TYPE), null, null, null);
+		final ServiceRequest req = new ServiceRequest(
+			new ServiceType(SLP_DA_TYPE), null, null, null);
 		req.port = SLP_PORT;
 		for (int i = 0; i < daAddresses.length; i++) {
 		    try {
 			req.address = InetAddress.getByName(daAddresses[i]);
-			DAAdvertisement daa = (DAAdvertisement) sendMessage(
-				req, true);
+			DAAdvertisement daa = (DAAdvertisement) sendMessage(req,
+				true);
 			String[] scopes = (String[]) daa.scopeList
 				.toArray(new String[daa.scopeList.size()]);
 			for (int j = 0; j < scopes.length; j++) {
-			    platform.logDebug("jSLP is adding DA, "
-				    + daAddresses[i] + " for the Scope, "
-				    + scopes[j]);
+			    platform.logDebug(
+				    "jSLP is adding DA, " + daAddresses[i]
+					    + " for the Scope, " + scopes[j]);
 			    SLPUtils.addValue(dAs, scopes[i].toLowerCase(),
 				    daAddresses[i]);
 			}
 		    } catch (ServiceLocationException e) {
-			platform.logWarning("Error communitcating with "
-				+ daAddresses[i], e);
+			platform.logWarning(
+				"Error communitcating with " + daAddresses[i],
+				e);
 		    } catch (UnknownHostException e) {
 			platform.logWarning(
 				"Unknown net.slp.DAAddresses address: "
-					+ daAddresses[i], e);
+					+ daAddresses[i],
+				e);
 		    }
 		}
 	    } catch (IllegalArgumentException ise) {
@@ -342,7 +347,7 @@ public abstract class SLPCore {
 
     }
 
-    protected static void destroyMulticastSocket() {
+    public static void destroyMulticastSocket() {
 	mtcSocket.disconnect();
 	mtcSocket.close();
 	isMulticastSocketInitialized = false;
@@ -350,7 +355,7 @@ public abstract class SLPCore {
 
     // a pure UA doesn't need a multicast listener which is only required by a
     // SA or DA
-    protected static void initMulticastSocket() {
+    public static void initMulticastSocket() {
 	if (isMulticastSocketInitialized) {
 	    return;
 	}
@@ -373,8 +378,8 @@ public abstract class SLPCore {
 	    mtcSocket.joinGroup(MCAST_ADDRESS);
 	} catch (BindException be) {
 	    platform.logError(be.getMessage(), be);
-	    throw new RuntimeException("You have to be root to open port "
-		    + SLP_PORT);
+	    throw new RuntimeException(
+		    "You have to be root to open port " + SLP_PORT);
 	} catch (Exception e) {
 	    platform.logError(e.getMessage(), e);
 	}
@@ -391,12 +396,11 @@ public abstract class SLPCore {
 		    try {
 			packet = new DatagramPacket(bytes, bytes.length);
 			mtcSocket.receive(packet);
-			final SLPMessage reply = handleMessage(SLPMessage
-				.parse(packet.getAddress(),
-					packet.getPort(),
-					new DataInputStream(
-						new ByteArrayInputStream(packet
-							.getData())), false));
+			final SLPMessage reply = handleMessage(SLPMessage.parse(
+				packet.getAddress(), packet.getPort(),
+				new DataInputStream(new ByteArrayInputStream(
+					packet.getData())),
+				false));
 			if (reply != null) {
 			    final byte[] repbytes = reply.getBytes();
 			    DatagramPacket datagramPacket = new DatagramPacket(
@@ -413,18 +417,20 @@ public abstract class SLPCore {
 		}
 	    }
 	};
+	multicastThreadRunning = true;// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	multicastThread.start();
 
 	// check, if there is already a SLP daemon runnung on port 427
 	// that can be either a jSLP daemon, or an OpenSLP daemon or something
 	// else. If not, try to start a new daemon instance.
-	if (daemonConstr != null) {
-	    try {
-		daemon = (SLPDaemon) daemonConstr.newInstance(null);
-	    } catch (Exception e) {
-		daemon = null;
-	    }
+	// if (daemonConstr != null) {
+	try {
+	    // daemon = (SLPDaemon) daemonConstr.newInstance(null);
+	    daemon = (SLPDaemon) new SLPDaemonImpl();
+	} catch (Exception e) {
+	    daemon = null;
 	}
+	// }
     }
 
     /**
@@ -436,8 +442,8 @@ public abstract class SLPCore {
 	try {
 	    return InetAddress.getByName(myIPs[0]);
 	} catch (UnknownHostException e) {
-	    platform.logError(
-		    "Unknown net.slp.interfaces address: " + myIPs[0], e);
+	    platform.logError("Unknown net.slp.interfaces address: " + myIPs[0],
+		    e);
 	    return null;
 	}
     }
@@ -484,10 +490,10 @@ public abstract class SLPCore {
 	    DAAdvertisement advert = (DAAdvertisement) message;
 
 	    if (advert.errorCode != 0) {
-		platform.logTraceDrop("DROPPED DAADvertisement ("
-			+ advert.address + ":" + advert.port + ") "
-			+ advert.toString() + "(reason: " + advert.errorCode
-			+ " != 0");
+		platform.logTraceDrop(
+			"DROPPED DAADvertisement (" + advert.address + ":"
+				+ advert.port + ") " + advert.toString()
+				+ "(reason: " + advert.errorCode + " != 0");
 		return null;
 	    }
 
@@ -541,7 +547,7 @@ public abstract class SLPCore {
 
 	    return null;
 
-	    // reply messages
+	// reply messages
 	case SLPMessage.ATTRRPLY:
 	case SLPMessage.SRVRPLY:
 	case SLPMessage.SRVTYPERPLY:
@@ -564,7 +570,7 @@ public abstract class SLPCore {
 	    }
 	    return null;
 
-	    // request messages
+	// request messages
 	case SLPMessage.SRVRQST:
 	case SLPMessage.ATTRRQST:
 	case SLPMessage.SRVTYPERQST:
@@ -596,8 +602,8 @@ public abstract class SLPCore {
 	    if (daemon != null) {
 		return daemon.handleMessage(message);
 	    } else {
-		platform.logDebug("A message recieved (" + message.address
-			+ ":" + message.port + ") " + message.toString()
+		platform.logDebug("A message recieved (" + message.address + ":"
+			+ message.port + ") " + message.toString()
 			+ " but no SLPDaemon to handle the message present");
 		return null;
 	    }
@@ -638,8 +644,9 @@ public abstract class SLPCore {
 		final InetAddress addr = InetAddress.getByName(myIPs[i]);
 		DatagramSocket socket = new DatagramSocket(0, addr);
 
-		ServiceRequest sreq = new ServiceRequest(new ServiceType(
-			SLP_DA_TYPE), scopes, null, SLPCore.DEFAULT_LOCALE);
+		ServiceRequest sreq = new ServiceRequest(
+			new ServiceType(SLP_DA_TYPE), scopes, null,
+			SLPCore.DEFAULT_LOCALE);
 		sreq.xid = SLPCore.nextXid();
 		sreq.scopeList = scopes;
 		sreq.address = MCAST_ADDRESS;
@@ -647,7 +654,8 @@ public abstract class SLPCore {
 		byte[] bytes = sreq.getBytes();
 		DatagramPacket d = new DatagramPacket(bytes, bytes.length,
 			MCAST_ADDRESS, SLP_PORT);
-		platform.logTraceMessage("SENT " + sreq + "(udp multicast)");
+		platform.logTraceMessage("SENT " + sreq + "(udp multicast) TO: "
+			+ d.getAddress());
 		setupReceiverThread(socket, CONFIG.getWaitTime(), sreq);
 		try {
 		    socket.send(d);
@@ -657,16 +665,16 @@ public abstract class SLPCore {
 			    java.util.Arrays.asList(myIPs));
 		    final String faulty = myIPs[i];
 		    remaining.remove(faulty);
-		    myIPs = (String[]) remaining.toArray(new String[remaining
-			    .size()]);
+		    myIPs = (String[]) remaining
+			    .toArray(new String[remaining.size()]);
 		    platform.logDebug("Blacklisting IP " + faulty);
 		}
 	    }
 	} catch (IllegalArgumentException ise) {
 	    platform.logDebug("May never happen, no filter set", ise);
 	} catch (UnknownHostException uhe) {
-	    platform.logWarning("Unknown net.slp.interfaces address: "
-		    + myIPs[i], uhe);
+	    platform.logWarning(
+		    "Unknown net.slp.interfaces address: " + myIPs[i], uhe);
 	    throw new ServiceLocationException(
 		    ServiceLocationException.NETWORK_ERROR, uhe.getMessage());
 	} catch (IOException e) {
@@ -697,8 +705,8 @@ public abstract class SLPCore {
 		    socket.getOutputStream());
 	    DataInputStream in = new DataInputStream(socket.getInputStream());
 	    msg.writeTo(out);
-	    final ReplyMessage reply = (ReplyMessage) SLPMessage.parse(
-		    msg.address, msg.port, in, true);
+	    final ReplyMessage reply = (ReplyMessage) SLPMessage
+		    .parse(msg.address, msg.port, in, true);
 	    socket.close();
 	    return reply;
 	} catch (Exception e) {
@@ -745,7 +753,7 @@ public abstract class SLPCore {
 
 	    platform.logTraceMessage("SENT (" + msg.address + ":" + msg.port
 		    + ") " + msg + " (via udp port " + dsocket.getLocalPort()
-		    + ")");
+		    + ") TO: " + packet.getAddress());
 
 	    // if no reply is expected, return
 	    if (!expectReply) {
@@ -832,7 +840,10 @@ public abstract class SLPCore {
 		try {
 		    socket.setInterface(addr);
 		} catch (SocketException e) {
-		    platform.logDebug("Exception while trying to set the multicast interface: " + addr, e);
+		    platform.logDebug(
+			    "Exception while trying to set the multicast interface: "
+				    + addr,
+			    e);
 		    continue;
 		}
 		socket.setTimeToLive(CONFIG.getMcastTTL());
@@ -877,7 +888,8 @@ public abstract class SLPCore {
 			break;
 		    }
 
-		    platform.logTraceMessage("SENT " + msg);
+		    platform.logTraceMessage(
+			    "SENT " + msg + " TO: " + p.getAddress());
 
 		    /**
 		     * @fix: bug #1518729. Changed processing of the replyQueue.
@@ -904,8 +916,8 @@ public abstract class SLPCore {
 			    // silently drop duplicate responses, process only
 			    // new
 			    // results
-			    if (!responders.contains(reply.address
-				    .getHostAddress())) {
+			    if (!responders
+				    .contains(reply.address.getHostAddress())) {
 				if (isLocalResponder(reply.address)) {
 				    if (seenLocalResponse) {
 					continue;
@@ -984,7 +996,7 @@ public abstract class SLPCore {
 		    try {
 			long l = timeout - System.currentTimeMillis();
 			int soTimeout = (int) (l < 0 ? 1 : l);
-			socket.setSoTimeout(soTimeout);
+			socket.setSoTimeout(10000/* soTimeout */);
 		    } catch (SocketException e1) {
 			platform.logError("Exception in mcast receiver thread",
 				e1);
@@ -996,9 +1008,11 @@ public abstract class SLPCore {
 			// try to receive a datagram packet
 			socket.receive(packet);
 		    } catch (InterruptedIOException iioe) {
+			platform.logTraceMessage(
+				"Did not receive anything / timeout");
 			continue;
 		    } catch (IOException e) {
-			platform.logDebug(e.getMessage(), e);
+			platform.logWarning(e.getMessage(), e);
 			return;
 		    }
 		    final DataInputStream in = new DataInputStream(
@@ -1023,7 +1037,7 @@ public abstract class SLPCore {
 
 		/**
 		 * Michele 65
-		 * */
+		 */
 
 	    }
 	}.start();

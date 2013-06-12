@@ -32,7 +32,9 @@ import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -59,7 +61,7 @@ import ch.ethz.iks.slp.ServiceURL;
  * @since 0.6
  */
 public final class SLPDaemonImpl implements SLPDaemon {
-
+    protected static ServerSocket socket;
     /**
      * thread loop variable.
      */
@@ -104,7 +106,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 
 	Service service = new Service(reg);
 
-	for (Iterator scopeIter = reg.scopeList.iterator(); scopeIter.hasNext();) {
+	for (Iterator scopeIter = reg.scopeList.iterator(); scopeIter
+		.hasNext();) {
 	    String scope = (String) scopeIter.next();
 	    scope = scope.toLowerCase();
 	    synchronized (registeredServices) {
@@ -136,8 +139,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 	    // try to find one
 	    if ((daList == null || daList.isEmpty()) && !SLPCore.noDiscovery) {
 		try {
-		    SLPCore.daLookup(Arrays
-			    .asList(new String[] { (String) scope }));
+		    SLPCore.daLookup(
+			    Arrays.asList(new String[] { (String) scope }));
 
 		    // wait a short time for incoming replies
 		    synchronized (SLPCore.dAs) {
@@ -189,17 +192,17 @@ public final class SLPDaemonImpl implements SLPDaemon {
     private void deregisterService(final ServiceDeregistration dereg)
 	    throws ServiceLocationException {
 
-	final String[] scopes = (String[]) registeredServices.keySet().toArray(
-		new String[registeredServices.size()]);
+	final String[] scopes = (String[]) registeredServices.keySet()
+		.toArray(new String[registeredServices.size()]);
 	for (int i = 0; i < scopes.length; i++) {
 	    final List tmp = (List) registeredServices.get(scopes[i]);
-	    final Service[] services = (Service[]) tmp.toArray(new Service[tmp
-		    .size()]);
+	    final Service[] services = (Service[]) tmp
+		    .toArray(new Service[tmp.size()]);
 
 	    for (int j = 0; j < services.length; j++) {
 		if (dereg.url.matches(services[j].url)) {
-		    List daList = (List) SLPCore.dAs.get(scopes[i]
-			    .toLowerCase());
+		    List daList = (List) SLPCore.dAs
+			    .get(scopes[i].toLowerCase());
 		    if (daList != null) {
 			for (Iterator daIter = daList.iterator(); daIter
 				.hasNext();) {
@@ -266,7 +269,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 	    ServiceRequest req = (ServiceRequest) msg;
 
 	    List results = new ArrayList();
-	    for (Iterator scopes = req.scopeList.iterator(); scopes.hasNext();) {
+	    for (Iterator scopes = req.scopeList.iterator(); scopes
+		    .hasNext();) {
 		List services = (List) registeredServices.get(scopes.next());
 		if (services == null) {
 		    continue;
@@ -364,8 +368,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 		    ServiceType type = service.url.getServiceType();
 		    if (streq.namingAuthority.equals("*")
 			    || streq.namingAuthority.equals("")
-			    || type.getNamingAuthority().equals(
-				    streq.namingAuthority)) {
+			    || type.getNamingAuthority()
+				    .equals(streq.namingAuthority)) {
 			if (!result.contains(type)) {
 			    result.add(type);
 			}
@@ -391,9 +395,9 @@ public final class SLPDaemonImpl implements SLPDaemon {
 	case SLPMessage.SRVACK:
 	    final ReplyMessage rep = (ReplyMessage) msg;
 	    if (rep.errorCode != 0) {
-		SLPCore.platform.logWarning(msg.address
-			+ " replied with error code " + rep.errorCode + " ("
-			+ rep + ")");
+		SLPCore.platform
+			.logWarning(msg.address + " replied with error code "
+				+ rep.errorCode + " (" + rep + ")");
 	    }
 	    return null;
 
@@ -465,8 +469,9 @@ public final class SLPDaemonImpl implements SLPDaemon {
 	    }
 	    handleMessage(SLPCore.sendMessage(reg, true));
 	} catch (UnknownHostException e) {
-	    SLPCore.platform.logError("Service announcement to " + dAAddress
-		    + " failed. ", e.fillInStackTrace());
+	    SLPCore.platform.logError(
+		    "Service announcement to " + dAAddress + " failed. ",
+		    e.fillInStackTrace());
 	}
     }
 
@@ -474,7 +479,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
      * TCP server thread.
      */
     private final class TcpServerThread extends Thread {
-	private ServerSocket socket;
+	// private ServerSocket socket;
+	private InetSocketAddress add;
 
 	/**
 	 * creates and starts a new TCP server thread.
@@ -483,7 +489,11 @@ public final class SLPDaemonImpl implements SLPDaemon {
 	 *             if socket creation fails.
 	 */
 	private TcpServerThread() throws IOException {
-	    socket = new ServerSocket(SLPCore.SLP_PORT);
+	    socket = new ServerSocket();
+	    socket.setReuseAddress(true);
+	    add = new InetSocketAddress(SLPCore.SLP_PORT);
+	    socket.bind(add);
+	    // socket = new ServerSocket(SLPCore.SLP_PORT);
 	    start();
 	}
 
@@ -501,9 +511,9 @@ public final class SLPDaemonImpl implements SLPDaemon {
 
 		    ReplyMessage reply = handleMessage(msg);
 		    if (reply != null) {
-			SLPCore.platform.logTraceMessage("SEND REPLY ("
-				+ reply.address + ":" + reply.port + ") "
-				+ reply);
+			SLPCore.platform
+				.logTraceMessage("SEND REPLY (" + reply.address
+					+ ":" + reply.port + ") " + reply);
 
 			DataOutputStream out = new DataOutputStream(
 				con.getOutputStream());
@@ -520,16 +530,23 @@ public final class SLPDaemonImpl implements SLPDaemon {
 		    in.close();
 		    con.close();
 		} catch (Exception ioe) {
-		    SLPCore.platform.logError(
-			    "Exception in TCP receiver thread", ioe);
+		    SLPCore.platform
+			    .logError("Exception in TCP receiver thread", ioe);
+		    try {
+			socket.close();
+		    } catch (IOException e) {
+			e.printStackTrace();
+		    }
 		}
 	    }
 	    /**
 	     * Michele issue 65
-	     * 
-	     * try { socket.close(); } catch (IOException e) { // TODO
-	     * Auto-generated catch block e.printStackTrace(); }
 	     */
+	    try {
+		socket.close();
+	    } catch (IOException e) {
+		e.printStackTrace();
+	    }
 	}
     }
 
@@ -556,8 +573,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 		    synchronized (serviceDisposalQueue) {
 			if (serviceDisposalQueue.isEmpty()) {
 			    // nothing to do, sleep until something arrives
-			    SLPCore.platform
-				    .logDebug("ServiceDisposalThread sleeping ...");
+			    SLPCore.platform.logDebug(
+				    "ServiceDisposalThread sleeping ...");
 			    serviceDisposalQueue.wait();
 			} else {
 			    // we have work, do everything that is due
@@ -565,7 +582,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
 			    while (!serviceDisposalQueue.isEmpty()
 				    && (nextActivity = ((Long) serviceDisposalQueue
 					    .firstKey())).longValue() <= System
-					    .currentTimeMillis()) {
+						    .currentTimeMillis()) {
 				ServiceURL service = (ServiceURL) serviceDisposalQueue
 					.get(nextActivity);
 
@@ -578,9 +595,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 				    SLPCore.platform.logError(sle.getMessage(),
 					    sle.fillInStackTrace());
 				}
-				SLPCore.platform
-					.logTraceReg("disposed service "
-						+ service);
+				SLPCore.platform.logTraceReg(
+					"disposed service " + service);
 				serviceDisposalQueue.remove(nextActivity);
 			    }
 			    if (!serviceDisposalQueue.isEmpty()) {
@@ -612,6 +628,14 @@ public final class SLPDaemonImpl implements SLPDaemon {
      */
     public void stopDaemon() {
 	running = false;
+	try {
+	    socket.close();
+	    synchronized (serviceDisposalQueue) {
+		serviceDisposalQueue.notifyAll();
+	    }
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
 
     }
 }
