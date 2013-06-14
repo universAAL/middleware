@@ -36,6 +36,7 @@ import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.MembershipListener;
 import org.jgroups.Message;
+import org.jgroups.Message.Flag;
 import org.jgroups.Receiver;
 import org.jgroups.View;
 import org.jgroups.blocks.MessageDispatcher;
@@ -395,12 +396,13 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 		    context,
 		    JGroupsCommunicationConnector.class,
 		    "JGroupsCommunicationConnector",
-		    new Object[] { "Unable to initialize the JGroup channel with URL: "
-			    + channelURL }, null);
+		    new Object[] {
+			    "Unable to initialize the JGroup channel with URL: ",
+			    channelURL }, e);
 	    throw new CommunicationConnectorException(
 		    CommunicationConnectorErrorCode.CHANNEL_INIT_ERROR,
 		    "Unable to initialize the JGroup channel with URL: "
-			    + channelURL);
+			    + channelURL, e);
 	}
 
     }
@@ -743,7 +745,13 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     }
 
     public void receive(Message msg) {
+	final String METHOD = "receive";
 	try {
+	    if (msg.isFlagSet(Flag.INTERNAL)) {
+		LogUtils.logWarn(context, JGroupsCommunicationConnector.class,
+			METHOD, "Skipping internal JGroups packet");
+		return;
+	    }
 	    String msgBuffer = new String(msg.getBuffer());
 	    if (security) {
 		msgBuffer = CryptUtil.decrypt((String) msg.getObject());
@@ -754,7 +762,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 	    LogUtils.logDebug(
 		    context,
 		    JGroupsCommunicationConnector.class,
-		    "receive",
+		    METHOD,
 		    new Object[] { "Failed to unmarhall message due to exception "
 			    + ExceptionUtils.stackTraceAsString(ex) }, ex);
 	}
