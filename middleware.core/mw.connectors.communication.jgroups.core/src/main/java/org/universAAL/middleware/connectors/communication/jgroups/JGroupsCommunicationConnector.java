@@ -811,31 +811,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 
     }
 
-    public static void main(String[] args) {
-        JChannel c;
-        try {
-
-            ProtocolStackConfigurator config = ConfiguratorFactory
-                    .getStackConfigurator(new URL(
-                            "http://aaloa.isti.cnr.it/udp.xml"));
-            List<ProtocolConfiguration> protocols = config.getProtocolStack();
-            // ProtocolConfiguration transport = protocols.get(0);
-            // transport.getProperties().put(Global.SINGLETON_NAME,
-            // transport.getProtocolName());
-            c = new JChannel(config);
-            c.setDiscardOwnMessages(true);
-            c.setReceiver(new JGroupsCommunicationConnector(null));
-            c.setName(UUID.randomUUID().toString());
-
-            c.connect("i");
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        int a = 2;
-
-    }
+   
 
     public boolean hasChannel(String channelName) {
         return channelMap.containsKey(channelName);
