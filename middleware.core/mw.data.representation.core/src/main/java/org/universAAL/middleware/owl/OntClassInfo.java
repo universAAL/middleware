@@ -179,7 +179,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 		// a restriction for this property already exists
 		throw new IllegalAccessError(
 			"A restriction for this property (" + r.getOnProperty()
-				+ ")already exists. It can't be overwritten");
+				+ ") already exists. It can't be overwritten");
 
 	    // add to local variable
 	    HashMap tmp = new HashMap(propRestriction);
@@ -327,7 +327,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
      * properties, call {@link OntClassInfoSetup#addDatatypeProperty(String)} or
      * {@link OntClassInfoSetup#addObjectProperty(String)}.
      */
-    public String[] getDeclaredProperties() {
+    public String[] getDeclaredPropertyURIs() {
 	Set set = properties.keySet();
 	String[] p = new String[set.size()];
 	return (String[]) set.toArray(p);
@@ -338,8 +338,17 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
      * {@link OntClassInfoSetup#addDatatypeProperty(String)} or
      * {@link OntClassInfoSetup#addObjectProperty(String)}.
      */
-    public Property[] getProperties() {
+    public Property[] getDeclaredProperties() {
 	return (Property[]) properties.values().toArray(new Property[0]);
+    }
+    
+    /**
+     * Get a specific property of this class. To add new properties, call
+     * {@link OntClassInfoSetup#addDatatypeProperty(String)} or
+     * {@link OntClassInfoSetup#addObjectProperty(String)}.
+     */
+    public Property getDeclaredProperty(String propURI) {
+	return (Property) properties.get(propURI);
     }
 
     /**
