@@ -183,7 +183,7 @@ public class Group extends FormControl {
      * available only if {@link #getTypeURI()} returns a subclass of
      * {@link org.universAAL.middleware.owl.ManagedIndividual ManagedIndividual}
      * ; then, the structural info will be retrieved based on
-     * {@link org.universAAL.middleware.owl.OntClassInfo#getDeclaredProperties()
+     * {@link org.universAAL.middleware.owl.OntClassInfo#getDeclaredPropertyURIs()
      * the standard properties of that class} and
      * {@link org.universAAL.middleware.owl.ManagedIndividual#getClassRestrictionsOnProperty(String,String)
      * the class restrictions on them}. Properties with insufficient
@@ -205,7 +205,7 @@ public class Group extends FormControl {
 	}
 
 	String[] props = OntologyManagement.getInstance().getOntClassInfo(t)
-		.getDeclaredProperties();
+		.getDeclaredPropertyURIs();
 	if (props == null || props.length == 0) {
 	    LogUtils.logWarn(UIBusImpl.getModuleContext(), Group.class,
 		    "doModelBasedExpansion",

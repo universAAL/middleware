@@ -473,7 +473,7 @@ public abstract class Ontology {
 	    // add class
 	    list.add(info);
 	    // add properties
-	    Property[] propArr = info.getProperties();
+	    Property[] propArr = info.getDeclaredProperties();
 	    if (propArr.length != 0)
 		Collections.addAll(list, propArr);
 	    // add instances

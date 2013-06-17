@@ -29,9 +29,11 @@ import java.util.Set;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
+import org.universAAL.middleware.rdf.Property;
 import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
+import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
  * The Ontology Management mainly serves two purposes:
@@ -351,10 +353,12 @@ public final class OntologyManagement {
 		return false;
 	    }
 
-	    String[] props = info.getDeclaredProperties();
-	    // just test that all properties have a serialization type
+	    // test properties
+	    String[] props = info.getDeclaredPropertyURIs();
 	    for (int i = 0; i < props.length; i++) {
-		int serType = m.getPropSerializationType(props[i]);
+		String propURI = props[i];
+		// test that the property has a serialization type
+		int serType = m.getPropSerializationType(propURI);
 		if (serType == Resource.PROP_SERIALIZATION_UNDEFINED)
 		    LogUtils.logWarn(
 			    SharedResources.moduleContext,
@@ -362,7 +366,7 @@ public final class OntologyManagement {
 			    "register_testClass",
 			    new Object[] {
 				    "Undefined serialization type: the property ",
-				    props[i],
+				    propURI,
 				    " of the ontology class ",
 				    info.getURI(),
 				    " of the ontology ",
@@ -372,6 +376,50 @@ public final class OntologyManagement {
 					    + " please check the method getPropSerializationType(String propURI);"
 					    + " this might cause an incomplete serialization result." },
 			    null);
+		
+		// test that the restrictions match the type (i.e. a
+		// DatatypeProperty has a literal as value, not a Resource)
+		MergedRestriction res = info.getRestrictionsOnProp(propURI);
+		if (res == null)
+		    continue;
+		Property prop = info.getDeclaredProperty(propURI);
+		boolean isDatatype = prop instanceof DatatypeProperty;
+		Object constraint;
+		constraint = res
+			.getConstraint(MergedRestriction.allValuesFromID);
+		if (constraint != null) {
+		    if (constraint instanceof TypeURI) {
+			TypeURI t = (TypeURI) constraint;
+			String err = null;
+			if (TypeMapper.isRegisteredDatatypeURI(t.getURI())) {
+			    if (!isDatatype) {
+				err = "ObjectProperty";
+			    }
+			} else {
+			    if (isDatatype) {
+				err = "DatatypeProperty";
+			    }
+			}
+			if (err != null) {
+			    LogUtils.logError(
+				    SharedResources.moduleContext,
+				    OntologyManagement.class,
+				    "register_testClass",
+				    new Object[] {
+					    "Wrong property definition: the property ",
+					    propURI,
+					    " of the ontology class ",
+					    info.getURI(),
+					    " of the ontology ",
+					    ont.getInfo().getURI(),
+					    " is registered as a "
+						    + err
+						    + " but the defined restrictions indicate otherwise." },
+				    null);
+			}
+		    }
+		}
+		// TODO: there is much more we can test!
 	    }
 
 	    return true;
