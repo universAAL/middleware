@@ -27,5 +27,5 @@ package org.universAAL.middleware.interfaces.aalspace;
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  */
 public enum AALSpaceStatus {
-    STARTED, STOPPING, STOPPD, INSTALLING_MPA, INSTALLED_MPA, REMOVING_MPA, REMOVED_MPA
+    STARTED, STOPPING, STOPPD, INSTALLING_UAAP, INSTALLED_UAAP, REMOVING_UAAP, REMOVED_UAAP
 }

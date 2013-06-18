@@ -973,6 +973,8 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 			    new Object[] { "AALSpace message arrived" }, null);
 		    messageFromSpace(spaceMessage, message.getSender());
 		    break;
+		default:
+		    break;
 
 		default:
 		    LogUtils.logError(
