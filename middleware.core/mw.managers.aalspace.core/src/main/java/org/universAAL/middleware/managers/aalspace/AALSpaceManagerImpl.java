@@ -73,6 +73,7 @@ import org.xml.sax.SAXException;
  *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @author <a href="mailto:giancarlo.riolo@isti.cnr.it">Giancarlo Riolo</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class AALSpaceManagerImpl implements AALSpaceEventHandler,
@@ -83,7 +84,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     private boolean initialized = false;
     // data structure for the MW
     /**
-     * The AALSpace to which the MW is connected. Currently thye MW can join to
+     * The AALSpace to which the MW is connected. Currently the MW can join to
      * only one AAL space
      */
     private AALSpaceDescriptor currentAALSpace;
@@ -1009,7 +1010,12 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                             + peer.getPeerID().toString()
                             + " joins the AALSpace: " }, null);
             peers.put(peer.getPeerID(), peer);
+            for (AALSpaceListener list : listeners) {
+                list.newPeerJoined(peer);
+
         }
+
+    }
 
     }
 
@@ -1019,6 +1025,11 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                     new Object[] { "--->Peer +" + peer.getPeerID()
                             + " left the AALSpace" }, null);
             peers.remove(peer.getPeerID());
+            for (AALSpaceListener list : listeners) {
+                list.peerLost(peer);
+
+            }
+
         }
     }
 
@@ -1116,6 +1127,12 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                 peers.clear();
 
             }
+
+            for (AALSpaceListener elem : listeners) {
+
+                elem.aalSpaceLost(spaceDescriptor);
+            }
+
         } else {
             LogUtils.logWarn(context, AALSpaceManagerImpl.class,
                     "leaveAALSpace",
@@ -1219,14 +1236,14 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     }
 
     public void mpaInstalled(AALSpaceDescriptor spaceDescriptor) {
-        controlBroker.signalAALSpaceStatus(AALSpaceStatus.INSTALLED_MPA,
+        controlBroker.signalAALSpaceStatus(AALSpaceStatus.INSTALLED_UAAP,
                 spaceDescriptor);
 
     }
 
     public void mpaInstalling(AALSpaceDescriptor spaceDescriptor) {
         // send a event notification to the AALSpace
-        controlBroker.signalAALSpaceStatus(AALSpaceStatus.INSTALLING_MPA,
+        controlBroker.signalAALSpaceStatus(AALSpaceStatus.INSTALLING_UAAP,
                 spaceDescriptor);
     }
 
@@ -1237,6 +1254,10 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                 "aalSpaceEvent",
                 new Object[] { "--->New event from AALSpace: "
                         + newStatus.toString() }, null);
+
+        for (AALSpaceListener elem : listeners) {
+            elem.aalSpaceStatusChanged(newStatus);
+        }
 
     }
 
