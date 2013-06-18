@@ -17,7 +17,7 @@
  *		©2012
  */
 
-package mw.faultTolerance.EventDuplication;
+package mw.reliability.EventDuplication;
 
 
 /* More on how to use this class at: 

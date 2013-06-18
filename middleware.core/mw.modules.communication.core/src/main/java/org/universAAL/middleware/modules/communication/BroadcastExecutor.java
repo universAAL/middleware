@@ -1,5 +1,5 @@
 /*
-        Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
+        Coyright 2007-2014 CNR-ISTI, http://isti.cnr.it
         Institute of Information Science and Technologies
         of the Italian National Research Council
 
@@ -23,27 +23,45 @@ package org.universAAL.middleware.modules.communication;
 import org.universAAL.middleware.connectors.CommunicationConnector;
 import org.universAAL.middleware.connectors.exception.CommunicationConnectorException;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
+import org.universAAL.middleware.connectors.util.ExceptionUtils;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.modules.listener.MessageListener;
 
+/**
+ * Thread for sending broadcast messages
+ *
+ * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano "Kismet" Lenzi</a>
+ */
 public class BroadcastExecutor implements Runnable {
 
     private ChannelMessage message;
     private CommunicationConnector communicationConnector;
     private MessageListener listener;
+    private ModuleContext mc;
 
     public BroadcastExecutor(ChannelMessage message,
-	    CommunicationConnector communicationConnector,
-	    MessageListener listener) {
-	this.message = message;
-	this.communicationConnector = communicationConnector;
-	this.listener = listener;
+            CommunicationConnector communicationConnector,
+            MessageListener listener, ModuleContext moduleContext) {
+        this.message = message;
+        this.communicationConnector = communicationConnector;
+        this.listener = listener;
+        this.mc = moduleContext;
     }
 
     public void run() {
-	try {
-	    communicationConnector.multicast(message);
-	} catch (CommunicationConnectorException e) {
-	    listener.handleSendError(message, e);
-	}
+        try {
+            LogUtils.logInfo(mc, BroadcastExecutor.class, "run()",
+                    new Object[] { "Preparing to BROADCAST the message "
+                            + message }, null);
+            communicationConnector.multicast(message);
+        } catch (CommunicationConnectorException e) {
+            listener.handleSendError(message, e);
+        } catch (Throwable t) {
+            final String msg = ExceptionUtils.stackTraceAsString(t);
+            listener.handleSendError(message,
+                    new CommunicationConnectorException(-1, msg));
+        }
     }
 }

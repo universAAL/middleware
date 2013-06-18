@@ -72,7 +72,8 @@ import org.xml.sax.SAXException;
  * The implementation of the AALSpaceManager and AALSpaceEventHandler
  *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
- * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano "Kismet" Lenzi</a>
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class AALSpaceManagerImpl implements AALSpaceEventHandler,
         AALSpaceManager, SharedObjectListener {
@@ -165,8 +166,9 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                     context,
                     AALSpaceManagerImpl.class,
                     "AALSpaceManagerImpl",
-                    new Object[] { "intalization timeout, falling back to default value: " +AALSpaceManager.COMUNICATION_TIMEOUT_VALUE
-                             }, null);
+                    new Object[] { "intalization timeout, falling back to default value: "
+                            + AALSpaceManager.COMUNICATION_TIMEOUT_VALUE },
+                    null);
             TIMEOUT = Long
                     .parseLong(AALSpaceManager.COMUNICATION_TIMEOUT_VALUE);
         }
@@ -193,7 +195,6 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     }
 
     public AALSpaceDescriptor getAALSpaceDescriptor() {
-
         return currentAALSpace;
     }
 
@@ -770,14 +771,14 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
             // get the list of config files
             String[] spaces = getFileList(aalSpaceConfigurationPath);
             if (spaces == null || spaces.length == 0) {
-		LogUtils.logWarn(context, AALSpaceManagerImpl.class,
-			"readAALSpaceDefaultConfigurations",
-			new Object[] { "File: " + aalSpaceConfigurationPath
-				+ " cannot be read, trying alternative: "
-				+ altConfigDir }, null);
+                LogUtils.logWarn(context, AALSpaceManagerImpl.class,
+                        "readAALSpaceDefaultConfigurations", new Object[] {
+                                "File: ", aalSpaceConfigurationPath,
+                                " cannot be read, trying alternative: ",
+                                altConfigDir }, null);
 
-		aalSpaceConfigurationPath = altConfigDir;
-		spaces = getFileList(aalSpaceConfigurationPath);
+                aalSpaceConfigurationPath = altConfigDir;
+                spaces = getFileList(aalSpaceConfigurationPath);
             }
 
             // evaluate the list of config files
@@ -987,7 +988,6 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     public synchronized void newAALSpacesFound(Set<AALSpaceCard> spaceCards) {
         boolean result = false;
         if (spaceCards != null) {
-
             synchronized (foundAALSpaces) {
                 foundAALSpaces = spaceCards;
             }
