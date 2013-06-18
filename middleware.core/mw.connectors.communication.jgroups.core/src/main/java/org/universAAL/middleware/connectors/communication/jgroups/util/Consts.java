@@ -1,4 +1,5 @@
 /*
+
         Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
         Institute of Information Science and Technologies
         of the Italian National Research Council
@@ -18,17 +19,19 @@
         See the License for the specific language governing permissions and
         limitations under the License.
  */
-
 package org.universAAL.middleware.connectors.communication.jgroups.util;
 
 /**
  * Widely-used constants for the JGroups Communication Connector
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @version $LastChangedRevision$ ($LastChangedDate$)
  */
 public class Consts {
 
-    public static String ENABLE_REMOTE_CHANNEL_CONFIG = "remoteChannelConfig";
+    public static final String ENABLE_REMOTE_CHANNEL_URL_CONFIG = "remoteChannelConfigURL";
+    public static final String ENABLE_REMOTE_CHANNEL_CONFIG = "remoteChannelConfig";
 
 }

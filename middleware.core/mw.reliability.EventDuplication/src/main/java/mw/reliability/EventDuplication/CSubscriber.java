@@ -17,7 +17,7 @@
  *		©2012
  */
 
-package mw.faultTolerance.EventDuplication;
+package mw.reliability.EventDuplication;
 
 import java.util.ArrayList;
 import java.util.Date;

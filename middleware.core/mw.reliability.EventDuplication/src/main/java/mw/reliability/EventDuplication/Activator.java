@@ -17,7 +17,7 @@
  *		©2012
  */
 
-package mw.faultTolerance.EventDuplication;
+package mw.reliability.EventDuplication;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
