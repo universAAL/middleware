@@ -755,11 +755,12 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     public void receive(Message msg) {
         final String METHOD = "receive";
         try {
+            /*JGroups 2.2 only
             if (msg.isFlagSet(Flag.INTERNAL)) {
                 LogUtils.logWarn(context, JGroupsCommunicationConnector.class,
                         METHOD, "Skipping internal JGroups packet");
                 return;
-            }
+            }*/
             String msgBuffer = new String(msg.getBuffer());
             if (security) {
                 msgBuffer = CryptUtil.decrypt((String) msg.getObject());
