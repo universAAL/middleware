@@ -20,7 +20,7 @@
 package org.universAAL.middleware.service.impl;
 
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
+import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceRequest;
@@ -36,7 +36,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * @author Carsten Stockloew
  * 
  */
-public class ServiceBusFactory extends ResourceFactoryImpl {
+public class ServiceBusFactory implements ResourceFactory {
 
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {

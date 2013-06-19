@@ -21,14 +21,14 @@ package org.universAAL.middleware.datarep;
 
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
+import org.universAAL.middleware.rdf.ResourceFactory;
 
 /**
  * 
  * @author Carsten Stockloew
  * 
  */
-public class DataRepFactory extends ResourceFactoryImpl {
+public class DataRepFactory implements ResourceFactory {
 
     /**
      * @see org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance(String,
@@ -44,5 +44,4 @@ public class DataRepFactory extends ResourceFactoryImpl {
 
 	return null;
     }
-
 }

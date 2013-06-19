@@ -1,9 +1,9 @@
 package org.universAAL.middleware.owl.testont;
 
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
+import org.universAAL.middleware.rdf.ResourceFactory;
 
-class MyFactory extends ResourceFactoryImpl {
+class MyFactory implements ResourceFactory {
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {
 	switch (factoryIndex) {
