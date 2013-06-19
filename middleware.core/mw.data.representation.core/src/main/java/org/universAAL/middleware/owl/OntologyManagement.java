@@ -188,9 +188,11 @@ public final class OntologyManagement {
 	synchronized (pendingOntologies) {
 	    ArrayList newPendingOntologies = new ArrayList(
 		    pendingOntologies.size() - 1);
-	    for (int i = 0; i < pendingOntologies.size(); i++)
-		if (pendingOntologies.get(i) != ont)
-		    newPendingOntologies.add(ont);
+	    for (int i = 0; i < pendingOntologies.size(); i++) {
+		Object o = pendingOntologies.get(i);
+		if (o != ont)
+		    newPendingOntologies.add(o);
+	    }
 	    pendingOntologies = newPendingOntologies;
 	}
     }
@@ -312,7 +314,8 @@ public final class OntologyManagement {
 			new Object[] {
 				"Missing factory result: the ontology class ",
 				info.getURI(),
-				" of the ontology ",
+				" (factory index: " + info.getFactoryIndex()
+					+ ") of the ontology ",
 				ont.getInfo().getURI(),
 				" is not an abstract class and it defines a factory, but the factory does not create instances for this class (the factory returned null)." },
 			null);
@@ -829,6 +832,39 @@ public final class OntologyManagement {
 	// pending ontologies)
 	if (ontClassInfoMap.containsKey(classURI))
 	    return true;
+
+	// not found -> debug out
+	if (pendingOntologies.size() != 0) {
+	    String cls = "The following classes are registered:\n";
+	    if (includePending) {
+		// test pending classes
+		ArrayList pend = pendingOntologies;
+		cls += "Pending ontologies:\n";
+		for (int i = 0; i < pend.size(); i++) {
+		    Ontology ont = (Ontology) pend.get(i);
+		    cls += "  Ontology " + ont.getInfo().getURI() + "\n";
+		    RDFClassInfo rdf[] = ont.getRDFClassInfo();
+		    for (int j = 0; j < rdf.length; j++)
+			cls += "    RDF: " + rdf[j].getURI() + "\n";
+		    OntClassInfo owl[] = ont.getOntClassInfo();
+		    for (int j = 0; j < owl.length; j++)
+			cls += "    OWL: " + owl[j].getURI() + "\n";
+		}
+	    }
+	    cls += "Registered ontologies:\n";
+	    Object[] classes = rdfClassInfoMap.values().toArray();
+	    for (int i = 0; i < classes.length; i++) {
+		Resource r = (Resource) classes[i];
+		cls += "    RDF: " + r.getURI() + "\n";
+	    }
+	    classes = ontClassInfoMap.values().toArray();
+	    for (int i = 0; i < classes.length; i++) {
+		Resource r = (Resource) classes[i];
+		cls += "    OWL: " + r.getURI() + "\n";
+	    }
+	    LogUtils.logDebug(SharedResources.moduleContext,
+		    OntologyManagement.class, "isRegisteredClass", cls);
+	}
 
 	return false;
     }
