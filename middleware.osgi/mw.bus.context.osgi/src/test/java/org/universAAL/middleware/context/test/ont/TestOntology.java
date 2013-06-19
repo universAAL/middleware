@@ -4,13 +4,13 @@ import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntClassInfoSetup;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
+import org.universAAL.middleware.rdf.ResourceFactory;
 
 public class TestOntology extends Ontology {
     public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX
 	    + "Test.owl#";
 
-    private class MyFactory extends ResourceFactoryImpl {
+    private class MyFactory implements ResourceFactory {
 	public Resource createInstance(String classURI, String instanceURI,
 		int factoryIndex) {
 	    switch (factoryIndex) {

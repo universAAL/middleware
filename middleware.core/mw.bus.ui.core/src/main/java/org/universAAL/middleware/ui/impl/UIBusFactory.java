@@ -20,7 +20,7 @@
 package org.universAAL.middleware.ui.impl;
 
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
+import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.ui.UIHandlerProfile;
 import org.universAAL.middleware.ui.UIRequest;
 import org.universAAL.middleware.ui.UIResponse;
@@ -46,7 +46,7 @@ import org.universAAL.middleware.ui.rdf.TextArea;
  * 
  * @author Carsten Stockloew
  */
-public class UIBusFactory extends ResourceFactoryImpl {
+public class UIBusFactory implements ResourceFactory {
 
     /*
      * (non-Javadoc)
