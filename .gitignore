@@ -7556,6 +7556,11 @@ mw.karaf.shell.universAAL.osgi-1.3.2-SNAPSHOT/.project
 mw.karaf.shell.universAAL.osgi-1.3.2-SNAPSHOT/.settings
 mw.karaf.shell.universAAL.osgi-1.3.2-SNAPSHOT/.settings1
 mw.karaf.shell.universAAL.osgi-1.3.2-SNAPSHOT/target
+mw.karaf.shell.universAAL.osgi-1.3.3-SNAPSHOT/.classpath
+mw.karaf.shell.universAAL.osgi-1.3.3-SNAPSHOT/.project
+mw.karaf.shell.universAAL.osgi-1.3.3-SNAPSHOT/.settings
+mw.karaf.shell.universAAL.osgi-1.3.3-SNAPSHOT/.settings1
+mw.karaf.shell.universAAL.osgi-1.3.3-SNAPSHOT/target
 mw.managers.aalspace.core-1.3.2-SNAPSHOT/.classpath
 mw.managers.aalspace.core-1.3.2-SNAPSHOT/.project
 mw.managers.aalspace.core-1.3.2-SNAPSHOT/.settings
