@@ -2676,6 +2676,10 @@ mw.pom.osgi-1.3.1-SNAPSHOT/composite/pom.xml -text
 mw.pom.osgi-1.3.1-SNAPSHOT/pom.xml -text
 mw.pom.osgi-1.3.2-SNAPSHOT/composite/pom.xml -text
 mw.pom.osgi-1.3.2-SNAPSHOT/pom.xml -text
+mw.pom.osgi-1.3.3-SNAPSHOT/composite/ASL2.0.txt -text
+mw.pom.osgi-1.3.3-SNAPSHOT/composite/NOTICE.txt -text
+mw.pom.osgi-1.3.3-SNAPSHOT/composite/pom.xml -text
+mw.pom.osgi-1.3.3-SNAPSHOT/pom.xml -text
 mw.schemas-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.schemas-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.schemas-1.3.2-SNAPSHOT/pom.xml -text
