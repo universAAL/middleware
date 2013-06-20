@@ -2948,6 +2948,11 @@ mw.bus.service.aapi.core-1.3.2-SNAPSHOT/.project
 mw.bus.service.aapi.core-1.3.2-SNAPSHOT/.settings
 mw.bus.service.aapi.core-1.3.2-SNAPSHOT/src
 mw.bus.service.aapi.core-1.3.2-SNAPSHOT/target
+mw.bus.service.aapi.core-1.3.3-SNAPSHOT/.classpath
+mw.bus.service.aapi.core-1.3.3-SNAPSHOT/.project
+mw.bus.service.aapi.core-1.3.3-SNAPSHOT/.settings
+mw.bus.service.aapi.core-1.3.3-SNAPSHOT/src
+mw.bus.service.aapi.core-1.3.3-SNAPSHOT/target
 mw.bus.service.aapi.osgi-1.1.2-SNAPSHOT/.classpath
 mw.bus.service.aapi.osgi-1.1.2-SNAPSHOT/.project
 mw.bus.service.aapi.osgi-1.1.2-SNAPSHOT/.settings
