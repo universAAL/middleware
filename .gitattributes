@@ -1919,6 +1919,10 @@ mw.connectors.discovery.slp.core.config-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.connectors.discovery.slp.core.config-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.connectors.discovery.slp.core.config-1.3.2-SNAPSHOT/pom.xml -text
 mw.connectors.discovery.slp.core.config-1.3.2-SNAPSHOT/src/main/resources/mw.connectors.discovery.slp.core.cfg -text
+mw.connectors.discovery.slp.core.config-1.3.3-SNAPSHOT/ASL2.0.txt -text
+mw.connectors.discovery.slp.core.config-1.3.3-SNAPSHOT/NOTICE.txt -text
+mw.connectors.discovery.slp.core.config-1.3.3-SNAPSHOT/pom.xml -text
+mw.connectors.discovery.slp.core.config-1.3.3-SNAPSHOT/src/main/resources/mw.connectors.discovery.slp.core.cfg -text
 mw.connectors.discovery.slp.osgi-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.connectors.discovery.slp.osgi-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.connectors.discovery.slp.osgi-1.3.2-SNAPSHOT/pom.xml -text
