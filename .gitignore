@@ -6828,6 +6828,10 @@ mw.managers.deploy.core-1.3.2-SNAPSHOT/.classpath
 mw.managers.deploy.core-1.3.2-SNAPSHOT/.project
 mw.managers.deploy.core-1.3.2-SNAPSHOT/.settings
 mw.managers.deploy.core-1.3.2-SNAPSHOT/target
+mw.managers.deploy.core-1.3.3-SNAPSHOT/.classpath
+mw.managers.deploy.core-1.3.3-SNAPSHOT/.project
+mw.managers.deploy.core-1.3.3-SNAPSHOT/.settings
+mw.managers.deploy.core-1.3.3-SNAPSHOT/target
 mw.managers.deploy.core.config-1.3.2-SNAPSHOT/.project
 mw.managers.deploy.core.config-1.3.2-SNAPSHOT/.settings
 mw.managers.deploy.core.config-1.3.2-SNAPSHOT/target
