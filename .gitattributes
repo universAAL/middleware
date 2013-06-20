@@ -526,6 +526,9 @@ mw.brokers.api.core-1.3.3-SNAPSHOT/src/test/java/org/universAAL/middleware/broke
 mw.brokers.api.osgi-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.brokers.api.osgi-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.brokers.api.osgi-1.3.2-SNAPSHOT/pom.xml -text
+mw.brokers.api.osgi-1.3.3-SNAPSHOT/ASL2.0.txt -text
+mw.brokers.api.osgi-1.3.3-SNAPSHOT/NOTICE.txt -text
+mw.brokers.api.osgi-1.3.3-SNAPSHOT/pom.xml -text
 mw.brokers.control.core-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.brokers.control.core-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.brokers.control.core-1.3.2-SNAPSHOT/pom.xml -text
