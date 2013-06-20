@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>1.3.3-SNAPSHOT</version>
+    <relativePath>../mw.pom.osgi</relativePath>
+  </parent>
+  <groupId>org.universAAL.middleware</groupId>
+  <artifactId>mw.managers.deploy.osgi</artifactId>
+  <version>1.3.3-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <name>universAAL Middleware Manager Deploy (OSGi)</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.universAAL.support</groupId>
+      <artifactId>itests</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.api.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.deploy.core</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Author>Michele Girolami &lt;michele.girolami@isti.cnr.it>,
+                    Francesco Furfari &lt;francesco.furfari@isti.cnr.it>,
+                    Stefano "Kismet" Lenzi &lt;stefano.lenzi@isti.cnr.it></Bundle-Author>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Export-Package>org.universAAL.middleware.managers.deploy,
+                     org.universAAL.middleware.managers.deploy.util,
+                     org.universAAL.middleware.managers.deploy.osgi</Export-Package>
+            <Import-Package>org.universAAL.middleware.container.osgi.util,
+                     org.universAAL.middleware.managers.deploy,
+                     org.osgi.framework;version="[1,2)", org.osgi.service.log,
+                     org.universAAL.middleware.container,
+                     org.universAAL.middleware.container.osgi,
+                     org.universAAL.middleware.managers.api,
+                     org.osgi.service.cm,
+                     org.universAAL.middleware.managers.deploy.util,
+                     org.universAAL.middleware.container.utils,javax.xml.bind,
+                     org.universAAL.middleware.interfaces,
+                     org.universAAL.middleware.interfaces.aalspace,
+                     org.universAAL.middleware.interfaces.mpa,
+                     org.universAAL.middleware.interfaces.mpa.model,
+                     org.universAAL.middleware.interfaces.utils,
+                     org.universAAL.middleware.brokers.control,
+                     org.universAAL.middleware.deploymanager.uapp.model</Import-Package>
+            <Bundle-Activator>org.universAAL.middleware.managers.deploy.osgi.Activator</Bundle-Activator>
+            <Private-Package />
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
