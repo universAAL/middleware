@@ -117,6 +117,10 @@ middleware.core/mw.managers.api.core/.classpath
 middleware.core/mw.managers.api.core/.project
 middleware.core/mw.managers.api.core/.settings
 middleware.core/mw.managers.api.core/target
+middleware.core/mw.managers.deploy.core/.classpath
+middleware.core/mw.managers.deploy.core/.project
+middleware.core/mw.managers.deploy.core/.settings
+middleware.core/mw.managers.deploy.core/target
 middleware.core/mw.modules.aalspace.core/.classpath
 middleware.core/mw.modules.aalspace.core/.project
 middleware.core/mw.modules.aalspace.core/.settings
