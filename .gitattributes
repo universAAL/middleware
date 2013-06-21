@@ -1,4 +1,7 @@
 * text=auto !eol
+middleware.config/mw.pom.config/ASL2.0.txt -text
+middleware.config/mw.pom.config/NOTICE.txt -text
+middleware.config/mw.pom.config/pom.xml -text
 middleware.core/mw.brokers.api.core/ASL2.0.txt -text
 middleware.core/mw.brokers.api.core/NOTICE.txt -text
 middleware.core/mw.brokers.api.core/pom.xml -text

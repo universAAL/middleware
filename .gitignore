@@ -1,3 +1,7 @@
+middleware.config/mw.pom.config/.classpath
+middleware.config/mw.pom.config/.project
+middleware.config/mw.pom.config/.settings
+middleware.config/mw.pom.config/target
 middleware.core/mw.brokers.api.core/.classpath
 middleware.core/mw.brokers.api.core/.project
 middleware.core/mw.brokers.api.core/.settings
