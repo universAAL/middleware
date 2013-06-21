@@ -512,6 +512,10 @@ middleware.osgi/mw.modules.aalspace.osgi/src/main/java/org/universAAL/middleware
 middleware.osgi/mw.modules.api.osgi/ASL2.0.txt -text
 middleware.osgi/mw.modules.api.osgi/NOTICE.txt -text
 middleware.osgi/mw.modules.api.osgi/pom.xml -text
+middleware.osgi/mw.modules.communication.osgi/ASL2.0.txt -text
+middleware.osgi/mw.modules.communication.osgi/NOTICE.txt -text
+middleware.osgi/mw.modules.communication.osgi/pom.xml -text
+middleware.osgi/mw.modules.communication.osgi/src/main/java/org/universAAL/middleware/modules/communication/osgi/Activator.java -text
 middleware.osgi/mw.pom.osgi/composite/ASL2.0.txt -text
 middleware.osgi/mw.pom.osgi/composite/NOTICE.txt -text
 middleware.osgi/mw.pom.osgi/composite/pom.xml -text
