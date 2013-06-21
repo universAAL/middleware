@@ -665,6 +665,10 @@ middleware.osgi/mw.connectors.communication.jgroups.osgi/.settings
 middleware.osgi/mw.connectors.communication.jgroups.osgi/etc
 middleware.osgi/mw.connectors.communication.jgroups.osgi/installation.registry
 middleware.osgi/mw.connectors.communication.jgroups.osgi/target
+middleware.osgi/mw.connectors.deploy.karaf.osgi/.classpath
+middleware.osgi/mw.connectors.deploy.karaf.osgi/.project
+middleware.osgi/mw.connectors.deploy.karaf.osgi/.settings
+middleware.osgi/mw.connectors.deploy.karaf.osgi/target
 middleware.osgi/mw.connectors.discovery.slp.osgi/.classpath
 middleware.osgi/mw.connectors.discovery.slp.osgi/.project
 middleware.osgi/mw.connectors.discovery.slp.osgi/.settings
