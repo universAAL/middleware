@@ -1,4 +1,20 @@
 * text=auto !eol
+middleware.core/mw.connectors.api.core/ASL2.0.txt -text
+middleware.core/mw.connectors.api.core/NOTICE.txt -text
+middleware.core/mw.connectors.api.core/pom.xml -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/CommunicationConnector.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/Connector.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/DeployConnector.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/DiscoveryConnector.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/ServiceListener.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/exception/CommunicationConnectorErrorCode.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/exception/CommunicationConnectorException.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/exception/DiscoveryConnectorErrorCodes.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/exception/DiscoveryConnectorException.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/util/ChannelMessage.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/util/ChannelMessageFields.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/util/Consts.java -text
+middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/util/ExceptionUtils.java svneol=native#text/plain
 middleware.core/mw.container.xfaces.core/ASL2.0.txt -text
 middleware.core/mw.container.xfaces.core/NOTICE.txt -text
 middleware.core/mw.container.xfaces.core/pom.xml -text
