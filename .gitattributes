@@ -16,4 +16,8 @@ middleware.core/mw.container.xfaces.core/src/test/resources/messages.properties 
 middleware.core/mw.container.xfaces.core/src/test/resources/messages_de.properties -text svneol=unset#text/plain
 middleware.core/mw.container.xfaces.core/src/test/resources/messages_en.properties -text svneol=unset#text/plain
 middleware.core/mw.pom.core/pom.xml -text
+middleware.osgi/mw.pom.osgi/composite/ASL2.0.txt -text
+middleware.osgi/mw.pom.osgi/composite/NOTICE.txt -text
+middleware.osgi/mw.pom.osgi/composite/pom.xml -text
+middleware.osgi/mw.pom.osgi/pom.xml -text
 pom/pom.xml -text

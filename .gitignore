@@ -88,6 +88,15 @@ middleware.core/mw.pom.core/.project
 middleware.core/mw.pom.core/.settings
 middleware.core/mw.pom.core/target
 middleware.core/mw.pom.core/uAAL.log
+middleware.osgi/mw.pom.osgi/.classpath
+middleware.osgi/mw.pom.osgi/.project
+middleware.osgi/mw.pom.osgi/.settings
+middleware.osgi/mw.pom.osgi/composite/.classpath
+middleware.osgi/mw.pom.osgi/composite/.project
+middleware.osgi/mw.pom.osgi/composite/.settings
+middleware.osgi/mw.pom.osgi/composite/target
+middleware.osgi/mw.pom.osgi/target
+middleware.osgi/mw.pom.osgi/uAAL.log
 pom/.classpath
 pom/.project
 pom/.settings
