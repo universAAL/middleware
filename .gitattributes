@@ -115,6 +115,10 @@ middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/man
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/Manager.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/MatchingResult.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/UAPPPackage.java -text
+middleware.core/mw.modules.aalspace.core/ASL2.0.txt -text
+middleware.core/mw.modules.aalspace.core/NOTICE.txt -text
+middleware.core/mw.modules.aalspace.core/pom.xml -text
+middleware.core/mw.modules.aalspace.core/src/main/java/org/universAAL/middleware/modules/aalspace/AALSpaceModuleImpl.java -text
 middleware.core/mw.modules.api.core/ASL2.0.txt -text
 middleware.core/mw.modules.api.core/NOTICE.txt -text
 middleware.core/mw.modules.api.core/pom.xml -text
