@@ -3,6 +3,10 @@ middleware.config/mw.connectors.communication.jgroups.core.config/ASL2.0.txt -te
 middleware.config/mw.connectors.communication.jgroups.core.config/NOTICE.txt -text
 middleware.config/mw.connectors.communication.jgroups.core.config/pom.xml -text
 middleware.config/mw.connectors.communication.jgroups.core.config/src/main/resources/mw.connectors.communication.jgroups.core.cfg -text
+middleware.config/mw.connectors.discovery.slp.core.config/ASL2.0.txt -text
+middleware.config/mw.connectors.discovery.slp.core.config/NOTICE.txt -text
+middleware.config/mw.connectors.discovery.slp.core.config/pom.xml -text
+middleware.config/mw.connectors.discovery.slp.core.config/src/main/resources/mw.connectors.discovery.slp.core.cfg -text
 middleware.config/mw.pom.config/ASL2.0.txt -text
 middleware.config/mw.pom.config/NOTICE.txt -text
 middleware.config/mw.pom.config/pom.xml -text
