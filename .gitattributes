@@ -16,6 +16,13 @@ middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brok
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployNotificationPayload.java -text
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployPayload.java -text
 middleware.core/mw.brokers.api.core/src/test/java/org/universAAL/middleware/brokers/message/control/ControlMessageTest.java -text
+middleware.core/mw.brokers.control.core/ASL2.0.txt -text
+middleware.core/mw.brokers.control.core/NOTICE.txt -text
+middleware.core/mw.brokers.control.core/pom.xml -text
+middleware.core/mw.brokers.control.core/src/main/java/org/universAAL/middleware/brokers/control/ControlBroker.java -text
+middleware.core/mw.brokers.control.core/src/main/java/org/universAAL/middleware/brokers/control/ExceptionUtils.java svneol=native#text/plain
+middleware.core/mw.brokers.control.core/src/main/java/org/universAAL/middleware/brokers/control/FileUtils.java svneol=native#text/plain
+middleware.core/mw.brokers.control.core/src/main/java/org/universAAL/middleware/brokers/control/WaitForResponse.java -text
 middleware.core/mw.connectors.api.core/ASL2.0.txt -text
 middleware.core/mw.connectors.api.core/NOTICE.txt -text
 middleware.core/mw.connectors.api.core/pom.xml -text
