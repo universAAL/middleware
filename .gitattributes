@@ -1,4 +1,21 @@
 * text=auto !eol
+middleware.core/mw.brokers.api.core/ASL2.0.txt -text
+middleware.core/mw.brokers.api.core/NOTICE.txt -text
+middleware.core/mw.brokers.api.core/pom.xml -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/Broker.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/BrokerMessage.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/BrokerMessageFields.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/Payload.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageException.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageFields.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/control/ControlMessage.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessage.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageException.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageFields.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployNotificationPayload.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployPayload.java -text
+middleware.core/mw.brokers.api.core/src/test/java/org/universAAL/middleware/brokers/message/control/ControlMessageTest.java -text
 middleware.core/mw.connectors.api.core/ASL2.0.txt -text
 middleware.core/mw.connectors.api.core/NOTICE.txt -text
 middleware.core/mw.connectors.api.core/pom.xml -text
