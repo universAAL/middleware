@@ -544,6 +544,12 @@ middleware.osgi/mw.data.representation.osgi/src/test/java/org/universAAL/middlew
 middleware.osgi/mw.data.representation.osgi/src/test/java/org/universAAL/middleware/owl/testont/MyOntology.java -text
 middleware.osgi/mw.data.representation.osgi/src/test/java/org/universAAL/middleware/owl/testont/MyResource.java -text
 middleware.osgi/mw.data.representation.osgi/src/test/resources/log4j.properties -text
+middleware.osgi/mw.data.serialization.osgi/ASL2.0.txt -text
+middleware.osgi/mw.data.serialization.osgi/NOTICE.txt -text
+middleware.osgi/mw.data.serialization.osgi/pom.xml -text
+middleware.osgi/mw.data.serialization.osgi/src/main/java/org/universAAL/middleware/serialization/turtle/osgi/Activator.java -text
+middleware.osgi/mw.data.serialization.osgi/src/test/java/org/universAAL/serialization/test/ArtifactIntegrationTest.java -text
+middleware.osgi/mw.data.serialization.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.interfaces.osgi/ASL2.0.txt -text
 middleware.osgi/mw.interfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.interfaces.osgi/pom.xml -text
