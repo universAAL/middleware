@@ -889,6 +889,10 @@ middleware.osgi/mw.interfaces.osgi/.project
 middleware.osgi/mw.interfaces.osgi/.settings
 middleware.osgi/mw.interfaces.osgi/src
 middleware.osgi/mw.interfaces.osgi/target
+middleware.osgi/mw.managers.aalspace.osgi/.classpath
+middleware.osgi/mw.managers.aalspace.osgi/.project
+middleware.osgi/mw.managers.aalspace.osgi/.settings
+middleware.osgi/mw.managers.aalspace.osgi/target
 middleware.osgi/mw.managers.api.osgi/.classpath
 middleware.osgi/mw.managers.api.osgi/.project
 middleware.osgi/mw.managers.api.osgi/.settings
