@@ -493,6 +493,9 @@ middleware.osgi/mw.container.xfaces.osgi/pom.xml -text
 middleware.osgi/mw.interfaces.osgi/ASL2.0.txt -text
 middleware.osgi/mw.interfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.interfaces.osgi/pom.xml -text
+middleware.osgi/mw.modules.api.osgi/ASL2.0.txt -text
+middleware.osgi/mw.modules.api.osgi/NOTICE.txt -text
+middleware.osgi/mw.modules.api.osgi/pom.xml -text
 middleware.osgi/mw.pom.osgi/composite/ASL2.0.txt -text
 middleware.osgi/mw.pom.osgi/composite/NOTICE.txt -text
 middleware.osgi/mw.pom.osgi/composite/pom.xml -text
