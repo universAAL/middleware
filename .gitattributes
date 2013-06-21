@@ -524,6 +524,14 @@ middleware.osgi/mw.karaf.branding.osgi/ASL2.0.txt -text
 middleware.osgi/mw.karaf.branding.osgi/NOTICE.txt -text
 middleware.osgi/mw.karaf.branding.osgi/pom.xml -text
 middleware.osgi/mw.karaf.branding.osgi/src/main/resources/org/apache/karaf/branding/branding.properties -text
+middleware.osgi/mw.karaf.shell.universAAL.osgi/ASL2.0.txt -text
+middleware.osgi/mw.karaf.shell.universAAL.osgi/NOTICE.txt -text
+middleware.osgi/mw.karaf.shell.universAAL.osgi/pom.xml -text
+middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/shell/universAAL/osgi/AALSpaceCommand.java -text
+middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/shell/universAAL/osgi/ListOfPeerCommand.java -text
+middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/shell/universAAL/osgi/TargetAALSpaceCommand.java -text
+middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/shell/universAAL/osgi/UAPPCommand.java -text
+middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/resources/OSGI-INF/blueprint/blueprint.xml -text
 middleware.osgi/mw.managers.aalspace.osgi/ASL2.0.txt -text
 middleware.osgi/mw.managers.aalspace.osgi/NOTICE.txt -text
 middleware.osgi/mw.managers.aalspace.osgi/pom.xml -text
