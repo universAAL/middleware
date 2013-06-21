@@ -1,3 +1,6 @@
+middleware.config/mw.connectors.communication.jgroups.core.config/.project
+middleware.config/mw.connectors.communication.jgroups.core.config/.settings
+middleware.config/mw.connectors.communication.jgroups.core.config/target
 middleware.config/mw.pom.config/.classpath
 middleware.config/mw.pom.config/.project
 middleware.config/mw.pom.config/.settings
