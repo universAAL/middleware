@@ -96,6 +96,10 @@ middleware.core/mw.interfaces.core/.project
 middleware.core/mw.interfaces.core/.settings
 middleware.core/mw.interfaces.core/bin
 middleware.core/mw.interfaces.core/target
+middleware.core/mw.modules.api.core/.classpath
+middleware.core/mw.modules.api.core/.project
+middleware.core/mw.modules.api.core/.settings
+middleware.core/mw.modules.api.core/target
 middleware.core/mw.pom.core/.classpath
 middleware.core/mw.pom.core/.project
 middleware.core/mw.pom.core/.settings
