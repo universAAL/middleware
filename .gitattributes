@@ -46,6 +46,12 @@ middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/unive
 middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/Codec.java -text
 middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/Consts.java -text svneol=unset#text/plain
 middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/CryptUtil.java -text
+middleware.core/mw.connectors.discovery.slp.core/ASL2.0.txt -text
+middleware.core/mw.connectors.discovery.slp.core/NOTICE.txt -text
+middleware.core/mw.connectors.discovery.slp.core/pom.xml -text
+middleware.core/mw.connectors.discovery.slp.core/src/main/java/org/universAAL/middleware/connectors/discovery/slp/SLPBrowser.java -text
+middleware.core/mw.connectors.discovery.slp.core/src/main/java/org/universAAL/middleware/connectors/discovery/slp/SLPDiscoveryConnector.java -text
+middleware.core/mw.connectors.discovery.slp.core/src/main/java/org/universAAL/middleware/connectors/discovery/slp/util/Consts.java -text
 middleware.core/mw.container.xfaces.core/ASL2.0.txt -text
 middleware.core/mw.container.xfaces.core/NOTICE.txt -text
 middleware.core/mw.container.xfaces.core/pom.xml -text
