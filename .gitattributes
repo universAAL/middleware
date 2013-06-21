@@ -577,6 +577,11 @@ middleware.osgi/mw.data.serialization.osgi/pom.xml -text
 middleware.osgi/mw.data.serialization.osgi/src/main/java/org/universAAL/middleware/serialization/turtle/osgi/Activator.java -text
 middleware.osgi/mw.data.serialization.osgi/src/test/java/org/universAAL/serialization/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.data.serialization.osgi/src/test/resources/log4j.properties -text
+middleware.osgi/mw.felix.shell.universAAL.osgi/ASL2.0.txt -text
+middleware.osgi/mw.felix.shell.universAAL.osgi/NOTICE.txt -text
+middleware.osgi/mw.felix.shell.universAAL.osgi/pom.xml -text
+middleware.osgi/mw.felix.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/felix/shell/commands/AALSpaceCommand.java -text
+middleware.osgi/mw.felix.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/felix/shell/commands/Activator.java -text
 middleware.osgi/mw.interfaces.osgi/ASL2.0.txt -text
 middleware.osgi/mw.interfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.interfaces.osgi/pom.xml -text
