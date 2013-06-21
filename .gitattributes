@@ -484,6 +484,9 @@ middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/contai
 middleware.osgi/mw.container.xfaces.osgi/ASL2.0.txt -text
 middleware.osgi/mw.container.xfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.container.xfaces.osgi/pom.xml -text
+middleware.osgi/mw.interfaces.osgi/ASL2.0.txt -text
+middleware.osgi/mw.interfaces.osgi/NOTICE.txt -text
+middleware.osgi/mw.interfaces.osgi/pom.xml -text
 middleware.osgi/mw.pom.osgi/composite/ASL2.0.txt -text
 middleware.osgi/mw.pom.osgi/composite/NOTICE.txt -text
 middleware.osgi/mw.pom.osgi/composite/pom.xml -text
