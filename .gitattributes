@@ -434,6 +434,11 @@ middleware.osgi/mw.brokers.control.osgi/src/main/java/org/universAAL/middleware/
 middleware.osgi/mw.connectors.api.osgi/ASL2.0.txt -text
 middleware.osgi/mw.connectors.api.osgi/NOTICE.txt -text
 middleware.osgi/mw.connectors.api.osgi/pom.xml -text
+middleware.osgi/mw.connectors.communication.jgroups.osgi/ASL2.0.txt -text
+middleware.osgi/mw.connectors.communication.jgroups.osgi/NOTICE.txt -text
+middleware.osgi/mw.connectors.communication.jgroups.osgi/pom.xml -text
+middleware.osgi/mw.connectors.communication.jgroups.osgi/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/osgi/Activator.java -text
+middleware.osgi/mw.connectors.communication.jgroups.osgi/src/test/java/org/universAAL/middleware/connectors/communication/jgroups/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.connectors.discovery.slp.osgi/ASL2.0.txt -text
 middleware.osgi/mw.connectors.discovery.slp.osgi/NOTICE.txt -text
 middleware.osgi/mw.connectors.discovery.slp.osgi/pom.xml -text

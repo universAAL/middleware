@@ -659,6 +659,12 @@ middleware.osgi/mw.connectors.api.osgi/.classpath
 middleware.osgi/mw.connectors.api.osgi/.project
 middleware.osgi/mw.connectors.api.osgi/.settings
 middleware.osgi/mw.connectors.api.osgi/target
+middleware.osgi/mw.connectors.communication.jgroups.osgi/.classpath
+middleware.osgi/mw.connectors.communication.jgroups.osgi/.project
+middleware.osgi/mw.connectors.communication.jgroups.osgi/.settings
+middleware.osgi/mw.connectors.communication.jgroups.osgi/etc
+middleware.osgi/mw.connectors.communication.jgroups.osgi/installation.registry
+middleware.osgi/mw.connectors.communication.jgroups.osgi/target
 middleware.osgi/mw.connectors.discovery.slp.osgi/.classpath
 middleware.osgi/mw.connectors.discovery.slp.osgi/.project
 middleware.osgi/mw.connectors.discovery.slp.osgi/.settings
