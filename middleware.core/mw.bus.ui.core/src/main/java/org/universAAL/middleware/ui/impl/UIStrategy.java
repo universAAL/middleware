@@ -119,7 +119,7 @@ public class UIStrategy extends BusStrategy {
      * Creates a new instance of the UIStrategy
      */
     public UIStrategy(CommunicationModule commModule) {
-	super(commModule);
+	super(commModule, "UI Bus Strategy");
     }
 
     /**
@@ -306,7 +306,7 @@ public class UIStrategy extends BusStrategy {
 	// first handle the bus internal handling of this request
 	if (isCoordinator()) {
 	    // do it in a new thread to make sure that no deadlock will happen
-	    new Thread() {
+	    new Thread("UI Bus Strategy - Handling dialog finished") {
 		@Override
 		public void run() {
 		    synchronized (globalSubscriptions) {
@@ -728,7 +728,7 @@ public class UIStrategy extends BusStrategy {
 		    } else if (data == null) {
 			// do it in a new thread to make sure that no
 			// deadlock will happen
-			new Thread() {
+			new Thread("UI Bus Strategy - Handling dialog finished from remote") {
 			    @Override
 			    public void run() {
 				synchronized (globalSubscriptions) {

@@ -78,7 +78,7 @@ public class ContextStrategy extends BusStrategy {
     private IAllProvisionData allProvisions;
 
     public ContextStrategy(CommunicationModule cm) {
-	super(cm);
+	super(cm, "Context Bus Strategy");
 
 	// Initiated the factory
 	IContextStrategyDataFactory factory = createContextStrategyDataFactory();
