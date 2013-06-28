@@ -142,7 +142,7 @@ public class ServiceStrategy extends BusStrategy {
     protected PeerCard theCoordinator = null;
 
     public ServiceStrategy(CommunicationModule commModule, ModuleContext mc) {
-	super(commModule);
+	super(commModule, "Service Bus Strategy");
 
 	// Initiated the factory
 	IServiceStrategyDataFactory factory = createServiceStrategyDataFactory();
@@ -279,7 +279,7 @@ public class ServiceStrategy extends BusStrategy {
 	    // about the availability of the coordinator
 	    // do this in a thread after waiting 10 seconds to make sure that
 	    // the join process within the sodapop engine is closed
-	    new Thread() {
+	    new Thread("Service Bus Strategy - Waiting for Bus Coordinator") {
 		public void run() {
 		    try {
 			sleep(10000);

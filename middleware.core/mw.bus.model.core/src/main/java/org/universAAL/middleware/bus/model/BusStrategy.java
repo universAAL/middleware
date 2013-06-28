@@ -50,6 +50,7 @@ public abstract class BusStrategy extends Thread {
 	private Object[] msg;
 
 	HandlerThread(Object[] m) {
+	    super(nameHandler);
 	    msg = m;
 	}
 
@@ -74,6 +75,8 @@ public abstract class BusStrategy extends Thread {
     protected CommunicationModule commModule;
     private Vector<Object[]> queue; // <Message>
     private boolean stopped = false;
+    private String name = "";
+    private String nameHandler = "";
 
     /**
      * Constructor receiving the {@link CommunicationModule} instance and
@@ -83,6 +86,22 @@ public abstract class BusStrategy extends Thread {
      *            {@link CommunicationModule} instance
      */
     protected BusStrategy(CommunicationModule commModule) {
+	this(commModule, "BusStrategy");
+    }
+
+    /**
+     * Constructor receiving the {@link CommunicationModule} instance and
+     * creating queue for the messages.
+     * 
+     * @param commModule
+     *            {@link CommunicationModule} instance
+     * @param name
+     *            Human-readable name of the Bus Strategy
+     */
+    protected BusStrategy(CommunicationModule commModule, String name) {
+	super(name);
+	this.name = name;
+	this.nameHandler = name + " Handler";
 	this.commModule = commModule;
 	queue = new Vector<Object[]>();
     }
@@ -161,8 +180,8 @@ public abstract class BusStrategy extends Thread {
 		boolean inserted = false;
 		for (int i = 0; !inserted && i < queue.size(); i++) {
 		    BusMessage current = (BusMessage) queue.get(i)[0];
-		    if (m.getSender().getPeerID().equals(
-			    current.getSender().getPeerID())
+		    if (m.getSender().getPeerID()
+			    .equals(current.getSender().getPeerID())
 			    && m.getIDAsLong() < current.getIDAsLong()) {
 			queue.add(i, toAdd);
 			inserted = true;
@@ -227,8 +246,8 @@ public abstract class BusStrategy extends Thread {
 	// ...and wrap it as ChannelMessage
 	List<String> channelName = new ArrayList<String>();
 	channelName.add(bus.getBrokerName());
-	ChannelMessage channelMessage = new ChannelMessage(bus.getPeerCard(), m
-		.toString(), channelName);
+	ChannelMessage channelMessage = new ChannelMessage(bus.getPeerCard(),
+		m.toString(), channelName);
 	return channelMessage;
     }
 
@@ -245,16 +264,15 @@ public abstract class BusStrategy extends Thread {
 	    }
 	    cnt++;
 	    if (cnt % 50 == 0) // log a message every 5 seconds
-		LogUtils
-			.logError(
-				busModule,
-				BusStrategy.class,
-				"send",
-				new Object[] {
-					"The communication connector is not yet configured correctly (channel ",
-					busModule.getID(),
-					" is unknown). Waiting for the configuration to send the message. Time elapsed: ",
-					cnt / 10, " seconds." }, null);
+		LogUtils.logError(
+			busModule,
+			BusStrategy.class,
+			"send",
+			new Object[] {
+				"The communication connector is not yet configured correctly (channel ",
+				busModule.getID(),
+				" is unknown). Waiting for the configuration to send the message. Time elapsed: ",
+				cnt / 10, " seconds." }, null);
 	}
 
 	// send the message
@@ -263,8 +281,8 @@ public abstract class BusStrategy extends Thread {
 	} else if (isUnicast(receivers)) {
 	    commModule.send(buildChannelMessage(message), receivers[0]);
 	} else {
-	    commModule.sendAll(buildChannelMessage(message), Arrays
-		    .asList(receivers), bus);
+	    commModule.sendAll(buildChannelMessage(message),
+		    Arrays.asList(receivers), bus);
 	}
     }
 
