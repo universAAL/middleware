@@ -24,6 +24,8 @@ package org.universAAL.middleware.serialization.turtle;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -203,8 +205,10 @@ public class TurtleWriter {
 	    // no specific values in this regard
 	    for (Iterator i = ((List) o).iterator(); i.hasNext();)
 		analyzeObject(i.next(), nsTable, reduction);
-	else if (!(o instanceof Integer) && !(o instanceof Boolean)
-		&& !(o instanceof Double))
+	else if (!(o instanceof BigInteger) && !(o instanceof Boolean)
+		&& !(o instanceof Double) && !(o instanceof BigDecimal))
+	    // count the namespace if it is not an abbreviated namespace (see
+	    // http://www.w3.org/TR/turtle/, section 2.5.2 & 2.5.3)
 	    countNs(TypeMapper.XSD_NAMESPACE, nsTable);
     }
 
@@ -867,6 +871,7 @@ public class TurtleWriter {
 		writeValue(((List) val).get(last), false);
 		embedLevel--;
 	    }
+	    return;
 	} else if (val instanceof Resource) {
 	    if (((Resource) val).serializesAsXMLLiteral()) {
 		if (((Resource) val).isAnon()
@@ -880,16 +885,43 @@ public class TurtleWriter {
 	    } else {
 		writeResource((Resource) val);
 	    }
-	} else if (val instanceof Boolean || val instanceof Integer) {
+	    return;
+	} else if (val instanceof Boolean) {
 	    writer.write(val.toString());
+	    return;
 	} else if (val instanceof Double) {
-	    if (((Double)val) == Double.POSITIVE_INFINITY) {
+	    if (((Double) val) == Double.POSITIVE_INFINITY) {
 		writer.write("INF");
-	    } else if (((Double)val) == Double.NEGATIVE_INFINITY) {
+		return;
+	    } else if (((Double) val) == Double.NEGATIVE_INFINITY) {
 		writer.write("-INF");
+		return;
 	    } else {
-		writer.write(val.toString());
+		String strval = val.toString();
+		// Value must have 'e' or 'E', we just check this here. There is
+		// also the possibility to force a formatting (should we do
+		// this?)
+		if (strval.indexOf('e') >= 0 || strval.indexOf('E') >= 0) {
+		    writer.write(strval);
+		    return;
+		}
+		// else: use standard formatting with lexical form and datatype
 	    }
+	} else if (val instanceof BigInteger) {
+	    writer.write(((BigInteger) val).toString());
+	    return;
+	} else if (val instanceof BigDecimal) {
+	    String strval = val.toString();
+	    // Value must not have 'e' or 'E' and must have '.', we just check
+	    // this here. There is
+	    // also the possibility to force a formatting (should we do
+	    // this?)
+	    if (strval.indexOf('e') == -1 && strval.indexOf('E') == -1
+		    && strval.indexOf('.') >= 0) {
+		writer.write(strval);
+		return;
+	    }
+	    // else: use standard formatting with lexical form and datatype
 	} else if (val instanceof LangString) {
 	    LangString ls = (LangString) val;
 	    writer.write("\"");
@@ -901,9 +933,11 @@ public class TurtleWriter {
 		writer.write("\"@");
 		writer.write(ls.getLang());
 	    }
-	} else {
-	    String[] pair = TypeMapper.getXMLInstance(val);
-	    writeLiteral(pair[0], pair[1]);
+	    return;
 	}
+
+	// everything else as quoted literal with lexical form and datatype
+	String[] pair = TypeMapper.getXMLInstance(val);
+	writeLiteral(pair[0], pair[1]);
     }
 }
