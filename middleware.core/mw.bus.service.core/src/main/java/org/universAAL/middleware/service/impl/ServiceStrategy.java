@@ -59,7 +59,6 @@ import org.universAAL.middleware.service.data.factory.IServiceStrategyDataFactor
 import org.universAAL.middleware.service.data.factory.ServiceStrategyDataFactory;
 import org.universAAL.middleware.service.owl.InitialServiceDialog;
 import org.universAAL.middleware.service.owl.Service;
-import org.universAAL.middleware.service.owl.UserInterfaceService;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
