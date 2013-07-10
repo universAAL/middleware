@@ -1146,9 +1146,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
         // workaround waiting for
         // http://forge.universaal.org/gf/project/middleware/tracker/?action=TrackerItemEdit&tracker_item_id=270
         if (controlBroker != null) {
-			controlBroker.sharedObjectRemoved(this);
-		}        
-        controlBroker.sharedObjectRemoved(this);
+			controlBroker.sharedObjectRemoved(this);		
+		}                
         scheduler.shutdownNow();
         scheduler.shutdown();
         if (init()) {
