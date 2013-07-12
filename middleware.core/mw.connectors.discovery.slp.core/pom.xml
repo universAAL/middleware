@@ -12,11 +12,7 @@
   <artifactId>mw.connectors.discovery.slp.core</artifactId>
   <version>2.0.1-SNAPSHOT</version>
   <name>universAAL Middleware Connector Discovery SLP (Core)</name>
-  <dependencies>
-    <dependency>
-      <groupId>ch.ethz.iks.slp</groupId>
-      <artifactId>jslp-osgi</artifactId>
-    </dependency>
+  <dependencies>    
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.connectors.api.core</artifactId>
