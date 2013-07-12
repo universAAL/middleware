@@ -15,6 +15,7 @@
   <name>universAAL Middleware Suite (OSGi)</name>
   <description>The set of artefacts realizing the universAAL middleware 2.0 (OSGi)</description>
   <modules>
+  	<module>../../thirdparty/jslp.osgi</module>  
     <module>../../middleware.resources/mw.schemas</module>
     <module>../mw.container.xfaces.osgi</module>
     <module>../mw.container.osgi</module>
