@@ -595,6 +595,7 @@ middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/contai
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundleContext.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/BundleConfigHome.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/Messages.java -text
+middleware.osgi/mw.container.osgi/src/test/java/org/universAAL/middleware/container/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.container.xfaces.osgi/ASL2.0.txt -text
 middleware.osgi/mw.container.xfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.container.xfaces.osgi/pom.xml -text

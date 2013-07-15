@@ -16,6 +16,11 @@
   <url></url>
   <dependencies>
     <dependency>
+      <groupId>org.universAAL.support</groupId>
+      <artifactId>itests</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.osgi.core</artifactId>
       <scope>provided</scope>
@@ -68,6 +73,7 @@
             <Bundle-Activator>org.universAAL.middleware.container.osgi.run.Activator</Bundle-Activator>
             <Export-Package>org.universAAL.middleware.container.osgi,org.universAAL.middleware.container.osgi.util</Export-Package>
             <Private-Package>org.universAAL.middleware.container.osgi.run</Private-Package>
+            <Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
