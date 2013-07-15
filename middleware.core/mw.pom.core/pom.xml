@@ -166,8 +166,8 @@
         <version>3.3.1.Final</version>
       </dependency>
       <dependency>
-        <groupId>ch.ethz.iks.slp</groupId>
-        <artifactId>jslp.osgi</artifactId>
+        <artifactId>jslp.core</artifactId>
+        <groupId>org.universAAL.thirdparty</groupId>
         <version>2.0.1-SNAPSHOT</version>
       </dependency>
       <dependency>

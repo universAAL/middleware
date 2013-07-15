@@ -29,5 +29,9 @@
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.container.xfaces.core</artifactId>
     </dependency>
+    <dependency>
+      <artifactId>jslp.core</artifactId>
+      <groupId>org.universAAL.thirdparty</groupId>
+    </dependency>
   </dependencies>
 </project>
