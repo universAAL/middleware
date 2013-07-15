@@ -6,30 +6,27 @@
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
     <version>2.0.1-SNAPSHOT</version>
-    <relativePath>../../mw.pom.osgi</relativePath>
+    <relativePath>../../middleware.osgi/mw.pom.osgi</relativePath>
   </parent>
-   <groupId>org.universAAL.thirdparty</groupId>
+  <groupId>org.universAAL.thirdparty</groupId>
   <artifactId>jslp.osgi</artifactId>
   <packaging>bundle</packaging>
-  <name>jslp library (OSGi)</name>
+  <name>universAAL Thirdparty jslp library (OSGi)</name>
   <dependencies>
   <dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
 			<!-- <version>1.4.0</version> -->
-			<version>1.0.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.compendium</artifactId>
-			<version>1.4.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -41,7 +38,6 @@
 		<dependency>
 			<groupId>org.universAAL.thirdparty</groupId>
 			<artifactId>jslp.core</artifactId>
-			<version>${project.version}</version>
 		</dependency>
   </dependencies>
   <build>
@@ -57,7 +53,7 @@
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Provider>ISTI-CNR</Bundle-Provider>
-             <Bundle-Activator>ch.ethz.iks.slp.impl.Activator</Bundle-Activator>
+            <Bundle-Activator>ch.ethz.iks.slp.impl.Activator</Bundle-Activator>
             <Export-Package>ch.ethz.iks.slp</Export-Package>
             <Private-Package>ch.ethz.iks.slp.impl.*</Private-Package>
             <Import-Package>org.osgi.framework, org.osgi.service.log</Import-Package>
