@@ -314,6 +314,65 @@ public class uAALBundleContainer implements Container, ServiceListener {
 				null);
 	}
     }
+    
+    public void removeSharedObject(ModuleContext requester, Object objToRemove, Object[] shareParams) {
+	if (!(requester instanceof uAALBundleContext) || objToRemove == null
+		|| shareParams == null || shareParams.length == 0) {
+	    requester
+		    .logWarn(
+			    this.getClass().getName() + "removeSharedObject",
+			    "Parameters passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
+			    null);
+	    return;
+	}
+
+	int n = shareParams.length - 1;
+	if (n == 0)
+	    if (shareParams[0] instanceof String)
+		((uAALBundleContext) requester).removeSharedObject(
+			(String) shareParams[0], objToRemove, null);
+	    else if (shareParams[0] instanceof Dictionary)
+		((uAALBundleContext) requester).removeSharedObject((String) null,
+			objToRemove, (Dictionary) shareParams[0]);
+	    else
+		requester
+			.logWarn(
+				this.getClass().getName() + "removeSharedObject",
+				"'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
+				null);
+	else {
+	    for (int i = 0; i < n; i++)
+		if (!(shareParams[i] instanceof String)) {
+		    requester
+			    .logWarn(
+				    this.getClass().getName() + "removeSharedObject",
+				    "'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
+				    null);
+		    return;
+		}
+	    if (shareParams[n] instanceof String)
+		((uAALBundleContext) requester).removesharedObject(
+			(String[]) shareParams, objToRemove, null);
+	    else if (shareParams[n] instanceof Dictionary)
+		if (n == 1)
+		    ((uAALBundleContext) requester).removeSharedObject(
+			    (String) shareParams[0], objToRemove,
+			    (Dictionary) shareParams[1]);
+		else {
+		    String[] xfaces = new String[n];
+		    for (int i = 0; i < n; i++)
+			xfaces[i] = (String) shareParams[i];
+		    ((uAALBundleContext) requester).removesharedObject(xfaces,
+			    objToRemove, (Dictionary) shareParams[n]);
+		}
+	    else
+		requester
+			.logWarn(
+				this.getClass().getName() + "removeSharedObject",
+				"'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
+				null);
+	}
+    }
 
     public void removeSharedObjectListener(SharedObjectListener listener) {
 	if (listener != null) {
