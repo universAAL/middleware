@@ -32,7 +32,9 @@ import java.util.Hashtable;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
+import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.ServiceRegistration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.universAAL.middleware.container.Container;
@@ -54,6 +56,7 @@ public class uAALBundleContext implements ModuleContext {
     private static BundleConfigHome servicesConfHome = new BundleConfigHome(
 	    "services");
     private ArrayList confFiles = new ArrayList(2);
+    private Hashtable<String, ServiceRegistration> sharedObjects = new Hashtable<String, ServiceRegistration>();
 
     uAALBundleContext(BundleContext bc) {
 	bundle = bc;
@@ -229,13 +232,29 @@ public class uAALBundleContext implements ModuleContext {
     }
 
     public void shareObject(String xface, Object obj, Dictionary props) {
-	bundle.registerService(xface, obj, props);
+	ServiceRegistration sr = bundle.registerService(xface, obj, props);
+	sharedObjects.put(xface, sr);
     }
 
     public void shareObject(String[] xface, Object obj, Dictionary props) {
-	bundle.registerService(xface, obj, props);
+	ServiceRegistration sr = bundle.registerService(xface, obj, props);
+	for (String xf : xface) {
+	    sharedObjects.put(xf, sr);
+	}
     }
 
+    public void removesharedObject(String[] xface, Object obj, Dictionary props) {
+	for (String xf : xface) {
+	    sharedObjects.get(xf).unregister();
+	    sharedObjects.remove(xf);
+	}
+	
+    }
+    
+    public void removeSharedObject(String xface, Object obj, Dictionary props) {
+	sharedObjects.get(xface).unregister();
+	sharedObjects.remove(xface);
+    }
     /**
      * @see org.universAAL.middleware.container.ModuleContext#start(org.universAAL.middleware.container.ModuleContext)
      */
