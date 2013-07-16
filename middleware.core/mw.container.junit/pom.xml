@@ -35,4 +35,5 @@
     </dependency>
 </dependencies>
 	
+	<name>Container JUnit</name>
 </project>
