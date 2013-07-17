@@ -6,34 +6,22 @@
   	<version>2.0.1-SNAPSHOT</version>
   	<relativePath>../mw.pom.core</relativePath>
   </parent>
-  
   <artifactId>mw.container.junit</artifactId>
   <version>2.0.1-SNAPSHOT</version>
-
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  
-<dependencies>
-	<dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.container.xfaces.core</artifactId>
-	</dependency>
-	
+  <name>universAAL Middleware Container JUnit</name>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.xfaces.core</artifactId>
+    </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
     </dependency>
-</dependencies>
-	
-	<name>Container JUnit</name>
+  </dependencies>
 </project>
