@@ -245,7 +245,6 @@ middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/c
 middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/util/ChannelMessageFields.java -text
 middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/util/Consts.java -text
 middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/util/ExceptionUtils.java svneol=native#text/plain
-middleware.core/mw.connectors.api.core/src/test/java/org/universAAL/middleware/ChannelMessageTests.java -text svneol=unset#text/plain
 middleware.core/mw.connectors.communication.jgroups.core/ASL2.0.txt -text
 middleware.core/mw.connectors.communication.jgroups.core/NOTICE.txt -text
 middleware.core/mw.connectors.communication.jgroups.core/pom.xml -text
