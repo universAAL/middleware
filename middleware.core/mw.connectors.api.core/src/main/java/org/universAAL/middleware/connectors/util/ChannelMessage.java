@@ -23,11 +23,11 @@ package org.universAAL.middleware.connectors.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
+
+import com.google.gson.Gson;
 
 /**
  * Row message type that wraps the BrokerMessage type
@@ -80,53 +80,35 @@ public class ChannelMessage {
     }
 
     public String toString() {
-        JSONObject obj = new JSONObject();
-        try {
-            // marshall channel names
-            JSONArray channelSerial = new JSONArray();
-            for (Object ch : channelNames) {
-                String channelName = (String) ch;
-                channelSerial.put(channelName);
-            }
+	String serializedMessage=null;
+	try {
+	    Gson gson = new Gson();    
+	    serializedMessage = gson.toJson(this); 
+	        
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 
-            obj.put(ChannelMessageFields.CHANNEL_NAMES, channelSerial);
-
-            // marshall PeerCard
-            obj.put(ChannelMessageFields.PEER_ID, sender.getPeerID());
-            obj.put(ChannelMessageFields.PEER_ROLE, sender.getRole().toString());
-
-            // marshall the content
-            obj.put(ChannelMessageFields.CONTENT, content);
-        } catch (JSONException e) {
-            return "";
-        }
-        return obj.toString();
-
+	return serializedMessage;
     }
 
-    public static ChannelMessage unmarhall(String message) throws Exception {
-        JSONObject obj = new JSONObject(message);
+    public static ChannelMessage unmarshall(String message) throws Exception {
+	
+	ChannelMessage ch=null;
+	try {
 
-        // unmarshall the channel Names
-        JSONArray channelNamesSerial = obj
-                .getJSONArray(ChannelMessageFields.CHANNEL_NAMES);
-        List channelNames = new ArrayList();
+	    	Gson gson = new Gson();	   
+		 ch = gson.fromJson(message, ChannelMessage.class);
 
-        for (int i = 0; i < channelNamesSerial.length(); i++) {
-            channelNames.add(channelNamesSerial.get(i));
-        }
+	} catch (Exception e) {
 
-        // unmarshall PeerCard
-        PeerCard sender = new PeerCard(
-                obj.getString(ChannelMessageFields.PEER_ID),
-                PeerRole.valueOf(obj.getString(ChannelMessageFields.PEER_ROLE)));
+	    throw new Exception(
+		    "Unable to unmashall AALSpaceMessage. Original message: "
+			    + message + ". Full Stack: " + e.toString());
+	}
 
-        // unmarshall the content
-
-        String content = obj.getString(ChannelMessageFields.CONTENT);
-
-        ChannelMessage ch = new ChannelMessage(sender, content, channelNames);
-        return ch;
+	return ch;
 
     }
 
