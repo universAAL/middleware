@@ -64,8 +64,9 @@
 							org.universAAL.middleware.container.osgi,
 							org.universAAL.middleware.connectors.util,
 							org.universAAL.middleware.brokers.message,
-							org.universAAL.middleware.brokers.message.aalspace,
-							org.json,
+							org.universAAL.middleware.brokers.message.aalspace,						
+							com.google.gson,
+							org.universAAL.middleware.brokers.message.gson,
 							org.universAAL.middleware.brokers</Import-Package>
             <Export-Package>org.universAAL.middleware.modules.aalspace.*</Export-Package>
             <Bundle-Activator>org.universAAL.middleware.modules.aalspace.osgi.Activator</Bundle-Activator>

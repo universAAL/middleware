@@ -373,7 +373,7 @@ public class DeployManagerImpl implements DeployManager,
 		.getAALSpaceDescriptor());
 
 	storeInstallationStatus(application);
-
+        
 	return InstallationResults.SUCCESS;
     }
 
