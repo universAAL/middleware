@@ -761,11 +761,19 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
                         METHOD, "Skipping internal JGroups packet");
                 return;
             }*/
-            String msgBuffer = new String(msg.getBuffer());
+        	
+        	
+        	//substring(1) is a fast hack. There is a trash char at beginning of msgBuffer.
+           	String msgBuffer = new String(msg.getBuffer());
+            if (!msgBuffer.startsWith("{"))
+            {
+            	msgBuffer = msgBuffer.substring(1);
+            }
+            
             if (security) {
                 msgBuffer = CryptUtil.decrypt((String) msg.getObject());
             }
-            ChannelMessage channelMessage = ChannelMessage.unmarhall(msgBuffer);
+            ChannelMessage channelMessage = ChannelMessage.unmarshall(msgBuffer);
             communicationModule.messageReceived(channelMessage);
         } catch (Exception ex) {
             LogUtils.logDebug(
@@ -812,7 +820,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     }
 
     public Object handle(Message msg) throws Exception {
-        ChannelMessage channelMessage = ChannelMessage.unmarhall(new String(msg
+        ChannelMessage channelMessage = ChannelMessage.unmarshall(new String(msg
                 .getBuffer()));
         communicationModule.messageReceived(channelMessage);
         return null;

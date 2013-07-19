@@ -20,14 +20,16 @@
  */
 package org.universAAL.middleware.brokers.message.aalspace;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.BrokerMessageFields;
+import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Class for AALSpace Messages
@@ -65,66 +67,17 @@ public class AALSpaceMessage implements BrokerMessage {
     }
 
     public String toString() {
-	JSONObject obj = new JSONObject();
+	String serializedMessage=null;
 	try {
-
-	    // marshall the broker message type
-	    obj.put(BrokerMessageFields.BROKER_MESSAGE_TYPE, mtype.toString());
-
-	    // marshall the aal space message type
-	    obj.put(AALSpaceMessageFields.AAL_SPACE_MTYPE,
-		    aalSpaceMessageType.toString());
-
-	    // marshall the AALSpaceDescriptor
-	    // marshal the AALspace card
-	    obj.put(AALSpaceMessageFields.AAL_SPACE_NAME, spaceDescriptor
-		    .getSpaceCard().getSpaceName());
-	    obj.put(AALSpaceMessageFields.spaceID, spaceDescriptor
-		    .getSpaceCard().getSpaceID());
-	    obj.put(AALSpaceMessageFields.description, spaceDescriptor
-		    .getSpaceCard().getDescription());
-	    obj.put(AALSpaceMessageFields.peerCoordinatorID, spaceDescriptor
-		    .getSpaceCard().getCoordinatorID());
-	    obj.put(AALSpaceMessageFields.peeringChannel, spaceDescriptor
-		    .getSpaceCard().getPeeringChannel());
-	    obj.put(AALSpaceMessageFields.peeringChannelName, spaceDescriptor
-		    .getSpaceCard().getPeeringChannelName());
-	    obj.put(AALSpaceMessageFields.retry, spaceDescriptor.getSpaceCard()
-		    .getRetry());
-	    obj.put(AALSpaceMessageFields.aalSpaceLifeTime, spaceDescriptor
-		    .getSpaceCard().getAalSpaceLifeTime());
-
-	    // marshall broker channel
-	    JSONArray brokerChannels = new JSONArray();
-	    for (ChannelDescriptor channel : spaceDescriptor
-		    .getBrokerChannels()) {
-		JSONArray channelSerial = new JSONArray();
-		channelSerial.put(channel.getChannelName());
-		channelSerial.put(channel.getChannelDescriptorFileURL());
-		channelSerial.put(channel.getChannelValue());
-		brokerChannels.put(channelSerial);
-	    }
-	    obj.put(AALSpaceMessageFields.brokerChannels, brokerChannels);
-
-	    // marshall the DeployManager's PeerCard
-	    if (spaceDescriptor.getDeployManager() != null) {
-		obj.put(AALSpaceMessageFields.DEPLOY_MANAGER_ID,
-			spaceDescriptor.getDeployManager().getPeerID());
-		obj.put(AALSpaceMessageFields.DEPLOY_MANAGER_ROLE,
-			spaceDescriptor.getDeployManager().getRole().toString());
-	    }
-	    return obj.toString();
-
-	} catch (JSONException e) {
-
-	    throw new AALSpaceMessageException(
-		    "Unable to unmashall AALSpaceMessage. Full Stack: "
-			    + e.toString());
+	     serializedMessage =  GsonParserBuilder.getInstance().buildGson().toJson(this);
+	    
 	} catch (Exception e) {
-	    throw new AALSpaceMessageException(
-		    "Unable to unmashall AALSpaceMessage. Full Stack: "
-			    + e.toString());
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
+
+	return serializedMessage;
+	    
     }
 
     public BrokerMessageTypes getMType() {

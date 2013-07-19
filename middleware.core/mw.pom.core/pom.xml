@@ -161,6 +161,11 @@
         <artifactId>mw.bus.tracker.core</artifactId>
         <version>2.0.1-SNAPSHOT</version>
       </dependency>
+       <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.2.4</version>
+    </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.container.junit</artifactId>
@@ -180,12 +185,12 @@
         <groupId>javax.xml.bind</groupId>
         <artifactId>jaxb-api</artifactId>
         <version>2.1</version>
-      </dependency>
+      </dependency>        
       <dependency>
-        <groupId>org.json</groupId>
-        <artifactId>json</artifactId>
-        <version>20090211</version>
-      </dependency>
+        <groupId>org.universAAL.thirdparty</groupId>
+        <artifactId>jslp.core</artifactId>
+        <version>2.0.1-SNAPSHOT</version>
+      </dependency>       
     </dependencies>
   </dependencyManagement>
   <build>
