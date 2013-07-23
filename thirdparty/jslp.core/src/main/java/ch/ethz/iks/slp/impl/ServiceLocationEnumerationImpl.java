@@ -39,7 +39,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
  * the implementation of a ServiceLocationEnumeration.
  * 
  * @see ch.ethz.iks.slp.ServiceLocationEnumeration
- * @author Jan S. Rellermeyer, IKS, ETH Zürich
+ * @author Jan S. Rellermeyer, IKS, ETH Zurich
  * @since 0.1
  */
 class ServiceLocationEnumerationImpl implements ServiceLocationEnumeration {

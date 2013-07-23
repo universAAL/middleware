@@ -37,7 +37,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 /**
  * a ServiceReply Message is sent as reaction of a ServiceRequest.
  * 
- * @author Jan S. Rellermeyer, ETH Zürich
+ * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.6
  */
 class ServiceTypeReply extends ReplyMessage {

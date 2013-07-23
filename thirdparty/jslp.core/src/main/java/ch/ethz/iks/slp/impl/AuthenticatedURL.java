@@ -38,7 +38,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 /**
  * an authenticated URL block within an SLPMessage.
  * 
- * @author Jan S. Rellermeyer, Systems Group, ETH Zürich
+ * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @since 0.4
  */
 public abstract class AuthenticatedURL {

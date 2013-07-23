@@ -41,7 +41,7 @@ import ch.ethz.iks.slp.ServiceURL;
 /**
  * deregister a service from a DA.
  * 
- * @author Jan S. Rellermeyer, ETH Zürich
+ * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
 class ServiceDeregistration extends SLPMessage {

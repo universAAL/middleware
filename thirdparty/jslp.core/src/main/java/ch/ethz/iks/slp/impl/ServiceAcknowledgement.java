@@ -39,7 +39,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
  * a ServiceAcknowledgement is sent by a DA as reaction to a ServiceRegistration
  * or ServiceDeregistration.
  * 
- * @author Jan S. Rellermeyer, ETH Zürich
+ * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
 class ServiceAcknowledgement extends ReplyMessage {

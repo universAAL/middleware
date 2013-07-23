@@ -36,7 +36,7 @@ import java.io.Serializable;
 /**
  * Implementation of the SLP ServiceURL class defined in RFC 2614.
  * 
- * @author Jan S. Rellermeyer, Systems Group, ETH Zürich
+ * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @since 0.1
  */
 public final class ServiceURL extends ch.ethz.iks.slp.impl.AuthenticatedURL
