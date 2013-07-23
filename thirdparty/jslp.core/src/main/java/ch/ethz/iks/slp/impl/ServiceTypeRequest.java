@@ -40,7 +40,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 /**
  * ServiceTypeRequest message is used to find existing service types.
  * 
- * @author Jan S. Rellermeyer, ETH Zürich
+ * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.6
  */
 class ServiceTypeRequest extends RequestMessage {

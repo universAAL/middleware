@@ -39,7 +39,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 /**
  * a AttributeReply Message is sent as reaction to a AttributeRequest message.
  * 
- * @author Jan S. Rellermeyer, Systems Group, ETH Zürich
+ * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @since 0.1
  */
 class AttributeReply extends ReplyMessage {

@@ -40,7 +40,7 @@ import ch.ethz.iks.slp.ServiceURL;
 /**
  * a ServiceReply Message is sent as reaction to a ServiceRequest.
  * 
- * @author Jan S. Rellermeyer, ETH Zürich
+ * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
 class ServiceReply extends ReplyMessage {

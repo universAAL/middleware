@@ -41,7 +41,7 @@ import java.util.Set;
 /**
  * Utility class.
  * 
- * @author Jan S. Rellermeyer, ETH Zürich
+ * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
 final class SLPUtils {
