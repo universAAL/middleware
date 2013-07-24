@@ -271,9 +271,13 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
         // Set up the jChannel from the URL or the value
         if (urlConfig != null) {
             try {
+                LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
+                        METHOD, new Object[] {
+                                "Loading JGroups communication channel from ",
+                                urlConfig }, null);
                 ch = createSharedChannel(urlConfig);
             } catch (Exception e) {
-                LogUtils.logInfo(context, JGroupsCommunicationConnector.class,
+                LogUtils.logError(context, JGroupsCommunicationConnector.class,
                         METHOD, new Object[] {
                                 "Failed to load remote configuration for ",
                                 element.getChannelName(), " from URL -> ",
@@ -285,7 +289,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
         }
         if (enableRemoteChannelConfigurarion && ch == null
                 && element.getChannelValue() == null) {
-            LogUtils.logInfo(
+            LogUtils.logDebug(
                     context,
                     JGroupsCommunicationConnector.class,
                     METHOD,
@@ -301,6 +305,9 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
             InputStream channelValue = new ByteArrayInputStream(element
                     .getChannelValue().getBytes());
             try {
+                LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
+                        METHOD,
+                        "Loading JChannel configuration from <channelValue> tag");
                 ch = createSharedChannel(channelValue);
             } catch (Exception e) {
                 LogUtils.logError(
@@ -755,12 +762,11 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     public void receive(Message msg) {
         final String METHOD = "receive";
         try {
-            /*JGroups 2.2 only
-            if (msg.isFlagSet(Flag.INTERNAL)) {
-                LogUtils.logWarn(context, JGroupsCommunicationConnector.class,
-                        METHOD, "Skipping internal JGroups packet");
-                return;
-            }*/
+            /*
+             * JGroups 2.2 only if (msg.isFlagSet(Flag.INTERNAL)) {
+             * LogUtils.logWarn(context, JGroupsCommunicationConnector.class,
+             * METHOD, "Skipping internal JGroups packet"); return; }
+             */
         	
         	
         	//substring(1) is a fast hack. There is a trash char at beginning of msgBuffer.
