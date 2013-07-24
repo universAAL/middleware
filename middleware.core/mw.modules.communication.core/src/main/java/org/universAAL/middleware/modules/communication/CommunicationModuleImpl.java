@@ -106,9 +106,8 @@ public class CommunicationModuleImpl implements CommunicationModule,
 
             messageListeners = new ConcurrentHashMap<String, List<MessageListener>>();
             LogUtils.logDebug(context, CommunicationModuleImpl.class,
-                    "CommunicationModuleImpl",
-                    new Object[] { "Configuring the CommunicationModule..." },
-                    null);
+                    "init)",
+                    "Configuring the CommunicationModule..."  );
 
             try {
                 LogUtils.logDebug(
