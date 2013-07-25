@@ -580,6 +580,14 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
         for (int i = 0; i < selectedChannel.size(); i++) {
             JChannel channel = (JChannel) selectedChannel.get(i);
             Message msg = null;
+           String s = message.toString();     
+           
+           Message prova = new Message();       
+    
+           
+           
+         
+         
             try {
                 if (security) {
                     msg = new Message(null, null, CryptUtil.encrypt(message
@@ -762,20 +770,14 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     public void receive(Message msg) {
         final String METHOD = "receive";
         try {
-            /*
-             * JGroups 2.2 only if (msg.isFlagSet(Flag.INTERNAL)) {
-             * LogUtils.logWarn(context, JGroupsCommunicationConnector.class,
-             * METHOD, "Skipping internal JGroups packet"); return; }
-             */
-        	
-        	
-        	//substring(1) is a fast hack. There is a trash char at beginning of msgBuffer.
-           	String msgBuffer = new String(msg.getBuffer());
-            if (!msgBuffer.startsWith("{"))
-            {
-            	msgBuffer = msgBuffer.substring(1);
-            }
-            
+            /*JGroups 2.2 only
+            if (msg.isFlagSet(Flag.INTERNAL)) {
+                LogUtils.logWarn(context, JGroupsCommunicationConnector.class,
+                        METHOD, "Skipping internal JGroups packet");
+                return;
+            }*/        	        	
+        	String msgBuffer = (String) msg.getObject();            
+
             if (security) {
                 msgBuffer = CryptUtil.decrypt((String) msg.getObject());
             }
