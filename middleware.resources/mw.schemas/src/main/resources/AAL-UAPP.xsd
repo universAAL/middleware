@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 	<!--
-		Author(s):	Michele Girolami michele.girolami@isti.cnr.it
-					Francesco Furfari furfari@isti.cnr.it
-					Filippo Palumbo palumbo@isti.cnr.it
-					Stefano Lenzi stefano.lenzi@isti.cnr.it
-		Venelin Arnaudov v.arnaudov@prosyst.com
+		Authors: 
+			Michele Girolami michele.girolami@isti.cnr.it, 
+			Francesco Furfari furfari@isti.cnr.it, 
+			Filippo Palumbo palumbo@isti.cnr.it,
+			Stefano Lenzi stefano.lenzi@isti.cnr.it
+, 
+			Venelin Arnaudov v.arnaudov@prosyst.com
+			
+		Revised: $LastChangedDate$
 	-->
 <xs:schema attributeFormDefault="unqualified" 
-elementFormDefault="qualified" 
-jaxb:extensionBindingPrefixes="xjc" jaxb:version="1.0" 
-targetNamespace="http://www.universaal.org/aal-uapp/v1.0.0" 
-xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
-xmlns:krf="http://karaf.apache.org/xmlns/features/v1.0.0" 
-xmlns:uapp="http://www.universaal.org/aal-uapp/v1.0.0" 
-xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-				<xs:import namespace="http://karaf.apache.org/xmlns/features/v1.0.0" schemaLocation="http://karaf.apache.org/xmlns/features/v1.0.0"/>
+				elementFormDefault="qualified" 
+				jaxb:extensionBindingPrefixes="xjc" jaxb:version="1.0" 
+				targetNamespace="http://www.universaal.org/aal-uapp/v1.0.2" 
+				xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+				xmlns:krf="http://karaf.apache.org/xmlns/features/v1.0.0" 
+				xmlns:uapp="http://www.universaal.org/aal-uapp/v1.0.2" 
+				xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+				<xs:import namespace="http://karaf.apache.org/xmlns/features/v1.0.0" schemaLocation="karaf-provvisioning-v1.0.0.xsd" />
 				<xs:annotation>
 								<xs:appinfo>
 												<jaxb:globalBindings generateIsSetMethod="true">
@@ -61,7 +65,7 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 																												</xs:element>
 																												<xs:element name="tags" type="xs:string">
 																																<xs:annotation>
-																																				<xs:documentation>comma separated list of tags, e.g. &quot;medication, medication monitoring, control&quot;</xs:documentation>
+																																				<xs:documentation>comma separated list of tags, e.g. &quot;"medication, medication monitoring, control&quot;"</xs:documentation>
 																																</xs:annotation>
 																												</xs:element>
 																												<xs:element name="applicationProvider" type="uapp:contactType">
@@ -95,10 +99,49 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 																																				<xs:documentation>URI of the AALAppSubProfile??? Is it not fixed to org.universAAL.ontology.profile.AALAppSubProfile?</xs:documentation>
 																																</xs:annotation>
 																												</xs:element>
+																												<xs:element name="applicationOntology" type="xs:string" minOccurs="0">
+																																<xs:annotation>
+																																				<xs:documentation>URI to the used ontology, e.g. "http://ontology.universAAL.org/Nutrition.owl#NutritionService"</xs:documentation>
+																																</xs:annotation>
+																												</xs:element>
+																												<xs:element name="menuEntry" minOccurs="0">
+																																<xs:annotation>
+																																				<xs:documentation>basic info for the menu entries of the application</xs:documentation>
+																																</xs:annotation>
+																																<xs:complexType>
+																																				<xs:sequence>
+																																								<xs:element name="menuName" type="xs:string">
+																																												<xs:annotation>
+																																																<xs:documentation>name of the application to show in the menu</xs:documentation>
+																																												</xs:annotation>
+																																								</xs:element>
+																																								<xs:element name="serviceUri" type="xs:anyURI">
+																																												<xs:annotation>
+																																																<xs:documentation>service uri to start the application</xs:documentation>
+																																												</xs:annotation>
+																																								</xs:element>
+																																								<xs:element name="icon" minOccurs="0">
+																																												<xs:complexType>
+																																																<xs:choice>
+																																																				<xs:element name="path" type="xs:anyURI">
+																																																								<xs:annotation>
+																																																												<xs:documentation>It points to the location of the icon image to use withint the uApp package, a 512x512 PNG image file</xs:documentation>
+																																																								</xs:annotation>
+																																																				</xs:element>
+																																																				<xs:element name="name" type="xs:string">
+																																																								<xs:annotation>
+																																																												<xs:documentation>The name of the image resource to use as icon that is not contained by the uApp packager, but it will provided by the uAAL enviroment (e.g. it will provided by the ui.handler.gui.swing)</xs:documentation>
+																																																						       </xs:annotation>
+																																																	           </xs:element>
+																																																</xs:choice>
+																																												</xs:complexType>
+																																								</xs:element>
+																																				</xs:sequence>
+																																</xs:complexType>
+																												</xs:element>
 																								</xs:sequence>
 																				</xs:complexType>
-																</xs:element>
-<!--end of app element-->
+																</xs:element><!--end of app element-->
 																<xs:element minOccurs="0" name="applicationCapabilities">
 																				<xs:annotation>
 																								<xs:documentation>Describes what the applicion offers</xs:documentation>
@@ -115,7 +158,7 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 																				</xs:annotation>
 																				<xs:complexType>
 																								<xs:sequence>
-																												<xs:element name="requirement" maxOccurs="unbounded"  type="uapp:reqType"/>
+																												<xs:element name="requirement" maxOccurs="unbounded" type="uapp:reqType"/>
 																								</xs:sequence>
 																				</xs:complexType>
 																</xs:element>
@@ -127,14 +170,12 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 																								<xs:sequence>
 																												<xs:element name="contactPoint" type="xs:string">
 																																<xs:annotation>
-																																				<xs:documentation>person or center in charge of providing
- assistance for the management</xs:documentation>
+																																				<xs:documentation>person or center in charge of providing assistance for the management</xs:documentation>
 																																</xs:annotation>
 																												</xs:element>
 																												<xs:element minOccurs="0" name="remoteManagement">
 																																<xs:annotation>
-																																				<xs:documentation>software and protocols used for the remote
- access and management of the application</xs:documentation>
+																																				<xs:documentation>software and protocols used for the remote access and management of the application</xs:documentation>
 																																</xs:annotation>
 																																<xs:complexType>
 																																				<xs:sequence>
@@ -145,25 +186,20 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 																												</xs:element>
 																								</xs:sequence>
 																				</xs:complexType>
-																</xs:element>
-<!-- end of applicationManagement -->
+																</xs:element><!-- end of applicationManagement -->
 																<xs:element name="applicationPart">
 																				<xs:annotation>
-																								<xs:documentation>The list of software artifacts composing the
- application</xs:documentation>
+																								<xs:documentation>The list of software artifacts composing the application</xs:documentation>
 																				</xs:annotation>
 																				<xs:complexType>
 																								<xs:sequence>
 																												<xs:element maxOccurs="unbounded" ref="uapp:part"/>
 																								</xs:sequence>
 																				</xs:complexType>
-																</xs:element>
-<!-- end of applicationPart -->
+																</xs:element><!-- end of applicationPart -->
 												</xs:sequence>
 								</xs:complexType>
-				</xs:element>
-<!-- end of main body -->
-<!-- types definition -->
+				</xs:element><!-- end of main body --><!-- types definition -->
 				<xs:element name="part">
 								<xs:complexType>
 												<xs:sequence>
@@ -185,14 +221,15 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 																				</xs:annotation>
 																				<xs:complexType>
 																								<xs:sequence>
-																												<xs:element name="requirement"  maxOccurs="unbounded" type="uapp:reqType"/>
+																												<xs:element name="requirement" maxOccurs="unbounded" type="uapp:reqType"/>
 																								</xs:sequence>
 																				</xs:complexType>
 																</xs:element>
 																<xs:element maxOccurs="unbounded" ref="uapp:deploymentUnit"/>
 																<xs:element maxOccurs="unbounded" minOccurs="0" ref="uapp:executionUnit"/>
 												</xs:sequence>
-												<xs:attribute name="partId" type="xs:ID"/>								</xs:complexType>
+												<xs:attribute name="partId" type="xs:ID"/>
+								</xs:complexType>
 				</xs:element>
 				<xs:element name="deploymentUnit">
 								<xs:complexType>
@@ -203,8 +240,8 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 																				</xs:annotation>
 																</xs:element>
 																<xs:element name="platformUnit" type="uapp:platformType">
-																				<xs:annotation>	
-																							<xs:documentation>Not used for the moment. Intended to describe units that are OS independent like POJO java apps</xs:documentation>
+																				<xs:annotation>
+																								<xs:documentation>Not used for the moment. Intended to describe units that are OS independent like POJO java apps</xs:documentation>
 																				</xs:annotation>
 																</xs:element>
 																<xs:element name="containerUnit">
@@ -293,8 +330,7 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 																								</xs:element>
 																								<xs:element name="runtimeId" type="xs:string">
 																												<xs:annotation>
-																																<xs:documentation>id of the the runtime instance loading the
- ontology</xs:documentation>
+																																<xs:documentation>id of the the runtime instance loading the ontology</xs:documentation>
 																												</xs:annotation>
 																								</xs:element>
 																								<xs:element name="url">
@@ -384,12 +420,12 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 								<xs:sequence>
 												<xs:element name="name" type="xs:string">
 																<xs:annotation>
-																				<xs:documentation>header as reverse-DNS string e.g. &quot;aal.tracking.reactiontime&quot;</xs:documentation>
+																				<xs:documentation>header as reverse-DNS string e.g. &quot;"aal.tracking.reactiontime&quot;"</xs:documentation>
 																</xs:annotation>
 												</xs:element>
 												<xs:element name="value" type="xs:string">
 																<xs:annotation>
-																				<xs:documentation>the actual value, e.g. &quot;1800s&quot;</xs:documentation>
+																				<xs:documentation>the actual value, e.g. &quot;"1800s&quot;"</xs:documentation>
 																</xs:annotation>
 												</xs:element>
 								</xs:sequence>
@@ -412,10 +448,10 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 								</xs:annotation>
 								<xs:sequence>
 												<xs:element name="reqAtomName" type="xs:string"/>
-												<xs:element maxOccurs="unbounded" name="reqAtomValue" type="xs:string"/>
+												<xs:element name="reqAtomValue" type="xs:string"/>
 												<xs:element default="equal" minOccurs="0" name="reqCriteria" type="uapp:logicalCriteriaType">
 																<xs:annotation>
-																				<xs:documentation>should be considered as &quot;equal&quot;, when the element is omitted</xs:documentation>
+																				<xs:documentation>should be considered as &quot;"equal&quot;", when the element is omitted</xs:documentation>
 																</xs:annotation>
 												</xs:element>
 								</xs:sequence>
@@ -426,10 +462,9 @@ xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001
 								</xs:annotation>
 								<xs:sequence>
 												<xs:element name="logicalRelation" type="uapp:logicalRelationType"/>
-												<xs:element maxOccurs="2" minOccurs="2" name="requirement" type="uapp:reqType"/>
+												<xs:element maxOccurs="unbounded" minOccurs="2" name="requirement" type="uapp:reqType"/>
 								</xs:sequence>
 				</xs:complexType>
-				
 				<xs:simpleType name="logicalRelationType">
 								<xs:restriction base="xs:string">
 												<xs:enumeration value="or"/>
