@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uapp:aal-uapp
-   xmlns:uapp="http://www.universaal.org/aal-uapp/v1.0.0"
+   xmlns:uapp="http://www.universaal.org/aal-uapp/v1.0.2"
    xmlns="http://karaf.apache.org/xmlns/features/v1.0.0"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.universaal.org/aal-uapp/v1.0.0 AAL-UAPP.xsd">
+    xsi:schemaLocation="http://www.universaal.org/aal-uapp/v1.0.2 AAL-UAPP.xsd">
 <!--	xsi:schemaLocation="http://universaal.org/aal-uapp/v1.0.0 AAL-UAPP.xsd"-->
    <uapp:app>
       <uapp:name>Help When Outdoor</uapp:name>
