@@ -161,7 +161,6 @@ public abstract class ServiceCaller extends Caller {
     public final String sendRequest(ServiceRequest request) {
 	request.setProperty(ServiceRequest.PROP_uAAL_SERVICE_CALLER,
 		busResourceURI);
-	((ServiceBusImpl) theBus).assessContentSerialization(request);
 	BusMessage reqMsg = new BusMessage(MessageType.request, request, theBus);
 	((ServiceBus) theBus).brokerRequest(busResourceURI, reqMsg);
 	return reqMsg.getID();
