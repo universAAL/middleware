@@ -216,6 +216,12 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
      */
     public void brokerRequest(String callerID, BusMessage request) {
 	if (callerID != null) {
+	    Object content = request.getContent();
+	    if (content instanceof ServiceRequest) {
+		ServiceRequest sr = (ServiceRequest) content;
+		assessContentSerialization(sr);
+	    }
+
 	    super.brokerMessage(callerID, request);
 	}
     }
