@@ -23,6 +23,11 @@ package org.universAAL.middleware.rdf.impl;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 
+/**
+ * 
+ * @deprecated use ResourceFactory directly
+ *
+ */
 public abstract class ResourceFactoryImpl implements ResourceFactory {
 
     /**

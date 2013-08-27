@@ -213,6 +213,7 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/profile/ServiceProfile.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/profile/SingleLocationParameter.java -text
 middleware.core/mw.bus.tracker.core/ASL2.0.txt -text
+middleware.core/mw.bus.tracker.core/NOTICE.txt -text
 middleware.core/mw.bus.tracker.core/pom.xml -text
 middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/Activator.java -text
 middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/IBusMemberRegistry.java -text

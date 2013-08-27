@@ -39,10 +39,10 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import ae.javax.xml.bind.JAXBContext;
+import ae.javax.xml.bind.JAXBException;
+import ae.javax.xml.bind.Marshaller;
+import ae.javax.xml.bind.Unmarshaller;
 
 import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.brokers.control.ExceptionUtils;
@@ -110,20 +110,20 @@ public class DeployManagerImpl implements DeployManager,
 	TIMEOUT = Long.parseLong(System.getProperty("uAAL.dm.timeout",
 		"" + 5 * 60 * 1000));
 	this.configHome = configHome;
-	this.context = context;
-	init();
-	try {
-	    jc = JAXBContext.newInstance(ObjectFactory.class);
-	    unmarshaller = jc.createUnmarshaller();
-	    marshaller = jc.createMarshaller();
-	} catch (JAXBException e) {
-	    LogUtils.logError(
-		    context,
-		    DeployManagerImpl.class,
-		    "DeployManagerImpl",
-		    new Object[] { "Error during creation of marshaller: " + e },
-		    null);
-	}
+        this.context = context;
+        init();
+        try {
+            jc = JAXBContext.newInstance("org.universAAL.middleware.deploymanager.uapp.model",this.getClass().getClassLoader());
+            unmarshaller = jc.createUnmarshaller();
+            marshaller = jc.createMarshaller();
+        } catch (JAXBException e) {
+            LogUtils.logError(
+                    context,
+                    DeployManagerImpl.class,
+                    "DeployManagerImpl",
+                    new Object[] { "Error during creation of marshaller: " + e },
+                    null);
+        }
 
     }
 

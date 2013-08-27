@@ -27,6 +27,7 @@ import org.universAAL.middleware.bus.model.util.IRegistry;
 import org.universAAL.middleware.bus.model.util.IRegistryListener;
 import org.universAAL.middleware.bus.model.util.RegistryMap;
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.connectors.exception.CommunicationConnectorException;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -379,6 +380,9 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	return getBusMember(memberURI) != null;
     }
 
+    public abstract void handleSendError(ChannelMessage message,
+	    CommunicationConnectorException e) ;
+
     public boolean isBusResourceURI(String uri) {
 	return uri.startsWith(uAAL_MW_INSTANCE_URI_PREFIX);
     }
@@ -394,4 +398,5 @@ public abstract class AbstractBus implements Broker, MessageListener {
     public boolean removeRegistryListener(IRegistryListener listener) {
 	return registry.removeRegistryListener(listener);
     }
+
 }

@@ -45,14 +45,18 @@ import org.universAAL.middleware.container.ModuleContext;
 public abstract class BusMember {
     protected final ModuleContext owner;
     protected final AbstractBus theBus;
-    protected final String busResourceURI;
-
+    protected /*final*/ String busResourceURI;
+    // PATCH This  ^  is for Android port :(
     protected BusMember(ModuleContext owner, Object[] busFetchParams,
 	    BusMemberType type) {
 	this.owner = owner;
 	theBus = (AbstractBus) owner.getContainer().fetchSharedObject(owner,
 		busFetchParams);
 	busResourceURI = theBus.register(owner, this, type);
+    }
+    // PATCH This  v  is for Android port :(
+    public BusMember(boolean dummy){
+    	owner=null; theBus=null;
     }
 
     /**

@@ -31,7 +31,12 @@ import org.universAAL.middleware.container.ModuleContext;
  */
 public abstract class Subscriber extends BusMember {
 
-    protected Subscriber(ModuleContext owner, Object[] busFetchParams) {
+    public Subscriber(boolean dummy) {
+		super(dummy);
+		// PATCH This  v  is for Android port :(
+	}
+
+	protected Subscriber(ModuleContext owner, Object[] busFetchParams) {
 	super(owner, busFetchParams, BusMemberType.subscriber);
     }
 

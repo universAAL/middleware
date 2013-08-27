@@ -29,9 +29,11 @@ import java.util.Set;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
+import org.universAAL.middleware.rdf.Property;
 import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
+import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
  * The Ontology Management mainly serves two purposes:
@@ -186,9 +188,11 @@ public final class OntologyManagement {
 	synchronized (pendingOntologies) {
 	    ArrayList newPendingOntologies = new ArrayList(
 		    pendingOntologies.size() - 1);
-	    for (int i = 0; i < pendingOntologies.size(); i++)
-		if (pendingOntologies.get(i) != ont)
-		    newPendingOntologies.add(ont);
+	    for (int i = 0; i < pendingOntologies.size(); i++) {
+		Object o = pendingOntologies.get(i);
+		if (o != ont)
+		    newPendingOntologies.add(o);
+	    }
 	    pendingOntologies = newPendingOntologies;
 	}
     }
@@ -310,7 +314,8 @@ public final class OntologyManagement {
 			new Object[] {
 				"Missing factory result: the ontology class ",
 				info.getURI(),
-				" of the ontology ",
+				" (factory index: " + info.getFactoryIndex()
+					+ ") of the ontology ",
 				ont.getInfo().getURI(),
 				" is not an abstract class and it defines a factory, but the factory does not create instances for this class (the factory returned null)." },
 			null);
@@ -351,10 +356,12 @@ public final class OntologyManagement {
 		return false;
 	    }
 
-	    String[] props = info.getDeclaredProperties();
-	    // just test that all properties have a serialization type
+	    // test properties
+	    String[] props = info.getDeclaredPropertyURIs();
 	    for (int i = 0; i < props.length; i++) {
-		int serType = m.getPropSerializationType(props[i]);
+		String propURI = props[i];
+		// test that the property has a serialization type
+		int serType = m.getPropSerializationType(propURI);
 		if (serType == Resource.PROP_SERIALIZATION_UNDEFINED)
 		    LogUtils.logWarn(
 			    SharedResources.moduleContext,
@@ -362,7 +369,7 @@ public final class OntologyManagement {
 			    "register_testClass",
 			    new Object[] {
 				    "Undefined serialization type: the property ",
-				    props[i],
+				    propURI,
 				    " of the ontology class ",
 				    info.getURI(),
 				    " of the ontology ",
@@ -372,6 +379,50 @@ public final class OntologyManagement {
 					    + " please check the method getPropSerializationType(String propURI);"
 					    + " this might cause an incomplete serialization result." },
 			    null);
+		
+		// test that the restrictions match the type (i.e. a
+		// DatatypeProperty has a literal as value, not a Resource)
+		MergedRestriction res = info.getRestrictionsOnProp(propURI);
+		if (res == null)
+		    continue;
+		Property prop = info.getDeclaredProperty(propURI);
+		boolean isDatatype = prop instanceof DatatypeProperty;
+		Object constraint;
+		constraint = res
+			.getConstraint(MergedRestriction.allValuesFromID);
+		if (constraint != null) {
+		    if (constraint instanceof TypeURI) {
+			TypeURI t = (TypeURI) constraint;
+			String err = null;
+			if (TypeMapper.isRegisteredDatatypeURI(t.getURI())) {
+			    if (!isDatatype) {
+				err = "ObjectProperty";
+			    }
+			} else {
+			    if (isDatatype) {
+				err = "DatatypeProperty";
+			    }
+			}
+			if (err != null) {
+			    LogUtils.logError(
+				    SharedResources.moduleContext,
+				    OntologyManagement.class,
+				    "register_testClass",
+				    new Object[] {
+					    "Wrong property definition: the property ",
+					    propURI,
+					    " of the ontology class ",
+					    info.getURI(),
+					    " of the ontology ",
+					    ont.getInfo().getURI(),
+					    " is registered as a "
+						    + err
+						    + " but the defined restrictions indicate otherwise." },
+				    null);
+			}
+		    }
+		}
+		// TODO: there is much more we can test!
 	    }
 
 	    return true;
@@ -426,11 +477,16 @@ public final class OntologyManagement {
 	    }
 
 	    // add new ontology
-	    LogUtils.logDebug(SharedResources.moduleContext,
-		    OntologyManagement.class, "register", new Object[] {
-			    "Registering ontology: ", ont.getInfo().getURI(),
-			    " (classes: ", ont.getResourceList().length, ")" },
-		    null);
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    OntologyManagement.class,
+		    "register",
+		    new Object[] {
+			    "Registering ontology: ",
+			    ont.getInfo().getURI(),
+			    " (classes: ",
+			    ont.getOntClassInfo().length
+				    + ont.getRDFClassInfo().length, ")" }, null);
 
 	    // make some sanity tests
 	    register_testOntology(ont);
@@ -776,6 +832,39 @@ public final class OntologyManagement {
 	// pending ontologies)
 	if (ontClassInfoMap.containsKey(classURI))
 	    return true;
+
+	// not found -> debug out
+	if (pendingOntologies.size() != 0) {
+	    String cls = "The following classes are registered:\n";
+	    if (includePending) {
+		// test pending classes
+		ArrayList pend = pendingOntologies;
+		cls += "Pending ontologies:\n";
+		for (int i = 0; i < pend.size(); i++) {
+		    Ontology ont = (Ontology) pend.get(i);
+		    cls += "  Ontology " + ont.getInfo().getURI() + "\n";
+		    RDFClassInfo rdf[] = ont.getRDFClassInfo();
+		    for (int j = 0; j < rdf.length; j++)
+			cls += "    RDF: " + rdf[j].getURI() + "\n";
+		    OntClassInfo owl[] = ont.getOntClassInfo();
+		    for (int j = 0; j < owl.length; j++)
+			cls += "    OWL: " + owl[j].getURI() + "\n";
+		}
+	    }
+	    cls += "Registered ontologies:\n";
+	    Object[] classes = rdfClassInfoMap.values().toArray();
+	    for (int i = 0; i < classes.length; i++) {
+		Resource r = (Resource) classes[i];
+		cls += "    RDF: " + r.getURI() + "\n";
+	    }
+	    classes = ontClassInfoMap.values().toArray();
+	    for (int i = 0; i < classes.length; i++) {
+		Resource r = (Resource) classes[i];
+		cls += "    OWL: " + r.getURI() + "\n";
+	    }
+	    LogUtils.logDebug(SharedResources.moduleContext,
+		    OntologyManagement.class, "isRegisteredClass", cls);
+	}
 
 	return false;
     }

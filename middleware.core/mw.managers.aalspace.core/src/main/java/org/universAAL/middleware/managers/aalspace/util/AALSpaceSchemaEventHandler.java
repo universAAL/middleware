@@ -20,8 +20,8 @@
  */
 package org.universAAL.middleware.managers.aalspace.util;
 
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventHandler;
+import ae.javax.xml.bind.ValidationEvent;
+import ae.javax.xml.bind.ValidationEventHandler;
 
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
