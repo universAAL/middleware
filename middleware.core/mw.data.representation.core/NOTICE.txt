@@ -1,7 +1,7 @@
 Data Representation
 
 Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung 
+Fraunhofer-Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung 
 
 Copyright 2008-2010 Vodafone Italy, http://www.vodafone.it
 Vodafone Omnitel N.V.
@@ -9,6 +9,10 @@ Vodafone Omnitel N.V.
 I. Included Software
 
 Software developed by Fraunhofer IGD & Vodafone Italy within the PERSONA project is used as the initial version for further developments within the universAAL project.
+
+This product includes software developed by
+Robert Harder (http://iharder.net/base64).
+Released as Public Domain.
 
 
 II. Used Software

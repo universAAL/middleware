@@ -22,10 +22,14 @@ package org.universAAL.middleware.connectors.communication.jgroups;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
@@ -95,64 +99,67 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 	    throws Exception {
 	this.context = context;
 
-	security = Boolean.parseBoolean(System.getProperty(
-		"universaal.security.enabled", "false"));
+        security = Boolean.parseBoolean(System.getProperty(
+                "universaal.security.enabled", "false"));
 
-	if (security == false) {
-	    return;
-	}
+        if (security == false) {
+            return;
+        } else {
+            initializeSecurity();
+        }
 
-	LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
-		"JGroupsCommunicationConnector",
-		new Object[] { "Security enabled" + security }, null);
+    }
+    
+    private void initializeSecurity() throws Exception {
+        final String METHOD = "initializeSecurity";
 
-	String fileName = System.getProperty("bouncycastle.key");
+        LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
+                "JGroupsCommunicationConnector",
+                new Object[] { "Security enabled" + security }, null);
 
-	LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
-		"JGroupsCommunicationConnector",
-		new Object[] { "Security key file : ", fileName,
-			" bouncycastle.key" }, null);
+        String fileName = System.getProperty("bouncycastle.key");
 
-	File file = new File(fileName, "bouncycastle.key");
-	boolean exists = file.exists();
-	if (!exists) {
-	    // disable security
-	    LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
-		    "JGroupsCommunicationConnector",
-		    new Object[] { "Security disabled, key file not found" },
-		    null);
-	    throw new Exception("Security disabled. Key file not found.");
+        LogUtils.logDebug(context, JGroupsCommunicationConnector.class, METHOD,
+                new Object[] { "Security key file : ", fileName,
+                        " bouncycastle.key" }, null);
 
-	} else {
-	    // It returns true if File or directory exists
-	    // init the cryptoUtil
-	    try {
-		CryptUtil.init(fileName, new Codec() {
-		    public byte[] encode(byte[] data) {
-			return org.bouncycastle.util.encoders.Base64
-				.encode(data);
-		    }
+        File file = new File(fileName, "bouncycastle.key");
+        boolean exists = file.exists();
+        if (!exists) {
+            // disable security
+            LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
+                    METHOD, "Security disabled, key file not found");
+            throw new Exception("Security disabled. Key file not found.");
 
-		    public byte[] decode(String data) {
-			return org.bouncycastle.util.encoders.Base64
-				.decode(data);
-		    }
-		});
-	    } catch (Exception e1) {
-		LogUtils.logError(
-			context,
-			CommunicationModuleImpl.class,
-			"CommunicationModuleImpl",
-			new Object[] { "Error while initializing the CryptoUtil: "
-				+ e1.toString() }, null);
-		throw new Exception("Security disabled. Key file not found.");
-	    }
+        } else {
+            // It returns true if File or directory exists
+            // init the cryptoUtil
+            try {
+                CryptUtil.init(fileName, new Codec() {
+                    public byte[] encode(byte[] data) {
+                        return org.bouncycastle.util.encoders.Base64
+                                .encode(data);
+                    }
 
-	    LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
-		    "JGroupsCommunicationConnector",
-		    new Object[] { "Connector Up" }, null);
-	}
+                    public byte[] decode(String data) {
+                        return org.bouncycastle.util.encoders.Base64
+                                .decode(data);
+                    }
+                });
+            } catch (Exception ex) {
+                LogUtils.logError(
+                        context,
+                        CommunicationModuleImpl.class,
+                        METHOD,
+                        new Object[] {
+                                "Error while initializing the CryptoUtil: ",
+                                ex.toString() }, ex);
+                throw new Exception("Security disabled. Key file not found.");
+            }
 
+            LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
+                    METHOD, "Connector Up");
+        }
     }
 
     public void configureConnector(List<ChannelDescriptor> channels,
@@ -193,11 +200,11 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 
 		    }
 
-		    if (ch != null) {
-			ch.setDiscardOwnMessages(true);
-			ch.setReceiver(this);
-			// nome logico del peer che esegue la join. Il nome
-			// logico � associato ad un UUID
+                    if (ch != null) {
+                        ch.setDiscardOwnMessages(true);
+                        ch.setReceiver(this);
+                        // nome logico del peer che esegue la join. Il nome
+                        // logico � associato ad un UUID
 
 			ch.setName(peerName);
 			// ch.setAddressGenerator(new AddressGenerator() {
@@ -243,78 +250,82 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
      * @throws Exception
      */
     private JChannel configureJChannel(ChannelDescriptor element)
-	    throws Exception {
-	final String METHOD = "configureJChannel";
-	JChannel ch = null;
-	if (enableRemoteChannelConfigurarion == false) {
-	    LogUtils.logDebug(
-		    context,
-		    JGroupsCommunicationConnector.class,
-		    METHOD,
-		    "Remote channel configuration disabled using default JGroup cluster configuration for channel "
-			    + element.getChannelName());
-	    return new JChannel();
-	}
-	URL urlConfig = null;
-	if (enableRemoteChannelConfigurarion && enableRemoteChannelURL != null) {
-	    urlConfig = new URL(enableRemoteChannelURL);
-	}
-	if (enableRemoteChannelConfigurarion && urlConfig == null
-		&& element.getChannelDescriptorFileURL() != null) {
-	    // Set up the jChannel from the URL or the value
-	    urlConfig = new URL(element.getChannelDescriptorFileURL());
-	}
-	if (urlConfig != null) {
-	    try {
-		ch = createSharedChannel(urlConfig);
-		return ch;
-	    } catch (Exception e) {
-		LogUtils.logInfo(context, JGroupsCommunicationConnector.class,
-			METHOD, new Object[] {
-				"Failed to load remote configuration for ",
-				element.getChannelName(), " from URL -> ",
-				urlConfig, " due to internal exception ",
-				ExceptionUtils.stackTraceAsString(e), "\n",
-				"Trying to initializee the channels locally" },
-			e);
-	    }
-	}
-	if (enableRemoteChannelConfigurarion && ch == null
-		&& element.getChannelValue() == null) {
-	    LogUtils.logInfo(
-		    context,
-		    JGroupsCommunicationConnector.class,
-		    METHOD,
-		    new Object[] { "No local configuration for ",
-			    element.getChannelName(),
-			    "\nFalling back to JGroup default cluster configuration" },
-		    null);
-	    return new JChannel();
-	}
-	if (enableRemoteChannelConfigurarion && ch == null
-		&& element.getChannelValue() != null) {
-	    // Try from the InputStream
-	    InputStream channelValue = new ByteArrayInputStream(element
-		    .getChannelValue().getBytes());
-	    try {
-		ch = createSharedChannel(channelValue);
-	    } catch (Exception e) {
-		LogUtils.logError(
-			context,
-			JGroupsCommunicationConnector.class,
-			METHOD,
-			new Object[] {
-				"Failed to load local configuration for ",
-				element.getChannelName(),
-				" due to internal exception ",
-				ExceptionUtils.stackTraceAsString(e), "\n",
-				"Falling back to JGroup default cluster configuration" },
-			e);
-	    }
+            throws Exception {
+        final String METHOD = "configureJChannel";
+        JChannel ch = null;
+        if (enableRemoteChannelConfigurarion == false) {
+            LogUtils.logDebug(
+                    context,
+                    JGroupsCommunicationConnector.class,
+                    METHOD,
+                    "Remote channel configuration disabled using default JGroup cluster configuration for channel "
+                            + element.getChannelName());
+            return new JChannel();
+        }
+        URL urlConfig = null;
+        if (enableRemoteChannelConfigurarion && enableRemoteChannelURL != null) {
+            urlConfig = new URL(enableRemoteChannelURL);
+        }
+        if (enableRemoteChannelConfigurarion && urlConfig == null
+                && element.getChannelDescriptorFileURL() != null) {
+            urlConfig = new URL(element.getChannelDescriptorFileURL());
+        }
+        // Set up the jChannel from the URL or the value
+        if (urlConfig != null) {
+            try {
+                ch = createSharedChannel(urlConfig);
+            } catch (Exception e) {
+                LogUtils.logInfo(context, JGroupsCommunicationConnector.class,
+                        METHOD, new Object[] {
+                                "Failed to load remote configuration for ",
+                                element.getChannelName(), " from URL -> ",
+                                urlConfig, " due to internal exception ",
+                                ExceptionUtils.stackTraceAsString(e), "\n",
+                                "Trying to initializee the channels locally" },
+                        e);
+            }
+        }
+        if (enableRemoteChannelConfigurarion && ch == null
+                && element.getChannelValue() == null) {
+            LogUtils.logInfo(
+                    context,
+                    JGroupsCommunicationConnector.class,
+                    METHOD,
+                    new Object[] { "No local configuration for ",
+                            element.getChannelName(),
+                            "\nFalling back to JGroup default cluster configuration" },
+                    null);
+            return new JChannel();
+        }
+        if (enableRemoteChannelConfigurarion && ch == null
+                && element.getChannelValue() != null) {
+            // Try from the InputStream
+            InputStream channelValue = new ByteArrayInputStream(element
+                    .getChannelValue().getBytes());
+            try {
+                ch = createSharedChannel(channelValue);
+            } catch (Exception e) {
+                LogUtils.logError(
+                        context,
+                        JGroupsCommunicationConnector.class,
+                        METHOD,
+                        new Object[] {
+                                "Failed to load local configuration for ",
+                                element.getChannelName(),
+                                " due to internal exception ",
+                                ExceptionUtils.stackTraceAsString(e), "\n",
+                                "Falling back to JGroup default cluster configuration" },
+                        e);
+            }
 
-	}
-	return new JChannel();
-
+        }
+        if (ch != null) {
+            return ch;
+        } else {
+            throw new CommunicationConnectorException(
+                    CommunicationConnectorErrorCode.CHANNEL_INIT_ERROR,
+                    "Unable to load channel configuration from anysource");
+        }
     }
 
     public void dispose(List<ChannelDescriptor> channels) {
@@ -383,27 +394,27 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     }
 
     private JChannel createSharedChannel(URL channelURL) throws Exception {
-	try {
-	    ProtocolStackConfigurator config = ConfiguratorFactory
-		    .getStackConfigurator(channelURL);
-	    List<ProtocolConfiguration> protocols = config.getProtocolStack();
-	    // ProtocolConfiguration transport = protocols.get(0);
-	    // transport.getProperties().put(Global.SINGLETON_NAME,
-	    // transport.getProtocolName());
-	    return new JChannel(config);
-	} catch (Exception e) {
-	    LogUtils.logError(
-		    context,
-		    JGroupsCommunicationConnector.class,
-		    "JGroupsCommunicationConnector",
-		    new Object[] {
-			    "Unable to initialize the JGroup channel with URL: ",
-			    channelURL }, e);
-	    throw new CommunicationConnectorException(
-		    CommunicationConnectorErrorCode.CHANNEL_INIT_ERROR,
-		    "Unable to initialize the JGroup channel with URL: "
-			    + channelURL, e);
-	}
+        try {
+            ProtocolStackConfigurator config = ConfiguratorFactory
+                    .getStackConfigurator(channelURL);
+            List<ProtocolConfiguration> protocols = config.getProtocolStack();
+            // ProtocolConfiguration transport = protocols.get(0);
+            // transport.getProperties().put(Global.SINGLETON_NAME,
+            // transport.getProtocolName());
+            return new JChannel(config);
+        } catch (Exception e) {
+            LogUtils.logError(
+                    context,
+                    JGroupsCommunicationConnector.class,
+                    "JGroupsCommunicationConnector",
+                    new Object[] {
+                            "Unable to initialize the JGroup channel with URL: ",
+                            channelURL }, e);
+            throw new CommunicationConnectorException(
+                    CommunicationConnectorErrorCode.CHANNEL_INIT_ERROR,
+                    "Unable to initialize the JGroup channel with URL: "
+                            + channelURL, e);
+        }
 
     }
 
@@ -450,266 +461,266 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     }
 
     public synchronized void unicast(ChannelMessage message, String receiver)
-	    throws CommunicationConnectorException {
-	final String METHOD = "unicast";
-	if (message.getChannelNames() == null
-		|| message.getChannelNames().isEmpty()) {
-	    logAndThrowComExec(METHOD,
-		    CommunicationConnectorErrorCode.NO_CHANNEL_SPECIFIED,
-		    "No channel name specified");
-	    return;
-	}
-	if (message.getChannelNames().size() > 1) {
-	    logAndThrowComExec(METHOD,
-		    CommunicationConnectorErrorCode.MULTIPLE_RECEIVERS,
-		    "Too much receivers specified for unicast");
-	    return;
-	}
-	// get the first and only channel
-	String targetChannel = (String) message.getChannelNames().get(0);
-	JChannel ch = channelMap.get(targetChannel);
-	if (ch == null) {
-	    logAndThrowComExec(
-		    METHOD,
-		    CommunicationConnectorErrorCode.CHANNEL_NOT_FOUND,
-		    "The channel name:"
-			    + targetChannel
-			    + " was not found. It is either not configured or it has been deleted");
-	    return;
-	}
-	View view = ch.getView();
-	if (view == null) {
-	    logAndThrowComExec(METHOD,
-		    CommunicationConnectorErrorCode.NOT_CONNECTED_TO_CHANNEL,
-		    "Unable to get the View on the channel " + targetChannel
-			    + " We may not be connected to it");
-	    return;
-	}
-	Address dst = null;
-	final Message msg;
-	/*
-	 * //FIX The android peer is not shown as member of the channel thus
-	 * joining fails
-	 */
-	for (Address address : view.getMembers()) {
-	    if (receiver.equals(ch.getName(address))) {
-		dst = address;
-		break;
-	    }
-	}
-	if (dst == null) {
-	    logAndThrowComExec(METHOD,
-		    CommunicationConnectorErrorCode.RECEIVER_NOT_EXISTS,
-		    "Trying to send message to " + receiver
-			    + " but it is not a memeber of " + ch.getName()
-			    + "/" + ch.getClusterName());
-	    return;
-	}
-	if (security) {
-	    try {
-		msg = new Message(dst, null, CryptUtil.encrypt(message
-			.toString()));
-	    } catch (Throwable t) {
-		logAndThrowComExec(
-			METHOD,
-			CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
-			"Failed to encrypt the message due to internal exception",
-			t);
-		return;
-	    }
-	} else {
-	    msg = new Message(dst, null, message.toString());
-	}
+            throws CommunicationConnectorException {
+        final String METHOD = "unicast";
+        if (message.getChannelNames() == null
+                || message.getChannelNames().isEmpty()) {
+            logAndThrowComExec(METHOD,
+                    CommunicationConnectorErrorCode.NO_CHANNEL_SPECIFIED,
+                    "No channel name specified");
+            return;
+        }
+        if (message.getChannelNames().size() > 1) {
+            logAndThrowComExec(METHOD,
+                    CommunicationConnectorErrorCode.MULTIPLE_RECEIVERS,
+                    "Too much receivers specified for unicast");
+            return;
+        }
+        // get the first and only channel
+        String targetChannel = (String) message.getChannelNames().get(0);
+        JChannel ch = channelMap.get(targetChannel);
+        if (ch == null) {
+            logAndThrowComExec(
+                    METHOD,
+                    CommunicationConnectorErrorCode.CHANNEL_NOT_FOUND,
+                    "The channel name:"
+                            + targetChannel
+                            + " was not found. It is either not configured or it has been deleted");
+            return;
+        }
+        View view = ch.getView();
+        if (view == null) {
+            logAndThrowComExec(METHOD,
+                    CommunicationConnectorErrorCode.NOT_CONNECTED_TO_CHANNEL,
+                    "Unable to get the View on the channel " + targetChannel
+                            + " We may not be connected to it");
+            return;
+        }
+        Address dst = null;
+        final Message msg;
+        /*
+         * //FIX The android peer is not shown as member of the channel thus
+         * joining fails
+         */
+        for (Address address : view.getMembers()) {
+            if (receiver.equals(ch.getName(address))) {
+                dst = address;
+                break;
+            }
+        }
+        if (dst == null) {
+            logAndThrowComExec(METHOD,
+                    CommunicationConnectorErrorCode.RECEIVER_NOT_EXISTS,
+                    "Trying to send message to " + receiver
+                            + " but it is not a memeber of " + ch.getName()
+                            + "/" + ch.getClusterName());
+            return;
+        }
+        if (security) {
+            try {
+                msg = new Message(dst, null, CryptUtil.encrypt(message
+                        .toString()));
+            } catch (Throwable t) {
+                logAndThrowComExec(
+                        METHOD,
+                        CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
+                        "Failed to encrypt the message due to internal exception",
+                        t);
+                return;
+            }
+        } else {
+            msg = new Message(dst, null, message.toString());
+        }
 
-	try {
-	    ch.send(msg);
-	} catch (Exception t) {
-	    logAndThrowComExec(METHOD,
-		    CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
-		    "Error sending unicast message " + message
-			    + " due to internal exception", t);
-	    return;
-	}
+        try {
+            ch.send(msg);
+        } catch (Exception t) {
+            logAndThrowComExec(METHOD,
+                    CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
+                    "Error sending unicast message " + message
+                            + " due to internal exception", t);
+            return;
+        }
     }
 
     private void logAndThrowComExec(String method,
-	    CommunicationConnectorErrorCode code, String msg, Throwable t) {
-	LogUtils.logError(context, JGroupsCommunicationConnector.class, method,
-		new Object[] { msg }, t);
-	throw new CommunicationConnectorException(
-		CommunicationConnectorErrorCode.NO_CHANNEL_SPECIFIED, msg, t);
+            CommunicationConnectorErrorCode code, String msg, Throwable t) {
+        LogUtils.logError(context, JGroupsCommunicationConnector.class, method,
+                new Object[] { msg }, t);
+        throw new CommunicationConnectorException(
+                CommunicationConnectorErrorCode.NO_CHANNEL_SPECIFIED, msg, t);
 
     }
 
     private void logAndThrowComExec(String method,
-	    CommunicationConnectorErrorCode code, String msg) {
-	LogUtils.logError(context, JGroupsCommunicationConnector.class, method,
-		msg);
-	throw new CommunicationConnectorException(
-		CommunicationConnectorErrorCode.NO_CHANNEL_SPECIFIED, msg);
+            CommunicationConnectorErrorCode code, String msg) {
+        LogUtils.logError(context, JGroupsCommunicationConnector.class, method,
+                msg);
+        throw new CommunicationConnectorException(
+                CommunicationConnectorErrorCode.NO_CHANNEL_SPECIFIED, msg);
     }
 
     public synchronized void multicast(ChannelMessage message)
-	    throws CommunicationConnectorException {
-	if (message.getChannelNames() != null) {
-	    // send message to all brokers of any kind
-	    List selectedChannel = selectJChannels(message.getChannelNames());
-	    for (int i = 0; i < selectedChannel.size(); i++) {
-		JChannel channel = (JChannel) selectedChannel.get(i);
-		Message msg = null;
+            throws CommunicationConnectorException {
+        final String METHOD = "multicast";
 
-		if (security) {
-		    try {
-			msg = new Message(null, null, CryptUtil.encrypt(message
-				.toString()));
-		    } catch (Exception e) {
-			// TODO Auto-generated catch block
-			LogUtils.logError(
-				context,
-				JGroupsCommunicationConnector.class,
-				"JGroupsCommunicationConnector",
-				new Object[] { "Error during unicast with message: "
-					+ e.toString() }, null);
-		    }
-		} else {
-		    msg = new Message(null, null, message.toString());
-		}
-		try {
-		    channel.send(msg);
-		} catch (Exception e) {
-		    LogUtils.logError(context,
-			    JGroupsCommunicationConnector.class,
-			    "JGroupsCommunicationConnector",
-			    new Object[] { "Sending broadcast message: "
-				    + message.toString() }, null);
-		    throw new CommunicationConnectorException(
-			    CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
-			    e.toString());
-		}
-	    }
-	}
+        if (message.getChannelNames() == null) {
+            logAndThrowComExec(METHOD,
+                    CommunicationConnectorErrorCode.NO_CHANNEL_SPECIFIED,
+                    "No channel name specified");
+            return;
+        }
+        // send message to all brokers of any kind
+        List selectedChannel = selectJChannels(message.getChannelNames());
+        for (int i = 0; i < selectedChannel.size(); i++) {
+            JChannel channel = (JChannel) selectedChannel.get(i);
+            Message msg = null;
+            try {
+                if (security) {
+                    msg = new Message(null, null, CryptUtil.encrypt(message
+                            .toString()));
+                } else {
+                    Serializable aux = (Serializable) message.toString();
+                    msg = new Message(null, null, aux);
+                }
+            } catch (Throwable e) {
+                logAndThrowComExec(METHOD,
+                        CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
+                        "Error during cretaion of multicast message", e);
+                return;
+            }
+            try {
+                channel.send(msg);
+            } catch (Throwable e) {
+                logAndThrowComExec(METHOD,
+                        CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
+                        "Sending broadcast message " + msg.toString(), e);
+                return;
+            }
+        }
+
     }
 
     public synchronized void multicast(ChannelMessage message,
-	    List<PeerCard> receivers) throws CommunicationConnectorException {
-	if (message.getChannelNames() == null) {
-	    LogUtils.logError(context, JGroupsCommunicationConnector.class,
-		    "JGroupsCommunicationConnector",
-		    new Object[] { "Unable to select the channel to use..." },
-		    null);
-	} else {
-	    List selectedChannel = selectJChannels(message.getChannelNames());
+            List<PeerCard> receivers) throws CommunicationConnectorException {
+        final String METHOD = "multicast";
+        final List channels = message.getChannelNames();
+        if (channels == null) {
+            logAndThrowComExec(METHOD,
+                    CommunicationConnectorErrorCode.NO_CHANNEL_SPECIFIED,
+                    "No channel name specified");
+            return;
+        }
 
-	    if (selectedChannel == null || selectedChannel.isEmpty()) {
-		LogUtils.logWarn(
-			context,
-			JGroupsCommunicationConnector.class,
-			"JGroupsCommunicationConnector",
-			new Object[] { "Unable to select the channels to use with message: "
-				+ message.toString() }, null);
-	    } else {
+        List selectedChannel = selectJChannels(channels);
 
-		// Send the message to the selected channels and selected
-		// receivers
-		for (int i = 0; i < selectedChannel.size(); i++) {
-		    JChannel channel = (JChannel) selectedChannel.get(i);
-		    Message msg = null;
-		    View view = channel.getView();
-		    List<Address> list = view.getMembers();
+        if (selectedChannel == null || selectedChannel.isEmpty()) {
+            logAndThrowComExec(
+                    METHOD,
+                    CommunicationConnectorErrorCode.CHANNEL_NOT_FOUND,
+                    "No destination channel found among the list :"
+                            + Arrays.toString(channels.toArray())
+                            + "They were either not configured or deleted");
+            return;
+        }
 
-		    // creation of the list of address to be excluded from
-		    // broadcast
-		    List<String> removeList = new ArrayList<String>();
-		    for (Address address : list) {
-			removeList.add(channel.getName(address));
-		    }
-		    List<String> nodeIDsAsString = new ArrayList<String>();
-		    for (PeerCard nodeID : receivers) {
-			nodeIDsAsString.add(nodeID.getPeerID());
-		    }
-		    removeList.removeAll(nodeIDsAsString);
-		    List<Address> removeAddressList = new ArrayList<Address>();
-		    for (Address address : list) {
-			for (String removeAdressString : removeList) {
-			    if (channel.getName(address).equals(
-				    removeAdressString))
-				removeAddressList.add(address);
-			}
-		    }
-		    //
-		    if (security) {
-			try {
-			    msg = new Message(null, null,
-				    CryptUtil.encrypt(message.toString()));
-			} catch (Exception e) {
-			    // TODO Auto-generated catch block
-			    LogUtils.logError(
-				    context,
-				    JGroupsCommunicationConnector.class,
-				    "JGroupsCommunicationConnector",
-				    new Object[] { "Error during unicast with message: "
-					    + e.toString() }, null);
-			}
-		    } else {
-			msg = new Message(null, null, message.toString());
-		    }
+        // TODO Add log message or error if some of the destination does not
+        // exists on the channels
 
-		    RequestOptions opts = new RequestOptions();
-		    opts.setExclusionList((Address[]) removeAddressList
-			    .toArray());
-		    disp = new MessageDispatcher(channel, null, null, this);
+        // Send the message to the selected channels and selected
+        // receivers
+        for (int i = 0; i < selectedChannel.size(); i++) {
+            JChannel channel = (JChannel) selectedChannel.get(i);
+            Message msg = null;
+            View view = channel.getView();
+            List<Address> list = view.getMembers();
 
-		    try {
-			disp.sendMessage(msg, opts);
-		    } catch (Exception e) {
-			LogUtils.logError(
-				context,
-				JGroupsCommunicationConnector.class,
-				"JGroupsCommunicationConnector",
-				new Object[] { "Unable to broadcast the message:"
-					+ message.toString() }, null);
-			throw new CommunicationConnectorException(
-				CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
-				e.toString());
-		    }
-		}
-	    }
-	}
+            // creation of the list of address to be excluded from
+            // broadcast
+            List<String> removeList = new ArrayList<String>();
+            for (Address address : list) {
+                removeList.add(channel.getName(address));
+            }
+            List<String> nodeIDsAsString = new ArrayList<String>();
+            for (PeerCard nodeID : receivers) {
+                nodeIDsAsString.add(nodeID.getPeerID());
+            }
+            removeList.removeAll(nodeIDsAsString);
+            List<Address> removeAddressList = new ArrayList<Address>();
+            for (Address address : list) {
+                for (String removeAdressString : removeList) {
+                    if (channel.getName(address).equals(removeAdressString))
+                        removeAddressList.add(address);
+                }
+            }
+            //
+            if (security) {
+                try {
+                    msg = new Message(null, null, CryptUtil.encrypt(message
+                            .toString()));
+                } catch (Throwable t) {
+                    logAndThrowComExec(
+                            METHOD,
+                            CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
+                            "Failed to encrypt the message due to internal exception",
+                            t);
+                    return;
+                }
+            } else {
+                msg = new Message(null, null, message.toString());
+            }
+
+            RequestOptions opts = new RequestOptions();
+            opts.setExclusionList((Address[]) removeAddressList.toArray());
+            disp = new MessageDispatcher(channel, null, null, this);
+
+            try {
+                disp.sendMessage(msg, opts);
+            } catch (Throwable e) {
+                logAndThrowComExec(
+                        METHOD,
+                        CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
+                        "Unable to broadcast the message:" + message.toString(),
+                        e);
+                return;
+            }
+        }
+
     }
 
     public void loadConfigurations(Dictionary configurations) {
-	final String METHOD = "loadConfigurations";
-	LogUtils.logDebug(context, JGroupsCommunicationConnector.class, METHOD,
-		"updating JGroups Connector properties");
-	if (configurations == null) {
-	    // TODO We should reset the configuration to the default properties
-	    LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
-		    METHOD, "JGroups Connector properties are null");
-	    return;
-	}
-	try {
-	    this.name = (String) configurations
-		    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_NAME);
-	    this.version = (String) configurations
-		    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_VERSION);
-	    this.description = (String) configurations
-		    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_DESCRIPTION);
-	    this.provider = (String) configurations
-		    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_PROVIDER);
-	    this.enableRemoteChannelConfigurarion = Boolean
-		    .valueOf((String) configurations
-			    .get(Consts.ENABLE_REMOTE_CHANNEL_CONFIG));
-	    this.enableRemoteChannelURL = (String) configurations
-		    .get(Consts.ENABLE_REMOTE_CHANNEL_URL_CONFIG);
-	} catch (Throwable t) {
-	    LogUtils.logError(context, JGroupsCommunicationConnector.class,
-		    METHOD,
-		    new Object[] { "Error during JGroups properties update" },
-		    t);
-	}
-	LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
-		"JGroupsCommunicationConnector",
-		new Object[] { "JGroups Connector properties updated" }, null);
+        final String METHOD = "loadConfigurations";
+        LogUtils.logDebug(context, JGroupsCommunicationConnector.class, METHOD,
+                "updating JGroups Connector properties");
+        if (configurations == null) {
+            // TODO We should reset the configuration to the default properties
+            LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
+                    METHOD, "JGroups Connector properties are null");
+            return;
+        }
+        try {
+            this.name = (String) configurations
+                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_NAME);
+            this.version = (String) configurations
+                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_VERSION);
+            this.description = (String) configurations
+                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_DESCRIPTION);
+            this.provider = (String) configurations
+                    .get(org.universAAL.middleware.connectors.util.Consts.CONNECTOR_PROVIDER);
+            this.enableRemoteChannelConfigurarion = Boolean
+                    .valueOf((String) configurations
+                            .get(Consts.ENABLE_REMOTE_CHANNEL_CONFIG));
+            this.enableRemoteChannelURL = (String) configurations
+                    .get(Consts.ENABLE_REMOTE_CHANNEL_URL_CONFIG);
+        } catch (Throwable t) {
+            LogUtils.logError(context, JGroupsCommunicationConnector.class,
+                    METHOD,
+                    new Object[] { "Error during JGroups properties update" },
+                    t);
+        }
+        LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
+                "JGroupsCommunicationConnector",
+                new Object[] { "JGroups Connector properties updated" }, null);
     }
 
     public String getName() {
@@ -745,27 +756,28 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     }
 
     public void receive(Message msg) {
-	final String METHOD = "receive";
-	try {
-	    if (msg.isFlagSet(Flag.INTERNAL)) {
-		LogUtils.logWarn(context, JGroupsCommunicationConnector.class,
-			METHOD, "Skipping internal JGroups packet");
-		return;
-	    }
-	    String msgBuffer = new String(msg.getBuffer());
-	    if (security) {
-		msgBuffer = CryptUtil.decrypt((String) msg.getObject());
-	    }
-	    ChannelMessage channelMessage = ChannelMessage.unmarhall(msgBuffer);
-	    communicationModule.messageReceived(channelMessage);
-	} catch (Exception ex) {
-	    LogUtils.logDebug(
-		    context,
-		    JGroupsCommunicationConnector.class,
-		    METHOD,
-		    new Object[] { "Failed to unmarhall message due to exception "
-			    + ExceptionUtils.stackTraceAsString(ex) }, ex);
-	}
+        final String METHOD = "receive";
+        try {
+            /*JGroups 2.2 only
+            if (msg.isFlagSet(Flag.INTERNAL)) {
+                LogUtils.logWarn(context, JGroupsCommunicationConnector.class,
+                        METHOD, "Skipping internal JGroups packet");
+                return;
+            }*/
+            String msgBuffer = new String(msg.getBuffer());
+            if (security) {
+                msgBuffer = CryptUtil.decrypt((String) msg.getObject());
+            }
+            ChannelMessage channelMessage = ChannelMessage.unmarhall(msgBuffer);
+            communicationModule.messageReceived(channelMessage);
+        } catch (Exception ex) {
+            LogUtils.logDebug(
+                    context,
+                    JGroupsCommunicationConnector.class,
+                    METHOD,
+                    new Object[] { "Failed to unmarhall message due to exception "
+                            + ExceptionUtils.stackTraceAsString(ex) }, ex);
+        }
     }
 
     public void getState(OutputStream output) throws Exception {
@@ -803,9 +815,10 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     }
 
     public Object handle(Message msg) throws Exception {
-	ChannelMessage channelMessage = ChannelMessage.unmarhall(new String(msg
-		.getBuffer()));
-	communicationModule.messageReceived(channelMessage);
+	ChannelMessage channelMessage;
+	    channelMessage = ChannelMessage.unmarhall(new String(msg
+	    	.getBuffer()));
+	    communicationModule.messageReceived(channelMessage);
 	return null;
     }
 
@@ -829,6 +842,22 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     }
 
     public boolean hasChannel(String channelName) {
-	return channelMap.containsKey(channelName);
+        return channelMap.containsKey(channelName);
+    }
+
+    public byte[] getState() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    public void setState(byte[] arg0) {
+	// TODO Auto-generated method stub
+	InputStream in=new ByteArrayInputStream(arg0);
+	try {
+	    setState(in);
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
     }
 }

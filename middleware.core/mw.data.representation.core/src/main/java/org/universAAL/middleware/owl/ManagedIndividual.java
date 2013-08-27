@@ -411,7 +411,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
      * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
      */
     public boolean isWellFormed() {
-	String[] propURIs = getOntClassInfo().getDeclaredProperties();
+	String[] propURIs = getOntClassInfo().getDeclaredPropertyURIs();
 	String classURI = getClassURI();
 	for (int i = 0; i < propURIs.length; i++) {
 	    MergedRestriction r = getClassRestrictionsOnProperty(classURI,

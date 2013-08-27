@@ -39,9 +39,10 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import ae.javax.xml.bind.JAXBContext;
+import ae.javax.xml.bind.JAXBException;
+import ae.javax.xml.bind.Unmarshaller;
+import ae.com.sun.xml.bind.v2.ContextFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
@@ -57,6 +58,9 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
 import org.universAAL.middleware.interfaces.aalspace.Consts;
 import org.universAAL.middleware.interfaces.aalspace.model.Aalspace;
+import org.universAAL.middleware.interfaces.aalspace.model.Aalspace.CommunicationChannels;
+import org.universAAL.middleware.interfaces.aalspace.model.Aalspace.PeeringChannel;
+import org.universAAL.middleware.interfaces.aalspace.model.Aalspace.SpaceDescriptor;
 import org.universAAL.middleware.interfaces.aalspace.model.ObjectFactory;
 import org.universAAL.middleware.managers.aalspace.util.AALSpaceSchemaEventHandler;
 import org.universAAL.middleware.managers.aalspace.util.CheckPeerThread;
@@ -73,6 +77,7 @@ import org.xml.sax.SAXException;
  *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @author <a href="mailto:giancarlo.riolo@isti.cnr.it">Giancarlo Riolo</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class AALSpaceManagerImpl implements AALSpaceEventHandler,
@@ -83,7 +88,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     private boolean initialized = false;
     // data structure for the MW
     /**
-     * The AALSpace to which the MW is connected. Currently thye MW can join to
+     * The AALSpace to which the MW is connected. Currently the MW can join to
      * only one AAL space
      */
     private AALSpaceDescriptor currentAALSpace;
@@ -137,18 +142,19 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     private final ScheduledExecutorService scheduler = Executors
             .newScheduledThreadPool(10);
 
-    public AALSpaceManagerImpl(ModuleContext context, String altConfigDir) {
-        this.context = context;
-        this.altConfigDir = altConfigDir;
-        try {
-            jc = JAXBContext.newInstance(ObjectFactory.class);
-            unmarshaller = jc.createUnmarshaller();
-            managedAALspaces = new Hashtable<String, AALSpaceDescriptor>();
-            foundAALSpaces = Collections
-                    .synchronizedSet(new HashSet<AALSpaceCard>());
-            peers = new HashMap<String, PeerCard>();
-            listeners = new ArrayList<AALSpaceListener>();
-        } catch (JAXBException e) {
+	public AALSpaceManagerImpl(ModuleContext context, String altConfigDir) {
+		this.context = context;
+		this.altConfigDir = altConfigDir;
+		try {
+			jc = JAXBContext.newInstance("org.universAAL.middleware.interfaces.aalspace.model", this.getClass().getClassLoader());
+			unmarshaller = jc.createUnmarshaller();
+			managedAALspaces = new Hashtable<String, AALSpaceDescriptor>();
+			foundAALSpaces = Collections
+					.synchronizedSet(new HashSet<AALSpaceCard>());
+			peers = new HashMap<String, PeerCard>();
+			listeners = new ArrayList<AALSpaceListener>();
+		} catch (JAXBException e) {
+
 
             LogUtils.logError(
                     context,
@@ -166,8 +172,9 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                     context,
                     AALSpaceManagerImpl.class,
                     "AALSpaceManagerImpl",
-                    new Object[] { "intalization timeout, falling back to default value: " +AALSpaceManager.COMUNICATION_TIMEOUT_VALUE
-                             }, null);
+                    new Object[] { "intalization timeout, falling back to default value: "
+                            + AALSpaceManager.COMUNICATION_TIMEOUT_VALUE },
+                    null);
             TIMEOUT = Long
                     .parseLong(AALSpaceManager.COMUNICATION_TIMEOUT_VALUE);
         }
@@ -194,7 +201,6 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     }
 
     public AALSpaceDescriptor getAALSpaceDescriptor() {
-
         return currentAALSpace;
     }
 
@@ -749,91 +755,134 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     }
 
     public Aalspace readAALSpaceDefaultConfigurations() {
-        LogUtils.logDebug(context, AALSpaceManagerImpl.class,
-                "AALSpaceManagerImpl",
-                new Object[] { "Reading AALSpace configuration." }, null);
-        try {
-            String aalSpaceConfigurationPath = this.aalSpaceConfigurationPath;
-            File spaceConfigDirectory = new File(aalSpaceConfigurationPath);
+	LogUtils.logDebug(context, AALSpaceManagerImpl.class,
+		"AALSpaceManagerImpl",
+		new Object[] { "Reading AALSpace configuration." }, null);
+	try {
+	    String aalSpaceConfigurationPath = this.aalSpaceConfigurationPath;
+	    File spaceConfigDirectory = new File(aalSpaceConfigurationPath);
 
-            // debug output: log the current path
-            String currPath = "";
-            try {
-                currPath = new java.io.File(".").getCanonicalPath();
-            } catch (IOException e) {
-            }
-            LogUtils.logDebug(context, AALSpaceManagerImpl.class,
-                    "readAALSpaceDefaultConfigurations", new Object[] {
-                            "Reading AALSpace configuration from directory: ",
-                            spaceConfigDirectory.toString(),
-                            " The current path is: ", currPath }, null);
+	    // debug output: log the current path
+	    String currPath = "";
+	    try {
+		currPath = new java.io.File(".").getCanonicalPath();
+	    } catch (IOException e) {
+	    }
+	    LogUtils.logDebug(context, AALSpaceManagerImpl.class,
+		    "readAALSpaceDefaultConfigurations", new Object[] {
+			    "Reading AALSpace configuration from directory: ",
+			    spaceConfigDirectory.toString(),
+			    " The current path is: ", currPath }, null);
 
-            // get the list of config files
-            String[] spaces = getFileList(aalSpaceConfigurationPath);
-            if (spaces == null || spaces.length == 0) {
+	    // get the list of config files
+	    String[] spaces = getFileList(aalSpaceConfigurationPath);
+	    if (spaces == null || spaces.length == 0) {
+                LogUtils.logWarn(context, AALSpaceManagerImpl.class,
+                        "readAALSpaceDefaultConfigurations", new Object[] {
+                                "File: ", aalSpaceConfigurationPath,
+                                " cannot be read, trying alternative: ",
+                                altConfigDir }, null);
+
+                aalSpaceConfigurationPath = altConfigDir;
+                spaces = getFileList(aalSpaceConfigurationPath);
+	    }
+
+	    String value = "<![CDATA[<config xmlns=\"urn:org:jgroups\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"urn:org:jgroups http://www.jgroups.org/schema/JGroups-3.0.xsd\"> <UDP mcast_port=\"${jgroups.udp.mcast_port:45588}\" tos=\"8\" ucast_recv_buf_size=\"20M\" ucast_send_buf_size=\"640K\" mcast_recv_buf_size=\"25M\" mcast_send_buf_size=\"640K\" loopback=\"true\" discard_incompatible_packets=\"true\" max_bundle_size=\"64K\" max_bundle_timeout=\"30\" ip_ttl=\"${jgroups.udp.ip_ttl:8}\" enable_bundling=\"true\" enable_diagnostics=\"false\" thread_naming_pattern=\"cl\" timer_type=\"new\" timer.min_threads=\"4\" timer.max_threads=\"10\" timer.keep_alive_time=\"3000\" timer.queue_max_size=\"500\" thread_pool.enabled=\"true\" thread_pool.min_threads=\"2\" thread_pool.max_threads=\"8\" thread_pool.keep_alive_time=\"5000\" thread_pool.queue_enabled=\"true\" thread_pool.queue_max_size=\"10000\" thread_pool.rejection_policy=\"discard\" oob_thread_pool.enabled=\"true\" oob_thread_pool.min_threads=\"1\" oob_thread_pool.max_threads=\"8\" oob_thread_pool.keep_alive_time=\"5000\" oob_thread_pool.queue_enabled=\"false\" oob_thread_pool.queue_max_size=\"100\" oob_thread_pool.rejection_policy=\"Run\"/> <PING timeout=\"2000\" num_initial_members=\"3\"/> <MERGE2 max_interval=\"30000\" min_interval=\"10000\"/> <FD_SOCK/> <FD_ALL/> <VERIFY_SUSPECT timeout=\"1500\" /> <BARRIER /> <pbcast.NAKACK exponential_backoff=\"300\" xmit_stagger_timeout=\"200\" use_mcast_xmit=\"false\" discard_delivered_msgs=\"true\"/> <UNICAST /> <pbcast.STABLE stability_delay=\"1000\" desired_avg_gossip=\"50000\" max_bytes=\"4M\"/> <pbcast.GMS print_local_addr=\"true\" join_timeout=\"3000\" view_bundling=\"true\"/> <UFC max_credits=\"2M\" min_threshold=\"0.4\"/> <MFC max_credits=\"2M\" min_threshold=\"0.4\"/> <FRAG2 frag_size=\"60K\" /> <pbcast.STATE_TRANSFER /> <pbcast.FLUSH /> </config>]]>";
+	    String url="file:/mnt/sdcard/data/felix-conf-1.3.3/conf/etc/udp.xml";
+	    //TODO Locate url elsehow
+	    // evaluate the list of config files
+	    if (spaces != null && spaces.length > 0) {
+		LogUtils.logDebug(
+			context,
+			AALSpaceManagerImpl.class,
+			"readAALSpaceDefaultConfigurations",
+			new Object[] { "Found: "
+				+ spaces.length
+				+ " space configurations...picking up the default one" },
+			null);
+		// Currently only one space is read from the file system
+		File defaultSpaceConfiguration = new File(
+			aalSpaceConfigurationPath + File.separatorChar
+				+ spaces[0]);
+		if (defaultSpaceConfiguration.canRead()) {
+		    Aalspace space = (Aalspace) unmarshaller
+			    .unmarshal(defaultSpaceConfiguration);
+		    // PATCH: HARDCODED CONFIGURATION
+		    space=new Aalspace();
+		    space.setAdmin("admin");
+		    space.setOwner("owner");
+		    space.setSecurity("security");
+		    SpaceDescriptor sd = new SpaceDescriptor();
+		    sd.setSpaceName("myHome3");
+		    sd.setProfile("HomeSpace");
+		    sd.setSpaceId("8888");
+		    sd.setSpaceDescription("Super Domestic Home");
+		    space.setSpaceDescriptor(sd);
+		    PeeringChannel pc = new PeeringChannel();
+		    org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor cd = new org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor();
+		    cd.setChannelName("mw.modules.aalspace.osgi");
+		    cd.setChannelURL(url);
+		    cd.setChannelValue(value);
+		    pc.setChannelDescriptor(cd);
+		    space.setPeeringChannel(pc);
+		    CommunicationChannels ccs = new CommunicationChannels();
+		    org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor cd1 = new org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor();
+		    cd1.setChannelName("mw.brokers.control.osgi"); // ONLY NAMES
+								   // ARE NEEDED
+		    cd1.setChannelURL(url);
+		    cd1.setChannelValue(value);
+		    org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor cd2 = new org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor();
+		    cd2.setChannelName("mw.bus.context.osgi");
+		    cd2.setChannelURL(url);
+		    cd2.setChannelValue(value);
+		    org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor cd3 = new org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor();
+		    cd3.setChannelName("mw.bus.service.osgi");
+		    cd3.setChannelURL(url);
+		    cd3.setChannelValue(value);
+		    org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor cd4 = new org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor();
+		    cd4.setChannelName("mw.bus.ui.osgi");
+		    cd4.setChannelURL(url);
+		    cd.setChannelValue(value);
+		    ccs.getChannelDescriptor().add(cd1);
+		    ccs.getChannelDescriptor().add(cd2);
+		    ccs.getChannelDescriptor().add(cd3);
+		    ccs.getChannelDescriptor().add(cd4);
+		    space.setCommunicationChannels(ccs);
+		    if (space != null) {
+			return space;
+		    } else {
+			LogUtils.logWarn(
+				context,
+				AALSpaceManagerImpl.class,
+				"readAALSpaceDefaultConfigurations",
+				new Object[] { "Unable to parse default AALSpace configuration" },
+				null);
+			return null;
+		    }
+		} else {
+		    LogUtils.logWarn(
+			    context,
+			    AALSpaceManagerImpl.class,
+			    "readAALSpaceDefaultConfigurations",
+			    new Object[] { "Directory were files are located is not accessible" },
+			    null);
+		    return null;
+		}
+	    } else {
 		LogUtils.logWarn(context, AALSpaceManagerImpl.class,
 			"readAALSpaceDefaultConfigurations",
-			new Object[] { "File: " + aalSpaceConfigurationPath
-				+ " cannot be read, trying alternative: "
-				+ altConfigDir }, null);
-
-		aalSpaceConfigurationPath = altConfigDir;
-		spaces = getFileList(aalSpaceConfigurationPath);
-            }
-
-            // evaluate the list of config files
-            if (spaces != null && spaces.length > 0) {
-                LogUtils.logDebug(
-                        context,
-                        AALSpaceManagerImpl.class,
-                        "readAALSpaceDefaultConfigurations",
-                        new Object[] { "Found: "
-                                + spaces.length
-                                + " space configurations...picking up the default one" },
-                        null);
-                // Currently only one space is read from the file system
-                File defaultSpaceConfiguration = new File(
-                        aalSpaceConfigurationPath + File.separatorChar
-                                + spaces[0]);
-                if (defaultSpaceConfiguration.canRead()) {
-
-                    Aalspace space = (Aalspace) unmarshaller
-                            .unmarshal(defaultSpaceConfiguration);
-                    if (space != null) {
-                        return space;
-                    } else {
-                        LogUtils.logWarn(
-                                context,
-                                AALSpaceManagerImpl.class,
-                                "readAALSpaceDefaultConfigurations",
-                                new Object[] { "Unable to parse default AALSpace configuration" },
-                                null);
-                        return null;
-                    }
-                } else {
-                    LogUtils.logWarn(
-                            context,
-                            AALSpaceManagerImpl.class,
-                            "readAALSpaceDefaultConfigurations",
-                            new Object[] { "Directory were files are located is not accessible" },
-                            null);
-                    return null;
-                }
-            } else {
-                LogUtils.logWarn(context, AALSpaceManagerImpl.class,
-                        "readAALSpaceDefaultConfigurations",
-                        new Object[] { "No default AALSpaces found" }, null);
-                return null;
-            }
-        } catch (JAXBException e) {
-            LogUtils.logError(
-                    context,
-                    AALSpaceManagerImpl.class,
-                    "readAALSpaceDefaultConfigurations",
-                    new Object[] { "Error during JAXB initialization: "
-                            + e.toString() }, null);
-            return null;
-        }
+			new Object[] { "No default AALSpaces found" }, null);
+		return null;
+	    }
+	} catch (JAXBException e) {
+	    LogUtils.logError(
+		    context,
+		    AALSpaceManagerImpl.class,
+		    "readAALSpaceDefaultConfigurations",
+		    new Object[] { "Error during JAXB initialization: "
+			    + e.toString() }, null);
+	    return null;
+	}
 
     }
 
@@ -988,7 +1037,6 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     public synchronized void newAALSpacesFound(Set<AALSpaceCard> spaceCards) {
         boolean result = false;
         if (spaceCards != null) {
-
             synchronized (foundAALSpaces) {
                 foundAALSpaces = spaceCards;
             }
@@ -1010,7 +1058,12 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                             + peer.getPeerID().toString()
                             + " joins the AALSpace: " }, null);
             peers.put(peer.getPeerID(), peer);
+            for (AALSpaceListener list : listeners) {
+                list.newPeerJoined(peer);
+
         }
+
+    }
 
     }
 
@@ -1020,6 +1073,11 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                     new Object[] { "--->Peer +" + peer.getPeerID()
                             + " left the AALSpace" }, null);
             peers.remove(peer.getPeerID());
+            for (AALSpaceListener list : listeners) {
+                list.peerLost(peer);
+
+            }
+
         }
     }
 
@@ -1117,6 +1175,12 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                 peers.clear();
 
             }
+
+            for (AALSpaceListener elem : listeners) {
+
+                elem.aalSpaceLost(spaceDescriptor);
+            }
+
         } else {
             LogUtils.logWarn(context, AALSpaceManagerImpl.class,
                     "leaveAALSpace",
@@ -1220,14 +1284,14 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     }
 
     public void mpaInstalled(AALSpaceDescriptor spaceDescriptor) {
-        controlBroker.signalAALSpaceStatus(AALSpaceStatus.INSTALLED_MPA,
+        controlBroker.signalAALSpaceStatus(AALSpaceStatus.INSTALLED_UAAP,
                 spaceDescriptor);
 
     }
 
     public void mpaInstalling(AALSpaceDescriptor spaceDescriptor) {
         // send a event notification to the AALSpace
-        controlBroker.signalAALSpaceStatus(AALSpaceStatus.INSTALLING_MPA,
+        controlBroker.signalAALSpaceStatus(AALSpaceStatus.INSTALLING_UAAP,
                 spaceDescriptor);
     }
 
@@ -1238,6 +1302,10 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                 "aalSpaceEvent",
                 new Object[] { "--->New event from AALSpace: "
                         + newStatus.toString() }, null);
+
+        for (AALSpaceListener elem : listeners) {
+            elem.aalSpaceStatusChanged(newStatus);
+        }
 
     }
 

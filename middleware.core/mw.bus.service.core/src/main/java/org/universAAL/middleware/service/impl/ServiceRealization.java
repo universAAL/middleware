@@ -168,7 +168,7 @@ public class ServiceRealization extends FinalizedResource {
 	    ra.addRating(r);
 	}
     }
-
+    //Made public for Android
     /**
      * Adds to the hashtable passed as a parameter an asserted service call
      * representing this ServiceRealization
@@ -179,7 +179,7 @@ public class ServiceRealization extends FinalizedResource {
      * 
      * @return true iff the operation was successful
      */
-    boolean assertServiceCall(Hashtable context) {
+    public boolean assertServiceCall(Hashtable context) {
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	if (prof == null)
 	    return false;
@@ -308,13 +308,13 @@ public class ServiceRealization extends FinalizedResource {
 		.get(uAAL_SERVICE_RESPONSE_TIME);
 	return (ia == null) ? 0 : ia.getNumberOfVotes();
     }
-
+    //Made public for Android
     /**
      * Return the ServiceProvider of this ServiceRealization
      * 
      * @return Object - the service provider
      */
-    Object getProvider() {
+    public Object getProvider() {
 	return props.get(uAAL_SERVICE_PROVIDER);
     }
 

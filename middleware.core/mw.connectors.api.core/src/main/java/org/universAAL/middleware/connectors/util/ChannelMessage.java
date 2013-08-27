@@ -105,6 +105,9 @@ public class ChannelMessage {
     }
 
     public static ChannelMessage unmarhall(String message) throws Exception {
+	if(!message.startsWith("{")){
+	    message=message.substring(message.indexOf("{"));
+	}
         JSONObject obj = new JSONObject(message);
 
         // unmarshall the channel Names

@@ -47,7 +47,12 @@ import org.universAAL.middleware.context.impl.ContextBusImpl;
  */
 public abstract class ContextSubscriber extends Subscriber {
 
-    /**
+    public ContextSubscriber(boolean dummy) {
+		super(dummy);
+		// PATCH This  is for Android port :(
+	}
+
+	/**
      * Creates a Context Subscriber and immediately registers a set of Context
      * Event Patterns for it, so it receives the matching events.
      * 
