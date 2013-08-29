@@ -192,7 +192,8 @@ public class UIHandlerProfile extends FinalizedResource implements
 	return result;
     }
 
-    private boolean isRestrictionOnModality(UIRequest uiRequest, MergedRestriction r) {
+    private boolean isRestrictionOnModality(UIRequest uiRequest,
+	    MergedRestriction r) {
 	return UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
 		&& r
 			.copyOnNewProperty(
@@ -205,7 +206,7 @@ public class UIHandlerProfile extends FinalizedResource implements
      * 
      * @param uiHandlerProfile
      *            the subtype
-     * @return <tt>true</tt>, if successful
+     * @return <tt>true</tt>, if successful, <tt>false</tt> otherwise
      */
     public boolean matches(UIHandlerProfile uiHandlerProfile) {
 	if (uiHandlerProfile == null) {
@@ -213,7 +214,8 @@ public class UIHandlerProfile extends FinalizedResource implements
 	}
 
 	for (MergedRestriction r : restrictions) {
-	    MergedRestriction subR = uiHandlerProfile.getRestriction(r.getOnProperty());
+	    MergedRestriction subR = uiHandlerProfile.getRestriction(r
+		    .getOnProperty());
 	    if (subR == null || !r.matches(subR, null)) {
 		return false;
 	    }
@@ -243,8 +245,8 @@ public class UIHandlerProfile extends FinalizedResource implements
      * Prop restriction allowed.
      * 
      * @param prop
-     *            the prop
-     * @return true, if successful
+     *            the property
+     * @return true, if successful; false if not
      */
     private boolean propRestrictionAllowed(String prop) {
 	for (int i = 0; i < restrictions.size(); i++) {
@@ -268,7 +270,8 @@ public class UIHandlerProfile extends FinalizedResource implements
 		boolean retVal = false;
 		for (Object current : property) {
 		    if (current instanceof MergedRestriction) {
-			retVal = addRestriction((MergedRestriction) current) || retVal;
+			retVal = addRestriction((MergedRestriction) current)
+				|| retVal;
 		    }
 		}
 		return retVal;
