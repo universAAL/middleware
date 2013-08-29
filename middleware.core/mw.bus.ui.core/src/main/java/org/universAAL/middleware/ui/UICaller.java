@@ -72,14 +72,15 @@ public abstract class UICaller extends Caller {
      * Adaptation parameters changed.
      * 
      * @param call
-     *            the call
+     *            the {@link UIRequest}
      * @param changedProp
      *            the changed prop
      */
-    public final void adaptationParametersChanged(UIRequest call, String changedProp) {
+    public final void adaptationParametersChanged(UIRequest call,
+	    String changedProp) {
 	if (this instanceof IDialogManager)
-	    ((IUIBus) theBus).adaptationParametersChanged((IDialogManager) this,
-		    call, changedProp);
+	    ((IUIBus) theBus).adaptationParametersChanged(
+		    (IDialogManager) this, call, changedProp);
     }
 
     /**
@@ -134,7 +135,8 @@ public abstract class UICaller extends Caller {
     }
 
     /**
-     * Handle {@link UIResponse}.
+     * Handle {@link UIResponse} - that comes from {@link UIHandler} carrying
+     * user input.
      * 
      * @param uiResponse
      *            the {@link UIResponse}

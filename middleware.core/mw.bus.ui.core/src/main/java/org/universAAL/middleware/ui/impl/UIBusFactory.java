@@ -42,7 +42,7 @@ import org.universAAL.middleware.ui.rdf.Submit;
 import org.universAAL.middleware.ui.rdf.TextArea;
 
 /**
- * A factory for creating IUIBus objects.
+ * A factory for creating {@link IUIBus} objects.
  * 
  * @author Carsten Stockloew
  */
