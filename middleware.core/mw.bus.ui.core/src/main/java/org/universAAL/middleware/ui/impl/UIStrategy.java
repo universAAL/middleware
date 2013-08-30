@@ -36,6 +36,7 @@ import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.IDialogManager;
+import org.universAAL.middleware.ui.IUIBus;
 import org.universAAL.middleware.ui.UICaller;
 import org.universAAL.middleware.ui.UIHandler;
 import org.universAAL.middleware.ui.UIHandlerProfile;
@@ -46,14 +47,15 @@ import org.universAAL.middleware.ui.rdf.SubdialogTrigger;
 import org.universAAL.middleware.ui.rdf.Submit;
 
 /**
- * The strategy of a bus is responsible to handle all messages passing the local
- * instance. The central method is "handle(Message msg, String senderID)" that
- * is called for every message given to the bus.
+ * The strategy of a {@link IUIBus} is responsible to handle all messages
+ * passing the local instance. The central method is
+ * "handle(Message msg, String senderID)" that is called for every message given
+ * to the bus.
  * 
  * It provides mechanism to match user preferences, abilities and some other
  * important information with {@link UIHandlerProfile} that describes
- * {@link UIHandler} capabilities. Based upon this matching the appropriate UI
- * Handler to communicate with the user is selected.
+ * {@link UIHandler} capabilities. Based upon this matching the appropriate
+ * {@link UIHandler} to communicate with the user is selected.
  * 
  * @author mtazari
  * @author eandgrg
@@ -63,19 +65,19 @@ public class UIStrategy extends BusStrategy {
 
     /**
      * 
-     * A subscription is the combination of a filter in form of an
-     * UIHandlerProfile and the ID of the subscriber.
+     * A subscription is the combination of a uiHandlerProfileFilter in form of
+     * an UIHandlerProfile and the ID of the subscriber.
      * 
      * @author amarinc
      * 
      */
     private class Subscription {
 	String subscriberID;
-	UIHandlerProfile filter;
+	UIHandlerProfile uiHandlerProfileFilter;
 
 	Subscription(String subscriberID, UIHandlerProfile filter) {
 	    this.subscriberID = subscriberID;
-	    this.filter = filter;
+	    this.uiHandlerProfileFilter = filter;
 	}
     }
 
@@ -112,11 +114,11 @@ public class UIStrategy extends BusStrategy {
     private List<Subscription> globalSubscriptions = null;
     private Map<String, String> runningDialogs = null;
     private PeerCard theCoordinator = null;
-    private Hashtable waitingForCut = null;
+    private Hashtable<String, Object> waitingForCut = null;
     private Map<String, UICaller> pendingRequests = new Hashtable<String, UICaller>();
 
     /**
-     * Creates a new instance of the UIStrategy
+     * Creates a new instance of the {@link UIStrategy}
      */
     public UIStrategy(CommunicationModule commModule) {
 	super(commModule, "UI Bus Strategy");
@@ -125,26 +127,27 @@ public class UIStrategy extends BusStrategy {
     /**
      * 
      * Aborts the dialog with the given ID. If the requester is the
-     * dialogManager and/or the publisher (caller) of the dialog the request
-     * will be handled directly. Otherwise the request is given to the
-     * request-queue.
+     * {@link IDialogManager} and/or the {@link UICaller} of the dialog the
+     * request will be handled directly. Otherwise the request is given to the
+     * request-queue. Only {@link IDialogManager} & the original
+     * {@link UICaller} are allowed to ask for abortion of dialogs.
      * 
      * @param requester
-     *            ID of the subscriber that want to abort the dialog
+     *            ID of the {@link UICaller} that wants to abort the dialog
      * @param dialogID
      *            ID of the dialog to abort
      */
     void abortDialog(String requester, String dialogID) {
 	BusMember busMember = getBusMember(requester);
 	if (busMember instanceof UICaller && dialogID != null) {
-	    UICaller publisher = pendingRequests.remove(dialogID);
+	    UICaller uiCaller = pendingRequests.remove(dialogID);
 	    // only dialog manager & the original publisher (uicaller) are
 	    // allowed to ask
 	    // for abortion of dialogs
-	    if (busMember == dialogManager || busMember == publisher) {
-		notifyHandler_abortDialog(dialogID, publisher);
-	    } else if (publisher != null) {
-		pendingRequests.put(dialogID, publisher);
+	    if (busMember == dialogManager || busMember == uiCaller) {
+		notifyHandler_abortDialog(dialogID, uiCaller);
+	    } else if (uiCaller != null) {
+		pendingRequests.put(dialogID, uiCaller);
 	    }
 	}
     }
@@ -155,13 +158,13 @@ public class UIStrategy extends BusStrategy {
      * environmental conditions.
      * 
      * @param dm
-     *            Instance of the IDialogManager
-     * @param request
+     *            Instance of the {@link IDialogManager}
+     * @param uiRequest
      *            The request containing the new content
      * @param changedProp
      *            Changed property from the request
      */
-    void adaptationParametersChanged(IDialogManager dm, UIRequest request,
+    void adaptationParametersChanged(IDialogManager dm, UIRequest uiRequest,
 	    String changedProp) {
 	if (dm != null && dm == dialogManager) {
 	    int aux;
@@ -170,13 +173,13 @@ public class UIStrategy extends BusStrategy {
 
 	    synchronized (globalSubscriptions) {
 		String selectedHandler = null;
-		String currentHandler = runningDialogs.get(request
+		String currentHandler = runningDialogs.get(uiRequest
 			.getDialogID());
 		if (changedProp == null) {
 		    // this is a new dialog published to the bus
 		    // Or a dialog is being resumed by the DM.
-		    if (pendingRequests.get(request.getDialogID()) == null) {
-			pendingRequests.put(request.getDialogID(),
+		    if (pendingRequests.get(uiRequest.getDialogID()) == null) {
+			pendingRequests.put(uiRequest.getDialogID(),
 				(UICaller) dm);
 			LogUtils
 				.logDebug(
@@ -192,8 +195,9 @@ public class UIStrategy extends BusStrategy {
 					busModule,
 					UIStrategy.class,
 					"adaptationParametersChanged",
-					new Object[] { "strange situation: duplication dialog ID?\n", request },
-					null);
+					new Object[] {
+						"strange situation: duplication dialog ID?\n",
+						uiRequest }, null);
 		    }
 		} else if (currentHandler == null) {
 		    LogUtils
@@ -205,24 +209,28 @@ public class UIStrategy extends BusStrategy {
 				    null);
 		}
 		for (Subscription subscription : globalSubscriptions) {
-		    aux = subscription.filter.getMatchingDegree(request);
+		    aux = subscription.uiHandlerProfileFilter
+			    .getMatchingDegree(uiRequest);
 		    if (aux > UIHandlerProfile.MATCH_LEVEL_FAILED) {
-		    	/*
-		    	 * FIXME: This selects the first handler in the list, it may not be the best
-		    	 * since getMatchingDegree() can be higher for other handlers in the globalSubcriptions.
-		    	 * The selection mechanism may also yield several handlers for the same request.
-		    	 * Matching may be done by a weighed matching taking into account, addressed user, modality,
-		    	 * location of the user, whether it was the last handler actually used by the user,
-		    	 * time since it's last UIResponse, adaptations ... 
-		    	 */
+			/*
+			 * FIXME: This selects the first handler in the list, it
+			 * may not be the best since getMatchingDegree() can be
+			 * higher for other handlers in the globalSubcriptions.
+			 * The selection mechanism may also yield several
+			 * handlers for the same request. Matching may be done
+			 * by a weighed matching taking into account, addressed
+			 * user, modality, location of the user, whether it was
+			 * the last handler actually used by the user, time
+			 * since it's last UIResponse, adaptations ...
+			 */
 			if (subscription.subscriberID.equals(currentHandler)) {
 			    if (changedProp != null) {
 				notifyHandler_apChanged(currentHandler,
-					request, changedProp);
+					uiRequest, changedProp);
 				return;
 			    }
 			}
-			int n = subscription.filter
+			int n = subscription.uiHandlerProfileFilter
 				.getNumberOfSupportedInputModalities();
 			if (aux > matchResult || n > numInMod) {
 			    numInMod = n;
@@ -232,31 +240,31 @@ public class UIStrategy extends BusStrategy {
 		    }
 		}
 		if (selectedHandler == null) {
-			/*
-			 * FIXME: when handler could not be selected SOMETHING SHOULD BE DONE:
-			 *    - Notify DM? suspend Request?
-			 *    - Notify UICaller?
-			 *    - Schedule retry for later?
-			 */
+		    /*
+		     * FIXME: when handler could not be selected SOMETHING
+		     * SHOULD BE DONE: - Notify DM? suspend Request? - Notify
+		     * UICaller? - Schedule retry for later?
+		     */
 		    LogUtils
 			    .logError(
 				    busModule,
 				    UIStrategy.class,
 				    "adaptationParametersChanged",
-				    new Object[] { "!!!! no UI Handler could be selected!!!!\n", request },
-				    null);
+				    new Object[] {
+					    "!!!! no UI Handler could be selected!!!!\n",
+					    uiRequest }, null);
 		    return;
 		}
 		if (currentHandler != null) {
 		    Resource collectedData = notifyHandler_cutDialog(
-			    currentHandler, request.getDialogID());
+			    currentHandler, uiRequest.getDialogID());
 		    if (collectedData != null) {
-			request.setCollectedInput(collectedData);
+			uiRequest.setCollectedInput(collectedData);
 		    }
-		    runningDialogs.remove(request.getDialogID());
+		    runningDialogs.remove(uiRequest.getDialogID());
 		}
-		runningDialogs.put(request.getDialogID(), selectedHandler);
-		notifyHandler_handle(selectedHandler, request);
+		runningDialogs.put(uiRequest.getDialogID(), selectedHandler);
+		notifyHandler_handle(selectedHandler, uiRequest);
 	    }
 	}
     }
@@ -301,7 +309,16 @@ public class UIStrategy extends BusStrategy {
      *            the response to send.
      */
     void dialogFinished(final String subscriberID, final UIResponse input) {
-    	// TODO: add safety input != null?
+	if (input == null) {
+	    LogUtils
+		    .logWarn(
+			    busModule,
+			    UIStrategy.class,
+			    "dialogFinished",
+			    new Object[] { "Dialog is finished by the user but UI Handler sent empty UI Response!" },
+			    null);
+	return;
+	}
 	final String dialogID = input.getDialogID();
 	// first handle the bus internal handling of this request
 	if (isCoordinator()) {
@@ -327,14 +344,13 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * Send a UI Response to the application. Call this message after a
+     * Send a {@link UIResponse} to the application. Call this message after a
      * {@link Submit} or {@link SubdialogTrigger} was pressed.
      * 
      * @param input
      *            the response to send.
      */
     void notifyUserInput(final UIResponse input) {
-    	//TODO add safety input != null?
 	final String dialogID = input.getDialogID();
 	// inform the application that user input is ready
 	if (input.isForDialogManagerCall()) {
@@ -369,8 +385,8 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * Only called by the {@link IDialogManager}. Simply removes dialogs from the active
-     * list.
+     * Only called by the {@link IDialogManager}. Simply removes dialogs from
+     * the active list.
      * 
      * @param dm
      * @param dialogID
@@ -388,8 +404,8 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * Handle all incoming messages. Every call of this method take place in its
-     * own thread.
+     * Handle all incoming messages. Every call of this method takes place in
+     * its own thread.
      * 
      * @param message
      *            Message to handle
@@ -728,7 +744,8 @@ public class UIStrategy extends BusStrategy {
 		    } else if (data == null) {
 			// do it in a new thread to make sure that no
 			// deadlock will happen
-			new Thread("UI Bus Strategy - Handling dialog finished from remote") {
+			new Thread(
+				"UI Bus Strategy - Handling dialog finished from remote") {
 			    @Override
 			    public void run() {
 				synchronized (globalSubscriptions) {
@@ -776,13 +793,11 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * If it is of type event this can either be a notification or an UI request
-     * FIXME all UIRequest are mapped with MessageType.request in UIBusImpl
-     * public void sendMessage(String publisherID, UIRequest msg) see what is
-     * happening here??
+     * If it is of type event this can either be a notification or an
+     * {@link UIRequest}
      * 
-     * EVENT type is for resending UIRequests and/or adaptation parameter
-     * changes pass notifications to the according methods
+     * EVENT type is for resending {@link UIRequest}s and/or adaptation
+     * parameter changes pass notifications to the according methods
      */
     private void handleNotificationOrUIRequest(Resource res) {
 	if (isUIBusNotification(res)) {
@@ -930,7 +945,13 @@ public class UIStrategy extends BusStrategy {
 	    pr.setProperty(PROP_uAAL_UI_IS_NEW_REQUEST, Boolean.FALSE);
 	    sendMessageToRemoteBusMember(handlerID, MessageType.event, pr);
 	} // else should not happen
-	// TODO: a log entry for the else case, if needed
+	LogUtils
+		.logWarn(
+			busModule,
+			UIStrategy.class,
+			"notifyHandler_apChanged",
+			new Object[] { "Unpredicted situation happened while handling a dialogChanged-Notification!" },
+			null);
     }
 
     /**
@@ -967,13 +988,26 @@ public class UIStrategy extends BusStrategy {
 		    try {
 			wait();
 		    } catch (Exception e) {
+			LogUtils
+				.logError(
+					busModule,
+					UIStrategy.class,
+					"notifyHandler_cutDialog",
+					new Object[] { "Error while waiting for user input" },
+					e);
 		    }
 		}
 		UIResponse ie = (UIResponse) waitingForCut.remove(handlerID);
 		return (Resource) ie.getProperty(UIResponse.PROP_DIALOG_DATA);
 	    }
 	} // else
-	// TODO: a log entry
+	LogUtils
+		.logWarn(
+			busModule,
+			UIStrategy.class,
+			"notifyHandler_cutDialog",
+			new Object[] { "Unpredicted situation happened while handling a cutDialog-Notification!" },
+			null);
 	return null;
     }
 
@@ -993,7 +1027,7 @@ public class UIStrategy extends BusStrategy {
 
     /**
      * 
-     * Handle output-notifications. Look for {@link UIHandler} for relay the
+     * Handle uiRequest-notifications. Look for {@link UIHandler} for relay the
      * {@link UIRequest}.
      * 
      * @param handlerID
@@ -1022,7 +1056,13 @@ public class UIStrategy extends BusStrategy {
 	    pr.setProperty(PROP_uAAL_UI_IS_NEW_REQUEST, Boolean.TRUE);
 	    sendMessageToRemoteBusMember(handlerID, MessageType.event, pr);
 	} // else
-	// TODO: a log entry
+	LogUtils
+		.logWarn(
+			busModule,
+			UIStrategy.class,
+			"notifyHandler_handle",
+			new Object[] { "Unpredicted situation happened while handling a uiRequest-notification!" },
+			null);
     }
 
     /**
@@ -1041,12 +1081,13 @@ public class UIStrategy extends BusStrategy {
 	}
 
 	if (isCoordinator()) {
-		
-		List<Subscription> remove = new ArrayList<Subscription>();
+
+	    List<Subscription> remove = new ArrayList<Subscription>();
 	    synchronized (globalSubscriptions) {
 		for (Subscription s : globalSubscriptions) {
 		    if (s.subscriberID.equals(subscriberID)
-			    && oldSubscription.matches(s.filter)) {
+			    && oldSubscription
+				    .matches(s.uiHandlerProfileFilter)) {
 			remove.add(s);
 		    }
 		}
@@ -1106,10 +1147,10 @@ public class UIStrategy extends BusStrategy {
      */
     void resumeDialog(String dialogID, Resource dialogData) {
 	if (isCoordinator()) {
-	    UIRequest oe = dialogManager.getSuspendedDialog(dialogID);
-	    if (oe != null) {
-		oe.setCollectedInput(dialogData);
-		adaptationParametersChanged(dialogManager, oe, null);
+	    UIRequest uiRequest = dialogManager.getSuspendedDialog(dialogID);
+	    if (uiRequest != null) {
+		uiRequest.setCollectedInput(dialogData);
+		adaptationParametersChanged(dialogManager, uiRequest, null);
 	    } else {
 		// trust the dialog manager: either the dialog was aborted
 		// previously
@@ -1126,11 +1167,11 @@ public class UIStrategy extends BusStrategy {
 
     /**
      * 
-     * Set the Dialog Manager of the bus. There must be only one instance of
-     * this in the whole remote system.
+     * Set the {@link IDialogManager} of the bus. There must be only one
+     * instance of this in the whole remote system.
      * 
      * @param dm
-     *            Instance of the Dialogmanager
+     *            Instance of the {@link IDialogManager}
      */
     void setDialogManager(IDialogManager dm) {
 	if (dm == null || dialogManager != null || theCoordinator != null) {
@@ -1146,7 +1187,7 @@ public class UIStrategy extends BusStrategy {
 
 	globalSubscriptions = new Vector<Subscription>();
 	runningDialogs = new Hashtable<String, String>();
-	waitingForCut = new Hashtable(2);
+	waitingForCut = new Hashtable<String, Object>(2);
 
 	Resource res = new Resource(bus.getURI());
 	res.addType(TYPE_uAAL_UI_BUS_COORDINATOR, true);
@@ -1160,10 +1201,10 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * Called only when a UI handler has called dialogFinished with an instance
-     * of {@link org.universAAL.middleware.ui.rdf.SubdialogTrigger} so that we
-     * must only notify to suspend this dialog until the original publisher
-     * calls 'resume'.
+     * Called only when a {@link UIHandler} has called dialogFinished with an
+     * instance of {@link org.universAAL.middleware.ui.rdf.SubdialogTrigger} so
+     * that we must only notify to suspend this dialog until the original
+     * publisher calls 'resume'.
      * 
      * @param dialogID
      *            ID of the dialog to suspend
@@ -1183,6 +1224,13 @@ public class UIStrategy extends BusStrategy {
 	}
     }
 
+    /**
+     * 
+     * @param user
+     *            {@link User} that logged (request main menu)
+     * @param loginLocation
+     *            location of the handler from which the user logged in
+     */
     void userLoggedIn(Resource user, AbsLocation loginLocation) {
 	if (isCoordinator()) {
 	    dialogManager.getMainMenu(user, loginLocation);
