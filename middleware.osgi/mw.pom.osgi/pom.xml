@@ -44,6 +44,7 @@
     <module>../mw.bus.tracker.osgi</module>
     <module>../mw.felix.shell.universAAL.osgi</module>
     <module>composite</module>
+    <module>mw.karaf.feature</module>
   </modules>
   <scm>
     <connection>${svn.base}/middleware.osgi/${project.artifactId}</connection>

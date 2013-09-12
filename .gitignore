@@ -1453,6 +1453,10 @@ middleware.osgi/mw.pom.osgi/composite/.classpath
 middleware.osgi/mw.pom.osgi/composite/.project
 middleware.osgi/mw.pom.osgi/composite/.settings
 middleware.osgi/mw.pom.osgi/composite/target
+middleware.osgi/mw.pom.osgi/mw.karaf.feature/.classpath
+middleware.osgi/mw.pom.osgi/mw.karaf.feature/.project
+middleware.osgi/mw.pom.osgi/mw.karaf.feature/.settings
+middleware.osgi/mw.pom.osgi/mw.karaf.feature/target
 middleware.osgi/mw.pom.osgi/target
 middleware.osgi/mw.pom.osgi/uAAL.log
 middleware.osgi/target
