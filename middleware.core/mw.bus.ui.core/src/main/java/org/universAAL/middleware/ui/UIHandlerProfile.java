@@ -54,9 +54,14 @@ public class UIHandlerProfile extends FinalizedResource implements
     public static final String PROP_INPUT_MODALITY = UIRequest.uAAL_UI_NAMESPACE
 	    + "inputModality";
 
-    public static final int MATCH_LEVEL_FAILED = 0;
-    public static final int MATCH_LEVEL_ALT = 1;
-    public static final int MATCH_LEVEL_SUCCESS = 2;
+    public static final int MATCH_ADDRESED_USER = 0x40;
+    public static final int MATCH_MAIN_MODALITY = 0x20;
+    public static final int MATCH_ALT_MODALITY = 0x10;
+    public static final int MATCH_USER_LOCATION = 0x08;
+    public static final int MATCH_USER_IMPAIRMENTS = 0x04;
+    public static final int MATCH_DIALOG_PRIVACY = 0x02;
+    public static final int MATCH_DIALOG_LANGUAGE = 0x01;
+    public static final int MATCH_LEVEL_FAILED = 0x00;
 
     private List<MergedRestriction> restrictions;
 
@@ -159,31 +164,53 @@ public class UIHandlerProfile extends FinalizedResource implements
 	if (uiRequest == null) {
 	    return MATCH_LEVEL_FAILED;
 	}
-
-	int result = MATCH_LEVEL_SUCCESS;
+	int result = MATCH_LEVEL_FAILED;
 	for (MergedRestriction r : restrictions) {
-	    // TODO added matching on the addressed user. Revise necessary on
-	    // follow me scenario, we should have location of the user known
-	    // for best UIstrategy but question is how do we get it and if this
-	    // will be feasible in most cases.
-	    if (!r.hasMember(uiRequest, null)) {
-		// If there is a location of the user than match on the
-		// location; if there is no location - see logged in location
-		// if (UIRequest.PROP_ADDRESSED_USER.equals(r.getOnProperty()))
-		// {
-		// continue;
-		// } else
+	    if (r.hasMember(uiRequest, null)) {
+		// r Restriction matches all the criterion of UIRequest
+		if (r.getOnProperty().equals(UIRequest.PROP_ADDRESSED_USER)) {
+		    /*
+		     * one of the restrictions is defined to restrict for the
+		     * addressed user, the values have already been checked by
+		     * the previous if.
+		     */
+		    result += MATCH_ADDRESED_USER;
+		}
+		if (r.getOnProperty().equals(
+			UIRequest.PROP_PRESENTATION_MODALITY)) {
+		    result += MATCH_MAIN_MODALITY;
+		}
+		// ALT MODALITY is checked later.
+		if (r.getOnProperty().equals(
+			UIRequest.PROP_PRESENTATION_LOCATION)) {
+		    result += MATCH_USER_LOCATION;
+		}
+		if (r.getOnProperty().equals(
+			UIRequest.PROP_HAS_ACCESS_IMPAIRMENT)) {
+		    result += MATCH_USER_IMPAIRMENTS;
+		}
+		if (r.getOnProperty().equals(
+			UIRequest.PROP_DIALOG_PRIVACY_LEVEL)) {
+		    result += MATCH_DIALOG_PRIVACY;
+		}
+		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_LANGUAGE)) {
 
+		    result += MATCH_DIALOG_LANGUAGE;
+		}
+	    } else {
 		if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
 			.getOnProperty())
 			&& r.copyOnNewProperty(
 				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-				.hasMember(uiRequest, null)) {
-		    result = MATCH_LEVEL_ALT;
-
-		    continue;
-		} else {
-		    return MATCH_LEVEL_FAILED;
+				.hasMember(uiRequest, null))
+		/*
+		 * if the restriction r is about the modality property of
+		 * UIReqest, then rename the restriction to alt-modality and see
+		 * if it matches. if it matches then, this handler is matched as
+		 * alternative modality.
+		 */
+		{
+		    result += MATCH_ALT_MODALITY;
 		}
 	    }
 
