@@ -112,7 +112,7 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * @navassoc - "IOControlls\n Submits\n StandardButtons" - Group
  * @navassoc - "parentDialog" 1 Form
  */
-public class Form extends FinalizedResource {
+public class Form extends FormElement {
     public static final String uAAL_DIALOG_NAMESPACE = uAAL_NAMESPACE_PREFIX
 	    + "Dialog.owl#";
     public static final String MY_URI = uAAL_DIALOG_NAMESPACE + "Form";
