@@ -37,6 +37,7 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.universAAL.middleware.container.Attributes;
 import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
@@ -62,6 +63,31 @@ public class uAALBundleContext implements ModuleContext {
 	bundle = bc;
 	logger = LoggerFactory.getLogger("org.universAAL."
 		+ bc.getBundle().getSymbolicName());
+	loadUnivesAALAttribute();
+    }
+
+    private void loadUnivesAALAttribute() {
+	setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT");
+	setAttribute(Attributes.CONTAINER_NAME, "KARAF");
+	setAttribute(Attributes.CONTAINER_VERSION, "KARAF");
+
+	setAttribute(Attributes.OSGI_NAME,
+		bundle.getProperty(Constants.FRAMEWORK_VENDOR));
+	setAttribute(Attributes.OSGI_VERSION,
+		bundle.getProperty(Constants.FRAMEWORK_VERSION));
+	setAttribute(Attributes.OSGI_ARCHITECTURE,
+		bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
+
+	setAttribute(Attributes.CONTAINER_OS_NAME,
+		bundle.getProperty(Constants.FRAMEWORK_OS_NAME));
+	setAttribute(Attributes.CONTAINER_OS_VERSION,
+		bundle.getProperty(Constants.FRAMEWORK_OS_VERSION));
+	setAttribute(Attributes.CONTAINER_OS_ARCHITECTURE,
+		bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
+
+	setAttribute(Attributes.CONTAINER_PLATFORM_NAME, "java");
+	setAttribute(Attributes.CONTAINER_OS_ARCHITECTURE,
+		System.getProperty("java.specification.version"));
     }
 
     /**
@@ -248,13 +274,14 @@ public class uAALBundleContext implements ModuleContext {
 	    sharedObjects.get(xf).unregister();
 	    sharedObjects.remove(xf);
 	}
-	
+
     }
-    
+
     public void removeSharedObject(String xface, Object obj, Dictionary props) {
 	sharedObjects.get(xface).unregister();
 	sharedObjects.remove(xface);
     }
+
     /**
      * @see org.universAAL.middleware.container.ModuleContext#start(org.universAAL.middleware.container.ModuleContext)
      */
@@ -311,8 +338,13 @@ public class uAALBundleContext implements ModuleContext {
     }
 
     public Object getProperty(String name) {
+	return getProperty(name, null);
+    }
 
-	Object value = getAttribute(name);
+    public Object getProperty(String name, Object def) {
+	Object value = null;
+
+	value = getAttribute(name);
 	if (value != null)
 	    return value;
 
@@ -328,14 +360,7 @@ public class uAALBundleContext implements ModuleContext {
 	if (value != null)
 	    return value;
 
-	return null;
-    }
-
-    public Object getProperty(String name, Object def) {
-	Object value = getProperty(name);
-	if (value == null)
-	    return def;
-	return value;
+	return def;
     }
 
 }
