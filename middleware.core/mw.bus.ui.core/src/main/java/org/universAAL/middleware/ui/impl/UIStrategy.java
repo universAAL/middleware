@@ -72,7 +72,14 @@ public class UIStrategy extends BusStrategy {
      * 
      */
     private class Subscription {
+	/**
+	 * {@link UIHandler} id
+	 */
 	String subscriberID;
+
+	/**
+	 * {@link UIHandlerProfile}
+	 */
 	UIHandlerProfile uiHandlerProfileFilter;
 
 	Subscription(String subscriberID, UIHandlerProfile filter) {
@@ -111,7 +118,27 @@ public class UIStrategy extends BusStrategy {
 	    + "SuspendDialog";
 
     private IDialogManager dialogManager = null;
+    /**
+     * pairs of (user uri, handler id) where user and it's last used Handler are
+     * stored
+     */
+    private Map<String, String> lastUsedHandler = null;
+
+    /**
+     * last used handler weight is same as the dialog privacy's one.
+     */
+    public static final int LAST_USED_HANDLER_MATCH_LEVEL_ADDITION = UIHandlerProfile.MATCH_DIALOG_PRIVACY;
+
+    /**
+     * list of {@link Subscription}s containing (handler id, handler profile)
+     * pairs
+     */
     private List<Subscription> globalSubscriptions = null;
+
+    /**
+     * runningDialogs map contains (dialog id,handler id) pair (Handler is the
+     * one that is currently assigned with the UIRequest)
+     */
     private Map<String, String> runningDialogs = null;
     private PeerCard theCoordinator = null;
     private Hashtable<String, Object> waitingForCut = null;
@@ -142,8 +169,7 @@ public class UIStrategy extends BusStrategy {
 	if (busMember instanceof UICaller && dialogID != null) {
 	    UICaller uiCaller = pendingRequests.remove(dialogID);
 	    // only dialog manager & the original publisher (uicaller) are
-	    // allowed to ask
-	    // for abortion of dialogs
+	    // allowed to ask for abortion of dialogs
 	    if (busMember == dialogManager || busMember == uiCaller) {
 		notifyHandler_abortDialog(dialogID, uiCaller);
 	    } else if (uiCaller != null) {
@@ -167,9 +193,8 @@ public class UIStrategy extends BusStrategy {
     void adaptationParametersChanged(IDialogManager dm, UIRequest uiRequest,
 	    String changedProp) {
 	if (dm != null && dm == dialogManager) {
-	    int aux;
-	    int numInMod = 0;
-	    int matchResult = UIHandlerProfile.MATCH_LEVEL_FAILED;
+	    int tempMatchingDegree;
+	    int maxMatchDegree = UIHandlerProfile.MATCH_LEVEL_FAILED;
 
 	    synchronized (globalSubscriptions) {
 		String selectedHandler = null;
@@ -179,6 +204,8 @@ public class UIStrategy extends BusStrategy {
 		    // this is a new dialog published to the bus
 		    // Or a dialog is being resumed by the DM.
 		    if (pendingRequests.get(uiRequest.getDialogID()) == null) {
+			// if req is not in the pendingRequests (in dm queue)
+			// add it there
 			pendingRequests.put(uiRequest.getDialogID(),
 				(UICaller) dm);
 			LogUtils
@@ -208,53 +235,66 @@ public class UIStrategy extends BusStrategy {
 				    new Object[] { "Current UI Handler could not be determined from running dialogs. Inconsistent data between ui.dm data and UIStrategy data!" },
 				    null);
 		}
+
+		// iterate through all UIHandlers
 		for (Subscription subscription : globalSubscriptions) {
-		    aux = subscription.uiHandlerProfileFilter
+		    tempMatchingDegree = subscription.uiHandlerProfileFilter
 			    .getMatchingDegree(uiRequest);
-		    if (aux > UIHandlerProfile.MATCH_LEVEL_FAILED) {
-			/*
-			 * FIXME: This selects the first handler in the list, it
-			 * may not be the best since getMatchingDegree() can be
-			 * higher for other handlers in the globalSubcriptions.
-			 * The selection mechanism may also yield several
-			 * handlers for the same request. Matching may be done
-			 * by a weighed matching taking into account, addressed
-			 * user, modality, location of the user, whether it was
-			 * the last handler actually used by the user, time
-			 * since it's last UIResponse, adaptations ...
-			 */
+		    LogUtils.logDebug(busModule, UIStrategy.class,
+			    "adaptationParametersChanged",
+			    new Object[] { "Handler with id: " + subscription
+				    + ", has matching degree: "
+				    + tempMatchingDegree }, null);
+
+		    if (tempMatchingDegree > UIHandlerProfile.MATCH_LEVEL_FAILED) {
 			if (subscription.subscriberID.equals(currentHandler)) {
+			    // notify UIHandler that currently "has" this
+			    // request. Notify only if there is prop that
+			    // changed.
 			    if (changedProp != null) {
 				notifyHandler_apChanged(currentHandler,
 					uiRequest, changedProp);
 				return;
 			    }
 			}
-			int n = subscription.uiHandlerProfileFilter
-				.getNumberOfSupportedInputModalities();
-			if (aux > matchResult || n > numInMod) {
-			    numInMod = n;
-			    matchResult = aux;
+			if (subscription.subscriberID.equals(lastUsedHandler
+				.get(uiRequest.getAddressedUser().getURI()))) {
+			    // if currently observed handler also the one last
+			    // used by the user then increase his matching
+			    // degree a bit
+			    tempMatchingDegree += LAST_USED_HANDLER_MATCH_LEVEL_ADDITION;
+			}
+			if (tempMatchingDegree > maxMatchDegree) {
+			    maxMatchDegree = tempMatchingDegree;
 			    selectedHandler = subscription.subscriberID;
 			}
 		    }
 		}
 		if (selectedHandler == null) {
-		    /*
-		     * FIXME: when handler could not be selected SOMETHING
-		     * SHOULD BE DONE: - Notify DM? suspend Request? - Notify
-		     * UICaller? - Schedule retry for later?
-		     */
+		    // No UI Handler can be selected so put dialog to suspended
+		    // dialogues queue. DM is repeatedly trying to
+		    // show something and if it there is nothing else to show it
+		    // will check pending dialogues also (at that time new
+		    // UIHandler can be added or existing one can change reg
+		    // parameters or adaptation parameters can change)
+		    dm.suspendDialog(uiRequest.getDialogID());
 		    LogUtils
-			    .logError(
+			    .logWarn(
 				    busModule,
 				    UIStrategy.class,
 				    "adaptationParametersChanged",
 				    new Object[] {
-					    "!!!! no UI Handler could be selected!!!!\n",
+					    "No UI Handler could be selected so dialog is suspended for now.\n",
 					    uiRequest }, null);
 		    return;
 		}
+
+		LogUtils.logDebug(busModule, UIStrategy.class,
+			"adaptationParametersChanged",
+			new Object[] { "Handler with id: " + selectedHandler
+				+ ", and matching degree: " + maxMatchDegree
+				+ " was selected as best." }, null);
+
 		if (currentHandler != null) {
 		    Resource collectedData = notifyHandler_cutDialog(
 			    currentHandler, uiRequest.getDialogID());
@@ -317,8 +357,11 @@ public class UIStrategy extends BusStrategy {
 			    "dialogFinished",
 			    new Object[] { "Dialog is finished by the user but UI Handler sent empty UI Response!" },
 			    null);
-	return;
+	    return;
 	}
+	// remember last used handler for the user (important when selecting the
+	// Handler)
+	lastUsedHandler.put(input.getUser().getURI(), subscriberID);
 	final String dialogID = input.getDialogID();
 	// first handle the bus internal handling of this request
 	if (isCoordinator()) {
@@ -545,12 +588,12 @@ public class UIStrategy extends BusStrategy {
     }
 
     /**
-     * if the coordinator is receiving this messages (no matter if from a local
+     * If the coordinator is receiving this messages (no matter if from a local
      * bus member or forwarded by a peer) we ask the dialog manager to check if
      * this dialog should be presented to the user immediately or the DM will
      * queue it for later;
      * 
-     * as a side effect of {@link IDialogManager#checkNewDialog(UIRequest)}, the
+     * As a side effect of {@link IDialogManager#checkNewDialog(UIRequest)}, the
      * request should have been enriched by the current adaptation parameters
      */
     private void askDialogManagerForPresentation(BusMessage message) {
@@ -882,7 +925,7 @@ public class UIStrategy extends BusStrategy {
 				busModule,
 				UIStrategy.class,
 				"notifyHandler_abortDialog",
-				new Object[] { "Ui dialog remowed from runnign dialogs. UI Handler of that dialog could not be determined. Inconsistent data!!" },
+				new Object[] { "UI dialog removed from running dialogs. UI Handler of that dialog could not be determined. Inconsistent data!!" },
 				null);
 		return;
 	    }
@@ -1188,6 +1231,7 @@ public class UIStrategy extends BusStrategy {
 	globalSubscriptions = new Vector<Subscription>();
 	runningDialogs = new Hashtable<String, String>();
 	waitingForCut = new Hashtable<String, Object>(2);
+	lastUsedHandler = new Hashtable<String, String>();
 
 	Resource res = new Resource(bus.getURI());
 	res.addType(TYPE_uAAL_UI_BUS_COORDINATOR, true);
