@@ -131,5 +131,12 @@ public class UIBusOntology extends Ontology {
 	oci.toEnumeration(new ManagedIndividual[] { PrivacyLevel.personal,
 		PrivacyLevel.homeMatesOnly, PrivacyLevel.intimatesOnly,
 		PrivacyLevel.knownPeopleOnly, PrivacyLevel.insensible });
+	
+	// load Recommendation
+	oci = createNewAbstractOntClassInfo(Recommendation.MY_URI);
+	oci
+		.setResourceComment("General concept for representing modality recommendations for any FormElements.");
+	oci.setResourceLabel("Recommendation");
+	oci.addSuperClass(ManagedIndividual.MY_URI);
     }
 }

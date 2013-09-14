@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -661,9 +663,16 @@ public class TurtleParser {
 	return getResource(name.toString());
     }
 
+    /**
+     * Parse a number in abbreviated form.
+     * 
+     * @see http://www.w3.org/TR/turtle/ , section 2.5.2
+     * @return an instance of either {@link BigInteger}, {@link Double}, or
+     *         {@link BigDecimal}.
+     */
     private Object parseNumber() {
 	StringBuffer value = new StringBuffer(8);
-	String datatype = TypeMapper.getDatatypeURI(Integer.class);
+	String datatype = TypeMapper.getDatatypeURI(BigInteger.class);
 
 	int c = read();
 
@@ -699,7 +708,7 @@ public class TurtleParser {
 
 	if (c == '.' || c == 'e' || c == 'E') {
 	    // We're parsing a decimal or a double
-	    datatype = TypeMapper.getDatatypeURI(Double.class);
+	    datatype = TypeMapper.getDatatypeURI(BigDecimal.class);
 
 	    // read optional fractional digits
 	    if (c == '.') {

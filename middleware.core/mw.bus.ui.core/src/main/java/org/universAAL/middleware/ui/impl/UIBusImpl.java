@@ -157,7 +157,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     /*
      * (non-Javadoc)
      * 
-     * @seeorg.universAAL.middleware.ui.IUIBus#adaptationParametersChanged(org.
+     * @see org.universAAL.middleware.ui.IUIBus#adaptationParametersChanged(org.
      * universAAL .middleware.ui.DialogManager,
      * org.universAAL.middleware.ui.UIRequest, java.lang.String)
      */
@@ -315,6 +315,9 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.modules.listener.MessageListener#handleSendError(org.universAAL.middleware.connectors.util.ChannelMessage, org.universAAL.middleware.connectors.exception.CommunicationConnectorException)
+     */
     public void handleSendError(ChannelMessage message,
 	    CommunicationConnectorException e) {
 	// TODO Auto-generated method stub

@@ -65,7 +65,8 @@ public abstract class UIHandler extends Callee {
 	this.realizedHandlerProfiles = new ArrayList<UIHandlerProfile>();
 	if (initialSubscription != null) {
 	    this.realizedHandlerProfiles.add(initialSubscription);
-	    ((IUIBus) theBus).addNewProfile(busResourceURI, initialSubscription);
+	    ((IUIBus) theBus)
+		    .addNewProfile(busResourceURI, initialSubscription);
 	}
     }
 
@@ -104,10 +105,10 @@ public abstract class UIHandler extends Callee {
 	    String changedProp, Object newVal);
 
     /**
-     * Adds the new reg params.
+     * Adds the new {@link UIHandler} registration parameters.
      * 
      * @param newSubscription
-     *            the new subscription
+     *            the new subscription - as a {@link UIHandlerProfile}
      */
     public final void addNewRegParams(UIHandlerProfile newSubscription) {
 	((IUIBus) theBus).addNewProfile(busResourceURI, newSubscription);
@@ -178,14 +179,15 @@ public abstract class UIHandler extends Callee {
     public abstract void handleUICall(UIRequest uiRequest);
 
     /**
-     * Removes the matching reg params.
+     * Removes the matching registration parameters.
      * 
      * @param oldSubscription
      *            the old subscription
      */
     protected final void removeMatchingRegParams(
 	    UIHandlerProfile oldSubscription) {
-	((IUIBus) theBus).removeMatchingProfile(busResourceURI, oldSubscription);
+	((IUIBus) theBus)
+		.removeMatchingProfile(busResourceURI, oldSubscription);
 	this.realizedHandlerProfiles.remove(oldSubscription);
     }
 
@@ -200,8 +202,7 @@ public abstract class UIHandler extends Callee {
     public final void userLoggedIn(Resource user, AbsLocation loginLocation) {
 	((IUIBus) theBus).userLoggedIn(busResourceURI, user, loginLocation);
     }
-    
- 
+
     /**
      * @return realized {@link UIHandlerProfile}s
      */

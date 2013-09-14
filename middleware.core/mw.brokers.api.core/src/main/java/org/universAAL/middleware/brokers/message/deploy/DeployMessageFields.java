@@ -22,7 +22,7 @@ package org.universAAL.middleware.brokers.message.deploy;
 
 /**
  * Class for Deploy Message fields
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
