@@ -719,6 +719,8 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    // ...and wrap it as ChannelMessage
 	    List<String> channelName = new ArrayList<String>();
 	    channelName.add(getBrokerName());
+	    // TODO we should send a part in small pieces or by means of
+	    // out-of-band protocol which support streaming
 	    ChannelMessage channelMessage = new ChannelMessage(getmyPeerCard(),
 		    deployMessage.toString(), channelName);
 	    communicationModule.send(channelMessage, this, target);
@@ -780,7 +782,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
     }
 
     public void messageReceived(ChannelMessage message) {
-
 	final String METHOD = "messageReceived";
 	if (!init()) {
 	    LogUtils.logWarn(
@@ -794,26 +795,20 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	deployManager = getDeployManager();
 	deployConnector = getDeployConnector();
 	BrokerMessage cm = null;
-
-
 	if (message != null) {
-
 	    try {
-
 		Gson gson = GsonParserBuilder.getInstance().buildGson();
-
 		cm = gson.fromJson(message.getContent(), BrokerMessage.class);
-
 	    } catch (Exception e) {
-
-		try {
-		    throw new Exception(
-			    "Unable to unmashall ControlMessage. Original message: "
-				    + message + ". Full Stack: " + e.toString());
-		} catch (Exception e1) {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
-		}
+		LogUtils.logError(
+			context,
+			ControlBroker.class,
+			"ControlBroker",
+			new Object[] {
+				"Error during message receive: ",
+				e.toString(),
+				"\nUnable to unmashall ControlMessage. Original message: ",
+				message }, null);
 	    }
 	}
 
@@ -937,7 +932,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	final String METHOD = "handleDeployMessage";
 	switch (msg.getMessageType()) {
 
-
 	case REQUEST_TO_INSTALL_PART:
 	    LogUtils.logDebug(
 		    context,
@@ -961,7 +955,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 			.getuappCard());
 	    }
 	    break; // TODO Ask michele if it was missing by reason
-
 
 	case PART_NOTIFICATION:
 	    LogUtils.logDebug(
@@ -1098,23 +1091,21 @@ public class ControlBroker implements SharedObjectListener, Broker,
     }
 
     public BrokerMessage unmarshall(String message) {
-
 	try {
-
 	    Gson gson = GsonParserBuilder.getInstance().buildGson();
-
 	    return gson.fromJson(message, ControlMessage.class);
-
 	} catch (Exception e) {
-
-	    try {
-		throw new Exception(
-			"Unable to unmashall ControlMessage. Original message: "
-				+ message + ". Full Stack: " + e.toString());
-	    } catch (Exception e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	    }
+	    final String MSG = "Unable to unmarshall message due to JSON parsing issue for "
+		    + BrokerMessageFields.BROKER_MESSAGE_TYPE + ":";
+	    LogUtils.logDebug(context, ControlBroker.class, "unmarshall",
+		    new Object[] { MSG, e }, e);
+	    LogUtils.logDebug(
+		    context,
+		    ControlBroker.class,
+		    "unmarshall",
+		    new Object[] { MSG + ExceptionUtils.stackTraceAsString(e) },
+		    e);
+	    new DeployMessageException(MSG + e.toString(), e);
 	}
 	return null;
     }
