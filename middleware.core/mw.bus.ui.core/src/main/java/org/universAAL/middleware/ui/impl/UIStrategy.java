@@ -1098,14 +1098,15 @@ public class UIStrategy extends BusStrategy {
 	    pr.setProperty(PROP_uAAL_UI_CALL, request);
 	    pr.setProperty(PROP_uAAL_UI_IS_NEW_REQUEST, Boolean.TRUE);
 	    sendMessageToRemoteBusMember(handlerID, MessageType.event, pr);
-	} // else
-	LogUtils
-		.logWarn(
-			busModule,
-			UIStrategy.class,
-			"notifyHandler_handle",
-			new Object[] { "Unpredicted situation happened while handling a uiRequest-notification!" },
-			null);
+	} else
+	    LogUtils
+		    .logWarn(
+			    busModule,
+			    UIStrategy.class,
+			    "notifyHandler_handle",
+			    new Object[] {
+				    "Unpredicted situation happened while handling a uiRequest-notification!",
+				    o.getClass().getName() }, null);
     }
 
     /**
