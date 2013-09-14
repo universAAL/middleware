@@ -768,7 +768,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
             if (security) {
                 msgBuffer = CryptUtil.decrypt((String) msg.getObject());
             }
-            ChannelMessage channelMessage = ChannelMessage.unmarhall(msgBuffer);
+            ChannelMessage channelMessage = ChannelMessage.unmarshall(msgBuffer);
             communicationModule.messageReceived(channelMessage);
         } catch (Exception ex) {
             LogUtils.logDebug(
@@ -816,7 +816,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 
     public Object handle(Message msg) throws Exception {
 	ChannelMessage channelMessage;
-	    channelMessage = ChannelMessage.unmarhall(new String(msg
+	    channelMessage = ChannelMessage.unmarshall(new String(msg
 	    	.getBuffer()));
 	    communicationModule.messageReceived(channelMessage);
 	return null;
