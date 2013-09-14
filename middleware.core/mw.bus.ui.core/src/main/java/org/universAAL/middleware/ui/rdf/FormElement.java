@@ -16,7 +16,11 @@
 
 package org.universAAL.middleware.ui.rdf;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.universAAL.middleware.rdf.FinalizedResource;
+import org.universAAL.middleware.ui.owl.Recommendation;
 
 /**
  * @author amedrano
@@ -27,7 +31,7 @@ public abstract class FormElement extends FinalizedResource {
     /**
      * FormElements may have Recommendations.
      */
-    public static final String PROP_APPEARENCE = Form.uAAL_DIALOG_NAMESPACE
+    public static final String PROP_APPEARANCE = Form.uAAL_DIALOG_NAMESPACE
 	    + "appearance";
 
 	/**
@@ -72,5 +76,34 @@ public abstract class FormElement extends FinalizedResource {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Convenience method to add an Appearance recommendation, 
+	 * see ont.recommendation for the definition of possible recommendations.
+	 * It is not granted that the recommendation will be followed when rendered.
+	 * @param recommendation the {@link Recommendation} instance to add.
+	 */
+	public void addAppearanceRecommendation(Recommendation recommendation){
+		if (recommendation == null){
+			return;
+		}
+		
+		List recommendations = (List) getProperty(PROP_APPEARANCE);
+		if (recommendations == null){
+			recommendations = new ArrayList();
+		}
+		recommendations.add(recommendation);
+		changeProperty(PROP_APPEARANCE, recommendations);
+	}
 	
+	/**
+	 * Intended to be used by handlers, to iterate over the recommendations added to the FormElement.
+	 * @return the List of {@link Recommendation}s, that is empty if none are present.
+	 */
+	public List getAppearanceRecommendations(){
+		List recommendations = (List) getProperty(PROP_APPEARANCE);
+		if (recommendations == null){
+			recommendations = new ArrayList();
+		}
+		return recommendations;
+	}
 }
