@@ -245,6 +245,26 @@ public class UIStrategy extends BusStrategy {
 			    new Object[] { "Handler with id: " + subscription
 				    + ", has matching degree: "
 				    + tempMatchingDegree }, null);
+		    LogUtils
+			    .logDebug(
+				    busModule,
+				    UIStrategy.class,
+				    "adaptationParametersChanged",
+				    new Object[] { "\n UIHandler profile:\n "
+					    + subscription.uiHandlerProfileFilter
+						    .toStringRecursive()
+					    + "\n ++++++++++++++++++++++++++++++++++++++++++++++++"
+					    + "uiRequest that is getting matched. Addressed user:\n"
+					    + uiRequest.getAddressedUser()
+						    .getURI()
+					    + "\n Modality:\n "
+					    + uiRequest
+						    .getProperty(UIRequest.PROP_PRESENTATION_MODALITY)
+					    + "\n Presentation location:\n "
+					    + uiRequest
+						    .getPresentationLocation()
+					    + "\n ++++++++++++++++++++++++++++++++++++++++++++++++ " },
+				    null);
 
 		    if (tempMatchingDegree > UIHandlerProfile.MATCH_LEVEL_FAILED) {
 			if (subscription.subscriberID.equals(currentHandler)) {
