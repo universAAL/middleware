@@ -22,8 +22,10 @@
  */
 package org.universAAL.middleware.rdf;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.GregorianCalendar;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -55,10 +57,10 @@ public class TypeMapper {
 	    + "#";
 
     /** Storage for mapping java objects to xsd types. */
-    private static Hashtable javaXSD = new Hashtable();
+    private static HashMap javaXSD = new HashMap();
 
     /** Storage for mapping xsd types to java objects. */
-    private static Hashtable xsdJava = new Hashtable();
+    private static HashMap xsdJava = new HashMap();
 
     /**
      * Factory that creates new javax.xml.datatype Objects that map XML to/from
@@ -75,10 +77,12 @@ public class TypeMapper {
 	javaXSD.put(Resource.class, "anyURI");
 	javaXSD.put(Boolean.class, "boolean");
 	javaXSD.put(XMLGregorianCalendar.class, "dateTime");
+	javaXSD.put(BigDecimal.class, "decimal");
 	javaXSD.put(Double.class, "double");
 	javaXSD.put(Duration.class, "duration");
 	javaXSD.put(Float.class, "float");
 	javaXSD.put(Integer.class, "int");
+	javaXSD.put(BigInteger.class, "integer");
 	javaXSD.put(Locale.class, "language");
 	javaXSD.put(Long.class, "long");
 	javaXSD.put(String.class, "string");
@@ -88,10 +92,12 @@ public class TypeMapper {
 	xsdJava.put("anyURI", Resource.class);
 	xsdJava.put("boolean", Boolean.class);
 	xsdJava.put("dateTime", XMLGregorianCalendar.class);
+	xsdJava.put("decimal", BigDecimal.class);
 	xsdJava.put("double", Double.class);
 	xsdJava.put("duration", Duration.class);
 	xsdJava.put("float", Float.class);
 	xsdJava.put("int", Integer.class);
+	xsdJava.put("integer", BigInteger.class);
 	xsdJava.put("language", Locale.class);
 	xsdJava.put("long", Long.class);
 	xsdJava.put("string", String.class);

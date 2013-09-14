@@ -178,6 +178,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
             TIMEOUT = Long
                     .parseLong(AALSpaceManager.COMUNICATION_TIMEOUT_VALUE);
         }
+
     }
 
     public Map<String, AALSpaceDescriptor> getManagedAALSpaces() {
@@ -348,130 +349,124 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
      */
     public synchronized void initAALSpace(Aalspace aalSpaceDefaultConfiguration) {
         // configure the MW with the space configurations
+        if (currentAALSpace != null) {
+            // EXPLAIN AALSpace has been already configured
+            LogUtils.logDebug(context, AALSpaceManagerImpl.class,
+                    "initAALSpace", new Object[] { "The MW belongs to: "
+                            + currentAALSpace.getSpaceCard().toString() }, null);
+            return;
+        }
+        if (aalSpaceDefaultConfiguration == null) {
+            // EXPLAIN no configuration path given so we cannot initialize
+            LogUtils.logDebug(
+                    context,
+                    AALSpaceManagerImpl.class,
+                    "initAALSpace",
+                    new Object[] { "No AALSpace default configuration found on the path: "
+                            + aalSpaceConfigurationPath }, null);
+            return;
+        }
         try {
-            if (currentAALSpace == null && aalSpaceDefaultConfiguration != null) {
-
-                LogUtils.logDebug(
-                        context,
-                        AALSpaceManagerImpl.class,
+            LogUtils.logDebug(context, AALSpaceManagerImpl.class,
+                    "initAALSpace",
+                    new Object[] { "AALSpace default configuration found" },
+                    null);
+            // first look for existing AALSpace with the same name as the
+            // one reported in the default config.file
+            List<AALSpaceCard> spaceCards = controlBroker
+                    .discoverAALSpace(buildAALSpaceFilter(aalSpaceDefaultConfiguration));
+            if (spaceCards != null && spaceCards.size() > 0) {
+                LogUtils.logDebug(context, AALSpaceManagerImpl.class,
                         "initAALSpace",
-                        new Object[] { "AALSpace default configuration found" },
-                        null);
-                // first look for existing AALSpace with the same name as the
-                // one reported in the default config.file
-                List<AALSpaceCard> spaceCards = controlBroker
-                        .discoverAALSpace(buildAALSpaceFilter(aalSpaceDefaultConfiguration));
-                if (spaceCards != null && spaceCards.size() > 0) {
-                    LogUtils.logDebug(context, AALSpaceManagerImpl.class,
-                            "initAALSpace",
-                            new Object[] { "Default AALSpace found" }, null);
-                    synchronized (foundAALSpaces) {
-                        this.foundAALSpaces.addAll(spaceCards);
-                    }
-                } else {
-                    if (myPeerCard.getRole().equals(PeerRole.COORDINATOR)) {
-
-                        LogUtils.logInfo(
-                                context,
-                                AALSpaceManagerImpl.class,
-                                "initAALSpace",
-                                new Object[] { "No default AALSpace found...creating it " },
-                                null);
-
-                        List<org.universAAL.middleware.interfaces.ChannelDescriptor> communicationChannels = new ArrayList<org.universAAL.middleware.interfaces.ChannelDescriptor>();
-                        // fetch the communication channels
-                        communicationChannels = getChannels(aalSpaceDefaultConfiguration
-                                .getCommunicationChannels()
-                                .getChannelDescriptor());
-                        // fetch the peering channel
-                        org.universAAL.middleware.interfaces.ChannelDescriptor peeringChannel = getChannel(aalSpaceDefaultConfiguration
-                                .getPeeringChannel().getChannelDescriptor());
-                        // configure the MW channels
-                        if (controlBroker != null) {
-                            controlBroker.configurePeeringChannel(
-                                    peeringChannel, myPeerCard.getPeerID());
-                            controlBroker.configureChannels(
-                                    communicationChannels,
-                                    myPeerCard.getPeerID());
-
-                            // create the new AALSpace
-                            AALSpaceCard myAALSpace = new AALSpaceCard(
-                                    getAALSpaceProperties(aalSpaceDefaultConfiguration));
-                            myAALSpace.setAalSpaceLifeTime(aalSpaceLifeTime);
-                            currentAALSpace = new AALSpaceDescriptor(
-                                    myAALSpace, communicationChannels);
-                            // since coordinator and deployCoordinator matches,
-                            // configure the space Descriptor
-                            currentAALSpace.setDeployManager(myPeerCard);
-
-                            // announce the AAL Space
-                            controlBroker.buildAALSpace(myAALSpace);
-
-                            // strat thread
-                            refreshAALSpaceThread = new RefreshAALSpaceThread(
-                                    context);
-                            refreshFuture = scheduler.scheduleAtFixedRate(
-                                    refreshAALSpaceThread, 0,
-                                    aalSpaceLifeTime - 1, TimeUnit.SECONDS);
-
-                            // start the thread for management of AALSpace
-                            checkPeerThread = new CheckPeerThread(context);
-                            checkerFuture = scheduler.scheduleAtFixedRate(
-                                    checkPeerThread, 0, 1, TimeUnit.SECONDS);
-
-                            // add the AALSpace created to the list of managed
-                            // AAL spaces
-                            managedAALspaces.put(myAALSpace.getSpaceID(),
-                                    currentAALSpace);
-
-                            // notify to all the listeners a new AAL Space has
-                            // been joined
-                            for (AALSpaceListener spaceListener : listeners) {
-                                spaceListener.aalSpaceJoined(currentAALSpace);
-                            }
-                            peers.put(myPeerCard.getPeerID(), myPeerCard);
-
-                            // init the control broker
-                            LogUtils.logInfo(context,
-                                    AALSpaceManagerImpl.class, "initAALSpace",
-                                    new Object[] { "New AALSpace created!" },
-                                    null);
-
-                        } else {
-                            LogUtils.logWarn(
-                                    context,
-                                    AALSpaceManagerImpl.class,
-                                    "initAALSpace",
-                                    new Object[] { "Control Broker is not initialize" },
-                                    null);
-                        }
-
-                    } else {
-                        LogUtils.logInfo(
-                                context,
-                                AALSpaceManagerImpl.class,
-                                "initAALSpace",
-                                new Object[] { "No default AALSpace found...waiting to join an AALSpace as :"
-                                        + myPeerCard.getRole() }, null);
-                    }
+                        new Object[] { "Default AALSpace found" }, null);
+                synchronized (foundAALSpaces) {
+                    this.foundAALSpaces.addAll(spaceCards);
                 }
             } else {
-                if (currentAALSpace != null)
-                    LogUtils.logDebug(
+                if (myPeerCard.getRole().equals(PeerRole.COORDINATOR)) {
+
+                    LogUtils.logInfo(
                             context,
                             AALSpaceManagerImpl.class,
                             "initAALSpace",
-                            new Object[] { "The MW belongs to: "
-                                    + currentAALSpace.getSpaceCard().toString() },
+                            new Object[] { "No default AALSpace found...creating it " },
                             null);
-                else
-                    LogUtils.logDebug(
+
+                    List<org.universAAL.middleware.interfaces.ChannelDescriptor> communicationChannels = new ArrayList<org.universAAL.middleware.interfaces.ChannelDescriptor>();
+                    // fetch the communication channels
+                    communicationChannels = getChannels(aalSpaceDefaultConfiguration
+                            .getCommunicationChannels().getChannelDescriptor());
+                    // fetch the peering channel
+                    org.universAAL.middleware.interfaces.ChannelDescriptor peeringChannel = getChannel(aalSpaceDefaultConfiguration
+                            .getPeeringChannel().getChannelDescriptor());
+                    // configure the MW channels
+                    if (controlBroker != null) {
+                        controlBroker.configurePeeringChannel(peeringChannel,
+                                myPeerCard.getPeerID());
+                        controlBroker.configureChannels(communicationChannels,
+                                myPeerCard.getPeerID());
+
+                        // create the new AALSpace
+                        AALSpaceCard myAALSpace = new AALSpaceCard(
+                                getAALSpaceProperties(aalSpaceDefaultConfiguration));
+                        myAALSpace.setAalSpaceLifeTime(aalSpaceLifeTime);
+                        currentAALSpace = new AALSpaceDescriptor(myAALSpace,
+                                communicationChannels);
+                        // since coordinator and deployCoordinator matches,
+                        // configure the space Descriptor
+                        currentAALSpace.setDeployManager(myPeerCard);
+
+                        // announce the AAL Space
+                        controlBroker.buildAALSpace(myAALSpace);
+
+                        // strat thread
+                        refreshAALSpaceThread = new RefreshAALSpaceThread(
+                                context);
+                        refreshFuture = scheduler.scheduleAtFixedRate(
+                                refreshAALSpaceThread, 0, aalSpaceLifeTime - 1,
+                                TimeUnit.SECONDS);
+
+                        // start the thread for management of AALSpace
+                        checkPeerThread = new CheckPeerThread(context);
+                        checkerFuture = scheduler.scheduleAtFixedRate(
+                                checkPeerThread, 0, 1, TimeUnit.SECONDS);
+
+                        // add the AALSpace created to the list of managed
+                        // AAL spaces
+                        managedAALspaces.put(myAALSpace.getSpaceID(),
+                                currentAALSpace);
+
+                        // notify to all the listeners a new AAL Space has
+                        // been joined
+                        for (AALSpaceListener spaceListener : listeners) {
+                            spaceListener.aalSpaceJoined(currentAALSpace);
+                        }
+                        peers.put(myPeerCard.getPeerID(), myPeerCard);
+
+                        // init the control broker
+                        LogUtils.logInfo(context, AALSpaceManagerImpl.class,
+                                "initAALSpace",
+                                new Object[] { "New AALSpace created!" }, null);
+
+                    } else {
+                        LogUtils.logWarn(
+                                context,
+                                AALSpaceManagerImpl.class,
+                                "initAALSpace",
+                                new Object[] { "Control Broker is not initialize" },
+                                null);
+                    }
+
+                } else {
+                    LogUtils.logInfo(
                             context,
                             AALSpaceManagerImpl.class,
                             "initAALSpace",
-                            new Object[] { "No AALSpace default configuration found on the path: "
-                                    + aalSpaceConfigurationPath }, null);
+                            new Object[] { "No default AALSpace found...waiting to join an AALSpace as :"
+                                    + myPeerCard.getRole() }, null);
+                }
             }
+
         } catch (Exception e) {
             LogUtils.logError(
                     context,
@@ -940,20 +935,43 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                     null);
             aalSpaceConfigurationPath = (String) configurations
                     .get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_CONFIGURATION_PATH);
-            if (aalSpaceConfigurationPath != null)
-                LogUtils.logDebug(
+            try {
+                if ( aalSpaceConfigurationPath == null ) {
+                    LogUtils.logWarn(
+                            context,
+                            AALSpaceManagerImpl.class,
+                            "loadConfigurations",
+                            new Object[] { "AALSpace default configurations are null!" },
+                            null);
+                } else {
+                    //Resolving the relative path to absolute path
+                    File config = new File(aalSpaceConfigurationPath);
+                    aalSpaceConfigurationPath = config.getCanonicalPath();
+                    if ( config.isDirectory() == false ) {
+                        LogUtils.logWarn(
+                                context,
+                                AALSpaceManagerImpl.class,
+                                "loadConfigurations",
+                                new Object[] { "AALSpace default configurations ", aalSpaceConfigurationPath, " does not point to a directory or is not readable" },
+                                null);
+                    } else {
+                        LogUtils.logInfo(
+                                context,
+                                AALSpaceManagerImpl.class,
+                                "loadConfigurations",
+                                new Object[] { "AALSpace default configurations fetched: ",
+                                    aalSpaceConfigurationPath }, null);
+                    }
+                }
+            } catch (IOException e) {
+                LogUtils.logError(
                         context,
                         AALSpaceManagerImpl.class,
                         "loadConfigurations",
-                        new Object[] { "AALSpace default configurations fetched: "
-                                + aalSpaceConfigurationPath }, null);
-            else
-                LogUtils.logWarn(
-                        context,
-                        AALSpaceManagerImpl.class,
-                        "loadConfigurations",
-                        new Object[] { "AALSpace default configurations are null!" },
+                        new Object[] { "AALSpace default configurations is set by property \"aalSpaceConfigurationPath\" but it points to invalid location ", aalSpaceConfigurationPath },
                         null);
+                aalSpaceConfigurationPath = null;
+            }
             LogUtils.logDebug(context, AALSpaceManagerImpl.class,
                     "loadConfigurations",
                     new Object[] { "Fetching AALSpace extension" }, null);
@@ -1052,6 +1070,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     }
 
     public synchronized void peerFound(PeerCard peer) {
+
         if (peer != null && !peers.containsKey(peer.getPeerID())) {
             LogUtils.logInfo(context, AALSpaceManagerImpl.class, "peerFound",
                     new Object[] { "--->The Peer: "
@@ -1061,13 +1080,14 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
             for (AALSpaceListener list : listeners) {
                 list.newPeerJoined(peer);
 
+            }
+
         }
 
     }
 
-    }
-
     public synchronized void peerLost(PeerCard peer) {
+
         if (peer != null) {
             LogUtils.logInfo(context, AALSpaceManagerImpl.class, "peerLost",
                     new Object[] { "--->Peer +" + peer.getPeerID()
@@ -1079,6 +1099,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
             }
 
         }
+
     }
 
     public void sharedObjectAdded(Object sharedObj, Object removeHook) {
@@ -1186,14 +1207,18 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                     "leaveAALSpace",
                     new Object[] { "AALSpace Manager not initialized" }, null);
         }
+
     }
 
     public void dispose() {
+
         // remove me as listener
         context.getContainer().removeSharedObjectListener(this);
         // workaround waiting for
         // http://forge.universaal.org/gf/project/middleware/tracker/?action=TrackerItemEdit&tracker_item_id=270
-        controlBroker.sharedObjectRemoved(this);
+        if (controlBroker != null) {
+            controlBroker.sharedObjectRemoved(this);
+        }
         scheduler.shutdownNow();
         scheduler.shutdown();
         if (init()) {
@@ -1284,15 +1309,18 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     }
 
     public void mpaInstalled(AALSpaceDescriptor spaceDescriptor) {
+
         controlBroker.signalAALSpaceStatus(AALSpaceStatus.INSTALLED_UAAP,
                 spaceDescriptor);
 
     }
 
     public void mpaInstalling(AALSpaceDescriptor spaceDescriptor) {
+
         // send a event notification to the AALSpace
         controlBroker.signalAALSpaceStatus(AALSpaceStatus.INSTALLING_UAAP,
                 spaceDescriptor);
+
     }
 
     public void aalSpaceEvent(AALSpaceStatus newStatus) {

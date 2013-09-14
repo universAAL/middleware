@@ -73,7 +73,11 @@ middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brok
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageFields.java -text
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployNotificationPayload.java -text
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployPayload.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/gson/BrokerMessageSerializer.java -text svneol=unset#text/plain
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/gson/GsonParserBuilder.java -text svneol=unset#text/plain
+middleware.core/mw.brokers.api.core/src/test/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageTest.java -text svneol=unset#text/plain
 middleware.core/mw.brokers.api.core/src/test/java/org/universAAL/middleware/brokers/message/control/ControlMessageTest.java -text
+middleware.core/mw.brokers.api.core/src/test/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageTest.java -text svneol=unset#text/plain
 middleware.core/mw.brokers.control.core/ASL2.0.txt -text
 middleware.core/mw.brokers.control.core/NOTICE.txt -text
 middleware.core/mw.brokers.control.core/pom.xml -text
@@ -238,11 +242,13 @@ middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/Di
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/Modality.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/Preference.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/PrivacyLevel.java -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/Recommendation.java -text svneol=unset#text/plain
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/UIBusOntology.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/ChoiceItem.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/ChoiceList.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/Form.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/FormControl.java -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/FormElement.java -text svneol=unset#text/plain
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/Group.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/Input.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/rdf/InputField.java -text
@@ -287,9 +293,16 @@ middleware.core/mw.connectors.discovery.slp.core/pom.xml -text
 middleware.core/mw.connectors.discovery.slp.core/src/main/java/org/universAAL/middleware/connectors/discovery/slp/SLPBrowser.java -text
 middleware.core/mw.connectors.discovery.slp.core/src/main/java/org/universAAL/middleware/connectors/discovery/slp/SLPDiscoveryConnector.java -text
 middleware.core/mw.connectors.discovery.slp.core/src/main/java/org/universAAL/middleware/connectors/discovery/slp/util/Consts.java -text
+middleware.core/mw.container.junit/ASL2.0.txt -text
+middleware.core/mw.container.junit/NOTICE.txt -text
+middleware.core/mw.container.junit/pom.xml -text
+middleware.core/mw.container.junit/src/main/java/org/universAAL/container/JUnit/JUnitContainer.java -text
+middleware.core/mw.container.junit/src/main/java/org/universAAL/container/JUnit/JUnitModuleContext.java -text
+middleware.core/mw.container.junit/src/test/java/org/universAAL/test/SimpleTest.java -text
 middleware.core/mw.container.xfaces.core/ASL2.0.txt -text
 middleware.core/mw.container.xfaces.core/NOTICE.txt -text
 middleware.core/mw.container.xfaces.core/pom.xml -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/Attributes.java -text svneol=unset#text/plain
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/Container.java -text
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/LogListener.java -text
 middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/ModuleActivator.java -text

@@ -20,28 +20,27 @@
  */
 package org.universAAL.middleware.brokers.message.deploy;
 
-import java.util.Arrays;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
-import org.universAAL.middleware.brokers.message.BrokerMessageFields;
+import org.universAAL.middleware.brokers.message.BrokerMessage.BrokerMessageTypes;
+import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.mpa.UAPPCard;
+
+import com.google.gson.Gson;
 
 /**
  * Deploy message
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @author <a href="mailto:giancarlo.riolo@isti.cnr.it">Giancarlo Riolo</a>
  * @version $LastChangedRevision$ ($LastChangedDate$)
- *
+ * 
  */
 public class DeployMessage implements BrokerMessage {
 
     public enum DeployMessageType {
-        REQUEST_TO_INSTALL_PART, REQUEST_TO_UNINSTALL_PART, PART_NOTIFICATION;
+	REQUEST_TO_INSTALL_PART, REQUEST_TO_UNINSTALL_PART, PART_NOTIFICATION;
 
     }
 
@@ -51,95 +50,49 @@ public class DeployMessage implements BrokerMessage {
 
     public DeployMessage(DeployMessageType messageType, DeployPayload payload) {
 
-        this.deployMessageType = messageType;
-        this.payload = payload;
-        this.mType = BrokerMessageTypes.DeployMessage;
+	this.deployMessageType = messageType;
+	this.payload = payload;
+	this.mType = BrokerMessageTypes.DeployMessage;
     }
 
     public DeployMessageType getMessageType() {
-        return deployMessageType;
+	return deployMessageType;
     }
 
     public void setMessageType(DeployMessageType messageType) {
-        this.deployMessageType = messageType;
+	this.deployMessageType = messageType;
     }
 
     public String toString() {
-        JSONObject obj = new JSONObject();
+	String serializedMessage = null;
 
-        try {
+	try {
+	    Gson gson = GsonParserBuilder.getInstance().buildGson();
+	    serializedMessage = gson.toJson(this);
 
-            // marhall the type
-            obj.put(BrokerMessageFields.BROKER_MESSAGE_TYPE, mType.toString());
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 
-            // marhall deploy message type
-            obj.put(DeployMessageFields.DEPLOY_MTYPE,
-                    deployMessageType.toString());
-
-            marshallUAPPCard(obj, payload.getuappCard());
-
-            // marhall payload
-            if (payload != null
-                    && payload instanceof DeployNotificationPayload == false) {
-                obj.put(DeployMessageFields.DEPLOY_PAYLOAD, "1");
-
-                // marshall the part as a String
-                // obj.put(DeployMessageFields.PART, new
-                // String(payload.getPart()).getBytes("UTF-8"));
-                obj.put(DeployMessageFields.PART,
-                        Arrays.asList(payload.getPart()));
-            } else if (payload != null
-                    && payload instanceof DeployNotificationPayload) {
-
-                obj.put(DeployMessageFields.DEPLOY_PAYLOAD, "2");
-
-                DeployNotificationPayload deployNoPayload = (DeployNotificationPayload) payload;
-
-                // marhsall uAPP PArt ID
-                obj.put(DeployMessageFields.PART_ID,
-                        deployNoPayload.getPartID());
-
-                // Marshall UAPP part status
-                obj.put(DeployMessageFields.PART_STATUS, deployNoPayload
-                        .getMpaPartStatus().ordinal());
-
-            }
-
-        } catch (JSONException e) {
-            new DeployMessageException("Unable to unmarshall message: "
-                    + e.toString(), e);
-        } catch (Exception e) {
-            new DeployMessageException("Unable to unmarshall message: "
-                    + e.toString(), e);
-        }
-        return obj.toString();
-    }
-
-    private void marshallUAPPCard(JSONObject obj, UAPPCard card)
-            throws JSONException {
-        // marshall uAPP Card
-        obj.put(DeployMessageFields.UAPP_NAME, card.getName());
-        obj.put(DeployMessageFields.UAPP_ID, card.getId());
-        obj.put(DeployMessageFields.UAPP_DESC, card.getDescription());
-        obj.put(DeployMessageFields.UAPP_CARD_PART_ID, card.getPartId());
-        obj.put(DeployMessageFields.UAPP_CARD_SERVICE_ID, card.getServiceId());
+	return serializedMessage;
     }
 
     public DeployPayload getPayload() {
-        return payload;
+	return payload;
 
     }
 
     public BrokerMessageTypes getMType() {
-        return mType;
+	return mType;
     }
 
     /**
      * To implement
      */
     public PeerCard[] getReceivers() {
-        // TODO Auto-generated method stub
-        return null;
+	// TODO Auto-generated method stub
+	return null;
     }
 
 }

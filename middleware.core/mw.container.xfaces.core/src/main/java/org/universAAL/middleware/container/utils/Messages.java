@@ -200,7 +200,7 @@ public class Messages {
 	/**
 	 * Loads the property file into {@link Properties}.
 	 * @param propertiesURL the file from which to load.
-	 * @return the {@link Properties} conained in file f.
+	 * @return the {@link Properties} contained in file f.
 	 * @throws IOException if file not found, or could not read.
 	 */
 	private Properties load(URL propertiesURL) throws IOException {

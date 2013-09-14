@@ -40,7 +40,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @navassoc - "label" 1 Label
  * @navassoc - "parentGroup" 1 Group
  */
-public abstract class FormControl extends FinalizedResource {
+public abstract class FormControl extends FormElement {
 
     /**
      * Form controls may have a {@link Label}.

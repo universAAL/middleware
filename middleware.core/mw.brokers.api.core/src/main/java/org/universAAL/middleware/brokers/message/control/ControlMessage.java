@@ -22,32 +22,21 @@
 package org.universAAL.middleware.brokers.message.control;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.sound.sampled.AudioFileFormat.Type;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
-import org.universAAL.middleware.brokers.message.BrokerMessageFields;
-import org.universAAL.middleware.brokers.message.Payload;
-import org.universAAL.middleware.brokers.message.BrokerMessage.BrokerMessageTypes;
-import org.universAAL.middleware.brokers.message.deploy.DeployMessageException;
-import org.universAAL.middleware.brokers.message.deploy.DeployMessageFields;
-import org.universAAL.middleware.brokers.message.deploy.DeployNotificationPayload;
+import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 
+import com.google.gson.Gson;
+
 /**
  * Control message
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
@@ -67,230 +56,123 @@ public class ControlMessage implements BrokerMessage {
     private String transactionId;
 
     public enum ControlMessageType {
-        AALSPACE_EVENT, GET_ATTRIBUTES, MATCH_ATTRIBUTES, GET_ATTRIBUTES_RESPONSE, MATCH_ATTRIBUTES_RESPONSE
+	AALSPACE_EVENT, GET_ATTRIBUTES, MATCH_ATTRIBUTES, GET_ATTRIBUTES_RESPONSE, MATCH_ATTRIBUTES_RESPONSE
     }
 
     public enum ControlMessageFields {
-        ID, TYPE, PAYLOAD
+	ID, TYPE, PAYLOAD
     }
 
     public ControlMessage(AALSpaceDescriptor space, List<String> attributes) {
-        this(space, ControlMessageType.GET_ATTRIBUTES);
-        this.attributes = attributes;
+	this(space, ControlMessageType.GET_ATTRIBUTES);
+	this.attributes = attributes;
     }
 
     public ControlMessage(AALSpaceDescriptor space, ControlMessageType type) {
-        this();
-        this.space = space;
-        this.messageType = type;
+	this();
+	this.space = space;
+	this.messageType = type;
     }
 
     private ControlMessage() {
-        this.mType = BrokerMessageTypes.ControlMessage;
-        this.transactionId = UUID.randomUUID().toString();
+	this.mType = BrokerMessageTypes.ControlMessage;
+	this.transactionId = UUID.randomUUID().toString();
     }
 
     public ControlMessage(AALSpaceDescriptor space,
-            Map<String, Serializable> filter) {
-        this(space, ControlMessageType.MATCH_ATTRIBUTES);
-        this.filter = filter;
+	    Map<String, Serializable> filter) {
+	this(space, ControlMessageType.MATCH_ATTRIBUTES);
+	this.filter = filter;
     }
 
     public ControlMessage(AALSpaceDescriptor space, String id,
-            HashMap<String, Serializable> map) {
-        this(space, ControlMessageType.GET_ATTRIBUTES_RESPONSE, id);
-        this.values = map;
+	    HashMap<String, Serializable> map) {
+	this(space, ControlMessageType.GET_ATTRIBUTES_RESPONSE, id);
+	this.values = map;
     }
 
     public ControlMessage(AALSpaceDescriptor space, String id,
-            HashMap<String, Serializable> map, boolean match) {
-        this(space, ControlMessageType.MATCH_ATTRIBUTES_RESPONSE, id);
-        this.values = map;
-        this.match = match;
+	    HashMap<String, Serializable> map, boolean match) {
+	this(space, ControlMessageType.MATCH_ATTRIBUTES_RESPONSE, id);
+	this.values = map;
+	this.match = match;
     }
 
     public ControlMessage(AALSpaceDescriptor space, ControlMessageType type,
-            String id) {
-        this.space = space;
-        this.messageType = type;
-        this.mType = BrokerMessageTypes.ControlMessage;
-        this.transactionId = id;
+	    String id) {
+	this.space = space;
+	this.messageType = type;
+	this.mType = BrokerMessageTypes.ControlMessage;
+	this.transactionId = id;
     }
 
     public String toString() {
-        if (parsed == null) {
-            JSONObject obj = new JSONObject();
+	String serializedMessage = null;
+	if (parsed == null) {
 
-            try {
-                obj.put(BrokerMessageFields.BROKER_MESSAGE_TYPE.toString(),
-                        mType.toString());
-                obj.put(ControlMessageFields.TYPE.toString(),
-                        messageType.ordinal());
-                obj.put(ControlMessageFields.ID.toString(), transactionId);
-                if (payload == null) {
-                    generatePaylod();
-                }
-                obj.put(ControlMessageFields.PAYLOAD.toString(), payload);
-            } catch (JSONException e) {
-                new DeployMessageException(
-                        "Unable to unmarshall ControlMessage, invalid JSON: "
-                                + e.toString(), e);
-            } catch (Exception e) {
-                new DeployMessageException(
-                        "Unable to unmarshall ControlMessage: " + e.toString(),
-                        e);
-            }
+	    try {
+		Gson gson = GsonParserBuilder.getInstance().buildGson();
+		serializedMessage = gson.toJson(this);
 
-            parsed = obj.toString();
-        }
-        return parsed;
+	    } catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	}
+	parsed = serializedMessage;
+	return parsed;
     }
 
     public boolean getMatchFilter() {
-        return match;
-    }
-
-    private void generatePaylod() {
-        JSONObject response;
-        switch (messageType) {
-        case AALSPACE_EVENT:
-            payload = "";
-            break;
-        case GET_ATTRIBUTES:
-            payload = new JSONArray(attributes).toString();
-            break;
-        case GET_ATTRIBUTES_RESPONSE:
-            payload = new JSONObject(values).toString();
-            break;
-        case MATCH_ATTRIBUTES:
-            payload = new JSONObject(filter).toString();
-            break;
-        case MATCH_ATTRIBUTES_RESPONSE:
-            if (values == null || values.isEmpty() || match == false) {
-                payload = "";
-            } else {
-                payload = new JSONObject(values).toString();
-            }
-            break;
-        default:
-            break;
-        }
+	return match;
     }
 
     public ControlMessageType getMessageType() {
-        return messageType;
+	return messageType;
     }
 
     public static ControlMessage unmarshall(String message) throws Exception {
-        JSONObject obj = new JSONObject(message);
-        BrokerMessageTypes type = BrokerMessageTypes.valueOf(obj
-                .getString(BrokerMessageFields.BROKER_MESSAGE_TYPE));
-        if (type != BrokerMessageTypes.ControlMessage) {
-            throw new IllegalArgumentException(
-                    "Invalid message type, unable to unmarshall it:" + type
-                            + " must be " + BrokerMessageTypes.ControlMessage);
-        }
-        ControlMessage value = new ControlMessage();
-        value.messageType = ControlMessageType.values()[obj
-                .getInt(ControlMessageFields.TYPE.toString())];
-        value.transactionId = obj.getString(ControlMessageFields.ID.toString());
-        switch (value.messageType) {
 
-        case GET_ATTRIBUTES: {
-            ArrayList<String> attributes = new ArrayList<String>();
-            String tmp = obj.getString(ControlMessageFields.PAYLOAD.toString());
-            JSONArray array = new JSONArray(tmp);
-            for (int i = 0; i < array.length(); i++) {
-                attributes.add(array.getString(i));
-            }
-            value.attributes = attributes;
-        }
-            break;
+	try {
 
-        case MATCH_ATTRIBUTES: {
-            Map<String, Serializable> filter = new HashMap<String, Serializable>();
-            String tmp = obj.getString(ControlMessageFields.PAYLOAD.toString());
-            JSONObject map = new JSONObject(tmp);
-            Iterator i = map.keys();
-            while (i.hasNext()) {
-                String name = (String) i.next();
-                if (map.isNull(name)) {
-                    filter.put(name, null);
-                } else {
-                    Object item = map.get(name);
-                    filter.put(name, (Serializable) item);
-                }
-            }
-            value.filter = filter;
-        }
-            break;
-        case GET_ATTRIBUTES_RESPONSE: {
-            Map<String, Serializable> filter = new HashMap<String, Serializable>();
-            String tmp = obj.getString(ControlMessageFields.PAYLOAD.toString());
-            JSONObject map = new JSONObject(tmp);
-            Iterator i = map.keys();
-            while (i.hasNext()) {
-                String name = (String) i.next();
-                Object item = map.get(name);
-                filter.put(name, (Serializable) item);
-            }
-            value.values = filter;
-        }
-            break;
-        case MATCH_ATTRIBUTES_RESPONSE: {
-            Map<String, Serializable> filter = new HashMap<String, Serializable>();
-            String tmp = obj.getString(ControlMessageFields.PAYLOAD.toString());
-            if ("".equals(tmp)) {
-                value.match = false;
-                value.values = filter;
-            } else {
-                JSONObject map = new JSONObject(tmp);
-                Iterator i = map.keys();
-                while (i.hasNext()) {
-                    String name = (String) i.next();
-                    Object item = map.get(name);
-                    filter.put(name, (Serializable) item);
-                }
-                value.values = filter;
-                value.match = true;
-            }
-        }
-            break;
-        case AALSPACE_EVENT: // No payload used for this message
-            break;
-        default:
-            throw new IllegalAccessException("Unsupported message type:"
-                    + value.messageType);
-        }
-        return value;
+	    Gson gson = GsonParserBuilder.getInstance().buildGson();
+
+	    return gson.fromJson(message, ControlMessage.class);
+
+	} catch (Exception e) {
+
+	    throw new Exception(
+		    "Unable to unmashall ControlMessage. Original message: "
+			    + message + ". Full Stack: " + e.toString());
+	}
     }
 
     public String getTransactionId() {
-        return transactionId;
+	return transactionId;
     }
 
     public Map<String, Serializable> getAttributeFilter() {
-        return filter;
+	return filter;
     }
 
     public Map<String, Serializable> getAttributeValues() {
-        return values;
+	return values;
     }
 
     public BrokerMessageTypes getMType() {
-        return mType;
+	return mType;
     }
 
     public List<String> getAttributes() {
-        return attributes;
+	return attributes;
     }
 
     /**
      * To implement
      */
     public PeerCard[] getReceivers() {
-        // TODO Auto-generated method stub
-        return null;
+	// TODO Auto-generated method stub
+	return null;
     }
 
 }

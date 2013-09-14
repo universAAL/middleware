@@ -59,7 +59,6 @@ import org.universAAL.middleware.service.data.factory.IServiceStrategyDataFactor
 import org.universAAL.middleware.service.data.factory.ServiceStrategyDataFactory;
 import org.universAAL.middleware.service.owl.InitialServiceDialog;
 import org.universAAL.middleware.service.owl.Service;
-import org.universAAL.middleware.service.owl.UserInterfaceService;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
@@ -142,7 +141,7 @@ public class ServiceStrategy extends BusStrategy {
     protected PeerCard theCoordinator = null;
 
     public ServiceStrategy(CommunicationModule commModule, ModuleContext mc) {
-	super(commModule);
+	super(commModule, "Service Bus Strategy");
 
 	// Initiated the factory
 	IServiceStrategyDataFactory factory = createServiceStrategyDataFactory();
@@ -279,7 +278,7 @@ public class ServiceStrategy extends BusStrategy {
 	    // about the availability of the coordinator
 	    // do this in a thread after waiting 10 seconds to make sure that
 	    // the join process within the sodapop engine is closed
-	    new Thread() {
+	    new Thread("Service Bus Strategy - Waiting for Bus Coordinator") {
 		public void run() {
 		    try {
 			sleep(10000);

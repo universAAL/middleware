@@ -36,7 +36,7 @@ import org.universAAL.middleware.rdf.FinalizedResource;
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class Label extends FinalizedResource {
+public class Label extends FormElement {
     public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Label";
 
     /**
