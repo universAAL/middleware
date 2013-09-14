@@ -40,7 +40,6 @@ import org.universAAL.middleware.brokers.control.ExceptionUtils;
 import org.universAAL.middleware.connectors.DeployConnector;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;

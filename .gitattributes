@@ -522,6 +522,7 @@ middleware.osgi/mw.bus.context.osgi/NOTICE.txt -text
 middleware.osgi/mw.bus.context.osgi/pom.xml -text
 middleware.osgi/mw.bus.context.osgi/src/main/java/org/universAAL/middleware/context/impl/osgi/Activator.java -text
 middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/context/test/ArtifactIntegrationTest.java -text
+middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/context/test/SerializerTest.java -text
 middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/context/test/ont/Location.java -text
 middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/context/test/ont/TestOntology.java -text
 middleware.osgi/mw.bus.context.osgi/src/test/java/org/universAAL/middleware/context/test/ont/User.java -text
@@ -543,6 +544,7 @@ middleware.osgi/mw.bus.service.osgi/src/main/java/org/universAAL/middleware/serv
 middleware.osgi/mw.bus.service.osgi/src/test/java/org/universAAL/middleware/service/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.bus.service.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.bus.tracker.osgi/ASL2.0.txt -text
+middleware.osgi/mw.bus.tracker.osgi/NOTICE.txt -text
 middleware.osgi/mw.bus.tracker.osgi/pom.xml -text
 middleware.osgi/mw.bus.tracker.osgi/src/main/java/org/universAAL/middleware/tracker/osgi/Activator.java -text
 middleware.osgi/mw.bus.tracker.osgi/src/test/java/org/universAAL/middleware/gateway/test/BusRegistryTest.java -text
@@ -633,6 +635,7 @@ middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/contai
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundleContext.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/BundleConfigHome.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/util/Messages.java -text
+middleware.osgi/mw.container.osgi/src/test/java/org/universAAL/middleware/container/test/ArtifactIntegrationTest.java -text
 middleware.osgi/mw.container.xfaces.osgi/ASL2.0.txt -text
 middleware.osgi/mw.container.xfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.container.xfaces.osgi/pom.xml -text
@@ -706,7 +709,13 @@ middleware.osgi/mw.modules.communication.osgi/ASL2.0.txt -text
 middleware.osgi/mw.modules.communication.osgi/NOTICE.txt -text
 middleware.osgi/mw.modules.communication.osgi/pom.xml -text
 middleware.osgi/mw.modules.communication.osgi/src/main/java/org/universAAL/middleware/modules/communication/osgi/Activator.java -text
+middleware.osgi/mw.pom.osgi/composite/ASL2.0.txt -text
+middleware.osgi/mw.pom.osgi/composite/NOTICE.txt -text
 middleware.osgi/mw.pom.osgi/composite/pom.xml -text
+middleware.osgi/mw.pom.osgi/mw.karaf.feature/ASL2.0.txt -text
+middleware.osgi/mw.pom.osgi/mw.karaf.feature/NOTICE.txt -text
+middleware.osgi/mw.pom.osgi/mw.karaf.feature/pom.xml -text
+middleware.osgi/mw.pom.osgi/mw.karaf.feature/src/main/features/mw.xml -text
 middleware.osgi/mw.pom.osgi/pom.xml -text
 middleware.resources/mw.schemas/ASL2.0.txt -text
 middleware.resources/mw.schemas/NOTICE.txt -text
