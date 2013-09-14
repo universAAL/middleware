@@ -49,7 +49,7 @@
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.context.osgi/${mw.version}</bundle>
 			
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.service.osgi/${mw.version}</bundle>
-		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.ui.osgi/${mw.version}</bundle>
+		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.ui.osgi/2.0.2-SNAPSHOT</bundle>
 		
 		
 
