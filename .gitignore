@@ -1449,3 +1449,11 @@ pom/.project
 pom/.settings
 pom/target
 pom/uAAL.log
+thirdparty/jslp.core/.classpath
+thirdparty/jslp.core/.project
+thirdparty/jslp.core/.settings
+thirdparty/jslp.core/target
+thirdparty/jslp.osgi/.classpath
+thirdparty/jslp.osgi/.project
+thirdparty/jslp.osgi/.settings
+thirdparty/jslp.osgi/target
