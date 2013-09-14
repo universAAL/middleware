@@ -12,6 +12,7 @@
   <version>2.0.1-SNAPSHOT</version>
   <name>universAAL Karaf Feature Middleware</name>
   <properties>
+<!--   	WARNING: THERE MAY BE MODULES WITH DIFFERENT SNAPSHOT VERSIONS, CHECK THE FEATURE!!! -->
     <mw.version>${project.version}</mw.version>
     <felix-version>2.0.1</felix-version>
     <commons-codec-version>1.4</commons-codec-version>
