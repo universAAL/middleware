@@ -33,6 +33,7 @@ import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.ui.impl.UIStrategy;
 import org.universAAL.middleware.ui.owl.Modality;
 
 /**
@@ -54,19 +55,21 @@ public class UIHandlerProfile extends FinalizedResource implements
     public static final String PROP_INPUT_MODALITY = UIRequest.uAAL_UI_NAMESPACE
 	    + "inputModality";
 
-    public static final int MATCH_ADDRESED_USER = 0x40;
-    public static final int MATCH_MAIN_MODALITY = 0x20;
-    public static final int MATCH_ALT_MODALITY = 0x10;
-    public static final int MATCH_USER_LOCATION = 0x08;
-    public static final int MATCH_USER_IMPAIRMENTS = 0x04;
-    public static final int MATCH_DIALOG_PRIVACY = 0x02;
-    public static final int MATCH_DIALOG_LANGUAGE = 0x01;
-    public static final int MATCH_LEVEL_FAILED = 0x00;
+    // individual weights of matching criteria
+    public static final int MATCH_ADDRESED_USER = 0x80; // 128
+    public static final int MATCH_MAIN_MODALITY = 0x40; // 64
+    public static final int MATCH_ALT_MODALITY = 0x20;// 32
+    public static final int MATCH_USER_LOCATION = 0x10;// 16
+    public static final int MATCH_USER_IMPAIRMENTS = 0x08;// 8
+    public static final int MATCH_DIALOG_PRIVACY = 0x04;// 4
+    public static final int MATCH_DIALOG_LANGUAGE = 0x02;// 2
+    public static final int MATCH_DIALOG_FORM = 0x01;// 1
+    public static final int MATCH_LEVEL_FAILED = 0x00;// 0
 
     private List<MergedRestriction> restrictions;
 
     /**
-     * Instantiates a new UI handler profile.
+     * Instantiates a new {@link UIHandlerProfile}.
      */
     public UIHandlerProfile() {
 	super();
@@ -88,14 +91,14 @@ public class UIHandlerProfile extends FinalizedResource implements
 
 	String prop = mergedRestriction.getOnProperty();
 	if (UIRequest.PROP_ADDRESSED_USER.equals(prop)
+		|| UIRequest.PROP_PRESENTATION_MODALITY.equals(prop)
+		|| UIRequest.PROP_PRESENTATION_LOCATION.equals(prop)
+		|| UIRequest.PROP_HAS_ACCESS_IMPAIRMENT.equals(prop)
+		|| UIRequest.PROP_DIALOG_PRIVACY_LEVEL.equals(prop)
+		|| UIRequest.PROP_DIALOG_LANGUAGE.equals(prop)
 		|| UIRequest.PROP_DIALOG_FORM.equals(prop)
 		|| UIRequest.PROP_DIALOG_PRIORITY.equals(prop)
-		|| UIRequest.PROP_DIALOG_LANGUAGE.equals(prop)
-		|| UIRequest.PROP_DIALOG_PRIVACY_LEVEL.equals(prop)
-		|| UIRequest.PROP_HAS_ACCESS_IMPAIRMENT.equals(prop)
-		|| UIRequest.PROP_HAS_PREFERENCE.equals(prop)
-		|| UIRequest.PROP_PRESENTATION_LOCATION.equals(prop)
-		|| UIRequest.PROP_PRESENTATION_MODALITY.equals(prop)) {
+		|| UIRequest.PROP_HAS_PREFERENCE.equals(prop)) {
 	    if (propRestrictionAllowed(prop)) {
 		restrictions.add(mergedRestriction);
 		return true;
@@ -143,22 +146,16 @@ public class UIHandlerProfile extends FinalizedResource implements
     }
 
     /**
-     * Determines whether the given {@link UIRequest} matches this profile.
+     * Determines whether the given {@link UIRequest} matches this profile and
+     * returns the weighted matching degree. In {@link UIStrategy} (from there
+     * this method is called when selecting the best {@link UIHandler} for
+     * certain {@link UIRequest}) additional weight is added on this one that
+     * reflects the lastly used {@link UIHandler}.
      * 
      * @param uiRequest
      *            the {@link UIRequest}
-     * @return a value indicating to which degree the {@link UIRequest} matches:
-     *         <ul>
-     *         <li>{@link #MATCH_LEVEL_SUCCESS} if all restrictions match the
-     *         request,</li>
-     *         <li>{@link #MATCH_LEVEL_ALT} if at least one of the restrictions
-     *         does not match the request, but this non-matching restriction is
-     *         on the modality ( {@link UIRequest#PROP_PRESENTATION_MODALITY})
-     *         and the alternative modality (
-     *         {@link UIRequest#PROP_PRESENTATION_MODALITY_ALT}) matches, or</li>
-     *         <li>{@link #MATCH_LEVEL_FAILED} if the restrictions do not match
-     *         or the given {@link UIRequest} is null.</li>
-     *         </ul>
+     * @return a value indicating to which degree the {@link UIRequest} matches
+     *         the {@link UIHandlerProfile}
      */
     public int getMatchingDegree(UIRequest uiRequest) {
 	if (uiRequest == null) {
@@ -196,6 +193,10 @@ public class UIHandlerProfile extends FinalizedResource implements
 		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_LANGUAGE)) {
 
 		    result += MATCH_DIALOG_LANGUAGE;
+		}
+		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_FORM)) {
+
+		    result += MATCH_DIALOG_FORM;
 		}
 	    } else {
 		if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
