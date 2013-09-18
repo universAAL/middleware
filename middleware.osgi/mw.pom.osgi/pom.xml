@@ -53,7 +53,7 @@
   </scm>
   <properties>
     <nameMatchString>^universAAL Middleware .* (\(OSGi\))|(\(KARAF\))$</nameMatchString>
-    <separatedGroupIds>org.universAAL.middleware</separatedGroupIds>
+    <separatedGroupIds>org.universAAL.middleware, org.universAAL.thirdparty</separatedGroupIds>
     <karaf.version>2.2.5</karaf.version>
     <groupIdMatchString>^org\.universAAL\.middleware</groupIdMatchString>
     <artifactIdMatchString>^mw\..*(\.osgi)|(\.karaf)$</artifactIdMatchString>
