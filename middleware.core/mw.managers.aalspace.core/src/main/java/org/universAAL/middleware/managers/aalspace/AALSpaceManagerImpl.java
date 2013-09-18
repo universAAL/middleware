@@ -756,6 +756,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     private IAALSpace loadConfigurationFromXML(File[] spaces) {
 	final String METHOD = "loadConfigurationFromXML";
 	File xml = spaces[0];
+
 	if (spaces.length > 1) {
 	    LogUtils.logWarn(
 		    context,
@@ -765,13 +766,10 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 			    "Multiple AALSpace configuration found but only using the file ",
 			    xml.getAbsolutePath() }, null);
 	}
-	LogUtils.logDebug(
-		context,
-		AALSpaceManagerImpl.class,
-		METHOD,
-		new Object[] {
-			"AALSpace configuration found loading from file ",
+	LogUtils.logDebug(context, AALSpaceManagerImpl.class, METHOD,
+		new Object[] { "Loading AALSpace configuration from the file ",
 			xml.getAbsolutePath() }, null);
+
 	IAALSpace space = null;
 	try {
 	    loadXMLParser();
