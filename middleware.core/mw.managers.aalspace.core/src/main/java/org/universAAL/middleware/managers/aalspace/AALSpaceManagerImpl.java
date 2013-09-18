@@ -291,8 +291,9 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    context,
 		    AALSpaceManagerImpl.class,
 		    "initAALSpace",
-		    new Object[] { "No AALSpace default configuration found on the path: "
-			    + aalSpaceConfigurationPath }, null);
+		    new Object[] {
+			    "No AALSpace default configuration found on the path: ",
+			    aalSpaceConfigurationPath, " giving up" }, null);
 	    return;
 	}
 	try {
@@ -664,8 +665,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     private File[] getReadbleFileList(String aalSpaceConfigurationPath,
 	    final String[] extensions) {
 	File spaceConfigDirectory = new File(aalSpaceConfigurationPath);
-	if (spaceConfigDirectory.canRead() == false
-		|| spaceConfigDirectory.canExecute() == false) {
+	if (spaceConfigDirectory.canRead() == false ) {
 	    LogUtils.logWarn(context, AALSpaceManagerImpl.class, "getFileList",
 		    new Object[] { "File: " + aalSpaceConfigurationPath
 			    + " cannot be read." }, null);
@@ -707,7 +707,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 
 	// get the list of config files
 	File[] spaces = getReadbleFileList(aalSpaceConfigurationPath,
-		new String[] { ".xml", ".json" });
+		new String[] { ".space" });
 	if (spaces == null || spaces.length == 0) {
 	    LogUtils.logWarn(
 		    context,
@@ -721,7 +721,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 
 	    aalSpaceConfigurationPath = altConfigDir;
 	    spaces = getReadbleFileList(aalSpaceConfigurationPath,
-		    new String[] { ".xml", ".json" });
+		    new String[] { ".space" });
 	}
 
 	if (spaces == null || spaces.length == 0) {
@@ -755,16 +755,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 
     private IAALSpace loadConfigurationFromXML(File[] spaces) {
 	final String METHOD = "loadConfigurationFromXML";
-	File xml = null;
-	int matches = 0;
-	for (int i = 0; i < spaces.length; i++) {
-	    if (spaces[i].getName().toLowerCase().endsWith(".xml")) {
-		xml = spaces[i];
-		matches++;
-	    }
-	}
-
-	if (matches > 1) {
+	File xml = spaces[0];
+	if (spaces.length > 1) {
 	    LogUtils.logWarn(
 		    context,
 		    AALSpaceManagerImpl.class,
@@ -773,7 +765,13 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 			    "Multiple AALSpace configuration found but only using the file ",
 			    xml.getAbsolutePath() }, null);
 	}
-
+	LogUtils.logDebug(
+		context,
+		AALSpaceManagerImpl.class,
+		METHOD,
+		new Object[] {
+			"AALSpace configuration found loading from file ",
+			xml.getAbsolutePath() }, null);
 	IAALSpace space = null;
 	try {
 	    loadXMLParser();
