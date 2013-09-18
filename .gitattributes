@@ -694,6 +694,8 @@ middleware.osgi/mw.pom.osgi/pom.xml -text
 middleware.resources/mw.schemas/ASL2.0.txt -text
 middleware.resources/mw.schemas/NOTICE.txt -text
 middleware.resources/mw.schemas/pom.xml -text
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/aalspace/json/model/AALSpace.java -text svneol=unset#text/plain
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/aalspace/json/model/ChannelDescriptor.java -text svneol=unset#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Bundle.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Config.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/ConfigFile.java -text
