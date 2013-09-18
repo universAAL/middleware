@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Properties;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -68,8 +69,19 @@ public class uAALBundleContext implements ModuleContext {
 
     private void loadUnivesAALAttribute() {
 	setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT");
-	setAttribute(Attributes.CONTAINER_NAME, "KARAF");
-	setAttribute(Attributes.CONTAINER_VERSION, "KARAF");
+	boolean isKaraf = null != System.getProperty("karaf.home");
+	if (isKaraf) {
+	    setAttribute(Attributes.CONTAINER_NAME, "karaf");
+	} else {
+	    setAttribute(Attributes.CONTAINER_NAME, "osgi");
+	}
+	if (isKaraf) {
+	    setAttribute(Attributes.CONTAINER_VERSION,
+		    System.getProperty("karaf.version"));
+	} else {
+	    setAttribute(Attributes.CONTAINER_VERSION,
+		    bundle.getProperty(Constants.FRAMEWORK_VERSION));
+	}
 
 	setAttribute(Attributes.OSGI_NAME,
 		bundle.getProperty(Constants.FRAMEWORK_VENDOR));
