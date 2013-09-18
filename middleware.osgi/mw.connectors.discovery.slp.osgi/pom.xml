@@ -39,6 +39,10 @@
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.connectors.discovery.slp.core</artifactId>
     </dependency>
+    <dependency>
+      <artifactId>jslp.osgi</artifactId>
+      <groupId>org.universAAL.thirdparty</groupId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
