@@ -126,12 +126,13 @@ public class UIHandlerProfile extends FinalizedResource implements
 	    if (r.hasMember(uiRequest, null)) {
 		// r Restriction matches all the criterion of UIRequest
 		if (r.getOnProperty().equals(UIRequest.PROP_ADDRESSED_USER)
-			&& (UIRequest.PROP_ADDRESSED_USER != null)) {
+			&& (uiRequest
+				.getProperty(UIRequest.PROP_ADDRESSED_USER) != null)) {
 		    /*
 		     * one of the restrictions is defined to restrict for the
 		     * addressed user, the values have already been checked by
-		     * the previous if. UIRequest.PROP_ADDRESSED_USER cannot
-		     * be null since it is obligatory in UIRequest but still
+		     * the previous if. UIRequest.PROP_ADDRESSED_USER cannot be
+		     * null since it is obligatory in UIRequest but still
 		     */
 		    result += MATCH_ADDRESED_USER;
 		    System.out
@@ -139,7 +140,9 @@ public class UIHandlerProfile extends FinalizedResource implements
 				    + result);
 		}
 		if (r.getOnProperty().equals(
-			UIRequest.PROP_PRESENTATION_MODALITY)&&(UIRequest.PROP_PRESENTATION_MODALITY!=null)) {
+			UIRequest.PROP_PRESENTATION_MODALITY)
+			&& (uiRequest
+				.getProperty(UIRequest.PROP_PRESENTATION_MODALITY) != null)) {
 		    result += MATCH_MAIN_MODALITY;
 		    System.out
 			    .println("################################### modality match, result="
@@ -147,34 +150,43 @@ public class UIHandlerProfile extends FinalizedResource implements
 		}
 		// ALT MODALITY is checked later.
 		if (r.getOnProperty().equals(
-			UIRequest.PROP_PRESENTATION_LOCATION)&&(UIRequest.PROP_PRESENTATION_LOCATION!=null)) {
+			UIRequest.PROP_PRESENTATION_LOCATION)
+			&& (uiRequest
+				.getProperty(UIRequest.PROP_PRESENTATION_LOCATION) != null)) {
 		    result += MATCH_USER_LOCATION;
 		    System.out
 			    .println("################################### location match, result="
 				    + result);
 		}
 		if (r.getOnProperty().equals(
-			UIRequest.PROP_HAS_ACCESS_IMPAIRMENT)&&(UIRequest.PROP_HAS_ACCESS_IMPAIRMENT!=null)) {
+			UIRequest.PROP_HAS_ACCESS_IMPAIRMENT)
+			&& (uiRequest
+				.getProperty(UIRequest.PROP_HAS_ACCESS_IMPAIRMENT) != null)) {
 		    result += MATCH_USER_IMPAIRMENTS;
 		    System.out
 			    .println("################################### impairment match, result="
 				    + result);
 		}
 		if (r.getOnProperty().equals(
-			UIRequest.PROP_DIALOG_PRIVACY_LEVEL)&&(UIRequest.PROP_DIALOG_PRIVACY_LEVEL!=null)) {
+			UIRequest.PROP_DIALOG_PRIVACY_LEVEL)
+			&& (uiRequest
+				.getProperty(UIRequest.PROP_DIALOG_PRIVACY_LEVEL) != null)) {
 		    result += MATCH_DIALOG_PRIVACY;
 		    System.out
 			    .println("################################### dialog privacy match, result="
 				    + result);
 		}
-		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_LANGUAGE)&&(UIRequest.PROP_DIALOG_LANGUAGE!=null)) {
+		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_LANGUAGE)
+			&& (uiRequest
+				.getProperty(UIRequest.PROP_DIALOG_LANGUAGE) != null)) {
 
 		    result += MATCH_DIALOG_LANGUAGE;
 		    System.out
 			    .println("################################### dialog lang match, result="
 				    + result);
 		}
-		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_FORM)&&(UIRequest.PROP_DIALOG_FORM!=null)) {
+		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_FORM)
+			&& (uiRequest.getProperty(UIRequest.PROP_DIALOG_FORM) != null)) {
 
 		    result += MATCH_DIALOG_FORM;
 		    System.out
