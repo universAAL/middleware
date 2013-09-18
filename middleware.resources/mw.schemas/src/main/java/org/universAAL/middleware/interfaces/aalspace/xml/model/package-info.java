@@ -19,5 +19,5 @@
 	limitations under the License.
  */
 
-@ae.javax.xml.bind.annotation.XmlSchema(namespace = "http://universaal.org/aalspace-channel/v1.0.0", elementFormDefault = ae.javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.universAAL.middleware.interfaces.aalspace.model;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://universaal.org/aalspace-channel/v1.0.0")
+package org.universAAL.middleware.interfaces.aalspace.xml.model;
