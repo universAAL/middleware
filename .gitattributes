@@ -752,7 +752,9 @@ middleware.resources/mw.schemas/src/main/resources/aalspace.xsd -text
 middleware.resources/mw.schemas/src/main/resources/binding.xjb -text
 middleware.resources/mw.schemas/src/main/resources/karaf-provvisioning-v1.0.0.xsd -text
 middleware.resources/mw.schemas/src/test/java/org/universAAL/middleware/deploymanager/uapp/model/TestDeployMangerModel.java svneol=native#text/plain
+middleware.resources/mw.schemas/src/test/java/org/universAAL/middleware/interfaces/aalspace/xml/model/AalspaceTest.java -text svneol=unset#text/plain
 middleware.resources/mw.schemas/src/test/resources/org/universAAL/middleware/deploymanager/uapp/model/hwo.uapp.xml svneol=native#text/xml
+middleware.resources/mw.schemas/src/test/resources/org/universAAL/middleware/interfaces/aalspace/xml/model/Home.space -text
 pom/pom.xml -text
 thirdparty/jslp.core/LICENSE-BSD.txt -text
 thirdparty/jslp.core/LICENSE-EPL.TXT -text

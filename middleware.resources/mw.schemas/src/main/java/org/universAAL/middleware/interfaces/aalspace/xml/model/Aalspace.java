@@ -110,11 +110,11 @@ public class Aalspace
 
     private final static long serialVersionUID = 12343L;
     @XmlElement(name = "space-descriptor", required = true)
-    protected ISpaceDescriptor spaceDescriptor;
+    protected SpaceDescriptor spaceDescriptor;
     @XmlElement(required = true)
-    protected IPeeringChannel peeringChannel;
+    protected PeeringChannel peeringChannel;
     @XmlElement(required = true)
-    protected ICommunicationChannels communicationChannels;
+    protected CommunicationChannels communicationChannels;
     @XmlElement(required = true)
     protected String owner;
     @XmlElement(required = true)
@@ -133,9 +133,13 @@ public class Aalspace
      * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#setSpaceDescriptor(org.universAAL.middleware.interfaces.aalspace.model.Aalspace.SpaceDescriptor)
      */
     public void setSpaceDescriptor(ISpaceDescriptor value) {
-        this.spaceDescriptor = value;
+        this.spaceDescriptor = (SpaceDescriptor) value;
     }
 
+    public void setSpaceDescriptor(SpaceDescriptor value) {
+        this.spaceDescriptor = (SpaceDescriptor) value;
+    }
+    
     /* (non-Javadoc)
      * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#isSetSpaceDescriptor()
      */
@@ -153,10 +157,14 @@ public class Aalspace
     /* (non-Javadoc)
      * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#setPeeringChannel(org.universAAL.middleware.interfaces.aalspace.model.Aalspace.PeeringChannel)
      */
-    public void setPeeringChannel(IPeeringChannel value) {
+    public void setPeeringChannel(PeeringChannel value) {
         this.peeringChannel = value;
     }
 
+    public void setPeeringChannel(IPeeringChannel value) {
+        this.peeringChannel = (PeeringChannel) value;
+    }
+    
     /* (non-Javadoc)
      * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#isSetPeeringChannel()
      */
@@ -175,7 +183,7 @@ public class Aalspace
      * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#setCommunicationChannels(org.universAAL.middleware.interfaces.aalspace.model.Aalspace.CommunicationChannels)
      */
     public void setCommunicationChannels(ICommunicationChannels value) {
-        this.communicationChannels = value;
+        this.communicationChannels = (CommunicationChannels) value;
     }
 
     /* (non-Javadoc)
@@ -278,16 +286,16 @@ public class Aalspace
 
         private final static long serialVersionUID = 12343L;
         @XmlElement(name = "channel-descriptor", required = true)
-        protected List<IChannelDescriptor> channelDescriptor;
+        protected List<ChannelDescriptor> channelDescriptor;
 
         /* (non-Javadoc)
 	 * @see org.universAAL.middleware.interfaces.aalspace.model.ICommunicationChannels#getChannelDescriptor()
 	 */
         public List<IChannelDescriptor> getChannelDescriptor() {
             if (channelDescriptor == null) {
-                channelDescriptor = new ArrayList<IChannelDescriptor>();
+                channelDescriptor = new ArrayList<ChannelDescriptor>();
             }
-            return this.channelDescriptor;
+            return new ArrayList<IChannelDescriptor>(channelDescriptor);
         }
 
         /* (non-Javadoc)
@@ -336,7 +344,7 @@ public class Aalspace
 
         private final static long serialVersionUID = 12343L;
         @XmlElement(name = "channel-descriptor", required = true)
-        protected IChannelDescriptor channelDescriptor;
+        protected ChannelDescriptor channelDescriptor;
 
         /* (non-Javadoc)
 	 * @see org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel#getChannelDescriptor()
@@ -349,7 +357,7 @@ public class Aalspace
 	 * @see org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel#setChannelDescriptor(org.universAAL.middleware.interfaces.aalspace.model.ChannelDescriptor)
 	 */
         public void setChannelDescriptor(IChannelDescriptor value) {
-            this.channelDescriptor = value;
+            this.channelDescriptor = (ChannelDescriptor) value;
         }
 
         /* (non-Javadoc)
