@@ -24,6 +24,7 @@
 package org.universAAL.middleware.container.osgi;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -68,7 +69,17 @@ public class uAALBundleContext implements ModuleContext {
     }
 
     private void loadUnivesAALAttribute() {
-	setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT");
+	Properties props = new Properties();
+	try {
+	    props.load(this.getClass().getResourceAsStream(
+		    "attributes.properties"));
+	    setAttribute(Attributes.MIDDLEWARE_VERSION, props.getProperty(
+		    Attributes.MIDDLEWARE_VERSION, System.getProperty(
+			    Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT")));
+	} catch (IOException e) {
+	    logger.error("Unable to load default attributes set");
+	    setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.0");
+	}
 	boolean isKaraf = null != System.getProperty("karaf.home");
 	if (isKaraf) {
 	    setAttribute(Attributes.CONTAINER_NAME, "karaf");
