@@ -20,4 +20,4 @@
  */
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://universaal.org/aalspace-channel/v1.0.0")
-package org.universAAL.middleware.interfaces.aalspace.model;
+package org.universAAL.middleware.interfaces.aalspace.xml.model;

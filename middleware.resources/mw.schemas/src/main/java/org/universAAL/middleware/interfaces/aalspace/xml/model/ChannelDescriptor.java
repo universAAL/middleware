@@ -19,13 +19,15 @@
 	limitations under the License.
  */
 
-package org.universAAL.middleware.interfaces.aalspace.model;
+package org.universAAL.middleware.interfaces.aalspace.xml.model;
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor;
 
 
 /**
@@ -60,7 +62,7 @@ import javax.xml.bind.annotation.XmlType;
     "channelValue"
 })
 public class ChannelDescriptor
-    implements Serializable
+    implements Serializable, IChannelDescriptor
 {
 
     private final static long serialVersionUID = 12343L;
@@ -71,86 +73,65 @@ public class ChannelDescriptor
     @XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
     protected String channelValue;
 
-    /**
-     * Gets the value of the channelName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#getChannelName()
      */
     public String getChannelName() {
         return channelName;
     }
 
-    /**
-     * Sets the value of the channelName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#setChannelName(java.lang.String)
      */
     public void setChannelName(String value) {
         this.channelName = value;
     }
 
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#isSetChannelName()
+     */
     public boolean isSetChannelName() {
         return (this.channelName!= null);
     }
 
-    /**
-     * Gets the value of the channelURL property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#getChannelURL()
      */
     public String getChannelURL() {
         return channelURL;
     }
 
-    /**
-     * Sets the value of the channelURL property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#setChannelURL(java.lang.String)
      */
     public void setChannelURL(String value) {
         this.channelURL = value;
     }
 
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#isSetChannelURL()
+     */
     public boolean isSetChannelURL() {
         return (this.channelURL!= null);
     }
 
-    /**
-     * Gets the value of the channelValue property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#getChannelValue()
      */
     public String getChannelValue() {
         return channelValue;
     }
 
-    /**
-     * Sets the value of the channelValue property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#setChannelValue(java.lang.String)
      */
     public void setChannelValue(String value) {
         this.channelValue = value;
     }
 
+    /* (non-Javadoc)
+     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#isSetChannelValue()
+     */
     public boolean isSetChannelValue() {
         return (this.channelValue!= null);
     }

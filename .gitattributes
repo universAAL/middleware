@@ -733,10 +733,15 @@ middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deployma
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ToBeDefined.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/VersionType.java -text
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/package-info.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/Aalspace.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/ChannelDescriptor.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/ObjectFactory.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/package-info.java -text
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/IAALSpace.java -text svneol=unset#text/plain
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/IChannelDescriptor.java -text svneol=unset#text/plain
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/ICommunicationChannels.java -text svneol=unset#text/plain
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/IPeeringChannel.java -text svneol=unset#text/plain
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/ISpaceDescriptor.java -text svneol=unset#text/plain
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/Aalspace.java -text
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/ChannelDescriptor.java -text
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/ObjectFactory.java -text
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/package-info.java -text
 middleware.resources/mw.schemas/src/main/resources/AAL-UAPP.xsd svneol=native#text/xml
 middleware.resources/mw.schemas/src/main/resources/AAL-USRV.xsd svneol=native#text/xml
 middleware.resources/mw.schemas/src/main/resources/aalspace-channel.xsd -text
