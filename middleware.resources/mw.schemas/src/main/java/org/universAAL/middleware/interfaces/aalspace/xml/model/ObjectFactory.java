@@ -19,9 +19,13 @@
 	limitations under the License.
  */
 
-package org.universAAL.middleware.interfaces.aalspace.model;
+package org.universAAL.middleware.interfaces.aalspace.xml.model;
 
 import javax.xml.bind.annotation.XmlRegistry;
+
+import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.CommunicationChannels;
+import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.PeeringChannel;
+import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.SpaceDescriptor;
 
 
 /**
@@ -69,7 +73,7 @@ public class ObjectFactory {
      * Create an instance of {@link Aalspace.SpaceDescriptor }
      * 
      */
-    public Aalspace.SpaceDescriptor createAalspaceSpaceDescriptor() {
+    public SpaceDescriptor createAalspaceSpaceDescriptor() {
         return new Aalspace.SpaceDescriptor();
     }
 
@@ -77,7 +81,7 @@ public class ObjectFactory {
      * Create an instance of {@link Aalspace.PeeringChannel }
      * 
      */
-    public Aalspace.PeeringChannel createAalspacePeeringChannel() {
+    public PeeringChannel createAalspacePeeringChannel() {
         return new Aalspace.PeeringChannel();
     }
 
@@ -85,7 +89,7 @@ public class ObjectFactory {
      * Create an instance of {@link Aalspace.CommunicationChannels }
      * 
      */
-    public Aalspace.CommunicationChannels createAalspaceCommunicationChannels() {
+    public CommunicationChannels createAalspaceCommunicationChannels() {
         return new Aalspace.CommunicationChannels();
     }
 
