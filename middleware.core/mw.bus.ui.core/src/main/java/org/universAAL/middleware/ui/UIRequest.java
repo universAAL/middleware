@@ -123,15 +123,16 @@ public class UIRequest extends FinalizedResource implements Request {
      * Instantiates a new {@link UIRequest}.
      * 
      * @param user
-     *            the {@link User}
+     *            the {@link User}. It is declared as Resource because the type User is defined 
+     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
      * @param dialogForm
-     *            the dialog form
+     *            The dialog form.
      * @param dialogPriority
-     *            the dialog priority
+     *            The dialog priority.
      * @param dialogLang
-     *            the dialog {@link Language}
+     *            the dialog {@link Language}.
      * @param dialogPrivacy
-     *            the dialog privacy
+     *            the dialog privacy.
      */
     public UIRequest(Resource user, Form dialogForm,
 	    LevelRating dialogPriority, Locale dialogLang,
@@ -159,7 +160,8 @@ public class UIRequest extends FinalizedResource implements Request {
     /**
      * Gets the addressed {@link User}.
      * 
-     * @return the addressed {@link User}
+     * @return the addressed {@link User}, It is declared as Resource because the type User is defined 
+     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
      */
     public Resource getAddressedUser() {
 	return (Resource) props.get(PROP_ADDRESSED_USER);
@@ -256,7 +258,7 @@ public class UIRequest extends FinalizedResource implements Request {
      * Sets the collected input.
      * 
      * @param data
-     *            the new collected input
+     *            the new collected input, The Resource set as form Root data.
      */
     public void setCollectedInput(Resource data) {
 	Form f = getDialogForm();
