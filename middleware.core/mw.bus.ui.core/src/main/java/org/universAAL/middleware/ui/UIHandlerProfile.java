@@ -134,9 +134,12 @@ public class UIHandlerProfile extends FinalizedResource implements
 		     * the previous if. UIRequest.PROP_ADDRESSED_USER cannot be
 		     * null since it is obligatory in UIRequest but still
 		     */
-		    result += MATCH_ADDRESED_USER;
+		    // FIXME temp fix for follow me testing (so that UI request
+		    // meant for one user can go to handler with better location
+		    // but registered with another user
+		    // result += MATCH_ADDRESED_USER;
 		    System.out
-			    .println("################################### addressed user match, result="
+			    .println("################################### addressed user match but result not changed (for follow me testing), result="
 				    + result);
 		}
 		if (r.getOnProperty().equals(
@@ -154,6 +157,7 @@ public class UIHandlerProfile extends FinalizedResource implements
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_PRESENTATION_LOCATION) != null)) {
 		    result += MATCH_USER_LOCATION;
+		  
 		    System.out
 			    .println("################################### location match, result="
 				    + result);
