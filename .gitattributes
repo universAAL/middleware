@@ -602,6 +602,7 @@ middleware.osgi/mw.container.osgi/doc/package-list -text
 middleware.osgi/mw.container.osgi/doc/resources/inherit.gif -text
 middleware.osgi/mw.container.osgi/doc/stylesheet.css -text
 middleware.osgi/mw.container.osgi/pom.xml -text
+middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/OSGiAttributes.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/run/Activator.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/run/uAALBundleExtender.java -text
 middleware.osgi/mw.container.osgi/src/main/java/org/universAAL/middleware/container/osgi/uAALBundleContainer.java -text
