@@ -1,22 +1,22 @@
-/*	
-	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+/*
+        Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
+        Institute of Information Science and Technologies
+        of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
-	information regarding copyright ownership
+        See the NOTICE file distributed with this work for additional
+        information regarding copyright ownership
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
 
-	  http://www.apache.org/licenses/LICENSE-2.0
+          http://www.apache.org/licenses/LICENSE-2.0
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
  */
 
 package org.universAAL.middleware.aalspace.json.model;
@@ -32,8 +32,8 @@ import org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel;
 import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
 
 /**
- * 
- * 
+ *
+ *
  * @author <a href="mailto:sterfano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ($LastChangedDate$)
  * @since 2.0.1
@@ -41,400 +41,348 @@ import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
 public class AALSpace implements Serializable, IAALSpace {
 
     public static class CommunicationChannels implements Serializable,
-	    ICommunicationChannels {
+            ICommunicationChannels {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7742876482751281317L;
-	protected List<ChannelDescriptor> channelDescriptor;
+        /**
+         *
+         */
+        private static final long serialVersionUID = 7742876482751281317L;
+        protected List<ChannelDescriptor> channelDescriptor;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.
-	 * ICommunicationChannels#getChannelDescriptor()
-	 */
-	public List<IChannelDescriptor> getChannelDescriptor() {
-	    if (channelDescriptor == null) {
-		channelDescriptor = new ArrayList<ChannelDescriptor>();
-	    }
-	    return new ArrayList<IChannelDescriptor>(channelDescriptor);
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see org.universAAL.middleware.interfaces.aalspace.model.
+         * ICommunicationChannels#getChannelDescriptor()
+         */
+        public List<IChannelDescriptor> getChannelDescriptor() {
+            if (channelDescriptor == null) {
+                channelDescriptor = new ArrayList<ChannelDescriptor>();
+            }
+            return new ArrayList<IChannelDescriptor>(channelDescriptor);
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.
-	 * ICommunicationChannels#isSetChannelDescriptor()
-	 */
-	public boolean isSetChannelDescriptor() {
-	    return ((this.channelDescriptor != null) && (!this.channelDescriptor
-		    .isEmpty()));
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see org.universAAL.middleware.interfaces.aalspace.model.
+         * ICommunicationChannels#isSetChannelDescriptor()
+         */
+        public boolean isSetChannelDescriptor() {
+            return ((this.channelDescriptor != null) && (!this.channelDescriptor
+                    .isEmpty()));
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.
-	 * ICommunicationChannels#unsetChannelDescriptor()
-	 */
-	public void unsetChannelDescriptor() {
-	    this.channelDescriptor = null;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see org.universAAL.middleware.interfaces.aalspace.model.
+         * ICommunicationChannels#unsetChannelDescriptor()
+         */
+        public void unsetChannelDescriptor() {
+            this.channelDescriptor = null;
+        }
 
     }
 
     public static class PeeringChannel implements Serializable, IPeeringChannel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6845397412316320965L;
-	protected IChannelDescriptor channelDescriptor;
+        /**
+         *
+         */
+        private static final long serialVersionUID = -6845397412316320965L;
+        protected IChannelDescriptor channelDescriptor;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel
-	 * #getChannelDescriptor()
-	 */
-	public IChannelDescriptor getChannelDescriptor() {
-	    return channelDescriptor;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel
+         * #getChannelDescriptor()
+         */
+        public IChannelDescriptor getChannelDescriptor() {
+            return channelDescriptor;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel
-	 * #setChannelDescriptor
-	 * (org.universAAL.middleware.interfaces.aalspace.model
-	 * .ChannelDescriptor)
-	 */
-	public void setChannelDescriptor(IChannelDescriptor value) {
-	    this.channelDescriptor = value;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel
+         * #setChannelDescriptor
+         * (org.universAAL.middleware.interfaces.aalspace.model
+         * .ChannelDescriptor)
+         */
+        public void setChannelDescriptor(IChannelDescriptor value) {
+            this.channelDescriptor = value;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel
-	 * #isSetChannelDescriptor()
-	 */
-	public boolean isSetChannelDescriptor() {
-	    return (this.channelDescriptor != null);
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel
+         * #isSetChannelDescriptor()
+         */
+        public boolean isSetChannelDescriptor() {
+            return (this.channelDescriptor != null);
+        }
 
     }
 
     public static class SpaceDescriptor implements Serializable,
-	    ISpaceDescriptor {
+            ISpaceDescriptor {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3779806454200564931L;
-	protected String profile;
-	protected String spaceId;
-	protected String spaceName;
-	protected String spaceDescription;
+        /**
+         *
+         */
+        private static final long serialVersionUID = 3779806454200564931L;
+        protected String profile;
+        protected String spaceId;
+        protected String spaceName;
+        protected String spaceDescription;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #getProfile()
-	 */
-	public String getProfile() {
-	    return profile;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #getProfile()
+         */
+        public String getProfile() {
+            return profile;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #setProfile(java.lang.String)
-	 */
-	public void setProfile(String value) {
-	    this.profile = value;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #setProfile(java.lang.String)
+         */
+        public void setProfile(String value) {
+            this.profile = value;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #isSetProfile()
-	 */
-	public boolean isSetProfile() {
-	    return (this.profile != null);
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #isSetProfile()
+         */
+        public boolean isSetProfile() {
+            return (this.profile != null);
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #getSpaceId()
-	 */
-	public String getSpaceId() {
-	    return spaceId;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #getSpaceId()
+         */
+        public String getSpaceId() {
+            return spaceId;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #setSpaceId(java.lang.String)
-	 */
-	public void setSpaceId(String value) {
-	    this.spaceId = value;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #setSpaceId(java.lang.String)
+         */
+        public void setSpaceId(String value) {
+            this.spaceId = value;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #isSetSpaceId()
-	 */
-	public boolean isSetSpaceId() {
-	    return (this.spaceId != null);
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #isSetSpaceId()
+         */
+        public boolean isSetSpaceId() {
+            return (this.spaceId != null);
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #getSpaceName()
-	 */
-	public String getSpaceName() {
-	    return spaceName;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #getSpaceName()
+         */
+        public String getSpaceName() {
+            return spaceName;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #setSpaceName(java.lang.String)
-	 */
-	public void setSpaceName(String value) {
-	    this.spaceName = value;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #setSpaceName(java.lang.String)
+         */
+        public void setSpaceName(String value) {
+            this.spaceName = value;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #isSetSpaceName()
-	 */
-	public boolean isSetSpaceName() {
-	    return (this.spaceName != null);
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #isSetSpaceName()
+         */
+        public boolean isSetSpaceName() {
+            return (this.spaceName != null);
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #getSpaceDescription()
-	 */
-	public String getSpaceDescription() {
-	    return spaceDescription;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #getSpaceDescription()
+         */
+        public String getSpaceDescription() {
+            return spaceDescription;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #setSpaceDescription(java.lang.String)
-	 */
-	public void setSpaceDescription(String value) {
-	    this.spaceDescription = value;
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #setSpaceDescription(java.lang.String)
+         */
+        public void setSpaceDescription(String value) {
+            this.spaceDescription = value;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
-	 * #isSetSpaceDescription()
-	 */
-	public boolean isSetSpaceDescription() {
-	    return (this.spaceDescription != null);
-	}
+        /*
+         * (non-Javadoc)
+         *
+         * @see
+         * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor
+         * #isSetSpaceDescription()
+         */
+        public boolean isSetSpaceDescription() {
+            return (this.spaceDescription != null);
+        }
 
     }
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -1679644587451410869L;
     protected ISpaceDescriptor spaceDescriptor;
     protected IPeeringChannel peeringChannel;
     protected ICommunicationChannels communicationChannels;
-    protected String owner;
-    protected String admin;
     protected String security;
 
     /**
      * Gets the value of the spaceDescriptor property.
-     * 
+     *
      * @return possible object is {@link AALSpace.SpaceDescriptor }
-     * 
+     *
      */
     public ISpaceDescriptor getSpaceDescriptor() {
-	return spaceDescriptor;
+        return spaceDescriptor;
     }
 
     /**
      * Sets the value of the spaceDescriptor property.
-     * 
+     *
      * @param value
      *            allowed object is {@link AALSpace.SpaceDescriptor }
-     * 
+     *
      */
     public void setSpaceDescriptor(ISpaceDescriptor value) {
-	this.spaceDescriptor = value;
+        this.spaceDescriptor = value;
     }
 
     public boolean isSetSpaceDescriptor() {
-	return (this.spaceDescriptor != null);
+        return (this.spaceDescriptor != null);
     }
 
     /**
      * Gets the value of the peeringChannel property.
-     * 
+     *
      * @return possible object is {@link AALSpace.PeeringChannel }
-     * 
+     *
      */
     public IPeeringChannel getPeeringChannel() {
-	return peeringChannel;
+        return peeringChannel;
     }
 
     /**
      * Sets the value of the peeringChannel property.
-     * 
+     *
      * @param value
      *            allowed object is {@link AALSpace.PeeringChannel }
-     * 
+     *
      */
     public void setPeeringChannel(IPeeringChannel value) {
-	this.peeringChannel = value;
+        this.peeringChannel = value;
     }
 
     public boolean isSetPeeringChannel() {
-	return (this.peeringChannel != null);
+        return (this.peeringChannel != null);
     }
 
     /**
      * Gets the value of the communicationChannels property.
-     * 
+     *
      * @return possible object is {@link AALSpace.CommunicationChannels }
-     * 
+     *
      */
     public ICommunicationChannels getCommunicationChannels() {
-	return communicationChannels;
+        return communicationChannels;
     }
 
     /**
      * Sets the value of the communicationChannels property.
-     * 
+     *
      * @param value
      *            allowed object is {@link AALSpace.CommunicationChannels }
-     * 
+     *
      */
     public void setCommunicationChannels(ICommunicationChannels value) {
-	this.communicationChannels = value;
+        this.communicationChannels = value;
     }
 
     public boolean isSetCommunicationChannels() {
-	return (this.communicationChannels != null);
-    }
-
-    /**
-     * Gets the value of the owner property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getOwner() {
-	return owner;
-    }
-
-    /**
-     * Sets the value of the owner property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setOwner(String value) {
-	this.owner = value;
-    }
-
-    public boolean isSetOwner() {
-	return (this.owner != null);
-    }
-
-    /**
-     * Gets the value of the admin property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getAdmin() {
-	return admin;
-    }
-
-    /**
-     * Sets the value of the admin property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setAdmin(String value) {
-	this.admin = value;
-    }
-
-    public boolean isSetAdmin() {
-	return (this.admin != null);
+        return (this.communicationChannels != null);
     }
 
     /**
      * Gets the value of the security property.
-     * 
+     *
      * @return possible object is {@link String }
-     * 
+     *
      */
     public String getSecurity() {
-	return security;
+        return security;
     }
 
     /**
      * Sets the value of the security property.
-     * 
+     *
      * @param value
      *            allowed object is {@link String }
-     * 
+     *
      */
     public void setSecurity(String value) {
-	this.security = value;
+        this.security = value;
     }
 
     public boolean isSetSecurity() {
-	return (this.security != null);
+        return (this.security != null);
     }
 
 }
