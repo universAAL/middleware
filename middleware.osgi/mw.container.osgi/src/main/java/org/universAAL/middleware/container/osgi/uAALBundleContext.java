@@ -46,169 +46,190 @@ import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 
 /**
  * An implementation of the concept of {@link ModuleContext} for OSGi.
- * 
+ *
  * @author mtazari
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
- * 
+ *
  */
 public class uAALBundleContext implements ModuleContext {
     private BundleContext bundle;
     private Hashtable extension = new Hashtable();
     private Logger logger;
     private static BundleConfigHome servicesConfHome = new BundleConfigHome(
-	    "services");
+            "services");
     private ArrayList confFiles = new ArrayList(2);
     private Hashtable<String, ServiceRegistration> sharedObjects = new Hashtable<String, ServiceRegistration>();
 
     uAALBundleContext(BundleContext bc) {
-	bundle = bc;
-	logger = LoggerFactory.getLogger("org.universAAL."
-		+ bc.getBundle().getSymbolicName());
-	loadUnivesAALAttribute();
+        bundle = bc;
+        logger = LoggerFactory.getLogger("org.universAAL."
+                + bc.getBundle().getSymbolicName());
+        loadUnivesAALAttribute();
     }
 
     private void loadUnivesAALAttribute() {
-	Properties props = new Properties();
-	try {
-	    props.load(this.getClass().getResourceAsStream(
-		    "attributes.properties"));
-	    setAttribute(Attributes.MIDDLEWARE_VERSION, props.getProperty(
-		    Attributes.MIDDLEWARE_VERSION, System.getProperty(
-			    Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT")));
-	} catch (IOException e) {
-	    logger.error("Unable to load default attributes set");
-	    setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.0");
-	}
-	boolean isKaraf = null != System.getProperty("karaf.home");
-	if (isKaraf) {
-	    setAttribute(Attributes.CONTAINER_NAME, "karaf");
-	} else {
-	    setAttribute(Attributes.CONTAINER_NAME, "osgi");
-	}
-	if (isKaraf) {
-	    setAttribute(Attributes.CONTAINER_VERSION,
-		    System.getProperty("karaf.version"));
-	} else {
-	    setAttribute(Attributes.CONTAINER_VERSION,
-		    bundle.getProperty(Constants.FRAMEWORK_VERSION));
-	}
+        Properties props = new Properties();
+        try {
+            props.load(this.getClass().getResourceAsStream(
+                    "attributes.properties"));
+            setAttribute(Attributes.MIDDLEWARE_VERSION, props.getProperty(
+                    Attributes.MIDDLEWARE_VERSION, System.getProperty(
+                            Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT")));
+        } catch (IOException e) {
+            logger.error("Unable to load default attributes set");
+            setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.0");
+        }
+        boolean isKaraf = null != System.getProperty("karaf.home");
+        if (isKaraf) {
+            setAttribute(Attributes.CONTAINER_NAME, "karaf");
+        } else {
+            setAttribute(Attributes.CONTAINER_NAME, "osgi");
+        }
+        if (isKaraf) {
+            setAttribute(Attributes.CONTAINER_VERSION,
+                    System.getProperty("karaf.version"));
+        } else {
+            setAttribute(Attributes.CONTAINER_VERSION,
+                    bundle.getProperty(Constants.FRAMEWORK_VERSION));
+        }
 
-	setAttribute(Attributes.OSGI_NAME,
-		bundle.getProperty(Constants.FRAMEWORK_VENDOR));
-	setAttribute(Attributes.OSGI_VERSION,
-		bundle.getProperty(Constants.FRAMEWORK_VERSION));
-	setAttribute(Attributes.OSGI_ARCHITECTURE,
-		bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
+        loadOSGiAttributes();
 
-	setAttribute(Attributes.CONTAINER_OS_NAME,
-		bundle.getProperty(Constants.FRAMEWORK_OS_NAME));
-	setAttribute(Attributes.CONTAINER_OS_VERSION,
-		bundle.getProperty(Constants.FRAMEWORK_OS_VERSION));
-	setAttribute(Attributes.CONTAINER_OS_ARCHITECTURE,
-		bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
+        loadOSAttributes();
 
-	setAttribute(Attributes.CONTAINER_PLATFORM_NAME, "java");
-	setAttribute(Attributes.CONTAINER_OS_ARCHITECTURE,
-		System.getProperty("java.specification.version"));
+        loadPlatformAttributes();
+
+    }
+
+    private void loadPlatformAttributes() {
+        setAttribute(Attributes.CONTAINER_PLATFORM_NAME, "java");
+        setAttribute(Attributes.CONTAINER_PLATFORM_VERSION,
+                System.getProperty("java.specification.version"));
+    }
+
+    private void loadOSAttributes() {
+        setAttribute(Attributes.CONTAINER_OS_NAME,
+                bundle.getProperty(Constants.FRAMEWORK_OS_NAME));
+        setAttribute(Attributes.CONTAINER_OS_VERSION,
+                bundle.getProperty(Constants.FRAMEWORK_OS_VERSION));
+        setAttribute(Attributes.CONTAINER_OS_ARCHITECTURE,
+                bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
+    }
+
+    private void loadOSGiAttributes() {
+        setAttribute(Attributes.CONTAINER_EE_NAME,
+                bundle.getProperty(Constants.FRAMEWORK_VENDOR));
+        setAttribute(OSGiAttributes.OSGI_NAME,
+                bundle.getProperty(Constants.FRAMEWORK_VENDOR));
+
+        setAttribute(Attributes.CONTAINER_EE_VERSION,
+                bundle.getProperty(Constants.FRAMEWORK_VERSION));
+        setAttribute(OSGiAttributes.OSGI_VERSION,
+                bundle.getProperty(Constants.FRAMEWORK_VERSION));
+
+        setAttribute(Attributes.CONTAINER_EE_ARCHITECTURE,
+                bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
+        setAttribute(OSGiAttributes.OSGI_ARCHITECTURE,
+                bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#canBeStarted(org.universAAL.middleware.container.ModuleContext)
      */
     public boolean canBeStarted(ModuleContext requester) {
-	// TODO check permissions
-	return bundle.getBundle().getState() == Bundle.RESOLVED;
+        // TODO check permissions
+        return bundle.getBundle().getState() == Bundle.RESOLVED;
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#canBeStopped(org.universAAL.middleware.container.ModuleContext)
      */
     public boolean canBeStopped(ModuleContext requester) {
-	// TODO check permissions
-	return bundle.getBundle().getState() == Bundle.ACTIVE;
+        // TODO check permissions
+        return bundle.getBundle().getState() == Bundle.ACTIVE;
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#canBeUninstalled(org.universAAL.middleware.container.ModuleContext)
      */
     public boolean canBeUninstalled(ModuleContext requester) {
-	// TODO check permissions
-	int state = bundle.getBundle().getState();
-	return state == Bundle.RESOLVED || state == Bundle.INSTALLED;
+        // TODO check permissions
+        int state = bundle.getBundle().getState();
+        return state == Bundle.RESOLVED || state == Bundle.INSTALLED;
     }
 
     public Object fetchObject(String className) {
-	ServiceReference sr = bundle.getServiceReference(className);
-	return (sr == null) ? null : bundle.getService(sr);
+        ServiceReference sr = bundle.getServiceReference(className);
+        return (sr == null) ? null : bundle.getService(sr);
     }
 
     public Object[] fetchObject(String className, String filter) {
-	ServiceReference[] srs = null;
-	try {
-	    srs = bundle.getServiceReferences(className, filter);
-	} catch (Exception e) {
-	}
-	if (srs == null || srs.length == 0)
-	    return null;
-	else {
-	    Object[] result = new Object[srs.length];
-	    for (int i = 0; i < srs.length; i++)
-		result[i] = bundle.getService(srs[i]);
-	    return result;
-	}
+        ServiceReference[] srs = null;
+        try {
+            srs = bundle.getServiceReferences(className, filter);
+        } catch (Exception e) {
+        }
+        if (srs == null || srs.length == 0)
+            return null;
+        else {
+            Object[] result = new Object[srs.length];
+            for (int i = 0; i < srs.length; i++)
+                result[i] = bundle.getService(srs[i]);
+            return result;
+        }
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#getAttribute(java.lang.String)
      */
     public Object getAttribute(String attrName) {
-	return (attrName == null) ? null : extension.get(attrName);
+        return (attrName == null) ? null : extension.get(attrName);
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#getContainer()
      */
     public Container getContainer() {
-	return uAALBundleContainer.THE_CONTAINER;
+        return uAALBundleContainer.THE_CONTAINER;
     }
 
     public String getID() {
-	return bundle.getBundle().getSymbolicName();
+        return bundle.getBundle().getSymbolicName();
     }
 
     public uAALBundleContext installBundle(String location) {
-	try {
-	    Bundle b = bundle.installBundle(location);
-	    return new uAALBundleContext(b.getBundleContext());
-	} catch (Exception e) {
-	    logError(this.getClass().getName() + "installBundle",
-		    "Exception while installing bundle at " + location, e);
-	    return null;
-	}
+        try {
+            Bundle b = bundle.installBundle(location);
+            return new uAALBundleContext(b.getBundleContext());
+        } catch (Exception e) {
+            logError(this.getClass().getName() + "installBundle",
+                    "Exception while installing bundle at " + location, e);
+            return null;
+        }
     }
 
     public uAALBundleContext installBundle(String location, InputStream is) {
-	try {
-	    Bundle b = bundle.installBundle(location, is);
-	    return new uAALBundleContext(b.getBundleContext());
-	} catch (Exception e) {
-	    logError(this.getClass().getName() + "installBundle",
-		    "Exception while installing bundle at " + location, e);
-	    return null;
-	}
+        try {
+            Bundle b = bundle.installBundle(location, is);
+            return new uAALBundleContext(b.getBundleContext());
+        } catch (Exception e) {
+            logError(this.getClass().getName() + "installBundle",
+                    "Exception while installing bundle at " + location, e);
+            return null;
+        }
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#listConfigFiles(org.universAAL.middleware.container.ModuleContext)
      */
     public File[] listConfigFiles(ModuleContext requester) {
-	// TODO check permissions
-	int n = confFiles.size();
-	File[] files = new File[n];
-	for (int i = 0; i < n; i++)
-	    files[i] = (File) ((Object[]) confFiles.get(i))[0];
-	return files;
+        // TODO check permissions
+        int n = confFiles.size();
+        File[] files = new File[n];
+        for (int i = 0; i < n; i++)
+            files[i] = (File) ((Object[]) confFiles.get(i))[0];
+        return files;
     }
 
     /**
@@ -216,7 +237,7 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Throwable)
      */
     public void logDebug(String tag, String message, Throwable t) {
-	logger.debug(tag + ": " + message, t);
+        logger.debug(tag + ": " + message, t);
     }
 
     /**
@@ -224,7 +245,7 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Throwable)
      */
     public void logError(String tag, String message, Throwable t) {
-	logger.error(tag + ": " + message, t);
+        logger.error(tag + ": " + message, t);
     }
 
     /**
@@ -232,7 +253,7 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Throwable)
      */
     public void logInfo(String tag, String message, Throwable t) {
-	logger.info(tag + ": " + message, t);
+        logger.info(tag + ": " + message, t);
     }
 
     /**
@@ -240,7 +261,7 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Throwable)
      */
     public void logWarn(String tag, String message, Throwable t) {
-	logger.warn(tag + ": " + message, t);
+        logger.warn(tag + ": " + message, t);
     }
 
     /**
@@ -248,27 +269,27 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Throwable)
      */
     public void logTrace(String tag, String message, Throwable t) {
-	logger.trace(tag + ": " + message, t);
+        logger.trace(tag + ": " + message, t);
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#registerConfigFile(java.lang.Object[])
      */
     public void registerConfigFile(Object[] configFileParams) {
-	// TODO define a convention for the array param
-	// current assumption: 1st param @ index 0 is the
-	// org.osgi.framework.Constants.SERVICE_PID
-	// chosen for a org.osgi.service.cm.ManagedService (type = String)
-	// possible extensions:
-	// 2nd param @ index 1: help string describing the role of the property
-	// file indirectly specified by the first first param @ index 0
-	// 3rd param @ index 2: a hash-table with allowed properties as keys and
-	// a help string about each property as value
-	if (configFileParams != null && configFileParams.length > 0) {
-	    configFileParams[0] = servicesConfHome
-		    .getPropFile(configFileParams[0].toString());
-	    confFiles.add(configFileParams);
-	}
+        // TODO define a convention for the array param
+        // current assumption: 1st param @ index 0 is the
+        // org.osgi.framework.Constants.SERVICE_PID
+        // chosen for a org.osgi.service.cm.ManagedService (type = String)
+        // possible extensions:
+        // 2nd param @ index 1: help string describing the role of the property
+        // file indirectly specified by the first first param @ index 0
+        // 3rd param @ index 2: a hash-table with allowed properties as keys and
+        // a help string about each property as value
+        if (configFileParams != null && configFileParams.length > 0) {
+            configFileParams[0] = servicesConfHome
+                    .getPropFile(configFileParams[0].toString());
+            confFiles.add(configFileParams);
+        }
     }
 
     /**
@@ -276,114 +297,114 @@ public class uAALBundleContext implements ModuleContext {
      *      java.lang.Object)
      */
     public void setAttribute(String attrName, Object attrValue) {
-	if (attrName != null && attrValue != null)
-	    extension.put(attrName, attrValue);
+        if (attrName != null && attrValue != null)
+            extension.put(attrName, attrValue);
     }
 
     public void shareObject(String xface, Object obj, Dictionary props) {
-	ServiceRegistration sr = bundle.registerService(xface, obj, props);
-	sharedObjects.put(xface, sr);
+        ServiceRegistration sr = bundle.registerService(xface, obj, props);
+        sharedObjects.put(xface, sr);
     }
 
     public void shareObject(String[] xface, Object obj, Dictionary props) {
-	ServiceRegistration sr = bundle.registerService(xface, obj, props);
-	for (String xf : xface) {
-	    sharedObjects.put(xf, sr);
-	}
+        ServiceRegistration sr = bundle.registerService(xface, obj, props);
+        for (String xf : xface) {
+            sharedObjects.put(xf, sr);
+        }
     }
 
     public void removesharedObject(String[] xface, Object obj, Dictionary props) {
-	for (String xf : xface) {
-	    sharedObjects.get(xf).unregister();
-	    sharedObjects.remove(xf);
-	}
+        for (String xf : xface) {
+            sharedObjects.get(xf).unregister();
+            sharedObjects.remove(xf);
+        }
 
     }
 
     public void removeSharedObject(String xface, Object obj, Dictionary props) {
-	sharedObjects.get(xface).unregister();
-	sharedObjects.remove(xface);
+        sharedObjects.get(xface).unregister();
+        sharedObjects.remove(xface);
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#start(org.universAAL.middleware.container.ModuleContext)
      */
     public boolean start(ModuleContext requester) {
-	if (canBeStarted(requester)) {
-	    try {
-		bundle.getBundle().start();
-		return true;
-	    } catch (Exception e) {
-		// TODO: log
-	    }
-	}
-	return false;
+        if (canBeStarted(requester)) {
+            try {
+                bundle.getBundle().start();
+                return true;
+            } catch (Exception e) {
+                // TODO: log
+            }
+        }
+        return false;
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#stop(org.universAAL.middleware.container.ModuleContext)
      */
     public boolean stop(ModuleContext requester) {
-	if (canBeStopped(requester)) {
-	    try {
-		bundle.getBundle().stop();
-		return true;
-	    } catch (Exception e) {
-		// TODO: log
-	    }
-	}
-	return false;
+        if (canBeStopped(requester)) {
+            try {
+                bundle.getBundle().stop();
+                return true;
+            } catch (Exception e) {
+                // TODO: log
+            }
+        }
+        return false;
     }
 
     /**
      * @see org.universAAL.middleware.container.ModuleContext#uninstall(org.universAAL.middleware.container.ModuleContext)
      */
     public boolean uninstall(ModuleContext requester) {
-	if (canBeUninstalled(requester)) {
-	    try {
-		bundle.getBundle().uninstall();
-		return true;
-	    } catch (Exception e) {
-		// TODO: log
-	    }
-	}
-	return false;
+        if (canBeUninstalled(requester)) {
+            try {
+                bundle.getBundle().uninstall();
+                return true;
+            } catch (Exception e) {
+                // TODO: log
+            }
+        }
+        return false;
     }
 
     private String[] getBundleList() {
-	Bundle[] bundles = bundle.getBundles();
-	String[] values = new String[bundles.length];
-	for (int i = 0; i < bundles.length; i++) {
-	    values[i] = bundles[i].getSymbolicName() + "-"
-		    + bundles[i].getHeaders(Constants.BUNDLE_VERSION);
-	}
-	return values;
+        Bundle[] bundles = bundle.getBundles();
+        String[] values = new String[bundles.length];
+        for (int i = 0; i < bundles.length; i++) {
+            values[i] = bundles[i].getSymbolicName() + "-"
+                    + bundles[i].getHeaders(Constants.BUNDLE_VERSION);
+        }
+        return values;
     }
 
     public Object getProperty(String name) {
-	return getProperty(name, null);
+        return getProperty(name, null);
     }
 
     public Object getProperty(String name, Object def) {
-	Object value = null;
+        Object value = null;
 
-	value = getAttribute(name);
-	if (value != null)
-	    return value;
+        value = getAttribute(name);
+        if (value != null)
+            return value;
 
-	value = bundle.getProperty(name);
-	if (value != null)
-	    return value;
+        value = bundle.getProperty(name);
+        if (value != null)
+            return value;
 
-	value = System.getProperty(name);
-	if (value != null)
-	    return value;
+        value = System.getProperty(name);
+        if (value != null)
+            return value;
 
-	value = System.getenv(name);
-	if (value != null)
-	    return value;
+        value = System.getenv(name);
+        if (value != null)
+            return value;
 
-	return def;
+        return def;
     }
 
 }
