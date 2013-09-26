@@ -56,12 +56,86 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * important information with {@link UIHandlerProfile} that describes
  * {@link UIHandler} capabilities. Based upon this matching the appropriate
  * {@link UIHandler} to communicate with the user is selected.
- * 
+ * <center>
+ * <table align="left" border="1" cellpadding="1" cellspacing="1" style="width: 70%;">
+ *			<caption>UI Bus Messages summary</caption>
+ *			<thead>
+ *				<tr>
+ *					<th scope="col">Message</th>
+ *					<th scope="col">Event MsgType</th>
+ *					<th scope="col">Parameters</th>
+ *				</tr>
+ *			</thead>
+ *			<tbody>
+ *				<tr>
+ *					<td>abort</td>
+ *					<td>bus_Notification</td>
+ *					<td>Dialog_ID</td>
+ *				</tr>
+ *				<tr>
+ *					<td>cut</td>
+ *					<td>bus_Notification</td>
+ *					<td>Dialog_ID; Handler_ID</td>
+ *				</tr>
+ *				<tr>
+ *					<td>newHandlerProfile</td>
+ *					<td>bus_Subscription</td>
+ *					<td>Handler_ID; Subscription</td>
+ *				</tr>
+ *				<tr>
+ *					<td>finishDialog</td>
+ *					<td>bus_Notification</td>
+ *					<td>Handler_ID; Dialog_ID</td>
+ *				</tr>
+ *				<tr>
+ *					<td>notifyUserInput</td>
+ *					<td>bus_Notification</td>
+ *					<td>User_Input</td>
+ *				</tr>
+ *				<tr>
+ *					<td>removeMatchingProfile</td>
+ *					<td>bus_Subscription</td>
+ *					<td>Handler_ID; Subscription; Remove_Subscription=true</td>
+ *				</tr>
+ *				<tr>
+ *					<td>removeProfile</td>
+ *					<td>bus_Subscription</td>
+ *					<td>Handler_ID;&nbsp;Remove_Subscription=true</td>
+ *				</tr>
+ *				<tr>
+ *					<td>resumeDialog</td>
+ *					<td>bus_Notification</td>
+ *					<td>Dialog_ID; Updated_Data</td>
+ *				</tr>
+ *				<tr>
+ *					<td>suspendDialog</td>
+ *					<td>bus_Notification</td>
+ *					<td>Dialog_ID</td>
+ *				</tr>
+ *				<tr>
+ *					<td>userLogOn</td>
+ *					<td>main_Menu</td>
+ *					<td>Involved_User; [Location]</td>
+ *				</tr>
+ *				<tr>
+ *					<td>notifyHandler</td>
+ *					<td>bus_Notification</td>
+ *					<td>Handler_ID; UI_Request; Is_New_Request</td>
+ *				</tr>
+ *				<tr>
+ *					<td>notifyCoordinator</td>
+ *					<td>UI_Bus_Coordinator</td>
+ *					<td>&nbsp;</td>
+ *				</tr>
+ *			</tbody>
+ *		</table> </center>
+ *  <center> <img src="doc-files/UIStrategy.png" alt="UIStrategy messages"
+ * width="70%"/> </center>
  * @author mtazari
  * @author eandgrg
  * 
  */
-public class UIStrategy extends BusStrategy {
+	public class UIStrategy extends BusStrategy {
 
     /**
      * 
