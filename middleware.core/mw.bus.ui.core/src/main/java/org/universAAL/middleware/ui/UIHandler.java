@@ -31,6 +31,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
+import org.universAAL.middleware.ui.rdf.Form;
 
 /**
  * Provides the interface to be implemented by {@link UIHandler}s together with
@@ -141,7 +142,8 @@ public abstract class UIHandler extends Callee {
      * 
      * @param dialogID
      *            the dialog id
-     * @return the resource
+     * @return the resource data form the {@link Form} filled 
+     * 			  by the user up to the moment this call is performed
      */
     public abstract Resource cutDialog(String dialogID);
 
@@ -195,7 +197,8 @@ public abstract class UIHandler extends Callee {
      * User logged in.
      * 
      * @param user
-     *            the {@link User}
+     *            the {@link User}, It is declared as Resource because the type User is defined 
+     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
      * @param loginLocation
      *            the login location
      */

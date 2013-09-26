@@ -20,7 +20,6 @@
  */
 package org.universAAL.middleware.interfaces.aalspace.model;
 
-import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace;
 
 /**
  * 
