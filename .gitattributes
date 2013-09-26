@@ -204,6 +204,8 @@ middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIResp
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/UIBusFactory.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/UIBusImpl.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/UIStrategy.java -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/doc-files/UIStrategy.png -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/doc-files/UIStrategy.svg -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/AccessImpairment.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/DialogType.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/Modality.java -text
