@@ -35,16 +35,9 @@ middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brok
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageException.java -text
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageFields.java -text
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/control/ControlMessage.java -text
-middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessage.java -text
-middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageException.java -text
-middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageFields.java -text
-middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployNotificationPayload.java -text
-middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployPayload.java -text
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/gson/BrokerMessageSerializer.java -text svneol=unset#text/plain
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/gson/GsonParserBuilder.java -text svneol=unset#text/plain
 middleware.core/mw.brokers.api.core/src/test/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageTest.java -text svneol=unset#text/plain
-middleware.core/mw.brokers.api.core/src/test/java/org/universAAL/middleware/brokers/message/control/ControlMessageTest.java -text
-middleware.core/mw.brokers.api.core/src/test/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageTest.java -text svneol=unset#text/plain
 middleware.core/mw.brokers.control.core/ASL2.0.txt -text
 middleware.core/mw.brokers.control.core/NOTICE.txt -text
 middleware.core/mw.brokers.control.core/pom.xml -text
@@ -236,7 +229,6 @@ middleware.core/mw.connectors.api.core/NOTICE.txt -text
 middleware.core/mw.connectors.api.core/pom.xml -text
 middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/CommunicationConnector.java -text
 middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/Connector.java -text
-middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/DeployConnector.java -text
 middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/DiscoveryConnector.java -text
 middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/ServiceListener.java -text
 middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/exception/CommunicationConnectorErrorCode.java -text
@@ -381,40 +373,13 @@ middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/inter
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/aalspace/AALSpaceType.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/aalspace/Consts.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/Pair.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/UAPPCard.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/UAPPPartStatus.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/UAPPStatus.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/AalMpa.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/Artifact.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/ArtifactType.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/Broker.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/Brokers.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/Bundle.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/Config.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/ConfigFile.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/Dependency.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/DeploymentUnit.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/EmbeddingType.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/ExecutionUnit.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/Feature.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/FeaturesRoot.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/ObjectFactory.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/OntologyType.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/OsType.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/Part.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/PlatformType.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/ProfileType.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/SpaceType.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/ToBeDefined.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/VersionType.java -text
-middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/package-info.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/utils/Util.java -text
 middleware.core/mw.managers.aalspace.core/ASL2.0.txt -text
 middleware.core/mw.managers.aalspace.core/NOTICE.txt -text
 middleware.core/mw.managers.aalspace.core/pom.xml -text
 middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/AALSpaceManagerImpl.java -text
 middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/MatchingResultImpl.java -text
-middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/AALSpaceSchemaEventHandler.java -text
 middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/CheckPeerThread.java -text
 middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/Consts.java -text
 middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/Joiner.java -text
@@ -425,17 +390,13 @@ middleware.core/mw.managers.api.core/pom.xml -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/AALSpaceEventHandler.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/AALSpaceListener.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/AALSpaceManager.java -text
-middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/DeployManager.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/DeployManagerEventHandler.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/InstallationResults.java -text
-middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/InstallationResultsDetails.java svneol=native#text/plain
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/Manager.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/MatchingResult.java -text
-middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/UAPPPackage.java -text
 middleware.core/mw.managers.deploy.core/ASL2.0.txt -text
 middleware.core/mw.managers.deploy.core/NOTICE.txt -text
 middleware.core/mw.managers.deploy.core/pom.xml -text
-middleware.core/mw.managers.deploy.core/src/main/java/org/universAAL/middleware/managers/deploy/DeployManagerImpl.java -text
 middleware.core/mw.managers.deploy.core/src/main/java/org/universAAL/middleware/managers/deploy/util/Consts.java -text
 middleware.core/mw.modules.aalspace.core/ASL2.0.txt -text
 middleware.core/mw.modules.aalspace.core/NOTICE.txt -text
@@ -687,55 +648,13 @@ middleware.osgi/mw.pom.osgi/pom.xml -text
 middleware.resources/mw.schemas/ASL2.0.txt -text
 middleware.resources/mw.schemas/NOTICE.txt -text
 middleware.resources/mw.schemas/pom.xml -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Bundle.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Config.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/ConfigFile.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Dependency.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Feature.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/FeaturesRoot.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/ObjectFactory.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/package-info.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/AalUapp.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ArtifactType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Broker.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Bundle.java svneol=native#text/plain
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/CapabilityType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Config.java svneol=native#text/plain
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ConfigFile.java svneol=native#text/plain
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ContactType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Dependency.java svneol=native#text/plain
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/DeploymentUnit.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/EmbeddingType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ExecutionUnit.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Feature.java svneol=native#text/plain
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/FeaturesRoot.java svneol=native#text/plain
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LicenseCategoryType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LicenseType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LogicalCriteriaType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LogicalRelationType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ObjectFactory.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/OntologyType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/OsType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Part.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/PlatformType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ProfileType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ReqAtomType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ReqCriticalityType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ReqGroupType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ReqType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/SpaceType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ToBeDefined.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/VersionType.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/package-info.java -text
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/aalspace/json/model/AALSpace.java -text svneol=unset#text/plain
+middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/aalspace/json/model/ChannelDescriptor.java -text svneol=unset#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/IAALSpace.java -text svneol=unset#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/IChannelDescriptor.java -text svneol=unset#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/ICommunicationChannels.java -text svneol=unset#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/IPeeringChannel.java -text svneol=unset#text/plain
 middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/ISpaceDescriptor.java -text svneol=unset#text/plain
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/Aalspace.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/ChannelDescriptor.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/ObjectFactory.java -text
-middleware.resources/mw.schemas/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/package-info.java -text
 middleware.resources/mw.schemas/src/main/resources/AAL-UAPP.xsd svneol=native#text/xml
 middleware.resources/mw.schemas/src/main/resources/AAL-USRV.xsd svneol=native#text/xml
 middleware.resources/mw.schemas/src/main/resources/aalspace-channel.xsd -text
@@ -743,6 +662,7 @@ middleware.resources/mw.schemas/src/main/resources/aalspace.xsd -text
 middleware.resources/mw.schemas/src/main/resources/binding.xjb -text
 middleware.resources/mw.schemas/src/main/resources/karaf-provvisioning-v1.0.0.xsd -text
 middleware.resources/mw.schemas/src/test/resources/org/universAAL/middleware/deploymanager/uapp/model/hwo.uapp.xml svneol=native#text/xml
+middleware.resources/mw.schemas/src/test/resources/org/universAAL/middleware/interfaces/aalspace/xml/model/Home.space -text
 pom/pom.xml -text
 thirdparty/jslp.core/LICENSE-BSD.txt -text
 thirdparty/jslp.core/LICENSE-EPL.TXT -text

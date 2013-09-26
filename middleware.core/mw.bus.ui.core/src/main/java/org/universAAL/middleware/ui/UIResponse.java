@@ -157,7 +157,7 @@ public class UIResponse extends FinalizedResource implements Response {
     /**
      * Gets the submitted data.
      * 
-     * @return root of the tree with form data submitted
+     * @return root of the tree with form data submitted.
      */
     public Resource getSubmittedData() {
 	return (Resource) props.get(PROP_DIALOG_DATA);
@@ -166,7 +166,8 @@ public class UIResponse extends FinalizedResource implements Response {
     /**
      * Gets the {@link User}.
      * 
-     * @return the {@link User}
+     * @return the {@link User}. It is declared as Resource because the type User is defined 
+     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
      */
     public Resource getUser() {
 	Object user = props.get(PROP_uAAL_INVOLVED_HUMAN_USER);

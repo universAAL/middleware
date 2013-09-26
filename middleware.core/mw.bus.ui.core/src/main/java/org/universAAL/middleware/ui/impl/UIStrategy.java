@@ -240,11 +240,31 @@ public class UIStrategy extends BusStrategy {
 		for (Subscription subscription : globalSubscriptions) {
 		    tempMatchingDegree = subscription.uiHandlerProfileFilter
 			    .getMatchingDegree(uiRequest);
-		    LogUtils.logDebug(busModule, UIStrategy.class,
-			    "adaptationParametersChanged",
-			    new Object[] { "Handler with id: " + subscription
-				    + ", has matching degree: "
-				    + tempMatchingDegree }, null);
+		    LogUtils
+			    .logDebug(
+				    busModule,
+				    UIStrategy.class,
+				    "adaptationParametersChanged",
+				    new Object[] { "\n START+++++++++++++++++++++++++++++++++++++++++++++++\n Handler with subscription id: "
+					    + subscription
+					    + ", has matching degree: "
+					    + tempMatchingDegree
+					    + "\n 2+++++++++++++++++++++++++++++++++++++++++++++++"
+					    + "\n UIHandler profile:\n "
+					    + subscription.uiHandlerProfileFilter
+						    .toStringRecursive()
+					    + "\n 3+++++++++++++++++++++++++++++++++++++++++++++++"
+					    + "\n uiRequest that is getting matched.\n Addressed user: "
+					    + uiRequest.getAddressedUser()
+						    .getURI()
+					    + "\n Modality: "
+					    + uiRequest
+						    .getProperty(UIRequest.PROP_PRESENTATION_MODALITY)
+					    + "\n Presentation location: "
+					    + uiRequest
+						    .getPresentationLocation()
+					    + "\n STOP+++++++++++++++++++++++++++++++++++++++++++++++\n " },
+				    null);
 
 		    if (tempMatchingDegree > UIHandlerProfile.MATCH_LEVEL_FAILED) {
 			if (subscription.subscriberID.equals(currentHandler)) {
@@ -289,11 +309,18 @@ public class UIStrategy extends BusStrategy {
 		    return;
 		}
 
-		LogUtils.logDebug(busModule, UIStrategy.class,
-			"adaptationParametersChanged",
-			new Object[] { "Handler with id: " + selectedHandler
-				+ ", and matching degree: " + maxMatchDegree
-				+ " was selected as best." }, null);
+		LogUtils
+			.logDebug(
+				busModule,
+				UIStrategy.class,
+				"adaptationParametersChanged",
+				new Object[] { "Handler with id: "
+					+ selectedHandler
+					+ ", and matching degree: "
+					+ maxMatchDegree
+					+ " was selected as best. Note: last used handler additional weight= "
+					+ LAST_USED_HANDLER_MATCH_LEVEL_ADDITION },
+				null);
 
 		if (currentHandler != null) {
 		    Resource collectedData = notifyHandler_cutDialog(
@@ -1085,8 +1112,8 @@ public class UIStrategy extends BusStrategy {
 	if (o instanceof UIHandler) {
 	    // I have the handler => i can handle it
 	    LogUtils.logInfo(busModule, UIStrategy.class,
-		    "notifyHandler_handle", new Object[] { "Notified handler ",
-			    handlerID, ":\n", content }, null);
+		    "notifyHandler_handle", new Object[] { "Notified handler id: ",
+			    handlerID }, null);
 	    ((UIHandler) o).handleUICall(request);
 
 	} else if (isCoordinator()) {
@@ -1098,14 +1125,15 @@ public class UIStrategy extends BusStrategy {
 	    pr.setProperty(PROP_uAAL_UI_CALL, request);
 	    pr.setProperty(PROP_uAAL_UI_IS_NEW_REQUEST, Boolean.TRUE);
 	    sendMessageToRemoteBusMember(handlerID, MessageType.event, pr);
-	} // else
-	LogUtils
-		.logWarn(
-			busModule,
-			UIStrategy.class,
-			"notifyHandler_handle",
-			new Object[] { "Unpredicted situation happened while handling a uiRequest-notification!" },
-			null);
+	} else
+	    LogUtils
+		    .logWarn(
+			    busModule,
+			    UIStrategy.class,
+			    "notifyHandler_handle",
+			    new Object[] {
+				    "Unpredicted situation happened while handling a uiRequest-notification!",
+				    o.getClass().getName() }, null);
     }
 
     /**

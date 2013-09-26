@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.universAAL.middleware</groupId>
@@ -25,34 +25,17 @@
       <timezone>1</timezone>
     </developer>
   </developers>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.xml</groupId>
-			<artifactId>jaxb-android</artifactId>
-			<version>2.2.5</version>
-		</dependency>
-	</dependencies>
+   <dependencies>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+      </dependency>
+   </dependencies>
   <build>
     <plugins>
-      <!--plugin>
-        <groupId>org.jvnet.jaxb2.maven2</groupId>
-        <artifactId>maven-jaxb2-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <addCompileSourceRoot>true</addCompileSourceRoot>
-          <autoNameResolution>true</autoNameResolution>
-        </configuration>
-      </plugin-->
+         <!--plugin> <groupId>org.jvnet.jaxb2.maven2</groupId> <artifactId>maven-jaxb2-plugin</artifactId> <executions> <execution> 
+            <goals> <goal>generate</goal> </goals> </execution> </executions> <configuration> <addCompileSourceRoot>true</addCompileSourceRoot> 
+            <autoNameResolution>true</autoNameResolution> </configuration> </plugin -->
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
@@ -62,14 +45,12 @@
             <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-           <Import-Package>ae.javax.xml.bind,
-							ae.javax.xml.bind.annotation,
-							ae.javax.xml.bind.annotation.adapters,
-							javax.xml.namespace,
+           <Import-Package>javax.xml.namespace,
 							org.w3c.dom</Import-Package>
-            <Export-Package>org.universAAL.middleware.connectors.deploy.karaf.model,
+                  <Export-Package>org.universAAL.middleware.connectors.deploy.karaf.model,
                      org.universAAL.middleware.deploymanager.uapp.model,
-                     org.universAAL.middleware.interfaces.aalspace.model</Export-Package>
+                     org.universAAL.middleware.interfaces.aalspace.*
+                  </Export-Package>
           </instructions>
         </configuration>
       </plugin>

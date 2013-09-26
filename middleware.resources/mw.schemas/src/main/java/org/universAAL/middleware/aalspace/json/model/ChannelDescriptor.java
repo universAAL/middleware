@@ -19,58 +19,31 @@
 	limitations under the License.
  */
 
-package org.universAAL.middleware.interfaces.aalspace.xml.model;
+package org.universAAL.middleware.aalspace.json.model;
 
 import java.io.Serializable;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 
 import org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor;
 
 
+
 /**
- * This schema describes the meta-information of an
- *         AALSpace Channel
- *       
- * 
- * <p>Java class for channelDescriptor complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType name="channelDescriptor">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="channelName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="channelURL" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="channelValue" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
  * 
  * 
+ * @author <a href="mailto:sterfano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @version $LastChangedRevision$ ($LastChangedDate$)
+ * @since 2.0.1
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "channelDescriptor", propOrder = {
-    "channelName",
-    "channelURL",
-    "channelValue"
-})
 public class ChannelDescriptor
     implements Serializable, IChannelDescriptor
 {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2164969851491853720L;
     protected String channelName;
-    @XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
     protected String channelURL;
-    @XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
     protected String channelValue;
 
     /* (non-Javadoc)

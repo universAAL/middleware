@@ -110,7 +110,7 @@ public interface IUIBus {
      * 
      * @param handlerID
      *            ID of the {@link UIHandler} that has finished the dialog
-     * @param {@link UIHandler}esponse The user input constructed by calling
+     * @param {@link UIHandler} response The user input constructed by calling
      *        {@link UIResponse#UIResponse(Resource, AbsLocation, Submit)}
      */
     public void dialogFinished(String handlerID, UIResponse uiResponse);
@@ -207,7 +207,8 @@ public interface IUIBus {
      *            to the {@link IUIBus}. It must be passed to the bus when
      *            calling bus methods.
      * @param user
-     *            human {@link User}
+     *            human {@link User}. It is declared as Resource because the type User is defined 
+     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
      * @param loginLocation
      *            login {@link Location} of the {@link User}
      */

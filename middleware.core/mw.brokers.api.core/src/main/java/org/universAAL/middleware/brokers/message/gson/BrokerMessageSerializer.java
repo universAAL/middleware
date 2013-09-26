@@ -5,7 +5,7 @@ import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.BrokerMessage.BrokerMessageTypes;
 import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage;
 import org.universAAL.middleware.brokers.message.control.ControlMessage;
-import org.universAAL.middleware.brokers.message.deploy.DeployMessage;
+//import org.universAAL.middleware.brokers.message.deploy.DeployMessage;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -42,10 +42,10 @@ public class BrokerMessageSerializer implements JsonSerializer<BrokerMessage>,
 	    String enumValue = ele.getAsString();
 	    BrokerMessageTypes myEyum = BrokerMessageTypes.valueOf(enumValue);
 	    switch (myEyum) {
-	    case DeployMessage:
-		message = GsonParserBuilder.getInstance().fromJson(json,
-			DeployMessage.class);
-		break;
+//	    case DeployMessage:
+//		message = GsonParserBuilder.getInstance().fromJson(json,
+//			DeployMessage.class);
+//		break;
 	    case ControlMessage:
 		message = GsonParserBuilder.getInstance().fromJson(json,
 			ControlMessage.class);
