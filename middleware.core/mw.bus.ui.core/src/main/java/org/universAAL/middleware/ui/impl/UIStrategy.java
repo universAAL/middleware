@@ -68,6 +68,11 @@ import org.universAAL.middleware.ui.rdf.Submit;
  *			</thead>
  *			<tbody>
  *				<tr>
+ *					<td>resquest</td>
+ *					<td>Request (Not event)</td>
+ *					<td>UIRequest (not as parameter, as the message resource)</td>
+ *				</tr>
+ *				<tr>
  *					<td>abort</td>
  *					<td>bus_Notification</td>
  *					<td>Dialog_ID</td>
