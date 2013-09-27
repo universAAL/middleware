@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="UIStrategy.svg">
+   sodipodi:docname="UIStrategy.svg"
+   inkscape:export-filename="/media/Data/dev/uAAL/middleware/trunk/middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/doc-files/UIStrategy.png"
+   inkscape:export-xdpi="120"
+   inkscape:export-ydpi="120">
   <defs
      id="defs4">
     <marker
@@ -53,9 +56,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="320.01828"
-     inkscape:cy="189.67627"
+     inkscape:zoom="1.979899"
+     inkscape:cx="264.01612"
+     inkscape:cy="260.22321"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -452,5 +455,30 @@
          id="tspan7318"
          x="-313.73004"
          y="345.7189">notifyCoordinator</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="M 115.71429,360.71431 C 192.85714,321.42859 262.85714,98.57145 262.85714,98.57145"
+       id="path3048"
+       inkscape:connector-curvature="0"
+       transform="translate(59.027211,46.451588)" />
+    <text
+       xml:space="preserve"
+       style="font-size:19.06954002px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-172.57568"
+       y="359.95618"
+       id="text4014"
+       sodipodi:linespacing="125%"
+       transform="matrix(0.44853622,-0.89376466,0.89376466,0.44853622,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan4016"
+         x="-172.57568"
+         y="359.95618">Request</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 1;stroke-dashoffset:0;marker-end:url(#Arrow1Lend)"
+       d="M 229.28571,378.39288 C 178.57143,379.10716 272.5,101.42859 272.5,101.42859"
+       id="path4018"
+       inkscape:connector-curvature="0"
+       transform="translate(59.027211,46.451588)"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>
