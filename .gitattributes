@@ -3533,6 +3533,71 @@ mw.schemas-1.3.3-SNAPSHOT/src/main/resources/binding.xjb -text
 mw.schemas-1.3.3-SNAPSHOT/src/main/resources/karaf-provvisioning-v1.0.0.xsd -text
 mw.schemas-1.3.3-SNAPSHOT/src/test/java/org/universAAL/middleware/deploymanager/uapp/model/TestDeployMangerModel.java svneol=native#text/plain
 mw.schemas-1.3.3-SNAPSHOT/src/test/resources/org/universAAL/middleware/deploymanager/uapp/model/hwo.uapp.xml svneol=native#text/xml
+mw.schemas-2.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.schemas-2.0.1-SNAPSHOT/NOTICE.txt -text
+mw.schemas-2.0.1-SNAPSHOT/pom.xml -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/aalspace/json/model/AALSpace.java -text svneol=unset#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/aalspace/json/model/ChannelDescriptor.java -text svneol=unset#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Bundle.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Config.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/ConfigFile.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Dependency.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Feature.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/FeaturesRoot.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/ObjectFactory.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/package-info.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/AalUapp.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ArtifactType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Broker.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Bundle.java svneol=native#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/CapabilityType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Config.java svneol=native#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ConfigFile.java svneol=native#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ContactType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Dependency.java svneol=native#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/DeploymentUnit.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/EmbeddingType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ExecutionUnit.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Feature.java svneol=native#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/FeaturesRoot.java svneol=native#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LicenseCategoryType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LicenseType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LogicalCriteriaType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/LogicalRelationType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ObjectFactory.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/OntologyType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/OsType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/Part.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/PlatformType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ProfileType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ReqAtomType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ReqCriticalityType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ReqGroupType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ReqType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/SpaceType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/ToBeDefined.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/VersionType.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/deploymanager/uapp/model/package-info.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/IAALSpace.java -text svneol=unset#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/IChannelDescriptor.java -text svneol=unset#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/ICommunicationChannels.java -text svneol=unset#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/IPeeringChannel.java -text svneol=unset#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/aalspace/model/ISpaceDescriptor.java -text svneol=unset#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/Aalspace.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/ChannelDescriptor.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/ObjectFactory.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/interfaces/aalspace/xml/model/package-info.java -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/resources/AAL-UAPP.xsd svneol=native#text/xml
+mw.schemas-2.0.1-SNAPSHOT/src/main/resources/AAL-USRV.xsd svneol=native#text/xml
+mw.schemas-2.0.1-SNAPSHOT/src/main/resources/aalspace-channel.xsd -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/resources/aalspace.xsd -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/resources/binding.xjb -text
+mw.schemas-2.0.1-SNAPSHOT/src/main/resources/karaf-provvisioning-v1.0.0.xsd -text
+mw.schemas-2.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/deploymanager/uapp/model/TestDeployMangerModel.java svneol=native#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/interfaces/aalspace/xml/model/AalspaceTest.java -text svneol=unset#text/plain
+mw.schemas-2.0.1-SNAPSHOT/src/test/resources/org/universAAL/middleware/deploymanager/uapp/model/hwo.uapp.xml svneol=native#text/xml
+mw.schemas-2.0.1-SNAPSHOT/src/test/resources/org/universAAL/middleware/interfaces/aalspace/xml/model/Home.1.0.1.space -text
+mw.schemas-2.0.1-SNAPSHOT/src/test/resources/org/universAAL/middleware/interfaces/aalspace/xml/model/Home.space -text
 pom-1.0.1-SNAPSHOT/eclipse.setup.bat -text
 pom-1.0.1-SNAPSHOT/eclipse.setup.sh -text
 pom-1.0.1-SNAPSHOT/pom.xml -text
