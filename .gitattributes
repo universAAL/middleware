@@ -562,6 +562,27 @@ mw.brokers.api.core-1.3.3-SNAPSHOT/src/main/java/org/universAAL/middleware/broke
 mw.brokers.api.core-1.3.3-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployNotificationPayload.java -text
 mw.brokers.api.core-1.3.3-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployPayload.java -text
 mw.brokers.api.core-1.3.3-SNAPSHOT/src/test/java/org/universAAL/middleware/brokers/message/control/ControlMessageTest.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/NOTICE.txt -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/pom.xml -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/Broker.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/BrokerMessage.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/BrokerMessageFields.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/Payload.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageException.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageFields.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/control/ControlMessage.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessage.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageException.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageFields.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployNotificationPayload.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployPayload.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/gson/BrokerMessageSerializer.java -text svneol=unset#text/plain
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/message/gson/GsonParserBuilder.java -text svneol=unset#text/plain
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageTest.java -text svneol=unset#text/plain
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/brokers/message/control/ControlMessageTest.java -text
+mw.brokers.api.core-2.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageTest.java -text svneol=unset#text/plain
 mw.brokers.api.osgi-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.brokers.api.osgi-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.brokers.api.osgi-1.3.2-SNAPSHOT/pom.xml -text
