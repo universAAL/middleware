@@ -3896,6 +3896,10 @@ mw.modules.communication.osgi-1.3.3-SNAPSHOT/ASL2.0.txt -text
 mw.modules.communication.osgi-1.3.3-SNAPSHOT/NOTICE.txt -text
 mw.modules.communication.osgi-1.3.3-SNAPSHOT/pom.xml -text
 mw.modules.communication.osgi-1.3.3-SNAPSHOT/src/main/java/org/universAAL/middleware/modules/communication/osgi/Activator.java -text
+mw.modules.communication.osgi-2.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.modules.communication.osgi-2.0.1-SNAPSHOT/NOTICE.txt -text
+mw.modules.communication.osgi-2.0.1-SNAPSHOT/pom.xml -text
+mw.modules.communication.osgi-2.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/modules/communication/osgi/Activator.java -text
 mw.pom-1.0.2-SNAPSHOT/artifact_manual.composite -text
 mw.pom-1.0.2-SNAPSHOT/composite/pom.xml -text
 mw.pom-1.0.2-SNAPSHOT/eclipse.setup.bat -text
