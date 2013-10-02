@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.2-SNAPSHOT</version>
     <relativePath>../mw.pom.osgi</relativePath>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.connectors.discovery.slp.osgi</artifactId>
-  <version>2.0.1-SNAPSHOT</version>
+  <version>2.0.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Middleware Connector Discovery SLP (OSGi)</name>
   <description>SLP Discovery Connector</description>
@@ -40,8 +40,8 @@
       <artifactId>mw.connectors.discovery.slp.core</artifactId>
     </dependency>
     <dependency>
-      <artifactId>jslp.osgi</artifactId>
       <groupId>org.universAAL.thirdparty</groupId>
+      <artifactId>jslp.osgi</artifactId>
     </dependency>
   </dependencies>
   <build>

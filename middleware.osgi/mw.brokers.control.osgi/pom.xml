@@ -1,55 +1,54 @@
 <?xml version="1.0"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.pom.osgi</artifactId>
-		<version>2.0.1-SNAPSHOT</version>
-		<relativePath>../mw.pom.osgi</relativePath>
-	</parent>
-	<groupId>org.universAAL.middleware</groupId>
-	<artifactId>mw.brokers.control.osgi</artifactId>
-	<version>2.0.1-SNAPSHOT</version>
-	<packaging>bundle</packaging>
-	<name>universAAL Middleware Broker Control (OSGi)</name>
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.brokers.control.core</artifactId>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-Author>Michele Girolami &lt;michele.girolami@isti.cnr.it>,
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>2.0.2-SNAPSHOT</version>
+    <relativePath>../mw.pom.osgi</relativePath>
+  </parent>
+  <groupId>org.universAAL.middleware</groupId>
+  <artifactId>mw.brokers.control.osgi</artifactId>
+  <version>2.0.2-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <name>universAAL Middleware Broker Control (OSGi)</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.osgi.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.osgi.compendium</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.brokers.control.core</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Author>Michele Girolami &lt;michele.girolami@isti.cnr.it>,
 							Francesco Furfari &lt;francesco.furfari@isti.cnr.it>,
 							Stefano Lenzi &lt;stefano.lenzi@isti.cnr.it></Bundle-Author>
-						<Bundle-Name>${project.name}</Bundle-Name>
-						<Bundle-Description>${project.description}</Bundle-Description>
-						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Bundle-Provider>ISTI-CNR</Bundle-Provider>
-						<Export-Package>org.universAAL.middleware.brokers.control,
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Bundle-Provider>ISTI-CNR</Bundle-Provider>
+            <Export-Package>org.universAAL.middleware.brokers.control,
 							org.universAAL.middleware.brokers.control.osgi</Export-Package>
-						<Import-Package>org.universAAL.middleware.brokers.control,
+            <Import-Package>org.universAAL.middleware.brokers.control,
 							org.universAAL.middleware.brokers.control.osgi,
 							org.osgi.framework,org.osgi.service.log,
 							org.universAAL.middleware.container,
@@ -67,11 +66,11 @@
 							org.universAAL.middleware.interfaces.mpa,
 							org.universAAL.middleware.brokers.message.gson,					
 							com.google.gson</Import-Package>
-						<Bundle-Activator>org.universAAL.middleware.brokers.control.osgi.Activator</Bundle-Activator>
-						<Private-Package />
-					</instructions>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+            <Bundle-Activator>org.universAAL.middleware.brokers.control.osgi.Activator</Bundle-Activator>
+            <Private-Package />
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
