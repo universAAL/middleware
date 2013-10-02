@@ -3851,6 +3851,9 @@ mw.modules.api.osgi-1.3.2-SNAPSHOT/pom.xml -text
 mw.modules.api.osgi-1.3.3-SNAPSHOT/ASL2.0.txt -text
 mw.modules.api.osgi-1.3.3-SNAPSHOT/NOTICE.txt -text
 mw.modules.api.osgi-1.3.3-SNAPSHOT/pom.xml -text
+mw.modules.api.osgi-2.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.modules.api.osgi-2.0.1-SNAPSHOT/NOTICE.txt -text
+mw.modules.api.osgi-2.0.1-SNAPSHOT/pom.xml -text
 mw.modules.communication.core-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.modules.communication.core-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.modules.communication.core-1.3.2-SNAPSHOT/pom.xml -text
