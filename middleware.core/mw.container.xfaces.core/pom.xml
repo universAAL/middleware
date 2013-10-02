@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.core</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.2-SNAPSHOT</version>
     <relativePath>../mw.pom.core</relativePath>
   </parent>
   <artifactId>mw.container.xfaces.core</artifactId>
-  <version>2.0.1-SNAPSHOT</version>
+  <version>2.0.2-SNAPSHOT</version>
   <name>universAAL Middleware Container Interfaces (Core)</name>
   <description>Defines the interfaces exported by the Container building block of the universAAL middleware (Core)</description>
   <url></url>

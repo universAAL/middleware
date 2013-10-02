@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.core</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.2-SNAPSHOT</version>
     <relativePath>../../middleware.core/mw.pom.core</relativePath>
   </parent>
-  <artifactId>jslp.core</artifactId>
   <groupId>org.universAAL.thirdparty</groupId>
+  <artifactId>jslp.core</artifactId>
+  <version>2.0.2-SNAPSHOT</version>
   <name>universAAL Thirdparty jslp library (Core)</name>
-  <dependencies>  </dependencies>
 </project>

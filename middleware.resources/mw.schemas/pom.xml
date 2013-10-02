@@ -1,64 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-   <modelVersion>4.0.0</modelVersion>
-   <parent>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.pom.osgi</artifactId>
-      <version>2.0.1-SNAPSHOT</version>
-      <relativePath>../../middleware.osgi/mw.pom.osgi</relativePath>
-   </parent>
-   <groupId>org.universAAL.middleware</groupId>
-   <artifactId>mw.schemas</artifactId>
-   <version>2.0.1-SNAPSHOT</version>
-   <packaging>bundle</packaging>
-   <name>universAAL Middleware XSD Schemas</name>
-   <description>XSD Schema for universAAL common data model</description>
-   <developers>
-      <developer>
-         <id>stefano.lenzi</id>
-         <name>Stefano Lenzi</name>
-         <email>stefano.lenzi@isti.cnr.it.it</email>
-         <roles>
-            <role>developer</role>
-         </roles>
-         <timezone>1</timezone>
-      </developer>
-   </developers>
-   <dependencies>
-      <dependency>
-         <groupId>junit</groupId>
-         <artifactId>junit</artifactId>
-      </dependency>
-   </dependencies>
-   <build>
-      <plugins>
-         <!--plugin> <groupId>org.jvnet.jaxb2.maven2</groupId> <artifactId>maven-jaxb2-plugin</artifactId> <executions> <execution> 
-            <goals> <goal>generate</goal> </goals> </execution> </executions> <configuration> <addCompileSourceRoot>true</addCompileSourceRoot> 
-            <autoNameResolution>true</autoNameResolution> </configuration> </plugin -->
-         <plugin>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>maven-bundle-plugin</artifactId>
-            <extensions>true</extensions>
-            <configuration>
-               <instructions>
-                  <Bundle-Name>${project.name}</Bundle-Name>
-                  <Bundle-Description>${project.description}</Bundle-Description>
-                  <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                  <Import-Package>
-                     javax.xml.bind,
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>2.0.2-SNAPSHOT</version>
+    <relativePath>../../middleware.osgi/mw.pom.osgi</relativePath>
+  </parent>
+  <groupId>org.universAAL.middleware</groupId>
+  <artifactId>mw.schemas</artifactId>
+  <version>2.0.2-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <name>universAAL Middleware XSD Schemas</name>
+  <description>XSD Schema for universAAL common data model</description>
+  <developers>
+    <developer>
+      <id>stefano.lenzi</id>
+      <name>Stefano Lenzi</name>
+      <email>stefano.lenzi@isti.cnr.it.it</email>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Import-Package>javax.xml.bind,
                      javax.xml.bind.annotation,
                      javax.xml.bind.annotation.adapters,
                      javax.xml.namespace,
-                     org.w3c.dom
-                  </Import-Package>
-                  <Export-Package>org.universAAL.middleware.connectors.deploy.karaf.model,
+                     org.w3c.dom</Import-Package>
+            <Export-Package>org.universAAL.middleware.connectors.deploy.karaf.model,
                      org.universAAL.middleware.deploymanager.uapp.model,
-                     org.universAAL.middleware.interfaces.aalspace.*
-                  </Export-Package>
-               </instructions>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
+                     org.universAAL.middleware.interfaces.aalspace.*</Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
