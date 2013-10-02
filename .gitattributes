@@ -2124,6 +2124,10 @@ mw.bus.ui.osgi-1.3.3-SNAPSHOT/ASL2.0.txt -text
 mw.bus.ui.osgi-1.3.3-SNAPSHOT/NOTICE.txt -text
 mw.bus.ui.osgi-1.3.3-SNAPSHOT/pom.xml -text
 mw.bus.ui.osgi-1.3.3-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/osgi/Activator.java -text
+mw.bus.ui.osgi-2.0.2-SNAPSHOT/ASL2.0.txt -text
+mw.bus.ui.osgi-2.0.2-SNAPSHOT/NOTICE.txt -text
+mw.bus.ui.osgi-2.0.2-SNAPSHOT/pom.xml -text
+mw.bus.ui.osgi-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/osgi/Activator.java -text
 mw.composite-1.0.2-SNAPSHOT/pom.xml -text
 mw.composite-1.1.2-SNAPSHOT/pom.xml -text
 mw.composite-1.2.1-SNAPSHOT/pom.xml -text
