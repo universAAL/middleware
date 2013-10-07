@@ -265,8 +265,10 @@ middleware.core/mw.connectors.discovery.slp.core/src/main/java/org/universAAL/mi
 middleware.core/mw.container.junit/ASL2.0.txt -text
 middleware.core/mw.container.junit/NOTICE.txt -text
 middleware.core/mw.container.junit/pom.xml -text
+middleware.core/mw.container.junit/src/main/java/org/universAAL/container/JUnit/BusTestCase.java -text
 middleware.core/mw.container.junit/src/main/java/org/universAAL/container/JUnit/JUnitContainer.java -text
 middleware.core/mw.container.junit/src/main/java/org/universAAL/container/JUnit/JUnitModuleContext.java -text
+middleware.core/mw.container.junit/src/main/java/org/universAAL/container/JUnit/ManifestTestCase.java -text
 middleware.core/mw.container.junit/src/test/java/org/universAAL/test/SimpleTest.java -text
 middleware.core/mw.container.xfaces.core/ASL2.0.txt -text
 middleware.core/mw.container.xfaces.core/NOTICE.txt -text
