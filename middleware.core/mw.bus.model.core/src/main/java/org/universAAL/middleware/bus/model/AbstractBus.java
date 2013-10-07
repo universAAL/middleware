@@ -190,7 +190,14 @@ public abstract class AbstractBus implements Broker, MessageListener {
 
     protected AbstractBus(ModuleContext module) {
 	context = module;
-	communicationModule.addMessageListener(this, getBrokerName());
+	if (communicationModule != null)
+	    communicationModule.addMessageListener(this, getBrokerName());
+	else
+	    LogUtils.logDebug(
+		    myContext,
+		    AbstractBus.class,
+		    "AbstractBus",
+		    "Could not add Message Listener to Communication Module because Communication Module is null");
 	busStrategy = createBusStrategy(communicationModule);
 	registry = createRegistry();
 	busStrategy.start(module);
