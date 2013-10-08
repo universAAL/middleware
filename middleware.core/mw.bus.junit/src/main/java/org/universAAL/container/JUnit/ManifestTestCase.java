@@ -81,13 +81,13 @@ public class ManifestTestCase extends BusTestCase {
 
     protected void add(String title, String description, ServiceRequest r,
 	    boolean extend) {
-	// System.out.println("\n\n-- new Request (not extended):\n"
-	// + serialize(r));
+	 System.out.println("\n\n-- new Request (not extended):\n"
+	 + serialize(r));
 	if (extend) {
 	    while (extendRequest(r)) {
 	    }
-	    // System.out.println("\n\n-- new Request (extended):\n"
-	    // + serialize(r));
+	    System.out.println("\n\n-- new Request (extended):\n"
+		    + serialize(r));
 	}
 
 	serviceRequests.add(new Element<ServiceRequest>(title, description, r));
