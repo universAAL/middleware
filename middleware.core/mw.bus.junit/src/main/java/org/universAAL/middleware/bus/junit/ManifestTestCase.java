@@ -19,7 +19,12 @@
  */
 package org.universAAL.middleware.bus.junit;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -56,22 +61,76 @@ public class ManifestTestCase extends BusTestCase {
 
     LinkedList<Element<ServiceRequest>> serviceRequests = new LinkedList<Element<ServiceRequest>>();
     LinkedList<Element<ServiceProfile>> serviceProfiles = new LinkedList<Element<ServiceProfile>>();
-    LinkedList<Element<ContextEventPattern>> contextEventPatterns = new LinkedList<Element<ContextEventPattern>>();
+    LinkedList<Element<ContextEventPattern>> contextEventPatternsPublish = new LinkedList<Element<ContextEventPattern>>();
+    LinkedList<Element<ContextEventPattern>> contextEventPatternsSubscribe = new LinkedList<Element<ContextEventPattern>>();
 
     protected void writeManifest() {
-	String current;
+	PrintWriter writer;
 	try {
-	    current = new java.io.File(".").getCanonicalPath();
-	    System.out.println("Current dir:" + current);
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
+	    File f = new File(".\\target\\uaal-manifest.mf");
+	    try {
+		String filename = f.getCanonicalPath();
+		System.out.println("-- writing manifest to file " + filename);
+	    } catch (IOException e) {
+		e.printStackTrace();
+	    }
+	    writer = new PrintWriter(".\\target\\uaal-manifest.mf", "UTF-8");
+	} catch (FileNotFoundException e) {
 	    e.printStackTrace();
+	    return;
+	} catch (UnsupportedEncodingException e) {
+	    e.printStackTrace();
+	    return;
 	}
+
+	writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+	writer.println("<application>");
+	writer.println("   <permissions>");
+	writeManifestEntry(writer, "mw.bus.service", serviceRequests,
+		serviceProfiles);
+	writeManifestEntry(writer, "mw.bus.context",
+		contextEventPatternsSubscribe, contextEventPatternsPublish);
+	writer.println("   </permissions>");
+	writer.println("</application>");
+	writer.close();
     }
 
-    protected void add(String title, String description, ContextEventPattern cep) {
-	contextEventPatterns.add(new Element<ContextEventPattern>(title,
-		description, cep));
+    private void writeManifestEntry(PrintWriter writer, String brokerName,
+	    LinkedList elReq, LinkedList elAd) {
+	writer.println("      <" + brokerName + ">");
+	writeManifestEntry(writer, "requirement", elReq);
+	writeManifestEntry(writer, "advertisement", elAd);
+	writer.println("      </" + brokerName + ">");
+    }
+
+    private void writeManifestEntry(PrintWriter writer, String type,
+	    LinkedList<Element> elements) {
+	if (elements != null)
+	    for (Element el : elements)
+		writeManifestEntry(writer, type, el);
+    }
+
+    private void writeManifestEntry(PrintWriter writer, String type, Element el) {
+	// TODO: escape the manifest entry: escape the <![CDATA[]]>
+	writer.println("         <" + type + ">");
+	writer.println("            <title>" + el.title + "</title>");
+	writer.println("            <description>" + el.description
+		+ "</description>");
+	writer.println("            <serialization>");
+	writer.println("               <![CDATA[" + serialize(el.el) + "]]>");
+	writer.println("            </serialization>");
+	writer.println("         </" + type + ">");
+    }
+
+    protected void add(String title, String description,
+	    ContextEventPattern cep, boolean isPublisher) {
+	LinkedList<Element<ContextEventPattern>> lst;
+	if (isPublisher)
+	    lst = contextEventPatternsPublish;
+	else
+	    lst = contextEventPatternsSubscribe;
+
+	lst.add(new Element<ContextEventPattern>(title, description, cep));
     }
 
     protected void add(String title, String description, ServiceProfile profile) {
@@ -81,8 +140,8 @@ public class ManifestTestCase extends BusTestCase {
 
     protected void add(String title, String description, ServiceRequest r,
 	    boolean extend) {
-	 System.out.println("\n\n-- new Request (not extended):\n"
-	 + serialize(r));
+	System.out.println("\n\n-- new Request (not extended):\n"
+		+ serialize(r));
 	if (extend) {
 	    while (extendRequest(r)) {
 	    }
