@@ -8,9 +8,9 @@
     <version>2.0.2-SNAPSHOT</version>
     <relativePath>../mw.pom.core</relativePath>
   </parent>
-  <artifactId>mw.container.junit</artifactId>
+  <artifactId>mw.bus.junit</artifactId>
   <version>2.0.2-SNAPSHOT</version>
-  <name>universAAL Middleware Container JUnit</name>
+  <name>universAAL Middleware Bus JUnit</name>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -19,6 +19,26 @@
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.container.xfaces.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.service.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.context.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.ui.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.data.serialization.core</artifactId>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
