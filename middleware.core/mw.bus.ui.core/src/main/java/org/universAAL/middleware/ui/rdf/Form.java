@@ -25,7 +25,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
-import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.ui.UICaller;
@@ -673,5 +672,30 @@ public class Form extends FormElement {
 	    if (t0 == t1 || (t0 != null && t0.equals(t1)))
 		props.put(PROP_DIALOG_DATA_ROOT, pr);
 	}
+    }
+    
+    /**
+     * look for a FormControl within the form with the given URI.
+     * @param formControlURI
+     * @return the {@link FormControl} or null if not found.
+     */
+    public FormControl searchFormControl(String formControlURI){
+    	FormControl[] children = getRootGroup().getChildren();
+    	boolean found = false;
+    	int i = 0;
+    	FormControl result = null;
+    	while (!found
+    			&& i < children.length){
+    		found = children[i].getURI().equals(formControlURI);
+    		if (found){
+    			result = children[i];
+    		}
+    		else if (children[i] instanceof Group){
+    			result = ((Group)children[i]).searchFormControl(formControlURI);
+    			found = (result != null);
+    		}
+    		i++;
+    	}
+    	return result;
     }
 }

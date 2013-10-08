@@ -529,4 +529,29 @@ public class Group extends FormControl {
 	else
 	    return false;
     }
+
+    /**
+     * look for a FormControl within the group with the given URI.
+     * @param formControlURI
+     * @return the {@link FormControl} or null if not found.
+     */
+    public FormControl searchFormControl(String formControlURI){
+    	FormControl[] children = getChildren();
+    	boolean found = false;
+    	int i = 0;
+    	FormControl result = null;
+    	while (!found
+    			&& i < children.length){
+    		found = children[i].getURI().equals(formControlURI);
+    		if (found){
+    			result = children[i];
+    		}
+    		else if (children[i] instanceof Group){
+    			result = ((Group)children[i]).searchFormControl(formControlURI);
+    			found = (result != null);
+    		}
+    		i++;
+    	}
+    	return result;
+    }
 }
