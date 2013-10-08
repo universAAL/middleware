@@ -88,8 +88,8 @@ middleware.core/mw.bus.context.core/src/test/java/org/universAAL/middleware/cont
 middleware.core/mw.bus.junit/ASL2.0.txt -text
 middleware.core/mw.bus.junit/NOTICE.txt -text
 middleware.core/mw.bus.junit/pom.xml -text
-middleware.core/mw.bus.junit/src/main/java/org/universAAL/container/JUnit/BusTestCase.java -text
-middleware.core/mw.bus.junit/src/main/java/org/universAAL/container/JUnit/ManifestTestCase.java -text
+middleware.core/mw.bus.junit/src/main/java/org/universAAL/middleware/bus/junit/BusTestCase.java -text
+middleware.core/mw.bus.junit/src/main/java/org/universAAL/middleware/bus/junit/ManifestTestCase.java -text
 middleware.core/mw.bus.junit/src/test/java/org/universAAL/test/SimpleTest.java -text
 middleware.core/mw.bus.model.core/ASL2.0.txt -text
 middleware.core/mw.bus.model.core/NOTICE.txt -text

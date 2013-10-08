@@ -17,7 +17,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.container.JUnit;
+package org.universAAL.middleware.bus.junit;
 
 //import java.io.File;
 //import java.net.MalformedURLException;
@@ -25,6 +25,8 @@ package org.universAAL.container.JUnit;
 //import java.net.URLClassLoader;
 //import java.util.LinkedList;
 
+import org.universAAL.container.JUnit.JUnitContainer;
+import org.universAAL.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
