@@ -187,9 +187,11 @@ public abstract class AbstractBus implements Broker, MessageListener {
     protected ModuleContext context;
     protected IRegistry registry;
     protected BusStrategy busStrategy;
+    private String brokerName;
 
-    protected AbstractBus(ModuleContext module) {
+    protected AbstractBus(ModuleContext module, String brokerName) {
 	context = module;
+	this.brokerName = brokerName;
 	if (communicationModule != null)
 	    communicationModule.addMessageListener(this, getBrokerName());
 	else
@@ -367,7 +369,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
     }
 
     public String getBrokerName() {
-	return context.getID();
+	return brokerName;
     }
 
     public String getURI() {

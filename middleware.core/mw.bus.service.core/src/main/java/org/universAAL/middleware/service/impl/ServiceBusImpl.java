@@ -105,7 +105,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     private ServiceBusImpl(ModuleContext mc) {
-	super(mc);
+	super(mc, "mw.bus.service.osgi");
 	busStrategy.setBus(this);
     }
 

@@ -100,7 +100,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
     }
 
     private ContextBusImpl(ModuleContext mc) {
-	super(mc);
+	super(mc, "mw.bus.context.osgi");
 	busStrategy.setBus(this);
     }
 

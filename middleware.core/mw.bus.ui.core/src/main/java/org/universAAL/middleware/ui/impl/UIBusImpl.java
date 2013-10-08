@@ -117,7 +117,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      *            {@link ModuleContext}
      */
     private UIBusImpl(ModuleContext mc) {
-	super(mc);
+	super(mc, "mw.bus.ui.osgi");
 	busStrategy.setBus(this);
     }
 
