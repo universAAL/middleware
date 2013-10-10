@@ -244,12 +244,8 @@ public class Range extends Input {
 		Long mval = (Long) getMinValue();
 		Long stepVal = (Long) getStep();
 		steps = (int) ((cval - mval)/stepVal);
-	} else
-	    return null;
-
-	if (newVal != null && storeUserInput(newVal))
-	    return newVal;
-	return null;
+	} 
+	return steps;
     }
     
     /**
