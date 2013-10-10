@@ -625,11 +625,6 @@ public class Repeat extends Group {
 			repeatList = new ArrayList();
 		}
 		
-		if (repeatList == null) {
-			throw new IllegalArgumentException(
-					"Referenced Path for Repeat is not a list");
-		}
-		
 		int index = 0;
 		for (Iterator i = repeatList.iterator(); i.hasNext();) {
 			Resource res = (Resource) i.next();
@@ -637,8 +632,6 @@ public class Repeat extends Group {
 			for (int j = 0; j < elems.length; j++) {
 				if (elems[j] != null) {
 					FormControl nFC = (FormControl) softCopy(elems[j]);
-					nFC.changeProperty(FormControl.PROP_PARENT_CONTROL,
-							subForm.getIOControls());
 					((Group) subForm.getIOControls()).addChild(nFC);
 					if (elems[j] instanceof SubdialogTrigger) {
 						nFC.changeProperty(
