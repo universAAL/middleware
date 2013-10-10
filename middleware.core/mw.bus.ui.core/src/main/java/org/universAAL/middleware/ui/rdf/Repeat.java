@@ -572,4 +572,85 @@ public class Repeat extends Group {
 	} else
 	    return true;
     }
+    
+	/**
+	 * Generates a {@link List} of (virtual) {@link Form}s which each contains in its IOControls group
+	 * the corresponding row of {@link FormControl}.
+	 * This works because the dataRoot of each form is the corresponding for the row, so each {@link FormControl}
+	 * can be modeled as usual.
+	 * @return a {@link List} of {@link Form}s.
+	 * @throws IllegalArgumentException if the prerequisites are not met.
+	 */
+	public List virtualFormExpansion() {
+		FormControl[] elems = getChildren();
+		if (elems == null || elems.length != 1 || elems[0] == null) {
+			throw new IllegalArgumentException("Malformed Repeat only allowed one valid child!");
+		}
+		if (elems[0] instanceof Group) {
+			elems = ((Group) elems[0]).getChildren();
+			if (elems == null || elems.length == 0)
+				throw new IllegalArgumentException("Malformed child group is empty!");
+		}else if (! (elems[0] instanceof FormControl)){
+			throw new IllegalArgumentException("child is not a FormControl!");
+			/*
+			 * FIXME for the case of elems[0] instanceof Formcontrol (not group) 
+			 * property path String[]{} must refer to self. 
+			 */
+		}
+		
+		ArrayList formList = new ArrayList();
+		PropertyPath ref = (PropertyPath) getProperty(PROP_REFERENCED_PPATH);
+		Object repeatData = getFormObject().getValue(ref.getThePath());
+		List repeatList = null;
+		if (repeatData instanceof Resource) {
+			repeatList = ((Resource) repeatData).asList();
+		}
+		if (repeatData instanceof List) {
+			repeatList = (List) repeatData;
+		}
+		if (repeatData == null) {
+			// it is not initialised
+			repeatList = new ArrayList();
+		}
+		
+		if (repeatList == null) {
+			throw new IllegalArgumentException(
+					"Referenced Path for Repeat is not a list");
+		}
+		
+		int index = 0;
+		for (Iterator i = repeatList.iterator(); i.hasNext();) {
+			Resource res = (Resource) i.next();
+			Form subForm = Form.newDialog("", res);
+			for (int j = 0; j < elems.length; j++) {
+				if (elems[j] != null) {
+					FormControl nFC = (FormControl) softCopy(elems[j]);
+					nFC.changeProperty(FormControl.PROP_PARENT_CONTROL,
+							subForm.getIOControls());
+					((Group) subForm.getIOControls()).addChild(nFC);
+					if (elems[j] instanceof SubdialogTrigger) {
+						nFC.changeProperty(
+								SubdialogTrigger.PROP_SUBMISSION_ID,
+								nFC.getProperty(SubdialogTrigger.PROP_REPEATABLE_ID_PREFIX)
+										+ Integer.toString(index));
+					}
+				}
+			}
+			formList.add(subForm);
+			index++;
+		}
+
+		return formList;
+	}
+	
+	private Object softCopy(Resource res) {
+		Resource newRes = Resource.getResource(res.getType(),
+				Resource.generateAnonURI());
+		Enumeration props = res.getPropertyURIs();
+		while (props.hasMoreElements()) {
+			String prop = (String) props.nextElement();
+			newRes.setProperty(prop, res.getProperty(prop));
+		}
+		return newRes;
+	}
 }
