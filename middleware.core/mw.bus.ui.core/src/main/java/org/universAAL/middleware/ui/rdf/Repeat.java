@@ -110,6 +110,11 @@ public class Repeat extends Group {
     private int selectionIndex = -1;
     private boolean submissionChecked = false;
 
+	/**
+	 * List of virtualForms generated when {@link Repeat#virtualFormExpansion()} is called.
+	 */
+	private List vForms;
+
     /**
      * For exclusive use by de-serializers.
      */
@@ -582,6 +587,13 @@ public class Repeat extends Group {
 	 * @throws IllegalArgumentException if the prerequisites are not met.
 	 */
 	public List virtualFormExpansion() {
+		if (vForms == null){
+			vForms = generateVirtualForms();
+		}
+		return vForms;
+	}
+	
+	private List generateVirtualForms(){
 		FormControl[] elems = getChildren();
 		if (elems == null || elems.length != 1 || elems[0] == null) {
 			throw new IllegalArgumentException("Malformed Repeat only allowed one valid child!");
@@ -653,4 +665,18 @@ public class Repeat extends Group {
 		}
 		return newRes;
 	}
+
+	/** {@ inheritDoc}	 */
+	public FormControl searchFormControl(String formControlURI) {
+		FormControl res =  super.searchFormControl(formControlURI);
+		Iterator i = vForms.iterator();
+		while (i.hasNext()
+				&& res == null) {
+			Form f = (Form) i.next();
+			res = f.searchFormControl(formControlURI);
+		}
+		return res;
+	}
+	
+	
 }
