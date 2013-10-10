@@ -55,92 +55,90 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * It provides mechanism to match user preferences, abilities and some other
  * important information with {@link UIHandlerProfile} that describes
  * {@link UIHandler} capabilities. Based upon this matching the appropriate
- * {@link UIHandler} to communicate with the user is selected.
- * <center>
+ * {@link UIHandler} to communicate with the user is selected. <center>
  * <table align="left" border="1" cellpadding="1" cellspacing="1" style="width: 70%;">
- *			<caption>UI Bus Messages summary</caption>
- *			<thead>
- *				<tr>
- *					<th scope="col">Message</th>
- *					<th scope="col">Event MsgType</th>
- *					<th scope="col">Parameters</th>
- *				</tr>
- *			</thead>
- *			<tbody>
- *				<tr>
- *					<td>resquest</td>
- *					<td>Request (Not event)</td>
- *					<td>UIRequest (not as parameter, as the message resource)</td>
- *				</tr>
- *				<tr>
- *					<td>abort</td>
- *					<td>bus_Notification</td>
- *					<td>Dialog_ID</td>
- *				</tr>
- *				<tr>
- *					<td>cut</td>
- *					<td>bus_Notification</td>
- *					<td>Dialog_ID; Handler_ID</td>
- *				</tr>
- *				<tr>
- *					<td>newHandlerProfile</td>
- *					<td>bus_Subscription</td>
- *					<td>Handler_ID; Subscription</td>
- *				</tr>
- *				<tr>
- *					<td>finishDialog</td>
- *					<td>bus_Notification</td>
- *					<td>Handler_ID; Dialog_ID</td>
- *				</tr>
- *				<tr>
- *					<td>notifyUserInput</td>
- *					<td>bus_Notification</td>
- *					<td>User_Input</td>
- *				</tr>
- *				<tr>
- *					<td>removeMatchingProfile</td>
- *					<td>bus_Subscription</td>
- *					<td>Handler_ID; Subscription; Remove_Subscription=true</td>
- *				</tr>
- *				<tr>
- *					<td>removeProfile</td>
- *					<td>bus_Subscription</td>
- *					<td>Handler_ID;&nbsp;Remove_Subscription=true</td>
- *				</tr>
- *				<tr>
- *					<td>resumeDialog</td>
- *					<td>bus_Notification</td>
- *					<td>Dialog_ID; Updated_Data</td>
- *				</tr>
- *				<tr>
- *					<td>suspendDialog</td>
- *					<td>bus_Notification</td>
- *					<td>Dialog_ID</td>
- *				</tr>
- *				<tr>
- *					<td>userLogOn</td>
- *					<td>main_Menu</td>
- *					<td>Involved_User; [Location]</td>
- *				</tr>
- *				<tr>
- *					<td>notifyHandler</td>
- *					<td>bus_Notification</td>
- *					<td>Handler_ID; UI_Request; Is_New_Request</td>
- *				</tr>
- *				<tr>
- *					<td>notifyCoordinator</td>
- *					<td>UI_Bus_Coordinator</td>
- *					<td>&nbsp;</td>
- *				</tr>
- *			</tbody>
- *		</table> </center>
- *  <center> <img src="doc-files/UIStrategy.png" alt="UIStrategy messages"
- * width="70%"/> </center>
+ * <caption>UI Bus Messages summary</caption> <thead>
+ * <tr>
+ * <th scope="col">Message</th>
+ * <th scope="col">Event MsgType</th>
+ * <th scope="col">Parameters</th>
+ * </tr>
+ * </thead> <tbody>
+ * <tr>
+ * <td>request</td>
+ * <td>Request (Not event)</td>
+ * <td>UIRequest (not as parameter, as the message resource)</td>
+ * </tr>
+ * <tr>
+ * <td>abort</td>
+ * <td>bus_Notification</td>
+ * <td>Dialog_ID</td>
+ * </tr>
+ * <tr>
+ * <td>cut</td>
+ * <td>bus_Notification</td>
+ * <td>Dialog_ID; Handler_ID</td>
+ * </tr>
+ * <tr>
+ * <td>newHandlerProfile</td>
+ * <td>bus_Subscription</td>
+ * <td>Handler_ID; Subscription</td>
+ * </tr>
+ * <tr>
+ * <td>finishDialog</td>
+ * <td>bus_Notification</td>
+ * <td>Handler_ID; Dialog_ID</td>
+ * </tr>
+ * <tr>
+ * <td>notifyUserInput</td>
+ * <td>bus_Notification</td>
+ * <td>User_Input</td>
+ * </tr>
+ * <tr>
+ * <td>removeMatchingProfile</td>
+ * <td>bus_Subscription</td>
+ * <td>Handler_ID; Subscription; Remove_Subscription=true</td>
+ * </tr>
+ * <tr>
+ * <td>removeProfile</td>
+ * <td>bus_Subscription</td>
+ * <td>Handler_ID;&nbsp;Remove_Subscription=true</td>
+ * </tr>
+ * <tr>
+ * <td>resumeDialog</td>
+ * <td>bus_Notification</td>
+ * <td>Dialog_ID; Updated_Data</td>
+ * </tr>
+ * <tr>
+ * <td>suspendDialog</td>
+ * <td>bus_Notification</td>
+ * <td>Dialog_ID</td>
+ * </tr>
+ * <tr>
+ * <td>userLogOn</td>
+ * <td>main_Menu</td>
+ * <td>Involved_User; [Location]</td>
+ * </tr>
+ * <tr>
+ * <td>notifyHandler</td>
+ * <td>bus_Notification</td>
+ * <td>Handler_ID; UI_Request; Is_New_Request</td>
+ * </tr>
+ * <tr>
+ * <td>notifyCoordinator</td>
+ * <td>UI_Bus_Coordinator</td>
+ * <td>&nbsp;</td>
+ * </tr>
+ * </tbody>
+ * </table>
+ * </center> <center> <img src="doc-files/UIStrategy.png"
+ * alt="UIStrategy messages" width="70%"/> </center>
+ * 
  * @author mtazari
  * @author eandgrg
  * 
  */
-	public class UIStrategy extends BusStrategy {
+public class UIStrategy extends BusStrategy {
 
     /**
      * 
@@ -175,22 +173,88 @@ import org.universAAL.middleware.ui.rdf.Submit;
 	    + "theUICall";
     public static final String PROP_uAAL_UI_HANDLER_ID = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "theUIHandler";
+    /**
+     * reference to resource property that is true if it is a new UIRequest and
+     * false if it is not a new UIRequest (e.g. adaptation parameters changed)
+     */
     public static final String PROP_uAAL_UI_IS_NEW_REQUEST = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "isNewRequest";
+    /**
+     * input comes from the user
+     */
     public static final String PROP_uAAL_UI_USER_INPUT = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "userInput";
-    public static final String PROP_uAAL_UI_REMOVE_SUBSCRIPTION = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "removeSubscription";
+
+    /**
+     * References subscription that is {@link UIHandlerProfile} which is to be
+     * sent to the coordinator (if this instance is not the coordinator) upon
+     * registering a new subscription or removing an old one
+     */
     public static final String PROP_uAAL_UI_SUBSCRIPTION = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "theSubscription";
+    /**
+     * References changed (updated) dialog data to be passed to coordinator
+     */
     public static final String PROP_uAAL_UI_UPDATED_DATA = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "updatedData";
+    /**
+     * References the property that is true for the coordinator, when it
+     * announces its role via p2p_event message.
+     */
     public static final String TYPE_uAAL_UI_BUS_COORDINATOR = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "Coordinator";
+
+    /**
+     * <table>
+     * <tr>
+     * <td>References the property that is true when it is ui bus notification
+     * or in other words when the message p2p_event has to:</td>
+     * </tr>
+     * <tr>
+     * <td>a) broadcast a message (containing user input) to all instances of
+     * the UI bus (to find a matching {@link UICaller}</td>
+     * </tr>
+     ** 
+     * <tr>
+     * <td>b) carry dialog finished events to the coordinator (if this is not
+     * the coordinator)</td>
+     * </tr>
+     ** 
+     * <tr>
+     * <td>c) send abortDialog-Notification</td>
+     * </tr>
+     ** 
+     * <tr>
+     * <td>d) notify {@link UIHandler} if it is not on this local (coordinator)
+     * instance that adaptation parameters changed or that dialog has to be
+     * cut/handled/resumed</td>
+     * </tr>
+     * </table>
+     */
     public static final String TYPE_uAAL_UI_BUS_NOTIFICATION = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "SubscriberNotification";
+    /**
+     * References property set to true only when this instance is not the
+     * coordinator and {@link UIHandler} is to be un-subscribed from the
+     * {@link IUIBus} whether by only stating ID or both ID and
+     * {@link UIHandlerProfile}
+     */
+    public static final String PROP_uAAL_UI_REMOVE_SUBSCRIPTION = Resource.uAAL_VOCABULARY_NAMESPACE
+	    + "removeSubscription";
+
+    /**
+     * References subscription that is true when the new subscription
+     * {@link UIHandlerProfile} is added to the bus or removed from it (and needs to be
+     * forwarded to the coordinator). Additional property
+     * PROP_uAAL_UI_REMOVE_SUBSCRIPTION says whether it is addition or removal.
+     */
     public static final String TYPE_uAAL_UI_BUS_SUBSCRIPTION = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "Subscription";
+    /**
+     * Sent when {@link User} requested main menu (has logged in) and this is
+     * not the coordinator so main menu request has to be forwarded to the
+     * coordinator node.
+     */
     public static final String TYPE_uAAL_UI_MAIN_MENU = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "GetMainMenu";
     public static final String TYPE_uAAL_SUSPEND_DIALOG = Resource.uAAL_VOCABULARY_NAMESPACE
@@ -733,15 +797,26 @@ import org.universAAL.middleware.ui.rdf.Submit;
     }
 
     /**
-     * keep the original request in its serialized form for possible log entries
+     * 
+     * Keep the original request in its serialized form for possible log entries
      * because the coordinator might locally add other info to the request
      * during matchmaking
+     * 
+     * @param message
+     *            {@link BusMessage} to keep in serialized form
      */
+
     private void keepOriginalRequestForLogging(BusMessage message) {
 	((Resource) message.getContent()).setProperty(PROP_uAAL_UI_CALL,
 		message.getContentAsString());
     }
 
+    /**
+     * @param res
+     *            {@link Resource}
+     * @return true if the type of the given {@link Resource} is
+     *         TYPE_uAAL_UI_BUS_NOTIFICATION
+     */
     private boolean isUIBusNotification(Resource res) {
 	return res.getType().equals(TYPE_uAAL_UI_BUS_NOTIFICATION);
     }
@@ -772,7 +847,7 @@ import org.universAAL.middleware.ui.rdf.Submit;
     }
 
     /**
-     * handle P2P replies (currently only the response for the search of the
+     * Handle P2P-Replies (currently only the response for the search of the
      * coordinator)
      */
     private void handleSearchForCoordinator(Resource res) {
@@ -849,6 +924,8 @@ import org.universAAL.middleware.ui.rdf.Submit;
 	    } else if (res.getType().equals(TYPE_uAAL_SUSPEND_DIALOG)) {
 		suspendDialog((String) res.getProperty(PROP_uAAL_DIALOG_ID));
 	    } else if (res.getType().equals(TYPE_uAAL_UI_BUS_SUBSCRIPTION)) {
+		// new UIHandler has registered/unregistered on another instance
+		// so here it has to be processed
 		String handler = (String) res
 			.getProperty(PROP_uAAL_UI_HANDLER_ID);
 		UIHandlerProfile subscription = (UIHandlerProfile) res
@@ -1191,8 +1268,8 @@ import org.universAAL.middleware.ui.rdf.Submit;
 	if (o instanceof UIHandler) {
 	    // I have the handler => i can handle it
 	    LogUtils.logInfo(busModule, UIStrategy.class,
-		    "notifyHandler_handle", new Object[] { "Notified handler id: ",
-			    handlerID }, null);
+		    "notifyHandler_handle", new Object[] {
+			    "Notified handler id: ", handlerID }, null);
 	    ((UIHandler) o).handleUICall(request);
 
 	} else if (isCoordinator()) {
