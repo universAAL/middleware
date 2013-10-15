@@ -203,7 +203,7 @@ public class Form extends FormElement {
     public static final String PROP_PARENT_DIALOG_URI = uAAL_DIALOG_NAMESPACE
 	    + "parentDialogURI";
 
-    private static final String PROP_ROOT_GROUP = uAAL_DIALOG_NAMESPACE
+    protected static final String PROP_ROOT_GROUP = uAAL_DIALOG_NAMESPACE
 	    + "rootGroup";
 
     private static final String STD_BUTTONS_DIALOG_ID_SUFFIX = "stdButtons";
@@ -393,6 +393,14 @@ public class Form extends FormElement {
 	addType(MY_URI, true);
     }
 
+	/**
+	 * @param uriPrefix
+	 * @param numProps
+	 */
+	protected Form(String uriPrefix, int numProps) {
+		super(uriPrefix, numProps);
+	}
+    
     private Form(String formTitle, Resource dataRoot) {
 	super(uAAL_DIALOG_NAMESPACE, 5);
 	addType(MY_URI, true);
