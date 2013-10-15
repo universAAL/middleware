@@ -39,7 +39,6 @@ public abstract class FormElement extends FinalizedResource {
 	 */
 	public FormElement() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -47,7 +46,6 @@ public abstract class FormElement extends FinalizedResource {
 	 */
 	public FormElement(boolean isXMLLiteral) {
 		super(isXMLLiteral);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -56,7 +54,6 @@ public abstract class FormElement extends FinalizedResource {
 	 */
 	public FormElement(String uri, boolean isXMLLiteral) {
 		super(uri, isXMLLiteral);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -65,7 +62,6 @@ public abstract class FormElement extends FinalizedResource {
 	 */
 	public FormElement(String uriPrefix, int numProps) {
 		super(uriPrefix, numProps);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -73,7 +69,6 @@ public abstract class FormElement extends FinalizedResource {
 	 */
 	public FormElement(String uri) {
 		super(uri);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

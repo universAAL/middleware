@@ -29,6 +29,7 @@ import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.ui.owl.DialogType;
 
 /**
  * A subclass of {@link Group} whose children are all of the same type. Hence it
@@ -579,10 +580,21 @@ public class Repeat extends Group {
     }
     
 	/**
-	 * Generates a {@link List} of (virtual) {@link Form}s which each contains in its IOControls group
-	 * the corresponding row of {@link FormControl}.
-	 * This works because the dataRoot of each form is the corresponding for the row, so each {@link FormControl}
-	 * can be modeled as usual.
+	 * Generates a {@link List} of {@link Form}s which each contains in its IOControls group
+	 * the corresponding row of {@link FormControl}s. Each of these {@link FormControl}s will be a copy
+	 * of the {@link Repeat}'s {@link FormControl}s  but their {@link FormControl#getValue()} and {@link Input#storeUserInput(Object)}(if applies)
+	 * will be redirected to the correct place.
+	 * <br>
+	 * <p>
+	 * If the {@link Repeat}'s child is a single {@link FormControl}, then each generated {@link Form}'s IOControls group will 
+	 * contain the copy of the referenced {@link FormControl}. 
+	 * If the {@link Repeat}'s child is a {@link Group}, then the {@link Group}'s children will be copied into the 
+	 * new {@link Form}s IOGroup.
+	 * </p><p>
+	 * This works because the dataRoot of each new {@link Form} is the one corresponding for the row, so each {@link FormControl}
+	 * can be modeled as usual. this works whether the property path of the {@link Repeat} points to a {@link List} of {@link Resource}s or
+	 * a {@link List} of {@link Object}s (in which case the propertypaths of the child of the {@link Repeat} should be empty.
+	 * <p>
 	 * @return a {@link List} of {@link Form}s.
 	 * @throws IllegalArgumentException if the prerequisites are not met.
 	 */
@@ -604,10 +616,6 @@ public class Repeat extends Group {
 				throw new IllegalArgumentException("Malformed child group is empty!");
 		}else if (! (elems[0] instanceof FormControl)){
 			throw new IllegalArgumentException("child is not a FormControl!");
-			/*
-			 * FIXME for the case of elems[0] instanceof Formcontrol (not group) 
-			 * property path String[]{} must refer to self. 
-			 */
 		}
 		
 		ArrayList formList = new ArrayList();
@@ -627,12 +635,15 @@ public class Repeat extends Group {
 		
 		int index = 0;
 		for (Iterator i = repeatList.iterator(); i.hasNext();) {
-			Resource res = (Resource) i.next();
-			Form subForm = Form.newDialog("", res);
+			Object res = i.next();
+			Form subForm = VirtualForm.createNewVirtualForm(res);
+			Group gio = (Group) subForm.getIOControls();
 			for (int j = 0; j < elems.length; j++) {
 				if (elems[j] != null) {
 					FormControl nFC = (FormControl) softCopy(elems[j]);
-					((Group) subForm.getIOControls()).addChild(nFC);
+					nFC.changeProperty(PROP_PARENT_CONTROL, gio); 
+					// ^ Shouldn't this be done in Group#addCnild()?
+					gio.addChild(nFC);
 					if (elems[j] instanceof SubdialogTrigger) {
 						nFC.changeProperty(
 								SubdialogTrigger.PROP_SUBMISSION_ID,
@@ -671,5 +682,40 @@ public class Repeat extends Group {
 		return res;
 	}
 	
-	
+	private static class VirtualForm extends Form {
+		
+		
+		/**
+		 * 
+		 */
+		public VirtualForm(Object dataRoot) {
+			super(uAAL_DIALOG_NAMESPACE, 5);
+			addType(MY_URI, true);
+			props.put(PROP_DIALOG_CREATION_TIME, TypeMapper.getCurrentDateTime());
+			props.put(PROP_ROOT_GROUP, new Group("Virtual Form", this));
+			props.put(PROP_DIALOG_DATA_ROOT, (dataRoot == null) ? new Resource()
+				: dataRoot);
+		}
+		
+		static public Form createNewVirtualForm(Object root){
+			Form f = new VirtualForm(root);
+			f.changeProperty(PROP_DIALOG_TYPE, DialogType.stdDialog);
+			Group rootg = (Group) f.getProperty(Form.PROP_ROOT_GROUP);
+			new Group(rootg, new Label(Group.STD_IO_CONTROLS, null), null, null,
+				null);
+			return f;
+		}
+
+		/** {@ inheritDoc}	 */
+		Object getValue(String[] pp) {
+			/*if (pp == null) 
+				return null;*/
+			// this is because controls may not be linked to anything
+			if (pp == null || pp.length == 0)
+			    return props.get(PROP_DIALOG_DATA_ROOT);
+			else
+				return super.getValue(pp);
+		}
+		
+	}
 }
