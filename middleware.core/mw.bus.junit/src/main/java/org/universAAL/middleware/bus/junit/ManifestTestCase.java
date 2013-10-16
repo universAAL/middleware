@@ -67,14 +67,14 @@ public class ManifestTestCase extends BusTestCase {
     protected void writeManifest() {
 	PrintWriter writer;
 	try {
-	    File f = new File(".\\target\\uaal-manifest.mf");
+	    File file = new File(".\\target\\uaal-manifest.xml");
 	    try {
-		String filename = f.getCanonicalPath();
+		String filename = file.getCanonicalPath();
 		System.out.println("-- writing manifest to file " + filename);
 	    } catch (IOException e) {
 		e.printStackTrace();
 	    }
-	    writer = new PrintWriter(".\\target\\uaal-manifest.mf", "UTF-8");
+	    writer = new PrintWriter(file, "UTF-8");
 	} catch (FileNotFoundException e) {
 	    e.printStackTrace();
 	    return;
