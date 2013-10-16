@@ -19,7 +19,6 @@
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.managers.api.osgi/${mw.managers.api.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.modules.api.osgi/${mw.modules.api.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.brokers.api.osgi/${mw.brokers.api.osgi.version}</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.karaf.shell.universAAL.osgi/${mw.karaf.shell.universAAL.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:commons-lang/commons-lang/2.6</bundle>
 
 
@@ -50,7 +49,7 @@
 			
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.service.osgi/${mw.bus.service.osgi.version}</bundle>
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.ui.osgi/${mw.bus.ui.osgi.version}</bundle>
-		
+		<bundle start-level='59'>mvn:org.universAAL.middleware/mw.karaf.shell.universAAL.osgi/${mw.karaf.shell.universAAL.osgi.version}</bundle>
 		
 
 		<!-- Configuration file section -->
