@@ -18,6 +18,9 @@
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
   </properties>
   <build>
+    <filters>
+      <filter>./target/artifacts.versions</filter>
+    </filters>
     <plugins>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
@@ -64,4 +67,74 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.service.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.context.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.ui.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.data.serialization.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.tracker.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.deploy.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.karaf.shell.universAAL.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.connectors.deploy.karaf.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.aalspace.core.config</artifactId>
+      <type>cfg</type>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.connectors.communication.jgroups.core.config</artifactId>
+      <type>cfg</type>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.connectors.discovery.slp.core.config</artifactId>
+      <type>cfg</type>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.deploy.core.config</artifactId>
+      <type>cfg</type>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.modules.aalspace.core.config</artifactId>
+      <type>cfg</type>
+    </dependency>
+  </dependencies>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>org.universAAL.middleware</groupId>
+  			<artifactId>mw.pom.config</artifactId>
+  			<version>${project.parent.version}</version>
+  			<type>pom</type>
+  			<scope>import</scope>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
 </project>
