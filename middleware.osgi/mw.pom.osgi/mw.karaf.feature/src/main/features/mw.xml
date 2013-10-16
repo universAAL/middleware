@@ -3,73 +3,73 @@
 
 	<feature name="uAAL-MW"
 		description="The universAAL runtime based on the Middleware 2.0"
-		version="${mw.version}" resolver='(obr)'>
+		version="${project.version}" resolver='(obr)'>
 
 		<!-- APIs -->	
-		<bundle start-level='50'>wrap:mvn:org.bouncycastle/jce.jdk13/144</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.thirdparty/jslp.osgi/${mw.version}</bundle>
-		<bundle start-level='50'>mvn:org.jgroups/jgroups/3.3.3.Final</bundle>
-		<bundle start-level='50'>mvn:com.google.code.gson/gson/2.2.4</bundle>	
+		<bundle start-level='50'>wrap:mvn:org.bouncycastle/jce.jdk13/${jce.jdk13.version}</bundle>
+		<bundle start-level='50'>mvn:org.universAAL.thirdparty/jslp.osgi/${jslp.osgi.version}</bundle>
+		<bundle start-level='50'>mvn:org.jgroups/jgroups/${jgroups.version}</bundle>
+		<bundle start-level='50'>mvn:com.google.code.gson/gson/${gson.version}</bundle>	
 		<bundle start-level='50'>mvn:org.apache.felix/org.osgi.core/1.4.0</bundle>
 		<bundle start-level='50'>mvn:org.apache.felix/org.osgi.compendium/1.4.0</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.schemas/${mw.version}</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.container.xfaces.osgi/${mw.version}</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.interfaces.osgi/${mw.version}</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.connectors.api.osgi/${mw.version}</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.managers.api.osgi/${mw.version}</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.modules.api.osgi/${mw.version}</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.brokers.api.osgi/${mw.version}</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.karaf.shell.universAAL.osgi/${mw.version}</bundle>
+		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.schemas/${mw.schemas.version}</bundle>
+		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.container.xfaces.osgi/${mw.container.xfaces.osgi.version}</bundle>
+		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.interfaces.osgi/${mw.interfaces.osgi.version}</bundle>
+		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.connectors.api.osgi/${mw.connectors.api.osgi.version}</bundle>
+		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.managers.api.osgi/${mw.managers.api.osgi.version}</bundle>
+		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.modules.api.osgi/${mw.modules.api.osgi.version}</bundle>
+		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.brokers.api.osgi/${mw.brokers.api.osgi.version}</bundle>
+		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.karaf.shell.universAAL.osgi/${mw.karaf.shell.universAAL.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:commons-lang/commons-lang/2.6</bundle>
 
 
-		<bundle start-level='51' start='true'>mvn:org.universAAL.middleware/mw.container.osgi/${mw.version}</bundle>
+		<bundle start-level='51' start='true'>mvn:org.universAAL.middleware/mw.container.osgi/${mw.container.osgi.version}</bundle>
 
 		<!-- Connectors -->
-		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.communication.jgroups.osgi/${mw.version}</bundle>
-		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.discovery.slp.osgi/${mw.version}</bundle>
-		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.deploy.karaf.osgi/${mw.version}</bundle>
+		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.communication.jgroups.osgi/${mw.connectors.communication.jgroups.osgi.version}</bundle>
+		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.discovery.slp.osgi/${mw.connectors.discovery.slp.osgi.version}</bundle>
+		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.deploy.karaf.osgi/${mw.connectors.deploy.karaf.osgi.version}</bundle>
 
 		<!-- Modules -->
-		<bundle start-level='53' start='true'>mvn:org.universAAL.middleware/mw.modules.communication.osgi/${mw.version}</bundle>
-		<bundle start-level='54' start='true'>mvn:org.universAAL.middleware/mw.modules.aalspace.osgi/${mw.version}</bundle>
+		<bundle start-level='53' start='true'>mvn:org.universAAL.middleware/mw.modules.communication.osgi/${mw.modules.communication.osgi.version}</bundle>
+		<bundle start-level='54' start='true'>mvn:org.universAAL.middleware/mw.modules.aalspace.osgi/${mw.modules.aalspace.osgi.version}</bundle>
 
 		<!-- Brokers -->
-		<bundle start-level='55' start='true'>mvn:org.universAAL.middleware/mw.brokers.control.osgi/${mw.version}</bundle>
+		<bundle start-level='55' start='true'>mvn:org.universAAL.middleware/mw.brokers.control.osgi/${mw.brokers.control.osgi.version}</bundle>
 
 
 		<!-- Managers -->
-		<bundle start-level='56' start='true'>mvn:org.universAAL.middleware/mw.managers.aalspace.osgi/${mw.version}</bundle>
-		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.deploy.osgi/${mw.version}</bundle>
+		<bundle start-level='56' start='true'>mvn:org.universAAL.middleware/mw.managers.aalspace.osgi/${mw.managers.aalspace.osgi.version}</bundle>
+		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.deploy.osgi/${mw.managers.deploy.osgi.version}</bundle>
 
 		<!-- Busses -->
-		<bundle start-level='58' start='true'>mvn:org.universAAL.middleware/mw.data.serialization.osgi/${mw.version}</bundle>
-		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.model.osgi/${mw.version}</bundle>
-		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.data.representation.osgi/${mw.version}</bundle>
-		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.context.osgi/${mw.version}</bundle>
+		<bundle start-level='58' start='true'>mvn:org.universAAL.middleware/mw.data.serialization.osgi/${mw.data.serialization.osgi.version}</bundle>
+		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.model.osgi/${mw.bus.model.osgi.version}</bundle>
+		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.data.representation.osgi/${mw.data.representation.osgi.version}</bundle>
+		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.context.osgi/${mw.bus.context.osgi.version}</bundle>
 			
-		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.service.osgi/${mw.version}</bundle>
-		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.ui.osgi/2.0.2-SNAPSHOT</bundle>
+		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.service.osgi/${mw.bus.service.osgi.version}</bundle>
+		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.ui.osgi/${mw.bus.ui.osgi.version}</bundle>
 		
 		
 
 		<!-- Configuration file section -->
 
 		<!-- AAL Space Manager -->
-		<configfile finalname="/etc/mw.managers.aalspace.core.cfg">mvn:org.universAAL.middleware/mw.managers.aalspace.core.config/${mw.version}/cfg</configfile>
-		<configfile finalname="/etc/Home.space">mvn:org.universAAL.middleware/mw.managers.aalspace.core.config/${mw.version}/space</configfile>
+		<configfile finalname="/etc/mw.managers.aalspace.core.cfg">mvn:org.universAAL.middleware/mw.managers.aalspace.core.config/${mw.managers.aalspace.core.config.version}/cfg</configfile>
+		<configfile finalname="/etc/Home.space">mvn:org.universAAL.middleware/mw.managers.aalspace.core.config/${mw.managers.aalspace.core.config.version}/space</configfile>
 
 		<!-- jGroups Communication Connector -->
-		<configfile finalname="/etc/mw.connectors.communication.jgroups.core.cfg">mvn:org.universAAL.middleware/mw.connectors.communication.jgroups.core.config/${mw.version}/cfg</configfile>
+		<configfile finalname="/etc/mw.connectors.communication.jgroups.core.cfg">mvn:org.universAAL.middleware/mw.connectors.communication.jgroups.core.config/${mw.connectors.communication.jgroups.core.config.version}/cfg</configfile>
 
 		<!-- SLP Discovery Connector -->
-		<configfile finalname="/etc/mw.connectors.discovery.slp.core.cfg">mvn:org.universAAL.middleware/mw.connectors.discovery.slp.core.config/${mw.version}/cfg</configfile>
+		<configfile finalname="/etc/mw.connectors.discovery.slp.core.cfg">mvn:org.universAAL.middleware/mw.connectors.discovery.slp.core.config/${mw.connectors.discovery.slp.core.config.version}/cfg</configfile>
 
 		<!-- Deploy Manager -->
-		<configfile finalname="/etc/mw.managers.deploy.core.cfg">mvn:org.universAAL.middleware/mw.managers.deploy.core.config/${mw.version}/cfg</configfile>
+		<configfile finalname="/etc/mw.managers.deploy.core.cfg">mvn:org.universAAL.middleware/mw.managers.deploy.core.config/${mw.managers.deploy.core.config.version}/cfg</configfile>
 
 		<!-- AAL Space Module -->
-		<configfile finalname="/etc/mw.modules.aalspace.core.cfg">mvn:org.universAAL.middleware/mw.modules.aalspace.core.config/${mw.version}/cfg</configfile>
+		<configfile finalname="/etc/mw.modules.aalspace.core.cfg">mvn:org.universAAL.middleware/mw.modules.aalspace.core.config/${mw.modules.aalspace.core.config.version}/cfg</configfile>
 
 	</feature>
 </features>
