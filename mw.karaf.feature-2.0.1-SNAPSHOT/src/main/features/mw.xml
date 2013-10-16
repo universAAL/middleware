@@ -19,7 +19,7 @@
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.managers.api.osgi/${mw.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.modules.api.osgi/${mw.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.brokers.api.osgi/${mw.version}</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.karaf.shell.universAAL.osgi/${mw.version}</bundle>
+		<bundle start-level='59'>mvn:org.universAAL.middleware/mw.karaf.shell.universAAL.osgi/${mw.version}</bundle>
 		<bundle start-level='50'>mvn:commons-lang/commons-lang/2.6</bundle>
 
 
