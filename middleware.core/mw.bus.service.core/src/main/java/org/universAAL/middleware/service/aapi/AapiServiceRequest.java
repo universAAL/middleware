@@ -62,7 +62,7 @@ public class AapiServiceRequest extends ServiceRequest {
 	    props.put(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT,
 		    nonSemanticInput);
 	}
-	if (nonSemanticInput.contains(uri)) {
+	if (nonSemanticInput.containsKey(uri)) {
 	    throw new IllegalArgumentException();
 	} else {
 	    nonSemanticInput.put(uri, input);
