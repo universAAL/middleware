@@ -103,6 +103,7 @@ middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/me
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/member/Subscriber.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/model/AbstractBus.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/model/BusStrategy.java -text
+middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/model/Permission.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/model/matchable/Advertisement.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/model/matchable/Event.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/model/matchable/EventAdvertisement.java -text
@@ -120,6 +121,7 @@ middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/mo
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/msg/BusMessage.java -text
 middleware.core/mw.bus.model.core/src/main/java/org/universAAL/middleware/bus/msg/MessageType.java -text
 middleware.core/mw.bus.model.core/src/main/resources/README.txt -text
+middleware.core/mw.bus.model.core/src/test/java/org/universAAL/middleware/bus/model/test/PermissionTest.java -text
 middleware.core/mw.bus.service.aapi.core/ASL2.0.txt -text
 middleware.core/mw.bus.service.aapi.core/NOTICE.txt -text
 middleware.core/mw.bus.service.aapi.core/pom.xml -text
