@@ -1,4 +1,4 @@
-package org.universAAL.middleware.connectors.discovery.slp.test;
+package org.universAAL.middleware.bus.model.test;
 
 import org.universAAL.itests.IntegrationTest;
 
@@ -8,15 +8,17 @@ import org.universAAL.itests.IntegrationTest;
  * @author rotgier
  * 
  */
-public class ArtifactIntegrationTest extends IntegrationTest {
+public class ArtifactIT extends IntegrationTest {
+    public ArtifactIT() {
 
-    public ArtifactIntegrationTest() {
-	setRunArguments("net.slp.port", "7000");
+	// // Arguments for MW2.0
 	setRunArguments("net.slp.multicastTimeouts", "500,750");
 	setRunArguments("java.net.preferIPv4Stack", "true");
+	setRunArguments("net.slp.port", "7000");
     }
 
     public void testComposite() {
 	logAllBundles();
     }
+
 }

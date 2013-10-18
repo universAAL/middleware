@@ -30,7 +30,7 @@ import org.universAAL.middleware.context.test.ont.User;
  * @author rotgier
  * 
  */
-public class ArtifactIntegrationTest extends IntegrationTest {
+public class ArtifactIT extends IntegrationTest {
 
     public static String NAMESPACE = "http://ontology.universAAL.org/Test.owl#";
     public static String USER = NAMESPACE + "User";
@@ -40,7 +40,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     private BlockingQueue queue = new SynchronousQueue();
     public int timeout = 2000;
 
-    public ArtifactIntegrationTest() {
+    public ArtifactIT() {
 	// setBundleConfLocation("etc");
 	// // Arguments for MW2.0
 	setRunArguments("net.slp.multicastTimeouts", "500,750");

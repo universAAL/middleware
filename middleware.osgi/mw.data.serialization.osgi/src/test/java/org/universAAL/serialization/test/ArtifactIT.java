@@ -1,4 +1,4 @@
-package org.universAAL.middleware.connectors.communication.jgroups.test;
+package org.universAAL.serialization.test;
 
 import org.universAAL.itests.IntegrationTest;
 
@@ -8,17 +8,16 @@ import org.universAAL.itests.IntegrationTest;
  * @author rotgier
  * 
  */
-public class ArtifactIntegrationTest extends IntegrationTest {
+public class ArtifactIT extends IntegrationTest {
 
-    public ArtifactIntegrationTest() {
-
-	// // Arguments for MW2.0
+    public ArtifactIT() {
+	setRunArguments("net.slp.port", "7000");
 	setRunArguments("net.slp.multicastTimeouts", "500,750");
 	setRunArguments("java.net.preferIPv4Stack", "true");
-	setRunArguments("net.slp.port", "7000");
     }
 
     public void testComposite() {
 	logAllBundles();
     }
+
 }

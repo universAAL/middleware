@@ -41,7 +41,7 @@ import org.universAAL.middleware.ui.UIResponse;
  * @author dzmuda
  *
  */
-public class BusRegistryTest extends IntegrationTest {
+public class BusRegistryIT extends IntegrationTest {
 
     /**
      * Constructor of each integration TestCase has to call constructor of upper
@@ -50,7 +50,7 @@ public class BusRegistryTest extends IntegrationTest {
      * used to setup uAAL runtime for the purpose of TestCase. All bundles
      * needed for the TestCase have to be included in the launch configuration.
      */
-    public BusRegistryTest() {
+    public BusRegistryIT() {
     }
 
     /**

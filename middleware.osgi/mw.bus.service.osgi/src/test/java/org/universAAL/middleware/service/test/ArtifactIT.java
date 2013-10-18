@@ -1,4 +1,4 @@
-package org.universAAL.middleware.bus.model.test;
+package org.universAAL.middleware.service.test;
 
 import org.universAAL.itests.IntegrationTest;
 
@@ -8,8 +8,9 @@ import org.universAAL.itests.IntegrationTest;
  * @author rotgier
  * 
  */
-public class ArtifactIntegrationTest extends IntegrationTest {
-    public ArtifactIntegrationTest() {
+public class ArtifactIT extends IntegrationTest {
+
+    public ArtifactIT() {
 
 	// // Arguments for MW2.0
 	setRunArguments("net.slp.multicastTimeouts", "500,750");
