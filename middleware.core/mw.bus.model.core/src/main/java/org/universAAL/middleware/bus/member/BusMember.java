@@ -19,8 +19,12 @@
  */
 package org.universAAL.middleware.bus.member;
 
+import java.util.LinkedList;
+
 import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.model.Permission;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
  * An AALSpaceParticipant can connect to the different buses of the universAAL
@@ -46,6 +50,7 @@ public abstract class BusMember {
     protected final ModuleContext owner;
     protected final AbstractBus theBus;
     protected final String busResourceURI;
+    private Permission[] perms;
 
     protected BusMember(ModuleContext owner, Object[] busFetchParams,
 	    BusMemberType type) {
@@ -53,6 +58,30 @@ public abstract class BusMember {
 	theBus = (AbstractBus) owner.getContainer().fetchSharedObject(owner,
 		busFetchParams);
 	busResourceURI = theBus.register(owner, this, type);
+
+	boolean isAdvertisement = (type == BusMemberType.responder)
+		|| (type == BusMemberType.publisher);
+	perms = Permission.fromManifest(owner, theBus.getBrokerName(),
+		isAdvertisement);
+
+	// log permissions
+	if (perms.length == 0) {
+	    LogUtils.logDebug(owner, BusMember.class, "BusMember",
+		    new Object[] { "Permissions for bus member ",
+			    busResourceURI, ": -none-" }, null);
+	} else {
+	    LinkedList<String> msg = new LinkedList<String>();
+	    msg.add("Permissions for bus member ");
+	    msg.add(busResourceURI);
+	    msg.add(":\n");
+	    for (int i = 0; i < perms.length; i++) {
+		msg.add("  " + i + "\t");
+		msg.add(perms[i].getTitle());
+		msg.add("\n");
+	    }
+	    LogUtils.logDebug(owner, BusMember.class, "BusMember",
+		    msg.toArray(), null);
+	}
     }
 
     /**
