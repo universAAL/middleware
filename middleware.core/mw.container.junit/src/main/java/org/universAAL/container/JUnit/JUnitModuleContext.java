@@ -209,4 +209,13 @@ public class JUnitModuleContext implements ModuleContext {
         return value;
 	}
 
+	public String getManifestEntry(String name) {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	public String getManifestEntry(String manifest, String name) {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
 }
