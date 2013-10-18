@@ -11,7 +11,7 @@ import org.universAAL.middleware.container.osgi.run.Activator;
  * @author rotgier
  * 
  */
-public class ArtifactIntegrationTest extends IntegrationTest {
+public class ArtifactIT extends IntegrationTest {
     
     private class ShareObjectTestClass {
 	

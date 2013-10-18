@@ -7,9 +7,9 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 
-public class SerializerTest extends IntegrationTest {
+public class SerializerIT extends IntegrationTest {
 
-    public SerializerTest() {
+    public SerializerIT() {
 	setRunArguments("net.slp.port", "7000");
 	setRunArguments("net.slp.multicastTimeouts", "500,750");
 	setRunArguments("java.net.preferIPv4Stack", "true");
