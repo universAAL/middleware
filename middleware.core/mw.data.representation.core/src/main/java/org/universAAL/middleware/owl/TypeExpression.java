@@ -84,11 +84,21 @@ public abstract class TypeExpression extends Resource {
 	super();
 	addType(OWL_CLASS, true);
     }
-
+    
     /** Constructor to create a new instance with the given URI. */
     protected TypeExpression(String uri) {
 	super(uri);
 	addType(OWL_CLASS, true);
+    }
+    
+    /** Constructor. */
+    protected TypeExpression(String[] additionalTypes) {
+	super();
+	addType(OWL_CLASS, false);
+	for (int i = 0; i < additionalTypes.length - 1; i++)
+	    addType(additionalTypes[i], false);
+	if (additionalTypes.length - 1 >= 0)
+	    addType(additionalTypes[additionalTypes.length - 1], true);
     }
 
     /**

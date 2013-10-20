@@ -53,6 +53,13 @@ public class Intersection extends TypeExpression {
 	types = new ArrayList();
 	props.put(PROP_OWL_INTERSECTION_OF, types);
     }
+    
+    /** Constructor. */
+    protected Intersection(String[] additionalTypes) {
+	super(additionalTypes);
+	types = new ArrayList();
+	props.put(PROP_OWL_INTERSECTION_OF, types);
+    }
 
     /**
      * Add a new child class expression <i>CE<sub>i</sub></i>. If the given

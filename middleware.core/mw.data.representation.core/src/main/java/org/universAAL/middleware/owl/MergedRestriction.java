@@ -51,6 +51,9 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @author Carsten Stockloew
  */
 public class MergedRestriction extends Intersection {
+    
+    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
+	    + "MergedRestriction";
 
     /** A safe iterator that does not allow to remove elements. */
     private class SafeIterator implements Iterator {
@@ -129,6 +132,7 @@ public class MergedRestriction extends Intersection {
 
     /** Constructor for deserializers. */
     public MergedRestriction() {
+	super(new String[] { MY_URI });
 	for (int i = 0; i < 6; i++)
 	    index[i] = -1;
     }

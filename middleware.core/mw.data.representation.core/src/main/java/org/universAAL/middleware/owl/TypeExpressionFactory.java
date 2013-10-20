@@ -83,6 +83,10 @@ public final class TypeExpressionFactory {
 
 	switch (idx.intValue()) {
 	case 0:
+	    String[] types = r.getTypes();
+	    for (int i = 0; i < types.length; i++)
+		if (MergedRestriction.MY_URI.equals(types[i]))
+		    return new MergedRestriction();
 	    return new Intersection();
 	case 1:
 	    return new Union();
