@@ -82,8 +82,9 @@ public class ResourceComparator {
 		}
 		if (j == -1) {
 		    isPrinting = wasPrinting;
-		    writeLine(indent, new Object[] { "Element",
-			    Integer.toBinaryString(i), " not found!" });
+		    writeLine(indent,
+			    new Object[] { "Element",
+				    Integer.toBinaryString(i), " not found!" });
 		    isPrinting = false;
 		    result = true;
 		}
@@ -99,8 +100,10 @@ public class ResourceComparator {
     private boolean differ(int indent, Resource r1, Resource r2) {
 	int i = done1.indexOf(r1.getURI()), j = done2.indexOf(r2.getURI());
 	if (i != j) {
-	    writeLine(indent, new Object[] { "different log indexes: ",
-		    Integer.toString(i), " <-> ", Integer.toString(j) });
+	    writeLine(
+		    indent,
+		    new Object[] { "different log indexes: ",
+			    Integer.toString(i), " <-> ", Integer.toString(j) });
 	    return true;
 	}
 
@@ -169,9 +172,12 @@ public class ResourceComparator {
 		return false;
 	else if (v1 instanceof Resource)
 	    if (differ(indent + 1, (Resource) v1, (Resource) v2)) {
-		writeLine(indent, new Object[] { prop, ": ",
-			((Resource) v1).getOrConstructLabel(null), " <-> ",
-			((Resource) v2).getOrConstructLabel(null) });
+		writeLine(
+			indent,
+			new Object[] { prop, ": ",
+				((Resource) v1).getOrConstructLabel(null),
+				" <-> ",
+				((Resource) v2).getOrConstructLabel(null) });
 		return true;
 	    } else
 		return false;
@@ -199,11 +205,17 @@ public class ResourceComparator {
      *      Class, String, Object[], Throwable)
      */
     public void printDiffs(Resource r1, Resource r2) {
+	getDiffsAsStack(r1, r2);
+	LogUtils.logDebug(SharedResources.moduleContext,
+		ResourceComparator.class, "printDiffs", s.toArray(), null);
+    }
+
+    public Stack getDiffsAsStack(Resource r1, Resource r2) {
 	isPrinting = true;
 	if (r1 != null && r2 != null)
-	    writeLine(0, new Object[] { "Comparing ",
-		    r1.getOrConstructLabel(null), " with ",
-		    r2.getOrConstructLabel(null), ":" });
+	    writeLine(0,
+		    new Object[] { "Comparing ", r1.getOrConstructLabel(null),
+			    " with ", r2.getOrConstructLabel(null), ":" });
 	if (r1 == null || r2 == null)
 	    s.push("NULL values cannot be compared!");
 	else if (r1.getClass() != r2.getClass()) {
@@ -218,8 +230,16 @@ public class ResourceComparator {
 	} else
 	    s.push("  No diffs found!");
 
-	LogUtils.logDebug(SharedResources.moduleContext,
-		ResourceComparator.class, "printDiffs", s.toArray(), null);
+	return s;
+    }
+
+    public String getDiffsAsString(Resource r1, Resource r2) {
+	Stack stack = getDiffsAsStack(r1, r2);
+	String str = "";
+	for (int i = 0; i < stack.size(); i++) {
+	    str += stack.elementAt(i);
+	}
+	return str;
     }
 
     /**
