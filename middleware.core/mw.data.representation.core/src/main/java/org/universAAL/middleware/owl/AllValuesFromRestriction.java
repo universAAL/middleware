@@ -180,6 +180,8 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 	    if (tmp != null)
 		o = tmp;
 
+	    if (!(o instanceof TypeExpression))
+		    return false;
 	    return super.setProperty(PROP_OWL_ALL_VALUES_FROM, o);
 	}
 
