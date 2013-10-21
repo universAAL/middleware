@@ -5,6 +5,11 @@ import java.math.BigInteger;
 
 import junit.framework.TestCase;
 
+import org.universAAL.middleware.owl.AllValuesFromRestriction;
+import org.universAAL.middleware.owl.Enumeration;
+import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.PropertyRestriction;
+import org.universAAL.middleware.owl.TypeExpressionFactory;
 import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
@@ -37,16 +42,36 @@ public class TurtleTest extends TestCase {
 	s = new TurtleSerializer();
 	r2 = (Resource) s.deserialize(str);
 	ResourceComparator rc = new ResourceComparator();
+//	    System.out.println("-- r1:\n" + r1.toStringRecursive());
+//	    System.out.println("-- r2:\n" + r2.toStringRecursive());
 	
 	if (!rc.areEqual(r1, r2)) {
 	    log("-- error found in serialization: ");
 	    log(str);
-	    // rc.printDiffs(r1, r2);
+	    System.out.println(rc.getDiffsAsString(r1, r2));
 	    System.out.println("-- r1:\n" + r1.toStringRecursive());
 	    System.out.println("-- r2:\n" + r2.toStringRecursive());
 	    return false;
 	}
 	return true;
+    }
+
+    
+    public void testEnumeration() {
+//	Resource r = new Resource();
+//	r.addType(PropertyRestriction.MY_URI, true);
+//	System.out.println(r.toStringRecursive());
+//	r = TypeExpressionFactory.specialize(r);
+//	System.out.println(r);
+	
+	Enumeration e = new Enumeration(new Object[]{new Resource("value1")});
+	Resource r = MergedRestriction.getAllValuesRestriction("propURI", e);
+	assertTrue(check(r));
+    }
+    
+    public void testEnumeration2() {
+	Enumeration e = new Enumeration(new Object[]{new Resource("value1")});
+	assertTrue(check(e));
     }
 
     public void testLanguagedLabel() {
