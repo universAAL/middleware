@@ -63,7 +63,7 @@ public class CryptUtil {
 	    // SecretKey mainkey = generateKey(keyFile);
 	    SecretKey mainkey = readKey(keyFile);
 
-	    new Thread() {
+	    new Thread("MWJgroups Crypt Main") {
 		public void run() {
 		    SecretKey myKey = null;
 		    try {
