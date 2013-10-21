@@ -5,17 +5,13 @@ import java.math.BigInteger;
 
 import junit.framework.TestCase;
 
-import org.universAAL.middleware.owl.AllValuesFromRestriction;
 import org.universAAL.middleware.owl.Enumeration;
 import org.universAAL.middleware.owl.MergedRestriction;
-import org.universAAL.middleware.owl.PropertyRestriction;
-import org.universAAL.middleware.owl.TypeExpressionFactory;
 import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.util.ResourceComparator;
-//import org.universAAL.middleware.container.utils.LogUtils;
-//import org.universAAL.middleware.datarep.SharedResources;
+
 
 public class TurtleTest extends TestCase {
 
@@ -58,15 +54,17 @@ public class TurtleTest extends TestCase {
 
     
     public void testEnumeration() {
-//	Resource r = new Resource();
-//	r.addType(PropertyRestriction.MY_URI, true);
-//	System.out.println(r.toStringRecursive());
-//	r = TypeExpressionFactory.specialize(r);
-//	System.out.println(r);
-	
 	Enumeration e = new Enumeration(new Object[]{new Resource("value1")});
 	Resource r = MergedRestriction.getAllValuesRestriction("propURI", e);
 	assertTrue(check(r));
+    }
+    
+    public void testSimpleCycle() {
+	Resource r1 = new Resource();
+	Resource r2 = new Resource();
+	r1.setProperty("prop12", r2);
+	r2.setProperty("prop21", r1);
+	assertTrue(check(r1));
     }
     
     public void testEnumeration2() {
