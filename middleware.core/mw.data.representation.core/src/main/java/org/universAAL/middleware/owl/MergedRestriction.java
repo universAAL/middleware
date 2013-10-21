@@ -51,7 +51,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @author Carsten Stockloew
  */
 public class MergedRestriction extends Intersection {
-    
+
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "MergedRestriction";
 
@@ -257,25 +257,23 @@ public class MergedRestriction extends Intersection {
 	if (propURI == null)
 	    return null;
 	if (max > -1 && max < min) { // invalid
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "getCardinalityRestriction",
-			    new String[] { "Can not create the restriction because of invalid input parameters: "
-				    + "the maximum cardinality is smaller than the minimum cardinality; this does not make sense." },
-			    null);
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    MergedRestriction.class,
+		    "getCardinalityRestriction",
+		    new String[] { "Can not create the restriction because of invalid input parameters: "
+			    + "the maximum cardinality is smaller than the minimum cardinality; this does not make sense." },
+		    null);
 	    return null;
 	}
 	if (max < 0 && min < 1) { // everything
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "getCardinalityRestriction",
-			    new String[] { "Can not create the restriction because of invalid input parameters: "
-				    + "both maximum cardinality and minimum cardinality are undefined. This is not a restriction because everything is allowed." },
-			    null);
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    MergedRestriction.class,
+		    "getCardinalityRestriction",
+		    new String[] { "Can not create the restriction because of invalid input parameters: "
+			    + "both maximum cardinality and minimum cardinality are undefined. This is not a restriction because everything is allowed." },
+		    null);
 	    return null;
 	}
 
@@ -338,16 +336,15 @@ public class MergedRestriction extends Intersection {
 	    type = new TypeURI(typeURI, false);
 
 	if (type == null) {
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "getAllValuesRestrictionWithCardinality",
-			    new String[] { "Can not create the restriction because of invalid input parameters: "
-				    + "the specified type URI ("
-				    + typeURI
-				    + ") is not registered. It is neither a data type nor a registered ontology class." },
-			    null);
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    MergedRestriction.class,
+		    "getAllValuesRestrictionWithCardinality",
+		    new String[] { "Can not create the restriction because of invalid input parameters: "
+			    + "the specified type URI ("
+			    + typeURI
+			    + ") is not registered. It is neither a data type nor a registered ontology class." },
+		    null);
 	    return null;
 	}
 
@@ -430,16 +427,15 @@ public class MergedRestriction extends Intersection {
 	    type = new TypeURI(typeURI, false);
 
 	if (type == null) {
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "getAllValuesRestriction",
-			    new String[] { "Can not create the restriction because of invalid input parameters: "
-				    + "the specified type URI ("
-				    + typeURI
-				    + ") is not registered. It is neither a data type nor a registered ontology class." },
-			    null);
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    MergedRestriction.class,
+		    "getAllValuesRestriction",
+		    new String[] { "Can not create the restriction because of invalid input parameters: "
+			    + "the specified type URI ("
+			    + typeURI
+			    + ") is not registered. It is neither a data type nor a registered ontology class." },
+		    null);
 	    return null;
 	}
 
@@ -677,13 +673,34 @@ public class MergedRestriction extends Intersection {
      *             than this merged restriction.
      */
     public MergedRestriction addRestriction(PropertyRestriction res) {
+	addRestrictionCheck(res);
+	return this;
+    }
+
+    /**
+     * Add a new Restriction, performing a sanity check. It is not guaranteed
+     * that the given restriction will really be added, e.g. when this
+     * MergedRestriction already has a {@link MinCardinalityRestriction} and a
+     * {@link MaxCardinalityRestriction} with the same value is added, then the
+     * {@link MinCardinalityRestriction} is removed and an
+     * {@link ExactCardinalityRestriction} is added instead.
+     * 
+     * @param res
+     *            The Restriction to add.
+     * @return true, if the restriction could be added, i.e. the underlying list
+     *         of restrictions has changed.
+     * @throws IllegalArgumentException
+     *             If the given restriction is defined for a different property
+     *             than this merged restriction.
+     */
+    public boolean addRestrictionCheck(PropertyRestriction res) {
 	// if (types.size()==1) {
 	// addType(res);
 	// onProperty = res.getOnProperty();
 	// return this;
 	// }
 	if (res == null)
-	    return this;
+	    return false;
 
 	if (onProperty != null)
 	    if (!onProperty.equals(res.getOnProperty()))
@@ -692,16 +709,15 @@ public class MergedRestriction extends Intersection {
 
 	int max = getMaxCardinality();
 	if (max == 0) {
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "addRestriction",
-			    new String[] { "Can not add the PropertyRestriction ("
-				    + res.getType()
-				    + ") because the maximum cardinality is 0 (no additional restriction is allowed)." },
-			    null);
-	    return this;
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    MergedRestriction.class,
+		    "addRestriction",
+		    new String[] { "Can not add the PropertyRestriction ("
+			    + res.getType()
+			    + ") because the maximum cardinality is 0 (no additional restriction is allowed)." },
+		    null);
+	    return false;
 	}
 
 	// id points to the appropriate element in 'index' of the given
@@ -717,23 +733,22 @@ public class MergedRestriction extends Intersection {
 		    && (some == null || (max != 1 && res.matches(some, null)))) {
 		index[allValuesFromID] = types.size();
 		types.add(res);
+		return true;
 	    } else {
 		if (all != null)
-		    LogUtils
-			    .logDebug(
-				    SharedResources.moduleContext,
-				    MergedRestriction.class,
-				    "addRestriction",
-				    new String[] { "Can not add the AllValuesFromRestriction because such a restriction is already set." },
-				    null);
+		    LogUtils.logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "addRestriction",
+			    new String[] { "Can not add the AllValuesFromRestriction because such a restriction is already set." },
+			    null);
 		else
-		    LogUtils
-			    .logDebug(
-				    SharedResources.moduleContext,
-				    MergedRestriction.class,
-				    "addRestriction",
-				    new String[] { "Can not add the AllValuesFromRestriction, please check with your SomeValuesFromRestriction." },
-				    null);
+		    LogUtils.logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "addRestriction",
+			    new String[] { "Can not add the AllValuesFromRestriction, please check with your SomeValuesFromRestriction." },
+			    null);
 	    }
 	    break;
 	case someValuesFromID:
@@ -744,6 +759,7 @@ public class MergedRestriction extends Intersection {
 		    removeRestriction(allValuesFromID);
 		index[someValuesFromID] = types.size();
 		types.add(res);
+		return true;
 	    }
 	    break;
 	case hasValueID:
@@ -752,23 +768,22 @@ public class MergedRestriction extends Intersection {
 		if (max != 0) {
 		    index[hasValueID] = types.size();
 		    types.add(res);
+		    return true;
 		} else {
-		    LogUtils
-			    .logDebug(
-				    SharedResources.moduleContext,
-				    MergedRestriction.class,
-				    "addRestriction",
-				    new String[] { "Can not add the HasValueRestriction because the maximum cardinality is set to zero, so no instances are allowed." },
-				    null);
+		    LogUtils.logDebug(
+			    SharedResources.moduleContext,
+			    MergedRestriction.class,
+			    "addRestriction",
+			    new String[] { "Can not add the HasValueRestriction because the maximum cardinality is set to zero, so no instances are allowed." },
+			    null);
 		}
 	    } else {
-		LogUtils
-			.logDebug(
-				SharedResources.moduleContext,
-				MergedRestriction.class,
-				"addRestriction",
-				new String[] { "Can not add the HasValueRestriction because such a restriction is already set." },
-				null);
+		LogUtils.logDebug(
+			SharedResources.moduleContext,
+			MergedRestriction.class,
+			"addRestriction",
+			new String[] { "Can not add the HasValueRestriction because such a restriction is already set." },
+			null);
 	    }
 	    break;
 	case minCardinalityID:
@@ -778,6 +793,7 @@ public class MergedRestriction extends Intersection {
 		    if (index[minCardinalityID] == -1) {
 			index[minCardinalityID] = types.size();
 			types.add(res);
+			return true;
 		    }
 		} else if (max == newMin) {
 		    removeRestriction(maxCardinalityID);
@@ -785,8 +801,10 @@ public class MergedRestriction extends Intersection {
 		    if (index[exactCardinalityID] == -1) {
 			index[exactCardinalityID] = types.size();
 			types.add(res);
+			return true;
 		    } else {
 			types.set(index[exactCardinalityID], res);
+			return true;
 		    }
 		}
 	    break;
@@ -800,11 +818,13 @@ public class MergedRestriction extends Intersection {
 		if (min < newMax) {
 		    index[maxCardinalityID] = types.size();
 		    types.add(res);
+		    return true;
 		} else if (min == newMax) {
 		    removeRestriction(minCardinalityID);
 		    res = new ExactCardinalityRestriction(onProperty, newMax);
 		    index[exactCardinalityID] = types.size();
 		    types.add(res);
+		    return true;
 		}
 	    break;
 	case exactCardinalityID:
@@ -817,12 +837,14 @@ public class MergedRestriction extends Intersection {
 		if (index[exactCardinalityID] == -1) {
 		    index[exactCardinalityID] = types.size();
 		    types.add(res);
+		    return true;
 		} else {
 		    types.set(index[exactCardinalityID], res);
+		    return true;
 		}
 	    break;
 	}
-	return this;
+	return false;
     }
 
     /**
@@ -959,11 +981,22 @@ public class MergedRestriction extends Intersection {
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
     public boolean setProperty(String propURI, Object o) {
-	// TODO: handle the restriction-related stuff here?
-	// for now, it is not necessary, the restrictions themselves implement
-	// the setProperty() method and perform a sanity-check for the
-	// restriction itself, and the addRestriction() method performs the
-	// sanity check for the set of restrictions.
+	if (Intersection.PROP_OWL_INTERSECTION_OF.equals(propURI)) {
+	    if (o instanceof PropertyRestriction) {
+		return addRestrictionCheck((PropertyRestriction) o);
+	    } else if (o instanceof MergedRestriction) {
+		List lst = ((MergedRestriction)o).getRestrictions();
+		boolean res = true;
+		boolean tmp;
+		for (Object el : lst) {
+		    if (el instanceof PropertyRestriction) {
+			tmp = addRestrictionCheck((PropertyRestriction) o);
+			res = res && tmp;
+		    }
+		}
+		return res;
+	    }
+	}
 	return false;
     }
 
@@ -1030,36 +1063,33 @@ public class MergedRestriction extends Intersection {
 	// System.out.println("\n\nto\n"
 	// + (root == null ? "null" : root.toStringRecursive()));
 	if (path == null || path.length == 0) {
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "appendTo",
-			    new String[] {
-				    "Not possible to append a restriction because the specified path is invalid: ",
-				    path == null ? "path is null."
-					    : "path is empty." }, null);
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    MergedRestriction.class,
+		    "appendTo",
+		    new String[] {
+			    "Not possible to append a restriction because the specified path is invalid: ",
+			    path == null ? "path is null." : "path is empty." },
+		    null);
 	    return null;
 	}
 	if (getOnProperty() == null) {
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "appendTo",
-			    new String[] { "Not possible to append a restriction because it does not define a property for which this restriction applies: the onProperty must be set." },
-			    null);
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    MergedRestriction.class,
+		    "appendTo",
+		    new String[] { "Not possible to append a restriction because it does not define a property for which this restriction applies: the onProperty must be set." },
+		    null);
 	    return null;
 	}
 	if (!getOnProperty().equals(path[path.length - 1])) {
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "appendTo",
-			    new String[] { "Not possible to append a restriction because "
-				    + "the restriction is not defined for the property at the end of the property path: the onProperty value of the restriction must correspond to the last element of the property path." },
-			    null);
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    MergedRestriction.class,
+		    "appendTo",
+		    new String[] { "Not possible to append a restriction because "
+			    + "the restriction is not defined for the property at the end of the property path: the onProperty value of the restriction must correspond to the last element of the property path." },
+		    null);
 	    return null;
 	}
 	if (path.length == 1)
@@ -1080,17 +1110,16 @@ public class MergedRestriction extends Intersection {
 	    // just a test: are all restrictions in root defined for the correct
 	    // property?
 	    if (!root.getOnProperty().equals(path[0])) {
-		LogUtils
-			.logDebug(
-				SharedResources.moduleContext,
-				MergedRestriction.class,
-				"appendTo",
-				new String[] { "Not possible to append a new restriction to an existing restriction because "
-					+ "the existing restriction is defined for a different property than what is specified in the property path:\n"
-					+ "the existing restriction restriction is defined for property "
-					+ root.getOnProperty()
-					+ "\nand the property path starts with "
-					+ path[0] }, null);
+		LogUtils.logDebug(
+			SharedResources.moduleContext,
+			MergedRestriction.class,
+			"appendTo",
+			new String[] { "Not possible to append a new restriction to an existing restriction because "
+				+ "the existing restriction is defined for a different property than what is specified in the property path:\n"
+				+ "the existing restriction restriction is defined for property "
+				+ root.getOnProperty()
+				+ "\nand the property path starts with "
+				+ path[0] }, null);
 		return null;
 	    }
 	}
@@ -1106,13 +1135,12 @@ public class MergedRestriction extends Intersection {
 	}
 	tmp = root.getRestriction(allValuesFromID);
 	if (tmp == null) {
-	    LogUtils
-		    .logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "appendTo",
-			    new String[] { "The root object does not contain an AllValuesFromRestriction and it is not possible to add a new AllValuesFromRestriction. Maybe root already contains a different restriction that prevents the AllValuesFromRestriction from being added (e.g. a SomeValuesFromRestriction or a HasValueRestriction)." },
-			    null);
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    MergedRestriction.class,
+		    "appendTo",
+		    new String[] { "The root object does not contain an AllValuesFromRestriction and it is not possible to add a new AllValuesFromRestriction. Maybe root already contains a different restriction that prevents the AllValuesFromRestriction from being added (e.g. a SomeValuesFromRestriction or a HasValueRestriction)." },
+		    null);
 	    return null;
 	}
 
@@ -1133,8 +1161,8 @@ public class MergedRestriction extends Intersection {
 	    // we don't need an intersection
 	    // just add the new restriction from ~this~
 	    tmp.changeProperty(
-		    AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM, types
-			    .get(0));
+		    AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM,
+		    types.get(0));
 	} else {
 	    // there are multiple property restrictions at the end of the path,
 	    // they are all in an intersection
@@ -1194,8 +1222,8 @@ public class MergedRestriction extends Intersection {
 	    }
 	    return m;
 	} else if (all instanceof TypeURI)
-	    return ManagedIndividual.getClassRestrictionsOnProperty(all
-		    .getURI(), pathElement);
+	    return ManagedIndividual.getClassRestrictionsOnProperty(
+		    all.getURI(), pathElement);
 
 	if (all instanceof PropertyRestriction) {
 	    PropertyRestriction res = (PropertyRestriction) all;
