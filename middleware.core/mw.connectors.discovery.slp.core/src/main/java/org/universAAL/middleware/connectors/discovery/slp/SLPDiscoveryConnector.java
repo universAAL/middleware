@@ -172,11 +172,18 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 
 	public void dispose() {
 		context.getContainer().removeSharedObjectListener(this);
-		removeAALSpaces();
+		try{
+			removeAALSpaces();
+		}catch(Exception e){
+			LogUtils.logError(context, SLPDiscoveryConnector.class,
+					"dispose",
+					new Object[] { "Could not remove AAL Spaces correctly" }, null);
+		}
 		if (slpBrowser != null) {
 			slpBrowser.setStop(true);
 		}
 		List<Runnable> activeTasks = scheduler.shutdownNow();
+		scheduler.shutdown();
 		slpBrowser = null;
 
 	}
