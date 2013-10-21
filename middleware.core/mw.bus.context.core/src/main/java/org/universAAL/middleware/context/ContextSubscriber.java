@@ -122,14 +122,17 @@ public abstract class ContextSubscriber extends Subscriber {
 
     public final void handleEvent(BusMessage m) {
 	if (m.getContent() instanceof ContextEvent) {
-	    LogUtils.logInfo(
-		    owner,
-		    ContextSubscriber.class,
-		    "handleEvent",
-		    new Object[] { busResourceURI,
-			    " received context event:\n",
-			    m.getContentAsString() }, null);
-	    handleContextEvent((ContextEvent) m.getContent());
+	    ContextEvent ce = (ContextEvent) (m.getContent());
+	    if (AccessControl.INSTANCE.checkPermission(owner, getURI(), ce)) {
+		LogUtils.logInfo(
+			owner,
+			ContextSubscriber.class,
+			"handleEvent",
+			new Object[] { busResourceURI,
+				" received context event:\n",
+				m.getContentAsString() }, null);
+		handleContextEvent((ContextEvent) m.getContent());
+	    }
 	}
     }
 

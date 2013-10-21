@@ -84,8 +84,13 @@ public class AccessControl {
 	Permission[] perms = permsMember.get(busMemberURI);
 	for (int i = 0; i < perms.length; i++) {
 	    try {
-		if (perms[i].getMatchable().matches(m))
+		if (perms[i].getMatchable().matches(m)) {
+		    LogUtils.logDebug(owner, AccessControl.class,
+			    "checkPermission", new Object[] {
+				    "Permission granted for matchable ", m },
+			    null);
 		    return true;
+		}
 	    } catch (Exception e) {
 		Resource r1 = (Resource) (perms[i].getMatchable());
 		Resource r2 = (Resource) m;
@@ -101,7 +106,7 @@ public class AccessControl {
 	}
 
 	LogUtils.logDebug(owner, AccessControl.class, "checkPermission",
-		new Object[] { "No permission for Matchable: ", m }, null);
+		new Object[] { "Permission denied for Matchable: ", m }, null);
 
 	if (mode == AccessControlMode.full)
 	    return false;
@@ -136,8 +141,27 @@ public class AccessControl {
 	    }
 	}
 
+	T[] retval = l.toArray(m);
+	if (retval.length != m.length) {
+	    String msg[] = new String[2 * retval.length + 2 * m.length + 2];
+	    int x = 0;
+	    msg[x++] = "You do not have permissions for all the matchables. The following matchables were requested:\n  ";
+	    for (int i = 0; i < m.length; i++) {
+		msg[x++] = ((Resource) m[i]).getURI();
+		msg[x++] = "\n  ";
+	    }
+	    msg[x++] = " .. and the folllowing matchables are permitted:\n";
+	    for (int i = 0; i < retval.length; i++) {
+		msg[x++] = ((Resource) retval[i]).getURI();
+		msg[x++] = "\n  ";
+	    }
+
+	    LogUtils.logDebug(owner, AccessControl.class, "checkPermission",
+		    msg, null);
+	}
+
 	if (mode == AccessControlMode.full)
-	    return l.toArray(m);
+	    return retval;
 
 	return m;
     }
