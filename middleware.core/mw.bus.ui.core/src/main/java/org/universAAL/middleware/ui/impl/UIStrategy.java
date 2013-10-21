@@ -611,11 +611,6 @@ public class UIStrategy extends BusStrategy {
 	}
     }
 
-    @Override
-    protected void handleDeniedMessage(BusMessage message, String senderID) {
-	// TODO Auto-generated method stub
-    }
-
     /**
      * Handle all incoming messages. Every call of this method takes place in
      * its own thread.

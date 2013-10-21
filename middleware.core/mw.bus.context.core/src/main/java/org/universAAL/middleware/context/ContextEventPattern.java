@@ -23,11 +23,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import org.universAAL.middleware.bus.model.matchable.Advertisement;
-import org.universAAL.middleware.bus.model.matchable.Event;
 import org.universAAL.middleware.bus.model.matchable.EventAdvertisement;
 import org.universAAL.middleware.bus.model.matchable.Matchable;
-import org.universAAL.middleware.bus.model.matchable.Requirement;
 import org.universAAL.middleware.bus.model.matchable.Subscription;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.PropertyRestriction;
@@ -53,7 +50,8 @@ public class ContextEventPattern extends FinalizedResource implements
 	    + "ContextEventPattern";
 
     public class Indices {
-	private String[] subjects = null, props = null;
+	private String[] subjects = null;
+	private String[] props = null;
 	private String[] subjectTypes = null;
 
 	public String[] getProperties() {
@@ -74,17 +72,12 @@ public class ContextEventPattern extends FinalizedResource implements
 
     // additional internal management of restrictions
     // maps the URI of the onProperty (String) to a MergedRestriction
-    private HashMap mergedRestrictions;
+    private HashMap<String, MergedRestriction> mergedRestrictions;
 
     private Indices indices;
 
     public ContextEventPattern() {
-	super();
-	addType(MY_URI, true);
-	indices = new Indices();
-	restrictions = new ArrayList(5);
-	props.put(TypeExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
-	mergedRestrictions = new HashMap();
+	this(null);
     }
 
     public ContextEventPattern(String instanceURI) {
@@ -93,7 +86,7 @@ public class ContextEventPattern extends FinalizedResource implements
 	indices = new Indices();
 	restrictions = new ArrayList(5);
 	props.put(TypeExpression.PROP_RDFS_SUB_CLASS_OF, restrictions);
-	mergedRestrictions = new HashMap();
+	mergedRestrictions = new HashMap<String, MergedRestriction>();
     }
 
     /**
@@ -128,8 +121,7 @@ public class ContextEventPattern extends FinalizedResource implements
 			    .getNamedSuperclasses();
 
 		    indices.subjects = (value instanceof Resource) ? new String[] { ((Resource) value)
-			    .getURI() }
-			    : null;
+			    .getURI() } : null;
 		    if (indices.subjects == null) {
 			Object[] elems = type.getUpperEnumeration();
 			if (elems != null) {
@@ -150,8 +142,7 @@ public class ContextEventPattern extends FinalizedResource implements
 		    Object value = r
 			    .getConstraint(MergedRestriction.hasValueID);
 		    indices.props = (value instanceof Resource) ? new String[] { value
-			    .toString() }
-			    : null;
+			    .toString() } : null;
 		    if (indices.props == null) {
 			TypeExpression type = (TypeExpression) r
 				.getConstraint(MergedRestriction.allValuesFromID);
@@ -209,14 +200,16 @@ public class ContextEventPattern extends FinalizedResource implements
 		if (property instanceof PropertyRestriction) {
 		    // a single restriction
 		    PropertyRestriction res = (PropertyRestriction) property;
-		    MergedRestriction m = new MergedRestriction(res
-			    .getOnProperty());
+		    MergedRestriction m = new MergedRestriction(
+			    res.getOnProperty());
 		    return addRestriction(m);
 		} else if (property instanceof List) {
-		    ArrayList l = MergedRestriction.getFromList((List) property);
+		    ArrayList l = MergedRestriction
+			    .getFromList((List) property);
 		    boolean retVal = false;
 		    for (int i = 0; i < l.size(); i++) {
-			retVal = addRestriction((MergedRestriction) l.get(i)) || retVal;
+			retVal = addRestriction((MergedRestriction) l.get(i))
+				|| retVal;
 		    }
 		    return retVal;
 		}
@@ -228,67 +221,17 @@ public class ContextEventPattern extends FinalizedResource implements
     }
 
     /**
-     * @see #matches(Advertisement)
+     * @see Matchable#matches(Matchable)
      */
-    public boolean matches(Matchable other) {
+    public boolean matches(Matchable subset) {
+	if (subset instanceof ContextEvent)
+	    return matches((ContextEvent) subset);
+	else if (subset instanceof ContextEventPattern)
+	    return matches((ContextEventPattern) subset);
 	return false;
     }
 
-    /**
-     * This method will be called if advertisement is no
-     * {@link EventAdvertisement}. Therefore it will never match this
-     * {@link ContextEventPattern}, so <tt>false</tt> is returned.
-     * 
-     * @param advertisement
-     *            the advertisement to be matched against
-     * @return <tt>false</tt> as mentioned above
-     */
-    public boolean matches(Advertisement advertisement) {
-	return false;
-    }
-
-    /**
-     * If the advertisement is of the possibly matching type
-     * {@link EventAdvertisement}, this method is called. It switches over
-     * possible types of advertisement and calls the appropriate methods.
-     * 
-     * @param advertisement
-     *            the advertisement to be matched against
-     * @return <tt>true</tt> if the advertisement matches this
-     *         {@link ContextEventPattern}, <tt>false</tt> if not
-     */
-    public boolean matches(EventAdvertisement advertisement) {
-	if (advertisement instanceof ContextEventPattern) {
-	    return isMatchingContextEventPattern((ContextEventPattern) advertisement);
-	} else {
-	    return false;
-	}
-    }
-
-    /**
-     * @see #matches(Advertisement)
-     */
-    public boolean matches(Requirement d) {
-	return false;
-    }
-
-    /**
-     * Switches over different types of {@link Event} to call appropriate
-     * methods for them.
-     * 
-     * @param e
-     *            the Event to match
-     * @return <tt>true</tt> if matching, <tt>false</tt> if not
-     */
-    public boolean matches(Event e) {
-	if (e instanceof ContextEvent) {
-	    return isMatchingContextEvent((ContextEvent) e);
-	} else {
-	    return false;
-	}
-    }
-
-    private boolean isMatchingContextEvent(ContextEvent ce) {
+    public boolean matches(ContextEvent ce) {
 	if (ce == null)
 	    return false;
 
@@ -301,32 +244,25 @@ public class ContextEventPattern extends FinalizedResource implements
     }
 
     /**
-     * As with {@link #matches(Event)}, this method switches over
-     * {@link Subscription}s, calling the appropriate methods for each.
-     * 
-     * @param s
-     *            the Subscription to match
-     * @return <tt>true</tt> if s matches, <tt>false</tt> if not
-     */
-    public boolean matches(Subscription s) {
-	if (s instanceof ContextEventPattern) {
-	    return isMatchingContextEventPattern((ContextEventPattern) s);
-	} else {
-	    return false;
-	}
-    }
-
-    /**
-     * As both {@link EventAdvertisement} and {@link Subscription} are
-     * implemented by {@link ContextEventPattern}, both redirect here. TODO this
-     * could be a problem in the future
      * 
      * @param pattern
      *            the ContextEventPattern to match
      * @return <tt>true</tt> if the pattern matches, <tt>false</tt> if not
      */
-    private boolean isMatchingContextEventPattern(ContextEventPattern pattern) {
-	// TODO method not implemented
+    public boolean matches(ContextEventPattern subset) {
+	if (subset == null)
+	    return false;
+
+	// for each restriction in this object there must be a restriction in
+	// 'subset' that matches (but 'subset' can have more restrictions)
+	for (String prop : mergedRestrictions.keySet()) {
+	    MergedRestriction rthis = mergedRestrictions.get(prop);
+	    MergedRestriction rsub = subset.mergedRestrictions.get(prop);
+	    
+	    if (!rthis.matches(rsub, null))
+		return false;
+	}
+
 	return false;
     }
 }

@@ -19,12 +19,9 @@
  */
 package org.universAAL.middleware.bus.member;
 
-import java.util.LinkedList;
-
 import org.universAAL.middleware.bus.model.AbstractBus;
-import org.universAAL.middleware.bus.model.Permission;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
  * An AALSpaceParticipant can connect to the different buses of the universAAL
@@ -50,38 +47,25 @@ public abstract class BusMember {
     protected final ModuleContext owner;
     protected final AbstractBus theBus;
     protected final String busResourceURI;
-    private Permission[] perms;
+    private BusMemberType type;
 
     protected BusMember(ModuleContext owner, Object[] busFetchParams,
 	    BusMemberType type) {
 	this.owner = owner;
+	this.type = type;
 	theBus = (AbstractBus) owner.getContainer().fetchSharedObject(owner,
 		busFetchParams);
 	busResourceURI = theBus.register(owner, this, type);
+	AccessControl.INSTANCE.registerBusMember(owner, this,
+		theBus.getBrokerName());
+    }
 
-	boolean isAdvertisement = (type == BusMemberType.responder)
-		|| (type == BusMemberType.publisher);
-	perms = Permission.fromManifest(owner, theBus.getBrokerName(),
-		isAdvertisement);
-
-	// log permissions
-	if (perms.length == 0) {
-	    LogUtils.logDebug(owner, BusMember.class, "BusMember",
-		    new Object[] { "Permissions for bus member ",
-			    busResourceURI, ": -none-" }, null);
-	} else {
-	    LinkedList<String> msg = new LinkedList<String>();
-	    msg.add("Permissions for bus member ");
-	    msg.add(busResourceURI);
-	    msg.add(":\n");
-	    for (int i = 0; i < perms.length; i++) {
-		msg.add("  " + i + "\t");
-		msg.add(perms[i].getTitle());
-		msg.add("\n");
-	    }
-	    LogUtils.logDebug(owner, BusMember.class, "BusMember",
-		    msg.toArray(), null);
-	}
+    /**
+     * Unregisters the Subscriber from the Context bus.
+     */
+    public void close() {
+	theBus.unregister(busResourceURI, this);
+	AccessControl.INSTANCE.unregisterBusMember(owner, this);
     }
 
     /**
@@ -95,15 +79,20 @@ public abstract class BusMember {
      */
     public abstract void busDyingOut(AbstractBus b);
 
-    // protected ModuleContext getModuleContext() {
-    // return p.moduleContext;
-    // }
-
     /**
      * URI of this bus member. The URI is created by the bus and set during
      * registration of the the bus member at the bus.
      */
     public String getURI() {
 	return busResourceURI;
+    }
+
+    /**
+     * Get the type of this bus member.
+     * 
+     * @return the type of this bus member.
+     */
+    public BusMemberType getType() {
+	return type;
     }
 }

@@ -2197,9 +2197,4 @@ public class ServiceStrategy extends BusStrategy {
 
 	return result;
     }
-
-    @Override
-    protected void handleDeniedMessage(BusMessage message, String senderID) {
-	// TODO Auto-generated method stub
-    }
 }

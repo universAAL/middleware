@@ -25,6 +25,4 @@ package org.universAAL.middleware.bus.model.matchable;
  *
  */
 public interface EventAdvertisement extends Advertisement {
-    public boolean matches(Event e);
-    public boolean matches(Subscription s);
 }
