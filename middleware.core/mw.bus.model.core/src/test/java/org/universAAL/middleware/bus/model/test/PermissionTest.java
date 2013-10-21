@@ -1,7 +1,7 @@
 package org.universAAL.middleware.bus.model.test;
 
 
-import org.universAAL.middleware.bus.model.Permission;
+import org.universAAL.middleware.bus.permission.Permission;
 
 import junit.framework.TestCase;
 

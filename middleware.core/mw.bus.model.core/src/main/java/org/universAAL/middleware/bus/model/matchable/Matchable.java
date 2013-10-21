@@ -33,5 +33,5 @@ public interface Matchable {
 	 * @return <tt>true</tt> if the other Matchable matches, <tt>false</tt> if
 	 *         not
 	 */
-	public boolean matches(Matchable other);
+	public boolean matches(Matchable subset);
 }

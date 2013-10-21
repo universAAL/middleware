@@ -276,10 +276,6 @@ public class ContextStrategy extends BusStrategy {
 	return result;
     }
 
-    protected void handleDeniedMessage(BusMessage message, String senderID) {
-	// TODO Auto-generated method stub
-    }
-
     /**
      * @see BusStrategy#handleMessage(BusMessage, String)
      */

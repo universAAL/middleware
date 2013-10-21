@@ -22,6 +22,7 @@ package org.universAAL.middleware.context;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.Subscriber;
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
@@ -60,6 +61,8 @@ public abstract class ContextSubscriber extends Subscriber {
     protected ContextSubscriber(ModuleContext connectingModule,
 	    ContextEventPattern[] initialSubscriptions) {
 	super(connectingModule, ContextBusImpl.getContextBusFetchParams());
+	initialSubscriptions = AccessControl.INSTANCE.checkPermission(owner,
+		getURI(), initialSubscriptions);
 	addNewRegParams(initialSubscriptions);
     }
 
@@ -71,6 +74,8 @@ public abstract class ContextSubscriber extends Subscriber {
      *            The additional array of ContextEventPattern
      */
     protected final void addNewRegParams(ContextEventPattern[] newSubscriptions) {
+	newSubscriptions = AccessControl.INSTANCE.checkPermission(owner,
+		getURI(), newSubscriptions);
 	((ContextBus) theBus).addNewRegParams(busResourceURI, newSubscriptions);
     }
 
@@ -117,19 +122,15 @@ public abstract class ContextSubscriber extends Subscriber {
 
     public final void handleEvent(BusMessage m) {
 	if (m.getContent() instanceof ContextEvent) {
-	    LogUtils.logInfo(owner, ContextSubscriber.class, "handleEvent",
+	    LogUtils.logInfo(
+		    owner,
+		    ContextSubscriber.class,
+		    "handleEvent",
 		    new Object[] { busResourceURI,
 			    " received context event:\n",
 			    m.getContentAsString() }, null);
 	    handleContextEvent((ContextEvent) m.getContent());
 	}
-    }
-
-    /**
-     * Unregisters the Subscriber from the Context bus.
-     */
-    public void close() {
-	theBus.unregister(busResourceURI, this);
     }
 
     public String getMyID() {

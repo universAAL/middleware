@@ -24,5 +24,4 @@ package org.universAAL.middleware.bus.model.matchable;
  * 
  */
 public interface Advertisement extends Matchable {
-	public boolean matches(Requirement d);
 }

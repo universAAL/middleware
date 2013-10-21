@@ -24,5 +24,4 @@ package org.universAAL.middleware.bus.model.matchable;
  *
  */
 public interface Subscription extends Requirement {
-	public boolean matches(EventAdvertisement advertisement);
 }

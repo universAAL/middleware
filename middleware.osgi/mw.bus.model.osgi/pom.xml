@@ -63,7 +63,8 @@
             	org.universAAL.middleware.bus.model,
             	org.universAAL.middleware.bus.model.matchable,
             	org.universAAL.middleware.bus.model.util,
-            	org.universAAL.middleware.bus.msg</Export-Package>
+            	org.universAAL.middleware.bus.msg,
+            	org.universAAL.middleware.bus.permission</Export-Package>
             <Private-Package>org.universAAL.middleware.bus.model.osgi</Private-Package>
             <Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
           </instructions>

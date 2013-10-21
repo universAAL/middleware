@@ -17,7 +17,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.middleware.bus.model;
+package org.universAAL.middleware.bus.permission;
 
 import java.util.LinkedList;
 
