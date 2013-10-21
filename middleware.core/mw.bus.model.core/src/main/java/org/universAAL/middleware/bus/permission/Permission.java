@@ -26,10 +26,10 @@ import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
 
 public class Permission {
-    String title = "";
-    String description = "";
-    String serialization = "";
-    Matchable matchable = null;
+    private String title = "";
+    private String description = "";
+    private String serialization = "";
+    private Matchable matchable = null;
 
     public static final String ADVERTISEMENT = "advertisement";
     public static final String REQUIREMENT = "requirement";
