@@ -36,6 +36,7 @@ import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -233,6 +234,12 @@ public class TurtleParser {
 
 	LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
 		"logOpenItems", msgParts, null);
+	if (dbg) {
+	    String s = "";
+	    for (int i=0; i<msgParts.length; i++)
+		s += msgParts[i];
+	    System.out.println("logOpenItems: " + s);
+	}
     }
 
     /**
@@ -279,20 +286,33 @@ public class TurtleParser {
 				    "\n              - ");
 		    buf += "\n";
 		}
-		LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
-			"finalizeAndGetRoot", new Object[] { buf }, null);
+//		LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
+//			"finalizeAndGetRoot", new Object[] { buf }, null);
+		System.out.println(buf);
 	    }
 
 	for (Iterator i = resources.values().iterator(); i.hasNext();) {
 	    aux = (Resource) i.next();
 	    i.remove();
-	    // System.out.println("-- finalizeAndGetRoot: processing\n" +
-	    // aux.toStringRecursive()+"\n\n");
+
+	    if (dbg)
+		if (aux.getTypes().length == 2
+			&& aux.getTypes()[1].equals(MergedRestriction.MY_URI))
+		    System.out.println("found mergedrestriction");
+	    
+	    if (dbg)
+		System.out.println("-- finalizeAndGetRoot: processing\n"
+			+ aux.toStringRecursive() + "\n\n");
 	    ParseData pd = (ParseData) parseTable.remove(aux);
 	    specialized = (aux.numberOfProperties() == 0) ? aux : specialize(
 		    aux, specializedResources, openItems);
-	    if (/* resourceURI != null && */specialized != null)
+	    if (/* resourceURI != null && */specialized != null) {
 		this.specialized.put(specialized.getURI(), specialized);
+		if (dbg)
+		    System.out.println("-- finalizeAndGetRoot: specialized\n"
+			    + specialized.toStringRecursive() + "\n\n");
+
+	    }
 	    if (firstResource == aux)
 		firstResource = specialized;
 	    if (aux.numberOfProperties() > 0
@@ -322,7 +342,10 @@ public class TurtleParser {
 				&& (TypeExpression.OWL_CLASS.equals(aux
 					.getType()) || PropertyRestriction.MY_URI
 					.equals(aux.getType()))) {
-			    specialize(aux, specializedResources, openItems);
+			    specialized = specialize(aux, specializedResources,
+				    openItems);
+			    if (firstResource == aux)
+				firstResource = specialized;
 			}
 		    } else {
 			rd.l.set(rd.i, specialized);
@@ -398,15 +421,37 @@ public class TurtleParser {
 		    "There are relationships not resolved (please note, that this "
 			    + "does not necessarily imply that something is wrong):",
 		    openItems);
+	    if (dbg) {
+		String s = "-- Specialized items:\n";
+		int i = 1;
+		for (Object o : specializedResources.keySet()) {
+		    s += "   - specialized item " + i + "\n";
+		    s += "     key: " + o + " (" + o.getClass() + ")\n";
+		    Object val = specializedResources.get(o);
+		    s += "     val: " + val + " (" + val.getClass() + ")\n";
+		    i++;
+		}
+		System.out.println(s);
+	    }
+
 	    openItems.clear();
 	}
 
-	if (result == null)
-	    result = firstResource;
-
-	if (resourceURI != null)
+	if (resourceURI == null) {
+	    if (result == null) {
+		result = firstResource;
+	    } else {
+		// it can happen that the result was specialized after result
+		// was set, so we check that here
+		Resource r = (Resource) specializedResources.get(result
+			.getURI());
+		if (r != null)
+		    result = r;
+	    }
+	} else {
 	    result = (Resource) this.specialized.get(resourceURI);
-
+	}
+	
 	resources.clear();
 	parseTable.clear();
 	return result;
