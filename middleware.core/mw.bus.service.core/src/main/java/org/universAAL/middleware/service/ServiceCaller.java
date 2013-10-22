@@ -104,13 +104,6 @@ public abstract class ServiceCaller extends Caller {
     }
 
     /**
-     * Unregisters this <code>ServiceCaller</code> from the bus.
-     */
-    public void close() {
-	theBus.unregister(busResourceURI, this);
-    }
-
-    /**
      * This abstract method is called for each member of the bus when the bus is
      * being stopped.
      */
