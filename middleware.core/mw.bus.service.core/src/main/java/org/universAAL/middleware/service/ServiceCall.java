@@ -89,7 +89,6 @@ public class ServiceCall extends FinalizedResource implements UtilityCall {
 	    + "InputBinding";
 
     private Hashtable nonSemanticInput;
-	private ServiceRequest request;
 
     public ServiceCall(Object dummy, String uri) {
 	super(uri);
