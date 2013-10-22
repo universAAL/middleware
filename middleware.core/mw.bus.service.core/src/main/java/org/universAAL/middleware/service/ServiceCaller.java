@@ -26,6 +26,7 @@ import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Caller;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.bus.msg.MessageType;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
@@ -43,7 +44,8 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * 
  */
 public abstract class ServiceCaller extends Caller {
-    private Hashtable waitingCalls, readyResponses;
+    private Hashtable waitingCalls;
+    private Hashtable readyResponses;
 
     /**
      * The default constructor for this class.
@@ -74,19 +76,23 @@ public abstract class ServiceCaller extends Caller {
      * asynchronously in another thread.
      */
     public ServiceResponse call(ServiceRequest request) {
-	ServiceResponse sr = null;
-	synchronized (waitingCalls) {
-	    String callID = sendRequest(request);
-	    waitingCalls.put(callID, this);
-	    while (sr == null) {
-		try {
-		    waitingCalls.wait();
-		    sr = (ServiceResponse) readyResponses.remove(callID);
-		} catch (InterruptedException e) {
+	if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
+	    ServiceResponse sr = null;
+	    synchronized (waitingCalls) {
+		String callID = sendRequest(request);
+		waitingCalls.put(callID, this);
+		while (sr == null) {
+		    try {
+			waitingCalls.wait();
+			sr = (ServiceResponse) readyResponses.remove(callID);
+		    } catch (InterruptedException e) {
+		    }
 		}
 	    }
+	    return sr;
+	} else {
+	    return new ServiceResponse(CallStatus.denied);
 	}
-	return sr;
     }
 
     /**
@@ -112,7 +118,10 @@ public abstract class ServiceCaller extends Caller {
     public final void handleReply(BusMessage m) {
 	if (m.getType() == MessageType.reply
 		&& (m.getContent() instanceof ServiceResponse)) {
-	    LogUtils.logInfo(owner, ServiceCaller.class, "handleReply",
+	    LogUtils.logInfo(
+		    owner,
+		    ServiceCaller.class,
+		    "handleReply",
 		    new Object[] { busResourceURI,
 			    " received service response:\n",
 			    m.getContentAsString() }, null);
@@ -149,14 +158,20 @@ public abstract class ServiceCaller extends Caller {
      * 
      * @return a unique ID for this request that will be passed to the method
      *         {@link #handleResponse(String, ServiceResponse)} for an
-     *         unambiguous mapping of responses to requests.
+     *         unambiguous mapping of responses to requests. Returns null, if
+     *         this caller does not have the permission for the given request
      */
     public final String sendRequest(ServiceRequest request) {
 	request.setProperty(ServiceRequest.PROP_uAAL_SERVICE_CALLER,
 		busResourceURI);
-	BusMessage reqMsg = new BusMessage(MessageType.request, request, theBus);
-	((ServiceBus) theBus).brokerRequest(busResourceURI, reqMsg);
-	return reqMsg.getID();
+	if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
+	    BusMessage reqMsg = new BusMessage(MessageType.request, request,
+		    theBus);
+	    ((ServiceBus) theBus).brokerRequest(busResourceURI, reqMsg);
+	    return reqMsg.getID();
+	} else {
+	    return null;
+	}
     }
 
     /**
