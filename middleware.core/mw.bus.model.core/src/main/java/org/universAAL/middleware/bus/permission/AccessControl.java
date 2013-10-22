@@ -87,7 +87,8 @@ public class AccessControl {
 		if (perms[i].getMatchable().matches(m)) {
 		    LogUtils.logDebug(owner, AccessControl.class,
 			    "checkPermission", new Object[] {
-				    "Permission granted for matchable ", m },
+				    "Permission granted for matchable ",
+				    m.getClass().getSimpleName(), ": ", m },
 			    null);
 		    return true;
 		}
@@ -106,7 +107,8 @@ public class AccessControl {
 	}
 
 	LogUtils.logDebug(owner, AccessControl.class, "checkPermission",
-		new Object[] { "Permission denied for Matchable: ", m }, null);
+		new Object[] { "Permission denied for Matchable: ",
+			m.getClass().getSimpleName(), ": ", m }, null);
 
 	if (mode == AccessControlMode.full)
 	    return false;
