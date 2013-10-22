@@ -24,17 +24,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.universAAL.middleware.context.ContextEventPattern;
-import org.universAAL.middleware.owl.AllValuesFromRestriction;
 import org.universAAL.middleware.owl.HasValueRestriction;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.ServiceRequest;
+import org.universAAL.middleware.service.owls.process.ProcessEffect;
+import org.universAAL.middleware.service.owls.process.ProcessParameter;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.util.GraphIterator;
 import org.universAAL.middleware.util.GraphIteratorElement;
@@ -46,6 +46,14 @@ import org.universAAL.middleware.util.GraphIteratorElement;
  * 
  */
 public class ManifestTestCase extends BusTestCase {
+
+    public static final int EXTEND_NOTHING = 0;
+
+    public static final int EXTEND_HASVALUE = 1;
+    public static final int EXTEND_ENUMERATION = 2;
+    public static final int EXTEND_CHANGE_EFFECT = 4;
+
+    public static final int EXTEND_ALL = 255;
 
     private class Element<T extends Resource> {
 	String title = null;
@@ -111,13 +119,17 @@ public class ManifestTestCase extends BusTestCase {
     }
 
     private void writeManifestEntry(PrintWriter writer, String type, Element el) {
-	// TODO: escape the manifest entry: escape the <![CDATA[]]>
+	// escape
+	String serialized = serialize(el.el);
+	serialized.replace("]]>", "]]]]><![CDATA[>");
+
+	// write
 	writer.println("         <" + type + ">");
 	writer.println("            <title>" + el.title + "</title>");
 	writer.println("            <description>" + el.description
 		+ "</description>");
 	writer.println("            <serialization>");
-	writer.println("               <![CDATA[" + serialize(el.el) + "]]>");
+	writer.println("               <![CDATA[" + serialized + "]]>");
 	writer.println("            </serialization>");
 	writer.println("         </" + type + ">");
     }
@@ -139,67 +151,121 @@ public class ManifestTestCase extends BusTestCase {
     }
 
     protected void add(String title, String description, ServiceRequest r,
-	    boolean extend) {
-	System.out.println("\n\n-- new Request (not extended):\n"
+	    boolean extendAll) {
+	add(title, description, r, extendAll ? EXTEND_ALL : EXTEND_NOTHING);
+    }
+
+    protected void add(String title, String description, ServiceRequest r,
+	    int options) {
+	System.out.println("\n\n-- new Request " + title + "(not extended):\n"
 		+ serialize(r));
-	if (extend) {
-	    while (extendRequest(r)) {
+	if (options != EXTEND_NOTHING) {
+	    while (extendRequest(r, options)) {
 	    }
-	    System.out.println("\n\n-- new Request (extended):\n"
+	    System.out.println("\n\n-- extended version of " + title + ":\n"
 		    + serialize(r));
 	}
 
 	serviceRequests.add(new Element<ServiceRequest>(title, description, r));
     }
 
-    private boolean extendRequest(ServiceRequest r) {
-	// try to extend the request by changing owl:hasValue to
-	// owl:allValuesFrom
+    private boolean extendRequest(ServiceRequest r, int options) {
+	// return true, if the RDF graph was changed
 	Iterator git = GraphIterator.getIterator(r);
 	while (git.hasNext()) {
 	    GraphIteratorElement el = (GraphIteratorElement) git.next();
-	    Object obj = el.getObject();
-	    if (el.getObject() instanceof HasValueRestriction) {
-		// we found a triple with owl:hasValue: the object of the triple
-		// is a HasValueRestriction that we now have to change to an
-		// AllValuesFromRestriction
-		HasValueRestriction has = (HasValueRestriction) obj;
-
-		// create the AllValuesFromRestriction
-		AllValuesFromRestriction all = null;
-		Object constraint = has.getConstraint();
-		if (constraint instanceof ManagedIndividual) {
-		    all = new AllValuesFromRestriction(has.getOnProperty(),
-			    ((ManagedIndividual) constraint).getClassURI());
-		} else if (constraint instanceof Resource) {
-		    continue;
-		} else {
-		    String datatypeURI = TypeMapper.getDatatypeURI(constraint);
-		    if (datatypeURI != null) {
-			all = new AllValuesFromRestriction(has.getOnProperty(),
-				datatypeURI);
-		    }
-		}
-
-		// if we could not create the AllValuesFromRestriction just go
-		// on searching
-		if (all == null)
-		    continue;
-
-		// remove the HasValueRestriction and
-		// set the AllValuesFromRestriction
-		if (el.isList()) {
-		    el.getList().set(el.getListIndex() - 1, all);
-		} else {
-		    el.getSubject().setProperty(el.getPredicate(), all);
-		}
-
-		return true;
-	    } else {
-		// TODO: extend propertyValue of a ChangeEffect
-		// TODO: what about other effects?
+	    if ((options & EXTEND_HASVALUE) != 0) {
+		if (extendRequestHasValue(el))
+		    return true;
+	    }
+	    if ((options & EXTEND_CHANGE_EFFECT) != 0) {
+		if (extendRequestChangeEffect(el))
+		    return true;
 	    }
 	}
+	return false;
+    }
+
+    private boolean extendRequestChangeEffect(GraphIteratorElement el) {
+	// change ChangeEffect from a concrete value to a Variable
+	Object sub = el.getSubject();
+	if (sub instanceof Resource) {
+	    Resource r = (Resource) sub;
+	    if (ProcessEffect.TYPE_PROCESS_CHANGE_EFFECT.equals(r.getType())) {
+		if (extendRequestTrySettingProcessParameter(r,
+			ProcessEffect.PROP_PROCESS_PROPERTY_VALUE))
+		    return true;
+	    }
+	}
+	return false;
+    }
+
+    private boolean extendRequestTrySettingProcessParameter(Resource r,
+	    String propURI) {
+	Object obj = r.getProperty(propURI);
+	if (!(obj instanceof ProcessParameter)) {
+	    String typeURI = TypeMapper.getDatatypeURI(obj);
+	    if (typeURI != null) {
+		// System.out.println(" - changing type: " + typeURI
+		// + " of Resource: " + r.toStringRecursive());
+		// change the value to a Variable with the type of the value
+		ProcessParameter in = new ProcessParameter(null,
+			ProcessParameter.TYPE_OWLS_VALUE_OF);
+		if (obj instanceof ManagedIndividual) {
+		    in.setParameterType(((ManagedIndividual) obj).getClassURI());
+		} else {
+		    in.setParameterType(typeURI);
+		}
+		in.setCardinality(1, 1);
+		r.changeProperty(propURI, in);
+		// System.out.println(res);
+		return true;
+	    }
+	}
+
+	return false;
+    }
+
+    private boolean extendRequestHasValue(GraphIteratorElement el) {
+	// change owl:hasValue from a concrete value to a Variable
+	Object sub = el.getSubject();
+	if (sub instanceof HasValueRestriction) {
+	    HasValueRestriction has = (HasValueRestriction) sub;
+
+	    if (extendRequestTrySettingProcessParameter(has,
+		    HasValueRestriction.PROP_OWL_HAS_VALUE))
+		return true;
+	}
+
+	// try to extend the request by changing owl:hasValue to
+	// owl:allValuesFrom
+	// return true, if the RDF graph was changed
+	/*
+	 * Object obj = el.getObject(); if (obj instanceof HasValueRestriction)
+	 * { // we found a triple with owl:hasValue: the object of the triple is
+	 * // a HasValueRestriction that we now have to change to an //
+	 * AllValuesFromRestriction HasValueRestriction has =
+	 * (HasValueRestriction) obj;
+	 * 
+	 * // create the AllValuesFromRestriction AllValuesFromRestriction all =
+	 * null; Object constraint = has.getConstraint(); if (constraint
+	 * instanceof ManagedIndividual) { all = new
+	 * AllValuesFromRestriction(has.getOnProperty(), ((ManagedIndividual)
+	 * constraint).getClassURI()); } else if (constraint instanceof
+	 * Resource) { return false; } else { String datatypeURI =
+	 * TypeMapper.getDatatypeURI(constraint); if (datatypeURI != null) { all
+	 * = new AllValuesFromRestriction(has.getOnProperty(), datatypeURI); } }
+	 * 
+	 * // if we could not create the AllValuesFromRestriction just // go on
+	 * searching if (all == null) return false;
+	 * 
+	 * // remove the HasValueRestriction and // set the
+	 * AllValuesFromRestriction if (el.isList()) {
+	 * el.getList().set(el.getListIndex() - 1, all); } else {
+	 * el.getSubject().setProperty(el.getPredicate(), all); }
+	 * 
+	 * return true; }
+	 */
 	return false;
     }
 }
