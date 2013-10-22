@@ -23,6 +23,7 @@ import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Callee;
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
@@ -53,6 +54,8 @@ public abstract class ServiceCallee extends Callee {
     protected ServiceCallee(ModuleContext context,
 	    ServiceProfile[] realizedServices) {
 	super(context, ServiceBusImpl.getServiceBusFetchParams());
+	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
+		getURI(), realizedServices);
 	addNewServiceProfiles(realizedServices);
     }
 
@@ -64,6 +67,8 @@ public abstract class ServiceCallee extends Callee {
      *            the new services.
      */
     protected final void addNewServiceProfiles(ServiceProfile[] realizedServices) {
+	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
+		getURI(), realizedServices);
 	((ServiceBus) theBus).addNewServiceProfiles(busResourceURI,
 		realizedServices);
     }
