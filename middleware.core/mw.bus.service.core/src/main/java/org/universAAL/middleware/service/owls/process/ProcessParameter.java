@@ -64,7 +64,7 @@ import org.universAAL.middleware.service.owl.Service;
  * @author mtazari
  * 
  */
-public abstract class ProcessParameter extends Variable {
+public class ProcessParameter extends Variable {
     public static final String OWLS_PROCESS_NAMESPACE = Service.OWLS_NAMESPACE_PREFIX
 	    + "Process.owl#";
     public static final String MY_URI = OWLS_PROCESS_NAMESPACE + "Parameter";
@@ -159,7 +159,7 @@ public abstract class ProcessParameter extends Variable {
 	return (o == null) ? var : o;
     }
 
-    protected ProcessParameter(String uri, String subType) {
+    public ProcessParameter(String uri, String subType) {
 	super(uri);
 	addType(subType, true);
     }
