@@ -202,6 +202,7 @@ public class ContextEventPattern extends FinalizedResource implements
 		    PropertyRestriction res = (PropertyRestriction) property;
 		    MergedRestriction m = new MergedRestriction(
 			    res.getOnProperty());
+		    m.addRestriction(res);
 		    return addRestriction(m);
 		} else if (property instanceof List) {
 		    ArrayList l = MergedRestriction
