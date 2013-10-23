@@ -94,7 +94,7 @@ public abstract class ProcessEffect {
 		} else if (PROP_PROCESS_PROPERTY_VALUE.equals(key)) {
 		    key = ((Resource) o)
 			    .getProperty(PROP_PROCESS_PROPERTY_VALUE);
-		    if (ProcessParameter.checkDeserialization(key))
+		    if (ProcessParameter.checkDeserialization(key) || (ProcessParameter.MY_URI.equals(((Resource)key).getType())))
 			num++;
 		    else
 			return false;
