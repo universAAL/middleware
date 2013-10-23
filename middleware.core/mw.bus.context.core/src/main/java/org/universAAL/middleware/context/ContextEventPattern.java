@@ -263,6 +263,6 @@ public class ContextEventPattern extends FinalizedResource implements
 		return false;
 	}
 
-	return false;
+	return true;
     }
 }
