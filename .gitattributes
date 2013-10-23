@@ -172,8 +172,12 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/data/factory/ServiceStrategyDataFactory.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceBusFactory.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceBusImpl.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceMatcher.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceProfileWrapper.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceRealization.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceRequestWrapper.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceStrategy.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/impl/ServiceWrapper.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owl/InitialServiceDialog.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owl/Service.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owl/ServiceBusOntology.java -text
