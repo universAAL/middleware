@@ -50,6 +50,13 @@ public class ResourceComparator {
     /** True, if output on the stack is generated */
     private boolean isPrinting = false;
 
+    private void init() {
+	done1 = new ArrayList();
+	done2 = new ArrayList();
+	s = new Stack();
+	isPrinting = false;
+    }
+
     /**
      * Internal method to test for equality.
      */
@@ -193,7 +200,7 @@ public class ResourceComparator {
      * and all Resources connected by properties.
      */
     public boolean areEqual(Resource r1, Resource r2) {
-	isPrinting = false;
+	init();
 	return r1 != null && r2 != null && r1.getClass() == r2.getClass()
 		&& !differ(0, r1, r2);
     }
@@ -211,6 +218,7 @@ public class ResourceComparator {
     }
 
     public Stack getDiffsAsStack(Resource r1, Resource r2) {
+	init();
 	isPrinting = true;
 	if (r1 != null && r2 != null)
 	    writeLine(0,
