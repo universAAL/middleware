@@ -30,6 +30,7 @@ import org.universAAL.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
@@ -60,6 +61,9 @@ public class BusTestCase extends TestCase {
 	mc = new JUnitModuleContext();
 
 	// init data representation
+	SharedResources.moduleContext = mc;
+	SharedResources.loadReasoningEngine();
+	SharedResources.middlewareProps.put(SharedResources.uAAL_IS_COORDINATING_PEER, "true");
 	OntologyManagement.getInstance().register(mc, new DataRepOntology());
 	mc.getContainer().shareObject(mc, new TurtleSerializer(),
 		new Object[] { MessageContentSerializer.class.getName() });
