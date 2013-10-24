@@ -35,6 +35,7 @@ import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
+import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.ui.IUIBus;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
@@ -55,6 +56,7 @@ public class BusTestCase extends TestCase {
     protected void setUp() throws Exception {
 	super.setUp();
 
+	System.out.println(" - starting BusTestCase -");
 	mc = new JUnitModuleContext();
 
 	// init data representation
@@ -63,6 +65,7 @@ public class BusTestCase extends TestCase {
 		new Object[] { MessageContentSerializer.class.getName() });
 	mcs = (MessageContentSerializer) mc.getContainer().fetchSharedObject(
 		mc, new Object[] { MessageContentSerializer.class.getName() });
+	TurtleUtil.moduleContext = mc;
 
 	// init buses
 	Object[] busFetchParams;
