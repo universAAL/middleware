@@ -1111,7 +1111,7 @@ public class Resource {
 		s += ((Resource) val).toStringRecursive(prefix + "    ", false,
 			visitedElements);
 	    else if (val instanceof List) {
-		s += "List" + "\n";
+		s += "List (size: " + ((List)val).size()  + ")\n";
 		// for (Object o : (List)val) {
 		Iterator iter = ((List) val).iterator();
 		while (iter.hasNext()) {
@@ -1119,11 +1119,15 @@ public class Resource {
 		    if (o instanceof Resource)
 			s += ((Resource) o).toStringRecursive(
 				prefix + "      ", true, visitedElements);
-		    else
-			// TODO: this is most likely a literal, so do the same
-			// as below
-			s += prefix + "      " + "unknown: "
-				+ o.getClass().getName() + "\n";
+		    else {
+			String type = TypeMapper.getDatatypeURI(o);
+			if (type == null)
+			    s += prefix + "      unknown: "
+				    + o.getClass().getName() + "\n";
+			else
+			    s += prefix + "      Literal: " + type + " " + o
+				    + "\n";
+		    }
 		}
 	    } else {
 		String type = TypeMapper.getDatatypeURI(val);
