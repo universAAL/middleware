@@ -209,8 +209,9 @@ public class ContextEventPattern extends FinalizedResource implements
 			    .getFromList((List) property);
 		    boolean retVal = false;
 		    for (int i = 0; i < l.size(); i++) {
-			retVal = addRestriction((MergedRestriction) l.get(i))
-				|| retVal;
+			MergedRestriction m = (MergedRestriction) l.get(i);
+			boolean addRes = addRestriction(m);
+			retVal = addRes || retVal;
 		    }
 		    return retVal;
 		}
