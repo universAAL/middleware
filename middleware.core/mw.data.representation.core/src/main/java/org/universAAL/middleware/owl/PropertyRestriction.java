@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -198,6 +200,16 @@ public abstract class PropertyRestriction extends TypeExpression {
 
 	// handle owl:onProperty
 	if (PROP_OWL_ON_PROPERTY.equals(propURI)) {
+	    if (Resource.isAnon(value.toString())) {
+		LogUtils.logError(
+			SharedResources.moduleContext,
+			PropertyRestriction.class,
+			"setProperty",
+			new Object[] { "Cannot set the 'on property' (owl:onProperty) value with an anonymous URI. Please use a non-anonymous URI" },
+			null);
+		return false;
+	    }
+
 	    if (value instanceof String) {
 		props.put(PROP_OWL_ON_PROPERTY, new Resource((String) value));
 	    } else if (value instanceof Resource) {
