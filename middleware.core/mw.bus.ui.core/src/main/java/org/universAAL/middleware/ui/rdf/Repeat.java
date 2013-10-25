@@ -640,7 +640,7 @@ public class Repeat extends Group {
 			Group gio = (Group) subForm.getIOControls();
 			for (int j = 0; j < elems.length; j++) {
 				if (elems[j] != null) {
-					FormControl nFC = (FormControl) softCopy(elems[j]);
+					FormControl nFC = (FormControl) elems[j].copy(false);
 					nFC.changeProperty(PROP_PARENT_CONTROL, gio); 
 					// ^ Shouldn't this be done in Group#addCnild()?
 					gio.addChild(nFC);
@@ -657,17 +657,6 @@ public class Repeat extends Group {
 		}
 
 		return formList;
-	}
-	
-	private Object softCopy(Resource res) {
-		Resource newRes = Resource.getResource(res.getType(),
-				Resource.generateAnonURI());
-		Enumeration props = res.getPropertyURIs();
-		while (props.hasMoreElements()) {
-			String prop = (String) props.nextElement();
-			newRes.setProperty(prop, res.getProperty(prop));
-		}
-		return newRes;
 	}
 
 	/** {@ inheritDoc}	 */
