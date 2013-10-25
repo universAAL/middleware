@@ -58,10 +58,13 @@ public class ResourceComparator {
     }
 
     /**
-     * Internal method to test for equality.
+     * Internal method to test for equality. It tests for each element in l1 if
+     * it is contained in l2. If the lists are closed lists then also the order
+     * must be the same.
      */
     private boolean differ(int indent, List l1, List l2, boolean closedList) {
-	int i = l1.size(), j = l2.size();
+	int i = l1.size();
+	int j = l2.size();
 	if (i != j) {
 	    writeLine(indent, new Object[] { "different number of elements: ",
 		    Integer.toString(i), " <-> ", Integer.toString(j) });
@@ -71,31 +74,59 @@ public class ResourceComparator {
 	boolean result = false;
 	if (closedList) {
 	    while (--i > -1)
-		if (differ(indent, "Element" + i, l1.get(i), l2.get(i), true))
+		if (differ(indent, "Element (closedList) " + i, l1.get(i),
+			l2.get(i), true))
 		    result = true;
 	} else {
 	    boolean wasPrinting = isPrinting;
 	    isPrinting = false;
-	    while (--i > -1) {
-		for (j = i; j > -1; j--) {
-		    Object o = l2.get(j);
-		    if (!differ(indent, "Element" + i, l1.get(i), o, true)) {
-			if (i != j) {
-			    o = l2.set(i, o);
-			    l2.set(j, o);
-			}
+
+	    // create a new list for l2 so that we can remove elements that we
+	    // have already found (performance)
+	    l2 = new ArrayList(l2);
+
+	    // now search equal elements
+	    // System.out.println(" -- comparing lists");
+	    for (i = 0; i < l1.size(); i++) {
+		boolean found = false;
+		for (j = 0; j < l2.size(); j++) {
+		    // backup the 'done'-lists, they need to be restored if a
+		    // value differs and we make a backtracking
+		    ArrayList tmpDone1 = new ArrayList(done1);
+		    ArrayList tmpDone2 = new ArrayList(done2);
+		    if (!differ(indent, "Element" + i, l1.get(i), l2.get(j),
+			    false)) {
+			// found an equal element -> remove it from the second
+			// list (performance)
+			l2.remove(j);
+			found = true;
 			break;
+		    } else {
+			// restore the backup of the 'done'-lists
+			done1 = tmpDone1;
+			done2 = tmpDone2;
 		    }
 		}
-		if (j == -1) {
+		if (!found) {
+		    // we did not break in the inner 'for' -> we have not found
+		    // an equal element
 		    isPrinting = wasPrinting;
-		    writeLine(indent,
-			    new Object[] { "Element",
-				    Integer.toBinaryString(i), " not found!" });
+		    writeLine(indent, new Object[] { "Element (openList) ", i,
+			    " not found!" });
 		    isPrinting = false;
 		    result = true;
 		}
 	    }
+	    // System.out.println(" -- comparing lists done");
+
+	    /*
+	     * while (--i > -1) { for (j = l2.size() - 1; j > -1; j--) { Object
+	     * o = l2.get(j); if (!differ(indent, "Element" + i, l1.get(i), o,
+	     * true)) { if (i != j) { o = l2.set(i, o); l2.set(j, o); } break; }
+	     * } if (j == -1) { isPrinting = wasPrinting; writeLine( indent, new
+	     * Object[] { "Element ", Integer.toBinaryString(i),
+	     * " (binary) not found!" }); isPrinting = false; result = true; } }
+	     */
 	    isPrinting = wasPrinting;
 	}
 	return result;
