@@ -438,7 +438,9 @@ public class Resource {
      * @see #copyAsNonXMLLiteral()
      */
     public Resource copy(boolean isXMLLiteral) {
-	Resource copy = new Resource(uri, isXMLLiteral);
+    	Resource copy =  Resource.getResource(getType(), uri);
+    	if (copy == null)
+    		copy = new Resource(uri, isXMLLiteral);
 	for (Enumeration e = props.keys(); e.hasMoreElements();) {
 	    Object key = e.nextElement();
 	    copy.props.put(key, props.get(key));
