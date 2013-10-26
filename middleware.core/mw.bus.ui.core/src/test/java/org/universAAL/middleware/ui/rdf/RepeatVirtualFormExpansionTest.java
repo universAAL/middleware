@@ -72,6 +72,15 @@ public class RepeatVirtualFormExpansionTest extends TestCase {
     	}
     }
     
+    public void testSimpleOneLine(){
+    	Repeat r = getResourceRepeatOneLine();
+    	List fs = r.virtualFormExpansion();
+    	assertEquals(1, fs.size());
+    	FormControl[] ch = ((Form) fs.get(0)).getIOControls().getChildren();
+    	assertEquals(3, ch.length);
+    	assertEquals(Integer.valueOf(1),ch[0].getValue());
+    }
+    
     public void testResource(){
     	Repeat r = getResourceRepeat();
     	List fs = r.virtualFormExpansion();
@@ -120,6 +129,32 @@ public class RepeatVirtualFormExpansionTest extends TestCase {
 		rows.add(cell);
 		Resource dataRoot = new Resource();
 		dataRoot.setProperty(PROP_TABLE, rows);
+		Form f = Form.newDialog("test", dataRoot);
+		Repeat repeat = new Repeat(f.getIOControls(), new Label("table", null),
+			new PropertyPath(null, false, new String[] { PROP_TABLE }),
+			null, null);
+		// new Repeat(g, new Label(userDM
+		// .getString("UICaller.pendingDialogs"), null),
+		// new PropertyPath(null, false,
+		// new String[] { PROP_DLG_LIST_DIALOG_LIST }),
+		// null, null);
+		Group row = new Group(repeat, null, null, null, null);
+		new SimpleOutput(row, new Label("col1", null), new PropertyPath(null,
+			false, new String[] { PROP_COL + "1" }), null);
+		new SimpleOutput(row, new Label("col2", null), new PropertyPath(null,
+			false, new String[] { PROP_COL + "2" }), null);
+		new SimpleOutput(row, new Label("col3", null), new PropertyPath(null,
+			false, new String[] { PROP_COL + "3" }), null);
+		return repeat;
+	}
+	
+	private Repeat getResourceRepeatOneLine(){
+		Resource cell = new Resource();
+		cell.setProperty(PROP_COL + "1", new Integer(1));
+		cell.setProperty(PROP_COL + "2", "two");
+		cell.setProperty(PROP_COL + "3", new Float(3));
+		Resource dataRoot = new Resource();
+		dataRoot.setProperty(PROP_TABLE, cell);
 		Form f = Form.newDialog("test", dataRoot);
 		Repeat repeat = new Repeat(f.getIOControls(), new Label("table", null),
 			new PropertyPath(null, false, new String[] { PROP_TABLE }),

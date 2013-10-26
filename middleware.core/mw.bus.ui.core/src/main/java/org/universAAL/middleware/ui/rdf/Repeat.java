@@ -623,7 +623,9 @@ public class Repeat extends Group {
 		Object repeatData = getFormObject().getValue(ref.getThePath());
 		List repeatList = null;
 		if (repeatData instanceof Resource) {
-			repeatList = ((Resource) repeatData).asList();
+//			repeatList = ((Resource) repeatData).asList();
+		    repeatList = new ArrayList();
+		    repeatList.add(repeatData);
 		}
 		if (repeatData instanceof List) {
 			repeatList = (List) repeatData;
