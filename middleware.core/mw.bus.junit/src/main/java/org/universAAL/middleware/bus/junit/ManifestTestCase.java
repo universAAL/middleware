@@ -27,6 +27,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.owl.HasValueRestriction;
 import org.universAAL.middleware.owl.ManagedIndividual;
@@ -38,6 +39,7 @@ import org.universAAL.middleware.service.owls.process.ProcessParameter;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.util.GraphIterator;
 import org.universAAL.middleware.util.GraphIteratorElement;
+import org.universAAL.middleware.util.ResourceComparator;
 
 /**
  * A test case that is specifically used to create a functional manifest.
@@ -54,6 +56,8 @@ public class ManifestTestCase extends BusTestCase {
     public static final int EXTEND_CHANGE_EFFECT = 4;
 
     public static final int EXTEND_ALL = 255;
+
+    private ResourceComparator rc = new ResourceComparator();
 
     private class Element<T extends Resource> {
 	String title = null;
@@ -136,6 +140,10 @@ public class ManifestTestCase extends BusTestCase {
 
     protected void add(String title, String description,
 	    ContextEventPattern cep, boolean isPublisher) {
+	LogUtils.logDebug(mc, ManifestTestCase.class, "add", new Object[] {
+		"Adding manifest entry: ", title }, null);
+	assertTrue(cep.matches(cep));
+	checkserialization(cep);
 	LinkedList<Element<ContextEventPattern>> lst;
 	if (isPublisher)
 	    lst = contextEventPatternsPublish;
@@ -146,27 +154,56 @@ public class ManifestTestCase extends BusTestCase {
     }
 
     protected void add(String title, String description, ServiceProfile profile) {
+	LogUtils.logDebug(mc, ManifestTestCase.class, "add", new Object[] {
+		"Adding manifest entry: ", title }, null);
+	assertTrue(profile.matches(profile));
+	checkserialization(profile);
 	serviceProfiles.add(new Element<ServiceProfile>(title, description,
 		profile));
     }
 
-    protected void add(String title, String description, ServiceRequest r,
-	    boolean extendAll) {
-	add(title, description, r, extendAll ? EXTEND_ALL : EXTEND_NOTHING);
+    protected ServiceRequest add(String title, String description,
+	    ServiceRequest r, boolean extendAll) {
+	return add(title, description, r, extendAll ? EXTEND_ALL
+		: EXTEND_NOTHING);
     }
 
-    protected void add(String title, String description, ServiceRequest r,
-	    int options) {
-	System.out.println("\n\n-- new Request " + title + "(not extended):\n"
-		+ serialize(r));
+    protected ServiceRequest add(String title, String description,
+	    ServiceRequest r, int options) {
+	LogUtils.logDebug(mc, ManifestTestCase.class, "add", new Object[] {
+		"Adding manifest entry: ", title }, null);
+	checkserialization(r);
+	String serialized = serialize(r);
+	ServiceRequest orig = (ServiceRequest) deserialize(serialized);
+
+	// System.out.println("\n\n-- new Request " + title +
+	// "(not extended):\n" + serialized);
 	if (options != EXTEND_NOTHING) {
 	    while (extendRequest(r, options)) {
 	    }
-	    System.out.println("\n\n-- extended version of " + title + ":\n"
-		    + serialize(r));
+	    // System.out.println("\n\n-- extended version of " + title + ":\n"
+	    // + serialize(r));
 	}
+	assertTrue(r.matches(orig));
+	checkserialization(r);
 
 	serviceRequests.add(new Element<ServiceRequest>(title, description, r));
+	return r;
+    }
+
+    private void checkserialization(Resource r1) {
+	String serialized = serialize(r1);
+	Resource r2 = deserialize(serialized);
+	if (!rc.areEqual(r1, r2)) {
+	    System.out.println(" -- ERROR during serialization: ");
+	    System.out.println(rc.getDiffsAsString(r1, r2));
+	    System.out.println(" -- 1. Resource:\n" + r1.toStringRecursive());
+	    System.out.println(" -- Serialized:\n" + serialized);
+	    System.out.println(" -- 2. Resource:\n" + r2.toStringRecursive());
+	    System.out.println(" -- serialized again:\n" + serialize(r2));
+	    // r2 = deserialize(serialized);
+	    assertTrue(false);
+	}
     }
 
     private boolean extendRequest(ServiceRequest r, int options) {
@@ -210,7 +247,7 @@ public class ManifestTestCase extends BusTestCase {
 		// + " of Resource: " + r.toStringRecursive());
 		// change the value to a Variable with the type of the value
 		ProcessParameter in = new ProcessParameter(null,
-			ProcessParameter.TYPE_OWLS_VALUE_OF);
+			ProcessParameter.MY_URI);
 		if (obj instanceof ManagedIndividual) {
 		    in.setParameterType(((ManagedIndividual) obj).getClassURI());
 		} else {
