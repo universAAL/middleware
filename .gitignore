@@ -10555,6 +10555,10 @@ mw.modules.communication.osgi-2.0.1-SNAPSHOT/.classpath
 mw.modules.communication.osgi-2.0.1-SNAPSHOT/.project
 mw.modules.communication.osgi-2.0.1-SNAPSHOT/.settings
 mw.modules.communication.osgi-2.0.1-SNAPSHOT/target
+mw.modules.communication.osgi-2.0.2-SNAPSHOT/.classpath
+mw.modules.communication.osgi-2.0.2-SNAPSHOT/.project
+mw.modules.communication.osgi-2.0.2-SNAPSHOT/.settings
+mw.modules.communication.osgi-2.0.2-SNAPSHOT/target
 mw.pom-1.0.2-SNAPSHOT/.classpath
 mw.pom-1.0.2-SNAPSHOT/.project
 mw.pom-1.0.2-SNAPSHOT/.settings
