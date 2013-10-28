@@ -1,7 +1,7 @@
 Realization of the Middleware UI Buses
 
 Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+Fraunhofer Gesellschaft - Institut fÃ¼r Graphische Datenverarbeitung 
 
 
 I. Included Software
