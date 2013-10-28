@@ -784,6 +784,17 @@ public class Resource {
 
 	return false;
     }
+    
+    /**
+     * Determines whether this Resource does not allow to add new type
+     * information.
+     * 
+     * @return true, if this Resource does not allow to add new type
+     *         information.
+     */
+   public boolean isBlockingAddingTypes() {
+	return blockAddingTypes;
+    }
 
     /**
      * Returns true, if the state of the resource is valid, otherwise false.
@@ -1086,7 +1097,7 @@ public class Resource {
 	    s += prefix;
 	s += this.getClass().getName() + "\n";
 	prefix += "  ";
-	s += prefix + "URI: " + getURI();
+	s += prefix + "URI: " + getURI() + "  isXMLLiteral: " + isXMLLiteral;
 
 	Resource visited = (Resource) visitedElements.get(this);
 	if (visited != null) {
@@ -1143,5 +1154,10 @@ public class Resource {
     /** Make this object not being an XMLLiteral */
     public void unliteral() {
 	isXMLLiteral = false;
+    }
+    
+    /** Make this object an XMLLiteral */
+    public void literal() {
+	isXMLLiteral = true;
     }
 }
