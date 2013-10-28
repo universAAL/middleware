@@ -2878,6 +2878,23 @@ mw.container.xfaces.core-2.0.1-SNAPSHOT/src/test/java/org/universAAL/tests/Messa
 mw.container.xfaces.core-2.0.1-SNAPSHOT/src/test/resources/messages.properties -text svneol=unset#text/plain
 mw.container.xfaces.core-2.0.1-SNAPSHOT/src/test/resources/messages_de.properties -text svneol=unset#text/plain
 mw.container.xfaces.core-2.0.1-SNAPSHOT/src/test/resources/messages_en.properties -text svneol=unset#text/plain
+mw.container.xfaces.core-2.0.2-SNAPSHOT/ASL2.0.txt -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/NOTICE.txt -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/pom.xml -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/container/Attributes.java -text svneol=unset#text/plain
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/container/Container.java -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/container/LogListener.java -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/container/ModuleActivator.java -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/container/ModuleContext.java -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/container/SharedObjectListener.java -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/container/utils/LogUtils.java -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/container/utils/Messages.java -text svneol=unset#text/plain
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/container/utils/ModuleConfigHome.java -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/test/java/org/universAAL/tests/MessagesTest.java -text svneol=unset#text/plain
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/test/resources/messages.properties -text svneol=unset#text/plain
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/test/resources/messages_de.properties -text svneol=unset#text/plain
+mw.container.xfaces.core-2.0.2-SNAPSHOT/src/test/resources/messages_en.properties -text svneol=unset#text/plain
 mw.container.xfaces.osgi-1.1.3-SNAPSHOT/LICENSE.txt -text
 mw.container.xfaces.osgi-1.1.3-SNAPSHOT/NOTICE.txt -text
 mw.container.xfaces.osgi-1.1.3-SNAPSHOT/pom.xml -text
