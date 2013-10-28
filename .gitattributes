@@ -1062,6 +1062,12 @@ mw.bus.io-1.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/output/impl/Out
 mw.bus.io-1.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/io/rdf/RangeTest.java -text
 mw.bus.io-1.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/io/test/ArtifactIntegrationTest.java -text
 mw.bus.io-1.0.1-SNAPSHOT/src/test/resources/log4j.properties -text
+mw.bus.junit-2.0.2-SNAPSHOT/ASL2.0.txt -text
+mw.bus.junit-2.0.2-SNAPSHOT/NOTICE.txt -text
+mw.bus.junit-2.0.2-SNAPSHOT/pom.xml -text
+mw.bus.junit-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/bus/junit/BusTestCase.java -text
+mw.bus.junit-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/bus/junit/ManifestTestCase.java -text
+mw.bus.junit-2.0.2-SNAPSHOT/src/test/java/org/universAAL/test/SimpleTest.java -text
 mw.bus.model-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.bus.model-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.bus.model-1.0.1-SNAPSHOT/artifact_manual.composite -text
