@@ -643,14 +643,15 @@ public class Repeat extends Group {
 			for (int j = 0; j < elems.length; j++) {
 				if (elems[j] != null) {
 					FormControl nFC = (FormControl) elems[j].copy(false);
-					nFC.changeProperty(PROP_PARENT_CONTROL, gio); 
-					// ^ Shouldn't this be done in Group#addCnild()?
 					gio.addChild(nFC);
 					if (elems[j] instanceof SubdialogTrigger) {
 						nFC.changeProperty(
 								SubdialogTrigger.PROP_SUBMISSION_ID,
 								nFC.getProperty(SubdialogTrigger.PROP_REPEATABLE_ID_PREFIX)
 										+ Integer.toString(index));
+					} 
+					else {
+						nFC.changeProperty(PROP_PARENT_CONTROL, gio); 
 					}
 				}
 			}
