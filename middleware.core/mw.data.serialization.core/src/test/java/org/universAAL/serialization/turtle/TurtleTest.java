@@ -116,12 +116,21 @@ public class TurtleTest extends TestCase {
 		+ "<urn:org.universAAL.middleware.context.rdf:ContextEvent#13a4a4845a0@VAIOTSBAL+a871fc3f+985e8d8c:b16> rdf:subject <http://ontology.itaca.upv.es/Test.owl#panic10> .\r\n"
 		+ "";
 
-	String uri = "http://ontology.itaca.upv.es/Test.owl#panic10";
 	TurtleSerializer t = new TurtleSerializer();
+	
+	String uri = "http://ontology.itaca.upv.es/Test.owl#panic10";
 	Object o = t.deserialize(serialized, uri);
 	assertFalse(o == null);
 	assertTrue(o instanceof Resource);
 	Resource r = (Resource) o;
+	System.out.println(r.getURI());
+	assertTrue(uri.equals(r.getURI()));
+	
+	uri = "urn:org.universAAL.middleware.context.rdf:ContextEvent#13a4a4845a0@VAIOTSBAL+a871fc3f+985e8d8c:b1a";
+	o = t.deserialize(serialized, uri);
+	assertFalse(o == null);
+	assertTrue(o instanceof Resource);
+	r = (Resource) o;
 	System.out.println(r.getURI());
 	assertTrue(uri.equals(r.getURI()));
     }
