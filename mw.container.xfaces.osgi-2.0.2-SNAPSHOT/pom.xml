@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>2.0.2-SNAPSHOT</version>
+    <relativePath>../mw.pom.osgi</relativePath>
+  </parent>
+  <artifactId>mw.container.xfaces.osgi</artifactId>
+  <version>2.0.2-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <name>universAAL Middleware Container Interfaces (OSGi)</name>
+  <description>Defines the interfaces exported by the Container building block of the universAAL middleware (OSGi)</description>
+  <url></url>
+  <dependencies>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.xfaces.core</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Export-Package>org.universAAL.middleware.container,org.universAAL.middleware.container.utils</Export-Package>
+            <Private-Package />
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
