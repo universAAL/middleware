@@ -350,6 +350,21 @@ public class ServiceRealization extends FinalizedResource {
     public boolean matches(ServiceRequest request, Hashtable context, Long logID) {
 	if (request == null)
 	    return true;
+	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
+	if (prof == null)
+	    return false;
+	
+	ServiceWrapper superset = ServiceWrapper.create(prof);
+	ServiceWrapper subset = ServiceWrapper.create(request);
+	
+	addAggregatedProperties(context);
+	
+	return new ServiceMatcher().matches(superset, subset, context, logID);
+    }
+    
+    public boolean matchesOld(ServiceRequest request, Hashtable context, Long logID) {
+	if (request == null)
+	    return true;
 
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	if (prof == null)
