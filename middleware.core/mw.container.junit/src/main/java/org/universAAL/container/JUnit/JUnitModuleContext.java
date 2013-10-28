@@ -53,8 +53,7 @@ public class JUnitModuleContext implements ModuleContext {
 	configFiles = new HashSet<File>();
 	logger = LogManager.getLogger(activator.getClass().getPackage()
 		.getName());
-	logger.setLevel(Level.ALL);
-	logger.addAppender(ca);
+	//logger.addAppender(ca);
     }
 
     public JUnitModuleContext() {
@@ -66,6 +65,7 @@ public class JUnitModuleContext implements ModuleContext {
 	    public void start(ModuleContext mc) throws Exception {
 	    }
 	});
+	logger.setLevel(Level.ALL);
     }
 
     /** {@inheritDoc} */
