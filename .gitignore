@@ -6250,6 +6250,10 @@ mw.connectors.api.osgi-2.0.1-SNAPSHOT/.classpath
 mw.connectors.api.osgi-2.0.1-SNAPSHOT/.project
 mw.connectors.api.osgi-2.0.1-SNAPSHOT/.settings
 mw.connectors.api.osgi-2.0.1-SNAPSHOT/target
+mw.connectors.api.osgi-2.0.2-SNAPSHOT/.classpath
+mw.connectors.api.osgi-2.0.2-SNAPSHOT/.project
+mw.connectors.api.osgi-2.0.2-SNAPSHOT/.settings
+mw.connectors.api.osgi-2.0.2-SNAPSHOT/target
 mw.connectors.communication.jgroups.core-1.3.2-SNAPSHOT/.classpath
 mw.connectors.communication.jgroups.core-1.3.2-SNAPSHOT/.project
 mw.connectors.communication.jgroups.core-1.3.2-SNAPSHOT/.settings
