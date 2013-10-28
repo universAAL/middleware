@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>2.0.2-SNAPSHOT</version>
+    <version>2.0.3-SNAPSHOT</version>
     <relativePath>../mw.pom.osgi</relativePath>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.managers.deploy.osgi</artifactId>
-  <version>2.0.2-SNAPSHOT</version>
+  <version>2.0.3-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Middleware Manager Deploy (OSGi)</name>
   <dependencies>

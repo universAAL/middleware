@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>2.0.2-SNAPSHOT</version>
+    <version>2.0.3-SNAPSHOT</version>
     <relativePath>../mw.pom.osgi</relativePath>
   </parent>
   <artifactId>mw.bus.ui.osgi</artifactId>
-  <version>2.0.3-SNAPSHOT</version>
+  <version>2.0.4-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Middleware User Interaction Bus (OSGi)</name>
   <description>The realization of the user interaction bus on top of Sodapop as part of the universAAL Middleware (OSGi)</description>
