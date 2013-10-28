@@ -9,7 +9,7 @@
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.pom</artifactId>
-  <version>2.0.2-SNAPSHOT</version>
+  <version>2.0.3-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>universAAL Middleware Suite</name>
   <description>The set of artefacts realizing the universAAL middleware 2.0</description>
@@ -79,8 +79,8 @@
     <targetJdk>1.5</targetJdk>
     <compileSource>1.5</compileSource>
     <maven.compile.source>1.5</maven.compile.source>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compile.target>1.5</maven.compile.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencyManagement>
     <dependencies>
