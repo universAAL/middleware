@@ -39,11 +39,21 @@ import org.universAAL.middleware.rdf.Resource;
 public class AccessControl {
     public static final AccessControl INSTANCE = new AccessControl();
 
+    public static final String PROP_MODE = "org.universaal.bus.permission.mode";
+    public static final String PROP_MODE_UPDATE = "org.universaal.bus.permission.modeupdate";
+
     public enum AccessControlMode {
 	none, log, full;
     }
 
+    public enum AccessControlModeUpdate {
+	always, never;
+    }
+
     private AccessControlMode mode = AccessControlMode.log;
+    private AccessControlModeUpdate modeUpdate = AccessControlModeUpdate.always;
+
+    private ModuleContext mc = null;
 
     /**
      * Permissions for a specific {@link BusMember}. Maps the URI of a bus
@@ -58,6 +68,75 @@ public class AccessControl {
 
     // singleton
     private AccessControl() {
+    }
+
+    public void init(ModuleContext mc) {
+	if (this.mc != null)
+	    throw new SecurityException(
+		    "AccessControl can only be initialized once");
+	this.mc = mc;
+
+	updateMode();
+
+	Object sModeUpdate = mc.getProperty(PROP_MODE_UPDATE);
+	if (sModeUpdate != null) {
+	    if ("always".equals(sModeUpdate.toString()))
+		modeUpdate = AccessControlModeUpdate.always;
+	    if ("never".equals(sModeUpdate.toString()))
+		modeUpdate = AccessControlModeUpdate.never;
+	}
+
+	LogUtils.logDebug(mc, AccessControl.class, "init", new Object[] {
+		"Current mode for access control: ",
+		getModeName(mode),
+		"  update: ",
+		modeUpdate == AccessControlModeUpdate.always ? "always"
+			: "never" }, null);
+    }
+
+    private void updateMode() {
+	Object sMode = mc.getProperty(PROP_MODE);
+	if (sMode != null) {
+	    if ("none".equals(sMode.toString()))
+		mode = AccessControlMode.none;
+	    if ("log".equals(sMode.toString()))
+		mode = AccessControlMode.log;
+	    if ("full".equals(sMode.toString()))
+		mode = AccessControlMode.full;
+	}
+    }
+
+    public String getModeName(AccessControlMode mode) {
+	switch (mode) {
+	case none:
+	    return "none";
+	case log:
+	    return "log";
+	case full:
+	    return "full";
+	}
+	return "<unknown>";
+    }
+
+    /**
+     * Get the current mode for access control. Values are from
+     * {@link AccessControlMode}. If the update policy for this mode is set to
+     * {@link AccessControlModeUpdate#always} then the property
+     * {@link #PROP_MODE} is always updated and can be set via the container.
+     * 
+     * @return the current mode for access control
+     */
+    public AccessControlMode getAccessControlMode() {
+	// At this point we can implement different behaviors, e.g. checking
+	// every time at runtime a system property. Although this could be good
+	// for demo purposes, it could also be a security problem: who can make
+	// changes to the system property?
+	// Currently, the mode is determined at starting time (a command line
+	// parameter), and may be updated every time, but this depends on the
+	// AccessControlModeUpdate.
+	if (modeUpdate == AccessControlModeUpdate.always)
+	    updateMode();
+	return mode;
     }
 
     /**
@@ -78,7 +157,7 @@ public class AccessControl {
      */
     public boolean checkPermission(ModuleContext owner, String busMemberURI,
 	    Matchable m) {
-	if (mode == AccessControlMode.none)
+	if (getAccessControlMode() == AccessControlMode.none)
 	    return true;
 
 	Permission[] perms = permsMember.get(busMemberURI);
@@ -110,7 +189,7 @@ public class AccessControl {
 		new Object[] { "Permission denied for Matchable: ",
 			m.getClass().getSimpleName(), ": ", m }, null);
 
-	if (mode == AccessControlMode.full)
+	if (getAccessControlMode() == AccessControlMode.full)
 	    return false;
 	return true;
     }
@@ -134,7 +213,7 @@ public class AccessControl {
     public <T extends Matchable> T[] checkPermission(ModuleContext owner,
 	    String busMemberURI, T[] m) {
 	ArrayList<T> l = new ArrayList<T>(m.length);
-	if (mode == AccessControlMode.none)
+	if (getAccessControlMode() == AccessControlMode.none)
 	    return m;
 
 	for (int i = 0; i < m.length; i++) {
@@ -162,7 +241,7 @@ public class AccessControl {
 		    msg, null);
 	}
 
-	if (mode == AccessControlMode.full)
+	if (getAccessControlMode() == AccessControlMode.full)
 	    return retval;
 
 	return m;

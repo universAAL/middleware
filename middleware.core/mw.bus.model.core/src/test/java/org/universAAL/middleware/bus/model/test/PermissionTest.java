@@ -1,106 +1,137 @@
 package org.universAAL.middleware.bus.model.test;
 
-
+import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.bus.model.matchable.Matchable;
+import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.bus.permission.Permission;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.datarep.SharedResources;
+import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.owl.OntologyManagement;
+import org.universAAL.middleware.owl.SimpleOntology;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ResourceFactory;
+import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
+import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 import junit.framework.TestCase;
 
 public class PermissionTest extends TestCase {
 
+    ModuleContext mc;
+
+    private class TestServiceRequest extends ManagedIndividual implements
+	    Matchable {
+	public boolean matches(Matchable subset) {
+	    return true;
+	}
+
+	public int getPropSerializationType(String propURI) {
+	    return 0;
+	}
+    }
+
+    @Override
+    protected void setUp() throws Exception {
+	super.setUp();
+
+	mc = new JUnitModuleContext();
+
+	// init data representation
+	SharedResources.moduleContext = mc;
+	SharedResources.loadReasoningEngine();
+	// OntologyManagement.getInstance().register(mc, new DataRepOntology());
+	// mc.getContainer().shareObject(mc, new TurtleSerializer(),
+	// new Object[] { MessageContentSerializer.class.getName() });
+	TurtleUtil.moduleContext = mc;
+	BusMessage.setMessageContentSerializer(new TurtleSerializer());
+
+	// The required classes (i.e. ServiceRequest) is only available in the
+	// buses. Therefore, we need to register here at least a minimal
+	// ontology with just the one class of a ServiceRequest that implements
+	// Matchable. Otherwise, parsing the manifest entry will fail because
+	// the resource cannot be deserialized in a specialized class, it will
+	// be just a Resource and then the casting to a Matchable will fail.
+	OntologyManagement
+		.getInstance()
+		.register(
+			mc,
+			new SimpleOntology(
+				"http://ontology.universAAL.org/uAAL.owl#ServiceRequest",
+				ManagedIndividual.MY_URI,
+				new ResourceFactory() {
+				    public Resource createInstance(
+					    String classURI,
+					    String instanceURI, int factoryIndex) {
+					return new TestServiceRequest();
+				    }
+				}));
+
+	// permission
+	AccessControl.INSTANCE.init(mc);
+	Permission.init(mc);
+    }
+
     public void testFromManifest1() {
-	String entry = "Get controlled lamps---<\r\n"
-		+ " /title>---get the identifiers of all lamps that are controlled by thi\r\n"
-		+ " s component.---</description>---@prefix ns: <http://www.daml.org/serv\r\n"
-		+ " ices/owl-s/1.1/Service.owl#> . @prefix ns1: <http://www.daml.org/serv\r\n"
-		+ " ices/owl-s/1.1/Process.owl#> . @prefix ns2: <http://www.daml.org/serv\r\n"
-		+ " ices/owl-s/1.1/Profile.owl#> . @prefix : <http://ontology.igd.fhg.de/\r\n"
-		+ " LightingServer.owl#> . _:BN000000 ns:presentedBy :getControlledLamps \r\n"
-		+ " ; a ns2:Profile ; ns2:has_process :getControlledLampsProcess ; ns2:ha\r\n"
-		+ " sResult [ ns1:withOutput [ a ns1:OutputBinding ; ns1:toParam :control\r\n"
-		+ " ledLamps ; ns1:valueForm \"\"\" @prefix : <http://ontology.universAAL.or\r\n"
-		+ " g/Service.owl#> . _:BN000000 a :PropertyPath ; :thePath ( <http://ont\r\n"
-		+ " ology.universaal.org/Lighting.owl#controls> ) . \"\"\"^^<http://www.w3.o\r\n"
-		+ " rg/1999/02/22-rdf-syntax-ns#XMLLiteral> ] ; a ns1:Result ] ; ns2:hasO\r\n"
-		+ " utput :controlledLamps . :controlledLamps a ns1:Output ; ns1:paramete\r\n"
-		+ " rType \"http://ontology.universaal.org/Lighting.owl#LightSource\"^^<htt\r\n"
-		+ " p://www.w3.org/2001/XMLSchema#anyURI> . :getControlledLamps a :Lighti\r\n"
-		+ " ngService , <http://ontology.universaal.org/Lighting.owl#Lighting> ; \r\n"
-		+ " ns:presents _:BN000000 .---</serialization>---Get lamp info---</title\r\n"
-		+ " >---Get information about a specific light source, i.e. its location \r\n"
-		+ " and brightness.---</description>---@prefix ns: <http://www.daml.org/s\r\n"
-		+ " ervices/owl-s/1.1/Profile.owl#> . @prefix pvn: <http://ontology.unive\r\n"
-		+ " rsAAL.org/uAAL.owl#> . @prefix owl: <http://www.w3.org/2002/07/owl#> \r\n"
-		+ " . @prefix ns1: <http://ontology.igd.fhg.de/LightingServer.owl#> . @pr\r\n"
-		+ " efix ns2: <http://www.daml.org/services/owl-s/1.1/Service.owl#> . @pr\r\n"
-		+ " efix ns3: <http://ontology.universaal.org/Lighting.owl#> . @prefix xs\r\n"
-		+ " d: <http://www.w3.org/2001/XMLSchema#> . @prefix psn: <http://ontolog\r\n"
-		+ " y.universAAL.org/Service.owl#> . @prefix rdf: <http://www.w3.org/1999\r\n"
-		+ " /02/22-rdf-syntax-ns#> . @prefix : <http://www.daml.org/services/owl-\r\n"
-		+ " s/1.1/Process.owl#> . _:BN000000 ns2:presentedBy ns1:getLampInfo ; a \r\n"
-		+ " ns:Profile ; ns:has_process ns1:getLampInfoProcess ; ns:hasResult [ :\r\n"
-		+ " withOutput [ a :OutputBinding ; :toParam ns1:brightness ; :valueForm \r\n"
-		+ " \"\"\" @prefix ns: <http://ontology.universaal.org/Lighting.owl#> . @pre\r\n"
-		+ " fix : <http://ontology.universAAL.org/Service.owl#> . _:BN000000 a :P\r\n"
-		+ " ropertyPath ; :thePath ( ns:controls ns:srcBrightness ) . \"\"\"^^rdf:XM\r\n"
-		+ " LLiteral ] , [ a :OutputBinding ; :toParam ns1:location ; :valueForm \r\n"
-		+ " \"\"\" @prefix : <http://ontology.universAAL.org/Service.owl#> . _:BN000\r\n"
-		+ " 000 a :PropertyPath ; :thePath ( <http://ontology.universaal.org/Ligh\r\n"
-		+ " ting.owl#controls> <http://ontology.universaal.org/PhThing.owl#hasLoc\r\n"
-		+ " ation> ) . \"\"\"^^rdf:XMLLiteral ] ; a :Result ] ; ns:hasOutput ns1:bri\r\n"
-		+ " ghtness , ns1:location ; ns:hasInput ns1:lampURI . :ThisPerform a :Pe\r\n"
-		+ " rform . ns1:getLampInfo a ns1:LightingService , ns3:Lighting ; pvn:in\r\n"
-		+ " stanceLevelRestrictions [ owl:hasValue [ :fromProcess :ThisPerform ; \r\n"
-		+ " a :ValueOf ; :theVar ns1:lampURI ] ; a owl:Restriction ; owl:onProper\r\n"
-		+ " ty ns3:controls ] ; ns2:presents _:BN000000 ; pvn:numberOfValueRestri\r\n"
-		+ " ctions \"1\"^^xsd:int . ns1:brightness psn:parameterCardinality \"1\"^^xs\r\n"
-		+ " d:int ; a :Output ; :parameterType \"http://www.w3.org/2001/XMLSchema#\r\n"
-		+ " int\"^^xsd:anyURI . ns1:lampURI psn:parameterCardinality \"1\"^^xsd:int \r\n"
-		+ " ; a :Input ; :parameterType \"http://ontology.universaal.org/Lighting.\r\n"
-		+ " owl#LightSource\"^^xsd:anyURI . ns1:location psn:parameterCardinality \r\n"
-		+ " \"1\"^^xsd:int ; a :Output ; :parameterType \"http://ontology.universAAL\r\n"
-		+ " .org/Location.owl#Location\"^^xsd:anyURI .---</serialization>---Turn l\r\n"
-		+ " ight off---</title>---Turn off a specific light source.---</descripti\r\n"
-		+ " on>---@prefix ns: <http://www.daml.org/services/owl-s/1.1/Profile.owl\r\n"
-		+ " #> . @prefix pvn: <http://ontology.universAAL.org/uAAL.owl#> . @prefi\r\n"
-		+ " x owl: <http://www.w3.org/2002/07/owl#> . @prefix ns1: <http://ontolo\r\n"
-		+ " gy.igd.fhg.de/LightingServer.owl#> . @prefix ns2: <http://www.daml.or\r\n"
-		+ " g/services/owl-s/1.1/Service.owl#> . @prefix ns3: <http://ontology.un\r\n"
-		+ " iversaal.org/Lighting.owl#> . @prefix xsd: <http://www.w3.org/2001/XM\r\n"
-		+ " LSchema#> . @prefix psn: <http://ontology.universAAL.org/Service.owl#\r\n"
-		+ " > . @prefix : <http://www.daml.org/services/owl-s/1.1/Process.owl#> .\r\n"
-		+ "  _:BN000000 ns2:presentedBy ns1:turnOff ; a ns:Profile ; ns:has_proce\r\n"
-		+ " ss ns1:turnOffProcess ; ns:hasResult [ a :Result ; :hasEffect [ psn:a\r\n"
-		+ " ffectedProperty [ a psn:PropertyPath ; psn:thePath ( ns3:controls ns3\r\n"
-		+ " :srcBrightness ) ] ; a psn:ChangeEffect ; psn:propertyValue \"0\"^^xsd:\r\n"
-		+ " int ] ] ; ns:hasInput ns1:lampURI . ns1:turnOff a ns1:LightingService\r\n"
-		+ "  , ns3:Lighting ; pvn:instanceLevelRestrictions [ owl:hasValue [ :fro\r\n"
-		+ " mProcess :ThisPerform ; a :ValueOf ; :theVar ns1:lampURI ] ; a owl:Re\r\n"
-		+ " striction ; owl:onProperty ns3:controls ] ; ns2:presents _:BN000000 ;\r\n"
-		+ "  pvn:numberOfValueRestrictions \"1\"^^xsd:int . ns1:lampURI psn:paramet\r\n"
-		+ " erCardinality \"1\"^^xsd:int ; a :Input ; :parameterType \"http://ontolo\r\n"
-		+ " gy.universaal.org/Lighting.owl#LightSource\"^^xsd:anyURI . :ThisPerfor\r\n"
-		+ " m a :Perform .---</serialization>---Turn light on---</title>---Turn o\r\n"
-		+ " n a specific light source.---</description>---@prefix ns: <http://www\r\n"
-		+ " .daml.org/services/owl-s/1.1/Profile.owl#> . @prefix pvn: <http://ont\r\n"
-		+ " ology.universAAL.org/uAAL.owl#> . @prefix owl: <http://www.w3.org/200\r\n"
-		+ " 2/07/owl#> . @prefix ns1: <http://ontology.igd.fhg.de/LightingServer.\r\n"
-		+ " owl#> . @prefix ns2: <http://www.daml.org/services/owl-s/1.1/Service.\r\n"
-		+ " owl#> . @prefix ns3: <http://ontology.universaal.org/Lighting.owl#> .\r\n"
-		+ "  @prefix xsd: <http://www.w3.org/2001/XMLSchema#> . @prefix psn: <htt\r\n"
-		+ " p://ontology.universAAL.org/Service.owl#> . @prefix : <http://www.dam\r\n"
-		+ " l.org/services/owl-s/1.1/Process.owl#> . _:BN000000 ns2:presentedBy n\r\n"
-		+ " s1:turnOn ; a ns:Profile ; ns:has_process ns1:turnOnProcess ; ns:hasR\r\n"
-		+ " esult [ a :Result ; :hasEffect [ psn:affectedProperty [ a psn:Propert\r\n"
-		+ " yPath ; psn:thePath ( ns3:controls ns3:srcBrightness ) ] ; a psn:Chan\r\n"
-		+ " geEffect ; psn:propertyValue \"100\"^^xsd:int ] ] ; ns:hasInput ns1:lam\r\n"
-		+ " pURI . ns1:turnOn a ns1:LightingService , ns3:Lighting ; pvn:instance\r\n"
-		+ " LevelRestrictions [ owl:hasValue [ :fromProcess :ThisPerform ; a :Val\r\n"
-		+ " ueOf ; :theVar ns1:lampURI ] ; a owl:Restriction ; owl:onProperty ns3\r\n"
-		+ " :controls ] ; ns2:presents _:BN000000 ; pvn:numberOfValueRestrictions\r\n"
-		+ "  \"1\"^^xsd:int . ns1:lampURI psn:parameterCardinality \"1\"^^xsd:int ; a\r\n"
-		+ "  :Input ; :parameterType \"http://ontology.universaal.org/Lighting.owl\r\n"
-		+ " #LightSource\"^^xsd:anyURI . :ThisPerform a :Perform .---</serializati\r\n"
-		+ " on>---";
+	String entry = "Get all light sources---</\r\n"
+		+ " title>---Get a list of all light sources.---</description>---@prefix \r\n"
+		+ " ns: <http://ontology.igd.fhg.de/LightingConsumer.owl#> . @prefix pvn:\r\n"
+		+ "  <http://ontology.universAAL.org/uAAL.owl#> . @prefix : <http://www.d\r\n"
+		+ " aml.org/services/owl-s/1.1/Process.owl#> . _:BN000000 a pvn:ServiceRe\r\n"
+		+ " quest ; pvn:requiredResult [ :withOutput [ a :OutputBinding ; :toPara\r\n"
+		+ " m ns:controlledLamps ; :valueForm \"\"\" @prefix : <http://ontology.univ\r\n"
+		+ " ersAAL.org/Service.owl#> . _:BN000000 a :PropertyPath ; :thePath ( <h\r\n"
+		+ " ttp://ontology.universaal.org/Lighting.owl#controls> ) . \"\"\"^^<http:/\r\n"
+		+ " /www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> ] ; a :Result ] ; pv\r\n"
+		+ " n:requestedService [ a <http://ontology.universaal.org/Lighting.owl#L\r\n"
+		+ " ighting> ] . ns:controlledLamps a :Output .---</serialization>---Turn\r\n"
+		+ "  light source on---</title>---Turn on a specific light source.---</de\r\n"
+		+ " scription>---@prefix owl: <http://www.w3.org/2002/07/owl#> . @prefix \r\n"
+		+ " ns: <http://ontology.universaal.org/Lighting.owl#> . @prefix pvn: <ht\r\n"
+		+ " tp://ontology.universAAL.org/uAAL.owl#> . @prefix xsd: <http://www.w3\r\n"
+		+ " .org/2001/XMLSchema#> . @prefix ns1: <http://www.daml.org/services/ow\r\n"
+		+ " l-s/1.1/Process.owl#> . @prefix : <http://ontology.universAAL.org/Ser\r\n"
+		+ " vice.owl#> . _:BN000000 a pvn:ServiceRequest ; pvn:requiredResult [ a\r\n"
+		+ "  ns1:Result ; ns1:hasEffect [ :affectedProperty [ a :PropertyPath ; :\r\n"
+		+ " thePath ( ns:controls ns:srcBrightness ) ] ; a :ChangeEffect ; :prope\r\n"
+		+ " rtyValue \"100\"^^xsd:int ] ] ; pvn:requestedService [ a ns:Lighting ; \r\n"
+		+ " pvn:instanceLevelRestrictions [ owl:hasValue [ :parameterCardinality \r\n"
+		+ " \"1\"^^xsd:int ; a ns1:Parameter ; ns1:parameterType \"http://ontology.u\r\n"
+		+ " niversaal.org/Lighting.owl#LightSource\"^^xsd:anyURI ] ; a owl:Restric\r\n"
+		+ " tion ; owl:onProperty ns:controls ] ; pvn:numberOfValueRestrictions \"\r\n"
+		+ " 1\"^^xsd:int ] .---</serialization>---Turn light source off---</title>\r\n"
+		+ " ---Turn off a specific light source.---</description>---@prefix owl: \r\n"
+		+ " <http://www.w3.org/2002/07/owl#> . @prefix ns: <http://ontology.unive\r\n"
+		+ " rsaal.org/Lighting.owl#> . @prefix pvn: <http://ontology.universAAL.o\r\n"
+		+ " rg/uAAL.owl#> . @prefix xsd: <http://www.w3.org/2001/XMLSchema#> . @p\r\n"
+		+ " refix ns1: <http://www.daml.org/services/owl-s/1.1/Process.owl#> . @p\r\n"
+		+ " refix : <http://ontology.universAAL.org/Service.owl#> . _:BN000000 a \r\n"
+		+ " pvn:ServiceRequest ; pvn:requiredResult [ a ns1:Result ; ns1:hasEffec\r\n"
+		+ " t [ :affectedProperty [ a :PropertyPath ; :thePath ( ns:controls ns:s\r\n"
+		+ " rcBrightness ) ] ; a :ChangeEffect ; :propertyValue \"0\"^^xsd:int ] ] \r\n"
+		+ " ; pvn:requestedService [ a ns:Lighting ; pvn:instanceLevelRestriction\r\n"
+		+ " s [ owl:hasValue [ :parameterCardinality \"1\"^^xsd:int ; a ns1:Paramet\r\n"
+		+ " er ; ns1:parameterType \"http://ontology.universaal.org/Lighting.owl#L\r\n"
+		+ " ightSource\"^^xsd:anyURI ] ; a owl:Restriction ; owl:onProperty ns:con\r\n"
+		+ " trols ] ; pvn:numberOfValueRestrictions \"1\"^^xsd:int ] .---</serializ\r\n"
+		+ " ation>---Dim light source---</title>---Dim a specific light source to\r\n"
+		+ "  a given value.---</description>---@prefix owl: <http://www.w3.org/20\r\n"
+		+ " 02/07/owl#> . @prefix ns: <http://ontology.universaal.org/Lighting.ow\r\n"
+		+ " l#> . @prefix pvn: <http://ontology.universAAL.org/uAAL.owl#> . @pref\r\n"
+		+ " ix xsd: <http://www.w3.org/2001/XMLSchema#> . @prefix ns1: <http://ww\r\n"
+		+ " w.daml.org/services/owl-s/1.1/Process.owl#> . @prefix : <http://ontol\r\n"
+		+ " ogy.universAAL.org/Service.owl#> . _:BN000000 a pvn:ServiceRequest ; \r\n"
+		+ " pvn:requiredResult [ a ns1:Result ; ns1:hasEffect [ :affectedProperty\r\n"
+		+ "  [ a :PropertyPath ; :thePath ( ns:controls ns:srcBrightness ) ] ; a \r\n"
+		+ " :ChangeEffect ; :propertyValue [ :parameterCardinality \"1\"^^xsd:int ;\r\n"
+		+ "  a ns1:Parameter ; ns1:parameterType \"http://www.w3.org/2001/XMLSchem\r\n"
+		+ " a#int\"^^xsd:anyURI ] ] ] ; pvn:requestedService [ a ns:Lighting ; pvn\r\n"
+		+ " :instanceLevelRestrictions [ owl:hasValue [ :parameterCardinality \"1\"\r\n"
+		+ " ^^xsd:int ; a ns1:Parameter ; ns1:parameterType \"http://ontology.univ\r\n"
+		+ " ersaal.org/Lighting.owl#LightSource\"^^xsd:anyURI ] ; a owl:Restrictio\r\n"
+		+ " n ; owl:onProperty ns:controls ] ; pvn:numberOfValueRestrictions \"1\"^\r\n"
+		+ " ^xsd:int ] .---</serialization>---";
 	entry = entry.replace("\r\n ", "");
 
 	Permission[] perms = Permission.parsePermission(entry);
