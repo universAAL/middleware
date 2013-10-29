@@ -84,7 +84,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 	msgBuilder.append("Bundle ");
 	msgBuilder.append(bundle.getSymbolicName());
 	msgBuilder
-		.append(" is ruined!! It has more than one uAALModuleActivator:");
+		.append(" is ruined!! It has more than one ModuleActivator:");
 	msgBuilder.append(newLine);
 	for (int i = 0; i < activators.size(); i++) {
 	    msgBuilder.append(" - ");
@@ -203,7 +203,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 			errorMsg,
 			new IllegalStateException("Bundle "
 				+ b.getSymbolicName()
-				+ " has more than one uAALModuleActivator"));
+				+ " has more than one ModuleActivator"));
 		return true;
 	    }
 	    return false;
