@@ -24,6 +24,7 @@ import java.util.LinkedList;
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 
 public class Permission {
     private String title = "";
@@ -38,6 +39,8 @@ public class Permission {
     public static final String SEPARATOR_DESCRIPTION = "---</description>---";
     public static final String SEPARATOR_SERIALIZATION = "---</serialization>---";
 
+    private static ModuleContext mc = null;
+
     public String getTitle() {
 	return title;
     }
@@ -48,6 +51,14 @@ public class Permission {
 
     public Matchable getMatchable() {
 	return matchable;
+    }
+
+    public static void init(ModuleContext mc) {
+	if (Permission.mc != null)
+	    throw new SecurityException(
+		    "Permission can only be initialized once");
+
+	Permission.mc = mc;
     }
 
     public static Permission[] fromManifest(ModuleContext mc,
@@ -78,9 +89,8 @@ public class Permission {
 	if (entry == null)
 	    entry = mc.getManifestEntry(name);
 	if (entry == null) {
-	    // TODO: log entry - no permissions defined
-	    System.out.println(" -- fromManifest no permissions defined for "
-		    + name);
+	    LogUtils.logDebug(mc, Permission.class, "fromManifest",
+		    new Object[] { "No permissions defined for: ", name }, null);
 	    return new Permission[0];
 	}
 
@@ -101,8 +111,18 @@ public class Permission {
 
 	    String[] restsplit = titlesplit[i].split(SEPARATOR_DESCRIPTION);
 	    if (restsplit.length != 2) {
-		// TODO: log entry - corrupt manifest
-		System.out.println(" -- fromManifest corrupt manifest 1");
+		LogUtils.logDebug(
+			mc,
+			Permission.class,
+			"parsePermission",
+			new Object[] {
+				"Manifest corrupt: each manifest entry must"
+					+ " be separated by the three defined values"
+					+ " for title, description and serialization."
+					+ " This manifest entry (title: "
+					+ p.title + ") has ",
+				restsplit.length < 2 ? "no" : "more than one",
+				" description separator" }, null);
 		return new Permission[0];
 	    }
 	    p.description = restsplit[0];
@@ -111,19 +131,42 @@ public class Permission {
 	    // if (restsplit.length != 2) {
 	    if (((i != titlesplit.length - 1) && (restsplit.length != 2))
 		    || ((i == titlesplit.length - 1) && restsplit.length != 1)) {
-		// TODO: log entry - corrupt manifest
-		System.out.println(" -- fromManifest corrupt manifest 2");
+		LogUtils.logDebug(
+			mc,
+			Permission.class,
+			"parsePermission",
+			new Object[] { "Manifest corrupt: each manifest entry must"
+				+ " be separated by the three defined values"
+				+ " for title, description and serialization."
+				+ " This manifest entry (title: "
+				+ p.title
+				+ ") does not have a serialization separator or"
+				+ " does not end with one." }, null);
 		return new Permission[0];
 	    }
 	    if (restsplit.length == 2)
 		lastTitle = restsplit[1];
 	    p.serialization = restsplit[0];
 	    Object o = BusMessage.deserializeAsContent(p.serialization);
+	    if (o == null) {
+		LogUtils.logDebug(mc, Permission.class, "parsePermission",
+			new Object[] { "Manifest corrupt: the serialization of"
+				+ " the manifest entry (title: " + p.title
+				+ ") could not be deserialized." }, null);
+		continue;
+	    }
 	    try {
 		p.matchable = (Matchable) o;
 	    } catch (ClassCastException e) {
-		// TODO: log entry - invalid serialization
-		System.out.println(" -- fromManifest invalid serialization");
+		LogUtils.logDebug(
+			mc,
+			Permission.class,
+			"parsePermission",
+			new Object[] { "Manifest corrupt: the serialization of"
+				+ " the manifest entry (title: "
+				+ p.title
+				+ ") could not be deserialized as a valid matchable resource." },
+			null);
 		continue;
 	    }
 	    perms.add(p);

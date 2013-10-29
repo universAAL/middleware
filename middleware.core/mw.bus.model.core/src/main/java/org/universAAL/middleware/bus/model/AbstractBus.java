@@ -27,6 +27,8 @@ import org.universAAL.middleware.bus.model.util.IRegistry;
 import org.universAAL.middleware.bus.model.util.IRegistryListener;
 import org.universAAL.middleware.bus.model.util.RegistryMap;
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.permission.AccessControl;
+import org.universAAL.middleware.bus.permission.Permission;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -99,6 +101,8 @@ public abstract class AbstractBus implements Broker, MessageListener {
     public static void initBrokerage(ModuleContext mc,
 	    AALSpaceManager aalSpaceMgr, CommunicationModule commModule) {
 	if (myContext != null) {
+	    AccessControl.INSTANCE.init(mc);
+	    Permission.init(mc);
 	    LogUtils
 		    .logError(
 			    myContext,
