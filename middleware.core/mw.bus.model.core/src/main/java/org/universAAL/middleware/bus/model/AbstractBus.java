@@ -101,8 +101,6 @@ public abstract class AbstractBus implements Broker, MessageListener {
     public static void initBrokerage(ModuleContext mc,
 	    AALSpaceManager aalSpaceMgr, CommunicationModule commModule) {
 	if (myContext != null) {
-	    AccessControl.INSTANCE.init(mc);
-	    Permission.init(mc);
 	    LogUtils
 		    .logError(
 			    myContext,
@@ -116,7 +114,10 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	    return;
 	}
 	myContext = mc;
-	
+
+	AccessControl.INSTANCE.init(mc);
+	Permission.init(mc);
+
 	aalSpaceManager = aalSpaceMgr;
 	communicationModule = commModule;
 	// configure the MW's URI instance
