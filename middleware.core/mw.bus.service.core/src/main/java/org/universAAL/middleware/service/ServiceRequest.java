@@ -27,7 +27,6 @@ import java.util.List;
 
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.bus.model.matchable.Request;
-import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
@@ -501,14 +500,14 @@ public class ServiceRequest extends FinalizedResource implements Request {
 	boolean res = new ServiceMatcher().matches(superset, subset,
 		new Hashtable(), null);
 
-	if (res == false) {
-	    System.out.println(" -- matching error: trying to match "
-		    + BusMessage.trySerializationAsContent(this)
-		    + "\n -- with: "
-		    + BusMessage.trySerializationAsContent(other));
-	    new ServiceMatcher().matches(superset, subset, new Hashtable(),
-		    null);
-	}
+	// if (res == false) {
+	// System.out.println(" -- matching error: trying to match "
+	// + BusMessage.trySerializationAsContent(this)
+	// + "\n -- with: "
+	// + BusMessage.trySerializationAsContent(other));
+	// new ServiceMatcher().matches(superset, subset, new Hashtable(),
+	// null);
+	// }
 	return res;
     }
 }
