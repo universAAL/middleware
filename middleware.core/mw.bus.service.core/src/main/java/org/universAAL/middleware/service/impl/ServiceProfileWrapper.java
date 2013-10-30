@@ -21,6 +21,7 @@ package org.universAAL.middleware.service.impl;
 
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.owl.Service;
+import org.universAAL.middleware.service.owl.InitialServiceDialog;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
@@ -57,5 +58,11 @@ public class ServiceProfileWrapper extends ServiceWrapper {
     @Override
     public Resource[] getOutputs() {
 	return r.getOutputBindings();
+    }
+
+    @Override
+    public Object getInitialServiceDialogProperty(String propURI) {
+	InitialServiceDialog is = (InitialServiceDialog)getService();
+	return is.getProperty(propURI);
     }
 }

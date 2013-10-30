@@ -57,4 +57,6 @@ public abstract class ServiceWrapper {
     public Hashtable getNonSemanticInput() {
 	return null;
     }
+    
+    public abstract Object getInitialServiceDialogProperty(String propURI);
 }

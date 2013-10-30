@@ -70,4 +70,9 @@ public class ServiceRequestWrapper extends ServiceWrapper {
 	}
 	return null;
     }
+
+    @Override
+    public Object getInitialServiceDialogProperty(String propURI) {
+	return getService().getInstanceLevelFixedValueOnProp(propURI);
+    }
 }
