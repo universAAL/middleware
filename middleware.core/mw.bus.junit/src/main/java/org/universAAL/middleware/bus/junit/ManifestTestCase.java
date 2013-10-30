@@ -37,6 +37,8 @@ import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.owls.process.ProcessEffect;
 import org.universAAL.middleware.service.owls.process.ProcessParameter;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
+import org.universAAL.middleware.ui.UIHandlerProfile;
+import org.universAAL.middleware.ui.UIRequest;
 import org.universAAL.middleware.util.GraphIterator;
 import org.universAAL.middleware.util.GraphIteratorElement;
 import org.universAAL.middleware.util.ResourceComparator;
@@ -75,6 +77,8 @@ public class ManifestTestCase extends BusTestCase {
     LinkedList<Element<ServiceProfile>> serviceProfiles = new LinkedList<Element<ServiceProfile>>();
     LinkedList<Element<ContextEventPattern>> contextEventPatternsPublish = new LinkedList<Element<ContextEventPattern>>();
     LinkedList<Element<ContextEventPattern>> contextEventPatternsSubscribe = new LinkedList<Element<ContextEventPattern>>();
+    LinkedList<Element<UIHandlerProfile>> uiHandler = new LinkedList<Element<UIHandlerProfile>>();
+    LinkedList<Element<UIRequest>> uiRequests = new LinkedList<Element<UIRequest>>();
 
     protected void writeManifest() {
 	PrintWriter writer;
@@ -102,6 +106,7 @@ public class ManifestTestCase extends BusTestCase {
 		serviceProfiles);
 	writeManifestEntry(writer, "mw.bus.context",
 		contextEventPatternsSubscribe, contextEventPatternsPublish);
+	writeManifestEntry(writer, "mw.bus.ui", uiRequests, uiHandler);
 	writer.println("   </permissions>");
 	writer.println("</application>");
 	writer.close();
@@ -109,10 +114,12 @@ public class ManifestTestCase extends BusTestCase {
 
     private void writeManifestEntry(PrintWriter writer, String brokerName,
 	    LinkedList elReq, LinkedList elAd) {
-	writer.println("      <" + brokerName + ">");
-	writeManifestEntry(writer, "requirement", elReq);
-	writeManifestEntry(writer, "advertisement", elAd);
-	writer.println("      </" + brokerName + ">");
+	if (elReq.size() != 0 || elAd.size() != 0) {
+	    writer.println("      <" + brokerName + ">");
+	    writeManifestEntry(writer, "requirement", elReq);
+	    writeManifestEntry(writer, "advertisement", elAd);
+	    writer.println("      </" + brokerName + ">");
+	}
     }
 
     private void writeManifestEntry(PrintWriter writer, String type,
@@ -151,6 +158,26 @@ public class ManifestTestCase extends BusTestCase {
 	    lst = contextEventPatternsSubscribe;
 
 	lst.add(new Element<ContextEventPattern>(title, description, cep));
+    }
+
+    protected void add(String title, String description,
+	    UIHandlerProfile profile) {
+	LogUtils.logDebug(mc, ManifestTestCase.class, "add", new Object[] {
+		"Adding manifest entry: ", title }, null);
+	assertTrue(profile.matches(profile));
+	checkserialization(profile);
+	uiHandler
+		.add(new Element<UIHandlerProfile>(title, description, profile));
+    }
+
+    protected void add(String title, String description, UIRequest request) {
+	LogUtils.logDebug(mc, ManifestTestCase.class, "add", new Object[] {
+		"Adding manifest entry: ", title }, null);
+	request.changeProperty(UIRequest.PROP_ADDRESSED_USER, null);
+	request.changeProperty(UIRequest.PROP_DIALOG_FORM, null);
+	assertTrue(request.matches(request));
+	checkserialization(request);
+	uiRequests.add(new Element<UIRequest>(title, description, request));
     }
 
     protected void add(String title, String description, ServiceProfile profile) {
