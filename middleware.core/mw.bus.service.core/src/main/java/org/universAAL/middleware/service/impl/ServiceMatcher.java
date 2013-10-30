@@ -24,22 +24,32 @@ import java.util.Iterator;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.Intersection;
+import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.OntClassInfo;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.aapi.AapiServiceRequest;
+import org.universAAL.middleware.service.owl.InitialServiceDialog;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.ProcessResult;
 
+// TODO: change the log message to match class- and method name.
+// BUT: update also the references, e.g. in Log Monitor Tool
 public class ServiceMatcher {
 
     public boolean matches(ServiceWrapper superset, ServiceWrapper subset,
 	    Hashtable context, Long logID) {
+	// special case for UI
+	if (subset.getService() instanceof InitialServiceDialog)
+	    return matchInitialServiceDialog(superset, subset);
+
 	// match the service
 	if (!matchService(superset, subset))
 	    return false;
-
 	if (!matchRestrictions(superset, subset, context, logID))
 	    return false;
 
@@ -68,19 +78,71 @@ public class ServiceMatcher {
     private boolean matchService(ServiceWrapper superset, ServiceWrapper subset) {
 	Service subsetService = subset.getService();
 	if (subsetService == null)
-	    return true;
+	    return false;
 
 	Service superService = superset.getService();
 	if (superService == null)
 	    return false;
 
-	if (!Service.checkMembership(subsetService.getClassURI(), superService))
+	if (!ManagedIndividual.checkMembership(subsetService.getClassURI(),
+		superService))
 	    return false;
 	/*
 	 * By checking the membership of offer in requestedServiceClass two
 	 * lines before, the compatibility of offer with the request at hand is
 	 * guaranteed => we do not need to check class level restrictions.
 	 */
+
+	return true;
+    }
+
+    private boolean matchInitialServiceDialog(ServiceWrapper superset,
+	    ServiceWrapper subset) {
+	// special case: UserInterfaceProfile for UI
+	Service subsetService = subset.getService();
+	if (subsetService == null)
+	    return false;
+
+	Service superService = superset.getService();
+	if (superService == null)
+	    return false;
+
+	if (superService instanceof InitialServiceDialog) {
+	    if (!(subsetService instanceof InitialServiceDialog))
+		return false;
+	    // both elements are initial service dialogs for ui bus
+
+	    // 1. check service class
+	    Object superClass = superset
+		    .getInitialServiceDialogProperty(InitialServiceDialog.PROP_CORRELATED_SERVICE_CLASS);
+	    Object subClass = subset
+		    .getInitialServiceDialogProperty(InitialServiceDialog.PROP_CORRELATED_SERVICE_CLASS);
+
+	    if (!(superClass instanceof Resource)
+		    || !(subClass instanceof Resource))
+		return false;
+
+	    if (!(superClass.toString().equals(subClass.toString()))) {
+		OntClassInfo subOntClassInfo = OntologyManagement.getInstance()
+			.getOntClassInfo(subClass.toString());
+
+		if (subOntClassInfo == null)
+		    // probably the ontology is not available -> we cannot check
+		    // for membership
+		    return false;
+
+		if (!subOntClassInfo.hasSuperClass(superClass.toString(), true))
+		    return false;
+	    }
+
+	    // 2. check vendor
+	    Object superVendor = superset
+		    .getInitialServiceDialogProperty(InitialServiceDialog.PROP_HAS_VENDOR);
+	    Object subVendor = subset
+		    .getInitialServiceDialogProperty(InitialServiceDialog.PROP_HAS_VENDOR);
+	    if (!(String.valueOf(superVendor).equals(String.valueOf(subVendor))))
+		return false;
+	}
 	return true;
     }
 
