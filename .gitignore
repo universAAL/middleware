@@ -547,11 +547,6 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/.classpath
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/.project
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/.settings
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/impl/.classpath
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/impl/.project
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/impl/.settings
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/impl/target
-middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/impl/uAAL.log
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/target
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/uAAL.log
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/target
