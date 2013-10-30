@@ -26,8 +26,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.universAAL.middleware.bus.model.matchable.Matchable;
-import org.universAAL.middleware.bus.model.matchable.Request;
-import org.universAAL.middleware.bus.model.matchable.Requirement;
 import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
@@ -218,23 +216,10 @@ public class UIHandlerProfile extends FinalizedResource implements
 	return result;
     }
 
-    /**
-     * Determines whether this profile matches the given {@link UIRequest}.
-     * 
-     * @param uiRequest
-     *            the {@link UIRequest} to match.
-     * @return true if the matching level is higher than failed
-     */
-    public boolean isMatchingUIRequest(UIRequest uiRequest) {
-	return getMatchingDegree(uiRequest) > MATCH_LEVEL_FAILED;
-    }
-
     private boolean isRestrictionOnModality(UIRequest uiRequest,
 	    MergedRestriction r) {
 	return UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
-		&& r
-			.copyOnNewProperty(
-				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
+		&& r.copyOnNewProperty(UIRequest.PROP_PRESENTATION_MODALITY_ALT)
 			.hasMember(uiRequest, null);
     }
 
@@ -266,31 +251,6 @@ public class UIHandlerProfile extends FinalizedResource implements
     }
 
     /**
-     * Determines whether this profile matches the given profile.
-     * 
-     * @param uiHandlerProfile
-     *            the subtype
-     * @return <tt>true</tt>, if successful, <tt>false</tt> otherwise
-     */
-    public boolean matches(UIHandlerProfile uiHandlerProfile) {
-	if (uiHandlerProfile == null) {
-	    return false;
-	}
-
-	for (MergedRestriction r : restrictions) {
-	    MergedRestriction subR = uiHandlerProfile.getRestriction(r
-		    .getOnProperty());
-	    if (subR == null || !r.matches(subR, null)) {
-		return false;
-	    }
-	}
-
-	return true;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see
      * org.universAAL.middleware.rdf.Resource#isClosedCollection(java.lang.String
      * )
@@ -317,9 +277,7 @@ public class UIHandlerProfile extends FinalizedResource implements
 	return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
      * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
      * java.lang.Object)
      */
@@ -362,43 +320,26 @@ public class UIHandlerProfile extends FinalizedResource implements
     }
 
     /**
-     * @see #matches(Requirement)
+     * @see Matchable#matches(Matchable)
      */
-    public boolean matches(Matchable other) {
-	return false;
-    }
+    public boolean matches(Matchable subset) {
+	if (subset instanceof UIRequest) {
+	    return getMatchingDegree((UIRequest) subset) > MATCH_LEVEL_FAILED;
+	} else if (subset instanceof UIHandlerProfile) {
+	    UIHandlerProfile uiHandlerProfile = (UIHandlerProfile) subset;
 
-    /**
-     * Only called if d is not of type {@link Requirement}. Therefore no match
-     * is possible and <tt>false</tt> is returned always.
-     * 
-     * @param requirement
-     *            the Requirement to be matched against
-     * @return <tt>false</tt> as described above
-     */
-    public boolean matches(Requirement requirement) {
-	return false;
-    }
-
-    /**
-     * Switches over possible types of {@link Requirement}. Calls appropriate
-     * methods for the different types.
-     * 
-     * @param request
-     *            the Requirement to be matched
-     * @return <tt>true</tt> if the Requirement matches, <tt>false</tt> if not
-     */
-    public boolean matches(Request request) {
-	if (request instanceof UIRequest) {
-	    return isMatchingUIRequest((UIRequest) request);
-	} else {
-	    return false;
+	    for (MergedRestriction r : restrictions) {
+		MergedRestriction subR = uiHandlerProfile.getRestriction(r
+			.getOnProperty());
+		if (subR == null || !r.matches(subR, null)) {
+		    return false;
+		}
+	    }
 	}
+	return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
      * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
      */
     @Override
