@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.owl;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,6 +30,7 @@ import java.util.Set;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
+import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Property;
 import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.Resource;
@@ -135,6 +137,10 @@ public final class OntologyManagement {
      */
     // maps URI (of instance) to Resource
     private volatile HashMap namedResources = new HashMap();
+
+    // for debugging: store for each Java .class name the URI of the class
+    // maps Java class name -> URI
+    private HashMap<String, String> dbgClass = new HashMap<String, String>();
 
     /**
      * Factory information to create new instances of registered classes.
@@ -260,6 +266,114 @@ public final class OntologyManagement {
 
     /**
      * Perform a sanity check of the given class that is defined in the given
+     * ontology. The check is done after registration of the ontology.
+     * 
+     * @param ont
+     *            The ontology that defined the class.
+     * @param info
+     *            the ontology class.
+     */
+    private boolean register_postTestClass(Ontology ont, OntClassInfo info) {
+	ResourceFactory fact = info.getFactory();
+	if (fact == null)
+	    // must be an abstract class
+	    return true;
+	Resource testInstance = fact.createInstance(info.getURI(),
+		Resource.uAAL_NAMESPACE_PREFIX + "testInstance",
+		info.getFactoryIndex());
+	ManagedIndividual m = (ManagedIndividual) testInstance;
+
+	// test the super class
+	String[] superClasses = info.getNamedSuperClasses(true, true);
+	if (superClasses.length == 0) {
+	    LogUtils.logError(
+		    SharedResources.moduleContext,
+		    OntologyManagement.class,
+		    "register_postTestClass",
+		    new Object[] { "No super class: the ontology class ",
+			    info.getURI(), " of the ontology ",
+			    ont.getInfo().getURI(),
+			    " does not have a super class defined." }, null);
+	    return false;
+	}
+	HashSet supcls = new HashSet();
+	for (String tmp : superClasses)
+	    supcls.add(tmp);
+	// if (!supcls.contains(ManagedIndividual.MY_URI)) {
+	// LogUtils.logDebug(
+	// SharedResources.moduleContext,
+	// OntologyManagement.class,
+	// "register_testClass",
+	// new Object[] {
+	// "ManagedIndividual is not a super class: the ontology class ",
+	// info.getURI(),
+	// " of the ontology ",
+	// ont.getInfo().getURI(),
+	// " does not have ManagedIndividual defined as a super class. ManagedIndividual, as super class of ontology classes "
+	// +
+	// "should either be a direct super class or a super class of one of the super classes of this class."
+	// },
+	// null);
+	// }
+	// System.out.println("----------------- checking class: "
+	// + m.getClass().getName());
+	// for (Object o : superClasses) {
+	// System.out.println("    -- registered super class: " + o);
+	// }
+	Class superClassJava = m.getClass().getSuperclass();
+	do {
+	    superClassJava = superClassJava.getSuperclass();
+	} while (Modifier.isAbstract(superClassJava.getModifiers()));
+	while (!(superClassJava.equals(Object.class))
+		&& !(superClassJava.equals(ManagedIndividual.class))
+		&& !(superClassJava.equals(FinalizedResource.class))
+		&& !(superClassJava.equals(Resource.class))) {
+	    // System.out.println("    -- super: " + superClassJava.getName());
+	    String superClassURI = dbgClass.get(superClassJava.getName());
+
+	    if (superClassURI == null) {
+		LogUtils.logDebug(
+			SharedResources.moduleContext,
+			OntologyManagement.class,
+			"register_postTestClass",
+			new Object[] {
+				"Unregistered super class: the ontology class ",
+				info.getURI(),
+				" of the ontology ",
+				ont.getInfo().getURI(),
+				" has a super class from Java inheritance (",
+				superClassJava.getName(),
+				") that is not registered as a class in Ontology Management (or the super class is a non-abstract class that is registered as an abstract ontology class)." },
+			null);
+	    } else {
+		if (!(supcls.contains(superClassURI))) {
+		    LogUtils.logDebug(
+			    SharedResources.moduleContext,
+			    OntologyManagement.class,
+			    "register_postTestClass",
+			    new Object[] {
+				    "Undefined super class: the ontology class ",
+				    info.getURI(),
+				    " of the ontology ",
+				    ont.getInfo().getURI(),
+				    " has a super class from Java inheritance (",
+				    superClassJava.getName(),
+				    ") that is registered in Ontology Management with the URI '",
+				    superClassURI,
+				    "', but this class is not defined as a super class of this class (neither directly nor indirectly)." },
+			    null);
+		}
+	    }
+	    do {
+		superClassJava = superClassJava.getSuperclass();
+	    } while (Modifier.isAbstract(superClassJava.getModifiers()));
+	}
+
+	return true;
+    }
+
+    /**
+     * Perform a sanity check of the given class that is defined in the given
      * ontology. The check is done during registration of the ontology.
      * 
      * @param ont
@@ -356,6 +470,9 @@ public final class OntologyManagement {
 		return false;
 	    }
 
+	    // we store the Java .class for later testing
+	    dbgClass.put(m.getClass().getName(), m.getClassURI());
+
 	    // test properties
 	    String[] props = info.getDeclaredPropertyURIs();
 	    for (int i = 0; i < props.length; i++) {
@@ -379,7 +496,7 @@ public final class OntologyManagement {
 					    + " please check the method getPropSerializationType(String propURI);"
 					    + " this might cause an incomplete serialization result." },
 			    null);
-		
+
 		// test that the restrictions match the type (i.e. a
 		// DatatypeProperty has a literal as value, not a Resource)
 		MergedRestriction res = info.getRestrictionsOnProp(propURI);
@@ -589,6 +706,16 @@ public final class OntologyManagement {
 	    ontClassInfoMap = tempOntClassInfoMap;
 	    namedResources = tempNamedResources;
 	    factories = tempFactories;
+
+	    // some last tests
+	    if (ontClassInfos != null) {
+		for (int i = 0; i < ontClassInfos.length; i++) {
+		    OntClassInfo info = ontClassInfos[i];
+		    OntClassInfo combined = (OntClassInfo) ontClassInfoMap
+			    .get(info.getURI());
+		    register_postTestClass(ont, combined);
+		}
+	    }
 	}
 
 	// remove from pending
