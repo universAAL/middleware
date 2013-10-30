@@ -957,8 +957,7 @@ public class ServiceStrategy extends BusStrategy {
     }
 
     /**
-     * @see BusStrategy #handle(org.universAAL.middleware.sodapop.msg.Message,
-     *      String)
+     * @see BusStrategy #handle(BusMessage, String)
      */
     public void handle(BusMessage msg, String senderID) {
 	Resource res = (Resource) msg.getContent();
