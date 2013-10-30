@@ -153,8 +153,9 @@ public abstract class ManagedIndividual extends FinalizedResource {
 
     /**
      * Checks if the given value object is an instance of the type with the
-     * given URI. Uses Java inheritance between registered classes and types for
-     * checking compatibility.
+     * given URI. It uses the information provided in the ontologies about
+     * inheritance of the registered classes and types for checking
+     * compatibility.
      * 
      * @param typeURI
      *            The URI of the class that is assumed to be the super class of
