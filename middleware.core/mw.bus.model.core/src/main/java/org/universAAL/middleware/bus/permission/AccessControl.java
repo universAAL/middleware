@@ -154,9 +154,18 @@ public class AccessControl {
      *         the given matchable object. For all other
      *         {@link AccessControlMode}s the return value will always be true
      *         (but maybe a log message is issued).
+     * @throws NullPointerException
+     *             if either the owner or the Matchable is null.
      */
     public boolean checkPermission(ModuleContext owner, String busMemberURI,
 	    Matchable m) {
+	if (m == null)
+	    throw new NullPointerException(
+		    "The matchable cannot be null. Please provide a valid one.");
+	if (owner == null)
+	    throw new NullPointerException(
+		    "The owner cannot be null. Please provide a valid module context.");
+
 	if (getAccessControlMode() == AccessControlMode.none)
 	    return true;
 
@@ -209,13 +218,24 @@ public class AccessControl {
      *         which the bus member has permissions. For all other
      *         {@link AccessControlMode}s the return value will always be the
      *         given array (but maybe a log message is issued).
+     * @throws NullPointerException
+     *             if either the owner or the array of Matchables or one of the
+     *             elements in the array is null.
      */
     public <T extends Matchable> T[] checkPermission(ModuleContext owner,
 	    String busMemberURI, T[] m) {
-	ArrayList<T> l = new ArrayList<T>(m.length);
+	if (m == null)
+	    throw new NullPointerException(
+		    "The matchable array cannot be null. Please provide a valid one.");
+
+	if (owner == null)
+	    throw new NullPointerException(
+		    "The owner cannot be null. Please provide a valid module context.");
+
 	if (getAccessControlMode() == AccessControlMode.none)
 	    return m;
 
+	ArrayList<T> l = new ArrayList<T>(m.length);
 	for (int i = 0; i < m.length; i++) {
 	    if (checkPermission(owner, busMemberURI, m[i])) {
 		l.add(m[i]);
