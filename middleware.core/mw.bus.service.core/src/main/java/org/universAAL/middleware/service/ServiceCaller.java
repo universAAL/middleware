@@ -74,6 +74,9 @@ public abstract class ServiceCaller extends Caller {
      * The "normal" (synchronous) way of calling a service. Use
      * {@link #sendRequest(ServiceRequest)}, if you want to handle the response
      * asynchronously in another thread.
+     * 
+     * @throws NullPointerException
+     *             if request is null
      */
     public ServiceResponse call(ServiceRequest request) {
 	if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
@@ -160,6 +163,8 @@ public abstract class ServiceCaller extends Caller {
      *         {@link #handleResponse(String, ServiceResponse)} for an
      *         unambiguous mapping of responses to requests. Returns null, if
      *         this caller does not have the permission for the given request
+     * @throws NullPointerException
+     *             if the request is null
      */
     public final String sendRequest(ServiceRequest request) {
 	request.setProperty(ServiceRequest.PROP_uAAL_SERVICE_CALLER,

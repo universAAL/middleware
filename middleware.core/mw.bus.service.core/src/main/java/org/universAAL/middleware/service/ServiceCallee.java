@@ -50,6 +50,9 @@ public abstract class ServiceCallee extends Callee {
      *            creation, this object will not be operational.
      * @param realizedServices
      *            The initial set of services that are realized by this callee.
+     * @throws NullPointerException
+     *             if realizedServices is null or one of the elements of that
+     *             array is null
      */
     protected ServiceCallee(ModuleContext context,
 	    ServiceProfile[] realizedServices) {
@@ -65,6 +68,9 @@ public abstract class ServiceCallee extends Callee {
      * 
      * @param realizedServices
      *            the new services.
+     * @throws NullPointerException
+     *             if realizedServices is null or one of the elements of that
+     *             array is null
      */
     protected final void addNewServiceProfiles(ServiceProfile[] realizedServices) {
 	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
