@@ -57,6 +57,9 @@ public abstract class ContextSubscriber extends Subscriber {
      * @param initialSubscriptions
      *            Array of ContextEventPattern that are immediately registered
      *            for this Subscriber
+     * @throws NullPointerException
+     *             if newSubscriptions is null or one of the elements of that
+     *             array is null
      */
     protected ContextSubscriber(ModuleContext connectingModule,
 	    ContextEventPattern[] initialSubscriptions) {
@@ -72,6 +75,9 @@ public abstract class ContextSubscriber extends Subscriber {
      * 
      * @param newSubscriptions
      *            The additional array of ContextEventPattern
+     * @throws NullPointerException
+     *             if newSubscriptions is null or one of the elements of that
+     *             array is null
      */
     protected final void addNewRegParams(ContextEventPattern[] newSubscriptions) {
 	newSubscriptions = AccessControl.INSTANCE.checkPermission(owner,
@@ -117,6 +123,8 @@ public abstract class ContextSubscriber extends Subscriber {
      * 
      * @param event
      *            The Context Event that matched the registered Patterns
+     * @throws NullPointerException
+     *             if the event is null
      */
     public abstract void handleContextEvent(ContextEvent event);
 

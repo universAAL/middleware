@@ -82,13 +82,15 @@ public abstract class ContextPublisher extends Publisher {
      * 
      * @param e
      *            The Context Event to forward
+     * @throws NullPointerException
+     *             if the event is null
      */
     public final void publish(ContextEvent e) {
 	if (e != null) {
 	    if (e.getProvider() == null && providerInfo != null)
 		e.setProvider(providerInfo);
 	    else if (providerInfo != e.getProvider())
-		return;	    
+		return;
 	    if (AccessControl.INSTANCE.checkPermission(owner, getURI(), e))
 		((ContextBus) theBus).brokerContextEvent(busResourceURI, e);
 	}
