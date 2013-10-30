@@ -36,6 +36,7 @@ import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.util.OntologyListener;
 
 /**
  * The Ontology Management mainly serves two purposes:
@@ -141,6 +142,12 @@ public final class OntologyManagement {
     // for debugging: store for each Java .class name the URI of the class
     // maps Java class name -> URI
     private HashMap<String, String> dbgClass = new HashMap<String, String>();
+
+    /**
+     * The list of ontology listeners. The listeners are notified when a change
+     * occurs.
+     */
+    private ArrayList<OntologyListener> listeners = new ArrayList<OntologyListener>();
 
     /**
      * Factory information to create new instances of registered classes.
@@ -721,6 +728,11 @@ public final class OntologyManagement {
 	// remove from pending
 	removePendingOntology(ont);
 
+	synchronized (listeners) {
+	    for (OntologyListener l : listeners)
+		l.ontologyAdded(ont.getInfo().getURI());
+	}
+
 	return true;
     }
 
@@ -877,6 +889,10 @@ public final class OntologyManagement {
      */
     public void unregister(ModuleContext mc, Ontology ont) {
 	// TODO
+	// synchronized (listeners) {
+	// for (OntologyListener l : listeners)
+	// l.ontologyRemoved(ont.getInfo().getURI());
+	// }
     }
 
     /**
@@ -1017,5 +1033,38 @@ public final class OntologyManagement {
 	if (uri == null)
 	    return false;
 	return uri.equals(ontClassInfoURIPermissionCheck);
+    }
+
+    /**
+     * Add a new ontology listener. This listener is notified when a change in
+     * ontology management occurs.
+     * 
+     * @param owner
+     *            the {@link ModuleContext} of the caller of this method.
+     * @param listener
+     *            the listener to add.
+     */
+    public void addOntologyListener(ModuleContext owner,
+	    OntologyListener listener) {
+	synchronized (listeners) {
+	    if (!listeners.contains(listener))
+		listeners.add(listener);
+	}
+    }
+
+    /**
+     * Remove an existing ontology listener. This listener is notified when a
+     * change in ontology management occurs.
+     * 
+     * @param owner
+     *            the {@link ModuleContext} of the caller of this method.
+     * @param listener
+     *            the listener to remove.
+     */
+    public void removeOntologyListener(ModuleContext owner,
+	    OntologyListener listener) {
+	synchronized (listeners) {
+	    listeners.remove(listener);
+	}
     }
 }

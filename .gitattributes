@@ -366,6 +366,7 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/GraphIterator.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/GraphIteratorElement.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/IntAggregator.java -text
+middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/OntologyListener.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/RatingAggregator.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/ResourceComparator.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/util/ResourceUtil.java -text
