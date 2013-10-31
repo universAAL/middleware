@@ -44,8 +44,7 @@
 							org.universAAL.middleware.owl.supply,
 							org.universAAL.middleware.util,
 							org.universAAL.middleware.xsd,
-							org.universAAL.middleware.serialization,
-							org.universAAL.middleware.rdf.impl</Export-Package>
+							org.universAAL.middleware.serialization</Export-Package>
             <Private-Package>org.universAAL.middleware.datarep,
 							org.universAAL.middleware.xsd.util,
 							org.universAAL.middleware.datarep.osgi</Private-Package>
