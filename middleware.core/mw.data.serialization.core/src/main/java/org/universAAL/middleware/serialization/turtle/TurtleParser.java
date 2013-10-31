@@ -607,9 +607,9 @@ public class TurtleParser {
 		    if (r == null) {
 			r = new Resource();
 			blankNodes.put(uri, r);
+			lstResources.add(r.getURI());// + "\t" + uri);
 		    }
 		    // getData(r).label = uri;
-		    lstResources.add(r.getURI());// + "\t" + uri);
 		} else {
 		    r = new Resource(uri);
 		    lstResources.add(r.getURI());
