@@ -37,10 +37,6 @@ import org.universAAL.middleware.rdf.Variable;
  */
 public class TypeURI extends TypeExpression {
 
-    static {
-	register(TypeURI.class, null, null, null);
-    }
-
     public TypeURI(String uri, boolean isDatatypeURI) {
 	super(uri);
 	if (isDatatypeURI)

@@ -45,13 +45,6 @@ public class ExactCardinalityRestriction extends PropertyRestriction {
     public static final String PROP_OWL_QUALIFIED_CARDINALITY = OWL_NAMESPACE
 	    + "QualifiedCardinality";
 
-    static {
-	register(ExactCardinalityRestriction.class, null, PROP_OWL_CARDINALITY,
-		null);
-	// register(ExactCardinalityRestriction.class, null,
-	// PROP_OWL_QUALIFIED_CARDINALITY, null);
-    }
-
     /** Standard constructor for exclusive use by serializers. */
     ExactCardinalityRestriction() {
     }

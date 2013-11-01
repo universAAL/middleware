@@ -38,13 +38,9 @@ public class HasValueRestriction extends PropertyRestriction {
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "HasValueRestriction";
 
-    public static final String PROP_OWL_HAS_VALUE = OWL_NAMESPACE + "hasValue";;
+    public static final String PROP_OWL_HAS_VALUE = OWL_NAMESPACE + "hasValue";
 
     private boolean hasVarRefAsValue = false;
-
-    static {
-	register(HasValueRestriction.class, null, PROP_OWL_HAS_VALUE, null);
-    }
 
     /** Standard constructor for exclusive use by serializers. */
     HasValueRestriction() {

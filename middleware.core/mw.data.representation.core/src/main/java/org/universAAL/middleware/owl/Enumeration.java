@@ -37,16 +37,10 @@ import org.universAAL.middleware.rdf.Resource;
 public class Enumeration extends TypeExpression {
 
     /** URI for owl:oneOf. */
-    public static final String PROP_OWL_ONE_OF;
+    public static final String PROP_OWL_ONE_OF = OWL_NAMESPACE + "oneOf";
 
     /** URI for owl:DataRange. */
-    public static final String TYPE_OWL_DATA_RANGE;
-
-    static {
-	PROP_OWL_ONE_OF = OWL_NAMESPACE + "oneOf";
-	TYPE_OWL_DATA_RANGE = OWL_NAMESPACE + "DataRange";
-	register(Enumeration.class, null, PROP_OWL_ONE_OF, TYPE_OWL_DATA_RANGE);
-    }
+    public static final String TYPE_OWL_DATA_RANGE = OWL_NAMESPACE + "DataRange";
 
     /** The set of individuals. */
     private ArrayList values = new ArrayList();

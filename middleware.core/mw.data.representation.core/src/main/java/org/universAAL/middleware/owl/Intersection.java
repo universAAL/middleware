@@ -37,12 +37,7 @@ import org.universAAL.middleware.rdf.UnmodifiableResourceList;
 public class Intersection extends TypeExpression {
 
     /** URI for owl:intersectionOf. */
-    public static final String PROP_OWL_INTERSECTION_OF;
-
-    static {
-	PROP_OWL_INTERSECTION_OF = OWL_NAMESPACE + "intersectionOf";
-	register(Intersection.class, null, PROP_OWL_INTERSECTION_OF, null);
-    }
+    public static final String PROP_OWL_INTERSECTION_OF = OWL_NAMESPACE + "intersectionOf";
 
     /** The list of child class expressions. */
     protected List types;

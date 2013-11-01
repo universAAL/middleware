@@ -43,16 +43,10 @@ import org.universAAL.middleware.rdf.Resource;
  */
 public abstract class TypeRestriction extends TypeExpression {
 
-    public static final String PROP_OWL_ON_DATATYPE;
-    public static final String PROP_OWL_WITH_RESTRICTIONS;
+    public static final String PROP_OWL_ON_DATATYPE = OWL_NAMESPACE + "onDatatype";
+    public static final String PROP_OWL_WITH_RESTRICTIONS = OWL_NAMESPACE + "withRestrictions";
 
     protected ArrayList restrictions = new ArrayList();
-
-    static {
-	PROP_OWL_ON_DATATYPE = OWL_NAMESPACE + "onDatatype";
-	PROP_OWL_WITH_RESTRICTIONS = OWL_NAMESPACE + "withRestrictions";
-	register(TypeRestriction.class, null, PROP_OWL_ON_DATATYPE, null);
-    }
 
     protected class Facet {
 	String facetURI;

@@ -40,11 +40,6 @@ public class AllValuesFromRestriction extends PropertyRestriction {
     public static final String PROP_OWL_ALL_VALUES_FROM = OWL_NAMESPACE
 	    + "allValuesFrom";;
 
-    static {
-	register(AllValuesFromRestriction.class, null,
-		PROP_OWL_ALL_VALUES_FROM, null);
-    }
-
     /** Standard constructor for exclusive use by serializers. */
     AllValuesFromRestriction() {
     }

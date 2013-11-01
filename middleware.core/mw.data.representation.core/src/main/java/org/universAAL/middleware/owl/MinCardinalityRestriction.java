@@ -44,13 +44,6 @@ public class MinCardinalityRestriction extends PropertyRestriction {
     public static final String PROP_OWL_MIN_QUALIFIED_CARDINALITY = OWL_NAMESPACE
 	    + "minQualifiedCardinality";
 
-    static {
-	register(MinCardinalityRestriction.class, null,
-		PROP_OWL_MIN_CARDINALITY, null);
-	// register(MinCardinalityRestriction.class, null,
-	// PROP_OWL_MIN_QUALIFIED_CARDINALITY, null);
-    }
-
     /** Standard constructor for exclusive use by serializers. */
     MinCardinalityRestriction() {
     }
