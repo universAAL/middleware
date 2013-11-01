@@ -32,7 +32,7 @@ public class IntRestriction extends BoundedValueRestriction {
 
     public IntRestriction(int min, boolean minInclusive, int max,
 	    boolean maxInclusive) {
-	this(new Integer(min), minInclusive, new Integer(max), maxInclusive);
+	this(new Integer(min), minInclusive, Integer.valueOf(max), maxInclusive);
     }
 
     public IntRestriction(Integer min, boolean minInclusive, Integer max,
@@ -42,11 +42,11 @@ public class IntRestriction extends BoundedValueRestriction {
     }
 
     protected Comparable getNext(Comparable c) {
-	return new Integer(((Integer) c).intValue() + 1);
+	return Integer.valueOf(((Integer) c).intValue() + 1);
     }
 
     protected Comparable getPrevious(Comparable c) {
-	return new Integer(((Integer) c).intValue() - 1);
+	return Integer.valueOf(((Integer) c).intValue() - 1);
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */

@@ -193,11 +193,12 @@ public abstract class Ontology {
      *            URI including the hash sign, the hash sign is removed.
      */
     public Ontology(String ontURI) {
-	if ((ontURI = getValidOntologyURI(ontURI)) == null)
-	    throw new IllegalArgumentException("Not a valid Ontology URI:"
+	String theOntURI = getValidOntologyURI(ontURI);
+	if (theOntURI == null)
+	    throw new IllegalArgumentException("Not a valid Ontology URI: "
 		    + ontURI);
 
-	info = new MyInfo(ontURI);
+	info = new MyInfo(theOntURI);
 	info.addType(TYPE_OWL_ONTOLOGY, true);
     }
 
