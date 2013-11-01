@@ -51,12 +51,12 @@ public abstract class ServiceWrapper {
     public abstract Object getProperty(String propURI);
 
     public abstract Resource[] getEffects();
-    
+
     public abstract Resource[] getOutputs();
-    
+
     public Hashtable getNonSemanticInput() {
 	return null;
     }
-    
+
     public abstract Object getInitialServiceDialogProperty(String propURI);
 }

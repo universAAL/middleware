@@ -94,7 +94,9 @@ public abstract class ProcessEffect {
 		} else if (PROP_PROCESS_PROPERTY_VALUE.equals(key)) {
 		    key = ((Resource) o)
 			    .getProperty(PROP_PROCESS_PROPERTY_VALUE);
-		    if (ProcessParameter.checkDeserialization(key) || (ProcessParameter.MY_URI.equals(((Resource)key).getType())))
+		    if (ProcessParameter.checkDeserialization(key)
+			    || (ProcessParameter.MY_URI.equals(((Resource) key)
+				    .getType())))
 			num++;
 		    else
 			return false;
@@ -207,8 +209,9 @@ public abstract class ProcessEffect {
 		    offer[i] = null;
 		    return true;
 		}
-		Object o = ProcessParameter.resolveVarRef(offer[i]
-			.getProperty(PROP_PROCESS_PROPERTY_VALUE), context);
+		Object o = ProcessParameter.resolveVarRef(
+			offer[i].getProperty(PROP_PROCESS_PROPERTY_VALUE),
+			context);
 		offer[i] = null;
 		if (o instanceof ProcessParameter) {
 		    int max = ((ProcessParameter) o).getMaxCardinality();
@@ -220,8 +223,8 @@ public abstract class ProcessEffect {
 		    if (pType != null)
 			for (Iterator j = ((List) effectValue).iterator(); j
 				.hasNext();)
-			    if (!ManagedIndividual.checkMembership(pType, j
-				    .next()))
+			    if (!ManagedIndividual.checkMembership(pType,
+				    j.next()))
 				return false;
 		    if (((List) effectValue).size() == 1)
 			effectValue = ((List) effectValue).get(0);

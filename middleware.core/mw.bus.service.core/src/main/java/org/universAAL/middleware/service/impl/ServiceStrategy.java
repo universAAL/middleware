@@ -257,14 +257,10 @@ public class ServiceStrategy extends BusStrategy {
 	if (!isCoordinator && isCoordinatorKnown()) {
 	    Resource r = new Resource();
 	    r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
-	    r
-		    .setProperty(PROP_uAAL_REGISTERATION_STATUS,
-			    RES_STATUS_REGISTERED);
-	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE, Arrays
-		    .asList(realizedServices));
-	    r
-		    .setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(
-			    calleeID));
+	    r.setProperty(PROP_uAAL_REGISTERATION_STATUS, RES_STATUS_REGISTERED);
+	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE,
+		    Arrays.asList(realizedServices));
+	    r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
 	    ((ServiceBusImpl) bus).assessContentSerialization(r);
 	    BusMessage m = new BusMessage(MessageType.p2p_event, r, bus);
 	    m.setReceiver(theCoordinator);
@@ -360,8 +356,8 @@ public class ServiceStrategy extends BusStrategy {
 
 	    boolean handleLocally = true;
 	    try {
-		handleLocally = call.getSender().getPeerID().equals(
-			receiver.getPeerID());
+		handleLocally = call.getSender().getPeerID()
+			.equals(receiver.getPeerID());
 	    } catch (NullPointerException e) {
 		// find out which element is null and log
 		if (call == null) {
@@ -369,21 +365,19 @@ public class ServiceStrategy extends BusStrategy {
 			    ServiceStrategy.class, "callServices",
 			    new Object[] { "Call is null - ignoring." }, null);
 		} else if (call.getSender() == null) {
-		    LogUtils
-			    .logError(
-				    ServiceBusImpl.getModuleContext(),
-				    ServiceStrategy.class,
-				    "callServices",
-				    new Object[] { "Call.getSender() is null - ignoring." },
-				    null);
+		    LogUtils.logError(
+			    ServiceBusImpl.getModuleContext(),
+			    ServiceStrategy.class,
+			    "callServices",
+			    new Object[] { "Call.getSender() is null - ignoring." },
+			    null);
 		} else if (call.getSender().getPeerID() == null) {
-		    LogUtils
-			    .logError(
-				    ServiceBusImpl.getModuleContext(),
-				    ServiceStrategy.class,
-				    "callServices",
-				    new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
-				    null);
+		    LogUtils.logError(
+			    ServiceBusImpl.getModuleContext(),
+			    ServiceStrategy.class,
+			    "callServices",
+			    new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
+			    null);
 		}
 
 		if (receiver == null) {
@@ -392,13 +386,12 @@ public class ServiceStrategy extends BusStrategy {
 			    new Object[] { "Receiver is null - ignoring." },
 			    null);
 		} else if (receiver.getPeerID() == null) {
-		    LogUtils
-			    .logError(
-				    ServiceBusImpl.getModuleContext(),
-				    ServiceStrategy.class,
-				    "callServices",
-				    new Object[] { "Receiver.getPeerID() is null - ignoring." },
-				    null);
+		    LogUtils.logError(
+			    ServiceBusImpl.getModuleContext(),
+			    ServiceStrategy.class,
+			    "callServices",
+			    new Object[] { "Receiver.getPeerID() is null - ignoring." },
+			    null);
 		}
 
 		// don't handle
@@ -964,12 +957,13 @@ public class ServiceStrategy extends BusStrategy {
 	switch (msg.getType().ord()) {
 	case MessageType.EVENT:
 	    if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_NOTIFICATION))
-		notifyLocalSubscriber(res.getProperty(
-			PROP_uAAL_SERVICE_SUBSCRIBER).toString(), res
-			.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST)
-			.toString(), res.getProperty(
-			PROP_uAAL_SERVICE_REALIZATION_ID).toString(),
-			RES_STATUS_REGISTERED.equals(res
+		notifyLocalSubscriber(
+			res.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER)
+				.toString(),
+			res.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST)
+				.toString(),
+			res.getProperty(PROP_uAAL_SERVICE_REALIZATION_ID)
+				.toString(), RES_STATUS_REGISTERED.equals(res
 				.getProperty(PROP_uAAL_REGISTERATION_STATUS)));
 	    break;
 	case MessageType.P2P_EVENT:
@@ -997,8 +991,10 @@ public class ServiceStrategy extends BusStrategy {
 			    }
 		    }
 		} else
-		    addSubscriber(res.getURI(), (ServiceRequest) res
-			    .getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST));
+		    addSubscriber(
+			    res.getURI(),
+			    (ServiceRequest) res
+				    .getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST));
 	    } else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_REGISTRATION)
 		    && isCoordinator) {
 		List profiles = (List) res
@@ -1016,8 +1012,8 @@ public class ServiceStrategy extends BusStrategy {
 		    unindexServices(theCallee, null);
 		else
 		    for (Iterator i = profiles.iterator(); i.hasNext();)
-			unindexServices(theCallee, ((ServiceProfile) i.next())
-				.getProcessURI());
+			unindexServices(theCallee,
+				((ServiceProfile) i.next()).getProcessURI());
 	    } else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
 		PeerCard coord = AbstractBus.getPeerFromBusResourceURI(res
 			.getURI());
@@ -1116,8 +1112,8 @@ public class ServiceStrategy extends BusStrategy {
 		String realizationID = (String) res
 			.getProperty(PROP_uAAL_SERVICE_REALIZATION_ID);
 		r.addType(TYPE_uAAL_SERVICE_PROFILE_INFORMATION, true);
-		r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE, Arrays
-			.asList(getCoordinatorServices(realizationID)));
+		r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE,
+			Arrays.asList(getCoordinatorServices(realizationID)));
 		r.setProperty(PROP_uAAL_SERVICE_REALIZATION_ID, realizationID);
 
 		((ServiceBusImpl) bus).assessContentSerialization(r);
@@ -1150,8 +1146,8 @@ public class ServiceStrategy extends BusStrategy {
 				Vector v = (Vector) startDialogs.get(csc
 					.toString());
 				if (hv instanceof Resource)
-				    replyToInitialDialogInfoRequest(msg, v, hv
-					    .toString());
+				    replyToInitialDialogInfoRequest(msg, v,
+					    hv.toString());
 				else
 				    replyToInitialDialogInfoRequest(msg, v);
 			    }
@@ -1207,25 +1203,21 @@ public class ServiceStrategy extends BusStrategy {
 				    logID);
 			    if (context != null) {
 				matches.add(context);
-				LogUtils
-					.logTrace(
-						ServiceBusImpl
-							.getModuleContext(),
-						ServiceStrategy.class,
-						"handle",
-						new Object[] {
-							ServiceBus.LOG_MATCHING_SUCCESS,
-							logID }, null);
+				LogUtils.logTrace(
+					ServiceBusImpl.getModuleContext(),
+					ServiceStrategy.class,
+					"handle",
+					new Object[] {
+						ServiceBus.LOG_MATCHING_SUCCESS,
+						logID }, null);
 			    } else
-				LogUtils
-					.logTrace(
-						ServiceBusImpl
-							.getModuleContext(),
-						ServiceStrategy.class,
-						"handle",
-						new Object[] {
-							ServiceBus.LOG_MATCHING_NOSUCCESS,
-							logID }, null);
+				LogUtils.logTrace(
+					ServiceBusImpl.getModuleContext(),
+					ServiceStrategy.class,
+					"handle",
+					new Object[] {
+						ServiceBus.LOG_MATCHING_NOSUCCESS,
+						logID }, null);
 			}
 			LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
 				ServiceStrategy.class, "handle", new Object[] {
@@ -1617,26 +1609,24 @@ public class ServiceStrategy extends BusStrategy {
 	if (replyOf == null) {
 	    // very strange! a message of type REPLY without inReplyTo
 	    // => ignore!
-	    LogUtils
-		    .logDebug(
-			    ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class,
-			    "replyToLocalCaller",
-			    new Object[] { "Message of type REPLY, but not containing inReplyTo. Ignoring it." },
-			    null);
+	    LogUtils.logDebug(
+		    ServiceBusImpl.getModuleContext(),
+		    ServiceStrategy.class,
+		    "replyToLocalCaller",
+		    new Object[] { "Message of type REPLY, but not containing inReplyTo. Ignoring it." },
+		    null);
 	} else {
 	    String callerID = localWaitingCallers
 		    .getAndRemoveLocalWaiterCallerID(replyOf);
 	    if (callerID == null) {
 		// very strange! why else may I receive a reply from a peer
 		// => ignore!
-		LogUtils
-			.logDebug(
-				ServiceBusImpl.getModuleContext(),
-				ServiceStrategy.class,
-				"replyToLocalCaller",
-				new Object[] { "There is no caller. To whom should I then reply? Ignoring it." },
-				null);
+		LogUtils.logDebug(
+			ServiceBusImpl.getModuleContext(),
+			ServiceStrategy.class,
+			"replyToLocalCaller",
+			new Object[] { "There is no caller. To whom should I then reply? Ignoring it." },
+			null);
 	    } else {
 		Object caller = getBusMember(callerID);
 		if (caller instanceof ServiceCaller)
@@ -1786,8 +1776,8 @@ public class ServiceStrategy extends BusStrategy {
 	    ServiceRealization offer, Long logID) {
 	Hashtable context = new Hashtable();
 	context.put(Constants.VAR_uAAL_ACCESSING_BUS_MEMBER, callerID);
-	context.put(Constants.VAR_uAAL_CURRENT_DATETIME, TypeMapper
-		.getCurrentDateTime());
+	context.put(Constants.VAR_uAAL_CURRENT_DATETIME,
+		TypeMapper.getCurrentDateTime());
 	context.put(Constants.VAR_uAAL_SERVICE_TO_SELECT, offer);
 	Object o = request
 		.getProperty(ServiceRequest.PROP_uAAL_INVOLVED_HUMAN_USER);
@@ -1978,11 +1968,9 @@ public class ServiceStrategy extends BusStrategy {
 	    r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
 	    r.setProperty(PROP_uAAL_REGISTERATION_STATUS,
 		    RES_STATUS_DEREGISTERED);
-	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE, Arrays
-		    .asList(realizedServices));
-	    r
-		    .setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(
-			    calleeID));
+	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE,
+		    Arrays.asList(realizedServices));
+	    r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
 	    ((ServiceBusImpl) bus).assessContentSerialization(r);
 	    BusMessage m = new BusMessage(MessageType.p2p_event, r, bus);
 	    m.setReceiver(theCoordinator);
@@ -2021,9 +2009,7 @@ public class ServiceStrategy extends BusStrategy {
 	    r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
 	    r.setProperty(PROP_uAAL_REGISTERATION_STATUS,
 		    RES_STATUS_DEREGISTERED);
-	    r
-		    .setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(
-			    calleeID));
+	    r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
 	    ((ServiceBusImpl) bus).assessContentSerialization(r);
 	    BusMessage m = new BusMessage(MessageType.p2p_event, r, bus);
 	    m.setReceiver(theCoordinator);
@@ -2122,9 +2108,9 @@ public class ServiceStrategy extends BusStrategy {
 		.getProfiles(serviceURI);
 	return profileListToArray(profiles);
     }
-    
-    public HashMap getAllServiceProfilesWithCalleeIDs(String serviceURI){
-    	    return getCoordinatorServicesWithCalleeIDs(serviceURI);
+
+    public HashMap getAllServiceProfilesWithCalleeIDs(String serviceURI) {
+	return getCoordinatorServicesWithCalleeIDs(serviceURI);
     }
 
     private HashMap getCoordinatorServicesWithCalleeIDs(String serviceURI) {
@@ -2139,18 +2125,18 @@ public class ServiceStrategy extends BusStrategy {
 		    ServiceRealization reg = (ServiceRealization) j.next();
 		    ServiceProfile profile = (ServiceProfile) reg
 			    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
-		    
-		    String provider = (String)reg.getProvider();
-		    if (map.get(provider) == null){
-		    	map.put(provider, new ArrayList());
+
+		    String provider = (String) reg.getProvider();
+		    if (map.get(provider) == null) {
+			map.put(provider, new ArrayList());
 		    }
-		    ((List)map.get(provider)).add(profile);
+		    ((List) map.get(provider)).add(profile);
 		}
 	}
 
 	return map;
     }
-    
+
     /**
      * Return the profiles registered for the service passed as a parameter,
      * only if this peer is a coordinator. Otherwise, an empty list is returned.

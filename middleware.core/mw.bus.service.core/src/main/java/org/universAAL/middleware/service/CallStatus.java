@@ -44,9 +44,8 @@ public class CallStatus extends FinalizedResource {
     public static final int DENIED = 4;
 
     private static final Map<Integer, String> names = new HashMap<Integer, String>();
-    
-    static
-    {
+
+    static {
 	names.put(SUCCEEDED, "call_succeeded");
 	names.put(NO_MATCHING_SERVICE_FOUND, "no_matching_service_found");
 	names.put(RESPONSE_TIMED_OUT, "response_timed_out");

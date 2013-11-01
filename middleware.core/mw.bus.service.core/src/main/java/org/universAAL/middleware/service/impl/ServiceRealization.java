@@ -120,10 +120,9 @@ public class ServiceRealization extends FinalizedResource {
 		    new Integer(t));
 	t = getNumberOfResponseTimeMeasurements();
 	if (t > 0)
-	    context
-		    .put(
-			    ServiceProfile.PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS,
-			    new Integer(t));
+	    context.put(
+		    ServiceProfile.PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS,
+		    new Integer(t));
     }
 
     /**
@@ -345,15 +344,15 @@ public class ServiceRealization extends FinalizedResource {
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	if (prof == null)
 	    return false;
-	
+
 	ServiceWrapper superset = ServiceWrapper.create(prof);
 	ServiceWrapper subset = ServiceWrapper.create(request);
-	
+
 	addAggregatedProperties(context);
-	
+
 	return new ServiceMatcher().matches(superset, subset, context, logID);
     }
-    
+
     /**
      * Return true iff the string passed as a parameter matches this
      * ServiceRealization
@@ -368,8 +367,8 @@ public class ServiceRealization extends FinalizedResource {
 
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	return prof != null
-		&& matchStrings(word, prof.getServiceName(), prof
-			.getServiceDescription());
+		&& matchStrings(word, prof.getServiceName(),
+			prof.getServiceDescription());
     }
 
     /**
@@ -464,7 +463,7 @@ public class ServiceRealization extends FinalizedResource {
 	    return false;
 	if ((propURI.equals(uAAL_SERVICE_PROFILE)
 		&& value instanceof ServiceProfile && ((ServiceProfile) value)
-		.isWellFormed())
+		    .isWellFormed())
 		|| (propURI.equals(uAAL_SERVICE_PROVIDER) && value instanceof String)) {
 	    props.put(propURI, value);
 	    return true;

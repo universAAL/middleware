@@ -61,26 +61,23 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     public synchronized void assessContentSerialization(Resource content) {
 	if (Constants.debugMode()) {
-	    LogUtils
-		    .logDebug(
-			    context,
-			    ServiceBusImpl.class,
-			    "assessContentSerialization",
-			    new Object[] { "Assessing message content serialization:" },
-			    null);
+	    LogUtils.logDebug(
+		    context,
+		    ServiceBusImpl.class,
+		    "assessContentSerialization",
+		    new Object[] { "Assessing message content serialization:" },
+		    null);
 
 	    String str = BusMessage.trySerializationAsContent(content);
-	    LogUtils
-		    .logDebug(
-			    context,
-			    ServiceBusImpl.class,
-			    "assessContentSerialization",
-			    new Object[] { "\n      1. serialization dump\n",
-				    str,
-				    "\n      2. deserialize & compare with the original resource\n" },
-			    null);
-	    new ResourceComparator().printDiffs(content, (Resource) BusMessage
-		    .deserializeAsContent(str));
+	    LogUtils.logDebug(
+		    context,
+		    ServiceBusImpl.class,
+		    "assessContentSerialization",
+		    new Object[] { "\n      1. serialization dump\n", str,
+			    "\n      2. deserialize & compare with the original resource\n" },
+		    null);
+	    new ResourceComparator().printDiffs(content,
+		    (Resource) BusMessage.deserializeAsContent(str));
 	}
     }
 
@@ -160,14 +157,14 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public ServiceProfile[] getMatchingServices(String callerID, String s) {
 	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s);
     }
-    
+
     /**
      * @see ServiceBus#getMatchingService(String)
      */
     public HashMap getMatchingServices(String s) {
-	return ((ServiceStrategy) busStrategy).getAllServiceProfilesWithCalleeIDs(s);
+	return ((ServiceStrategy) busStrategy)
+		.getAllServiceProfilesWithCalleeIDs(s);
     }
-    
 
     /**
      * @see ServiceBus#getMatchingServices(String, String[])

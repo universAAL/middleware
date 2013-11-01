@@ -58,8 +58,8 @@ public class AggregatingFilter extends FinalizedResource {
 	    Object o = params.get(i);
 	    if ((PropertyPath.TYPE_PROPERTY_PATH.equals(func
 		    .getParameterType(i)) && !(o instanceof PropertyPath))
-		    || !ManagedIndividual.checkMembership(func
-			    .getParameterType(i), o))
+		    || !ManagedIndividual.checkMembership(
+			    func.getParameterType(i), o))
 		return false;
 	}
 	return true;

@@ -101,8 +101,8 @@ public class ProcessParameter extends Variable {
 	    if (var.getClass() != Resource.class)
 		return var instanceof ProcessParameter;
 	    var = ProcessInput.MY_URI.equals(((Resource) var).getType()) ? (ProcessParameter) ProcessInput
-		    .toInput((Resource) var)
-		    : (ProcessParameter) ProcessOutput.toOutput((Resource) var);
+		    .toInput((Resource) var) : (ProcessParameter) ProcessOutput
+		    .toOutput((Resource) var);
 	    return (var == null) ? false : ((Resource) o).changeProperty(
 		    PROP_OWLS_VALUE_OF_THE_VAR, var);
 	}
@@ -236,7 +236,7 @@ public class ProcessParameter extends Variable {
 	return parameterType.getURI();
     }
 
-   /**
+    /**
      * Returns the value of this parameter
      * 
      * @return - the object representing the value
