@@ -391,7 +391,7 @@ public class ServiceMatcher {
 	if (requestedServiceUri != null) {
 	    if (requestedServiceUri.equals(offeredURI)) {
 		context.put(ServiceRealization.uAAL_SERVICE_URI_MATCHED,
-			Boolean.valueOf(true));
+			Boolean.TRUE);
 	    }
 	}
     }
