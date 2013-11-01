@@ -44,13 +44,6 @@ public class MaxCardinalityRestriction extends PropertyRestriction {
     public static final String PROP_OWL_MAX_QUALIFIED_CARDINALITY = OWL_NAMESPACE
 	    + "maxQualifiedCardinality";
 
-    static {
-	register(MaxCardinalityRestriction.class, null,
-		PROP_OWL_MAX_CARDINALITY, null);
-	// register(MaxCardinalityRestriction.class, null,
-	// PROP_OWL_MAX_QUALIFIED_CARDINALITY, null);
-    }
-
     /** Standard constructor for exclusive use by serializers. */
     MaxCardinalityRestriction() {
     }

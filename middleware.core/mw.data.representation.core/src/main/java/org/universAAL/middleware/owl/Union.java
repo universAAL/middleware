@@ -36,12 +36,7 @@ import java.util.List;
 public class Union extends TypeExpression {
 
     /** URI for owl:unionOf . */
-    public static final String PROP_OWL_UNION_OF;
-
-    static {
-	PROP_OWL_UNION_OF = OWL_NAMESPACE + "unionOf";
-	register(Union.class, null, PROP_OWL_UNION_OF, null);
-    }
+    public static final String PROP_OWL_UNION_OF = OWL_NAMESPACE + "unionOf";
 
     /** The set of class expressions. */
     private ArrayList types;

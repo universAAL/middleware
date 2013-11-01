@@ -32,12 +32,7 @@ import java.util.Hashtable;
 public class Complement extends TypeExpression {
 
     /** URI for owl:complementOf. */
-    public static final String PROP_OWL_COMPLEMENT_OF;
-
-    static {
-	PROP_OWL_COMPLEMENT_OF = OWL_NAMESPACE + "complementOf";
-	register(Complement.class, null, PROP_OWL_COMPLEMENT_OF, null);
-    }
+    public static final String PROP_OWL_COMPLEMENT_OF = OWL_NAMESPACE + "complementOf";
 
     /** Constructor. */
     public Complement() {
