@@ -103,7 +103,7 @@ public class ServiceCall extends FinalizedResource implements UtilityCall {
 	    this.nonSemanticInput = nonSemanticInput;
 	}
     }
-    
+
     public Object getNonSemanticInput(String uri) {
 	if (this.nonSemanticInput == null) {
 	    return null;
@@ -232,7 +232,7 @@ public class ServiceCall extends FinalizedResource implements UtilityCall {
     public int getPropSerializationType(String propURI) {
 	return (PROP_OWLS_PERFORM_PROCESS.equals(propURI)
 		|| PROP_OWLS_BINDING_VALUE_DATA.equals(propURI) || PROP_OWLS_PERFORM_HAS_DATA_FROM
-		.equals(propURI)) ? PROP_SERIALIZATION_FULL
+		    .equals(propURI)) ? PROP_SERIALIZATION_FULL
 		: PROP_uAAL_INVOLVED_HUMAN_USER.equals(propURI) ? PROP_SERIALIZATION_REDUCED
 			: PROP_SERIALIZATION_OPTIONAL;
     }
@@ -291,7 +291,7 @@ public class ServiceCall extends FinalizedResource implements UtilityCall {
 		    && o instanceof Resource && !((Resource) o).isAnon()
 		    && ((Resource) o).numberOfProperties() == 0) {
 		props.put(PROP_OWLS_PERFORM_PROCESS, o);
-	    	return true;
+		return true;
 	    } else if (PROP_OWLS_PERFORM_HAS_DATA_FROM.equals(propURI)) {
 		if (o instanceof List && !((List) o).isEmpty()) {
 		    for (Iterator i = ((List) o).iterator(); i.hasNext();) {
@@ -332,8 +332,10 @@ public class ServiceCall extends FinalizedResource implements UtilityCall {
 			    && !((Resource) toParam).isAnon()
 			    && ProcessInput.MY_URI.equals(((Resource) toParam)
 				    .getType()))
-			return addInput(toParam.toString(), ((Resource) o)
-				.getProperty(PROP_OWLS_BINDING_VALUE_DATA));
+			return addInput(
+				toParam.toString(),
+				((Resource) o)
+					.getProperty(PROP_OWLS_BINDING_VALUE_DATA));
 		}
 	    } else if (PROP_uAAL_INVOLVED_HUMAN_USER.equals(propURI)
 		    && o instanceof Resource) {

@@ -219,7 +219,7 @@ public interface ServiceBus {
      *            the ServiceCallee object to be unregistered.
      */
     public void unregister(String calleeID, ServiceCallee callee);
-    
+
     /**
      * Get all service profiles that describe services of the given service
      * class. This version of the method makes it easier to make a simple query
@@ -227,8 +227,9 @@ public interface ServiceBus {
      * 
      * @param serviceClassURI
      *            the URI of the desired service class.
-     * @return Map containing as a key calleeID which registered ServiceProfiles in the service bus that are
-     *         instances of the given service class. Returned profiles are stored in value part of map in a List.
+     * @return Map containing as a key calleeID which registered ServiceProfiles
+     *         in the service bus that are instances of the given service class.
+     *         Returned profiles are stored in value part of map in a List.
      */
     public HashMap getMatchingServices(String serviceClassURI);
 }

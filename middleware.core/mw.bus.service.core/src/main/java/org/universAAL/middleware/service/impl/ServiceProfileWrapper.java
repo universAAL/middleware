@@ -62,7 +62,7 @@ public class ServiceProfileWrapper extends ServiceWrapper {
 
     @Override
     public Object getInitialServiceDialogProperty(String propURI) {
-	InitialServiceDialog is = (InitialServiceDialog)getService();
+	InitialServiceDialog is = (InitialServiceDialog) getService();
 	return is.getProperty(propURI);
     }
 }

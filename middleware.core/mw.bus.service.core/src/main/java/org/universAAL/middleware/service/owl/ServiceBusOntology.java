@@ -77,8 +77,7 @@ public class ServiceBusOntology extends Ontology {
 
 	// load Service
 	oci = createNewAbstractOntClassInfo(Service.MY_URI);
-	oci
-		.setResourceComment("The root of the hierarchy of service classes in universAAL.");
+	oci.setResourceComment("The root of the hierarchy of service classes in universAAL.");
 	oci.setResourceLabel("universAAL Service");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
 	oci.addDatatypeProperty(Service.PROP_NUMBER_OF_VALUE_RESTRICTIONS)
@@ -88,8 +87,7 @@ public class ServiceBusOntology extends Ontology {
 
 	// load UserInterfaceService
 	oci = createNewAbstractOntClassInfo(UserInterfaceService.MY_URI);
-	oci
-		.setResourceComment("The class of all services starting an initial dialog correlated to a specific service class");
+	oci.setResourceComment("The class of all services starting an initial dialog correlated to a specific service class");
 	oci.setResourceLabel("Initial Service Dialog");
 	oci.addSuperClass(Service.MY_URI);
 	oci.addObjectProperty(
@@ -103,8 +101,8 @@ public class ServiceBusOntology extends Ontology {
 		.setFunctional();
 	oci.addRestriction(MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
-			UserInterfaceService.PROP_DESCRIPTION, TypeMapper
-				.getDatatypeURI(String.class), 1, 1));
+			UserInterfaceService.PROP_DESCRIPTION,
+			TypeMapper.getDatatypeURI(String.class), 1, 1));
 	oci.addObjectProperty(
 		UserInterfaceService.PROP_HAS_INFO_RETRIEVAL_PROCESS)
 		.setFunctional();
@@ -116,13 +114,12 @@ public class ServiceBusOntology extends Ontology {
 		.setFunctional();
 	oci.addRestriction(MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
-			UserInterfaceService.PROP_HAS_VENDOR, TypeMapper
-				.getDatatypeURI(Resource.class), 1, 1));
+			UserInterfaceService.PROP_HAS_VENDOR,
+			TypeMapper.getDatatypeURI(Resource.class), 1, 1));
 
 	// load InitialServiceDialog
 	oci = createNewOntClassInfo(InitialServiceDialog.MY_URI, factory, 5);
-	oci
-		.setResourceComment("The class of all services starting an initial dialog correlated to a specific service class");
+	oci.setResourceComment("The class of all services starting an initial dialog correlated to a specific service class");
 	oci.setResourceLabel("Initial Service Dialog");
 	oci.addSuperClass(UserInterfaceService.MY_URI);
     }
