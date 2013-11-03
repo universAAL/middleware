@@ -232,6 +232,8 @@ public class ServiceRequest extends FinalizedResource implements Request {
     /**
      * Adds filtering functions such as max(aProp) to the request as criteria to
      * be used by the service bus for match-making and service selection.
+     * 
+     * @see AggregatingFilterFactory
      */
     public void addAggregatingFilter(AggregatingFilter f) {
 	if (f != null && f.isWellFormed()) {

@@ -30,6 +30,7 @@ import org.universAAL.middleware.rdf.Resource;
  * The aggregatingFilter class together with ServiceRequest class cover the CALL
  * clause of a SPARQL-like query.
  * 
+ * @see AggregatingFilterFactory
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * 
@@ -169,7 +170,7 @@ public class AggregatingFilter extends FinalizedResource {
     }
 
     /**
-     * Returns the parameters and the Aggregation Function with their properties.
+     * Returns a copy of this filter that serializes as XML Literal.
      */
     public AggregatingFilter toLiteral() {
 	if (serializesAsXMLLiteral())
