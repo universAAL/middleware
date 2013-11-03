@@ -990,7 +990,7 @@ public class MergedRestriction extends Intersection {
 		boolean tmp;
 		for (Object el : lst) {
 		    if (el instanceof PropertyRestriction) {
-			tmp = addRestrictionCheck((PropertyRestriction) o);
+			tmp = addRestrictionCheck((PropertyRestriction) el);
 			res = res && tmp;
 		    }
 		}

@@ -132,7 +132,7 @@ public class ManifestTestCase extends BusTestCase {
     private void writeManifestEntry(PrintWriter writer, String type, Element el) {
 	// escape
 	String serialized = serialize(el.el);
-	serialized.replace("]]>", "]]]]><![CDATA[>");
+	serialized = serialized.replace("]]>", "]]]]><![CDATA[>");
 
 	// write
 	writer.println("         <" + type + ">");
