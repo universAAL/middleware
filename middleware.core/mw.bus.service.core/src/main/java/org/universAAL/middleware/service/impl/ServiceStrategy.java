@@ -360,11 +360,7 @@ public class ServiceStrategy extends BusStrategy {
 			.equals(receiver.getPeerID());
 	    } catch (NullPointerException e) {
 		// find out which element is null and log
-		if (call == null) {
-		    LogUtils.logError(ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class, "callServices",
-			    new Object[] { "Call is null - ignoring." }, null);
-		} else if (call.getSender() == null) {
+		if (call.getSender() == null) {
 		    LogUtils.logError(
 			    ServiceBusImpl.getModuleContext(),
 			    ServiceStrategy.class,
