@@ -107,7 +107,6 @@ public class GraphIterator implements Iterator {
      */
     protected class GraphIteratorResources extends GraphIterator {
 	boolean first = true;
-	protected Set visitedResources = new HashSet();
 
 	GraphIteratorResources(Resource root) {
 	    super(root);
