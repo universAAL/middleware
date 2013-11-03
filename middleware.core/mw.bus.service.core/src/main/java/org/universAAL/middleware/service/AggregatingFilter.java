@@ -109,7 +109,7 @@ public class AggregatingFilter extends FinalizedResource {
     }
 
     /**
-     * Returns the list of the AggregationFunction parameteres.
+     * Returns the list of the AggregationFunction parameters.
      */
     public List getFunctionParams() {
 	return (List) props.get(PROP_uAAL_AGGREGATION_PARAMS);
@@ -124,7 +124,7 @@ public class AggregatingFilter extends FinalizedResource {
 
     /**
      * Returns true, if the PROP_uAAL_AGGREGATION_FUNCTION and
-     * PROP_uAAL_AGGREGATION_PARAMS contain the rwquired key.
+     * PROP_uAAL_AGGREGATION_PARAMS contain the required key.
      */
     public boolean isWellFormed() {
 	return props.containsKey(PROP_uAAL_AGGREGATION_FUNCTION)
@@ -169,7 +169,7 @@ public class AggregatingFilter extends FinalizedResource {
     }
 
     /**
-     * Returns the parameters and the Aggregation Funtion with their properties.
+     * Returns the parameters and the Aggregation Function with their properties.
      */
     public AggregatingFilter toLiteral() {
 	if (serializesAsXMLLiteral())
