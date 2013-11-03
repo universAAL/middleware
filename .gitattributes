@@ -148,6 +148,7 @@ middleware.core/mw.bus.service.core/ASL2.0.txt -text
 middleware.core/mw.bus.service.core/NOTICE.txt -text
 middleware.core/mw.bus.service.core/pom.xml -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/AggregatingFilter.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/AggregatingFilterFactory.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/AggregationFunction.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/AvailabilitySubscriber.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/CallStatus.java -text
