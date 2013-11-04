@@ -224,7 +224,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 						new Object[] { "Error during AALSpace announce for space: "
 								+ card.serializeCard().toString()
 								+ " -->"
-								+ e.toString() }, null);
+								 }, e);
 				throw new DiscoveryConnectorException(
 						DiscoveryConnectorErrorCodes.ANNOUNCE_ERROR,
 						e.toString());
