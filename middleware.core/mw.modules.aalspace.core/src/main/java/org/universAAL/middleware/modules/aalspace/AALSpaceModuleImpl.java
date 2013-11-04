@@ -294,7 +294,7 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 							"AALSpaceModuleImpl",
 							new Object[] { "Error creating the AALSpace: "
 									+ aalSpaceCard.toString() + " due to: "
-									+ e.toString() }, null);
+									}, e);
 					throw new AALSpaceModuleException(
 							AALSpaceModuleErrorCode.ERROR_INTERACTING_DISCOVERY_CONNECTORS,
 							"Error creating the AALSpace: "
