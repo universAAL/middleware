@@ -1187,6 +1187,8 @@ public class ServiceStrategy extends BusStrategy {
 				    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
 				    .getTheService();
 			    String profileServiceURI = profileService.getURI();
+			    String profileProviderURI = (String) sr
+				    .getProvider();
 
 			    LogUtils.logTrace(
 				    ServiceBusImpl.getModuleContext(),
@@ -1194,7 +1196,8 @@ public class ServiceStrategy extends BusStrategy {
 				    new Object[] {
 					    ServiceBus.LOG_MATCHING_PROFILE,
 					    profileService.getType(),
-					    profileServiceURI, logID }, null);
+					    profileServiceURI,
+					    profileProviderURI, logID }, null);
 			    Hashtable context = matches(caller, request, sr,
 				    logID);
 			    if (context != null) {
@@ -1320,7 +1323,7 @@ public class ServiceStrategy extends BusStrategy {
 		else {
 		    if (size > 1) {
 			List filters = request.getFilters();
-			if (filters != null) {
+			if (filters != null && filters.size() > 0) {
 			    int[] points = new int[size];
 			    for (int i = 0; i < points.length; i++)
 				points[i] = 0;
