@@ -75,7 +75,7 @@ public abstract class SLPCore {
 	private static boolean multicastThreadRunning = true;
 	private static volatile boolean isInitialized = false;
 
-	protected static PlatformAbstraction platform;
+	public static PlatformAbstraction platform;
 
 	/**
 	 * the default empty locale. Used for messages that don't specify a locale.
@@ -85,7 +85,7 @@ public abstract class SLPCore {
 	/**
 	 * the port for SLP communication.
 	 */
-	static final int SLP_PORT;
+	static int SLP_PORT = -1;
 
 	/**
 	 * the reserved (standard) port.
@@ -100,12 +100,12 @@ public abstract class SLPCore {
 	/**
 	 * 
 	 */
-	static final InetAddress MCAST_ADDRESS;
+	static InetAddress MCAST_ADDRESS = null;
 
 	/**
 	 * the SLP configuration.
 	 */
-	static final SLPConfiguration CONFIG;
+	static SLPConfiguration CONFIG = null;
 
 	/**
 	 * currently only for debugging.
@@ -126,25 +126,25 @@ public abstract class SLPCore {
 	/**
 	 * configured to perform no DA discovery ?
 	 */
-	static final boolean noDiscovery;
+	static boolean noDiscovery;
 
 	/**
 	 * the constructor for <code>Advertiser</code> instances, if an
 	 * implementation exists.
 	 */
-	protected static final Constructor advertiser;
+	protected static  Constructor advertiser;
 
 	/**
 	 * the constructor for <code>Locator</code> instances, if an
 	 * implementation exists.
 	 */
-	protected static final Constructor locator;
+	protected static  Constructor locator;
 
 	/**
 	 * the constructor for <code>SLPDaemon</code> instances, if an
 	 * implementation exists.
 	 */
-	private static final Constructor daemonConstr;
+//	private static  Constructor daemonConstr;
 
 	/**
 	 * the daemon instance, if the implementation exists and no other daemon is
@@ -191,7 +191,7 @@ public abstract class SLPCore {
 	/**
 	 * initialize the core class.
 	 */
-	static {
+	static void iniSLPLibrary(){
 		try {
 			LOCALHOST = InetAddress.getLocalHost();
 		} catch (Throwable t) {
@@ -225,7 +225,7 @@ public abstract class SLPCore {
 					.getConstructor(null);
 		} catch (Exception e) {
 		}
-		daemonConstr = constr;
+//		daemonConstr = constr;
 
 		// read in the property file, if it exists
 		File propFile = new File("jslp.properties");
@@ -279,11 +279,13 @@ public abstract class SLPCore {
 		MCAST_ADDRESS = mcast;
 	}
 
-	protected static void init() {
+	public static void init() {
 		if(isInitialized) {
 			return;
 		}
-		isInitialized = true;
+		isInitialized = true;		
+		
+		iniSLPLibrary();
 
 		platform.logDebug("jSLP is running on the following interfaces: "
 				+ java.util.Arrays.asList(myIPs));
@@ -337,14 +339,14 @@ public abstract class SLPCore {
 		}
 
 	}
-	protected static void destroyMulticastSocket(){
+	public static void destroyMulticastSocket(){
 		mtcSocket.disconnect();
 		mtcSocket.close();
 		isMulticastSocketInitialized = false;
 	}
 
 	// a pure UA doesn't need a multicast listener which is only required by a SA or DA
-	protected static void initMulticastSocket() {
+	public static void initMulticastSocket() {
 		if(isMulticastSocketInitialized) {
 			return;
 		}
@@ -396,7 +398,7 @@ public abstract class SLPCore {
 							mtcSocket.send(datagramPacket);
 							platform.logDebug("SEND (" + reply.address
 									+ ":" + reply.port + ") "
-									+ reply.toString());
+									+ reply.toString() +" TO: "+datagramPacket.getAddress()+":"+datagramPacket.getPort());
 						}
 					} catch (Exception e) {
 						platform
@@ -407,18 +409,20 @@ public abstract class SLPCore {
 				}
 			}
 		};
+		multicastThreadRunning=true;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		multicastThread.start();
 
 		// check, if there is already a SLP daemon runnung on port 427
 		// that can be either a jSLP daemon, or an OpenSLP daemon or something
 		// else. If not, try to start a new daemon instance.
-		if (daemonConstr != null) {
+//		if (daemonConstr != null) {
 			try {
-				daemon = (SLPDaemon) daemonConstr.newInstance(null);
+//				daemon = (SLPDaemon) daemonConstr.newInstance(null);
+				daemon = (SLPDaemon) new SLPDaemonImpl();
 			} catch (Exception e) {
 				daemon = null;
 			}
-		}
+//		}
 	}
 
 	/**
@@ -640,7 +644,7 @@ public abstract class SLPCore {
 				byte[] bytes = sreq.getBytes();
 				DatagramPacket d = new DatagramPacket(bytes, bytes.length,
 						MCAST_ADDRESS, SLP_PORT);
-				platform.logTraceMessage("SENT " + sreq + "(udp multicast)");
+				platform.logTraceMessage("SENT " + sreq + "(udp multicast) TO: "+d.getAddress());
 				setupReceiverThread(socket, CONFIG.getWaitTime(), sreq);
 				try {
 					socket.send(d);
@@ -736,7 +740,7 @@ public abstract class SLPCore {
 
 			platform.logTraceMessage("SENT (" + msg.address + ":" + msg.port + ") "
 					+ msg + " (via udp port " + dsocket.getLocalPort()
-					+ ")");
+					+ ") TO: "+packet.getAddress());
 
 			// if no reply is expected, return
 			if (!expectReply) {
@@ -863,7 +867,7 @@ public abstract class SLPCore {
 						break;
 					}
 
-					platform.logTraceMessage("SENT " + msg);
+					platform.logTraceMessage("SENT " + msg+" TO: "+p.getAddress());
 
 					/**
 					 * @fix: bug #1518729. Changed processing of the replyQueue.
@@ -974,7 +978,7 @@ public abstract class SLPCore {
 					try {
 						long l = timeout - System.currentTimeMillis();
 						int soTimeout = (int) (l < 0 ? 1 : l);
-						socket.setSoTimeout(soTimeout);
+						socket.setSoTimeout(10000/*soTimeout*/);
 					} catch (SocketException e1) {
 						platform.logError(
 								"Exception in mcast receiver thread", e1);
@@ -983,14 +987,18 @@ public abstract class SLPCore {
 
 					packet = new DatagramPacket(bytes, bytes.length);
 					try {
+						System.out.println("------PING");
 						// try to receive a datagram packet
 						socket.receive(packet);
+						System.out.println("------PONG");
 					} catch (InterruptedIOException iioe) {
+						System.out.println("-----CRASH:"+iioe);
 						continue;
 					} catch (IOException e) {
 						platform.logDebug(e.getMessage(), e);
 						return;
 					}
+					System.out.println("------CONTINUE");
 					final DataInputStream in = new DataInputStream(
 							new ByteArrayInputStream(packet.getData()));
 					try {
