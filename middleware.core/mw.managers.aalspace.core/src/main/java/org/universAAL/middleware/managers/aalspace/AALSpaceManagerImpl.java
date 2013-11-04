@@ -783,10 +783,14 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		cd4.setChannelName("mw.bus.ui.osgi");
 		cd4.setChannelURL(url);
 		cd.setChannelValue(value);
-		ccs.getChannelDescriptor().add(cd1);
-		ccs.getChannelDescriptor().add(cd2);
-		ccs.getChannelDescriptor().add(cd3);
-		ccs.getChannelDescriptor().add(cd4);
+//		ccs.getChannelDescriptor().add(cd1);
+//		ccs.getChannelDescriptor().add(cd2);
+//		ccs.getChannelDescriptor().add(cd3);
+//		ccs.getChannelDescriptor().add(cd4);
+		ccs.addChannelDescriptor(cd1);
+		ccs.addChannelDescriptor(cd2);
+		ccs.addChannelDescriptor(cd3);
+		ccs.addChannelDescriptor(cd4);
 		space.setCommunicationChannels(ccs);
 		if (space != null) {
 			return space;
