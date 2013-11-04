@@ -40,7 +40,6 @@ import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
-
 /**
  * Serialization of RDF graphs to <i>Terse RDF Triple Language (Turtle)</i>.
  * 
@@ -158,13 +157,12 @@ public class TurtleWriter {
      */
     static String serialize(Object o, int embedLevel) {
 	if (!(o instanceof Resource || o instanceof Ontology)) {
-	    LogUtils
-		    .logError(
-			    TurtleUtil.moduleContext,
-			    TurtleWriter.class,
-			    "serialize",
-			    new Object[] { "Cannot serialize objects other than instances of Resource or Ontology!" },
-			    null);
+	    LogUtils.logError(
+		    TurtleUtil.moduleContext,
+		    TurtleWriter.class,
+		    "serialize",
+		    new Object[] { "Cannot serialize objects other than instances of Resource or Ontology!" },
+		    null);
 	    return null;
 	}
 
@@ -633,8 +631,8 @@ public class TurtleWriter {
 
     /**
      * Write an RDF Literal. For example, for the literal <code>"15"^^xsd:byte
-     * </code>, the lexical
-     * form is <code>15</code> and the datatype is <code>xsd:byte</code>.
+     * </code>, the lexical form is <code>15</code> and the datatype is
+     * <code>xsd:byte</code>.
      * 
      * @param lexicalForm
      *            The value if the literal in lexical form.
@@ -868,7 +866,11 @@ public class TurtleWriter {
 		    writer.write(" ,");
 		    writeEOL();
 		}
-		writeValue(((List) val).get(last), false);
+		if (last >= 0) {
+		    // if this happens, then the list is empty
+		    // TODO: should we handle this differently?
+		    writeValue(((List) val).get(last), false);
+		}
 		embedLevel--;
 	    }
 	    return;
@@ -879,8 +881,8 @@ public class TurtleWriter {
 		    writeLiteral(TurtleWriter.serialize(val, embedLevel + 2),
 			    TurtleUtil.xmlLiteral);
 		} else {
-		    writeLiteral(((Resource) val).getURI(), TypeMapper
-			    .getDatatypeURI(Resource.class));
+		    writeLiteral(((Resource) val).getURI(),
+			    TypeMapper.getDatatypeURI(Resource.class));
 		}
 	    } else {
 		writeResource((Resource) val);
