@@ -489,9 +489,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
 			socket = new ServerSocket();
 			socket.setReuseAddress(true);
 			add = new InetSocketAddress(SLPCore.SLP_PORT);
-			System.out.println("------BINDING-----"+this.getId()+">>>>>"+add);
 			socket.bind(add);
-			System.out.println("------BOUND-----"+this.getId()+">>>>>"+add);
 //			socket = new ServerSocket(SLPCore.SLP_PORT);
 			start();
 		}
@@ -501,9 +499,7 @@ public final class SLPDaemonImpl implements SLPDaemon {
 		 */
 		public void run() {
 			while (running) {
-				System.out.println("------WHILE-----"+this.getId()+">>>>>"+add);
 				try {
-					System.out.println("------ACCEPT-----"+this.getId()+">>>>>"+add);
 					Socket con = socket.accept();
 					DataInputStream in = new DataInputStream(
 							new BufferedInputStream(con.getInputStream()));
@@ -530,31 +526,22 @@ public final class SLPDaemonImpl implements SLPDaemon {
 					}
 					in.close();
 					con.close();
-					System.out.println("------CLOSE-----"+this.getId()+">>>>>"+add);
 				} catch (Exception ioe) {
-					System.out.println("------EXCEPT 0-----"+this.getId()+">>>>>"+add);
 					SLPCore.platform.logError(
 								"Exception in TCP receiver thread", ioe);
 					try {
-						System.out.println("------CLOSING 2-----"+this.getId()+">>>>>"+add);
 					    socket.close();
-					    System.out.println("------CLOSED 2-----"+this.getId()+">>>>>"+add);
 					} catch (IOException e) {
-						System.out.println("------EXCEPT 2-----"+this.getId()+">>>>>"+add);
 					    e.printStackTrace();
 					}
 				} 
 			}
-			System.out.println("------OUT-----"+this.getId()+">>>>>"+add);
 			/**
 			 * Michele issue 65
 			 */
 			try {
-				System.out.println("------CLOSING-----"+this.getId()+">>>>>"+add);
 			    socket.close();
-			    System.out.println("------CLOSED-----"+this.getId()+">>>>>"+add);
 			} catch (IOException e) {
-				System.out.println("------EXCEPT-----"+this.getId()+">>>>>"+add);
 			    e.printStackTrace();
 			}
 		}
@@ -644,14 +631,11 @@ public final class SLPDaemonImpl implements SLPDaemon {
 	public void stopDaemon() {
 	    running = false;
 	    try {
-			System.out.println("------CLOSING X-----");
 		    socket.close();
 		    synchronized (serviceDisposalQueue) {
 		    serviceDisposalQueue.notifyAll();
 		    }
-		    System.out.println("------CLOSED X-----");
 		} catch (IOException e) {
-			System.out.println("------EXCEPT X-----");
 		    e.printStackTrace();
 		}
 	    
