@@ -50,6 +50,7 @@ public class ServiceMatcher {
 	// match the service
 	if (!matchService(superset, subset))
 	    return false;
+
 	if (!matchRestrictions(superset, subset, context, logID))
 	    return false;
 
@@ -237,7 +238,7 @@ public class ServiceMatcher {
 		    } else {
 			// offInsRestr == null && offClsRestr != null
 
-			if (reqRestr.matches(offClsRestr, context))
+			if (reqRestr.matches(offClsRestr, context)) {
 			    // tag the context that the offer restrictions are a
 			    // subtype of request restrictions
 			    // because the other way around, it is not
@@ -246,7 +247,8 @@ public class ServiceMatcher {
 			    context.put(
 				    ServiceStrategy.CONTEXT_SPECIALIZED_CLASS_MATCH,
 				    Boolean.TRUE);
-			else if (!offClsRestr.matches(reqRestr, context)) {
+			    expectedSize++;
+			} else if (!offClsRestr.matches(reqRestr, context)) {
 			    if (logID != null)
 				LogUtils.logTrace(
 					ServiceBusImpl.getModuleContext(),
@@ -269,7 +271,7 @@ public class ServiceMatcher {
 		else {
 		    // offInsRestr != null, offClsRestr unknown
 
-		    if (reqRestr.matches(offInsRestr, context))
+		    if (reqRestr.matches(offInsRestr, context)) {
 			// tag the context that the offer restrictions are a
 			// subtype of request restrictions
 			// because the other way around, it is not guaranteed
@@ -277,7 +279,8 @@ public class ServiceMatcher {
 			context.put(
 				ServiceStrategy.CONTEXT_SPECIALIZED_INSTANCE_MATCH,
 				Boolean.TRUE);
-		    else if (!offInsRestr.matches(reqRestr, context)) {
+			expectedSize++;
+		    } else if (!offInsRestr.matches(reqRestr, context)) {
 			if (logID != null)
 			    LogUtils.logTrace(
 				    ServiceBusImpl.getModuleContext(),
@@ -300,7 +303,7 @@ public class ServiceMatcher {
 		    if (offClsRestr != null)
 			// offInsRestr != null && offClsRestr != null
 
-			if (reqRestr.matches(offClsRestr, context))
+			if (reqRestr.matches(offClsRestr, context)) {
 			    // tag the context that the offer restrictions are a
 			    // subtype of request restrictions
 			    // because the other way around, it is not
@@ -309,7 +312,8 @@ public class ServiceMatcher {
 			    context.put(
 				    ServiceStrategy.CONTEXT_SPECIALIZED_CLASS_MATCH,
 				    Boolean.TRUE);
-			else if (!offClsRestr.matches(reqRestr, context)) {
+			    expectedSize++;
+			} else if (!offClsRestr.matches(reqRestr, context)) {
 			    if (logID != null)
 				LogUtils.logTrace(
 					ServiceBusImpl.getModuleContext(),
@@ -323,7 +327,10 @@ public class ServiceMatcher {
 						ServiceBus.LOG_MATCHING_MISMATCH_CODE,
 						Integer.valueOf(1022),
 						ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-						" A property is restricted in the request.  The service offer has class level and instance level restrictions. The instance level restrictions have been checked already, but class level restriction do not match."
+						" A property is restricted in the request. The service offer has"
+							+ " class level and instance level restrictions. The"
+							+ " instance level restrictions have been checked already,"
+							+ " but class level restriction do not match."
 							+ " Neither the request is a subset of the offer nor the offer a subset of the request.",
 						logID }, null);
 			    return false;
@@ -332,8 +339,23 @@ public class ServiceMatcher {
 	    }
 	}
 
-	if (context.size() < expectedSize)
+	if (context.size() < expectedSize) {
+	    LogUtils.logTrace(
+		    ServiceBusImpl.getModuleContext(),
+		    ServiceRealization.class,
+		    "matches",
+		    new Object[] {
+			    ServiceBus.LOG_MATCHING_MISMATCH,
+			    "input in request not defined in offer",
+			    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+			    Integer.valueOf(1023),
+			    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+			    " An input parameter is given in the request, e.g. a filtering value, but the service offer"
+				    + " does not expect an input parameter. The exact parameter is not determined, only"
+				    + " the number of parameters has been found to be problematic.",
+			    logID }, null);
 	    return false;
+	}
 
 	return true;
     }
