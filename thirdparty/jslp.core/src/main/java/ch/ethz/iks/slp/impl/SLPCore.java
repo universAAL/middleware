@@ -987,18 +987,15 @@ public abstract class SLPCore {
 
 					packet = new DatagramPacket(bytes, bytes.length);
 					try {
-						System.out.println("------PING");
 						// try to receive a datagram packet
 						socket.receive(packet);
-						System.out.println("------PONG");
 					} catch (InterruptedIOException iioe) {
-						System.out.println("-----CRASH:"+iioe);
+						platform.logWarning(iioe.getMessage(), iioe);
 						continue;
 					} catch (IOException e) {
-						platform.logDebug(e.getMessage(), e);
+						platform.logWarning(e.getMessage(), e);
 						return;
 					}
-					System.out.println("------CONTINUE");
 					final DataInputStream in = new DataInputStream(
 							new ByteArrayInputStream(packet.getData()));
 					try {
