@@ -412,12 +412,13 @@ public class KarafDeployConnector implements DeployConnector,
 	String karfile = uniquePrefix + "." + KAR_EXTENSION;
 	String jarfile = uniquePrefix + "." + JAR_EXTENSION;
 	// copy kar file in the deploy dir
-	boolean result = file.renameTo(new File(KAR_DEPLOY_DIR, karfile));
+	File deployFolder = new File(KAR_DEPLOY_DIR);
+	boolean result = file.renameTo(new File(deployFolder, karfile));
 	if (result == false) {
 	    LogUtils.logError(context, KarafDeployConnector.class, METHOD,
 		    new Object[] { "Error during KAR installation of file "
-			    + file + " as " + uniquePrefix + "."
-			    + KAR_EXTENSION }, null);
+			    , file , " as " , uniquePrefix , "."
+			    , KAR_EXTENSION," in folder ", deployFolder.getAbsolutePath() }, null);
 	    return null;
 	}
 
@@ -431,8 +432,8 @@ public class KarafDeployConnector implements DeployConnector,
 		    KarafDeployConnector.class,
 		    METHOD,
 		    new Object[] { "Error during JAR installation of file "
-			    + jar + " as " + uniquePrefix + "." + JAR_EXTENSION },
-		    null);
+			    , jar , " as " , uniquePrefix , "."
+			    , JAR_EXTENSION," in folder ", deployFolder.getAbsolutePath() }, null);
 	    return null;
 	}
 	return uniquePrefix;
