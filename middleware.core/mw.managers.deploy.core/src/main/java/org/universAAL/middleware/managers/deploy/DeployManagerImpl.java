@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -46,7 +45,6 @@ import javax.xml.bind.Unmarshaller;
 
 import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.brokers.control.ExceptionUtils;
-import org.universAAL.middleware.brokers.control.FileUtils;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -59,7 +57,6 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
-import org.universAAL.middleware.interfaces.mpa.UAPPStatus;
 import org.universAAL.middleware.interfaces.utils.Util;
 import org.universAAL.middleware.managers.api.AALSpaceEventHandler;
 import org.universAAL.middleware.managers.api.AALSpaceListener;
@@ -406,6 +403,9 @@ public class DeployManagerImpl implements DeployManager,
 					&& reg.lastModified() > applicationRegistryFile
 							.lastModified()) {
 				reloadRegistry(reg);
+			} else {
+				applicationRegistry.clear();
+				applicationRegistryFile = null;
 			}
 			return applicationRegistry;
 		}
@@ -413,7 +413,7 @@ public class DeployManagerImpl implements DeployManager,
 
 	private void reloadRegistry(File reg) {
 		synchronized (applicationRegistry) {
-			if ( reg.exists() == false ) {
+			if (reg.exists() == false) {
 				applicationRegistry.clear();
 				applicationRegistryFile = null;
 				return;
