@@ -87,7 +87,7 @@ public class Util {
 		return (name.contains(marker));
 	    }
 	});
-	if (files.length < 0) {
+	if ( files == null || files.length <= 0) {
 	    return null;
 	} else {
 	    return new File(targetFolder.toString() + File.separatorChar
