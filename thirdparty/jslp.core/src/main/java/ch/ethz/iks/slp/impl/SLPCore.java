@@ -990,7 +990,7 @@ public abstract class SLPCore {
 						// try to receive a datagram packet
 						socket.receive(packet);
 					} catch (InterruptedIOException iioe) {
-						platform.logWarning(iioe.getMessage(), iioe);
+						platform.logTraceMessage("Did not receive anything / timeout");
 						continue;
 					} catch (IOException e) {
 						platform.logWarning(e.getMessage(), e);
