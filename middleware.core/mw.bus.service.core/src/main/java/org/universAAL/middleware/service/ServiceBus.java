@@ -48,6 +48,8 @@ public interface ServiceBus {
     public static final String LOG_MATCHING_PROFILE = "Matching offer ";
     public static final String LOG_MATCHING_SUCCESS = "Matching successful ";
     public static final String LOG_MATCHING_NOSUCCESS = "Matching not successful ";
+    public static final String LOG_MATCHING_PROFILES_END = "Matching of profiles done.";
+    public static final String LOG_MATCHING_PROVIDER_END = "Filtering of profiles according to service provider done.";
     public static final String LOG_MATCHING_END = "Matching done.";
 
     public static final String LOG_MATCHING_MISMATCH = "Mismatch detected: ";
