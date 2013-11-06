@@ -219,10 +219,23 @@
         <version>1.0.1</version>
         <scope>provided</scope>
       </dependency>
+      <!--  To be replaced by: -->
+      <dependency>
+      	<groupId>org.osgi</groupId>
+      	<artifactId>org.osgi.core</artifactId>
+      	<version>[4,)</version>
+      </dependency>
       <dependency>
         <groupId>org.apache.felix</groupId>
         <artifactId>org.osgi.compendium</artifactId>
         <version>1.4.0</version>
+        <scope>provided</scope>
+      </dependency>
+      <!--  To be replaced by: -->
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.compendium</artifactId>
+        <version>[4,)</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
