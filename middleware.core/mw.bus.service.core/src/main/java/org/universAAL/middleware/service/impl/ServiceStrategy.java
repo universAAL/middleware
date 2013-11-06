@@ -945,6 +945,19 @@ public class ServiceStrategy extends BusStrategy {
 	return m;
     }
 
+    private void logTrace(String methodName, Object[] obj) {
+	try {
+	    Long id = (Long) obj[obj.length - 1];
+	    if (id != null)
+		LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
+			ServiceStrategy.class, methodName, obj, null);
+	} catch (Exception e) {
+	    LogUtils.logDebug(ServiceBusImpl.getModuleContext(),
+		    ServiceStrategy.class, "logTrace",
+		    new Object[] { "Exception in logging" }, e);
+	}
+    }
+
     /**
      * @see BusStrategy #handle(BusMessage, String)
      */
@@ -1164,22 +1177,37 @@ public class ServiceStrategy extends BusStrategy {
 		}
 		Vector matches = new Vector();
 		String serviceURI = request.getRequestedService().getClassURI();
+		// start the logging with trace messages about matchmaking
+		// the logID as last parameter in each message is used to
+		// identify different log messages that belong to each other
+		// TODO: make this configurable
+		Long logID = Long.valueOf(Thread.currentThread().getId());
 		synchronized (allServicesIndex) {
+		    LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
+			    ServiceStrategy.class, "handle", new Object[] {
+				    ServiceBus.LOG_MATCHING_START,
+				    new UnmodifiableResource(request), " ",
+				    logID }, null);
+
 		    Vector v = (Vector) allServicesIndex.get(serviceURI);
-		    if (v == null)
+		    if (v == null) {
+			logTrace(
+				"handle",
+				new Object[] {
+					ServiceBus.LOG_MATCHING_END,
+					" No service available. ",
+					ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+					Integer.valueOf(1010),
+					ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+					" No service has registered for the requested serviceURI.",
+					logID });
+			logID = null; // no more trace log messages
 			sendNoMatchingFound(msg);
-		    else {
+		    } else {
 			String caller = request.getProperty(
 				ServiceRequest.PROP_uAAL_SERVICE_CALLER)
 				.toString();
 
-			Long logID = Long.valueOf(Thread.currentThread()
-				.getId());
-			LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
-				ServiceStrategy.class, "handle", new Object[] {
-					ServiceBus.LOG_MATCHING_START,
-					new UnmodifiableResource(request), " ",
-					logID }, null);
 			for (Iterator i = v.iterator(); i.hasNext();) {
 			    ServiceRealization sr = (ServiceRealization) i
 				    .next();
@@ -1190,42 +1218,30 @@ public class ServiceStrategy extends BusStrategy {
 			    String profileProviderURI = (String) sr
 				    .getProvider();
 
-			    LogUtils.logTrace(
-				    ServiceBusImpl.getModuleContext(),
-				    ServiceStrategy.class, "handle",
-				    new Object[] {
-					    ServiceBus.LOG_MATCHING_PROFILE,
-					    profileService.getType(),
-					    profileServiceURI,
-					    profileProviderURI, logID }, null);
+			    logTrace("handle", new Object[] {
+				    ServiceBus.LOG_MATCHING_PROFILE,
+				    profileService.getType(),
+				    profileServiceURI, profileProviderURI,
+				    logID });
 			    Hashtable context = matches(caller, request, sr,
 				    logID);
 			    if (context != null) {
 				matches.add(context);
-				LogUtils.logTrace(
-					ServiceBusImpl.getModuleContext(),
-					ServiceStrategy.class,
+				logTrace(
 					"handle",
 					new Object[] {
 						ServiceBus.LOG_MATCHING_SUCCESS,
-						logID }, null);
+						logID });
 			    } else
-				LogUtils.logTrace(
-					ServiceBusImpl.getModuleContext(),
-					ServiceStrategy.class,
-					"handle",
-					new Object[] {
-						ServiceBus.LOG_MATCHING_NOSUCCESS,
-						logID }, null);
+				logTrace("handle", new Object[] {
+					ServiceBus.LOG_MATCHING_NOSUCCESS,
+					logID });
 			}
-			LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
-				ServiceStrategy.class, "handle", new Object[] {
-					ServiceBus.LOG_MATCHING_END, "found ",
-					Integer.valueOf(matches.size()),
-					" matches", logID }, null);
-
 		    }
 		}
+		logTrace("handle", new Object[] {
+			ServiceBus.LOG_MATCHING_PROFILES_END, " Found ",
+			Integer.valueOf(matches.size()), " matches", logID });
 		Hashtable auxMap = new Hashtable();
 		for (Iterator i = matches.iterator(); i.hasNext();) {
 		    Hashtable match = (Hashtable) i.next();
@@ -1293,6 +1309,28 @@ public class ServiceStrategy extends BusStrategy {
 		    }
 		}
 		matches = new Vector(auxMap.values());
+
+		if (logID != null) {
+		    Object obj[] = new Object[5 + matches.size()];
+		    obj[0] = ServiceBus.LOG_MATCHING_PROVIDER_END;
+		    obj[1] = " Found ";
+		    obj[2] = Integer.valueOf(matches.size());
+		    obj[3] = " matches. The matching profiles are: ";
+		    int i = 4;
+		    for (Object match : matches) {
+			ServiceRealization sr = (ServiceRealization) ((Hashtable) match)
+				.get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
+			Service profileService = ((ServiceProfile) sr
+				.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+				.getTheService();
+			String profileServiceURI = profileService.getURI();
+			obj[i++] = profileServiceURI;
+		    }
+		    obj[i] = logID;
+
+		    logTrace("handle", obj);
+		}
+
 		if (matches.size() > 1 && request.acceptsRandomSelection()) {
 		    // the strategy is to select the match with the lowest
 		    // number of entries in 'context'
@@ -1318,9 +1356,13 @@ public class ServiceStrategy extends BusStrategy {
 		    matches.add(context);
 		}
 		int size = matches.size();
-		if (size == 0)
+		if (size == 0) {
 		    sendNoMatchingFound(msg);
-		else {
+		    logTrace("handle",
+			    new Object[] { ServiceBus.LOG_MATCHING_END,
+				    "found ", Integer.valueOf(matches.size()),
+				    " matches", logID });
+		} else {
 		    if (size > 1) {
 			List filters = request.getFilters();
 			if (filters != null && filters.size() > 0) {
@@ -1479,8 +1521,13 @@ public class ServiceStrategy extends BusStrategy {
 				matches.remove(--size);
 			}
 		    }
+		    logTrace("handle",
+			    new Object[] { ServiceBus.LOG_MATCHING_END,
+				    "found ", Integer.valueOf(matches.size()),
+				    " matches", logID });
 		    callServices(msg, matches);
 		}
+
 	    } else if (msg.senderResidesOnDifferentPeer()) {
 		// strange situation: some peer has thought i am the
 		// coordinator?!!
