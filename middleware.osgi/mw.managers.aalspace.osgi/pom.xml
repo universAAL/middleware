@@ -53,7 +53,7 @@
                      org.universAAL.middleware.managers.aalspace.osgi,
                      org.universAAL.middleware.managers.aalspace.util</Export-Package>
             <Import-Package>org.universAAL.middleware.managers.aalspace,
-                     org.osgi.framework,
+            		 org.osgi.framework;version="[1,2)",
                      org.osgi.service.cm,
                      org.osgi.service.log,
                      org.universAAL.middleware.container,
