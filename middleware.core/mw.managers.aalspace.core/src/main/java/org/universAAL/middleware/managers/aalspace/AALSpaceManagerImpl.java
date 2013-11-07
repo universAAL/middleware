@@ -90,7 +90,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
      */
     private AALSpaceDescriptor currentAALSpace;
     private PeerCard myPeerCard;
-    private PeerRole peerRole;
+
+    private PeerRole peerRole = DEFAULT_PEER_ROLE;
     private ChannelDescriptor peeringChannel;
     /**
      * The list of AALSpace discovered by the MW
@@ -665,7 +666,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     private File[] getReadbleFileList(String aalSpaceConfigurationPath,
 	    final String[] extensions) {
 	File spaceConfigDirectory = new File(aalSpaceConfigurationPath);
-	if (spaceConfigDirectory.canRead() == false ) {
+	if (spaceConfigDirectory.canRead() == false) {
 	    LogUtils.logWarn(context, AALSpaceManagerImpl.class, "getFileList",
 		    new Object[] { "File: " + aalSpaceConfigurationPath
 			    + " cannot be read." }, null);
@@ -843,116 +844,114 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    new Object[] { "AALSpaceManager properties are null!!!" },
 		    null);
 	    return;
-	} else {
-	    LogUtils.logDebug(context, AALSpaceManagerImpl.class,
+	}
+	LogUtils.logDebug(context, AALSpaceManagerImpl.class,
+		"loadConfigurations", new Object[] { "Fetching the PeerRole" },
+		null);
+	String role = (String) configurations
+		.get(org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ROLE);
+	String roleOverride = System
+		.getProperty(org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ROLE);
+	if (roleOverride != null) {
+	    role = roleOverride;
+	}
+	if (role == null) {
+	    role = DEFAULT_PEER_ROLE.toString();
+	    LogUtils.logWarn(
+		    context,
+		    AALSpaceManagerImpl.class,
 		    "loadConfigurations",
-		    new Object[] { "Fetching the PeerRole" }, null);
-	    String role = (String) configurations
-		    .get(org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ROLE);
-	    String roleOverride = System
-		    .getProperty(org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ROLE);
-	    if (roleOverride != null)
-		role = roleOverride;
-	    if (role != null) {
-		try {
-		    peerRole = PeerRole.valueOf(role);
-		} catch (IllegalArgumentException e) {
-		    LogUtils.logError(
-			    context,
-			    AALSpaceManagerImpl.class,
-			    "loadConfigurations",
-			    new Object[] { "Unable to initialize the peer with the role: "
-				    + role }, null);
-		    LogUtils.logError(context, AALSpaceManagerImpl.class,
-			    "loadConfigurations",
-			    new Object[] { "...configuring as regular PEER: "
-				    + role }, null);
-		    peerRole = PeerRole.PEER;
-		}
-	    } else {
+		    new Object[] {
+			    "No role found in the configuration: The role is null, configuring as default role (",
+			    role, ")" }, null);
+	}
+	try {
+	    peerRole = PeerRole.valueOf(role);
+	} catch (Exception e) {
+	    LogUtils.logError(context, AALSpaceManagerImpl.class,
+		    "loadConfigurations", new Object[] {
+			    "Unable to initialize the peer with the role: ",
+			    role }, e);
+	    LogUtils.logInfo(
+		    context,
+		    AALSpaceManagerImpl.class,
+		    "loadConfigurations",
+		    new Object[] {
+			    "Failed to load role from configuration, using default role...configuring as regular (",
+			    DEFAULT_PEER_ROLE, ")" }, null);
+	    peerRole = DEFAULT_PEER_ROLE;
+	}
+
+	LogUtils.logDebug(context, AALSpaceManagerImpl.class,
+		"loadConfigurations",
+		new Object[] { "Fetching AALSpace default configurations" },
+		null);
+	aalSpaceConfigurationPath = (String) configurations
+		.get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_CONFIGURATION_PATH);
+	try {
+	    if (aalSpaceConfigurationPath == null) {
 		LogUtils.logWarn(
 			context,
 			AALSpaceManagerImpl.class,
 			"loadConfigurations",
-			new Object[] { "The role is null...configuring as regular PEER: "
-				+ role }, null);
-		peerRole = PeerRole.PEER;
-	    }
-
-	    LogUtils.logDebug(
-		    context,
-		    AALSpaceManagerImpl.class,
-		    "loadConfigurations",
-		    new Object[] { "Fetching AALSpace default configurations" },
-		    null);
-	    aalSpaceConfigurationPath = (String) configurations
-		    .get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_CONFIGURATION_PATH);
-	    try {
-		if (aalSpaceConfigurationPath == null) {
+			new Object[] { "AALSpace default configurations are null!" },
+			null);
+	    } else {
+		// Resolving the relative path to absolute path
+		File config = new File(aalSpaceConfigurationPath);
+		aalSpaceConfigurationPath = config.getCanonicalPath();
+		if (config.isDirectory() == false) {
 		    LogUtils.logWarn(
 			    context,
 			    AALSpaceManagerImpl.class,
 			    "loadConfigurations",
-			    new Object[] { "AALSpace default configurations are null!" },
+			    new Object[] { "AALSpace default configurations ",
+				    aalSpaceConfigurationPath,
+				    " does not point to a directory or is not readable" },
 			    null);
 		} else {
-		    // Resolving the relative path to absolute path
-		    File config = new File(aalSpaceConfigurationPath);
-		    aalSpaceConfigurationPath = config.getCanonicalPath();
-		    if (config.isDirectory() == false) {
-			LogUtils.logWarn(
-				context,
-				AALSpaceManagerImpl.class,
-				"loadConfigurations",
-				new Object[] {
-					"AALSpace default configurations ",
-					aalSpaceConfigurationPath,
-					" does not point to a directory or is not readable" },
-				null);
-		    } else {
-			LogUtils.logInfo(
-				context,
-				AALSpaceManagerImpl.class,
-				"loadConfigurations",
-				new Object[] {
-					"AALSpace default configurations fetched: ",
-					aalSpaceConfigurationPath }, null);
-		    }
+		    LogUtils.logInfo(
+			    context,
+			    AALSpaceManagerImpl.class,
+			    "loadConfigurations",
+			    new Object[] {
+				    "AALSpace default configurations fetched: ",
+				    aalSpaceConfigurationPath }, null);
 		}
-	    } catch (IOException e) {
-		LogUtils.logError(
-			context,
-			AALSpaceManagerImpl.class,
-			"loadConfigurations",
-			new Object[] {
-				"AALSpace default configurations is set by property \"aalSpaceConfigurationPath\" but it points to invalid location ",
-				aalSpaceConfigurationPath }, null);
-		aalSpaceConfigurationPath = null;
 	    }
-	    LogUtils.logDebug(context, AALSpaceManagerImpl.class,
+	} catch (IOException e) {
+	    LogUtils.logError(
+		    context,
+		    AALSpaceManagerImpl.class,
 		    "loadConfigurations",
-		    new Object[] { "Fetching AALSpace extension" }, null);
-	    spaceExtension = (String) configurations
-		    .get(org.universAAL.middleware.managers.aalspace.util.Consts.SPACE_EXTENSION);
-	    aalSpaceValidation = Boolean
-		    .parseBoolean((String) configurations
-			    .get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_VALIDATION));
-	    aalSpaceSchemaURL = (String) configurations
-		    .get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_SCHEMA_URL);
-	    aalSpaceLifeTime = Integer
-		    .parseInt((String) configurations
-			    .get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_LIFETIME));
-
-	    aalSpaceSchemaName = (String) configurations
-		    .get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_SCHEMA_NAME);
-	    waitBeforeClosingChannels = Long
-		    .parseLong((String) configurations
-			    .get(org.universAAL.middleware.managers.aalspace.util.Consts.WAIT_BEFEORE_CLOSING_CHANNEL));
-	    waitAfterJoinRequest = Long
-		    .parseLong((String) configurations
-			    .get(org.universAAL.middleware.managers.aalspace.util.Consts.WAIT_BEFEORE_CLOSING_CHANNEL));
-
+		    new Object[] {
+			    "AALSpace default configurations is set by property \"aalSpaceConfigurationPath\" but it points to invalid location ",
+			    aalSpaceConfigurationPath }, null);
+	    aalSpaceConfigurationPath = null;
 	}
+	LogUtils.logDebug(context, AALSpaceManagerImpl.class,
+		"loadConfigurations",
+		new Object[] { "Fetching AALSpace extension" }, null);
+	spaceExtension = (String) configurations
+		.get(org.universAAL.middleware.managers.aalspace.util.Consts.SPACE_EXTENSION);
+	aalSpaceValidation = Boolean
+		.parseBoolean((String) configurations
+			.get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_VALIDATION));
+	aalSpaceSchemaURL = (String) configurations
+		.get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_SCHEMA_URL);
+	aalSpaceLifeTime = Integer
+		.parseInt((String) configurations
+			.get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_LIFETIME));
+
+	aalSpaceSchemaName = (String) configurations
+		.get(org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_SCHEMA_NAME);
+	waitBeforeClosingChannels = Long
+		.parseLong((String) configurations
+			.get(org.universAAL.middleware.managers.aalspace.util.Consts.WAIT_BEFEORE_CLOSING_CHANNEL));
+	waitAfterJoinRequest = Long
+		.parseLong((String) configurations
+			.get(org.universAAL.middleware.managers.aalspace.util.Consts.WAIT_BEFEORE_CLOSING_CHANNEL));
+
     }
 
     public void joinRequest(AALSpaceCard spaceCard, PeerCard peer) {
