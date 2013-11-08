@@ -540,12 +540,13 @@ public class TurtleParser {
 	}
 
 	try {
-	    boolean retVal = r.setProperty(propURI, value);
-	    if (dbg)
-		System.out.println("     -> setting prop: " + retVal);
-	    return retVal;
-	    
-/*	    Object realValue = r.getProperty(propURI);
+	    // boolean retVal =
+	    r.setProperty(propURI, value);
+	    // if (dbg)
+	    // System.out.println("     -> setting prop: " + retVal);
+	    // return retVal;
+
+	    Object realValue = r.getProperty(propURI);
 	    if (value.equals(realValue)) {
 		if (dbg)
 		    System.out.println("     -> setting prop successful 1");
@@ -557,11 +558,22 @@ public class TurtleParser {
 		return false;
 	    }
 	    if (realValue instanceof List) {
-		List l = (List) realValue;
-		if (l.size() == 1) {
-		    if (value.equals(l.get(0))) {
+		List realList = (List) realValue;
+		if (realList.size() == 1) {
+		    if (value.equals(realList.get(0))) {
 			if (dbg)
-			    System.out.println("     -> setting prop successful 2");
+			    System.out
+				    .println("     -> setting prop successful 2");
+			return true;
+		    }
+		} else if (value instanceof List) {
+		    // we test each element of the list
+		    List valList = (List) value;
+		    if (valList.size() == valList.size()) {
+			for (Object o : valList) {
+			    if (!realList.contains(o))
+				return false;
+			}
 			return true;
 		    }
 		}
@@ -569,7 +581,7 @@ public class TurtleParser {
 	    if (dbg)
 		System.out.println("     -> setting prop not successful 2");
 	    return false;
-*/	} catch (Exception e) {
+	} catch (Exception e) {
 	    if (dbg) {
 		System.out
 			.println("--Problem in testSetProperty (the property could not be set): ");
