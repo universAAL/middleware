@@ -21,6 +21,8 @@
 
 package org.universAAL.middleware.interfaces;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.UUID;
 
 /**
@@ -32,6 +34,8 @@ import java.util.UUID;
  */
 public class PeerCard {
 
+    private final String URI_PREFIX = "urn:uuid:";
+
     private String peerID;
     private PeerRole role;
     private String PLATFORM_UNIT;
@@ -39,6 +43,8 @@ public class PeerCard {
     private String OS = System.getProperty("os.name") + " - "
 	    + System.getProperty("os.version") + "- "
 	    + System.getProperty("os.arch");
+
+    private URI uri = null;
 
     /**
      * Instantiate a PeerCard and generated the peer unique ID
@@ -136,4 +142,23 @@ public class PeerCard {
 	OS = oS;
     }
 
+    /**
+     * 
+     * @return a {@link URI} representing the PeerCard, that is actually based on the PeerId
+     * @since 2.0.3
+     */
+    public URI toURI() {
+	synchronized (this) {
+	    if (uri != null) {
+		return uri;
+	    }
+	    try {
+		uri = new URI(URI_PREFIX + peerID);
+	    } catch (URISyntaxException ex) {
+		System.err.println("Failed to generate URI for PeerCard, due to exception");
+		ex.printStackTrace(System.err);
+	    }
+	    return uri;
+	}
+    }
 }
