@@ -200,7 +200,7 @@ public class ServiceRealization extends FinalizedResource {
 	}
 	context.put(uAAL_ASSERTED_SERVICE_CALL, result);
 	// NON_SEMANTIC_INPUT:
-	// if ServiceRequest contains non-semantic input than it has to be
+	// if ServiceRequest contains non-semantic input then it has to be
 	// propagated to ServiceCall.
 	if (context.containsKey(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT)) {
 	    result.addNonSemanticInput((Hashtable) context
