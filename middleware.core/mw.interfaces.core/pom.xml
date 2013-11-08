@@ -28,5 +28,9 @@
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.schemas</artifactId>
     </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
   </dependencies>
 </project>
