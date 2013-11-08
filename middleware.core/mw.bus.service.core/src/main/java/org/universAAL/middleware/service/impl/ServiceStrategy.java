@@ -1197,7 +1197,7 @@ public class ServiceStrategy extends BusStrategy {
 					ServiceBus.LOG_MATCHING_END,
 					" No service available. ",
 					ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-					Integer.valueOf(1010),
+					Integer.valueOf(1030),
 					ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
 					" No service has registered for the requested serviceURI.",
 					logID });
@@ -1239,15 +1239,14 @@ public class ServiceStrategy extends BusStrategy {
 			}
 		    }
 		}
-		logTrace("handle", new Object[] {
-			ServiceBus.LOG_MATCHING_PROFILES_END, " Found ",
-			Integer.valueOf(matches.size()), " matches", logID });
+		int matchesFound = 0;
 		Hashtable auxMap = new Hashtable();
 		for (Iterator i = matches.iterator(); i.hasNext();) {
 		    Hashtable match = (Hashtable) i.next();
 		    ServiceRealization sr = (ServiceRealization) match
 			    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
 		    if (sr.assertServiceCall(match)) {
+			matchesFound++;
 			Hashtable otherMatch = (Hashtable) auxMap.get(sr
 				.getProvider());
 			if (otherMatch == null)
@@ -1306,11 +1305,38 @@ public class ServiceStrategy extends BusStrategy {
 					    .size()))
 				auxMap.put(sr.getProvider(), match);
 			}
+		    } else {
+			// we could not create the ServiceCall, this most
+			// probably happened because of a missing input
+			// -> log message
+			logTrace(
+				"handle",
+				new Object[] {
+					ServiceBus.LOG_MATCHING_MISMATCH,
+					"input in profile not given in request",
+					"\nprofile URI: ",
+					((ServiceProfile) sr
+						.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+						.getTheService().getURI(),
+					ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+					Integer.valueOf(1031),
+					ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+					"ServiceCall could not be created. The most probable reason is"
+						+ " that a mandatory input required by the service profile"
+						+ " is not provided by the service request.",
+					logID });
 		    }
 		}
 		matches = new Vector(auxMap.values());
 
 		if (logID != null) {
+		    // first log the number of matches before provider filtering
+		    logTrace("handle", new Object[] {
+			    ServiceBus.LOG_MATCHING_PROFILES_END, " Found ",
+			    Integer.valueOf(matchesFound), " matches", logID });
+
+		    // then log the number (and profile URIs) after provider
+		    // filtering
 		    Object obj[] = new Object[5 + matches.size()];
 		    obj[0] = ServiceBus.LOG_MATCHING_PROVIDER_END;
 		    obj[1] = " Found ";
