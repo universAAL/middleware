@@ -1,4 +1,5 @@
 /*
+
         Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
         Institute of Information Science and Technologies
         of the Italian National Research Council
@@ -34,13 +35,13 @@ import java.util.UUID;
  */
 public class PeerCard {
 
-    private final String URI_PREFIX = "urn:uuid:";
+    final String URI_PREFIX = "urn:uuid:";
 
     private String peerID;
     private PeerRole role;
-    private String PLATFORM_UNIT;
-    private String CONTAINER_UNIT;
-    private String OS = System.getProperty("os.name") + " - "
+    private String platform;
+    private String container;
+    private String os = System.getProperty("os.name") + " - "
 	    + System.getProperty("os.version") + "- "
 	    + System.getProperty("os.arch");
 
@@ -54,8 +55,8 @@ public class PeerCard {
     public PeerCard(PeerRole role, String containerUnit, String platformUnit) {
 	this.peerID = UUID.randomUUID().toString();
 	this.role = role;
-	this.CONTAINER_UNIT = containerUnit;
-	this.PLATFORM_UNIT = platformUnit;
+	this.container = containerUnit;
+	this.platform = platformUnit;
     }
 
     public PeerCard(String ID, PeerRole role) {
@@ -63,6 +64,11 @@ public class PeerCard {
 	this.role = role;
     }
 
+    /**
+     * 
+     * @param strSerialization
+     * @deprecated 
+     */
     public PeerCard(String strSerialization) {
 	int i = strSerialization.indexOf(" - Peer Role: ");
 	if (!strSerialization.startsWith("Peer ID: ") || i < 10)
@@ -119,27 +125,27 @@ public class PeerCard {
     }
 
     public String getPLATFORM_UNIT() {
-	return PLATFORM_UNIT;
+	return platform;
     }
 
     public void setPLATFORM_UNIT(String pLATFORM_UNIT) {
-	PLATFORM_UNIT = pLATFORM_UNIT;
+	platform = pLATFORM_UNIT;
     }
 
     public String getCONTAINER_UNIT() {
-	return CONTAINER_UNIT;
+	return container;
     }
 
     public void setCONTAINER_UNIT(String cONTAINER_UNIT) {
-	CONTAINER_UNIT = cONTAINER_UNIT;
+	container = cONTAINER_UNIT;
     }
 
     public String getOS() {
-	return OS;
+	return os;
     }
 
     public void setOS(String oS) {
-	OS = oS;
+	os = oS;
     }
 
     /**
