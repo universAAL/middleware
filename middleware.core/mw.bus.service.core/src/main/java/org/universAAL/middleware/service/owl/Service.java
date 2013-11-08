@@ -217,7 +217,7 @@ public abstract class Service extends ManagedIndividual {
     }
 
     /**
-     * Returns the restriction on the given <code>propPeth</code>, if it was
+     * Returns the restriction on the given <code>propPath</code>, if it was
      * previously added to {@link #instanceLevelRestrictions} using
      * {@link #addRestriction(MergedRestriction, String[], Hashtable)}.
      */
