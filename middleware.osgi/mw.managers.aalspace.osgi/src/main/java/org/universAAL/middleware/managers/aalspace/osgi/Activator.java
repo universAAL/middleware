@@ -43,8 +43,10 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 /**
  * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano "Kismet" Lenzi</a>
  * 
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class Activator implements BundleActivator, ManagedService {
 
     private static String SERVICE_PID = "mw.managers.aalspace.core";
@@ -56,8 +58,7 @@ public class Activator implements BundleActivator, ManagedService {
 	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	BundleConfigHome confHome = new BundleConfigHome(moduleContext.getID());
-	spaceManager = new AALSpaceManagerImpl(moduleContext,
-		confHome.getAbsolutePath());
+	spaceManager = new AALSpaceManagerImpl(moduleContext, confHome);
 
 	Dictionary props = new Hashtable();
 	props.put(Constants.SERVICE_PID, SERVICE_PID);
@@ -101,14 +102,13 @@ public class Activator implements BundleActivator, ManagedService {
     public void updated(Dictionary properties) throws ConfigurationException {
 	spaceManager.loadConfigurations(properties);
 	if (myRegistration == null) {
-	    LogUtils
-		    .logDebug(
-			    moduleContext,
-			    Activator.class,
-			    "updated",
-			    new Object[] { "Race Condition: the ServiceRegistration"
-				    + " is not yet initialized, waiting for registerService." },
-			    null);
+	    LogUtils.logDebug(
+		    moduleContext,
+		    Activator.class,
+		    "updated",
+		    new Object[] { "Race Condition: the ServiceRegistration"
+			    + " is not yet initialized, waiting for registerService." },
+		    null);
 	    int numLoops = 20;
 	    while (myRegistration == null && numLoops != 0) {
 		numLoops--;

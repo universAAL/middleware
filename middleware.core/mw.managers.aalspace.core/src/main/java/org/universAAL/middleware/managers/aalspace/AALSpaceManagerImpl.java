@@ -32,7 +32,9 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -40,7 +42,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -49,6 +50,7 @@ import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.container.utils.ModuleConfigHome;
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
@@ -67,7 +69,6 @@ import org.universAAL.middleware.managers.api.AALSpaceEventHandler;
 import org.universAAL.middleware.managers.api.AALSpaceListener;
 import org.universAAL.middleware.managers.api.AALSpaceManager;
 import org.universAAL.middleware.managers.api.MatchingResult;
-import org.xml.sax.SAXException;
 
 /**
  * The implementation of the AALSpaceManager and AALSpaceEventHandler
@@ -77,6 +78,7 @@ import org.xml.sax.SAXException;
  * @author <a href="mailto:giancarlo.riolo@isti.cnr.it">Giancarlo Riolo</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
+@SuppressWarnings({ "rawtypes" })
 public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	AALSpaceManager, SharedObjectListener {
 
@@ -89,7 +91,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
      * only one AAL space
      */
     private AALSpaceDescriptor currentAALSpace;
-    private PeerCard myPeerCard;
+    private PeerCard myPeerCard = null;
 
     private PeerRole peerRole = DEFAULT_PEER_ROLE;
     private ChannelDescriptor peeringChannel;
@@ -130,6 +132,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     private int aalSpaceLifeTime;
     private long waitBeforeClosingChannels;
     private long waitAfterJoinRequest;
+    private ModuleConfigHome home;
     private String altConfigDir;
 
     private List<AALSpaceListener> listeners;
@@ -140,9 +143,10 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     private final ScheduledExecutorService scheduler = Executors
 	    .newScheduledThreadPool(10);
 
-    public AALSpaceManagerImpl(ModuleContext context, String altConfigDir) {
+    public AALSpaceManagerImpl(ModuleContext context, ModuleConfigHome mh) {
 	this.context = context;
-	this.altConfigDir = altConfigDir;
+	this.home = mh;
+	this.altConfigDir = mh.getAbsolutePath();
 	managedAALspaces = new Hashtable<String, AALSpaceDescriptor>();
 	foundAALSpaces = Collections
 		.synchronizedSet(new HashSet<AALSpaceCard>());
@@ -191,6 +195,12 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     }
 
     public PeerCard getMyPeerCard() {
+	synchronized (this) {
+	    if (myPeerCard != null) {
+		return myPeerCard;
+	    }
+	    loadPeerCard();
+	}
 	return myPeerCard;
     }
 
@@ -200,20 +210,76 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	}
     }
 
-    public synchronized boolean init() {
-	if (!initialized) {
-
-	    LogUtils.logDebug(context, AALSpaceManagerImpl.class, "init",
-		    new Object[] { "Creating the PeerCard..." }, null);
-	    // to fix empty fields
-	    myPeerCard = new PeerCard(peerRole, "", "");
-	    myPeerCard.setRole(peerRole);
+    private void loadPeerCard() {
+	final String METHOD = "loadPeerCard";
+	final String uuid = UUID.randomUUID().toString();
+	String peerId = System
+		.getProperty(org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ID);
+	if (peerId == null) {
+	    LogUtils.logDebug(
+		    context,
+		    AALSpaceManagerImpl.class,
+		    METHOD,
+		    new Object[] { "No PeerID specified as System Properties " },
+		    null);
+	}
+	if (peerId == null) {
+	    LogUtils.logDebug(
+		    context,
+		    AALSpaceManagerImpl.class,
+		    METHOD,
+		    new Object[] { "No PeerID specified as System Properties " },
+		    null);
+	}
+	try {
+	    Properties props = new Properties();
+	    props.load(home.getConfFileAsStream(PEER_ID_FILE));
+	    peerId = props.getProperty("default");
+	} catch (Exception e) {
 	    LogUtils.logInfo(
 		    context,
 		    AALSpaceManagerImpl.class,
-		    "init",
-		    new Object[] { "--->PeerCard created: "
-			    + myPeerCard.toString() }, null);
+		    METHOD,
+		    new Object[] { "Failed to loead peerId from file: ",
+			    PEER_ID_FILE, " in folder ", home.getAbsolutePath() },
+		    e);
+	}
+	synchronized (this) {
+	    if (peerId == null) {
+		LogUtils.logDebug(context, AALSpaceManagerImpl.class, METHOD,
+			new Object[] { "Creating the PeerCard..." }, null);
+		myPeerCard = new PeerCard(peerRole, "", "");
+		LogUtils.logInfo(
+			context,
+			AALSpaceManagerImpl.class,
+			"init",
+			new Object[] { "--->PeerCard created: "
+				+ myPeerCard.toString() }, null);
+
+	    } else {
+		myPeerCard = new PeerCard(peerId, peerRole);
+	    }
+	}
+	try {
+	    Properties props = new Properties();
+	    props.setProperty("default", myPeerCard.getPeerID());
+	    props.store(home.getConfFileAsOutputStream(PEER_ID_FILE),
+		    "Properties files that contains the peerId used by this peer");
+	} catch (Exception e) {
+	    LogUtils.logError(
+		    context,
+		    AALSpaceManagerImpl.class,
+		    METHOD,
+		    new Object[] { "Failed to save peerId from file: ",
+			    PEER_ID_FILE, " in folder ", home.getAbsolutePath() },
+		    e);
+	}
+    }
+
+    public synchronized boolean init() {
+	if (!initialized) {
+
+	    loadPeerCard();
 
 	    // fetching the services
 	    LogUtils.logDebug(context, AALSpaceManagerImpl.class, "init",
@@ -314,7 +380,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    this.foundAALSpaces.addAll(spaceCards);
 		}
 	    } else {
-		if (myPeerCard.getRole().equals(PeerRole.COORDINATOR)) {
+		if (getMyPeerCard().getRole().equals(PeerRole.COORDINATOR)) {
 
 		    LogUtils.logInfo(
 			    context,
@@ -333,9 +399,9 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    // configure the MW channels
 		    if (controlBroker != null) {
 			controlBroker.configurePeeringChannel(peeringChannel,
-				myPeerCard.getPeerID());
+				getMyPeerCard().getPeerID());
 			controlBroker.configureChannels(communicationChannels,
-				myPeerCard.getPeerID());
+				getMyPeerCard().getPeerID());
 
 			// create the new AALSpace
 			AALSpaceCard myAALSpace = new AALSpaceCard(
@@ -345,7 +411,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 				communicationChannels);
 			// since coordinator and deployCoordinator matches,
 			// configure the space Descriptor
-			currentAALSpace.setDeployManager(myPeerCard);
+			currentAALSpace.setDeployManager(getMyPeerCard());
 
 			// announce the AAL Space
 			controlBroker.buildAALSpace(myAALSpace);
@@ -393,8 +459,9 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 			    context,
 			    AALSpaceManagerImpl.class,
 			    "initAALSpace",
-			    new Object[] { "No default AALSpace found...waiting to join an AALSpace as :"
-				    + myPeerCard.getRole() }, null);
+			    new Object[] {
+				    "No default AALSpace found...waiting to join an AALSpace as :",
+				    getMyPeerCard().getRole() }, null);
 		}
 	    }
 
@@ -403,8 +470,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    context,
 		    AALSpaceManagerImpl.class,
 		    "initAALSpace",
-		    new Object[] { "Error during AALSpace initialization: "
-			    + e.toString() }, null);
+		    new Object[] { "Error during AALSpace initialization: ",
+			    e.toString() }, null);
 	}
 
     }
@@ -462,7 +529,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 			// peeringChannel = getChannel(peeringChannelD);
 
 			controlBroker.configurePeeringChannel(peeringChannel,
-				myPeerCard.getPeerID());
+				getMyPeerCard().getPeerID());
 			LogUtils.logInfo(
 				context,
 				AALSpaceManagerImpl.class,
@@ -534,20 +601,22 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 				    + e.toString() }, null);
 		}
 	    }
+	    final PeerCard joinedPeer = getMyPeerCard();
 	    // creating AALSpace channels
 	    List<ChannelDescriptor> communicationChannels = currentAALSpace
 		    .getBrokerChannels();
-	    if (communicationChannels != null)
+	    if (communicationChannels != null) {
 		controlBroker.configureChannels(communicationChannels,
-			myPeerCard.getPeerID());
+			joinedPeer.getPeerID());
+	    }
 	    // start checking for members peers in the AALSpace
 	    checkPeerThread = new CheckPeerThread(context);
 	    checkerFuture = scheduler.scheduleAtFixedRate(checkPeerThread, 0,
 		    1, TimeUnit.SECONDS);
 	    // add myself to the list of peers
-	    peerFound(myPeerCard);
+	    peerFound(joinedPeer);
 	    controlBroker.newPeerAdded(currentAALSpace.getSpaceCard(),
-		    myPeerCard);
+		    joinedPeer);
 
 	    LogUtils.logInfo(context, AALSpaceManagerImpl.class,
 		    "aalSpaceJoined",
@@ -642,7 +711,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    .getSpaceId());
 	    properties.put(Consts.AALSPaceDescription, space
 		    .getSpaceDescriptor().getSpaceDescription());
-	    properties.put(Consts.AALSpaceCoordinator, myPeerCard.getPeerID());
+	    properties.put(Consts.AALSpaceCoordinator, getMyPeerCard()
+		    .getPeerID());
 	    // URL where to fetch the peering channel
 	    properties
 		    .put(Consts.AALSpacePeeringChannelURL, space
