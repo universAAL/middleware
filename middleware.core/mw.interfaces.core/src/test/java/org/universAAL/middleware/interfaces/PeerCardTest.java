@@ -39,7 +39,7 @@ public class PeerCardTest {
 	PeerCard peer = new PeerCard(PeerRole.COORDINATOR, "Karaf", "Java");
 	try{
 	    peer.setRole(null);
-	    fail("Expected NullPointerException");
+	    fail("Expected NullPointerException because trying to assign null value");
 	}catch(Exception ex){
 	    assertTrue("Exception thrown but is not the right one", ex instanceof NullPointerException);
 	}
@@ -63,6 +63,15 @@ public class PeerCardTest {
 	PeerCard peerC = new PeerCard(uuid, PeerRole.PEER);
 	assertEquals("equals for Peer should have same hashCode", peerA.hashCode(), peerB.hashCode());
 	assertEquals("equals for Peer should have same hashCode", peerA.hashCode(), peerC.hashCode());
+    }
+    
+    public void testPeerCard() {
+	try {
+	    PeerCard peerA = new PeerCard("ciao", PeerRole.COORDINATOR);
+	    fail("Expected IllegalArgumentException because using a invalid UUID string");
+	}catch(Exception ex){
+	    assertTrue("Exception thrown but is not the right one", ex instanceof IllegalArgumentException);
+	}
     }
     
     @Test
