@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<features name="universAAL-2.0.0" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
+<features name="universAAL-${mw.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
 
 	<feature name="uAAL-MW"
 		description="The universAAL runtime based on the Middleware 2.0"
