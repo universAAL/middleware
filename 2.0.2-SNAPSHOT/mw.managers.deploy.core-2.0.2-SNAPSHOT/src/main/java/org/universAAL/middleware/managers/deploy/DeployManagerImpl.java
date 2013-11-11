@@ -101,7 +101,8 @@ public class DeployManagerImpl implements DeployManager,
     private HashMap<String, UAPPPackage> wip = new HashMap<String, UAPPPackage>();
     private HashMap<String, Long> installingParts = new HashMap<String, Long>();
     private HashMap<String, Long> uninstallingParts = new HashMap<String, Long>();
-    private Properties applicationRegistry;
+    private final Properties applicationRegistry = new Properties();
+    private File applicationRegistryFile = null;
     private ModuleConfigHome configHome;
 
     private final long TIMEOUT;
@@ -224,6 +225,8 @@ public class DeployManagerImpl implements DeployManager,
     public InstallationResultsDetails requestToInstall(UAPPPackage application) {
 	InstallationResultsDetails result = new InstallationResultsDetails(
 		InstallationResults.FAILURE);
+	final String name = Thread.currentThread().getName();
+	Thread.currentThread().setName("DeployManager[Coordinator]");
 	try {
 	    InstallationResults global = m_requestToInstall(application, result);
 	    result.setGlobalResult(global);
@@ -239,6 +242,7 @@ public class DeployManagerImpl implements DeployManager,
 	synchronized (wip) {
 	    wip.remove(application.getServiceId() + ":" + application.getId());
 	}
+	Thread.currentThread().setName(name);
 	return result;
     }
 
@@ -373,7 +377,7 @@ public class DeployManagerImpl implements DeployManager,
 		.getAALSpaceDescriptor());
 
 	storeInstallationStatus(application);
-        
+
 	return InstallationResults.SUCCESS;
     }
 
@@ -397,13 +401,34 @@ public class DeployManagerImpl implements DeployManager,
     }
 
     private Properties getApplicationRegistry() {
-	if (applicationRegistry == null) {
+	synchronized (applicationRegistry) {
+	    File reg = new File(configHome.getAbsolutePath(),
+		    Consts.APP_REGISTRY);
+	    if (reg.exists()
+		    && applicationRegistryFile != null
+		    && reg.lastModified() > applicationRegistryFile
+			    .lastModified()) {
+		reloadRegistry(reg);
+	    } else {
+		applicationRegistry.clear();
+		applicationRegistryFile = null;
+	    }
+	    return applicationRegistry;
+	}
+    }
+
+    private void reloadRegistry(File reg) {
+	synchronized (applicationRegistry) {
+	    if (reg.exists() == false) {
+		applicationRegistry.clear();
+		applicationRegistryFile = null;
+		return;
+	    }
 	    try {
-		applicationRegistry = new Properties();
-		applicationRegistry.load(configHome
-			.getConfFileAsStream(Consts.APP_REGISTRY));
+		applicationRegistry.load(new FileInputStream(reg));
+		applicationRegistryFile = reg;
 	    } catch (Exception ex) {
-		applicationRegistry = null;
+		applicationRegistry.clear();
 		LogUtils.logError(
 			context,
 			DeployManagerImpl.class,
@@ -412,7 +437,6 @@ public class DeployManagerImpl implements DeployManager,
 				+ ExceptionUtils.stackTraceAsString(ex) }, ex);
 	    }
 	}
-	return applicationRegistry;
     }
 
     private void updateApplicationRegistry() throws IOException {
@@ -507,6 +531,9 @@ public class DeployManagerImpl implements DeployManager,
     public InstallationResultsDetails requestToUninstall(String serviceId,
 	    String id) {
 	final String METHOD = "requestToUninstall";
+	final String name = Thread.currentThread().getName();
+	Thread.currentThread().setName("DeployManager[Coordinator]");
+
 	InstallationResultsDetails result = new InstallationResultsDetails(
 		InstallationResults.FAILURE);
 	if (isInstalled(serviceId, id) == false) {
@@ -553,6 +580,7 @@ public class DeployManagerImpl implements DeployManager,
 	    }
 	}
 
+	Thread.currentThread().setName(name);
 	return result;
     }
 
@@ -687,12 +715,12 @@ public class DeployManagerImpl implements DeployManager,
 		// TODO following aggregation has been done on purpose
 		case PART_MISSING_NEEDED_FILES:
 		case PART_NOT_INSTALLED:
-		    installingParts.put(key, (long) (status.ordinal()*-1));
+		    installingParts.put(key, (long) (status.ordinal() * -1));
 		    break;
 		// TODO we should handle the above cases PART_NOT_UNINSTALLED,
 		// PART_UNINSTALLED
 		case PART_NOT_UNINSTALLED:
-		    installingParts.put(key, (long) (status.ordinal()*-1));
+		    installingParts.put(key, (long) (status.ordinal() * -1));
 		    break;
 		case PART_UNINSTALLED:
 		    uninstallingParts.remove(key);

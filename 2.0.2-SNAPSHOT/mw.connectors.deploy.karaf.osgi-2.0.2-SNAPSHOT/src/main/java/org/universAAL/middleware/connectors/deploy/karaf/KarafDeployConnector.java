@@ -286,6 +286,10 @@ public class KarafDeployConnector implements DeployConnector,
     }
 
     public void installPart(File zipfile, UAPPCard card) {
+
+	final String name = Thread.currentThread().getName();
+	Thread.currentThread().setName("DeployManager[KarafConnector]");
+
 	UAPPPartStatus result = UAPPPartStatus.PART_NOT_INSTALLED;
 	try {
 	    result = m_installPart(zipfile, card);
@@ -304,6 +308,8 @@ public class KarafDeployConnector implements DeployConnector,
 			result);
 	    }
 	}
+
+	Thread.currentThread().setName(name);
     }
 
     public UAPPPartStatus m_installPart(File zipfile, UAPPCard card) {
@@ -412,12 +418,14 @@ public class KarafDeployConnector implements DeployConnector,
 	String karfile = uniquePrefix + "." + KAR_EXTENSION;
 	String jarfile = uniquePrefix + "." + JAR_EXTENSION;
 	// copy kar file in the deploy dir
-	boolean result = file.renameTo(new File(KAR_DEPLOY_DIR, karfile));
+	File deployFolder = new File(KAR_DEPLOY_DIR);
+	boolean result = file.renameTo(new File(deployFolder, karfile));
 	if (result == false) {
 	    LogUtils.logError(context, KarafDeployConnector.class, METHOD,
-		    new Object[] { "Error during KAR installation of file "
-			    + file + " as " + uniquePrefix + "."
-			    + KAR_EXTENSION }, null);
+		    new Object[] { "Error during KAR installation of file ",
+			    file, " as ", uniquePrefix, ".", KAR_EXTENSION,
+			    " in folder ", deployFolder.getAbsolutePath() },
+		    null);
 	    return null;
 	}
 
@@ -426,12 +434,10 @@ public class KarafDeployConnector implements DeployConnector,
 	File jar = new File(file.getParent(), fileName + "." + JAR_EXTENSION);
 	result = jar.renameTo(new File(KAR_DEPLOY_DIR, jarfile));
 	if (result == false) {
-	    LogUtils.logError(
-		    context,
-		    KarafDeployConnector.class,
-		    METHOD,
-		    new Object[] { "Error during JAR installation of file "
-			    + jar + " as " + uniquePrefix + "." + JAR_EXTENSION },
+	    LogUtils.logError(context, KarafDeployConnector.class, METHOD,
+		    new Object[] { "Error during JAR installation of file ",
+			    jar, " as ", uniquePrefix, ".", JAR_EXTENSION,
+			    " in folder ", deployFolder.getAbsolutePath() },
 		    null);
 	    return null;
 	}
@@ -448,6 +454,9 @@ public class KarafDeployConnector implements DeployConnector,
     }
 
     public void uninstallPart(UAPPCard card) {
+	final String name = Thread.currentThread().getName();
+	Thread.currentThread().setName("DeployManager[KarafConnector]");
+
 	UAPPPartStatus result = UAPPPartStatus.PART_NOT_INSTALLED;
 	try {
 	    result = m_uninstallPart(card);
@@ -468,6 +477,8 @@ public class KarafDeployConnector implements DeployConnector,
 			result);
 	    }
 	}
+
+	Thread.currentThread().setName(name);
     }
 
     private UAPPPartStatus m_uninstallPart(UAPPCard card) throws IOException {

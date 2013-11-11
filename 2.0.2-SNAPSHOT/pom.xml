@@ -70,6 +70,8 @@
     <module>mw.interfaces.core-2.0.2-SNAPSHOT</module>
     <module>mw.connectors.deploy.karaf.osgi-2.0.2-SNAPSHOT</module>
     <module>mw.data.representation.osgi-2.0.2-SNAPSHOT</module>
+    <module>mw.managers.api.osgi-2.0.2-SNAPSHOT</module>
+    <module>mw.managers.api.core-2.0.2-SNAPSHOT</module>
   </modules>
   <scm>
     <connection>${svn.base}/pom</connection>
