@@ -72,6 +72,8 @@
     <module>mw.data.representation.osgi-2.0.2-SNAPSHOT</module>
     <module>mw.managers.api.osgi-2.0.2-SNAPSHOT</module>
     <module>mw.managers.api.core-2.0.2-SNAPSHOT</module>
+    <module>mw.brokers.control.core-2.0.2-SNAPSHOT</module>
+    <module>mw.brokers.control.osgi-2.0.2-SNAPSHOT</module>
   </modules>
   <scm>
     <connection>${svn.base}/pom</connection>
