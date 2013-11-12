@@ -1,4 +1,15 @@
 * text=auto !eol
+2.0.2-SNAPSHOT/mw.brokers.control.core-2.0.2-SNAPSHOT/ASL2.0.txt -text
+2.0.2-SNAPSHOT/mw.brokers.control.core-2.0.2-SNAPSHOT/NOTICE.txt -text
+2.0.2-SNAPSHOT/mw.brokers.control.core-2.0.2-SNAPSHOT/pom.xml -text
+2.0.2-SNAPSHOT/mw.brokers.control.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/ControlBroker.java -text
+2.0.2-SNAPSHOT/mw.brokers.control.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/ExceptionUtils.java svneol=native#text/plain
+2.0.2-SNAPSHOT/mw.brokers.control.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/FileUtils.java svneol=native#text/plain
+2.0.2-SNAPSHOT/mw.brokers.control.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/WaitForResponse.java -text
+2.0.2-SNAPSHOT/mw.brokers.control.osgi-2.0.2-SNAPSHOT/ASL2.0.txt -text
+2.0.2-SNAPSHOT/mw.brokers.control.osgi-2.0.2-SNAPSHOT/NOTICE.txt -text
+2.0.2-SNAPSHOT/mw.brokers.control.osgi-2.0.2-SNAPSHOT/pom.xml -text
+2.0.2-SNAPSHOT/mw.brokers.control.osgi-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/osgi/Activator.java -text
 2.0.2-SNAPSHOT/mw.connectors.deploy.karaf.osgi-2.0.2-SNAPSHOT/ASL2.0.txt -text
 2.0.2-SNAPSHOT/mw.connectors.deploy.karaf.osgi-2.0.2-SNAPSHOT/NOTICE.txt -text
 2.0.2-SNAPSHOT/mw.connectors.deploy.karaf.osgi-2.0.2-SNAPSHOT/pom.xml -text
