@@ -155,6 +155,8 @@ public class TypeMapper {
      *         XSD type.
      */
     public static String[] getXMLInstance(Object o) {
+	if (o == null)
+	    return null;
 
 	if (o instanceof Locale) {
 	    Locale l = (Locale) o;
