@@ -164,6 +164,8 @@ public class ServiceMatcher {
 	// only specify the corresponding property path)
 	int expectedSize = context.size()
 		+ subsetService.getNumberOfValueRestrictions();
+	boolean hasSpecializedClsMatch = false;
+	boolean hasSpecializedInsMatch = false;
 
 	String[] restrProps = subsetService.getRestrictedPropsOnInstanceLevel();
 	if (restrProps != null && restrProps.length > 0) {
@@ -253,7 +255,9 @@ public class ServiceMatcher {
 			    context.put(
 				    ServiceStrategy.CONTEXT_SPECIALIZED_CLASS_MATCH,
 				    Boolean.TRUE);
-			    expectedSize++;
+			    if (!hasSpecializedClsMatch)
+				expectedSize++;
+			    hasSpecializedClsMatch = true;
 			} else if (!offClsRestr.matches(reqInsRestr, context)) {
 			    if (logID != null)
 				LogUtils.logTrace(
@@ -285,7 +289,9 @@ public class ServiceMatcher {
 			context.put(
 				ServiceStrategy.CONTEXT_SPECIALIZED_INSTANCE_MATCH,
 				Boolean.TRUE);
-			expectedSize++;
+			if (!hasSpecializedInsMatch)
+			    expectedSize++;
+			hasSpecializedInsMatch = true;
 		    } else if (!offInsRestr.matches(reqInsRestr, context)) {
 			if (logID != null)
 			    LogUtils.logTrace(
@@ -318,7 +324,9 @@ public class ServiceMatcher {
 			    context.put(
 				    ServiceStrategy.CONTEXT_SPECIALIZED_CLASS_MATCH,
 				    Boolean.TRUE);
-			    expectedSize++;
+			    if (!hasSpecializedClsMatch)
+				expectedSize++;
+			    hasSpecializedClsMatch = true;
 			} else if (!offClsRestr.matches(reqInsRestr, context)) {
 			    // there is still a chance to return true: if we
 			    // combine instance-level and class-level
