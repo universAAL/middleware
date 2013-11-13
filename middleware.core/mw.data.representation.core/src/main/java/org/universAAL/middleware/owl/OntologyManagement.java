@@ -376,6 +376,43 @@ public final class OntologyManagement {
 	    } while (Modifier.isAbstract(superClassJava.getModifiers()));
 	}
 
+	// test special case fixed for a service in service bus, so we need
+	// to use concrete URIs here
+	// Note, that it is not completely correct to do this here since DataRep
+	// is a dependency of service bus and not the other way around,
+	// therefore DataRep should be independent from the service bus.
+	// However, this test may help to find some serious problems during
+	// serialization!
+	if (supcls
+		.contains("http://www.daml.org/services/owl-s/1.1/Service.owl#Service")) {
+	    // we have a subclass of Service
+	    // test the serialization type for some of the properties
+
+	    String[] propURIs = {
+		    "http://www.daml.org/services/owl-s/1.1/Service.owl#presents",
+		    "http://ontology.universAAL.org/uAAL.owl#instanceLevelRestrictions",
+		    "http://ontology.universAAL.org/uAAL.owl#numberOfValueRestrictions" };
+	    for (String propURI : propURIs) {
+		if (m.getPropSerializationType(propURI) != Resource.PROP_SERIALIZATION_FULL) {
+		    LogUtils.logWarn(
+			    SharedResources.moduleContext,
+			    OntologyManagement.class,
+			    "register_postTestClass",
+			    new Object[] {
+				    "Wrong serialization type: the property ",
+				    propURI,
+				    " of the ontology class ",
+				    info.getURI(),
+				    " of the ontology ",
+				    ont.getInfo().getURI(),
+				    " does not return Resource.PROP_SERIALIZATION_FULL as serialization type for a property used by the service bus."
+					    + " Please check the method getPropSerializationType(String propURI) of that class;"
+					    + " this might cause an incomplete serialization result." },
+			    null);
+		}
+	    }
+	}
+
 	return true;
     }
 
