@@ -83,7 +83,7 @@ public class ManifestTestCase extends BusTestCase {
     protected void writeManifest() {
 	PrintWriter writer;
 	try {
-	    File file = new File(".\\target\\uaal-manifest.xml");
+	    File file = new File("."+File.separator+"target"+File.separator+"uaal-manifest.xml");
 	    try {
 		String filename = file.getCanonicalPath();
 		System.out.println("-- writing manifest to file " + filename);
