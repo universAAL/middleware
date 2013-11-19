@@ -39,9 +39,9 @@ public class PeerCard {
 
     private String peerID;
     private PeerRole role;
-    private String platform;
-    private String container;
-    private String os = System.getProperty("os.name") + " - "
+    private String PLATFORM_UNIT;
+    private String CONTAINER_UNIT;
+    private String OS = System.getProperty("os.name") + " - "
 	    + System.getProperty("os.version") + "- "
 	    + System.getProperty("os.arch");
 
@@ -55,12 +55,12 @@ public class PeerCard {
     public PeerCard(PeerRole role, String containerUnit, String platformUnit) {
 	this.peerID = UUID.randomUUID().toString();
 	this.role = role;
-	this.container = containerUnit;
-	this.platform = platformUnit;
+	this.CONTAINER_UNIT = containerUnit;
+	this.PLATFORM_UNIT = platformUnit;
     }
 
     public PeerCard(String ID, PeerRole role) {
-	this.peerID = UUID.fromString(ID).toString();;
+	this.peerID = ID;
 	this.role = role;
     }
 
@@ -93,8 +93,6 @@ public class PeerCard {
     }
 
     public void setRole(PeerRole role) {
-	if (role == null)
-	    throw new NullPointerException("Cannot assign null as Role");
 	this.role = role;
     }
 
@@ -109,7 +107,7 @@ public class PeerCard {
     }
 
     public String toString() {
-	return "Peer ID: " + peerID + " - Peer Role: " + role;
+	return "Peer ID: " + peerID + " - Peer Role: " + role.toString();
     }
 
     public int hashCode() {
@@ -125,27 +123,27 @@ public class PeerCard {
     }
 
     public String getPLATFORM_UNIT() {
-	return platform;
+	return PLATFORM_UNIT;
     }
 
     public void setPLATFORM_UNIT(String pLATFORM_UNIT) {
-	platform = pLATFORM_UNIT;
+	PLATFORM_UNIT = pLATFORM_UNIT;
     }
 
     public String getCONTAINER_UNIT() {
-	return container;
+	return CONTAINER_UNIT;
     }
 
     public void setCONTAINER_UNIT(String cONTAINER_UNIT) {
-	container = cONTAINER_UNIT;
+	CONTAINER_UNIT = cONTAINER_UNIT;
     }
 
     public String getOS() {
-	return os;
+	return OS;
     }
 
     public void setOS(String oS) {
-	os = oS;
+	OS = oS;
     }
 
     /**

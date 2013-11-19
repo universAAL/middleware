@@ -22,6 +22,7 @@
 package org.universAAL.middleware.brokers.control;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -697,8 +698,22 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	// I'm the target node install the part locally
 	if (target.getPeerID().equals(
 		aalSpaceManager.getMyPeerCard().getPeerID())) {
-	    File file = FileUtils.createFileFromByte(context, partAsZip,
-		    TMP_DEPLOY_FOLDER + "part", true);
+	    File file = null, root = null;
+	    root = new File(TMP_DEPLOY_FOLDER);
+	    String dst = null;
+	    try {
+		file = File.createTempFile("part", "install", root);
+		dst = file.getAbsolutePath();
+	    } catch (IOException e) {
+		LogUtils.logError(
+			context,
+			ControlBroker.class,
+			METHOD,
+			new Object[] { "Unable to generate a valid tmp filename with createTempFile() method using timestamp" },
+			null);
+		dst = TMP_DEPLOY_FOLDER + System.currentTimeMillis() + ".part";
+	    }
+	    file = FileUtils.createFileFromByte(context, partAsZip, dst, true);
 	    if (file == null) {
 		LogUtils.logError(
 			context,
@@ -709,6 +724,9 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		return;
 	    }
 	    deployConnector.installPart(file, card);
+	    file.delete();
+	    file.deleteOnExit();
+	    file = null;
 	} else {
 	    // Send the message to the target node
 

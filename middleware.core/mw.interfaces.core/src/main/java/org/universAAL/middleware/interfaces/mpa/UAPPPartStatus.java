@@ -40,6 +40,7 @@ public enum UAPPPartStatus {
     PART_NOT_INSTALLED,
     /**
      * Not in use
+     * 
      * @deprecated
      */
     PART_PENDING,

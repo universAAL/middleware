@@ -252,23 +252,21 @@ public class KarafDeployConnector implements DeployConnector,
 		return registry.getProperty(key);
 	}
 
-	private void updateInstalltionRegistry(UAPPCard card, String karFile)
-			throws IOException {
-		registry = getInstallationRegistry();
-		String key = card.getServiceId() + ":" + card.getId() + ":"
-				+ card.getPartId();
-		if (karFile == null) {
-			registry.remove(key);
-		} else {
-			registry.setProperty(key, karFile);
-		}
-		FileOutputStream fos = new FileOutputStream(new File(UAAL_DEPLOY_DIR,
-				"deploy.registry"));
-		registry.store(
-				fos,
-				"universAAL Installation registry, format is serviceId:appId:partId=<path-to-karaf-file>");
-		fos.flush();
-		fos.close();
+    public void installPart(File zipfile, UAPPCard card) {
+
+	final String name = Thread.currentThread().getName();
+	Thread.currentThread().setName("DeployManager[KarafConnector]");
+
+	UAPPPartStatus result = UAPPPartStatus.PART_NOT_INSTALLED;
+	try {
+	    result = m_installPart(zipfile, card);
+	} catch (Exception ex) {
+	    if (zipfile == null)
+		zipfile = new File("NULL_ZIP_FILE");
+	    LogUtils.logError(context, KarafDeployConnector.class,
+		    "installPart", new Object[] { "Error installing a "
+			    + zipfile.getAbsolutePath() + " due to "
+			    + ExceptionUtils.stackTraceAsString(ex) }, ex);
 	}
 
 	private Properties getInstallationRegistry() throws IOException {
@@ -284,6 +282,9 @@ public class KarafDeployConnector implements DeployConnector,
 		}
 		return registry;
 	}
+
+	Thread.currentThread().setName(name);
+    }
 
 	public void installPart(File zipfile, UAPPCard card) {
 		UAPPPartStatus result = UAPPPartStatus.PART_NOT_INSTALLED;
@@ -408,38 +409,32 @@ public class KarafDeployConnector implements DeployConnector,
 		String fileName = file.getName();
 		fileName = extractExentsion(fileName, KAR_EXTENSION);
 
-		String uniquePrefix = fileName + "-" + System.currentTimeMillis();
-		String karfile = uniquePrefix + "." + KAR_EXTENSION;
-		String jarfile = uniquePrefix + "." + JAR_EXTENSION;
-		// copy kar file in the deploy dir
-		File deployFolder = new File(KAR_DEPLOY_DIR);
-		boolean result = file.renameTo(new File(deployFolder, karfile));
-		if (result == false) {
-			LogUtils.logError(context, KarafDeployConnector.class, METHOD,
-					new Object[] { "Error during KAR installation of file ",
-							file, " as ", uniquePrefix, ".", KAR_EXTENSION,
-							" in folder ", deployFolder.getAbsolutePath() },
-					null);
-			return null;
-		}
-
-		LogUtils.logInfo(context, KarafDeployConnector.class, METHOD,
-				new Object[] { "Application part installed for uAAP:" }, null);
-		File jar = new File(file.getParent(), fileName + "." + JAR_EXTENSION);
-		result = jar.renameTo(new File(KAR_DEPLOY_DIR, jarfile));
-		if (result == false) {
-			LogUtils.logError(context, KarafDeployConnector.class, METHOD,
-					new Object[] { "Error during JAR installation of file ",
-							jar, " as ", uniquePrefix, ".", JAR_EXTENSION,
-							" in folder ", deployFolder.getAbsolutePath() },
-					null);
-			return null;
-		}
-		return uniquePrefix;
+	String uniquePrefix = fileName + "-" + System.currentTimeMillis();
+	String karfile = uniquePrefix + "." + KAR_EXTENSION;
+	String jarfile = uniquePrefix + "." + JAR_EXTENSION;
+	// copy kar file in the deploy dir
+	File deployFolder = new File(KAR_DEPLOY_DIR);
+	boolean result = file.renameTo(new File(deployFolder, karfile));
+	if (result == false) {
+	    LogUtils.logError(context, KarafDeployConnector.class, METHOD,
+		    new Object[] { "Error during KAR installation of file ",
+			    file, " as ", uniquePrefix, ".", KAR_EXTENSION,
+			    " in folder ", deployFolder.getAbsolutePath() },
+		    null);
+	    return null;
 	}
 
-	private String extractExentsion(String fn, String ext) {
-		return fn = fn.substring(0, fn.lastIndexOf("." + ext));
+	LogUtils.logInfo(context, KarafDeployConnector.class, METHOD,
+		new Object[] { "Application part installed for uAAP:" }, null);
+	File jar = new File(file.getParent(), fileName + "." + JAR_EXTENSION);
+	result = jar.renameTo(new File(KAR_DEPLOY_DIR, jarfile));
+	if (result == false) {
+	    LogUtils.logError(context, KarafDeployConnector.class, METHOD,
+		    new Object[] { "Error during JAR installation of file ",
+			    jar, " as ", uniquePrefix, ".", JAR_EXTENSION,
+			    " in folder ", deployFolder.getAbsolutePath() },
+		    null);
+	    return null;
 	}
 
 	public void dispose() {
@@ -447,28 +442,35 @@ public class KarafDeployConnector implements DeployConnector,
 
 	}
 
-	public void uninstallPart(UAPPCard card) {
-		UAPPPartStatus result = UAPPPartStatus.PART_NOT_INSTALLED;
-		try {
-			result = m_uninstallPart(card);
-		} catch (Exception ex) {
-			LogUtils.logError(
-					context,
-					KarafDeployConnector.class,
-					"installPart",
-					new Object[] { "Error UNinstalling a " + card.getName()
-							+ "/" + card.getServiceId() + ":"
-							+ card.getPartId() + " due to "
-							+ ExceptionUtils.stackTraceAsString(ex) }, ex);
-		}
-		synchronized (this) {
-			final ControlBroker broker = getControlBroker();
-			if (broker != null) {
-				broker.notifyRequestToInstallPart(card, card.getPartId(),
-						result);
-			}
-		}
+    }
+
+    public void uninstallPart(UAPPCard card) {
+	final String name = Thread.currentThread().getName();
+	Thread.currentThread().setName("DeployManager[KarafConnector]");
+
+	UAPPPartStatus result = UAPPPartStatus.PART_NOT_INSTALLED;
+	try {
+	    result = m_uninstallPart(card);
+	} catch (Exception ex) {
+	    LogUtils.logError(
+		    context,
+		    KarafDeployConnector.class,
+		    "installPart",
+		    new Object[] { "Error UNinstalling a " + card.getName()
+			    + "/" + card.getServiceId() + ":"
+			    + card.getPartId() + " due to "
+			    + ExceptionUtils.stackTraceAsString(ex) }, ex);
 	}
+	synchronized (this) {
+	    final ControlBroker broker = getControlBroker();
+	    if (broker != null) {
+		broker.notifyRequestToInstallPart(card, card.getPartId(),
+			result);
+	    }
+	}
+
+	Thread.currentThread().setName(name);
+    }
 
 	private UAPPPartStatus m_uninstallPart(UAPPCard card) throws IOException {
 		String uniquePrefix = getInstalledKarafFile(card);

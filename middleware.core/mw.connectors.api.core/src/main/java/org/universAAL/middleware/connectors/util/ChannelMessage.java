@@ -80,35 +80,35 @@ public class ChannelMessage {
     }
 
     public String toString() {
-	String serializedMessage=null;
-	try {
-	    Gson gson = new Gson();    
-	    serializedMessage = gson.toJson(this); 
-	        
-	} catch (Exception e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
+        String serializedMessage=null;
+        try {
+            Gson gson = new Gson();
+            serializedMessage = gson.toJson(this);
 
-	return serializedMessage;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return serializedMessage;
     }
 
     public static ChannelMessage unmarshall(String message) throws Exception {
-	
-	ChannelMessage ch=null;
-	try {
 
-	    	Gson gson = new Gson();	   
-		 ch = gson.fromJson(message, ChannelMessage.class);
+        ChannelMessage ch=null;
+        try {
 
-	} catch (Exception e) {
+                    Gson gson = new Gson();
+                 ch = gson.fromJson(message, ChannelMessage.class);
 
-	    throw new Exception(
-		    "Unable to unmashall AALSpaceMessage. Original message: "
-			    + message + ". Full Stack: " + e.toString());
-	}
+        } catch (Exception e) {
 
-	return ch;
+            throw new Exception(
+                    "Unable to unmashall AALSpaceMessage. Original message: "
+                            + message + ". Full Stack: " + e.toString());
+        }
+
+        return ch;
 
     }
 
