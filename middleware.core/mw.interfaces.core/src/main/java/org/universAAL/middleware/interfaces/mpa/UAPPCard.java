@@ -27,7 +27,7 @@ import org.universAAL.middleware.deploymanager.uapp.model.AalUapp.App;
 
 /**
  * Compact representation of an uApp
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
@@ -42,61 +42,68 @@ public class UAPPCard implements Serializable {
     private String serviceId;
     private String partId;
 
-
     /**
-     *
-     * @param serviceId The id of the uSrv containing the uAAP
-     * @param id The id of the uAAP
-     * @param partId The id of part within the uAAP
-     * @param name The name of the uAAP
-     * @param description The description of the uAAP
+     * 
+     * @param serviceId
+     *            The id of the uSrv containing the uAAP
+     * @param id
+     *            The id of the uAAP
+     * @param partId
+     *            The id of part within the uAAP
+     * @param name
+     *            The name of the uAAP
+     * @param description
+     *            The description of the uAAP
      */
-    public UAPPCard(String serviceId, String id, String partId, String name, String description) {
-        this.serviceId = serviceId;
-        this.name = name;
-        this.id = id;
-        this.description = description;
-        this.partId = partId;
+    public UAPPCard(String serviceId, String id, String partId, String name,
+	    String description) {
+	this.serviceId = serviceId;
+	this.name = name;
+	this.id = id;
+	this.description = description;
+	this.partId = partId;
     }
 
     /**
-    *
-    * @param serviceId The id of the uSrv containing the uAAP
-    * @param partId The id of part within the uAAP
-    * @param uApp The uAAP
-    */
+     * 
+     * @param serviceId
+     *            The id of the uSrv containing the uAAP
+     * @param partId
+     *            The id of part within the uAAP
+     * @param uApp
+     *            The uAAP
+     */
     public UAPPCard(String serviceId, String partId, App uApp) {
-        this.serviceId = serviceId;
-        this.name = uApp.getName();
-        this.id = uApp.getAppId();
-        this.description = uApp.getDescription();
-        this.partId = partId;
+	this.serviceId = serviceId;
+	this.name = uApp.getName();
+	this.id = uApp.getAppId();
+	this.description = uApp.getDescription();
+	this.partId = partId;
     }
 
     public String getName() {
-        return name;
+	return name;
     }
 
     public String getId() {
-        return id;
+	return id;
     }
 
     public String getDescription() {
-        return description;
+	return description;
     }
 
     public String getServiceId() {
-        return serviceId;
+	return serviceId;
     }
-
 
     public String getPartId() {
-        return partId;
+	return partId;
     }
 
-
     public String toString() {
-        return serviceId + " - " + id + " - " + partId + " - " + name + " - " + description;
+	return serviceId + " - " + id + " - " + partId + " - " + name + " - "
+		+ description;
     }
 
 }

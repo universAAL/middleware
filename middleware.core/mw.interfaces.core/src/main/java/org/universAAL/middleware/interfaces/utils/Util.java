@@ -72,27 +72,28 @@ public class Util {
 
 	}
 
-	/**
-	 * This method returns a File object found in the target dir containing the
-	 * marker
-	 * 
-	 * @param marker
-	 * @param targetDir
-	 * @return
-	 */
-	public static File getFile(final String marker, URI targetDir) {
-		File targetFolder = new File(targetDir);
-		String[] files = targetFolder.list(new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				return (name.contains(marker));
-			}
-		});
-		if (files == null || files.length <= 0) {
-			return null;
-		} else {
-			return new File(targetFolder.toString() + File.separatorChar
-					+ files[0]);
-		}
+    }
+
+    /**
+     * This method returns a File object found in the target dir containing the
+     * marker
+     * 
+     * @param marker
+     * @param targetDir
+     * @return
+     */
+    public static File getFile(final String marker, URI targetDir) {
+	File targetFolder = new File(targetDir);
+	String[] files = targetFolder.list(new FilenameFilter() {
+	    public boolean accept(File dir, String name) {
+		return (name.contains(marker));
+	    }
+	});
+	if (files == null || files.length <= 0) {
+	    return null;
+	} else {
+	    return new File(targetFolder.toString() + File.separatorChar
+		    + files[0]);
 	}
 
 }
