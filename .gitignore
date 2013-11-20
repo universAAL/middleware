@@ -11781,6 +11781,10 @@ mw.managers.api.osgi-2.0.2-SNAPSHOT/.classpath
 mw.managers.api.osgi-2.0.2-SNAPSHOT/.project
 mw.managers.api.osgi-2.0.2-SNAPSHOT/.settings
 mw.managers.api.osgi-2.0.2-SNAPSHOT/target
+mw.managers.api.osgi-2.0.3-SNAPSHOT/.classpath
+mw.managers.api.osgi-2.0.3-SNAPSHOT/.project
+mw.managers.api.osgi-2.0.3-SNAPSHOT/.settings
+mw.managers.api.osgi-2.0.3-SNAPSHOT/target
 mw.managers.deploy.core-1.3.2-SNAPSHOT/.classpath
 mw.managers.deploy.core-1.3.2-SNAPSHOT/.project
 mw.managers.deploy.core-1.3.2-SNAPSHOT/.settings
