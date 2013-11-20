@@ -11892,6 +11892,10 @@ mw.modules.aalspace.osgi-2.0.2-SNAPSHOT/.classpath
 mw.modules.aalspace.osgi-2.0.2-SNAPSHOT/.project
 mw.modules.aalspace.osgi-2.0.2-SNAPSHOT/.settings
 mw.modules.aalspace.osgi-2.0.2-SNAPSHOT/target
+mw.modules.aalspace.osgi-2.0.3-SNAPSHOT/.classpath
+mw.modules.aalspace.osgi-2.0.3-SNAPSHOT/.project
+mw.modules.aalspace.osgi-2.0.3-SNAPSHOT/.settings
+mw.modules.aalspace.osgi-2.0.3-SNAPSHOT/target
 mw.modules.api.core-1.3.2-SNAPSHOT/.classpath
 mw.modules.api.core-1.3.2-SNAPSHOT/.project
 mw.modules.api.core-1.3.2-SNAPSHOT/.settings
