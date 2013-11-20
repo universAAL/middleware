@@ -4327,6 +4327,15 @@ mw.data.serialization.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middlewar
 mw.data.serialization.core-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/serialization/turtle/TurtleWriter.java -text
 mw.data.serialization.core-2.0.2-SNAPSHOT/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
 mw.data.serialization.core-2.0.2-SNAPSHOT/src/test/java/org/universAAL/serialization/turtle/TurtleTest.java -text
+mw.data.serialization.core-2.0.3-SNAPSHOT/ASL2.0.txt -text
+mw.data.serialization.core-2.0.3-SNAPSHOT/NOTICE.txt -text
+mw.data.serialization.core-2.0.3-SNAPSHOT/pom.xml -text
+mw.data.serialization.core-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/serialization/turtle/TurtleParser.java -text
+mw.data.serialization.core-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/serialization/turtle/TurtleSerializer.java -text
+mw.data.serialization.core-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/serialization/turtle/TurtleUtil.java -text
+mw.data.serialization.core-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/serialization/turtle/TurtleWriter.java -text
+mw.data.serialization.core-2.0.3-SNAPSHOT/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
+mw.data.serialization.core-2.0.3-SNAPSHOT/src/test/java/org/universAAL/serialization/turtle/TurtleTest.java -text
 mw.data.serialization.osgi-1.1.2-SNAPSHOT/LICENSE.txt -text
 mw.data.serialization.osgi-1.1.2-SNAPSHOT/NOTICE.txt -text
 mw.data.serialization.osgi-1.1.2-SNAPSHOT/pom.xml -text
