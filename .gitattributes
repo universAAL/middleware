@@ -4554,6 +4554,13 @@ mw.data.representation.osgi-2.0.2-SNAPSHOT/src/test/java/org/universAAL/middlewa
 mw.data.representation.osgi-2.0.2-SNAPSHOT/src/test/java/org/universAAL/middleware/owl/testont/MyOntology.java -text
 mw.data.representation.osgi-2.0.2-SNAPSHOT/src/test/java/org/universAAL/middleware/owl/testont/MyResource.java -text
 mw.data.representation.osgi-2.0.2-SNAPSHOT/src/test/resources/log4j.properties -text
+mw.data.representation.osgi-2.0.3-SNAPSHOT/ASL2.0.txt -text
+mw.data.representation.osgi-2.0.3-SNAPSHOT/NOTICE.txt -text
+mw.data.representation.osgi-2.0.3-SNAPSHOT/pom.xml -text
+mw.data.representation.osgi-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/datarep/osgi/Activator.java -text
+mw.data.representation.osgi-2.0.3-SNAPSHOT/src/main/resources/mw.data.representation[!!-~]dependencies.jpg -text
+mw.data.representation.osgi-2.0.3-SNAPSHOT/src/test/java/org/universAAL/middleware/datarep/test/ArtifactIT.java -text
+mw.data.representation.osgi-2.0.3-SNAPSHOT/src/test/resources/log4j.properties -text
 mw.data.serialization-1.0.1-SNAPSHOT/LICENSE-Aduna-OpenRDF.txt -text
 mw.data.serialization-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.data.serialization-1.0.1-SNAPSHOT/NOTICE.txt -text
