@@ -3026,6 +3026,11 @@ mw.connectors.discovery.slp.osgi-2.0.2-SNAPSHOT/NOTICE.txt -text
 mw.connectors.discovery.slp.osgi-2.0.2-SNAPSHOT/pom.xml -text
 mw.connectors.discovery.slp.osgi-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/discovery/slp/osgi/Activator.java -text
 mw.connectors.discovery.slp.osgi-2.0.2-SNAPSHOT/src/test/java/org/universAAL/middleware/connectors/discovery/slp/test/ArtifactIT.java -text
+mw.connectors.discovery.slp.osgi-2.0.3-SNAPSHOT/ASL2.0.txt -text
+mw.connectors.discovery.slp.osgi-2.0.3-SNAPSHOT/NOTICE.txt -text
+mw.connectors.discovery.slp.osgi-2.0.3-SNAPSHOT/pom.xml -text
+mw.connectors.discovery.slp.osgi-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/discovery/slp/osgi/Activator.java -text
+mw.connectors.discovery.slp.osgi-2.0.3-SNAPSHOT/src/test/java/org/universAAL/middleware/connectors/discovery/slp/test/ArtifactIT.java -text
 mw.container.junit-2.0.1-SNAPSHOT/ASL2.0.txt -text
 mw.container.junit-2.0.1-SNAPSHOT/NOTICE.txt -text
 mw.container.junit-2.0.1-SNAPSHOT/pom.xml -text
