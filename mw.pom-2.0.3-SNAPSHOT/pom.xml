@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL</groupId>
+    <artifactId>uAAL.pom</artifactId>
+    <version>2.0.2-SNAPSHOT</version>
+  </parent>
+  <groupId>org.universAAL.middleware</groupId>
+  <artifactId>mw.pom</artifactId>
+  <version>2.0.3-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>universAAL Middleware Suite</name>
+  <description>The set of artefacts realizing the universAAL middleware 2.0</description>
+  <developers>
+    <developer>
+      <id>ffurfari</id>
+      <name>Francesco Furfari</name>
+      <email>francesco.furfari@isti.cnr.it</email>
+      <roles>
+        <role>architect</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>michele</id>
+      <name>Michele Girolami</name>
+      <email>michele.girolami@isti.cnr.it.it</email>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>stefano.lenzi</id>
+      <name>Stefano Lenzi</name>
+      <email>stefano.lenzi@isti.cnr.it.it</email>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>carsten</id>
+      <name>Carsten Stockloew</name>
+      <email>carsten.stockloew@igd.fraunhofer.de</email>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>saied</id>
+      <name>Saied Tazari</name>
+      <email>saied.tazari@igd.fraunhofer.de</email>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+  </developers>
+  <modules>
+    <module>../middleware.core/mw.pom.core</module>
+    <module>../middleware.osgi/mw.pom.osgi</module>
+    <module>../middleware.config/mw.pom.config</module>
+  </modules>
+  <scm>
+    <connection>${svn.base}/pom</connection>
+    <developerConnection>${svn.base}/pom</developerConnection>
+    <url>${svn.base.url}pom</url>
+  </scm>
+  <properties>
+    <remoteOBR></remoteOBR>
+    <gforge.project.name>middleware</gforge.project.name>
+    <targetJdk>1.5</targetJdk>
+    <compileSource>1.5</compileSource>
+    <maven.compile.source>1.5</maven.compile.source>
+    <maven.compile.target>1.5</maven.compile.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <id>uaal_snapshots</id>
+      <name>universAAL Repositories</name>
+      <url>http://depot.universaal.org/maven-repo/snapshots/</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>uaal</id>
+      <name>universAAL Repositories</name>
+      <url>http://depot.universaal.org/maven-repo/releases/</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>uaal-snapshots</id>
+      <name>universAAL Snapshot Repositories</name>
+      <url>http://depot.universaal.org/maven-repo/snapshots/</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>uaal</id>
+      <name>universAAL Repositories</name>
+      <url>http://depot.universaal.org/maven-repo/releases/</url>
+    </pluginRepository>
+  </pluginRepositories>
+</project>
