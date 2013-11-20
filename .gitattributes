@@ -2314,6 +2314,11 @@ mw.bus.tracker.osgi-2.0.2-SNAPSHOT/NOTICE.txt -text
 mw.bus.tracker.osgi-2.0.2-SNAPSHOT/pom.xml -text
 mw.bus.tracker.osgi-2.0.2-SNAPSHOT/src/main/java/org/universAAL/middleware/tracker/osgi/Activator.java -text
 mw.bus.tracker.osgi-2.0.2-SNAPSHOT/src/test/java/org/universAAL/middleware/gateway/test/BusRegistryIT.java -text
+mw.bus.tracker.osgi-2.0.3-SNAPSHOT/ASL2.0.txt -text
+mw.bus.tracker.osgi-2.0.3-SNAPSHOT/NOTICE.txt -text
+mw.bus.tracker.osgi-2.0.3-SNAPSHOT/pom.xml -text
+mw.bus.tracker.osgi-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/tracker/osgi/Activator.java -text
+mw.bus.tracker.osgi-2.0.3-SNAPSHOT/src/test/java/org/universAAL/middleware/gateway/test/BusRegistryIT.java -text
 mw.bus.ui-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.bus.ui-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.bus.ui-1.0.1-SNAPSHOT/artifact_manual.composite -text
