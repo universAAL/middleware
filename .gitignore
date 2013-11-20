@@ -7082,6 +7082,10 @@ mw.connectors.deploy.karaf.osgi-2.0.2-SNAPSHOT/.classpath
 mw.connectors.deploy.karaf.osgi-2.0.2-SNAPSHOT/.project
 mw.connectors.deploy.karaf.osgi-2.0.2-SNAPSHOT/.settings
 mw.connectors.deploy.karaf.osgi-2.0.2-SNAPSHOT/target
+mw.connectors.deploy.karaf.osgi-2.0.3-SNAPSHOT/.classpath
+mw.connectors.deploy.karaf.osgi-2.0.3-SNAPSHOT/.project
+mw.connectors.deploy.karaf.osgi-2.0.3-SNAPSHOT/.settings
+mw.connectors.deploy.karaf.osgi-2.0.3-SNAPSHOT/target
 mw.connectors.discovery.slp.core-1.3.2-SNAPSHOT/.classpath
 mw.connectors.discovery.slp.core-1.3.2-SNAPSHOT/.project
 mw.connectors.discovery.slp.core-1.3.2-SNAPSHOT/.settings
