@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>2.0.3-SNAPSHOT</version>
+    <relativePath>../mw.pom.osgi</relativePath>
+  </parent>
+  <groupId>org.universAAL.middleware</groupId>
+  <artifactId>mw.karaf.shell.universAAL.osgi</artifactId>
+  <version>2.0.3-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <name>universAAL Middleware Karaf Shell</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.osgi.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.karaf.shell</groupId>
+      <artifactId>org.apache.karaf.shell.console</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.connectors.api.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.interfaces.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.api.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.brokers.control.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.schemas</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Author>Michele Girolami &lt;michele.girolami@isti.cnr.it>,  Francesco Furfari &lt;francesco.furfari@isti.cnr.it></Bundle-Author>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Bundle-Provider>ISTI-CNR</Bundle-Provider>
+            <Import-Package>org.apache.felix.service.command,
+							org.apache.felix.gogo.commands,
+							org.apache.karaf.shell.console,
+							org.osgi.framework, org.osgi.service.blueprint, org.slf4j,
+							org.universAAL.middleware.interfaces.aalspace,
+							org.universAAL.middleware.managers.api,
+							org.universAAL.middleware.interfaces,
+							org.universAAL.middleware.interfaces.mpa,
+							org.universAAL.middleware.interfaces.aalspace.model</Import-Package>
+            <Private-Package />
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
