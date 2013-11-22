@@ -22,6 +22,7 @@ package org.universAAL.middleware.service.owls.process;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import org.universAAL.middleware.owl.Intersection;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.TypeURI;
@@ -267,20 +268,35 @@ public class OutputBinding {
 			.getProperty(PROP_OWLS_BINDING_TO_PARAM);
 		String parameterType = toParam.getParameterType();
 		if (parameterType != null) {
+		    int min = toParam.getMinCardinality();
+		    int max = toParam.getMaxCardinality();
 		    MergedRestriction requestRestrictions = requestedService
 			    .getInstanceLevelRestrictionOnProp(offeredValue
 				    .getFirstPathElement());
 		    if (requestRestrictions != null) {
 			// create the AllValuesRestriction for the offer
 			MergedRestriction allValuesRestriction = MergedRestriction
-				.getAllValuesRestriction(
+				.getAllValuesRestrictionWithCardinality(
 					offeredValue.getLastPathElement(),
-					parameterType);
+					parameterType, min, max);
 			MergedRestriction allValuesRestrictionOnPath = allValuesRestriction
 				.appendTo(null, offeredValue.getThePath());
 			if (!requestRestrictions.matches(
 				allValuesRestrictionOnPath, null)) {
-			    continue;
+			    // another test: as the instance-level restrictions
+			    // do not match, try the class-level restrictions
+			    requestRestrictions = ManagedIndividual
+				    .getClassRestrictionsOnProperty(
+					    requestedService.getClassURI(),
+					    offeredValue.getFirstPathElement());
+			    Intersection intSec = new Intersection();
+			    intSec.addType(requestRestrictions);
+			    intSec.addType(allValuesRestrictionOnPath);
+			    
+			    if (!requestRestrictions.matches(
+				    intSec, null)) {
+				continue;
+			    }
 			}
 		    }
 		}
