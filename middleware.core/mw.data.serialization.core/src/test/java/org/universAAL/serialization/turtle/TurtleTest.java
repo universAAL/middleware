@@ -2,24 +2,57 @@ package org.universAAL.serialization.turtle;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
 import org.universAAL.middleware.owl.Enumeration;
+import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.OntologyManagement;
+import org.universAAL.middleware.owl.SimpleOntology;
+import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.util.ResourceComparator;
-
 
 public class TurtleTest extends TestCase {
 
     TurtleSerializer s;
 
+    class MyOntClass extends ManagedIndividual {
+	public static final String MY_URI = Resource.uAAL_NAMESPACE_PREFIX
+		+ "TurtleTest.owl#MyOntClass";
+
+	@Override
+	public String getClassURI() {
+	    return MY_URI;
+	}
+
+	public MyOntClass(String instanceURI) {
+	    super(instanceURI);
+	}
+
+	@Override
+	public int getPropSerializationType(String propURI) {
+	    return Resource.PROP_SERIALIZATION_FULL;
+	}
+    }
+
     protected void setUp() throws Exception {
 	super.setUp();
 	// s = new TurtleParser();
+	OntologyManagement.getInstance().register(
+		null,
+		new SimpleOntology(MyOntClass.MY_URI, ManagedIndividual.MY_URI,
+			new ResourceFactory() {
+			    public Resource createInstance(String classURI,
+				    String instanceURI, int factoryIndex) {
+				return new MyOntClass(instanceURI);
+			    }
+			}));
     }
 
     private void log(String s) {
@@ -38,9 +71,9 @@ public class TurtleTest extends TestCase {
 	s = new TurtleSerializer();
 	r2 = (Resource) s.deserialize(str);
 	ResourceComparator rc = new ResourceComparator();
-//	    System.out.println("-- r1:\n" + r1.toStringRecursive());
-//	    System.out.println("-- r2:\n" + r2.toStringRecursive());
-	
+	// System.out.println("-- r1:\n" + r1.toStringRecursive());
+	// System.out.println("-- r2:\n" + r2.toStringRecursive());
+
 	if (!rc.areEqual(r1, r2)) {
 	    log("-- error found in serialization: ");
 	    log(str);
@@ -52,13 +85,23 @@ public class TurtleTest extends TestCase {
 	return true;
     }
 
-    
     public void testEnumeration() {
-	Enumeration e = new Enumeration(new Object[]{new Resource("value1")});
+	Enumeration e = new Enumeration(new Object[] { new Resource("value1") });
 	Resource r = MergedRestriction.getAllValuesRestriction("propURI", e);
 	assertTrue(check(r));
     }
-    
+
+    public void testTypeURI() {
+	String propURI = Resource.uAAL_NAMESPACE_PREFIX
+		+ "TurtleTest.owl#myProperty";
+	Resource r = new Resource("testResource");
+	ArrayList al = new ArrayList();
+	al.add(new MyOntClass("instanceURI"));
+	al.add(new TypeURI(MyOntClass.MY_URI, false));
+	r.setProperty(propURI, al);
+	assertTrue(check(r));
+    }
+
     public void testSimpleCycle() {
 	Resource r1 = new Resource();
 	Resource r2 = new Resource();
@@ -66,9 +109,9 @@ public class TurtleTest extends TestCase {
 	r2.setProperty("prop21", r1);
 	assertTrue(check(r1));
     }
-    
+
     public void testEnumeration2() {
-	Enumeration e = new Enumeration(new Object[]{new Resource("value1")});
+	Enumeration e = new Enumeration(new Object[] { new Resource("value1") });
 	assertTrue(check(e));
     }
 
@@ -117,7 +160,7 @@ public class TurtleTest extends TestCase {
 		+ "";
 
 	TurtleSerializer t = new TurtleSerializer();
-	
+
 	String uri = "http://ontology.itaca.upv.es/Test.owl#panic10";
 	Object o = t.deserialize(serialized, uri);
 	assertFalse(o == null);
@@ -125,7 +168,7 @@ public class TurtleTest extends TestCase {
 	Resource r = (Resource) o;
 	System.out.println(r.getURI());
 	assertTrue(uri.equals(r.getURI()));
-	
+
 	uri = "urn:org.universAAL.middleware.context.rdf:ContextEvent#13a4a4845a0@VAIOTSBAL+a871fc3f+985e8d8c:b1a";
 	o = t.deserialize(serialized, uri);
 	assertFalse(o == null);
@@ -152,7 +195,7 @@ public class TurtleTest extends TestCase {
 	r1.setProperty("test", Double.NEGATIVE_INFINITY);
 	assertTrue(check(r1));
     }
-    
+
     public void testInteger() {
 	// issue from Bug report #280 Incorrect deserialization of Integer
 	Resource r1 = new Resource(); // input resource
@@ -163,30 +206,30 @@ public class TurtleTest extends TestCase {
 	r1.setProperty("testfloat", Float.valueOf("0.0000001"));
 	assertTrue(check(r1));
     }
-    
-//    public void testQuotedLiteral() {
-//	Resource r1 = new Resource("testResource"); // input resource
-//	r1.setProperty("testProp", new Integer(100));
-//
-//	Resource r2; // resulting resource (after serialize-deserialize)
-//	String str; // serialized String
-//
-//	s = new TurtleSerializer();
-//	str = s.serialize(r1);
-//	str = str.replace("100", "\"100\"^^xsd:int");
-//	str = "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n" + str;
-//
-//	System.out.println("Serialized String:\n" + str);
-//	s = new TurtleSerializer();
-//	r2 = (Resource) s.deserialize(str);
-//	ResourceComparator rc = new ResourceComparator();
-//
-//	if (!rc.areEqual(r1, r2)) {
-//	    log("-- error found in serialization: ");
-//	    log(str);
-//	    // rc.printDiffs(r1, r2);
-//	    System.out.println("-- r1:\n" + r1.toStringRecursive());
-//	    System.out.println("-- r2:\n" + r2.toStringRecursive());
-//	}
-//    }
+
+    // public void testQuotedLiteral() {
+    // Resource r1 = new Resource("testResource"); // input resource
+    // r1.setProperty("testProp", new Integer(100));
+    //
+    // Resource r2; // resulting resource (after serialize-deserialize)
+    // String str; // serialized String
+    //
+    // s = new TurtleSerializer();
+    // str = s.serialize(r1);
+    // str = str.replace("100", "\"100\"^^xsd:int");
+    // str = "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n" + str;
+    //
+    // System.out.println("Serialized String:\n" + str);
+    // s = new TurtleSerializer();
+    // r2 = (Resource) s.deserialize(str);
+    // ResourceComparator rc = new ResourceComparator();
+    //
+    // if (!rc.areEqual(r1, r2)) {
+    // log("-- error found in serialization: ");
+    // log(str);
+    // // rc.printDiffs(r1, r2);
+    // System.out.println("-- r1:\n" + r1.toStringRecursive());
+    // System.out.println("-- r2:\n" + r2.toStringRecursive());
+    // }
+    // }
 }
