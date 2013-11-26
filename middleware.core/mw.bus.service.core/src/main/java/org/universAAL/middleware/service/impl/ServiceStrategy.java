@@ -336,7 +336,7 @@ public class ServiceStrategy extends BusStrategy {
 	allWaitingCallers.put(m.getID(), matches);
 	int maxTimeout = 0;
 	for (int i = 0; i < size; i++) {
-	    Hashtable match = (Hashtable) matches.get(i);
+	    HashMap match = (HashMap) matches.get(i);
 	    match.put(CONTEXT_REQUEST_MESSAGE, m);
 	    ServiceRealization sr = (ServiceRealization) match
 		    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
@@ -516,7 +516,7 @@ public class ServiceStrategy extends BusStrategy {
 		// CallStatus.SUCCEEDED
 		int bads = 0; // the total number of responses with failure
 		for (int i = 0; i < size; i++) {
-		    Hashtable match = (Hashtable) matches.get(i);
+		    HashMap match = (HashMap) matches.get(i);
 		    ServiceResponse sr = (ServiceResponse) match
 			    .get(CONTEXT_RESPONSE_MESSAGE);
 		    if (sr != null) {
@@ -574,17 +574,17 @@ public class ServiceStrategy extends BusStrategy {
 			m = m.createReply(new ServiceResponse(
 				CallStatus.responseTimedOut));
 		    else {
-			Hashtable bad = null;
+			HashMap bad = null;
 			// if there is one response with
 			// SERVICE_SPECIFIC_FAILURE take that one
 			for (int i = 0; i < size; i++) {
 			    if (ssf[i]) {
-				bad = (Hashtable) matches.get(i);
+				bad = (HashMap) matches.get(i);
 				break;
 			    } else if (rto[i])
-				bad = (Hashtable) matches.get(i);
+				bad = (HashMap) matches.get(i);
 			    else if (bad == null)
-				bad = (Hashtable) matches.get(i);
+				bad = (HashMap) matches.get(i);
 			}
 			ServiceResponse sr = (ServiceResponse) bad
 				.get(CONTEXT_RESPONSE_MESSAGE);
@@ -596,7 +596,7 @@ public class ServiceStrategy extends BusStrategy {
 		    }
 		    break;
 		case 1:
-		    Hashtable match = (Hashtable) goods.get(0);
+		    HashMap match = (HashMap) goods.get(0);
 		    ServiceResponse sr = (ServiceResponse) match
 			    .get(CONTEXT_RESPONSE_MESSAGE);
 		    prepareRequestedOutput(sr.getOutputs(), match);
@@ -744,7 +744,7 @@ public class ServiceStrategy extends BusStrategy {
 		    if (size == 1) {
 			// the above aggregations have reduced the number of
 			// responses to one
-			Hashtable ctxt = (Hashtable) goods.get(0);
+			HashMap ctxt = (HashMap) goods.get(0);
 			ServiceResponse sresp = (ServiceResponse) ctxt
 				.get(CONTEXT_RESPONSE_MESSAGE);
 			prepareRequestedOutput(sresp.getOutputs(), ctxt);
@@ -754,11 +754,11 @@ public class ServiceStrategy extends BusStrategy {
 			// to the list of
 			// all output lists while calling
 			// 'prepareRequestedOutput'
-			Hashtable ctxt = null;
+			HashMap ctxt = null;
 			List resultSet = null;
 			ServiceResponse resp = null;
 			for (int i = 0; resultSet == null && i < size; i++) {
-			    ctxt = (Hashtable) goods.get(0);
+			    ctxt = (HashMap) goods.get(0);
 			    resp = (ServiceResponse) ctxt
 				    .get(CONTEXT_RESPONSE_MESSAGE);
 			    resultSet = resp.getOutputs();
@@ -774,7 +774,7 @@ public class ServiceStrategy extends BusStrategy {
 				resultSet.add(cloned);
 			    }
 			    for (int i = 0; i < size; i++) {
-				ctxt = (Hashtable) goods.get(i);
+				ctxt = (HashMap) goods.get(i);
 				ServiceResponse tmp = (ServiceResponse) ctxt
 					.get(CONTEXT_RESPONSE_MESSAGE);
 				if (tmp == resp)
@@ -809,9 +809,9 @@ public class ServiceStrategy extends BusStrategy {
      * @param outputs
      *            - a list of ProcessOutputs
      * @param context
-     *            - hashtable of bindings for the ProcessOutputs
+     *            - HashMap of bindings for the ProcessOutputs
      */
-    private void prepareRequestedOutput(List outputs, Hashtable context) {
+    private void prepareRequestedOutput(List outputs, HashMap context) {
 	if (outputs != null && !outputs.isEmpty())
 	    for (int i = outputs.size() - 1; i > -1; i--) {
 		ProcessOutput po = (ProcessOutput) outputs.remove(i);
@@ -916,7 +916,7 @@ public class ServiceStrategy extends BusStrategy {
      *            - the property of the profile paramter to return
      * @return Object - the profile parameter
      */
-    private Object getProfileParameter(Hashtable context, String prop) {
+    private Object getProfileParameter(HashMap context, String prop) {
 	Object o = context.get(prop);
 	if (o == null)
 	    o = ((ServiceProfile) context
@@ -1037,7 +1037,7 @@ public class ServiceStrategy extends BusStrategy {
 	case MessageType.P2P_REPLY:
 	    if (res instanceof ServiceResponse) {
 		if (isCoordinator) {
-		    Hashtable callContext = (Hashtable) allWaitingCallers
+		    HashMap callContext = (HashMap) allWaitingCallers
 			    .remove(msg.getInReplyTo());
 		    if (callContext == null) {
 			// this must be UI service response, because they are
@@ -1175,7 +1175,7 @@ public class ServiceStrategy extends BusStrategy {
 			sendNoMatchingFound(msg);
 		    return;
 		}
-		Vector matches = new Vector();
+		Vector<HashMap> matches = new Vector();
 		String serviceURI = request.getRequestedService().getClassURI();
 		// start the logging with trace messages about matchmaking
 		// the logID as last parameter in each message is used to
@@ -1223,7 +1223,7 @@ public class ServiceStrategy extends BusStrategy {
 				    profileService.getType(),
 				    profileServiceURI, profileProviderURI,
 				    logID });
-			    Hashtable context = matches(caller, request, sr,
+			    HashMap context = matches(caller, request, sr,
 				    logID);
 			    if (context != null) {
 				matches.add(context);
@@ -1242,12 +1242,12 @@ public class ServiceStrategy extends BusStrategy {
 		int matchesFound = 0;
 		Hashtable auxMap = new Hashtable();
 		for (Iterator i = matches.iterator(); i.hasNext();) {
-		    Hashtable match = (Hashtable) i.next();
+		    HashMap match = (HashMap) i.next();
 		    ServiceRealization sr = (ServiceRealization) match
 			    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
 		    if (sr.assertServiceCall(match)) {
 			matchesFound++;
-			Hashtable otherMatch = (Hashtable) auxMap.get(sr
+			HashMap otherMatch = (HashMap) auxMap.get(sr
 				.getProvider());
 			if (otherMatch == null)
 			    auxMap.put(sr.getProvider(), match);
@@ -1343,8 +1343,8 @@ public class ServiceStrategy extends BusStrategy {
 		    obj[2] = Integer.valueOf(matches.size());
 		    obj[3] = " matches. The matching profiles are: ";
 		    int i = 4;
-		    for (Object match : matches) {
-			ServiceRealization sr = (ServiceRealization) ((Hashtable) match)
+		    for (HashMap match : matches) {
+			ServiceRealization sr = (ServiceRealization) match
 				.get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
 			Service profileService = ((ServiceProfile) sr
 				.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
@@ -1373,9 +1373,9 @@ public class ServiceStrategy extends BusStrategy {
 		    // where by class restrictions all lamps are in loc
 		    // and generally, isn't it better to postpone this decision
 		    // to a later phase where we have gathered all responses?
-		    Hashtable context = (Hashtable) matches.remove(0);
+		    HashMap context = matches.remove(0);
 		    while (!matches.isEmpty()) {
-			Hashtable aux = (Hashtable) matches.remove(0);
+			HashMap aux = matches.remove(0);
 			if (aux.size() < context.size())
 			    context = aux;
 		    }
@@ -1416,11 +1416,11 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MIN_OF:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						(Hashtable) matches.get(j),
+						matches.get(j),
 						pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    (Hashtable) matches.get(k),
+						    matches.get(k),
 						    pp[1]);
 					    if (oj instanceof Comparable)
 						if (ok == null)
@@ -1444,11 +1444,11 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MAX_OF:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						(Hashtable) matches.get(j),
+						matches.get(j),
 						pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    (Hashtable) matches.get(k),
+						    matches.get(k),
 						    pp[1]);
 					    if (oj instanceof Comparable)
 						if (ok == null)
@@ -1472,11 +1472,11 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MIN_DISTANCE_TO_REF_LOC:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						(Hashtable) matches.get(j),
+						matches.get(j),
 						pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    (Hashtable) matches.get(k),
+						    matches.get(k),
 						    pp[1]);
 					    if (oj instanceof AbsLocation)
 						if (ok == null)
@@ -1504,11 +1504,11 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MAX_DISTANCE_TO_REF_LOC:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						(Hashtable) matches.get(j),
+						matches.get(j),
 						pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    (Hashtable) matches.get(k),
+						    matches.get(k),
 						    pp[1]);
 					    if (oj instanceof AbsLocation)
 						if (ok == null)
@@ -1824,7 +1824,7 @@ public class ServiceStrategy extends BusStrategy {
      * @return Hashtable - a hashtable of the context of the matching or null if
      *         the ServiceRealization does not match the ServiceRequest
      */
-    private Hashtable matches(String callerID, ServiceRequest request,
+    private HashMap matches(String callerID, ServiceRequest request,
 	    ServiceRealization offer) {
 	return matches(callerID, request, offer, null);
     }
@@ -1841,12 +1841,12 @@ public class ServiceStrategy extends BusStrategy {
      *            - the Service Realization being matched
      * @param logID
      *            - an id to be used for logging, may be null
-     * @return Hashtable - a hashtable of the context of the matching or null if
+     * @return HashMap - a HashMap of the context of the matching or null if
      *         the ServiceRealization does not match the ServiceRequest
      */
-    private Hashtable matches(String callerID, ServiceRequest request,
+    private HashMap matches(String callerID, ServiceRequest request,
 	    ServiceRealization offer, Long logID) {
-	Hashtable context = new Hashtable();
+	HashMap context = new HashMap();
 	context.put(Constants.VAR_uAAL_ACCESSING_BUS_MEMBER, callerID);
 	context.put(Constants.VAR_uAAL_CURRENT_DATETIME,
 		TypeMapper.getCurrentDateTime());

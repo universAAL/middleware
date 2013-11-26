@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.service.impl;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 
@@ -42,7 +43,7 @@ import org.universAAL.middleware.service.owls.process.ProcessResult;
 public class ServiceMatcher {
 
     public boolean matches(ServiceWrapper superset, ServiceWrapper subset,
-	    Hashtable context, Long logID) {
+	    HashMap context, Long logID) {
 	// special case for UI
 	if (subset.getService() instanceof InitialServiceDialog)
 	    return matchInitialServiceDialog(superset, subset);
@@ -54,7 +55,7 @@ public class ServiceMatcher {
 	if (!matchRestrictions(superset, subset, context, logID))
 	    return false;
 
-	Hashtable cloned = (Hashtable) context.clone();
+	HashMap cloned = (HashMap) context.clone();
 
 	if (!matchEffects(superset, subset, cloned, logID))
 	    return false;
@@ -148,7 +149,7 @@ public class ServiceMatcher {
     }
 
     private boolean matchRestrictions(ServiceWrapper superset,
-	    ServiceWrapper subset, Hashtable context, Long logID) {
+	    ServiceWrapper subset, HashMap context, Long logID) {
 	Service subsetService = subset.getService();
 	Service superService = superset.getService();
 
@@ -215,7 +216,7 @@ public class ServiceMatcher {
 				// then, it relates to those properties set by
 				// the provider
 				o = superset.getProperty(restrProps[i]);
-			    if (o == null || !reqInsRestr.hasMember(o, context))
+			    if (o == null || !reqInsRestr.hasMember(o, context, -1, null))
 				return false;
 			} else if (reqInsRestr instanceof Intersection)
 			    for (Iterator j = ((Intersection) reqInsRestr)
@@ -234,7 +235,7 @@ public class ServiceMatcher {
 					o = superset.getProperty(restrProps[i]);
 				    if (o == null
 					    || !reqInsRestr.hasMember(o,
-						    context))
+						    context, -1, null))
 					return false;
 				}
 			    }
@@ -246,7 +247,7 @@ public class ServiceMatcher {
 		    } else {
 			// offInsRestr == null && offClsRestr != null
 
-			if (reqInsRestr.matches(offClsRestr, context)) {
+			if (reqInsRestr.matches(offClsRestr, context, -1, null)) {
 			    // tag the context that the offer restrictions are a
 			    // subtype of request restrictions
 			    // because the other way around, it is not
@@ -258,7 +259,7 @@ public class ServiceMatcher {
 			    if (!hasSpecializedClsMatch)
 				expectedSize++;
 			    hasSpecializedClsMatch = true;
-			} else if (!offClsRestr.matches(reqInsRestr, context)) {
+			} else if (!offClsRestr.matches(reqInsRestr, context, -1, null)) {
 			    if (logID != null)
 				LogUtils.logTrace(
 					ServiceBusImpl.getModuleContext(),
@@ -281,7 +282,7 @@ public class ServiceMatcher {
 		else {
 		    // offInsRestr != null, offClsRestr unknown
 
-		    if (reqInsRestr.matches(offInsRestr, context)) {
+		    if (reqInsRestr.matches(offInsRestr, context, -1, null)) {
 			// tag the context that the offer restrictions are a
 			// subtype of request restrictions
 			// because the other way around, it is not guaranteed
@@ -292,7 +293,7 @@ public class ServiceMatcher {
 			if (!hasSpecializedInsMatch)
 			    expectedSize++;
 			hasSpecializedInsMatch = true;
-		    } else if (!offInsRestr.matches(reqInsRestr, context)) {
+		    } else if (!offInsRestr.matches(reqInsRestr, context, -1, null)) {
 			if (logID != null)
 			    LogUtils.logTrace(
 				    ServiceBusImpl.getModuleContext(),
@@ -315,7 +316,7 @@ public class ServiceMatcher {
 		    if (offClsRestr != null)
 			// offInsRestr != null && offClsRestr != null
 
-			if (reqInsRestr.matches(offClsRestr, context)) {
+			if (reqInsRestr.matches(offClsRestr, context, -1, null)) {
 			    // tag the context that the offer restrictions are a
 			    // subtype of request restrictions
 			    // because the other way around, it is not
@@ -327,7 +328,7 @@ public class ServiceMatcher {
 			    if (!hasSpecializedClsMatch)
 				expectedSize++;
 			    hasSpecializedClsMatch = true;
-			} else if (!offClsRestr.matches(reqInsRestr, context)) {
+			} else if (!offClsRestr.matches(reqInsRestr, context, -1, null)) {
 			    // there is still a chance to return true: if we
 			    // combine instance-level and class-level
 			    // restrictions
@@ -340,13 +341,13 @@ public class ServiceMatcher {
 			    reqAllRestr.addType(reqClsRestr);
 			    reqAllRestr.addType(reqInsRestr);
 
-			    if (offAllRestr.matches(reqAllRestr, context)) {
+			    if (offAllRestr.matches(reqAllRestr, context, -1, null)) {
 				// nothing to do: it matches, but there is no
 				// real "specialization" that we can exploit in
 				// the later matchmaking phase to select the
 				// "most specialized" service from each provider
 			    } else if (!reqAllRestr.matches(offAllRestr,
-				    context)) {
+				    context, -1, null)) {
 				if (logID != null)
 				    LogUtils.logTrace(
 					    ServiceBusImpl.getModuleContext(),
@@ -396,7 +397,7 @@ public class ServiceMatcher {
     }
 
     private boolean matchEffects(ServiceWrapper superset,
-	    ServiceWrapper subset, Hashtable context, Long logID) {
+	    ServiceWrapper subset, HashMap context, Long logID) {
 	// check effects
 	if (!ProcessResult.checkEffects(subset.getEffects(),
 		superset.getEffects(), context, logID))
@@ -406,7 +407,7 @@ public class ServiceMatcher {
     }
 
     private boolean matchOutputs(ServiceWrapper superset,
-	    ServiceWrapper subset, Hashtable context, Long logID) {
+	    ServiceWrapper subset, HashMap context, Long logID) {
 	// check output bindings
 	if (!ProcessResult.checkOutputBindings(subset.getOutputs(),
 		superset.getOutputs(), context, subset.getService(), logID))
@@ -416,7 +417,7 @@ public class ServiceMatcher {
     }
 
     private void processNonSemanticInput(ServiceWrapper subset,
-	    Hashtable context) {
+	    HashMap context) {
 	// NON_SEMANTIC_INPUT:
 	// if service matches then non-semantic input has to be copied to the
 	// context
@@ -438,7 +439,7 @@ public class ServiceMatcher {
     }
 
     private void processServiceUri(ServiceWrapper superset,
-	    ServiceWrapper subset, Hashtable context) {
+	    ServiceWrapper subset, HashMap context) {
 	// uAAL_SERVICE_URI_MATCHED:
 	// if URI of offered service matches exactly URI specified in
 	// ServiceRequest then it is indicated in the context by means of

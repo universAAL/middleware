@@ -19,7 +19,10 @@
  */
 package org.universAAL.middleware.owl;
 
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.List;
+
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * A complement class expression of a class expression <i>CE</i> contains all
@@ -32,7 +35,8 @@ import java.util.Hashtable;
 public class Complement extends TypeExpression {
 
     /** URI for owl:complementOf. */
-    public static final String PROP_OWL_COMPLEMENT_OF = OWL_NAMESPACE + "complementOf";
+    public static final String PROP_OWL_COMPLEMENT_OF = OWL_NAMESPACE
+	    + "complementOf";
 
     /** Constructor. */
     public Complement() {
@@ -68,14 +72,11 @@ public class Complement extends TypeExpression {
 	return new Object[0];
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      Hashtable)
-     */
-    public boolean hasMember(Object member, Hashtable context) {
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
-	if (!getComplementedClass().hasMember(member, cloned))
+    public boolean hasMember(Object member, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
+	if (!getComplementedClass().hasMember(member, cloned, ttl, log))
 	    if (cloned == null || cloned.size() == context.size())
 		return true;
 	// TODO: all values different from those in the changed hashtable would
@@ -83,20 +84,17 @@ public class Complement extends TypeExpression {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean matches(TypeExpression subtype, Hashtable context) {
-	return getComplementedClass().isDisjointWith(subtype, context);
+    public boolean matches(TypeExpression subtype, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
+	return getComplementedClass()
+		.isDisjointWith(subtype, context, ttl, log);
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
-	return getComplementedClass().matches(other, context);
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
+	return getComplementedClass().matches(other, context, ttl, log);
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */

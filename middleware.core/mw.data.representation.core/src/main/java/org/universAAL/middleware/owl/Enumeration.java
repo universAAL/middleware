@@ -20,11 +20,12 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * An enumeration of the individuals <i>a<sub>1</sub> ... a<sub>n</sub></i>
@@ -40,7 +41,8 @@ public class Enumeration extends TypeExpression {
     public static final String PROP_OWL_ONE_OF = OWL_NAMESPACE + "oneOf";
 
     /** URI for owl:DataRange. */
-    public static final String TYPE_OWL_DATA_RANGE = OWL_NAMESPACE + "DataRange";
+    public static final String TYPE_OWL_DATA_RANGE = OWL_NAMESPACE
+	    + "DataRange";
 
     /** The set of individuals. */
     private ArrayList values = new ArrayList();
@@ -156,22 +158,18 @@ public class Enumeration extends TypeExpression {
 	return answer;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      Hashtable)
-     */
-    public boolean hasMember(Object value, Hashtable context) {
+    public boolean hasMember(Object value, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (value == null || values.contains(value))
 	    return true;
 	// TODO: what if variables had to be replaced using context
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean matches(TypeExpression subtype, Hashtable context) {
+    public boolean matches(TypeExpression subtype, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (subtype == null)
 	    return false;
 
@@ -181,13 +179,13 @@ public class Enumeration extends TypeExpression {
 
 	if (subtype instanceof Union) {
 	    for (Iterator i = ((Union) subtype).types(); i.hasNext();) {
-		if (!matches((TypeExpression) i.next(), context))
+		if (!matches((TypeExpression) i.next(), context, ttl, log))
 		    return false;
 	    }
 	    return true;
 	} else if (subtype instanceof Intersection) {
 	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();) {
-		if (matches((TypeExpression) i.next(), context))
+		if (matches((TypeExpression) i.next(), context, ttl, log))
 		    return true;
 	    }
 	    // TODO: there is still a chance to return true...
@@ -203,22 +201,22 @@ public class Enumeration extends TypeExpression {
 	    return true;
 	}
 	// TODO: for complement and restriction difficult to decide but also
-	// very unlikly
+	// very unlikely
 	return false;
     }
 
     /**
-     * Determines if for all individuals of this Enumeration there is a member
-     * in <code>supertype</code>.
+     * Determines if all individuals of this Enumeration are members of the
+     * given <code>supertype</code>.
      */
-    public boolean hasSupertype(TypeExpression supertype, Hashtable context) {
+    public boolean hasSupertype(TypeExpression supertype, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
 	if (supertype == null)
 	    return false;
 
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 	for (Iterator i = values.iterator(); i.hasNext();)
-	    if (!supertype.hasMember(i.next(), cloned))
+	    if (!supertype.hasMember(i.next(), cloned, ttl, log))
 		return false;
 
 	// TODO: if cloned.size() != context.size(),
@@ -226,18 +224,15 @@ public class Enumeration extends TypeExpression {
 	return cloned == null || cloned.size() == context.size();
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (other == null)
 	    return false;
 
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 	for (Iterator i = values.iterator(); i.hasNext();) {
-	    if (other.hasMember(i.next(), cloned))
+	    if (other.hasMember(i.next(), cloned, ttl, log))
 		// TODO: if cloned.size() != context.size(),
 		// then under certain conditions it could still work
 		return false;

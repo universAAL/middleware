@@ -20,7 +20,7 @@
 package org.universAAL.middleware.service;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -500,7 +500,7 @@ public class ServiceRequest extends FinalizedResource implements Request {
 	ServiceWrapper subset = ServiceWrapper.create((ServiceRequest) other);
 
 	boolean res = new ServiceMatcher().matches(superset, subset,
-		new Hashtable(), null);
+		new HashMap(), null);
 
 	// if (res == false) {
 	// System.out.println(" -- matching error: trying to match "

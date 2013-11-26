@@ -20,9 +20,11 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * A union of a set of class expression <i>CE<sub>1</sub> ... CE<sub>n</sub></i>
@@ -97,32 +99,28 @@ public class Union extends TypeExpression {
 	return l.toArray();
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      Hashtable)
-     */
-    public boolean hasMember(Object value, Hashtable context) {
+    public boolean hasMember(Object value, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	for (Iterator i = types.iterator(); i.hasNext();)
-	    if (((TypeExpression) i.next()).hasMember(value, context))
+	    if (((TypeExpression) i.next()).hasMember(value, context, ttl, log))
 		return true;
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean matches(TypeExpression subtype, Hashtable context) {
+    public boolean matches(TypeExpression subtype, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	// first handle those cases that can be handled specifically
 	if (subtype instanceof Enumeration) {
-	    ((Enumeration) subtype).hasSupertype(this, context);
+	    ((Enumeration) subtype).hasSupertype(this, context, ttl, log);
 	}
 
 	if (subtype instanceof Union) {
-	    Hashtable cloned = (context == null) ? null : (Hashtable) context
+	    HashMap cloned = (context == null) ? null : (HashMap) context
 		    .clone();
 	    for (Iterator i = ((Union) subtype).types(); i.hasNext();)
-		if (!matches((TypeExpression) i.next(), cloned))
+		if (!matches((TypeExpression) i.next(), cloned, ttl, log))
 		    return false;
 	    synchronize(context, cloned);
 	    return true;
@@ -130,7 +128,7 @@ public class Union extends TypeExpression {
 
 	if (subtype instanceof Intersection) {
 	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();)
-		if (matches((TypeExpression) i.next(), context))
+		if (matches((TypeExpression) i.next(), context, ttl, log))
 		    return true;
 	    // TODO: there is still a chance to return true...
 	    // now fall through to the general cases below to have more chance
@@ -140,10 +138,10 @@ public class Union extends TypeExpression {
 	Object[] members = (subtype == null) ? null : subtype
 		.getUpperEnumeration();
 	if (members != null && members.length > 0) {
-	    Hashtable cloned = (context == null) ? null : (Hashtable) context
+	    HashMap cloned = (context == null) ? null : (HashMap) context
 		    .clone();
 	    for (int i = 0; i < members.length; i++)
-		if (!hasMember(members[i], cloned))
+		if (!hasMember(members[i], cloned, ttl, log))
 		    return false;
 	    synchronize(context, cloned);
 	    return true;
@@ -151,7 +149,7 @@ public class Union extends TypeExpression {
 	// for all other cases, it's enough if one of the classes in the union
 	// is a superclass
 	for (Iterator i = types.iterator(); i.hasNext();)
-	    if (((TypeExpression) i.next()).matches(subtype, context))
+	    if (((TypeExpression) i.next()).matches(subtype, context, ttl, log))
 		return true;
 	// TODO: the case, where the whole union is really the supertype
 	// of a complement, an intersection, a TypeURI, or a Restriction
@@ -159,15 +157,13 @@ public class Union extends TypeExpression {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 	for (Iterator i = types(); i.hasNext();)
-	    if (!((TypeExpression) i.next()).isDisjointWith(other, cloned))
+	    if (!((TypeExpression) i.next()).isDisjointWith(other, cloned, ttl,
+		    log))
 		return false;
 	synchronize(context, cloned);
 	return true;

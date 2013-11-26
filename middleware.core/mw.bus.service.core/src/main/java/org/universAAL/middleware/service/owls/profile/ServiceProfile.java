@@ -20,6 +20,7 @@
 package org.universAAL.middleware.service.owls.profile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -667,7 +668,7 @@ public class ServiceProfile extends FinalizedResource implements
 
 	ServiceWrapper superset = ServiceWrapper.create(this);
 
-	return new ServiceMatcher().matches(superset, subset, new Hashtable(),
+	return new ServiceMatcher().matches(superset, subset, new HashMap(),
 		null);
     }
 }

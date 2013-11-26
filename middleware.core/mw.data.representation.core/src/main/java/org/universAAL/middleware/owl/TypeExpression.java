@@ -19,10 +19,13 @@
  */
 package org.universAAL.middleware.owl;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * A class for the concept of OWL class expressions, which represent sets of
@@ -51,6 +54,10 @@ public abstract class TypeExpression extends Resource {
     /** URI for rdfs:subClassOf. */
     public static final String PROP_RDFS_SUB_CLASS_OF = Resource.RDFS_NAMESPACE
 	    + "subClassOf";
+
+    private static final int TTL = 100;
+
+    public static final String EXCEPTION_TTL = "TTL exceeded. Maybe the TypeExpression has a cycle!";
 
     /** Constructor for use with serializers. */
     protected TypeExpression() {
@@ -140,7 +147,13 @@ public abstract class TypeExpression extends Resource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
      */
-    public abstract boolean hasMember(Object member, Hashtable context);
+    public final boolean hasMember(Object member, Hashtable context) {
+	return hasMember(member, context == null ? null : new HashMap(context),
+		TTL, null);
+    }
+
+    public abstract boolean hasMember(Object member, HashMap context, int ttl,
+	    List<MatchLogEntry> log);
 
     /**
      * Returns true if the given class expression has no member in common with
@@ -164,8 +177,13 @@ public abstract class TypeExpression extends Resource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
      */
+    public final boolean isDisjointWith(TypeExpression other, Hashtable context) {
+	return isDisjointWith(other, context == null ? null : new HashMap(
+		context), TTL, null);
+    }
+
     public abstract boolean isDisjointWith(TypeExpression other,
-	    Hashtable context);
+	    HashMap context, int ttl, List<MatchLogEntry> log);
 
     /**
      * Returns true, if the state of the resource is valid, otherwise false.
@@ -197,27 +215,47 @@ public abstract class TypeExpression extends Resource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
      */
-    public abstract boolean matches(TypeExpression subset, Hashtable context);
+    public final boolean matches(TypeExpression subset, Hashtable context) {
+	return matches(subset, context == null ? null : new HashMap(context),
+		TTL, null);
+    }
+
+    public abstract boolean matches(TypeExpression subset, HashMap context,
+	    int ttl, List<MatchLogEntry> log);
 
     /**
-     * Synchronize two Hashtables to ensure that the first Hashtable contains a
-     * value for each key of the second Hashtable. The values themselves are not
+     * Synchronize two HashMap to ensure that the first HashMap contains a value
+     * for each key of the second HashMap. The values themselves are not
      * checked; if 'cloned' contains a key which is not contained in 'context',
      * then the according (key/value)-pair is added to 'context'. The second
-     * Hashtable, 'cloned', is not changed.
+     * HashMap, 'cloned', is not changed.
      * 
      * @param context
-     *            The Hashtable to be extended by (key/value)-pairs from the
-     *            second Hashtable.
+     *            The HashMap to be extended by (key/value)-pairs from the
+     *            second HashMap.
      * @param cloned
-     *            The second Hashtable.
+     *            The second HashMap.
      */
-    protected void synchronize(Hashtable context, Hashtable cloned) {
-	if (cloned != null && cloned.size() > context.size())
+    protected void synchronize(HashMap context, HashMap cloned) {
+	if (cloned != null && cloned.size() > context.size()) {
 	    for (Iterator i = cloned.keySet().iterator(); i.hasNext();) {
 		Object key = i.next();
 		if (!context.containsKey(key))
 		    context.put(key, cloned.get(key));
 	    }
+	}
+    }
+
+    protected int checkTTL(int ttl) {
+	if (ttl < 0)
+	    ttl = getDefaultMatchmakingTTL();
+	ttl--;
+	if (ttl < 0)
+	    throw new IllegalArgumentException(EXCEPTION_TTL);
+	return ttl;
+    }
+
+    public final static int getDefaultMatchmakingTTL() {
+	return TTL;
     }
 }

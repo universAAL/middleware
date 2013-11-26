@@ -20,13 +20,14 @@
 package org.universAAL.middleware.owl;
 
 import java.util.Collection;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.rdf.Variable;
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * Represents the URI of the <i>type</i> of an ontology class.
@@ -120,11 +121,9 @@ public class TypeURI extends TypeExpression {
 	return (answer == null) ? new Object[0] : answer;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      Hashtable)
-     */
-    public boolean hasMember(Object value, Hashtable context) {
+    public boolean hasMember(Object value, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (uri.equals(TYPE_OWL_THING))
 	    return true;
 
@@ -145,26 +144,25 @@ public class TypeURI extends TypeExpression {
 	}
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean matches(TypeExpression subtype, Hashtable context) {
+    public boolean matches(TypeExpression subtype, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (uri.equals(TYPE_OWL_THING))
 	    return subtype != null;
 
 	if (subtype instanceof Enumeration)
-	    return ((Enumeration) subtype).hasSupertype(this, context);
+	    return ((Enumeration) subtype)
+		    .hasSupertype(this, context, ttl, log);
 
 	if (subtype instanceof TypeURI)
 	    return ManagedIndividual.checkCompatibility(uri,
 		    ((TypeURI) subtype).uri);
 
 	if (subtype instanceof Union) {
-	    Hashtable cloned = (context == null) ? null : (Hashtable) context
+	    HashMap cloned = (context == null) ? null : (HashMap) context
 		    .clone();
 	    for (Iterator i = ((Union) subtype).types(); i.hasNext();)
-		if (!matches((TypeExpression) i.next(), cloned))
+		if (!matches((TypeExpression) i.next(), cloned, ttl, log))
 		    return false;
 	    synchronize(context, cloned);
 	    return true;
@@ -173,7 +171,7 @@ public class TypeURI extends TypeExpression {
 	if (subtype instanceof Intersection
 		&& !(subtype instanceof MergedRestriction)) {
 	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();)
-		if (matches((TypeExpression) i.next(), context))
+		if (matches((TypeExpression) i.next(), context, ttl, log))
 		    return true;
 	    // TODO: there is still a chance to return true...
 	    // so fall through to the general case at the end
@@ -181,21 +179,21 @@ public class TypeURI extends TypeExpression {
 	    MergedRestriction r = ManagedIndividual
 		    .getClassRestrictionsOnProperty(uri,
 			    ((PropertyRestriction) subtype).getOnProperty());
-	    return r == null || r.matches(subtype, context);
+	    return r == null || r.matches(subtype, context, ttl, log);
 	} else if (subtype instanceof MergedRestriction) {
 	    MergedRestriction r = ManagedIndividual
 		    .getClassRestrictionsOnProperty(uri,
 			    ((MergedRestriction) subtype).getOnProperty());
-	    return r == null || r.matches(subtype, context);
+	    return r == null || r.matches(subtype, context, ttl, log);
 	}
 	// a last try
 	Object[] members = (subtype == null) ? null : subtype
 		.getUpperEnumeration();
 	if (members != null && members.length > 0) {
-	    Hashtable cloned = (context == null) ? null : (Hashtable) context
+	    HashMap cloned = (context == null) ? null : (HashMap) context
 		    .clone();
 	    for (int i = 0; i < members.length; i++)
-		if (!hasMember(members[i], cloned))
+		if (!hasMember(members[i], cloned, ttl, log))
 		    return false;
 	    synchronize(context, cloned);
 	    return true;
@@ -205,17 +203,15 @@ public class TypeURI extends TypeExpression {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (uri.equals(TYPE_OWL_THING))
 	    return false;
 
 	if (other instanceof Complement)
 	    return ((Complement) other).getComplementedClass().matches(this,
-		    context);
+		    context, ttl, log);
 
 	if (other instanceof TypeURI)
 	    return !ManagedIndividual.checkCompatibility(uri,
@@ -228,17 +224,19 @@ public class TypeURI extends TypeExpression {
 		    .getClassRestrictionsOnProperty(uri,
 			    ((PropertyRestriction) other).getOnProperty());
 	    return r != null
-		    && ((PropertyRestriction) other).isDisjointWith(r, context);
+		    && ((PropertyRestriction) other).isDisjointWith(r, context,
+			    ttl, log);
 	} else if (other instanceof MergedRestriction) {
 	    MergedRestriction r = ManagedIndividual
 		    .getClassRestrictionsOnProperty(uri,
 			    ((MergedRestriction) other).getOnProperty());
 	    return r != null
-		    && ((MergedRestriction) other).isDisjointWith(r, context);
+		    && ((MergedRestriction) other).isDisjointWith(r, context,
+			    ttl, log);
 	}
 
 	if (other != null)
-	    return other.isDisjointWith(this, context);
+	    return other.isDisjointWith(this, context, ttl, log);
 
 	return false;
     }

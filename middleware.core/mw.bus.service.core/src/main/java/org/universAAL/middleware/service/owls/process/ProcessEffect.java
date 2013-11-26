@@ -21,7 +21,7 @@ package org.universAAL.middleware.service.owls.process;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -186,7 +186,7 @@ public abstract class ProcessEffect {
      */
 
     static boolean findMatchingEffect(Resource req, Resource[] offer,
-	    Hashtable context) {
+	    HashMap context) {
 	String effectType = req.getType();
 	boolean isRemoveEffect = TYPE_PROCESS_REMOVE_EFFECT.equals(effectType);
 	Object affectedProp = req.getProperty(PROP_PROCESS_AFFECTED_PROPERTY);

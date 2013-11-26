@@ -357,26 +357,7 @@ public class Resource {
 			((Resource) o).asList(l);
 		    else {
 			if (!RDF_EMPTY_LIST.equals(((Resource) o).getURI())) {
-			    LogUtils
-				    .logDebug(
-					    SharedResources.moduleContext,
-					    Resource.class,
-					    "asList",
-					    new Object[] {
-						    "The resource ",
-						    getURI(),
-						    " is of type rdf:list and it defines another element with rdf:rest,"
-							    + " but the rdf:rest is neither rdf:nil nor another rdf:list."
-							    + " The rdf:rest is not further taken into account." },
-					    null);
-			}
-		    }
-		} else if (o instanceof List) {
-		    // the rest is already a list object
-		    l.addAll((List) o);
-		} else {
-		    LogUtils
-			    .logDebug(
+			    LogUtils.logDebug(
 				    SharedResources.moduleContext,
 				    Resource.class,
 				    "asList",
@@ -384,19 +365,35 @@ public class Resource {
 					    "The resource ",
 					    getURI(),
 					    " is of type rdf:list and it defines another element with rdf:rest,"
-						    + " but the rdf:rest is neither rdf:nil nor another rdf:list nor a List."
+						    + " but the rdf:rest is neither rdf:nil nor another rdf:list."
 						    + " The rdf:rest is not further taken into account." },
 				    null);
+			}
+		    }
+		} else if (o instanceof List) {
+		    // the rest is already a list object
+		    l.addAll((List) o);
+		} else {
+		    LogUtils.logDebug(
+			    SharedResources.moduleContext,
+			    Resource.class,
+			    "asList",
+			    new Object[] {
+				    "The resource ",
+				    getURI(),
+				    " is of type rdf:list and it defines another element with rdf:rest,"
+					    + " but the rdf:rest is neither rdf:nil nor another rdf:list nor a List."
+					    + " The rdf:rest is not further taken into account." },
+			    null);
 		}
 	    } else {
-		LogUtils
-			.logDebug(
-				SharedResources.moduleContext,
-				Resource.class,
-				"asList",
-				new Object[] { "The resource ", getURI(),
-					" is of type rdf:list, but it does not define a rdf:first property." },
-				null);
+		LogUtils.logDebug(
+			SharedResources.moduleContext,
+			Resource.class,
+			"asList",
+			new Object[] { "The resource ", getURI(),
+				" is of type rdf:list, but it does not define a rdf:first property." },
+			null);
 	    }
 	}
     }
@@ -438,9 +435,9 @@ public class Resource {
      * @see #copyAsNonXMLLiteral()
      */
     public Resource copy(boolean isXMLLiteral) {
-    	Resource copy =  Resource.getResource(getType(), uri);
-    	if (copy == null)
-    		copy = new Resource(uri, isXMLLiteral);
+	Resource copy = Resource.getResource(getType(), uri);
+	if (copy == null)
+	    copy = new Resource(uri, isXMLLiteral);
 	for (Enumeration e = props.keys(); e.hasMoreElements();) {
 	    Object key = e.nextElement();
 	    copy.props.put(key, props.get(key));
@@ -784,7 +781,7 @@ public class Resource {
 
 	return false;
     }
-    
+
     /**
      * Determines whether this Resource does not allow to add new type
      * information.
@@ -792,7 +789,7 @@ public class Resource {
      * @return true, if this Resource does not allow to add new type
      *         information.
      */
-   public boolean isBlockingAddingTypes() {
+    public boolean isBlockingAddingTypes() {
 	return blockAddingTypes;
     }
 
@@ -1122,7 +1119,7 @@ public class Resource {
 		s += ((Resource) val).toStringRecursive(prefix + "    ", false,
 			visitedElements);
 	    else if (val instanceof List) {
-		s += "List (size: " + ((List)val).size()  + ")\n";
+		s += "List (size: " + ((List) val).size() + ")\n";
 		// for (Object o : (List)val) {
 		Iterator iter = ((List) val).iterator();
 		while (iter.hasNext()) {
@@ -1155,7 +1152,7 @@ public class Resource {
     public void unliteral() {
 	isXMLLiteral = false;
     }
-    
+
     /** Make this object an XMLLiteral */
     public void literal() {
 	isXMLLiteral = true;

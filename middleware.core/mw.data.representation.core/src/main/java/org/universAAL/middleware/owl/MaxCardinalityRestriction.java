@@ -19,12 +19,13 @@
  */
 package org.universAAL.middleware.owl;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.util.MatchLogEntry;
 import org.universAAL.middleware.xsd.NonNegativeInteger;
 
 /**
@@ -86,11 +87,9 @@ public class MaxCardinalityRestriction extends PropertyRestriction {
 	return copyTo(new MaxCardinalityRestriction());
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      Hashtable)
-     */
-    public boolean hasMember(Object member, Hashtable context) {
+    public boolean hasMember(Object member, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (member == null)
 	    return false;
 
@@ -105,13 +104,11 @@ public class MaxCardinalityRestriction extends PropertyRestriction {
 	    return getValue() >= ((List) value).size();
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (!(other instanceof PropertyRestriction))
-	    return other.isDisjointWith(this, context);
+	    return other.isDisjointWith(this, context, ttl, log);
 
 	PropertyRestriction r = (PropertyRestriction) other;
 	Object o = getOnProperty();
@@ -135,12 +132,9 @@ public class MaxCardinalityRestriction extends PropertyRestriction {
 		&& (hasProperty(PROP_OWL_MAX_CARDINALITY));
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean matches(TypeExpression subset, Hashtable context) {
-	Object noRes = matchesNonRestriction(subset, context);
+    public boolean matches(TypeExpression subset, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	Object noRes = matchesNonRestriction(subset, context, ttl, log);
 	if (noRes instanceof Boolean)
 	    return ((Boolean) noRes).booleanValue();
 
@@ -169,16 +163,14 @@ public class MaxCardinalityRestriction extends PropertyRestriction {
 	    if (o instanceof NonNegativeInteger) {
 		return super.setProperty(propURI, o);
 	    }
-	    LogUtils
-		    .logError(
-			    SharedResources.moduleContext,
-			    MaxCardinalityRestriction.class,
-			    "setProperty",
-			    new Object[] {
-				    "Trying to set the max cardinality with an invalid value: ",
-				    o, " of type ", o.getClass().getName(),
-				    ". It must be a NonNegativeInteger!" },
-			    null);
+	    LogUtils.logError(
+		    SharedResources.moduleContext,
+		    MaxCardinalityRestriction.class,
+		    "setProperty",
+		    new Object[] {
+			    "Trying to set the max cardinality with an invalid value: ",
+			    o, " of type ", o.getClass().getName(),
+			    ". It must be a NonNegativeInteger!" }, null);
 	    return false;
 	}
 

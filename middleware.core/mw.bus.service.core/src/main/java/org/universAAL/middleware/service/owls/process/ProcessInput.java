@@ -69,10 +69,6 @@ public class ProcessInput extends ProcessParameter {
      * @return - a List of ProcessInput instances
      */
     public static List checkParameterList(Object value) {
-	// TODO Vadim - check why in case of value being a resource the
-	// ProcessInput.toInput() is not called to convert it into a
-	// ProcessInput
-
 	if (value instanceof ProcessInput
 		&& ((ProcessInput) value).isWellFormed()) {
 	    ArrayList l = new ArrayList(1);

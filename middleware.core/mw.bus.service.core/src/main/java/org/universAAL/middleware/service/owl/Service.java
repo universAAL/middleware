@@ -298,6 +298,10 @@ public abstract class Service extends ManagedIndividual {
 	out.setCardinality(maxCardinality, minCardinality);
 	myProfile.addOutput(out);
 	myProfile.addSimpleOutputBinding(out, propPath);
+	addInstanceLevelRestriction(
+		MergedRestriction.getAllValuesRestrictionWithCardinality(
+			propPath[propPath.length - 1], typeURI, minCardinality,
+			maxCardinality), propPath);
     }
 
     /**
