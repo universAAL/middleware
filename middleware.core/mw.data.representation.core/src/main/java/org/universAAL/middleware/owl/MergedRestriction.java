@@ -387,10 +387,11 @@ public class MergedRestriction extends Intersection {
 	if (expr == null)
 	    return null;
 
-	MergedRestriction ret = MergedRestriction.getCardinalityRestriction(
-		propURI, min, max);
-	if (ret != null)
-	    ret.addRestriction(new AllValuesFromRestriction(propURI, expr));
+	MergedRestriction ret = new MergedRestriction(propURI);
+	ret.addRestriction(MergedRestriction.getCardinalityRestriction(propURI,
+		min, max));
+	ret.addRestriction(new AllValuesFromRestriction(propURI, expr));
+
 	return ret;
     }
 
@@ -730,7 +731,8 @@ public class MergedRestriction extends Intersection {
 	switch (id) {
 	case allValuesFromID:
 	    if (all == null
-		    && (some == null || (max != 1 && res.matches(some, null)))) {
+		    && (some == null || (max != 1 && res.matches(some, null,
+			    getDefaultMatchmakingTTL(), null)))) {
 		index[allValuesFromID] = types.size();
 		types.add(res);
 		return true;
@@ -985,7 +987,7 @@ public class MergedRestriction extends Intersection {
 	    if (o instanceof PropertyRestriction) {
 		return addRestrictionCheck((PropertyRestriction) o);
 	    } else if (o instanceof MergedRestriction) {
-		List lst = ((MergedRestriction)o).getRestrictions();
+		List lst = ((MergedRestriction) o).getRestrictions();
 		boolean res = true;
 		boolean tmp;
 		for (Object el : lst) {

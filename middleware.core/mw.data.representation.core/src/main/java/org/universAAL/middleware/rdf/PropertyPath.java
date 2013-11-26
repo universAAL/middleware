@@ -161,11 +161,11 @@ public class PropertyPath extends FinalizedResource {
 	    return null;
 	if (pr.numberOfProperties() != 2)
 	    return null;
-	PropertyPath result = pr.isAnon() ? new PropertyPath(pr
-		.serializesAsXMLLiteral()) : new PropertyPath(pr.getURI(), pr
-		.serializesAsXMLLiteral());
-	result.setProperty(PROP_PROPERTY_PATH, pr
-		.getProperty(PROP_PROPERTY_PATH));
+	PropertyPath result = pr.isAnon() ? new PropertyPath(
+		pr.serializesAsXMLLiteral()) : new PropertyPath(pr.getURI(),
+		pr.serializesAsXMLLiteral());
+	result.setProperty(PROP_PROPERTY_PATH,
+		pr.getProperty(PROP_PROPERTY_PATH));
 	return result.props.containsKey(PROP_PROPERTY_PATH) ? result : null;
     }
 
@@ -176,20 +176,21 @@ public class PropertyPath extends FinalizedResource {
     public boolean equals(Object other) {
 	if (!(other instanceof PropertyPath))
 	    return false;
-	
+
 	List thisPath = (List) props.get(PROP_PROPERTY_PATH);
-	List otherPath = (List) ((Resource)other).props.get(PROP_PROPERTY_PATH);
+	List otherPath = (List) ((Resource) other).props
+		.get(PROP_PROPERTY_PATH);
 	if (thisPath == null) {
 	    if (otherPath == null)
 		return true;
 	} else {
 	    if (otherPath == null)
 		return false;
-	    
+
 	    // both paths are != null -> compare
 	    if (thisPath.size() != otherPath.size())
-		    return false;
-	    
+		return false;
+
 	    Iterator thisIt = thisPath.iterator();
 	    Iterator otherIt = otherPath.iterator();
 	    Object thisObj;
@@ -214,7 +215,7 @@ public class PropertyPath extends FinalizedResource {
 	Object o = l.get(0);
 	return (o == null) ? null : o.toString();
     }
-    
+
     /** Get the last element of the path. */
     public String getLastPathElement() {
 	List l = (List) props.get(PROP_PROPERTY_PATH);

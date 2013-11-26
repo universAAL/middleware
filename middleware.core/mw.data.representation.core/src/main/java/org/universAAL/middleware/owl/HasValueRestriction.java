@@ -20,12 +20,13 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.Variable;
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * Implementation of OWL HasValue Restriction: it contains all individuals that
@@ -71,19 +72,19 @@ public class HasValueRestriction extends PropertyRestriction {
 	return copyTo(new HasValueRestriction());
     }
 
-    /** Helper function for {@link #checkValue(Object, Hashtable)}. */
-    private List resolveVariables(List l, Hashtable context) {
+    /** Helper function for {@link #checkValue(Object, HashMap)}. */
+    private List resolveVariables(List l, HashMap context) {
 	List result = new ArrayList(l.size());
 	for (int i = 0; i < l.size(); i++)
 	    result.add(Variable.resolveVarRef(l.get(i), context));
 	return result;
     }
 
-    /** Helper function for {@link #checkValue(Object, Hashtable)}. */
-    private int checkValueLists(List first, List second, Hashtable context) {
+    /** Helper function for {@link #checkValue(Object, HashMap)}. */
+    private int checkValueLists(List first, List second, HashMap context) {
 	if (first.size() != second.size())
 	    return -1;
-	Hashtable aux = new Hashtable(second.size());
+	HashMap aux = new HashMap(second.size());
 	for (int i = 0; i < first.size(); i++) {
 	    Object o = first.get(i);
 	    if (o instanceof Variable) {
@@ -118,8 +119,8 @@ public class HasValueRestriction extends PropertyRestriction {
 			    found = true;
 			}
 		    } else {
-			if (ManagedIndividual.checkMembership(((Variable) o)
-				.getParameterType(), oo)) {
+			if (ManagedIndividual.checkMembership(
+				((Variable) o).getParameterType(), oo)) {
 			    aux.put(((Variable) o).getURI(), oo);
 			    j.remove();
 			    found = true;
@@ -135,8 +136,8 @@ public class HasValueRestriction extends PropertyRestriction {
 		    if (oo instanceof Variable) {
 			if (((Variable) oo).getMinCardinality() > 1)
 			    return -1;
-			if (ManagedIndividual.checkMembership(((Variable) oo)
-				.getParameterType(), o)) {
+			if (ManagedIndividual.checkMembership(
+				((Variable) oo).getParameterType(), o)) {
 			    aux.put(((Variable) oo).getURI(), o);
 			    j.remove();
 			    found = true;
@@ -162,9 +163,9 @@ public class HasValueRestriction extends PropertyRestriction {
 	return 0;
     }
 
-    /** Helper function for {@link #hasMember(Object, Hashtable)}. */
+    /** Helper function for {@link #hasMember(Object, HashMap)}. */
     // -1 -> incompatible; 0 -> equal; 1 -> compatible
-    private int checkValue(Object value, Hashtable context) {
+    private int checkValue(Object value, HashMap context) {
 	if (value == null)
 	    return 1;
 
@@ -215,11 +216,9 @@ public class HasValueRestriction extends PropertyRestriction {
 	return checkValueLists((List) myValue, (List) value, context);
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      Hashtable)
-     */
-    public boolean hasMember(Object member, Hashtable context) {
+    public boolean hasMember(Object member, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (!(member instanceof Resource))
 	    return member == null;
 
@@ -229,13 +228,11 @@ public class HasValueRestriction extends PropertyRestriction {
 	return true;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (!(other instanceof PropertyRestriction))
-	    return other.isDisjointWith(this, context);
+	    return other.isDisjointWith(this, context, ttl, log);
 
 	PropertyRestriction r = (PropertyRestriction) other;
 	Object o = getOnProperty();
@@ -243,8 +240,7 @@ public class HasValueRestriction extends PropertyRestriction {
 	    return false;
 
 	o = r.getProperty(PROP_OWL_HAS_VALUE);
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 	switch (checkValue(o, cloned)) {
 	case -1: // incompatible
 	    return true;
@@ -267,19 +263,15 @@ public class HasValueRestriction extends PropertyRestriction {
 	return getOnProperty() != null && (hasProperty(PROP_OWL_HAS_VALUE));
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean matches(TypeExpression subset, Hashtable context) {
-	Object noRes = matchesNonRestriction(subset, context);
+    public boolean matches(TypeExpression subset, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	Object noRes = matchesNonRestriction(subset, context, ttl, log);
 	if (noRes instanceof Boolean)
 	    return ((Boolean) noRes).booleanValue();
 
 	PropertyRestriction other = (PropertyRestriction) noRes;
 
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 
 	Object o = other.getProperty(PROP_OWL_HAS_VALUE);
 	switch (checkValue(o, cloned)) {

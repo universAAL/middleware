@@ -20,7 +20,7 @@
 package org.universAAL.middleware.service.owls.process;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -62,7 +62,7 @@ public class ProcessResult extends FinalizedResource {
      * @return true iff the process effects match
      */
     public static boolean checkEffects(Resource[] req, Resource[] offer,
-	    Hashtable context) {
+	    HashMap context) {
 	return checkEffects(req, offer, context, null);
     }
 
@@ -81,7 +81,7 @@ public class ProcessResult extends FinalizedResource {
      * @return true iff the process effects match
      */
     public static boolean checkEffects(Resource[] req, Resource[] offer,
-	    Hashtable context, Long logID) {
+	    HashMap context, Long logID) {
 	if (req == null || req.length == 0) {
 	    if (offer == null || offer.length == 0)
 		return true;
@@ -179,7 +179,7 @@ public class ProcessResult extends FinalizedResource {
      * @return true iff the output bindings match
      */
     public static boolean checkOutputBindings(Resource[] req, Resource[] offer,
-	    Hashtable context) {
+	    HashMap context) {
 	return checkOutputBindings(req, offer, context, null, null);
     }
 
@@ -198,7 +198,7 @@ public class ProcessResult extends FinalizedResource {
      * @return true iff the output bindings match
      */
     public static boolean checkOutputBindings(Resource[] req, Resource[] offer,
-	    Hashtable context, Service requestedService, Long logID) {
+	    HashMap context, Service requestedService, Long logID) {
 
 	if (req == null || req.length == 0)
 	    return true;

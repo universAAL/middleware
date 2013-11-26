@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.service.owls.process;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import org.universAAL.middleware.container.utils.StringUtils;
@@ -133,7 +133,7 @@ public class ProcessParameter extends Variable {
      *            - the context
      * @return - the variable
      */
-    public static final Object resolveVarRef(Object o, Hashtable context) {
+    public static final Object resolveVarRef(Object o, HashMap context) {
 	ProcessParameter var = null;
 	if (isVarRef(o)) {
 	    Object aux = ((Resource) o).getProperty(PROP_OWLS_VALUE_OF_THE_VAR);

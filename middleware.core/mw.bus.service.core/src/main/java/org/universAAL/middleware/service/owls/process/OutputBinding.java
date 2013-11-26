@@ -20,7 +20,7 @@
 package org.universAAL.middleware.service.owls.process;
 
 import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import org.universAAL.middleware.owl.Intersection;
 import org.universAAL.middleware.owl.ManagedIndividual;
@@ -242,7 +242,7 @@ public class OutputBinding {
      */
 
     static boolean findMatchingBinding(Resource req, Resource[] offer,
-	    Hashtable context, Service requestedService) {
+	    HashMap context, Service requestedService) {
 	PropertyPath srcPath = null;
 	Object aux = req.getProperty(PROP_OWLS_BINDING_VALUE_FUNCTION);
 	if (aux instanceof AggregatingFilter) {
@@ -292,9 +292,8 @@ public class OutputBinding {
 			    Intersection intSec = new Intersection();
 			    intSec.addType(requestRestrictions);
 			    intSec.addType(allValuesRestrictionOnPath);
-			    
-			    if (!requestRestrictions.matches(
-				    intSec, null)) {
+
+			    if (!requestRestrictions.matches(intSec, null)) {
 				continue;
 			    }
 			}

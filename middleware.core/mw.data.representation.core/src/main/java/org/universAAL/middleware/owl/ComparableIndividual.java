@@ -104,8 +104,9 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
 
     public final ComparableIndividual getClassMaximum() {
 	try {
-	    return (ComparableIndividual) this.getClass().getMethod(
-		    "getMaximum", (Class[]) null).invoke(null, (Object[]) null);
+	    return (ComparableIndividual) this.getClass()
+		    .getMethod("getMaximum", (Class[]) null)
+		    .invoke(null, (Object[]) null);
 	} catch (Exception e) {
 	    return null;
 	}
@@ -113,8 +114,9 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
 
     public final ComparableIndividual getClassMinimum() {
 	try {
-	    return (ComparableIndividual) this.getClass().getMethod(
-		    "getMinimum", (Class[]) null).invoke(null, (Object[]) null);
+	    return (ComparableIndividual) this.getClass()
+		    .getMethod("getMinimum", (Class[]) null)
+		    .invoke(null, (Object[]) null);
 	} catch (Exception e) {
 	    return null;
 	}

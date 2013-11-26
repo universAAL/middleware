@@ -191,8 +191,8 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    ArrayList al = new ArrayList(combinedSuperClasses);
 	    al.addAll(r.types);
 	    combinedSuperClasses = al;
-	    setProperty(TypeExpression.PROP_RDFS_SUB_CLASS_OF, Collections
-		    .unmodifiableList(combinedSuperClasses));
+	    setProperty(TypeExpression.PROP_RDFS_SUB_CLASS_OF,
+		    Collections.unmodifiableList(combinedSuperClasses));
 	}
 
 	/** @see OntClassInfoSetup#addInstance(ManagedIndividual) */
@@ -207,29 +207,26 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 		super.addInstance(instance);
 	    } else {
 		if (instance == null) {
-		    LogUtils
-			    .logDebug(
-				    SharedResources.moduleContext,
-				    OntClassInfo.class,
-				    "addInstance",
-				    new Object[] {
-					    "An instance of the ontology class ",
-					    uri,
-					    " should be added but the given instance is null." },
-				    null);
+		    LogUtils.logDebug(
+			    SharedResources.moduleContext,
+			    OntClassInfo.class,
+			    "addInstance",
+			    new Object[] {
+				    "An instance of the ontology class ", uri,
+				    " should be added but the given instance is null." },
+			    null);
 		} else {
-		    LogUtils
-			    .logDebug(
-				    SharedResources.moduleContext,
-				    OntClassInfo.class,
-				    "addInstance",
-				    new Object[] {
-					    "The instance ",
-					    instance.getURI(),
-					    " of the ontology class ",
-					    uri,
-					    " should be added but the class URI of the given instance does not match the URI of the class it should be added to. The instance is not added." },
-				    null);
+		    LogUtils.logDebug(
+			    SharedResources.moduleContext,
+			    OntClassInfo.class,
+			    "addInstance",
+			    new Object[] {
+				    "The instance ",
+				    instance.getURI(),
+				    " of the ontology class ",
+				    uri,
+				    " should be added but the class URI of the given instance does not match the URI of the class it should be added to. The instance is not added." },
+			    null);
 		}
 	    }
 	}
@@ -341,7 +338,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     public Property[] getDeclaredProperties() {
 	return (Property[]) properties.values().toArray(new Property[0]);
     }
-    
+
     /**
      * Get a specific property of this class. To add new properties, call
      * {@link OntClassInfoSetup#addDatatypeProperty(String)} or

@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.service.impl;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import org.universAAL.middleware.owl.supply.Rating;
@@ -89,7 +90,7 @@ public class ServiceRealization extends FinalizedResource {
      * @param context
      *            - the hashtable to add properties
      */
-    private void addAggregatedProperties(Hashtable context) {
+    private void addAggregatedProperties(HashMap context) {
 	if (context == null)
 	    return;
 
@@ -170,7 +171,7 @@ public class ServiceRealization extends FinalizedResource {
      * 
      * @return true iff the operation was successful
      */
-    boolean assertServiceCall(Hashtable context) {
+    boolean assertServiceCall(HashMap context) {
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	if (prof == null)
 	    return false;
@@ -338,7 +339,7 @@ public class ServiceRealization extends FinalizedResource {
      *            - an id to be used for logging, may be null
      * @return true, if the service request matches.
      */
-    public boolean matches(ServiceRequest request, Hashtable context, Long logID) {
+    public boolean matches(ServiceRequest request, HashMap context, Long logID) {
 	if (request == null)
 	    return true;
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);

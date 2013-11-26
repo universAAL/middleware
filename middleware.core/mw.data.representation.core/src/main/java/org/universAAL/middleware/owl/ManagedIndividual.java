@@ -171,8 +171,8 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	if (value == null)
 	    return true;
 	if (!(value instanceof ManagedIndividual)) {
-	    return TypeMapper.isCompatible(typeURI, TypeMapper
-		    .getDatatypeURI(value));
+	    return TypeMapper.isCompatible(typeURI,
+		    TypeMapper.getDatatypeURI(value));
 	    // return false;
 	}
 
@@ -290,13 +290,12 @@ public abstract class ManagedIndividual extends FinalizedResource {
      * Checks if a registered class with the given URI can be found.
      */
     public static final boolean isRegisteredClassURI(String classURI) {
-	LogUtils
-		.logDebug(
-			SharedResources.moduleContext,
-			ManagedIndividual.class,
-			"isRegisteredClassURI",
-			new Object[] { "This method is deprecated, please use OntologyManagement.isRegisteredClass(classURI, true)." },
-			null);
+	LogUtils.logDebug(
+		SharedResources.moduleContext,
+		ManagedIndividual.class,
+		"isRegisteredClassURI",
+		new Object[] { "This method is deprecated, please use OntologyManagement.isRegisteredClass(classURI, true)." },
+		null);
 	return OntologyManagement.getInstance().isRegisteredClass(classURI,
 		true);
     }
@@ -432,8 +431,8 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	if (propURI == null || value == null || props.containsKey(propURI))
 	    return false;
 
-	MergedRestriction r = OntologyManagement.getInstance().getOntClassInfo(
-		getClassURI()).getRestrictionsOnProp(propURI);
+	MergedRestriction r = OntologyManagement.getInstance()
+		.getOntClassInfo(getClassURI()).getRestrictionsOnProp(propURI);
 
 	if (r == null) {
 	    return super.setProperty(propURI, value);
