@@ -148,8 +148,13 @@ public abstract class TypeExpression extends Resource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
      */
     public final boolean hasMember(Object member, Hashtable context) {
-	return hasMember(member, context == null ? null : new HashMap(context),
-		TTL, null);
+	HashMap map = context == null ? null : new HashMap(context);
+	boolean res = hasMember(member, map, TTL, null);
+	if (map != null) {
+	    context.clear();
+	    context.putAll(map);
+	}
+	return res;
     }
 
     public abstract boolean hasMember(Object member, HashMap context, int ttl,
@@ -178,8 +183,13 @@ public abstract class TypeExpression extends Resource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
      */
     public final boolean isDisjointWith(TypeExpression other, Hashtable context) {
-	return isDisjointWith(other, context == null ? null : new HashMap(
-		context), TTL, null);
+	HashMap map = context == null ? null : new HashMap(context);
+	boolean res = isDisjointWith(other, map, TTL, null);
+	if (map != null) {
+	    context.clear();
+	    context.putAll(map);
+	}
+	return res;
     }
 
     public abstract boolean isDisjointWith(TypeExpression other,
@@ -216,8 +226,13 @@ public abstract class TypeExpression extends Resource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
      */
     public final boolean matches(TypeExpression subset, Hashtable context) {
-	return matches(subset, context == null ? null : new HashMap(context),
-		TTL, null);
+	HashMap map = context == null ? null : new HashMap(context);
+	boolean res = matches(subset, map, TTL, null);
+	if (map != null) {
+	    context.clear();
+	    context.putAll(map);
+	}
+	return res;
     }
 
     public abstract boolean matches(TypeExpression subset, HashMap context,
