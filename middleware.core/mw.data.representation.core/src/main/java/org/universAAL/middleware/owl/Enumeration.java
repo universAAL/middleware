@@ -76,14 +76,18 @@ public class Enumeration extends TypeExpression {
 
     /** Add a new individual. */
     public boolean addValue(Object o) {
-	// TODO: what if o is a list?
 	if (o != null) {
-	    if (!datarange && !(o instanceof Resource)) {
-		props.put(PROP_RDF_TYPE, new Resource(TYPE_OWL_DATA_RANGE));
-		datarange = true;
+	    if (o instanceof List) {
+		for (Object el : (List) o)
+		    addValue(el);
+	    } else {
+		if (!datarange && !(o instanceof Resource)) {
+		    props.put(PROP_RDF_TYPE, new Resource(TYPE_OWL_DATA_RANGE));
+		    datarange = true;
+		}
+		values.add(o);
+		return true;
 	    }
-	    values.add(o);
-	    return true;
 	}
 	return false;
     }
