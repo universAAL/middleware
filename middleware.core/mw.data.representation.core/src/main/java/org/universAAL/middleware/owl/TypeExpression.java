@@ -85,7 +85,10 @@ public abstract class TypeExpression extends Resource {
      * Provided that the given list is already a minimized list of type URIs,
      * i.e. no two members have any hierarchical relationships with each other,
      * adds the given typeURI to the list so that the above condition continues
-     * to hold and no information is lost.
+     * to hold and no information is lost. In case of a hierarchical
+     * relationship, the given typeURI is added if it is more specialized, i.e.
+     * a sub class, than any existing type (the less spcialized, i.e. a super
+     * class, is then removed from the list).
      */
     protected void collectTypesMinimized(String typeURI, List l) {
 	if (typeURI != null) {
