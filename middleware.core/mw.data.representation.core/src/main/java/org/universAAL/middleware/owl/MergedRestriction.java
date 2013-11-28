@@ -388,8 +388,9 @@ public class MergedRestriction extends Intersection {
 	    return null;
 
 	MergedRestriction ret = new MergedRestriction(propURI);
-	ret.addRestriction(MergedRestriction.getCardinalityRestriction(propURI,
-		min, max));
+	if (min > 0 || max >= 0)
+	    ret.addRestriction(MergedRestriction.getCardinalityRestriction(
+		    propURI, min, max));
 	ret.addRestriction(new AllValuesFromRestriction(propURI, expr));
 
 	return ret;
