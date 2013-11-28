@@ -195,7 +195,7 @@ public class BusRegistryIT extends IntegrationTest {
 	}
 
 	@Override
-	public void dialogAborted(String dialogID) {
+	public void dialogAborted(String dialogID, Resource data) {
 	    // TODO Auto-generated method stub
 	    
 	}

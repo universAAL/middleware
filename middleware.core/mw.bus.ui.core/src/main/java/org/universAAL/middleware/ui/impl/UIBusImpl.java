@@ -43,6 +43,7 @@ import org.universAAL.middleware.ui.UIHandler;
 import org.universAAL.middleware.ui.UIHandlerProfile;
 import org.universAAL.middleware.ui.UIRequest;
 import org.universAAL.middleware.ui.UIResponse;
+import org.universAAL.middleware.ui.impl.UIStrategyCaller.UIRequestCall;
 import org.universAAL.middleware.ui.owl.Modality;
 import org.universAAL.middleware.ui.owl.UIBusOntology;
 import org.universAAL.middleware.util.ResourceComparator;
@@ -105,6 +106,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     public static void stopModule() {
 	if (theUIBus != null) {
 	    OntologyManagement.getInstance().unregister(mc, uiBusOntology);
+	    ((UIStrategyCaller)theUIBus.busStrategy).close();
 	    theUIBus.dispose();
 	    theUIBus = null;
 	}
@@ -128,9 +130,9 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	return mc;
     }
 
-    @Override
     protected BusStrategy createBusStrategy(CommunicationModule commModule) {
-	return new UIStrategy(commModule);
+	//return new UIStrategyCaller(commModule);
+	return new UIStrategyCaller(commModule, "UIBusStrategy");
     }
 
     /**
@@ -138,7 +140,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      *            {@link IDialogManager}
      */
     public void setDialogManager(IDialogManager dm) {
-	((UIStrategy) busStrategy).setDialogManager(dm);
+	((UIStrategyCaller) busStrategy).setDialogManager(dm);
     }
 
     /*
@@ -150,7 +152,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     public void abortDialog(String callerID, String dialogID) {
 	BusMember bm = getBusMember(callerID);
 	if (bm instanceof UICaller) {
-	    ((UIStrategy) busStrategy).abortDialog(callerID, dialogID);
+	    ((UIStrategyCaller) busStrategy).abortDialog(callerID, dialogID);
 	}
     }
 
@@ -163,12 +165,12 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      */
     public void adaptationParametersChanged(IDialogManager dm,
 	    UIRequest uiRequest, String changedProp) {
-	((UIStrategy) busStrategy).adaptationParametersChanged(dm, uiRequest,
+	((UIStrategyCaller) busStrategy).adaptationParametersChanged(dm, uiRequest,
 		changedProp);
     }
 
     // public UIHandlerProfile getMatchingUiHandler(){
-    // return ((UIStrategy) busStrategy).get
+    // return ((UIStrategyCaller) busStrategy).get
     // }
 
     /*
@@ -180,7 +182,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     public void addNewProfile(String handlerID, UIHandlerProfile newProfile) {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o instanceof UIHandler) {
-	    ((UIStrategy) busStrategy).addRegParams(handlerID, newProfile);
+	    ((UIStrategyCaller) busStrategy).addRegistration(handlerID, newProfile);
 	}
     }
 
@@ -192,19 +194,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      */
     public void dialogFinished(String handlerID, UIResponse response) {
 	if (response != null) {
-	    Object o = registry.getBusMemberByID(handlerID);
-	    if (o instanceof UIHandler) {
-		if (response.isSubdialogCall()) {
-		    ((UIStrategy) busStrategy).suspendDialog(response
-			    .getDialogID());
-		} else {
-		    ((UIStrategy) busStrategy).dialogFinished(handlerID,
-			    response);
-		}
-
-		// send a notification to the calling app with the UI Response
-		((UIStrategy) busStrategy).notifyUserInput(response);
-	    }
+	    ((UIStrategyCaller)busStrategy).dialogFinished(handlerID, response);
 	}
     }
 
@@ -216,7 +206,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      * .ui.DialogManager, java.lang.String)
      */
     public void dialogSuspended(IDialogManager dm, String dialogID) {
-	((UIStrategy) busStrategy).dialogSuspended(dm, dialogID);
+	((UIStrategyCaller) busStrategy).dialogSuspended(dm, dialogID);
     }
 
     /*
@@ -230,7 +220,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	    UIHandlerProfile oldProfile) {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o instanceof UIHandler) {
-	    ((UIStrategy) busStrategy).removeMatchingProfile(handlerID,
+	    ((UIStrategyCaller) busStrategy).removeMatchingRegistries(handlerID,
 		    oldProfile);
 	}
     }
@@ -245,10 +235,10 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	    Resource dialogData) {
 	BusMember bm = getBusMember(callerID);
 	if (bm instanceof IDialogManager && dialogData instanceof UIRequest) {
-	    ((UIStrategy) busStrategy).adaptationParametersChanged(
+	    ((UIStrategyCaller) busStrategy).adaptationParametersChanged(
 		    (IDialogManager) bm, (UIRequest) dialogData, null);
 	} else if (bm instanceof UICaller) {
-	    ((UIStrategy) busStrategy).resumeDialog(dialogID, dialogData);
+	    ((UIStrategyCaller) busStrategy).resumeDialog(dialogID, dialogData);
 	}
     }
 
@@ -269,8 +259,9 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     public void brokerUIRequest(String callerID, UIRequest req) {
 	BusMember bm = getBusMember(callerID);
 	if (bm instanceof UICaller) {
-	    assessContentSerialization(req);
-	    brokerMessage(callerID, new BusMessage(MessageType.request, req,
+	    UIRequestCall call = ((UIStrategyCaller)busStrategy).new UIRequestCall(req);
+	    assessContentSerialization(call);
+	    brokerMessage(callerID, new BusMessage(MessageType.request, call,
 		    this));
 	}
     }
@@ -295,7 +286,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o != null && o == handler) {
 	    super.unregister(handlerID, handler);
-	    ((UIStrategy) busStrategy).removeRegParams(handlerID);
+	    ((UIStrategyCaller) busStrategy).removeAllRegistries(handlerID);
 	}
     }
 
@@ -310,7 +301,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	    AbsLocation loginLocation) {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o instanceof UIHandler && user != null) {
-	    ((UIStrategy) busStrategy).userLoggedIn(user, loginLocation);
+	    ((UIStrategyCaller) busStrategy).userLoggedIn(handlerID, user, loginLocation);
 	}
 
     }

@@ -215,11 +215,31 @@ middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIHand
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIHandlerProfile.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIRequest.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/UIResponse.java -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/IUIStrategyMessageSharedProps.java -text svneol=unset#text/plain
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/RunningDialogsManager.java -text svneol=unset#text/plain
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/UIBusFactory.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/UIBusImpl.java -text
-middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/UIStrategy.java -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/UIStrategyCaller.java -text svneol=unset#text/plain
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/UIStrategyCoordinatorMng.java -text svneol=unset#text/plain
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/UIStrategyHandler.java -text svneol=unset#text/plain
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/doc-files/UIStrategy.png -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/doc-files/UIStrategy.svg -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/CallBasedStrategy.java -text svneol=unset#text/plain
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/CallMessage.java -text svneol=unset#text/plain
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/CoordinatedRegistrationManagement.java -text svneol=unset#text/plain
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/CoordinatedStrategy.java -text svneol=unset#text/plain
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/EventBasedStrategy.java -text svneol=unset#text/plain
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/EventMessage.java -text svneol=unset#text/plain
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/doc-files/CoordinatedRegistrationStrategy.png -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/doc-files/CoordinatedRegistrationStrategy.svg -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/doc-files/CoordinatedStrategy.png -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/doc-files/CoordinatedStrategy.svg -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/doc-files/EventBasedStrategy-Sample.png -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/doc-files/EventBasedStrategy-Sample.svg -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/doc-files/EventBasedStrategy.png -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/doc-files/EventBasedStrategy.svg -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/doc-files/SDReceive.png -text
+middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/impl/generic/doc-files/SDSend.png -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/AccessImpairment.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/DialogType.java -text
 middleware.core/mw.bus.ui.core/src/main/java/org/universAAL/middleware/ui/owl/Modality.java -text

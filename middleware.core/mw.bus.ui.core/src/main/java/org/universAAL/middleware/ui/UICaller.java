@@ -103,8 +103,10 @@ public abstract class UICaller extends Caller {
      * 
      * @param dialogID
      *            the dialog id
+     * @param data 
+		  the data collected up until abortion.
      */
-    public abstract void dialogAborted(String dialogID);
+    public abstract void dialogAborted(String dialogID, Resource data);
 
     /**
      * Dialog suspended.

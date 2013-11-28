@@ -97,7 +97,8 @@ public class UIResponse extends FinalizedResource implements Response {
 	    props.put(PROP_SUBMISSION_LOCATION, inputLocation);
 	if (submit instanceof SubdialogTrigger)
 	    props.put(PROP_IS_SUBDIALOG_CALL, Boolean.TRUE);
-	if (submit.getSuperGroups()[0].equals(f.getStandardButtons())) {
+	if (submit.getSuperGroups()[0].equals(f.getStandardButtons())
+		|| submit.getFormObject().isMessage()) {
 	    props.put(PROP_IS_DIALOG_MANAGER_RESPONSE, Boolean.TRUE);
 	}
     }
