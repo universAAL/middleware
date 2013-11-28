@@ -33,6 +33,8 @@ import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
 import org.universAAL.middleware.ui.rdf.Form;
+import org.universAAL.middleware.ui.rdf.SubdialogTrigger;
+import org.universAAL.middleware.ui.rdf.Submit;
 
 /**
  * Provides the interface to be implemented by {@link UIHandler}s together with
@@ -105,7 +107,8 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Adaptation parameters changed.
+     * Adaptation parameters changed. The Dialog must be redrawn 
+     * according to the new value of the changedProp.
      * 
      * @param dialogID
      *            the dialog id
@@ -148,17 +151,19 @@ public abstract class UIHandler extends Callee {
     public abstract void communicationChannelBroken();
 
     /**
-     * Cut dialog.
+     * Cut dialog. The DM is requesting an IMEDIATE de-renderization of the dialog with
+     * given dialogID.
      * 
      * @param dialogID
      *            the dialog id
      * @return the resource data form the {@link Form} filled by the user up to
-     *         the moment this call is performed
+     *         the moment this call is performed.
      */
     public abstract Resource cutDialog(String dialogID);
 
     /**
-     * Dialog finished.
+     * Dialog finished. UIHandler reporting the user has submitted a {@link Submit} or
+     * a {@link SubdialogTrigger}.
      * 
      * @param uiResponse
      *            the {@link UIResponse}
@@ -183,7 +188,8 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Handle ui call ({@link UIRequest}).
+     * Handle ui call ({@link UIRequest}). The bus is soliciting a 
+     * Render/display of the {@link UIRequest}.
      * 
      * @param uiRequest
      *            the {@link UIRequest}

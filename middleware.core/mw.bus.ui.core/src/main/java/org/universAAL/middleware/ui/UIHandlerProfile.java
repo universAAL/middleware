@@ -30,7 +30,6 @@ import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.rdf.FinalizedResource;
-import org.universAAL.middleware.ui.impl.UIStrategy;
 import org.universAAL.middleware.ui.owl.Modality;
 
 /**
