@@ -124,8 +124,9 @@ public class ProcessParameter extends Variable {
 
     /**
      * Return the variable from the variable reference, either by the property
-     * http://www.daml.org/services/owl-s/1.1/Process.owl#theVar or from the
-     * context
+     * {@link #PROP_OWLS_VALUE_OF_THE_VAR}
+     * (http://www.daml.org/services/owl-s/1.1/Process.owl#theVar) or from the
+     * context.
      * 
      * @param o
      *            - the variable reference
