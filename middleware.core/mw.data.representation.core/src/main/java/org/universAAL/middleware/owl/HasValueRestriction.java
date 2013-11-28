@@ -81,6 +81,7 @@ public class HasValueRestriction extends PropertyRestriction {
     }
 
     /** Helper function for {@link #checkValue(Object, HashMap)}. */
+    // -1 -> incompatible; 0 -> equal; 1 -> compatible
     private int checkValueLists(List first, List second, HashMap context) {
 	if (first.size() != second.size())
 	    return -1;
@@ -182,28 +183,28 @@ public class HasValueRestriction extends PropertyRestriction {
 	    myValue = aux;
 	}
 
-	if (value == null) {
-	    if (((List) myValue).size() == 1)
-		myValue = ((List) myValue).get(0);
-	    else
-		return -1;
-
-	    // an optional parameter without any existing and / or default value
-	    // means that null value is accepted; then we remark that under the
-	    // condition that this parameter remains null, the null value is
-	    // acceptable;
-	    // for this purpose rdf:nil is used. An existing remark means that
-	    // the above was asserted previously
-	    if (RDF_EMPTY_LIST.equals(myValue))
-		return 0;
-	    if (myValue instanceof Variable
-		    && ((Variable) myValue).getMinCardinality() == 0
-		    && ((Variable) myValue).getDefaultValue() == null) {
-		context.put(((Variable) myValue).getURI(), RDF_EMPTY_LIST);
-		return 0;
-	    }
-	    return -1;
-	}
+//	if (value == null) {
+//	    if (((List) myValue).size() == 1)
+//		myValue = ((List) myValue).get(0);
+//	    else
+//		return -1;
+//
+//	    // an optional parameter without any existing and / or default value
+//	    // means that null value is accepted; then we remark that under the
+//	    // condition that this parameter remains null, the null value is
+//	    // acceptable;
+//	    // for this purpose rdf:nil is used. An existing remark means that
+//	    // the above was asserted previously
+//	    if (RDF_EMPTY_LIST.equals(myValue))
+//		return 0;
+//	    if (myValue instanceof Variable
+//		    && ((Variable) myValue).getMinCardinality() == 0
+//		    && ((Variable) myValue).getDefaultValue() == null) {
+//		context.put(((Variable) myValue).getURI(), RDF_EMPTY_LIST);
+//		return 0;
+//	    }
+//	    return -1;
+//	}
 
 	if (value instanceof List)
 	    value = resolveVariables((List) value, context);
@@ -271,16 +272,18 @@ public class HasValueRestriction extends PropertyRestriction {
 
 	PropertyRestriction other = (PropertyRestriction) noRes;
 
-	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
-
-	Object o = other.getProperty(PROP_OWL_HAS_VALUE);
-	switch (checkValue(o, cloned)) {
-	case -1:
-	    return false;
-	case 0:
-	case 1:
-	    synchronize(context, cloned);
-	    return true;
+	if (other instanceof HasValueRestriction) {
+	    HashMap cloned = (context == null) ? null : (HashMap) context
+		    .clone();
+	    Object o = other.getProperty(PROP_OWL_HAS_VALUE);
+	    switch (checkValue(o, cloned)) {
+	    case -1:
+		return false;
+	    case 0:
+	    case 1:
+		synchronize(context, cloned);
+		return true;
+	    }
 	}
 
 	return false;
@@ -293,9 +296,11 @@ public class HasValueRestriction extends PropertyRestriction {
 
 	// handle this restriction
 	if (PROP_OWL_HAS_VALUE.equals(propURI)) {
-	    TypeExpression hasVal = (TypeExpression) getProperty(PROP_OWL_HAS_VALUE);
+	    Object hasVal = getProperty(PROP_OWL_HAS_VALUE);
 	    if (hasVal != null)
 		return false;
+	    // if (!Variable.checkDeserialization(o))
+	    // return false;
 	    hasVarRefAsValue = Variable.isVarRef(o);
 	    return super.setProperty(PROP_OWL_HAS_VALUE, o);
 	}

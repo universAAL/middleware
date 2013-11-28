@@ -151,8 +151,9 @@ public abstract class PropertyRestriction extends TypeExpression {
 		if (matches((TypeExpression) i.next(), context, ttl, log))
 		    return Boolean.TRUE;
 
-	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 	if (!(subtype instanceof PropertyRestriction)) {
+	    HashMap cloned = (context == null) ? null : (HashMap) context
+		    .clone();
 	    Object[] members = subtype.getUpperEnumeration();
 	    if (members != null && members.length > 0) {
 		for (int i = 0; i < members.length; i++)
