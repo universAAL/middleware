@@ -370,6 +370,9 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 
     /** Tearing down */
     public void close() {
+	if (iAmCoordinator()){
+	    sendEventToRemoteBusMember(new CoordinatorResignEvent());
+	}
 	OntologyManagement.getInstance().unregister(busModule, ontology);
 	Object o = busModule.getContainer().fetchSharedObject(busModule, new Object[]{AALSpaceManager.class.getName()});
 	if (o instanceof AALSpaceManager){
