@@ -77,7 +77,7 @@ public interface IDialogManager {
     public void dialogFinished(String dialogID);
 
     /**
-     * Show main menu of the system.
+     * A User has logged in at a location resend the appropriate dialog.
      * 
      * @param user
      *            {@link User} of a system. It is declared as Resource because the type User is defined 
@@ -86,7 +86,7 @@ public interface IDialogManager {
      *            {@link Location} from which {@link User} has logged in to the
      *            system
      */
-    public void getMainMenu(Resource user, AbsLocation loginLocation);
+    public void userLogIn(Resource user, AbsLocation loginLocation);
 
     /**
      * When the application has informed the bus that a suspended parent dialog

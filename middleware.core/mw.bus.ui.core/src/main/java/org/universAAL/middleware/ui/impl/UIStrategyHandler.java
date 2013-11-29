@@ -437,7 +437,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
      */
     void userLoggedIn(String handlerID, Resource user, AbsLocation loginLocation) {
 	if (iAmCoordinator()) {
-	    dialogManager.getMainMenu(user, loginLocation);
+	    dialogManager.userLogIn(user, loginLocation);
 	    lastUsedHandler.put(user.getURI(), handlerID);
 	} else {
 	    sendEventToRemoteBusMember(getCoordinator(), new UserLogOnMessage(handlerID,user, loginLocation));
