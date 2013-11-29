@@ -170,27 +170,32 @@ public class AccessControl {
 	    return true;
 
 	Permission[] perms = permsMember.get(busMemberURI);
-	for (int i = 0; i < perms.length; i++) {
-	    try {
-		if (perms[i].getMatchable().matches(m)) {
-		    LogUtils.logDebug(owner, AccessControl.class,
-			    "checkPermission", new Object[] {
-				    "Permission granted for matchable ",
-				    m.getClass().getSimpleName(), ": ", m },
-			    null);
-		    return true;
+	if (perms != null) {
+	    for (int i = 0; i < perms.length; i++) {
+		try {
+		    if (perms[i].getMatchable().matches(m)) {
+			LogUtils.logDebug(
+				owner,
+				AccessControl.class,
+				"checkPermission",
+				new Object[] {
+					"Permission granted for matchable ",
+					m.getClass().getSimpleName(), ": ", m },
+				null);
+			return true;
+		    }
+		} catch (Exception e) {
+		    Resource r1 = (Resource) (perms[i].getMatchable());
+		    Resource r2 = (Resource) m;
+		    LogUtils.logDebug(
+			    owner,
+			    AccessControl.class,
+			    "checkPermission",
+			    new Object[] {
+				    "Caught Exception while trying to match:\n",
+				    r1.toStringRecursive(),
+				    r2.toStringRecursive() }, null);
 		}
-	    } catch (Exception e) {
-		Resource r1 = (Resource) (perms[i].getMatchable());
-		Resource r2 = (Resource) m;
-		LogUtils.logDebug(
-			owner,
-			AccessControl.class,
-			"checkPermission",
-			new Object[] {
-				"Caught Exception while trying to match:\n",
-				r1.toStringRecursive(), r2.toStringRecursive() },
-			null);
 	    }
 	}
 
