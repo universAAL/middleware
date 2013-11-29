@@ -385,6 +385,8 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
     }
     
     protected Resource cutDialog(String handlerID, String dialogID){
+	if (handlerID == null ||dialogID == null)
+	    return null;
 	BusMember bm = getBusMember(handlerID);
 	    if (bm instanceof UIHandler) {
 		// I have the handler => i can handle it
