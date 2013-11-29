@@ -415,12 +415,12 @@ public class UIStrategyCaller extends UIStrategyHandler {
     
     private void abortDialogRequest(String dialogID, String callerID) {
 	if (iAmCoordinator()) {
-	    runningDialogs.removeDialogId(dialogID);
-	    globalRequest.remove(dialogID);
 	    String handlerID = runningDialogs.getHandler(dialogID);
 	    Resource data = cutDialog(handlerID, dialogID);
 	    ((UICaller) dialogManager).dialogAborted(dialogID, data);
 	    notifyAbort(callerID, dialogID, data);
+	    runningDialogs.removeDialogId(dialogID);
+	    globalRequest.remove(dialogID);
 	} else {
 	    placeAsynchronousRequest(getCoordinator(), new AbortCall(dialogID, callerID));
 	}
@@ -433,6 +433,8 @@ public class UIStrategyCaller extends UIStrategyHandler {
      */
     private void notifyAbort(String callerID, String dialogID,
 	    Resource data) {
+	if (callerID == null || dialogID == null)
+	    return;
 	BusMember bm = getBusMember(callerID);
 	if (bm instanceof UICaller){
 	    ((UICaller)bm).dialogAborted(dialogID, data);
