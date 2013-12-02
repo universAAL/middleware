@@ -99,9 +99,9 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 		    sendEventToRemoteBusMember(new CoordinatorResignEvent());
 		}
 	    } else {
-		synchronized (this) {
+		synchronized (CoordinatedStrategy.this) {
 		    coordinatorPeer = solicitor;
-		    notifyAll();
+		    CoordinatedStrategy.this.notifyAll();
 		}
 	    }
 	}
@@ -266,6 +266,8 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	    CoordinatorAlreadyExistsException ex = new CoordinatorAlreadyExistsException();
 	    ex.setExistingCoordinator(coordinatorPeer);
 	    throw ex;
+	} else {
+	    notifyAll();
 	}
     }
 
@@ -288,7 +290,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	}
     }
 
-    public synchronized final PeerCard getCoordinator() {
+    public final PeerCard getCoordinator() {
 	if (coordinatorPeer != null) {
 	    return coordinatorPeer;
 	}
