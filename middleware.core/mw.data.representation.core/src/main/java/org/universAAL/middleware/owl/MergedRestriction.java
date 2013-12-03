@@ -704,10 +704,13 @@ public class MergedRestriction extends Intersection {
 	if (res == null)
 	    return false;
 
-	if (onProperty != null)
+	if (onProperty == null) {
+	    onProperty = res.getOnProperty();
+	} else {
 	    if (!onProperty.equals(res.getOnProperty()))
 		throw new IllegalArgumentException(
 			"Trying to add a restriction for a different property. All restrictions of a MergedRestriction must be defined for the same property.");
+	}
 
 	int max = getMaxCardinality();
 	if (max == 0) {
@@ -983,12 +986,12 @@ public class MergedRestriction extends Intersection {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
-    public boolean setProperty(String propURI, Object o) {
+    public boolean setProperty(String propURI, Object value) {
 	if (Intersection.PROP_OWL_INTERSECTION_OF.equals(propURI)) {
-	    if (o instanceof PropertyRestriction) {
-		return addRestrictionCheck((PropertyRestriction) o);
-	    } else if (o instanceof MergedRestriction) {
-		List lst = ((MergedRestriction) o).getRestrictions();
+	    if (value instanceof PropertyRestriction) {
+		return addRestrictionCheck((PropertyRestriction) value);
+	    } else if (value instanceof MergedRestriction) {
+		List lst = ((MergedRestriction) value).getRestrictions();
 		boolean res = true;
 		boolean tmp;
 		for (Object el : lst) {
