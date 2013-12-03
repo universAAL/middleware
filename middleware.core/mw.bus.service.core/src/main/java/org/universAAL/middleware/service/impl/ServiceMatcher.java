@@ -165,135 +165,100 @@ public class ServiceMatcher {
 	// only specify the corresponding property path)
 	int expectedSize = context.size()
 		+ subsetService.getNumberOfValueRestrictions();
-	boolean hasSpecializedClsMatch = false;
-	boolean hasSpecializedInsMatch = false;
 
 	String[] restrProps = subsetService.getRestrictedPropsOnInstanceLevel();
 	if (restrProps != null && restrProps.length > 0) {
 	    for (int i = 0; i < restrProps.length; i++) {
+		String restrProp = restrProps[i];
+
 		// request instance level restrictions
 		TypeExpression reqInsRestr = subsetService
-			.getInstanceLevelRestrictionOnProp(restrProps[i]);
+			.getInstanceLevelRestrictionOnProp(restrProp);
 
-		// request class level restrictions
-		TypeExpression reqClsRestr = Service
-			.getClassRestrictionsOnProperty(
-				subsetService.getClassURI(), restrProps[i]);
+		if (Service.PROP_OWLS_PRESENTS.equals(restrProp)) {
+		    // the restricted property is a non-functional parameter
 
-		// offer instance level restrictions
-		TypeExpression offInsRestr = superService
-			.getInstanceLevelRestrictionOnProp(restrProps[i]);
-
-		// offer class level restrictions
-		TypeExpression offClsRestr = Service
-			.getClassRestrictionsOnProperty(
-				superService.getClassURI(), restrProps[i]);
-
-		if (!(reqInsRestr instanceof MergedRestriction)) {
-		    // makes no sense, because 'restrProps' must have instance
-		    // level restrictions
-		    continue;
-		}
-
-		if (offInsRestr == null)
-		    if (offClsRestr == null) {
-			// only in case of restrictions on the service profile,
-			// we may still proceed
-			if (!Service.PROP_OWLS_PRESENTS.equals(restrProps[i]))
-			    return false;
-			reqInsRestr = (TypeExpression) ((MergedRestriction) reqInsRestr)
-				.getConstraint(MergedRestriction.allValuesFromID);
-			if (reqInsRestr instanceof PropertyRestriction) {
-			    restrProps[i] = ((PropertyRestriction) reqInsRestr)
-				    .getOnProperty();
-			    if (restrProps[i] == null)
-				// strange!
-				continue;
-			    // some properties of service profiles are managed
-			    // by the middleware
-			    Object o = context.get(restrProps[i]);
-			    if (o == null)
-				// then, it relates to those properties set by
-				// the provider
-				o = superset.getProperty(restrProps[i]);
-			    if (o == null || !reqInsRestr.hasMember(o, context, -1, null))
-				return false;
-			} else if (reqInsRestr instanceof Intersection)
-			    for (Iterator j = ((Intersection) reqInsRestr)
-				    .types(); j.hasNext();) {
-				// the same as above, only this time in a loop
-				// over all members of the intersection
-				reqInsRestr = (TypeExpression) j.next();
-				if (reqInsRestr instanceof PropertyRestriction) {
-				    restrProps[i] = ((PropertyRestriction) reqInsRestr)
-					    .getOnProperty();
-				    if (restrProps[i] == null)
-					// strange!
-					continue;
-				    Object o = context.get(restrProps[i]);
-				    if (o == null)
-					o = superset.getProperty(restrProps[i]);
-				    if (o == null
-					    || !reqInsRestr.hasMember(o,
-						    context, -1, null))
-					return false;
-				}
-			    }
-			else
+		    reqInsRestr = (TypeExpression) ((MergedRestriction) reqInsRestr)
+			    .getConstraint(MergedRestriction.allValuesFromID);
+		    if (reqInsRestr instanceof PropertyRestriction) {
+			restrProp = ((PropertyRestriction) reqInsRestr)
+				.getOnProperty();
+			if (restrProp == null)
 			    // strange!
 			    continue;
-			// we are done with this property
-			continue;
-		    } else {
-			// offInsRestr == null && offClsRestr != null
-
-			if (reqInsRestr.matches(offClsRestr, context, -1, null)) {
-			    // tag the context that the offer restrictions are a
-			    // subtype of request restrictions
-			    // because the other way around, it is not
-			    // guaranteed that the service call will be
-			    // successful
-			    context.put(
-				    ServiceStrategy.CONTEXT_SPECIALIZED_CLASS_MATCH,
-				    Boolean.TRUE);
-			    if (!hasSpecializedClsMatch)
-				expectedSize++;
-			    hasSpecializedClsMatch = true;
-			} else if (!offClsRestr.matches(reqInsRestr, context, -1, null)) {
-			    if (logID != null)
-				LogUtils.logTrace(
-					ServiceBusImpl.getModuleContext(),
-					ServiceRealization.class,
-					"matches",
-					new Object[] {
-						ServiceBus.LOG_MATCHING_MISMATCH,
-						"no subset relationship for restricted property",
-						"\nrestricted property: ",
-						restrProps[i],
-						ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-						Integer.valueOf(1020),
-						ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-						" A property is restricted in the request.  The service offer has class level restrictions, but no instance level restrictions."
-							+ " Neither the request is a subset of the offer nor the offer a subset of the request.",
-						logID }, null);
+			// some properties of service profiles are managed by
+			// the middleware
+			Object o = context.get(restrProp);
+			if (o == null)
+			    // then, it relates to those properties set by the
+			    // provider
+			    o = superset.getProperty(restrProp);
+			if (o == null
+				|| !reqInsRestr.hasMember(o, context, -1, null))
 			    return false;
+		    } else if (reqInsRestr instanceof Intersection)
+			for (Iterator j = ((Intersection) reqInsRestr).types(); j
+				.hasNext();) {
+			    // the same as above, only this time in a loop
+			    // over all members of the intersection
+			    reqInsRestr = (TypeExpression) j.next();
+			    if (reqInsRestr instanceof PropertyRestriction) {
+				restrProp = ((PropertyRestriction) reqInsRestr)
+					.getOnProperty();
+				if (restrProp == null)
+				    // strange!
+				    continue;
+				Object o = context.get(restrProp);
+				if (o == null)
+				    o = superset.getProperty(restrProp);
+				if (o == null
+					|| !reqInsRestr.hasMember(o, context,
+						-1, null))
+				    return false;
+			    }
 			}
-		    }
-		else {
-		    // offInsRestr != null, offClsRestr unknown
+		    else
+			// strange!
+			continue;
+		    // we are done with this property
+		    continue;
+		} else {
+		    // the restricted property is NOT a non-functional parameter
 
-		    if (reqInsRestr.matches(offInsRestr, context, -1, null)) {
-			// tag the context that the offer restrictions are a
-			// subtype of request restrictions
-			// because the other way around, it is not guaranteed
-			// that the service call will be successful
-			context.put(
-				ServiceStrategy.CONTEXT_SPECIALIZED_INSTANCE_MATCH,
-				Boolean.TRUE);
-			if (!hasSpecializedInsMatch)
-			    expectedSize++;
-			hasSpecializedInsMatch = true;
-		    } else if (!offInsRestr.matches(reqInsRestr, context, -1, null)) {
+		    // request class level restrictions
+		    TypeExpression reqClsRestr = Service
+			    .getClassRestrictionsOnProperty(
+				    subsetService.getClassURI(), restrProp);
+
+		    // offer instance level restrictions
+		    TypeExpression offInsRestr = superService
+			    .getInstanceLevelRestrictionOnProp(restrProp);
+
+		    // offer class level restrictions
+		    TypeExpression offClsRestr = Service
+			    .getClassRestrictionsOnProperty(
+				    superService.getClassURI(), restrProp);
+
+		    if (!(reqInsRestr instanceof MergedRestriction)) {
+			// makes no sense, because 'restrProps' must have
+			// instance level restrictions
+			continue;
+		    }
+
+		    Intersection offAllRestr = new Intersection();
+		    offAllRestr.addType(offClsRestr);
+		    offAllRestr.addType(offInsRestr);
+
+		    Intersection reqAllRestr = new Intersection();
+		    reqAllRestr.addType(reqClsRestr);
+		    reqAllRestr.addType(reqInsRestr);
+
+		    // System.out.println(" -- requestRestriction:\n" +
+		    // reqAllRestr.toStringRecursive());
+		    // System.out.println(" -- offerRestriction:\n" +
+		    // offAllRestr.toStringRecursive());
+
+		    if (!reqAllRestr.matches(offAllRestr, context, -1, null)) {
 			if (logID != null)
 			    LogUtils.logTrace(
 				    ServiceBusImpl.getModuleContext(),
@@ -303,74 +268,15 @@ public class ServiceMatcher {
 					    ServiceBus.LOG_MATCHING_MISMATCH,
 					    "no subset relationship for restricted property",
 					    "\nrestricted property: ",
-					    restrProps[i],
+					    restrProp,
 					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-					    Integer.valueOf(1021),
+					    Integer.valueOf(1022),
 					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    " A property is restricted in the request. The service offer has instance level restrictions."
-						    + " Neither the request is a subset of the offer nor the offer a subset of the request.",
+					    " A property is restricted in the request but the restrictions do not"
+						    + " match the restrictions of the offer.",
 					    logID }, null);
 			return false;
 		    }
-
-		    if (offClsRestr != null)
-			// offInsRestr != null && offClsRestr != null
-
-			if (reqInsRestr.matches(offClsRestr, context, -1, null)) {
-			    // tag the context that the offer restrictions are a
-			    // subtype of request restrictions
-			    // because the other way around, it is not
-			    // guaranteed that the service call will be
-			    // successful
-			    context.put(
-				    ServiceStrategy.CONTEXT_SPECIALIZED_CLASS_MATCH,
-				    Boolean.TRUE);
-			    if (!hasSpecializedClsMatch)
-				expectedSize++;
-			    hasSpecializedClsMatch = true;
-			} else if (!offClsRestr.matches(reqInsRestr, context, -1, null)) {
-			    // there is still a chance to return true: if we
-			    // combine instance-level and class-level
-			    // restrictions
-
-			    Intersection offAllRestr = new Intersection();
-			    offAllRestr.addType(offClsRestr);
-			    offAllRestr.addType(offInsRestr);
-
-			    Intersection reqAllRestr = new Intersection();
-			    reqAllRestr.addType(reqClsRestr);
-			    reqAllRestr.addType(reqInsRestr);
-
-			    if (offAllRestr.matches(reqAllRestr, context, -1, null)) {
-				// nothing to do: it matches, but there is no
-				// real "specialization" that we can exploit in
-				// the later matchmaking phase to select the
-				// "most specialized" service from each provider
-			    } else if (!reqAllRestr.matches(offAllRestr,
-				    context, -1, null)) {
-				if (logID != null)
-				    LogUtils.logTrace(
-					    ServiceBusImpl.getModuleContext(),
-					    ServiceRealization.class,
-					    "matches",
-					    new Object[] {
-						    ServiceBus.LOG_MATCHING_MISMATCH,
-						    "no subset relationship for restricted property",
-						    "\nrestricted property: ",
-						    restrProps[i],
-						    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-						    Integer.valueOf(1022),
-						    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-						    " A property is restricted in the request. The service offer has"
-							    + " class level and instance level restrictions. The"
-							    + " instance level restrictions have been checked already,"
-							    + " but class level restrictions of the offer do not match"
-							    + " the instance level restrictions of the request."
-							    + " Neither the request is a subset of the offer nor the offer a subset of the request.",
-						    logID }, null);
-				return false;
-			    }
-			}
 		}
 	    }
 	}
@@ -382,12 +288,12 @@ public class ServiceMatcher {
 		    "matches",
 		    new Object[] {
 			    ServiceBus.LOG_MATCHING_MISMATCH,
-			    "input in request not defined in offer",
+			    "input in offer not defined in request",
 			    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
 			    Integer.valueOf(1023),
 			    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-			    " An input parameter is given in the request, e.g. a filtering value, but the service offer"
-				    + " does not expect an input parameter. The exact parameter is not determined, only"
+			    " An input parameter is given in the offer, e.g. a filtering value, but the service request"
+				    + " does not provide this input parameter. The exact parameter is not determined, only"
 				    + " the number of parameters has been found to be problematic.",
 			    logID }, null);
 	    return false;
@@ -410,14 +316,13 @@ public class ServiceMatcher {
 	    ServiceWrapper subset, HashMap context, Long logID) {
 	// check output bindings
 	if (!ProcessResult.checkOutputBindings(subset.getOutputs(),
-		superset.getOutputs(), context, subset.getService(), logID))
+		superset.getOutputs(), context, logID))
 	    return false;
 
 	return true;
     }
 
-    private void processNonSemanticInput(ServiceWrapper subset,
-	    HashMap context) {
+    private void processNonSemanticInput(ServiceWrapper subset, HashMap context) {
 	// NON_SEMANTIC_INPUT:
 	// if service matches then non-semantic input has to be copied to the
 	// context
