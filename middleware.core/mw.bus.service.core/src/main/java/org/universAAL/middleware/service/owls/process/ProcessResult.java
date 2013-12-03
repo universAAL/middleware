@@ -31,7 +31,6 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
-import org.universAAL.middleware.service.owl.Service;
 
 /**
  * This class represents ProcessResult of OWL-S -
@@ -179,26 +178,7 @@ public class ProcessResult extends FinalizedResource {
      * @return true iff the output bindings match
      */
     public static boolean checkOutputBindings(Resource[] req, Resource[] offer,
-	    HashMap context) {
-	return checkOutputBindings(req, offer, context, null, null);
-    }
-
-    /**
-     * Verify that the output bindings of offers match the ones of requests
-     * according to the context
-     * 
-     * @param req
-     *            - a list of requests
-     * @param offer
-     *            - a list of offers
-     * @param context
-     *            - the context
-     * @param logID
-     *            - an id to be used for logging, may be null
-     * @return true iff the output bindings match
-     */
-    public static boolean checkOutputBindings(Resource[] req, Resource[] offer,
-	    HashMap context, Service requestedService, Long logID) {
+	    HashMap context, Long logID) {
 
 	if (req == null || req.length == 0)
 	    return true;
@@ -221,8 +201,7 @@ public class ProcessResult extends FinalizedResource {
 	    return false;
 	}
 	for (int i = 0; i < req.length; i++) {
-	    if (!OutputBinding.findMatchingBinding(req[i], offer, context,
-		    requestedService)) {
+	    if (!OutputBinding.findMatchingBinding(req[i], offer, context)) {
 		if (logID != null) {
 		    LogUtils.logTrace(
 			    ServiceBusImpl.getModuleContext(),
