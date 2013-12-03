@@ -267,7 +267,9 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	    ex.setExistingCoordinator(coordinatorPeer);
 	    throw ex;
 	} else {
-	    notifyAll();
+	    synchronized (this) {
+		notifyAll();
+	    }
 	}
     }
 
