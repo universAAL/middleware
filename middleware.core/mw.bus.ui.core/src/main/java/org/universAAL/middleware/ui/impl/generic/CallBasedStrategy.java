@@ -234,7 +234,6 @@ public class CallBasedStrategy extends EventBasedStrategy {
     public void sendAsynchronousResponse(PeerCard peer,CallMessage<? extends CallBasedStrategy> response){
 	((UIBusImpl) bus).assessContentSerialization(response);
 	BusMessage m = BusMessage.createP2PReply("async", peer, response, bus);
-	m.setReceiver(peer);
 	send(m);
     }
     

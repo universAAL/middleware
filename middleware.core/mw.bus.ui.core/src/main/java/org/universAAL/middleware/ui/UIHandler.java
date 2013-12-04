@@ -146,7 +146,10 @@ public abstract class UIHandler extends Callee {
 
     /**
      * Method to be called when the communication of the {@link UIHandler} with
-     * the {@link IUIBus} is lost.
+     * the {@link IDialogManager} is lost.
+     * All dialogs must be de-renderized (handlers may whant to inform the user about why
+     * de dialogs are being de-renderized).
+     * The bus will automatically resend all HandlerProfiles.
      */
     public abstract void communicationChannelBroken();
 

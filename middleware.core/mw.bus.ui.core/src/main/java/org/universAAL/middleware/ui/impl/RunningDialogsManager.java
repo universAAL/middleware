@@ -75,6 +75,10 @@ public class RunningDialogsManager {
 	return dialogsToHandlers.get(dialogID);
     }
     
+    public Set<String> getDialogs(String handlerID){
+	return handlersToDialogs.get(handlerID);
+    }
+    
     public Set<String> usedHandlers(){
 	return handlersToDialogs.keySet();
     }

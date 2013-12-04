@@ -17,12 +17,17 @@
 
 package org.universAAL.middleware.ui.impl;
 
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.universAAL.middleware.bus.member.BusMember;
+import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -426,6 +431,16 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	}
     }
     
+    private void abortDialogWiouthCallback(String dialogID, String callerID){
+	if (iAmCoordinator()) {
+	    String handlerID = runningDialogs.getHandler(dialogID);
+	    Resource data = cutDialog(handlerID, dialogID);
+	    ((UICaller) dialogManager).dialogAborted(dialogID, data);
+	    runningDialogs.removeDialogId(dialogID);
+	    globalRequest.remove(dialogID);
+	}
+    }
+    
     /**
      * @param callerID
      * @param dialogID
@@ -467,6 +482,54 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	OntologyManagement.getInstance().unregister(busModule, ont);
 	globalRequest = null;
 	pendingRequests = null;
+    }
+
+    /**
+     * A caller is unregistering, and it will be no more reachable, all of its
+     * pending requests must be aborted. 
+     * @param caller
+     */
+    public void abortAllPendingRequestsFor(UICaller caller) {
+	for (Entry<String, UICaller> entry : pendingRequests.entrySet()) {
+	    if (entry.getValue().equals(caller)){
+		abortDialogWiouthCallback(entry.getKey(), caller.getMyID());
+	    }
+	}
+    }
+
+    
+    /** Coordinator will abort all pending request of the lost peer */
+    public void peerLost(PeerCard peer) {
+	super.peerLost(peer);
+	
+	if(iAmCoordinator()){
+	    // abort all pending requests from callers in this peer.
+	    for (Entry<String, String> entry : globalRequest.entrySet()) {
+		if (AbstractBus.getPeerFromBusResourceURI(entry.getValue()).equals(peer)){
+		    abortDialogWiouthCallback(entry.getKey(), entry.getValue());
+		}
+	    }
+	}
+    }
+
+    /** 
+     * Peer will notify that communication channel is broken 
+     * and then notify an abort on all pending requests, for all local {@link UICaller}s
+     */
+    protected void lostCoordinator() {
+	super.lostCoordinator();
+	Set<UICaller> localCallers = new HashSet<UICaller>();
+	Set<Entry<String, UICaller>> entries = pendingRequests.entrySet();
+	for (Entry<String, UICaller> entry : entries) {
+	    localCallers.add(entry.getValue());
+	}
+	pendingRequests.clear();
+	for (UICaller c : localCallers) {
+	    c.communicationChannelBroken();
+	}
+	for (Entry<String, UICaller> entry : entries) {
+	    entry.getValue().dialogAborted(entry.getKey(), null);
+	}
     }
     
 }

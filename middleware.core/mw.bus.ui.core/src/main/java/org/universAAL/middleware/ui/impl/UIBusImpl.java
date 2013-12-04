@@ -272,8 +272,9 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      * @see org.universAAL.middleware.ui.IUIBus#unregister(java.lang.String,
      * org.universAAL.middleware.ui.UICaller)
      */
-    public void unregister(String handlerID, UICaller handler) {
-	super.unregister(handlerID, handler);
+    public void unregister(String handlerID, UICaller caller) {
+	((UIStrategyCaller) busStrategy).abortAllPendingRequestsFor(caller);
+	super.unregister(handlerID, caller);
     }
 
     /*
