@@ -470,7 +470,10 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	else {
 	    if (iAmCoordinator()) {
 		String callerId = globalRequest.remove(response.getDialogID());
-		sendAsynchronousResponse(callerId, new UIRequestCall(response));
+		if (callerId != null) {
+		    sendAsynchronousResponse(callerId, new UIRequestCall(
+			    response));
+		}
 	    }
 	}
     }

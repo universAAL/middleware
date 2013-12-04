@@ -608,18 +608,21 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
         	
         	if (handlerId.equals(runningDialogs.getHandler(response.getDialogID()))) {
         	    runningDialogs.removeDialogId(response.getDialogID());
-        	    if (response.isSubdialogSubmission()){
-        		dialogManager.suspendDialog(response.getDialogID());
-        	    }
-        	    else {
-        		dialogManager.dialogFinished(response.getDialogID());
-        	    }
         	    if (response.isForDialogManagerCall()){
         		((UICaller)dialogManager).handleUIResponse(response);
         	    }
         	    else {
         		notifyCallerDialogSubmitted(response);
+        		if (response.isSubdialogCall()){
+        		    dialogManager.suspendDialog(response.getDialogID());
+        		}
+        		else {
+        		    dialogManager.dialogFinished(response.getDialogID());
+        		}
         	    }
+        	} 
+        	else if (response.isForDialogManagerCall()){
+        	    ((UICaller)dialogManager).handleUIResponse(response);
         	}
             }
         }
