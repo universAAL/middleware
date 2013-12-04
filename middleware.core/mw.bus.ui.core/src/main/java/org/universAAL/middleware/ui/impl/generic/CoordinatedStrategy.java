@@ -100,7 +100,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 		}
 	    } else {
 		synchronized (CoordinatedStrategy.this) {
-		    coordinatorPeer = solicitor;
+		    setCoordinatorPeer(solicitor);
 		    CoordinatedStrategy.this.notifyAll();
 		}
 	    }
@@ -134,7 +134,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	public void onReceived(CoordinatedStrategy strategy, BusMessage m,
 		String senderID) {
 	    if (coordinatorPeer == m.getSender()) {
-		coordinatorPeer = null;
+		setCoordinatorPeer(null);
 	    }
 	}
     }
@@ -210,6 +210,23 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 
     private PeerCard coordinatorPeer;
 
+    /**
+     * @param coordinatorPeer the coordinatorPeer to set
+     */
+    private final void setCoordinatorPeer(PeerCard coordinatorPeer) {
+        this.coordinatorPeer = coordinatorPeer;
+        if (this.coordinatorPeer == null){
+            lostCoordinator();
+        }
+    }
+
+
+    /**
+     * Extending classes may override this method to perform 
+     * any opertation needed when the coordinator is lost.
+     */
+    protected void lostCoordinator() {  }
+
     private CoordinatorMessageOnt ontology;
 
     /**
@@ -259,7 +276,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	    throw ex;
 	}
 	if (coordinatorPeer == null) {
-	    coordinatorPeer = bus.getPeerCard();
+	    setCoordinatorPeer(bus.getPeerCard());
 	    sendEventToRemoteBusMember(new CoordinatorAnnounceEvent());
 	}
 	if (!iAmCoordinator()) {
@@ -287,7 +304,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	    throw ex;
 	}
 	if (coordinatorPeer != null) {
-	    coordinatorPeer = null;
+	    setCoordinatorPeer(null);
 	    sendEventToRemoteBusMember(new CoordinatorResignEvent());
 	}
     }
@@ -327,7 +344,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	 */
 	if (iAmCoordinator()){
 	    synchronized (this) {
-		coordinatorPeer = null;
+		setCoordinatorPeer(null);
 		LogUtils.logInfo(busModule, getClass(), "peerLost", "Lost the space to Coordinate.");
 		// TODO give a notification? so coordination may be reattempted.
 	    }
@@ -354,7 +371,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	 * If the lost peer is the coordinator, well have to wait for a new one
 	 */
 	if (peer == coordinatorPeer){
-	    coordinatorPeer = null;
+	    setCoordinatorPeer(null);
 	    LogUtils.logInfo(busModule, getClass(), "peerLost", "Lost the Coordinator.");
 	}
     }

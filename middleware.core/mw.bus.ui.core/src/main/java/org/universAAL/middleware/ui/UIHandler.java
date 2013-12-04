@@ -237,5 +237,6 @@ public abstract class UIHandler extends Callee {
      */
     public String getMyID() {
 	return busResourceURI;
-    }
+    }    
+    
 }

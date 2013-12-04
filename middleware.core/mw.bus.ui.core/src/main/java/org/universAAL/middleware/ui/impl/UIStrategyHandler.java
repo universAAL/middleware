@@ -19,6 +19,7 @@ package org.universAAL.middleware.ui.impl;
 
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.universAAL.middleware.bus.member.BusMember;
@@ -38,6 +39,7 @@ import org.universAAL.middleware.ui.UIHandlerProfile;
 import org.universAAL.middleware.ui.UIRequest;
 import org.universAAL.middleware.ui.UIResponse;
 import org.universAAL.middleware.ui.impl.generic.CallMessage;
+import org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement;
 import org.universAAL.middleware.ui.impl.generic.EventMessage;
 
 /**
@@ -635,5 +637,40 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	super.close();
 	abortAll();
 	OntologyManagement.getInstance().unregister(busModule, ont);
+    }
+    
+    /**
+     * This task is launched when the coordinator peer is lost,
+     * which means all registrations are now invalid. This task
+     * schedules the re-registration of all implemented {@link UIHandlerProfile}s
+     * by all the {@link UIHandler}s registered in the local node.
+     * @author amedrano
+     *
+     */
+    private class ResendRegisstrationTask implements Runnable{
+
+	/** {@ inheritDoc}	 */
+	public void run() {
+	    String[] id = bus.getBusMembersByID();
+	    for (int i = 0; i < id.length; i++) {
+		BusMember bm = getBusMember(id[i]);
+		if (bm instanceof UIHandler){
+		    UIHandler h = (UIHandler) bm;
+		    List<UIHandlerProfile> profs = h.getRealizedHandlerProfiles();
+		    for (UIHandlerProfile hp : profs) {
+			addRegistration(id[i], hp);
+			//the first one will be locked until there is a coordinator.
+		    }
+		}
+	    }
+	}
+    }
+    
+    /**
+     * on Coordination lost: reschedule reRegistration.
+     */
+    protected void lostCoordinator() { 
+	new Thread(new ResendRegisstrationTask(), "UIStrategyResendRegistrationsTask").start();
+	
     }
 }

@@ -56,7 +56,7 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
      * Property to Hold the Registration
      */
     public static final String PROP_uAAL_REGISTRATION = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "susbcription";
+	    + "registration";
 
     
     private class RegistrationMessage extends Resource implements
@@ -275,6 +275,9 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
     /** {@ inheritDoc}	 */
     public void close() {
 	super.close();
+	if (registrationMap != null) {
+	    registrationMap.clear();
+	}
 	OntologyManagement.getInstance().unregister(busModule, ontology);
     }
 }
