@@ -17,15 +17,20 @@
 
 package org.universAAL.middleware.ui.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.universAAL.middleware.bus.member.BusMember;
+import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -39,7 +44,6 @@ import org.universAAL.middleware.ui.UIHandlerProfile;
 import org.universAAL.middleware.ui.UIRequest;
 import org.universAAL.middleware.ui.UIResponse;
 import org.universAAL.middleware.ui.impl.generic.CallMessage;
-import org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement;
 import org.universAAL.middleware.ui.impl.generic.EventMessage;
 
 /**
@@ -325,7 +329,8 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 			busModule,
 			getClass(),
 			"adaptationParametersChanged",
-			new Object[] { "Current UI Handler could not be determined from running dialogs. Inconsistent data between ui.dm data and UIStrategy data!" },
+			new Object[] { "Current UI Handler could not be determined from running dialogs." +
+					" Inconsistent data between ui.dm data and UIStrategy data!" },
 			null);
 	    }
 
@@ -360,26 +365,20 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    }
 
 	    if (currentHandler != null) {
-//		if (!runningDialogs.isHandlerOccupied(selectedHandler)) {
-		    // the dialog has to move from the currentHandler to the
-		    // selectedHandler
-		    // retreive data from currentHandler
+		    /*
+		     *  the dialog has to move from the currentHandler to the
+		     *  selectedHandler
+		     */
+		    // Retrieve data from currentHandler
 		    Resource collectedData = cutDialog(currentHandler, uiRequest.getDialogID());
 		    if (collectedData != null) {
+			//update the data
 			uiRequest.setCollectedInput(collectedData);
+			//XXX send data to DM?
 		    }
-		    // free the currentHandler
-		    runningDialogs.removeHandlerId(currentHandler);
-//		}
-		// else {
-		/*
-		 * FIXME BIG trouble: selected handler is another handler, the
-		 * dialog has to move, but it can't because the selectedHandler
-		 * is occupied with another dialog.
-		 */
-		// Resource data = cutCalls.performCall(selectedHandler,
-		// uiRequest.getDialogID());
-		// }
+		    // remove the dialog ID from asigned handler.
+		    runningDialogs.removeDialogId(uiRequest.getDialogID());
+
 	    }
 	    runningDialogs.add(selectedHandler, uiRequest.getDialogID());
 	    notifyHandler_handle(selectedHandler, uiRequest);
@@ -639,6 +638,35 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	OntologyManagement.getInstance().unregister(busModule, ont);
     }
     
+    /** {@ inheritDoc}	 */
+    public void peerLost(PeerCard peer) {
+	super.peerLost(peer);
+	if (iAmCoordinator()){
+	    //remove all Handler profiles form that peer
+	    List<String> tbr = new ArrayList<String>();
+	    Iterator<String> it = registryIdIterator();
+	    while (it.hasNext()) {
+		String handlerId = (String) it.next();
+		if (AbstractBus.getPeerFromBusResourceURI(handlerId).equals(peer)){
+		    tbr.add(handlerId);
+		}
+	    }
+	    for (String hID : tbr) {
+		removeAllRegistries(hID);
+	    }
+	    //reschedule running dialogs of the falling peer
+	    Set<String> reschedule = new HashSet<String>();
+	    for (String hID : tbr) {
+		reschedule.addAll(runningDialogs.getDialogs(hID));
+		runningDialogs.removeHandlerId(hID);
+	    }
+	    for (String dID : reschedule) {
+		adaptationParametersChanged(dialogManager, dialogManager.getSuspendedDialog(dID), null);
+	    }
+	}
+    }
+
+
     /**
      * This task is launched when the coordinator peer is lost,
      * which means all registrations are now invalid. This task
@@ -670,7 +698,14 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
      * on Coordination lost: reschedule reRegistration.
      */
     protected void lostCoordinator() { 
+	//cut all displaying handlers
+	BusMember[] bm = bus.getBusMembers();
+	for (int i = 0; i < bm.length; i++) {
+	    if (bm[i] instanceof UIHandler){
+		((UIHandler)bm[i]).communicationChannelBroken();
+	    }
+	}
+	//resend Registration
 	new Thread(new ResendRegisstrationTask(), "UIStrategyResendRegistrationsTask").start();
-	
     }
 }

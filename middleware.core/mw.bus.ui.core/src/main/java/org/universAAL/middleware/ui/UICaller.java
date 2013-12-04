@@ -94,7 +94,10 @@ public abstract class UICaller extends Caller {
 
     /**
      * Method to be called when the communication of the {@link UICaller} with
-     * the UI Bus is lost.
+     * the {@link IDialogManager} is lost.
+     * Any pending request might be resend at this point.
+     * All affected pending dialogs will be {@link UICaller#dialogAborted(String, Resource) aborted}
+     * right after this call (with null data).
      */
     public abstract void communicationChannelBroken();
 
@@ -104,7 +107,7 @@ public abstract class UICaller extends Caller {
      * @param dialogID
      *            the dialog id
      * @param data 
-		  the data collected up until abortion.
+		  the data collected up until abortion, it might be null if the data could not be retrieved.
      */
     public abstract void dialogAborted(String dialogID, Resource data);
 
