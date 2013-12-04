@@ -86,9 +86,9 @@ public class UIResponse extends FinalizedResource implements Response {
 
 	addType(MY_URI, true);
 	props.put(PROP_uAAL_INVOLVED_HUMAN_USER, user);
-	props.put(PROP_DIALOG_ID, new Resource(submit.getDialogID()));
-	props.put(PROP_SUBMISSION_ID, submit.getID());
 	Form f = submit.getFormObject();
+	props.put(PROP_DIALOG_ID, new Resource(f.getDialogID()));
+	props.put(PROP_SUBMISSION_ID, submit.getID());
 	props.put(PROP_DIALOG_DATA, f.getData());
 	Resource parentDialog = f.getParentDialogResource();
 	if (parentDialog != null)
