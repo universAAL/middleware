@@ -178,7 +178,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 	/** {@ inheritDoc}	 */
 	protected
-	void onResponse(UIStrategyHandler strategy, BusMessage m, String senderID) {
+	void onRequest(UIStrategyHandler strategy, BusMessage m, String senderID) {
 	    Resource data = strategy.cutDialog(
 		    (String) getProperty(PROP_uAAL_UI_HANDLER_ID),
 		    (String) getProperty(PROP_uAAL_DIALOG_ID));
@@ -187,7 +187,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 	/** {@ inheritDoc}	 */
 	protected
-	void onRequest(UIStrategyHandler strategy, BusMessage m, String senderID) {
+	void onResponse(UIStrategyHandler strategy, BusMessage m, String senderID) {
 	    //NOTHING a synchronous call always.
 	}
     }
@@ -402,7 +402,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		    return data;
 		} catch (InterruptedException e) {
 			LogUtils.logError(busModule, getClass(),
-				"AdaptationParametersChanged",
+				"CutDialog",
 				"Cut Call to move dialog was aborted.");
 		}
 	    }
@@ -557,6 +557,8 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
      *            Request to handle
      */
     private void notifyHandler_handle(String handlerID, UIRequest request) {
+	if (handlerID == null || request == null)
+	    return;
 	// if the handler is the local node handle the output
 	Object o = getBusMember(handlerID);
 	if (o instanceof UIHandler) {
@@ -711,4 +713,6 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	//resend Registration
 	new Thread(new ResendRegisstrationTask(), "UIStrategyResendRegistrationsTask").start();
     }
+    
+    //TODO override newRegistration() and try to reallocate pending (and not running) dialogs
 }
