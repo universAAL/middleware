@@ -170,8 +170,8 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	    protected void onResponse(UIStrategyCaller strategy, BusMessage m,
 		    String senderID) {
 		notifyAbort(
-				(String) getProperty(PROP_uAAL_DIALOG_ID), 
 				(String) getProperty(PROP_uAAL_UI_CALLER_ID),
+				(String) getProperty(PROP_uAAL_DIALOG_ID), 
 				(Resource) getProperty(PROP_uAAL_UI_UPDATED_DATA));
 		
 	    }

@@ -163,6 +163,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	 */
 	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
 		+ "Cut";
+	private static final String TYPE_DUMMY_TYPE = Resource.uAAL_VOCABULARY_NAMESPACE + "DummyType";
 
 	public CutCallMessage(){
 	    super();
@@ -182,6 +183,11 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    Resource data = strategy.cutDialog(
 		    (String) getProperty(PROP_uAAL_UI_HANDLER_ID),
 		    (String) getProperty(PROP_uAAL_DIALOG_ID));
+	    if (data == null
+		    || (data.isAnon() && data.numberOfProperties() == 0)){
+		data = new Resource();
+		data.addType(TYPE_DUMMY_TYPE, true);
+	    }
 	    strategy.sendSynchronousResponse(m, data);
 	}
 
@@ -399,6 +405,9 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		// send request
 		try {
 		    Resource data = (Resource) placeSynchronousRequest(handlerID, new CutCallMessage(dialogID, handlerID));
+		    if (data != null && data.getType().equals(CutCallMessage.TYPE_DUMMY_TYPE)){
+			data = new Resource();
+		    }
 		    return data;
 		} catch (InterruptedException e) {
 			LogUtils.logError(busModule, getClass(),
