@@ -237,7 +237,7 @@ public class CallBasedStrategy extends EventBasedStrategy {
 	send(m);
     }
     
-    public void sendAsynchronousResponse(String memberID,CallMessage<? extends CallBasedStrategy> responsse){
-	sendAsynchronousResponse(AbstractBus.getPeerFromBusResourceURI(memberID), responsse);
+    public void sendAsynchronousResponse(String memberID,CallMessage<? extends CallBasedStrategy> response){
+	sendAsynchronousResponse(AbstractBus.getPeerFromBusResourceURI(memberID), response);
     }
 }

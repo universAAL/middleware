@@ -57,9 +57,10 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	    super();
 	}
 	
-	public UIRequestCall(UIRequest req){
+	public UIRequestCall(UIRequest req, String CallerID){
 	    addType(MY_URI, true);
 	    setProperty(PROP_uAAL_UI_CALL, req);
+	    setProperty(PROP_uAAL_UI_CALLER_ID, CallerID);
 	}
 	
 	public UIRequestCall(UIResponse resp){
@@ -70,13 +71,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	@Override
 	protected void onRequest(UIStrategyCaller strategy, BusMessage m,
 		String senderID) {
-	    if (iAmCoordinator()) {
-		handleUIRequest(m, senderID);
-	    } else {
-		//Forward to Coord.
-		m.setReceiver(getCoordinator());
-		send(m);
-	    }
+		handleUIRequest(m, (String) getProperty(PROP_uAAL_UI_CALLER_ID));
 	}
 
 	/** {@ inheritDoc}	 */
@@ -146,7 +141,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	     * Type for aborting.
 	     */
 	    public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
-		    + "Abort";
+		    + "AbortDialog";
 	    
 	    /**
 	     * Constructor for deserializer.
@@ -363,14 +358,18 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	UIRequestCall call = (UIRequestCall) message.getContent();
 	UIRequest request = call.getRequest();
 	if (!message.senderResidesOnDifferentPeer()) {
+	    //if it is a local message
 	    Form form = request.getDialogForm();
 	    if (form != null) {
+		//form must be correctly formed
 		BusMember receiver = getBusMember(senderID);
 		if (!form.isMessage() && (receiver instanceof UICaller)) {
+		    //anotate local pending request
 		    pendingRequests
 			    .put(form.getDialogID(), (UICaller) receiver);
 		}
 		if (!iAmCoordinator()) {
+		    //forward to coordinator
 		    message.setReceiver(getCoordinator());
 		    send(message);
 		    return;

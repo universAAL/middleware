@@ -259,7 +259,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     public void brokerUIRequest(String callerID, UIRequest req) {
 	BusMember bm = getBusMember(callerID);
 	if (bm instanceof UICaller) {
-	    UIRequestCall call = ((UIStrategyCaller)busStrategy).new UIRequestCall(req);
+	    UIRequestCall call = ((UIStrategyCaller)busStrategy).new UIRequestCall(req, callerID);
 	    assessContentSerialization(call);
 	    brokerMessage(callerID, new BusMessage(MessageType.request, call,
 		    this));
