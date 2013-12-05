@@ -140,7 +140,8 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      *            {@link IDialogManager}
      */
     public void setDialogManager(IDialogManager dm) {
-	((UIStrategyCaller) busStrategy).setDialogManager(dm);
+	if (!((UIStrategyCaller) busStrategy).setDialogManager(dm))
+	    throw new RuntimeException("Could not set DialogManager");
     }
 
     /*
@@ -272,9 +273,12 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      * @see org.universAAL.middleware.ui.IUIBus#unregister(java.lang.String,
      * org.universAAL.middleware.ui.UICaller)
      */
-    public void unregister(String handlerID, UICaller caller) {
+    public void unregister(String callerID, UICaller caller) {
 	((UIStrategyCaller) busStrategy).abortAllPendingRequestsFor(caller);
-	super.unregister(handlerID, caller);
+	if (caller instanceof IDialogManager){
+	    setDialogManager(null);
+	}
+	super.unregister(callerID, caller);
     }
 
     /*
