@@ -41,10 +41,10 @@ import org.universAAL.middleware.bus.model.util.IRegistryListener;
 import org.universAAL.middleware.tracker.Activator;
 import org.universAAL.middleware.tracker.IBusMemberRegistry;
 import org.universAAL.middleware.tracker.IBusMemberRegistryListener;
-import org.universAAL.middleware.ui.IUIBus;
-import org.universAAL.middleware.ui.UIBusFacade;
-import org.universAAL.middleware.ui.UICaller;
-import org.universAAL.middleware.ui.UIHandler;
+//import org.universAAL.middleware.ui.IUIBus;
+//import org.universAAL.middleware.ui.UIBusFacade;
+//import org.universAAL.middleware.ui.UICaller;
+//import org.universAAL.middleware.ui.UIHandler;
 
 public class BusMemberRegistryImpl implements IBusMemberRegistry {
 
@@ -103,10 +103,10 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	    ((AbstractBus) serviceBus).removeRegistryListener(contextListener);
 	}
 
-	if (uiListener != null) {
-	    IUIBus uiBus = UIBusFacade.fetchBus(mc);
-	    ((AbstractBus) uiBus).removeRegistryListener(uiListener);
-	}
+//	if (uiListener != null) {
+//	    IUIBus uiBus = UIBusFacade.fetchBus(mc);
+//	    ((AbstractBus) uiBus).removeRegistryListener(uiListener);
+//	}
     }
 
     private void addServiceBusListener() {
@@ -198,45 +198,45 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
     }
 
     private void addUIListener() {
-	final IUIBus uiBus = UIBusFacade.fetchBus(mc);
-
-	uiListener = new IRegistryListener() {
-
-	    public void busMemberRemoved(BusMember busMember) {
-		if (busMember instanceof UICaller) {
-		    UICaller caller = (UICaller) busMember;
-		    logInfo("%s",
-			    "[BusMemberRemoved] UICaller: " + caller.getMyID());
-		    uiBusMembers.remove(caller.getMyID());
-		    removeBusMemberFromRegistry(caller.getMyID(), caller, BusType.UI);
-		} else if (busMember instanceof UIHandler) {
-		    UIHandler handler = (UIHandler) busMember;
-		    logInfo("%s",
-			    "[BusMemberRemoved] UIHandler: "
-				    + handler.getMyID());
-		    removeBusMemberFromRegistry(handler.getMyID(), handler, BusType.UI);
-		}
-	    }
-
-	    public void busMemberAdded(BusMember busMember) {
-		if (busMember instanceof UICaller) {
-		    UICaller caller = (UICaller) busMember;
-		    logInfo("%s",
-			    "[BusMemberAdded] UICaller: " + caller.getMyID());
-		    addBusMemberToRegistry(caller.getMyID(), caller, BusType.UI);
-		} else if (busMember instanceof UIHandler) {
-		    UIHandler handler = (UIHandler) busMember;
-		    logInfo("%s",
-			    "[BusMemberAdded] UIHandler: " + handler.getMyID());
-		    addBusMemberToRegistry(handler.getMyID(), handler, BusType.UI);
-		}
-	    }
-
-	    public void busCleared() {
-		logInfo("%s", "[BusCleared] IUIBus");
-	    }
-	};
-	((AbstractBus) uiBus).addRegistryListener(uiListener);
+//	final IUIBus uiBus = UIBusFacade.fetchBus(mc);
+//
+//	uiListener = new IRegistryListener() {
+//
+//	    public void busMemberRemoved(BusMember busMember) {
+//		if (busMember instanceof UICaller) {
+//		    UICaller caller = (UICaller) busMember;
+//		    logInfo("%s",
+//			    "[BusMemberRemoved] UICaller: " + caller.getMyID());
+//		    uiBusMembers.remove(caller.getMyID());
+//		    removeBusMemberFromRegistry(caller.getMyID(), caller, BusType.UI);
+//		} else if (busMember instanceof UIHandler) {
+//		    UIHandler handler = (UIHandler) busMember;
+//		    logInfo("%s",
+//			    "[BusMemberRemoved] UIHandler: "
+//				    + handler.getMyID());
+//		    removeBusMemberFromRegistry(handler.getMyID(), handler, BusType.UI);
+//		}
+//	    }
+//
+//	    public void busMemberAdded(BusMember busMember) {
+//		if (busMember instanceof UICaller) {
+//		    UICaller caller = (UICaller) busMember;
+//		    logInfo("%s",
+//			    "[BusMemberAdded] UICaller: " + caller.getMyID());
+//		    addBusMemberToRegistry(caller.getMyID(), caller, BusType.UI);
+//		} else if (busMember instanceof UIHandler) {
+//		    UIHandler handler = (UIHandler) busMember;
+//		    logInfo("%s",
+//			    "[BusMemberAdded] UIHandler: " + handler.getMyID());
+//		    addBusMemberToRegistry(handler.getMyID(), handler, BusType.UI);
+//		}
+//	    }
+//
+//	    public void busCleared() {
+//		logInfo("%s", "[BusCleared] IUIBus");
+//	    }
+//	};
+//	((AbstractBus) uiBus).addRegistryListener(uiListener);
     }
 
     private void removeBusMemberFromRegistry(String id,BusMember member, BusType type) {
