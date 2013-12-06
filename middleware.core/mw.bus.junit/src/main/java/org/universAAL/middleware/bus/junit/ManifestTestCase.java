@@ -54,7 +54,7 @@ public class ManifestTestCase extends BusTestCase {
     public static final int EXTEND_NOTHING = 0;
 
     public static final int EXTEND_HASVALUE = 1;
-    public static final int EXTEND_ENUMERATION = 2;
+    //public static final int EXTEND_ENUMERATION = 2;
     public static final int EXTEND_CHANGE_EFFECT = 4;
 
     public static final int EXTEND_ALL = 255;
