@@ -45,6 +45,7 @@
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Export-Package>org.universAAL.middleware.rdf,
 							org.universAAL.middleware.owl,
+							org.universAAL.middleware.owl.util,
 							org.universAAL.middleware.owl.supply,
 							org.universAAL.middleware.util,
 							org.universAAL.middleware.xsd,
