@@ -62,6 +62,10 @@ public class TurtleTest extends TestCase {
     }
 
     private boolean check(Resource r1) {
+	return check(r1, false);
+    }
+
+    private boolean check(Resource r1, boolean ignoreEmptyList) {
 	Resource r2; // resulting resource (after serialize-deserialize)
 	String str; // serialized String
 
@@ -70,7 +74,7 @@ public class TurtleTest extends TestCase {
 	System.out.println("Serialized String:\n" + str);
 	s = new TurtleSerializer();
 	r2 = (Resource) s.deserialize(str);
-	ResourceComparator rc = new ResourceComparator();
+	ResourceComparator rc = new ResourceComparator(ignoreEmptyList);
 	// System.out.println("-- r1:\n" + r1.toStringRecursive());
 	// System.out.println("-- r2:\n" + r2.toStringRecursive());
 
@@ -204,6 +208,45 @@ public class TurtleTest extends TestCase {
 	r1.setProperty("testdec", BigDecimal.valueOf(3.3));
 	r1.setProperty("testdec2", BigDecimal.valueOf(40000000.00000001));
 	r1.setProperty("testfloat", Float.valueOf("0.0000001"));
+	assertTrue(check(r1));
+    }
+
+    public void testSingleAnon() {
+	try {
+	    Resource r1 = new Resource(); // input resource
+	    check(r1);
+	} catch (RuntimeException e) {
+	    return;
+	}
+	assertTrue(false);
+    }
+
+    public void testAnonWithAnonPropVal() {
+	Resource r1 = new Resource(); // input resource
+	Resource r2 = new Resource(); // input resource
+	r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+	assertTrue(check(r1, true));
+    }
+
+    public void testAnon() {
+	Resource r1 = new Resource("test"); // input resource
+	Resource r2 = new Resource(); // input resource
+	r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+	assertTrue(check(r1, true));
+    }
+
+    public void testNoType() {
+	Resource r1 = new Resource("test"); // input resource
+	Resource r2 = new Resource("test2"); // input resource
+	r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+	assertTrue(check(r1));
+    }
+
+    public void testNoPropValType() {
+	Resource r1 = new Resource("test"); // input resource
+	r1.addType("testtype", true);
+	Resource r2 = new Resource("test2"); // input resource
+	r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
 	assertTrue(check(r1));
     }
 
