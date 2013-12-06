@@ -41,6 +41,7 @@ import org.universAAL.middleware.ui.UIHandlerProfile;
  * then retrieve their associated ID.
  *  <center> <img style="background-color:white;" src="doc-files/CoordinatedRegistrationStrategy.png"
  * alt="UIStrategy messages" width="70%"/> </center>
+ * 
  * @author amedrano
  * 
  */

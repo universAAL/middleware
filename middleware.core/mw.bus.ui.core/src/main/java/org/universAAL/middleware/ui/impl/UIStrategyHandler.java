@@ -45,8 +45,24 @@ import org.universAAL.middleware.ui.UIRequest;
 import org.universAAL.middleware.ui.UIResponse;
 import org.universAAL.middleware.ui.impl.generic.CallMessage;
 import org.universAAL.middleware.ui.impl.generic.EventMessage;
+import org.universAAL.middleware.ui.rdf.Form;
 
 /**
+ * This part of the UIStrategy Stack deals only with communications between the {@link UIHandler}s
+ * and the {@link IDialogManager}.
+ *  <center> <img style="background-color:white;" src="doc-files/UIStrategyHandler.png"
+ * alt="UIStrategy messages" width="70%"/> </center>
+ * <br>
+ * the messages exchaged are:
+ * <ol>
+ * <li> userLogOn: notifies the {@link IDialogManager} when a user has logOn at a handler.
+ * <li> NotifyHandler: the {@link IDialogManager} is sending a new {@link UIRequest} or updating an
+ * existing one.
+ * <li> FinishDialog: the {@link UIHandler} notifies the {@link IDialogManager} a user has finishied a dialog, the {@link UIResponse}
+ * goes in this message.
+ * <li> CutCall: this is a synchronous call, the bus is telling the {@link UIHandler} to derenderize a certain dialog, and it is expecting
+ * (and waiting) for the {@link Form#PROP_DIALOG_DATA_ROOT dataRoot} of the {@link Form}.
+ * </ol>
  * @author amedrano
  * 
  */
@@ -163,6 +179,10 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	 */
 	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
 		+ "Cut";
+	
+	/**
+	 * Type only for the case there is a {@link Resource} withou properties, that will not be serialized.
+	 */
 	private static final String TYPE_DUMMY_TYPE = Resource.uAAL_VOCABULARY_NAMESPACE + "DummyType";
 
 	public CutCallMessage(){
@@ -184,8 +204,8 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		    (String) getProperty(PROP_uAAL_UI_HANDLER_ID),
 		    (String) getProperty(PROP_uAAL_DIALOG_ID));
 	    if (data == null
-		    || (data.isAnon() && data.numberOfProperties() == 0)){
-		data = new Resource();
+		    || data.numberOfProperties() == 0){
+		data = new Resource(data==null? null:data.getURI());
 		data.addType(TYPE_DUMMY_TYPE, true);
 	    }
 	    strategy.sendSynchronousResponse(m, data);
@@ -406,7 +426,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		try {
 		    Resource data = (Resource) placeSynchronousRequest(handlerID, new CutCallMessage(dialogID, handlerID));
 		    if (data != null && data.getType().equals(CutCallMessage.TYPE_DUMMY_TYPE)){
-			data = new Resource();
+			data = new Resource(data.getURI());
 		    }
 		    return data;
 		} catch (InterruptedException e) {
