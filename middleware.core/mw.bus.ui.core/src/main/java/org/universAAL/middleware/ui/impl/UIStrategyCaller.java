@@ -43,6 +43,20 @@ import org.universAAL.middleware.ui.impl.generic.EventMessage;
 import org.universAAL.middleware.ui.rdf.Form;
 
 /**
+ * This part of the UIStrategy Stack deals only with communications between the {@link UICaller}s
+ * and the {@link IDialogManager}.
+ *  <center> <img style="background-color:white;" src="doc-files/UIStrategyCaller.png"
+ * alt="UIStrategy messages" width="70%"/> </center>
+ * <br>
+ * the messages exchaged are:
+ * <ol>
+ * <li> Request: the {@link UICaller} notifies the {@link IDialogManager} there is a new {@link UIRequest} it 
+ * whants to display to a user. When ready a UIResponse will be delivered.
+ * <li> suspend a dialog: the {@link UICaller} notifies the {@link IDialogManager} a dialog should be suspendend for later resume.
+ * <li> resume a dialog: a notification for resuming a previously suspended dialog.
+ * <li> abort a dialog: a dialog is no longer valid the {@link UICaller} calls for its removal, the data inputed until cancelation 
+ * will be delibered. Aborts may also be instructed by the {@link IDialogManager} in representation of the user.
+ * </ol>
  * @author amedrano
  * 
  */
