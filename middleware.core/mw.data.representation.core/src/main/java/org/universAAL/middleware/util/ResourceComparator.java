@@ -50,6 +50,15 @@ public class ResourceComparator {
     /** True, if output on the stack is generated */
     private boolean isPrinting = false;
 
+    private boolean ignoreEmptyList = false;
+
+    public ResourceComparator() {
+    }
+
+    public ResourceComparator(boolean ignoreEmptyList) {
+	this.ignoreEmptyList = ignoreEmptyList;
+    }
+
     private void init() {
 	done1 = new ArrayList();
 	done2 = new ArrayList();
@@ -169,13 +178,17 @@ public class ResourceComparator {
 	    return true;
 	}
 
-	if (i == 0)
+	if (i == 0) {
 	    if (r1.getURI().equals(r2.getURI()))
 		return false;
 	    else {
-		writeLine(indent, new Object[] { "different empty resources" });
-		return true;
+		if (!ignoreEmptyList && r1.isAnon()) {
+		    writeLine(indent, new Object[] { "different empty resources" });
+		    return true;
+		}
+		return false;
 	    }
+	}
 
 	boolean result = false;
 	for (Enumeration e = r1.getPropertyURIs(); e.hasMoreElements();) {

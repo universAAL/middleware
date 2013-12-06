@@ -637,11 +637,11 @@ public class TurtleWriter {
 	d.redType = Resource.PROP_SERIALIZATION_FULL;
 	(root.isAnon() ? bNodes : uriNodes).put(root, d);
 	analyzeResource(root, nsTable);
-	//printSerData();
+	// printSerData();
 	finalizeNodes(root, nsTable);
 	d.refs--;
 
-	//printSerData();
+	// printSerData();
 
 	// serialize
 	writeEOL();
@@ -772,9 +772,14 @@ public class TurtleWriter {
 	SerData d = (SerData) bNodes.get(res);
 	if (d == null) {
 	    d = (SerData) uriNodes.get(res);
-	    if (descriptionClosed && d.serialized != NOT_SERIALIZED)
-		throw new RuntimeException("Attempt to serialize " + res
-			+ " twice!");
+	    if (descriptionClosed && d.serialized != NOT_SERIALIZED) {
+		if (res.isAnon() && d.refs < 0)
+		    throw new RuntimeException(
+			    "Attempt to serialize only one resource that is anonymous and has no properties!");
+		else
+		    throw new RuntimeException("Attempt to serialize " + res
+			    + " twice!");
+	    }
 
 	    if (d.refs < 0)
 		throw new RuntimeException("Resource " + res
@@ -878,7 +883,8 @@ public class TurtleWriter {
     }
 
     /** Write a new value (Resource or Literal) to the output stream. */
-    private void writeValue(Object val, boolean closed, boolean isType) throws IOException {
+    private void writeValue(Object val, boolean closed, boolean isType)
+	    throws IOException {
 	if (val instanceof List) {
 	    if (closed) {
 		writer.write("(");
