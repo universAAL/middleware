@@ -21,6 +21,7 @@ package org.universAAL.middleware.service.impl;
 
 import java.util.HashMap;
 
+import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.model.BusStrategy;
 import org.universAAL.middleware.bus.msg.BusMessage;
@@ -240,6 +241,14 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	if (callerID != null) {
 	    super.unregister(callerID, caller);
 	}
+    }
+    
+    @Override
+    public void unregister(String memberID, BusMember m) {
+	if (m instanceof ServiceCallee)
+	    unregister(memberID, (ServiceCallee) m);
+	else if (m instanceof ServiceCaller)
+	    unregister(memberID, (ServiceCaller) m);
     }
 
     @Override

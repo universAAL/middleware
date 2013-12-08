@@ -295,6 +295,14 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	}
     }
 
+    @Override
+    public void unregister(String memberID, BusMember m) {
+	if (m instanceof UICaller)
+	    unregister(memberID, (UICaller) m);
+	else if (m instanceof UIHandler)
+	    unregister(memberID, (UIHandler) m);
+    }
+
     /*
      * (non-Javadoc)
      * 

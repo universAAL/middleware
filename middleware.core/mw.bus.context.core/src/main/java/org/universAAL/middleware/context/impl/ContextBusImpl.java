@@ -19,6 +19,7 @@
  */
 package org.universAAL.middleware.context.impl;
 
+import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.model.BusStrategy;
 import org.universAAL.middleware.bus.msg.BusMessage;
@@ -163,6 +164,14 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
     public void unregister(String subscriberID, ContextSubscriber subscriber) {
 	super.unregister(subscriberID, subscriber);
 	((ContextStrategy) busStrategy).removeRegParams(subscriber);
+    }
+    
+    @Override
+    public void unregister(String memberID, BusMember m) {
+	if (m instanceof ContextPublisher)
+	    unregister(memberID, (ContextPublisher) m);
+	else if (m instanceof ContextSubscriber)
+	    unregister(memberID, (ContextSubscriber) m);
     }
 
     public void handleSendError(ChannelMessage message,
