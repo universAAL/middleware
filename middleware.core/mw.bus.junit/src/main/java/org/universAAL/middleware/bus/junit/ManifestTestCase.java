@@ -211,7 +211,7 @@ public class ManifestTestCase extends BusTestCase {
 	    // System.out.println("\n\n-- extended version of " + title + ":\n"
 	    // + serialize(r));
 	}
-	assertTrue(r.matches(orig));
+	assertTrue(orig.matches(r));
 	checkserialization(r);
 
 	serviceRequests.add(new Element<ServiceRequest>(title, description, r));

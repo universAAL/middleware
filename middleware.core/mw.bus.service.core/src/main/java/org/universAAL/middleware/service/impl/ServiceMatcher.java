@@ -71,7 +71,7 @@ public class ServiceMatcher {
 		    context.put(key, cloned.get(key));
 	    }
 
-	processNonSemanticInput(subset, context);
+	processNonSemanticInput(superset, context);
 	processServiceUri(superset, subset, context);
 
 	return true;
@@ -86,8 +86,8 @@ public class ServiceMatcher {
 	if (superService == null)
 	    return false;
 
-	if (!ManagedIndividual.checkMembership(subsetService.getClassURI(),
-		superService))
+	if (!ManagedIndividual.checkMembership(superService.getClassURI(),
+		subsetService))
 	    return false;
 	/*
 	 * By checking the membership of offer in requestedServiceClass two
@@ -151,7 +151,7 @@ public class ServiceMatcher {
     private boolean matchRestrictions(ServiceWrapper superset,
 	    ServiceWrapper subset, HashMap context, Long logID) {
 	Service subsetService = subset.getService();
-	Service superService = superset.getService();
+	Service supersetService = superset.getService();
 
 	// for checking later if the concrete values provided by the requester
 	// are really used as input
@@ -163,25 +163,34 @@ public class ServiceMatcher {
 	// filtered by specifying a chain of restrictions (in addition to simple
 	// output bindings that
 	// only specify the corresponding property path)
-	int expectedSize = context.size()
-		+ subsetService.getNumberOfValueRestrictions();
+	int expectedSize = context.size();
+	if (subsetService.getProfile() != null)
+	    expectedSize += subsetService.getProfile()
+		    .getNumberOfMandatoryInputs();
 
-	String[] restrProps = subsetService.getRestrictedPropsOnInstanceLevel();
+	String[] restrProps = supersetService
+		.getRestrictedPropsOnInstanceLevel();
 	if (restrProps != null && restrProps.length > 0) {
 	    for (int i = 0; i < restrProps.length; i++) {
 		String restrProp = restrProps[i];
 
 		// request instance level restrictions
-		TypeExpression reqInsRestr = subsetService
+		TypeExpression supersetInsRestr = supersetService
 			.getInstanceLevelRestrictionOnProp(restrProp);
+
+		if (!(supersetInsRestr instanceof MergedRestriction)) {
+		    // makes no sense, because 'restrProps' must have
+		    // instance level restrictions
+		    continue;
+		}
 
 		if (Service.PROP_OWLS_PRESENTS.equals(restrProp)) {
 		    // the restricted property is a non-functional parameter
 
-		    reqInsRestr = (TypeExpression) ((MergedRestriction) reqInsRestr)
+		    supersetInsRestr = (TypeExpression) ((MergedRestriction) supersetInsRestr)
 			    .getConstraint(MergedRestriction.allValuesFromID);
-		    if (reqInsRestr instanceof PropertyRestriction) {
-			restrProp = ((PropertyRestriction) reqInsRestr)
+		    if (supersetInsRestr instanceof PropertyRestriction) {
+			restrProp = ((PropertyRestriction) supersetInsRestr)
 				.getOnProperty();
 			if (restrProp == null)
 			    // strange!
@@ -194,16 +203,17 @@ public class ServiceMatcher {
 			    // provider
 			    o = superset.getProperty(restrProp);
 			if (o == null
-				|| !reqInsRestr.hasMember(o, context, -1, null))
+				|| !supersetInsRestr.hasMember(o, context, -1,
+					null))
 			    return false;
-		    } else if (reqInsRestr instanceof Intersection)
-			for (Iterator j = ((Intersection) reqInsRestr).types(); j
-				.hasNext();) {
+		    } else if (supersetInsRestr instanceof Intersection)
+			for (Iterator j = ((Intersection) supersetInsRestr)
+				.types(); j.hasNext();) {
 			    // the same as above, only this time in a loop
 			    // over all members of the intersection
-			    reqInsRestr = (TypeExpression) j.next();
-			    if (reqInsRestr instanceof PropertyRestriction) {
-				restrProp = ((PropertyRestriction) reqInsRestr)
+			    supersetInsRestr = (TypeExpression) j.next();
+			    if (supersetInsRestr instanceof PropertyRestriction) {
+				restrProp = ((PropertyRestriction) supersetInsRestr)
 					.getOnProperty();
 				if (restrProp == null)
 				    // strange!
@@ -212,8 +222,8 @@ public class ServiceMatcher {
 				if (o == null)
 				    o = superset.getProperty(restrProp);
 				if (o == null
-					|| !reqInsRestr.hasMember(o, context,
-						-1, null))
+					|| !supersetInsRestr.hasMember(o,
+						context, -1, null))
 				    return false;
 			    }
 			}
@@ -225,40 +235,35 @@ public class ServiceMatcher {
 		} else {
 		    // the restricted property is NOT a non-functional parameter
 
-		    // request class level restrictions
-		    TypeExpression reqClsRestr = Service
+		    // offer class level restrictions
+		    TypeExpression subsetClsRestr = Service
 			    .getClassRestrictionsOnProperty(
 				    subsetService.getClassURI(), restrProp);
 
 		    // offer instance level restrictions
-		    TypeExpression offInsRestr = superService
+		    TypeExpression subsetInsRestr = subsetService
 			    .getInstanceLevelRestrictionOnProp(restrProp);
 
-		    // offer class level restrictions
-		    TypeExpression offClsRestr = Service
+		    // request class level restrictions
+		    TypeExpression supersetClsRestr = Service
 			    .getClassRestrictionsOnProperty(
-				    superService.getClassURI(), restrProp);
+				    supersetService.getClassURI(), restrProp);
 
-		    if (!(reqInsRestr instanceof MergedRestriction)) {
-			// makes no sense, because 'restrProps' must have
-			// instance level restrictions
-			continue;
-		    }
+		    Intersection subsetAllRestr = new Intersection();
+		    subsetAllRestr.addType(subsetClsRestr);
+		    subsetAllRestr.addType(subsetInsRestr);
 
-		    Intersection offAllRestr = new Intersection();
-		    offAllRestr.addType(offClsRestr);
-		    offAllRestr.addType(offInsRestr);
-
-		    Intersection reqAllRestr = new Intersection();
-		    reqAllRestr.addType(reqClsRestr);
-		    reqAllRestr.addType(reqInsRestr);
+		    Intersection supersetAllRestr = new Intersection();
+		    supersetAllRestr.addType(supersetClsRestr);
+		    supersetAllRestr.addType(supersetInsRestr);
 
 		    // System.out.println(" -- requestRestriction:\n" +
 		    // reqAllRestr.toStringRecursive());
 		    // System.out.println(" -- offerRestriction:\n" +
 		    // offAllRestr.toStringRecursive());
 
-		    if (!reqAllRestr.matches(offAllRestr, context, -1, null)) {
+		    if (!supersetAllRestr.matches(subsetAllRestr, context, -1,
+			    null)) {
 			if (logID != null)
 			    LogUtils.logTrace(
 				    ServiceBusImpl.getModuleContext(),
@@ -305,8 +310,8 @@ public class ServiceMatcher {
     private boolean matchEffects(ServiceWrapper superset,
 	    ServiceWrapper subset, HashMap context, Long logID) {
 	// check effects
-	if (!ProcessResult.checkEffects(subset.getEffects(),
-		superset.getEffects(), context, logID))
+	if (!ProcessResult.checkEffects(superset.getEffects(),
+		subset.getEffects(), context, logID))
 	    return false;
 
 	return true;
@@ -315,20 +320,20 @@ public class ServiceMatcher {
     private boolean matchOutputs(ServiceWrapper superset,
 	    ServiceWrapper subset, HashMap context, Long logID) {
 	// check output bindings
-	if (!ProcessResult.checkOutputBindings(subset.getOutputs(),
-		superset.getOutputs(), context, logID))
+	if (!ProcessResult.checkOutputBindings(superset.getOutputs(),
+		subset.getOutputs(), context, logID))
 	    return false;
 
 	return true;
     }
 
-    private void processNonSemanticInput(ServiceWrapper subset, HashMap context) {
+    private void processNonSemanticInput(ServiceWrapper superset, HashMap context) {
 	// NON_SEMANTIC_INPUT:
 	// if service matches then non-semantic input has to be copied to the
 	// context
 	Hashtable nonSemanticInput = null;
 	try {
-	    nonSemanticInput = subset.getNonSemanticInput();
+	    nonSemanticInput = superset.getNonSemanticInput();
 	} catch (Exception ex) {
 	    LogUtils.logDebug(
 		    ServiceBusImpl.getModuleContext(),
@@ -349,8 +354,8 @@ public class ServiceMatcher {
 	// if URI of offered service matches exactly URI specified in
 	// ServiceRequest then it is indicated in the context by means of
 	// uAAL_SERVICE_URI_MATCHED property.
-	String requestedServiceUri = subset.getService().getURI();
-	String offeredURI = superset.getService().getURI();
+	String requestedServiceUri = superset.getService().getURI();
+	String offeredURI = subset.getService().getURI();
 	if (requestedServiceUri != null) {
 	    if (requestedServiceUri.equals(offeredURI)) {
 		context.put(ServiceRealization.uAAL_SERVICE_URI_MATCHED,

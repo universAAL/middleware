@@ -37,6 +37,7 @@ import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.process.ProcessResult;
+import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
  * A class that represents a service request resource, which is used by the
@@ -493,23 +494,18 @@ public class ServiceRequest extends FinalizedResource implements Request {
      * @see Matchable#matches(Matchable)
      */
     public boolean matches(Matchable other) {
-	// only ServiceRequests can match
-	if (!(other instanceof ServiceRequest))
+	ServiceWrapper subset = null;
+	if (other instanceof ServiceProfile) {
+	    subset = ServiceWrapper.create((ServiceProfile) other);
+	} else if (other instanceof ServiceRequest) {
+	    subset = ServiceWrapper.create((ServiceRequest) other);
+	}
+	if (subset == null)
 	    return false;
+
 	ServiceWrapper superset = ServiceWrapper.create(this);
-	ServiceWrapper subset = ServiceWrapper.create((ServiceRequest) other);
 
-	boolean res = new ServiceMatcher().matches(superset, subset,
-		new HashMap(), null);
-
-	// if (res == false) {
-	// System.out.println(" -- matching error: trying to match "
-	// + BusMessage.trySerializationAsContent(this)
-	// + "\n -- with: "
-	// + BusMessage.trySerializationAsContent(other));
-	// new ServiceMatcher().matches(superset, subset, new Hashtable(),
-	// null);
-	// }
-	return res;
+	return new ServiceMatcher().matches(superset, subset, new HashMap(),
+		null);
     }
 }

@@ -104,10 +104,6 @@ public class ServiceStrategy extends BusStrategy {
 	    + "requestMessage";
     private static final String CONTEXT_RESPONSE_MESSAGE = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "responseMessage";
-    static final String CONTEXT_SPECIALIZED_CLASS_MATCH = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "specializedClassMatch";
-    static final String CONTEXT_SPECIALIZED_INSTANCE_MATCH = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "specializedInstanceMatch";
 
     private class AvailabilitySubscription {
 	String callerID;
@@ -1284,25 +1280,9 @@ public class ServiceStrategy extends BusStrategy {
 			    // and then the one with the smallest context, which
 			    // produces shorter messages
 
-			    // TODO: is the above strategy ok? The issues are:
-			    // 1. is instance-match specialization really more
-			    // important than class-match specialization?
-			    // 2. is the length of messages a good criteria?
-			    int sp0 = Boolean.TRUE.equals(match
-				    .get(CONTEXT_SPECIALIZED_CLASS_MATCH)) ? 1
-				    : 0;
-			    if (Boolean.TRUE.equals(match
-				    .get(CONTEXT_SPECIALIZED_INSTANCE_MATCH)))
-				sp0 += 2;
-			    int sp1 = Boolean.TRUE.equals(otherMatch
-				    .get(CONTEXT_SPECIALIZED_CLASS_MATCH)) ? 1
-				    : 0;
-			    if (Boolean.TRUE.equals(otherMatch
-				    .get(CONTEXT_SPECIALIZED_INSTANCE_MATCH)))
-				sp1 += 2;
-			    if (sp1 < sp0
-				    || (sp1 == sp0 && otherMatch.size() > match
-					    .size()))
+			    // TODO: is the above strategy ok? The issues is:
+			    // is the length of messages a good criteria?
+			    if (otherMatch.size() > match.size())
 				auxMap.put(sr.getProvider(), match);
 			}
 		    } else {
