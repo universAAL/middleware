@@ -27,7 +27,6 @@ import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
-import org.universAAL.middleware.service.owl.Service;
 
 /**
  * Support for constructing an OWL-S

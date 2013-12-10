@@ -346,8 +346,8 @@ public class ServiceRealization extends FinalizedResource {
 	if (prof == null)
 	    return false;
 
-	ServiceWrapper superset = ServiceWrapper.create(prof);
-	ServiceWrapper subset = ServiceWrapper.create(request);
+	ServiceWrapper superset = ServiceWrapper.create(request);
+	ServiceWrapper subset = ServiceWrapper.create(prof);
 
 	addAggregatedProperties(context);
 

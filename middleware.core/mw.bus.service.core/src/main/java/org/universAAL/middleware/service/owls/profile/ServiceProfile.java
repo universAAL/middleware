@@ -34,7 +34,6 @@ import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.impl.ServiceMatcher;
 import org.universAAL.middleware.service.impl.ServiceWrapper;
 import org.universAAL.middleware.service.owl.Service;
@@ -657,15 +656,10 @@ public class ServiceProfile extends FinalizedResource implements
      * @see Matchable#matches(Matchable)
      */
     public boolean matches(Matchable other) {
-	ServiceWrapper subset = null;
-	if (other instanceof ServiceProfile) {
-	    subset = ServiceWrapper.create((ServiceProfile) other);
-	} else if (other instanceof ServiceRequest) {
-	    subset = ServiceWrapper.create((ServiceRequest) other);
-	}
-	if (subset == null)
+	if (!(other instanceof ServiceProfile))
 	    return false;
 
+	ServiceWrapper subset = ServiceWrapper.create((ServiceProfile) other);
 	ServiceWrapper superset = ServiceWrapper.create(this);
 
 	return new ServiceMatcher().matches(superset, subset, new HashMap(),
