@@ -95,10 +95,12 @@ public class ContextEventPattern extends FinalizedResource implements
      * 
      * @param r
      *            The Restriction to add
+     * @throws NullPointerException
+     *             if the restriction is null
      */
     public boolean addRestriction(MergedRestriction r) {
 	if (r == null)
-	    return false;
+	    throw new NullPointerException("Restriction cannot be null");
 
 	String prop = r.getOnProperty();
 	if (// deprecated -> ContextEvent.PROP_CONTEXT_ACCURACY.equals(prop) ||
@@ -260,7 +262,7 @@ public class ContextEventPattern extends FinalizedResource implements
 	for (String prop : mergedRestrictions.keySet()) {
 	    MergedRestriction rthis = mergedRestrictions.get(prop);
 	    MergedRestriction rsub = subset.mergedRestrictions.get(prop);
-	    
+
 	    if (!rthis.matches(rsub, null))
 		return false;
 	}
