@@ -214,51 +214,16 @@
         <version>2.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>org.osgi.core</artifactId>
-        <version>1.0.1</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.core</artifactId>
-        <version>[4,)</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>org.osgi.compendium</artifactId>
-        <version>1.4.0</version>
+        <version>4.1.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.compendium</artifactId>
-        <version>[4,)</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.karaf.shell</groupId>
-        <artifactId>org.apache.karaf.shell.console</artifactId>
-        <version>${karaf.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.karaf.features</groupId>
-        <artifactId>org.apache.karaf.features.core</artifactId>
-        <version>${karaf.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>org.apache.felix.framework</artifactId>
-        <version>4.2.0</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>org.apache.felix.shell</artifactId>
-        <version>1.4.3</version>
-        <scope>provided</scope>
+        <version>4.1.0</version>
+<!--         <scope>provided</scope> -->
       </dependency>
       <dependency>
         <groupId>com.google.code.gson</groupId>
