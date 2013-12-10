@@ -15,10 +15,12 @@
   <name>universAAL Middleware Felix Shell</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.apache.felix.shell</artifactId>
-    </dependency>
+      <dependency>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.apache.felix.shell</artifactId>
+        <version>1.4.3</version>
+        <scope>provided</scope>
+      </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.connectors.api.osgi</artifactId>

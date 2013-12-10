@@ -15,12 +15,14 @@
   <name>universAAL Middleware Karaf Shell</name>
   <dependencies>
     <dependency>
-      <groupId>org.apache.felix</groupId>
+      <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.karaf.shell</groupId>
       <artifactId>org.apache.karaf.shell.console</artifactId>
+      <version>${karaf.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>

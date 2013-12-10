@@ -19,8 +19,8 @@
       <artifactId>itests</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.osgi.compendium</artifactId>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>

@@ -19,8 +19,12 @@
       <artifactId>itests</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.osgi.compendium</artifactId>
+	    <groupId>org.osgi</groupId>
+	    <artifactId>org.osgi.core</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.compendium</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
@@ -51,7 +55,9 @@
             <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Export-Package>org.universAAL.middleware.connectors.communication.jgroups, org.universAAL.middleware.connectors.communication.jgroups.osgi, org.universAAL.middleware.connectors.communication.jgroups.util</Export-Package>
+            <Export-Package>org.universAAL.middleware.connectors.communication.jgroups,
+            				org.universAAL.middleware.connectors.communication.jgroups.osgi,
+            				org.universAAL.middleware.connectors.communication.jgroups.util</Export-Package>
             <Import-Package>org.universAAL.middleware.interfaces.*,
 							org.jgroups,
 							org.jgroups.blocks,
