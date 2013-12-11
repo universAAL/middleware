@@ -242,21 +242,21 @@ public class Resource {
 	if (members == null || members.isEmpty())
 	    return new Resource(RDF_EMPTY_LIST, isXMLLiteral);
 	Resource result = new Resource(isXMLLiteral);
-	
+
 	Resource tmp = result;
 	Resource tmp2 = tmp;
 	for (Object o : members) {
 	    tmp.addType(TYPE_RDF_LIST, true);
 	    tmp.props.put(PROP_RDF_FIRST, o);
-	    
+
 	    tmp2 = tmp;
 	    tmp = new Resource();
 	    tmp2.props.put(PROP_RDF_REST, tmp);
 	}
-	
+
 	tmp = new Resource(RDF_EMPTY_LIST);
-	//tmp.addType(TYPE_RDF_LIST, true);
-	
+	// tmp.addType(TYPE_RDF_LIST, true);
+
 	tmp2.props.put(PROP_RDF_REST, tmp);
 	return result;
     }
@@ -783,10 +783,9 @@ public class Resource {
      * property should be serialized using the concept of rdf:List or the
      * property should appear as often as the number of values assigned to the
      * property. The default behavior is that a property associated with an
-     * instance of {@link java.util.List} is assumed to be a closed collection.
-     * Subclasses can change this, if needed.
+     * instance of {@link ClosedCollection} is assumed to be a closed
+     * collection. Subclasses can change this, if needed.
      */
-    // TODO: update Javadoc
     public boolean isClosedCollection(String propURI) {
 	if (propURI == null || PROP_RDF_TYPE.equals(propURI))
 	    return false;
@@ -863,15 +862,31 @@ public class Resource {
      *            The String to add.
      */
     public void addMultiLangProp(String propURI, LangString ls) {
-	// TODO: should we check if the language already exists?
 	if (propURI == null || ls == null)
-	    return; // TODO: a log entry?
+	    throw new NullPointerException();
 
 	Object o = getProperty(propURI);
+	if (o instanceof LangString) {
+	    if (((LangString) o).getLang().equals(ls.getLang())) {
+		// same language, we do nothing
+		return;
+	    }
+	}
+
 	List l;
-	if (o instanceof List)
+	if (o instanceof List) {
 	    l = (List) o;
-	else {
+
+	    // test if the list already contains this language
+	    for (Object el : l) {
+		if (el instanceof LangString) {
+		    if (((LangString) el).getLang().equals(ls.getLang())) {
+			// found an element with the same language -> do nothing
+			return;
+		    }
+		}
+	    }
+	} else {
 	    l = new ArrayList();
 	    if (o != null)
 		l.add(o);
@@ -898,7 +913,7 @@ public class Resource {
     public LangString getMultiLangProp(String propURI, String lang,
 	    boolean includeDefault) {
 	if (propURI == null || lang == null)
-	    return null; // TODO: a log entry?
+	    throw new NullPointerException();
 
 	Object o = getProperty(propURI);
 	if (o == null)

@@ -110,4 +110,30 @@ public class ResourceTest extends TestCase {
 
 	assertTrue(l.size() == l2.size());
     }
+
+    public void testLangString() {
+	String en = "hello";
+	String de = "hallo";
+	String p = Resource.PROP_RDFS_LABEL;
+	Resource r = new Resource();
+	r.addMultiLangProp(p, new LangString(en, LangString.LANG_ENGLISH));
+	r.addMultiLangProp(p, new LangString(de, LangString.LANG_GERMAN));
+
+	assertTrue(r.getProperty(p) instanceof List);
+	assertTrue(((List) (r.getProperty(p))).size() == 2);
+	assertTrue(en.equals(r.getMultiLangProp(p, LangString.LANG_ENGLISH,
+		false).getString()));
+	assertTrue(de.equals(r.getMultiLangProp(p, LangString.LANG_GERMAN,
+		false).getString()));
+
+	r.addMultiLangProp(p, new LangString("somevalue",
+		LangString.LANG_GERMAN));
+
+	assertTrue(r.getProperty(p) instanceof List);
+	assertTrue(((List) (r.getProperty(p))).size() == 2);
+	assertTrue(en.equals(r.getMultiLangProp(p, LangString.LANG_ENGLISH,
+		false).getString()));
+	assertTrue(de.equals(r.getMultiLangProp(p, LangString.LANG_GERMAN,
+		false).getString()));
+    }
 }
