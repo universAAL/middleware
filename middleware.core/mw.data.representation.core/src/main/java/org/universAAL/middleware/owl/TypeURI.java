@@ -176,6 +176,34 @@ public class TypeURI extends TypeExpression {
 	    // TODO: there is still a chance to return true...
 	    // so fall through to the general case at the end
 	} else if (subtype instanceof PropertyRestriction) {
+	    if (subtype instanceof HasValueRestriction) {
+		HasValueRestriction has = (HasValueRestriction) subtype;
+
+		if (Resource.PROP_RDF_TYPE.equals(has.getOnProperty())) {
+		    Object o = has.getConstraint();
+		    if (Variable.isVarRef(o)) {
+			Object val = Variable.resolveVarRef(o, context);
+			if (val instanceof Variable) {
+			    Variable var = (Variable) val;
+			    if (var.getMinCardinality() < 2
+				    && TypeMapper
+					    .getDatatypeURI(Resource.class)
+					    .equals(var.getParameterType())) {
+				// special case: we are matching a ype filter
+				// the hasValue is a Variable with the type
+				// information
+				// and we are matching it with a TypeURI
+				// -> we have to store the TypeURI in context
+				if (context != null) {
+				    context.put(var.getURI(), copy());
+				}
+				return true;
+			    }
+			}
+		    }
+		}
+	    }
+
 	    MergedRestriction r = ManagedIndividual
 		    .getClassRestrictionsOnProperty(uri,
 			    ((PropertyRestriction) subtype).getOnProperty());
