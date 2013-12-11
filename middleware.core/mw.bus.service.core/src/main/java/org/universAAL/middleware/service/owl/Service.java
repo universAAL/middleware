@@ -28,6 +28,7 @@ import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
@@ -256,6 +257,20 @@ public abstract class Service extends ManagedIndividual {
 	addInstanceLevelRestriction(MergedRestriction.getFixedValueRestriction(
 		propPath[propPath.length - 1], in.asVariableReference()),
 		propPath);
+    }
+    
+    /**
+     * Adds a restriction to a given input
+     */
+    protected void addFilteringType(String inParamURI, String[] propPath) {
+	ProcessInput in = createInput(inParamURI,
+		TypeMapper.getDatatypeURI(Resource.class), 1, 1);
+	String[] pp = new String[propPath.length+1];
+	for (int i=0; i<propPath.length; i++)
+	    pp[i] = propPath[i];
+	pp[propPath.length] = Resource.PROP_RDF_TYPE;
+	addInstanceLevelRestriction(MergedRestriction.getFixedValueRestriction(
+		Resource.PROP_RDF_TYPE, in.asVariableReference()), pp);
     }
 
     /**
