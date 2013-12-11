@@ -247,7 +247,8 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
+	// ttl =
+	checkTTL(ttl);
 	if (member == null)
 	    return true;
 
@@ -408,7 +409,8 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
+	// ttl =
+	checkTTL(ttl);
 	if (other instanceof BoundedValueRestriction) {
 
 	    boolean min1Incl = minInclusive;
@@ -441,7 +443,8 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     public boolean matches(TypeExpression subset, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
+	// ttl =
+	checkTTL(ttl);
 	// TODO: check other ClassExpressions (e.g. Union..)
 
 	if (subset instanceof BoundedValueRestriction) {

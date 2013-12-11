@@ -164,7 +164,8 @@ public class Enumeration extends TypeExpression {
 
     public boolean hasMember(Object value, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
+	// ttl =
+	checkTTL(ttl);
 	if (value == null || values.contains(value))
 	    return true;
 	// TODO: what if variables had to be replaced using context

@@ -28,7 +28,7 @@ public class UnmodifiableResourceList implements List {
 
     /** A safe iterator that does not allow modifications. */
     private static class SafeIterator implements Iterator {
-	Iterator it;
+	private Iterator it;
 
 	SafeIterator(Iterator it) {
 	    this.it = it;
@@ -49,7 +49,7 @@ public class UnmodifiableResourceList implements List {
     /** A safe iterator that does not allow modifications. */
     private static class SafeListIterator extends SafeIterator implements
 	    ListIterator {
-	ListIterator it;
+	private ListIterator it;
 
 	SafeListIterator(ListIterator it) {
 	    super(it);
@@ -79,7 +79,7 @@ public class UnmodifiableResourceList implements List {
 	}
     }
 
-    List l;
+    private List l;
 
     public UnmodifiableResourceList(List l) {
 	this.l = l;

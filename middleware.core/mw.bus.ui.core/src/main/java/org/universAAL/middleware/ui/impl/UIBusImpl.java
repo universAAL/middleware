@@ -92,7 +92,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	}
     }
 
-    public static void startModule(Container c, ModuleContext mc,
+    public static synchronized void startModule(Container c, ModuleContext mc,
 	    Object[] uiBusShareParams, Object[] uiBusFetchParams) {
 	if (theUIBus == null) {
 	    UIBusImpl.mc = mc;

@@ -65,47 +65,47 @@ public class GraphIterator implements Iterator {
      */
     protected class StackElement {
 	/** The parent node. */
-	Resource nodeParent;
+	private Resource nodeParent;
 
 	/** The child node. Can be a {@link Resource}, a Literal, or a list. */
-	Object nodeChild = null;
+	private Object nodeChild = null;
 
 	/** The depth, i.e. the distance to the root node. */
-	int depth;
+	private int depth;
 
 	/**
 	 * Enumerator for properties to iterate over all property URIs of a
 	 * Resource.
 	 */
-	Enumeration enumProp;
+	private Enumeration enumProp;
 
 	/** The current property URI. */
-	String propURI;
+	private String propURI;
 
 	/**
 	 * If the child node is a list, this variable holds the iterator over
 	 * elements of the list.
 	 */
-	Iterator lstIterator = null;
+	private Iterator lstIterator = null;
 
 	/**
 	 * If the child node is a list, this variable holds the index of the
 	 * currently selected element of the list.
 	 */
-	int lstIndex = 0;
+	private int lstIndex = 0;
 
 	/**
 	 * If the child node is a list, this variable holds the currently
 	 * selected element of the list.
 	 */
-	Object lstElement = null;
+	private Object lstElement = null;
     }
 
     /**
      * A specialized iterator to iterate only over instances of {@link Resource}
      * .
      */
-    protected class GraphIteratorResources extends GraphIterator {
+    protected static class GraphIteratorResources extends GraphIterator {
 	boolean first = true;
 
 	GraphIteratorResources(Resource root) {
@@ -181,7 +181,7 @@ public class GraphIterator implements Iterator {
 	if (root == null)
 	    throw new NullPointerException(
 		    "The argument of a GraphIterator can not be null.");
-	return (new GraphIterator(root)).new GraphIteratorResources(root);
+	return new GraphIteratorResources(root);
     }
 
     // this is as a separate method so that it can be overwritten, e.g. to
