@@ -1,5 +1,8 @@
 package org.universAAL.middleware.rdf;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.universAAL.middleware.owl.MaxCardinalityRestriction;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.MinCardinalityRestriction;
@@ -61,7 +64,8 @@ public class ResourceTest extends TestCase {
 	Resource r2 = r1.deepCopy();
 	assertTrue((new ResourceComparator()).areEqual(r1, r2));
 
-	r1.setProperty("testprop",
+	r1.setProperty(
+		"testprop",
 		new MergedRestriction("onProperty").addRestriction(
 			new MinCardinalityRestriction("onProperty", 32))
 			.addRestriction(
@@ -71,9 +75,39 @@ public class ResourceTest extends TestCase {
 	r1.setProperty("testprop2", Integer.valueOf(1));
 	r1.setProperty("testprop3", r1);
 	r2 = r1.deepCopy();
-	
-	//System.out.println(r1.toStringRecursive());
-	//System.out.println(r2.toStringRecursive());
+
+	// System.out.println(r1.toStringRecursive());
+	// System.out.println(r2.toStringRecursive());
 	assertTrue((new ResourceComparator()).areEqual(r1, r2));
+    }
+
+    public void testList() {
+	ArrayList l = new ArrayList();
+	l.add("1");
+	l.add("2");
+	l.add("3");
+
+	Resource rl = Resource.asRDFList(l, false);
+	List l2 = rl.asList();
+
+	assertTrue(l.size() == l2.size());
+
+	int i = 0;
+	for (Object o : l2) {
+	    assertTrue(o.equals(l.get(i++)));
+	}
+
+	// System.out.println(rl.toStringRecursive());
+	// System.out.println(l2);
+    }
+
+    public void testEmptyList() {
+	ArrayList l = new ArrayList();
+
+	Resource rl = Resource.asRDFList(l, false);
+	List l2 = rl.asList();
+	// System.out.println(rl.toStringRecursive());
+
+	assertTrue(l.size() == l2.size());
     }
 }

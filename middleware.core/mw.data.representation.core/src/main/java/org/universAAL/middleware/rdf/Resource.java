@@ -242,9 +242,22 @@ public class Resource {
 	if (members == null || members.isEmpty())
 	    return new Resource(RDF_EMPTY_LIST, isXMLLiteral);
 	Resource result = new Resource(isXMLLiteral);
-	result.addType(TYPE_RDF_LIST, true);
-	result.props.put(PROP_RDF_FIRST, members.remove(0));
-	result.props.put(PROP_RDF_REST, members);
+	
+	Resource tmp = result;
+	Resource tmp2 = tmp;
+	for (Object o : members) {
+	    tmp.addType(TYPE_RDF_LIST, true);
+	    tmp.props.put(PROP_RDF_FIRST, o);
+	    
+	    tmp2 = tmp;
+	    tmp = new Resource();
+	    tmp2.props.put(PROP_RDF_REST, tmp);
+	}
+	
+	tmp = new Resource(RDF_EMPTY_LIST);
+	//tmp.addType(TYPE_RDF_LIST, true);
+	
+	tmp2.props.put(PROP_RDF_REST, tmp);
 	return result;
     }
 
@@ -330,6 +343,9 @@ public class Resource {
      * @return The list containing the elements of this RDF list.
      */
     public List asList() {
+	if (RDF_EMPTY_LIST.equals(uri)) {
+	    return new ArrayList();
+	}
 	String type = getType();
 	if (type == null || !type.equals(TYPE_RDF_LIST))
 	    return null;
@@ -346,7 +362,7 @@ public class Resource {
      *            The list to store the elements of this RDF list.
      */
     public void asList(List l) {
-	if (!uri.equals(RDF_EMPTY_LIST)) {
+	if (!RDF_EMPTY_LIST.equals(uri)) {
 	    Object o = props.get(PROP_RDF_FIRST);
 	    if (o != null) {
 		l.add(o);
