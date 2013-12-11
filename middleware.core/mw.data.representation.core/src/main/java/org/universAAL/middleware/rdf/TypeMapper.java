@@ -50,7 +50,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  * @author mfreddi
  * @author Carsten Stockloew
  */
-public class TypeMapper {
+public final class TypeMapper {
 
     /** xsd namespace. */
     public static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI

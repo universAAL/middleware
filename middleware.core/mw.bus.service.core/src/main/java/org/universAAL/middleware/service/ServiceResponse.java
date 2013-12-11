@@ -87,7 +87,7 @@ public class ServiceResponse extends FinalizedResource implements Response,
     }
 
     protected void allowUnboundOutput() {
-	props.put(PROP_UNBOUND_OUTPUT_ALLOWED, Boolean.valueOf(true));
+	props.put(PROP_UNBOUND_OUTPUT_ALLOWED, Boolean.TRUE);
     }
 
     protected void disallowUnboundOutput() {

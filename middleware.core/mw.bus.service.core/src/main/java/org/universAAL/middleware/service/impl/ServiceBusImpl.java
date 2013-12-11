@@ -82,7 +82,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	}
     }
 
-    public static void startModule(Container c, ModuleContext mc,
+    public static synchronized void startModule(Container c, ModuleContext mc,
 	    Object[] serviceBusShareParams, Object[] serviceBusFetchParams) {
 	if (theServiceBus == null) {
 	    ServiceBusImpl.mc = mc;

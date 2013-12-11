@@ -89,7 +89,8 @@ public class MinCardinalityRestriction extends PropertyRestriction {
 
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
+	// ttl =
+	checkTTL(ttl);
 	if (member == null)
 	    return false;
 

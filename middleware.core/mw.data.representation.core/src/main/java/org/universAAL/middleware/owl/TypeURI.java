@@ -123,7 +123,8 @@ public class TypeURI extends TypeExpression {
 
     public boolean hasMember(Object value, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
+	// ttl =
+	checkTTL(ttl);
 	if (uri.equals(TYPE_OWL_THING))
 	    return true;
 

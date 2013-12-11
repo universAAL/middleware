@@ -38,7 +38,7 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class Rating extends ComparableIndividual {
+public final class Rating extends ComparableIndividual {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Rating";
 

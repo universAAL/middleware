@@ -259,7 +259,7 @@ public final class OntClassInfo extends RDFClassInfo {
 	}
     }
 
-    public class ManagementOperation {
+    public final class ManagementOperation {
 	OntClassInfo info = null;
 
 	private ManagementOperation(OntClassInfo info) {

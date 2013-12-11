@@ -82,7 +82,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	}
     }
 
-    public static void startModule(Container c, ModuleContext mc,
+    public static synchronized void startModule(Container c, ModuleContext mc,
 	    Object[] contextBusShareParams, Object[] contextBusFetchParams) {
 	if (theContextBus == null) {
 	    OntologyManagement.getInstance().register(mc, contextBusOntology);
