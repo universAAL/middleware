@@ -416,7 +416,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	for (int i = 0; i < propURIs.length; i++) {
 	    MergedRestriction r = getClassRestrictionsOnProperty(classURI,
 		    propURIs[i]);
-	    if (r != null && !r.hasMember(this, null))
+	    if (r != null && !r.hasMember(this))
 		return false;
 	}
 	return true;
@@ -448,7 +448,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	    // we have to put the value first, because the Restriction 'r' needs
 	    // to read it for checking the membership
 	    props.put(propURI, value);
-	    if (!r.hasMember(this, null)) {
+	    if (!r.hasMember(this)) {
 		props.remove(propURI);
 		return false;
 	    }

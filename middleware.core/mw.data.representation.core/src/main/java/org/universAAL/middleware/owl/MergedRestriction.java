@@ -760,7 +760,7 @@ public class MergedRestriction extends Intersection {
 	case someValuesFromID:
 	    if (some == null
 		    && (all == null || ((TypeExpression) all)
-			    .matches(res, null))) {
+			    .matches(res))) {
 		if (all != null && max == 1)
 		    removeRestriction(allValuesFromID);
 		index[someValuesFromID] = types.size();
@@ -1330,7 +1330,7 @@ public class MergedRestriction extends Intersection {
 	for (Iterator i = types.iterator(); i.hasNext();) {
 	    if (j != minCardinalityID && j != maxCardinalityID
 		    && j != exactCardinalityID)
-		if (!((TypeExpression) i.next()).hasMember(o, null))
+		if (!((TypeExpression) i.next()).hasMember(o))
 		    return false;
 	    j++;
 	}

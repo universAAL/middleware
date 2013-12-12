@@ -120,7 +120,7 @@ public class UIHandlerProfile extends FinalizedResource implements
 	}
 	int result = MATCH_LEVEL_FAILED;
 	for (MergedRestriction r : restrictions) {
-	    if (r.hasMember(uiRequest, null)) {
+	    if (r.hasMember(uiRequest)) {
 		// r Restriction matches all the criterion of UIRequest
 		if (r.getOnProperty().equals(UIRequest.PROP_ADDRESSED_USER)
 			&& (uiRequest
@@ -197,7 +197,7 @@ public class UIHandlerProfile extends FinalizedResource implements
 			.getOnProperty())
 			&& r.copyOnNewProperty(
 				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-				.hasMember(uiRequest, null))
+				.hasMember(uiRequest))
 		/*
 		 * if the restriction r is about the modality property of
 		 * UIReqest, then rename the restriction to alt-modality and see
@@ -300,7 +300,7 @@ public class UIHandlerProfile extends FinalizedResource implements
 	    for (MergedRestriction r : restrictions) {
 		MergedRestriction subR = uiHandlerProfile.getRestriction(r
 			.getOnProperty());
-		if (subR == null || !r.matches(subR, null)) {
+		if (subR == null || !r.matches(subR)) {
 		    return false;
 		}
 	    }
