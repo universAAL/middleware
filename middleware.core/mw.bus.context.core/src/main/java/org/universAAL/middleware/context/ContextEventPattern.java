@@ -241,7 +241,7 @@ public class ContextEventPattern extends FinalizedResource implements
 
 	Iterator it = mergedRestrictions.values().iterator();
 	while (it.hasNext())
-	    if (!((MergedRestriction) it.next()).hasMember(ce, null))
+	    if (!((MergedRestriction) it.next()).hasMember(ce))
 		return false;
 
 	return true;
@@ -263,7 +263,7 @@ public class ContextEventPattern extends FinalizedResource implements
 	    MergedRestriction rthis = mergedRestrictions.get(prop);
 	    MergedRestriction rsub = subset.mergedRestrictions.get(prop);
 
-	    if (!rthis.matches(rsub, null))
+	    if (!rthis.matches(rsub))
 		return false;
 	}
 

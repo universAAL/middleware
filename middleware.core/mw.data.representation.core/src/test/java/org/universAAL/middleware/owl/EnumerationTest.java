@@ -69,30 +69,30 @@ public class EnumerationTest extends TestCase {
     }
 
     public void testHasMember() {
-	assertTrue(e0.hasMember(i0, null));
-	assertTrue(e1.hasMember(i1, null));
+	assertTrue(e0.hasMember(i0));
+	assertTrue(e1.hasMember(i1));
 
-	assertFalse(e0.hasMember(i1, null));
-	assertFalse(e1.hasMember(i0, null));
+	assertFalse(e0.hasMember(i1));
+	assertFalse(e1.hasMember(i0));
 
-	assertTrue(e01.hasMember(i0, null));
-	assertTrue(e01.hasMember(i1, null));
+	assertTrue(e01.hasMember(i0));
+	assertTrue(e01.hasMember(i1));
     }
 
     public void testMatching() {
-	assertTrue(e01.matches(e0, null));
-	assertTrue(e01.matches(e1, null));
-	assertTrue(e01.matches(e01, null));
-	assertFalse(e01.matches(e2, null));
-	assertFalse(e1.matches(e01, null));
+	assertTrue(e01.matches(e0));
+	assertTrue(e01.matches(e1));
+	assertTrue(e01.matches(e01));
+	assertFalse(e01.matches(e2));
+	assertFalse(e1.matches(e01));
     }
 
     public void testDisjoint() {
-	assertTrue(e0.isDisjointWith(e1, null));
-	assertTrue(e1.isDisjointWith(e0, null));
-	assertFalse(e01.isDisjointWith(e0, null));
-	assertFalse(e01.isDisjointWith(e1, null));
-	assertFalse(e0.isDisjointWith(e01, null));
-	assertFalse(e1.isDisjointWith(e01, null));
+	assertTrue(e0.isDisjointWith(e1));
+	assertTrue(e1.isDisjointWith(e0));
+	assertFalse(e01.isDisjointWith(e0));
+	assertFalse(e01.isDisjointWith(e1));
+	assertFalse(e0.isDisjointWith(e01));
+	assertFalse(e1.isDisjointWith(e01));
     }
 }

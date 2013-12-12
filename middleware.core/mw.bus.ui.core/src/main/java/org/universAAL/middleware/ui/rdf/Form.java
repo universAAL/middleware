@@ -378,7 +378,7 @@ public class Form extends FormElement {
 	else if (value != null && valueRestrictions != null) {
 	    Resource dummy = new Resource();
 	    dummy.setProperty(pp[pp.length - 1], value);
-	    if (!valueRestrictions.hasMember(dummy, null))
+	    if (!valueRestrictions.hasMember(dummy))
 		return false;
 	}
 

@@ -28,9 +28,50 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * A class for the concept of OWL class expressions, which represent sets of
- * individuals by formally specifying conditions on the individuals' properties.
- * Example conditions are intersection of individuals, or restrictions.
+ * A class for the concept of OWL class expressions and OWL data ranges, which
+ * represent sets of individuals by formally specifying conditions on the
+ * individuals' properties. Example conditions are intersection of individuals,
+ * or restrictions. Each type expression represents a set of individuals (just
+ * like a class in an object-oriented programming language represents a set of
+ * objects). There are three main methods to compare type expression:
+ * <ul>
+ * <li>
+ * hasMember: determines if the given object is a member of the class
+ * represented by this type expression</li>
+ * <li>
+ * matches: determines if the given type expression is a subset of the class
+ * represented by this type expression</li>
+ * <li>
+ * isDisjointWith: determines if the given type expression has no member in
+ * common with the class represented by this type expression</li>
+ * </ul>
+ * 
+ * All three methods have three parameters in common:
+ * <ul>
+ * <li>
+ * context: context of the matchmaking. The <code>context</code> table maps the
+ * URIs of certain variables onto values currently assigned to them. The
+ * variables are either standard variables managed by the universAAL middleware
+ * or parameters of a specific service in whose context this method is called.
+ * If there is already a value assigned to such a referenced variable, it must
+ * be replaced by the associated value, otherwise this method may expand the
+ * <code>context</code> table by deriving a value for such unassigned but
+ * referenced variables with which the goal of the method can be asserted. In
+ * case of returning true, the caller must check the size of the
+ * <code>context</code> table to see if new conditions are added in. If the
+ * <code>context</code> map is null, the method does a global and unconditional
+ * check.</li>
+ * <li>
+ * ttl: time-to-live parameter. For each subsequent call to one of these methods
+ * the ttl parameter is decreased by one. If it reaches zero, an
+ * {@link IllegalArgumentException} is thrown with the text provided in
+ * {@link #EXCEPTION_TTL}. This can be used to avoid cycles in the type
+ * expression.</li>
+ * <li>
+ * log: list that can be filled with log entries and that shows at which point
+ * the matchmaking failed. May be null.</li>
+ * </ul>
+ * 
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
@@ -123,20 +164,46 @@ public abstract class TypeExpression extends Resource {
     public abstract String[] getNamedSuperclasses();
 
     /**
-     * Each class expression can contain multiple objects; this method returns
+     * Each type expression can contain multiple objects; this method returns
      * this set of objects.
      */
     public abstract Object[] getUpperEnumeration();
 
     /**
-     * Returns true if the given object is a member of the class represented by
-     * this class expression, otherwise false. The <code>context</code> table
-     * maps the URIs of certain variables onto values currently assigned to
-     * them. The variables are either standard variables managed by the
-     * universAAL middleware or parameters of a specific service in whose
-     * context this method is called. Both the object whose membership is going
-     * to be checked and this class expression may contain references to such
-     * variables. If there is already a value assigned to such a referenced
+     * Returns <tt>true</tt> if the given object is a member of the class
+     * represented by this type expression, otherwise false.
+     * 
+     * @param member
+     *            the object whose membership is going to be checked
+     * @return <tt>true</tt> if the specified member is a member of this type
+     *         expression
+     */
+    public final boolean hasMember(Object member) {
+	return hasMember(member, null, TTL, null);
+    }
+
+    /**
+     * @deprecated replaced by {@link #hasMember(Object, HashMap, int, List)}.
+     */
+    public final boolean hasMember(Object member, Hashtable context) {
+	HashMap map = context == null ? null : new HashMap(context);
+	boolean res = hasMember(member, map, TTL, null);
+	if (map != null) {
+	    context.clear();
+	    context.putAll(map);
+	}
+	return res;
+    }
+
+    /**
+     * Returns <tt>true</tt> if the given object is a member of the class
+     * represented by this type expression, otherwise false. The
+     * <code>context</code> table maps the URIs of certain variables onto values
+     * currently assigned to them. The variables are either standard variables
+     * managed by the universAAL middleware or parameters of a specific service
+     * in whose context this method is called. Both the object whose membership
+     * is going to be checked and this type expression may contain references to
+     * such variables. If there is already a value assigned to such a referenced
      * variable, it must be replaced by the associated value, otherwise this
      * method may expand the <code>context</code> table by deriving a value for
      * such unassigned but referenced variables with which the membership can be
@@ -149,41 +216,40 @@ public abstract class TypeExpression extends Resource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
+     * 
+     * @param member
+     *            the object whose membership is going to be checked
+     * @param context
+     *            context of the matchmaking. May be null.
+     * @param ttl
+     *            time-to-live parameter
+     * @param log
+     *            list that can be filled with log entries. May be null.
+     * @return <tt>true</tt> if the specified member is a member of this type
+     *         expression
      */
-    public final boolean hasMember(Object member, Hashtable context) {
-	HashMap map = context == null ? null : new HashMap(context);
-	boolean res = hasMember(member, map, TTL, null);
-	if (map != null) {
-	    context.clear();
-	    context.putAll(map);
-	}
-	return res;
-    }
-
     public abstract boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log);
 
     /**
-     * Returns true if the given class expression has no member in common with
-     * the class represented by this class expression, otherwise false. The
-     * <code>context</code> table maps the URIs of certain variables onto values
-     * currently assigned to them. The variables are either standard variables
-     * managed by the universAAL middleware or parameters of a specific service
-     * in whose context this method is called. Both of the class expressions may
-     * contain references to such variables. If there is already a value
-     * assigned to such a referenced variable, it must be replaced by the
-     * associated value, otherwise this method may expand the
-     * <code>context</code> table by deriving a value for such unassigned but
-     * referenced variables with which the disjointness of the two classes can
-     * be asserted. In case of returning true, the caller must check the size of
-     * the <code>context</code> table to see if new conditions are added in
-     * order for the disjointness to be asserted. If the <code>context</code>
-     * table is null, the method does a global and unconditional check.
+     * Returns <tt>true</tt> if the given type expression has no member in
+     * common with the class represented by this type expression, otherwise
+     * false.
      * 
-     * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
-     * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
-     * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
-     * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
+     * @param other
+     *            the type expression with which the disjointness is going to be
+     *            checked
+     * @return <tt>true</tt> if the given type expression has no member in
+     *         common with the class represented by this type expression,
+     *         otherwise false
+     */
+    public final boolean isDisjointWith(TypeExpression other) {
+	return isDisjointWith(other, null, TTL, null);
+    }
+
+    /**
+     * @deprecated replaced by
+     *             {@link #isDisjointWith(Object, HashMap, int, List)}.
      */
     public final boolean isDisjointWith(TypeExpression other, Hashtable context) {
 	HashMap map = context == null ? null : new HashMap(context);
@@ -195,24 +261,87 @@ public abstract class TypeExpression extends Resource {
 	return res;
     }
 
+    /**
+     * Returns <tt>true</tt> if the given type expression has no member in
+     * common with the class represented by this type expression, otherwise
+     * false. The <code>context</code> table maps the URIs of certain variables
+     * onto values currently assigned to them. The variables are either standard
+     * variables managed by the universAAL middleware or parameters of a
+     * specific service in whose context this method is called. Both of the type
+     * expressions may contain references to such variables. If there is already
+     * a value assigned to such a referenced variable, it must be replaced by
+     * the associated value, otherwise this method may expand the
+     * <code>context</code> table by deriving a value for such unassigned but
+     * referenced variables with which the disjointness of the two classes can
+     * be asserted. In case of returning true, the caller must check the size of
+     * the <code>context</code> table to see if new conditions are added in
+     * order for the disjointness to be asserted. If the <code>context</code>
+     * table is null, the method does a global and unconditional check.
+     * 
+     * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
+     * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
+     * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
+     * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
+     * 
+     * @param other
+     *            the type expression with which the disjointness is going to be
+     *            checked
+     * @param context
+     *            context of the matchmaking. May be null.
+     * @param ttl
+     *            time-to-live parameter
+     * @param log
+     *            list that can be filled with log entries. May be null.
+     * @return <tt>true</tt> if the given type expression has no member in
+     *         common with the class represented by this type expression,
+     *         otherwise false
+     */
     public abstract boolean isDisjointWith(TypeExpression other,
 	    HashMap context, int ttl, List<MatchLogEntry> log);
 
     /**
-     * Returns true, if the state of the resource is valid, otherwise false.
-     * Redefined in this class as abstract to force subclasses to override it.
+     * Returns <tt>true</tt>, if the state of the resource is valid, otherwise
+     * false. Redefined in this class as abstract to force subclasses to
+     * override it.
      * 
      * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
      */
     public abstract boolean isWellFormed();
 
     /**
-     * Returns true if the given class expression is a subset of the class
-     * represented by this class expression, otherwise false. The
+     * Returns <tt>true</tt> if the given type expression is a subset of the
+     * class represented by this type expression, otherwise false.
+     * 
+     * @param subset
+     *            the type expression with which the compatibility is going to
+     *            be checked
+     * @return <tt>true</tt> if the given type expression is a subset of the
+     *         class represented by this type expression, otherwise false
+     */
+    public final boolean matches(TypeExpression subset) {
+	return matches(subset, null, TTL, null);
+    }
+
+    /**
+     * @deprecated replaced by {@link #matches(Object, HashMap, int, List)}.
+     */
+    public final boolean matches(TypeExpression subset, Hashtable context) {
+	HashMap map = context == null ? null : new HashMap(context);
+	boolean res = matches(subset, map, TTL, null);
+	if (map != null) {
+	    context.clear();
+	    context.putAll(map);
+	}
+	return res;
+    }
+
+    /**
+     * Returns true if the given type expression is a subset of the class
+     * represented by this type expression, otherwise false. The
      * <code>context</code> table maps the URIs of certain variables onto values
      * currently assigned to them. The variables are either standard variables
      * managed by the universAAL middleware or parameters of a specific service
-     * in whose context this method is called. Both of the class expressions may
+     * in whose context this method is called. Both of the type expressions may
      * contain references to such variables. If there is already a value
      * assigned to such a referenced variable, it must be replaced by the
      * associated value, otherwise this method may expand the
@@ -227,17 +356,18 @@ public abstract class TypeExpression extends Resource {
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
+     * @param subset
+     *            the type expression with which the compatibility is going to
+     *            be checked
+     * @param context
+     *            context of the matchmaking. May be null.
+     * @param ttl
+     *            time-to-live parameter
+     * @param log
+     *            list that can be filled with log entries. May be null.
+     * @return <tt>true</tt> if the given type expression is a subset of the
+     *         class represented by this type expression, otherwise false
      */
-    public final boolean matches(TypeExpression subset, Hashtable context) {
-	HashMap map = context == null ? null : new HashMap(context);
-	boolean res = matches(subset, map, TTL, null);
-	if (map != null) {
-	    context.clear();
-	    context.putAll(map);
-	}
-	return res;
-    }
-
     public abstract boolean matches(TypeExpression subset, HashMap context,
 	    int ttl, List<MatchLogEntry> log);
 
@@ -264,6 +394,17 @@ public abstract class TypeExpression extends Resource {
 	}
     }
 
+    /**
+     * Check the time-to-live parameter. If this value is zero, the method will
+     * throw an {@link IllegalArgumentException}, otherwise the parameter will
+     * be decreased by one and returned.
+     * 
+     * @throws IllegalArgumentException
+     *             if the specified value is zero.
+     * @param ttl
+     *            the time-to-live value
+     * @return the time-to-live value decreased by one
+     */
     protected int checkTTL(int ttl) {
 	if (ttl < 0)
 	    ttl = getDefaultMatchmakingTTL();
@@ -273,6 +414,11 @@ public abstract class TypeExpression extends Resource {
 	return ttl;
     }
 
+    /**
+     * Returns the default value for time-to-live.
+     * 
+     * @return the default value for time-to-live
+     */
     public final static int getDefaultMatchmakingTTL() {
 	return TTL;
     }

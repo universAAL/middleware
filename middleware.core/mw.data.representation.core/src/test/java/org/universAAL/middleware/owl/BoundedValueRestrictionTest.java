@@ -16,10 +16,10 @@ public class BoundedValueRestrictionTest extends TestCase {
 
 	IntRestriction ir = new IntRestriction(0, true, 100, false);
 
-	assertTrue(ir.hasMember(new Integer(50), null));
-	assertTrue(ir.hasMember(new Integer(0), null));
-	assertFalse(ir.hasMember(new Integer(100), null));
-	assertFalse(ir.hasMember(new Integer(-1), null));
-	assertFalse(ir.hasMember(new Integer(101), null));
+	assertTrue(ir.hasMember(new Integer(50)));
+	assertTrue(ir.hasMember(new Integer(0)));
+	assertFalse(ir.hasMember(new Integer(100)));
+	assertFalse(ir.hasMember(new Integer(-1)));
+	assertFalse(ir.hasMember(new Integer(101)));
     }
 }

@@ -104,18 +104,18 @@ public class MergedRestrictionTest extends TestCase {
 	    assertTrue(MyClass3.MY_URI.equals(typeURI.getURI()));
 
 	    // test hasMember
-	    assertTrue(root.hasMember(test1, null));
+	    assertTrue(root.hasMember(test1));
 	    test1.setProperty(MyClass1.PROP_C1C2,
 		    new MyClass2(myClass2.getURI()));
-	    assertTrue(root.hasMember(test1, null));
+	    assertTrue(root.hasMember(test1));
 
 	    // test matching
 	    if (i == 0) {
 		m2 = root;
 	    } else {
-		assertTrue(m2.matches(root, null));
-		assertFalse(m1.matches(m2, null));
-		assertFalse(m2.matches(m1, null));
+		assertTrue(m2.matches(root));
+		assertFalse(m1.matches(m2));
+		assertFalse(m2.matches(m1));
 	    }
 	}
 
@@ -131,8 +131,8 @@ public class MergedRestrictionTest extends TestCase {
 		MyClass2.PROP_C2C3 });
 	assertFalse(m2 == null);
 
-	assertTrue(root.matches(m2, null));
-	assertFalse(m2.matches(root, null));
+	assertTrue(root.matches(m2));
+	assertFalse(m2.matches(root));
 
 	// test matching: create a new root as m2, but with different type at
 	// the end
@@ -147,8 +147,8 @@ public class MergedRestrictionTest extends TestCase {
 		MyClass2.PROP_C2C3 });
 	assertFalse(m2 == null);
 
-	assertFalse(root.matches(m2, null));
-	assertFalse(m2.matches(root, null));
+	assertFalse(root.matches(m2));
+	assertFalse(m2.matches(root));
     }
 
     public void testAppend2() {
