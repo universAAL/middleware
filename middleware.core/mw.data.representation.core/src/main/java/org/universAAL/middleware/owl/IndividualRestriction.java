@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.owl;
 
-public class IndividualRestriction extends BoundedValueRestriction {
+public final class IndividualRestriction extends BoundedValueRestriction {
 
     public static final String DATATYPE_URI = ComparableIndividual.MY_URI;
 

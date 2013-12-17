@@ -36,7 +36,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class TypeURI extends TypeExpression {
+public final class TypeURI extends TypeExpression {
 
     public TypeURI(String uri, boolean isDatatypeURI) {
 	super(uri);

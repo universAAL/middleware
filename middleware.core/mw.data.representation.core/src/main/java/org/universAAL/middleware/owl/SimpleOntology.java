@@ -21,7 +21,7 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.ResourceFactory;
 
-public class SimpleOntology extends Ontology {
+public final class SimpleOntology extends Ontology {
 
     /**
      * Create a simple ontology with only one class and without properties and

@@ -21,7 +21,7 @@ package org.universAAL.middleware.util;
 
 import org.universAAL.middleware.owl.TypeExpression;
 
-public class MatchLogEntry {
+public final class MatchLogEntry {
     private Integer errorCode;
     private TypeExpression te1;
     private TypeExpression te2;

@@ -27,7 +27,7 @@ import org.universAAL.middleware.owl.Intersection;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.TypeURI;
 
-public class ResourceUtil {
+public final class ResourceUtil {
     
     public static String toString(TypeExpression e) {
 	return toString(e, null);

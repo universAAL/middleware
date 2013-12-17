@@ -51,7 +51,7 @@ import java.util.List;
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class PropertyPath extends FinalizedResource {
+public final class PropertyPath extends FinalizedResource {
 
     /**
      * The only property of a property path is the one pointing to the list of

@@ -36,7 +36,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  * 
  * @author Carsten Stockloew
  */
-public class ExactCardinalityRestriction extends PropertyRestriction {
+public final class ExactCardinalityRestriction extends PropertyRestriction {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "ExactCardinalityRestriction";

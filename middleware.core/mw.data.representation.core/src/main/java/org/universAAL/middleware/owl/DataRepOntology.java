@@ -33,7 +33,7 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Carsten Stockloew
  * 
  */
-public class DataRepOntology extends Ontology {
+public final class DataRepOntology extends Ontology {
 
     public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX
 	    + "DataRepresentation.owl#";

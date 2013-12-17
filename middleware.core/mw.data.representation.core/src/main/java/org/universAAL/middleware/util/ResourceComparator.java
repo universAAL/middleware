@@ -36,7 +36,7 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class ResourceComparator {
+public final class ResourceComparator {
 
     /** Set of URIs for the first Resource of a comparison, to avoid cycles. */
     private ArrayList done1 = new ArrayList();

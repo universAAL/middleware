@@ -34,7 +34,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * 
  * @author Carsten Stockloew
  */
-public class HasValueRestriction extends PropertyRestriction {
+public final class HasValueRestriction extends PropertyRestriction {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "HasValueRestriction";

@@ -28,7 +28,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @see <a href="http://www.w3.org/TR/xmlschema-2/#nonNegativeInteger">XML
  *      Schema</a>
  */
-public class NonNegativeInteger {
+public final class NonNegativeInteger {
     public static final String MY_URI = TypeMapper.XSD_NAMESPACE
 	    + "nonNegativeInteger";
 

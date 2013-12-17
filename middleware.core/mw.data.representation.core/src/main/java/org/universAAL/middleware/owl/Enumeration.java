@@ -35,7 +35,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class Enumeration extends TypeExpression {
+public final class Enumeration extends TypeExpression {
 
     /** URI for owl:oneOf. */
     public static final String PROP_OWL_ONE_OF = OWL_NAMESPACE + "oneOf";
