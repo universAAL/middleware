@@ -30,6 +30,10 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Carsten Stockloew
  */
 public final class Constants {
+    
+    private Constants() {
+    }
+    
     // URIs of standard variables managed by the uAAL middleware
     /**
      * The URI of a standard variable managed by the uAAL middleware indicating
