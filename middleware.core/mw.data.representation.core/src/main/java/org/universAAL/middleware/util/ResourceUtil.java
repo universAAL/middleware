@@ -29,6 +29,9 @@ import org.universAAL.middleware.owl.TypeURI;
 
 public final class ResourceUtil {
     
+    private ResourceUtil() {
+    }
+    
     public static String toString(TypeExpression e) {
 	return toString(e, null);
     }
