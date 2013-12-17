@@ -19,7 +19,7 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.rdf.TypeMapper;
 
-public class OntologyTest {
+public final class OntologyTest {
 
     /**
      * Perform a sanity check of the given class that is defined in the given

@@ -32,7 +32,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class Complement extends TypeExpression {
+public final class Complement extends TypeExpression {
 
     /** URI for owl:complementOf. */
     public static final String PROP_OWL_COMPLEMENT_OF = OWL_NAMESPACE

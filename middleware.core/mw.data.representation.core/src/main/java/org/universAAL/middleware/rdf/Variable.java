@@ -21,7 +21,6 @@ package org.universAAL.middleware.rdf;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 /**
  * Super class for OWL-S Support of Process Parameters.

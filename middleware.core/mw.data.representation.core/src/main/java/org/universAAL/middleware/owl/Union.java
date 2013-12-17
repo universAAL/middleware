@@ -35,7 +35,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class Union extends TypeExpression {
+public final class Union extends TypeExpression {
 
     /** URI for owl:unionOf . */
     public static final String PROP_OWL_UNION_OF = OWL_NAMESPACE + "unionOf";

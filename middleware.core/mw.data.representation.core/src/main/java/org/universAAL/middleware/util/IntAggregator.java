@@ -28,7 +28,7 @@ package org.universAAL.middleware.util;
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class IntAggregator {
+public final class IntAggregator {
 
     /** The average. */
     private int avg;

@@ -50,7 +50,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * 
  * @author Carsten Stockloew
  */
-public class MergedRestriction extends Intersection {
+public final class MergedRestriction extends Intersection {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "MergedRestriction";

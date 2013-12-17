@@ -30,7 +30,7 @@ import org.universAAL.middleware.xsd.util.Base64;
  * 
  * @see <a href="http://www.w3.org/TR/xmlschema-2/#base64Binary">XML Schema</a>
  */
-public class Base64Binary {
+public final class Base64Binary {
     public static final String MY_URI = TypeMapper.XSD_NAMESPACE
 	    + "base64Binary";
 

@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class UnmodifiableResourceList implements List {
+public final class UnmodifiableResourceList implements List {
 
     /** A safe iterator that does not allow modifications. */
     private static class SafeIterator implements Iterator {

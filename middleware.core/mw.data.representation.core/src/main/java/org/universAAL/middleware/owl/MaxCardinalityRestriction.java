@@ -35,7 +35,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  * 
  * @author Carsten Stockloew
  */
-public class MaxCardinalityRestriction extends PropertyRestriction {
+public final class MaxCardinalityRestriction extends PropertyRestriction {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "MaxCardinalityRestriction";

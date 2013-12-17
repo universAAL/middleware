@@ -25,7 +25,7 @@ package org.universAAL.middleware.rdf;
  * 
  * @author Carsten Stockloew
  */
-public class LangString {
+public final class LangString {
 
     public static final String LANG_ABKHAZ = "ab";
     public static final String LANG_AFAR = "aa";
