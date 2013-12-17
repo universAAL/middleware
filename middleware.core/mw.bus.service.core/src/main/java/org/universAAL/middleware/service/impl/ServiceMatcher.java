@@ -165,8 +165,8 @@ public class ServiceMatcher {
 	// only specify the corresponding property path)
 	int expectedSize = context.size();
 	if (subsetService.getProfile() != null)
-	    expectedSize += subsetService.getProfile()
-		    .getNumberOfMandatoryInputs();
+	    expectedSize += subsetService.getNumberOfValueRestrictions();
+	// subsetService.getProfile().getNumberOfMandatoryInputs();
 
 	String[] restrProps = supersetService
 		.getRestrictedPropsOnInstanceLevel();
