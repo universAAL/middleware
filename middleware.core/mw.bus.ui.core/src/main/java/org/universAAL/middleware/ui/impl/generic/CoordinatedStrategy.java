@@ -87,6 +87,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 			"detected multiple peers requesing to be coordinator");
 		Random r = new Random(bus.getPeerCard().getPeerID().hashCode());
 		int waitms = 50 + r.nextInt() % 950;
+		if(waitms<50)waitms=50;//Just in case it becomes <0 (!?)
 		try {
 		    // wait between 50 and 1000 ms
 		    Thread.sleep(waitms);
