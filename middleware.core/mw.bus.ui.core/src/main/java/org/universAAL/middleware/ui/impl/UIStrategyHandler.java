@@ -369,12 +369,12 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		// UIHandler can be added or existing one can change reg
 		// parameters or adaptation parameters can change)
 		dm.suspendDialog(uiRequest.getDialogID());
-		LogUtils.logWarn(
+		LogUtils.logInfo(
 			busModule,
 			getClass(),
 			"adaptationParametersChanged",
 			new Object[] {
-				"No UI Handler could be selected so dialog is suspended for now.\n",
+				"No UI Handler could be selected so dialog is suspended for now.",
 				uiRequest }, null);
 		return;
 	    }
@@ -421,8 +421,13 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		    Resource data = ((UIHandler) bm).cutDialog(dialogID);
 		    return data;
 		}
-	    } else {
-		// send request
+	    } 
+	    else if (AbstractBus.getPeerFromBusResourceURI(handlerID).equals(bus.getPeerCard())){
+		// handler should be in this instance but it is not responding to previous if
+		return null;
+	    }
+	    else {
+		// send request to remote peer
 		try {
 		    Resource data = (Resource) placeSynchronousRequest(handlerID, new CutCallMessage(dialogID, handlerID));
 		    if (data != null && data.getType().equals(CutCallMessage.TYPE_DUMMY_TYPE)){
