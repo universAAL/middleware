@@ -268,6 +268,10 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
     protected final String getRegistryID(Resource res) {
 	return getRegistrationMap().get(res);
     }
+    
+    protected final boolean isIdRegistered(String id){
+	return getRegistrationMap().containsValue(id);
+    }
 
     protected final Iterator<String> registryIdIterator() {
 	return new HashSet<String>(getRegistrationMap().values()).iterator();
