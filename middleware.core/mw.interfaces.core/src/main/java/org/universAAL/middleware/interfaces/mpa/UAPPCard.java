@@ -46,7 +46,7 @@ public class UAPPCard implements Serializable {
      * 
      * @param serviceId
      *            The id of the uSrv containing the uAAP
-     * @param id
+     * @param appId
      *            The id of the uAAP
      * @param partId
      *            The id of part within the uAAP
@@ -55,11 +55,11 @@ public class UAPPCard implements Serializable {
      * @param description
      *            The description of the uAAP
      */
-    public UAPPCard(String serviceId, String id, String partId, String name,
+    public UAPPCard(String serviceId, String appId, String partId, String name,
 	    String description) {
 	this.serviceId = serviceId;
 	this.name = name;
-	this.id = id;
+	this.id = appId;
 	this.description = description;
 	this.partId = partId;
     }
