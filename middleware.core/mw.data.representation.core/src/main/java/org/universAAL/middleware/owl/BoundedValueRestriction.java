@@ -394,14 +394,21 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 			    .compareTo(upperBound) == 0))
 		// one of the conditions 'a)' / 'b)' does not hold
 		return false;
-	} else if (((Comparable) valueToCheck).compareTo(upperBound) > 0
-		|| (!maxInclusive && ((Comparable) valueToCheck)
-			.compareTo(upperBound) == 0)
-		|| ((Comparable) valueToCheck).compareTo(lowerBound) < 0
-		|| (!minInclusive && ((Comparable) valueToCheck)
-			.compareTo(lowerBound) == 0))
-	    // one of the conditions 'a)' / 'b)' / 'c)' / 'd)' does not hold
-	    return false;
+	} else {
+	    try {
+		if (((Comparable) valueToCheck).compareTo(upperBound) > 0
+			|| (!maxInclusive && ((Comparable) valueToCheck)
+				.compareTo(upperBound) == 0)
+			|| ((Comparable) valueToCheck).compareTo(lowerBound) < 0
+			|| (!minInclusive && ((Comparable) valueToCheck)
+				.compareTo(lowerBound) == 0))
+		    // one of the conditions 'a)' / 'b)' / 'c)' / 'd)' does not
+		    // hold
+		    return false;
+	    } catch (ClassCastException e) {
+		return false;
+	    }
+	}
 
 	synchronize(context, cloned);
 	return true;
