@@ -1016,7 +1016,8 @@ public final class MergedRestriction extends Intersection {
     /**
      * If this MergedRestriction restricts the values of a property to be
      * individuals of a specific class (i.e. an {@link AllValuesFromRestriction}
-     * of a {@link TypeURI}), then return the URI of this class.
+     * of a either a {@link TypeURI} or a {@link BoundedValueRestriction}), then
+     * return the URI of this class.
      * 
      * @return The URI of the class the property must be an individual of.
      */
@@ -1028,8 +1029,16 @@ public final class MergedRestriction extends Intersection {
 
 	all = (TypeExpression) ((AllValuesFromRestriction) types
 		.get(index[allValuesFromID])).getConstraint();
+	
+	if (all instanceof TypeURI) {
+	    return ((TypeURI) all).getURI();
+	}
 
-	return (all instanceof TypeURI) ? ((TypeURI) all).getURI() : null;
+	if (all instanceof TypeRestriction) {
+	    return ((TypeRestriction)all).getTypeURI();
+	}
+	
+	return null;
     }
 
     public String getOnProperty() {
