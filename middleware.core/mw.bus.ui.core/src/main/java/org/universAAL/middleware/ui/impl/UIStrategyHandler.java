@@ -571,7 +571,9 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    // if handler is not the local instance but it is the coordinator
 	    // forward the notification to the appropriate node
 	    sendEventToRemoteBusMember(handlerID, new NotifyHandlerMessage(handlerID, request, changedProp));
-	} // else should not happen
+	} 
+	else
+	// else should not happen
 	LogUtils.logWarn(
 		busModule,
 		getClass(),
