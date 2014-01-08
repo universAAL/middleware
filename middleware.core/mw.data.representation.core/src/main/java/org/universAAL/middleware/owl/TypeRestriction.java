@@ -60,6 +60,10 @@ public abstract class TypeRestriction extends TypeExpression {
 	super.setProperty(PROP_OWL_ON_DATATYPE, new Resource(datatypeURI));
 	super.setProperty(PROP_OWL_WITH_RESTRICTIONS, restrictions);
     }
+    
+    public String getTypeURI() {
+	return ((Resource) getProperty(PROP_OWL_ON_DATATYPE)).getURI();
+    }
 
     protected Facet iterate(ListIterator it) {
 	while (it.hasNext()) {
