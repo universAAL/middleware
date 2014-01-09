@@ -133,18 +133,12 @@ public class UIHandlerProfile extends FinalizedResource implements
 		     */
 
 		    result += MATCH_ADDRESED_USER;
-		    System.out
-			    .println("################################### addressed user match, result="
-				    + result);
 		}
 		if (r.getOnProperty().equals(
 			UIRequest.PROP_PRESENTATION_MODALITY)
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_PRESENTATION_MODALITY) != null)) {
 		    result += MATCH_MAIN_MODALITY;
-		    System.out
-			    .println("################################### modality match, result="
-				    + result);
 		}
 		// ALT MODALITY is checked later.
 		if (r.getOnProperty().equals(
@@ -152,45 +146,29 @@ public class UIHandlerProfile extends FinalizedResource implements
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_PRESENTATION_LOCATION) != null)) {
 		    result += MATCH_USER_LOCATION;
-
-		    System.out
-			    .println("################################### location match, result="
-				    + result);
 		}
 		if (r.getOnProperty().equals(
 			UIRequest.PROP_HAS_ACCESS_IMPAIRMENT)
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_HAS_ACCESS_IMPAIRMENT) != null)) {
 		    result += MATCH_USER_IMPAIRMENTS;
-		    System.out
-			    .println("################################### impairment match, result="
-				    + result);
 		}
 		if (r.getOnProperty().equals(
 			UIRequest.PROP_DIALOG_PRIVACY_LEVEL)
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_DIALOG_PRIVACY_LEVEL) != null)) {
 		    result += MATCH_DIALOG_PRIVACY;
-		    System.out
-			    .println("################################### dialog privacy match, result="
-				    + result);
 		}
 		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_LANGUAGE)
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_DIALOG_LANGUAGE) != null)) {
 
 		    result += MATCH_DIALOG_LANGUAGE;
-		    System.out
-			    .println("################################### dialog lang match, result="
-				    + result);
 		}
 		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_FORM)
 			&& (uiRequest.getProperty(UIRequest.PROP_DIALOG_FORM) != null)) {
 
 		    result += MATCH_DIALOG_FORM;
-		    System.out
-			    .println("################################### dialog form match, result="
-				    + result);
 		}
 	    } else {
 		if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
@@ -206,9 +184,6 @@ public class UIHandlerProfile extends FinalizedResource implements
 		 */
 		{
 		    result += MATCH_ALT_MODALITY;
-		    System.out
-			    .println("################################### alt modality match, result="
-				    + result);
 		}
 	    }
 	}
