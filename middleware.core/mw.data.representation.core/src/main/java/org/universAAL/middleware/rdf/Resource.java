@@ -783,18 +783,19 @@ public class Resource {
      * property should be serialized using the concept of rdf:List or the
      * property should appear as often as the number of values assigned to the
      * property. The default behavior is that a property associated with an
-     * instance of {@link ClosedCollection} is assumed to be a closed
-     * collection. Subclasses can change this, if needed.
+     * instance of {@link java.util.List} is assumed to be a closed collection
+     * (unless it is specifically an instance of {@link OpenCollection}).
+     * Subclasses can change this, if needed.
      */
     public boolean isClosedCollection(String propURI) {
 	if (propURI == null || PROP_RDF_TYPE.equals(propURI))
 	    return false;
 
 	Object o = props.get(propURI);
-	if (o instanceof ClosedCollection)
-	    return true;
+	if (o instanceof OpenCollection)
+	    return false;
 
-	return false;
+	return o instanceof List;
     }
 
     /**
