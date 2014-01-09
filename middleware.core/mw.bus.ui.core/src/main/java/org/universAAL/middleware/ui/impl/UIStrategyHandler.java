@@ -498,8 +498,10 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		    "selectHandler",
 		    new Object[] { "\n START+++++++++++++++++++++++++++++++++++++++++++++++\n Handler with subscription id: "
 			    + profId
-			    + ", has matching degree: "
+			    + "\nhas matching degree: "
 			    + tempMatchingDegree
+			    + " \n in binary is: " + Integer.toBinaryString(tempMatchingDegree)
+			    + " \n [Usr, Mod, AltMod, Loc, Impair, Priv, Lang, Form]"
 			    + "\n 2+++++++++++++++++++++++++++++++++++++++++++++++"
 			    + "\n UIHandler profile:\n "
 			    + prof.toStringRecursive()
@@ -522,6 +524,10 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		    // used by the user then increase his matching
 		    // degree a bit
 		    tempMatchingDegree += LAST_USED_HANDLER_MATCH_LEVEL_ADDITION;
+		    LogUtils.logDebug(
+			    busModule,
+			    getClass(),
+			    "selectHandler", "last profile has been bonified for being last handler used by user.");
 		}
 		if (tempMatchingDegree > maxMatchDegree) {
 		    maxMatchDegree = tempMatchingDegree;
