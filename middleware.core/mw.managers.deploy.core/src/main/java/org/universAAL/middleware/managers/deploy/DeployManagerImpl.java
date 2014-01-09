@@ -496,6 +496,23 @@ public class DeployManagerImpl implements DeployManager,
 	return getApplicationRegistry().containsKey(appKey);
     }
 
+    private void deleteInstallationLayout(String serviceId, String id) {
+	final String appKey = serviceId + ":" + id;
+	String layoutFile = getApplicationRegistry().getProperty(appKey);
+	File registry = new File(configHome.getAbsolutePath(), layoutFile);
+	if (registry.delete() == false) {
+	    LogUtils.logWarn(
+		    context,
+		    DeployManagerImpl.class,
+		    "deleteInstallationLayout",
+		    "Unable to delete layout database that is stored in "
+			    + registry.getAbsolutePath()
+			    + "\n"
+			    + "We are trying to postpone the deletion when JVM will be closing");
+	    registry.deleteOnExit();
+	}
+    }
+
     private Properties getInstallationLayout(String serviceId, String id) {
 	try {
 	    final String appKey = serviceId + ":" + id;
@@ -560,12 +577,12 @@ public class DeployManagerImpl implements DeployManager,
 	}
 	result.setGlobalResult(InstallationResults.SUCCESS);
 	installedParts = layout.propertyNames();
-	while (installedParts .hasMoreElements()) {
-	    String peerLine = (String) installedParts .nextElement();
+	while (installedParts.hasMoreElements()) {
+	    String peerLine = (String) installedParts.nextElement();
 	    String[] parts = peerLine.split("/");
 	    String peer = parts[0];
-	    UAPPCard card = new UAPPCard(serviceId,
-		     id, layout.getProperty(peerLine), "", "");
+	    UAPPCard card = new UAPPCard(serviceId, id,
+		    layout.getProperty(peerLine), "", "");
 	    PeerCard target = aalSpaceManager.getPeers().get(peer);
 	    if (target == null
 		    && peer.equals(aalSpaceManager.getMyPeerCard().getPeerID())) {
@@ -578,7 +595,24 @@ public class DeployManagerImpl implements DeployManager,
 		result.setGlobalResult(InstallationResults.FAILURE);
 	    }
 	}
-
+	if (result.getGlobalResult() == InstallationResults.SUCCESS) {
+	    deleteInstallationLayout(serviceId, id);
+	    getApplicationRegistry().remove(serviceId + ":" + id);
+	    try {
+		updateApplicationRegistry();
+	    } catch (IOException ex) {
+		LogUtils.logError(
+			context,
+			DeployManagerImpl.class,
+			"requestToUninstall",
+			new Object[] {
+				"Update the application service registry due to ",
+				ExceptionUtils.stackTraceAsString(ex), "\n",
+				"It is a serius issue that could result in a corrupted installation database" },
+			ex);
+		result.setGlobalResult(InstallationResults.FAILURE);
+	    }
+	}
 	return result;
     }
 
