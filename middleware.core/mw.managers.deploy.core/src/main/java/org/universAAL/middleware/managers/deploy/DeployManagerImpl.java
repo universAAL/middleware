@@ -22,6 +22,7 @@ package org.universAAL.middleware.managers.deploy;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -88,7 +89,7 @@ public class DeployManagerImpl implements DeployManager,
 
     // Configuration param configured with default value
     private String uappSuffix = ".uapp";
-    private String deployDir = "etc" + File.separator + "deploy";
+    private final String deployDir;
 
     // JAXB
     private JAXBContext jc;
@@ -110,6 +111,7 @@ public class DeployManagerImpl implements DeployManager,
 		"" + 5 * 60 * 1000));
 	this.configHome = configHome;
 	this.context = context;
+	this.deployDir = configHome.getAbsolutePath();
 	init();
 	try {
 	    jc = JAXBContext.newInstance(ObjectFactory.class);
@@ -764,6 +766,78 @@ public class DeployManagerImpl implements DeployManager,
 	}
     }
 
+    private void addDirToZipFile(ZipOutputStream out, File dir, String name) {
+	final String METHOD = "addDirsToZipFile";
+	byte[] data = new byte[1000];
+	if (!dir.exists()) {
+	    return;
+	}
+	File[] partFiles = dir.listFiles();
+	if (name != null && name.trim().isEmpty() == false) {
+	    name += File.separator;
+	} else {
+	    name = "";
+	}
+	if (partFiles == null || partFiles.length == 0
+		&& name.endsWith(File.separator)) {
+	    try {
+		out.putNextEntry(new ZipEntry(name));
+		out.closeEntry();
+	    } catch (IOException e) {
+		LogUtils.logError(
+			context,
+			DeployManagerImpl.class,
+			METHOD,
+			new Object[] {
+				"Error adding empty folder to Zip archive for folder ",
+				name, "\n", "The exception was:\n",
+				ExceptionUtils.stackTraceAsString(e) }, e);
+	    }
+	    return;
+	}
+	BufferedInputStream inPartFile;
+	for (File fileName : partFiles) {
+	    if (fileName.isDirectory()) {
+		addDirToZipFile(out, fileName, name + fileName.getName());
+		return;
+	    }
+	    try {
+		inPartFile = new BufferedInputStream(new FileInputStream(
+			fileName), 1000);
+		out.putNextEntry(new ZipEntry(name + fileName.getName()));
+		int count;
+		while ((count = inPartFile.read(data, 0, 1000)) != -1) {
+		    out.write(data, 0, count);
+		}
+		out.closeEntry();
+		LogUtils.logInfo(context, DeployManagerImpl.class, METHOD,
+			new Object[] { "Added", fileName.getAbsolutePath(),
+				" to Zip archive with SUCCES" }, null);
+	    } catch (FileNotFoundException e) {
+		LogUtils.logWarn(
+			context,
+			DeployManagerImpl.class,
+			METHOD,
+			new Object[] {
+				"Unable to add ",
+				fileName.getAbsolutePath(),
+				" to Zip archive due to exception, we will skip the file."
+					+ "\n", "The exception was:\n",
+				ExceptionUtils.stackTraceAsString(e) }, e);
+	    } catch (IOException ex) {
+		LogUtils.logError(
+			context,
+			DeployManagerImpl.class,
+			METHOD,
+			new Object[] {
+				"Writing entry to Zip archive file failed for entry, while adding ",
+				fileName.getAbsolutePath(), "\n",
+				"The exception was:\n",
+				ExceptionUtils.stackTraceAsString(ex) }, ex);
+	    }
+	}
+    }
+
     /**
      * Creates a zip file containing the artifacts to send
      * 
@@ -778,12 +852,15 @@ public class DeployManagerImpl implements DeployManager,
 	byte[] buf = new byte[1024];
 	try {
 	    // create the zip file in a tmp dir
-	    zippedPart = new File(deployDir + File.separatorChar
-		    + Consts.TMP_DEPLOY_DIR + File.separator + "part.zip");
+	    zippedPart = File.createTempFile("shipping-", "-part.zip",
+		    new File(deployDir));
 	    out = new ZipOutputStream(new FileOutputStream(zippedPart));
 	    // pit the part descriptor in the zip
-	    File partDescription = new File(deployDir + File.separatorChar
-		    + Consts.TMP_DEPLOY_DIR + File.separator + "partDesc-uapp");
+	    String name = part.getBundleId() + "_" + part.getBundleVersion()
+		    + "_" + part.getPartId();
+	    name = name.replaceAll("[ :!@#%&\\/]", "_").replaceAll("[^-_a-zA-Z0-9.]", "");
+	    File partDescription = File.createTempFile(name, "-uApp.xml",
+		    new File(deployDir));
 	    marshaller.marshal(part, partDescription);
 	    FileInputStream in = new FileInputStream(partDescription);
 	    out.putNextEntry(new ZipEntry(partDescription.getName()));
@@ -815,51 +892,31 @@ public class DeployManagerImpl implements DeployManager,
 
 	// zip the part folder
 	// get the part id
-	try {
-	    String partID = part.getPartId();
-	    String partFolderString = applicationFolder.getPath()
-		    + File.separatorChar + Consts.APPLICATION_BINARYPART_PATH
-		    + File.separatorChar + partID + File.separatorChar;
-	    File partFolder = new File(partFolderString);
-	    BufferedInputStream inPartFile = null;
-	    byte[] data = new byte[1000];
-	    String[] partFiles = partFolder.list();
-	    for (String fileName : partFiles) {
-		inPartFile = new BufferedInputStream(new FileInputStream(
-			partFolder.getPath() + File.separatorChar + fileName),
-			1000);
-		out.putNextEntry(new ZipEntry(fileName));
-		int count;
-		while ((count = inPartFile.read(data, 0, 1000)) != -1) {
-		    out.write(data, 0, count);
+	String partID = part.getPartId();
+	String partFolderString = applicationFolder.getPath()
+		+ File.separatorChar + Consts.APPLICATION_BINARYPART_PATH
+		+ File.separatorChar + partID + File.separatorChar;
+	File partFolder = new File(partFolderString);
+	File configFolder = new File(
+		partFolder.getParentFile().getParentFile(),
+		Consts.APPLICATION_CONFIGURATION_PATH);
+	if (configFolder.exists() && configFolder.isDirectory()) {
+	    addDirToZipFile(out, configFolder.listFiles(new FileFilter() {
+
+		public boolean accept(File f) {
+		    return f.isDirectory();
 		}
-		out.closeEntry();
-	    }
-	    out.flush();
-	    out.close();
-	    inPartFile.close();
-	} catch (FileNotFoundException e1) {
-	    LogUtils.logError(
-		    context,
-		    DeployManagerImpl.class,
-		    METHOD,
-		    new Object[] { "Error while creating the zip file part. Aborting: "
-			    + e1 }, null);
-	    return null;
-	} catch (IOException e) {
-	    LogUtils.logError(context, DeployManagerImpl.class, METHOD,
-		    new Object[] { "Error while creating the zip file part: "
-			    + e }, null);
-	    return null;
+	    })[0], Consts.APPLICATION_CONFIGURATION_PATH);
 	}
+	addDirToZipFile(out, partFolder, null);
 
 	try {
 	    out.flush();
 	    out.close();
 	} catch (IOException e) {
 	    LogUtils.logError(context, DeployManagerImpl.class, METHOD,
-		    new Object[] { "Error while creating the zip file part: "
-			    + e }, null);
+		    new Object[] { "Error while closing the ZIP file",
+			    ExceptionUtils.stackTraceAsString(e) }, e);
 	    return null;
 	}
 	try {
@@ -1090,8 +1147,7 @@ public class DeployManagerImpl implements DeployManager,
 		    new Object[] { "Properties are null. Aborting..." }, null);
 
 	} else {
-	    deployDir = (String) configurations.get(Consts.DEPLOY_DIR);
-	    uappSuffix = (String) configurations.get(Consts.MPA_SUFFIX);
+	    // Set up all the configuration if any...
 	}
 
     }
