@@ -503,9 +503,9 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 			    + " \n in binary is: " + Integer.toBinaryString(tempMatchingDegree)
 			    + " \n [Usr, Mod, AltMod, Loc, Impair, Priv, Lang, Form]"
 			    + "\n 2+++++++++++++++++++++++++++++++++++++++++++++++"
-			    + "\n UIHandler profile:\n "
-			    + prof.toStringRecursive()
-			    + "\n 3+++++++++++++++++++++++++++++++++++++++++++++++"
+//			    + "\n UIHandler profile:\n "
+//			    + prof.toStringRecursive()
+//			    + "\n 3+++++++++++++++++++++++++++++++++++++++++++++++"
 			    + "\n uiRequest that is getting matched.\n Addressed user: "
 			    + uiRequest.getAddressedUser().getURI()
 			    + "\n Modality: "
