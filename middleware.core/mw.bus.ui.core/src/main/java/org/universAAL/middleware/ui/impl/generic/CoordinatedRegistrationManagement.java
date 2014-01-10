@@ -262,7 +262,7 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
     }
 
     protected final Iterator<Matchable> registryIterator() {
-	return getRegistrationMap().keySet().iterator();
+	return new HashSet<Matchable>(getRegistrationMap().keySet()).iterator();
     }
 
     protected final String getRegistryID(Resource res) {
