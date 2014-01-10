@@ -702,7 +702,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    root = new File(TMP_DEPLOY_FOLDER);
 	    String dst = null;
 	    try {
-		file = File.createTempFile("part", "install", root);
+		file = File.createTempFile("part", "install.zip", root);
 		dst = file.getAbsolutePath();
 	    } catch (IOException e) {
 		LogUtils.logError(

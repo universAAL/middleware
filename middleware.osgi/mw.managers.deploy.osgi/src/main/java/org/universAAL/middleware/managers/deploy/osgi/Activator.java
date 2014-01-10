@@ -48,6 +48,7 @@ import org.universAAL.middleware.managers.deploy.DeployManagerImpl;
  * 
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class Activator implements BundleActivator, ManagedService {
 
     private DeployManager deployManager;
@@ -61,7 +62,7 @@ public class Activator implements BundleActivator, ManagedService {
 	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 		new Object[] { "Starting the Deploymanager..." }, null);
 
-	BundleConfigHome configHome = new BundleConfigHome("mw.managers.deploy");
+	BundleConfigHome configHome = new BundleConfigHome("mw.managers.deploy");	
 	deployManager = new DeployManagerImpl(moduleContext, configHome);
 
 	Dictionary props = new Hashtable();
