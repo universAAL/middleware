@@ -22,14 +22,6 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.universAAL.support</groupId>
-        <artifactId>uaal-maven-plugin</artifactId>
-        <configuration>
-          <skipTests>true</skipTests>
-          <!--maven.test.skip>true</maven.test.skip-->
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
         <extensions>true</extensions>
