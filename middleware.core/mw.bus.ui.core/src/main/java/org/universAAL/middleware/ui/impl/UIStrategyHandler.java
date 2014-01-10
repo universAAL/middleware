@@ -500,8 +500,9 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 			    + profId
 			    + "\nhas matching degree: "
 			    + tempMatchingDegree
-			    + " \n in binary is: " + Integer.toBinaryString(tempMatchingDegree)
-			    + " \n [Usr, Mod, AltMod, Loc, Impair, Priv, Lang, Form]"
+			    + " \n in binary is: \n  " + 
+			    String.format("%8s", Integer.toBinaryString(tempMatchingDegree)).replace(' ', '0').replaceAll("(\\d)", "$1\t")
+			    + " \n [Usr,\tMod,\tAltMod,\tLoc,\tImpair,\tPriv,\tLang,\tForm]"
 			    + "\n 2+++++++++++++++++++++++++++++++++++++++++++++++"
 //			    + "\n UIHandler profile:\n "
 //			    + prof.toStringRecursive()
