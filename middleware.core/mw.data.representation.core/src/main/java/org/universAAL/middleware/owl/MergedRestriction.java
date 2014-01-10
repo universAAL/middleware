@@ -988,10 +988,19 @@ public final class MergedRestriction extends Intersection {
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
     public boolean setProperty(String propURI, Object value) {
 	if (Intersection.PROP_OWL_INTERSECTION_OF.equals(propURI)) {
-	    if (value instanceof PropertyRestriction) {
+	    List lst = null;
+	    if (value instanceof List) {
+		lst = (List) value;
+	    } else if (value instanceof PropertyRestriction) {
+		// this should not happen because an intersection should have at
+		// least two elements. However, we add the property and assume
+		// that there will be a further call to addRestriction
 		return addRestrictionCheck((PropertyRestriction) value);
 	    } else if (value instanceof MergedRestriction) {
-		List lst = ((MergedRestriction) value).getRestrictions();
+		lst = ((MergedRestriction) value).getRestrictions();
+	    }
+
+	    if (lst != null) {
 		boolean res = true;
 		boolean tmp;
 		for (Object el : lst) {

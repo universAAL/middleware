@@ -89,10 +89,21 @@ public class TurtleTest extends TestCase {
 	return true;
     }
 
-    public void testEnumeration() {
+    public void testEnumeration1() {
 	Enumeration e = new Enumeration(new Object[] { new Resource("value1") });
 	Resource r = MergedRestriction.getAllValuesRestriction("propURI", e);
 	assertTrue(check(r));
+    }
+    
+    public void testEnumeration2() {
+	Enumeration e = new Enumeration(new Object[] { new Resource("value1"), new Resource("value2") });
+	Resource r = MergedRestriction.getAllValuesRestriction("propURI", e);
+	assertTrue(check(r));
+    }
+    
+    public void testEnumeration3() {
+	Enumeration e = new Enumeration(new Object[] { new Resource("value1") });
+	assertTrue(check(e));
     }
 
     public void testTypeURI() {
@@ -112,11 +123,6 @@ public class TurtleTest extends TestCase {
 	r1.setProperty("prop12", r2);
 	r2.setProperty("prop21", r1);
 	assertTrue(check(r1));
-    }
-
-    public void testEnumeration2() {
-	Enumeration e = new Enumeration(new Object[] { new Resource("value1") });
-	assertTrue(check(e));
     }
 
     public void testLanguagedLabel() {
