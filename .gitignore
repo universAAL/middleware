@@ -87,6 +87,11 @@ middleware.core/mw.container.xfaces.core/src/test/uAAL.log
 middleware.core/mw.container.xfaces.core/src/uAAL.log
 middleware.core/mw.container.xfaces.core/target
 middleware.core/mw.container.xfaces.core/uAAL.log
+middleware.core/mw.interfaces.core/.classpath
+middleware.core/mw.interfaces.core/.project
+middleware.core/mw.interfaces.core/.settings
+middleware.core/mw.interfaces.core/bin
+middleware.core/mw.interfaces.core/target
 middleware.core/mw.pom.core/.classpath
 middleware.core/mw.pom.core/.project
 middleware.core/mw.pom.core/.settings
