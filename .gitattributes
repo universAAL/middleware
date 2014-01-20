@@ -524,6 +524,10 @@ middleware.osgi/mw.bus.service.osgi/pom.xml -text
 middleware.osgi/mw.bus.service.osgi/src/main/java/org/universAAL/middleware/service/impl/osgi/Activator.java -text
 middleware.osgi/mw.bus.service.osgi/src/test/java/org/universAAL/middleware/service/test/ArtifactIT.java -text
 middleware.osgi/mw.bus.service.osgi/src/test/resources/log4j.properties -text
+middleware.osgi/mw.bus.ui.osgi/ASL2.0.txt -text
+middleware.osgi/mw.bus.ui.osgi/NOTICE.txt -text
+middleware.osgi/mw.bus.ui.osgi/pom.xml -text
+middleware.osgi/mw.bus.ui.osgi/src/main/java/org/universAAL/middleware/ui/impl/osgi/Activator.java -text
 middleware.osgi/mw.connectors.api.osgi/ASL2.0.txt -text
 middleware.osgi/mw.connectors.api.osgi/NOTICE.txt -text
 middleware.osgi/mw.connectors.api.osgi/pom.xml -text
