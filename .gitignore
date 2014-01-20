@@ -6,6 +6,10 @@ middleware.core/mw.connectors.api.core/.classpath
 middleware.core/mw.connectors.api.core/.project
 middleware.core/mw.connectors.api.core/.settings
 middleware.core/mw.connectors.api.core/target
+middleware.core/mw.connectors.communication.jgroups.core/.classpath
+middleware.core/mw.connectors.communication.jgroups.core/.project
+middleware.core/mw.connectors.communication.jgroups.core/.settings
+middleware.core/mw.connectors.communication.jgroups.core/target
 middleware.core/mw.container.junit/.classpath
 middleware.core/mw.container.junit/.project
 middleware.core/mw.container.junit/.settings
