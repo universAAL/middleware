@@ -7,6 +7,9 @@ middleware.config/mw.connectors.discovery.slp.core.config/target
 middleware.config/mw.managers.aalspace.core.config/.project
 middleware.config/mw.managers.aalspace.core.config/.settings
 middleware.config/mw.managers.aalspace.core.config/target
+middleware.config/mw.managers.deploy.core.config/.project
+middleware.config/mw.managers.deploy.core.config/.settings
+middleware.config/mw.managers.deploy.core.config/target
 middleware.config/mw.pom.config/.classpath
 middleware.config/mw.pom.config/.project
 middleware.config/mw.pom.config/.settings
