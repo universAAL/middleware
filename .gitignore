@@ -650,6 +650,10 @@ middleware.core/mw.pom.core/.project
 middleware.core/mw.pom.core/.settings
 middleware.core/mw.pom.core/target
 middleware.core/mw.pom.core/uAAL.log
+middleware.osgi/mw.connectors.api.osgi/.classpath
+middleware.osgi/mw.connectors.api.osgi/.project
+middleware.osgi/mw.connectors.api.osgi/.settings
+middleware.osgi/mw.connectors.api.osgi/target
 middleware.osgi/mw.container.osgi/.classpath
 middleware.osgi/mw.container.osgi/.project
 middleware.osgi/mw.container.osgi/.settings
