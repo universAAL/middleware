@@ -1,0 +1,27 @@
+universAAL JUnit POJO container implementation
+
+
+2013 Universidad Polit�cnica de Madrid http://www.upm.es
+
+
+I. Included Software
+
+Testing classes implementing uAAL container for JUnit tests.
+
+initial artifact by Universidad Polit�cnica de Madrid within the universAAL project.
+
+
+II. Used Software
+
+This product uses software developed at
+The Apache Software Foundation (http://www.apache.org/).
+Licensed under the Apache License 2.0.
+
+This product uses software developed at
+Junit (http://www.junit.org/).
+Licensed under Common Public License 1.0.
+
+
+III. License Summary
+- Apache License 2.0
+- Common Public License 1.0
