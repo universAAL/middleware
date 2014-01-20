@@ -5291,6 +5291,12 @@ mw.data.serialization.osgi-2.0.3-SNAPSHOT/pom.xml -text
 mw.data.serialization.osgi-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/serialization/turtle/osgi/Activator.java -text
 mw.data.serialization.osgi-2.0.3-SNAPSHOT/src/test/java/org/universAAL/serialization/test/ArtifactIT.java -text
 mw.data.serialization.osgi-2.0.3-SNAPSHOT/src/test/resources/log4j.properties -text
+mw.data.serialization.osgi-2.0.4-SNAPSHOT/ASL2.0.txt -text
+mw.data.serialization.osgi-2.0.4-SNAPSHOT/NOTICE.txt -text
+mw.data.serialization.osgi-2.0.4-SNAPSHOT/pom.xml -text
+mw.data.serialization.osgi-2.0.4-SNAPSHOT/src/main/java/org/universAAL/middleware/serialization/turtle/osgi/Activator.java -text
+mw.data.serialization.osgi-2.0.4-SNAPSHOT/src/test/java/org/universAAL/serialization/test/ArtifactIT.java -text
+mw.data.serialization.osgi-2.0.4-SNAPSHOT/src/test/resources/log4j.properties -text
 mw.felix.shell.universAAL.osgi-1.3.3-SNAPSHOT/ASL2.0.txt -text
 mw.felix.shell.universAAL.osgi-1.3.3-SNAPSHOT/NOTICE.txt -text
 mw.felix.shell.universAAL.osgi-1.3.3-SNAPSHOT/pom.xml -text
