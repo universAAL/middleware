@@ -114,6 +114,12 @@ middleware.core/mw.modules.api.core/src/main/java/org/universAAL/middleware/modu
 middleware.core/mw.modules.api.core/src/main/java/org/universAAL/middleware/modules/exception/CommunicationModuleException.java -text
 middleware.core/mw.modules.api.core/src/main/java/org/universAAL/middleware/modules/listener/MessageListener.java -text
 middleware.core/mw.modules.api.core/src/main/java/org/universAAL/middleware/modules/util/Consts.java -text
+middleware.core/mw.modules.communication.core/ASL2.0.txt -text
+middleware.core/mw.modules.communication.core/NOTICE.txt -text
+middleware.core/mw.modules.communication.core/pom.xml -text
+middleware.core/mw.modules.communication.core/src/main/java/org/universAAL/middleware/modules/communication/BroadcastExecutor.java -text
+middleware.core/mw.modules.communication.core/src/main/java/org/universAAL/middleware/modules/communication/CommunicationModuleImpl.java -text
+middleware.core/mw.modules.communication.core/src/main/java/org/universAAL/middleware/modules/communication/UnicastExecutor.java -text
 middleware.core/mw.pom.core/pom.xml -text
 pom/pom.xml -text
 thirdparty/jslp.core/LICENSE-BSD.txt -text
