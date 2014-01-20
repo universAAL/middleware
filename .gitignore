@@ -1343,6 +1343,10 @@ mw.brokers.api.osgi-2.0.3-SNAPSHOT/.classpath
 mw.brokers.api.osgi-2.0.3-SNAPSHOT/.project
 mw.brokers.api.osgi-2.0.3-SNAPSHOT/.settings
 mw.brokers.api.osgi-2.0.3-SNAPSHOT/target
+mw.brokers.api.osgi-2.0.4-SNAPSHOT/.classpath
+mw.brokers.api.osgi-2.0.4-SNAPSHOT/.project
+mw.brokers.api.osgi-2.0.4-SNAPSHOT/.settings
+mw.brokers.api.osgi-2.0.4-SNAPSHOT/target
 mw.brokers.control.core-1.3.2-SNAPSHOT/.classpath
 mw.brokers.control.core-1.3.2-SNAPSHOT/.project
 mw.brokers.control.core-1.3.2-SNAPSHOT/.settings
