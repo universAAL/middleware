@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.core</artifactId>
-    <version>2.0.4-SNAPSHOT</version>
+    <version>3.0.0</version>
     <relativePath>../mw.pom.core</relativePath>
   </parent>
   <artifactId>mw.bus.model.core</artifactId>
-  <version>2.0.4-SNAPSHOT</version>
+  <version>3.0.0</version>
   <name>universAAL Middleware Bus Model (Core)</name>
   <description>A Soda-Pop implementation based on the ACL (Core)</description>
   <dependencies>
