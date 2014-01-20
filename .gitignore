@@ -922,6 +922,10 @@ middleware.osgi/mw.bus.service.osgi/src/test/uAAL.log
 middleware.osgi/mw.bus.service.osgi/src/uAAL.log
 middleware.osgi/mw.bus.service.osgi/target
 middleware.osgi/mw.bus.service.osgi/uAAL.log
+middleware.osgi/mw.bus.tracker.osgi/.classpath
+middleware.osgi/mw.bus.tracker.osgi/.project
+middleware.osgi/mw.bus.tracker.osgi/.settings
+middleware.osgi/mw.bus.tracker.osgi/target
 middleware.osgi/mw.bus.ui.osgi/.classpath
 middleware.osgi/mw.bus.ui.osgi/.project
 middleware.osgi/mw.bus.ui.osgi/.settings
