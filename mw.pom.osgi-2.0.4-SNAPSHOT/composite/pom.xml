@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>2.0.4-SNAPSHOT</version>
+    <relativePath>../</relativePath>
+  </parent>
+  <artifactId>mw.composite</artifactId>
+  <version>2.0.4-SNAPSHOT</version>
+  <name>universAAL Middleware Suite Composite</name>
+  <description>Artifact responsible for generating composite file of universAAL middleware</description>
+  <scm>
+    <connection>${svn.base}/middleware.osgi/mw.pom.osgi/composite</connection>
+    <developerConnection>${svn.base}/middleware.osgi/mw.pom.osgi/composite</developerConnection>
+    <url>${svn.base.url}middleware.osgi/mw.pom.osgi/composite</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.service.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.context.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.ui.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.data.serialization.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.tracker.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.deploy.osgi</artifactId>
+    </dependency>
+  </dependencies>
+</project>
