@@ -13397,6 +13397,10 @@ mw.modules.communication.osgi-2.0.3-SNAPSHOT/.classpath
 mw.modules.communication.osgi-2.0.3-SNAPSHOT/.project
 mw.modules.communication.osgi-2.0.3-SNAPSHOT/.settings
 mw.modules.communication.osgi-2.0.3-SNAPSHOT/target
+mw.modules.communication.osgi-2.0.4-SNAPSHOT/.classpath
+mw.modules.communication.osgi-2.0.4-SNAPSHOT/.project
+mw.modules.communication.osgi-2.0.4-SNAPSHOT/.settings
+mw.modules.communication.osgi-2.0.4-SNAPSHOT/target
 mw.pom-1.0.2-SNAPSHOT/.classpath
 mw.pom-1.0.2-SNAPSHOT/.project
 mw.pom-1.0.2-SNAPSHOT/.settings
