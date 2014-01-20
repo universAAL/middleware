@@ -95,9 +95,9 @@ public class Joiner implements Runnable {
                              * timer that is timeout should fire after that data
                              * is actually sent
                              */
-                            synchronized (spaceManager.getPendingAALSpace()) {
+                            synchronized (spaceManager ) {
                                 try {
-                                    spaceManager.getPendingAALSpace().wait(
+                                    spaceManager.wait(
                                             spaceManager
                                                     .getWaitAfterJoinRequest());
                                 } catch (Exception e) {

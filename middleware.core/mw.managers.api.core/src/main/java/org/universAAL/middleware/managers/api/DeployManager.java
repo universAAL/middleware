@@ -21,10 +21,8 @@
  */
 package org.universAAL.middleware.managers.api;
 
+import java.net.URI;
 import java.util.Map;
-
-import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.mpa.UAPPStatus;
 
 /**
  * Deploy Manager Service interface
@@ -37,6 +35,10 @@ import org.universAAL.middleware.interfaces.mpa.UAPPStatus;
 public interface DeployManager extends Manager {
 
     /**
+     * This method is invoked in order to install a multi-part application in
+     * the AALSpace. The class using this method will have to invoke the @link
+     * {@link #requestToInstall(URI, Map, String)} method once for each
+     * application that is contained in a uSrv
      *
      * @param app
      *            {@link UAPPPackage} the representing the uAPP application
@@ -66,5 +68,5 @@ public interface DeployManager extends Manager {
      * @return the result of the uninstall task of the uApp
      */
     public InstallationResultsDetails requestToUninstall(String serviceId, String id);
-        
+
 }

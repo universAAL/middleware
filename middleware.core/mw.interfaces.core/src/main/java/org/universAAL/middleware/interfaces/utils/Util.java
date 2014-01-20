@@ -57,7 +57,6 @@ public class Util {
                     prop.load(input);
                     return (Dictionary) prop;
                 } catch (IOException e) {
-
                     return null;
                 }
             } finally {

@@ -45,10 +45,6 @@ public class UAPPPackage {
     private final Map<PeerCard, List<Part> > deploy;
 
     /**
-     * This method is invoked in order to install a multi-part application in
-     * the AALSpace. The class using this method will have to invoke the @link
-     * {@link #requestToInstall(URI, Map, String)} method once for each
-     * application that is contained in a uSrv
      *
      * @param serviceId
      *            the {@link String} representing an unique identifier of the
