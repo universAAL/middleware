@@ -3152,6 +3152,12 @@ mw.container.junit-2.0.3-SNAPSHOT/pom.xml -text
 mw.container.junit-2.0.3-SNAPSHOT/src/main/java/org/universAAL/container/JUnit/JUnitContainer.java -text
 mw.container.junit-2.0.3-SNAPSHOT/src/main/java/org/universAAL/container/JUnit/JUnitModuleContext.java -text
 mw.container.junit-2.0.3-SNAPSHOT/src/test/java/org/universAAL/test/SimpleTest.java -text
+mw.container.junit-2.0.4-SNAPSHOT/ASL2.0.txt -text
+mw.container.junit-2.0.4-SNAPSHOT/NOTICE.txt -text
+mw.container.junit-2.0.4-SNAPSHOT/pom.xml -text
+mw.container.junit-2.0.4-SNAPSHOT/src/main/java/org/universAAL/container/JUnit/JUnitContainer.java -text
+mw.container.junit-2.0.4-SNAPSHOT/src/main/java/org/universAAL/container/JUnit/JUnitModuleContext.java -text
+mw.container.junit-2.0.4-SNAPSHOT/src/test/java/org/universAAL/test/SimpleTest.java -text
 mw.container.osgi-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.container.osgi-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.container.osgi-1.0.1-SNAPSHOT/artifact_manual.composite -text
