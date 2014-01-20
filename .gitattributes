@@ -585,6 +585,10 @@ middleware.osgi/mw.container.xfaces.osgi/pom.xml -text
 middleware.osgi/mw.interfaces.osgi/ASL2.0.txt -text
 middleware.osgi/mw.interfaces.osgi/NOTICE.txt -text
 middleware.osgi/mw.interfaces.osgi/pom.xml -text
+middleware.osgi/mw.karaf.branding.osgi/ASL2.0.txt -text
+middleware.osgi/mw.karaf.branding.osgi/NOTICE.txt -text
+middleware.osgi/mw.karaf.branding.osgi/pom.xml -text
+middleware.osgi/mw.karaf.branding.osgi/src/main/resources/org/apache/karaf/branding/branding.properties -text
 middleware.osgi/mw.managers.aalspace.osgi/ASL2.0.txt -text
 middleware.osgi/mw.managers.aalspace.osgi/NOTICE.txt -text
 middleware.osgi/mw.managers.aalspace.osgi/pom.xml -text
