@@ -3352,6 +3352,11 @@ mw.connectors.deploy.karaf.osgi-2.0.3-SNAPSHOT/src/main/java/org/universAAL/midd
 mw.connectors.deploy.karaf.osgi-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/ObjectFactory.java -text
 mw.connectors.deploy.karaf.osgi-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/package-info.java -text
 mw.connectors.deploy.karaf.osgi-2.0.3-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/osgi/Activator.java -text
+mw.connectors.deploy.karaf.osgi-2.0.4-SNAPSHOT/ASL2.0.txt -text
+mw.connectors.deploy.karaf.osgi-2.0.4-SNAPSHOT/NOTICE.txt -text
+mw.connectors.deploy.karaf.osgi-2.0.4-SNAPSHOT/pom.xml -text
+mw.connectors.deploy.karaf.osgi-2.0.4-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/KarafDeployConnector.java -text
+mw.connectors.deploy.karaf.osgi-2.0.4-SNAPSHOT/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/osgi/Activator.java -text
 mw.connectors.discovery.slp.core-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.connectors.discovery.slp.core-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.connectors.discovery.slp.core-1.3.2-SNAPSHOT/pom.xml -text
