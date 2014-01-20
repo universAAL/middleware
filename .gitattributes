@@ -594,14 +594,6 @@ middleware.osgi/mw.connectors.deploy.karaf.osgi/ASL2.0.txt -text
 middleware.osgi/mw.connectors.deploy.karaf.osgi/NOTICE.txt -text
 middleware.osgi/mw.connectors.deploy.karaf.osgi/pom.xml -text
 middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/KarafDeployConnector.java -text
-middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Bundle.java -text
-middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Config.java -text
-middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/ConfigFile.java -text
-middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Dependency.java -text
-middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/Feature.java -text
-middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/FeaturesRoot.java -text
-middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/ObjectFactory.java -text
-middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/model/package-info.java -text
 middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/osgi/Activator.java -text
 middleware.osgi/mw.connectors.discovery.slp.osgi/ASL2.0.txt -text
 middleware.osgi/mw.connectors.discovery.slp.osgi/NOTICE.txt -text
