@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <relativePath>../../middleware.osgi/mw.pom.osgi</relativePath>
   </parent>
   <groupId>org.universAAL.thirdparty</groupId>
   <artifactId>jslp.osgi</artifactId>
-  <version>3.0.0</version>
+  <version>3.0.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Thirdparty jslp library (OSGi)</name>
   <dependencies>

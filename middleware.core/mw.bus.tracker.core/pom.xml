@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.core</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <relativePath>../mw.pom.core</relativePath>
   </parent>
   <artifactId>mw.bus.tracker.core</artifactId>
-  <version>3.0.0</version>
+  <version>3.0.1-SNAPSHOT</version>
   <name>universAAL Middleware BusMember Tracker (Core)</name>
   <description>Module for tracking BusMembers registered in the MW buses</description>
   <dependencies>
