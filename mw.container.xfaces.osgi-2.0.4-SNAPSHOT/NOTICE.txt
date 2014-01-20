@@ -1,0 +1,17 @@
+Container Interfaces
+
+Copyright 2011-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Fraunhofer Gesellschaft - Institut für Graphische Verarbeitung 
+
+
+I. Included Software
+
+This does not include any software developed by 3rd parties
+
+
+II. Used Software
+
+This does not use any software developed by 3rd parties
+
+III. License Summary
+- Apache License 2.0
