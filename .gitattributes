@@ -667,6 +667,10 @@ middleware.osgi/mw.karaf.branding.osgi/ASL2.0.txt -text
 middleware.osgi/mw.karaf.branding.osgi/NOTICE.txt -text
 middleware.osgi/mw.karaf.branding.osgi/pom.xml -text
 middleware.osgi/mw.karaf.branding.osgi/src/main/resources/org/apache/karaf/branding/branding.properties -text
+middleware.osgi/mw.karaf.feature/mw.karaf.feature/ASL2.0.txt -text
+middleware.osgi/mw.karaf.feature/mw.karaf.feature/NOTICE.txt -text
+middleware.osgi/mw.karaf.feature/mw.karaf.feature/pom.xml -text
+middleware.osgi/mw.karaf.feature/mw.karaf.feature/src/main/features/mw.xml -text
 middleware.osgi/mw.karaf.shell.universAAL.osgi/ASL2.0.txt -text
 middleware.osgi/mw.karaf.shell.universAAL.osgi/NOTICE.txt -text
 middleware.osgi/mw.karaf.shell.universAAL.osgi/pom.xml -text
