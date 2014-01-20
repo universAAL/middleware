@@ -60,7 +60,7 @@ public class PeerCard {
     }
 
     public PeerCard(String ID, PeerRole role) {
-        this.peerID = UUID.fromString(ID).toString();;
+        this.peerID = UUID.fromString(ID).toString();
         this.role = role;
     }
 

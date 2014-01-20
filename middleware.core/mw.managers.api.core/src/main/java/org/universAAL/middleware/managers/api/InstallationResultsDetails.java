@@ -50,7 +50,7 @@ public class InstallationResultsDetails {
     }
 
     public void setDetailedResult(PeerCard peer, Part part, InstallationResults result){
-        setDetailedResult(peer.getPeerID(), part.getPartId(), result);;
+        setDetailedResult(peer.getPeerID(), part.getPartId(), result);
     }
 
     public InstallationResults getDetailedResult(String id, String partId){

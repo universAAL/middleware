@@ -39,7 +39,7 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
 
 /**
- * 
+ *
  * @author <a href="mailto:giancarlo.riolo@isti.cnr.it">Giancarlo Riolo</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
@@ -47,22 +47,22 @@ import com.google.gson.JsonSyntaxException;
 public class GsonParserBuilder {
 
     private static GsonParserBuilder instance = null; // riferimento all'
-						      // istanza
+                                                      // istanza
 
     private Gson gson;
 
     public String toJson(Object src) {
-	return gson.toJson(src);
+        return gson.toJson(src);
     }
 
     public <T> T fromJson(String json, Class<T> classOfT)
-	    throws JsonSyntaxException {
-	return gson.fromJson(json, classOfT);
+            throws JsonSyntaxException {
+        return gson.fromJson(json, classOfT);
     }
 
     public <T> T fromJson(JsonElement jsonElement, Class<T> classOfT)
-	    throws JsonSyntaxException {
-	return gson.fromJson(jsonElement, classOfT);
+            throws JsonSyntaxException {
+        return gson.fromJson(jsonElement, classOfT);
     }
 
     private GsonParserBuilder() {
@@ -70,68 +70,68 @@ public class GsonParserBuilder {
 
     private class UnmappedJSonTypeException extends JsonParseException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8726220629388716348L;
+        /**
+         *
+         */
+        private static final long serialVersionUID = 8726220629388716348L;
 
-	public UnmappedJSonTypeException(String msg) {
-	    super(msg);
-	}
+        public UnmappedJSonTypeException(String msg) {
+            super(msg);
+        }
 
     }
 
     private class SerializableSerializer implements
-	    JsonSerializer<Serializable> {
-	public JsonElement serialize(Serializable src, Type typeOfSrc,
-		JsonSerializationContext context) {
-	    return new JsonPrimitive(Serializable.class.toString());
-	}
+            JsonSerializer<Serializable> {
+        public JsonElement serialize(Serializable src, Type typeOfSrc,
+                JsonSerializationContext context) {
+            return new JsonPrimitive(Serializable.class.toString());
+        }
     }
 
     private class SerializableDeserializer implements
-	    JsonDeserializer<Serializable> {
+            JsonDeserializer<Serializable> {
 
-	public Serializable deserialize(JsonElement json, Type typeOfT,
-		JsonDeserializationContext context) throws JsonParseException {
-	    if (json.getAsJsonPrimitive().isNumber()) {
-		return json.getAsJsonPrimitive().getAsInt();
-	    }
-	    if (json.getAsJsonPrimitive().isBoolean()) {
-		return json.getAsJsonPrimitive().getAsBoolean();
-	    }
-	    if (json.getAsJsonPrimitive().isString()) {
-		return json.getAsJsonPrimitive().getAsString();
+        public Serializable deserialize(JsonElement json, Type typeOfT,
+                JsonDeserializationContext context) throws JsonParseException {
+            if (json.getAsJsonPrimitive().isNumber()) {
+                return json.getAsJsonPrimitive().getAsInt();
+            }
+            if (json.getAsJsonPrimitive().isBoolean()) {
+                return json.getAsJsonPrimitive().getAsBoolean();
+            }
+            if (json.getAsJsonPrimitive().isString()) {
+                return json.getAsJsonPrimitive().getAsString();
 
-	    } else {
-		/**
-		 * Unable to infer data type, the supported data type are:
-		 * String, Int, Boolean, and array of the mentioned types
-		 */
-		throw new UnmappedJSonTypeException("Unmapped json data type");
-	    }
-	}
+            } else {
+                /**
+                 * Unable to infer data type, the supported data type are:
+                 * String, Int, Boolean, and array of the mentioned types
+                 */
+                throw new UnmappedJSonTypeException("Unmapped json data type");
+            }
+        }
     }
 
     public static GsonParserBuilder getInstance() {
-	if (instance == null)
-	    synchronized (GsonParserBuilder.class) {
-		if (instance == null)
-		    instance = new GsonParserBuilder();
-	    }
-	return instance;
+        synchronized (GsonParserBuilder.class) {
+            if (instance == null) {
+                instance = new GsonParserBuilder();
+            }
+        }
+        return instance;
     }
 
     public Gson buildGson() {
-	gson = new GsonBuilder()
-		.registerTypeAdapter(Serializable.class,
-			new SerializableDeserializer())
-		.registerTypeAdapter(Serializable.class,
-			new SerializableSerializer())
-		.registerTypeAdapter(BrokerMessage.class,
-			new BrokerMessageSerializer()).serializeNulls()
-		.create();
-	return gson;
+        gson = new GsonBuilder()
+                .registerTypeAdapter(Serializable.class,
+                        new SerializableDeserializer())
+                .registerTypeAdapter(Serializable.class,
+                        new SerializableSerializer())
+                .registerTypeAdapter(BrokerMessage.class,
+                        new BrokerMessageSerializer()).serializeNulls()
+                .create();
+        return gson;
 
     }
 }

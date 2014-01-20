@@ -580,14 +580,14 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
         for (int i = 0; i < selectedChannel.size(); i++) {
             JChannel channel = (JChannel) selectedChannel.get(i);
             Message msg = null;
-           String s = message.toString();     
-           
-           Message prova = new Message();       
-    
-           
-           
-         
-         
+           String s = message.toString();
+
+           Message prova = new Message();
+
+
+
+
+
             try {
                 if (security) {
                     msg = new Message(null, null, CryptUtil.encrypt(message
@@ -683,7 +683,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
             }
 
             RequestOptions opts = new RequestOptions();
-            opts.setExclusionList((Address[]) removeAddressList.toArray());
+            opts.setExclusionList((Address[]) removeAddressList.toArray(new Address[removeAddressList.size()]));
             disp = new MessageDispatcher(channel, null, null, this);
 
             try {
@@ -775,8 +775,8 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
                 LogUtils.logWarn(context, JGroupsCommunicationConnector.class,
                         METHOD, "Skipping internal JGroups packet");
                 return;
-            }*/        	        	
-        	String msgBuffer = (String) msg.getObject();            
+            }*/
+                String msgBuffer = (String) msg.getObject();
 
             if (security) {
                 msgBuffer = CryptUtil.decrypt((String) msg.getObject());

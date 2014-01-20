@@ -105,9 +105,8 @@ public class CommunicationModuleImpl implements CommunicationModule,
             // executor.allowCoreThreadTimeOut(true);
 
             messageListeners = new ConcurrentHashMap<String, List<MessageListener>>();
-            LogUtils.logDebug(context, CommunicationModuleImpl.class,
-                    "init)",
-                    "Configuring the CommunicationModule..."  );
+            LogUtils.logDebug(context, CommunicationModuleImpl.class, "init)",
+                    "Configuring the CommunicationModule...");
 
             try {
                 LogUtils.logDebug(
@@ -432,17 +431,13 @@ public class CommunicationModuleImpl implements CommunicationModule,
     }
 
     public void sharedObjectAdded(Object sharedObj, Object removeHook) {
-        if (sharedObj != null) {
-            if (sharedObj instanceof CommunicationConnector) {
-                LogUtils.logDebug(context, CommunicationModuleImpl.class,
-                        "CommunicationModuleImpl",
-                        new Object[] { "New CommunicationConnector added..." },
-                        null);
-                communicationConnector = (CommunicationConnector) sharedObj;
-
-            }
+        if (sharedObj != null && sharedObj instanceof CommunicationConnector) {
+            LogUtils.logDebug(context, CommunicationModuleImpl.class,
+                    "CommunicationModuleImpl",
+                    new Object[] { "New CommunicationConnector added..." },
+                    null);
+            communicationConnector = (CommunicationConnector) sharedObj;
         }
-
     }
 
     public void sharedObjectRemoved(Object removeHook) {
