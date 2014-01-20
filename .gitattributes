@@ -120,6 +120,16 @@ middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/inter
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/model/package-info.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/utils/Util.java -text
 middleware.core/mw.interfaces.core/src/test/java/org/universAAL/middleware/interfaces/PeerCardTest.java svneol=native#text/plain
+middleware.core/mw.managers.aalspace.core/ASL2.0.txt -text
+middleware.core/mw.managers.aalspace.core/NOTICE.txt -text
+middleware.core/mw.managers.aalspace.core/pom.xml -text
+middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/AALSpaceManagerImpl.java -text
+middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/MatchingResultImpl.java -text
+middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/AALSpaceSchemaEventHandler.java -text
+middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/CheckPeerThread.java -text
+middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/Consts.java -text
+middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/Joiner.java -text
+middleware.core/mw.managers.aalspace.core/src/main/java/org/universAAL/middleware/managers/aalspace/util/RefreshAALSpaceThread.java -text
 middleware.core/mw.managers.api.core/ASL2.0.txt -text
 middleware.core/mw.managers.api.core/NOTICE.txt -text
 middleware.core/mw.managers.api.core/pom.xml -text
