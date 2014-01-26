@@ -13,6 +13,12 @@
   <packaging>pom</packaging>
   <name>universAAL Middleware Suite</name>
   <description>The set of artefacts realizing the universAAL middleware 2.0</description>
+	<distributionManagement>
+		<site>
+			<id>depot.universaal.org</id>
+			<url>${uaal.site.url}middleware/mw.pom</url>
+		</site>
+	</distributionManagement>
   <developers>
     <developer>
       <id>ffurfari</id>
