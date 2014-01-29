@@ -65,7 +65,7 @@ public class JUnitContainer implements Container {
 		synchronized (listeners) {
 		    listeners.add(listener);
 		}
-		return (Object[]) fetchSharedObject(requester, fetchParams);
+		return new Object[] {fetchSharedObject(requester, fetchParams)};
 	}
 
 	/** {@inheritDoc} */
