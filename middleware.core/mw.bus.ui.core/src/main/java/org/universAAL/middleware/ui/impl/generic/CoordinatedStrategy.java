@@ -57,6 +57,11 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  */
 public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceListener, SharedObjectListener{
 
+    /**
+     * 
+     */
+    private static final int RESEND_INTERVAL = 10000;
+
     public static final String TYPE_uAAL_UI_BUS_COORDINATOR_BROADCAST = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "IamCoordinator";
 
@@ -322,7 +327,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 		    // now wait until either the reply comes and notifies me
 		    // or the dialog manager connects which will also lead
 		    // to awakening this thread
-		    wait();
+		    wait(RESEND_INTERVAL);
 		} catch (Exception e) {
 		}
 	    }
@@ -346,7 +351,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	if (iAmCoordinator()){
 	    synchronized (this) {
 		setCoordinatorPeer(null);
-		LogUtils.logInfo(busModule, getClass(), "peerLost", "Lost the space to Coordinate.");
+		LogUtils.logInfo(busModule, getClass(), "aalSpaceLost", "Lost the space to Coordinate.");
 		// TODO give a notification? so coordination may be reattempted.
 	    }
 	}
