@@ -29,7 +29,11 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class Constants {
+public final class Constants {
+    
+    private Constants() {
+    }
+    
     // URIs of standard variables managed by the uAAL middleware
     /**
      * The URI of a standard variable managed by the uAAL middleware indicating

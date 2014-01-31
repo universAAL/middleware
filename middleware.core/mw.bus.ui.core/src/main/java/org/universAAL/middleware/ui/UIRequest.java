@@ -22,14 +22,11 @@
 package org.universAAL.middleware.ui;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import org.universAAL.middleware.bus.model.matchable.Advertisement;
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.bus.model.matchable.Request;
-import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.owl.supply.LevelRating;
 import org.universAAL.middleware.rdf.FinalizedResource;
@@ -39,6 +36,7 @@ import org.universAAL.middleware.ui.owl.DialogType;
 import org.universAAL.middleware.ui.owl.Modality;
 import org.universAAL.middleware.ui.owl.Preference;
 import org.universAAL.middleware.ui.owl.PrivacyLevel;
+import org.universAAL.middleware.owl.ComparableIndividual;
 import org.universAAL.middleware.ui.rdf.Form;
 
 /**
@@ -341,64 +339,45 @@ public class UIRequest extends FinalizedResource implements Request {
     }
 
     /**
-     * @see #matches(Advertisement)
+     * @see Matchable#matches(Matchable)
      */
-    public boolean matches(Matchable other) {
-	return false;
-    }
-
-    /**
-     * Will only be called with non-matching types of {@link Advertisement}, so
-     * <tt>false</tt> is returned always.
-     * 
-     * @param advertisement
-     *            the advertisement to be matched against
-     * @return <tt>false</tt>, as described above
-     */
-    public boolean matches(Advertisement advertisement) {
-	return false;
-    }
-
-    /**
-     * Switches over different types of {@link UtilityAdvertisement} to call
-     * appropriate methods with them.
-     * 
-     * @param advertisement
-     *            the advertisement to be matched against
-     * @return <tt>true</tt> if the advertisement matches, <tt>false</tt> if not
-     */
-    public boolean matches(UtilityAdvertisement advertisement) {
-	if (advertisement instanceof UIHandlerProfile) {
-	    return isMatchingUIHandlerProfile((UIHandlerProfile) advertisement);
-	} else {
+    public boolean matches(Matchable subset) {
+	if (!(subset instanceof UIRequest))
 	    return false;
+	UIRequest sub = (UIRequest) subset;
+	Object o1, o2;
+
+	o1 = getAddressedUser();
+	if (o1 != null) {
+	    o2 = sub.getAddressedUser();
+	    if (o2 != null && !(o1.equals(o2)))
+		return false;
 	}
-    }
 
-    /**
-     * 
-     * @param uiHandlerProfile
-     *            {@link UIHandlerProfile}
-     * @return currently always false!!!!
-     */
-    private boolean isMatchingUIHandlerProfile(UIHandlerProfile uiHandlerProfile) {
-	// TODO method not implemented
-	return false;
-    }
-
-    @SuppressWarnings("unchecked")
-    public boolean matches(UIRequest other) {
-	boolean matches = true;
-	for (Object current : Collections.list(getPropertyURIs())) {
-	    String propertyURI = (String) current;
-	    Object thisProperty = getProperty(propertyURI);
-	    Object otherProperty = other.getProperty(propertyURI);
-
-	    // TODO add good matching algorithm!!
-	    if (!thisProperty.equals(otherProperty)) {
-		matches = false;
-	    }
+	o1 = getDialogPriority();
+	if (o1 != null) {
+	    o2 = sub.getDialogPriority();
+	    if (o2 != null
+		    && !(((LevelRating) o1).greaterEqual((LevelRating) o2)))
+		return false;
 	}
-	return matches;
+
+	o1 = getDialogLanguage();
+	if (o1 != null) {
+	    o2 = sub.getDialogLanguage();
+	    if (o2 != null && !(o1.equals(o2)))
+		return false;
+	}
+
+	o1 = getDialogPrivacyLevel();
+	if (o1 != null) {
+	    o2 = sub.getDialogPrivacyLevel();
+	    if (o2 != null
+		    && !(((ComparableIndividual) o1)
+			    .greaterEqual((ComparableIndividual) o2)))
+		return false;
+	}
+
+	return true;
     }
 }

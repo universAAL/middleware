@@ -21,10 +21,13 @@ package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * The base class of all simple restrictions. Subclasses will implement the
@@ -121,19 +124,17 @@ public abstract class PropertyRestriction extends TypeExpression {
     /**
      * Check all cases where the subtype is not a subclass of
      * {@link #PropertyRestriction()}. Helper method for
-     * {@link #matches(TypeExpression, Hashtable)} in subclasses.
-     * 
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
+     * {@link #matches(TypeExpression, HashMap)} in subclasses.
      */
     protected Object matchesNonRestriction(TypeExpression subtype,
-	    Hashtable context) {
+	    HashMap context, int ttl, List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (subtype == null)
 	    return Boolean.FALSE;
 
 	if (subtype instanceof Enumeration)
 	    return Boolean.valueOf(((Enumeration) subtype).hasSupertype(this,
-		    context));
+		    context, ttl, log));
 
 	if (subtype instanceof TypeURI) {
 	    // TODO: change
@@ -147,16 +148,16 @@ public abstract class PropertyRestriction extends TypeExpression {
 
 	if (subtype instanceof Intersection)
 	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();)
-		if (matches((TypeExpression) i.next(), context))
+		if (matches((TypeExpression) i.next(), context, ttl, log))
 		    return Boolean.TRUE;
 
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
 	if (!(subtype instanceof PropertyRestriction)) {
+	    HashMap cloned = (context == null) ? null : (HashMap) context
+		    .clone();
 	    Object[] members = subtype.getUpperEnumeration();
 	    if (members != null && members.length > 0) {
 		for (int i = 0; i < members.length; i++)
-		    if (!hasMember(members[i], cloned))
+		    if (!hasMember(members[i], cloned, ttl, log))
 			return Boolean.FALSE;
 		synchronize(context, cloned);
 		return Boolean.TRUE;
@@ -168,14 +169,14 @@ public abstract class PropertyRestriction extends TypeExpression {
 		    MergedRestriction r = ManagedIndividual
 			    .getClassRestrictionsOnProperty(sups[i],
 				    getOnProperty());
-		    if (r == null || matches(r, context))
+		    if (r == null || matches(r, context, ttl, log))
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
 	    }
 	    if (subtype instanceof Union) {
 		for (Iterator i = ((Union) subtype).types(); i.hasNext();)
-		    if (!matches((TypeExpression) i.next(), context))
+		    if (!matches((TypeExpression) i.next(), context, ttl, log))
 			return Boolean.FALSE;
 		synchronize(context, cloned);
 		return Boolean.TRUE;
@@ -198,11 +199,21 @@ public abstract class PropertyRestriction extends TypeExpression {
 
 	// handle owl:onProperty
 	if (PROP_OWL_ON_PROPERTY.equals(propURI)) {
+	    if (Resource.isAnon(value.toString())) {
+		LogUtils.logError(
+			SharedResources.moduleContext,
+			PropertyRestriction.class,
+			"setProperty",
+			new Object[] { "Cannot set the 'on property' (owl:onProperty) value with an anonymous URI. Please use a non-anonymous URI" },
+			null);
+		return false;
+	    }
+
 	    if (value instanceof String) {
 		props.put(PROP_OWL_ON_PROPERTY, new Resource((String) value));
 	    } else if (value instanceof Resource) {
-		props.put(PROP_OWL_ON_PROPERTY, new Resource(((Resource) value)
-			.getURI()));
+		props.put(PROP_OWL_ON_PROPERTY,
+			new Resource(((Resource) value).getURI()));
 	    } else {
 		return false;
 	    }

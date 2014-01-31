@@ -19,12 +19,13 @@
  */
 package org.universAAL.middleware.owl;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.util.MatchLogEntry;
 import org.universAAL.middleware.xsd.NonNegativeInteger;
 
 /**
@@ -34,7 +35,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  * 
  * @author Carsten Stockloew
  */
-public class MinCardinalityRestriction extends PropertyRestriction {
+public final class MinCardinalityRestriction extends PropertyRestriction {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "MinCardinalityRestriction";
@@ -43,13 +44,6 @@ public class MinCardinalityRestriction extends PropertyRestriction {
 	    + "minCardinality";
     public static final String PROP_OWL_MIN_QUALIFIED_CARDINALITY = OWL_NAMESPACE
 	    + "minQualifiedCardinality";
-
-    static {
-	register(MinCardinalityRestriction.class, null,
-		PROP_OWL_MIN_CARDINALITY, null);
-	// register(MinCardinalityRestriction.class, null,
-	// PROP_OWL_MIN_QUALIFIED_CARDINALITY, null);
-    }
 
     /** Standard constructor for exclusive use by serializers. */
     MinCardinalityRestriction() {
@@ -67,7 +61,8 @@ public class MinCardinalityRestriction extends PropertyRestriction {
 		value));
     }
 
-    public MinCardinalityRestriction(String propURI, int value, TypeExpression ce) {
+    public MinCardinalityRestriction(String propURI, int value,
+	    TypeExpression ce) {
 	throw new UnsupportedOperationException("Not yet implemented");
 	// setOnProperty(propURI);
 	// super.setProperty(PROP_OWL_MIN_QUALIFIED_CARDINALITY, new
@@ -92,11 +87,10 @@ public class MinCardinalityRestriction extends PropertyRestriction {
 	return copyTo(new MinCardinalityRestriction());
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      Hashtable)
-     */
-    public boolean hasMember(Object member, Hashtable context) {
+    public boolean hasMember(Object member, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	// ttl =
+	checkTTL(ttl);
 	if (member == null)
 	    return false;
 
@@ -111,13 +105,11 @@ public class MinCardinalityRestriction extends PropertyRestriction {
 	    return getValue() <= ((List) value).size();
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (!(other instanceof PropertyRestriction))
-	    return other.isDisjointWith(this, context);
+	    return other.isDisjointWith(this, context, ttl, log);
 
 	PropertyRestriction r = (PropertyRestriction) other;
 	Object o = getOnProperty();
@@ -141,12 +133,9 @@ public class MinCardinalityRestriction extends PropertyRestriction {
 		&& (hasProperty(PROP_OWL_MIN_CARDINALITY));
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean matches(TypeExpression subset, Hashtable context) {
-	Object noRes = matchesNonRestriction(subset, context);
+    public boolean matches(TypeExpression subset, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	Object noRes = matchesNonRestriction(subset, context, ttl, log);
 	if (noRes instanceof Boolean)
 	    return ((Boolean) noRes).booleanValue();
 
@@ -175,16 +164,14 @@ public class MinCardinalityRestriction extends PropertyRestriction {
 	    if (o instanceof NonNegativeInteger) {
 		return super.setProperty(propURI, o);
 	    }
-	    LogUtils
-		    .logError(
-			    SharedResources.moduleContext,
-			    MinCardinalityRestriction.class,
-			    "setProperty",
-			    new Object[] {
-				    "Trying to set the min cardinality with an invalid value: ",
-				    o, " of type ", o.getClass().getName(),
-				    ". It must be a NonNegativeInteger!" },
-			    null);
+	    LogUtils.logError(
+		    SharedResources.moduleContext,
+		    MinCardinalityRestriction.class,
+		    "setProperty",
+		    new Object[] {
+			    "Trying to set the min cardinality with an invalid value: ",
+			    o, " of type ", o.getClass().getName(),
+			    ". It must be a NonNegativeInteger!" }, null);
 	    return false;
 	}
 

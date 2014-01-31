@@ -48,7 +48,7 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  * @see RDFClassInfo
  * @see OntClassInfoSetup
  */
-public final class OntClassInfo extends RDFClassInfo implements Cloneable {
+public final class OntClassInfo extends RDFClassInfo {
 
     /** URI of this class. */
     public static final String MY_URI = ManagedIndividual.OWL_NAMESPACE
@@ -63,37 +63,36 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
      * @see #properties
      */
     // maps property URI to MergedRestriction
-    private HashMap propRestriction = new HashMap();
+    private HashMap<String, MergedRestriction> propRestriction = new HashMap<String, MergedRestriction>();
 
     /**
      * Repository of all properties defined for this class. It maps the URI of
      * the property to a {@link Property} (which is either an
      * {@link ObjectProperty} or a {@link DatatypeProperty}).
      */
-    private HashMap properties = new HashMap();
+    private HashMap<String, Property> properties = new HashMap<String, Property>();
 
     /**
      * The set of all equivalent classes.
      * 
      * @see OntClassInfoSetup#addEquivalentClass(TypeExpression)
      */
-    // Members of this arrays are instances of {@link ClassExpression}.
-    private ArrayList equivalentClasses = new ArrayList();
+    // Members of this arrays are instances of {@link TypeExpression}.
+    private ArrayList<TypeExpression> equivalentClasses = new ArrayList<TypeExpression>();
 
     /**
      * The set of all disjoint classes.
      * 
      * @see OntClassInfoSetup#addDisjointClass(TypeExpression)
      */
-    // Members of this arrays are instances of {@link ClassExpression}.
-    private ArrayList disjointClasses = new ArrayList();
+    // Members of this arrays are instances of {@link TypeExpression}.
+    private ArrayList<TypeExpression> disjointClasses = new ArrayList<TypeExpression>();
 
     /**
      * The complement class.
      * 
      * @see OntClassInfoSetup#setComplementClass(TypeExpression)
      */
-    // Members of this arrays are instances of {@link ClassExpression}.
     private TypeExpression complementClass = null;
 
     /**
@@ -105,6 +104,9 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 
     /** The setup interface. */
     private PrivateOntSetup setup = null;
+
+    /** The mgmt interface. */
+    private ManagementOperation mgmt = null;
 
     /**
      * Internal security check: when creating a {@link Property},
@@ -121,8 +123,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
      * 
      * @see Ontology#extendExistingOntClassInfo(String)
      */
-    // list of OntClassInfo
-    private ArrayList extenders = new ArrayList();
+    private ArrayList<OntClassInfo> extenders = new ArrayList<OntClassInfo>();
 
     /**
      * Implementation of the setup interface. For security reasons, this is
@@ -191,8 +192,8 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	    ArrayList al = new ArrayList(combinedSuperClasses);
 	    al.addAll(r.types);
 	    combinedSuperClasses = al;
-	    setProperty(TypeExpression.PROP_RDFS_SUB_CLASS_OF, Collections
-		    .unmodifiableList(combinedSuperClasses));
+	    setProperty(TypeExpression.PROP_RDFS_SUB_CLASS_OF,
+		    Collections.unmodifiableList(combinedSuperClasses));
 	}
 
 	/** @see OntClassInfoSetup#addInstance(ManagedIndividual) */
@@ -207,29 +208,26 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 		super.addInstance(instance);
 	    } else {
 		if (instance == null) {
-		    LogUtils
-			    .logDebug(
-				    SharedResources.moduleContext,
-				    OntClassInfo.class,
-				    "addInstance",
-				    new Object[] {
-					    "An instance of the ontology class ",
-					    uri,
-					    " should be added but the given instance is null." },
-				    null);
+		    LogUtils.logDebug(
+			    SharedResources.moduleContext,
+			    OntClassInfo.class,
+			    "addInstance",
+			    new Object[] {
+				    "An instance of the ontology class ", uri,
+				    " should be added but the given instance is null." },
+			    null);
 		} else {
-		    LogUtils
-			    .logDebug(
-				    SharedResources.moduleContext,
-				    OntClassInfo.class,
-				    "addInstance",
-				    new Object[] {
-					    "The instance ",
-					    instance.getURI(),
-					    " of the ontology class ",
-					    uri,
-					    " should be added but the class URI of the given instance does not match the URI of the class it should be added to. The instance is not added." },
-				    null);
+		    LogUtils.logDebug(
+			    SharedResources.moduleContext,
+			    OntClassInfo.class,
+			    "addInstance",
+			    new Object[] {
+				    "The instance ",
+				    instance.getURI(),
+				    " of the ontology class ",
+				    uri,
+				    " should be added but the class URI of the given instance does not match the URI of the class it should be added to. The instance is not added." },
+			    null);
 		}
 	    }
 	}
@@ -261,6 +259,124 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	}
     }
 
+    public final class ManagementOperation {
+	OntClassInfo info = null;
+
+	private ManagementOperation(OntClassInfo info) {
+	    this.info = info;
+	}
+
+	/**
+	 * Add a new extender. This OntClassInfo object should be the combined
+	 * version of all extenders.
+	 */
+	public void addExtender(OntClassInfo extenderInfo) {
+	    extenderInfo.mgmt.copyTo(info);
+	}
+
+	/**
+	 * Remove an existing extender. This OntClassInfo object should be the
+	 * combined version of all extenders.
+	 */
+	public void removeExtender(OntClassInfo extenderInfo) {
+	    extenders.remove(extenderInfo);
+
+	    // simple processing: just create a new combined version by adding
+	    // all extenders
+	    OntClassInfo newCombinedInfo = new OntClassInfo(getURI(), ont,
+		    factory, factoryIndex);
+	    for (OntClassInfo tmp : extenders)
+		newCombinedInfo.mgmt.addExtender(tmp);
+
+	    // now copy all data structures to this class
+	    namedSuperClasses = newCombinedInfo.namedSuperClasses;
+	    propRestriction = newCombinedInfo.propRestriction;
+	    properties = newCombinedInfo.properties;
+	    instances = newCombinedInfo.instances;
+	    superClasses = newCombinedInfo.superClasses;
+	    equivalentClasses = newCombinedInfo.equivalentClasses;
+	    disjointClasses = newCombinedInfo.disjointClasses;
+	    factory = newCombinedInfo.factory;
+	    isEnumeration = newCombinedInfo.isEnumeration;
+	    complementClass = newCombinedInfo.complementClass;
+	}
+
+	public int getNumberOfExtenders() {
+	    return extenders.size();
+	}
+
+	/** Internal method. */
+	public OntClassInfo getClone() {
+	    // create a clone, the clone is not locked, but setup is only
+	    // available here, so that extenders can copy their properties to
+	    // the clone
+	    // -> the clone is the combined version of multiple
+	    // ontology-specific OntClassInfos
+
+	    extenders.add(info);
+
+	    OntClassInfo cl = new OntClassInfo(getURI(), ont, factory,
+		    factoryIndex); // (OntClassInfo)
+	    // super.clone();
+	    // cl.setup = new PrivateOntSetup(cl);
+	    // cl.rdfsetup = cl.setup;
+	    // cl.isEnumeration = false;
+	    copyTo(cl);
+	    cl.extenders = extenders;
+	    return cl;
+	}
+
+	/**
+	 * Internal method. Copy all properties from this class to the given
+	 * class.
+	 */
+	private void copyTo(OntClassInfo info) {
+	    Iterator it;
+
+	    it = namedSuperClasses.iterator();
+	    while (it.hasNext())
+		info.setup.addSuperClass((String) it.next());
+
+	    it = propRestriction.keySet().iterator();
+	    while (it.hasNext())
+		info.setup.addRestriction((MergedRestriction) propRestriction
+			.get(it.next()));
+
+	    it = properties.keySet().iterator();
+	    while (it.hasNext()) {
+		Property p = (Property) properties.get(it.next());
+		if (p instanceof DatatypeProperty)
+		    info.setup.addDatatypeProperty(p.getURI());
+		else
+		    info.setup.addObjectProperty(p.getURI());
+	    }
+
+	    it = instances.keySet().iterator();
+	    while (it.hasNext())
+		info.setup.addInstance((ManagedIndividual) instances.get(it
+			.next()));
+
+	    it = superClasses.iterator();
+	    while (it.hasNext())
+		info.setup.addSuperClass((TypeExpression) it.next());
+
+	    it = equivalentClasses.iterator();
+	    while (it.hasNext())
+		info.setup.addEquivalentClass((TypeExpression) it.next());
+
+	    it = disjointClasses.iterator();
+	    while (it.hasNext())
+		info.setup.addDisjointClass((TypeExpression) it.next());
+
+	    info.setup.setComplementClass(complementClass);
+
+	    info.isEnumeration = info.isEnumeration || isEnumeration;
+
+	    if (info.factory == null)
+		info.factory = factory;
+	}
+    }
+
     /**
      * Create a new OWL Class.
      * 
@@ -284,6 +400,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	super.rdfsetup = setup;
 	props.put(Resource.PROP_RDF_TYPE,
 		new Resource(TypeExpression.OWL_CLASS));
+	mgmt = new ManagementOperation(this);
     }
 
     /**
@@ -315,11 +432,19 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
 	return info.setup;
     }
 
-    /** Internal method. */
+    /** Internal method for management. */
     public boolean checkPermission(String uri) {
 	if (uri == null)
 	    return false;
 	return uri.equals(propertyURIPermissionCheck);
+    }
+
+    /** Internal method for management. */
+    public ManagementOperation getManagementOperation(String permissionCheck) {
+	if (!OntologyManagement.getInstance().checkPermission(permissionCheck))
+	    throw new IllegalAccessError(
+		    "The management operations can only be called from OntologyManagement!");
+	return new ManagementOperation(this);
     }
 
     /**
@@ -341,7 +466,7 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     public Property[] getDeclaredProperties() {
 	return (Property[]) properties.values().toArray(new Property[0]);
     }
-    
+
     /**
      * Get a specific property of this class. To add new properties, call
      * {@link OntClassInfoSetup#addDatatypeProperty(String)} or
@@ -383,98 +508,6 @@ public final class OntClassInfo extends RDFClassInfo implements Cloneable {
     /** Determines whether this class is an enumeration class. */
     public boolean isEnumeration() {
 	return isEnumeration;
-    }
-
-    /** Internal method. */
-    public void addExtender(OntClassInfo info) {
-	if (!OntologyManagement.getInstance().checkPermission(info.getURI()))
-	    throw new IllegalAccessError(
-		    "The given class is not defined in the context of the given ontology.");
-
-	// add the extender, 'this' is the combined version
-	info.copyTo(this);
-    }
-
-    /** Internal method. */
-    public void removeExtender(OntClassInfo info) {
-	if (!OntologyManagement.getInstance().checkPermission(info.getURI()))
-	    throw new IllegalAccessError(
-		    "The given class is not defined in the context of the given ontology.");
-	// TODO
-    }
-
-    /** Internal method. Copy all properties from this class to the given class. */
-    private void copyTo(OntClassInfo info) {
-	Iterator it;
-
-	it = namedSuperClasses.iterator();
-	while (it.hasNext())
-	    info.setup.addSuperClass((String) it.next());
-
-	it = propRestriction.keySet().iterator();
-	while (it.hasNext())
-	    info.setup.addRestriction((MergedRestriction) propRestriction
-		    .get(it.next()));
-
-	it = properties.keySet().iterator();
-	while (it.hasNext()) {
-	    Property p = (Property) properties.get(it.next());
-	    if (p instanceof DatatypeProperty)
-		info.setup.addDatatypeProperty(p.getURI());
-	    else
-		info.setup.addObjectProperty(p.getURI());
-	}
-
-	it = instances.keySet().iterator();
-	while (it.hasNext())
-	    info.setup
-		    .addInstance((ManagedIndividual) instances.get(it.next()));
-
-	it = superClasses.iterator();
-	while (it.hasNext())
-	    info.setup.addSuperClass((TypeExpression) it.next());
-
-	it = equivalentClasses.iterator();
-	while (it.hasNext())
-	    info.setup.addEquivalentClass((TypeExpression) it.next());
-
-	it = disjointClasses.iterator();
-	while (it.hasNext())
-	    info.setup.addDisjointClass((TypeExpression) it.next());
-
-	info.setup.setComplementClass(complementClass);
-
-	info.isEnumeration = info.isEnumeration || isEnumeration;
-
-	if (info.factory == null)
-	    info.factory = factory;
-    }
-
-    /** Internal method. */
-    public Object clone() {
-	// create a clone, the clone is not locked, but setup is only available
-	// here, so that extenders can copy their properties to the clone
-	// -> the clone is the combined version of multiple ontology-specific
-	// OntClassInfos
-	if (!OntologyManagement.getInstance().checkPermission(getURI()))
-	    throw new IllegalAccessError(
-		    "The given class is not defined in the context of the given ontology.");
-	// try {
-	extenders.add(this);
-
-	OntClassInfo cl = new OntClassInfo(getURI(), ont, factory, factoryIndex); // (OntClassInfo)
-	// super.clone();
-	// cl.setup = new PrivateOntSetup(cl);
-	// cl.rdfsetup = cl.setup;
-	// cl.isEnumeration = false;
-	copyTo(cl);
-	cl.extenders = extenders;
-	return cl;
-	/*
-	 * } catch (CloneNotSupportedException e) { // this shouldn't happen,
-	 * since we are Cloneable throw new
-	 * InternalError("Error while cloning OntClassInfo"); }
-	 */
     }
 
     /** @see Resource#setProperty(String, Object) */

@@ -60,11 +60,7 @@ public abstract class BusStrategy extends Thread {
 		BusMessage message = (BusMessage) msg[0];
 		String senderID = (String) msg[1];
 
-		// if (AccessControl.INSTANCE.check(message, senderID)) {
 		handle(message, senderID);
-		// } else {
-		// handleDeniedMessage(message, senderID);
-		// }
 	    }
 	}
 
@@ -129,19 +125,6 @@ public abstract class BusStrategy extends Thread {
      *            sender (bus member) ID
      */
     protected abstract void handle(BusMessage m, String senderID);
-
-    /**
-     * This method specifies how to deal with a message that (by user's
-     * decision) is not allowed to be sent.
-     * 
-     * @param message
-     *            the {@link BusMessage} that is not allowed to be sent
-     * @param senderID
-     *            the id of the sender for which the permission system denies
-     *            sending this message
-     */
-    protected abstract void handleDeniedMessage(BusMessage message,
-	    String senderID);
 
     /**
      * Returns bus based on the passed bus name.

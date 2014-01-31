@@ -108,7 +108,7 @@ public class AggregationFunction extends FinalizedResource {
     }
 
     /**
-     * Creates a AggregationFunction object.
+     * Creates an {@link AggregationFunction} object.
      * 
      * @param order
      *            defines the order of each service
@@ -137,24 +137,29 @@ public class AggregationFunction extends FinalizedResource {
     }
 
     /**
-     * Returns the array with a possible predefined value of the
-     * AggregationFunction class
+     * Returns the human-readable name of this {@link AggregationFunction}.
      */
     public String name() {
 	return names[order];
     }
 
     /**
-     * Returns the number of parameters
+     * Returns the number of parameters that must be given when using this
+     * instance of {@link AggregationFunction}.
      */
     public int getNumberOfParams() {
 	return (order > MAX_OF) ? 2 : 1;
     }
 
     /**
-     * Returns the type of the property path or a specific location
+     * Returns the type of the parameter that is needed for this
+     * {@link AggregationFunction}.
      * 
      * @param i
+     *            the index of the parameter.
+     * @return URI of the type of the parameter. The first parameter is always a
+     *         {@link PropertyPath}, the second parameter is always an
+     *         {@link AbsLocation}.
      * @see org.universAAL.middleware.rdf.PropertyPath
      * @see org.universAAL.middleware.owl.supply.AbsLocation
      */

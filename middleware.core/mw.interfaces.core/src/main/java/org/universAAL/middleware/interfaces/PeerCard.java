@@ -1,4 +1,5 @@
 /*
+
         Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
         Institute of Information Science and Technologies
         of the Italian National Research Council
@@ -19,9 +20,10 @@
         limitations under the License.
  */
 
-
 package org.universAAL.middleware.interfaces;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.UUID;
 
 /**
@@ -29,16 +31,21 @@ import java.util.UUID;
  *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
+ * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  */
 public class PeerCard {
 
+    final String URI_PREFIX = "urn:uuid:";
+
     private String peerID;
     private PeerRole role;
-    private String PLATFORM_UNIT;
-    private String CONTAINER_UNIT;
-    private String OS = System.getProperty("os.name") + " - "
+    private String platform;
+    private String container;
+    private String os = System.getProperty("os.name") + " - "
             + System.getProperty("os.version") + "- "
             + System.getProperty("os.arch");
+
+    private URI uri = null;
 
     /**
      * Instantiate a PeerCard and generated the peer unique ID
@@ -48,15 +55,20 @@ public class PeerCard {
     public PeerCard(PeerRole role, String containerUnit, String platformUnit) {
         this.peerID = UUID.randomUUID().toString();
         this.role = role;
-        this.CONTAINER_UNIT = containerUnit;
-        this.PLATFORM_UNIT = platformUnit;
+        this.container = containerUnit;
+        this.platform = platformUnit;
     }
 
     public PeerCard(String ID, PeerRole role) {
-        this.peerID = ID;
+        this.peerID = UUID.fromString(ID).toString();
         this.role = role;
     }
 
+    /**
+     *
+     * @param strSerialization
+     * @deprecated
+     */
     public PeerCard(String strSerialization) {
         int i = strSerialization.indexOf(" - Peer Role: ");
         if (!strSerialization.startsWith("Peer ID: ") || i < 10)
@@ -81,6 +93,8 @@ public class PeerCard {
     }
 
     public void setRole(PeerRole role) {
+        if (role == null)
+            throw new NullPointerException("Cannot assign null as Role");
         this.role = role;
     }
 
@@ -95,14 +109,14 @@ public class PeerCard {
     }
 
     public String toString() {
-        return "Peer ID: " + peerID + " - Peer Role: " + role.toString();
+        return "Peer ID: " + peerID + " - Peer Role: " + role;
     }
 
     public int hashCode() {
         return peerID.hashCode();
     }
 
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (o instanceof PeerCard) {
             PeerCard peer = (PeerCard) o;
             return peer.peerID.equals(peerID);
@@ -111,27 +125,46 @@ public class PeerCard {
     }
 
     public String getPLATFORM_UNIT() {
-        return PLATFORM_UNIT;
+        return platform;
     }
 
     public void setPLATFORM_UNIT(String pLATFORM_UNIT) {
-        PLATFORM_UNIT = pLATFORM_UNIT;
+        platform = pLATFORM_UNIT;
     }
 
     public String getCONTAINER_UNIT() {
-        return CONTAINER_UNIT;
+        return container;
     }
 
     public void setCONTAINER_UNIT(String cONTAINER_UNIT) {
-        CONTAINER_UNIT = cONTAINER_UNIT;
+        container = cONTAINER_UNIT;
     }
 
     public String getOS() {
-        return OS;
+        return os;
     }
 
     public void setOS(String oS) {
-        OS = oS;
+        os = oS;
     }
 
+    /**
+     *
+     * @return a {@link URI} representing the PeerCard, that is actually based on the PeerId
+     * @since 2.0.3
+     */
+    public URI toURI() {
+        synchronized (this) {
+            if (uri != null) {
+                return uri;
+            }
+            try {
+                uri = new URI(URI_PREFIX + peerID);
+            } catch (URISyntaxException ex) {
+                System.err.println("Failed to generate URI for PeerCard, due to exception");
+                ex.printStackTrace(System.err);
+            }
+            return uri;
+        }
+    }
 }

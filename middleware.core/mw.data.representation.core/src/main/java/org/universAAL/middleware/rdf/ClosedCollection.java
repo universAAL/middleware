@@ -32,6 +32,6 @@ package org.universAAL.middleware.rdf;
  * @author Carsten Stockloew
  * @see OpenCollection
  */
-public class ClosedCollection extends ObjectCollection {
+public final class ClosedCollection extends ObjectCollection {
     private static final long serialVersionUID = 1L;
 }

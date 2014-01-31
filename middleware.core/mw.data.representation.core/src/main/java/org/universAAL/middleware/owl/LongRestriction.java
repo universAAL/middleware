@@ -21,7 +21,7 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
 
-public class LongRestriction extends BoundedValueRestriction {
+public final class LongRestriction extends BoundedValueRestriction {
 
     public static final String DATATYPE_URI = TypeMapper
 	    .getDatatypeURI(Long.class);
@@ -32,7 +32,7 @@ public class LongRestriction extends BoundedValueRestriction {
 
     public LongRestriction(long min, boolean minInclusive, long max,
 	    boolean maxInclusive) {
-	this(new Long(min), minInclusive, new Long(max), maxInclusive);
+	this(new Long(min), minInclusive, Long.valueOf(max), maxInclusive);
     }
 
     public LongRestriction(Long min, boolean minInclusive, Long max,
@@ -42,11 +42,11 @@ public class LongRestriction extends BoundedValueRestriction {
     }
 
     protected Comparable getNext(Comparable c) {
-	return new Long(((Long) c).longValue() + 1);
+	return Long.valueOf(((Long) c).longValue() + 1);
     }
 
     protected Comparable getPrevious(Comparable c) {
-	return new Long(((Long) c).longValue() - 1);
+	return Long.valueOf(((Long) c).longValue() - 1);
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */

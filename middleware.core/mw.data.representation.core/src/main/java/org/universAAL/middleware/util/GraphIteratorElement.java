@@ -22,7 +22,7 @@ package org.universAAL.middleware.util;
 import java.util.List;
 import org.universAAL.middleware.rdf.Resource;
 
-public class GraphIteratorElement {
+public final class GraphIteratorElement {
     private Resource subject = null;
     private String predicate = null;
     private Object object = null;

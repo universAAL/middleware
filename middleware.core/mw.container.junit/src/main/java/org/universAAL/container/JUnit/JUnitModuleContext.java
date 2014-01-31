@@ -33,180 +33,180 @@ import org.universAAL.middleware.container.ModuleContext;
 
 /**
  * @author amedrano
- *
+ * 
  */
 public class JUnitModuleContext implements ModuleContext {
-	
-	private Logger logger;
-		
-	private Map<String, Object> attributeMap;
 
-	private Set<File> configFiles;
+    private Logger logger;
 
-	private ModuleActivator activator;
+    private Map<String, Object> attributeMap;
 
-	private static Appender ca = new ConsoleAppender(new SimpleLayout());
-	/**
-	 * 
-	 */
-	public JUnitModuleContext(ModuleActivator ma) {
-		activator = ma;
-		attributeMap = new HashMap<String, Object>();
-		configFiles = new HashSet<File>();
-		logger = LogManager.getLogger(activator.getClass().getPackage().getName());
-		logger.addAppender(ca);
-	}
-	
-	
+    private Set<File> configFiles;
 
-	/**
-	 * 
-	 */
-	public JUnitModuleContext() {
-		attributeMap = new HashMap<String, Object>();
-		configFiles = new HashSet<File>();
-		logger = LogManager.getLogger(getClass().getPackage().getName());
-		logger.setLevel(Level.ALL);
-		logger.addAppender(ca);
-		activator = new ModuleActivator() {
-			
-			public void stop(ModuleContext mc) throws Exception {}
-			
-			public void start(ModuleContext mc) throws Exception {}
-		};
-	}
+    private ModuleActivator activator;
 
+    private static Appender ca = new ConsoleAppender(new SimpleLayout());
 
+    public JUnitModuleContext(ModuleActivator ma) {
+	activator = ma;
+	attributeMap = new HashMap<String, Object>();
+	configFiles = new HashSet<File>();
+	logger = LogManager.getLogger(activator.getClass().getPackage()
+		.getName());
+	logger.addAppender(ca);
+    }
 
-	/** {@inheritDoc} */
-	public boolean canBeStarted(ModuleContext requester) {
-		// If can be accessed then it can be started
-		return true;
-	}
+    public JUnitModuleContext() {
+	this(new ModuleActivator() {
 
-	/** {@inheritDoc} */
-	public boolean canBeStopped(ModuleContext requester) {
-		// If can be accessed then it can be stopped
-		return true;
-	}
-
-	/** {@inheritDoc} */
-	public boolean canBeUninstalled(ModuleContext requester) {
-		// can not uninstall things in POJO.
-		return false;
-	}
-
-	/** {@inheritDoc} */
-	public Object getAttribute(String attrName) {
-		return attributeMap.get(attrName);
-	}
-
-	/** {@inheritDoc} */
-	public Container getContainer() {
-		return JUnitContainer.getInstance();
-	}
-
-	/** {@inheritDoc} */
-	public String getID() {
-		return activator.getClass().getPackage().getName();
-	}
-
-	/** {@inheritDoc} */
-	public File[] listConfigFiles(ModuleContext requester) {
-		return configFiles.toArray (new File[configFiles.size ()]);
-	}
-
-	/** {@inheritDoc} */
-	public void logDebug(String tag, String message, Throwable t) {
-		logger.debug(tag + ": " + message, t);
-	}
-
-	/** {@inheritDoc} */
-	public void logError(String tag, String message, Throwable t) {
-		logger.error(tag + ": " + message, t);
-	}
-
-	/** {@inheritDoc} */
-	public void logInfo(String tag, String message, Throwable t) {
-		logger.info(tag + ": " + message, t);
-	}
-
-	/** {@inheritDoc} */
-	public void logWarn(String tag, String message, Throwable t) {
-		logger.warn(tag + ": " + message, t);
-	}
-
-	/** {@inheritDoc} */
-	public void logTrace(String tag, String message, Throwable t) {
-		logger.trace(tag + ": " + message, t);
-	}
-
-	/** {@inheritDoc} */
-	public void registerConfigFile(Object[] configFileParams) {
-		configFiles.add((File) configFileParams[0]);
-	}
-
-	/** {@inheritDoc} */
-	public void setAttribute(String attrName, Object attrValue) {
-		attributeMap.put(attrName, attrValue);
-	}
-
-	/** {@inheritDoc} */
-	   public boolean start(ModuleContext requester) {
-	        if (canBeStarted(requester)) {
-	            try {
-	                activator.start(this);
-	                return true;
-	            } catch (Exception e) {
-	                logger.error("Unable to start: " + 
-	                		activator.getClass().getPackage().getName(), e);
-	            }
-	        }
-	        return false;
+	    public void stop(ModuleContext mc) throws Exception {
 	    }
 
-	/** {@inheritDoc} */
-	   public boolean stop(ModuleContext requester) {
-	        if (canBeStopped(requester)) {
-	            try {
-	                activator.stop(this);
-	                return true;
-	            } catch (Exception e) {
-	                logger.error("Unable to stop: " + activator.getClass().getPackage().getName(), e);
-	            }
-	        }
-	        return false;
+	    public void start(ModuleContext mc) throws Exception {
 	    }
+	});
+	logger.setLevel(Level.ALL);
+    }
 
-	/** {@inheritDoc} */
-	public boolean uninstall(ModuleContext requester) {
-		return false;
+    /** {@inheritDoc} */
+    public boolean canBeStarted(ModuleContext requester) {
+	// If can be accessed then it can be started
+	return true;
+    }
+
+    /** {@inheritDoc} */
+    public boolean canBeStopped(ModuleContext requester) {
+	// If can be accessed then it can be stopped
+	return true;
+    }
+
+    /** {@inheritDoc} */
+    public boolean canBeUninstalled(ModuleContext requester) {
+	// can not uninstall things in POJO.
+	return false;
+    }
+
+    /** {@inheritDoc} */
+    public Object getAttribute(String attrName) {
+	return attributeMap.get(attrName);
+    }
+
+    /** {@inheritDoc} */
+    public Container getContainer() {
+	return JUnitContainer.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String getID() {
+	return activator.getClass().getPackage().getName();
+    }
+
+    /** {@inheritDoc} */
+    public File[] listConfigFiles(ModuleContext requester) {
+	return configFiles.toArray(new File[configFiles.size()]);
+    }
+
+    /** {@inheritDoc} */
+    public void logDebug(String tag, String message, Throwable t) {
+	logger.debug(tag + ": " + message, t);
+    }
+
+    /** {@inheritDoc} */
+    public void logError(String tag, String message, Throwable t) {
+	logger.error(tag + ": " + message, t);
+    }
+
+    /** {@inheritDoc} */
+    public void logInfo(String tag, String message, Throwable t) {
+	logger.info(tag + ": " + message, t);
+    }
+
+    /** {@inheritDoc} */
+    public void logWarn(String tag, String message, Throwable t) {
+	logger.warn(tag + ": " + message, t);
+    }
+
+    /** {@inheritDoc} */
+    public void logTrace(String tag, String message, Throwable t) {
+	logger.trace(tag + ": " + message, t);
+    }
+
+    /** {@inheritDoc} */
+    public void registerConfigFile(Object[] configFileParams) {
+	configFiles.add((File) configFileParams[0]);
+    }
+
+    /** {@inheritDoc} */
+    public void setAttribute(String attrName, Object attrValue) {
+	attributeMap.put(attrName, attrValue);
+    }
+
+    /** {@inheritDoc} */
+    public boolean start(ModuleContext requester) {
+	if (canBeStarted(requester)) {
+	    try {
+		activator.start(this);
+		return true;
+	    } catch (Exception e) {
+		logger.error("Unable to start: "
+			+ activator.getClass().getPackage().getName(), e);
+	    }
 	}
+	return false;
+    }
 
-	/** {@inheritDoc} */
-	public Object getProperty(String name) {
-
-        Object value = getAttribute(name);
-        if (value != null)
-            return value;
-
-        value = System.getProperty(name);
-        if (value != null)
-            return value;
-
-        value = System.getenv(name);
-        if (value != null)
-            return value;
-
-        return null;
+    /** {@inheritDoc} */
+    public boolean stop(ModuleContext requester) {
+	if (canBeStopped(requester)) {
+	    try {
+		activator.stop(this);
+		return true;
+	    } catch (Exception e) {
+		logger.error("Unable to stop: "
+			+ activator.getClass().getPackage().getName(), e);
+	    }
 	}
+	return false;
+    }
 
-	/** {@inheritDoc} */
-	public Object getProperty(String name, Object def) {
-        Object value = getProperty(name);
-        if (value == null)
-            return def;
-        return value;
-	}
+    /** {@inheritDoc} */
+    public boolean uninstall(ModuleContext requester) {
+	return false;
+    }
 
+    /** {@inheritDoc} */
+    public Object getProperty(String name) {
+
+	Object value = getAttribute(name);
+	if (value != null)
+	    return value;
+
+	value = System.getProperty(name);
+	if (value != null)
+	    return value;
+
+	value = System.getenv(name);
+	if (value != null)
+	    return value;
+
+	return null;
+    }
+
+    /** {@inheritDoc} */
+    public Object getProperty(String name, Object def) {
+	Object value = getProperty(name);
+	if (value == null)
+	    return def;
+	return value;
+    }
+
+    public String getManifestEntry(String name) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    public String getManifestEntry(String manifest, String name) {
+	// TODO Auto-generated method stub
+	return null;
+    }
 }

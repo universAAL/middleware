@@ -29,11 +29,11 @@ import java.util.Set;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
-import org.universAAL.middleware.rdf.Property;
+import org.universAAL.middleware.owl.util.OntologyTest;
 import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
-import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.util.OntologyListener;
 
 /**
  * The Ontology Management mainly serves two purposes:
@@ -91,7 +91,7 @@ public final class OntologyManagement {
      * The set of registered ontologies. It maps the URI of the ontology to an
      * instance of {@link Ontology}.
      */
-    private volatile HashMap ontologies = new HashMap();
+    private volatile HashMap<String, Ontology> ontologies = new HashMap<String, Ontology>();
 
     /**
      * The set of OWL classes that are defined in the registered ontologies. It
@@ -99,7 +99,7 @@ public final class OntologyManagement {
      * 
      * @see #rdfClassInfoMap
      */
-    private volatile HashMap ontClassInfoMap = new HashMap();
+    private volatile HashMap<String, OntClassInfo> ontClassInfoMap = new HashMap<String, OntClassInfo>();
 
     /**
      * The set of RDF classes that are defined in the registered ontologies. It
@@ -107,13 +107,13 @@ public final class OntologyManagement {
      * 
      * @see #ontClassInfoMap
      */
-    private volatile HashMap rdfClassInfoMap = new HashMap();
+    private volatile HashMap<String, RDFClassInfo> rdfClassInfoMap = new HashMap<String, RDFClassInfo>();
 
     /**
      * Repository of sub class relationships. It maps the URI of the super class
      * to a list of URIs of all known sub classes.
      */
-    private Hashtable namedSubClasses = new Hashtable();
+    private Hashtable<String, ArrayList<String>> namedSubClasses = new Hashtable<String, ArrayList<String>>();
 
     /**
      * The set of pending ontologies. When an ontology is registered, it's
@@ -122,7 +122,7 @@ public final class OntologyManagement {
      * is registered and removed from the list of <i>pending</i> ontologies and,
      * thus, available in the system.
      */
-    private volatile ArrayList pendingOntologies = new ArrayList();
+    private volatile ArrayList<Ontology> pendingOntologies = new ArrayList<Ontology>();
 
     /**
      * Registration of named objects. When getting a Resource (e.g. by a
@@ -134,7 +134,17 @@ public final class OntologyManagement {
      * {@link #getNamedResource(String)} with the URI of the instance.
      */
     // maps URI (of instance) to Resource
-    private volatile HashMap namedResources = new HashMap();
+    private volatile HashMap<String, Resource> namedResources = new HashMap<String, Resource>();
+
+    // for debugging: store for each Java .class name the URI of the class
+    // maps Java class name -> URI
+    private HashMap<String, String> dbgClass = new HashMap<String, String>();
+
+    /**
+     * The list of ontology listeners. The listeners are notified when a change
+     * occurs.
+     */
+    private ArrayList<OntologyListener> listeners = new ArrayList<OntologyListener>();
 
     /**
      * Factory information to create new instances of registered classes.
@@ -153,7 +163,7 @@ public final class OntologyManagement {
      * Repository of all factories. It maps the URI of an {@link OntClassInfo}
      * to a {@link FactoryEntry}.
      */
-    private volatile HashMap factories = new HashMap();
+    private volatile HashMap<String, FactoryEntry> factories = new HashMap<String, FactoryEntry>();
 
     /**
      * Internal security check:
@@ -197,247 +207,13 @@ public final class OntologyManagement {
 	}
     }
 
-    /**
-     * Perform a sanity check of the given ontology. The check is done during
-     * registration of the ontology.
-     * 
-     * @param ont
-     *            The ontology that defined the class.
-     */
-    private boolean register_testOntology(Ontology ont) {
-	try {
-	    boolean retVal = true;
-
-	    Resource[] rsc = ont.getResourceList();
-	    Resource r;
-	    // maps factoryIndex to RDFClassInfo
-	    HashMap factories = new HashMap();
-
-	    for (int i = 0; i < rsc.length; i++) {
-		r = rsc[i];
-		if (r instanceof RDFClassInfo) {
-		    RDFClassInfo rci = (RDFClassInfo) r;
-		    if (rci.isAbstract())
-			continue;
-
-		    Integer factoryIndex = Integer.valueOf(rci
-			    .getFactoryIndex());
-
-		    // test factory
-		    Object o = factories.get(factoryIndex);
-		    if (o != null) {
-			LogUtils.logWarn(
-				SharedResources.moduleContext,
-				OntologyManagement.class,
-				"register_testOntology",
-				new Object[] {
-					"Duplicate factory index: the classes ",
-					rci.getURI(), " and ",
-					((RDFClassInfo) o).getURI(),
-					" of the ontology ",
-					ont.getInfo().getURI(),
-					" have the same factory index. Is this intended?" },
-				null);
-		    } else {
-			factories.put(factoryIndex, rci);
-		    }
-		}
-	    }
-
-	    return retVal;
-	} catch (Exception e) {
-	    LogUtils.logError(
-		    SharedResources.moduleContext,
-		    OntologyManagement.class,
-		    "register_testOntology",
-		    new Object[] {
-			    "An unknown exception occured while testing the ontology ",
-			    ont.getInfo().getURI(), " during registration." },
-		    e);
-	}
-	return false;
-    }
-
-    /**
-     * Perform a sanity check of the given class that is defined in the given
-     * ontology. The check is done during registration of the ontology.
-     * 
-     * @param ont
-     *            The ontology that defined the class.
-     * @param info
-     *            the ontology class.
-     */
-    private boolean register_testClass(Ontology ont, OntClassInfo info) {
-	try {
-	    if (!Resource.isQualifiedName(info.getURI())) {
-		LogUtils.logError(
-			SharedResources.moduleContext,
-			OntologyManagement.class,
-			"register_testClass",
-			new Object[] {
-				"Unqualified URI: the ontology class ",
-				info.getURI(),
-				" of the ontology ",
-				ont.getInfo().getURI(),
-				" does not have a qualified URI. Please check the URI you give as parameter to creator methods like createNewOntClassInfo()." },
-			null);
-		return false;
-	    }
-
-	    if (info.isAbstract())
-		return true;
-
-	    ResourceFactory fact = info.getFactory();
-	    if (fact == null) {
-		LogUtils.logError(
-			SharedResources.moduleContext,
-			OntologyManagement.class,
-			"register_testClass",
-			new Object[] {
-				"Missing factory: the ontology class ",
-				info.getURI(),
-				" of the ontology ",
-				ont.getInfo().getURI(),
-				" is not an abstract class but it does not define a factory to create instances of this class." },
-			null);
-		return false;
-	    }
-
-	    Resource testInstance = fact.createInstance(info.getURI(),
-		    Resource.uAAL_NAMESPACE_PREFIX + "testInstance",
-		    info.getFactoryIndex());
-	    if (testInstance == null) {
-		LogUtils.logError(
-			SharedResources.moduleContext,
-			OntologyManagement.class,
-			"register_testClass",
-			new Object[] {
-				"Missing factory result: the ontology class ",
-				info.getURI(),
-				" (factory index: " + info.getFactoryIndex()
-					+ ") of the ontology ",
-				ont.getInfo().getURI(),
-				" is not an abstract class and it defines a factory, but the factory does not create instances for this class (the factory returned null)." },
-			null);
-		return false;
-	    }
-
-	    if (!(testInstance instanceof ManagedIndividual)) {
-		LogUtils.logError(
-			SharedResources.moduleContext,
-			OntologyManagement.class,
-			"register_testClass",
-			new Object[] {
-				"Factory returned non-ManagedIndividual: the ontology class ",
-				info.getURI(),
-				" of the ontology ",
-				ont.getInfo().getURI(),
-				" is registered as an ontology class (OWL), but the factory does not return a subclass of ManagedIndividual."
-					+ " All OWL classes must be a subclass of ManagedIndividual." },
-			null);
-		return false;
-	    }
-
-	    ManagedIndividual m = (ManagedIndividual) testInstance;
-	    if (!info.getURI().equals(m.getClassURI())) {
-		LogUtils.logError(
-			SharedResources.moduleContext,
-			OntologyManagement.class,
-			"register_testClass",
-			new Object[] {
-				"Wrong class URI: the ontology class ",
-				info.getURI(),
-				" of the ontology ",
-				ont.getInfo().getURI(),
-				" does not return the URI that was used for registration."
-					+ " Please check that the method \"getClassURI()\" is overwritten and matches the URI you specify as parameter to creator methods like createNewOntClassInfo()."
-					+ " The factory could also be the source of this error: please check that the factoryIndex is correct." },
-			null);
-		return false;
-	    }
-
-	    // test properties
-	    String[] props = info.getDeclaredPropertyURIs();
-	    for (int i = 0; i < props.length; i++) {
-		String propURI = props[i];
-		// test that the property has a serialization type
-		int serType = m.getPropSerializationType(propURI);
-		if (serType == Resource.PROP_SERIALIZATION_UNDEFINED)
-		    LogUtils.logWarn(
-			    SharedResources.moduleContext,
-			    OntologyManagement.class,
-			    "register_testClass",
-			    new Object[] {
-				    "Undefined serialization type: the property ",
-				    propURI,
-				    " of the ontology class ",
-				    info.getURI(),
-				    " of the ontology ",
-				    ont.getInfo().getURI(),
-				    " returns <undefined> as serialization type for a declared property."
-					    + " Is this intended? If not,"
-					    + " please check the method getPropSerializationType(String propURI);"
-					    + " this might cause an incomplete serialization result." },
-			    null);
-		
-		// test that the restrictions match the type (i.e. a
-		// DatatypeProperty has a literal as value, not a Resource)
-		MergedRestriction res = info.getRestrictionsOnProp(propURI);
-		if (res == null)
-		    continue;
-		Property prop = info.getDeclaredProperty(propURI);
-		boolean isDatatype = prop instanceof DatatypeProperty;
-		Object constraint;
-		constraint = res
-			.getConstraint(MergedRestriction.allValuesFromID);
-		if (constraint != null) {
-		    if (constraint instanceof TypeURI) {
-			TypeURI t = (TypeURI) constraint;
-			String err = null;
-			if (TypeMapper.isRegisteredDatatypeURI(t.getURI())) {
-			    if (!isDatatype) {
-				err = "ObjectProperty";
-			    }
-			} else {
-			    if (isDatatype) {
-				err = "DatatypeProperty";
-			    }
-			}
-			if (err != null) {
-			    LogUtils.logError(
-				    SharedResources.moduleContext,
-				    OntologyManagement.class,
-				    "register_testClass",
-				    new Object[] {
-					    "Wrong property definition: the property ",
-					    propURI,
-					    " of the ontology class ",
-					    info.getURI(),
-					    " of the ontology ",
-					    ont.getInfo().getURI(),
-					    " is registered as a "
-						    + err
-						    + " but the defined restrictions indicate otherwise." },
-				    null);
-			}
-		    }
-		}
-		// TODO: there is much more we can test!
-	    }
-
-	    return true;
-	} catch (Exception e) {
-	    LogUtils.logError(
-		    SharedResources.moduleContext,
-		    OntologyManagement.class,
-		    "register_testClass",
-		    new Object[] {
-			    "An unknown exception occured while testing the ontology class ",
-			    info.getURI(),
-			    " during registration of the ontology ",
-			    ont.getInfo().getURI(), "." }, e);
-	}
-	return false;
+    private OntClassInfo.ManagementOperation getManagementOperation(
+	    OntClassInfo info) {
+	ontClassInfoURIPermissionCheck = info.getURI();
+	OntClassInfo.ManagementOperation mgmtop = info
+		.getManagementOperation(ontClassInfoURIPermissionCheck);
+	ontClassInfoURIPermissionCheck = null;
+	return mgmtop;
     }
 
     /**
@@ -489,16 +265,17 @@ public final class OntologyManagement {
 				    + ont.getRDFClassInfo().length, ")" }, null);
 
 	    // make some sanity tests
-	    register_testOntology(ont);
+	    OntologyTest.testOntology(ont);
 
 	    // copy all existing ontologies to temp
 	    OntClassInfo[] ontClassInfos = ont.getOntClassInfo();
 
-	    HashMap tempOntologies = new HashMap(ontologies.size() + 1);
-	    HashMap tempOntClassInfoMap = new HashMap(ontClassInfoMap.size()
-		    + ontClassInfos.length);
+	    HashMap<String, Ontology> tempOntologies = new HashMap<String, Ontology>(
+		    ontologies.size() + 1);
+	    HashMap<String, OntClassInfo> tempOntClassInfoMap = new HashMap<String, OntClassInfo>(
+		    ontClassInfoMap.size() + ontClassInfos.length);
 	    HashMap tempNamedResources = new HashMap();
-	    HashMap tempFactories = new HashMap();
+	    HashMap<String, FactoryEntry> tempFactories = new HashMap<String, FactoryEntry>();
 
 	    tempOntologies.putAll(ontologies);
 	    tempOntologies.put(ont.getInfo().getURI(), ont);
@@ -512,20 +289,22 @@ public final class OntologyManagement {
 		    OntClassInfo info = ontClassInfos[i];
 
 		    // make some sanity tests
-		    register_testClass(ont, info);
+		    OntologyTest.testClass(ont, info, dbgClass);
 
 		    // add ontology class
-		    ontClassInfoURIPermissionCheck = info.getURI();
 		    OntClassInfo combined = (OntClassInfo) ontClassInfoMap
 			    .get(info.getURI());
 		    if (combined == null) {
-			// if it does not not exist, add simple cloned one
-			tempOntClassInfoMap.put(info.getURI(), info.clone());
+			// combined version does not yet exist, add simple
+			// cloned one
+			OntClassInfo.ManagementOperation mgmtop = getManagementOperation(info);
+			tempOntClassInfoMap.put(info.getURI(),
+				mgmtop.getClone());
 		    } else {
-			// if it exists: add extender
-			combined.addExtender(info);
+			// combined version exists: add extender
+			OntClassInfo.ManagementOperation mgmtop = getManagementOperation(combined);
+			mgmtop.addExtender(info);
 		    }
-		    ontClassInfoURIPermissionCheck = null;
 
 		    // add named instances of this ontology class
 		    Resource[] instances = info.getInstances();
@@ -543,19 +322,8 @@ public final class OntologyManagement {
 		    // process namedSuperClasses -> put in namedSubClasses
 		    String namedSuperClasses[] = info.getNamedSuperClasses(
 			    false, true);
-		    for (int j = 0; j < namedSuperClasses.length; j++) {
-			ArrayList namedSubClassesList = (ArrayList) namedSubClasses
-				.get(namedSuperClasses[j]);
-
-			if (namedSubClassesList == null)
-			    namedSubClassesList = new ArrayList();
-
-			if (!namedSubClassesList.contains(info.getURI()))
-			    namedSubClassesList.add(info.getURI());
-
-			namedSubClasses.put(namedSuperClasses[j],
-				namedSubClassesList);
-		    }
+		    addNamedSubClasses(info.getURI(), namedSuperClasses,
+			    namedSubClasses);
 		}
 	    }
 
@@ -589,12 +357,43 @@ public final class OntologyManagement {
 	    ontClassInfoMap = tempOntClassInfoMap;
 	    namedResources = tempNamedResources;
 	    factories = tempFactories;
+
+	    // some last tests
+	    if (ontClassInfos != null) {
+		for (int i = 0; i < ontClassInfos.length; i++) {
+		    OntClassInfo info = ontClassInfos[i];
+		    OntClassInfo combined = ontClassInfoMap.get(info.getURI());
+		    OntologyTest.postTestClass(ont, combined, dbgClass);
+		}
+	    }
 	}
 
 	// remove from pending
 	removePendingOntology(ont);
 
+	synchronized (listeners) {
+	    for (OntologyListener l : listeners)
+		l.ontologyAdded(ont.getInfo().getURI());
+	}
+
 	return true;
+    }
+
+    private void addNamedSubClasses(String classURI,
+	    String namedSuperClasses[],
+	    Hashtable<String, ArrayList<String>> namedSubClasses) {
+	for (int j = 0; j < namedSuperClasses.length; j++) {
+	    ArrayList namedSubClassesList = (ArrayList) namedSubClasses
+		    .get(namedSuperClasses[j]);
+
+	    if (namedSubClassesList == null)
+		namedSubClassesList = new ArrayList();
+
+	    if (!namedSubClassesList.contains(classURI))
+		namedSubClassesList.add(classURI);
+
+	    namedSubClasses.put(namedSuperClasses[j], namedSubClassesList);
+	}
     }
 
     /**
@@ -608,7 +407,7 @@ public final class OntologyManagement {
     public Resource getNamedResource(String instanceURI) {
 	if (instanceURI == null)
 	    return null;
-	return (Resource) namedResources.get(instanceURI);
+	return namedResources.get(instanceURI);
     }
 
     /**
@@ -630,7 +429,7 @@ public final class OntologyManagement {
 	if (r != null)
 	    return r;
 
-	FactoryEntry entry = (FactoryEntry) factories.get(classURI);
+	FactoryEntry entry = factories.get(classURI);
 	if (entry == null) {
 	    LogUtils.logDebug(SharedResources.moduleContext,
 		    OntologyManagement.class, "getResource", new Object[] {
@@ -705,8 +504,8 @@ public final class OntologyManagement {
      *            true, iff abstract classes should be included.
      * @return The set of URIs of all sub classes.
      */
-    public Set getNamedSubClasses(String superClassURI, boolean inherited,
-	    boolean includeAbstractClasses) {
+    public Set<String> getNamedSubClasses(String superClassURI,
+	    boolean inherited, boolean includeAbstractClasses) {
 
 	HashSet retval = new HashSet();
 	ArrayList namedSubClassesList = (ArrayList) namedSubClasses
@@ -749,7 +548,168 @@ public final class OntologyManagement {
      *            The ontology to unregister.
      */
     public void unregister(ModuleContext mc, Ontology ont) {
-	// TODO
+	// first notify the listeners as long as the ontology is still
+	// registered and the URI provided to the listeners can be used in
+	// operations
+	synchronized (listeners) {
+	    for (OntologyListener l : listeners)
+		l.ontologyRemoved(ont.getInfo().getURI());
+	}
+
+	// remove ontology from set of ontologies
+	synchronized (ontologies) {
+	    // don't remove if not existing
+	    if (!ontologies.containsKey(ont.getInfo().getURI())) {
+		LogUtils.logError(
+			SharedResources.moduleContext,
+			OntologyManagement.class,
+			"unregister",
+			new Object[] { "The ontology ", ont.getInfo().getURI(),
+				" is can not be unregistered because it is not registered." },
+			null);
+		return;
+	    }
+
+	    // remove existing ontology
+	    LogUtils.logDebug(
+		    SharedResources.moduleContext,
+		    OntologyManagement.class,
+		    "unregister",
+		    new Object[] {
+			    "Unregistering ontology: ",
+			    ont.getInfo().getURI(),
+			    " (classes: ",
+			    ont.getOntClassInfo().length
+				    + ont.getRDFClassInfo().length, ")" }, null);
+
+	    // copy all existing ontologies to temp
+	    OntClassInfo[] ontClassInfos = ont.getOntClassInfo();
+
+	    HashMap<String, Ontology> tempOntologies = new HashMap<String, Ontology>(
+		    ontologies.size());
+	    HashMap<String, OntClassInfo> tempOntClassInfoMap = new HashMap<String, OntClassInfo>(
+		    ontClassInfoMap.size());
+	    HashMap tempNamedResources = new HashMap();
+	    HashMap<String, FactoryEntry> tempFactories = new HashMap<String, FactoryEntry>();
+	    Hashtable<String, ArrayList<String>> tempNamedSubClasses = new Hashtable<String, ArrayList<String>>();
+
+	    tempOntologies.putAll(ontologies);
+	    tempOntologies.remove(ont.getInfo().getURI());
+	    tempNamedResources.putAll(namedResources);
+	    tempOntClassInfoMap.putAll(ontClassInfoMap);
+	    tempFactories.putAll(factories);
+
+	    // process ontology classes
+	    if (ontClassInfos != null) {
+		for (int i = 0; i < ontClassInfos.length; i++) {
+		    OntClassInfo info = ontClassInfos[i];
+
+		    // remove ontology class
+		    OntClassInfo combined = ontClassInfoMap.get(info.getURI());
+		    if (combined == null) {
+			// this should not happen
+			LogUtils.logDebug(
+				SharedResources.moduleContext,
+				OntologyManagement.class,
+				"unregister",
+				new Object[] {
+					"Unregistering ontology class: ",
+					info.getURI(),
+					" failed: no combined version available!" },
+				null);
+			continue;
+		    }
+
+		    // remove extender
+		    OntClassInfo.ManagementOperation mgmtop = getManagementOperation(combined);
+		    mgmtop.removeExtender(info);
+
+		    if (mgmtop.getNumberOfExtenders() == 0) {
+			// no extenders left: remove this combined class
+			tempOntClassInfoMap.remove(combined.getURI());
+		    }
+
+		    // remove named instances of this ontology class
+		    Resource[] instances = info.getInstances();
+		    removeNamedInstances(instances, tempOntologies,
+			    tempNamedResources);
+
+		    // remove factory
+		    ResourceFactory fact = combined.getFactory();
+		    if (fact != null) {
+			tempFactories.put(info.getURI(), new FactoryEntry(fact,
+				combined.getFactoryIndex()));
+		    } else {
+			tempFactories.remove(info.getURI());
+		    }
+		}
+	    }
+
+	    // process namedSuperClasses -> put in namedSubClasses
+	    // simple, inefficient strategy: just recreate this information
+	    for (Ontology tmpOnt : tempOntologies.values()) {
+		for (OntClassInfo tmpInfo : tmpOnt.getOntClassInfo()) {
+		    String namedSuperClasses[] = tmpInfo.getNamedSuperClasses(
+			    false, true);
+		    addNamedSubClasses(tmpInfo.getURI(), namedSuperClasses,
+			    tempNamedSubClasses);
+		}
+	    }
+
+	    // process rdf classes
+	    RDFClassInfo[] rdfClassInfos = ont.getRDFClassInfo();
+	    if (rdfClassInfos != null) {
+		for (int i = 0; i < rdfClassInfos.length; i++) {
+		    RDFClassInfo info = rdfClassInfos[i];
+
+		    // remove named instances of this rdf class
+		    Resource[] instances = info.getInstances();
+		    removeNamedInstances(instances, tempOntologies,
+			    tempNamedResources);
+
+		    // remove factory
+		    if (info.getFactory() != null)
+			tempFactories.remove(info.getURI());
+
+		    // remove rdf class
+		    rdfClassInfoMap.remove(info.getURI());
+		}
+	    }
+
+	    // set temp as new set of ontologies
+	    ontologies = tempOntologies;
+	    ontClassInfoMap = tempOntClassInfoMap;
+	    namedResources = tempNamedResources;
+	    factories = tempFactories;
+	    namedSubClasses = tempNamedSubClasses;
+	}
+    }
+
+    private void removeNamedInstances(Resource[] instances,
+	    HashMap<String, Ontology> ontologies,
+	    HashMap<String, Resource> namedResources) {
+	for (int j = 0; j < instances.length; j++) {
+	    Resource instance = instances[j];
+	    String instanceURI = instance.getURI();
+
+	    // we have to check that this instance is not defined
+	    // somewhere else (this should not happen, it depends on
+	    // the ontology modelling)
+	    boolean found = false;
+	    for (Ontology tmpOnt : ontologies.values()) {
+		for (OntClassInfo tmpInfo : tmpOnt.getOntClassInfo()) {
+		    for (Resource tmpInstance : tmpInfo.getInstances()) {
+			if (instanceURI.equals(tmpInstance.getURI())) {
+			    found = true;
+			    break;
+			}
+		    }
+		}
+	    }
+	    if (!found) {
+		namedResources.remove(instance.getURI());
+	    }
+	}
     }
 
     /**
@@ -762,7 +722,7 @@ public final class OntologyManagement {
      * @return The ontology.
      */
     public Ontology getOntology(String uri) {
-	return (Ontology) ontologies.get(uri);
+	return ontologies.get(uri);
     }
 
     /**
@@ -780,12 +740,12 @@ public final class OntologyManagement {
 	if (classURI == null)
 	    return null;
 
-	RDFClassInfo info = (RDFClassInfo) rdfClassInfoMap.get(classURI);
+	RDFClassInfo info = rdfClassInfoMap.get(classURI);
 	if (info != null)
 	    return info;
 
 	if (includeOntClasses)
-	    return (OntClassInfo) ontClassInfoMap.get(classURI);
+	    return ontClassInfoMap.get(classURI);
 	return null;
     }
 
@@ -800,7 +760,7 @@ public final class OntologyManagement {
     public OntClassInfo getOntClassInfo(String classURI) {
 	if (classURI == null)
 	    return null;
-	return (OntClassInfo) ontClassInfoMap.get(classURI);
+	return ontClassInfoMap.get(classURI);
     }
 
     /**
@@ -875,7 +835,7 @@ public final class OntologyManagement {
      * @return an array with the URIs of all registered ontologies.
      */
     public String[] getOntoloyURIs() {
-	return (String[]) ontologies.keySet().toArray(new String[0]);
+	return ontologies.keySet().toArray(new String[0]);
     }
 
     /**
@@ -890,5 +850,38 @@ public final class OntologyManagement {
 	if (uri == null)
 	    return false;
 	return uri.equals(ontClassInfoURIPermissionCheck);
+    }
+
+    /**
+     * Add a new ontology listener. This listener is notified when a change in
+     * ontology management occurs.
+     * 
+     * @param owner
+     *            the {@link ModuleContext} of the caller of this method.
+     * @param listener
+     *            the listener to add.
+     */
+    public void addOntologyListener(ModuleContext owner,
+	    OntologyListener listener) {
+	synchronized (listeners) {
+	    if (!listeners.contains(listener))
+		listeners.add(listener);
+	}
+    }
+
+    /**
+     * Remove an existing ontology listener. This listener is notified when a
+     * change in ontology management occurs.
+     * 
+     * @param owner
+     *            the {@link ModuleContext} of the caller of this method.
+     * @param listener
+     *            the listener to remove.
+     */
+    public void removeOntologyListener(ModuleContext owner,
+	    OntologyListener listener) {
+	synchronized (listeners) {
+	    listeners.remove(listener);
+	}
     }
 }

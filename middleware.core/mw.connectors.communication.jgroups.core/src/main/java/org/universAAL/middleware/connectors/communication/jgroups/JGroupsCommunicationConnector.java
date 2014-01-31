@@ -671,7 +671,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
             }
 
             RequestOptions opts = new RequestOptions();
-            opts.setExclusionList((Address[]) removeAddressList.toArray());
+            opts.setExclusionList((Address[]) removeAddressList.toArray(new Address[removeAddressList.size()]));
             disp = new MessageDispatcher(channel, null, null, this);
 
             try {

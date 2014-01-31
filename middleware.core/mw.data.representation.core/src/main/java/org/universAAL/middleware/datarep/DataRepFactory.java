@@ -28,7 +28,7 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  * @author Carsten Stockloew
  * 
  */
-public class DataRepFactory implements ResourceFactory {
+public final class DataRepFactory implements ResourceFactory {
 
     /**
      * @see org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance(String,

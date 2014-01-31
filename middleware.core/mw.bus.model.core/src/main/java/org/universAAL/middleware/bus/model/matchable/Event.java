@@ -24,6 +24,5 @@ package org.universAAL.middleware.bus.model.matchable;
  * @author mtazari
  *
  */
-public interface Event  {
-	// TODO add matches methods and parent
+public interface Event extends Matchable {
 }

@@ -30,30 +30,29 @@ public final class TypeExpressionFactory {
     private static HashMap datatypeMap = new HashMap();
 
     static {
-	propMap.put(Intersection.PROP_OWL_INTERSECTION_OF, new Integer(0));
-	propMap.put(Union.PROP_OWL_UNION_OF, new Integer(1));
-	propMap.put(Complement.PROP_OWL_COMPLEMENT_OF, new Integer(2));
-	propMap.put(Enumeration.PROP_OWL_ONE_OF, new Integer(3));
+	propMap.put(Intersection.PROP_OWL_INTERSECTION_OF, Integer.valueOf(0));
+	propMap.put(Union.PROP_OWL_UNION_OF, Integer.valueOf(1));
+	propMap.put(Complement.PROP_OWL_COMPLEMENT_OF, Integer.valueOf(2));
+	propMap.put(Enumeration.PROP_OWL_ONE_OF, Integer.valueOf(3));
 	propMap.put(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM,
-		new Integer(4));
+		Integer.valueOf(4));
 	propMap.put(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM,
-		new Integer(5));
-	propMap.put(HasValueRestriction.PROP_OWL_HAS_VALUE, new Integer(6));
+		Integer.valueOf(5));
+	propMap.put(HasValueRestriction.PROP_OWL_HAS_VALUE, Integer.valueOf(6));
 	propMap.put(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY,
-		new Integer(7));
+		Integer.valueOf(7));
 	propMap.put(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY,
-		new Integer(8));
+		Integer.valueOf(8));
 	propMap.put(ExactCardinalityRestriction.PROP_OWL_CARDINALITY,
-		new Integer(9));
-	propMap
-		.put(TypeRestriction.PROP_OWL_WITH_RESTRICTIONS,
-			new Integer(10));
+		Integer.valueOf(9));
+	propMap.put(TypeRestriction.PROP_OWL_WITH_RESTRICTIONS,
+		Integer.valueOf(10));
 
-	datatypeMap.put(IntRestriction.DATATYPE_URI, new Integer(0));
-	datatypeMap.put(FloatRestriction.DATATYPE_URI, new Integer(1));
-	datatypeMap.put(DoubleRestriction.DATATYPE_URI, new Integer(2));
-	datatypeMap.put(IndividualRestriction.DATATYPE_URI, new Integer(3));
-	datatypeMap.put(LongRestriction.DATATYPE_URI, new Integer(4));
+	datatypeMap.put(IntRestriction.DATATYPE_URI, Integer.valueOf(0));
+	datatypeMap.put(FloatRestriction.DATATYPE_URI, Integer.valueOf(1));
+	datatypeMap.put(DoubleRestriction.DATATYPE_URI, Integer.valueOf(2));
+	datatypeMap.put(IndividualRestriction.DATATYPE_URI, Integer.valueOf(3));
+	datatypeMap.put(LongRestriction.DATATYPE_URI, Integer.valueOf(4));
     }
 
     private TypeExpressionFactory() {
@@ -83,6 +82,10 @@ public final class TypeExpressionFactory {
 
 	switch (idx.intValue()) {
 	case 0:
+	    String[] types = r.getTypes();
+	    for (int i = 0; i < types.length; i++)
+		if (MergedRestriction.MY_URI.equals(types[i]))
+		    return new MergedRestriction();
 	    return new Intersection();
 	case 1:
 	    return new Union();

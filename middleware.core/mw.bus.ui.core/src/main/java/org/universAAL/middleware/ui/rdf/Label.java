@@ -20,7 +20,6 @@
 package org.universAAL.middleware.ui.rdf;
 
 import org.universAAL.middleware.container.utils.StringUtils;
-import org.universAAL.middleware.rdf.FinalizedResource;
 
 /**
  * The type of possible values for {@link FormControl#PROP_CONTROL_LABEL}. A

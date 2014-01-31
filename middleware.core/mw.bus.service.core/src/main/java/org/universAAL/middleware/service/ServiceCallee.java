@@ -23,6 +23,7 @@ import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Callee;
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
@@ -49,10 +50,15 @@ public abstract class ServiceCallee extends Callee {
      *            creation, this object will not be operational.
      * @param realizedServices
      *            The initial set of services that are realized by this callee.
+     * @throws NullPointerException
+     *             if realizedServices is null or one of the elements of that
+     *             array is null
      */
     protected ServiceCallee(ModuleContext context,
 	    ServiceProfile[] realizedServices) {
 	super(context, ServiceBusImpl.getServiceBusFetchParams());
+	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
+		getURI(), realizedServices);
 	addNewServiceProfiles(realizedServices);
     }
 
@@ -62,8 +68,13 @@ public abstract class ServiceCallee extends Callee {
      * 
      * @param realizedServices
      *            the new services.
+     * @throws NullPointerException
+     *             if realizedServices is null or one of the elements of that
+     *             array is null
      */
     protected final void addNewServiceProfiles(ServiceProfile[] realizedServices) {
+	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
+		getURI(), realizedServices);
 	((ServiceBus) theBus).addNewServiceProfiles(busResourceURI,
 		realizedServices);
     }
@@ -125,13 +136,6 @@ public abstract class ServiceCallee extends Callee {
 	    if (reply != null)
 		((ServiceBus) theBus).brokerReply(busResourceURI, reply);
 	}
-    }
-
-    /**
-     * Unregisters this <code>ServiceCallee</code> from the bus.
-     */
-    public void close() {
-    	((ServiceBus) theBus).unregister(busResourceURI, this);
     }
 
     /**

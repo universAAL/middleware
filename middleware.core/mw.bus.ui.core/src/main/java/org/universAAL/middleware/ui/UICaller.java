@@ -23,6 +23,7 @@ import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Caller;
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
@@ -92,15 +93,11 @@ public abstract class UICaller extends Caller {
     }
 
     /**
-     * Unregisters the {@link UICaller} from the {@link IUIBus}.
-     */
-    public void close() {
-	theBus.unregister(busResourceURI, this);
-    }
-
-    /**
      * Method to be called when the communication of the {@link UICaller} with
-     * the UI Bus is lost.
+     * the {@link IDialogManager} is lost.
+     * Any pending request might be resend at this point.
+     * All affected pending dialogs will be {@link UICaller#dialogAborted(String, Resource) aborted}
+     * right after this call (with null data).
      */
     public abstract void communicationChannelBroken();
 
@@ -109,8 +106,10 @@ public abstract class UICaller extends Caller {
      * 
      * @param dialogID
      *            the dialog id
+     * @param data 
+		  the data collected up until abortion, it might be null if the data could not be retrieved.
      */
-    public abstract void dialogAborted(String dialogID);
+    public abstract void dialogAborted(String dialogID, Resource data);
 
     /**
      * Dialog suspended.
@@ -160,10 +159,15 @@ public abstract class UICaller extends Caller {
      * 
      * @param uiRequest
      *            the {@link UIRequest}
+     * @throws NullPointerException
+     *             if the ui request is null
      */
     public final void sendUIRequest(UIRequest uiRequest) {
 	if (uiRequest != null) {
-	    ((IUIBus) theBus).brokerUIRequest(busResourceURI, uiRequest);
+	    if (AccessControl.INSTANCE.checkPermission(owner, getURI(),
+		    uiRequest)) {
+		((IUIBus) theBus).brokerUIRequest(busResourceURI, uiRequest);
+	    }
 	}
     }
 

@@ -20,16 +20,13 @@
 package org.universAAL.middleware.service.owls.process;
 
 import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
-import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
-import org.universAAL.middleware.service.owl.Service;
-import org.universAAL.middleware.util.ResourceUtil;
 
 /**
  * Support for constructing an OWL-S
@@ -242,7 +239,7 @@ public class OutputBinding {
      */
 
     static boolean findMatchingBinding(Resource req, Resource[] offer,
-	    Hashtable context, Service requestedService) {
+	    HashMap context) {
 	PropertyPath srcPath = null;
 	Object aux = req.getProperty(PROP_OWLS_BINDING_VALUE_FUNCTION);
 	if (aux instanceof AggregatingFilter) {
@@ -259,39 +256,16 @@ public class OutputBinding {
 	    PropertyPath offeredValue = (PropertyPath) offer[i]
 		    .getProperty(PROP_OWLS_BINDING_VALUE_FORM);
 	    if (offeredValue != null && offeredValue.equals(srcPath)) {
-		context.put(((ProcessOutput) offer[i]
-			.getProperty(PROP_OWLS_BINDING_TO_PARAM)).getURI(), req);
-		/*
-		 * // we found an offer for the property path that was requested
-		 * as // output value // -> we now have to check if the type at
-		 * that path also // matches.
-		 * 
-		 * // create the AllValuesRestriction for the offer
-		 * ProcessOutput toParam = (ProcessOutput) offer[i]
-		 * .getProperty(PROP_OWLS_BINDING_TO_PARAM); String
-		 * parameterType = toParam.getParameterType(); if (parameterType
-		 * != null) { MergedRestriction allValuesRestriction =
-		 * MergedRestriction .getAllValuesRestriction(offeredValue
-		 * .getLastPathElement(), parameterType); MergedRestriction
-		 * allValuesRestrictionOnPath = allValuesRestriction
-		 * .appendTo(null, offeredValue.getThePath());
-		 * 
-		 * MergedRestriction requestRestrictions = requestedService
-		 * .getInstanceLevelRestrictionOnProp(offeredValue
-		 * .getFirstPathElement());
-		 * 
-		 * if (requestRestrictions != null) {
-		 * System.out.println("-- matching :\n"+
-		 * //requestRestrictions.toStringRecursive()+"\n-- with\n"+
-		 * //allValuesRestrictionOnPath.toStringRecursive());
-		 * ResourceUtil.toString(requestRestrictions)+"\n-- with\n"+
-		 * ResourceUtil.toString(allValuesRestrictionOnPath)); if
-		 * (!requestRestrictions.matches( allValuesRestrictionOnPath,
-		 * null)) { System.out.println("-- .. did not match!");
-		 * continue; } } }
-		 * 
-		 * context.put(toParam.getURI(), req);
-		 */
+		// we found an offer for the property path that was requested as
+		// output value
+		// -> we do not need to check the parameter type and cardinality
+		// because this is done already by checking the instance level
+		// restrictions
+
+		ProcessOutput toParam = (ProcessOutput) offer[i]
+			.getProperty(PROP_OWLS_BINDING_TO_PARAM);
+
+		context.put(toParam.getURI(), req);
 		return true;
 	    }
 	}

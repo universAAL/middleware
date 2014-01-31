@@ -20,6 +20,7 @@
 package org.universAAL.middleware.context;
 
 import org.universAAL.middleware.bus.model.matchable.Event;
+import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -454,6 +455,15 @@ public class ContextEvent extends FinalizedResource implements Event {
 	    if (propURI.equals(PROP_CONTEXT_CONFIDENCE))
 		return setConfidence((Integer) value);
 	}
+	return false;
+    }
+
+    /**
+     * @see Matchable#matches(Matchable)
+     * 
+     *      Currently, this method always returns false.
+     */
+    public boolean matches(Matchable subset) {
 	return false;
     }
 }

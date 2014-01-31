@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
     <relativePath>../../middleware.osgi/mw.pom.osgi</relativePath>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.schemas</artifactId>
-  <version>2.0.1-SNAPSHOT</version>
+  <version>3.0.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Middleware XSD Schemas</name>
   <description>XSD Schema for universAAL common data model</description>
@@ -33,9 +33,6 @@
    </dependencies>
   <build>
     <plugins>
-         <!--plugin> <groupId>org.jvnet.jaxb2.maven2</groupId> <artifactId>maven-jaxb2-plugin</artifactId> <executions> <execution> 
-            <goals> <goal>generate</goal> </goals> </execution> </executions> <configuration> <addCompileSourceRoot>true</addCompileSourceRoot> 
-            <autoNameResolution>true</autoNameResolution> </configuration> </plugin -->
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
@@ -49,8 +46,7 @@
 							org.w3c.dom</Import-Package>
                   <Export-Package>org.universAAL.middleware.connectors.deploy.karaf.model,
                      org.universAAL.middleware.deploymanager.uapp.model,
-                     org.universAAL.middleware.interfaces.aalspace.*
-                  </Export-Package>
+                     org.universAAL.middleware.interfaces.aalspace.*</Export-Package>
           </instructions>
         </configuration>
       </plugin>

@@ -36,7 +36,7 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class ResourceComparator {
+public final class ResourceComparator {
 
     /** Set of URIs for the first Resource of a comparison, to avoid cycles. */
     private ArrayList done1 = new ArrayList();
@@ -50,11 +50,30 @@ public class ResourceComparator {
     /** True, if output on the stack is generated */
     private boolean isPrinting = false;
 
+    private boolean ignoreEmptyList = false;
+
+    public ResourceComparator() {
+    }
+
+    public ResourceComparator(boolean ignoreEmptyList) {
+	this.ignoreEmptyList = ignoreEmptyList;
+    }
+
+    private void init() {
+	done1 = new ArrayList();
+	done2 = new ArrayList();
+	s = new Stack();
+	isPrinting = false;
+    }
+
     /**
-     * Internal method to test for equality.
+     * Internal method to test for equality. It tests for each element in l1 if
+     * it is contained in l2. If the lists are closed lists then also the order
+     * must be the same.
      */
     private boolean differ(int indent, List l1, List l2, boolean closedList) {
-	int i = l1.size(), j = l2.size();
+	int i = l1.size();
+	int j = l2.size();
 	if (i != j) {
 	    writeLine(indent, new Object[] { "different number of elements: ",
 		    Integer.toString(i), " <-> ", Integer.toString(j) });
@@ -64,30 +83,59 @@ public class ResourceComparator {
 	boolean result = false;
 	if (closedList) {
 	    while (--i > -1)
-		if (differ(indent, "Element" + i, l1.get(i), l2.get(i), true))
+		if (differ(indent, "Element (closedList) " + i, l1.get(i),
+			l2.get(i), true))
 		    result = true;
 	} else {
 	    boolean wasPrinting = isPrinting;
 	    isPrinting = false;
-	    while (--i > -1) {
-		for (j = i; j > -1; j--) {
-		    Object o = l2.get(j);
-		    if (!differ(indent, "Element" + i, l1.get(i), o, true)) {
-			if (i != j) {
-			    o = l2.set(i, o);
-			    l2.set(j, o);
-			}
+
+	    // create a new list for l2 so that we can remove elements that we
+	    // have already found (performance)
+	    l2 = new ArrayList(l2);
+
+	    // now search equal elements
+	    // System.out.println(" -- comparing lists");
+	    for (i = 0; i < l1.size(); i++) {
+		boolean found = false;
+		for (j = 0; j < l2.size(); j++) {
+		    // backup the 'done'-lists, they need to be restored if a
+		    // value differs and we make a backtracking
+		    ArrayList tmpDone1 = new ArrayList(done1);
+		    ArrayList tmpDone2 = new ArrayList(done2);
+		    if (!differ(indent, "Element" + i, l1.get(i), l2.get(j),
+			    false)) {
+			// found an equal element -> remove it from the second
+			// list (performance)
+			l2.remove(j);
+			found = true;
 			break;
+		    } else {
+			// restore the backup of the 'done'-lists
+			done1 = tmpDone1;
+			done2 = tmpDone2;
 		    }
 		}
-		if (j == -1) {
+		if (!found) {
+		    // we did not break in the inner 'for' -> we have not found
+		    // an equal element
 		    isPrinting = wasPrinting;
-		    writeLine(indent, new Object[] { "Element",
-			    Integer.toBinaryString(i), " not found!" });
+		    writeLine(indent, new Object[] { "Element (openList) ", i,
+			    " not found!" });
 		    isPrinting = false;
 		    result = true;
 		}
 	    }
+	    // System.out.println(" -- comparing lists done");
+
+	    /*
+	     * while (--i > -1) { for (j = l2.size() - 1; j > -1; j--) { Object
+	     * o = l2.get(j); if (!differ(indent, "Element" + i, l1.get(i), o,
+	     * true)) { if (i != j) { o = l2.set(i, o); l2.set(j, o); } break; }
+	     * } if (j == -1) { isPrinting = wasPrinting; writeLine( indent, new
+	     * Object[] { "Element ", Integer.toBinaryString(i),
+	     * " (binary) not found!" }); isPrinting = false; result = true; } }
+	     */
 	    isPrinting = wasPrinting;
 	}
 	return result;
@@ -99,8 +147,10 @@ public class ResourceComparator {
     private boolean differ(int indent, Resource r1, Resource r2) {
 	int i = done1.indexOf(r1.getURI()), j = done2.indexOf(r2.getURI());
 	if (i != j) {
-	    writeLine(indent, new Object[] { "different log indexes: ",
-		    Integer.toString(i), " <-> ", Integer.toString(j) });
+	    writeLine(
+		    indent,
+		    new Object[] { "different log indexes: ",
+			    Integer.toString(i), " <-> ", Integer.toString(j) });
 	    return true;
 	}
 
@@ -128,13 +178,17 @@ public class ResourceComparator {
 	    return true;
 	}
 
-	if (i == 0)
+	if (i == 0) {
 	    if (r1.getURI().equals(r2.getURI()))
 		return false;
 	    else {
-		writeLine(indent, new Object[] { "different empty resources" });
-		return true;
+		if (!ignoreEmptyList && r1.isAnon()) {
+		    writeLine(indent, new Object[] { "different empty resources" });
+		    return true;
+		}
+		return false;
 	    }
+	}
 
 	boolean result = false;
 	for (Enumeration e = r1.getPropertyURIs(); e.hasMoreElements();) {
@@ -169,9 +223,12 @@ public class ResourceComparator {
 		return false;
 	else if (v1 instanceof Resource)
 	    if (differ(indent + 1, (Resource) v1, (Resource) v2)) {
-		writeLine(indent, new Object[] { prop, ": ",
-			((Resource) v1).getOrConstructLabel(null), " <-> ",
-			((Resource) v2).getOrConstructLabel(null) });
+		writeLine(
+			indent,
+			new Object[] { prop, ": ",
+				((Resource) v1).getOrConstructLabel(null),
+				" <-> ",
+				((Resource) v2).getOrConstructLabel(null) });
 		return true;
 	    } else
 		return false;
@@ -187,7 +244,7 @@ public class ResourceComparator {
      * and all Resources connected by properties.
      */
     public boolean areEqual(Resource r1, Resource r2) {
-	isPrinting = false;
+	init();
 	return r1 != null && r2 != null && r1.getClass() == r2.getClass()
 		&& !differ(0, r1, r2);
     }
@@ -199,11 +256,18 @@ public class ResourceComparator {
      *      Class, String, Object[], Throwable)
      */
     public void printDiffs(Resource r1, Resource r2) {
+	getDiffsAsStack(r1, r2);
+	LogUtils.logDebug(SharedResources.moduleContext,
+		ResourceComparator.class, "printDiffs", s.toArray(), null);
+    }
+
+    public Stack getDiffsAsStack(Resource r1, Resource r2) {
+	init();
 	isPrinting = true;
 	if (r1 != null && r2 != null)
-	    writeLine(0, new Object[] { "Comparing ",
-		    r1.getOrConstructLabel(null), " with ",
-		    r2.getOrConstructLabel(null), ":" });
+	    writeLine(0,
+		    new Object[] { "Comparing ", r1.getOrConstructLabel(null),
+			    " with ", r2.getOrConstructLabel(null), ":" });
 	if (r1 == null || r2 == null)
 	    s.push("NULL values cannot be compared!");
 	else if (r1.getClass() != r2.getClass()) {
@@ -218,8 +282,16 @@ public class ResourceComparator {
 	} else
 	    s.push("  No diffs found!");
 
-	LogUtils.logDebug(SharedResources.moduleContext,
-		ResourceComparator.class, "printDiffs", s.toArray(), null);
+	return s;
+    }
+
+    public String getDiffsAsString(Resource r1, Resource r2) {
+	Stack stack = getDiffsAsStack(r1, r2);
+	String str = "";
+	for (int i = 0; i < stack.size(); i++) {
+	    str += stack.elementAt(i);
+	}
+	return str;
     }
 
     /**

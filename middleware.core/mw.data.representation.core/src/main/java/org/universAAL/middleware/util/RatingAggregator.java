@@ -31,7 +31,7 @@ import org.universAAL.middleware.owl.supply.Rating;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
-public class RatingAggregator {
+public final class RatingAggregator {
 
     /** The average. */
     private Rating avg;

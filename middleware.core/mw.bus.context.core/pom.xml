@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.core</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
     <relativePath>../mw.pom.core</relativePath>
   </parent>
   <artifactId>mw.bus.context.core</artifactId>
-  <version>2.0.1-SNAPSHOT</version>
+  <version>3.0.1-SNAPSHOT</version>
   <name>universAAL Middleware Context Bus (Core)</name>
   <description>The realization of the context bus on top of Sodapop as part of the universAAL Middleware (Core)</description>
   <dependencies>

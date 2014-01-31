@@ -33,11 +33,11 @@ import java.io.File;
  * universAAL middleware, and the requirements of the <a
  * href="http://forge.universaal.org/wiki/rinterop:Remote_Administration">AAL
  * Space Admin Gateway</a> with regard to node-level admin.
- *
+ * 
  * @author mtazari
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
- *
+ * 
  */
 public interface ModuleContext {
     /**
@@ -45,7 +45,7 @@ public interface ModuleContext {
      * OSGi ACTIVE , (2) it fulfills all prerequisites for being started, and
      * (3) the given requester is allowed to start it. Otherwise, it returns
      * false.
-     *
+     * 
      * Note: Confer the OSGi Bundle State <code>RESOLVED</code> with regard to
      * the first two conditions above.
      */
@@ -93,7 +93,7 @@ public interface ModuleContext {
     /**
      * Provides a standard way for using container-specific loggers, in this
      * case for logging debug messages.
-     *
+     * 
      * @param tag
      *            the log tag, for example the tag of android.util.Log
      * @param message
@@ -107,7 +107,7 @@ public interface ModuleContext {
     /**
      * Provides a standard way for using container-specific loggers, in this
      * case for logging error messages.
-     *
+     * 
      * @param tag
      *            the log tag, for example the tag of android.util.Log
      * @param message
@@ -121,7 +121,7 @@ public interface ModuleContext {
     /**
      * Provides a standard way for using container-specific loggers, in this
      * case for logging info messages.
-     *
+     * 
      * @param tag
      *            the log tag, for example the tag of android.util.Log
      * @param message
@@ -135,7 +135,7 @@ public interface ModuleContext {
     /**
      * Provides a standard way for using container-specific loggers, in this
      * case for logging warnings.
-     *
+     * 
      * @param tag
      *            the log tag, for example the tag of android.util.Log
      * @param message
@@ -149,7 +149,7 @@ public interface ModuleContext {
     /**
      * Provides a standard way for using container-specific loggers, in this
      * case for logging trace messages.
-     *
+     * 
      * @param tag
      *            the log tag, for example the tag of android.util.Log
      * @param message
@@ -197,23 +197,51 @@ public interface ModuleContext {
      */
     public boolean uninstall(ModuleContext requester);
 
-
     /**
-    * Return the current value of an property or properties that is defined in this container
-    *
-    * @param name the name of the property requested
-    * @return the current value of the requested property, it returns <code>null</code> if no property set
-    * @since 1.3.2
-    */
+     * Return the current value of an property or properties that is defined in
+     * this container
+     * 
+     * @param name
+     *            the name of the property requested
+     * @return the current value of the requested property, it returns
+     *         <code>null</code> if no property set
+     * @since 1.3.2
+     */
     public Object getProperty(String name);
 
     /**
-     * Return the current value of an attribute or properties that is defined in this container
-     *
-     * @param name the name of the property requested
-     * @param def the default value to return in case that the property is not set
+     * Return the current value of an attribute or properties that is defined in
+     * this container
+     * 
+     * @param name
+     *            the name of the property requested
+     * @param def
+     *            the default value to return in case that the property is not
+     *            set
      * @return the current value of the requested property
      * @since 1.3.2
      */
     public Object getProperty(String name, Object def);
+
+    /**
+     * Get the value of an entry from the manifest of this module.
+     * 
+     * @param name
+     *            the name of the manifest entry.
+     * @return the value of the manifest entry.
+     * @since 2.0.1
+     */
+    public String getManifestEntry(String name);
+
+    /**
+     * Get the value of an entry from a custom manifest of this module.
+     * 
+     * @param manifest
+     *            identification of the custom manifest.
+     * @param name
+     *            the name of the manifest entry.
+     * @return the value of the manifest entry.
+     * @since 2.0.1
+     */
+    public String getManifestEntry(String manifest, String name);
 }

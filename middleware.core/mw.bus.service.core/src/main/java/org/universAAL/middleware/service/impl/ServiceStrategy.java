@@ -104,10 +104,6 @@ public class ServiceStrategy extends BusStrategy {
 	    + "requestMessage";
     private static final String CONTEXT_RESPONSE_MESSAGE = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "responseMessage";
-    static final String CONTEXT_SPECIALIZED_CLASS_MATCH = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "specializedClassMatch";
-    static final String CONTEXT_SPECIALIZED_INSTANCE_MATCH = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "specializedInstanceMatch";
 
     private class AvailabilitySubscription {
 	String callerID;
@@ -257,14 +253,10 @@ public class ServiceStrategy extends BusStrategy {
 	if (!isCoordinator && isCoordinatorKnown()) {
 	    Resource r = new Resource();
 	    r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
-	    r
-		    .setProperty(PROP_uAAL_REGISTERATION_STATUS,
-			    RES_STATUS_REGISTERED);
-	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE, Arrays
-		    .asList(realizedServices));
-	    r
-		    .setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(
-			    calleeID));
+	    r.setProperty(PROP_uAAL_REGISTERATION_STATUS, RES_STATUS_REGISTERED);
+	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE,
+		    Arrays.asList(realizedServices));
+	    r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
 	    ((ServiceBusImpl) bus).assessContentSerialization(r);
 	    BusMessage m = new BusMessage(MessageType.p2p_event, r, bus);
 	    m.setReceiver(theCoordinator);
@@ -340,7 +332,7 @@ public class ServiceStrategy extends BusStrategy {
 	allWaitingCallers.put(m.getID(), matches);
 	int maxTimeout = 0;
 	for (int i = 0; i < size; i++) {
-	    Hashtable match = (Hashtable) matches.get(i);
+	    HashMap match = (HashMap) matches.get(i);
 	    match.put(CONTEXT_REQUEST_MESSAGE, m);
 	    ServiceRealization sr = (ServiceRealization) match
 		    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
@@ -360,30 +352,24 @@ public class ServiceStrategy extends BusStrategy {
 
 	    boolean handleLocally = true;
 	    try {
-		handleLocally = call.getSender().getPeerID().equals(
-			receiver.getPeerID());
+		handleLocally = call.getSender().getPeerID()
+			.equals(receiver.getPeerID());
 	    } catch (NullPointerException e) {
 		// find out which element is null and log
-		if (call == null) {
-		    LogUtils.logError(ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class, "callServices",
-			    new Object[] { "Call is null - ignoring." }, null);
-		} else if (call.getSender() == null) {
-		    LogUtils
-			    .logError(
-				    ServiceBusImpl.getModuleContext(),
-				    ServiceStrategy.class,
-				    "callServices",
-				    new Object[] { "Call.getSender() is null - ignoring." },
-				    null);
+		if (call.getSender() == null) {
+		    LogUtils.logError(
+			    ServiceBusImpl.getModuleContext(),
+			    ServiceStrategy.class,
+			    "callServices",
+			    new Object[] { "Call.getSender() is null - ignoring." },
+			    null);
 		} else if (call.getSender().getPeerID() == null) {
-		    LogUtils
-			    .logError(
-				    ServiceBusImpl.getModuleContext(),
-				    ServiceStrategy.class,
-				    "callServices",
-				    new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
-				    null);
+		    LogUtils.logError(
+			    ServiceBusImpl.getModuleContext(),
+			    ServiceStrategy.class,
+			    "callServices",
+			    new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
+			    null);
 		}
 
 		if (receiver == null) {
@@ -392,13 +378,12 @@ public class ServiceStrategy extends BusStrategy {
 			    new Object[] { "Receiver is null - ignoring." },
 			    null);
 		} else if (receiver.getPeerID() == null) {
-		    LogUtils
-			    .logError(
-				    ServiceBusImpl.getModuleContext(),
-				    ServiceStrategy.class,
-				    "callServices",
-				    new Object[] { "Receiver.getPeerID() is null - ignoring." },
-				    null);
+		    LogUtils.logError(
+			    ServiceBusImpl.getModuleContext(),
+			    ServiceStrategy.class,
+			    "callServices",
+			    new Object[] { "Receiver.getPeerID() is null - ignoring." },
+			    null);
 		}
 
 		// don't handle
@@ -527,7 +512,7 @@ public class ServiceStrategy extends BusStrategy {
 		// CallStatus.SUCCEEDED
 		int bads = 0; // the total number of responses with failure
 		for (int i = 0; i < size; i++) {
-		    Hashtable match = (Hashtable) matches.get(i);
+		    HashMap match = (HashMap) matches.get(i);
 		    ServiceResponse sr = (ServiceResponse) match
 			    .get(CONTEXT_RESPONSE_MESSAGE);
 		    if (sr != null) {
@@ -585,17 +570,17 @@ public class ServiceStrategy extends BusStrategy {
 			m = m.createReply(new ServiceResponse(
 				CallStatus.responseTimedOut));
 		    else {
-			Hashtable bad = null;
+			HashMap bad = null;
 			// if there is one response with
 			// SERVICE_SPECIFIC_FAILURE take that one
 			for (int i = 0; i < size; i++) {
 			    if (ssf[i]) {
-				bad = (Hashtable) matches.get(i);
+				bad = (HashMap) matches.get(i);
 				break;
 			    } else if (rto[i])
-				bad = (Hashtable) matches.get(i);
+				bad = (HashMap) matches.get(i);
 			    else if (bad == null)
-				bad = (Hashtable) matches.get(i);
+				bad = (HashMap) matches.get(i);
 			}
 			ServiceResponse sr = (ServiceResponse) bad
 				.get(CONTEXT_RESPONSE_MESSAGE);
@@ -607,7 +592,7 @@ public class ServiceStrategy extends BusStrategy {
 		    }
 		    break;
 		case 1:
-		    Hashtable match = (Hashtable) goods.get(0);
+		    HashMap match = (HashMap) goods.get(0);
 		    ServiceResponse sr = (ServiceResponse) match
 			    .get(CONTEXT_RESPONSE_MESSAGE);
 		    prepareRequestedOutput(sr.getOutputs(), match);
@@ -755,7 +740,7 @@ public class ServiceStrategy extends BusStrategy {
 		    if (size == 1) {
 			// the above aggregations have reduced the number of
 			// responses to one
-			Hashtable ctxt = (Hashtable) goods.get(0);
+			HashMap ctxt = (HashMap) goods.get(0);
 			ServiceResponse sresp = (ServiceResponse) ctxt
 				.get(CONTEXT_RESPONSE_MESSAGE);
 			prepareRequestedOutput(sresp.getOutputs(), ctxt);
@@ -765,11 +750,11 @@ public class ServiceStrategy extends BusStrategy {
 			// to the list of
 			// all output lists while calling
 			// 'prepareRequestedOutput'
-			Hashtable ctxt = null;
+			HashMap ctxt = null;
 			List resultSet = null;
 			ServiceResponse resp = null;
 			for (int i = 0; resultSet == null && i < size; i++) {
-			    ctxt = (Hashtable) goods.get(0);
+			    ctxt = (HashMap) goods.get(0);
 			    resp = (ServiceResponse) ctxt
 				    .get(CONTEXT_RESPONSE_MESSAGE);
 			    resultSet = resp.getOutputs();
@@ -785,7 +770,7 @@ public class ServiceStrategy extends BusStrategy {
 				resultSet.add(cloned);
 			    }
 			    for (int i = 0; i < size; i++) {
-				ctxt = (Hashtable) goods.get(i);
+				ctxt = (HashMap) goods.get(i);
 				ServiceResponse tmp = (ServiceResponse) ctxt
 					.get(CONTEXT_RESPONSE_MESSAGE);
 				if (tmp == resp)
@@ -820,9 +805,9 @@ public class ServiceStrategy extends BusStrategy {
      * @param outputs
      *            - a list of ProcessOutputs
      * @param context
-     *            - hashtable of bindings for the ProcessOutputs
+     *            - HashMap of bindings for the ProcessOutputs
      */
-    private void prepareRequestedOutput(List outputs, Hashtable context) {
+    private void prepareRequestedOutput(List outputs, HashMap context) {
 	if (outputs != null && !outputs.isEmpty())
 	    for (int i = outputs.size() - 1; i > -1; i--) {
 		ProcessOutput po = (ProcessOutput) outputs.remove(i);
@@ -927,7 +912,7 @@ public class ServiceStrategy extends BusStrategy {
      *            - the property of the profile paramter to return
      * @return Object - the profile parameter
      */
-    private Object getProfileParameter(Hashtable context, String prop) {
+    private Object getProfileParameter(HashMap context, String prop) {
 	Object o = context.get(prop);
 	if (o == null)
 	    o = ((ServiceProfile) context
@@ -956,21 +941,34 @@ public class ServiceStrategy extends BusStrategy {
 	return m;
     }
 
+    private void logTrace(String methodName, Object[] obj) {
+	try {
+	    Long id = (Long) obj[obj.length - 1];
+	    if (id != null)
+		LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
+			ServiceStrategy.class, methodName, obj, null);
+	} catch (Exception e) {
+	    LogUtils.logDebug(ServiceBusImpl.getModuleContext(),
+		    ServiceStrategy.class, "logTrace",
+		    new Object[] { "Exception in logging" }, e);
+	}
+    }
+
     /**
-     * @see BusStrategy #handle(org.universAAL.middleware.sodapop.msg.Message,
-     *      String)
+     * @see BusStrategy #handle(BusMessage, String)
      */
     public void handle(BusMessage msg, String senderID) {
 	Resource res = (Resource) msg.getContent();
 	switch (msg.getType().ord()) {
 	case MessageType.EVENT:
 	    if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_NOTIFICATION))
-		notifyLocalSubscriber(res.getProperty(
-			PROP_uAAL_SERVICE_SUBSCRIBER).toString(), res
-			.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST)
-			.toString(), res.getProperty(
-			PROP_uAAL_SERVICE_REALIZATION_ID).toString(),
-			RES_STATUS_REGISTERED.equals(res
+		notifyLocalSubscriber(
+			res.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER)
+				.toString(),
+			res.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST)
+				.toString(),
+			res.getProperty(PROP_uAAL_SERVICE_REALIZATION_ID)
+				.toString(), RES_STATUS_REGISTERED.equals(res
 				.getProperty(PROP_uAAL_REGISTERATION_STATUS)));
 	    break;
 	case MessageType.P2P_EVENT:
@@ -998,8 +996,10 @@ public class ServiceStrategy extends BusStrategy {
 			    }
 		    }
 		} else
-		    addSubscriber(res.getURI(), (ServiceRequest) res
-			    .getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST));
+		    addSubscriber(
+			    res.getURI(),
+			    (ServiceRequest) res
+				    .getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST));
 	    } else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_REGISTRATION)
 		    && isCoordinator) {
 		List profiles = (List) res
@@ -1017,8 +1017,8 @@ public class ServiceStrategy extends BusStrategy {
 		    unindexServices(theCallee, null);
 		else
 		    for (Iterator i = profiles.iterator(); i.hasNext();)
-			unindexServices(theCallee, ((ServiceProfile) i.next())
-				.getProcessURI());
+			unindexServices(theCallee,
+				((ServiceProfile) i.next()).getProcessURI());
 	    } else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
 		PeerCard coord = AbstractBus.getPeerFromBusResourceURI(res
 			.getURI());
@@ -1033,7 +1033,7 @@ public class ServiceStrategy extends BusStrategy {
 	case MessageType.P2P_REPLY:
 	    if (res instanceof ServiceResponse) {
 		if (isCoordinator) {
-		    Hashtable callContext = (Hashtable) allWaitingCallers
+		    HashMap callContext = (HashMap) allWaitingCallers
 			    .remove(msg.getInReplyTo());
 		    if (callContext == null) {
 			// this must be UI service response, because they are
@@ -1117,8 +1117,8 @@ public class ServiceStrategy extends BusStrategy {
 		String realizationID = (String) res
 			.getProperty(PROP_uAAL_SERVICE_REALIZATION_ID);
 		r.addType(TYPE_uAAL_SERVICE_PROFILE_INFORMATION, true);
-		r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE, Arrays
-			.asList(getCoordinatorServices(realizationID)));
+		r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE,
+			Arrays.asList(getCoordinatorServices(realizationID)));
 		r.setProperty(PROP_uAAL_SERVICE_REALIZATION_ID, realizationID);
 
 		((ServiceBusImpl) bus).assessContentSerialization(r);
@@ -1151,8 +1151,8 @@ public class ServiceStrategy extends BusStrategy {
 				Vector v = (Vector) startDialogs.get(csc
 					.toString());
 				if (hv instanceof Resource)
-				    replyToInitialDialogInfoRequest(msg, v, hv
-					    .toString());
+				    replyToInitialDialogInfoRequest(msg, v,
+					    hv.toString());
 				else
 				    replyToInitialDialogInfoRequest(msg, v);
 			    }
@@ -1171,24 +1171,39 @@ public class ServiceStrategy extends BusStrategy {
 			sendNoMatchingFound(msg);
 		    return;
 		}
-		Vector matches = new Vector();
+		Vector<HashMap> matches = new Vector();
 		String serviceURI = request.getRequestedService().getClassURI();
+		// start the logging with trace messages about matchmaking
+		// the logID as last parameter in each message is used to
+		// identify different log messages that belong to each other
+		// TODO: make this configurable
+		Long logID = Long.valueOf(Thread.currentThread().getId());
 		synchronized (allServicesIndex) {
+		    LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
+			    ServiceStrategy.class, "handle", new Object[] {
+				    ServiceBus.LOG_MATCHING_START,
+				    new UnmodifiableResource(request), " ",
+				    logID }, null);
+
 		    Vector v = (Vector) allServicesIndex.get(serviceURI);
-		    if (v == null)
+		    if (v == null) {
+			logTrace(
+				"handle",
+				new Object[] {
+					ServiceBus.LOG_MATCHING_END,
+					" No service available. ",
+					ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+					Integer.valueOf(1030),
+					ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+					" No service has registered for the requested serviceURI.",
+					logID });
+			logID = null; // no more trace log messages
 			sendNoMatchingFound(msg);
-		    else {
+		    } else {
 			String caller = request.getProperty(
 				ServiceRequest.PROP_uAAL_SERVICE_CALLER)
 				.toString();
 
-			Long logID = Long.valueOf(Thread.currentThread()
-				.getId());
-			LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
-				ServiceStrategy.class, "handle", new Object[] {
-					ServiceBus.LOG_MATCHING_START,
-					new UnmodifiableResource(request), " ",
-					logID }, null);
 			for (Iterator i = v.iterator(); i.hasNext();) {
 			    ServiceRealization sr = (ServiceRealization) i
 				    .next();
@@ -1196,53 +1211,39 @@ public class ServiceStrategy extends BusStrategy {
 				    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
 				    .getTheService();
 			    String profileServiceURI = profileService.getURI();
+			    String profileProviderURI = (String) sr
+				    .getProvider();
 
-			    LogUtils.logTrace(
-				    ServiceBusImpl.getModuleContext(),
-				    ServiceStrategy.class, "handle",
-				    new Object[] {
-					    ServiceBus.LOG_MATCHING_PROFILE,
-					    profileService.getType(),
-					    profileServiceURI, logID }, null);
-			    Hashtable context = matches(caller, request, sr,
+			    logTrace("handle", new Object[] {
+				    ServiceBus.LOG_MATCHING_PROFILE,
+				    profileService.getType(),
+				    profileServiceURI, profileProviderURI,
+				    logID });
+			    HashMap context = matches(caller, request, sr,
 				    logID);
 			    if (context != null) {
 				matches.add(context);
-				LogUtils
-					.logTrace(
-						ServiceBusImpl
-							.getModuleContext(),
-						ServiceStrategy.class,
-						"handle",
-						new Object[] {
-							ServiceBus.LOG_MATCHING_SUCCESS,
-							logID }, null);
+				logTrace(
+					"handle",
+					new Object[] {
+						ServiceBus.LOG_MATCHING_SUCCESS,
+						logID });
 			    } else
-				LogUtils
-					.logTrace(
-						ServiceBusImpl
-							.getModuleContext(),
-						ServiceStrategy.class,
-						"handle",
-						new Object[] {
-							ServiceBus.LOG_MATCHING_NOSUCCESS,
-							logID }, null);
+				logTrace("handle", new Object[] {
+					ServiceBus.LOG_MATCHING_NOSUCCESS,
+					logID });
 			}
-			LogUtils.logTrace(ServiceBusImpl.getModuleContext(),
-				ServiceStrategy.class, "handle", new Object[] {
-					ServiceBus.LOG_MATCHING_END, "found ",
-					Integer.valueOf(matches.size()),
-					" matches", logID }, null);
-
 		    }
 		}
+		int matchesFound = 0;
 		Hashtable auxMap = new Hashtable();
 		for (Iterator i = matches.iterator(); i.hasNext();) {
-		    Hashtable match = (Hashtable) i.next();
+		    HashMap match = (HashMap) i.next();
 		    ServiceRealization sr = (ServiceRealization) match
 			    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
 		    if (sr.assertServiceCall(match)) {
-			Hashtable otherMatch = (Hashtable) auxMap.get(sr
+			matchesFound++;
+			HashMap otherMatch = (HashMap) auxMap.get(sr
 				.getProvider());
 			if (otherMatch == null)
 			    auxMap.put(sr.getProvider(), match);
@@ -1279,30 +1280,63 @@ public class ServiceStrategy extends BusStrategy {
 			    // and then the one with the smallest context, which
 			    // produces shorter messages
 
-			    // TODO: is the above strategy ok? The issues are:
-			    // 1. is instance-match specialization really more
-			    // important than class-match specialization?
-			    // 2. is the length of messages a good criteria?
-			    int sp0 = Boolean.TRUE.equals(match
-				    .get(CONTEXT_SPECIALIZED_CLASS_MATCH)) ? 1
-				    : 0;
-			    if (Boolean.TRUE.equals(match
-				    .get(CONTEXT_SPECIALIZED_INSTANCE_MATCH)))
-				sp0 += 2;
-			    int sp1 = Boolean.TRUE.equals(otherMatch
-				    .get(CONTEXT_SPECIALIZED_CLASS_MATCH)) ? 1
-				    : 0;
-			    if (Boolean.TRUE.equals(otherMatch
-				    .get(CONTEXT_SPECIALIZED_INSTANCE_MATCH)))
-				sp1 += 2;
-			    if (sp1 < sp0
-				    || (sp1 == sp0 && otherMatch.size() > match
-					    .size()))
+			    // TODO: is the above strategy ok? The issues is:
+			    // is the length of messages a good criteria?
+			    if (otherMatch.size() > match.size())
 				auxMap.put(sr.getProvider(), match);
 			}
+		    } else {
+			// we could not create the ServiceCall, this most
+			// probably happened because of a missing input
+			// -> log message
+			logTrace(
+				"handle",
+				new Object[] {
+					ServiceBus.LOG_MATCHING_MISMATCH,
+					"input in profile not given in request",
+					"\nprofile URI: ",
+					((ServiceProfile) sr
+						.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+						.getTheService().getURI(),
+					ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+					Integer.valueOf(1031),
+					ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+					"ServiceCall could not be created. The most probable reason is"
+						+ " that a mandatory input required by the service profile"
+						+ " is not provided by the service request.",
+					logID });
 		    }
 		}
 		matches = new Vector(auxMap.values());
+
+		if (logID != null) {
+		    // first log the number of matches before provider filtering
+		    logTrace("handle", new Object[] {
+			    ServiceBus.LOG_MATCHING_PROFILES_END, " Found ",
+			    Integer.valueOf(matchesFound), " matches", logID });
+
+		    // then log the number (and profile URIs) after provider
+		    // filtering
+		    Object obj[] = new Object[5 + matches.size()];
+		    obj[0] = ServiceBus.LOG_MATCHING_PROVIDER_END;
+		    obj[1] = " Found ";
+		    obj[2] = Integer.valueOf(matches.size());
+		    obj[3] = " matches. The matching profiles are: ";
+		    int i = 4;
+		    for (HashMap match : matches) {
+			ServiceRealization sr = (ServiceRealization) match
+				.get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
+			Service profileService = ((ServiceProfile) sr
+				.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+				.getTheService();
+			String profileServiceURI = profileService.getURI();
+			obj[i++] = profileServiceURI;
+		    }
+		    obj[i] = logID;
+
+		    logTrace("handle", obj);
+		}
+
 		if (matches.size() > 1 && request.acceptsRandomSelection()) {
 		    // the strategy is to select the match with the lowest
 		    // number of entries in 'context'
@@ -1319,21 +1353,25 @@ public class ServiceStrategy extends BusStrategy {
 		    // where by class restrictions all lamps are in loc
 		    // and generally, isn't it better to postpone this decision
 		    // to a later phase where we have gathered all responses?
-		    Hashtable context = (Hashtable) matches.remove(0);
+		    HashMap context = matches.remove(0);
 		    while (!matches.isEmpty()) {
-			Hashtable aux = (Hashtable) matches.remove(0);
+			HashMap aux = matches.remove(0);
 			if (aux.size() < context.size())
 			    context = aux;
 		    }
 		    matches.add(context);
 		}
 		int size = matches.size();
-		if (size == 0)
+		if (size == 0) {
 		    sendNoMatchingFound(msg);
-		else {
+		    logTrace("handle",
+			    new Object[] { ServiceBus.LOG_MATCHING_END,
+				    "found ", Integer.valueOf(matches.size()),
+				    " matches", logID });
+		} else {
 		    if (size > 1) {
 			List filters = request.getFilters();
-			if (filters != null) {
+			if (filters != null && filters.size() > 0) {
 			    int[] points = new int[size];
 			    for (int i = 0; i < points.length; i++)
 				points[i] = 0;
@@ -1358,11 +1396,11 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MIN_OF:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						(Hashtable) matches.get(j),
+						matches.get(j),
 						pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    (Hashtable) matches.get(k),
+						    matches.get(k),
 						    pp[1]);
 					    if (oj instanceof Comparable)
 						if (ok == null)
@@ -1386,11 +1424,11 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MAX_OF:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						(Hashtable) matches.get(j),
+						matches.get(j),
 						pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    (Hashtable) matches.get(k),
+						    matches.get(k),
 						    pp[1]);
 					    if (oj instanceof Comparable)
 						if (ok == null)
@@ -1414,11 +1452,11 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MIN_DISTANCE_TO_REF_LOC:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						(Hashtable) matches.get(j),
+						matches.get(j),
 						pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    (Hashtable) matches.get(k),
+						    matches.get(k),
 						    pp[1]);
 					    if (oj instanceof AbsLocation)
 						if (ok == null)
@@ -1446,11 +1484,11 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MAX_DISTANCE_TO_REF_LOC:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						(Hashtable) matches.get(j),
+						matches.get(j),
 						pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    (Hashtable) matches.get(k),
+						    matches.get(k),
 						    pp[1]);
 					    if (oj instanceof AbsLocation)
 						if (ok == null)
@@ -1489,8 +1527,13 @@ public class ServiceStrategy extends BusStrategy {
 				matches.remove(--size);
 			}
 		    }
+		    logTrace("handle",
+			    new Object[] { ServiceBus.LOG_MATCHING_END,
+				    "found ", Integer.valueOf(matches.size()),
+				    " matches", logID });
 		    callServices(msg, matches);
 		}
+
 	    } else if (msg.senderResidesOnDifferentPeer()) {
 		// strange situation: some peer has thought i am the
 		// coordinator?!!
@@ -1618,26 +1661,24 @@ public class ServiceStrategy extends BusStrategy {
 	if (replyOf == null) {
 	    // very strange! a message of type REPLY without inReplyTo
 	    // => ignore!
-	    LogUtils
-		    .logDebug(
-			    ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class,
-			    "replyToLocalCaller",
-			    new Object[] { "Message of type REPLY, but not containing inReplyTo. Ignoring it." },
-			    null);
+	    LogUtils.logDebug(
+		    ServiceBusImpl.getModuleContext(),
+		    ServiceStrategy.class,
+		    "replyToLocalCaller",
+		    new Object[] { "Message of type REPLY, but not containing inReplyTo. Ignoring it." },
+		    null);
 	} else {
 	    String callerID = localWaitingCallers
 		    .getAndRemoveLocalWaiterCallerID(replyOf);
 	    if (callerID == null) {
 		// very strange! why else may I receive a reply from a peer
 		// => ignore!
-		LogUtils
-			.logDebug(
-				ServiceBusImpl.getModuleContext(),
-				ServiceStrategy.class,
-				"replyToLocalCaller",
-				new Object[] { "There is no caller. To whom should I then reply? Ignoring it." },
-				null);
+		LogUtils.logDebug(
+			ServiceBusImpl.getModuleContext(),
+			ServiceStrategy.class,
+			"replyToLocalCaller",
+			new Object[] { "There is no caller. To whom should I then reply? Ignoring it." },
+			null);
 	    } else {
 		Object caller = getBusMember(callerID);
 		if (caller instanceof ServiceCaller)
@@ -1763,7 +1804,7 @@ public class ServiceStrategy extends BusStrategy {
      * @return Hashtable - a hashtable of the context of the matching or null if
      *         the ServiceRealization does not match the ServiceRequest
      */
-    private Hashtable matches(String callerID, ServiceRequest request,
+    private HashMap matches(String callerID, ServiceRequest request,
 	    ServiceRealization offer) {
 	return matches(callerID, request, offer, null);
     }
@@ -1780,15 +1821,15 @@ public class ServiceStrategy extends BusStrategy {
      *            - the Service Realization being matched
      * @param logID
      *            - an id to be used for logging, may be null
-     * @return Hashtable - a hashtable of the context of the matching or null if
+     * @return HashMap - a HashMap of the context of the matching or null if
      *         the ServiceRealization does not match the ServiceRequest
      */
-    private Hashtable matches(String callerID, ServiceRequest request,
+    private HashMap matches(String callerID, ServiceRequest request,
 	    ServiceRealization offer, Long logID) {
-	Hashtable context = new Hashtable();
+	HashMap context = new HashMap();
 	context.put(Constants.VAR_uAAL_ACCESSING_BUS_MEMBER, callerID);
-	context.put(Constants.VAR_uAAL_CURRENT_DATETIME, TypeMapper
-		.getCurrentDateTime());
+	context.put(Constants.VAR_uAAL_CURRENT_DATETIME,
+		TypeMapper.getCurrentDateTime());
 	context.put(Constants.VAR_uAAL_SERVICE_TO_SELECT, offer);
 	Object o = request
 		.getProperty(ServiceRequest.PROP_uAAL_INVOLVED_HUMAN_USER);
@@ -1979,11 +2020,9 @@ public class ServiceStrategy extends BusStrategy {
 	    r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
 	    r.setProperty(PROP_uAAL_REGISTERATION_STATUS,
 		    RES_STATUS_DEREGISTERED);
-	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE, Arrays
-		    .asList(realizedServices));
-	    r
-		    .setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(
-			    calleeID));
+	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE,
+		    Arrays.asList(realizedServices));
+	    r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
 	    ((ServiceBusImpl) bus).assessContentSerialization(r);
 	    BusMessage m = new BusMessage(MessageType.p2p_event, r, bus);
 	    m.setReceiver(theCoordinator);
@@ -2022,9 +2061,7 @@ public class ServiceStrategy extends BusStrategy {
 	    r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
 	    r.setProperty(PROP_uAAL_REGISTERATION_STATUS,
 		    RES_STATUS_DEREGISTERED);
-	    r
-		    .setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(
-			    calleeID));
+	    r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
 	    ((ServiceBusImpl) bus).assessContentSerialization(r);
 	    BusMessage m = new BusMessage(MessageType.p2p_event, r, bus);
 	    m.setReceiver(theCoordinator);
@@ -2123,9 +2160,9 @@ public class ServiceStrategy extends BusStrategy {
 		.getProfiles(serviceURI);
 	return profileListToArray(profiles);
     }
-    
-    public HashMap getAllServiceProfilesWithCalleeIDs(String serviceURI){
-    	    return getCoordinatorServicesWithCalleeIDs(serviceURI);
+
+    public HashMap getAllServiceProfilesWithCalleeIDs(String serviceURI) {
+	return getCoordinatorServicesWithCalleeIDs(serviceURI);
     }
 
     private HashMap getCoordinatorServicesWithCalleeIDs(String serviceURI) {
@@ -2140,18 +2177,18 @@ public class ServiceStrategy extends BusStrategy {
 		    ServiceRealization reg = (ServiceRealization) j.next();
 		    ServiceProfile profile = (ServiceProfile) reg
 			    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
-		    
-		    String provider = (String)reg.getProvider();
-		    if (map.get(provider) == null){
-		    	map.put(provider, new ArrayList());
+
+		    String provider = (String) reg.getProvider();
+		    if (map.get(provider) == null) {
+			map.put(provider, new ArrayList());
 		    }
-		    ((List)map.get(provider)).add(profile);
+		    ((List) map.get(provider)).add(profile);
 		}
 	}
 
 	return map;
     }
-    
+
     /**
      * Return the profiles registered for the service passed as a parameter,
      * only if this peer is a coordinator. Otherwise, an empty list is returned.
@@ -2196,10 +2233,5 @@ public class ServiceStrategy extends BusStrategy {
 	    result[i] = (ServiceProfile) list.get(i);
 
 	return result;
-    }
-
-    @Override
-    protected void handleDeniedMessage(BusMessage message, String senderID) {
-	// TODO Auto-generated method stub
     }
 }

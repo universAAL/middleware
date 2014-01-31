@@ -29,11 +29,8 @@ package org.universAAL.middleware.managers.deploy.util;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class Consts {
-    public static final String START_INSTALLATION = "startInstallation";
-    public static final String MPA_SUFFIX = "mpaSuffix";
-    public static final String DEPLOY_DIR = "deployDir";
+    public static final String START_INSTALLATION = "startInstallation";    
     public static final String APPLICATION_CONFIGURATION_PATH = "config";
-    public static final String TMP_DEPLOY_DIR = "tmp";
     public static final String APPLICATION_BINARYPART_PATH = "bin";
     public static final String APP_REGISTRY = "installation.registry";
     public static final String DEPLOY_MANAGER_ID = "uAAL.dm";

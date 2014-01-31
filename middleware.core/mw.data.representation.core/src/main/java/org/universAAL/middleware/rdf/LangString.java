@@ -25,7 +25,7 @@ package org.universAAL.middleware.rdf;
  * 
  * @author Carsten Stockloew
  */
-public class LangString {
+public final class LangString {
 
     public static final String LANG_ABKHAZ = "ab";
     public static final String LANG_AFAR = "aa";
@@ -235,6 +235,7 @@ public class LangString {
 	return lang;
     }
 
+    @Override
     public boolean equals(Object obj) {
 	if (!(obj instanceof LangString)) {
 	    if (obj instanceof String && lang.isEmpty())
@@ -247,7 +248,13 @@ public class LangString {
 	return false;
     }
 
+    @Override
     public String toString() {
 	return super.toString();
+    }
+
+    @Override
+    public int hashCode() {
+	return str.hashCode();
     }
 }

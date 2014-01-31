@@ -22,8 +22,8 @@ package org.universAAL.middleware.interfaces.aalspace.model;
 
 
 /**
- * 
- * 
+ *
+ *
  * @author <a href="mailto:sterfano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ($LastChangedDate$)
  * @since 2.0.1
@@ -32,21 +32,21 @@ public interface IAALSpace {
 
     /**
      * Gets the value of the spaceDescriptor property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Aalspace.SpaceDescriptor }
-     *     
+     *
      */
     public abstract ISpaceDescriptor getSpaceDescriptor();
 
     /**
      * Sets the value of the spaceDescriptor property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Aalspace.SpaceDescriptor }
-     *     
+     *
      */
     public abstract void setSpaceDescriptor(ISpaceDescriptor value);
 
@@ -54,21 +54,21 @@ public interface IAALSpace {
 
     /**
      * Gets the value of the peeringChannel property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Aalspace.PeeringChannel }
-     *     
+     *
      */
     public abstract IPeeringChannel getPeeringChannel();
 
     /**
      * Sets the value of the peeringChannel property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Aalspace.PeeringChannel }
-     *     
+     *
      */
     public abstract void setPeeringChannel(IPeeringChannel value);
 
@@ -76,88 +76,44 @@ public interface IAALSpace {
 
     /**
      * Gets the value of the communicationChannels property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Aalspace.CommunicationChannels }
-     *     
+     *
      */
     public abstract ICommunicationChannels getCommunicationChannels();
 
     /**
      * Sets the value of the communicationChannels property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Aalspace.CommunicationChannels }
-     *     
+     *
      */
     public abstract void setCommunicationChannels(
-	    ICommunicationChannels value);
+            ICommunicationChannels value);
 
     public abstract boolean isSetCommunicationChannels();
 
     /**
-     * Gets the value of the owner property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public abstract String getOwner();
-
-    /**
-     * Sets the value of the owner property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public abstract void setOwner(String value);
-
-    public abstract boolean isSetOwner();
-
-    /**
-     * Gets the value of the admin property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public abstract String getAdmin();
-
-    /**
-     * Sets the value of the admin property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public abstract void setAdmin(String value);
-
-    public abstract boolean isSetAdmin();
-
-    /**
      * Gets the value of the security property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public abstract String getSecurity();
 
     /**
      * Sets the value of the security property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public abstract void setSecurity(String value);
 

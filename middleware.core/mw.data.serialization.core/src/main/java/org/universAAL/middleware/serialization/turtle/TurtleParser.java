@@ -33,9 +33,11 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
+import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.PropertyRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -122,7 +124,7 @@ public class TurtleParser {
     /**
      * The set of specialized resources.
      */
-    private Hashtable specialized = new Hashtable();
+    // private Hashtable specialized = new Hashtable();
 
     /**
      * The set of references of resources during the first step of
@@ -133,9 +135,19 @@ public class TurtleParser {
      */
     private Hashtable parseTable = new Hashtable();
 
+    /**
+     * The set of blank nodes. Blank nodes are serialized with a prefix "_:" (in
+     * our case, this is followed by "BN" and a number). Those blank nodes are
+     * transformed in a {@link Resource} with an anonymous URI. If there are
+     * multiple references to this node, this table will store a mapping from
+     * the blank node identifier to the URI of the URI.
+     */
+    private Hashtable blankNodes = new Hashtable();
+    
+    
     // debug: TODO: remove
     private List lstResources = new LinkedList();
-    
+
     private static final String stringifiedPosInf = new Double(
 	    Double.POSITIVE_INFINITY).toString();
     private static final String stringifiedNegInf = new Double(
@@ -147,8 +159,7 @@ public class TurtleParser {
     private void addRef(Resource referred, Resource referredBy, String prop,
 	    List l, int i) {
 	// we do not need to keep book on references to resources representing a
-	// type
-	// they are handled directly in reportStatement()
+	// type - they are handled directly in reportStatement()
 	if (referred.serializesAsXMLLiteral()
 		|| Resource.PROP_RDF_TYPE.equals(prop))
 	    return;
@@ -182,6 +193,9 @@ public class TurtleParser {
 	    parse(new StringReader(serialized), "");
 	    Resource result = finalizeAndGetRoot(resourceURI);
 	    if (result != null) {
+		if (dbg) {
+		    System.out.println(" ---------------------\n  deserialization result:\n" + result.toStringRecursive());
+		}
 		if (wasXMLLiteral)
 		    result = result.copy(true);
 		else if (Resource.TYPE_RDF_LIST.equals(result.getType())) {
@@ -233,8 +247,14 @@ public class TurtleParser {
 
 	LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
 		"logOpenItems", msgParts, null);
+	// if (dbg) {
+	// String s = "";
+	// for (int i=0; i<msgParts.length; i++)
+	// s += msgParts[i];
+	// System.out.println("logOpenItems: " + s);
+	// }
     }
-
+    
     /**
      * Second step of deserialization. This method takes the list of resources
      * (and references data) from the first step and specializes all resources.
@@ -261,7 +281,7 @@ public class TurtleParser {
 		buf += "Parse Tables\n";
 		for (Iterator i = resources.values().iterator(); i.hasNext();) {
 		    aux = (Resource) i.next();
-		    ParseData pd = (ParseData) parseTable.get(aux);
+		    ParseData pd = (ParseData) parseTable.get(aux.getURI());
 		    buf += "    Resource: " + aux.getURI()
 			    + (pd == null ? " pd=null\n" : "\n");
 		    if (pd != null && pd.refs != null) {
@@ -281,50 +301,95 @@ public class TurtleParser {
 		}
 		LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
 			"finalizeAndGetRoot", new Object[] { buf }, null);
+		
+		// additional output: are there any entries in the parseTable
+		// that we do not have in the table resource?
+		// Those elements would not be considered..
+		for (Object o : parseTable.keySet()) {
+		    if (!resources.containsKey(o))
+			System.out.println(" -- the element is not in resources: " + o);
+		}
+		System.out.println(" -- Sizes: resource ("+resources.size()+"), lstResources ("+lstResources.size()+")");
+		System.out.println();
 	    }
 
-	for (Iterator i = resources.values().iterator(); i.hasNext();) {
-	    aux = (Resource) i.next();
-	    i.remove();
-	    // System.out.println("-- finalizeAndGetRoot: processing\n" +
-	    // aux.toStringRecursive()+"\n\n");
-	    ParseData pd = (ParseData) parseTable.remove(aux);
+//	 for (Iterator i = resources.values().iterator(); i.hasNext();) {
+//	 aux = (Resource) i.next();
+//	 i.remove();
+
+	// Iterate in reverse.
+	ListIterator li = lstResources.listIterator(lstResources.size());
+	while (li.hasPrevious()) {
+	    Object prev = li.previous();
+	    aux = (Resource) resources.get(prev);
+	    if (aux == null) {
+		System.out.println(" -- continue for " + prev);
+		continue;
+	    }
+
+	    if (dbg) {
+		if (aux.getTypes().length == 2
+			&& aux.getTypes()[1].equals(MergedRestriction.MY_URI))
+		    System.out.println("found mergedrestriction");
+		System.out.println("-- finalizeAndGetRoot: processing\n"
+			+ aux.toStringRecursive());
+	    }
+	    ParseData pd = (ParseData) parseTable.remove(aux.getURI());
 	    specialized = (aux.numberOfProperties() == 0) ? aux : specialize(
 		    aux, specializedResources, openItems);
-	    if (/* resourceURI != null && */specialized != null)
-		this.specialized.put(specialized.getURI(), specialized);
+	    if (/* resourceURI != null && */specialized != null) {
+		// this.specialized.put(aux.getURI(), specialized);
+		if (dbg)
+		    System.out.println("-- finalizeAndGetRoot: specialized\n"
+			    + specialized.toStringRecursive() + "\n\n");
+	    } else {
+		if (dbg)
+		    System.out
+			    .println("-- finalizeAndGetRoot: specialized null\n\n");
+	    }
 	    if (firstResource == aux)
 		firstResource = specialized;
 	    if (aux.numberOfProperties() > 0
-		    && (pd == null || pd.refs.isEmpty()))
+		    && (pd == null || pd.refs.isEmpty())) {
 		if (result == null)
 		    result = specialized;
 		else {
 		    if (resourceURI == null)
-			throw new RuntimeException("Root resource not unique!");
+			throw new RuntimeException("Root resource not unique: "
+				+ result.getURI() + "  " + aux.getURI());
 		}
-	    else if (pd != null && pd.refs != null)
+	    }
+
+	    // update all the places, that reference this resource, to the
+	    // specialized one
+	    if (pd != null && pd.refs != null) {
 		for (int j = 0; j < pd.refs.size(); j++) {
 		    RefData rd = (RefData) pd.refs.get(j);
-		    boolean srcSpecialized = true;
 		    aux = (Resource) specializedResources.get(rd.src.getURI());
 		    if (aux == null) {
 			aux = rd.src;
-			srcSpecialized = false;
 		    }
 		    if (rd.l == null) {
+			// the specialized resources is the property value
+			// directly, not an element in a list
 			if (!testSetProperty(aux, rd.prop, specialized)) {
-			    if (dbg)
-				System.out.println("-- openItems.put 1: "
-					+ specialized + " - " + rd);
-			    openItems.put(specialized, rd);
-			} else if (!srcSpecialized
-				&& (TypeExpression.OWL_CLASS.equals(aux
-					.getType()) || PropertyRestriction.MY_URI
-					.equals(aux.getType()))) {
-			    specialize(aux, specializedResources, openItems);
+			    // TODO: check comment
+			    // we only store this as an open item if there is a
+			    // chance that we can specialize it later. There is
+			    // no chance if there is no type info available
+			    //if (specialized.getTypes().length == 0) {
+				if (dbg)
+				    System.out.println("-- openItems.put 1: "
+					    + specialized + " - " + rd);
+				openItems.put(specialized, rd);
+			    //}
 			}
 		    } else {
+			// the specialized resource is an element in a
+			// list, we leave this list as an open item until all
+			// elements of the list are specialized and then we
+			// try again to set the property of the source with
+			// this list
 			rd.l.set(rd.i, specialized);
 			if (dbg)
 			    System.out.println("-- openItems.put 3: " + rd.prop
@@ -332,6 +397,7 @@ public class TurtleParser {
 			openItems.put(rd.prop + rd.src.getURI(), rd);
 		    }
 		}
+	    }
 	}
 
 	int size = Integer.MAX_VALUE;
@@ -341,21 +407,20 @@ public class TurtleParser {
 	    if (dbg)
 		logOpenItems("Open Items during step 2:", openItems);
 	    size = openItems.size();
-	    Hashtable NewOpenItems = new Hashtable();
+	    Hashtable newOpenItems = new Hashtable();
 	    for (Iterator i = openItems.keySet().iterator(); i.hasNext();) {
 		Object o = i.next();
 		RefData rd = (RefData) openItems.get(o);
 		if (rd == null) {
 		    // maybe it is a bug in the JVM because this shouldn't be
 		    // possible to occur, but it happens!!
-		    LogUtils
-			    .logDebug(
-				    TurtleUtil.moduleContext,
-				    TurtleParser.class,
-				    "finalizeAndGetRoot",
-				    new Object[] {
-					    "RefData is null, please investigate: ",
-					    o }, null);
+		    LogUtils.logDebug(
+			    TurtleUtil.moduleContext,
+			    TurtleParser.class,
+			    "finalizeAndGetRoot",
+			    new Object[] {
+				    "RefData is null, please investigate: ", o },
+			    null);
 		    i.remove();
 		    continue;
 		}
@@ -366,6 +431,8 @@ public class TurtleParser {
 		    srcSpecialized = false;
 		}
 		if (o instanceof String) {
+		    // the property value is a list of elements, so we try to
+		    // find for each element of the list a specialized resource
 		    o = rd.l;
 		    for (int j = 0; j < rd.l.size(); j++)
 			if (rd.l.get(j) instanceof Resource) {
@@ -386,11 +453,11 @@ public class TurtleParser {
 		    if (!srcSpecialized
 			    && (TypeExpression.OWL_CLASS.equals(aux.getType()) || PropertyRestriction.MY_URI
 				    .equals(aux.getType())))
-			specialize(aux, specializedResources, NewOpenItems);
+			specialize(aux, specializedResources, newOpenItems);
 		}
 	    }
 	    // move everything from NewOpenItems to openItems
-	    openItems.putAll(NewOpenItems);
+	    openItems.putAll(newOpenItems);
 	}
 
 	if (!openItems.isEmpty()) {
@@ -398,14 +465,40 @@ public class TurtleParser {
 		    "There are relationships not resolved (please note, that this "
 			    + "does not necessarily imply that something is wrong):",
 		    openItems);
+	    if (dbg) {
+		String s = "-- Specialized items:\n";
+		int i = 1;
+		for (Object o : specializedResources.keySet()) {
+		    s += "   - specialized item " + i + "\n";
+		    s += "     key: " + o + " (" + o.getClass() + ")\n";
+		    Object val = specializedResources.get(o);
+		    s += "     val: " + val + " (" + val.getClass() + ")\n";
+		    i++;
+		}
+		System.out.println(s);
+	    }
+
 	    openItems.clear();
 	}
 
-	if (result == null)
-	    result = firstResource;
-
-	if (resourceURI != null)
-	    result = (Resource) this.specialized.get(resourceURI);
+	if (resourceURI == null) {
+	    if (result == null) {
+		result = firstResource;
+	    } else {
+		// it can happen that the result was specialized after result
+		// was set, so we check that here
+		Resource r = (Resource) specializedResources.get(result
+			.getURI());
+		if (r != null)
+		    result = r;
+	    }
+	} else {
+	    Resource r = (Resource) specializedResources.get(resourceURI);
+	    if (r == null) {
+		r = (Resource) resources.get(resourceURI);
+	    }
+	    result = r;
+	}
 
 	resources.clear();
 	parseTable.clear();
@@ -428,46 +521,90 @@ public class TurtleParser {
     private boolean testSetProperty(Resource r, String propURI, Object value) {
 	// if (r == null || propURI == null || value == null)
 	// return false; // do we need to check this?
+	if (dbg) {
+	    System.out.println(" -- trying to set property:");
+	    System.out.println("      res:  " + r.getURI());
+	    System.out.println("      prop: " + propURI);
+	    if (value instanceof Resource)
+		System.out
+			.println("      val:  " + ((Resource) value).getURI());
+	    else if (value instanceof List)
+		for (Object o : (List) value) {
+		    if (o instanceof Resource)
+			System.out.println("      val:  "
+				+ ((Resource) o).getURI());
+		    else
+			System.out.println("      val:  "
+				+ o.getClass().getName());
+		}
+	}
 
 	try {
+	    // boolean retVal =
 	    r.setProperty(propURI, value);
+	    // if (dbg)
+	    // System.out.println("     -> setting prop: " + retVal);
+	    // return retVal;
+
 	    Object realValue = r.getProperty(propURI);
-	    if (value.equals(realValue))
+	    if (value.equals(realValue)) {
+		if (dbg)
+		    System.out.println("     -> setting prop successful 1");
 		return true;
-	    if (realValue == null)
+	    }
+	    if (realValue == null) {
+		if (dbg)
+		    System.out.println("     -> setting prop not successful 2");
 		return false;
+	    }
 	    if (realValue instanceof List) {
-		List l = (List) realValue;
-		if (l.size() == 1) {
-		    if (value.equals(l.get(0)))
+		List realList = (List) realValue;
+		if (realList.size() == 1) {
+		    if (value.equals(realList.get(0))) {
+			if (dbg)
+			    System.out
+				    .println("     -> setting prop successful 2");
 			return true;
+		    }
+		} else if (value instanceof List) {
+		    // we test each element of the list
+		    List valList = (List) value;
+		    if (valList.size() == valList.size()) {
+			for (Object o : valList) {
+			    if (!realList.contains(o))
+				return false;
+			}
+			return true;
+		    }
 		}
 	    }
+	    if (dbg)
+		System.out.println("     -> setting prop not successful 2");
 	    return false;
 	} catch (Exception e) {
-	    if (dbg)
+	    if (dbg) {
 		System.out
 			.println("--Problem in testSetProperty (the property could not be set): ");
-	    if (dbg)
 		System.out.println("  r:    " + r);
-	    if (dbg)
 		System.out.println("  prop: " + propURI);
-	    if (dbg)
 		System.out.println("  val:  " + value);
+	    }
 	    return false;
 	}
     }
 
     private ParseData getData(Resource r) {
-	ParseData d = (ParseData) parseTable.get(r);
+	ParseData d = (ParseData) parseTable.get(r.getURI());
 	if (d == null) {
 	    d = new ParseData();
-	    parseTable.put(r, d);
+	    parseTable.put(r.getURI(), d);
 	}
 	return d;
     }
 
     private Resource getResource(String uri) {
+	if (dbg)
+	    System.out.println(" -- getResource: " + uri);
 	Resource r;
 	if (uri == null) {
 	    r = new Resource();
@@ -478,14 +615,18 @@ public class TurtleParser {
 	    if (r == null) {
 		if (uri.startsWith("_:")) {
 		    // bNode ID
-		    r = new Resource();
+		    r = (Resource) blankNodes.get(uri);
+		    if (r == null) {
+			r = new Resource();
+			blankNodes.put(uri, r);
+			lstResources.add(r.getURI());// + "\t" + uri);
+		    }
 		    // getData(r).label = uri;
-		    lstResources.add(r.getURI() + "\t" + uri);
 		} else {
 		    r = new Resource(uri);
 		    lstResources.add(r.getURI());
 		}
-		resources.put(uri, r);
+		resources.put(r.getURI(), r);
 	    }
 	}
 	return r;
@@ -770,10 +911,12 @@ public class TurtleParser {
 	} else if (c == '[') {
 	    object = parseImplicitBlank();
 	} else {
-	    object = parseValue();
-	    // if (object instanceof Resource && ((Resource)
-	    // object).serializesAsXMLLiteral())
+	    object = parseValue(true);
+	    // if (object instanceof Resource
+	    // && ((Resource) object).serializesAsXMLLiteral()) {
+	    // lstResources.add((Resource)object);
 	    // resources.put(((Resource) object).getURI(), object);
+	    // }
 	}
     }
 
@@ -823,7 +966,7 @@ public class TurtleParser {
 	unread(c1);
 
 	// Predicate is a normal resource
-	Object predicate = parseValue();
+	Object predicate = parseValue(false);
 	if (predicate instanceof Resource) {
 	    return predicate.toString();
 	} else if (predicate != null || !eofAfterImplicitBlankNodeAsSubject)
@@ -893,7 +1036,7 @@ public class TurtleParser {
 	namespaceTable.put(prefixID.toString(), namespace.toString());
     }
 
-    private Object parseQNameOrBoolean() {
+    private Object parseQNameOrBoolean(boolean parseAsResource) {
 	// First character should be a ':' or a letter
 	int c = read();
 	if (c == -1) {
@@ -929,14 +1072,14 @@ public class TurtleParser {
 		String value = prefix.toString();
 
 		if (value.equals("true") || value.equals("false")) {
-		    return TypeMapper.getJavaInstance(value, TypeMapper
-			    .getDatatypeURI(Boolean.class));
+		    return TypeMapper.getJavaInstance(value,
+			    TypeMapper.getDatatypeURI(Boolean.class));
 		} else if (value.equals("NaN")) {
-		    return TypeMapper.getJavaInstance(value, TypeMapper
-			    .getDatatypeURI(Double.class));
+		    return TypeMapper.getJavaInstance(value,
+			    TypeMapper.getDatatypeURI(Double.class));
 		} else if (value.equals("INF")) {
-		    return TypeMapper.getJavaInstance(stringifiedPosInf, TypeMapper
-			    .getDatatypeURI(Double.class));
+		    return TypeMapper.getJavaInstance(stringifiedPosInf,
+			    TypeMapper.getDatatypeURI(Double.class));
 		}
 	    }
 
@@ -966,7 +1109,10 @@ public class TurtleParser {
 	unread(c);
 
 	// Note: namespace has already been resolved
-	return getResource(namespace + localName.toString());
+	if (parseAsResource)
+	    return getResource(namespace + localName.toString());
+	else
+	    return new Resource(namespace + localName.toString());
     }
 
     private Object parseQuotedLiteral() {
@@ -1009,15 +1155,21 @@ public class TurtleParser {
 	    verifyCharacter(read(), "^");
 
 	    // Read datatype
-	    Object datatype = parseValue();
+	    Object datatype = parseValue(true);
 	    if (datatype instanceof Resource)
 		datatype = datatype.toString();
 	    else if (!(datatype instanceof String))
 		throw new RuntimeException("Illegal datatype value: "
 			+ datatype);
 
-	    if (datatype.equals(TurtleUtil.xmlLiteral))
-		return new TurtleParser().deserialize(label, true, null);
+	    if (datatype.equals(TurtleUtil.xmlLiteral)) {
+		Object o = new TurtleParser().deserialize(label, true, null);
+		if (o instanceof Resource) {
+		    Resource r = (Resource) o;
+		    r.literal();
+		}
+		return o;
+	    }
 
 	    return TypeMapper.getJavaInstance(label, (String) datatype);
 	} else {
@@ -1108,7 +1260,7 @@ public class TurtleParser {
 	} else if (c == '[') {
 	    subject = parseImplicitBlank();
 	} else {
-	    Object value = parseValue();
+	    Object value = parseValue(true);
 
 	    if (value instanceof Resource) {
 		subject = (Resource) value;
@@ -1167,15 +1319,33 @@ public class TurtleParser {
 	}
     }
 
-    private Object parseValue() {
+    /**
+     * 
+     * @param parseAsResource
+     *            if the value is a Resource, this parameter determines whether
+     *            the value should be treated as a Resource for further
+     *            specialization. It is used to differentiate between rdf
+     *            predicate and rdf subject/object. In universAAL predicates are
+     *            used only as String; although they are in reality also
+     *            resources, they cannot be specialized and don't need to be
+     *            investigated further. If parseAsResource is true, the value is
+     *            treated as a Resource for further processing (i.e. rdf
+     *            subject/object). If it is false, the value is a rdf predicate
+     *            which cannot be specialized.
+     * @return
+     */
+   private Object parseValue(boolean parseAsResource) {
 	int c = peek();
 
 	if (c == '<') {
 	    // uriref, e.g. <foo://bar>
-	    return getResource(parseURI());
+	    if (parseAsResource)
+		return getResource(parseURI());
+	    else
+		return new Resource(parseURI());
 	} else if (c == ':' || TurtleUtil.isPrefixStartChar(c)) {
 	    // qname or boolean
-	    return parseQNameOrBoolean();
+	    return parseQNameOrBoolean(parseAsResource);
 	} else if (c == '_') {
 	    // node ID, e.g. _:n1
 	    return parseNodeID();
@@ -1287,12 +1457,12 @@ public class TurtleParser {
 	    if (type == null) {
 		substitution = TypeExpressionFactory.specialize(r);
 		if (substitution == null)
-		    // postpone the specialization until all props are
-		    // set
+		    // postpone the specialization until all props are set
 		    return r;
-	    } else
+	    } else {
 		substitution = OntologyManagement.getInstance().getResource(
 			type, uri);
+	    }
 	    if (substitution == null) {
 		// the resource cannot be specialized
 		LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
@@ -1340,22 +1510,27 @@ public class TurtleParser {
 	    if (!testSetProperty(substitution, prop, val)) {
 		// Something went wrong and the property could not be set.
 		// We will store the property as an open item to retry later.
-		RefData rd = new RefData();
-		rd.src = substitution;
-		rd.prop = prop;
-		if (val instanceof Resource) {
-		    if (dbg)
-			System.out.println("-- openItems.put 2: " + val);
-		    openItems.put(val, rd);
-		} else if (val instanceof List) {
-		    rd.l = (List) val;
-		    openItems.put(rd.prop + rd.src.getURI(), rd);
-		} else
-		    LogUtils.logWarn(TurtleUtil.moduleContext,
-			    TurtleParser.class, "specialize", new Object[] {
-				    "Property '", prop,
-				    "' could not be set for a resource!" },
-			    null);
+		// Type info is done separately, we don't need to do this later.
+		if (!substitution.isBlockingAddingTypes()
+			|| !Resource.PROP_RDF_TYPE.equals(prop)) {
+		    RefData rd = new RefData();
+		    rd.src = substitution;
+		    rd.prop = prop;
+		    if (val instanceof Resource) {
+			if (dbg)
+			    System.out.println("-- openItems.put 2: " + val);
+			openItems.put(val, rd);
+		    } else if (val instanceof List) {
+			rd.l = (List) val;
+			openItems.put(rd.prop + rd.src.getURI(), rd);
+		    } else {
+			LogUtils.logWarn(TurtleUtil.moduleContext,
+				TurtleParser.class, "specialize", new Object[] {
+					"Property '", prop,
+					"' could not be set for a resource!" },
+				null);
+		    }
+		}
 	    }
 	}
 

@@ -28,7 +28,9 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @see <a href="http://www.w3.org/TR/xmlschema-2/#nonNegativeInteger">XML
  *      Schema</a>
  */
-public class NonNegativeInteger {
+public final class NonNegativeInteger extends Number {
+    private static final long serialVersionUID = 1L;
+
     public static final String MY_URI = TypeMapper.XSD_NAMESPACE
 	    + "nonNegativeInteger";
 
@@ -57,6 +59,7 @@ public class NonNegativeInteger {
 	// TODO: if the value is too big, use BigInteger
     }
 
+    @Override
     public int intValue() {
 	if (isInt)
 	    return intval;
@@ -76,5 +79,33 @@ public class NonNegativeInteger {
 	if (obj instanceof Integer)
 	    return this.intval == ((Integer) obj).intValue();
 	return false;
+    }
+
+    public boolean isIntValue() {
+	return isInt;
+    }
+
+    @Override
+    public long longValue() {
+	if (isInt)
+	    return intval;
+	else
+	    return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public float floatValue() {
+	if (isInt)
+	    return intval;
+	else
+	    return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public double doubleValue() {
+	if (isInt)
+	    return intval;
+	else
+	    return Integer.MAX_VALUE;
     }
 }
