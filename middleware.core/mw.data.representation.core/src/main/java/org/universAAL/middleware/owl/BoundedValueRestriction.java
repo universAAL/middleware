@@ -210,6 +210,8 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 			    } else if (XSD_FACET_MAX_EXCLUSIVE
 				    .equals(facet.facetURI)) {
 				setMaxFacet((Comparable) facet.value, false);
+			    } else {
+				super.setFacet(facet);
 			    }
 			}
 		    }

@@ -20,9 +20,16 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ListIterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /*
  * Hierarchy:
@@ -45,8 +52,14 @@ public abstract class TypeRestriction extends TypeExpression {
 
     public static final String PROP_OWL_ON_DATATYPE = OWL_NAMESPACE
 	    + "onDatatype";
+
     public static final String PROP_OWL_WITH_RESTRICTIONS = OWL_NAMESPACE
 	    + "withRestrictions";
+
+    protected static final String XSD_FACET_PATTERN = TypeMapper.XSD_NAMESPACE
+	    + "pattern";
+
+    private Pattern pattern = null;
 
     protected ArrayList restrictions = new ArrayList();
 
@@ -60,7 +73,7 @@ public abstract class TypeRestriction extends TypeExpression {
 	super.setProperty(PROP_OWL_ON_DATATYPE, new Resource(datatypeURI));
 	super.setProperty(PROP_OWL_WITH_RESTRICTIONS, restrictions);
     }
-    
+
     public String getTypeURI() {
 	return ((Resource) getProperty(PROP_OWL_ON_DATATYPE)).getURI();
     }
@@ -94,16 +107,19 @@ public abstract class TypeRestriction extends TypeExpression {
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
+    @Override
     public String[] getNamedSuperclasses() {
 	return new String[0];
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
+    @Override
     public Object[] getUpperEnumeration() {
 	return new Object[0];
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null)
 	    return false;
@@ -115,5 +131,47 @@ public abstract class TypeRestriction extends TypeExpression {
 	    return false;
 
 	return super.setProperty(propURI, o);
+    }
+
+    public boolean setPattern(String pattern) {
+	if (this.pattern != null)
+	    return false;
+
+	Pattern compiledPattern;
+	try {
+	    compiledPattern = Pattern.compile(pattern);
+	} catch (PatternSyntaxException e) {
+	    // TODO: log message?
+	    return false;
+	}
+
+	addConstrainingFacet(XSD_FACET_PATTERN, pattern);
+	this.pattern = compiledPattern;
+	return true;
+    }
+
+    @Override
+    public boolean hasMember(Object member, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	// test only the pattern constraining facet, everything else should be
+	// checked in subclasses
+
+	if (pattern == null) {
+	    // there is no pattern defined
+	    return true;
+	}
+
+	String m = member == null ? "" : member.toString();
+	Matcher matcher = pattern.matcher(m);
+	if (matcher.matches())
+	    return true;
+
+	return false;
+    }
+
+    protected void setFacet(Facet facet) {
+	if (XSD_FACET_PATTERN.equals(facet.facetURI)) {
+	    setPattern((String) facet.value);
+	}
     }
 }
