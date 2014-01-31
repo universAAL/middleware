@@ -30,6 +30,7 @@ import org.universAAL.middleware.rdf.Resource;
  * The aggregatingFilter class together with ServiceRequest class cover the CALL
  * clause of a SPARQL-like query.
  * 
+ * @see AggregatingFilterFactory
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * 
@@ -58,8 +59,8 @@ public class AggregatingFilter extends FinalizedResource {
 	    Object o = params.get(i);
 	    if ((PropertyPath.TYPE_PROPERTY_PATH.equals(func
 		    .getParameterType(i)) && !(o instanceof PropertyPath))
-		    || !ManagedIndividual.checkMembership(func
-			    .getParameterType(i), o))
+		    || !ManagedIndividual.checkMembership(
+			    func.getParameterType(i), o))
 		return false;
 	}
 	return true;
@@ -109,7 +110,7 @@ public class AggregatingFilter extends FinalizedResource {
     }
 
     /**
-     * Returns the list of the AggregationFunction parameteres.
+     * Returns the list of the AggregationFunction parameters.
      */
     public List getFunctionParams() {
 	return (List) props.get(PROP_uAAL_AGGREGATION_PARAMS);
@@ -124,7 +125,7 @@ public class AggregatingFilter extends FinalizedResource {
 
     /**
      * Returns true, if the PROP_uAAL_AGGREGATION_FUNCTION and
-     * PROP_uAAL_AGGREGATION_PARAMS contain the rwquired key.
+     * PROP_uAAL_AGGREGATION_PARAMS contain the required key.
      */
     public boolean isWellFormed() {
 	return props.containsKey(PROP_uAAL_AGGREGATION_FUNCTION)
@@ -169,7 +170,7 @@ public class AggregatingFilter extends FinalizedResource {
     }
 
     /**
-     * Returns the parameters and the Aggregation Funtion with their properties.
+     * Returns a copy of this filter that serializes as XML Literal.
      */
     public AggregatingFilter toLiteral() {
 	if (serializesAsXMLLiteral())

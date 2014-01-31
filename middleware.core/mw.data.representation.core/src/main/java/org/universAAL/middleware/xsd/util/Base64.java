@@ -148,7 +148,7 @@
 
 package org.universAAL.middleware.xsd.util;
 
-public class Base64 {
+public final class Base64 {
 
     /*  ******** P U B L I C F I E L D S ******** */
 

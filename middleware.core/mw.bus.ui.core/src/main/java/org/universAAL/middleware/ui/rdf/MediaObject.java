@@ -141,6 +141,7 @@ public class MediaObject extends Output {
     }
 
     /**
+     * @deprecated
      * @see #PROP_RESOLUTION_MAX_X
      */
     public int getResolutionMaxX() {
@@ -149,6 +150,7 @@ public class MediaObject extends Output {
     }
 
     /**
+     * @deprecated
      * @see #PROP_RESOLUTION_MAX_Y
      */
     public int getResolutionMaxY() {
@@ -157,6 +159,7 @@ public class MediaObject extends Output {
     }
 
     /**
+     * @deprecated
      * @see #PROP_RESOLUTION_MIN_X
      */
     public int getResolutionMinX() {
@@ -165,6 +168,7 @@ public class MediaObject extends Output {
     }
 
     /**
+     * @deprecated
      * @see #PROP_RESOLUTION_MIN_Y
      */
     public int getResolutionMinY() {
@@ -173,6 +177,7 @@ public class MediaObject extends Output {
     }
 
     /**
+     * @deprecated
      * @see #PROP_RESOLUTION_PREFERRED_X
      */
     public int getResolutionPreferredX() {
@@ -181,6 +186,7 @@ public class MediaObject extends Output {
     }
 
     /**
+     * @deprecated
      * @see #PROP_RESOLUTION_PREFERRED_Y
      */
     public int getResolutionPreferredY() {
@@ -190,6 +196,9 @@ public class MediaObject extends Output {
 
     /**
      * Sets the maximum size in number of pixels.
+     * 
+     * @deprecated use the {@link FormElement#addAppearanceRecommendation(org.universAAL.middleware.ui.owl.Recommendation)} 
+     * generalized method to provide the same information.
      * 
      * @param x
      *            See {@link #PROP_RESOLUTION_MAX_X}
@@ -206,6 +215,9 @@ public class MediaObject extends Output {
     /**
      * Sets the minimum size in number of pixels.
      * 
+     * @deprecated use the {@link FormElement#addAppearanceRecommendation(org.universAAL.middleware.ui.owl.Recommendation)} 
+     * generalized method to provide the same information.
+     * 
      * @param x
      *            See {@link #PROP_RESOLUTION_MIN_X}
      * @param y
@@ -220,6 +232,9 @@ public class MediaObject extends Output {
 
     /**
      * Sets the preferred size in number of pixels.
+     * 
+     * @deprecated use the {@link FormElement#addAppearanceRecommendation(org.universAAL.middleware.ui.owl.Recommendation)} 
+     * generalized method to provide the same information.
      * 
      * @param x
      *            See {@link #PROP_RESOLUTION_PREFERRED_X}

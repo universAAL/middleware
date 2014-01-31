@@ -21,6 +21,7 @@ package org.universAAL.middleware.service.impl;
 
 import java.util.HashMap;
 
+import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.model.BusStrategy;
 import org.universAAL.middleware.bus.msg.BusMessage;
@@ -61,30 +62,27 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     public synchronized void assessContentSerialization(Resource content) {
 	if (Constants.debugMode()) {
-	    LogUtils
-		    .logDebug(
-			    context,
-			    ServiceBusImpl.class,
-			    "assessContentSerialization",
-			    new Object[] { "Assessing message content serialization:" },
-			    null);
+	    LogUtils.logDebug(
+		    context,
+		    ServiceBusImpl.class,
+		    "assessContentSerialization",
+		    new Object[] { "Assessing message content serialization:" },
+		    null);
 
 	    String str = BusMessage.trySerializationAsContent(content);
-	    LogUtils
-		    .logDebug(
-			    context,
-			    ServiceBusImpl.class,
-			    "assessContentSerialization",
-			    new Object[] { "\n      1. serialization dump\n",
-				    str,
-				    "\n      2. deserialize & compare with the original resource\n" },
-			    null);
-	    new ResourceComparator().printDiffs(content, (Resource) BusMessage
-		    .deserializeAsContent(str));
+	    LogUtils.logDebug(
+		    context,
+		    ServiceBusImpl.class,
+		    "assessContentSerialization",
+		    new Object[] { "\n      1. serialization dump\n", str,
+			    "\n      2. deserialize & compare with the original resource\n" },
+		    null);
+	    new ResourceComparator().printDiffs(content,
+		    (Resource) BusMessage.deserializeAsContent(str));
 	}
     }
 
-    public static void startModule(Container c, ModuleContext mc,
+    public static synchronized void startModule(Container c, ModuleContext mc,
 	    Object[] serviceBusShareParams, Object[] serviceBusFetchParams) {
 	if (theServiceBus == null) {
 	    ServiceBusImpl.mc = mc;
@@ -105,7 +103,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     }
 
     private ServiceBusImpl(ModuleContext mc) {
-	super(mc);
+	super(mc, "mw.bus.service.osgi");
 	busStrategy.setBus(this);
     }
 
@@ -160,14 +158,14 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public ServiceProfile[] getMatchingServices(String callerID, String s) {
 	return ((ServiceStrategy) busStrategy).getAllServiceProfiles(s);
     }
-    
+
     /**
      * @see ServiceBus#getMatchingService(String)
      */
     public HashMap getMatchingServices(String s) {
-	return ((ServiceStrategy) busStrategy).getAllServiceProfilesWithCalleeIDs(s);
+	return ((ServiceStrategy) busStrategy)
+		.getAllServiceProfilesWithCalleeIDs(s);
     }
-    
 
     /**
      * @see ServiceBus#getMatchingServices(String, String[])
@@ -243,6 +241,14 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	if (callerID != null) {
 	    super.unregister(callerID, caller);
 	}
+    }
+    
+    @Override
+    public void unregister(String memberID, BusMember m) {
+	if (m instanceof ServiceCallee)
+	    unregister(memberID, (ServiceCallee) m);
+	else if (m instanceof ServiceCaller)
+	    unregister(memberID, (ServiceCaller) m);
     }
 
     @Override

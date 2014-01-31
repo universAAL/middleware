@@ -31,7 +31,7 @@ import org.universAAL.middleware.owl.OntologyManagement;
  * @author mtazari
  * 
  */
-public class SharedResources {
+public final class SharedResources {
     // configuration parameters as property keys
     /**
      * My config file

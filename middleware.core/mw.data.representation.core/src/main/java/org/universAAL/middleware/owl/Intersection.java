@@ -20,10 +20,11 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.universAAL.middleware.rdf.UnmodifiableResourceList;
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * An intersection of a set of class expressions <i>CE<sub>1</sub> ...
@@ -37,12 +38,8 @@ import org.universAAL.middleware.rdf.UnmodifiableResourceList;
 public class Intersection extends TypeExpression {
 
     /** URI for owl:intersectionOf. */
-    public static final String PROP_OWL_INTERSECTION_OF;
-
-    static {
-	PROP_OWL_INTERSECTION_OF = OWL_NAMESPACE + "intersectionOf";
-	register(Intersection.class, null, PROP_OWL_INTERSECTION_OF, null);
-    }
+    public static final String PROP_OWL_INTERSECTION_OF = OWL_NAMESPACE
+	    + "intersectionOf";
 
     /** The list of child class expressions. */
     protected List types;
@@ -50,6 +47,13 @@ public class Intersection extends TypeExpression {
     /** Constructor. */
     public Intersection() {
 	super();
+	types = new ArrayList();
+	props.put(PROP_OWL_INTERSECTION_OF, types);
+    }
+
+    /** Constructor. */
+    protected Intersection(String[] additionalTypes) {
+	super(additionalTypes);
 	types = new ArrayList();
 	props.put(PROP_OWL_INTERSECTION_OF, types);
     }
@@ -122,51 +126,44 @@ public class Intersection extends TypeExpression {
 	return l.toArray();
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      Hashtable)
-     */
-    public boolean hasMember(Object value, Hashtable context) {
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
+    public boolean hasMember(Object value, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 	for (Iterator i = types.iterator(); i.hasNext();) {
-	    if (!((TypeExpression) i.next()).hasMember(value, cloned))
+	    if (!((TypeExpression) i.next()).hasMember(value, cloned, ttl, log))
 		return false;
 	}
 	synchronize(context, cloned);
 	return true;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean matches(TypeExpression subtype, Hashtable context) {
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
+    public boolean matches(TypeExpression subtype, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 	for (Iterator i = types.iterator(); i.hasNext();) {
-	    if (!((TypeExpression) i.next()).matches(subtype, cloned))
+	    if (!((TypeExpression) i.next()).matches(subtype, cloned, ttl, log))
 		return false;
 	}
 	synchronize(context, cloned);
 	return true;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	for (Iterator i = types.iterator(); i.hasNext();) {
-	    if (((TypeExpression) i.next()).isDisjointWith(other, context))
+	    if (((TypeExpression) i.next()).isDisjointWith(other, context, ttl,
+		    log))
 		return true;
 	}
 	Object[] members = (other == null) ? null : other.getUpperEnumeration();
 	if (members != null && members.length > 0) {
-	    Hashtable cloned = (context == null) ? null : (Hashtable) context
+	    HashMap cloned = (context == null) ? null : (HashMap) context
 		    .clone();
 	    for (int i = 0; i < members.length; i++) {
-		if (hasMember(members[i], cloned))
+		if (hasMember(members[i], cloned, ttl, log))
 		    return false;
 	    }
 

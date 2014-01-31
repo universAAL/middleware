@@ -32,9 +32,9 @@ import org.universAAL.middleware.datarep.SharedResources;
  * 
  * @author Carsten Stockloew
  */
-public class UnmodifiableResource extends Resource {
+public final class UnmodifiableResource extends Resource {
 
-    Resource res;
+    private Resource res;
 
     public UnmodifiableResource(Resource r) {
 	res = r;

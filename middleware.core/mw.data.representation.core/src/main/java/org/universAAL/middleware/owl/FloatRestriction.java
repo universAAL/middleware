@@ -21,7 +21,7 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
 
-public class FloatRestriction extends BoundedValueRestriction {
+public final class FloatRestriction extends BoundedValueRestriction {
 
     public static final String DATATYPE_URI = TypeMapper
 	    .getDatatypeURI(Float.class);

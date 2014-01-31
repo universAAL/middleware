@@ -22,6 +22,7 @@ package org.universAAL.middleware.context;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.Subscriber;
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
@@ -61,10 +62,15 @@ public abstract class ContextSubscriber extends Subscriber {
      * @param initialSubscriptions
      *            Array of ContextEventPattern that are immediately registered
      *            for this Subscriber
+     * @throws NullPointerException
+     *             if newSubscriptions is null or one of the elements of that
+     *             array is null
      */
     protected ContextSubscriber(ModuleContext connectingModule,
 	    ContextEventPattern[] initialSubscriptions) {
 	super(connectingModule, ContextBusImpl.getContextBusFetchParams());
+	initialSubscriptions = AccessControl.INSTANCE.checkPermission(owner,
+		getURI(), initialSubscriptions);
 	addNewRegParams(initialSubscriptions);
     }
 
@@ -74,8 +80,13 @@ public abstract class ContextSubscriber extends Subscriber {
      * 
      * @param newSubscriptions
      *            The additional array of ContextEventPattern
+     * @throws NullPointerException
+     *             if newSubscriptions is null or one of the elements of that
+     *             array is null
      */
     protected final void addNewRegParams(ContextEventPattern[] newSubscriptions) {
+	newSubscriptions = AccessControl.INSTANCE.checkPermission(owner,
+		getURI(), newSubscriptions);
 	((ContextBus) theBus).addNewRegParams(busResourceURI, newSubscriptions);
     }
 
@@ -117,24 +128,25 @@ public abstract class ContextSubscriber extends Subscriber {
      * 
      * @param event
      *            The Context Event that matched the registered Patterns
+     * @throws NullPointerException
+     *             if the event is null
      */
     public abstract void handleContextEvent(ContextEvent event);
 
     public final void handleEvent(BusMessage m) {
 	if (m.getContent() instanceof ContextEvent) {
-	    LogUtils.logInfo(owner, ContextSubscriber.class, "handleEvent",
-		    new Object[] { busResourceURI,
-			    " received context event:\n",
-			    m.getContentAsString() }, null);
-	    handleContextEvent((ContextEvent) m.getContent());
+	    ContextEvent ce = (ContextEvent) (m.getContent());
+	    if (AccessControl.INSTANCE.checkPermission(owner, getURI(), ce)) {
+		LogUtils.logInfo(
+			owner,
+			ContextSubscriber.class,
+			"handleEvent",
+			new Object[] { busResourceURI,
+				" received context event:\n",
+				m.getContentAsString() }, null);
+		handleContextEvent((ContextEvent) m.getContent());
+	    }
 	}
-    }
-
-    /**
-     * Unregisters the Subscriber from the Context bus.
-     */
-    public void close() {
-	theBus.unregister(busResourceURI, this);
     }
 
     public String getMyID() {

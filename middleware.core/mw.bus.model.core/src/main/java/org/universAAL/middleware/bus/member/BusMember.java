@@ -20,6 +20,7 @@
 package org.universAAL.middleware.bus.member;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 
 /**
@@ -50,13 +51,24 @@ public abstract class BusMember {
     protected BusMember(ModuleContext owner, Object[] busFetchParams,
 	    BusMemberType type) {
 	this.owner = owner;
+	this.type = type;
 	theBus = (AbstractBus) owner.getContainer().fetchSharedObject(owner,
 		busFetchParams);
 	busResourceURI = theBus.register(owner, this, type);
+	AccessControl.INSTANCE.registerBusMember(owner, this,
+		theBus.getBrokerName());
     }
     // PATCH This  v  is for Android port :(
     public BusMember(boolean dummy){
     	owner=null; theBus=null;
+    }
+
+    /**
+     * Unregisters the Subscriber from the Context bus.
+     */
+    public void close() {
+	theBus.unregister(busResourceURI, this);
+	AccessControl.INSTANCE.unregisterBusMember(owner, this);
     }
 
     /**
@@ -70,10 +82,6 @@ public abstract class BusMember {
      */
     public abstract void busDyingOut(AbstractBus b);
 
-    // protected ModuleContext getModuleContext() {
-    // return p.moduleContext;
-    // }
-
     /**
      * URI of this bus member. The URI is created by the bus and set during
      * registration of the the bus member at the bus.
@@ -81,4 +89,13 @@ public abstract class BusMember {
     public String getURI() {
 	return busResourceURI;
     }
+
+    /**
+     * Get the type of this bus member.
+     * 
+     * @return the type of this bus member.
+     */
+    public BusMemberType getType() {
+	return type;
+}
 }

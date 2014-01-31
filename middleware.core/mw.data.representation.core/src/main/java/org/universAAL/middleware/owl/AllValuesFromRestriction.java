@@ -20,10 +20,11 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * Implementation of OWL AllValuesFrom Restriction: it contains all individuals
@@ -32,18 +33,13 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  * @author Carsten Stockloew
  */
-public class AllValuesFromRestriction extends PropertyRestriction {
+public final class AllValuesFromRestriction extends PropertyRestriction {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "AllValuesFromRestriction";
 
     public static final String PROP_OWL_ALL_VALUES_FROM = OWL_NAMESPACE
 	    + "allValuesFrom";;
-
-    static {
-	register(AllValuesFromRestriction.class, null,
-		PROP_OWL_ALL_VALUES_FROM, null);
-    }
 
     /** Standard constructor for exclusive use by serializers. */
     AllValuesFromRestriction() {
@@ -68,16 +64,13 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 	return getProperty(PROP_OWL_ALL_VALUES_FROM);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
     public TypeExpression copy() {
 	return copyTo(new AllValuesFromRestriction());
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      Hashtable)
-     */
-    public boolean hasMember(Object member, Hashtable context) {
+    public boolean hasMember(Object member, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (!(member instanceof Resource))
 	    return member == null;
 
@@ -91,40 +84,36 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 	}
 	int size = ((List) o).size();
 
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 	TypeExpression from = (TypeExpression) props
 		.get(PROP_OWL_ALL_VALUES_FROM);
 	if (from != null)
 	    for (int i = 0; i < size; i++)
-		if (!from.hasMember(((List) o).get(i), cloned))
+		if (!from.hasMember(((List) o).get(i), cloned, ttl, log))
 		    return false;
 
 	synchronize(context, cloned);
 	return true;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
+	ttl = checkTTL(ttl);
 	if (!(other instanceof PropertyRestriction))
-	    return other.isDisjointWith(this, context);
+	    return other.isDisjointWith(this, context, ttl, log);
 
 	PropertyRestriction r = (PropertyRestriction) other;
 	Object o = getOnProperty();
 	if (o == null || !o.equals(r.getOnProperty()))
 	    return false;
 
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 
 	TypeExpression myValues = (TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);
 	if (myValues != null
 		&& myValues.isDisjointWith(
 			(TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM),
-			cloned)) {
+			cloned, ttl, log)) {
 	    synchronize(context, cloned);
 	    return true;
 	}
@@ -132,31 +121,27 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return getOnProperty() != null
 		&& (hasProperty(PROP_OWL_ALL_VALUES_FROM));
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean matches(TypeExpression subset, Hashtable context) {
-	Object noRes = matchesNonRestriction(subset, context);
+    public boolean matches(TypeExpression subset, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	Object noRes = matchesNonRestriction(subset, context, ttl, log);
 	if (noRes instanceof Boolean)
 	    return ((Boolean) noRes).booleanValue();
 
 	PropertyRestriction otherRes = (PropertyRestriction) noRes;
 
 	if (otherRes instanceof AllValuesFromRestriction) {
-	    Hashtable cloned = (context == null) ? null : (Hashtable) context
+	    HashMap cloned = (context == null) ? null : (HashMap) context
 		    .clone();
 	    TypeExpression my = (TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);
 	    TypeExpression other = (TypeExpression) ((AllValuesFromRestriction) otherRes)
 		    .getProperty(PROP_OWL_ALL_VALUES_FROM);
 	    if (my != null && other != null) {
-		if (my.matches(other, cloned)) {
+		if (my.matches(other, cloned, ttl, log)) {
 		    synchronize(context, cloned);
 		    return true;
 		}
@@ -166,7 +151,6 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
     public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null || props.containsKey(propURI))
 	    return false;
@@ -180,6 +164,8 @@ public class AllValuesFromRestriction extends PropertyRestriction {
 	    if (tmp != null)
 		o = tmp;
 
+	    if (!(o instanceof TypeExpression))
+		return false;
 	    return super.setProperty(PROP_OWL_ALL_VALUES_FROM, o);
 	}
 

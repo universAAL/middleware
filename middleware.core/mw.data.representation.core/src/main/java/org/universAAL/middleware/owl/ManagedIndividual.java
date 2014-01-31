@@ -153,8 +153,9 @@ public abstract class ManagedIndividual extends FinalizedResource {
 
     /**
      * Checks if the given value object is an instance of the type with the
-     * given URI. Uses Java inheritance between registered classes and types for
-     * checking compatibility.
+     * given URI. It uses the information provided in the ontologies about
+     * inheritance of the registered classes and types for checking
+     * compatibility.
      * 
      * @param typeURI
      *            The URI of the class that is assumed to be the super class of
@@ -170,8 +171,8 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	if (value == null)
 	    return true;
 	if (!(value instanceof ManagedIndividual)) {
-	    return TypeMapper.isCompatible(typeURI, TypeMapper
-		    .getDatatypeURI(value));
+	    return TypeMapper.isCompatible(typeURI,
+		    TypeMapper.getDatatypeURI(value));
 	    // return false;
 	}
 
@@ -289,13 +290,12 @@ public abstract class ManagedIndividual extends FinalizedResource {
      * Checks if a registered class with the given URI can be found.
      */
     public static final boolean isRegisteredClassURI(String classURI) {
-	LogUtils
-		.logDebug(
-			SharedResources.moduleContext,
-			ManagedIndividual.class,
-			"isRegisteredClassURI",
-			new Object[] { "This method is deprecated, please use OntologyManagement.isRegisteredClass(classURI, true)." },
-			null);
+	LogUtils.logDebug(
+		SharedResources.moduleContext,
+		ManagedIndividual.class,
+		"isRegisteredClassURI",
+		new Object[] { "This method is deprecated, please use OntologyManagement.isRegisteredClass(classURI, true)." },
+		null);
 	return OntologyManagement.getInstance().isRegisteredClass(classURI,
 		true);
     }
@@ -416,7 +416,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	for (int i = 0; i < propURIs.length; i++) {
 	    MergedRestriction r = getClassRestrictionsOnProperty(classURI,
 		    propURIs[i]);
-	    if (r != null && !r.hasMember(this, null))
+	    if (r != null && !r.hasMember(this))
 		return false;
 	}
 	return true;
@@ -431,8 +431,8 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	if (propURI == null || value == null || props.containsKey(propURI))
 	    return false;
 
-	MergedRestriction r = OntologyManagement.getInstance().getOntClassInfo(
-		getClassURI()).getRestrictionsOnProp(propURI);
+	MergedRestriction r = OntologyManagement.getInstance()
+		.getOntClassInfo(getClassURI()).getRestrictionsOnProp(propURI);
 
 	if (r == null) {
 	    return super.setProperty(propURI, value);
@@ -448,7 +448,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	    // we have to put the value first, because the Restriction 'r' needs
 	    // to read it for checking the membership
 	    props.put(propURI, value);
-	    if (!r.hasMember(this, null)) {
+	    if (!r.hasMember(this)) {
 		props.remove(propURI);
 		return false;
 	    }

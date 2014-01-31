@@ -162,8 +162,8 @@ public class RDFClassInfo extends FinalizedResource {
 	    ArrayList al = new ArrayList(combinedSuperClasses);
 	    al.add(new Resource(namedSuperClass));
 	    combinedSuperClasses = al;
-	    setProperty(TypeExpression.PROP_RDFS_SUB_CLASS_OF, Collections
-		    .unmodifiableList(combinedSuperClasses));
+	    setProperty(TypeExpression.PROP_RDFS_SUB_CLASS_OF,
+		    Collections.unmodifiableList(combinedSuperClasses));
 	}
 
 	/**

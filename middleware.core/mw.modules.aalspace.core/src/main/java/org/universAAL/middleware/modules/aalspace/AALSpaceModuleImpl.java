@@ -953,15 +953,15 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 	}
 
 	public void messageReceived(ChannelMessage message) {
-		if (message == null && message.getContent() == null) {
+        if (message == null || message.getContent() == null) {
 			LogUtils.logDebug(
 					context,
 					AALSpaceModuleImpl.class,
 					"AALSpaceModuleImpl",
 					new Object[] { "The message received is not valid...dropping it." },
 					null);
-		} else {
-
+            return;
+        }
 			try {
 
 				BrokerMessage brokerMessage = null;
@@ -995,7 +995,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 						new Object[] { "Error during message receive: "
 								+ e.toString() }, null);
 			}
-		}
 
 	}
 

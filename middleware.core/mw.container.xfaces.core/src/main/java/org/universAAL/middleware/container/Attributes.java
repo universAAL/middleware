@@ -20,74 +20,111 @@
  */
 package org.universAAL.middleware.container;
 
-
 /**
- * A set of attribute that the {@link ModuleContext} has to provide through 
- * the {@link ModuleContext#getAttribute(String)} method
- * 
+ * A set of attribute name that the {@link ModuleContext} has to provide through the
+ * {@link ModuleContext#getAttribute(String)} method
+ *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
- * 
+ * @since 2.0.1
+ *
  */
 public interface Attributes {
 
-        /**
-         * The version of the middleware that is running on this container
-         */
-    	public final String MIDDLEWARE_VERSION = "org.universAAL.platform.version";
-    	
-    	/**
-    	 * The name of the Container that is running uAAL (e.g.: Karaf, Android, Felix, and so on)
-    	 */
-    	public final String CONTAINER_NAME = "org.universAAL.container.name";
-    	
-    	/**
-    	 * The version of the Container that is running uAAL (e.g.: 2.3.0, 4.2.0, and so on)
-    	 */
-    	public final String CONTAINER_VERSION = "org.universAAL.container.version";
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the version of the middleware that is running on this container
+     * @since 2.0.1
+     */
+    public final String MIDDLEWARE_VERSION = "org.universAAL.platform.version";
 
-    	/**
-    	 * The OSGi name where the Container that is running on(e.g.: Felix, Eclipse, and so on)
-    	 * <b>NOTE</b> it should be set only when uAAL is running on OSGi
-    	 */
-    	public final String OSGI_NAME = "org.universAAL.container.osgi.name";
-    	
-    	/**
-    	 * The OSGi version where the Container that is running on(e.g.: 2.3.0, 4.2.0, and so on)
-    	 * <b>NOTE</b> it should be set only when uAAL is running on OSGi
-    	 */
-    	public final String OSGI_VERSION = "org.universAAL.container.osgi.version";
-    	
-    	/**
-    	 * The architecture OSGi where the Container that is running on(e.g.: x86)
-    	 * <b>NOTE</b> it should be set only when uAAL is running on OSGi
-    	 */
-    	public final String OSGI_ARCHITECTURE = "org.universAAL.container.osgi.architecture";
-    	
-    	/**
-    	 * The name of the OS where Container that is running on (i.e.: for Windows Vista it returns WindowsVista)
-    	 */
-    	public final String CONTAINER_OS_NAME = "org.universAAL.container.os.name";
-    	
-    	/**
-    	 * The version of the OS where Container that is running on (i.e.: for Windows Vista it returns 6.0.0)
-    	 */
-    	public final String CONTAINER_OS_VERSION = "org.universAAL.container.os.version";
-    	
-    	/**
-    	 * The architecture of the OS where Container that is running on (i.e.: for Windows Vista 32bit it returns x86)
-    	 */
-    	public final String CONTAINER_OS_ARCHITECTURE = "org.universAAL.container.os.architecture";
-    	
-    	/**
-    	 * The version of platform where the Container is running on (i.e.: for JavaVM-7 it returns java)
-    	 */
-    	public final String CONTAINER_PLATFORM_NAME = "org.universAAL.container.platform.name";
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the name of the Container that is running uAAL (e.g.: Karaf, Android,
+     * Felix, and so on)
+     * @since 2.0.1
+     */
+    public final String CONTAINER_NAME = "org.universAAL.container.name";
 
-    	/**
-    	 * The version of platform where the Container is running on (i.e.: for JavaVM-7 it returns 1.7.0)
-    	 */
-    	public final String CONTAINER_PLATFORM_VERSION = "org.universAAL.container.platform.version";
-    	
-    
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the version of the Container that is running uAAL (e.g.: 2.3.0, 4.2.0,
+     * and so on)
+     * @since 2.0.1
+     */
+    public final String CONTAINER_VERSION = "org.universAAL.container.version";
+
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the name of the Execution Environment where the Container
+     * that is running on(e.g.: Felix, Eclipse, Android, Java, and so on)
+     * @since 2.0.1
+     */
+    public final String CONTAINER_EE_NAME = "org.universAAL.container.ee.name";
+
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the version of the Execution Environment where the Container
+     * that is running on(e.g.: 2.3.1, 4.2.0, and so on)
+     * @since 2.0.1
+     */
+    public final String CONTAINER_EE_VERSION = "org.universAAL.container.ee.version";
+
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the architecture of the Execution Environment where the Container
+     * that is running on(e.g.: x86, arm, and so on)
+     * @since 2.0.1
+     */
+    public final String CONTAINER_EE_ARCHITECTURE = "org.universAAL.container.ee.architecture";
+
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the name of the OS where Container that is running on (i.e.: for Windows
+     * Vista it returns WindowsVista)
+     * @since 2.0.1
+     */
+    public final String CONTAINER_OS_NAME = "org.universAAL.container.os.name";
+
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the version of the OS where Container that is running on (i.e.: for
+     * Windows Vista it returns 6.0.0)
+     * @since 2.0.1
+     */
+    public final String CONTAINER_OS_VERSION = "org.universAAL.container.os.version";
+
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the architecture of the OS where Container that is running on (i.e.: for
+     * Windows Vista 32bit it returns x86)
+     * @since 2.0.1
+     */
+    public final String CONTAINER_OS_ARCHITECTURE = "org.universAAL.container.os.architecture";
+
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the version of platform where the Container is running on (i.e.: for
+     * JavaVM-7 it returns java)
+     * @since 2.0.1
+     */
+    public final String CONTAINER_PLATFORM_NAME = "org.universAAL.container.platform.name";
+
+    /**
+     * This is the name of the attribute of the uAAL container that represent
+     * the version of platform where the Container is running on (i.e.: for
+     * JavaVM-7 it returns 1.7.0)
+     * @since 2.0.1
+     */
+    public final String CONTAINER_PLATFORM_VERSION = "org.universAAL.container.platform.version";
+
+
+    /**
+     * This is the prefix name that should be used by the attributes of the uAAL container
+     * that provides more detail of the container
+     * @since 2.0.1
+     */
+    public final String CONTAINER_EXTRA_INFO_PREFIX = "org.universAAL.container.extra";
+
+
 }

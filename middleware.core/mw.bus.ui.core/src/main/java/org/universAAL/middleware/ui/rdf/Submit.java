@@ -20,8 +20,10 @@
 package org.universAAL.middleware.ui.rdf;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents a button in the form that finishes the dialog represented by that
@@ -93,15 +95,18 @@ public class Submit extends FormControl {
     public static final String PROP_SUBMISSION_ID = uAAL_VOCABULARY_NAMESPACE
 	    + "submissionID";
 
-    protected List l = null;
+    /**
+     * The list of Manadatory {@link Input} Controls.
+     */
+    protected List mandatoryList = null;
 
     /**
      * For exclusive use by de-serializers.
      */
     public Submit() {
 	super();
-	l = new ArrayList();
-	props.put(PROP_MANDATORY_INPUT, l);
+	mandatoryList = new ArrayList();
+	props.put(PROP_MANDATORY_INPUT, mandatoryList);
     }
 
     /**
@@ -119,15 +124,15 @@ public class Submit extends FormControl {
     public Submit(Group parent, Label label, String id) {
 	super(MY_URI, parent, label, null, null, null);
 	props.put(PROP_SUBMISSION_ID, id);
-	l = new ArrayList();
-	props.put(PROP_MANDATORY_INPUT, l);
+	mandatoryList = new ArrayList();
+	props.put(PROP_MANDATORY_INPUT, mandatoryList);
     }
 
     protected Submit(String typeURI, Group parent, Label label, String id) {
 	super(typeURI, parent, label, null, null, null);
 	props.put(PROP_SUBMISSION_ID, id);
-	l = new ArrayList();
-	props.put(PROP_MANDATORY_INPUT, l);
+	mandatoryList = new ArrayList();
+	props.put(PROP_MANDATORY_INPUT, mandatoryList);
     }
 
     /**
@@ -137,7 +142,7 @@ public class Submit extends FormControl {
      */
     public void addMandatoryInput(Input in) {
 	if (in != null) {
-	    l.add(in);
+	    mandatoryList.add(in);
 	    in.setMandatory();
 	}
     }
@@ -199,10 +204,10 @@ public class Submit extends FormControl {
      * @see #PROP_MANDATORY_INPUT
      */
     public Input[] getMandatoryInputControls() {
-	if (l == null || l.isEmpty())
+	if (mandatoryList == null || mandatoryList.isEmpty())
 	    return new Input[0];
 
-	return (Input[]) l.toArray(new Input[l.size()]);
+	return (Input[]) mandatoryList.toArray(new Input[mandatoryList.size()]);
     }
 
     /**
@@ -214,15 +219,31 @@ public class Submit extends FormControl {
      *         is ready to be submitted.
      */
     public Input getMissingInputControl() {
-	if (l == null)
+	if (mandatoryList == null)
 	    return null;
 
-	for (Iterator i = l.iterator(); i.hasNext();) {
+	for (Iterator i = mandatoryList.iterator(); i.hasNext();) {
 	    Input in = (Input) i.next();
 	    if (!in.checkSubmission())
 		return in;
 	}
 	return null;
+    }
+    
+    /**
+     * Same as {@link Submit#getMissingInputControl()} but returns ALL missing controls instead of the first one.
+     * @return a {@link Set} of {@link Input}s.
+     */
+    public Set getMissingInputControls() {
+	if (mandatoryList == null)
+	    return null;
+	HashSet inputs = new HashSet();
+	for (Iterator i = mandatoryList.iterator(); i.hasNext();) {
+	    Input in = (Input) i.next();
+	    if (!in.checkSubmission())
+	    	inputs.add(in);
+	}
+	return inputs;
     }
 
     /**
@@ -238,14 +259,14 @@ public class Submit extends FormControl {
      * {@link SubdialogTrigger}.
      */
     public FormControl[] getRelatedControls() {
-	if (l == null || l.isEmpty())
+	if (mandatoryList == null || mandatoryList.isEmpty())
 	    return new FormControl[0];
 
 	// find the least common parent
-	Group[] superGroups = ((Input) l.get(0)).getSuperGroups();
+	Group[] superGroups = ((Input) mandatoryList.get(0)).getSuperGroups();
 	int lcpIndex = superGroups.length - 1;
-	for (int i = 1; i < l.size(); i++) {
-	    FormControl fc = (FormControl) l.get(i);
+	for (int i = 1; i < mandatoryList.size(); i++) {
+	    FormControl fc = (FormControl) mandatoryList.get(i);
 	    while (fc != null) {
 		fc = fc.getParentGroup();
 		for (int j = 0; j < lcpIndex; j++)
@@ -266,7 +287,7 @@ public class Submit extends FormControl {
      * of this submit.
      */
     public boolean hasMandatoryInput(Input fc) {
-	return l != null && l.contains(fc);
+	return mandatoryList != null && mandatoryList.contains(fc);
     }
 
     /**
@@ -300,20 +321,20 @@ public class Submit extends FormControl {
      */
     public boolean setProperty(String propURI, Object value) {
 	if (PROP_MANDATORY_INPUT.equals(propURI)) {
-	    if (l.isEmpty()) {
+	    if (mandatoryList.isEmpty()) {
 		if (value instanceof List) {
 		    boolean retVal = false;
 		    for (Iterator i = ((List) value).iterator(); i.hasNext();) {
 			value = i.next();
 			if (!(value instanceof Input)) {
-			    l.clear();
+			    mandatoryList.clear();
 			    return false;
 			} else
-			    retVal = l.add(value) || retVal;
+			    retVal = mandatoryList.add(value) || retVal;
 		    }
 		    return retVal;
 		} else if (value instanceof Input)
-		    return l.add(value);
+		    return mandatoryList.add(value);
 		else
 		    return false;
 	    }

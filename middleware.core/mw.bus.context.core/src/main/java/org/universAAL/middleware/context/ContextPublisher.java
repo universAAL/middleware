@@ -21,6 +21,7 @@ package org.universAAL.middleware.context;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.Publisher;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.context.owl.ContextProvider;
@@ -81,6 +82,8 @@ public abstract class ContextPublisher extends Publisher {
      * 
      * @param e
      *            The Context Event to forward
+     * @throws NullPointerException
+     *             if the event is null
      */
     public final void publish(ContextEvent e) {
 	if (e != null) {
@@ -88,15 +91,9 @@ public abstract class ContextPublisher extends Publisher {
 		e.setProvider(providerInfo);
 	    else if (providerInfo != e.getProvider())
 		return;
-	    ((ContextBus) theBus).brokerContextEvent(busResourceURI, e);
+	    if (AccessControl.INSTANCE.checkPermission(owner, getURI(), e))
+		((ContextBus) theBus).brokerContextEvent(busResourceURI, e);
 	}
-    }
-
-    /**
-     * Unregisters the Publisher from the Context bus.
-     */
-    public void close() {
-	theBus.unregister(busResourceURI, this);
     }
 
     public String getMyID() {

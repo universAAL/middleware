@@ -242,9 +242,22 @@ public class Resource {
 	if (members == null || members.isEmpty())
 	    return new Resource(RDF_EMPTY_LIST, isXMLLiteral);
 	Resource result = new Resource(isXMLLiteral);
-	result.addType(TYPE_RDF_LIST, true);
-	result.props.put(PROP_RDF_FIRST, members.remove(0));
-	result.props.put(PROP_RDF_REST, members);
+
+	Resource tmp = result;
+	Resource tmp2 = tmp;
+	for (Object o : members) {
+	    tmp.addType(TYPE_RDF_LIST, true);
+	    tmp.props.put(PROP_RDF_FIRST, o);
+
+	    tmp2 = tmp;
+	    tmp = new Resource();
+	    tmp2.props.put(PROP_RDF_REST, tmp);
+	}
+
+	tmp = new Resource(RDF_EMPTY_LIST);
+	// tmp.addType(TYPE_RDF_LIST, true);
+
+	tmp2.props.put(PROP_RDF_REST, tmp);
 	return result;
     }
 
@@ -330,6 +343,9 @@ public class Resource {
      * @return The list containing the elements of this RDF list.
      */
     public List asList() {
+	if (RDF_EMPTY_LIST.equals(uri)) {
+	    return new ArrayList();
+	}
 	String type = getType();
 	if (type == null || !type.equals(TYPE_RDF_LIST))
 	    return null;
@@ -346,7 +362,7 @@ public class Resource {
      *            The list to store the elements of this RDF list.
      */
     public void asList(List l) {
-	if (!uri.equals(RDF_EMPTY_LIST)) {
+	if (!RDF_EMPTY_LIST.equals(uri)) {
 	    Object o = props.get(PROP_RDF_FIRST);
 	    if (o != null) {
 		l.add(o);
@@ -357,26 +373,7 @@ public class Resource {
 			((Resource) o).asList(l);
 		    else {
 			if (!RDF_EMPTY_LIST.equals(((Resource) o).getURI())) {
-			    LogUtils
-				    .logDebug(
-					    SharedResources.moduleContext,
-					    Resource.class,
-					    "asList",
-					    new Object[] {
-						    "The resource ",
-						    getURI(),
-						    " is of type rdf:list and it defines another element with rdf:rest,"
-							    + " but the rdf:rest is neither rdf:nil nor another rdf:list."
-							    + " The rdf:rest is not further taken into account." },
-					    null);
-			}
-		    }
-		} else if (o instanceof List) {
-		    // the rest is already a list object
-		    l.addAll((List) o);
-		} else {
-		    LogUtils
-			    .logDebug(
+			    LogUtils.logDebug(
 				    SharedResources.moduleContext,
 				    Resource.class,
 				    "asList",
@@ -384,19 +381,35 @@ public class Resource {
 					    "The resource ",
 					    getURI(),
 					    " is of type rdf:list and it defines another element with rdf:rest,"
-						    + " but the rdf:rest is neither rdf:nil nor another rdf:list nor a List."
+						    + " but the rdf:rest is neither rdf:nil nor another rdf:list."
 						    + " The rdf:rest is not further taken into account." },
 				    null);
+			}
+		    }
+		} else if (o instanceof List) {
+		    // the rest is already a list object
+		    l.addAll((List) o);
+		} else {
+		    LogUtils.logDebug(
+			    SharedResources.moduleContext,
+			    Resource.class,
+			    "asList",
+			    new Object[] {
+				    "The resource ",
+				    getURI(),
+				    " is of type rdf:list and it defines another element with rdf:rest,"
+					    + " but the rdf:rest is neither rdf:nil nor another rdf:list nor a List."
+					    + " The rdf:rest is not further taken into account." },
+			    null);
 		}
 	    } else {
-		LogUtils
-			.logDebug(
-				SharedResources.moduleContext,
-				Resource.class,
-				"asList",
-				new Object[] { "The resource ", getURI(),
-					" is of type rdf:list, but it does not define a rdf:first property." },
-				null);
+		LogUtils.logDebug(
+			SharedResources.moduleContext,
+			Resource.class,
+			"asList",
+			new Object[] { "The resource ", getURI(),
+				" is of type rdf:list, but it does not define a rdf:first property." },
+			null);
 	    }
 	}
     }
@@ -438,7 +451,9 @@ public class Resource {
      * @see #copyAsNonXMLLiteral()
      */
     public Resource copy(boolean isXMLLiteral) {
-	Resource copy = new Resource(uri, isXMLLiteral);
+	Resource copy = Resource.getResource(getType(), uri);
+	if (copy == null)
+	    copy = new Resource(uri, isXMLLiteral);
 	for (Enumeration e = props.keys(); e.hasMoreElements();) {
 	    Object key = e.nextElement();
 	    copy.props.put(key, props.get(key));
@@ -768,19 +783,30 @@ public class Resource {
      * property should be serialized using the concept of rdf:List or the
      * property should appear as often as the number of values assigned to the
      * property. The default behavior is that a property associated with an
-     * instance of {@link java.util.List} is assumed to be a closed collection.
+     * instance of {@link java.util.List} is assumed to be a closed collection
+     * (unless it is specifically an instance of {@link OpenCollection}).
      * Subclasses can change this, if needed.
      */
-    // TODO: update Javadoc
     public boolean isClosedCollection(String propURI) {
 	if (propURI == null || PROP_RDF_TYPE.equals(propURI))
 	    return false;
 
 	Object o = props.get(propURI);
-	if (o instanceof ClosedCollection)
-	    return true;
+	if (o instanceof OpenCollection)
+	    return false;
 
-	return false;
+	return o instanceof List;
+    }
+
+    /**
+     * Determines whether this Resource does not allow to add new type
+     * information.
+     * 
+     * @return true, if this Resource does not allow to add new type
+     *         information.
+     */
+    public boolean isBlockingAddingTypes() {
+	return blockAddingTypes;
     }
 
     /**
@@ -837,15 +863,31 @@ public class Resource {
      *            The String to add.
      */
     public void addMultiLangProp(String propURI, LangString ls) {
-	// TODO: should we check if the language already exists?
 	if (propURI == null || ls == null)
-	    return; // TODO: a log entry?
+	    throw new NullPointerException();
 
 	Object o = getProperty(propURI);
+	if (o instanceof LangString) {
+	    if (((LangString) o).getLang().equals(ls.getLang())) {
+		// same language, we do nothing
+		return;
+	    }
+	}
+
 	List l;
-	if (o instanceof List)
+	if (o instanceof List) {
 	    l = (List) o;
-	else {
+
+	    // test if the list already contains this language
+	    for (Object el : l) {
+		if (el instanceof LangString) {
+		    if (((LangString) el).getLang().equals(ls.getLang())) {
+			// found an element with the same language -> do nothing
+			return;
+		    }
+		}
+	    }
+	} else {
 	    l = new ArrayList();
 	    if (o != null)
 		l.add(o);
@@ -872,7 +914,7 @@ public class Resource {
     public LangString getMultiLangProp(String propURI, String lang,
 	    boolean includeDefault) {
 	if (propURI == null || lang == null)
-	    return null; // TODO: a log entry?
+	    throw new NullPointerException();
 
 	Object o = getProperty(propURI);
 	if (o == null)
@@ -1084,7 +1126,7 @@ public class Resource {
 	    s += prefix;
 	s += this.getClass().getName() + "\n";
 	prefix += "  ";
-	s += prefix + "URI: " + getURI();
+	s += prefix + "URI: " + getURI() + "  isXMLLiteral: " + isXMLLiteral;
 
 	Resource visited = (Resource) visitedElements.get(this);
 	if (visited != null) {
@@ -1109,7 +1151,7 @@ public class Resource {
 		s += ((Resource) val).toStringRecursive(prefix + "    ", false,
 			visitedElements);
 	    else if (val instanceof List) {
-		s += "List" + "\n";
+		s += "List (size: " + ((List) val).size() + ")\n";
 		// for (Object o : (List)val) {
 		Iterator iter = ((List) val).iterator();
 		while (iter.hasNext()) {
@@ -1117,11 +1159,15 @@ public class Resource {
 		    if (o instanceof Resource)
 			s += ((Resource) o).toStringRecursive(
 				prefix + "      ", true, visitedElements);
-		    else
-			// TODO: this is most likely a literal, so do the same
-			// as below
-			s += prefix + "      " + "unknown: "
-				+ o.getClass().getName() + "\n";
+		    else {
+			String type = TypeMapper.getDatatypeURI(o);
+			if (type == null)
+			    s += prefix + "      unknown: "
+				    + o.getClass().getName() + "\n";
+			else
+			    s += prefix + "      Literal: " + type + " " + o
+				    + "\n";
+		    }
 		}
 	    } else {
 		String type = TypeMapper.getDatatypeURI(val);
@@ -1137,5 +1183,10 @@ public class Resource {
     /** Make this object not being an XMLLiteral */
     public void unliteral() {
 	isXMLLiteral = false;
+    }
+
+    /** Make this object an XMLLiteral */
+    public void literal() {
+	isXMLLiteral = true;
     }
 }

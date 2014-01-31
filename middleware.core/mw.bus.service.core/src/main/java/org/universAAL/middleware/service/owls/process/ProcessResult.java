@@ -20,7 +20,7 @@
 package org.universAAL.middleware.service.owls.process;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -31,7 +31,6 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
-import org.universAAL.middleware.service.owl.Service;
 
 /**
  * This class represents ProcessResult of OWL-S -
@@ -62,7 +61,7 @@ public class ProcessResult extends FinalizedResource {
      * @return true iff the process effects match
      */
     public static boolean checkEffects(Resource[] req, Resource[] offer,
-	    Hashtable context) {
+	    HashMap context) {
 	return checkEffects(req, offer, context, null);
     }
 
@@ -81,27 +80,26 @@ public class ProcessResult extends FinalizedResource {
      * @return true iff the process effects match
      */
     public static boolean checkEffects(Resource[] req, Resource[] offer,
-	    Hashtable context, Long logID) {
+	    HashMap context, Long logID) {
 	if (req == null || req.length == 0) {
 	    if (offer == null || offer.length == 0)
 		return true;
 	    else {
 		if (logID != null)
-		    LogUtils
-			    .logTrace(
-				    ServiceBusImpl.getModuleContext(),
-				    ProcessResult.class,
-				    "checkEffects",
-				    new Object[] {
-					    ServiceBus.LOG_MATCHING_MISMATCH,
-					    "offered effect not requested",
-					    "\nnumber of offered effects: ",
-					    Integer.valueOf(offer.length),
-					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-					    Integer.valueOf(1010),
-					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    "Some effects are provided by the service, but the service request does not contain any effect.",
-					    logID }, null);
+		    LogUtils.logTrace(
+			    ServiceBusImpl.getModuleContext(),
+			    ProcessResult.class,
+			    "checkEffects",
+			    new Object[] {
+				    ServiceBus.LOG_MATCHING_MISMATCH,
+				    "offered effect not requested",
+				    "\nnumber of offered effects: ",
+				    Integer.valueOf(offer.length),
+				    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+				    Integer.valueOf(1010),
+				    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+				    "Some effects are provided by the service, but the service request does not contain any effect.",
+				    logID }, null);
 		return false;
 	    }
 	}
@@ -109,39 +107,37 @@ public class ProcessResult extends FinalizedResource {
 	if (offer == null || offer.length != req.length) {
 	    if (logID != null) {
 		if (offer == null)
-		    LogUtils
-			    .logTrace(
-				    ServiceBusImpl.getModuleContext(),
-				    ProcessResult.class,
-				    "checkEffects",
-				    new Object[] {
-					    ServiceBus.LOG_MATCHING_MISMATCH,
-					    "requested effect not offered",
-					    "\nnumber of requested effects: ",
-					    Integer.valueOf(req.length),
-					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-					    Integer.valueOf(1011),
-					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    "The service request requires some effects, but the service does not offer any effects.",
-					    logID }, null);
+		    LogUtils.logTrace(
+			    ServiceBusImpl.getModuleContext(),
+			    ProcessResult.class,
+			    "checkEffects",
+			    new Object[] {
+				    ServiceBus.LOG_MATCHING_MISMATCH,
+				    "requested effect not offered",
+				    "\nnumber of requested effects: ",
+				    Integer.valueOf(req.length),
+				    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+				    Integer.valueOf(1011),
+				    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+				    "The service request requires some effects, but the service does not offer any effects.",
+				    logID }, null);
 		else
-		    LogUtils
-			    .logTrace(
-				    ServiceBusImpl.getModuleContext(),
-				    ProcessResult.class,
-				    "checkEffects",
-				    new Object[] {
-					    ServiceBus.LOG_MATCHING_MISMATCH,
-					    "number of effects do not match",
-					    "\nnumber of requested effects: ",
-					    Integer.valueOf(req.length),
-					    "\nnumber of offered effects: ",
-					    Integer.valueOf(offer.length),
-					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-					    Integer.valueOf(1012),
-					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    "The service request requires some effects, but the service does not offer these effects. The criteria for a match is the number of effects.",
-					    logID }, null);
+		    LogUtils.logTrace(
+			    ServiceBusImpl.getModuleContext(),
+			    ProcessResult.class,
+			    "checkEffects",
+			    new Object[] {
+				    ServiceBus.LOG_MATCHING_MISMATCH,
+				    "number of effects do not match",
+				    "\nnumber of requested effects: ",
+				    Integer.valueOf(req.length),
+				    "\nnumber of offered effects: ",
+				    Integer.valueOf(offer.length),
+				    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+				    Integer.valueOf(1012),
+				    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+				    "The service request requires some effects, but the service does not offer these effects. The criteria for a match is the number of effects.",
+				    logID }, null);
 	    }
 	    return false;
 	}
@@ -149,21 +145,20 @@ public class ProcessResult extends FinalizedResource {
 	for (int i = 0; i < req.length; i++) {
 	    if (!ProcessEffect.findMatchingEffect(req[i], offer, context)) {
 		if (logID != null)
-		    LogUtils
-			    .logTrace(
-				    ServiceBusImpl.getModuleContext(),
-				    ProcessResult.class,
-				    "checkEffects",
-				    new Object[] {
-					    ServiceBus.LOG_MATCHING_MISMATCH,
-					    "requested effect not offered",
-					    "\nrequested effect: ",
-					    req[i],
-					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-					    Integer.valueOf(1013),
-					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    "At least one of the requested effects is not offered by the service.",
-					    logID }, null);
+		    LogUtils.logTrace(
+			    ServiceBusImpl.getModuleContext(),
+			    ProcessResult.class,
+			    "checkEffects",
+			    new Object[] {
+				    ServiceBus.LOG_MATCHING_MISMATCH,
+				    "requested effect not offered",
+				    "\nrequested effect: ",
+				    req[i],
+				    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+				    Integer.valueOf(1013),
+				    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+				    "At least one of the requested effects is not offered by the service.",
+				    logID }, null);
 		return false;
 	    }
 	}
@@ -183,71 +178,49 @@ public class ProcessResult extends FinalizedResource {
      * @return true iff the output bindings match
      */
     public static boolean checkOutputBindings(Resource[] req, Resource[] offer,
-	    Hashtable context) {
-	return checkOutputBindings(req, offer, context, null, null);
-    }
-
-    /**
-     * Verify that the output bindings of offers match the ones of requests
-     * according to the context
-     * 
-     * @param req
-     *            - a list of requests
-     * @param offer
-     *            - a list of offers
-     * @param context
-     *            - the context
-     * @param logID
-     *            - an id to be used for logging, may be null
-     * @return true iff the output bindings match
-     */
-    public static boolean checkOutputBindings(Resource[] req, Resource[] offer,
-	    Hashtable context, Service requestedService, Long logID) {
+	    HashMap context, Long logID) {
 
 	if (req == null || req.length == 0)
 	    return true;
 	if (offer == null || offer.length == 0) {
 	    if (logID != null)
-		LogUtils
-			.logTrace(
-				ServiceBusImpl.getModuleContext(),
-				ProcessResult.class,
-				"checkOutputBindings",
-				new Object[] {
-					ServiceBus.LOG_MATCHING_MISMATCH,
-					"requested output not available",
-					"\nnumber of requested outputs: ",
-					Integer.valueOf(req.length),
-					ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-					Integer.valueOf(1000),
-					ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					"Some outputs are required by the service request but the service does not provide any outputs.",
-					logID }, null);
+		LogUtils.logTrace(
+			ServiceBusImpl.getModuleContext(),
+			ProcessResult.class,
+			"checkOutputBindings",
+			new Object[] {
+				ServiceBus.LOG_MATCHING_MISMATCH,
+				"requested output not available",
+				"\nnumber of requested outputs: ",
+				Integer.valueOf(req.length),
+				ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+				Integer.valueOf(1000),
+				ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+				"Some outputs are required by the service request but the service does not provide any outputs.",
+				logID }, null);
 	    return false;
 	}
 	for (int i = 0; i < req.length; i++) {
-	    if (!OutputBinding.findMatchingBinding(req[i], offer, context,
-		    requestedService)) {
+	    if (!OutputBinding.findMatchingBinding(req[i], offer, context)) {
 		if (logID != null) {
-		    LogUtils
-			    .logTrace(
-				    ServiceBusImpl.getModuleContext(),
-				    ProcessResult.class,
-				    "checkOutputBindings",
-				    new Object[] {
-					    ServiceBus.LOG_MATCHING_MISMATCH,
-					    "requested output not available",
-					    "\nrequested output is bound to parameter: ",
-					    ((ProcessOutput) req[i]
-						    .getProperty(OutputBinding.PROP_OWLS_BINDING_TO_PARAM))
-						    .getURI(),
-					    "\nindex of requested output: ",
-					    Integer.valueOf(i),
-					    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-					    Integer.valueOf(1001),
-					    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-					    "An output is required by the service request but the service does not provide this specific output.",
-					    logID }, null);
+		    LogUtils.logTrace(
+			    ServiceBusImpl.getModuleContext(),
+			    ProcessResult.class,
+			    "checkOutputBindings",
+			    new Object[] {
+				    ServiceBus.LOG_MATCHING_MISMATCH,
+				    "requested output not available",
+				    "\nrequested output is bound to parameter: ",
+				    ((ProcessOutput) req[i]
+					    .getProperty(OutputBinding.PROP_OWLS_BINDING_TO_PARAM))
+					    .getURI(),
+				    "\nindex of requested output: ",
+				    Integer.valueOf(i),
+				    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
+				    Integer.valueOf(1001),
+				    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
+				    "An output is required by the service request but the service does not provide this specific output.",
+				    logID }, null);
 		    return false;
 		}
 	    }

@@ -19,12 +19,13 @@
  */
 package org.universAAL.middleware.owl;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.rdf.Variable;
+import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * Implementation of XSD Value Restrictions: it contains all values (literals or
@@ -223,7 +224,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     }
 
     private Comparable resolveVarByGreaterEqual(Variable v,
-	    Comparable lowerbound, boolean canBeEqual, Hashtable context) {
+	    Comparable lowerbound, boolean canBeEqual, HashMap context) {
 	Comparable resolution = canBeEqual ? lowerbound : getNext(lowerbound);
 	// consider that we might fail because getNext() does not work always
 	if (resolution != null)
@@ -233,7 +234,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     }
 
     private Comparable resolveVarByLessEqual(Variable v, Comparable upperbound,
-	    boolean canBeEqual, Hashtable context) {
+	    boolean canBeEqual, HashMap context) {
 	Comparable resolution = canBeEqual ? upperbound
 		: getPrevious(upperbound);
 	// consider that we might fail because getPrevious() does not work
@@ -244,11 +245,10 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return resolution;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      Hashtable)
-     */
-    public boolean hasMember(Object member, Hashtable context) {
+    public boolean hasMember(Object member, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	// ttl =
+	checkTTL(ttl);
 	if (member == null)
 	    return true;
 
@@ -298,20 +298,19 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	// add more than one condition
 	// => we'd better clone the context and manipulate only the clone until
 	// we are sure that the conditions will lead to a match
-	Hashtable cloned = (context == null) ? null : (Hashtable) context
-		.clone();
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 
 	// check the conditions; this means:
 	//
 	// a) "valueToCheck < upperBound" must hold in order for the 'member' to
 	// .. be a member of this BoundingValueRestriction
-	// 
+	//
 	// b) "valueToCheck == upperBound" is also valid, if
 	// .. "maxInclusive == true"
 	//
 	// c) "valueToCheck > lowerBound" must hold in order for the 'member' to
 	// .. be a member of this BoundingValueRestriction
-	// 
+	//
 	// d) "valueToCheck == lowerBound" is also valid, if
 	// .. "minInclusive == true"
 	//
@@ -395,24 +394,30 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 			    .compareTo(upperBound) == 0))
 		// one of the conditions 'a)' / 'b)' does not hold
 		return false;
-	} else if (((Comparable) valueToCheck).compareTo(upperBound) > 0
-		|| (!maxInclusive && ((Comparable) valueToCheck)
-			.compareTo(upperBound) == 0)
-		|| ((Comparable) valueToCheck).compareTo(lowerBound) < 0
-		|| (!minInclusive && ((Comparable) valueToCheck)
-			.compareTo(lowerBound) == 0))
-	    // one of the conditions 'a)' / 'b)' / 'c)' / 'd)' does not hold
-	    return false;
+	} else {
+	    try {
+		if (((Comparable) valueToCheck).compareTo(upperBound) > 0
+			|| (!maxInclusive && ((Comparable) valueToCheck)
+				.compareTo(upperBound) == 0)
+			|| ((Comparable) valueToCheck).compareTo(lowerBound) < 0
+			|| (!minInclusive && ((Comparable) valueToCheck)
+				.compareTo(lowerBound) == 0))
+		    // one of the conditions 'a)' / 'b)' / 'c)' / 'd)' does not
+		    // hold
+		    return false;
+	    } catch (ClassCastException e) {
+		return false;
+	    }
+	}
 
 	synchronize(context, cloned);
 	return true;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean isDisjointWith(TypeExpression other, Hashtable context) {
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List<MatchLogEntry> log) {
+	// ttl =
+	checkTTL(ttl);
 	if (other instanceof BoundedValueRestriction) {
 
 	    boolean min1Incl = minInclusive;
@@ -439,16 +444,14 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return restrictions.size() > 0;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      Hashtable)
-     */
-    public boolean matches(TypeExpression subset, Hashtable context) {
+    public boolean matches(TypeExpression subset, HashMap context, int ttl,
+	    List<MatchLogEntry> log) {
+	// ttl =
+	checkTTL(ttl);
 	// TODO: check other ClassExpressions (e.g. Union..)
 
 	if (subset instanceof BoundedValueRestriction) {
@@ -456,7 +459,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	    if (!isWellFormed() || !other.isWellFormed())
 		return false;
 
-	    Hashtable cloned = (context == null) ? null : (Hashtable) context
+	    HashMap cloned = (context == null) ? null : (HashMap) context
 		    .clone();
 
 	    // --- max value ---

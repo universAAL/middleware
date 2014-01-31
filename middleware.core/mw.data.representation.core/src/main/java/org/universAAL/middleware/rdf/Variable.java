@@ -20,7 +20,7 @@
 package org.universAAL.middleware.rdf;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 /**
  * Super class for OWL-S Support of Process Parameters.
@@ -121,12 +121,12 @@ public abstract class Variable extends FinalizedResource {
 	    varClasses.add(clz);
     }
 
-    public static Object resolveVarRef(Object o, Hashtable context) {
+    public static Object resolveVarRef(Object o, HashMap context) {
 	try {
 	    Object aux;
 	    for (int i = 0; i < varClasses.size(); i++) {
 		aux = ((Class) varClasses.get(i)).getMethod("resolveVarRef",
-			new Class[] { Object.class, Hashtable.class }).invoke(
+			new Class[] { Object.class, HashMap.class }).invoke(
 			null, new Object[] { o, context });
 		if (aux != o)
 		    return aux;

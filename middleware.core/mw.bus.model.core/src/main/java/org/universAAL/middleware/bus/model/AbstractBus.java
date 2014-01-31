@@ -27,7 +27,8 @@ import org.universAAL.middleware.bus.model.util.IRegistry;
 import org.universAAL.middleware.bus.model.util.IRegistryListener;
 import org.universAAL.middleware.bus.model.util.RegistryMap;
 import org.universAAL.middleware.bus.msg.BusMessage;
-import org.universAAL.middleware.connectors.exception.CommunicationConnectorException;
+import org.universAAL.middleware.bus.permission.AccessControl;
+import org.universAAL.middleware.bus.permission.Permission;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -114,6 +115,9 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	}
 	myContext = mc;
 	
+	AccessControl.INSTANCE.init(mc);
+	Permission.init(mc);
+
 	aalSpaceManager = aalSpaceMgr;
 	communicationModule = commModule;
 	// configure the MW's URI instance
@@ -188,10 +192,19 @@ public abstract class AbstractBus implements Broker, MessageListener {
     protected ModuleContext context;
     protected IRegistry registry;
     protected BusStrategy busStrategy;
+    private String brokerName;
 
-    protected AbstractBus(ModuleContext module) {
+    protected AbstractBus(ModuleContext module, String brokerName) {
 	context = module;
+	this.brokerName = brokerName;
+	if (communicationModule != null)
 	communicationModule.addMessageListener(this, getBrokerName());
+	else
+	    LogUtils.logDebug(
+		    myContext,
+		    AbstractBus.class,
+		    "AbstractBus",
+		    "Could not add Message Listener to Communication Module because Communication Module is null");
 	busStrategy = createBusStrategy(communicationModule);
 	registry = createRegistry();
 	busStrategy.start(module);
@@ -361,7 +374,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
     }
 
     public String getBrokerName() {
-	return context.getID();
+	return brokerName;
     }
 
     public String getURI() {

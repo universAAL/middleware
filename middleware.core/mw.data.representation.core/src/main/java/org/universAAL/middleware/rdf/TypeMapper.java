@@ -50,7 +50,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  * @author mfreddi
  * @author Carsten Stockloew
  */
-public class TypeMapper {
+public final class TypeMapper {
 
     /** xsd namespace. */
     public static final String XSD_NAMESPACE = XMLConstants.W3C_XML_SCHEMA_NS_URI
@@ -155,6 +155,8 @@ public class TypeMapper {
      *         XSD type.
      */
     public static String[] getXMLInstance(Object o) {
+	if (o == null)
+	    return null;
 
 	if (o instanceof Locale) {
 	    Locale l = (Locale) o;

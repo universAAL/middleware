@@ -19,23 +19,16 @@
  */
 package org.universAAL.middleware.service.impl;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
-import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.owl.PropertyRestriction;
-import org.universAAL.middleware.owl.TypeExpression;
-import org.universAAL.middleware.owl.Intersection;
-import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.supply.Rating;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.aapi.AapiServiceRequest;
-import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
-import org.universAAL.middleware.service.owls.process.ProcessResult;
 import org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.util.Constants;
@@ -97,7 +90,7 @@ public class ServiceRealization extends FinalizedResource {
      * @param context
      *            - the hashtable to add properties
      */
-    private void addAggregatedProperties(Hashtable context) {
+    private void addAggregatedProperties(HashMap context) {
 	if (context == null)
 	    return;
 
@@ -128,8 +121,7 @@ public class ServiceRealization extends FinalizedResource {
 		    new Integer(t));
 	t = getNumberOfResponseTimeMeasurements();
 	if (t > 0)
-	    context
-		    .put(
+	    context.put(
 			    ServiceProfile.PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS,
 			    new Integer(t));
     }
@@ -179,7 +171,7 @@ public class ServiceRealization extends FinalizedResource {
      * 
      * @return true iff the operation was successful
      */
-    public boolean assertServiceCall(Hashtable context) {
+    public boolean assertServiceCall(HashMap context) {
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	if (prof == null)
 	    return false;
@@ -209,7 +201,7 @@ public class ServiceRealization extends FinalizedResource {
 	}
 	context.put(uAAL_ASSERTED_SERVICE_CALL, result);
 	// NON_SEMANTIC_INPUT:
-	// if ServiceRequest contains non-semantic input than it has to be
+	// if ServiceRequest contains non-semantic input then it has to be
 	// propagated to ServiceCall.
 	if (context.containsKey(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT)) {
 	    result.addNonSemanticInput((Hashtable) context
@@ -347,284 +339,20 @@ public class ServiceRealization extends FinalizedResource {
      *            - an id to be used for logging, may be null
      * @return true, if the service request matches.
      */
-    public boolean matches(ServiceRequest request, Hashtable context, Long logID) {
+    public boolean matches(ServiceRequest request, HashMap context, Long logID) {
 	if (request == null)
 	    return true;
-
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	if (prof == null)
 	    return false;
 
-	Service requestedService = request.getRequestedService();
-	if (requestedService == null)
-	    return true;
-
-	Service offer = prof.getTheService();
-	if (offer == null
-		|| !Service.checkMembership(requestedService.getClassURI(),
-			offer))
-	    return false;
-	/*
-	 * By checking the membership of offer in requestedServiceClass two
-	 * lines before, the compatibility of offer with the request at hand is
-	 * guaranteed => we do not need to check class level restrictions.
-	 * 
-	 * String[] props = requestedService.getRestrictedPropsOnClassLevel();
-	 * if (props != null && props.length > 0) { for (int i=0;
-	 * i<props.length; i++) { Restriction r =
-	 * Service.getClassRestrictionsOnProperty(requestedServiceClass,
-	 * props[i]); if (r != null) {
-	 * 
-	 * } } }
-	 */
+	ServiceWrapper superset = ServiceWrapper.create(request);
+	ServiceWrapper subset = ServiceWrapper.create(prof);
 
 	addAggregatedProperties(context);
-	// for checking later if the concrete values provided by the requester
-	// are really used as input
-	// this captures cases where, e.g., both getCalenderEvents(user) and
-	// getCalenderEvent(user, eventID)
-	// have no effects and return objects of the same type
-	// TODO: the better solution is to allow complex output bindings that
-	// state how the outputs are
-	// filtered by specifying a chain of restrictions (in addition to simple
-	// output bindings that
-	// only specify the corresponding property path)
-	int expectedSize = context.size()
-		+ requestedService.getNumberOfValueRestrictions();
 
-	String[] restrProps = requestedService
-		.getRestrictedPropsOnInstanceLevel();
-	if (restrProps != null && restrProps.length > 0) {
-	    for (int i = 0; i < restrProps.length; i++) {
-		// request instance level restrictions
-		TypeExpression reqRestr = requestedService
-			.getInstanceLevelRestrictionOnProp(restrProps[i]);
-
-		// offer instance level restrictions
-		TypeExpression offInsRestr = offer
-			.getInstanceLevelRestrictionOnProp(restrProps[i]);
-
-		// offer class level restrictions
-		TypeExpression offClsRestr = Service
-			.getClassRestrictionsOnProperty(offer.getClassURI(),
-				restrProps[i]);
-
-		if (!(reqRestr instanceof MergedRestriction)) {
-		    // makes no sense, because 'restrProps' must have instance
-		    // level restrictions
-		    continue;
+	return new ServiceMatcher().matches(superset, subset, context, logID);
 		}
-
-		if (offInsRestr == null)
-		    if (offClsRestr == null) {
-			// only in case of restrictions on the service profile,
-			// we may still proceed
-			if (!Service.PROP_OWLS_PRESENTS.equals(restrProps[i]))
-			    return false;
-			reqRestr = (TypeExpression) ((MergedRestriction) reqRestr)
-				.getConstraint(MergedRestriction.allValuesFromID);
-			if (reqRestr instanceof PropertyRestriction) {
-			    restrProps[i] = ((PropertyRestriction) reqRestr)
-				    .getOnProperty();
-			    if (restrProps[i] == null)
-				// strange!
-				continue;
-			    // some properties of service profiles are managed
-			    // by the middleware
-			    Object o = context.get(restrProps[i]);
-			    if (o == null)
-				// then, it relates to those properties set by
-				// the provider
-				o = prof.getProperty(restrProps[i]);
-			    if (o == null || !reqRestr.hasMember(o, context))
-				return false;
-			} else if (reqRestr instanceof Intersection)
-			    for (Iterator j = ((Intersection) reqRestr).types(); j
-				    .hasNext();) {
-				// the same as above, only this time in a loop
-				// over all members of the intersection
-				reqRestr = (TypeExpression) j.next();
-				if (reqRestr instanceof PropertyRestriction) {
-				    restrProps[i] = ((PropertyRestriction) reqRestr)
-					    .getOnProperty();
-				    if (restrProps[i] == null)
-					// strange!
-					continue;
-				    Object o = context.get(restrProps[i]);
-				    if (o == null)
-					o = prof.getProperty(restrProps[i]);
-				    if (o == null
-					    || !reqRestr.hasMember(o, context))
-					return false;
-				}
-			    }
-			else
-			    // strange!
-			    continue;
-			// we are done with this property
-			continue;
-		    } else {
-			// offInsRestr == null && offClsRestr != null
-
-			if (reqRestr.matches(offClsRestr, context))
-			    // tag the context that the offer restrictions are a
-			    // subtype of request restrictions
-			    // because the other way around, it is not
-			    // guaranteed that the service call will be
-			    // successful
-			    context
-				    .put(
-					    ServiceStrategy.CONTEXT_SPECIALIZED_CLASS_MATCH,
-					    Boolean.TRUE);
-			else if (!offClsRestr.matches(reqRestr, context)) {
-			    if (logID != null)
-				LogUtils
-					.logTrace(
-						ServiceBusImpl
-							.getModuleContext(),
-						ServiceRealization.class,
-						"matches",
-						new Object[] {
-							ServiceBus.LOG_MATCHING_MISMATCH,
-							"no subset relationship for restricted property",
-							"\nrestricted property: ",
-							restrProps[i],
-							ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-							Integer.valueOf(1020),
-							ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-							" A property is restricted in the request.  The service offer has class level restrictions, but no instance level restrictions."
-								+ " Neither the request is a subset of the offer nor the offer a subset of the request.",
-							logID }, null);
-			    return false;
-			}
-		    }
-		else {
-		    // offInsRestr != null, offClsRestr unknown
-
-		    if (reqRestr.matches(offInsRestr, context))
-			// tag the context that the offer restrictions are a
-			// subtype of request restrictions
-			// because the other way around, it is not guaranteed
-			// that the service call will be successful
-			context
-				.put(
-					ServiceStrategy.CONTEXT_SPECIALIZED_INSTANCE_MATCH,
-					Boolean.TRUE);
-		    else if (!offInsRestr.matches(reqRestr, context)) {
-			if (logID != null)
-			    LogUtils
-				    .logTrace(
-					    ServiceBusImpl.getModuleContext(),
-					    ServiceRealization.class,
-					    "matches",
-					    new Object[] {
-						    ServiceBus.LOG_MATCHING_MISMATCH,
-						    "no subset relationship for restricted property",
-						    "\nrestricted property: ",
-						    restrProps[i],
-						    ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-						    Integer.valueOf(1021),
-						    ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-						    " A property is restricted in the request. The service offer has instance level restrictions."
-							    + " Neither the request is a subset of the offer nor the offer a subset of the request.",
-						    logID }, null);
-			return false;
-		    }
-
-		    if (offClsRestr != null)
-			// offInsRestr != null && offClsRestr != null
-
-			if (reqRestr.matches(offClsRestr, context))
-			    // tag the context that the offer restrictions are a
-			    // subtype of request restrictions
-			    // because the other way around, it is not
-			    // guaranteed that the service call will be
-			    // successful
-			    context
-				    .put(
-					    ServiceStrategy.CONTEXT_SPECIALIZED_CLASS_MATCH,
-					    Boolean.TRUE);
-			else if (!offClsRestr.matches(reqRestr, context)) {
-			    if (logID != null)
-				LogUtils
-					.logTrace(
-						ServiceBusImpl
-							.getModuleContext(),
-						ServiceRealization.class,
-						"matches",
-						new Object[] {
-							ServiceBus.LOG_MATCHING_MISMATCH,
-							"no subset relationship for restricted property",
-							"\nrestricted property: ",
-							restrProps[i],
-							ServiceBus.LOG_MATCHING_MISMATCH_CODE,
-							Integer.valueOf(1022),
-							ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
-							" A property is restricted in the request.  The service offer has class level and instance level restrictions. The instance level restrictions have been checked already, but class level restriction do not match."
-								+ " Neither the request is a subset of the offer nor the offer a subset of the request.",
-							logID }, null);
-			    return false;
-			}
-		}
-	    }
-	}
-
-	if (context.size() < expectedSize)
-	    return false;
-
-	Hashtable cloned = (Hashtable) context.clone();
-
-	// check effects
-	if (!ProcessResult.checkEffects(request.getRequiredEffects(), prof
-		.getEffects(), cloned, logID))
-	    return false;
-
-	// check output bindings
-	if (!ProcessResult.checkOutputBindings(request.getRequiredOutputs(),
-		prof.getOutputBindings(), cloned, requestedService, logID))
-	    return false;
-
-	// synchronize the context for the effect and output bindings check
-	if (cloned.size() > context.size())
-	    for (Iterator i = cloned.keySet().iterator(); i.hasNext();) {
-		Object key = i.next();
-		if (!context.containsKey(key))
-		    context.put(key, cloned.get(key));
-	    }
-	// NON_SEMANTIC_INPUT:
-	// if service matches then non-semantic input has to be copied to the
-	// context
-	Hashtable nonSemanticInput = null;
-	try {
-	    if (request instanceof AapiServiceRequest) {
-		nonSemanticInput = ((AapiServiceRequest) request).getInput();
-	    }
-	} catch (Exception ex) {
-	    LogUtils
-		    .logDebug(
-			    ServiceBusImpl.getModuleContext(),
-			    ServiceRealization.class,
-			    "matches",
-			    new Object[] { "Exception occured when trying to get non-semantic parameters from AapiServiceRequest" },
-			    ex);
-	}
-	if (nonSemanticInput != null) {
-	    context.put(AapiServiceRequest.PROP_NON_SEMANTIC_INPUT,
-		    nonSemanticInput);
-	}
-	// uAAL_SERVICE_URI_MATCHED:
-	// if URI of offered service matches exactly URI specified in
-	// ServiceRequest then it is indicated in the context by means of
-	// uAAL_SERVICE_URI_MATCHED property.
-	String requestedServiceUri = requestedService.getURI();
-	String offeredURI = offer.getURI();
-	if (requestedServiceUri != null) {
-	    if (requestedServiceUri.equals(offeredURI)) {
-		context.put(uAAL_SERVICE_URI_MATCHED, Boolean.valueOf(true));
-	    }
-	}
-	return true;
-    }
 
     /**
      * Return true iff the string passed as a parameter matches this
@@ -640,8 +368,8 @@ public class ServiceRealization extends FinalizedResource {
 
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	return prof != null
-		&& matchStrings(word, prof.getServiceName(), prof
-			.getServiceDescription());
+		&& matchStrings(word, prof.getServiceName(),
+			prof.getServiceDescription());
     }
 
     /**

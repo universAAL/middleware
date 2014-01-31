@@ -20,14 +20,12 @@
 package org.universAAL.middleware.service.owls.profile;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.bus.model.matchable.Matchable;
-import org.universAAL.middleware.bus.model.matchable.Request;
-import org.universAAL.middleware.bus.model.matchable.Requirement;
 import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.owl.OntClassInfo;
@@ -36,7 +34,8 @@ import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.service.ServiceRequest;
+import org.universAAL.middleware.service.impl.ServiceMatcher;
+import org.universAAL.middleware.service.impl.ServiceWrapper;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
@@ -649,79 +648,21 @@ public class ServiceProfile extends FinalizedResource implements
      * Returns the de-serialized profile
      */
     public static ServiceProfile deserializeProfile(String turtleSP) {
-
 	Object o = BusMessage.deserializeAsContent(turtleSP);
 	return o instanceof ServiceProfile ? (ServiceProfile) o : null;
     }
 
     /**
-     * This method is called if the caller does not have any clue about what
-     * type the Matchables have. Therefore here must an implementation of
-     * matches(ServiceProfile) be given (as matching against another instance of
-     * the same type must always be possible).
-     * 
-     * @param other
-     *            the {@link Matchable} that this instance should be matched
-     *            against
-     * @return <tt>false</tt> if <tt>other</tt> is not an instance of
-     *         {@link ServiceProfile},
-     *         {@link #isMatchingServiceProfile(ServiceProfile)} else
+     * @see Matchable#matches(Matchable)
      */
     public boolean matches(Matchable other) {
-	if (other instanceof ServiceProfile) {
-	    return isMatchingServiceProfile((ServiceProfile) other);
-	} else {
+	if (!(other instanceof ServiceProfile))
 	    return false;
-	}
-    }
 
-    @SuppressWarnings("unchecked")
-    // TODO add a good matching algorithm
-    private boolean isMatchingServiceProfile(ServiceProfile other) {
-	boolean matches = true;
-	for (Object current : Collections.list(getPropertyURIs())) {
-	    String propertyURI = (String) current;
-	    Object thisProperty = getProperty(propertyURI);
-	    Object otherProperty = other.getProperty(propertyURI);
+	ServiceWrapper subset = ServiceWrapper.create((ServiceProfile) other);
+	ServiceWrapper superset = ServiceWrapper.create(this);
 
-	    if (!thisProperty.equals(otherProperty)) {
-		matches = false;
-	    }
-	}
-	return matches;
-    }
-
-    /**
-     * This method will only be called if d is not of type {@link Request}, so
-     * the {@link ServiceProfile} will never match it and <tt>false</tt> is
-     * returned.
-     * 
-     * @param d
-     *            the requirement to be matched against
-     * @return <tt>false</tt> as mentioned above
-     */
-    public boolean matches(Requirement d) {
-	return false;
-    }
-
-    /**
-     * Switches over the types of a possibly matching {@link Request}. Calls
-     * appropriate methods for the different types.
-     * 
-     * @param r
-     *            the request to be matched
-     * @return <tt>true</tt>, if the Request matches, <tt>false</tt> if not
-     */
-    public boolean matches(Request r) {
-	if (r instanceof ServiceRequest) {
-	    return isMatchingServiceRequest((ServiceRequest) r);
-	} else {
-	    return false;
-	}
-    }
-
-    private boolean isMatchingServiceRequest(ServiceRequest r) {
-	// TODO method not implemented
-	return false;
+	return new ServiceMatcher().matches(superset, subset, new HashMap(),
+		null);
     }
 }

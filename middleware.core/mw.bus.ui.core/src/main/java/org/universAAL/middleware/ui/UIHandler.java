@@ -26,12 +26,15 @@ import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Callee;
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
 import org.universAAL.middleware.ui.rdf.Form;
+import org.universAAL.middleware.ui.rdf.SubdialogTrigger;
+import org.universAAL.middleware.ui.rdf.Submit;
 
 /**
  * Provides the interface to be implemented by {@link UIHandler}s together with
@@ -58,6 +61,9 @@ public abstract class UIHandler extends Callee {
      *            the context
      * @param initialSubscription
      *            the initial subscription
+     * @throws NullPointerException
+     *             if initialSubscription is null or one of the elements of
+     *             that array is null
      */
     protected UIHandler(ModuleContext context,
 	    UIHandlerProfile initialSubscription) {
@@ -65,9 +71,12 @@ public abstract class UIHandler extends Callee {
 
 	this.realizedHandlerProfiles = new ArrayList<UIHandlerProfile>();
 	if (initialSubscription != null) {
-	    this.realizedHandlerProfiles.add(initialSubscription);
-	    ((IUIBus) theBus)
-		    .addNewProfile(busResourceURI, initialSubscription);
+	    if (AccessControl.INSTANCE.checkPermission(owner, getURI(),
+		    initialSubscription)) {
+		this.realizedHandlerProfiles.add(initialSubscription);
+		((IUIBus) theBus).addNewProfile(busResourceURI,
+			initialSubscription);
+	    }
 	}
     }
 
@@ -78,6 +87,9 @@ public abstract class UIHandler extends Callee {
      *            the context
      * @param initialSubscription
      *            the initial subscription
+     * @throws NullPointerException
+     *             if initialSubscriptions is null or one of the elements of
+     *             that array is null
      */
     protected UIHandler(ModuleContext context,
 	    UIHandlerProfile[] initialSubscriptions) {
@@ -85,6 +97,8 @@ public abstract class UIHandler extends Callee {
 
 	this.realizedHandlerProfiles = new ArrayList<UIHandlerProfile>();
 	if (initialSubscriptions != null) {
+	    initialSubscriptions = AccessControl.INSTANCE.checkPermission(
+		    owner, getURI(), initialSubscriptions);
 	    for (UIHandlerProfile profile : initialSubscriptions) {
 		this.realizedHandlerProfiles.add(profile);
 		((IUIBus) theBus).addNewProfile(busResourceURI, profile);
@@ -93,7 +107,8 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Adaptation parameters changed.
+     * Adaptation parameters changed. The Dialog must be redrawn 
+     * according to the new value of the changedProp.
      * 
      * @param dialogID
      *            the dialog id
@@ -110,10 +125,15 @@ public abstract class UIHandler extends Callee {
      * 
      * @param newSubscription
      *            the new subscription - as a {@link UIHandlerProfile}
+     * @throws NullPointerException
+     *             if newSubscription is null
      */
     public final void addNewRegParams(UIHandlerProfile newSubscription) {
-	((IUIBus) theBus).addNewProfile(busResourceURI, newSubscription);
-	this.realizedHandlerProfiles.add(newSubscription);
+	if (AccessControl.INSTANCE.checkPermission(owner, getURI(),
+		newSubscription)) {
+	    ((IUIBus) theBus).addNewProfile(busResourceURI, newSubscription);
+	    this.realizedHandlerProfiles.add(newSubscription);
+	}
     }
 
     /**
@@ -125,30 +145,28 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Unregisters the {@link UIHandler} from the {@link IUIBus}.
-     */
-    public void close() {
-	theBus.unregister(busResourceURI, this);
-    }
-
-    /**
      * Method to be called when the communication of the {@link UIHandler} with
-     * the {@link IUIBus} is lost.
+     * the {@link IDialogManager} is lost.
+     * All dialogs must be de-renderized (handlers may whant to inform the user about why
+     * de dialogs are being de-renderized).
+     * The bus will automatically resend all HandlerProfiles.
      */
     public abstract void communicationChannelBroken();
 
     /**
-     * Cut dialog.
+     * Cut dialog. The DM is requesting an IMEDIATE de-renderization of the dialog with
+     * given dialogID.
      * 
      * @param dialogID
      *            the dialog id
-     * @return the resource data form the {@link Form} filled 
-     * 			  by the user up to the moment this call is performed
+     * @return the resource data form the {@link Form} filled by the user up to
+     *         the moment this call is performed.
      */
     public abstract Resource cutDialog(String dialogID);
 
     /**
-     * Dialog finished.
+     * Dialog finished. UIHandler reporting the user has submitted a {@link Submit} or
+     * a {@link SubdialogTrigger}.
      * 
      * @param uiResponse
      *            the {@link UIResponse}
@@ -173,7 +191,8 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Handle ui call ({@link UIRequest}).
+     * Handle ui call ({@link UIRequest}). The bus is soliciting a 
+     * Render/display of the {@link UIRequest}.
      * 
      * @param uiRequest
      *            the {@link UIRequest}
@@ -197,8 +216,9 @@ public abstract class UIHandler extends Callee {
      * User logged in.
      * 
      * @param user
-     *            the {@link User}, It is declared as Resource because the type User is defined 
-     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
+     *            the {@link User}, It is declared as Resource because the type
+     *            User is defined in the Profiling Ontology. The type is not
+     *            needed for for matchmaking Either.
      * @param loginLocation
      *            the login location
      */
@@ -220,6 +240,6 @@ public abstract class UIHandler extends Callee {
      */
     public String getMyID() {
 	return busResourceURI;
-    }
-
+    }    
+    
 }

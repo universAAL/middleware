@@ -40,7 +40,6 @@ import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
-
 /**
  * Serialization of RDF graphs to <i>Terse RDF Triple Language (Turtle)</i>.
  * 
@@ -90,6 +89,12 @@ public class TurtleWriter {
 	 * property rdf:type as well as all non-abstract super classes.
 	 */
 	List types = null;
+
+	/**
+	 * A list of concrete objects, to determine if an object in question was
+	 * analyzed already.
+	 */
+	List<Resource> objects = new ArrayList();
     }
 
     /** The character stream to write to. */
@@ -158,13 +163,12 @@ public class TurtleWriter {
      */
     static String serialize(Object o, int embedLevel) {
 	if (!(o instanceof Resource || o instanceof Ontology)) {
-	    LogUtils
-		    .logError(
-			    TurtleUtil.moduleContext,
-			    TurtleWriter.class,
-			    "serialize",
-			    new Object[] { "Cannot serialize objects other than instances of Resource or Ontology!" },
-			    null);
+	    LogUtils.logError(
+		    TurtleUtil.moduleContext,
+		    TurtleWriter.class,
+		    "serialize",
+		    new Object[] { "Cannot serialize objects other than instances of Resource or Ontology!" },
+		    null);
 	    return null;
 	}
 
@@ -228,9 +232,19 @@ public class TurtleWriter {
 	    if (StringUtils.isQualifiedName(uri))
 		countNs(uri.substring(0, uri.lastIndexOf('#') + 1), nsTable);
 
-	    if (handled)
+	    SerData d = (SerData) uriNodes.get(r);
+	    if (handled) {
 		// already handled
-		return;
+		// was it really handled already? Check in the SerData#objects
+		// for this concrete object. This can happen if there are
+		// multiple Resources with the same URI (but different Java
+		// Objects). Therefore, we cannot use the 'equals' method for
+		// that because it checks also for equal URI.
+		for (Resource o : d.objects)
+		    if (o == r)
+			return;
+	    }
+	    d.objects.add(r);
 	}
 
 	for (Enumeration e = r.getPropertyURIs(); e.hasMoreElements();) {
@@ -359,7 +373,7 @@ public class TurtleWriter {
 
 	for (Iterator i = uriNodes.keySet().iterator(); i.hasNext();) {
 	    Resource r = (Resource) i.next();
-	    SerData d = getData(r);
+	    SerData d = getData(r, false);
 	    if (Resource.PROP_SERIALIZATION_REDUCED > d.redType)
 		i.remove();
 	    else if (r.numberOfProperties() == 0) {
@@ -416,14 +430,28 @@ public class TurtleWriter {
      * there is no data available yet, a new instance is created and returned.
      */
     private SerData getData(Resource r) {
+	return getData(r, true);
+    }
+
+    private SerData getData(Resource r, boolean allowReAdd) {
+	boolean isAnon = r.isAnon();
+	boolean reAdd = allowReAdd ? r.numberOfProperties() > 0 : false;
 	SerData d = (SerData) uriNodes.get(r);
 	if (d == null) {
 	    d = (SerData) bNodes.get(r);
 	    if (d == null) {
 		d = new SerData();
-		(r.isAnon() ? bNodes : uriNodes).put(r, d);
+		(isAnon ? bNodes : uriNodes).put(r, d);
+	    } else if (reAdd) {
+		bNodes.remove(r);
+		bNodes.put(r, d);
 	    }
+	} else if (reAdd) {
+	    uriNodes.remove(r);
+	    uriNodes.put(r, d);
 	}
+	// if (r.numberOfProperties() > 0)
+	// (isAnon ? bNodes : uriNodes).put(r, d);
 	return d;
     }
 
@@ -486,8 +514,8 @@ public class TurtleWriter {
     /** Write an RDF statement to the output stream. */
     private void handleStatement(Resource subj, String pred, List types,
 	    boolean force) throws IOException {
-	Object obj = pred.equals(Resource.PROP_RDF_TYPE) ? types : subj
-		.getProperty(pred);
+	boolean isType = pred.equals(Resource.PROP_RDF_TYPE);
+	Object obj = isType ? types : subj.getProperty(pred);
 	if (obj instanceof List)
 	    if (((List) obj).isEmpty())
 		return;
@@ -509,23 +537,25 @@ public class TurtleWriter {
 	// Write the statement
 	writePredicate(pred);
 	writer.write(" ");
-	writeValue(obj, subj.isClosedCollection(pred));
+	writeValue(obj, subj.isClosedCollection(pred), isType);
 	firstPropWritten = true;
     }
 
     // private void printSerData() {
+    // System.out.println(" -- Serialization Data: --");
     // for (Iterator it = bNodes.keySet().iterator(); it.hasNext();) {
     // Object o = it.next();
     // SerData d1 = (SerData) bNodes.get(o);
-    // System.out.println("bNodes: " + o + " nodeid: " + d1.nodeID + " types: "
-    // + d1.types + " refs: " + d1.refs);
+    // System.out.println("bNodes: " + o + " nodeid: " + d1.nodeID
+    // + " types: " + d1.types + " refs: " + d1.refs);
     // }
     // for (Iterator it = uriNodes.keySet().iterator(); it.hasNext();) {
     // Object o = it.next();
     // SerData d1 = (SerData) uriNodes.get(o);
-    // System.out.println("uriNodes: " + o + " nodeid: " + d1.nodeID +
-    // " types: " + d1.types + " refs: " + d1.refs);
+    // System.out.println("uriNodes: " + o + " nodeid: " + d1.nodeID
+    // + " types: " + d1.types + " refs: " + d1.refs);
     // }
+    // System.out.println("");
     // }
 
     /**
@@ -580,7 +610,7 @@ public class TurtleWriter {
 	    finalizeNodes(res, dummyNsTable);
 	    d[i].refs--;
 
-	    writeResource(res);
+	    writeResource(res, false);
 
 	    bNodes.clear();
 	    uriNodes.clear();
@@ -607,6 +637,7 @@ public class TurtleWriter {
 	d.redType = Resource.PROP_SERIALIZATION_FULL;
 	(root.isAnon() ? bNodes : uriNodes).put(root, d);
 	analyzeResource(root, nsTable);
+	// printSerData();
 	finalizeNodes(root, nsTable);
 	d.refs--;
 
@@ -615,7 +646,7 @@ public class TurtleWriter {
 	// serialize
 	writeEOL();
 	writeNamespaces(nsTable);
-	writeResource(root);
+	writeResource(root, false);
 
 	// close
 	writer.flush();
@@ -633,8 +664,8 @@ public class TurtleWriter {
 
     /**
      * Write an RDF Literal. For example, for the literal <code>"15"^^xsd:byte
-     * </code>, the lexical
-     * form is <code>15</code> and the datatype is <code>xsd:byte</code>.
+     * </code>, the lexical form is <code>15</code> and the datatype is
+     * <code>xsd:byte</code>.
      * 
      * @param lexicalForm
      *            The value if the literal in lexical form.
@@ -736,21 +767,27 @@ public class TurtleWriter {
     }
 
     /** Write a Resource to the output stream. */
-    private void writeResource(Resource res) throws IOException {
+    private void writeResource(Resource res, boolean isType) throws IOException {
 	// System.out.println("writeResource: " + res);
 	SerData d = (SerData) bNodes.get(res);
 	if (d == null) {
 	    d = (SerData) uriNodes.get(res);
-	    if (descriptionClosed && d.serialized != NOT_SERIALIZED)
-		throw new RuntimeException("Attempt to serialize " + res
-			+ " twice!");
+	    if (descriptionClosed && d.serialized != NOT_SERIALIZED) {
+		if (res.isAnon() && d.refs < 0)
+		    throw new RuntimeException(
+			    "Attempt to serialize only one resource that is anonymous and has no properties!");
+		else
+		    throw new RuntimeException("Attempt to serialize " + res
+			    + " twice!");
+	    }
 
 	    if (d.refs < 0)
 		throw new RuntimeException("Resource " + res
 			+ " has no open references!");
 
 	    writeURI(res.isAnon() ? d.nodeID : res.getURI());
-	    d.refs--;
+	    if (!isType)
+		d.refs--;
 
 	    if (descriptionClosed) {
 		// the above writeURI starts a new subject description
@@ -778,7 +815,7 @@ public class TurtleWriter {
 		}
 		if (res != null)
 		    if (!isOntology || embedLevel != 0)
-			writeResource(res);
+			writeResource(res, false);
 	    } else if (d.refs == -1)
 		uriNodes.remove(res);
 	} else {
@@ -846,14 +883,15 @@ public class TurtleWriter {
     }
 
     /** Write a new value (Resource or Literal) to the output stream. */
-    private void writeValue(Object val, boolean closed) throws IOException {
+    private void writeValue(Object val, boolean closed, boolean isType)
+	    throws IOException {
 	if (val instanceof List) {
 	    if (closed) {
 		writer.write("(");
 		embedLevel++;
 		writeEOL();
 		for (Iterator i = ((List) val).iterator(); i.hasNext();) {
-		    writeValue(i.next(), true);
+		    writeValue(i.next(), true, isType);
 		    if (i.hasNext())
 			writeEOL();
 		}
@@ -864,11 +902,15 @@ public class TurtleWriter {
 		embedLevel++;
 		int last = ((List) val).size() - 1;
 		for (int i = 0; i < last; i++) {
-		    writeValue(((List) val).get(i), false);
+		    writeValue(((List) val).get(i), false, isType);
 		    writer.write(" ,");
 		    writeEOL();
 		}
-		writeValue(((List) val).get(last), false);
+		if (last >= 0) {
+		    // if this happens, then the list is empty
+		    // TODO: should we handle this differently?
+		    writeValue(((List) val).get(last), false, isType);
+		}
 		embedLevel--;
 	    }
 	    return;
@@ -879,11 +921,11 @@ public class TurtleWriter {
 		    writeLiteral(TurtleWriter.serialize(val, embedLevel + 2),
 			    TurtleUtil.xmlLiteral);
 		} else {
-		    writeLiteral(((Resource) val).getURI(), TypeMapper
-			    .getDatatypeURI(Resource.class));
+		    writeLiteral(((Resource) val).getURI(),
+			    TypeMapper.getDatatypeURI(Resource.class));
 		}
 	    } else {
-		writeResource((Resource) val);
+		writeResource((Resource) val, isType);
 	    }
 	    return;
 	} else if (val instanceof Boolean) {

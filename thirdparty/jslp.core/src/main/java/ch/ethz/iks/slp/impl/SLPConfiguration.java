@@ -210,8 +210,8 @@ class SLPConfiguration {
 		}
 		PORT = Integer.parseInt(props.getProperty(PORT_PROP, DEFAULT_PORT));
 		SCOPES = props.getProperty(USE_SCOPES_PROP, USE_SCOPES_DEFAULT);
-		NO_DA_DISCOVERY = new Boolean(props.getProperty(NO_DA_DISCOVERY_PROP,
-				"false")).booleanValue();
+                NO_DA_DISCOVERY = Boolean.valueOf(props.getProperty(NO_DA_DISCOVERY_PROP,
+                                "false"));
 		final String dAs = props.getProperty(DA_ADDRESSES_PROP,
 				DA_ADDRESSES_DEFAULT);
 		if (dAs == null) {
@@ -220,15 +220,15 @@ class SLPConfiguration {
 			DA_ADDRESSES = (String[]) SLPMessage.stringToList(dAs, ",")
 					.toArray(new String[0]);
 		}
-		TRACE_DA_TRAFFIC = new Boolean(props.getProperty(TRACE_DATRAFFIC_PROP,
+                TRACE_DA_TRAFFIC = Boolean.valueOf(props.getProperty(TRACE_DATRAFFIC_PROP,
 				TRACE_DATRAFFIC_DEFAULT)).booleanValue();
-		TRACE_MESSAGES = new Boolean(props.getProperty(TRACE_MESSAGE_PROP,
+                TRACE_MESSAGES = Boolean.valueOf(props.getProperty(TRACE_MESSAGE_PROP,
 				TRACE_MESSAGE_DEFAULT)).booleanValue();
 
-		TRACE_DROP = new Boolean(props.getProperty(TRACE_DROP_PROP,
+                TRACE_DROP = Boolean.valueOf(props.getProperty(TRACE_DROP_PROP,
 				TRACE_DROP_DEFAULT)).booleanValue();
 
-		TRACE_REG = new Boolean(props.getProperty(TRACE_REG_PROP,
+                TRACE_REG = Boolean.valueOf(props.getProperty(TRACE_REG_PROP,
 				TRACE_REG_DEFAULT)).booleanValue();
 
 		MCAST_TTL = Integer.parseInt(props.getProperty(MCAST_TTL_PROP,

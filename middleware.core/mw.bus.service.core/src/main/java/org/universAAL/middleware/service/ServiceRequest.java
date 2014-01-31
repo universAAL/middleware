@@ -20,19 +20,19 @@
 package org.universAAL.middleware.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.universAAL.middleware.bus.model.matchable.Advertisement;
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.bus.model.matchable.Request;
-import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.service.impl.ServiceMatcher;
+import org.universAAL.middleware.service.impl.ServiceWrapper;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
@@ -233,6 +233,8 @@ public class ServiceRequest extends FinalizedResource implements Request {
     /**
      * Adds filtering functions such as max(aProp) to the request as criteria to
      * be used by the service bus for match-making and service selection.
+     * 
+     * @see AggregatingFilterFactory
      */
     public void addAggregatingFilter(AggregatingFilter f) {
 	if (f != null && f.isWellFormed()) {
@@ -338,7 +340,7 @@ public class ServiceRequest extends FinalizedResource implements Request {
      * {@link #addAggregatingFilter(AggregatingFilter)}. The service bus will be
      * the main user of this method.
      */
-    @SuppressWarnings( { "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<AggregatingFilter> getFilters() {
 	Object propAggregatingFilterList = props.get(PROP_AGGREGATING_FILTER);
 	if (propAggregatingFilterList instanceof List<?>) {
@@ -489,58 +491,21 @@ public class ServiceRequest extends FinalizedResource implements Request {
     }
 
     /**
-     * @see #matches(Advertisement)
+     * @see Matchable#matches(Matchable)
      */
     public boolean matches(Matchable other) {
-	return false;
-    }
-
-    /**
-     * Will never match (any matching advertisement would be of a (sub)-Type of
-     * {@link UtilityAdvertisement}), so <tt>false</tt> is returned.
-     * 
-     * @param advertisement
-     *            the advertisement to be matched against
-     * @return <tt>false</tt> as described above
-     */
-    public boolean matches(Advertisement advertisement) {
-	return false;
-    }
-
-    /**
-     * Switches over different types of {@link UtilityAdvertisement}, calls the
-     * appropriate methods for each type.
-     * 
-     * @param advertisement
-     *            the advertisement to be matched against
-     * @return <tt>true</tt> if the advertisement matches, <tt>false</tt> if not
-     */
-    public boolean matches(UtilityAdvertisement advertisement) {
-	if (advertisement instanceof ServiceProfile) {
-	    return isMatchingServiceProfile((ServiceProfile) advertisement);
-	} else {
+	ServiceWrapper subset = null;
+	if (other instanceof ServiceProfile) {
+	    subset = ServiceWrapper.create((ServiceProfile) other);
+	} else if (other instanceof ServiceRequest) {
+	    subset = ServiceWrapper.create((ServiceRequest) other);
+	}
+	if (subset == null)
 	    return false;
-	}
-    }
 
-    private boolean isMatchingServiceProfile(ServiceProfile advertisement) {
-	// TODO unimplemented method stub
-	return false;
-    }
+	ServiceWrapper superset = ServiceWrapper.create(this);
 
-    @SuppressWarnings("unchecked")
-    public boolean matches(ServiceRequest other) {
-	boolean matches = true;
-	for (Object current : Collections.list(getPropertyURIs())) {
-	    String propertyURI = (String) current;
-	    Object thisProperty = getProperty(propertyURI);
-	    Object otherProperty = other.getProperty(propertyURI);
-
-	    // TODO add good matching algorithm
-	    if (!thisProperty.equals(otherProperty)) {
-		matches = false;
-	    }
-	}
-	return matches;
+	return new ServiceMatcher().matches(superset, subset, new HashMap(),
+		null);
     }
 }

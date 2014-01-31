@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.service.owls.process;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import org.universAAL.middleware.container.utils.StringUtils;
@@ -64,7 +64,7 @@ import org.universAAL.middleware.service.owl.Service;
  * @author mtazari
  * 
  */
-public abstract class ProcessParameter extends Variable {
+public class ProcessParameter extends Variable {
     public static final String OWLS_PROCESS_NAMESPACE = Service.OWLS_NAMESPACE_PREFIX
 	    + "Process.owl#";
     public static final String MY_URI = OWLS_PROCESS_NAMESPACE + "Parameter";
@@ -101,8 +101,8 @@ public abstract class ProcessParameter extends Variable {
 	    if (var.getClass() != Resource.class)
 		return var instanceof ProcessParameter;
 	    var = ProcessInput.MY_URI.equals(((Resource) var).getType()) ? (ProcessParameter) ProcessInput
-		    .toInput((Resource) var)
-		    : (ProcessParameter) ProcessOutput.toOutput((Resource) var);
+		    .toInput((Resource) var) : (ProcessParameter) ProcessOutput
+		    .toOutput((Resource) var);
 	    return (var == null) ? false : ((Resource) o).changeProperty(
 		    PROP_OWLS_VALUE_OF_THE_VAR, var);
 	}
@@ -124,8 +124,9 @@ public abstract class ProcessParameter extends Variable {
 
     /**
      * Return the variable from the variable reference, either by the property
-     * http://www.daml.org/services/owl-s/1.1/Process.owl#theVar or from the
-     * context
+     * {@link #PROP_OWLS_VALUE_OF_THE_VAR}
+     * (http://www.daml.org/services/owl-s/1.1/Process.owl#theVar) or from the
+     * context.
      * 
      * @param o
      *            - the variable reference
@@ -133,7 +134,7 @@ public abstract class ProcessParameter extends Variable {
      *            - the context
      * @return - the variable
      */
-    public static final Object resolveVarRef(Object o, Hashtable context) {
+    public static final Object resolveVarRef(Object o, HashMap context) {
 	ProcessParameter var = null;
 	if (isVarRef(o)) {
 	    Object aux = ((Resource) o).getProperty(PROP_OWLS_VALUE_OF_THE_VAR);
@@ -159,7 +160,7 @@ public abstract class ProcessParameter extends Variable {
 	return (o == null) ? var : o;
     }
 
-    protected ProcessParameter(String uri, String subType) {
+    public ProcessParameter(String uri, String subType) {
 	super(uri);
 	addType(subType, true);
     }
@@ -236,7 +237,7 @@ public abstract class ProcessParameter extends Variable {
 	return parameterType.getURI();
     }
 
-   /**
+    /**
      * Returns the value of this parameter
      * 
      * @return - the object representing the value

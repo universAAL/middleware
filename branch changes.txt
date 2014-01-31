@@ -1,0 +1,34 @@
+>jslp.core:
+	Modified functionality - fixed bugs [use this branch]
+>mw.schemas:
+	Modified functionality - interfaces for modified managers.aalspace [use this branch]
+mw.brokers.api.core:
+	Removed references to Deploy [do not use this branch, to be removed]
+mw.brokers.control.core:
+	Removed references to Deploy [do not use this branch, to be removed]
+mw.bus.context.core:
+	Small hack for previous version [do not use this branch, to be removed]
+mw.bus.model.core:
+	Small hack for previous version, lacks format [do not use this branch, to be removed]
+mw.bus.service.core:
+	Small hack for previous version - 2 methods gone public [do not use this branch, to be removed]
+>mw.bus.tracker:
+	Removed references to UI [recommended to use this branch, but trunk can be used too]
+>mw.connectors.api.core:
+	Modified functionality - Checks messages with } [use this branch]
+>mw.conenctors.communication.jgroups.core:
+	Fixes dependencies to bouncycastle & jgroups, fixes serialization, still has main() to be removed [use this branch]
+>mw.connectors.discovery.slp.core:
+	Modified functionality - fixes shutdown [use this branch]
+mw.interfaces.core:
+	Removed references to UAPP [do not use this branch, to be removed]
+mw.managers.api.core:
+	Removed references to Deploy [do not use this branch, to be removed]
+>mw.managers.aalspace.core:
+	Modified functionality - hardcoded config [use this branch]
+mw.managers.deploy.core:
+	Removed references to Deploy [do not use this branch, to be removed]
+mw.modules.aalspace.core:
+	Lacks format [do not use this branch, to be removed]
+mw.modules.communication.core:
+	Puts names to threads [do not use this branch, to be removed]

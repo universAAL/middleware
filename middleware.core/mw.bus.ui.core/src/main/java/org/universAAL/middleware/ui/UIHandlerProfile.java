@@ -22,22 +22,19 @@
 package org.universAAL.middleware.ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.universAAL.middleware.bus.model.matchable.Matchable;
-import org.universAAL.middleware.bus.model.matchable.Request;
-import org.universAAL.middleware.bus.model.matchable.Requirement;
 import org.universAAL.middleware.bus.model.matchable.UtilityAdvertisement;
+import org.universAAL.middleware.owl.Enumeration;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.rdf.FinalizedResource;
-import org.universAAL.middleware.ui.impl.UIStrategy;
 import org.universAAL.middleware.ui.owl.Modality;
 
 /**
  * A profile of the {@link UIHandler} that describes its capabilites so that
- * they can be matched with {@link UIRequest} ( more specifically {@link User}
+ * they can be matched with {@link UIRequest} ( more specifically User
  * preferences and abilities added by the {@link IDialogManager}) and possibly
  * some additional parameters.
  * 
@@ -51,8 +48,8 @@ public class UIHandlerProfile extends FinalizedResource implements
 
     public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE
 	    + "UIHandlerProfile";
-    public static final String PROP_INPUT_MODALITY = UIRequest.uAAL_UI_NAMESPACE
-	    + "inputModality";
+//    public static final String PROP_INPUT_MODALITY = UIRequest.uAAL_UI_NAMESPACE
+//	    + "inputModality";
 
     // individual weights of matching criteria
     public static final int MATCH_ADDRESED_USER = 0x80; // 128
@@ -123,7 +120,7 @@ public class UIHandlerProfile extends FinalizedResource implements
 	}
 	int result = MATCH_LEVEL_FAILED;
 	for (MergedRestriction r : restrictions) {
-	    if (r.hasMember(uiRequest, null)) {
+	    if (r.hasMember(uiRequest)) {
 		// r Restriction matches all the criterion of UIRequest
 		if (r.getOnProperty().equals(UIRequest.PROP_ADDRESSED_USER)
 			&& (uiRequest
@@ -134,19 +131,14 @@ public class UIHandlerProfile extends FinalizedResource implements
 		     * the previous if. UIRequest.PROP_ADDRESSED_USER cannot be
 		     * null since it is obligatory in UIRequest but still
 		     */
+
 		    result += MATCH_ADDRESED_USER;
-		    System.out
-			    .println("################################### addressed user match, result="
-				    + result);
 		}
 		if (r.getOnProperty().equals(
 			UIRequest.PROP_PRESENTATION_MODALITY)
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_PRESENTATION_MODALITY) != null)) {
 		    result += MATCH_MAIN_MODALITY;
-		    System.out
-			    .println("################################### modality match, result="
-				    + result);
 		}
 		// ALT MODALITY is checked later.
 		if (r.getOnProperty().equals(
@@ -154,51 +146,36 @@ public class UIHandlerProfile extends FinalizedResource implements
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_PRESENTATION_LOCATION) != null)) {
 		    result += MATCH_USER_LOCATION;
-		    System.out
-			    .println("################################### location match, result="
-				    + result);
 		}
 		if (r.getOnProperty().equals(
 			UIRequest.PROP_HAS_ACCESS_IMPAIRMENT)
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_HAS_ACCESS_IMPAIRMENT) != null)) {
 		    result += MATCH_USER_IMPAIRMENTS;
-		    System.out
-			    .println("################################### impairment match, result="
-				    + result);
 		}
 		if (r.getOnProperty().equals(
 			UIRequest.PROP_DIALOG_PRIVACY_LEVEL)
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_DIALOG_PRIVACY_LEVEL) != null)) {
 		    result += MATCH_DIALOG_PRIVACY;
-		    System.out
-			    .println("################################### dialog privacy match, result="
-				    + result);
 		}
 		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_LANGUAGE)
 			&& (uiRequest
 				.getProperty(UIRequest.PROP_DIALOG_LANGUAGE) != null)) {
 
 		    result += MATCH_DIALOG_LANGUAGE;
-		    System.out
-			    .println("################################### dialog lang match, result="
-				    + result);
 		}
 		if (r.getOnProperty().equals(UIRequest.PROP_DIALOG_FORM)
 			&& (uiRequest.getProperty(UIRequest.PROP_DIALOG_FORM) != null)) {
 
 		    result += MATCH_DIALOG_FORM;
-		    System.out
-			    .println("################################### dialog form match, result="
-				    + result);
 		}
 	    } else {
 		if (UIRequest.PROP_PRESENTATION_MODALITY.equals(r
 			.getOnProperty())
 			&& r.copyOnNewProperty(
 				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-				.hasMember(uiRequest, null))
+				.hasMember(uiRequest))
 		/*
 		 * if the restriction r is about the modality property of
 		 * UIReqest, then rename the restriction to alt-modality and see
@@ -207,46 +184,13 @@ public class UIHandlerProfile extends FinalizedResource implements
 		 */
 		{
 		    result += MATCH_ALT_MODALITY;
-		    System.out
-			    .println("################################### alt modality match, result="
-				    + result);
 		}
 	    }
 	}
 	return result;
     }
 
-    /**
-     * Determines whether this profile matches the given {@link UIRequest}.
-     * 
-     * @param uiRequest
-     *            the {@link UIRequest} to match.
-     * @return true if the matching level is higher than failed
-     */
-    public boolean isMatchingUIRequest(UIRequest uiRequest) {
-	return getMatchingDegree(uiRequest) > MATCH_LEVEL_FAILED;
-    }
-
-    private boolean isRestrictionOnModality(UIRequest uiRequest,
-	    MergedRestriction r) {
-	return UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
-		&& r
-			.copyOnNewProperty(
-				UIRequest.PROP_PRESENTATION_MODALITY_ALT)
-			.hasMember(uiRequest, null);
-    }
-
-    /**
-     * Gets the number of supported input modalities.
-     * 
-     * @return the number of supported input modalities
-     */
-    public int getNumberOfSupportedInputModalities() {
-	List l = (List) props.get(PROP_INPUT_MODALITY);
-	return l == null ? 0 : l.size();
-    }
-
-    /**
+/**
      * Gets the restriction.
      * 
      * @param onProp
@@ -264,31 +208,6 @@ public class UIHandlerProfile extends FinalizedResource implements
     }
 
     /**
-     * Determines whether this profile matches the given profile.
-     * 
-     * @param uiHandlerProfile
-     *            the subtype
-     * @return <tt>true</tt>, if successful, <tt>false</tt> otherwise
-     */
-    public boolean matches(UIHandlerProfile uiHandlerProfile) {
-	if (uiHandlerProfile == null) {
-	    return false;
-	}
-
-	for (MergedRestriction r : restrictions) {
-	    MergedRestriction subR = uiHandlerProfile.getRestriction(r
-		    .getOnProperty());
-	    if (subR == null || !r.matches(subR, null)) {
-		return false;
-	    }
-	}
-
-	return true;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see
      * org.universAAL.middleware.rdf.Resource#isClosedCollection(java.lang.String
      * )
@@ -315,9 +234,7 @@ public class UIHandlerProfile extends FinalizedResource implements
 	return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
      * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
      * java.lang.Object)
      */
@@ -337,72 +254,74 @@ public class UIHandlerProfile extends FinalizedResource implements
 		}
 		return retVal;
 	    }
-	} else if (PROP_INPUT_MODALITY.equals(propURI)
-		&& value instanceof Modality[]) {
-	    return setSupportedInputModalities((Modality[]) value);
-	}
+	} 
+//	else if (PROP_INPUT_MODALITY.equals(propURI)
+//		&& value instanceof List) {
+//	    props.put(PROP_INPUT_MODALITY, value);
+//	    return true;
+//	}
 	return false;
     }
 
     /**
-     * Sets the supported input modalities.
-     * 
-     * @param modalities
-     *            the new supported input modalities
+     * @see Matchable#matches(Matchable)
      */
-    public boolean setSupportedInputModalities(Modality[] modalities) {
-	if (modalities != null && modalities.length > 0
-		&& !props.containsKey(PROP_INPUT_MODALITY)) {
-	    props.put(PROP_INPUT_MODALITY, Arrays.asList(modalities));
+    public boolean matches(Matchable subset) {
+	if (subset instanceof UIRequest) {
+	    return getMatchingDegree((UIRequest) subset) > MATCH_LEVEL_FAILED;
+	} else if (subset instanceof UIHandlerProfile) {
+	    UIHandlerProfile uiHandlerProfile = (UIHandlerProfile) subset;
+
+	    for (MergedRestriction r : restrictions) {
+		MergedRestriction subR = uiHandlerProfile.getRestriction(r
+			.getOnProperty());
+		if (subR == null || !r.matches(subR)) {
+		    return false;
+		}
+	    }
 	    return true;
 	}
 	return false;
     }
 
     /**
-     * @see #matches(Requirement)
-     */
-    public boolean matches(Matchable other) {
-	return false;
-    }
-
-    /**
-     * Only called if d is not of type {@link Requirement}. Therefore no match
-     * is possible and <tt>false</tt> is returned always.
-     * 
-     * @param requirement
-     *            the Requirement to be matched against
-     * @return <tt>false</tt> as described above
-     */
-    public boolean matches(Requirement requirement) {
-	return false;
-    }
-
-    /**
-     * Switches over possible types of {@link Requirement}. Calls appropriate
-     * methods for the different types.
-     * 
-     * @param request
-     *            the Requirement to be matched
-     * @return <tt>true</tt> if the Requirement matches, <tt>false</tt> if not
-     */
-    public boolean matches(Request request) {
-	if (request instanceof UIRequest) {
-	    return isMatchingUIRequest((UIRequest) request);
-	} else {
-	    return false;
-	}
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
      */
-    @Override
     public boolean isWellFormed() {
-	return true && hasProperty(PROP_INPUT_MODALITY);
+	return true ;
+//		&& hasProperty(PROP_INPUT_MODALITY);
     }
+
+    /**
+         * Sets the supported input modalities.
+         * 
+         * @param modalities
+         *            the new supported input modalities
+         */
+        public boolean setSupportedInputModalities(Modality[] modalities) {
+    //	if (modalities != null && modalities.length > 0
+    //		&& !props.containsKey(PROP_INPUT_MODALITY)) {
+    //	    props.put(PROP_INPUT_MODALITY, Arrays.asList(modalities));
+    //	    return true;
+    //	}
+    //	return false;
+	//	new AllValuesFromRestriction(UIRequest.PROP_HAS_ACCESS_IMPAIRMENT, 
+	//			new Enumeration(new AccessImpairment[] {
+	//					new HearingImpairment(LevelRating.low),
+	//					new HearingImpairment(LevelRating.middle),
+	//					new HearingImpairment(LevelRating.high),
+	//					new HearingImpairment(LevelRating.full),
+	//					new SightImpairment(LevelRating.low),
+	//					new PhysicalImpairment(LevelRating.low)})));
+
+            if (propRestrictionAllowed(UIRequest.PROP_PRESENTATION_MODALITY)) {
+        	MergedRestriction mr = MergedRestriction.getAllValuesRestriction(
+        		UIRequest.PROP_PRESENTATION_MODALITY, new Enumeration(
+        			modalities));
+        	return addRestriction(mr);
+            }
+            return false;
+        }
 
     /**
      * Gets the supported input modalities.
@@ -410,8 +329,32 @@ public class UIHandlerProfile extends FinalizedResource implements
      * @return the supported input modalities
      */
     public Modality[] getSupportedInputModalities() {
-	List l = (List) props.get(PROP_INPUT_MODALITY);
-	return l == null ? null : (Modality[]) l
-		.toArray(new Modality[l.size()]);
+//	List l = (List) props.get(PROP_INPUT_MODALITY);
+//	return l == null ? null : (Modality[]) l
+//		.toArray(new Modality[l.size()]);
+	for (Object r : restrictions) {
+	    if (r instanceof MergedRestriction
+		&& ((MergedRestriction)r).getOnProperty().equals(UIRequest.PROP_PRESENTATION_MODALITY)){
+		return (Modality[]) ((MergedRestriction)r).getEnumeratedValues();
+	    }
+	}
+	return new Modality[]{};
     }
+
+    //    private boolean isRestrictionOnModality(UIRequest uiRequest,
+    //	    MergedRestriction r) {
+    //	return UIRequest.PROP_PRESENTATION_MODALITY.equals(r.getOnProperty())
+    //		&& r.copyOnNewProperty(UIRequest.PROP_PRESENTATION_MODALITY_ALT)
+    //			.hasMember(uiRequest, null);
+    //    }
+    
+//        /**
+//         * Gets the number of supported input modalities.
+//         * 
+//         * @return the number of supported input modalities
+//         */
+//        public int getNumberOfSupportedInputModalities() {
+//    	List l = (List) props.get(PROP_INPUT_MODALITY);
+//    	return l == null ? 0 : l.size();
+//        }
 }

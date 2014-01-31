@@ -141,7 +141,7 @@ public class SLPBrowser implements Runnable {
 			SLPBrowser.class,
 			"SLPBrowser",
 			new Object[] { "Error during AALSpace search: "
-				+ e.toString() }, null);
+				+ e.toString() }, e);
 	    }
 	}
     }
