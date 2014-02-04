@@ -27,7 +27,7 @@ public class URIRestriction extends LengthRestriction {
     public static final String DATATYPE_URI = TypeMapper
 	    .getDatatypeURI(Resource.class);
 
-    protected URIRestriction() {
+    public URIRestriction() {
 	super(DATATYPE_URI);
     }
 
