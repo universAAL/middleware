@@ -33,8 +33,8 @@ import java.util.Scanner;
 
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.mw.manager.configuration.core.impl.factories.ScopeFactory;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.Scope;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.rdf.Resource;

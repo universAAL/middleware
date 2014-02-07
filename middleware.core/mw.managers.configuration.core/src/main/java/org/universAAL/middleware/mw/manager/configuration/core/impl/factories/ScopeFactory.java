@@ -17,12 +17,12 @@
 
 package org.universAAL.middleware.mw.manager.configuration.core.impl.factories;
 
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.AALSpaceScope;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.AppPartScope;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.ApplicationScope;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.InstanceScope;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.ModuleScope;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.Scope;
+import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.AppPartScope;
+import org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope;
+import org.universAAL.middleware.interfaces.configuration.scope.InstanceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.ModuleScope;
+import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;
 
 /**

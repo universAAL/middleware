@@ -11,6 +11,7 @@
   <artifactId>mw.managers.configuration.core</artifactId>
   <version>3.0.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
+  <name>universAAL Middleware Configuration Manager (Core)</name>
 
   <properties>
     <separatedGroupIds>org.universAAL.middleware</separatedGroupIds>

@@ -21,13 +21,13 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.impl.ConfigurationManagerImpl;
 import org.universAAL.middleware.mw.manager.configuration.core.impl.GenericConfigurationEntity;
 import org.universAAL.middleware.mw.manager.configuration.core.impl.LocalConfigurationFileEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.impl.LocalConfigurationParameterEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.impl.RemoteConfigurationFileEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.impl.RemoteConfigurationParamaterEditor;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurableEntityEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.ConfigurationFile;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.ConfigurationParameter;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;

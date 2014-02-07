@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.ConfigurationEditor;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.ConfigurationEditor.ConfigurableEntityManager;
+import org.universAAL.middleware.managers.api.ConfigurationEditor;
+import org.universAAL.middleware.managers.api.ConfigurationEditor.ConfigurableEntityManager;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;
 import org.universAAL.middleware.owl.TypeExpression;
 

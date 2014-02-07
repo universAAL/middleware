@@ -15,45 +15,41 @@
  * limitations under the License.
  ******************************************************************************/
 
-package org.universAAL.middleware.mw.manager.configuration.core.impl.secondaryManagers;
+package org.universAAL.middleware.interfaces.configuration.configurationEditionTypes;
 
-import java.io.File;
-import java.net.URL;
-
-import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationFile;
+import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DescribedEntity;
 
 /**
- * An interface for Containers to provide certain files.
+ * An entity that can be configured.
+ * Top interface for Configuration Editors.
+ * Implementations can edit local or remote configuration entities.
  * @author amedrano
  *
  */
-public interface FileManagement {
+public interface ConfigurableEntityEditor extends DescribedEntity{
 
     /**
-     * check, and store if not, a URL file in the cache.
-     * @param url
-     * @return
+     * Ask whether the entity has default value or not.
+     * @return true if it is default value.
      */
-    public File cache(URL url);
-
-    /**
-     * The master file of the configurator editor, where all the entitites will be stored.
-     * @return
-     */
-    public File getMasterFile();
+    boolean isDefaultValue();
     
     /**
-     * Generate a File path for a specific identificator.
-     * These files are where {@link ConfigurationFile ConfigurationFiles} will be stored.
-     * @param id
-     * @return
+     * Set the default value for the entity.
+     * @return true if it could be set.
      */
-    public File getLocalFile(String id);
+    boolean setDefaultValue();
     
     /**
-     * Create a temporal file, used when users pull the file before copying it else where.
-     * @return
+     * Add a {@link ConfigurableEntityEditorListener}.
+     * @param listener
      */
-    public File getTemporalFile();
+    void subscribe2Changes(ConfigurableEntityEditorListener listener);
+    
+    /**
+     * remove a {@link ConfigurableEntityEditorListener}.
+     * @param listener
+     */
+    void unsubscribe2Changes(ConfigurableEntityEditorListener listener);
     
 }

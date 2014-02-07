@@ -20,12 +20,12 @@ package org.universAAL.middleware.mw.manager.configuration.core;
 import java.net.URL;
 import java.util.Locale;
 
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationDefinitionTypes.ConfigurationDefinedElsewhere;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationDefinitionTypes.ConfigurationFile;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationDefinitionTypes.ConfigurationParameter;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationDefinitionTypes.DescribedEntity;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.InstanceScope;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.Scope;
+import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationDefinedElsewhere;
+import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationFile;
+import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter;
+import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DescribedEntity;
+import org.universAAL.middleware.interfaces.configuration.scope.InstanceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.owl.IntRestriction;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.TypeMapper;

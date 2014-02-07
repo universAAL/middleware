@@ -42,8 +42,7 @@ public class ConfigurationParameter extends Entity {
   public static final String PROP_RDF_TYPE2 = PROP_RDF_TYPE + "2";
   
   public static final String PROP_VALUE = 
-	  org.universAAL.middleware.mw.manager.configuration.core.interfaces
-	  .configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_VALUE;
+	  org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter.PROP_CONFIG_VALUE;
 
 
   public ConfigurationParameter () {

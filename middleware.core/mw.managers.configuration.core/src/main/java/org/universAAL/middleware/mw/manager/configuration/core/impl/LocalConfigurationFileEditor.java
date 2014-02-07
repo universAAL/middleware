@@ -24,8 +24,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurableEntityEditor;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurationFileEditor;
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationFileEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.ConfigurationFile;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;
 

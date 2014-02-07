@@ -32,5 +32,9 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>
+    <dependency>
+    	<groupId>org.universAAL.middleware</groupId>
+    	<artifactId>mw.data.representation.core</artifactId>
+    </dependency>
   </dependencies>
 </project>

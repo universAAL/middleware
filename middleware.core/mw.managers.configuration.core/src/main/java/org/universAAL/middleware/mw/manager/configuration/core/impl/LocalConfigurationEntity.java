@@ -19,9 +19,9 @@ package org.universAAL.middleware.mw.manager.configuration.core.impl;
 
 import java.util.Locale;
 
+import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DescribedEntity;
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.impl.factories.EntityFactory;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationDefinitionTypes.DescribedEntity;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurableEntityEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;
 
 /**

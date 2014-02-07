@@ -20,9 +20,9 @@ package org.universAAL.middleware.mw.manager.configuration.core.impl.factories;
 import java.net.URL;
 import java.util.Locale;
 
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationDefinitionTypes.ConfigurationFile;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationDefinitionTypes.ConfigurationParameter;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationDefinitionTypes.DescribedEntity;
+import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationFile;
+import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter;
+import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DescribedEntity;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;
 import org.universAAL.middleware.owl.MergedRestriction;
 
