@@ -34,6 +34,7 @@ middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brok
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage.java -text
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageException.java -text
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageFields.java -text
+middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/configuration/ConfigurationMessage.java -text svneol=unset#text/plain
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/control/ControlMessage.java -text
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessage.java -text
 middleware.core/mw.brokers.api.core/src/main/java/org/universAAL/middleware/brokers/message/deploy/DeployMessageException.java -text
@@ -538,7 +539,6 @@ middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/midd
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/scope/InstanceScope.java -text
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/scope/ModuleScope.java -text
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/scope/Scope.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/messages/ConfigurationMessage.java -text svneol=unset#text/plain
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/owl/AALConfigurationOntology.java -text
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/owl/ConfigurationFile.java -text
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/owl/ConfigurationParameter.java -text

@@ -17,7 +17,7 @@
 
 package org.universAAL.middleware.mw.manager.configuration.core.interfaces;
 
-import org.universAAL.middleware.mw.manager.configuration.core.messages.ConfigurationMessage;
+import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage;
 
 /**
  * Contector Methods to recieve messages from control bus.
