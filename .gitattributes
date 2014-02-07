@@ -440,6 +440,30 @@ middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/inter
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/aalspace/AALSpaceStatus.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/aalspace/AALSpaceType.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/aalspace/Consts.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/ConfigurableModule.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationDefinedElsewhere.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationFile.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationParameter.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/DescribedEntity.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/DynamicDescribedEntity.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/DynamicDescribedEntityListener.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditorListener.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/ConfigurationFileEditor.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/ConfigurationParameterEditor.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/ApplicationPartPattern.java -text svneol=unset#text/plain
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/ApplicationPattern.java -text svneol=unset#text/plain
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/EntityPattern.java -text svneol=unset#text/plain
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/IdPattern.java -text svneol=unset#text/plain
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/InstancePattern.java -text svneol=unset#text/plain
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/ModulePattern.java -text svneol=unset#text/plain
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/NotPattern.java -text svneol=unset#text/plain
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/scope/AALSpaceScope.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/scope/AppPartScope.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/scope/ApplicationScope.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/scope/InstanceScope.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/scope/ModuleScope.java -text
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/scope/Scope.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/Pair.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/UAPPCard.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/mpa/UAPPPartStatus.java -text
@@ -486,6 +510,9 @@ middleware.core/mw.managers.api.core/pom.xml -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/AALSpaceEventHandler.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/AALSpaceListener.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/AALSpaceManager.java -text
+middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/ConfigurationEditor.java -text
+middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/ConfigurationManager.java -text
+middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/ConfigurationManagerConnector.java -text svneol=unset#text/plain
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/DeployManager.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/DeployManagerEventHandler.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/InstallationResults.java -text
@@ -512,33 +539,6 @@ middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/midd
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/impl/secondaryManagers/PendingRequestsManager.java -text svneol=unset#text/plain
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/impl/secondaryManagers/SharedObjectConnector.java -text svneol=unset#text/plain
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/impl/secondaryManagers/SynchronousConfEntityManager.java -text svneol=unset#text/plain
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/ConfigurableModule.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/ConfigurationEditor.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/ConfigurationManager.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/ConfigurationManagerConnector.java -text svneol=unset#text/plain
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationDefinitionTypes/ConfigurationDefinedElsewhere.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationDefinitionTypes/ConfigurationFile.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationDefinitionTypes/ConfigurationParameter.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationDefinitionTypes/DescribedEntity.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationDefinitionTypes/DynamicDescribedEntity.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationDefinitionTypes/DynamicDescribedEntityListener.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/ConfigurableEntityEditor.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/ConfigurableEntityEditorListener.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/ConfigurationFileEditor.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/ConfigurationParameterEditor.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/pattern/ApplicationPartPattern.java -text svneol=unset#text/plain
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/pattern/ApplicationPattern.java -text svneol=unset#text/plain
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/pattern/EntityPattern.java -text svneol=unset#text/plain
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/pattern/IdPattern.java -text svneol=unset#text/plain
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/pattern/InstancePattern.java -text svneol=unset#text/plain
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/pattern/ModulePattern.java -text svneol=unset#text/plain
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/configurationEditionTypes/pattern/NotPattern.java -text svneol=unset#text/plain
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/scope/AALSpaceScope.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/scope/AppPartScope.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/scope/ApplicationScope.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/scope/InstanceScope.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/scope/ModuleScope.java -text
-middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/interfaces/scope/Scope.java -text
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/owl/AALConfigurationOntology.java -text
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/owl/ConfigurationFile.java -text
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/mw/manager/configuration/core/owl/ConfigurationParameter.java -text

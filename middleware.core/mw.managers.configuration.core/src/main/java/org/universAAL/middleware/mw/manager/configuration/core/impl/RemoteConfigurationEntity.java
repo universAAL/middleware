@@ -19,7 +19,7 @@ package org.universAAL.middleware.mw.manager.configuration.core.impl;
 
 import java.util.Locale;
 
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurableEntityEditor;
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;
 
 /**

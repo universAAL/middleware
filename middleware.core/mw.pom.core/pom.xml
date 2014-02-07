@@ -30,6 +30,7 @@
     <module>../mw.managers.api.core</module>
     <module>../mw.managers.aalspace.core</module>
     <module>../mw.managers.deploy.core</module>
+    <module>../mw.managers.configuration.core</module>
     <module>../mw.bus.model.core</module>
     <module>../mw.data.representation.core</module>
     <module>../mw.data.serialization.core</module>

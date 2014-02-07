@@ -19,10 +19,10 @@ package org.universAAL.middleware.mw.manager.configuration.core.impl;
 
 import java.util.List;
 
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditorListener;
+import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.mw.manager.configuration.core.impl.factories.ScopeFactory;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurableEntityEditor;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurableEntityEditorListener;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.Scope;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;
 
 /**

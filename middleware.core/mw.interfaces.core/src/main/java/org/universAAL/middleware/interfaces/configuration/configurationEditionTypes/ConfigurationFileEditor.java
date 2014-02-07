@@ -15,45 +15,30 @@
  * limitations under the License.
  ******************************************************************************/
 
-package org.universAAL.middleware.mw.manager.configuration.core.impl.secondaryManagers;
+package org.universAAL.middleware.interfaces.configuration.configurationEditionTypes;
 
 import java.io.File;
-import java.net.URL;
 
+import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationFile;
 
 /**
- * An interface for Containers to provide certain files.
+ *  A configurable entity corresponding to a configuration file.
  * @author amedrano
  *
  */
-public interface FileManagement {
+public interface ConfigurationFileEditor extends ConfigurationFile, ConfigurableEntityEditor {
 
     /**
-     * check, and store if not, a URL file in the cache.
-     * @param url
-     * @return
+     * Pull the file, It will download if necessary, copying it to a temporal directory.
+     * @return the {@link File} object pointing to the temporal file (it should be deleted by the caller, when finished).
      */
-    public File cache(URL url);
-
-    /**
-     * The master file of the configurator editor, where all the entitites will be stored.
-     * @return
-     */
-    public File getMasterFile();
+    File pullFile();
     
     /**
-     * Generate a File path for a specific identificator.
-     * These files are where {@link ConfigurationFile ConfigurationFiles} will be stored.
-     * @param id
-     * @return
+     * Push the file, it will copy the file, upload if necessary.
+     * @param file the file to be pushed.
+     * @return if the file was accepted by the {@link ConfigurableModule}.
      */
-    public File getLocalFile(String id);
-    
-    /**
-     * Create a temporal file, used when users pull the file before copying it else where.
-     * @return
-     */
-    public File getTemporalFile();
-    
+    boolean pushFile(File file);
 }

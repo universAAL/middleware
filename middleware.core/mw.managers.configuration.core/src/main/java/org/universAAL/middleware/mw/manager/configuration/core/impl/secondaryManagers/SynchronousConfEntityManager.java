@@ -20,8 +20,8 @@ package org.universAAL.middleware.mw.manager.configuration.core.impl.secondaryMa
 import java.util.ArrayList;
 import java.util.List;
 
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.ConfigurationEditor.ConfigurableEntityManager;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurableEntityEditor;
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
+import org.universAAL.middleware.managers.api.ConfigurationEditor.ConfigurableEntityManager;
 
 /**
  * The Default implementation of {@link ConfigurableEntityManager} used to transform

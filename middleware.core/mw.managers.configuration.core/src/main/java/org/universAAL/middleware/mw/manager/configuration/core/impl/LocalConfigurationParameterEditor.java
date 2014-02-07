@@ -17,8 +17,8 @@
 
 package org.universAAL.middleware.mw.manager.configuration.core.impl;
 
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurableEntityEditor;
-import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurationParameterEditor;
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationParameterEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.ConfigurationParameter;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;
 import org.universAAL.middleware.owl.MergedRestriction;
