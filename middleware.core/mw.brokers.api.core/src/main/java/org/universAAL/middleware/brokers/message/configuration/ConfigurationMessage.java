@@ -73,8 +73,7 @@ public class ConfigurationMessage implements BrokerMessage {
 
     /** {@ inheritDoc}	 */
     public BrokerMessageTypes getMType() {
-	// TODO return always the same.
-	return null;
+	return BrokerMessageTypes.ConfigurationMessage;
     }
 
     /** {@ inheritDoc}	 */

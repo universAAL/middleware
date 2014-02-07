@@ -36,7 +36,7 @@ public interface BrokerMessage {
      * 
      */
     public enum BrokerMessageTypes {
-	AALSpaceMessage, DeployMessage, BusMessage, ControlMessage, SimpleMessage
+	AALSpaceMessage, DeployMessage, BusMessage, ControlMessage, ConfigurationMessage, SimpleMessage
     }
 
     public BrokerMessageTypes getMType();
