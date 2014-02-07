@@ -15,7 +15,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package org.universAAL.middleware.mw.manager.configuration.core.messages;
+package org.universAAL.middleware.brokers.message.configuration;
 
 import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;

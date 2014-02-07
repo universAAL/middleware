@@ -32,6 +32,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.mw.manager.configuration.core.impl.factories.EntityFactory;
@@ -53,7 +54,6 @@ import org.universAAL.middleware.mw.manager.configuration.core.interfaces.config
 import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.ConfigurableEntityEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.pattern.EntityPattern;
 import org.universAAL.middleware.mw.manager.configuration.core.interfaces.configurationEditionTypes.pattern.InstancePattern;
-import org.universAAL.middleware.mw.manager.configuration.core.messages.ConfigurationMessage;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.AALConfigurationOntology;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.ConfigurationFile;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.ConfigurationParameter;
