@@ -1,0 +1,28 @@
+universAAL Distributed Configuration manager
+
+Copyright 2012-2014 UPM, http://www.upm.es
+Universidad Politécnica de Madrid 
+
+
+I. Included Software
+first version of artifact by Universidad Politécnica de Madrid within the universAAL project.
+
+II. Used Software
+
+This product uses software developed at
+The Apache Software Foundation (http://www.apache.org/).
+Licensed under the Apache License 2.0.
+
+This product uses software developed at
+Junit (http://www.junit.org/).
+Licensed under Common Public License 1.0.
+
+This product uses software developed at
+The OSGi Alliance (http://www.osgi.org/).
+Copyright 2006-2008 The OSGi Alliance.
+Licensed under the Apache License 2.0.
+
+
+III. License Summary
+- Apache License 2.0
+- Common Public License 1.0
