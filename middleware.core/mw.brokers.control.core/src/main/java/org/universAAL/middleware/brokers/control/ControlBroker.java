@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Dictionary;
 import java.util.HashMap;
@@ -37,6 +38,8 @@ import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.BrokerMessage.BrokerMessageTypes;
 import org.universAAL.middleware.brokers.message.BrokerMessageFields;
 
+import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage;
+import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage.ConfigurationMessageType;
 import org.universAAL.middleware.brokers.message.control.ControlMessage;
 import org.universAAL.middleware.brokers.message.deploy.DeployMessage;
 import org.universAAL.middleware.brokers.message.deploy.DeployMessage.DeployMessageType;
@@ -62,6 +65,7 @@ import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
 import org.universAAL.middleware.managers.api.AALSpaceEventHandler;
 import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.ConfigurationManagerConnector;
 import org.universAAL.middleware.managers.api.DeployManager;
 import org.universAAL.middleware.managers.api.DeployManagerEventHandler;
 import org.universAAL.middleware.modules.AALSpaceModule;
@@ -88,6 +92,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
     private AALSpaceManager aalSpaceManager;
     private DeployManager deployManager;
     private DeployConnector deployConnector;
+    private ConfigurationManagerConnector configConnector;
     private boolean initialized = false;
     private HashMap<String, WaitForResponse> openTransaction = new HashMap<String, WaitForResponse>();
 
@@ -104,6 +109,39 @@ public class ControlBroker implements SharedObjectListener, Broker,
         init();
 
     }
+
+    
+    /*
+     * TODO: why not this?
+     * 
+     private Object getGenericSharedObject(Class clazz) {
+	LogUtils.logDebug(context, ControlBroker.class, "controlBroker",
+                new Object[] { "Fetching the" + clazz.getSimpleName() +"..." }, null);
+	Object ret = null;
+        Object[] refs = context.getContainer()
+                .fetchSharedObject(
+                        context,
+                        new Object[] { clazz.getName()
+                                .toString() }, this);
+        if (refs != null && clazz.isInstance(refs[0])) {
+            ret = refs[0];
+            LogUtils.logDebug(context, ControlBroker.class, "controlBroker",
+                    new Object[] { clazz.getSimpleName() + " fetched" }, null);
+        } else {
+            LogUtils.logWarn(context, ControlBroker.class, "controlBroker",
+                    new Object[] { "No " +clazz.getSimpleName() + " found" }, null);
+        }
+        return ret;
+
+    }
+    * [Even better if it uses the sharedObject added, there fore there is only one place for the management of all the sub managers]
+    * And then let the object getters be like:
+    
+    private CommunicationModule getCommunicationModule() {
+	communicationModule = (CommunicationModule) getGenericSharedObject(CommunicationModule.class);
+	return communicationModule;
+    }
+     */
 
     private CommunicationModule getCommunicationModule() {
         LogUtils.logDebug(context, ControlBroker.class, "controlBroker",
@@ -182,10 +220,46 @@ public class ControlBroker implements SharedObjectListener, Broker,
         return aalSpaceModule;
 
     }
+    
+    private ConfigurationManagerConnector getConfiguratorManagerConnector() {
+        LogUtils.logDebug(context, ControlBroker.class, "controlBroker",
+                new Object[] { "Fetching the ConfigurationManagerConnector..." }, null);
+        Object[] refs = context.getContainer().fetchSharedObject(context,
+                new Object[] { ConfigurationManagerConnector.class.getName().toString() },
+                this);
+        if (refs != null) {
+
+            LogUtils.logDebug(context, ControlBroker.class, "controlBroker",
+                    new Object[] { "ConfigurationManagerConnector found!" }, null);
+            configConnector = (ConfigurationManagerConnector) refs[0];
+
+        } else {
+            LogUtils.logWarn(context, ControlBroker.class, "controlBroker",
+                    new Object[] { "No ConfigurationManagerConnector found" }, null);
+        }
+        return configConnector;
+
+    }
 
     public boolean init() {
         if (!initialized) {
-
+            
+            /*
+             * TODO: why not use the getAALSpaceModule() and the rest of methods?
+             * something like:
+            if (getAALSpaceModule() == null
+        	    || getAALSpaceEventHandler() == null
+        	    || getAALSpaceManager() == null
+        	    || getCommunicationModule() == null
+        	    || getConfigurationManagerConnector == null){
+        	initialized = false;
+        	return initialized;
+            }
+            getDeployManager();
+            getDeployConnector();
+             */
+            
+            
             LogUtils.logDebug(context, ControlBroker.class, "controlBroker",
                     new Object[] { "Fetching the AALSpaceModule..." }, null);
             Object[] refs = context.getContainer().fetchSharedObject(context,
@@ -273,6 +347,28 @@ public class ControlBroker implements SharedObjectListener, Broker,
                 initialized = false;
                 return initialized;
             }
+            
+            LogUtils.logDebug(context, ControlBroker.class, "controlBroker",
+                    new Object[] { "Fetching the ConfigurationManagerConnector..." },
+                    null);
+            refs = context.getContainer().fetchSharedObject(
+                    context,
+                    new Object[] { ConfigurationManagerConnector.class.getName()
+                            .toString() }, this);
+            if (refs != null
+                    && refs[0] instanceof ConfigurationManagerConnector) {
+                configConnector = (ConfigurationManagerConnector) refs[0];
+                LogUtils.logDebug(context, ControlBroker.class,
+                        "controlBroker",
+                        new Object[] { "ConfigurationManagerConnector fetched" }, null);
+            } else {
+                LogUtils.logDebug(context, ControlBroker.class,
+                        "controlBroker",
+                        new Object[] { "No ConfigurationManagerConnector found" }, null);
+                initialized = false;
+                return initialized;
+            }
+            
             LogUtils.logDebug(context, ControlBroker.class, "controlBroker",
                     new Object[] { "Fetching the DeployManager..." }, null);
             refs = context.getContainer().fetchSharedObject(context,
@@ -314,6 +410,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
                         "controlBroker",
                         new Object[] { "No DeployConnector found" }, null);
             }
+            
         }
         initialized = true;
         return initialized;
@@ -375,6 +472,11 @@ public class ControlBroker implements SharedObjectListener, Broker,
             LogUtils.logDebug(context, ControlBroker.class, "controlBroker",
                     new Object[] { "DeployConnector registered..." }, null);
             deployConnector = (DeployConnector) arg0;
+        }
+        if (arg0 != null && arg0 instanceof ConfigurationManagerConnector){
+            LogUtils.logDebug(context, ControlBroker.class, "controlBroker",
+                    new Object[] { "ConfigurationManagerConnector registered..." }, null);
+            configConnector = (ConfigurationManagerConnector) arg0;
         }
     }
 
@@ -834,6 +936,8 @@ public class ControlBroker implements SharedObjectListener, Broker,
             handleControlMessage(message.getSender(), (ControlMessage) cm);
         } else if (cm instanceof DeployMessage) {
             handleDeployMessage(message.getSender(), (DeployMessage) cm);
+        } else if (cm instanceof ConfigurationMessage){
+            handleConfigurationMessage((ConfigurationMessage)cm);
         }
     }
 
@@ -1001,6 +1105,28 @@ public class ControlBroker implements SharedObjectListener, Broker,
         }
     }
 
+
+
+    /**
+     * @param cm
+     */
+    private void handleConfigurationMessage(ConfigurationMessage cm) {
+	// TODO Auto-generated method stub
+	if (getConfiguratorManagerConnector() == null){
+	    LogUtils.logError(context, ControlBroker.class, "handleConfigurationMessage", "ConfigurationManagerConnector not available, unable to handle.");
+	    return;
+	}
+	if (cm.getMessageType().equals(ConfigurationMessageType.PROPAGATE)){
+	    configConnector.processPropagation(cm);
+	}
+	else if (cm.isRequest()){
+	    configConnector.processRequest(cm);
+	}
+	else {
+	    configConnector.processResponse(cm);
+	}
+    }
+    
     public void installArtefactLocally(String serializedPart) {
         // deployConnector.installPart(serializedPart);
     }
@@ -1189,6 +1315,31 @@ public class ControlBroker implements SharedObjectListener, Broker,
                 controlMsg.getAttributeFilter());
         r.sender = aalSpaceManager.getMyPeerCard();
         responses.add(r);
+    }
+
+
+    /**
+     * Send a Configuration Message.
+     * @param cm
+     */
+    public void sendConfigurationMessage(ConfigurationMessage cm) {
+    	if (getCommunicationModule()== null)
+    		return;
+    	 if (cm.getMessageType().equals(ConfigurationMessageType.PROPAGATE)) {
+	    List<String> chName = new ArrayList<String>();
+	    chName.add(getBrokerName());
+	    ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
+		    cm.toString(), chName);
+	    communicationModule.sendAll(chMsg);
+    	 }
+    	 else {
+    	     List<String> chName = new ArrayList<String>();
+    	     chName.add(getBrokerName());
+    	     ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
+    		     cm.toString(), chName);
+    	     communicationModule.send(chMsg, 
+    		     (PeerCard) Arrays.asList(cm.getReceivers()));
+    	 }
     }
 
 }

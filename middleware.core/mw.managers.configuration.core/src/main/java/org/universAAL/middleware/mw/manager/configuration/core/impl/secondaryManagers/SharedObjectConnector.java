@@ -17,11 +17,10 @@
 
 package org.universAAL.middleware.mw.manager.configuration.core.impl.secondaryManagers;
 
+import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.managers.api.AALSpaceManager;
-import org.universAAL.middleware.modules.CommunicationModule;
-import org.universAAL.middleware.modules.listener.MessageListener;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
@@ -33,25 +32,12 @@ public class SharedObjectConnector implements SharedObjectListener {
 
     private ModuleContext context;
     private AALSpaceManager aalSpaceManager;
-    private CommunicationModule communicationModule;
     private MessageContentSerializer messageContentSerializer;
-    private MessageListener comListener;
-    private String brokerName;
     private boolean stopping = false;
+    private ControlBroker controlBroker;
         
     public ModuleContext getContext() {
 	return context;
-    }
-    
-    public void registerCommunicationModuleListener(MessageListener listener, String bName){
-	if (listener == null || bName == null){
-	    return;
-	}
-	comListener = listener;
-	this.brokerName = bName;
-	if (communicationModule != null){
-	    communicationModule.addMessageListener(comListener, brokerName);
-	}
     }
     
     /**
@@ -68,15 +54,15 @@ public class SharedObjectConnector implements SharedObjectListener {
 
 
     /**
-     * @return the communicationModule
+     * @return the controlBroker
      */
-    public synchronized final CommunicationModule getCommunicationModule() {
-	while(!stopping  && communicationModule == null){
+    public synchronized final ControlBroker getControlBroker() {
+	while(!stopping  && controlBroker == null){
 	    try {
 		wait();
 	    } catch (InterruptedException e) {}
 	}
-        return communicationModule;
+        return controlBroker;
     }
 
 
@@ -99,7 +85,7 @@ public class SharedObjectConnector implements SharedObjectListener {
     public SharedObjectConnector(ModuleContext mc) {
 	context = mc;
 	susbcribeFor(AALSpaceManager.class.getName());
-	susbcribeFor(CommunicationModule.class.getName());
+	susbcribeFor(ControlBroker.class.getName());
 	susbcribeFor(MessageContentSerializer.class.getName());
     }
     
@@ -109,11 +95,8 @@ public class SharedObjectConnector implements SharedObjectListener {
 	    aalSpaceManager = (AALSpaceManager) shr;
 	    notifyAll();
 	}
-	else if (shr instanceof CommunicationModule){
-	    communicationModule = (CommunicationModule) shr;
-	    if (comListener != null){
-		communicationModule.addMessageListener(comListener,brokerName);
-	    }
+	else if (shr instanceof ControlBroker){
+	    controlBroker = (ControlBroker) shr;
 	    notifyAll();
 	}
 	else if (shr instanceof MessageContentSerializer) {
@@ -145,8 +128,8 @@ public class SharedObjectConnector implements SharedObjectListener {
 	if (removeHook instanceof AALSpaceManager){
 	    aalSpaceManager = null;
 	}
-	else if (removeHook instanceof CommunicationModule){
-	    communicationModule = null;
+	else if (removeHook instanceof ControlBroker){
+	    controlBroker= null;
 	}
 	else if (removeHook instanceof MessageContentSerializer){
 	    messageContentSerializer = null;
