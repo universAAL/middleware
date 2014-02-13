@@ -17,10 +17,15 @@
 
 package org.universAAL.middleware.mw.manager.configuration.core.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
+import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
 import org.universAAL.middleware.mw.manager.configuration.core.owl.Entity;
+import org.universAAL.middleware.owl.TypeExpression;
+import org.universAAL.middleware.rdf.Resource;
 
 /**
  * Abastract class for all Remote Entities.
@@ -77,7 +82,22 @@ public abstract class RemoteConfigurationEntity extends GenericConfigurationEnti
      * @param loc
      */
     protected void sendRequestFor(Entity e, Locale loc){
-	//TODO send
+	//create request
+	//TODO create filters
+	List<TypeExpression> filter = new ArrayList<TypeExpression>();
+
+	
+	Resource root = new Resource();
+	root.changeProperty(ConfigurationManagerImpl.PROP_PARAM, filter);
+	root.changeProperty(ConfigurationManagerImpl.PROP_LOCALE, loc);
+	ConfigurationMessage cm = new ConfigurationMessage(
+		confManager.shared.getAalSpaceManager().getMyPeerCard(),
+		confManager.shared.getMessageContentSerializer().serialize(root));
+
+	//TODO add receivers.
+	
+	// send
+	confManager.shared.getControlBroker().sendConfigurationMessage(cm);
     }
     
 }

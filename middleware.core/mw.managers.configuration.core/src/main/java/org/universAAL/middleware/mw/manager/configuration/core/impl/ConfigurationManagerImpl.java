@@ -76,8 +76,8 @@ ConfigurationManagerConnector,
 ConfigurationEditor,
 DynamicDescribedEntityListener{
     
-    private static final String PROP_PARAM = AALConfigurationOntology.NAMESPACE + "messageParameter";
-    private static final String PROP_LOCALE = AALConfigurationOntology.NAMESPACE + "preferredLocale";
+    static final String PROP_PARAM = AALConfigurationOntology.NAMESPACE + "messageParameter";
+    static final String PROP_LOCALE = AALConfigurationOntology.NAMESPACE + "preferredLocale";
     
     private ModuleContext context;
     
@@ -488,7 +488,8 @@ DynamicDescribedEntityListener{
 	ConfigurationMessage cm = new ConfigurationMessage(
 		shared.getAalSpaceManager().getMyPeerCard(), 
 		shared.getMessageContentSerializer().serialize(root));
-	//TODO send
+	// send
+	shared.getControlBroker().sendConfigurationMessage(cm);
     }
     
     private void propagate(List<Entity> list){
@@ -500,7 +501,8 @@ DynamicDescribedEntityListener{
 	root.changeProperty(PROP_PARAM, list);
 	String serialized = shared.getMessageContentSerializer().serialize(root);
 	ConfigurationMessage cm = new ConfigurationMessage(serialized);
-	//TODO send the list of Entities to all nodes.
+	//send the list of Entities to all nodes.
+	shared.getControlBroker().sendConfigurationMessage(cm);
     }
     
     /** {@ inheritDoc}	 */
@@ -545,7 +547,8 @@ DynamicDescribedEntityListener{
 		    res.changeProperty(PROP_PARAM, processed);
 		    ConfigurationMessage cm = message.createResoponse(
 			    shared.getMessageContentSerializer().serialize(res));
-		    //TODO send
+		    // send
+		    shared.getControlBroker().sendConfigurationMessage(cm);
 		}
 	    }
 	}
