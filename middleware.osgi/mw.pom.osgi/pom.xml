@@ -31,6 +31,7 @@
     <module>../mw.connectors.communication.jgroups.osgi</module>
     <module>../mw.managers.aalspace.osgi</module>
     <module>../mw.managers.deploy.osgi</module>
+    <module>../mw.managers.configuration.osgi</module>
     <module>../mw.connectors.deploy.karaf.osgi</module>
     <module>../mw.karaf.branding.osgi</module>
     <module>../mw.karaf.shell.universAAL.osgi</module>
@@ -145,6 +146,11 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.managers.deploy.osgi</artifactId>
+        <version>3.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.managers.configuration.osgi</artifactId>
         <version>3.0.1-SNAPSHOT</version>
       </dependency>
       <dependency>

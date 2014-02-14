@@ -1431,6 +1431,10 @@ middleware.osgi/mw.managers.api.osgi/.classpath
 middleware.osgi/mw.managers.api.osgi/.project
 middleware.osgi/mw.managers.api.osgi/.settings
 middleware.osgi/mw.managers.api.osgi/target
+middleware.osgi/mw.managers.configuration.osgi/.classpath
+middleware.osgi/mw.managers.configuration.osgi/.project
+middleware.osgi/mw.managers.configuration.osgi/.settings
+middleware.osgi/mw.managers.configuration.osgi/target
 middleware.osgi/mw.managers.deploy.osgi/.classpath
 middleware.osgi/mw.managers.deploy.osgi/.project
 middleware.osgi/mw.managers.deploy.osgi/.settings

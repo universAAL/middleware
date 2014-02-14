@@ -765,6 +765,11 @@ middleware.osgi/mw.managers.aalspace.osgi/src/test/java/org/universAAL/middlewar
 middleware.osgi/mw.managers.api.osgi/ASL2.0.txt -text
 middleware.osgi/mw.managers.api.osgi/NOTICE.txt -text
 middleware.osgi/mw.managers.api.osgi/pom.xml -text
+middleware.osgi/mw.managers.configuration.osgi/pom.xml -text
+middleware.osgi/mw.managers.configuration.osgi/src/main/java/org/universAAL/mw/managers/configuration/osgi/ConfigurationActivator.java -text
+middleware.osgi/mw.managers.configuration.osgi/src/main/java/org/universAAL/mw/managers/configuration/osgi/FileProvider.java -text
+middleware.osgi/mw.managers.configuration.osgi/src/main/java/org/universAAL/mw/managers/configuration/osgi/ResourceMapper.java -text
+middleware.osgi/mw.managers.configuration.osgi/src/test/java/org/universAAL/mw/managers/configuration/osgi/AppTest.java -text
 middleware.osgi/mw.managers.deploy.osgi/ASL2.0.txt -text
 middleware.osgi/mw.managers.deploy.osgi/NOTICE.txt -text
 middleware.osgi/mw.managers.deploy.osgi/pom.xml -text
