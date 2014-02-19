@@ -58,6 +58,7 @@
 							org.universAAL.middleware.connectors.util,
 							org.universAAL.middleware.brokers.message,
 							org.universAAL.middleware.brokers.message.control,
+							org.universAAL.middleware.brokers.message.configuration,
 							org.universAAL.middleware.brokers.message.deploy,
 							org.universAAL.middleware.interfaces.mpa,
 							org.universAAL.middleware.brokers.message.gson,					
