@@ -453,6 +453,8 @@ middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/inter
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/ConfigurationParameterEditor.java -text
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/ApplicationPartPattern.java -text svneol=unset#text/plain
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/ApplicationPattern.java -text svneol=unset#text/plain
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/ConfigurationFileTypePattern.java -text svneol=unset#text/plain
+middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/ConfigurationParameterTypePattern.java -text svneol=unset#text/plain
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/EntityPattern.java -text svneol=unset#text/plain
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/IdPattern.java -text svneol=unset#text/plain
 middleware.core/mw.interfaces.core/src/main/java/org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/InstancePattern.java -text svneol=unset#text/plain
