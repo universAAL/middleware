@@ -1,0 +1,44 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.0.0">
+		<command name="universAAL/configList">
+			<action
+				class="org.universAAL.middleware.shell.universAAL.osgi.ConfigListCommand" />
+		    <completers>
+		    	<ref component-id="ConfigEntityCompleter"/>
+                <null/>
+            </completers>
+		</command>
+		<command name="universAAL/configChange">
+			<action
+				class="org.universAAL.middleware.shell.universAAL.osgi.ConfigChangeCommand" />
+		    <completers>
+		    	<ref component-id="ConfigEntityCompleter"/>
+                <null/>
+            </completers>
+		</command>
+		<command name="universAAL/configPull">
+			<action
+				class="org.universAAL.middleware.shell.universAAL.osgi.ConfigPullCommand" />
+		    <completers>
+		    	<ref component-id="ConfigFileCompleter"/>
+                <ref component-id="FileCompleter"/>
+                <null/>
+            </completers>
+		</command>
+		<command name="universAAL/configPush">
+			<action
+				class="org.universAAL.middleware.shell.universAAL.osgi.ConfigPushCommand" />
+		    <completers>
+		    	<ref component-id="ConfigFileCompleter"/>
+                <ref component-id="FileCompleter"/>
+                <null/>
+            </completers>
+		</command>
+	</command-bundle>
+	
+    <bean id="FileCompleter" class="org.apache.karaf.shell.console.completer.FileCompleter"/>
+    <bean id="ConfigEntityCompleter" class="org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigEntityCompleter"/>
+    <bean id="ConfigFileCompleter" class="org.universAAL.middleware.shell.universAAL.osgi.completers.ConfigFileCompleter"/>
+
+</blueprint>
