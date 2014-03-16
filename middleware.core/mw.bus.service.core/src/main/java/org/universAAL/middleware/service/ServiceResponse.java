@@ -20,8 +20,10 @@
 package org.universAAL.middleware.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.universAAL.middleware.bus.model.matchable.Response;
 import org.universAAL.middleware.bus.model.matchable.UtilityReply;
@@ -179,6 +181,7 @@ public class ServiceResponse extends FinalizedResource implements Response,
 			result.add(ob);
 		}
 	    } else if (obj instanceof List) {
+		// TODO: can this really happen?
 		List outputLists = (List) obj;
 		for (Iterator iter2 = outputLists.iterator(); iter2.hasNext();) {
 		    ProcessOutput output = (ProcessOutput) iter2.next();
@@ -190,6 +193,44 @@ public class ServiceResponse extends FinalizedResource implements Response,
 			    result.add(ob);
 		    }
 		}
+	    }
+	}
+
+	return result;
+    }
+
+    /**
+     * Get all outputs. This method is similar to
+     * {@link #getOutput(String, boolean)} but instead of providing the output
+     * of one parameter, it provides the outputs of all parameters. The URI of
+     * the parameter is the key of the returned map.
+     * 
+     * @return all outputs of the service.
+     */
+    public Map<String, List> getOutputsMap() {
+	Map<String, List> result = new HashMap<String, List>();
+
+	List outputs = getOutputs();
+	if (outputs == null || outputs.size() == 0) {
+	    return result;
+	}
+
+	// iterate over the available output parameters
+	for (Object obj : outputs) {
+	    if (obj instanceof ProcessOutput) {
+		ProcessOutput output = (ProcessOutput) obj;
+
+		List l = result.get(output.getURI());
+		if (l == null) {
+		    l = new ArrayList(3);
+		    result.put(output.getURI(), l);
+		}
+
+		Object ob = output.getParameterValue();
+		if (ob instanceof List)
+		    l.addAll((List) ob);
+		else
+		    l.add(ob);
 	    }
 	}
 
