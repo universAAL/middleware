@@ -188,6 +188,7 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/process/OutputBinding.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/process/ProcessEffect.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/process/ProcessInput.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/process/ProcessLocal.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/process/ProcessOutput.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/process/ProcessParameter.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/process/ProcessResult.java -text
