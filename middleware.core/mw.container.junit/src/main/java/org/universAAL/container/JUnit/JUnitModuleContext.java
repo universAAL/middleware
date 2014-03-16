@@ -36,7 +36,15 @@ import org.universAAL.middleware.container.ModuleContext;
  * 
  */
 public class JUnitModuleContext implements ModuleContext {
-
+    
+    public enum LogLevel {
+	ERROR,
+	WARN,
+	INFO,
+	DEBUG,
+	TRACE
+    };
+    
     private Logger logger;
 
     private Map<String, Object> attributeMap;
@@ -67,7 +75,27 @@ public class JUnitModuleContext implements ModuleContext {
 	});
 	logger.setLevel(Level.ALL);
     }
-
+    
+    public void setLogLevel(LogLevel level) {
+	switch (level) {
+	case ERROR:
+	    logger.setLevel(Level.ERROR);
+	    break;
+	case WARN:
+	    logger.setLevel(Level.WARN);
+	    break;
+	case INFO:
+	    logger.setLevel(Level.INFO);
+	    break;
+	case DEBUG:
+	    logger.setLevel(Level.DEBUG);
+	    break;
+	case TRACE:
+	    logger.setLevel(Level.TRACE);
+	    break;
+	}
+    }
+    
     /** {@inheritDoc} */
     public boolean canBeStarted(ModuleContext requester) {
 	// If can be accessed then it can be started
