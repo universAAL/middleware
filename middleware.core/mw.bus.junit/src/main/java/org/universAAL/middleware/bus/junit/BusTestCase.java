@@ -265,11 +265,11 @@ public class BusTestCase extends TestCase {
      * e.printStackTrace(); } } } }
      */
 
-    protected String serialize(Resource r) {
+    public String serialize(Resource r) {
 	return mcs.serialize(r);
     }
 
-    protected Resource deserialize(String s) {
+    public Resource deserialize(String s) {
 	return (Resource) mcs.deserialize(s);
     }
 }
