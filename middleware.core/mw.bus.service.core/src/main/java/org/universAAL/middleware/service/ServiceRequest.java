@@ -284,11 +284,14 @@ public class ServiceRequest extends FinalizedResource implements Request {
      * reflect the value of a property reachable by the given property path
      * <code>sourceProp</code>.
      */
-    public void addRequiredOutput(String paramURI, String[] fromProp) {
+    public ProcessOutput addRequiredOutput(String paramURI, String[] fromProp) {
 	if (paramURI != null && fromProp != null && fromProp.length > 0) {
-	    theResult().addSimpleOutputBinding(new ProcessOutput(paramURI),
+	    ProcessOutput po = new ProcessOutput(paramURI);
+	    theResult().addSimpleOutputBinding(po,
 		    new PropertyPath(null, true, fromProp));
+	    return po;
 	}
+	return null;
     }
 
     /**
