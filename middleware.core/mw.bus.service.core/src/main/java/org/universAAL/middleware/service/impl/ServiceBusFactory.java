@@ -41,7 +41,6 @@ public class ServiceBusFactory implements ResourceFactory {
 
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {
-	// TODO Auto-generated method stub
 
 	switch (factoryIndex) {
 	case 0:
