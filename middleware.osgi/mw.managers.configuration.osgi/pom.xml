@@ -10,7 +10,7 @@
 
   <artifactId>mw.managers.configuration.osgi</artifactId>
   <version>3.0.1-SNAPSHOT</version>
-  <name>universAAL Middleware Configuration Manager OSGi</name>
+  <name>universAAL Middleware Manager Configuration OSGi</name>
   <packaging>bundle</packaging>
 
   <dependencies>
@@ -37,7 +37,11 @@
 			<configuration>
 				<instructions>
 					<Bundle-Activator>org.universAAL.mw.managers.configuration.osgi.ConfigurationActivator</Bundle-Activator>
-					<Export-Package>org.universAAL.mw.managers.configuration.osgi</Export-Package>
+					<Export-Package>org.universAAL.middleware.mw.manager.configuration.core.owl</Export-Package>
+					<Private-Package>org.universAAL.mw.managers.configuration.osgi,
+									org.universAAL.middleware.mw.manager.configuration.core.impl,
+									org.universAAL.middleware.mw.manager.configuration.core.impl.factories,
+									org.universAAL.middleware.mw.manager.configuration.core.impl.secondaryManagers</Private-Package>
 				</instructions>
 			</configuration>
 		</plugin>
