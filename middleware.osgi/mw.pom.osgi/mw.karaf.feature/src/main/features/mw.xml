@@ -40,6 +40,7 @@
 		<!-- Managers -->
 		<bundle start-level='56' start='true'>mvn:org.universAAL.middleware/mw.managers.aalspace.osgi/${mw.managers.aalspace.osgi.version}</bundle>
 		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.deploy.osgi/${mw.managers.deploy.osgi.version}</bundle>
+		<bundle start-level='58' start='true'>mvn:org.universAAL.middleware/mw.managers.configuration.osgi/${mw.managers.configuration.osgi.version}</bundle>
 
 		<!-- Busses -->
 		<bundle start-level='58' start='true'>mvn:org.universAAL.middleware/mw.data.serialization.osgi/${mw.data.serialization.osgi.version}</bundle>
