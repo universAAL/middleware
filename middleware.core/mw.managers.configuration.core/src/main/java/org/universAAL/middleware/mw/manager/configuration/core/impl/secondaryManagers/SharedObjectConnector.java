@@ -111,7 +111,7 @@ public class SharedObjectConnector implements SharedObjectListener {
 			context,
 			new Object[] { clazzName },
 				this);
-	if (ref.length > 0){
+	if (ref != null && ref.length > 0){
 	    add(ref[0]);
 	}
     }
