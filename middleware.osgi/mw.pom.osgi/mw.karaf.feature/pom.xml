@@ -52,6 +52,10 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.configuration.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.karaf.shell.universAAL.osgi</artifactId>
     </dependency>
     <dependency>

@@ -42,5 +42,9 @@
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.managers.deploy.osgi</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.configuration.osgi</artifactId>
+    </dependency>
   </dependencies>
 </project>
