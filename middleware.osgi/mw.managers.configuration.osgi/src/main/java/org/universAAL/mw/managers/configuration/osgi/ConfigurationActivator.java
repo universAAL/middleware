@@ -34,6 +34,15 @@ public class ConfigurationActivator implements BundleActivator {
 			ConfigurationEditor.class.getName(),
 			ConfigurationManagerConnector.class.getName(),
 		});
+//		context.getContainer().shareObject(context, cm, new String[]{
+//			ConfigurationManager.class.getName()
+//		});
+//		context.getContainer().shareObject(context, cm, new String[]{
+//			ConfigurationEditor.class.getName()
+//		});
+//		context.getContainer().shareObject(context, cm, new String[]{
+//			ConfigurationManagerConnector.class.getName()
+//		});
 		
 		LogUtils.logDebug(context, getClass(), "start", "Started.");
 	}
