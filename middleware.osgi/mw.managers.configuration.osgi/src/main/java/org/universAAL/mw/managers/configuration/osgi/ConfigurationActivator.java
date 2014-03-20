@@ -11,7 +11,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.api.ConfigurationEditor;
 import org.universAAL.middleware.managers.api.ConfigurationManager;
 import org.universAAL.middleware.managers.api.ConfigurationManagerConnector;
-import org.universAAL.middleware.mw.manager.configuration.core.impl.ConfigurationManagerImpl;
+import org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl;
 
 public class ConfigurationActivator implements BundleActivator {
 

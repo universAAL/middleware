@@ -37,11 +37,11 @@
 			<configuration>
 				<instructions>
 					<Bundle-Activator>org.universAAL.mw.managers.configuration.osgi.ConfigurationActivator</Bundle-Activator>
-					<Export-Package>org.universAAL.middleware.mw.manager.configuration.core.owl</Export-Package>
+					<Export-Package>org.universAAL.middleware.managers.configuration.core.owl</Export-Package>
 					<Private-Package>org.universAAL.mw.managers.configuration.osgi,
-									org.universAAL.middleware.mw.manager.configuration.core.impl,
-									org.universAAL.middleware.mw.manager.configuration.core.impl.factories,
-									org.universAAL.middleware.mw.manager.configuration.core.impl.secondaryManagers</Private-Package>
+									org.universAAL.middleware.managers.configuration.core.impl,
+									org.universAAL.middleware.managers.configuration.core.impl.factories,
+									org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers</Private-Package>
 				</instructions>
 			</configuration>
 		</plugin>
