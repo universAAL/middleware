@@ -72,7 +72,12 @@ public class ConfigListCommand extends ConfigurationEditorAbstractCommand {
 	    Scope s = cee.getScope();
 	    String val = "";
 	    if (cee instanceof ConfigurationParameterEditor){
-		val = ((ConfigurationParameterEditor)cee).getConfiguredValue().toString();
+	    	Object value = ((ConfigurationParameterEditor)cee).getConfiguredValue();
+	    	if (value != null) {
+				val = value.toString();
+			}else {
+				val = "null";
+			}
 	    }else{
 		val = "[FILE]";
 	    }
