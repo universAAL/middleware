@@ -16,8 +16,6 @@
 package org.universAAL.middleware.shell.universAAL.osgi;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -58,7 +56,7 @@ public class ConfigPullCommand extends ConfigurationEditorAbstractCommand {
 	    System.out.println("no parameter selected");
 	}
 	String locale = "en";
-	List<ConfigurableEntityEditor> ents = configurationEditor.getMatchingConfigurationEditors(pattern, new Locale(locale));
+	List<ConfigurableEntityEditor> ents = getConfigurationEditor().getMatchingConfigurationEditors(pattern, new Locale(locale));
 
 	if (ents.size() == 0){
 	    System.out.println("No Entity found by the given Id");
@@ -77,7 +75,10 @@ public class ConfigPullCommand extends ConfigurationEditorAbstractCommand {
 	File dest = new File(path);
 	File org = selected.pullFile();
 	
-	Files.move(org.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+	if (!org.renameTo(dest)){
+		System.err.println("unable to rename temp File.");
+	}
+	
 	
 	return null;
     }

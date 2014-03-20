@@ -57,7 +57,7 @@ public class ConfigPushCommand extends ConfigurationEditorAbstractCommand {
 	    System.out.println("no parameter selected");
 	}
 	String locale = "en";
-	List<ConfigurableEntityEditor> ents = configurationEditor.getMatchingConfigurationEditors(pattern, new Locale(locale));
+	List<ConfigurableEntityEditor> ents = getConfigurationEditor().getMatchingConfigurationEditors(pattern, new Locale(locale));
 
 	if (ents.size() == 0){
 	    System.out.println("No Entity found by the given Id");

@@ -61,7 +61,7 @@ public class ConfigListCommand extends ConfigurationEditorAbstractCommand {
 	    pattern.add(new IdPattern(regExp));
 	}
 	
-	List<ConfigurableEntityEditor> ents = configurationEditor.getMatchingConfigurationEditors(pattern, new Locale(locale));
+	List<ConfigurableEntityEditor> ents = getConfigurationEditor().getMatchingConfigurationEditors(pattern, new Locale(locale));
 	
 	String leftAlignFormat = "| %-15s | %-15s | %-8s | %-30s |%n";
 

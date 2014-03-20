@@ -17,7 +17,8 @@
 package org.universAAL.middleware.shell.universAAL.osgi;
 
 import org.apache.karaf.shell.console.OsgiCommandSupport;
-import org.osgi.framework.ServiceReference;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.managers.api.ConfigurationEditor;
 
 /**
@@ -27,20 +28,28 @@ import org.universAAL.middleware.managers.api.ConfigurationEditor;
 public abstract class ConfigurationEditorAbstractCommand extends
 	OsgiCommandSupport {
 
-    protected ConfigurationEditor configurationEditor;
+    private ConfigurationEditor configurationEditor;
 
     /**
      * 
      */
-    public ConfigurationEditorAbstractCommand() {
-	log.debug("Initialising...");
-	ServiceReference ref = bundleContext
-		.getServiceReference(ConfigurationEditor.class.getName());
-	if (ref != null) {
-	    configurationEditor = (ConfigurationEditor) bundleContext.getService(ref);
-	} else {
+    protected ConfigurationEditor getConfigurationEditor() {
+	if (configurationEditor != null){
+		return configurationEditor;
+	}
+	if (bundleContext == null){
+	    throw new IllegalArgumentException("bundleContext is null");
+	}
+	ModuleContext context = uAALBundleContainer.THE_CONTAINER
+            .registerModule(new Object[] {bundleContext});	
+	
+	if (context != null) {
+	    configurationEditor = (ConfigurationEditor) context.getContainer().fetchSharedObject(context, new String[]{ConfigurationEditor.class.getName()});
+	} 
+	
+	if (configurationEditor == null){
 	    throw new IllegalArgumentException("unable to locate the Configuration Editor...");
 	}
+	return configurationEditor;
     }
-
 }
