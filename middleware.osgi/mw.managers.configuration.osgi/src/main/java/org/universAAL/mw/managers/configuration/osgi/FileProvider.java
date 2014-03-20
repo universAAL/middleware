@@ -21,7 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import org.universAAL.middleware.mw.manager.configuration.core.impl.secondaryManagers.FileManagement;
+import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.FileManagement;
 
 /**
  * @author amedrano
