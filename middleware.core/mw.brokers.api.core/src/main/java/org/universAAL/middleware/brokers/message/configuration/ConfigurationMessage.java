@@ -81,7 +81,7 @@ public class ConfigurationMessage implements BrokerMessage {
 	if (receiver != null){
 	    return new PeerCard[]{receiver};
 	}
-	return null;
+	return new PeerCard[]{};
     }
     
     public boolean isRequest(){

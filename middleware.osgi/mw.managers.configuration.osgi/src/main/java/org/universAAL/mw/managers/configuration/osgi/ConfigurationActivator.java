@@ -26,7 +26,7 @@ public class ConfigurationActivator implements BundleActivator {
 		/*
 		 * uAAL stuff
 		 */
-		BundleConfigHome folder = new BundleConfigHome(context.getID());
+		BundleConfigHome folder = new BundleConfigHome("mw.managers.configuration");
 		cm = new ConfigurationManagerImpl(context, new FileProvider(new File(folder.getAbsolutePath())));
 		
 		context.getContainer().shareObject(context, cm, new String[]{
