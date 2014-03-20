@@ -1322,8 +1322,12 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    chName.add(getBrokerName());
 	    ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
 		    cm.toString(), chName);
-	    communicationModule.send(chMsg,
-		    (PeerCard) Arrays.asList(cm.getReceivers()));
+	    ArrayList receivers = new ArrayList();
+	    PeerCard[] array = cm.getReceivers();
+	    for (int i = 0; i < array.length; i++) {
+			receivers.add(array[i]);
+		}
+	    communicationModule.sendAll(chMsg, receivers);
 	}
     }
 

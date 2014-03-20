@@ -48,7 +48,7 @@ public class SynchronousConfEntityManager implements ConfigurableEntityManager {
     
     public List<ConfigurableEntityEditor> getList(){
 	try {
-	    wait(WAIT_TIME);
+	    Thread.sleep(WAIT_TIME);
 	} catch (InterruptedException e) {}
 	return entities;
     }
