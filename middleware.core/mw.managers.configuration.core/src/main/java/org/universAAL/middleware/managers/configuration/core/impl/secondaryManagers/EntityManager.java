@@ -93,11 +93,17 @@ public class EntityManager {
 		 */
 	}
 	
-	Resource root = (Resource) hub.getMessageContentSerializer().deserialize(serialized);
+	Resource root;
+	try {
+		root = (Resource) hub.getMessageContentSerializer().deserialize(serialized);
+	} catch (Exception e) {
+		LogUtils.logWarn(mc, getClass(), "load", new String[]{"deserializer error. ", "interpreting empty list!"}, e);
+		root = null;
+	}
 	if (serialized.length() > 5 && root !=null){
 	    return (List<Entity>) root.getProperty(PROP_ENTITIES);
 	} else {
-	    return Collections.emptyList();
+	    return new ArrayList<Entity>();
 	}
     }
     
@@ -152,6 +158,8 @@ public class EntityManager {
 	}
 	boolean toBeAdded = false;
 	
+	ent.unliteral();
+	
 	Map<String, Entity> emap = loadAsMap();
 	
 	toBeAdded = checkAdd(ent, emap);
@@ -194,24 +202,27 @@ public class EntityManager {
     }
     
     /**
-     * same as {@link EntityManager#mergeAdd(List)} but does not actually add to the master file.
+     * same as {@link EntityManager#mergeAdd(List)} but does not actually add to the master file, instead it updates the emap.
      * @param news
      * @param emap
      * @return
      */
     private List<Entity> mergeProbe(List<Entity> news, Map<String, Entity> emap){
-	List<Entity> rejected = new ArrayList<Entity>();
-	for (Entity ent : news) {
-	    if (ent == null){
-		continue;
-	    }
-	    Entity existing = emap.get(ent.getURI());
+    	List<Entity> rejected = new ArrayList<Entity>();
+    	for (Entity ent : news) {
+    		if (ent == null){
+    			continue;
+    		}
+    		ent.unliteral();
+    		Entity existing = emap.get(ent.getURI());
 
-	    if(!checkAdd(ent, emap)) {
-		rejected.add(existing);
-	    } 
-	}
-	return rejected;
+    		if(!checkAdd(ent, emap)) {
+    			rejected.add(existing);
+    		} else {
+    			emap.put(ent.getURI(), ent);
+    		}
+    	}
+    	return rejected;
     }
     
     /**
@@ -224,9 +235,8 @@ public class EntityManager {
     public synchronized List<Entity> mergeAdd(List<Entity> news){
 	Map<String, Entity> emap = loadAsMap();
 	List<Entity> rejected = mergeProbe(news, emap);
-	List<Entity> tobeAdded = new ArrayList<Entity>(emap.values());
-	tobeAdded.removeAll(rejected);
-	store(tobeAdded);
+	List<Entity> newset = new ArrayList<Entity>(emap.values());
+	store(newset);
 	return rejected;
     }
     

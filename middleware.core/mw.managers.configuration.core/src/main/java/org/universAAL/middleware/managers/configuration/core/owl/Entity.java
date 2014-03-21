@@ -38,9 +38,11 @@ public class Entity extends ManagedIndividual {
   public static final String PROP_VERSION = AALConfigurationOntology.NAMESPACE
     + "version";
 
+  private static final long INITAL_VERSION = Long.MIN_VALUE;
 
   public Entity () {
     super();
+    setVersion(INITAL_VERSION);
   }
   
   public Entity (String uri) {
@@ -66,7 +68,7 @@ public class Entity extends ManagedIndividual {
 
    public long getVersion() {
 	Long l = (Long) getProperty(PROP_VERSION);
-	return (l == null) ? Long.MIN_VALUE : l.longValue();
+	return (l == null) ? INITAL_VERSION : l.longValue();
   }	
   
   public boolean isNewerThan(Entity other){
@@ -74,7 +76,7 @@ public class Entity extends ManagedIndividual {
 	  return true;
       }
       long myVersion = getVersion(), otherVersion = other.getVersion();
-      if (myVersion == Long.MIN_VALUE
+      if (myVersion == INITAL_VERSION
 	      && otherVersion == Long.MAX_VALUE){
 	  //it has overloaded.
 	  return true;

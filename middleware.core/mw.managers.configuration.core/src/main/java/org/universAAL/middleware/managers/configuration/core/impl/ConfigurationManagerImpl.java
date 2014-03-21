@@ -149,12 +149,17 @@ DynamicDescribedEntityListener{
 		((DynamicDescribedEntity)de).registerListener(this);
 	    }
 	}
-	List<Entity> toBeUpdated = manager.mergeAdd(registered);
-	for (Entity e : toBeUpdated) {
+	List<Entity> alreadyStored = manager.mergeAdd(registered);
+	for (Entity e : alreadyStored) {
+		//update the modules with the stored entities
 	    updateLocalValue(e);
 	}
         List<Entity> news = new ArrayList<Entity>(registered);
-        news.removeAll(toBeUpdated);
+        news.removeAll(alreadyStored);
+        for (Entity e : news) {
+    		//update the modules with the default entities
+    	    updateLocalValue(e);
+		}
         propagate(news);
     }
 
@@ -229,12 +234,13 @@ DynamicDescribedEntityListener{
 	}
 	Object value = null;
 	if (e instanceof ConfigurationFile){
-	    Base64Binary content = ((ConfigurationFile)e).getContent();
+		ConfigurationFile cf = ((ConfigurationFile)e);
+	    Base64Binary content = cf.getContent();
 	    URL url = null;
 	    try {
-		url = new URL(((ConfigurationFile)e).getLocalURL());
+		url = new URL(cf.getLocalURL());
 	    } catch (MalformedURLException e1) {
-		// very complicated
+		// very unlikely
 	    }
 	    if (url != null){
 		/*
@@ -286,19 +292,19 @@ DynamicDescribedEntityListener{
 	    else {
 		//file was updated, content needs to be reloaded.
 		try {
-		    ((ConfigurationFile)e).loadContentFromLocalURL();
+		    cf.loadContentFromLocalURL();
 		    e.incrementVersion();
 		    manager.addEntity(e);
 		} catch (IOException e1) {
 		    LogUtils.logWarn(context, getClass(), "updateLocalValue", "unable lo load content from URL: " +
-			    ((ConfigurationFile)e).getLocalURL() +"\n Trying to load Default.");
+			    cf.getLocalURL() +"\n Trying to load Default.");
 		    try {
-			((ConfigurationFile)e).loadContentFromDefaultURL();
+			cf.loadContentFromDefaultURL();
 			e.incrementVersion();
 			manager.addEntity(e);
 		    } catch (IOException e2) {
 			    LogUtils.logError(context, getClass(), "updateLocalValue", "unable lo load content from defaultURL: " +
-				    ((ConfigurationFile)e).getDefaultURL());
+				    cf.getDefaultURL());
 			    return false;
 		    }
 		}
