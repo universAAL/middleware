@@ -52,10 +52,12 @@ public class EntityFactory {
 		    new org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter(uri);
 	    ConfigurationParameter de = (ConfigurationParameter)dentity;
 	    cp.setDefaultValue(de.getDefaultValue());
-	    cp.setVersion(Long.MIN_VALUE);
+	    //set value = default (if default is null no value will be set).
+	    cp.setValue(cp.getDefaultValue());
 	    cp.setDescription(dentity.getDescription(loc),loc);
 	    // add restriction to type
 	    cp.changeParameterRestriction(de.getType());
+	   
 	    
 	    return cp;
 	}
@@ -64,11 +66,12 @@ public class EntityFactory {
 		    new org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile(uri);
 	    ConfigurationFile de = (ConfigurationFile)dentity;
 	    URL durl = de.getDefaultFileRef();
-	    if (durl != null)
-		cf.setDefaultURL(durl.toString());
+	    if (durl != null){
+	    	cf.setDefaultURL(durl.toString());
+	    	//set ref to default
+	    	cf.setLocalURL(durl.toString());
+	    }
 	    cf.setExtensionFilter(de.getExtensionfilter());
-	    
-	    cf.setVersion(Long.MIN_VALUE);
 	    cf.setDescription(dentity.getDescription(loc),loc);
 	    
 	    return cf;
