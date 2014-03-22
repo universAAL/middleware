@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage;
+import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage.ConfigurationMessageType;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
 import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 import org.universAAL.middleware.owl.TypeExpression;
@@ -91,6 +92,7 @@ public abstract class RemoteConfigurationEntity extends GenericConfigurationEnti
 	root.changeProperty(ConfigurationManagerImpl.PROP_PARAM, filter);
 	root.changeProperty(ConfigurationManagerImpl.PROP_LOCALE, loc);
 	ConfigurationMessage cm = new ConfigurationMessage(
+		ConfigurationMessageType.QUERY,
 		confManager.shared.getAalSpaceManager().getMyPeerCard(),
 		confManager.shared.getMessageContentSerializer().serialize(root));
 
