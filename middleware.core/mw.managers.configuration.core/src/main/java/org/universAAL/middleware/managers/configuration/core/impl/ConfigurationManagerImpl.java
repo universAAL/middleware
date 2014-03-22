@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage;
+import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage.ConfigurationMessageType;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
@@ -207,6 +208,7 @@ DynamicDescribedEntityListener{
 	List<Entity> rejected = new ArrayList<Entity>();
         toBeAddedLocally.removeAll(toBeRepropagated);
         for (Entity e : toBeAddedLocally) {
+            e.unliteral();
 	    if (!updateLocalValue(e)){
 		//To be removed from merge add
 		rejected.add(e);
@@ -492,7 +494,8 @@ DynamicDescribedEntityListener{
 	root.changeProperty(PROP_PARAM, filters);
 	root.changeProperty(PROP_LOCALE, locale);
 	ConfigurationMessage cm = new ConfigurationMessage(
-		shared.getAalSpaceManager().getMyPeerCard(), 
+		ConfigurationMessageType.QUERY, 
+		shared.getAalSpaceManager().getMyPeerCard(),
 		shared.getMessageContentSerializer().serialize(root));
 	// send
 	shared.getControlBroker().sendConfigurationMessage(cm);
@@ -506,13 +509,19 @@ DynamicDescribedEntityListener{
 	Resource root = new Resource();
 	root.changeProperty(PROP_PARAM, list);
 	String serialized = shared.getMessageContentSerializer().serialize(root);
-	ConfigurationMessage cm = new ConfigurationMessage(serialized);
+	ConfigurationMessage cm = new ConfigurationMessage(ConfigurationMessageType.PROPAGATE, 
+		shared.getAalSpaceManager().getMyPeerCard(),
+		serialized);
 	//send the list of Entities to all nodes.
 	shared.getControlBroker().sendConfigurationMessage(cm);
     }
     
     /** {@ inheritDoc}	 */
     public void processPropagation(ConfigurationMessage message) {
+	//ignore my own propagations
+	if (message.isSentFrom(shared.getAalSpaceManager().getMyPeerCard())){
+	    return;
+	}
 	Object r = shared.getMessageContentSerializer().deserialize(message.getPayload());
 	if (r instanceof Resource
 		&& ((Resource)r).hasProperty(PROP_PARAM)){

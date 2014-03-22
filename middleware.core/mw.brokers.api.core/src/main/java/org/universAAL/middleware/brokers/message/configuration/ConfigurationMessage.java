@@ -34,6 +34,7 @@ public class ConfigurationMessage implements BrokerMessage {
     private ConfigurationMessageType cType;
     private String param;
     private String parsed;
+    private boolean request = true;
     
     public enum ConfigurationMessageType{
 	PROPAGATE, QUERY
@@ -44,23 +45,17 @@ public class ConfigurationMessage implements BrokerMessage {
      */
     private ConfigurationMessage() {  }
     
-    /**
-     * Create a new Propagation type message.
-     * @param propagateSerialized
-     */
-    public ConfigurationMessage(String propagateSerialized){
-	param = propagateSerialized;
-	cType = ConfigurationMessageType.PROPAGATE;
-    }
     
     /**
-     * Create a new Query type message.
-     * @param sender
+     * Create a new Configuration Message.
+     * @param mType the type of the message to sent
+     * @param sender the sender of this message
      * @param propagateSerialized
      */
-    public ConfigurationMessage(PeerCard sender, String propagateSerialized){
-	param = propagateSerialized;
-	cType = ConfigurationMessageType.QUERY;
+    public ConfigurationMessage(ConfigurationMessageType mType, PeerCard sender, String propagateSerialized){
+	this.cType = mType;
+	this.param = propagateSerialized;
+	this.sender = sender;
     }
     
     public ConfigurationMessageType getMessageType(){
@@ -85,7 +80,7 @@ public class ConfigurationMessage implements BrokerMessage {
     }
     
     public boolean isRequest(){
-	return sender != null;
+	return request;
     }
 
     public ConfigurationMessage createResoponse(String serializedParam){
@@ -93,6 +88,7 @@ public class ConfigurationMessage implements BrokerMessage {
 	resp.cType = cType;
 	resp.receiver = sender;
 	resp.param = serializedParam;
+	resp.request = false;
 	return resp;
     }
     
@@ -127,6 +123,14 @@ public class ConfigurationMessage implements BrokerMessage {
 		    "Unable to unmashall ConfigurationMessage. Original message: "
 			    + message + ". Full Stack: " + e.toString());
 	}
+    }
+
+
+    /**
+     * @return
+     */
+    public boolean isSentFrom(PeerCard sender) {
+	return this.sender.equals(sender);
     }
     
 }
