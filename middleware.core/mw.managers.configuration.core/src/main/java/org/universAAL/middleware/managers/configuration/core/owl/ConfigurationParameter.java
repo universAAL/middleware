@@ -79,7 +79,10 @@ public class ConfigurationParameter extends Entity {
       Resource test = this.copy(false);
       test.changeProperty(PROP_VALUE, newPropValue);
       //check Restrictions
-      return getParameterRestriction().hasMember(test);
+      if (hasProperty(PROP_RDF_TYPE2))
+	  return getParameterRestriction().hasMember(test);
+      else
+	  return false;
   }
   
   public boolean setValue(Object newPropValue) {
