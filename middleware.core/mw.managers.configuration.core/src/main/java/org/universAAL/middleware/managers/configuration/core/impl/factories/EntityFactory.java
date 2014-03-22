@@ -52,11 +52,11 @@ public class EntityFactory {
 		    new org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter(uri);
 	    ConfigurationParameter de = (ConfigurationParameter)dentity;
 	    cp.setDefaultValue(de.getDefaultValue());
-	    //set value = default (if default is null no value will be set).
-	    cp.setValue(cp.getDefaultValue());
 	    cp.setDescription(dentity.getDescription(loc),loc);
 	    // add restriction to type
 	    cp.changeParameterRestriction(de.getType());
+	    //set value = default (if default is null no value will be set).
+	    cp.setValue(cp.getDefaultValue());
 	   
 	    
 	    return cp;
