@@ -20,7 +20,6 @@ package org.universAAL.middleware.managers.configuration.core.impl;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -29,8 +28,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage;
 import org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage.ConfigurationMessageType;
@@ -52,6 +49,7 @@ import org.universAAL.middleware.managers.configuration.core.impl.factories.Scop
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ConfigurationEditorPool;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.EntityManager;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.FileManagement;
+import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ModuleRegistry;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.PendingRequestsManager;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SynchronousConfEntityManager;
@@ -90,11 +88,10 @@ DynamicDescribedEntityListener{
     EntityManager manager;
     private ConfigurationEditorPool editorsPool;
     private PendingRequestsManager pendingRequests;
+    private ModuleRegistry moduleRegistry;
     /*
      * Internal structures
      */
-    Map<String,WeakReference<ConfigurableModule>> moduleRegistry;
-    //FIXME module registry must be a map of URNs to a set of configurablemodules!
     HashMap<String, DescribedEntity> entitiesSources;
     private AALConfigurationOntology ont;
     
@@ -106,7 +103,7 @@ DynamicDescribedEntityListener{
 	//register ontology
 	ont = new AALConfigurationOntology();
 	OntologyManagement.getInstance().register(context, ont);
-	moduleRegistry = new HashMap<String, WeakReference<ConfigurableModule>>();
+	moduleRegistry = new ModuleRegistry();
 	entitiesSources = new HashMap<String,DescribedEntity>();
 	fileM= fm;
 	shared = new SharedObjectConnector(mc);
@@ -134,15 +131,14 @@ DynamicDescribedEntityListener{
     /** {@ inheritDoc}	 */
     public void register(List<DescribedEntity> confPattern,
 	    ConfigurableModule listener) {
-	WeakReference<ConfigurableModule> ref = new WeakReference<ConfigurableModule>(listener);
 	List<Entity> registered = new ArrayList<Entity>();
 	for (DescribedEntity de : confPattern) {
 	    if (de instanceof ConfigurationDefinedElsewhere){
-		moduleRegistry.put(ScopeFactory.getScopeURN(de.getScope()),ref );
+		moduleRegistry.put(ScopeFactory.getScopeURN(de.getScope()),listener );
 	    }else {
 		Entity e = EntityFactory.getEntity(de, Locale.ENGLISH);
 		if (e != null) {
-		    moduleRegistry.put(e.getURI(), ref);
+		    moduleRegistry.put(e.getURI(), listener);
 		    entitiesSources.put(e.getURI(), de);
 		    registered.add(e);
 		}
@@ -173,16 +169,7 @@ DynamicDescribedEntityListener{
 
     /** {@ inheritDoc}	 */
     public void unregister(ConfigurableModule listener) {
-	List<String> tbr = new ArrayList<String>();
-	for(Entry<String, WeakReference<ConfigurableModule>> ent: moduleRegistry.entrySet()){
-	    if (ent.getValue().get().equals(listener)
-		    ||ent.getValue().get() == null){
-		tbr.add(ent.getKey());
-	    }
-	}
-	for (String k : tbr) {
-	    moduleRegistry.remove(k);
-	}
+	moduleRegistry.remove(listener);
     }
 
     /**
@@ -230,9 +217,7 @@ DynamicDescribedEntityListener{
      * @param e
      */
     boolean updateLocalValue(Entity e) {
-	ConfigurableModule cm = moduleRegistry.get(e.getURI()).get();
-	if(cm == null){
-	    moduleRegistry.remove(e.getURI());
+	if(!moduleRegistry.contains(e.getURI())){
 	    return false;
 	}
 	Object value = null;
@@ -317,13 +302,10 @@ DynamicDescribedEntityListener{
 	if (e instanceof ConfigurationParameter){
 	    ConfigurationParameter cp = (ConfigurationParameter) e;
 	    value = cp.getValue();
-//	    if (value == null){
-//		value = cp.getDefaultValue();
-//	    }
 	}
 	
 	if (value != null)
-	    return cm.configurationChanged(ScopeFactory.getScope(e.getURI()), value);
+	    return moduleRegistry.configurationChanged(ScopeFactory.getScope(e.getURI()), value);
 	return false;
     }
     

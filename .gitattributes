@@ -539,6 +539,7 @@ middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/midd
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/ConfigurationEditorPool.java -text svneol=unset#text/plain
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/EntityManager.java -text
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/FileManagement.java -text svneol=unset#text/plain
+middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/ModuleRegistry.java -text svneol=unset#text/plain
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/PendingRequestsManager.java -text svneol=unset#text/plain
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/SharedObjectConnector.java -text svneol=unset#text/plain
 middleware.core/mw.managers.configuration.core/src/main/java/org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/SynchronousConfEntityManager.java -text svneol=unset#text/plain
@@ -552,6 +553,7 @@ middleware.core/mw.managers.configuration.core/src/test/java/org/universAAL/midd
 middleware.core/mw.managers.configuration.core/src/test/java/org/universAAL/middleware/managers/configuration/core/EntityMngrTest.java -text
 middleware.core/mw.managers.configuration.core/src/test/java/org/universAAL/middleware/managers/configuration/core/EntityTest.java -text svneol=unset#text/plain
 middleware.core/mw.managers.configuration.core/src/test/java/org/universAAL/middleware/managers/configuration/core/FilterTests.java -text svneol=unset#text/plain
+middleware.core/mw.managers.configuration.core/src/test/java/org/universAAL/middleware/managers/configuration/core/ModuleRegistryTest.java -text svneol=unset#text/plain
 middleware.core/mw.managers.configuration.core/src/test/java/org/universAAL/middleware/managers/configuration/core/ScopeTest.java -text
 middleware.core/mw.managers.deploy.core/ASL2.0.txt -text
 middleware.core/mw.managers.deploy.core/NOTICE.txt -text
