@@ -101,7 +101,7 @@ public class EntityFactory {
 	String newDescription = dentity.getDescription(loc);
 	
 	if (newDescription != null
-		&& newDescription.isEmpty()
+		&& !newDescription.isEmpty()
 		&& !newDescription.equals(entity.getDescription(loc))){
 	    //Locale is the same, description is different;
 	    //or a new Locale is added.

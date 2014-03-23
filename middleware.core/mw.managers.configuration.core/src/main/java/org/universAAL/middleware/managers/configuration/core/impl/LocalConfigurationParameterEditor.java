@@ -87,7 +87,7 @@ public class LocalConfigurationParameterEditor extends LocalConfigurationEntity
     public boolean setValue(Object value) {
 	Entity e = getEntity();
 	if (e instanceof ConfigurationParameter) {
-	    setValue((ConfigurationParameter) e, value);
+	    return setValue((ConfigurationParameter) e, value);
 	}
 	return false;
     }
