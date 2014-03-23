@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.InstancePattern;
+import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.NotPattern;
 import org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl;
 import org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity;
 import org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationFileEditor;
@@ -61,7 +63,7 @@ public class ConfigurationEditorPool {
      */
     public GenericConfigurationEntity get(Entity e){
 	String uri = e.getURI();
-	if (map.containsKey(uri)){
+	if (map.containsKey(uri) && map.get(uri).get() != null){
 	    return map.get(uri).get();
 	}
 	else {
@@ -118,11 +120,13 @@ public class ConfigurationEditorPool {
     }
 
     /**	
-     * Find if e is a local-only entity.	
+     * Find if e can be managed as local.
      * @param e the entity to test
-     * @return true iff e is local.
+     * @return true iff e is local or not instance type scope.
      */
     private boolean isLocal(Entity e) {
-	return confManager.localOnlyExpression().hasMember(e);
+	
+	return confManager.localOnlyExpression().hasMember(e) ||
+		new NotPattern(new InstancePattern()).getRestriction().hasMember(e);
     }
 }

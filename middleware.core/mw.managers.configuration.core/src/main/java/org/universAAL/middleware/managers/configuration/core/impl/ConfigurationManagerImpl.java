@@ -455,6 +455,10 @@ DynamicDescribedEntityListener{
 	propagate(l);
     }
    
+    /**
+     * Get an Expresion for instance or module scopes in this instance.
+     * @return
+     */
     public  TypeExpression localOnlyExpression(){
 	String localPeerID = shared.getAalSpaceManager().getMyPeerCard().getPeerID();
 	URIRestriction localOnly = new URIRestriction();
