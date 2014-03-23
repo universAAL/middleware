@@ -94,6 +94,7 @@ DynamicDescribedEntityListener{
      * Internal structures
      */
     Map<String,WeakReference<ConfigurableModule>> moduleRegistry;
+    //FIXME module registry must be a map of URNs to a set of configurablemodules!
     HashMap<String, DescribedEntity> entitiesSources;
     private AALConfigurationOntology ont;
     
@@ -316,9 +317,9 @@ DynamicDescribedEntityListener{
 	if (e instanceof ConfigurationParameter){
 	    ConfigurationParameter cp = (ConfigurationParameter) e;
 	    value = cp.getValue();
-	    if (value == null){
-		value = cp.getDefaultValue();
-	    }
+//	    if (value == null){
+//		value = cp.getDefaultValue();
+//	    }
 	}
 	
 	if (value != null)
