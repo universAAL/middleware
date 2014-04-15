@@ -15,7 +15,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package org.universAAL.mw.managers.configuration.osgi;
+package org.universAAL.middleware.managers.configuration.osgi;
 
 import java.io.File;
 import java.io.IOException;
