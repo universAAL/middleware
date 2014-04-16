@@ -20,6 +20,7 @@ package org.universAAL.middleware.interfaces.configuration.configurationDefiniti
 import java.io.File;
 import java.net.URL;
 
+import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
 import org.universAAL.middleware.xsd.Base64Binary;
 
 /**
@@ -49,6 +50,8 @@ public interface DynamicDescribedEntityListener {
      *  <li> a byte[] containing the data of the file
      *  <li> a {@link Base64Binary}
      *  </ul>
+     *  <b>DO NOT USE INSIDE {@link ConfigurableModule#configurationChanged(org.universAAL.middleware.interfaces.configuration.scope.Scope, Object)}</b>
+     *  as it will guarantee an infinite loop.
      * @param deEntity
      * @param value
      */
