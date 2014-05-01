@@ -181,7 +181,7 @@ public class ServiceResponse extends FinalizedResource implements Response,
 			result.add(ob);
 		}
 	    } else if (obj instanceof List) {
-		// TODO: can this really happen?
+		// this can happen if we get responses from more than one service
 		List outputLists = (List) obj;
 		for (Iterator iter2 = outputLists.iterator(); iter2.hasNext();) {
 		    ProcessOutput output = (ProcessOutput) iter2.next();
@@ -231,6 +231,24 @@ public class ServiceResponse extends FinalizedResource implements Response,
 		    l.addAll((List) ob);
 		else
 		    l.add(ob);
+	    } else if (obj instanceof List) {
+		// this can happen if we get responses from more than one service
+		List outputLists = (List) obj;
+		for (Iterator iter2 = outputLists.iterator(); iter2.hasNext();) {
+		    ProcessOutput output = (ProcessOutput) iter2.next();
+
+		    List l = result.get(output.getURI());
+		    if (l == null) {
+			l = new ArrayList(3);
+			result.put(output.getURI(), l);
+		    }
+
+		    Object ob = output.getParameterValue();
+		    if (ob instanceof List)
+			l.addAll((List) ob);
+		    else
+			l.add(ob);
+		}
 	    }
 	}
 
