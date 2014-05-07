@@ -36,12 +36,12 @@
 			<extensions>true</extensions>
 			<configuration>
 				<instructions>
-					<Bundle-Activator>org.universAAL.mw.managers.configuration.osgi.ConfigurationActivator</Bundle-Activator>
-					<Export-Package>org.universAAL.middleware.managers.configuration.core.owl</Export-Package>
-					<Private-Package>org.universAAL.mw.managers.configuration.osgi,
-									org.universAAL.middleware.managers.configuration.core.impl,
-									org.universAAL.middleware.managers.configuration.core.impl.factories,
-									org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers</Private-Package>
+					<Bundle-Activator>org.universAAL.middleware.managers.configuration.osgi.ConfigurationActivator</Bundle-Activator>
+					<Export-Package> org.universAAL.middleware.managers.configuration.core.owl</Export-Package>
+					<Private-Package>org.universAAL.middleware.managers.configuration.osgi,
+									 org.universAAL.middleware.managers.configuration.core.impl,
+									 org.universAAL.middleware.managers.configuration.core.impl.factories,
+									 org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers</Private-Package>
 				</instructions>
 			</configuration>
 		</plugin>
