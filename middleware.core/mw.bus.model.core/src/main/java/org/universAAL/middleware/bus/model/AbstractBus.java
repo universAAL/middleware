@@ -101,17 +101,23 @@ public abstract class AbstractBus implements Broker, MessageListener {
     public static void initBrokerage(ModuleContext mc,
 	    AALSpaceManager aalSpaceMgr, CommunicationModule commModule) {
 	if (myContext != null) {
-	    LogUtils
-		    .logError(
-			    myContext,
-			    AbstractBus.class,
-			    "initBrokerage",
-			    new Object[] {
-				    "The init method was called already, it cannot be called a second time. The original caller was ",
-				    myContext.getID(),
-				    " and the current caller is ", mc.getID() },
-			    null);
-	    return;
+	    // LogUtils.logError(
+	    // myContext,
+	    // AbstractBus.class,
+	    // "initBrokerage",
+	    // new Object[] {
+	    // "The init method was called already, it cannot be called a second time. The original caller was ",
+	    // myContext.getID(), " and the current caller is ",
+	    // mc.getID() }, null);
+	    // return;
+	    LogUtils.logDebug(
+		    myContext,
+		    AbstractBus.class,
+		    "initBrokerage",
+		    new Object[] {
+			    "The init method is called again. The original caller was ",
+			    myContext.getID(), " and the current caller is ",
+			    mc.getID() }, null);
 	}
 	myContext = mc;
 
