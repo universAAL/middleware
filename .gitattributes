@@ -863,6 +863,7 @@ middleware.resources/mw.schemas/src/test/java/org/universAAL/middleware/interfac
 middleware.resources/mw.schemas/src/test/resources/org/universAAL/middleware/deploymanager/uapp/model/hwo.uapp.xml svneol=native#text/xml
 middleware.resources/mw.schemas/src/test/resources/org/universAAL/middleware/interfaces/aalspace/xml/model/Home.1.0.1.space -text
 middleware.resources/mw.schemas/src/test/resources/org/universAAL/middleware/interfaces/aalspace/xml/model/Home.space -text
+pom/analyze-dependencies.bat -text
 pom/pom.xml -text
 thirdparty/jslp.core/LICENSE-BSD.txt -text
 thirdparty/jslp.core/LICENSE-EPL.TXT -text
