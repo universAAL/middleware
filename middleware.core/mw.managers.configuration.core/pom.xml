@@ -6,6 +6,7 @@
     <artifactId>mw.pom.core</artifactId>
     <version>3.0.1-SNAPSHOT</version>
 <!--     <relativePath>../../middleware.core/mw.pom.core</relativePath> -->
+  	<relativePath>../mw.pom.core</relativePath>
   </parent>
 
   <artifactId>mw.managers.configuration.core</artifactId>
@@ -56,4 +57,5 @@
 	</dependency>
   </dependencies>
   
+  <groupId>org.universAAL.middleware</groupId>
 </project>
