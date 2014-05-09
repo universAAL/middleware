@@ -133,9 +133,9 @@ public class EntityFactory {
 		    (org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile) entity;
 	    ConfigurationFile de = (ConfigurationFile)dentity;
 
-	    String newDefault = de.getDefaultFileRef().toString();
-	    if (!newDefault.equals(cf.getDefaultURL())){
-		cf.setDefaultURL(newDefault);
+	    URL defURL = de.getDefaultFileRef();
+	    if (defURL != null && !defURL.toString().equals(cf.getDefaultURL())){
+		cf.setDefaultURL(defURL.toString());
 		cf.incrementVersion();
 	    }
 	    
