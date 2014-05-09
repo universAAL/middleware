@@ -79,8 +79,9 @@ public class ConfigurationParameter extends Entity {
       Resource test = this.copy(false);
       test.changeProperty(PROP_VALUE, newPropValue);
       //check Restrictions
-      if (hasProperty(PROP_RDF_TYPE2))
-	  return getParameterRestriction().hasMember(test);
+      MergedRestriction mr = getParameterRestriction();
+      if (mr != null)
+    	  return mr.hasMember(test);
       else
 	  return false;
   }

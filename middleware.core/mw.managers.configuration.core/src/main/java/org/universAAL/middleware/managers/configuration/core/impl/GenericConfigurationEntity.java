@@ -17,6 +17,7 @@
 
 package org.universAAL.middleware.managers.configuration.core.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor;
@@ -45,6 +46,7 @@ public abstract class GenericConfigurationEntity implements ConfigurableEntityEd
      */
     public GenericConfigurationEntity(ConfigurationManagerImpl configurationManagerImpl, String uri){
         confManager = configurationManagerImpl;
+        listeners = new ArrayList<ConfigurableEntityEditorListener>();
         this.uri = uri;
     }
     
