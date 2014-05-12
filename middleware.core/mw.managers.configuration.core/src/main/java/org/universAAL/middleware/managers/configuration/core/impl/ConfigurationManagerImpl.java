@@ -310,7 +310,7 @@ DynamicDescribedEntityListener{
     }
     
     boolean updateLocalAndPropagate(Entity e){
-	if (updateLocalValue(e)){
+	if (manager.addEntity(e) && updateLocalValue(e)){
 	    propagate(e);
 	    return true;
 	}else {

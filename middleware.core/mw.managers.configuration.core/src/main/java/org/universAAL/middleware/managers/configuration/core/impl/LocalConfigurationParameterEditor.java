@@ -80,7 +80,11 @@ public class LocalConfigurationParameterEditor extends LocalConfigurationEntity
      * @return
      */
     boolean setValue(ConfigurationParameter e, Object val) {
-	return e.setValue(val) && confManager.updateLocalAndPropagate(e);
+    	if (e.setValue(val)) {
+			e.incrementVersion();
+			return confManager.updateLocalAndPropagate(e);
+		}
+    	return false;
     }
 
     /** {@ inheritDoc} */
