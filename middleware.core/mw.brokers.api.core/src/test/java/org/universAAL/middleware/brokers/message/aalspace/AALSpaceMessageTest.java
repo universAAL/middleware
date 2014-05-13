@@ -72,9 +72,9 @@ public class AALSpaceMessageTest {
 
 	AALSpaceMessage original = new AALSpaceMessage(spaceDescriptor,	AALSpaceMessageTypes.CONNECT);
 
-	String serializedMessage = GsonParserBuilder.getInstance().buildGson().toJson(original);
+	String serializedMessage = GsonParserBuilder.getInstance().toJson(original);
 
-	AALSpaceMessage decodedMessage = GsonParserBuilder.getInstance().buildGson().fromJson(serializedMessage,
+	AALSpaceMessage decodedMessage = GsonParserBuilder.getInstance().fromJson(serializedMessage,
 		AALSpaceMessage.class);
 
 	System.out.println(original.toString());

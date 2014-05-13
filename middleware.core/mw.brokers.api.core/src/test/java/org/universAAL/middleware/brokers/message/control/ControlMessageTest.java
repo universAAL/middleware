@@ -212,7 +212,7 @@ public class ControlMessageTest {
 	ControlMessage sorgente = new ControlMessage(spaceDescriptor,
 		attributes);
 
-	Gson gson = GsonParserBuilder.getInstance().buildGson();
+	Gson gson = GsonParserBuilder.getInstance();
 	String serializedMessage = gson.toJson(sorgente);
 	ControlMessage destinazione = gson.fromJson(serializedMessage,
 		ControlMessage.class);
@@ -222,7 +222,7 @@ public class ControlMessageTest {
     @Test
     public void GSONC1ontrolMessageTest() throws Exception {
 
-	Gson gson = GsonParserBuilder.getInstance().buildGson();
+	Gson gson = GsonParserBuilder.getInstance();
 
 	DeployMessageType type = DeployMessageType.REQUEST_TO_INSTALL_PART;
 

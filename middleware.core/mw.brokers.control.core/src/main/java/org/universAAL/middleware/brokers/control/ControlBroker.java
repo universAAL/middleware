@@ -904,7 +904,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	BrokerMessage cm = null;
 	if (message != null) {
 	    try {
-		Gson gson = GsonParserBuilder.getInstance().buildGson();
+		Gson gson = GsonParserBuilder.getInstance();
 		cm = gson.fromJson(message.getContent(), BrokerMessage.class);
 	    } catch (Exception e) {
 		LogUtils.logError(
@@ -1222,7 +1222,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 
     public BrokerMessage unmarshall(String message) {
 	try {
-	    Gson gson = GsonParserBuilder.getInstance().buildGson();
+	    Gson gson = GsonParserBuilder.getInstance();
 	    return gson.fromJson(message, ControlMessage.class);
 	} catch (Exception e) {
 	    final String MSG = "Unable to unmarshall message due to JSON parsing issue for "

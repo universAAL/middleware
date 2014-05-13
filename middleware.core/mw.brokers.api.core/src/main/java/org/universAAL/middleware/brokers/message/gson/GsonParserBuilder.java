@@ -113,21 +113,19 @@ public class GsonParserBuilder {
         }
     }
 
-    public static GsonParserBuilder getInstance() {
+    public static Gson getInstance() {
         synchronized (GsonParserBuilder.class) {
             if (instance == null) {
                 instance = new GsonParserBuilder();
+                instance.buildGson();
+                return instance.gson;
             }
         }
-        return instance;
+        return instance.gson;
     }
 
-    public Gson buildGson() {
+    private Gson buildGson() {
         gson = new GsonBuilder()
-                .registerTypeAdapter(Serializable.class,
-                        new SerializableDeserializer())
-                .registerTypeAdapter(Serializable.class,
-                        new SerializableSerializer())
                 .registerTypeAdapter(BrokerMessage.class,
                         new BrokerMessageSerializer()).serializeNulls()
                 .create();

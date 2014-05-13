@@ -23,6 +23,7 @@ package org.universAAL.middleware.brokers.message.deploy;
 
 import static org.junit.Assert.*;
 
+
 import java.util.Arrays;
 
 import org.apache.commons.codec.binary.Base64;
@@ -48,6 +49,7 @@ import com.google.gson.Gson;
  */
 
 public class DeployMessageTest {
+        
     @Test
     public void ByteArrayBase64EncodeSerializeDeserializeDecodeTest()
 	    throws Exception {
@@ -55,7 +57,7 @@ public class DeployMessageTest {
 	byte[] dati = new byte[] { (byte) 0x03, (byte) 0x08, (byte) 0x60,
 		(byte) 0x99 };
 	Base64.encodeBase64(dati);
-	Gson gson = GsonParserBuilder.getInstance().buildGson();
+	Gson gson = GsonParserBuilder.getInstance();
 	String serializedMessage = gson.toJson(dati);
 	System.out.println(serializedMessage.toString());
 	byte[] gsondecoded = gson.fromJson(serializedMessage, byte[].class);
@@ -108,7 +110,7 @@ public class DeployMessageTest {
 
 	DeployMessage sorgente = new DeployMessage(type, payload);
 
-	Gson gson = GsonParserBuilder.getInstance().buildGson();
+	Gson gson = GsonParserBuilder.getInstance();
 	String serializedMessage = gson.toJson(sorgente);
 	DeployMessage destinazione = gson.fromJson(serializedMessage,
 		DeployMessage.class);
@@ -165,9 +167,9 @@ public class DeployMessageTest {
 	DeployMessage sorgente = new DeployMessage(type, payload);
 	System.out.println(sorgente.toString());
 	
-	String serializedMessage = GsonParserBuilder.getInstance().buildGson().toJson(sorgente);
+	String serializedMessage = GsonParserBuilder.getInstance().toJson(sorgente);
 	
-	String destinazione =  GsonParserBuilder.getInstance().buildGson().fromJson(serializedMessage,
+	String destinazione =  GsonParserBuilder.getInstance().fromJson(serializedMessage,
 		BrokerMessage.class).toString();
 
 	
