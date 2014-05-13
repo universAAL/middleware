@@ -67,7 +67,7 @@ public class DeployMessage implements BrokerMessage {
 	String serializedMessage = null;
 
 	try {
-	    Gson gson = GsonParserBuilder.getInstance().buildGson();
+	    Gson gson = GsonParserBuilder.getInstance();
 	    serializedMessage = gson.toJson(this);
 
 	} catch (Exception e) {

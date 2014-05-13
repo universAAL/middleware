@@ -97,7 +97,7 @@ public class ConfigurationMessage implements BrokerMessage {
 	if (parsed == null) {
 
 	    try {
-		Gson gson = GsonParserBuilder.getInstance().buildGson();
+		Gson gson = GsonParserBuilder.getInstance();
 		serializedMessage = gson.toJson(this);
 
 	    } catch (Exception e) {
@@ -113,7 +113,7 @@ public class ConfigurationMessage implements BrokerMessage {
 
 	try {
 
-	    Gson gson = GsonParserBuilder.getInstance().buildGson();
+	    Gson gson = GsonParserBuilder.getInstance();
 
 	    return gson.fromJson(message, ConfigurationMessage.class);
 

@@ -69,7 +69,7 @@ public class AALSpaceMessage implements BrokerMessage {
     public String toString() {
 	String serializedMessage=null;
 	try {
-	     serializedMessage =  GsonParserBuilder.getInstance().buildGson().toJson(this);
+	     serializedMessage =  GsonParserBuilder.getInstance().toJson(this);
 	    
 	} catch (Exception e) {
 	    // TODO Auto-generated catch block
