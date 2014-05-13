@@ -1471,6 +1471,10 @@ middleware.osgi/uAAL.log
 middleware.resources/mw.schemas/.classpath
 middleware.resources/mw.schemas/.project
 middleware.resources/mw.schemas/.settings
+middleware.resources/mw.schemas/mw.schemas/.classpath
+middleware.resources/mw.schemas/mw.schemas/.project
+middleware.resources/mw.schemas/mw.schemas/.settings
+middleware.resources/mw.schemas/mw.schemas/target
 middleware.resources/mw.schemas/target
 pom/.classpath
 pom/.project
