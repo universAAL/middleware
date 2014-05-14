@@ -126,6 +126,10 @@ public class GsonParserBuilder {
 
     private Gson buildGson() {
         gson = new GsonBuilder()
+                .registerTypeAdapter(Serializable.class,
+                        new SerializableDeserializer())
+                .registerTypeAdapter(Serializable.class,
+                        new SerializableSerializer())
                 .registerTypeAdapter(BrokerMessage.class,
                         new BrokerMessageSerializer()).serializeNulls()
                 .create();
