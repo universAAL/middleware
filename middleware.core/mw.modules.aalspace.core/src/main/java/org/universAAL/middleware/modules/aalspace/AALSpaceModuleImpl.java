@@ -1179,7 +1179,7 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
     public BrokerMessage unmarshall(String message) {
         try {
 
-            return GsonParserBuilder.getInstance().buildGson()
+            return GsonParserBuilder.getInstance()
                     .fromJson(message, AALSpaceMessage.class);
 
         } catch (Exception e) {

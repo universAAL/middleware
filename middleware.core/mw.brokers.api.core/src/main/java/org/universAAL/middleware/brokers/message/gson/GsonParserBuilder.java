@@ -128,8 +128,6 @@ public class GsonParserBuilder {
         gson = new GsonBuilder()
                 .registerTypeAdapter(Serializable.class,
                         new SerializableDeserializer())
-                .registerTypeAdapter(Serializable.class,
-                        new SerializableSerializer())
                 .registerTypeAdapter(BrokerMessage.class,
                         new BrokerMessageSerializer()).serializeNulls()
                 .create();
