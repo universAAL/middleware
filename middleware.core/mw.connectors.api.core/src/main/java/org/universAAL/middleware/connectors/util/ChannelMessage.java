@@ -111,9 +111,9 @@ public class ChannelMessage {
             throw new Exception(
                     "Unable to unmashall AALSpaceMessage. Original message: "
                             + message + ". Full Stack: " + e.toString());
-        }
+	}
 
-        return ch;
+	return ch;
 
     }
 
