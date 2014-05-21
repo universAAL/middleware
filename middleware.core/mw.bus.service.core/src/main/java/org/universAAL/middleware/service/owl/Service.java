@@ -238,7 +238,7 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Creates an input from the given URI and cardinality
      */
-    protected ProcessInput createInput(String inParamURI, String typeURI,
+    public final ProcessInput createInput(String inParamURI, String typeURI,
 	    int minCardinality, int maxCardinality) {
 	ProcessInput in = new ProcessInput(inParamURI);
 	in.setParameterType(typeURI);
@@ -250,7 +250,7 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Adds a restriction to a given input
      */
-    protected void addFilteringInput(String inParamURI, String typeURI,
+    public final void addFilteringInput(String inParamURI, String typeURI,
 	    int minCardinality, int maxCardinality, String[] propPath) {
 	ProcessInput in = createInput(inParamURI, typeURI, minCardinality,
 		maxCardinality);
@@ -262,7 +262,7 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Adds a restriction to a given input
      */
-    protected void addFilteringType(String inParamURI, String[] propPath) {
+    public final void addFilteringType(String inParamURI, String[] propPath) {
 	ProcessInput in = createInput(inParamURI,
 		TypeMapper.getDatatypeURI(Resource.class), 1, 1);
 	String[] pp = new String[propPath.length+1];
@@ -276,7 +276,7 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Adds an add effect to default profile
      */
-    protected void addInputWithAddEffect(String inParamURI, String typeURI,
+    public final void addInputWithAddEffect(String inParamURI, String typeURI,
 	    int minCardinality, int maxCardinality, String[] propPath) {
 	ProcessInput in = createInput(inParamURI, typeURI, minCardinality,
 		maxCardinality);
@@ -286,7 +286,7 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Adds a change effect to default profile
      */
-    protected void addInputWithChangeEffect(String inParamURI, String typeURI,
+    public final void addInputWithChangeEffect(String inParamURI, String typeURI,
 	    int minCardinality, int maxCardinality, String[] propPath) {
 	ProcessInput in = createInput(inParamURI, typeURI, minCardinality,
 		maxCardinality);
@@ -296,7 +296,7 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Adds a remove effect to default profile
      */
-    protected void addInputWithRemoveEffect(String inParamURI, String typeURI,
+    public final void addInputWithRemoveEffect(String inParamURI, String typeURI,
 	    int minCardinality, int maxCardinality, String[] propPath) {
 	addFilteringInput(inParamURI, typeURI, minCardinality, maxCardinality,
 		propPath);
@@ -306,7 +306,7 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Adds configured output to default profile
      */
-    protected void addOutput(String outParamURI, String typeURI,
+    public final void addOutput(String outParamURI, String typeURI,
 	    int minCardinality, int maxCardinality, String[] propPath) {
 	ProcessOutput out = new ProcessOutput(outParamURI);
 	out.setParameterType(typeURI);
