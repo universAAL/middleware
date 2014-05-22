@@ -772,6 +772,8 @@ middleware.osgi/mw.managers.aalspace.osgi/src/test/java/org/universAAL/middlewar
 middleware.osgi/mw.managers.api.osgi/ASL2.0.txt -text
 middleware.osgi/mw.managers.api.osgi/NOTICE.txt -text
 middleware.osgi/mw.managers.api.osgi/pom.xml -text
+middleware.osgi/mw.managers.configuration.osgi/ASL2.0.txt -text
+middleware.osgi/mw.managers.configuration.osgi/NOTICE.txt -text
 middleware.osgi/mw.managers.configuration.osgi/pom.xml -text
 middleware.osgi/mw.managers.configuration.osgi/src/main/java/org/universAAL/middleware/managers/configuration/osgi/ConfigurationActivator.java -text
 middleware.osgi/mw.managers.configuration.osgi/src/main/java/org/universAAL/middleware/managers/configuration/osgi/FileProvider.java -text
