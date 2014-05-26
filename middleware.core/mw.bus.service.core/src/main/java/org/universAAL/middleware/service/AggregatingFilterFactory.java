@@ -91,6 +91,9 @@ public class AggregatingFilterFactory {
 	min, max
     };
 
+    public final static String PROP_DUMMY = Resource.uAAL_NAMESPACE_PREFIX
+	    + "dummy.owl#dummyPropURI";
+
     /**
      * Create a service selection filter that selects one service randomly. The
      * aggregation function is {@link AggregationFunction#oneOf}. This filter is
@@ -102,8 +105,7 @@ public class AggregatingFilterFactory {
     public static AggregatingFilter createServiceSelectionFilter() {
 	ArrayList params = new ArrayList(1);
 	params.add(new PropertyPath(null, false, new String[] {
-		Service.PROP_OWLS_PRESENTS,
-		Resource.uAAL_NAMESPACE_PREFIX + "dummyPropURI" }));
+		Service.PROP_OWLS_PRESENTS, PROP_DUMMY }));
 
 	return new AggregatingFilter(AggregationFunction.oneOf, params, true);
     }
@@ -181,8 +183,7 @@ public class AggregatingFilterFactory {
 
 	ArrayList params = new ArrayList(1);
 	params.add(new PropertyPath(null, false, new String[] {
-		Service.PROP_OWLS_PRESENTS,
-		Resource.uAAL_NAMESPACE_PREFIX + "dummyPropURI" }));
+		Service.PROP_OWLS_PRESENTS, PROP_DUMMY }));
 
 	return new AggregatingFilter(func, params, true);
     }
@@ -204,8 +205,7 @@ public class AggregatingFilterFactory {
 
 	ArrayList params = new ArrayList(1);
 	params.add(new PropertyPath(null, false, new String[] {
-		Service.PROP_OWLS_PRESENTS,
-		Resource.uAAL_NAMESPACE_PREFIX + "dummyPropURI" }));
+		Service.PROP_OWLS_PRESENTS, PROP_DUMMY }));
 	params.add(location);
 
 	return new AggregatingFilter(func, params, true);
