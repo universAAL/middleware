@@ -60,7 +60,7 @@ import org.universAAL.middleware.util.ResourceComparator;
 public class UIBusImpl extends AbstractBus implements IUIBus {
     private static Object[] busFetchParams;
     private static UIBusImpl theUIBus = null;
-    private static UIBusOntology uiBusOntology = new UIBusOntology();
+    private static UIBusOntology uiBusOntology = null;
     private static ModuleContext mc;
 
     public static Object[] getUIBusFetchParams() {
@@ -96,6 +96,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	    Object[] uiBusShareParams, Object[] uiBusFetchParams) {
 	if (theUIBus == null) {
 	    UIBusImpl.mc = mc;
+	    uiBusOntology = new UIBusOntology();
 	    OntologyManagement.getInstance().register(mc, uiBusOntology);
 	    theUIBus = new UIBusImpl(mc);
 	    busFetchParams = uiBusFetchParams;
@@ -110,6 +111,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 		if (theUIBus != null) {
 		    ((UIStrategyCaller)theUIBus.busStrategy).close();
 		    OntologyManagement.getInstance().unregister(mc, uiBusOntology);
+		    uiBusOntology = null;
 		    theUIBus.dispose();
 		    theUIBus = null;
 		}		

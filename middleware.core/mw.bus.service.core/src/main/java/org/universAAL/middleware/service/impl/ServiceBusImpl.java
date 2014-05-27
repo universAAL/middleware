@@ -53,7 +53,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     private static Object[] busFetchParams;
     private static ServiceBusImpl theServiceBus = null;
-    private static ServiceBusOntology serviceOntology = new ServiceBusOntology();
+    private static ServiceBusOntology serviceOntology = null;
     private static ModuleContext mc;
 
     public static Object[] getServiceBusFetchParams() {
@@ -86,6 +86,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    Object[] serviceBusShareParams, Object[] serviceBusFetchParams) {
 	if (theServiceBus == null) {
 	    ServiceBusImpl.mc = mc;
+	    serviceOntology = new ServiceBusOntology();
 	    OntologyManagement.getInstance().register(mc, serviceOntology);
 	    theServiceBus = new ServiceBusImpl(mc);
 	    busFetchParams = serviceBusFetchParams;
@@ -96,6 +97,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public static void stopModule() {
 	if (theServiceBus != null) {
 	    OntologyManagement.getInstance().unregister(mc, serviceOntology);
+	    serviceOntology = null;
 	    theServiceBus.dispose();
 	    theServiceBus = null;
 	}
