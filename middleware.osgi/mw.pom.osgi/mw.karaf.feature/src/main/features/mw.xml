@@ -40,12 +40,12 @@
 		<!-- Managers -->
 		<bundle start-level='56' start='true'>mvn:org.universAAL.middleware/mw.managers.aalspace.osgi/${mw.managers.aalspace.osgi.version}</bundle>
 		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.deploy.osgi/${mw.managers.deploy.osgi.version}</bundle>
-		<bundle start-level='58' start='true'>mvn:org.universAAL.middleware/mw.managers.configuration.osgi/${mw.managers.configuration.osgi.version}</bundle>
+		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.configuration.osgi/${mw.managers.configuration.osgi.version}</bundle>
 
 		<!-- Busses -->
-		<bundle start-level='58' start='true'>mvn:org.universAAL.middleware/mw.data.serialization.osgi/${mw.data.serialization.osgi.version}</bundle>
+		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.data.representation.osgi/${mw.data.representation.osgi.version}</bundle>
+		<bundle start-level='53' start='true'>mvn:org.universAAL.middleware/mw.data.serialization.osgi/${mw.data.serialization.osgi.version}</bundle>
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.model.osgi/${mw.bus.model.osgi.version}</bundle>
-		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.data.representation.osgi/${mw.data.representation.osgi.version}</bundle>
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.context.osgi/${mw.bus.context.osgi.version}</bundle>
 			
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.service.osgi/${mw.bus.service.osgi.version}</bundle>
