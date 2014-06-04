@@ -569,6 +569,13 @@ middleware.osgi/mw.brokers.control.osgi/ASL2.0.txt -text
 middleware.osgi/mw.brokers.control.osgi/NOTICE.txt -text
 middleware.osgi/mw.brokers.control.osgi/pom.xml -text
 middleware.osgi/mw.brokers.control.osgi/src/main/java/org/universAAL/middleware/brokers/control/osgi/Activator.java -text
+middleware.osgi/mw.bus.model.osgi/ASL2.0.txt -text
+middleware.osgi/mw.bus.model.osgi/NOTICE.txt -text
+middleware.osgi/mw.bus.model.osgi/pom.xml -text
+middleware.osgi/mw.bus.model.osgi/src/main/java/org/universAAL/middleware/bus/model/osgi/Activator.java -text
+middleware.osgi/mw.bus.model.osgi/src/main/resources/README.txt -text
+middleware.osgi/mw.bus.model.osgi/src/test/java/org/universAAL/middleware/bus/model/test/ArtifactIT.java -text
+middleware.osgi/mw.bus.model.osgi/src/test/resources/log4j.properties -text
 middleware.osgi/mw.connectors.api.osgi/ASL2.0.txt -text
 middleware.osgi/mw.connectors.api.osgi/NOTICE.txt -text
 middleware.osgi/mw.connectors.api.osgi/pom.xml -text
