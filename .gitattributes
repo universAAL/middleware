@@ -3247,6 +3247,73 @@ mw.bus.ui.core-2.0.6-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl
 mw.bus.ui.core-2.0.6-SNAPSHOT/src/test/java/org/universAAL/middleware/ui/rdf/RangeTest.java -text
 mw.bus.ui.core-2.0.6-SNAPSHOT/src/test/java/org/universAAL/middleware/ui/rdf/RepeatVirtualFormExpansionTest.java -text svneol=unset#text/plain
 mw.bus.ui.core-2.0.6-SNAPSHOT/src/test/java/org/universAAL/middleware/ui/rdf/SearchTest.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/NOTICE.txt -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/pom.xml -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/IDialogManager.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/IUIBus.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/UIBusFacade.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/UICaller.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/UIHandler.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/UIHandlerProfile.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/UIRequest.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/UIResponse.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/IUIStrategyMessageSharedProps.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/RunningDialogsManager.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/UIBusFactory.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/UIBusImpl.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/UIStrategyCaller.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/UIStrategyCoordinatorMng.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/UIStrategyHandler.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/generic/CallBasedStrategy.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/generic/CallMessage.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/generic/CoordinatedRegistrationManagement.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/generic/CoordinatedStrategy.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/generic/EventBasedStrategy.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/impl/generic/EventMessage.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/owl/AccessImpairment.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/owl/DialogType.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/owl/Modality.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/owl/Preference.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/owl/PrivacyLevel.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/owl/Recommendation.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/owl/UIBusOntology.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/ChoiceItem.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/ChoiceList.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Form.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/FormControl.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/FormElement.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Group.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Input.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/InputField.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Label.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/MediaObject.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Output.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Range.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Repeat.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Select.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Select1.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/SimpleOutput.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/SubdialogTrigger.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/Submit.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/ui/rdf/TextArea.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/doc-files/UIStrategyCaller.png -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/doc-files/UIStrategyCaller.svg -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/doc-files/UIStrategyHandler.png -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/doc-files/UIStrategyHandler.svg -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/generic/doc-files/CoordinatedRegistrationStrategy.png -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/generic/doc-files/CoordinatedRegistrationStrategy.svg -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/generic/doc-files/CoordinatedStrategy.png -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/generic/doc-files/CoordinatedStrategy.svg -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/generic/doc-files/EventBasedStrategy-Sample.png -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/generic/doc-files/EventBasedStrategy-Sample.svg -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/generic/doc-files/EventBasedStrategy.png -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/generic/doc-files/EventBasedStrategy.svg -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/generic/doc-files/SDReceive.png -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/main/javadoc/org/universAAL/middleware/ui/impl/generic/doc-files/SDSend.png -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/ui/rdf/RangeTest.java -text
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/ui/rdf/RepeatVirtualFormExpansionTest.java -text svneol=unset#text/plain
+mw.bus.ui.core-3.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/ui/rdf/SearchTest.java -text svneol=unset#text/plain
 mw.bus.ui.osgi-1.1.2-SNAPSHOT/LICENSE.txt -text
 mw.bus.ui.osgi-1.1.2-SNAPSHOT/NOTICE.txt -text
 mw.bus.ui.osgi-1.1.2-SNAPSHOT/pom.xml -text
