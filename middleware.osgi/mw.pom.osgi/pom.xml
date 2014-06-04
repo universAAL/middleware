@@ -5,18 +5,19 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.1.0</version>
     <relativePath>../../pom</relativePath>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.pom.osgi</artifactId>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>3.1.0</version>
   <packaging>pom</packaging>
   <name>universAAL Middleware Suite (OSGi)</name>
   <description>The set of artefacts realizing the universAAL middleware 2.0 (OSGi)</description>
   <modules>
     <module>../../thirdparty/jslp.osgi</module>
     <module>../../middleware.resources/mw.schemas</module>
+    <module>../mw.data.representation.osgi</module>
     <module>../mw.container.xfaces.osgi</module>
     <module>../mw.container.osgi</module>
     <module>../mw.interfaces.osgi</module>
@@ -31,13 +32,12 @@
     <module>../mw.connectors.communication.jgroups.osgi</module>
     <module>../mw.managers.aalspace.osgi</module>
     <module>../mw.managers.deploy.osgi</module>
+    <module>../mw.data.serialization.osgi</module>
     <module>../mw.managers.configuration.osgi</module>
     <module>../mw.connectors.deploy.karaf.osgi</module>
     <module>../mw.karaf.branding.osgi</module>
     <module>../mw.karaf.shell.universAAL.osgi</module>
     <module>../mw.bus.model.osgi</module>
-    <module>../mw.data.representation.osgi</module>
-    <module>../mw.data.serialization.osgi</module>
     <module>../mw.bus.context.osgi</module>
     <module>../mw.bus.service.osgi</module>
     <module>../mw.bus.ui.osgi</module>
@@ -64,160 +64,160 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.pom.core</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.felix.shell.universAAL.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.interfaces.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.connectors.api.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.modules.api.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.brokers.api.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.managers.api.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.container.xfaces.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.container.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.connectors.communication.jgroups.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.connectors.discovery.slp.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.connectors.deploy.karaf.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.modules.aalspace.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.modules.communication.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.brokers.control.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.managers.aalspace.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.managers.deploy.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.managers.configuration.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.karaf.branding.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.karaf.shell.universAAL.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.support</groupId>
         <artifactId>itests</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.bus.model.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.bus.context.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.bus.service.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.bus.ui.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.data.serialization.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.data.representation.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.composite</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.bus.service.aapi.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.bus.tracker.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.thirdparty</groupId>
         <artifactId>jslp.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.osgi</groupId>
@@ -239,12 +239,12 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.karaf.feature</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.schemas</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
