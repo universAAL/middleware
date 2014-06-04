@@ -611,3 +611,11 @@ thirdparty/jslp.core/src/main/java/ch/ethz/iks/slp/impl/package.html -text
 thirdparty/jslp.core/src/main/java/ch/ethz/iks/slp/package.html -text
 thirdparty/jslp.core/src/main/resources/LICENSE-BSD.txt -text
 thirdparty/jslp.core/src/main/resources/LICENSE-EPL.TXT -text
+thirdparty/jslp.osgi/LICENSE-BSD.txt -text
+thirdparty/jslp.osgi/LICENSE-EPL.TXT -text
+thirdparty/jslp.osgi/pom.xml -text
+thirdparty/jslp.osgi/src/main/java/ch/ethz/iks/slp/impl/Activator.java -text
+thirdparty/jslp.osgi/src/main/java/ch/ethz/iks/slp/impl/OSGiPlatformAbstraction.java -text
+thirdparty/jslp.osgi/src/main/java/ch/ethz/iks/slp/impl/PlatformAbstraction.java -text
+thirdparty/jslp.osgi/src/main/resources/LICENSE-BSD.txt -text
+thirdparty/jslp.osgi/src/main/resources/LICENSE-EPL.TXT -text
