@@ -13,6 +13,10 @@ middleware.config/mw.managers.aalspace.core.config/pom.xml -text
 middleware.config/mw.managers.aalspace.core.config/src/main/resources/Home.space -text
 middleware.config/mw.managers.aalspace.core.config/src/main/resources/aalspace.xsd -text
 middleware.config/mw.managers.aalspace.core.config/src/main/resources/mw.managers.aalspace.core.cfg -text
+middleware.config/mw.managers.deploy.core.config/ASL2.0.txt -text
+middleware.config/mw.managers.deploy.core.config/NOTICE.txt -text
+middleware.config/mw.managers.deploy.core.config/pom.xml -text
+middleware.config/mw.managers.deploy.core.config/src/main/resources/mw.managers.deploy.core.cfg -text
 middleware.config/mw.pom.config/ASL2.0.txt -text
 middleware.config/mw.pom.config/NOTICE.txt -text
 middleware.config/mw.pom.config/pom.xml -text
