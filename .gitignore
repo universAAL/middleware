@@ -1353,6 +1353,10 @@ middleware.osgi/mw.data.serialization.osgi/src/test/uAAL.log
 middleware.osgi/mw.data.serialization.osgi/src/uAAL.log
 middleware.osgi/mw.data.serialization.osgi/target
 middleware.osgi/mw.data.serialization.osgi/uAAL.log
+middleware.osgi/mw.felix.shell.universAAL.osgi/.classpath
+middleware.osgi/mw.felix.shell.universAAL.osgi/.project
+middleware.osgi/mw.felix.shell.universAAL.osgi/.settings
+middleware.osgi/mw.felix.shell.universAAL.osgi/target
 middleware.osgi/mw.interfaces.osgi/.classpath
 middleware.osgi/mw.interfaces.osgi/.project
 middleware.osgi/mw.interfaces.osgi/.settings
