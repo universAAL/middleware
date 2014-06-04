@@ -934,6 +934,11 @@ middleware.osgi/mw.data.representation.osgi/src/test/uAAL.log
 middleware.osgi/mw.data.representation.osgi/src/uAAL.log
 middleware.osgi/mw.data.representation.osgi/target
 middleware.osgi/mw.data.representation.osgi/uAAL.log
+middleware.osgi/mw.interfaces.osgi/.classpath
+middleware.osgi/mw.interfaces.osgi/.project
+middleware.osgi/mw.interfaces.osgi/.settings
+middleware.osgi/mw.interfaces.osgi/src
+middleware.osgi/mw.interfaces.osgi/target
 middleware.osgi/mw.pom.osgi/.classpath
 middleware.osgi/mw.pom.osgi/.project
 middleware.osgi/mw.pom.osgi/.settings
