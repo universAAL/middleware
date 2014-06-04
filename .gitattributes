@@ -663,6 +663,11 @@ middleware.osgi/mw.managers.aalspace.osgi/src/test/java/org/universAAL/middlewar
 middleware.osgi/mw.managers.api.osgi/ASL2.0.txt -text
 middleware.osgi/mw.managers.api.osgi/NOTICE.txt -text
 middleware.osgi/mw.managers.api.osgi/pom.xml -text
+middleware.osgi/mw.managers.deploy.osgi/ASL2.0.txt -text
+middleware.osgi/mw.managers.deploy.osgi/NOTICE.txt -text
+middleware.osgi/mw.managers.deploy.osgi/pom.xml -text
+middleware.osgi/mw.managers.deploy.osgi/src/main/java/org/universAAL/middleware/managers/deploy/osgi/Activator.java -text
+middleware.osgi/mw.managers.deploy.osgi/src/test/java/org/universAAL/middleware/managers/deploy/test/ArtifactIT.java -text
 middleware.osgi/mw.modules.aalspace.osgi/ASL2.0.txt -text
 middleware.osgi/mw.modules.aalspace.osgi/NOTICE.txt -text
 middleware.osgi/mw.modules.aalspace.osgi/pom.xml -text
