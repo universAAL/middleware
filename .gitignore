@@ -15,6 +15,10 @@ middleware.core/mw.connectors.communication.jgroups.core/.classpath
 middleware.core/mw.connectors.communication.jgroups.core/.project
 middleware.core/mw.connectors.communication.jgroups.core/.settings
 middleware.core/mw.connectors.communication.jgroups.core/target
+middleware.core/mw.connectors.discovery.slp.core/.classpath
+middleware.core/mw.connectors.discovery.slp.core/.project
+middleware.core/mw.connectors.discovery.slp.core/.settings
+middleware.core/mw.connectors.discovery.slp.core/target
 middleware.core/mw.container.junit/.classpath
 middleware.core/mw.container.junit/.project
 middleware.core/mw.container.junit/.settings
