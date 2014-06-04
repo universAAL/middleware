@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.1.0</version>
     <relativePath>../../pom</relativePath>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.pom.config</artifactId>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>3.1.0</version>
   <packaging>pom</packaging>
   <name>universAAL Middleware Suite (Config)</name>
   <description>The set of artefacts realizing the universAAL middleware 2.0 (Configuration)</description>
@@ -23,36 +23,36 @@
   </modules>
   <dependencyManagement>
     <dependencies>
-	<dependency>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.managers.deploy.core.config</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
-		<type>cfg</type>
-	</dependency>
-	<dependency>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.modules.aalspace.core.config</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
-		<type>cfg</type>
-	</dependency>
-	<dependency>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.connectors.communication.jgroups.core.config</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
-		<type>cfg</type>
-	</dependency>
-	<dependency>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.connectors.discovery.slp.core.config</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
-		<type>cfg</type>
-	</dependency>
-	<dependency>
-		<groupId>org.universAAL.middleware</groupId>
-		<artifactId>mw.managers.aalspace.core.config</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
-		<type>cfg</type>
-	</dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.managers.deploy.core.config</artifactId>
+        <version>3.1.0</version>
+        <type>cfg</type>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.modules.aalspace.core.config</artifactId>
+        <version>3.1.0</version>
+        <type>cfg</type>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.connectors.communication.jgroups.core.config</artifactId>
+        <version>3.1.0</version>
+        <type>cfg</type>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.connectors.discovery.slp.core.config</artifactId>
+        <version>3.1.0</version>
+        <type>cfg</type>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.managers.aalspace.core.config</artifactId>
+        <version>3.1.0</version>
+        <type>cfg</type>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <build>

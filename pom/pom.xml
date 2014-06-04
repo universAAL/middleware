@@ -5,20 +5,14 @@
   <parent>
     <groupId>org.universAAL</groupId>
     <artifactId>uAAL.pom</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.1.0</version>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.pom</artifactId>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>3.1.0</version>
   <packaging>pom</packaging>
   <name>universAAL Middleware Suite</name>
   <description>The set of artefacts realizing the universAAL middleware 2.0</description>
-	<distributionManagement>
-		<site>
-			<id>depot.universaal.org</id>
-			<url>${uaal.site.url}middleware/mw.pom</url>
-		</site>
-	</distributionManagement>
   <developers>
     <developer>
       <id>ffurfari</id>
@@ -79,6 +73,12 @@
     <developerConnection>${svn.base}/pom</developerConnection>
     <url>${svn.base.url}pom</url>
   </scm>
+  <distributionManagement>
+    <site>
+      <id>depot.universaal.org</id>
+      <url>${uaal.site.url}middleware/mw.pom</url>
+    </site>
+  </distributionManagement>
   <properties>
     <remoteOBR></remoteOBR>
     <gforge.project.name>middleware</gforge.project.name>
