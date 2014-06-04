@@ -6551,6 +6551,9 @@ mw.managers.api.osgi-2.0.3-SNAPSHOT/pom.xml -text
 mw.managers.api.osgi-2.0.4-SNAPSHOT/ASL2.0.txt -text
 mw.managers.api.osgi-2.0.4-SNAPSHOT/NOTICE.txt -text
 mw.managers.api.osgi-2.0.4-SNAPSHOT/pom.xml -text
+mw.managers.api.osgi-3.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.managers.api.osgi-3.0.1-SNAPSHOT/NOTICE.txt -text
+mw.managers.api.osgi-3.0.1-SNAPSHOT/pom.xml -text
 mw.managers.configuration.core-3.0.1-SNAPSHOT/ASL2.0.txt -text svneol=unset#text/plain
 mw.managers.configuration.core-3.0.1-SNAPSHOT/NOTICE.txt -text svneol=unset#text/plain
 mw.managers.configuration.core-3.0.1-SNAPSHOT/pom.xml -text
