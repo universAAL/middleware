@@ -97,6 +97,10 @@ middleware.core/mw.bus.context.core/src/test/uAAL.log
 middleware.core/mw.bus.context.core/src/uAAL.log
 middleware.core/mw.bus.context.core/target
 middleware.core/mw.bus.context.core/uAAL.log
+middleware.core/mw.bus.junit/.classpath
+middleware.core/mw.bus.junit/.project
+middleware.core/mw.bus.junit/.settings
+middleware.core/mw.bus.junit/target
 middleware.core/mw.bus.model.core/.classpath
 middleware.core/mw.bus.model.core/.project
 middleware.core/mw.bus.model.core/.settings

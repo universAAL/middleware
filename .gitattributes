@@ -61,6 +61,12 @@ middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/cont
 middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/owl/ContextProvider.java -text
 middleware.core/mw.bus.context.core/src/main/java/org/universAAL/middleware/context/owl/ContextProviderType.java -text
 middleware.core/mw.bus.context.core/src/test/java/org/universAAL/middleware/context/RoundTest.java -text
+middleware.core/mw.bus.junit/ASL2.0.txt -text
+middleware.core/mw.bus.junit/NOTICE.txt -text
+middleware.core/mw.bus.junit/pom.xml -text
+middleware.core/mw.bus.junit/src/main/java/org/universAAL/middleware/bus/junit/BusTestCase.java -text
+middleware.core/mw.bus.junit/src/main/java/org/universAAL/middleware/bus/junit/ManifestTestCase.java -text
+middleware.core/mw.bus.junit/src/test/java/org/universAAL/test/SimpleTest.java -text
 middleware.core/mw.bus.model.core/ASL2.0.txt -text
 middleware.core/mw.bus.model.core/NOTICE.txt -text
 middleware.core/mw.bus.model.core/documentation/bus.model.sodapop[!!-~]class[!!-~]diagram[!!-~]20.4.2011.png -text
