@@ -6342,6 +6342,10 @@ mw.karaf.feature-2.0.4-SNAPSHOT/ASL2.0.txt -text
 mw.karaf.feature-2.0.4-SNAPSHOT/NOTICE.txt -text
 mw.karaf.feature-2.0.4-SNAPSHOT/pom.xml -text
 mw.karaf.feature-2.0.4-SNAPSHOT/src/main/features/mw.xml -text
+mw.karaf.feature-3.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.karaf.feature-3.0.1-SNAPSHOT/NOTICE.txt -text
+mw.karaf.feature-3.0.1-SNAPSHOT/pom.xml -text
+mw.karaf.feature-3.0.1-SNAPSHOT/src/main/features/mw.xml -text
 mw.karaf.shell.universAAL.osgi-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.karaf.shell.universAAL.osgi-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.karaf.shell.universAAL.osgi-1.3.2-SNAPSHOT/pom.xml -text
