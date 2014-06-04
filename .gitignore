@@ -947,6 +947,10 @@ middleware.osgi/mw.interfaces.osgi/.project
 middleware.osgi/mw.interfaces.osgi/.settings
 middleware.osgi/mw.interfaces.osgi/src
 middleware.osgi/mw.interfaces.osgi/target
+middleware.osgi/mw.modules.api.osgi/.classpath
+middleware.osgi/mw.modules.api.osgi/.project
+middleware.osgi/mw.modules.api.osgi/.settings
+middleware.osgi/mw.modules.api.osgi/target
 middleware.osgi/mw.pom.osgi/.classpath
 middleware.osgi/mw.pom.osgi/.project
 middleware.osgi/mw.pom.osgi/.settings
