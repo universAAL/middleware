@@ -958,6 +958,10 @@ mw.brokers.control.osgi-2.0.4-SNAPSHOT/ASL2.0.txt -text
 mw.brokers.control.osgi-2.0.4-SNAPSHOT/NOTICE.txt -text
 mw.brokers.control.osgi-2.0.4-SNAPSHOT/pom.xml -text
 mw.brokers.control.osgi-2.0.4-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/osgi/Activator.java -text
+mw.brokers.control.osgi-3.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.brokers.control.osgi-3.0.1-SNAPSHOT/NOTICE.txt -text
+mw.brokers.control.osgi-3.0.1-SNAPSHOT/pom.xml -text
+mw.brokers.control.osgi-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/osgi/Activator.java -text
 mw.bus.context-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.bus.context-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.bus.context-1.0.1-SNAPSHOT/artifact_manual.composite -text
