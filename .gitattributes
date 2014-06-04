@@ -916,6 +916,13 @@ mw.brokers.control.core-2.0.4-SNAPSHOT/src/main/java/org/universAAL/middleware/b
 mw.brokers.control.core-2.0.4-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/ExceptionUtils.java svneol=native#text/plain
 mw.brokers.control.core-2.0.4-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/FileUtils.java svneol=native#text/plain
 mw.brokers.control.core-2.0.4-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/WaitForResponse.java -text
+mw.brokers.control.core-3.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.brokers.control.core-3.0.1-SNAPSHOT/NOTICE.txt -text
+mw.brokers.control.core-3.0.1-SNAPSHOT/pom.xml -text
+mw.brokers.control.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/ControlBroker.java -text
+mw.brokers.control.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/ExceptionUtils.java svneol=native#text/plain
+mw.brokers.control.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/FileUtils.java svneol=native#text/plain
+mw.brokers.control.core-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/brokers/control/WaitForResponse.java -text
 mw.brokers.control.osgi-1.3.2-SNAPSHOT/LICENSE.txt -text
 mw.brokers.control.osgi-1.3.2-SNAPSHOT/NOTICE.txt -text
 mw.brokers.control.osgi-1.3.2-SNAPSHOT/pom.xml -text
