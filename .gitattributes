@@ -558,6 +558,14 @@ jslp.osgi-2.0.4-SNAPSHOT/src/main/java/ch/ethz/iks/slp/impl/OSGiPlatformAbstract
 jslp.osgi-2.0.4-SNAPSHOT/src/main/java/ch/ethz/iks/slp/impl/PlatformAbstraction.java -text
 jslp.osgi-2.0.4-SNAPSHOT/src/main/resources/LICENSE-BSD.txt -text
 jslp.osgi-2.0.4-SNAPSHOT/src/main/resources/LICENSE-EPL.TXT -text
+jslp.osgi-3.0.1-SNAPSHOT/LICENSE-BSD.txt -text
+jslp.osgi-3.0.1-SNAPSHOT/LICENSE-EPL.TXT -text
+jslp.osgi-3.0.1-SNAPSHOT/pom.xml -text
+jslp.osgi-3.0.1-SNAPSHOT/src/main/java/ch/ethz/iks/slp/impl/Activator.java -text
+jslp.osgi-3.0.1-SNAPSHOT/src/main/java/ch/ethz/iks/slp/impl/OSGiPlatformAbstraction.java -text
+jslp.osgi-3.0.1-SNAPSHOT/src/main/java/ch/ethz/iks/slp/impl/PlatformAbstraction.java -text
+jslp.osgi-3.0.1-SNAPSHOT/src/main/resources/LICENSE-BSD.txt -text
+jslp.osgi-3.0.1-SNAPSHOT/src/main/resources/LICENSE-EPL.TXT -text
 mw.acl.bridge-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.acl.bridge-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.acl.bridge-1.0.1-SNAPSHOT/pom.xml -text
