@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>3.1.0</version>
+    <version>3.1.1-SNAPSHOT</version>
     <relativePath>../mw.pom.osgi</relativePath>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.modules.communication.osgi</artifactId>
-  <version>3.1.0</version>
+  <version>3.1.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Middleware Module Communication (OSGi)</name>
   <dependencies>

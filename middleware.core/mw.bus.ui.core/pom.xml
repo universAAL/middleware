@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.core</artifactId>
-    <version>3.1.0</version>
+    <version>3.1.1-SNAPSHOT</version>
     <relativePath>../mw.pom.core</relativePath>
   </parent>
   <artifactId>mw.bus.ui.core</artifactId>
-  <version>3.1.0</version>
+  <version>3.1.1-SNAPSHOT</version>
   <name>universAAL Middleware User Interaction Bus (Core)</name>
   <description>The realization of the user interaction bus on top of Sodapop as part of the universAAL Middleware (Core)</description>
   <dependencies>
