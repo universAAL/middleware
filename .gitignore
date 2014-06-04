@@ -14393,6 +14393,10 @@ mw.karaf.branding.osgi-2.0.4-SNAPSHOT/.classpath
 mw.karaf.branding.osgi-2.0.4-SNAPSHOT/.project
 mw.karaf.branding.osgi-2.0.4-SNAPSHOT/.settings
 mw.karaf.branding.osgi-2.0.4-SNAPSHOT/target
+mw.karaf.branding.osgi-3.0.1-SNAPSHOT/.classpath
+mw.karaf.branding.osgi-3.0.1-SNAPSHOT/.project
+mw.karaf.branding.osgi-3.0.1-SNAPSHOT/.settings
+mw.karaf.branding.osgi-3.0.1-SNAPSHOT/target
 mw.karaf.feature-2.0.1-SNAPSHOT/.classpath
 mw.karaf.feature-2.0.1-SNAPSHOT/.project
 mw.karaf.feature-2.0.1-SNAPSHOT/.settings
