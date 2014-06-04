@@ -1401,6 +1401,16 @@ mw.bus.context.osgi-2.0.4-SNAPSHOT/src/test/java/org/universAAL/middleware/conte
 mw.bus.context.osgi-2.0.4-SNAPSHOT/src/test/java/org/universAAL/middleware/context/test/ont/TestOntology.java -text
 mw.bus.context.osgi-2.0.4-SNAPSHOT/src/test/java/org/universAAL/middleware/context/test/ont/User.java -text
 mw.bus.context.osgi-2.0.4-SNAPSHOT/src/test/resources/log4j.properties -text
+mw.bus.context.osgi-3.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.bus.context.osgi-3.0.1-SNAPSHOT/NOTICE.txt -text
+mw.bus.context.osgi-3.0.1-SNAPSHOT/pom.xml -text
+mw.bus.context.osgi-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/context/impl/osgi/Activator.java -text
+mw.bus.context.osgi-3.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/context/test/ArtifactIT.java -text
+mw.bus.context.osgi-3.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/context/test/SerializerIT.java -text
+mw.bus.context.osgi-3.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/context/test/ont/Location.java -text
+mw.bus.context.osgi-3.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/context/test/ont/TestOntology.java -text
+mw.bus.context.osgi-3.0.1-SNAPSHOT/src/test/java/org/universAAL/middleware/context/test/ont/User.java -text
+mw.bus.context.osgi-3.0.1-SNAPSHOT/src/test/resources/log4j.properties -text
 mw.bus.io-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.bus.io-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.bus.io-1.0.1-SNAPSHOT/artifact.composite -text
