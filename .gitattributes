@@ -1456,6 +1456,12 @@ mw.bus.junit-2.0.4-SNAPSHOT/pom.xml -text
 mw.bus.junit-2.0.4-SNAPSHOT/src/main/java/org/universAAL/middleware/bus/junit/BusTestCase.java -text
 mw.bus.junit-2.0.4-SNAPSHOT/src/main/java/org/universAAL/middleware/bus/junit/ManifestTestCase.java -text
 mw.bus.junit-2.0.4-SNAPSHOT/src/test/java/org/universAAL/test/SimpleTest.java -text
+mw.bus.junit-3.0.1-SNAPSHOT/ASL2.0.txt -text
+mw.bus.junit-3.0.1-SNAPSHOT/NOTICE.txt -text
+mw.bus.junit-3.0.1-SNAPSHOT/pom.xml -text
+mw.bus.junit-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/bus/junit/BusTestCase.java -text
+mw.bus.junit-3.0.1-SNAPSHOT/src/main/java/org/universAAL/middleware/bus/junit/ManifestTestCase.java -text
+mw.bus.junit-3.0.1-SNAPSHOT/src/test/java/org/universAAL/test/SimpleTest.java -text
 mw.bus.model-1.0.1-SNAPSHOT/LICENSE.txt -text
 mw.bus.model-1.0.1-SNAPSHOT/NOTICE.txt -text
 mw.bus.model-1.0.1-SNAPSHOT/artifact_manual.composite -text
