@@ -178,6 +178,15 @@ middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/rdf/GraphIteratorTest.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/rdf/ResourceTest.java -text
 middleware.core/mw.data.representation.core/src/test/java/org/universAAL/middleware/rdf/TypeMapperTest.java -text
+middleware.core/mw.data.serialization.core/ASL2.0.txt -text
+middleware.core/mw.data.serialization.core/NOTICE.txt -text
+middleware.core/mw.data.serialization.core/pom.xml -text
+middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/middleware/serialization/turtle/TurtleParser.java -text
+middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/middleware/serialization/turtle/TurtleSerializer.java -text
+middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/middleware/serialization/turtle/TurtleUtil.java -text
+middleware.core/mw.data.serialization.core/src/main/java/org/universAAL/middleware/serialization/turtle/TurtleWriter.java -text
+middleware.core/mw.data.serialization.core/src/test/java/org/universAAL/serialization/turtle/InitialTest.java -text
+middleware.core/mw.data.serialization.core/src/test/java/org/universAAL/serialization/turtle/TurtleTest.java -text
 middleware.core/mw.interfaces.core/ASL2.0.txt -text
 middleware.core/mw.interfaces.core/NOTICE.txt -text
 middleware.core/mw.interfaces.core/pom.xml -text
