@@ -1,4 +1,21 @@
 * text=auto !eol
+middleware.core/mw.container.xfaces.core/ASL2.0.txt -text
+middleware.core/mw.container.xfaces.core/NOTICE.txt -text
+middleware.core/mw.container.xfaces.core/pom.xml -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/Attributes.java -text svneol=unset#text/plain
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/Container.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/LogListener.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/ModuleActivator.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/ModuleContext.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/SharedObjectListener.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/LogUtils.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/Messages.java -text svneol=unset#text/plain
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/ModuleConfigHome.java -text
+middleware.core/mw.container.xfaces.core/src/main/java/org/universAAL/middleware/container/utils/StringUtils.java -text
+middleware.core/mw.container.xfaces.core/src/test/java/org/universAAL/tests/MessagesTest.java -text svneol=unset#text/plain
+middleware.core/mw.container.xfaces.core/src/test/resources/messages.properties -text svneol=unset#text/plain
+middleware.core/mw.container.xfaces.core/src/test/resources/messages_de.properties -text svneol=unset#text/plain
+middleware.core/mw.container.xfaces.core/src/test/resources/messages_en.properties -text svneol=unset#text/plain
 middleware.core/mw.pom.core/pom.xml -text
 pom/analyze-dependencies.bat -text
 pom/pom.xml -text
