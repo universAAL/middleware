@@ -1385,6 +1385,10 @@ middleware.osgi/mw.karaf.branding.osgi/.classpath
 middleware.osgi/mw.karaf.branding.osgi/.project
 middleware.osgi/mw.karaf.branding.osgi/.settings
 middleware.osgi/mw.karaf.branding.osgi/target
+middleware.osgi/mw.karaf.feature/mw.karaf.feature/.classpath
+middleware.osgi/mw.karaf.feature/mw.karaf.feature/.project
+middleware.osgi/mw.karaf.feature/mw.karaf.feature/.settings
+middleware.osgi/mw.karaf.feature/mw.karaf.feature/target
 middleware.osgi/mw.karaf.shell.universAAL.osgi/.classpath
 middleware.osgi/mw.karaf.shell.universAAL.osgi/.project
 middleware.osgi/mw.karaf.shell.universAAL.osgi/.settings
