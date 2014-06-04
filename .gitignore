@@ -172,6 +172,11 @@ middleware.core/mw.data.representation.core/src/test/uAAL.log
 middleware.core/mw.data.representation.core/src/uAAL.log
 middleware.core/mw.data.representation.core/target
 middleware.core/mw.data.representation.core/uAAL.log
+middleware.core/mw.interfaces.core/.classpath
+middleware.core/mw.interfaces.core/.project
+middleware.core/mw.interfaces.core/.settings
+middleware.core/mw.interfaces.core/bin
+middleware.core/mw.interfaces.core/target
 middleware.core/mw.pom.core/.classpath
 middleware.core/mw.pom.core/.project
 middleware.core/mw.pom.core/.settings
