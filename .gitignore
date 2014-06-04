@@ -1020,6 +1020,10 @@ middleware.osgi/mw.interfaces.osgi/.project
 middleware.osgi/mw.interfaces.osgi/.settings
 middleware.osgi/mw.interfaces.osgi/src
 middleware.osgi/mw.interfaces.osgi/target
+middleware.osgi/mw.karaf.branding.osgi/.classpath
+middleware.osgi/mw.karaf.branding.osgi/.project
+middleware.osgi/mw.karaf.branding.osgi/.settings
+middleware.osgi/mw.karaf.branding.osgi/target
 middleware.osgi/mw.managers.aalspace.osgi/.classpath
 middleware.osgi/mw.managers.aalspace.osgi/.project
 middleware.osgi/mw.managers.aalspace.osgi/.settings
