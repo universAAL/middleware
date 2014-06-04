@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.core</artifactId>
+    <version>3.1.0</version>
+    <relativePath>../mw.pom.core</relativePath>
+  </parent>
+  <groupId>org.universAAL.middleware</groupId>
+  <artifactId>mw.modules.aalspace.core</artifactId>
+  <version>3.1.0</version>
+  <name>universAAL Middleware Module AALSpace (Core)</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.modules.api.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.connectors.api.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.brokers.control.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.interfaces.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.brokers.api.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.xfaces.core</artifactId>
+    </dependency>
+  </dependencies>
+</project>
