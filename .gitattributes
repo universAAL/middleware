@@ -562,6 +562,9 @@ middleware.core/mw.modules.communication.core/src/main/java/org/universAAL/middl
 middleware.core/mw.modules.communication.core/src/main/java/org/universAAL/middleware/modules/communication/CommunicationModuleImpl.java -text
 middleware.core/mw.modules.communication.core/src/main/java/org/universAAL/middleware/modules/communication/UnicastExecutor.java -text
 middleware.core/mw.pom.core/pom.xml -text
+middleware.osgi/mw.brokers.api.osgi/ASL2.0.txt -text
+middleware.osgi/mw.brokers.api.osgi/NOTICE.txt -text
+middleware.osgi/mw.brokers.api.osgi/pom.xml -text
 middleware.osgi/mw.connectors.api.osgi/ASL2.0.txt -text
 middleware.osgi/mw.connectors.api.osgi/NOTICE.txt -text
 middleware.osgi/mw.connectors.api.osgi/pom.xml -text
