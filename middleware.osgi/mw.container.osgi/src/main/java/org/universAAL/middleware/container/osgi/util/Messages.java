@@ -38,6 +38,7 @@ import java.util.Properties;
  * @author mtazari
  * @author Carsten Stockloew
  * @author amedrano
+ * @deprecated
  */
 public class Messages extends BundleConfigHome {
 
