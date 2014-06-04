@@ -1,3 +1,4 @@
 * text=auto !eol
+middleware.core/mw.pom.core/pom.xml -text
 pom/analyze-dependencies.bat -text
 pom/pom.xml -text
