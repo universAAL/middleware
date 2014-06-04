@@ -39,6 +39,13 @@ middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/c
 middleware.core/mw.connectors.api.core/src/main/java/org/universAAL/middleware/connectors/util/ExceptionUtils.java svneol=native#text/plain
 middleware.core/mw.connectors.api.core/src/test/java/org/universAAL/middleware/connectors/util/ChannelMessageTest.java svneol=native#text/plain
 middleware.core/mw.connectors.api.core/src/test/resources/org/universAAL/middleware/connectors/util/ChannelMeessage.dump.json -text
+middleware.core/mw.connectors.communication.jgroups.core/ASL2.0.txt -text
+middleware.core/mw.connectors.communication.jgroups.core/NOTICE.txt -text
+middleware.core/mw.connectors.communication.jgroups.core/pom.xml -text
+middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/JGroupsCommunicationConnector.java -text
+middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/Codec.java -text
+middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/Consts.java -text svneol=unset#text/plain
+middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/CryptUtil.java -text
 middleware.core/mw.container.junit/ASL2.0.txt -text
 middleware.core/mw.container.junit/NOTICE.txt -text
 middleware.core/mw.container.junit/pom.xml -text
