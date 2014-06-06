@@ -44,6 +44,7 @@ import org.universAAL.middleware.container.Attributes;
 import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
+import org.universAAL.middleware.container.utils.ModuleConfigHome;
 
 /**
  * An implementation of the concept of {@link ModuleContext} for OSGi.
@@ -425,4 +426,13 @@ public class uAALBundleContext implements ModuleContext {
 	}
 	return man.getMainAttributes().getValue(name);
     }
+
+	public File getConfigHome() {
+		return new File(BundleConfigHome.uAAL_CONF_ROOT_DIR, getID());
+	}
+
+	public File getDataFolder() {
+		// XXX maybe set another system property to point to the main data folder
+		return new File("./Data", getID());
+	}
 }

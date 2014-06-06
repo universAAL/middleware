@@ -39,6 +39,7 @@ import org.universAAL.middleware.container.ModuleContext;
  * mechanisms to get notified when the configuration changes.
  * 
  * @author Carsten Stockloew
+ * @deprecated
  */
 public class ModuleConfigHome {
 
