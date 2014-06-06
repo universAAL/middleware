@@ -1319,11 +1319,6 @@ middleware.osgi/mw.data.representation.osgi/src/main/java/org/universAAL/target
 middleware.osgi/mw.data.representation.osgi/src/main/java/org/universAAL/uAAL.log
 middleware.osgi/mw.data.representation.osgi/src/main/java/target
 middleware.osgi/mw.data.representation.osgi/src/main/java/uAAL.log
-middleware.osgi/mw.data.representation.osgi/src/main/resources/.classpath
-middleware.osgi/mw.data.representation.osgi/src/main/resources/.project
-middleware.osgi/mw.data.representation.osgi/src/main/resources/.settings
-middleware.osgi/mw.data.representation.osgi/src/main/resources/target
-middleware.osgi/mw.data.representation.osgi/src/main/resources/uAAL.log
 middleware.osgi/mw.data.representation.osgi/src/main/target
 middleware.osgi/mw.data.representation.osgi/src/main/uAAL.log
 middleware.osgi/mw.data.representation.osgi/src/target
