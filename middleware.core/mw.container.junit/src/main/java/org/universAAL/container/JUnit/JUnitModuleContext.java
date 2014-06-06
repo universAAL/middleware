@@ -237,4 +237,12 @@ public class JUnitModuleContext implements ModuleContext {
 	// TODO Auto-generated method stub
 	return null;
     }
+
+	public File getConfigHome() {
+		return new File("./target/rundir/configuration/", getID());
+	}
+
+	public File getDataFolder() {
+		return new File("./target/rundir/data/", getID());
+	}
 }

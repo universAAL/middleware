@@ -33,6 +33,7 @@ import org.universAAL.middleware.container.utils.ModuleConfigHome;
  * of that bundle (Best Practice).
  * 
  * @author Carsten Stockloew
+ * @deprecated
  */
 public class BundleConfigHome extends ModuleConfigHome {
 
