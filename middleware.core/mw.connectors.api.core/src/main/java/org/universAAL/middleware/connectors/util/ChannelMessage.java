@@ -49,6 +49,11 @@ public class ChannelMessage {
     private PeerCard sender;
     private String content;
 
+    /*
+    private ChannelMessage() {
+    }
+	*/
+    
     public ChannelMessage(PeerCard sender, String content, List channelNames) {
         this.sender = sender;
         this.content = content;
