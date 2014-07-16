@@ -10,6 +10,7 @@
   </parent>
   <artifactId>mw.bus.model.osgi</artifactId>
   <version>3.1.1-SNAPSHOT</version>
+  <classifier>tenant</classifier>
   <packaging>bundle</packaging>
   <name>universAAL Middleware Bus Model (OSGi)</name>
   <description>A Soda-Pop implementation as an OSGi bundle based on the ACL (OSGi)</description>

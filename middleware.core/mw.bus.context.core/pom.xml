@@ -10,6 +10,7 @@
   </parent>
   <artifactId>mw.bus.context.core</artifactId>
   <version>3.1.1-SNAPSHOT</version>
+  <classifier>tenant</classifier>
   <name>universAAL Middleware Context Bus (Core)</name>
   <description>The realization of the context bus on top of Sodapop as part of the universAAL Middleware (Core)</description>
   <dependencies>

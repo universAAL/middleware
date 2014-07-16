@@ -11,6 +11,7 @@
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.interfaces.core</artifactId>
   <version>3.1.1-SNAPSHOT</version>
+  <classifier>tenant</classifier>
   <name>universAAL Middleware Interfaces (Core)</name>
   <developers>
     <developer>
