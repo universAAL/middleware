@@ -10,6 +10,7 @@
   </parent>
   <artifactId>mw.data.serialization.osgi</artifactId>
   <version>3.1.1-SNAPSHOT</version>
+  <classifier>tenant</classifier>
   <packaging>bundle</packaging>
   <name>universAAL Middleware RDF Turtle serializer (OSGi)</name>
   <description>The module for message content serialization in Turtle (OSGi)</description>

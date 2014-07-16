@@ -11,5 +11,6 @@
   <groupId>org.universAAL.thirdparty</groupId>
   <artifactId>jslp.core</artifactId>
   <version>3.1.1-SNAPSHOT</version>
+  <classifier>tenant</classifier>
   <name>universAAL Thirdparty jslp library (Core)</name>
 </project>

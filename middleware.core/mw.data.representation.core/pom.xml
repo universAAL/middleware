@@ -10,6 +10,7 @@
   </parent>
   <artifactId>mw.data.representation.core</artifactId>
   <version>3.1.1-SNAPSHOT</version>
+  <classifier>tenant</classifier>
   <name>universAAL Middleware Data Representation (Core)</name>
   <description>Using RDF/OWL model for data representation in universAAL (Core)</description>
   <dependencies>
