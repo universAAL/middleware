@@ -61,7 +61,7 @@ public abstract class BusMember {
     }
 
     /**
-     * Unregisters the Subscriber from the Context bus.
+     * Unregisters the Subscriber from the bus.
      */
     public void close() {
 	theBus.unregister(busResourceURI, this);
