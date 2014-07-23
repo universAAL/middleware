@@ -276,7 +276,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
      * members but only if it has not been added before). Returns the URI with
      * which the provided member will be known as a bus resource.
      */
-    public String register(ModuleContext module, BusMember m, BusMemberType type) {
+    public final String register(ModuleContext module, BusMember m, BusMemberType type) {
 	if (m == null)
 	    return null;
 
@@ -286,7 +286,8 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	    // (registered) to the bus before
 	    if (id == null) {
 		// compose bus member ID
-		id = createBusSpecificID(module.getID(), type.name());
+		id = m.getURI();
+		// createBusSpecificID(module.getID(), type.name());
 		registry.addBusMember(id, m);
 	    }
 	    LogUtils.logDebug(context, AbstractBus.class, "register",
@@ -387,9 +388,12 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	return uAAL_MW_INSTANCE_URI_PREFIX + context.getID();
     }
 
-    private String createBusSpecificID(String module, String type) {
+    public final String createBusSpecificID(String module, String type) {
 	StringBuffer sb = new StringBuffer(128);
 	sb.append(uAAL_MW_INSTANCE_URI_PREFIX);
+	// TODO: should we handle duplicates? Assume a malicious component that
+	// creates its own bus and creates IDs in a loop, then the counter
+	// could overflow
 	sb.append(++uAAL_MW_INSTANCE_BUS_MEMBERSHIPS).append(type).append(".")
 		.append(module);
 	return sb.toString();
