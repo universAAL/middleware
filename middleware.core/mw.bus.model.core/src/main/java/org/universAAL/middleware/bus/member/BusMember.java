@@ -55,7 +55,8 @@ public abstract class BusMember {
 	this.type = type;
 	theBus = (AbstractBus) owner.getContainer().fetchSharedObject(owner,
 		busFetchParams);
-	busResourceURI = theBus.register(owner, this, type);
+	busResourceURI = theBus.createBusSpecificID(owner.getID(), type.name());
+	theBus.register(owner, this, type);
 	AccessControl.INSTANCE.registerBusMember(owner, this,
 		theBus.getBrokerName());
     }
@@ -83,7 +84,7 @@ public abstract class BusMember {
      * URI of this bus member. The URI is created by the bus and set during
      * registration of the the bus member at the bus.
      */
-    public String getURI() {
+    public final String getURI() {
 	return busResourceURI;
     }
 
