@@ -67,17 +67,7 @@ public abstract class UIHandler extends Callee {
      */
     protected UIHandler(ModuleContext context,
 	    UIHandlerProfile initialSubscription) {
-	super(context, UIBusImpl.getUIBusFetchParams());
-
-	this.realizedHandlerProfiles = new ArrayList<UIHandlerProfile>();
-	if (initialSubscription != null) {
-	    if (AccessControl.INSTANCE.checkPermission(owner, getURI(),
-		    initialSubscription)) {
-		this.realizedHandlerProfiles.add(initialSubscription);
-		((IUIBus) theBus).addNewProfile(busResourceURI,
-			initialSubscription);
-	    }
-	}
+    	this(context, new UIHandlerProfile[]{initialSubscription}, null);
     }
 
     /**
@@ -85,28 +75,58 @@ public abstract class UIHandler extends Callee {
      * 
      * @param context
      *            the context
-     * @param initialSubscription
-     *            the initial subscription
+     * @param initialSubscriptions
+     *            the initial subscriptions
      * @throws NullPointerException
      *             if initialSubscriptions is null or one of the elements of
      *             that array is null
      */
     protected UIHandler(ModuleContext context,
 	    UIHandlerProfile[] initialSubscriptions) {
-	super(context, UIBusImpl.getUIBusFetchParams());
-
-	this.realizedHandlerProfiles = new ArrayList<UIHandlerProfile>();
-	if (initialSubscriptions != null) {
-	    initialSubscriptions = AccessControl.INSTANCE.checkPermission(
-		    owner, getURI(), initialSubscriptions);
-	    for (UIHandlerProfile profile : initialSubscriptions) {
-		this.realizedHandlerProfiles.add(profile);
-		((IUIBus) theBus).addNewProfile(busResourceURI, profile);
-	    }
-	}
+    	this(context, initialSubscriptions, null);
+    }
+    
+    /**
+     * Instantiates a new {@link UIHandler} as a proxied Handler.
+     * 
+     * @param context
+     *            the context
+     * @param initialSubscription
+     *            the initial subscription
+     * @param scopeID
+     * 			  The Id of the scope represented by the proxy, null if its local.
+     */
+    protected UIHandler(ModuleContext context,
+    		    UIHandlerProfile initialSubscription,
+    		    String scopeID) {
+    	this(context, new UIHandlerProfile[]{initialSubscription}, scopeID);
     }
 
     /**
+     * Instantiates a new {@link UIHandler} as a proxied Handler.
+     *      
+     * @param context
+     *            the context
+     * @param initialSubscriptions
+     *            the initial subscriptions
+     * @param scopeID
+     * 			  The Id of the scope represented by the proxy, null if its local.
+     */
+    protected UIHandler(ModuleContext context,
+			UIHandlerProfile[] initialSubscriptions, String scopeID) {
+    	super(context, UIBusImpl.getUIBusFetchParams(), scopeID);
+    	this.realizedHandlerProfiles = new ArrayList<UIHandlerProfile>();
+    	if (initialSubscriptions != null) {
+    	    initialSubscriptions = AccessControl.INSTANCE.checkPermission(
+    		    owner, getURI(), initialSubscriptions);
+    	    for (UIHandlerProfile profile : initialSubscriptions) {
+    		this.realizedHandlerProfiles.add(profile);
+    		((IUIBus) theBus).addNewProfile(busResourceURI, profile);
+    	    }
+    	}
+	}
+
+	/**
      * Adaptation parameters changed. The Dialog must be redrawn 
      * according to the new value of the changedProp.
      * 
