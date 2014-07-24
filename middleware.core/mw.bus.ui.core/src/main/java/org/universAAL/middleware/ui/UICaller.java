@@ -54,7 +54,11 @@ public abstract class UICaller extends Caller {
      *            the module context
      */
     protected UICaller(ModuleContext context) {
-	super(context, UIBusImpl.getUIBusFetchParams());
+    	this(context, null);
+    }
+    
+    protected UICaller(ModuleContext context, String scopeId) {
+	super(context, UIBusImpl.getUIBusFetchParams(), scopeId);
 	if (this instanceof IDialogManager)
 	    ((UIBusImpl) theBus).setDialogManager((IDialogManager) this);
     }

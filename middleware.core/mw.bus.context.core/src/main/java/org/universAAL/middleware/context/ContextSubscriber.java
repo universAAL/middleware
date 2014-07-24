@@ -63,7 +63,27 @@ public abstract class ContextSubscriber extends Subscriber {
      */
     protected ContextSubscriber(ModuleContext connectingModule,
 	    ContextEventPattern[] initialSubscriptions) {
-	super(connectingModule, ContextBusImpl.getContextBusFetchParams());
+    	this(connectingModule, initialSubscriptions, null);
+    }
+    
+    /**
+     * Creates a Proxied Context Subscriber and immediately registers a set of Context
+     * Event Patterns for it, so it receives the matching events.
+     * 
+     * @param connectingModule
+     *            The module context of the module creating the Publisher
+     * @param initialSubscriptions
+     *            Array of ContextEventPattern that are immediately registered
+     *            for this Subscriber
+     * @param scopeId
+     * 			The Id of the scope represented by the proxy, null if its local.
+     * @throws NullPointerException
+     *             if newSubscriptions is null or one of the elements of that
+     *             array is null
+     */
+    protected ContextSubscriber(ModuleContext connectingModule,
+    	    ContextEventPattern[] initialSubscriptions, String scopeId) {
+	super(connectingModule, ContextBusImpl.getContextBusFetchParams(), scopeId);
 	initialSubscriptions = AccessControl.INSTANCE.checkPermission(owner,
 		getURI(), initialSubscriptions);
 	addNewRegParams(initialSubscriptions);

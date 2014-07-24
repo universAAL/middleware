@@ -41,11 +41,12 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  */
 public abstract class ServiceCallee extends Callee {
 
-    /**
+
+	/**
      * The default constructor for this class.
      * 
      * @param context
-     *            The OSGI bundle context where the ServiceBus is registered.
+     *            The Module context where the ServiceBus is registered.
      *            Note that if no service bus is registered at the time of
      *            creation, this object will not be operational.
      * @param realizedServices
@@ -56,7 +57,28 @@ public abstract class ServiceCallee extends Callee {
      */
     protected ServiceCallee(ModuleContext context,
 	    ServiceProfile[] realizedServices) {
-	super(context, ServiceBusImpl.getServiceBusFetchParams());
+    	this(context, realizedServices, null);
+    }
+    
+	/**
+     * The constructor for Proxied callees.
+     * 
+     * @param context
+     *            The Module context where the ServiceBus is registered.
+     *            Note that if no service bus is registered at the time of
+     *            creation, this object will not be operational.
+     * @param realizedServices
+     *            The initial set of services that are realized by this callee.
+     * @param scopeID
+     * 			  The Id of the scope represented by the proxy, null if its local.
+     * @throws NullPointerException
+     *             if realizedServices is null or one of the elements of that
+     *             array is null
+     */
+    protected ServiceCallee(ModuleContext context,
+    			    ServiceProfile[] realizedServices,
+    			    String scopeID) {
+	super(context, ServiceBusImpl.getServiceBusFetchParams(),scopeID);
 	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
 		getURI(), realizedServices);
 	addNewServiceProfiles(realizedServices);

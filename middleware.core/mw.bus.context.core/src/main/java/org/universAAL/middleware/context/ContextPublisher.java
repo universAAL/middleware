@@ -58,7 +58,23 @@ public abstract class ContextPublisher extends Publisher {
      */
     protected ContextPublisher(ModuleContext context,
 	    ContextProvider providerInfo) {
-	super(context, ContextBusImpl.getContextBusFetchParams());
+    	this(context, providerInfo, null);
+    }
+    
+    /**
+     * Creates a Proxied Context Publisher with the associated Context Provider
+     * Information
+     * 
+     * @param context
+     *            The context of the Bundle creating the Publisher
+     * @param providerInfo
+     *            The Information describing the Publisher
+     * @param scopeID
+     * 			The Id of the scope represented by the proxy, null if its local.
+     */
+    protected ContextPublisher(ModuleContext context,
+    	    ContextProvider providerInfo, String scopeID) {
+	super(context, ContextBusImpl.getContextBusFetchParams(), scopeID);
 	if (providerInfo == null || !providerInfo.isWellFormed())
 	    throw new IllegalArgumentException(
 		    "Missing the well-formed provider info!");
