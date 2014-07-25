@@ -28,9 +28,9 @@ import java.util.List;
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.bus.model.matchable.Request;
 import org.universAAL.middleware.owl.MergedRestriction;
-import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.service.impl.ServiceMatcher;
 import org.universAAL.middleware.service.impl.ServiceWrapper;
 import org.universAAL.middleware.service.owl.Service;
@@ -47,7 +47,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  */
-public class ServiceRequest extends FinalizedResource implements Request {
+public class ServiceRequest extends ScopedResource implements Request {
 
     /**
      * A resource URI that specifies the resource as a service request.

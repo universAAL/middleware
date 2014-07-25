@@ -27,8 +27,8 @@ import java.util.Map;
 
 import org.universAAL.middleware.bus.model.matchable.Response;
 import org.universAAL.middleware.bus.model.matchable.UtilityReply;
-import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 
 /**
@@ -39,7 +39,7 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  */
-public class ServiceResponse extends FinalizedResource implements Response,
+public class ServiceResponse extends ScopedResource implements Response,
 	UtilityReply {
 
     /**

@@ -27,16 +27,16 @@ import java.util.Locale;
 
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.bus.model.matchable.Request;
+import org.universAAL.middleware.owl.ComparableIndividual;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.owl.supply.LevelRating;
-import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.ui.owl.AccessImpairment;
 import org.universAAL.middleware.ui.owl.DialogType;
 import org.universAAL.middleware.ui.owl.Modality;
 import org.universAAL.middleware.ui.owl.Preference;
 import org.universAAL.middleware.ui.owl.PrivacyLevel;
-import org.universAAL.middleware.owl.ComparableIndividual;
 import org.universAAL.middleware.ui.rdf.Form;
 
 /**
@@ -51,7 +51,7 @@ import org.universAAL.middleware.ui.rdf.Form;
  * @author eandgrg
  * @author Carsten Stockloew
  */
-public class UIRequest extends FinalizedResource implements Request {
+public class UIRequest extends ScopedResource implements Request {
 
     /** The Constant uAAL_UI_NAMESPACE. */
     public static final String uAAL_UI_NAMESPACE = uAAL_NAMESPACE_PREFIX
