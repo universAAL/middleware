@@ -18,15 +18,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */ 
-package org.universAAL.middleware.tracker;
+package org.universAAL.middleware.tracker.impl;
 
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.ModuleActivator;
-import org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl;
+import org.universAAL.middleware.tracker.IBusMemberRegistry;
 
 public class Activator implements ModuleActivator {
-
+    
     public static ModuleContext mc;
+
+    public static Object[] fetchParams = null;
     
     private IBusMemberRegistry busRegistry;
     
@@ -42,5 +44,4 @@ public class Activator implements ModuleActivator {
 	    busRegistry = null;
 	}
     }
-
 }
