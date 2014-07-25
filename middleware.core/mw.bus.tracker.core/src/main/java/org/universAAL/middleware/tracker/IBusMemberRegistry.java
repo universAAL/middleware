@@ -20,6 +20,8 @@ limitations under the License.
 */ 
 package org.universAAL.middleware.tracker;
 
+import org.universAAL.middleware.tracker.impl.Activator;
+
 /**
  * Interface used for plugging into the registry of BusMembers in MW nodes.
  * 
@@ -28,8 +30,7 @@ package org.universAAL.middleware.tracker;
  */
 public interface IBusMemberRegistry {
 
-    public final static Object[] busRegistryShareParams = new Object[] { IBusMemberRegistry.class
-	    .getName() };
+    public final static Object[] busRegistryShareParams = Activator.fetchParams;
 
     /**
      * Enumeration used in notifications.

@@ -38,7 +38,6 @@ import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.model.util.IRegistryListener;
-import org.universAAL.middleware.tracker.Activator;
 import org.universAAL.middleware.tracker.IBusMemberRegistry;
 import org.universAAL.middleware.tracker.IBusMemberRegistryListener;
 import org.universAAL.middleware.ui.IUIBus;
