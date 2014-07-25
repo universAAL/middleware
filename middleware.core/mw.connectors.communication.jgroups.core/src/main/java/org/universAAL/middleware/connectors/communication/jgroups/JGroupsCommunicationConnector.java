@@ -62,7 +62,6 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.modules.CommunicationModule;
-import org.universAAL.middleware.modules.communication.CommunicationModuleImpl;
 
 /**
  * JGroup communication connector implementation
@@ -147,7 +146,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
             } catch (Exception ex) {
                 LogUtils.logError(
                         context,
-                        CommunicationModuleImpl.class,
+                        JGroupsCommunicationConnector.class,
                         METHOD,
                         new Object[] {
                                 "Error while initializing the CryptoUtil: ",
