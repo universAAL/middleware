@@ -10,7 +10,6 @@
   </parent>
   <artifactId>mw.bus.ui.osgi</artifactId>
   <version>3.1.1-SNAPSHOT</version>
-  <classifier>tenant</classifier>
   <packaging>bundle</packaging>
   <name>universAAL Middleware User Interaction Bus (OSGi)</name>
   <description>The realization of the user interaction bus on top of Sodapop as part of the universAAL Middleware (OSGi)</description>

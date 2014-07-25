@@ -10,7 +10,6 @@
   </parent>
   <artifactId>mw.bus.tracker.osgi</artifactId>
   <version>3.1.1-SNAPSHOT</version>
-  <classifier>tenant</classifier>
   <packaging>bundle</packaging>
   <name>universAAL Middleware BusMember Tracker (OSGi)</name>
   <description>Module for tracking BusMembers registered in the MW buses</description>

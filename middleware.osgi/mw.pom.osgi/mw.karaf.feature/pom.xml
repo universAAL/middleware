@@ -9,7 +9,6 @@
   </parent>
   <artifactId>mw.karaf.feature</artifactId>
   <version>3.1.1-SNAPSHOT</version>
-  <classifier>tenant</classifier>
   <name>universAAL Karaf Feature Middleware</name>
   <properties>
     <mw.version>${project.version}</mw.version>

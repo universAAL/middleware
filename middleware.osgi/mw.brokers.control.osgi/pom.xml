@@ -11,7 +11,6 @@
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.brokers.control.osgi</artifactId>
   <version>3.1.1-SNAPSHOT</version>
-  <classifier>tenant</classifier>
   <packaging>bundle</packaging>
   <name>universAAL Middleware Broker Control (OSGi)</name>
   <dependencies>
