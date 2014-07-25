@@ -11,7 +11,6 @@
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.connectors.discovery.slp.core</artifactId>
   <version>3.1.1-SNAPSHOT</version>
-  <classifier>tenant</classifier>
   <name>universAAL Middleware Connector Discovery SLP (Core)</name>
   <dependencies>
     <dependency>

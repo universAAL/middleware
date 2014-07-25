@@ -10,7 +10,6 @@
   </parent>
   <artifactId>mw.container.xfaces.core</artifactId>
   <version>3.1.1-SNAPSHOT</version>
-  <classifier>tenant</classifier>
   <name>universAAL Middleware Container Interfaces (Core)</name>
   <description>Defines the interfaces exported by the Container building block of the universAAL middleware (Core)</description>
   <url></url>
