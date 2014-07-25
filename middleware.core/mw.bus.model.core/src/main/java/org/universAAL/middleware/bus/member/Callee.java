@@ -33,10 +33,6 @@ public abstract class Callee extends BusMember {
 	super(owner, busFetchParams, BusMemberType.responder);
     }
 
-	public Callee(ModuleContext owner, Object[] busFetchParams, String scopeId) {
-		super(owner, busFetchParams, BusMemberType.responder, scopeId);
-	}
-
     /**
      * Handles request coming from the bus.
      * 

@@ -30,10 +30,6 @@ import org.universAAL.middleware.container.ModuleContext;
 public abstract class Publisher extends BusMember {
 
     protected Publisher(ModuleContext owner, Object[] busFetchParams) {
-	super(owner, busFetchParams, BusMemberType.publisher, null);
-    }
-    
-    protected Publisher(ModuleContext owner, Object[] busFetchParams, String scopeID) {
-    	super(owner, busFetchParams, BusMemberType.publisher, scopeID);
+	super(owner, busFetchParams, BusMemberType.publisher);
     }
 }

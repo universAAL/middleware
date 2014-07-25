@@ -32,11 +32,7 @@ import org.universAAL.middleware.container.ModuleContext;
 public abstract class Subscriber extends BusMember {
 
     protected Subscriber(ModuleContext owner, Object[] busFetchParams) {
-	super(owner, busFetchParams, BusMemberType.subscriber, null);
-    }
-    
-    protected Subscriber(ModuleContext owner, Object[] busFetchParams, String scopeID) {
-    	super(owner, busFetchParams, BusMemberType.subscriber, scopeID);
+	super(owner, busFetchParams, BusMemberType.subscriber);
     }
 
     /**
