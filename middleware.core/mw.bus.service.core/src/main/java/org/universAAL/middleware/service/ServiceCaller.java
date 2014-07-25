@@ -57,22 +57,7 @@ public abstract class ServiceCaller extends Caller {
      *            object will not be operational.
      */
     protected ServiceCaller(ModuleContext context) {
-    	this(context, null);
-    }
-    
-    /**
-     * The constructor for proxied Service Caller.
-     * 
-     * @param context
-     *            The module context where the {@link ServiceBus} is registered.
-     *            Note that if no service bus is registered within the passed
-     *            <code>ModuleContext</code> at the time of creation, this
-     *            object will not be operational.
-     * @param scopeID
-     * 			The Id of the scope represented by the proxy, null if its local.
-     */
-    protected ServiceCaller(ModuleContext context, String scopeID) {
-	super(context, ServiceBusImpl.getServiceBusFetchParams(), scopeID);
+	super(context, ServiceBusImpl.getServiceBusFetchParams());
 	waitingCalls = new Hashtable();
 	readyResponses = new Hashtable();
     }

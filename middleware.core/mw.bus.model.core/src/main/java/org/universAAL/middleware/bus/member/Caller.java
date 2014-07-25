@@ -31,11 +31,7 @@ import org.universAAL.middleware.container.ModuleContext;
 public abstract class Caller extends BusMember {
 
     protected Caller(ModuleContext owner, Object[] busFetchParams) {
-	super(owner, busFetchParams, BusMemberType.requester, null);
-    }
-    
-    protected Caller(ModuleContext owner, Object[] busFetchParams, String scopeID) {
-    	super(owner, busFetchParams, BusMemberType.requester, scopeID);
+	super(owner, busFetchParams, BusMemberType.requester);
     }
 
     /**

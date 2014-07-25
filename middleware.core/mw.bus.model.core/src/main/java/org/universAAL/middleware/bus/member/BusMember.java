@@ -48,14 +48,9 @@ public abstract class BusMember {
     protected final AbstractBus theBus;
     protected final String busResourceURI;
     private BusMemberType type;
-    private String scope;
 
     protected BusMember(ModuleContext owner, Object[] busFetchParams,
 	    BusMemberType type) {
-    	this(owner, busFetchParams, type, null);
-    }
-    protected BusMember(ModuleContext owner, Object[] busFetchParams,
-    		BusMemberType type, String scopeId) {
 	this.owner = owner;
 	this.type = type;
 	theBus = (AbstractBus) owner.getContainer().fetchSharedObject(owner,
@@ -63,7 +58,6 @@ public abstract class BusMember {
 	busResourceURI = theBus.register(owner, this, type);
 	AccessControl.INSTANCE.registerBusMember(owner, this,
 		theBus.getBrokerName());
-	scope = scopeId;
     }
 
     /**
@@ -100,13 +94,5 @@ public abstract class BusMember {
      */
     public BusMemberType getType() {
 	return type;
-    }
-    
-    public boolean isScoped(){
-    	return scope != null;
-    }
-    
-    public String getScope(){
-    	return scope;
     }
 }
