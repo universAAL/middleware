@@ -23,6 +23,7 @@ import org.universAAL.middleware.bus.model.matchable.Response;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.ui.rdf.Form;
 import org.universAAL.middleware.ui.rdf.SubdialogTrigger;
 import org.universAAL.middleware.ui.rdf.Submit;
@@ -34,7 +35,7 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * @author Carsten Stockloew
  * @author eandgrg
  */
-public class UIResponse extends FinalizedResource implements Response {
+public class UIResponse extends ScopedResource implements Response {
 
     /** The Constant MY_URI. */
     public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE

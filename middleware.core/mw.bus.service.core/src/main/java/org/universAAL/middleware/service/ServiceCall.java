@@ -25,8 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.bus.model.matchable.UtilityCall;
-import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
@@ -45,7 +45,7 @@ import org.universAAL.middleware.service.owls.process.ProcessInput;
  *         Tazari</a>
  * 
  */
-public class ServiceCall extends FinalizedResource implements UtilityCall {
+public class ServiceCall extends ScopedResource implements UtilityCall {
 
     /**
      * A resource URI that specifies the resource as a service call.

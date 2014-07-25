@@ -24,8 +24,8 @@ import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.OntologyManagement;
-import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ScopedResource;
 
 /**
  * Instances of this class can be used to exchange info about the state of
@@ -39,7 +39,7 @@ import org.universAAL.middleware.rdf.Resource;
  *         Tazari</a>
  * 
  */
-public class ContextEvent extends FinalizedResource implements Event {
+public class ContextEvent extends ScopedResource implements Event {
     public static final String uAAL_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX
 	    + "Context.owl#";
 
