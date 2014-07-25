@@ -16,17 +16,32 @@
 package org.universAAL.middleware.rdf;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
+ * A {@link ScopedResource} is a Resource that may have been generated at another AALSpace, or that may be sent to another AALSpace.
+ * Thus it can be annotated with the origin Scope (a.k.a tenant ID, origin AALSpace Id); or the destination Scopes.
+ * 
  * @author amedrano
  *
  */
 public class ScopedResource extends FinalizedResource {
 
+	/**
+	 * The property URI for holding the Scopes
+	 */
 	public static String PROP_SCOPE = uAAL_VOCABULARY_NAMESPACE + "hasScopes";
 	
+	/**
+	 * A special scope indicating the Resource may not be serialized to other AALSpaces.
+	 */
 	public static String ONLY_LOCAL_SCOPE = uAAL_VOCABULARY_NAMESPACE+ "only_local_scope";
+	
+	/**
+	 * A special scope indicating the Resource may be serialized to all other AALSpaces.
+	 */
+	public static String ALL_SCOPES = uAAL_VOCABULARY_NAMESPACE+ "all_Scopes";
 	
 	/** {@inheritDoc}	 */
 	public ScopedResource() {
@@ -53,10 +68,18 @@ public class ScopedResource extends FinalizedResource {
 		super(uriPrefix, numProps);
 	}
 
+	/**
+	 * Check if there is any scopes for this resource.
+	 * @return true if there is one or more scopes annotated for this resource.
+	 */
 	public boolean isScoped(){
 		return props.contains(PROP_SCOPE);
 	}
 	
+	/**
+	 * List all scopes associated to this resource.
+	 * @return always a list, empty if there are no scopes.
+	 */
 	public List getScopes(){
 		Object s = getProperty(PROP_SCOPE);
 		if (s instanceof String){
@@ -66,10 +89,15 @@ public class ScopedResource extends FinalizedResource {
 		}else if (s instanceof List){
 			return (List) s;
 		}else {
-			return null;
+			return Collections.EMPTY_LIST;
 		}
 	}
 	
+	/**
+	 * Add a new scope to this resource.
+	 * @param newScope the new scope to be added
+	 * @return whether the change was successful or not.
+	 */
 	public boolean addScope(String newScope){
 		if (newScope == null){
 			return false;
@@ -90,6 +118,10 @@ public class ScopedResource extends FinalizedResource {
 		}
 	}
 	
+	/**
+	 * Remove all scope annotations from this resource.
+	 * @return iff the scopes have been cleared.
+	 */
 	public boolean clearScopes(){
 		return changeProperty(PROP_SCOPE, null);
 	}
