@@ -190,7 +190,10 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     public void addNewProfile(String handlerID, UIHandlerProfile newProfile) {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o instanceof UIHandler) {
-	    ((UIStrategyCaller) busStrategy).addRegistration(handlerID, newProfile);
+	    ((UIStrategyCaller) busStrategy).addRegistration(handlerID,
+		    newProfile);
+	    registry.addRegParams(handlerID,
+		    new UIHandlerProfile[] { newProfile });
 	}
     }
 
@@ -228,8 +231,10 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	    UIHandlerProfile oldProfile) {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o instanceof UIHandler) {
-	    ((UIStrategyCaller) busStrategy).removeMatchingRegistries(handlerID,
-		    oldProfile);
+	    ((UIStrategyCaller) busStrategy).removeMatchingRegistries(
+		    handlerID, oldProfile);
+	    registry.removeRegParams(handlerID,
+		    new UIHandlerProfile[] { oldProfile });
 	}
     }
 

@@ -135,6 +135,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	if (calleeID != null) {
 	    ((ServiceStrategy) busStrategy).addRegParams(calleeID,
 		    realizedServices);
+	    registry.addRegParams(calleeID, realizedServices);
 	}
     }
 
@@ -199,6 +200,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	if (calleeID != null) {
 	    ((ServiceStrategy) busStrategy).removeMatchingRegParams(calleeID,
 		    realizedServices);
+	    registry.removeRegParams(calleeID, realizedServices);
 	}
     }
 

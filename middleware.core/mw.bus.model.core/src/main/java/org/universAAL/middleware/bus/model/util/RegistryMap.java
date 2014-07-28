@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.universAAL.middleware.bus.member.BusMember;
+import org.universAAL.middleware.rdf.Resource;
 
 /**
  * 
@@ -101,5 +102,21 @@ public class RegistryMap extends Object implements IRegistry {
 
     public boolean removeRegistryListener(IRegistryListener listener) {
 	return listeners.remove(listener);
+    }
+
+    public void addRegParams(String busMemberID, Resource[] params) {
+	// We don't do anything with the reg params, we just forward them to the
+	// listeners.
+	for (IRegistryListener listener : listeners) {
+	    listener.regParamsAdded(busMemberID, params);
+	}
+    }
+
+    public void removeRegParams(String busMemberID, Resource[] params) {
+	// We don't do anything with the reg params, we just forward them to the
+	// listeners.
+	for (IRegistryListener listener : listeners) {
+	    listener.regParamsRemoved(busMemberID, params);
+	}
     }
 }
