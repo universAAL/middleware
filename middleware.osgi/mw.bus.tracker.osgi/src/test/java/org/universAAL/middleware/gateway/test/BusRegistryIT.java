@@ -1,14 +1,12 @@
 package org.universAAL.middleware.gateway.test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.osgi.framework.Constants;
 import org.springframework.util.Assert;
 import org.universAAL.itests.IntegrationTest;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
@@ -16,7 +14,6 @@ import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
-import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.DefaultServiceCaller;
 import org.universAAL.middleware.service.ServiceCall;
@@ -125,7 +122,7 @@ public class BusRegistryIT extends IntegrationTest {
 
 	MockBusRegistryListener listener = new MockBusRegistryListener();
 
-	registry.addBusRegistryListener(listener, true);
+	registry.addListener(listener, true);
 	
 	int[] emptyArray = new int[]{0,0,0,0,0,0};
 	int[] singleServiceCallee = new int[]{1,0,0,0,0,0};
@@ -191,21 +188,17 @@ public class BusRegistryIT extends IntegrationTest {
 	@Override
 	public void communicationChannelBroken() {
 	    // TODO Auto-generated method stub
-	    
 	}
 
 	@Override
 	public void dialogAborted(String dialogID, Resource data) {
 	    // TODO Auto-generated method stub
-	    
 	}
 
 	@Override
 	public void handleUIResponse(UIResponse input) {
 	    // TODO Auto-generated method stub
-	    
 	}
-	
     }
     
     class MockUIHandler extends UIHandler {
@@ -220,13 +213,11 @@ public class BusRegistryIT extends IntegrationTest {
 	public void adaptationParametersChanged(String dialogID,
 		String changedProp, Object newVal) {
 	    // TODO Auto-generated method stub
-	    
 	}
 
 	@Override
 	public void communicationChannelBroken() {
 	    // TODO Auto-generated method stub
-	    
 	}
 
 	@Override
@@ -238,13 +229,10 @@ public class BusRegistryIT extends IntegrationTest {
 	@Override
 	public void handleUICall(UIRequest uicall) {
 	    // TODO Auto-generated method stub
-	    
 	}
-	
     }
     
     class MockContextSubscriber extends ContextSubscriber{
-
 
 	protected MockContextSubscriber(ModuleContext context,
 		ContextEventPattern[] initialSubscriptions) {
@@ -263,7 +251,6 @@ public class BusRegistryIT extends IntegrationTest {
 	    // TODO Auto-generated method stub
 	    
 	}
-	
     }
     
     class MockServiceCallee extends ServiceCallee {
@@ -277,7 +264,6 @@ public class BusRegistryIT extends IntegrationTest {
 	@Override
 	public void communicationChannelBroken() {
 	    // TODO Auto-generated method stub
-	    
 	}
 
 	@Override
@@ -397,6 +383,12 @@ public class BusRegistryIT extends IntegrationTest {
 	    this.uiCallersCount = uiCallersCount;
 	}
 
-    }
+	public void regParamsAdded(BusMember member, Resource[] params) {
+	    // TODO Auto-generated method stub
+	}
 
+	public void regParamsRemoved(BusMember member, Resource[] params) {
+	    // TODO Auto-generated method stub
+	}
+    }
 }
