@@ -117,12 +117,15 @@ public class ScopedResource extends FinalizedResource {
 	    List res = new ArrayList();
 	    res.add(s);
 	    res.add(newScope);
-	    return changeProperty(PROP_SCOPE, res);
+	    props.put(PROP_SCOPE, res);
+	    return true;
 	} else if (s instanceof List) {
 	    ((List) s).add(newScope);
-	    return changeProperty(PROP_SCOPE, s);
+	    props.put(PROP_SCOPE, s);
+	    return true;
 	} else if (s == null) {
-	    return setProperty(PROP_SCOPE, newScope);
+	    props.put(PROP_SCOPE, newScope);
+	    return true;
 	} else {
 	    return false;
 	}
@@ -149,7 +152,8 @@ public class ScopedResource extends FinalizedResource {
 	if (scope == null) {
 	    return clearScopes();
 	} else {
-	    return setProperty(PROP_SCOPE, scope);
+	    props.put(PROP_SCOPE, scope);
+	    return true;
 	}
     }
 }
