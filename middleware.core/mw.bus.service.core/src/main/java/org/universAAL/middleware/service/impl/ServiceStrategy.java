@@ -1241,7 +1241,7 @@ public class ServiceStrategy extends BusStrategy {
 		    HashMap match = (HashMap) i.next();
 		    ServiceRealization sr = (ServiceRealization) match
 			    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
-		    if (sr.assertServiceCall(match)) {
+		    if (sr.assertServiceCall(match, request)) {
 			matchesFound++;
 			HashMap otherMatch = (HashMap) auxMap.get(sr
 				.getProvider());
