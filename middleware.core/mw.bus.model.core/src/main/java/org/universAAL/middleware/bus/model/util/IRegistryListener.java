@@ -40,26 +40,26 @@ public interface IRegistryListener {
     /**
      * Invoked when registration parameters of an existing BusMember are added.
      * 
-     * @param member
-     *            the bus member for which the registration parameters have been
-     *            added.
+     * @param busMemberID
+     *            the ID of the bus member for which the registration parameters
+     *            have been added.
      * @param params
      *            the registration parameters.
      */
-    public void regParamsAdded(BusMember busMember, Resource[] params);
+    public void regParamsAdded(String busMemberID, Resource[] params);
 
     /**
      * Invoked when registration parameters of an existing BusMember are
      * removed.
      * 
-     * @param member
-     *            the bus member for which the registration parameters have been
-     *            removed.
+     * @param busMemberID
+     *            the ID of the bus member for which the registration parameters
+     *            have been removed.
      * @param params
      *            the registration parameters.
      */
-    public void regParamsRemoved(BusMember busMember, Resource[] params);
-    
+    public void regParamsRemoved(String busMemberID, Resource[] params);
+
     /**
      * Invoked when all bus members are removed. This typically only happens
      * when the bus is stopped.

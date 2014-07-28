@@ -122,6 +122,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 		((ContextStrategy) busStrategy).addRegParams(
 			(ContextPublisher) o, registrParams);
 	    }
+	    registry.addRegParams(memberID, registrParams);
 	}
     }
 
@@ -147,6 +148,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 		((ContextStrategy) busStrategy).removeMatchingRegParams(
 			(ContextPublisher) o, oldRegistrParams);
 	    }
+	    registry.removeRegParams(memberID, oldRegistrParams);
 	}
     }
 

@@ -63,13 +63,13 @@ public interface IBusMemberRegistryListener {
      * {@link ServiceCallee}s or {@link ContextEventPattern} for
      * {@link ContextSubscriber}.
      * 
-     * @param member
-     *            the bus member for which the registration parameters have been
-     *            added.
+     * @param busMemberID
+     *            the ID of the bus member for which the registration parameters
+     *            have been added.
      * @param params
      *            the registration parameters.
      */
-    public void regParamsAdded(BusMember member, Resource[] params);
+    public void regParamsAdded(String busMemberID, Resource[] params);
 
     /**
      * Invoked when registration parameters of an existing BusMember are
@@ -77,11 +77,11 @@ public interface IBusMemberRegistryListener {
      * {@link ServiceProfile}s for {@link ServiceCallee}s or
      * {@link ContextEventPattern} for {@link ContextSubscriber}.
      * 
-     * @param member
-     *            the bus member for which the registration parameters have been
-     *            removed.
+     * @param busMemberID
+     *            the ID of the bus member for which the registration parameters
+     *            have been removed.
      * @param params
      *            the registration parameters.
      */
-    public void regParamsRemoved(BusMember member, Resource[] params);
+    public void regParamsRemoved(String busMemberID, Resource[] params);
 }

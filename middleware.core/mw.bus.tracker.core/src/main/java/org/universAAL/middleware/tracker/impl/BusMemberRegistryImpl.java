@@ -80,10 +80,14 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	}
 
 	private void log(String action, BusMember busMember) {
-	    logInfo("%s",
-		    "[BusMember" + action + "] "
-			    + busMember.getClass().getSimpleName() + ": "
-			    + busMember.getURI());
+	    log(action, busMember.getClass().getSimpleName(),
+		    busMember.getURI());
+	}
+
+	private void log(String action, String busMemberClass,
+		String busMemberURI) {
+	    logInfo("%s", "[BusMember" + action + "] " + busMemberClass + ": "
+		    + busMemberURI);
 	}
 
 	public void busMemberAdded(BusMember busMember) {
@@ -125,17 +129,17 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	    busMembers.clear();
 	}
 
-	public void regParamsAdded(BusMember busMember, Resource[] params) {
-	    log("regParamsAdded", busMember);
+	public void regParamsAdded(String busMemberID, Resource[] params) {
+	    log("regParamsAdded", "", busMemberID);
 	    for (IBusMemberRegistryListener listener : listeners) {
-		listener.regParamsAdded(busMember, params);
+		listener.regParamsAdded(busMemberID, params);
 	    }
 	}
 
-	public void regParamsRemoved(BusMember busMember, Resource[] params) {
-	    log("regParamsRemoved", busMember);
+	public void regParamsRemoved(String busMemberID, Resource[] params) {
+	    log("regParamsRemoved", "", busMemberID);
 	    for (IBusMemberRegistryListener listener : listeners) {
-		listener.regParamsRemoved(busMember, params);
+		listener.regParamsRemoved(busMemberID, params);
 	    }
 	}
     }
