@@ -171,7 +171,7 @@ public class ServiceRealization extends FinalizedResource {
      * 
      * @return true iff the operation was successful
      */
-    boolean assertServiceCall(HashMap context) {
+    boolean assertServiceCall(HashMap context, ServiceRequest request) {
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	if (prof == null)
 	    return false;
@@ -181,6 +181,7 @@ public class ServiceRealization extends FinalizedResource {
 	    return false;
 
 	ServiceCall result = new ServiceCall(processURI);
+	result.setScope(request);
 	Object user = context.get(Constants.VAR_uAAL_ACCESSING_HUMAN_USER);
 	if (user instanceof Resource)
 	    result.setInvolvedUser((Resource) user);
