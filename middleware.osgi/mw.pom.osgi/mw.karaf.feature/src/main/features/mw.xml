@@ -41,6 +41,8 @@
 		<bundle start-level='56' start='true'>mvn:org.universAAL.middleware/mw.managers.aalspace.osgi/${mw.managers.aalspace.osgi.version}</bundle>
 		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.deploy.osgi/${mw.managers.deploy.osgi.version}</bundle>
 		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.configuration.osgi/${mw.managers.configuration.osgi.version}</bundle>
+		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.bus.tracker.osgi/${mw.bus.tracker.osgi.version}</bundle>
+
 
 		<!-- Busses -->
 		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.data.representation.osgi/${mw.data.representation.osgi.version}</bundle>
