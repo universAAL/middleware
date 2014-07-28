@@ -17,7 +17,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/ 
+ */
 package org.universAAL.middleware.tracker.impl;
 
 import java.util.ArrayList;
@@ -29,67 +29,134 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.ContextBusFacade;
-import org.universAAL.middleware.context.ContextPublisher;
-import org.universAAL.middleware.context.ContextSubscriber;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceBusFacade;
-import org.universAAL.middleware.service.ServiceCallee;
-import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.model.util.IRegistryListener;
-import org.universAAL.middleware.tracker.Activator;
 import org.universAAL.middleware.tracker.IBusMemberRegistry;
 import org.universAAL.middleware.tracker.IBusMemberRegistryListener;
 import org.universAAL.middleware.ui.IUIBus;
 import org.universAAL.middleware.ui.UIBusFacade;
-import org.universAAL.middleware.ui.UICaller;
-import org.universAAL.middleware.ui.UIHandler;
 
+//TODO: synchronize map and listener for concurrent access
 public class BusMemberRegistryImpl implements IBusMemberRegistry {
 
+    /**
+     * The list of listeners that we have to notify about changes.
+     */
     private List<IBusMemberRegistryListener> listeners;
-    private List<IBusMemberRegistryListener> serviceBusListeners;
-    private List<IBusMemberRegistryListener> contextBusListeners;
-    private List<IBusMemberRegistryListener> uiBusListeners;
 
     private Map<String, BusMember> serviceBusMembers;
     private Map<String, BusMember> contextBusMembers;
     private Map<String, BusMember> uiBusMembers;
 
     private ModuleContext mc;
+
+    /**
+     * The listener that we implement to get notified about changes in the
+     * service bus.
+     */
     private IRegistryListener serviceListener;
+
+    /**
+     * The listener that we implement to get notified about changes in the
+     * context bus.
+     */
     private IRegistryListener contextListener;
+
+    /**
+     * The listener that we implement to get notified about changes in the UI
+     * bus.
+     */
     private IRegistryListener uiListener;
+
+    private class TypedRegistryListener implements IRegistryListener {
+	BusType type;
+
+	TypedRegistryListener(BusType type) {
+	    this.type = type;
+	}
+
+	private void log(String action, BusMember busMember) {
+	    logInfo("%s",
+		    "[BusMember" + action + "] "
+			    + busMember.getClass().getSimpleName() + ": "
+			    + busMember.getURI());
+	}
+
+	public void busMemberAdded(BusMember busMember) {
+	    log("Added", busMember);
+	    addBusMemberToRegistry(busMember.getURI(), busMember, type);
+	    for (IBusMemberRegistryListener listener : listeners) {
+		listener.busMemberAdded(busMember, type);
+	    }
+	}
+
+	public void busMemberRemoved(BusMember busMember) {
+	    log("Removed", busMember);
+	    removeBusMemberFromRegistry(busMember.getURI(), busMember, type);
+	    for (IBusMemberRegistryListener listener : listeners) {
+		listener.busMemberRemoved(busMember, type);
+	    }
+	}
+
+	public void busCleared() {
+	    Map<String, BusMember> busMembers = null;
+	    switch (type) {
+	    case Service:
+		busMembers = serviceBusMembers;
+		break;
+	    case Context:
+		busMembers = contextBusMembers;
+		break;
+	    case UI:
+		busMembers = uiBusMembers;
+		break;
+	    }
+	    if (busMembers == null)
+		return;
+	    for (BusMember member : busMembers.values()) {
+		for (IBusMemberRegistryListener listener : listeners) {
+		    listener.busMemberRemoved(member, type);
+		}
+	    }
+	    busMembers.clear();
+	}
+
+	public void regParamsAdded(BusMember busMember, Resource[] params) {
+	    log("regParamsAdded", busMember);
+	    for (IBusMemberRegistryListener listener : listeners) {
+		listener.regParamsAdded(busMember, params);
+	    }
+	}
+
+	public void regParamsRemoved(BusMember busMember, Resource[] params) {
+	    log("regParamsRemoved", busMember);
+	    for (IBusMemberRegistryListener listener : listeners) {
+		listener.regParamsRemoved(busMember, params);
+	    }
+	}
+    }
 
     public BusMemberRegistryImpl(ModuleContext mc) {
 	this.mc = mc;
 	listeners = new ArrayList<IBusMemberRegistryListener>();
-	serviceBusListeners = new ArrayList<IBusMemberRegistryListener>();
-	contextBusListeners = new ArrayList<IBusMemberRegistryListener>();
-	uiBusListeners = new ArrayList<IBusMemberRegistryListener>();
 
 	serviceBusMembers = new HashMap<String, BusMember>();
 	contextBusMembers = new HashMap<String, BusMember>();
 	uiBusMembers = new HashMap<String, BusMember>();
 
-	addRegistryListeners();
-    }
-
-    public void addRegistryListeners() {
-
 	if (serviceListener == null) {
 	    addServiceBusListener();
 	}
-
 	if (contextListener == null) {
-	    addContextListener();
+	    addContextBusListener();
 	}
-
 	if (uiListener == null) {
-	    addUIListener();
+	    addUIBusListener();
 	}
-
     }
 
     public void removeRegistryListeners() {
@@ -109,221 +176,60 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	}
     }
 
+    private IRegistryListener createBusListener(AbstractBus bus, BusType type) {
+	IRegistryListener listener = new TypedRegistryListener(type);
+	bus.addRegistryListener(listener);
+	return listener;
+    }
+
     private void addServiceBusListener() {
-
 	final ServiceBus serviceBus = ServiceBusFacade.fetchBus(mc);
-
-	serviceListener = new IRegistryListener() {
-
-	    public void busMemberRemoved(BusMember busMember) {
-		if (busMember instanceof ServiceCallee) {
-		    ServiceCallee callee = (ServiceCallee) busMember;
-		    logInfo("%s",
-			    "[BusMemberRemoved] ServiceCallee: "
-				    + callee.getMyID());
-		    removeBusMemberFromRegistry(callee.getMyID(), callee, BusType.Service);
-		} else if (busMember instanceof ServiceCaller) {
-		    ServiceCaller caller = (ServiceCaller) busMember;
-		    logInfo("%s",
-			    "[BusMemberRemoved] ServiceCaller: "
-				    + caller.getMyID());
-		    removeBusMemberFromRegistry(caller.getMyID(), caller, BusType.Service);
-		}
-	    }
-
-	    public void busMemberAdded(BusMember busMember) {
-		if (busMember instanceof ServiceCallee) {
-		    ServiceCallee callee = (ServiceCallee) busMember;
-		    logInfo("%s",
-			    "[BusMemberAdded] ServiceCallee: "
-				    + callee.getMyID());
-		    addBusMemberToRegistry(callee.getMyID(), callee, BusType.Service);
-		} else if (busMember instanceof ServiceCaller) {
-		    ServiceCaller caller = (ServiceCaller) busMember;
-		    logInfo("%s",
-			    "[BusMemberAdded] ServiceCaller: "
-				    + caller.getMyID());
-		    addBusMemberToRegistry(caller.getMyID(), caller, BusType.Service);
-		}
-	    }
-
-	    public void busCleared() {
-		logInfo("%s", "[BusCleared] ServiceBus");
-	    }
-	};
-
-	((AbstractBus) serviceBus).addRegistryListener(serviceListener);
-
+	serviceListener = createBusListener((AbstractBus) serviceBus,
+		BusType.Service);
     }
 
-    private void addContextListener() {
+    private void addContextBusListener() {
 	final ContextBus contextBus = ContextBusFacade.fetchBus(mc);
-
-	contextListener = new IRegistryListener() {
-
-	    public void busMemberRemoved(BusMember busMember) {
-		if (busMember instanceof ContextPublisher) {
-		    ContextPublisher publisher = (ContextPublisher) busMember;
-		    logInfo("%s", "[BusMemberRemoved] ContextPublisher: "
-			    + publisher.getMyID());
-		    removeBusMemberFromRegistry(publisher.getMyID(), publisher, BusType.Context);
-		} else if (busMember instanceof ContextSubscriber) {
-		    ContextSubscriber subscriber = (ContextSubscriber) busMember;
-		    logInfo("%s", "[BusMemberRemoved] ContextSubscriber: "
-			    + subscriber.getMyID());
-		    removeBusMemberFromRegistry(subscriber.getMyID(), subscriber, BusType.Context);
-		}
-	    }
-
-	    public void busMemberAdded(BusMember busMember) {
-		if (busMember instanceof ContextPublisher) {
-		    ContextPublisher publisher = (ContextPublisher) busMember;
-		    logInfo("%s", "[BusMemberAdded] ContextPublisher: "
-			    + publisher.getMyID());
-		    addBusMemberToRegistry(publisher.getMyID(), publisher, BusType.Context);
-		} else if (busMember instanceof ContextSubscriber) {
-		    ContextSubscriber subscriber = (ContextSubscriber) busMember;
-		    logInfo("%s", "[BusMemberAdded] ContextSubscriber: "
-			    + subscriber.getMyID());
-		    addBusMemberToRegistry(subscriber.getMyID(), subscriber, BusType.Context);
-		}
-	    }
-
-	    public void busCleared() {
-		logInfo("%s", "[BusCleared] ContextBus");
-	    }
-	};
-
-	((AbstractBus) contextBus).addRegistryListener(contextListener);
+	contextListener = createBusListener((AbstractBus) contextBus,
+		BusType.Context);
     }
 
-    private void addUIListener() {
+    private void addUIBusListener() {
 	final IUIBus uiBus = UIBusFacade.fetchBus(mc);
-
-	uiListener = new IRegistryListener() {
-
-	    public void busMemberRemoved(BusMember busMember) {
-		if (busMember instanceof UICaller) {
-		    UICaller caller = (UICaller) busMember;
-		    logInfo("%s",
-			    "[BusMemberRemoved] UICaller: " + caller.getMyID());
-		    uiBusMembers.remove(caller.getMyID());
-		    removeBusMemberFromRegistry(caller.getMyID(), caller, BusType.UI);
-		} else if (busMember instanceof UIHandler) {
-		    UIHandler handler = (UIHandler) busMember;
-		    logInfo("%s",
-			    "[BusMemberRemoved] UIHandler: "
-				    + handler.getMyID());
-		    removeBusMemberFromRegistry(handler.getMyID(), handler, BusType.UI);
-		}
-	    }
-
-	    public void busMemberAdded(BusMember busMember) {
-		if (busMember instanceof UICaller) {
-		    UICaller caller = (UICaller) busMember;
-		    logInfo("%s",
-			    "[BusMemberAdded] UICaller: " + caller.getMyID());
-		    addBusMemberToRegistry(caller.getMyID(), caller, BusType.UI);
-		} else if (busMember instanceof UIHandler) {
-		    UIHandler handler = (UIHandler) busMember;
-		    logInfo("%s",
-			    "[BusMemberAdded] UIHandler: " + handler.getMyID());
-		    addBusMemberToRegistry(handler.getMyID(), handler, BusType.UI);
-		}
-	    }
-
-	    public void busCleared() {
-		logInfo("%s", "[BusCleared] IUIBus");
-	    }
-	};
-	((AbstractBus) uiBus).addRegistryListener(uiListener);
+	uiListener = createBusListener((AbstractBus) uiBus, BusType.UI);
     }
 
-    private void removeBusMemberFromRegistry(String id,BusMember member, BusType type) {
+    private void removeBusMemberFromRegistry(String id, BusMember member,
+	    BusType type) {
 	switch (type) {
 	case Service:
 	    serviceBusMembers.remove(id);
-	    for (IBusMemberRegistryListener listener : serviceBusListeners) {
-		listener.busMemberRemoved(member, BusType.Service);
-	    }
 	    break;
 	case Context:
 	    contextBusMembers.remove(id);
-	    for (IBusMemberRegistryListener listener : contextBusListeners) {
-		listener.busMemberRemoved(member, BusType.Context);
-	    }
 	    break;
 	case UI:
 	    uiBusMembers.remove(id);
-	    for (IBusMemberRegistryListener listener : uiBusListeners) {
-		listener.busMemberRemoved(member, BusType.UI);
-	    }
 	    break;
 	}
-	for (IBusMemberRegistryListener listener : listeners) {
-	    listener.busMemberRemoved(member, type);
-	}
     }
-    
+
     private void addBusMemberToRegistry(String id, BusMember member,
 	    BusType type) {
 	switch (type) {
 	case Service:
 	    serviceBusMembers.put(id, member);
-	    for (IBusMemberRegistryListener listener : serviceBusListeners) {
-		listener.busMemberAdded(member, BusType.Service);
-	    }
 	    break;
 	case Context:
 	    contextBusMembers.put(id, member);
-	    for (IBusMemberRegistryListener listener : contextBusListeners) {
-		listener.busMemberAdded(member, BusType.Context);
-	    }
 	    break;
 	case UI:
 	    uiBusMembers.put(id, member);
-	    for (IBusMemberRegistryListener listener : uiBusListeners) {
-		listener.busMemberAdded(member, BusType.UI);
-	    }
 	    break;
-	}
-	for (IBusMemberRegistryListener listener : listeners) {
-	    listener.busMemberAdded(member, type);
 	}
     }
 
-    public void addBusRegistryListener(IBusMemberRegistryListener listener,
-	    BusType type, boolean notifyAboutPreviouslyRegisteredMembers) {
-	switch (type) {
-	case Service:
-	    serviceBusListeners.add(listener);
-	    if (notifyAboutPreviouslyRegisteredMembers) {
-		for (BusMember member : serviceBusMembers.values()) {
-		    listener.busMemberAdded(member, BusType.Service);
-		}
-	    }
-	    break;
-	case Context:
-	    contextBusListeners.add(listener);
-	    if (notifyAboutPreviouslyRegisteredMembers) {
-		for (BusMember member : contextBusMembers.values()) {
-		    listener.busMemberAdded(member, BusType.Context);
-		}
-	    }
-	    break;
-	case UI:
-	    uiBusListeners.add(listener);
-	    if (notifyAboutPreviouslyRegisteredMembers) {
-		for (BusMember member : uiBusMembers.values()) {
-		    listener.busMemberAdded(member, BusType.UI);
-		}
-	    }
-	    break;
-	}
-
-    }
-
-    public void addBusRegistryListener(IBusMemberRegistryListener listener,
+    public void addListener(IBusMemberRegistryListener listener,
 	    boolean notifyAboutPreviouslyRegisteredMembers) {
 	listeners.add(listener);
 	if (notifyAboutPreviouslyRegisteredMembers) {
@@ -339,23 +245,8 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	}
     }
 
-    public void removeBusRegistryListener(IBusMemberRegistryListener listener) {
+    public void removeListener(IBusMemberRegistryListener listener) {
 	listeners.remove(listener);
-    }
-
-    public void removeBusRegistryListener(IBusMemberRegistryListener listener,
-	    BusType type) {
-	switch (type) {
-	case Service:
-	    serviceBusListeners.remove(listener);
-	    break;
-	case Context:
-	    contextBusListeners.remove(listener);
-	    break;
-	case UI:
-	    uiBusListeners.remove(listener);
-	    break;
-	}
     }
 
     static void logInfo(String format, Object... args) {
@@ -365,5 +256,4 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 		callingMethod.getMethodName(),
 		new Object[] { String.format(format, args) }, null);
     }
-
 }
