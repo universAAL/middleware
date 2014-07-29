@@ -417,7 +417,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
                         // announce the AAL Space
                         controlBroker.buildAALSpace(myAALSpace);
 
-                        // strat thread
+                        // start threads
                         refreshAALSpaceThread = new RefreshAALSpaceThread(
                                 context);
                         refreshFuture = scheduler.scheduleAtFixedRate(
