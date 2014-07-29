@@ -1,74 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
+<!-- Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it Institute of Information 
+	Science and Technologies of the Italian National Research Council See the 
+	NOTICE file distributed with this work for additional information regarding 
+	copyright ownership Licensed to the Apache Software Foundation (ASF) under 
+	one or more contributor license agreements. See the NOTICE file distributed 
+	with this work for additional information regarding copyright ownership. 
+	The ASF licenses this file to you under the Apache License, Version 2.0 (the 
+	"License"); you may not use this file except in compliance with the License. 
+	You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. 
+	Authors: Michele Girolami <michele.girolami@isti.cnr.it> Francesco Furfari 
+	<furfari@isti.cnr.it> Stefano Lenzi <stefano.lenzi@isti.cnr.it> Version: 
+	$LastChangedRevision$ ( $LastChangedDate$ ) -->
+<xs:schema elementFormDefault="qualified"
+	attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://universaal.org/aalspace/v1.0.0" xmlns:aalChannel="http://universaal.org/aalspace-channel/v1.0.0">
 
-    Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-    Institute of Information Science and Technologies
-    of the Italian National Research Council
+	<xs:import namespace="http://universaal.org/aalspace-channel/v1.0.0"
+		schemaLocation="aalspace-channel.xsd" />
 
-    See the NOTICE file distributed with this work for additional
-    information regarding copyright ownership
-
-    Licensed to the Apache Software Foundation (ASF) under one or more contributor
-    license agreements. See the NOTICE file distributed with this work for additional
-    information regarding copyright ownership. The ASF licenses this file to
-    you under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of
-    the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
-    by applicable law or agreed to in writing, software distributed under the
-    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-    OF ANY KIND, either express or implied. See the License for the specific
-    language governing permissions and limitations under the License.
-
-    Authors:
-        Michele Girolami <michele.girolami@isti.cnr.it>
-        Francesco Furfari <furfari@isti.cnr.it>
-        Stefano Lenzi <stefano.lenzi@isti.cnr.it>
-
-    Version: $LastChangedRevision$ ( $LastChangedDate$ )
- -->
- <xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:tns="http://universaal.org/aalspace/v1.0.0"
-  xmlns:aalChannel="http://universaal.org/aalspace-channel/v1.0.0" >
-
-  <xs:import namespace="http://universaal.org/aalspace-channel/v1.0.0" schemaLocation="aalspace-channel.xsd" />
-
-  <xs:element name="aalspace">
-    <xs:annotation>
-      <xs:documentation>This schema describes the meta-information of an
-        AALSpace
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="space-descriptor">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="profile" type="xs:string" />
-              <xs:element name="spaceId" type="xs:string" />
-              <xs:element name="spaceName" type="xs:string" />
-              <xs:element name="spaceDescription" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="peeringChannel">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="channel-descriptor" type="aalChannel:channelDescriptor" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="communicationChannels">
-          <xs:complexType>
-            <xs:sequence minOccurs="1" maxOccurs="unbounded">
-              <xs:element name="channel-descriptor" type="aalChannel:channelDescriptor" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="owner" type="xs:string" />
-        <xs:element name="admin" type="xs:string" />
-        <xs:element name="security" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+	<xs:element name="aalspace">
+		<xs:annotation>
+			<xs:documentation>This schema describes the meta-information of an
+				AALSpace
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="space-descriptor">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="profile" type="xs:string" />
+							<xs:element name="spaceId" type="xs:string" />
+							<xs:element name="spaceName" type="xs:string" />
+							<xs:element name="spaceDescription" type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="peeringChannel">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="channel-descriptor" type="aalChannel:channelDescriptor" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="discoveryChannel">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="channel-descriptor" type="aalChannel:channelDescriptor" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="communicationChannels">
+					<xs:complexType>
+						<xs:sequence minOccurs="1" maxOccurs="unbounded">
+							<xs:element name="channel-descriptor" type="aalChannel:channelDescriptor" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="owner" type="xs:string" />
+				<xs:element name="admin" type="xs:string" />
+				<xs:element name="security" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 </xs:schema>

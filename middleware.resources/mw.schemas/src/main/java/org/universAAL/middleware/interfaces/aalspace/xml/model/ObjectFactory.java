@@ -84,6 +84,14 @@ public class ObjectFactory {
     public PeeringChannel createAalspacePeeringChannel() {
         return new Aalspace.PeeringChannel();
     }
+    
+    /**
+     * Create an instance of {@link Aalspace.DiscoveryChannel }
+     * 
+     */
+    public Aalspace.DiscoveryChannel createAalspaceDiscoveryChannel() {
+        return new Aalspace.DiscoveryChannel();
+    }
 
     /**
      * Create an instance of {@link Aalspace.CommunicationChannels }

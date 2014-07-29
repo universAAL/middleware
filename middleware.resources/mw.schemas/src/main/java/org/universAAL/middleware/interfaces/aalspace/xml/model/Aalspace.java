@@ -72,6 +72,17 @@ import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="discoveryChannel">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="channel-descriptor" type="{http://universaal.org/aalspace-channel/v1.0.0}channelDescriptor"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
  *         &lt;element name="communicationChannels">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -99,6 +110,7 @@ import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
     "spaceDescriptor",
     "peeringChannel",
     "communicationChannels",
+    "discoveryChannel",
     "owner",
     "admin",
     "security"
@@ -115,6 +127,8 @@ public class Aalspace
     protected PeeringChannel peeringChannel;
     @XmlElement(required = true)
     protected CommunicationChannels communicationChannels;
+    @XmlElement(required = true)
+    protected Aalspace.DiscoveryChannel discoveryChannel;
     @XmlElement(required = true)
     protected String owner;
     @XmlElement(required = true)
@@ -163,6 +177,28 @@ public class Aalspace
 
     public void setPeeringChannel(IPeeringChannel value) {
         this.peeringChannel = (PeeringChannel) value;
+    }
+    /**
+     * Gets the value of the discoveryChannel property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Aalspace.DiscoveryChannel }
+     *     
+     */
+    public Aalspace.DiscoveryChannel getDiscoveryChannel() {
+        return discoveryChannel;
+    }
+    /**
+     * Sets the value of the discoveryChannel property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Aalspace.DiscoveryChannel }
+     *     
+     */
+    public void setDiscoveryChannel(Aalspace.DiscoveryChannel value) {
+        this.discoveryChannel = value;
     }
     
     /* (non-Javadoc)
@@ -310,6 +346,60 @@ public class Aalspace
 	 */
         public void unsetChannelDescriptor() {
             this.channelDescriptor = null;
+        }
+
+    }
+    
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element name="channel-descriptor" type="{http://universaal.org/aalspace-channel/v1.0.0}channelDescriptor"/>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "channelDescriptor"
+    })
+    public static class DiscoveryChannel {
+
+        @XmlElement(name = "channel-descriptor", required = true)
+        protected ChannelDescriptor channelDescriptor;
+
+        /**
+         * Gets the value of the channelDescriptor property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link ChannelDescriptor }
+         *     
+         */
+        public ChannelDescriptor getChannelDescriptor() {
+            return channelDescriptor;
+        }
+
+        /**
+         * Sets the value of the channelDescriptor property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link ChannelDescriptor }
+         *     
+         */
+        public void setChannelDescriptor(ChannelDescriptor value) {
+            this.channelDescriptor = value;
         }
 
     }
