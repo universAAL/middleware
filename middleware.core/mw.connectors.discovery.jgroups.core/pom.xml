@@ -10,14 +10,7 @@
 	<groupId>org.universAAL.middleware</groupId>
 	<artifactId>mw.connectors.discovery.jgroups.core</artifactId>
 	<version>3.1.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	<name>mw.connectors.discovery.jgroups.core</name>
-	<url>http://maven.apache.org</url>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<name>universAAL Middleware Connector Discovery JGroup (Core)</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
