@@ -1,0 +1,1 @@
+mvn org.apache.maven.plugins:maven-dependency-plugin:analyze

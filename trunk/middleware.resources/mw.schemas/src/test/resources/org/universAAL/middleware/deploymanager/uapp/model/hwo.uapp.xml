@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uapp:aal-uapp
+   xmlns:uapp="http://www.universaal.org/aal-uapp/v1.0.2"
+   xmlns="http://karaf.apache.org/xmlns/features/v1.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.universaal.org/aal-uapp/v1.0.2 AAL-UAPP.xsd">
+<!--	xsi:schemaLocation="http://universaal.org/aal-uapp/v1.0.0 AAL-UAPP.xsd"-->
+   <uapp:app>
+      <uapp:name>Help When Outdoor</uapp:name>
+      <uapp:version>
+         <uapp:major>0</uapp:major>
+         <uapp:minor>3</uapp:minor>
+         <uapp:micro>0</uapp:micro>
+      </uapp:version>
+      <uapp:appId>org.universaal.aaalapplication.helpwhenoutdoor</uapp:appId>
+      <uapp:description>Help When Outdoor application</uapp:description>
+      <uapp:multipart>true</uapp:multipart>
+      <uapp:tags>person localisation, outdoor</uapp:tags>
+      <uapp:applicationProvider>
+         <uapp:organizationName>UPV</uapp:organizationName>
+         <uapp:certificate>http://www.upv.es</uapp:certificate>
+         <uapp:contactPerson>Gema Ibáñez</uapp:contactPerson>
+         <uapp:email>geibsan@itaca.upv.es</uapp:email>
+         <uapp:webAddress>http://www.upv.es</uapp:webAddress>
+      </uapp:applicationProvider>
+
+      <uapp:licenses>
+                  <uapp:license>
+                              <uapp:category>ExternalLicense</uapp:category>
+                              <uapp:name>MIT</uapp:name>
+                              <uapp:link>file:../license/MITX.txt</uapp:link>
+                  </uapp:license>
+                  <uapp:license>
+                              <uapp:category>ExternalLicense</uapp:category>
+                              <uapp:name>ASL 2.0</uapp:name>
+                              <uapp:link>file:../license/ASL2.0.txt</uapp:link>
+                  </uapp:license>
+                  <uapp:sla>
+                     <uapp:name>SLA for HWO app</uapp:name>
+                     <uapp:link>file:../license/sla.txt</uapp:link>
+                  </uapp:sla>
+      </uapp:licenses>
+      <uapp:applicationProfile>org.universAAL.ontology.profile.AALAppSubProfile</uapp:applicationProfile>
+   </uapp:app>
+
+   <uapp:applicationCapabilities>
+      <uapp:capability>
+         <uapp:name>capability1</uapp:name>
+         <uapp:value>cap-value1</uapp:value>
+      </uapp:capability>
+      <uapp:capability>
+         <uapp:name>capability2</uapp:name>
+         <uapp:value>cap-value2</uapp:value>
+      </uapp:capability>
+   </uapp:applicationCapabilities>
+
+   <uapp:applicationRequirements>
+         <uapp:requirement>
+               <uapp:reqAtom>
+                   <uapp:reqAtomName>aal.target-space.category</uapp:reqAtomName>
+                  <uapp:reqAtomValue>HomeSpace</uapp:reqAtomValue>
+               </uapp:reqAtom>
+         </uapp:requirement>
+         <uapp:requirement>
+               <uapp:reqAtom>
+                   <uapp:reqAtomName>aal.target-space.version</uapp:reqAtomName>
+                  <uapp:reqAtomValue>1.0.0</uapp:reqAtomValue>
+               </uapp:reqAtom>
+         </uapp:requirement>
+         <uapp:requirement>
+               <uapp:reqAtom>
+                   <uapp:reqAtomName>aal.mw.version</uapp:reqAtomName>
+                  <uapp:reqAtomValue>2.0.0</uapp:reqAtomValue>
+               </uapp:reqAtom>
+         </uapp:requirement>
+         <uapp:requirement>
+               <uapp:reqAtom>
+                   <uapp:reqAtomName>aal.required-ontology</uapp:reqAtomName>
+                  <uapp:reqAtomValue>ont.profile, ont.phWorld</uapp:reqAtomValue>
+               </uapp:reqAtom>
+         </uapp:requirement>
+   </uapp:applicationRequirements>
+
+
+   <uapp:applicationPart>
+      <!-- 1 Part -->
+      <uapp:part partId="part1">
+         <uapp:bundleId>hwo.servlet</uapp:bundleId>
+         <uapp:bundleVersion>1.2.1.SNAPSHOT</uapp:bundleVersion>
+         <uapp:partRequirements>
+               <uapp:requirement>
+                     <uapp:reqAtom>
+                     <uapp:reqAtomName>aal.target.container.name</uapp:reqAtomName>
+                        <uapp:reqAtomValue>OSGi</uapp:reqAtomValue>
+                     </uapp:reqAtom>
+               </uapp:requirement>
+               <uapp:requirement>
+                     <uapp:reqAtom>
+                        <uapp:reqAtomName>aal.target.container.version</uapp:reqAtomName>
+                        <uapp:reqAtomValue>4.2</uapp:reqAtomValue>
+                        <uapp:reqCriteria>greater-equal</uapp:reqCriteria>
+                     </uapp:reqAtom>
+               </uapp:requirement>
+               <uapp:requirement>
+                     <uapp:reqAtom>
+                        <uapp:reqAtomName>aal.target.deployment-tool</uapp:reqAtomName>
+                        <uapp:reqAtomValue>Karaf</uapp:reqAtomValue>
+                     </uapp:reqAtom>
+               </uapp:requirement>
+         </uapp:partRequirements>
+         <uapp:deploymentUnit id="_1A">
+            <uapp:containerUnit>
+               <uapp:karaf>
+                  <uapp:embedding>anyContainer</uapp:embedding>
+                  <features>
+                     <feature name="Help-when-outdoor-servlet"
+                        description="Servlet part of HWO Service"
+                        version="0.1" resolver="(obr)">
+                        <feature>universAAL2.0</feature>
+                        <bundle start-level="85" start="false">file://../bin/part1/hwo.servlet_1.2.1.SNAPSHOT.jar</bundle>
+                     </feature>
+
+                  </features>
+               </uapp:karaf>
+            </uapp:containerUnit>
+         </uapp:deploymentUnit>
+         <uapp:executionUnit>
+<!--				<uapp:deploymentUnit>"_1A"</uapp:deploymentUnit>
+-->
+            <uapp:configFiles>hwo.servlet.properties</uapp:configFiles>
+         </uapp:executionUnit>
+
+      </uapp:part>
+   </uapp:applicationPart>
+</uapp:aal-uapp>
