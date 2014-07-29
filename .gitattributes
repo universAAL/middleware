@@ -664,11 +664,6 @@ middleware.osgi/mw.connectors.deploy.karaf.osgi/NOTICE.txt -text
 middleware.osgi/mw.connectors.deploy.karaf.osgi/pom.xml -text
 middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/KarafDeployConnector.java -text
 middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/osgi/Activator.java -text
-middleware.osgi/mw.connectors.discovery.jgroups.osgi/.classpath -text
-middleware.osgi/mw.connectors.discovery.jgroups.osgi/.project -text
-middleware.osgi/mw.connectors.discovery.jgroups.osgi/.settings/org.eclipse.core.resources.prefs -text
-middleware.osgi/mw.connectors.discovery.jgroups.osgi/.settings/org.eclipse.jdt.core.prefs -text
-middleware.osgi/mw.connectors.discovery.jgroups.osgi/.settings/org.eclipse.m2e.core.prefs -text
 middleware.osgi/mw.connectors.discovery.jgroups.osgi/pom.xml -text
 middleware.osgi/mw.connectors.discovery.jgroups.osgi/src/main/java/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/Activator.java -text
 middleware.osgi/mw.connectors.discovery.jgroups.osgi/src/test/java/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/ArtifactIT.java -text
