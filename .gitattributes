@@ -802,7 +802,6 @@ middleware.osgi/mw.pom.osgi/mw.karaf.feature/NOTICE.txt -text
 middleware.osgi/mw.pom.osgi/mw.karaf.feature/pom.xml -text
 middleware.osgi/mw.pom.osgi/mw.karaf.feature/src/main/features/mw.xml -text
 middleware.osgi/mw.pom.osgi/pom.xml -text
-middleware.osgi/pom.xml -text
 middleware.resources/mw.schemas/ASL2.0.txt -text
 middleware.resources/mw.schemas/NOTICE.txt -text
 middleware.resources/mw.schemas/pom.xml -text
