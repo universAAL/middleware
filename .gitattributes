@@ -298,8 +298,25 @@ middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/unive
 middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/Codec.java -text
 middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/Consts.java -text svneol=unset#text/plain
 middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/CryptUtil.java -text
+middleware.core/mw.connectors.discovery.jgroups.core.config/.classpath -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.core.config/.project -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.core.config/.settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.core.config/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.core.config/.settings/org.eclipse.m2e.core.prefs -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.core.config/ASL2.0.txt -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.core.config/NOTICE.txt -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.core.config/pom.xml -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.core.config/src/main/resources/mw.connectors.discovery.jgroups.core.cfg -text
 middleware.core/mw.connectors.discovery.jgroups.core/pom.xml -text svneol=unset#text/plain
 middleware.core/mw.connectors.discovery.jgroups.core/src/main/java/org/universAAL/middleware/mw/connectors/discovery/jgroups/core/App.java -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.osgi/.classpath -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.osgi/.project -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.osgi/.settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.osgi/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.osgi/.settings/org.eclipse.m2e.core.prefs -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.osgi/pom.xml -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.osgi/src/main/java/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/Activator.java -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.osgi/src/test/java/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/ArtifactIT.java -text svneol=unset#text/plain
 middleware.core/mw.connectors.discovery.slp.core/ASL2.0.txt -text
 middleware.core/mw.connectors.discovery.slp.core/NOTICE.txt -text
 middleware.core/mw.connectors.discovery.slp.core/pom.xml -text
