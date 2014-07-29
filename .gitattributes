@@ -609,6 +609,11 @@ middleware.osgi.agg/mw.bus.service.osgi.agg/pom.xml -text
 middleware.osgi.agg/mw.bus.ui.osgi.agg/pom.xml -text
 middleware.osgi.agg/mw.data.representation.osgi.agg/pom.xml -text
 middleware.osgi.agg/mw.data.serialization.osgi.agg/pom.xml -text
+middleware.osgi/.classpath -text
+middleware.osgi/.project -text
+middleware.osgi/.settings/org.eclipse.core.resources.prefs -text
+middleware.osgi/.settings/org.eclipse.jdt.core.prefs -text
+middleware.osgi/.settings/org.eclipse.m2e.core.prefs -text
 middleware.osgi/mw.brokers.api.osgi/ASL2.0.txt -text
 middleware.osgi/mw.brokers.api.osgi/NOTICE.txt -text
 middleware.osgi/mw.brokers.api.osgi/pom.xml -text
@@ -802,6 +807,11 @@ middleware.osgi/mw.pom.osgi/mw.karaf.feature/NOTICE.txt -text
 middleware.osgi/mw.pom.osgi/mw.karaf.feature/pom.xml -text
 middleware.osgi/mw.pom.osgi/mw.karaf.feature/src/main/features/mw.xml -text
 middleware.osgi/mw.pom.osgi/pom.xml -text
+middleware.osgi/pom.xml -text
+middleware.osgi/src/main/java/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/Activator.java -text
+middleware.osgi/src/test/java/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/ArtifactIT.java -text
+middleware.osgi/target/classes/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/Activator.class -text
+middleware.osgi/target/test-classes/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/ArtifactIT.class -text
 middleware.resources/mw.schemas/ASL2.0.txt -text
 middleware.resources/mw.schemas/NOTICE.txt -text
 middleware.resources/mw.schemas/pom.xml -text
