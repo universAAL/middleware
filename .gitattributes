@@ -303,7 +303,7 @@ middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/unive
 middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/Consts.java -text svneol=unset#text/plain
 middleware.core/mw.connectors.communication.jgroups.core/src/main/java/org/universAAL/middleware/connectors/communication/jgroups/util/CryptUtil.java -text
 middleware.core/mw.connectors.discovery.jgroups.core/pom.xml -text svneol=unset#text/plain
-middleware.core/mw.connectors.discovery.jgroups.core/src/main/java/org/universAAL/middleware/mw/connectors/discovery/jgroups/core/App.java -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.core/src/main/java/org/universAAL/middleware/connectors/discovery/jgroups/core/App.java -text svneol=unset#text/plain
 middleware.core/mw.connectors.discovery.slp.core/ASL2.0.txt -text
 middleware.core/mw.connectors.discovery.slp.core/NOTICE.txt -text
 middleware.core/mw.connectors.discovery.slp.core/pom.xml -text

@@ -1,4 +1,4 @@
-package org.universAAL.middleware.mw.connectors.discovery.jgroups.core;
+package org.universAAL.middleware.connectors.discovery.jgroups.core;
 
 /**
  * Hello world!
