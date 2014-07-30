@@ -1382,4 +1382,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
         return result;
     }
 
+	public IAALSpace getAALSpaceDefaultConfigurartion() {
+		return aalSpaceDefaultConfiguration;
+	}
+
 }
