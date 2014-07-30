@@ -22,6 +22,7 @@
     <module>../mw.connectors.api.core</module>
     <module>../mw.connectors.communication.jgroups.core</module>
     <module>../mw.connectors.discovery.slp.core</module>
+    <module>../mw.connectors.discovery.jgroups.core</module>
     <module>../mw.modules.api.core</module>
     <module>../mw.modules.aalspace.core</module>
     <module>../mw.modules.communication.core</module>
@@ -71,6 +72,11 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.connectors.discovery.slp.core</artifactId>
+        <version>3.1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.connectors.discovery.jgroups.core</artifactId>
         <version>3.1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
