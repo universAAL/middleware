@@ -4,6 +4,8 @@
 middleware.config/mw.connectors.communication.jgroups.core.config/.project
 middleware.config/mw.connectors.communication.jgroups.core.config/.settings
 middleware.config/mw.connectors.communication.jgroups.core.config/target
+middleware.config/mw.connectors.discovery.jgroups.core.config/.project
+middleware.config/mw.connectors.discovery.jgroups.core.config/.settings
 middleware.config/mw.connectors.discovery.slp.core.config/.project
 middleware.config/mw.connectors.discovery.slp.core.config/.settings
 middleware.config/mw.connectors.discovery.slp.core.config/target
@@ -408,6 +410,9 @@ middleware.core/mw.connectors.communication.jgroups.core/.classpath
 middleware.core/mw.connectors.communication.jgroups.core/.project
 middleware.core/mw.connectors.communication.jgroups.core/.settings
 middleware.core/mw.connectors.communication.jgroups.core/target
+middleware.core/mw.connectors.discovery.jgroups.core/.classpath
+middleware.core/mw.connectors.discovery.jgroups.core/.project
+middleware.core/mw.connectors.discovery.jgroups.core/.settings
 middleware.core/mw.connectors.discovery.slp.core/.classpath
 middleware.core/mw.connectors.discovery.slp.core/.project
 middleware.core/mw.connectors.discovery.slp.core/.settings
@@ -1061,6 +1066,9 @@ middleware.osgi/mw.connectors.deploy.karaf.osgi/.classpath
 middleware.osgi/mw.connectors.deploy.karaf.osgi/.project
 middleware.osgi/mw.connectors.deploy.karaf.osgi/.settings
 middleware.osgi/mw.connectors.deploy.karaf.osgi/target
+middleware.osgi/mw.connectors.discovery.jgroups.osgi/.classpath
+middleware.osgi/mw.connectors.discovery.jgroups.osgi/.project
+middleware.osgi/mw.connectors.discovery.jgroups.osgi/.settings
 middleware.osgi/mw.connectors.discovery.slp.osgi/.classpath
 middleware.osgi/mw.connectors.discovery.slp.osgi/.project
 middleware.osgi/mw.connectors.discovery.slp.osgi/.settings
