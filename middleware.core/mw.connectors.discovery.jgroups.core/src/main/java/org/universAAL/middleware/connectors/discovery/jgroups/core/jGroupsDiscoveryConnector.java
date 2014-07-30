@@ -6,21 +6,26 @@ import java.util.List;
 import org.universAAL.middleware.connectors.DiscoveryConnector;
 import org.universAAL.middleware.connectors.ServiceListener;
 import org.universAAL.middleware.connectors.exception.DiscoveryConnectorException;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
 
 /**
- * Hello world!
- *
+ * This class implements the AALSpace discovery connector based on jGroups
+ * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
+ * @author <a href="mailto:federico.volpini@isti.cnr.it">Federico Volpini</a>
  */
 public class jGroupsDiscoveryConnector implements DiscoveryConnector,
-SharedObjectListener 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+SharedObjectListener  {
 
+
+	private ModuleContext context;
+
+
+	public jGroupsDiscoveryConnector(ModuleContext context){
+		this.context = context;
+
+	}
 	public String getName() {
 		// TODO Auto-generated method stub
 		return null;
@@ -43,7 +48,7 @@ SharedObjectListener
 
 	public void loadConfigurations(Dictionary configurations) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public boolean init() {
@@ -53,17 +58,17 @@ SharedObjectListener
 
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void sharedObjectAdded(Object sharedObj, Object removeHook) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void sharedObjectRemoved(Object removeHook) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public List<AALSpaceCard> findAALSpace(Dictionary<String, String> filters)
@@ -80,13 +85,13 @@ SharedObjectListener
 	public void announceAALSpace(AALSpaceCard spaceCard)
 			throws DiscoveryConnectorException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void deregisterAALSpace(AALSpaceCard spaceCard)
 			throws DiscoveryConnectorException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public String getSDPPRotocol() {
@@ -96,11 +101,11 @@ SharedObjectListener
 
 	public void addAALSpaceListener(ServiceListener listener) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void removeAALSpaceListener(ServiceListener listener) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
