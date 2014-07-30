@@ -670,7 +670,6 @@ middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/mid
 middleware.osgi/mw.connectors.deploy.karaf.osgi/src/main/java/org/universAAL/middleware/connectors/deploy/karaf/osgi/Activator.java -text
 middleware.osgi/mw.connectors.discovery.jgroups.osgi/pom.xml -text
 middleware.osgi/mw.connectors.discovery.jgroups.osgi/src/main/java/org/universAAL/middleware/connectors/discovery/jgroups/osgi/Activator.java -text
-middleware.osgi/mw.connectors.discovery.jgroups.osgi/src/main/java/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/Activator.java -text
 middleware.osgi/mw.connectors.discovery.jgroups.osgi/src/test/java/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/ArtifactIT.java -text
 middleware.osgi/mw.connectors.discovery.jgroups.osgi/target/classes/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/Activator.class -text
 middleware.osgi/mw.connectors.discovery.jgroups.osgi/target/test-classes/org/universAAL/middleware/mw/connectors/discovery/jgroups/osgi/ArtifactIT.class -text
