@@ -873,7 +873,12 @@ Receiver, RequestHandler, MembershipListener{
     }
 
     public boolean hasChannel(String channelName) {
-	return channelMap.containsKey(channelName);
+	
+	for(String configuredChannelName: channelMap.keySet()){
+	    if(configuredChannelName.contains(channelName))
+		return true;
+	}
+	return false;
     }
 
 
