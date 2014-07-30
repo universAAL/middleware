@@ -73,5 +73,11 @@ public interface CommunicationConnector extends Connector {
 
     public List<String> getGroupMembers(String groupName);
     
+    
+    /**
+     * This method checks if the communication connector provides a channel with the name specified.
+     * @param channelName
+     * @return
+     */
     public boolean hasChannel(String channelName);
 }
