@@ -68,10 +68,22 @@ public interface DiscoveryConnector extends Connector {
 	public void deregisterAALSpace(AALSpaceCard spaceCard)
 			throws DiscoveryConnectorException;
 
+	/**
+	 * 
+	 * @return the name of the discovery protocol implemented by this connector
+	 */
 	public String getSDPPRotocol();
 
+	/**
+	 * Adds a listener object that will be notified as soon as a new AALSpace has been found/removed
+	 * @param listener
+	 */
 	public void addAALSpaceListener(ServiceListener listener);
 
+	/**
+	 * Removes a listener object
+	 * @param listener
+	 */
 	public void removeAALSpaceListener(ServiceListener listener);
 
 }
