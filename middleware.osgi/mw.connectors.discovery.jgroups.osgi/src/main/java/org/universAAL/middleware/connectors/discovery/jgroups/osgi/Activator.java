@@ -28,7 +28,7 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
 /**
- * OSGI bundle for the SLP discovery connector
+ * OSGI bundle for the JGroups discovery connector
  * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:federico.volpini@isti.cnr.it">Francesco Furfari</a>
