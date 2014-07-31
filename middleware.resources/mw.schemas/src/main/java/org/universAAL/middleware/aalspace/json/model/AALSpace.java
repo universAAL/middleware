@@ -141,6 +141,7 @@ public class AALSpace implements Serializable, IAALSpace {
         protected String spaceId;
         protected String spaceName;
         protected String spaceDescription;
+        protected String spaceCoordinator;
 
         /*
          * (non-Javadoc)
@@ -274,6 +275,13 @@ public class AALSpace implements Serializable, IAALSpace {
             return (this.spaceDescription != null);
         }
 
+		public String getSpaceCoordinator() {
+		
+			return spaceCoordinator;
+		}
+
+
+
     }
 
     /**
@@ -384,5 +392,6 @@ public class AALSpace implements Serializable, IAALSpace {
     public boolean isSetSecurity() {
         return (this.security != null);
     }
+
 
 }

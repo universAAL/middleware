@@ -36,6 +36,7 @@
             		 org.universAAL.middleware.brokers.message.configuration,
                      org.universAAL.middleware.deploymanager.uapp.model,
                      org.universAAL.middleware.interfaces.aalspace,
+                     org.universAAL.middleware.interfaces.aalspace.model,
 					 org.universAAL.middleware.interfaces.configuration,
 					 org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes,
 					 org.universAAL.middleware.interfaces.configuration.configurationEditionTypes,

@@ -116,5 +116,13 @@ public interface ISpaceDescriptor {
     public abstract void setSpaceDescription(String value);
 
     public abstract boolean isSetSpaceDescription();
+    
+    /**
+     * Returns the AALSpace coordinator (if present in the AALSpace configuration file)
+     * @return
+     */
+    public abstract String getSpaceCoordinator();
+    
+
 
 }

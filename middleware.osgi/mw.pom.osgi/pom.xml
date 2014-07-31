@@ -30,6 +30,7 @@
 		<module>../mw.modules.aalspace.osgi</module>
 		<module>../mw.connectors.discovery.slp.osgi</module>
 		<module>../mw.connectors.discovery.jgroups.osgi</module>
+		<module>../mw.connectors.discovery.fake.osgi</module>		
 		<module>../mw.modules.communication.osgi</module>
 		<module>../mw.connectors.communication.jgroups.osgi</module>
 		<module>../mw.managers.aalspace.osgi</module>
@@ -124,6 +125,11 @@
 			<dependency>
 				<groupId>org.universAAL.middleware</groupId>
 				<artifactId>mw.connectors.discovery.jgroups.osgi</artifactId>
+				<version>3.1.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.connectors.discovery.fake.osgi</artifactId>
 				<version>3.1.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>

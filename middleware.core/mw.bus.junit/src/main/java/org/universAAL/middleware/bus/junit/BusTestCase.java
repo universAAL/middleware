@@ -39,6 +39,7 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
+import org.universAAL.middleware.interfaces.aalspace.model.IAALSpace;
 import org.universAAL.middleware.managers.api.AALSpaceListener;
 import org.universAAL.middleware.managers.api.AALSpaceManager;
 import org.universAAL.middleware.managers.api.MatchingResult;
@@ -144,6 +145,11 @@ public class BusTestCase extends TestCase {
 
 	    public void removeAALSpaceListener(AALSpaceListener arg0) {
 	    }
+
+		public IAALSpace getAALSpaceDefaultConfigurartion() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	};
 
 	CommunicationModule com = new CommunicationModule() {

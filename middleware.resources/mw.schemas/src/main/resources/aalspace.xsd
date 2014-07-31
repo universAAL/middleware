@@ -37,6 +37,8 @@
 							<xs:element name="spaceId" type="xs:string" />
 							<xs:element name="spaceName" type="xs:string" />
 							<xs:element name="spaceDescription" type="xs:string" />
+							<!-- If present, this field will be use as AALSpace coordinator ID -->
+							<xs:element name="spaceCoordinator" type="xs:string" minOccurs="0" maxOccurs="1" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>

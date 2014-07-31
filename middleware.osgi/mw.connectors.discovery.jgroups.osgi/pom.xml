@@ -48,7 +48,7 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Bundle-Author>Michele Girolami &lt;michele.girolami@isti.cnr.it>, Federico Volpino &lt;federico.volpini@isti.cnr.it></Bundle-Author>
+            <Bundle-Author>Michele Girolami &lt;michele.girolami@isti.cnr.it>, Federico Volpini &lt;federico.volpini@isti.cnr.it></Bundle-Author>
             <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>

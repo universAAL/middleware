@@ -24,6 +24,7 @@ package org.universAAL.middleware.interfaces.aalspace.xml.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -56,6 +57,7 @@ import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
  *                   &lt;element name="spaceId" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="spaceName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="spaceDescription" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="spaceCoordinator" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -97,6 +99,7 @@ import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
  *         &lt;element name="owner" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="admin" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="security" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="spaceCoordinator" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -474,6 +477,7 @@ public class Aalspace
      *         &lt;element name="spaceId" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="spaceName" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="spaceDescription" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="spaceCoordinator" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -487,7 +491,9 @@ public class Aalspace
         "profile",
         "spaceId",
         "spaceName",
-        "spaceDescription"
+        "spaceDescription",
+        "spaceCoordinator"
+
     })
     public static class SpaceDescriptor
         implements Serializable, ISpaceDescriptor
@@ -502,6 +508,8 @@ public class Aalspace
         protected String spaceName;
         @XmlElement(required = true)
         protected String spaceDescription;
+        protected String spaceCoordinator;
+
 
         /* (non-Javadoc)
 	 * @see org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#getProfile()
@@ -585,6 +593,29 @@ public class Aalspace
 	 */
         public boolean isSetSpaceDescription() {
             return (this.spaceDescription!= null);
+        }
+        /**
+         * Gets the value of the spaceCoordinator property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getSpaceCoordinator() {
+            return spaceCoordinator;
+        }
+
+        /**
+         * Sets the value of the spaceCoordinator property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setSpaceCoordinator(String value) {
+            this.spaceCoordinator = value;
         }
 
     }

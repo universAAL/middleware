@@ -19,6 +19,7 @@
 		<module>../mw.connectors.communication.jgroups.core.config</module>
 		<module>../mw.connectors.discovery.slp.core.config</module>
 		<module>../mw.connectors.discovery.jgroups.core.config</module>
+		<module>../mw.connectors.discovery.fake.core.config</module>
 		<module>../mw.managers.aalspace.core.config</module>
 		<module>../mw.managers.deploy.core.config</module>
 		<module>../mw.modules.aalspace.core.config</module>
@@ -43,7 +44,12 @@
 				<version>3.1.1-SNAPSHOT</version>
 				<type>cfg</type>
 			</dependency>
-
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.connectors.discovery.fake.core.config</artifactId>
+				<version>3.1.1-SNAPSHOT</version>
+				<type>cfg</type>
+			</dependency>
 			<dependency>
 				<groupId>org.universAAL.middleware</groupId>
 				<artifactId>mw.connectors.discovery.slp.core.config</artifactId>
