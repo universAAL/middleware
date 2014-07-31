@@ -59,6 +59,10 @@ public class ChannelMessage {
         this.content = content;
         this.channelNames = channelNames;
     }
+    
+    public ChannelMessage(){
+	
+    }
 
     public PeerCard getSender() {
         return sender;
