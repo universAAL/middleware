@@ -74,7 +74,7 @@ public class ControlMessage implements BrokerMessage {
 	this.messageType = type;
     }
 
-    private ControlMessage() {
+    public ControlMessage() {
 	this.mType = BrokerMessageTypes.ControlMessage;
 	this.transactionId = UUID.randomUUID().toString();
     }
