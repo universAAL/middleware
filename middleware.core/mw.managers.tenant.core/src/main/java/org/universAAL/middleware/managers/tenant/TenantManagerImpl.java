@@ -20,11 +20,14 @@
  */
 package org.universAAL.middleware.managers.tenant;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.managers.api.TenantListener;
 import org.universAAL.middleware.managers.api.TenantManager;
 /**
  * The implementation of the TenantManager
@@ -37,6 +40,7 @@ public class TenantManagerImpl implements TenantManager
 {
 
 	private Map<String, String> tenants = new HashMap<String, String>();
+	private List<TenantListener> listeners = new ArrayList<TenantListener>();
 	public TenantManagerImpl(ModuleContext module){
 		
 	}
@@ -65,6 +69,16 @@ public class TenantManagerImpl implements TenantManager
 	}
 	public Map<String, String> getTenants() {
 			return tenants;
+	}
+	public void addTenantListener(TenantListener tenantListener) {
+		if(tenantListener != null && !listeners.contains(tenantListener))
+			listeners.add(tenantListener);
+		
+	}
+	public void removeTenantListener(TenantListener tenantListener) {
+		if(tenantListener!=null && listeners.contains(tenantListener))
+			listeners.remove(listeners.indexOf(tenantListener));
+		
 	}
 
 }
