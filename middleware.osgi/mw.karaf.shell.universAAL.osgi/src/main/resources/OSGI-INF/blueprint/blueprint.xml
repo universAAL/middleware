@@ -16,6 +16,10 @@
 			<action
 				class="org.universAAL.middleware.shell.universAAL.osgi.TargetAALSpaceCommand" />
 		</command>
+		<command name="universAAL/tenants">
+			<action
+				class="org.universAAL.middleware.shell.universAAL.osgi.TenantCommand" />
+		</command>
 	</command-bundle>
 
 </blueprint>
