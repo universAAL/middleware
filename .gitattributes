@@ -527,6 +527,7 @@ middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/man
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/InstallationResultsDetails.java svneol=native#text/plain
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/Manager.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/MatchingResult.java -text
+middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/TenantListener.java -text svneol=unset#text/plain
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/TenantManager.java -text svneol=unset#text/plain
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/UAPPPackage.java -text
 middleware.core/mw.managers.configuration.core/ASL2.0.txt -text svneol=unset#text/plain
