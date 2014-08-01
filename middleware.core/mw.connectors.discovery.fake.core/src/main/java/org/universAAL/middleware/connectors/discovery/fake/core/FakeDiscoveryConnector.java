@@ -128,7 +128,7 @@ public class FakeDiscoveryConnector implements DiscoveryConnector,
 		if (init()) {
 			AALSpaceCard aalspaceCard = new AALSpaceCard(
 					getAALSpaceProperties(aalSpaceManager
-							.getAALSpaceDefaultConfigurartion()));
+							.getAALSpaceDefaultConfigurartion(),aalSpaceManager));
 			aalSpaces.add(aalspaceCard);
 		}
 		return aalSpaces;
@@ -177,7 +177,7 @@ public class FakeDiscoveryConnector implements DiscoveryConnector,
 	 * @return
 	 */
 	public static Dictionary<String, String> getAALSpaceProperties(
-			IAALSpace space) {
+			IAALSpace space, AALSpaceManager aalSpaceManager) {
 		Dictionary<String, String> properties = new Hashtable<String, String>();
 		try {
 			// general purpose properties
@@ -187,10 +187,14 @@ public class FakeDiscoveryConnector implements DiscoveryConnector,
 					.getSpaceId());
 			properties.put(Consts.AALSPaceDescription, space
 					.getSpaceDescriptor().getSpaceDescription());
-
+			
 			String coordinatorID = space.getSpaceDescriptor()
 					.getSpaceCoordinator();
-			properties.put(Consts.AALSpaceCoordinator, coordinatorID);
+			if(coordinatorID != null && !coordinatorID.isEmpty())
+				properties.put(Consts.AALSpaceCoordinator, coordinatorID);
+			else if(aalSpaceManager != null)
+				properties.put(Consts.AALSpaceCoordinator, aalSpaceManager.getMyPeerCard().getPeerID());
+				
 			properties
 					.put(Consts.AALSpacePeeringChannelURL, space
 							.getPeeringChannel().getChannelDescriptor()
@@ -224,7 +228,7 @@ public class FakeDiscoveryConnector implements DiscoveryConnector,
 				if (aalSpaceManager != null && serviceListeners != null) {
 					AALSpaceCard aalspaceCard = new AALSpaceCard(
 							getAALSpaceProperties(aalSpaceManager
-									.getAALSpaceDefaultConfigurartion()));
+									.getAALSpaceDefaultConfigurartion(),aalSpaceManager));
 					aalSpaces.add(aalspaceCard);
 					for (ServiceListener listener : serviceListeners) {
 						listener.newAALSpacesFound(aalSpaces);
