@@ -30,6 +30,7 @@ import org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor;
 import org.universAAL.middleware.interfaces.aalspace.model.ICommunicationChannels;
 import org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel;
 import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
+import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.DiscoveryChannel;
 
 /**
  *
@@ -392,6 +393,11 @@ public class AALSpace implements Serializable, IAALSpace {
     public boolean isSetSecurity() {
         return (this.security != null);
     }
+
+	public DiscoveryChannel getDiscoveryChannel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }

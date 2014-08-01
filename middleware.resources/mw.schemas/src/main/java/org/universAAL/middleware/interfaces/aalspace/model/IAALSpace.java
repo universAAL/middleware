@@ -62,6 +62,20 @@ public interface IAALSpace {
      *
      */
     public abstract IPeeringChannel getPeeringChannel();
+    
+    
+
+    /**
+     * Gets the value of the discoveryChannel property.
+     *
+     * @return
+     *     possible object is
+     *     {@link Aalspace.PeeringChannel }
+     *
+     */
+    public abstract Aalspace.DiscoveryChannel getDiscoveryChannel();
+    
+    
 
     /**
      * Sets the value of the peeringChannel property.

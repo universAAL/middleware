@@ -180,7 +180,6 @@ public class FakeDiscoveryConnector implements DiscoveryConnector,
 			IAALSpace space) {
 		Dictionary<String, String> properties = new Hashtable<String, String>();
 		try {
-
 			// general purpose properties
 			properties.put(Consts.AALSPaceName, space.getSpaceDescriptor()
 					.getSpaceName());
@@ -188,6 +187,7 @@ public class FakeDiscoveryConnector implements DiscoveryConnector,
 					.getSpaceId());
 			properties.put(Consts.AALSPaceDescription, space
 					.getSpaceDescriptor().getSpaceDescription());
+
 			String coordinatorID = space.getSpaceDescriptor()
 					.getSpaceCoordinator();
 			properties.put(Consts.AALSpaceCoordinator, coordinatorID);

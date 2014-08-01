@@ -66,7 +66,6 @@ import org.universAAL.middleware.modules.CommunicationModule;
 /**
  * JGroup communication connector implementation
  *
- * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
@@ -580,12 +579,6 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
             JChannel channel = (JChannel) selectedChannel.get(i);
             Message msg = null;
            String s = message.toString();
-
-           Message prova = new Message();
-
-
-
-
 
             try {
                 if (security) {
