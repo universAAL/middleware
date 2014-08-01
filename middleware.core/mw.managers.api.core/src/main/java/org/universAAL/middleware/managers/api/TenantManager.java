@@ -47,5 +47,10 @@ public interface TenantManager extends Manager {
 	 * @return
 	 */
 	public Map<String,String> getTenants();
+	
+	
+	public void addTenantListener(TenantListener tenantListener);
+	
+	public void removeTenantListener(TenantListener tenantListener);	
 
 }
