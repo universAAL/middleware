@@ -23,6 +23,7 @@ package org.universAAL.middleware.managers.tenant;
 import java.util.Dictionary;
 
 import org.universAAL.middleware.managers.api.Manager;
+import org.universAAL.middleware.managers.api.TenantManager;
 /**
  * The implementation of the TenantManager
  *
@@ -30,7 +31,7 @@ import org.universAAL.middleware.managers.api.Manager;
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
-public class TenantManager implements Manager 
+public class TenantManagerImpl implements TenantManager 
 {
 
 	public void loadConfigurations(Dictionary configurations) {
