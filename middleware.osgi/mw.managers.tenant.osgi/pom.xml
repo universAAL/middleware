@@ -49,7 +49,14 @@
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Bundle-Activator>org.universAAL.middleware.managers.tenant.Activator</Bundle-Activator>
+						<Export-Package>org.universAAL.middleware.managers.tenant,org.universAAL.middleware.managers.tenant.osgi</Export-Package>
+						<Import-Package>org.universAAL.middleware.managers.tenant,
+							org.osgi.framework, org.osgi.service.cm,
+							org.universAAL.middleware.container,
+							org.universAAL.middleware.container.osgi,
+							org.universAAL.middleware.container.utils,
+							org.universAAL.middleware.managers.api,org.universAAL.middleware.managers.tenant.osgi</Import-Package>
+						<Bundle-Activator>org.universAAL.middleware.managers.tenant.osgi.Activator</Bundle-Activator>
 						<Private-Package />
 					</instructions>
 				</configuration>
