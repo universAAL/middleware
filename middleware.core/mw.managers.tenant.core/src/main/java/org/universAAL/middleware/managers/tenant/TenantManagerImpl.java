@@ -21,8 +21,10 @@
 package org.universAAL.middleware.managers.tenant;
 
 import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.universAAL.middleware.managers.api.Manager;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.managers.api.TenantManager;
 /**
  * The implementation of the TenantManager
@@ -34,6 +36,10 @@ import org.universAAL.middleware.managers.api.TenantManager;
 public class TenantManagerImpl implements TenantManager 
 {
 
+	private Map<String, String> tenants = new HashMap<String, String>();
+	public TenantManagerImpl(ModuleContext module){
+		
+	}
 	public void loadConfigurations(Dictionary configurations) {
 		// TODO Auto-generated method stub
 
@@ -47,6 +53,18 @@ public class TenantManagerImpl implements TenantManager
 	public void dispose() {
 		// TODO Auto-generated method stub
 
+	}
+	public void registerTenant(String tenantID, String tenantDescription) {
+		if(tenantID != null && tenantDescription != null)
+			tenants.put(tenantID, tenantDescription);
+		
+	}
+	public void unregisterTenant(String tenantID) {
+		if(tenantID != null )
+			tenants.remove(tenantID);
+	}
+	public Map<String, String> getTenants() {
+			return tenants;
 	}
 
 }
