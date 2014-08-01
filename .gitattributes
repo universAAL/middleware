@@ -562,6 +562,10 @@ middleware.core/mw.managers.deploy.core/NOTICE.txt -text
 middleware.core/mw.managers.deploy.core/pom.xml -text
 middleware.core/mw.managers.deploy.core/src/main/java/org/universAAL/middleware/managers/deploy/DeployManagerImpl.java -text
 middleware.core/mw.managers.deploy.core/src/main/java/org/universAAL/middleware/managers/deploy/util/Consts.java -text
+middleware.core/mw.managers.tenant.core/ASL2.0.txt -text
+middleware.core/mw.managers.tenant.core/NOTICE.txt -text
+middleware.core/mw.managers.tenant.core/pom.xml -text
+middleware.core/mw.managers.tenant.core/src/main/java/org/universAAL/middleware/managers/tenant/TenantManager.java -text
 middleware.core/mw.modules.aalspace.core/ASL2.0.txt -text
 middleware.core/mw.modules.aalspace.core/NOTICE.txt -text
 middleware.core/mw.modules.aalspace.core/pom.xml -text
