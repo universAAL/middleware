@@ -568,7 +568,7 @@ middleware.core/mw.managers.deploy.core/src/main/java/org/universAAL/middleware/
 middleware.core/mw.managers.tenant.core/ASL2.0.txt -text
 middleware.core/mw.managers.tenant.core/NOTICE.txt -text
 middleware.core/mw.managers.tenant.core/pom.xml -text
-middleware.core/mw.managers.tenant.core/src/main/java/org/universAAL/middleware/managers/tenant/TenantManager.java -text
+middleware.core/mw.managers.tenant.core/src/main/java/org/universAAL/middleware/managers/tenant/TenantManagerImpl.java -text
 middleware.core/mw.modules.aalspace.core/ASL2.0.txt -text
 middleware.core/mw.modules.aalspace.core/NOTICE.txt -text
 middleware.core/mw.modules.aalspace.core/pom.xml -text
