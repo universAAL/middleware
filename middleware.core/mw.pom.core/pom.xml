@@ -29,6 +29,7 @@
     <module>../mw.brokers.control.core</module>
     <module>../mw.managers.api.core</module>
     <module>../mw.managers.aalspace.core</module>
+    <module>../mw.managers.tenant.core</module>
     <module>../mw.managers.deploy.core</module>
     <module>../mw.managers.configuration.core</module>
     <module>../mw.bus.model.core</module>
@@ -101,6 +102,11 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.managers.aalspace.core</artifactId>
+        <version>3.1.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.managers.tenant.core</artifactId>
         <version>3.1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
