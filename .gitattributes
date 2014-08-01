@@ -314,6 +314,9 @@ middleware.core/mw.connectors.discovery.jgroups.core/pom.xml -text svneol=unset#
 middleware.core/mw.connectors.discovery.jgroups.core/resources/Active-DiscoveryChannel.uxf -text
 middleware.core/mw.connectors.discovery.jgroups.core/resources/Proactive-DiscoveryChannel.uxf -text
 middleware.core/mw.connectors.discovery.jgroups.core/src/main/java/org/universAAL/middleware/connectors/discovery/jgroups/core/jGroupsDiscoveryConnector.java -text svneol=unset#text/plain
+middleware.core/mw.connectors.discovery.jgroups.core/src/main/java/org/universAAL/middleware/connectors/discovery/jgroups/core/messages/Announce.java -text
+middleware.core/mw.connectors.discovery.jgroups.core/src/main/java/org/universAAL/middleware/connectors/discovery/jgroups/core/messages/Query.java -text
+middleware.core/mw.connectors.discovery.jgroups.core/src/main/java/org/universAAL/middleware/connectors/discovery/jgroups/core/messages/Response.java -text
 middleware.core/mw.connectors.discovery.slp.core/ASL2.0.txt -text
 middleware.core/mw.connectors.discovery.slp.core/NOTICE.txt -text
 middleware.core/mw.connectors.discovery.slp.core/pom.xml -text
