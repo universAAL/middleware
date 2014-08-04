@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Dictionary;
-
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +19,7 @@ import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 import org.universAAL.middleware.connectors.DiscoveryConnector;
 import org.universAAL.middleware.connectors.ServiceListener;
 import org.universAAL.middleware.connectors.discovery.jgroups.core.jGroupsDiscoveryConnector;
+import org.universAAL.middleware.connectors.discovery.jgroups.core.messages.Announce;
 import org.universAAL.middleware.connectors.exception.DiscoveryConnectorErrorCodes;
 import org.universAAL.middleware.connectors.exception.DiscoveryConnectorException;
 import org.universAAL.middleware.container.ModuleContext;
@@ -46,6 +46,7 @@ public class jGroupsDiscoveryConnector
 	private List<ServiceListener> serviceListeners = new ArrayList<ServiceListener>();
 	private AALSpaceManager aalSpaceManager;
 	private ChannelDescriptor discoveryChannelDescriptor;
+	private PeerCard myPeerCard;
 	
 	public jGroupsDiscoveryConnector(ModuleContext context){
 		this.context = context;
@@ -113,6 +114,7 @@ public class jGroupsDiscoveryConnector
 				aalSpaceManager = (AALSpaceManager) aalManagers[0];
 				discoveryChannelDescriptor = aalSpaceManager.getAALSpaceDefaultConfigurartion()
 						.getDiscoveryChannel().getChannelDescriptor();
+				myPeerCard = aalSpaceManager.getMyPeerCard();
 				
 				if(configureChannel(discoveryChannelDescriptor)){
 					// LOG
@@ -138,9 +140,9 @@ public class jGroupsDiscoveryConnector
 		try {
 			discoveryChannel = new JChannel(discoveryChannelDescriptor.getChannelURL());
 			discoveryChannel.setName(discoveryChannelDescriptor.getChannelName());
-			discoveryChannel.connect(discoveryChannelDescriptor.getChannelName());
 			//Imposto l'istanza di classe come Receiver dei messaggi
 			discoveryChannel.setReceiver(this);
+			discoveryChannel.connect(discoveryChannelDescriptor.getChannelName());
 		} catch (Exception e) {
 			// LOG
 			LogUtils.logDebug(
@@ -207,15 +209,37 @@ public class jGroupsDiscoveryConnector
 		
 		if (init()) {
 			try {
-				String serializedMessage = GsonParserBuilder.getInstance().toJson(spaceCard);
-				discoveryChannel.send(null, serializedMessage);
+				if(discoveryChannel.getClusterName() == null){
+					// LOG
+					LogUtils.logTrace(
+							context, 
+							jGroupsDiscoveryConnector.class,
+							METHOD,
+							new Object[] { "Trying to announce the AALSpace trought a closed Channel..." }, null);
+					return;
+				}
+				
+				String serializeSpaceCard = GsonParserBuilder.getInstance().toJson(spaceCard);
+				
+				ArrayList<String> channelNames = new ArrayList<String>();
+				channelNames.add(discoveryChannel.getClusterName());
+				
+				Announce myAnnounce = new Announce(myPeerCard, serializeSpaceCard, channelNames);
+				discoveryChannel.send(null, myAnnounce.toString());
+								
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// LOG
+				LogUtils.logTrace(
+						context, 
+						jGroupsDiscoveryConnector.class,
+						METHOD,
+						new Object[] { "Unable to announce the AALSpace "+spaceCard.toString()+" trought the channel "+discoveryChannel.getClusterName() }, null);
 			}
 		}
 	}
 
+	
 	private Address getAddress(PeerCard card){
 		
 		String cardID = card.getPeerID();
@@ -226,6 +250,7 @@ public class jGroupsDiscoveryConnector
         View discoveryChannelView = discoveryChannel.getView();
 		
         if (discoveryChannelView == null) {
+        	//LOG
         	LogUtils.logTrace(
     				context, 
     		 		jGroupsDiscoveryConnector.class,
@@ -380,7 +405,17 @@ public class jGroupsDiscoveryConnector
 	}
 	
 	public void receive(Message msg) {
-		// TODO Auto-generated method stub
+		
+		final String METHOD = "receive";
+		
+		Address sender = msg.getSrc();
+		String typeOfSender = msg.getSrc().equals(discoveryChannel.getView().getMembers().get(0)) ? "COORDINATOR" : "PEER";
+		
+		// LOG
+		LogUtils.logDebug(context, 
+				jGroupsDiscoveryConnector.class,
+				METHOD,
+				new Object[] { "Receiving message from "+typeOfSender+" "+sender.toString()+" -> "+msg.toString() }, null);
 	}
 
 	public void getState(OutputStream output) throws Exception {
