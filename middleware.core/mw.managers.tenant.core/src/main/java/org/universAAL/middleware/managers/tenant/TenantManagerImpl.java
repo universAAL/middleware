@@ -34,109 +34,112 @@ import org.universAAL.middleware.managers.api.TenantManager;
 
 /**
  * The implementation of the TenantManager
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class TenantManagerImpl implements TenantManager {
 
-    private Map<String, String> tenants = new HashMap<String, String>();
-    private List<TenantListener> listeners = new ArrayList<TenantListener>();
+	private Map<String, String> tenants = new HashMap<String, String>();
+	private List<TenantListener> listeners = new ArrayList<TenantListener>();
 
-    public TenantManagerImpl(ModuleContext module) {
+	public TenantManagerImpl(ModuleContext module) {
 
-    }
+	}
 
-    public void loadConfigurations(Dictionary configurations) {
-        // TODO Auto-generated method stub
+	public void loadConfigurations(Dictionary configurations) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    public boolean init() {
-        // TODO Auto-generated method stub
-        return false;
-    }
+	public boolean init() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
-    public void dispose() {
-        // TODO Auto-generated method stub
+	public void dispose() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    public void registerTenant(String tenantID, String tenantDescription) {
-        if ( tenantID != null ) {
-            if ( tenantDescription ==  null ) {
-                tenantDescription = "Missing description for "+tenantID;
-            }
-            tenants.put(tenantID, tenantDescription);
-            fireNewTenantRegisteredEvent( tenantID, tenantDescription );
-        } else {
-            throw new NullPointerException("TennantID cannot be null");
-        }
+	public void registerTenant(String tenantID, String tenantDescription) {
+		if (tenantID != null) {
+			if (tenantDescription == null) {
+				tenantDescription = "Missing description for " + tenantID;
+			}
+			tenants.put(tenantID, tenantDescription);
+			fireNewTenantRegisteredEvent(tenantID, tenantDescription);
+		} else {
+			throw new NullPointerException("TennantID cannot be null");
+		}
 
-    }
+	}
 
-    private void fireTenantRemovedEvent(String tenantID) {
-        ArrayList<TenantListener> localCopy  = null;
-        synchronized (listeners) {
-            localCopy = new ArrayList<TenantListener>(listeners);
-        }
-        for (TenantListener listener : localCopy) {
-            try {
-                listener.tenantRemoved(tenantID);
-            }catch(Throwable t){
-                t.printStackTrace(); //TODO log me
-            }
-        }
+	private void fireTenantRemovedEvent(String tenantID) {
+		ArrayList<TenantListener> localCopy = null;
+		synchronized (listeners) {
+			localCopy = new ArrayList<TenantListener>(listeners);
+		}
+		for (TenantListener listener : localCopy) {
+			try {
+				listener.tenantRemoved(tenantID);
+			} catch (Throwable t) {
+				t.printStackTrace(); // TODO log me
+			}
+		}
 
-    }
+	}
 
-    private void fireNewTenantRegisteredEvent(String tenantID,
-            String tenantDescription) {
-        ArrayList<TenantListener> localCopy  = null;
-        synchronized (listeners) {
-            localCopy = new ArrayList<TenantListener>(listeners);
-        }
-        for (TenantListener listener : localCopy) {
-            try {
-                listener.newTenantRegistered(tenantID, tenantDescription);
-            }catch(Throwable t){
-                t.printStackTrace(); //TODO log me
-            }
-        }
+	private void fireNewTenantRegisteredEvent(String tenantID,
+			String tenantDescription) {
+		ArrayList<TenantListener> localCopy = null;
+		synchronized (listeners) {
+			localCopy = new ArrayList<TenantListener>(listeners);
+		}
+		// TODO: optimization instead of running through all the listeners and
+		// invoking newTenantRegistered, a thread can do this on the background
+		for (TenantListener listener : localCopy) {
+			try {
+				listener.newTenantRegistered(tenantID, tenantDescription);
+			} catch (Throwable t) {
+				t.printStackTrace(); // TODO log me
+			}
+		}
 
-    }
+	}
 
-    public void unregisterTenant(String tenantID) {
-        if (tenantID != null) {
-            tenants.remove(tenantID);
-            fireTenantRemovedEvent(tenantID);
-        } else {
-            throw new NullPointerException("TennantID cannot be null");
-        }
-    }
+	public void unregisterTenant(String tenantID) {
+		if (tenantID != null) {
+			tenants.remove(tenantID);
+			fireTenantRemovedEvent(tenantID);
+		} else {
+			throw new NullPointerException("TennantID cannot be null");
+		}
+	}
 
-    public Map<String, String> getTenants() {
-        return tenants;
-    }
+	public Map<String, String> getTenants() {
+		return tenants;
+	}
 
-    public void addTenantListener(TenantListener tenantListener) {
-        if ( tenantListener == null ) {
-            throw new NullPointerException("Cannot add a null listener");
-        }
-        synchronized (listeners) {
-            if ( listeners.contains( tenantListener )) return;
-            listeners.add(tenantListener);
-        }
-    }
+	public void addTenantListener(TenantListener tenantListener) {
+		if (tenantListener == null) {
+			throw new NullPointerException("Cannot add a null listener");
+		}
+		synchronized (listeners) {
+			if (listeners.contains(tenantListener))
+				return;
+			listeners.add(tenantListener);
+		}
+	}
 
-    public void removeTenantListener(TenantListener tenantListener) {
-        if ( tenantListener == null ) {
-            throw new NullPointerException("Cannot remove a null listener");
-        }
-        synchronized (listeners) {
-            listeners.remove(tenantListener);
-        }
-    }
+	public void removeTenantListener(TenantListener tenantListener) {
+		if (tenantListener == null) {
+			throw new NullPointerException("Cannot remove a null listener");
+		}
+		synchronized (listeners) {
+			listeners.remove(tenantListener);
+		}
+	}
 
 }
