@@ -20,12 +20,9 @@
  */
 package org.universAAL.middleware.connectors.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
-
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.PeerRole;
 
 import com.google.gson.Gson;
 
