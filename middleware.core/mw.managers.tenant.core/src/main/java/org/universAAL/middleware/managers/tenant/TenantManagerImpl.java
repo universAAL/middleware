@@ -21,14 +21,17 @@
 package org.universAAL.middleware.managers.tenant;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.managers.api.TenantListener;
 import org.universAAL.middleware.managers.api.TenantManager;
+
 /**
  * The implementation of the TenantManager
  *
@@ -36,49 +39,104 @@ import org.universAAL.middleware.managers.api.TenantManager;
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
-public class TenantManagerImpl implements TenantManager 
-{
+public class TenantManagerImpl implements TenantManager {
 
-	private Map<String, String> tenants = new HashMap<String, String>();
-	private List<TenantListener> listeners = new ArrayList<TenantListener>();
-	public TenantManagerImpl(ModuleContext module){
-		
-	}
-	public void loadConfigurations(Dictionary configurations) {
-		// TODO Auto-generated method stub
+    private Map<String, String> tenants = new HashMap<String, String>();
+    private List<TenantListener> listeners = new ArrayList<TenantListener>();
 
-	}
+    public TenantManagerImpl(ModuleContext module) {
 
-	public boolean init() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
 
-	public void dispose() {
-		// TODO Auto-generated method stub
+    public void loadConfigurations(Dictionary configurations) {
+        // TODO Auto-generated method stub
 
-	}
-	public void registerTenant(String tenantID, String tenantDescription) {
-		if(tenantID != null && tenantDescription != null)
-			tenants.put(tenantID, tenantDescription);
-		
-	}
-	public void unregisterTenant(String tenantID) {
-		if(tenantID != null )
-			tenants.remove(tenantID);
-	}
-	public Map<String, String> getTenants() {
-			return tenants;
-	}
-	public void addTenantListener(TenantListener tenantListener) {
-		if(tenantListener != null && !listeners.contains(tenantListener))
-			listeners.add(tenantListener);
-		
-	}
-	public void removeTenantListener(TenantListener tenantListener) {
-		if(tenantListener!=null && listeners.contains(tenantListener))
-			listeners.remove(listeners.indexOf(tenantListener));
-		
-	}
+    }
+
+    public boolean init() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public void dispose() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void registerTenant(String tenantID, String tenantDescription) {
+        if ( tenantID != null ) {
+            if ( tenantDescription ==  null ) {
+                tenantDescription = "Missing description for "+tenantID;
+            }
+            tenants.put(tenantID, tenantDescription);
+            fireNewTenantRegisteredEvent( tenantID, tenantDescription );
+        } else {
+            throw new NullPointerException("TennantID cannot be null");
+        }
+
+    }
+
+    private void fireTenantRemovedEvent(String tenantID) {
+        ArrayList<TenantListener> localCopy  = null;
+        synchronized (listeners) {
+            localCopy = new ArrayList<TenantListener>(listeners);
+        }
+        for (TenantListener listener : localCopy) {
+            try {
+                listener.tenantRemoved(tenantID);
+            }catch(Throwable t){
+                t.printStackTrace(); //TODO log me
+            }
+        }
+
+    }
+
+    private void fireNewTenantRegisteredEvent(String tenantID,
+            String tenantDescription) {
+        ArrayList<TenantListener> localCopy  = null;
+        synchronized (listeners) {
+            localCopy = new ArrayList<TenantListener>(listeners);
+        }
+        for (TenantListener listener : localCopy) {
+            try {
+                listener.newTenantRegistered(tenantID, tenantDescription);
+            }catch(Throwable t){
+                t.printStackTrace(); //TODO log me
+            }
+        }
+
+    }
+
+    public void unregisterTenant(String tenantID) {
+        if (tenantID != null) {
+            tenants.remove(tenantID);
+            fireTenantRemovedEvent(tenantID);
+        } else {
+            throw new NullPointerException("TennantID cannot be null");
+        }
+    }
+
+    public Map<String, String> getTenants() {
+        return tenants;
+    }
+
+    public void addTenantListener(TenantListener tenantListener) {
+        if ( tenantListener == null ) {
+            throw new NullPointerException("Cannot add a null listener");
+        }
+        synchronized (listeners) {
+            if ( listeners.contains( tenantListener )) return;
+            listeners.add(tenantListener);
+        }
+    }
+
+    public void removeTenantListener(TenantListener tenantListener) {
+        if ( tenantListener == null ) {
+            throw new NullPointerException("Cannot remove a null listener");
+        }
+        synchronized (listeners) {
+            listeners.remove(tenantListener);
+        }
+    }
 
 }
