@@ -13,6 +13,9 @@ middleware.config/mw.managers.aalspace.core.config/target
 middleware.config/mw.managers.deploy.core.config/.project
 middleware.config/mw.managers.deploy.core.config/.settings
 middleware.config/mw.managers.deploy.core.config/target
+middleware.config/mw.managers.tenant.core.config/.classpath
+middleware.config/mw.managers.tenant.core.config/.project
+middleware.config/mw.managers.tenant.core.config/.settings
 middleware.config/mw.modules.aalspace.core.config/.project
 middleware.config/mw.modules.aalspace.core.config/.settings
 middleware.config/mw.modules.aalspace.core.config/target
@@ -657,6 +660,9 @@ middleware.core/mw.managers.deploy.core/.classpath
 middleware.core/mw.managers.deploy.core/.project
 middleware.core/mw.managers.deploy.core/.settings
 middleware.core/mw.managers.deploy.core/target
+middleware.core/mw.managers.tenant.core/.classpath
+middleware.core/mw.managers.tenant.core/.project
+middleware.core/mw.managers.tenant.core/.settings
 middleware.core/mw.modules.aalspace.core/.classpath
 middleware.core/mw.modules.aalspace.core/.project
 middleware.core/mw.modules.aalspace.core/.settings
@@ -1431,6 +1437,9 @@ middleware.osgi/mw.managers.deploy.osgi/.settings
 middleware.osgi/mw.managers.deploy.osgi/etc
 middleware.osgi/mw.managers.deploy.osgi/installation.registry
 middleware.osgi/mw.managers.deploy.osgi/target
+middleware.osgi/mw.managers.tenant.osgi/.classpath
+middleware.osgi/mw.managers.tenant.osgi/.project
+middleware.osgi/mw.managers.tenant.osgi/.settings
 middleware.osgi/mw.modules.aalspace.osgi/.classpath
 middleware.osgi/mw.modules.aalspace.osgi/.project
 middleware.osgi/mw.modules.aalspace.osgi/.settings
