@@ -1,12 +1,10 @@
 package org.universAAL.middleware.connectors.discovery.jgroups.core.messages;
 
-import java.util.List;
-
 import org.universAAL.middleware.interfaces.PeerCard;
 
 import com.google.gson.Gson;
 
-public abstract class DiscoveryMessage {
+public class DiscoveryMessage {
 
 	/**
 	 * Message sender

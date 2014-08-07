@@ -3,13 +3,13 @@ package org.universAAL.middleware.connectors.discovery.jgroups.core;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +19,6 @@ import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.jgroups.Receiver;
 import org.jgroups.View;
-
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.aalspace.xml.model.ChannelDescriptor;
 import org.universAAL.middleware.connectors.DiscoveryConnector;
@@ -27,6 +26,8 @@ import org.universAAL.middleware.connectors.ServiceListener;
 import org.universAAL.middleware.connectors.discovery.jgroups.core.jGroupsDiscoveryConnector;
 import org.universAAL.middleware.connectors.discovery.jgroups.core.messages.Announce;
 import org.universAAL.middleware.connectors.discovery.jgroups.core.messages.DiscoveryMessage;
+import org.universAAL.middleware.connectors.discovery.jgroups.core.messages.Query;
+import org.universAAL.middleware.connectors.discovery.jgroups.core.messages.Response;
 import org.universAAL.middleware.connectors.exception.DiscoveryConnectorErrorCodes;
 import org.universAAL.middleware.connectors.exception.DiscoveryConnectorException;
 import org.universAAL.middleware.container.ModuleContext;
@@ -52,7 +53,7 @@ public class jGroupsDiscoveryConnector
 	
 	private boolean initialized = false;
 	private List<ServiceListener> serviceListeners = new ArrayList<ServiceListener>();
-	private AALSpaceManager aalSpaceManager;
+	private AALSpaceManager aalSpaceManager = null;
 	private ChannelDescriptor discoveryChannelDescriptor;
 	private PeerCard myPeerCard;
 	
@@ -104,43 +105,50 @@ public class jGroupsDiscoveryConnector
 		
 		if (!initialized) {
 
-			// LOG
-			LogUtils.logDebug(
-				context, 
-				jGroupsDiscoveryConnector.class,
-				METHOD,
-				new Object[] { "Initializing JGroups Discovery Connector..." }, 
-				null);
-
 			Object[] aalManagers = context.getContainer()
 					.fetchSharedObject(
 							context,
 							new Object[] { AALSpaceManager.class.getName()
 									.toString() }, this);
 			
-			if (aalManagers != null && aalManagers.length > 0) {
-				aalSpaceManager = (AALSpaceManager) aalManagers[0];
-				discoveryChannelDescriptor = aalSpaceManager.getAALSpaceDefaultConfigurartion()
-						.getDiscoveryChannel().getChannelDescriptor();
+			if (aalManagers != null && aalManagers.length > 0 && aalSpaceManager == null) {
 				
-				myPeerCard = aalSpaceManager.getMyPeerCard();
-				
-				if(verifyChannedDescriptor(discoveryChannelDescriptor) && configureDiscoveryChannel(discoveryChannelDescriptor)){
-					// LOG
-					LogUtils.logDebug(
-						context, 
-						jGroupsDiscoveryConnector.class,
-						METHOD,
-						new Object[] { "JGroups Discovery Connector initialized" }, 
-						null);
-		
-					initialized = true;
-				}
+				// LOG
+				LogUtils.logDebug(
+					context, 
+					jGroupsDiscoveryConnector.class,
+					METHOD,
+					new Object[] { "Initializing JGroups Discovery Connector..." }, 
+					null);
 
+				aalSpaceManager = (AALSpaceManager) aalManagers[0];
+				loadConfigurationData();
 			}
 		}
 		
 		return initialized;
+	}
+
+	private void loadConfigurationData() {
+		
+		final String METHOD = "loadConfigurationData";
+		
+		discoveryChannelDescriptor = aalSpaceManager.getAALSpaceDefaultConfigurartion()
+				.getDiscoveryChannel().getChannelDescriptor();
+		
+		myPeerCard = aalSpaceManager.getMyPeerCard();
+		
+		if(verifyChannelDescriptor(discoveryChannelDescriptor) && configureDiscoveryChannel(discoveryChannelDescriptor)){
+			// LOG
+			LogUtils.logDebug(
+				context, 
+				jGroupsDiscoveryConnector.class,
+				METHOD,
+				new Object[] { "JGroups Discovery Connector initialized" }, 
+				null);
+			initialized = true;
+		}
+
 	}
 
 	/**
@@ -149,7 +157,9 @@ public class jGroupsDiscoveryConnector
 	 * @param channelDescriptor
 	 * @return true if Name and at least one of the other two (URL and Value) are set, false otherwise.
 	 */
-	private boolean verifyChannedDescriptor(ChannelDescriptor channelDescriptor) {
+	private boolean verifyChannelDescriptor(ChannelDescriptor channelDescriptor) {
+		
+		if(discoveryChannel != null) return true;
 		
 		final String METHOD = "verifyChannedDescriptor";
 		
@@ -280,7 +290,7 @@ public class jGroupsDiscoveryConnector
 			
 			// Imposto l'istanza di classe come Receiver dei messaggi
 			discoveryChannel.setReceiver(this);
-			
+			//discoveryChannel.setDiscardOwnMessages(true);
 			// LOG
 			LogUtils.logDebug(
 				context, 
@@ -342,8 +352,9 @@ public class jGroupsDiscoveryConnector
 				METHOD,
 				new Object[] { "AALSpaceManager service added" }, 
 				null);
-			initialized = false;
-			init();
+
+			aalSpaceManager = (AALSpaceManager)sharedObj;
+			loadConfigurationData();
 			
 		}
 	}
@@ -368,10 +379,36 @@ public class jGroupsDiscoveryConnector
 
 	public List<AALSpaceCard> findAALSpace(Dictionary<String, String> filters)
 			throws DiscoveryConnectorException {
-		// TODO Inviare messaggio in multicast con la query per l'AALSpace e il filtro
-		Set<AALSpaceCard> aalSpaceCards = aalSpaceManager.getAALSpaces();
 		
-		List<AALSpaceCard> listOfAALSpaces = new ArrayList(aalSpaceCards);
+		final String METHOD = "findAALSpace";
+		
+		List<AALSpaceCard> listOfAALSpaces =  new ArrayList();
+		
+		if (init()) {
+			
+			LogUtils.logDebug(
+				context,
+				jGroupsDiscoveryConnector.class,
+				METHOD,
+				new Object[] { "Looking for an AALSpace with this filter set: "+filters.toString() },
+				null);
+			// TODO Inviare messaggio in multicast con la query per l'AALSpace e il filtro
+			try{
+				Query myQuery = new Query(myPeerCard, filters);
+				Message msg = new Message(null, null, myQuery.toString());
+				
+				discoveryChannel.send(msg);
+			} catch (Exception e) {
+				// LOG
+				LogUtils.logError(
+					context, 
+					jGroupsDiscoveryConnector.class,
+					METHOD,
+					new Object[] { "Unable to send query with filters "+filters.toString()+" through the channel "+discoveryChannel.getClusterName() + ": "+e.getMessage() }, 
+					e);
+			}
+		}
+		
 		return listOfAALSpaces;
 	}
 
@@ -384,15 +421,16 @@ public class jGroupsDiscoveryConnector
 		
 		final String METHOD = "announceAALSpace";
 		
-		// LOG
-		LogUtils.logDebug(
-			context, 
-			jGroupsDiscoveryConnector.class,
-			METHOD,
-			new Object[] { "Announcing the AALSpace..." }, 
-			null);
-	
 		if (init()) {
+			
+			// LOG
+			LogUtils.logDebug(
+				context, 
+				jGroupsDiscoveryConnector.class,
+				METHOD,
+				new Object[] { "Announcing the AALSpace..." }, 
+				null);
+			
 			try {
 				if(discoveryChannel.getClusterName() == null){
 					// LOG
@@ -400,7 +438,7 @@ public class jGroupsDiscoveryConnector
 						context, 
 						jGroupsDiscoveryConnector.class,
 						METHOD,
-						new Object[] { "Trying to announce the AALSpace trought a closed Channel..." }, 
+						new Object[] { "Trying to send messasges through a closed Channel..." }, 
 						null);
 					return;
 				}
@@ -416,56 +454,13 @@ public class jGroupsDiscoveryConnector
 					context, 
 					jGroupsDiscoveryConnector.class,
 					METHOD,
-					new Object[] { "Unable to announce the AALSpace "+spaceCard.toString()+" trought the channel "+discoveryChannel.getClusterName() + ": "+e.getMessage() }, 
+					new Object[] { "Unable to announce the AALSpace "+spaceCard.toString()+" through the channel "+discoveryChannel.getClusterName() + ": "+e.getMessage() }, 
 					e);
 			}
-		} else {
-			// LOG
-			LogUtils.logWarn(
-				context, 
-				jGroupsDiscoveryConnector.class,
-				METHOD,
-				new Object[] { "Jgroups Discovery Connector not initialized" }, 
-				null);
-		}
+		} 
 	}
 
-	/*
-	private Address getAddress(PeerCard card){
 		
-		final String METHOD = "getAddress";
-
-		String cardID = card.getPeerID();
-		Address dst = null;
-        View discoveryChannelView = discoveryChannel.getView();
-		
-        if (discoveryChannelView == null) {
-        	//LOG
-        	LogUtils.logError(
-				context, 
-		 		jGroupsDiscoveryConnector.class,
-                METHOD,
-		 		"Unable to get the View on the channel " + discoveryChannel.getClusterName()
-                        + " We may not be connected to it");
-            return null;
-        }
-       
-        for (Address address : discoveryChannelView.getMembers()) {
-            if (cardID.equals(discoveryChannel.getName(address))) {
-                dst = address;
-        		return dst;
-        	}
-        }
-    	// LOG
-        LogUtils.logWarn(
-			context, 
-	 		jGroupsDiscoveryConnector.class,
-            METHOD,
-	 		"Address of Peer "+card.toString()+" not found");
-        return null;
-	}
-	*/
-	
 	public void deregisterAALSpace(AALSpaceCard spaceCard)
 			throws DiscoveryConnectorException {
 		
@@ -589,15 +584,6 @@ public class jGroupsDiscoveryConnector
 		}
 	}
 	
-	/**
-	 * TODO: inviare messaggio in unicast al richiedente con l'AALSpaceeCard .
-	 * @param query
-	 * @return
-	 */
-	private boolean asnwerToAQuery(String query){
-		return true;
-	}
-	
 	public void receive(Message msg) {
 		
 		final String METHOD = "receive";
@@ -605,37 +591,43 @@ public class jGroupsDiscoveryConnector
 		
 		try {
 	        Address sender = msg.getSrc();
-			String typeOfSender = msg.getSrc().equals(discoveryChannel.getView().getMembers().get(0)) ? "COORDINATOR" : "PEER";
 			
-			// LOG
+	        // LOG
 			LogUtils.logDebug(context, 
 				jGroupsDiscoveryConnector.class,
 				METHOD,
-				new Object[] { "Receiving message from "+typeOfSender+" "+sender.toString()+" -> "+msg.toString() }, 
+				new Object[] { "Receiving message from node "+sender.toString()+" -> "+msg.toString() }, 
 				null);
 			
 			DiscoveryMessage dm = DiscoveryMessage.unmarshall(msgBuffer);
+			AALSpaceCard spaceCard = null; 
 					
 			switch (dm.getMessageType()){
+			
 			
 			case ANNOUNCE:
 				
 				Announce announce = Announce.unmarshall(msgBuffer);
-				AALSpaceCard spaceCard = announce.getSpaceCard();
+				spaceCard = announce.getSpaceCard();
 				// LOG
 				LogUtils.logDebug(
 		                context,
 		                jGroupsDiscoveryConnector.class,
 		                METHOD,
-		                new Object[] { "AALSpace Announce received - AALSpaceCard:"+spaceCard.toString() }, 
+		                new Object[] { "AALSpace Announce received - AALSpaceCard: "+spaceCard.toString() }, 
 		                null);
 				
 				// TODO: remove static channel name
 				spaceCard.setPeeringChannelName("mw.modules.aalspace.osgi");
 				
 				if (spaceCard.getCoordinatorID() != null) {
-					aalSpaceManager.getAALSpaces().add(spaceCard);
-				    LogUtils.logTrace(
+					for(ServiceListener listener: serviceListeners){
+						Set<AALSpaceCard> spaceCards = new HashSet<AALSpaceCard>();
+						spaceCards.add(spaceCard);
+						listener.newAALSpacesFound(spaceCards);
+					}
+					
+					LogUtils.logTrace(
 					    context,
 					    jGroupsDiscoveryConnector.class,
 		                METHOD,
@@ -646,6 +638,65 @@ public class jGroupsDiscoveryConnector
 				break;
 
 			case QUERY:
+				Query query = Query.unmarshall(msgBuffer);
+				Dictionary<String, String> filters = query.getFilter();
+				// LOG
+				LogUtils.logDebug(
+		                context,
+		                jGroupsDiscoveryConnector.class,
+		                METHOD,
+		                new Object[] { "Query for AALSpace received - filters: "+filters.toString() }, 
+		                null);
+				
+				if(myPeerCard.isCoordinator()){
+					spaceCard = aalSpaceManager.getAALSpaceDescriptor().getSpaceCard();
+					if(filters.get(Consts.AALSPaceID) == spaceCard.getSpaceID()){
+						// LOG
+						LogUtils.logDebug(
+				                context,
+				                jGroupsDiscoveryConnector.class,
+				                METHOD,
+				                new Object[] { "AALSpace join the filters. Sending Response..."}, 
+				                null);
+						
+						try {
+							if(discoveryChannel.getClusterName() == null){
+								// LOG
+								LogUtils.logDebug(
+									context, 
+									jGroupsDiscoveryConnector.class,
+									METHOD,
+									new Object[] { "Trying to send messages through a closed Channel..." }, 
+									null);
+								return;
+							}
+							
+							Response myResponseToAQuery = new Response(myPeerCard, spaceCard);
+							Message responseMsg = new Message(msg.getSrc(), null, myResponseToAQuery.toString());
+							
+							discoveryChannel.send(responseMsg);
+											
+						} catch (Exception e) {
+							// LOG
+							LogUtils.logError(
+								context, 
+								jGroupsDiscoveryConnector.class,
+								METHOD,
+								new Object[] { "Unable to respond to the query through the channel "+discoveryChannel.getClusterName() + ": "+e.getMessage() }, 
+								e);
+						}
+					}
+				} else {
+					// LOG
+					LogUtils.logDebug(
+		                context,
+		                jGroupsDiscoveryConnector.class,
+		                METHOD,
+		                new Object[] { "I'm not the COORDINATOR so I can't respond" }, 
+		                null);
+					
+					
+				}
 				break;
 
 			case RESPONSE:
