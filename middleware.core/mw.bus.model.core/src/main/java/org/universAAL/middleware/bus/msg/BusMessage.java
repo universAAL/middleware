@@ -100,10 +100,13 @@ public class BusMessage implements BrokerMessage {
     private MessageType type;
     private BrokerMessageTypes mType;
 
-    private BusMessage() {
+    public BusMessage() {
 	mType = BrokerMessageTypes.BusMessage;
 
     }
+    
+    
+
 
     /**
      * Constructor - a message of particular type with particular content

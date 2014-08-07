@@ -11,6 +11,7 @@ middleware.config/mw.connectors.discovery.jgroups.core.config/ASL2.0.txt -text
 middleware.config/mw.connectors.discovery.jgroups.core.config/NOTICE.txt -text
 middleware.config/mw.connectors.discovery.jgroups.core.config/pom.xml -text
 middleware.config/mw.connectors.discovery.jgroups.core.config/src/main/resources/mw.connectors.discovery.jgroups.core.cfg -text
+middleware.config/mw.connectors.discovery.jgroups.core.config/target/classes/mw.connectors.discovery.jgroups.core.cfg -text
 middleware.config/mw.connectors.discovery.slp.core.config/ASL2.0.txt -text
 middleware.config/mw.connectors.discovery.slp.core.config/NOTICE.txt -text
 middleware.config/mw.connectors.discovery.slp.core.config/pom.xml -text
@@ -310,6 +311,8 @@ middleware.core/mw.connectors.discovery.fake.core/ASL2.0.txt -text
 middleware.core/mw.connectors.discovery.fake.core/NOTICE.txt -text
 middleware.core/mw.connectors.discovery.fake.core/pom.xml -text
 middleware.core/mw.connectors.discovery.fake.core/src/main/java/org/universAAL/middleware/connectors/discovery/fake/core/FakeDiscoveryConnector.java -text
+middleware.core/mw.connectors.discovery.jgroups.core/ASL2.0.txt -text
+middleware.core/mw.connectors.discovery.jgroups.core/NOTICE.txt -text
 middleware.core/mw.connectors.discovery.jgroups.core/pom.xml -text svneol=unset#text/plain
 middleware.core/mw.connectors.discovery.jgroups.core/resources/Active-DiscoveryChannel.uxf -text
 middleware.core/mw.connectors.discovery.jgroups.core/resources/Proactive-DiscoveryChannel.uxf -text

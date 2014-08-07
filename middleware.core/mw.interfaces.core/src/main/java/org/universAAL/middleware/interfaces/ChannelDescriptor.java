@@ -66,5 +66,8 @@ public class ChannelDescriptor implements Serializable {
 	this.channelDescriptorFileURL = descriptor;
 	this.channelValue = value;
     }
-
+    
+    public ChannelDescriptor(){}
+    
+  
 }

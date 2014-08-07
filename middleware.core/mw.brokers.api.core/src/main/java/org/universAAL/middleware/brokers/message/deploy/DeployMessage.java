@@ -54,6 +54,8 @@ public class DeployMessage implements BrokerMessage {
 	this.payload = payload;
 	this.mType = BrokerMessageTypes.DeployMessage;
     }
+    
+    public DeployMessage(){}
 
     public DeployMessageType getMessageType() {
 	return deployMessageType;

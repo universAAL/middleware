@@ -27,6 +27,8 @@ public class TurtleSerializer implements MessageContentSerializerEx {
 
     private static int cnt = 0;
 
+    public TurtleSerializer(){}
+    
     /** @see org.universAAL.middleware.serialization.MessageContentSerializer#deserialize(String) */
     public synchronized Object deserialize(String serialized) {
 	cnt++;

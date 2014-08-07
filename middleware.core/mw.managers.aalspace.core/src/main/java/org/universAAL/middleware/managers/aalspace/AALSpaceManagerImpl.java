@@ -60,6 +60,7 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
 import org.universAAL.middleware.interfaces.aalspace.Consts;
 import org.universAAL.middleware.interfaces.aalspace.model.IAALSpace;
 import org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor;
+import org.universAAL.middleware.interfaces.aalspace.model.ICommunicationChannels;
 import org.universAAL.middleware.interfaces.aalspace.xml.model.ObjectFactory;
 import org.universAAL.middleware.managers.aalspace.util.AALSpaceSchemaEventHandler;
 import org.universAAL.middleware.managers.aalspace.util.CheckPeerThread;
@@ -69,7 +70,6 @@ import org.universAAL.middleware.managers.api.AALSpaceEventHandler;
 import org.universAAL.middleware.managers.api.AALSpaceListener;
 import org.universAAL.middleware.managers.api.AALSpaceManager;
 import org.universAAL.middleware.managers.api.MatchingResult;
-import org.universAAL.middleware.owl.testont.MyOntology;
 
 /**
  * The implementation of the AALSpaceManager and AALSpaceEventHandler
@@ -857,6 +857,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		try {
 			loadXMLParser();
 			space = (IAALSpace) unmarshaller.unmarshal(xml);
+	    //parametrize the channels
+	    space = parametrizeChannelNames(space);
 		} catch (Exception ex) {
 			LogUtils.logError(
 					context,
@@ -870,6 +872,26 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 
 		return space;
 	}
+
+    /**
+     * This methods modifies the name of the peering channel and of the
+     * communication channels, it adds the suffix AALSpaceID to the end of the
+     * channel name E.g. x.y where x = name of the broker, y = AALSpaceID
+     * 
+     * @param space
+     * @return
+     */
+    private IAALSpace parametrizeChannelNames(IAALSpace space) {
+	//change the peering channel
+	String peeringChannelName = space.getPeeringChannel().getChannelDescriptor().getChannelName();
+	String aalSpaceID = space.getSpaceDescriptor().getSpaceId();
+	space.getPeeringChannel().getChannelDescriptor().setChannelName(peeringChannelName +aalSpaceID);
+	
+	for(IChannelDescriptor channelDescriptor: space.getCommunicationChannels().getChannelDescriptor()){
+	    channelDescriptor.setChannelName(channelDescriptor.getChannelName()+aalSpaceID);
+	}
+	return space;
+    }
 
 	private void loadXMLParser() throws Exception {
 		if (jc != null)

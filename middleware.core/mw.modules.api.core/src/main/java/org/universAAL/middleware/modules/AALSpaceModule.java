@@ -145,11 +145,9 @@ public interface AALSpaceModule extends Module {
     /**
      * This method configures the channel used in order to send/receive AAL
      * Space messages
-     * 
-     * @param group
-     *            Name of the group to use
+     
      */
-    public void configureAALSpaceChannel(String group);
+    public void configureAALSpaceChannel();
 
     /**
      * This method fetches the list of peer address joining to the same AAL
