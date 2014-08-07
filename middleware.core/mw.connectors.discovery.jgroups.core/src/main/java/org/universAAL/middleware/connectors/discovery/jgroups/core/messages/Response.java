@@ -1,18 +1,47 @@
 package org.universAAL.middleware.connectors.discovery.jgroups.core.messages;
 
-import java.util.List;
-
-import org.universAAL.middleware.connectors.util.ChannelMessage;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.model.IAALSpace;
+import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
 
-public class Response extends ChannelMessage{
+import com.google.gson.Gson;
 
-	private IAALSpace spaceCard;
+public class Response extends DiscoveryMessage{
+
+	private AALSpaceCard spaceCard;
+
+	public Response() {
+	}
 	
-	public Response(PeerCard sender, String content, List channelNames) {
-		super(sender, content, channelNames);
-		// TODO Auto-generated constructor stub
+	public Response(PeerCard sender, AALSpaceCard spacecard) {
+		super(sender, spacecard.toString());
+		this.setMessageType(DiscoverMessageType.RESPONSE);
+		this.setSpaceCard(spaceCard);
+	}
+	
+	public static Response unmarshall(String message) throws Exception {
+
+		Response responseMessage = null;
+		try {
+
+			Gson gson = new Gson();
+			responseMessage = gson.fromJson(message, Response.class);
+
+		} catch (Exception e) {
+
+			throw new Exception(
+					"Unable to unmashall Announce Message. Original message: "
+							+ message + ". Full Stack: " + e.toString());
+		}
+
+		return responseMessage;
+
 	}
 
+	public AALSpaceCard getSpaceCard() {
+		return spaceCard;
+	}
+
+	public void setSpaceCard(AALSpaceCard spaceCard) {
+		this.spaceCard = spaceCard;
+	}
 }
