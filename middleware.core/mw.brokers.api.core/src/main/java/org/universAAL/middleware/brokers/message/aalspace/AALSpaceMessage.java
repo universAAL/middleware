@@ -22,14 +22,9 @@ package org.universAAL.middleware.brokers.message.aalspace;
 
 
 import org.universAAL.middleware.brokers.message.BrokerMessage;
-import org.universAAL.middleware.brokers.message.BrokerMessageFields;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
-import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * Class for AALSpace Messages
