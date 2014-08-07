@@ -40,7 +40,7 @@ import org.universAAL.middleware.managers.tenant.TenantManagerImpl;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class Activator implements BundleActivator {
 
-	private TenantManagerImpl tenantManager;
+	private TenantManager tenantManager;
 	private ModuleContext moduleContext;
 
 	public void start(BundleContext context) throws Exception {
