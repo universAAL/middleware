@@ -43,7 +43,7 @@ public class ConfigurationMessage implements BrokerMessage {
     /**
      * 
      */
-    private ConfigurationMessage() {  }
+    public ConfigurationMessage() {  }
     
     
     /**

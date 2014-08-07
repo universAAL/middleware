@@ -81,9 +81,7 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
     // ControlBroler
     private ControlBroker controlBoker;
     private boolean initialized = false;
-    // the Broker Name to use in order to send the messages with the correct
-    // channel
-    private String brokerName;
+
 
     /**
      * This method configures the AALSpaceModule: -to obtain the reference to
@@ -936,19 +934,19 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
                 new Object[] { "AALSpaceMessage queued" }, null);
     }
 
-    public void configureAALSpaceChannel(String group) {
+    public void configureAALSpaceChannel() {
         LogUtils.logDebug(
                 context,
                 AALSpaceModuleImpl.class,
                 "AALSpaceModuleImpl",
                 new Object[] { "Setting the broker group for the AALSpaceModule..."
-                        + group }, null);
-        this.brokerName = group;
+                        + getBrokerName() }, null);
+        
         /*
          * Register me as MessageListener for messages to the channel associated
          * to my broker group
          */
-        communicationModule.addMessageListener(this, group);
+        communicationModule.addMessageListener(this, getBrokerName());
 
     }
 
@@ -1141,7 +1139,7 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
         // remove me as listener
         context.getContainer().removeSharedObjectListener(this);
         if (communicationModule != null)
-            communicationModule.removeMessageListener(this, brokerName);
+            communicationModule.removeMessageListener(this, getBrokerName());
         if (discoveryConnectors != null && discoveryConnectors.size() > 0) {
             for (DiscoveryConnector dConnector : discoveryConnectors) {
                 dConnector.removeAALSpaceListener(this);
@@ -1154,7 +1152,7 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
         if (communicationModule instanceof ConfigurableCommunicationModule) {
             ConfigurableCommunicationModule cCommMode = (ConfigurableCommunicationModule) communicationModule;
             Map<String, PeerCard> checkedPeer = new HashMap<String, PeerCard>();
-            List<String> members = cCommMode.getGroupMembers(brokerName);
+            List<String> members = cCommMode.getGroupMembers(getBrokerName());
             return members;
         }
         return null;
