@@ -38,6 +38,8 @@ public class AALSpaceMessage implements BrokerMessage {
     private AALSpaceDescriptor spaceDescriptor;
     private BrokerMessageTypes mtype;
 
+    public AALSpaceMessage(){}
+    
     public AALSpaceDescriptor getSpaceDescriptor() {
 	return spaceDescriptor;
     }

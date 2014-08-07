@@ -671,7 +671,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    return;
 	}
 	aalSpaceModule
-		.configureAALSpaceChannel(peeringChannel.getChannelName());
+		.configureAALSpaceChannel();
 	List<ChannelDescriptor> channel = new ArrayList<ChannelDescriptor>();
 	channel.add(peeringChannel);
 	configureChannels(channel, peerName);

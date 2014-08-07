@@ -58,6 +58,10 @@ public class PeerCard {
         this.container = containerUnit;
         this.platform = platformUnit;
     }
+    
+
+    
+    public PeerCard(){}
 
     public PeerCard(String ID, PeerRole role) {
         this.peerID = UUID.fromString(ID).toString();
