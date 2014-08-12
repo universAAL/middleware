@@ -382,13 +382,6 @@ public class jGroupsDiscoveryConnector
 		
 		final String METHOD = "findAALSpace";
 		
-		listOfFilteredAALSpaces.clear();
-		
-		for(AALSpaceCard sc : aalSpaceManager.getAALSpaces()){
-			listOfFilteredAALSpaces.add(sc);
-		}
-
-		/*
 		if (init()) {
 			try{
 				
@@ -423,6 +416,9 @@ public class jGroupsDiscoveryConnector
 							e);
 					}
 				}
+				
+				return listOfFilteredAALSpaces;
+				
 			} catch (DiscoveryConnectorException e){
 				// LOG
 				LogUtils.logError(
@@ -434,10 +430,8 @@ public class jGroupsDiscoveryConnector
 	
 			}
 		}
-		//return listOfFilteredAALSpaces.size() > 0 ? listOfFilteredAALSpaces : null;
-		*/
-		return listOfFilteredAALSpaces;
 		
+		return null;
 	}
 
 	public List<AALSpaceCard> findAALSpace() throws DiscoveryConnectorException {
@@ -475,7 +469,7 @@ public class jGroupsDiscoveryConnector
 				Message msg = new Message(null, null, myAnnounce.toString());
 				
 				discoveryChannel.send(msg);
-								
+				
 			} catch (Exception e) {
 				// LOG
 				LogUtils.logError(
@@ -667,10 +661,12 @@ public class jGroupsDiscoveryConnector
 						}
 						
 						break;
+						
+						
 		
 					case QUERY:
 						
-						if (!myPeerCard.getPeerID().equals(sender.toString())){
+						//if (!myPeerCard.getPeerID().equals(sender.toString())){
 						
 							Query query = Query.unmarshall(msgBuffer);
 							Dictionary<String, String> filters = query.getFilter();
@@ -690,7 +686,7 @@ public class jGroupsDiscoveryConnector
 							                context,
 							                jGroupsDiscoveryConnector.class,
 							                METHOD,
-							                new Object[] { "AALSpace join the filters. Sending Response to "+msg.getSrc()}, 
+							                new Object[] { "AALSpace "+spaceCard.toString()+" join the filters. Sending Response to "+msg.getSrc()}, 
 							                null);
 									
 									try {
@@ -729,7 +725,7 @@ public class jGroupsDiscoveryConnector
 						                null);
 								}
 							} 
-						}
+						//}
 						break;
 		
 					case RESPONSE:
@@ -742,7 +738,7 @@ public class jGroupsDiscoveryConnector
 			                context,
 			                jGroupsDiscoveryConnector.class,
 			                METHOD,
-			                new Object[] { "AALSpace "+spaceCard.getSpaceName()+" added to filtered list" }, 
+			                new Object[] { "AALSpace "+spaceCard.toString()+" added to filtered list" }, 
 			                null);
 						break;
 						
@@ -767,7 +763,17 @@ public class jGroupsDiscoveryConnector
 
 	private boolean AALSpaceMatch(AALSpaceCard spaceCard,
 			Dictionary<String, String> filters) {
-		return filters.get(Consts.AALSPaceID) == spaceCard.getSpaceID();
+		
+		final String METHOD = "AALSpaceMatch";
+		
+		// LOG
+		LogUtils.logDebug(
+            context,
+            jGroupsDiscoveryConnector.class,
+            METHOD,
+            new Object[] { "Comparing "+filters.get(Consts.AALSPaceID)+" with "+spaceCard.getSpaceID() }, 
+            null);
+		return filters.get(Consts.AALSPaceID).equals(spaceCard.getSpaceID());
 	}
 
 	public void getState(OutputStream output) throws Exception {

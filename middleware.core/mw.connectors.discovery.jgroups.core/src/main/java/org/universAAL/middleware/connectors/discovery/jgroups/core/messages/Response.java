@@ -12,8 +12,8 @@ public class Response extends DiscoveryMessage{
 	public Response() {
 	}
 	
-	public Response(PeerCard sender, AALSpaceCard spacecard) {
-		super(sender, spacecard.toString());
+	public Response(PeerCard sender, AALSpaceCard spaceCard) {
+		super(sender, spaceCard.toString());
 		this.setMessageType(DiscoverMessageType.RESPONSE);
 		this.setSpaceCard(spaceCard);
 	}
