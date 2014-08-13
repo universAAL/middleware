@@ -26,10 +26,14 @@
 
 		<!-- Connectors -->
 		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.communication.jgroups.osgi/${mw.connectors.communication.jgroups.osgi.version}</bundle>
-		<!-- NO SLP 
+		<!-- SLP 
 		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.discovery.slp.osgi/${mw.connectors.discovery.slp.osgi.version}</bundle>
 		-->
+		<!-- FAKE 
 		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.discovery.fake.osgi/${mw.connectors.discovery.fake.osgi.version}</bundle>
+		-->
+		<!-- JGroups -->
+		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.discovery.jgroups.osgi/${mw.connectors.discovery.jgroups.osgi.version}</bundle>
 		
 		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.deploy.karaf.osgi/${mw.connectors.deploy.karaf.osgi.version}</bundle>
 
@@ -66,12 +70,15 @@
 		<!-- jGroups Communication Connector -->
 		<configfile finalname="/etc/mw.connectors.communication.jgroups.core.cfg">mvn:org.universAAL.middleware/mw.connectors.communication.jgroups.core.config/${mw.connectors.communication.jgroups.core.config.version}/cfg</configfile>
 
-		<!-- SLP Discovery Connector 
+		<!-- SLP Discovery Connector
 		<configfile finalname="/etc/mw.connectors.discovery.slp.core.cfg">mvn:org.universAAL.middleware/mw.connectors.discovery.slp.core.config/${mw.connectors.discovery.slp.core.config.version}/cfg</configfile>
-		-->
-		<!-- Fake Discovery Connector--> 
+		 -->
+		<!-- Fake Discovery Connector 
 		<configfile finalname="/etc/mw.connectors.discovery.fake.core.cfg">mvn:org.universAAL.middleware/mw.connectors.discovery.fake.core.config/${mw.connectors.discovery.fake.core.config.version}/cfg</configfile>
+		-->
 		
+		<!-- JGroups Discovery Connector -->
+		<configfile finalname="/etc/mw.connectors.discovery.jgroups.core.cfg">mvn:org.universAAL.middleware/mw.connectors.discovery.jgroups.core.config/${mw.connectors.discovery.jgroups.core.config.version}/cfg</configfile>
 
 		<!-- Deploy Manager -->
 		<configfile finalname="/etc/mw.managers.deploy.core.cfg">mvn:org.universAAL.middleware/mw.managers.deploy.core.config/${mw.managers.deploy.core.config.version}/cfg</configfile>
