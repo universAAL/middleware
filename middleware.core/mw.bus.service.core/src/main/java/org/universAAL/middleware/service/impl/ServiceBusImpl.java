@@ -85,11 +85,11 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public static synchronized void startModule(Container c, ModuleContext mc,
 	    Object[] serviceBusShareParams, Object[] serviceBusFetchParams) {
 	if (theServiceBus == null) {
+	    busFetchParams = serviceBusFetchParams;
 	    ServiceBusImpl.mc = mc;
 	    serviceOntology = new ServiceBusOntology();
 	    OntologyManagement.getInstance().register(mc, serviceOntology);
 	    theServiceBus = new ServiceBusImpl(mc);
-	    busFetchParams = serviceBusFetchParams;
 	    c.shareObject(mc, theServiceBus, serviceBusShareParams);
 	}
     }
