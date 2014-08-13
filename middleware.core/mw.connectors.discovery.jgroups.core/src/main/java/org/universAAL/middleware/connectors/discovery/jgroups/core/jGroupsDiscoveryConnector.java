@@ -291,7 +291,7 @@ public class jGroupsDiscoveryConnector
 			
 			// Imposto l'istanza di classe come Receiver dei messaggi
 			discoveryChannel.setReceiver(this);
-			//discoveryChannel.setDiscardOwnMessages(true);
+			discoveryChannel.setDiscardOwnMessages(true);
 			// LOG
 			LogUtils.logDebug(
 				context, 
@@ -385,9 +385,9 @@ public class jGroupsDiscoveryConnector
 		if (init()) {
 			try{
 				
-				listOfFilteredAALSpaces.clear();
 				
 				if(filters == null || filters.size() == 0){
+					listOfFilteredAALSpaces.clear();
 					for(AALSpaceCard sc : aalSpaceManager.getAALSpaces()){
 						listOfFilteredAALSpaces.add(sc);
 					}
@@ -417,8 +417,6 @@ public class jGroupsDiscoveryConnector
 					}
 				}
 				
-				return listOfFilteredAALSpaces;
-				
 			} catch (DiscoveryConnectorException e){
 				// LOG
 				LogUtils.logError(
@@ -431,7 +429,7 @@ public class jGroupsDiscoveryConnector
 			}
 		}
 		
-		return null;
+		return listOfFilteredAALSpaces;
 	}
 
 	public List<AALSpaceCard> findAALSpace() throws DiscoveryConnectorException {
@@ -733,6 +731,15 @@ public class jGroupsDiscoveryConnector
 						spaceCard = myResponse.getSpaceCard();
 						
 						listOfFilteredAALSpaces.add(spaceCard);
+						
+						// TODO: remove static channel name
+						spaceCard.setPeeringChannelName("mw.modules.aalspace.osgi");
+						
+						for(ServiceListener listener: serviceListeners){
+							Set<AALSpaceCard> spaceCards = new HashSet<AALSpaceCard>();
+							spaceCards.add(spaceCard);
+							listener.newAALSpacesFound(spaceCards);
+						}
 						// LOG
 						LogUtils.logDebug(
 			                context,

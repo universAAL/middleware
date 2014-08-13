@@ -69,6 +69,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.connectors.discovery.jgroups.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.managers.aalspace.core.config</artifactId>
 			<type>cfg</type>
 		</dependency>
@@ -89,6 +93,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.connectors.discovery.jgroups.core.config</artifactId>
+			<type>cfg</type>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.managers.deploy.core.config</artifactId>
 			<type>cfg</type>
 		</dependency>
@@ -97,6 +106,7 @@
 			<artifactId>mw.modules.aalspace.core.config</artifactId>
 			<type>cfg</type>
 		</dependency>
+	
 	</dependencies>
 	<build>
 		<filters>

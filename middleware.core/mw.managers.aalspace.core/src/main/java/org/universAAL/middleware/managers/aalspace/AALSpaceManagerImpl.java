@@ -306,12 +306,6 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 				return initialized;
 			}
 
-			// start the threads
-			// Joiner -> AALSapce joiner
-			joiner = new Joiner(this, context);
-			joinerFuture = scheduler.scheduleAtFixedRate(joiner, 0, 1,
-					TimeUnit.SECONDS);
-
 			// Configure the AAL Space
 			if (aalSpaceConfigurationPath == null
 					|| aalSpaceConfigurationPath.length() == 0) {
@@ -330,9 +324,12 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 						new Object[] { "Parse the AALSpace default configurations" },
 						null);
 				aalSpaceDefaultConfiguration = readAALSpaceDefaultConfigurations();
+				
 				initAALSpace(aalSpaceDefaultConfiguration);
 				initialized = true;
 			}
+
+
 		}
 		return initialized;
 	}
@@ -426,6 +423,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 						// strat thread
 						refreshAALSpaceThread = new RefreshAALSpaceThread(
 								context);
+						//TODO : TEST MICHELE
 						refreshFuture = scheduler.scheduleAtFixedRate(
 								refreshAALSpaceThread, 0, aalSpaceLifeTime - 1,
 								TimeUnit.SECONDS);
@@ -440,6 +438,10 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 						managedAALspaces.put(myAALSpace.getSpaceID(),
 								currentAALSpace);
 
+						//update the list of AALSpaces
+						Set<AALSpaceCard> fSpaces = new HashSet<AALSpaceCard>();
+						fSpaces.add(myAALSpace);
+						newAALSpacesFound(fSpaces);
 						// notify to all the listeners a new AAL Space has
 						// been joined
 						for (AALSpaceListener spaceListener : listeners) {
@@ -469,6 +471,12 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 				}
 			}
 
+			// start the threads
+			// Joiner -> AALSapce joiner
+			joiner = new Joiner(this, context, controlBroker,
+					buildAALSpaceFilter(aalSpaceDefaultConfiguration));
+			joinerFuture = scheduler.scheduleAtFixedRate(joiner, 0, 1,
+					TimeUnit.SECONDS);
 		} catch (Exception e) {
 			LogUtils.logError(
 					context,
@@ -719,8 +727,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 			// I store it
 			// otherwise I store my Peer ID
 			if (isSetCoordinatorID(space)) {
-				String coordinatorID = space
-						.getSpaceDescriptor().getSpaceCoordinator();
+				String coordinatorID = space.getSpaceDescriptor()
+						.getSpaceCoordinator();
 				properties.put(Consts.AALSpaceCoordinator, coordinatorID);
 			} else
 				properties.put(Consts.AALSpaceCoordinator, getMyPeerCard()
@@ -857,8 +865,8 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		try {
 			loadXMLParser();
 			space = (IAALSpace) unmarshaller.unmarshal(xml);
-	    //parametrize the channels
-	    space = parametrizeChannelNames(space);
+			// parametrize the channels
+			space = parametrizeChannelNames(space);
 		} catch (Exception ex) {
 			LogUtils.logError(
 					context,
@@ -873,25 +881,29 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		return space;
 	}
 
-    /**
-     * This methods modifies the name of the peering channel and of the
-     * communication channels, it adds the suffix AALSpaceID to the end of the
-     * channel name E.g. x.y where x = name of the broker, y = AALSpaceID
-     * 
-     * @param space
-     * @return
-     */
-    private IAALSpace parametrizeChannelNames(IAALSpace space) {
-	//change the peering channel
-	String peeringChannelName = space.getPeeringChannel().getChannelDescriptor().getChannelName();
-	String aalSpaceID = space.getSpaceDescriptor().getSpaceId();
-	space.getPeeringChannel().getChannelDescriptor().setChannelName(peeringChannelName +aalSpaceID);
-	
-	for(IChannelDescriptor channelDescriptor: space.getCommunicationChannels().getChannelDescriptor()){
-	    channelDescriptor.setChannelName(channelDescriptor.getChannelName()+aalSpaceID);
+	/**
+	 * This methods modifies the name of the peering channel and of the
+	 * communication channels, it adds the suffix AALSpaceID to the end of the
+	 * channel name E.g. x.y where x = name of the broker, y = AALSpaceID
+	 * 
+	 * @param space
+	 * @return
+	 */
+	private IAALSpace parametrizeChannelNames(IAALSpace space) {
+		// change the peering channel
+		String peeringChannelName = space.getPeeringChannel()
+				.getChannelDescriptor().getChannelName();
+		String aalSpaceID = space.getSpaceDescriptor().getSpaceId();
+		space.getPeeringChannel().getChannelDescriptor()
+				.setChannelName(peeringChannelName + aalSpaceID);
+
+		for (IChannelDescriptor channelDescriptor : space
+				.getCommunicationChannels().getChannelDescriptor()) {
+			channelDescriptor.setChannelName(channelDescriptor.getChannelName()
+					+ aalSpaceID);
+		}
+		return space;
 	}
-	return space;
-    }
 
 	private void loadXMLParser() throws Exception {
 		if (jc != null)

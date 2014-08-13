@@ -20,9 +20,11 @@
  */
 package org.universAAL.middleware.managers.aalspace.util;
 
+import java.util.Dictionary;
 import java.util.Iterator;
 
 import org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl;
+import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
@@ -36,102 +38,109 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
  */
 public class Joiner implements Runnable {
 
-    private AALSpaceManagerImpl spaceManager;
-    private boolean stop = false;
-    private ModuleContext context;
+	private AALSpaceManagerImpl spaceManager;
+	private boolean stop = false;
+	private ModuleContext context;
+	private ControlBroker controlBroker;
+	private Dictionary<String, String> aalspaceFilters;
 
-    public Joiner(AALSpaceManagerImpl spaceManager, ModuleContext context) {
-        this.spaceManager = spaceManager;
-        this.context = context;
-    }
+	public Joiner(AALSpaceManagerImpl spaceManager, ModuleContext context,
+			ControlBroker controlBroker, Dictionary<String, String> filters) {
+		this.spaceManager = spaceManager;
+		this.context = context;
+		this.controlBroker = controlBroker;
+		this.aalspaceFilters = filters;
+	}
 
-    public void setStop() {
-        this.stop = true;
-    }
+	public void setStop() {
+		this.stop = true;
+	}
 
-    public void run() {
+	public void run() {
 
-        if (spaceManager.getAALSpaceDescriptor() == null) {
+		if (spaceManager.getAALSpaceDescriptor() == null) {
 
-            // look for an element of the set that matches wit the default
-            // AALSpace
-            if (!spaceManager.getAALSpaces().isEmpty()) {
+			// 1- actively discovers the AALSpaces
+			controlBroker.discoverAALSpace(aalspaceFilters);
 
-                LogUtils.logDebug(
-                        context,
-                        Joiner.class,
-                        "Joiner",
-                        new Object[] { "AALSpaces found looking for the default one" },
-                        null);
-                Iterator<AALSpaceCard> iterator = spaceManager.getAALSpaces()
-                        .iterator();
-                while (iterator.hasNext()) {
-                    AALSpaceCard candidate = iterator.next();
-                    /*
-                     * check if to join to the AAL Space found a)ID matches with
-                     * the default configuration the one in the default
-                     * configuration no default b)no default configuration
-                     * found, join toi the first one
-                     */
-                    if ((spaceManager.getAalSpaceDefaultConfiguration() != null && candidate
-                            .getSpaceID().equals(
-                                    spaceManager
-                                            .getAalSpaceDefaultConfiguration()
-                                            .getSpaceDescriptor().getSpaceId()))
-                            || (spaceManager.getAalSpaceDefaultConfiguration() == null)) {
-                        if (candidate.getRetry() == 0)
-                            spaceManager.getAALSpaces().remove(candidate);
-                        else {
-                            candidate.setRetry(candidate.getRetry() - 1);
-                            spaceManager.join(candidate);
-                            /*
-                             * //FIX Timeout is too small when trying to joining
-                             * to Android peer, in fact it fires before that
-                             * sender thread actually send the data. In
-                             * particular, the problem is that the packet is
-                             * sent on a different Thread and that Thread is not
-                             * scheduled in time. ///SOLUTION increased timeout
-                             * from 3s to 30s, but we should calculate the real
-                             * timer that is timeout should fire after that data
-                             * is actually sent
-                             */
-                            synchronized (spaceManager ) {
-                                try {
-                                    spaceManager.wait(
-                                            spaceManager
-                                                    .getWaitAfterJoinRequest());
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            // notify or timeout expired. To clean up the
-                            // pending join
-                            if (spaceManager.getAALSpaceDescriptor() == null)
-                                spaceManager.cleanUpJoinRequest();
-                        }
+			// 2-look for an element of the set that matches wit the default
+			// AALSpace
+			if (!spaceManager.getAALSpaces().isEmpty()) {
 
-                    }
-                }
+				LogUtils.logDebug(
+						context,
+						Joiner.class,
+						"Joiner",
+						new Object[] { "AALSpaces found looking for the default one" },
+						null);
+				Iterator<AALSpaceCard> iterator = spaceManager.getAALSpaces()
+						.iterator();
+				while (iterator.hasNext()) {
+					AALSpaceCard candidate = iterator.next();
+					/*
+					 * check if to join to the AAL Space found a)ID matches with
+					 * the default configuration the one in the default
+					 * configuration no default b)no default configuration
+					 * found, join toi the first one
+					 */
+					if ((spaceManager.getAalSpaceDefaultConfiguration() != null && candidate
+							.getSpaceID().equals(
+									spaceManager
+											.getAalSpaceDefaultConfiguration()
+											.getSpaceDescriptor().getSpaceId()))
+							|| (spaceManager.getAalSpaceDefaultConfiguration() == null)) {
+						if (candidate.getRetry() == 0)
+							spaceManager.getAALSpaces().remove(candidate);
+						else {
+							candidate.setRetry(candidate.getRetry() - 1);
+							spaceManager.join(candidate);
+							/*
+							 * //FIX Timeout is too small when trying to joining
+							 * to Android peer, in fact it fires before that
+							 * sender thread actually send the data. In
+							 * particular, the problem is that the packet is
+							 * sent on a different Thread and that Thread is not
+							 * scheduled in time. ///SOLUTION increased timeout
+							 * from 3s to 30s, but we should calculate the real
+							 * timer that is timeout should fire after that data
+							 * is actually sent
+							 */
+							synchronized (spaceManager) {
+								try {
+									spaceManager.wait(spaceManager
+											.getWaitAfterJoinRequest());
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+							// notify or timeout expired. To clean up the
+							// pending join
+							if (spaceManager.getAALSpaceDescriptor() == null)
+								spaceManager.cleanUpJoinRequest();
+						}
 
-                // check if now I'm part of an AAL Space , if yes no operations
-                // if not and I am a Coordinator I run the initialization of an
-                // AALSpace
-                if (spaceManager.getAALSpaceDescriptor() == null
-                        && spaceManager.getMyPeerCard().isCoordinator()) {
-                    spaceManager.initAALSpace(spaceManager
-                            .getAalSpaceDefaultConfiguration());
-                }
-            }
+					}
+				}
 
-            // check if now I'm part of an AAL Space , if yes no operations
-            // if not and I am a Coordinator I run the initialization of an
-            // AALSpace
-            if (spaceManager.getAALSpaceDescriptor() == null
-                    && spaceManager.getMyPeerCard().isCoordinator()) {
-                spaceManager.initAALSpace(spaceManager
-                        .getAalSpaceDefaultConfiguration());
-            }
+				// check if now I'm part of an AAL Space , if yes no operations
+				// if not and I am a Coordinator I run the initialization of an
+				// AALSpace
+				if (spaceManager.getAALSpaceDescriptor() == null
+						&& spaceManager.getMyPeerCard().isCoordinator()) {
+					spaceManager.initAALSpace(spaceManager
+							.getAalSpaceDefaultConfiguration());
+				}
+			}
 
-        }
-    }
+			// check if now I'm part of an AAL Space , if yes no operations
+			// if not and I am a Coordinator I run the initialization of an
+			// AALSpace
+			if (spaceManager.getAALSpaceDescriptor() == null
+					&& spaceManager.getMyPeerCard().isCoordinator()) {
+				spaceManager.initAALSpace(spaceManager
+						.getAalSpaceDefaultConfiguration());
+			}
+
+		}
+	}
 }
