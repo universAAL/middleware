@@ -56,8 +56,6 @@ public interface ServiceBus {
     public static final String LOG_MATCHING_MISMATCH_CODE = "\nmismatch code: ";
     public static final String LOG_MATCHING_MISMATCH_DETAILS = "\ndetailed mismatch message: ";
 
-    public static final String uAAL_SERVICE_BUS_MODULE_CONTEXT = "uaal:mw.bus.service#moduleContext";
-
     /**
      * Adds an availability subscription, in other words a listener, to receive
      * events about the availability of services matching the given request.
