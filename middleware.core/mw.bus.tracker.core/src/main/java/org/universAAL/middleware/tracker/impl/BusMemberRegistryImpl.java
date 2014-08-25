@@ -253,10 +253,10 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	listeners.remove(listener);
     }
 
-    static void logInfo(String format, Object... args) {
+    void logInfo(String format, Object... args) {
 	StackTraceElement callingMethod = Thread.currentThread()
 		.getStackTrace()[2];
-	LogUtils.logInfo(Activator.mc, BusMemberRegistryImpl.class,
+	LogUtils.logInfo(mc, BusMemberRegistryImpl.class,
 		callingMethod.getMethodName(),
 		new Object[] { String.format(format, args) }, null);
     }
