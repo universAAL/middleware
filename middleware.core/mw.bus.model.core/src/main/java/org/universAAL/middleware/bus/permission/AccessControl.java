@@ -277,27 +277,31 @@ public class AccessControl {
 	boolean isAdvertisement = (m.getType() == BusMemberType.responder)
 		|| (m.getType() == BusMemberType.publisher);
 	Permission[] p = Permission.fromManifest(owner, brokerName,
-		isAdvertisement);
+		isAdvertisement,
+		getAccessControlMode() != AccessControlMode.none);
 	permsMember.put(m.getURI(), p);
 	owners.put(m.getURI(), owner);
 
 	// log permissions
-	if (p.length == 0) {
-	    LogUtils.logDebug(owner, AccessControl.class, "registerBusMember",
-		    new Object[] { "Permissions for bus member ", m.getURI(),
-			    ": -none-" }, null);
-	} else {
-	    LinkedList<String> msg = new LinkedList<String>();
-	    msg.add("Permissions for bus member ");
-	    msg.add(m.getURI());
-	    msg.add(":\n");
-	    for (int i = 0; i < p.length; i++) {
-		msg.add("  " + i + "\t");
-		msg.add(p[i].getTitle());
-		msg.add("\n");
+	if (getAccessControlMode() != AccessControlMode.none) {
+	    if (p.length == 0) {
+		LogUtils.logDebug(owner, AccessControl.class,
+			"registerBusMember", new Object[] {
+				"Permissions for bus member ", m.getURI(),
+				": -none-" }, null);
+	    } else {
+		LinkedList<String> msg = new LinkedList<String>();
+		msg.add("Permissions for bus member ");
+		msg.add(m.getURI());
+		msg.add(":\n");
+		for (int i = 0; i < p.length; i++) {
+		    msg.add("  " + i + "\t");
+		    msg.add(p[i].getTitle());
+		    msg.add("\n");
+		}
+		LogUtils.logDebug(owner, AccessControl.class,
+			"registerBusMember", msg.toArray(), null);
 	    }
-	    LogUtils.logDebug(owner, AccessControl.class, "registerBusMember",
-		    msg.toArray(), null);
 	}
     }
 
@@ -308,12 +312,12 @@ public class AccessControl {
 	    // remove
 	    permsMember.remove(m.getURI());
 	    owners.remove(m.getURI());
-	    LogUtils.logDebug(
-		    owner,
-		    AccessControl.class,
-		    "unregisterBusMember",
-		    new Object[] { "Bus member ", m.getURI(), " unregistered." },
-		    null);
+	    if (getAccessControlMode() != AccessControlMode.none) {
+		LogUtils.logDebug(owner, AccessControl.class,
+			"unregisterBusMember",
+			new Object[] { "Bus member ", m.getURI(),
+				" unregistered." }, null);
+	    }
 	} else {
 	    LogUtils.logWarn(
 		    owner,
