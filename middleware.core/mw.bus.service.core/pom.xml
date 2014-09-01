@@ -19,6 +19,10 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.interfaces.core</artifactId>
     </dependency>
     <dependency>
@@ -44,6 +48,11 @@
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.connectors.api.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.data.serialization.core</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
