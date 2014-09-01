@@ -199,9 +199,11 @@ public abstract class AbstractBus implements Broker, MessageListener {
     protected IRegistry registry;
     protected BusStrategy busStrategy;
     private String brokerName;
+    private PeerCard myCard = null;
 
     protected AbstractBus(ModuleContext module, String brokerName) {
 	context = module;
+	this.myCard = aalSpaceManager.getMyPeerCard();
 	this.brokerName = brokerName;
 	if (communicationModule != null)
 	    communicationModule.addMessageListener(this, getBrokerName());
@@ -244,7 +246,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
     }
 
     public PeerCard getPeerCard() {
-	return aalSpaceManager.getMyPeerCard();
+	return myCard;
     }
 
     /**
