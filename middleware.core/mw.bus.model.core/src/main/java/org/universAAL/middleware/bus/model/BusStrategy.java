@@ -71,7 +71,6 @@ public abstract class BusStrategy extends Thread {
     protected CommunicationModule commModule;
     private Vector<Object[]> queue; // <Message>
     private boolean stopped = false;
-    private String name = "";
     private String nameHandler = "";
 
     /**
@@ -96,7 +95,6 @@ public abstract class BusStrategy extends Thread {
      */
     protected BusStrategy(CommunicationModule commModule, String name) {
 	super(name);
-	this.name = name;
 	this.nameHandler = name + " Handler";
 	this.commModule = commModule;
 	queue = new Vector<Object[]>();
@@ -192,7 +190,7 @@ public abstract class BusStrategy extends Thread {
 			}
 			m = queue.remove(0);
 			new HandlerThread(m).start(); // process message in
-			// separete Thread
+			// separate Thread
 		    }
 		} catch (Exception e) {
 		}
