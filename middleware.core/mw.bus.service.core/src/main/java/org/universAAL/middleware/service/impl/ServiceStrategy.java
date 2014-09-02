@@ -1007,13 +1007,15 @@ public class ServiceStrategy extends BusStrategy {
 		String theCallee = res.getProperty(
 			PROP_uAAL_SERVICE_PROVIDED_BY).toString();
 		if (RES_STATUS_REGISTERED.equals(res
-			.getProperty(PROP_uAAL_REGISTERATION_STATUS)))
-		    for (Iterator i = profiles.iterator(); i.hasNext();) {
-			ServiceProfile prof = (ServiceProfile) i.next();
-			indexServices(prof, new ServiceRealization(theCallee,
-				prof), prof.getProcessURI());
+			.getProperty(PROP_uAAL_REGISTERATION_STATUS))) {
+		    if (profiles != null) {
+			for (Iterator i = profiles.iterator(); i.hasNext();) {
+			    ServiceProfile prof = (ServiceProfile) i.next();
+			    indexServices(prof, new ServiceRealization(
+				    theCallee, prof), prof.getProcessURI());
+			}
 		    }
-		else if (profiles == null)
+		} else if (profiles == null)
 		    unindexServices(theCallee, null);
 		else
 		    for (Iterator i = profiles.iterator(); i.hasNext();)
