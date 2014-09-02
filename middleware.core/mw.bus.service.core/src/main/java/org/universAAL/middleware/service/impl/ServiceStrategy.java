@@ -72,7 +72,7 @@ import org.universAAL.middleware.util.Constants;
  * 
  */
 public class ServiceStrategy extends BusStrategy {
-    private static final String PROP_uAAL_REGISTERATION_STATUS = Resource.uAAL_VOCABULARY_NAMESPACE
+    private static final String PROP_uAAL_REGISTRATION_STATUS = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "registrationStatus";
     private static final String PROP_uAAL_SERVICE_REALIZATION_ID = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "theRealization";
@@ -205,7 +205,7 @@ public class ServiceStrategy extends BusStrategy {
 	    Resource res = new Resource(callerID);
 	    res.addType(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION, true);
 	    res.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST, request);
-	    res.setProperty(PROP_uAAL_REGISTERATION_STATUS,
+	    res.setProperty(PROP_uAAL_REGISTRATION_STATUS,
 		    RES_STATUS_REGISTERED);
 	    ((ServiceBusImpl) bus).assessContentSerialization(res);
 	    BusMessage m = new BusMessage(MessageType.p2p_event, res, bus);
@@ -253,7 +253,7 @@ public class ServiceStrategy extends BusStrategy {
 	if (!isCoordinator && isCoordinatorKnown()) {
 	    Resource r = new Resource();
 	    r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
-	    r.setProperty(PROP_uAAL_REGISTERATION_STATUS, RES_STATUS_REGISTERED);
+	    r.setProperty(PROP_uAAL_REGISTRATION_STATUS, RES_STATUS_REGISTERED);
 	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE,
 		    Arrays.asList(realizedServices));
 	    r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
@@ -969,13 +969,13 @@ public class ServiceStrategy extends BusStrategy {
 				.toString(),
 			res.getProperty(PROP_uAAL_SERVICE_REALIZATION_ID)
 				.toString(), RES_STATUS_REGISTERED.equals(res
-				.getProperty(PROP_uAAL_REGISTERATION_STATUS)));
+				.getProperty(PROP_uAAL_REGISTRATION_STATUS)));
 	    break;
 	case MessageType.P2P_EVENT:
 	    if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION)
 		    && isCoordinator) {
 		if (RES_STATUS_DEREGISTERED.equals(res
-			.getProperty(PROP_uAAL_REGISTERATION_STATUS))) {
+			.getProperty(PROP_uAAL_REGISTRATION_STATUS))) {
 		    String serviceURI = res.getProperty(PROP_uAAL_SERVICE_TYPE)
 			    .toString(), subscriber = res.getURI(), requestURI = res
 			    .getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST)
@@ -1007,7 +1007,7 @@ public class ServiceStrategy extends BusStrategy {
 		String theCallee = res.getProperty(
 			PROP_uAAL_SERVICE_PROVIDED_BY).toString();
 		if (RES_STATUS_REGISTERED.equals(res
-			.getProperty(PROP_uAAL_REGISTERATION_STATUS))) {
+			.getProperty(PROP_uAAL_REGISTRATION_STATUS))) {
 		    if (profiles != null) {
 			for (Iterator i = profiles.iterator(); i.hasNext();) {
 			    ServiceProfile prof = (ServiceProfile) i.next();
@@ -1897,7 +1897,7 @@ public class ServiceStrategy extends BusStrategy {
 	else {
 	    Resource res = new Resource();
 	    res.addType(TYPE_uAAL_SERVICE_BUS_NOTIFICATION, true);
-	    res.setProperty(PROP_uAAL_REGISTERATION_STATUS,
+	    res.setProperty(PROP_uAAL_REGISTRATION_STATUS,
 		    (registers ? RES_STATUS_REGISTERED
 			    : RES_STATUS_DEREGISTERED));
 	    res.setProperty(PROP_uAAL_SERVICE_REALIZATION_ID, new Resource(
@@ -1970,7 +1970,7 @@ public class ServiceStrategy extends BusStrategy {
 	    res.setProperty(PROP_uAAL_SERVICE_TYPE, new Resource(serviceURI));
 	    res.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST, new Resource(
 		    requestURI));
-	    res.setProperty(PROP_uAAL_REGISTERATION_STATUS,
+	    res.setProperty(PROP_uAAL_REGISTRATION_STATUS,
 		    RES_STATUS_DEREGISTERED);
 	    ((ServiceBusImpl) bus).assessContentSerialization(res);
 	    BusMessage m = new BusMessage(MessageType.p2p_event, res, bus);
@@ -2020,7 +2020,7 @@ public class ServiceStrategy extends BusStrategy {
 	if (!isCoordinator && isCoordinatorKnown()) {
 	    Resource r = new Resource();
 	    r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
-	    r.setProperty(PROP_uAAL_REGISTERATION_STATUS,
+	    r.setProperty(PROP_uAAL_REGISTRATION_STATUS,
 		    RES_STATUS_DEREGISTERED);
 	    r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE,
 		    Arrays.asList(realizedServices));
@@ -2061,7 +2061,7 @@ public class ServiceStrategy extends BusStrategy {
 	else if (isCoordinatorKnown()) {
 	    Resource r = new Resource();
 	    r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
-	    r.setProperty(PROP_uAAL_REGISTERATION_STATUS,
+	    r.setProperty(PROP_uAAL_REGISTRATION_STATUS,
 		    RES_STATUS_DEREGISTERED);
 	    r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
 	    ((ServiceBusImpl) bus).assessContentSerialization(r);
