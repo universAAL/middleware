@@ -136,7 +136,7 @@ public class BusMessage implements BrokerMessage {
      * @param message
      *            the string to parse (the serialization of a message object).
      */
-    public BusMessage(String message) {
+    public BusMessage(String message, AbstractBus creator) {
 	if (message == null) {
 	    throw new NullPointerException();
 	}

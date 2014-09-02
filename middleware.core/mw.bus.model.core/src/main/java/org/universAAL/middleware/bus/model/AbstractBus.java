@@ -410,7 +410,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
     }
 
     public BrokerMessage unmarshall(String serializedBusMessage) {
-	return new BusMessage(serializedBusMessage);
+	return new BusMessage(serializedBusMessage, this);
     }
 
     public boolean addRegistryListener(IRegistryListener listener) {
