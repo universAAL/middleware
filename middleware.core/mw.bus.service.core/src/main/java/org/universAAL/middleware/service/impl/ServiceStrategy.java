@@ -2172,20 +2172,22 @@ public class ServiceStrategy extends BusStrategy {
 	HashMap map = new HashMap();
 
 	if (this.isCoordinator) {
-	    Vector neededProfiles = (Vector) this.allServicesIndex
-		    .get(serviceURI);
-	    if (neededProfiles != null)
-		for (Iterator j = neededProfiles.iterator(); j.hasNext();) {
-		    ServiceRealization reg = (ServiceRealization) j.next();
-		    ServiceProfile profile = (ServiceProfile) reg
-			    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
+	    synchronized (allServicesIndex) {
+		Vector neededProfiles = (Vector) this.allServicesIndex
+			.get(serviceURI);
+		if (neededProfiles != null)
+		    for (Iterator j = neededProfiles.iterator(); j.hasNext();) {
+			ServiceRealization reg = (ServiceRealization) j.next();
+			ServiceProfile profile = (ServiceProfile) reg
+				.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
 
-		    String provider = (String) reg.getProvider();
-		    if (map.get(provider) == null) {
-			map.put(provider, new ArrayList());
+			String provider = (String) reg.getProvider();
+			if (map.get(provider) == null) {
+			    map.put(provider, new ArrayList());
+			}
+			((List) map.get(provider)).add(profile);
 		    }
-		    ((List) map.get(provider)).add(profile);
-		}
+	    }
 	}
 
 	return map;
@@ -2204,16 +2206,18 @@ public class ServiceStrategy extends BusStrategy {
 	ArrayList profiles = new ArrayList();
 
 	if (this.isCoordinator) {
-	    Vector neededProfiles = (Vector) this.allServicesIndex
-		    .get(serviceURI);
-	    if (neededProfiles != null)
-		for (Iterator j = neededProfiles.iterator(); j.hasNext();) {
-		    ServiceRealization reg = (ServiceRealization) j.next();
-		    ServiceProfile profile = (ServiceProfile) reg
-			    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
-		    if (profile != null)
-			profiles.add(profile);
-		}
+	    synchronized (allServicesIndex) {
+		Vector neededProfiles = (Vector) this.allServicesIndex
+			.get(serviceURI);
+		if (neededProfiles != null)
+		    for (Iterator j = neededProfiles.iterator(); j.hasNext();) {
+			ServiceRealization reg = (ServiceRealization) j.next();
+			ServiceProfile profile = (ServiceProfile) reg
+				.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
+			if (profile != null)
+			    profiles.add(profile);
+		    }
+	    }
 	}
 
 	return profileListToArray(profiles);
