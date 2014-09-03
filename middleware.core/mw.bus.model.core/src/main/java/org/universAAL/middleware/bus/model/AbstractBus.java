@@ -119,11 +119,12 @@ public abstract class AbstractBus implements Broker, MessageListener {
 			    myContext.getID(), " and the current caller is ",
 			    mc.getID() }, null);
 	}
-	myContext = mc;
 
 	AccessControl.INSTANCE.init(mc);
 	Permission.init(mc);
 
+	myContext = mc;
+	
 	aalSpaceManager = aalSpaceMgr;
 	communicationModule = commModule;
 	// configure the MW's URI instance
