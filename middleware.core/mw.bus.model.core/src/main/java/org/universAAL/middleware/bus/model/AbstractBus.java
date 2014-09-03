@@ -127,10 +127,15 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	
 	aalSpaceManager = aalSpaceMgr;
 	communicationModule = commModule;
+	
+	createURIs();
+    }
+    
+    private static void createURIs() {
 	// configure the MW's URI instance
 	// first check if I already join an AALSpace
 
-	AALSpaceDescriptor sd = aalSpaceMgr.getAALSpaceDescriptor();
+	AALSpaceDescriptor sd = aalSpaceManager.getAALSpaceDescriptor();
 	if (sd != null) {
 	    uAAL_SPACE_INSTANCE_URI_PREFIX = sd.getSpaceCard().getSpaceID()
 		    + "/";
@@ -141,7 +146,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	// then)
 	uAAL_SPACE_INSTANCE_URI_PREFIX = "";
 
-	PeerCard pc = aalSpaceMgr.getMyPeerCard();
+	PeerCard pc = aalSpaceManager.getMyPeerCard();
 	if (pc != null) {
 	    uAAL_MW_INSTANCE_URI_PREFIX = uAAL_SPACE_INSTANCE_URI_PREFIX
 		    + pc.getPeerID() + "#";
