@@ -67,7 +67,7 @@ public interface IBusMemberRegistryListener {
      *            the ID of the bus member for which the registration parameters
      *            have been added.
      * @param params
-     *            the registration parameters.
+     *            the registration parameters that have been added.
      */
     public void regParamsAdded(String busMemberID, Resource[] params);
 
@@ -81,7 +81,7 @@ public interface IBusMemberRegistryListener {
      *            the ID of the bus member for which the registration parameters
      *            have been removed.
      * @param params
-     *            the registration parameters.
+     *            the registration parameters that have been removed.
      */
     public void regParamsRemoved(String busMemberID, Resource[] params);
 }
