@@ -167,8 +167,8 @@ public abstract class ServiceBusTestCase extends TestCase {
 	// coordCallee1 = new MyServiceCallee(mc,
 	// new ServiceProfile[] { ProfileUtil
 	// .create_getControlledLamps(true) }, 1);
-	coordCallee1 = new MyServiceCallee(mc, new ServiceProfile[0]);
-	coordCallee2 = new MyServiceCallee(mc, new ServiceProfile[0]);
+	coordCallee1 = new MyServiceCallee(mc, new ServiceProfile[0], 0, 0);
+	coordCallee2 = new MyServiceCallee(mc, new ServiceProfile[0], 0, 1);
 	coordCaller = new DefaultServiceCaller(mc);
 
 	// ---------
@@ -277,12 +277,12 @@ public abstract class ServiceBusTestCase extends TestCase {
 	// new ServiceProfile[] { ProfileUtil
 	// .create_getControlledLamps(true) }, 2);
 	if (i == 1) {
-	    node1Callee1 = new MyServiceCallee(mc, new ServiceProfile[0]);
-	    node1Callee2 = new MyServiceCallee(mc, new ServiceProfile[0]);
+	    node1Callee1 = new MyServiceCallee(mc, new ServiceProfile[0], 1, 0);
+	    node1Callee2 = new MyServiceCallee(mc, new ServiceProfile[0], 1, 1);
 	    node1Caller = new DefaultServiceCaller(mc);
 	} else {
-	    node2Callee1 = new MyServiceCallee(mc, new ServiceProfile[0]);
-	    node2Callee2 = new MyServiceCallee(mc, new ServiceProfile[0]);
+	    node2Callee1 = new MyServiceCallee(mc, new ServiceProfile[0], 2, 0);
+	    node2Callee2 = new MyServiceCallee(mc, new ServiceProfile[0], 2, 1);
 	    node2Caller = new DefaultServiceCaller(mc);
 	}
 

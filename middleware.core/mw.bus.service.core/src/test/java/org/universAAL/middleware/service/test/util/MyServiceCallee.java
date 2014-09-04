@@ -12,11 +12,15 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 public class MyServiceCallee extends ServiceCallee {
     private CallHandler handler = null;
     List<ServiceProfile[]> profiles = new ArrayList<ServiceProfile[]>();
+    int node;
+    int callee;
 
     protected MyServiceCallee(ModuleContext context,
-	    ServiceProfile[] realizedServices) {
+	    ServiceProfile[] realizedServices, int node, int callee) {
 	super(context, realizedServices);
 	profiles.add(realizedServices);
+	this.node = node;
+	this.callee = callee;
     }
 
     @Override
@@ -29,6 +33,8 @@ public class MyServiceCallee extends ServiceCallee {
 
     @Override
     public ServiceResponse handleCall(ServiceCall call) {
+	System.out.println(" -- Handler called: Node " + node + " Callee "
+		+ callee);
 	CallHandler handler = this.handler;
 	if (handler != null)
 	    return handler.handleCall(call);
