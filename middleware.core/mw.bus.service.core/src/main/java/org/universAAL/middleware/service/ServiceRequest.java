@@ -393,14 +393,14 @@ public class ServiceRequest extends ScopedResource implements Request {
      * Help function for the service bus to quickly decide which aggregations
      * must be performed on outputs.
      */
-    public List getOutputAggregations() {
+    public List<AggregatingFilter> getOutputAggregations() {
 	Resource[] bindings = getRequiredOutputs();
-	List result = new ArrayList(bindings.length);
+	List<AggregatingFilter> result = new ArrayList<AggregatingFilter>(bindings.length);
 	for (Resource binding : bindings) {
 	    Object o = binding
 		    .getProperty(OutputBinding.PROP_OWLS_BINDING_VALUE_FUNCTION);
 	    if (o instanceof AggregatingFilter) {
-		result.add(o);
+		result.add((AggregatingFilter)o);
 	    }
 	}
 	return result;

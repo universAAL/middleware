@@ -261,8 +261,8 @@ public class ServiceResponse extends ScopedResource implements Response,
      * 
      * @return the outputs that the invoked services produced.
      */
-    public List getOutputs() {
-	return (List) props.get(PROP_SERVICE_HAS_OUTPUT);
+    public List<ProcessOutput> getOutputs() {
+	return (List<ProcessOutput>) props.get(PROP_SERVICE_HAS_OUTPUT);
     }
 
     /**
