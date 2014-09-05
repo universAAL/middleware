@@ -746,42 +746,66 @@ public class ServiceStrategy extends BusStrategy {
 			prepareRequestedOutput(sresp.getOutputs(), ctxt);
 			m = m.createReply(sresp);
 		    } else {
-			// get one of the responses and change its output list
-			// to the list of
-			// all output lists while calling
-			// 'prepareRequestedOutput'
-			HashMap ctxt = null;
-			List resultSet = null;
+			// combine all the good responses:
+			// get all outputs of all responses, call
+			// 'prepareRequestedOutput' for a mapping of URIs of the
+			// caller, then rewrite a response and set
+			// combined outputs
+
+			// the outputs: maps URI of ProcessOutput to a list of
+			// ProcessOutputs
+			HashMap<String, ArrayList<ProcessOutput>> outputs = new HashMap<String, ArrayList<ProcessOutput>>();
+			HashMap<?, ?> ctxt = null;
 			ServiceResponse resp = null;
-			for (int i = 0; resultSet == null && i < size; i++) {
-			    ctxt = (HashMap) goods.get(0);
+
+			// 1. get all outputs of all responses
+			for (Object o : goods) {
+			    ctxt = (HashMap<?, ?>) o;
 			    resp = (ServiceResponse) ctxt
 				    .get(CONTEXT_RESPONSE_MESSAGE);
-			    resultSet = resp.getOutputs();
+			    List<ProcessOutput> lstResp = resp.getOutputs();
+			    prepareRequestedOutput(lstResp, ctxt);
+			    for (ProcessOutput i : lstResp) {
+				ArrayList<ProcessOutput> tmp = outputs.get(i
+					.getURI());
+				if (tmp == null) {
+				    tmp = new ArrayList<ProcessOutput>();
+				    outputs.put(i.getURI(), tmp);
+				}
+				tmp.add(i);
+			    }
 			}
-			if (resultSet != null) {
-			    List<ProcessOutput> cloned = new ArrayList<ProcessOutput>(resultSet.size());
-			    for (Iterator<ProcessOutput> i = resultSet.iterator(); i.hasNext();) {
-				cloned.add(i.next());
-				i.remove();
-			    }
-			    if (!cloned.isEmpty()) {
-				prepareRequestedOutput(cloned, ctxt);
-				resultSet.add(cloned);
-			    }
-			    for (int i = 0; i < size; i++) {
-				ctxt = (HashMap) goods.get(i);
-				ServiceResponse tmp = (ServiceResponse) ctxt
-					.get(CONTEXT_RESPONSE_MESSAGE);
-				if (tmp == resp)
-				    continue;
-				List aux = tmp.getOutputs();
-				if (aux != null && !aux.isEmpty()) {
-				    prepareRequestedOutput(aux, ctxt);
-				    resultSet.add(aux);
+
+			// resp is a valid response and we will rewrite its
+			// outputs
+			List<ProcessOutput> lstResp = resp.getOutputs();
+			lstResp.clear();
+
+			// 2. rewrite
+			for (ArrayList<ProcessOutput> lst : outputs.values()) {
+			    // combine all the values into one list
+			    ArrayList<Object> l = new ArrayList<Object>();
+			    for (ProcessOutput po : lst) {
+				Object val = po.getParameterValue();
+				if (val instanceof List) {
+				    // the service has responded with a list of
+				    // objects for this parameter
+				    l.addAll((List<?>) val);
+				} else {
+				    // the service has responded with a single
+				    // object for this parameter
+				    l.add(val);
 				}
 			    }
+			    // create a new ProcessOutput with the calculated
+			    // list l
+			    ProcessOutput po = lst.get(0);
+			    po = new ProcessOutput(po.getURI());
+			    po.setParameterValue(l);
+			    lstResp.add(po);
 			}
+
+			// 3. prepare combined response for sending
 			m = m.createReply(resp);
 		    }
 		    break;

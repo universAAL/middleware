@@ -146,6 +146,24 @@ public class ServiceResponse extends ScopedResource implements Response,
     /**
      * Returns all value objects returned for a required output with the given
      * paramURI. Since the original request might have been responded by several
+     * different service components, the responses are merged and returned into
+     * one list. A return value of null indicates that there are no outputs in
+     * the response. If an empty list is returned by this method, it indicates
+     * that there are no output related to the given paramURI. Otherwise, the
+     * return value is always a list even if there is only one value object in
+     * that list.
+     * 
+     * @param paramURI
+     *            the URI of the required output.
+     * @return the output with the specified URI.
+     */
+    public List getOutput(String paramURI) {
+	return getOutput(paramURI, true);
+    }
+
+    /**
+     * Returns all value objects returned for a required output with the given
+     * paramURI. Since the original request might have been responded by several
      * different service components, asMergedList decides if those responses are
      * returned separately or merged into one list. A return value of null
      * indicates that there are no outputs in the response. If an empty list is
@@ -157,6 +175,8 @@ public class ServiceResponse extends ScopedResource implements Response,
      *            the URI of the required output.
      * @param asMergedList
      *            specifies if the outputs of the separate services are merged.
+     *            This parameter is not available at the moment and should be
+     *            set to <tt>true</tt>
      * @return the output with the specified URI.
      */
     public List getOutput(String paramURI, boolean asMergedList) {
@@ -181,7 +201,8 @@ public class ServiceResponse extends ScopedResource implements Response,
 			result.add(ob);
 		}
 	    } else if (obj instanceof List) {
-		// this can happen if we get responses from more than one service
+		// this can happen if we get responses from more than one
+		// service
 		List outputLists = (List) obj;
 		for (Iterator iter2 = outputLists.iterator(); iter2.hasNext();) {
 		    ProcessOutput output = (ProcessOutput) iter2.next();
@@ -232,7 +253,8 @@ public class ServiceResponse extends ScopedResource implements Response,
 		else
 		    l.add(ob);
 	    } else if (obj instanceof List) {
-		// this can happen if we get responses from more than one service
+		// this can happen if we get responses from more than one
+		// service
 		List outputLists = (List) obj;
 		for (Iterator iter2 = outputLists.iterator(); iter2.hasNext();) {
 		    ProcessOutput output = (ProcessOutput) iter2.next();

@@ -37,7 +37,7 @@ public class DistributedTest extends ServiceBusTestCase {
 	assertTrue(sr != null);
 	assertTrue(sr.getCallStatus() == CallStatus.succeeded);
 
-	List<?> lampList = sr.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS, true);
+	List<?> lampList = sr.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS);
 	assertTrue(lampList.size() == 1);
 	assertTrue(lampList.contains(lamp1));
     }
@@ -52,12 +52,12 @@ public class DistributedTest extends ServiceBusTestCase {
 	assertTrue(sr != null);
 	assertTrue(sr.getCallStatus() == CallStatus.succeeded);
 
-	List<?> lampList = sr.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS, true);
+	List<?> lampList = sr.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS);
 	assertTrue(lampList.size() == 2);
 	assertTrue(lampList.contains(lamp1));
 	assertTrue(lampList.contains(lamp2));
     }
-    
+
     /**
      * Helper method to check if the response is valid and has exactly the
      * members 'lamp1', 'lamp2' abd 'lamp3'
@@ -68,7 +68,7 @@ public class DistributedTest extends ServiceBusTestCase {
 	assertTrue(sr != null);
 	assertTrue(sr.getCallStatus() == CallStatus.succeeded);
 
-	List<?> lampList = sr.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS, true);
+	List<?> lampList = sr.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS);
 	assertTrue(lampList.size() == 3);
 	assertTrue(lampList.contains(lamp1));
 	assertTrue(lampList.contains(lamp2));
@@ -204,21 +204,41 @@ public class DistributedTest extends ServiceBusTestCase {
 	checkResponse2(sr);
     }
 
-//    public void testMultiDistributedGetLamps2() {
-//	// scenario:
-//	// coord: -
-//	// node1: getLamps1 getLamps2
-//	// node2: *
-//	// *: getLamps
-//	reset();
-//	deployProfiles(NODE1, 0, ProfileUtil.create_getControlledLamps(true, 0));
-//	setHandler(NODE1, 0, new ArrayListCallHandler(
-//		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
-//	deployProfiles(NODE1, 1, ProfileUtil.create_getControlledLamps(true, 1));
-//	setHandler(NODE1, 1, new ArrayListCallHandler(
-//		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2));
-//
-//	ServiceResponse sr = call(NODE2, RequestUtil.getAllLampsRequest(true));
-//	checkResponse2(sr);
-//    }
+    public void testMultiDistributedGetLamps2() {
+	// scenario:
+	// coord: -
+	// node1: getLamps1 getLamps2
+	// node2: *
+	// *: getLamps
+	// with ArrayListCallHandler
+	reset();
+	deployProfiles(NODE1, 0, ProfileUtil.create_getControlledLamps(true, 0));
+	setHandler(NODE1, 0, new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
+	deployProfiles(NODE1, 1, ProfileUtil.create_getControlledLamps(true, 1));
+	setHandler(NODE1, 1, new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2));
+
+	ServiceResponse sr = call(NODE2, RequestUtil.getAllLampsRequest(true));
+	checkResponse2(sr);
+    }
+
+    public void testMultiDistributedGetLamps3() {
+	// scenario:
+	// coord: -
+	// node1: getLamps1 getLamps2
+	// node2: *
+	// *: getLamps
+	// with ArrayListCallHandler and ObjectCallHandler
+	reset();
+	deployProfiles(NODE1, 0, ProfileUtil.create_getControlledLamps(true, 0));
+	setHandler(NODE1, 0, new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1, lamp2));
+	deployProfiles(NODE1, 1, ProfileUtil.create_getControlledLamps(true, 1));
+	setHandler(NODE1, 1, new ObjectCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp3));
+
+	ServiceResponse sr = call(NODE2, RequestUtil.getAllLampsRequest(true));
+	checkResponse3(sr);
+    }
 }
