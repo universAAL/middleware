@@ -182,18 +182,16 @@ public abstract class BusStrategy extends Thread {
     public final void run() {
 	while (!stopped) {
 	    Object[] m = null;
-	    while (m == null) {
-		try {
-		    synchronized (queue) {
-			if (queue.isEmpty()) {
-			    queue.wait();
-			}
-			m = queue.remove(0);
-			new HandlerThread(m).start(); // process message in
-			// separate Thread
+	    try {
+		synchronized (queue) {
+		    if (queue.isEmpty()) {
+			queue.wait();
 		    }
-		} catch (Exception e) {
+		    m = queue.remove(0);
+		    new HandlerThread(m).start(); // process message in
+		    // separate Thread
 		}
+	    } catch (Exception e) {
 	    }
 	}
     }
@@ -221,6 +219,7 @@ public abstract class BusStrategy extends Thread {
      */
     public final void stopThread() {
 	stopped = true;
+	queue.notify();
     }
 
     protected ChannelMessage buildChannelMessage(BusMessage m) {
