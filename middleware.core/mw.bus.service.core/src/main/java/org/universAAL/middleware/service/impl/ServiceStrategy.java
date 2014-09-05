@@ -600,15 +600,15 @@ public class ServiceStrategy extends BusStrategy {
 		    break;
 		default:
 		    size = goods.size();
-		    List aggregations = ((ServiceRequest) m.getContent())
+		    List<AggregatingFilter> aggregations = ((ServiceRequest) m.getContent())
 			    .getOutputAggregations();
 		    if (!aggregations.isEmpty()) {
 			int[] points = new int[size];
 			for (int i = 0; i < points.length; i++)
 			    points[i] = 0;
-			for (Iterator i = aggregations.iterator(); i.hasNext();) {
+			for (Iterator<AggregatingFilter> i = aggregations.iterator(); i.hasNext();) {
 			    AggregatingFilter af = (AggregatingFilter) i.next();
-			    List params = af.getFunctionParams();
+			    List<?> params = af.getFunctionParams();
 			    switch (af.getTheFunction().ord()) {
 			    case AggregationFunction.ONE_OF:
 				break;
@@ -760,8 +760,8 @@ public class ServiceStrategy extends BusStrategy {
 			    resultSet = resp.getOutputs();
 			}
 			if (resultSet != null) {
-			    List cloned = new ArrayList(resultSet.size());
-			    for (Iterator i = resultSet.iterator(); i.hasNext();) {
+			    List<ProcessOutput> cloned = new ArrayList<ProcessOutput>(resultSet.size());
+			    for (Iterator<ProcessOutput> i = resultSet.iterator(); i.hasNext();) {
 				cloned.add(i.next());
 				i.remove();
 			    }
@@ -807,10 +807,10 @@ public class ServiceStrategy extends BusStrategy {
      * @param context
      *            - HashMap of bindings for the ProcessOutputs
      */
-    private void prepareRequestedOutput(List outputs, HashMap context) {
+    private void prepareRequestedOutput(List<ProcessOutput> outputs, HashMap<?,?> context) {
 	if (outputs != null && !outputs.isEmpty())
 	    for (int i = outputs.size() - 1; i > -1; i--) {
-		ProcessOutput po = (ProcessOutput) outputs.remove(i);
+		ProcessOutput po = outputs.remove(i);
 		if (po == null)
 		    continue;
 		Resource binding = (Resource) context.get(po.getURI());
