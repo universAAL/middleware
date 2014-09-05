@@ -122,11 +122,21 @@ public class ProfileUtil {
 	return getControlledLamps.getProfile();
     }
 
+    /**
+     * The additional parameter serviceIndex is integrated in the service URI
+     * and therefore in the process URI. It can be used to have multiple
+     * profiles on the same node.
+     * 
+     * @param dev
+     * @param serviceIndex
+     * @return
+     */
     public static ServiceProfile create_getControlledLamps(boolean dev,
-	    int outputIndex) {
-	Service getControlledLamps = createService(SERVICE_GET_LAMPS, dev);
-	getControlledLamps.addOutput(OUTPUT_CONTROLLED_LAMPS_ARR[outputIndex],
-		Lamp.MY_URI, 0, -1, ppControls);
+	    int serviceIndex) {
+	Service getControlledLamps = createService(SERVICE_GET_LAMPS
+		+ serviceIndex, dev);
+	getControlledLamps.addOutput(OUTPUT_CONTROLLED_LAMPS, Lamp.MY_URI, 0,
+		-1, ppControls);
 	return getControlledLamps.getProfile();
     }
 

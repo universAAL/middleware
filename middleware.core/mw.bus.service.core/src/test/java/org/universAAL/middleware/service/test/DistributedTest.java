@@ -5,6 +5,7 @@ import java.util.List;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.test.util.ArrayListCallHandler;
+import org.universAAL.middleware.service.test.util.ObjectCallHandler;
 import org.universAAL.middleware.service.test.util.ProfileUtil;
 import org.universAAL.middleware.service.test.util.RequestUtil;
 import org.universAAL.middleware.service.test.util.ServiceBusTestCase;
@@ -24,6 +25,7 @@ public class DistributedTest extends ServiceBusTestCase {
 
     String lamp1 = "lamp1";
     String lamp2 = "lamp2";
+    String lamp3 = "lamp3";
 
     /**
      * Helper method to check if the response is valid and has exactly the
@@ -54,6 +56,23 @@ public class DistributedTest extends ServiceBusTestCase {
 	assertTrue(lampList.size() == 2);
 	assertTrue(lampList.contains(lamp1));
 	assertTrue(lampList.contains(lamp2));
+    }
+    
+    /**
+     * Helper method to check if the response is valid and has exactly the
+     * members 'lamp1', 'lamp2' abd 'lamp3'
+     * 
+     * @param sr
+     */
+    private void checkResponse3(ServiceResponse sr) {
+	assertTrue(sr != null);
+	assertTrue(sr.getCallStatus() == CallStatus.succeeded);
+
+	List<?> lampList = sr.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS, true);
+	assertTrue(lampList.size() == 3);
+	assertTrue(lampList.contains(lamp1));
+	assertTrue(lampList.contains(lamp2));
+	assertTrue(lampList.contains(lamp3));
     }
 
     public void testSingleCoordGetLamps() {
@@ -131,25 +150,43 @@ public class DistributedTest extends ServiceBusTestCase {
 	checkResponse(sr);
     }
 
-//    public void testMultiCoordGetLamps() {
-//	// scenario:
-//	// coord: getLamps *
-//	// node1: getLamps
-//	// node2: -
-//	// *: getLamps
-//	reset();
-//	deployProfiles(COORD, 0, ProfileUtil.create_getControlledLamps(true));
-//	setHandler(COORD, 0, new ArrayListCallHandler(
-//		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
-//	deployProfiles(COORD, 1, ProfileUtil.create_getControlledLamps(true));
-//	setHandler(COORD, 1, new ArrayListCallHandler(
-//		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2));
-//
-//	ServiceResponse sr = call(COORD, RequestUtil.getAllLampsRequest(true));
-//	checkResponse2(sr);
-//    }
-    
-    public void testMultiDistributedGetLamps() {
+    public void testMultiCoordGetLamps1() {
+	// scenario:
+	// coord: getLamps1 getLamps2 *
+	// node1: -
+	// node2: -
+	// *: getLamps
+	reset();
+	deployProfiles(COORD, 0, ProfileUtil.create_getControlledLamps(true, 0));
+	setHandler(COORD, 0, new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
+	deployProfiles(COORD, 1, ProfileUtil.create_getControlledLamps(true, 1));
+	setHandler(COORD, 1, new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2));
+
+	ServiceResponse sr = call(COORD, RequestUtil.getAllLampsRequest(true));
+	checkResponse2(sr);
+    }
+
+    public void testMultiCoordGetLamps2() {
+	// scenario:
+	// coord: getLamps1 getLamps2 *
+	// node1: -
+	// node2: -
+	// *: getLamps
+	reset();
+	deployProfiles(COORD, 0, ProfileUtil.create_getControlledLamps(true, 0));
+	setHandler(COORD, 0, new ObjectCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
+	deployProfiles(COORD, 1, ProfileUtil.create_getControlledLamps(true, 1));
+	setHandler(COORD, 1, new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2, lamp3));
+
+	ServiceResponse sr = call(COORD, RequestUtil.getAllLampsRequest(true));
+	checkResponse3(sr);
+    }
+
+    public void testMultiDistributedGetLamps1() {
 	// scenario:
 	// coord: getLamps *
 	// node1: getLamps
@@ -166,4 +203,22 @@ public class DistributedTest extends ServiceBusTestCase {
 	ServiceResponse sr = call(COORD, RequestUtil.getAllLampsRequest(true));
 	checkResponse2(sr);
     }
+
+//    public void testMultiDistributedGetLamps2() {
+//	// scenario:
+//	// coord: -
+//	// node1: getLamps1 getLamps2
+//	// node2: *
+//	// *: getLamps
+//	reset();
+//	deployProfiles(NODE1, 0, ProfileUtil.create_getControlledLamps(true, 0));
+//	setHandler(NODE1, 0, new ArrayListCallHandler(
+//		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
+//	deployProfiles(NODE1, 1, ProfileUtil.create_getControlledLamps(true, 1));
+//	setHandler(NODE1, 1, new ArrayListCallHandler(
+//		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2));
+//
+//	ServiceResponse sr = call(NODE2, RequestUtil.getAllLampsRequest(true));
+//	checkResponse2(sr);
+//    }
 }

@@ -220,6 +220,7 @@ middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/MyAALSpaceManager.java -text
 middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/MyCommunicationModule.java -text
 middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/MyServiceCallee.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/ObjectCallHandler.java -text
 middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/ProfileUtil.java -text
 middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/RequestUtil.java -text
 middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/ServiceBusTestCase.java -text

@@ -71,6 +71,12 @@ import junit.framework.TestCase;
  * 
  */
 public abstract class ServiceBusTestCase extends TestCase {
+    /*
+     * TODO: put the setUp()-method in a junit.extensions.TestSetup and add a
+     * tearDown()-method so that it is possible to have multiple subclasses and
+     * to allow a reset() in a new setUp()-method so that not every untit test
+     * has to call it.
+     */
 
     private static boolean isSetup = false;
 
