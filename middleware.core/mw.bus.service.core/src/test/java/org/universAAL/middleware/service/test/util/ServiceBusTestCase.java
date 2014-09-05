@@ -271,9 +271,9 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 	f = ServiceStrategy.class.getDeclaredField("theCoordinator");
 	f.setAccessible(true);
-	System.out.println(" -- setting coord on peer ..");
+	//System.out.println(" -- setting coord on peer ..");
 	f.set(strategy, coordCard);
-	System.out.println(" -- setting coord on peer done");
+	//System.out.println(" -- setting coord on peer done");
 
 	Method method = AbstractBus.class.getDeclaredMethod("createURIs");
 	method.setAccessible(true);
