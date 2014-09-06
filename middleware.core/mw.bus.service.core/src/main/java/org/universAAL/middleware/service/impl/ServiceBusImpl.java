@@ -55,6 +55,8 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     private static ServiceBusImpl theServiceBus = null;
     private static ServiceBusOntology serviceOntology = null;
     private static ModuleContext mc;
+    private static Container container = null;
+    private static Object[] removeParams;
 
     public static Object[] getServiceBusFetchParams() {
 	return busFetchParams.clone();
@@ -90,18 +92,23 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    serviceOntology = new ServiceBusOntology();
 	    OntologyManagement.getInstance().register(mc, serviceOntology);
 	    theServiceBus = new ServiceBusImpl(mc);
+	    ServiceBusImpl.removeParams = serviceBusShareParams;
 	    c.shareObject(mc, theServiceBus, serviceBusShareParams);
+	    container = c;
 	}
     }
 
     public static void stopModule() {
 	if (theServiceBus != null) {
 	    OntologyManagement.getInstance().unregister(mc, serviceOntology);
+	    container.removeSharedObject(mc, theServiceBus, removeParams);
 	    serviceOntology = null;
 	    theServiceBus.dispose();
 	    theServiceBus = null;
+	    busFetchParams = null;
+	    removeParams = null;
+	    container = null;
 	}
-
     }
 
     private ServiceBusImpl(ModuleContext mc) {
@@ -264,5 +271,4 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    CommunicationConnectorException e) {
 	// TODO Auto-generated method stub
     }
-
 }
