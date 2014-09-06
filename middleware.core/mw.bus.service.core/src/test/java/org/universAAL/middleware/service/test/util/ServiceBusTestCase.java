@@ -38,7 +38,6 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
 import org.universAAL.middleware.managers.api.AALSpaceManager;
 import org.universAAL.middleware.modules.CommunicationModule;
-import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
@@ -113,6 +112,11 @@ public abstract class ServiceBusTestCase extends TestCase {
 
     private static int sharedObjectCounter = 0;
 
+    @Override
+    protected void tearDown() throws Exception {
+	super.tearDown();
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     protected void setUp() throws Exception {
@@ -132,7 +136,6 @@ public abstract class ServiceBusTestCase extends TestCase {
 	SharedResources.loadReasoningEngine();
 	SharedResources.middlewareProps.put(
 		SharedResources.uAAL_IS_COORDINATING_PEER, "true");
-	OntologyManagement.getInstance().register(mc, new DataRepOntology());
 	OntologyManagement.getInstance().register(mc, new TestOntology());
 	mc.getContainer().shareObject(mc, new TurtleSerializer(),
 		new Object[] { MessageContentSerializer.class.getName() });
