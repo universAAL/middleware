@@ -111,6 +111,8 @@ public abstract class ServiceBusTestCase extends TestCase {
     public static List<MyServiceCallee> lstCallees = new ArrayList<MyServiceCallee>();
     public static List<ServiceCaller> lstCallers = new ArrayList<ServiceCaller>();
 
+    private static int sharedObjectCounter = 0;
+
     @SuppressWarnings("unchecked")
     @Override
     protected void setUp() throws Exception {
@@ -159,20 +161,18 @@ public abstract class ServiceBusTestCase extends TestCase {
 		mapReadableNodes);
 
 	AbstractBus.initBrokerage(mc, sp, com);
-	// BusMessage.setThisPeer(coordCard);
 	BusMessage.setMessageContentSerializer(mcs);
 
 	// init bus instances
 	Object[] busFetchParams;
+	sharedObjectCounter++;
 
 	// coordinator
-	busFetchParams = new Object[] { "coordinator-container-service" };
+	busFetchParams = new Object[] { "coordinator-container-service"
+		+ sharedObjectCounter };
 	ServiceBusImpl.startModule(JUnitContainer.getInstance(), mc,
 		busFetchParams, busFetchParams);
 
-	// coordCallee1 = new MyServiceCallee(mc,
-	// new ServiceProfile[] { ProfileUtil
-	// .create_getControlledLamps(true) }, 1);
 	coordCallee1 = new MyServiceCallee(mc, new ServiceProfile[0], 0, 0);
 	coordCallee2 = new MyServiceCallee(mc, new ServiceProfile[0], 0, 1);
 	coordCaller = new DefaultServiceCaller(mc);
@@ -202,13 +202,6 @@ public abstract class ServiceBusTestCase extends TestCase {
 	lstCallers.add(coordCaller);
 	lstCallers.add(node1Caller);
 	lstCallers.add(node2Caller);
-
-	// ServiceResponse sr = coordCaller.call(RequestUtil
-	// .getAllLampsRequest(true));
-	// List<?> l = sr.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS, true);
-	// System.out.println(" -- result: " + l.toArray().toString());
-
-	// reset();
 
 	System.out.println("\n\n----------------------\ninitialization done");
 	for (int i = 0; i < 3; i++) {
@@ -252,7 +245,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 	    IllegalAccessException, NoSuchMethodException,
 	    InvocationTargetException {
 	Object[] busFetchParams = new Object[] { "node" + i
-		+ "-container-service" };
+		+ "-container-service" + sharedObjectCounter };
 	ServiceBusImpl.startModule(JUnitContainer.getInstance(), mc,
 		busFetchParams, busFetchParams);
 
@@ -271,17 +264,14 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 	f = ServiceStrategy.class.getDeclaredField("theCoordinator");
 	f.setAccessible(true);
-	//System.out.println(" -- setting coord on peer ..");
+	// System.out.println(" -- setting coord on peer ..");
 	f.set(strategy, coordCard);
-	//System.out.println(" -- setting coord on peer done");
+	// System.out.println(" -- setting coord on peer done");
 
 	Method method = AbstractBus.class.getDeclaredMethod("createURIs");
 	method.setAccessible(true);
 	method.invoke(null);
 
-	// node1Callee1 = new MyServiceCallee(mc,
-	// new ServiceProfile[] { ProfileUtil
-	// .create_getControlledLamps(true) }, 2);
 	if (i == 1) {
 	    node1Callee1 = new MyServiceCallee(mc, new ServiceProfile[0], 1, 0);
 	    node1Callee2 = new MyServiceCallee(mc, new ServiceProfile[0], 1, 1);
@@ -296,15 +286,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 	String peerID = sb.getPeerCard().getPeerID();
 	System.out.println("-- registered new bus instance: Node" + i + " = "
 		+ peerID);
-
     }
-
-    // private void printMap(HashMap map) {
-    // for (Object o : map.keySet()) {
-    // Object v = map.get(o);
-    // System.out.println("\t" + o + "\t" + v);
-    // }
-    // }
 
     /**
      * Removes all service call handler and service profiles from all callees.
