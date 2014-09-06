@@ -273,7 +273,6 @@ public class DistributedTest extends ServiceBusTestCase {
 	// node1: getLampInfo1
 	// node2: getLampInfo2 *
 	// *: getLampInfo
-	// with ArrayListCallHandler and ObjectCallHandler
 	reset();
 
 	Room room1 = new Room("MyRoom1");
