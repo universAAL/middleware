@@ -320,7 +320,6 @@ public class uAALBundleContext implements ModuleContext {
 	    sharedObjects.get(xf).unregister();
 	    sharedObjects.remove(xf);
 	}
-
     }
 
     public void removeSharedObject(String xface, Object obj, Dictionary props) {
