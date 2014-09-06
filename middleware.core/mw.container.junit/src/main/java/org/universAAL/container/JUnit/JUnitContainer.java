@@ -108,4 +108,9 @@ public class JUnitContainer implements Container {
 	    Object[] shareParams) {
 	sharedObjectMap.put((String) shareParams[0], objToShare);
     }
+
+    public void removeSharedObject(ModuleContext requester, Object objToRemove,
+	    Object[] shareParams) {
+	sharedObjectMap.remove((String) shareParams[0]);
+    }
 }

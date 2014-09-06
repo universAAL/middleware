@@ -113,7 +113,19 @@ public interface Container {
      *            Container-specific parameters for sharing a specific object.
      */
     public void shareObject(ModuleContext requester, Object objToShare,
-            Object[] shareParams);
+	    Object[] shareParams);
 
-
+    /**
+     * Removes an object previously shared by a module for usage within this
+     * container.
+     * 
+     * @param requester
+     *            The module in the context of which the shared object was
+     *            shared.
+     * @param fetchParams
+     *            Container-specific parameters for removing shared objects. The
+     *            params must be the same that were used to share the object.
+     */
+    public void removeSharedObject(ModuleContext requester, Object objToRemove,
+	    Object[] shareParams);
 }
