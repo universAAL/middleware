@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceResponse;
+import org.universAAL.middleware.service.test.ontology.Room;
 import org.universAAL.middleware.service.test.util.ArrayListCallHandler;
 import org.universAAL.middleware.service.test.util.ObjectCallHandler;
 import org.universAAL.middleware.service.test.util.ProfileUtil;
 import org.universAAL.middleware.service.test.util.RequestUtil;
 import org.universAAL.middleware.service.test.util.ServiceBusTestCase;
+import org.universAAL.middleware.service.test.util.TwoObjectCallHandler;
 
 /**
  * Unit tests for testing a distributed service bus with 3 bus instances: a
@@ -26,6 +28,9 @@ public class DistributedTest extends ServiceBusTestCase {
     String lamp1 = "lamp1";
     String lamp2 = "lamp2";
     String lamp3 = "lamp3";
+
+    Integer int11 = new Integer(11);
+    Integer int22 = new Integer(22);
 
     /**
      * Helper method to check if the response is valid and has exactly the
@@ -174,6 +179,7 @@ public class DistributedTest extends ServiceBusTestCase {
 	// node1: -
 	// node2: -
 	// *: getLamps
+	// with ArrayListCallHandler and ObjectCallHandler
 	reset();
 	deployProfiles(COORD, 0, ProfileUtil.create_getControlledLamps(true, 0));
 	setHandler(COORD, 0, new ObjectCallHandler(
@@ -240,5 +246,60 @@ public class DistributedTest extends ServiceBusTestCase {
 
 	ServiceResponse sr = call(NODE2, RequestUtil.getAllLampsRequest(true));
 	checkResponse3(sr);
+    }
+
+    public void testMultiDistributedGetLamps4() {
+	// scenario:
+	// coord: -
+	// node1: getLamps1
+	// node2: getLamps2 *
+	// *: getLamps
+	// with ArrayListCallHandler and ObjectCallHandler
+	reset();
+	deployProfiles(NODE1, 0, ProfileUtil.create_getControlledLamps(true, 0));
+	setHandler(NODE1, 0, new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1, lamp2));
+	deployProfiles(NODE2, 1, ProfileUtil.create_getControlledLamps(true, 1));
+	setHandler(NODE2, 1, new ObjectCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp3));
+
+	ServiceResponse sr = call(NODE2, RequestUtil.getAllLampsRequest(true));
+	checkResponse3(sr);
+    }
+
+    public void testMultiDistributedGetLampsInfo() {
+	// scenario:
+	// coord: -
+	// node1: getLampInfo1
+	// node2: getLampInfo2 *
+	// *: getLampInfo
+	// with ArrayListCallHandler and ObjectCallHandler
+	reset();
+
+	Room room1 = new Room("MyRoom1");
+	Room room2 = new Room("MyRoom2");
+
+	deployProfiles(NODE1, ProfileUtil.create_getLampInfo(true));
+	setHandler(NODE1, new TwoObjectCallHandler(
+		ProfileUtil.OUTPUT_LAMP_BRIGHTNESS, int11,
+		ProfileUtil.OUTPUT_LAMP_LOCATION, room1));
+	deployProfiles(NODE2, ProfileUtil.create_getLampInfo(true));
+	setHandler(NODE2, new TwoObjectCallHandler(
+		ProfileUtil.OUTPUT_LAMP_BRIGHTNESS, int22,
+		ProfileUtil.OUTPUT_LAMP_LOCATION, room2));
+
+	ServiceResponse sr = call(NODE2, RequestUtil.getLampInfoRequest(true));
+	assertTrue(sr != null);
+	assertTrue(sr.getCallStatus() == CallStatus.succeeded);
+
+	List<?> lstBrightness = sr.getOutput(RequestUtil.OUTPUT_BRIGHTNESS);
+	assertTrue(lstBrightness.size() == 2);
+	assertTrue(lstBrightness.contains(int11));
+	assertTrue(lstBrightness.contains(int22));
+
+	List<?> lstLocation = sr.getOutput(RequestUtil.OUTPUT_LOCATION);
+	assertTrue(lstLocation.size() == 2);
+	assertTrue(lstLocation.contains(room1));
+	assertTrue(lstLocation.contains(room2));
     }
 }

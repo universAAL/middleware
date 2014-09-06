@@ -35,6 +35,10 @@ public class RequestUtil {
     public static final String lampURI = CONSUMER_NAMESPACE + "lampURI";
     public static final String OUTPUT_LIST_OF_LAMPS = CONSUMER_NAMESPACE
 	    + "controlledLamps";
+    public static final String OUTPUT_BRIGHTNESS = CONSUMER_NAMESPACE
+	    + "out_brightness";
+    public static final String OUTPUT_LOCATION = CONSUMER_NAMESPACE
+	    + "out_location";
 
     public static String[] ppControls;
     public static String[] ppBrightness;
@@ -49,7 +53,6 @@ public class RequestUtil {
 		PhysicalThing.PROP_PHYSICAL_LOCATION };
     }
 
-
     // *****************************************************************
     // Services Requests
     // *****************************************************************
@@ -59,6 +62,14 @@ public class RequestUtil {
 	    return new ServiceRequest(new DeviceService(), null);
 	else
 	    return new ServiceRequest(new LampService(), null);
+    }
+
+    public static ServiceRequest getLampInfoRequest(boolean dev) {
+	ServiceRequest getLampInfo = createRequest(dev);
+	getLampInfo.addValueFilter(ppControls, new Lamp(lampURI));
+	getLampInfo.addRequiredOutput(OUTPUT_BRIGHTNESS, ppBrightness);
+	getLampInfo.addRequiredOutput(OUTPUT_LOCATION, ppLocation);
+	return getLampInfo;
     }
 
     public static ServiceRequest getAllLampsRequest(boolean dev) {

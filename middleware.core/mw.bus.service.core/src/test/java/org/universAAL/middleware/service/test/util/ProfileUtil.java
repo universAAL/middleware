@@ -52,18 +52,12 @@ public class ProfileUtil {
     public static String OUTPUT_LAMP_BRIGHTNESS;
     public static String OUTPUT_LAMP_LOCATION;
 
-    public static String[] OUTPUT_CONTROLLED_LAMPS_ARR;
-
     public static String[] ppControls;
     public static String[] ppBrightness;
     public static String[] ppLocation;
     public static String[] ppLocationType;
 
     public static ArrayList<ServiceProfile> profiles = new ArrayList<ServiceProfile>();
-
-    private static String[] createArray(String s) {
-	return new String[] { s + "0", s + "1", s + "2" };
-    }
 
     static {
 	SERVICE_GET_LAMPS = LAMP_SERVER_NAMESPACE + "srv_getControlledLamps";
@@ -81,8 +75,6 @@ public class ProfileUtil {
 	OUTPUT_CONTROLLED_LAMPS = LAMP_SERVER_NAMESPACE + "out_controlledLamps";
 	OUTPUT_LAMP_BRIGHTNESS = LAMP_SERVER_NAMESPACE + "out_brightness";
 	OUTPUT_LAMP_LOCATION = LAMP_SERVER_NAMESPACE + "out_location";
-
-	OUTPUT_CONTROLLED_LAMPS_ARR = createArray(OUTPUT_CONTROLLED_LAMPS);
 
 	// Help structures to define property paths used more than once below
 	ppControls = new String[] { DeviceService.PROP_CONTROLS };
