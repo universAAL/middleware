@@ -46,6 +46,7 @@ import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.AggregationFunction;
 import org.universAAL.middleware.service.AvailabilitySubscriber;
 import org.universAAL.middleware.service.CallStatus;
+import org.universAAL.middleware.service.ProfileExistsException;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
@@ -218,36 +219,79 @@ public class ServiceStrategy extends BusStrategy {
      * Add service profiles to a previously registered ServiceCallee
      * 
      * @param calleeID
-     *            - the id of the ServiceCallee
+     *            The id of the ServiceCallee
      * @param realizedServices
-     *            - the profiles to add
+     *            The profiles to add
+     * @param throwOnDuplicateReg
+     *            Specifies whether this method should throw an exception or
+     *            just ignore it when a profile is registered with a process URI
+     *            that is already registered.
+     * @throws ProfileExistsException
+     *             if one of the profiles exists already. In that case, none of
+     *             the profiles will be registered.
      */
-    void addRegParams(String calleeID, ServiceProfile[] realizedServices) {
+    void addRegParams(String calleeID, ServiceProfile[] realizedServices,
+	    boolean throwOnDuplicateReg) throws ProfileExistsException {
 	if (realizedServices == null || calleeID == null
 		|| !(getBusMember(calleeID) instanceof ServiceCallee))
 	    return;
 
-	for (int i = 0; i < realizedServices.length; i++) {
-	    // check for qualifications of each realized service
-	    if (realizedServices[i] == null
-		    || realizedServices[i].getTheService() == null)
-		// ignore not-qualified ones
-		continue;
+	class Data {
+	    String processURI;
+	    ServiceRealization registration;
+	    ServiceProfile profile;
+	}
 
-	    String processURI = realizedServices[i].getProcessURI();
-	    if (processURI == null)
-		// ignore not-qualified ones
-		continue;
+	ArrayList<Data> tmp = new ArrayList<Data>();
+	synchronized (localServicesIndex) {
+	    // we first check that all services can be added, i.e. that there is
+	    // no service already added with the same process URI
+	    for (int i = 0; i < realizedServices.length; i++) {
+		// check for qualifications of each realized service
+		if (realizedServices[i] == null
+			|| realizedServices[i].getTheService() == null)
+		    // ignore not-qualified ones
+		    continue;
 
-	    // qualifications fulfilled -> associate service with its provider
-	    ServiceRealization registration = new ServiceRealization(calleeID,
-		    realizedServices[i]);
-	    // index it over the ID of the operation registered
-	    localServicesIndex.addServiceRealization(processURI, registration);
+		String processURI = realizedServices[i].getProcessURI();
+		if (processURI == null)
+		    // ignore not-qualified ones
+		    continue;
 
-	    if (isCoordinator)
-		// more complex indexing of services by the coordinator
-		indexServices(realizedServices[i], registration, processURI);
+		if (localServicesIndex.getServiceRealizationByID(processURI) != null) {
+		    // this process URI is already available!
+		    if (throwOnDuplicateReg) {
+			throw new ProfileExistsException(realizedServices[i], i);
+		    } else {
+			// just ignore this profile, the profile is not
+			// registered for this callee
+			continue;
+		    }
+		}
+
+		// qualifications fulfilled -> associate service with its
+		// provider
+		ServiceRealization registration = new ServiceRealization(
+			calleeID, realizedServices[i]);
+
+		// store in tmp
+		Data dat = new Data();
+		dat.processURI = processURI;
+		dat.profile = realizedServices[i];
+		dat.registration = registration;
+		tmp.add(dat);
+	    }
+
+	    // now store the registrations
+	    for (Data dat : tmp) {
+		// index it over the ID of the operation registered
+		localServicesIndex.addServiceRealization(dat.processURI,
+			dat.registration);
+
+		if (isCoordinator)
+		    // more complex indexing of services by the coordinator
+		    indexServices(dat.profile, dat.registration, dat.processURI);
+	    }
 	}
 
 	if (!isCoordinator && isCoordinatorKnown()) {
@@ -1118,9 +1162,12 @@ public class ServiceStrategy extends BusStrategy {
 	    break;
 	case MessageType.P2P_REQUEST:
 	    if (res instanceof ServiceCall) {
-		ServiceRealization sr = localServicesIndex
-			.getServiceRealizationByID(((ServiceCall) res)
-				.getProcessURI());
+		ServiceRealization sr;
+		synchronized (localServicesIndex) {
+		    sr = localServicesIndex
+			    .getServiceRealizationByID(((ServiceCall) res)
+				    .getProcessURI());
+		}
 		if (sr != null) {
 		    ServiceCallee callee = (ServiceCallee) getBusMember(sr
 			    .getProperty(
@@ -2011,7 +2058,6 @@ public class ServiceStrategy extends BusStrategy {
      * @param realizedServices
      *            - the service profiles to remove
      */
-
     void removeMatchingRegParams(String calleeID,
 	    ServiceProfile[] realizedServices) {
 	if (realizedServices == null || calleeID == null
@@ -2026,15 +2072,19 @@ public class ServiceStrategy extends BusStrategy {
 	    if (processURI == null)
 		continue;
 
-	    ServiceRealization reg = localServicesIndex
-		    .removeServiceRealization(processURI);
-	    if (!calleeID.equals(reg
-		    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))
-		    || !processURI
-			    .equals(((ServiceProfile) reg
-				    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
-				    .getProcessURI())) {
-		localServicesIndex.addServiceRealization(processURI, reg);
+	    synchronized (localServicesIndex) {
+		ServiceRealization reg = localServicesIndex
+			.removeServiceRealization(processURI);
+		if (reg == null)
+		    continue;
+		if (!calleeID.equals(reg
+			.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))
+			|| !processURI
+				.equals(((ServiceProfile) reg
+					.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+					.getProcessURI())) {
+		    localServicesIndex.addServiceRealization(processURI, reg);
+		}
 	    }
 
 	    if (isCoordinator)
@@ -2068,15 +2118,17 @@ public class ServiceStrategy extends BusStrategy {
 		|| !(getBusMember(calleeID) instanceof ServiceCallee))
 	    return;
 
-	String[] serviceRealizationsIds = localServicesIndex
-		.getServiceRealizationIds();
-	for (int i = 0; i < serviceRealizationsIds.length; i++) {
-	    String id = serviceRealizationsIds[i];
-	    ServiceRealization serviceRealization = localServicesIndex
-		    .getServiceRealizationByID(id);
-	    if (calleeID.equals(serviceRealization
-		    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))) {
-		localServicesIndex.removeServiceRealization(id);
+	synchronized (localServicesIndex) {
+	    String[] serviceRealizationsIds = localServicesIndex
+		    .getServiceRealizationIds();
+	    for (int i = 0; i < serviceRealizationsIds.length; i++) {
+		String id = serviceRealizationsIds[i];
+		ServiceRealization serviceRealization = localServicesIndex
+			.getServiceRealizationByID(id);
+		if (calleeID.equals(serviceRealization
+			.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))) {
+		    localServicesIndex.removeServiceRealization(id);
+		}
 	    }
 	}
 

@@ -3,11 +3,13 @@ package org.universAAL.middleware.service.test;
 import java.util.List;
 
 import org.universAAL.middleware.service.CallStatus;
+import org.universAAL.middleware.service.ProfileExistsException;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.service.test.ontology.Room;
 import org.universAAL.middleware.service.test.util.ArrayListCallHandler;
 import org.universAAL.middleware.service.test.util.CallHandler;
+import org.universAAL.middleware.service.test.util.MyServiceCallee;
 import org.universAAL.middleware.service.test.util.ObjectCallHandler;
 import org.universAAL.middleware.service.test.util.ProfileUtil;
 import org.universAAL.middleware.service.test.util.RequestUtil;
@@ -231,5 +233,25 @@ public class DistributedTest extends ServiceBusTestCase {
 	assertTrue(lstLocation.size() == 2);
 	assertTrue(lstLocation.contains(room1));
 	assertTrue(lstLocation.contains(room2));
+    }
+
+    public void testSameProcessURI() {
+	// tests to register 2 callees with the same profile (same process URI)
+	// on the same node
+	reset();
+	int num = getNumRegisteredProfiles();
+	MyServiceCallee c = coordCallee1;
+	c.addProfiles(new ServiceProfile[] { ProfileUtil
+		.create_getControlledLamps(true) });
+	waitForProfileNumberChange(num);
+
+	boolean hasThrown = false;
+	try {
+	    c.addProfiles(new ServiceProfile[] { ProfileUtil
+		    .create_getControlledLamps(true) }, true);
+	} catch (ProfileExistsException e) {
+	    hasThrown = true;
+	}
+	assertTrue(hasThrown);
     }
 }

@@ -157,6 +157,7 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/AvailabilitySubscriber.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/CallStatus.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/DefaultServiceCaller.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ProfileExistsException.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceBus.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceBusFacade.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceCall.java -text
