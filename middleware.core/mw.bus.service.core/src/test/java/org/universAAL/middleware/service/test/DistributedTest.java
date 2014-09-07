@@ -130,7 +130,8 @@ public class DistributedTest extends ServiceBusTestCase {
 		handler2, RequestUtil.getAllLampsRequest(true), checker, true);
     }
 
-    public void testMultiCoordGetLamps2() {
+    public void testResponseAggCoord() {
+	// test the aggregation of ServiceResponses
 	// scenario:
 	// coord: getLamps1 getLamps2 *
 	// node1: -
@@ -149,44 +150,8 @@ public class DistributedTest extends ServiceBusTestCase {
 	checkResponse3(sr);
     }
 
-    public void testMultiDistributedGetLamps1() {
-	// scenario:
-	// coord: getLamps *
-	// node1: getLamps
-	// node2: -
-	// *: getLamps
-	reset();
-	deployProfiles(COORD, 0, ProfileUtil.create_getControlledLamps(true));
-	setHandler(COORD, 0, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
-	deployProfiles(NODE1, 1, ProfileUtil.create_getControlledLamps(true));
-	setHandler(NODE1, 1, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2));
-
-	ServiceResponse sr = call(COORD, RequestUtil.getAllLampsRequest(true));
-	checkResponse2(sr);
-    }
-
-    public void testMultiDistributedGetLamps2() {
-	// scenario:
-	// coord: -
-	// node1: getLamps1 getLamps2
-	// node2: *
-	// *: getLamps
-	// with ArrayListCallHandler
-	reset();
-	deployProfiles(NODE1, 0, ProfileUtil.create_getControlledLamps(true, 0));
-	setHandler(NODE1, 0, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
-	deployProfiles(NODE1, 1, ProfileUtil.create_getControlledLamps(true, 1));
-	setHandler(NODE1, 1, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2));
-
-	ServiceResponse sr = call(NODE2, RequestUtil.getAllLampsRequest(true));
-	checkResponse2(sr);
-    }
-
-    public void testMultiDistributedGetLamps3() {
+    public void testResponseAggListObject1() {
+	// test the aggregation of ServiceResponses
 	// scenario:
 	// coord: -
 	// node1: getLamps1 getLamps2
@@ -205,7 +170,8 @@ public class DistributedTest extends ServiceBusTestCase {
 	checkResponse3(sr);
     }
 
-    public void testMultiDistributedGetLamps4() {
+    public void testResponseAggListObject2() {
+	// test the aggregation of ServiceResponses
 	// scenario:
 	// coord: -
 	// node1: getLamps1
@@ -224,7 +190,8 @@ public class DistributedTest extends ServiceBusTestCase {
 	checkResponse3(sr);
     }
 
-    public void testMultiDistributedGetLampsInfo() {
+    public void testResponseAgg2Outputs() {
+	// test the aggregation of ServiceResponses with 2 outputs
 	// scenario:
 	// coord: -
 	// node1: getLampInfo1
