@@ -121,7 +121,7 @@ public abstract class ServiceCaller extends Caller {
     public final void handleReply(BusMessage m) {
 	if (m.getType() == MessageType.reply
 		&& (m.getContent() instanceof ServiceResponse)) {
-	    LogUtils.logInfo(
+	    LogUtils.logDebug(
 		    owner,
 		    ServiceCaller.class,
 		    "handleReply",
