@@ -374,7 +374,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	if (message != null) {
 	    BusMessage busMessage = (BusMessage) unmarshall(message
 		    .getContent());
-	    LogUtils.logInfo(context, AbstractBus.class, "messageReceived",
+	    LogUtils.logDebug(context, AbstractBus.class, "messageReceived",
 		    new Object[] { context.getID(),
 			    " - Received message from peer ",
 			    message.getSender().getPeerID(), ":\n",
