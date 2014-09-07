@@ -46,7 +46,8 @@ public class MyServiceCallee extends ServiceCallee {
 	profiles.add(p);
 	addNewServiceProfiles(p);
 
-	System.out.println(" -- added new profile for " + getMyID());
+	System.out.println(" -- added new profile for Node " + node
+		+ " Callee " + callee);
     }
 
     public void reset() {

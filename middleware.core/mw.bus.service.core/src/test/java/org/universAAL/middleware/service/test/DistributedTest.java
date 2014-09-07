@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceResponse;
+import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.service.test.ontology.Room;
 import org.universAAL.middleware.service.test.util.ArrayListCallHandler;
+import org.universAAL.middleware.service.test.util.CallHandler;
 import org.universAAL.middleware.service.test.util.ObjectCallHandler;
 import org.universAAL.middleware.service.test.util.ProfileUtil;
 import org.universAAL.middleware.service.test.util.RequestUtil;
+import org.universAAL.middleware.service.test.util.ResponseChecker;
 import org.universAAL.middleware.service.test.util.ServiceBusTestCase;
 import org.universAAL.middleware.service.test.util.TwoObjectCallHandler;
 
@@ -18,7 +21,8 @@ import org.universAAL.middleware.service.test.util.TwoObjectCallHandler;
  * 
  * Each unit test should have a scenario description that describes for all
  * three nodes which profiles are registered there. A '*' means that the caller
- * is on that node; the request of the caller is mentioned at the end.
+ * is on that node; the request of the caller is mentioned at the end. This
+ * description can be omitted if all deployments are tested.
  * 
  * @author Carsten Stockloew
  * 
@@ -80,97 +84,50 @@ public class DistributedTest extends ServiceBusTestCase {
 	assertTrue(lampList.contains(lamp3));
     }
 
-    public void testSingleCoordGetLamps() {
-	// scenario:
-	// coord: getLamps *
-	// node1: -
-	// node2: -
-	// *: getLamps
-	reset();
-	deployProfiles(COORD, ProfileUtil.create_getControlledLamps(true));
-	setHandler(COORD, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
+    public void testSingleGetLamps() {
+	// scenario: getLamps, 1 callee, allDeployments
+	ResponseChecker checker = new ResponseChecker() {
+	    public void check(ServiceResponse sr) {
+		assertTrue(sr != null);
+		assertTrue(sr.getCallStatus() == CallStatus.succeeded);
 
-	ServiceResponse sr = call(COORD, RequestUtil.getAllLampsRequest(true));
-	checkResponse(sr);
+		List<?> lampList = sr
+			.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS);
+		assertTrue(lampList.size() == 1);
+		assertTrue(lampList.contains(lamp1));
+	    }
+	};
+	testAllDeployments("SingleProfileGetLamps",
+		ProfileUtil.create_getControlledLamps(true),
+		new ArrayListCallHandler(ProfileUtil.OUTPUT_CONTROLLED_LAMPS,
+			lamp1), RequestUtil.getAllLampsRequest(true), checker);
     }
 
-    public void testSingleDistributedGetLamps1() {
-	// scenario:
-	// coord: getLamps
-	// node1: *
-	// node2: -
-	// *: getLamps
-	reset();
-	deployProfiles(COORD, ProfileUtil.create_getControlledLamps(true));
-	setHandler(COORD, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
+    public void testMultiGetLamps() {
+	// scenario: getLamps, 2 callees, allDeployments
+	ServiceProfile profile1 = ProfileUtil
+		.create_getControlledLamps(true, 0);
+	ServiceProfile profile2 = ProfileUtil
+		.create_getControlledLamps(true, 1);
+	CallHandler handler1 = new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1);
+	CallHandler handler2 = new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2);
+	ResponseChecker checker = new ResponseChecker() {
+	    public void check(ServiceResponse sr) {
+		assertTrue(sr != null);
+		assertTrue(sr.getCallStatus() == CallStatus.succeeded);
 
-	ServiceResponse sr = call(NODE1, RequestUtil.getAllLampsRequest(true));
-	checkResponse(sr);
-    }
+		List<?> lampList = sr
+			.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS);
+		assertTrue(lampList.size() == 2);
+		assertTrue(lampList.contains(lamp1));
+		assertTrue(lampList.contains(lamp2));
+	    }
+	};
 
-    public void testSingleDistributedGetLamps2() {
-	// scenario:
-	// coord: *
-	// node1: getLamps
-	// node2: -
-	// *: getLamps
-	reset();
-	deployProfiles(NODE1, ProfileUtil.create_getControlledLamps(true));
-	setHandler(NODE1, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
-
-	ServiceResponse sr = call(COORD, RequestUtil.getAllLampsRequest(true));
-	checkResponse(sr);
-    }
-
-    public void testSingleDistributedGetLamps3() {
-	// scenario:
-	// coord: -
-	// node1: getLamps *
-	// node2: -
-	// *: getLamps
-	reset();
-	deployProfiles(NODE1, ProfileUtil.create_getControlledLamps(true));
-	setHandler(NODE1, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
-
-	ServiceResponse sr = call(NODE1, RequestUtil.getAllLampsRequest(true));
-	checkResponse(sr);
-    }
-
-    public void testSingleDistributedGetLamps4() {
-	// scenario:
-	// coord: -
-	// node1: getLamps
-	// node2: *
-	// *: getLamps
-	reset();
-	deployProfiles(NODE1, ProfileUtil.create_getControlledLamps(true));
-	setHandler(NODE1, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
-
-	ServiceResponse sr = call(NODE2, RequestUtil.getAllLampsRequest(true));
-	checkResponse(sr);
-    }
-
-    public void testMultiCoordGetLamps1() {
-	// scenario:
-	// coord: getLamps1 getLamps2 *
-	// node1: -
-	// node2: -
-	// *: getLamps
-	reset();
-	deployProfiles(COORD, 0, ProfileUtil.create_getControlledLamps(true, 0));
-	setHandler(COORD, 0, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
-	deployProfiles(COORD, 1, ProfileUtil.create_getControlledLamps(true, 1));
-	setHandler(COORD, 1, new ArrayListCallHandler(
-		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2));
-
-	ServiceResponse sr = call(COORD, RequestUtil.getAllLampsRequest(true));
-	checkResponse2(sr);
+	testAllDeployments("TwoProfilesGetLamps", profile1, handler1, profile2,
+		handler2, RequestUtil.getAllLampsRequest(true), checker, true);
     }
 
     public void testMultiCoordGetLamps2() {
