@@ -88,13 +88,7 @@ public class DistributedTest extends ServiceBusTestCase {
 	// scenario: getLamps, 1 callee, allDeployments
 	ResponseChecker checker = new ResponseChecker() {
 	    public void check(ServiceResponse sr) {
-		assertTrue(sr != null);
-		assertTrue(sr.getCallStatus() == CallStatus.succeeded);
-
-		List<?> lampList = sr
-			.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS);
-		assertTrue(lampList.size() == 1);
-		assertTrue(lampList.contains(lamp1));
+		checkResponse(sr);
 	    }
 	};
 	testAllDeployments("SingleProfileGetLamps",
@@ -115,19 +109,32 @@ public class DistributedTest extends ServiceBusTestCase {
 		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2);
 	ResponseChecker checker = new ResponseChecker() {
 	    public void check(ServiceResponse sr) {
-		assertTrue(sr != null);
-		assertTrue(sr.getCallStatus() == CallStatus.succeeded);
-
-		List<?> lampList = sr
-			.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS);
-		assertTrue(lampList.size() == 2);
-		assertTrue(lampList.contains(lamp1));
-		assertTrue(lampList.contains(lamp2));
+		checkResponse2(sr);
 	    }
 	};
 
 	testAllDeployments("TwoProfilesGetLamps", profile1, handler1, profile2,
 		handler2, RequestUtil.getAllLampsRequest(true), checker, true);
+    }
+
+    public void testMultiGetLampsSameProcess() {
+	// scenario: getLamps, 2 callees, allDeployments
+	// the profiles for the 2 callees is the same, i.e. the process URI, but
+	// the callees are not on the same node
+	ServiceProfile profile1 = ProfileUtil.create_getControlledLamps(true);
+	ServiceProfile profile2 = ProfileUtil.create_getControlledLamps(true);
+	CallHandler handler1 = new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1);
+	CallHandler handler2 = new ArrayListCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp2);
+	ResponseChecker checker = new ResponseChecker() {
+	    public void check(ServiceResponse sr) {
+		checkResponse2(sr);
+	    }
+	};
+
+	testAllDeployments("TwoProfilesGetLamps", profile1, handler1, profile2,
+		handler2, RequestUtil.getAllLampsRequest(true), checker, false);
     }
 
     public void testResponseAggCoord() {
