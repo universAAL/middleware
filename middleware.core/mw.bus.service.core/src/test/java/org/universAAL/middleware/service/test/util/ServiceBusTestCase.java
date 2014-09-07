@@ -30,9 +30,9 @@ import java.util.Map;
 
 import org.universAAL.container.JUnit.JUnitContainer;
 import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.msg.BusMessage;
-import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
@@ -83,7 +83,7 @@ public abstract class ServiceBusTestCase extends TestCase {
     public static int NODE1 = 1;
     public static int NODE2 = 2;
 
-    public static ModuleContext mc;
+    public static JUnitModuleContext mc;
     public static MessageContentSerializer mcs;
 
     public static PeerCard coordCard = new PeerCard(PeerRole.COORDINATOR,
@@ -126,10 +126,10 @@ public abstract class ServiceBusTestCase extends TestCase {
 	    return;
 	isSetup = true;
 
-	System.setProperty("org.universaal.bus.permission.mode", "none");
-
 	System.out.println(" - starting BusTestCase -");
+	System.setProperty("org.universaal.bus.permission.mode", "none");
 	mc = new JUnitModuleContext();
+	mc.setLogLevel(LogLevel.DEBUG);
 
 	// init data representation
 	SharedResources.moduleContext = mc;
@@ -490,5 +490,66 @@ public abstract class ServiceBusTestCase extends TestCase {
 
     public Resource deserialize(String s) {
 	return (Resource) mcs.deserialize(s);
+    }
+
+    /**
+     * Test the given profile and request for all possible deployments.
+     */
+    public void testAllDeployments(String name, ServiceProfile profile,
+	    CallHandler handler, ServiceRequest request, ResponseChecker checker) {
+	System.out.println("---------------\n testing scenario " + name + "\n");
+	for (int i = 0; i < 3; i++) {
+	    for (int j = 0; j < 3; j++) {
+		reset();
+		System.out.println(" -- testing scenario: " + name
+			+ "\n   profile on " + lstReadableNodes.get(i)
+			+ ", request from " + lstReadableNodes.get(j));
+
+		deployProfiles(i, profile);
+		setHandler(i, handler);
+		ServiceResponse sr = call(j, request);
+		checker.check(sr);
+	    }
+	}
+    }
+
+    /**
+     * Test the given profiles and request for all possible deployments.
+     */
+    public void testAllDeployments(String name, ServiceProfile profile1,
+	    CallHandler handler1, ServiceProfile profile2,
+	    CallHandler handler2, ServiceRequest request,
+	    ResponseChecker checker, boolean allowProfilesOnSameNode) {
+	System.out.println("---------------\n testing scenario " + name + "\n");
+	for (int i = 0; i < 3; i++) {
+	    for (int j = 0; j < 3; j++) {
+		for (int k = 0; k < 3; k++) {
+		    if (!allowProfilesOnSameNode)
+			if (i == j)
+			    continue;
+		    reset();
+		    System.out.println(" -- testing scenario: " + name);
+		    System.out.println("  profile1 on "
+			    + lstReadableNodes.get(i));
+		    System.out.println("  profile2 on "
+			    + lstReadableNodes.get(j));
+		    System.out.println("  request from "
+			    + lstReadableNodes.get(k));
+
+		    deployProfiles(i, profile1);
+		    setHandler(i, handler1);
+		    if (i == j) {
+			// profiles on same node -> use different callee
+			deployProfiles(j, 1, profile2);
+			setHandler(j, 1, handler2);
+		    } else {
+			deployProfiles(j, profile2);
+			setHandler(j, handler2);
+		    }
+		    ServiceResponse sr = call(k, request);
+		    checker.check(sr);
+		}
+	    }
+	}
     }
 }
