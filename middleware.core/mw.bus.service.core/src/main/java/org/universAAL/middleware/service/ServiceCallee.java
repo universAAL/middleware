@@ -63,8 +63,38 @@ public abstract class ServiceCallee extends Callee {
     }
 
     /**
+     * The default constructor for this class.
+     * 
+     * @param context
+     *            The OSGI bundle context where the ServiceBus is registered.
+     *            Note that if no service bus is registered at the time of
+     *            creation, this object will not be operational.
+     * @param realizedServices
+     *            The initial set of services that are realized by this callee.
+     * @param throwOnError
+     *            Determines if an Exception should be thrown in case of an
+     *            error. In that case, none of the profiles will be registered.
+     * @throws NullPointerException
+     *             if realizedServices is null or one of the elements of that
+     *             array is null
+     * @throws ProfileExistsException
+     *             if one of the profiles exists already.
+     * @throws SecurityException
+     *             if one of the profiles is not allowed to be registered by
+     *             this module.
+     */
+    protected ServiceCallee(ModuleContext context,
+	    ServiceProfile[] realizedServices, boolean throwOnError)
+	    throws ProfileExistsException {
+	super(context, ServiceBusImpl.getServiceBusFetchParams());
+	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
+		getURI(), realizedServices);
+	addNewServiceProfiles(realizedServices, throwOnError);
+    }
+
+    /**
      * Registers additional services to be provided by this
-     * <code>ServiceCalee</code>.
+     * <code>ServiceCallee</code>.
      * 
      * @param realizedServices
      *            the new services.
@@ -73,15 +103,45 @@ public abstract class ServiceCallee extends Callee {
      *             array is null
      */
     protected final void addNewServiceProfiles(ServiceProfile[] realizedServices) {
-	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
-		getURI(), realizedServices);
+	try {
+	    addNewServiceProfiles(realizedServices, false);
+	} catch (ProfileExistsException e) {
+	}
+    }
+
+    /**
+     * Registers additional services to be provided by this
+     * <code>ServiceCallee</code>.
+     * 
+     * @param realizedServices
+     *            the new services.
+     * @param throwOnError
+     *            Determines if an Exception should be thrown in case of an
+     *            error. In that case, none of the profiles will be registered.
+     * @throws NullPointerException
+     *             if realizedServices is null or one of the elements of that
+     *             array is null
+     * @throws ProfileExistsException
+     *             if one of the profiles exists already.
+     * @throws SecurityException
+     *             if one of the profiles is not allowed to be registered by
+     *             this module.
+     */
+    protected final void addNewServiceProfiles(
+	    ServiceProfile[] realizedServices, boolean throwOnError)
+	    throws ProfileExistsException {
+	ServiceProfile[] filteredServices = AccessControl.INSTANCE
+		.checkPermission(owner, getURI(), realizedServices);
+	if (throwOnError && filteredServices.length != realizedServices.length)
+	    throw new SecurityException(
+		    "A profile is not allowed to be registered by this module.");
 	((ServiceBus) theBus).addNewServiceProfiles(busResourceURI,
-		realizedServices);
+		filteredServices, throwOnError);
     }
 
     /**
      * Removes a specified set of services that were previously provided by this
-     * <code>ServiceCalee</code>.
+     * <code>ServiceCallee</code>.
      * 
      * @param realizedServices
      *            the services that need to be removed.

@@ -34,6 +34,7 @@ import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.AvailabilitySubscriber;
+import org.universAAL.middleware.service.ProfileExistsException;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceCaller;
@@ -138,10 +139,11 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
      *      ServiceProfile[])
      */
     public void addNewServiceProfiles(String calleeID,
-	    ServiceProfile[] realizedServices) {
+	    ServiceProfile[] realizedServices, boolean throwOnDuplicateReg)
+	    throws ProfileExistsException {
 	if (calleeID != null) {
 	    ((ServiceStrategy) busStrategy).addRegParams(calleeID,
-		    realizedServices);
+		    realizedServices, throwOnDuplicateReg);
 	    registry.addRegParams(calleeID, realizedServices);
 	}
     }

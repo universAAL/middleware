@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.service.ProfileExistsException;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceResponse;
@@ -45,6 +46,15 @@ public class MyServiceCallee extends ServiceCallee {
     public void addProfiles(ServiceProfile[] p) {
 	profiles.add(p);
 	addNewServiceProfiles(p);
+
+	System.out.println(" -- added new profile for Node " + node
+		+ " Callee " + callee);
+    }
+
+    public void addProfiles(ServiceProfile[] p, boolean throwOnError)
+	    throws ProfileExistsException {
+	addNewServiceProfiles(p, throwOnError);
+	profiles.add(p);
 
 	System.out.println(" -- added new profile for Node " + node
 		+ " Callee " + callee);

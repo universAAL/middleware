@@ -75,17 +75,25 @@ public interface ServiceBus {
 
     /**
      * Registers (advertises) new services (by providing descriptions of them)
-     * that will be provided by the ServiceCalee with the specified ID.
+     * that will be provided by the ServiceCallee with the specified ID.
      * 
      * @param calleeID
-     *            the ID of the ServiceCalee that is advertising new services on
-     *            the service bus.
+     *            the ID of the ServiceCallee that is advertising new services
+     *            on the service bus.
      * @param realizedServices
      *            the description of the new services in terms of an array of
      *            service profiles.
+     * @param throwOnDuplicateReg
+     *            Specifies whether this method should throw an exception or
+     *            just ignore it when a profile is registered with a process URI
+     *            that is already registered.
+     * @throws ProfileExistsException
+     *             if one of the profiles exists already. In that case, none of
+     *             the profiles will be registered.
      */
     public void addNewServiceProfiles(String calleeID,
-	    ServiceProfile[] realizedServices);
+	    ServiceProfile[] realizedServices, boolean throwOnDuplicateReg)
+	    throws ProfileExistsException;
 
     /**
      * A method used to retrieve the descriptions of all services advertised on
