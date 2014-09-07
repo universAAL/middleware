@@ -231,7 +231,7 @@ public class ServiceStrategy extends BusStrategy {
      *             the profiles will be registered.
      */
     void addRegParams(String calleeID, ServiceProfile[] realizedServices,
-	    boolean throwOnDuplicateReg) throws ProfileExistsException {
+	    boolean throwOnDuplicateReg) {
 	if (realizedServices == null || calleeID == null
 		|| !(getBusMember(calleeID) instanceof ServiceCallee))
 	    return;

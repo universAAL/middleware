@@ -84,8 +84,7 @@ public abstract class ServiceCallee extends Callee {
      *             this module.
      */
     protected ServiceCallee(ModuleContext context,
-	    ServiceProfile[] realizedServices, boolean throwOnError)
-	    throws ProfileExistsException {
+	    ServiceProfile[] realizedServices, boolean throwOnError) {
 	super(context, ServiceBusImpl.getServiceBusFetchParams());
 	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
 		getURI(), realizedServices);
@@ -128,8 +127,7 @@ public abstract class ServiceCallee extends Callee {
      *             this module.
      */
     protected final void addNewServiceProfiles(
-	    ServiceProfile[] realizedServices, boolean throwOnError)
-	    throws ProfileExistsException {
+	    ServiceProfile[] realizedServices, boolean throwOnError) {
 	ServiceProfile[] filteredServices = AccessControl.INSTANCE
 		.checkPermission(owner, getURI(), realizedServices);
 	if (throwOnError && filteredServices.length != realizedServices.length)

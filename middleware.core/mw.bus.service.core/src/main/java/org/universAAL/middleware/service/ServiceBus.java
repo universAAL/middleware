@@ -92,8 +92,7 @@ public interface ServiceBus {
      *             the profiles will be registered.
      */
     public void addNewServiceProfiles(String calleeID,
-	    ServiceProfile[] realizedServices, boolean throwOnDuplicateReg)
-	    throws ProfileExistsException;
+	    ServiceProfile[] realizedServices, boolean throwOnDuplicateReg);
 
     /**
      * A method used to retrieve the descriptions of all services advertised on

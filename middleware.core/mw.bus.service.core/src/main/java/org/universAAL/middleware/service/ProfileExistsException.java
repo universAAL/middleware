@@ -28,7 +28,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * @author Carsten Stockloew
  * 
  */
-public class ProfileExistsException extends Exception {
+public class ProfileExistsException extends RuntimeException {
 
     private static final long serialVersionUID = -3680652227316685556L;
 
