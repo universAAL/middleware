@@ -245,6 +245,7 @@ public class DistributedTest extends ServiceBusTestCase {
 		.create_getControlledLamps(true) });
 	waitForProfileNumberChange(num);
 
+	// test that adding the same profile will throw
 	boolean hasThrown = false;
 	try {
 	    c.addProfiles(new ServiceProfile[] { ProfileUtil
@@ -253,5 +254,16 @@ public class DistributedTest extends ServiceBusTestCase {
 	    hasThrown = true;
 	}
 	assertTrue(hasThrown);
+
+	// test that adding the same profile will not throw if we set
+	// throwOnError to false
+	hasThrown = false;
+	try {
+	    c.addProfiles(new ServiceProfile[] { ProfileUtil
+		    .create_getControlledLamps(true) }, false);
+	} catch (ProfileExistsException e) {
+	    hasThrown = true;
+	}
+	assertFalse(hasThrown);
     }
 }
