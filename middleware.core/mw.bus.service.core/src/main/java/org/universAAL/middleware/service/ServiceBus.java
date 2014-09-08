@@ -22,6 +22,7 @@ package org.universAAL.middleware.service;
 import java.util.HashMap;
 
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
@@ -55,6 +56,57 @@ public interface ServiceBus {
     public static final String LOG_MATCHING_MISMATCH = "Mismatch detected: ";
     public static final String LOG_MATCHING_MISMATCH_CODE = "\nmismatch code: ";
     public static final String LOG_MATCHING_MISMATCH_DETAILS = "\ndetailed mismatch message: ";
+
+    /**
+     * The call injector allows to directly call a service with a
+     * {@link ServiceCall}. There is no matchmaking done and the callee needs to
+     * be known. This is not the normal way of invoking a service; normally, a
+     * {@link ServiceRequest} should be sent.
+     * 
+     * This interface is separated from the rest of the bus to have a different
+     * shared object and, thus, to allow for low-level security. In OSGi terms,
+     * this would be a separate OSGi service that the application needs to have
+     * permissions to use.
+     * 
+     * @author Carsten Stockloew
+     * 
+     */
+    public interface CallInjector {
+	/**
+	 * Can be used by {@link ServiceCallInjector} to inject a
+	 * {@link ServiceCall} to the bus. Compared to the
+	 * {@link #brokerRequest(String, BusMessage)} method that is used by the
+	 * {@link ServiceCaller}, there is no matchmaking; the call will be sent
+	 * directly to a given {@link ServiceCallee}.
+	 * 
+	 * @param callerID
+	 *            the ID of the caller that is sending the call.
+	 * @param receiver
+	 *            the {@link PeerCard} of the node that hosts the callee.
+	 * @param request
+	 *            the actual request message.
+	 */
+	public void brokerCall(String callerID, PeerCard receiver,
+		BusMessage call);
+
+	/**
+	 * Can be used by {@link ServiceCallInjector} to inject a
+	 * {@link ServiceCall} to the bus. Compared to the
+	 * {@link #brokerRequest(String, BusMessage)} method that is used by the
+	 * {@link ServiceCaller}, there is no matchmaking; the call will be sent
+	 * directly to a given {@link ServiceCallee}.
+	 * 
+	 * @param callerID
+	 *            the ID of the caller that is sending the call.
+	 * @param receiver
+	 *            the URI of the bus member that has registered the matching
+	 *            {@link ServiceProfile}. Only the identifier of the node
+	 *            that hosts the callee is used from the bus member URI.
+	 * @param request
+	 *            the actual request message.
+	 */
+	public void brokerCall(String callerID, String receiver, BusMessage call);
+    }
 
     /**
      * Adds an availability subscription, in other words a listener, to receive

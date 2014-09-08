@@ -30,6 +30,7 @@ import org.universAAL.middleware.connectors.util.ChannelMessage;
 import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
@@ -57,6 +58,20 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     private static ModuleContext mc;
     private static Container container = null;
     private static Object[] removeParams;
+    
+    public static class CallInjectorImpl implements CallInjector {
+
+	public void brokerCall(String callerID, PeerCard receiver,
+		BusMessage call) {
+	    // TODO Auto-generated method stub
+
+	}
+
+	public void brokerCall(String callerID, String receiver, BusMessage call) {
+	    brokerCall(callerID,
+		    AbstractBus.getPeerFromBusResourceURI(receiver), call);
+	}
+    }
 
     public static Object[] getServiceBusFetchParams() {
 	return busFetchParams.clone();
