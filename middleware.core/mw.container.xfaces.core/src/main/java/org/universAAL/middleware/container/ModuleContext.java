@@ -76,7 +76,7 @@ public interface ModuleContext {
     public Object getAttribute(String attrName);
 
     /**
-     * Returns the {@link Container} object that conatin the module associated
+     * Returns the {@link Container} object that contains the module associated
      * with this ModuleContext.
      */
     public Container getContainer();
