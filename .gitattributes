@@ -161,7 +161,6 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceBus.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceBusFacade.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceCall.java -text
-middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceCallInjector.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceCallee.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceCaller.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceRequest.java -text

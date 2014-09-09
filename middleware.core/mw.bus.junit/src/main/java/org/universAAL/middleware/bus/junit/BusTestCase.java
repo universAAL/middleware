@@ -51,6 +51,8 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleUtil;
+import org.universAAL.middleware.service.ServiceBus;
+import org.universAAL.middleware.service.ServiceBus.CallInjector;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.ui.IUIBus;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
@@ -226,9 +228,11 @@ public class BusTestCase extends TestCase {
 	ContextBusImpl.startModule(JUnitContainer.getInstance(), mc,
 		busFetchParams, busFetchParams);
 
-	busFetchParams = new Object[] { ServiceBusImpl.class.getName() };
-	ServiceBusImpl.startModule(JUnitContainer.getInstance(), mc,
-		busFetchParams, busFetchParams);
+	busFetchParams = new Object[] { ServiceBus.class.getName() };
+	Object[] busInjectFetchParams = new Object[] { CallInjector.class
+		.getName() };
+	ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams,
+		busInjectFetchParams, busInjectFetchParams);
 
 	busFetchParams = new Object[] { IUIBus.class.getName() };
 	UIBusImpl.startModule(JUnitContainer.getInstance(), mc, busFetchParams,

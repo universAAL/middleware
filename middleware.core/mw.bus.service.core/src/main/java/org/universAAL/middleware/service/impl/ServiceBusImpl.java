@@ -27,7 +27,6 @@ import org.universAAL.middleware.bus.model.BusStrategy;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.connectors.exception.CommunicationConnectorException;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
-import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
@@ -53,11 +52,13 @@ import org.universAAL.middleware.util.ResourceComparator;
 public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     private static Object[] busFetchParams;
+    private static Object[] busRemoveParams;
+    private static Object[] busInjectFetchParams;
+    private static Object[] busInjectRemoveParams;
     private static ServiceBusImpl theServiceBus = null;
+    private static CallInjectorImpl theCallInjector = null;
     private static ServiceBusOntology serviceOntology = null;
     private static ModuleContext mc;
-    private static Container container = null;
-    private static Object[] removeParams;
     
     public static class CallInjectorImpl implements CallInjector {
 
@@ -75,6 +76,10 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     public static Object[] getServiceBusFetchParams() {
 	return busFetchParams.clone();
+    }
+    
+    public static Object[] getServiceBusInjectFetchParams() {
+	return busInjectFetchParams.clone();
     }
 
     public synchronized void assessContentSerialization(Resource content) {
@@ -99,30 +104,38 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	}
     }
 
-    public static synchronized void startModule(Container c, ModuleContext mc,
-	    Object[] serviceBusShareParams, Object[] serviceBusFetchParams) {
+    public static synchronized void startModule(ModuleContext mc,
+	    Object[] serviceBusShareParams, Object[] serviceBusFetchParams,
+	    Object[] serviceBusInjectShareParams,
+	    Object[] serviceBusInjectFetchParams) {
 	if (theServiceBus == null) {
 	    busFetchParams = serviceBusFetchParams;
+	    busInjectFetchParams = serviceBusInjectShareParams;
 	    ServiceBusImpl.mc = mc;
 	    serviceOntology = new ServiceBusOntology();
 	    OntologyManagement.getInstance().register(mc, serviceOntology);
 	    theServiceBus = new ServiceBusImpl(mc);
-	    ServiceBusImpl.removeParams = serviceBusShareParams;
-	    c.shareObject(mc, theServiceBus, serviceBusShareParams);
-	    container = c;
+	    ServiceBusImpl.busRemoveParams = serviceBusShareParams;
+	    ServiceBusImpl.busInjectRemoveParams = serviceBusInjectShareParams;
+	    mc.getContainer().shareObject(mc, theServiceBus, serviceBusShareParams);
+	    theCallInjector = new CallInjectorImpl();
+	    mc.getContainer().shareObject(mc, theCallInjector, serviceBusInjectShareParams);
 	}
     }
 
     public static void stopModule() {
 	if (theServiceBus != null) {
 	    OntologyManagement.getInstance().unregister(mc, serviceOntology);
-	    container.removeSharedObject(mc, theServiceBus, removeParams);
+	    mc.getContainer().removeSharedObject(mc, theServiceBus, busRemoveParams);
+	    mc.getContainer().removeSharedObject(mc, theCallInjector, busInjectRemoveParams);
 	    serviceOntology = null;
 	    theServiceBus.dispose();
 	    theServiceBus = null;
 	    busFetchParams = null;
-	    removeParams = null;
-	    container = null;
+	    busRemoveParams = null;
+	    theCallInjector = null;
+	    busInjectFetchParams = null;
+	    busInjectRemoveParams = null;
 	}
     }
 

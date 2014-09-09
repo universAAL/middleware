@@ -36,6 +36,7 @@ public class MyServiceCallee extends ServiceCallee {
     public ServiceResponse handleCall(ServiceCall call) {
 	System.out.println(" -- Handler called: Node " + node + " Callee "
 		+ callee);
+	//System.out.println(call.toStringRecursive());
 	CallHandler handler = this.handler;
 	if (handler != null)
 	    return handler.handleCall(call);
