@@ -28,7 +28,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import org.universAAL.container.JUnit.JUnitContainer;
 import org.universAAL.container.JUnit.JUnitModuleContext;
 import org.universAAL.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.bus.model.AbstractBus;
@@ -167,14 +166,15 @@ public abstract class ServiceBusTestCase extends TestCase {
 	BusMessage.setMessageContentSerializer(mcs);
 
 	// init bus instances
-	Object[] busFetchParams;
 	sharedObjectCounter++;
 
 	// coordinator
-	busFetchParams = new Object[] { "coordinator-container-service"
+	Object[] busFetchParams = new Object[] { "coordinator-bus-service"
 		+ sharedObjectCounter };
-	ServiceBusImpl.startModule(JUnitContainer.getInstance(), mc,
-		busFetchParams, busFetchParams);
+	Object[] busInjectFetchParams = new Object[] { "coordinator-injector-service"
+		+ sharedObjectCounter };
+	ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams,
+		busInjectFetchParams, busInjectFetchParams);
 
 	coordCallee1 = new MyServiceCallee(mc, new ServiceProfile[0], 0, 0);
 	coordCallee2 = new MyServiceCallee(mc, new ServiceProfile[0], 0, 1);
@@ -247,10 +247,12 @@ public abstract class ServiceBusTestCase extends TestCase {
 	    SecurityException, IllegalArgumentException,
 	    IllegalAccessException, NoSuchMethodException,
 	    InvocationTargetException {
-	Object[] busFetchParams = new Object[] { "node" + i
-		+ "-container-service" + sharedObjectCounter };
-	ServiceBusImpl.startModule(JUnitContainer.getInstance(), mc,
-		busFetchParams, busFetchParams);
+	Object[] busFetchParams = new Object[] { "node" + i + "-bus-service"
+		+ sharedObjectCounter };
+	Object[] busInjectFetchParams = new Object[] { "node" + i
+		+ "-injector-service" + sharedObjectCounter };
+	ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams,
+		busInjectFetchParams, busInjectFetchParams);
 
 	// We have to re-initialize the URIs of the bus, otherwise, the bus
 	// members of the new node will have the same node id than the

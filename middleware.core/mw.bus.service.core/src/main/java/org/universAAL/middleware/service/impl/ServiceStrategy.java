@@ -451,6 +451,58 @@ public class ServiceStrategy extends BusStrategy {
 	    sendServiceResponse(m);
 	}
     }
+    
+//    private void callService(BusMessage call, PeerCard receiver) {
+//	    boolean handleLocally = true;
+//	    try {
+//		handleLocally = call.getSender().getPeerID()
+//			.equals(receiver.getPeerID());
+//	    } catch (NullPointerException e) {
+//		// find out which element is null and log
+//		if (call.getSender() == null) {
+//		    LogUtils.logError(
+//			    ServiceBusImpl.getModuleContext(),
+//			    ServiceStrategy.class,
+//			    "callServices",
+//			    new Object[] { "Call.getSender() is null - ignoring." },
+//			    null);
+//		} else if (call.getSender().getPeerID() == null) {
+//		    LogUtils.logError(
+//			    ServiceBusImpl.getModuleContext(),
+//			    ServiceStrategy.class,
+//			    "callServices",
+//			    new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
+//			    null);
+//		}
+//
+//		if (receiver == null) {
+//		    LogUtils.logError(ServiceBusImpl.getModuleContext(),
+//			    ServiceStrategy.class, "callServices",
+//			    new Object[] { "Receiver is null - ignoring." },
+//			    null);
+//		} else if (receiver.getPeerID() == null) {
+//		    LogUtils.logError(
+//			    ServiceBusImpl.getModuleContext(),
+//			    ServiceStrategy.class,
+//			    "callServices",
+//			    new Object[] { "Receiver.getPeerID() is null - ignoring." },
+//			    null);
+//		}
+//
+//		// don't handle
+//		continue;
+//	    }
+//
+//	    allWaitingCallers.put(call.getID(), match);
+//
+//	    if (handleLocally)
+//		handleMessage(call, null);
+//	    else {
+//		call.setReceiver(receiver);
+//		send(call);
+//	    }
+//    }
+    
 
     /**
      * This method starts a general purpose user interaction related to a

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ProfileExistsException;
+import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.service.test.ontology.Room;
@@ -265,5 +266,16 @@ public class DistributedTest extends ServiceBusTestCase {
 	    hasThrown = true;
 	}
 	assertFalse(hasThrown);
+    }
+
+    public void testInjectCoord() {
+	reset();
+	ServiceProfile profile = ProfileUtil.create_getControlledLamps(true);
+	deployProfiles(COORD, profile);
+	setHandler(COORD, new ObjectCallHandler(
+		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
+
+	ServiceCall call = new ServiceCall(profile.getProcessURI());
+	//ServiceResponse sr = coordCaller.inject(call, coordCard);
     }
 }
