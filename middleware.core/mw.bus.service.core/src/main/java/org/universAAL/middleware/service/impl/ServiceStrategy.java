@@ -107,9 +107,14 @@ public class ServiceStrategy extends BusStrategy {
 	    + "responseMessage";
 
     private class AvailabilitySubscription {
-	String callerID;
 	String id;
+	String callerID;
 	Object reqOrSubs;
+    }
+    
+    private class WaitingRequest {
+	Vector<HashMap<String, Object>> matches;
+	int pendingCalls;
     }
 
     // serviceURI -> Vector(ServiceRealization)
@@ -118,8 +123,33 @@ public class ServiceStrategy extends BusStrategy {
     // serviceURI -> Vector(AvailabilitySubscription)
     private Hashtable allSubscriptionsIndex;
 
-    // request.msgID -> Vector(call.context) + call.msgID -> call.context
-    private Hashtable allWaitingCallers;
+    /**
+     * The set of all waiting requests. When a request is received by the bus,
+     * the matching callees are found out and the call context of each match is
+     * stored in this map before a call is sent to each of the callees. When the
+     * responses from all callees are received, the data in this map can be used
+     * to send an aggregated reponse back to the caller.
+     * 
+     * It makes use of {@link #allWaitingCalls} which stores information about a
+     * single call.
+     * 
+     * It maps the ID of the bus message of the request to a set of call
+     * contexts (one entry for each matching callee).
+     */
+    // request.msgID -> Vector(call.context)
+    private Hashtable<String, Vector> allWaitingRequests;
+    /**
+     * The set of all waiting calls. When the matching callees for a request
+     * have been found out, a call is sent to each callee. This map stores the
+     * call context for each call. When a response is received, the mapping
+     * between URIs in request and response can be done.
+     * 
+     * It maps the ID of the bus message of the call to the call context for
+     * this callee.
+     */
+    // call.msgID -> call.context
+    private Hashtable<String, HashMap<String, Object>> allWaitingCalls;
+    
 
     // requestURI -> serviceURI + callerURI -> Vector(AvailabilitySubscription)
     private Hashtable localSubscriptionsIndex;
@@ -161,10 +191,9 @@ public class ServiceStrategy extends BusStrategy {
 	if (isCoordinator) {
 	    allServicesIndex = new Hashtable();
 	    allSubscriptionsIndex = new Hashtable();
-	    allWaitingCallers = new Hashtable();
 	    startDialogs = new Hashtable();
-	} else {
-
+	    allWaitingRequests = new Hashtable<String, Vector>();
+	    allWaitingCalls = new Hashtable<String, HashMap<String, Object>>();
 	}
     }
 
@@ -373,7 +402,7 @@ public class ServiceStrategy extends BusStrategy {
     private void callServices(BusMessage m, Vector matches) {
 	int size = matches.size();
 	matches.add(new Integer(size));
-	allWaitingCallers.put(m.getID(), matches);
+	allWaitingRequests.put(m.getID(), matches);
 	int maxTimeout = 0;
 	for (int i = 0; i < size; i++) {
 	    HashMap match = (HashMap) matches.get(i);
@@ -434,7 +463,7 @@ public class ServiceStrategy extends BusStrategy {
 		continue;
 	    }
 
-	    allWaitingCallers.put(call.getID(), match);
+	    allWaitingCalls.put(call.getID(), match);
 
 	    if (handleLocally)
 		handleMessage(call, null);
@@ -585,7 +614,7 @@ public class ServiceStrategy extends BusStrategy {
      *            - the message, to which the response is sent
      */
     private void sendServiceResponse(BusMessage m) {
-	Vector matches = (Vector) allWaitingCallers.remove(m.getID());
+	Vector matches = (Vector) allWaitingRequests.remove(m.getID());
 	if (matches == null)
 	    return;
 
@@ -1155,8 +1184,8 @@ public class ServiceStrategy extends BusStrategy {
 	case MessageType.P2P_REPLY:
 	    if (res instanceof ServiceResponse) {
 		if (isCoordinator) {
-		    HashMap callContext = (HashMap) allWaitingCallers
-			    .remove(msg.getInReplyTo());
+		    HashMap callContext = (HashMap) allWaitingCalls.remove(msg
+			    .getInReplyTo());
 		    if (callContext == null) {
 			// this must be UI service response, because they are
 			// answered
@@ -1169,7 +1198,7 @@ public class ServiceStrategy extends BusStrategy {
 		    }
 		    BusMessage request = (BusMessage) callContext
 			    .get(CONTEXT_REQUEST_MESSAGE);
-		    Vector allCalls = (Vector) allWaitingCallers.get(request
+		    Vector allCalls = (Vector) allWaitingRequests.get(request
 			    .getID());
 		    if (allCalls == null)
 			// response already timed out => ignore this delayed one
