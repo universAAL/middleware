@@ -118,7 +118,7 @@ public class ServiceStrategy extends BusStrategy {
     }
 
     // serviceURI -> Vector(ServiceRealization)
-    private Hashtable allServicesIndex;
+    private HashMap<String, ArrayList<ServiceRealization>> allServicesIndex;
 
     // serviceURI -> Vector(AvailabilitySubscription)
     private Hashtable allSubscriptionsIndex;
@@ -189,7 +189,7 @@ public class ServiceStrategy extends BusStrategy {
 			"This instance is ", isCoordinator ? "" : "NOT ",
 			"the coordinator." }, null);
 	if (isCoordinator) {
-	    allServicesIndex = new Hashtable();
+	    allServicesIndex = new HashMap<String, ArrayList<ServiceRealization>>();
 	    allSubscriptionsIndex = new Hashtable();
 	    startDialogs = new Hashtable();
 	    allWaitingRequests = new Hashtable<String, Vector>();
@@ -377,10 +377,9 @@ public class ServiceStrategy extends BusStrategy {
 	    as.id = callerID;
 	    as.reqOrSubs = request;
 	    getVector(allSubscriptionsIndex, serviceURI).add(as);
-	    Vector realizations = (Vector) allServicesIndex.get(serviceURI);
+	    ArrayList<ServiceRealization> realizations = allServicesIndex.get(serviceURI);
 	    if (realizations != null)
-		for (Iterator i = realizations.iterator(); i.hasNext();) {
-		    ServiceRealization sr = (ServiceRealization) i.next();
+		for (ServiceRealization sr : realizations) {
 		    if (null != matches(callerID, request, sr))
 			notifySubscriber(
 				as,
@@ -1339,8 +1338,8 @@ public class ServiceStrategy extends BusStrategy {
 				    new UnmodifiableResource(request), " ",
 				    logID }, null);
 
-		    Vector v = (Vector) allServicesIndex.get(serviceURI);
-		    if (v == null) {
+		    ArrayList<ServiceRealization> arrServices = allServicesIndex.get(serviceURI);
+		    if (arrServices == null) {
 			logTrace(
 				"handle",
 				new Object[] {
@@ -1358,9 +1357,7 @@ public class ServiceStrategy extends BusStrategy {
 				ServiceRequest.PROP_uAAL_SERVICE_CALLER)
 				.toString();
 
-			for (Iterator i = v.iterator(); i.hasNext();) {
-			    ServiceRealization sr = (ServiceRealization) i
-				    .next();
+			for (ServiceRealization sr : arrServices) {
 			    Service profileService = ((ServiceProfile) sr
 				    .getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
 				    .getTheService();
@@ -1908,7 +1905,13 @@ public class ServiceStrategy extends BusStrategy {
 	    synchronized (allServicesIndex) {
 		for (Iterator it = serviceURIs.iterator(); it.hasNext();) {
 		    String serviceURI = (String) it.next();
-		    getVector(allServicesIndex, serviceURI).add(registration);
+		    ArrayList<ServiceRealization> arrsr = allServicesIndex
+			    .get(serviceURI);
+		    if (arrsr == null) {
+			arrsr = new ArrayList<ServiceRealization>();
+			allServicesIndex.put(serviceURI, arrsr);
+		    }
+		    arrsr.add(registration);
 		    Vector subscribers = (Vector) allSubscriptionsIndex
 			    .get(serviceURI);
 		    if (subscribers != null)
@@ -2239,11 +2242,10 @@ public class ServiceStrategy extends BusStrategy {
      */
 
     private void unindexServices(String calleeID, String processURI) {
-
 	boolean deleteAll = (processURI == null);
 	synchronized (allServicesIndex) {
-	    for (Iterator i = allServicesIndex.values().iterator(); i.hasNext();) {
-		for (Iterator j = ((Vector) i.next()).iterator(); j.hasNext();) {
+	    for (ArrayList<ServiceRealization> i : allServicesIndex.values()) {
+		for (Iterator j = i.iterator(); j.hasNext();) {
 		    ServiceRealization reg = (ServiceRealization) j.next();
 		    if (calleeID
 			    .equals(reg
@@ -2325,12 +2327,10 @@ public class ServiceStrategy extends BusStrategy {
     }
 
     private HashMap getCoordinatorServicesWithCalleeIDs(String serviceURI) {
-
 	HashMap map = new HashMap();
-
 	if (this.isCoordinator) {
 	    synchronized (allServicesIndex) {
-		Vector neededProfiles = (Vector) this.allServicesIndex
+		ArrayList<ServiceRealization> neededProfiles = allServicesIndex
 			.get(serviceURI);
 		if (neededProfiles != null)
 		    for (Iterator j = neededProfiles.iterator(); j.hasNext();) {
@@ -2359,12 +2359,10 @@ public class ServiceStrategy extends BusStrategy {
      * @return - the profiles of the service passed as a parameter
      */
     private ServiceProfile[] getCoordinatorServices(String serviceURI) {
-
 	ArrayList profiles = new ArrayList();
-
 	if (this.isCoordinator) {
 	    synchronized (allServicesIndex) {
-		Vector neededProfiles = (Vector) this.allServicesIndex
+		ArrayList<ServiceRealization> neededProfiles = allServicesIndex
 			.get(serviceURI);
 		if (neededProfiles != null)
 		    for (Iterator j = neededProfiles.iterator(); j.hasNext();) {
