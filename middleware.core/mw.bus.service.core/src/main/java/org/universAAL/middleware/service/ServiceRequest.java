@@ -90,6 +90,9 @@ public class ServiceRequest extends ScopedResource implements Request {
 
     /**
      * Constructor for usage by de-serializers, as a node with a URI.
+     * 
+     * @param uri
+     *            the URI of this resource.
      */
     public ServiceRequest(String uri) {
 	super(uri);
@@ -200,7 +203,11 @@ public class ServiceRequest extends ScopedResource implements Request {
 
     /**
      * Help function for the service bus to quickly decide if a coordination
-     * with other peers is necessary or not.
+     * with other peers is necessary or not. It checks for the aggregating
+     * filters whether a filter with the function
+     * {@link AggregationFunction#oneOf} exists that determines that only one
+     * service is called even if there is more than one service that would match
+     * the request.
      */
     public boolean acceptsRandomSelection() {
 	List filters = (List) props.get(PROP_AGGREGATING_FILTER);
@@ -233,6 +240,9 @@ public class ServiceRequest extends ScopedResource implements Request {
     /**
      * Adds filtering functions such as max(aProp) to the request as criteria to
      * be used by the service bus for match-making and service selection.
+     * 
+     * @param f
+     *            the filter to add.
      * 
      * @see AggregatingFilterFactory
      */
@@ -329,7 +339,14 @@ public class ServiceRequest extends ScopedResource implements Request {
 			refPath[refPath.length - 1], hasValue), refPath);
     }
 
-    private List filters() {
+    /**
+     * Get a list of {@link AggregatingFilter}s. If there are no filters yet, a
+     * new list is created and added as property to this resource.
+     * 
+     * @return the non-null list. Changes to this list are reflected in the
+     *         property value of this resource.
+     */
+   private List filters() {
 	List filters = (List) props.get(PROP_AGGREGATING_FILTER);
 	if (filters == null) {
 	    filters = new ArrayList(2);
@@ -340,8 +357,9 @@ public class ServiceRequest extends ScopedResource implements Request {
 
     /**
      * Returns the list of aggregating filters added previously by calls to
-     * {@link #addAggregatingFilter(AggregatingFilter)}. The service bus will be
-     * the main user of this method.
+     * {@link #addAggregatingFilter(AggregatingFilter)}.
+     * 
+     * @return the non-null list of filters.
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public List<AggregatingFilter> getFilters() {
@@ -358,16 +376,19 @@ public class ServiceRequest extends ScopedResource implements Request {
     }
 
     /**
-     * Returns the requested service. The service bus will be the main user of
-     * this method.
+     * Returns the requested service that was given to the constructor during
+     * instantiation.
+     * 
+     * @return the requested service.
      */
     public Service getRequestedService() {
 	return (Service) props.get(PROP_REQUESTED_SERVICE);
     }
 
     /**
-     * Returns the list of required process effects. The service bus will be the
-     * main user of this method.
+     * Returns the list of required process effects.
+     * 
+     * @return the list of required process effects
      */
     public Resource[] getRequiredEffects() {
 	ProcessResult pr = (ProcessResult) props
@@ -378,8 +399,9 @@ public class ServiceRequest extends ScopedResource implements Request {
     }
 
     /**
-     * Returns the list of required process outputs. The service bus will be the
-     * main user of this method.
+     * Returns the list of required process outputs.
+     * 
+     * @return the list of required process outputs.
      */
     public Resource[] getRequiredOutputs() {
 	ProcessResult pr = (ProcessResult) props
