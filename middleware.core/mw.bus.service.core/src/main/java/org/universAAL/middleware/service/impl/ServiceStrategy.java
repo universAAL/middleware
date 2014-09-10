@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
@@ -111,7 +112,7 @@ public class ServiceStrategy extends BusStrategy {
 	String callerID;
 	Object reqOrSubs;
     }
-    
+
     private class WaitingRequest {
 	Vector<HashMap<String, Object>> matches;
 	int pendingCalls;
@@ -152,7 +153,6 @@ public class ServiceStrategy extends BusStrategy {
      * this callee.
      */
     private Hashtable<String, HashMap<String, Object>> allWaitingCalls;
-    
 
     // requestURI -> serviceURI + callerURI -> Vector(AvailabilitySubscription)
     private Hashtable localSubscriptionsIndex;
@@ -380,7 +380,8 @@ public class ServiceStrategy extends BusStrategy {
 	    as.id = callerID;
 	    as.reqOrSubs = request;
 	    getVector(allSubscriptionsIndex, serviceURI).add(as);
-	    ArrayList<ServiceRealization> realizations = allServicesIndex.get(serviceURI);
+	    ArrayList<ServiceRealization> realizations = allServicesIndex
+		    .get(serviceURI);
 	    if (realizations != null)
 		for (ServiceRealization sr : realizations) {
 		    if (null != matches(callerID, request, sr))
@@ -405,11 +406,11 @@ public class ServiceStrategy extends BusStrategy {
     private void callServices(BusMessage m,
 	    Vector<HashMap<String, Object>> matches) {
 	int size = matches.size();
-	
+
 	WaitingRequest wr = new WaitingRequest();
 	wr.matches = matches;
 	wr.pendingCalls = size;
-	
+
 	allWaitingRequests.put(m.getID(), wr);
 	int maxTimeout = 0;
 	for (int i = 0; i < size; i++) {
@@ -488,58 +489,57 @@ public class ServiceStrategy extends BusStrategy {
 	    sendServiceResponse(m);
 	}
     }
-    
-//    private void callService(BusMessage call, PeerCard receiver) {
-//	    boolean handleLocally = true;
-//	    try {
-//		handleLocally = call.getSender().getPeerID()
-//			.equals(receiver.getPeerID());
-//	    } catch (NullPointerException e) {
-//		// find out which element is null and log
-//		if (call.getSender() == null) {
-//		    LogUtils.logError(
-//			    ServiceBusImpl.getModuleContext(),
-//			    ServiceStrategy.class,
-//			    "callServices",
-//			    new Object[] { "Call.getSender() is null - ignoring." },
-//			    null);
-//		} else if (call.getSender().getPeerID() == null) {
-//		    LogUtils.logError(
-//			    ServiceBusImpl.getModuleContext(),
-//			    ServiceStrategy.class,
-//			    "callServices",
-//			    new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
-//			    null);
-//		}
-//
-//		if (receiver == null) {
-//		    LogUtils.logError(ServiceBusImpl.getModuleContext(),
-//			    ServiceStrategy.class, "callServices",
-//			    new Object[] { "Receiver is null - ignoring." },
-//			    null);
-//		} else if (receiver.getPeerID() == null) {
-//		    LogUtils.logError(
-//			    ServiceBusImpl.getModuleContext(),
-//			    ServiceStrategy.class,
-//			    "callServices",
-//			    new Object[] { "Receiver.getPeerID() is null - ignoring." },
-//			    null);
-//		}
-//
-//		// don't handle
-//		continue;
-//	    }
-//
-//	    allWaitingCallers.put(call.getID(), match);
-//
-//	    if (handleLocally)
-//		handleMessage(call, null);
-//	    else {
-//		call.setReceiver(receiver);
-//		send(call);
-//	    }
-//    }
-    
+
+    // private void callService(BusMessage call, PeerCard receiver) {
+    // boolean handleLocally = true;
+    // try {
+    // handleLocally = call.getSender().getPeerID()
+    // .equals(receiver.getPeerID());
+    // } catch (NullPointerException e) {
+    // // find out which element is null and log
+    // if (call.getSender() == null) {
+    // LogUtils.logError(
+    // ServiceBusImpl.getModuleContext(),
+    // ServiceStrategy.class,
+    // "callServices",
+    // new Object[] { "Call.getSender() is null - ignoring." },
+    // null);
+    // } else if (call.getSender().getPeerID() == null) {
+    // LogUtils.logError(
+    // ServiceBusImpl.getModuleContext(),
+    // ServiceStrategy.class,
+    // "callServices",
+    // new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
+    // null);
+    // }
+    //
+    // if (receiver == null) {
+    // LogUtils.logError(ServiceBusImpl.getModuleContext(),
+    // ServiceStrategy.class, "callServices",
+    // new Object[] { "Receiver is null - ignoring." },
+    // null);
+    // } else if (receiver.getPeerID() == null) {
+    // LogUtils.logError(
+    // ServiceBusImpl.getModuleContext(),
+    // ServiceStrategy.class,
+    // "callServices",
+    // new Object[] { "Receiver.getPeerID() is null - ignoring." },
+    // null);
+    // }
+    //
+    // // don't handle
+    // continue;
+    // }
+    //
+    // allWaitingCallers.put(call.getID(), match);
+    //
+    // if (handleLocally)
+    // handleMessage(call, null);
+    // else {
+    // call.setReceiver(receiver);
+    // send(call);
+    // }
+    // }
 
     /**
      * This method starts a general purpose user interaction related to a
@@ -623,7 +623,7 @@ public class ServiceStrategy extends BusStrategy {
      */
     private void sendServiceResponse(BusMessage m) {
 	WaitingRequest wr = allWaitingRequests.remove(m.getID());
-	Vector<HashMap<String, Object>>  matches = wr.matches;
+	Vector<HashMap<String, Object>> matches = wr.matches;
 	if (matches == null)
 	    return;
 
@@ -637,16 +637,17 @@ public class ServiceStrategy extends BusStrategy {
 			CallStatus.responseTimedOut));
 	    else {
 		// boolean arrays to indicate which of the responses had which
-		// kind of failure
-		// nmsf for NO_MATCHING_SERVICE_FOUND, rto for
-		// RESPONSE_TIMED_OUT, and
-		// ssf for SERVICE_SPECIFIC_FAILURE
+		// kind of failure:
+		// - nmsf for NO_MATCHING_SERVICE_FOUND
+		// - rto for RESPONSE_TIMED_OUT
+		// - ssf for SERVICE_SPECIFIC_FAILURE
 		boolean[] nmsf = new boolean[size], rto = new boolean[size], ssf = new boolean[size];
-		Vector goods = new Vector(size); // responses with
-		// CallStatus.SUCCEEDED
+		// responses with CallStatus.SUCCEEDED
+		ArrayList<HashMap<String, Object>> goods = new ArrayList<HashMap<String, Object>>(
+			size);
 		int bads = 0; // the total number of responses with failure
 		for (int i = 0; i < size; i++) {
-		    HashMap match = (HashMap) matches.get(i);
+		    HashMap<String, Object> match = matches.get(i);
 		    ServiceResponse sr = (ServiceResponse) match
 			    .get(CONTEXT_RESPONSE_MESSAGE);
 		    if (sr != null) {
@@ -704,17 +705,17 @@ public class ServiceStrategy extends BusStrategy {
 			m = m.createReply(new ServiceResponse(
 				CallStatus.responseTimedOut));
 		    else {
-			HashMap bad = null;
+			HashMap<String, Object> bad = null;
 			// if there is one response with
 			// SERVICE_SPECIFIC_FAILURE take that one
 			for (int i = 0; i < size; i++) {
 			    if (ssf[i]) {
-				bad = (HashMap) matches.get(i);
+				bad = matches.get(i);
 				break;
 			    } else if (rto[i])
-				bad = (HashMap) matches.get(i);
+				bad = matches.get(i);
 			    else if (bad == null)
-				bad = (HashMap) matches.get(i);
+				bad = matches.get(i);
 			}
 			ServiceResponse sr = (ServiceResponse) bad
 				.get(CONTEXT_RESPONSE_MESSAGE);
@@ -726,7 +727,7 @@ public class ServiceStrategy extends BusStrategy {
 		    }
 		    break;
 		case 1:
-		    HashMap match = (HashMap) goods.get(0);
+		    HashMap<String, Object> match = goods.get(0);
 		    ServiceResponse sr = (ServiceResponse) match
 			    .get(CONTEXT_RESPONSE_MESSAGE);
 		    prepareRequestedOutput(sr.getOutputs(), match);
@@ -734,13 +735,14 @@ public class ServiceStrategy extends BusStrategy {
 		    break;
 		default:
 		    size = goods.size();
-		    List<AggregatingFilter> aggregations = ((ServiceRequest) m.getContent())
-			    .getOutputAggregations();
+		    List<AggregatingFilter> aggregations = ((ServiceRequest) m
+			    .getContent()).getOutputAggregations();
 		    if (!aggregations.isEmpty()) {
 			int[] points = new int[size];
 			for (int i = 0; i < points.length; i++)
 			    points[i] = 0;
-			for (Iterator<AggregatingFilter> i = aggregations.iterator(); i.hasNext();) {
+			for (Iterator<AggregatingFilter> i = aggregations
+				.iterator(); i.hasNext();) {
 			    AggregatingFilter af = (AggregatingFilter) i.next();
 			    List<?> params = af.getFunctionParams();
 			    switch (af.getTheFunction().ord()) {
@@ -748,11 +750,10 @@ public class ServiceStrategy extends BusStrategy {
 				break;
 			    case AggregationFunction.MIN_OF:
 				for (int j = 0; j < size; j++) {
-				    Object oj = getOutputValue(
-					    (Hashtable) goods.get(j), af);
+				    Object oj = getOutputValue(goods.get(j), af);
 				    for (int k = j + 1; k < size; k++) {
 					Object ok = getOutputValue(
-						(Hashtable) goods.get(k), af);
+						goods.get(k), af);
 					if (oj instanceof Comparable)
 					    if (ok == null)
 						points[k]++;
@@ -774,11 +775,10 @@ public class ServiceStrategy extends BusStrategy {
 				break;
 			    case AggregationFunction.MAX_OF:
 				for (int j = 0; j < size; j++) {
-				    Object oj = getOutputValue(
-					    (Hashtable) goods.get(j), af);
+				    Object oj = getOutputValue(goods.get(j), af);
 				    for (int k = j + 1; k < size; k++) {
 					Object ok = getOutputValue(
-						(Hashtable) goods.get(k), af);
+						goods.get(k), af);
 					if (oj instanceof Comparable)
 					    if (ok == null)
 						points[k]++;
@@ -800,11 +800,10 @@ public class ServiceStrategy extends BusStrategy {
 				break;
 			    case AggregationFunction.MIN_DISTANCE_TO_REF_LOC:
 				for (int j = 0; j < size; j++) {
-				    Object oj = getOutputValue(
-					    (Hashtable) goods.get(j), af);
+				    Object oj = getOutputValue(goods.get(j), af);
 				    for (int k = j + 1; k < size; k++) {
 					Object ok = getOutputValue(
-						(Hashtable) goods.get(k), af);
+						goods.get(k), af);
 					if (oj instanceof AbsLocation)
 					    if (ok == null)
 						points[k]++;
@@ -830,11 +829,10 @@ public class ServiceStrategy extends BusStrategy {
 				break;
 			    case AggregationFunction.MAX_DISTANCE_TO_REF_LOC:
 				for (int j = 0; j < size; j++) {
-				    Object oj = getOutputValue(
-					    (Hashtable) goods.get(j), af);
+				    Object oj = getOutputValue(goods.get(j), af);
 				    for (int k = j + 1; k < size; k++) {
 					Object ok = getOutputValue(
-						(Hashtable) goods.get(k), af);
+						goods.get(k), af);
 					if (oj instanceof AbsLocation)
 					    if (ok == null)
 						points[k]++;
@@ -874,7 +872,7 @@ public class ServiceStrategy extends BusStrategy {
 		    if (size == 1) {
 			// the above aggregations have reduced the number of
 			// responses to one
-			HashMap ctxt = (HashMap) goods.get(0);
+			HashMap<String, Object> ctxt = goods.get(0);
 			ServiceResponse sresp = (ServiceResponse) ctxt
 				.get(CONTEXT_RESPONSE_MESSAGE);
 			prepareRequestedOutput(sresp.getOutputs(), ctxt);
@@ -965,7 +963,8 @@ public class ServiceStrategy extends BusStrategy {
      * @param context
      *            - HashMap of bindings for the ProcessOutputs
      */
-    private void prepareRequestedOutput(List<ProcessOutput> outputs, HashMap<?,?> context) {
+    private void prepareRequestedOutput(List<ProcessOutput> outputs,
+	    HashMap<?, ?> context) {
 	if (outputs != null && !outputs.isEmpty())
 	    for (int i = outputs.size() - 1; i > -1; i--) {
 		ProcessOutput po = outputs.remove(i);
@@ -1007,7 +1006,7 @@ public class ServiceStrategy extends BusStrategy {
      *            - the service
      * @return Vector - the non-abstract superclasses
      */
-    private Vector getNonAbstractSuperClasses(Service s) {
+    private Vector<?> getNonAbstractSuperClasses(Service s) {
 	return ManagedIndividual.getNonAbstractSuperClasses(s);
 	// Vector result = new Vector();
 	// Class superClass = s.getClass();
@@ -1033,14 +1032,14 @@ public class ServiceStrategy extends BusStrategy {
      *            - the aggregating filter
      * @return - the output
      */
-    private Object getOutputValue(Hashtable context, AggregatingFilter af) {
-	List outputs = ((ServiceResponse) context.get(CONTEXT_RESPONSE_MESSAGE))
-		.getOutputs();
+    private Object getOutputValue(Map<String, Object> context,
+	    AggregatingFilter af) {
+	List<ProcessOutput> outputs = ((ServiceResponse) context
+		.get(CONTEXT_RESPONSE_MESSAGE)).getOutputs();
 	if (outputs == null || outputs.isEmpty())
 	    return null;
 
-	for (Iterator i = context.keySet().iterator(); i.hasNext();) {
-	    String key = i.next().toString();
+	for (String key : context.keySet()) {
 	    Object o = context.get(key);
 	    if (o instanceof Resource) {
 		o = ((Resource) o)
@@ -1050,8 +1049,7 @@ public class ServiceStrategy extends BusStrategy {
 				.getTheFunction()
 			&& af.getFunctionParams().equals(
 				((AggregatingFilter) o).getFunctionParams()))
-		    for (Iterator j = outputs.iterator(); j.hasNext();) {
-			ProcessOutput po = (ProcessOutput) j.next();
+		    for (ProcessOutput po : outputs) {
 			if (key.equals(po.getURI()))
 			    return po.getParameterValue();
 		    }
@@ -1070,7 +1068,8 @@ public class ServiceStrategy extends BusStrategy {
      *            - the property of the profile paramter to return
      * @return Object - the profile parameter
      */
-    private Object getProfileParameter(HashMap context, String prop) {
+    private Object getProfileParameter(HashMap<String, Object> context,
+	    String prop) {
 	Object o = context.get(prop);
 	if (o == null)
 	    o = ((ServiceProfile) context
@@ -1208,7 +1207,7 @@ public class ServiceStrategy extends BusStrategy {
 		    }
 		    BusMessage request = (BusMessage) callContext
 			    .get(CONTEXT_REQUEST_MESSAGE);
-		    
+
 		    WaitingRequest wr = allWaitingRequests.get(request.getID());
 		    Vector<HashMap<String, Object>> allCalls = wr.matches;
 		    if (allCalls == null)
@@ -1348,7 +1347,8 @@ public class ServiceStrategy extends BusStrategy {
 				    new UnmodifiableResource(request), " ",
 				    logID }, null);
 
-		    ArrayList<ServiceRealization> arrServices = allServicesIndex.get(serviceURI);
+		    ArrayList<ServiceRealization> arrServices = allServicesIndex
+			    .get(serviceURI);
 		    if (arrServices == null) {
 			logTrace(
 				"handle",
@@ -1380,8 +1380,8 @@ public class ServiceStrategy extends BusStrategy {
 				    profileService.getType(),
 				    profileServiceURI, profileProviderURI,
 				    logID });
-			    HashMap<String, Object> context = matches(caller, request, sr,
-				    logID);
+			    HashMap<String, Object> context = matches(caller,
+				    request, sr, logID);
 			    if (context != null) {
 				matches.add(context);
 				logTrace(
@@ -1554,12 +1554,10 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MIN_OF:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						matches.get(j),
-						pp[1]);
+						matches.get(j), pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    matches.get(k),
-						    pp[1]);
+						    matches.get(k), pp[1]);
 					    if (oj instanceof Comparable)
 						if (ok == null)
 						    points[k]++;
@@ -1582,12 +1580,10 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MAX_OF:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						matches.get(j),
-						pp[1]);
+						matches.get(j), pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    matches.get(k),
-						    pp[1]);
+						    matches.get(k), pp[1]);
 					    if (oj instanceof Comparable)
 						if (ok == null)
 						    points[k]++;
@@ -1610,12 +1606,10 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MIN_DISTANCE_TO_REF_LOC:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						matches.get(j),
-						pp[1]);
+						matches.get(j), pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    matches.get(k),
-						    pp[1]);
+						    matches.get(k), pp[1]);
 					    if (oj instanceof AbsLocation)
 						if (ok == null)
 						    points[k]++;
@@ -1642,12 +1636,10 @@ public class ServiceStrategy extends BusStrategy {
 				case AggregationFunction.MAX_DISTANCE_TO_REF_LOC:
 				    for (int j = 0; j < size; j++) {
 					Object oj = getProfileParameter(
-						matches.get(j),
-						pp[1]);
+						matches.get(j), pp[1]);
 					for (int k = j + 1; k < size; k++) {
 					    Object ok = getProfileParameter(
-						    matches.get(k),
-						    pp[1]);
+						    matches.get(k), pp[1]);
 					    if (oj instanceof AbsLocation)
 						if (ok == null)
 						    points[k]++;
@@ -1968,8 +1960,8 @@ public class ServiceStrategy extends BusStrategy {
      * @return Hashtable - a hashtable of the context of the matching or null if
      *         the ServiceRealization does not match the ServiceRequest
      */
-    private HashMap matches(String callerID, ServiceRequest request,
-	    ServiceRealization offer) {
+    private HashMap<String, Object> matches(String callerID,
+	    ServiceRequest request, ServiceRealization offer) {
 	return matches(callerID, request, offer, null);
     }
 
@@ -1985,11 +1977,11 @@ public class ServiceStrategy extends BusStrategy {
      *            - the Service Realization being matched
      * @param logID
      *            - an id to be used for logging, may be null
-     * @return HashMap - a HashMap of the context of the matching or null if
-     *         the ServiceRealization does not match the ServiceRequest
+     * @return HashMap - a HashMap of the context of the matching or null if the
+     *         ServiceRealization does not match the ServiceRequest
      */
-    private HashMap<String, Object> matches(String callerID, ServiceRequest request,
-	    ServiceRealization offer, Long logID) {
+    private HashMap<String, Object> matches(String callerID,
+	    ServiceRequest request, ServiceRealization offer, Long logID) {
 	HashMap<String, Object> context = new HashMap<String, Object>();
 	context.put(Constants.VAR_uAAL_ACCESSING_BUS_MEMBER, callerID);
 	context.put(Constants.VAR_uAAL_CURRENT_DATETIME,
@@ -2252,8 +2244,8 @@ public class ServiceStrategy extends BusStrategy {
 	boolean deleteAll = (processURI == null);
 	synchronized (allServicesIndex) {
 	    for (ArrayList<ServiceRealization> i : allServicesIndex.values()) {
-		for (Iterator j = i.iterator(); j.hasNext();) {
-		    ServiceRealization reg = (ServiceRealization) j.next();
+		for (Iterator<ServiceRealization> j = i.iterator(); j.hasNext();) {
+		    ServiceRealization reg = j.next();
 		    if (calleeID
 			    .equals(reg
 				    .getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))) {
@@ -2324,33 +2316,35 @@ public class ServiceStrategy extends BusStrategy {
 	    }
 	}
 
-	List profiles = (List) this.localServiceSearchResults
+	List<?> profiles = (List<?>) this.localServiceSearchResults
 		.getProfiles(serviceURI);
 	return profileListToArray(profiles);
     }
 
-    public HashMap getAllServiceProfilesWithCalleeIDs(String serviceURI) {
+    public HashMap<String, ArrayList<ServiceProfile>> getAllServiceProfilesWithCalleeIDs(
+	    String serviceURI) {
 	return getCoordinatorServicesWithCalleeIDs(serviceURI);
     }
 
-    private HashMap getCoordinatorServicesWithCalleeIDs(String serviceURI) {
-	HashMap map = new HashMap();
+    private HashMap<String, ArrayList<ServiceProfile>> getCoordinatorServicesWithCalleeIDs(
+	    String serviceURI) {
+	HashMap<String, ArrayList<ServiceProfile>> map = new HashMap<String, ArrayList<ServiceProfile>>();
 	if (this.isCoordinator) {
 	    synchronized (allServicesIndex) {
 		ArrayList<ServiceRealization> neededProfiles = allServicesIndex
 			.get(serviceURI);
-		if (neededProfiles != null)
-		    for (Iterator j = neededProfiles.iterator(); j.hasNext();) {
-			ServiceRealization reg = (ServiceRealization) j.next();
+		if (neededProfiles != null) {
+		    for (ServiceRealization reg : neededProfiles) {
 			ServiceProfile profile = (ServiceProfile) reg
 				.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
 
 			String provider = (String) reg.getProvider();
 			if (map.get(provider) == null) {
-			    map.put(provider, new ArrayList());
+			    map.put(provider, new ArrayList<ServiceProfile>());
 			}
-			((List) map.get(provider)).add(profile);
+			map.get(provider).add(profile);
 		    }
+		}
 	    }
 	}
 
@@ -2366,14 +2360,13 @@ public class ServiceStrategy extends BusStrategy {
      * @return - the profiles of the service passed as a parameter
      */
     private ServiceProfile[] getCoordinatorServices(String serviceURI) {
-	ArrayList profiles = new ArrayList();
+	ArrayList<ServiceProfile> profiles = new ArrayList<ServiceProfile>();
 	if (this.isCoordinator) {
 	    synchronized (allServicesIndex) {
 		ArrayList<ServiceRealization> neededProfiles = allServicesIndex
 			.get(serviceURI);
 		if (neededProfiles != null)
-		    for (Iterator j = neededProfiles.iterator(); j.hasNext();) {
-			ServiceRealization reg = (ServiceRealization) j.next();
+		    for (ServiceRealization reg : neededProfiles) {
 			ServiceProfile profile = (ServiceProfile) reg
 				.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
 			if (profile != null)
@@ -2393,7 +2386,7 @@ public class ServiceStrategy extends BusStrategy {
      *            - the list to translate
      * @return ServiceProfile[] - the translated array of ServiceProfiles
      */
-    private ServiceProfile[] profileListToArray(List list) {
+    private ServiceProfile[] profileListToArray(List<?> list) {
 	if (list == null)
 	    return new ServiceProfile[0];
 	ServiceProfile[] result = new ServiceProfile[list.size()];
