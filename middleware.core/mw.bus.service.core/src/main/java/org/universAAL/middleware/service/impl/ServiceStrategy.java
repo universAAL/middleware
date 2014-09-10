@@ -158,7 +158,7 @@ public class ServiceStrategy extends BusStrategy {
     private Hashtable localSubscriptionsIndex;
 
     // serviceURI -> Vector(ServiceRealization)
-    private Hashtable startDialogs;
+    private HashMap<String, ArrayList<ServiceRealization>> startDialogs;
 
     // request.msgID -> callerID
     protected ILocalWaitingCallersData localWaitingCallers;
@@ -194,7 +194,7 @@ public class ServiceStrategy extends BusStrategy {
 	if (isCoordinator) {
 	    allServicesIndex = new HashMap<String, ArrayList<ServiceRealization>>();
 	    allSubscriptionsIndex = new Hashtable();
-	    startDialogs = new Hashtable();
+	    startDialogs = new HashMap<String, ArrayList<ServiceRealization>>();
 	    allWaitingRequests = new Hashtable<String, WaitingRequest>();
 	    allWaitingCalls = new Hashtable<String, HashMap<String, Object>>();
 	}
@@ -554,7 +554,8 @@ public class ServiceStrategy extends BusStrategy {
      * @param m
      *            - the message request for general purpose user interaction
      */
-    private void callStartDialog(Vector matchingServices, String vendor,
+    private void callStartDialog(
+	    ArrayList<ServiceRealization> matchingServices, String vendor,
 	    BusMessage m) {
 	if (matchingServices == null) {
 	    sendNoMatchingFound(m);
@@ -562,8 +563,7 @@ public class ServiceStrategy extends BusStrategy {
 	}
 
 	Object calleeID = null, processURI = null;
-	for (Iterator i = matchingServices.iterator(); i.hasNext();) {
-	    ServiceRealization sr = (ServiceRealization) i.next();
+	for (ServiceRealization sr : matchingServices) {
 	    if (sr == null)
 		continue;
 	    ServiceProfile sp = (ServiceProfile) sr
@@ -1310,8 +1310,8 @@ public class ServiceStrategy extends BusStrategy {
 				.startsWith(
 					InitialServiceDialog.SERVICE_REQUEST_URI_PREFIX_INFO)) {
 			    synchronized (startDialogs) {
-				Vector v = (Vector) startDialogs.get(csc
-					.toString());
+				ArrayList<ServiceRealization> v = startDialogs
+					.get(csc.toString());
 				if (hv instanceof Resource)
 				    replyToInitialDialogInfoRequest(msg, v,
 					    hv.toString());
@@ -1324,8 +1324,9 @@ public class ServiceStrategy extends BusStrategy {
 					.startsWith(
 						InitialServiceDialog.SERVICE_REQUEST_URI_PREFIX_START)) {
 			    synchronized (startDialogs) {
-				callStartDialog((Vector) startDialogs.get(csc
-					.toString()), hv.toString(), msg);
+				callStartDialog(
+					startDialogs.get(csc.toString()),
+					hv.toString(), msg);
 			    }
 			} else
 			    sendNoMatchingFound(msg);
@@ -1706,15 +1707,14 @@ public class ServiceStrategy extends BusStrategy {
      * @param matchingServices
      */
     private void replyToInitialDialogInfoRequest(BusMessage m,
-	    Vector matchingServices) {
+	    ArrayList<ServiceRealization> matchingServices) {
 	if (matchingServices == null) {
 	    sendNoMatchingFound(m);
 	    return;
 	}
 
-	List result = new ArrayList(matchingServices.size());
-	for (Iterator i = matchingServices.iterator(); i.hasNext();) {
-	    ServiceRealization sr = (ServiceRealization) i.next();
+	List<Service> result = new ArrayList<Service>(matchingServices.size());
+	for (ServiceRealization sr : matchingServices) {
 	    if (sr == null)
 		continue;
 	    ServiceProfile sp = (ServiceProfile) sr
@@ -1755,15 +1755,14 @@ public class ServiceStrategy extends BusStrategy {
      * @param matchingServices
      */
     private void replyToInitialDialogInfoRequest(BusMessage m,
-	    Vector matchingServices, String vendor) {
+	    ArrayList<ServiceRealization> matchingServices, String vendor) {
 	if (matchingServices == null) {
 	    sendNoMatchingFound(m);
 	    return;
 	}
 
 	Object description = null;
-	for (Iterator i = matchingServices.iterator(); i.hasNext();) {
-	    ServiceRealization sr = (ServiceRealization) i.next();
+	for (ServiceRealization sr : matchingServices) {
 	    if (sr == null)
 		continue;
 	    ServiceProfile sp = (ServiceProfile) sr
@@ -1896,8 +1895,13 @@ public class ServiceStrategy extends BusStrategy {
 		return;
 	    }
 	    synchronized (startDialogs) {
-		getVector(startDialogs, correlService.toString()).add(
-			registration);
+		String key = correlService.toString();
+		ArrayList<ServiceRealization> lst = startDialogs.get(key);
+		if (lst == null) {
+		    lst = new ArrayList<ServiceRealization>();
+		    startDialogs.put(key, lst);
+		}
+		lst.add(registration);
 	    }
 	} else {
 	    Vector serviceURIs = getNonAbstractSuperClasses(theService);
@@ -1913,7 +1917,7 @@ public class ServiceStrategy extends BusStrategy {
 		    arrsr.add(registration);
 		    Vector subscribers = (Vector) allSubscriptionsIndex
 			    .get(serviceURI);
-		    if (subscribers != null)
+		    if (subscribers != null) {
 			for (Iterator j = subscribers.iterator(); j.hasNext();) {
 			    AvailabilitySubscription as = (AvailabilitySubscription) j
 				    .next();
@@ -1921,6 +1925,7 @@ public class ServiceStrategy extends BusStrategy {
 				    (ServiceRequest) as.reqOrSubs, registration))
 				notifySubscriber(as, processURI, true);
 			}
+		    }
 		}
 	    }
 	}
