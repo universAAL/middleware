@@ -305,10 +305,10 @@ public class ServiceRealization extends FinalizedResource {
     /**
      * Return the ServiceProvider of this ServiceRealization
      * 
-     * @return Object - the service provider
+     * @return the service provider
      */
-    Object getProvider() {
-	return props.get(uAAL_SERVICE_PROVIDER);
+    String getProvider() {
+	return (String) props.get(uAAL_SERVICE_PROVIDER);
     }
 
     /**

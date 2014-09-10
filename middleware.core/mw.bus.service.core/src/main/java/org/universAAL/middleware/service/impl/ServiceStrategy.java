@@ -141,8 +141,7 @@ public class ServiceStrategy extends BusStrategy {
      * It maps the ID of the bus message of the request to a set of call
      * contexts (one entry for each matching callee).
      */
-    // request.msgID -> Vector(call.context)
-    private Hashtable<String, Vector> allWaitingRequests;
+    private Hashtable<String, WaitingRequest> allWaitingRequests;
     /**
      * The set of all waiting calls. When the matching callees for a request
      * have been found out, a call is sent to each callee. This map stores the
@@ -152,7 +151,6 @@ public class ServiceStrategy extends BusStrategy {
      * It maps the ID of the bus message of the call to the call context for
      * this callee.
      */
-    // call.msgID -> call.context
     private Hashtable<String, HashMap<String, Object>> allWaitingCalls;
     
 
@@ -197,7 +195,7 @@ public class ServiceStrategy extends BusStrategy {
 	    allServicesIndex = new HashMap<String, ArrayList<ServiceRealization>>();
 	    allSubscriptionsIndex = new Hashtable();
 	    startDialogs = new Hashtable();
-	    allWaitingRequests = new Hashtable<String, Vector>();
+	    allWaitingRequests = new Hashtable<String, WaitingRequest>();
 	    allWaitingCalls = new Hashtable<String, HashMap<String, Object>>();
 	}
     }
@@ -399,17 +397,23 @@ public class ServiceStrategy extends BusStrategy {
      * Pass the call message to the matching service callees
      * 
      * @param m
-     *            - the message
+     *            the message
      * @param matches
-     *            - a list of hashtables that describe the matched services
+     *            a list of maps that describe the context of the matched
+     *            services
      */
-    private void callServices(BusMessage m, Vector matches) {
+    private void callServices(BusMessage m,
+	    Vector<HashMap<String, Object>> matches) {
 	int size = matches.size();
-	matches.add(new Integer(size));
-	allWaitingRequests.put(m.getID(), matches);
+	
+	WaitingRequest wr = new WaitingRequest();
+	wr.matches = matches;
+	wr.pendingCalls = size;
+	
+	allWaitingRequests.put(m.getID(), wr);
 	int maxTimeout = 0;
 	for (int i = 0; i < size; i++) {
-	    HashMap match = (HashMap) matches.get(i);
+	    HashMap<String, Object> match = matches.get(i);
 	    match.put(CONTEXT_REQUEST_MESSAGE, m);
 	    ServiceRealization sr = (ServiceRealization) match
 		    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
@@ -618,13 +622,14 @@ public class ServiceStrategy extends BusStrategy {
      *            - the message, to which the response is sent
      */
     private void sendServiceResponse(BusMessage m) {
-	Vector matches = (Vector) allWaitingRequests.remove(m.getID());
+	WaitingRequest wr = allWaitingRequests.remove(m.getID());
+	Vector<HashMap<String, Object>>  matches = wr.matches;
 	if (matches == null)
 	    return;
 
 	synchronized (matches) {
-	    int size = matches.size() - 1;
-	    int numTimedOut = ((Integer) matches.remove(size)).intValue();
+	    int size = matches.size();
+	    int numTimedOut = wr.pendingCalls;
 	    if (size == numTimedOut)
 		// there has been no one response => this method is called
 		// because of timeout!
@@ -1168,12 +1173,13 @@ public class ServiceStrategy extends BusStrategy {
 				    theCallee, prof), prof.getProcessURI());
 			}
 		    }
-		} else if (profiles == null)
+		} else if (profiles == null) {
 		    unindexServices(theCallee, null);
-		else
+		} else {
 		    for (Iterator i = profiles.iterator(); i.hasNext();)
 			unindexServices(theCallee,
 				((ServiceProfile) i.next()).getProcessURI());
+		}
 	    } else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
 		PeerCard coord = AbstractBus.getPeerFromBusResourceURI(res
 			.getURI());
@@ -1188,8 +1194,8 @@ public class ServiceStrategy extends BusStrategy {
 	case MessageType.P2P_REPLY:
 	    if (res instanceof ServiceResponse) {
 		if (isCoordinator) {
-		    HashMap callContext = (HashMap) allWaitingCalls.remove(msg
-			    .getInReplyTo());
+		    HashMap<String, Object> callContext = allWaitingCalls
+			    .remove(msg.getInReplyTo());
 		    if (callContext == null) {
 			// this must be UI service response, because they are
 			// answered
@@ -1202,18 +1208,17 @@ public class ServiceStrategy extends BusStrategy {
 		    }
 		    BusMessage request = (BusMessage) callContext
 			    .get(CONTEXT_REQUEST_MESSAGE);
-		    Vector allCalls = (Vector) allWaitingRequests.get(request
-			    .getID());
+		    
+		    WaitingRequest wr = allWaitingRequests.get(request.getID());
+		    Vector<HashMap<String, Object>> allCalls = wr.matches;
 		    if (allCalls == null)
 			// response already timed out => ignore this delayed one
 			// TODO: add a log entry
 			return;
 		    synchronized (allCalls) {
 			callContext.put(CONTEXT_RESPONSE_MESSAGE, res);
-			int pending = ((Integer) allCalls.remove(allCalls
-				.size() - 1)).intValue() - 1;
-			allCalls.add(new Integer(pending));
-			if (pending == 0)
+			wr.pendingCalls--;
+			if (wr.pendingCalls == 0)
 			    sendServiceResponse(request);
 		    }
 		} else if (msg.hasReceiver(theCoordinator)) {
@@ -1329,7 +1334,7 @@ public class ServiceStrategy extends BusStrategy {
 			sendNoMatchingFound(msg);
 		    return;
 		}
-		Vector<HashMap> matches = new Vector();
+		Vector<HashMap<String, Object>> matches = new Vector<HashMap<String, Object>>();
 		String serviceURI = request.getRequestedService().getClassURI();
 		// start the logging with trace messages about matchmaking
 		// the logID as last parameter in each message is used to
@@ -1375,7 +1380,7 @@ public class ServiceStrategy extends BusStrategy {
 				    profileService.getType(),
 				    profileServiceURI, profileProviderURI,
 				    logID });
-			    HashMap context = matches(caller, request, sr,
+			    HashMap<String, Object> context = matches(caller, request, sr,
 				    logID);
 			    if (context != null) {
 				matches.add(context);
@@ -1392,14 +1397,13 @@ public class ServiceStrategy extends BusStrategy {
 		    }
 		}
 		int matchesFound = 0;
-		Hashtable auxMap = new Hashtable();
-		for (Iterator i = matches.iterator(); i.hasNext();) {
-		    HashMap match = (HashMap) i.next();
+		HashMap<String, HashMap<String, Object>> auxMap = new HashMap<String, HashMap<String, Object>>();
+		for (HashMap<String, Object> match : matches) {
 		    ServiceRealization sr = (ServiceRealization) match
 			    .get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
 		    if (sr.assertServiceCall(match, request)) {
 			matchesFound++;
-			HashMap otherMatch = (HashMap) auxMap.get(sr
+			HashMap<String, Object> otherMatch = auxMap.get(sr
 				.getProvider());
 			if (otherMatch == null)
 			    auxMap.put(sr.getProvider(), match);
@@ -1463,7 +1467,7 @@ public class ServiceStrategy extends BusStrategy {
 					logID });
 		    }
 		}
-		matches = new Vector(auxMap.values());
+		matches = new Vector<HashMap<String, Object>>(auxMap.values());
 
 		if (logID != null) {
 		    // first log the number of matches before provider filtering
@@ -1479,7 +1483,7 @@ public class ServiceStrategy extends BusStrategy {
 		    obj[2] = Integer.valueOf(matches.size());
 		    obj[3] = " matches. The matching profiles are: ";
 		    int i = 4;
-		    for (HashMap match : matches) {
+		    for (HashMap<String, Object> match : matches) {
 			ServiceRealization sr = (ServiceRealization) match
 				.get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
 			Service profileService = ((ServiceProfile) sr
@@ -1509,9 +1513,9 @@ public class ServiceStrategy extends BusStrategy {
 		    // where by class restrictions all lamps are in loc
 		    // and generally, isn't it better to postpone this decision
 		    // to a later phase where we have gathered all responses?
-		    HashMap context = matches.remove(0);
+		    HashMap<String, Object> context = matches.remove(0);
 		    while (!matches.isEmpty()) {
-			HashMap aux = matches.remove(0);
+			HashMap<String, Object> aux = matches.remove(0);
 			if (aux.size() < context.size())
 			    context = aux;
 		    }
@@ -1526,14 +1530,12 @@ public class ServiceStrategy extends BusStrategy {
 				    " matches", logID });
 		} else {
 		    if (size > 1) {
-			List filters = request.getFilters();
+			List<AggregatingFilter> filters = request.getFilters();
 			if (filters != null && filters.size() > 0) {
 			    int[] points = new int[size];
 			    for (int i = 0; i < points.length; i++)
 				points[i] = 0;
-			    for (Iterator i = filters.iterator(); i.hasNext();) {
-				AggregatingFilter af = (AggregatingFilter) i
-					.next();
+			    for (AggregatingFilter af : filters) {
 				List params = af.getFunctionParams();
 				String[] pp = null;
 				if (params != null
@@ -1986,9 +1988,9 @@ public class ServiceStrategy extends BusStrategy {
      * @return HashMap - a HashMap of the context of the matching or null if
      *         the ServiceRealization does not match the ServiceRequest
      */
-    private HashMap matches(String callerID, ServiceRequest request,
+    private HashMap<String, Object> matches(String callerID, ServiceRequest request,
 	    ServiceRealization offer, Long logID) {
-	HashMap context = new HashMap();
+	HashMap<String, Object> context = new HashMap<String, Object>();
 	context.put(Constants.VAR_uAAL_ACCESSING_BUS_MEMBER, callerID);
 	context.put(Constants.VAR_uAAL_CURRENT_DATETIME,
 		TypeMapper.getCurrentDateTime());
