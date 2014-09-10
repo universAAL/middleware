@@ -117,7 +117,12 @@ public class ServiceStrategy extends BusStrategy {
 	int pendingCalls;
     }
 
-    // serviceURI -> Vector(ServiceRealization)
+    /**
+     * The set of all service realizations for a service URI. It maps the URI of
+     * a service (subclasses of {@link Service}) to a list of
+     * {@link ServiceRealization}s that stores the service profile together with
+     * some metadata like the callee and quality-of-service parameters.
+     */
     private HashMap<String, ArrayList<ServiceRealization>> allServicesIndex;
 
     // serviceURI -> Vector(AvailabilitySubscription)
