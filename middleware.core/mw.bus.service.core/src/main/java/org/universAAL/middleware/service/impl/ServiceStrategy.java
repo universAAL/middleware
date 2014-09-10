@@ -1536,7 +1536,7 @@ public class ServiceStrategy extends BusStrategy {
 			    for (int i = 0; i < points.length; i++)
 				points[i] = 0;
 			    for (AggregatingFilter af : filters) {
-				List params = af.getFunctionParams();
+				List<?> params = af.getFunctionParams();
 				String[] pp = null;
 				if (params != null
 					&& !params.isEmpty()
