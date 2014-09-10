@@ -224,6 +224,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	return null;
     }
 
+    @Deprecated
     public static Vector getNonAbstractSuperClasses(ManagedIndividual indi) {
 	// TODO: change this!! (not very performant, maybe remove this method?)
 	String[] res = ManagedIndividual.getNonabstractSuperClasses(indi
