@@ -38,6 +38,8 @@ import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.owl.OntClassInfo;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
@@ -71,7 +73,7 @@ import org.universAAL.middleware.util.Constants;
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ * @author Carsten Stockloew
  */
 public class ServiceStrategy extends BusStrategy {
     private static final String PROP_uAAL_REGISTRATION_STATUS = Resource.uAAL_VOCABULARY_NAMESPACE
@@ -110,6 +112,7 @@ public class ServiceStrategy extends BusStrategy {
     private class AvailabilitySubscription {
 	String id;
 	String callerID;
+	String serviceClassURI;
 	Object reqOrSubs;
     }
 
@@ -126,8 +129,8 @@ public class ServiceStrategy extends BusStrategy {
      */
     private HashMap<String, ArrayList<ServiceRealization>> allServicesIndex;
 
-    // serviceURI -> Vector(AvailabilitySubscription)
-    private Hashtable allSubscriptionsIndex;
+    // serviceClassURI -> Vector(AvailabilitySubscription)
+    private HashMap<String, ArrayList<AvailabilitySubscription>> allSubscriptionsIndex;
 
     /**
      * The set of all waiting requests. When a request is received by the bus,
@@ -143,6 +146,7 @@ public class ServiceStrategy extends BusStrategy {
      * contexts (one entry for each matching callee).
      */
     private Hashtable<String, WaitingRequest> allWaitingRequests;
+
     /**
      * The set of all waiting calls. When the matching callees for a request
      * have been found out, a call is sent to each callee. This map stores the
@@ -154,10 +158,10 @@ public class ServiceStrategy extends BusStrategy {
      */
     private Hashtable<String, HashMap<String, Object>> allWaitingCalls;
 
-    // requestURI -> serviceURI + callerURI -> Vector(AvailabilitySubscription)
-    private Hashtable localSubscriptionsIndex;
+    // callerURI -> Vector(AvailabilitySubscription)
+    private Hashtable<String, Vector<AvailabilitySubscription>> localSubscriptionsIndex;
 
-    // serviceURI -> Vector(ServiceRealization)
+    // serviceURI -> ArrayList(ServiceRealization)
     private HashMap<String, ArrayList<ServiceRealization>> startDialogs;
 
     // request.msgID -> callerID
@@ -167,6 +171,7 @@ public class ServiceStrategy extends BusStrategy {
     // serviceURI -> List(ServiceRealization) (was replaced with the new
     // mechanism)
     protected ILocalServiceSearchResultsData localServiceSearchResults;
+
     private boolean isCoordinator;
     protected PeerCard theCoordinator = null;
 
@@ -181,7 +186,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	// end of dummy action: we had to set the coordinator ID back to null
 	// until the real ID is found out
-	localSubscriptionsIndex = new Hashtable();
+	localSubscriptionsIndex = new Hashtable<String, Vector<AvailabilitySubscription>>();
 	localServicesIndex = factory.createLocalServicesIndexData();
 	localWaitingCallers = factory.createLocalWaitingCallersData();
 	localServiceSearchResults = factory
@@ -193,7 +198,7 @@ public class ServiceStrategy extends BusStrategy {
 			"the coordinator." }, null);
 	if (isCoordinator) {
 	    allServicesIndex = new HashMap<String, ArrayList<ServiceRealization>>();
-	    allSubscriptionsIndex = new Hashtable();
+	    allSubscriptionsIndex = new HashMap<String, ArrayList<AvailabilitySubscription>>();
 	    startDialogs = new HashMap<String, ArrayList<ServiceRealization>>();
 	    allWaitingRequests = new Hashtable<String, WaitingRequest>();
 	    allWaitingCalls = new Hashtable<String, HashMap<String, Object>>();
@@ -209,15 +214,14 @@ public class ServiceStrategy extends BusStrategy {
      * services), according to the ServiceRequest
      * 
      * @param callerID
-     *            - the ID of the caller who asked to make the subscription
+     *            the ID of the caller who asked to make the subscription
      * @param subscriber
-     *            - the object to be notified about registration event
+     *            the object to be notified about registration event
      * @param request
-     *            - the service request to match the the service profiles. The
+     *            the service request to match the the service profiles. The
      *            notifications will be fired only regarding the
      *            registration/unregistration of services with the matching
      *            service profiles.
-     * 
      */
     void addAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, ServiceRequest request) {
@@ -225,12 +229,11 @@ public class ServiceStrategy extends BusStrategy {
 	    return;
 
 	AvailabilitySubscription as = new AvailabilitySubscription();
-	as.callerID = callerID;
 	as.id = request.getURI();
+	as.callerID = callerID;
+	as.serviceClassURI = request.getRequestedService().getType();
 	as.reqOrSubs = subscriber;
 	getVector(localSubscriptionsIndex, callerID).add(as);
-	localSubscriptionsIndex.put(as.id, request.getRequestedService()
-		.getType());
 
 	if (isCoordinator)
 	    addSubscriber(callerID, request);
@@ -369,9 +372,9 @@ public class ServiceStrategy extends BusStrategy {
      * ServiceRequest passed as a parameter
      * 
      * @param callerID
-     *            - the id of the subscriber
+     *            the id of the subscriber
      * @param request
-     *            - the request to describe the desired services
+     *            the request to describe the desired services
      */
     private void addSubscriber(String callerID, ServiceRequest request) {
 	String serviceURI = request.getRequestedService().getType();
@@ -379,7 +382,7 @@ public class ServiceStrategy extends BusStrategy {
 	    AvailabilitySubscription as = new AvailabilitySubscription();
 	    as.id = callerID;
 	    as.reqOrSubs = request;
-	    getVector(allSubscriptionsIndex, serviceURI).add(as);
+	    getList(allSubscriptionsIndex, serviceURI).add(as);
 	    ArrayList<ServiceRealization> realizations = allServicesIndex
 		    .get(serviceURI);
 	    if (realizations != null)
@@ -547,12 +550,12 @@ public class ServiceStrategy extends BusStrategy {
      * all) will be taken later during exploring the user interface
      * 
      * @param matchingServices
-     *            - the currently matching services for the general purpose user
+     *            the currently matching services for the general purpose user
      *            interaction request
      * @param vendor
-     *            - the vendor who provides the currently matching services
+     *            the vendor who provides the currently matching services
      * @param m
-     *            - the message request for general purpose user interaction
+     *            the message request for general purpose user interaction
      */
     private void callStartDialog(
 	    ArrayList<ServiceRealization> matchingServices, String vendor,
@@ -619,7 +622,7 @@ public class ServiceStrategy extends BusStrategy {
      * Sends a response to the message passed as a parameter
      * 
      * @param m
-     *            - the message, to which the response is sent
+     *            the message, to which the response is sent
      */
     private void sendServiceResponse(BusMessage m) {
 	WaitingRequest wr = allWaitingRequests.remove(m.getID());
@@ -959,9 +962,9 @@ public class ServiceStrategy extends BusStrategy {
      * Translates the process outputs according to the bindings
      * 
      * @param outputs
-     *            - a list of ProcessOutputs
+     *            a list of ProcessOutputs
      * @param context
-     *            - HashMap of bindings for the ProcessOutputs
+     *            HashMap of bindings for the ProcessOutputs
      */
     private void prepareRequestedOutput(List<ProcessOutput> outputs,
 	    HashMap<?, ?> context) {
@@ -1000,26 +1003,31 @@ public class ServiceStrategy extends BusStrategy {
 
     /**
      * Return a list of non abstract super classes of the service passed as a
-     * parameter
+     * parameter including the given service.
      * 
      * @param s
-     *            - the service
-     * @return Vector - the non-abstract superclasses
+     *            the service.
+     * @return a list with the class URIs of all non-abstract super classes.
      */
-    private Vector<?> getNonAbstractSuperClasses(Service s) {
-	return ManagedIndividual.getNonAbstractSuperClasses(s);
-	// Vector result = new Vector();
-	// Class superClass = s.getClass();
-	// while (superClass != null) {
-	// if (!Modifier.isAbstract(superClass.getModifiers())) {
-	// String uri = ManagedIndividual.getRegisteredClassURI(superClass
-	// .getName());
-	// if (uri != null)
-	// result.add(uri);
-	// }
-	// superClass = superClass.getSuperclass();
-	// }
-	// return result;
+    private List<String> getNonAbstractSuperClasses(Service s) {
+	List<String> lst = new ArrayList<String>();
+	String classURI = s.getClassURI();
+
+	// add the service class itself
+	OntClassInfo info = OntologyManagement.getInstance().getOntClassInfo(
+		classURI);
+	if (info != null) {
+	    if (OntologyManagement.getInstance().isRegisteredClass(
+		    s.getClassURI(), false))
+		lst.add(classURI);
+	}
+
+	// get named super classes and add them to the list
+	String[] res = ManagedIndividual.getNonabstractSuperClasses(classURI);
+	for (int i = 0; i < res.length; i++)
+	    lst.add(res[i]);
+
+	return lst;
     }
 
     /**
@@ -1027,10 +1035,10 @@ public class ServiceStrategy extends BusStrategy {
      * AggregatingFilter passed as a parameter
      * 
      * @param context
-     *            - the context
+     *            the context
      * @param af
-     *            - the aggregating filter
-     * @return - the output
+     *            the aggregating filter
+     * @return the output
      */
     private Object getOutputValue(Map<String, Object> context,
 	    AggregatingFilter af) {
@@ -1065,8 +1073,8 @@ public class ServiceStrategy extends BusStrategy {
      * 
      * @param context
      * @param prop
-     *            - the property of the profile paramter to return
-     * @return Object - the profile parameter
+     *            the property of the profile paramter to return
+     * @return the profile parameter
      */
     private Object getProfileParameter(HashMap<String, Object> context,
 	    String prop) {
@@ -1083,19 +1091,39 @@ public class ServiceStrategy extends BusStrategy {
      * exists in the hashtable according to the key passed as a parameter, an
      * empty vector is inserted in the hashtable according to the key
      * 
-     * @param t
-     *            - the hashtable
-     * @param k
-     *            - the key
-     * @return Vector - the value of the key from the hashtable
+     * @param table
+     *            the hashtable
+     * @param key
+     *            the key
+     * @return the value of the key from the hashtable
      */
-    private Vector getVector(Hashtable t, String k) {
-	Vector m = (Vector) t.get(k);
+    private <V> Vector<V> getVector(Hashtable<String, Vector<V>> table,
+	    String key) {
+	Vector<V> m = table.get(key);
 	if (m == null) {
-	    m = new Vector();
-	    t.put(k, m);
+	    m = new Vector<V>();
+	    table.put(key, m);
 	}
 	return m;
+    }
+
+    /**
+     * Returns a list that is stored as value in a {@link Map}. If the list does
+     * not exist for the given key, the list is created and added to the map.
+     * 
+     * @param map
+     *            the map that should contain the list under the given key.
+     * @param key
+     *            the key for which the list is stored in the map.
+     * @return the non-null list.
+     */
+    private <V> ArrayList<V> getList(Map<String, ArrayList<V>> map, String key) {
+	ArrayList<V> val = map.get(key);
+	if (val == null) {
+	    val = new ArrayList<V>();
+	    map.put(key, val);
+	}
+	return val;
     }
 
     private void logTrace(String methodName, Object[] obj) {
@@ -1138,12 +1166,12 @@ public class ServiceStrategy extends BusStrategy {
 			    .getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST)
 			    .toString();
 		    synchronized (allServicesIndex) {
-			Vector v = (Vector) allSubscriptionsIndex
+			ArrayList<AvailabilitySubscription> arrAS = allSubscriptionsIndex
 				.get(serviceURI);
-			if (v != null)
-			    for (Iterator i = v.iterator(); i.hasNext();) {
-				AvailabilitySubscription as = (AvailabilitySubscription) i
-					.next();
+			if (arrAS != null) {
+			    for (Iterator<AvailabilitySubscription> i = arrAS
+				    .iterator(); i.hasNext();) {
+				AvailabilitySubscription as = i.next();
 				if (as.id.equals(subscriber)
 					&& as.reqOrSubs.toString().equals(
 						requestURI)) {
@@ -1151,6 +1179,7 @@ public class ServiceStrategy extends BusStrategy {
 				    return;
 				}
 			    }
+			}
 		    }
 		} else
 		    addSubscriber(
@@ -1159,14 +1188,14 @@ public class ServiceStrategy extends BusStrategy {
 				    .getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST));
 	    } else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_REGISTRATION)
 		    && isCoordinator) {
-		List profiles = (List) res
+		List<?> profiles = (List<?>) res
 			.getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
 		String theCallee = res.getProperty(
 			PROP_uAAL_SERVICE_PROVIDED_BY).toString();
 		if (RES_STATUS_REGISTERED.equals(res
 			.getProperty(PROP_uAAL_REGISTRATION_STATUS))) {
 		    if (profiles != null) {
-			for (Iterator i = profiles.iterator(); i.hasNext();) {
+			for (Iterator<?> i = profiles.iterator(); i.hasNext();) {
 			    ServiceProfile prof = (ServiceProfile) i.next();
 			    indexServices(prof, new ServiceRealization(
 				    theCallee, prof), prof.getProcessURI());
@@ -1175,7 +1204,7 @@ public class ServiceStrategy extends BusStrategy {
 		} else if (profiles == null) {
 		    unindexServices(theCallee, null);
 		} else {
-		    for (Iterator i = profiles.iterator(); i.hasNext();)
+		    for (Iterator<?> i = profiles.iterator(); i.hasNext();)
 			unindexServices(theCallee,
 				((ServiceProfile) i.next()).getProcessURI());
 		}
@@ -1239,7 +1268,7 @@ public class ServiceStrategy extends BusStrategy {
 		synchronized (this) {
 		    String realizationID = (String) res
 			    .getProperty(PROP_uAAL_SERVICE_REALIZATION_ID);
-		    List profiles = (List) res
+		    List<?> profiles = (List<?>) res
 			    .getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
 
 		    localServiceSearchResults.addProfiles(realizationID,
@@ -1703,7 +1732,7 @@ public class ServiceStrategy extends BusStrategy {
      * contain the matched services.
      * 
      * @param m
-     *            - the initial dialog info request message
+     *            the initial dialog info request message
      * @param matchingServices
      */
     private void replyToInitialDialogInfoRequest(BusMessage m,
@@ -1751,7 +1780,7 @@ public class ServiceStrategy extends BusStrategy {
      * passed as a parameter
      * 
      * @param m
-     *            - the initial dialog info request message
+     *            the initial dialog info request message
      * @param matchingServices
      */
     private void replyToInitialDialogInfoRequest(BusMessage m,
@@ -1803,7 +1832,7 @@ public class ServiceStrategy extends BusStrategy {
      * Send the reply message to a local caller
      * 
      * @param msg
-     *            - the reply message
+     *            the reply message
      */
     private void replyToLocalCaller(BusMessage msg) {
 	String replyOf = msg.getInReplyTo();
@@ -1850,7 +1879,7 @@ public class ServiceStrategy extends BusStrategy {
      * parameter
      * 
      * @param m
-     *            - the message to send a reply to
+     *            the message to send a reply to
      */
     private void sendNoMatchingFound(BusMessage m) {
 	sendSimpleReply(m, CallStatus.noMatchingServiceFound);
@@ -1904,10 +1933,9 @@ public class ServiceStrategy extends BusStrategy {
 		lst.add(registration);
 	    }
 	} else {
-	    Vector serviceURIs = getNonAbstractSuperClasses(theService);
+	    List<String> serviceURIs = getNonAbstractSuperClasses(theService);
 	    synchronized (allServicesIndex) {
-		for (Iterator it = serviceURIs.iterator(); it.hasNext();) {
-		    String serviceURI = (String) it.next();
+		for (String serviceURI : serviceURIs) {
 		    ArrayList<ServiceRealization> arrsr = allServicesIndex
 			    .get(serviceURI);
 		    if (arrsr == null) {
@@ -1915,12 +1943,10 @@ public class ServiceStrategy extends BusStrategy {
 			allServicesIndex.put(serviceURI, arrsr);
 		    }
 		    arrsr.add(registration);
-		    Vector subscribers = (Vector) allSubscriptionsIndex
+		    ArrayList<AvailabilitySubscription> subscribers = allSubscriptionsIndex
 			    .get(serviceURI);
 		    if (subscribers != null) {
-			for (Iterator j = subscribers.iterator(); j.hasNext();) {
-			    AvailabilitySubscription as = (AvailabilitySubscription) j
-				    .next();
+			for (AvailabilitySubscription as : subscribers) {
 			    if (null != matches(as.id,
 				    (ServiceRequest) as.reqOrSubs, registration))
 				notifySubscriber(as, processURI, true);
@@ -1957,13 +1983,13 @@ public class ServiceStrategy extends BusStrategy {
      * ServiceRequest
      * 
      * @param callerID
-     *            - the caller ID of the ServiceRequest
+     *            the caller ID of the ServiceRequest
      * @param request
-     *            - the ServiceRequest
+     *            the ServiceRequest
      * @param offer
-     *            - the Service Realization being matched
-     * @return Hashtable - a hashtable of the context of the matching or null if
-     *         the ServiceRealization does not match the ServiceRequest
+     *            the Service Realization being matched
+     * @return a map of the context of the matching or null if the
+     *         ServiceRealization does not match the ServiceRequest
      */
     private HashMap<String, Object> matches(String callerID,
 	    ServiceRequest request, ServiceRealization offer) {
@@ -1975,14 +2001,14 @@ public class ServiceStrategy extends BusStrategy {
      * ServiceRequest
      * 
      * @param callerID
-     *            - the caller ID of the ServiceRequest
+     *            the caller ID of the ServiceRequest
      * @param request
-     *            - the ServiceRequest
+     *            the ServiceRequest
      * @param offer
-     *            - the Service Realization being matched
+     *            the Service Realization being matched
      * @param logID
-     *            - an id to be used for logging, may be null
-     * @return HashMap - a HashMap of the context of the matching or null if the
+     *            an id to be used for logging, may be null
+     * @return a HashMap of the context of the matching or null if the
      *         ServiceRealization does not match the ServiceRequest
      */
     private HashMap<String, Object> matches(String callerID,
@@ -2004,24 +2030,22 @@ public class ServiceStrategy extends BusStrategy {
      * Services (ServiceRealization representing the Services)
      * 
      * @param caller
-     *            - the subscriber
+     *            the subscriber
      * @param request
-     *            - the ID of the subscription
+     *            the ID of the subscription
      * @param realization
-     *            - the ID of the ServiceRealization
+     *            the ID of the ServiceRealization
      * @param registers
-     *            - boolean, true if the notification is about a registered
+     *            boolean, true if the notification is about a registered
      *            service, false if the notification is about an unregistered
      *            service
      */
-
     private void notifyLocalSubscriber(String caller, String request,
 	    String realization, boolean registers) {
-	Vector v = (Vector) localSubscriptionsIndex.get(caller);
-	if (v != null)
-	    for (Iterator i = v.iterator(); i.hasNext();) {
-		AvailabilitySubscription as = (AvailabilitySubscription) i
-			.next();
+	Vector<AvailabilitySubscription> v = localSubscriptionsIndex
+		.get(caller);
+	if (v != null) {
+	    for (AvailabilitySubscription as : v) {
 		if (request.equals(as.id)) {
 		    if (registers)
 			((AvailabilitySubscriber) as.reqOrSubs)
@@ -2032,6 +2056,7 @@ public class ServiceStrategy extends BusStrategy {
 		    break;
 		}
 	    }
+	}
     }
 
     /**
@@ -2039,15 +2064,14 @@ public class ServiceStrategy extends BusStrategy {
      * Services (ServiceRealization representing the Services)
      * 
      * @param as
-     *            - the availability subscription
+     *            the availability subscription
      * @param realizationID
-     *            - the ID of the ServiceRealization
+     *            the ID of the ServiceRealization
      * @param registers
-     *            - boolean, true if the notification is about a registered
+     *            boolean, true if the notification is about a registered
      *            service, false if the notification is about an unregistered
      *            service
      */
-
     private void notifySubscriber(AvailabilitySubscription as,
 	    String realizationID, boolean registers) {
 	if (bus.isValidMember(as.callerID))
@@ -2083,50 +2107,54 @@ public class ServiceStrategy extends BusStrategy {
      * Remove availability subscriber passed as a parameter
      * 
      * @param callerID
-     *            - the subscribing caller ID
+     *            the subscribing caller ID
      * @param subscriber
-     *            - the subscriber object
+     *            the subscriber object
      * @param requestURI
-     *            - the URI of the request to subscribe
+     *            the URI of the request to subscribe
      */
-
     void removeAvailabilitySubscription(String callerID,
 	    AvailabilitySubscriber subscriber, String requestURI) {
 	if (requestURI == null || subscriber == null
-		|| localSubscriptionsIndex.get(requestURI) == null)
-	    // TODO - check if the above line should be:
-	    // localSubscriptionsIndex.get(callerID)...
+		|| localSubscriptionsIndex.get(callerID) == null)
 	    return;
 
-	Vector v = (Vector) localSubscriptionsIndex.get(callerID);
-	if (v != null)
-	    for (Iterator i = v.iterator(); i.hasNext();) {
-		AvailabilitySubscription as = (AvailabilitySubscription) i
-			.next();
+	Vector<AvailabilitySubscription> v = localSubscriptionsIndex
+		.get(callerID);
+	String serviceClassURI = null;
+	if (v != null) {
+	    for (Iterator<AvailabilitySubscription> i = v.iterator(); i
+		    .hasNext();) {
+		AvailabilitySubscription as = i.next();
 		if (requestURI.equals(as.id) && subscriber == as.reqOrSubs) {
+		    serviceClassURI = as.serviceClassURI;
 		    i.remove();
 		    break;
 		}
 	    }
+	}
 
-	String serviceURI = (String) localSubscriptionsIndex.remove(requestURI);
 	if (isCoordinator) {
-	    v = (Vector) allSubscriptionsIndex.get(serviceURI);
-	    if (v != null)
-		for (Iterator i = v.iterator(); i.hasNext();) {
-		    AvailabilitySubscription as = (AvailabilitySubscription) i
-			    .next();
-		    if (callerID.equals(as.id)
-			    && ((Resource) as.reqOrSubs).getURI().equals(
-				    requestURI)) {
-			i.remove();
-			break;
+	    synchronized (allServicesIndex) {
+		ArrayList<AvailabilitySubscription> arrAS = allSubscriptionsIndex
+			.get(serviceClassURI);
+		if (arrAS != null)
+		    for (Iterator<AvailabilitySubscription> i = arrAS
+			    .iterator(); i.hasNext();) {
+			AvailabilitySubscription as = i.next();
+			if (callerID.equals(as.id)
+				&& ((Resource) as.reqOrSubs).getURI().equals(
+					requestURI)) {
+			    i.remove();
+			    break;
+			}
 		    }
-		}
+	    }
 	} else if (isCoordinatorKnown()) {
 	    Resource res = new Resource(callerID);
 	    res.addType(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION, true);
-	    res.setProperty(PROP_uAAL_SERVICE_TYPE, new Resource(serviceURI));
+	    res.setProperty(PROP_uAAL_SERVICE_TYPE, new Resource(
+		    serviceClassURI));
 	    res.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST, new Resource(
 		    requestURI));
 	    res.setProperty(PROP_uAAL_REGISTRATION_STATUS,
@@ -2142,9 +2170,9 @@ public class ServiceStrategy extends BusStrategy {
      * Remove service profiles to a previously registered ServiceCallee
      * 
      * @param calleeID
-     *            - the URI of the ServiceCallee
+     *            the URI of the ServiceCallee
      * @param realizedServices
-     *            - the service profiles to remove
+     *            the service profiles to remove
      */
     void removeMatchingRegParams(String calleeID,
 	    ServiceProfile[] realizedServices) {
@@ -2198,7 +2226,7 @@ public class ServiceStrategy extends BusStrategy {
      * Remove registration parameters for a calleID passed as a parameter
      * 
      * @param calleeID
-     *            - the URI of the callee for which the registration parameters
+     *            the URI of the callee for which the registration parameters
      *            are removed
      */
     void removeRegParams(String calleeID) {
@@ -2240,11 +2268,10 @@ public class ServiceStrategy extends BusStrategy {
      * services
      * 
      * @param calleeID
-     *            - the URI of the caller
+     *            the URI of the caller
      * @param processURI
-     *            - the URI of the process
+     *            the URI of the process
      */
-
     private void unindexServices(String calleeID, String processURI) {
 	boolean deleteAll = (processURI == null);
 	synchronized (allServicesIndex) {
@@ -2268,17 +2295,15 @@ public class ServiceStrategy extends BusStrategy {
 			String serviceURI = ((ServiceProfile) reg
 				.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
 				.getTheService().getClassURI();
-			Vector subscribers = (Vector) allSubscriptionsIndex
+			ArrayList<AvailabilitySubscription> subscribers = allSubscriptionsIndex
 				.get(serviceURI);
-			if (subscribers != null)
-			    for (Iterator k = subscribers.iterator(); k
-				    .hasNext();) {
-				AvailabilitySubscription as = (AvailabilitySubscription) k
-					.next();
+			if (subscribers != null) {
+			    for (AvailabilitySubscription as : subscribers) {
 				if (null != matches(as.id,
 					(ServiceRequest) as.reqOrSubs, reg))
 				    notifySubscriber(as, processURI, false);
 			    }
+			}
 		    }
 		}
 	    }
@@ -2290,8 +2315,8 @@ public class ServiceStrategy extends BusStrategy {
      * given service URI
      * 
      * @param serviceURI
-     *            - the URI of the Service whose profiles are returned
-     * @return ServiceProfile[] - the service profiles of the given service
+     *            the URI of the Service whose profiles are returned
+     * @return the service profiles of the given service
      */
     public ServiceProfile[] getAllServiceProfiles(String serviceURI) {
 	if (this.isCoordinator)
@@ -2361,8 +2386,8 @@ public class ServiceStrategy extends BusStrategy {
      * only if this peer is a coordinator. Otherwise, an empty list is returned.
      * 
      * @param serviceURI
-     *            - the URI of the service whose profiles are returned
-     * @return - the profiles of the service passed as a parameter
+     *            the URI of the service whose profiles are returned
+     * @return the profiles of the service passed as a parameter
      */
     private ServiceProfile[] getCoordinatorServices(String serviceURI) {
 	ArrayList<ServiceProfile> profiles = new ArrayList<ServiceProfile>();
@@ -2388,8 +2413,8 @@ public class ServiceStrategy extends BusStrategy {
      * ServiceProfiles
      * 
      * @param list
-     *            - the list to translate
-     * @return ServiceProfile[] - the translated array of ServiceProfiles
+     *            the list to translate
+     * @return the translated array of ServiceProfiles
      */
     private ServiceProfile[] profileListToArray(List<?> list) {
 	if (list == null)
