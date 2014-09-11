@@ -1226,10 +1226,9 @@ public class ServiceStrategy extends BusStrategy {
 			    .remove(msg.getInReplyTo());
 		    if (callContext == null) {
 			// this must be UI service response, because they are
-			// answered
-			// immediately after the request has been handled and no
-			// call context
-			// is put in allWaitingCallers
+			// answered immediately after the request has been
+			// handled and no call context is put in
+			// allWaitingCallers
 			// TODO: add a log entry for checking if the above
 			// assumption is true
 			return;
@@ -1239,10 +1238,16 @@ public class ServiceStrategy extends BusStrategy {
 
 		    WaitingRequest wr = allWaitingRequests.get(request.getID());
 		    Vector<HashMap<String, Object>> allCalls = wr.matches;
-		    if (allCalls == null)
+		    if (allCalls == null) {
 			// response already timed out => ignore this delayed one
-			// TODO: add a log entry
+			LogUtils.logDebug(
+				ServiceBusImpl.getModuleContext(),
+				ServiceStrategy.class,
+				"handle",
+				"Received a ServiceReponse but there is no request waiting for the response. "
+					+ "Maybe a timeout occurred and this response arrived too late.");
 			return;
+		    }
 		    synchronized (allCalls) {
 			callContext.put(CONTEXT_RESPONSE_MESSAGE, res);
 			wr.pendingCalls--;
@@ -1920,7 +1925,12 @@ public class ServiceStrategy extends BusStrategy {
 	    Object correlService = theService
 		    .getProperty(InitialServiceDialog.PROP_CORRELATED_SERVICE_CLASS);
 	    if (!(correlService instanceof Resource)) {
-		// TODO: add a log entry
+		LogUtils.logWarn(
+			ServiceBusImpl.getModuleContext(),
+			ServiceStrategy.class,
+			"indexServices",
+			"Trying to index a ui service (InitialServiceDialog), but the correlatedServiceClass is not a resource: "
+				+ correlService + " -> ignoring it!");
 		return;
 	    }
 	    synchronized (startDialogs) {
