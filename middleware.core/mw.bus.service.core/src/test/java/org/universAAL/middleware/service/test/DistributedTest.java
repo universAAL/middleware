@@ -49,7 +49,7 @@ public class DistributedTest extends ServiceBusTestCase {
 	assertTrue(sr != null);
 	assertTrue(sr.getCallStatus() == CallStatus.succeeded);
 
-	List<?> lampList = sr.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS);
+	List<?> lampList = sr.getOutput(RequestUtil.OUTPUT_LIST_OF_LAMPS, true);
 	assertTrue(lampList.size() == 1);
 	assertTrue(lampList.contains(lamp1));
     }
@@ -276,6 +276,35 @@ public class DistributedTest extends ServiceBusTestCase {
 		ProfileUtil.OUTPUT_CONTROLLED_LAMPS, lamp1));
 
 	ServiceCall call = new ServiceCall(profile.getProcessURI());
-	//ServiceResponse sr = coordCaller.inject(call, coordCard);
+	ServiceResponse sr = coordCaller.inject(call, coordCard);
+
+	assertTrue(sr != null);
+	assertTrue(sr.getCallStatus() == CallStatus.succeeded);
+	// we have to check for the output URI of the profile, not the request,
+	// because there was no mapping
+	List<?> lampList = sr.getOutput(ProfileUtil.OUTPUT_CONTROLLED_LAMPS);
+	assertTrue(lampList.size() == 1);
+	assertTrue(lampList.contains(lamp1));
     }
+
+    // public void testSingleGetLampsInject() {
+    // // scenario: getLamps injected, 1 callee, allDeployments
+    // ResponseChecker checker = new ResponseChecker() {
+    // public void check(ServiceResponse sr) {
+    // assertTrue(sr != null);
+    // assertTrue(sr.getCallStatus() == CallStatus.succeeded);
+    // // we have to check for the output URI of the profile, not the
+    // // request, because there was no mapping
+    // List<?> lampList = sr
+    // .getOutput(ProfileUtil.OUTPUT_CONTROLLED_LAMPS);
+    // assertTrue(lampList.size() == 1);
+    // assertTrue(lampList.contains(lamp1));
+    // }
+    // };
+    // ServiceProfile profile = ProfileUtil.create_getControlledLamps(true);
+    // testAllDeployments("SingleProfileGetLamps_Inject", profile,
+    // new ArrayListCallHandler(ProfileUtil.OUTPUT_CONTROLLED_LAMPS,
+    // lamp1), new ServiceCall(profile.getProcessURI()),
+    // checker);
+    // }
 }

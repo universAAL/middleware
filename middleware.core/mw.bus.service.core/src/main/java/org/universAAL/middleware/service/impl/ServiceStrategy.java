@@ -108,6 +108,8 @@ public class ServiceStrategy extends BusStrategy {
 	    + "requestMessage";
     private static final String CONTEXT_RESPONSE_MESSAGE = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "responseMessage";
+    private static final String CONTEXT_INJECT_CALLER = Resource.uAAL_VOCABULARY_NAMESPACE
+	    + "injectCaller";
 
     private class AvailabilitySubscription {
 	String id;
@@ -196,12 +198,12 @@ public class ServiceStrategy extends BusStrategy {
 		ServiceStrategy.class, "ServiceStrategy", new Object[] {
 			"This instance is ", isCoordinator ? "" : "NOT ",
 			"the coordinator." }, null);
+	allWaitingCalls = new Hashtable<String, HashMap<String, Object>>();
 	if (isCoordinator) {
 	    allServicesIndex = new HashMap<String, ArrayList<ServiceRealization>>();
 	    allSubscriptionsIndex = new HashMap<String, ArrayList<AvailabilitySubscription>>();
 	    startDialogs = new HashMap<String, ArrayList<ServiceRealization>>();
 	    allWaitingRequests = new Hashtable<String, WaitingRequest>();
-	    allWaitingCalls = new Hashtable<String, HashMap<String, Object>>();
 	}
     }
 
@@ -398,13 +400,13 @@ public class ServiceStrategy extends BusStrategy {
     }
 
     /**
-     * Pass the call message to the matching service callees
+     * Pass the service call message to all matching service callees.
      * 
      * @param m
-     *            the message
+     *            the message.
      * @param matches
      *            a list of maps that describe the context of the matched
-     *            services
+     *            services.
      */
     private void callServices(BusMessage m,
 	    Vector<HashMap<String, Object>> matches) {
@@ -435,54 +437,7 @@ public class ServiceStrategy extends BusStrategy {
 	    ((ServiceBusImpl) bus).assessContentSerialization(sc);
 	    BusMessage call = new BusMessage(MessageType.p2p_request, sc, bus);
 
-	    boolean handleLocally = true;
-	    try {
-		handleLocally = call.getSender().getPeerID()
-			.equals(receiver.getPeerID());
-	    } catch (NullPointerException e) {
-		// find out which element is null and log
-		if (call.getSender() == null) {
-		    LogUtils.logError(
-			    ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class,
-			    "callServices",
-			    new Object[] { "Call.getSender() is null - ignoring." },
-			    null);
-		} else if (call.getSender().getPeerID() == null) {
-		    LogUtils.logError(
-			    ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class,
-			    "callServices",
-			    new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
-			    null);
-		}
-
-		if (receiver == null) {
-		    LogUtils.logError(ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class, "callServices",
-			    new Object[] { "Receiver is null - ignoring." },
-			    null);
-		} else if (receiver.getPeerID() == null) {
-		    LogUtils.logError(
-			    ServiceBusImpl.getModuleContext(),
-			    ServiceStrategy.class,
-			    "callServices",
-			    new Object[] { "Receiver.getPeerID() is null - ignoring." },
-			    null);
-		}
-
-		// don't handle
-		continue;
-	    }
-
-	    allWaitingCalls.put(call.getID(), match);
-
-	    if (handleLocally)
-		handleMessage(call, null);
-	    else {
-		call.setReceiver(receiver);
-		send(call);
-	    }
+	    callService(call, receiver, match);
 	}
 	if (maxTimeout > 0) {
 	    try {
@@ -493,56 +448,74 @@ public class ServiceStrategy extends BusStrategy {
 	}
     }
 
-    // private void callService(BusMessage call, PeerCard receiver) {
-    // boolean handleLocally = true;
-    // try {
-    // handleLocally = call.getSender().getPeerID()
-    // .equals(receiver.getPeerID());
-    // } catch (NullPointerException e) {
-    // // find out which element is null and log
-    // if (call.getSender() == null) {
-    // LogUtils.logError(
-    // ServiceBusImpl.getModuleContext(),
-    // ServiceStrategy.class,
-    // "callServices",
-    // new Object[] { "Call.getSender() is null - ignoring." },
-    // null);
-    // } else if (call.getSender().getPeerID() == null) {
-    // LogUtils.logError(
-    // ServiceBusImpl.getModuleContext(),
-    // ServiceStrategy.class,
-    // "callServices",
-    // new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
-    // null);
-    // }
-    //
-    // if (receiver == null) {
-    // LogUtils.logError(ServiceBusImpl.getModuleContext(),
-    // ServiceStrategy.class, "callServices",
-    // new Object[] { "Receiver is null - ignoring." },
-    // null);
-    // } else if (receiver.getPeerID() == null) {
-    // LogUtils.logError(
-    // ServiceBusImpl.getModuleContext(),
-    // ServiceStrategy.class,
-    // "callServices",
-    // new Object[] { "Receiver.getPeerID() is null - ignoring." },
-    // null);
-    // }
-    //
-    // // don't handle
-    // continue;
-    // }
-    //
-    // allWaitingCallers.put(call.getID(), match);
-    //
-    // if (handleLocally)
-    // handleMessage(call, null);
-    // else {
-    // call.setReceiver(receiver);
-    // send(call);
-    // }
-    // }
+    public void injectCall(String callerID, BusMessage call, PeerCard receiver) {
+	localWaitingCallers.addLocalWaitier(call.getID(), callerID);
+
+	HashMap<String, Object> match = new HashMap<String, Object>();
+	match.put(CONTEXT_INJECT_CALLER, callerID);
+	callService(call, receiver, match);
+    }
+
+    /**
+     * Call a specific service.
+     * 
+     * @param call
+     *            the bus message that contains a {@link ServiceCall}
+     * @param receiver
+     *            the receiving peer
+     * @param match
+     *            the call context
+     */
+    private void callService(BusMessage call, PeerCard receiver,
+	    HashMap<String, Object> match) {
+	boolean handleLocally = true;
+	try {
+	    handleLocally = call.getSender().getPeerID()
+		    .equals(receiver.getPeerID());
+	} catch (NullPointerException e) {
+	    // find out which element is null and log
+	    if (call.getSender() == null) {
+		LogUtils.logError(
+			ServiceBusImpl.getModuleContext(),
+			ServiceStrategy.class,
+			"callServices",
+			new Object[] { "Call.getSender() is null - ignoring." },
+			null);
+	    } else if (call.getSender().getPeerID() == null) {
+		LogUtils.logError(
+			ServiceBusImpl.getModuleContext(),
+			ServiceStrategy.class,
+			"callServices",
+			new Object[] { "Call.getSender().getPeerID() is null - ignoring." },
+			null);
+	    }
+
+	    if (receiver == null) {
+		LogUtils.logError(ServiceBusImpl.getModuleContext(),
+			ServiceStrategy.class, "callServices",
+			new Object[] { "Receiver is null - ignoring." }, null);
+	    } else if (receiver.getPeerID() == null) {
+		LogUtils.logError(
+			ServiceBusImpl.getModuleContext(),
+			ServiceStrategy.class,
+			"callServices",
+			new Object[] { "Receiver.getPeerID() is null - ignoring." },
+			null);
+	    }
+
+	    // don't handle
+	    return;
+	}
+
+	allWaitingCalls.put(call.getID(), match);
+
+	if (handleLocally)
+	    handleMessage(call, null);
+	else {
+	    call.setReceiver(receiver);
+	    send(call);
+	}
+    }
 
     /**
      * This method starts a general purpose user interaction related to a
@@ -1221,9 +1194,12 @@ public class ServiceStrategy extends BusStrategy {
 	    break;
 	case MessageType.P2P_REPLY:
 	    if (res instanceof ServiceResponse) {
+		HashMap<String, Object> callContext = allWaitingCalls
+			.remove(msg.getInReplyTo());
+		if (handleResponseOfInjectedCall(msg, callContext)) {
+		    break;
+		}
 		if (isCoordinator) {
-		    HashMap<String, Object> callContext = allWaitingCalls
-			    .remove(msg.getInReplyTo());
 		    if (callContext == null) {
 			// this must be UI service response, because they are
 			// answered immediately after the request has been
@@ -1730,6 +1706,22 @@ public class ServiceStrategy extends BusStrategy {
 	    }
 	    break;
 	}
+    }
+
+    private boolean handleResponseOfInjectedCall(BusMessage msg,
+	    HashMap<String, Object> callContext) {
+	if (callContext == null)
+	    return false;
+	String callerID = (String) callContext.get(CONTEXT_INJECT_CALLER);
+	if (callerID == null)
+	    return false;
+
+	// the service call is of type MessageType.P2P_REPLY, but we need a
+	// MessageType.reply -> rewrite the type
+	msg.setType(MessageType.reply);
+
+	replyToLocalCaller(msg);
+	return true;
     }
 
     /**
@@ -2361,14 +2353,14 @@ public class ServiceStrategy extends BusStrategy {
 	return profileListToArray(profiles);
     }
 
-    public HashMap<String, ArrayList<ServiceProfile>> getAllServiceProfilesWithCalleeIDs(
+    public HashMap<String, List<ServiceProfile>> getAllServiceProfilesWithCalleeIDs(
 	    String serviceURI) {
 	return getCoordinatorServicesWithCalleeIDs(serviceURI);
     }
 
-    private HashMap<String, ArrayList<ServiceProfile>> getCoordinatorServicesWithCalleeIDs(
+    private HashMap<String, List<ServiceProfile>> getCoordinatorServicesWithCalleeIDs(
 	    String serviceURI) {
-	HashMap<String, ArrayList<ServiceProfile>> map = new HashMap<String, ArrayList<ServiceProfile>>();
+	HashMap<String, List<ServiceProfile>> map = new HashMap<String, List<ServiceProfile>>();
 	if (this.isCoordinator) {
 	    synchronized (allServicesIndex) {
 		ArrayList<ServiceRealization> neededProfiles = allServicesIndex

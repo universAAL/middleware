@@ -43,6 +43,7 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 import org.universAAL.middleware.service.DefaultServiceCaller;
+import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
@@ -91,6 +92,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 	    "universAAL");
     public static PeerCard node2Card = new PeerCard(PeerRole.PEER, "OSGi",
 	    "universAAL");
+    public static List<PeerCard> lstPeerCard = new ArrayList<PeerCard>();
 
     public static Map<String, String> mapReadableNodes = new HashMap<String, String>();
     public static List<String> lstReadableNodes = new ArrayList<String>();
@@ -157,6 +159,9 @@ public abstract class ServiceBusTestCase extends TestCase {
 	lstReadableNodes.add("Coord");
 	lstReadableNodes.add("Node1");
 	lstReadableNodes.add("Node2");
+	lstPeerCard.add(coordCard);
+	lstPeerCard.add(node1Card);
+	lstPeerCard.add(node2Card);
 
 	AALSpaceManager sp = new MyAALSpaceManager(mapCards, lstCards);
 	CommunicationModule com = new MyCommunicationModule(lstCards,
@@ -428,6 +433,18 @@ public abstract class ServiceBusTestCase extends TestCase {
     }
 
     /**
+     * Inject a service call from a given node.
+     * 
+     * @param node
+     * @param sr
+     * @return
+     */
+    public ServiceResponse inject(int node, ServiceCall call, int receivingNode) {
+	ServiceCaller c = getCaller(node);
+	return c.inject(call, lstPeerCard.get(receivingNode));
+    }
+
+    /**
      * Deploy some profiles to a given callee on the given node. The profiles
      * are added to existing profiles.
      * 
@@ -510,6 +527,27 @@ public abstract class ServiceBusTestCase extends TestCase {
 		deployProfiles(i, profile);
 		setHandler(i, handler);
 		ServiceResponse sr = call(j, request);
+		checker.check(sr);
+	    }
+	}
+    }
+
+    /**
+     * Test the given profile and request for all possible deployments.
+     */
+    public void testAllDeployments(String name, ServiceProfile profile,
+	    CallHandler handler, ServiceCall call, ResponseChecker checker) {
+	System.out.println("---------------\n testing scenario " + name + "\n");
+	for (int i = 0; i < 3; i++) {
+	    for (int j = 0; j < 3; j++) {
+		reset();
+		System.out.println(" -- testing scenario: " + name
+			+ "\n   profile on " + lstReadableNodes.get(i)
+			+ ", inject from " + lstReadableNodes.get(j));
+
+		deployProfiles(i, profile);
+		setHandler(i, handler);
+		ServiceResponse sr = inject(i, call, j);
 		checker.check(sr);
 	    }
 	}

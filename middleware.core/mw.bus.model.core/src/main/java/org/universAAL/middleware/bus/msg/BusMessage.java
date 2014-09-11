@@ -363,6 +363,10 @@ public class BusMessage implements BrokerMessage {
 	return type;
     }
 
+    public void setType(MessageType newType) {
+	type = newType;
+    }
+
     public boolean receiverResidesOnDifferentPeer() {
 	if (receiver == null || receiver.isEmpty()) {
 	    // a broadcast message is assumed to have remote receivers

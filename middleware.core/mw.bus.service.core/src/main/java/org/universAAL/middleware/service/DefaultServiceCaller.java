@@ -53,5 +53,4 @@ public class DefaultServiceCaller extends ServiceCaller {
      */
     public void handleResponse(String reqID, ServiceResponse response) {
     }
-
 }
