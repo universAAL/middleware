@@ -20,6 +20,7 @@
 package org.universAAL.middleware.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.interfaces.PeerCard;
@@ -290,5 +291,6 @@ public interface ServiceBus {
      *         in the service bus that are instances of the given service class.
      *         Returned profiles are stored in value part of map in a List.
      */
-    public HashMap getMatchingServices(String serviceClassURI);
+    public HashMap<String, List<ServiceProfile>> getMatchingServices(
+	    String serviceClassURI);
 }

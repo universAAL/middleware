@@ -389,6 +389,10 @@ public class BusMessage implements BrokerMessage {
     public MessageType getType() {
 	return type;
     }
+    
+    public void setType(MessageType newType) {
+	type = newType;
+    }
 
     public boolean receiverResidesOnDifferentPeer() {
 	if (receiver == null || receiver.isEmpty()) {

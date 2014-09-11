@@ -20,6 +20,7 @@
 package org.universAAL.middleware.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.model.AbstractBus;
@@ -59,13 +60,23 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     private static CallInjectorImpl theCallInjector = null;
     private static ServiceBusOntology serviceOntology = null;
     private static ModuleContext mc;
-    
+
     public static class CallInjectorImpl implements CallInjector {
+	ServiceStrategy busStrategy;
+
+	public CallInjectorImpl(ServiceStrategy busStrategy) {
+	    this.busStrategy = busStrategy;
+	}
 
 	public void brokerCall(String callerID, PeerCard receiver,
 		BusMessage call) {
-	    // TODO Auto-generated method stub
-
+	    if (callerID == null)
+		throw new NullPointerException("Caller ID cannot be null");
+	    if (receiver == null)
+		throw new NullPointerException("Receiver cannot be null");
+	    if (call == null)
+		throw new NullPointerException("Call cannot be null");
+	    busStrategy.injectCall(callerID, call, receiver);
 	}
 
 	public void brokerCall(String callerID, String receiver, BusMessage call) {
@@ -77,7 +88,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     public static Object[] getServiceBusFetchParams() {
 	return busFetchParams.clone();
     }
-    
+
     public static Object[] getServiceBusInjectFetchParams() {
 	return busInjectFetchParams.clone();
     }
@@ -117,17 +128,22 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    theServiceBus = new ServiceBusImpl(mc);
 	    ServiceBusImpl.busRemoveParams = serviceBusShareParams;
 	    ServiceBusImpl.busInjectRemoveParams = serviceBusInjectShareParams;
-	    mc.getContainer().shareObject(mc, theServiceBus, serviceBusShareParams);
-	    theCallInjector = new CallInjectorImpl();
-	    mc.getContainer().shareObject(mc, theCallInjector, serviceBusInjectShareParams);
+	    mc.getContainer().shareObject(mc, theServiceBus,
+		    serviceBusShareParams);
+	    theCallInjector = new CallInjectorImpl(
+		    (ServiceStrategy) theServiceBus.busStrategy);
+	    mc.getContainer().shareObject(mc, theCallInjector,
+		    serviceBusInjectShareParams);
 	}
     }
 
     public static void stopModule() {
 	if (theServiceBus != null) {
 	    OntologyManagement.getInstance().unregister(mc, serviceOntology);
-	    mc.getContainer().removeSharedObject(mc, theServiceBus, busRemoveParams);
-	    mc.getContainer().removeSharedObject(mc, theCallInjector, busInjectRemoveParams);
+	    mc.getContainer().removeSharedObject(mc, theServiceBus,
+		    busRemoveParams);
+	    mc.getContainer().removeSharedObject(mc, theCallInjector,
+		    busInjectRemoveParams);
 	    serviceOntology = null;
 	    theServiceBus.dispose();
 	    theServiceBus = null;
@@ -172,7 +188,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 		    realizedServices, throwOnDuplicateReg);
 	    registry.addRegParams(calleeID, realizedServices);
 	}
-   }
+    }
 
     /**
      * @see org.universAAL.middleware.service.ServiceBus#getAllServices(String)
@@ -200,7 +216,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     /**
      * @see ServiceBus#getMatchingService(String)
      */
-    public HashMap getMatchingServices(String s) {
+    public HashMap<String, List<ServiceProfile>> getMatchingServices(String s) {
 	return ((ServiceStrategy) busStrategy)
 		.getAllServiceProfilesWithCalleeIDs(s);
     }
@@ -281,7 +297,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    super.unregister(callerID, caller);
 	}
     }
-    
+
     @Override
     public void unregister(String memberID, BusMember m) {
 	if (m instanceof ServiceCallee)
