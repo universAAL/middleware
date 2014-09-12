@@ -427,7 +427,7 @@ public class uAALBundleContext implements ModuleContext {
     }
 
 	public File getConfigHome() {
-		return new File(BundleConfigHome.uAAL_CONF_ROOT_DIR, getID());
+		return new File(System.getProperty(BundleConfigHome.uAAL_CONF_ROOT_DIR, System.getProperty("user.dir")), getID());
 	}
 
 	public File getDataFolder() {
