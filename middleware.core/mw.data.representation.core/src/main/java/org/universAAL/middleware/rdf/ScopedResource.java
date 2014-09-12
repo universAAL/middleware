@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * A {@link ScopedResource} is a Resource that may have been generated at
  * another AALSpace. Thus it can be annotated with the origin Scope (a.k.a
- * tenant ID, origin AALSpace Id).
+ * tenant ID, origin AALSpace Id); and different destination Scopes.
  * 
  * @author amedrano
  * @author Carsten Stockloew
@@ -31,9 +31,20 @@ import java.util.List;
 public class ScopedResource extends FinalizedResource {
 
 	/**
-	 * The property URI for holding the Scopes
+	 * The property URI for holding the Destination Scopes.
 	 */
-	public static String PROP_SCOPE = uAAL_VOCABULARY_NAMESPACE + "hasScopes";
+	public static String PROP_DEST_SCOPE = uAAL_VOCABULARY_NAMESPACE
+			+ "hasDestinationScopes";
+
+	/**
+	 * The property URI for holding the Origin Scope. This property is to be
+	 * used directly by {@link Resource#getProperty(String)} and
+	 * {@link Resource#setProperty(String, Object)}, only by the router
+	 * artifacts.
+	 * 
+	 */
+	public static String PROP_ORIG_SCOPE = uAAL_VOCABULARY_NAMESPACE
+			+ "hasOriginScope";
 
 	/**
 	 * A special scope indicating the Resource may not be serialized to other
@@ -79,7 +90,7 @@ public class ScopedResource extends FinalizedResource {
 	 * @return true if there is one or more scopes annotated for this resource.
 	 */
 	public boolean isScoped() {
-		return props.contains(PROP_SCOPE);
+		return props.contains(PROP_DEST_SCOPE);
 	}
 
 	/**
@@ -88,7 +99,7 @@ public class ScopedResource extends FinalizedResource {
 	 * @return always a list, empty if there are no scopes.
 	 */
 	public List getScopes() {
-		Object s = getProperty(PROP_SCOPE);
+		Object s = getProperty(PROP_DEST_SCOPE);
 		if (s instanceof String) {
 			List res = new ArrayList();
 			res.add(s);
@@ -111,19 +122,19 @@ public class ScopedResource extends FinalizedResource {
 		if (newScope == null) {
 			return false;
 		}
-		Object s = getProperty(PROP_SCOPE);
+		Object s = getProperty(PROP_DEST_SCOPE);
 		if (s instanceof String) {
 			List res = new ArrayList();
 			res.add(s);
 			res.add(newScope);
-			props.put(PROP_SCOPE, res);
+			props.put(PROP_DEST_SCOPE, res);
 			return true;
 		} else if (s instanceof List) {
 			((List) s).add(newScope);
-			props.put(PROP_SCOPE, s);
+			props.put(PROP_DEST_SCOPE, s);
 			return true;
 		} else if (s == null) {
-			props.put(PROP_SCOPE, newScope);
+			props.put(PROP_DEST_SCOPE, newScope);
 			return true;
 		} else {
 			return false;
@@ -136,7 +147,7 @@ public class ScopedResource extends FinalizedResource {
 	 * @return iff the scopes have been cleared.
 	 */
 	public boolean clearScopes() {
-		return changeProperty(PROP_SCOPE, null);
+		return changeProperty(PROP_DEST_SCOPE, null);
 	}
 
 	/**
@@ -147,12 +158,51 @@ public class ScopedResource extends FinalizedResource {
 	 * @return whether the change was successful or not.
 	 */
 	public boolean setScope(ScopedResource src) {
-		Object scope = src.getProperty(PROP_SCOPE);
+		Object scope = src.getProperty(PROP_DEST_SCOPE);
 		if (scope == null) {
 			return clearScopes();
 		} else {
-			props.put(PROP_SCOPE, scope);
+			props.put(PROP_DEST_SCOPE, scope);
 			return true;
 		}
+	}
+
+	/**
+	 * Get the Scope at which the Resource was created.
+	 * 
+	 * @return a ScopeID, null if origin was never set (i.e: local).
+	 */
+	public String getOriginScope() {
+		return (String) getProperty(PROP_ORIG_SCOPE);
+	}
+
+	/**
+	 * Check whether if this {@link ScopedResource} may be sent to a destination
+	 * scope <br>
+	 * 
+	 * <ul>
+	 *  <li>Deny if the origin is the destination candidate (this will cause message loops) 
+	 *  <li>Deny if the destinations do contain {@link ScopedResource#ONLY_LOCAL_SCOPE} (tenant-aware application has decided this message is only local)
+	 *  <li>Allow if the destinations are empty (non-tenant-aware application has generated the message)
+	 *  <li>Deny if the destinations are not empty and do not contain the candidate destination
+	 *  <li>Allow if the destinations are not empty and contain a {@link ScopedResource#ALL_SCOPES} scope or the candidate destination.
+	 *  </ul>
+	 * 
+	 * @param destinationCandidateScope
+	 *            The destination to be checked.
+	 * @return true iff it may be sent according to origin / destination
+	 *         restrictions.
+	 */
+	public boolean isSerializableTo(String destinationCandidateScope) {
+		String orig = (String) getProperty(PROP_ORIG_SCOPE);
+		if (orig == null || destinationCandidateScope == null) {
+			return false;
+		}
+		List dest = getScopes();
+		return !orig.equals(destinationCandidateScope)
+				&& !dest.contains(ONLY_LOCAL_SCOPE)
+				&& (dest.isEmpty()
+						|| dest.contains(destinationCandidateScope) 
+						|| dest.contains(ALL_SCOPES));
 	}
 }
