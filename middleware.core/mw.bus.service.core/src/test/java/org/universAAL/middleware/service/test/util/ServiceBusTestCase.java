@@ -547,7 +547,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 		deployProfiles(i, profile);
 		setHandler(i, handler);
-		ServiceResponse sr = inject(i, call, j);
+		ServiceResponse sr = inject(j, call, i);
 		checker.check(sr);
 	    }
 	}

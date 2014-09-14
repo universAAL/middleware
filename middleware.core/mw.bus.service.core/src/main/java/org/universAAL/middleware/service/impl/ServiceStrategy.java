@@ -1207,6 +1207,11 @@ public class ServiceStrategy extends BusStrategy {
 			// allWaitingCallers
 			// TODO: add a log entry for checking if the above
 			// assumption is true
+			
+			// it can also be an injected call -> send (if it is for
+			// another node)
+			if (!msg.hasReceiver(theCoordinator))
+			    send(msg);
 			return;
 		    }
 		    BusMessage request = (BusMessage) callContext
@@ -1230,10 +1235,13 @@ public class ServiceStrategy extends BusStrategy {
 			if (wr.pendingCalls == 0)
 			    sendServiceResponse(request);
 		    }
-		} else if (msg.hasReceiver(theCoordinator)) {
-		    send(msg);
 		} else {
-		    // this case shouldn't occur at all!
+		    // normally, it is sufficient to check
+		    // if (msg.hasReceiver(theCoordinator)) {
+		    // but there is one case where we have to send anyway: when
+		    // the call was injected from a node that was not the
+		    // coordinator
+		    send(msg);
 		}
 	    } else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
 		PeerCard coord = AbstractBus.getPeerFromBusResourceURI(res
@@ -1272,9 +1280,14 @@ public class ServiceStrategy extends BusStrategy {
 			    .getProperty(
 				    ServiceRealization.uAAL_SERVICE_PROVIDER)
 			    .toString());
-		    if (callee != null)
+		    if (callee != null) {
 			callee.handleRequest(msg);
+			break;
+		    }
 		}
+		// we could not get the service realization or the bus member
+		// for the call, this should not happen
+		// TODO: handle somehow, e.g. send an empty/error-response
 	    } else if (isCoordinator
 		    && res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
 		res = new Resource(bus.getURI());
