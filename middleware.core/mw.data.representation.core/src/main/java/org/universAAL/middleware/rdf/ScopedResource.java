@@ -20,9 +20,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * A {@link ScopedResource} is a Resource that may have been generated at
- * another AALSpace. Thus it can be annotated with the origin Scope (a.k.a
- * tenant ID, origin AALSpace Id); and different destination Scopes.
+ * A {@link ScopedResource} is a Resource that may have been generated at, or be
+ * sent to, another AALSpace. Thus it can be annotated with one or more Scopes
+ * (a.k.a tenant ID, origin AALSpace Id).
  * 
  * @author amedrano
  * @author Carsten Stockloew
@@ -33,8 +33,7 @@ public class ScopedResource extends FinalizedResource {
 	/**
 	 * The property URI for holding the Destination Scopes.
 	 */
-	public static String PROP_DEST_SCOPE = uAAL_VOCABULARY_NAMESPACE
-			+ "hasDestinationScopes";
+	public static String PROP_SCOPES = uAAL_VOCABULARY_NAMESPACE + "hasScopes";
 
 	/**
 	 * The property URI for holding the Origin Scope. This property is to be
@@ -52,12 +51,6 @@ public class ScopedResource extends FinalizedResource {
 	 */
 	public static String ONLY_LOCAL_SCOPE = uAAL_VOCABULARY_NAMESPACE
 			+ "localScope";
-
-	/**
-	 * A special scope indicating the Resource may be serialized to all other
-	 * AALSpaces.
-	 */
-	public static String ALL_SCOPES = uAAL_VOCABULARY_NAMESPACE + "allScopes";
 
 	/** {@inheritDoc} */
 	public ScopedResource() {
@@ -90,7 +83,7 @@ public class ScopedResource extends FinalizedResource {
 	 * @return true if there is one or more scopes annotated for this resource.
 	 */
 	public boolean isScoped() {
-		return props.contains(PROP_DEST_SCOPE);
+		return props.contains(PROP_SCOPES);
 	}
 
 	/**
@@ -99,7 +92,7 @@ public class ScopedResource extends FinalizedResource {
 	 * @return always a list, empty if there are no scopes.
 	 */
 	public List getScopes() {
-		Object s = getProperty(PROP_DEST_SCOPE);
+		Object s = getProperty(PROP_SCOPES);
 		if (s instanceof String) {
 			List res = new ArrayList();
 			res.add(s);
@@ -122,19 +115,19 @@ public class ScopedResource extends FinalizedResource {
 		if (newScope == null) {
 			return false;
 		}
-		Object s = getProperty(PROP_DEST_SCOPE);
+		Object s = getProperty(PROP_SCOPES);
 		if (s instanceof String) {
 			List res = new ArrayList();
 			res.add(s);
 			res.add(newScope);
-			props.put(PROP_DEST_SCOPE, res);
+			props.put(PROP_SCOPES, res);
 			return true;
 		} else if (s instanceof List) {
 			((List) s).add(newScope);
-			props.put(PROP_DEST_SCOPE, s);
+			props.put(PROP_SCOPES, s);
 			return true;
 		} else if (s == null) {
-			props.put(PROP_DEST_SCOPE, newScope);
+			props.put(PROP_SCOPES, newScope);
 			return true;
 		} else {
 			return false;
@@ -142,12 +135,14 @@ public class ScopedResource extends FinalizedResource {
 	}
 
 	/**
-	 * Remove all scope annotations from this resource.
+	 * Remove all scope annotations from this resource. If the Resource is being
+	 * sent and the scopes are cleared it is assumed that it has to be sent to
+	 * all available Scopes.
 	 * 
 	 * @return iff the scopes have been cleared.
 	 */
 	public boolean clearScopes() {
-		return changeProperty(PROP_DEST_SCOPE, null);
+		return changeProperty(PROP_SCOPES, null);
 	}
 
 	/**
@@ -158,11 +153,11 @@ public class ScopedResource extends FinalizedResource {
 	 * @return whether the change was successful or not.
 	 */
 	public boolean setScope(ScopedResource src) {
-		Object scope = src.getProperty(PROP_DEST_SCOPE);
+		Object scope = src.getProperty(PROP_SCOPES);
 		if (scope == null) {
 			return clearScopes();
 		} else {
-			props.put(PROP_DEST_SCOPE, scope);
+			props.put(PROP_SCOPES, scope);
 			return true;
 		}
 	}
@@ -172,7 +167,7 @@ public class ScopedResource extends FinalizedResource {
 	 * 
 	 * @return a ScopeID, null if origin was never set (i.e: local).
 	 */
-	public String getOriginScope() {
+	private String getOriginScope() {
 		return (String) getProperty(PROP_ORIG_SCOPE);
 	}
 
@@ -181,28 +176,32 @@ public class ScopedResource extends FinalizedResource {
 	 * scope <br>
 	 * 
 	 * <ul>
-	 *  <li>Deny if the origin is the destination candidate (this will cause message loops) 
-	 *  <li>Deny if the destinations do contain {@link ScopedResource#ONLY_LOCAL_SCOPE} (tenant-aware application has decided this message is only local)
-	 *  <li>Allow if the destinations are empty (non-tenant-aware application has generated the message)
-	 *  <li>Deny if the destinations are not empty and do not contain the candidate destination
-	 *  <li>Allow if the destinations are not empty and contain a {@link ScopedResource#ALL_SCOPES} scope or the candidate destination.
-	 *  </ul>
+	 * <li>Deny if the origin is the destination candidate (this will cause
+	 * message loops)
+	 * <li>Deny if the destinations do contain
+	 * {@link ScopedResource#ONLY_LOCAL_SCOPE} (tenant-aware application has
+	 * decided this message is only local)
+	 * <li>Allow if the destinations are empty (non-tenant-aware application has
+	 * generated the message)
+	 * <li>Deny if the destinations are not empty and do not contain the
+	 * candidate destination
+	 * <li>Allow if the destinations are not empty and contain a
+	 * {@link ScopedResource#ALL_SCOPES} scope or the candidate destination.
+	 * </ul>
 	 * 
 	 * @param destinationCandidateScope
-	 *            The destination to be checked.
+	 *            The destination to be checked, If null returns false.
 	 * @return true iff it may be sent according to origin / destination
 	 *         restrictions.
 	 */
 	public boolean isSerializableTo(String destinationCandidateScope) {
-		String orig = (String) getProperty(PROP_ORIG_SCOPE);
-		if (orig == null || destinationCandidateScope == null) {
+		if (destinationCandidateScope == null) {
 			return false;
 		}
+		String orig = (String) getProperty(PROP_ORIG_SCOPE);
 		List dest = getScopes();
-		return !orig.equals(destinationCandidateScope)
+		return !destinationCandidateScope.equals(orig)
 				&& !dest.contains(ONLY_LOCAL_SCOPE)
-				&& (dest.isEmpty()
-						|| dest.contains(destinationCandidateScope) 
-						|| dest.contains(ALL_SCOPES));
+				&& (dest.isEmpty() || dest.contains(destinationCandidateScope));
 	}
 }
