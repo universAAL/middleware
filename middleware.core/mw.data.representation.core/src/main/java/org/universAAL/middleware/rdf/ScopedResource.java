@@ -163,15 +163,6 @@ public class ScopedResource extends FinalizedResource {
 	}
 
 	/**
-	 * Get the Scope at which the Resource was created.
-	 * 
-	 * @return a ScopeID, null if origin was never set (i.e: local).
-	 */
-	private String getOriginScope() {
-		return (String) getProperty(PROP_ORIG_SCOPE);
-	}
-
-	/**
 	 * Check whether if this {@link ScopedResource} may be sent to a destination
 	 * scope <br>
 	 * 
