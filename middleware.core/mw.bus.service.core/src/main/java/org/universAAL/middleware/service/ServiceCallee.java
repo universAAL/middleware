@@ -26,7 +26,9 @@ import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
+import org.universAAL.middleware.service.impl.ServiceRealization;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
@@ -182,7 +184,7 @@ public abstract class ServiceCallee extends Callee {
      * @param m
      *            request message coming from the bus.
      */
-    public void handleRequest(BusMessage m) {
+    public final void handleCall(BusMessage m) {
 	if (m != null && m.getContent() instanceof ServiceCall) {
 	    LogUtils.logDebug(owner, ServiceCallee.class, "handleRequest",
 		    new Object[] { busResourceURI, " received service call:\n",
@@ -190,6 +192,8 @@ public abstract class ServiceCallee extends Callee {
 	    ServiceResponse sr = handleCall((ServiceCall) m.getContent());
 	    if (sr == null)
 		sr = new ServiceResponse(CallStatus.serviceSpecificFailure);
+	    sr.setProperty(ServiceRealization.uAAL_SERVICE_PROVIDER,
+		    new Resource(busResourceURI));
 	    BusMessage reply = m.createReply(sr);
 	    if (reply != null)
 		((ServiceBus) theBus).brokerReply(busResourceURI, reply);
