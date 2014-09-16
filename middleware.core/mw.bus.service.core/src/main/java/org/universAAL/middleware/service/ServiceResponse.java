@@ -29,6 +29,7 @@ import org.universAAL.middleware.bus.model.matchable.Response;
 import org.universAAL.middleware.bus.model.matchable.UtilityReply;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ScopedResource;
+import org.universAAL.middleware.service.impl.ServiceRealization;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 
 /**
@@ -296,6 +297,16 @@ public class ServiceResponse extends ScopedResource implements Response,
     public boolean isWellFormed() {
 	return props.containsKey(PROP_SERVICE_CALL_STATUS);
     }
+    
+    /**
+     * Get the provider of the requested service. The provider is the URI of the
+     * bus member of the {@link ServiceCallee}.
+     * 
+     * @return The URI of the service provider.
+     */
+    public Resource getProvider() {
+	return (Resource) props.get(ServiceRealization.uAAL_SERVICE_PROVIDER);
+    }
 
     /**
      * This method inherits the superclass behavior, but performs some
@@ -324,6 +335,9 @@ public class ServiceResponse extends ScopedResource implements Response,
 		props.put(propURI, value);
 		return true;
 	    }
+	} else if (propURI.equals(ServiceRealization.uAAL_SERVICE_PROVIDER)) {
+	    if (value instanceof Resource)
+		props.put(propURI, value);
 	}
 	return false;
     }
