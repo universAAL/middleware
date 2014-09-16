@@ -13,10 +13,6 @@ middleware.config/mw.managers.aalspace.core.config/target
 middleware.config/mw.managers.deploy.core.config/.project
 middleware.config/mw.managers.deploy.core.config/.settings
 middleware.config/mw.managers.deploy.core.config/target
-middleware.config/mw.managers.tenant.core.config/.classpath
-middleware.config/mw.managers.tenant.core.config/.project
-middleware.config/mw.managers.tenant.core.config/.settings
-middleware.config/mw.managers.tenant.core.config/target
 middleware.config/mw.modules.aalspace.core.config/.project
 middleware.config/mw.modules.aalspace.core.config/.settings
 middleware.config/mw.modules.aalspace.core.config/target

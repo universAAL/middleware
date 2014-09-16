@@ -17,9 +17,6 @@ middleware.config/mw.managers.deploy.core.config/ASL2.0.txt -text
 middleware.config/mw.managers.deploy.core.config/NOTICE.txt -text
 middleware.config/mw.managers.deploy.core.config/pom.xml -text
 middleware.config/mw.managers.deploy.core.config/src/main/resources/mw.managers.deploy.core.cfg -text
-middleware.config/mw.managers.tenant.core.config/ASL2.0.txt -text
-middleware.config/mw.managers.tenant.core.config/NOTICE.txt -text
-middleware.config/mw.managers.tenant.core.config/pom.xml -text
 middleware.config/mw.modules.aalspace.core.config/ASL2.0.txt -text
 middleware.config/mw.modules.aalspace.core.config/NOTICE.txt -text
 middleware.config/mw.modules.aalspace.core.config/pom.xml -text
