@@ -46,7 +46,7 @@ public class BusMessage implements BrokerMessage {
     private PeerCard sender;
     private List<PeerCard> receiver = new ArrayList<PeerCard>();
     public String brokerName;
-    
+
     // used only for special case of mw.bus.service unit tests; in this case,
     // thisPeer is null
     // we have to distingush these two cases because the module mw.bus.junit
@@ -76,7 +76,7 @@ public class BusMessage implements BrokerMessage {
     public static void setThisPeer(PeerCard peer) {
 	thisPeer = peer;
     }
-    
+
     private PeerCard getThisPeer() {
 	if (thisPeer != null)
 	    return thisPeer;
@@ -117,7 +117,7 @@ public class BusMessage implements BrokerMessage {
     public BusMessage() {
 	mType = BrokerMessageTypes.BusMessage;
     }
-    
+
     /**
      * Constructor - a message of particular type with particular content
      * 
@@ -157,7 +157,7 @@ public class BusMessage implements BrokerMessage {
 	if (message == null) {
 	    throw new NullPointerException();
 	}
-	
+
 	thisPeer2 = creator.getPeerCard();
 
 	if (message.startsWith("<![CDATA[") && message.endsWith("]]>")) {
@@ -389,7 +389,7 @@ public class BusMessage implements BrokerMessage {
     public MessageType getType() {
 	return type;
     }
-    
+
     public void setType(MessageType newType) {
 	type = newType;
     }
@@ -401,9 +401,9 @@ public class BusMessage implements BrokerMessage {
 	}
 	for (PeerCard pc : receiver) {
 	    try {
-	    if (!pc.getPeerID().equals(getThisPeer().getPeerID())) {
-		return true;
-	    }
+		if (!pc.getPeerID().equals(getThisPeer().getPeerID())) {
+		    return true;
+		}
 	    } catch (Exception e) {
 		System.out.println("");
 	    }
@@ -445,23 +445,24 @@ public class BusMessage implements BrokerMessage {
     @Override
     public String toString() {
 	if (sender == null)
-	    System.out.println("sender null");;
+	    System.out.println("sender null");
+	;
 	StringBuffer sb = new StringBuffer();
 	// sb.append("<![CDATA[<uAAL:BusMessage>");
 	sb.append("<uAAL:BusMessage>");
-	sb.append("\n  <uAAL:BusMessage#id>").append(id).append(
-		"</uAAL:BusMessage#id>");
-	sb.append("\n  <uAAL:BusMessage#type>").append(type.name()).append(
-		"</uAAL:BusMessage#type>");
-	sb.append("\n  <uAAL:BusMessage#content>\n").append(
-		getContentAsString())
+	sb.append("\n  <uAAL:BusMessage#id>").append(id)
+		.append("</uAAL:BusMessage#id>");
+	sb.append("\n  <uAAL:BusMessage#type>").append(type.name())
+		.append("</uAAL:BusMessage#type>");
+	sb.append("\n  <uAAL:BusMessage#content>\n")
+		.append(getContentAsString())
 		.append("\n    </uAAL:BusMessage#content>");
 	if (inReplyTo != null) {
 	    sb.append("\n  <uAAL:BusMessage#inReplyTo>").append(inReplyTo)
 		    .append("</uAAL:BusMessage#inReplyTo>");
 	}
-	sb.append("\n  <uAAL:BusMessage#sender>\n").append(sender).append(
-		"\n    </uAAL:BusMessage#sender>");
+	sb.append("\n  <uAAL:BusMessage#sender>\n").append(sender)
+		.append("\n    </uAAL:BusMessage#sender>");
 	if (receiver != null && !receiver.isEmpty()) {
 	    sb.append("\n  <uAAL:BusMessage#receiver>").append(receiver.get(0));
 	    for (int i = 1; i < receiver.size(); i++) {

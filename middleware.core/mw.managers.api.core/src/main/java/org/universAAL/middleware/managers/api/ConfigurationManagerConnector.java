@@ -21,25 +21,29 @@ import org.universAAL.middleware.brokers.message.configuration.ConfigurationMess
 
 /**
  * Contector Methods to recieve messages from control bus.
+ * 
  * @author amedrano
- *
+ * 
  */
 public interface ConfigurationManagerConnector {
-    
+
     /**
      * Called when a propagation message is received.
+     * 
      * @param message
      */
     public void processPropagation(ConfigurationMessage message);
-    
+
     /**
      * Called when a request message is received.
+     * 
      * @param message
      */
     public void processRequest(ConfigurationMessage message);
-    
+
     /**
      * Called when a response message is received.
+     * 
      * @param message
      */
     public void processResponse(ConfigurationMessage message);

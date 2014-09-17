@@ -31,7 +31,8 @@ public class MyAALSpaceManager implements AALSpaceManager {
     List<PeerCard> lstCards;
     int cnt = -1;
 
-    MyAALSpaceManager(HashMap<String, PeerCard> mapCards, List<PeerCard> lstCards) {
+    MyAALSpaceManager(HashMap<String, PeerCard> mapCards,
+	    List<PeerCard> lstCards) {
 	this.mapCards = mapCards;
 	this.lstCards = lstCards;
     }
@@ -68,9 +69,9 @@ public class MyAALSpaceManager implements AALSpaceManager {
     public PeerCard getMyPeerCard() {
 	// HACK: we assume that this method is called only by the bus and that
 	// it is called exactly two times for a bus
-	//System.out.println(" --- getMyPeerCard");
+	// System.out.println(" --- getMyPeerCard");
 	cnt++;
-	return lstCards.get(cnt/2);
+	return lstCards.get(cnt / 2);
 	// return null;
     }
 

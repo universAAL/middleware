@@ -35,7 +35,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
 
-
 /**
  * Bundle Activator
  * 
@@ -43,44 +42,53 @@ import org.osgi.framework.ServiceRegistration;
  */
 public class Activator implements BundleActivator {
 
-	/**
-	 * 
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-	 */
-	public void start(final BundleContext context) throws Exception {
+    /**
+     * 
+     * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+     */
+    public void start(final BundleContext context) throws Exception {
 
-		// create the platform abstraction layer but do not initialize!!!
-		SLPCore.platform = new OSGiPlatformAbstraction(context);
+	// create the platform abstraction layer but do not initialize!!!
+	SLPCore.platform = new OSGiPlatformAbstraction(context);
 
-		// register the service factories so each consumer gets its own Locator/Activator instance
-		context.registerService("ch.ethz.iks.slp.Advertiser", new ServiceFactory() {
-			public Object getService(Bundle bundle, ServiceRegistration registration) {
-				SLPCore.init();
-				SLPCore.initMulticastSocket();
-				return new AdvertiserImpl();
-			}
-			public void ungetService(Bundle bundle, ServiceRegistration registration, Object service) {
-			}
+	// register the service factories so each consumer gets its own
+	// Locator/Activator instance
+	context.registerService("ch.ethz.iks.slp.Advertiser",
+		new ServiceFactory() {
+		    public Object getService(Bundle bundle,
+			    ServiceRegistration registration) {
+			SLPCore.init();
+			SLPCore.initMulticastSocket();
+			return new AdvertiserImpl();
+		    }
+
+		    public void ungetService(Bundle bundle,
+			    ServiceRegistration registration, Object service) {
+		    }
 		}, null);
-		context.registerService("ch.ethz.iks.slp.Locator", new ServiceFactory() {
-			public Object getService(Bundle bundle, ServiceRegistration registration) {
-				SLPCore.init();
-				return new LocatorImpl();
-			}
-			public void ungetService(Bundle bundle,	ServiceRegistration registration, Object service) {
-			}
-		}, null);
-	}
+	context.registerService("ch.ethz.iks.slp.Locator",
+		new ServiceFactory() {
+		    public Object getService(Bundle bundle,
+			    ServiceRegistration registration) {
+			SLPCore.init();
+			return new LocatorImpl();
+		    }
 
+		    public void ungetService(Bundle bundle,
+			    ServiceRegistration registration, Object service) {
+		    }
+		}, null);
+    }
+
+    /**
+     * 
+     * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+     */
+    public void stop(final BundleContext context) throws Exception {
 	/**
-	 * 
-	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	 * Michele issue 65
 	 */
-	public void stop(final BundleContext context) throws Exception {
-		/**
-		 * Michele issue 65
-		 */
-		//SLPCore.destroyMulticastSocket();
-		//SLPCore.stop();
-	}
+	// SLPCore.destroyMulticastSocket();
+	// SLPCore.stop();
+    }
 }

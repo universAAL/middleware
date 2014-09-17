@@ -39,24 +39,24 @@ public class TypeMapperTest extends TestCase {
 	String longS[] = TypeMapper.getXMLInstance(longT);
 	String stringS[] = TypeMapper.getXMLInstance(stringT);
 
-	assertEquals(booleanT, TypeMapper.getJavaInstance(booleanS[0],
-		booleanS[1]));
-	assertEquals(calendarT, TypeMapper.getJavaInstance(calendarS[0],
-		calendarS[1]));
-	assertEquals(doubleT, TypeMapper
-		.getJavaInstance(doubleS[0], doubleS[1]));
-	assertEquals(durationT, TypeMapper.getJavaInstance(durationS[0],
-		durationS[1]));
+	assertEquals(booleanT,
+		TypeMapper.getJavaInstance(booleanS[0], booleanS[1]));
+	assertEquals(calendarT,
+		TypeMapper.getJavaInstance(calendarS[0], calendarS[1]));
+	assertEquals(doubleT,
+		TypeMapper.getJavaInstance(doubleS[0], doubleS[1]));
+	assertEquals(durationT,
+		TypeMapper.getJavaInstance(durationS[0], durationS[1]));
 	assertEquals(floatT, TypeMapper.getJavaInstance(floatS[0], floatS[1]));
-	assertEquals(integerT, TypeMapper.getJavaInstance(integerS[0],
-		integerS[1]));
-	assertEquals(localeTshort, TypeMapper.getJavaInstance(localeSshort[0],
-		localeSshort[1]));
-	assertEquals(localeTlong, TypeMapper.getJavaInstance(localeSlong[0],
-		localeSlong[1]));
+	assertEquals(integerT,
+		TypeMapper.getJavaInstance(integerS[0], integerS[1]));
+	assertEquals(localeTshort,
+		TypeMapper.getJavaInstance(localeSshort[0], localeSshort[1]));
+	assertEquals(localeTlong,
+		TypeMapper.getJavaInstance(localeSlong[0], localeSlong[1]));
 	assertEquals(longT, TypeMapper.getJavaInstance(longS[0], longS[1]));
-	assertEquals(stringT, TypeMapper
-		.getJavaInstance(stringS[0], stringS[1]));
+	assertEquals(stringT,
+		TypeMapper.getJavaInstance(stringS[0], stringS[1]));
 
     }
 

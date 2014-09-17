@@ -54,7 +54,7 @@ public class ManifestTestCase extends BusTestCase {
     public static final int EXTEND_NOTHING = 0;
 
     public static final int EXTEND_HASVALUE = 1;
-    //public static final int EXTEND_ENUMERATION = 2;
+    // public static final int EXTEND_ENUMERATION = 2;
     public static final int EXTEND_CHANGE_EFFECT = 4;
 
     public static final int EXTEND_ALL = 255;
@@ -83,7 +83,8 @@ public class ManifestTestCase extends BusTestCase {
     protected void writeManifest() {
 	PrintWriter writer;
 	try {
-	    File file = new File("."+File.separator+"target"+File.separator+"uaal-manifest.xml");
+	    File file = new File("." + File.separator + "target"
+		    + File.separator + "uaal-manifest.xml");
 	    try {
 		String filename = file.getCanonicalPath();
 		System.out.println("-- writing manifest to file " + filename);

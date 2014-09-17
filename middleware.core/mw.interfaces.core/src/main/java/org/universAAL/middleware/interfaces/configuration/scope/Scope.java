@@ -21,55 +21,62 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.interfaces.PeerCard;
 
 /**
- * Abstract definition of a Scope.
- * A Scope, not only defines where it is applicable, it defines a unique identifier for an entity within the scope.
+ * Abstract definition of a Scope. A Scope, not only defines where it is
+ * applicable, it defines a unique identifier for an entity within the scope.
+ * 
  * @author amedrano
- *
+ * 
  */
-public abstract class Scope{
+public abstract class Scope {
 
     protected static final String FORBIDDEN = ".*(?:\\:|\\s).*";
     /**
      * The unique identifier for an entity.
      */
     private String id;
-    
+
     /**
      * Constructor with a given identifier.
-     * @param id the unique identifier for an entity within the scope.
+     * 
+     * @param id
+     *            the unique identifier for an entity within the scope.
      */
-    public Scope (String id){
-        if (id == null || id.isEmpty())
-    		throw new IllegalArgumentException("ID cannot be null or empty");
-        if (id.matches(FORBIDDEN)){
-            throw new IllegalArgumentException("ID contains forbiden format");
-        }
-        this.id = id;
+    public Scope(String id) {
+	if (id == null || id.isEmpty())
+	    throw new IllegalArgumentException("ID cannot be null or empty");
+	if (id.matches(FORBIDDEN)) {
+	    throw new IllegalArgumentException("ID contains forbiden format");
+	}
+	this.id = id;
     }
-    
+
     /**
      * Get the unique identifier for the entity with in the scope.
+     * 
      * @return
      */
-    public String getId(){
-        return id;
+    public String getId() {
+	return id;
     }
-    
-    public static Scope aalScope(String id){
+
+    public static Scope aalScope(String id) {
 	return new AALSpaceScope(id);
     }
-    
+
     public static Scope instanceScope(String id, PeerCard peerCard) {
 	return new InstanceScope(id, peerCard);
     }
-    public static Scope moduleScope(String id, PeerCard pc, ModuleContext mc){
+
+    public static Scope moduleScope(String id, PeerCard pc, ModuleContext mc) {
 	return new ModuleScope(id, pc, mc);
     }
-    
-    public static Scope applicationScope(String id, String appId){
+
+    public static Scope applicationScope(String id, String appId) {
 	return new ApplicationScope(id, appId);
     }
-    public static Scope applicationPartScope(String id, String appId, String partId){
+
+    public static Scope applicationPartScope(String id, String appId,
+	    String partId) {
 	return new AppPartScope(id, appId, partId);
     }
 

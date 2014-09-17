@@ -22,10 +22,10 @@ import org.universAAL.middleware.ui.UIRequest;
 
 /**
  * @author amedrano
- *
+ * 
  */
 public interface IUIStrategyMessageSharedProps {
-    
+
     /**
      * The DialogID over which the message applies.
      */
@@ -37,19 +37,19 @@ public interface IUIStrategyMessageSharedProps {
      */
     public static final String PROP_uAAL_UI_UPDATED_DATA = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "updatedData";
-    
+
     /**
      * Property to hold the Handler ID.
      */
     public static final String PROP_uAAL_UI_HANDLER_ID = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "theUIHandler";
-    
+
     /**
      * Property to hold the Caller ID.
      */
     public static final String PROP_uAAL_UI_CALLER_ID = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "theUICaller";
-    
+
     /**
      * Property to hold the Dialog ID.
      */

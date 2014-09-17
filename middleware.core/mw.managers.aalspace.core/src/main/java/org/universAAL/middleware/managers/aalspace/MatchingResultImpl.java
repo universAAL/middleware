@@ -30,7 +30,7 @@ import org.universAAL.middleware.managers.api.MatchingResult;
 
 /**
  * The implementation of the {@link MatchingResult} interface
- *
+ * 
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
@@ -40,19 +40,19 @@ public class MatchingResultImpl implements MatchingResult {
     private PeerCard[] peers;
 
     public MatchingResultImpl(Map<PeerCard, Map<String, Serializable>> data) {
-        this.peerMap = data;
+	this.peerMap = data;
     }
 
     public PeerCard[] getPeers() {
-        if (peers == null) {
-            Set<PeerCard> keys = peerMap.keySet();
-            peers = keys.toArray(new PeerCard[] {});
-        }
-        return peers;
+	if (peers == null) {
+	    Set<PeerCard> keys = peerMap.keySet();
+	    peers = keys.toArray(new PeerCard[] {});
+	}
+	return peers;
     }
 
     public Map<String, Serializable> getPeerAttribute(PeerCard peer) {
-        Map<String, Serializable> attributes = peerMap.get(peer);
-        return attributes;
+	Map<String, Serializable> attributes = peerMap.get(peer);
+	return attributes;
     }
 }

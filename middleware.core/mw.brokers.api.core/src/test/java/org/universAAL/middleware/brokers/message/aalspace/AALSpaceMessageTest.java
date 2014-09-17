@@ -70,17 +70,19 @@ public class AALSpaceMessageTest {
 
 	spaceDescriptor.setDeployManager(deployManager);
 
-	AALSpaceMessage original = new AALSpaceMessage(spaceDescriptor,	AALSpaceMessageTypes.CONNECT);
+	AALSpaceMessage original = new AALSpaceMessage(spaceDescriptor,
+		AALSpaceMessageTypes.CONNECT);
 
-	String serializedMessage = GsonParserBuilder.getInstance().toJson(original);
+	String serializedMessage = GsonParserBuilder.getInstance().toJson(
+		original);
 
-	AALSpaceMessage decodedMessage = GsonParserBuilder.getInstance().fromJson(serializedMessage,
-		AALSpaceMessage.class);
+	AALSpaceMessage decodedMessage = GsonParserBuilder.getInstance()
+		.fromJson(serializedMessage, AALSpaceMessage.class);
 
 	System.out.println(original.toString());
 	System.out.println(serializedMessage.toString());
 	System.out.println(decodedMessage.toString());
-	
+
 	assertEquals(original.toString(), decodedMessage.toString());
 
     }

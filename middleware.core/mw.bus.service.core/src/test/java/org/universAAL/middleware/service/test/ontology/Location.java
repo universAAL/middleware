@@ -37,7 +37,6 @@ public class Location extends ManagedIndividual {
 
     public static final String MY_URI = TestOntology.NAMESPACE + "Location";
 
-
     /**
      * Constructor just for usage by de-serializers. Do not use this constructor
      * within applications as it may lead to incomplete instances that cause

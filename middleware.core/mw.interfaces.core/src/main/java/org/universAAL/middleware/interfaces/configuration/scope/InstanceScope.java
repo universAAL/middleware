@@ -21,46 +21,57 @@ import org.universAAL.middleware.interfaces.PeerCard;
 
 /**
  * Defines entity that are only applicable for the instance given in the scope.
- * Entities with this scope will be shared in the whole AALSpaced, but stored only locally.
+ * Entities with this scope will be shared in the whole AALSpaced, but stored
+ * only locally.
+ * 
  * @author amedrano
- *
+ * 
  */
-public class InstanceScope extends AALSpaceScope{
+public class InstanceScope extends AALSpaceScope {
 
     /**
      * The unique instance ID.
      */
     private String peerID;
-    
+
     /**
      * Constructor for an entity with unique id, and given instance ID.
-     * @param id the id of the entity.
-     * @param peerID the id of the instance.
+     * 
+     * @param id
+     *            the id of the entity.
+     * @param peerID
+     *            the id of the instance.
      */
     public InstanceScope(String id, String peerID) {
 	super(id);
 	if (peerID == null || peerID.isEmpty())
 	    throw new IllegalArgumentException("peerID cannot be null or empty");
-        if (peerID.matches(FORBIDDEN)){
-            throw new IllegalArgumentException("peerID contains forbiden format");
-        }
-        this.peerID = peerID;
+	if (peerID.matches(FORBIDDEN)) {
+	    throw new IllegalArgumentException(
+		    "peerID contains forbiden format");
+	}
+	this.peerID = peerID;
     }
-    
+
     /**
      * Constructor for an entity residing in the same node (this).
-     * @param id the id of the entity.
-     * @param pc the peerCard for the instance which the scope is meant for, must not be null.
+     * 
+     * @param id
+     *            the id of the entity.
+     * @param pc
+     *            the peerCard for the instance which the scope is meant for,
+     *            must not be null.
      */
-    public InstanceScope(String id, PeerCard pc){
-	this(id, pc.getPeerID());	
+    public InstanceScope(String id, PeerCard pc) {
+	this(id, pc.getPeerID());
     }
-    
+
     /**
      * Get the id of the instace.
+     * 
      * @return
      */
-    public String getPeerID(){
-        return peerID;
+    public String getPeerID() {
+	return peerID;
     }
 }

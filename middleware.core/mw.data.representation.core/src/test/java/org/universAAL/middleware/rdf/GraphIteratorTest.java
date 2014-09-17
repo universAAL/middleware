@@ -88,8 +88,8 @@ public class GraphIteratorTest extends TestCase {
 	while (it.hasNext()) {
 	    GraphIteratorElement el = (GraphIteratorElement) it.next();
 	    assertTrue(el != null);
-	    Triple t = new Triple(el.getSubject(), el.getPredicate(), el
-		    .getObject());
+	    Triple t = new Triple(el.getSubject(), el.getPredicate(),
+		    el.getObject());
 	    assertTrue(tripleSet.contains(t.toString()));
 	    tripleSet.remove(t.toString());
 	    assertTrue(prevDepth + 2 > el.getDepth());
@@ -130,7 +130,7 @@ public class GraphIteratorTest extends TestCase {
 	Iterator it = GraphIterator.getResourceIterator(r[0]);
 	while (it.hasNext()) {
 	    Resource r = (Resource) it.next();
-	    //System.out.println(r.getURI());
+	    // System.out.println(r.getURI());
 	    assertTrue(resources2.contains(r));
 	    resources2.remove(r);
 	}
@@ -149,7 +149,7 @@ public class GraphIteratorTest extends TestCase {
 	it = GraphIterator.getResourceIterator(r[0]);
 	while (it.hasNext()) {
 	    Resource r = (Resource) it.next();
-	    //System.out.println(r.getURI());
+	    // System.out.println(r.getURI());
 	    assertTrue(resources2.contains(r));
 	    resources2.remove(r);
 	}

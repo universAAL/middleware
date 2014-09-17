@@ -168,8 +168,9 @@ public class UIResponse extends ScopedResource implements Response {
     /**
      * Gets the {@link User}.
      * 
-     * @return the {@link User}. It is declared as Resource because the type User is defined 
-     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
+     * @return the {@link User}. It is declared as Resource because the type
+     *         User is defined in the Profiling Ontology. The type is not needed
+     *         for for matchmaking Either.
      */
     public Resource getUser() {
 	Object user = props.get(PROP_uAAL_INVOLVED_HUMAN_USER);

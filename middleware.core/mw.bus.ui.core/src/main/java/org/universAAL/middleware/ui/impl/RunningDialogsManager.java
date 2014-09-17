@@ -25,16 +25,17 @@ import java.util.Set;
 import org.universAAL.middleware.ui.UIHandler;
 
 /**
- * Helper class to keep track of the Dialogs that a {@link UIHandler} is managing at each moment, 
- * and where a given Dialog is being handled.
+ * Helper class to keep track of the Dialogs that a {@link UIHandler} is
+ * managing at each moment, and where a given Dialog is being handled.
+ * 
  * @author amedrano
- *
+ * 
  */
 public class RunningDialogsManager {
 
     private Map<String, Set<String>> handlersToDialogs;
     private Map<String, String> dialogsToHandlers;
-    
+
     /**
      * 
      */
@@ -43,51 +44,51 @@ public class RunningDialogsManager {
 	dialogsToHandlers = new Hashtable<String, String>();
     }
 
-    public void add(String handlerId, String dialogId){
+    public void add(String handlerId, String dialogId) {
 	Set<String> setDialogs = handlersToDialogs.get(handlerId);
-	if (setDialogs == null){
+	if (setDialogs == null) {
 	    setDialogs = new HashSet<String>();
 	}
 	setDialogs.add(dialogId);
 	handlersToDialogs.put(handlerId, setDialogs);
 	dialogsToHandlers.put(dialogId, handlerId);
     }
-    
-    public void removeDialogId(String dialogId){
+
+    public void removeDialogId(String dialogId) {
 	String handlerID = dialogsToHandlers.remove(dialogId);
 	Set<String> dialogs = handlersToDialogs.get(handlerID);
 	dialogs.remove(dialogId);
-	if (dialogs.isEmpty()){
+	if (dialogs.isEmpty()) {
 	    handlersToDialogs.remove(handlerID);
-	}else {
+	} else {
 	    handlersToDialogs.put(handlerID, dialogs);
 	}
     }
-    
-    public void removeHandlerId(String handlerId){
+
+    public void removeHandlerId(String handlerId) {
 	Set<String> dialogs = handlersToDialogs.remove(handlerId);
 	for (String dID : dialogs) {
 	    dialogsToHandlers.remove(dID);
 	}
     }
-    
-    public String getHandler(String dialogID){
+
+    public String getHandler(String dialogID) {
 	return dialogsToHandlers.get(dialogID);
     }
-    
-    public Set<String> getDialogs(String handlerID){
+
+    public Set<String> getDialogs(String handlerID) {
 	return handlersToDialogs.get(handlerID);
     }
-    
-    public Set<String> usedHandlers(){
+
+    public Set<String> usedHandlers() {
 	return handlersToDialogs.keySet();
     }
-    
-    public Set<String> pendingDialogs(){
+
+    public Set<String> pendingDialogs() {
 	return dialogsToHandlers.keySet();
     }
-    
-    public boolean isDialogHandled(String dialogId){
+
+    public boolean isDialogHandled(String dialogId) {
 	return dialogsToHandlers.containsKey(dialogId);
     }
 }

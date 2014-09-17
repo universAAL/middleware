@@ -17,7 +17,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 package org.universAAL.middleware.api.impl;
 
 import java.lang.reflect.Method;
@@ -189,10 +189,9 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 					    + tempObjArray.length);
 				}
 				for (int i = 0; i < outputs.size(); i++) {
-				    sr
-					    .addOutput(new ProcessOutput(
-						    outputs.get(i),
-						    convertArrayToList(tempObjArray[i])));
+				    sr.addOutput(new ProcessOutput(outputs
+					    .get(i),
+					    convertArrayToList(tempObjArray[i])));
 				}
 
 			    } else {

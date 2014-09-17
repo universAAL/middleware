@@ -42,7 +42,6 @@ public interface AALSpaceManager extends Manager {
     public static final String COMUNICATION_TIMEOUT_VALUE = "10000";
     public static final PeerRole DEFAULT_PEER_ROLE = PeerRole.PEER;
     public static final String PEER_ID_FILE = "peer.ids";
-    
 
     /**
      * This method returns the PeerCard of the current MW instance

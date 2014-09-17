@@ -44,8 +44,8 @@ public class InitialTest extends TestCase {
     }
 
     public void testDataRange() {
-//	if (true)
-//	    return;
+	// if (true)
+	// return;
 	Enumeration e1 = new Enumeration();
 	e1.addValue(new Integer(0));
 	e1.addValue(new Integer(1));
@@ -84,7 +84,7 @@ public class InitialTest extends TestCase {
 	// Restriction r = new Restriction();
 	// r.setProperty(Restriction.PROP_OWL_ON_PROPERTY,
 	// Restriction.PROP_OWL_HAS_VALUE);
-	//	
+	//
 	// r.setProperty(Restriction.PROP_OWL_ALL_VALUES_FROM, new TypeURI(
 	// TypeMapper.getDatatypeURI(Boolean.class), true));
 	// r.setProperty(Restriction.PROP_OWL_CARDINALITY, one);

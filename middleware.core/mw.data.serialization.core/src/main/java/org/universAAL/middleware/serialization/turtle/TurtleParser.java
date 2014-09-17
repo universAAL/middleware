@@ -143,8 +143,7 @@ public class TurtleParser {
      * the blank node identifier to the URI of the URI.
      */
     private Hashtable blankNodes = new Hashtable();
-    
-    
+
     // debug: TODO: remove
     private List lstResources = new LinkedList();
 
@@ -194,7 +193,9 @@ public class TurtleParser {
 	    Resource result = finalizeAndGetRoot(resourceURI);
 	    if (result != null) {
 		if (dbg) {
-		    System.out.println(" ---------------------\n  deserialization result:\n" + result.toStringRecursive());
+		    System.out
+			    .println(" ---------------------\n  deserialization result:\n"
+				    + result.toStringRecursive());
 		}
 		if (wasXMLLiteral)
 		    result = result.copy(true);
@@ -254,7 +255,7 @@ public class TurtleParser {
 	// System.out.println("logOpenItems: " + s);
 	// }
     }
-    
+
     /**
      * Second step of deserialization. This method takes the list of resources
      * (and references data) from the first step and specializes all resources.
@@ -301,21 +302,24 @@ public class TurtleParser {
 		}
 		LogUtils.logDebug(TurtleUtil.moduleContext, TurtleParser.class,
 			"finalizeAndGetRoot", new Object[] { buf }, null);
-		
+
 		// additional output: are there any entries in the parseTable
 		// that we do not have in the table resource?
 		// Those elements would not be considered..
 		for (Object o : parseTable.keySet()) {
 		    if (!resources.containsKey(o))
-			System.out.println(" -- the element is not in resources: " + o);
+			System.out
+				.println(" -- the element is not in resources: "
+					+ o);
 		}
-		System.out.println(" -- Sizes: resource ("+resources.size()+"), lstResources ("+lstResources.size()+")");
+		System.out.println(" -- Sizes: resource (" + resources.size()
+			+ "), lstResources (" + lstResources.size() + ")");
 		System.out.println();
 	    }
 
-//	 for (Iterator i = resources.values().iterator(); i.hasNext();) {
-//	 aux = (Resource) i.next();
-//	 i.remove();
+	// for (Iterator i = resources.values().iterator(); i.hasNext();) {
+	// aux = (Resource) i.next();
+	// i.remove();
 
 	// Iterate in reverse.
 	ListIterator li = lstResources.listIterator(lstResources.size());
@@ -377,12 +381,12 @@ public class TurtleParser {
 			    // we only store this as an open item if there is a
 			    // chance that we can specialize it later. There is
 			    // no chance if there is no type info available
-			    //if (specialized.getTypes().length == 0) {
-				if (dbg)
-				    System.out.println("-- openItems.put 1: "
-					    + specialized + " - " + rd);
-				openItems.put(specialized, rd);
-			    //}
+			    // if (specialized.getTypes().length == 0) {
+			    if (dbg)
+				System.out.println("-- openItems.put 1: "
+					+ specialized + " - " + rd);
+			    openItems.put(specialized, rd);
+			    // }
 			}
 		    } else {
 			// the specialized resource is an element in a
@@ -1334,7 +1338,7 @@ public class TurtleParser {
      *            which cannot be specialized.
      * @return
      */
-   private Object parseValue(boolean parseAsResource) {
+    private Object parseValue(boolean parseAsResource) {
 	int c = peek();
 
 	if (c == '<') {

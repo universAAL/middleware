@@ -40,25 +40,25 @@ import org.universAAL.middleware.managers.tenant.TenantManagerImpl;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class Activator implements BundleActivator {
 
-	private TenantManager tenantManager;
-	private ModuleContext moduleContext;
+    private TenantManager tenantManager;
+    private ModuleContext moduleContext;
 
-	public void start(BundleContext context) throws Exception {
-		moduleContext = uAALBundleContainer.THE_CONTAINER
-				.registerModule(new Object[] { context });
-		LogUtils.logDebug(moduleContext, Activator.class, "start",
-				new Object[] { "Starting the TenantManager..." }, null);
+    public void start(BundleContext context) throws Exception {
+	moduleContext = uAALBundleContainer.THE_CONTAINER
+		.registerModule(new Object[] { context });
+	LogUtils.logDebug(moduleContext, Activator.class, "start",
+		new Object[] { "Starting the TenantManager..." }, null);
 
-		tenantManager = new TenantManagerImpl(moduleContext);
+	tenantManager = new TenantManagerImpl(moduleContext);
 
-		tenantManager.init();
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
-				tenantManager, new Object[] { TenantManager.class.getName() });
-	}
+	tenantManager.init();
+	uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
+		tenantManager, new Object[] { TenantManager.class.getName() });
+    }
 
-	public void stop(BundleContext context) throws Exception {
-		tenantManager.dispose();
+    public void stop(BundleContext context) throws Exception {
+	tenantManager.dispose();
 
-	}
+    }
 
 }

@@ -197,8 +197,9 @@ public class MediaObject extends Output {
     /**
      * Sets the maximum size in number of pixels.
      * 
-     * @deprecated use the {@link FormElement#addAppearanceRecommendation(org.universAAL.middleware.ui.owl.Recommendation)} 
-     * generalized method to provide the same information.
+     * @deprecated use the
+     *             {@link FormElement#addAppearanceRecommendation(org.universAAL.middleware.ui.owl.Recommendation)}
+     *             generalized method to provide the same information.
      * 
      * @param x
      *            See {@link #PROP_RESOLUTION_MAX_X}
@@ -215,8 +216,9 @@ public class MediaObject extends Output {
     /**
      * Sets the minimum size in number of pixels.
      * 
-     * @deprecated use the {@link FormElement#addAppearanceRecommendation(org.universAAL.middleware.ui.owl.Recommendation)} 
-     * generalized method to provide the same information.
+     * @deprecated use the
+     *             {@link FormElement#addAppearanceRecommendation(org.universAAL.middleware.ui.owl.Recommendation)}
+     *             generalized method to provide the same information.
      * 
      * @param x
      *            See {@link #PROP_RESOLUTION_MIN_X}
@@ -233,8 +235,9 @@ public class MediaObject extends Output {
     /**
      * Sets the preferred size in number of pixels.
      * 
-     * @deprecated use the {@link FormElement#addAppearanceRecommendation(org.universAAL.middleware.ui.owl.Recommendation)} 
-     * generalized method to provide the same information.
+     * @deprecated use the
+     *             {@link FormElement#addAppearanceRecommendation(org.universAAL.middleware.ui.owl.Recommendation)}
+     *             generalized method to provide the same information.
      * 
      * @param x
      *            See {@link #PROP_RESOLUTION_PREFERRED_X}

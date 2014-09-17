@@ -171,7 +171,8 @@ public class ServiceRealization extends FinalizedResource {
      * 
      * @return true iff the operation was successful
      */
-    boolean assertServiceCall(HashMap<String, Object> context, ServiceRequest request) {
+    boolean assertServiceCall(HashMap<String, Object> context,
+	    ServiceRequest request) {
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	if (prof == null)
 	    return false;

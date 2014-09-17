@@ -23,7 +23,6 @@ package org.universAAL.middleware.brokers.message.deploy;
 
 import static org.junit.Assert.*;
 
-
 import java.util.Arrays;
 
 import org.apache.commons.codec.binary.Base64;
@@ -49,7 +48,7 @@ import com.google.gson.Gson;
  */
 
 public class DeployMessageTest {
-        
+
     @Test
     public void ByteArrayBase64EncodeSerializeDeserializeDecodeTest()
 	    throws Exception {
@@ -166,19 +165,17 @@ public class DeployMessageTest {
 
 	DeployMessage sorgente = new DeployMessage(type, payload);
 	System.out.println(sorgente.toString());
-	
-	String serializedMessage = GsonParserBuilder.getInstance().toJson(sorgente);
-	
-	String destinazione =  GsonParserBuilder.getInstance().fromJson(serializedMessage,
-		BrokerMessage.class).toString();
 
-	
+	String serializedMessage = GsonParserBuilder.getInstance().toJson(
+		sorgente);
+
+	String destinazione = GsonParserBuilder.getInstance()
+		.fromJson(serializedMessage, BrokerMessage.class).toString();
+
 	System.out.println(serializedMessage.toString());
 	System.out.println(destinazione.toString());
 
 	assertEquals(sorgente.toString(), destinazione.toString());
-	
-	
 
     }
 

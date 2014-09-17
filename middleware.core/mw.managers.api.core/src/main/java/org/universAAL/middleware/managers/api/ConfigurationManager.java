@@ -23,34 +23,52 @@ import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DescribedEntity;
 
 /**
- * Hub to register {@link ConfigurableModule}s, and configurations (as {@link DescribedEntity}s) against.
+ * Hub to register {@link ConfigurableModule}s, and configurations (as
+ * {@link DescribedEntity}s) against.
+ * 
  * @author amedrano
- *
+ * 
  */
 public interface ConfigurationManager {
 
     /**
-     * Register a {@link List} of {@link DescribedEntity}s who's changes will be performed by the given {@link ConfigurableModule}.
-     * After registration, the {@link ConfigurableModule} will be called with the stored configuration 
-     * or the default value of the {@link DescribedEntity} (if not null)
-     * @param confEntities list of {@link DescribedEntity DescribedEntities} that the {@link ConfigurableModule} will manage.
-     * @param listener the {@link ConfigurableModule} that manages confEntities.
+     * Register a {@link List} of {@link DescribedEntity}s who's changes will be
+     * performed by the given {@link ConfigurableModule}. After registration,
+     * the {@link ConfigurableModule} will be called with the stored
+     * configuration or the default value of the {@link DescribedEntity} (if not
+     * null)
+     * 
+     * @param confEntities
+     *            list of {@link DescribedEntity DescribedEntities} that the
+     *            {@link ConfigurableModule} will manage.
+     * @param listener
+     *            the {@link ConfigurableModule} that manages confEntities.
      */
-    public void register(List<DescribedEntity> confEntities, ConfigurableModule listener);
-    
+    public void register(List<DescribedEntity> confEntities,
+	    ConfigurableModule listener);
+
     /**
-     * Register an array of {@link DescribedEntity}s who's changes will be performed by the given {@link ConfigurableModule}.
-     * After registration, the {@link ConfigurableModule} will be called with the stored configuration 
-     * or the default value of the {@link DescribedEntity} (if not null)
-     * @param confEntities Array of {@link DescribedEntity DescribedEntities} that the {@link ConfigurableModule} will manage.
-     * @param listener the {@link ConfigurableModule} that manages confEntities.
+     * Register an array of {@link DescribedEntity}s who's changes will be
+     * performed by the given {@link ConfigurableModule}. After registration,
+     * the {@link ConfigurableModule} will be called with the stored
+     * configuration or the default value of the {@link DescribedEntity} (if not
+     * null)
+     * 
+     * @param confEntities
+     *            Array of {@link DescribedEntity DescribedEntities} that the
+     *            {@link ConfigurableModule} will manage.
+     * @param listener
+     *            the {@link ConfigurableModule} that manages confEntities.
      */
-    public void register(DescribedEntity[] confEntities, ConfigurableModule listener);
-    
+    public void register(DescribedEntity[] confEntities,
+	    ConfigurableModule listener);
+
     /**
      * Unregister a particular {@link ConfigurableModule}.
-     * @param listener the {@link ConfigurableModule} to unregister.
+     * 
+     * @param listener
+     *            the {@link ConfigurableModule} to unregister.
      */
     public void unregister(ConfigurableModule listener);
-    
+
 }

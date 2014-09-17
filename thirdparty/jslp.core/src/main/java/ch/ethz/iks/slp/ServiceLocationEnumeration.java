@@ -40,7 +40,7 @@ public interface ServiceLocationEnumeration extends Enumeration {
 
     /**
      * get the next result of a request.
-     *
+     * 
      * @return the next <code>Object</code>
      * @throws ServiceLocationException
      *             if there is no more result.

@@ -187,21 +187,20 @@ public class ContextStrategy extends BusStrategy {
 			// Still no all responses were received
 			// it also means that we received no notification but
 			// the whole 5 seconds were elapsed
-			latePeers = new Integer(calledPeers
-				.getNumOfCalledPeers());
+			latePeers = new Integer(
+				calledPeers.getNumOfCalledPeers());
 		    }
 		    // after timeout resp. notify, the map entry must be removed
 		    numCalledPeers.removeCalledPeers(message.getID());
 		}
 		if (latePeers != null && latePeers.intValue() > 0) {
-		    LogUtils
-			    .logWarn(
-				    busModule,
-				    getClass(),
-				    "getAllProvisions",
-				    new Object[] { latePeers,
-					    " peers have still not replied to the query after 5 seconds waiting!" },
-				    null);
+		    LogUtils.logWarn(
+			    busModule,
+			    getClass(),
+			    "getAllProvisions",
+			    new Object[] { latePeers,
+				    " peers have still not replied to the query after 5 seconds waiting!" },
+			    null);
 		}
 	    }
 	    calledPeers.addProvisions(allProvisions.getContextEventPatterns());
@@ -353,32 +352,29 @@ public class ContextStrategy extends BusStrategy {
 			    }
 			}
 		    } else {
-			LogUtils
-				.logDebug(
-					busModule,
-					getClass(),
-					"handle",
-					new Object[] { "Ignoring peer provisions received after timeout!" },
-					null);
+			LogUtils.logDebug(
+				busModule,
+				getClass(),
+				"handle",
+				new Object[] { "Ignoring peer provisions received after timeout!" },
+				null);
 		    }
 		} else {
-		    LogUtils
-			    .logDebug(
-				    busModule,
-				    getClass(),
-				    "handle",
-				    new Object[] { "Ignoring a P2P-Reply not containing any peer provisions!" },
-				    null);
-		}
-	    }
-	} else {
-	    LogUtils
-		    .logWarn(
+		    LogUtils.logDebug(
 			    busModule,
 			    getClass(),
 			    "handle",
-			    new Object[] { "P2P-Reply to handle does not contain peer provisions!" },
+			    new Object[] { "Ignoring a P2P-Reply not containing any peer provisions!" },
 			    null);
+		}
+	    }
+	} else {
+	    LogUtils.logWarn(
+		    busModule,
+		    getClass(),
+		    "handle",
+		    new Object[] { "P2P-Reply to handle does not contain peer provisions!" },
+		    null);
 	}
     }
 
@@ -388,13 +384,12 @@ public class ContextStrategy extends BusStrategy {
 
     private void handleEvent(BusMessage message) {
 	if (!(message.getContent() instanceof ContextEvent)) {
-	    LogUtils
-		    .logWarn(
-			    busModule,
-			    getClass(),
-			    "handle",
-			    new Object[] { "Event to handle is no instance of ContextEvent!" },
-			    null);
+	    LogUtils.logWarn(
+		    busModule,
+		    getClass(),
+		    "handle",
+		    new Object[] { "Event to handle is no instance of ContextEvent!" },
+		    null);
 	    return;
 	}
 

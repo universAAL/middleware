@@ -670,8 +670,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		    new Object[] { "ControlBroker not initialized." }, null);
 	    return;
 	}
-	aalSpaceModule
-		.configureAALSpaceChannel();
+	aalSpaceModule.configureAALSpaceChannel();
 	List<ChannelDescriptor> channel = new ArrayList<ChannelDescriptor>();
 	channel.add(peeringChannel);
 	configureChannels(channel, peerName);
@@ -1325,8 +1324,8 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    ArrayList receivers = new ArrayList();
 	    PeerCard[] array = cm.getReceivers();
 	    for (int i = 0; i < array.length; i++) {
-			receivers.add(array[i]);
-		}
+		receivers.add(array[i]);
+	    }
 	    communicationModule.sendAll(chMsg, receivers);
 	}
     }

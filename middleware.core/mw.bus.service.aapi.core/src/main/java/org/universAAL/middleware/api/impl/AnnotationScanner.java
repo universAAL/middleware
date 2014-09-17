@@ -17,7 +17,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 package org.universAAL.middleware.api.impl;
 
 import java.lang.annotation.Annotation;
@@ -119,9 +119,9 @@ public class AnnotationScanner {
 		    String name = m.getName();
 		    String outputName = null;
 		    if (name.startsWith("get") && name.length() > 3) {
-			outputName = String
-				.format("%s%s", Character.toLowerCase(name
-					.charAt(3)), name.substring(4));
+			outputName = String.format("%s%s",
+				Character.toLowerCase(name.charAt(3)),
+				name.substring(4));
 		    }
 		    final String finalOutputName = outputName;
 		    Output inferredOutput = new Output() {
@@ -150,8 +150,9 @@ public class AnnotationScanner {
 	    }
 	    methodOutputs.put(createServiceUri(namespace, name, serviceName),
 		    methodOutputAnnotations);
-	    methodChangeEffects.put(createServiceUri(namespace, name,
-		    serviceName), methodChangeEffectsAnnotations);
+	    methodChangeEffects.put(
+		    createServiceUri(namespace, name, serviceName),
+		    methodChangeEffectsAnnotations);
 	    Annotation[][] parameterAnnotations = m.getParameterAnnotations();
 	    for (int i = 0; i < parameterAnnotations.length; i++) {
 		Input input = null;

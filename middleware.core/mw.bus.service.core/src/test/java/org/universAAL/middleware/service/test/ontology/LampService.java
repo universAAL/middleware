@@ -31,8 +31,7 @@ import org.universAAL.middleware.service.owl.Service;
  * 
  */
 public class LampService extends Service {
-    public static final String MY_URI = TestOntology.NAMESPACE
-	    + "LampService";
+    public static final String MY_URI = TestOntology.NAMESPACE + "LampService";
 
     public LampService() {
 	super();

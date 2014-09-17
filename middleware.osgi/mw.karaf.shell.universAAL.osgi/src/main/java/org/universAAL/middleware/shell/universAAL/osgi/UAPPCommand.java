@@ -42,9 +42,9 @@ import org.universAAL.middleware.managers.api.DeployManager;
 public class UAPPCommand extends OsgiCommandSupport {
 
     protected Object doExecute() throws Exception {
-		log.debug("Executing command...");
-		System.out.println("Command not existing anymore");
-		return null;
+	log.debug("Executing command...");
+	System.out.println("Command not existing anymore");
+	return null;
     }
 
 }

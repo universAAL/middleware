@@ -21,35 +21,38 @@ import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.URIRestriction;
 
 /**
- * A pattern that matches entities with an Module type scope. 
- * Additionally, it can match moduleId in scopes with the provided pattern.
+ * A pattern that matches entities with an Module type scope. Additionally, it
+ * can match moduleId in scopes with the provided pattern.
+ * 
  * @author amedrano
- *
+ * 
  */
-public class ModulePattern implements EntityPattern{
+public class ModulePattern implements EntityPattern {
 
-    private String id; 
-    
+    private String id;
+
     /**
      * Match any entity with Module type scope.
      */
     public ModulePattern() {
 	id = ".*";
     }
-    
+
     /**
      * Match Module type scope entities whose moduleId matches moduleIdPattern.
-     * @param moduleIdPattern the pattern to match the moduleId in entities.
+     * 
+     * @param moduleIdPattern
+     *            the pattern to match the moduleId in entities.
      */
     public ModulePattern(String moduleIdPattern) {
 	id = moduleIdPattern;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public TypeExpression getRestriction() {
 	URIRestriction ur = new URIRestriction();
-	ur.setPattern(".*mod\\:"+id+".*");
+	ur.setPattern(".*mod\\:" + id + ".*");
 	return ur;
     }
-    
+
 }

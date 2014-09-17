@@ -64,13 +64,13 @@ import org.universAAL.middleware.modules.listener.MessageListener;
 
 /**
  * CommunicationModule implementation
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class CommunicationModuleImpl implements CommunicationModule,
-        ConfigurableCommunicationModule, SharedObjectListener,
-        RejectedExecutionHandler {
+	ConfigurableCommunicationModule, SharedObjectListener,
+	RejectedExecutionHandler {
 
     // Module properties
     private String name;
@@ -95,256 +95,256 @@ public class CommunicationModuleImpl implements CommunicationModule,
      */
     public boolean init() {
 
-        if (!initialized) {
+	if (!initialized) {
 
-            messageQueue = new LinkedBlockingQueue<Runnable>();
-            // this.executor = new
-            // ThreadPoolExecutor(CORE_POOL_SIZE,MAXIMUM_POOL_SIZE,
-            // KEEP_ALIVE_TIME, TimeUnit.SECONDS,messageQueue, this);
-            // test michele
-            // executor.allowCoreThreadTimeOut(true);
+	    messageQueue = new LinkedBlockingQueue<Runnable>();
+	    // this.executor = new
+	    // ThreadPoolExecutor(CORE_POOL_SIZE,MAXIMUM_POOL_SIZE,
+	    // KEEP_ALIVE_TIME, TimeUnit.SECONDS,messageQueue, this);
+	    // test michele
+	    // executor.allowCoreThreadTimeOut(true);
 
-            messageListeners = new ConcurrentHashMap<String, List<MessageListener>>();
-            LogUtils.logDebug(context, CommunicationModuleImpl.class, "init)",
-                    "Configuring the CommunicationModule...");
+	    messageListeners = new ConcurrentHashMap<String, List<MessageListener>>();
+	    LogUtils.logDebug(context, CommunicationModuleImpl.class, "init)",
+		    "Configuring the CommunicationModule...");
 
-            try {
-                LogUtils.logDebug(
-                        context,
-                        CommunicationModuleImpl.class,
-                        "CommunicationModuleImpl",
-                        new Object[] { "Fetching the CommunicationConnector..." },
-                        null);
-                Object[] connectors = context.getContainer()
-                        .fetchSharedObject(
-                                context,
-                                new Object[] { CommunicationConnector.class
-                                        .getName() }, this);
-                if (connectors != null && connectors.length > 0) {
-                    // we use only the first communication connector... to patch
-                    communicationConnector = (CommunicationConnector) connectors[0];
-                    LogUtils.logDebug(context, CommunicationModuleImpl.class,
-                            "CommunicationModuleImpl",
-                            new Object[] { "CommunicationConnector: "
-                                    + communicationConnector.toString() }, null);
-                    initialized = true;
-                } else {
-                    LogUtils.logWarn(context, CommunicationModuleImpl.class,
-                            "CommunicationModuleImpl",
-                            new Object[] { "No CommunicationConnector found" },
-                            null);
-                    initialized = false;
-                    return initialized;
-                }
+	    try {
+		LogUtils.logDebug(
+			context,
+			CommunicationModuleImpl.class,
+			"CommunicationModuleImpl",
+			new Object[] { "Fetching the CommunicationConnector..." },
+			null);
+		Object[] connectors = context.getContainer()
+			.fetchSharedObject(
+				context,
+				new Object[] { CommunicationConnector.class
+					.getName() }, this);
+		if (connectors != null && connectors.length > 0) {
+		    // we use only the first communication connector... to patch
+		    communicationConnector = (CommunicationConnector) connectors[0];
+		    LogUtils.logDebug(context, CommunicationModuleImpl.class,
+			    "CommunicationModuleImpl",
+			    new Object[] { "CommunicationConnector: "
+				    + communicationConnector.toString() }, null);
+		    initialized = true;
+		} else {
+		    LogUtils.logWarn(context, CommunicationModuleImpl.class,
+			    "CommunicationModuleImpl",
+			    new Object[] { "No CommunicationConnector found" },
+			    null);
+		    initialized = false;
+		    return initialized;
+		}
 
-                // AALSpace Module
-                Object[] aalSpaceModules = context
-                        .getContainer()
-                        .fetchSharedObject(
-                                context,
-                                new Object[] { AALSpaceModule.class.getName() },
-                                this);
+		// AALSpace Module
+		Object[] aalSpaceModules = context
+			.getContainer()
+			.fetchSharedObject(
+				context,
+				new Object[] { AALSpaceModule.class.getName() },
+				this);
 
-                if (aalSpaceModules != null && aalSpaceModules.length > 0) {
-                    // we use only the first communication connector... to patch
-                    aalSpaceModule = (AALSpaceModule) aalSpaceModules[0];
-                    LogUtils.logDebug(context, CommunicationModuleImpl.class,
-                            "CommunicationModuleImpl",
-                            new Object[] { "AALSpaceModule found " }, null);
-                    initialized = true;
-                } else {
-                    LogUtils.logWarn(context, CommunicationModuleImpl.class,
-                            "CommunicationModuleImpl",
-                            new Object[] { "No AALSpaceModule found" }, null);
-                }
+		if (aalSpaceModules != null && aalSpaceModules.length > 0) {
+		    // we use only the first communication connector... to patch
+		    aalSpaceModule = (AALSpaceModule) aalSpaceModules[0];
+		    LogUtils.logDebug(context, CommunicationModuleImpl.class,
+			    "CommunicationModuleImpl",
+			    new Object[] { "AALSpaceModule found " }, null);
+		    initialized = true;
+		} else {
+		    LogUtils.logWarn(context, CommunicationModuleImpl.class,
+			    "CommunicationModuleImpl",
+			    new Object[] { "No AALSpaceModule found" }, null);
+		}
 
-            } catch (NullPointerException e) {
-                LogUtils.logError(
-                        context,
-                        CommunicationModuleImpl.class,
-                        "CommunicationModuleImpl",
-                        new Object[] { "Error while fetching the CommunicationConnector" },
-                        null);
-                initialized = false;
-                return initialized;
-            }
-        }
-        return initialized;
+	    } catch (NullPointerException e) {
+		LogUtils.logError(
+			context,
+			CommunicationModuleImpl.class,
+			"CommunicationModuleImpl",
+			new Object[] { "Error while fetching the CommunicationConnector" },
+			null);
+		initialized = false;
+		return initialized;
+	    }
+	}
+	return initialized;
     }
 
     public void dispose(List<ChannelDescriptor> channels) {
-        communicationConnector.dispose(channels);
+	communicationConnector.dispose(channels);
     }
 
     public void dispose() {
-        context.getContainer().removeSharedObjectListener(this);
+	context.getContainer().removeSharedObjectListener(this);
     }
 
     public CommunicationModuleImpl(ModuleContext context) {
-        this.context = context;
+	this.context = context;
 
     }
 
     /**
      * This method returns the list of MessageListener given the list of
      * channelNames
-     *
+     * 
      * @param channelNames
      * @return
      */
     private List<MessageListener> getMessageListeners(List<String> channelNames) {
 
-        List<MessageListener> listeners = new ArrayList<MessageListener>();
-        for (String channelName : channelNames) {
-            if (messageListeners.containsKey(channelName))
-                listeners.addAll(messageListeners.get(channelName));
-        }
-        return listeners;
+	List<MessageListener> listeners = new ArrayList<MessageListener>();
+	for (String channelName : channelNames) {
+	    if (messageListeners.containsKey(channelName))
+		listeners.addAll(messageListeners.get(channelName));
+	}
+	return listeners;
 
     }
 
     public void messageReceived(ChannelMessage channelMessage) {
-        try {
-            List<MessageListener> listeners = getMessageListeners(channelMessage
-                    .getChannelNames());
-            if (listeners != null && !listeners.isEmpty()) {
-                LogUtils.logDebug(
-                        context,
-                        CommunicationModuleImpl.class,
-                        "CommunicationModuleImpl",
-                        new Object[] { "Dispatching the message to the brokers: "
-                                + channelMessage.toString() }, null);
-                ListIterator<MessageListener> iterator = listeners
-                        .listIterator();
-                while (iterator.hasNext()) {
-                    iterator.next().messageReceived(channelMessage);
-                }
+	try {
+	    List<MessageListener> listeners = getMessageListeners(channelMessage
+		    .getChannelNames());
+	    if (listeners != null && !listeners.isEmpty()) {
+		LogUtils.logDebug(
+			context,
+			CommunicationModuleImpl.class,
+			"CommunicationModuleImpl",
+			new Object[] { "Dispatching the message to the brokers: "
+				+ channelMessage.toString() }, null);
+		ListIterator<MessageListener> iterator = listeners
+			.listIterator();
+		while (iterator.hasNext()) {
+		    iterator.next().messageReceived(channelMessage);
+		}
 
-            }
-        } catch (NullPointerException e) {
-            LogUtils.logError(context, CommunicationModuleImpl.class,
-                    "CommunicationModuleImpl",
-                    new Object[] { "Error during message reception: "
-                            + channelMessage.toString() }, null);
-            throw new CommunicationModuleException(
-                    CommunicationModuleErrorCode.ERROR_MESSAGE_RECEPTION,
-                    "Error during message reception: "
-                            + channelMessage.toString());
-        }
+	    }
+	} catch (NullPointerException e) {
+	    LogUtils.logError(context, CommunicationModuleImpl.class,
+		    "CommunicationModuleImpl",
+		    new Object[] { "Error during message reception: "
+			    + channelMessage.toString() }, null);
+	    throw new CommunicationModuleException(
+		    CommunicationModuleErrorCode.ERROR_MESSAGE_RECEPTION,
+		    "Error during message reception: "
+			    + channelMessage.toString());
+	}
 
     }
 
     public void addMessageListener(MessageListener listener, String channelName) {
-        if (listener != null && !channelName.isEmpty()) {
-            if (messageListeners.get(channelName) == null) {
-                List<MessageListener> list = new CopyOnWriteArrayList<MessageListener>();
+	if (listener != null && !channelName.isEmpty()) {
+	    if (messageListeners.get(channelName) == null) {
+		List<MessageListener> list = new CopyOnWriteArrayList<MessageListener>();
 
-                list.add(listener);
-                messageListeners.put(channelName, list);
-            } else {
-                if (!messageListeners.get(channelName).contains(listener))
-                    messageListeners.get(channelName).add(listener);
-            }
+		list.add(listener);
+		messageListeners.put(channelName, list);
+	    } else {
+		if (!messageListeners.get(channelName).contains(listener))
+		    messageListeners.get(channelName).add(listener);
+	    }
 
-        } else
-            LogUtils.logWarn(context, CommunicationModuleImpl.class,
-                    "CommunicationModuleImpl",
-                    new Object[] { "The MessageListener specified is null" },
-                    null);
+	} else
+	    LogUtils.logWarn(context, CommunicationModuleImpl.class,
+		    "CommunicationModuleImpl",
+		    new Object[] { "The MessageListener specified is null" },
+		    null);
     }
 
     public MessageListener getListenerByNameAndType(String name, Class clz) {
-        for (MessageListener ml : messageListeners.get(name))
-            if (clz.isInstance(ml))
-                return ml;
-        return null;
+	for (MessageListener ml : messageListeners.get(name))
+	    if (clz.isInstance(ml))
+		return ml;
+	return null;
     }
 
     public void removeMessageListener(MessageListener listener,
-            String channelName) {
-        if (listener != null && !channelName.isEmpty()) {
-            if (messageListeners.get(channelName) != null) {
-                messageListeners.get(channelName).remove(listener);
-            }
-        } else
-            LogUtils.logWarn(
-                    context,
-                    CommunicationModuleImpl.class,
-                    "CommunicationModuleImpl",
-                    new Object[] { "Cannot remove an invalid MessageListener" },
-                    null);
+	    String channelName) {
+	if (listener != null && !channelName.isEmpty()) {
+	    if (messageListeners.get(channelName) != null) {
+		messageListeners.get(channelName).remove(listener);
+	    }
+	} else
+	    LogUtils.logWarn(
+		    context,
+		    CommunicationModuleImpl.class,
+		    "CommunicationModuleImpl",
+		    new Object[] { "Cannot remove an invalid MessageListener" },
+		    null);
     }
 
     public String getDescription() {
-        return description;
+	return description;
     }
 
     public String getName() {
-        return name;
+	return name;
     }
 
     public String getProvider() {
-        return provider;
+	return provider;
     }
 
     public String getVersion() {
-        return version;
+	return version;
     }
 
     public void loadConfigurations(Dictionary configurations) {
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
 
     }
 
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-        LogUtils.logWarn(
-                context,
-                CommunicationModuleImpl.class,
-                "CommunicationModuleImpl",
-                new Object[] { "The message cannot be managed because the thread bounds and queue capacities are reached." },
-                null);
-        throw new CommunicationModuleException(
-                CommunicationModuleErrorCode.ERROR_MANAGING_MESSAGE,
-                "The message cannot be managed because the thread bounds and queue capacities are reached.");
+	LogUtils.logWarn(
+		context,
+		CommunicationModuleImpl.class,
+		"CommunicationModuleImpl",
+		new Object[] { "The message cannot be managed because the thread bounds and queue capacities are reached." },
+		null);
+	throw new CommunicationModuleException(
+		CommunicationModuleErrorCode.ERROR_MANAGING_MESSAGE,
+		"The message cannot be managed because the thread bounds and queue capacities are reached.");
     }
 
     public void configureChannels(List<ChannelDescriptor> channels,
-            String peerName) {
-        if (communicationConnector != null)
-            communicationConnector.configureConnector(channels, peerName);
-        else
-            LogUtils.logWarn(context, CommunicationModuleImpl.class,
-                    "CommunicationModuleImpl",
-                    new Object[] { "No CommunicationConnector found" }, null);
+	    String peerName) {
+	if (communicationConnector != null)
+	    communicationConnector.configureConnector(channels, peerName);
+	else
+	    LogUtils.logWarn(context, CommunicationModuleImpl.class,
+		    "CommunicationModuleImpl",
+		    new Object[] { "No CommunicationConnector found" }, null);
     }
 
     /**
      * Unicast
      */
     public void send(ChannelMessage message, MessageListener listener,
-            PeerCard receiver) {
-        try {
-            /*
-             * executor.execute(new UnicastExecutor(message,
-             * communicationConnector, message.getReceiver().get(0), listener));
-             */
-            List<MessageListener> listeners = new ArrayList<MessageListener>();
-            listeners.add(listener);
-            Thread t = new Thread(new UnicastExecutor(message,
-                    communicationConnector, receiver, listeners, context));
-            t.start();
-        } catch (Throwable e) {
-            LogUtils.logError(
-                    context,
-                    CommunicationModuleImpl.class,
-                    "send",
-                    new Object[] { "Error during message handling: "
-                            + message.toString() }, null);
-            throw new CommunicationModuleException(
-                    CommunicationModuleErrorCode.ERROR_MESSAGE_FORMAT,
-                    "Error during message handling, due to internal excepetion. Message was:"
-                            + message.toString(), e);
-        }
+	    PeerCard receiver) {
+	try {
+	    /*
+	     * executor.execute(new UnicastExecutor(message,
+	     * communicationConnector, message.getReceiver().get(0), listener));
+	     */
+	    List<MessageListener> listeners = new ArrayList<MessageListener>();
+	    listeners.add(listener);
+	    Thread t = new Thread(new UnicastExecutor(message,
+		    communicationConnector, receiver, listeners, context));
+	    t.start();
+	} catch (Throwable e) {
+	    LogUtils.logError(
+		    context,
+		    CommunicationModuleImpl.class,
+		    "send",
+		    new Object[] { "Error during message handling: "
+			    + message.toString() }, null);
+	    throw new CommunicationModuleException(
+		    CommunicationModuleErrorCode.ERROR_MESSAGE_FORMAT,
+		    "Error during message handling, due to internal excepetion. Message was:"
+			    + message.toString(), e);
+	}
 
     }
 
@@ -352,33 +352,33 @@ public class CommunicationModuleImpl implements CommunicationModule,
      * Unicast
      */
     public void send(ChannelMessage message, PeerCard receiver) {
-        try {
-            // fetch the listeners associated to the broker
-            List<MessageListener> listeners = getMessageListeners(message
-                    .getChannelNames());
-            Thread t = new Thread(new UnicastExecutor(message,
-                    communicationConnector, receiver, listeners, context));
-            t.start();
+	try {
+	    // fetch the listeners associated to the broker
+	    List<MessageListener> listeners = getMessageListeners(message
+		    .getChannelNames());
+	    Thread t = new Thread(new UnicastExecutor(message,
+		    communicationConnector, receiver, listeners, context));
+	    t.start();
 
-        } catch (NullPointerException e) {
-            LogUtils.logError(
-                    context,
-                    CommunicationModuleImpl.class,
-                    "send",
-                    new Object[] { "Error during message handling: "
-                            + message.toString() }, null);
-            throw new CommunicationModuleException(
-                    CommunicationModuleErrorCode.ERROR_MESSAGE_FORMAT,
-                    "Error during message handling :" + message.toString());
-        } catch (Exception e) {
-            LogUtils.logError(context, CommunicationModuleImpl.class,
-                    "CommunicationModuleImpl", new Object[] {
-                            "Error during message handling: ", e }, e);
-            throw new CommunicationModuleException(
-                    CommunicationModuleErrorCode.ERROR_MESSAGE_FORMAT,
-                    "Error during message handling, due to internal excepetion. Message was:"
-                            + message.toString(), e);
-        }
+	} catch (NullPointerException e) {
+	    LogUtils.logError(
+		    context,
+		    CommunicationModuleImpl.class,
+		    "send",
+		    new Object[] { "Error during message handling: "
+			    + message.toString() }, null);
+	    throw new CommunicationModuleException(
+		    CommunicationModuleErrorCode.ERROR_MESSAGE_FORMAT,
+		    "Error during message handling :" + message.toString());
+	} catch (Exception e) {
+	    LogUtils.logError(context, CommunicationModuleImpl.class,
+		    "CommunicationModuleImpl", new Object[] {
+			    "Error during message handling: ", e }, e);
+	    throw new CommunicationModuleException(
+		    CommunicationModuleErrorCode.ERROR_MESSAGE_FORMAT,
+		    "Error during message handling, due to internal excepetion. Message was:"
+			    + message.toString(), e);
+	}
 
     }
 
@@ -386,8 +386,8 @@ public class CommunicationModuleImpl implements CommunicationModule,
      * Multicast
      */
     public void sendAll(ChannelMessage message, List<PeerCard> receivers,
-            MessageListener listener) {
-        // TODO Auto-generated method stub
+	    MessageListener listener) {
+	// TODO Auto-generated method stub
 
     }
 
@@ -395,7 +395,7 @@ public class CommunicationModuleImpl implements CommunicationModule,
      * Multicast
      */
     public void sendAll(ChannelMessage message, List<PeerCard> recipients) {
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
 
     }
 
@@ -403,7 +403,7 @@ public class CommunicationModuleImpl implements CommunicationModule,
      * Broadcast
      */
     public void sendAll(ChannelMessage message) {
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
 
     }
 
@@ -411,51 +411,51 @@ public class CommunicationModuleImpl implements CommunicationModule,
      * Broadcast with message listener
      */
     public void sendAll(ChannelMessage message, MessageListener listener) {
-        /*
-         * executor.execute(new BroadcastExecutor(message,
-         * communicationConnector, listener));
-         */
-        try {
-            Thread t = new Thread(new BroadcastExecutor(message,
-                    communicationConnector, listener, context));
-            t.start();
-        } catch (Throwable e) {
-            LogUtils.logError(context, CommunicationModuleImpl.class,
-                    "sendAll", new Object[] {
-                            "Error during message handling: ", e }, e);
-            throw new CommunicationModuleException(
-                    CommunicationModuleErrorCode.ERROR_MESSAGE_FORMAT,
-                    "Error during message handling, due to internal excepetion. Message was:"
-                            + message.toString(), e);
-        }
+	/*
+	 * executor.execute(new BroadcastExecutor(message,
+	 * communicationConnector, listener));
+	 */
+	try {
+	    Thread t = new Thread(new BroadcastExecutor(message,
+		    communicationConnector, listener, context));
+	    t.start();
+	} catch (Throwable e) {
+	    LogUtils.logError(context, CommunicationModuleImpl.class,
+		    "sendAll", new Object[] {
+			    "Error during message handling: ", e }, e);
+	    throw new CommunicationModuleException(
+		    CommunicationModuleErrorCode.ERROR_MESSAGE_FORMAT,
+		    "Error during message handling, due to internal excepetion. Message was:"
+			    + message.toString(), e);
+	}
     }
 
     public void sharedObjectAdded(Object sharedObj, Object removeHook) {
-        if (sharedObj != null && sharedObj instanceof CommunicationConnector) {
-            LogUtils.logDebug(context, CommunicationModuleImpl.class,
-                    "CommunicationModuleImpl",
-                    new Object[] { "New CommunicationConnector added..." },
-                    null);
-            communicationConnector = (CommunicationConnector) sharedObj;
-        }
+	if (sharedObj != null && sharedObj instanceof CommunicationConnector) {
+	    LogUtils.logDebug(context, CommunicationModuleImpl.class,
+		    "CommunicationModuleImpl",
+		    new Object[] { "New CommunicationConnector added..." },
+		    null);
+	    communicationConnector = (CommunicationConnector) sharedObj;
+	}
     }
 
     public void sharedObjectRemoved(Object removeHook) {
-        if (removeHook instanceof CommunicationConnector) {
-            LogUtils.logDebug(context, CommunicationModuleImpl.class,
-                    "CommunicationModuleImpl",
-                    new Object[] { "CommunicationConnector removed..." }, null);
-            communicationConnector = null;
-            initialized = false;
-        }
+	if (removeHook instanceof CommunicationConnector) {
+	    LogUtils.logDebug(context, CommunicationModuleImpl.class,
+		    "CommunicationModuleImpl",
+		    new Object[] { "CommunicationConnector removed..." }, null);
+	    communicationConnector = null;
+	    initialized = false;
+	}
 
     }
 
     public List<String> getGroupMembers(String group) {
-        return communicationConnector.getGroupMembers(group);
+	return communicationConnector.getGroupMembers(group);
     }
 
     public boolean hasChannel(String channelName) {
-        return communicationConnector.hasChannel(channelName);
+	return communicationConnector.hasChannel(channelName);
     }
 }

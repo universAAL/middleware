@@ -847,7 +847,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	try {
 	    loadXMLParser();
 	    space = (IAALSpace) unmarshaller.unmarshal(xml);
-	    //parametrize the channels
+	    // parametrize the channels
 	    space = parametrizeChannelNames(space);
 	} catch (Exception ex) {
 	    LogUtils.logError(
@@ -872,13 +872,17 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
      * @return
      */
     private IAALSpace parametrizeChannelNames(IAALSpace space) {
-	//change the peering channel
-	String peeringChannelName = space.getPeeringChannel().getChannelDescriptor().getChannelName();
+	// change the peering channel
+	String peeringChannelName = space.getPeeringChannel()
+		.getChannelDescriptor().getChannelName();
 	String aalSpaceID = space.getSpaceDescriptor().getSpaceId();
-	space.getPeeringChannel().getChannelDescriptor().setChannelName(peeringChannelName +aalSpaceID);
-	
-	for(IChannelDescriptor channelDescriptor: space.getCommunicationChannels().getChannelDescriptor()){
-	    channelDescriptor.setChannelName(channelDescriptor.getChannelName()+aalSpaceID);
+	space.getPeeringChannel().getChannelDescriptor()
+		.setChannelName(peeringChannelName + aalSpaceID);
+
+	for (IChannelDescriptor channelDescriptor : space
+		.getCommunicationChannels().getChannelDescriptor()) {
+	    channelDescriptor.setChannelName(channelDescriptor.getChannelName()
+		    + aalSpaceID);
 	}
 	return space;
     }

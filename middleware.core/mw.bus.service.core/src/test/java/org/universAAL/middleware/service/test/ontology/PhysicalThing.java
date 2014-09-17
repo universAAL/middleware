@@ -28,8 +28,10 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * 
  */
 public class PhysicalThing extends ManagedIndividual {
-    public static final String MY_URI = TestOntology.NAMESPACE + "PhysicalThing";
-    public static final String PROP_PHYSICAL_LOCATION = TestOntology.NAMESPACE + "hasLocation";
+    public static final String MY_URI = TestOntology.NAMESPACE
+	    + "PhysicalThing";
+    public static final String PROP_PHYSICAL_LOCATION = TestOntology.NAMESPACE
+	    + "hasLocation";
 
     protected PhysicalThing() {
 	super();

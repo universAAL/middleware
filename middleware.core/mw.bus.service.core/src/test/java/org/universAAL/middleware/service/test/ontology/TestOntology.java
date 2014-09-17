@@ -29,7 +29,6 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owl.ServiceBusOntology;
 
-
 /**
  * 
  * @author Carsten Stockloew
@@ -84,19 +83,19 @@ public final class TestOntology extends Ontology {
 	// load Location
 	oci = createNewOntClassInfo(Location.MY_URI, factory, 5);
 	oci.addSuperClass(ManagedIndividual.MY_URI);
-	
+
 	// load IndoorPlace
 	oci = createNewOntClassInfo(IndoorPlace.MY_URI, factory, 6);
 	oci.addSuperClass(Location.MY_URI);
-	
+
 	// load OutdoorPlace
 	oci = createNewOntClassInfo(OutdoorPlace.MY_URI, factory, 7);
 	oci.addSuperClass(Location.MY_URI);
-	
+
 	// load Room
 	oci = createNewOntClassInfo(Room.MY_URI, factory, 8);
 	oci.addSuperClass(IndoorPlace.MY_URI);
-	
+
 	// load PhysicalThing
 	oci = createNewOntClassInfo(PhysicalThing.MY_URI, factory, 4);
 	oci.addSuperClass(ManagedIndividual.MY_URI);

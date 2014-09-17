@@ -258,7 +258,8 @@ public class ServiceResponse extends ScopedResource implements Response,
 		// this can happen if we get responses from more than one
 		// service
 		List<?> outputLists = (List<?>) obj;
-		for (Iterator<?> iter2 = outputLists.iterator(); iter2.hasNext();) {
+		for (Iterator<?> iter2 = outputLists.iterator(); iter2
+			.hasNext();) {
 		    ProcessOutput output = (ProcessOutput) iter2.next();
 
 		    List<Object> l = result.get(output.getURI());
@@ -298,7 +299,7 @@ public class ServiceResponse extends ScopedResource implements Response,
     public boolean isWellFormed() {
 	return props.containsKey(PROP_SERVICE_CALL_STATUS);
     }
-    
+
     /**
      * Get the provider of the requested service. The provider is the URI of the
      * bus member of the {@link ServiceCallee}.

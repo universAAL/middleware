@@ -39,63 +39,63 @@ import ch.ethz.iks.slp.ServiceURL;
  */
 class Service {
 
-	/**
-	 * the service URL.
-	 */
-	ServiceURL url;
+    /**
+     * the service URL.
+     */
+    ServiceURL url;
 
-	/**
-	 * the service attributes.
-	 */
-	Dictionary attributes;
+    /**
+     * the service attributes.
+     */
+    Dictionary attributes;
 
-	/**
-	 * creates a new Service instance.
-	 * 
-	 * @param sreg
-	 *            the service registration message.
-	 */
-	Service(final ServiceRegistration sreg) {
+    /**
+     * creates a new Service instance.
+     * 
+     * @param sreg
+     *            the service registration message.
+     */
+    Service(final ServiceRegistration sreg) {
 
-		// TODO: support localized registrations ...
-		url = sreg.url;
-		attributes = SLPUtils.attrListToDict(sreg.attList);
+	// TODO: support localized registrations ...
+	url = sreg.url;
+	attributes = SLPUtils.attrListToDict(sreg.attList);
 
+    }
+
+    /**
+     * @param obj
+     *            Object to compare.
+     * @return <code>true</code> if the object is of type <code>Service</code>
+     *         and the two services have a matching serviceURL and equal
+     *         properties.
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(final Object obj) {
+	if (obj instanceof Service) {
+	    Service service = (Service) obj;
+	    return attributes.equals(service.attributes)
+		    && url.equals(service.url);
 	}
+	return false;
+    }
 
-	/**
-	 * @param obj
-	 *            Object to compare.
-	 * @return <code>true</code> if the object is of type <code>Service</code>
-	 *         and the two services have a matching serviceURL and equal
-	 *         properties.
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	public boolean equals(final Object obj) {
-		if (obj instanceof Service) {
-			Service service = (Service) obj;
-			return attributes.equals(service.attributes)
-					&& url.equals(service.url);
-		}
-		return false;
-	}
+    /**
+     * get the hash code.
+     * 
+     * @return the hash code.
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode() {
+	return url.hashCode();
+    }
 
-	/**
-	 * get the hash code.
-	 * 
-	 * @return the hash code.
-	 * @see java.lang.Object#hashCode()
-	 */
-	public int hashCode() {
-		return url.hashCode();
-	}
-
-	/**
-	 * get a string representation.
-	 * 
-	 * @return a string.
-	 */
-	public String toString() {
-		return url.toString();
-	}
+    /**
+     * get a string representation.
+     * 
+     * @return a string.
+     */
+    public String toString() {
+	return url.toString();
+    }
 }

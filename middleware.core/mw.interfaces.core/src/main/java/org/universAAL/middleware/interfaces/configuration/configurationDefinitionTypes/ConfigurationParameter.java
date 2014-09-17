@@ -17,33 +17,37 @@
 
 package org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes;
 
-
 import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
 import org.universAAL.middleware.owl.MergedRestriction;
 
 /**
  * An Configuration entity that refers to a configuration parameter.
+ * 
  * @author amedrano
- *
+ * 
  */
 public interface ConfigurationParameter extends DescribedEntity {
 
     /**
      * The default value, for when a value is not set.
+     * 
      * @return default vaule to use.
      */
     public Object getDefaultValue();
-    
+
     /**
-     * The type that the configuration parameter is allowed to take.
-     * The {@link MergedRestriction} has to be bounded to the property {@link ConfigurationParameter#PROP_CONFIG_VALUE},
-     * otherwise the {@link ConfigurationParameter} will not register properly.
-     * @return a {@link MergedRestriction} over the property that defines the restrictions on the object received in 
-     * {@link ConfigurableModule#configurationChanged(org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.Scope, Object)}
-     * for the scope of this Configuration Parameter Entity.
+     * The type that the configuration parameter is allowed to take. The
+     * {@link MergedRestriction} has to be bounded to the property
+     * {@link ConfigurationParameter#PROP_CONFIG_VALUE}, otherwise the
+     * {@link ConfigurationParameter} will not register properly.
+     * 
+     * @return a {@link MergedRestriction} over the property that defines the
+     *         restrictions on the object received in
+     *         {@link ConfigurableModule#configurationChanged(org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.Scope, Object)}
+     *         for the scope of this Configuration Parameter Entity.
      */
-    public MergedRestriction getType(); 
-    
+    public MergedRestriction getType();
+
     public static String PROP_CONFIG_VALUE = "http://ontology.universAAL.org/AALConfigurationOntology#"
 	    + "hasValue";
 }

@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Abstract base class for all request messages.
- *
+ * 
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
@@ -48,5 +48,5 @@ abstract class RequestMessage extends SLPMessage {
      * a list of scopes that will be included.
      */
     List scopeList;
-    
+
 }

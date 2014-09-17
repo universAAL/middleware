@@ -22,8 +22,9 @@ import org.universAAL.middleware.owl.TypeExpression;
 
 /**
  * Negate any given pattern.
+ * 
  * @author amedrano
- *
+ * 
  */
 public class NotPattern implements EntityPattern {
 
@@ -31,13 +32,15 @@ public class NotPattern implements EntityPattern {
 
     /**
      * Match entities that NOT match the given pattern
-     * @param onPattern the pattern to complement.
+     * 
+     * @param onPattern
+     *            the pattern to complement.
      */
     public NotPattern(EntityPattern onPattern) {
 	pat = onPattern;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public TypeExpression getRestriction() {
 	return new Complement(pat.getRestriction());
     }

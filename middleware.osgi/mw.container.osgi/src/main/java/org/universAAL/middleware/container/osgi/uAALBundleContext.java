@@ -425,12 +425,14 @@ public class uAALBundleContext implements ModuleContext {
 	return man.getMainAttributes().getValue(name);
     }
 
-	public File getConfigHome() {
-		return new File(System.getProperty(BundleConfigHome.uAAL_CONF_ROOT_DIR, System.getProperty("user.dir")), getID());
-	}
+    public File getConfigHome() {
+	return new File(System.getProperty(BundleConfigHome.uAAL_CONF_ROOT_DIR,
+		System.getProperty("user.dir")), getID());
+    }
 
-	public File getDataFolder() {
-		// XXX maybe set another system property to point to the main data folder
-		return new File("./Data", getID());
-	}
+    public File getDataFolder() {
+	// XXX maybe set another system property to point to the main data
+	// folder
+	return new File("./Data", getID());
+    }
 }
