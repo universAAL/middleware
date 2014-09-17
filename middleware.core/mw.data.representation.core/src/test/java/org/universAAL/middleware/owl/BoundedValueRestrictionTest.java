@@ -21,7 +21,7 @@ public class BoundedValueRestrictionTest extends TestCase {
 	assertFalse(ir.hasMember(new Integer(100)));
 	assertFalse(ir.hasMember(new Integer(-1)));
 	assertFalse(ir.hasMember(new Integer(101)));
-	
+
 	assertFalse(ir.hasMember("test"));
     }
 }

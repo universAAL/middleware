@@ -72,7 +72,8 @@ public final class SharedResources {
     }
 
     public static void loadReasoningEngine() throws ClassNotFoundException {
-	OntologyManagement.getInstance().register(moduleContext, dataRepOntology);
+	OntologyManagement.getInstance().register(moduleContext,
+		dataRepOntology);
 	// the subclasses (e.g., Restriction & ClassExpression) will be loaded
 	// automatically
 	Class.forName("org.universAAL.middleware.owl.Complement");
@@ -86,26 +87,24 @@ public final class SharedResources {
 	// Class.forName("org.universAAL.middleware.rdf.PropertyPath");
 	Class.forName("org.universAAL.middleware.owl.AllValuesFromRestriction");
 	Class.forName("org.universAAL.middleware.owl.BoundedValueRestriction");
-	Class
-		.forName("org.universAAL.middleware.owl.ExactCardinalityRestriction");
+	Class.forName("org.universAAL.middleware.owl.ExactCardinalityRestriction");
 	Class.forName("org.universAAL.middleware.owl.HasValueRestriction");
-	Class
-		.forName("org.universAAL.middleware.owl.MaxCardinalityRestriction");
-	Class
-		.forName("org.universAAL.middleware.owl.MinCardinalityRestriction");
+	Class.forName("org.universAAL.middleware.owl.MaxCardinalityRestriction");
+	Class.forName("org.universAAL.middleware.owl.MinCardinalityRestriction");
 	Class.forName("org.universAAL.middleware.owl.MergedRestriction");
     }
 
     public static void unloadReasoningEngine() {
-	OntologyManagement.getInstance().unregister(moduleContext, dataRepOntology);
+	OntologyManagement.getInstance().unregister(moduleContext,
+		dataRepOntology);
     }
 
     public static void setDefaults() {
 	middlewareProps.put(uAAL_AAL_SPACE_ID, System.getProperty(
 		uAAL_AAL_SPACE_ID,
 		"urn:org.universAAL.aal_space:test_environment"));
-	middlewareProps.put(uAAL_IS_COORDINATING_PEER, System.getProperty(
-		uAAL_IS_COORDINATING_PEER, "true"));
+	middlewareProps.put(uAAL_IS_COORDINATING_PEER,
+		System.getProperty(uAAL_IS_COORDINATING_PEER, "true"));
 	if ("true".equals(System.getProperty(uAAL_IS_DEBUG_MODE)))
 	    middlewareProps.put(uAAL_IS_DEBUG_MODE, "true");
 
@@ -113,12 +112,10 @@ public final class SharedResources {
 		.put(uAAL_AAL_SPACE_ID,
 			"A URI identifying the AAL Space to which this instance of middleware belongs.");
 	helpOnMiddlewareProps
-		.put(
-			uAAL_IS_COORDINATING_PEER,
+		.put(uAAL_IS_COORDINATING_PEER,
 			"If set to 'true', then buses that need a coordinator instance are recommended to make the instance on this node to the coordinator. Only one instance per AAL Space is allowed to have this prop set.");
 	helpOnMiddlewareProps
-		.put(
-			uAAL_IS_DEBUG_MODE,
+		.put(uAAL_IS_DEBUG_MODE,
 			"If set to 'true', then buses are recommended to produce more log messages as in production mode (when this flag is not set, we assume production mode).");
 
 	moduleContext

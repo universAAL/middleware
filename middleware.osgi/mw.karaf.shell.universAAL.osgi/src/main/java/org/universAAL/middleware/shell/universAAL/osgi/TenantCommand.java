@@ -28,23 +28,23 @@ import org.universAAL.middleware.managers.api.TenantManager;
 @Command(scope = "universAAL", name = "tenants", description = "Print the tenants connected to uAAL instance")
 public class TenantCommand extends OsgiCommandSupport {
 
-	private TenantManager tenantManager;
+    private TenantManager tenantManager;
 
-	@Override
-	protected Object doExecute() throws Exception {
-		// TODO Auto-generated method stub
-		ServiceReference ref = bundleContext
-				.getServiceReference(TenantManager.class.getName());
-		if (ref != null) {
-			tenantManager = (TenantManager) bundleContext.getService(ref);
-			System.out
-					.println("--------Tenants connected to this instance----------");
-			for (String tenantID : tenantManager.getTenants().keySet()) {
-				System.out.println("Tenant ID: " + tenantID
-						+ " - Tenant Description:"
-						+ tenantManager.getTenants().get(tenantID));
-			}
-		}
-		return null;
+    @Override
+    protected Object doExecute() throws Exception {
+	// TODO Auto-generated method stub
+	ServiceReference ref = bundleContext
+		.getServiceReference(TenantManager.class.getName());
+	if (ref != null) {
+	    tenantManager = (TenantManager) bundleContext.getService(ref);
+	    System.out
+		    .println("--------Tenants connected to this instance----------");
+	    for (String tenantID : tenantManager.getTenants().keySet()) {
+		System.out.println("Tenant ID: " + tenantID
+			+ " - Tenant Description:"
+			+ tenantManager.getTenants().get(tenantID));
+	    }
 	}
+	return null;
+    }
 }

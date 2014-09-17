@@ -67,7 +67,7 @@ public class ProcessOutput extends ProcessParameter {
 	if (value instanceof ProcessOutput
 		&& ((ProcessOutput) value).isWellFormed()) {
 	    ArrayList<ProcessOutput> l = new ArrayList<ProcessOutput>(1);
-	    l.add((ProcessOutput)value);
+	    l.add((ProcessOutput) value);
 	    return l;
 	} else if (value instanceof List) {
 	    for (int i = 0; i < ((List) value).size(); i++) {
@@ -90,7 +90,7 @@ public class ProcessOutput extends ProcessParameter {
 	    if (value == null)
 		return null;
 	    ArrayList<ProcessOutput> l = new ArrayList<ProcessOutput>(1);
-	    l.add((ProcessOutput)value);
+	    l.add((ProcessOutput) value);
 	    return l;
 	} else
 	    return null;

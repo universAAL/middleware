@@ -243,15 +243,15 @@ public abstract class Service extends ManagedIndividual {
 		propPath[propPath.length - 1], in.asVariableReference()),
 		propPath);
     }
-    
+
     /**
      * Adds a restriction to a given input
      */
     public final void addFilteringType(String inParamURI, String[] propPath) {
 	ProcessInput in = createInput(inParamURI,
 		TypeMapper.getDatatypeURI(Resource.class), 1, 1);
-	String[] pp = new String[propPath.length+1];
-	for (int i=0; i<propPath.length; i++)
+	String[] pp = new String[propPath.length + 1];
+	for (int i = 0; i < propPath.length; i++)
 	    pp[i] = propPath[i];
 	pp[propPath.length] = Resource.PROP_RDF_TYPE;
 	addInstanceLevelRestriction(MergedRestriction.getFixedValueRestriction(
@@ -271,8 +271,9 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Adds a change effect to default profile
      */
-    public final void addInputWithChangeEffect(String inParamURI, String typeURI,
-	    int minCardinality, int maxCardinality, String[] propPath) {
+    public final void addInputWithChangeEffect(String inParamURI,
+	    String typeURI, int minCardinality, int maxCardinality,
+	    String[] propPath) {
 	ProcessInput in = createInput(inParamURI, typeURI, minCardinality,
 		maxCardinality);
 	myProfile.addChangeEffect(propPath, in.asVariableReference());
@@ -281,8 +282,9 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Adds a remove effect to default profile
      */
-    public final void addInputWithRemoveEffect(String inParamURI, String typeURI,
-	    int minCardinality, int maxCardinality, String[] propPath) {
+    public final void addInputWithRemoveEffect(String inParamURI,
+	    String typeURI, int minCardinality, int maxCardinality,
+	    String[] propPath) {
 	addFilteringInput(inParamURI, typeURI, minCardinality, maxCardinality,
 		propPath);
 	myProfile.addRemoveEffect(propPath);

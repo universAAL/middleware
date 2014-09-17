@@ -47,220 +47,219 @@ import ch.ethz.iks.slp.ServiceLocationException;
  */
 class AuthenticationBlock {
 
-	/**
-	 * the BSD code for DSA.
-	 */
-	public static final short BSD_DSA = 0x0002;
+    /**
+     * the BSD code for DSA.
+     */
+    public static final short BSD_DSA = 0x0002;
 
-	/**
-	 * the timestamp.
-	 */
-	private int timestamp;
+    /**
+     * the timestamp.
+     */
+    private int timestamp;
 
-	/**
-	 * the data.
-	 */
-	private byte[] data = null;
+    /**
+     * the data.
+     */
+    private byte[] data = null;
 
-	/**
-	 * the signature.
-	 */
-	private byte[] sig = null;
+    /**
+     * the signature.
+     */
+    private byte[] sig = null;
 
-	/**
-	 * the SPI.
-	 */
-	private String spi = null;
+    /**
+     * the SPI.
+     */
+    private String spi = null;
 
-	/**
-	 * create a new Instance of an AuthenticationBlock.
-	 * 
-	 * @param bsd
-	 *            the BSD, only BSD_DSA is currently supported.
-	 * @param spiStr
-	 *            the SPI String.
-	 * @param timeStamp
-	 *            the timestamp.
-	 * @param byteData
-	 *            the binary data.
-	 * @param signature
-	 *            the signature, if avaliable.
-	 * @throws ServiceLocationException
-	 *             in case of processing errors.
-	 */
-	AuthenticationBlock(final short bsd, final String spiStr,
-			final int timeStamp, final byte[] byteData, final byte[] signature)
-			throws ServiceLocationException {
-		this();
+    /**
+     * create a new Instance of an AuthenticationBlock.
+     * 
+     * @param bsd
+     *            the BSD, only BSD_DSA is currently supported.
+     * @param spiStr
+     *            the SPI String.
+     * @param timeStamp
+     *            the timestamp.
+     * @param byteData
+     *            the binary data.
+     * @param signature
+     *            the signature, if avaliable.
+     * @throws ServiceLocationException
+     *             in case of processing errors.
+     */
+    AuthenticationBlock(final short bsd, final String spiStr,
+	    final int timeStamp, final byte[] byteData, final byte[] signature)
+	    throws ServiceLocationException {
+	this();
 
-		if (bsd != 0x0002) {
-			throw new ServiceLocationException(
-					ServiceLocationException.NOT_IMPLEMENTED,
-					"Only BSD 0x0002 (DSA) is supported.");
-		}
-
-		timestamp = timeStamp;
-		data = byteData;
-		spi = spiStr;
-
-		if (signature == null) {
-			sign();
-		} else {
-			sig = signature;
-		}
+	if (bsd != 0x0002) {
+	    throw new ServiceLocationException(
+		    ServiceLocationException.NOT_IMPLEMENTED,
+		    "Only BSD 0x0002 (DSA) is supported.");
 	}
 
-	/**
+	timestamp = timeStamp;
+	data = byteData;
+	spi = spiStr;
+
+	if (signature == null) {
+	    sign();
+	} else {
+	    sig = signature;
+	}
+    }
+
+    /**
 	 * 
 	 * 
 	 */
-	AuthenticationBlock() {
+    AuthenticationBlock() {
+    }
+
+    /**
+     * sign the AuthenticationBlock.
+     * 
+     * @throws ServiceLocationException
+     *             in case of processing errors.
+     */
+    private void sign() throws ServiceLocationException {
+	try {
+	    PrivateKey privateKey = SLPCore.CONFIG.getPrivateKey(spi);
+	    SLPCore.platform.logDebug("Signing with SPI: " + spi);
+	    Signature signature = Signature.getInstance("SHA1withDSA");
+	    signature.initSign(privateKey);
+	    signature.update(data);
+	    sig = signature.sign();
+	} catch (Exception e) {
+	    SLPCore.platform.logError(e.getMessage(), e.fillInStackTrace());
+	    throw new ServiceLocationException(
+		    ServiceLocationException.AUTHENTICATION_FAILED,
+		    "Could not sign data");
+	}
+    }
+
+    /**
+     * get the SPI.
+     * 
+     * @return the SPI.
+     */
+    String getSPI() {
+	return spi;
+    }
+
+    /**
+     * get the timestamp.
+     * 
+     * @return the timestamp.
+     */
+    int getTimestamp() {
+	return timestamp;
+    }
+
+    /**
+     * verify the authBlock.
+     * 
+     * @param verData
+     *            the auth data.
+     * @return true if verification suceeds.
+     * @throws ServiceLocationException
+     *             in case of IO errors.
+     */
+    boolean verify(final byte[] verData) throws ServiceLocationException {
+	try {
+	    PublicKey publicKey = SLPCore.CONFIG.getPublicKey(spi);
+
+	    Signature signature = Signature.getInstance("SHA1withDSA");
+	    signature.initVerify(publicKey);
+	    signature.update(verData);
+	    boolean success = signature.verify(sig);
+	    SLPCore.platform.logDebug((success ? "Verified with SPI: "
+		    : "Verification failed with SPI: ") + spi);
+
+	    return success;
+	} catch (Exception e) {
+	    SLPCore.platform.logError(e.getMessage(), e.fillInStackTrace());
+	    throw new ServiceLocationException(
+		    ServiceLocationException.AUTHENTICATION_FAILED,
+		    "Could not verify data with SPI: " + spi);
+	}
+    }
+
+    /**
+     * calculates the length of this auth block.
+     * 
+     * @return the length.
+     */
+    int getLength() {
+	return 2 // BSD
+		+ 2 // Block length
+		+ 4 // timestamp
+		+ 2 // spi length
+		+ spi.getBytes().length // spi
+		+ sig.length; // signature
+    }
+
+    /**
+     * get the bytes.
+     * 
+     * @return the bytes.
+     * @throws IOException
+     *             in case of IO errors.
+     */
+    void write(final DataOutputStream out) throws IOException {
+	out.writeShort(BSD_DSA); // BSD
+	out.writeShort((short) getLength());
+	out.writeInt(timestamp);
+	byte[] temp = spi.getBytes();
+	out.writeShort(temp.length);
+	out.write(temp);
+	out.write(sig);
+    }
+
+    /**
+     * parse a AuthenticationBlock array.
+     * 
+     * @param input
+     *            the DataInput.
+     * @return a AuthenticationBlock array.
+     * @throws ServiceLocationException
+     *             in case of parse / IO errors.
+     * @throws IOException
+     * @throws ServiceLocationException
+     */
+    static AuthenticationBlock[] parse(final DataInputStream input)
+	    throws IOException, ServiceLocationException {
+
+	List blocks = new ArrayList();
+	short blockCount = (short) input.readByte();
+	for (int i = 0; i < blockCount; i++) {
+	    AuthenticationBlock authBlock = new AuthenticationBlock();
+	    short bsd = (short) input.readShort();
+	    if (bsd != BSD_DSA) {
+		throw new ServiceLocationException(
+			ServiceLocationException.AUTHENTICATION_FAILED, "BSD "
+				+ bsd + " is not supported.");
+	    }
+	    int size = input.readShort();
+	    authBlock.timestamp = input.readInt();
+	    authBlock.spi = input.readUTF();
+	    authBlock.sig = new byte[size - 2 - 2 - 4 - 2
+		    - authBlock.spi.getBytes().length];
+	    try {
+		input.readFully(authBlock.sig);
+	    } catch (IOException ioe) {
+		throw new ServiceLocationException(
+			ServiceLocationException.PARSE_ERROR, ioe.getMessage());
+	    }
+	    blocks.add(authBlock);
 	}
 
-	/**
-	 * sign the AuthenticationBlock.
-	 * 
-	 * @throws ServiceLocationException
-	 *             in case of processing errors.
-	 */
-	private void sign() throws ServiceLocationException {
-		try {
-			PrivateKey privateKey = SLPCore.CONFIG.getPrivateKey(spi);
-			SLPCore.platform.logDebug("Signing with SPI: " + spi);
-			Signature signature = Signature.getInstance("SHA1withDSA");
-			signature.initSign(privateKey);
-			signature.update(data);
-			sig = signature.sign();
-		} catch (Exception e) {
-			SLPCore.platform.logError(e.getMessage(), e.fillInStackTrace());
-			throw new ServiceLocationException(
-					ServiceLocationException.AUTHENTICATION_FAILED,
-					"Could not sign data");
-		}
+	if (!SLPCore.CONFIG.getSecurityEnabled()) {
+	    return new AuthenticationBlock[0];
 	}
 
-	/**
-	 * get the SPI.
-	 * 
-	 * @return the SPI.
-	 */
-	String getSPI() {
-		return spi;
-	}
-
-	/**
-	 * get the timestamp.
-	 * 
-	 * @return the timestamp.
-	 */
-	int getTimestamp() {
-		return timestamp;
-	}
-
-	/**
-	 * verify the authBlock.
-	 * 
-	 * @param verData
-	 *            the auth data.
-	 * @return true if verification suceeds.
-	 * @throws ServiceLocationException
-	 *             in case of IO errors.
-	 */
-	boolean verify(final byte[] verData) throws ServiceLocationException {
-		try {
-			PublicKey publicKey = SLPCore.CONFIG.getPublicKey(spi);
-
-			Signature signature = Signature.getInstance("SHA1withDSA");
-			signature.initVerify(publicKey);
-			signature.update(verData);
-			boolean success = signature.verify(sig);
-			SLPCore.platform.logDebug((success ? "Verified with SPI: "
-						: "Verification failed with SPI: ")
-						+ spi);
-
-			return success;
-		} catch (Exception e) {
-			SLPCore.platform.logError(e.getMessage(), e.fillInStackTrace());
-			throw new ServiceLocationException(
-					ServiceLocationException.AUTHENTICATION_FAILED,
-					"Could not verify data with SPI: " + spi);
-		}
-	}
-
-	/**
-	 * calculates the length of this auth block.
-	 * 
-	 * @return the length.
-	 */
-	int getLength() {
-		return 2 // BSD
-				+ 2 // Block length
-				+ 4 // timestamp
-				+ 2 // spi length
-				+ spi.getBytes().length // spi
-				+ sig.length; // signature
-	}
-
-	/**
-	 * get the bytes.
-	 * 
-	 * @return the bytes.
-	 * @throws IOException
-	 *             in case of IO errors.
-	 */
-	void write(final DataOutputStream out) throws IOException {
-		out.writeShort(BSD_DSA); // BSD
-		out.writeShort((short) getLength());
-		out.writeInt(timestamp);
-		byte[] temp = spi.getBytes();
-		out.writeShort(temp.length);
-		out.write(temp);
-		out.write(sig);
-	}
-
-	/**
-	 * parse a AuthenticationBlock array.
-	 * 
-	 * @param input
-	 *            the DataInput.
-	 * @return a AuthenticationBlock array.
-	 * @throws ServiceLocationException
-	 *             in case of parse / IO errors.
-	 * @throws IOException
-	 * @throws ServiceLocationException
-	 */
-	static AuthenticationBlock[] parse(final DataInputStream input)
-			throws IOException, ServiceLocationException {
-
-		List blocks = new ArrayList();
-		short blockCount = (short) input.readByte();
-		for (int i = 0; i < blockCount; i++) {
-			AuthenticationBlock authBlock = new AuthenticationBlock();
-			short bsd = (short) input.readShort();
-			if (bsd != BSD_DSA) {
-				throw new ServiceLocationException(
-						ServiceLocationException.AUTHENTICATION_FAILED, "BSD "
-								+ bsd + " is not supported.");
-			}
-			int size = input.readShort();
-			authBlock.timestamp = input.readInt();
-			authBlock.spi = input.readUTF();
-			authBlock.sig = new byte[size - 2 - 2 - 4 - 2
-					- authBlock.spi.getBytes().length];
-			try {
-				input.readFully(authBlock.sig);
-			} catch (IOException ioe) {
-				throw new ServiceLocationException(
-						ServiceLocationException.PARSE_ERROR, ioe.getMessage());
-			}
-			blocks.add(authBlock);
-		}
-
-		if (!SLPCore.CONFIG.getSecurityEnabled()) {
-			return new AuthenticationBlock[0];
-		}
-
-		return (AuthenticationBlock[]) blocks
-				.toArray(new AuthenticationBlock[0]);
-	}
+	return (AuthenticationBlock[]) blocks
+		.toArray(new AuthenticationBlock[0]);
+    }
 }

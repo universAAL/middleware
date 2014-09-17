@@ -21,15 +21,15 @@ import org.universAAL.container.JUnit.JUnitModuleContext;
 
 /**
  * @author amedrano
- *
+ * 
  */
 public class SimpleTest {
 
-	public void testContainer() {
-		JUnitContainer.getInstance();
-	}
+    public void testContainer() {
+	JUnitContainer.getInstance();
+    }
 
-	public void testModuleContext(){
-		new JUnitModuleContext();
-	}
+    public void testModuleContext() {
+	new JUnitModuleContext();
+    }
 }

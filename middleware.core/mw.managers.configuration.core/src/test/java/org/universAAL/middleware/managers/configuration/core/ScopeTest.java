@@ -30,134 +30,153 @@ import org.universAAL.middleware.managers.configuration.core.impl.factories.Scop
 
 /**
  * @author amedrano
- *
+ * 
  */
-public class ScopeTest{
-    
+public class ScopeTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsAALSpace1(){
+    public void testConstructorsAALSpace1() {
 	new AALSpaceScope(null);
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsAALSpace2(){
+    public void testConstructorsAALSpace2() {
 	new AALSpaceScope("");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsAALSpace3(){
+    public void testConstructorsAALSpace3() {
 	new AALSpaceScope("not:ok");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsAALSpace4(){
+    public void testConstructorsAALSpace4() {
 	new AALSpaceScope("not ok");
     }
+
     @Test
-    public void testConstructorsAALSpace5(){
+    public void testConstructorsAALSpace5() {
 	new AALSpaceScope("ok");
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsInstance1(){
+    public void testConstructorsInstance1() {
 	new InstanceScope("ok", (String) null);
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsInstance2(){
+    public void testConstructorsInstance2() {
 	new InstanceScope("ok", "");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsInstance3(){
+    public void testConstructorsInstance3() {
 	new InstanceScope("ok", "not:ok");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsInstance4(){
+    public void testConstructorsInstance4() {
 	new InstanceScope("ok", "not ok");
     }
+
     @Test
-    public void testConstructorsInstance5(){
+    public void testConstructorsInstance5() {
 	new InstanceScope("ok", "ok");
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorsModule1() {
+	new ModuleScope("ok", "peer", (String) null);
+    }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsModule1(){
-	new ModuleScope("ok", "peer",(String) null);
+    public void testConstructorsModule2() {
+	new ModuleScope("ok", "peer", (String) null);
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsModule2(){
-	new ModuleScope("ok", "peer",(String) null);
+    public void testConstructorsModule3() {
+	new ModuleScope("ok", "peer", "");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsModule3(){
-	new ModuleScope("ok", "peer","");
+    public void testConstructorsModule4() {
+	new ModuleScope("ok", "peer", "not:ok");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsModule4(){
-	new ModuleScope("ok", "peer","not:ok");
+    public void testConstructorsModule5() {
+	new ModuleScope("ok", "peer", "not ok");
     }
-    @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsModule5(){
-	new ModuleScope("ok", "peer","not ok");
-    }
+
     @Test
-    public void testConstructorsModule6(){
-	new ModuleScope("ok", "peer","ok");
+    public void testConstructorsModule6() {
+	new ModuleScope("ok", "peer", "ok");
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsApp1(){
+    public void testConstructorsApp1() {
 	new ApplicationScope("ok", (String) null);
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsApp2(){
+    public void testConstructorsApp2() {
 	new ApplicationScope("ok", "");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsApp3(){
+    public void testConstructorsApp3() {
 	new ApplicationScope("ok", "not:ok");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsApp4(){
+    public void testConstructorsApp4() {
 	new ApplicationScope("ok", "not ok");
     }
+
     @Test
-    public void testConstructorsApp5(){
+    public void testConstructorsApp5() {
 	new ApplicationScope("ok", "app");
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsAppPart1(){
+    public void testConstructorsAppPart1() {
 	new AppPartScope("ok", "app", (String) null);
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsAppPart2(){
+    public void testConstructorsAppPart2() {
 	new AppPartScope("ok", "app", "");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsAppPart3(){
+    public void testConstructorsAppPart3() {
 	new AppPartScope("ok", "app", "not:ok");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorsAppPart4(){
+    public void testConstructorsAppPart4() {
 	new AppPartScope("ok", "app", "not ok");
     }
+
     @Test
-    public void testConstructorsAppPart5(){
+    public void testConstructorsAppPart5() {
 	new AppPartScope("ok", "app", "ok");
     }
-    
+
     @Test
-    public void testFactory(){
+    public void testFactory() {
 	testconv(new AALSpaceScope("id"));
 	testconv(new InstanceScope("id", "peerId"));
 	testconv(new ModuleScope("id", "peerId", "moduleID"));
 	testconv(new ApplicationScope("id", "appID"));
 	testconv(new AppPartScope("id", "appID", "partID"));
-	
+
     }
-    
-    private void testconv(Scope s){
+
+    private void testconv(Scope s) {
 	String urn = ScopeFactory.getScopeURN(s);
 	System.out.println(urn);
-	assertEquals(urn,ScopeFactory.getScopeURN(ScopeFactory.getScope(urn)));
+	assertEquals(urn, ScopeFactory.getScopeURN(ScopeFactory.getScope(urn)));
     }
 }

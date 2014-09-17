@@ -150,7 +150,7 @@ package org.universAAL.middleware.xsd.util;
 
 public final class Base64 {
 
-    /*  ******** P U B L I C F I E L D S ******** */
+    /* ******** P U B L I C F I E L D S ******** */
 
     /** No options specified. Value is zero. */
     public final static int NO_OPTIONS = 0;
@@ -190,7 +190,7 @@ public final class Base64 {
      */
     public final static int ORDERED = 32;
 
-    /*  ******** P R I V A T E F I E L D S ******** */
+    /* ******** P R I V A T E F I E L D S ******** */
 
     /** Maximum line length (76) of Base64 output. */
     private final static int MAX_LINE_LENGTH = 76;
@@ -209,7 +209,7 @@ public final class Base64 {
     private final static byte EQUALS_SIGN_ENC = -1; // Indicates equals sign in
 						    // encoding
 
-    /*  ******** S T A N D A R D B A S E 6 4 A L P H A B E T ******** */
+    /* ******** S T A N D A R D B A S E 6 4 A L P H A B E T ******** */
 
     /** The 64 valid Base64 values. */
     /*
@@ -283,7 +283,7 @@ public final class Base64 {
 	    -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9 // Decimal 244 - 255
     };
 
-    /*  ******** U R L S A F E B A S E 6 4 A L P H A B E T ******** */
+    /* ******** U R L S A F E B A S E 6 4 A L P H A B E T ******** */
 
     /**
      * Used in the URL- and Filename-safe dialect described in Section 4 of
@@ -362,7 +362,7 @@ public final class Base64 {
 	    -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9 // Decimal 244 - 255
     };
 
-    /*  ******** O R D E R E D B A S E 6 4 A L P H A B E T ******** */
+    /* ******** O R D E R E D B A S E 6 4 A L P H A B E T ******** */
 
     /**
      * I don't get the point of this technique, but someone requested it, and it
@@ -440,7 +440,7 @@ public final class Base64 {
 	    -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9 // Decimal 244 - 255
     };
 
-    /*  ******** D E T E R M I N E W H I C H A L H A B E T ******** */
+    /* ******** D E T E R M I N E W H I C H A L H A B E T ******** */
 
     /**
      * Returns one of the _SOMETHING_ALPHABET byte arrays depending on the
@@ -478,7 +478,7 @@ public final class Base64 {
     private Base64() {
     }
 
-    /*  ******** E N C O D I N G M E T H O D S ******** */
+    /* ******** E N C O D I N G M E T H O D S ******** */
 
     /**
      * Encodes up to the first three bytes of array <var>threeBytes</var> and
@@ -778,7 +778,7 @@ public final class Base64 {
 	} catch (java.io.IOException ex) {
 	    // assert false : ex.getMessage();
 	} // end catch
-	// assert encoded != null;
+	  // assert encoded != null;
 	return encoded;
     } // end encodeBytes
 
@@ -859,7 +859,7 @@ public final class Base64 {
 	} catch (java.io.IOException ex) {
 	    // assert false : ex.getMessage();
 	} // end catch
-	// assert encoded != null;
+	  // assert encoded != null;
 	return encoded;
     } // end encodeBytes
 
@@ -1093,7 +1093,7 @@ public final class Base64 {
 
     } // end encodeBytesToBytes
 
-    /*  ******** D E C O D I N G M E T H O D S ******** */
+    /* ******** D E C O D I N G M E T H O D S ******** */
 
     /**
      * Decodes four bytes from array <var>source</var> and writes the resulting
@@ -1362,7 +1362,7 @@ public final class Base64 {
 	catch (java.io.UnsupportedEncodingException uee) {
 	    bytes = s.getBytes();
 	} // end catch
-	// </change>
+	  // </change>
 
 	// Decode
 	bytes = decode(bytes, 0, bytes.length, options);
@@ -1789,7 +1789,7 @@ public final class Base64 {
 	} // end finally
     } // end decodeFileToFile
 
-    /*  ******** I N N E R C L A S S I N P U T S T R E A M ******** */
+    /* ******** I N N E R C L A S S I N P U T S T R E A M ******** */
 
     /**
      * A {@link Base64.InputStream} will read data from another
@@ -1999,7 +1999,7 @@ public final class Base64 {
 
     } // end inner class InputStream
 
-    /*  ******** I N N E R C L A S S O U T P U T S T R E A M ******** */
+    /* ******** I N N E R C L A S S O U T P U T S T R E A M ******** */
 
     /**
      * A {@link Base64.OutputStream} will write data to another
@@ -2094,8 +2094,7 @@ public final class Base64 {
 		buffer[position++] = (byte) theByte;
 		if (position >= bufferLength) { // Enough to encode.
 
-		    this.out
-			    .write(encode3to4(b4, buffer, bufferLength, options));
+		    this.out.write(encode3to4(b4, buffer, bufferLength, options));
 
 		    lineLength += 4;
 		    if (breakLines && lineLength >= MAX_LINE_LENGTH) {

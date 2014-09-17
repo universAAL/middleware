@@ -43,64 +43,64 @@ import ch.ethz.iks.slp.ServiceLocationException;
  * @since 0.1
  */
 class ServiceLocationEnumerationImpl implements ServiceLocationEnumeration {
-	/**
-	 * a list of results.
-	 */
-	private List list;
+    /**
+     * a list of results.
+     */
+    private List list;
 
-	/**
-	 * internal Iterator over the elements of the list.
-	 */
-	private Iterator iterator;
+    /**
+     * internal Iterator over the elements of the list.
+     */
+    private Iterator iterator;
 
-	/**
-	 * creates a new ServiceLocationEnumerationImpl.
-	 * 
-	 * @param resultList
-	 *            a list of results.
-	 */
-	ServiceLocationEnumerationImpl(final List resultList) {
-		list = resultList != null ? resultList : new ArrayList();
-		this.iterator = list.iterator();
+    /**
+     * creates a new ServiceLocationEnumerationImpl.
+     * 
+     * @param resultList
+     *            a list of results.
+     */
+    ServiceLocationEnumerationImpl(final List resultList) {
+	list = resultList != null ? resultList : new ArrayList();
+	this.iterator = list.iterator();
+    }
+
+    /**
+     * returns the next element of the Enumeration.
+     * 
+     * @return the next element.
+     * @throws ServiceLocationException
+     *             if there is no more element.
+     * @see ch.ethz.iks.slp.ServiceLocationEnumeration#next()
+     */
+    public synchronized Object next() throws ServiceLocationException {
+	try {
+	    return iterator.next();
+	} catch (Exception e) {
+	    throw new ServiceLocationException(
+		    ServiceLocationException.INTERNAL_SYSTEM_ERROR,
+		    e.getMessage());
 	}
+    }
 
-	/**
-	 * returns the next element of the Enumeration.
-	 * 
-	 * @return the next element.
-	 * @throws ServiceLocationException
-	 *             if there is no more element.
-	 * @see ch.ethz.iks.slp.ServiceLocationEnumeration#next()
-	 */
-	public synchronized Object next() throws ServiceLocationException {
-		try {
-			return iterator.next();
-		} catch (Exception e) {
-			throw new ServiceLocationException(
-					ServiceLocationException.INTERNAL_SYSTEM_ERROR, e
-							.getMessage());
-		}
-	}
+    /**
+     * checks if the Enumeration has more elements.
+     * 
+     * @return true if there are more elements available.
+     */
+    public synchronized boolean hasMoreElements() {
+	return iterator.hasNext();
+    }
 
-	/**
-	 * checks if the Enumeration has more elements.
-	 * 
-	 * @return true if there are more elements available.
-	 */
-	public synchronized boolean hasMoreElements() {
-		return iterator.hasNext();
+    /**
+     * returns the next elenemt of the Enumeration.
+     * 
+     * @return the next element or null if there aren't any more.
+     */
+    public synchronized Object nextElement() {
+	try {
+	    return next();
+	} catch (ServiceLocationException sle) {
+	    return null;
 	}
-
-	/**
-	 * returns the next elenemt of the Enumeration.
-	 * 
-	 * @return the next element or null if there aren't any more.
-	 */
-	public synchronized Object nextElement() {
-		try {
-			return next();
-		} catch (ServiceLocationException sle) {
-			return null;
-		}
-	}
+    }
 }

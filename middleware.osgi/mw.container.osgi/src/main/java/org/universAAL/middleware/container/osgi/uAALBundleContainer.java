@@ -225,12 +225,12 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 			bc.getService(sr), sr);
 	    break;
 	case ServiceEvent.UNREGISTERING:
-		for (Iterator i = listenersLocalCopy.iterator(); i.hasNext();) {
-			SharedObjectListener sol = (SharedObjectListener) i.next();
-			if (sol != null && bc != null) {
-					sol.sharedObjectRemoved(bc.getService(sr));
-			}
+	    for (Iterator i = listenersLocalCopy.iterator(); i.hasNext();) {
+		SharedObjectListener sol = (SharedObjectListener) i.next();
+		if (sol != null && bc != null) {
+		    sol.sharedObjectRemoved(bc.getService(sr));
 		}
+	    }
 	    break;
 	}
     }
@@ -315,8 +315,9 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 				null);
 	}
     }
-    
-    public void removeSharedObject(ModuleContext requester, Object objToRemove, Object[] shareParams) {
+
+    public void removeSharedObject(ModuleContext requester, Object objToRemove,
+	    Object[] shareParams) {
 	if (!(requester instanceof uAALBundleContext) || objToRemove == null
 		|| shareParams == null || shareParams.length == 0) {
 	    requester
@@ -333,12 +334,14 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 		((uAALBundleContext) requester).removeSharedObject(
 			(String) shareParams[0], objToRemove, null);
 	    else if (shareParams[0] instanceof Dictionary)
-		((uAALBundleContext) requester).removeSharedObject((String) null,
-			objToRemove, (Dictionary) shareParams[0]);
+		((uAALBundleContext) requester)
+			.removeSharedObject((String) null, objToRemove,
+				(Dictionary) shareParams[0]);
 	    else
 		requester
 			.logWarn(
-				this.getClass().getName() + "removeSharedObject",
+				this.getClass().getName()
+					+ "removeSharedObject",
 				"'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
 				null);
 	else {
@@ -346,7 +349,8 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 		if (!(shareParams[i] instanceof String)) {
 		    requester
 			    .logWarn(
-				    this.getClass().getName() + "removeSharedObject",
+				    this.getClass().getName()
+					    + "removeSharedObject",
 				    "'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
 				    null);
 		    return;
@@ -369,7 +373,8 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 	    else
 		requester
 			.logWarn(
-				this.getClass().getName() + "removeSharedObject",
+				this.getClass().getName()
+					+ "removeSharedObject",
 				"'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
 				null);
 	}

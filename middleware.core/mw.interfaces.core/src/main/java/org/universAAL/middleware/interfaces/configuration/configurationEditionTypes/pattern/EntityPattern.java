@@ -21,7 +21,7 @@ import org.universAAL.middleware.owl.TypeExpression;
 
 /**
  * @author amedrano
- *
+ * 
  */
 public interface EntityPattern {
 

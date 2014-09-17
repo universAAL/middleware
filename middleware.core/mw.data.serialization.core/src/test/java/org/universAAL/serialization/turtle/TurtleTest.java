@@ -94,13 +94,14 @@ public class TurtleTest extends TestCase {
 	Resource r = MergedRestriction.getAllValuesRestriction("propURI", e);
 	assertTrue(check(r));
     }
-    
+
     public void testEnumeration2() {
-	Enumeration e = new Enumeration(new Object[] { new Resource("value1"), new Resource("value2") });
+	Enumeration e = new Enumeration(new Object[] { new Resource("value1"),
+		new Resource("value2") });
 	Resource r = MergedRestriction.getAllValuesRestriction("propURI", e);
 	assertTrue(check(r));
     }
-    
+
     public void testEnumeration3() {
 	Enumeration e = new Enumeration(new Object[] { new Resource("value1") });
 	assertTrue(check(e));

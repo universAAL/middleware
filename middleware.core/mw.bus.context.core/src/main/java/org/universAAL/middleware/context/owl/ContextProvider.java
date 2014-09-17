@@ -122,12 +122,12 @@ public class ContextProvider extends ManagedIndividual {
 	ContextProviderType type = getProviderType();
 	return type != null
 	// forcing the existence of context sources is probably not necessary
-		// an example: controllers usually report about the state of the
-		// controlled device, hence the device will appear already as
-		// the subject and there is no need to redundantly specify it
-		// also as the source
-		// && (type == ContextProviderType.reasoner || props
-		// .containsKey(PROP_CONTEXT_SOURCE))
+	// an example: controllers usually report about the state of the
+	// controlled device, hence the device will appear already as
+	// the subject and there is no need to redundantly specify it
+	// also as the source
+	// && (type == ContextProviderType.reasoner || props
+	// .containsKey(PROP_CONTEXT_SOURCE))
 		&& props.containsKey(PROP_CONTEXT_PROVIDED_EVENTS);
     }
 

@@ -46,8 +46,6 @@ public class Activator implements BundleActivator {
 	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 		new Object[] { "Starting the CommunicationModule..." }, null);
 
-	
-
 	communicationModule = new CommunicationModuleImpl(moduleContext);
 	communicationModule.init();
 	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",

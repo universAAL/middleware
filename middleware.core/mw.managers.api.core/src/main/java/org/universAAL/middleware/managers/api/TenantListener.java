@@ -29,9 +29,9 @@ package org.universAAL.middleware.managers.api;
  * 
  */
 public interface TenantListener {
-	
-	public void newTenantRegistered(String tenantID, String tenantDescritpion);
-	
-	public void tenantRemoved(String tenantID);
+
+    public void newTenantRegistered(String tenantID, String tenantDescritpion);
+
+    public void tenantRemoved(String tenantID);
 
 }

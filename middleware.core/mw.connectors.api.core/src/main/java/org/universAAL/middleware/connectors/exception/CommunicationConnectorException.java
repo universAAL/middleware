@@ -22,7 +22,7 @@ package org.universAAL.middleware.connectors.exception;
 
 /**
  * Communication Connector Exception
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
@@ -35,40 +35,40 @@ public class CommunicationConnectorException extends RuntimeException {
     private int errorCode;
 
     public CommunicationConnectorException(int i, String description) {
-        super(description);
-        this.description = description;
-        this.errorCode = i;
+	super(description);
+	this.description = description;
+	this.errorCode = i;
     }
 
     public CommunicationConnectorException(
-            CommunicationConnectorErrorCode code, String description) {
-        this(code.ordinal(), description);
+	    CommunicationConnectorErrorCode code, String description) {
+	this(code.ordinal(), description);
     }
 
     public CommunicationConnectorException(CommunicationConnectorErrorCode code) {
-        this(code.ordinal(), code.toString());
+	this(code.ordinal(), code.toString());
     }
 
     public CommunicationConnectorException(
-            CommunicationConnectorErrorCode code, Throwable t) {
-        super("Internal exception", t);
-        this.errorCode = code.ordinal();
-        this.description = code.toString();
+	    CommunicationConnectorErrorCode code, Throwable t) {
+	super("Internal exception", t);
+	this.errorCode = code.ordinal();
+	this.description = code.toString();
     }
 
     public CommunicationConnectorException(
-            CommunicationConnectorErrorCode code, String msg, Throwable t) {
-        super(msg, t);
-        this.errorCode = code.ordinal();
-        this.description = msg;
+	    CommunicationConnectorErrorCode code, String msg, Throwable t) {
+	super(msg, t);
+	this.errorCode = code.ordinal();
+	this.description = msg;
     }
 
     public String getDescription() {
-        return description;
+	return description;
     }
 
     public int getErrorCode() {
-        return errorCode;
+	return errorCode;
     }
 
 }

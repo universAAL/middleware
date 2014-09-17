@@ -28,10 +28,10 @@ package org.universAAL.middleware.bus.model.matchable;
  * @author Dominik Schreiber <ow91fibo@rbg.informatik.tu-darmstadt.de>
  */
 public interface Matchable {
-	/**
-	 * @param other
-	 * @return <tt>true</tt> if the other Matchable matches, <tt>false</tt> if
-	 *         not
-	 */
-	public boolean matches(Matchable subset);
+    /**
+     * @param other
+     * @return <tt>true</tt> if the other Matchable matches, <tt>false</tt> if
+     *         not
+     */
+    public boolean matches(Matchable subset);
 }

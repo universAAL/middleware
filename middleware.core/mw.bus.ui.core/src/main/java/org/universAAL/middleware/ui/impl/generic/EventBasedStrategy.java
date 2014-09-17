@@ -42,25 +42,20 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * then the
  * {@link EventMessage#onReceived(EventBasedStrategy, BusMessage, String)
  * method} is called. For this the Message content has to be deserialized into a
- * {@link Resource} that implements such method, thus an ontology is needed.
- * <br>
- * Overall when an event it sent, The {@link BusMessage} content 
- * has to be a {@link EventMessage}.
- * <center> <img style="background-color:lightgray;"
- * src="doc-files/SDSend.png" alt="UIStrategy messages"
- * width="70%"/> </center>
- * <br>
- * So when received it is deserialized and the instance's 
- * {@link EventMessage#onReceived(EventBasedStrategy, BusMessage, String) 
+ * {@link Resource} that implements such method, thus an ontology is needed. <br>
+ * Overall when an event it sent, The {@link BusMessage} content has to be a
+ * {@link EventMessage}. <center> <img style="background-color:lightgray;"
+ * src="doc-files/SDSend.png" alt="UIStrategy messages" width="70%"/> </center> <br>
+ * So when received it is deserialized and the instance's
+ * {@link EventMessage#onReceived(EventBasedStrategy, BusMessage, String)
  * callback} is called, being of the type of the sent message then the correct
- * operation is perfomed
- * <center> <img style="background-color:lightgray;"
- * src="doc-files/SDReceive.png" alt="UIStrategy messages"
- * width="70%"/> </center>
- * <br>
+ * operation is perfomed <center> <img style="background-color:lightgray;"
+ * src="doc-files/SDReceive.png" alt="UIStrategy messages" width="70%"/>
+ * </center> <br>
  * <center> <img style="background-color:lightgray;"
  * src="doc-files/EventBasedStrategy-Sample.png" alt="UIStrategy messages"
  * width="70%"/> </center>
+ * 
  * @author amedrano
  * 
  */

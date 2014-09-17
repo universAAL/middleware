@@ -347,7 +347,7 @@ public class ServiceRequest extends ScopedResource implements Request {
      * @return the non-null list. Changes to this list are reflected in the
      *         property value of this resource.
      */
-   private List filters() {
+    private List filters() {
 	List filters = (List) props.get(PROP_AGGREGATING_FILTER);
 	if (filters == null) {
 	    filters = new ArrayList(2);
@@ -418,12 +418,13 @@ public class ServiceRequest extends ScopedResource implements Request {
      */
     public List<AggregatingFilter> getOutputAggregations() {
 	Resource[] bindings = getRequiredOutputs();
-	List<AggregatingFilter> result = new ArrayList<AggregatingFilter>(bindings.length);
+	List<AggregatingFilter> result = new ArrayList<AggregatingFilter>(
+		bindings.length);
 	for (Resource binding : bindings) {
 	    Object o = binding
 		    .getProperty(OutputBinding.PROP_OWLS_BINDING_VALUE_FUNCTION);
 	    if (o instanceof AggregatingFilter) {
-		result.add((AggregatingFilter)o);
+		result.add((AggregatingFilter) o);
 	    }
 	}
 	return result;

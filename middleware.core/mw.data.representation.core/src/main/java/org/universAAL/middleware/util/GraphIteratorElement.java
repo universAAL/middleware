@@ -31,8 +31,9 @@ public final class GraphIteratorElement {
     private int listIndex = 0;
     private List theList = null;
 
-    public GraphIteratorElement(Resource subject, String predicate, Object object, int depth,
-	    boolean isList, int listIndex, List theList) {
+    public GraphIteratorElement(Resource subject, String predicate,
+	    Object object, int depth, boolean isList, int listIndex,
+	    List theList) {
 	this.subject = subject;
 	this.predicate = predicate;
 	this.object = object;
@@ -41,7 +42,7 @@ public final class GraphIteratorElement {
 	this.listIndex = listIndex;
 	this.theList = theList;
     }
-    
+
     public List getList() {
 	return theList;
     }

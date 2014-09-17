@@ -229,9 +229,11 @@ public class Submit extends FormControl {
 	}
 	return null;
     }
-    
+
     /**
-     * Same as {@link Submit#getMissingInputControl()} but returns ALL missing controls instead of the first one.
+     * Same as {@link Submit#getMissingInputControl()} but returns ALL missing
+     * controls instead of the first one.
+     * 
      * @return a {@link Set} of {@link Input}s.
      */
     public Set getMissingInputControls() {
@@ -241,7 +243,7 @@ public class Submit extends FormControl {
 	for (Iterator i = mandatoryList.iterator(); i.hasNext();) {
 	    Input in = (Input) i.next();
 	    if (!in.checkSubmission())
-	    	inputs.add(in);
+		inputs.add(in);
 	}
 	return inputs;
     }

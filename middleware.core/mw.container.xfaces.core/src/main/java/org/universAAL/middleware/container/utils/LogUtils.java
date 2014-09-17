@@ -151,9 +151,10 @@ public class LogUtils {
 	    Object[] msgPart, Throwable t) {
 	log(LogListener.LOG_LEVEL_DEBUG, mc, claz, method, msgPart, t);
     }
-    
+
     /**
-     * Simplified proxy method for {@link #logDebug(ModuleContext, Class, String, Object[], Throwable)},
+     * Simplified proxy method for
+     * {@link #logDebug(ModuleContext, Class, String, Object[], Throwable)},
      * added for convenience.
      * 
      * @param mc
@@ -207,9 +208,10 @@ public class LogUtils {
 	    Object[] msgPart, Throwable t) {
 	log(LogListener.LOG_LEVEL_ERROR, mc, claz, method, msgPart, t);
     }
-    
+
     /**
-     * Simplified proxy method for {@link #logError(ModuleContext, Class, String, Object[], Throwable)},
+     * Simplified proxy method for
+     * {@link #logError(ModuleContext, Class, String, Object[], Throwable)},
      * added for convenience.
      * 
      * @param mc
@@ -265,7 +267,8 @@ public class LogUtils {
     }
 
     /**
-     * Simplified proxy method for {@link #logInfo(ModuleContext, Class, String, Object[], Throwable)},
+     * Simplified proxy method for
+     * {@link #logInfo(ModuleContext, Class, String, Object[], Throwable)},
      * added for convenience.
      * 
      * @param mc
@@ -283,7 +286,7 @@ public class LogUtils {
 	    String msg) {
 	logInfo(mc, claz, method, new String[] { msg }, null);
     }
-    
+
     /**
      * Provides a standard way for using container-specific loggers for logging
      * warn messages via
@@ -321,7 +324,8 @@ public class LogUtils {
     }
 
     /**
-     * Simplified proxy method for {@link #logWarn(ModuleContext, Class, String, Object[], Throwable)},
+     * Simplified proxy method for
+     * {@link #logWarn(ModuleContext, Class, String, Object[], Throwable)},
      * added for convenience.
      * 
      * @param mc
@@ -339,7 +343,7 @@ public class LogUtils {
 	    String msg) {
 	logWarn(mc, claz, method, new String[] { msg }, null);
     }
-    
+
     /**
      * Provides a standard way for using container-specific loggers for logging
      * trace messages via
@@ -375,9 +379,10 @@ public class LogUtils {
 	    Object[] msgPart, Throwable t) {
 	log(LogListener.LOG_LEVEL_TRACE, mc, claz, method, msgPart, t);
     }
-    
+
     /**
-     * Simplified proxy method for {@link #logTrace(ModuleContext, Class, String, Object[], Throwable)},
+     * Simplified proxy method for
+     * {@link #logTrace(ModuleContext, Class, String, Object[], Throwable)},
      * added for convenience.
      * 
      * @param mc

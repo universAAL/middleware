@@ -31,11 +31,12 @@ import org.universAAL.middleware.managers.configuration.core.impl.factories.Scop
 
 /**
  * @author amedrano
- *
+ * 
  */
 public class ModuleRegistry {
 
-    Map<String,Set<WeakReference<ConfigurableModule>>> moduleRegistry;
+    Map<String, Set<WeakReference<ConfigurableModule>>> moduleRegistry;
+
     /**
      * 
      */
@@ -43,12 +44,12 @@ public class ModuleRegistry {
 	moduleRegistry = new HashMap<String, Set<WeakReference<ConfigurableModule>>>();
     }
 
-    public void put(String uri, ConfigurableModule module){
-	WeakReference<ConfigurableModule> ref = new WeakReference<ConfigurableModule>(module);
-	if (moduleRegistry.containsKey(uri)){
+    public void put(String uri, ConfigurableModule module) {
+	WeakReference<ConfigurableModule> ref = new WeakReference<ConfigurableModule>(
+		module);
+	if (moduleRegistry.containsKey(uri)) {
 	    moduleRegistry.get(uri).add(ref);
-	}
-	else {
+	} else {
 	    Set<WeakReference<ConfigurableModule>> s = new HashSet<WeakReference<ConfigurableModule>>();
 	    s.add(ref);
 	    moduleRegistry.put(uri, s);
@@ -61,23 +62,25 @@ public class ModuleRegistry {
     public void clear() {
 	moduleRegistry.clear();
     }
-    
-    public void remove(ConfigurableModule module){
+
+    public void remove(ConfigurableModule module) {
 	ArrayList<String> tbr = new ArrayList<String>();
-	for(Entry<String, Set<WeakReference<ConfigurableModule>>> ent: moduleRegistry.entrySet()){
+	for (Entry<String, Set<WeakReference<ConfigurableModule>>> ent : moduleRegistry
+		.entrySet()) {
 	    Set<WeakReference<ConfigurableModule>> s = ent.getValue();
-	    for (Iterator<WeakReference<ConfigurableModule>> i = s.iterator(); i.hasNext();) {
+	    for (Iterator<WeakReference<ConfigurableModule>> i = s.iterator(); i
+		    .hasNext();) {
 		WeakReference<ConfigurableModule> ref = (WeakReference<ConfigurableModule>) i
 			.next();
-		if (ref.get() == null || ref.get().equals(module)){
+		if (ref.get() == null || ref.get().equals(module)) {
 		    i.remove();
 		}
 	    }
-	    if (s.isEmpty()){
+	    if (s.isEmpty()) {
 		tbr.add(ent.getKey());
 	    }
 	}
-	//delete all entries with empty sets
+	// delete all entries with empty sets
 	for (String urn : tbr) {
 	    moduleRegistry.remove(urn);
 	}
@@ -100,19 +103,19 @@ public class ModuleRegistry {
 	boolean aggregator = true;
 	String urn = ScopeFactory.getScopeURN(scope);
 	Set<WeakReference<ConfigurableModule>> s = moduleRegistry.get(urn);
-	if (s == null){
+	if (s == null) {
 	    return false;
 	}
 	ArrayList<WeakReference<ConfigurableModule>> tbr = new ArrayList<WeakReference<ConfigurableModule>>();
 	for (WeakReference<ConfigurableModule> ref : s) {
-	    if (ref.get() != null){
+	    if (ref.get() != null) {
 		aggregator &= ref.get().configurationChanged(scope, value);
-	    }else{
+	    } else {
 		tbr.add(ref);
 	    }
 	}
 	s.removeAll(tbr);
-	if (s.isEmpty()){
+	if (s.isEmpty()) {
 	    moduleRegistry.remove(urn);
 	}
 	return aggregator;

@@ -21,35 +21,38 @@ import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.URIRestriction;
 
 /**
- * A pattern that matches entities with an application part type scope. 
+ * A pattern that matches entities with an application part type scope.
  * Additionally, it can match partId in scopes with the provided pattern.
+ * 
  * @author amedrano
- *
+ * 
  */
-public class ApplicationPartPattern implements EntityPattern{
+public class ApplicationPartPattern implements EntityPattern {
 
-    private String id; 
-    
+    private String id;
+
     /**
      * Match any entity with ApplicationPart type scope.
      */
     public ApplicationPartPattern() {
 	id = ".*";
     }
-    
+
     /**
-     * Match any Entity with an ApplicationPart Type scope where the partID also matches the appPartID
+     * Match any Entity with an ApplicationPart Type scope where the partID also
+     * matches the appPartID
+     * 
      * @param appPartId
      */
     public ApplicationPartPattern(String appPartId) {
 	id = appPartId;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public TypeExpression getRestriction() {
 	URIRestriction ur = new URIRestriction();
-	ur.setPattern(".*part\\:"+id+".*");
+	ur.setPattern(".*part\\:" + id + ".*");
 	return ur;
     }
-    
+
 }

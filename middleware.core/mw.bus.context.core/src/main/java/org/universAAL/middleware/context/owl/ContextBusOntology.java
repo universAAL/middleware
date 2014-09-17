@@ -59,8 +59,7 @@ public class ContextBusOntology extends Ontology {
 
 	// load ContextProviderType
 	oci = createNewAbstractOntClassInfo(ContextProviderType.MY_URI);
-	oci
-		.setResourceComment("An enumeration for the type of context providers.");
+	oci.setResourceComment("An enumeration for the type of context providers.");
 	oci.setResourceLabel("Context Provider Type");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
 	oci.toEnumeration(new ManagedIndividual[] {
@@ -69,8 +68,7 @@ public class ContextBusOntology extends Ontology {
 
 	// load ContextProvider
 	oci = createNewOntClassInfo(ContextProvider.MY_URI, factory, 2);
-	oci
-		.setResourceComment("Represents the set of components that may publish context events.");
+	oci.setResourceComment("Represents the set of components that may publish context events.");
 	oci.setResourceLabel("Context Provider");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
 	oci.addObjectProperty(ContextProvider.PROP_CONTEXT_PROVIDER_TYPE)

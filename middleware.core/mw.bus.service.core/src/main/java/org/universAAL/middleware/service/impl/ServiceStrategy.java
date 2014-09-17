@@ -1210,7 +1210,7 @@ public class ServiceStrategy extends BusStrategy {
 			// allWaitingCallers
 			// TODO: add a log entry for checking if the above
 			// assumption is true
-			
+
 			// it can also be an injected call -> send (if it is for
 			// another node)
 			if (!msg.hasReceiver(theCoordinator))

@@ -27,6 +27,7 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 
 /**
  * Transform {@link Scope Scopes} to and from URI definitions.
+ * 
  * @author amedrano
  */
 public class ScopeFactory {
@@ -36,7 +37,7 @@ public class ScopeFactory {
      */
     private static final String L_APP_PART = "part";
     /**
-     * Module level parameter identifier 
+     * Module level parameter identifier
      */
     private static final String L_MODULE = "mod";
     /**
@@ -57,66 +58,67 @@ public class ScopeFactory {
     private static final String SEPARATOR = ":";
 
     /**
-     * Transform a {@link Scope} to a {@link String} that can be used to uniquely identified the associated {@link Entity}.
+     * Transform a {@link Scope} to a {@link String} that can be used to
+     * uniquely identified the associated {@link Entity}.
+     * 
      * @param scope
      * @return a URI.
      */
-    public static String getScopeURN(Scope scope){
-	if (scope == null){
+    public static String getScopeURN(Scope scope) {
+	if (scope == null) {
 	    return null;
 	}
-	String urn = "", l1="", l2="";
-	urn = "urn:" + URN_ROOT + SEPARATOR + scope.getId() ; 
-	if (scope instanceof InstanceScope){
-	    l1 = L_INSTANCE + SEPARATOR + ((InstanceScope)scope).getPeerID();
+	String urn = "", l1 = "", l2 = "";
+	urn = "urn:" + URN_ROOT + SEPARATOR + scope.getId();
+	if (scope instanceof InstanceScope) {
+	    l1 = L_INSTANCE + SEPARATOR + ((InstanceScope) scope).getPeerID();
+	} else if (scope instanceof ApplicationScope) {
+	    l1 = L_APP + SEPARATOR + ((ApplicationScope) scope).getAppID();
 	}
-	else if (scope instanceof ApplicationScope){
-	    l1 = L_APP + SEPARATOR +((ApplicationScope)scope).getAppID();
+	if (scope instanceof ModuleScope) {
+	    l2 = L_MODULE + SEPARATOR + (((ModuleScope) scope).getModuleID());
+	} else if (scope instanceof AppPartScope) {
+	    l2 = L_APP_PART + SEPARATOR + ((AppPartScope) scope).getPartID();
 	}
-	if (scope instanceof ModuleScope){
-	    l2 = L_MODULE + SEPARATOR + (((ModuleScope)scope).getModuleID());
+	if (!l1.isEmpty()) {
+	    urn += SEPARATOR;
 	}
-	else if (scope instanceof AppPartScope){
-	    l2 = L_APP_PART + SEPARATOR + ((AppPartScope)scope).getPartID();
-	}
-	if (!l1.isEmpty()){
-	    urn+=SEPARATOR;
-	}
-	if(!l2.isEmpty()){
-	    l1+=SEPARATOR;
+	if (!l2.isEmpty()) {
+	    l1 += SEPARATOR;
 	}
 	return urn + l1 + l2;
     }
 
     /**
-     * Given a String, try to decifer the Scope instance that is associated to it.
-     * @param urn the URI.
+     * Given a String, try to decifer the Scope instance that is associated to
+     * it.
+     * 
+     * @param urn
+     *            the URI.
      * @return a {@link Scope}, null if could not parse.
      */
-    public static Scope getScope(String urn){
-	String [] params = urn.split(SEPARATOR);
-	if (params.length <= 2 || !params[1].equals(URN_ROOT)){
+    public static Scope getScope(String urn) {
+	String[] params = urn.split(SEPARATOR);
+	if (params.length <= 2 || !params[1].equals(URN_ROOT)) {
 	    return null;
 	}
-	if (params.length == 3){
+	if (params.length == 3) {
 	    return new AALSpaceScope(params[2]);
 	}
-	if (params.length == 5){
-	    if (params[3].equals(L_INSTANCE)){
+	if (params.length == 5) {
+	    if (params[3].equals(L_INSTANCE)) {
 		return new InstanceScope(params[2], params[4]);
 	    }
-	    if (params[3].equals(L_APP)){
+	    if (params[3].equals(L_APP)) {
 		return new ApplicationScope(params[2], params[4]);
 	    }
 	}
-	if (params.length == 7){
+	if (params.length == 7) {
 
-	    if (params[3].equals(L_INSTANCE)
-		    && params[5].equals(L_MODULE)){
+	    if (params[3].equals(L_INSTANCE) && params[5].equals(L_MODULE)) {
 		return new ModuleScope(params[2], params[4], params[6]);
 	    }
-	    if (params[3].equals(L_APP)
-		    && params[5].equals(L_APP_PART)){
+	    if (params[3].equals(L_APP) && params[5].equals(L_APP_PART)) {
 		return new AppPartScope(params[2], params[4], params[6]);
 	    }
 	}

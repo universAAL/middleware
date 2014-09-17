@@ -124,13 +124,13 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	Permission.init(mc);
 
 	myContext = mc;
-	
+
 	aalSpaceManager = aalSpaceMgr;
 	communicationModule = commModule;
-	
+
 	createURIs();
     }
-    
+
     private static void createURIs() {
 	// configure the MW's URI instance
 	// first check if I already join an AALSpace
@@ -284,7 +284,8 @@ public abstract class AbstractBus implements Broker, MessageListener {
      * members but only if it has not been added before). Returns the URI with
      * which the provided member will be known as a bus resource.
      */
-    public final String register(ModuleContext module, BusMember m, BusMemberType type) {
+    public final String register(ModuleContext module, BusMember m,
+	    BusMemberType type) {
 	if (m == null)
 	    return null;
 
@@ -311,9 +312,9 @@ public abstract class AbstractBus implements Broker, MessageListener {
      */
     public void brokerMessage(String senderID, BusMessage msg) {
 	if (isValidMember(senderID)) {
-//	    LogUtils.logDebug(context, AbstractBus.class, "sendMessage",
-//		    new Object[] { " - ", senderID, " sending:\n",
-//			    msg.toString() }, null);
+	    // LogUtils.logDebug(context, AbstractBus.class, "sendMessage",
+	    // new Object[] { " - ", senderID, " sending:\n",
+	    // msg.toString() }, null);
 	    busStrategy.handleMessage(msg, senderID);
 	}
     }
@@ -349,17 +350,15 @@ public abstract class AbstractBus implements Broker, MessageListener {
 		BusMember o = registry.removeMemberByID(memberID);
 		if (o != null && !o.equals(m)) {
 		    registry.addBusMember(memberID, o);
-		    LogUtils
-			    .logError(
-				    context,
-				    AbstractBus.class,
-				    "unregister",
-				    new Object[] {
-					    "Existing bus member should have been unregistered, but the ID does not match: "
-						    + "\n    memberID to unregister: ",
-					    memberID,
-					    "\n    queried memberID: ",
-					    o.getURI() }, null);
+		    LogUtils.logError(
+			    context,
+			    AbstractBus.class,
+			    "unregister",
+			    new Object[] {
+				    "Existing bus member should have been unregistered, but the ID does not match: "
+					    + "\n    memberID to unregister: ",
+				    memberID, "\n    queried memberID: ",
+				    o.getURI() }, null);
 		} else {
 		    LogUtils.logDebug(context, AbstractBus.class, "unregister",
 			    new Object[] {
@@ -374,7 +373,10 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	if (message != null) {
 	    BusMessage busMessage = (BusMessage) unmarshall(message
 		    .getContent());
-	    LogUtils.logDebug(context, AbstractBus.class, "messageReceived",
+	    LogUtils.logDebug(
+		    context,
+		    AbstractBus.class,
+		    "messageReceived",
 		    new Object[] { context.getID(),
 			    " - Received message from peer ",
 			    message.getSender().getPeerID(), ":\n",

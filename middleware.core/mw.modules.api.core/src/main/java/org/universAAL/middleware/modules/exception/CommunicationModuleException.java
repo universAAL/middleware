@@ -22,7 +22,7 @@ package org.universAAL.middleware.modules.exception;
 
 /**
  * Communication Module Exception
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
@@ -32,34 +32,34 @@ public class CommunicationModuleException extends RuntimeException {
     private String description;
 
     public String getDescription() {
-        return description;
+	return description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+	this.description = description;
     }
 
     public short getErrorCode() {
-        return errorCode;
+	return errorCode;
     }
 
     public void setErrorCode(short errorCode) {
-        this.errorCode = errorCode;
+	this.errorCode = errorCode;
     }
 
     private short errorCode;
 
     public CommunicationModuleException(short errorCode, String description) {
-        super(description);
-        this.description = description;
-        this.errorCode = errorCode;
+	super(description);
+	this.description = description;
+	this.errorCode = errorCode;
     }
 
     public CommunicationModuleException(short errorCode, String description,
-            Throwable t) {
-        super(description, t);
-        this.description = description;
-        this.errorCode = errorCode;
+	    Throwable t) {
+	super(description, t);
+	this.description = description;
+	this.errorCode = errorCode;
     }
 
 }

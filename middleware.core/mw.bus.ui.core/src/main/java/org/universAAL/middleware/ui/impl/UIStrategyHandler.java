@@ -48,38 +48,43 @@ import org.universAAL.middleware.ui.impl.generic.EventMessage;
 import org.universAAL.middleware.ui.rdf.Form;
 
 /**
- * This part of the UIStrategy Stack deals only with communications between the {@link UIHandler}s
- * and the {@link IDialogManager}.
- *  <center> <img style="background-color:white;" src="doc-files/UIStrategyHandler.png"
- * alt="UIStrategy messages" width="70%"/> </center>
- * <br>
+ * This part of the UIStrategy Stack deals only with communications between the
+ * {@link UIHandler}s and the {@link IDialogManager}. <center> <img
+ * style="background-color:white;" src="doc-files/UIStrategyHandler.png"
+ * alt="UIStrategy messages" width="70%"/> </center> <br>
  * the messages exchaged are:
  * <ol>
- * <li> userLogOn: notifies the {@link IDialogManager} when a user has logOn at a handler.
- * <li> NotifyHandler: the {@link IDialogManager} is sending a new {@link UIRequest} or updating an
- * existing one.
- * <li> FinishDialog: the {@link UIHandler} notifies the {@link IDialogManager} a user has finishied a dialog, the {@link UIResponse}
- * goes in this message.
- * <li> CutCall: this is a synchronous call, the bus is telling the {@link UIHandler} to derenderize a certain dialog, and it is expecting
- * (and waiting) for the {@link Form#PROP_DIALOG_DATA_ROOT dataRoot} of the {@link Form}.
+ * <li>userLogOn: notifies the {@link IDialogManager} when a user has logOn at a
+ * handler.
+ * <li>NotifyHandler: the {@link IDialogManager} is sending a new
+ * {@link UIRequest} or updating an existing one.
+ * <li>FinishDialog: the {@link UIHandler} notifies the {@link IDialogManager} a
+ * user has finishied a dialog, the {@link UIResponse} goes in this message.
+ * <li>CutCall: this is a synchronous call, the bus is telling the
+ * {@link UIHandler} to derenderize a certain dialog, and it is expecting (and
+ * waiting) for the {@link Form#PROP_DIALOG_DATA_ROOT dataRoot} of the
+ * {@link Form}.
  * </ol>
+ * 
  * @author amedrano
  * 
  */
-public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {    
+public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
     /**
      * Last used handler weight is same as the dialog privacy's one.
      */
     public static final int LAST_USED_HANDLER_MATCH_LEVEL_ADDITION = UIHandlerProfile.MATCH_DIALOG_PRIVACY;
 
-    private class UserLogOnMessage extends Resource implements IUIStrategyMessageSharedProps,EventMessage<UIStrategyCaller> {
+    private class UserLogOnMessage extends Resource implements
+	    IUIStrategyMessageSharedProps, EventMessage<UIStrategyCaller> {
 
 	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
 		+ "LogIn";
 
 	public static final String PROP_LOCATION = Resource.uAAL_VOCABULARY_NAMESPACE
 		+ "logOnLocation";
+
 	/**
 	 * 
 	 */
@@ -87,7 +92,8 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    super();
 	}
 
-	public UserLogOnMessage(String handlerID, Resource user, AbsLocation location){
+	public UserLogOnMessage(String handlerID, Resource user,
+		AbsLocation location) {
 	    addType(MY_URI, true);
 	    setProperty(PROP_uAAL_INVOLVED_HUMAN_USER, user);
 	    setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
@@ -96,23 +102,24 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    }
 	}
 
-
-	/** {@ inheritDoc}	 */
-	public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
+	/** {@ inheritDoc} */
+	public void onReceived(UIStrategyCaller strategy, BusMessage m,
+		String senderID) {
 	    String handerID = (String) getProperty(PROP_uAAL_UI_HANDLER_ID);
 	    Resource usr = (Resource) getProperty(PROP_uAAL_INVOLVED_HUMAN_USER);
 	    AbsLocation loc = (AbsLocation) getProperty(PROP_LOCATION);
 	    userLoggedIn(handerID, usr, loc);
 	}
     }
-    
+
     private class FinishDialogMessage extends Resource implements
-    EventMessage<UIStrategyCaller>, IUIStrategyMessageSharedProps {
+	    EventMessage<UIStrategyCaller>, IUIStrategyMessageSharedProps {
 	/**
 	 * Type for finishing dialog.
 	 */
 	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
 		+ "FinishDialog";
+
 	/**
 	 * 
 	 */
@@ -125,18 +132,17 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
 	    setProperty(PROP_uAAL_UI_USER_INPUT, input);
 	}
-	/** {@ inheritDoc}	 */
+
+	/** {@ inheritDoc} */
 	public void onReceived(UIStrategyCaller strategy, BusMessage m,
 		String senderID) {
-	    dialogFinished(
-		    (String) getProperty(PROP_uAAL_UI_HANDLER_ID),
-		    (UIResponse) getProperty(PROP_uAAL_UI_USER_INPUT)
-		    );
+	    dialogFinished((String) getProperty(PROP_uAAL_UI_HANDLER_ID),
+		    (UIResponse) getProperty(PROP_uAAL_UI_USER_INPUT));
 	}
     }
-    
+
     private class NotifyHandlerMessage extends Resource implements
-    IUIStrategyMessageSharedProps,EventMessage<UIStrategyCaller> {
+	    IUIStrategyMessageSharedProps, EventMessage<UIStrategyCaller> {
 
 	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
 		+ "HandlerNotify";
@@ -148,19 +154,21 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    super();
 	}
 
-	public NotifyHandlerMessage(String handlerID, UIRequest req){
+	public NotifyHandlerMessage(String handlerID, UIRequest req) {
 	    addType(MY_URI, true);
 	    setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
 	    setProperty(PROP_uAAL_UI_CALL, req);
 	}
 
-	public NotifyHandlerMessage(String handlerID, UIRequest req, String propChange){
-	    this(handlerID,req);
+	public NotifyHandlerMessage(String handlerID, UIRequest req,
+		String propChange) {
+	    this(handlerID, req);
 	    setProperty(PROP_uAAL_CHANGED_PROPERTY, propChange);
 	}
 
-	/** {@ inheritDoc}	 */
-	public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
+	/** {@ inheritDoc} */
+	public void onReceived(UIStrategyCaller strategy, BusMessage m,
+		String senderID) {
 	    String handlerID = (String) getProperty(PROP_uAAL_UI_HANDLER_ID);
 	    UIRequest uiReq = (UIRequest) getProperty(PROP_uAAL_UI_CALL);
 	    if (!hasProperty(PROP_uAAL_CHANGED_PROPERTY)) {
@@ -171,56 +179,59 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    }
 	}
     }
-    
-    private class CutCallMessage extends CallMessage<UIStrategyHandler> implements IUIStrategyMessageSharedProps {
+
+    private class CutCallMessage extends CallMessage<UIStrategyHandler>
+	    implements IUIStrategyMessageSharedProps {
 
 	/**
 	 * Type for Cutting.
 	 */
 	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
 		+ "Cut";
-	
-	/**
-	 * Type only for the case there is a {@link Resource} withou properties, that will not be serialized.
-	 */
-	private static final String TYPE_DUMMY_TYPE = Resource.uAAL_VOCABULARY_NAMESPACE + "DummyType";
 
-	public CutCallMessage(){
+	/**
+	 * Type only for the case there is a {@link Resource} withou properties,
+	 * that will not be serialized.
+	 */
+	private static final String TYPE_DUMMY_TYPE = Resource.uAAL_VOCABULARY_NAMESPACE
+		+ "DummyType";
+
+	public CutCallMessage() {
 	    super();
 	}
+
 	/**
 	 * 
 	 */
-	public CutCallMessage(String dialogID, String handlerID){
+	public CutCallMessage(String dialogID, String handlerID) {
 	    addType(MY_URI, true);
 	    setProperty(PROP_uAAL_DIALOG_ID, dialogID);
 	    setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
 	}
 
-	/** {@ inheritDoc}	 */
-	protected
-	void onRequest(UIStrategyHandler strategy, BusMessage m, String senderID) {
+	/** {@ inheritDoc} */
+	protected void onRequest(UIStrategyHandler strategy, BusMessage m,
+		String senderID) {
 	    Resource data = strategy.cutDialog(
 		    (String) getProperty(PROP_uAAL_UI_HANDLER_ID),
 		    (String) getProperty(PROP_uAAL_DIALOG_ID));
-	    if (data == null
-		    || data.numberOfProperties() == 0){
-		data = new Resource(data==null? null:data.getURI());
+	    if (data == null || data.numberOfProperties() == 0) {
+		data = new Resource(data == null ? null : data.getURI());
 		data.addType(TYPE_DUMMY_TYPE, true);
 	    }
 	    strategy.sendSynchronousResponse(m, data);
 	}
 
-	/** {@ inheritDoc}	 */
-	protected
-	void onResponse(UIStrategyHandler strategy, BusMessage m, String senderID) {
-	    //NOTHING a synchronous call always.
+	/** {@ inheritDoc} */
+	protected void onResponse(UIStrategyHandler strategy, BusMessage m,
+		String senderID) {
+	    // NOTHING a synchronous call always.
 	}
     }
-    
-    private class OntFactory implements ResourceFactory{
 
-	/** {@ inheritDoc}	 */
+    private class OntFactory implements ResourceFactory {
+
+	/** {@ inheritDoc} */
 	public Resource createInstance(String classURI, String instanceURI,
 		int factoryIndex) {
 	    switch (factoryIndex) {
@@ -237,42 +248,43 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    }
 	    return null;
 	}
-	
+
     }
-    
-    private class POntology extends Ontology{
+
+    private class POntology extends Ontology {
 
 	private ResourceFactory fatory = new OntFactory();
+
 	/**
 	 * @param ontURI
 	 */
 	public POntology(String ontURI) {
 	    super(ontURI);
 	}
-	
-	/** {@ inheritDoc}	 */
+
+	/** {@ inheritDoc} */
 	public void create() {
 	    createNewRDFClassInfo(UserLogOnMessage.MY_URI, fatory, 0);
 	    createNewRDFClassInfo(FinishDialogMessage.MY_URI, fatory, 1);
 	    createNewRDFClassInfo(NotifyHandlerMessage.MY_URI, fatory, 2);
 	    createNewRDFClassInfo(CutCallMessage.MY_URI, fatory, 3);
 	}
-	
+
     }
-    
+
     /**
      * To keep track of the last used handler per user.
      */
     protected Map<String, String> lastUsedHandler;
 
     /**
-     * The Dialogs Manager keeps track of which dialog is where
-     * and what dialog is handling each handler.
+     * The Dialogs Manager keeps track of which dialog is where and what dialog
+     * is handling each handler.
      */
     protected RunningDialogsManager runningDialogs;
 
-    
     private Ontology ont;
+
     /**
      * @param commModule
      * @param name
@@ -281,10 +293,11 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	super(commModule, name);
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public synchronized void start() {
 	super.start();
-	ont = new POntology(Resource.uAAL_NAMESPACE_PREFIX + "UIStrategyHandlerMessageOntology");
+	ont = new POntology(Resource.uAAL_NAMESPACE_PREFIX
+		+ "UIStrategyHandlerMessageOntology");
 	OntologyManagement.getInstance().register(busModule, ont);
     }
 
@@ -300,7 +313,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	if (dm != null) {
 	    lastUsedHandler = new Hashtable<String, String>();
 	    runningDialogs = new RunningDialogsManager();
-	}else{
+	} else {
 	    lastUsedHandler = null;
 	    runningDialogs = null;
 	}
@@ -322,7 +335,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
     void adaptationParametersChanged(IDialogManager dm, UIRequest uiRequest,
 	    String changedProp) {
 	if (dm != null && dm == dialogManager) {
-	    //operation only done in Coordinator
+	    // operation only done in Coordinator
 	    String selectedHandler = null;
 	    String currentHandler = runningDialogs.getHandler(uiRequest
 		    .getDialogID());
@@ -355,8 +368,8 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 			busModule,
 			getClass(),
 			"adaptationParametersChanged",
-			new Object[] { "Current UI Handler could not be determined from running dialogs." +
-					" Inconsistent data between ui.dm data and UIStrategy data!" },
+			new Object[] { "Current UI Handler could not be determined from running dialogs."
+				+ " Inconsistent data between ui.dm data and UIStrategy data!" },
 			null);
 	    }
 
@@ -391,78 +404,81 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    }
 
 	    if (currentHandler != null) {
-		    /*
-		     *  the dialog has to move from the currentHandler to the
-		     *  selectedHandler
-		     */
-		    // Retrieve data from currentHandler
-		    Resource collectedData = cutDialog(currentHandler, uiRequest.getDialogID());
-		    if (collectedData != null) {
-			//update the data
-			uiRequest.setCollectedInput(collectedData);
-			//XXX send data to DM?
-		    }
-		    // remove the dialog ID from asigned handler.
-		    runningDialogs.removeDialogId(uiRequest.getDialogID());
+		/*
+		 * the dialog has to move from the currentHandler to the
+		 * selectedHandler
+		 */
+		// Retrieve data from currentHandler
+		Resource collectedData = cutDialog(currentHandler,
+			uiRequest.getDialogID());
+		if (collectedData != null) {
+		    // update the data
+		    uiRequest.setCollectedInput(collectedData);
+		    // XXX send data to DM?
+		}
+		// remove the dialog ID from asigned handler.
+		runningDialogs.removeDialogId(uiRequest.getDialogID());
 
 	    }
 	    runningDialogs.add(selectedHandler, uiRequest.getDialogID());
 	    notifyHandler_handle(selectedHandler, uiRequest);
 	}
     }
-    
-    protected Resource cutDialog(String handlerID, String dialogID){
-	if (handlerID == null ||dialogID == null)
+
+    protected Resource cutDialog(String handlerID, String dialogID) {
+	if (handlerID == null || dialogID == null)
 	    return null;
 	BusMember bm = getBusMember(handlerID);
+	if (bm instanceof UIHandler) {
+	    // I have the handler => i can handle it
 	    if (bm instanceof UIHandler) {
-		// I have the handler => i can handle it
-		if (bm instanceof UIHandler) {
-		    Resource data = ((UIHandler) bm).cutDialog(dialogID);
-		    return data;
-		}
-	    } 
-	    else if (AbstractBus.getPeerFromBusResourceURI(handlerID).equals(bus.getPeerCard())){
-		// handler should be in this instance but it is not responding to previous if
-		return null;
+		Resource data = ((UIHandler) bm).cutDialog(dialogID);
+		return data;
 	    }
-	    else {
-		// send request to remote peer
-		try {
-		    Resource data = (Resource) placeSynchronousRequest(handlerID, new CutCallMessage(dialogID, handlerID));
-		    if (data != null && data.getType().equals(CutCallMessage.TYPE_DUMMY_TYPE)){
-			data = new Resource(data.getURI());
-		    }
-		    return data;
-		} catch (InterruptedException e) {
-			LogUtils.logError(busModule, getClass(),
-				"CutDialog",
-				"Cut Call to move dialog was aborted.");
-		}
-	    }
+	} else if (AbstractBus.getPeerFromBusResourceURI(handlerID).equals(
+		bus.getPeerCard())) {
+	    // handler should be in this instance but it is not responding to
+	    // previous if
 	    return null;
+	} else {
+	    // send request to remote peer
+	    try {
+		Resource data = (Resource) placeSynchronousRequest(handlerID,
+			new CutCallMessage(dialogID, handlerID));
+		if (data != null
+			&& data.getType()
+				.equals(CutCallMessage.TYPE_DUMMY_TYPE)) {
+		    data = new Resource(data.getURI());
+		}
+		return data;
+	    } catch (InterruptedException e) {
+		LogUtils.logError(busModule, getClass(), "CutDialog",
+			"Cut Call to move dialog was aborted.");
+	    }
+	}
+	return null;
     }
-        
+
     void dialogFinished(final String handlerID, final UIResponse input) {
-        if (input == null) {
-            LogUtils.logWarn(
-        	    busModule,
-        	    getClass(),
-        	    "dialogFinished",
-        	    new Object[] { "Dialog is finished by the user but UI Handler sent empty UI Response!" },
-        	    null);
-            return;
-        }
-        // first handle the bus internal handling of this request
-        if (iAmCoordinator()) {
-            // do it in a new thread to make sure that no deadlock will happen
-            new Thread(new DialogFinishedTask(
-        	    handlerID, input),
-        	    "UI Bus Strategy - Handling dialog finished").start();
-        } else {
-            //send message
-            sendEventToRemoteBusMember(getCoordinator(), new FinishDialogMessage(handlerID, input));
-        }
+	if (input == null) {
+	    LogUtils.logWarn(
+		    busModule,
+		    getClass(),
+		    "dialogFinished",
+		    new Object[] { "Dialog is finished by the user but UI Handler sent empty UI Response!" },
+		    null);
+	    return;
+	}
+	// first handle the bus internal handling of this request
+	if (iAmCoordinator()) {
+	    // do it in a new thread to make sure that no deadlock will happen
+	    new Thread(new DialogFinishedTask(handlerID, input),
+		    "UI Bus Strategy - Handling dialog finished").start();
+	} else {
+	    // send message
+	    sendEventToRemoteBusMember(getCoordinator(),
+		    new FinishDialogMessage(handlerID, input));
+	}
     }
 
     /**
@@ -477,10 +493,11 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	    dialogManager.userLogIn(user, loginLocation);
 	    lastUsedHandler.put(user.getURI(), handlerID);
 	} else {
-	    sendEventToRemoteBusMember(getCoordinator(), new UserLogOnMessage(handlerID,user, loginLocation));
+	    sendEventToRemoteBusMember(getCoordinator(), new UserLogOnMessage(
+		    handlerID, user, loginLocation));
 	}
     }
-    
+
     /**
      * @return
      */
@@ -500,13 +517,17 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 			    + profId
 			    + "\nhas matching degree: "
 			    + tempMatchingDegree
-			    + " \n in binary is: \n  " + 
-			    String.format("%8s", Integer.toBinaryString(tempMatchingDegree)).replace(' ', '0').replaceAll("(\\d)", "$1\t")
+			    + " \n in binary is: \n  "
+			    + String.format("%8s",
+				    Integer.toBinaryString(tempMatchingDegree))
+				    .replace(' ', '0')
+				    .replaceAll("(\\d)", "$1\t")
 			    + " \n [Usr,\tMod,\tAltMod,\tLoc,\tImpair,\tPriv,\tLang,\tForm]"
 			    + "\n 2+++++++++++++++++++++++++++++++++++++++++++++++"
-//			    + "\n UIHandler profile:\n "
-//			    + prof.toStringRecursive()
-//			    + "\n 3+++++++++++++++++++++++++++++++++++++++++++++++"
+			    // + "\n UIHandler profile:\n "
+			    // + prof.toStringRecursive()
+			    // +
+			    // "\n 3+++++++++++++++++++++++++++++++++++++++++++++++"
 			    + "\n uiRequest that is getting matched.\n Addressed user: "
 			    + uiRequest.getAddressedUser().getURI()
 			    + "\n Modality: "
@@ -525,10 +546,8 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		    // used by the user then increase his matching
 		    // degree a bit
 		    tempMatchingDegree += LAST_USED_HANDLER_MATCH_LEVEL_ADDITION;
-		    LogUtils.logDebug(
-			    busModule,
-			    getClass(),
-			    "selectHandler", "last profile has been bonified for being last handler used by user.");
+		    LogUtils.logDebug(busModule, getClass(), "selectHandler",
+			    "last profile has been bonified for being last handler used by user.");
 		}
 		if (tempMatchingDegree > maxMatchDegree) {
 		    maxMatchDegree = tempMatchingDegree;
@@ -565,10 +584,9 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	// if handler is at local node perform the adaption
 	Object o = getBusMember(handlerID);
 	if (o instanceof UIHandler) {
-	    LogUtils.logInfo(busModule, getClass(),
-		    "notifyHandler_apChanged", new Object[] {
-			    "Notified handler ", handlerID, ":\n", request },
-		    null);
+	    LogUtils.logInfo(busModule, getClass(), "notifyHandler_apChanged",
+		    new Object[] { "Notified handler ", handlerID, ":\n",
+			    request }, null);
 	    if (changedProp != null) {
 		((UIHandler) o).adaptationParametersChanged(
 			request.getDialogID(), changedProp,
@@ -577,16 +595,16 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	} else if (iAmCoordinator()) {
 	    // if handler is not the local instance but it is the coordinator
 	    // forward the notification to the appropriate node
-	    sendEventToRemoteBusMember(handlerID, new NotifyHandlerMessage(handlerID, request, changedProp));
-	} 
-	else
-	// else should not happen
-	LogUtils.logWarn(
-		busModule,
-		getClass(),
-		"notifyHandler_apChanged",
-		new Object[] { "Unpredicted situation happened while handling a dialogChanged-Notification!" },
-		null);
+	    sendEventToRemoteBusMember(handlerID, new NotifyHandlerMessage(
+		    handlerID, request, changedProp));
+	} else
+	    // else should not happen
+	    LogUtils.logWarn(
+		    busModule,
+		    getClass(),
+		    "notifyHandler_apChanged",
+		    new Object[] { "Unpredicted situation happened while handling a dialogChanged-Notification!" },
+		    null);
     }
 
     /**
@@ -606,15 +624,14 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	Object o = getBusMember(handlerID);
 	if (o instanceof UIHandler) {
 	    // I have the handler => i can handle it
-	    LogUtils.logInfo(busModule, getClass(),
-		    "notifyHandler_handle", new Object[] {
-			    "Notified handler id: ", handlerID }, null);
+	    LogUtils.logInfo(busModule, getClass(), "notifyHandler_handle",
+		    new Object[] { "Notified handler id: ", handlerID }, null);
 	    ((UIHandler) o).handleUICall(request);
 
 	} else if (iAmCoordinator()) {
 	    // I am the coordinator, but the handler is not here
-	    sendEventToRemoteBusMember(handlerID, 
-		    new NotifyHandlerMessage(handlerID, request));
+	    sendEventToRemoteBusMember(handlerID, new NotifyHandlerMessage(
+		    handlerID, request));
 	} else
 	    LogUtils.logWarn(
 		    busModule,
@@ -625,137 +642,141 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 			    o.getClass().getName() }, null);
     }
 
-
     private class DialogFinishedTask implements Runnable {
-	    
-        private UIResponse response;
-        private String handlerId;
-    
-        /**
-         * @param user
-         * @param handlerId
-         * @param dialogID
-         */
-        public DialogFinishedTask( String handlerId,
-        	UIResponse resp) {
-            super();
-            this.handlerId = handlerId;
-            this.response = resp;
-        }
-    
-        /** {@ inheritDoc} */
-        public void run() {
-            synchronized (runningDialogs) {
-        	// remember last used handler for the user (important when
-        	// selecting the
-        	// Handler)
-        	lastUsedHandler.put(response.getUser().getURI(), handlerId);
-        	
-        	if (handlerId.equals(runningDialogs.getHandler(response.getDialogID()))) {
-        	    runningDialogs.removeDialogId(response.getDialogID());
-        	    if (response.isForDialogManagerCall()){
-        		((UICaller)dialogManager).handleUIResponse(response);
-        	    }
-        	    else {
-        		notifyCallerDialogSubmitted(response);
-        		if (response.isSubdialogCall()){
-        		    dialogManager.suspendDialog(response.getDialogID());
-        		}
-        		else {
-        		    dialogManager.dialogFinished(response.getDialogID());
-        		}
-        	    }
-        	} 
-        	else if (response.isForDialogManagerCall()){
-        	    ((UICaller)dialogManager).handleUIResponse(response);
-        	}
-            }
-        }
+
+	private UIResponse response;
+	private String handlerId;
+
+	/**
+	 * @param user
+	 * @param handlerId
+	 * @param dialogID
+	 */
+	public DialogFinishedTask(String handlerId, UIResponse resp) {
+	    super();
+	    this.handlerId = handlerId;
+	    this.response = resp;
+	}
+
+	/** {@ inheritDoc} */
+	public void run() {
+	    synchronized (runningDialogs) {
+		// remember last used handler for the user (important when
+		// selecting the
+		// Handler)
+		lastUsedHandler.put(response.getUser().getURI(), handlerId);
+
+		if (handlerId.equals(runningDialogs.getHandler(response
+			.getDialogID()))) {
+		    runningDialogs.removeDialogId(response.getDialogID());
+		    if (response.isForDialogManagerCall()) {
+			((UICaller) dialogManager).handleUIResponse(response);
+		    } else {
+			notifyCallerDialogSubmitted(response);
+			if (response.isSubdialogCall()) {
+			    dialogManager.suspendDialog(response.getDialogID());
+			} else {
+			    dialogManager
+				    .dialogFinished(response.getDialogID());
+			}
+		    }
+		} else if (response.isForDialogManagerCall()) {
+		    ((UICaller) dialogManager).handleUIResponse(response);
+		}
+	    }
+	}
     }
-    
+
     /**
      * check sender and if local send it if not send message.
+     * 
      * @param response
      */
     protected abstract void notifyCallerDialogSubmitted(UIResponse response);
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void close() {
 	super.close();
 	abortAll();
 	OntologyManagement.getInstance().unregister(busModule, ont);
     }
-    
-    /** {@ inheritDoc}	 */
+
+    /** {@ inheritDoc} */
     public void peerLost(PeerCard peer) {
 	super.peerLost(peer);
-	if (iAmCoordinator()){
-	    //remove all Handler profiles form that peer
+	if (iAmCoordinator()) {
+	    // remove all Handler profiles form that peer
 	    List<String> tbr = new ArrayList<String>();
 	    Iterator<String> it = registryIdIterator();
 	    while (it.hasNext()) {
 		String handlerId = (String) it.next();
-		if (AbstractBus.getPeerFromBusResourceURI(handlerId).equals(peer)){
+		if (AbstractBus.getPeerFromBusResourceURI(handlerId).equals(
+			peer)) {
 		    tbr.add(handlerId);
 		}
 	    }
 	    for (String hID : tbr) {
 		removeAllRegistries(hID);
 	    }
-	    //reschedule running dialogs of the falling peer
+	    // reschedule running dialogs of the falling peer
 	    Set<String> reschedule = new HashSet<String>();
 	    for (String hID : tbr) {
 		reschedule.addAll(runningDialogs.getDialogs(hID));
 		runningDialogs.removeHandlerId(hID);
 	    }
 	    for (String dID : reschedule) {
-		adaptationParametersChanged(dialogManager, dialogManager.getSuspendedDialog(dID), null);
+		adaptationParametersChanged(dialogManager,
+			dialogManager.getSuspendedDialog(dID), null);
 	    }
 	}
     }
 
-
     /**
-     * This task is launched when the coordinator peer is lost,
-     * which means all registrations are now invalid. This task
-     * schedules the re-registration of all implemented {@link UIHandlerProfile}s
-     * by all the {@link UIHandler}s registered in the local node.
+     * This task is launched when the coordinator peer is lost, which means all
+     * registrations are now invalid. This task schedules the re-registration of
+     * all implemented {@link UIHandlerProfile}s by all the {@link UIHandler}s
+     * registered in the local node.
+     * 
      * @author amedrano
-     *
+     * 
      */
-    private class ResendRegisstrationTask implements Runnable{
+    private class ResendRegisstrationTask implements Runnable {
 
-	/** {@ inheritDoc}	 */
+	/** {@ inheritDoc} */
 	public void run() {
 	    String[] id = bus.getBusMembersByID();
 	    for (int i = 0; i < id.length; i++) {
 		BusMember bm = getBusMember(id[i]);
-		if (bm instanceof UIHandler){
+		if (bm instanceof UIHandler) {
 		    UIHandler h = (UIHandler) bm;
-		    List<UIHandlerProfile> profs = h.getRealizedHandlerProfiles();
+		    List<UIHandlerProfile> profs = h
+			    .getRealizedHandlerProfiles();
 		    for (UIHandlerProfile hp : profs) {
 			addRegistration(id[i], hp);
-			//the first one will be locked until there is a coordinator.
+			// the first one will be locked until there is a
+			// coordinator.
 		    }
 		}
 	    }
 	}
     }
-    
+
     /**
      * on Coordination lost: reschedule reRegistration.
      */
-    protected void lostCoordinator() { 
-	//cut all displaying handlers
+    protected void lostCoordinator() {
+	// cut all displaying handlers
 	BusMember[] bm = bus.getBusMembers();
 	for (int i = 0; i < bm.length; i++) {
-	    if (bm[i] instanceof UIHandler){
-		((UIHandler)bm[i]).communicationChannelBroken();
+	    if (bm[i] instanceof UIHandler) {
+		((UIHandler) bm[i]).communicationChannelBroken();
 	    }
 	}
-	//resend Registration
-	new Thread(new ResendRegisstrationTask(), "UIStrategyResendRegistrationsTask").start();
+	// resend Registration
+	new Thread(new ResendRegisstrationTask(),
+		"UIStrategyResendRegistrationsTask").start();
     }
-    
-    //TODO override newRegistration() and try to reallocate pending (and not running) dialogs
+
+    // TODO override newRegistration() and try to reallocate pending (and not
+    // running) dialogs
 }

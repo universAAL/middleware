@@ -21,22 +21,24 @@ import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
 import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 
 /**
- * Additonally to {@link DescribedEntity DescribedEntities}, this interfaced may be added.
- * This should only be done for configurations that may change locally, ie not only through 
- * {@link ConfigurableModule#configurationChanged(Scope, Object)}.
- * <br>
- * when the listener is called {@link ConfigurableModule#configurationChanged(Scope, Object)} will be called, and local and remote 
- * {@link ConfigurationEditor ConfigurationEditors} will be notified.
+ * Additonally to {@link DescribedEntity DescribedEntities}, this interfaced may
+ * be added. This should only be done for configurations that may change
+ * locally, ie not only through
+ * {@link ConfigurableModule#configurationChanged(Scope, Object)}. <br>
+ * when the listener is called
+ * {@link ConfigurableModule#configurationChanged(Scope, Object)} will be
+ * called, and local and remote {@link ConfigurationEditor ConfigurationEditors}
+ * will be notified.
+ * 
  * @author amedrano
- *
+ * 
  */
 public interface DynamicDescribedEntity {
-    
+
     /**
      * Add a listener that should be called when the entity is changed.
      */
     public void registerListener(DynamicDescribedEntityListener listener);
-
 
     /**
      * Remove a listener.

@@ -30,7 +30,7 @@ public class RangeTest extends TestCase {
 	// TypeMapper.getDatatypeURI(Integer.class)).addRestriction(
 	// new BoundingValueRestriction(MY_DUMMY_PROP, new Integer(0), true,
 	// new Integer(30), true));
-	//		
+	//
 	// Range rng = new Range(Form.newDialog("title", (Resource)
 	// null).getIOControls(),
 	// new Label("Dummy", null),

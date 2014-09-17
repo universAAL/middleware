@@ -23,10 +23,12 @@ import org.universAAL.middleware.ui.IDialogManager;
 import org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement;
 
 /**
- * This section of the UI Bus Strategy Stack, will only hold the {@link IDialogManager} instance.
- * Managing the cases when there is already a Coordinator, and when The dialogManager is unset.
+ * This section of the UI Bus Strategy Stack, will only hold the
+ * {@link IDialogManager} instance. Managing the cases when there is already a
+ * Coordinator, and when The dialogManager is unset.
+ * 
  * @author amedrano
- *
+ * 
  */
 public class UIStrategyCoordinatorMng extends CoordinatedRegistrationManagement {
 
@@ -63,13 +65,14 @@ public class UIStrategyCoordinatorMng extends CoordinatedRegistrationManagement 
 		return false;
 	    }
 	}
-	if (dm == null && iAmCoordinator()){
+	if (dm == null && iAmCoordinator()) {
 	    try {
 		resignFromCoordinator();
 		this.dialogManager = null;
 		return true;
 	    } catch (CoordinatorAlreadyExistsException e) {
-		LogUtils.logWarn(busModule, getClass(), "setDialogManager", "could not unset DM, not the coordinator");
+		LogUtils.logWarn(busModule, getClass(), "setDialogManager",
+			"could not unset DM, not the coordinator");
 		return false;
 	    }
 	}

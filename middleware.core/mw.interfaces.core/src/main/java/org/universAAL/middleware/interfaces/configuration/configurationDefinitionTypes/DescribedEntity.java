@@ -27,7 +27,9 @@ import org.universAAL.middleware.interfaces.configuration.scope.ModuleScope;
 import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 
 /**
- * A {@link DescribedEntity} is an Entity that is restricted to certain {@link Scope} and has a description.
+ * A {@link DescribedEntity} is an Entity that is restricted to certain
+ * {@link Scope} and has a description.
+ * 
  * @author amedrano
  * @See Scope
  */
@@ -36,19 +38,30 @@ public interface DescribedEntity {
     /**
      * Define the ID and Scope for this Entity.
      * <ul>
-     * <li> {@link AALSpaceScope} defines that this entity is applicable over the whole AALSpace, so when managed its value will be the same on the whole AALSpace.
-     * <li> {@link InstanceScope} defines that this entity is only applicable for the instance given in the scope.
-     * <li> {@link ModuleScope} the entity is only applicable for the given module and instance.
-     * <li> {@link ApplicationScope} defines that this entity is applicable over a certain application, this will be shared over the whole AALSpace for the same application.
-     * <li> {@link AppPartScope} same as {@link ApplicationScope} but with finer grain, for application parts.
+     * <li> {@link AALSpaceScope} defines that this entity is applicable over the
+     * whole AALSpace, so when managed its value will be the same on the whole
+     * AALSpace.
+     * <li> {@link InstanceScope} defines that this entity is only applicable for
+     * the instance given in the scope.
+     * <li> {@link ModuleScope} the entity is only applicable for the given
+     * module and instance.
+     * <li> {@link ApplicationScope} defines that this entity is applicable over
+     * a certain application, this will be shared over the whole AALSpace for
+     * the same application.
+     * <li> {@link AppPartScope} same as {@link ApplicationScope} but with finer
+     * grain, for application parts.
      * </ul>
+     * 
      * @return a valid scope.
      */
     public Scope getScope();
 
     /**
-     * Description of the entity. It can be localized so the description can be given in different languages.
-     * @param loc the preferred locale for the description.
+     * Description of the entity. It can be localized so the description can be
+     * given in different languages.
+     * 
+     * @param loc
+     *            the preferred locale for the description.
      * @return the Description of the entity.
      */
     public String getDescription(Locale loc);

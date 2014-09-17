@@ -36,7 +36,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
-
 /**
  * A utility class for managing private/public keys and encrypting/decrypting
  * strings
@@ -55,8 +54,6 @@ public class CryptUtil {
     private static boolean tryMore = true;
     private static SecretKey skey = null;
     private static Codec codec = null;
-
-   
 
     /**
      * Initialization method - reads the shared key from the file system or

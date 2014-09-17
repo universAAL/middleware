@@ -38,7 +38,8 @@ import org.universAAL.middleware.container.osgi.uAALBundleContainer;
  */
 public final class Activator implements BundleActivator, ServiceListener {
     private BundleContext context;
-    private static ArrayList<LogListener> logListeners = new ArrayList<LogListener>(2);
+    private static ArrayList<LogListener> logListeners = new ArrayList<LogListener>(
+	    2);
     public static ModuleContext mc;
 
     public static Iterator<LogListener> logListeners() {
@@ -56,15 +57,15 @@ public final class Activator implements BundleActivator, ServiceListener {
     }
 
     /**
-     * @see
-     * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
-     * )
+     * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
+     *      )
      */
     public void start(BundleContext arg0) throws Exception {
 	context = arg0;
 	context.addServiceListener(this);
 	context.addBundleListener(new uAALBundleExtender(context));
-	mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] {context});
+	mc = uAALBundleContainer.THE_CONTAINER
+		.registerModule(new Object[] { context });
 	try {
 	    ServiceReference sr[] = context.getServiceReferences(
 		    LogListener.class.getName(), null);
@@ -78,12 +79,11 @@ public final class Activator implements BundleActivator, ServiceListener {
 	} catch (InvalidSyntaxException e) {
 	    e.printStackTrace();
 	}
-	
+
     }
 
     /**
-     * @see
-     * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+     * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext arg0) throws Exception {
     }

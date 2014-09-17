@@ -217,37 +217,35 @@ public class Group extends FormControl {
 	    MergedRestriction r = ManagedIndividual
 		    .getClassRestrictionsOnProperty(t, props[i]);
 	    if (r == null) {
-		LogUtils
-			.logWarn(
-				UIBusImpl.getModuleContext(),
-				Group.class,
-				"doModelBasedExpansion",
-				new Object[] {
-					"ignoring a property with unknown restrictions: ",
-					props[i] }, null);
+		LogUtils.logWarn(
+			UIBusImpl.getModuleContext(),
+			Group.class,
+			"doModelBasedExpansion",
+			new Object[] {
+				"ignoring a property with unknown restrictions: ",
+				props[i] }, null);
 		continue;
 	    }
 	    Object[] values = r.getEnumeratedValues();
 	    if (values == null || values.length == 0) {
 		String tt = r.getPropTypeURI();
 		if (tt == null)
-		    LogUtils
-			    .logWarn(
-				    UIBusImpl.getModuleContext(),
-				    Group.class,
-				    "doModelBasedExpansion",
-				    new Object[] {
-					    "ignoring a property with insufficient restrictions: ",
-					    props[i] }, null);
+		    LogUtils.logWarn(
+			    UIBusImpl.getModuleContext(),
+			    Group.class,
+			    "doModelBasedExpansion",
+			    new Object[] {
+				    "ignoring a property with insufficient restrictions: ",
+				    props[i] }, null);
 		else if (OntologyManagement.getInstance().isRegisteredClass(tt,
 			true)) {
-		    Group g = new Group(this, new Label(StringUtils
-			    .deriveLabel(props[i]), null),
+		    Group g = new Group(this, new Label(
+			    StringUtils.deriveLabel(props[i]), null),
 			    constructSubpath(props[i]), null, null);
 		    g.doModelBasedExpansion();
 		} else if (TypeMapper.isRegisteredDatatypeURI(tt))
-		    new InputField(this, new Label(StringUtils
-			    .deriveLabel(props[i]), null),
+		    new InputField(this, new Label(
+			    StringUtils.deriveLabel(props[i]), null),
 			    constructSubpath(props[i]), null, null);
 		else
 		    LogUtils.logWarn(UIBusImpl.getModuleContext(), Group.class,
@@ -258,10 +256,10 @@ public class Group extends FormControl {
 		Select s = (r.getMinCardinality() > 1 || r.getMaxCardinality() != 1) ? new Select(
 			this,
 			new Label(StringUtils.deriveLabel(props[i]), null),
-			constructSubpath(props[i]), null, null)
-			: new Select1(this, new Label(StringUtils
-				.deriveLabel(props[i]), null),
-				constructSubpath(props[i]), null, null);
+			constructSubpath(props[i]), null, null) : new Select1(
+			this,
+			new Label(StringUtils.deriveLabel(props[i]), null),
+			constructSubpath(props[i]), null, null);
 		s.generateChoices(values);
 	    }
 	}
@@ -372,8 +370,8 @@ public class Group extends FormControl {
 	Object mypp = props.get(PROP_REFERENCED_PPATH);
 	if (r instanceof MergedRestriction
 		&& mypp instanceof PropertyPath
-		&& PropertyPath.pathHasPrefix(pp, ((PropertyPath) mypp)
-			.getThePath())) {
+		&& PropertyPath.pathHasPrefix(pp,
+			((PropertyPath) mypp).getThePath())) {
 	    String[] subpath = PropertyPath.getSubpath(pp,
 		    ((PropertyPath) mypp).getThePath().length - 1);
 	    MergedRestriction target = ((MergedRestriction) r)
@@ -532,26 +530,26 @@ public class Group extends FormControl {
 
     /**
      * look for a FormControl within the group with the given URI.
+     * 
      * @param formControlURI
      * @return the {@link FormControl} or null if not found.
      */
-    public FormControl searchFormControl(String formControlURI){
-    	FormControl[] children = getChildren();
-    	boolean found = false;
-    	int i = 0;
-    	FormControl result = null;
-    	while (!found
-    			&& i < children.length){
-    		found = children[i].getURI().equals(formControlURI);
-    		if (found){
-    			result = children[i];
-    		}
-    		else if (children[i] instanceof Group){
-    			result = ((Group)children[i]).searchFormControl(formControlURI);
-    			found = (result != null);
-    		}
-    		i++;
-    	}
-    	return result;
+    public FormControl searchFormControl(String formControlURI) {
+	FormControl[] children = getChildren();
+	boolean found = false;
+	int i = 0;
+	FormControl result = null;
+	while (!found && i < children.length) {
+	    found = children[i].getURI().equals(formControlURI);
+	    if (found) {
+		result = children[i];
+	    } else if (children[i] instanceof Group) {
+		result = ((Group) children[i])
+			.searchFormControl(formControlURI);
+		found = (result != null);
+	    }
+	    i++;
+	}
+	return result;
     }
 }

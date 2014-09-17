@@ -20,7 +20,6 @@
  */
 package org.universAAL.middleware.brokers.message.aalspace;
 
-
 import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 import org.universAAL.middleware.interfaces.PeerCard;
@@ -38,8 +37,9 @@ public class AALSpaceMessage implements BrokerMessage {
     private AALSpaceDescriptor spaceDescriptor;
     private BrokerMessageTypes mtype;
 
-    public AALSpaceMessage(){}
-    
+    public AALSpaceMessage() {
+    }
+
     public AALSpaceDescriptor getSpaceDescriptor() {
 	return spaceDescriptor;
     }
@@ -64,17 +64,17 @@ public class AALSpaceMessage implements BrokerMessage {
     }
 
     public String toString() {
-	String serializedMessage=null;
+	String serializedMessage = null;
 	try {
-	     serializedMessage =  GsonParserBuilder.getInstance().toJson(this);
-	    
+	    serializedMessage = GsonParserBuilder.getInstance().toJson(this);
+
 	} catch (Exception e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 
 	return serializedMessage;
-	    
+
     }
 
     public BrokerMessageTypes getMType() {

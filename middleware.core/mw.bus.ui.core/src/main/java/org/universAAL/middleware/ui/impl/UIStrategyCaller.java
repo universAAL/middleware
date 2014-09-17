@@ -43,60 +43,70 @@ import org.universAAL.middleware.ui.impl.generic.EventMessage;
 import org.universAAL.middleware.ui.rdf.Form;
 
 /**
- * This part of the UIStrategy Stack deals only with communications between the {@link UICaller}s
- * and the {@link IDialogManager}.
- *  <center> <img style="background-color:white;" src="doc-files/UIStrategyCaller.png"
- * alt="UIStrategy messages" width="70%"/> </center>
- * <br>
+ * This part of the UIStrategy Stack deals only with communications between the
+ * {@link UICaller}s and the {@link IDialogManager}. <center> <img
+ * style="background-color:white;" src="doc-files/UIStrategyCaller.png"
+ * alt="UIStrategy messages" width="70%"/> </center> <br>
  * the messages exchaged are:
  * <ol>
- * <li> Request: the {@link UICaller} notifies the {@link IDialogManager} there is a new {@link UIRequest} it 
- * whants to display to a user. When ready a UIResponse will be delivered.
- * <li> suspend a dialog: the {@link UICaller} notifies the {@link IDialogManager} a dialog should be suspendend for later resume.
- * <li> resume a dialog: a notification for resuming a previously suspended dialog.
- * <li> abort a dialog: a dialog is no longer valid the {@link UICaller} calls for its removal, the data inputed until cancelation 
- * will be delibered. Aborts may also be instructed by the {@link IDialogManager} in representation of the user.
+ * <li>Request: the {@link UICaller} notifies the {@link IDialogManager} there
+ * is a new {@link UIRequest} it whants to display to a user. When ready a
+ * UIResponse will be delivered.
+ * <li>suspend a dialog: the {@link UICaller} notifies the
+ * {@link IDialogManager} a dialog should be suspendend for later resume.
+ * <li>resume a dialog: a notification for resuming a previously suspended
+ * dialog.
+ * <li>abort a dialog: a dialog is no longer valid the {@link UICaller} calls
+ * for its removal, the data inputed until cancelation will be delibered. Aborts
+ * may also be instructed by the {@link IDialogManager} in representation of the
+ * user.
  * </ol>
+ * 
  * @author amedrano
  * 
  */
 public class UIStrategyCaller extends UIStrategyHandler {
-    
-    public class UIRequestCall extends CallMessage<UIStrategyCaller> implements IUIStrategyMessageSharedProps{
 
-	private static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "UIRequestCall";
-	private static final String PROP_uAAL_UI_RESPONSE = Resource.uAAL_VOCABULARY_NAMESPACE + "uiResponse";;
+    public class UIRequestCall extends CallMessage<UIStrategyCaller> implements
+	    IUIStrategyMessageSharedProps {
 
-	public UIRequestCall(){
+	private static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
+		+ "UIRequestCall";
+	private static final String PROP_uAAL_UI_RESPONSE = Resource.uAAL_VOCABULARY_NAMESPACE
+		+ "uiResponse";;
+
+	public UIRequestCall() {
 	    super();
 	}
-	
-	public UIRequestCall(UIRequest req, String CallerID){
+
+	public UIRequestCall(UIRequest req, String CallerID) {
 	    addType(MY_URI, true);
 	    setProperty(PROP_uAAL_UI_CALL, req);
 	    setProperty(PROP_uAAL_UI_CALLER_ID, CallerID);
 	}
-	
-	public UIRequestCall(UIResponse resp){
+
+	public UIRequestCall(UIResponse resp) {
 	    addType(MY_URI, true);
 	    setProperty(PROP_uAAL_UI_RESPONSE, resp);
 	}
-	/** {@ inheritDoc}	 */
+
+	/** {@ inheritDoc} */
 	@Override
 	protected void onRequest(UIStrategyCaller strategy, BusMessage m,
 		String senderID) {
-		handleUIRequest(m, (String) getProperty(PROP_uAAL_UI_CALLER_ID));
+	    handleUIRequest(m, (String) getProperty(PROP_uAAL_UI_CALLER_ID));
 	}
 
-	/** {@ inheritDoc}	 */
+	/** {@ inheritDoc} */
 	@Override
 	protected void onResponse(UIStrategyCaller strategy, BusMessage m,
 		String senderID) {
-	    UIResponse resp = (UIResponse)getProperty(PROP_uAAL_UI_RESPONSE);
+	    UIResponse resp = (UIResponse) getProperty(PROP_uAAL_UI_RESPONSE);
 	    if (resp != null) {
 		notifyCallerDialogSubmitted(resp);
 	    } else {
-		LogUtils.logError(busModule, getClass(), "onResponse", "Received UIResponse is null!");
+		LogUtils.logError(busModule, getClass(), "onResponse",
+			"Received UIResponse is null!");
 	    }
 	}
 
@@ -106,103 +116,106 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	public UIRequest getRequest() {
 	    return (UIRequest) getProperty(PROP_uAAL_UI_CALL);
 	}
-	
+
     }
 
-    private class ResumeDialogMessage extends Resource implements IUIStrategyMessageSharedProps,EventMessage<UIStrategyCaller> {
-	    public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
-		    + "ResumeDialog";
-	    public ResumeDialogMessage() {
-		super();
-	    }
-	    
-	    public ResumeDialogMessage(String dialogID, Resource updatedData){
-		addType(MY_URI, true);
-		setProperty(PROP_uAAL_DIALOG_ID, dialogID);
-		setProperty(PROP_uAAL_UI_UPDATED_DATA, updatedData);
-	    }
+    private class ResumeDialogMessage extends Resource implements
+	    IUIStrategyMessageSharedProps, EventMessage<UIStrategyCaller> {
+	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
+		+ "ResumeDialog";
 
-	    /** {@ inheritDoc}	 */
-	    public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
-		resumeDialog(
-			(String) getProperty(PROP_uAAL_DIALOG_ID), 
-			(Resource) getProperty(PROP_uAAL_UI_UPDATED_DATA));
-	    }
+	public ResumeDialogMessage() {
+	    super();
 	}
 
-    private class SuspendDialogMessage extends Resource implements IUIStrategyMessageSharedProps,EventMessage<UIStrategyCaller> {
-	    public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
-		    + "SuspendDialog";
-	    public SuspendDialogMessage() {
-		super();
-	    }
-	    
-	    public SuspendDialogMessage(String dialogID){
-		addType(MY_URI, true);
-		setProperty(PROP_uAAL_DIALOG_ID, dialogID);
-	    }
-
-	    /** {@ inheritDoc}	 */
-	    public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
-		strategy.suspendDialog(
-			(String) getProperty(PROP_uAAL_DIALOG_ID));
-	    }
+	public ResumeDialogMessage(String dialogID, Resource updatedData) {
+	    addType(MY_URI, true);
+	    setProperty(PROP_uAAL_DIALOG_ID, dialogID);
+	    setProperty(PROP_uAAL_UI_UPDATED_DATA, updatedData);
 	}
-    
-    private class AbortCall extends CallMessage<UIStrategyCaller> implements IUIStrategyMessageSharedProps {
 
-	    /**
-	     * Type for aborting.
-	     */
-	    public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
-		    + "AbortDialog";
-	    
-	    /**
-	     * Constructor for deserializer.
-	     */
-	    public AbortCall() {
-		super();
-	    }
-
-	    public AbortCall(String dialogID, String callerID){
-		super();
-		addType(MY_URI, true);
-		setProperty(PROP_uAAL_DIALOG_ID, dialogID);
-		setProperty(PROP_uAAL_UI_CALLER_ID, callerID);
-	    }
-	    
-	    public AbortCall(String dialogID, String callerID, Resource data){
-		super();
-		addType(MY_URI, true);
-		setProperty(PROP_uAAL_DIALOG_ID, dialogID);
-		setProperty(PROP_uAAL_UI_CALLER_ID, callerID);
-		setProperty(PROP_uAAL_UI_UPDATED_DATA,data);
-	    }
-
-	    /** {@ inheritDoc}	 */
-	    @Override
-	    protected void onResponse(UIStrategyCaller strategy, BusMessage m,
-		    String senderID) {
-		notifyAbort(
-				(String) getProperty(PROP_uAAL_UI_CALLER_ID),
-				(String) getProperty(PROP_uAAL_DIALOG_ID), 
-				(Resource) getProperty(PROP_uAAL_UI_UPDATED_DATA));
-		
-	    }
-
-	    /** {@ inheritDoc}	 */
-	    @Override
-	    protected void onRequest(UIStrategyCaller strategy, BusMessage m,
-		    String senderID) {
-		abortDialogRequest(
-			(String) getProperty(PROP_uAAL_DIALOG_ID),
-			(String) getProperty(PROP_uAAL_UI_CALLER_ID));
-	    }
+	/** {@ inheritDoc} */
+	public void onReceived(UIStrategyCaller strategy, BusMessage m,
+		String senderID) {
+	    resumeDialog((String) getProperty(PROP_uAAL_DIALOG_ID),
+		    (Resource) getProperty(PROP_uAAL_UI_UPDATED_DATA));
 	}
-    
-    private class OntFact implements ResourceFactory{
+    }
 
-	/** {@ inheritDoc}	 */
+    private class SuspendDialogMessage extends Resource implements
+	    IUIStrategyMessageSharedProps, EventMessage<UIStrategyCaller> {
+	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
+		+ "SuspendDialog";
+
+	public SuspendDialogMessage() {
+	    super();
+	}
+
+	public SuspendDialogMessage(String dialogID) {
+	    addType(MY_URI, true);
+	    setProperty(PROP_uAAL_DIALOG_ID, dialogID);
+	}
+
+	/** {@ inheritDoc} */
+	public void onReceived(UIStrategyCaller strategy, BusMessage m,
+		String senderID) {
+	    strategy.suspendDialog((String) getProperty(PROP_uAAL_DIALOG_ID));
+	}
+    }
+
+    private class AbortCall extends CallMessage<UIStrategyCaller> implements
+	    IUIStrategyMessageSharedProps {
+
+	/**
+	 * Type for aborting.
+	 */
+	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
+		+ "AbortDialog";
+
+	/**
+	 * Constructor for deserializer.
+	 */
+	public AbortCall() {
+	    super();
+	}
+
+	public AbortCall(String dialogID, String callerID) {
+	    super();
+	    addType(MY_URI, true);
+	    setProperty(PROP_uAAL_DIALOG_ID, dialogID);
+	    setProperty(PROP_uAAL_UI_CALLER_ID, callerID);
+	}
+
+	public AbortCall(String dialogID, String callerID, Resource data) {
+	    super();
+	    addType(MY_URI, true);
+	    setProperty(PROP_uAAL_DIALOG_ID, dialogID);
+	    setProperty(PROP_uAAL_UI_CALLER_ID, callerID);
+	    setProperty(PROP_uAAL_UI_UPDATED_DATA, data);
+	}
+
+	/** {@ inheritDoc} */
+	@Override
+	protected void onResponse(UIStrategyCaller strategy, BusMessage m,
+		String senderID) {
+	    notifyAbort((String) getProperty(PROP_uAAL_UI_CALLER_ID),
+		    (String) getProperty(PROP_uAAL_DIALOG_ID),
+		    (Resource) getProperty(PROP_uAAL_UI_UPDATED_DATA));
+
+	}
+
+	/** {@ inheritDoc} */
+	@Override
+	protected void onRequest(UIStrategyCaller strategy, BusMessage m,
+		String senderID) {
+	    abortDialogRequest((String) getProperty(PROP_uAAL_DIALOG_ID),
+		    (String) getProperty(PROP_uAAL_UI_CALLER_ID));
+	}
+    }
+
+    private class OntFact implements ResourceFactory {
+
+	/** {@ inheritDoc} */
 	public Resource createInstance(String classURI, String instanceURI,
 		int factoryIndex) {
 	    switch (factoryIndex) {
@@ -220,11 +233,11 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	    return null;
 	}
     }
-    
-    private class MessageOntology extends Ontology{
+
+    private class MessageOntology extends Ontology {
 
 	private ResourceFactory fac = new OntFact();
-	
+
 	/**
 	 * @param ontURI
 	 */
@@ -232,7 +245,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	    super(ontURI);
 	}
 
-	/** {@ inheritDoc}	 */
+	/** {@ inheritDoc} */
 	@Override
 	public void create() {
 	    createNewRDFClassInfo(UIRequestCall.MY_URI, fac, 0);
@@ -241,18 +254,19 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	    createNewRDFClassInfo(AbortCall.MY_URI, fac, 3);
 	}
     }
-    
+
     /**
      * The local pending requests.
      */
     private Map<String, UICaller> pendingRequests;
-    
+
     /**
      * A {@link Map} from DialogID to CallerId to keep track of global requests.
      */
     private Map<String, String> globalRequest;
 
     private Ontology ont;
+
     /**
      * @param commModule
      * @param name
@@ -261,10 +275,11 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	super(commModule, name);
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public synchronized void start() {
 	super.start();
-	ont = new MessageOntology(Resource.uAAL_NAMESPACE_PREFIX + "UIStrategyCallerMesageOntology");
+	ont = new MessageOntology(Resource.uAAL_NAMESPACE_PREFIX
+		+ "UIStrategyCallerMesageOntology");
 	OntologyManagement.getInstance().register(busModule, ont);
 	pendingRequests = new Hashtable<String, UICaller>();
     }
@@ -277,9 +292,9 @@ public class UIStrategyCaller extends UIStrategyHandler {
     }
 
     final boolean setDialogManager(IDialogManager dm) {
-	if (dm != null ){
+	if (dm != null) {
 	    globalRequest = new Hashtable<String, String>();
-	}else {
+	} else {
 	    globalRequest = null;
 	}
 	return super.setDialogManager(dm);
@@ -311,16 +326,17 @@ public class UIStrategyCaller extends UIStrategyHandler {
 		// or it has less priority than the running one
 	    }
 	} else {
-	    sendEventToRemoteBusMember(getCoordinator(), new ResumeDialogMessage(dialogID, dialogData));
+	    sendEventToRemoteBusMember(getCoordinator(),
+		    new ResumeDialogMessage(dialogID, dialogData));
 	}
     }
 
-    void dialogSuspended(IDialogManager dm, String dialogID){
+    void dialogSuspended(IDialogManager dm, String dialogID) {
 	if (dm == null || dialogID == null || dm != dialogManager)
 	    return;
 	suspendDialog(dialogID);
     }
-    
+
     /**
      * Called only when a {@link UIHandler} has called dialogFinished with an
      * instance of {@link org.universAAL.middleware.ui.rdf.SubdialogTrigger} so
@@ -338,8 +354,9 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	if (iAmCoordinator()) {
 	    dialogManager.suspendDialog(dialogID);
 	} else {
-	    //Send Message
-	    sendEventToRemoteBusMember(getCoordinator(), new SuspendDialogMessage(dialogID));
+	    // Send Message
+	    sendEventToRemoteBusMember(getCoordinator(),
+		    new SuspendDialogMessage(dialogID));
 	}
     }
 
@@ -364,7 +381,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	    // allowed to ask for abortion of dialogs
 	    if (busMember == dialogManager || busMember == uiCaller) {
 		abortDialogRequest(dialogID, uiCaller.getMyID());
-	    } 
+	    }
 	}
     }
 
@@ -372,18 +389,18 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	UIRequestCall call = (UIRequestCall) message.getContent();
 	UIRequest request = call.getRequest();
 	if (!message.senderResidesOnDifferentPeer()) {
-	    //if it is a local message
+	    // if it is a local message
 	    Form form = request.getDialogForm();
 	    if (form != null) {
-		//form must be correctly formed
+		// form must be correctly formed
 		BusMember receiver = getBusMember(senderID);
 		if (!form.isMessage() && (receiver instanceof UICaller)) {
-		    //anotate local pending request
+		    // anotate local pending request
 		    pendingRequests
 			    .put(form.getDialogID(), (UICaller) receiver);
 		}
 		if (!iAmCoordinator()) {
-		    //forward to coordinator
+		    // forward to coordinator
 		    message.setReceiver(getCoordinator());
 		    send(message);
 		    return;
@@ -399,25 +416,24 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	    }
 	}
 	if (iAmCoordinator()) {
-	    globalRequest.put( request.getDialogID(), senderID);
+	    globalRequest.put(request.getDialogID(), senderID);
 	    if (dialogManager.checkNewDialog(request)) {
 
 		// keepOriginalRequestForLogging(message);
 		// we call adaptationParametersChanged() because the
 		// matchmaking logic is the same; we needed only to add
 		// an 'if' there
-		adaptationParametersChanged(dialogManager,
-			request, null);
+		adaptationParametersChanged(dialogManager, request, null);
 		// removeTemporaryProperty(resource);
 	    } else {
 		LogUtils.logDebug(
 			busModule,
 			getClass(),
 			"askDialogManagerForPresentation",
-			new Object[] { "The UI Bus ignores the request because it " +
-					"trusts that the Dialog Manager will keep " +
-					"the request in a queue of suspended dialogs" +
-					" and will re-activate it whenever appropriate." },
+			new Object[] { "The UI Bus ignores the request because it "
+				+ "trusts that the Dialog Manager will keep "
+				+ "the request in a queue of suspended dialogs"
+				+ " and will re-activate it whenever appropriate." },
 			null);
 	    }
 	} else {
@@ -430,7 +446,6 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	}
     }
 
-    
     private void abortDialogRequest(String dialogID, String callerID) {
 	if (iAmCoordinator()) {
 	    String handlerID = runningDialogs.getHandler(dialogID);
@@ -440,11 +455,12 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	    runningDialogs.removeDialogId(dialogID);
 	    globalRequest.remove(dialogID);
 	} else {
-	    placeAsynchronousRequest(getCoordinator(), new AbortCall(dialogID, callerID));
+	    placeAsynchronousRequest(getCoordinator(), new AbortCall(dialogID,
+		    callerID));
 	}
     }
-    
-    private void abortDialogWiouthCallback(String dialogID, String callerID){
+
+    private void abortDialogWiouthCallback(String dialogID, String callerID) {
 	if (iAmCoordinator()) {
 	    String handlerID = runningDialogs.getHandler(dialogID);
 	    Resource data = cutDialog(handlerID, dialogID);
@@ -453,34 +469,33 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	    globalRequest.remove(dialogID);
 	}
     }
-    
+
     /**
      * @param callerID
      * @param dialogID
      * @param abortLocalDialog
      */
-    private void notifyAbort(String callerID, String dialogID,
-	    Resource data) {
+    private void notifyAbort(String callerID, String dialogID, Resource data) {
 	if (callerID == null || dialogID == null)
 	    return;
 	BusMember bm = getBusMember(callerID);
-	if (bm instanceof UICaller){
-	    ((UICaller)bm).dialogAborted(dialogID, data);
-	}else {
-	    sendAsynchronousResponse(callerID, new AbortCall(dialogID, callerID, data));
+	if (bm instanceof UICaller) {
+	    ((UICaller) bm).dialogAborted(dialogID, data);
+	} else {
+	    sendAsynchronousResponse(callerID, new AbortCall(dialogID,
+		    callerID, data));
 	}
     }
-    
-    /** {@ inheritDoc}	 */
+
+    /** {@ inheritDoc} */
     protected void notifyCallerDialogSubmitted(UIResponse response) {
 	UICaller caller = pendingRequests.remove(response.getDialogID());
-	if (caller != null){
+	if (caller != null) {
 	    caller.handleUIResponse(response);
 	    if (iAmCoordinator()) {
 		globalRequest.remove(response.getDialogID());
 	    }
-	}
-	else {
+	} else {
 	    if (iAmCoordinator()) {
 		String callerId = globalRequest.remove(response.getDialogID());
 		if (callerId != null) {
@@ -491,7 +506,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	}
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     @Override
     public void close() {
 	super.close();
@@ -502,35 +517,36 @@ public class UIStrategyCaller extends UIStrategyHandler {
 
     /**
      * A caller is unregistering, and it will be no more reachable, all of its
-     * pending requests must be aborted. 
+     * pending requests must be aborted.
+     * 
      * @param caller
      */
     public void abortAllPendingRequestsFor(UICaller caller) {
 	for (Entry<String, UICaller> entry : pendingRequests.entrySet()) {
-	    if (entry.getValue().equals(caller)){
+	    if (entry.getValue().equals(caller)) {
 		abortDialogWiouthCallback(entry.getKey(), caller.getMyID());
 	    }
 	}
     }
 
-    
     /** Coordinator will abort all pending request of the lost peer */
     public void peerLost(PeerCard peer) {
 	super.peerLost(peer);
-	
-	if(iAmCoordinator()){
+
+	if (iAmCoordinator()) {
 	    // abort all pending requests from callers in this peer.
 	    for (Entry<String, String> entry : globalRequest.entrySet()) {
-		if (AbstractBus.getPeerFromBusResourceURI(entry.getValue()).equals(peer)){
+		if (AbstractBus.getPeerFromBusResourceURI(entry.getValue())
+			.equals(peer)) {
 		    abortDialogWiouthCallback(entry.getKey(), entry.getValue());
 		}
 	    }
 	}
     }
 
-    /** 
-     * Peer will notify that communication channel is broken 
-     * and then notify an abort on all pending requests, for all local {@link UICaller}s
+    /**
+     * Peer will notify that communication channel is broken and then notify an
+     * abort on all pending requests, for all local {@link UICaller}s
      */
     protected void lostCoordinator() {
 	super.lostCoordinator();
@@ -547,5 +563,5 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	    entry.getValue().dialogAborted(entry.getKey(), null);
 	}
     }
-    
+
 }

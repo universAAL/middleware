@@ -121,8 +121,9 @@ public class UIRequest extends ScopedResource implements Request {
      * Instantiates a new {@link UIRequest}.
      * 
      * @param user
-     *            the {@link User}. It is declared as Resource because the type User is defined 
-     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
+     *            the {@link User}. It is declared as Resource because the type
+     *            User is defined in the Profiling Ontology. The type is not
+     *            needed for for matchmaking Either.
      * @param dialogForm
      *            The dialog form.
      * @param dialogPriority
@@ -158,8 +159,9 @@ public class UIRequest extends ScopedResource implements Request {
     /**
      * Gets the addressed {@link User}.
      * 
-     * @return the addressed {@link User}, It is declared as Resource because the type User is defined 
-     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
+     * @return the addressed {@link User}, It is declared as Resource because
+     *         the type User is defined in the Profiling Ontology. The type is
+     *         not needed for for matchmaking Either.
      */
     public Resource getAddressedUser() {
 	return (Resource) props.get(PROP_ADDRESSED_USER);

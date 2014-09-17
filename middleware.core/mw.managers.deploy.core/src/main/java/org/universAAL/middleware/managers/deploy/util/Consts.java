@@ -22,14 +22,14 @@ package org.universAAL.middleware.managers.deploy.util;
 
 /**
  * Widely-used constants for the DeployManager
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class Consts {
-    public static final String START_INSTALLATION = "startInstallation";    
+    public static final String START_INSTALLATION = "startInstallation";
     public static final String APPLICATION_CONFIGURATION_PATH = "config";
     public static final String APPLICATION_BINARYPART_PATH = "bin";
     public static final String APP_REGISTRY = "installation.registry";

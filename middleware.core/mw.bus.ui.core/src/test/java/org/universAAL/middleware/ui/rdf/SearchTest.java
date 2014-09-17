@@ -16,7 +16,6 @@
 
 package org.universAAL.middleware.ui.rdf;
 
-
 import junit.framework.TestCase;
 
 import org.universAAL.container.JUnit.JUnitModuleContext;
@@ -29,53 +28,51 @@ import org.universAAL.middleware.ui.owl.UIBusOntology;
 
 /**
  * @author amedrano
- *
+ * 
  */
 public class SearchTest extends TestCase {
 
-	private static final int DEPTH = 10;
-	private static JUnitModuleContext mc;
-	
-	static {
+    private static final int DEPTH = 10;
+    private static JUnitModuleContext mc;
 
-		mc = new JUnitModuleContext();
-		OntologyManagement.getInstance().register(mc, new DataRepOntology());
-    	OntologyManagement.getInstance().register(mc, new UIBusOntology());
+    static {
+
+	mc = new JUnitModuleContext();
+	OntologyManagement.getInstance().register(mc, new DataRepOntology());
+	OntologyManagement.getInstance().register(mc, new UIBusOntology());
+    }
+
+    private PropertyPath getPath(String input) {
+	return new PropertyPath(null, false,
+		new String[] { "http://org.universaal.ui.newGui/tests.owl#"
+			+ input });
+    }
+
+    public void test() {
+	Form f = Form.newDialog("test", new Resource());
+
+	InputField[] fields = new InputField[DEPTH];
+	Group[] groups = new Group[DEPTH];
+
+	groups[0] = new Group(f.getIOControls(), new Label(null, null), null,
+		null, null);
+
+	for (int i = 1; i < DEPTH; i++) {
+	    groups[i] = new Group(groups[i - 1], new Label(null, null), null,
+		    null, null);
+	    String fid = "input" + Integer.toString(i);
+	    fields[i] = new InputField(groups[i], new Label(fid, null),
+		    getPath(fid), null, null);
 	}
 
-	
-	private PropertyPath getPath(String input){
-		return new PropertyPath(
-				null,
-				false,
-				new String[] { "http://org.universaal.ui.newGui/tests.owl#"+input });
+	Select s = new Select(f.getStandardButtons(), new Label("troll", null),
+		getPath("select"), null, null);
+
+	for (int i = 1; i < DEPTH; i++) {
+	    assertEquals(groups[i], f.searchFormControl(groups[i].getURI()));
+	    assertEquals(fields[i], f.searchFormControl(fields[i].getURI()));
 	}
-	
-	public void test() {
-		Form f = Form.newDialog("test", new Resource());
-		
-		InputField[] fields = new InputField[DEPTH];
-		Group[] groups = new Group[DEPTH];
-		
-		groups[0] = new Group(f.getIOControls(), new Label(null, null), null, null, null);
-		
-		for (int i = 1; i < DEPTH; i++) {
-			groups[i] = new Group(groups[i-1],new Label(null, null), null, null, null);
-			String fid = "input" + Integer.toString(i);
-			fields[i] = new InputField(groups[i],
-					new Label(fid, null),
-					getPath(fid),
-					null,
-					null);
-		}
-		
-		Select s = new Select(f.getStandardButtons(), new Label("troll",null), getPath("select"), null, null);
-		
-		for (int i = 1; i < DEPTH; i++) {
-			assertEquals(groups[i], f.searchFormControl(groups[i].getURI()));
-			assertEquals(fields[i], f.searchFormControl(fields[i].getURI()));
-		}
-		assertNull(groups[0].searchFormControl(s.getURI()));
-	}	
+	assertNull(groups[0].searchFormControl(s.getURI()));
+    }
 
 }

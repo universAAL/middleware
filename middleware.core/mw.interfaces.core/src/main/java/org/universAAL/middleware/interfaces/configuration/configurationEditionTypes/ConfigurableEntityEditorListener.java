@@ -18,16 +18,20 @@
 package org.universAAL.middleware.interfaces.configuration.configurationEditionTypes;
 
 /**
- * Listen for changes (that may be remote) in a {@link ConfigurableEntityEditor}.
+ * Listen for changes (that may be remote) in a {@link ConfigurableEntityEditor}
+ * .
+ * 
  * @author amedrano
- *
+ * 
  */
 public interface ConfigurableEntityEditorListener {
 
     /**
      * Callback for changes.
-     * @param entityChanged the entity Changed.
+     * 
+     * @param entityChanged
+     *            the entity Changed.
      */
     public void ConfigurationChanged(ConfigurableEntityEditor entityChanged);
-    
+
 }

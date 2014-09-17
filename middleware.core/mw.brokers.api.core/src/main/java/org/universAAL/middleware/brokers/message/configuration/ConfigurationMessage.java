@@ -25,7 +25,7 @@ import com.google.gson.Gson;
 
 /**
  * @author amedrano
- *
+ * 
  */
 public class ConfigurationMessage implements BrokerMessage {
 
@@ -35,55 +35,59 @@ public class ConfigurationMessage implements BrokerMessage {
     private String param;
     private String parsed;
     private boolean request = true;
-    
-    public enum ConfigurationMessageType{
+
+    public enum ConfigurationMessageType {
 	PROPAGATE, QUERY
     }
-    
+
     /**
      * 
      */
-    public ConfigurationMessage() {  }
-    
-    
+    public ConfigurationMessage() {
+    }
+
     /**
      * Create a new Configuration Message.
-     * @param mType the type of the message to sent
-     * @param sender the sender of this message
+     * 
+     * @param mType
+     *            the type of the message to sent
+     * @param sender
+     *            the sender of this message
      * @param propagateSerialized
      */
-    public ConfigurationMessage(ConfigurationMessageType mType, PeerCard sender, String propagateSerialized){
+    public ConfigurationMessage(ConfigurationMessageType mType,
+	    PeerCard sender, String propagateSerialized) {
 	this.cType = mType;
 	this.param = propagateSerialized;
 	this.sender = sender;
     }
-    
-    public ConfigurationMessageType getMessageType(){
+
+    public ConfigurationMessageType getMessageType() {
 	return cType;
     }
-    
-    public String getPayload(){
+
+    public String getPayload() {
 	return param;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public BrokerMessageTypes getMType() {
 	return BrokerMessageTypes.ConfigurationMessage;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public PeerCard[] getReceivers() {
-	if (receiver != null){
-	    return new PeerCard[]{receiver};
+	if (receiver != null) {
+	    return new PeerCard[] { receiver };
 	}
-	return new PeerCard[]{};
+	return new PeerCard[] {};
     }
-    
-    public boolean isRequest(){
+
+    public boolean isRequest() {
 	return request;
     }
 
-    public ConfigurationMessage createResoponse(String serializedParam){
+    public ConfigurationMessage createResoponse(String serializedParam) {
 	ConfigurationMessage resp = new ConfigurationMessage();
 	resp.cType = cType;
 	resp.receiver = sender;
@@ -91,7 +95,7 @@ public class ConfigurationMessage implements BrokerMessage {
 	resp.request = false;
 	return resp;
     }
-    
+
     public String toString() {
 	String serializedMessage = null;
 	if (parsed == null) {
@@ -108,8 +112,9 @@ public class ConfigurationMessage implements BrokerMessage {
 	parsed = serializedMessage;
 	return parsed;
     }
-    
-    public static ConfigurationMessage unmarshall(String message) throws Exception {
+
+    public static ConfigurationMessage unmarshall(String message)
+	    throws Exception {
 
 	try {
 
@@ -125,12 +130,11 @@ public class ConfigurationMessage implements BrokerMessage {
 	}
     }
 
-
     /**
      * @return
      */
     public boolean isSentFrom(PeerCard sender) {
 	return this.sender.equals(sender);
     }
-    
+
 }

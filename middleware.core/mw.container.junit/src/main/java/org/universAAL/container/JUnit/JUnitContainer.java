@@ -113,7 +113,7 @@ public final class JUnitContainer implements Container {
 	    Object[] shareParams) {
 	sharedObjectMap.remove((String) shareParams[0]);
     }
-    
+
     public void removeAllSharedObjects() {
 	listeners.clear();
 	sharedObjectMap.clear();

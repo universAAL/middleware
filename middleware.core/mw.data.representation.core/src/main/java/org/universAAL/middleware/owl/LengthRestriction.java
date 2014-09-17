@@ -126,7 +126,7 @@ public abstract class LengthRestriction extends TypeRestriction {
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// TODO: extend with variables
-	
+
 	// check the length
 	int memlen = member == null ? 0 : member.toString().length();
 	if (len != null) {
