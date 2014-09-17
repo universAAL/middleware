@@ -33,7 +33,7 @@ import org.universAAL.middleware.rdf.FinalizedResource;
  *         Tazari</a>
  * 
  */
-public class CallStatus extends FinalizedResource {
+public final class CallStatus extends FinalizedResource {
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "CallStatus";
 

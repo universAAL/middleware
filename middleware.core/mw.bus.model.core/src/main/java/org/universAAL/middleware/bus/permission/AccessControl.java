@@ -36,7 +36,7 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Carsten Stockloew
  * 
  */
-public class AccessControl {
+public final class AccessControl {
     public static final AccessControl INSTANCE = new AccessControl();
 
     public static final String PROP_MODE = "org.universaal.bus.permission.mode";

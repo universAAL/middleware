@@ -50,7 +50,7 @@ public class ServiceBusFactory implements ResourceFactory {
 	case 2:
 	    return new ServiceResponse(instanceURI);
 	case 3:
-	    return new ServiceCall(null, instanceURI);
+	    return new ServiceCall(instanceURI);
 	case 4:
 	    return new ServiceProfile(instanceURI);
 	case 5:

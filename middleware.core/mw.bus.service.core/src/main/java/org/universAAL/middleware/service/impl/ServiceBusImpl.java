@@ -50,7 +50,7 @@ import org.universAAL.middleware.util.ResourceComparator;
  *         Tazari</a>
  * 
  */
-public class ServiceBusImpl extends AbstractBus implements ServiceBus {
+public final class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     private static Object[] busFetchParams;
     private static Object[] busRemoveParams;
@@ -308,7 +308,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     @Override
     protected BusStrategy createBusStrategy(CommunicationModule commModule) {
-	return new ServiceStrategy(commModule, context);
+	return new ServiceStrategy(commModule);
     }
 
     public void handleSendError(ChannelMessage message,

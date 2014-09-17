@@ -46,6 +46,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
+ * @author Carsten Stockloew
  */
 public class ServiceRequest extends ScopedResource implements Request {
 
