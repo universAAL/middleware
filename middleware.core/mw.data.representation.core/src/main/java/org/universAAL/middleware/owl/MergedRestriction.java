@@ -182,7 +182,7 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getPropertyBanningRestriction(
+    public static MergedRestriction getPropertyBanningRestriction(
 	    String propURI) {
 	if (propURI == null)
 	    return null;
@@ -212,7 +212,7 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getFixedValueRestriction(
+    public static MergedRestriction getFixedValueRestriction(
 	    String propURI, Object value) {
 	if (propURI == null || value == null)
 	    return null;
@@ -252,7 +252,7 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getCardinalityRestriction(
+    public static MergedRestriction getCardinalityRestriction(
 	    String propURI, int min, int max) {
 	if (propURI == null)
 	    return null;
@@ -322,7 +322,7 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getAllValuesRestrictionWithCardinality(
+    public static MergedRestriction getAllValuesRestrictionWithCardinality(
 	    String propURI, String typeURI, int min, int max) {
 	if (typeURI == null)
 	    return null;
@@ -382,7 +382,7 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getAllValuesRestrictionWithCardinality(
+    public static MergedRestriction getAllValuesRestrictionWithCardinality(
 	    String propURI, TypeExpression expr, int min, int max) {
 	if (expr == null)
 	    return null;
@@ -415,7 +415,7 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getAllValuesRestriction(
+    public static MergedRestriction getAllValuesRestriction(
 	    String propURI, String typeURI) {
 	if (typeURI == null || propURI == null)
 	    return null;
@@ -465,7 +465,7 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getAllValuesRestriction(
+    public static MergedRestriction getAllValuesRestriction(
 	    String propURI, TypeExpression expr) {
 	if (expr == null || propURI == null)
 	    return null;

@@ -28,7 +28,7 @@ package org.universAAL.middleware.bus.msg;
  *         ones without that prefix relate to the "bus member - bus"
  *         communication.
  */
-public class MessageType {
+public final class MessageType {
     public static final int EVENT = 0;
     public static final int P2P_EVENT = 1;
     public static final int P2P_REPLY = 2;

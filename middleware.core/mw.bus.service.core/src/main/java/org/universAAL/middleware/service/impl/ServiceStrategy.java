@@ -177,7 +177,7 @@ public class ServiceStrategy extends BusStrategy {
     private boolean isCoordinator;
     protected PeerCard theCoordinator = null;
 
-    public ServiceStrategy(CommunicationModule commModule, ModuleContext mc) {
+    public ServiceStrategy(CommunicationModule commModule) {
 	super(commModule, "Service Bus Strategy");
 
 	// Initiated the factory
@@ -538,7 +538,8 @@ public class ServiceStrategy extends BusStrategy {
 	    return;
 	}
 
-	Object calleeID = null, processURI = null;
+	Object calleeID = null;
+	Object processURI = null;
 	for (ServiceRealization sr : matchingServices) {
 	    if (sr == null)
 		continue;
@@ -559,7 +560,8 @@ public class ServiceStrategy extends BusStrategy {
 			    .getContent())
 			    .getProperty(ServiceRequest.PROP_uAAL_INVOLVED_HUMAN_USER)
 			    : null;
-		    ServiceCall sc = new ServiceCall((String) processURI);
+		    ServiceCall sc = new ServiceCall(new Resource(
+			    (String) processURI));
 		    if (user instanceof Resource)
 			sc.setInvolvedUser((Resource) user);
 		    ((ServiceBusImpl) bus).assessContentSerialization(sc);
@@ -982,6 +984,7 @@ public class ServiceStrategy extends BusStrategy {
      *            the service.
      * @return a list with the class URIs of all non-abstract super classes.
      */
+    @SuppressWarnings("PMD.CollapsibleIfStatements")
     private List<String> getNonAbstractSuperClasses(Service s) {
 	List<String> lst = new ArrayList<String>();
 	String classURI = s.getClassURI();
@@ -1436,24 +1439,22 @@ public class ServiceStrategy extends BusStrategy {
 			    // New strategy: if service matches exactly URI
 			    // specified in Service Request than this service is
 			    // always preferred over others.
-			    if (match
-				    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null) {
-				if (otherMatch
-					.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null) {
-				    // the new service matches better the
-				    // request
-				    auxMap.put(sr.getProvider(), match);
-				    continue;
-				}
+			    if ((match
+				    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null)
+				    && (otherMatch
+					    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null)) {
+				// the new service matches better the
+				// request
+				auxMap.put(sr.getProvider(), match);
+				continue;
 			    }
-			    if (otherMatch
-				    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null) {
-				if (match
-					.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null) {
-				    // the new service won't match better the
-				    // request
-				    continue;
-				}
+			    if ((otherMatch
+				    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null)
+				    && (match
+					    .get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null)) {
+				// the new service won't match better the
+				// request
+				continue;
 			    }
 			    // If two above are not true then either both
 			    // services have matched their URIs or none of them
@@ -1712,6 +1713,12 @@ public class ServiceStrategy extends BusStrategy {
 		// strange situation: some peer has thought i am the
 		// coordinator?!!
 		// => ignore!
+		LogUtils.logDebug(
+			ServiceBusImpl.getModuleContext(),
+			ServiceStrategy.class,
+			"handle",
+			new Object[] { "Received a message of type 'request'. A peer has send this message and thought I would be the coordinator, but I'm not. Ignoring it." },
+			null);
 	    } else if (isCoordinatorKnown()) {
 		localWaitingCallers.addLocalWaitier(msg.getID(), senderID);
 		msg.setReceiver(theCoordinator);

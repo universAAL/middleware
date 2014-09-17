@@ -148,10 +148,10 @@ public class TurtleParser {
     // debug: TODO: remove
     private List lstResources = new LinkedList();
 
-    private static final String stringifiedPosInf = new Double(
-	    Double.POSITIVE_INFINITY).toString();
-    private static final String stringifiedNegInf = new Double(
-	    Double.NEGATIVE_INFINITY).toString();
+    private static final String stringifiedPosInf = Double
+	    .toString(Double.POSITIVE_INFINITY);
+    private static final String stringifiedNegInf = Double
+	    .toString(Double.NEGATIVE_INFINITY);
 
     public TurtleParser() {
     }

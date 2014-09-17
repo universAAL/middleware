@@ -182,22 +182,18 @@ public class BusRegistryIT extends IntegrationTest {
 
 	protected MockUiCaller(ModuleContext context) {
 	    super(context);
-	    // TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void communicationChannelBroken() {
-	    // TODO Auto-generated method stub
 	}
 
 	@Override
 	public void dialogAborted(String dialogID, Resource data) {
-	    // TODO Auto-generated method stub
 	}
 
 	@Override
 	public void handleUIResponse(UIResponse input) {
-	    // TODO Auto-generated method stub
 	}
     }
     
@@ -206,29 +202,24 @@ public class BusRegistryIT extends IntegrationTest {
 	protected MockUIHandler(ModuleContext context,
 		UIHandlerProfile initialSubscription) {
 	    super(context, initialSubscription);
-	    // TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void adaptationParametersChanged(String dialogID,
 		String changedProp, Object newVal) {
-	    // TODO Auto-generated method stub
 	}
 
 	@Override
 	public void communicationChannelBroken() {
-	    // TODO Auto-generated method stub
 	}
 
 	@Override
 	public Resource cutDialog(String dialogID) {
-	    // TODO Auto-generated method stub
 	    return null;
 	}
 
 	@Override
 	public void handleUICall(UIRequest uicall) {
-	    // TODO Auto-generated method stub
 	}
     }
     
@@ -237,18 +228,15 @@ public class BusRegistryIT extends IntegrationTest {
 	protected MockContextSubscriber(ModuleContext context,
 		ContextEventPattern[] initialSubscriptions) {
 	    super(context, initialSubscriptions);
-	    // TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void communicationChannelBroken() {
-	    // TODO Auto-generated method stub
 	    
 	}
 
 	@Override
 	public void handleContextEvent(ContextEvent event) {
-	    // TODO Auto-generated method stub
 	    
 	}
     }
@@ -258,17 +246,14 @@ public class BusRegistryIT extends IntegrationTest {
 	protected MockServiceCallee(ModuleContext context,
 		ServiceProfile[] realizedServices) {
 	    super(context, realizedServices);
-	    // TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void communicationChannelBroken() {
-	    // TODO Auto-generated method stub
 	}
 
 	@Override
 	public ServiceResponse handleCall(ServiceCall call) {
-	    // TODO Auto-generated method stub
 	    return null;
 	}
 	
@@ -384,11 +369,9 @@ public class BusRegistryIT extends IntegrationTest {
 	}
 
 	public void regParamsAdded(String busMemberID, Resource[] params) {
-	    // TODO Auto-generated method stub
 	}
 
 	public void regParamsRemoved(String busMemberID, Resource[] params) {
-	    // TODO Auto-generated method stub
 	}
     }
 }

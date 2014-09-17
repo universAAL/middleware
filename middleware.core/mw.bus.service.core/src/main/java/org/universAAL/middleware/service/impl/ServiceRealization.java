@@ -180,7 +180,7 @@ public class ServiceRealization extends FinalizedResource {
 	if (processURI == null)
 	    return false;
 
-	ServiceCall result = new ServiceCall(processURI);
+	ServiceCall result = new ServiceCall(new Resource(processURI));
 	result.setScope(request);
 	Object user = context.get(Constants.VAR_uAAL_ACCESSING_HUMAN_USER);
 	if (user instanceof Resource)

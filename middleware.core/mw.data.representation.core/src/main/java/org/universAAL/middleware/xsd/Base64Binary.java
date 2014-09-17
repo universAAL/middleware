@@ -57,11 +57,11 @@ public final class Base64Binary {
 	return val;
     }
 
-    public static final String encode(byte[] val) {
+    public static String encode(byte[] val) {
 	return Base64.encodeBytes(val);
     }
 
-    public static final byte[] decode(String encodedVal) {
+    public static byte[] decode(String encodedVal) {
 	try {
 	    return Base64.decode(encodedVal);
 	} catch (IOException e) {

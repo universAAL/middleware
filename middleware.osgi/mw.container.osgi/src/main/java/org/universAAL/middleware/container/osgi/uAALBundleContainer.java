@@ -36,6 +36,7 @@ import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.universAAL.middleware.container.Container;
+import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.osgi.run.Activator;
@@ -48,7 +49,7 @@ import org.universAAL.middleware.container.osgi.run.Activator;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  * 
  */
-public class uAALBundleContainer implements Container, ServiceListener {
+public final class uAALBundleContainer implements Container, ServiceListener {
     public static final uAALBundleContainer THE_CONTAINER = new uAALBundleContainer();
 
     private List listeners;
@@ -176,7 +177,7 @@ public class uAALBundleContainer implements Container, ServiceListener {
     /**
      * @see org.universAAL.middleware.container.Container#logListeners()
      */
-    public Iterator logListeners() {
+    public Iterator<LogListener> logListeners() {
 	return Activator.logListeners();
     }
 

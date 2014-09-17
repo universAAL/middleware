@@ -39,6 +39,7 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
+ * @author Carsten Stockloew
  */
 public class ServiceResponse extends ScopedResource implements Response,
 	UtilityReply {
@@ -181,7 +182,7 @@ public class ServiceResponse extends ScopedResource implements Response,
      * @return the output with the specified URI.
      */
     public List getOutput(String paramURI, boolean asMergedList) {
-	List outputs = getOutputs();
+	List<ProcessOutput> outputs = getOutputs();
 	if (outputs == null || outputs.size() == 0) {
 	    return null;
 	}
@@ -229,10 +230,10 @@ public class ServiceResponse extends ScopedResource implements Response,
      * 
      * @return all outputs of the service.
      */
-    public Map<String, List> getOutputsMap() {
-	Map<String, List> result = new HashMap<String, List>();
+    public Map<String, List<Object>> getOutputsMap() {
+	Map<String, List<Object>> result = new HashMap<String, List<Object>>();
 
-	List outputs = getOutputs();
+	List<ProcessOutput> outputs = getOutputs();
 	if (outputs == null || outputs.size() == 0) {
 	    return result;
 	}
@@ -242,33 +243,33 @@ public class ServiceResponse extends ScopedResource implements Response,
 	    if (obj instanceof ProcessOutput) {
 		ProcessOutput output = (ProcessOutput) obj;
 
-		List l = result.get(output.getURI());
+		List<Object> l = result.get(output.getURI());
 		if (l == null) {
-		    l = new ArrayList(3);
+		    l = new ArrayList<Object>(3);
 		    result.put(output.getURI(), l);
 		}
 
 		Object ob = output.getParameterValue();
 		if (ob instanceof List)
-		    l.addAll((List) ob);
+		    l.addAll((List<?>) ob);
 		else
 		    l.add(ob);
 	    } else if (obj instanceof List) {
 		// this can happen if we get responses from more than one
 		// service
-		List outputLists = (List) obj;
-		for (Iterator iter2 = outputLists.iterator(); iter2.hasNext();) {
+		List<?> outputLists = (List<?>) obj;
+		for (Iterator<?> iter2 = outputLists.iterator(); iter2.hasNext();) {
 		    ProcessOutput output = (ProcessOutput) iter2.next();
 
-		    List l = result.get(output.getURI());
+		    List<Object> l = result.get(output.getURI());
 		    if (l == null) {
-			l = new ArrayList(3);
+			l = new ArrayList<Object>(3);
 			result.put(output.getURI(), l);
 		    }
 
 		    Object ob = output.getParameterValue();
 		    if (ob instanceof List)
-			l.addAll((List) ob);
+			l.addAll((List<?>) ob);
 		    else
 			l.add(ob);
 		}

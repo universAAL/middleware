@@ -70,7 +70,7 @@ public final class UnmodifiableResource extends Resource {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#getProperty(String) */
-    public final Object getProperty(String propURI) {
+    public Object getProperty(String propURI) {
 	Object o = res.getProperty(propURI);
 	return getUnmodifiable(o);
     }
@@ -225,50 +225,50 @@ public final class UnmodifiableResource extends Resource {
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#hasQualifiedName() */
-    public final boolean hasQualifiedName() {
+    public boolean hasQualifiedName() {
 	return res.hasQualifiedName();
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#getURI() */
-    public final String getURI() {
+    public String getURI() {
 	return res.getURI();
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#getPropertyURIs() */
-    public final Enumeration getPropertyURIs() {
+    public Enumeration getPropertyURIs() {
 	return res.getPropertyURIs();
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#addType(String, boolean) */
-    public final boolean addType(String typeURI, boolean blockFurtherTypes) {
+    public boolean addType(String typeURI, boolean blockFurtherTypes) {
 	return false;
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#getLocalName() */
-    public final String getLocalName() {
+    public String getLocalName() {
 	return res.getLocalName();
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#getNamespace() */
-    public final String getNamespace() {
+    public String getNamespace() {
 	return res.getNamespace();
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#getType() */
-    public final String getType() {
+    public String getType() {
 	return res.getType();
     }
 
     /** @see org.universAAL.middleware.rdf.Resource#getTypes() */
-    public final String[] getTypes() {
+    public String[] getTypes() {
 	return res.getTypes();
     }
 
-    public final Class getClassOfUnmodifiable() {
+    public Class getClassOfUnmodifiable() {
 	return res.getClass();
     }
 
-    public final boolean instanceOf(Class c) {
+    public boolean instanceOf(Class c) {
 	return c.isAssignableFrom(res.getClass());
     }
 }

@@ -2,6 +2,7 @@ package org.universAAL.middleware.service.test;
 
 import java.util.List;
 
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ProfileExistsException;
 import org.universAAL.middleware.service.ServiceCall;
@@ -304,7 +305,7 @@ public class DistributedTest extends ServiceBusTestCase {
 	ServiceProfile profile = ProfileUtil.create_getControlledLamps(true);
 	testAllDeployments("SingleProfileGetLamps_Inject", profile,
 		new ArrayListCallHandler(ProfileUtil.OUTPUT_CONTROLLED_LAMPS,
-			lamp1), new ServiceCall(profile.getProcessURI()),
-		checker);
+			lamp1),
+		new ServiceCall(new Resource(profile.getProcessURI())), checker);
     }
 }

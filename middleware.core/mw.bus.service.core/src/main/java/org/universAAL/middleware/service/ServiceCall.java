@@ -59,8 +59,8 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
     public static final ServiceCall THIS_SERVICE_CALL;
 
     static {
-	THIS_SERVICE_CALL = new ServiceCall(null,
-		ProcessInput.OWLS_PROCESS_NAMESPACE + "ThisPerform");
+	THIS_SERVICE_CALL = new ServiceCall(ProcessInput.OWLS_PROCESS_NAMESPACE
+		+ "ThisPerform");
     }
 
     /**
@@ -90,7 +90,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 
     private Hashtable nonSemanticInput;
 
-    public ServiceCall(Object dummy, String uri) {
+    public ServiceCall(String uri) {
 	super(uri);
 	addType(MY_URI, true);
     }
@@ -127,12 +127,12 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
      * @param processURI
      *            the URI of the OWL-S perform process.
      */
-    public ServiceCall(String processURI) {
+    public ServiceCall(Resource processURI) {
 	super();
 	if (processURI == null)
 	    throw new NullPointerException();
 	addType(MY_URI, true);
-	props.put(PROP_OWLS_PERFORM_PROCESS, new Resource(processURI));
+	props.put(PROP_OWLS_PERFORM_PROCESS, processURI);
     }
 
     /**

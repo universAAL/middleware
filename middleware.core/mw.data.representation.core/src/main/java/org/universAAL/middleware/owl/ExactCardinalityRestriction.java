@@ -61,20 +61,20 @@ public final class ExactCardinalityRestriction extends PropertyRestriction {
 	super.setProperty(PROP_OWL_CARDINALITY, new NonNegativeInteger(value));
     }
 
-    public ExactCardinalityRestriction(String propURI, int value,
-	    TypeExpression ce) {
-	throw new UnsupportedOperationException("Not yet implemented");
-	// setOnProperty(propURI);
-	// super.setProperty(PROP_OWL_QUALIFIED_CARDINALITY, new
-	// Integer(value));
-    }
+    // public ExactCardinalityRestriction(String propURI, int value,
+    // TypeExpression ce) {
+    // throw new UnsupportedOperationException("Not yet implemented");
+    // // setOnProperty(propURI);
+    // // super.setProperty(PROP_OWL_QUALIFIED_CARDINALITY, new
+    // // Integer(value));
+    // }
 
     public String getClassURI() {
 	return MY_URI;
     }
 
     /** Get the value of this cardinality restriction */
-    public final int getValue() {
+    public int getValue() {
 	NonNegativeInteger i = (NonNegativeInteger) props
 		.get(PROP_OWL_CARDINALITY);
 	if (i == null)

@@ -38,10 +38,10 @@ import org.universAAL.middleware.container.osgi.uAALBundleContainer;
  */
 public final class Activator implements BundleActivator, ServiceListener {
     private BundleContext context;
-    private static ArrayList logListeners = new ArrayList(2);
+    private static ArrayList<LogListener> logListeners = new ArrayList<LogListener>(2);
     public static ModuleContext mc;
 
-    public static Iterator logListeners() {
+    public static Iterator<LogListener> logListeners() {
 	return logListeners.iterator();
     }
 
@@ -49,21 +49,18 @@ public final class Activator implements BundleActivator, ServiceListener {
 	Object service = context.getService(se.getServiceReference());
 	if (service instanceof LogListener) {
 	    if (se.getType() == ServiceEvent.REGISTERED)
-		logListeners.add(service);
+		logListeners.add((LogListener) service);
 	    else if (se.getType() == ServiceEvent.UNREGISTERING)
 		logListeners.remove(service);
 	}
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
      * @see
      * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
      * )
      */
     public void start(BundleContext arg0) throws Exception {
-	
 	context = arg0;
 	context.addServiceListener(this);
 	context.addBundleListener(new uAALBundleExtender(context));
@@ -84,14 +81,10 @@ public final class Activator implements BundleActivator, ServiceListener {
 	
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
      * @see
      * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext arg0) throws Exception {
-	// TODO Auto-generated method stub
-
     }
 }

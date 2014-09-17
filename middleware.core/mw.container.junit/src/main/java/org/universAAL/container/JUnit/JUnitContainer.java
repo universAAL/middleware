@@ -29,9 +29,9 @@ import org.universAAL.middleware.container.SharedObjectListener;
 
 /**
  * @author amedrano
- * 
+ * @author Carsten Stockloew
  */
-public class JUnitContainer implements Container {
+public final class JUnitContainer implements Container {
 
     private static JUnitContainer instance = null;
 

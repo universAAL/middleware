@@ -348,6 +348,7 @@ public class ServiceMatcher {
 	}
     }
 
+    @SuppressWarnings("PMD.CollapsibleIfStatements")
     private void processServiceUri(ServiceWrapper superset,
 	    ServiceWrapper subset, HashMap context) {
 	// uAAL_SERVICE_URI_MATCHED:

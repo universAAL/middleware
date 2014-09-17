@@ -34,7 +34,7 @@ public final class DataRepFactory implements ResourceFactory {
      * @see org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance(String,
      *      String, int)
      */
-    public final Resource createInstance(String classURI, String instanceURI,
+    public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {
 
 	switch (factoryIndex) {
