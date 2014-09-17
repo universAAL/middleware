@@ -33,7 +33,8 @@ public class ScopedResource extends FinalizedResource {
     /**
      * The property URI for holding the Destination Scopes.
      */
-    public static String PROP_SCOPES = uAAL_VOCABULARY_NAMESPACE + "hasScopes";
+    public static final String PROP_SCOPES = uAAL_VOCABULARY_NAMESPACE
+	    + "hasScopes";
 
     /**
      * The property URI for holding the Origin Scope. This property is to be
@@ -42,14 +43,14 @@ public class ScopedResource extends FinalizedResource {
      * artifacts.
      * 
      */
-    public static String PROP_ORIG_SCOPE = uAAL_VOCABULARY_NAMESPACE
+    public static final String PROP_ORIG_SCOPE = uAAL_VOCABULARY_NAMESPACE
 	    + "hasOriginScope";
 
     /**
      * A special scope indicating the Resource may not be serialized to other
      * AALSpaces.
      */
-    public static String ONLY_LOCAL_SCOPE = uAAL_VOCABULARY_NAMESPACE
+    public static final String ONLY_LOCAL_SCOPE = uAAL_VOCABULARY_NAMESPACE
 	    + "localScope";
 
     /** {@inheritDoc} */
