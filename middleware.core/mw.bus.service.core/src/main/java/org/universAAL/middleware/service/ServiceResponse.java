@@ -302,7 +302,7 @@ public class ServiceResponse extends ScopedResource implements Response,
 
     /**
      * Get the provider of the requested service. The provider is the URI of the
-     * bus member of the {@link ServiceCallee}.
+     * bus member (the {@link ServiceCallee}).
      * 
      * @return The URI of the service provider.
      */
