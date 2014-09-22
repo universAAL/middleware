@@ -159,8 +159,26 @@ public class ServiceResponse extends ScopedResource implements Response,
      *            the URI of the required output.
      * @return the output with the specified URI.
      */
-    public List getOutput(String paramURI) {
-	return getOutput(paramURI, true);
+    public List<Object> getOutput(String paramURI) {
+	List<ProcessOutput> outputs = getOutputs();
+	if (outputs == null || outputs.size() == 0) {
+	    return null;
+	}
+
+	List<Object> l = null;
+	for (ProcessOutput po : outputs) {
+	    if (po.getURI().equals(paramURI)) {
+		if (l == null)
+		    l = new ArrayList<Object>();
+		Object ob = po.getParameterValue();
+		if (ob instanceof List)
+		    l.addAll((List<?>) ob);
+		else
+		    l.add(ob);
+	    }
+	}
+
+	return l;
     }
 
     /**
@@ -180,46 +198,13 @@ public class ServiceResponse extends ScopedResource implements Response,
      *            This parameter is not available at the moment and should be
      *            set to <tt>true</tt>
      * @return the output with the specified URI.
+     * @deprecated The parameter asMergedList is not used anymore since
+     *             {@link MultiServiceResponse} was introduced. Use
+     *             {@link #getOutput(String)} instead.
      */
+    @Deprecated
     public List getOutput(String paramURI, boolean asMergedList) {
-	List<ProcessOutput> outputs = getOutputs();
-	if (outputs == null || outputs.size() == 0) {
-	    return null;
-	}
-
-	List result = new ArrayList();
-
-	// iterate over the available output parameters
-	for (Iterator iter1 = outputs.iterator(); iter1.hasNext();) {
-	    Object obj = iter1.next();
-	    if (obj instanceof ProcessOutput) {
-		ProcessOutput output = (ProcessOutput) obj;
-		// check by the param URI if this is the right output
-		if (output.getURI().equals(paramURI)) {
-		    Object ob = output.getParameterValue();
-		    if (asMergedList && ob instanceof List)
-			result.addAll((List) ob);
-		    else
-			result.add(ob);
-		}
-	    } else if (obj instanceof List) {
-		// this can happen if we get responses from more than one
-		// service
-		List outputLists = (List) obj;
-		for (Iterator iter2 = outputLists.iterator(); iter2.hasNext();) {
-		    ProcessOutput output = (ProcessOutput) iter2.next();
-		    if (output.getURI().equals(paramURI)) {
-			Object ob = output.getParameterValue();
-			if (asMergedList && ob instanceof List)
-			    result.addAll((List) ob);
-			else
-			    result.add(ob);
-		    }
-		}
-	    }
-	}
-
-	return result;
+	return getOutput(paramURI);
     }
 
     /**
@@ -284,7 +269,7 @@ public class ServiceResponse extends ScopedResource implements Response,
      * Retrieves all of the service outputs as a raw <code>List</code> without
      * any rearranging.
      * 
-     * @return the outputs that the invoked services produced.
+     * @return the outputs that the invoked services produced. May be null.
      */
     public List<ProcessOutput> getOutputs() {
 	return (List<ProcessOutput>) props.get(PROP_SERVICE_HAS_OUTPUT);
