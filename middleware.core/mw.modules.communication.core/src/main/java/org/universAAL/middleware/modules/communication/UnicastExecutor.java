@@ -33,7 +33,7 @@ import org.universAAL.middleware.modules.listener.MessageListener;
 
 /**
  * Thread for sending unicast messages
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
@@ -49,37 +49,37 @@ public class UnicastExecutor implements Runnable {
     private ModuleContext mc;
 
     public UnicastExecutor(ChannelMessage message,
-            CommunicationConnector communicationConnector, PeerCard receiver,
-            List<MessageListener> listeners, ModuleContext moduleContext) {
-        super();
-        this.message = message;
-        this.communicationConnector = communicationConnector;
-        this.receiver = receiver;
-        this.listeners = listeners;
-        this.mc = moduleContext;
+	    CommunicationConnector communicationConnector, PeerCard receiver,
+	    List<MessageListener> listeners, ModuleContext moduleContext) {
+	super();
+	this.message = message;
+	this.communicationConnector = communicationConnector;
+	this.receiver = receiver;
+	this.listeners = listeners;
+	this.mc = moduleContext;
     }
 
     public void run() {
 
-        try {
-            LogUtils.logInfo(
-                    mc,
-                    UnicastExecutor.class,
-                    "run()",
-                    new Object[] { "Preparing to send data to "
-                            + receiver.getPeerID()
-                            + " the message to deliver is " + message }, null);
-            communicationConnector.unicast(message, receiver.getPeerID());
-        } catch (CommunicationConnectorException e) {
-            for (MessageListener listener : listeners)
-                listener.handleSendError(message, e);
-        } catch (Throwable t) {
-            final String msg = ExceptionUtils.stackTraceAsString(t);
-            final CommunicationConnectorException e = new CommunicationConnectorException(
-                    -1, msg);
-            for (MessageListener listener : listeners)
-                listener.handleSendError(message, e);
-        }
+	try {
+	    LogUtils.logInfo(
+		    mc,
+		    UnicastExecutor.class,
+		    "run()",
+		    new Object[] { "Preparing to send data to "
+			    + receiver.getPeerID()
+			    + " the message to deliver is " + message }, null);
+	    communicationConnector.unicast(message, receiver.getPeerID());
+	} catch (CommunicationConnectorException e) {
+	    for (MessageListener listener : listeners)
+		listener.handleSendError(message, e);
+	} catch (Throwable t) {
+	    final String msg = ExceptionUtils.stackTraceAsString(t);
+	    final CommunicationConnectorException e = new CommunicationConnectorException(
+		    -1, msg);
+	    for (MessageListener listener : listeners)
+		listener.handleSendError(message, e);
+	}
     }
 
 }

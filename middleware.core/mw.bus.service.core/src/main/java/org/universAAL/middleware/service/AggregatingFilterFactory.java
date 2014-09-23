@@ -80,7 +80,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * </li>
  * </ul>
  * 
- * @author Carsten Stocklöw
+ * @author Carsten Stockloew
  */
 public class AggregatingFilterFactory {
     /**

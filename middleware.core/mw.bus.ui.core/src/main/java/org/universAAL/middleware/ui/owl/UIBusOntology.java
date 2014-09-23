@@ -90,8 +90,7 @@ public class UIBusOntology extends Ontology {
 
 	// load AccessImpairment
 	oci = createNewOntClassInfo(AccessImpairment.MY_URI, factory, 3);
-	oci
-		.setResourceComment("General concept for representing impairments of the users in accessing the uAAL system.");
+	oci.setResourceComment("General concept for representing impairments of the users in accessing the uAAL system.");
 	oci.setResourceLabel("Access Impairment");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
 	oci.addObjectProperty(AccessImpairment.PROP_IMPAIRMENT_LEVEL)
@@ -103,19 +102,15 @@ public class UIBusOntology extends Ontology {
 
 	// load DialogType
 	oci = createNewAbstractOntClassInfo(DialogType.MY_URI);
-	oci
-		.setResourceComment("An enumeration for specifying the type of a dialog published to the UI bus.");
+	oci.setResourceComment("An enumeration for specifying the type of a dialog published to the UI bus.");
 	oci.setResourceLabel("Dialog Type");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
-	oci
-		.toEnumeration(new ManagedIndividual[] { DialogType.sysMenu,
-			DialogType.message, DialogType.subdialog,
-			DialogType.stdDialog });
+	oci.toEnumeration(new ManagedIndividual[] { DialogType.sysMenu,
+		DialogType.message, DialogType.subdialog, DialogType.stdDialog });
 
 	// load Modality
 	oci = createNewAbstractOntClassInfo(Modality.MY_URI);
-	oci
-		.setResourceComment("An enumeration for specifying the modality of information.");
+	oci.setResourceComment("An enumeration for specifying the modality of information.");
 	oci.setResourceLabel("Modality");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
 	oci.toEnumeration(new ManagedIndividual[] { Modality.voice,
@@ -124,18 +119,16 @@ public class UIBusOntology extends Ontology {
 
 	// load PrivacyLevel
 	oci = createNewAbstractOntClassInfo(PrivacyLevel.MY_URI);
-	oci
-		.setResourceComment("An enumeration for specifying the privacy level of information.");
+	oci.setResourceComment("An enumeration for specifying the privacy level of information.");
 	oci.setResourceLabel("Privacy Level");
 	oci.addSuperClass(ComparableIndividual.MY_URI);
 	oci.toEnumeration(new ManagedIndividual[] { PrivacyLevel.personal,
 		PrivacyLevel.homeMatesOnly, PrivacyLevel.intimatesOnly,
 		PrivacyLevel.knownPeopleOnly, PrivacyLevel.insensible });
-	
+
 	// load Recommendation
 	oci = createNewAbstractOntClassInfo(Recommendation.MY_URI);
-	oci
-		.setResourceComment("General concept for representing modality recommendations for any FormElements.");
+	oci.setResourceComment("General concept for representing modality recommendations for any FormElements.");
 	oci.setResourceLabel("Recommendation");
 	oci.addSuperClass(ManagedIndividual.MY_URI);
     }

@@ -22,6 +22,7 @@ import org.universAAL.middleware.interfaces.PeerCard;
 
 /**
  * Used for entities that are only applicable for the given module and instance.
+ * 
  * @author amedrano
  * @see InstanceScope
  */
@@ -31,9 +32,10 @@ public final class ModuleScope extends InstanceScope {
      * The module identifier.
      */
     private String moduleId;
-    
+
     /**
      * Constructor using strings.
+     * 
      * @param id
      * @param peerID
      * @param moduleID
@@ -41,18 +43,26 @@ public final class ModuleScope extends InstanceScope {
     public ModuleScope(String id, String peerID, String moduleID) {
 	super(id, peerID);
 	if (moduleID == null || moduleID.isEmpty())
-	    throw new IllegalArgumentException("moduleID cannot be null or empty");
-        if (moduleID.matches(FORBIDDEN)){
-            throw new IllegalArgumentException("moduleID contains forbiden format");
-        }
+	    throw new IllegalArgumentException(
+		    "moduleID cannot be null or empty");
+	if (moduleID.matches(FORBIDDEN)) {
+	    throw new IllegalArgumentException(
+		    "moduleID contains forbiden format");
+	}
 	this.moduleId = moduleID;
     }
-    
+
     /**
-     * Constructor using default instance (this), and ModuleContext for module Id.
-     * @param id unique id.
-     * @param pc for the instance which the scope is meant for, must not be null.
-     * @param mc for the Module which the scope is meant for, must not be null.
+     * Constructor using default instance (this), and ModuleContext for module
+     * Id.
+     * 
+     * @param id
+     *            unique id.
+     * @param pc
+     *            for the instance which the scope is meant for, must not be
+     *            null.
+     * @param mc
+     *            for the Module which the scope is meant for, must not be null.
      */
     public ModuleScope(String id, PeerCard pc, ModuleContext mc) {
 	this(id, pc.getPeerID(), mc.getID());
@@ -60,9 +70,10 @@ public final class ModuleScope extends InstanceScope {
 
     /**
      * Get the set Module Id.
+     * 
      * @return
      */
-    public String getModuleID(){
+    public String getModuleID() {
 	return moduleId;
     }
 }

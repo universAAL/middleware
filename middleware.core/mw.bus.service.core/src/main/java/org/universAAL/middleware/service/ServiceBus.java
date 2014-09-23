@@ -20,8 +20,10 @@
 package org.universAAL.middleware.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
@@ -56,7 +58,56 @@ public interface ServiceBus {
     public static final String LOG_MATCHING_MISMATCH_CODE = "\nmismatch code: ";
     public static final String LOG_MATCHING_MISMATCH_DETAILS = "\ndetailed mismatch message: ";
 
-    public static final String uAAL_SERVICE_BUS_MODULE_CONTEXT = "uaal:mw.bus.service#moduleContext";
+    /**
+     * The call injector allows to directly call a service with a
+     * {@link ServiceCall}. There is no matchmaking done and the callee needs to
+     * be known. This is not the normal way of invoking a service; normally, a
+     * {@link ServiceRequest} should be sent.
+     * 
+     * This interface is separated from the rest of the bus to have a different
+     * shared object and, thus, to allow for low-level security. In OSGi terms,
+     * this would be a separate OSGi service that the application needs to have
+     * permissions to use.
+     * 
+     * @author Carsten Stockloew
+     * 
+     */
+    public interface CallInjector {
+	/**
+	 * Can be used by {@link ServiceCallInjector} to inject a
+	 * {@link ServiceCall} to the bus. Compared to the
+	 * {@link #brokerRequest(String, BusMessage)} method that is used by the
+	 * {@link ServiceCaller}, there is no matchmaking; the call will be sent
+	 * directly to a given {@link ServiceCallee}.
+	 * 
+	 * @param callerID
+	 *            the ID of the caller that is sending the call.
+	 * @param receiver
+	 *            the {@link PeerCard} of the node that hosts the callee.
+	 * @param request
+	 *            the actual request message.
+	 */
+	public void brokerCall(String callerID, PeerCard receiver,
+		BusMessage call);
+
+	/**
+	 * Can be used by {@link ServiceCallInjector} to inject a
+	 * {@link ServiceCall} to the bus. Compared to the
+	 * {@link #brokerRequest(String, BusMessage)} method that is used by the
+	 * {@link ServiceCaller}, there is no matchmaking; the call will be sent
+	 * directly to a given {@link ServiceCallee}.
+	 * 
+	 * @param callerID
+	 *            the ID of the caller that is sending the call.
+	 * @param receiver
+	 *            the URI of the bus member that has registered the matching
+	 *            {@link ServiceProfile}. Only the identifier of the node
+	 *            that hosts the callee is used from the bus member URI.
+	 * @param request
+	 *            the actual request message.
+	 */
+	public void brokerCall(String callerID, String receiver, BusMessage call);
+    }
 
     /**
      * Adds an availability subscription, in other words a listener, to receive
@@ -77,17 +128,24 @@ public interface ServiceBus {
 
     /**
      * Registers (advertises) new services (by providing descriptions of them)
-     * that will be provided by the ServiceCalee with the specified ID.
+     * that will be provided by the ServiceCallee with the specified ID.
      * 
      * @param calleeID
-     *            the ID of the ServiceCalee that is advertising new services on
-     *            the service bus.
+     *            the ID of the ServiceCallee that is advertising new services
+     *            on the service bus.
      * @param realizedServices
      *            the description of the new services in terms of an array of
      *            service profiles.
+     * @param throwOnDuplicateReg
+     *            Specifies whether this method should throw an exception or
+     *            just ignore it when a profile is registered with a process URI
+     *            that is already registered.
+     * @throws ProfileExistsException
+     *             if one of the profiles exists already. In that case, none of
+     *             the profiles will be registered.
      */
     public void addNewServiceProfiles(String calleeID,
-	    ServiceProfile[] realizedServices);
+	    ServiceProfile[] realizedServices, boolean throwOnDuplicateReg);
 
     /**
      * A method used to retrieve the descriptions of all services advertised on
@@ -233,5 +291,6 @@ public interface ServiceBus {
      *         in the service bus that are instances of the given service class.
      *         Returned profiles are stored in value part of map in a List.
      */
-    public HashMap getMatchingServices(String serviceClassURI);
+    public HashMap<String, List<ServiceProfile>> getMatchingServices(
+	    String serviceClassURI);
 }

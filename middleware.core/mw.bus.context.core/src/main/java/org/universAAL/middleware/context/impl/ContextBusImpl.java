@@ -58,27 +58,24 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 
     public synchronized void assessContentSerialization(Resource content) {
 	if (Constants.debugMode()) {
-	    LogUtils
-		    .logDebug(
-			    context,
-			    ContextBusImpl.class,
-			    "assessContentSerialization",
-			    new Object[] { "Assessing message content serialization:" },
-			    null);
+	    LogUtils.logDebug(
+		    context,
+		    ContextBusImpl.class,
+		    "assessContentSerialization",
+		    new Object[] { "Assessing message content serialization:" },
+		    null);
 	    // System.out.println(new RuntimeException().getStackTrace()[1]);
 
 	    String str = BusMessage.trySerializationAsContent(content);
-	    LogUtils
-		    .logDebug(
-			    context,
-			    ContextBusImpl.class,
-			    "assessContentSerialization",
-			    new Object[] { "\n      1. serialization dump\n",
-				    str,
-				    "\n      2. deserialize & compare with the original resource\n" },
-			    null);
-	    new ResourceComparator().printDiffs(content, (Resource) BusMessage
-		    .deserializeAsContent(str));
+	    LogUtils.logDebug(
+		    context,
+		    ContextBusImpl.class,
+		    "assessContentSerialization",
+		    new Object[] { "\n      1. serialization dump\n", str,
+			    "\n      2. deserialize & compare with the original resource\n" },
+		    null);
+	    new ResourceComparator().printDiffs(content,
+		    (Resource) BusMessage.deserializeAsContent(str));
 	}
     }
 
@@ -95,7 +92,8 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 
     public static void stopModule() {
 	if (theContextBus != null) {
-	    OntologyManagement.getInstance().unregister(theContextBus.context, contextBusOntology);
+	    OntologyManagement.getInstance().unregister(theContextBus.context,
+		    contextBusOntology);
 	    contextBusOntology = null;
 	    theContextBus.dispose();
 	    theContextBus = null;
@@ -122,6 +120,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 		((ContextStrategy) busStrategy).addRegParams(
 			(ContextPublisher) o, registrParams);
 	    }
+	    registry.addRegParams(memberID, registrParams);
 	}
     }
 
@@ -147,6 +146,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 		((ContextStrategy) busStrategy).removeMatchingRegParams(
 			(ContextPublisher) o, oldRegistrParams);
 	    }
+	    registry.removeRegParams(memberID, oldRegistrParams);
 	}
     }
 
@@ -167,7 +167,7 @@ public class ContextBusImpl extends AbstractBus implements ContextBus {
 	super.unregister(subscriberID, subscriber);
 	((ContextStrategy) busStrategy).removeRegParams(subscriber);
     }
-    
+
     @Override
     public void unregister(String memberID, BusMember m) {
 	if (m instanceof ContextPublisher)

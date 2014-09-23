@@ -46,16 +46,21 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  * <li>Coordinator_Resign: used by the coordinator instance to resign from being
  * a coordinator.
  * </ol>
- * <center> <img style="background-color:white;" src="doc-files/CoordinatedStrategy.png"
- * alt="UIStrategy messages" width="70%"/> </center>
- * The strategy subscribes to the {@link AALSpaceManager} to listen to 
- * {@link CoordinatedStrategy#peerLost(PeerCard) lost peers}, in case they are the coordinator;
- * or if the Coordinator has left the coordinated space, it automatically surrenders coordination.
- * Also {@link CoordinatedStrategy#newPeerJoined(PeerCard) new Peers} joining the space will proactively be informed about who is the coordinator.
+ * <center> <img style="background-color:white;"
+ * src="doc-files/CoordinatedStrategy.png" alt="UIStrategy messages"
+ * width="70%"/> </center> The strategy subscribes to the
+ * {@link AALSpaceManager} to listen to
+ * {@link CoordinatedStrategy#peerLost(PeerCard) lost peers}, in case they are
+ * the coordinator; or if the Coordinator has left the coordinated space, it
+ * automatically surrenders coordination. Also
+ * {@link CoordinatedStrategy#newPeerJoined(PeerCard) new Peers} joining the
+ * space will proactively be informed about who is the coordinator.
+ * 
  * @author amedrano
  * 
  */
-public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceListener, SharedObjectListener{
+public class CoordinatedStrategy extends CallBasedStrategy implements
+	AALSpaceListener, SharedObjectListener {
 
     /**
      * 
@@ -92,7 +97,8 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 			"detected multiple peers requesing to be coordinator");
 		Random r = new Random(bus.getPeerCard().getPeerID().hashCode());
 		int waitms = 50 + r.nextInt() % 950;
-		if(waitms<50)waitms=50;//Just in case it becomes <0 (!?)
+		if (waitms < 50)
+		    waitms = 50;// Just in case it becomes <0 (!?)
 		try {
 		    // wait between 50 and 1000 ms
 		    Thread.sleep(waitms);
@@ -147,7 +153,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 
     private class CoordinatorMessageFactory implements ResourceFactory {
 
-	/** {@ inheritDoc}	 */
+	/** {@ inheritDoc} */
 	public Resource createInstance(String classURI, String instanceURI,
 		int factoryIndex) {
 	    switch (factoryIndex) {
@@ -162,10 +168,10 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	    }
 	    return null;
 	}
-	
+
     }
-    
-    private class CoordinatorMessageOnt extends Ontology{
+
+    private class CoordinatorMessageOnt extends Ontology {
 	private CoordinatorMessageFactory factory;
 
 	/**
@@ -176,14 +182,17 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	    factory = new CoordinatorMessageFactory();
 	}
 
-	/** {@ inheritDoc}	 */
+	/** {@ inheritDoc} */
 	public void create() {
-	    createNewRDFClassInfo(TYPE_uAAL_UI_BUS_COORDINATOR_BROADCAST, factory, 0);
-	    createNewRDFClassInfo(TYPE_uAAL_UI_BUS_COORDINATOR_RESIGN, factory, 1);
-	    createNewRDFClassInfo(TYPE_uAAL_UI_BUS_COORDINATOR_REQUEST, factory, 2);
+	    createNewRDFClassInfo(TYPE_uAAL_UI_BUS_COORDINATOR_BROADCAST,
+		    factory, 0);
+	    createNewRDFClassInfo(TYPE_uAAL_UI_BUS_COORDINATOR_RESIGN, factory,
+		    1);
+	    createNewRDFClassInfo(TYPE_uAAL_UI_BUS_COORDINATOR_REQUEST,
+		    factory, 2);
 	}
     }
-    
+
     /**
      * Exception indicating there is already a Coordinator.
      * 
@@ -217,21 +226,22 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
     private PeerCard coordinatorPeer;
 
     /**
-     * @param coordinatorPeer the coordinatorPeer to set
+     * @param coordinatorPeer
+     *            the coordinatorPeer to set
      */
     private final void setCoordinatorPeer(PeerCard coordinatorPeer) {
-        this.coordinatorPeer = coordinatorPeer;
-        if (this.coordinatorPeer == null){
-            lostCoordinator();
-        }
+	this.coordinatorPeer = coordinatorPeer;
+	if (this.coordinatorPeer == null) {
+	    lostCoordinator();
+	}
     }
 
-
     /**
-     * Extending classes may override this method to perform 
-     * any opertation needed when the coordinator is lost.
+     * Extending classes may override this method to perform any opertation
+     * needed when the coordinator is lost.
      */
-    protected void lostCoordinator() {  }
+    protected void lostCoordinator() {
+    }
 
     private CoordinatorMessageOnt ontology;
 
@@ -250,12 +260,11 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	super(commModule, name);
     }
 
-
-    
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public synchronized void start() {
 	super.start();
-	ontology = new CoordinatorMessageOnt(Resource.uAAL_NAMESPACE_PREFIX + "CoordinatedStrategyMessageOntology");
+	ontology = new CoordinatorMessageOnt(Resource.uAAL_NAMESPACE_PREFIX
+		+ "CoordinatedStrategyMessageOntology");
 	OntologyManagement.getInstance().register(busModule, ontology);
 	if (busModule.getContainer() != null) {
 	    Object o = busModule.getContainer().fetchSharedObject(busModule,
@@ -335,76 +344,81 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	return coordinatorPeer;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor) {
 	/*
-	 * NOTHING, wait for notification of the coordinator or for 
-	 * one of the busmembers to request a coordinator
+	 * NOTHING, wait for notification of the coordinator or for one of the
+	 * busmembers to request a coordinator
 	 */
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor) {
 	/*
 	 * I have left the AALSPace. If i was the coordinator, no longer
 	 */
-	if (iAmCoordinator()){
+	if (iAmCoordinator()) {
 	    synchronized (this) {
 		setCoordinatorPeer(null);
-		LogUtils.logInfo(busModule, getClass(), "aalSpaceLost", "Lost the space to Coordinate.");
+		LogUtils.logInfo(busModule, getClass(), "aalSpaceLost",
+			"Lost the space to Coordinate.");
 		// TODO give a notification? so coordination may be reattempted.
 	    }
 	}
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void newPeerJoined(PeerCard peer) {
 	/*
-	 * A new Peer has joined, If i am the coordinator 
-	 * show him that I am the king of the place
+	 * A new Peer has joined, If i am the coordinator show him that I am the
+	 * king of the place
 	 */
-	if (iAmCoordinator() && peer != bus.getPeerCard()){
-	    //wellcome
+	if (iAmCoordinator() && peer != bus.getPeerCard()) {
+	    // wellcome
 	    sendEventToRemoteBusMember(peer, new CoordinatorAnnounceEvent());
 	    // kneel before my presence!
 	    // muahahaHAHA
 	}
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void peerLost(PeerCard peer) {
 	/*
 	 * If the lost peer is the coordinator, well have to wait for a new one
 	 */
-	if (peer == coordinatorPeer){
+	if (peer == coordinatorPeer) {
 	    setCoordinatorPeer(null);
-	    LogUtils.logInfo(busModule, getClass(), "peerLost", "Lost the Coordinator.");
+	    LogUtils.logInfo(busModule, getClass(), "peerLost",
+		    "Lost the Coordinator.");
 	}
     }
 
-    /** {@ inheritDoc}	 */
-    public void aalSpaceStatusChanged(AALSpaceStatus status) {}
+    /** {@ inheritDoc} */
+    public void aalSpaceStatusChanged(AALSpaceStatus status) {
+    }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void sharedObjectAdded(Object sharedObj, Object removeHook) {
-	if (sharedObj instanceof AALSpaceManager){
-	    ((AALSpaceManager)sharedObj).addAALSpaceListener(this);
+	if (sharedObj instanceof AALSpaceManager) {
+	    ((AALSpaceManager) sharedObj).addAALSpaceListener(this);
 	}
     }
 
-    /** {@ inheritDoc}	 */
-    public void sharedObjectRemoved(Object removeHook) { }
+    /** {@ inheritDoc} */
+    public void sharedObjectRemoved(Object removeHook) {
+    }
 
     /** Tearing down */
     public void close() {
-	if (iAmCoordinator()){
+	if (iAmCoordinator()) {
 	    sendEventToRemoteBusMember(new CoordinatorResignEvent());
 	}
 	OntologyManagement.getInstance().unregister(busModule, ontology);
-	Object o = busModule.getContainer().fetchSharedObject(busModule, new Object[]{AALSpaceManager.class.getName()});
-	if (o instanceof AALSpaceManager){
-	    ((AALSpaceManager)o).removeAALSpaceListener(this);
+	Object o = busModule.getContainer().fetchSharedObject(busModule,
+		new Object[] { AALSpaceManager.class.getName() });
+	if (o instanceof AALSpaceManager) {
+	    ((AALSpaceManager) o).removeAALSpaceListener(this);
 	}
     }
-    
+
 }

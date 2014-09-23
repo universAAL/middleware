@@ -17,9 +17,9 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 package org.universAAL.middleware.api;
- 
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -231,9 +231,9 @@ public class SimpleServiceRegistrator {
 		if (returnType != void.class) {
 		    String methodName = m.getName();
 		    if (methodName.startsWith("get") && methodName.length() > 3) {
-			methodName = String.format("%s%s", Character
-				.toLowerCase(methodName.charAt(3)), methodName
-				.substring(4));
+			methodName = String.format("%s%s",
+				Character.toLowerCase(methodName.charAt(3)),
+				methodName.substring(4));
 		    }
 		    final String finalOutputName = namespace + methodName;
 		    outputs.add(finalOutputName);
@@ -311,9 +311,9 @@ public class SimpleServiceRegistrator {
 			methodParameterAnnotations);
 		profiles.add(createServiceProfileForMethod(namespace, name,
 			serviceName, methodParameterAnnotations,
-			methodParameterTypes, methodOutputAnnotations, m
-				.getReturnType(), methodChangeEffects,
-			ontologyUri, defaultOutputCardinality));
+			methodParameterTypes, methodOutputAnnotations,
+			m.getReturnType(), methodChangeEffects, ontologyUri,
+			defaultOutputCardinality));
 	    }
 	}
 
@@ -322,8 +322,8 @@ public class SimpleServiceRegistrator {
 		    "Cannot found @ServiceOperation annotation in provided interface methods.");
 	}
 
-	ServiceCalleeWrapper wrapper = new ServiceCalleeWrapper(mc, profiles
-		.toArray(new ServiceProfile[0]), o, namespace, name,
+	ServiceCalleeWrapper wrapper = new ServiceCalleeWrapper(mc,
+		profiles.toArray(new ServiceProfile[0]), o, namespace, name,
 		annotatedMethods, annotatedOutputNames, annotatedOutputs,
 		annotatedMethodsParametersNames, annotatedMethodsParameters);
 	wrappers.add(wrapper);
@@ -449,8 +449,8 @@ public class SimpleServiceRegistrator {
 	}
 	for (int i = 0; i < methodChangeEffects.size(); i++) {
 	    ChangeEffect ce = methodChangeEffects.get(i);
-	    srv.addChangeEffectWrapper(ce.propertyPaths(), ce.value(), ce
-		    .valueType());
+	    srv.addChangeEffectWrapper(ce.propertyPaths(), ce.value(),
+		    ce.valueType());
 	}
 	return srv.getProfile();
     }

@@ -21,7 +21,6 @@ package org.universAAL.middleware.service;
 
 import java.util.List;
 
-import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;

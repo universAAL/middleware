@@ -324,7 +324,8 @@ public class ArtifactIT extends IntegrationTest {
 
     public void testSubscriptions() {
 	logInfo("-Test 6-", null);
-	OntologyManagement.getInstance().register(Activator.getModuleContext(), new TestOntology());
+	OntologyManagement.getInstance().register(Activator.getModuleContext(),
+		new TestOntology());
 
 	SyncContextSubscriber c1, c2, c3, c4, c5, c6, c7;
 	ContextPublisher cpublisher = null;
@@ -389,7 +390,8 @@ public class ArtifactIT extends IntegrationTest {
 	cpublisher.publish(e);
 	try {
 	    for (int i = 0; i < 7; i++) {
-		retrieved = (Integer) queue.poll(timeout, TimeUnit.MILLISECONDS);
+		retrieved = (Integer) queue
+			.poll(timeout, TimeUnit.MILLISECONDS);
 		if (retrieved != null) {
 		    good.add(retrieved);
 		}

@@ -23,23 +23,20 @@ import org.universAAL.middleware.rdf.Resource;
 
 /**
  * @author amedrano
- *
+ * 
  */
-public abstract class CallMessage<Strategy extends CallBasedStrategy> 
-	extends Resource
-	implements EventMessage<Strategy> {
+public abstract class CallMessage<Strategy extends CallBasedStrategy> extends
+	Resource implements EventMessage<Strategy> {
 
-
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void onReceived(Strategy strategy, BusMessage m, String senderID) {
 	if (m.getType().equals(MessageType.p2p_request)
-		|| m.getType().equals(MessageType.request)){
+		|| m.getType().equals(MessageType.request)) {
 	    onRequest(strategy, m, senderID);
-	}
-	else {
+	} else {
 	    onResponse(strategy, m, senderID);
 	}
-	
+
     }
 
     /**
@@ -47,13 +44,15 @@ public abstract class CallMessage<Strategy extends CallBasedStrategy>
      * @param m
      * @param senderID
      */
-    protected abstract void onRequest(Strategy strategy, BusMessage m, String senderID);
+    protected abstract void onRequest(Strategy strategy, BusMessage m,
+	    String senderID);
 
     /**
      * @param strategy
      * @param m
      * @param senderID
      */
-    protected abstract void onResponse(Strategy strategy, BusMessage m, String senderID);
+    protected abstract void onResponse(Strategy strategy, BusMessage m,
+	    String senderID);
 
 }

@@ -39,7 +39,7 @@ import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.rdf.TypeMapper;
 
 public final class OntologyTest {
-    
+
     private OntologyTest() {
     }
 
@@ -52,8 +52,8 @@ public final class OntologyTest {
      * @param info
      *            the ontology class.
      */
-    public static boolean postTestClass(Ontology ont,
-	    OntClassInfo info, HashMap<String, String> dbgClass) {
+    public static boolean postTestClass(Ontology ont, OntClassInfo info,
+	    HashMap<String, String> dbgClass) {
 	ResourceFactory fact = info.getFactory();
 	if (fact == null)
 	    // must be an abstract class

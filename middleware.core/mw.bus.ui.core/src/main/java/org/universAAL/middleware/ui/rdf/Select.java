@@ -129,8 +129,7 @@ public class Select extends Input {
 	    if (elems[i] == null)
 		return false;
 	    String label = (elems[i] instanceof Resource) ? ((Resource) elems[i])
-		    .getResourceLabel()
-		    : null;
+		    .getResourceLabel() : null;
 	    if (label == null)
 		label = elems[i].toString();
 	    addChoiceItem(new ChoiceItem(StringUtils.deriveLabel(label), null,

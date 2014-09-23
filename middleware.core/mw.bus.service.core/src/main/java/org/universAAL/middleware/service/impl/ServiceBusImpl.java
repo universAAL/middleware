@@ -20,6 +20,7 @@
 package org.universAAL.middleware.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.model.AbstractBus;
@@ -27,9 +28,9 @@ import org.universAAL.middleware.bus.model.BusStrategy;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.connectors.exception.CommunicationConnectorException;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
-import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
@@ -49,15 +50,47 @@ import org.universAAL.middleware.util.ResourceComparator;
  *         Tazari</a>
  * 
  */
-public class ServiceBusImpl extends AbstractBus implements ServiceBus {
+public final class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     private static Object[] busFetchParams;
+    private static Object[] busRemoveParams;
+    private static Object[] busInjectFetchParams;
+    private static Object[] busInjectRemoveParams;
     private static ServiceBusImpl theServiceBus = null;
+    private static CallInjectorImpl theCallInjector = null;
     private static ServiceBusOntology serviceOntology = null;
     private static ModuleContext mc;
 
+    public static class CallInjectorImpl implements CallInjector {
+	ServiceStrategy busStrategy;
+
+	public CallInjectorImpl(ServiceStrategy busStrategy) {
+	    this.busStrategy = busStrategy;
+	}
+
+	public void brokerCall(String callerID, PeerCard receiver,
+		BusMessage call) {
+	    if (callerID == null)
+		throw new NullPointerException("Caller ID cannot be null");
+	    if (receiver == null)
+		throw new NullPointerException("Receiver cannot be null");
+	    if (call == null)
+		throw new NullPointerException("Call cannot be null");
+	    busStrategy.injectCall(callerID, call, receiver);
+	}
+
+	public void brokerCall(String callerID, String receiver, BusMessage call) {
+	    brokerCall(callerID,
+		    AbstractBus.getPeerFromBusResourceURI(receiver), call);
+	}
+    }
+
     public static Object[] getServiceBusFetchParams() {
 	return busFetchParams.clone();
+    }
+
+    public static Object[] getServiceBusInjectFetchParams() {
+	return busInjectFetchParams.clone();
     }
 
     public synchronized void assessContentSerialization(Resource content) {
@@ -82,26 +115,44 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	}
     }
 
-    public static synchronized void startModule(Container c, ModuleContext mc,
-	    Object[] serviceBusShareParams, Object[] serviceBusFetchParams) {
+    public static synchronized void startModule(ModuleContext mc,
+	    Object[] serviceBusShareParams, Object[] serviceBusFetchParams,
+	    Object[] serviceBusInjectShareParams,
+	    Object[] serviceBusInjectFetchParams) {
 	if (theServiceBus == null) {
+	    busFetchParams = serviceBusFetchParams;
+	    busInjectFetchParams = serviceBusInjectShareParams;
 	    ServiceBusImpl.mc = mc;
 	    serviceOntology = new ServiceBusOntology();
 	    OntologyManagement.getInstance().register(mc, serviceOntology);
 	    theServiceBus = new ServiceBusImpl(mc);
-	    busFetchParams = serviceBusFetchParams;
-	    c.shareObject(mc, theServiceBus, serviceBusShareParams);
+	    ServiceBusImpl.busRemoveParams = serviceBusShareParams;
+	    ServiceBusImpl.busInjectRemoveParams = serviceBusInjectShareParams;
+	    mc.getContainer().shareObject(mc, theServiceBus,
+		    serviceBusShareParams);
+	    theCallInjector = new CallInjectorImpl(
+		    (ServiceStrategy) theServiceBus.busStrategy);
+	    mc.getContainer().shareObject(mc, theCallInjector,
+		    serviceBusInjectShareParams);
 	}
     }
 
     public static void stopModule() {
 	if (theServiceBus != null) {
 	    OntologyManagement.getInstance().unregister(mc, serviceOntology);
+	    mc.getContainer().removeSharedObject(mc, theServiceBus,
+		    busRemoveParams);
+	    mc.getContainer().removeSharedObject(mc, theCallInjector,
+		    busInjectRemoveParams);
 	    serviceOntology = null;
 	    theServiceBus.dispose();
 	    theServiceBus = null;
+	    busFetchParams = null;
+	    busRemoveParams = null;
+	    theCallInjector = null;
+	    busInjectFetchParams = null;
+	    busInjectRemoveParams = null;
 	}
-
     }
 
     private ServiceBusImpl(ModuleContext mc) {
@@ -131,10 +182,11 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
      *      ServiceProfile[])
      */
     public void addNewServiceProfiles(String calleeID,
-	    ServiceProfile[] realizedServices) {
+	    ServiceProfile[] realizedServices, boolean throwOnDuplicateReg) {
 	if (calleeID != null) {
 	    ((ServiceStrategy) busStrategy).addRegParams(calleeID,
-		    realizedServices);
+		    realizedServices, throwOnDuplicateReg);
+	    registry.addRegParams(calleeID, realizedServices);
 	}
     }
 
@@ -164,7 +216,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
     /**
      * @see ServiceBus#getMatchingService(String)
      */
-    public HashMap getMatchingServices(String s) {
+    public HashMap<String, List<ServiceProfile>> getMatchingServices(String s) {
 	return ((ServiceStrategy) busStrategy)
 		.getAllServiceProfilesWithCalleeIDs(s);
     }
@@ -199,6 +251,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	if (calleeID != null) {
 	    ((ServiceStrategy) busStrategy).removeMatchingRegParams(calleeID,
 		    realizedServices);
+	    registry.removeRegParams(calleeID, realizedServices);
 	}
     }
 
@@ -244,7 +297,7 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 	    super.unregister(callerID, caller);
 	}
     }
-    
+
     @Override
     public void unregister(String memberID, BusMember m) {
 	if (m instanceof ServiceCallee)
@@ -255,12 +308,11 @@ public class ServiceBusImpl extends AbstractBus implements ServiceBus {
 
     @Override
     protected BusStrategy createBusStrategy(CommunicationModule commModule) {
-	return new ServiceStrategy(commModule, context);
+	return new ServiceStrategy(commModule);
     }
 
     public void handleSendError(ChannelMessage message,
 	    CommunicationConnectorException e) {
 	// TODO Auto-generated method stub
     }
-
 }

@@ -36,6 +36,7 @@ import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.universAAL.middleware.container.Container;
+import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.osgi.run.Activator;
@@ -48,7 +49,7 @@ import org.universAAL.middleware.container.osgi.run.Activator;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  * 
  */
-public class uAALBundleContainer implements Container, ServiceListener {
+public final class uAALBundleContainer implements Container, ServiceListener {
     public static final uAALBundleContainer THE_CONTAINER = new uAALBundleContainer();
 
     private List listeners;
@@ -176,7 +177,7 @@ public class uAALBundleContainer implements Container, ServiceListener {
     /**
      * @see org.universAAL.middleware.container.Container#logListeners()
      */
-    public Iterator logListeners() {
+    public Iterator<LogListener> logListeners() {
 	return Activator.logListeners();
     }
 
@@ -224,12 +225,12 @@ public class uAALBundleContainer implements Container, ServiceListener {
 			bc.getService(sr), sr);
 	    break;
 	case ServiceEvent.UNREGISTERING:
-		for (Iterator i = listenersLocalCopy.iterator(); i.hasNext();) {
-			SharedObjectListener sol = (SharedObjectListener) i.next();
-			if (sol != null && bc != null) {
-					sol.sharedObjectRemoved(bc.getService(sr));
-			}
+	    for (Iterator i = listenersLocalCopy.iterator(); i.hasNext();) {
+		SharedObjectListener sol = (SharedObjectListener) i.next();
+		if (sol != null && bc != null) {
+		    sol.sharedObjectRemoved(bc.getService(sr));
 		}
+	    }
 	    break;
 	}
     }
@@ -314,8 +315,9 @@ public class uAALBundleContainer implements Container, ServiceListener {
 				null);
 	}
     }
-    
-    public void removeSharedObject(ModuleContext requester, Object objToRemove, Object[] shareParams) {
+
+    public void removeSharedObject(ModuleContext requester, Object objToRemove,
+	    Object[] shareParams) {
 	if (!(requester instanceof uAALBundleContext) || objToRemove == null
 		|| shareParams == null || shareParams.length == 0) {
 	    requester
@@ -332,12 +334,14 @@ public class uAALBundleContainer implements Container, ServiceListener {
 		((uAALBundleContext) requester).removeSharedObject(
 			(String) shareParams[0], objToRemove, null);
 	    else if (shareParams[0] instanceof Dictionary)
-		((uAALBundleContext) requester).removeSharedObject((String) null,
-			objToRemove, (Dictionary) shareParams[0]);
+		((uAALBundleContext) requester)
+			.removeSharedObject((String) null, objToRemove,
+				(Dictionary) shareParams[0]);
 	    else
 		requester
 			.logWarn(
-				this.getClass().getName() + "removeSharedObject",
+				this.getClass().getName()
+					+ "removeSharedObject",
 				"'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
 				null);
 	else {
@@ -345,7 +349,8 @@ public class uAALBundleContainer implements Container, ServiceListener {
 		if (!(shareParams[i] instanceof String)) {
 		    requester
 			    .logWarn(
-				    this.getClass().getName() + "removeSharedObject",
+				    this.getClass().getName()
+					    + "removeSharedObject",
 				    "'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
 				    null);
 		    return;
@@ -368,7 +373,8 @@ public class uAALBundleContainer implements Container, ServiceListener {
 	    else
 		requester
 			.logWarn(
-				this.getClass().getName() + "removeSharedObject",
+				this.getClass().getName()
+					+ "removeSharedObject",
 				"'shareParams' passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
 				null);
 	}

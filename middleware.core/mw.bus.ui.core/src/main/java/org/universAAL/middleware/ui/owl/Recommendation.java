@@ -20,39 +20,40 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
  * Core concept for Modal Recommendations over FormElements.
+ * 
  * @author amedrano
- *
+ * 
  */
 public class Recommendation extends ManagedIndividual {
-	
+
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
-    	    + "Recommendation";
+	    + "Recommendation";
 
-	/**
-	 * To be used only by De/serializers
-	 */
-	public Recommendation() {
-	}
+    /**
+     * To be used only by De/serializers
+     */
+    public Recommendation() {
+    }
 
-	/**
-	 * 
-	 * @param uri
-	 */
-	public Recommendation(String uri) {
-		super(uri);
-	}
+    /**
+     * 
+     * @param uri
+     */
+    public Recommendation(String uri) {
+	super(uri);
+    }
 
-	/**
-	 * @param uriPrefix
-	 * @param numProps
-	 */
-	public Recommendation(String uriPrefix, int numProps) {
-		super(uriPrefix, numProps);
-	}
+    /**
+     * @param uriPrefix
+     * @param numProps
+     */
+    public Recommendation(String uriPrefix, int numProps) {
+	super(uriPrefix, numProps);
+    }
 
-	/** {@ inheritDoc}	 */
-	public int getPropSerializationType(String propURI) {
-		return PROP_SERIALIZATION_FULL;
-	}
+    /** {@ inheritDoc} */
+    public int getPropSerializationType(String propURI) {
+	return PROP_SERIALIZATION_FULL;
+    }
 
 }

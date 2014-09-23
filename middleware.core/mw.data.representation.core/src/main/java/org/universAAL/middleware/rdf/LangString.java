@@ -248,10 +248,10 @@ public final class LangString {
 	return false;
     }
 
-    @Override
-    public String toString() {
-	return super.toString();
-    }
+    // @Override
+    // public String toString() {
+    // return super.toString();
+    // }
 
     @Override
     public int hashCode() {

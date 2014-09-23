@@ -154,6 +154,8 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/AvailabilitySubscriber.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/CallStatus.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/DefaultServiceCaller.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/MultiServiceResponse.java -text
+middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ProfileExistsException.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceBus.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceBusFacade.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/ServiceCall.java -text
@@ -199,6 +201,30 @@ middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/serv
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/profile/ResponseTimeInMilliseconds.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/profile/ServiceProfile.java -text
 middleware.core/mw.bus.service.core/src/main/java/org/universAAL/middleware/service/owls/profile/SingleLocationParameter.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/bus/msg/BusMessage.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/DistributedTest.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/Device.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/DeviceService.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/IndoorPlace.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/Lamp.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/LampService.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/Location.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/OutdoorPlace.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/PhysicalThing.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/Room.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/TestFactory.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/ontology/TestOntology.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/ArrayListCallHandler.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/CallHandler.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/MyAALSpaceManager.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/MyCommunicationModule.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/MyServiceCallee.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/ObjectCallHandler.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/ProfileUtil.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/RequestUtil.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/ResponseChecker.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/ServiceBusTestCase.java -text
+middleware.core/mw.bus.service.core/src/test/java/org/universAAL/middleware/service/test/util/TwoObjectCallHandler.java -text
 middleware.core/mw.bus.tracker.core/ASL2.0.txt -text
 middleware.core/mw.bus.tracker.core/NOTICE.txt -text
 middleware.core/mw.bus.tracker.core/pom.xml -text
@@ -386,6 +412,7 @@ middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middlew
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/RDFClassInfoSetup.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/Resource.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/ResourceFactory.java -text
+middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/ScopedResource.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/TypeMapper.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/UnmodifiableResource.java -text
 middleware.core/mw.data.representation.core/src/main/java/org/universAAL/middleware/rdf/UnmodifiableResourceList.java -text
@@ -523,6 +550,8 @@ middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/man
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/InstallationResultsDetails.java svneol=native#text/plain
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/Manager.java -text
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/MatchingResult.java -text
+middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/TenantListener.java -text svneol=unset#text/plain
+middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/TenantManager.java -text svneol=unset#text/plain
 middleware.core/mw.managers.api.core/src/main/java/org/universAAL/middleware/managers/api/UAPPPackage.java -text
 middleware.core/mw.managers.configuration.core/ASL2.0.txt -text svneol=unset#text/plain
 middleware.core/mw.managers.configuration.core/NOTICE.txt -text svneol=unset#text/plain
@@ -561,6 +590,10 @@ middleware.core/mw.managers.deploy.core/NOTICE.txt -text
 middleware.core/mw.managers.deploy.core/pom.xml -text
 middleware.core/mw.managers.deploy.core/src/main/java/org/universAAL/middleware/managers/deploy/DeployManagerImpl.java -text
 middleware.core/mw.managers.deploy.core/src/main/java/org/universAAL/middleware/managers/deploy/util/Consts.java -text
+middleware.core/mw.managers.tenant.core/ASL2.0.txt -text
+middleware.core/mw.managers.tenant.core/NOTICE.txt -text
+middleware.core/mw.managers.tenant.core/pom.xml -text
+middleware.core/mw.managers.tenant.core/src/main/java/org/universAAL/middleware/managers/tenant/TenantManagerImpl.java -text
 middleware.core/mw.modules.aalspace.core/ASL2.0.txt -text
 middleware.core/mw.modules.aalspace.core/NOTICE.txt -text
 middleware.core/mw.modules.aalspace.core/pom.xml -text
@@ -760,6 +793,7 @@ middleware.osgi/mw.karaf.shell.universAAL.osgi/pom.xml -text
 middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/shell/universAAL/osgi/AALSpaceCommand.java -text
 middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/shell/universAAL/osgi/ListOfPeerCommand.java -text
 middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/shell/universAAL/osgi/TargetAALSpaceCommand.java -text
+middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/shell/universAAL/osgi/TenantCommand.java -text svneol=unset#text/plain
 middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/java/org/universAAL/middleware/shell/universAAL/osgi/UAPPCommand.java -text
 middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/resources/OSGI-INF/blueprint/blueprint.xml -text
 middleware.osgi/mw.managers.aalspace.osgi/ASL2.0.txt -text
@@ -781,6 +815,11 @@ middleware.osgi/mw.managers.deploy.osgi/NOTICE.txt -text
 middleware.osgi/mw.managers.deploy.osgi/pom.xml -text
 middleware.osgi/mw.managers.deploy.osgi/src/main/java/org/universAAL/middleware/managers/deploy/osgi/Activator.java -text
 middleware.osgi/mw.managers.deploy.osgi/src/test/java/org/universAAL/middleware/managers/deploy/test/ArtifactIT.java -text
+middleware.osgi/mw.managers.tenant.osgi/ASL2.0.txt -text
+middleware.osgi/mw.managers.tenant.osgi/NOTICE.txt -text
+middleware.osgi/mw.managers.tenant.osgi/pom.xml -text
+middleware.osgi/mw.managers.tenant.osgi/src/main/java/org/universAAL/middleware/managers/tenant/osgi/Activator.java -text
+middleware.osgi/mw.managers.tenant.osgi/src/test/java/org/universAAL/middleware/AppTest.java -text
 middleware.osgi/mw.modules.aalspace.osgi/ASL2.0.txt -text
 middleware.osgi/mw.modules.aalspace.osgi/NOTICE.txt -text
 middleware.osgi/mw.modules.aalspace.osgi/pom.xml -text

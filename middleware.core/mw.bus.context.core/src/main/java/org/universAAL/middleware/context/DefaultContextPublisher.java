@@ -32,7 +32,7 @@ import org.universAAL.middleware.context.owl.ContextProvider;
 public class DefaultContextPublisher extends ContextPublisher {
 
     /**
-     *Creates a default Context Publisher with the given Provider Information.
+     * Creates a default Context Publisher with the given Provider Information.
      * 
      * @param context
      *            The context of the Bundle creating the Publisher

@@ -89,7 +89,7 @@ public final class LevelRating extends ComparableIndividual {
 	}
     }
 
-    public static final LevelRating valueOf(String name) {
+    public static LevelRating valueOf(String name) {
 	for (int i = NONE; i <= FULL; i++)
 	    if (names[i].equals(name))
 		return getLevelByOrder(i);

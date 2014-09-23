@@ -41,53 +41,58 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 /**
  * @author amedrano
- *
+ * 
  */
 public class EntityTest {
 
     private static JUnitModuleContext mc;
 
     @BeforeClass
-    public static void init(){
+    public static void init() {
 	mc = new JUnitModuleContext();
-	mc.getContainer().shareObject(mc,
-			new TurtleSerializer(),
-			new Object[] { MessageContentSerializer.class.getName() });
+	mc.getContainer().shareObject(mc, new TurtleSerializer(),
+		new Object[] { MessageContentSerializer.class.getName() });
 
 	OntologyManagement.getInstance().register(mc, new DataRepOntology());
-	OntologyManagement.getInstance().register(mc, new AALConfigurationOntology());
+	OntologyManagement.getInstance().register(mc,
+		new AALConfigurationOntology());
 	TurtleUtil.moduleContext = mc;
     }
-    
+
     @Test
-    public void testSetvalue(){
+    public void testSetvalue() {
 	Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
-	    
+
 	    public Scope getScope() {
 		return new AALSpaceScope("aalspace.config");
 	    }
-	    
+
 	    public String getDescription(Locale loc) {
 		return "some config";
 	    }
-	    
+
 	    public MergedRestriction getType() {
 		MergedRestriction mr = MergedRestriction
-			.getAllValuesRestrictionWithCardinality(ConfigurationParameter.PROP_CONFIG_VALUE, 
+			.getAllValuesRestrictionWithCardinality(
+				ConfigurationParameter.PROP_CONFIG_VALUE,
 				new IntRestriction(0, true, 10, true), 1, 1);
 		return mr;
 	    }
-	    
+
 	    public Object getDefaultValue() {
 		return Integer.valueOf(1);
 	    }
 	}, Locale.ENGLISH);
 	for (int i = 0; i < 10; i++) {
-	    assertTrue(((org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter)e).setValue(Integer.valueOf(i)));
+	    assertTrue(((org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter) e)
+		    .setValue(Integer.valueOf(i)));
 	}
-	assertFalse(((org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter)e).setValue(Integer.valueOf(-1)));
-	assertFalse(((org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter)e).setValue(Integer.valueOf(11)));
-	assertFalse(((org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter)e).setValue(Integer.valueOf(1000)));
+	assertFalse(((org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter) e)
+		.setValue(Integer.valueOf(-1)));
+	assertFalse(((org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter) e)
+		.setValue(Integer.valueOf(11)));
+	assertFalse(((org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter) e)
+		.setValue(Integer.valueOf(1000)));
     }
 
 }

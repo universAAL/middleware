@@ -30,10 +30,10 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Carsten Stockloew
  */
 public final class Constants {
-    
+
     private Constants() {
     }
-    
+
     // URIs of standard variables managed by the uAAL middleware
     /**
      * The URI of a standard variable managed by the uAAL middleware indicating
@@ -71,8 +71,7 @@ public final class Constants {
     public static final String uAAL_MIDDLEWARE_LOCAL_ID_PREFIX;
     static {
 	uAAL_MIDDLEWARE_LOCAL_ID_PREFIX = SharedResources
-		.getMiddlewareProp(SharedResources.uAAL_AAL_SPACE_ID)
-		+ "#";
+		.getMiddlewareProp(SharedResources.uAAL_AAL_SPACE_ID) + "#";
     }
 
     /**

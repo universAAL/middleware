@@ -21,8 +21,8 @@ package org.universAAL.middleware.bus.model.matchable;
 
 /**
  * @author mtazari
- *
+ * 
  */
 public interface Response {
-	// TODO add matches-methods and parent
+    // TODO add matches-methods and parent
 }

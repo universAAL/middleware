@@ -1,14 +1,12 @@
 package org.universAAL.middleware.gateway.test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.osgi.framework.Constants;
 import org.springframework.util.Assert;
 import org.universAAL.itests.IntegrationTest;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
@@ -16,7 +14,6 @@ import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
-import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.DefaultServiceCaller;
 import org.universAAL.middleware.service.ServiceCall;
@@ -39,7 +36,7 @@ import org.universAAL.middleware.ui.UIResponse;
  * Integration test for BusRegistry module.
  * 
  * @author dzmuda
- *
+ * 
  */
 public class BusRegistryIT extends IntegrationTest {
 
@@ -125,169 +122,166 @@ public class BusRegistryIT extends IntegrationTest {
 
 	MockBusRegistryListener listener = new MockBusRegistryListener();
 
-	registry.addBusRegistryListener(listener, true);
-	
-	int[] emptyArray = new int[]{0,0,0,0,0,0};
-	int[] singleServiceCallee = new int[]{1,0,0,0,0,0};
-	int[] singleServiceCaller = new int[]{0,1,0,0,0,0};
-	int[] singleContextPublisher = new int[]{0,0,1,0,0,0};
-	int[] singleContextSubscriber = new int[]{0,0,0,1,0,0};
-	int[] singleUICaller = new int[]{0,0,0,0,1,0};
-	int[] singleUIHandler = new int[]{0,0,0,0,0,1};
+	registry.addListener(listener, true);
 
-	
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
+	int[] emptyArray = new int[] { 0, 0, 0, 0, 0, 0 };
+	int[] singleServiceCallee = new int[] { 1, 0, 0, 0, 0, 0 };
+	int[] singleServiceCaller = new int[] { 0, 1, 0, 0, 0, 0 };
+	int[] singleContextPublisher = new int[] { 0, 0, 1, 0, 0, 0 };
+	int[] singleContextSubscriber = new int[] { 0, 0, 0, 1, 0, 0 };
+	int[] singleUICaller = new int[] { 0, 0, 0, 0, 1, 0 };
+	int[] singleUIHandler = new int[] { 0, 0, 0, 0, 0, 1 };
+
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
 	ServiceCaller caller = new DefaultServiceCaller(Activator.mc);
-	Assert.isTrue(Arrays.equals(singleServiceCaller,listener.getCounts()), "Listener does not contain single service caller count");
+	Assert.isTrue(Arrays.equals(singleServiceCaller, listener.getCounts()),
+		"Listener does not contain single service caller count");
 	caller.close();
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
-	
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
-	ServiceCallee callee = new MockServiceCallee(Activator.mc, new ServiceProfile[]{});
-	Assert.isTrue(Arrays.equals(singleServiceCallee,listener.getCounts()), "Listener does not contain single service callee count");
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
+
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
+	ServiceCallee callee = new MockServiceCallee(Activator.mc,
+		new ServiceProfile[] {});
+	Assert.isTrue(Arrays.equals(singleServiceCallee, listener.getCounts()),
+		"Listener does not contain single service callee count");
 	callee.close();
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
-	
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
-	ContextSubscriber subscriber = new MockContextSubscriber(Activator.mc, new ContextEventPattern[]{});
-	Assert.isTrue(Arrays.equals(singleContextSubscriber,listener.getCounts()), "Listener does not contain single context subcription count");
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
+
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
+	ContextSubscriber subscriber = new MockContextSubscriber(Activator.mc,
+		new ContextEventPattern[] {});
+	Assert.isTrue(
+		Arrays.equals(singleContextSubscriber, listener.getCounts()),
+		"Listener does not contain single context subcription count");
 	subscriber.close();
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
-	
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
-	
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
+
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
+
 	ContextProvider info = new ContextProvider();
 	info.setType(ContextProviderType.gauge);
 	ContextEventPattern cep = new ContextEventPattern();
 	info.setProvidedEvents(new ContextEventPattern[] { cep });
-	
-	ContextPublisher publisher = new DefaultContextPublisher(Activator.mc, info);
-	Assert.isTrue(Arrays.equals(singleContextPublisher,listener.getCounts()), "Listener does not contain single context publisher count");
+
+	ContextPublisher publisher = new DefaultContextPublisher(Activator.mc,
+		info);
+	Assert.isTrue(
+		Arrays.equals(singleContextPublisher, listener.getCounts()),
+		"Listener does not contain single context publisher count");
 	publisher.close();
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
-	
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
+
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
 	// commented because it hangs the test
-	//UIHandler uiHandler = new MockUIHandler(Activator.mc, new UIHandlerProfile());
-	//Assert.isTrue(Arrays.equals(singleUIHandler,listener.getCounts()), "Listener does not contain single ui handler subcription count");
-	//uiHandler.close();
-	//Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
-	
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
+	// UIHandler uiHandler = new MockUIHandler(Activator.mc, new
+	// UIHandlerProfile());
+	// Assert.isTrue(Arrays.equals(singleUIHandler,listener.getCounts()),
+	// "Listener does not contain single ui handler subcription count");
+	// uiHandler.close();
+	// Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()),
+	// "Listener does not contain empty array");
+
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
 	UICaller uiCaller = new MockUiCaller(Activator.mc);
-	Assert.isTrue(Arrays.equals(singleUICaller,listener.getCounts()), "Listener does not contain single ui caller count");
+	Assert.isTrue(Arrays.equals(singleUICaller, listener.getCounts()),
+		"Listener does not contain single ui caller count");
 	uiCaller.close();
-	Assert.isTrue(Arrays.equals(emptyArray,listener.getCounts()), "Listener does not contain empty array");
-	
+	Assert.isTrue(Arrays.equals(emptyArray, listener.getCounts()),
+		"Listener does not contain empty array");
+
     }
-    
-    class MockUiCaller extends UICaller{
+
+    class MockUiCaller extends UICaller {
 
 	protected MockUiCaller(ModuleContext context) {
 	    super(context);
-	    // TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void communicationChannelBroken() {
-	    // TODO Auto-generated method stub
-	    
 	}
 
 	@Override
 	public void dialogAborted(String dialogID, Resource data) {
-	    // TODO Auto-generated method stub
-	    
 	}
 
 	@Override
 	public void handleUIResponse(UIResponse input) {
-	    // TODO Auto-generated method stub
-	    
 	}
-	
     }
-    
+
     class MockUIHandler extends UIHandler {
 
 	protected MockUIHandler(ModuleContext context,
 		UIHandlerProfile initialSubscription) {
 	    super(context, initialSubscription);
-	    // TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void adaptationParametersChanged(String dialogID,
 		String changedProp, Object newVal) {
-	    // TODO Auto-generated method stub
-	    
 	}
 
 	@Override
 	public void communicationChannelBroken() {
-	    // TODO Auto-generated method stub
-	    
 	}
 
 	@Override
 	public Resource cutDialog(String dialogID) {
-	    // TODO Auto-generated method stub
 	    return null;
 	}
 
 	@Override
 	public void handleUICall(UIRequest uicall) {
-	    // TODO Auto-generated method stub
-	    
 	}
-	
     }
-    
-    class MockContextSubscriber extends ContextSubscriber{
 
+    class MockContextSubscriber extends ContextSubscriber {
 
 	protected MockContextSubscriber(ModuleContext context,
 		ContextEventPattern[] initialSubscriptions) {
 	    super(context, initialSubscriptions);
-	    // TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void communicationChannelBroken() {
-	    // TODO Auto-generated method stub
-	    
+
 	}
 
 	@Override
 	public void handleContextEvent(ContextEvent event) {
-	    // TODO Auto-generated method stub
-	    
+
 	}
-	
     }
-    
+
     class MockServiceCallee extends ServiceCallee {
 
 	protected MockServiceCallee(ModuleContext context,
 		ServiceProfile[] realizedServices) {
 	    super(context, realizedServices);
-	    // TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void communicationChannelBroken() {
-	    // TODO Auto-generated method stub
-	    
 	}
 
 	@Override
 	public ServiceResponse handleCall(ServiceCall call) {
-	    // TODO Auto-generated method stub
 	    return null;
 	}
-	
+
     }
-    
+
     class MockBusRegistryListener implements IBusMemberRegistryListener {
 
 	private int serviceCalleesCount = 0;
@@ -329,12 +323,12 @@ public class BusRegistryIT extends IntegrationTest {
 	    }
 	}
 
-	public int[] getCounts(){
-	    return new int[] { serviceCalleesCount,
-		    serviceCallersCount, contextPubilshersCount,
-		    contextSubscribersCount, uiCallersCount, uiHandlersCount };
+	public int[] getCounts() {
+	    return new int[] { serviceCalleesCount, serviceCallersCount,
+		    contextPubilshersCount, contextSubscribersCount,
+		    uiCallersCount, uiHandlersCount };
 	}
-	
+
 	public void print() {
 	    int[] values = new int[] { serviceCalleesCount,
 		    serviceCallersCount, contextPubilshersCount,
@@ -342,7 +336,7 @@ public class BusRegistryIT extends IntegrationTest {
 	    StringBuilder sb = new StringBuilder();
 	    for (int i = 0; i < values.length; i++) {
 		sb.append(values[i]);
-		if (i != values.length - 1){
+		if (i != values.length - 1) {
 		    sb.append(",");
 		}
 	    }
@@ -397,6 +391,10 @@ public class BusRegistryIT extends IntegrationTest {
 	    this.uiCallersCount = uiCallersCount;
 	}
 
-    }
+	public void regParamsAdded(String busMemberID, Resource[] params) {
+	}
 
+	public void regParamsRemoved(String busMemberID, Resource[] params) {
+	}
+    }
 }

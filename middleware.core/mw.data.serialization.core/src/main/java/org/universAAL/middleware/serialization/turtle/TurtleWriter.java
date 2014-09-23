@@ -46,7 +46,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @author mtazari
  * @author Carsten Stockloew
  */
-public class TurtleWriter {
+public final class TurtleWriter {
     /** Serialization state of a Resource. */
     static int NOT_SERIALIZED = 0;
 

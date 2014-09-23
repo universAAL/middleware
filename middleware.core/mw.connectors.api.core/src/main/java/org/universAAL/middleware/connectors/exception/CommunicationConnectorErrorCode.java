@@ -22,7 +22,7 @@ package org.universAAL.middleware.connectors.exception;
 
 /**
  * List of common error code for the CommunicationConnector
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>

@@ -193,21 +193,6 @@ public abstract class Service extends ManagedIndividual {
 	return false;
     }
 
-    /*
-     * Must return a hash-table defined statically by the subclass. Each
-     * subclass must have its own static repository of restrictions as
-     * hash-table.
-     * 
-     * @see {@link #instanceLevelRestrictions}, which is a similar repository
-     * but at instance level
-     */
-    // protected abstract Hashtable getClassLevelRestrictions();
-
-    // TODO: not used -> removed for now, until the BDRM is implemented
-    // public final Restriction getClassLevelRestrictionOnProp(String propURI) {
-    // return (Restriction) getClassLevelRestrictions().get(propURI);
-    // }
-
     public final Object getInstanceLevelFixedValueOnProp(String propURI) {
 	if (propURI == null)
 	    return null;
@@ -258,15 +243,15 @@ public abstract class Service extends ManagedIndividual {
 		propPath[propPath.length - 1], in.asVariableReference()),
 		propPath);
     }
-    
+
     /**
      * Adds a restriction to a given input
      */
     public final void addFilteringType(String inParamURI, String[] propPath) {
 	ProcessInput in = createInput(inParamURI,
 		TypeMapper.getDatatypeURI(Resource.class), 1, 1);
-	String[] pp = new String[propPath.length+1];
-	for (int i=0; i<propPath.length; i++)
+	String[] pp = new String[propPath.length + 1];
+	for (int i = 0; i < propPath.length; i++)
 	    pp[i] = propPath[i];
 	pp[propPath.length] = Resource.PROP_RDF_TYPE;
 	addInstanceLevelRestriction(MergedRestriction.getFixedValueRestriction(
@@ -286,8 +271,9 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Adds a change effect to default profile
      */
-    public final void addInputWithChangeEffect(String inParamURI, String typeURI,
-	    int minCardinality, int maxCardinality, String[] propPath) {
+    public final void addInputWithChangeEffect(String inParamURI,
+	    String typeURI, int minCardinality, int maxCardinality,
+	    String[] propPath) {
 	ProcessInput in = createInput(inParamURI, typeURI, minCardinality,
 		maxCardinality);
 	myProfile.addChangeEffect(propPath, in.asVariableReference());
@@ -296,8 +282,9 @@ public abstract class Service extends ManagedIndividual {
     /**
      * Adds a remove effect to default profile
      */
-    public final void addInputWithRemoveEffect(String inParamURI, String typeURI,
-	    int minCardinality, int maxCardinality, String[] propPath) {
+    public final void addInputWithRemoveEffect(String inParamURI,
+	    String typeURI, int minCardinality, int maxCardinality,
+	    String[] propPath) {
 	addFilteringInput(inParamURI, typeURI, minCardinality, maxCardinality,
 		propPath);
 	myProfile.addRemoveEffect(propPath);
@@ -318,17 +305,6 @@ public abstract class Service extends ManagedIndividual {
 			propPath[propPath.length - 1], typeURI, minCardinality,
 			maxCardinality), propPath);
     }
-
-    /**
-     * Using the repository of class-level restrictions returned by
-     * {@link #getClassLevelRestrictions()}, it returns the set of properties
-     * that are restricted at class level.
-     */
-    // TODO: not used -> removed for nor, until the BDRM is implemented
-    // public final String[] getRestrictedPropsOnClassLevel() {
-    // Hashtable ht = getClassLevelRestrictions();
-    // return (String[]) ht.keySet().toArray(new String[ht.size()]);
-    // }
 
     /**
      * @see ManagedIndividual#getPropSerializationType(java.lang.String)

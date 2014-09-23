@@ -39,37 +39,37 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 /**
  * @author amedrano
- *
+ * 
  */
-public class ModuleRegistryTest  {
+public class ModuleRegistryTest {
 
-  private class TestModule implements ConfigurableModule{
+    private class TestModule implements ConfigurableModule {
 
-      boolean configured = false;
-      
-    /** {@ inheritDoc}	 */
-    public boolean configurationChanged(Scope param, Object value) {
-	  configured = true;
-	  return true;
+	boolean configured = false;
+
+	/** {@ inheritDoc} */
+	public boolean configurationChanged(Scope param, Object value) {
+	    configured = true;
+	    return true;
+	}
     }
-  }
 
-  private static JUnitModuleContext mc;
+    private static JUnitModuleContext mc;
 
-  @BeforeClass
-  public static void init(){
+    @BeforeClass
+    public static void init() {
 	mc = new JUnitModuleContext();
-	mc.getContainer().shareObject(mc,
-			new TurtleSerializer(),
-			new Object[] { MessageContentSerializer.class.getName() });
+	mc.getContainer().shareObject(mc, new TurtleSerializer(),
+		new Object[] { MessageContentSerializer.class.getName() });
 
 	OntologyManagement.getInstance().register(mc, new DataRepOntology());
-	OntologyManagement.getInstance().register(mc, new AALConfigurationOntology());
+	OntologyManagement.getInstance().register(mc,
+		new AALConfigurationOntology());
 	TurtleUtil.moduleContext = mc;
-  }
-  
-  @Test
-  public void simpleTest(){
+    }
+
+    @Test
+    public void simpleTest() {
 	DescribedEntity[] des = ConfigSample.getConfigurationDescription();
 	String urn = ScopeFactory.getScopeURN(des[0].getScope());
 	ModuleRegistry mr = new ModuleRegistry();
@@ -82,10 +82,10 @@ public class ModuleRegistryTest  {
 	mr.remove(tm1);
 	assertFalse(mr.contains(urn));
 	mr.clear();
-  }
-  
-  @Test
-  public void multipleTest(){
+    }
+
+    @Test
+    public void multipleTest() {
 	DescribedEntity[] des = ConfigSample.getConfigurationDescription();
 	String urn = ScopeFactory.getScopeURN(des[0].getScope());
 	ModuleRegistry mr = new ModuleRegistry();
@@ -102,5 +102,5 @@ public class ModuleRegistryTest  {
 	assertTrue(tm3.configured);
 	mr.clear();
 	assertFalse(mr.contains(urn));
-  }
+    }
 }

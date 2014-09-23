@@ -327,7 +327,8 @@ public class ServiceMatcher {
 	return true;
     }
 
-    private void processNonSemanticInput(ServiceWrapper superset, HashMap context) {
+    private void processNonSemanticInput(ServiceWrapper superset,
+	    HashMap context) {
 	// NON_SEMANTIC_INPUT:
 	// if service matches then non-semantic input has to be copied to the
 	// context
@@ -348,6 +349,7 @@ public class ServiceMatcher {
 	}
     }
 
+    @SuppressWarnings("PMD.CollapsibleIfStatements")
     private void processServiceUri(ServiceWrapper superset,
 	    ServiceWrapper subset, HashMap context) {
 	// uAAL_SERVICE_URI_MATCHED:

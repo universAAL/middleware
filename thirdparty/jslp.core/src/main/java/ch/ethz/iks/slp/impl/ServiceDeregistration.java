@@ -46,140 +46,141 @@ import ch.ethz.iks.slp.ServiceURL;
  */
 class ServiceDeregistration extends SLPMessage {
 
-	/**
-	 * the service url.
-	 */
-	ServiceURL url;
+    /**
+     * the service url.
+     */
+    ServiceURL url;
 
-	/**
-	 * the scopes.
-	 */
-	List scopeList;
+    /**
+     * the scopes.
+     */
+    List scopeList;
 
-	/**
-	 * the attributes.
-	 */
-	List attList;
+    /**
+     * the attributes.
+     */
+    List attList;
 
-	/**
-	 * create a new ServiceDeregistration.
-	 * 
-	 * @param serviceURL
-	 *            the ServiceURL.
-	 * @param scopes
-	 *            a List of scopes.
-	 * @param attributes
-	 *            the attributes.
-	 * @param theLocale
-	 *            the locale.
-	 */
-	ServiceDeregistration(final ServiceURL serviceURL, final List scopes,
-			final List attributes, final Locale theLocale) {
-		funcID = SRVDEREG;
-		locale = theLocale;
-		if (serviceURL == null) {
-			throw new IllegalArgumentException("serviceURL must not be null");
-		}
-		url = serviceURL;
-		scopeList = scopes;
-		if (scopeList == null) {
-			scopeList = Arrays.asList(new String[] { "default" });
-		}
-		attList = attributes;
-		if (attList == null) {
-			attList = new ArrayList();
-		}
+    /**
+     * create a new ServiceDeregistration.
+     * 
+     * @param serviceURL
+     *            the ServiceURL.
+     * @param scopes
+     *            a List of scopes.
+     * @param attributes
+     *            the attributes.
+     * @param theLocale
+     *            the locale.
+     */
+    ServiceDeregistration(final ServiceURL serviceURL, final List scopes,
+	    final List attributes, final Locale theLocale) {
+	funcID = SRVDEREG;
+	locale = theLocale;
+	if (serviceURL == null) {
+	    throw new IllegalArgumentException("serviceURL must not be null");
 	}
-
-	/**
-	 * parse a ServiceDeregistration from an input stream.
-	 * 
-	 * @param input
-	 *            the stream.
-	 * @throws ServiceLocationException
-	 *             if something goes wrong.
-	 */
-	public ServiceDeregistration(final DataInputStream input)
-			throws ServiceLocationException, IOException {
-		scopeList = stringToList(input.readUTF(), ",");
-		url = ServiceURL.fromBytes(input);
-		attList = stringToList(input.readUTF(), ",");
-
-		if (SLPCore.CONFIG.getSecurityEnabled()) {
-			if (!verify()) {
-				throw new ServiceLocationException(
-						ServiceLocationException.AUTHENTICATION_FAILED,
-						"Authentication failed for " + toString());
-			}
-		}
+	url = serviceURL;
+	scopeList = scopes;
+	if (scopeList == null) {
+	    scopeList = Arrays.asList(new String[] { "default" });
 	}
-
-	/**
-	 * get the bytes from a ServiceDeregistration:
-	 * <p>
-	 * 
-	 * <pre>
-	 *          0                   1                   2                   3
-	 *          0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-	 *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	 *         |         Service Location header (function = SrvDeReg = 4)     |
-	 *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	 *         |    Length of &lt;scope-list&gt;     |         &lt;scope-list&gt;          \
-	 *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	 *         |                           URL Entry                           \
-	 *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	 *         |      Length of &lt;tag-list&gt;     |            &lt;tag-list&gt;         \
-	 *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	 * </pre>.
-	 * </p>
-	 * 
-	 * @return the bytes.
-	 * @throws ServiceLocationException
-	 *             in case of IO errors.
-	 */
-	protected void writeTo(final DataOutputStream out) throws IOException {
-		super.writeHeader(out, getSize());
-		out.writeUTF(listToString(scopeList, ","));
-		url.writeTo(out);
-		out.writeUTF(listToString(attList, ","));
+	attList = attributes;
+	if (attList == null) {
+	    attList = new ArrayList();
 	}
+    }
 
-	/**
-	 * get the length of the message.
-	 * 
-	 * @return the length of the message.
-	 * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
-	 */
-	int getSize() {
-		return getHeaderSize() + 2 + listToString(scopeList, ",").length()
-				+ url.getLength() + 2
-				+ listToString(attList, ",").length();
-	}
+    /**
+     * parse a ServiceDeregistration from an input stream.
+     * 
+     * @param input
+     *            the stream.
+     * @throws ServiceLocationException
+     *             if something goes wrong.
+     */
+    public ServiceDeregistration(final DataInputStream input)
+	    throws ServiceLocationException, IOException {
+	scopeList = stringToList(input.readUTF(), ",");
+	url = ServiceURL.fromBytes(input);
+	attList = stringToList(input.readUTF(), ",");
 
-	/**
-	 * sign this ServiceDeregistration.
-	 * 
-	 * @param spiList
-	 *            a List of SPIs.
-	 * @throws ServiceLocationException
-	 *             in case of IO errors.
-	 */
-	void sign(final List spiList) throws ServiceLocationException {
-		url.sign(spiList);
+	if (SLPCore.CONFIG.getSecurityEnabled()) {
+	    if (!verify()) {
+		throw new ServiceLocationException(
+			ServiceLocationException.AUTHENTICATION_FAILED,
+			"Authentication failed for " + toString());
+	    }
 	}
+    }
 
-	/**
-	 * verify the ServiceDeregistration.
-	 * 
-	 * @return true if it could be verified.
-	 * @throws ServiceLocationException
-	 *             in case of IO errors.
-	 */
-	boolean verify() throws ServiceLocationException {
-		if (!url.verify()) {
-			return false;
-		}
-		return true;
+    /**
+     * get the bytes from a ServiceDeregistration:
+     * <p>
+     * 
+     * <pre>
+     *          0                   1                   2                   3
+     *          0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     *         |         Service Location header (function = SrvDeReg = 4)     |
+     *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     *         |    Length of &lt;scope-list&gt;     |         &lt;scope-list&gt;          \
+     *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     *         |                           URL Entry                           \
+     *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     *         |      Length of &lt;tag-list&gt;     |            &lt;tag-list&gt;         \
+     *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     * </pre>
+     * 
+     * .
+     * </p>
+     * 
+     * @return the bytes.
+     * @throws ServiceLocationException
+     *             in case of IO errors.
+     */
+    protected void writeTo(final DataOutputStream out) throws IOException {
+	super.writeHeader(out, getSize());
+	out.writeUTF(listToString(scopeList, ","));
+	url.writeTo(out);
+	out.writeUTF(listToString(attList, ","));
+    }
+
+    /**
+     * get the length of the message.
+     * 
+     * @return the length of the message.
+     * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
+     */
+    int getSize() {
+	return getHeaderSize() + 2 + listToString(scopeList, ",").length()
+		+ url.getLength() + 2 + listToString(attList, ",").length();
+    }
+
+    /**
+     * sign this ServiceDeregistration.
+     * 
+     * @param spiList
+     *            a List of SPIs.
+     * @throws ServiceLocationException
+     *             in case of IO errors.
+     */
+    void sign(final List spiList) throws ServiceLocationException {
+	url.sign(spiList);
+    }
+
+    /**
+     * verify the ServiceDeregistration.
+     * 
+     * @return true if it could be verified.
+     * @throws ServiceLocationException
+     *             in case of IO errors.
+     */
+    boolean verify() throws ServiceLocationException {
+	if (!url.verify()) {
+	    return false;
 	}
+	return true;
+    }
 
 }

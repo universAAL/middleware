@@ -28,7 +28,7 @@ import java.util.UUID;
 
 /**
  * This class identifies a Peer in the AAL space
- *
+ * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
@@ -42,133 +42,134 @@ public class PeerCard {
     private String platform;
     private String container;
     private String os = System.getProperty("os.name") + " - "
-            + System.getProperty("os.version") + "- "
-            + System.getProperty("os.arch");
+	    + System.getProperty("os.version") + "- "
+	    + System.getProperty("os.arch");
 
     private URI uri = null;
 
     /**
      * Instantiate a PeerCard and generated the peer unique ID
-     *
+     * 
      * @param role
      */
     public PeerCard(PeerRole role, String containerUnit, String platformUnit) {
-        this.peerID = UUID.randomUUID().toString();
-        this.role = role;
-        this.container = containerUnit;
-        this.platform = platformUnit;
+	this.peerID = UUID.randomUUID().toString();
+	this.role = role;
+	this.container = containerUnit;
+	this.platform = platformUnit;
     }
-    
 
-    
-    public PeerCard(){}
+    public PeerCard() {
+    }
 
     public PeerCard(String ID, PeerRole role) {
-        this.peerID = UUID.fromString(ID).toString();
-        this.role = role;
+	this.peerID = UUID.fromString(ID).toString();
+	this.role = role;
     }
 
     /**
-     *
+     * 
      * @param strSerialization
      * @deprecated
      */
     public PeerCard(String strSerialization) {
-        int i = strSerialization.indexOf(" - Peer Role: ");
-        if (!strSerialization.startsWith("Peer ID: ") || i < 10)
-            throw new RuntimeException(
-                    "Cannot create the PeerCard by deserializing the given string");
+	int i = strSerialization.indexOf(" - Peer Role: ");
+	if (!strSerialization.startsWith("Peer ID: ") || i < 10)
+	    throw new RuntimeException(
+		    "Cannot create the PeerCard by deserializing the given string");
 
-        this.peerID = strSerialization.substring(9, i);
-        this.role = PeerRole.valueOf(strSerialization.substring(i + 14));
+	this.peerID = strSerialization.substring(9, i);
+	this.role = PeerRole.valueOf(strSerialization.substring(i + 14));
     }
 
     /**
      * Return the peer unique ID
-     *
+     * 
      * @return String representing the ID
      */
     public String getPeerID() {
-        return peerID;
+	return peerID;
     }
 
     public PeerRole getRole() {
-        return role;
+	return role;
     }
 
     public void setRole(PeerRole role) {
-        if (role == null)
-            throw new NullPointerException("Cannot assign null as Role");
-        this.role = role;
+	if (role == null)
+	    throw new NullPointerException("Cannot assign null as Role");
+	this.role = role;
     }
 
     /**
-     *
+     * 
      * @return true if the Peer owns the Coordinator role, false otherwise
      */
     public boolean isCoordinator() {
-        if (role.equals(PeerRole.COORDINATOR))
-            return true;
-        return false;
+	if (role.equals(PeerRole.COORDINATOR))
+	    return true;
+	return false;
     }
 
     public String toString() {
-        return "Peer ID: " + peerID + " - Peer Role: " + role;
+	return "Peer ID: " + peerID + " - Peer Role: " + role;
     }
 
     public int hashCode() {
-        return peerID.hashCode();
+	return peerID.hashCode();
     }
 
     public boolean equals(Object o) {
-        if (o instanceof PeerCard) {
-            PeerCard peer = (PeerCard) o;
-            return peer.peerID.equals(peerID);
-        }
-        return false;
+	if (o instanceof PeerCard) {
+	    PeerCard peer = (PeerCard) o;
+	    return peer.peerID.equals(peerID);
+	}
+	return false;
     }
 
     public String getPLATFORM_UNIT() {
-        return platform;
+	return platform;
     }
 
     public void setPLATFORM_UNIT(String pLATFORM_UNIT) {
-        platform = pLATFORM_UNIT;
+	platform = pLATFORM_UNIT;
     }
 
     public String getCONTAINER_UNIT() {
-        return container;
+	return container;
     }
 
     public void setCONTAINER_UNIT(String cONTAINER_UNIT) {
-        container = cONTAINER_UNIT;
+	container = cONTAINER_UNIT;
     }
 
     public String getOS() {
-        return os;
+	return os;
     }
 
     public void setOS(String oS) {
-        os = oS;
+	os = oS;
     }
 
     /**
-     *
-     * @return a {@link URI} representing the PeerCard, that is actually based on the PeerId
+     * 
+     * @return a {@link URI} representing the PeerCard, that is actually based
+     *         on the PeerId
      * @since 2.0.3
      */
     public URI toURI() {
-        synchronized (this) {
-            if (uri != null) {
-                return uri;
-            }
-            try {
-                uri = new URI(URI_PREFIX + peerID);
-            } catch (URISyntaxException ex) {
-                System.err.println("Failed to generate URI for PeerCard, due to exception");
-                ex.printStackTrace(System.err);
-            }
-            return uri;
-        }
+	synchronized (this) {
+	    if (uri != null) {
+		return uri;
+	    }
+	    try {
+		uri = new URI(URI_PREFIX + peerID);
+	    } catch (URISyntaxException ex) {
+		System.err
+			.println("Failed to generate URI for PeerCard, due to exception");
+		ex.printStackTrace(System.err);
+	    }
+	    return uri;
+	}
     }
 }

@@ -85,7 +85,7 @@ public final class UnmodifiableResourceList implements List {
 	this.l = l;
     }
 
-    public static final SafeIterator getIterator(Iterator it) {
+    public static SafeIterator getIterator(Iterator it) {
 	return new SafeIterator(it);
     }
 

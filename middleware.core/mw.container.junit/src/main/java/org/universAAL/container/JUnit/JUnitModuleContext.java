@@ -36,15 +36,11 @@ import org.universAAL.middleware.container.ModuleContext;
  * 
  */
 public class JUnitModuleContext implements ModuleContext {
-    
+
     public enum LogLevel {
-	ERROR,
-	WARN,
-	INFO,
-	DEBUG,
-	TRACE
+	ERROR, WARN, INFO, DEBUG, TRACE
     };
-    
+
     private Logger logger;
 
     private Map<String, Object> attributeMap;
@@ -75,7 +71,7 @@ public class JUnitModuleContext implements ModuleContext {
 	});
 	logger.setLevel(Level.ALL);
     }
-    
+
     public void setLogLevel(LogLevel level) {
 	switch (level) {
 	case ERROR:
@@ -95,7 +91,7 @@ public class JUnitModuleContext implements ModuleContext {
 	    break;
 	}
     }
-    
+
     /** {@inheritDoc} */
     public boolean canBeStarted(ModuleContext requester) {
 	// If can be accessed then it can be started
@@ -229,20 +225,18 @@ public class JUnitModuleContext implements ModuleContext {
     }
 
     public String getManifestEntry(String name) {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     public String getManifestEntry(String manifest, String name) {
-	// TODO Auto-generated method stub
 	return null;
     }
 
-	public File getConfigHome() {
-		return new File("./target/rundir/configuration/", getID());
-	}
+    public File getConfigHome() {
+	return new File("./target/rundir/configuration/", getID());
+    }
 
-	public File getDataFolder() {
-		return new File("./target/rundir/data/", getID());
-	}
+    public File getDataFolder() {
+	return new File("./target/rundir/data/", getID());
+    }
 }

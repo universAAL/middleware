@@ -62,8 +62,8 @@ public abstract class UIHandler extends Callee {
      * @param initialSubscription
      *            the initial subscription
      * @throws NullPointerException
-     *             if initialSubscription is null or one of the elements of
-     *             that array is null
+     *             if initialSubscription is null or one of the elements of that
+     *             array is null
      */
     protected UIHandler(ModuleContext context,
 	    UIHandlerProfile initialSubscription) {
@@ -107,8 +107,8 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Adaptation parameters changed. The Dialog must be redrawn 
-     * according to the new value of the changedProp.
+     * Adaptation parameters changed. The Dialog must be redrawn according to
+     * the new value of the changedProp.
      * 
      * @param dialogID
      *            the dialog id
@@ -146,16 +146,15 @@ public abstract class UIHandler extends Callee {
 
     /**
      * Method to be called when the communication of the {@link UIHandler} with
-     * the {@link IDialogManager} is lost.
-     * All dialogs must be de-renderized (handlers may whant to inform the user about why
-     * de dialogs are being de-renderized).
-     * The bus will automatically resend all HandlerProfiles.
+     * the {@link IDialogManager} is lost. All dialogs must be de-renderized
+     * (handlers may whant to inform the user about why de dialogs are being
+     * de-renderized). The bus will automatically resend all HandlerProfiles.
      */
     public abstract void communicationChannelBroken();
 
     /**
-     * Cut dialog. The DM is requesting an IMEDIATE de-renderization of the dialog with
-     * given dialogID.
+     * Cut dialog. The DM is requesting an IMEDIATE de-renderization of the
+     * dialog with given dialogID.
      * 
      * @param dialogID
      *            the dialog id
@@ -165,8 +164,8 @@ public abstract class UIHandler extends Callee {
     public abstract Resource cutDialog(String dialogID);
 
     /**
-     * Dialog finished. UIHandler reporting the user has submitted a {@link Submit} or
-     * a {@link SubdialogTrigger}.
+     * Dialog finished. UIHandler reporting the user has submitted a
+     * {@link Submit} or a {@link SubdialogTrigger}.
      * 
      * @param uiResponse
      *            the {@link UIResponse}
@@ -191,7 +190,7 @@ public abstract class UIHandler extends Callee {
     }
 
     /**
-     * Handle ui call ({@link UIRequest}). The bus is soliciting a 
+     * Handle ui call ({@link UIRequest}). The bus is soliciting a
      * Render/display of the {@link UIRequest}.
      * 
      * @param uiRequest
@@ -240,6 +239,6 @@ public abstract class UIHandler extends Callee {
      */
     public String getMyID() {
 	return busResourceURI;
-    }    
-    
+    }
+
 }

@@ -182,8 +182,7 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getPropertyBanningRestriction(
-	    String propURI) {
+    public static MergedRestriction getPropertyBanningRestriction(String propURI) {
 	if (propURI == null)
 	    return null;
 	MergedRestriction m = new MergedRestriction(propURI);
@@ -212,8 +211,8 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getFixedValueRestriction(
-	    String propURI, Object value) {
+    public static MergedRestriction getFixedValueRestriction(String propURI,
+	    Object value) {
 	if (propURI == null || value == null)
 	    return null;
 
@@ -252,8 +251,8 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getCardinalityRestriction(
-	    String propURI, int min, int max) {
+    public static MergedRestriction getCardinalityRestriction(String propURI,
+	    int min, int max) {
 	if (propURI == null)
 	    return null;
 	if (max > -1 && max < min) { // invalid
@@ -322,7 +321,7 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getAllValuesRestrictionWithCardinality(
+    public static MergedRestriction getAllValuesRestrictionWithCardinality(
 	    String propURI, String typeURI, int min, int max) {
 	if (typeURI == null)
 	    return null;
@@ -382,7 +381,7 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getAllValuesRestrictionWithCardinality(
+    public static MergedRestriction getAllValuesRestrictionWithCardinality(
 	    String propURI, TypeExpression expr, int min, int max) {
 	if (expr == null)
 	    return null;
@@ -415,8 +414,8 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getAllValuesRestriction(
-	    String propURI, String typeURI) {
+    public static MergedRestriction getAllValuesRestriction(String propURI,
+	    String typeURI) {
 	if (typeURI == null || propURI == null)
 	    return null;
 
@@ -465,8 +464,8 @@ public final class MergedRestriction extends Intersection {
      * @return the restriction, or <code>null</code> if the parameters are
      *         invalid.
      */
-    public static final MergedRestriction getAllValuesRestriction(
-	    String propURI, TypeExpression expr) {
+    public static MergedRestriction getAllValuesRestriction(String propURI,
+	    TypeExpression expr) {
 	if (expr == null || propURI == null)
 	    return null;
 
@@ -759,8 +758,7 @@ public final class MergedRestriction extends Intersection {
 	    break;
 	case someValuesFromID:
 	    if (some == null
-		    && (all == null || ((TypeExpression) all)
-			    .matches(res))) {
+		    && (all == null || ((TypeExpression) all).matches(res))) {
 		if (all != null && max == 1)
 		    removeRestriction(allValuesFromID);
 		index[someValuesFromID] = types.size();
@@ -1038,15 +1036,15 @@ public final class MergedRestriction extends Intersection {
 
 	all = (TypeExpression) ((AllValuesFromRestriction) types
 		.get(index[allValuesFromID])).getConstraint();
-	
+
 	if (all instanceof TypeURI) {
 	    return ((TypeURI) all).getURI();
 	}
 
 	if (all instanceof TypeRestriction) {
-	    return ((TypeRestriction)all).getTypeURI();
+	    return ((TypeRestriction) all).getTypeURI();
 	}
-	
+
 	return null;
     }
 

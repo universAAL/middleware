@@ -25,32 +25,35 @@ import org.universAAL.middleware.managers.configuration.core.impl.factories.Enti
 import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 
 /**
- * Abstract class for Local {@link ConfigurableEntityEditor}s.
- * implement method for getDescription (from {@link DescribedEntity} compared with file to maintain it updated),
- * utility method to get the entity (from file).
+ * Abstract class for Local {@link ConfigurableEntityEditor}s. implement method
+ * for getDescription (from {@link DescribedEntity} compared with file to
+ * maintain it updated), utility method to get the entity (from file).
+ * 
  * @author amedrano
  */
-public abstract class LocalConfigurationEntity extends GenericConfigurationEntity implements ConfigurableEntityEditor{
-   
+public abstract class LocalConfigurationEntity extends
+	GenericConfigurationEntity implements ConfigurableEntityEditor {
+
     /**
      * 
      */
-    public LocalConfigurationEntity(ConfigurationManagerImpl configurationManagerImpl, String uri){
-        super(configurationManagerImpl, uri);
+    public LocalConfigurationEntity(
+	    ConfigurationManagerImpl configurationManagerImpl, String uri) {
+	super(configurationManagerImpl, uri);
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public String getDescription(Locale loc) {
-        DescribedEntity s = confManager.entitiesSources.get(uri);
-        Entity old = confManager.manager.find(uri);
-        Entity ne = EntityFactory.updateEntity(old, s, loc);
-        confManager.manager.addEntity(ne);
-        return ne.getDescription(loc);
+	DescribedEntity s = confManager.entitiesSources.get(uri);
+	Entity old = confManager.manager.find(uri);
+	Entity ne = EntityFactory.updateEntity(old, s, loc);
+	confManager.manager.addEntity(ne);
+	return ne.getDescription(loc);
     }
 
-    protected Entity getEntity(){
+    protected Entity getEntity() {
 	Entity e = confManager.manager.find(uri);
 	return e;
     }
-    
+
 }

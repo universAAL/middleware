@@ -183,7 +183,8 @@ public final class ResourceComparator {
 		return false;
 	    else {
 		if (!ignoreEmptyList && r1.isAnon()) {
-		    writeLine(indent, new Object[] { "different empty resources" });
+		    writeLine(indent,
+			    new Object[] { "different empty resources" });
 		    return true;
 		}
 		return false;

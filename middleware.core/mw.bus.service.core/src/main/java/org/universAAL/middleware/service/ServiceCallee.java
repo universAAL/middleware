@@ -26,7 +26,9 @@ import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
+import org.universAAL.middleware.service.impl.ServiceRealization;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
@@ -38,6 +40,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
+ * @author Carsten Stockloew
  */
 public abstract class ServiceCallee extends Callee {
 
@@ -63,8 +66,37 @@ public abstract class ServiceCallee extends Callee {
     }
 
     /**
+     * The default constructor for this class.
+     * 
+     * @param context
+     *            The OSGI bundle context where the ServiceBus is registered.
+     *            Note that if no service bus is registered at the time of
+     *            creation, this object will not be operational.
+     * @param realizedServices
+     *            The initial set of services that are realized by this callee.
+     * @param throwOnError
+     *            Determines if an Exception should be thrown in case of an
+     *            error. In that case, none of the profiles will be registered.
+     * @throws NullPointerException
+     *             if realizedServices is null or one of the elements of that
+     *             array is null
+     * @throws ProfileExistsException
+     *             if one of the profiles exists already.
+     * @throws SecurityException
+     *             if one of the profiles is not allowed to be registered by
+     *             this module.
+     */
+    protected ServiceCallee(ModuleContext context,
+	    ServiceProfile[] realizedServices, boolean throwOnError) {
+	super(context, ServiceBusImpl.getServiceBusFetchParams());
+	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
+		getURI(), realizedServices);
+	addNewServiceProfiles(realizedServices, throwOnError);
+    }
+
+    /**
      * Registers additional services to be provided by this
-     * <code>ServiceCalee</code>.
+     * <code>ServiceCallee</code>.
      * 
      * @param realizedServices
      *            the new services.
@@ -73,15 +105,44 @@ public abstract class ServiceCallee extends Callee {
      *             array is null
      */
     protected final void addNewServiceProfiles(ServiceProfile[] realizedServices) {
-	realizedServices = AccessControl.INSTANCE.checkPermission(owner,
-		getURI(), realizedServices);
+	try {
+	    addNewServiceProfiles(realizedServices, false);
+	} catch (ProfileExistsException e) {
+	}
+    }
+
+    /**
+     * Registers additional services to be provided by this
+     * <code>ServiceCallee</code>.
+     * 
+     * @param realizedServices
+     *            the new services.
+     * @param throwOnError
+     *            Determines if an Exception should be thrown in case of an
+     *            error. In that case, none of the profiles will be registered.
+     * @throws NullPointerException
+     *             if realizedServices is null or one of the elements of that
+     *             array is null
+     * @throws ProfileExistsException
+     *             if one of the profiles exists already.
+     * @throws SecurityException
+     *             if one of the profiles is not allowed to be registered by
+     *             this module.
+     */
+    protected final void addNewServiceProfiles(
+	    ServiceProfile[] realizedServices, boolean throwOnError) {
+	ServiceProfile[] filteredServices = AccessControl.INSTANCE
+		.checkPermission(owner, getURI(), realizedServices);
+	if (throwOnError && filteredServices.length != realizedServices.length)
+	    throw new SecurityException(
+		    "A profile is not allowed to be registered by this module.");
 	((ServiceBus) theBus).addNewServiceProfiles(busResourceURI,
-		realizedServices);
+		filteredServices, throwOnError);
     }
 
     /**
      * Removes a specified set of services that were previously provided by this
-     * <code>ServiceCalee</code>.
+     * <code>ServiceCallee</code>.
      * 
      * @param realizedServices
      *            the services that need to be removed.
@@ -124,14 +185,16 @@ public abstract class ServiceCallee extends Callee {
      * @param m
      *            request message coming from the bus.
      */
-    public void handleRequest(BusMessage m) {
+    public final void handleCall(BusMessage m) {
 	if (m != null && m.getContent() instanceof ServiceCall) {
-	    LogUtils.logInfo(owner, ServiceCallee.class, "handleRequest",
+	    LogUtils.logDebug(owner, ServiceCallee.class, "handleRequest",
 		    new Object[] { busResourceURI, " received service call:\n",
 			    m.getContentAsString() }, null);
 	    ServiceResponse sr = handleCall((ServiceCall) m.getContent());
 	    if (sr == null)
 		sr = new ServiceResponse(CallStatus.serviceSpecificFailure);
+	    sr.setProperty(ServiceRealization.uAAL_SERVICE_PROVIDER,
+		    new Resource(busResourceURI));
 	    BusMessage reply = m.createReply(sr);
 	    if (reply != null)
 		((ServiceBus) theBus).brokerReply(busResourceURI, reply);

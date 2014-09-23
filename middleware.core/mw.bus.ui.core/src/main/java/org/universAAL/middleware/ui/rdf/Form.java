@@ -234,8 +234,8 @@ public class Form extends FormElement {
 	if (i == pp.length - 1)
 	    return r;
 
-	return (r == null) ? null : getPPathRestriction(pp, i + 1, r
-		.getPropTypeURI());
+	return (r == null) ? null : getPPathRestriction(pp, i + 1,
+		r.getPropTypeURI());
     }
 
     static Object getValue(String[] pp, Resource pr) {
@@ -393,14 +393,14 @@ public class Form extends FormElement {
 	addType(MY_URI, true);
     }
 
-	/**
-	 * @param uriPrefix
-	 * @param numProps
-	 */
-	protected Form(String uriPrefix, int numProps) {
-		super(uriPrefix, numProps);
-	}
-    
+    /**
+     * @param uriPrefix
+     * @param numProps
+     */
+    protected Form(String uriPrefix, int numProps) {
+	super(uriPrefix, numProps);
+    }
+
     private Form(String formTitle, Resource dataRoot) {
 	super(uAAL_DIALOG_NAMESPACE, 5);
 	addType(MY_URI, true);
@@ -681,29 +681,29 @@ public class Form extends FormElement {
 		props.put(PROP_DIALOG_DATA_ROOT, pr);
 	}
     }
-    
+
     /**
      * look for a FormControl within the form with the given URI.
+     * 
      * @param formControlURI
      * @return the {@link FormControl} or null if not found.
      */
-    public FormControl searchFormControl(String formControlURI){
-    	FormControl[] children = getRootGroup().getChildren();
-    	boolean found = false;
-    	int i = 0;
-    	FormControl result = null;
-    	while (!found
-    			&& i < children.length){
-    		found = children[i].getURI().equals(formControlURI);
-    		if (found){
-    			result = children[i];
-    		}
-    		else if (children[i] instanceof Group){
-    			result = ((Group)children[i]).searchFormControl(formControlURI);
-    			found = (result != null);
-    		}
-    		i++;
-    	}
-    	return result;
+    public FormControl searchFormControl(String formControlURI) {
+	FormControl[] children = getRootGroup().getChildren();
+	boolean found = false;
+	int i = 0;
+	FormControl result = null;
+	while (!found && i < children.length) {
+	    found = children[i].getURI().equals(formControlURI);
+	    if (found) {
+		result = children[i];
+	    } else if (children[i] instanceof Group) {
+		result = ((Group) children[i])
+			.searchFormControl(formControlURI);
+		found = (result != null);
+	    }
+	    i++;
+	}
+	return result;
     }
 }

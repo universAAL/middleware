@@ -27,8 +27,9 @@ import java.util.Map;
 
 import org.universAAL.middleware.bus.model.matchable.Response;
 import org.universAAL.middleware.bus.model.matchable.UtilityReply;
-import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ScopedResource;
+import org.universAAL.middleware.service.impl.ServiceRealization;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 
 /**
@@ -38,8 +39,9 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
+ * @author Carsten Stockloew
  */
-public class ServiceResponse extends FinalizedResource implements Response,
+public class ServiceResponse extends ScopedResource implements Response,
 	UtilityReply {
 
     /**
@@ -146,6 +148,42 @@ public class ServiceResponse extends FinalizedResource implements Response,
     /**
      * Returns all value objects returned for a required output with the given
      * paramURI. Since the original request might have been responded by several
+     * different service components, the responses are merged and returned into
+     * one list. A return value of null indicates that there are no outputs in
+     * the response. If an empty list is returned by this method, it indicates
+     * that there are no output related to the given paramURI. Otherwise, the
+     * return value is always a list even if there is only one value object in
+     * that list.
+     * 
+     * @param paramURI
+     *            the URI of the required output.
+     * @return the output with the specified URI.
+     */
+    public List<Object> getOutput(String paramURI) {
+	List<ProcessOutput> outputs = getOutputs();
+	if (outputs == null || outputs.size() == 0) {
+	    return null;
+	}
+
+	List<Object> l = null;
+	for (ProcessOutput po : outputs) {
+	    if (po.getURI().equals(paramURI)) {
+		if (l == null)
+		    l = new ArrayList<Object>();
+		Object ob = po.getParameterValue();
+		if (ob instanceof List)
+		    l.addAll((List<?>) ob);
+		else
+		    l.add(ob);
+	    }
+	}
+
+	return l;
+    }
+
+    /**
+     * Returns all value objects returned for a required output with the given
+     * paramURI. Since the original request might have been responded by several
      * different service components, asMergedList decides if those responses are
      * returned separately or merged into one list. A return value of null
      * indicates that there are no outputs in the response. If an empty list is
@@ -157,46 +195,16 @@ public class ServiceResponse extends FinalizedResource implements Response,
      *            the URI of the required output.
      * @param asMergedList
      *            specifies if the outputs of the separate services are merged.
+     *            This parameter is not available at the moment and should be
+     *            set to <tt>true</tt>
      * @return the output with the specified URI.
+     * @deprecated The parameter asMergedList is not used anymore since
+     *             {@link MultiServiceResponse} was introduced. Use
+     *             {@link #getOutput(String)} instead.
      */
+    @Deprecated
     public List getOutput(String paramURI, boolean asMergedList) {
-	List outputs = getOutputs();
-	if (outputs == null || outputs.size() == 0) {
-	    return null;
-	}
-
-	List result = new ArrayList();
-
-	// iterate over the available output parameters
-	for (Iterator iter1 = outputs.iterator(); iter1.hasNext();) {
-	    Object obj = iter1.next();
-	    if (obj instanceof ProcessOutput) {
-		ProcessOutput output = (ProcessOutput) obj;
-		// check by the param URI if this is the right output
-		if (output.getURI().equals(paramURI)) {
-		    Object ob = output.getParameterValue();
-		    if (asMergedList && ob instanceof List)
-			result.addAll((List) ob);
-		    else
-			result.add(ob);
-		}
-	    } else if (obj instanceof List) {
-		// this can happen if we get responses from more than one service
-		List outputLists = (List) obj;
-		for (Iterator iter2 = outputLists.iterator(); iter2.hasNext();) {
-		    ProcessOutput output = (ProcessOutput) iter2.next();
-		    if (output.getURI().equals(paramURI)) {
-			Object ob = output.getParameterValue();
-			if (asMergedList && ob instanceof List)
-			    result.addAll((List) ob);
-			else
-			    result.add(ob);
-		    }
-		}
-	    }
-	}
-
-	return result;
+	return getOutput(paramURI);
     }
 
     /**
@@ -207,10 +215,10 @@ public class ServiceResponse extends FinalizedResource implements Response,
      * 
      * @return all outputs of the service.
      */
-    public Map<String, List> getOutputsMap() {
-	Map<String, List> result = new HashMap<String, List>();
+    public Map<String, List<Object>> getOutputsMap() {
+	Map<String, List<Object>> result = new HashMap<String, List<Object>>();
 
-	List outputs = getOutputs();
+	List<ProcessOutput> outputs = getOutputs();
 	if (outputs == null || outputs.size() == 0) {
 	    return result;
 	}
@@ -220,32 +228,34 @@ public class ServiceResponse extends FinalizedResource implements Response,
 	    if (obj instanceof ProcessOutput) {
 		ProcessOutput output = (ProcessOutput) obj;
 
-		List l = result.get(output.getURI());
+		List<Object> l = result.get(output.getURI());
 		if (l == null) {
-		    l = new ArrayList(3);
+		    l = new ArrayList<Object>(3);
 		    result.put(output.getURI(), l);
 		}
 
 		Object ob = output.getParameterValue();
 		if (ob instanceof List)
-		    l.addAll((List) ob);
+		    l.addAll((List<?>) ob);
 		else
 		    l.add(ob);
 	    } else if (obj instanceof List) {
-		// this can happen if we get responses from more than one service
-		List outputLists = (List) obj;
-		for (Iterator iter2 = outputLists.iterator(); iter2.hasNext();) {
+		// this can happen if we get responses from more than one
+		// service
+		List<?> outputLists = (List<?>) obj;
+		for (Iterator<?> iter2 = outputLists.iterator(); iter2
+			.hasNext();) {
 		    ProcessOutput output = (ProcessOutput) iter2.next();
 
-		    List l = result.get(output.getURI());
+		    List<Object> l = result.get(output.getURI());
 		    if (l == null) {
-			l = new ArrayList(3);
+			l = new ArrayList<Object>(3);
 			result.put(output.getURI(), l);
 		    }
 
 		    Object ob = output.getParameterValue();
 		    if (ob instanceof List)
-			l.addAll((List) ob);
+			l.addAll((List<?>) ob);
 		    else
 			l.add(ob);
 		}
@@ -259,10 +269,10 @@ public class ServiceResponse extends FinalizedResource implements Response,
      * Retrieves all of the service outputs as a raw <code>List</code> without
      * any rearranging.
      * 
-     * @return the outputs that the invoked services produced.
+     * @return the outputs that the invoked services produced. May be null.
      */
-    public List getOutputs() {
-	return (List) props.get(PROP_SERVICE_HAS_OUTPUT);
+    public List<ProcessOutput> getOutputs() {
+	return (List<ProcessOutput>) props.get(PROP_SERVICE_HAS_OUTPUT);
     }
 
     /**
@@ -273,6 +283,16 @@ public class ServiceResponse extends FinalizedResource implements Response,
      */
     public boolean isWellFormed() {
 	return props.containsKey(PROP_SERVICE_CALL_STATUS);
+    }
+
+    /**
+     * Get the provider of the requested service. The provider is the URI of the
+     * bus member (the {@link ServiceCallee}).
+     * 
+     * @return The URI of the service provider.
+     */
+    public Resource getProvider() {
+	return (Resource) props.get(ServiceRealization.uAAL_SERVICE_PROVIDER);
     }
 
     /**
@@ -302,6 +322,9 @@ public class ServiceResponse extends FinalizedResource implements Response,
 		props.put(propURI, value);
 		return true;
 	    }
+	} else if (propURI.equals(ServiceRealization.uAAL_SERVICE_PROVIDER)) {
+	    if (value instanceof Resource)
+		props.put(propURI, value);
 	}
 	return false;
     }

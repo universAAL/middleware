@@ -41,6 +41,9 @@
 		<bundle start-level='56' start='true'>mvn:org.universAAL.middleware/mw.managers.aalspace.osgi/${mw.managers.aalspace.osgi.version}</bundle>
 		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.deploy.osgi/${mw.managers.deploy.osgi.version}</bundle>
 		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.configuration.osgi/${mw.managers.configuration.osgi.version}</bundle>
+		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.tenant.osgi/${mw.managers.tenant.osgi.version}</bundle>
+
+
 
 		<!-- Busses -->
 		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.data.representation.osgi/${mw.data.representation.osgi.version}</bundle>
@@ -51,6 +54,8 @@
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.service.osgi/${mw.bus.service.osgi.version}</bundle>
 		<bundle start-level='59' start='true'>mvn:org.universAAL.middleware/mw.bus.ui.osgi/${mw.bus.ui.osgi.version}</bundle>
 		<bundle start-level='59'>mvn:org.universAAL.middleware/mw.karaf.shell.universAAL.osgi/${mw.karaf.shell.universAAL.osgi.version}</bundle>
+
+		<bundle start-level='60' start='true'>mvn:org.universAAL.middleware/mw.bus.tracker.osgi/${mw.bus.tracker.osgi.version}</bundle>
 		
 
 		<!-- Configuration file section -->

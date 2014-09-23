@@ -24,16 +24,17 @@ import org.universAAL.middleware.interfaces.configuration.configurationEditionTy
 import org.universAAL.middleware.managers.api.ConfigurationEditor.ConfigurableEntityManager;
 
 /**
- * The Default implementation of {@link ConfigurableEntityManager} used to transform
- * the asynchronous calls of remote requests into a synchronous call.
+ * The Default implementation of {@link ConfigurableEntityManager} used to
+ * transform the asynchronous calls of remote requests into a synchronous call.
+ * 
  * @author amedrano
- *
+ * 
  */
 public class SynchronousConfEntityManager implements ConfigurableEntityManager {
 
     private List<ConfigurableEntityEditor> entities;
     private static long WAIT_TIME = 1000;
-    
+
     /**
      * 
      */
@@ -41,15 +42,16 @@ public class SynchronousConfEntityManager implements ConfigurableEntityManager {
 	entities = new ArrayList<ConfigurableEntityEditor>();
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void addConfigurableEntity(ConfigurableEntityEditor cent) {
 	entities.add(cent);
     }
-    
-    public List<ConfigurableEntityEditor> getList(){
+
+    public List<ConfigurableEntityEditor> getList() {
 	try {
 	    Thread.sleep(WAIT_TIME);
-	} catch (InterruptedException e) {}
+	} catch (InterruptedException e) {
+	}
 	return entities;
     }
 

@@ -17,18 +17,21 @@
 
 package org.universAAL.middleware.interfaces.configuration.scope;
 
-
 /**
- * Defines Scopes for entities that are applicable over the whole AALSpace, so when managed its value will be the same on the whole AALSpace.
+ * Defines Scopes for entities that are applicable over the whole AALSpace, so
+ * when managed its value will be the same on the whole AALSpace.
+ * 
  * @author amedrano
- *
+ * 
  */
-public class AALSpaceScope extends Scope{
+public class AALSpaceScope extends Scope {
     /**
      * Constructor for a entity with unique identifier.
-     * @param id a unique identifier.
+     * 
+     * @param id
+     *            a unique identifier.
      */
     public AALSpaceScope(String id) {
-        super(id);
+	super(id);
     }
 }

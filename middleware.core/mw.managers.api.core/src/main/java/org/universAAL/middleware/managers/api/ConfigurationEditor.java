@@ -26,48 +26,76 @@ import org.universAAL.middleware.interfaces.configuration.configurationEditionTy
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern;
 
 /**
- * Configuration Edition user interfaces should look for this service to enable remote or local configuration of {@link ConfigurableModule}s. 
+ * Configuration Edition user interfaces should look for this service to enable
+ * remote or local configuration of {@link ConfigurableModule}s.
+ * 
  * @author amedrano
- *
+ * 
  */
 public interface ConfigurationEditor {
 
     /**
-     * An interface to receive asynchronously the {@link ConfigurableEntityEditor}s.
+     * An interface to receive asynchronously the
+     * {@link ConfigurableEntityEditor}s.
+     * 
      * @author amedrano
-     *
+     * 
      */
     public interface ConfigurableEntityManager {
-	
+
 	/**
-	 * Called when a new Matching {@link ConfigurableEntityEditor} is available.
-	 * @param cent the new editor.
+	 * Called when a new Matching {@link ConfigurableEntityEditor} is
+	 * available.
+	 * 
+	 * @param cent
+	 *            the new editor.
 	 */
 	public void addConfigurableEntity(ConfigurableEntityEditor cent);
     }
 
     /**
-     * Get all the individual {@link ConfigurableEntityEditor ConfigurableEntities} to configure each matching {@link DescribedEntity}.
-     * This call is done synchronously, internally it will call the asynchronous method, and wait for all the responses.
-     * @param configPattern the matching entities pattern, to get only the corresponding {@link ConfigurableEntityEditor}s of those entities. use Empty list to get all.
-     * @param locale the preferred locale for descriptions.
-     * @return a list of {@link ConfigurableEntityEditor}s corresponding to matching Entities.
+     * Get all the individual {@link ConfigurableEntityEditor
+     * ConfigurableEntities} to configure each matching {@link DescribedEntity}.
+     * This call is done synchronously, internally it will call the asynchronous
+     * method, and wait for all the responses.
+     * 
+     * @param configPattern
+     *            the matching entities pattern, to get only the corresponding
+     *            {@link ConfigurableEntityEditor}s of those entities. use Empty
+     *            list to get all.
+     * @param locale
+     *            the preferred locale for descriptions.
+     * @return a list of {@link ConfigurableEntityEditor}s corresponding to
+     *         matching Entities.
      */
-    public List<ConfigurableEntityEditor> getMatchingConfigurationEditors(List<EntityPattern> configPattern, Locale locale);
-    
+    public List<ConfigurableEntityEditor> getMatchingConfigurationEditors(
+	    List<EntityPattern> configPattern, Locale locale);
+
     /**
-     * Subscribe asynchronously to all the all the individual {@link ConfigurableEntityEditor ConfigurableEntities} to configure each 
+     * Subscribe asynchronously to all the all the individual
+     * {@link ConfigurableEntityEditor ConfigurableEntities} to configure each
      * matching {@link DescribedEntity}.
-     * @param manager the listener to be called asynchronously when a new matching {@link DescribedEntity} is found.
-     * @param configPattern the pattern to match {@link DescribedEntity DescribedEntities}.
-     * @param locale the preferred language of the manager.
+     * 
+     * @param manager
+     *            the listener to be called asynchronously when a new matching
+     *            {@link DescribedEntity} is found.
+     * @param configPattern
+     *            the pattern to match {@link DescribedEntity DescribedEntities}
+     *            .
+     * @param locale
+     *            the preferred language of the manager.
      */
-    public void registerConfigurableEntityManager(ConfigurableEntityManager manager, List<EntityPattern> configPattern, Locale locale);
-    
+    public void registerConfigurableEntityManager(
+	    ConfigurableEntityManager manager,
+	    List<EntityPattern> configPattern, Locale locale);
+
     /**
-     * Unregister a previously registered {@link ConfigurableEntityManager}, it un registers all configPattern registered.
+     * Unregister a previously registered {@link ConfigurableEntityManager}, it
+     * un registers all configPattern registered.
+     * 
      * @param manager
      * @param configPattern
      */
-    public void unRegisterConfigurableEntityManager(ConfigurableEntityManager manager);
+    public void unRegisterConfigurableEntityManager(
+	    ConfigurableEntityManager manager);
 }

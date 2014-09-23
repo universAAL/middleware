@@ -133,7 +133,7 @@ public final class Rating extends ComparableIndividual {
 	}
     }
 
-    public static final Rating valueOf(String name) {
+    public static Rating valueOf(String name) {
 	for (int i = POOR; i <= EXCELLENT; i++)
 	    if (names[i].equals(name))
 		return getRatingByOrder(i);

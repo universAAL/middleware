@@ -17,13 +17,52 @@
 package org.universAAL.middleware.bus.model.util;
 
 import org.universAAL.middleware.bus.member.BusMember;
+import org.universAAL.middleware.rdf.Resource;
 
 public interface IRegistryListener {
 
+    /**
+     * Invoked when a new BusMember is registered in the bus.
+     * 
+     * @param member
+     *            newly added bus member
+     */
     void busMemberAdded(BusMember busMember);
 
+    /**
+     * Invoked when an existing BusMember is unregistered from the bus.
+     * 
+     * @param member
+     *            removed bus member
+     */
     void busMemberRemoved(BusMember busMember);
 
-    void busCleared();
+    /**
+     * Invoked when registration parameters of an existing BusMember are added.
+     * 
+     * @param busMemberID
+     *            the ID of the bus member for which the registration parameters
+     *            have been added.
+     * @param params
+     *            the registration parameters.
+     */
+    public void regParamsAdded(String busMemberID, Resource[] params);
 
+    /**
+     * Invoked when registration parameters of an existing BusMember are
+     * removed.
+     * 
+     * @param busMemberID
+     *            the ID of the bus member for which the registration parameters
+     *            have been removed.
+     * @param params
+     *            the registration parameters.
+     */
+    public void regParamsRemoved(String busMemberID, Resource[] params);
+
+    /**
+     * Invoked when all bus members are removed. This typically only happens
+     * when the bus is stopped.
+     */
+    void busCleared();
 }

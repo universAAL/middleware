@@ -145,7 +145,6 @@ public interface AALSpaceModule extends Module {
     /**
      * This method configures the channel used in order to send/receive AAL
      * Space messages
-     
      */
     public void configureAALSpaceChannel();
 

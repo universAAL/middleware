@@ -36,8 +36,9 @@ public class DeployPayload extends Payload {
     private static final long serialVersionUID = 4155680139788101950L;
     private UAPPCard uappCard;
 
-    public DeployPayload(){}
-    
+    public DeployPayload() {
+    }
+
     public DeployPayload(byte[] part, UAPPCard mpaCard) {
 
 	this.part = part;

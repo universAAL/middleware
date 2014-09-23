@@ -119,17 +119,23 @@ public abstract class AbstractBus implements Broker, MessageListener {
 			    myContext.getID(), " and the current caller is ",
 			    mc.getID() }, null);
 	}
-	myContext = mc;
 
 	AccessControl.INSTANCE.init(mc);
 	Permission.init(mc);
 
+	myContext = mc;
+
 	aalSpaceManager = aalSpaceMgr;
 	communicationModule = commModule;
+
+	createURIs();
+    }
+
+    private static void createURIs() {
 	// configure the MW's URI instance
 	// first check if I already join an AALSpace
 
-	AALSpaceDescriptor sd = aalSpaceMgr.getAALSpaceDescriptor();
+	AALSpaceDescriptor sd = aalSpaceManager.getAALSpaceDescriptor();
 	if (sd != null) {
 	    uAAL_SPACE_INSTANCE_URI_PREFIX = sd.getSpaceCard().getSpaceID()
 		    + "/";
@@ -140,7 +146,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	// then)
 	uAAL_SPACE_INSTANCE_URI_PREFIX = "";
 
-	PeerCard pc = aalSpaceMgr.getMyPeerCard();
+	PeerCard pc = aalSpaceManager.getMyPeerCard();
 	if (pc != null) {
 	    uAAL_MW_INSTANCE_URI_PREFIX = uAAL_SPACE_INSTANCE_URI_PREFIX
 		    + pc.getPeerID() + "#";
@@ -199,9 +205,11 @@ public abstract class AbstractBus implements Broker, MessageListener {
     protected IRegistry registry;
     protected BusStrategy busStrategy;
     private String brokerName;
+    private PeerCard myCard = null;
 
     protected AbstractBus(ModuleContext module, String brokerName) {
 	context = module;
+	this.myCard = aalSpaceManager.getMyPeerCard();
 	this.brokerName = brokerName;
 	if (communicationModule != null)
 	    communicationModule.addMessageListener(this, getBrokerName());
@@ -244,7 +252,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
     }
 
     public PeerCard getPeerCard() {
-	return aalSpaceManager.getMyPeerCard();
+	return myCard;
     }
 
     /**
@@ -276,7 +284,8 @@ public abstract class AbstractBus implements Broker, MessageListener {
      * members but only if it has not been added before). Returns the URI with
      * which the provided member will be known as a bus resource.
      */
-    public final String register(ModuleContext module, BusMember m, BusMemberType type) {
+    public final String register(ModuleContext module, BusMember m,
+	    BusMemberType type) {
 	if (m == null)
 	    return null;
 
@@ -303,9 +312,9 @@ public abstract class AbstractBus implements Broker, MessageListener {
      */
     public void brokerMessage(String senderID, BusMessage msg) {
 	if (isValidMember(senderID)) {
-//	    LogUtils.logDebug(context, AbstractBus.class, "sendMessage",
-//		    new Object[] { " - ", senderID, " sending:\n",
-//			    msg.toString() }, null);
+	    // LogUtils.logDebug(context, AbstractBus.class, "sendMessage",
+	    // new Object[] { " - ", senderID, " sending:\n",
+	    // msg.toString() }, null);
 	    busStrategy.handleMessage(msg, senderID);
 	}
     }
@@ -341,17 +350,15 @@ public abstract class AbstractBus implements Broker, MessageListener {
 		BusMember o = registry.removeMemberByID(memberID);
 		if (o != null && !o.equals(m)) {
 		    registry.addBusMember(memberID, o);
-		    LogUtils
-			    .logError(
-				    context,
-				    AbstractBus.class,
-				    "unregister",
-				    new Object[] {
-					    "Existing bus member should have been unregistered, but the ID does not match: "
-						    + "\n    memberID to unregister: ",
-					    memberID,
-					    "\n    queried memberID: ",
-					    o.getURI() }, null);
+		    LogUtils.logError(
+			    context,
+			    AbstractBus.class,
+			    "unregister",
+			    new Object[] {
+				    "Existing bus member should have been unregistered, but the ID does not match: "
+					    + "\n    memberID to unregister: ",
+				    memberID, "\n    queried memberID: ",
+				    o.getURI() }, null);
 		} else {
 		    LogUtils.logDebug(context, AbstractBus.class, "unregister",
 			    new Object[] {
@@ -366,7 +373,10 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	if (message != null) {
 	    BusMessage busMessage = (BusMessage) unmarshall(message
 		    .getContent());
-	    LogUtils.logInfo(context, AbstractBus.class, "messageReceived",
+	    LogUtils.logDebug(
+		    context,
+		    AbstractBus.class,
+		    "messageReceived",
 		    new Object[] { context.getID(),
 			    " - Received message from peer ",
 			    message.getSender().getPeerID(), ":\n",
@@ -408,7 +418,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
     }
 
     public BrokerMessage unmarshall(String serializedBusMessage) {
-	return new BusMessage(serializedBusMessage);
+	return new BusMessage(serializedBusMessage, this);
     }
 
     public boolean addRegistryListener(IRegistryListener listener) {

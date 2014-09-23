@@ -32,90 +32,101 @@ import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
  * @author amedrano
- *
+ * 
  */
 public class ConfigSample {
 
-   public static DescribedEntity[] getConfigurationDescription(){
-	return new DescribedEntity[]{
+    public static DescribedEntity[] getConfigurationDescription() {
+	return new DescribedEntity[] {
 		new ConfigurationParameter() {
-		    
+
 		    public Scope getScope() {
-			return Scope.applicationScope("number.of.foos", "foo.giver");
+			return Scope.applicationScope("number.of.foos",
+				"foo.giver");
 		    }
-		    
+
 		    public String getDescription(Locale loc) {
-			if (loc.equals(Locale.FRENCH)){
-			    //return description in french.
+			if (loc.equals(Locale.FRENCH)) {
+			    // return description in french.
 			}
 			return "The number of foos to give by this foo giver module";
 		    }
-		    
+
 		    public MergedRestriction getType() {
 			MergedRestriction mr = MergedRestriction
-				.getAllValuesRestrictionWithCardinality(ConfigurationParameter.PROP_CONFIG_VALUE, 
-					TypeMapper.getDatatypeURI(Integer.class), 1, 1);
+				.getAllValuesRestrictionWithCardinality(
+					ConfigurationParameter.PROP_CONFIG_VALUE,
+					TypeMapper
+						.getDatatypeURI(Integer.class),
+					1, 1);
 			mr.addType(new IntRestriction(0, true, 10, true));
 			return mr;
 		    }
-		    
+
 		    public Object getDefaultValue() {
 			return 1;
 		    }
 		},
 		new ConfigurationParameter() {
-		    
+
 		    public Scope getScope() {
 			return Scope.aalScope("foo.target");
 		    }
-		    
+
 		    public String getDescription(Locale loc) {
-			// use localized messages properties file to return description.
+			// use localized messages properties file to return
+			// description.
 			return null;
 		    }
-		    
+
 		    public MergedRestriction getType() {
 			return MergedRestriction
-				.getAllValuesRestrictionWithCardinality(ConfigurationParameter.PROP_CONFIG_VALUE, 
-					TypeMapper.getDatatypeURI(String.class), 1, 1);
+				.getAllValuesRestrictionWithCardinality(
+					ConfigurationParameter.PROP_CONFIG_VALUE,
+					TypeMapper.getDatatypeURI(String.class),
+					1, 1);
 		    }
-		    
+
 		    public Object getDefaultValue() {
 			return null;
 		    }
 		},
-		new ConfigurationDefinedElsewhere(Scope.aalScope("super.config")),
+		new ConfigurationDefinedElsewhere(
+			Scope.aalScope("super.config")),
 		new ConfigurationParameter() {
-		    
+
 		    public Scope getScope() {
 			return new InstanceScope("noise.limit", "mySuperPeer");
 		    }
-		    
+
 		    public String getDescription(Locale loc) {
 			return "the noise limit of the instance, in dB";
 		    }
-		    
+
 		    public MergedRestriction getType() {
-			return MergedRestriction.getAllValuesRestrictionWithCardinality(PROP_CONFIG_VALUE, TypeMapper.getDatatypeURI(Integer.class), 0, 1);
+			return MergedRestriction
+				.getAllValuesRestrictionWithCardinality(
+					PROP_CONFIG_VALUE, TypeMapper
+						.getDatatypeURI(Integer.class),
+					0, 1);
 		    }
-		    
+
 		    public Object getDefaultValue() {
 			return Integer.valueOf(-3);
 		    }
 		},
 
-		
-		//TROLL config for testing
+		// TROLL config for testing
 		new ConfigurationFile() {
-		    
+
 		    public Scope getScope() {
 			return null;
 		    }
-		    
+
 		    public String getDescription(Locale loc) {
 			return null;
 		    }
-		    
+
 		    public URL getDefaultFileRef() {
 			return null;
 		    }
@@ -123,7 +134,6 @@ public class ConfigSample {
 		    public String getExtensionfilter() {
 			return "*.*";
 		    }
-		},
-	};
+		}, };
     }
 }

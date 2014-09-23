@@ -69,26 +69,23 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
     public synchronized void assessContentSerialization(Resource content) {
 	if (org.universAAL.middleware.util.Constants.debugMode()) {
-	    LogUtils
-		    .logDebug(
-			    context,
-			    UIBusImpl.class,
-			    "assessContentSerialization",
-			    new Object[] { "Assessing message content serialization:" },
-			    null);
+	    LogUtils.logDebug(
+		    context,
+		    UIBusImpl.class,
+		    "assessContentSerialization",
+		    new Object[] { "Assessing message content serialization:" },
+		    null);
 
 	    String str = BusMessage.trySerializationAsContent(content);
-	    LogUtils
-		    .logDebug(
-			    context,
-			    UIBusImpl.class,
-			    "assessContentSerialization",
-			    new Object[] { "\n      1. serialization dump\n",
-				    str,
-				    "\n      2. deserialize & compare with the original resource\n" },
-			    null);
-	    new ResourceComparator().printDiffs(content, (Resource) BusMessage
-		    .deserializeAsContent(str));
+	    LogUtils.logDebug(
+		    context,
+		    UIBusImpl.class,
+		    "assessContentSerialization",
+		    new Object[] { "\n      1. serialization dump\n", str,
+			    "\n      2. deserialize & compare with the original resource\n" },
+		    null);
+	    new ResourceComparator().printDiffs(content,
+		    (Resource) BusMessage.deserializeAsContent(str));
 	}
     }
 
@@ -106,15 +103,16 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 
     public static void stopModule() {
 	new Thread(new Runnable() {
-	    
+
 	    public void run() {
 		if (theUIBus != null) {
-		    ((UIStrategyCaller)theUIBus.busStrategy).close();
-		    OntologyManagement.getInstance().unregister(mc, uiBusOntology);
+		    ((UIStrategyCaller) theUIBus.busStrategy).close();
+		    OntologyManagement.getInstance().unregister(mc,
+			    uiBusOntology);
 		    uiBusOntology = null;
 		    theUIBus.dispose();
 		    theUIBus = null;
-		}		
+		}
 	    }
 	}, "UIBusStoppingThread").start();
     }
@@ -138,7 +136,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     }
 
     protected BusStrategy createBusStrategy(CommunicationModule commModule) {
-	//return new UIStrategyCaller(commModule);
+	// return new UIStrategyCaller(commModule);
 	return new UIStrategyCaller(commModule, "UIBusStrategy");
     }
 
@@ -173,8 +171,8 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      */
     public void adaptationParametersChanged(IDialogManager dm,
 	    UIRequest uiRequest, String changedProp) {
-	((UIStrategyCaller) busStrategy).adaptationParametersChanged(dm, uiRequest,
-		changedProp);
+	((UIStrategyCaller) busStrategy).adaptationParametersChanged(dm,
+		uiRequest, changedProp);
     }
 
     // public UIHandlerProfile getMatchingUiHandler(){
@@ -190,7 +188,10 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     public void addNewProfile(String handlerID, UIHandlerProfile newProfile) {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o instanceof UIHandler) {
-	    ((UIStrategyCaller) busStrategy).addRegistration(handlerID, newProfile);
+	    ((UIStrategyCaller) busStrategy).addRegistration(handlerID,
+		    newProfile);
+	    registry.addRegParams(handlerID,
+		    new UIHandlerProfile[] { newProfile });
 	}
     }
 
@@ -202,7 +203,8 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      */
     public void dialogFinished(String handlerID, UIResponse response) {
 	if (response != null) {
-	    ((UIStrategyCaller)busStrategy).dialogFinished(handlerID, response);
+	    ((UIStrategyCaller) busStrategy)
+		    .dialogFinished(handlerID, response);
 	}
     }
 
@@ -228,8 +230,10 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	    UIHandlerProfile oldProfile) {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o instanceof UIHandler) {
-	    ((UIStrategyCaller) busStrategy).removeMatchingRegistries(handlerID,
-		    oldProfile);
+	    ((UIStrategyCaller) busStrategy).removeMatchingRegistries(
+		    handlerID, oldProfile);
+	    registry.removeRegParams(handlerID,
+		    new UIHandlerProfile[] { oldProfile });
 	}
     }
 
@@ -267,7 +271,8 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     public void brokerUIRequest(String callerID, UIRequest req) {
 	BusMember bm = getBusMember(callerID);
 	if (bm instanceof UICaller) {
-	    UIRequestCall call = ((UIStrategyCaller)busStrategy).new UIRequestCall(req, callerID);
+	    UIRequestCall call = ((UIStrategyCaller) busStrategy).new UIRequestCall(
+		    req, callerID);
 	    assessContentSerialization(call);
 	    brokerMessage(callerID, new BusMessage(MessageType.request, call,
 		    this));
@@ -282,7 +287,7 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
      */
     public void unregister(String callerID, UICaller caller) {
 	((UIStrategyCaller) busStrategy).abortAllPendingRequestsFor(caller);
-	if (caller instanceof IDialogManager){
+	if (caller instanceof IDialogManager) {
 	    setDialogManager(null);
 	}
 	super.unregister(callerID, caller);
@@ -321,13 +326,20 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 	    AbsLocation loginLocation) {
 	Object o = registry.getBusMemberByID(handlerID);
 	if (o instanceof UIHandler && user != null) {
-	    ((UIStrategyCaller) busStrategy).userLoggedIn(handlerID, user, loginLocation);
+	    ((UIStrategyCaller) busStrategy).userLoggedIn(handlerID, user,
+		    loginLocation);
 	}
 
     }
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.modules.listener.MessageListener#handleSendError(org.universAAL.middleware.connectors.util.ChannelMessage, org.universAAL.middleware.connectors.exception.CommunicationConnectorException)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.modules.listener.MessageListener#handleSendError
+     * (org.universAAL.middleware.connectors.util.ChannelMessage,
+     * org.universAAL.
+     * middleware.connectors.exception.CommunicationConnectorException)
      */
     public void handleSendError(ChannelMessage message,
 	    CommunicationConnectorException e) {
@@ -351,8 +363,8 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 		    Modality[] supportedModalities = profile
 			    .getSupportedInputModalities();
 		    for (Modality m : supportedModalities) {
-			if (m.toString().toLowerCase().matches(
-				lowerCaseModality)) {
+			if (m.toString().toLowerCase()
+				.matches(lowerCaseModality)) {
 			    matchedProfiles.add(profile);
 			    break;
 			}
