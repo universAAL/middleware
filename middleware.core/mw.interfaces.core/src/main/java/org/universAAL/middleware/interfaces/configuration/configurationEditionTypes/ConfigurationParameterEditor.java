@@ -22,23 +22,28 @@ import org.universAAL.middleware.interfaces.configuration.configurationDefinitio
 
 /**
  * Editor for a given {@link ConfigurationParameter}.
+ * 
  * @author amedrano
- *
+ * 
  */
 public interface ConfigurationParameterEditor extends ConfigurationParameter,
 	ConfigurableEntityEditor {
 
     /**
      * Set a specific value as the configuration parameter.
-     * @param value the value to set
-     * @return true iff the value is valid and accepted by the {@link ConfigurableModule} managing the entity.
+     * 
+     * @param value
+     *            the value to set
+     * @return true iff the value is valid and accepted by the
+     *         {@link ConfigurableModule} managing the entity.
      */
     boolean setValue(Object value);
-    
+
     /**
      * Get the current configured value.
+     * 
      * @return the current working value.
      */
     Object getConfiguredValue();
-    
+
 }

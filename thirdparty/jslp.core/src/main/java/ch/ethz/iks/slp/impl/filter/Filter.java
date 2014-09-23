@@ -34,19 +34,23 @@ import java.util.Dictionary;
 
 /**
  * a generic LDAP filter.
+ * 
  * @author Jan S. Rellermeyer, ETH Zurich
- *
+ * 
  */
 public interface Filter {
     /**
      * try to match a <code>Dictionary</code> of attributes.
-     * @param values a <code>Dictionary</code> of attributes.
+     * 
+     * @param values
+     *            a <code>Dictionary</code> of attributes.
      * @return true if the filter evaluated to true;
      */
     boolean match(Dictionary values);
 
     /**
      * get a String representation of the filter.
+     * 
      * @return the String representation.
      */
     String toString();

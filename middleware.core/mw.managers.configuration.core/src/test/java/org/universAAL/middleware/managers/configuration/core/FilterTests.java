@@ -68,60 +68,66 @@ public class FilterTests {
     }
 
     @Test
-    public void testPatterns(){
+    public void testPatterns() {
 
 	Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
-	    
+
 	    public Scope getScope() {
 		return Scope.applicationPartScope("my.id", "app", "myPart");
 	    }
-	    
+
 	    public String getDescription(Locale loc) {
 		return "some config";
 	    }
-	    
+
 	    public MergedRestriction getType() {
 		MergedRestriction mr = MergedRestriction
-			.getAllValuesRestrictionWithCardinality(ConfigurationParameter.PROP_CONFIG_VALUE, 
+			.getAllValuesRestrictionWithCardinality(
+				ConfigurationParameter.PROP_CONFIG_VALUE,
 				new IntRestriction(0, true, 10, true), 1, 1);
 		return mr;
 	    }
-	    
+
 	    public Object getDefaultValue() {
 		return Integer.valueOf(1);
 	    }
 	}, Locale.ENGLISH);
-	assertTrue(new ApplicationPartPattern("myPart").getRestriction().hasMember(e));
-	assertFalse(new ApplicationPartPattern("yourPart").getRestriction().hasMember(e));
+	assertTrue(new ApplicationPartPattern("myPart").getRestriction()
+		.hasMember(e));
+	assertFalse(new ApplicationPartPattern("yourPart").getRestriction()
+		.hasMember(e));
 	assertTrue(new ApplicationPartPattern().getRestriction().hasMember(e));
 	assertTrue(new ApplicationPattern("app").getRestriction().hasMember(e));
-	assertFalse(new ApplicationPattern("appo").getRestriction().hasMember(e));
+	assertFalse(new ApplicationPattern("appo").getRestriction()
+		.hasMember(e));
 	assertTrue(new ApplicationPattern().getRestriction().hasMember(e));
 	assertTrue(new IdPattern("my.id").getRestriction().hasMember(e));
 	assertFalse(new IdPattern("your.id").getRestriction().hasMember(e));
 	assertFalse(new IdPattern().getRestriction().hasMember(e));
-	assertTrue(new NotPattern(new ModulePattern()).getRestriction().hasMember(e));
+	assertTrue(new NotPattern(new ModulePattern()).getRestriction()
+		.hasMember(e));
     }
-    
+
     @Test
-    public void testFilter1(){
-Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
-	    
+    public void testFilter1() {
+	Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
+
 	    public Scope getScope() {
 		return Scope.applicationPartScope("my.id", "app", "myPart");
 	    }
-	    
+
 	    public String getDescription(Locale loc) {
 		return "some config";
 	    }
-	    
+
 	    public MergedRestriction getType() {
 		MergedRestriction mr = MergedRestriction
-			.getAllValuesRestrictionWithCardinality(ConfigurationParameter.PROP_CONFIG_VALUE, 
+			.getAllValuesRestrictionWithCardinality(
+				ConfigurationParameter.PROP_CONFIG_VALUE,
 				new IntRestriction(0, true, 10, true), 1, 1);
 		return mr;
 	    }
-	    
+
 	    public Object getDefaultValue() {
 		return Integer.valueOf(1);
 	    }
@@ -129,13 +135,13 @@ Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
 
 	List<Entity> in = new ArrayList<Entity>();
 	in.add(e);
-	
+
 	List<TypeExpression> filters = new ArrayList<TypeExpression>();
 	filters.add(new ApplicationPartPattern("myPart").getRestriction());
 	filters.add(new ApplicationPattern("app").getRestriction());
-	
+
 	List<Entity> out = EntityManager.filter(in, filters);
-	assertEquals(in.size(),out.size());
+	assertEquals(in.size(), out.size());
 	assertEquals(in.get(0), out.get(0));
     }
 }

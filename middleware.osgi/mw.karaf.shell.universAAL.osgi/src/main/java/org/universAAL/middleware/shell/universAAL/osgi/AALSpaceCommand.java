@@ -37,38 +37,37 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 @Command(scope = "universAAL", name = "spaces", description = "Discover the existing AAL Spaces")
 public class AALSpaceCommand extends OsgiCommandSupport {
 
-	private AALSpaceManager aalSpaceManager;
+    private AALSpaceManager aalSpaceManager;
 
-	@Override
-	protected Object doExecute() throws Exception {
-		log.debug("Executing command...");
-		ServiceReference ref = bundleContext
-				.getServiceReference(AALSpaceManager.class.getName());
-		if (ref != null) {
-			aalSpaceManager = (AALSpaceManager) bundleContext.getService(ref);
-		} else {
-			return null;
-		}
-		Set<AALSpaceCard> aalSpaces = aalSpaceManager.getAALSpaces();
-		if (aalSpaces != null) {
-
-
-			System.out.println(" Found: " + aalSpaces.size() + " AAL Spaces");
-			System.out.println(" ----------------------------------------");
-			if(aalSpaces.size() == 0)
-				System.out.println("Waiting to join an AALSpace");
-
-			for (AALSpaceCard aalSpace : aalSpaces) {
-
-				if (aalSpaceManager.getAALSpaceDescriptor() != null
-						&& aalSpace.equals(aalSpaceManager
-								.getAALSpaceDescriptor().getSpaceCard()))
-					System.out.println(" * " + aalSpace.toString());
-				else
-					System.out.println(aalSpace.toString());
-			}
-		}
-
-		return null;
+    @Override
+    protected Object doExecute() throws Exception {
+	log.debug("Executing command...");
+	ServiceReference ref = bundleContext
+		.getServiceReference(AALSpaceManager.class.getName());
+	if (ref != null) {
+	    aalSpaceManager = (AALSpaceManager) bundleContext.getService(ref);
+	} else {
+	    return null;
 	}
+	Set<AALSpaceCard> aalSpaces = aalSpaceManager.getAALSpaces();
+	if (aalSpaces != null) {
+
+	    System.out.println(" Found: " + aalSpaces.size() + " AAL Spaces");
+	    System.out.println(" ----------------------------------------");
+	    if (aalSpaces.size() == 0)
+		System.out.println("Waiting to join an AALSpace");
+
+	    for (AALSpaceCard aalSpace : aalSpaces) {
+
+		if (aalSpaceManager.getAALSpaceDescriptor() != null
+			&& aalSpace.equals(aalSpaceManager
+				.getAALSpaceDescriptor().getSpaceCard()))
+		    System.out.println(" * " + aalSpace.toString());
+		else
+		    System.out.println(aalSpace.toString());
+	    }
+	}
+
+	return null;
+    }
 }

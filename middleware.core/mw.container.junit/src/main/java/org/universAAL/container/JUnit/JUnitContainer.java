@@ -16,7 +16,7 @@
 package org.universAAL.container.JUnit;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +29,9 @@ import org.universAAL.middleware.container.SharedObjectListener;
 
 /**
  * @author amedrano
- * 
+ * @author Carsten Stockloew
  */
-public class JUnitContainer implements Container {
+public final class JUnitContainer implements Container {
 
     private static JUnitContainer instance = null;
 
@@ -45,7 +45,7 @@ public class JUnitContainer implements Container {
     private JUnitContainer() {
 	listeners = new ArrayList<SharedObjectListener>();
 	logListeners = new ArrayList<LogListener>();
-	sharedObjectMap = new HashMap<String, Object>();
+	sharedObjectMap = new Hashtable<String, Object>();
     };
 
     public static JUnitContainer getInstance() {
@@ -107,5 +107,15 @@ public class JUnitContainer implements Container {
     public void shareObject(ModuleContext requester, Object objToShare,
 	    Object[] shareParams) {
 	sharedObjectMap.put((String) shareParams[0], objToShare);
+    }
+
+    public void removeSharedObject(ModuleContext requester, Object objToRemove,
+	    Object[] shareParams) {
+	sharedObjectMap.remove((String) shareParams[0]);
+    }
+
+    public void removeAllSharedObjects() {
+	listeners.clear();
+	sharedObjectMap.clear();
     }
 }

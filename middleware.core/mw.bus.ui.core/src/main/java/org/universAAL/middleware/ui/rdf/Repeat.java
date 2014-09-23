@@ -111,10 +111,11 @@ public class Repeat extends Group {
     private int selectionIndex = -1;
     private boolean submissionChecked = false;
 
-	/**
-	 * List of virtualForms generated when {@link Repeat#virtualFormExpansion()} is called.
-	 */
-	private List vForms;
+    /**
+     * List of virtualForms generated when {@link Repeat#virtualFormExpansion()}
+     * is called.
+     */
+    private List vForms;
 
     /**
      * For exclusive use by de-serializers.
@@ -524,8 +525,7 @@ public class Repeat extends Group {
 	    } else {
 		Object aux = props.get(PROP_REFERENCED_PPATH);
 		String prop = (aux instanceof PropertyPath) ? ((PropertyPath) aux)
-			.getLastPathElement()
-			: null;
+			.getLastPathElement() : null;
 		if (prop == null || valueRestrictions != null)
 		    // a single input child does not need any value restrictions
 		    // such value restriction must be added to the Repeat object
@@ -578,136 +578,145 @@ public class Repeat extends Group {
 	} else
 	    return true;
     }
-    
+
+    /**
+     * Generates a {@link List} of {@link Form}s which each contains in its
+     * IOControls group the corresponding row of {@link FormControl}s. Each of
+     * these {@link FormControl}s will be a copy of the {@link Repeat}'s
+     * {@link FormControl}s but their {@link FormControl#getValue()} and
+     * {@link Input#storeUserInput(Object)}(if applies) will be redirected to
+     * the correct place. <br>
+     * <p>
+     * If the {@link Repeat}'s child is a single {@link FormControl}, then each
+     * generated {@link Form}'s IOControls group will contain the copy of the
+     * referenced {@link FormControl}. If the {@link Repeat}'s child is a
+     * {@link Group}, then the {@link Group}'s children will be copied into the
+     * new {@link Form}s IOGroup.
+     * </p>
+     * <p>
+     * This works because the dataRoot of each new {@link Form} is the one
+     * corresponding for the row, so each {@link FormControl} can be modeled as
+     * usual. this works whether the property path of the {@link Repeat} points
+     * to a {@link List} of {@link Resource}s or a {@link List} of
+     * {@link Object}s (in which case the propertypaths of the child of the
+     * {@link Repeat} should be empty.
+     * <p>
+     * 
+     * @return a {@link List} of {@link Form}s.
+     * @throws IllegalArgumentException
+     *             if the prerequisites are not met.
+     */
+    public List virtualFormExpansion() {
+	if (vForms == null) {
+	    vForms = generateVirtualForms();
+	}
+	return vForms;
+    }
+
+    private List generateVirtualForms() {
+	FormControl[] elems = getChildren();
+	if (elems == null || elems.length != 1 || elems[0] == null) {
+	    throw new IllegalArgumentException(
+		    "Malformed Repeat only allowed one valid child!");
+	}
+	if (elems[0] instanceof Group) {
+	    elems = ((Group) elems[0]).getChildren();
+	    if (elems == null || elems.length == 0)
+		throw new IllegalArgumentException(
+			"Malformed child group is empty!");
+	} else if (!(elems[0] instanceof FormControl)) {
+	    throw new IllegalArgumentException("child is not a FormControl!");
+	}
+
+	ArrayList formList = new ArrayList();
+	PropertyPath ref = (PropertyPath) getProperty(PROP_REFERENCED_PPATH);
+	Object repeatData = getFormObject().getValue(ref.getThePath());
+	List repeatList = null;
+	if (repeatData instanceof Resource) {
+	    // repeatList = ((Resource) repeatData).asList();
+	    repeatList = new ArrayList();
+	    repeatList.add(repeatData);
+	}
+	if (repeatData instanceof List) {
+	    repeatList = (List) repeatData;
+	}
+	if (repeatData == null) {
+	    // it is not initialised
+	    repeatList = new ArrayList();
+	}
+
+	int index = 0;
+	for (Iterator i = repeatList.iterator(); i.hasNext();) {
+	    Object res = i.next();
+	    Form subForm = VirtualForm.createNewVirtualForm(res);
+	    Group gio = (Group) subForm.getIOControls();
+	    for (int j = 0; j < elems.length; j++) {
+		if (elems[j] != null) {
+		    FormControl nFC = (FormControl) elems[j].copy(false);
+		    gio.addChild(nFC);
+		    if (elems[j] instanceof SubdialogTrigger) {
+			nFC.changeProperty(
+				SubdialogTrigger.PROP_SUBMISSION_ID,
+				nFC.getProperty(SubdialogTrigger.PROP_REPEATABLE_ID_PREFIX)
+					+ Integer.toString(index));
+		    } else {
+			nFC.changeProperty(PROP_PARENT_CONTROL, gio);
+		    }
+		}
+	    }
+	    formList.add(subForm);
+	    index++;
+	}
+
+	return formList;
+    }
+
+    /** {@ inheritDoc} */
+    public FormControl searchFormControl(String formControlURI) {
+	FormControl res = super.searchFormControl(formControlURI);
+	Iterator i = vForms.iterator();
+	while (i.hasNext() && res == null) {
+	    Form f = (Form) i.next();
+	    res = f.searchFormControl(formControlURI);
+	}
+	return res;
+    }
+
+    private static class VirtualForm extends Form {
+
 	/**
-	 * Generates a {@link List} of {@link Form}s which each contains in its IOControls group
-	 * the corresponding row of {@link FormControl}s. Each of these {@link FormControl}s will be a copy
-	 * of the {@link Repeat}'s {@link FormControl}s  but their {@link FormControl#getValue()} and {@link Input#storeUserInput(Object)}(if applies)
-	 * will be redirected to the correct place.
-	 * <br>
-	 * <p>
-	 * If the {@link Repeat}'s child is a single {@link FormControl}, then each generated {@link Form}'s IOControls group will 
-	 * contain the copy of the referenced {@link FormControl}. 
-	 * If the {@link Repeat}'s child is a {@link Group}, then the {@link Group}'s children will be copied into the 
-	 * new {@link Form}s IOGroup.
-	 * </p><p>
-	 * This works because the dataRoot of each new {@link Form} is the one corresponding for the row, so each {@link FormControl}
-	 * can be modeled as usual. this works whether the property path of the {@link Repeat} points to a {@link List} of {@link Resource}s or
-	 * a {@link List} of {@link Object}s (in which case the propertypaths of the child of the {@link Repeat} should be empty.
-	 * <p>
-	 * @return a {@link List} of {@link Form}s.
-	 * @throws IllegalArgumentException if the prerequisites are not met.
-	 */
-	public List virtualFormExpansion() {
-		if (vForms == null){
-			vForms = generateVirtualForms();
-		}
-		return vForms;
-	}
-	
-	private List generateVirtualForms(){
-		FormControl[] elems = getChildren();
-		if (elems == null || elems.length != 1 || elems[0] == null) {
-			throw new IllegalArgumentException("Malformed Repeat only allowed one valid child!");
-		}
-		if (elems[0] instanceof Group) {
-			elems = ((Group) elems[0]).getChildren();
-			if (elems == null || elems.length == 0)
-				throw new IllegalArgumentException("Malformed child group is empty!");
-		}else if (! (elems[0] instanceof FormControl)){
-			throw new IllegalArgumentException("child is not a FormControl!");
-		}
-		
-		ArrayList formList = new ArrayList();
-		PropertyPath ref = (PropertyPath) getProperty(PROP_REFERENCED_PPATH);
-		Object repeatData = getFormObject().getValue(ref.getThePath());
-		List repeatList = null;
-		if (repeatData instanceof Resource) {
-//			repeatList = ((Resource) repeatData).asList();
-		    repeatList = new ArrayList();
-		    repeatList.add(repeatData);
-		}
-		if (repeatData instanceof List) {
-			repeatList = (List) repeatData;
-		}
-		if (repeatData == null) {
-			// it is not initialised
-			repeatList = new ArrayList();
-		}
-		
-		int index = 0;
-		for (Iterator i = repeatList.iterator(); i.hasNext();) {
-			Object res = i.next();
-			Form subForm = VirtualForm.createNewVirtualForm(res);
-			Group gio = (Group) subForm.getIOControls();
-			for (int j = 0; j < elems.length; j++) {
-				if (elems[j] != null) {
-					FormControl nFC = (FormControl) elems[j].copy(false);
-					gio.addChild(nFC);
-					if (elems[j] instanceof SubdialogTrigger) {
-						nFC.changeProperty(
-								SubdialogTrigger.PROP_SUBMISSION_ID,
-								nFC.getProperty(SubdialogTrigger.PROP_REPEATABLE_ID_PREFIX)
-										+ Integer.toString(index));
-					} 
-					else {
-						nFC.changeProperty(PROP_PARENT_CONTROL, gio); 
-					}
-				}
-			}
-			formList.add(subForm);
-			index++;
-		}
-
-		return formList;
-	}
-
-	/** {@ inheritDoc}	 */
-	public FormControl searchFormControl(String formControlURI) {
-		FormControl res =  super.searchFormControl(formControlURI);
-		Iterator i = vForms.iterator();
-		while (i.hasNext()
-				&& res == null) {
-			Form f = (Form) i.next();
-			res = f.searchFormControl(formControlURI);
-		}
-		return res;
-	}
-	
-	private static class VirtualForm extends Form {
-		
-		
-		/**
 		 * 
 		 */
-		public VirtualForm(Object dataRoot) {
-			super(uAAL_DIALOG_NAMESPACE, 5);
-			addType(MY_URI, true);
-			props.put(PROP_DIALOG_CREATION_TIME, TypeMapper.getCurrentDateTime());
-			props.put(PROP_ROOT_GROUP, new Group("Virtual Form", this));
-			props.put(PROP_DIALOG_DATA_ROOT, (dataRoot == null) ? new Resource()
-				: dataRoot);
-		}
-		
-		static public Form createNewVirtualForm(Object root){
-			Form f = new VirtualForm(root);
-			f.changeProperty(PROP_DIALOG_TYPE, DialogType.stdDialog);
-			Group rootg = (Group) f.getProperty(Form.PROP_ROOT_GROUP);
-			new Group(rootg, new Label(Group.STD_IO_CONTROLS, null), null, null,
-				null);
-			return f;
-		}
-
-		/** {@ inheritDoc}	 */
-		Object getValue(String[] pp) {
-			/*if (pp == null) 
-				return null;*/
-			// this is because controls may not be linked to anything
-			if (pp == null || pp.length == 0)
-			    return props.get(PROP_DIALOG_DATA_ROOT);
-			else
-				return super.getValue(pp);
-		}
-		
+	public VirtualForm(Object dataRoot) {
+	    super(uAAL_DIALOG_NAMESPACE, 5);
+	    addType(MY_URI, true);
+	    props.put(PROP_DIALOG_CREATION_TIME,
+		    TypeMapper.getCurrentDateTime());
+	    props.put(PROP_ROOT_GROUP, new Group("Virtual Form", this));
+	    props.put(PROP_DIALOG_DATA_ROOT,
+		    (dataRoot == null) ? new Resource() : dataRoot);
 	}
+
+	static public Form createNewVirtualForm(Object root) {
+	    Form f = new VirtualForm(root);
+	    f.changeProperty(PROP_DIALOG_TYPE, DialogType.stdDialog);
+	    Group rootg = (Group) f.getProperty(Form.PROP_ROOT_GROUP);
+	    new Group(rootg, new Label(Group.STD_IO_CONTROLS, null), null,
+		    null, null);
+	    return f;
+	}
+
+	/** {@ inheritDoc} */
+	Object getValue(String[] pp) {
+	    /*
+	     * if (pp == null) return null;
+	     */
+	    // this is because controls may not be linked to anything
+	    if (pp == null || pp.length == 0)
+		return props.get(PROP_DIALOG_DATA_ROOT);
+	    else
+		return super.getValue(pp);
+	}
+
+    }
 }

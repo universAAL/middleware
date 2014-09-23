@@ -192,8 +192,8 @@ public class PrivacyLevel extends ComparableIndividual {
      * @see org.universAAL.middleware.owl.ManagedIndividual#setProperty(String,
      *      Object)
      */
-//    public boolean setProperty(String propURI, Object o) {
-//	// do nothing
-//	return false;
-//    }
+    // public boolean setProperty(String propURI, Object o) {
+    // // do nothing
+    // return false;
+    // }
 }

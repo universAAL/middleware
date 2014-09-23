@@ -62,13 +62,13 @@ public class Permission {
     }
 
     public static Permission[] fromManifest(ModuleContext mc,
-	    String brokerName, boolean isAdvertisement) {
+	    String brokerName, boolean isAdvertisement, boolean log) {
 	return fromManifest(mc, brokerName, isAdvertisement ? ADVERTISEMENT
-		: REQUIREMENT);
+		: REQUIREMENT, log);
     }
 
     public static Permission[] fromManifest(ModuleContext mc,
-	    String brokerName, String type) {
+	    String brokerName, String type, boolean log) {
 	if (brokerName == null)
 	    return new Permission[0];
 	if (type == null)
@@ -89,8 +89,10 @@ public class Permission {
 	if (entry == null)
 	    entry = mc.getManifestEntry(name);
 	if (entry == null) {
-	    LogUtils.logDebug(mc, Permission.class, "fromManifest",
-		    new Object[] { "No permissions defined for: ", name }, null);
+	    if (log)
+		LogUtils.logDebug(mc, Permission.class, "fromManifest",
+			new Object[] { "No permissions defined for: ", name },
+			null);
 	    return new Permission[0];
 	}
 

@@ -22,6 +22,7 @@ package org.universAAL.middleware.service.impl;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.service.AggregatingFilter;
+import org.universAAL.middleware.service.MultiServiceResponse;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
@@ -50,7 +51,7 @@ public class ServiceBusFactory implements ResourceFactory {
 	case 2:
 	    return new ServiceResponse(instanceURI);
 	case 3:
-	    return new ServiceCall(null, instanceURI);
+	    return new ServiceCall(instanceURI);
 	case 4:
 	    return new ServiceProfile(instanceURI);
 	case 5:
@@ -65,6 +66,8 @@ public class ServiceBusFactory implements ResourceFactory {
 	    return new ProcessResult(instanceURI);
 	case 10:
 	    return new ProcessParameter(instanceURI, ProcessParameter.MY_URI);
+	case 11:
+	    return new MultiServiceResponse(instanceURI);
 	}
 
 	/*

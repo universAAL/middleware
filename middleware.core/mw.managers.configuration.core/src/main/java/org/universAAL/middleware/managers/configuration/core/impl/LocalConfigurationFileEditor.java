@@ -30,9 +30,11 @@ import org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFi
 import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 
 /**
- * The Implementation for {@link ConfigurableEntityEditor} for local and for configuration file type Entities.
+ * The Implementation for {@link ConfigurableEntityEditor} for local and for
+ * configuration file type Entities.
+ * 
  * @author amedrano
- *
+ * 
  */
 public class LocalConfigurationFileEditor extends LocalConfigurationEntity
 	implements ConfigurationFileEditor {
@@ -46,7 +48,7 @@ public class LocalConfigurationFileEditor extends LocalConfigurationEntity
 	super(configurationManagerImpl, uri);
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public URL getDefaultFileRef() {
 	Entity e = getEntity();
 	if (e instanceof ConfigurationFile) {
@@ -59,50 +61,52 @@ public class LocalConfigurationFileEditor extends LocalConfigurationEntity
 	return null;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public String getExtensionfilter() {
 	Entity e = getEntity();
 	if (e instanceof ConfigurationFile) {
-	   return ((ConfigurationFile)e).getExtensionFilter();
+	    return ((ConfigurationFile) e).getExtensionFilter();
 	}
 	return null;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public boolean isDefaultValue() {
 	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {	
+	if (e instanceof ConfigurationFile) {
 	    ConfigurationFile cf = (ConfigurationFile) e;
 	    File defF;
 	    File actual;
 	    try {
 		defF = confManager.fileM.cache(new URL(cf.getDefaultURL()));
-		actual = new File( URLDecoder.decode( new URL(cf.getLocalURL()).getFile(), "UTF-8" ) );
+		actual = new File(URLDecoder.decode(
+			new URL(cf.getLocalURL()).getFile(), "UTF-8"));
 		return actual.getAbsolutePath().equals(defF.getAbsolutePath());
 	    } catch (Exception e1) {
 		return false;
-	    } 
+	    }
 	}
 	return false;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public boolean setDefaultValue() {
 	Entity e = getEntity();
 	if (e instanceof ConfigurationFile) {
-	    ((ConfigurationFile)e).setLocalURL(((ConfigurationFile)e).getDefaultURL());
+	    ((ConfigurationFile) e).setLocalURL(((ConfigurationFile) e)
+		    .getDefaultURL());
 	    try {
-		((ConfigurationFile)e).loadContentFromDefaultURL();
+		((ConfigurationFile) e).loadContentFromDefaultURL();
 	    } catch (IOException e1) {
-		((ConfigurationFile)e).setContent(null);
+		((ConfigurationFile) e).setContent(null);
 	    }
 	    e.incrementVersion();
 	    return confManager.updateLocalAndPropagate(e);
-	}	
+	}
 	return false;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public File pullFile() {
 	Entity e = getEntity();
 	if (e instanceof ConfigurationFile) {
@@ -115,17 +119,19 @@ public class LocalConfigurationFileEditor extends LocalConfigurationEntity
 	    }
 	    File f;
 	    try {
-		f = new File( URLDecoder.decode(url.getFile(), "UTF-8" ) );
+		f = new File(URLDecoder.decode(url.getFile(), "UTF-8"));
 		if (f.exists()) {
 		    return f;
-		} 
-	    } catch (UnsupportedEncodingException e1) {}  
+		}
+	    } catch (UnsupportedEncodingException e1) {
+	    }
 	}
 	return null;
     }
 
-    /** {@ inheritDoc}	 */
-    public boolean pushFile(File file) {Entity e = getEntity();
+    /** {@ inheritDoc} */
+    public boolean pushFile(File file) {
+	Entity e = getEntity();
 	if (e instanceof ConfigurationFile) {
 	    ConfigurationFile cf = (ConfigurationFile) e;
 	    try {

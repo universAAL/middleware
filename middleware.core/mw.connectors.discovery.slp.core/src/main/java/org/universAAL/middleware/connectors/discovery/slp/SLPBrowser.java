@@ -109,7 +109,7 @@ public class SLPBrowser implements Runnable {
 			AALSpaceCard spaceCard = new AALSpaceCard(
 				SLPDiscoveryConnector
 					.unmarshalServiceAttributes(attribs));
-			//TODO: remove the static name of the channel name
+			// TODO: remove the static name of the channel name
 			spaceCard
 				.setPeeringChannelName("mw.modules.aalspace.osgi");
 			spaceCard.setRetry(MAX_RETRY);

@@ -62,7 +62,7 @@ public class Activator implements BundleActivator, ManagedService {
 	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 		new Object[] { "Starting the Deploymanager..." }, null);
 
-	BundleConfigHome configHome = new BundleConfigHome("mw.managers.deploy");	
+	BundleConfigHome configHome = new BundleConfigHome("mw.managers.deploy");
 	deployManager = new DeployManagerImpl(moduleContext, configHome);
 
 	Dictionary props = new Hashtable();
@@ -98,14 +98,13 @@ public class Activator implements BundleActivator, ManagedService {
     public void updated(Dictionary properties) throws ConfigurationException {
 	deployManager.loadConfigurations(properties);
 	if (myRegistration == null) {
-	    LogUtils
-		    .logDebug(
-			    moduleContext,
-			    Activator.class,
-			    "updated",
-			    new Object[] { "Race Condition: the ServiceRegistration"
-				    + " is not yet initialized, waiting for registerService." },
-			    null);
+	    LogUtils.logDebug(
+		    moduleContext,
+		    Activator.class,
+		    "updated",
+		    new Object[] { "Race Condition: the ServiceRegistration"
+			    + " is not yet initialized, waiting for registerService." },
+		    null);
 	    int numLoops = 20;
 	    while (myRegistration == null && numLoops != 0) {
 		numLoops--;

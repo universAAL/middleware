@@ -23,7 +23,7 @@ package org.universAAL.middleware.service;
  * This interface is implemented whether components that would like to be
  * notified whenever a new service realization is registered or deregistered. An
  * availability notification answers whether if realization of a service is
- * available
+ * available.
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
@@ -32,7 +32,7 @@ package org.universAAL.middleware.service;
 public interface AvailabilitySubscriber {
 
     /**
-     * Whenever a service is registered we need to pass two parameteres for
+     * Whenever a service is registered we need to pass two parameters for
      * mapping the notification to a specific subscription.
      * 
      * @param requestURI
@@ -44,7 +44,7 @@ public interface AvailabilitySubscriber {
     public void serviceRegistered(String requestURI, String realizationID);
 
     /**
-     * Whenever a service is deregistered we need to pass two parameteres for
+     * Whenever a service is deregistered we need to pass two parameters for
      * mapping the notification to a specific subscription.
      * 
      * @param requestURI

@@ -27,12 +27,14 @@ import org.universAAL.middleware.managers.configuration.core.impl.factories.Scop
 import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 
 /**
- * The top Internal implementation of {@link ConfigurableEntityEditor}.
- * Has typical and utility methods for managing Listeners and URI.
+ * The top Internal implementation of {@link ConfigurableEntityEditor}. Has
+ * typical and utility methods for managing Listeners and URI.
+ * 
  * @author amedrano
- *
+ * 
  */
-public abstract class GenericConfigurationEntity implements ConfigurableEntityEditor{
+public abstract class GenericConfigurationEntity implements
+	ConfigurableEntityEditor {
 
     /**
      * 
@@ -44,36 +46,37 @@ public abstract class GenericConfigurationEntity implements ConfigurableEntityEd
     /**
      * 
      */
-    public GenericConfigurationEntity(ConfigurationManagerImpl configurationManagerImpl, String uri){
-        confManager = configurationManagerImpl;
-        listeners = new ArrayList<ConfigurableEntityEditorListener>();
-        this.uri = uri;
+    public GenericConfigurationEntity(
+	    ConfigurationManagerImpl configurationManagerImpl, String uri) {
+	confManager = configurationManagerImpl;
+	listeners = new ArrayList<ConfigurableEntityEditorListener>();
+	this.uri = uri;
     }
-    
-    public String getURI(){
+
+    public String getURI() {
 	return uri;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void subscribe2Changes(ConfigurableEntityEditorListener listener) {
-        listeners.add(listener);
-        
+	listeners.add(listener);
+
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void unsubscribe2Changes(ConfigurableEntityEditorListener listener) {
-        listeners.remove(listener);
+	listeners.remove(listener);
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public Scope getScope() {
-        return ScopeFactory.getScope(uri);
+	return ScopeFactory.getScope(uri);
     }
 
-    public void updated(Entity e){
+    public void updated(Entity e) {
 	for (ConfigurableEntityEditorListener l : listeners) {
 	    l.ConfigurationChanged(this);
 	}
     }
-    
+
 }

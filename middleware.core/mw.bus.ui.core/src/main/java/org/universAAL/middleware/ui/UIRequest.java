@@ -27,16 +27,16 @@ import java.util.Locale;
 
 import org.universAAL.middleware.bus.model.matchable.Matchable;
 import org.universAAL.middleware.bus.model.matchable.Request;
+import org.universAAL.middleware.owl.ComparableIndividual;
 import org.universAAL.middleware.owl.supply.AbsLocation;
 import org.universAAL.middleware.owl.supply.LevelRating;
-import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.ui.owl.AccessImpairment;
 import org.universAAL.middleware.ui.owl.DialogType;
 import org.universAAL.middleware.ui.owl.Modality;
 import org.universAAL.middleware.ui.owl.Preference;
 import org.universAAL.middleware.ui.owl.PrivacyLevel;
-import org.universAAL.middleware.owl.ComparableIndividual;
 import org.universAAL.middleware.ui.rdf.Form;
 
 /**
@@ -51,7 +51,7 @@ import org.universAAL.middleware.ui.rdf.Form;
  * @author eandgrg
  * @author Carsten Stockloew
  */
-public class UIRequest extends FinalizedResource implements Request {
+public class UIRequest extends ScopedResource implements Request {
 
     /** The Constant uAAL_UI_NAMESPACE. */
     public static final String uAAL_UI_NAMESPACE = uAAL_NAMESPACE_PREFIX
@@ -121,8 +121,9 @@ public class UIRequest extends FinalizedResource implements Request {
      * Instantiates a new {@link UIRequest}.
      * 
      * @param user
-     *            the {@link User}. It is declared as Resource because the type User is defined 
-     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
+     *            the {@link User}. It is declared as Resource because the type
+     *            User is defined in the Profiling Ontology. The type is not
+     *            needed for for matchmaking Either.
      * @param dialogForm
      *            The dialog form.
      * @param dialogPriority
@@ -158,8 +159,9 @@ public class UIRequest extends FinalizedResource implements Request {
     /**
      * Gets the addressed {@link User}.
      * 
-     * @return the addressed {@link User}, It is declared as Resource because the type User is defined 
-     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
+     * @return the addressed {@link User}, It is declared as Resource because
+     *         the type User is defined in the Profiling Ontology. The type is
+     *         not needed for for matchmaking Either.
      */
     public Resource getAddressedUser() {
 	return (Resource) props.get(PROP_ADDRESSED_USER);

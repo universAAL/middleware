@@ -127,8 +127,8 @@ public class Range extends Input {
 	    return null;
 	Class claz = o.getClass();
 	return (ComparableIndividual.class.isAssignableFrom(claz)) ? (upper ? ComparableIndividual
-		.getClassMaximum(claz)
-		: ComparableIndividual.getClassMinimum(claz))
+		.getClassMaximum(claz) : ComparableIndividual
+		.getClassMinimum(claz))
 		: null;
     }
 
@@ -203,13 +203,14 @@ public class Range extends Input {
 	    return newVal;
 	return null;
     }
-    
+
     /**
      * Using the current value stored in this range control and the value of
-     * {@link #PROP_STEP}, tries to calculate the number of steps that separate the current
-     * value and minimun value.
-     *
-     * @return number of steps from minimum of current value, should be [o, {@link Range#getRangeLength()}).
+     * {@link #PROP_STEP}, tries to calculate the number of steps that separate
+     * the current value and minimun value.
+     * 
+     * @return number of steps from minimum of current value, should be [o,
+     *         {@link Range#getRangeLength()}).
      * @see Range#getRangeLength()
      * @see Range#stepValue(int)
      */
@@ -220,78 +221,78 @@ public class Range extends Input {
 	if (curVal instanceof ComparableIndividual) {
 	    ComparableIndividual ci = (ComparableIndividual) curVal;
 	    ComparableIndividual cm = (ComparableIndividual) getMinValue();
-		while (ci.compareTo(cm) > 0){
-		    ci = ci.getPrevious();
-		    steps++;
-		}
+	    while (ci.compareTo(cm) > 0) {
+		ci = ci.getPrevious();
+		steps++;
+	    }
 	} else if (curVal instanceof Double) {
-		Double cval = (Double) curVal;
-		Double mval = (Double) getMinValue();
-		Double stepVal = (Double) getStep();
-		steps = (int) ((cval - mval)/stepVal);
+	    Double cval = (Double) curVal;
+	    Double mval = (Double) getMinValue();
+	    Double stepVal = (Double) getStep();
+	    steps = (int) ((cval - mval) / stepVal);
 	} else if (curVal instanceof Float) {
-		Float cval = (Float) curVal;
-		Float mval = (Float) getMinValue();
-		Float stepVal = (Float) getStep();
-		steps = (int) ((cval - mval)/stepVal);
+	    Float cval = (Float) curVal;
+	    Float mval = (Float) getMinValue();
+	    Float stepVal = (Float) getStep();
+	    steps = (int) ((cval - mval) / stepVal);
 	} else if (curVal instanceof Integer) {
-		Integer cval = (Integer) curVal;
-		Integer mval = (Integer) getMinValue();
-		Integer stepVal = (Integer) getStep();
-		steps = (cval - mval)/stepVal;
+	    Integer cval = (Integer) curVal;
+	    Integer mval = (Integer) getMinValue();
+	    Integer stepVal = (Integer) getStep();
+	    steps = (cval - mval) / stepVal;
 	} else if (curVal instanceof Long) {
-		Long cval = (Long) curVal;
-		Long mval = (Long) getMinValue();
-		Long stepVal = (Long) getStep();
-		steps = (int) ((cval - mval)/stepVal);
-	} 
+	    Long cval = (Long) curVal;
+	    Long mval = (Long) getMinValue();
+	    Long stepVal = (Long) getStep();
+	    steps = (int) ((cval - mval) / stepVal);
+	}
 	return steps;
     }
-    
+
     /**
      * Using the current value stored in this range control and the value of
-     * {@link #PROP_STEP}, tries to calculate a new value form the steps from min
-     * value.
-     * Helper method for {@link UIHandler}s.
+     * {@link #PROP_STEP}, tries to calculate a new value form the steps from
+     * min value. Helper method for {@link UIHandler}s.
      * 
      * @param numberOfStepsFormMin
      *            Number of steps. Will be multiplied by the value of
-     *            {@link #PROP_STEP} in oder to calculate the new amount, 
-     *            it must be between 0 and {@link Range#getRangeLength()} -1.
+     *            {@link #PROP_STEP} in oder to calculate the new amount, it
+     *            must be between 0 and {@link Range#getRangeLength()} -1.
      * @return the newly calculated and stored value if everything goes well,
      *         otherwise null.
-     *         
+     * 
      * @see Range#getRangeLength()
      * @see Range#getStepsValue()
      */
     public Comparable stepValue(int numberOfStepsFormMin) {
-    	if (numberOfStepsFormMin < 0 || numberOfStepsFormMin >= getRangeLength()){
-    		return null;
-    	}
-    	Number step = getStep();
-    	Comparable newVal = null;
-    	Object curVal = getValue();
-    	if (curVal instanceof ComparableIndividual) {
-    		ComparableIndividual ci = (ComparableIndividual) getMinValue();
-    		for (int i = numberOfStepsFormMin * step.intValue(); ci != null
-    				&& i > 0; i--)
-    			ci = ci.getNext();
-    		newVal = ci;
-    	} else if (curVal instanceof Double) {
-    		newVal = new Double(((Double) getMinValue()).doubleValue()
-    				+ step.doubleValue() * numberOfStepsFormMin);
-    	} else if (curVal instanceof Float) {
-    		newVal = new Float(((Float) getMinValue()).floatValue()
-    				+ step.floatValue() * numberOfStepsFormMin);
-    	} else if (curVal instanceof Integer) {
-    		newVal = new Integer(((Integer) getMinValue()).intValue()
-    				+ step.intValue() * numberOfStepsFormMin);
-    	} else if (curVal instanceof Long) {
-    		newVal = new Long(((Long) getMinValue()).longValue() + step.longValue()
-    				* numberOfStepsFormMin);
-    	} else
-    		return null;
-   		return newVal;
+	if (numberOfStepsFormMin < 0
+		|| numberOfStepsFormMin >= getRangeLength()) {
+	    return null;
+	}
+	Number step = getStep();
+	Comparable newVal = null;
+	Object curVal = getValue();
+	if (curVal instanceof ComparableIndividual) {
+	    ComparableIndividual ci = (ComparableIndividual) getMinValue();
+	    for (int i = numberOfStepsFormMin * step.intValue(); ci != null
+		    && i > 0; i--)
+		ci = ci.getNext();
+	    newVal = ci;
+	} else if (curVal instanceof Double) {
+	    newVal = new Double(((Double) getMinValue()).doubleValue()
+		    + step.doubleValue() * numberOfStepsFormMin);
+	} else if (curVal instanceof Float) {
+	    newVal = new Float(((Float) getMinValue()).floatValue()
+		    + step.floatValue() * numberOfStepsFormMin);
+	} else if (curVal instanceof Integer) {
+	    newVal = new Integer(((Integer) getMinValue()).intValue()
+		    + step.intValue() * numberOfStepsFormMin);
+	} else if (curVal instanceof Long) {
+	    newVal = new Long(((Long) getMinValue()).longValue()
+		    + step.longValue() * numberOfStepsFormMin);
+	} else
+	    return null;
+	return newVal;
     }
 
     /**
@@ -306,8 +307,7 @@ public class Range extends Input {
 	Number step = getStep();
 	if (max instanceof ComparableIndividual)
 	    return (((ComparableIndividual) max).ord() - ((ComparableIndividual) min)
-		    .ord())
-		    / step.intValue();
+		    .ord()) / step.intValue();
 
 	if (step instanceof Double)
 	    return (int) ((((Number) max).doubleValue() - ((Number) min)

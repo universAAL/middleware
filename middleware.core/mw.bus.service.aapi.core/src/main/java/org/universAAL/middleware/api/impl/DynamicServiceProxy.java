@@ -17,7 +17,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 package org.universAAL.middleware.api.impl;
 
 import java.lang.reflect.Array;
@@ -97,8 +97,8 @@ public class DynamicServiceProxy implements InvocationHandler {
 	    if ("".equals(serviceName)) {
 		serviceName = m.getName();
 	    }
-	    String serviceURI = AnnotationScanner.createServiceUri(scanner
-		    .getNamespace(), scanner.getName(), serviceName);
+	    String serviceURI = AnnotationScanner.createServiceUri(
+		    scanner.getNamespace(), scanner.getName(), serviceName);
 
 	    List<Output> outputs = scanner.getMethodOutputs().get(serviceURI);
 	    List<Input> inputs = scanner.getMethodInputs().get(serviceURI);
@@ -114,8 +114,8 @@ public class DynamicServiceProxy implements InvocationHandler {
 	    AapiServiceRequest request = null;
 	    switch (matchMakingType) {
 	    case ONTOLOGICAL:
-		request = new AapiServiceRequest((Service) serviceClass
-			.newInstance(), null);
+		request = new AapiServiceRequest(
+			(Service) serviceClass.newInstance(), null);
 		break;
 	    case BY_URI:
 		Constructor<?> serviceClassConstructor = serviceClass
@@ -130,8 +130,8 @@ public class DynamicServiceProxy implements InvocationHandler {
 	    for (int i = 0; i < outputs.size(); i++) {
 		Output output = outputs.get(i);
 		if (output.propertyPaths().length > 0) {
-		    request.addRequiredOutput("output" + i, output
-			    .propertyPaths());
+		    request.addRequiredOutput("output" + i,
+			    output.propertyPaths());
 		}
 	    }
 	    for (int i = 0; i < inputs.size(); i++) {
@@ -139,8 +139,9 @@ public class DynamicServiceProxy implements InvocationHandler {
 		if (input.propertyPaths().length > 0) {
 		    request.addValueFilter(input.propertyPaths(), args[i]);
 		} else {
-		    request.addInput(AnnotationScanner.createParameterUri(
-			    scanner.getNamespace(), null, input.name()),
+		    request.addInput(
+			    AnnotationScanner.createParameterUri(
+				    scanner.getNamespace(), null, input.name()),
 			    args[i]);
 		}
 	    }

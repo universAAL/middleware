@@ -23,6 +23,8 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.service.ServiceBus;
+import org.universAAL.middleware.service.ServiceBus.CallInjector;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
 
 /**
@@ -37,11 +39,13 @@ public final class Activator implements BundleActivator {
      * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
      */
     public void start(BundleContext context) throws Exception {
-	Object[] busFetchParams = new Object[] { ServiceBusImpl.class.getName() };
+	Object[] busFetchParams = new Object[] { ServiceBus.class.getName() };
+	Object[] busInjectFetchParams = new Object[] { CallInjector.class
+		.getName() };
 	ModuleContext mc = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
-	ServiceBusImpl.startModule(uAALBundleContainer.THE_CONTAINER, mc,
-		busFetchParams, busFetchParams);
+	ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams,
+		busInjectFetchParams, busInjectFetchParams);
     }
 
     /**

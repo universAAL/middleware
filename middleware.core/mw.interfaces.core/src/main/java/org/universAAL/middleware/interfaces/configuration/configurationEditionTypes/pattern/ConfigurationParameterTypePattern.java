@@ -23,19 +23,18 @@ import org.universAAL.middleware.owl.TypeURI;
 
 /**
  * A Pattern that only matches {@link ConfigurationParameter} defined Entities.
+ * 
  * @author amedrano
- *
+ * 
  */
 public class ConfigurationParameterTypePattern implements EntityPattern {
 
-    
     /**
      * The URI of the ConfigurationParameter Ontology type
      */
     private static String URI = "http://ontology.universAAL.org/AALConfigurationOntology#ConfigurationParameter";
 
-    
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public TypeExpression getRestriction() {
 	return new TypeURI(URI, false);
     }

@@ -80,8 +80,9 @@ public interface IDialogManager {
      * A User has logged in at a location resend the appropriate dialog.
      * 
      * @param user
-     *            {@link User} of a system. It is declared as Resource because the type User is defined 
-     *            in the Profiling Ontology. The type is not needed for for matchmaking Either.
+     *            {@link User} of a system. It is declared as Resource because
+     *            the type User is defined in the Profiling Ontology. The type
+     *            is not needed for for matchmaking Either.
      * @param loginLocation
      *            {@link Location} from which {@link User} has logged in to the
      *            system

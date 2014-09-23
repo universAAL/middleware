@@ -45,136 +45,139 @@ import ch.ethz.iks.slp.ServiceLocationException;
  */
 class ServiceTypeRequest extends RequestMessage {
 
-	/**
-	 * the naming authority.
-	 */
-	String namingAuthority;
-	
-	private static final String NA_ALL = "*";
-	private static final String NA_DEFAULT = "";
+    /**
+     * the naming authority.
+     */
+    String namingAuthority;
 
-	/**
-	 * creates a new ServiceTypeRequest.
-	 * 
-	 * @param authority
-	 *            the naming authority.
-	 * @param scopes
-	 *            a list of scopes to be included.
-	 * @param theLocale
-	 *            the Locale of the message.
-	 */
-	ServiceTypeRequest(final String authority, final List scopes,
-			final Locale theLocale) {
-		funcID = SRVTYPERQST;
-		prevRespList = new ArrayList();
-		namingAuthority = authority != null ? authority : NA_ALL;
-		scopeList = scopes;
-		if (scopeList == null) {
-			scopeList = new ArrayList();
-			scopeList.add("default");
-		}
+    private static final String NA_ALL = "*";
+    private static final String NA_DEFAULT = "";
 
-		locale = theLocale == null ? SLPCore.DEFAULT_LOCALE : theLocale;
+    /**
+     * creates a new ServiceTypeRequest.
+     * 
+     * @param authority
+     *            the naming authority.
+     * @param scopes
+     *            a list of scopes to be included.
+     * @param theLocale
+     *            the Locale of the message.
+     */
+    ServiceTypeRequest(final String authority, final List scopes,
+	    final Locale theLocale) {
+	funcID = SRVTYPERQST;
+	prevRespList = new ArrayList();
+	namingAuthority = authority != null ? authority : NA_ALL;
+	scopeList = scopes;
+	if (scopeList == null) {
+	    scopeList = new ArrayList();
+	    scopeList.add("default");
 	}
 
-	/**
-	 * create a new ServiceTypeRequest from a DataInput streaming the bytes of a
-	 * ServiceTypeRequest message body.
-	 * 
-	 * @param input
-	 *            stream of bytes forming the message body.
-	 * @throws ServiceLocationException
-	 *             in case that the IO caused an exception.
-	 */
-	ServiceTypeRequest(final DataInputStream input) throws IOException {
-		prevRespList = stringToList(input.readUTF(), ",");
-		final int authLen = input.readUnsignedShort();
-		if (authLen == 0xFFFF) {
-			namingAuthority = NA_ALL;
-		}else if(authLen == -1) {
-			namingAuthority = NA_DEFAULT;
-		} else {
-			byte[] buf = new byte[authLen];
-			input.readFully(buf);
-			namingAuthority = new String(buf);
-		}
-		scopeList = stringToList(input.readUTF(), ",");
-	}
+	locale = theLocale == null ? SLPCore.DEFAULT_LOCALE : theLocale;
+    }
 
-	/**
-	 * get the bytes of the message body in the following RFC 2608 compliant
-	 * format:
-	 * <p>
-	 * 
-	 * <pre>
-	 *   0                   1                   2                   3
-	 *   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-	 *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	 *  |      Service Location header (function = SrvTypeRqst = 9)     |
-	 *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	 *  |        length of PRList       |        &lt;PRList&gt; String        \
-	 *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	 *  |   length of Naming Authority  |   &lt;Naming Authority String&gt;   \
-	 *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	 *  |     length of &lt;scope-list&gt;    |      &lt;scope-list&gt; String      \
-	 *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	 * </pre>.
-	 * </p>
-	 * 
-	 * @return array of bytes.
-	 * @throws IOException
-	 * @throws ServiceLocationException
-	 * @throws ServiceLocationException
-	 *             if an IO Exception occurs.
-	 */
-	protected void writeTo(final DataOutputStream out) throws IOException {
-		super.writeHeader(out, getSize());
-		out.writeUTF(listToString(prevRespList, ","));
-		if (namingAuthority.equals(NA_ALL)) {
-			out.writeShort(0xFFFF);
-		} else if (namingAuthority.equals(NA_DEFAULT)) {
-			out.writeUTF("");
-		} else {
-			out.writeUTF(namingAuthority);
-		}
-		out.writeUTF(listToString(scopeList, ","));
+    /**
+     * create a new ServiceTypeRequest from a DataInput streaming the bytes of a
+     * ServiceTypeRequest message body.
+     * 
+     * @param input
+     *            stream of bytes forming the message body.
+     * @throws ServiceLocationException
+     *             in case that the IO caused an exception.
+     */
+    ServiceTypeRequest(final DataInputStream input) throws IOException {
+	prevRespList = stringToList(input.readUTF(), ",");
+	final int authLen = input.readUnsignedShort();
+	if (authLen == 0xFFFF) {
+	    namingAuthority = NA_ALL;
+	} else if (authLen == -1) {
+	    namingAuthority = NA_DEFAULT;
+	} else {
+	    byte[] buf = new byte[authLen];
+	    input.readFully(buf);
+	    namingAuthority = new String(buf);
 	}
+	scopeList = stringToList(input.readUTF(), ",");
+    }
 
-	/**
-	 * get the length of the message.
-	 * 
-	 * @return the length of the message.
-	 * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
-	 */
-	int getSize() {
-		int len = getHeaderSize() + 2
-				+ listToString(prevRespList, ",").length();
-		if(namingAuthority.equals(NA_DEFAULT) || namingAuthority.equals(NA_ALL)) {
-			len += 2;
-		} else {
-			len += 2 + namingAuthority.length();
-		}
-		len += 2 + listToString(scopeList, ",").length();
-		return len;
+    /**
+     * get the bytes of the message body in the following RFC 2608 compliant
+     * format:
+     * <p>
+     * 
+     * <pre>
+     *   0                   1                   2                   3
+     *   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     *  |      Service Location header (function = SrvTypeRqst = 9)     |
+     *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     *  |        length of PRList       |        &lt;PRList&gt; String        \
+     *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     *  |   length of Naming Authority  |   &lt;Naming Authority String&gt;   \
+     *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     *  |     length of &lt;scope-list&gt;    |      &lt;scope-list&gt; String      \
+     *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     * </pre>
+     * 
+     * .
+     * </p>
+     * 
+     * @return array of bytes.
+     * @throws IOException
+     * @throws ServiceLocationException
+     * @throws ServiceLocationException
+     *             if an IO Exception occurs.
+     */
+    protected void writeTo(final DataOutputStream out) throws IOException {
+	super.writeHeader(out, getSize());
+	out.writeUTF(listToString(prevRespList, ","));
+	if (namingAuthority.equals(NA_ALL)) {
+	    out.writeShort(0xFFFF);
+	} else if (namingAuthority.equals(NA_DEFAULT)) {
+	    out.writeUTF("");
+	} else {
+	    out.writeUTF(namingAuthority);
 	}
+	out.writeUTF(listToString(scopeList, ","));
+    }
 
-	/**
-	 * get a string representation of the ServiceTypeRequest message.
-	 * 
-	 * @return a String displaying the properties of this message instance.
-	 */
-	public String toString() {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(super.toString());
-		buffer.append(", prevRespList: " + prevRespList);
-		if(namingAuthority.equals(NA_ALL)) {
-			buffer.append(", namingAuthority: ALL (NA_ALL)");
-		} else if (namingAuthority.equals(NA_DEFAULT)) {
-			buffer.append(", namingAuthority: IANA (NA_DEFAULT)");
-		} else {
-			buffer.append(", namingAuthority: " + namingAuthority);
-		}
-		buffer.append(", scopeList: " + scopeList);
-		return buffer.toString();
+    /**
+     * get the length of the message.
+     * 
+     * @return the length of the message.
+     * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
+     */
+    int getSize() {
+	int len = getHeaderSize() + 2
+		+ listToString(prevRespList, ",").length();
+	if (namingAuthority.equals(NA_DEFAULT)
+		|| namingAuthority.equals(NA_ALL)) {
+	    len += 2;
+	} else {
+	    len += 2 + namingAuthority.length();
 	}
+	len += 2 + listToString(scopeList, ",").length();
+	return len;
+    }
+
+    /**
+     * get a string representation of the ServiceTypeRequest message.
+     * 
+     * @return a String displaying the properties of this message instance.
+     */
+    public String toString() {
+	StringBuffer buffer = new StringBuffer();
+	buffer.append(super.toString());
+	buffer.append(", prevRespList: " + prevRespList);
+	if (namingAuthority.equals(NA_ALL)) {
+	    buffer.append(", namingAuthority: ALL (NA_ALL)");
+	} else if (namingAuthority.equals(NA_DEFAULT)) {
+	    buffer.append(", namingAuthority: IANA (NA_DEFAULT)");
+	} else {
+	    buffer.append(", namingAuthority: " + namingAuthority);
+	}
+	buffer.append(", scopeList: " + scopeList);
+	return buffer.toString();
+    }
 }

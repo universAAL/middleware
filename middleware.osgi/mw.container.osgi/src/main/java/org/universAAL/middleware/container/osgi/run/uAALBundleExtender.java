@@ -17,7 +17,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/ 
+ */
 package org.universAAL.middleware.container.osgi.run;
 
 import java.net.URL;
@@ -67,7 +67,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 	if (className != null) {
 	    Class c = bundle.loadClass(className);
 	    Class[] ifaces = c.getInterfaces();
-	    //boolean shouldLoad = false;
+	    // boolean shouldLoad = false;
 	    for (int i = 0; i < ifaces.length; i++) {
 		if (ifaces[i] == ModuleActivator.class) {
 		    return c;
@@ -83,8 +83,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 	StringBuilder msgBuilder = new StringBuilder();
 	msgBuilder.append("Bundle ");
 	msgBuilder.append(bundle.getSymbolicName());
-	msgBuilder
-		.append(" is ruined!! It has more than one ModuleActivator:");
+	msgBuilder.append(" is ruined!! It has more than one ModuleActivator:");
 	msgBuilder.append(newLine);
 	for (int i = 0; i < activators.size(); i++) {
 	    msgBuilder.append(" - ");

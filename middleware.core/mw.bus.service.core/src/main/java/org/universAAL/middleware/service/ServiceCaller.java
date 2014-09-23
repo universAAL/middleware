@@ -19,7 +19,7 @@
  */
 package org.universAAL.middleware.service;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.BusMember;
@@ -29,6 +29,8 @@ import org.universAAL.middleware.bus.msg.MessageType;
 import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.interfaces.PeerCard;
+import org.universAAL.middleware.service.ServiceBus.CallInjector;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
@@ -41,11 +43,12 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ * @author Carsten Stockloew
  */
 public abstract class ServiceCaller extends Caller {
-    private Hashtable waitingCalls;
-    private Hashtable readyResponses;
+    private HashMap<String, ServiceCaller> waitingCalls;
+    private HashMap<String, Object> readyResponses;
+    private CallInjector injector = null;
 
     /**
      * The default constructor for this class.
@@ -58,8 +61,10 @@ public abstract class ServiceCaller extends Caller {
      */
     protected ServiceCaller(ModuleContext context) {
 	super(context, ServiceBusImpl.getServiceBusFetchParams());
-	waitingCalls = new Hashtable();
-	readyResponses = new Hashtable();
+	waitingCalls = new HashMap<String, ServiceCaller>();
+	readyResponses = new HashMap<String, Object>();
+	injector = (CallInjector) context.getContainer().fetchSharedObject(
+		context, ServiceBusImpl.getServiceBusInjectFetchParams());
     }
 
     /**
@@ -99,6 +104,51 @@ public abstract class ServiceCaller extends Caller {
     }
 
     /**
+     * Can be used to inject a {@link ServiceCall} to the bus. Compared to the
+     * method {@link #call(ServiceRequest)} there is no matchmaking; the call
+     * will be sent directly to a given {@link ServiceCallee}. Therefore, this
+     * method should NOT be used directly by applications.
+     * 
+     * @param call
+     *            the {@link ServiceCall} .
+     * @param receiver
+     *            the {@link PeerCard} of the node that hosts the callee.
+     */
+    public ServiceResponse inject(ServiceCall call, String receiver) {
+	return inject(call, AbstractBus.getPeerFromBusResourceURI(receiver));
+    }
+
+    /**
+     * Can be used to inject a {@link ServiceCall} to the bus. Compared to the
+     * method {@link #call(ServiceRequest)} there is no matchmaking; the call
+     * will be sent directly to a given {@link ServiceCallee}. Therefore, this
+     * method should NOT be used directly by applications.
+     * 
+     * @param call
+     *            the {@link ServiceCall} .
+     * @param receiver
+     *            the URI of the bus member that has registered the matching
+     *            {@link ServiceProfile}. Only the identifier of the node that
+     *            hosts the callee is used from the bus member URI.
+     */
+    public ServiceResponse inject(ServiceCall call, PeerCard receiver) {
+	// TODO: AccessControl
+	ServiceResponse sr = null;
+	synchronized (waitingCalls) {
+	    String callID = sendCall(call, receiver);
+	    waitingCalls.put(callID, this);
+	    while (sr == null) {
+		try {
+		    waitingCalls.wait();
+		    sr = (ServiceResponse) readyResponses.remove(callID);
+		} catch (InterruptedException e) {
+		}
+	    }
+	}
+	return sr;
+    }
+
+    /**
      * This method is a way of calling a service using Turtle Strings as input.
      * Turtle Strings are converted to Service Requests.
      * 
@@ -121,7 +171,7 @@ public abstract class ServiceCaller extends Caller {
     public final void handleReply(BusMessage m) {
 	if (m.getType() == MessageType.reply
 		&& (m.getContent() instanceof ServiceResponse)) {
-	    LogUtils.logInfo(
+	    LogUtils.logDebug(
 		    owner,
 		    ServiceCaller.class,
 		    "handleReply",
@@ -177,6 +227,18 @@ public abstract class ServiceCaller extends Caller {
 	} else {
 	    return null;
 	}
+    }
+
+    public final String sendCall(ServiceCall call, PeerCard receiver) {
+	// TODO: AccessControl
+	BusMessage callMsg = new BusMessage(MessageType.p2p_request, call,
+		theBus);
+	injector.brokerCall(busResourceURI, receiver, callMsg);
+	return callMsg.getID();
+    }
+
+    public final String sendCall(ServiceCall call, String receiver) {
+	return sendCall(call, AbstractBus.getPeerFromBusResourceURI(receiver));
     }
 
     /**

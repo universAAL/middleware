@@ -27,6 +27,7 @@ import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.AggregatingFilter;
+import org.universAAL.middleware.service.MultiServiceResponse;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
@@ -74,6 +75,7 @@ public class ServiceBusOntology extends Ontology {
 	createNewRDFClassInfo(ProcessOutput.MY_URI, factory, 8);
 	createNewRDFClassInfo(ProcessResult.MY_URI, factory, 9);
 	createNewRDFClassInfo(ProcessParameter.MY_URI, factory, 10);
+	createNewRDFClassInfo(MultiServiceResponse.MY_URI, factory, 11);
 
 	// load Service
 	oci = createNewAbstractOntClassInfo(Service.MY_URI);

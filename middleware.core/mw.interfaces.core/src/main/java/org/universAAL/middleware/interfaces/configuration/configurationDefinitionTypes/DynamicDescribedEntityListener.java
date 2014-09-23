@@ -25,33 +25,39 @@ import org.universAAL.middleware.xsd.Base64Binary;
 
 /**
  * Listener to be called when a {@link DynamicDescribedEntity} changes value.
+ * 
  * @author amedrano
- *
+ * 
  */
 public interface DynamicDescribedEntityListener {
-    
+
     /**
      * Call this method when the description of a Described Entity has changed,
      * so configuration editors can update it.
+     * 
      * @param dentity
      */
     public void updatedDescription(DescribedEntity dentity);
 
     /**
-     * Call this method when the entity has updated the value internally,
-     * so persistent value can be stored and configuration editors informed on the new value.<BR>
-     * In case of {@link ConfigurationParameter} type entities the validity of the new value will be checked against the 
-     * restrictions.<br>
-     * In case of {@link ConfigurationFile} type entities the value must be either:
-     * 	<ul>
-     * 	<li> a {@link File}
-     * 	<li> an {@link URL}
-     *  <li> a Base64 coded {@link String}
-     *  <li> a byte[] containing the data of the file
-     *  <li> a {@link Base64Binary}
-     *  </ul>
-     *  <b>DO NOT USE INSIDE {@link ConfigurableModule#configurationChanged(org.universAAL.middleware.interfaces.configuration.scope.Scope, Object)}</b>
-     *  as it will guarantee an infinite loop.
+     * Call this method when the entity has updated the value internally, so
+     * persistent value can be stored and configuration editors informed on the
+     * new value.<BR>
+     * In case of {@link ConfigurationParameter} type entities the validity of
+     * the new value will be checked against the restrictions.<br>
+     * In case of {@link ConfigurationFile} type entities the value must be
+     * either:
+     * <ul>
+     * <li>a {@link File}
+     * <li>an {@link URL}
+     * <li>a Base64 coded {@link String}
+     * <li>a byte[] containing the data of the file
+     * <li>a {@link Base64Binary}
+     * </ul>
+     * <b>DO NOT USE INSIDE
+     * {@link ConfigurableModule#configurationChanged(org.universAAL.middleware.interfaces.configuration.scope.Scope, Object)}
+     * </b> as it will guarantee an infinite loop.
+     * 
      * @param deEntity
      * @param value
      */

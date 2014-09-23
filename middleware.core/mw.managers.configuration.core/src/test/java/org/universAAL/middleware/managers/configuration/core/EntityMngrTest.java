@@ -51,55 +51,55 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 /**
  * @author amedrano
- *
+ * 
  */
 public class EntityMngrTest {
-
 
     private static JUnitModuleContext mc;
 
     @BeforeClass
-    public static void init(){
+    public static void init() {
 	mc = new JUnitModuleContext();
-	mc.getContainer().shareObject(mc,
-			new TurtleSerializer(),
-			new Object[] { MessageContentSerializer.class.getName() });
+	mc.getContainer().shareObject(mc, new TurtleSerializer(),
+		new Object[] { MessageContentSerializer.class.getName() });
 
 	OntologyManagement.getInstance().register(mc, new DataRepOntology());
-	OntologyManagement.getInstance().register(mc, new AALConfigurationOntology());
+	OntologyManagement.getInstance().register(mc,
+		new AALConfigurationOntology());
 	TurtleUtil.moduleContext = mc;
     }
 
-    private EntityManager init(File f){
+    private EntityManager init(File f) {
 	f.delete();
 	return new EntityManager(new SharedObjectConnector(mc), f);
     }
-    
+
     @Test
-    public void initTest(){
+    public void initTest() {
 	init(new File("target/Entities.ttl"));
     }
-    
+
     @Test
-    public void addTest(){
-	
+    public void addTest() {
+
 	Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
-	    
+
 	    public Scope getScope() {
 		return new AALSpaceScope("aalspace.config");
 	    }
-	    
+
 	    public String getDescription(Locale loc) {
 		return "some config";
 	    }
-	    
+
 	    public MergedRestriction getType() {
 		MergedRestriction mr = MergedRestriction
-			.getAllValuesRestrictionWithCardinality(ConfigurationParameter.PROP_CONFIG_VALUE, 
+			.getAllValuesRestrictionWithCardinality(
+				ConfigurationParameter.PROP_CONFIG_VALUE,
 				new IntRestriction(0, true, 10, true), 1, 1);
 		return mr;
 	    }
-	    
+
 	    public Object getDefaultValue() {
 		return Integer.valueOf(1);
 	    }
@@ -108,27 +108,28 @@ public class EntityMngrTest {
 	EntityManager em = init(new File("target/addTest.ttl"));
 	assertTrue(em.addEntity(e));
     }
-    
+
     @Test
-    public void addTests2(){
+    public void addTests2() {
 	Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
-	    
+
 	    public Scope getScope() {
 		return new AALSpaceScope("aalspace.config");
 	    }
-	    
+
 	    public String getDescription(Locale loc) {
 		return "some config";
 	    }
-	    
+
 	    public MergedRestriction getType() {
 		MergedRestriction mr = MergedRestriction
-			.getAllValuesRestrictionWithCardinality(ConfigurationParameter.PROP_CONFIG_VALUE, 
+			.getAllValuesRestrictionWithCardinality(
+				ConfigurationParameter.PROP_CONFIG_VALUE,
 				TypeMapper.getDatatypeURI(Integer.class), 1, 1);
 		mr.addType(new IntRestriction(0, true, 10, true));
 		return mr;
 	    }
-	    
+
 	    public Object getDefaultValue() {
 		return Integer.valueOf(1);
 	    }
@@ -140,33 +141,34 @@ public class EntityMngrTest {
 	e.incrementVersion();
 	assertTrue(em.addEntity(e));
     }
-    
+
     @Test
-    public void addTests3(){
+    public void addTests3() {
 	EntityManager em = init(new File("target/addTest3.ttl"));
 	assertFalse(em.addEntity(null));
     }
-    
+
     @Test
-    public void findTests1(){
+    public void findTests1() {
 	EntityManager em = init(new File("target/Entities.ttl"));
-	assertNull(em.find((String)null));
+	assertNull(em.find((String) null));
 	assertNull(em.find(""));
 	assertNull(em.find("lolz"));
     }
-    
+
     @Test
-    public void findTests2(){
+    public void findTests2() {
 	EntityManager em = init(new File("target/findTest2.ttl"));
-	Entity e = EntityFactory.getEntity(ConfigSample.getConfigurationDescription()[1], Locale.ENGLISH);
+	Entity e = EntityFactory.getEntity(
+		ConfigSample.getConfigurationDescription()[1], Locale.ENGLISH);
 	em.addEntity(e);
 	assertNull(em.find("urn:configscope:aalspace.config"));
 	assertNotNull(em.find(e.getURI()));
 	assertEquals(e, em.find(e.getURI()));
     }
-    
+
     @Test
-    public void mergeTest1(){
+    public void mergeTest1() {
 	EntityManager em = init(new File("target/mergeTest1.ttl"));
 	List<Entity> les = getAListOfEntities();
 	List<Entity> a = em.mergeAdd(les);
@@ -175,10 +177,10 @@ public class EntityMngrTest {
 	em.addEntity(les.get(1));
 	a = em.mergeAdd(getAListOfEntities());
 	assertEquals(3, a.size());
-//	assertEquals(les.get(1), a.get(0));
+	// assertEquals(les.get(1), a.get(0));
     }
-    
-    private List<Entity> getAListOfEntities(){
+
+    private List<Entity> getAListOfEntities() {
 	DescribedEntity[] des = ConfigSample.getConfigurationDescription();
 	List<Entity> les = new ArrayList<Entity>();
 	for (int i = 0; i < des.length; i++) {

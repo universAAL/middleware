@@ -24,9 +24,11 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 import org.universAAL.middleware.owl.MergedRestriction;
 
 /**
- * Implementation of {@link ConfigurableEntityEditor} for local and parameter type Entities.
+ * Implementation of {@link ConfigurableEntityEditor} for local and parameter
+ * type Entities.
+ * 
  * @author amedrano
- *
+ * 
  */
 public class LocalConfigurationParameterEditor extends LocalConfigurationEntity
 	implements ConfigurationParameterEditor {
@@ -80,11 +82,11 @@ public class LocalConfigurationParameterEditor extends LocalConfigurationEntity
      * @return
      */
     boolean setValue(ConfigurationParameter e, Object val) {
-    	if (e.setValue(val)) {
-			e.incrementVersion();
-			return confManager.updateLocalAndPropagate(e);
-		}
-    	return false;
+	if (e.setValue(val)) {
+	    e.incrementVersion();
+	    return confManager.updateLocalAndPropagate(e);
+	}
+	return false;
     }
 
     /** {@ inheritDoc} */

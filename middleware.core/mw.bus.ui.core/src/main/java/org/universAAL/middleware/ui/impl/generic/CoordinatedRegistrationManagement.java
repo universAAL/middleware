@@ -35,106 +35,118 @@ import org.universAAL.middleware.ui.UIHandlerProfile;
 
 /**
  * Strategy Stack that is in charge of managing registrations, generally a
- * registration is composed of {@link Matchable} information that is tied to an Id. <br>
- * Thus the main data representation is a {@link Map} of keys {@link Resource}s and
- * values {@link String id}s. This way Resources can be iterated to do match making, 
- * then retrieve their associated ID.
- *  <center> <img style="background-color:white;" src="doc-files/CoordinatedRegistrationStrategy.png"
- * alt="UIStrategy messages" width="70%"/> </center>
+ * registration is composed of {@link Matchable} information that is tied to an
+ * Id. <br>
+ * Thus the main data representation is a {@link Map} of keys {@link Resource}s
+ * and values {@link String id}s. This way Resources can be iterated to do match
+ * making, then retrieve their associated ID. <center> <img
+ * style="background-color:white;"
+ * src="doc-files/CoordinatedRegistrationStrategy.png" alt="UIStrategy messages"
+ * width="70%"/> </center>
  * 
  * @author amedrano
  * 
  */
 public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
-    
+
     /**
      * Property to Hold the RegistrationID
      */
     public static final String PROP_uAAL_REGISTRATION_ID = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "registrationID";
-    
+
     /**
      * Property to Hold the Registration
      */
     public static final String PROP_uAAL_REGISTRATION = Resource.uAAL_VOCABULARY_NAMESPACE
 	    + "registration";
 
-    
     private class RegistrationMessage extends Resource implements
-    	EventMessage<CoordinatedRegistrationManagement> {
+	    EventMessage<CoordinatedRegistrationManagement> {
 
-        public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
-    	    + "NewRegistration";
-        
-        public RegistrationMessage(String regID, Matchable reg){
-    	addType(MY_URI, true);
-    	setProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID, regID);
-    	setProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION, reg);
-        }
+	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
+		+ "NewRegistration";
+
+	public RegistrationMessage(String regID, Matchable reg) {
+	    addType(MY_URI, true);
+	    setProperty(
+		    CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID,
+		    regID);
+	    setProperty(
+		    CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION,
+		    reg);
+	}
 
 	public RegistrationMessage() {
 	    super();
 	}
 
-	/** {@ inheritDoc}	 */
-        public void onReceived(CoordinatedRegistrationManagement strategy, BusMessage m,
-    	    String senderID) {
-    	strategy.addRegistration(
-    		(String) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID), 
-    		(UIHandlerProfile) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION));
-    	
-        }
+	/** {@ inheritDoc} */
+	public void onReceived(CoordinatedRegistrationManagement strategy,
+		BusMessage m, String senderID) {
+	    strategy.addRegistration(
+		    (String) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID),
+		    (UIHandlerProfile) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION));
+
+	}
     }
 
     private class UnRegistrationMessage extends Resource implements
-    EventMessage<CoordinatedRegistrationManagement> {
+	    EventMessage<CoordinatedRegistrationManagement> {
 
 	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
 		+ "UnRegistration";
 
-	public UnRegistrationMessage(String regID){
+	public UnRegistrationMessage(String regID) {
 	    addType(MY_URI, true);
-	    setProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION, regID);
+	    setProperty(
+		    CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION,
+		    regID);
 	}
 
 	public UnRegistrationMessage() {
 	    super();
 	}
 
-	/** {@ inheritDoc}	 */
-	public void onReceived(CoordinatedRegistrationManagement strategy, BusMessage m, String senderID) {
+	/** {@ inheritDoc} */
+	public void onReceived(CoordinatedRegistrationManagement strategy,
+		BusMessage m, String senderID) {
 	    strategy.removeAllRegistries((String) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION));
 	}
     }
 
     private class RemoveMatchingRegistrationMessage extends Resource implements
-    	EventMessage<CoordinatedRegistrationManagement> {
+	    EventMessage<CoordinatedRegistrationManagement> {
 
-        public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
-    	    + "MatchingUnRegistration";
-        
-        public RemoveMatchingRegistrationMessage(String regID, Matchable filter){
-    	addType(MY_URI, true);
-    	setProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID, regID);
-    	setProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION, filter);
-        }
+	public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE
+		+ "MatchingUnRegistration";
+
+	public RemoveMatchingRegistrationMessage(String regID, Matchable filter) {
+	    addType(MY_URI, true);
+	    setProperty(
+		    CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID,
+		    regID);
+	    setProperty(
+		    CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION,
+		    filter);
+	}
 
 	public RemoveMatchingRegistrationMessage() {
 	    super();
 	}
 
-	/** {@ inheritDoc}	 */
-        public void onReceived(CoordinatedRegistrationManagement strategy,
-    	    BusMessage m, String senderID) {
-    	strategy.removeMatchingRegistries(
-    		(String) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID),
-    		(Matchable) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION));
-        }
+	/** {@ inheritDoc} */
+	public void onReceived(CoordinatedRegistrationManagement strategy,
+		BusMessage m, String senderID) {
+	    strategy.removeMatchingRegistries(
+		    (String) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION_ID),
+		    (Matchable) getProperty(CoordinatedRegistrationManagement.PROP_uAAL_REGISTRATION));
+	}
     }
 
-    private class CoordinatedRegsMessageFactory implements ResourceFactory{
+    private class CoordinatedRegsMessageFactory implements ResourceFactory {
 
-	/** {@ inheritDoc}	 */
+	/** {@ inheritDoc} */
 	public Resource createInstance(String classURI, String instanceURI,
 		int factoryIndex) {
 	    switch (factoryIndex) {
@@ -149,10 +161,10 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
 	    }
 	    return null;
 	}
-	
+
     }
-    
-    private class CoordinatedRegMessageOnt extends Ontology{
+
+    private class CoordinatedRegMessageOnt extends Ontology {
 
 	private CoordinatedRegsMessageFactory factory;
 
@@ -164,16 +176,17 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
 	    factory = new CoordinatedRegsMessageFactory();
 	}
 
-	/** {@ inheritDoc}	 */
+	/** {@ inheritDoc} */
 	@Override
 	public void create() {
 	    createNewRDFClassInfo(RegistrationMessage.MY_URI, factory, 0);
 	    createNewRDFClassInfo(UnRegistrationMessage.MY_URI, factory, 1);
-	    createNewRDFClassInfo(RemoveMatchingRegistrationMessage.MY_URI, factory, 2);   
+	    createNewRDFClassInfo(RemoveMatchingRegistrationMessage.MY_URI,
+		    factory, 2);
 	}
-	
+
     }
-    
+
     private Map<Matchable, String> registrationMap;
 
     private CoordinatedRegMessageOnt ontology;
@@ -187,21 +200,21 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
 	super(commModule, name);
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public synchronized void start() {
 	super.start();
-	ontology = new CoordinatedRegMessageOnt(
-		Resource.uAAL_NAMESPACE_PREFIX + "CoordinatedRegistrationMessageOntology");
+	ontology = new CoordinatedRegMessageOnt(Resource.uAAL_NAMESPACE_PREFIX
+		+ "CoordinatedRegistrationMessageOntology");
 	OntologyManagement.getInstance().register(busModule, ontology);
     }
 
-    private Map<Matchable, String> getRegistrationMap(){
-	if(registrationMap == null){
-		registrationMap = new Hashtable<Matchable, String>();
+    private Map<Matchable, String> getRegistrationMap() {
+	if (registrationMap == null) {
+	    registrationMap = new Hashtable<Matchable, String>();
 	}
 	return registrationMap;
     }
-    
+
     /**
      * @param commModule
      */
@@ -212,31 +225,33 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
     public final void addRegistration(String id, Matchable registration) {
 	if (id == null || registration == null)
 	    return;
-	
-	if (iAmCoordinator()){
+
+	if (iAmCoordinator()) {
 	    getRegistrationMap().put(registration, id);
-	}else{
-	    //Send Message
-	    sendEventToRemoteBusMember(getCoordinator(), new RegistrationMessage(id, registration));
+	} else {
+	    // Send Message
+	    sendEventToRemoteBusMember(getCoordinator(),
+		    new RegistrationMessage(id, registration));
 	}
     }
 
     public final void removeAllRegistries(String id) {
 	if (id == null)
 	    return;
-	if (iAmCoordinator()){
+	if (iAmCoordinator()) {
 	    Set<Matchable> remove = new HashSet<Matchable>();
 	    for (Entry<Matchable, String> ent : getRegistrationMap().entrySet()) {
-		if (ent.getValue().equals(id)){
+		if (ent.getValue().equals(id)) {
 		    remove.add(ent.getKey());
 		}
 	    }
 	    for (Matchable resource : remove) {
 		getRegistrationMap().remove(resource);
 	    }
-	}else{
-	    //Send Message
-	    sendEventToRemoteBusMember(getCoordinator(), new UnRegistrationMessage(id));
+	} else {
+	    // Send Message
+	    sendEventToRemoteBusMember(getCoordinator(),
+		    new UnRegistrationMessage(id));
 	}
     }
 
@@ -244,20 +259,20 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
 	if (id == null || filter == null) {
 	    return;
 	}
-	if (iAmCoordinator()){
+	if (iAmCoordinator()) {
 	    Set<Matchable> remove = new HashSet<Matchable>();
 	    for (Entry<Matchable, String> ent : getRegistrationMap().entrySet()) {
-		if (ent.getValue().equals(id)
-			&& filter.matches(ent.getKey())){
+		if (ent.getValue().equals(id) && filter.matches(ent.getKey())) {
 		    remove.add(ent.getKey());
 		}
 	    }
 	    for (Matchable resource : remove) {
 		getRegistrationMap().remove(resource);
 	    }
-	}else{
-	    //Send Message
-	    sendEventToRemoteBusMember(getCoordinator(),new RemoveMatchingRegistrationMessage(id, filter));
+	} else {
+	    // Send Message
+	    sendEventToRemoteBusMember(getCoordinator(),
+		    new RemoveMatchingRegistrationMessage(id, filter));
 	}
     }
 
@@ -268,16 +283,16 @@ public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
     protected final String getRegistryID(Resource res) {
 	return getRegistrationMap().get(res);
     }
-    
-    protected final boolean isIdRegistered(String id){
+
+    protected final boolean isIdRegistered(String id) {
 	return getRegistrationMap().containsValue(id);
     }
 
     protected final Iterator<String> registryIdIterator() {
 	return new HashSet<String>(getRegistrationMap().values()).iterator();
     }
-    
-    /** {@ inheritDoc}	 */
+
+    /** {@ inheritDoc} */
     public void close() {
 	super.close();
 	if (registrationMap != null) {

@@ -25,8 +25,9 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
  * a Class that manages connections to universAAL modules.
+ * 
  * @author amedrano
- *
+ * 
  */
 public class SharedObjectConnector implements SharedObjectListener {
 
@@ -35,49 +36,49 @@ public class SharedObjectConnector implements SharedObjectListener {
     private MessageContentSerializer messageContentSerializer;
     private boolean stopping = false;
     private ControlBroker controlBroker;
-        
+
     public ModuleContext getContext() {
 	return context;
     }
-    
+
     /**
      * @return the aalSpaceManager
      */
     public synchronized final AALSpaceManager getAalSpaceManager() {
-	while(!stopping  && aalSpaceManager == null){
+	while (!stopping && aalSpaceManager == null) {
 	    try {
 		wait();
-	    } catch (InterruptedException e) {}
+	    } catch (InterruptedException e) {
+	    }
 	}
-        return aalSpaceManager;
+	return aalSpaceManager;
     }
-
 
     /**
      * @return the controlBroker
      */
     public synchronized final ControlBroker getControlBroker() {
-	while(!stopping  && controlBroker == null){
+	while (!stopping && controlBroker == null) {
 	    try {
 		wait();
-	    } catch (InterruptedException e) {}
+	    } catch (InterruptedException e) {
+	    }
 	}
-        return controlBroker;
+	return controlBroker;
     }
-
 
     /**
      * @return the messageContentSerializer
      */
     public synchronized final MessageContentSerializer getMessageContentSerializer() {
-	while(!stopping  && messageContentSerializer == null){
+	while (!stopping && messageContentSerializer == null) {
 	    try {
 		wait();
-	    } catch (InterruptedException e) {}
+	    } catch (InterruptedException e) {
+	    }
 	}
-        return messageContentSerializer;
+	return messageContentSerializer;
     }
-
 
     /**
      * 
@@ -88,55 +89,47 @@ public class SharedObjectConnector implements SharedObjectListener {
 	susbcribeFor(ControlBroker.class.getName());
 	susbcribeFor(MessageContentSerializer.class.getName());
     }
-    
-    
-    private synchronized void add(Object shr){
-	if (shr instanceof AALSpaceManager){
+
+    private synchronized void add(Object shr) {
+	if (shr instanceof AALSpaceManager) {
 	    aalSpaceManager = (AALSpaceManager) shr;
 	    notifyAll();
-	}
-	else if (shr instanceof ControlBroker){
+	} else if (shr instanceof ControlBroker) {
 	    controlBroker = (ControlBroker) shr;
 	    notifyAll();
-	}
-	else if (shr instanceof MessageContentSerializer) {
+	} else if (shr instanceof MessageContentSerializer) {
 	    messageContentSerializer = (MessageContentSerializer) shr;
 	    notifyAll();
 	}
     }
-    
-    private void susbcribeFor(String clazzName){
-	Object[] ref = context.getContainer()
-		.fetchSharedObject(
-			context,
-			new Object[] { clazzName },
-				this);
-	if (ref != null && ref.length > 0){
+
+    private void susbcribeFor(String clazzName) {
+	Object[] ref = context.getContainer().fetchSharedObject(context,
+		new Object[] { clazzName }, this);
+	if (ref != null && ref.length > 0) {
 	    add(ref[0]);
 	}
     }
-    
-    /** {@ inheritDoc}	 */
+
+    /** {@ inheritDoc} */
     public void sharedObjectAdded(Object sharedObj, Object removeHook) {
 	if (!stopping) {
 	    add(sharedObj);
 	}
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public void sharedObjectRemoved(Object removeHook) {
-	if (removeHook instanceof AALSpaceManager){
+	if (removeHook instanceof AALSpaceManager) {
 	    aalSpaceManager = null;
-	}
-	else if (removeHook instanceof ControlBroker){
-	    controlBroker= null;
-	}
-	else if (removeHook instanceof MessageContentSerializer){
+	} else if (removeHook instanceof ControlBroker) {
+	    controlBroker = null;
+	} else if (removeHook instanceof MessageContentSerializer) {
 	    messageContentSerializer = null;
 	}
     }
-    
-    public void stop(){
+
+    public void stop() {
 	stopping = true;
     }
 }

@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.universAAL.middleware.bus.member.BusMember;
+import org.universAAL.middleware.rdf.Resource;
 
 /**
  * 
@@ -35,22 +36,23 @@ import org.universAAL.middleware.bus.member.BusMember;
  *         Apr 20, 2012
  * 
  */
+// TODO: synchronize map and listener for concurrent access
 public class RegistryMap extends Object implements IRegistry {
 
-    protected Map map = new HashMap();
-    protected List listeners = new ArrayList();
+    protected Map<String, BusMember> map = new HashMap<String, BusMember>();
+    protected List<IRegistryListener> listeners = new ArrayList<IRegistryListener>();
 
     public void addBusMember(String memberID, BusMember busMember) {
 	map.put(memberID, busMember);
 	for (int i = 0; i < listeners.size(); i++) {
-	    ((IRegistryListener) listeners.get(i)).busMemberAdded(busMember);
+	    listeners.get(i).busMemberAdded(busMember);
 	}
     }
 
     public BusMember removeMemberByID(String memberID) {
 	BusMember busMember = (BusMember) map.remove(memberID);
 	for (int i = 0; i < listeners.size(); i++) {
-	    ((IRegistryListener) listeners.get(i)).busMemberRemoved(busMember);
+	    listeners.get(i).busMemberRemoved(busMember);
 	}
 	return busMember;
     }
@@ -70,8 +72,8 @@ public class RegistryMap extends Object implements IRegistry {
     public String getBusMemberID(BusMember busMember) {
 	String result = null;
 	if (busMember != null) {
-	    for (Iterator i = map.keySet().iterator(); i.hasNext();) {
-		String id = (String) i.next();
+	    for (Iterator<String> i = map.keySet().iterator(); i.hasNext();) {
+		String id = i.next();
 		if (busMember.equals(map.get(id))) {
 		    result = id;
 		    break;
@@ -93,10 +95,28 @@ public class RegistryMap extends Object implements IRegistry {
     }
 
     public boolean addRegistryListener(IRegistryListener listener) {
+	if (listener == null)
+	    throw new NullPointerException();
 	return listeners.add(listener);
     }
 
     public boolean removeRegistryListener(IRegistryListener listener) {
 	return listeners.remove(listener);
+    }
+
+    public void addRegParams(String busMemberID, Resource[] params) {
+	// We don't do anything with the reg params, we just forward them to the
+	// listeners.
+	for (IRegistryListener listener : listeners) {
+	    listener.regParamsAdded(busMemberID, params);
+	}
+    }
+
+    public void removeRegParams(String busMemberID, Resource[] params) {
+	// We don't do anything with the reg params, we just forward them to the
+	// listeners.
+	for (IRegistryListener listener : listeners) {
+	    listener.regParamsRemoved(busMemberID, params);
+	}
     }
 }

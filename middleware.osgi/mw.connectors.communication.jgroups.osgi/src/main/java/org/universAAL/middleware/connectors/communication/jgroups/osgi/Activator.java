@@ -55,52 +55,52 @@ public class Activator implements BundleActivator, ManagedService {
 
     public void start(BundleContext bc) throws Exception {
 
-        Security.addProvider(new BouncyCastleProvider());
-        ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER
-                .registerModule(new Object[] { bc });
-        LogUtils.logDebug(
-                moduleContext,
-                Activator.class,
-                "startBrokerClient",
-                new Object[] { "Starting the JGroupCommunicationConnector..." },
-                null);
+	Security.addProvider(new BouncyCastleProvider());
+	ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER
+		.registerModule(new Object[] { bc });
+	LogUtils.logDebug(
+		moduleContext,
+		Activator.class,
+		"startBrokerClient",
+		new Object[] { "Starting the JGroupCommunicationConnector..." },
+		null);
 
-        jgroupsCommunicationConnector = new JGroupsCommunicationConnector(
-                moduleContext);
+	jgroupsCommunicationConnector = new JGroupsCommunicationConnector(
+		moduleContext);
 
-        Dictionary props = new Hashtable();
-        props.put(Constants.SERVICE_PID, SERVICE_PID);
-        myRegistration = bc.registerService(ManagedService.class.getName(),
-                this, props);
+	Dictionary props = new Hashtable();
+	props.put(Constants.SERVICE_PID, SERVICE_PID);
+	myRegistration = bc.registerService(ManagedService.class.getName(),
+		this, props);
 
-        ConfigurationAdmin configurationAdmin = null;
-        ServiceReference sr = bc.getServiceReference(ConfigurationAdmin.class
-                .getName());
-        if (sr != null && bc.getService(sr) instanceof ConfigurationAdmin)
-            configurationAdmin = (ConfigurationAdmin) bc.getService(sr);
-        Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
+	ConfigurationAdmin configurationAdmin = null;
+	ServiceReference sr = bc.getServiceReference(ConfigurationAdmin.class
+		.getName());
+	if (sr != null && bc.getService(sr) instanceof ConfigurationAdmin)
+	    configurationAdmin = (ConfigurationAdmin) bc.getService(sr);
+	Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
 
-        Dictionary jGroupDCOnnector = config.getProperties();
+	Dictionary jGroupDCOnnector = config.getProperties();
 
-        if (jGroupDCOnnector != null) {
-            jgroupsCommunicationConnector.loadConfigurations(jGroupDCOnnector);
-        }
+	if (jGroupDCOnnector != null) {
+	    jgroupsCommunicationConnector.loadConfigurations(jGroupDCOnnector);
+	}
 
-        uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
-                jgroupsCommunicationConnector,
-                new Object[] { CommunicationConnector.class.getName() });
-        LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-                new Object[] { "Started the JGroupCommunicationConnector..." },
-                null);
+	uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
+		jgroupsCommunicationConnector,
+		new Object[] { CommunicationConnector.class.getName() });
+	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
+		new Object[] { "Started the JGroupCommunicationConnector..." },
+		null);
     }
 
     public void stop(BundleContext bc) throws Exception {
-        jgroupsCommunicationConnector.dispose();
-        myRegistration.unregister();
+	jgroupsCommunicationConnector.dispose();
+	myRegistration.unregister();
     }
 
     public void updated(Dictionary props) throws ConfigurationException {
-        jgroupsCommunicationConnector.loadConfigurations(props);
+	jgroupsCommunicationConnector.loadConfigurations(props);
     }
 
 }

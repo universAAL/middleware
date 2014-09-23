@@ -171,7 +171,8 @@ public class ServiceRealization extends FinalizedResource {
      * 
      * @return true iff the operation was successful
      */
-    boolean assertServiceCall(HashMap context) {
+    boolean assertServiceCall(HashMap<String, Object> context,
+	    ServiceRequest request) {
 	ServiceProfile prof = (ServiceProfile) props.get(uAAL_SERVICE_PROFILE);
 	if (prof == null)
 	    return false;
@@ -180,12 +181,13 @@ public class ServiceRealization extends FinalizedResource {
 	if (processURI == null)
 	    return false;
 
-	ServiceCall result = new ServiceCall(processURI);
+	ServiceCall result = new ServiceCall(new Resource(processURI));
+	result.setScope(request);
 	Object user = context.get(Constants.VAR_uAAL_ACCESSING_HUMAN_USER);
 	if (user instanceof Resource)
 	    result.setInvolvedUser((Resource) user);
 
-	for (Iterator i = prof.getInputs(); i.hasNext();) {
+	for (Iterator<?> i = prof.getInputs(); i.hasNext();) {
 	    ProcessInput in = (ProcessInput) i.next();
 	    String uri = null;
 	    if (in != null)
@@ -304,10 +306,10 @@ public class ServiceRealization extends FinalizedResource {
     /**
      * Return the ServiceProvider of this ServiceRealization
      * 
-     * @return Object - the service provider
+     * @return the service provider
      */
-    Object getProvider() {
-	return props.get(uAAL_SERVICE_PROVIDER);
+    String getProvider() {
+	return (String) props.get(uAAL_SERVICE_PROVIDER);
     }
 
     /**

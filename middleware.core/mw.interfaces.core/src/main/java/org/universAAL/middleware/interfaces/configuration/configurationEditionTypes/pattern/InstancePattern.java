@@ -21,35 +21,38 @@ import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.URIRestriction;
 
 /**
- * A pattern that matches entities with an Instance type scope. 
- * Additionally, it can match instanceId in scopes with the provided pattern.
+ * A pattern that matches entities with an Instance type scope. Additionally, it
+ * can match instanceId in scopes with the provided pattern.
+ * 
  * @author amedrano
- *
+ * 
  */
-public class InstancePattern implements EntityPattern{
+public class InstancePattern implements EntityPattern {
 
-    private String id; 
-    
+    private String id;
+
     /**
      * Match any Entity with Instance type scope.
      */
     public InstancePattern() {
 	id = ".*";
     }
-    
+
     /**
      * Match Instance type scope entities using instanceIdPattern
-     * @param instanceIdPattern the pattern to match the instanceId of the entities.
+     * 
+     * @param instanceIdPattern
+     *            the pattern to match the instanceId of the entities.
      */
     public InstancePattern(String instanceIdPattern) {
 	id = instanceIdPattern;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public TypeExpression getRestriction() {
 	URIRestriction ur = new URIRestriction();
-	ur.setPattern(".*inst\\:"+id+".*");
+	ur.setPattern(".*inst\\:" + id + ".*");
 	return ur;
     }
-    
+
 }

@@ -104,9 +104,6 @@ public class BusMessage implements BrokerMessage {
 	mType = BrokerMessageTypes.BusMessage;
 
     }
-    
-    
-
 
     /**
      * Constructor - a message of particular type with particular content
@@ -136,7 +133,7 @@ public class BusMessage implements BrokerMessage {
      * @param message
      *            the string to parse (the serialization of a message object).
      */
-    public BusMessage(String message) {
+    public BusMessage(String message, AbstractBus creator) {
 	if (message == null) {
 	    throw new NullPointerException();
 	}
@@ -363,6 +360,10 @@ public class BusMessage implements BrokerMessage {
 	return type;
     }
 
+    public void setType(MessageType newType) {
+	type = newType;
+    }
+
     public boolean receiverResidesOnDifferentPeer() {
 	if (receiver == null || receiver.isEmpty()) {
 	    // a broadcast message is assumed to have remote receivers
@@ -412,19 +413,19 @@ public class BusMessage implements BrokerMessage {
 	StringBuffer sb = new StringBuffer();
 	// sb.append("<![CDATA[<uAAL:BusMessage>");
 	sb.append("<uAAL:BusMessage>");
-	sb.append("\n  <uAAL:BusMessage#id>").append(id).append(
-		"</uAAL:BusMessage#id>");
-	sb.append("\n  <uAAL:BusMessage#type>").append(type.name()).append(
-		"</uAAL:BusMessage#type>");
-	sb.append("\n  <uAAL:BusMessage#content>\n").append(
-		getContentAsString())
+	sb.append("\n  <uAAL:BusMessage#id>").append(id)
+		.append("</uAAL:BusMessage#id>");
+	sb.append("\n  <uAAL:BusMessage#type>").append(type.name())
+		.append("</uAAL:BusMessage#type>");
+	sb.append("\n  <uAAL:BusMessage#content>\n")
+		.append(getContentAsString())
 		.append("\n    </uAAL:BusMessage#content>");
 	if (inReplyTo != null) {
 	    sb.append("\n  <uAAL:BusMessage#inReplyTo>").append(inReplyTo)
 		    .append("</uAAL:BusMessage#inReplyTo>");
 	}
-	sb.append("\n  <uAAL:BusMessage#sender>\n").append(sender).append(
-		"\n    </uAAL:BusMessage#sender>");
+	sb.append("\n  <uAAL:BusMessage#sender>\n").append(sender)
+		.append("\n    </uAAL:BusMessage#sender>");
 	if (receiver != null && !receiver.isEmpty()) {
 	    sb.append("\n  <uAAL:BusMessage#receiver>").append(receiver.get(0));
 	    for (int i = 1; i < receiver.size(); i++) {

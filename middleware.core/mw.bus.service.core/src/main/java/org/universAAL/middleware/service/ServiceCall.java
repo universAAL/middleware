@@ -25,8 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.bus.model.matchable.UtilityCall;
-import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owls.process.OutputBinding;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
@@ -45,7 +45,7 @@ import org.universAAL.middleware.service.owls.process.ProcessInput;
  *         Tazari</a>
  * 
  */
-public class ServiceCall extends FinalizedResource implements UtilityCall {
+public class ServiceCall extends ScopedResource implements UtilityCall {
 
     /**
      * A resource URI that specifies the resource as a service call.
@@ -59,8 +59,8 @@ public class ServiceCall extends FinalizedResource implements UtilityCall {
     public static final ServiceCall THIS_SERVICE_CALL;
 
     static {
-	THIS_SERVICE_CALL = new ServiceCall(null,
-		ProcessInput.OWLS_PROCESS_NAMESPACE + "ThisPerform");
+	THIS_SERVICE_CALL = new ServiceCall(ProcessInput.OWLS_PROCESS_NAMESPACE
+		+ "ThisPerform");
     }
 
     /**
@@ -90,7 +90,7 @@ public class ServiceCall extends FinalizedResource implements UtilityCall {
 
     private Hashtable nonSemanticInput;
 
-    public ServiceCall(Object dummy, String uri) {
+    public ServiceCall(String uri) {
 	super(uri);
 	addType(MY_URI, true);
     }
@@ -127,12 +127,12 @@ public class ServiceCall extends FinalizedResource implements UtilityCall {
      * @param processURI
      *            the URI of the OWL-S perform process.
      */
-    public ServiceCall(String processURI) {
+    public ServiceCall(Resource processURI) {
 	super();
 	if (processURI == null)
 	    throw new NullPointerException();
 	addType(MY_URI, true);
-	props.put(PROP_OWLS_PERFORM_PROCESS, new Resource(processURI));
+	props.put(PROP_OWLS_PERFORM_PROCESS, processURI);
     }
 
     /**

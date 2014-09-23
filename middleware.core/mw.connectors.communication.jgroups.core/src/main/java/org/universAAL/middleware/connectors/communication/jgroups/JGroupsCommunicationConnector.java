@@ -74,7 +74,7 @@ import org.universAAL.middleware.modules.CommunicationModule;
  * @version $LastChangedRevision$ ($LastChangedDate$)
  */
 public class JGroupsCommunicationConnector implements CommunicationConnector,
-Receiver, RequestHandler, MembershipListener{
+	Receiver, RequestHandler, MembershipListener {
 
     private String name;
     private String version;
@@ -106,9 +106,6 @@ Receiver, RequestHandler, MembershipListener{
 	    initializeSecurity();
 	}
 
-
-
-
     }
 
     private void initializeSecurity() throws Exception {
@@ -122,7 +119,7 @@ Receiver, RequestHandler, MembershipListener{
 
 	LogUtils.logDebug(context, JGroupsCommunicationConnector.class, METHOD,
 		new Object[] { "Security key file : ", fileName,
-	" bouncycastle.key" }, null);
+			" bouncycastle.key" }, null);
 
 	File file = new File(fileName, "bouncycastle.key");
 	boolean exists = file.exists();
@@ -153,8 +150,8 @@ Receiver, RequestHandler, MembershipListener{
 			JGroupsCommunicationConnector.class,
 			METHOD,
 			new Object[] {
-			    "Error while initializing the CryptoUtil: ",
-			    ex.toString() }, ex);
+				"Error while initializing the CryptoUtil: ",
+				ex.toString() }, ex);
 		throw new Exception("Security disabled. Key file not found.");
 	    }
 
@@ -214,11 +211,11 @@ Receiver, RequestHandler, MembershipListener{
 			// }
 			// });
 
-
-			//the name of the cluster is composed by: name+AALSpaceID
-			ch.connect( element.getChannelName());
+			// the name of the cluster is composed by:
+			// name+AALSpaceID
+			ch.connect(element.getChannelName());
 			// associates the channel name with the channel instance
-			channelMap.put( element.getChannelName(), ch);
+			channelMap.put(element.getChannelName(), ch);
 		    }
 		}
 	    } catch (Exception e) {
@@ -280,18 +277,18 @@ Receiver, RequestHandler, MembershipListener{
 	    try {
 		LogUtils.logDebug(context, JGroupsCommunicationConnector.class,
 			METHOD, new Object[] {
-		    "Loading JGroups communication channel from ",
-		    urlConfig }, null);
+				"Loading JGroups communication channel from ",
+				urlConfig }, null);
 		ch = createSharedChannel(urlConfig);
 	    } catch (Exception e) {
 		LogUtils.logError(context, JGroupsCommunicationConnector.class,
 			METHOD, new Object[] {
-		    "Failed to load remote configuration for ",
-		    element.getChannelName(), " from URL -> ",
-		    urlConfig, " due to internal exception ",
-		    ExceptionUtils.stackTraceAsString(e), "\n",
-		"Trying to initializee the channels locally" },
-		e);
+				"Failed to load remote configuration for ",
+				element.getChannelName(), " from URL -> ",
+				urlConfig, " due to internal exception ",
+				ExceptionUtils.stackTraceAsString(e), "\n",
+				"Trying to initializee the channels locally" },
+			e);
 	    }
 	}
 	if (enableRemoteChannelConfigurarion && ch == null
@@ -301,8 +298,8 @@ Receiver, RequestHandler, MembershipListener{
 		    JGroupsCommunicationConnector.class,
 		    METHOD,
 		    new Object[] { "No local configuration for ",
-			element.getChannelName(),
-		    "\nFalling back to JGroup default cluster configuration" },
+			    element.getChannelName(),
+			    "\nFalling back to JGroup default cluster configuration" },
 		    null);
 	    return new JChannel();
 	}
@@ -322,11 +319,11 @@ Receiver, RequestHandler, MembershipListener{
 			JGroupsCommunicationConnector.class,
 			METHOD,
 			new Object[] {
-			    "Failed to load local configuration for ",
-			    element.getChannelName(),
-			    " due to internal exception ",
-			    ExceptionUtils.stackTraceAsString(e), "\n",
-			"Falling back to JGroup default cluster configuration" },
+				"Failed to load local configuration for ",
+				element.getChannelName(),
+				" due to internal exception ",
+				ExceptionUtils.stackTraceAsString(e), "\n",
+				"Falling back to JGroup default cluster configuration" },
 			e);
 	    }
 
@@ -420,8 +417,8 @@ Receiver, RequestHandler, MembershipListener{
 		    JGroupsCommunicationConnector.class,
 		    "JGroupsCommunicationConnector",
 		    new Object[] {
-			"Unable to initialize the JGroup channel with URL: ",
-			channelURL }, e);
+			    "Unable to initialize the JGroup channel with URL: ",
+			    channelURL }, e);
 	    throw new CommunicationConnectorException(
 		    CommunicationConnectorErrorCode.CHANNEL_INIT_ERROR,
 		    "Unable to initialize the JGroup channel with URL: "
@@ -448,7 +445,7 @@ Receiver, RequestHandler, MembershipListener{
 		    "JGroupsCommunicationConnector",
 		    new Object[] { "Unable to initialize the JGroup channel with URL: "
 			    + channelValue.toString() + " -> " + e.toString() },
-			    null);
+		    null);
 	    throw new CommunicationConnectorException(
 		    CommunicationConnectorErrorCode.CHANNEL_INIT_ERROR,
 		    "Unable to initialize the JGroup channel with URL: "
@@ -458,7 +455,8 @@ Receiver, RequestHandler, MembershipListener{
 
     /**
      * This method selects the channels to which to send the message. For every
-     * destinationChannelNames I check if the name of one of the communcationChannels contains the destinationChannelName
+     * destinationChannelNames I check if the name of one of the
+     * communcationChannels contains the destinationChannelName
      * 
      * @param message
      * @return
@@ -496,7 +494,6 @@ Receiver, RequestHandler, MembershipListener{
 	}
 	// retrieve the channel to which send the message
 
-
 	JChannel ch = selectJChannels(message.getChannelNames()).get(0);
 	if (ch == null) {
 	    logAndThrowComExec(
@@ -512,7 +509,7 @@ Receiver, RequestHandler, MembershipListener{
 	    logAndThrowComExec(METHOD,
 		    CommunicationConnectorErrorCode.NOT_CONNECTED_TO_CHANNEL,
 		    "Unable to get the View on the channel " + ch.getName()
-		    + " We may not be connected to it");
+			    + " We may not be connected to it");
 	    return;
 	}
 	Address dst = null;
@@ -531,8 +528,8 @@ Receiver, RequestHandler, MembershipListener{
 	    logAndThrowComExec(METHOD,
 		    CommunicationConnectorErrorCode.RECEIVER_NOT_EXISTS,
 		    "Trying to send message to " + receiver
-		    + " but it is not a memeber of " + ch.getName()
-		    + "/" + ch.getClusterName());
+			    + " but it is not a memeber of " + ch.getName()
+			    + "/" + ch.getClusterName());
 	    return;
 	}
 	if (security) {
@@ -557,7 +554,7 @@ Receiver, RequestHandler, MembershipListener{
 	    logAndThrowComExec(METHOD,
 		    CommunicationConnectorErrorCode.SEND_MESSAGE_ERROR,
 		    "Error sending unicast message " + message
-		    + " due to internal exception", t);
+			    + " due to internal exception", t);
 	    return;
 	}
     }
@@ -851,21 +848,21 @@ Receiver, RequestHandler, MembershipListener{
     }
 
     /**
-     * Remember that group is the name of the broker, but the name of the channel is X+Y where:
-     * X :brokerName
-     * Y: AALSpaceID
+     * Remember that group is the name of the broker, but the name of the
+     * channel is X+Y where: X :brokerName Y: AALSpaceID
      */
     public List<String> getGroupMembers(String groupName) {
 	List<String> members = new ArrayList<String>();
 
-	for(String channelName: channelMap.keySet()){
-	    if(channelName.contains(groupName) && channelMap.get(channelName).getView() != null){
+	for (String channelName : channelMap.keySet()) {
+	    if (channelName.contains(groupName)
+		    && channelMap.get(channelName).getView() != null) {
 		List<Address> addresses = channelMap.get(channelName).getView()
 			.getMembers();
 		for (Address address : addresses) {
 		    members.add(channelMap.get(channelName).getName(address));
 		}
-	    }	
+	    }
 	}
 
 	return members;
@@ -873,13 +870,12 @@ Receiver, RequestHandler, MembershipListener{
     }
 
     public boolean hasChannel(String channelName) {
-	
-	for(String configuredChannelName: channelMap.keySet()){
-	    if(configuredChannelName.contains(channelName))
+
+	for (String configuredChannelName : channelMap.keySet()) {
+	    if (configuredChannelName.contains(channelName))
 		return true;
 	}
 	return false;
     }
-
 
 }

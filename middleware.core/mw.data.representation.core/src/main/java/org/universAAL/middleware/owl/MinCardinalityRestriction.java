@@ -61,20 +61,20 @@ public final class MinCardinalityRestriction extends PropertyRestriction {
 		value));
     }
 
-    public MinCardinalityRestriction(String propURI, int value,
-	    TypeExpression ce) {
-	throw new UnsupportedOperationException("Not yet implemented");
-	// setOnProperty(propURI);
-	// super.setProperty(PROP_OWL_MIN_QUALIFIED_CARDINALITY, new
-	// Integer(value));
-    }
+    // public MinCardinalityRestriction(String propURI, int value,
+    // TypeExpression ce) {
+    // throw new UnsupportedOperationException("Not yet implemented");
+    // // setOnProperty(propURI);
+    // // super.setProperty(PROP_OWL_MIN_QUALIFIED_CARDINALITY, new
+    // // Integer(value));
+    // }
 
     public String getClassURI() {
 	return MY_URI;
     }
 
     /** Get the value of this cardinality restriction */
-    public final int getValue() {
+    public int getValue() {
 	NonNegativeInteger i = (NonNegativeInteger) props
 		.get(PROP_OWL_MIN_CARDINALITY);
 	if (i == null)

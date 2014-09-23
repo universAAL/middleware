@@ -21,9 +21,9 @@ import org.universAAL.middleware.bus.msg.BusMessage;
 
 /**
  * @author amedrano
- *
+ * 
  */
-public interface EventMessage <Strategy extends EventBasedStrategy> {
+public interface EventMessage<Strategy extends EventBasedStrategy> {
 
     /**
      * 

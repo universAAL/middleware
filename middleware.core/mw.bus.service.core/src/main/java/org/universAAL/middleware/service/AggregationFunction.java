@@ -31,7 +31,7 @@ import org.universAAL.middleware.rdf.PropertyPath;
  *         Tazari</a>
  * 
  */
-public class AggregationFunction extends FinalizedResource {
+public final class AggregationFunction extends FinalizedResource {
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "AggregationFunction";
 

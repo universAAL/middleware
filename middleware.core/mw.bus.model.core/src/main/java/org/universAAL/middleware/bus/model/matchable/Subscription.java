@@ -21,7 +21,7 @@ package org.universAAL.middleware.bus.model.matchable;
 
 /**
  * @author mtazari
- *
+ * 
  */
 public interface Subscription extends Requirement {
 }

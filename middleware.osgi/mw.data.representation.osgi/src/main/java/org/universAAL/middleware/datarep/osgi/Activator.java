@@ -29,7 +29,6 @@ import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
 
 public final class Activator implements BundleActivator, ManagedService {
@@ -62,8 +61,8 @@ public final class Activator implements BundleActivator, ManagedService {
 		SharedResources.uAAL_MW_SHARED_PROPERTY_FILE);
 	// log("start", new Object[] { "starting data representation.." });
 	synchronized (this) {
-		registration = context.registerService(ManagedService.class.getName(),
-			this, props);	    
+	    registration = context.registerService(
+		    ManagedService.class.getName(), this, props);
 	}
 	// log("start", new Object[] {
 	// "..data representation started, registration: ", registration,
@@ -104,27 +103,27 @@ public final class Activator implements BundleActivator, ManagedService {
 	// if (properties == null)
 	// log("updated", "-- WARNING: properties is null");
 
-//	if (registration == null) {
-//	    LogUtils
-//		    .logDebug(
-//			    SharedResources.moduleContext,
-//			    Activator.class,
-//			    "updated",
-//			    new Object[] { "Race Condition: the ServiceRegistration"
-//				    + " is not yet initialized, waiting for registerService." },
-//			    null);
-//	    int numLoops = 20;
-//	    while (registration == null && numLoops != 0) {
-//		numLoops--;
-//		try {
-//		    Thread.sleep(500);
-//		} catch (InterruptedException e) {
-//		    e.printStackTrace();
-//		}
-//	    }
-//	}
-//	if (registration != null)
-	    registration.setProperties(properties);
+	// if (registration == null) {
+	// LogUtils
+	// .logDebug(
+	// SharedResources.moduleContext,
+	// Activator.class,
+	// "updated",
+	// new Object[] { "Race Condition: the ServiceRegistration"
+	// + " is not yet initialized, waiting for registerService." },
+	// null);
+	// int numLoops = 20;
+	// while (registration == null && numLoops != 0) {
+	// numLoops--;
+	// try {
+	// Thread.sleep(500);
+	// } catch (InterruptedException e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// }
+	// if (registration != null)
+	registration.setProperties(properties);
 	// log("updated", "..updated done.");
     }
 }

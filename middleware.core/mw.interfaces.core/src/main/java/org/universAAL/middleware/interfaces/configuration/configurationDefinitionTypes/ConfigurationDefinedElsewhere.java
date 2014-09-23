@@ -25,29 +25,31 @@ import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 /**
  * Use this implementation when the configuration Entity is described elsewhere.
  * Just provide the scope of the entity to listen for changes on it.
- * {@link ConfigurableModule#configurationChanged(Scope, Object)} may not be called until the
- * Entity is registered elsewhere (or found in some configuration repository), thus don't expect
- * Immediate response.
+ * {@link ConfigurableModule#configurationChanged(Scope, Object)} may not be
+ * called until the Entity is registered elsewhere (or found in some
+ * configuration repository), thus don't expect Immediate response.
+ * 
  * @author amedrano
- *
+ * 
  */
 public class ConfigurationDefinedElsewhere implements DescribedEntity {
 
     private Scope scope;
 
     /**
-     * Provide a {@link Scope} for an entity that is fully defined somewhere else.
+     * Provide a {@link Scope} for an entity that is fully defined somewhere
+     * else.
      */
     public ConfigurationDefinedElsewhere(Scope s) {
 	scope = s;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public final Scope getScope() {
 	return scope;
     }
 
-    /** {@ inheritDoc}	 */
+    /** {@ inheritDoc} */
     public final String getDescription(Locale loc) {
 	return null;
     }

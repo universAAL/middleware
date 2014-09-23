@@ -17,37 +17,40 @@
 
 package org.universAAL.middleware.interfaces.configuration.scope;
 
-
 /**
- * Defines an entity that is applicable over a certain application, this will be shared over the whole AALSpace for the same application.
+ * Defines an entity that is applicable over a certain application, this will be
+ * shared over the whole AALSpace for the same application.
+ * 
  * @author amedrano
  */
-public class ApplicationScope extends AALSpaceScope{
+public class ApplicationScope extends AALSpaceScope {
 
     /**
      * The application the entity is meant for.
      */
     private String appID;
-    
+
     /**
      * Constructor for a given entity identifier and application.
+     * 
      * @param id
      */
     public ApplicationScope(String id, String appID) {
-        super(id);
-        if (appID == null || appID.isEmpty())
-    		throw new IllegalArgumentException("appID cannot be null or empty");
-        if (appID.matches(FORBIDDEN)){
-            throw new IllegalArgumentException("appID contains forbiden format");
-        }
-        this.appID = appID;
+	super(id);
+	if (appID == null || appID.isEmpty())
+	    throw new IllegalArgumentException("appID cannot be null or empty");
+	if (appID.matches(FORBIDDEN)) {
+	    throw new IllegalArgumentException("appID contains forbiden format");
+	}
+	this.appID = appID;
     }
-    
+
     /**
      * Get the application ID.
+     * 
      * @return
      */
-    public String getAppID(){
-        return appID;
+    public String getAppID() {
+	return appID;
     }
 }

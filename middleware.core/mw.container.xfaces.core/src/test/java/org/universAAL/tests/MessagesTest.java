@@ -27,104 +27,109 @@ import org.universAAL.middleware.container.utils.Messages;
 
 /**
  * @author amedrano
- *
+ * 
  */
 public class MessagesTest extends TestCase {
-	
-	public void testUsual(){
-		URL msg = this.getClass().getClassLoader().getResource("messages.properties");
-		assertNotNull(msg);
-		Messages m = null;
-		try {
-			m = new Messages(msg, Locale.ENGLISH);
-		} catch (IllegalArgumentException e) {
-			fail();
-		} catch (IOException e) {
-			fail();
-		}
-		assertNotNull(m);
-		assertEquals("foo", m.getString("message1"));
+
+    public void testUsual() {
+	URL msg = this.getClass().getClassLoader()
+		.getResource("messages.properties");
+	assertNotNull(msg);
+	Messages m = null;
+	try {
+	    m = new Messages(msg, Locale.ENGLISH);
+	} catch (IllegalArgumentException e) {
+	    fail();
+	} catch (IOException e) {
+	    fail();
 	}
-	
-	public void testUsualWithLocaleChange(){
-		URL msg = this.getClass().getClassLoader().getResource("messages.properties");
-		assertNotNull(msg);
-		Messages m = null;
-		try {
-			m = new Messages(msg, Locale.ENGLISH);
-		} catch (IllegalArgumentException e) {
-			fail();
-		} catch (IOException e) {
-			fail();
-		}
-		assertNotNull(m);
-		m.setLocale(Locale.GERMAN);
-		assertEquals("fuu", m.getString("message1"));
+	assertNotNull(m);
+	assertEquals("foo", m.getString("message1"));
+    }
+
+    public void testUsualWithLocaleChange() {
+	URL msg = this.getClass().getClassLoader()
+		.getResource("messages.properties");
+	assertNotNull(msg);
+	Messages m = null;
+	try {
+	    m = new Messages(msg, Locale.ENGLISH);
+	} catch (IllegalArgumentException e) {
+	    fail();
+	} catch (IOException e) {
+	    fail();
 	}
-	
-	public void testUsualWithNoExsistentLocaleChange(){
-		URL msg = this.getClass().getClassLoader().getResource("messages.properties");
-		assertNotNull(msg);
-		Messages m = null;
-		try {
-			m = new Messages(msg, Locale.ENGLISH);
-		} catch (IllegalArgumentException e) {
-			fail();
-		} catch (IOException e) {
-			fail();
-		}
-		assertNotNull(m);
-		m.setLocale(Locale.CHINESE);
-		assertEquals("foo", m.getString("message1"));
+	assertNotNull(m);
+	m.setLocale(Locale.GERMAN);
+	assertEquals("fuu", m.getString("message1"));
+    }
+
+    public void testUsualWithNoExsistentLocaleChange() {
+	URL msg = this.getClass().getClassLoader()
+		.getResource("messages.properties");
+	assertNotNull(msg);
+	Messages m = null;
+	try {
+	    m = new Messages(msg, Locale.ENGLISH);
+	} catch (IllegalArgumentException e) {
+	    fail();
+	} catch (IOException e) {
+	    fail();
 	}
-	
-	public void testNonExistentLocaleConstructor(){
-		URL msg = this.getClass().getClassLoader().getResource("messages.properties");
-		assertNotNull(msg);
-		Messages m = null;
-		try {
-			m = new Messages(msg, Locale.CHINESE);
-		} catch (IllegalArgumentException e) {
-			fail();
-		} catch (IOException e) {
-			fail();
-		}
-		assertNotNull(m);
-		m.setLocale(Locale.GERMAN);
-		assertEquals("fuu", m.getString("message1"));
+	assertNotNull(m);
+	m.setLocale(Locale.CHINESE);
+	assertEquals("foo", m.getString("message1"));
+    }
+
+    public void testNonExistentLocaleConstructor() {
+	URL msg = this.getClass().getClassLoader()
+		.getResource("messages.properties");
+	assertNotNull(msg);
+	Messages m = null;
+	try {
+	    m = new Messages(msg, Locale.CHINESE);
+	} catch (IllegalArgumentException e) {
+	    fail();
+	} catch (IOException e) {
+	    fail();
 	}
-	
-	public void testNonExistentDefaultPropertiesFile() {
-		URL msg = this.getClass().getClassLoader().getResource("NOmessages.properties");
-		try {
-			new Messages(msg, Locale.ENGLISH);
-			fail();
-		} catch (IllegalArgumentException e) {
-			assertEquals("URL should not be null.", e.getMessage());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	assertNotNull(m);
+	m.setLocale(Locale.GERMAN);
+	assertEquals("fuu", m.getString("message1"));
+    }
+
+    public void testNonExistentDefaultPropertiesFile() {
+	URL msg = this.getClass().getClassLoader()
+		.getResource("NOmessages.properties");
+	try {
+	    new Messages(msg, Locale.ENGLISH);
+	    fail();
+	} catch (IllegalArgumentException e) {
+	    assertEquals("URL should not be null.", e.getMessage());
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
-	
-	public void testNonExistentDefaultPropertiesFile2()  {
-		URL msg = null;
-		try {
-			msg = new URL("http://localhost/someMessages.properties");
-		} catch (MalformedURLException e1) {
-			e1.printStackTrace();
-			fail();
-		}
-		assertNotNull(msg);
-		try {
-			new Messages(msg, Locale.ENGLISH);
-			fail();
-		} catch (IllegalArgumentException e) {
-			fail();
-		} catch (FileNotFoundException e) {
-			//Success!
-		} catch (IOException e) {
-			//Success?
-		}
+    }
+
+    public void testNonExistentDefaultPropertiesFile2() {
+	URL msg = null;
+	try {
+	    msg = new URL("http://localhost/someMessages.properties");
+	} catch (MalformedURLException e1) {
+	    e1.printStackTrace();
+	    fail();
 	}
+	assertNotNull(msg);
+	try {
+	    new Messages(msg, Locale.ENGLISH);
+	    fail();
+	} catch (IllegalArgumentException e) {
+	    fail();
+	} catch (FileNotFoundException e) {
+	    // Success!
+	} catch (IOException e) {
+	    // Success?
+	}
+    }
 }

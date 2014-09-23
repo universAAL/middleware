@@ -48,190 +48,190 @@ import ch.ethz.iks.slp.ServiceURL;
  */
 public final class AdvertiserImpl implements Advertiser {
 
-	/**
-	 * the locale of this instance. Will be used for all messages created by
-	 * this Advertiser instance.
-	 */
-	private Locale locale;
+    /**
+     * the locale of this instance. Will be used for all messages created by
+     * this Advertiser instance.
+     */
+    private Locale locale;
 
-	/**
-	 * Constructor for AdvertiserImpl.
-	 */
-	public AdvertiserImpl() {
-		locale = SLPCore.DEFAULT_LOCALE;
-	}
-	
-	/**
-	 * Constructor for AdvertiserImpl.
-	 * 
-	 * @param theLocale
-	 *            Locale.
-	 */
-	public AdvertiserImpl(final Locale locale) {
-		this.locale = locale;
-	}	
+    /**
+     * Constructor for AdvertiserImpl.
+     */
+    public AdvertiserImpl() {
+	locale = SLPCore.DEFAULT_LOCALE;
+    }
 
-	/**
-	 * Get the locale of this instance.
-	 * 
-	 * @return Locale.
-	 * @see Advertiser#getLocale()
-	 */
-	public Locale getLocale() {
-		return locale;
-	}
-	
-	/**
-	 * Set the locale of this instance.
-	 * 
-	 * @param locale
-	 *            the Locale.
-	 * @see Advertiser#setLocale()
-	 */
-	public void setLocale(final Locale locale) {
-		this.locale = locale;
-	}
+    /**
+     * Constructor for AdvertiserImpl.
+     * 
+     * @param theLocale
+     *            Locale.
+     */
+    public AdvertiserImpl(final Locale locale) {
+	this.locale = locale;
+    }
 
-	/**
-	 * register a new service with the framework.
-	 * 
-	 * @param url
-	 *            the ServiceURL of the service.
-	 * @param attributes
-	 *            a Dictionary of attributes.
-	 * @throws ServiceLocationException
-	 *             if the registration has failed for any reason.
-	 * @see Advertiser#register(ServiceURL, Dictionary)
-	 */
-	public void register(final ServiceURL url, final Dictionary attributes)
-			throws ServiceLocationException {
-		register(url, null, attributes);
-	}
+    /**
+     * Get the locale of this instance.
+     * 
+     * @return Locale.
+     * @see Advertiser#getLocale()
+     */
+    public Locale getLocale() {
+	return locale;
+    }
 
-	/**
-	 * register a new service with the framework using scopes.
-	 * 
-	 * @param url
-	 *            the ServiceURL of the service.
-	 * @param scopes
-	 *            a List of scopes.
-	 * @param attributes
-	 *            a Dictionary of attributes.
-	 * @throws ServiceLocationException
-	 *             if the registration has failed for any reason.
-	 * @see Advertiser#register(ServiceURL, List, Dictionary)
-	 */
-	public void register(final ServiceURL url, final List scopes,
-			final Dictionary attributes) throws ServiceLocationException {
-		ServiceRegistration reg = new ServiceRegistration(url, url
-				.getServiceType(), scopes, SLPUtils.dictToAttrList(attributes),
-				locale);
-		try {
-			reg.address = InetAddress.getLocalHost();
-		} catch (UnknownHostException e) {
-			reg.address = SLPCore.getMyIP();
-		}
-		reg.port = SLPCore.SLP_PORT;
-		ServiceAcknowledgement ack = (ServiceAcknowledgement) SLPCore
-				.sendMessage(reg, true);
-		if (ack.errorCode != 0) {
-			throw new ServiceLocationException((short) ack.errorCode,
-					"Registration failed");
-		}
-	}
+    /**
+     * Set the locale of this instance.
+     * 
+     * @param locale
+     *            the Locale.
+     * @see Advertiser#setLocale()
+     */
+    public void setLocale(final Locale locale) {
+	this.locale = locale;
+    }
 
-	/**
-	 * deregister a service.
-	 * 
-	 * @param url
-	 *            the ServiceURL of the service.
-	 * @throws ServiceLocationException
-	 *             if the deregistration has failed for any reason.
-	 * @see Advertiser#deregister(ServiceURL)
-	 */
-	public void deregister(final ServiceURL url)
-			throws ServiceLocationException {
-		deregister(url, null);
-	}
+    /**
+     * register a new service with the framework.
+     * 
+     * @param url
+     *            the ServiceURL of the service.
+     * @param attributes
+     *            a Dictionary of attributes.
+     * @throws ServiceLocationException
+     *             if the registration has failed for any reason.
+     * @see Advertiser#register(ServiceURL, Dictionary)
+     */
+    public void register(final ServiceURL url, final Dictionary attributes)
+	    throws ServiceLocationException {
+	register(url, null, attributes);
+    }
 
-	/**
-	 * deregister a service in some scopes.
-	 * 
-	 * @param url
-	 *            the ServiceURL of the service.
-	 * @param scopes
-	 *            the scopes.
-	 * @throws ServiceLocationException
-	 *             if the deregistration has failed for any reason.
-	 * @see Advertiser#deregister(ServiceURL, List)
-	 * @since 0.7.1
-	 */
-
-	public void deregister(final ServiceURL url, final List scopes)
-			throws ServiceLocationException {
-		ServiceDeregistration dereg = new ServiceDeregistration(url, scopes,
-				null, locale);
-		try {
-			dereg.address = InetAddress.getLocalHost();
-		} catch (UnknownHostException e) {
-			dereg.address = SLPCore.getMyIP();
-		}
-		dereg.port = SLPCore.SLP_PORT;
-		ServiceAcknowledgement ack = (ServiceAcknowledgement) SLPCore
-				.sendMessage(dereg, true);
-		if (ack.errorCode != 0) {
-			throw new ServiceLocationException((short) ack.errorCode,
-					"Deregistration failed");
-		}
+    /**
+     * register a new service with the framework using scopes.
+     * 
+     * @param url
+     *            the ServiceURL of the service.
+     * @param scopes
+     *            a List of scopes.
+     * @param attributes
+     *            a Dictionary of attributes.
+     * @throws ServiceLocationException
+     *             if the registration has failed for any reason.
+     * @see Advertiser#register(ServiceURL, List, Dictionary)
+     */
+    public void register(final ServiceURL url, final List scopes,
+	    final Dictionary attributes) throws ServiceLocationException {
+	ServiceRegistration reg = new ServiceRegistration(url,
+		url.getServiceType(), scopes,
+		SLPUtils.dictToAttrList(attributes), locale);
+	try {
+	    reg.address = InetAddress.getLocalHost();
+	} catch (UnknownHostException e) {
+	    reg.address = SLPCore.getMyIP();
 	}
-
-	/**
-	 * currently not supported.
-	 * 
-	 * @see Advertiser#addAttributes(ServiceURL, Dictionary)
-	 * @param url
-	 *            the serviceURL
-	 * @param attributes
-	 *            the attributes to add.
-	 * @throws ServiceLocationException
-	 *             always.
-	 */
-	public void addAttributes(final ServiceURL url, final Dictionary attributes)
-			throws ServiceLocationException {
-		throw new ServiceLocationException(
-				ServiceLocationException.NOT_IMPLEMENTED,
-				"incremental registration not supported");
+	reg.port = SLPCore.SLP_PORT;
+	ServiceAcknowledgement ack = (ServiceAcknowledgement) SLPCore
+		.sendMessage(reg, true);
+	if (ack.errorCode != 0) {
+	    throw new ServiceLocationException((short) ack.errorCode,
+		    "Registration failed");
 	}
+    }
 
-	/**
-	 * currently not supported.
-	 * 
-	 * @see Advertiser#deleteAttributes(ServiceURL, Dictionary)
-	 * @param url
-	 *            the serviceURL.
-	 * @param attributes
-	 *            the attributes to delete.
-	 * @throws ServiceLocationException
-	 *             always.
-	 */
-	public void deleteAttributes(final ServiceURL url,
-			final Dictionary attributes) throws ServiceLocationException {
-		throw new ServiceLocationException(
-				ServiceLocationException.NOT_IMPLEMENTED,
-				"incremental registration not supported");
-	}
+    /**
+     * deregister a service.
+     * 
+     * @param url
+     *            the ServiceURL of the service.
+     * @throws ServiceLocationException
+     *             if the deregistration has failed for any reason.
+     * @see Advertiser#deregister(ServiceURL)
+     */
+    public void deregister(final ServiceURL url)
+	    throws ServiceLocationException {
+	deregister(url, null);
+    }
 
-	/**
-	 * Get the IP address of this machine that is configured as primary jSLP
-	 * address. Can be used to register Services that are located on this host.
-	 * 
-	 * @return the local InetAddress.
-	 */
-	public InetAddress getMyIP() {
-		try {
-			return SLPCore.getMyIP();
-		} catch (Exception e) {
-			return null;
-		}
+    /**
+     * deregister a service in some scopes.
+     * 
+     * @param url
+     *            the ServiceURL of the service.
+     * @param scopes
+     *            the scopes.
+     * @throws ServiceLocationException
+     *             if the deregistration has failed for any reason.
+     * @see Advertiser#deregister(ServiceURL, List)
+     * @since 0.7.1
+     */
+
+    public void deregister(final ServiceURL url, final List scopes)
+	    throws ServiceLocationException {
+	ServiceDeregistration dereg = new ServiceDeregistration(url, scopes,
+		null, locale);
+	try {
+	    dereg.address = InetAddress.getLocalHost();
+	} catch (UnknownHostException e) {
+	    dereg.address = SLPCore.getMyIP();
 	}
+	dereg.port = SLPCore.SLP_PORT;
+	ServiceAcknowledgement ack = (ServiceAcknowledgement) SLPCore
+		.sendMessage(dereg, true);
+	if (ack.errorCode != 0) {
+	    throw new ServiceLocationException((short) ack.errorCode,
+		    "Deregistration failed");
+	}
+    }
+
+    /**
+     * currently not supported.
+     * 
+     * @see Advertiser#addAttributes(ServiceURL, Dictionary)
+     * @param url
+     *            the serviceURL
+     * @param attributes
+     *            the attributes to add.
+     * @throws ServiceLocationException
+     *             always.
+     */
+    public void addAttributes(final ServiceURL url, final Dictionary attributes)
+	    throws ServiceLocationException {
+	throw new ServiceLocationException(
+		ServiceLocationException.NOT_IMPLEMENTED,
+		"incremental registration not supported");
+    }
+
+    /**
+     * currently not supported.
+     * 
+     * @see Advertiser#deleteAttributes(ServiceURL, Dictionary)
+     * @param url
+     *            the serviceURL.
+     * @param attributes
+     *            the attributes to delete.
+     * @throws ServiceLocationException
+     *             always.
+     */
+    public void deleteAttributes(final ServiceURL url,
+	    final Dictionary attributes) throws ServiceLocationException {
+	throw new ServiceLocationException(
+		ServiceLocationException.NOT_IMPLEMENTED,
+		"incremental registration not supported");
+    }
+
+    /**
+     * Get the IP address of this machine that is configured as primary jSLP
+     * address. Can be used to register Services that are located on this host.
+     * 
+     * @return the local InetAddress.
+     */
+    public InetAddress getMyIP() {
+	try {
+	    return SLPCore.getMyIP();
+	} catch (Exception e) {
+	    return null;
+	}
+    }
 }

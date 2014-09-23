@@ -29,49 +29,49 @@ import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
- * Abastract class for all Remote Entities.
- * Implementations for Get description, and get entity (that is updated when the entity is propagated).
- * handy method for sending requests.
+ * Abastract class for all Remote Entities. Implementations for Get description,
+ * and get entity (that is updated when the entity is propagated). handy method
+ * for sending requests.
+ * 
  * @author amedrano
  */
-public abstract class RemoteConfigurationEntity extends GenericConfigurationEntity implements ConfigurableEntityEditor{
-   
+public abstract class RemoteConfigurationEntity extends
+	GenericConfigurationEntity implements ConfigurableEntityEditor {
+
     protected Entity entity;
 
     /**
      * 
      */
-    public RemoteConfigurationEntity(ConfigurationManagerImpl configurationManagerImpl, Entity remote){
-        super(configurationManagerImpl, remote.getURI());
-        updateRemoteEntity(remote);
+    public RemoteConfigurationEntity(
+	    ConfigurationManagerImpl configurationManagerImpl, Entity remote) {
+	super(configurationManagerImpl, remote.getURI());
+	updateRemoteEntity(remote);
     }
 
-    public void updateRemoteEntity(Entity remote){
-        this.entity = remote;
+    public void updateRemoteEntity(Entity remote) {
+	this.entity = remote;
     }
-    
-    /** {@ inheritDoc}	 */
+
+    /** {@ inheritDoc} */
     public String getDescription(Locale loc) {
-	
-	if (entity.containsDescriptionIn(loc)){
+
+	if (entity.containsDescriptionIn(loc)) {
 	    return entity.getDescription(loc);
-	}
-	else {
+	} else {
 	    sendRequestFor(entity, loc);
 	}
-        return null;
+	return null;
     }
 
-    protected Entity getEntity(){
+    protected Entity getEntity() {
 	return entity;
     }
-    
-    
-    
-    /** {@ inheritDoc}	 */
+
+    /** {@ inheritDoc} */
     @Override
     public void updated(Entity e) {
-	if (e.isNewerThan(entity)){
+	if (e.isNewerThan(entity)) {
 	    entity = e;
 	    super.updated(e);
 	}
@@ -79,27 +79,28 @@ public abstract class RemoteConfigurationEntity extends GenericConfigurationEnti
 
     /**
      * used to force a remote update.
+     * 
      * @param e
      * @param loc
      */
-    protected void sendRequestFor(Entity e, Locale loc){
-	//create request
-	//TODO create filters
+    protected void sendRequestFor(Entity e, Locale loc) {
+	// create request
+	// TODO create filters
 	List<TypeExpression> filter = new ArrayList<TypeExpression>();
 
-	
 	Resource root = new Resource();
 	root.changeProperty(ConfigurationManagerImpl.PROP_PARAM, filter);
 	root.changeProperty(ConfigurationManagerImpl.PROP_LOCALE, loc);
 	ConfigurationMessage cm = new ConfigurationMessage(
-		ConfigurationMessageType.QUERY,
-		confManager.shared.getAalSpaceManager().getMyPeerCard(),
-		confManager.shared.getMessageContentSerializer().serialize(root));
+		ConfigurationMessageType.QUERY, confManager.shared
+			.getAalSpaceManager().getMyPeerCard(),
+		confManager.shared.getMessageContentSerializer()
+			.serialize(root));
 
-	//TODO add receivers.
-	
+	// TODO add receivers.
+
 	// send
 	confManager.shared.getControlBroker().sendConfigurationMessage(cm);
     }
-    
+
 }
