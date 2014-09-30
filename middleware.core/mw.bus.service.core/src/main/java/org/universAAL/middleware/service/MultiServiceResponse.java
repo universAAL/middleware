@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 
 /**
@@ -42,10 +43,12 @@ public class MultiServiceResponse extends ServiceResponse {
 
     public MultiServiceResponse() {
 	super();
+	props.put(Resource.PROP_RDF_TYPE, new Resource(MY_URI));
     }
-    
+
     public MultiServiceResponse(String instanceURI) {
 	super(instanceURI);
+	props.put(Resource.PROP_RDF_TYPE, new Resource(MY_URI));
     }
 
     @Override
