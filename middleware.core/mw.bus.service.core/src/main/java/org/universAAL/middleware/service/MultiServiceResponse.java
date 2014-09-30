@@ -20,6 +20,7 @@
 package org.universAAL.middleware.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,10 @@ public class MultiServiceResponse extends ServiceResponse {
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "MultiServiceResponse";
 
+    public MultiServiceResponse() {
+	super();
+    }
+    
     public MultiServiceResponse(String instanceURI) {
 	super(instanceURI);
     }
@@ -99,9 +104,9 @@ public class MultiServiceResponse extends ServiceResponse {
 	for (ServiceResponse sr : l) {
 	    CallStatus cs = sr.getCallStatus();
 	    if (cs != CallStatus.succeeded)
-		return false;
+		return true;
 	}
-	return true;
+	return false;
     }
 
     @Override
@@ -122,7 +127,21 @@ public class MultiServiceResponse extends ServiceResponse {
 
     @Override
     public Map<String, List<Object>> getOutputsMap() {
-	// TODO Auto-generated method stub
+	Map<String, List<Object>> result = new HashMap<String, List<Object>>();
+	List<ServiceResponse> responses = getResponses();
+	for (ServiceResponse sr : responses) {
+	    Map<String, List<Object>> single = sr.getOutputsMap();
+	    for (String key : single.keySet()) {
+		List<Object> lst = single.get(key);
+		List<Object> reslst = result.get(key);
+		if (reslst == null) {
+		    reslst = new ArrayList<Object>();
+		    result.put(key, reslst);
+		}
+		reslst.addAll(lst);
+	    }
+	}
+
 	return super.getOutputsMap();
     }
 

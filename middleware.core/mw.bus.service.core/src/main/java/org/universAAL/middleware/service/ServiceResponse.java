@@ -21,7 +21,6 @@ package org.universAAL.middleware.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +56,9 @@ public class ServiceResponse extends ScopedResource implements Response,
 	    + "callStatus";
 
     /**
-     * A property key for the property where the service outputs are stored.
+     * A property key for the property where the service outputs are stored. The
+     * service output is either a list of {@link ProcessOutput}s or a list of
+     * {@link ServiceResponse}s in case of a {@link MultiServiceResponse}.
      */
     public static final String PROP_SERVICE_HAS_OUTPUT = uAAL_VOCABULARY_NAMESPACE
 	    + "returns";
@@ -137,6 +138,20 @@ public class ServiceResponse extends ScopedResource implements Response,
     }
 
     /**
+     * Adds output payload to this object. Keeps any output payload that was
+     * previously added.
+     * 
+     * @param uri
+     *            the URI that identifies the output.
+     * @param value
+     *            the output value.
+     */
+    public void addOutput(String uri, Object value) {
+	ProcessOutput output = new ProcessOutput(uri, value);
+	addOutput(output);
+    }
+
+    /**
      * Retrieves the call status.
      * 
      * @return the current call status.
@@ -208,12 +223,12 @@ public class ServiceResponse extends ScopedResource implements Response,
     }
 
     /**
-     * Get all outputs. This method is similar to
-     * {@link #getOutput(String, boolean)} but instead of providing the output
-     * of one parameter, it provides the outputs of all parameters. The URI of
-     * the parameter is the key of the returned map.
+     * Get all outputs. This method is similar to {@link #getOutput(String)} but
+     * instead of providing the output of one parameter, it provides the outputs
+     * of all parameters. The URI of the parameter is the key of the returned
+     * map.
      * 
-     * @return all outputs of the service.
+     * @return the non-null map of all outputs of the service.
      */
     public Map<String, List<Object>> getOutputsMap() {
 	Map<String, List<Object>> result = new HashMap<String, List<Object>>();
@@ -224,42 +239,18 @@ public class ServiceResponse extends ScopedResource implements Response,
 	}
 
 	// iterate over the available output parameters
-	for (Object obj : outputs) {
-	    if (obj instanceof ProcessOutput) {
-		ProcessOutput output = (ProcessOutput) obj;
-
-		List<Object> l = result.get(output.getURI());
-		if (l == null) {
-		    l = new ArrayList<Object>(3);
-		    result.put(output.getURI(), l);
-		}
-
-		Object ob = output.getParameterValue();
-		if (ob instanceof List)
-		    l.addAll((List<?>) ob);
-		else
-		    l.add(ob);
-	    } else if (obj instanceof List) {
-		// this can happen if we get responses from more than one
-		// service
-		List<?> outputLists = (List<?>) obj;
-		for (Iterator<?> iter2 = outputLists.iterator(); iter2
-			.hasNext();) {
-		    ProcessOutput output = (ProcessOutput) iter2.next();
-
-		    List<Object> l = result.get(output.getURI());
-		    if (l == null) {
-			l = new ArrayList<Object>(3);
-			result.put(output.getURI(), l);
-		    }
-
-		    Object ob = output.getParameterValue();
-		    if (ob instanceof List)
-			l.addAll((List<?>) ob);
-		    else
-			l.add(ob);
-		}
+	for (ProcessOutput output : outputs) {
+	    List<Object> l = result.get(output.getURI());
+	    if (l == null) {
+		l = new ArrayList<Object>(3);
+		result.put(output.getURI(), l);
 	    }
+
+	    Object ob = output.getParameterValue();
+	    if (ob instanceof List)
+		l.addAll((List<?>) ob);
+	    else
+		l.add(ob);
 	}
 
 	return result;
@@ -269,7 +260,10 @@ public class ServiceResponse extends ScopedResource implements Response,
      * Retrieves all of the service outputs as a raw <code>List</code> without
      * any rearranging.
      * 
-     * @return the outputs that the invoked services produced. May be null.
+     * @return the outputs that the invoked services produced. May be null. If
+     *         this object is a {@link MultiServiceResponse} then the list can
+     *         contain more than one {@link ProcessOutput} with the same URI;
+     *         those outputs then come from different responses.
      */
     public List<ProcessOutput> getOutputs() {
 	return (List<ProcessOutput>) props.get(PROP_SERVICE_HAS_OUTPUT);
