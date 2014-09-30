@@ -32,7 +32,6 @@ import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.model.BusStrategy;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.bus.msg.MessageType;
-import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
@@ -49,6 +48,7 @@ import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.AggregationFunction;
 import org.universAAL.middleware.service.AvailabilitySubscriber;
 import org.universAAL.middleware.service.CallStatus;
+import org.universAAL.middleware.service.MultiServiceResponse;
 import org.universAAL.middleware.service.ProfileExistsException;
 import org.universAAL.middleware.service.ServiceBus;
 import org.universAAL.middleware.service.ServiceCall;
@@ -608,12 +608,12 @@ public class ServiceStrategy extends BusStrategy {
 	synchronized (matches) {
 	    int size = matches.size();
 	    int numTimedOut = wr.pendingCalls;
-	    if (size == numTimedOut)
+	    if (size == numTimedOut) {
 		// there has been no one response => this method is called
 		// because of timeout!
 		m = m.createReply(new ServiceResponse(
 			CallStatus.responseTimedOut));
-	    else {
+	    } else {
 		// boolean arrays to indicate which of the responses had which
 		// kind of failure:
 		// - nmsf for NO_MATCHING_SERVICE_FOUND
@@ -678,11 +678,11 @@ public class ServiceStrategy extends BusStrategy {
 		}
 		switch (goods.size()) {
 		case 0:
-		    if (bads == 0)
+		    if (bads == 0) {
 			// shouldn't be the case...
 			m = m.createReply(new ServiceResponse(
 				CallStatus.responseTimedOut));
-		    else {
+		    } else {
 			HashMap<String, Object> bad = null;
 			// if there is one response with
 			// SERVICE_SPECIFIC_FAILURE take that one
@@ -856,66 +856,23 @@ public class ServiceStrategy extends BusStrategy {
 			prepareRequestedOutput(sresp.getOutputs(), ctxt);
 			m = m.createReply(sresp);
 		    } else {
-			// combine all the good responses:
-			// get all outputs of all responses, call
-			// 'prepareRequestedOutput' for a mapping of URIs of the
-			// caller, then rewrite a response and set
-			// combined outputs
-
-			// the outputs: maps URI of ProcessOutput to a list of
-			// ProcessOutputs
-			HashMap<String, ArrayList<ProcessOutput>> outputs = new HashMap<String, ArrayList<ProcessOutput>>();
+			// combine all the good responses
+			// call 'prepareRequestedOutput' for a mapping of URIs
+			// of the caller
+			MultiServiceResponse resp = new MultiServiceResponse();
 			HashMap<?, ?> ctxt = null;
-			ServiceResponse resp = null;
+			ServiceResponse tmp = null;
 
-			// 1. get all outputs of all responses
 			for (Object o : goods) {
 			    ctxt = (HashMap<?, ?>) o;
-			    resp = (ServiceResponse) ctxt
+			    tmp = (ServiceResponse) ctxt
 				    .get(CONTEXT_RESPONSE_MESSAGE);
-			    List<ProcessOutput> lstResp = resp.getOutputs();
+			    List<ProcessOutput> lstResp = tmp.getOutputs();
 			    prepareRequestedOutput(lstResp, ctxt);
-			    for (ProcessOutput i : lstResp) {
-				ArrayList<ProcessOutput> tmp = outputs.get(i
-					.getURI());
-				if (tmp == null) {
-				    tmp = new ArrayList<ProcessOutput>();
-				    outputs.put(i.getURI(), tmp);
-				}
-				tmp.add(i);
-			    }
+			    resp.addResponse(tmp);
 			}
-
-			// resp is a valid response and we will rewrite its
-			// outputs
-			List<ProcessOutput> lstResp = resp.getOutputs();
-			lstResp.clear();
-
-			// 2. rewrite
-			for (ArrayList<ProcessOutput> lst : outputs.values()) {
-			    // combine all the values into one list
-			    ArrayList<Object> l = new ArrayList<Object>();
-			    for (ProcessOutput po : lst) {
-				Object val = po.getParameterValue();
-				if (val instanceof List) {
-				    // the service has responded with a list of
-				    // objects for this parameter
-				    l.addAll((List<?>) val);
-				} else {
-				    // the service has responded with a single
-				    // object for this parameter
-				    l.add(val);
-				}
-			    }
-			    // create a new ProcessOutput with the calculated
-			    // list l
-			    ProcessOutput po = lst.get(0);
-			    po = new ProcessOutput(po.getURI());
-			    po.setParameterValue(l);
-			    lstResp.add(po);
-			}
-
-			// 3. prepare combined response for sending
+			
+			// prepare combined response for sending
 			m = m.createReply(resp);
 		    }
 		    break;
