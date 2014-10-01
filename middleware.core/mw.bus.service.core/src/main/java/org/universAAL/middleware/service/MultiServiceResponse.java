@@ -33,7 +33,7 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
  * 
  * @author Carsten Stockloew
  */
-public class MultiServiceResponse extends ServiceResponse {
+public final class MultiServiceResponse extends ServiceResponse {
 
     /**
      * A resource URI that specifies the resource as a multi service response.
