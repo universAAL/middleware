@@ -1241,7 +1241,7 @@ public class ServiceStrategy extends BusStrategy {
 				    ServiceRealization.uAAL_SERVICE_PROVIDER)
 			    .toString());
 		    if (callee != null) {
-			callee.handleCall(msg);
+			callee.handleRequest(msg);
 			break;
 		    }
 		}
