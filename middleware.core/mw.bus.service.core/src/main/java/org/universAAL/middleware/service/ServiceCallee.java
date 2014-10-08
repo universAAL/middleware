@@ -185,7 +185,7 @@ public abstract class ServiceCallee extends Callee {
      * @param m
      *            request message coming from the bus.
      */
-    public final void handleCall(BusMessage m) {
+    public void handleRequest(BusMessage m) {
 	if (m != null && m.getContent() instanceof ServiceCall) {
 	    LogUtils.logDebug(owner, ServiceCallee.class, "handleRequest",
 		    new Object[] { busResourceURI, " received service call:\n",
