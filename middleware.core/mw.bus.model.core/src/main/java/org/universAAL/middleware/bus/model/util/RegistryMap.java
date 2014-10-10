@@ -51,8 +51,10 @@ public class RegistryMap extends Object implements IRegistry {
 
     public BusMember removeMemberByID(String memberID) {
 	BusMember busMember = (BusMember) map.remove(memberID);
-	for (int i = 0; i < listeners.size(); i++) {
-	    listeners.get(i).busMemberRemoved(busMember);
+	if (busMember != null) {
+	    for (int i = 0; i < listeners.size(); i++) {
+		listeners.get(i).busMemberRemoved(busMember);
+	    }
 	}
 	return busMember;
     }
