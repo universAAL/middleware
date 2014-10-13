@@ -51,7 +51,15 @@ public class MyAALSpaceManager implements AALSpaceManager {
     }
 
     public AALSpaceDescriptor getAALSpaceDescriptor() {
-	return null;
+	return new AALSpaceDescriptor() {
+	    private static final long serialVersionUID = -7504183020450042989L;
+
+	    public AALSpaceCard getSpaceCard() {
+		AALSpaceCard sc = new AALSpaceCard();
+		sc.setSpaceID("TestSpaceID");
+		return sc;
+	    }
+	};
     }
 
     public Set<AALSpaceCard> getAALSpaces() {
