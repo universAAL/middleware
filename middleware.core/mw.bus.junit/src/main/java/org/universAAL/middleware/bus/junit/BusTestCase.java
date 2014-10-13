@@ -67,8 +67,8 @@ import junit.framework.TestCase;
  */
 public class BusTestCase extends TestCase {
 
-    protected ModuleContext mc;
-    private MessageContentSerializer mcs;
+    protected static ModuleContext mc;
+    private static MessageContentSerializer mcs;
 
     @Override
     protected void setUp() throws Exception {
