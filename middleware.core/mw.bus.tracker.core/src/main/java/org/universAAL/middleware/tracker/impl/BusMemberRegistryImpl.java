@@ -3,6 +3,9 @@ Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
 Department of Computer Science 
 
+Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
+
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
 
@@ -51,6 +54,7 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
     private Map<String, BusMember> serviceBusMembers;
     private Map<String, BusMember> contextBusMembers;
     private Map<String, BusMember> uiBusMembers;
+    private Map<String, Resource[]> regParams;
 
     private ModuleContext mc;
 
@@ -104,6 +108,9 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	    for (IBusMemberRegistryListener listener : listeners) {
 		listener.busMemberRemoved(busMember, type);
 	    }
+	    synchronized (regParams) {
+		regParams.remove(busMember.getURI());
+	    }
 	}
 
 	public void busCleared() {
@@ -134,12 +141,47 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	    for (IBusMemberRegistryListener listener : listeners) {
 		listener.regParamsAdded(busMemberID, params);
 	    }
+	    // add the reg params
+	    synchronized (regParams) {
+		Resource[] oldAllParams = regParams.get(busMemberID);
+		if (oldAllParams == null)
+		    oldAllParams = new Resource[0];
+		Resource[] newAllParams = new Resource[oldAllParams.length
+			+ params.length];
+		System.arraycopy(oldAllParams, 0, newAllParams, 0,
+			oldAllParams.length);
+		System.arraycopy(params, 0, newAllParams, oldAllParams.length,
+			params.length);
+		regParams.put(busMemberID, newAllParams);
+	    }
 	}
 
 	public void regParamsRemoved(String busMemberID, Resource[] params) {
 	    log("regParamsRemoved", "", busMemberID);
 	    for (IBusMemberRegistryListener listener : listeners) {
 		listener.regParamsRemoved(busMemberID, params);
+	    }
+	    // remove the reg params
+	    synchronized (regParams) {
+		Resource[] oldAllParams = regParams.get(busMemberID);
+		if (oldAllParams == null) // should not happen
+		    oldAllParams = new Resource[0];
+		ArrayList<Resource> lst = new ArrayList<Resource>(
+			oldAllParams.length);
+		boolean found;
+		for (Resource r1 : oldAllParams) {
+		    found = false;
+		    for (Resource r2 : params) {
+			if (r1 == r2) {
+			    found = true;
+			    break;
+			}
+		    }
+		    if (!found)
+			lst.add(r1);
+		}
+		Resource[] newAllParams = lst.toArray(new Resource[lst.size()]);
+		regParams.put(busMemberID, newAllParams);
 	    }
 	}
     }
@@ -151,6 +193,7 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	serviceBusMembers = new HashMap<String, BusMember>();
 	contextBusMembers = new HashMap<String, BusMember>();
 	uiBusMembers = new HashMap<String, BusMember>();
+	regParams = new HashMap<String, Resource[]>();
 
 	if (serviceListener == null) {
 	    addServiceBusListener();
@@ -233,19 +276,29 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	}
     }
 
+    private void notifyAboutPreviouslyRegisteredMembers(
+	    IBusMemberRegistryListener listener,
+	    Map<String, BusMember> members, BusType busType) {
+	for (BusMember member : members.values()) {
+	    listener.busMemberAdded(member, busType);
+	    synchronized (regParams) {
+		String busMemberID = member.getURI();
+		Resource[] params = regParams.get(busMemberID);
+		listener.regParamsAdded(busMemberID, params);
+	    }
+	}
+    }
+
     public void addListener(IBusMemberRegistryListener listener,
 	    boolean notifyAboutPreviouslyRegisteredMembers) {
 	listeners.add(listener);
 	if (notifyAboutPreviouslyRegisteredMembers) {
-	    for (BusMember member : serviceBusMembers.values()) {
-		listener.busMemberAdded(member, BusType.Service);
-	    }
-	    for (BusMember member : contextBusMembers.values()) {
-		listener.busMemberAdded(member, BusType.Context);
-	    }
-	    for (BusMember member : uiBusMembers.values()) {
-		listener.busMemberAdded(member, BusType.UI);
-	    }
+	    notifyAboutPreviouslyRegisteredMembers(listener, serviceBusMembers,
+		    BusType.Service);
+	    notifyAboutPreviouslyRegisteredMembers(listener, contextBusMembers,
+		    BusType.Context);
+	    notifyAboutPreviouslyRegisteredMembers(listener, uiBusMembers,
+		    BusType.UI);
 	}
     }
 
