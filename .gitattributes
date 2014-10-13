@@ -233,6 +233,7 @@ middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/trac
 middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/IBusMemberRegistryListener.java -text
 middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/impl/Activator.java -text
 middleware.core/mw.bus.tracker.core/src/main/java/org/universAAL/middleware/tracker/impl/BusMemberRegistryImpl.java -text
+middleware.core/mw.bus.tracker.core/src/test/java/org/universAAL/middleware/tracker/test/BusTrackerTestCase.java -text
 middleware.core/mw.bus.ui.core/ASL2.0.txt -text
 middleware.core/mw.bus.ui.core/NOTICE.txt -text
 middleware.core/mw.bus.ui.core/pom.xml -text
