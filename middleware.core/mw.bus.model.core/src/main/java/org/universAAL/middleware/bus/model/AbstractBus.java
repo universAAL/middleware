@@ -135,16 +135,45 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	// configure the MW's URI instance
 	// first check if I already join an AALSpace
 
+//	AALSpaceDescriptor sd = aalSpaceManager.getAALSpaceDescriptor();
+//	if (sd != null) {
+//	    uAAL_SPACE_INSTANCE_URI_PREFIX = sd.getSpaceCard().getSpaceID()
+//		    + "/";
+//	} else {
+//	    uAAL_SPACE_INSTANCE_URI_PREFIX = "unknown-space/";
+//	}
+//	// TODO: workaround for non-space-coordinators (space ID is unknown
+//	// then)
+//	uAAL_SPACE_INSTANCE_URI_PREFIX = "";
+	
+	// wait until the space ID is known
 	AALSpaceDescriptor sd = aalSpaceManager.getAALSpaceDescriptor();
+	String spaceID = null;
 	if (sd != null) {
-	    uAAL_SPACE_INSTANCE_URI_PREFIX = sd.getSpaceCard().getSpaceID()
-		    + "/";
-	} else {
-	    uAAL_SPACE_INSTANCE_URI_PREFIX = "unknown-space/";
+	    spaceID = sd.getSpaceCard().getSpaceID();
 	}
-	// TODO: workaround for non-space-coordinators (space ID is unknown
-	// then)
-	uAAL_SPACE_INSTANCE_URI_PREFIX = "";
+	int cnt = -1;
+	while (spaceID == null) {
+	    try {
+		Thread.sleep(100);
+	    } catch (InterruptedException e) {
+		e.printStackTrace();
+	    }
+	    cnt++;
+	    if (cnt % 50 == 0) // log a message every 5 seconds
+		LogUtils.logError(
+			myContext,
+			AbstractBus.class,
+			"createURIs",
+			new Object[] {
+				"The AAL space ID is not yet known. Waiting for the AAL Space Manager to join a space. Time elapsed: ",
+				cnt / 10, " seconds." }, null);
+	    sd = aalSpaceManager.getAALSpaceDescriptor();
+	    if (sd != null) {
+		spaceID = sd.getSpaceCard().getSpaceID();
+	    }
+	}
+	uAAL_SPACE_INSTANCE_URI_PREFIX = spaceID + "/";
 
 	PeerCard pc = aalSpaceManager.getMyPeerCard();
 	if (pc != null) {
