@@ -708,7 +708,7 @@ public class ServiceStrategy extends BusStrategy {
 		    HashMap<String, Object> match = goods.get(0);
 		    ServiceResponse sr = (ServiceResponse) match
 			    .get(CONTEXT_RESPONSE_MESSAGE);
-		    prepareRequestedOutput(sr.getOutputs(), match);
+		    prepareRequestedOutput(sr, match);
 		    m = m.createReply(sr);
 		    break;
 		default:
@@ -853,22 +853,21 @@ public class ServiceStrategy extends BusStrategy {
 			HashMap<String, Object> ctxt = goods.get(0);
 			ServiceResponse sresp = (ServiceResponse) ctxt
 				.get(CONTEXT_RESPONSE_MESSAGE);
-			prepareRequestedOutput(sresp.getOutputs(), ctxt);
+			prepareRequestedOutput(sresp, ctxt);
 			m = m.createReply(sresp);
 		    } else {
 			// combine all the good responses
 			// call 'prepareRequestedOutput' for a mapping of URIs
 			// of the caller
 			MultiServiceResponse resp = new MultiServiceResponse();
-			HashMap<?, ?> ctxt = null;
 			ServiceResponse tmp = null;
 
-			for (Object o : goods) {
-			    ctxt = (HashMap<?, ?>) o;
+			for (HashMap<String, Object> ctxt : goods) {
 			    tmp = (ServiceResponse) ctxt
 				    .get(CONTEXT_RESPONSE_MESSAGE);
-			    List<ProcessOutput> lstResp = tmp.getOutputs();
-			    prepareRequestedOutput(lstResp, ctxt);
+			    // List<ProcessOutput> lstResp = tmp.getOutputs();
+			    // prepareRequestedOutput(lstResp, ctxt);
+			    prepareRequestedOutput(tmp, ctxt);
 			    resp.addResponse(tmp);
 			}
 			
@@ -893,13 +892,32 @@ public class ServiceStrategy extends BusStrategy {
     /**
      * Translates the process outputs according to the bindings
      * 
+     * @param ctxt
+     *            HashMap of bindings for the ProcessOutputs
+     */
+    private void prepareRequestedOutput(ServiceResponse sr,
+	    Map<String, Object> ctxt) {
+	if (sr instanceof MultiServiceResponse) {
+	    List<ServiceResponse> responses = ((MultiServiceResponse) sr)
+		    .getResponses();
+	    for (ServiceResponse ssr : responses) {
+		prepareRequestedOutput(ssr, ctxt);
+	    }
+	} else {
+	    prepareRequestedOutput(sr.getOutputs(), ctxt);
+	}
+    }
+    
+    /**
+     * Translates the process outputs according to the bindings
+     * 
      * @param outputs
      *            a list of ProcessOutputs
      * @param context
      *            HashMap of bindings for the ProcessOutputs
      */
     private void prepareRequestedOutput(List<ProcessOutput> outputs,
-	    HashMap<?, ?> context) {
+	    Map<String, Object> context) {
 	if (outputs != null && !outputs.isEmpty())
 	    for (int i = outputs.size() - 1; i > -1; i--) {
 		ProcessOutput po = outputs.remove(i);
