@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>3.2.0</version>
+    <relativePath>../mw.pom.osgi</relativePath>
+  </parent>
+  <groupId>org.universAAL.middleware</groupId>
+  <artifactId>mw.managers.tenant.osgi</artifactId>
+  <version>3.2.0</version>
+  <packaging>bundle</packaging>
+  <name>universAAL Middleware Manager Tenant (OSGi)</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.universAAL.support</groupId>
+      <artifactId>itests</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.api.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.tenant.core</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Author>Michele Girolami &lt;michele.girolami@isti.cnr.it>,
+							Stefano Lenzi &lt;stefano.lenzi@isti.cnr.it></Bundle-Author>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Export-Package>org.universAAL.middleware.managers.tenant,org.universAAL.middleware.managers.tenant.osgi</Export-Package>
+            <Import-Package>org.universAAL.middleware.managers.tenant,
+							org.osgi.framework, org.osgi.service.cm,
+							org.universAAL.middleware.container,
+							org.universAAL.middleware.container.osgi,
+							org.universAAL.middleware.container.utils,
+							org.universAAL.middleware.managers.api,org.universAAL.middleware.managers.tenant.osgi</Import-Package>
+            <Bundle-Activator>org.universAAL.middleware.managers.tenant.osgi.Activator</Bundle-Activator>
+            <Private-Package />
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <profiles>
+    <profile>
+      <id>uAAL-Test-Runtime</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.universAAL.middleware</groupId>
+          <artifactId>mw.interfaces.osgi</artifactId>
+          <scope>compile</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+</project>

@@ -1,0 +1,25 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.0.0">
+		<command name="universAAL/spaces">
+			<action
+				class="org.universAAL.middleware.shell.universAAL.osgi.AALSpaceCommand" />
+		</command>
+		<command name="universAAL/peers">
+			<action
+				class="org.universAAL.middleware.shell.universAAL.osgi.ListOfPeerCommand" />
+		</command>
+		<command name="universAAL/uaap">
+			<action class="org.universAAL.middleware.shell.universAAL.osgi.UAPPCommand" />
+		</command>
+		<command name="universAAL/targetSpace">
+			<action
+				class="org.universAAL.middleware.shell.universAAL.osgi.TargetAALSpaceCommand" />
+		</command>
+		<command name="universAAL/tenants">
+			<action
+				class="org.universAAL.middleware.shell.universAAL.osgi.TenantCommand" />
+		</command>
+	</command-bundle>
+
+</blueprint>
