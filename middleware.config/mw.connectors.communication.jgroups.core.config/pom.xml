@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.config</artifactId>
-    <version>3.2.0</version>
+    <version>3.2.1-SNAPSHOT</version>
     <relativePath>../mw.pom.config</relativePath>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.connectors.communication.jgroups.core.config</artifactId>
-  <version>3.2.0</version>
+  <version>3.2.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>universAAL Middleware Connector Communication JGroups (Config)</name>
   <build>

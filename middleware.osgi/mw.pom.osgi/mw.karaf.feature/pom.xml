@@ -5,10 +5,10 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>3.2.0</version>
+    <version>3.2.1-SNAPSHOT</version>
   </parent>
   <artifactId>mw.karaf.feature</artifactId>
-  <version>3.2.0</version>
+  <version>3.2.1-SNAPSHOT</version>
   <name>universAAL Karaf Feature Middleware</name>
   <properties>
     <mw.version>${project.version}</mw.version>
@@ -19,7 +19,7 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.pom.config</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
