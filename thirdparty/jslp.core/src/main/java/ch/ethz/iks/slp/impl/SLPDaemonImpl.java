@@ -116,8 +116,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 				synchronized (serviceDisposalQueue) {
 					long next = System.currentTimeMillis()
 							+ (reg.url.getLifetime() * 1000);
-					ArrayList keys = new ArrayList(serviceDisposalQueue
-							.keySet());
+		    ArrayList keys = new ArrayList(
+			    serviceDisposalQueue.keySet());
 					for (Iterator iter = keys.iterator(); iter.hasNext();) {
 						Object key = iter.next();
 						if (serviceDisposalQueue.get(key).equals(reg.url)) {
@@ -150,8 +150,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 					}
 					daList = (List) SLPCore.dAs.get(scope);
 				} catch (ServiceLocationException sle) {
-					SLPCore.platform.logError(sle.getMessage(), sle
-								.fillInStackTrace());
+		    SLPCore.platform.logError(sle.getMessage(),
+			    sle.fillInStackTrace());
 				}
 			}
 
@@ -171,8 +171,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 						// remove DA from list
 						SLPUtils.removeValueFromAll(SLPCore.dAs, dAs[i]);
 						SLPCore.dASPIs.remove(dAs[i]);
-						SLPCore.platform.logError(e.getMessage(), e
-									.fillInStackTrace());
+			SLPCore.platform.logError(e.getMessage(),
+				e.fillInStackTrace());
 					}
 				}
 			}
@@ -200,7 +200,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 
 			for (int j = 0; j < services.length; j++) {
 				if (dereg.url.matches(services[j].url)) {
-					List daList = (List) SLPCore.dAs.get(scopes[i].toLowerCase());
+		    List daList = (List) SLPCore.dAs.get(scopes[i]
+			    .toLowerCase());
 					if (daList != null) {
 						for (Iterator daIter = daList.iterator(); daIter
 								.hasNext();) {
@@ -393,8 +394,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 			final ReplyMessage rep = (ReplyMessage) msg;
 			if (rep.errorCode != 0) {
 				SLPCore.platform.logWarning(msg.address
-							+ " replied with error code " + rep.errorCode
-							+ " (" + rep + ")");
+			+ " replied with error code " + rep.errorCode + " ("
+			+ rep + ")");
 			}
 			return null;
 
@@ -429,16 +430,15 @@ public final class SLPDaemonImpl implements SLPDaemon {
 						Service service = (Service) serviceIter.next();
 						ServiceRegistration reg = new ServiceRegistration(
 								service.url, service.url.getServiceType(),
-								Arrays.asList(new Object[] { scope }), SLPUtils
-										.dictToAttrList(service.attributes),
+				Arrays.asList(new Object[] { scope }),
+				SLPUtils.dictToAttrList(service.attributes),
 								SLPCore.DEFAULT_LOCALE);
-						SLPCore.platform.logDebug("Registering "
-									+ service.url + " with new DA "
-									+ advert.url);
+			SLPCore.platform.logDebug("Registering " + service.url
+				+ " with new DA " + advert.url);
 						announceService(advert.url, reg);
 					} catch (ServiceLocationException e) {
-						SLPCore.platform.logError(e.getMessage(), e
-									.fillInStackTrace());
+			SLPCore.platform.logError(e.getMessage(),
+				e.fillInStackTrace());
 					}
 				}
 			}
@@ -467,8 +467,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 			}
 			handleMessage(SLPCore.sendMessage(reg, true));
 		} catch (UnknownHostException e) {
-			SLPCore.platform.logError("Service announcement to "
-						+ dAAddress + " failed. ", e.fillInStackTrace());
+	    SLPCore.platform.logError("Service announcement to " + dAAddress
+		    + " failed. ", e.fillInStackTrace());
 		}
 	}
 
@@ -503,8 +503,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 					Socket con = socket.accept();
 					DataInputStream in = new DataInputStream(
 							new BufferedInputStream(con.getInputStream()));
-					SLPMessage msg = SLPMessage.parse(con.getInetAddress(), con
-							.getPort(), in, true);
+		    SLPMessage msg = SLPMessage.parse(con.getInetAddress(),
+			    con.getPort(), in, true);
 
 					ReplyMessage reply = handleMessage(msg);
 					if (reply != null) {
@@ -512,8 +512,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 									+ reply.address + ":" + reply.port + ") "
 									+ reply);
 
-						DataOutputStream out = new DataOutputStream(con
-								.getOutputStream());
+			DataOutputStream out = new DataOutputStream(
+				con.getOutputStream());
 						reply.writeTo(out);
 						/*
 						 * TODO the RFC encourages to keep the connection open
@@ -589,9 +589,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 								try {
 									deregisterService(dereg);
 								} catch (ServiceLocationException sle) {
-									SLPCore.platform.logError(sle
-												.getMessage(), sle
-												.fillInStackTrace());
+				    SLPCore.platform.logError(sle.getMessage(),
+					    sle.fillInStackTrace());
 								}
 								SLPCore.platform
 											.logTraceReg("disposed service "
@@ -608,10 +607,8 @@ public final class SLPDaemonImpl implements SLPDaemon {
 								long waitTime = nextActivity.longValue()
 										- System.currentTimeMillis();
 								if (waitTime > 0) {
-									SLPCore.platform
-												.logDebug("sleeping for "
-														+ waitTime / 1000
-														+ " seconds.");
+				    SLPCore.platform.logDebug("sleeping for "
+					    + waitTime / 1000 + " seconds.");
 									serviceDisposalQueue.wait(waitTime);
 								}
 							}
@@ -624,7 +621,6 @@ public final class SLPDaemonImpl implements SLPDaemon {
 		}
 	}
 
-	
 	/**
 	 * Michele issue 65
 	 */

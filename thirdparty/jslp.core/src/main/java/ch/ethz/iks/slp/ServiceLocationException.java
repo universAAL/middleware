@@ -33,12 +33,11 @@ import java.io.Serializable;
 /**
  * This exception is thrown whenever a part of the SLP framework causes an
  * exception. The error code is a hint why the exception occured.
- *
+ * 
  * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @since 0.1
  */
-public class ServiceLocationException extends Exception
-                                        implements Serializable {
+public class ServiceLocationException extends Exception implements Serializable {
 
     /**
      * @serial for serialization.
@@ -145,23 +144,23 @@ public class ServiceLocationException extends Exception
 
     /**
      * Create a new ServiceLocation instance.
-     *
+     * 
      * @param errcode
      *            the error code, one of the statically defined.
      * @param message
      *            the message of the exception.
      */
     public ServiceLocationException(final short errcode, final String message) {
-        super(message);
-        errorCode = errcode;
+	super(message);
+	errorCode = errcode;
     }
 
     /**
      * Get the error code of the exception.
-     *
+     * 
      * @return the error code.
      */
     public final short getErrorCode() {
-        return errorCode;
+	return errorCode;
     }
 }

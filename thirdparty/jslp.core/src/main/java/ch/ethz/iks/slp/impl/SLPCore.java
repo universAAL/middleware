@@ -60,8 +60,7 @@ import ch.ethz.iks.slp.ServiceType;
 
 /**
  * the core class of the jSLP implementation.
- * <code>ch.ethz.iks.slp.ServiceLocationManager</code> inherits from this
- * class.
+ * <code>ch.ethz.iks.slp.ServiceLocationManager</code> inherits from this class.
  * 
  * @see ch.ethz.iks.slp.impl.ServiceLocationManager
  * @author Jan S. Rellermeyer, IKS, ETH Zurich
@@ -135,8 +134,8 @@ public abstract class SLPCore {
 	protected static  Constructor advertiser;
 
 	/**
-	 * the constructor for <code>Locator</code> instances, if an
-	 * implementation exists.
+     * the constructor for <code>Locator</code> instances, if an implementation
+     * exists.
 	 */
 	protected static  Constructor locator;
 
@@ -234,7 +233,8 @@ public abstract class SLPCore {
 			config = propFile.exists() ? new SLPConfiguration(propFile)
 			: new SLPConfiguration();
 		} catch (IOException e1) {
-			System.out.println("Could not parse the property file" + propFile.toString());
+	    System.out.println("Could not parse the property file"
+		    + propFile.toString());
 			e1.printStackTrace();
 			config = new SLPConfiguration();
 		}
@@ -314,12 +314,16 @@ public abstract class SLPCore {
 							platform.logDebug("jSLP is adding DA, "
 									+ daAddresses[i] + " for the Scope, "
 									+ scopes[j]);
-							SLPUtils.addValue(dAs, scopes[i].toLowerCase(), daAddresses[i]);
+			    SLPUtils.addValue(dAs, scopes[i].toLowerCase(),
+				    daAddresses[i]);
 						}
 					} catch (ServiceLocationException e) {
-						platform.logWarning("Error communitcating with " + daAddresses[i], e);
+			platform.logWarning("Error communitcating with "
+				+ daAddresses[i], e);
 					} catch (UnknownHostException e) {
-						platform.logWarning("Unknown net.slp.DAAddresses address: " + daAddresses[i], e);
+			platform.logWarning(
+				"Unknown net.slp.DAAddresses address: "
+					+ daAddresses[i], e);
 					}
 				}
 			} catch (IllegalArgumentException ise) {
@@ -345,7 +349,8 @@ public abstract class SLPCore {
 		isMulticastSocketInitialized = false;
 	}
 
-	// a pure UA doesn't need a multicast listener which is only required by a SA or DA
+    // a pure UA doesn't need a multicast listener which is only required by a
+    // SA or DA
 	public static void initMulticastSocket() {
 		if(isMulticastSocketInitialized) {
 			return;
@@ -354,14 +359,16 @@ public abstract class SLPCore {
 
 		try {
 
-			//mtcSocket = new MulticastSocket(new InetSocketAddress(MCAST_ADDRESS,SLP_PORT)); 
+	    // mtcSocket = new MulticastSocket(new
+	    // InetSocketAddress(MCAST_ADDRESS,SLP_PORT));
 			mtcSocket = new MulticastSocket(SLP_PORT);
 			mtcSocket.setTimeToLive(CONFIG.getMcastTTL());
 			if (CONFIG.getInterfaces() != null) {
 				try {
 					mtcSocket.setInterface(InetAddress.getByName(myIPs[0]));
 				} catch (Throwable t) {
-					platform.logDebug("Setting multicast socket interface to " + myIPs[0] + " failed.",t);
+		    platform.logDebug("Setting multicast socket interface to "
+			    + myIPs[0] + " failed.", t);
 				}
 			}
 			mtcSocket.joinGroup(MCAST_ADDRESS);
@@ -386,7 +393,8 @@ public abstract class SLPCore {
 						packet = new DatagramPacket(bytes, bytes.length);
 						mtcSocket.receive(packet);
 						final SLPMessage reply = handleMessage(SLPMessage
-								.parse(packet.getAddress(), packet.getPort(),
+				.parse(packet.getAddress(),
+					packet.getPort(),
 										new DataInputStream(
 												new ByteArrayInputStream(packet
 														.getData())), false));
@@ -396,15 +404,12 @@ public abstract class SLPCore {
 									repbytes, repbytes.length, reply.address,
 									reply.port);
 							mtcSocket.send(datagramPacket);
-							platform.logDebug("SEND (" + reply.address
-									+ ":" + reply.port + ") "
-									+ reply.toString() +" TO: "+datagramPacket.getAddress()+":"+datagramPacket.getPort());
+			    platform.logDebug("SEND (" + reply.address + ":"
+				    + reply.port + ") " + reply.toString());
 						}
 					} catch (Exception e) {
-						platform
-						.logError(
-								"Exception in Multicast Receiver Thread",
-								e);
+			platform.logError(
+				"Exception in Multicast Receiver Thread", e);
 					}
 				}
 			}
@@ -434,7 +439,8 @@ public abstract class SLPCore {
 		try {
 			return InetAddress.getByName(myIPs[0]);
 		} catch (UnknownHostException e) {
-			platform.logError("Unknown net.slp.interfaces address: " + myIPs[0], e);
+	    platform.logError(
+		    "Unknown net.slp.interfaces address: " + myIPs[0], e);
 			return null;
 		}
 	}
@@ -481,9 +487,10 @@ public abstract class SLPCore {
 			DAAdvertisement advert = (DAAdvertisement) message;
 
 			if (advert.errorCode != 0) {
-				platform.logTraceDrop("DROPPED DAADvertisement (" + advert.address + ":"
-						+ advert.port + ") " + advert.toString()
-						+ "(reason: " + advert.errorCode + " != 0");
+		platform.logTraceDrop("DROPPED DAADvertisement ("
+			+ advert.address + ":" + advert.port + ") "
+			+ advert.toString() + "(reason: " + advert.errorCode
+			+ " != 0");
 				return null;
 			}
 
@@ -496,7 +503,8 @@ public abstract class SLPCore {
 				for (Iterator iter = advert.scopeList.iterator(); iter
 						.hasNext();) {
 					String scope = ((String) iter.next()).toLowerCase();
-					SLPUtils.removeValue(SLPCore.dAs, scope.toLowerCase(), advert.url);
+		    SLPUtils.removeValue(SLPCore.dAs, scope.toLowerCase(),
+			    advert.url);
 					dASPIs.remove(advert.url);
 				}
 			} else {
@@ -515,8 +523,8 @@ public abstract class SLPCore {
 					SLPUtils.addValue(SLPCore.dAs, scope, advert.url);
 
 					if (CONFIG.getSecurityEnabled()) {
-						dASPIs.put(advert.url, SLPMessage.stringToList(
-								advert.spi, ","));
+			dASPIs.put(advert.url,
+				SLPMessage.stringToList(advert.spi, ","));
 					}
 
 				}
@@ -580,9 +588,8 @@ public abstract class SLPCore {
 			if (daemon != null) {
 				return daemon.handleMessage(message);
 			} else {
-				platform.logDebug("SRVTYPERQST recieved ("
-						+ message.address + ":" + message.port + ") "
-						+ message.toString()
+		platform.logDebug("SRVTYPERQST recieved (" + message.address
+			+ ":" + message.port + ") " + message.toString()
 						+ " but no SLPDaemon to handle the message present");
 				return null;
 			}
@@ -592,9 +599,8 @@ public abstract class SLPCore {
 			if (daemon != null) {
 				return daemon.handleMessage(message);
 			} else {
-				platform.logDebug("A message recieved ("
-						+ message.address + ":" + message.port + ") "
-						+ message.toString()
+		platform.logDebug("A message recieved (" + message.address
+			+ ":" + message.port + ") " + message.toString()
 						+ " but no SLPDaemon to handle the message present");
 				return null;
 			}
@@ -650,8 +656,8 @@ public abstract class SLPCore {
 					socket.send(d);
 				} catch (SocketException se) {
 					// blacklist address
-					final List remaining = new ArrayList(java.util.Arrays
-							.asList(myIPs));
+		    final List remaining = new ArrayList(
+			    java.util.Arrays.asList(myIPs));
 					final String faulty = myIPs[i];
 					remaining.remove(faulty);
 					myIPs = (String[]) remaining.toArray(new String[remaining
@@ -662,7 +668,8 @@ public abstract class SLPCore {
 		} catch (IllegalArgumentException ise) {
 			platform.logDebug("May never happen, no filter set", ise);
 		} catch (UnknownHostException uhe) {
-			platform.logWarning("Unknown net.slp.interfaces address: " + myIPs[i], uhe);
+	    platform.logWarning("Unknown net.slp.interfaces address: "
+		    + myIPs[i], uhe);
 			throw new ServiceLocationException(
 					ServiceLocationException.NETWORK_ERROR, uhe.getMessage());
 		} catch (IOException e) {
@@ -689,8 +696,8 @@ public abstract class SLPCore {
 			}
 			Socket socket = new Socket(msg.address, msg.port);
 			socket.setSoTimeout(CONFIG.getTCPTimeout());
-			DataOutputStream out = new DataOutputStream(socket
-					.getOutputStream());
+	    DataOutputStream out = new DataOutputStream(
+		    socket.getOutputStream());
 			DataInputStream in = new DataInputStream(socket.getInputStream());
 			msg.writeTo(out);
 			final ReplyMessage reply = (ReplyMessage) SLPMessage.parse(
@@ -719,7 +726,8 @@ public abstract class SLPCore {
 		if (msg.xid == 0) {
 			msg.xid = nextXid();
 		}
-		if (msg.getSize() > CONFIG.getMTU() || TCP_ONLY || (daemon == null && isMulticastSocketInitialized)) {
+	if (msg.getSize() > CONFIG.getMTU() || TCP_ONLY
+		|| (daemon == null && isMulticastSocketInitialized)) {
 			return sendMessageTCP(msg);
 		}
 
@@ -738,8 +746,8 @@ public abstract class SLPCore {
 
 			dsocket.send(packet);
 
-			platform.logTraceMessage("SENT (" + msg.address + ":" + msg.port + ") "
-					+ msg + " (via udp port " + dsocket.getLocalPort()
+	    platform.logTraceMessage("SENT (" + msg.address + ":" + msg.port
+		    + ") " + msg + " (via udp port " + dsocket.getLocalPort()
 					+ ") TO: "+packet.getAddress());
 
 			// if no reply is expected, return
@@ -751,13 +759,13 @@ public abstract class SLPCore {
 			dsocket.close();
 			final DataInputStream in = new DataInputStream(
 					new ByteArrayInputStream(received.getData()));
-			ReplyMessage reply = (ReplyMessage) SLPMessage.parse(received
-					.getAddress(), received.getPort(), in, false);
+	    ReplyMessage reply = (ReplyMessage) SLPMessage.parse(
+		    received.getAddress(), received.getPort(), in, false);
 			return reply;
 		} catch (SocketException se) {
 			throw new ServiceLocationException(
-					ServiceLocationException.NETWORK_INIT_FAILED, se
-					.getMessage());
+		    ServiceLocationException.NETWORK_INIT_FAILED,
+		    se.getMessage());
 		} catch (ProtocolException pe) {
 			// Overflow, retry with TCP
 			return sendMessageTCP(msg);
@@ -858,8 +866,8 @@ public abstract class SLPCore {
 
 					// send the message
 					DatagramPacket p = new DatagramPacket(message,
-							message.length, InetAddress
-							.getByName(SLP_MCAST_ADDRESS), SLP_PORT);
+			    message.length,
+			    InetAddress.getByName(SLP_MCAST_ADDRESS), SLP_PORT);
 
 					try {
 						socket.send(p);
@@ -920,24 +928,20 @@ public abstract class SLPCore {
 				}
 			}
 
-
-
 			// we are done, remove the listener queue
 			synchronized (replyListeners) {
 				replyListeners.remove(queryXID);
 			}
 
 			platform.logDebug("convergence for xid=" + msg.xid
-					+ " finished after "
-					+ (System.currentTimeMillis() - start)
+		    + " finished after " + (System.currentTimeMillis() - start)
 					+ " ms, result: " + responses);
 			return responses;
 		} catch (IOException ioe) {
 			platform.logDebug(ioe.getMessage(), ioe);
 			throw new ServiceLocationException(
 					ServiceLocationException.NETWORK_ERROR, ioe.getMessage());
-		}
-		finally{
+	} finally {
 
 		}
 	}
@@ -955,8 +959,8 @@ public abstract class SLPCore {
 	 * setup a new receiver thread for a socket.
 	 * 
 	 * @param socket
-	 *            the <code>DatagramSocket</code> for which the receiver
-	 *            thread is set up.
+     *            the <code>DatagramSocket</code> for which the receiver thread
+     *            is set up.
 	 * @param minLifetime
 	 *            the minimum lifetime of the receiver thread.
 	 */
@@ -980,8 +984,8 @@ public abstract class SLPCore {
 						int soTimeout = (int) (l < 0 ? 1 : l);
 						socket.setSoTimeout(10000/*soTimeout*/);
 					} catch (SocketException e1) {
-						platform.logError(
-								"Exception in mcast receiver thread", e1);
+			platform.logError("Exception in mcast receiver thread",
+				e1);
 						return;
 					}
 
@@ -1020,11 +1024,10 @@ public abstract class SLPCore {
 				 * Michele 65
 				 * */
 
-
-			}}.start();
 		}
+	}.start();
+    }
 	
-
 	public static void stop(){
 		/**
 		 * Michele issue 65
