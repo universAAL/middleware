@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.universAAL.middleware</groupId>
     <artifactId>mw.pom.osgi</artifactId>
-    <version>3.1.1-SNAPSHOT</version>
+    <version>3.2.0</version>
     <!-- <relativePath>../../middleware.osgi/mw.pom.osgi</relativePath>-->
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.schemas</artifactId>
-  <version>3.1.1-SNAPSHOT</version>
+  <version>3.2.0</version>
   <packaging>bundle</packaging>
   <name>universAAL Middleware XSD Schemas</name>
   <description>XSD Schema for universAAL common data model</description>
