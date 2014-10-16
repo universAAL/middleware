@@ -17,8 +17,10 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/ 
+ */
 package org.universAAL.middleware.tracker;
+
+import org.universAAL.middleware.tracker.impl.Activator;
 
 /**
  * Interface used for plugging into the registry of BusMembers in MW nodes.
@@ -28,14 +30,13 @@ package org.universAAL.middleware.tracker;
  */
 public interface IBusMemberRegistry {
 
-    public final static Object[] busRegistryShareParams = new Object[] { IBusMemberRegistry.class
-	    .getName() };
+    public final static Object[] busRegistryShareParams = Activator.fetchParams;
 
     /**
      * Enumeration used in notifications.
      * 
      * @author dzmuda
-     *
+     * 
      */
     public enum BusType {
 	Service, Context, UI
@@ -49,15 +50,16 @@ public interface IBusMemberRegistry {
      *            - listener to be added
      * @param notifyAboutPreviouslyRegisteredMembers
      *            - if true then the listener is automatically notified about
-     *            all BusMembers currently avaliable in registry.
+     *            all BusMembers currently available in registry.
      */
-    public void addBusRegistryListener(IBusMemberRegistryListener listener,
+    public void addListener(IBusMemberRegistryListener listener,
 	    boolean notifyAboutPreviouslyRegisteredMembers);
 
     /**
      * Method used for removal of listeners in BusMember registry
      * 
-     * @param listener - listener to be removed
+     * @param listener
+     *            - listener to be removed
      */
-    public void removeBusRegistryListener(IBusMemberRegistryListener listener);
+    public void removeListener(IBusMemberRegistryListener listener);
 }
