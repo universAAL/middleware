@@ -906,6 +906,29 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 //		}
     }
 
+    /**
+     * This methods modifies the name of the peering channel and of the
+     * communication channels, it adds the suffix AALSpaceID to the end of the
+     * channel name E.g. x.y where x = name of the broker, y = AALSpaceID
+     * 
+     * @param space
+     * @return
+     */
+    private IAALSpace parametrizeChannelNames(IAALSpace space) {
+	// change the peering channel
+	String peeringChannelName = space.getPeeringChannel()
+		.getChannelDescriptor().getChannelName();
+	String aalSpaceID = space.getSpaceDescriptor().getSpaceId();
+	space.getPeeringChannel().getChannelDescriptor()
+		.setChannelName(peeringChannelName + aalSpaceID);
+
+	for (IChannelDescriptor channelDescriptor : space
+		.getCommunicationChannels().getChannelDescriptor()) {
+	    channelDescriptor.setChannelName(channelDescriptor.getChannelName()
+		    + aalSpaceID);
+	}
+	return space;
+    }
 	private IAALSpace loadConfigurationFromJSON(File[] spaces) {
 		// TODO Auto-generated method stub
 		return null;
