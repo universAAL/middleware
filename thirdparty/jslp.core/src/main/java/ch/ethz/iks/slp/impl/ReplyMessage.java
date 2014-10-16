@@ -38,16 +38,16 @@ import java.util.List;
  */
 abstract class ReplyMessage extends SLPMessage {
 
-	/**
-	 * the error code that is returned.
-	 */
-	int errorCode;
+    /**
+     * the error code that is returned.
+     */
+    int errorCode;
 
-	/**
-	 * get the results.
-	 * 
-	 * @return the List of results.
-	 */
-	abstract List getResult();
+    /**
+     * get the results.
+     * 
+     * @return the List of results.
+     */
+    abstract List getResult();
 
 }

@@ -38,29 +38,29 @@ import ch.ethz.iks.slp.ServiceLocationException;
  */
 public interface SLPDaemon {
 
-	/**
-	 * called, when a new DA has been discovered.
-	 * 
-	 * @param advert
-	 *            the <code>DAAdvertisement</code> received from the new DA.
-	 */
-	void newDaDiscovered(DAAdvertisement advert);
+    /**
+     * called, when a new DA has been discovered.
+     * 
+     * @param advert
+     *            the <code>DAAdvertisement</code> received from the new DA.
+     */
+    void newDaDiscovered(DAAdvertisement advert);
 
-	/**
-	 * handle a message dispatched by SLPCore.
-	 * 
-	 * @param msg
-	 *            the message.
-	 * @return the reply message or <code>null</code>.
-	 * @throws ServiceLocationException
-	 *             if something goes wrong.
-	 */
-	ReplyMessage handleMessage(final SLPMessage msg)
-			throws ServiceLocationException;
-	
-	/**
-	 * Michele issue 65
-	 */
-	void stopDaemon();
+    /**
+     * handle a message dispatched by SLPCore.
+     * 
+     * @param msg
+     *            the message.
+     * @return the reply message or <code>null</code>.
+     * @throws ServiceLocationException
+     *             if something goes wrong.
+     */
+    ReplyMessage handleMessage(final SLPMessage msg)
+	    throws ServiceLocationException;
+
+    /**
+     * Michele issue 65
+     */
+    void stopDaemon();
 
 }
