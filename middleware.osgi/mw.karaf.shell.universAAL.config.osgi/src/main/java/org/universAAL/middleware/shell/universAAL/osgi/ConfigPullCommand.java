@@ -36,7 +36,7 @@ import org.universAAL.middleware.interfaces.configuration.configurationEditionTy
 @Command(scope = "universAAL", name = "configPull", description = "Get the current Configuration file")
 public class ConfigPullCommand extends ConfigurationEditorAbstractCommand {
 
-    @Argument(index = 0, name = "parameter", description = "Parameter refering to the file to pull", required = true, multiValued = false)
+    @Argument(index = 0, name = "parameter", description = "Parameter referring to the file to pull", required = true, multiValued = false)
     String parameter = null;
     
     @Argument(index = 1, name = "path", description = "Local Path to copy the file to", required = true, multiValued = false)

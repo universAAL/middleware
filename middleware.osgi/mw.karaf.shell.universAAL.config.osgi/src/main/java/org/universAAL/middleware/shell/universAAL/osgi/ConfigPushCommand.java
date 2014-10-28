@@ -36,7 +36,7 @@ import org.universAAL.middleware.interfaces.configuration.configurationEditionTy
 @Command(scope = "universAAL", name = "configPush", description = "Set the a Configuration file")
 public class ConfigPushCommand extends ConfigurationEditorAbstractCommand {
 
-    @Argument(index = 0, name = "parameter", description = "Parameter refering to the file to push", required = true, multiValued = false)
+    @Argument(index = 0, name = "parameter", description = "Parameter referring to the file to push", required = true, multiValued = false)
     String parameter = null;
     
     @Argument(index = 1, name = "path", description = "Local Path where the file to set resides", required = true, multiValued = false)
