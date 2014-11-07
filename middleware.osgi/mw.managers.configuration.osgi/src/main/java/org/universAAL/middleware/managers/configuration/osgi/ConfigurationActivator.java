@@ -16,13 +16,10 @@
  ******************************************************************************/
 package org.universAAL.middleware.managers.configuration.osgi;
 
-import java.io.File;
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.api.ConfigurationEditor;
 import org.universAAL.middleware.managers.api.ConfigurationManager;
@@ -43,10 +40,8 @@ public class ConfigurationActivator implements BundleActivator {
 	/*
 	 * uAAL stuff
 	 */
-	BundleConfigHome folder = new BundleConfigHome(
-		"mw.managers.configuration");
-	cm = new ConfigurationManagerImpl(context, new FileProvider(new File(
-		folder.getAbsolutePath())));
+	cm = new ConfigurationManagerImpl(context, 
+			new FileProvider(context.getConfigHome()));
 
 	context.getContainer().shareObject(
 		context,
