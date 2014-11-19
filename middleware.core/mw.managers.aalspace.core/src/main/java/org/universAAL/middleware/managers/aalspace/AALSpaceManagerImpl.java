@@ -870,7 +870,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		ccs.addChannelDescriptor(cd4);
 		space.setCommunicationChannels(ccs);
 		if (space != null) {
-			return space;
+			return parametrizeChannelNames(space);
 		} else {
 			LogUtils.logWarn(
 					context,
