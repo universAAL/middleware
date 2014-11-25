@@ -153,7 +153,9 @@ public final class MultiServiceResponse extends ServiceResponse {
 	List<ProcessOutput> outputs = new ArrayList<ProcessOutput>();
 	List<ServiceResponse> responses = getResponses();
 	for (ServiceResponse sr : responses) {
-	    outputs.addAll(sr.getOutputs());
+	    List<ProcessOutput> singleout = sr.getOutputs();
+	    if (singleout != null)
+		outputs.addAll(singleout);
 	}
 	return outputs;
     }
