@@ -58,7 +58,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
      * <p>
      * For example, this prefix could be <tt>urn:uaal_space:</tt>
      */
-    private static String uAAL_OPTIONAL_URI_PREFIX = "urn:uaal_space:";
+    public static final String uAAL_OPTIONAL_URI_PREFIX = "urn:uaal_space:";
 
     /**
      * The prefix of the URI of {@link BusMember}s. Each time a new bus member
