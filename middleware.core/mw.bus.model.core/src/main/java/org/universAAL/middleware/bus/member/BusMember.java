@@ -48,6 +48,7 @@ public abstract class BusMember {
     protected final AbstractBus theBus;
     protected final String busResourceURI;
     private BusMemberType type;
+    private String name = null;
 
     protected BusMember(ModuleContext owner, Object[] busFetchParams,
 	    BusMemberType type) {
@@ -95,5 +96,24 @@ public abstract class BusMember {
      */
     public BusMemberType getType() {
 	return type;
+    }
+
+    /**
+     * Set a human-readable name for this bus member.
+     * 
+     * @param name
+     *            the new name.
+     */
+    protected void setName(String name) {
+	this.name = name;
+    }
+
+    /**
+     * Get the human-readable name for this bus member.
+     * 
+     * @return the name.
+     */
+    public String getName() {
+	return name;
     }
 }
