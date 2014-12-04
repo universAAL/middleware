@@ -48,7 +48,8 @@ public abstract class BusMember {
     protected final AbstractBus theBus;
     protected final String busResourceURI;
     private BusMemberType type;
-    private String name = null;
+    private String label = null;
+    private String comment = null;
 
     protected BusMember(ModuleContext owner, Object[] busFetchParams,
 	    BusMemberType type) {
@@ -99,21 +100,41 @@ public abstract class BusMember {
     }
 
     /**
-     * Set a human-readable name for this bus member.
+     * Set a human-readable label for this bus member.
      * 
-     * @param name
-     *            the new name.
+     * @param label
+     *            the new label.
      */
-    protected void setName(String name) {
-	this.name = name;
+    protected void setLabel(String label) {
+	this.label = label;
     }
 
     /**
-     * Get the human-readable name for this bus member.
+     * Get the human-readable label for this bus member.
      * 
-     * @return the name.
+     * @return the label.
      */
-    public String getName() {
-	return name;
+    public String getLabel() {
+	return label;
+    }
+
+    /**
+     * Set a human-readable comment for this bus member.
+     * 
+     * @param comment
+     *            the new comment.
+     */
+
+    protected void setComment(String comment) {
+	this.comment = comment;
+    }
+
+    /**
+     * Get the human-readable comment for this bus member.
+     * 
+     * @return the comment.
+     */
+    public String getComment() {
+	return comment;
     }
 }
