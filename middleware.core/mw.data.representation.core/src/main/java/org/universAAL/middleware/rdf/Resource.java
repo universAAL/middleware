@@ -126,7 +126,7 @@ public class Resource {
      * URI of this resource, or URIref (URI plus fragment identifier, separated
      * by the symbol '#').
      */
-    protected final String uri;
+    protected String uri;
 
     /**
      * For a given URIref, 'ns_delim_index' is the index of the delimiter (the
@@ -753,6 +753,14 @@ public class Resource {
     public String getURI() {
 	return uri;
     }
+    
+	/**
+	 * Set a new URI. This is added as a mod in the branch to allow modification
+	 * of URI of existing Resource objects, which helps in multi-tenancy
+	 */
+	public void changeURI(String newuri) {
+		uri = newuri;
+	}
 
     /** Get the hash code for this Resource, calculated from the URI. */
     public int hashCode() {
