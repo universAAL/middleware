@@ -61,24 +61,24 @@ public class ManifestTestCase extends BusTestCase {
 
     private ResourceComparator rc = new ResourceComparator();
 
-    private class Element<T extends Resource> {
-	String title = null;
-	String description = null;
-	T el = null;
+    public class Element<T extends Resource> {
+	public String title = null;
+	public String description = null;
+	public T el = null;
 
-	Element(String title, String description, T el) {
+	public Element(String title, String description, T el) {
 	    this.title = title;
 	    this.description = description;
 	    this.el = el;
 	}
     };
 
-    LinkedList<Element<ServiceRequest>> serviceRequests = new LinkedList<Element<ServiceRequest>>();
-    LinkedList<Element<ServiceProfile>> serviceProfiles = new LinkedList<Element<ServiceProfile>>();
-    LinkedList<Element<ContextEventPattern>> contextEventPatternsPublish = new LinkedList<Element<ContextEventPattern>>();
-    LinkedList<Element<ContextEventPattern>> contextEventPatternsSubscribe = new LinkedList<Element<ContextEventPattern>>();
-    LinkedList<Element<UIHandlerProfile>> uiHandler = new LinkedList<Element<UIHandlerProfile>>();
-    LinkedList<Element<UIRequest>> uiRequests = new LinkedList<Element<UIRequest>>();
+    public LinkedList<Element<ServiceRequest>> serviceRequests = new LinkedList<Element<ServiceRequest>>();
+    public LinkedList<Element<ServiceProfile>> serviceProfiles = new LinkedList<Element<ServiceProfile>>();
+    public LinkedList<Element<ContextEventPattern>> contextEventPatternsPublish = new LinkedList<Element<ContextEventPattern>>();
+    public LinkedList<Element<ContextEventPattern>> contextEventPatternsSubscribe = new LinkedList<Element<ContextEventPattern>>();
+    public LinkedList<Element<UIHandlerProfile>> uiHandler = new LinkedList<Element<UIHandlerProfile>>();
+    public LinkedList<Element<UIRequest>> uiRequests = new LinkedList<Element<UIRequest>>();
 
     protected void writeManifest() {
 	PrintWriter writer;
