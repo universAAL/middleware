@@ -25,6 +25,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.SharedResources;
+import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.OntClassInfo;
 import org.universAAL.middleware.owl.Ontology;
@@ -112,9 +115,38 @@ public class RDFClassInfo extends FinalizedResource {
 	    if (locked)
 		return;
 
-	    if (instance != null && !instance.isAnon())
-		if (!instances.containsKey(instance.getURI()))
-		    instances.put(instance.getURI(), instance);
+	    if (instance == null) {
+		LogUtils.logDebug(SharedResources.moduleContext,
+			PrivateRDFSetup.class, "addInstance",
+			new Object[] { "Called with null." }, null);
+		return;
+	    }
+
+	    if (instance.isAnon()) {
+		if (instance instanceof ManagedIndividual) {
+		    ManagedIndividual m = (ManagedIndividual) instance;
+		    LogUtils.logError(
+			    SharedResources.moduleContext,
+			    PrivateRDFSetup.class,
+			    "addInstance",
+			    new Object[] {
+				    "A resource instance in an ontology has an anonymous URI; this does not make sense. Type of instance: ",
+				    instance.getClass().getName(), ". URI: ",
+				    m.getClassURI() }, null);
+		} else {
+		    LogUtils.logError(
+			    SharedResources.moduleContext,
+			    PrivateRDFSetup.class,
+			    "addInstance",
+			    new Object[] {
+				    "A resource instance in an ontology has an anonymous URI; this does not make sense. Type of instance: ",
+				    instance.getClass().getName() }, null);
+		}
+		return;
+	    }
+
+	    if (!instances.containsKey(instance.getURI()))
+		instances.put(instance.getURI(), instance);
 	}
 
 	/** @see RDFClassInfoSetup#addSuperClass(TypeExpression) */
