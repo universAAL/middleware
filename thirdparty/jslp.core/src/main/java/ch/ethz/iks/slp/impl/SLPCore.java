@@ -829,7 +829,12 @@ public abstract class SLPCore {
 		// create a socket bound to the next ip address
 		final InetAddress addr = InetAddress.getByName(myIPs[i]);
 		final MulticastSocket socket = new MulticastSocket();
-		socket.setInterface(addr);
+		try {
+		    socket.setInterface(addr);
+		} catch (SocketException e) {
+		    platform.logDebug("Exception while trying to set the multicast interface: " + addr, e);
+		    continue;
+		}
 		socket.setTimeToLive(CONFIG.getMcastTTL());
 
 		setupReceiverThread(socket, CONFIG.getMcastMaxWait(), msg);
