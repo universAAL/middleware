@@ -69,19 +69,11 @@
     <module>../middleware.config/mw.pom.config</module>
   </modules>
   <scm>
-    <connection>${svn.base}/pom</connection>
-    <developerConnection>${svn.base}/pom</developerConnection>
-    <url>${svn.base.url}pom</url>
+    <connection>scm:git:https://github.com/universAAL/middleware.git</connection>
+	<developerConnection>scm:git:git@github.com:universAAL/middleware.git</developerConnection>
   </scm>
-  <distributionManagement>
-    <site>
-      <id>depot.universaal.org</id>
-      <url>${uaal.site.url}middleware/mw.pom</url>
-    </site>
-  </distributionManagement>
   <properties>
     <remoteOBR></remoteOBR>
-    <gforge.project.name>middleware</gforge.project.name>
     <targetJdk>1.5</targetJdk>
     <compileSource>1.5</compileSource>
     <maven.compile.source>1.5</maven.compile.source>
