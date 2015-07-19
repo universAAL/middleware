@@ -1055,6 +1055,17 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 				+ peer.getPeerID().toString()
 				+ " requests to join to the AAL Space: " },
 			null);
+		
+		if (peers.containsKey(peer.getPeerID())) {
+		    LogUtils.logError(
+			    context,
+			    AALSpaceManagerImpl.class,
+			    "joinRequest",
+			    new Object[] { "A peer with this ID is already available in the space. Ignoring request" },
+			    null);
+		    return;
+		}
+
 		if (!managedAALspaces.containsKey(spaceCard.getSpaceID())) {
 		    LogUtils.logWarn(
 			    context,
@@ -1065,7 +1076,6 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 					    .getSpaceID()
 				    + " while received: "
 				    + spaceCard.getSpaceID() }, null);
-
 		} else {
 		    // send unicast message to the peer with the space
 		    // descriptor
@@ -1088,7 +1098,6 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 			    "joinRequest",
 			    new Object[] { "Announcing the new peer..." }, null);
 		}
-
 	    } else
 		LogUtils.logDebug(context, AALSpaceManagerImpl.class,
 			"joinRequest",
@@ -1097,7 +1106,6 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	    LogUtils.logWarn(context, AALSpaceManagerImpl.class, "joinRequest",
 		    new Object[] { "AALSpace Manager not initialized" }, null);
 	}
-
     }
 
     public synchronized void newAALSpacesFound(Set<AALSpaceCard> spaceCards) {
