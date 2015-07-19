@@ -214,7 +214,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 
     private void loadPeerCard() {
 	final String METHOD = "loadPeerCard";
-	final String uuid = UUID.randomUUID().toString();
+	// try to load peer ID
 	String peerId = System
 		.getProperty(org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ID);
 	if (peerId == null) {
@@ -224,28 +224,21 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    METHOD,
 		    new Object[] { "No PeerID specified as System Properties " },
 		    null);
+	    try {
+		Properties props = new Properties();
+		props.load(home.getConfFileAsStream(PEER_ID_FILE));
+		peerId = props.getProperty("default");
+	    } catch (Exception e) {
+		LogUtils.logInfo(
+			context,
+			AALSpaceManagerImpl.class,
+			METHOD,
+			new Object[] { "Failed to loead peerId from file: ",
+				PEER_ID_FILE, " in folder ",
+				home.getAbsolutePath() }, e);
+	    }
 	}
-	if (peerId == null) {
-	    LogUtils.logDebug(
-		    context,
-		    AALSpaceManagerImpl.class,
-		    METHOD,
-		    new Object[] { "No PeerID specified as System Properties " },
-		    null);
-	}
-	try {
-	    Properties props = new Properties();
-	    props.load(home.getConfFileAsStream(PEER_ID_FILE));
-	    peerId = props.getProperty("default");
-	} catch (Exception e) {
-	    LogUtils.logInfo(
-		    context,
-		    AALSpaceManagerImpl.class,
-		    METHOD,
-		    new Object[] { "Failed to loead peerId from file: ",
-			    PEER_ID_FILE, " in folder ", home.getAbsolutePath() },
-		    e);
-	}
+	// create PeerCard
 	synchronized (this) {
 	    if (peerId == null) {
 		LogUtils.logDebug(context, AALSpaceManagerImpl.class, METHOD,
@@ -262,6 +255,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		myPeerCard = new PeerCard(peerId, peerRole);
 	    }
 	}
+	// save peer ID
 	try {
 	    Properties props = new Properties();
 	    props.setProperty("default", myPeerCard.getPeerID());
