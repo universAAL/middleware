@@ -528,6 +528,6 @@ class SLPConfiguration {
 
     public int getTCPTimeout() {
 	// TODO wire this to the properties if necessary
-	return 1000; // 5sec
+	return 5000; // 5sec
     }
 }
