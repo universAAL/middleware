@@ -64,13 +64,13 @@ public class SLPBrowser implements Runnable {
     public void addListener(ServiceListener listener) {
 	this.listeners.add(listener);
 
-	LogUtils.logDebug(context, SLPBrowser.class, "SLPBrowser",
+	LogUtils.logDebug(context, SLPBrowser.class, "addListener",
 		new Object[] { "New listener added!" }, null);
     }
 
     public void removeListener(ServiceListener listener) {
 	this.listeners.remove(listener);
-	LogUtils.logDebug(context, SLPBrowser.class, "SLPBrowser",
+	LogUtils.logDebug(context, SLPBrowser.class, "removeListener",
 		new Object[] { "Listener removed!" }, null);
     }
 
@@ -103,7 +103,7 @@ public class SLPBrowser implements Runnable {
 			LogUtils.logTrace(
 				context,
 				SLPBrowser.class,
-				"SLPBrowser",
+				"run",
 				new Object[] { "Unmarshalling AALSpace attributes..." },
 				null);
 			AALSpaceCard spaceCard = new AALSpaceCard(
@@ -118,7 +118,7 @@ public class SLPBrowser implements Runnable {
 			    LogUtils.logTrace(
 				    context,
 				    SLPBrowser.class,
-				    "SLPBrowser",
+				    "run",
 				    new Object[] { "AALSpace attributes unmarshalled" },
 				    null);
 			}
@@ -130,7 +130,7 @@ public class SLPBrowser implements Runnable {
 		    LogUtils.logTrace(
 			    context,
 			    SLPBrowser.class,
-			    "SLPBrowser",
+			    "run",
 			    new Object[] { "Calling the AALSpaceModule listeners..." },
 			    null);
 		    listener.newAALSpacesFound(aalSpaces);
@@ -140,7 +140,7 @@ public class SLPBrowser implements Runnable {
 		LogUtils.logError(
 			context,
 			SLPBrowser.class,
-			"SLPBrowser",
+			"run",
 			new Object[] { "Error during AALSpace search: "
 				+ e.toString() }, e);
 	    }

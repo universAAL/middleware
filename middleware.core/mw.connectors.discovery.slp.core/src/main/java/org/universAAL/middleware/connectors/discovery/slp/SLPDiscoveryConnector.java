@@ -87,21 +87,18 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
     public synchronized boolean init() {
 	if (!initalized) {
 
-	    LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+	    LogUtils.logDebug(context, SLPDiscoveryConnector.class, "init",
 		    new Object[] { "Initializing SLP Connector..." }, null);
 
 	    if (slpBrowser == null && browser) {
-		LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+		LogUtils.logDebug(context, SLPDiscoveryConnector.class, "init",
 			new Object[] { "Initializing SLP Browser..." }, null);
 		slpBrowser = new SLPBrowser(getSLPLocator(),
 			aalSpaceServiceType, Consts.SEARCH_ALL, context,
 			listeners);
 		scheduler.scheduleAtFixedRate(slpBrowser, initDelay, delay,
 			TimeUnit.SECONDS);
-		LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+		LogUtils.logDebug(context, SLPDiscoveryConnector.class, "init",
 			new Object[] { "SLP Browser initialized!." }, null);
 	    } else if (slpBrowser != null && slpBrowser.isStop()) {
 		slpBrowser.setStop(false);
@@ -109,8 +106,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 			TimeUnit.SECONDS);
 	    }
 
-	    LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+	    LogUtils.logDebug(context, SLPDiscoveryConnector.class, "init",
 		    new Object[] { "SLP Connector initialized" }, null);
 
 	    initalized = true;
@@ -124,21 +120,21 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 		return this.advertiser;
 	    }
 	    LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "getSLPAdvertiser",
 		    new Object[] { "Fetching the SLP Advertiser..." }, null);
 	    Object[] advertisers = context.getContainer().fetchSharedObject(
 		    context, new Object[] { "ch.ethz.iks.slp.Advertiser" },
 		    this);
 	    if (advertisers != null) {
 		LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+			"getSLPAdvertiser",
 			new Object[] { "SLP Advertiser found" }, null);
 		if (advertisers[0] instanceof Advertiser)
 		    this.advertiser = (Advertiser) advertisers[0];
 		return advertiser;
 	    }
 	    LogUtils.logWarn(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "getSLPAdvertiser",
 		    new Object[] { "SLP Locator and Advertiser not found!" },
 		    null);
 	    return null;
@@ -151,21 +147,21 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 		return locator;
 	    }
 	    LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "getSLPLocator",
 		    new Object[] { "Fetching the SLP Locator..." }, null);
 	    Object[] locators = context.getContainer().fetchSharedObject(
 		    context, new Object[] { "ch.ethz.iks.slp.Locator" }, this);
 	    if (locators != null) {
 		LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
-			new Object[] { "SLP Locator found" }, null);
+			"getSLPLocator", new Object[] { "SLP Locator found" },
+			null);
 		if (locators[0] instanceof Locator)
 		    this.locator = (Locator) locators[0];
 		return locator;
 	    }
 	    LogUtils.logWarn(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
-		    new Object[] { "SLP Locator not found!" }, null);
+		    "getSLPLocator", new Object[] { "SLP Locator not found!" },
+		    null);
 	    return null;
 	}
     }
@@ -197,7 +193,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
     public void announceAALSpace(AALSpaceCard card)
 	    throws DiscoveryConnectorException {
 	LogUtils.logTrace(context, SLPDiscoveryConnector.class,
-		"SLPDiscoveryConnector",
+		"announceAALSpace",
 		new Object[] { "Announcing the AALSpace..." }, null);
 	if (init()) {
 	    try {
@@ -207,13 +203,13 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 				card.getAalSpaceLifeTime()),
 			card.serializeCard());
 		LogUtils.logTrace(context, SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+			"announceAALSpace",
 			new Object[] { "AALSpace announced" }, null);
 	    } catch (ServiceLocationException e) {
 		LogUtils.logError(
 			context,
 			SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+			"announceAALSpace",
 			new Object[] { "Error during AALSpace announce for space: "
 				+ card.serializeCard().toString()
 				+ " -->"
@@ -226,7 +222,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 	    LogUtils.logWarn(
 		    context,
 		    SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "announceAALSpace",
 		    new Object[] { "SLPDiscoveryConnector is not initialized!" },
 		    null);
 	}
@@ -237,7 +233,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 	LogUtils.logDebug(
 		context,
 		SLPDiscoveryConnector.class,
-		"SLPDiscoveryConnector",
+		"deregisterAALSpace",
 		new Object[] { "De-Registering the AALSpace: "
 			+ spaceCard.toString() + "..." }, null);
 	if (init()) {
@@ -247,13 +243,13 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 				+ spaceCard.getCoordinatorID(), spaceCard
 				.getAalSpaceLifeTime()));
 		LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+			"deregisterAALSpace",
 			new Object[] { "AALSpace de-registered" }, null);
 	    } catch (ServiceLocationException e) {
 		LogUtils.logError(
 			context,
 			SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+			"deregisterAALSpace",
 			new Object[] { "Error during AALSpace de-registering for space: "
 				+ spaceCard.toString() + " -->" + e.toString() },
 			null);
@@ -265,7 +261,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 	    LogUtils.logWarn(
 		    context,
 		    SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "deregisterAALSpace",
 		    new Object[] { "SLPDiscoveryConnector is not initialized!" },
 		    null);
 	}
@@ -304,7 +300,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 			LogUtils.logDebug(
 				context,
 				SLPDiscoveryConnector.class,
-				"SLPDiscoveryConnector",
+				"findAALSpace",
 				new Object[] { "Unmarshalling AALSpace attributes..." },
 				null);
 			AALSpaceCard card = new AALSpaceCard(
@@ -316,7 +312,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 			    LogUtils.logDebug(
 				    context,
 				    SLPDiscoveryConnector.class,
-				    "SLPDiscoveryConnector",
+				    "findAALSpace",
 				    new Object[] { "Not a valid AALSpaceCard" },
 				    null);
 			} else {
@@ -324,7 +320,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 			    LogUtils.logDebug(
 				    context,
 				    SLPDiscoveryConnector.class,
-				    "SLPDiscoveryConnector",
+				    "findAALSpace",
 				    new Object[] { "AALSpace attributes unmarshalled" },
 				    null);
 			}
@@ -332,14 +328,14 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 		}
 	    } catch (IllegalArgumentException e) {
 		LogUtils.logError(context, SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+			"findAALSpace",
 			new Object[] { "Error during AAL Space search: "
 				+ filter + " -->" + e.toString() }, null);
 		throw new DiscoveryConnectorException(
 			DiscoveryConnectorErrorCodes.SEARCH_ERROR, e.toString());
 	    } catch (ServiceLocationException e) {
 		LogUtils.logError(context, SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+			"findAALSpace",
 			new Object[] { "Error during AAL Space search: "
 				+ filter + " -->" + e.toString() }, null);
 		throw new DiscoveryConnectorException(
@@ -351,7 +347,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 	    LogUtils.logWarn(
 		    context,
 		    SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "findAALSpace",
 		    new Object[] { "SLPDiscoveryConnector is not initialized!" },
 		    null);
 	}
@@ -364,14 +360,13 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 	    LogUtils.logWarn(
 		    context,
 		    SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "formatFilter",
 		    new Object[] { "The set of filters is empty, returning the default one" },
 		    null);
 	    filter = "(" + Consts.SEARCH_ALL + ")";
 	    return filter;
 	}
-	LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		"SLPDiscoveryConnector",
+	LogUtils.logDebug(context, SLPDiscoveryConnector.class, "formatFilter",
 		new Object[] { "Building the SLP filter..." }, null);
 	Enumeration<String> keys = filters.keys();
 
@@ -382,9 +377,8 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 	if (filters.size() > 1) {
 	    filter = "(&" + filter + ")";
 	}
-	LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		"SLPDiscoveryConnector", new Object[] { "The SLP filter is : "
-			+ filter }, null);
+	LogUtils.logDebug(context, SLPDiscoveryConnector.class, "formatFilter",
+		new Object[] { "The SLP filter is : " + filter }, null);
 	return filter;
     }
 
@@ -425,11 +419,11 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 
     public void loadConfigurations(Dictionary properties) {
 	LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		"SLPDiscoveryConnector",
+		"loadConfigurations",
 		new Object[] { "updating SLP Connector properties" }, null);
 	if (properties == null) {
 	    LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "loadConfigurations",
 		    new Object[] { "SLP Connector properties are null" }, null);
 	    return;
 	}
@@ -453,19 +447,19 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 		    .get(Consts.BROWSE_SLP_NETWORK));
 	} catch (NumberFormatException e) {
 	    LogUtils.logError(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "loadConfigurations",
 		    new Object[] { "Error during SLP properties update" }, null);
 	} catch (NullPointerException e) {
 	    LogUtils.logError(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "loadConfigurations",
 		    new Object[] { "Error during SLP properties update" }, null);
 	} catch (Exception e) {
 	    LogUtils.logError(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "loadConfigurations",
 		    new Object[] { "Error during SLP properties update" }, null);
 	}
 	LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		"SLPDiscoveryConnector",
+		"loadConfigurations",
 		new Object[] { "SLP Connector properties updated" }, null);
     }
 
@@ -507,7 +501,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 		slpBrowser.addListener(listener);
 
 	    LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "addAALSpaceListener",
 		    new Object[] { "New AALSpaceListener" }, null);
 	}
 
@@ -519,7 +513,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 	    if (slpBrowser != null)
 		slpBrowser.removeListener(listener);
 	    LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-		    "SLPDiscoveryConnector",
+		    "removeAALSpaceListener",
 		    new Object[] { "AALSpaceListener removed" }, null);
 	}
     }
@@ -529,13 +523,13 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 
 	    if (sharedObj instanceof Locator) {
 		LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+			"sharedObjectAdded",
 			new Object[] { "New SLP Locator Service added" }, null);
 		this.locator = (Locator) sharedObj;
 	    }
 	    if (sharedObj instanceof Advertiser) {
 		LogUtils.logDebug(context, SLPDiscoveryConnector.class,
-			"SLPDiscoveryConnector",
+			"sharedObjectAdded",
 			new Object[] { "New SLP Advertiser Service added" },
 			null);
 		this.advertiser = (Advertiser) sharedObj;
@@ -556,5 +550,4 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 	    }
 	}
     }
-
 }
