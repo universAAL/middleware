@@ -167,165 +167,18 @@ public class ControlBroker implements SharedObjectListener, Broker,
 
     public boolean init() {
 	if (!initialized) {
-
-	    /*
-	     * TODO: why not use the getAALSpaceModule() and the rest of
-	     * methods? something like: if (getAALSpaceModule() == null ||
-	     * getAALSpaceEventHandler() == null || getAALSpaceManager() == null
-	     * || getCommunicationModule() == null ||
-	     * getConfigurationManagerConnector == null){ initialized = false;
-	     * return initialized; } getDeployManager(); getDeployConnector();
-	     */
-
-	    LogUtils.logDebug(context, ControlBroker.class, "init",
-		    new Object[] { "Fetching the AALSpaceModule..." }, null);
-	    Object[] refs = context.getContainer().fetchSharedObject(context,
-		    new Object[] { AALSpaceModule.class.getName().toString() },
-		    this);
-	    if (refs != null) {
-
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "AALSpaceModule found!" }, null);
-		aalSpaceModule = (AALSpaceModule) refs[0];
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "AALSpaceModule fetched" }, null);
-	    } else {
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "No AALSpaceModule found" }, null);
-		initialized = false;
-		return initialized;
+	    if (getAALSpaceModule() == null
+		    || getAALSpaceEventHandler() == null
+		    || getAALSpaceManager() == null
+		    || getCommunicationModule() == null
+		    || getConfiguratorManagerConnector() == null
+		    || getDeployManager() == null
+		    || getDeployConnector() == null) {
+		return initialized = false;
 	    }
-
-	    LogUtils.logDebug(context, ControlBroker.class, "init",
-		    new Object[] { "Fetching the AALSpaceEventHandler..." },
-		    null);
-	    refs = context.getContainer().fetchSharedObject(
-		    context,
-		    new Object[] { AALSpaceEventHandler.class.getName()
-			    .toString() }, this);
-	    if (refs != null) {
-
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "AALSpaceEventHandler found!" }, null);
-		aalSpaceEventHandler = (AALSpaceEventHandler) refs[0];
-
-	    } else {
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "No AALSpaceEventHandler" }, null);
-		initialized = false;
-		return initialized;
-	    }
-
-	    LogUtils.logDebug(context, ControlBroker.class, "init",
-		    new Object[] { "Fetching the AALSpaceManager..." }, null);
-	    refs = context.getContainer()
-		    .fetchSharedObject(
-			    context,
-			    new Object[] { AALSpaceManager.class.getName()
-				    .toString() }, this);
-	    if (refs != null) {
-
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "AALSpaceManager found!" }, null);
-		aalSpaceManager = (AALSpaceManager) refs[0];
-
-	    } else {
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "No AALSpaceManager" }, null);
-		initialized = false;
-		return initialized;
-	    }
-
-	    LogUtils.logDebug(context, ControlBroker.class, "init",
-		    new Object[] { "Fetching the CommunicationModule..." },
-		    null);
-	    refs = context.getContainer().fetchSharedObject(
-		    context,
-		    new Object[] { CommunicationModule.class.getName()
-			    .toString() }, this);
-	    if (refs != null
-		    && refs[0] instanceof ConfigurableCommunicationModule) {
-		communicationModule = (ConfigurableCommunicationModule) refs[0];
-		communicationModule.addMessageListener(this, getBrokerName());
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "CommunicationModule fetched" }, null);
-	    } else {
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "No CommunicationModule found" }, null);
-		initialized = false;
-		return initialized;
-	    }
-
-	    LogUtils.logDebug(
-		    context,
-		    ControlBroker.class,
-		    "init",
-		    new Object[] { "Fetching the ConfigurationManagerConnector..." },
-		    null);
-	    refs = context.getContainer().fetchSharedObject(
-		    context,
-		    new Object[] { ConfigurationManagerConnector.class
-			    .getName().toString() }, this);
-	    if (refs != null
-		    && refs[0] instanceof ConfigurationManagerConnector) {
-		configConnector = (ConfigurationManagerConnector) refs[0];
-		LogUtils.logDebug(
-			context,
-			ControlBroker.class,
-			"init",
-			new Object[] { "ConfigurationManagerConnector fetched" },
-			null);
-	    } else {
-		LogUtils.logDebug(
-			context,
-			ControlBroker.class,
-			"init",
-			new Object[] { "No ConfigurationManagerConnector found" },
-			null);
-		initialized = false;
-		return initialized;
-	    }
-
-	    LogUtils.logDebug(context, ControlBroker.class, "init",
-		    new Object[] { "Fetching the DeployManager..." }, null);
-	    refs = context.getContainer().fetchSharedObject(context,
-		    new Object[] { DeployManager.class.getName().toString() },
-		    this);
-	    if (refs != null) {
-
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "DeployManager found!" }, null);
-		deployManager = (DeployManager) refs[0];
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "DeployManager fetched" }, null);
-	    } else {
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "No DeployManager found" }, null);
-	    }
-
-	    LogUtils.logDebug(context, ControlBroker.class, "init",
-		    new Object[] { "Fetching the DeployConnector..." }, null);
-	    refs = context.getContainer()
-		    .fetchSharedObject(
-			    context,
-			    new Object[] { DeployConnector.class.getName()
-				    .toString() }, this);
-	    if (refs != null) {
-
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "DeployConnector found!" }, null);
-		deployConnector = (DeployConnector) refs[0];
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "DeployConnector fetched" }, null);
-	    } else {
-		LogUtils.logDebug(context, ControlBroker.class, "init",
-			new Object[] { "No DeployConnector found" }, null);
-	    }
-
+	    communicationModule.addMessageListener(this, getBrokerName());
 	}
-	initialized = true;
-	return initialized;
-
+	return initialized = true;
     }
 
     public List<AALSpaceCard> discoverAALSpace(
@@ -398,9 +251,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    configConnector = (ConfigurationManagerConnector) arg0;
 	}
 	if (arg0 != null && arg0 instanceof DistributedMWEventHandler) {
-	    LogUtils.logDebug(
-		    context,
-		    ControlBroker.class,
+	    LogUtils.logDebug(context, ControlBroker.class,
 		    "sharedObjectAdded",
 		    new Object[] { "DistributedMWEventHandler registered..." },
 		    null);
@@ -456,7 +307,8 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	} else if (arg0 instanceof DistributedMWEventHandler) {
 	    LogUtils.logInfo(context, ControlBroker.class,
 		    "sharedObjectRemoved",
-		    new Object[] { "DistributedMWEventHandler unregistered!" }, null);
+		    new Object[] { "DistributedMWEventHandler unregistered!" },
+		    null);
 	    distributedMWEventHandler = null;
 	    initialized = false;
 	}
@@ -873,11 +725,13 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	} else if (cm instanceof ConfigurationMessage) {
 	    handleConfigurationMessage((ConfigurationMessage) cm);
 	} else if (cm instanceof DistributedMWMessage) {
-	    handleDistributedMWMessage(message.getSender(), (DistributedMWMessage) cm);
+	    handleDistributedMWMessage(message.getSender(),
+		    (DistributedMWMessage) cm);
 	}
     }
 
-    private void handleDistributedMWMessage(PeerCard sender, DistributedMWMessage msg) {
+    private void handleDistributedMWMessage(PeerCard sender,
+	    DistributedMWMessage msg) {
 	if (getDistributedMWEventHandler() == null) {
 	    LogUtils.logError(context, ControlBroker.class,
 		    "handleDistributedMWMessage",
@@ -1285,7 +1139,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    communicationModule.sendAll(chMsg, receivers);
 	}
     }
-    
+
     /**
      * Send a message.
      */
@@ -1302,4 +1156,4 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    communicationModule.sendAll(chMsg, receivers);
 	}
     }
- }
+}
