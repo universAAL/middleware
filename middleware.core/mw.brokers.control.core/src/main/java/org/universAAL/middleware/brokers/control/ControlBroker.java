@@ -110,143 +110,59 @@ public class ControlBroker implements SharedObjectListener, Broker,
     }
 
     private CommunicationModule getCommunicationModule() {
-	LogUtils.logDebug(context, ControlBroker.class,
-		"getCommunicationModule",
-		new Object[] { "Fetching the CommunicationModule..." }, null);
-	Object[] refs = context.getContainer()
-		.fetchSharedObject(
-			context,
-			new Object[] { CommunicationModule.class.getName()
-				.toString() }, this);
-	if (refs != null && refs[0] instanceof ConfigurableCommunicationModule) {
-	    communicationModule = (ConfigurableCommunicationModule) refs[0];
-	    LogUtils.logDebug(context, ControlBroker.class,
-		    "getCommunicationModule",
-		    new Object[] { "CommunicationModule fetched" }, null);
-	} else {
-	    LogUtils.logWarn(context, ControlBroker.class,
-		    "getCommunicationModule",
-		    new Object[] { "No CommunicationModule found" }, null);
-	}
-	return communicationModule;
+	return communicationModule = (ConfigurableCommunicationModule) getSharedObject(
+		ConfigurableCommunicationModule.class,
+		new Object[] { CommunicationModule.class.getName() });
     }
 
     private AALSpaceEventHandler getAALSpaceEventHandler() {
-	LogUtils.logTrace(context, ControlBroker.class,
-		"getAALSpaceEventHandler",
-		new Object[] { "Fetching the AALSpaceEventHandler..." }, null);
-	Object[] refs = context.getContainer()
-		.fetchSharedObject(
-			context,
-			new Object[] { AALSpaceEventHandler.class.getName()
-				.toString() }, this);
-	if (refs != null) {
-	    LogUtils.logTrace(context, ControlBroker.class,
-		    "getAALSpaceEventHandler",
-		    new Object[] { "AALSpaceEventHandler found!" }, null);
-	    aalSpaceEventHandler = (AALSpaceEventHandler) refs[0];
-
-	} else {
-	    LogUtils.logDebug(context, ControlBroker.class,
-		    "getAALSpaceEventHandler",
-		    new Object[] { "No AALSpaceEventHandler found" }, null);
-	    return null;
-	}
-	return aalSpaceEventHandler;
+	return aalSpaceEventHandler = (AALSpaceEventHandler) getSharedObject(
+		AALSpaceEventHandler.class,
+		new Object[] { AALSpaceEventHandler.class.getName() });
     }
 
     private AALSpaceManager getAALSpaceManager() {
-	LogUtils.logDebug(context, ControlBroker.class, "getAALSpaceManager",
-		new Object[] { "Fetching the AALSpaceManager..." }, null);
-	Object[] refs = context.getContainer().fetchSharedObject(context,
-		new Object[] { AALSpaceManager.class.getName().toString() },
-		this);
-	if (refs != null) {
-	    LogUtils.logDebug(context, ControlBroker.class,
-		    "getAALSpaceManager",
-		    new Object[] { "AALSpaceManager found!" }, null);
-	    aalSpaceManager = (AALSpaceManager) refs[0];
-
-	} else {
-	    LogUtils.logDebug(context, ControlBroker.class,
-		    "getAALSpaceManager",
-		    new Object[] { "No AALSpaceManager found" }, null);
-	}
-	return aalSpaceManager;
+	return aalSpaceManager = (AALSpaceManager) getSharedObject(
+		AALSpaceManager.class,
+		new Object[] { AALSpaceManager.class.getName() });
     }
 
     private AALSpaceModule getAALSpaceModule() {
-	LogUtils.logDebug(context, ControlBroker.class, "getAALSpaceModule",
-		new Object[] { "Fetching the AALSpaceModule..." }, null);
-	Object[] refs = context.getContainer().fetchSharedObject(context,
-		new Object[] { AALSpaceModule.class.getName().toString() },
-		this);
-	if (refs != null) {
-
-	    LogUtils.logDebug(context, ControlBroker.class,
-		    "getAALSpaceModule",
-		    new Object[] { "AALSpaceModule found!" }, null);
-	    aalSpaceModule = (AALSpaceModule) refs[0];
-
-	} else {
-	    LogUtils.logWarn(context, ControlBroker.class, "getAALSpaceModule",
-		    new Object[] { "No AALSpaceModule found" }, null);
-	}
-	return aalSpaceModule;
-
+	return aalSpaceModule = (AALSpaceModule) getSharedObject(
+		AALSpaceModule.class,
+		new Object[] { AALSpaceModule.class.getName() });
     }
 
     private ConfigurationManagerConnector getConfiguratorManagerConnector() {
-	LogUtils.logDebug(
-		context,
-		ControlBroker.class,
-		"getConfiguratorManagerConnector",
-		new Object[] { "Fetching the ConfigurationManagerConnector..." },
-		null);
-	Object[] refs = context.getContainer().fetchSharedObject(
-		context,
-		new Object[] { ConfigurationManagerConnector.class.getName()
-			.toString() }, this);
-	if (refs != null) {
-
-	    LogUtils.logDebug(context, ControlBroker.class,
-		    "getConfiguratorManagerConnector",
-		    new Object[] { "ConfigurationManagerConnector found!" },
-		    null);
-	    configConnector = (ConfigurationManagerConnector) refs[0];
-
-	} else {
-	    LogUtils.logWarn(context, ControlBroker.class,
-		    "getConfiguratorManagerConnector",
-		    new Object[] { "No ConfigurationManagerConnector found" },
-		    null);
-	}
-	return configConnector;
-
+	return configConnector = (ConfigurationManagerConnector) getSharedObject(
+		ConfigurationManagerConnector.class,
+		new Object[] { ConfigurationManagerConnector.class.getName() });
     }
 
     private DistributedMWEventHandler getDistributedMWEventHandler() {
-	LogUtils.logTrace(context, ControlBroker.class,
-		"DistributedMWEventHandler",
-		new Object[] { "Fetching the DistributedMWEventHandler..." }, null);
-	Object[] refs = context.getContainer()
-		.fetchSharedObject(
-			context,
-			new Object[] { DistributedMWEventHandler.class.getName()
-				.toString() }, this);
-	if (refs != null) {
-	    LogUtils.logTrace(context, ControlBroker.class,
-		    "DistributedMWEventHandler",
-		    new Object[] { "DistributedMWEventHandler found!" }, null);
-	    distributedMWEventHandler = (DistributedMWEventHandler) refs[0];
+	return distributedMWEventHandler = (DistributedMWEventHandler) getSharedObject(
+		DistributedMWEventHandler.class,
+		new Object[] { DistributedMWEventHandler.class.getName() });
+    }
 
+    private Object getSharedObject(Class<?> cls, Object[] params) {
+	return getSharedObject(cls.getSimpleName(), params);
+    }
+
+    private Object getSharedObject(String clsName, Object[] params) {
+	LogUtils.logTrace(context, ControlBroker.class, "getSharedObject",
+		new Object[] { "Fetching the " + clsName + "..." }, null);
+	Object[] refs = context.getContainer().fetchSharedObject(context,
+		params, this);
+	if (refs != null) {
+	    LogUtils.logTrace(context, ControlBroker.class, "getSharedObject",
+		    new Object[] { clsName + " found!" }, null);
+	    return refs[0];
 	} else {
-	    LogUtils.logWarn(context, ControlBroker.class,
-		    "getAALSpaceEventHandler",
-		    new Object[] { "No DistributedMWEventHandler found" }, null);
+	    LogUtils.logWarn(context, ControlBroker.class, "getSharedObject",
+		    new Object[] { "No " + clsName + " found" }, null);
 	    return null;
 	}
-	return distributedMWEventHandler;
     }
 
     public boolean init() {
