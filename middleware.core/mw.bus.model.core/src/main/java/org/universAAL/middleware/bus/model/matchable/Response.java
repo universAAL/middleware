@@ -24,5 +24,4 @@ package org.universAAL.middleware.bus.model.matchable;
  * 
  */
 public interface Response {
-    // TODO add matches-methods and parent
 }
