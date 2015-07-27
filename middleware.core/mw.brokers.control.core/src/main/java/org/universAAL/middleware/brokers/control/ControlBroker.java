@@ -133,6 +133,18 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		new Object[] { AALSpaceModule.class.getName() });
     }
 
+    private DeployManager getDeployManager() {
+	return deployManager = (DeployManager) getSharedObject(
+		DeployManager.class,
+		new Object[] { DeployManager.class.getName() });
+    }
+
+    private DeployConnector getDeployConnector() {
+	return deployConnector = (DeployConnector) getSharedObject(
+		DeployConnector.class,
+		new Object[] { DeployConnector.class.getName() });
+    }
+
     private ConfigurationManagerConnector getConfiguratorManagerConnector() {
 	return configConnector = (ConfigurationManagerConnector) getSharedObject(
 		ConfigurationManagerConnector.class,
@@ -925,62 +937,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 
     public void installArtefactLocally(String serializedPart) {
 	// deployConnector.installPart(serializedPart);
-    }
-
-    private DeployManager getDeployManager() {
-	LogUtils.logDebug(context, ControlBroker.class, "getDeployManager",
-		new Object[] { "Fetching the DeployManager..." }, null);
-	if (deployManager == null) {
-	    Object[] refs = context.getContainer().fetchSharedObject(context,
-		    new Object[] { DeployManager.class.getName().toString() },
-		    this);
-	    if (refs != null) {
-		LogUtils.logDebug(context, ControlBroker.class,
-			"getDeployManager",
-			new Object[] { "DeployManager found!" }, null);
-		deployManager = (DeployManager) refs[0];
-		LogUtils.logDebug(context, ControlBroker.class,
-			"getDeployManager",
-			new Object[] { "DeployManager fetched" }, null);
-		return deployManager;
-	    } else {
-		LogUtils.logWarn(context, ControlBroker.class,
-			"getDeployManager",
-			new Object[] { "No DeployManager found" }, null);
-		return null;
-	    }
-	} else
-	    return deployManager;
-
-    }
-
-    private DeployConnector getDeployConnector() {
-	LogUtils.logDebug(context, ControlBroker.class, "getDeployConnector",
-		new Object[] { "Fetching the DeployConnector..." }, null);
-	if (deployConnector == null) {
-	    Object[] refs = context.getContainer()
-		    .fetchSharedObject(
-			    context,
-			    new Object[] { DeployConnector.class.getName()
-				    .toString() }, this);
-	    if (refs != null) {
-		LogUtils.logDebug(context, ControlBroker.class,
-			"getDeployConnector",
-			new Object[] { "DeployConnector found!" }, null);
-		deployConnector = (DeployConnector) refs[0];
-		LogUtils.logDebug(context, ControlBroker.class,
-			"getDeployConnector",
-			new Object[] { "DeployConnector fetched" }, null);
-		return deployConnector;
-	    } else {
-		LogUtils.logWarn(context, ControlBroker.class,
-			"getDeployConnector",
-			new Object[] { "No DeployConnector found" }, null);
-		return null;
-	    }
-	} else
-	    return deployConnector;
-
     }
 
     public List<String> getPeersAddress() {
