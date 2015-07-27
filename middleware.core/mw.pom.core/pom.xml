@@ -41,6 +41,7 @@
     <module>../mw.bus.tracker.core</module>
     <module>../mw.bus.service.aapi.core</module>
     <module>../mw.bus.junit</module>
+    <module>../mw.managers.distributedmw.core</module>
   </modules>
   <properties>
     <nameMatchString>^universAAL Middleware .* \(Core\)$</nameMatchString>
@@ -117,6 +118,11 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.managers.configuration.core</artifactId>
+        <version>3.3.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.managers.distributedmw.core</artifactId>
         <version>3.3.1-SNAPSHOT</version>
       </dependency>
       <dependency>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.universAAL.middleware</groupId>
+    <artifactId>mw.pom.osgi</artifactId>
+    <version>3.3.1-SNAPSHOT</version>
+    <relativePath>../mw.pom.osgi</relativePath>
+  </parent>
+  <artifactId>mw.managers.distributedmw.osgi</artifactId>
+  <version>3.3.1-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <name>universAAL Middleware Manager Distributed MW (OSGi)</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.distributedmw.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.osgi</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Activator>org.universAAL.middleware.managers.distributedmw.osgi.DistributedMWActivator</Bundle-Activator>
+            <Export-Package>org.universAAL.middleware.managers.distributedmw.api</Export-Package>
+            <Private-Package>org.universAAL.middleware.managers.distributedmw.osgi,
+							 org.universAAL.middleware.managers.distributedmw.impl</Private-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

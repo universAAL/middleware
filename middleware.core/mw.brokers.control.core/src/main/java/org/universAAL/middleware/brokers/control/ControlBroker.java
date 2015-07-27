@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +44,7 @@ import org.universAAL.middleware.brokers.message.deploy.DeployMessageException;
 
 import org.universAAL.middleware.brokers.message.deploy.DeployNotificationPayload;
 import org.universAAL.middleware.brokers.message.deploy.DeployPayload;
+import org.universAAL.middleware.brokers.message.distributedmw.DistributedMWMessage;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 
 import org.universAAL.middleware.connectors.DeployConnector;
@@ -66,6 +66,7 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 import org.universAAL.middleware.managers.api.ConfigurationManagerConnector;
 import org.universAAL.middleware.managers.api.DeployManager;
 import org.universAAL.middleware.managers.api.DeployManagerEventHandler;
+import org.universAAL.middleware.managers.api.DistributedMWEventHandler;
 import org.universAAL.middleware.modules.AALSpaceModule;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.modules.ConfigurableCommunicationModule;
@@ -91,6 +92,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
     private DeployManager deployManager;
     private DeployConnector deployConnector;
     private ConfigurationManagerConnector configConnector;
+    private DistributedMWEventHandler distributedMWEventHandler;
     private boolean initialized = false;
     private HashMap<String, WaitForResponse> openTransaction = new HashMap<String, WaitForResponse>();
 
@@ -105,7 +107,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
     public ControlBroker(ModuleContext context) {
 	this.context = context;
 	init();
-
     }
 
     private CommunicationModule getCommunicationModule() {
@@ -222,6 +223,30 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	}
 	return configConnector;
 
+    }
+
+    private DistributedMWEventHandler getDistributedMWEventHandler() {
+	LogUtils.logTrace(context, ControlBroker.class,
+		"DistributedMWEventHandler",
+		new Object[] { "Fetching the DistributedMWEventHandler..." }, null);
+	Object[] refs = context.getContainer()
+		.fetchSharedObject(
+			context,
+			new Object[] { DistributedMWEventHandler.class.getName()
+				.toString() }, this);
+	if (refs != null) {
+	    LogUtils.logTrace(context, ControlBroker.class,
+		    "DistributedMWEventHandler",
+		    new Object[] { "DistributedMWEventHandler found!" }, null);
+	    distributedMWEventHandler = (DistributedMWEventHandler) refs[0];
+
+	} else {
+	    LogUtils.logWarn(context, ControlBroker.class,
+		    "getAALSpaceEventHandler",
+		    new Object[] { "No DistributedMWEventHandler found" }, null);
+	    return null;
+	}
+	return distributedMWEventHandler;
     }
 
     public boolean init() {
@@ -420,7 +445,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    if (communicationModule instanceof ConfigurableCommunicationModule)
 		communicationModule = (ConfigurableCommunicationModule) arg0;
 	    communicationModule.addMessageListener(this, getBrokerName());
-
 	}
 
 	if (arg0 != null && arg0 instanceof AALSpaceManager) {
@@ -428,7 +452,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		    "sharedObjectAdded",
 		    new Object[] { "AALSpaceManager registered..." }, null);
 	    aalSpaceManager = (AALSpaceManager) arg0;
-
 	}
 
 	if (arg0 != null && arg0 instanceof AALSpaceEventHandler) {
@@ -458,9 +481,19 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		    null);
 	    configConnector = (ConfigurationManagerConnector) arg0;
 	}
+	if (arg0 != null && arg0 instanceof DistributedMWEventHandler) {
+	    LogUtils.logDebug(
+		    context,
+		    ControlBroker.class,
+		    "sharedObjectAdded",
+		    new Object[] { "DistributedMWEventHandler registered..." },
+		    null);
+	    distributedMWEventHandler = (DistributedMWEventHandler) arg0;
+	}
     }
 
     public void sharedObjectRemoved(Object arg0) {
+	// TODO: handle ConfigurationManagerConnector?
 	if (arg0 instanceof AALSpaceEventHandler) {
 	    LogUtils.logInfo(context, ControlBroker.class,
 		    "sharedObjectRemoved",
@@ -495,7 +528,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		communicationModule
 			.removeMessageListener(this, getBrokerName());
 	    } catch (Exception e) {
-
 	    }
 	    communicationModule = null;
 	    initialized = false;
@@ -505,8 +537,13 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		    new Object[] { "DeployConnector unregistered!" }, null);
 	    deployConnector = null;
 	    initialized = false;
+	} else if (arg0 instanceof DistributedMWEventHandler) {
+	    LogUtils.logInfo(context, ControlBroker.class,
+		    "sharedObjectRemoved",
+		    new Object[] { "DistributedMWEventHandler unregistered!" }, null);
+	    distributedMWEventHandler = null;
+	    initialized = false;
 	}
-
     }
 
     public void joinRequest(AALSpaceCard spaceCard, PeerCard sender) {
@@ -520,7 +557,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    return;
 	}
 	aalSpaceEventHandler.joinRequest(spaceCard, sender);
-
     }
 
     public void leaveRequest(AALSpaceDescriptor spaceDescriptor) {
@@ -560,7 +596,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    return;
 	}
 	aalSpaceEventHandler.peerLost(sender);
-
     }
 
     public void join(PeerCard spaceCoordinator, AALSpaceCard spaceCard) {
@@ -635,7 +670,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    return;
 	}
 	aalSpaceEventHandler.newAALSpacesFound(spaceCards);
-
     }
 
     /**
@@ -653,7 +687,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	}
 	communicationModule.addMessageListener(this, this.getBrokerName());
 	communicationModule.configureChannels(communicationChannels, peerName);
-
     }
 
     /**
@@ -674,7 +707,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	List<ChannelDescriptor> channel = new ArrayList<ChannelDescriptor>();
 	channel.add(peeringChannel);
 	configureChannels(channel, peerName);
-
     }
 
     public void resetModule(List<ChannelDescriptor> channels) {
@@ -924,7 +956,19 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    handleDeployMessage(message.getSender(), (DeployMessage) cm);
 	} else if (cm instanceof ConfigurationMessage) {
 	    handleConfigurationMessage((ConfigurationMessage) cm);
+	} else if (cm instanceof DistributedMWMessage) {
+	    handleDistributedMWMessage(message.getSender(), (DistributedMWMessage) cm);
 	}
+    }
+
+    private void handleDistributedMWMessage(PeerCard sender, DistributedMWMessage msg) {
+	if (getDistributedMWEventHandler() == null) {
+	    LogUtils.logError(context, ControlBroker.class,
+		    "handleDistributedMWMessage",
+		    "DistributedMWEventHandler not available, unable to handle.");
+	    return;
+	}
+	distributedMWEventHandler.handleMessage(sender, msg);
     }
 
     private void handleControlMessage(PeerCard sender, ControlMessage msg) {
@@ -1083,7 +1127,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 				    sender, payload.getMpaPartStatus());
 		}
 	    }
-
 	    break;
 
 	default:
@@ -1122,7 +1165,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		    new Object[] { DeployManager.class.getName().toString() },
 		    this);
 	    if (refs != null) {
-
 		LogUtils.logDebug(context, ControlBroker.class,
 			"getDeployManager",
 			new Object[] { "DeployManager found!" }, null);
@@ -1152,7 +1194,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 			    new Object[] { DeployConnector.class.getName()
 				    .toString() }, this);
 	    if (refs != null) {
-
 		LogUtils.logDebug(context, ControlBroker.class,
 			"getDeployConnector",
 			new Object[] { "DeployConnector found!" }, null);
@@ -1201,7 +1242,6 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	if (communicationModule == null)
 	    return;
 	communicationModule.removeMessageListener(this, getBrokerName());
-
     }
 
     public void renewAALSpace(AALSpaceCard spaceCard) {
@@ -1329,5 +1369,21 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	    communicationModule.sendAll(chMsg, receivers);
 	}
     }
-
-}
+    
+    /**
+     * Send a message.
+     */
+    public void sendMessage(BrokerMessage msg, List<PeerCard> receivers) {
+	if (getCommunicationModule() == null || receivers.size() == 0)
+	    return;
+	List<String> chName = new ArrayList<String>();
+	chName.add(getBrokerName());
+	ChannelMessage chMsg = new ChannelMessage(getmyPeerCard(),
+		msg.toString(), chName);
+	if (receivers.size() == 1) {
+	    communicationModule.send(chMsg, receivers.get(0));
+	} else {
+	    communicationModule.sendAll(chMsg, receivers);
+	}
+    }
+ }

@@ -4,46 +4,42 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.universAAL.middleware</groupId>
-    <artifactId>mw.pom.osgi</artifactId>
+    <artifactId>mw.pom.core</artifactId>
     <version>3.3.1-SNAPSHOT</version>
-    <relativePath>../</relativePath>
+    <relativePath>../mw.pom.core</relativePath>
   </parent>
-  <artifactId>mw.composite</artifactId>
+  <groupId>org.universAAL.middleware</groupId>
+  <artifactId>mw.managers.distributedmw.core</artifactId>
   <version>3.3.1-SNAPSHOT</version>
-  <name>universAAL Middleware Suite Composite</name>
-  <description>Artifact responsible for generating composite file of universAAL middleware</description>
+  <name>universAAL Middleware Manager Distributed MW (Core)</name>
   <dependencies>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.service.osgi</artifactId>
+      <artifactId>mw.managers.api.core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.context.osgi</artifactId>
+      <artifactId>mw.brokers.control.core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.ui.osgi</artifactId>
+      <artifactId>mw.interfaces.core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.serialization.osgi</artifactId>
+      <artifactId>mw.brokers.api.core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.tracker.osgi</artifactId>
+      <artifactId>mw.schemas</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.managers.deploy.osgi</artifactId>
+      <artifactId>mw.container.xfaces.core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.managers.configuration.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.managers.distributedmw.osgi</artifactId>
+      <artifactId>mw.bus.tracker.core</artifactId>
     </dependency>
   </dependencies>
 </project>
