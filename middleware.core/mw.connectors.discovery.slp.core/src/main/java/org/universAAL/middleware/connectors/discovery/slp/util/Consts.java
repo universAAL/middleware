@@ -34,7 +34,7 @@ public final class Consts {
     public static String SLP_PERIOD_SCAN = "slpPeriodScan";
 
     public static String SEARCH_ALL = "("
-	    + org.universAAL.middleware.interfaces.aalspace.Consts.AALSPaceName
+	    + org.universAAL.middleware.interfaces.aalspace.Consts.AALSPaceID
 	    + "=*)";
 
 }

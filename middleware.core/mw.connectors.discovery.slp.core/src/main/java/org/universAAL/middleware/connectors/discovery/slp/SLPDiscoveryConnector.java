@@ -363,7 +363,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector,
 		    "formatFilter",
 		    new Object[] { "The set of filters is empty, returning the default one" },
 		    null);
-	    filter = "(" + Consts.SEARCH_ALL + ")";
+	    filter = Consts.SEARCH_ALL ;
 	    return filter;
 	}
 	LogUtils.logDebug(context, SLPDiscoveryConnector.class, "formatFilter",
