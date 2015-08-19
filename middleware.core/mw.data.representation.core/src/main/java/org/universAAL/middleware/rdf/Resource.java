@@ -568,6 +568,19 @@ public class Resource {
 		true);
 	return ls == null ? null : ls.getString();
     }
+    
+    /**
+     * Get the Resource label. Convenient method to retrieve rdfs:label.
+     * 
+     * @param lang
+     *            The preferred language. Should be one of the constants defined
+     *            in {@link LangString}, e.g. {@link LangString#LANG_ENGLISH}.
+     * @return the label of this resource.
+     */
+    public String getResourceLabel(String lang) {
+	LangString ls = getMultiLangProp(PROP_RDFS_LABEL, lang, true);
+	return ls == null ? null : ls.getString();
+    }
 
     /**
      * Get the default language. The language has the form of a language tag
@@ -576,6 +589,7 @@ public class Resource {
      * @return the default language.
      */
     public String getDefaultLang() {
+	// TODO: make this configurable
 	return LangString.LANG_ENGLISH;
     }
 
@@ -590,6 +604,23 @@ public class Resource {
      *         label constructed on-the-fly will be returned
      */
     public String getOrConstructLabel(String type) {
+	return getOrConstructLabel(type, getDefaultLang());
+    }
+    
+    /**
+     * If this resource has no original label, constructs one for it without
+     * changing the resource itself.
+     * 
+     * @param type
+     *            The optional type to be used instead of the return value of
+     *            'getType()' when constructing a label
+     * @param lang
+     *            The preferred language. Should be one of the constants defined
+     *            in {@link LangString}, e.g. {@link LangString#LANG_ENGLISH}.
+     * @return if there is an original label, that one is returned; otherwise a
+     *         label constructed on-the-fly will be returned
+     */
+    public String getOrConstructLabel(String type, String lang) {
 	String val = getResourceLabel();
 	if (val != null)
 	    return val;
@@ -904,7 +935,8 @@ public class Resource {
      *            URI of the property. Typical values are
      *            {@link #PROP_RDFS_LABEL} or {@link #PROP_RDFS_COMMENT}.
      * @param lang
-     *            The preferred language.
+     *            The preferred language. Should be one of the constants defined
+     *            in {@link LangString}, e.g. {@link LangString#LANG_ENGLISH}.
      * @param includeDefault
      *            If no String with the preferred language could be found, this
      *            variable determines if a String without language specifier
