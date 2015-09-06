@@ -89,75 +89,80 @@ public class ProcessParameter extends Variable {
     public static final String TYPE_OWLS_VALUE_OF = OWLS_PROCESS_NAMESPACE
 	    + "ValueOf";
 
-    static {
-	register(ProcessParameter.class);
-    }
-
-    public static final boolean checkDeserialization(Object o) {
-	if (isVarRef(o)) {
-	    Object var = ((Resource) o).getProperty(PROP_OWLS_VALUE_OF_THE_VAR);
-	    if (var == null)
-		return false;
-	    if (var.getClass() != Resource.class)
-		return var instanceof ProcessParameter;
-	    var = ProcessInput.MY_URI.equals(((Resource) var).getType()) ? (ProcessParameter) ProcessInput
-		    .toInput((Resource) var) : (ProcessParameter) ProcessOutput
-		    .toOutput((Resource) var);
-	    return (var == null) ? false : ((Resource) o).changeProperty(
-		    PROP_OWLS_VALUE_OF_THE_VAR, var);
+    private static VariableHandler handler = new VariableHandler() {
+	/**
+	 * Return true iff the object is Variable Reference (a resource of OWL-S
+	 * http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf class)
+	 * 
+	 * @param o
+	 *            - the object to test
+	 * @return - true iff the object is a resource of OWL-S ValueOf class
+	 */
+	public boolean isVarRef(Object o) {
+	    return o instanceof Resource
+		    && TYPE_OWLS_VALUE_OF.equals(((Resource) o).getType());
 	}
-	return true;
-    }
 
-    /**
-     * Return true iff the object is Variable Reference (a resource of OWL-S
-     * http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf class)
-     * 
-     * @param o
-     *            - the object to test
-     * @return - true iff the object is a resource of OWL-S ValueOf class
-     */
-    public static final boolean isVarRef(Object o) {
-	return o instanceof Resource
-		&& TYPE_OWLS_VALUE_OF.equals(((Resource) o).getType());
-    }
-
-    /**
-     * Return the variable from the variable reference, either by the property
-     * {@link #PROP_OWLS_VALUE_OF_THE_VAR}
-     * (http://www.daml.org/services/owl-s/1.1/Process.owl#theVar) or from the
-     * context.
-     * 
-     * @param o
-     *            - the variable reference
-     * @param context
-     *            - the context
-     * @return - the variable
-     */
-    public static final Object resolveVarRef(Object o, HashMap context) {
-	ProcessParameter var = null;
-	if (isVarRef(o)) {
-	    Object aux = ((Resource) o).getProperty(PROP_OWLS_VALUE_OF_THE_VAR);
-	    if (aux == null)
-		// strange
-		return o;
-	    if (aux instanceof ProcessParameter)
-		var = (ProcessParameter) aux;
-	    else if (context != null) {
-		// it can be a standard variable supported by the middleware
-		aux = context.get(aux.toString());
-		if (aux != null)
-		    return aux;
+	/**
+	 * Return the variable from the variable reference, either by the
+	 * property {@link #PROP_OWLS_VALUE_OF_THE_VAR}
+	 * (http://www.daml.org/services/owl-s/1.1/Process.owl#theVar) or from
+	 * the context.
+	 * 
+	 * @param o
+	 *            - the variable reference
+	 * @param context
+	 *            - the context
+	 * @return - the variable
+	 */
+	public Object resolveVarRef(Object o, HashMap context) {
+	    ProcessParameter var = null;
+	    if (isVarRef(o)) {
+		Object aux = ((Resource) o)
+			.getProperty(PROP_OWLS_VALUE_OF_THE_VAR);
+		if (aux == null)
+		    // strange
+		    return o;
+		if (aux instanceof ProcessParameter)
+		    var = (ProcessParameter) aux;
+		else if (context != null) {
+		    // it can be a standard variable supported by the middleware
+		    aux = context.get(aux.toString());
+		    if (aux != null)
+			return aux;
+		}
 	    }
+
+	    if (var == null)
+		return o;
+
+	    if (context == null)
+		return var;
+	    o = context.get(var.getURI());
+	    return (o == null) ? var : o;
 	}
 
-	if (var == null)
-	    return o;
+	public boolean checkDeserialization(Object o) {
+	    if (isVarRef(o)) {
+		Object var = ((Resource) o)
+			.getProperty(PROP_OWLS_VALUE_OF_THE_VAR);
+		if (var == null)
+		    return false;
+		if (var.getClass() != Resource.class)
+		    return var instanceof ProcessParameter;
+		var = ProcessInput.MY_URI.equals(((Resource) var).getType()) ? (ProcessParameter) ProcessInput
+			.toInput((Resource) var)
+			: (ProcessParameter) ProcessOutput
+				.toOutput((Resource) var);
+		return (var == null) ? false : ((Resource) o).changeProperty(
+			PROP_OWLS_VALUE_OF_THE_VAR, var);
+	    }
+	    return true;
+	}
+    };
 
-	if (context == null)
-	    return var;
-	o = context.get(var.getURI());
-	return (o == null) ? var : o;
+    static {
+	register(handler);
     }
 
     public ProcessParameter(String uri, String subType) {
@@ -255,7 +260,6 @@ public class ProcessParameter extends Variable {
     /**
      * return true iff this process parameter is well formed (the properties
      * have consistent values)
-     * 
      */
     public boolean isWellFormed() {
 	Object o = props.get(PROP_PARAMETER_MAX_CARDINALITY);

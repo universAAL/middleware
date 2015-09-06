@@ -63,10 +63,25 @@ public abstract class Variable extends FinalizedResource {
 	    + "theServiceToSelect";
 
     /**
-     * Storage for all subclasses. Subclasses have to {@link #register(Class)}
-     * themselves to this class.
+     * Storage for all handlers of subclasses. Subclasses have to
+     * {@link #register(VariableHandler)} themselves to this class.
      */
-    private static final ArrayList varClasses = new ArrayList(2);
+    private static final ArrayList<VariableHandler> handlers = new ArrayList<VariableHandler>(
+	    2);
+
+    /**
+     * Subclasses must implement and register this interface.
+     */
+    public static interface VariableHandler {
+	/** @see Variable#isVarRef(Object) */
+	public abstract boolean isVarRef(Object o);
+
+	/** @see Variable#resolveVarRef(Object, HashMap) */
+	public abstract Object resolveVarRef(Object o, HashMap context);
+
+	/** @see Variable#checkDeserialization(Object) */
+	public abstract boolean checkDeserialization(Object o);
+    }
 
     /** The constructor. */
     protected Variable(String uri) {
@@ -82,18 +97,14 @@ public abstract class Variable extends FinalizedResource {
      *            {@link Resource}.
      */
     public static boolean checkDeserialization(Object o) {
-	try {
-	    Object aux = null;
-	    for (int i = 0; i < varClasses.size(); i++) {
-		aux = ((Class) varClasses.get(i)).getMethod(
-			"checkDeserialization", new Class[] { Object.class })
-			.invoke(null, new Object[] { o });
-		if (aux instanceof Boolean)
-		    return ((Boolean) aux).booleanValue();
+	for (int i = 0; i < handlers.size(); i++) {
+	    try {
+		if (handlers.get(i).checkDeserialization(o))
+		    return true;
+	    } catch (Exception e) {
 	    }
-	} catch (Exception e) {
 	}
-	return true;
+	return false;
     }
 
     /**
@@ -101,37 +112,30 @@ public abstract class Variable extends FinalizedResource {
      * owls:ValueOf.
      */
     public static boolean isVarRef(Object o) {
-	try {
-	    Object aux = null;
-	    for (int i = 0; i < varClasses.size(); i++) {
-		aux = ((Class) varClasses.get(i)).getMethod("isVarRef",
-			new Class[] { Object.class }).invoke(null,
-			new Object[] { o });
-		if (aux instanceof Boolean)
-		    return ((Boolean) aux).booleanValue();
+	for (int i = 0; i < handlers.size(); i++) {
+	    try {
+		if (handlers.get(i).isVarRef(o))
+		    return true;
+	    } catch (Exception e) {
 	    }
-	} catch (Exception e) {
 	}
 	return false;
     }
 
     /** Registration: subclasses must register to this class. */
-    protected static void register(Class clz) {
-	if (Variable.class.isAssignableFrom(clz))
-	    varClasses.add(clz);
+    protected static void register(VariableHandler h) {
+	handlers.add(h);
     }
 
     public static Object resolveVarRef(Object o, HashMap context) {
-	try {
-	    Object aux;
-	    for (int i = 0; i < varClasses.size(); i++) {
-		aux = ((Class) varClasses.get(i)).getMethod("resolveVarRef",
-			new Class[] { Object.class, HashMap.class }).invoke(
-			null, new Object[] { o, context });
+	Object aux;
+	for (int i = 0; i < handlers.size(); i++) {
+	    try {
+		aux = handlers.get(i).resolveVarRef(o, context);
 		if (aux != o)
 		    return aux;
+	    } catch (Exception e) {
 	    }
-	} catch (Exception e) {
 	}
 	return o;
     }
