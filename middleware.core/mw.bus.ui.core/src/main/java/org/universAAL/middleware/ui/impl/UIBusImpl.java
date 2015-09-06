@@ -102,9 +102,8 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
     }
 
     public static void stopModule() {
-	new Thread(new Runnable() {
-
-	    public void run() {
+//	new Thread(new Runnable() {
+//	    public void run() {
 		if (theUIBus != null) {
 		    ((UIStrategyCaller) theUIBus.busStrategy).close();
 		    OntologyManagement.getInstance().unregister(mc,
@@ -113,8 +112,8 @@ public class UIBusImpl extends AbstractBus implements IUIBus {
 		    theUIBus.dispose();
 		    theUIBus = null;
 		}
-	    }
-	}, "UIBusStoppingThread").start();
+//	    }
+//	}, "UIBusStoppingThread").start();
     }
 
     /**
