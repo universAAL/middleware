@@ -219,7 +219,9 @@ public abstract class BusStrategy extends Thread {
      */
     public final void stopThread() {
 	stopped = true;
-	queue.notify();
+	synchronized (queue) {
+	    queue.notify();
+	}
     }
 
     protected ChannelMessage buildChannelMessage(BusMessage m) {
