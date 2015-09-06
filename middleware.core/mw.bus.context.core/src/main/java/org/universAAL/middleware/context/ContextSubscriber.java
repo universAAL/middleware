@@ -139,7 +139,18 @@ public abstract class ContextSubscriber extends Subscriber {
 			new Object[] { busResourceURI,
 				" received context event:\n",
 				m.getContentAsString() }, null);
-		handleContextEvent((ContextEvent) m.getContent());
+		try {
+		    handleContextEvent((ContextEvent) m.getContent());
+		} catch (Exception e) {
+		    LogUtils.logInfo(
+			    owner,
+			    ContextSubscriber.class,
+			    "handleEvent",
+			    new Object[] {
+				    busResourceURI,
+				    " has thrown an exception while handling the received context event.", },
+			    e);
+		}
 	    }
 	}
     }
