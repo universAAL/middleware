@@ -404,6 +404,15 @@ public class ContextStrategy extends BusStrategy {
 	Set<ContextSubscriber> subscribers = getAllSubscribersOfEvent(event);
 	for (ContextSubscriber subscriber : subscribers)
 	    subscriber.handleEvent(message);
+	if (subscribers.size() == 0) {
+	    LogUtils.logDebug(
+		    busModule,
+		    ContextStrategy.class,
+		    "notifyAllLocalSubscribers",
+		    new Object[] {
+			    "No subscribers registered for received context event:\n",
+			    message.getContentAsString() }, null);
+	}
     }
 
     private Set<ContextSubscriber> getAllSubscribersOfEvent(ContextEvent event) {
