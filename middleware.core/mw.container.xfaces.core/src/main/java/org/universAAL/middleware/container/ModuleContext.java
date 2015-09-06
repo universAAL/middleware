@@ -162,6 +162,21 @@ public interface ModuleContext {
      */
     public void logTrace(String tag, String message, Throwable t);
 
+    /** Is the logger instance enabled for the ERROR level? */
+    public boolean isLogErrorEnabled();
+
+    /** Is the logger instance enabled for the WARN level? */
+    public boolean isLogWarnEnabled();
+
+    /** Is the logger instance enabled for the INFO level? */
+    public boolean isLogInfoEnabled();
+
+    /** Is the logger instance enabled for the DEBUG level? */
+    public boolean isLogDebugEnabled();
+
+    /** Is the logger instance enabled for the TRACE level? */
+    public boolean isLogTraceEnabled();
+
     /**
      * Modules can use this method of their context to enrich it with info about
      * those config files of them that follow the container conventions. Only

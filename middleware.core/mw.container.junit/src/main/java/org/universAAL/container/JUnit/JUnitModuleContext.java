@@ -156,6 +156,31 @@ public class JUnitModuleContext implements ModuleContext {
     }
 
     /** {@inheritDoc} */
+    public boolean isLogErrorEnabled() {
+	return Level.ERROR.isGreaterOrEqual(logger.getEffectiveLevel());
+    }
+
+    /** {@inheritDoc} */
+    public boolean isLogWarnEnabled() {
+	return Level.WARN.isGreaterOrEqual(logger.getEffectiveLevel());
+    }
+
+    /** {@inheritDoc} */
+    public boolean isLogInfoEnabled() {
+	return logger.isInfoEnabled();
+    }
+
+    /** {@inheritDoc} */
+    public boolean isLogDebugEnabled() {
+	return logger.isDebugEnabled();
+    }
+
+    /** {@inheritDoc} */
+    public boolean isLogTraceEnabled() {
+	return logger.isTraceEnabled();
+    }
+
+    /** {@inheritDoc} */
     public void registerConfigFile(Object[] configFileParams) {
 	configFiles.add((File) configFileParams[0]);
     }

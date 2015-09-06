@@ -435,4 +435,29 @@ public class uAALBundleContext implements ModuleContext {
 	// folder
 	return new File("./Data", getID());
     }
+
+    /** {@inheritDoc} */
+    public boolean isLogErrorEnabled() {
+	return logger.isErrorEnabled();
+    }
+
+    /** {@inheritDoc} */
+    public boolean isLogWarnEnabled() {
+	return logger.isWarnEnabled();
+    }
+
+    /** {@inheritDoc} */
+    public boolean isLogInfoEnabled() {
+	return logger.isInfoEnabled();
+    }
+
+    /** {@inheritDoc} */
+    public boolean isLogDebugEnabled() {
+	return logger.isDebugEnabled();
+    }
+
+    /** {@inheritDoc} */
+    public boolean isLogTraceEnabled() {
+	return logger.isTraceEnabled();
+    }
 }
