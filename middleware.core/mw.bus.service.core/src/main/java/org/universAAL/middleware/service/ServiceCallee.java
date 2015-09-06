@@ -19,6 +19,10 @@
  */
 package org.universAAL.middleware.service;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.member.BusMember;
 import org.universAAL.middleware.bus.member.Callee;
@@ -29,6 +33,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.impl.ServiceBusImpl;
 import org.universAAL.middleware.service.impl.ServiceRealization;
+import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
@@ -190,7 +195,28 @@ public abstract class ServiceCallee extends Callee {
 	    LogUtils.logDebug(owner, ServiceCallee.class, "handleRequest",
 		    new Object[] { busResourceURI, " received service call:\n",
 			    m.getContentAsString() }, null);
-	    ServiceResponse sr = handleCall((ServiceCall) m.getContent());
+	    ServiceResponse sr = null;
+	    try {
+		sr = handleCall((ServiceCall) m.getContent());
+	    } catch (Exception e) {
+		sr = new ServiceResponse(CallStatus.serviceSpecificFailure);
+
+		// get throwable as string
+		Writer result = new StringWriter();
+		PrintWriter printWriter = new PrintWriter(result);
+		e.printStackTrace(printWriter);
+		String ex = result.toString();
+
+		sr.addOutput(new ProcessOutput(
+			ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, ex));
+		
+		LogUtils.logDebug(
+			owner,
+			ServiceCallee.class,
+			"handleRequest",
+			new Object[] { "An error occurred while executing the service callee." },
+			e);
+	    }
 	    if (sr == null)
 		sr = new ServiceResponse(CallStatus.serviceSpecificFailure);
 	    sr.setProperty(ServiceRealization.uAAL_SERVICE_PROVIDER,
