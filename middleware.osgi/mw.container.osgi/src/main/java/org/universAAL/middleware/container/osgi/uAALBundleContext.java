@@ -66,10 +66,10 @@ public class uAALBundleContext implements ModuleContext {
 	bundle = bc;
 	logger = LoggerFactory.getLogger("org.universAAL."
 		+ bc.getBundle().getSymbolicName());
-	loadUnivesAALAttribute();
+	loadUniversAALAttribute();
     }
 
-    private void loadUnivesAALAttribute() {
+    private void loadUniversAALAttribute() {
 	Properties props = new Properties();
 	try {
 	    props.load(this.getClass().getResourceAsStream(
