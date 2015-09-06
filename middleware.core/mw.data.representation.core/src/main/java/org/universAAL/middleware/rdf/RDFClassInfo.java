@@ -131,8 +131,9 @@ public class RDFClassInfo extends FinalizedResource {
 			    "addInstance",
 			    new Object[] {
 				    "A resource instance in an ontology has an anonymous URI; this does not make sense. Type of instance: ",
-				    instance.getClass().getName(), ". URI: ",
-				    m.getClassURI() }, null);
+				    instance.getClass().getName(),
+				    ". Class URI: ", m.getClassURI(),
+				    ". URI: ", instance.getURI() }, null);
 		} else {
 		    LogUtils.logError(
 			    SharedResources.moduleContext,
@@ -140,7 +141,8 @@ public class RDFClassInfo extends FinalizedResource {
 			    "addInstance",
 			    new Object[] {
 				    "A resource instance in an ontology has an anonymous URI; this does not make sense. Type of instance: ",
-				    instance.getClass().getName() }, null);
+				    instance.getClass().getName(), ". URI: ",
+				    instance.getURI() }, null);
 		}
 		return;
 	    }
