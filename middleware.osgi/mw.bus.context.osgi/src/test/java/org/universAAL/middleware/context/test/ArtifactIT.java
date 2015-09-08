@@ -38,7 +38,7 @@ public class ArtifactIT extends IntegrationTest {
     public static String HAS_LOCATION = NAMESPACE + "hasLocation";
     public static String LOCATION = NAMESPACE + "dummyLocation";
     private BlockingQueue queue = new SynchronousQueue();
-    public int timeout = 2000;
+    public int timeout = 4000;
 
     public ArtifactIT() {
 	// setBundleConfLocation("etc");
