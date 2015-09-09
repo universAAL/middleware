@@ -25,9 +25,15 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.api.DistributedMWEventHandler;
-import org.universAAL.middleware.managers.distributedmw.api.DistributedMWManager;
+import org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberListenerManager;
+import org.universAAL.middleware.managers.distributedmw.api.DistributedLogListenerManager;
 import org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl;
 
+/**
+ * 
+ * @author Carsten Stockloew
+ * 
+ */
 public class DistributedMWActivator implements BundleActivator {
     ModuleContext context;
     DistributedMWManagerImpl mm;
@@ -38,11 +44,14 @@ public class DistributedMWActivator implements BundleActivator {
 	LogUtils.logDebug(context, getClass(), "start",
 		"Starting DistributedMWM Manager.");
 
-	Object[] parMgmt = new Object[] { DistributedMWManager.class.getName() };
+	Object[] parBMLMgmt = new Object[] { DistributedBusMemberListenerManager.class
+		.getName() };
+	Object[] parLLMgmt = new Object[] { DistributedLogListenerManager.class
+		.getName() };
 	Object[] parEvtH = new Object[] { DistributedMWEventHandler.class
 		.getName() };
-	mm = new DistributedMWManagerImpl(context, parMgmt, parMgmt, parEvtH,
-		parEvtH);
+	mm = new DistributedMWManagerImpl(context, parBMLMgmt, parBMLMgmt,
+		parLLMgmt, parLLMgmt, parEvtH, parEvtH);
 
 	LogUtils.logDebug(context, getClass(), "start", "Started.");
     }

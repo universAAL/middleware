@@ -31,10 +31,19 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.managers.api.DistributedMWEventHandler;
 import org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberListener;
 import org.universAAL.middleware.managers.distributedmw.api.DistributedLogListener;
-import org.universAAL.middleware.managers.distributedmw.api.DistributedMWManager;
+import org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberListenerManager;
+import org.universAAL.middleware.managers.distributedmw.api.DistributedLogListenerManager;
 import org.universAAL.middleware.rdf.Resource;
 
-public class DistributedMWManagerImpl implements DistributedMWManager {
+/**
+ * 
+ * @author Carsten Stockloew
+ * 
+ */
+public class DistributedMWManagerImpl implements
+	DistributedBusMemberListenerManager, DistributedLogListenerManager {
+    // TODO: split this implementation in two for each interface for security
+    // reasons
 
     public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX
 	    + "DistributedMWManager.rdf#";
@@ -44,7 +53,8 @@ public class DistributedMWManagerImpl implements DistributedMWManager {
     public static SharedObjectConnector shared;
     private LogListenerHandler logListenerHandler = new LogListenerHandler();
     private BusMemberListenerHandler busMemberListenerHandler = new BusMemberListenerHandler();
-    private Object[] removeParamsMgmt;
+    private Object[] removeParamsBMLMgmt;
+    private Object[] removeParamsLLMgmt;
     private Object[] removeParamsEvtH;
 
     interface Handler {
@@ -103,15 +113,18 @@ public class DistributedMWManagerImpl implements DistributedMWManager {
     };
 
     public DistributedMWManagerImpl(ModuleContext context,
-	    Object[] shareParamsMgmt, Object[] removeParamsMgmt,
+	    Object[] shareParamsBMLMgmt, Object[] removeParamsBMLMgmt,
+	    Object[] shareParamsLLMgmt, Object[] removeParamsLLMgmt,
 	    Object[] shareParamsEvtH, Object[] removeParamsEvtH) {
 	DistributedMWManagerImpl.context = context;
 	shared = new SharedObjectConnector(context);
 	myPeer = shared.getAalSpaceManager().getMyPeerCard();
-	this.removeParamsMgmt = removeParamsMgmt;
+	this.removeParamsBMLMgmt = removeParamsBMLMgmt;
+	this.removeParamsLLMgmt = removeParamsLLMgmt;
 	this.removeParamsEvtH = removeParamsEvtH;
 	// register manager as shared object
-	context.getContainer().shareObject(context, this, shareParamsMgmt);
+	context.getContainer().shareObject(context, this, shareParamsBMLMgmt);
+	context.getContainer().shareObject(context, this, shareParamsLLMgmt);
 	context.getContainer().shareObject(context, handler, shareParamsEvtH);
     }
 
@@ -125,13 +138,13 @@ public class DistributedMWManagerImpl implements DistributedMWManager {
 	logListenerHandler.removeListener(listener, nodes);
     }
 
-    public void addBusMemberRegistryListener(
-	    DistributedBusMemberListener listener, List<PeerCard> nodes) {
+    public void addBusMemberListener(DistributedBusMemberListener listener,
+	    List<PeerCard> nodes) {
 	busMemberListenerHandler.addListener(listener, nodes);
     }
 
-    public void removeBusMemberRegistryListener(
-	    DistributedBusMemberListener listener, List<PeerCard> nodes) {
+    public void removeBusMemberListener(DistributedBusMemberListener listener,
+	    List<PeerCard> nodes) {
 	busMemberListenerHandler.removeListener(listener, nodes);
     }
 
@@ -145,7 +158,9 @@ public class DistributedMWManagerImpl implements DistributedMWManager {
 
     public void dispose() {
 	context.getContainer().removeSharedObject(context, this,
-		removeParamsMgmt);
+		removeParamsLLMgmt);
+	context.getContainer().removeSharedObject(context, this,
+		removeParamsBMLMgmt);
 	context.getContainer().removeSharedObject(context, handler,
 		removeParamsEvtH);
     }

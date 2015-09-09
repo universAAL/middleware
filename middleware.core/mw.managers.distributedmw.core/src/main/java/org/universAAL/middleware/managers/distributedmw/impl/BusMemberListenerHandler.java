@@ -38,6 +38,11 @@ import org.universAAL.middleware.tracker.IBusMemberRegistry.BusType;
 import org.universAAL.middleware.tracker.IBusMemberRegistryListener;
 import org.universAAL.middleware.ui.UIBusFacade;
 
+/**
+ * 
+ * @author Carsten Stockloew
+ * 
+ */
 public class BusMemberListenerHandler extends
 	ListenerHandler<DistributedBusMemberListener> {
     public static final String TYPE_ADD_BUSMEMBER_LISTENER = DistributedMWManagerImpl.NAMESPACE

@@ -24,21 +24,16 @@ import java.util.List;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.managers.api.Manager;
 
-public interface DistributedMWManager extends Manager {
+/**
+ * 
+ * @author Carsten Stockloew
+ * 
+ */
+public interface DistributedBusMemberListenerManager extends Manager {
 
-    void addLogListener(DistributedLogListener listener, List<PeerCard> nodes);
-
-    /**
-     * 
-     * @param listener
-     * @param nodes
-     *            If null, the listener will be removed from all nodes
-     */
-    void removeLogListener(DistributedLogListener listener, List<PeerCard> nodes);
-
-    void addBusMemberRegistryListener(DistributedBusMemberListener listener,
+    void addBusMemberListener(DistributedBusMemberListener listener,
 	    List<PeerCard> nodes);
 
-    void removeBusMemberRegistryListener(DistributedBusMemberListener listener,
+    void removeBusMemberListener(DistributedBusMemberListener listener,
 	    List<PeerCard> nodes);
 }

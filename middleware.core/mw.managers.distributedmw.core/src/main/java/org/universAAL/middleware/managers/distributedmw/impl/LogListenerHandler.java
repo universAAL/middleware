@@ -33,6 +33,11 @@ import org.universAAL.middleware.managers.distributedmw.api.DistributedLogListen
 import org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl.Handler;
 import org.universAAL.middleware.rdf.Resource;
 
+/**
+ * 
+ * @author Carsten Stockloew
+ * 
+ */
 public class LogListenerHandler extends ListenerHandler<DistributedLogListener> {
     public static final String TYPE_ADD_LOGLISTENER = DistributedMWManagerImpl.NAMESPACE
 	    + "addLogListener";

@@ -29,6 +29,11 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl.Handler;
 import org.universAAL.middleware.rdf.Resource;
 
+/**
+ * 
+ * @author Carsten Stockloew
+ * 
+ */
 // TODO: use AAL Space Listener to remove nodes that have subscribed and then disappear
 public abstract class ListenerHandler<T> {
 
