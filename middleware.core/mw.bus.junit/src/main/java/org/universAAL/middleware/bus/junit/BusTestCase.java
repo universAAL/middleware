@@ -226,6 +226,9 @@ public class BusTestCase extends TestCase {
 	    }
 	};
 
+	mc.getContainer().shareObject(mc, sp,
+		new Object[] { AALSpaceManager.class.getName() });
+
 	AbstractBus.initBrokerage(mc, sp, com);
 	BusMessage.setThisPeer(myCard);
 
