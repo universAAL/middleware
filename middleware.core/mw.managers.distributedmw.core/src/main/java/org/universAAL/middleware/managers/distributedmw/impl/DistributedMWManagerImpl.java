@@ -128,22 +128,22 @@ public class DistributedMWManagerImpl implements
 	context.getContainer().shareObject(context, handler, shareParamsEvtH);
     }
 
-    public void addLogListener(DistributedLogListener listener,
+    public void addListener(DistributedLogListener listener,
 	    List<PeerCard> nodes) {
 	logListenerHandler.addListener(listener, nodes);
     }
 
-    public void removeLogListener(DistributedLogListener listener,
+    public void removeListener(DistributedLogListener listener,
 	    List<PeerCard> nodes) {
 	logListenerHandler.removeListener(listener, nodes);
     }
 
-    public void addBusMemberListener(DistributedBusMemberListener listener,
+    public void addListener(DistributedBusMemberListener listener,
 	    List<PeerCard> nodes) {
 	busMemberListenerHandler.addListener(listener, nodes);
     }
 
-    public void removeBusMemberListener(DistributedBusMemberListener listener,
+    public void removeListener(DistributedBusMemberListener listener,
 	    List<PeerCard> nodes) {
 	busMemberListenerHandler.removeListener(listener, nodes);
     }

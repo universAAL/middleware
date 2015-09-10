@@ -31,9 +31,9 @@ import org.universAAL.middleware.managers.api.Manager;
  */
 public interface DistributedBusMemberListenerManager extends Manager {
 
-    void addBusMemberListener(DistributedBusMemberListener listener,
+    void addListener(DistributedBusMemberListener listener,
 	    List<PeerCard> nodes);
 
-    void removeBusMemberListener(DistributedBusMemberListener listener,
+    void removeListener(DistributedBusMemberListener listener,
 	    List<PeerCard> nodes);
 }

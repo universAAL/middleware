@@ -31,13 +31,7 @@ import org.universAAL.middleware.managers.api.Manager;
  */
 public interface DistributedLogListenerManager extends Manager {
 
-    void addLogListener(DistributedLogListener listener, List<PeerCard> nodes);
+    void addListener(DistributedLogListener listener, List<PeerCard> nodes);
 
-    /**
-     * 
-     * @param listener
-     * @param nodes
-     *            If null, the listener will be removed from all nodes
-     */
-    void removeLogListener(DistributedLogListener listener, List<PeerCard> nodes);
+    void removeListener(DistributedLogListener listener, List<PeerCard> nodes);
 }
