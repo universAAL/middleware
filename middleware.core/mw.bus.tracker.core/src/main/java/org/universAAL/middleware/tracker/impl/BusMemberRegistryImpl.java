@@ -137,6 +137,8 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	}
 
 	public void regParamsAdded(String busMemberID, Resource[] params) {
+	    if (params == null)
+		return;
 	    log("regParamsAdded", "", busMemberID);
 	    for (IBusMemberRegistryListener listener : listeners) {
 		listener.regParamsAdded(busMemberID, params);
@@ -157,6 +159,8 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	}
 
 	public void regParamsRemoved(String busMemberID, Resource[] params) {
+	    if (params == null)
+		return;
 	    log("regParamsRemoved", "", busMemberID);
 	    for (IBusMemberRegistryListener listener : listeners) {
 		listener.regParamsRemoved(busMemberID, params);
@@ -284,7 +288,8 @@ public class BusMemberRegistryImpl implements IBusMemberRegistry {
 	    synchronized (regParams) {
 		String busMemberID = member.getURI();
 		Resource[] params = regParams.get(busMemberID);
-		listener.regParamsAdded(busMemberID, params);
+		if (params != null)
+		    listener.regParamsAdded(busMemberID, params);
 	    }
 	}
     }
