@@ -25,7 +25,7 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.managers.api.Manager;
 
 /**
- * 
+ * NOTE: not yet implemented!
  * @author Carsten Stockloew
  * 
  */

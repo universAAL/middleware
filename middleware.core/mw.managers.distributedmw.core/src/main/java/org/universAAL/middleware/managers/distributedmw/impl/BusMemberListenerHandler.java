@@ -67,7 +67,7 @@ public class BusMemberListenerHandler extends
     public static final String MEMBER_TYPE_PREFIX = DistributedMWManagerImpl.NAMESPACE
 	    + "memberType_";
 
-    private LocalListener localListener = null;
+    private LocalListener localListener = new LocalListener();
 
     public class BusMemberAddedMessageHandler implements Handler {
 	public void handle(PeerCard sender, Resource r) {
@@ -152,38 +152,41 @@ public class BusMemberListenerHandler extends
 
     public class LocalListener implements IBusMemberRegistryListener {
 	public void busMemberAdded(BusMember member, BusType type) {
-	    synchronized (listeners) {
-		// init info
-		String busMemberID = member.getURI();
-		String busName = "";
-		switch (type) {
-		case Service:
-		    busName = ((AbstractBus) (ServiceBusFacade
-			    .fetchBus(DistributedMWManagerImpl.context)))
-			    .getBrokerName();
-		    break;
-		case Context:
-		    busName = ((AbstractBus) (ContextBusFacade
-			    .fetchBus(DistributedMWManagerImpl.context)))
-			    .getBrokerName();
-		    break;
-		case UI:
-		    busName = ((AbstractBus) (UIBusFacade
-			    .fetchBus(DistributedMWManagerImpl.context)))
-			    .getBrokerName();
-		    break;
-		}
-		String label = member.getLabel();
-		String comment = member.getComment();
-		BusMemberType memberType = member.getType();
+	    // init info
+	    String busMemberID = member.getURI();
+	    String busName = "";
+	    // TODO: performance - make this only once
+	    switch (type) {
+	    case Service:
+		busName = ((AbstractBus) (ServiceBusFacade
+			.fetchBus(DistributedMWManagerImpl.context)))
+			.getBrokerName();
+		break;
+	    case Context:
+		busName = ((AbstractBus) (ContextBusFacade
+			.fetchBus(DistributedMWManagerImpl.context)))
+			.getBrokerName();
+		break;
+	    case UI:
+		busName = ((AbstractBus) (UIBusFacade
+			.fetchBus(DistributedMWManagerImpl.context)))
+			.getBrokerName();
+		break;
+	    }
+	    String label = member.getLabel();
+	    String comment = member.getComment();
+	    BusMemberType memberType = member.getType();
 
-		// local subscriptions
+	    // local subscriptions
+	    synchronized (localListeners) {
 		for (DistributedBusMemberListener l : localListeners) {
 		    l.busMemberAdded(DistributedMWManagerImpl.myPeer,
 			    busMemberID, busName, memberType, label, comment);
 		}
+	    }
 
-		// remote subscriptions
+	    // remote subscriptions
+	    synchronized (subscribers) {
 		if (subscribers != null) {
 		    Resource r = new Resource(busMemberID);
 		    r.addType(TYPE_BUSMEMBER_ADDED, true);
@@ -201,14 +204,16 @@ public class BusMemberListenerHandler extends
 	}
 
 	public void busMemberRemoved(BusMember member, BusType type) {
-	    synchronized (listeners) {
-		// local subscriptions
+	    // local subscriptions
+	    synchronized (localListeners) {
 		for (DistributedBusMemberListener l : localListeners) {
 		    l.busMemberRemoved(DistributedMWManagerImpl.myPeer,
 			    member.getURI());
 		}
+	    }
 
-		// remote subscriptions
+	    // remote subscriptions
+	    synchronized (subscribers) {
 		if (subscribers != null) {
 		    Resource r = new Resource(member.getURI());
 		    r.addType(TYPE_BUSMEMBER_REMOVED, true);
@@ -221,14 +226,16 @@ public class BusMemberListenerHandler extends
 	}
 
 	public void regParamsAdded(String busMemberID, Resource[] params) {
-	    synchronized (listeners) {
-		// local subscriptions
+	    // local subscriptions
+	    synchronized (localListeners) {
 		for (DistributedBusMemberListener l : localListeners) {
 		    l.regParamsAdded(DistributedMWManagerImpl.myPeer,
 			    busMemberID, params);
 		}
+	    }
 
-		// remote subscriptions
+	    // remote subscriptions
+	    synchronized (subscribers) {
 		if (subscribers != null) {
 		    Resource r = new Resource(busMemberID);
 		    r.addType(TYPE_BUSMEMBER_PARAMS_ADDED, true);
@@ -243,14 +250,16 @@ public class BusMemberListenerHandler extends
 	}
 
 	public void regParamsRemoved(String busMemberID, Resource[] params) {
-	    synchronized (listeners) {
-		// local subscriptions
+	    // local subscriptions
+	    synchronized (localListeners) {
 		for (DistributedBusMemberListener l : localListeners) {
 		    l.regParamsRemoved(DistributedMWManagerImpl.myPeer,
 			    busMemberID, params);
 		}
+	    }
 
-		// remote subscriptions
+	    // remote subscriptions
+	    synchronized (subscribers) {
 		if (subscribers != null) {
 		    Resource r = new Resource(busMemberID);
 		    r.addType(TYPE_BUSMEMBER_PARAMS_REMOVED, true);
@@ -272,15 +281,11 @@ public class BusMemberListenerHandler extends
     @Override
     protected void addListenerLocally() {
 	synchronized (this) {
-	    if (localListener == null) {
-		localListener = new LocalListener();
-
-		IBusMemberRegistry registry = (IBusMemberRegistry) DistributedMWManagerImpl.context
-			.getContainer().fetchSharedObject(
-				DistributedMWManagerImpl.context,
-				IBusMemberRegistry.busRegistryShareParams);
-		registry.addListener(localListener, true);
-	    }
+	    IBusMemberRegistry registry = (IBusMemberRegistry) DistributedMWManagerImpl.context
+		    .getContainer().fetchSharedObject(
+			    DistributedMWManagerImpl.context,
+			    IBusMemberRegistry.busRegistryShareParams);
+	    registry.addListener(localListener, true);
 	}
     }
 }

@@ -61,6 +61,7 @@ public class LogListenerHandler extends ListenerHandler<DistributedLogListener> 
     public static final String PROP_T = DistributedMWManagerImpl.NAMESPACE
 	    + "t";
 
+    private Object[] sharingParams;
     private LocalLogListener localListener = null;
     
 
@@ -138,6 +139,20 @@ public class LogListenerHandler extends ListenerHandler<DistributedLogListener> 
 
     public LogListenerHandler() {
 	super(TYPE_ADD_LOGLISTENER, TYPE_REMOVE_LOGLISTENER);
+    }
+
+    public void setSharingParams(Object[] sharingParams) {
+	this.sharingParams = sharingParams;
+    }
+
+    public void shareObject(Object objToShare) {
+	DistributedMWManagerImpl.context.getContainer().shareObject(
+		DistributedMWManagerImpl.context, objToShare, sharingParams);
+    }
+
+    public void removeSharedObject(Object objToRemove) {
+	DistributedMWManagerImpl.context.getContainer().removeSharedObject(
+		DistributedMWManagerImpl.context, objToRemove, sharingParams);
     }
 
     @Override

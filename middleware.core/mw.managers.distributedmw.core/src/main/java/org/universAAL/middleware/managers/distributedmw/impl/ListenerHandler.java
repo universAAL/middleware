@@ -34,17 +34,29 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Carsten Stockloew
  * 
  */
-// TODO: use AAL Space Listener to remove nodes that have subscribed and then disappear
+// TODO: use AAL Space Listener to remove nodes that have subscribed and then
+// disappear
 public abstract class ListenerHandler<T> {
 
     private String TYPE_ADD;
     private String TYPE_REMOVE;
 
+    /**
+     * Remote nodes that we have subscribed to. Message flow: remote -> local.
+     */
     protected HashMap<PeerCard, Set<T>> listeners;
-    protected Set<T> localListeners;
-    protected Set<PeerCard> subscribers;
 
-    private Object[] sharingParams;
+    /**
+     * Listeners on this node that have subscribed to messages from this node.
+     * Message flow: local -> local.
+     */
+    protected Set<T> localListeners;
+
+    /**
+     * Remote peers that have subscribed to messages from this node. Message
+     * flow: local -> remote.
+     */
+    protected Set<PeerCard> subscribers;
 
     ListenerHandler(String add, String remove) {
 	TYPE_ADD = add;
@@ -73,40 +85,52 @@ public abstract class ListenerHandler<T> {
     }
 
     public void addListener(T listener, List<PeerCard> nodes) {
+	// the list of all peers for which we did not subscribe before
+	// -> a subscription must be sent to that node
 	List<PeerCard> requests = new ArrayList<PeerCard>();
 	synchronized (listeners) {
-	    for (PeerCard node : nodes) {
-		boolean local = node.equals(DistributedMWManagerImpl.myPeer);
-		Set<T> st;
-		if (local) {
-		    st = localListeners;
-		} else {
-		    st = listeners.get(node);
-		    if (st == null)
-			st = new HashSet<T>();
-		    listeners.put(node, st);
+	    synchronized (localListeners) {
+		if (nodes == null) {
+		    // TODO
+		    // the listener subscribes for all nodes
+		    // -> create the list of all nodes from AAL Space Manager
+		    return;
 		}
 
-		if (st.contains(listener))
-		    continue;
-
-		st.add(listener);
-
-		if (st.size() == 1) {
-		    // first listener for this node -> send request
-		    // check if the node is this node; handle locally
+		for (PeerCard node : nodes) {
+		    boolean local = node
+			    .equals(DistributedMWManagerImpl.myPeer);
+		    Set<T> st;
 		    if (local) {
-			addListenerLocally();
+			st = localListeners;
 		    } else {
-			requests.add(node);
+			st = listeners.get(node);
+			if (st == null)
+			    st = new HashSet<T>();
+			listeners.put(node, st);
+		    }
+
+		    if (st.contains(listener))
+			continue;
+
+		    st.add(listener);
+
+		    if (st.size() == 1) {
+			// first listener for this node -> send request
+			// check if the node is this node; handle locally
+			if (local) {
+			    addListenerLocally();
+			} else {
+			    requests.add(node);
+			}
 		    }
 		}
-	    }
 
-	    if (requests.size() != 0) {
-		Resource r = new Resource();
-		r.addType(TYPE_ADD, true);
-		DistributedMWManagerImpl.sendMessage(r, requests);
+		if (requests.size() != 0) {
+		    Resource r = new Resource();
+		    r.addType(TYPE_ADD, true);
+		    DistributedMWManagerImpl.sendMessage(r, requests);
+		}
 	    }
 	}
     }
@@ -117,17 +141,5 @@ public abstract class ListenerHandler<T> {
 
     protected abstract void addListenerLocally();
 
-    public void setSharingParams(Object[] sharingParams) {
-	this.sharingParams = sharingParams;
-    }
-
-    public void shareObject(Object objToShare) {
-	DistributedMWManagerImpl.context.getContainer().shareObject(
-		DistributedMWManagerImpl.context, objToShare, sharingParams);
-    }
-
-    public void removeShareObject(Object objToRemove) {
-	DistributedMWManagerImpl.context.getContainer().removeSharedObject(
-		DistributedMWManagerImpl.context, objToRemove, sharingParams);
-    }
+    // protected abstract void removeListenerLocally();
 }
