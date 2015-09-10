@@ -163,6 +163,7 @@ public class DistributedMWManagerImpl implements
 		removeParamsBMLMgmt);
 	context.getContainer().removeSharedObject(context, handler,
 		removeParamsEvtH);
+	SpaceListener.getInstance().stop();
     }
 
     public static void sendMessage(Resource r, List<PeerCard> receivers) {

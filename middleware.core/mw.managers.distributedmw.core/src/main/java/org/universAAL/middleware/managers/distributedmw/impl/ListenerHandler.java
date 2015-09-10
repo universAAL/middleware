@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl.Handler;
 import org.universAAL.middleware.rdf.Resource;
@@ -58,12 +59,20 @@ public abstract class ListenerHandler<T> {
      */
     protected Set<PeerCard> subscribers;
 
+    /**
+     * Set of listener on this node that have subscribed to changes from all
+     * remote nodes. If a node joins the space, then we have to subscribe on
+     * these nodes for these listeners.
+     */
+    private Set<T> nullListeners;
+
     ListenerHandler(String add, String remove) {
 	TYPE_ADD = add;
 	TYPE_REMOVE = remove;
 	listeners = new HashMap<PeerCard, Set<T>>();
 	localListeners = new HashSet<T>();
 	subscribers = new HashSet<PeerCard>();
+	nullListeners = new HashSet<T>();
     }
 
     public class AddListenerHandler implements Handler {
@@ -91,10 +100,19 @@ public abstract class ListenerHandler<T> {
 	synchronized (listeners) {
 	    synchronized (localListeners) {
 		if (nodes == null) {
-		    // TODO
 		    // the listener subscribes for all nodes
-		    // -> create the list of all nodes from AAL Space Manager
-		    return;
+		    synchronized (nullListeners) {
+			nullListeners.add(listener);
+		    }
+
+		    // create the list of all nodes from AAL Space Manager
+		    nodes = SpaceListener.getInstance().getPeers();
+		    if (nodes == null) {
+			LogUtils.logError(DistributedMWManagerImpl.context,
+				ListenerHandler.class, "addListener",
+				"No peers available, not even this peer?");
+			return;
+		    }
 		}
 
 		for (PeerCard node : nodes) {
@@ -126,13 +144,19 @@ public abstract class ListenerHandler<T> {
 		    }
 		}
 
-		if (requests.size() != 0) {
-		    Resource r = new Resource();
-		    r.addType(TYPE_ADD, true);
-		    DistributedMWManagerImpl.sendMessage(r, requests);
-		}
+		subscribe(requests);
 	    }
 	}
+    }
+
+    private void subscribe(List<PeerCard> peers) {
+	if (peers == null)
+	    return;
+	if (peers.size() == 0)
+	    return;
+	Resource r = new Resource();
+	r.addType(TYPE_ADD, true);
+	DistributedMWManagerImpl.sendMessage(r, peers);
     }
 
     public void removeListener(T listener, List<PeerCard> nodes) {

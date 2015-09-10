@@ -20,16 +20,31 @@ public class SpaceListener implements AALSpaceListener, SharedObjectListener {
 
     private AALSpaceManager theAALSpaceManager = null;
 
-    public SpaceListener() {
+    // the singleton instance
+    private static SpaceListener listener = null;
+
+    private SpaceListener() {
+    }
+
+    public static SpaceListener getInstance() {
+	if (listener == null) {
+	    listener = new SpaceListener();
+	    listener.start();
+	}
+	return listener;
     }
 
     public void start() {
 	// get AAL Space Manager to register this listener
-	Object o = DistributedMWManagerImpl.context.getContainer()
+	Object[] o = DistributedMWManagerImpl.context.getContainer()
 		.fetchSharedObject(DistributedMWManagerImpl.context,
 			new Object[] { AALSpaceManager.class.getName() }, this);
-	if (o instanceof AALSpaceManager) {
-	    sharedObjectAdded(o, null);
+	if (o != null) {
+	    if (o.length != 0) {
+		if (o[0] instanceof AALSpaceManager) {
+		    sharedObjectAdded(o[0], null);
+		}
+	    }
 	}
     }
 
@@ -40,6 +55,8 @@ public class SpaceListener implements AALSpaceListener, SharedObjectListener {
 		theAALSpaceManager.removeAALSpaceListener(this);
 	    }
 	}
+	// and remove this object
+	listener = null;
     }
 
     public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor) {
@@ -58,6 +75,11 @@ public class SpaceListener implements AALSpaceListener, SharedObjectListener {
 	// not needed
     }
 
+    /**
+     * Get all peers, including this peer.
+     * 
+     * @return
+     */
     public List<PeerCard> getPeers() {
 	List<PeerCard> ret = new ArrayList<PeerCard>();
 

@@ -63,7 +63,6 @@ public class LogListenerHandler extends ListenerHandler<DistributedLogListener> 
 
     private Object[] sharingParams;
     private LocalLogListener localListener = null;
-    
 
     public class LogListenerMessageHandler implements Handler {
 	public void handle(PeerCard sender, Resource r) {
@@ -117,7 +116,7 @@ public class LogListenerHandler extends ListenerHandler<DistributedLogListener> 
 		}
 
 		// remote subscriptions
-		if (subscribers != null) {
+		if (subscribers.size() != 0) {
 		    Resource r = new Resource();
 		    r.addType(TYPE_LOGLISTENER_MESSAGE, true);
 		    r.setProperty(PROP_LEVEL, Integer.valueOf(logLevel));

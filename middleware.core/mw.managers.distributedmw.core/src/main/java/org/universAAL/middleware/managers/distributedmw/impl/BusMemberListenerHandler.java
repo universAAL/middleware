@@ -187,7 +187,7 @@ public class BusMemberListenerHandler extends
 
 	    // remote subscriptions
 	    synchronized (subscribers) {
-		if (subscribers != null) {
+		if (subscribers.size() != 0) {
 		    Resource r = new Resource(busMemberID);
 		    r.addType(TYPE_BUSMEMBER_ADDED, true);
 		    r.setProperty(PROP_BUS_NAME, busName);
@@ -214,7 +214,7 @@ public class BusMemberListenerHandler extends
 
 	    // remote subscriptions
 	    synchronized (subscribers) {
-		if (subscribers != null) {
+		if (subscribers.size() != 0) {
 		    Resource r = new Resource(member.getURI());
 		    r.addType(TYPE_BUSMEMBER_REMOVED, true);
 
@@ -236,11 +236,13 @@ public class BusMemberListenerHandler extends
 
 	    // remote subscriptions
 	    synchronized (subscribers) {
-		if (subscribers != null) {
+		if (subscribers.size() != 0) {
 		    Resource r = new Resource(busMemberID);
 		    r.addType(TYPE_BUSMEMBER_PARAMS_ADDED, true);
-		    r.setProperty(PROP_PARAMS,
-			    new ArrayList<Object>(Arrays.asList(params)));
+		    if (params != null) {
+			r.setProperty(PROP_PARAMS,
+				new ArrayList<Object>(Arrays.asList(params)));
+		    }
 
 		    for (PeerCard peer : subscribers) {
 			DistributedMWManagerImpl.sendMessage(r, peer);
@@ -260,11 +262,13 @@ public class BusMemberListenerHandler extends
 
 	    // remote subscriptions
 	    synchronized (subscribers) {
-		if (subscribers != null) {
+		if (subscribers.size() != 0) {
 		    Resource r = new Resource(busMemberID);
 		    r.addType(TYPE_BUSMEMBER_PARAMS_REMOVED, true);
-		    r.setProperty(PROP_PARAMS,
-			    new ArrayList<Object>(Arrays.asList(params)));
+		    if (params != null) {
+			r.setProperty(PROP_PARAMS,
+				new ArrayList<Object>(Arrays.asList(params)));
+		    }
 
 		    for (PeerCard peer : subscribers) {
 			DistributedMWManagerImpl.sendMessage(r, peer);
