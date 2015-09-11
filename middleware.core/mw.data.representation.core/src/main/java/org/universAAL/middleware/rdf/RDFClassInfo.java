@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
@@ -186,6 +187,21 @@ public class RDFClassInfo extends FinalizedResource {
 		return;
 	    if (namedSuperClass == null)
 		return;
+
+	    // test if the given super class has this class as super class
+	    // because this would create a cycle
+	    if (getURI().equals(namedSuperClass)) {
+		throw new IllegalArgumentException(
+			"The class cannot be its own super class.");
+	    }
+	    Set<String> subClasses = OntologyManagement.getInstance()
+		    .getNamedSubClasses(getURI(), true, true);
+	    for (String s : subClasses) {
+		if (s.equals(namedSuperClass)) {
+		    throw new IllegalArgumentException(
+			    "The class to add as super class is already a sub class. This would create a cycle in class hierarchy.");
+		}
+	    }
 
 	    // add to local variable
 	    HashSet tmp = new HashSet(namedSuperClasses);
