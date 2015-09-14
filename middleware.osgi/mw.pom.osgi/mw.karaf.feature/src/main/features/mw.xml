@@ -56,6 +56,7 @@
 		<bundle start-level='59'>mvn:org.universAAL.middleware/mw.karaf.shell.universAAL.osgi/${mw.karaf.shell.universAAL.osgi.version}</bundle>
 
 		<bundle start-level='60' start='true'>mvn:org.universAAL.middleware/mw.bus.tracker.osgi/${mw.bus.tracker.osgi.version}</bundle>
+		<bundle start-level='61' start='true'>mvn:org.universAAL.middleware/mw.managers.distributedmw.osgi/${mw.managers.distributedmw.osgi.version}</bundle>
 		
 
 		<!-- Configuration file section -->
