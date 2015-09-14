@@ -32,7 +32,7 @@ import org.universAAL.middleware.managers.api.Manager;
  * @author Carsten Stockloew
  * 
  */
-public interface DistributedLogListenerManager extends Manager {
+public interface DistributedLogManager extends Manager {
 
     void addListener(DistributedLogListener listener, List<PeerCard> nodes);
 

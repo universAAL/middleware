@@ -31,8 +31,8 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.managers.api.DistributedMWEventHandler;
 import org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberListener;
 import org.universAAL.middleware.managers.distributedmw.api.DistributedLogListener;
-import org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberListenerManager;
-import org.universAAL.middleware.managers.distributedmw.api.DistributedLogListenerManager;
+import org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberManager;
+import org.universAAL.middleware.managers.distributedmw.api.DistributedLogManager;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
@@ -41,7 +41,7 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public class DistributedMWManagerImpl implements
-	DistributedBusMemberListenerManager, DistributedLogListenerManager {
+	DistributedBusMemberManager, DistributedLogManager {
     // TODO: split this implementation in two for each interface for security
     // reasons
 

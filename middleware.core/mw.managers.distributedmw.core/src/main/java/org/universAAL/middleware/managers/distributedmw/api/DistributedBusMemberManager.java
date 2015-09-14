@@ -32,7 +32,7 @@ import org.universAAL.middleware.managers.api.Manager;
  * @author Carsten Stockloew
  * 
  */
-public interface DistributedBusMemberListenerManager extends Manager {
+public interface DistributedBusMemberManager extends Manager {
 
     /**
      * Add a new listener.
