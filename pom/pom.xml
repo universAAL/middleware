@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL</groupId>
     <artifactId>uAAL.pom</artifactId>
-    <version>3.3.1-SNAPSHOT</version>
+    <version>3.4.0</version>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
   <artifactId>mw.pom</artifactId>
-  <version>3.3.1-SNAPSHOT</version>
+  <version>3.4.0</version>
   <packaging>pom</packaging>
   <name>universAAL Middleware Suite</name>
   <description>The set of artefacts realizing the universAAL middleware</description>
@@ -70,15 +70,15 @@
   </modules>
   <scm>
     <connection>scm:git:https://github.com/universAAL/middleware.git</connection>
-	<developerConnection>scm:git:git@github.com:universAAL/middleware.git</developerConnection>
+    <developerConnection>scm:git:git@github.com:universAAL/middleware.git</developerConnection>
   </scm>
   <properties>
     <remoteOBR></remoteOBR>
     <targetJdk>1.5</targetJdk>
     <compileSource>1.5</compileSource>
     <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compile.target>1.5</maven.compile.target>
   </properties>
   <dependencyManagement>
     <dependencies>
