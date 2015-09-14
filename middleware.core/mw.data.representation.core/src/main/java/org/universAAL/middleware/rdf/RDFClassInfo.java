@@ -191,15 +191,27 @@ public class RDFClassInfo extends FinalizedResource {
 	    // test if the given super class has this class as super class
 	    // because this would create a cycle
 	    if (getURI().equals(namedSuperClass)) {
-		throw new IllegalArgumentException(
-			"The class cannot be its own super class.");
+		LogUtils.logError(
+			SharedResources.moduleContext,
+			PrivateRDFSetup.class,
+			"addSuperClass",
+			new Object[] { "The class cannot be its own super class. Ignoring call." },
+			null);
+		// throw new IllegalArgumentException(
+		// "The class cannot be its own super class.");
+		return;
 	    }
 	    Set<String> subClasses = OntologyManagement.getInstance()
 		    .getNamedSubClasses(getURI(), true, true);
 	    for (String s : subClasses) {
 		if (s.equals(namedSuperClass)) {
-		    throw new IllegalArgumentException(
-			    "The class to add as super class is already a sub class. This would create a cycle in class hierarchy.");
+		    LogUtils.logError(
+			    SharedResources.moduleContext,
+			    PrivateRDFSetup.class,
+			    "addSuperClass",
+			    new Object[] { "The class to add as super class is already a sub class. This would create a cycle in class hierarchy. Ignoring call." },
+			    null);
+		    return;
 		}
 	    }
 
