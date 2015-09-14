@@ -20,12 +20,8 @@
 package org.universAAL.middleware.managers.distributedmw.api;
 
 import org.universAAL.middleware.bus.member.BusMemberType;
-import org.universAAL.middleware.context.ContextEventPattern;
-import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.service.ServiceCallee;
-import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
  * Interface of BusMember registry listener. If registered at the service
