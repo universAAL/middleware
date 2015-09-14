@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.universAAL.middleware.brokers.message.distributedmw.DistributedMWMessage;
 import org.universAAL.middleware.container.ModuleContext;
@@ -172,6 +173,10 @@ public class DistributedMWManagerImpl implements
 	context.getContainer().removeSharedObject(context, handler,
 		removeParamsEvtH);
 	SpaceListener.getInstance().stop();
+    }
+
+    public static void sendMessage(Resource r, Set<PeerCard> receivers) {
+	sendMessage(r, new ArrayList<PeerCard>(receivers));
     }
 
     public static void sendMessage(Resource r, List<PeerCard> receivers) {

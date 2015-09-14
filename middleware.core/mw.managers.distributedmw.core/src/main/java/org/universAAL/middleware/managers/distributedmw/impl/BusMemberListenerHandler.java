@@ -197,10 +197,7 @@ public class BusMemberListenerHandler extends
 			    + memberType.toString());
 		    r.setResourceLabel(label);
 		    r.setResourceComment(comment);
-
-		    for (PeerCard peer : subscribers) {
-			DistributedMWManagerImpl.sendMessage(r, peer);
-		    }
+		    DistributedMWManagerImpl.sendMessage(r, subscribers);
 		}
 	    }
 	}
@@ -219,10 +216,7 @@ public class BusMemberListenerHandler extends
 		if (subscribers.size() != 0) {
 		    Resource r = new Resource(member.getURI());
 		    r.addType(TYPE_BUSMEMBER_REMOVED, true);
-
-		    for (PeerCard peer : subscribers) {
-			DistributedMWManagerImpl.sendMessage(r, peer);
-		    }
+		    DistributedMWManagerImpl.sendMessage(r, subscribers);
 		}
 	    }
 	}
@@ -245,10 +239,7 @@ public class BusMemberListenerHandler extends
 			r.setProperty(PROP_PARAMS,
 				new ArrayList<Object>(Arrays.asList(params)));
 		    }
-
-		    for (PeerCard peer : subscribers) {
-			DistributedMWManagerImpl.sendMessage(r, peer);
-		    }
+		    DistributedMWManagerImpl.sendMessage(r, subscribers);
 		}
 	    }
 	}
@@ -271,10 +262,7 @@ public class BusMemberListenerHandler extends
 			r.setProperty(PROP_PARAMS,
 				new ArrayList<Object>(Arrays.asList(params)));
 		    }
-
-		    for (PeerCard peer : subscribers) {
-			DistributedMWManagerImpl.sendMessage(r, peer);
-		    }
+		    DistributedMWManagerImpl.sendMessage(r, subscribers);
 		}
 	    }
 	}

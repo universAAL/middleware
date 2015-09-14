@@ -108,13 +108,15 @@ public class LogListenerHandler extends ListenerHandler<DistributedLogListener> 
 	    String s = result.toString();
 
 	    // dispatch message
-	    synchronized (listeners) {
+	    synchronized (localListeners) {
 		// local subscriptions
 		for (DistributedLogListener l : localListeners) {
 		    l.log(DistributedMWManagerImpl.myPeer, logLevel, module,
 			    pkg, cls, method, msgPart, s);
 		}
+	    }
 
+	    synchronized (subscribers) {
 		// remote subscriptions
 		if (subscribers.size() != 0) {
 		    Resource r = new Resource();
@@ -127,10 +129,7 @@ public class LogListenerHandler extends ListenerHandler<DistributedLogListener> 
 		    r.setProperty(PROP_MSG,
 			    new ArrayList<Object>(Arrays.asList(msgPart)));
 		    r.setProperty(PROP_T, s);
-
-		    for (PeerCard peer : subscribers) {
-			DistributedMWManagerImpl.sendMessage(r, peer);
-		    }
+		    DistributedMWManagerImpl.sendMessage(r, subscribers);
 		}
 	    }
 	}
