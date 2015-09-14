@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.universAAL.middleware.api.SimpleServiceRegistrator;
 import org.universAAL.middleware.api.annotation.Input;
 import org.universAAL.middleware.api.annotation.Output;
 import org.universAAL.middleware.container.ModuleContext;

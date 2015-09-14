@@ -21,10 +21,8 @@
 package org.universAAL.middleware.managers.tenant;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -78,7 +76,6 @@ public class TenantManagerImpl implements TenantManager {
 	} else {
 	    throw new NullPointerException("TennantID cannot be null");
 	}
-
     }
 
     private void fireTenantRemovedEvent(String tenantID) {
@@ -93,7 +90,6 @@ public class TenantManagerImpl implements TenantManager {
 		t.printStackTrace(); // TODO log me
 	    }
 	}
-
     }
 
     private void fireNewTenantRegisteredEvent(String tenantID,
@@ -111,7 +107,6 @@ public class TenantManagerImpl implements TenantManager {
 		t.printStackTrace(); // TODO log me
 	    }
 	}
-
     }
 
     public void unregisterTenant(String tenantID) {
@@ -146,5 +141,4 @@ public class TenantManagerImpl implements TenantManager {
 	    listeners.remove(tenantListener);
 	}
     }
-
 }

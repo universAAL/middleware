@@ -49,7 +49,6 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
 import org.universAAL.middleware.interfaces.mpa.model.ObjectFactory;
-import org.universAAL.middleware.interfaces.mpa.model.Part;
 
 //import com.sun.xml.bind.marshaller.NamespacePrefixMapper;;
 
@@ -73,8 +72,8 @@ public class KarafDeployConnector implements DeployConnector,
     // Karaf services for installing artefacts
     private ControlBroker controlBroker = null;
 
-    private boolean initialized = false;
-    private final static String UAPP_SUFFIX = ".uapp";
+    // private boolean initialized = false;
+    // private final static String UAPP_SUFFIX = ".uapp";
     private final static String KAR_EXTENSION = "kar";
     private final static String KAR_DEPLOY_DIR = System.getProperty(
 	    "org.universeAAL.connector.karaf.deploydir", "deploy");

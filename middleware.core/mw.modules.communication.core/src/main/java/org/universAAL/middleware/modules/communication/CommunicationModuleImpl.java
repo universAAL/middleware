@@ -24,29 +24,11 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.SecureRandom;
-import java.util.Vector;
-
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
 
 import org.universAAL.middleware.connectors.CommunicationConnector;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
@@ -84,10 +66,10 @@ public class CommunicationModuleImpl implements CommunicationModule,
     private boolean initialized = false;
 
     // ThreadPoolExecutor executor;
-    private BlockingQueue<Runnable> messageQueue;
-    private static final int CORE_POOL_SIZE = 10;
-    private static final int MAXIMUM_POOL_SIZE = 20;
-    private static final int KEEP_ALIVE_TIME = 10;
+    // private BlockingQueue<Runnable> messageQueue;
+    // private static final int CORE_POOL_SIZE = 10;
+    // private static final int MAXIMUM_POOL_SIZE = 20;
+    // private static final int KEEP_ALIVE_TIME = 10;
 
     /**
      * This method configures the CommunicationModule: -to obtain the reference
@@ -97,7 +79,7 @@ public class CommunicationModuleImpl implements CommunicationModule,
 
 	if (!initialized) {
 
-	    messageQueue = new LinkedBlockingQueue<Runnable>();
+	    //messageQueue = new LinkedBlockingQueue<Runnable>();
 	    // this.executor = new
 	    // ThreadPoolExecutor(CORE_POOL_SIZE,MAXIMUM_POOL_SIZE,
 	    // KEEP_ALIVE_TIME, TimeUnit.SECONDS,messageQueue, this);
@@ -182,7 +164,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
 
     public CommunicationModuleImpl(ModuleContext context) {
 	this.context = context;
-
     }
 
     /**
@@ -200,7 +181,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
 		listeners.addAll(messageListeners.get(channelName));
 	}
 	return listeners;
-
     }
 
     public void messageReceived(ChannelMessage channelMessage) {
@@ -231,7 +211,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
 		    "Error during message reception: "
 			    + channelMessage.toString());
 	}
-
     }
 
     public void addMessageListener(MessageListener listener, String channelName) {
@@ -292,8 +271,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
     }
 
     public void loadConfigurations(Dictionary configurations) {
-	// TODO Auto-generated method stub
-
     }
 
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
@@ -345,7 +322,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
 		    "Error during message handling, due to internal excepetion. Message was:"
 			    + message.toString(), e);
 	}
-
     }
 
     /**
@@ -359,7 +335,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
 	    Thread t = new Thread(new UnicastExecutor(message,
 		    communicationConnector, receiver, listeners, context));
 	    t.start();
-
 	} catch (NullPointerException e) {
 	    LogUtils.logError(
 		    context,
@@ -379,7 +354,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
 		    "Error during message handling, due to internal excepetion. Message was:"
 			    + message.toString(), e);
 	}
-
     }
 
     /**
@@ -388,7 +362,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
     public void sendAll(ChannelMessage message, List<PeerCard> receivers,
 	    MessageListener listener) {
 	// TODO Auto-generated method stub
-
     }
 
     /**
@@ -396,7 +369,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
      */
     public void sendAll(ChannelMessage message, List<PeerCard> recipients) {
 	// TODO Auto-generated method stub
-
     }
 
     /**
@@ -404,7 +376,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
      */
     public void sendAll(ChannelMessage message) {
 	// TODO Auto-generated method stub
-
     }
 
     /**
@@ -448,7 +419,6 @@ public class CommunicationModuleImpl implements CommunicationModule,
 	    communicationConnector = null;
 	    initialized = false;
 	}
-
     }
 
     public List<String> getGroupMembers(String group) {

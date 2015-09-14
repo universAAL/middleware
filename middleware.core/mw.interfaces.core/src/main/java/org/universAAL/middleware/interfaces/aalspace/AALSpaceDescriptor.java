@@ -23,7 +23,6 @@ package org.universAAL.middleware.interfaces.aalspace;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;

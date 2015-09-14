@@ -20,14 +20,8 @@
  */
 package org.universAAL.middleware.shell.universAAL.osgi;
 
-import java.util.Map;
-
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
-import org.osgi.framework.ServiceReference;
-import org.universAAL.middleware.interfaces.mpa.UAPPStatus;
-import org.universAAL.middleware.interfaces.mpa.Pair;
-import org.universAAL.middleware.managers.api.DeployManager;
 
 /**
  * Commands for MPA applications. Print the list of mpa applications managed by

@@ -27,7 +27,6 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +37,6 @@ import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.MembershipListener;
 import org.jgroups.Message;
-import org.jgroups.Message.Flag;
 import org.jgroups.Receiver;
 import org.jgroups.View;
 import org.jgroups.blocks.MessageDispatcher;
@@ -47,7 +45,6 @@ import org.jgroups.blocks.RequestOptions;
 import org.jgroups.conf.ConfiguratorFactory;
 import org.jgroups.conf.ProtocolConfiguration;
 import org.jgroups.conf.ProtocolStackConfigurator;
-import org.jgroups.util.UUID;
 import org.jgroups.util.Util;
 import org.universAAL.middleware.connectors.CommunicationConnector;
 import org.universAAL.middleware.connectors.communication.jgroups.util.Codec;
@@ -90,7 +87,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
     private MessageDispatcher disp;
     // Security stuff
     private boolean security = false;
-    private String key;
+    // private String key;
     private String enableRemoteChannelURL = null;
 
     public JGroupsCommunicationConnector(ModuleContext context)
@@ -499,9 +496,7 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 	    logAndThrowComExec(
 		    METHOD,
 		    CommunicationConnectorErrorCode.CHANNEL_NOT_FOUND,
-		    "The channel name:"
-			    + ch.getName()
-			    + " was not found. It is either not configured or it has been deleted");
+		    "The channel name (channel is null) was not found. It is either not configured or it has been deleted");
 	    return;
 	}
 	View view = ch.getView();
@@ -591,9 +586,6 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 	for (int i = 0; i < selectedChannel.size(); i++) {
 	    JChannel channel = (JChannel) selectedChannel.get(i);
 	    Message msg = null;
-	    String s = message.toString();
-
-	    Message prova = new Message();
 
 	    try {
 		if (security) {
@@ -803,30 +795,24 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 
     public void getState(OutputStream output) throws Exception {
 	// TODO Auto-generated method stub
-
     }
 
     public void setState(InputStream input) throws Exception {
 	// TODO Auto-generated method stub
-
     }
 
     public void block() {
 	// TODO Auto-generated method stub
-
     }
 
     public void suspect(Address suspectedMbr) {
-
     }
 
     public void unblock() {
 	// TODO Auto-generated method stub
-
     }
 
     public void viewAccepted(View newView) {
-
     }
 
     public String toString() {
@@ -864,18 +850,14 @@ public class JGroupsCommunicationConnector implements CommunicationConnector,
 		}
 	    }
 	}
-
 	return members;
-
     }
 
     public boolean hasChannel(String channelName) {
-
 	for (String configuredChannelName : channelMap.keySet()) {
 	    if (configuredChannelName.contains(channelName))
 		return true;
 	}
 	return false;
     }
-
 }

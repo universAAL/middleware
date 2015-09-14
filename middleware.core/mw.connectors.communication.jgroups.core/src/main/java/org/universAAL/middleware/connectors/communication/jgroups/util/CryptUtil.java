@@ -28,7 +28,6 @@ import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.util.Vector;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -51,7 +50,7 @@ public class CryptUtil {
     private static final String randomizationAlgorithm = "SHA1PRNG";
     private static final String secretKeyAlgorithm = "DES";
 
-    private static boolean tryMore = true;
+    // private static boolean tryMore = true;
     private static SecretKey skey = null;
     private static Codec codec = null;
 

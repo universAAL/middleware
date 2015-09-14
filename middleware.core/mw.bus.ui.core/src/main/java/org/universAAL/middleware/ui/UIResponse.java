@@ -21,7 +21,6 @@ package org.universAAL.middleware.ui;
 
 import org.universAAL.middleware.bus.model.matchable.Response;
 import org.universAAL.middleware.owl.supply.AbsLocation;
-import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ScopedResource;
 import org.universAAL.middleware.ui.rdf.Form;

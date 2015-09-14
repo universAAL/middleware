@@ -22,20 +22,15 @@ package org.universAAL.middleware.modules.aalspace;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.universAAL.middleware.brokers.Broker;
 import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
-import org.universAAL.middleware.brokers.message.BrokerMessage.BrokerMessageTypes;
-import org.universAAL.middleware.brokers.message.BrokerMessageFields;
 import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage;
 import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage.AALSpaceMessageTypes;
 import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessageException;
-import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessageFields;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 import org.universAAL.middleware.connectors.DiscoveryConnector;
 import org.universAAL.middleware.connectors.ServiceListener;
@@ -50,15 +45,12 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceType;
 import org.universAAL.middleware.modules.AALSpaceModule;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.modules.ConfigurableCommunicationModule;
 import org.universAAL.middleware.modules.exception.AALSpaceModuleErrorCode;
 import org.universAAL.middleware.modules.exception.AALSpaceModuleException;
 import org.universAAL.middleware.modules.listener.MessageListener;
-
-import com.google.gson.Gson;
 
 /**
  * Implementation of the AALSpaceModule
@@ -68,7 +60,6 @@ import com.google.gson.Gson;
 public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 	SharedObjectListener, ServiceListener, Broker {
 
-    private static final String AALSpaceMessage = null;
     private String name;
     private String provider;
     private String version;
@@ -373,7 +364,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 	LogUtils.logDebug(context, AALSpaceModuleImpl.class,
 		"AALSpaceModuleImpl",
 		new Object[] { "AALSpaceModule properties updated" }, null);
-
     }
 
     public void leaveAALSpace(PeerCard spaceCoordinator, AALSpaceCard spaceCard) {
@@ -414,7 +404,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 		    AALSpaceModuleErrorCode.AALSPACE_LEAVE_ERROR,
 		    "Error during the unicast send: " + e);
 	}
-
     }
 
     public void requestToLeave(AALSpaceDescriptor spaceDescriptor) {
@@ -453,7 +442,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 		    AALSpaceModuleErrorCode.AALSPACE_LEAVE_ERROR,
 		    "Error during the unicast send: " + e);
 	}
-
     }
 
     public void requestPeerCard(AALSpaceDescriptor spaceDescriptor,
@@ -496,7 +484,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 		    AALSpaceModuleErrorCode.AALSPACE_LEAVE_ERROR,
 		    "Error during the unicast send: " + e);
 	}
-
     }
 
     public void newAALSpacesFound(Set<AALSpaceCard> spaceCards) {
@@ -574,7 +561,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 		    AALSpaceModuleErrorCode.AALSPACE_JOIN_WRONG_PARAMETERS,
 		    "PeerCard and/or SpaceCard are null");
 	}
-
     }
 
     public void addPeer(AALSpaceDescriptor spaceDescriptor, PeerCard newPeer) {
@@ -634,7 +620,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 		    AALSpaceModuleErrorCode.AALSPACE_JOIN_WRONG_PARAMETERS,
 		    "PeerCard and/or SpaceCard are null");
 	}
-
     }
 
     public void announceNewPeer(AALSpaceCard spaceCard, PeerCard peerCard) {
@@ -678,7 +663,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 		    AALSpaceModuleErrorCode.AALSPACE_NEW_PEER_ADDED_ERROR,
 		    "Event propagation failed! PeerCard and/or AALSpaceCard are not valid");
 	}
-
     }
 
     public void messageFromSpace(AALSpaceMessage message, PeerCard sender)
@@ -946,7 +930,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 	 * to my broker group
 	 */
 	communicationModule.addMessageListener(this, getBrokerName());
-
     }
 
     public void messageReceived(ChannelMessage message) {
@@ -992,7 +975,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 		    new Object[] { "Error during message receive: "
 			    + e.toString() }, null);
 	}
-
     }
 
     public void handleSendError(ChannelMessage message,
@@ -1068,12 +1050,9 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 				+ e.toString() }, null);
 	    }
 	}
-
     }
 
     public void aalSpaceLost(AALSpaceCard spaceCard) {
-	// TODO Auto-generated method stub
-
     }
 
     public void sharedObjectAdded(Object arg0, Object arg1) {
@@ -1127,7 +1106,6 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 		initialized = false;
 	    }
 	}
-
     }
 
     public String getBrokerName() {
@@ -1144,13 +1122,11 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 		dConnector.removeAALSpaceListener(this);
 	    }
 	}
-
     }
 
     public List<String> getPeersAddress() {
 	if (communicationModule instanceof ConfigurableCommunicationModule) {
 	    ConfigurableCommunicationModule cCommMode = (ConfigurableCommunicationModule) communicationModule;
-	    Map<String, PeerCard> checkedPeer = new HashMap<String, PeerCard>();
 	    List<String> members = cCommMode.getGroupMembers(getBrokerName());
 	    return members;
 	}
@@ -1170,22 +1146,17 @@ public class AALSpaceModuleImpl implements AALSpaceModule, MessageListener,
 		}
 	    }
 	}
-
     }
 
     public BrokerMessage unmarshall(String message) {
 	try {
-
 	    return GsonParserBuilder.getInstance().fromJson(message,
 		    AALSpaceMessage.class);
-
 	} catch (Exception e) {
 
 	    throw new AALSpaceMessageException(
 		    "Unable to unmashall AALSpaceMessage. Original message: "
 			    + message + ". Full Stack: " + e.toString());
 	}
-
     }
-
 }

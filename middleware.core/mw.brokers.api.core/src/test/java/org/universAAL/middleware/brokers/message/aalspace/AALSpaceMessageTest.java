@@ -35,8 +35,6 @@ import org.universAAL.middleware.interfaces.PeerRole;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 
-import com.google.gson.Gson;
-
 /**
  * 
  * @author <a href="mailto:giancarlo.riolo@isti.cnr.it">Giancarlo Riolo</a>
