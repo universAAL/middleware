@@ -25,15 +25,41 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.managers.api.Manager;
 
 /**
- *
+ * Manager for {@link DistributedBusMemberListener}s. The manager registers as a
+ * shared object. Registered listeners will be notified if a change occurs in
+ * the set of bus members or their registration parameters.
+ * 
  * @author Carsten Stockloew
  * 
  */
 public interface DistributedBusMemberListenerManager extends Manager {
 
-    void addListener(DistributedBusMemberListener listener,
-	    List<PeerCard> nodes);
+    /**
+     * Add a new listener.
+     * 
+     * @param listener
+     *            The callback that is invoked when a change occurs.
+     * @param nodes
+     *            The set of nodes on which the listener should be added. An
+     *            empty list will subscribe to all nodes, including nodes that
+     *            will join the space in the future. Null will subscribe to this
+     *            node only and is equivalent with a list that contains the
+     *            {@link PeerCard} of this node.
+     */
+    void addListener(DistributedBusMemberListener listener, List<PeerCard> nodes);
 
+    /**
+     * Remove an existing listener.
+     * 
+     * @param listener
+     *            The callback that was registered before with
+     *            {@link #addListener(DistributedBusMemberListener, List)}.
+     * @param nodes
+     *            The set of nodes on which the listener should be removed. An
+     *            empty list will unsubscribe from all nodes. Null will
+     *            unsubscribe from this node only and is equivalent with a list
+     *            that contains the {@link PeerCard} of this node.
+     */
     void removeListener(DistributedBusMemberListener listener,
 	    List<PeerCard> nodes);
 }

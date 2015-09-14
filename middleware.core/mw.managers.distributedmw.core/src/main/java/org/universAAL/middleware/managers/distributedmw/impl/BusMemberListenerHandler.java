@@ -21,7 +21,6 @@ package org.universAAL.middleware.managers.distributedmw.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 import org.universAAL.middleware.bus.member.BusMember;
@@ -123,12 +122,17 @@ public class BusMemberListenerHandler extends
 		    return;
 		// dispatch message
 		for (DistributedBusMemberListener l : st) {
-		    l.regParamsAdded(sender, r.getURI(),
-			    (Resource[]) ((List<?>) r.getProperty(PROP_PARAMS))
-				    .toArray());
+		    l.regParamsAdded(sender, r.getURI(), getParams(r));
 		}
 	    }
 	}
+    }
+
+    private Resource[] getParams(Resource r) {
+	ArrayList<Object> arr = (ArrayList<Object>) r.getProperty(PROP_PARAMS);
+	if (arr == null)
+	    return null;
+	return arr.toArray(new Resource[0]);
     }
 
     public class RegParamsRemovedMessageHandler implements Handler {
@@ -142,9 +146,7 @@ public class BusMemberListenerHandler extends
 		    return;
 		// dispatch message
 		for (DistributedBusMemberListener l : st) {
-		    l.regParamsRemoved(sender, r.getURI(),
-			    (Resource[]) ((List<?>) r.getProperty(PROP_PARAMS))
-				    .toArray());
+		    l.regParamsRemoved(sender, r.getURI(), getParams(r));
 		}
 	    }
 	}
@@ -290,6 +292,17 @@ public class BusMemberListenerHandler extends
 			    DistributedMWManagerImpl.context,
 			    IBusMemberRegistry.busRegistryShareParams);
 	    registry.addListener(localListener, true);
+	}
+    }
+
+    @Override
+    protected void removeListenerLocally() {
+	synchronized (this) {
+	    IBusMemberRegistry registry = (IBusMemberRegistry) DistributedMWManagerImpl.context
+		    .getContainer().fetchSharedObject(
+			    DistributedMWManagerImpl.context,
+			    IBusMemberRegistry.busRegistryShareParams);
+	    registry.removeListener(localListener);
 	}
     }
 }

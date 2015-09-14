@@ -27,13 +27,11 @@ import com.google.gson.Gson;
 
 public class DistributedMWMessage implements BrokerMessage {
 
-    private PeerCard sender;
-    private PeerCard receiver;
     private String param;
     private String parsed;
 
     /**
-     * 
+     * Create a new Message.
      */
     public DistributedMWMessage() {
     }
@@ -41,15 +39,8 @@ public class DistributedMWMessage implements BrokerMessage {
     /**
      * Create a new Message.
      * 
-     * @param sender
-     *            the sender of this message
      * @param param
      */
-    public DistributedMWMessage(PeerCard sender, String param) {
-	this.param = param;
-	this.sender = sender;
-    }
-    
     public DistributedMWMessage(String param) {
 	this.param = param;
     }
@@ -69,26 +60,16 @@ public class DistributedMWMessage implements BrokerMessage {
 
     /** {@ inheritDoc} */
     public PeerCard[] getReceivers() {
-	if (receiver != null) {
-	    return new PeerCard[] { receiver };
-	}
 	return new PeerCard[] {};
     }
 
-    // public GenericMessage createResoponse(String serializedParam) {
-    // GenericMessage resp = new GenericMessage();
-    // resp.receiver = sender;
-    // resp.param = serializedParam;
-    // return resp;
-    // }
-
     public String toString() {
+	// return param;
 	String serializedMessage = null;
 	if (parsed == null) {
 	    try {
 		Gson gson = GsonParserBuilder.getInstance();
 		serializedMessage = gson.toJson(this);
-
 	    } catch (Exception e) {
 		e.printStackTrace();
 	    }
@@ -97,7 +78,8 @@ public class DistributedMWMessage implements BrokerMessage {
 	return parsed;
     }
 
-    public static DistributedMWMessage unmarshall(String message) throws Exception {
+    public static DistributedMWMessage unmarshall(String message)
+	    throws Exception {
 	try {
 	    Gson gson = GsonParserBuilder.getInstance();
 	    return gson.fromJson(message, DistributedMWMessage.class);
@@ -106,12 +88,5 @@ public class DistributedMWMessage implements BrokerMessage {
 		    "Unable to unmashall ConfigurationMessage. Original message: "
 			    + message + ". Full Stack: " + e.toString());
 	}
-    }
-
-    /**
-     * @return
-     */
-    public PeerCard getSender() {
-	return sender;
     }
 }

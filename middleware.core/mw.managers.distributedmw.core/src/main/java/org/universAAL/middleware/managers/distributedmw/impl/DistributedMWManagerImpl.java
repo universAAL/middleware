@@ -51,8 +51,8 @@ public class DistributedMWManagerImpl implements
     public static PeerCard myPeer;
     public static ModuleContext context;
     public static SharedObjectConnector shared;
-    private LogListenerHandler logListenerHandler = new LogListenerHandler();
-    private BusMemberListenerHandler busMemberListenerHandler = new BusMemberListenerHandler();
+    private LogListenerHandler logListenerHandler = null;
+    private BusMemberListenerHandler busMemberListenerHandler = null;
     private Object[] removeParamsBMLMgmt;
     private Object[] removeParamsLLMgmt;
     private Object[] removeParamsEvtH;
@@ -61,7 +61,10 @@ public class DistributedMWManagerImpl implements
 	void handle(PeerCard sender, Resource r);
     };
 
-    private DistributedMWEventHandler handler = new DistributedMWEventHandler() {
+    private DistributedMWEventHandler handler = null;
+
+    private class MyDistributedMWEventHandler implements
+	    DistributedMWEventHandler {
 	public HashMap<String, Handler> handlers = new HashMap<String, Handler>();
 
 	{
@@ -122,6 +125,11 @@ public class DistributedMWManagerImpl implements
 	this.removeParamsBMLMgmt = removeParamsBMLMgmt;
 	this.removeParamsLLMgmt = removeParamsLLMgmt;
 	this.removeParamsEvtH = removeParamsEvtH;
+
+	logListenerHandler = new LogListenerHandler();
+	busMemberListenerHandler = new BusMemberListenerHandler();
+	handler = new MyDistributedMWEventHandler();
+
 	// register manager as shared object
 	context.getContainer().shareObject(context, this, shareParamsBMLMgmt);
 	context.getContainer().shareObject(context, this, shareParamsLLMgmt);

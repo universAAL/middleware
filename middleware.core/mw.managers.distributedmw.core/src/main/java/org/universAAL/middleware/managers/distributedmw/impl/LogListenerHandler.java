@@ -163,4 +163,14 @@ public class LogListenerHandler extends ListenerHandler<DistributedLogListener> 
 	    }
 	}
     }
+
+    @Override
+    protected void removeListenerLocally() {
+	synchronized (this) {
+	    if (localListener != null) {
+		removeSharedObject(localListener);
+		localListener = null;
+	    }
+	}
+    }
 }

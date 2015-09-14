@@ -95,6 +95,7 @@ public class ControlBroker implements SharedObjectListener, Broker,
     private DistributedMWEventHandler distributedMWEventHandler;
     private boolean initialized = false;
     private HashMap<String, WaitForResponse> openTransaction = new HashMap<String, WaitForResponse>();
+    private List<ChannelMessage> cachedMessages = new ArrayList<ChannelMessage>();
 
     private static String TMP_DEPLOY_FOLDER = "etc" + File.separatorChar
 	    + "tmp" + File.separatorChar + "installations" + File.separatorChar;
@@ -185,11 +186,33 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		    || getCommunicationModule() == null
 		    || getConfiguratorManagerConnector() == null
 		    || getDeployManager() == null
-		    || getDeployConnector() == null) {
+		    // TODO: check this, the deploy connector is currently only
+		    // available in Karaf
+		    // || getDeployConnector() == null
+		    || getDistributedMWEventHandler() == null) {
 		return initialized = false;
 	    }
 	    communicationModule.addMessageListener(this, getBrokerName());
+
+	    initialized = true;
+	    // process cached messages
+	    synchronized (cachedMessages) {
+		if (cachedMessages.size() != 0) {
+		    LogUtils.logDebug(
+			    context,
+			    ControlBroker.class,
+			    "init",
+			    new Object[] { "ControlBroker fully initialized, processing "
+				    + cachedMessages.size() + " messages" },
+			    null);
+		    for (ChannelMessage message : cachedMessages) {
+			messageReceived(message);
+		    }
+		    cachedMessages.clear();
+		}
+	    }
 	}
+
 	return initialized = true;
     }
 
@@ -212,63 +235,66 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	aalSpaceModule.newAALSpace(aalSpaceCard);
     }
 
-    public void sharedObjectAdded(Object arg0, Object arg1) {
-	if (arg0 != null && arg0 instanceof AALSpaceModule) {
+    public void sharedObjectAdded(Object sharedObj, Object removeHook) {
+	if (sharedObj == null)
+	    return;
+
+	if (sharedObj instanceof AALSpaceModule) {
 	    LogUtils.logDebug(context, ControlBroker.class,
 		    "sharedObjectAdded",
 		    new Object[] { "AALSpaceModule registered..." }, null);
-	    aalSpaceModule = (AALSpaceModule) arg0;
+	    aalSpaceModule = (AALSpaceModule) sharedObj;
 	}
-	if (arg0 != null && arg0 instanceof CommunicationModule) {
+	if (sharedObj instanceof CommunicationModule) {
 	    LogUtils.logDebug(context, ControlBroker.class,
 		    "sharedObjectAdded",
 		    new Object[] { "CommunicationModule registered..." }, null);
 	    if (communicationModule instanceof ConfigurableCommunicationModule)
-		communicationModule = (ConfigurableCommunicationModule) arg0;
+		communicationModule = (ConfigurableCommunicationModule) sharedObj;
 	    communicationModule.addMessageListener(this, getBrokerName());
 	}
-
-	if (arg0 != null && arg0 instanceof AALSpaceManager) {
+	if (sharedObj instanceof AALSpaceManager) {
 	    LogUtils.logDebug(context, ControlBroker.class,
 		    "sharedObjectAdded",
 		    new Object[] { "AALSpaceManager registered..." }, null);
-	    aalSpaceManager = (AALSpaceManager) arg0;
+	    aalSpaceManager = (AALSpaceManager) sharedObj;
 	}
-
-	if (arg0 != null && arg0 instanceof AALSpaceEventHandler) {
+	if (sharedObj instanceof AALSpaceEventHandler) {
 	    LogUtils.logDebug(context, ControlBroker.class,
 		    "sharedObjectAdded",
 		    new Object[] { "AALSpaceEventHandler registered..." }, null);
-	    aalSpaceEventHandler = (AALSpaceEventHandler) arg0;
+	    aalSpaceEventHandler = (AALSpaceEventHandler) sharedObj;
 	}
-	if (arg0 != null && arg0 instanceof DeployManager) {
+	if (sharedObj instanceof DeployManager) {
 	    LogUtils.logDebug(context, ControlBroker.class,
 		    "sharedObjectAdded",
 		    new Object[] { "DeployManager registered..." }, null);
-	    deployManager = (DeployManager) arg0;
+	    deployManager = (DeployManager) sharedObj;
 	}
-	if (arg0 != null && arg0 instanceof DeployConnector) {
+	if (sharedObj instanceof DeployConnector) {
 	    LogUtils.logDebug(context, ControlBroker.class,
 		    "sharedObjectAdded",
 		    new Object[] { "DeployConnector registered..." }, null);
-	    deployConnector = (DeployConnector) arg0;
+	    deployConnector = (DeployConnector) sharedObj;
 	}
-	if (arg0 != null && arg0 instanceof ConfigurationManagerConnector) {
+	if (sharedObj instanceof ConfigurationManagerConnector) {
 	    LogUtils.logDebug(
 		    context,
 		    ControlBroker.class,
 		    "sharedObjectAdded",
 		    new Object[] { "ConfigurationManagerConnector registered..." },
 		    null);
-	    configConnector = (ConfigurationManagerConnector) arg0;
+	    configConnector = (ConfigurationManagerConnector) sharedObj;
 	}
-	if (arg0 != null && arg0 instanceof DistributedMWEventHandler) {
+	if (sharedObj instanceof DistributedMWEventHandler) {
 	    LogUtils.logDebug(context, ControlBroker.class,
 		    "sharedObjectAdded",
 		    new Object[] { "DistributedMWEventHandler registered..." },
 		    null);
-	    distributedMWEventHandler = (DistributedMWEventHandler) arg0;
+	    distributedMWEventHandler = (DistributedMWEventHandler) sharedObj;
 	}
+
+	init();
     }
 
     public void sharedObjectRemoved(Object arg0) {
@@ -706,17 +732,23 @@ public class ControlBroker implements SharedObjectListener, Broker,
 		    context,
 		    ControlBroker.class,
 		    "messageReceived",
-		    new Object[] { "ControlBroker not initialized. Dropping the message" },
+		    new Object[] { "ControlBroker not initialized. Caching the message for later processing" },
 		    null);
+	    synchronized (cachedMessages) {
+		cachedMessages.add(message);
+	    }
 	    return;
 	}
-	deployManager = getDeployManager();
-	deployConnector = getDeployConnector();
+	// CS: removed, this is done in init and sharedObjectAdded
+	// deployManager = getDeployManager();
+	// deployConnector = getDeployConnector();
 	BrokerMessage cm = null;
 	if (message != null) {
 	    try {
 		Gson gson = GsonParserBuilder.getInstance();
 		cm = gson.fromJson(message.getContent(), BrokerMessage.class);
+		if (cm == null)
+		    cm = gson.fromJson(message.getContent(), DistributedMWMessage.class);
 	    } catch (Exception e) {
 		LogUtils.logError(
 			context,
@@ -739,6 +771,10 @@ public class ControlBroker implements SharedObjectListener, Broker,
 	} else if (cm instanceof DistributedMWMessage) {
 	    handleDistributedMWMessage(message.getSender(),
 		    (DistributedMWMessage) cm);
+	} else {
+	    String s = cm == null ? "null" : cm.getClass().getName();
+	    LogUtils.logError(context, ControlBroker.class, "messageReceived",
+		    "Message type unknown. Dropping message of type " + s);
 	}
     }
 

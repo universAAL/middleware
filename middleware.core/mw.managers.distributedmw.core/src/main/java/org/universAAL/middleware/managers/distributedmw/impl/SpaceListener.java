@@ -21,17 +21,25 @@ public class SpaceListener implements AALSpaceListener, SharedObjectListener {
     private AALSpaceManager theAALSpaceManager = null;
 
     // the singleton instance
-    private static SpaceListener listener = null;
+    private static SpaceListener instance = null;
+
+    private List<AALSpaceListener> listeners = new ArrayList<AALSpaceListener>();
 
     private SpaceListener() {
     }
 
     public static SpaceListener getInstance() {
-	if (listener == null) {
-	    listener = new SpaceListener();
-	    listener.start();
+	if (instance == null) {
+	    instance = new SpaceListener();
+	    instance.start();
 	}
-	return listener;
+	return instance;
+    }
+
+    public void register(AALSpaceListener l) {
+	synchronized (listeners) {
+	    listeners.add(l);
+	}
     }
 
     public void start() {
@@ -49,6 +57,9 @@ public class SpaceListener implements AALSpaceListener, SharedObjectListener {
     }
 
     public void stop() {
+	synchronized (listeners) {
+	    listeners.clear();
+	}
 	// remove me as AALSpaceListener
 	synchronized (this) {
 	    if (theAALSpaceManager != null) {
@@ -56,19 +67,39 @@ public class SpaceListener implements AALSpaceListener, SharedObjectListener {
 	    }
 	}
 	// and remove this object
-	listener = null;
+	instance = null;
     }
 
     public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor) {
+	synchronized (listeners) {
+	    for (AALSpaceListener l : listeners) {
+		l.aalSpaceJoined(spaceDescriptor);
+	    }
+	}
     }
 
     public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor) {
+	synchronized (listeners) {
+	    for (AALSpaceListener l : listeners) {
+		l.aalSpaceLost(spaceDescriptor);
+	    }
+	}
     }
 
     public void newPeerJoined(PeerCard peer) {
+	synchronized (listeners) {
+	    for (AALSpaceListener l : listeners) {
+		l.newPeerJoined(peer);
+	    }
+	}
     }
 
     public void peerLost(PeerCard peer) {
+	synchronized (listeners) {
+	    for (AALSpaceListener l : listeners) {
+		l.peerLost(peer);
+	    }
+	}
     }
 
     public void aalSpaceStatusChanged(AALSpaceStatus status) {
