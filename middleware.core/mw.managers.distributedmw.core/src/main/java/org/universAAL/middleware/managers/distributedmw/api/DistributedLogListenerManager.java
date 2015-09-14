@@ -25,7 +25,10 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.managers.api.Manager;
 
 /**
- * NOTE: not yet implemented!
+ * Manager for {@link DistributedLogListener}s. The manager registers as a
+ * shared object. Registered listeners will be notified if a new log message is
+ * issued in one of the nodes.
+ * 
  * @author Carsten Stockloew
  * 
  */
