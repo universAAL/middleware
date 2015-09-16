@@ -13,7 +13,7 @@
   <version>3.4.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>universAAL Middleware Suite (OSGi)</name>
-  <description>The set of artefacts realizing the universAAL middleware 2.0 (OSGi)</description>
+  <description>The set of artefacts realizing the universAAL middleware (OSGi)</description>
   <modules>
     <module>../../thirdparty/jslp.osgi</module>
     <module>../../middleware.resources/mw.schemas</module>

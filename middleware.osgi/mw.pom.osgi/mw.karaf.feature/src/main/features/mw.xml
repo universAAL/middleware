@@ -2,7 +2,7 @@
 <features name="universAAL-${mw.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
 
 	<feature name="uAAL-MW"
-		description="The universAAL runtime based on the Middleware 2.0"
+		description="The universAAL runtime based on the Middleware"
 		version="${project.version}" resolver='(obr)'>
 
 		<!-- APIs -->	

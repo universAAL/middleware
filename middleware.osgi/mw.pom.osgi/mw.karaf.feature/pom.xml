@@ -68,6 +68,10 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.managers.distributedmw.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.managers.aalspace.core.config</artifactId>
       <type>cfg</type>
     </dependency>
