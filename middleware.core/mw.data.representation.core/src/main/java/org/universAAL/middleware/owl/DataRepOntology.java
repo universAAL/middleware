@@ -58,7 +58,14 @@ public final class DataRepOntology extends Ontology {
 	    oci = createNewAbstractOntClassInfo(ManagedIndividual.MY_URI);
 	    oci.setResourceComment("The root of the whole class hierarchy in the uAAL ontology.");
 	    oci.setResourceLabel("uAAL Ontology Root Class");
-
+	    	    
+	    // load PrivateResource
+	    oci = createNewAbstractOntClassInfo(PrivateResource.MY_URI);
+	    oci.setResourceComment("An abstract superclass that ManagedIndividuals can subclass "
+	    	+ "to indicate they represent private data");
+	    oci.setResourceLabel("Private Resource");
+	    oci.addSuperClass(ManagedIndividual.MY_URI);
+	    
 	    // load ComparableIndividual
 	    oci = createNewAbstractOntClassInfo(ComparableIndividual.MY_URI);
 	    oci.setResourceComment("The root class for all comparable individuals in the uAAL ontology.");
