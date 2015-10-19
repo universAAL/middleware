@@ -424,6 +424,28 @@ public class ContextEvent extends ScopedResource implements Event {
 	return false;
     }
 
+    /**
+     * Set the involved user
+     * 
+     * @param user
+     */
+    public boolean setInvolvedUser(Resource user) {
+	if (user != null && !props.containsKey(PROP_uAAL_INVOLVED_HUMAN_USER)) {
+	    props.put(PROP_uAAL_INVOLVED_HUMAN_USER, user);
+	    return true;
+	}
+	return false;
+    }
+
+    /**
+     * Get the involved user
+     * 
+     * @return user
+     */
+    public Resource getInvolvedUser() {
+	return (Resource) props.get(PROP_uAAL_INVOLVED_HUMAN_USER);
+    }
+
     public boolean setProperty(String propURI, Object value) {
 	if (propURI == null)
 	    return false;
@@ -435,6 +457,9 @@ public class ContextEvent extends ScopedResource implements Event {
 	     * (propURI.equals(PROP_CONTEXT_ACCURACY)) setAccuracy((Rating)
 	     * value);
 	     */
+	} else if (propURI.equals(PROP_uAAL_INVOLVED_HUMAN_USER)) {
+	    if (value instanceof Resource)
+		return setInvolvedUser((Resource) value);
 	} else if (value instanceof ContextProvider) {
 	    if (propURI.equals(PROP_CONTEXT_PROVIDER))
 		return setProvider((ContextProvider) value);
