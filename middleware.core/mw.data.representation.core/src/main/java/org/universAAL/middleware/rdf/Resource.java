@@ -344,12 +344,12 @@ public class Resource {
      */
     public List asList() {
 	if (RDF_EMPTY_LIST.equals(uri)) {
-	    return new ArrayList();
+	    return new ClosedCollection();
 	}
 	String type = getType();
 	if (type == null || !type.equals(TYPE_RDF_LIST))
 	    return null;
-	List result = new ArrayList();
+	List result = new ClosedCollection();
 	asList(result);
 	return result;
     }
