@@ -47,6 +47,7 @@ import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.OpenCollection;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.util.Specializer;
 
 /**
  * Serialization and Deserialization of RDF graphs. This class implements the
@@ -265,6 +266,15 @@ public class TurtleParser {
      * @return the root node.
      */
     private Resource finalizeAndGetRoot(String resourceURI) {
+	
+	Resource root = null;
+	if (resourceURI != null)
+	    root = (Resource) resources.get(resourceURI);
+	if (root == null)
+	    root = firstResource;
+	if (true)
+	    return new Specializer().specialize(root);
+	
 	Resource aux;
 	Resource specialized;
 	Resource result = null;
@@ -1397,11 +1407,11 @@ public class TurtleParser {
     private void reportStatement(Resource subj, String pred, Object obj) {
 	if (obj == null || (obj instanceof List && ((List) obj).isEmpty()))
 	    obj = NIL;
-	else if (!Resource.PROP_RDF_TYPE.equals(pred)
-		&& ((obj instanceof Resource && !((Resource) obj)
-			.serializesAsXMLLiteral()) || (obj instanceof List && containsResource((List) obj))))
-	    // postpone for later -> see finalizeAndGetRoot
-	    return;
+//	else if (!Resource.PROP_RDF_TYPE.equals(pred)
+//		&& ((obj instanceof Resource && !((Resource) obj)
+//			.serializesAsXMLLiteral()) || (obj instanceof List && containsResource((List) obj))))
+//	    // postpone for later -> see finalizeAndGetRoot
+//	    return;
 
 	subj.setProperty(pred, obj);
     }

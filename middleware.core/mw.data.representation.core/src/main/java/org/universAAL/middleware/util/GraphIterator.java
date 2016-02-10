@@ -41,7 +41,7 @@ public class GraphIterator implements Iterator {
      * defined for {@link Resource}).
      */
     public static class ObjectEqualsResource {
-	private Resource r;
+	public Resource r;
 
 	public ObjectEqualsResource(Resource r) {
 	    this.r = r;

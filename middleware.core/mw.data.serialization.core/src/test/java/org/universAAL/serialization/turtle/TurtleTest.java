@@ -3,6 +3,7 @@ package org.universAAL.serialization.turtle;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import junit.framework.TestCase;
 
@@ -16,6 +17,8 @@ import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
+import org.universAAL.middleware.util.GraphIterator;
+import org.universAAL.middleware.util.GraphIteratorElement;
 import org.universAAL.middleware.util.ResourceComparator;
 
 public class TurtleTest extends TestCase {
@@ -75,8 +78,8 @@ public class TurtleTest extends TestCase {
 	s = new TurtleSerializer();
 	r2 = (Resource) s.deserialize(str);
 	ResourceComparator rc = new ResourceComparator(ignoreEmptyList);
-	// System.out.println("-- r1:\n" + r1.toStringRecursive());
-	// System.out.println("-- r2:\n" + r2.toStringRecursive());
+	 System.out.println("-- r1:\n" + r1.toStringRecursive());
+	 System.out.println("-- r2:\n" + r2.toStringRecursive());
 
 	if (!rc.areEqual(r1, r2)) {
 	    log("-- error found in serialization: ");
@@ -92,6 +95,26 @@ public class TurtleTest extends TestCase {
     public void testEnumeration1() {
 	Enumeration e = new Enumeration(new Object[] { new Resource("value1") });
 	Resource r = MergedRestriction.getAllValuesRestriction("propURI", e);
+	
+	// System.out.println(new TurtleSerializer().serialize(r));
+	//
+	// System.out.println(" ---------- all triples:");
+	// Iterator<GraphIteratorElement> it = GraphIterator.getIterator(r);
+	// while (it.hasNext()) {
+	// GraphIteratorElement el = it.next();
+	// System.out.println(el.getSubject() + " " + el.getPredicate() + " " +
+	// el.getObject());
+	// }
+	//
+	// System.out.println("\n ---------- all resources:");
+	// Iterator<Resource> it2 = GraphIterator.getResourceIterator(r);
+	// while (it2.hasNext()) {
+	// Resource el = it2.next();
+	// System.out.println("ELEMENT: " + el.getURI());
+	// }
+	//
+	// if (true)
+	// return;
 	assertTrue(check(r));
     }
 
@@ -107,7 +130,13 @@ public class TurtleTest extends TestCase {
 	assertTrue(check(e));
     }
 
-    public void testTypeURI() {
+    public void testTypeURI1() {
+	Resource r = new Resource("testResource");
+	r.setProperty("prop", new TypeURI(MyOntClass.MY_URI, false));
+	assertTrue(check(r));
+    }
+    
+    public void testTypeURI2() {
 	String propURI = Resource.uAAL_NAMESPACE_PREFIX
 		+ "TurtleTest.owl#myProperty";
 	Resource r = new Resource("testResource");
