@@ -317,8 +317,10 @@ public class ServiceResponse extends ScopedResource implements Response,
 		return true;
 	    }
 	} else if (propURI.equals(ServiceRealization.uAAL_SERVICE_PROVIDER)) {
-	    if (value instanceof Resource)
+	    if (value instanceof Resource) {
 		props.put(propURI, value);
+		return true;
+	    }
 	}
 	return false;
     }
