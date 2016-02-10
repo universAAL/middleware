@@ -36,10 +36,46 @@ import org.universAAL.middleware.rdf.Resource;
 public class GraphIterator implements Iterator {
 
     /**
+     * A class that links to a resource but overrides the equals-method to
+     * return true iff the objects are equal (instead of the URI as it is
+     * defined for {@link Resource}).
+     */
+    public static class ObjectEqualsResource {
+	private Resource r;
+
+	public ObjectEqualsResource(Resource r) {
+	    this.r = r;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+	    // if (!(obj instanceof ObjectEqualsResource))
+	    // return false;
+	    return (r == ((ObjectEqualsResource) obj).r);
+	}
+
+	@Override
+	public int hashCode() {
+	    return r.hashCode();
+	}
+
+	public ObjectEqualsResource set(Resource r) {
+	    this.r = r;
+	    return this;
+	}
+    }
+
+    /**
      * The set of resources that have been visited before. During iteration,
      * this will be used to avoid endless loop in case of cycles.
      */
-    protected Set visitedResources = new HashSet();
+    protected Set<ObjectEqualsResource> visitedResources = new HashSet<ObjectEqualsResource>();
+
+    /**
+     * A dummy object for performance that is only used to call the
+     * contains-method of {@link #visitedResources}.
+     */
+    protected ObjectEqualsResource idxdummy = new ObjectEqualsResource(null);
 
     /**
      * The current information at a certain depth.
@@ -52,7 +88,7 @@ public class GraphIterator implements Iterator {
      * enumerator of properties, is stored in the stack to be restored when all
      * child nodes have been processed.
      */
-    protected Stack stack = new Stack();
+    protected Stack<StackElement> stack = new Stack<StackElement>();
 
     /**
      * The next element as being returned by {@link #next()}. It can be
@@ -112,40 +148,59 @@ public class GraphIterator implements Iterator {
 	    super(root);
 	}
 
+	@Override
 	protected void createNext() {
 	    if (first)
 		return;
+
+	    // System.out.println("..createNext");
+	    // for (ObjectEqualsResource o : visitedResources) {
+	    // System.out.println("-- " + o.r);
+	    // }
 
 	    while (true) {
 		super.createNext();
 		if (nextElement == null)
 		    return;
+
+		// System.out.println("next triple: " +
+		// nextElement.getSubject().getURI() + " " +
+		// nextElement.getPredicate() +
+		// " " + nextElement.getObject());
+
 		if (nextElement.getObject() instanceof Resource) {
-		    if (!visitedResources.contains(nextElement.getObject()))
+		    if (!visitedResources.contains(idxdummy
+			    .set((Resource) (nextElement.getObject()))))
 			return;
+		    // else
+		    // System.out.println(" ++ already visited: " +
+		    // ((Resource)nextElement.getObject()).getURI());
 		}
 		// force createNext
 		nextElement = null;
 	    }
 	}
 
+	@Override
 	public boolean hasNext() {
 	    if (first)
 		return true;
 	    return super.hasNext();
 	}
 
+	@Override
 	public Object next() {
 	    if (first) {
 		first = false;
-		visitedResources.add(se.nodeParent);
+		visitedResources.add(new ObjectEqualsResource(se.nodeParent));
 		return se.nodeParent;
 	    } else {
 		GraphIteratorElement el = (GraphIteratorElement) super.next();
 		if (el == null)
 		    return null;
-		visitedResources.add(el.getObject());
-		return el.getObject();
+		Resource r = (Resource) el.getObject();
+		// visitedResources.add(new ObjectEqualsResource(r));
+		return r;
 	    }
 	}
     }
@@ -155,14 +210,13 @@ public class GraphIterator implements Iterator {
     }
 
     /**
-     * Create a new Iterator that iterates over all triples. The return value of
-     * {@link #next()} is of type {@link GraphIteratorElement}.
+     * Create a new Iterator that iterates over all triples of the graph.
      * 
      * @param root
      *            the {@link Resource} that is the root of the graph.
      * @return an {@link Iterator} to iterate over elements of the graph.
      */
-    public static Iterator getIterator(Resource root) {
+    public static Iterator<GraphIteratorElement> getIterator(Resource root) {
 	if (root == null)
 	    throw new NullPointerException(
 		    "The argument of a GraphIterator can not be null.");
@@ -170,14 +224,16 @@ public class GraphIterator implements Iterator {
     }
 
     /**
-     * Create a new Iterator that iterates over all Resources. The return value
-     * of {@link #next()} is of type {@link Resource}.
+     * Create a new Iterator that iterates over all Resources of the graph. This
+     * iterator differentiates between different Java objects. Thus, it might be
+     * that more than one resource with the same URI is returned if the Java
+     * objects are different.
      * 
      * @param root
      *            the {@link Resource} that is the root of the graph.
      * @return an {@link Iterator} to iterate over elements of the graph.
      */
-    public static Iterator getResourceIterator(Resource root) {
+    public static Iterator<Resource> getResourceIterator(Resource root) {
 	if (root == null)
 	    throw new NullPointerException(
 		    "The argument of a GraphIterator can not be null.");
@@ -191,7 +247,7 @@ public class GraphIterator implements Iterator {
     }
 
     protected void stepDeeper(Resource root) {
-	visitedResources.add(root.getURI());
+	visitedResources.add(new ObjectEqualsResource(root));
 	StackElement newSe = new StackElement();
 	newSe.nodeParent = root;
 	newSe.depth = 0;
@@ -207,7 +263,7 @@ public class GraphIterator implements Iterator {
     protected boolean stepHigher() {
 	if (stack.isEmpty())
 	    return false;
-	se = (StackElement) stack.pop();
+	se = stack.pop();
 	return true;
     }
 
@@ -232,7 +288,7 @@ public class GraphIterator implements Iterator {
 	} else if (se.lstElement instanceof Resource) {
 	    r = (Resource) se.lstElement;
 	}
-	if (r != null && !visitedResources.contains(r.getURI()))
+	if (r != null && !visitedResources.contains(idxdummy.set(r)))
 	    stepDeeper(r);
 
 	while (true) {
@@ -284,7 +340,9 @@ public class GraphIterator implements Iterator {
 	}
     }
 
-    /** @see java.util.Iterator#hasNext() */
+    /**
+     * @see java.util.Iterator#hasNext()
+     */
     public boolean hasNext() {
 	createNext();
 	return nextElement != null;
@@ -302,7 +360,9 @@ public class GraphIterator implements Iterator {
 	return retVal;
     }
 
-    /** @see java.util.Iterator#remove() */
+    /**
+     * @see java.util.Iterator#remove()
+     */
     public void remove() {
 	throw new UnsupportedOperationException(
 		"Removing resources is not allowed in a GraphIterator");

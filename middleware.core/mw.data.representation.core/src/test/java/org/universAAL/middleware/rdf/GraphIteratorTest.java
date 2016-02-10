@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import org.universAAL.middleware.util.GraphIterator;
+import org.universAAL.middleware.util.GraphIterator.ObjectEqualsResource;
 import org.universAAL.middleware.util.GraphIteratorElement;
 import junit.framework.TestCase;
 
@@ -31,6 +33,30 @@ public class GraphIteratorTest extends TestCase {
     String p[] = new String[num];
     Set tripleSet;
     Set resources;
+
+    public void testObjectEqualsResource() {
+	Resource r1 = new Resource("root1");
+	Resource r2 = new Resource("root2");
+	Resource r3 = r1;
+	Resource r4 = new Resource("root1");
+
+	ObjectEqualsResource or1 = new ObjectEqualsResource(r1);
+	ObjectEqualsResource or2 = new ObjectEqualsResource(r2);
+	ObjectEqualsResource or3 = new ObjectEqualsResource(r3);
+	ObjectEqualsResource or4 = new ObjectEqualsResource(r4);
+
+	assertTrue(or1.equals(or3));
+	assertTrue(or3.equals(or1));
+	assertFalse(or1.equals(or2));
+	assertFalse(or1.equals(or4)); // same URI but different objects
+
+	HashSet<ObjectEqualsResource> set = new HashSet<ObjectEqualsResource>();
+	set.add(or1);
+	assertTrue(set.contains(or1));
+	assertFalse(set.contains(or2));
+	assertTrue(set.contains(or3));
+	assertFalse(set.contains(or4));
+    }
 
     public void test1() {
 	Resource r = new Resource("root_resource");
@@ -145,6 +171,8 @@ public class GraphIteratorTest extends TestCase {
 	add(r[1], p[5], arr);
 
 	// test without cycles (and list and literal)
+	// System.out.println(" -----------------------");
+	// System.out.println(r[0].toStringRecursive());
 	resources2 = new HashSet(resources);
 	it = GraphIterator.getResourceIterator(r[0]);
 	while (it.hasNext()) {
@@ -152,8 +180,35 @@ public class GraphIteratorTest extends TestCase {
 	    // System.out.println(r.getURI());
 	    assertTrue(resources2.contains(r));
 	    resources2.remove(r);
+	    // System.out.println(" - Found: " + r.getURI());
 	}
+	// System.out.println(" -- Remaining:");
+	// for (Object o : resources2)
+	// System.out.println(" -- " + o);
 	assertTrue(resources2.isEmpty());
+    }
+
+    public void test5() {
+	Resource r1 = new Resource("root");
+	// r1.setProperty(
+	// "testprop",
+	// new MergedRestriction("onProperty").addRestriction(
+	// new MinCardinalityRestriction("onProperty", 32))
+	// .addRestriction(
+	// new MaxCardinalityRestriction("onProperty", 42)
+	//
+	// ));
+	// r1.setProperty("testprop2", Integer.valueOf(1));
+	r1.setProperty("testprop3", r1);
+	Iterator it = GraphIterator.getResourceIterator(r1);
+	int i = 0;
+	while (it.hasNext()) {
+	    Resource r = (Resource) it.next();
+	    // System.out.println(r);
+	    i++;
+	    assertTrue(r != null);
+	}
+	assertTrue(i == 1);
     }
 
     /*

@@ -22,6 +22,12 @@ package org.universAAL.middleware.util;
 import java.util.List;
 import org.universAAL.middleware.rdf.Resource;
 
+/**
+ * An element of the graph iterator. It contains the RDF triple (subject,
+ * predicate, object) as well as additional information.
+ * 
+ * @author Carsten Stockloew
+ */
 public final class GraphIteratorElement {
     private Resource subject = null;
     private String predicate = null;
@@ -55,18 +61,39 @@ public final class GraphIteratorElement {
 	return listIndex;
     }
 
+    /**
+     * Get the depth of the triple (the distance to the root resource) in the
+     * graph.
+     * 
+     * @return the depth of the triple.
+     */
     public int getDepth() {
 	return depth;
     }
 
+    /**
+     * Get the RDF subject of the triple.
+     * 
+     * @return the RDF subject of the triple.
+     */
     public Resource getSubject() {
 	return subject;
     }
 
+    /**
+     * Get the RDF predicate of the triple.
+     * 
+     * @return the RDF predicate of the triple.
+     */
     public String getPredicate() {
 	return predicate;
     }
 
+    /**
+     * Get the RDF object of the triple.
+     * 
+     * @return the RDF object of the triple.
+     */
     public Object getObject() {
 	return object;
     }
