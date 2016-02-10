@@ -20,33 +20,16 @@
 package org.universAAL.middleware.serialization.turtle;
 
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 
 public class TurtleSerializer implements MessageContentSerializerEx {
-
-    private static int cnt = 0;
 
     public TurtleSerializer() {
     }
 
     /** @see org.universAAL.middleware.serialization.MessageContentSerializer#deserialize(String) */
     public synchronized Object deserialize(String serialized) {
-	cnt++;
-	String s = "";
-	if (TurtleParser.dbg)
-	    s = "\n\n------- Turtle start cnt: " + cnt + "\n" + serialized
-		    + "\n ------\n\n";
-	if (TurtleParser.dbg)
-	    System.out.println(s);
-	Object o = deserialize(serialized, null);
-	if (TurtleParser.dbg)
-	    System.out.println("-- Turtle result:");
-	if (TurtleParser.dbg)
-	    System.out.println(((Resource) o).toStringRecursive());
-	if (TurtleParser.dbg)
-	    System.out.println("-- Turtle ende cnt: " + cnt);
-	return o;
+	return deserialize(serialized, null);
     }
 
     /**
