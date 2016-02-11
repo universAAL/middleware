@@ -90,7 +90,7 @@ public class ServiceBusOntology extends Ontology {
 	// load UserInterfaceService
 	oci = createNewAbstractOntClassInfo(UserInterfaceService.MY_URI);
 	oci.setResourceComment("The class of all services starting an initial dialog correlated to a specific service class");
-	oci.setResourceLabel("Initial Service Dialog");
+	oci.setResourceLabel("User Interface Service");
 	oci.addSuperClass(Service.MY_URI);
 	oci.addObjectProperty(
 		UserInterfaceService.PROP_CORRELATED_SERVICE_CLASS)
