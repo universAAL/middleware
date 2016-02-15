@@ -34,6 +34,7 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Activator>org.universAAL.middleware.managers.configuration.osgi.ConfigurationActivator</Bundle-Activator>
             <Export-Package>org.universAAL.middleware.managers.configuration.core.owl</Export-Package>
             <Private-Package>org.universAAL.middleware.managers.configuration.osgi,
