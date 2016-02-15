@@ -146,6 +146,10 @@ public final class OntologyManagement {
      */
     private ArrayList<OntologyListener> listeners = new ArrayList<OntologyListener>();
 
+    // maps the ontology URI to the module context that was used for registering
+    // the ontology
+    private HashMap<String, ModuleContext> registeringModule = new HashMap<String, ModuleContext>();
+    
     /**
      * Factory information to create new instances of registered classes.
      */
@@ -366,6 +370,8 @@ public final class OntologyManagement {
 		    OntologyTest.postTestClass(ont, combined, dbgClass);
 		}
 	    }
+	    
+	    registeringModule.put(ont.getInfo().getURI(), mc);
 	}
 
 	// remove from pending
@@ -682,6 +688,14 @@ public final class OntologyManagement {
 	    namedResources = tempNamedResources;
 	    factories = tempFactories;
 	    namedSubClasses = tempNamedSubClasses;
+	    
+	    registeringModule.remove(ont.getInfo().getURI());
+	}
+    }
+    
+    public String getRegisteringModuleID(String ontURI) {
+	synchronized (ontologies) {
+	    return registeringModule.get(ontURI).getID();
 	}
     }
 
