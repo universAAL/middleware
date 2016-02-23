@@ -27,6 +27,7 @@ import java.util.Set;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
+import org.universAAL.middleware.rdf.ClosedCollection;
 import org.universAAL.middleware.rdf.Property;
 import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.RDFClassInfoSetup;
@@ -239,6 +240,9 @@ public final class OntClassInfo extends RDFClassInfo {
 	    for (int i = 0; i < individuals.length; i++)
 		super.addInstance(individuals[i]);
 	    isEnumeration = true;
+	    ClosedCollection col = new ClosedCollection();
+	    Collections.addAll(col, individuals);
+	    setProperty(Enumeration.PROP_OWL_ONE_OF, col);
 	}
 
 	/** @see OntClassInfoSetup#addEquivalentClass(TypeExpression) */
