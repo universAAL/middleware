@@ -29,7 +29,7 @@ public interface MessageContentSerializerEx extends MessageContentSerializer {
      *            if the serialized String contains multiple resources then this
      *            parameter determines which resource is returned as root
      *            object.
-     * @return deserialized content of the SodaPop message
+     * @return deserialized content of the bus message
      */
     public Object deserialize(String serialized, String resourceURI);
 }

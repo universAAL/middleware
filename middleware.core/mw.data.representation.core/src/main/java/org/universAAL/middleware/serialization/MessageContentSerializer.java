@@ -21,7 +21,7 @@ package org.universAAL.middleware.serialization;
 
 /**
  * Classes implementing <code>StringSerializableParser</code> can serialize and
- * deserialize the content of sodapop messages.
+ * deserialize the content bus messages.
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
@@ -30,18 +30,20 @@ package org.universAAL.middleware.serialization;
 public interface MessageContentSerializer {
 
     /**
+     * Deserialize a bus message.
      * 
      * @param serialized
      *            serialized object
-     * @return deserialized content of the SodaPop message
+     * @return Deserialized content of the bus message.
      */
     public Object deserialize(String serialized);
 
     /**
+     * Serialize a bus message.
      * 
      * @param messageContent
      *            content to serialize
-     * @return serialized representation of the given object
+     * @return Serialized representation of the given object.
      */
     public String serialize(Object messageContent);
 }
