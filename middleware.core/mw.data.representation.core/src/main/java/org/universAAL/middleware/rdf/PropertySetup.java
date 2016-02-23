@@ -94,4 +94,9 @@ public interface PropertySetup {
      *            URI of the disjoint property.
      */
     public void addDisjointProperty(String disjointProperty);
+    
+    /**
+     * @see Resource#setProperty(String, Object)
+     */
+    public boolean setProperty(String propURI, Object value);
 }

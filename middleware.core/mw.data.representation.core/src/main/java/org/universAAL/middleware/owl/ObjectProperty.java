@@ -19,7 +19,10 @@
  */
 package org.universAAL.middleware.owl;
 
+import java.util.List;
+
 import org.universAAL.middleware.rdf.Property;
+import org.universAAL.middleware.rdf.Resource;
 
 /**
  * Definition of an OWL object property. The creation is separated from the
@@ -39,6 +42,30 @@ public final class ObjectProperty extends Property {
     /** The URI of this class. */
     public static final String MY_URI = TypeExpression.OWL_NAMESPACE
 	    + "ObjectProperty";
+
+    /** @see ObjectPropertySetup#setInverseFunctional() */
+    public static final String TYPE_INVERSE_FUNCTIONAL = ManagedIndividual.OWL_NAMESPACE
+	    + "InverseFunctionalProperty";
+
+    /** @see ObjectPropertySetup#setReflexive() */
+    public static final String TYPE_REFLEXIVE = ManagedIndividual.OWL_NAMESPACE
+	    + "ReflexiveProperty";
+
+    /** @see ObjectPropertySetup#setIrreflexive() */
+    public static final String TYPE_IRREFLEXIVE = ManagedIndividual.OWL_NAMESPACE
+	    + "IrreflexiveProperty";
+
+    /** @see ObjectPropertySetup#setSymmetric() */
+    public static final String TYPE_SYMMETRIC = ManagedIndividual.OWL_NAMESPACE
+	    + "SymmetricProperty";
+
+    /** @see ObjectPropertySetup#setAsymmetric() */
+    public static final String TYPE_ASYMMETRIC = ManagedIndividual.OWL_NAMESPACE
+	    + "AsymmetricProperty";
+
+    /** @see ObjectPropertySetup#setTransitive() */
+    public static final String TYPE_TRANSITIVE = ManagedIndividual.OWL_NAMESPACE
+	    + "TransitiveProperty";
 
     /** Determines whether this property is inverse-functional. */
     private boolean isInverseFunctional = false;
@@ -84,35 +111,45 @@ public final class ObjectProperty extends Property {
 	/** @see ObjectPropertySetup#setInverseFunctional() */
 	public void setInverseFunctional() {
 	    isInverseFunctional = true;
+	    addType(TYPE_INVERSE_FUNCTIONAL, false);
 	}
 
 	/** @see ObjectPropertySetup#setTransitive() */
 	public void setTransitive() {
 	    isTransitive = true;
+	    addType(TYPE_TRANSITIVE, false);
 	}
 
 	/** @see ObjectPropertySetup#setSymmetric() */
 	public void setSymmetric() {
-	    if (!isAsymmetric)
+	    if (!isAsymmetric) {
 		isSymmetric = true;
+		addType(TYPE_SYMMETRIC, false);
+	    }
 	}
 
 	/** @see ObjectPropertySetup#setAsymmetric() */
 	public void setAsymmetric() {
-	    if (!isSymmetric)
+	    if (!isSymmetric) {
 		isAsymmetric = true;
+		addType(TYPE_ASYMMETRIC, false);
+	    }
 	}
 
 	/** @see ObjectPropertySetup#setReflexive() */
 	public void setReflexive() {
-	    if (!isIrreflexive)
+	    if (!isIrreflexive) {
 		isReflexive = true;
+		addType(TYPE_REFLEXIVE, false);
+	    }
 	}
 
 	/** @see ObjectPropertySetup#setIrreflexive() */
 	public void setIrreflexive() {
-	    if (!isReflexive)
+	    if (!isReflexive) {
 		isIrreflexive = true;
+		addType(TYPE_IRREFLEXIVE, false);
+	    }
 	}
     }
 
@@ -124,7 +161,7 @@ public final class ObjectProperty extends Property {
 	super(uri, info);
 	setup = new PrivateObjectPropertySetup(this);
 	super.setup = setup;
-	addType(MY_URI, true);
+	addType(MY_URI, false);
     }
 
     /**
@@ -202,5 +239,24 @@ public final class ObjectProperty extends Property {
      */
     public boolean isIrreflexive() {
 	return isIrreflexive;
+    }
+
+    @Override
+    public boolean setProperty(String propURI, Object value) {
+	if (Resource.PROP_RDF_TYPE.equals(propURI)) {
+	    if (containsType(TYPE_ASYMMETRIC, value))
+		setup.setAsymmetric();
+	    if (containsType(TYPE_INVERSE_FUNCTIONAL, value))
+		setup.setInverseFunctional();
+	    if (containsType(TYPE_IRREFLEXIVE, value))
+		setup.setIrreflexive();
+	    if (containsType(TYPE_REFLEXIVE, value))
+		setup.setReflexive();
+	    if (containsType(TYPE_SYMMETRIC, value))
+		setup.setSymmetric();
+	    if (containsType(TYPE_TRANSITIVE, value))
+		setup.setTransitive();
+	}
+	return super.setProperty(propURI, value);
     }
 }

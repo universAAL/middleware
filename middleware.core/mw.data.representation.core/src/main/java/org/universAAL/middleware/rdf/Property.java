@@ -20,7 +20,9 @@
 package org.universAAL.middleware.rdf;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.DatatypeProperty;
 import org.universAAL.middleware.owl.ObjectProperty;
@@ -54,6 +56,10 @@ public abstract class Property extends FinalizedResource {
      */
     public static final String PROP_RDFS_RANGE = RDFS_NAMESPACE + "range";
 
+    /** @see PropertySetup#setFunctional() */
+    public static final String TYPE_FUNCTIONAL = ManagedIndividual.OWL_NAMESPACE
+	    + "FunctionalProperty";
+
     /** Determines whether this property is functional. */
     protected boolean isFunctional;
 
@@ -62,9 +68,6 @@ public abstract class Property extends FinalizedResource {
 
     /** The set of equivalent properties. */
     private volatile ArrayList equivalentProperties = new ArrayList();
-
-    /** The rdf:domain */
-    private TypeExpression domain = null;
 
     /** The ontology that defines this property. */
     protected OntClassInfo info;
@@ -94,6 +97,7 @@ public abstract class Property extends FinalizedResource {
 	/** @see PropertySetup#setFunctional() */
 	public void setFunctional() {
 	    prop.isFunctional = true;
+	    addType(TYPE_FUNCTIONAL, false);
 	}
 
 	/** @see PropertySetup#addSuperProperty(String) */
@@ -139,14 +143,17 @@ public abstract class Property extends FinalizedResource {
 	}
 
 	/** @see PropertySetup#setDomain(TypeExpression) */
-	public void setDomain(TypeExpression dom) {
-	    domain = dom;
+	public void setDomain(TypeExpression domain) {
 	    setProperty(PROP_RDFS_DOMAIN, domain);
 	}
 
 	/** @see PropertySetup#setRange(TypeExpression) */
 	public void setRange(TypeExpression range) {
 	    // TODO Auto-generated method stub
+	}
+
+	public boolean setProperty(String propURI, Object value) {
+	    return prop.setProperty(propURI, value);
 	}
     }
 
@@ -179,4 +186,29 @@ public abstract class Property extends FinalizedResource {
     public boolean isFunctional() {
 	return isFunctional;
     }
+
+    @Override
+    public boolean setProperty(String propURI, Object value) {
+	if (Resource.PROP_RDF_TYPE.equals(propURI)) {
+	    if (containsType(TYPE_FUNCTIONAL, value)) {
+		setup.setFunctional();
+		return true;
+	    }
+	}
+	return super.setProperty(propURI, value);
+    }
+
+    protected boolean containsType(String type, Object value) {
+	if (value instanceof Resource) {
+	    if (type.equals(value)) {
+		return true;
+	    }
+	} else if (value instanceof List) {
+	    if (((List) value).contains(type)) {
+		return true;
+	    }
+	}
+	return false;
+    }
+
 }
