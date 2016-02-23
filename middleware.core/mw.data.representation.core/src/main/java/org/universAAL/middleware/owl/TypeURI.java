@@ -52,32 +52,33 @@ public final class TypeURI extends TypeExpression {
 	    return (TypeURI) o;
 
 	if (o instanceof Resource && !((Resource) o).isAnon()) {
-	    java.util.Enumeration e = ((Resource) o).getPropertyURIs();
-	    if (e != null && e.hasMoreElements()) {
-		if (PROP_RDF_TYPE.equals(e.nextElement())
-			&& !e.hasMoreElements()) {
-		    Object tmp = ((Resource) o).getProperty(PROP_RDF_TYPE);
-		    if (tmp instanceof List && ((List) tmp).size() == 1)
-			tmp = ((List) tmp).get(0);
-		    if (tmp instanceof Resource)
-			tmp = ((Resource) tmp).getURI();
-		    if (OWL_CLASS.equals(tmp))
-			return new TypeURI(((Resource) o).getURI(), false);
-		    else if (tmp == null)
-			if (OntologyManagement.getInstance().isRegisteredClass(
-				((Resource) o).getURI(), true))
-			    return new TypeURI(((Resource) o).getURI(), false);
-			else if (TypeMapper
-				.isRegisteredDatatypeURI(((Resource) o)
-					.getURI()))
-			    return new TypeURI(((Resource) o).getURI(), true);
-		}
-	    } else if (TypeMapper.isRegisteredDatatypeURI(((Resource) o)
-		    .getURI()))
-		return new TypeURI(((Resource) o).getURI(), true);
-	    else if (OntologyManagement.getInstance().isRegisteredClass(
-		    ((Resource) o).getURI(), true))
-		return new TypeURI(((Resource) o).getURI(), false);
+	    String uri = ((Resource) o).getURI();
+	    // java.util.Enumeration e = ((Resource) o).getPropertyURIs();
+	    // if (e != null && e.hasMoreElements()) {
+	    // if (PROP_RDF_TYPE.equals(e.nextElement())
+	    // /*&& !e.hasMoreElements()*/) {
+	    // Object tmp = ((Resource) o).getProperty(PROP_RDF_TYPE);
+	    // if (tmp instanceof List && ((List) tmp).size() == 1)
+	    // tmp = ((List) tmp).get(0);
+	    // if (tmp instanceof Resource)
+	    // tmp = ((Resource) tmp).getURI();
+	    // if (OWL_CLASS.equals(tmp))
+	    // return new TypeURI(((Resource) o).getURI(), false);
+	    // else if (tmp == null)
+	    // if (OntologyManagement.getInstance().isRegisteredClass(
+	    // ((Resource) o).getURI(), true))
+	    // return new TypeURI(((Resource) o).getURI(), false);
+	    // else if (TypeMapper
+	    // .isRegisteredDatatypeURI(((Resource) o)
+	    // .getURI()))
+	    // return new TypeURI(((Resource) o).getURI(), true);
+	    // }
+	    // } else
+	    if (TypeMapper.isRegisteredDatatypeURI(uri))
+		return new TypeURI(uri, true);
+	    else if (OntologyManagement.getInstance().isRegisteredClass(uri,
+		    true))
+		return new TypeURI(uri, false);
 	} else if (o instanceof String)
 	    if (TypeMapper.isRegisteredDatatypeURI((String) o))
 		return new TypeURI((String) o, true);
