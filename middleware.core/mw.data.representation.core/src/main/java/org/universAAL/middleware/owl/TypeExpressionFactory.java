@@ -26,8 +26,8 @@ import org.universAAL.middleware.rdf.TypeMapper;
 
 public final class TypeExpressionFactory {
 
-    private static HashMap propMap = new HashMap();
-    private static HashMap datatypeMap = new HashMap();
+    private static HashMap<String, Integer> propMap = new HashMap<String, Integer>();
+    private static HashMap<String, Integer> datatypeMap = new HashMap<String, Integer>();
 
     static {
 	propMap.put(Intersection.PROP_OWL_INTERSECTION_OF, Integer.valueOf(0));
@@ -110,7 +110,7 @@ public final class TypeExpressionFactory {
 	    Resource datatypeURI = (Resource) r
 		    .getProperty(TypeRestriction.PROP_OWL_ON_DATATYPE);
 	    if (datatypeURI != null) {
-		idx = (Integer) datatypeMap.get(datatypeURI);
+		idx = (Integer) datatypeMap.get(datatypeURI.getURI());
 
 		if (idx == null)
 		    return null;

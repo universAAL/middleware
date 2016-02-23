@@ -125,9 +125,12 @@ public abstract class TypeRestriction extends TypeExpression {
 	    return false;
 
 	// do not handle our properties
-	if (PROP_OWL_ON_DATATYPE.equals(propURI))
+	if (PROP_OWL_ON_DATATYPE.equals(propURI)) {
+	    if (o instanceof Resource
+		    && getTypeURI().equals(((Resource) o).getURI()))
+		return true;
 	    return false;
-	if (PROP_OWL_WITH_RESTRICTIONS.equals(propURI))
+	} else if (PROP_OWL_WITH_RESTRICTIONS.equals(propURI))
 	    return false;
 
 	return super.setProperty(propURI, o);

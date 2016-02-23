@@ -194,7 +194,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
 		    while ((facet = iterate(it)) != null) {
 			// check for correct datatype
-			if (getProperty(PROP_OWL_ON_DATATYPE).equals(
+			if (getTypeURI().equals(
 				TypeMapper.getDatatypeURI(facet.value
 					.getClass()))) {
 
