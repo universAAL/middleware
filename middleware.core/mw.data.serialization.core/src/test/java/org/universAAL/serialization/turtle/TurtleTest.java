@@ -3,7 +3,6 @@ package org.universAAL.serialization.turtle;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import junit.framework.TestCase;
 
@@ -17,8 +16,6 @@ import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
-import org.universAAL.middleware.util.GraphIterator;
-import org.universAAL.middleware.util.GraphIteratorElement;
 import org.universAAL.middleware.util.ResourceComparator;
 
 public class TurtleTest extends TestCase {

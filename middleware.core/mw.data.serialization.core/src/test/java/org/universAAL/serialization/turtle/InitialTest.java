@@ -43,6 +43,21 @@ public class InitialTest extends TestCase {
 	s = new TurtleSerializer();
     }
 
+    // public void testMultiRoot() {
+    // String serialized = "<uri1> <prop1> <uri2> .\r\n"
+    // + "<uri2> a <uri3> .\r\n"
+    // + "<uri4> a <uri5> .\r\n"
+    // + "<Beaming> a <owlClass> ;\r\n"
+    // + "  <rdfssubClassOf> <Lighting> ,\r\n"
+    // + "    [\r\n"
+    // + "      a <owlRestriction> ;\r\n"
+    // + "      <owlallValuesFrom> <BeamingSource> ;\r\n"
+    // + "      <owlonProperty> <controls>\r\n"
+    // + "    ] .\r\n" + "";
+    // Resource r = (Resource) s.deserialize(serialized);
+    // System.out.println(r.toStringRecursive());
+    // }
+
     public void testDataRange() {
 	// if (true)
 	// return;
