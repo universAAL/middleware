@@ -27,11 +27,14 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
+import org.universAAL.middleware.owl.Ontology;
+import org.universAAL.middleware.owl.generic.GenericOntology;
 import org.universAAL.middleware.rdf.ClosedCollection;
 import org.universAAL.middleware.rdf.LangString;
 import org.universAAL.middleware.rdf.OpenCollection;
@@ -61,6 +64,8 @@ public class TurtleParser {
     private Resource subject;
 
     private Resource firstResource = null;
+    
+    private List<Resource> rootNodes = new ArrayList<Resource>();
 
     private String predicate;
 
@@ -101,6 +106,9 @@ public class TurtleParser {
 
 	Object parsed = deserialize(serialized, false, resourceURI);
 
+	if (parsed instanceof GenericOntology)
+	    return parsed;
+	
 	Resource r;
 	boolean isList = false;
 	if (parsed instanceof Resource) {
@@ -128,6 +136,8 @@ public class TurtleParser {
 	    parse(new StringReader(serialized), "");
 	    Resource result = finalizeAndGetRoot(resourceURI);
 	    if (result != null) {
+		if (Ontology.TYPE_OWL_ONTOLOGY.equals(result.getType()))
+		    return new GenericOntology(result.getURI(), rootNodes);
 		if (wasXMLLiteral)
 		    result = result.copy(true);
 		else if (Resource.TYPE_RDF_LIST.equals(result.getType())) {
@@ -798,7 +808,15 @@ public class TurtleParser {
     }
 
     private void parseTriples() {
+	int size = resources.size();
 	parseSubject();
+	if (resources.size() != size) {
+	    // we found a new root node
+	    // this is not generally true, since this subject could also appear
+	    // later as rdf:object
+	    rootNodes.add(subject);
+	    //System.out.println(" -- found " + subject.getURI());
+	}
 	if (firstResource == null)
 	    firstResource = subject;
 

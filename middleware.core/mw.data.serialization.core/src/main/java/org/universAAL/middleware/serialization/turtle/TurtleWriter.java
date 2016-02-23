@@ -976,6 +976,12 @@ public final class TurtleWriter {
 		writer.write(ls.getLang());
 	    }
 	    return;
+	} else if (val instanceof Ontology) {
+	    String s = TurtleWriter.serialize((Ontology)val, 0);
+	    if (s == null)
+		s = "";
+	    writeLiteral(s, TurtleUtil.xmlLiteral);
+	    return;
 	}
 
 	// everything else as quoted literal with lexical form and datatype
