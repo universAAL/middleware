@@ -25,6 +25,7 @@ import java.util.Vector;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
+import org.universAAL.middleware.owl.generic.GenericManagedIndividual;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
@@ -55,7 +56,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
 public abstract class ManagedIndividual extends FinalizedResource {
 
     /** URI namespace for OWL. */
-    public static final String OWL_NAMESPACE = "http://www.w3.org/2002/07/owl#";
+    public static final String OWL_NAMESPACE = TypeExpression.OWL_NAMESPACE;
 
     /** Definition of owl:Individual. */
     // TODO: there is no owl:Individual, use owl:NamedIndividual?
@@ -115,8 +116,11 @@ public abstract class ManagedIndividual extends FinalizedResource {
     /** Internal method to handle common parts of the constructors. */
     private void init() {
 	String classURI = getClassURI();
-	if (classURI == null)
+	if (classURI == null) {
+	    if (this instanceof GenericManagedIndividual)
+		return;
 	    throw new RuntimeException("Missing class URI!");
+	}
 	if (!OntologyManagement.getInstance().isRegisteredClass(classURI, true))
 	    throw new RuntimeException("Class not registered: " + classURI);
 
