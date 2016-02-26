@@ -201,7 +201,7 @@ public class ContextEvent extends ScopedResource implements Event {
 	super(CONTEXT_EVENT_URI_PREFIX, 8);
 
 	if (subject == null || predicate == null)
-	    throw new RuntimeException("Invalid null value!");
+	    throw new NullPointerException("Invalid null value!");
 
 	Object eventObject = subject.getProperty(predicate);
 	if (eventObject == null)
@@ -211,6 +211,34 @@ public class ContextEvent extends ScopedResource implements Event {
 	setRDFSubject(subject);
 	setRDFPredicate(predicate);
 	setRDFObject(eventObject);
+	setTimestamp(new Long(System.currentTimeMillis()));
+    }
+
+    /**
+     * Construct a CHe stub ContextEvent inferring the object from the predicate
+     * which URI is present in the properties of the subject
+     * 
+     * @param subject
+     *            The Resource representing the subject of the event. Must
+     *            include the property specified in the second parameter, and
+     *            must have a certain value
+     * @param predicate
+     *            The property of the subject that will be used as object in the
+     *            event
+     */
+    public ContextEvent(Resource subject, String predicate, Object object) {
+	super(CONTEXT_EVENT_URI_PREFIX, 8);
+
+	if (subject == null || predicate == null || object == null)
+	    throw new NullPointerException("Invalid null value!");
+
+	if (!subject.setProperty(predicate, object))
+	    throw new RuntimeException("The property could not be set");
+
+	addType(MY_URI, true);
+	setRDFSubject(subject);
+	setRDFPredicate(predicate);
+	setRDFObject(object);
 	setTimestamp(new Long(System.currentTimeMillis()));
     }
 
