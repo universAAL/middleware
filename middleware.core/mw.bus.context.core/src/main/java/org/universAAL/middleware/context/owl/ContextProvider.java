@@ -128,7 +128,8 @@ public class ContextProvider extends ManagedIndividual {
 	// also as the source
 	// && (type == ContextProviderType.reasoner || props
 	// .containsKey(PROP_CONTEXT_SOURCE))
-		&& props.containsKey(PROP_CONTEXT_PROVIDED_EVENTS);
+	// && props.containsKey(PROP_CONTEXT_PROVIDED_EVENTS)
+	;
     }
 
     /**
