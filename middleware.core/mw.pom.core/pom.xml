@@ -42,6 +42,7 @@
     <module>../mw.bus.service.aapi.core</module>
     <module>../mw.bus.junit</module>
     <module>../mw.managers.distributedmw.core</module>
+    <module>../mw.junit</module>
   </modules>
   <properties>
     <nameMatchString>^universAAL Middleware .* \(Core\)$</nameMatchString>
@@ -193,6 +194,11 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.bus.junit</artifactId>
+        <version>3.4.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.middleware</groupId>
+        <artifactId>mw.junit</artifactId>
         <version>3.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>
