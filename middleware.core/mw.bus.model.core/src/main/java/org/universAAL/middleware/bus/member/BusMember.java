@@ -105,8 +105,9 @@ public abstract class BusMember {
      * @param label
      *            the new label.
      */
-    protected void setLabel(String label) {
-	this.label = label;
+    public void setLabel(String label) {
+	if (this.label == null)
+	    this.label = label;
     }
 
     /**
@@ -125,8 +126,9 @@ public abstract class BusMember {
      *            the new comment.
      */
 
-    protected void setComment(String comment) {
-	this.comment = comment;
+    public void setComment(String comment) {
+	if (this.comment == null)
+	    this.comment = comment;
     }
 
     /**
