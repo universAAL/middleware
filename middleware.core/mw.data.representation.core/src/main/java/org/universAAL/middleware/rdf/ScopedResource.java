@@ -79,12 +79,12 @@ public class ScopedResource extends FinalizedResource {
     }
 
     /**
-     * Check if there is any scopes for this resource.
+     * Check if there is any scopes for this resource. This includes {@link ScopedResource#ONLY_LOCAL_SCOPE}.
      * 
      * @return true if there is one or more scopes annotated for this resource.
      */
     public boolean isScoped() {
-	return props.contains(PROP_SCOPES);
+	return props.containsKey(PROP_SCOPES);
     }
 
     /**
@@ -173,12 +173,11 @@ public class ScopedResource extends FinalizedResource {
      * <li>Deny if the destinations do contain
      * {@link ScopedResource#ONLY_LOCAL_SCOPE} (tenant-aware application has
      * decided this message is only local)
-     * <li>Allow if the destinations are empty (non-tenant-aware application has
-     * generated the message)
      * <li>Deny if the destinations are not empty and do not contain the
      * candidate destination
-     * <li>Allow if the destinations are not empty and contain a
-     * {@link ScopedResource#ALL_SCOPES} scope or the candidate destination.
+     * <li>Allow if the destinations are empty (non-tenant-aware application has
+     * generated the message)
+     * <li>Allow if the destinations are not empty and contains the candidate destination.
      * </ul>
      * 
      * @param destinationCandidateScope

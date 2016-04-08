@@ -51,4 +51,17 @@ public class ScopedResourceTest extends TestCase {
 		
 	}
 	
+	public void test_isScoped() {
+		ScopedResource sr = new ScopedResource();
+		assertFalse(sr.isScoped());
+		sr.addScope("1");
+		assertTrue(sr.isScoped());
+		sr.addScope("2");
+		assertTrue(sr.isScoped());
+		sr.clearScopes();
+		assertFalse(sr.isScoped());
+		sr.addScope(ScopedResource.ONLY_LOCAL_SCOPE);
+		assertTrue(sr.isScoped());
+		
+	}
 }
