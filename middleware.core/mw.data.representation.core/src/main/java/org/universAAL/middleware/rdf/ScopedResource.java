@@ -189,7 +189,7 @@ public class ScopedResource extends FinalizedResource {
 	if (destinationCandidateScope == null) {
 	    return false;
 	}
-	String orig = (String) getProperty(PROP_ORIG_SCOPE);
+	String orig = getOriginScope();
 	List dest = getScopes();
 	return !destinationCandidateScope.equals(orig)
 		&& !dest.contains(ONLY_LOCAL_SCOPE)
