@@ -195,4 +195,23 @@ public class ScopedResource extends FinalizedResource {
 		&& !dest.contains(ONLY_LOCAL_SCOPE)
 		&& (dest.isEmpty() || dest.contains(destinationCandidateScope));
     }
+    
+    /**
+     * Get the Scope of the original AALSpace sender of this {@link ScopedResource}.
+     * To be used only by Gateways!
+     * @return The scoped assiged usig {@link ScopedResource#setOriginScope(String)}.
+     */
+    public String getOriginScope() {
+		return (String) props.get(PROP_ORIG_SCOPE);
+	}
+    
+    /**
+     * Set the Origin Scope of an incoming {@link ScopedResource}.
+     * To be used by Gateways!
+     * To reset, use with scope = null.
+     * @param scope The Scope ID.
+     */
+    public void setOriginScope(String scope){
+    	props.put(PROP_ORIG_SCOPE, scope);
+    }
 }
