@@ -40,7 +40,7 @@ public class ScopedResourceTest extends TestCase {
 		assertFalse(sr.isSerializableTo("2"));
 		
 		sr.clearScopes();
-		sr.setProperty(ScopedResource.PROP_ORIG_SCOPE,"1");
+		sr.setOriginScope("1");
 		assertFalse(sr.isSerializableTo("1"));
 		assertTrue(sr.isSerializableTo("2"));
 		
