@@ -64,4 +64,16 @@ public class ScopedResourceTest extends TestCase {
 		assertTrue(sr.isScoped());
 		
 	}
+	
+	public void test_Origin(){
+		ScopedResource sr = new ScopedResource();
+		assertEquals(null,sr.getOriginScope());
+		sr.setOriginScope("1");
+		assertEquals("1", sr.getOriginScope());
+		sr.setOriginScope("2");
+		assertEquals("2", sr.getOriginScope());
+		sr.setOriginScope(null);
+		assertEquals(null, sr.getOriginScope());
+		
+	}
 }

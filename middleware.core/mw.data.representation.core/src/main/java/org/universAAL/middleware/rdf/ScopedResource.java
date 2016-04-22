@@ -212,6 +212,11 @@ public class ScopedResource extends FinalizedResource {
      * @param scope The Scope ID.
      */
     public void setOriginScope(String scope){
-    	props.put(PROP_ORIG_SCOPE, scope);
+    	if(scope!=null){
+    		props.put(PROP_ORIG_SCOPE, scope);
+    	}
+    	else {
+    		props.remove(PROP_ORIG_SCOPE);
+    	}
     }
 }
