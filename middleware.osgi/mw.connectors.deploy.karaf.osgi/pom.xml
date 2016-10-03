@@ -65,7 +65,7 @@
             <Export-Package>org.universAAL.middleware.connectors.deploy.karaf,
                      org.universAAL.middleware.connectors.deploy.karaf.osgi</Export-Package>
             <Import-Package>org.osgi.framework,javax.xml.bind,javax.xml.namespace,
-                     org.apache.karaf.features,
+                     org.apache.karaf.features;version="${karaf.version}",
                      org.universAAL.middleware.brokers.control,
                      org.universAAL.middleware.connectors,
                      org.universAAL.middleware.connectors.deploy.karaf.model,
@@ -79,7 +79,7 @@
                      org.universAAL.middleware.interfaces.utils,
                      javax.xml.bind.annotation,
                      org.universAAL.middleware.container.osgi.util,
-                     org.apache.karaf.deployer.kar</Import-Package>
+                     org.apache.karaf.deployer.kar;version="${karaf.version}"</Import-Package>
             <Private-Package />
           </instructions>
         </configuration>

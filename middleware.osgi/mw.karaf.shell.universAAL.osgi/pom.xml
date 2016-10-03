@@ -60,7 +60,7 @@
             <Bundle-Provider>ISTI-CNR</Bundle-Provider>
             <Import-Package>org.apache.felix.service.command,
 							org.apache.felix.gogo.commands,
-							org.apache.karaf.shell.console,
+							org.apache.karaf.shell.console;version="${karaf.version}",
 							org.osgi.framework, org.osgi.service.blueprint, org.slf4j,
 							org.universAAL.middleware.interfaces.aalspace,
 							org.universAAL.middleware.managers.api,
