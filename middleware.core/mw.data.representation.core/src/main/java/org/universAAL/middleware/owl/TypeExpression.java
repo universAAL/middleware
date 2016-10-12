@@ -32,8 +32,76 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * represent sets of individuals by formally specifying conditions on the
  * individuals' properties. Example conditions are intersection of individuals,
  * or restrictions. Each type expression represents a set of individuals (just
- * like a class in an object-oriented programming language represents a set of
- * objects). There are three main methods to compare type expression:
+ * like a class in an object-oriented programming language (OOP) represents a
+ * set of objects), or a set of literals.
+ * 
+ * <p>
+ * OWL-2 explicitly distinguishes between <i>class expressions</i> (to describe
+ * sets of individuals) and <i>data ranges</i> (to describe sets of literals).
+ * The terminology is as follows:
+ * <ul>
+ * <li>
+ * class expression: represents a set of individuals; a special kind of a class
+ * expression is the direct definition of a class (with {@link TypeURI}) which
+ * corresponds to a class in OOP.
+ * <li>
+ * individual: instance of a class; corresponds to an instance of a class in
+ * OOP.
+ * <li>
+ * data range: represents a set of literals; a special kind of a data range is
+ * the data type (with {@link TypeURI}), like int or string.
+ * <li>
+ * literal: instance of a data range, e.g. the literal '1' is an instance of
+ * int, and the literal "Hello World" is an instance of String.
+ * </ul>
+ * 
+ * <p>
+ * In universAAL, there is only one class for each concept of class expression
+ * and data range. For example, OWL-2 distinguishes between <i>ObjectOneOf</i>
+ * (to enumerate individuals) and <i>DataOneOf</i> (to enumerate literals),
+ * whereas universAAL has only the one class {@link Enumeration}. The drawback
+ * of this simplification is that an RDF-graph should be created starting with
+ * the leafs towards the root of the graph. For example:<br>
+ * 
+ * <pre>
+ * // problematic:
+ * u = new Union();
+ * u.addType(new Enumeration(..));
+ * 
+ * // OK:
+ * u = new Union(new Enumeration(..));
+ * </pre>
+ * 
+ * In this example, the type of the union (whether it is a class expression or a
+ * data range) can be determined because the argument is already fully set up
+ * and it is known whether the given enumeration is a class expression or a data
+ * range.
+ * 
+ * <p>
+ * There are three different kinds of type expressions:
+ * 
+ * <ul>
+ * <li>
+ * {@link PropertyRestriction}: restricts the set of individuals by defining a
+ * restriction on a property of these individuals. Can be used only for class
+ * expressions.<br>
+ * See also: {@link HasValueRestriction}, {@link AllValuesFromRestriction},
+ * {@link SomeValuesFromRestriction}, <br>
+ * {@link MinCardinalityRestriction}, {@link ExactCardinalityRestriction},
+ * {@link MaxCardinalityRestriction}
+ * <li>
+ * Set-theoretic expressions: enumeration of individuals and all standard
+ * Boolean connectives. Can be used for class expressions and for data ranges.<br>
+ * See also: {@link TypeURI}, {@link Enumeration},<br>
+ * {@link Union}, {@link Intersection}, {@link Complement}
+ * <li>
+ * {@link TypeRestriction}: restricts the set literals. Can be used only for
+ * data ranges.<br>
+ * See also: {@link BoundedValueRestriction}, {@link LengthRestriction}
+ * </ul>
+ * 
+ * <p>
+ * There are three main methods to compare type expression:
  * <ul>
  * <li>
  * hasMember: determines if the given object is a member of the class
@@ -46,6 +114,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * common with the class represented by this type expression</li>
  * </ul>
  * 
+ * <p>
  * All three methods have three parameters in common:
  * <ul>
  * <li>

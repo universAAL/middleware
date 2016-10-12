@@ -30,14 +30,40 @@ import org.universAAL.middleware.rdf.Variable;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * Represents the URI of the <i>type</i> of an ontology class.
+ * A {@link TypeExpression} that contains all individuals/literals of a named
+ * ontology class/datatype.
+ * 
+ * <p>
+ * In case of class expression:<br>
+ * TypeURI is called with the class URI of a named ontology class, i.e. the
+ * class URI of a sub class of {@link ManagedIndividual}. It then contains
+ * exactly the individuals of the given named ontology class.
+ * 
+ * <p>
+ * In case of data range:<br>
+ * TypeURI is called with the URI of a datatype. It then contains exactly the
+ * literals of the given datatype.<br>
+ * The datatype URI can be retrieved by calling
+ * {@link TypeMapper#getDatatypeURI(Class)} with the required primitive datatype
+ * class, e.g. <code>TypeMapper#getDatatypeURI(String.class)</code>; or with a
+ * concrete object, e.g. <code>TypeMapper#getDatatypeURI("Hello World")</code>.
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
  */
+// * Represents the URI of the <i>type</i> of an ontology class.
 public final class TypeURI extends TypeExpression {
 
+    /**
+     * Creates a new TypeURI instance. Use with caution!
+     * 
+     * @param uri
+     *            The URI of the named ontology class/datatype.
+     * @param isDatatypeURI
+     *            if true, the uri is treated as datatype. If false, the uri is
+     *            treated as a named ontology class.
+     */
     public TypeURI(String uri, boolean isDatatypeURI) {
 	super(uri);
 	if (isDatatypeURI)
@@ -122,6 +148,10 @@ public final class TypeURI extends TypeExpression {
 	return (answer == null) ? new Object[0] : answer;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object value, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// ttl =
@@ -146,6 +176,10 @@ public final class TypeURI extends TypeExpression {
 	}
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean matches(TypeExpression subtype, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -233,6 +267,10 @@ public final class TypeURI extends TypeExpression {
 	return false;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
