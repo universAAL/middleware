@@ -27,14 +27,30 @@ import org.universAAL.middleware.rdf.UnmodifiableResourceList;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * An intersection of a set of class expressions <i>CE<sub>1</sub> ...
- * CE<sub>n</sub></i> contains all individuals that are instances of all class
- * expressions <i>CE<sub>i</sub></i> for 1 &le; i &le; n.
+ * A {@link TypeExpression} that contains all individuals/literals that are in
+ * all of the given type expressions. Intersection corresponds to OWL
+ * ObjectIntersectionOf or DataIntersectionOf.
+ * 
+ * <p>
+ * For example,
+ * <code>Intersection(Enumeration(ex:Peter, a:Lois), Enumeration(ex:Paul, a:Lois))</code>
+ * contains the individual a:Lois, and<br>
+ * <code>Intersection(Enumeration(1,2), Enumeration(2,3))</code> contains the
+ * integer two.
+ * 
+ * <p>
+ * The given type expressions must not mix sets of individuals with sets of
+ * literals. For example,
+ * <code>Intersection(Enumeration(ex:Peter), Enumeration(1))</code> is not
+ * possible, as it combines individuals (ex:Peter) with literals (1).
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
  */
+// * An intersection of a set of class expressions <i>CE<sub>1</sub> ...
+// * CE<sub>n</sub></i> contains all individuals that are instances of all class
+// * expressions <i>CE<sub>i</sub></i> for 1 &le; i &le; n.
 public class Intersection extends TypeExpression {
 
     /** URI for owl:intersectionOf. */

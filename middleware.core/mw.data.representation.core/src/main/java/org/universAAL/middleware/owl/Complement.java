@@ -25,13 +25,21 @@ import java.util.List;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * A complement class expression of a class expression <i>CE</i> contains all
- * individuals that are not instances of the class expression <i>CE</i>.
+ * A {@link TypeExpression} that contains all individuals/literals that are not
+ * instances of the given type expressions. Complement corresponds to OWL
+ * ObjectComplementOf or DataComplementOf.
+ * 
+ * <p>
+ * For example, <code>Complement(Enumeration(1))</code> contains all integers
+ * except one; however, it also contains all Strings (since Strings are
+ * different from the integer one).
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
  */
+// * A complement class expression of a class expression <i>CE</i> contains all
+// * individuals that are not instances of the class expression <i>CE</i>.
 public final class Complement extends TypeExpression {
 
     /** URI for owl:complementOf. */

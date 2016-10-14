@@ -48,6 +48,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * 			Base64BinaryRestriction
  * 			...
  */
+// see https://www.w3.org/TR/xmlschema-2/#defn-coss
 public abstract class TypeRestriction extends TypeExpression {
 
     public static final String PROP_OWL_ON_DATATYPE = OWL_NAMESPACE

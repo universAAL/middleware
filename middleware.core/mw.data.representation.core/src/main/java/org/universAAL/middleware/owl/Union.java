@@ -27,14 +27,31 @@ import java.util.List;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * A union of a set of class expression <i>CE<sub>1</sub> ... CE<sub>n</sub></i>
- * contains all individuals that are instances of at least one class expression
- * <i>CE<sub>i</sub></i> for 1 &le; i &le; n.
+ * A {@link TypeExpression} that contains all individuals/literals that are in
+ * one of the given type expressions. Union corresponds to OWL ObjectUnionOf or
+ * DataUnionOf.
+ * 
+ * <p>
+ * For example, <code>Union(Enumeration(ex:Peter), Enumeration(ex:Paul))</code>
+ * contains the individuals ex:Peter and ex:Paul, and<br>
+ * <code>Union(Enumeration("Peter"), Enumeration(1))</code> contains the String
+ * "Peter" and the integer one.
+ * 
+ * <p>
+ * The given type expressions must not mix sets of individuals with sets of
+ * literals. For example,
+ * <code>Union(Enumeration(ex:Peter), Enumeration(1))</code> is not possible, as
+ * it combines individuals (ex:Peter) with literals (1).
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
  */
+// * A union of a set of class expression <i>CE<sub>1</sub> ...
+// CE<sub>n</sub></i>
+// * contains all individuals that are instances of at least one class
+// expression
+// * <i>CE<sub>i</sub></i> for 1 &le; i &le; n.
 public final class Union extends TypeExpression {
 
     /** URI for owl:unionOf . */

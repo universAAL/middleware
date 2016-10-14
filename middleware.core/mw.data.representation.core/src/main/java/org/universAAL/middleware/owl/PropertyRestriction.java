@@ -30,12 +30,17 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * The base class of all simple restrictions. Subclasses will implement the
- * functionality for specific OWL or XSD restrictions.
+ * Base class for all {@link TypeExpression}s that impose a restriction on a
+ * property. Subclasses will implement the functionality for specific OWL
+ * restrictions.
  * 
- * All restrictions are defined by a property and one ore more constraints and
- * describe those individuals that are connected by the defined property to
- * individuals under the condition that the defined constraint is fulfilled.
+ * <p>
+ * All property restrictions are defined by a property and one ore more
+ * constraints and describe those individuals that are connected by the defined
+ * property to individuals/literals under the condition that the defined
+ * constraint is fulfilled.
+ * 
+ * @see MergedRestriction
  * 
  * @author Carsten Stockloew
  */

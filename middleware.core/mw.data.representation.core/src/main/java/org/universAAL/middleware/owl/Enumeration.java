@@ -28,13 +28,20 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * An enumeration of the individuals <i>a<sub>1</sub> ... a<sub>n</sub></i>
- * contains exactly the individuals <i>a<sub>i</sub></i> for 1 &le; i &le; n.
+ * A {@link TypeExpression} that contains exactly the explicitly specified
+ * elements. The elements are either individuals or literals. Enumeration
+ * corresponds to OWL ObjectOneOf or DataOneOf.
+ * 
+ * <p>
+ * For example, the <code>Enumeration("Peter", 1)</code> contains the String
+ * "Peter" and the integer one.
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
  */
+// * An enumeration of the individuals <i>a<sub>1</sub> ... a<sub>n</sub></i>
+// * contains exactly the individuals <i>a<sub>i</sub></i> for 1 &le; i &le; n.
 public final class Enumeration extends TypeExpression {
 
     /** URI for owl:oneOf. */
