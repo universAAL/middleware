@@ -292,8 +292,11 @@ public abstract class Ontology {
      */
     public final OntClassInfo[] getOntClassInfo() {
 	synchronized (ontClassInfoMap) {
-	    return (OntClassInfo[]) ontClassInfoMap.values().toArray(
-		    new OntClassInfo[0]);
+	    ArrayList l = new ArrayList(ontClassInfoMap.size()
+		    + extendedOntClassInfoMap.size());
+	    l.addAll(ontClassInfoMap.values());
+	    l.addAll(extendedOntClassInfoMap.values());
+	    return (OntClassInfo[]) l.toArray(new OntClassInfo[0]);
 	}
     }
 
@@ -470,6 +473,19 @@ public abstract class Ontology {
 	list.add(info);
 
 	for (Iterator it = ontClassInfoMap.values().iterator(); it.hasNext();) {
+	    OntClassInfo info = (OntClassInfo) it.next();
+	    // add class
+	    list.add(info);
+	    // add properties
+	    Property[] propArr = info.getDeclaredProperties();
+	    if (propArr.length != 0)
+		Collections.addAll(list, propArr);
+	    // add instances
+	    Collections.addAll(list, info.getInstances());
+	}
+	
+	for (Iterator it = extendedOntClassInfoMap.values().iterator(); it
+		.hasNext();) {
 	    OntClassInfo info = (OntClassInfo) it.next();
 	    // add class
 	    list.add(info);
