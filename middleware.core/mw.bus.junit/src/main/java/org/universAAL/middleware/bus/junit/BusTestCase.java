@@ -49,6 +49,7 @@ import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 import org.universAAL.middleware.service.ServiceBus;
@@ -83,8 +84,11 @@ public class BusTestCase extends TestCase {
 	SharedResources.middlewareProps.put(
 		SharedResources.uAAL_IS_COORDINATING_PEER, "true");
 	OntologyManagement.getInstance().register(mc, new DataRepOntology());
-	mc.getContainer().shareObject(mc, new TurtleSerializer(),
+	TurtleSerializer turtleS = new TurtleSerializer();
+	mc.getContainer().shareObject(mc, turtleS,
 		new Object[] { MessageContentSerializer.class.getName() });
+	mc.getContainer().shareObject(mc, turtleS,
+			new Object[] { MessageContentSerializerEx.class.getName() });
 	mcs = (MessageContentSerializer) mc.getContainer().fetchSharedObject(
 		mc, new Object[] { MessageContentSerializer.class.getName() });
 	TurtleUtil.moduleContext = mc;
