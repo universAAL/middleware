@@ -22,11 +22,20 @@ package org.universAAL.middleware.util;
 import java.util.Iterator;
 
 import org.universAAL.middleware.owl.AllValuesFromRestriction;
+import org.universAAL.middleware.owl.ExactCardinalityRestriction;
 import org.universAAL.middleware.owl.HasValueRestriction;
 import org.universAAL.middleware.owl.Intersection;
+import org.universAAL.middleware.owl.MaxCardinalityRestriction;
+import org.universAAL.middleware.owl.MinCardinalityRestriction;
 import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.TypeURI;
+import org.universAAL.middleware.rdf.Variable;
 
+/**
+ * Some helper methods for debugging.
+ * 
+ * @author Carsten Stockloew
+ */
 public final class ResourceUtil {
 
     private ResourceUtil() {
@@ -64,13 +73,32 @@ public final class ResourceUtil {
 			+ "\n"
 			+ ResourceUtil.toString((TypeExpression) o, prefix
 				+ "  ");
-	    else
-		// TODO: data values (e.g. int)
-		return prefix2 + " - unknown: " + o.getClass().getName() + "\n";
+	    else {
+		if (Variable.isVarRef(o)) {
+		    // input variable
+		    return prefix2 + "\n" + prefix + "  Variable\n";
+		} else {
+		    // TODO: data values (e.g. int)
+		    return prefix2 + "\n" + prefix + "  - unknown: "
+			    + o.getClass().getName() + "\n";
+		}
+	    }
+	} else if (e instanceof ExactCardinalityRestriction) {
+	    ExactCardinalityRestriction c = (ExactCardinalityRestriction) e;
+	    return prefix + "ExactCardinality " + c.getValue()
+		    + "(for property " + c.getOnProperty() + ")" + "\n";
+	} else if (e instanceof MinCardinalityRestriction) {
+	    MinCardinalityRestriction c = (MinCardinalityRestriction) e;
+	    return prefix + "MinCardinality " + c.getValue() + "(for property "
+		    + c.getOnProperty() + ")" + "\n";
+	} else if (e instanceof MaxCardinalityRestriction) {
+	    MaxCardinalityRestriction c = (MaxCardinalityRestriction) e;
+	    return prefix + "MaxCardinality " + c.getValue() + "(for property "
+		    + c.getOnProperty() + ")" + "\n";
 	} else if (e instanceof Intersection) {
 	    Intersection in = (Intersection) e;
 	    String ret = prefix + "Intersection\n";
-	    Iterator it = in.types();
+	    Iterator<?> it = in.types();
 	    while (it.hasNext()) {
 		Object el = it.next();
 		if (el instanceof TypeExpression) {
@@ -81,6 +109,6 @@ public final class ResourceUtil {
 	    return ret;
 	}
 
-	return "unknown: " + e.getClass().getName();
+	return prefix + "unknown: " + e.getClass().getName() + "\n";
     }
 }
