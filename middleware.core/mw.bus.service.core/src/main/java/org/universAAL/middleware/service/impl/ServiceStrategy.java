@@ -593,301 +593,307 @@ public class ServiceStrategy extends BusStrategy {
 	}
     }
 
-    /**
-     * Sends a response to the message passed as a parameter
-     * 
-     * @param m
-     *            the message, to which the response is sent
-     */
-    private void sendServiceResponse(BusMessage m) {
-	WaitingRequest wr = allWaitingRequests.remove(m.getID());
-	Vector<HashMap<String, Object>> matches = wr.matches;
-	if (matches == null)
-	    return;
+	/**
+	 * Sends a response to the message passed as a parameter
+	 * 
+	 * @param m
+	 *            the message, to which the response is sent
+	 */
+	private void sendServiceResponse(BusMessage m) {
+		WaitingRequest wr = allWaitingRequests.remove(m.getID());
+		Vector<HashMap<String, Object>> matches = wr.matches;
+		if (matches == null)
+			return;
 
-	synchronized (matches) {
-	    int size = matches.size();
-	    int numTimedOut = wr.pendingCalls;
-	    if (size == numTimedOut) {
-		// there has been no one response => this method is called
-		// because of timeout!
-		m = m.createReply(new ServiceResponse(
-			CallStatus.responseTimedOut));
-	    } else {
-		// boolean arrays to indicate which of the responses had which
-		// kind of failure:
-		// - nmsf for NO_MATCHING_SERVICE_FOUND
-		// - rto for RESPONSE_TIMED_OUT
-		// - ssf for SERVICE_SPECIFIC_FAILURE
-		boolean[] nmsf = new boolean[size], rto = new boolean[size], ssf = new boolean[size];
-		// responses with CallStatus.SUCCEEDED
-		ArrayList<HashMap<String, Object>> goods = new ArrayList<HashMap<String, Object>>(
-			size);
-		int bads = 0; // the total number of responses with failure
-		for (int i = 0; i < size; i++) {
-		    HashMap<String, Object> match = matches.get(i);
-		    ServiceResponse sr = (ServiceResponse) match
-			    .get(CONTEXT_RESPONSE_MESSAGE);
-		    if (sr != null) {
-			switch (sr.getCallStatus().ord()) {
-			case CallStatus.SUCCEEDED:
-			    goods.add(match);
-			    nmsf[i] = rto[i] = ssf[i] = false;
-			    break;
-			case CallStatus.NO_MATCHING_SERVICE_FOUND:
-			    bads++;
-			    nmsf[i] = true;
-			    rto[i] = ssf[i] = false;
-			    break;
-			case CallStatus.RESPONSE_TIMED_OUT:
-			    // usually timeout should be captured a dozen lines
-			    // below here because if the call is timed out, we
-			    // usually do not receive any response but
-			    // nevertheless we handle this case because the
-			    // callee might send a response with this status
-			    // doing bad practice
-			    bads++;
-			    rto[i] = true;
-			    nmsf[i] = ssf[i] = false;
-			    break;
-			case CallStatus.SERVICE_SPECIFIC_FAILURE:
-			    bads++;
-			    ssf[i] = true;
-			    nmsf[i] = rto[i] = false;
-			    break;
-			}
-		    } else {
-			// sr == null => if later there is no good response and
-			// the response of this call is used to send the final
-			// response, then we must create a pseudo timeout
-			// response for this case; but because it is not sure if
-			// it is needed we create the pseudo response when we
-			// are sure it is needed (see comments a dozen lines
-			// below)
-			if (numTimedOut-- > 0) {
-			    // possibly this is one of those really timed out
-			    bads++;
-			    rto[i] = true;
-			    nmsf[i] = ssf[i] = false;
+		synchronized (matches) {
+			int size = matches.size();
+			int numTimedOut = wr.pendingCalls;
+			if (size == numTimedOut) {
+				// there has been no one response => this method is called
+				// because of timeout!
+				m = m.createReply(new ServiceResponse(
+						CallStatus.responseTimedOut));
 			} else {
-			    // actually not possible, because ServiceCallee does
-			    // not allow this
-			    nmsf[i] = rto[i] = ssf[i] = false;
-			}
-		    }
-		}
-		switch (goods.size()) {
-		case 0:
-		    if (bads == 0) {
-			// shouldn't be the case...
-			m = m.createReply(new ServiceResponse(
-				CallStatus.responseTimedOut));
-		    } else {
-			HashMap<String, Object> bad = null;
-			// if there is one response with
-			// SERVICE_SPECIFIC_FAILURE take that one
-			for (int i = 0; i < size; i++) {
-			    if (ssf[i]) {
-				bad = matches.get(i);
-				break;
-			    } else if (rto[i])
-				bad = matches.get(i);
-			    else if (bad == null)
-				bad = matches.get(i);
-			}
-			ServiceResponse sr = (ServiceResponse) bad
-				.get(CONTEXT_RESPONSE_MESSAGE);
-			if (sr == null)
-			    // see the 'sr == null' comment a dozen lines above
-			    sr = new ServiceResponse(
-				    CallStatus.responseTimedOut);
-			m = m.createReply(sr);
-		    }
-		    break;
-		case 1:
-		    HashMap<String, Object> match = goods.get(0);
-		    ServiceResponse sr = (ServiceResponse) match
-			    .get(CONTEXT_RESPONSE_MESSAGE);
-		    prepareRequestedOutput(sr, match);
-		    m = m.createReply(sr);
-		    break;
-		default:
-		    size = goods.size();
-		    List<AggregatingFilter> aggregations = ((ServiceRequest) m
-			    .getContent()).getOutputAggregations();
-		    if (!aggregations.isEmpty()) {
-			int[] points = new int[size];
-			for (int i = 0; i < points.length; i++)
-			    points[i] = 0;
-			for (Iterator<AggregatingFilter> i = aggregations
-				.iterator(); i.hasNext();) {
-			    AggregatingFilter af = (AggregatingFilter) i.next();
-			    List<?> params = af.getFunctionParams();
-			    switch (af.getTheFunction().ord()) {
-			    case AggregationFunction.ONE_OF:
-				break;
-			    case AggregationFunction.MIN_OF:
-				for (int j = 0; j < size; j++) {
-				    Object oj = getOutputValue(goods.get(j), af);
-				    for (int k = j + 1; k < size; k++) {
-					Object ok = getOutputValue(
-						goods.get(k), af);
-					if (oj instanceof Comparable)
-					    if (ok == null)
-						points[k]++;
-					    else {
-						int l = ((Comparable) oj)
-							.compareTo(ok);
-						if (l < 0)
-						    points[k]++;
-						else if (l > 0)
-						    points[j]++;
-					    }
-					else {
-					    points[j]++;
-					    if (!(ok instanceof Comparable))
-						points[k]++;
+				// boolean arrays to indicate which of the responses had which
+				// kind of failure:
+				// - nmsf for NO_MATCHING_SERVICE_FOUND
+				// - rto for RESPONSE_TIMED_OUT
+				// - ssf for SERVICE_SPECIFIC_FAILURE
+				// - den for DENIED
+				boolean[] nmsf = new boolean[size], rto = new boolean[size], ssf = new boolean[size], den = new boolean[size];
+				// responses with CallStatus.SUCCEEDED
+				ArrayList<HashMap<String, Object>> goods = new ArrayList<HashMap<String, Object>>(
+						size);
+				int bads = 0; // the total number of responses with failure
+				for (int i = 0; i < size; i++) {
+					HashMap<String, Object> match = matches.get(i);
+					ServiceResponse sr = (ServiceResponse) match
+							.get(CONTEXT_RESPONSE_MESSAGE);
+					if (sr != null) {
+						switch (sr.getCallStatus().ord()) {
+						case CallStatus.SUCCEEDED:
+							goods.add(match);
+							nmsf[i] = rto[i] = ssf[i] = den[i] = false;
+							break;
+						case CallStatus.NO_MATCHING_SERVICE_FOUND:
+							bads++;
+							nmsf[i] = true;
+							rto[i] = ssf[i] = den[i] = false;
+							break;
+						case CallStatus.RESPONSE_TIMED_OUT:
+							// usually timeout should be captured a dozen lines
+							// below here because if the call is timed out, we
+							// usually do not receive any response but
+							// nevertheless we handle this case because the
+							// callee might send a response with this status
+							// doing bad practice
+							bads++;
+							rto[i] = true;
+							nmsf[i] = ssf[i] = den[i] = false;
+							break;
+						case CallStatus.SERVICE_SPECIFIC_FAILURE:
+							bads++;
+							ssf[i] = true;
+							nmsf[i] = rto[i] = den[i] = false;
+							break;
+						case CallStatus.DENIED:
+							bads++;
+							den[i] = true;
+							nmsf[i] = rto[i] = ssf[i] = false;
+							break;
+						}
+					} else {
+						// sr == null => if later there is no good response and
+						// the response of this call is used to send the final
+						// response, then we must create a pseudo timeout
+						// response for this case; but because it is not sure if
+						// it is needed we create the pseudo response when we
+						// are sure it is needed (see comments a dozen lines
+						// below)
+						if (numTimedOut-- > 0) {
+							// possibly this is one of those really timed out
+							bads++;
+							rto[i] = true;
+							nmsf[i] = ssf[i] = den[i] = false;
+						} else {
+							// actually not possible, because ServiceCallee does
+							// not allow this
+							nmsf[i] = rto[i] = ssf[i] = den[i] = false;
+						}
 					}
-				    }
 				}
-				break;
-			    case AggregationFunction.MAX_OF:
-				for (int j = 0; j < size; j++) {
-				    Object oj = getOutputValue(goods.get(j), af);
-				    for (int k = j + 1; k < size; k++) {
-					Object ok = getOutputValue(
-						goods.get(k), af);
-					if (oj instanceof Comparable)
-					    if (ok == null)
-						points[k]++;
-					    else {
-						int l = ((Comparable) oj)
-							.compareTo(ok);
-						if (l > 0)
-						    points[k]++;
-						else if (l < 0)
-						    points[j]++;
-					    }
-					else {
-					    points[j]++;
-					    if (!(ok instanceof Comparable))
-						points[k]++;
+				switch (goods.size()) {
+				case 0:
+					if (bads == 0) {
+						// shouldn't be the case...
+						m = m.createReply(new ServiceResponse(
+								CallStatus.responseTimedOut));
+					} else {
+						HashMap<String, Object> bad = null;
+						// if there is one response with DENIED or
+						// SERVICE_SPECIFIC_FAILURE take that one
+						for (int i = 0; i < size; i++) {
+							if (ssf[i] || den[i]) {
+								bad = matches.get(i);
+								break;
+							} else if (rto[i])
+								bad = matches.get(i);
+							else if (bad == null)
+								bad = matches.get(i);
+						}
+						ServiceResponse sr = (ServiceResponse) bad
+								.get(CONTEXT_RESPONSE_MESSAGE);
+						if (sr == null)
+							// see the 'sr == null' comment a dozen lines above
+							sr = new ServiceResponse(
+									CallStatus.responseTimedOut);
+						m = m.createReply(sr);
 					}
-				    }
-				}
-				break;
-			    case AggregationFunction.MIN_DISTANCE_TO_REF_LOC:
-				for (int j = 0; j < size; j++) {
-				    Object oj = getOutputValue(goods.get(j), af);
-				    for (int k = j + 1; k < size; k++) {
-					Object ok = getOutputValue(
-						goods.get(k), af);
-					if (oj instanceof AbsLocation)
-					    if (ok == null)
-						points[k]++;
-					    else {
-						float dj = ((AbsLocation) oj)
-							.getDistanceTo((AbsLocation) params
-								.get(1));
-						float dk = ((AbsLocation) ok)
-							.getDistanceTo((AbsLocation) params
-								.get(1));
-						if (dj < dk)
-						    points[k]++;
-						else if (dk < dj)
-						    points[j]++;
-					    }
-					else {
-					    points[j]++;
-					    if (!(ok instanceof AbsLocation))
-						points[k]++;
+					break;
+				case 1:
+					HashMap<String, Object> match = goods.get(0);
+					ServiceResponse sr = (ServiceResponse) match
+							.get(CONTEXT_RESPONSE_MESSAGE);
+					prepareRequestedOutput(sr, match);
+					m = m.createReply(sr);
+					break;
+				default:
+					size = goods.size();
+					List<AggregatingFilter> aggregations = ((ServiceRequest) m
+							.getContent()).getOutputAggregations();
+					if (!aggregations.isEmpty()) {
+						int[] points = new int[size];
+						for (int i = 0; i < points.length; i++)
+							points[i] = 0;
+						for (Iterator<AggregatingFilter> i = aggregations
+								.iterator(); i.hasNext();) {
+							AggregatingFilter af = (AggregatingFilter) i.next();
+							List<?> params = af.getFunctionParams();
+							switch (af.getTheFunction().ord()) {
+							case AggregationFunction.ONE_OF:
+								break;
+							case AggregationFunction.MIN_OF:
+								for (int j = 0; j < size; j++) {
+									Object oj = getOutputValue(goods.get(j), af);
+									for (int k = j + 1; k < size; k++) {
+										Object ok = getOutputValue(
+												goods.get(k), af);
+										if (oj instanceof Comparable)
+											if (ok == null)
+												points[k]++;
+											else {
+												int l = ((Comparable) oj)
+														.compareTo(ok);
+												if (l < 0)
+													points[k]++;
+												else if (l > 0)
+													points[j]++;
+											}
+										else {
+											points[j]++;
+											if (!(ok instanceof Comparable))
+												points[k]++;
+										}
+									}
+								}
+								break;
+							case AggregationFunction.MAX_OF:
+								for (int j = 0; j < size; j++) {
+									Object oj = getOutputValue(goods.get(j), af);
+									for (int k = j + 1; k < size; k++) {
+										Object ok = getOutputValue(
+												goods.get(k), af);
+										if (oj instanceof Comparable)
+											if (ok == null)
+												points[k]++;
+											else {
+												int l = ((Comparable) oj)
+														.compareTo(ok);
+												if (l > 0)
+													points[k]++;
+												else if (l < 0)
+													points[j]++;
+											}
+										else {
+											points[j]++;
+											if (!(ok instanceof Comparable))
+												points[k]++;
+										}
+									}
+								}
+								break;
+							case AggregationFunction.MIN_DISTANCE_TO_REF_LOC:
+								for (int j = 0; j < size; j++) {
+									Object oj = getOutputValue(goods.get(j), af);
+									for (int k = j + 1; k < size; k++) {
+										Object ok = getOutputValue(
+												goods.get(k), af);
+										if (oj instanceof AbsLocation)
+											if (ok == null)
+												points[k]++;
+											else {
+												float dj = ((AbsLocation) oj)
+														.getDistanceTo((AbsLocation) params
+																.get(1));
+												float dk = ((AbsLocation) ok)
+														.getDistanceTo((AbsLocation) params
+																.get(1));
+												if (dj < dk)
+													points[k]++;
+												else if (dk < dj)
+													points[j]++;
+											}
+										else {
+											points[j]++;
+											if (!(ok instanceof AbsLocation))
+												points[k]++;
+										}
+									}
+								}
+								break;
+							case AggregationFunction.MAX_DISTANCE_TO_REF_LOC:
+								for (int j = 0; j < size; j++) {
+									Object oj = getOutputValue(goods.get(j), af);
+									for (int k = j + 1; k < size; k++) {
+										Object ok = getOutputValue(
+												goods.get(k), af);
+										if (oj instanceof AbsLocation)
+											if (ok == null)
+												points[k]++;
+											else {
+												float dj = ((AbsLocation) oj)
+														.getDistanceTo((AbsLocation) params
+																.get(1));
+												float dk = ((AbsLocation) ok)
+														.getDistanceTo((AbsLocation) params
+																.get(1));
+												if (dj > dk)
+													points[k]++;
+												else if (dk > dj)
+													points[j]++;
+											}
+										else {
+											points[j]++;
+											if (!(ok instanceof AbsLocation))
+												points[k]++;
+										}
+									}
+								}
+								break;
+							}
+						}
+						int ind = 0, min = points[0];
+						for (int i = 1; i < size; i++)
+							if (points[i] < min) {
+								ind = i;
+								min = points[i];
+							}
+						for (int j = 0; j < ind; j++, size--)
+							goods.remove(0);
+						while (size > 1)
+							goods.remove(--size);
 					}
-				    }
-				}
-				break;
-			    case AggregationFunction.MAX_DISTANCE_TO_REF_LOC:
-				for (int j = 0; j < size; j++) {
-				    Object oj = getOutputValue(goods.get(j), af);
-				    for (int k = j + 1; k < size; k++) {
-					Object ok = getOutputValue(
-						goods.get(k), af);
-					if (oj instanceof AbsLocation)
-					    if (ok == null)
-						points[k]++;
-					    else {
-						float dj = ((AbsLocation) oj)
-							.getDistanceTo((AbsLocation) params
-								.get(1));
-						float dk = ((AbsLocation) ok)
-							.getDistanceTo((AbsLocation) params
-								.get(1));
-						if (dj > dk)
-						    points[k]++;
-						else if (dk > dj)
-						    points[j]++;
-					    }
-					else {
-					    points[j]++;
-					    if (!(ok instanceof AbsLocation))
-						points[k]++;
-					}
-				    }
-				}
-				break;
-			    }
-			}
-			int ind = 0, min = points[0];
-			for (int i = 1; i < size; i++)
-			    if (points[i] < min) {
-				ind = i;
-				min = points[i];
-			    }
-			for (int j = 0; j < ind; j++, size--)
-			    goods.remove(0);
-			while (size > 1)
-			    goods.remove(--size);
-		    }
-		    if (size == 1) {
-			// the above aggregations have reduced the number of
-			// responses to one
-			HashMap<String, Object> ctxt = goods.get(0);
-			ServiceResponse sresp = (ServiceResponse) ctxt
-				.get(CONTEXT_RESPONSE_MESSAGE);
-			prepareRequestedOutput(sresp, ctxt);
-			m = m.createReply(sresp);
-		    } else {
-			// combine all the good responses
-			// call 'prepareRequestedOutput' for a mapping of URIs
-			// of the caller
-			MultiServiceResponse resp = new MultiServiceResponse();
-			ServiceResponse tmp = null;
+					if (size == 1) {
+						// the above aggregations have reduced the number of
+						// responses to one
+						HashMap<String, Object> ctxt = goods.get(0);
+						ServiceResponse sresp = (ServiceResponse) ctxt
+								.get(CONTEXT_RESPONSE_MESSAGE);
+						prepareRequestedOutput(sresp, ctxt);
+						m = m.createReply(sresp);
+					} else {
+						// combine all the good responses
+						// call 'prepareRequestedOutput' for a mapping of URIs
+						// of the caller
+						MultiServiceResponse resp = new MultiServiceResponse();
+						ServiceResponse tmp = null;
 
-			for (HashMap<String, Object> ctxt : goods) {
-			    tmp = (ServiceResponse) ctxt
-				    .get(CONTEXT_RESPONSE_MESSAGE);
-			    // List<ProcessOutput> lstResp = tmp.getOutputs();
-			    // prepareRequestedOutput(lstResp, ctxt);
-			    prepareRequestedOutput(tmp, ctxt);
-			    resp.addResponse(tmp);
-			}
+						for (HashMap<String, Object> ctxt : goods) {
+							tmp = (ServiceResponse) ctxt
+									.get(CONTEXT_RESPONSE_MESSAGE);
+							// List<ProcessOutput> lstResp = tmp.getOutputs();
+							// prepareRequestedOutput(lstResp, ctxt);
+							prepareRequestedOutput(tmp, ctxt);
+							resp.addResponse(tmp);
+						}
 			
-			// prepare combined response for sending
-			m = m.createReply(resp);
-		    }
-		    break;
+						// prepare combined response for sending
+						m = m.createReply(resp);
+					}
+					break;
+				}
+			}
 		}
-	    }
-	}
 
-	((ServiceBusImpl) bus).assessContentSerialization((Resource) m
-		.getContent());
-	if (m.receiverResidesOnDifferentPeer()) {
-	    send(m);
-	} else {
-	    // a local caller registered to the coordinator
-	    replyToLocalCaller(m);
+		((ServiceBusImpl) bus).assessContentSerialization((Resource) m
+				.getContent());
+		if (m.receiverResidesOnDifferentPeer()) {
+			send(m);
+		} else {
+			// a local caller registered to the coordinator
+			replyToLocalCaller(m);
+		}
 	}
-    }
 
     /**
      * Translates the process outputs according to the bindings
