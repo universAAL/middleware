@@ -27,9 +27,16 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * Implementation of OWL SomeValuesFrom Restriction: it contains all individals
- * that are connected by the specified property to an individual that is an
- * instances of the specified class expression.
+ * A {@link TypeExpression} ({@link PropertyRestriction}) that contains all
+ * individuals that are connected by a given property to an instance of the
+ * given type expression. SomeValuesFromRestriction corresponds to OWL
+ * ObjectSomeValuesFrom or DataSomeValuesFrom.
+ * <p>
+ * <code>SomeValuesFromRestriction(property, te)</code> can be seen as a
+ * syntactic shortcut for
+ * <code>MinCardinalityRestriction( 1, property, te )</code>.
+ * 
+ * @see MinCardinalityRestriction
  * 
  * @author Carsten Stockloew
  */

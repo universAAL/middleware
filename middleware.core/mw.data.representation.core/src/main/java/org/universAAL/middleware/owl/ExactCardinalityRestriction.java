@@ -29,10 +29,17 @@ import org.universAAL.middleware.util.MatchLogEntry;
 import org.universAAL.middleware.xsd.NonNegativeInteger;
 
 /**
- * Implementation of OWL ExactCardinality Restriction: it contains all
- * individuals that are connected by the specified property to exact
- * <code>exact</code> individuals that are instances of the specified class
- * expression.
+ * A {@link TypeExpression} ({@link PropertyRestriction}) that contains all
+ * individuals that are connected by a given property to exactly a given number
+ * of different instances of the given type expression.
+ * ExactCardinalityRestriction corresponds to OWL ObjectExactCardinality or
+ * DataExactCardinality.
+ * <p>
+ * <code>ExactCardinalityRestriction(n, property, te)</code> is equivalent to
+ * <code>Intersection( MinCardinalityRestriction(n, property, te), MaxCardinalityRestriction(n, property, te) )</code>.
+ * 
+ * @see MinCardinalityRestriction
+ * @see MaxCardinalityRestriction
  * 
  * @author Carsten Stockloew
  */

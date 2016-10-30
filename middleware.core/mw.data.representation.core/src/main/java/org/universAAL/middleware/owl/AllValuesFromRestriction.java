@@ -24,12 +24,39 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * Implementation of OWL AllValuesFrom Restriction: it contains all individuals
- * that are connected by the specified property to individuals that are
- * instances of the specified class expression.
+ * A {@link TypeExpression} ({@link PropertyRestriction}) that contains all
+ * individuals that are connected by a given property only to
+ * individuals/literals that are contained in the given type expression.
+ * AllValuesFromRestriction corresponds to OWL ObjectAllValuesFrom or
+ * DataAllValuesFrom.
+ * <p>
+ * <code>AllValuesFromRestriction(property, te)</code> can be seen as a
+ * syntactic shortcut for
+ * <code>MaxCardinalityRestriction( 0, property, Complement( te ) ))</code>.
+ * <p>
+ * Compared to Java, the class in the following code (defining an instance
+ * variable called <code>property</code>):
+ * 
+ * <pre>
+ * public class MyTE {
+ *     String property;
+ * }
+ * </pre>
+ * 
+ * is similar to the following type expression:
+ * 
+ * <pre>
+ * AllValuesFromRestriction(property, TypeURI(TypeMapper.getDatatypeURI(String.class)))
+ * </pre>
+ * 
+ * @see MaxCardinalityRestriction
+ * @see Complement
+ * @see TypeMapper
+ * @see TypeURI
  * 
  * @author Carsten Stockloew
  */

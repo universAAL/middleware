@@ -29,9 +29,14 @@ import org.universAAL.middleware.util.MatchLogEntry;
 import org.universAAL.middleware.xsd.NonNegativeInteger;
 
 /**
- * Implementation of OWL MinCardinality Restriction: it contains all individuals
- * that are connected by the specified property to at least <code>min</code>
- * individuals that are instances of the specified class expression.
+ * A {@link TypeExpression} ({@link PropertyRestriction}) that contains all
+ * individuals that are connected by a given property to at least a given number
+ * of different instances of the given type expression.
+ * MinCardinalityRestriction corresponds to OWL ObjectMinCardinality or
+ * DataMinCardinality.
+ * 
+ * @see MaxCardinalityRestriction
+ * @see ExactCardinalityRestriction
  * 
  * @author Carsten Stockloew
  */

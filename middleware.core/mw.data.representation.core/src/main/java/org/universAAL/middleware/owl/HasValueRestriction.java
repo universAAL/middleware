@@ -29,8 +29,16 @@ import org.universAAL.middleware.rdf.Variable;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * Implementation of OWL HasValue Restriction: it contains all individuals that
- * are connected by the specified property to the given individual.
+ * A {@link TypeExpression} ({@link PropertyRestriction}) that contains all
+ * individuals that are connected by a given property to a given
+ * individual/literal. HasValueRestriction corresponds to OWL ObjectHasValue or
+ * DataHasValue.
+ * <p>
+ * <code>HasValueRestriction(property, a)</code> can be seen as a syntactic
+ * shortcut for <code>SomeValuesFromRestriction(property, Enumeration(a))</code>.
+ * 
+ * @see SomeValuesFromRestriction
+ * @see Enumeration
  * 
  * @author Carsten Stockloew
  */
