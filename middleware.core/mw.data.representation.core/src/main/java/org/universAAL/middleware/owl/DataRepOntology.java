@@ -29,6 +29,9 @@ import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
+ * The ontology of the Data Representation Module. It contains the very basic
+ * concepts that are needed by the buses, e.g. the notion of a location or a
+ * rating.
  * 
  * @author Carsten Stockloew
  * 
@@ -58,11 +61,11 @@ public final class DataRepOntology extends Ontology {
 	    oci = createNewAbstractOntClassInfo(ManagedIndividual.MY_URI);
 	    oci.setResourceComment("The root of the whole class hierarchy in the uAAL ontology.");
 	    oci.setResourceLabel("uAAL Ontology Root Class");
-	    
+
 	    // load PrivateResource
 	    oci = createNewAbstractOntClassInfo(PrivateResource.MY_URI);
 	    oci.setResourceComment("An abstract superclass that ManagedIndividuals can subclass "
-	    	+ "to indicate they represent private data");
+		    + "to indicate they represent private data");
 	    oci.setResourceLabel("Private Resource");
 	    oci.addSuperClass(ManagedIndividual.MY_URI);
 

@@ -31,7 +31,20 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.util.MatchLogEntry;
 
-/*
+/**
+ * Base class for all {@link TypeExpression}s that impose a restriction on a
+ * data type. As data types in OWL are taken from XML specification, the
+ * restrictions are defined as <i>constraining facets</i>.
+ * <p>
+ * Most of the type restrictions are defined for literals, with only a few
+ * exceptions that define a restriction on an individual or a URI.
+ * 
+ * @see <a href="http://www.w3.org/TR/xmlschema-2/#defn-coss">XML Schema
+ *      Datatypes</a>
+ * 
+ * @author Carsten Stockloew
+ */
+/*-
  * Hierarchy:
  * 	TypeRestriction (abstract)
  * 		(Facets: pattern, enumeration(?), whiteSpace)
@@ -48,7 +61,6 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * 			Base64BinaryRestriction
  * 			...
  */
-// see https://www.w3.org/TR/xmlschema-2/#defn-coss
 public abstract class TypeRestriction extends TypeExpression {
 
     public static final String PROP_OWL_ON_DATATYPE = OWL_NAMESPACE

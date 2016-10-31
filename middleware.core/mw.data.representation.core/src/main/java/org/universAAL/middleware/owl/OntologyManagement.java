@@ -39,7 +39,7 @@ import org.universAAL.middleware.util.OntologyListener;
  * The Ontology Management mainly serves two purposes:
  * <ol>
  * <li>Management of ontologies</li>
- * <li>Providing a global view on all ontological information</li>
+ * <li>Providing a global view on all ontological information.</li>
  * </ol>
  * <p>
  * The management of {@link Ontology ontologies} is achieved by providing

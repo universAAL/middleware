@@ -21,6 +21,15 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
 
+/**
+ * A {@link TypeExpression} ({@link BoundedValueRestriction}) that contains all
+ * literals of type int with a given lower bound and/or upper bound.
+ * <p>
+ * For example, <code>IntRestriction(0, true, 4, false)</code> contains exactly
+ * the literals 0,1,2, and 3.
+ * 
+ * @author Carsten Stockloew
+ */
 public final class IntRestriction extends BoundedValueRestriction {
 
     public static final String DATATYPE_URI = TypeMapper

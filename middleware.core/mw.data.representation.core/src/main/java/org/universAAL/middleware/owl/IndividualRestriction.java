@@ -19,6 +19,16 @@
  */
 package org.universAAL.middleware.owl;
 
+/**
+ * A {@link TypeExpression} ({@link BoundedValueRestriction}) that contains all
+ * individuals with a given lower bound and/or upper bound. The individuals need
+ * to be comparable, i.e. they need to be sub classes of
+ * {@link ComparableIndividual}.
+ * <p>
+ * This class is not defined for literals, but individuals.
+ * 
+ * @author Carsten Stockloew
+ */
 public final class IndividualRestriction extends BoundedValueRestriction {
 
     public static final String DATATYPE_URI = ComparableIndividual.MY_URI;

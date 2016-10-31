@@ -22,6 +22,12 @@ package org.universAAL.middleware.owl;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
+/**
+ * A {@link TypeExpression} ({@link LengthRestriction}) that contains all URIs
+ * with a given minimum and/or maximum length.
+ * 
+ * @author Carsten Stockloew
+ */
 public class URIRestriction extends LengthRestriction {
 
     public static final String DATATYPE_URI = TypeMapper

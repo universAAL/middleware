@@ -27,16 +27,18 @@ import org.universAAL.middleware.util.MatchLogEntry;
 import org.universAAL.middleware.xsd.NonNegativeInteger;
 
 /**
- * Implementation of XSD Value Restrictions: it contains all values (literals or
- * individuals) that meet the specified conditions. These conditions are either:
+ * Base class for all {@link TypeRestriction}s that define a restriction on the
+ * length of a value of a given data type. Implementation of XSD Value
+ * Restrictions: it contains all literals that meet the specified conditions.
+ * These conditions are either:
  * <ol>
  * <li>length</li>
  * <li>min length</li>
  * <li>max length</li>
  * </ol>
  * 
- * It is possible to define a condition on the min value and on the max value in
- * the same {@link LengthRestriction}.
+ * It is possible to define a condition on the minimum value and on the maximum
+ * value in the same {@link LengthRestriction}.
  * 
  * @author Carsten Stockloew
  */

@@ -28,8 +28,10 @@ import org.universAAL.middleware.rdf.Variable;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
- * Implementation of XSD Value Restrictions: it contains all values (literals or
- * individuals) that meet the specified conditions. These conditions are either:
+ * Base class for all {@link TypeRestriction}s that define a minimum or maximum
+ * value on a given data type. Implementation of XSD Value Restrictions: it
+ * contains all literals that meet the specified conditions. These conditions
+ * are either:
  * <ol>
  * <li>min inclusive</li>
  * <li>min exclusive</li>
@@ -37,8 +39,10 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * <li>max exclusive</li>
  * </ol>
  * 
- * It is possible to define a condition on the min value and on the max value in
- * the same {@link BoundedValueRestriction}.
+ * It is possible to define a condition on the minimum value and on the maximum
+ * value in the same {@link BoundedValueRestriction}.
+ * <p>
+ * Sub classes provide helper methods for specific data types.
  * 
  * @author Carsten Stockloew
  */

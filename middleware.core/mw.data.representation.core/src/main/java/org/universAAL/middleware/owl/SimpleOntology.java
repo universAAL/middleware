@@ -21,6 +21,12 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.ResourceFactory;
 
+/**
+ * Helper class for ontologies that define only a single ontology class without
+ * additional restrictions.
+ * 
+ * @author Carsten Stockloew
+ */
 public final class SimpleOntology extends Ontology {
 
     /**

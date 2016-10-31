@@ -24,6 +24,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * A list of Resources that can not be modified.
+ * 
+ * @author Carsten Stockloew
+ */
 public final class UnmodifiableResourceList implements List {
 
     /** A safe iterator that does not allow modifications. */

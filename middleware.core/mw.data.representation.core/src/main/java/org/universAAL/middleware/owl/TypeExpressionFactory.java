@@ -24,6 +24,11 @@ import java.util.HashMap;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 
+/**
+ * Factory for the creation of {@link TypeExpression}s.
+ * 
+ * @author Carsten Stockloew
+ */
 public final class TypeExpressionFactory {
 
     private static HashMap<String, Integer> propMap = new HashMap<String, Integer>();

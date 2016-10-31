@@ -21,6 +21,12 @@ package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
 
+/**
+ * A {@link TypeExpression} ({@link BoundedValueRestriction}) that contains all
+ * literals of type double with a given lower bound and/or upper bound.
+ * 
+ * @author Carsten Stockloew
+ */
 public final class DoubleRestriction extends BoundedValueRestriction {
 
     public static final String DATATYPE_URI = TypeMapper
