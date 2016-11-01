@@ -45,11 +45,15 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  */
 public final class ExactCardinalityRestriction extends PropertyRestriction {
 
+    /** URI for this class. */
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "ExactCardinalityRestriction";
 
+    /** URI for owl:cardinality. */
     public static final String PROP_OWL_CARDINALITY = OWL_NAMESPACE
 	    + "cardinality";
+
+    /** URI for owl:QualifiedCardinality. */
     public static final String PROP_OWL_QUALIFIED_CARDINALITY = OWL_NAMESPACE
 	    + "QualifiedCardinality";
 
@@ -57,6 +61,14 @@ public final class ExactCardinalityRestriction extends PropertyRestriction {
     ExactCardinalityRestriction() {
     }
 
+    /**
+     * Constructor to create a new instance.
+     * 
+     * @param propURI
+     *            URI of the property for which this restriction is defined.
+     * @param value
+     *            The exact cardinality that this property must have.
+     */
     public ExactCardinalityRestriction(String propURI, int value) {
 	if (propURI == null)
 	    throw new NullPointerException();
@@ -76,11 +88,16 @@ public final class ExactCardinalityRestriction extends PropertyRestriction {
     // // Integer(value));
     // }
 
+    /** @see org.universAAL.middleware.owl.PropertyRestriction#getClassURI() */
     public String getClassURI() {
 	return MY_URI;
     }
 
-    /** Get the value of this cardinality restriction */
+    /**
+     * Get the value of this cardinality restriction
+     * 
+     * @return the value of this cardinality restriction
+     */
     public int getValue() {
 	NonNegativeInteger i = (NonNegativeInteger) props
 		.get(PROP_OWL_CARDINALITY);
@@ -94,6 +111,10 @@ public final class ExactCardinalityRestriction extends PropertyRestriction {
 	return copyTo(new ExactCardinalityRestriction());
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// ttl =
@@ -112,6 +133,10 @@ public final class ExactCardinalityRestriction extends PropertyRestriction {
 	    return getValue() == ((List) value).size();
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -142,6 +167,10 @@ public final class ExactCardinalityRestriction extends PropertyRestriction {
 	return getOnProperty() != null && (hasProperty(PROP_OWL_CARDINALITY));
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean matches(TypeExpression subset, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	Object noRes = matchesNonRestriction(subset, context, ttl, log);
@@ -188,7 +217,7 @@ public final class ExactCardinalityRestriction extends PropertyRestriction {
 	}
 
 	// do not handle other restrictions
-	if (propMap.containsKey(propURI))
+	if (propMap.contains(propURI))
 	    return false;
 
 	// for everything else: call super

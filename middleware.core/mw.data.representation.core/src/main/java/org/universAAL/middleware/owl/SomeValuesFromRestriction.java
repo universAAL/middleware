@@ -42,9 +42,11 @@ import org.universAAL.middleware.util.MatchLogEntry;
  */
 public final class SomeValuesFromRestriction extends PropertyRestriction {
 
+    /** URI for this class. */
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "SomeValuesFromRestriction";
 
+    /** URI for owl:someValuesFrom. */
     public static final String PROP_OWL_SOME_VALUES_FROM = OWL_NAMESPACE
 	    + "someValuesFrom";;
 
@@ -52,6 +54,15 @@ public final class SomeValuesFromRestriction extends PropertyRestriction {
     SomeValuesFromRestriction() {
     }
 
+    /**
+     * Constructor to create a new instance.
+     * 
+     * @param propURI
+     *            URI of the property for which this restriction is defined.
+     * @param expr
+     *            Expression for the type that at least one value of the
+     *            property must have.
+     */
     public SomeValuesFromRestriction(String propURI, TypeExpression expr) {
 	if (propURI == null || expr == null)
 	    throw new NullPointerException();
@@ -59,10 +70,12 @@ public final class SomeValuesFromRestriction extends PropertyRestriction {
 	super.setProperty(PROP_OWL_SOME_VALUES_FROM, expr);
     }
 
+    /** @see org.universAAL.middleware.owl.PropertyRestriction#getClassURI() */
     public String getClassURI() {
 	return MY_URI;
     }
 
+    /** @see org.universAAL.middleware.owl.PropertyRestriction#getConstraint() */
     public Object getConstraint() {
 	return getProperty(PROP_OWL_SOME_VALUES_FROM);
     }
@@ -72,6 +85,10 @@ public final class SomeValuesFromRestriction extends PropertyRestriction {
 	return copyTo(new SomeValuesFromRestriction());
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -103,6 +120,10 @@ public final class SomeValuesFromRestriction extends PropertyRestriction {
 	return true;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -132,6 +153,10 @@ public final class SomeValuesFromRestriction extends PropertyRestriction {
 		&& (hasProperty(PROP_OWL_SOME_VALUES_FROM));
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean matches(TypeExpression subset, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	Object noRes = matchesNonRestriction(subset, context, ttl, log);
@@ -178,7 +203,7 @@ public final class SomeValuesFromRestriction extends PropertyRestriction {
 	}
 
 	// do not handle other restrictions
-	if (propMap.containsKey(propURI))
+	if (propMap.contains(propURI))
 	    return false;
 
 	// for everything else: call super

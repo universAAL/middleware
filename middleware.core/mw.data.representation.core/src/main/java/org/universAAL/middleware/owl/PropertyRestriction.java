@@ -21,6 +21,7 @@ package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,31 +47,36 @@ import org.universAAL.middleware.util.MatchLogEntry;
  */
 public abstract class PropertyRestriction extends TypeExpression {
 
+    /** URI for owl:Restriction. */
     public static final String MY_URI = OWL_NAMESPACE + "Restriction";
+
+    /** URI for owl:onProperty. */
     public static final String PROP_OWL_ON_PROPERTY = OWL_NAMESPACE
 	    + "onProperty";
 
-    protected static final HashMap propMap = new HashMap();
+    /**
+     * Set of all property URIs that are used in the different property
+     * restrictions. This can be used in {@link #setProperty(String, Object)}
+     * method to avoid setting two or more of those properties because they
+     * should uniquely identify the type of the restriction.
+     */
+    protected static final HashSet<String> propMap = new HashSet<String>();
 
     static {
 	// for not handling properties of other restrictions, to be used in
 	// setProperty
-	propMap.put(HasValueRestriction.PROP_OWL_HAS_VALUE, null);
-	propMap.put(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY, null);
-	propMap.put(
-		MinCardinalityRestriction.PROP_OWL_MIN_QUALIFIED_CARDINALITY,
-		null);
-	propMap.put(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY, null);
-	propMap.put(
-		MaxCardinalityRestriction.PROP_OWL_MAX_QUALIFIED_CARDINALITY,
-		null);
-	propMap.put(ExactCardinalityRestriction.PROP_OWL_CARDINALITY, null);
-	propMap.put(ExactCardinalityRestriction.PROP_OWL_QUALIFIED_CARDINALITY,
-		null);
-	propMap.put(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM, null);
-	propMap.put(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM, null);
+	propMap.add(HasValueRestriction.PROP_OWL_HAS_VALUE);
+	propMap.add(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY);
+	propMap.add(MinCardinalityRestriction.PROP_OWL_MIN_QUALIFIED_CARDINALITY);
+	propMap.add(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY);
+	propMap.add(MaxCardinalityRestriction.PROP_OWL_MAX_QUALIFIED_CARDINALITY);
+	propMap.add(ExactCardinalityRestriction.PROP_OWL_CARDINALITY);
+	propMap.add(ExactCardinalityRestriction.PROP_OWL_QUALIFIED_CARDINALITY);
+	propMap.add(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
+	propMap.add(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM);
     }
 
+    /** Constructor. */
     PropertyRestriction() {
 	addType(MY_URI, true);
 	ArrayList l = new ArrayList(1);
@@ -87,14 +93,33 @@ public abstract class PropertyRestriction extends TypeExpression {
 	return MY_URI;
     }
 
+    /**
+     * Get the constraint of all value restrictions ({@link HasValueRestriction}
+     * , {@link SomeValuesFromRestriction}, or {@link AllValuesFromRestriction},
+     * but none of the cardinality restrictions). Subclasses should override
+     * this method if they have a constraint.
+     * 
+     * @return the constraint of this restriction.
+     */
     public Object getConstraint() {
 	return null;
     }
 
+    /**
+     * Set the property for which this restriction is defined.
+     * 
+     * @param propURI
+     *            URI of the property.
+     */
     protected void setOnProperty(String propURI) {
 	super.setProperty(PROP_OWL_ON_PROPERTY, new Resource(propURI));
     }
 
+    /**
+     * Get the property for which this restriction is defined.
+     * 
+     * @return URI of the property.
+     */
     public String getOnProperty() {
 	Object o = props.get(PROP_OWL_ON_PROPERTY);
 	return (o == null) ? null : o.toString();
@@ -103,6 +128,9 @@ public abstract class PropertyRestriction extends TypeExpression {
     /**
      * Helper method to copy Restrictions.
      * 
+     * @param copy
+     *            An instance of the class to which to copy all properties.
+     * @return the copy with all properties from this object.
      * @see org.universAAL.middleware.owl.TypeExpression#copy()
      */
     protected TypeExpression copyTo(PropertyRestriction copy) {
@@ -129,7 +157,7 @@ public abstract class PropertyRestriction extends TypeExpression {
     /**
      * Check all cases where the subtype is not a subclass of
      * {@link #PropertyRestriction()}. Helper method for
-     * {@link #matches(TypeExpression, HashMap)} in subclasses.
+     * {@link #matches(TypeExpression, HashMap, int, List)} in subclasses.
      */
     protected Object matchesNonRestriction(TypeExpression subtype,
 	    HashMap context, int ttl, List<MatchLogEntry> log) {

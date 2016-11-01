@@ -42,11 +42,15 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  */
 public final class MinCardinalityRestriction extends PropertyRestriction {
 
+    /** URI for this class. */
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "MinCardinalityRestriction";
 
+    /** URI for owl:minCardinality. */
     public static final String PROP_OWL_MIN_CARDINALITY = OWL_NAMESPACE
 	    + "minCardinality";
+
+    /** URI for owl:minQualifiedCardinality. */
     public static final String PROP_OWL_MIN_QUALIFIED_CARDINALITY = OWL_NAMESPACE
 	    + "minQualifiedCardinality";
 
@@ -54,6 +58,14 @@ public final class MinCardinalityRestriction extends PropertyRestriction {
     MinCardinalityRestriction() {
     }
 
+    /**
+     * Constructor to create a new instance.
+     * 
+     * @param propURI
+     *            URI of the property for which this restriction is defined.
+     * @param value
+     *            The minimum cardinality that this property must have.
+     */
     public MinCardinalityRestriction(String propURI, int value) {
 	if (propURI == null)
 	    throw new NullPointerException();
@@ -74,11 +86,16 @@ public final class MinCardinalityRestriction extends PropertyRestriction {
     // // Integer(value));
     // }
 
+    /** @see org.universAAL.middleware.owl.PropertyRestriction#getClassURI() */
     public String getClassURI() {
 	return MY_URI;
     }
 
-    /** Get the value of this cardinality restriction */
+    /**
+     * Get the value of this cardinality restriction
+     * 
+     * @return the value of this cardinality restriction
+     */
     public int getValue() {
 	NonNegativeInteger i = (NonNegativeInteger) props
 		.get(PROP_OWL_MIN_CARDINALITY);
@@ -92,6 +109,10 @@ public final class MinCardinalityRestriction extends PropertyRestriction {
 	return copyTo(new MinCardinalityRestriction());
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// ttl =
@@ -110,6 +131,10 @@ public final class MinCardinalityRestriction extends PropertyRestriction {
 	    return getValue() <= ((List) value).size();
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -138,6 +163,10 @@ public final class MinCardinalityRestriction extends PropertyRestriction {
 		&& (hasProperty(PROP_OWL_MIN_CARDINALITY));
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean matches(TypeExpression subset, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	Object noRes = matchesNonRestriction(subset, context, ttl, log);
@@ -181,7 +210,7 @@ public final class MinCardinalityRestriction extends PropertyRestriction {
 	}
 
 	// do not handle other restrictions
-	if (propMap.containsKey(propURI))
+	if (propMap.contains(propURI))
 	    return false;
 
 	// for everything else: call super

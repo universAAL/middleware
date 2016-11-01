@@ -50,7 +50,8 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * is similar to the following type expression:
  * 
  * <pre>
- * AllValuesFromRestriction(property, TypeURI(TypeMapper.getDatatypeURI(String.class)))
+ * AllValuesFromRestriction(property,
+ * 	TypeURI(TypeMapper.getDatatypeURI(String.class)))
  * </pre>
  * 
  * @see MaxCardinalityRestriction
@@ -62,9 +63,11 @@ import org.universAAL.middleware.util.MatchLogEntry;
  */
 public final class AllValuesFromRestriction extends PropertyRestriction {
 
+    /** URI for this class. */
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "AllValuesFromRestriction";
 
+    /** URI for owl:allValuesFrom. */
     public static final String PROP_OWL_ALL_VALUES_FROM = OWL_NAMESPACE
 	    + "allValuesFrom";;
 
@@ -72,6 +75,15 @@ public final class AllValuesFromRestriction extends PropertyRestriction {
     AllValuesFromRestriction() {
     }
 
+    /**
+     * Constructor to create a new instance.
+     * 
+     * @param propURI
+     *            URI of the property for which this restriction is defined.
+     * @param expr
+     *            Expression for the type that all values of the property must
+     *            have.
+     */
     public AllValuesFromRestriction(String propURI, TypeExpression expr) {
 	if (propURI == null || expr == null)
 	    throw new NullPointerException();
@@ -79,22 +91,40 @@ public final class AllValuesFromRestriction extends PropertyRestriction {
 	super.setProperty(PROP_OWL_ALL_VALUES_FROM, expr);
     }
 
+    /**
+     * Constructor to create a new instance.
+     * 
+     * @param propURI
+     *            URI of the property for which this restriction is defined.
+     * @param typeURI
+     *            URI of the type that all values of the property must have.
+     *            Creates a new {@link TypeURI} and calls
+     *            {@link AllValuesFromRestriction#AllValuesFromRestriction(String, TypeExpression)}
+     *            .
+     */
     public AllValuesFromRestriction(String propURI, String typeURI) {
 	this(propURI, TypeURI.asTypeURI(typeURI));
     }
 
+    /** @see org.universAAL.middleware.owl.PropertyRestriction#getClassURI() */
     public String getClassURI() {
 	return MY_URI;
     }
 
+    /** @see org.universAAL.middleware.owl.PropertyRestriction#getConstraint() */
     public Object getConstraint() {
 	return getProperty(PROP_OWL_ALL_VALUES_FROM);
     }
 
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
     public TypeExpression copy() {
 	return copyTo(new AllValuesFromRestriction());
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -123,6 +153,10 @@ public final class AllValuesFromRestriction extends PropertyRestriction {
 	return true;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -148,11 +182,16 @@ public final class AllValuesFromRestriction extends PropertyRestriction {
 	return false;
     }
 
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return getOnProperty() != null
 		&& (hasProperty(PROP_OWL_ALL_VALUES_FROM));
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean matches(TypeExpression subset, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	Object noRes = matchesNonRestriction(subset, context, ttl, log);
@@ -178,6 +217,7 @@ public final class AllValuesFromRestriction extends PropertyRestriction {
 	return false;
     }
 
+    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
     public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null || props.containsKey(propURI))
 	    return false;
@@ -197,7 +237,7 @@ public final class AllValuesFromRestriction extends PropertyRestriction {
 	}
 
 	// do not handle other restrictions
-	if (propMap.containsKey(propURI))
+	if (propMap.contains(propURI))
 	    return false;
 
 	// for everything else: call super
