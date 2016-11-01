@@ -20,6 +20,7 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -58,20 +59,21 @@ public final class Union extends TypeExpression {
     public static final String PROP_OWL_UNION_OF = OWL_NAMESPACE + "unionOf";
 
     /** The set of class expressions. */
-    private ArrayList types;
+    private ArrayList<TypeExpression> types;
 
     /** Constructor. */
     public Union() {
 	super();
-	types = new ArrayList();
+	types = new ArrayList<TypeExpression>();
 	props.put(PROP_OWL_UNION_OF, types);
     }
 
     /**
-     * Add a new child class expression <i>CE<sub>i</sub></i>.
+     * Add a new child type expression.
      * 
      * @param type
-     *            The class expression to add.
+     *            The type expression to add.
+     * @return true (as specified by {@link Collection#add(Object)})
      */
     public boolean addType(TypeExpression type) {
 	if (type != null && !(type instanceof Union)) {
@@ -83,8 +85,8 @@ public final class Union extends TypeExpression {
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
     public TypeExpression copy() {
 	Union result = new Union();
-	for (Iterator i = types.iterator(); i.hasNext();)
-	    result.types.add(((TypeExpression) i.next()).copy());
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();)
+	    result.types.add(i.next().copy());
 	return result;
     }
 
@@ -92,8 +94,8 @@ public final class Union extends TypeExpression {
     public String[] getNamedSuperclasses() {
 	ArrayList l = new ArrayList();
 	String[] tmp;
-	for (Iterator i = types.iterator(); i.hasNext();) {
-	    tmp = ((TypeExpression) i.next()).getNamedSuperclasses();
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();) {
+	    tmp = i.next().getNamedSuperclasses();
 	    if (tmp != null)
 		for (int j = 0; j < tmp.length; j++)
 		    collectTypesMinimized(tmp[j], l);
@@ -105,8 +107,8 @@ public final class Union extends TypeExpression {
     public Object[] getUpperEnumeration() {
 	ArrayList l = new ArrayList();
 	Object[] tmp;
-	for (Iterator i = types.iterator(); i.hasNext();) {
-	    tmp = ((TypeExpression) i.next()).getUpperEnumeration();
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();) {
+	    tmp = i.next().getUpperEnumeration();
 	    if (tmp.length == 0)
 		return new Object[0];
 	    for (int j = 0; j < tmp.length; j++)
@@ -116,15 +118,23 @@ public final class Union extends TypeExpression {
 	return l.toArray();
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object value, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
-	for (Iterator i = types.iterator(); i.hasNext();)
-	    if (((TypeExpression) i.next()).hasMember(value, context, ttl, log))
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();)
+	    if (i.next().hasMember(value, context, ttl, log))
 		return true;
 	return false;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean matches(TypeExpression subtype, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -165,8 +175,8 @@ public final class Union extends TypeExpression {
 	}
 	// for all other cases, it's enough if one of the classes in the union
 	// is a superclass
-	for (Iterator i = types.iterator(); i.hasNext();)
-	    if (((TypeExpression) i.next()).matches(subtype, context, ttl, log))
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();)
+	    if (i.next().matches(subtype, context, ttl, log))
 		return true;
 	// TODO: the case, where the whole union is really the supertype
 	// of a complement, an intersection, a TypeURI, or a Restriction
@@ -174,6 +184,10 @@ public final class Union extends TypeExpression {
 	return false;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -219,8 +233,12 @@ public final class Union extends TypeExpression {
 	return false;
     }
 
-    /** Get an iterator for the added child class expressions. */
-    public Iterator types() {
+    /**
+     * Get an iterator for the child type expressions.
+     * 
+     * @return an iterator for the child type expressions.
+     */
+    public Iterator<TypeExpression> types() {
 	return types.iterator();
     }
 }

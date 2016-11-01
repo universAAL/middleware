@@ -72,13 +72,27 @@ public final class TypeURI extends TypeExpression {
 
     /**
      * Creates a new TypeURI instance according to the given object.
+     * 
+     * @param obj
+     *            An object representing the URI of an ontology class or data
+     *            type. It can be either:
+     *            <ul>
+     *            <li>a TypeURI: the return value is the parameter
+     *            <code>obj</code>.</li>
+     *            <li>the URI of a registered ontology class or data type. The
+     *            URI can be given as String or as Resource.</li>
+     *            </ul>
+     * 
+     * @return a new TypeURI, or null if the given object is not valid.
+     * @see TypeMapper#isRegisteredDatatypeURI(String)
+     * @see OntologyManagement#isRegisteredClass(String, boolean)
      */
-    public static TypeURI asTypeURI(Object o) {
-	if (o == null || o instanceof TypeURI)
-	    return (TypeURI) o;
+    public static TypeURI asTypeURI(Object obj) {
+	if (obj == null || obj instanceof TypeURI)
+	    return (TypeURI) obj;
 
-	if (o instanceof Resource && !((Resource) o).isAnon()) {
-	    String uri = ((Resource) o).getURI();
+	if (obj instanceof Resource && !((Resource) obj).isAnon()) {
+	    String uri = ((Resource) obj).getURI();
 	    // java.util.Enumeration e = ((Resource) o).getPropertyURIs();
 	    // if (e != null && e.hasMoreElements()) {
 	    // if (PROP_RDF_TYPE.equals(e.nextElement())
@@ -105,19 +119,19 @@ public final class TypeURI extends TypeExpression {
 	    else if (OntologyManagement.getInstance().isRegisteredClass(uri,
 		    true))
 		return new TypeURI(uri, false);
-	} else if (o instanceof String)
-	    if (TypeMapper.isRegisteredDatatypeURI((String) o))
-		return new TypeURI((String) o, true);
+	} else if (obj instanceof String)
+	    if (TypeMapper.isRegisteredDatatypeURI((String) obj))
+		return new TypeURI((String) obj, true);
 	    else if (OntologyManagement.getInstance().isRegisteredClass(
-		    (String) o, true))
-		return new TypeURI((String) o, false);
+		    (String) obj, true))
+		return new TypeURI((String) obj, false);
 
 	return null;
     }
 
     /**
      * No {@link TypeExpression} instances are stored in this class, so we do
-     * not need to clone.
+     * not need to clone; just return this object.
      * 
      * @see org.universAAL.middleware.owl.TypeExpression#copy()
      */

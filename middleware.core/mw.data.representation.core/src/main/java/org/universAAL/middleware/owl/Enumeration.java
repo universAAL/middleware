@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
@@ -52,7 +53,7 @@ public final class Enumeration extends TypeExpression {
 	    + "DataRange";
 
     /** The set of individuals. */
-    private ArrayList values = new ArrayList();
+    private ArrayList<Object> values = new ArrayList<Object>();
 
     private boolean datarange = false;
 
@@ -62,7 +63,14 @@ public final class Enumeration extends TypeExpression {
 	props.put(PROP_OWL_ONE_OF, values);
     }
 
-    /** Constructor with initial values. */
+    /**
+     * Constructor with initial values.
+     * 
+     * @param values
+     *            List of initial values. If a value is a String with a
+     *            non-anonymous URI, then a new {@link Resource} is created with
+     *            this URI and added instead of the String.
+     */
     public Enumeration(Object[] values) {
 	super();
 	props.put(PROP_OWL_ONE_OF, this.values);
@@ -81,7 +89,15 @@ public final class Enumeration extends TypeExpression {
 		}
     }
 
-    /** Add a new individual. */
+    /**
+     * Add a new value. The value cannot be added if it is a non-supported
+     * Object, i.e. it must be either a Resource, a supported primitive datatype
+     * (see {@link TypeMapper}), or a list of those objects.
+     * 
+     * @param o
+     *            the new value.
+     * @return true, if the value could be added.
+     */
     public boolean addValue(Object o) {
 	if (o != null) {
 	    if (o instanceof List) {
@@ -102,7 +118,7 @@ public final class Enumeration extends TypeExpression {
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
     public TypeExpression copy() {
 	Enumeration result = new Enumeration();
-	for (Iterator i = values.iterator(); i.hasNext();)
+	for (Iterator<Object> i = values.iterator(); i.hasNext();)
 	    result.values.add(i.next());
 	if (datarange) {
 	    result.datarange = true;
@@ -112,16 +128,16 @@ public final class Enumeration extends TypeExpression {
     }
 
     /**
-     * Get the maximum value from all individuals. The individuals have to
-     * implement the {@link java.lang.Comparable} interface.
+     * Get the maximum value from all values. The values have to implement the
+     * {@link java.lang.Comparable} interface.
      * 
-     * @return The maximum value, or null if an individual does not implement
-     *         the {@link java.lang.Comparable} interface.
+     * @return The maximum value, or null if a values does not implement the
+     *         {@link java.lang.Comparable} interface.
      */
     public Comparable getMaxValue() {
 	try {
 	    Comparable result = null;
-	    for (Iterator i = values.iterator(); i.hasNext();) {
+	    for (Iterator<Object> i = values.iterator(); i.hasNext();) {
 		Comparable o = (Comparable) i.next();
 		if (result == null || result.compareTo(o) < 0)
 		    result = o;
@@ -133,16 +149,16 @@ public final class Enumeration extends TypeExpression {
     }
 
     /**
-     * Get the minimum value from all individuals. The individuals have to
-     * implement the {@link java.lang.Comparable} interface.
+     * Get the minimum value from all values. The values have to implement the
+     * {@link java.lang.Comparable} interface.
      * 
-     * @return The minimum value, or null if an individual does not implement
-     *         the {@link java.lang.Comparable} interface.
+     * @return The minimum value, or null if a values does not implement the
+     *         {@link java.lang.Comparable} interface.
      */
     public Comparable getMinValue() {
 	try {
 	    Comparable result = null;
-	    for (Iterator i = values.iterator(); i.hasNext();) {
+	    for (Iterator<Object> i = values.iterator(); i.hasNext();) {
 		Comparable o = (Comparable) i.next();
 		if (result == null || result.compareTo(o) > 0)
 		    result = o;
@@ -155,10 +171,10 @@ public final class Enumeration extends TypeExpression {
 
     /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
     public String[] getNamedSuperclasses() {
-	ArrayList l = new ArrayList();
-	for (Iterator i = values.iterator(); i.hasNext();)
+	ArrayList<String> l = new ArrayList<String>();
+	for (Iterator<Object> i = values.iterator(); i.hasNext();)
 	    collectTypesMinimized(ManagedIndividual.getTypeURI(i.next()), l);
-	return (String[]) l.toArray(new String[l.size()]);
+	return l.toArray(new String[l.size()]);
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
@@ -169,6 +185,10 @@ public final class Enumeration extends TypeExpression {
 	return answer;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object value, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// ttl =
@@ -179,6 +199,10 @@ public final class Enumeration extends TypeExpression {
 	return false;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean matches(TypeExpression subtype, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -218,8 +242,8 @@ public final class Enumeration extends TypeExpression {
     }
 
     /**
-     * Determines if all individuals of this Enumeration are members of the
-     * given <code>supertype</code>.
+     * Determines if all values of this Enumeration are members of the given
+     * <code>supertype</code>.
      */
     public boolean hasSupertype(TypeExpression supertype, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
@@ -227,7 +251,7 @@ public final class Enumeration extends TypeExpression {
 	    return false;
 
 	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
-	for (Iterator i = values.iterator(); i.hasNext();)
+	for (Iterator<Object> i = values.iterator(); i.hasNext();)
 	    if (!supertype.hasMember(i.next(), cloned, ttl, log))
 		return false;
 
@@ -236,6 +260,10 @@ public final class Enumeration extends TypeExpression {
 	return cloned == null || cloned.size() == context.size();
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -243,7 +271,7 @@ public final class Enumeration extends TypeExpression {
 	    return false;
 
 	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
-	for (Iterator i = values.iterator(); i.hasNext();) {
+	for (Iterator<Object> i = values.iterator(); i.hasNext();) {
 	    if (other.hasMember(i.next(), cloned, ttl, log))
 		// TODO: if cloned.size() != context.size(),
 		// then under certain conditions it could still work
@@ -274,12 +302,20 @@ public final class Enumeration extends TypeExpression {
 	return false;
     }
 
-    /** Get an iterator for the individuals. */
-    public Iterator values() {
+    /**
+     * Get an iterator for the values.
+     * 
+     * @return an iterator for the values.
+     */
+    public Iterator<Object> values() {
 	return values.iterator();
     }
 
-    /** Returns the number of elements in this enumeration. */
+    /**
+     * Returns the number of elements in this enumeration.
+     * 
+     * @return the number of elements in this enumeration.
+     */
     public int size() {
 	return values.size();
     }

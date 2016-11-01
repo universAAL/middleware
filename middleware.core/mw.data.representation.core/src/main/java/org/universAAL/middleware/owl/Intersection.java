@@ -57,30 +57,38 @@ public class Intersection extends TypeExpression {
     public static final String PROP_OWL_INTERSECTION_OF = OWL_NAMESPACE
 	    + "intersectionOf";
 
-    /** The list of child class expressions. */
-    protected List types;
+    /** The list of child type expressions. */
+    protected List<TypeExpression> types;
 
     /** Constructor. */
     public Intersection() {
 	super();
-	types = new ArrayList();
-	props.put(PROP_OWL_INTERSECTION_OF, types);
-    }
-
-    /** Constructor. */
-    protected Intersection(String[] additionalTypes) {
-	super(additionalTypes);
-	types = new ArrayList();
+	types = new ArrayList<TypeExpression>();
 	props.put(PROP_OWL_INTERSECTION_OF, types);
     }
 
     /**
-     * Add a new child class expression <i>CE<sub>i</sub></i>. If the given
-     * argument is an instance of Intersection, then the elements of that
-     * Intersection are added instead of the Intersection itself.
+     * Constructor to create a new instance with some additional URIs to set as
+     * rdf:type.
+     * 
+     * @param additionalTypes
+     *            The additional type URIs to set as rdf:type.
+     */
+    protected Intersection(String[] additionalTypes) {
+	super(additionalTypes);
+	types = new ArrayList<TypeExpression>();
+	props.put(PROP_OWL_INTERSECTION_OF, types);
+    }
+
+    /**
+     * Add a new child type expression. If the given argument is an instance of
+     * Intersection, then the elements of that Intersection are added instead of
+     * the Intersection itself.
      * 
      * @param type
-     *            The class expression to add.
+     *            The type expression to add.
+     * 
+     * @return true, if the given type expression could be added.
      */
     public boolean addType(TypeExpression type) {
 	if (type == null)
@@ -99,37 +107,37 @@ public class Intersection extends TypeExpression {
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
     public TypeExpression copy() {
 	Intersection result = new Intersection();
-	for (Iterator i = types.iterator(); i.hasNext();)
-	    result.types.add(((TypeExpression) i.next()).copy());
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();)
+	    result.types.add(i.next().copy());
 	return result;
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
     public String[] getNamedSuperclasses() {
-	ArrayList l = new ArrayList();
+	ArrayList<String> l = new ArrayList<String>();
 	String[] tmp;
-	for (Iterator i = types.iterator(); i.hasNext();) {
-	    tmp = ((TypeExpression) i.next()).getNamedSuperclasses();
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();) {
+	    tmp = i.next().getNamedSuperclasses();
 	    if (tmp != null)
 		for (int j = 0; j < tmp.length; j++)
 		    collectTypesMinimized(tmp[j], l);
 	}
-	return (String[]) l.toArray(new String[l.size()]);
+	return l.toArray(new String[l.size()]);
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
     public Object[] getUpperEnumeration() {
-	ArrayList l = new ArrayList();
+	ArrayList<Object> l = new ArrayList<Object>();
 	Object[] tmp;
-	for (Iterator i = types.iterator(); i.hasNext();) {
-	    tmp = ((TypeExpression) i.next()).getUpperEnumeration();
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();) {
+	    tmp = i.next().getUpperEnumeration();
 	    if (l.isEmpty())
 		for (int j = 0; j < tmp.length; j++) {
 		    if (tmp[j] != null)
 			l.add(tmp[j]);
 		}
 	    else
-		for (Iterator j = l.iterator(); j.hasNext();) {
+		for (Iterator<Object> j = l.iterator(); j.hasNext();) {
 		    Object o = j.next();
 		    boolean found = false;
 		    for (int k = 0; !found && k < tmp.length; k++)
@@ -142,36 +150,47 @@ public class Intersection extends TypeExpression {
 	return l.toArray();
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object value, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
 	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
-	for (Iterator i = types.iterator(); i.hasNext();) {
-	    if (!((TypeExpression) i.next()).hasMember(value, cloned, ttl, log))
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();) {
+	    if (!i.next().hasMember(value, cloned, ttl, log))
 		return false;
 	}
 	synchronize(context, cloned);
 	return true;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean matches(TypeExpression subtype, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
 	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
-	for (Iterator i = types.iterator(); i.hasNext();) {
-	    if (!((TypeExpression) i.next()).matches(subtype, cloned, ttl, log))
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();) {
+	    if (!i.next().matches(subtype, cloned, ttl, log))
 		return false;
 	}
 	synchronize(context, cloned);
 	return true;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
-	for (Iterator i = types.iterator(); i.hasNext();) {
-	    if (((TypeExpression) i.next()).isDisjointWith(other, context, ttl,
-		    log))
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();) {
+	    if (i.next().isDisjointWith(other, context, ttl, log))
 		return true;
 	}
 	Object[] members = (other == null) ? null : other.getUpperEnumeration();
@@ -226,17 +245,29 @@ public class Intersection extends TypeExpression {
 	return false;
     }
 
-    /** Get an iterator for the added child class expressions. */
-    public Iterator types() {
+    /**
+     * Get an iterator for the child type expressions.
+     * 
+     * @return an iterator for the child type expressions.
+     */
+    public Iterator<TypeExpression> types() {
 	return types.iterator();
     }
 
-    /** Get an unmodifiable list of the added child class expressions. */
+    /**
+     * Get an unmodifiable list of the child type expressions.
+     * 
+     * @return an unmodifiable list of the child type expressions.
+     */
     public UnmodifiableResourceList elements() {
 	return new UnmodifiableResourceList(types);
     }
 
-    /** Returns the number of elements in this intersection. */
+    /**
+     * Returns the number of elements in this intersection.
+     * 
+     * @return the number of elements in this intersection.
+     */
     public int size() {
 	return types.size();
     }

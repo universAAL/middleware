@@ -26,7 +26,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
 
 /**
  * A {@link TypeExpression} that contains all individuals/literals that are not
- * instances of the given type expressions. Complement corresponds to OWL
+ * instances of the given type expression. Complement corresponds to OWL
  * ObjectComplementOf or DataComplementOf.
  * 
  * <p>
@@ -51,7 +51,13 @@ public final class Complement extends TypeExpression {
 	super();
     }
 
-    /** Constructor. */
+    /**
+     * Constructor.
+     * 
+     * @param toComplement
+     *            the type expression to which this expression should be the
+     *            complement.
+     */
     public Complement(TypeExpression toComplement) {
 	if (toComplement == null)
 	    throw new NullPointerException();
@@ -65,7 +71,11 @@ public final class Complement extends TypeExpression {
 	return new Complement(getComplementedClass().copy());
     }
 
-    /** Get the complement class. */
+    /**
+     * Get the complement class.
+     * 
+     * @return the complement class.
+     */
     public TypeExpression getComplementedClass() {
 	return (TypeExpression) props.get(PROP_OWL_COMPLEMENT_OF);
     }
@@ -80,6 +90,10 @@ public final class Complement extends TypeExpression {
 	return new Object[0];
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -92,6 +106,10 @@ public final class Complement extends TypeExpression {
 	return false;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean matches(TypeExpression subtype, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -99,6 +117,10 @@ public final class Complement extends TypeExpression {
 		.isDisjointWith(subtype, context, ttl, log);
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);

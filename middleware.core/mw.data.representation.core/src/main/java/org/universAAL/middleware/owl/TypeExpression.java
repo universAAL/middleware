@@ -30,10 +30,11 @@ import org.universAAL.middleware.util.MatchLogEntry;
 /**
  * A class for the concept of OWL class expressions and OWL data ranges, which
  * represent sets of individuals by formally specifying conditions on the
- * individuals' properties. Example conditions are intersection of individuals,
- * or restrictions. Each type expression represents a set of individuals (just
- * like a class in an object-oriented programming language (OOP) represents a
- * set of objects), or a set of literals.
+ * individuals' properties, or sets of literals by restricting primitive data
+ * types. Example conditions are intersection of individuals, or restrictions.
+ * Each type expression represents a set of individuals (just like a class in an
+ * object-oriented programming language (OOP) represents a set of objects), or a
+ * set of literals.
  * 
  * <p>
  * OWL-2 explicitly distinguishes between <i>class expressions</i> (to describe
@@ -181,7 +182,10 @@ public abstract class TypeExpression extends Resource {
 	addType(OWL_CLASS, true);
     }
 
-    /** Constructor. */
+    /**
+     * Constructor to create a new instance with some additional URIs to set as
+     * rdf:type.
+     */
     protected TypeExpression(String[] additionalTypes) {
 	super();
 	addType(OWL_CLASS, false);
@@ -200,11 +204,11 @@ public abstract class TypeExpression extends Resource {
      * a sub class, than any existing type (the less spcialized, i.e. a super
      * class, is then removed from the list).
      */
-    protected void collectTypesMinimized(String typeURI, List l) {
+    protected void collectTypesMinimized(String typeURI, List<String> l) {
 	if (typeURI != null) {
 	    boolean toAdd = true;
-	    for (Iterator j = l.iterator(); j.hasNext();) {
-		String uri = (String) j.next();
+	    for (Iterator<String> j = l.iterator(); j.hasNext();) {
+		String uri = j.next();
 		if (ManagedIndividual.checkCompatibility(uri, typeURI)) {
 		    j.remove();
 		    break;
