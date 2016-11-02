@@ -57,10 +57,10 @@ public final class TypeMapper {
 	    + "#";
 
     /** Storage for mapping java objects to xsd types. */
-    private static HashMap javaXSD = new HashMap();
+    private static HashMap<Class<?>, String> javaXSD = new HashMap<Class<?>, String>();
 
     /** Storage for mapping xsd types to java objects. */
-    private static HashMap xsdJava = new HashMap();
+    private static HashMap<String, Class<?>> xsdJava = new HashMap<String, Class<?>>();
 
     /**
      * Factory that creates new javax.xml.datatype Objects that map XML to/from
@@ -184,8 +184,7 @@ public final class TypeMapper {
 	if (xsdType == null || lexicalForm == null)
 	    return lexicalForm;
 
-	Class c = (Class) xsdJava
-		.get(xsdType.substring(XSD_NAMESPACE.length()));
+	Class<?> c = xsdJava.get(xsdType.substring(XSD_NAMESPACE.length()));
 	if (c == null)
 	    return null;
 
@@ -228,7 +227,7 @@ public final class TypeMapper {
      */
     public static Object asLiteral(Object o) {
 	if (o instanceof List)
-	    return Resource.asRDFList((List) o, true);
+	    return Resource.asRDFList((List<?>) o, true);
 	if (o instanceof Resource) {
 	    if (!((Resource) o).serializesAsXMLLiteral())
 		// if (o instanceof ManagedIndividual)
@@ -249,7 +248,7 @@ public final class TypeMapper {
      * @return the XSD String associated with class or null if it can not be
      *         mapped to an appropriate object.
      */
-    public static String getDatatypeURI(Class c) {
+    public static String getDatatypeURI(Class<?> c) {
 	if (c == null)
 	    return null;
 
@@ -258,10 +257,10 @@ public final class TypeMapper {
 	// If the class is not present in the hashtable, check if it is a
 	// subclass of an existent class in the hashtable
 	if (o == null) {
-	    Class tmpClass;
-	    Iterator i = javaXSD.keySet().iterator();
+	    Class<?> tmpClass;
+	    Iterator<Class<?>> i = javaXSD.keySet().iterator();
 	    while (i.hasNext()) {
-		tmpClass = (Class) i.next();
+		tmpClass = i.next();
 		if (tmpClass.isAssignableFrom(c)) {
 		    o = javaXSD.get(tmpClass);
 		    break;
@@ -297,10 +296,9 @@ public final class TypeMapper {
      * @return The Java class associated to the XSD String or null if it can not
      *         be mapped to an appropriate object.
      */
-    public static Class getJavaClass(String datatypeURI) {
+    public static Class<?> getJavaClass(String datatypeURI) {
 	if (datatypeURI != null && datatypeURI.startsWith(XSD_NAMESPACE))
-	    return (Class) xsdJava.get(datatypeURI.substring(XSD_NAMESPACE
-		    .length()));
+	    return xsdJava.get(datatypeURI.substring(XSD_NAMESPACE.length()));
 	return null;
     }
 
@@ -322,14 +320,14 @@ public final class TypeMapper {
 	if (supertypeURI.equals(subtypeURI))
 	    return true;
 
-	Class sup = getJavaClass(supertypeURI);
+	Class<?> sup = getJavaClass(supertypeURI);
 	if (sup == null)
 	    return false;
 
 	if (subtypeURI == null || !subtypeURI.startsWith(XSD_NAMESPACE))
 	    return false;
 
-	Class sub = getJavaClass(subtypeURI);
+	Class<?> sub = getJavaClass(subtypeURI);
 	if (sub == null)
 	    return false;
 
