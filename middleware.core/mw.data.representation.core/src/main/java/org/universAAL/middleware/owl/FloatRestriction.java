@@ -29,6 +29,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  */
 public final class FloatRestriction extends BoundedValueRestriction {
 
+    /** URI of the data type <i>Float</i>. */
     public static final String DATATYPE_URI = TypeMapper
 	    .getDatatypeURI(Float.class);
 
@@ -36,26 +37,57 @@ public final class FloatRestriction extends BoundedValueRestriction {
     private static final float FLOAT_SMALLEST_POSITIVE_VALUE = Float
 	    .intBitsToFloat(0x00800000);
 
+    /** Standard constructor for exclusive use by serializers. */
     public FloatRestriction() {
 	super(DATATYPE_URI);
     }
 
+    /**
+     * Creates a new restriction.
+     * 
+     * @param min
+     *            The minimum value, or null if no minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     * @param max
+     *            The maximum value, or null if no maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
     public FloatRestriction(float min, boolean minInclusive, float max,
 	    boolean maxInclusive) {
 	this(new Float(min), minInclusive, new Float(max), maxInclusive);
     }
 
+    /**
+     * Creates a new restriction.
+     * 
+     * @param min
+     *            The minimum value, or null if no minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     * @param max
+     *            The maximum value, or null if no maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
     public FloatRestriction(Float min, boolean minInclusive, Float max,
 	    boolean maxInclusive) {
 	super(TypeMapper.getDatatypeURI(Float.class), min, minInclusive, max,
 		maxInclusive);
     }
 
+    /** @see BoundedValueRestriction#getNext(Comparable) */
     protected Comparable getNext(Comparable c) {
 	return new Float(((Float) c).floatValue()
 		+ FLOAT_SMALLEST_POSITIVE_VALUE);
     }
 
+    /** @see BoundedValueRestriction#getPrevious(Comparable) */
     protected Comparable getPrevious(Comparable c) {
 	return new Float(((Float) c).floatValue()
 		- FLOAT_SMALLEST_POSITIVE_VALUE);

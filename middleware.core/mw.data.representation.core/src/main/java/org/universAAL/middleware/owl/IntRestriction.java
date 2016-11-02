@@ -32,28 +32,60 @@ import org.universAAL.middleware.rdf.TypeMapper;
  */
 public final class IntRestriction extends BoundedValueRestriction {
 
+    /** URI of the data type <i>Integer</i>. */
     public static final String DATATYPE_URI = TypeMapper
 	    .getDatatypeURI(Integer.class);
 
+    /** Standard constructor for exclusive use by serializers. */
     public IntRestriction() {
 	super(DATATYPE_URI);
     }
 
+    /**
+     * Creates a new restriction.
+     * 
+     * @param min
+     *            The minimum value, or null if no minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     * @param max
+     *            The maximum value, or null if no maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
     public IntRestriction(int min, boolean minInclusive, int max,
 	    boolean maxInclusive) {
-	this(new Integer(min), minInclusive, Integer.valueOf(max), maxInclusive);
+	this(Integer.valueOf(min), minInclusive, Integer.valueOf(max), maxInclusive);
     }
 
+    /**
+     * Creates a new restriction.
+     * 
+     * @param min
+     *            The minimum value, or null if no minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     * @param max
+     *            The maximum value, or null if no maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
     public IntRestriction(Integer min, boolean minInclusive, Integer max,
 	    boolean maxInclusive) {
 	super(TypeMapper.getDatatypeURI(Integer.class), min, minInclusive, max,
 		maxInclusive);
     }
 
+    /** @see BoundedValueRestriction#getNext(Comparable) */
     protected Comparable getNext(Comparable c) {
 	return Integer.valueOf(((Integer) c).intValue() + 1);
     }
 
+    /** @see BoundedValueRestriction#getPrevious(Comparable) */
     protected Comparable getPrevious(Comparable c) {
 	return Integer.valueOf(((Integer) c).intValue() - 1);
     }

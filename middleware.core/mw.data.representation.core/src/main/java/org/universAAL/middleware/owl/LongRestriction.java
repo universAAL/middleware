@@ -29,28 +29,60 @@ import org.universAAL.middleware.rdf.TypeMapper;
  */
 public final class LongRestriction extends BoundedValueRestriction {
 
+    /** URI of the data type <i>Long</i>. */
     public static final String DATATYPE_URI = TypeMapper
 	    .getDatatypeURI(Long.class);
 
+    /** Standard constructor for exclusive use by serializers. */
     public LongRestriction() {
 	super(DATATYPE_URI);
     }
 
+    /**
+     * Creates a new restriction.
+     * 
+     * @param min
+     *            The minimum value, or null if no minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     * @param max
+     *            The maximum value, or null if no maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
     public LongRestriction(long min, boolean minInclusive, long max,
 	    boolean maxInclusive) {
-	this(new Long(min), minInclusive, Long.valueOf(max), maxInclusive);
+	this(Long.valueOf(min), minInclusive, Long.valueOf(max), maxInclusive);
     }
 
+    /**
+     * Creates a new restriction.
+     * 
+     * @param min
+     *            The minimum value, or null if no minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     * @param max
+     *            The maximum value, or null if no maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
     public LongRestriction(Long min, boolean minInclusive, Long max,
 	    boolean maxInclusive) {
 	super(TypeMapper.getDatatypeURI(Long.class), min, minInclusive, max,
 		maxInclusive);
     }
 
+    /** @see BoundedValueRestriction#getNext(Comparable) */
     protected Comparable getNext(Comparable c) {
 	return Long.valueOf(((Long) c).longValue() + 1);
     }
 
+    /** @see BoundedValueRestriction#getPrevious(Comparable) */
     protected Comparable getPrevious(Comparable c) {
 	return Long.valueOf(((Long) c).longValue() - 1);
     }

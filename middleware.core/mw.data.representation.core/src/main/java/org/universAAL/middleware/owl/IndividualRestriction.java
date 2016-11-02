@@ -31,21 +31,39 @@ package org.universAAL.middleware.owl;
  */
 public final class IndividualRestriction extends BoundedValueRestriction {
 
+    /** URI of the data type. */
     public static final String DATATYPE_URI = ComparableIndividual.MY_URI;
 
+    /** Standard constructor for exclusive use by serializers. */
     public IndividualRestriction() {
 	super(DATATYPE_URI);
     }
 
+    /**
+     * Creates a new restriction.
+     * 
+     * @param min
+     *            The minimum value, or null if no minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     * @param max
+     *            The maximum value, or null if no maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
     public IndividualRestriction(ComparableIndividual min,
 	    boolean minInclusive, ComparableIndividual max, boolean maxInclusive) {
 	super(ComparableIndividual.MY_URI, min, minInclusive, max, maxInclusive);
     }
 
+    /** @see BoundedValueRestriction#getNext(Comparable) */
     protected Comparable getNext(Comparable c) {
 	return ((ComparableIndividual) c).getNext();
     }
 
+    /** @see BoundedValueRestriction#getPrevious(Comparable) */
     protected Comparable getPrevious(Comparable c) {
 	return ((ComparableIndividual) c).getPrevious();
     }

@@ -52,14 +52,15 @@ import org.universAAL.middleware.rdf.TypeMapper;
  */
 public final class MergedRestriction extends Intersection {
 
+    /** URI for this class. */
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "MergedRestriction";
 
     /** A safe iterator that does not allow to remove elements. */
-    private class SafeIterator implements Iterator {
-	private Iterator it;
+    private class SafeIterator implements Iterator<TypeExpression> {
+	private Iterator<TypeExpression> it;
 
-	SafeIterator(Iterator it) {
+	SafeIterator(Iterator<TypeExpression> it) {
 	    this.it = it;
 	}
 
@@ -67,7 +68,7 @@ public final class MergedRestriction extends Intersection {
 	    return it.hasNext();
 	}
 
-	public Object next() {
+	public TypeExpression next() {
 	    return it.next();
 	}
 
@@ -159,17 +160,16 @@ public final class MergedRestriction extends Intersection {
      *            The initial set of restrictions. The array must contain only
      *            instances of {@link PropertyRestriction}.
      */
-    public MergedRestriction(String onProperty, ArrayList restrictions) {
+    public MergedRestriction(String onProperty,
+	    ArrayList<PropertyRestriction> restrictions) {
 	this();
 	setRestrictions(onProperty, restrictions);
     }
 
     /**
-     * <p>
      * Create a new restriction to state that no individual of a certain class
      * has the given property, i.e. the maximum cardinality of the given
      * property is zero.
-     * </p>
      * <p>
      * The new {@link MergedRestriction} contains
      * <ul>
@@ -191,10 +191,8 @@ public final class MergedRestriction extends Intersection {
     }
 
     /**
-     * <p>
      * Create a new restriction to state that all individuals of a certain class
      * must have the given value for the given property.
-     * </p>
      * <p>
      * The new {@link MergedRestriction} contains
      * <ul>
@@ -225,11 +223,9 @@ public final class MergedRestriction extends Intersection {
     }
 
     /**
-     * <p>
      * Create a new restriction to state that for all individuals of a certain
      * class the cardinality of the given property is at least <code>min</code>
      * and at most <code>max</code>.
-     * </p>
      * <p>
      * The new {@link MergedRestriction} contains
      * <ul>
@@ -291,12 +287,10 @@ public final class MergedRestriction extends Intersection {
     }
 
     /**
-     * <p>
      * Create a new restriction to state that for all individuals of a certain
      * class the cardinality of the given property is at least <code>min</code>
      * and at most <code>max</code> and the value of the given property is of
      * type <code>typeURI</code>.
-     * </p>
      * <p>
      * The new {@link MergedRestriction} contains
      * <ul>
@@ -351,12 +345,10 @@ public final class MergedRestriction extends Intersection {
     }
 
     /**
-     * <p>
      * Create a new restriction to state that for all individuals of a certain
      * class the cardinality of the given property is at least <code>min</code>
      * and at most <code>max</code> and the value of the given property is of
      * type <code>expr</code>.
-     * </p>
      * <p>
      * The new {@link MergedRestriction} contains
      * <ul>
@@ -396,10 +388,8 @@ public final class MergedRestriction extends Intersection {
     }
 
     /**
-     * <p>
      * Create a new restriction to state that for all individuals of a certain
      * class the value of the given property is of type <code>typeURI</code>.
-     * </p>
      * <p>
      * The new {@link MergedRestriction} contains
      * <ul>
@@ -446,10 +436,8 @@ public final class MergedRestriction extends Intersection {
     }
 
     /**
-     * <p>
      * Create a new restriction to state that for all individuals of a certain
      * class the value of the given property is of type <code>expr</code>.
-     * </p>
      * <p>
      * The new {@link MergedRestriction} contains
      * <ul>
@@ -484,16 +472,16 @@ public final class MergedRestriction extends Intersection {
      *            The list of {@link PropertyRestriction}s. Elements of this
      *            list that are not instances of {@link PropertyRestriction} are
      *            ignored. Restrictions can be defined for different properties.
-     * @return The list of {@link MergedRestriction}.
+     * @return The list of {@link MergedRestriction}s.
      */
-    public static ArrayList getFromList(List o) {
+    public static ArrayList<MergedRestriction> getFromList(List<?> o) {
 	// multiple restrictions for (possibly multiple) properties
 	// -> build array of MergedRestrictions
 	// temporary map:
 	// ___key: property URI (String)
 	// ___val: ArrayList of PropertyRestrictions
 	// -> each ArrayList will be a MergedRestriction
-	HashMap map = new HashMap();
+	HashMap<String, ArrayList<PropertyRestriction>> map = new HashMap<String, ArrayList<PropertyRestriction>>();
 	Object tmp;
 
 	// build temporary map
@@ -501,19 +489,20 @@ public final class MergedRestriction extends Intersection {
 	    tmp = o.get(i);
 	    if (tmp instanceof PropertyRestriction) {
 		PropertyRestriction res = (PropertyRestriction) tmp;
-		ArrayList a = (ArrayList) map.get(res.getOnProperty());
+		ArrayList<PropertyRestriction> a = map.get(res.getOnProperty());
 		if (a == null)
-		    map.put(res.getOnProperty(), a = new ArrayList());
+		    map.put(res.getOnProperty(),
+			    a = new ArrayList<PropertyRestriction>());
 		a.add(res);
 	    }
 	}
 
 	// create MergedRestrictions
-	ArrayList ret = new ArrayList();
-	Iterator it = map.keySet().iterator();
+	ArrayList<MergedRestriction> ret = new ArrayList<MergedRestriction>();
+	Iterator<String> it = map.keySet().iterator();
 	while (it.hasNext()) {
-	    String prop = (String) it.next();
-	    ArrayList a = (ArrayList) map.get(prop);
+	    String prop = it.next();
+	    ArrayList<PropertyRestriction> a = map.get(prop);
 	    MergedRestriction m = new MergedRestriction(prop, a);
 	    ret.add(m);
 	}
@@ -599,7 +588,8 @@ public final class MergedRestriction extends Intersection {
      *            The list of restrictions. The array must contain only
      *            instances of {@link PropertyRestriction}.
      */
-    private void setRestrictions(String onProperty, ArrayList restrictions) {
+    private void setRestrictions(String onProperty,
+	    ArrayList<PropertyRestriction> restrictions) {
 	if (restrictions == null || onProperty == null)
 	    throw new NullPointerException();
 	reset();
@@ -620,7 +610,7 @@ public final class MergedRestriction extends Intersection {
      * 
      * @return an unmodifiable list of restrictions.
      */
-    public List getRestrictions() {
+    public List<TypeExpression> getRestrictions() {
 	return Collections.unmodifiableList(types);
     }
 
@@ -865,7 +855,7 @@ public final class MergedRestriction extends Intersection {
      *         calls of this method.
      */
     public MergedRestriction addRestriction(MergedRestriction r) {
-	ArrayList resList = (ArrayList) r.types;
+	List<TypeExpression> resList = r.types;
 	for (int i = 0; i < resList.size(); i++)
 	    addRestriction((PropertyRestriction) ((TypeExpression) resList
 		    .get(i)).copy());
@@ -929,9 +919,9 @@ public final class MergedRestriction extends Intersection {
 
     /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
     public TypeExpression copy() {
-	ArrayList newList = new ArrayList();
+	ArrayList<PropertyRestriction> newList = new ArrayList<PropertyRestriction>();
 	for (int i = 0; i < types.size(); i++)
-	    newList.add(((PropertyRestriction) types.get(i)).copy());
+	    newList.add((PropertyRestriction) types.get(i).copy());
 	return new MergedRestriction(onProperty, newList);
     }
 
@@ -968,7 +958,7 @@ public final class MergedRestriction extends Intersection {
      */
     public MergedRestriction copyOnNewProperty(String onProp) {
 	MergedRestriction r = (MergedRestriction) copy();
-	for (Iterator i = types.iterator(); i.hasNext();)
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();)
 	    ((Resource) i.next()).setProperty(
 		    PropertyRestriction.PROP_OWL_ON_PROPERTY, onProp);
 	onProperty = onProp;
@@ -986,9 +976,9 @@ public final class MergedRestriction extends Intersection {
     /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
     public boolean setProperty(String propURI, Object value) {
 	if (Intersection.PROP_OWL_INTERSECTION_OF.equals(propURI)) {
-	    List lst = null;
+	    List<?> lst = null;
 	    if (value instanceof List) {
-		lst = (List) value;
+		lst = (List<?>) value;
 	    } else if (value instanceof PropertyRestriction) {
 		// this should not happen because an intersection should have at
 		// least two elements. However, we add the property and assume
@@ -1014,7 +1004,7 @@ public final class MergedRestriction extends Intersection {
     }
 
     /** Get an iterator for the added child class expressions. */
-    public Iterator types() {
+    public Iterator<TypeExpression> types() {
 	// safe iterator, so that elements cannot be removed (this would destroy
 	// our index)
 	return new SafeIterator(types.iterator());
@@ -1048,6 +1038,11 @@ public final class MergedRestriction extends Intersection {
 	return null;
     }
 
+    /**
+     * Get the property for which this restriction is defined.
+     * 
+     * @return the property for which this restriction is defined.
+     */
     public String getOnProperty() {
 	return onProperty;
     }
@@ -1234,8 +1229,9 @@ public final class MergedRestriction extends Intersection {
 	    // Restrictions
 	    MergedRestriction m = new MergedRestriction(pathElement);
 	    PropertyRestriction tmpRes;
-	    for (Iterator i = ((Intersection) all).types(); i.hasNext();) {
-		TypeExpression tmp = (TypeExpression) i.next();
+	    for (Iterator<TypeExpression> i = ((Intersection) all).types(); i
+		    .hasNext();) {
+		TypeExpression tmp = i.next();
 		if (tmp instanceof PropertyRestriction) {
 		    tmpRes = (PropertyRestriction) tmp;
 		    if (tmpRes.getOnProperty().equals(pathElement))
@@ -1303,11 +1299,11 @@ public final class MergedRestriction extends Intersection {
      * @param other
      *            The restriction to merge with
      * @return <p>
-     *         null if this restriction is not fully defined (has no
+     *         null, if this restriction is not fully defined (has no
      *         onProperty).
      *         </p>
      *         <p>
-     *         this if the onProperty of this object does not match the
+     *         this, if the onProperty of this object does not match the
      *         onProperty of the given object.
      *         </p>
      *         <p>
@@ -1343,7 +1339,7 @@ public final class MergedRestriction extends Intersection {
      */
     public boolean hasMemberIgnoreCardinality(Object o) {
 	int j = 0;
-	for (Iterator i = types.iterator(); i.hasNext();) {
+	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();) {
 	    if (j != minCardinalityID && j != maxCardinalityID
 		    && j != exactCardinalityID)
 		if (!((TypeExpression) i.next()).hasMember(o))

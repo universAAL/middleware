@@ -30,13 +30,16 @@ import org.universAAL.middleware.rdf.TypeMapper;
  */
 public class URIRestriction extends LengthRestriction {
 
+    /** URI of the data type. */
     public static final String DATATYPE_URI = TypeMapper
 	    .getDatatypeURI(Resource.class);
 
+    /** Standard constructor. */
     public URIRestriction() {
 	super(DATATYPE_URI);
     }
 
+    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
     @Override
     public TypeExpression copy() {
 	return copyTo(new URIRestriction());

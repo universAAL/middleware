@@ -63,35 +63,77 @@ import org.universAAL.middleware.util.MatchLogEntry;
  */
 public abstract class TypeRestriction extends TypeExpression {
 
+    /**
+     * URI for owl:onDatatype; it holds the data type for which this restriction
+     * is defined.
+     */
     public static final String PROP_OWL_ON_DATATYPE = OWL_NAMESPACE
 	    + "onDatatype";
 
+    /**
+     * URI for owl:withRestrictions; it holds the list of restrictions (facets).
+     */
     public static final String PROP_OWL_WITH_RESTRICTIONS = OWL_NAMESPACE
 	    + "withRestrictions";
 
+    /** URI for the facet xsd:pattern. */
     protected static final String XSD_FACET_PATTERN = TypeMapper.XSD_NAMESPACE
 	    + "pattern";
 
+    /**
+     * The pattern (regular expression) if the facet 'pattern' is defined for
+     * this restriction, or null if no pattern is defined.
+     */
     private Pattern pattern = null;
 
-    protected ArrayList restrictions = new ArrayList();
+    /**
+     * The list of restrictions. This list is set as
+     * {@link #PROP_OWL_WITH_RESTRICTIONS}.
+     */
+    protected ArrayList<Resource> restrictions = new ArrayList<Resource>();
 
+    /** Internal representation of a facet. */
     protected class Facet {
+	/** URI of the facet. */
 	String facetURI;
+
+	/** Value of the facet. */
 	Object value;
     }
 
-    /** Standard constructor. */
+    /**
+     * Standard constructor.
+     * 
+     * @param datatypeURI
+     *            URI of the data type for which this restriction is defined.
+     *            Must be one of the supported data types.
+     * @see TypeMapper
+     */
     protected TypeRestriction(String datatypeURI) {
 	super.setProperty(PROP_OWL_ON_DATATYPE, new Resource(datatypeURI));
 	super.setProperty(PROP_OWL_WITH_RESTRICTIONS, restrictions);
     }
 
+    /**
+     * Get the data type for which this restriction is defined.
+     * 
+     * @return URI of the data type.
+     */
     public String getTypeURI() {
 	return ((Resource) getProperty(PROP_OWL_ON_DATATYPE)).getURI();
     }
 
-    protected Facet iterate(ListIterator it) {
+    /**
+     * Iterate over a list of facets while checking the value; invalid elements
+     * are skipped. An element of the list is not a valid facet if it is not a
+     * resource or if it has not exactly one property. This one property is the
+     * facet URI.
+     * 
+     * @param it
+     *            An iterator for a list of facets.
+     * @return the {@link Facet}.
+     */
+    protected Facet iterate(ListIterator<?> it) {
 	while (it.hasNext()) {
 	    Object o = it.next();
 	    if (!(o instanceof Resource))
@@ -101,7 +143,7 @@ public abstract class TypeRestriction extends TypeExpression {
 	    if (r.numberOfProperties() != 1)
 		// TODO: log message?
 		continue;
-	    java.util.Enumeration e = r.getPropertyURIs();
+	    java.util.Enumeration<?> e = r.getPropertyURIs();
 	    String propURI = (String) e.nextElement();
 
 	    Facet f = new Facet();
@@ -113,6 +155,14 @@ public abstract class TypeRestriction extends TypeExpression {
 	return null;
     }
 
+    /**
+     * Add a new facet to the list of facets for this restriction.
+     * 
+     * @param facetURI
+     *            URI of the facet.
+     * @param value
+     *            Value of the facet.
+     */
     protected void addConstrainingFacet(String facetURI, Object value) {
 	Resource r = new Resource();
 	r.setProperty(facetURI, value);
@@ -149,6 +199,15 @@ public abstract class TypeRestriction extends TypeExpression {
 	return super.setProperty(propURI, o);
     }
 
+    /**
+     * Set a pattern (regular expression). This pattern is added to the list of
+     * constraining facets for this restriction.
+     * 
+     * @param pattern
+     *            The pattern as defined in {@link Pattern}.
+     * @return true, if the pattern could be set, i.e. the pattern must be valid
+     *         and no other pattern was set before.
+     */
     public boolean setPattern(String pattern) {
 	if (this.pattern != null)
 	    return false;
@@ -167,6 +226,10 @@ public abstract class TypeRestriction extends TypeExpression {
     }
 
     @Override
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// test only the pattern constraining facet, everything else should be
@@ -185,6 +248,12 @@ public abstract class TypeRestriction extends TypeExpression {
 	return false;
     }
 
+    /**
+     * Set a facet. For this class, only 'pattern' is allowed.
+     * 
+     * @param facet
+     *            The facet.
+     */
     protected void setFacet(Facet facet) {
 	if (XSD_FACET_PATTERN.equals(facet.facetURI)) {
 	    setPattern((String) facet.value);

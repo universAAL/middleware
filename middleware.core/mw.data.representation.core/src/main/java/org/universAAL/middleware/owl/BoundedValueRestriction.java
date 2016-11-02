@@ -48,14 +48,28 @@ import org.universAAL.middleware.util.MatchLogEntry;
  */
 public abstract class BoundedValueRestriction extends TypeRestriction {
 
+    /** URI for the facet xsd:minInclusive. */
     protected static final String XSD_FACET_MIN_INCLUSIVE;
+
+    /** URI for the facet xsd:maxInclusive. */
     protected static final String XSD_FACET_MAX_INCLUSIVE;
+
+    /** URI for the facet xsd:minExclusive. */
     protected static final String XSD_FACET_MIN_EXCLUSIVE;
+
+    /** URI for the facet xsd:maxExclusive. */
     protected static final String XSD_FACET_MAX_EXCLUSIVE;
 
+    /** The minimum value, or null if no minimum is defined. */
     private Comparable min = null;
+
+    /** The maximum value, or null if no maximum is defined. */
     private Comparable max = null;
+
+    /** True, if the minimum value is included. */
     private boolean minInclusive;
+
+    /** True, if the maximum value is included. */
     private boolean maxInclusive;
 
     static {
@@ -65,10 +79,34 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	XSD_FACET_MAX_EXCLUSIVE = TypeMapper.XSD_NAMESPACE + "maxExclusive";
     }
 
+    /**
+     * Standard constructor.
+     * 
+     * @param datatypeURI
+     *            URI of the data type for which this restriction is defined.
+     *            Must be one of the supported data types.
+     */
     protected BoundedValueRestriction(String datatypeURI) {
 	super(datatypeURI);
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param datatypeURI
+     *            URI of the data type for which this restriction is defined.
+     *            Must be one of the supported data types.
+     * @param min
+     *            The minimum value, or null if no minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     * @param max
+     *            The maximum value, or null if no maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
     protected BoundedValueRestriction(String datatypeURI, Comparable min,
 	    boolean minInclusive, Comparable max, boolean maxInclusive) {
 	super(datatypeURI);
@@ -86,12 +124,35 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	setFacets(min, minInclusive, max, maxInclusive);
     }
 
+    /**
+     * Set the constraining facets for min and max.
+     * 
+     * @param min
+     *            The minimum value, or null if no minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     * @param max
+     *            The maximum value, or null if no maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
     private void setFacets(Comparable min, boolean minInclusive,
 	    Comparable max, boolean maxInclusive) {
 	setMinFacet(min, minInclusive);
 	setMaxFacet(max, maxInclusive);
     }
 
+    /**
+     * Set the constraining facets for min.
+     * 
+     * @param min
+     *            The minimum value, or null if no minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     */
     private void setMinFacet(Comparable min, boolean minInclusive) {
 	if (min != null) {
 	    if (minInclusive)
@@ -103,6 +164,15 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	this.minInclusive = minInclusive;
     }
 
+    /**
+     * Set the constraining facets for max.
+     * 
+     * @param max
+     *            The maximum value, or null if no maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
     private void setMaxFacet(Comparable max, boolean maxInclusive) {
 	if (max != null) {
 	    if (maxInclusive)
@@ -115,8 +185,12 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     }
 
     /**
-     * Helper method to copy Restrictions.
+     * Copy the facets for min and max to a different
+     * {@link BoundedValueRestriction}.
      * 
+     * @param copy
+     *            The object to which to copy the facets.
+     * @return the value given as parameter, but with the restrictions copied.
      * @see org.universAAL.middleware.owl.TypeExpression#copy()
      */
     protected TypeExpression copyTo(BoundedValueRestriction copy) {
@@ -124,14 +198,34 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return copy;
     }
 
+    /**
+     * Returns the minimum value.
+     * 
+     * @return the minimum value, or null if not defined.
+     */
     public Comparable getLowerbound() {
 	return min;
     }
 
+    /**
+     * Returns the maximum value.
+     * 
+     * @return the maximum value, or null if not defined.
+     */
     public Comparable getUpperbound() {
 	return max;
     }
 
+    /**
+     * Returns the next element, i.e. the value given as parameter plus the
+     * smallest possible value that can be represented for the data type. For
+     * example, if the data type is int getNext(x) would return x+1.
+     * 
+     * @param c
+     *            A value for which to get the next value.
+     * 
+     * @return the next value.
+     */
     protected Comparable getNext(Comparable c) {
 	// if (c instanceof Duration)
 	// // unfortunately javax.xml.datatype.Duration does not implement
@@ -156,6 +250,16 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return null;
     }
 
+    /**
+     * Returns the previous element, i.e. the value given as parameter minus the
+     * smallest possible value that can be represented for the data type. For
+     * example, if the data type is int getPrevious(x) would return x-1.
+     * 
+     * @param c
+     *            A value for which to get the previous value.
+     * 
+     * @return the previous value.
+     */
     protected Comparable getPrevious(Comparable c) {
 	// if (c instanceof Duration)
 	// // unfortunately javax.xml.datatype.Duration does not implement
@@ -251,6 +355,10 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return resolution;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// ttl =
@@ -420,6 +528,10 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return true;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	// ttl =
@@ -450,10 +562,15 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return false;
     }
 
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     public boolean isWellFormed() {
 	return restrictions.size() > 0;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
+     */
     public boolean matches(TypeExpression subset, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// ttl =

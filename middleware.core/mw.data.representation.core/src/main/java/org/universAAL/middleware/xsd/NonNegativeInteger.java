@@ -31,6 +31,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
 public final class NonNegativeInteger extends Number {
     private static final long serialVersionUID = 1L;
 
+    /** URI for xsd:nonNegativeInteger. */
     public static final String MY_URI = TypeMapper.XSD_NAMESPACE
 	    + "nonNegativeInteger";
 

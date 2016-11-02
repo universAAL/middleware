@@ -37,19 +37,30 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  * <li>max length</li>
  * </ol>
  * 
- * It is possible to define a condition on the minimum value and on the maximum
- * value in the same {@link LengthRestriction}.
+ * It is possible to define a condition on the minimum length and on the maximum
+ * length in the same {@link LengthRestriction}. If minimum and maximum length
+ * are equal, only the <i>length</i> facet should be set.
  * 
  * @author Carsten Stockloew
  */
 public abstract class LengthRestriction extends TypeRestriction {
 
+    /** URI for the facet xsd:length. */
     protected static final String XSD_FACET_LENGTH;
+
+    /** URI for the facet xsd:minLength. */
     protected static final String XSD_FACET_MIN_LENGTH;
+
+    /** URI for the facet xsd:maxLength. */
     protected static final String XSD_FACET_MAX_LENGTH;
 
+    /** The length value, or null if no length is defined. */
     private NonNegativeInteger len = null;
+
+    /** The minLength value, or null if no minLength is defined. */
     private NonNegativeInteger min = null;
+
+    /** The maxLength value, or null if no maxLength is defined. */
     private NonNegativeInteger max = null;
 
     static {
@@ -58,14 +69,33 @@ public abstract class LengthRestriction extends TypeRestriction {
 	XSD_FACET_MAX_LENGTH = TypeMapper.XSD_NAMESPACE + "maxLength";
     }
 
+    /**
+     * Standard constructor.
+     * 
+     * @param datatypeURI
+     *            URI of the data type for which this restriction is defined.
+     *            Must be one of the supported data types.
+     */
     protected LengthRestriction(String datatypeURI) {
 	super(datatypeURI);
     }
 
+    /**
+     * Set the length.
+     * 
+     * @param len
+     *            the length.
+     */
     public void setLen(int len) {
 	setLen(new NonNegativeInteger(len));
     }
 
+    /**
+     * Set the length.
+     * 
+     * @param len
+     *            the length.
+     */
     public void setLen(NonNegativeInteger len) {
 	// TODO: check with other facets
 	if (len != null)
@@ -73,10 +103,22 @@ public abstract class LengthRestriction extends TypeRestriction {
 	this.len = len;
     }
 
+    /**
+     * Set the minimum length.
+     * 
+     * @param min
+     *            the minimum length.
+     */
     public void setMin(int min) {
 	setMin(new NonNegativeInteger(min));
     }
 
+    /**
+     * Set the minimum length.
+     * 
+     * @param min
+     *            the minimum length.
+     */
     public void setMin(NonNegativeInteger min) {
 	// TODO: check with other facets
 	if (min != null)
@@ -84,10 +126,22 @@ public abstract class LengthRestriction extends TypeRestriction {
 	this.min = min;
     }
 
+    /**
+     * Set the maximum length.
+     * 
+     * @param max
+     *            the maximum length.
+     */
     public void setMax(int max) {
 	setMax(new NonNegativeInteger(max));
     }
 
+    /**
+     * Set the maximum length.
+     * 
+     * @param max
+     *            the maximum length.
+     */
     public void setMax(NonNegativeInteger max) {
 	// TODO: check with other facets
 	if (max != null)
@@ -95,14 +149,29 @@ public abstract class LengthRestriction extends TypeRestriction {
 	this.max = max;
     }
 
+    /**
+     * Get the length.
+     * 
+     * @return the length, or null if not defined.
+     */
     public NonNegativeInteger getLen() {
 	return len;
     }
 
+    /**
+     * Get the minimum length.
+     * 
+     * @return the minimum length, or null if not defined.
+     */
     public NonNegativeInteger getMin() {
 	return min;
     }
 
+    /**
+     * Get the maximum length.
+     * 
+     * @return the maximum length, or null if not defined.
+     */
     public NonNegativeInteger getMax() {
 	return max;
     }
@@ -112,18 +181,31 @@ public abstract class LengthRestriction extends TypeRestriction {
      * 
      * @see org.universAAL.middleware.owl.TypeExpression#copy()
      */
-    public TypeExpression copyTo(LengthRestriction copy) {
+    /**
+     * Copy the facets to a different {@link LengthRestriction}.
+     * 
+     * @param copy
+     *            The object to which to copy the facets.
+     * @return the value given as parameter, but with the restrictions copied.
+     * @see org.universAAL.middleware.owl.TypeExpression#copy()
+     */
+    protected TypeExpression copyTo(LengthRestriction copy) {
 	copy.setLen(len);
 	copy.setMin(min);
 	copy.setMax(max);
 	return copy;
     }
 
+    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     @Override
     public boolean isWellFormed() {
 	return restrictions.size() > 0;
     }
 
+    /**
+     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
+     *      HashMap, int, List)
+     */
     @Override
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
