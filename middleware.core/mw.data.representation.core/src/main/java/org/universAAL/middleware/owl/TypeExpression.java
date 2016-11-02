@@ -142,6 +142,9 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * the matchmaking failed. May be null.</li>
  * </ul>
  * 
+ * @see <a
+ *      href="https://github.com/universAAL/middleware/wiki/Data-Representation#Type_expression">
+ *      Data Representation Wiki page</a>
  * 
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
