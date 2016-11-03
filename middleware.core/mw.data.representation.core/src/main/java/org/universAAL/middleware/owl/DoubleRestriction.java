@@ -20,6 +20,7 @@
 package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.rdf.Variable;
 
 /**
  * A {@link TypeExpression} ({@link BoundedValueRestriction}) that contains all
@@ -79,6 +80,35 @@ public final class DoubleRestriction extends BoundedValueRestriction {
 	    boolean maxInclusive) {
 	super(TypeMapper.getDatatypeURI(Double.class), min, minInclusive, max,
 		maxInclusive);
+    }
+
+    /**
+     * Creates a new restriction.
+     * 
+     * @param min
+     *            The minimum value, or a {@link Variable}, or null if no
+     *            minimum is defined.
+     * @param minInclusive
+     *            True, if the minimum value is included. Ignored, if min is
+     *            null.
+     * @param max
+     *            The maximum value, or a {@link Variable}, or null if no
+     *            maximum is defined.
+     * @param maxInclusive
+     *            True, if the maximum value is included. Ignored, if max is
+     *            null.
+     */
+    public DoubleRestriction(Object min, boolean minInclusive, Object max,
+	    boolean maxInclusive) {
+	super(TypeMapper.getDatatypeURI(Double.class), min, minInclusive, max,
+		maxInclusive);
+    }
+
+    /** @see BoundedValueRestriction#checkType(Object) */
+    protected boolean checkType(Object o) {
+	if (o instanceof Double)
+	    return true;
+	return super.checkType(o);
     }
 
     /** @see BoundedValueRestriction#getNext(Comparable) */

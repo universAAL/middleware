@@ -60,11 +60,17 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     /** URI for the facet xsd:maxExclusive. */
     protected static final String XSD_FACET_MAX_EXCLUSIVE;
 
-    /** The minimum value, or null if no minimum is defined. */
-    private Comparable min = null;
+    /**
+     * The minimum value, or null if no minimum is defined. Can also be a
+     * {@link Variable}.
+     */
+    private Object min = null;
 
-    /** The maximum value, or null if no maximum is defined. */
-    private Comparable max = null;
+    /**
+     * The maximum value, or null if no maximum is defined. Can also be a
+     * {@link Variable}.
+     */
+    private Object max = null;
 
     /** True, if the minimum value is included. */
     private boolean minInclusive;
@@ -97,26 +103,28 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
      *            URI of the data type for which this restriction is defined.
      *            Must be one of the supported data types.
      * @param min
-     *            The minimum value, or null if no minimum is defined.
+     *            The minimum value, or a {@link Variable}, or null if no
+     *            minimum is defined.
      * @param minInclusive
      *            True, if the minimum value is included. Ignored, if min is
      *            null.
      * @param max
-     *            The maximum value, or null if no maximum is defined.
+     *            The maximum value, or a {@link Variable}, or null if no
+     *            maximum is defined.
      * @param maxInclusive
      *            True, if the maximum value is included. Ignored, if max is
      *            null.
      */
-    protected BoundedValueRestriction(String datatypeURI, Comparable min,
-	    boolean minInclusive, Comparable max, boolean maxInclusive) {
+    protected BoundedValueRestriction(String datatypeURI, Object min,
+	    boolean minInclusive, Object max, boolean maxInclusive) {
 	super(datatypeURI);
 
 	if (min == null && max == null)
 	    throw new NullPointerException(
 		    "Either min or max must be not null.");
 
-	if (min != null && max != null) {
-	    if (min.compareTo(max) > 0)
+	if (min instanceof Comparable && max instanceof Comparable) {
+	    if (((Comparable) min).compareTo((Comparable) max) > 0)
 		throw new IllegalArgumentException(
 			"min can not be greater than max.");
 	}
@@ -125,21 +133,36 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     }
 
     /**
+     * Determines whether the type of the given object is valid. Sub classes
+     * should override this method to check for their type and call super to
+     * check whether it is a {@link Variable}.
+     * 
+     * @param o
+     *            The object to check.
+     * @return true, if the type is valid.
+     */
+    protected boolean checkType(Object o) {
+	return o instanceof Variable;
+    }
+
+    /**
      * Set the constraining facets for min and max.
      * 
      * @param min
-     *            The minimum value, or null if no minimum is defined.
+     *            The minimum value, or a {@link Variable}, or null if no
+     *            minimum is defined.
      * @param minInclusive
      *            True, if the minimum value is included. Ignored, if min is
      *            null.
      * @param max
-     *            The maximum value, or null if no maximum is defined.
+     *            The maximum value, or a {@link Variable}, or null if no
+     *            maximum is defined.
      * @param maxInclusive
      *            True, if the maximum value is included. Ignored, if max is
      *            null.
      */
-    private void setFacets(Comparable min, boolean minInclusive,
-	    Comparable max, boolean maxInclusive) {
+    private void setFacets(Object min, boolean minInclusive, Object max,
+	    boolean maxInclusive) {
 	setMinFacet(min, minInclusive);
 	setMaxFacet(max, maxInclusive);
     }
@@ -148,12 +171,15 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
      * Set the constraining facets for min.
      * 
      * @param min
-     *            The minimum value, or null if no minimum is defined.
+     *            The minimum value, or a {@link Variable}, or null if no
+     *            minimum is defined.
      * @param minInclusive
      *            True, if the minimum value is included. Ignored, if min is
      *            null.
      */
-    private void setMinFacet(Comparable min, boolean minInclusive) {
+    private void setMinFacet(Object min, boolean minInclusive) {
+	if (!checkType(min))
+	    return;
 	if (min != null) {
 	    if (minInclusive)
 		addConstrainingFacet(XSD_FACET_MIN_INCLUSIVE, min);
@@ -168,12 +194,15 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
      * Set the constraining facets for max.
      * 
      * @param max
-     *            The maximum value, or null if no maximum is defined.
+     *            The maximum value, or a {@link Variable}, or null if no
+     *            maximum is defined.
      * @param maxInclusive
      *            True, if the maximum value is included. Ignored, if max is
      *            null.
      */
-    private void setMaxFacet(Comparable max, boolean maxInclusive) {
+    private void setMaxFacet(Object max, boolean maxInclusive) {
+	if (!checkType(min))
+	    return;
 	if (max != null) {
 	    if (maxInclusive)
 		addConstrainingFacet(XSD_FACET_MAX_INCLUSIVE, max);
@@ -201,25 +230,32 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     /**
      * Returns the minimum value.
      * 
-     * @return the minimum value, or null if not defined.
+     * @return the minimum value, or null if not defined or an instance of
+     *         {@link Variable}.
      */
-    public Comparable getLowerbound() {
-	return min;
+    public Comparable<?> getLowerbound() {
+	if (min instanceof Comparable)
+	    return (Comparable<?>) min;
+	return null;
     }
 
     /**
      * Returns the maximum value.
      * 
-     * @return the maximum value, or null if not defined.
+     * @return the maximum value, or null if not defined or an instance of
+     *         {@link Variable}.
      */
-    public Comparable getUpperbound() {
-	return max;
+    public Comparable<?> getUpperbound() {
+	if (max instanceof Comparable)
+	    return (Comparable<?>) max;
+	return null;
     }
 
     /**
      * Returns the next element, i.e. the value given as parameter plus the
      * smallest possible value that can be represented for the data type. For
-     * example, if the data type is int getNext(x) would return x+1.
+     * example, if the data type is int getNext(x) would return x+1. Sub classes
+     * should override this method.
      * 
      * @param c
      *            A value for which to get the next value.
@@ -253,7 +289,8 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     /**
      * Returns the previous element, i.e. the value given as parameter minus the
      * smallest possible value that can be represented for the data type. For
-     * example, if the data type is int getPrevious(x) would return x-1.
+     * example, if the data type is int getPrevious(x) would return x-1. Sub
+     * classes should override this method.
      * 
      * @param c
      *            A value for which to get the previous value.
@@ -308,16 +345,16 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
 			    // process the facet
 			    if (XSD_FACET_MIN_INCLUSIVE.equals(facet.facetURI)) {
-				setMinFacet((Comparable) facet.value, true);
+				setMinFacet(facet.value, true);
 			    } else if (XSD_FACET_MIN_EXCLUSIVE
 				    .equals(facet.facetURI)) {
-				setMinFacet((Comparable) facet.value, false);
+				setMinFacet(facet.value, false);
 			    } else if (XSD_FACET_MAX_INCLUSIVE
 				    .equals(facet.facetURI)) {
-				setMaxFacet((Comparable) facet.value, true);
+				setMaxFacet(facet.value, true);
 			    } else if (XSD_FACET_MAX_EXCLUSIVE
 				    .equals(facet.facetURI)) {
-				setMaxFacet((Comparable) facet.value, false);
+				setMaxFacet(facet.value, false);
 			    } else {
 				super.setFacet(facet);
 			    }
@@ -365,6 +402,8 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	checkTTL(ttl);
 	if (member == null)
 	    return true;
+
+	member = Variable.resolveVarRef(member, context);
 
 	if (!(member instanceof Comparable))
 	    return false;
