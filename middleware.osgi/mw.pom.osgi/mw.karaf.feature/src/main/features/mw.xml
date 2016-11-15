@@ -10,8 +10,6 @@
 		<bundle start-level='50'>mvn:org.universAAL.thirdparty/jslp.osgi/${jslp.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:org.jgroups/jgroups/${jgroups.version}</bundle>
 		<bundle start-level='50'>mvn:com.google.code.gson/gson/${gson.version}</bundle>	
-		<bundle start-level='50'>mvn:org.apache.felix/org.osgi.core/1.4.0</bundle>
-		<bundle start-level='50'>mvn:org.apache.felix/org.osgi.compendium/1.4.0</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.schemas/${mw.schemas.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.container.xfaces.osgi/${mw.container.xfaces.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.interfaces.osgi/${mw.interfaces.osgi.version}</bundle>
