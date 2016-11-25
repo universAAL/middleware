@@ -259,14 +259,14 @@ public abstract class LengthRestriction extends TypeRestriction {
 	    return false;
 
 	if (PROP_OWL_WITH_RESTRICTIONS.equals(propURI)) {
-	    if (min == null && max == null) {
+	    if (min == null && max == null && len == null) {
 		// values are not set yet
 		// retrieve the values from the given object and set them
 		// o must be a list
 		if (o instanceof List) {
 		    // each element of the list is a constraining facet and is
 		    // one (anonymous) Resource with only one property
-		    ListIterator it = ((List) o).listIterator();
+		    ListIterator<?> it = ((List<?>) o).listIterator();
 		    Facet facet;
 
 		    while ((facet = iterate(it)) != null) {
