@@ -70,10 +70,15 @@ public class BusTestCase extends TestCase {
 
     protected static ModuleContext mc;
     private static MessageContentSerializer mcs;
+    private static boolean isInitialized = false;
 
     @Override
     protected void setUp() throws Exception {
 	super.setUp();
+	
+	if (isInitialized)
+	    return;
+	isInitialized = true;
 
 	System.out.println(" - starting BusTestCase -");
 	mc = new JUnitModuleContext();
