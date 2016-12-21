@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.utils.LogUtils;
 
 public class uAALBundleExtender implements SynchronousBundleListener {
 
@@ -102,9 +103,14 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 		ArrayList activatorsClasses = new ArrayList();
 		while (entries.hasMoreElements()) {
 		    URL entryUrl = (URL) entries.nextElement();
-		    Class activatorClass = loadActivatorClass(bundle,
-			    getClassNameFromEntry(entryUrl.toString()));
-		    if (activatorClass != null) {
+		    Class activatorClass = null;
+			try {
+				activatorClass = loadActivatorClass(bundle,
+				    getClassNameFromEntry(entryUrl.toString()));
+			} catch (Throwable e) {
+				LogUtils.logError(Activator.mc, getClass(), "doStart", new String[]{"Unable to load Activator class."}, e);
+			}
+		    if (activatorClass != null && ModuleActivator.class.isAssignableFrom(activatorClass)) {
 			activatorsClasses.add(activatorClass);
 		    }
 		}
