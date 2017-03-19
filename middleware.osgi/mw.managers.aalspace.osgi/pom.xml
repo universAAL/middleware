@@ -52,24 +52,6 @@
             <Export-Package>org.universAAL.middleware.managers.aalspace,
                      org.universAAL.middleware.managers.aalspace.osgi,
                      org.universAAL.middleware.managers.aalspace.util</Export-Package>
-            <Import-Package>org.universAAL.middleware.managers.aalspace,
-            		 org.osgi.framework;version="[1,2)",
-                     org.osgi.service.cm,
-                     org.osgi.service.log,
-                     org.universAAL.middleware.container,
-                     org.universAAL.middleware.container.osgi,
-                     org.universAAL.middleware.managers.api,
-                     org.universAAL.middleware.brokers,
-                     org.universAAL.middleware.container.utils,
-                     org.universAAL.middleware.container.osgi.util,
-                     javax.xml.bind,
-                     javax.xml.validation,
-                     org.universAAL.middleware.connectors.util,
-                     org.universAAL.middleware.interfaces,
-                     org.universAAL.middleware.interfaces.aalspace.*, 
-                     org.w3c.dom,
-                     org.xml.sax,
-                     org.universAAL.middleware.brokers.control</Import-Package>
             <Bundle-Activator>org.universAAL.middleware.managers.aalspace.osgi.Activator</Bundle-Activator>
             <Private-Package />
           </instructions>
