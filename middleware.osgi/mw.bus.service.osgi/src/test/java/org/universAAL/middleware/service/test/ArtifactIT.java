@@ -13,7 +13,6 @@ public class ArtifactIT extends IntegrationTest {
     public ArtifactIT() {
 
 	// // Arguments for MW2.0
-	setRunArguments("net.slp.multicastTimeouts", "500,750");
 	setRunArguments("java.net.preferIPv4Stack", "true");
 	setRunArguments("net.slp.port", "7000");
     }
