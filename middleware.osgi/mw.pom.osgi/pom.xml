@@ -18,7 +18,6 @@
     <module>../../thirdparty/jslp.osgi</module>
     <module>../../middleware.resources/mw.schemas</module>
     <module>../mw.data.representation.osgi</module>
-    <module>../mw.container.xfaces.osgi</module>
     <module>../mw.container.osgi</module>
     <module>../mw.interfaces.osgi</module>
     <module>../mw.connectors.api.osgi</module>
@@ -99,11 +98,6 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.managers.api.osgi</artifactId>
-        <version>3.4.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.container.xfaces.osgi</artifactId>
         <version>3.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>

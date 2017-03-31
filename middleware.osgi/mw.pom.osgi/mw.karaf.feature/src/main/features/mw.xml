@@ -11,16 +11,13 @@
 		<bundle start-level='50'>mvn:org.jgroups/jgroups/${jgroups.version}</bundle>
 		<bundle start-level='50'>mvn:com.google.code.gson/gson/${gson.version}</bundle>	
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.schemas/${mw.schemas.version}</bundle>
-		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.container.xfaces.osgi/${mw.container.xfaces.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.interfaces.osgi/${mw.interfaces.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.connectors.api.osgi/${mw.connectors.api.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.managers.api.osgi/${mw.managers.api.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.modules.api.osgi/${mw.modules.api.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:org.universAAL.middleware/mw.brokers.api.osgi/${mw.brokers.api.osgi.version}</bundle>
 		<bundle start-level='50'>mvn:commons-lang/commons-lang/2.6</bundle>
-
-
-		<bundle start-level='51' start='true'>mvn:org.universAAL.middleware/mw.container.osgi/${mw.container.osgi.version}</bundle>
+		<bundle start-level='50' start='true'>mvn:org.universAAL.middleware/mw.container.osgi/${mw.container.osgi.version}</bundle>
 
 		<!-- Connectors -->
 		<bundle start-level='52' start='true'>mvn:org.universAAL.middleware/mw.connectors.communication.jgroups.osgi/${mw.connectors.communication.jgroups.osgi.version}</bundle>

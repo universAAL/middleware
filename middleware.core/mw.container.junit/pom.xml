@@ -18,7 +18,7 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.container.xfaces.core</artifactId>
+      <artifactId>mw.container.core</artifactId>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>

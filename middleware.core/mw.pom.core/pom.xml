@@ -16,7 +16,7 @@
   <description>The set of artefacts realizing the universAAL middleware (Core)</description>
   <modules>
     <module>../../thirdparty/jslp.core</module>
-    <module>../mw.container.xfaces.core</module>
+    <module>../mw.container.core</module>
     <module>../mw.container.junit</module>
     <module>../mw.interfaces.core</module>
     <module>../mw.connectors.api.core</module>
@@ -133,7 +133,7 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.container.xfaces.core</artifactId>
+        <artifactId>mw.container.core</artifactId>
         <version>3.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>

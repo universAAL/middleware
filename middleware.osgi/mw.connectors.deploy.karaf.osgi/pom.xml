@@ -27,10 +27,6 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.container.xfaces.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.connectors.api.osgi</artifactId>
     </dependency>
     <dependency>

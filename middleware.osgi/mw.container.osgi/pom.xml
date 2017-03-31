@@ -11,7 +11,7 @@
   <artifactId>mw.container.osgi</artifactId>
   <version>3.4.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>universAAL Middleware OSGi Container</name>
+  <name>universAAL Middleware Container (OSGi)</name>
   <description>An implementation of the interfaces exported by the Container building block of the universAAL middleware on top of the OSGi runtime</description>
   <url></url>
   <dependencies>
@@ -54,7 +54,7 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.container.xfaces.osgi</artifactId>
+      <artifactId>mw.container.core</artifactId>
     </dependency>
   </dependencies>
   <build>
@@ -75,7 +75,10 @@
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Activator>org.universAAL.middleware.container.osgi.run.Activator</Bundle-Activator>
-            <Export-Package>org.universAAL.middleware.container.osgi,org.universAAL.middleware.container.osgi.util</Export-Package>
+            <Export-Package>org.universAAL.middleware.container,
+		org.universAAL.middleware.container.utils,
+		org.universAAL.middleware.container.osgi,
+		org.universAAL.middleware.container.osgi.util</Export-Package>
             <Private-Package>org.universAAL.middleware.container.osgi.run</Private-Package>
             <Import-Package>org.osgi.framework;version="[1,2)",org.osgi.util.tracker;version="[1,2)",*</Import-Package>
           </instructions>
