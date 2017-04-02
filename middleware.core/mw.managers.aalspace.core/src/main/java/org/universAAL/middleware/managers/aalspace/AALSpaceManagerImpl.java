@@ -21,6 +21,8 @@
 package org.universAAL.middleware.managers.aalspace;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.Serializable;
@@ -49,7 +51,6 @@ import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.container.utils.ModuleConfigHome;
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
@@ -75,6 +76,7 @@ import org.universAAL.middleware.managers.api.MatchingResult;
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @author <a href="mailto:giancarlo.riolo@isti.cnr.it">Giancarlo Riolo</a>
+ * @author Carsten Stockloew
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 @SuppressWarnings({ "rawtypes" })
@@ -132,7 +134,6 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     private int aalSpaceLifeTime;
     private long waitBeforeClosingChannels;
     private long waitAfterJoinRequest;
-    private ModuleConfigHome home;
     private String altConfigDir;
 
     private List<AALSpaceListener> listeners;
@@ -143,10 +144,9 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
     private final ScheduledExecutorService scheduler = Executors
 	    .newScheduledThreadPool(10);
 
-    public AALSpaceManagerImpl(ModuleContext context, ModuleConfigHome mh) {
+    public AALSpaceManagerImpl(ModuleContext context) {
 	this.context = context;
-	this.home = mh;
-	this.altConfigDir = mh.getAbsolutePath();
+	this.altConfigDir = context.getConfigHome().getAbsolutePath();
 	managedAALspaces = new Hashtable<String, AALSpaceDescriptor>();
 	foundAALSpaces = Collections
 		.synchronizedSet(new HashSet<AALSpaceCard>());
@@ -223,16 +223,13 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 		    null);
 	    try {
 		Properties props = new Properties();
-		props.load(home.getConfFileAsStream(PEER_ID_FILE));
+		props.load(new FileInputStream(new File(context.getConfigHome(), PEER_ID_FILE)));
 		peerId = props.getProperty("default");
 	    } catch (Exception e) {
-		LogUtils.logInfo(
-			context,
-			AALSpaceManagerImpl.class,
-			METHOD,
-			new Object[] { "Failed to loead peerId from file: ",
-				PEER_ID_FILE, " in folder ",
-				home.getAbsolutePath() }, e);
+		LogUtils.logInfo(context, AALSpaceManagerImpl.class, METHOD,
+			new Object[] { "Failed to loead peerId from file: ", PEER_ID_FILE, " in folder ",
+				context.getConfigHome().getAbsoluteFile() },
+			e);
 	    }
 	}
 	// create PeerCard
@@ -256,15 +253,12 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler,
 	try {
 	    Properties props = new Properties();
 	    props.setProperty("default", myPeerCard.getPeerID());
-	    props.store(home.getConfFileAsOutputStream(PEER_ID_FILE),
+	    props.store(new FileOutputStream(new File(context.getConfigHome(), PEER_ID_FILE)),
 		    "Properties files that contains the peerId used by this peer");
 	} catch (Exception e) {
-	    LogUtils.logError(
-		    context,
-		    AALSpaceManagerImpl.class,
-		    METHOD,
-		    new Object[] { "Failed to save peerId from file: ",
-			    PEER_ID_FILE, " in folder ", home.getAbsolutePath() },
+	    LogUtils.logError(context, AALSpaceManagerImpl.class, METHOD,
+		    new Object[] { "Failed to save peerId from file: ", PEER_ID_FILE, " in folder ",
+			    context.getConfigHome().getAbsoluteFile() },
 		    e);
 	}
     }

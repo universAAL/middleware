@@ -40,6 +40,7 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import javax.swing.LayoutFocusTraversalPolicy;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -50,7 +51,6 @@ import org.universAAL.middleware.brokers.control.ExceptionUtils;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.container.utils.ModuleConfigHome;
 import org.universAAL.middleware.deploymanager.uapp.model.AalUapp;
 import org.universAAL.middleware.deploymanager.uapp.model.ObjectFactory;
 import org.universAAL.middleware.deploymanager.uapp.model.Part;
@@ -76,6 +76,7 @@ import org.universAAL.middleware.managers.deploy.util.Consts;
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
+ * @author Carsten Stockloew
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class DeployManagerImpl implements DeployManager,
@@ -102,16 +103,16 @@ public class DeployManagerImpl implements DeployManager,
     private HashMap<String, Long> uninstallingParts = new HashMap<String, Long>();
     private final Properties applicationRegistry = new Properties();
     private File applicationRegistryFile = null;
-    private ModuleConfigHome configHome;
 
     private final long TIMEOUT;
 
-    public DeployManagerImpl(ModuleContext context, ModuleConfigHome configHome) {
+    public DeployManagerImpl(ModuleContext context) {
 	TIMEOUT = Long.parseLong(System.getProperty("uAAL.dm.timeout",
 		"" + 5 * 60 * 1000));
-	this.configHome = configHome;
 	this.context = context;
-	this.deployDir = configHome.getAbsolutePath();
+	this.deployDir = context.getConfigHome().getAbsolutePath();
+	LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
+		new Object[] { "Deploy Manager folder: ", deployDir }, null);
 	init();
 	try {
 	    jc = JAXBContext.newInstance(ObjectFactory.class);
@@ -399,7 +400,7 @@ public class DeployManagerImpl implements DeployManager,
 
     private Properties getApplicationRegistry() {
 	synchronized (applicationRegistry) {
-	    File reg = new File(configHome.getAbsolutePath(),
+	    File reg = new File(deployDir,
 		    Consts.APP_REGISTRY);
 	    if (reg.exists() == false) {
 		applicationRegistry.clear();
@@ -445,8 +446,7 @@ public class DeployManagerImpl implements DeployManager,
 	if (applicationRegistry == null)
 	    return;
 
-	OutputStream os = configHome
-		.getConfFileAsOutputStream(Consts.APP_REGISTRY);
+	OutputStream os = new FileOutputStream(new File(deployDir, Consts.APP_REGISTRY));
 	applicationRegistry
 		.store(os,
 			"universAAL Deploy Manager Installation registry, the format is serviceId:applicationId=<application layout registry file>");
@@ -476,8 +476,7 @@ public class DeployManagerImpl implements DeployManager,
 		}
 	    }
 
-	    OutputStream os = configHome
-		    .getConfFileAsOutputStream(partRegistry);
+	    OutputStream os = new FileOutputStream(new File(deployDir, partRegistry));
 	    parts.store(os,
 		    "universAAL Deploy layout details for application '"
 			    + appKey + "', the format is peerId/<index>=partId");
@@ -501,7 +500,7 @@ public class DeployManagerImpl implements DeployManager,
     private void deleteInstallationLayout(String serviceId, String id) {
 	final String appKey = serviceId + ":" + id;
 	String layoutFile = getApplicationRegistry().getProperty(appKey);
-	File registry = new File(configHome.getAbsolutePath(), layoutFile);
+	File registry = new File(deployDir, layoutFile);
 	if (registry.delete() == false) {
 	    LogUtils.logWarn(
 		    context,
@@ -520,7 +519,7 @@ public class DeployManagerImpl implements DeployManager,
 	    final String appKey = serviceId + ":" + id;
 	    String layoutFile = getApplicationRegistry().getProperty(appKey);
 
-	    InputStream is = configHome.getConfFileAsStream(layoutFile);
+	    InputStream is = new FileInputStream(new File(deployDir, layoutFile));
 	    Properties layout = new Properties();
 	    layout.load(is);
 	    return layout;

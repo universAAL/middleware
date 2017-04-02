@@ -57,7 +57,13 @@ public class uAALBundleContext implements ModuleContext {
     private BundleContext bundle;
     private Hashtable extension = new Hashtable();
     private Logger logger;
-    private static BundleConfigHome servicesConfHome = new BundleConfigHome(
+
+    /**
+     * The root directory of the runtime configuration.
+     */
+    public static final String CONF_ROOT_DIR = "bundles.configuration.location";
+
+    private static File servicesConfHome = new File(System.getProperty(CONF_ROOT_DIR, System.getProperty("user.dir")),
 	    "services");
     private ArrayList confFiles = new ArrayList(2);
     private Hashtable<String, ServiceRegistration> sharedObjects = new Hashtable<String, ServiceRegistration>();
@@ -287,8 +293,7 @@ public class uAALBundleContext implements ModuleContext {
 	// 3rd param @ index 2: a hash-table with allowed properties as keys and
 	// a help string about each property as value
 	if (configFileParams != null && configFileParams.length > 0) {
-	    configFileParams[0] = servicesConfHome
-		    .getPropFile(configFileParams[0].toString());
+	    configFileParams[0] = new File(servicesConfHome, configFileParams[0].toString() + ".properties");
 	    confFiles.add(configFileParams);
 	}
     }
@@ -426,8 +431,7 @@ public class uAALBundleContext implements ModuleContext {
     }
 
     public File getConfigHome() {
-	return new File(System.getProperty(BundleConfigHome.uAAL_CONF_ROOT_DIR,
-		System.getProperty("user.dir")), getID());
+	return new File(System.getProperty(CONF_ROOT_DIR, System.getProperty("user.dir")), getID());
     }
 
     public File getDataFolder() {

@@ -34,7 +34,6 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl;
 import org.universAAL.middleware.managers.api.AALSpaceEventHandler;
@@ -57,8 +56,7 @@ public class Activator implements BundleActivator, ManagedService {
     public void start(BundleContext context) throws Exception {
 	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
-	BundleConfigHome confHome = new BundleConfigHome(moduleContext.getID());
-	spaceManager = new AALSpaceManagerImpl(moduleContext, confHome);
+	spaceManager = new AALSpaceManagerImpl(moduleContext);
 
 	Dictionary props = new Hashtable();
 	props.put(Constants.SERVICE_PID, SERVICE_PID);
