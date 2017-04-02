@@ -44,7 +44,6 @@ import org.universAAL.middleware.brokers.control.ExceptionUtils;
 import org.universAAL.middleware.connectors.DeployConnector;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
@@ -87,7 +86,7 @@ public class KarafDeployConnector implements DeployConnector,
     private Marshaller marshaller;
     private Marshaller marshallerKaraf;
     private Properties registry;
-    private BundleConfigHome moduleConfigHome;
+    private File confHome; 
 
     private ControlBroker getControlBroker() {
 	synchronized (this) {
@@ -118,7 +117,7 @@ public class KarafDeployConnector implements DeployConnector,
 
     public KarafDeployConnector(ModuleContext context) {
 	this.context = context;
-	moduleConfigHome = new BundleConfigHome("mw.connectors.deploy.karaf");
+	confHome = context.getConfigHome();
 	try {
 	    jc = JAXBContext.newInstance(ObjectFactory.class);
 
@@ -328,8 +327,7 @@ public class KarafDeployConnector implements DeployConnector,
 	} else {
 	    registry.setProperty(key, karFile);
 	}
-	OutputStream fos = moduleConfigHome
-		.getConfFileAsOutputStream("deploy.registry");
+	OutputStream fos = new FileOutputStream(new File(confHome, "deploy.registry"));
 	registry.store(
 		fos,
 		"universAAL Installation registry, format is serviceId:appId:partId=<path-to-karaf-file>");
@@ -340,9 +338,7 @@ public class KarafDeployConnector implements DeployConnector,
     private Properties getInstallationRegistry() throws IOException {
 	if (registry == null) {
 	    registry = new Properties();
-	    // TODO Using BundleConfigHome
-	    InputStream in = moduleConfigHome
-		    .getConfFileAsStream("deploy.registry");
+	    InputStream in = new FileInputStream(new File(confHome, "deploy.registry"));
 	    registry.load(in);
 	}
 	return registry;
@@ -434,7 +430,7 @@ public class KarafDeployConnector implements DeployConnector,
 	}
 
 	final File configDir = configs[0];
-	File dstFolder = new File(moduleConfigHome.getAbsolutePath());
+	File dstFolder = confHome;
 	dstFolder = dstFolder.getParentFile();
 	File[] configFiles = configDir.listFiles();
 	for (int i = 0; i < configFiles.length; i++) {
