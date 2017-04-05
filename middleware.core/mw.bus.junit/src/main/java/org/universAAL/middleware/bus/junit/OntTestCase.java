@@ -21,7 +21,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -36,10 +38,12 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
@@ -53,6 +57,148 @@ public class OntTestCase extends BusTestCase {
 	
 	private static final File owlDir = new File("target/ontologies/");
 	private MessageContentSerializer contentSerializer;
+	
+	private class LogEntry{
+		int logLevel;
+		String module; String pkg; String cls;
+		String method; Object[] msgPart; Throwable t;
+
+		public LogEntry(int logLevel, String module, String pkg, String cls,
+				String method, Object[] msgPart, Throwable t) {
+			super();
+			this.logLevel = logLevel;
+			this.module = module;
+			this.pkg = pkg;
+			this.cls = cls;
+			this.method = method;
+			this.msgPart = msgPart;
+			this.t = t;
+		}
+
+	    /**
+	     * Internal method to create a single String from a list of objects.
+	     * 
+	     * @param msgPart
+	     *            The message of this log entry. All elements of this array are
+	     *            converted to a string object and concatenated.
+	     * @return The String.
+	     */
+	    private String buildMsg(Object[] msgPart) {
+		StringBuffer sb = new StringBuffer(256);
+		if (msgPart != null)
+		    for (int i = 0; i < msgPart.length; i++)
+			sb.append(msgPart[i]);
+		return sb.toString();
+	    }
+		
+		public String toString(){
+			StringBuffer sb = new StringBuffer();
+			sb.append("[");
+			switch (logLevel) {
+			case LogListener.LOG_LEVEL_TRACE:
+				sb.append("TRACE");
+				break;
+			case LogListener.LOG_LEVEL_DEBUG:
+				sb.append("DEBUG");
+				break;
+			case LogListener.LOG_LEVEL_INFO:
+				sb.append("INFO");
+				break;
+			case LogListener.LOG_LEVEL_WARN:
+				sb.append("WARN");
+				break;
+			case LogListener.LOG_LEVEL_ERROR:
+				sb.append("ERROR");
+				break;
+			}
+			
+			sb.append("] -> ");
+			sb.append(buildMsg(msgPart));
+			return sb.toString();
+		}
+	}
+	
+	private class OntologyLoaderTask implements LogListener{
+		Ontology ont;
+		int attempts = 0;
+		int warnings = 0;
+		int errors = 0;
+		List<LogEntry> logEntries = new ArrayList<OntTestCase.LogEntry>();
+		
+		
+		public OntologyLoaderTask(Ontology ont) {
+			super();
+			this.ont = ont;
+		}
+
+
+		String report(){
+			if (warnings == 0 && errors == 0){
+				return "";
+			}
+			String ret = "(";
+			if (warnings < 0){
+				ret += "warnings: " + Integer.toString(warnings) + " ";
+			}
+			if (errors > 0 ){
+				ret += "errors: " + Integer.toString(errors) + " ";
+			}
+			ret += ")";
+			return ret;
+		}
+
+
+		void attempt(){
+			if (ont.getInfo() != null && OntologyManagement.getInstance().isRegisteredClass(ont.getInfo().getURI(), true))
+				return;
+			attempts++;
+			
+			mc.getContainer().shareObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
+			
+			OntologyManagement.getInstance().register(mc, ont);
+			
+			mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
+		}
+		
+		void unregister(){
+			//reset statistics
+			warnings = 0;
+			errors = 0;
+			logEntries.clear();
+			OntologyManagement.getInstance().unregister(mc, ont);
+		}
+		
+		public void log(int logLevel, String module, String pkg, String cls,
+				String method, Object[] msgPart, Throwable t) {
+			LogEntry le = new LogEntry(logLevel, module, pkg, cls, method, msgPart, t);
+			logEntries.add(le);
+			if (logLevel == LOG_LEVEL_ERROR)
+				errors++;
+			if (logLevel == LOG_LEVEL_WARN)
+				warnings++;
+		}
+
+
+		public boolean allImportsRegistered() {
+			Object imports = ont.getInfo().getProperty(Ontology.PROP_OWL_IMPORT);
+			if (imports == null){
+				return true;
+			}
+			if (! (imports instanceof List)){
+				List a = new ArrayList();
+				a.add(imports);
+				imports = a;
+			}
+			String[] registeredA = OntologyManagement.getInstance().getOntoloyURIs();
+			List registered = new ArrayList();
+			for (int i = 0; i < registeredA.length; i++) {
+				registered.add(new Resource(registeredA[i]));
+			}
+			((List)imports).removeAll(registered);
+			return ((List)imports).isEmpty();
+		}
+	}
+	
 
 	@Override
     protected void setUp() throws Exception {
@@ -65,29 +211,69 @@ public class OntTestCase extends BusTestCase {
 	 * after, if fortunately, dependant ontologies are loaded.
 	 */
 	private void autoLoadOntologies(){
-		List<ModuleActivator> toBeLoaded = getOntologyModules();
-		int attempts = toBeLoaded.size() *2;
-		while (!toBeLoaded.isEmpty() && attempts >0) {
-			attempts--;
-			ModuleActivator next = toBeLoaded.remove(0);
-			try{
-				//load Next
-				next.start(mc);
-				
-			} catch (Exception e){
-				//Close but no cigar, try later
-				toBeLoaded.add(next);
-				continue;
-			}
-	
+		List<Ontology> toBeLoaded = getOntologies();
+		int totalOntologiesFound = toBeLoaded.size();
+		Map<Ontology, OntologyLoaderTask> pendingOnts = new HashMap<Ontology, OntTestCase.OntologyLoaderTask>();
+		List<OntologyLoaderTask> loadingOrder = new ArrayList<OntTestCase.OntologyLoaderTask>();
+		for (Ontology ont : toBeLoaded) {
+			pendingOnts.put(ont, new OntologyLoaderTask(ont));
 		}
+		
+		while (!toBeLoaded.isEmpty() ) {
+			Ontology next = toBeLoaded.remove(0);
+			OntologyLoaderTask otl = pendingOnts.get(next);
+			try{
+				
+				otl.attempt();
+				if ((!otl.allImportsRegistered()
+						|| otl.errors > 0)
+						&& otl.attempts <= totalOntologiesFound*2){
+					otl.unregister();
+					toBeLoaded.add(next);
+					continue;
+				}
+				loadingOrder.add(otl);
+			} catch (Exception e){
+				if(otl.attempts <= totalOntologiesFound*2) {
+					otl.unregister();
+					toBeLoaded.add(next);
+					continue;
+				}else {
+					LogUtils.logError(mc, getClass(), "autoLoadOntologies", 
+							new String[] {"Recurrent Error, could not register ontology: " + next.getInfo().getURI()}, e);
+				}
+			}
+		}
+		//Print Summary
+		System.out.println("---------------------------------");
+		System.out.println("AUTO LOAD RESULT");
+		System.out.println("\t Load Order:");
+		StringBuffer sb = new StringBuffer();
+		sb.append("\t Problems in this project:\n");
+		boolean problems = false;
+		for (OntologyLoaderTask olt : loadingOrder) {
+			System.out.println("\t\t" + olt.ont.getInfo().getURI() + " " + olt.report());
+			if (isInMyProy(olt.ont)){
+				sb.append("\t\t"+ olt.ont.getInfo().getURI() + "\n" );
+				if (olt.errors > 0 || olt.warnings > 0){
+					problems = true;
+					for (LogEntry le : olt.logEntries) {
+						sb.append("\t\t\t" + le.toString() + "\n");
+					}
+				}
+			}
+		}
+		if (problems){
+			System.err.println(sb.toString());
+		}
+		System.out.println("---------------------------------");
 	}
 
 	/**
 	 * Recovers the serializer. 
 	 * @return the serializer.
 	 */
-	private MessageContentSerializer getContentserializer() {
+	protected MessageContentSerializer getContentserializer() {
 		if (contentSerializer == null) {
 		    contentSerializer = (MessageContentSerializer) mc
 			    .getContainer().fetchSharedObject(
@@ -107,20 +293,20 @@ public class OntTestCase extends BusTestCase {
      * org.universAAL.ontology .
      * @return all instances of module activators.
      */
-    private List<ModuleActivator> getOntologyModules() {
-    	List<ModuleActivator> onts = new ArrayList<ModuleActivator>();
+    private List<Ontology> getOntologies() {
+    	List<Ontology> onts = new ArrayList<Ontology>();
 		
 		Reflections reflections = new Reflections("org.universAAL.ontology");
 
 		try {
-			Set<?> subTypes = reflections.getSubTypesOf(Class.forName(ModuleActivator.class.getName()));
+			Set<?> subTypes = reflections.getSubTypesOf(Class.forName(Ontology.class.getName()));
 			
 			for (Object o : subTypes) {
 				if (o instanceof Class<?>){
 					try {
-						onts.add((ModuleActivator) ((Class<?>)o).newInstance());
+						onts.add((Ontology) ((Class<?>)o).newInstance());
 					} catch (Exception e) {
-						LogUtils.logError(mc, getClass(), "getOntologyModules", new String[] {"could not instantiate: " + ((Class)o).getName()},e);
+						LogUtils.logError(mc, getClass(), "getOntologies", new String[] {"could not instantiate: " + ((Class)o).getName()},e);
 					} 
 				}
 			}
