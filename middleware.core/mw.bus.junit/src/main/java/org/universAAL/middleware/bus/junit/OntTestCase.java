@@ -239,6 +239,9 @@ public class OntTestCase extends BusTestCase {
 					toBeLoaded.add(next);
 					continue;
 				}else {
+					otl.log(LogListener.LOG_LEVEL_ERROR, mc.getID(), getClass().getPackage().toString(), getClass().toString(),
+							"autoloadOntolgoies", 
+							new String[] {"Recurrent Error, could not register ontology: " + next.getInfo().getURI()}, e);
 					LogUtils.logError(mc, getClass(), "autoLoadOntologies", 
 							new String[] {"Recurrent Error, could not register ontology: " + next.getInfo().getURI()}, e);
 				}
@@ -249,7 +252,7 @@ public class OntTestCase extends BusTestCase {
 		System.out.println("AUTO LOAD RESULT");
 		System.out.println("\t Load Order:");
 		StringBuffer sb = new StringBuffer();
-		sb.append("\t Problems in this project:\n");
+		sb.append("\t Problems found in this project:\n");
 		boolean problems = false;
 		for (OntologyLoaderTask olt : loadingOrder) {
 			System.out.println("\t\t" + olt.ont.getInfo().getURI() + " " + olt.report());
