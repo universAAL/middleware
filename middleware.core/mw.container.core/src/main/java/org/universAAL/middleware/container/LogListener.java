@@ -25,11 +25,19 @@ package org.universAAL.middleware.container;
  * {@link org.universAAL.middleware.container.utils.LogUtils}.
  * 
  * To use this method, create a class (e.g. <i>LogMonitor</i>) that implements
- * this interface and register the OSGi service, i.e.: <br>
+ * this interface, and register the class as shared object, i.e.: <br>
  * 
  * <pre>
- * context.registerService(new String[] { LogListener.class.getName() },
- * 	new LogMonitor(), null);
+ * LogMonitor lm = new LogMonitor();
+ * myModuleContext.getContainer().shareObject(myModuleContext, lm,
+ *     new Object[] { LogListener.class.getName() });
+ * </pre>
+ *
+ * To stop listening to log messages, the shared objects needs to be removed:
+ * 
+ * <pre>
+ * myModuleContext.getContainer().removeSharedObject(myModuleContext, lm,
+ *     new Object[] { LogListener.class.getName() });
  * </pre>
  * 
  * @author Carsten Stockloew
