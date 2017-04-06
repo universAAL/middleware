@@ -87,12 +87,12 @@ public final class JUnitContainer implements Container {
     }
 
     /** Register a LogListener */
-    public void registerLogListeners(LogListener listener) {
+    public void registerLogListener(LogListener listener) {
 	logListeners.add(listener);
     }
     
     /** Remove a LogListener */
-    public void removeLogListeners(LogListener listener) {
+    public void unregisterLogListener(LogListener listener) {
 	logListeners.remove(listener);
     }
 

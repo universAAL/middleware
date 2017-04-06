@@ -155,12 +155,12 @@ public class OntTestCase extends BusTestCase {
 			attempts++;
 			
 			//mc.getContainer().shareObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
-			((JUnitContainer) mc.getContainer()).registerLogListeners(OntologyLoaderTask.this);
+			((JUnitContainer) mc.getContainer()).registerLogListener(OntologyLoaderTask.this);
 			
 			OntologyManagement.getInstance().register(mc, ont);
 						
 			//mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
-			((JUnitContainer) mc.getContainer()).removeLogListeners(OntologyLoaderTask.this);
+			((JUnitContainer) mc.getContainer()).unregisterLogListener(OntologyLoaderTask.this);
 		}
 		
 		void unregister(){
