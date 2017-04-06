@@ -86,9 +86,14 @@ public final class JUnitContainer implements Container {
 	return null;
     }
 
-    /** {@inheritDoc} */
+    /** Register a LogListener */
     public void registerLogListeners(LogListener listener) {
 	logListeners.add(listener);
+    }
+    
+    /** Remove a LogListener */
+    public void removeLogListeners(LogListener listener) {
+	logListeners.remove(listener);
     }
 
     /** {@inheritDoc} */

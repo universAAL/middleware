@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.universAAL.container.JUnit.JUnitContainer;
 import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -153,11 +154,13 @@ public class OntTestCase extends BusTestCase {
 				return;
 			attempts++;
 			
-			mc.getContainer().shareObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
+			//mc.getContainer().shareObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
+			((JUnitContainer) mc.getContainer()).registerLogListeners(OntologyLoaderTask.this);
 			
 			OntologyManagement.getInstance().register(mc, ont);
-			
-			mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
+						
+			//mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
+			((JUnitContainer) mc.getContainer()).removeLogListeners(OntologyLoaderTask.this);
 		}
 		
 		void unregister(){
