@@ -58,6 +58,8 @@ public class JUnitModuleContext implements ModuleContext {
 	logger = LogManager.getLogger(activator.getClass().getPackage()
 		.getName());
 	logger.addAppender(ca);
+	Logger.getRootLogger().setLevel(Level.INFO);
+	Logger.getRootLogger().addAppender(ca);
     }
 
     public JUnitModuleContext() {
