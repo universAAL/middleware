@@ -138,7 +138,7 @@ public class OntTestCase extends BusTestCase {
 				return "";
 			}
 			String ret = "(";
-			if (warnings < 0){
+			if (warnings > 0){
 				ret += "warnings: " + Integer.toString(warnings) + " ";
 			}
 			if (errors > 0 ){
@@ -157,7 +157,12 @@ public class OntTestCase extends BusTestCase {
 			//mc.getContainer().shareObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
 			((JUnitContainer) mc.getContainer()).registerLogListener(OntologyLoaderTask.this);
 			
-			OntologyManagement.getInstance().register(mc, ont);
+			try {
+				OntologyManagement.getInstance().register(mc, ont);
+			} catch (Exception e) {
+				LogUtils.logError(mc, getClass(), "attempt", 
+						new String[] {"Unexpected Error, could not register ontology: " + ont.getInfo().getURI()}, e);
+			}
 						
 			//mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
 			((JUnitContainer) mc.getContainer()).unregisterLogListener(OntologyLoaderTask.this);
@@ -169,11 +174,20 @@ public class OntTestCase extends BusTestCase {
 			errors = 0;
 			logEntries.clear();
 			OntologyManagement.getInstance().unregister(mc, ont);
+			// refresh ont instance
+			try {
+				ont = (Ontology) ont.getClass().newInstance();
+			} catch (Exception e) {
+				LogUtils.logError(mc, getClass(), "unregister", new String[] {"could not instantiate: " + ont.getClass().getName()},e);
+			} 
 		}
 		
 		public void log(int logLevel, String module, String pkg, String cls,
 				String method, Object[] msgPart, Throwable t) {
 			LogEntry le = new LogEntry(logLevel, module, pkg, cls, method, msgPart, t);
+			if (msgPart.length > 0 
+					&& !((String)msgPart[0]).contains("Unregistering ontology")
+					&& !((String)msgPart[0]).contains("Registering ontology"))
 			logEntries.add(le);
 			if (logLevel == LOG_LEVEL_ERROR)
 				errors++;
@@ -193,11 +207,9 @@ public class OntTestCase extends BusTestCase {
 				imports = a;
 			}
 			String[] registeredA = OntologyManagement.getInstance().getOntoloyURIs();
-			List registered = new ArrayList();
 			for (int i = 0; i < registeredA.length; i++) {
-				registered.add(new Resource(registeredA[i]));
+				((List) imports).remove(new Resource(registeredA[i]));
 			}
-			((List)imports).removeAll(registered);
 			return ((List)imports).isEmpty();
 		}
 	}
@@ -225,54 +237,43 @@ public class OntTestCase extends BusTestCase {
 		while (!toBeLoaded.isEmpty() ) {
 			Ontology next = toBeLoaded.remove(0);
 			OntologyLoaderTask otl = pendingOnts.get(next);
-			try{
-				
-				otl.attempt();
-				if ((!otl.allImportsRegistered()
-						|| otl.errors > 0)
-						&& otl.attempts <= totalOntologiesFound*2){
-					otl.unregister();
-					toBeLoaded.add(next);
-					continue;
-				}
-				loadingOrder.add(otl);
-			} catch (Exception e){
-				if(otl.attempts <= totalOntologiesFound*2) {
-					otl.unregister();
-					toBeLoaded.add(next);
-					continue;
-				}else {
-					otl.log(LogListener.LOG_LEVEL_ERROR, mc.getID(), getClass().getPackage().toString(), getClass().toString(),
-							"autoloadOntolgoies", 
-							new String[] {"Recurrent Error, could not register ontology: " + next.getInfo().getURI()}, e);
-					LogUtils.logError(mc, getClass(), "autoLoadOntologies", 
-							new String[] {"Recurrent Error, could not register ontology: " + next.getInfo().getURI()}, e);
-				}
+
+			otl.attempt();
+			if ((!otl.allImportsRegistered()
+					|| otl.errors > 0)
+					&& otl.attempts <= totalOntologiesFound*2){
+				otl.unregister();
+				toBeLoaded.add(next);
+				continue;
 			}
+			loadingOrder.add(otl);
 		}
 		//Print Summary
 		System.out.println("---------------------------------");
 		System.out.println("AUTO LOAD RESULT");
-		System.out.println("\t Load Order:");
+		System.out.println(" Load Order:");
 		StringBuffer sb = new StringBuffer();
-		sb.append("\t Problems found in this project:\n");
+		sb.append(" Ontology problems found in this project:\n");
 		boolean problems = false;
 		for (OntologyLoaderTask olt : loadingOrder) {
-			System.out.println("\t\t" + olt.ont.getInfo().getURI() + " " + olt.report());
+			System.out.println("\t" + olt.ont.getInfo().getURI() + " " + olt.report());
 			if (isInMyProy(olt.ont)){
-				sb.append("\t\t"+ olt.ont.getInfo().getURI() + "\n" );
-				if (olt.errors > 0 || olt.warnings > 0){
+				if (!olt.logEntries.isEmpty()){
+					sb.append("\t"+ olt.ont.getInfo().getURI() + "\n" );
 					problems = true;
 					for (LogEntry le : olt.logEntries) {
-						sb.append("\t\t\t" + le.toString() + "\n");
+						sb.append("\t\t" + le.toString() + "\n");
 					}
 				}
 			}
 		}
+		System.out.flush();
 		if (problems){
 			System.err.println(sb.toString());
 		}
+		System.err.flush();
 		System.out.println("---------------------------------");
+		System.out.flush();
 	}
 
 	/**
