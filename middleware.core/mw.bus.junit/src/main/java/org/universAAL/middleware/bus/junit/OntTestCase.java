@@ -150,7 +150,7 @@ public class OntTestCase extends BusTestCase {
 
 
 		void attempt(){
-			if (ont.getInfo() != null && OntologyManagement.getInstance().isRegisteredClass(ont.getInfo().getURI(), true))
+			if (ont.getInfo() != null && OntologyManagement.getInstance().isRegisteredOntology(ont.getInfo().getURI()))
 				return;
 			attempts++;
 			
@@ -162,6 +162,8 @@ public class OntTestCase extends BusTestCase {
 			} catch (Exception e) {
 				LogUtils.logError(mc, getClass(), "attempt", 
 						new String[] {"Unexpected Error, could not register ontology: " + ont.getInfo().getURI()}, e);
+			} catch (IllegalAccessError e){
+				
 			}
 						
 			//mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });

@@ -851,6 +851,15 @@ public final class OntologyManagement {
     public String[] getOntoloyURIs() {
 	return ontologies.keySet().toArray(new String[0]);
     }
+    
+    /**
+     * Test if an ontology URI is already registered.
+     * @param ontURI The URI of the ontology to check if it is already registered
+     * @return true only if the ontology is registered.
+     */
+    public boolean isRegisteredOntology(String ontURI){
+    	return ontologies.containsKey(ontURI);
+    }
 
     /**
      * Internal method. Used to verify that an ontology is currently in the
