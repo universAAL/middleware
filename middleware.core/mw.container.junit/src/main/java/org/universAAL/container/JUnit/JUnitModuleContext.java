@@ -58,8 +58,9 @@ public class JUnitModuleContext implements ModuleContext {
 	logger = LogManager.getLogger(activator.getClass().getPackage()
 		.getName());
 	logger.addAppender(ca);
-	Logger.getRootLogger().setLevel(Level.INFO);
-	Logger.getRootLogger().addAppender(ca);
+	//Don't want to log things outside universAAL logs
+	Logger.getRootLogger().setLevel(Level.OFF);
+	//TODO Alternatively root logger could log to target/test.log
     }
 
     public JUnitModuleContext() {
