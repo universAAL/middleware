@@ -571,7 +571,7 @@ public final class OntologyManagement {
 			OntologyManagement.class,
 			"unregister",
 			new Object[] { "The ontology ", ont.getInfo().getURI(),
-				" is can not be unregistered because it is not registered." },
+				" can not be unregistered because it is not registered." },
 			null);
 		return;
 	    }
