@@ -39,6 +39,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.universAAL.container.JUnit.JUnitContainer;
+import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -156,16 +158,19 @@ public class OntTestCase extends BusTestCase {
 			
 			//mc.getContainer().shareObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
 			((JUnitContainer) mc.getContainer()).registerLogListener(OntologyLoaderTask.this);
+			//Disable output
+			LogLevel lvl = ((JUnitModuleContext)mc).getLogLevel();
+			((JUnitModuleContext)mc).setLogLevel(LogLevel.NONE);
 			
 			try {
 				OntologyManagement.getInstance().register(mc, ont);
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				LogUtils.logError(mc, getClass(), "attempt", 
 						new String[] {"Unexpected Error, could not register ontology: " + ont.getInfo().getURI()}, e);
-			} catch (IllegalAccessError e){
-				
-			}
-						
+			} 
+					
+			// Reactivate Logs
+			((JUnitModuleContext)mc).setLogLevel(lvl);	
 			//mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this, new String[] { LogListener.class.getName() });
 			((JUnitContainer) mc.getContainer()).unregisterLogListener(OntologyLoaderTask.this);
 		}
@@ -175,7 +180,13 @@ public class OntTestCase extends BusTestCase {
 			warnings = 0;
 			errors = 0;
 			logEntries.clear();
+			//Disable output
+			LogLevel lvl = ((JUnitModuleContext)mc).getLogLevel();
+			((JUnitModuleContext)mc).setLogLevel(LogLevel.NONE);
+			//unregister
 			OntologyManagement.getInstance().unregister(mc, ont);
+			// Reactivate Logs
+			((JUnitModuleContext)mc).setLogLevel(lvl);	
 			// refresh ont instance
 			try {
 				ont = (Ontology) ont.getClass().newInstance();

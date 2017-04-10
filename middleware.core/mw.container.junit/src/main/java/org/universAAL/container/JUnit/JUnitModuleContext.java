@@ -38,7 +38,7 @@ import org.universAAL.middleware.container.ModuleContext;
 public class JUnitModuleContext implements ModuleContext {
 
     public enum LogLevel {
-	ERROR, WARN, INFO, DEBUG, TRACE
+	ERROR, WARN, INFO, DEBUG, TRACE, NONE
     };
 
     private Logger logger;
@@ -76,23 +76,44 @@ public class JUnitModuleContext implements ModuleContext {
     }
 
     public void setLogLevel(LogLevel level) {
-	switch (level) {
-	case ERROR:
-	    logger.setLevel(Level.ERROR);
-	    break;
-	case WARN:
-	    logger.setLevel(Level.WARN);
-	    break;
-	case INFO:
-	    logger.setLevel(Level.INFO);
-	    break;
-	case DEBUG:
-	    logger.setLevel(Level.DEBUG);
-	    break;
-	case TRACE:
-	    logger.setLevel(Level.TRACE);
-	    break;
-	}
+    	switch (level) {
+    	case ERROR:
+    		logger.setLevel(Level.ERROR);
+    		break;
+    	case WARN:
+    		logger.setLevel(Level.WARN);
+    		break;
+    	case INFO:
+    		logger.setLevel(Level.INFO);
+    		break;
+    	case DEBUG:
+    		logger.setLevel(Level.DEBUG);
+    		break;
+    	case TRACE:
+    		logger.setLevel(Level.TRACE);
+    		break;
+    	case NONE:
+    		logger.setLevel(Level.OFF);
+    	}
+    }
+    
+    public LogLevel getLogLevel(){
+    	if (isLogErrorEnabled()){
+    		return LogLevel.ERROR;
+    	}
+    	if (isLogWarnEnabled()){
+    		return LogLevel.WARN;
+    	}
+    	if (isLogInfoEnabled()){
+    		return LogLevel.INFO;
+    	}
+    	if (isLogDebugEnabled()){
+    		return LogLevel.DEBUG;
+    	}
+    	if (isLogTraceEnabled()){
+    		return LogLevel.TRACE;
+    	}
+    	return LogLevel.NONE;
     }
 
     /** {@inheritDoc} */
