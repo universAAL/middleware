@@ -19,6 +19,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -117,6 +119,14 @@ public class OntTestCase extends BusTestCase {
 			
 			sb.append("] -> ");
 			sb.append(buildMsg(msgPart));
+			if (t != null){
+				StringWriter sw = new StringWriter();
+				PrintWriter pw = new PrintWriter(sw);
+				t.printStackTrace(pw);
+				sw.toString();
+				sb.append("\n"+ t.toString() + "\n");
+				sb.append(sw.getBuffer());
+			}
 			return sb.toString();
 		}
 	}
