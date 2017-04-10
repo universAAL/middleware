@@ -62,13 +62,13 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     /**
      * The minimum value, or null if no minimum is defined. Can also be a
-     * {@link Variable}.
+     * {@link Variable} reference.
      */
     private Object min = null;
 
     /**
      * The maximum value, or null if no maximum is defined. Can also be a
-     * {@link Variable}.
+     * {@link Variable} reference.
      */
     private Object max = null;
 
@@ -142,7 +142,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
      * @return true, if the type is valid.
      */
     protected boolean checkType(Object o) {
-	return o instanceof Variable;
+	return Variable.isVarRef(o);
     }
 
     /**

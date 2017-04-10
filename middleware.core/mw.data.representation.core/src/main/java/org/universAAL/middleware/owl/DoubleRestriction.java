@@ -86,14 +86,14 @@ public final class DoubleRestriction extends BoundedValueRestriction {
      * Creates a new restriction.
      * 
      * @param min
-     *            The minimum value, or a {@link Variable}, or null if no
-     *            minimum is defined.
+     *            The minimum value, or a {@link Variable} reference, or null if
+     *            no minimum is defined.
      * @param minInclusive
      *            True, if the minimum value is included. Ignored, if min is
      *            null.
      * @param max
-     *            The maximum value, or a {@link Variable}, or null if no
-     *            maximum is defined.
+     *            The maximum value, or a {@link Variable} reference, or null if
+     *            no maximum is defined.
      * @param maxInclusive
      *            True, if the maximum value is included. Ignored, if max is
      *            null.
