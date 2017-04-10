@@ -297,6 +297,9 @@ public class OntTestCase extends BusTestCase {
 		System.err.flush();
 		System.out.println("---------------------------------");
 		System.out.flush();
+		if (problems){
+			fail(sb.toString());
+		}
 	}
 
 	/**
