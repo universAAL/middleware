@@ -43,7 +43,6 @@ import org.slf4j.LoggerFactory;
 import org.universAAL.middleware.container.Attributes;
 import org.universAAL.middleware.container.Container;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 
 /**
  * An implementation of the concept of {@link ModuleContext} for OSGi.
