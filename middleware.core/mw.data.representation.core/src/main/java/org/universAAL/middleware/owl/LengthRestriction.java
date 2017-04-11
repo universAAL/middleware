@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.rdf.Variable;
 import org.universAAL.middleware.util.MatchLogEntry;
 import org.universAAL.middleware.xsd.NonNegativeInteger;
 
@@ -202,6 +203,35 @@ public abstract class LengthRestriction extends TypeRestriction {
 	return restrictions.size() > 0;
     }
 
+    /** @see BoundedValueRestriction#getNext(Comparable) */
+    protected Comparable getNext(Comparable c) {
+	return new NonNegativeInteger(((NonNegativeInteger) c).intValue() + 1);
+    }
+
+    /** @see BoundedValueRestriction#getPrevious(Comparable) */
+    protected Comparable getPrevious(Comparable c) {
+	return new NonNegativeInteger(((NonNegativeInteger) c).intValue() - 1);
+    }
+
+    /**
+     * Calculate the length of a member. The default implementation just returns
+     * the length of the String value. Sub classes may override this method.
+     * 
+     * @param member
+     *            the member for which to calculate the length.
+     * @return the length as NonNegativeInteger or a {@link Variable} if the
+     *         member is a {@link Variable}.
+     */
+    protected Object getMemberLen(Object member) {
+	if (member instanceof Variable)
+	    return member;
+	return new NonNegativeInteger(member.toString().length());
+    }
+    
+    protected Object getMemberValue(Object member) {
+	return getMemberLen(member);
+    }
+
     /**
      * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
      *      HashMap, int, List)
@@ -209,28 +239,24 @@ public abstract class LengthRestriction extends TypeRestriction {
     @Override
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
-	// TODO: extend with variables
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 
-	// check the length
-	int memlen = member == null ? 0 : member.toString().length();
+	Object min = this.min;
+	Object max = this.max;
 	if (len != null) {
-	    if (len.intValue() != memlen) {
-		return false;
-	    } else {
-		// check other facets
-		return super.hasMember(member, context, ttl, log);
-	    }
+	    min = len;
+	    max = len;
 	}
 
-	if (min != null)
-	    if (min.intValue() > memlen)
-		return false;
-	if (max != null)
-	    if (max.intValue() < memlen)
+	if (min != null || max != null)
+	    if (!hasMember(member, cloned, ttl, log, min, true, max, true))
 		return false;
 
-	// check other facets
-	return super.hasMember(member, context, ttl, log);
+	if (!super.hasMember(member, cloned, ttl, log))
+	    return false;
+
+	synchronize(context, cloned);
+	return true;
     }
 
     /**
@@ -239,8 +265,32 @@ public abstract class LengthRestriction extends TypeRestriction {
     @Override
     public boolean matches(TypeExpression subset, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
-	// TODO Auto-generated method stub
-	return false;
+	// ttl =
+	checkTTL(ttl);
+	// TODO: check other ClassExpressions (e.g. Union..)
+
+	if (!(subset instanceof LengthRestriction))
+	    return false;
+
+	LengthRestriction other = (LengthRestriction) subset;
+	if (!isWellFormed() || !other.isWellFormed())
+	    return false;
+
+	Object min = this.min;
+	Object max = this.max;
+	if (len != null) {
+	    min = len;
+	    max = len;
+	}
+
+	Object other_min = other.min;
+	Object other_max = other.max;
+	if (other.len != null) {
+	    other_min = other.len;
+	    other_max = other.len;
+	}
+
+	return matches(other_min, true, other_max, true, context, ttl, log, min, true, max, true);
     }
 
     /**

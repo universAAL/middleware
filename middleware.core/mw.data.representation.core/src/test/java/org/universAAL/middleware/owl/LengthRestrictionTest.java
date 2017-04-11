@@ -1,6 +1,7 @@
 package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.Resource;
+
 import junit.framework.TestCase;
 
 public class LengthRestrictionTest extends TestCase {
@@ -52,5 +53,27 @@ public class LengthRestrictionTest extends TestCase {
 	assertFalse(ur.hasMember(new Resource("1234")));
 	assertFalse(ur.hasMember(new Resource("12")));
 	assertFalse(ur.hasMember(new Resource("!!!")));
+    }
+    
+    public void testMatches1() {
+	URIRestriction u1 = new URIRestriction();
+	URIRestriction u2 = new URIRestriction();
+	
+	u1.setMin(4);
+	u1.setMax(6);
+	u2.setLen(5);
+	assertFalse(u2.matches(u1));
+	assertTrue(u1.matches(u2));
+    }
+    
+    public void testMatches2() {
+	URIRestriction u1 = new URIRestriction();
+	URIRestriction u2 = new URIRestriction();
+	
+	u1.setMin(5);
+	u1.setMax(5);
+	u2.setLen(5);
+	assertTrue(u2.matches(u1));
+	assertTrue(u1.matches(u2));
     }
 }
