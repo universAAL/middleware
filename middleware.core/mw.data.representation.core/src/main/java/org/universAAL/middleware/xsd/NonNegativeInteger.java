@@ -28,7 +28,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @see <a href="http://www.w3.org/TR/xmlschema-2/#nonNegativeInteger">XML
  *      Schema</a>
  */
-public final class NonNegativeInteger extends Number {
+public final class NonNegativeInteger extends Number implements Comparable<NonNegativeInteger> {
     private static final long serialVersionUID = 1L;
 
     /** URI for xsd:nonNegativeInteger. */
@@ -108,5 +108,9 @@ public final class NonNegativeInteger extends Number {
 	    return intval;
 	else
 	    return Integer.MAX_VALUE;
+    }
+
+    public int compareTo(NonNegativeInteger o) {
+	return Integer.valueOf(intval).compareTo(Integer.valueOf(o.intval));
     }
 }
