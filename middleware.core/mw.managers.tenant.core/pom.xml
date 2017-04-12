@@ -15,6 +15,10 @@
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.managers.api.core</artifactId>
     </dependency>
