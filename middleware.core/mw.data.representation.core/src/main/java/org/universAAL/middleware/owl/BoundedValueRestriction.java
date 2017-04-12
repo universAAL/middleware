@@ -224,7 +224,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
      */
     protected TypeExpression copyTo(BoundedValueRestriction copy) {
 	copy.setFacets(min, minInclusive, max, maxInclusive);
-	return copy;
+	return super.copyTo(copy);
     }
 
     /**

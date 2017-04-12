@@ -170,6 +170,19 @@ public abstract class TypeRestriction extends TypeExpression {
 	restrictions.add(r);
     }
 
+    /**
+     * Copy the facets to a different {@link TypeRestriction}.
+     * 
+     * @param copy
+     *            The object to which to copy the facets.
+     * @return the value given as parameter, but with the restrictions copied.
+     * @see org.universAAL.middleware.owl.TypeExpression#copy()
+     */
+    protected TypeExpression copyTo(TypeRestriction copy) {
+	copy.setPattern(pattern);
+	return copy;
+    }
+
     /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
     @Override
     public String[] getNamedSuperclasses() {
@@ -221,6 +234,19 @@ public abstract class TypeRestriction extends TypeExpression {
 	    return false;
 	}
 
+	return setPattern(compiledPattern);
+    }
+
+    /**
+     * Set a pattern (regular expression). This pattern is added to the list of
+     * constraining facets for this restriction.
+     * 
+     * @param pattern
+     *            The pattern as defined in {@link Pattern}.
+     * @return true, if the pattern could be set, i.e. the pattern must be valid
+     *         and no other pattern was set before.
+     */
+    private boolean setPattern(Pattern compiledPattern) {
 	addConstrainingFacet(XSD_FACET_PATTERN, pattern);
 	this.pattern = compiledPattern;
 	return true;

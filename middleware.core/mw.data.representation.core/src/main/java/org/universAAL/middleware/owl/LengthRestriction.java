@@ -338,11 +338,6 @@ public abstract class LengthRestriction extends TypeRestriction {
     }
 
     /**
-     * Helper method to copy Restrictions.
-     * 
-     * @see org.universAAL.middleware.owl.TypeExpression#copy()
-     */
-    /**
      * Copy the facets to a different {@link LengthRestriction}.
      * 
      * @param copy
@@ -354,7 +349,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 	copy.setLen(len);
 	copy.setMin(min);
 	copy.setMax(max);
-	return copy;
+	return super.copyTo(copy);
     }
 
     /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
