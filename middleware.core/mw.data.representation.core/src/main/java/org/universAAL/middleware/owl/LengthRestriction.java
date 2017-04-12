@@ -22,6 +22,10 @@ package org.universAAL.middleware.owl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+
+import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.datarep.SharedResources;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.rdf.Variable;
 import org.universAAL.middleware.util.MatchLogEntry;
@@ -55,14 +59,23 @@ public abstract class LengthRestriction extends TypeRestriction {
     /** URI for the facet xsd:maxLength. */
     protected static final String XSD_FACET_MAX_LENGTH;
 
-    /** The length value, or null if no length is defined. */
-    private NonNegativeInteger len = null;
+    /**
+     * The length value, or null if no length is defined. Must be either a
+     * {@link NonNegativeInteger} or a {@link Variable} reference.
+     */
+    private Object len = null;
 
-    /** The minLength value, or null if no minLength is defined. */
-    private NonNegativeInteger min = null;
+    /**
+     * The minLength value, or null if no minLength is defined. Must be either a
+     * {@link NonNegativeInteger} or a {@link Variable} reference.
+     */
+    private Object min = null;
 
-    /** The maxLength value, or null if no maxLength is defined. */
-    private NonNegativeInteger max = null;
+    /**
+     * The maxLength value, or null if no maxLength is defined. Must be either a
+     * {@link NonNegativeInteger} or a {@link Variable} reference.
+     */
+    private Object max = null;
 
     static {
 	XSD_FACET_LENGTH = TypeMapper.XSD_NAMESPACE + "length";
@@ -87,8 +100,8 @@ public abstract class LengthRestriction extends TypeRestriction {
      * @param len
      *            the length.
      */
-    public void setLen(int len) {
-	setLen(new NonNegativeInteger(len));
+    public boolean setLen(int len) {
+	return setLen(new NonNegativeInteger(len));
     }
 
     /**
@@ -97,11 +110,55 @@ public abstract class LengthRestriction extends TypeRestriction {
      * @param len
      *            the length.
      */
-    public void setLen(NonNegativeInteger len) {
-	// TODO: check with other facets
-	if (len != null)
-	    addConstrainingFacet(XSD_FACET_MIN_LENGTH, len);
+    public boolean setLen(NonNegativeInteger len) {
+	if (len == null)
+	    throw new NullPointerException();
+
+	if (this.len != null || min != null || max != null) {
+	    LogUtils.logError(SharedResources.moduleContext, LengthRestriction.class, "setLen",
+		    "Length for LengthRestriction already set.");
+	    return false;
+	}
+
+	addConstrainingFacet(XSD_FACET_LENGTH, len);
 	this.len = len;
+	return true;
+    }
+
+    /**
+     * Set the length.
+     * 
+     * @param len
+     *            the length.
+     */
+    public boolean setLen(Resource len) {
+	if (!Variable.isVarRef(len)) {
+	    throw new IllegalArgumentException("Cannot set len for a resource other than Variable: " + len);
+	}
+	if (this.len != null || min != null || max != null) {
+	    LogUtils.logError(SharedResources.moduleContext, LengthRestriction.class, "setLen",
+		    "Setting length for LengthRestriction not possible, it already contains a length restriction.");
+	    return false;
+	}
+
+	addConstrainingFacet(XSD_FACET_LENGTH, len);
+	this.len = len;
+	return true;
+    }
+
+    /**
+     * Set the length.
+     * 
+     * @param len
+     *            the length.
+     */
+    private boolean setLen(Object len) {
+	if (len instanceof NonNegativeInteger)
+	    return setLen((NonNegativeInteger) len);
+	if (len instanceof Resource)
+	    return setLen((Resource) len);
+
+	throw new IllegalArgumentException("Cannot set len for: " + len);
     }
 
     /**
@@ -110,8 +167,8 @@ public abstract class LengthRestriction extends TypeRestriction {
      * @param min
      *            the minimum length.
      */
-    public void setMin(int min) {
-	setMin(new NonNegativeInteger(min));
+    public boolean setMin(int min) {
+	return setMin(new NonNegativeInteger(min));
     }
 
     /**
@@ -120,11 +177,71 @@ public abstract class LengthRestriction extends TypeRestriction {
      * @param min
      *            the minimum length.
      */
-    public void setMin(NonNegativeInteger min) {
-	// TODO: check with other facets
-	if (min != null)
-	    addConstrainingFacet(XSD_FACET_MIN_LENGTH, min);
+    public boolean setMin(NonNegativeInteger min) {
+	if (min == null)
+	    throw new NullPointerException();
+
+	if (len != null || this.min != null) {
+	    LogUtils.logError(SharedResources.moduleContext, LengthRestriction.class, "setMin",
+		    "Length for LengthRestriction already set.");
+	    return false;
+	}
+	
+	if (max != null && max instanceof NonNegativeInteger) {
+	    if (min.compareTo((NonNegativeInteger) max) > 0)
+		throw new IllegalArgumentException(
+			"Cannot set a min value that is greater than the already set max value");
+	}
+
+	addConstrainingFacet(XSD_FACET_MIN_LENGTH, min);
 	this.min = min;
+	return true;
+    }
+    
+    /**
+     * Set the minimum length.
+     * 
+     * @param min
+     *            the minimum length.
+     */
+    public boolean setMin(Resource min) {
+	if (!Variable.isVarRef(len)) {
+	    throw new IllegalArgumentException("Cannot set min len for a resource other than Variable: " + min);
+	}
+	if (len != null || this.min != null) {
+	    LogUtils.logError(SharedResources.moduleContext, LengthRestriction.class, "setMin",
+		    "Setting length for LengthRestriction not possible, it already contains a length restriction.");
+	    return false;
+	}
+
+	addConstrainingFacet(XSD_FACET_MIN_LENGTH, min);
+	this.min = min;
+	return true;
+    }
+
+    /**
+     * Set the minimum length.
+     * 
+     * @param min
+     *            the minimum length.
+     */
+    private boolean setMin(Object min) {
+	if (min instanceof NonNegativeInteger)
+	    return setMin((NonNegativeInteger) min);
+	if (min instanceof Resource)
+	    return setMin((Resource) min);
+
+	throw new IllegalArgumentException("Cannot set min for: " + min);
+    }
+    
+    /**
+     * Set the maximum length.
+     * 
+     * @param max
+     *            the maximum length.
+     */
+    public boolean setMax(int max) {
+	return setMax(new NonNegativeInteger(max));
     }
 
     /**
@@ -133,47 +250,90 @@ public abstract class LengthRestriction extends TypeRestriction {
      * @param max
      *            the maximum length.
      */
-    public void setMax(int max) {
-	setMax(new NonNegativeInteger(max));
-    }
+    public boolean setMax(NonNegativeInteger max) {
+	if (max == null)
+	    throw new NullPointerException();
 
-    /**
-     * Set the maximum length.
-     * 
-     * @param max
-     *            the maximum length.
-     */
-    public void setMax(NonNegativeInteger max) {
-	// TODO: check with other facets
-	if (max != null)
-	    addConstrainingFacet(XSD_FACET_MIN_LENGTH, max);
+	if (len != null || this.max != null) {
+	    LogUtils.logError(SharedResources.moduleContext, LengthRestriction.class, "setMax",
+		    "Length for LengthRestriction already set.");
+	    return false;
+	}
+	
+	if (min != null && min instanceof NonNegativeInteger) {
+	    if (((NonNegativeInteger) min).compareTo(max) > 0)
+		throw new IllegalArgumentException(
+			"Cannot set a max value that is smaller than the already set min value");
+	}
+
+	addConstrainingFacet(XSD_FACET_MAX_LENGTH, max);
 	this.max = max;
+	return true;
+    }
+
+    /**
+     * Set the maximum length.
+     * 
+     * @param max
+     *            the maximum length.
+     */
+    public boolean setMax(Resource max) {
+	if (!Variable.isVarRef(max)) {
+	    throw new IllegalArgumentException("Cannot set max len for a resource other than Variable: " + max);
+	}
+	if (len != null || this.max != null) {
+	    LogUtils.logError(SharedResources.moduleContext, LengthRestriction.class, "setMax",
+		    "Setting length for LengthRestriction not possible, it already contains a length restriction.");
+	    return false;
+	}
+
+	addConstrainingFacet(XSD_FACET_MAX_LENGTH, max);
+	this.max = max;
+	return true;
+    }
+
+    /**
+     * Set the maximum length.
+     * 
+     * @param max
+     *            the maximum length.
+     */
+    private boolean setMax(Object max) {
+	if (max instanceof NonNegativeInteger)
+	    return setMax((NonNegativeInteger) max);
+	if (max instanceof Resource)
+	    return setMax((Resource) max);
+
+	throw new IllegalArgumentException("Cannot set max for: " + max);
     }
 
     /**
      * Get the length.
      * 
-     * @return the length, or null if not defined.
+     * @return the length, or null if not defined. Can also be a
+     *         {@link Variable} reference.
      */
-    public NonNegativeInteger getLen() {
+    public Object getLen() {
 	return len;
     }
 
     /**
      * Get the minimum length.
      * 
-     * @return the minimum length, or null if not defined.
+     * @return the minimum length, or null if not defined. Can also be a
+     *         {@link Variable} reference.
      */
-    public NonNegativeInteger getMin() {
+    public Object getMin() {
 	return min;
     }
 
     /**
      * Get the maximum length.
      * 
-     * @return the maximum length, or null if not defined.
+     * @return the maximum length, or null if not defined. Can also be a
+     *         {@link Variable} reference.
      */
-    public NonNegativeInteger getMax() {
+    public Object getMax() {
 	return max;
     }
 
@@ -260,7 +420,8 @@ public abstract class LengthRestriction extends TypeRestriction {
     }
 
     /**
-     * Not supported. Always returns false.
+     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
+     *      HashMap, int, List)
      */
     @Override
     public boolean matches(TypeExpression subset, HashMap context, int ttl,
@@ -299,7 +460,6 @@ public abstract class LengthRestriction extends TypeRestriction {
     @Override
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
-	// TODO Auto-generated method stub
 	return false;
     }
 

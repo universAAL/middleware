@@ -10,6 +10,38 @@ public class LengthRestrictionTest extends TestCase {
 	super.setUp();
     }
 
+    public void testSettingValue1() {
+	URIRestriction u = new URIRestriction();
+	assertTrue(u.setLen(3));
+	assertFalse(u.setLen(4));
+	assertFalse(u.setMin(3));
+	assertFalse(u.setMax(3));
+    }
+
+    public void testSettingValue2() {
+	URIRestriction u = new URIRestriction();
+	assertTrue(u.setMin(3));
+	try {
+	    u.setMax(2);
+	    assertTrue(false);
+	} catch (IllegalArgumentException e) {
+	}
+	assertFalse(u.setMin(4));
+	assertTrue(u.setMax(4));
+    }
+    
+    public void testSettingValue3() {
+	URIRestriction u = new URIRestriction();
+	assertTrue(u.setMax(3));
+	try {
+	    u.setMin(4);
+	    assertTrue(false);
+	} catch (IllegalArgumentException e) {
+	}
+	assertFalse(u.setMax(4));
+	assertTrue(u.setMin(2));
+    }
+    
     private void testPatternHasMember(String pattern, String member,
 	    boolean shouldMatch) {
 	if ((!member.matches(pattern) && shouldMatch)
