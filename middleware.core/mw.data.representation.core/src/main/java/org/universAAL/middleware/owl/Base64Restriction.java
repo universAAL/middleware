@@ -58,8 +58,7 @@ public class Base64Restriction extends LengthRestriction {
     @Override
     protected Object getMemberLen(Object member) {
 	if (member instanceof Base64Binary) {
-	    // TODO
-	    return member.toString().length();
+	    return new NonNegativeInteger(((Base64Binary)member).getDecodedLength());
 	}
 	return super.getMemberLen(member);
     }
