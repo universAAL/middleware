@@ -379,7 +379,15 @@ public abstract class TypeRestriction extends TypeExpression {
 	return resolution;
     }
 
-    protected Object getMemberValue(Object member) {
+    /**
+     * Calculate the value for the member that needs to be checked during
+     * {@link #hasMember(Object)}. Sub classes may override this method.
+     * 
+     * @param member
+     *            the member.
+     * @return the value to check.
+     */
+    protected Object getMemberValueToCheck(Object member) {
 	return member;
     }
     
@@ -393,7 +401,7 @@ public abstract class TypeRestriction extends TypeExpression {
 	member = Variable.resolveVarRef(member, context);
 
 	// get the value to be checked against the lower- and upperbounds
-	Object valueToCheck = getMemberValue(member);
+	Object valueToCheck = getMemberValueToCheck(member);
 	if (!(valueToCheck instanceof Comparable))
 	    return false;
 

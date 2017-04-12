@@ -383,7 +383,9 @@ public abstract class LengthRestriction extends TypeRestriction {
 	return new NonNegativeInteger(member.toString().length());
     }
     
-    protected Object getMemberValue(Object member) {
+    /** @see TypeRestriction#getMemberValueToCheck(Object) */
+    @Override
+    protected Object getMemberValueToCheck(Object member) {
 	return getMemberLen(member);
     }
 

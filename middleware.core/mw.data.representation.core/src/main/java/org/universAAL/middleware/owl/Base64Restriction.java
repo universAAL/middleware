@@ -19,7 +19,9 @@ limitations under the License.
 package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.rdf.Variable;
 import org.universAAL.middleware.xsd.Base64Binary;
+import org.universAAL.middleware.xsd.NonNegativeInteger;
 
 /**
  * A {@link TypeExpression} ({@link LengthRestriction}) that contains all
@@ -41,5 +43,24 @@ public class Base64Restriction extends LengthRestriction {
     @Override
     public TypeExpression copy() {
 	return copyTo(new Base64Restriction());
+    }
+
+    /**
+     * Calculate the length of a member. Overriden to provide the length of the
+     * <i>decoded</i> value instead of the encoded value as the default
+     * implementation of the super class would provide.
+     * 
+     * @param member
+     *            the member for which to calculate the length.
+     * @return the length as NonNegativeInteger or a {@link Variable} if the
+     *         member is a {@link Variable}.
+     */
+    @Override
+    protected Object getMemberLen(Object member) {
+	if (member instanceof Base64Binary) {
+	    // TODO
+	    return member.toString().length();
+	}
+	return super.getMemberLen(member);
     }
 }
