@@ -1,6 +1,7 @@
 package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.xsd.Base64Binary;
 
 import junit.framework.TestCase;
 
@@ -107,5 +108,21 @@ public class LengthRestrictionTest extends TestCase {
 	u2.setLen(5);
 	assertTrue(u2.matches(u1));
 	assertTrue(u1.matches(u2));
+    }
+    
+    public void testBase64Binary() {
+	Base64Restriction b = new Base64Restriction();
+	b.setLen(5);
+	assertTrue(b.hasMember(new Base64Binary("12345".getBytes())));
+	assertFalse(b.hasMember(new Base64Binary("1234".getBytes())));
+	assertFalse(b.hasMember(new Base64Binary("123456".getBytes())));
+	
+	b = new Base64Restriction();
+	b.setMin(4);
+	b.setMax(5);
+	assertTrue(b.hasMember(new Base64Binary("12345".getBytes())));
+	assertTrue(b.hasMember(new Base64Binary("1234".getBytes())));
+	assertFalse(b.hasMember(new Base64Binary("123".getBytes())));
+	assertFalse(b.hasMember(new Base64Binary("123456".getBytes())));
     }
 }
