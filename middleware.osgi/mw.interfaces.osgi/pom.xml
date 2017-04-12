@@ -15,10 +15,6 @@
   <name>universAAL Middleware Interfaces (OSGi)</name>
   <dependencies>
     <dependency>
-      <groupId>org.universAAL.support</groupId>
-      <artifactId>itests</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.interfaces.core</artifactId>
     </dependency>
