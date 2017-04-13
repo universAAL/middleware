@@ -59,6 +59,8 @@ public final class TypeExpressionFactory {
 	datatypeMap.put(IndividualRestriction.DATATYPE_URI, Integer.valueOf(3));
 	datatypeMap.put(LongRestriction.DATATYPE_URI, Integer.valueOf(4));
 	datatypeMap.put(URIRestriction.DATATYPE_URI, Integer.valueOf(5));
+	datatypeMap.put(Base64Restriction.DATATYPE_URI, Integer.valueOf(6));
+	datatypeMap.put(StringRestriction.DATATYPE_URI, Integer.valueOf(7));
     }
 
     private TypeExpressionFactory() {
@@ -133,6 +135,10 @@ public final class TypeExpressionFactory {
 		    return new LongRestriction();
 		case 5:
 		    return new URIRestriction();
+		case 6:
+		    return new Base64Restriction();
+		case 7:
+		    return new StringRestriction();
 		}
 	    }
 	}
