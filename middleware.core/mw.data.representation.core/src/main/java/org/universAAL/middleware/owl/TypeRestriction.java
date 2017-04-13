@@ -179,7 +179,8 @@ public abstract class TypeRestriction extends TypeExpression {
      * @see org.universAAL.middleware.owl.TypeExpression#copy()
      */
     protected TypeExpression copyTo(TypeRestriction copy) {
-	copy.setPattern(pattern);
+	if (pattern != null)
+	    copy.setPattern(pattern);
 	return copy;
     }
 
