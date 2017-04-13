@@ -24,7 +24,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * @author amedrano
  * 
  */
-public class Recommendation extends ManagedIndividual {
+public abstract class Recommendation extends ManagedIndividual {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
 	    + "Recommendation";
