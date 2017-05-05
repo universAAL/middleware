@@ -23,6 +23,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -250,6 +252,15 @@ public class OntTestCase extends BusTestCase {
 	 */
 	private void autoLoadOntologies(){
 		List<Ontology> toBeLoaded = getOntologies();
+		// The ordering in this list may differ if you call it as mvn-install or JUnit.
+		// The sorting ensures that an ontology project is always handled the same way.
+		// Otherwise it can happen that mvn-install will throw an error, but
+		// JUnit won't, which makes debugging difficult.
+		Collections.sort(toBeLoaded, new Comparator<Ontology>() {
+		    public int compare(Ontology o1, Ontology o2) {
+			return o1.getInfo().getURI().compareTo(o2.getInfo().getURI());
+		    }
+		});
 		int totalOntologiesFound = toBeLoaded.size();
 		Map<Ontology, OntologyLoaderTask> pendingOnts = new HashMap<Ontology, OntTestCase.OntologyLoaderTask>();
 		List<OntologyLoaderTask> loadingOrder = new ArrayList<OntTestCase.OntologyLoaderTask>();
@@ -257,20 +268,26 @@ public class OntTestCase extends BusTestCase {
 			pendingOnts.put(ont, new OntologyLoaderTask(ont));
 		}
 		
-		while (!toBeLoaded.isEmpty() ) {
-			Ontology next = toBeLoaded.remove(0);
-			OntologyLoaderTask otl = pendingOnts.get(next);
-
-			otl.attempt();
-			if ((!otl.allImportsRegistered()
-					|| otl.errors > 0)
-					&& otl.attempts <= totalOntologiesFound*2){
-				otl.unregister();
-				toBeLoaded.add(next);
-				continue;
-			}
-			loadingOrder.add(otl);
-		}
+		// first add all onts that are not from this project
+		TryLoadingOnts(toBeLoaded, false, pendingOnts, loadingOrder, totalOntologiesFound);
+		// then add all onts that are from this project
+		TryLoadingOnts(toBeLoaded, true, pendingOnts, loadingOrder, totalOntologiesFound);
+		
+//		while (!toBeLoaded.isEmpty() ) {
+//			Ontology next = toBeLoaded.remove(0);
+//			OntologyLoaderTask otl = pendingOnts.get(next);
+//
+//			otl.attempt();
+//			if ((!otl.allImportsRegistered()
+//					|| otl.errors > 0)
+//					&& otl.attempts <= totalOntologiesFound*2){
+//				otl.unregister();
+//				toBeLoaded.add(next);
+//				continue;
+//			}
+//			loadingOrder.add(otl);
+//		}
+		
 		//Print Summary
 		System.out.println("---------------------------------");
 		System.out.println("AUTO LOAD RESULT");
@@ -279,8 +296,8 @@ public class OntTestCase extends BusTestCase {
 		sb.append(" Ontology problems found in this project:\n");
 		boolean problems = false;
 		for (OntologyLoaderTask olt : loadingOrder) {
-			System.out.println("\t" + olt.ont.getInfo().getURI() + " " + olt.report());
-			if (isInMyProy(olt.ont)){
+			System.out.println("\t" + (isInMyProy(olt.ont)?"* ":"  ") + olt.ont.getInfo().getURI() + " " + olt.report());
+//			if (isInMyProy(olt.ont)){
 				if (!olt.logEntries.isEmpty()){
 					sb.append("\t"+ olt.ont.getInfo().getURI() + "\n" );
 					problems = true;
@@ -288,7 +305,7 @@ public class OntTestCase extends BusTestCase {
 						sb.append("\t\t" + le.toString() + "\n");
 					}
 				}
-			}
+//			}
 		}
 		System.out.flush();
 		if (problems){
@@ -302,6 +319,32 @@ public class OntTestCase extends BusTestCase {
 		}
 	}
 
+	
+    private void TryLoadingOnts(List<Ontology> toBeLoaded, boolean isInMyProject,
+	    Map<Ontology, OntologyLoaderTask> pendingOnts, List<OntologyLoaderTask> loadingOrder,
+	    int totalOntologiesFound) {
+
+	// filter the list of onts to those are isInMyProject
+	List<Ontology> ontStep = new ArrayList<Ontology>();
+	for (Ontology o : toBeLoaded) {
+	    if (isInMyProy(o) == isInMyProject)
+		ontStep.add(o);
+	}
+
+	while (!ontStep.isEmpty()) {
+	    Ontology next = ontStep.remove(0);
+	    OntologyLoaderTask otl = pendingOnts.get(next);
+
+	    otl.attempt();
+	    if ((!otl.allImportsRegistered() || otl.errors > 0) && otl.attempts <= totalOntologiesFound * 2) {
+		otl.unregister();
+		ontStep.add(next);
+		continue;
+	    }
+	    loadingOrder.add(otl);
+	}
+    }
+	
 	/**
 	 * Recovers the serializer. 
 	 * @return the serializer.
