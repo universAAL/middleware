@@ -2,6 +2,7 @@ package org.universAAL.middleware.service.test;
 
 import java.util.List;
 
+import org.universAAL.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ProfileExistsException;
@@ -39,6 +40,11 @@ public class DistributedTest extends ServiceBusTestCase {
 
     Integer int11 = new Integer(11);
     Integer int22 = new Integer(22);
+
+    protected void setUp() throws Exception {
+	super.setUp();
+	mc.setLogLevel(LogLevel.WARN);
+    }
 
     /**
      * Helper method to check if the response is valid and has exactly the
