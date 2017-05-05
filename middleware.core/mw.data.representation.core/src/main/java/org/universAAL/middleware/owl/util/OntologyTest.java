@@ -54,6 +54,7 @@ public final class OntologyTest {
      */
     public static boolean postTestClass(Ontology ont, OntClassInfo info,
 	    HashMap<String, String> dbgClass) {
+
 	ResourceFactory fact = info.getFactory();
 	if (fact == null)
 	    // must be an abstract class
@@ -76,7 +77,7 @@ public final class OntologyTest {
 			    " does not have a super class defined." }, null);
 	    return false;
 	}
-	HashSet supcls = new HashSet();
+	HashSet<String> supcls = new HashSet<String>();
 	for (String tmp : superClasses)
 	    supcls.add(tmp);
 	// if (!supcls.contains(ManagedIndividual.MY_URI)) {
@@ -101,9 +102,9 @@ public final class OntologyTest {
 	// System.out.println("    -- registered super class: " + o);
 	// }
 	Class superClassJava = m.getClass().getSuperclass();
-	do {
+	while (Modifier.isAbstract(superClassJava.getModifiers())) {
 	    superClassJava = superClassJava.getSuperclass();
-	} while (Modifier.isAbstract(superClassJava.getModifiers()));
+	}
 	while (!(superClassJava.equals(Object.class))
 		&& !(superClassJava.equals(ManagedIndividual.class))
 		&& !(superClassJava.equals(FinalizedResource.class))
@@ -112,7 +113,7 @@ public final class OntologyTest {
 	    String superClassURI = dbgClass.get(superClassJava.getName());
 
 	    if (superClassURI == null) {
-		LogUtils.logDebug(
+		LogUtils.logWarn(
 			SharedResources.moduleContext,
 			OntologyTest.class,
 			"postTestClass",
@@ -127,7 +128,11 @@ public final class OntologyTest {
 			null);
 	    } else {
 		if (!(supcls.contains(superClassURI))) {
-		    LogUtils.logDebug(
+		    String s = "";
+		    for (String s2 : supcls) {
+			s += s2 + "\n";
+		    }
+		    LogUtils.logWarn(
 			    SharedResources.moduleContext,
 			    OntologyTest.class,
 			    "postTestClass",
@@ -140,7 +145,8 @@ public final class OntologyTest {
 				    superClassJava.getName(),
 				    ") that is registered in Ontology Management with the URI '",
 				    superClassURI,
-				    "', but this class is not defined as a super class of this class (neither directly nor indirectly)." },
+				    "', but this class is not defined as a super class of this class (neither directly nor indirectly). The defined super classes are:\n", s
+				    },
 			    null);
 		}
 	    }

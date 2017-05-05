@@ -117,7 +117,7 @@ public class RDFClassInfo extends FinalizedResource {
 		return;
 
 	    if (instance == null) {
-		LogUtils.logDebug(SharedResources.moduleContext,
+		LogUtils.logWarn(SharedResources.moduleContext,
 			PrivateRDFSetup.class, "addInstance",
 			new Object[] { "Called with null." }, null);
 		return;
