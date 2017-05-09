@@ -453,13 +453,15 @@ public class OntTestCase extends BusTestCase {
 	private boolean isInMyProy(Ontology ont) {
 		URL ontLoadURL = ont.getClass().getResource(ont.getClass().getSimpleName() + ".class");
 		if (ontLoadURL == null ) {
+			//System.out.println(" -- false1 - " + ont.getClass().getSimpleName());
 			return false;
 		}
 		String ontLoad = ontLoadURL.toString();
-		if (ontLoad != null && ontLoad.contains("/target/classes/")) {
+		if (ontLoad != null && (ontLoad.contains("/target/classes/") || ontLoad.contains("/target/generated-classes/"))) {
 			//System.out.println(ontLoad);
 			return true;
 		}
+		//System.out.println(" -- false2 - " + ont.getClass().getSimpleName() + "   " + ontLoad);
 		return false;
 	}
 
