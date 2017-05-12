@@ -294,10 +294,12 @@ public class OntTestCase extends BusTestCase {
 		System.out.println(" Load Order:");
 		StringBuffer sb = new StringBuffer();
 		sb.append(" Ontology problems found in this project:\n");
+		StringBuffer sbo = new StringBuffer(" Problems detected in other Ontologies:\n");
 		boolean problems = false;
+		boolean otherProblems= false;
 		for (OntologyLoaderTask olt : loadingOrder) {
 			System.out.println("\t" + (isInMyProy(olt.ont)?"* ":"  ") + olt.ont.getInfo().getURI() + " " + olt.report());
-//			if (isInMyProy(olt.ont)){
+			if (isInMyProy(olt.ont)){
 				if (!olt.logEntries.isEmpty()){
 					sb.append("\t"+ olt.ont.getInfo().getURI() + "\n" );
 					problems = true;
@@ -305,11 +307,24 @@ public class OntTestCase extends BusTestCase {
 						sb.append("\t\t" + le.toString() + "\n");
 					}
 				}
-//			}
+			}
+			else {
+				if (!olt.logEntries.isEmpty()){
+					sbo.append("\t"+ olt.ont.getInfo().getURI() + "\n" );
+				otherProblems = true;
+				for (LogEntry le : olt.logEntries) {
+					sbo.append("\t\t" + le.toString() + "\n");
+				}
+			}
+				
+			}
 		}
 		System.out.flush();
 		if (problems){
 			System.err.println(sb.toString());
+		}
+		if (otherProblems){
+			System.out.print(sbo.toString());
 		}
 		System.err.flush();
 		System.out.println("---------------------------------");
