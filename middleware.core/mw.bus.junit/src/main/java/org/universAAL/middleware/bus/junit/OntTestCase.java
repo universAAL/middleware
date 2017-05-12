@@ -304,7 +304,7 @@ public class OntTestCase extends BusTestCase {
 					sb.append("\t"+ olt.ont.getInfo().getURI() + "\n" );
 					problems = true;
 					for (LogEntry le : olt.logEntries) {
-						sb.append("\t\t" + le.toString() + "\n");
+						sb.append("\t\t" + le.toString().replaceAll("\n", "\n\t\t") + "\n");
 					}
 				}
 			}
@@ -313,7 +313,7 @@ public class OntTestCase extends BusTestCase {
 					sbo.append("\t"+ olt.ont.getInfo().getURI() + "\n" );
 				otherProblems = true;
 				for (LogEntry le : olt.logEntries) {
-					sbo.append("\t\t" + le.toString() + "\n");
+					sbo.append("\t\t" + le.toString().replaceAll("\n", "\n\t\t") + "\n");
 				}
 			}
 				
