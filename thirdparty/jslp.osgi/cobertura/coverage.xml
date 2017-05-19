@@ -1,0 +1,389 @@
+<?xml version="1.0"?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="73" branches-covered="0" branches-valid="19" complexity="1.411764705882353" version="2.1.1" timestamp="1495151757206">
+	<sources>
+		<source>--source</source>
+		<source>/home/travis/build/universAAL/middleware/thirdparty/jslp.osgi/src/main/java</source>
+	</sources>
+	<packages>
+		<package name="ch.ethz.iks.slp.impl" line-rate="0.0" branch-rate="0.0" complexity="1.411764705882353">
+			<classes>
+				<class name="ch.ethz.iks.slp.impl.Activator" filename="ch/ethz/iks/slp/impl/Activator.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="43" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="start" signature="(Lorg/osgi/framework/BundleContext;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="52" hits="0" branch="false"/>
+								<line number="56" hits="0" branch="false"/>
+								<line number="69" hits="0" branch="false"/>
+								<line number="81" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="stop" signature="(Lorg/osgi/framework/BundleContext;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="93" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="43" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="false"/>
+						<line number="56" hits="0" branch="false"/>
+						<line number="69" hits="0" branch="false"/>
+						<line number="81" hits="0" branch="false"/>
+						<line number="93" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="ch.ethz.iks.slp.impl.Activator$1" filename="ch/ethz/iks/slp/impl/Activator.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lch/ethz/iks/slp/impl/Activator;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="57" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getService" signature="(Lorg/osgi/framework/Bundle;Lorg/osgi/framework/ServiceRegistration;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="60" hits="0" branch="false"/>
+								<line number="61" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="ungetService" signature="(Lorg/osgi/framework/Bundle;Lorg/osgi/framework/ServiceRegistration;Ljava/lang/Object;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="67" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="57" hits="0" branch="false"/>
+						<line number="60" hits="0" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
+						<line number="62" hits="0" branch="false"/>
+						<line number="67" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="ch.ethz.iks.slp.impl.Activator$2" filename="ch/ethz/iks/slp/impl/Activator.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lch/ethz/iks/slp/impl/Activator;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="70" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getService" signature="(Lorg/osgi/framework/Bundle;Lorg/osgi/framework/ServiceRegistration;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="73" hits="0" branch="false"/>
+								<line number="74" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="ungetService" signature="(Lorg/osgi/framework/Bundle;Lorg/osgi/framework/ServiceRegistration;Ljava/lang/Object;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="79" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="70" hits="0" branch="false"/>
+						<line number="73" hits="0" branch="false"/>
+						<line number="74" hits="0" branch="false"/>
+						<line number="79" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="ch.ethz.iks.slp.impl.OSGiPlatformAbstraction" filename="ch/ethz/iks/slp/impl/OSGiPlatformAbstraction.java" line-rate="0.0" branch-rate="0.0" complexity="1.7777777777777777">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lorg/osgi/framework/BundleContext;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="59" hits="0" branch="false"/>
+								<line number="74" hits="0" branch="false"/>
+								<line number="75" hits="0" branch="false"/>
+								<line number="78" hits="0" branch="false"/>
+								<line number="79" hits="0" branch="false"/>
+								<line number="80" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="81" hits="0" branch="false"/>
+								<line number="85" hits="0" branch="false"/>
+								<line number="86" hits="0" branch="false"/>
+								<line number="88" hits="0" branch="false"/>
+								<line number="89" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="createFilter" signature="(Ljava/lang/String;)Lch/ethz/iks/slp/impl/filter/Filter;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="97" hits="0" branch="false"/>
+								<line number="98" hits="0" branch="false"/>
+								<line number="99" hits="0" branch="false"/>
+								<line number="108" hits="0" branch="false"/>
+								<line number="109" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="logDebug" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="118" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="119" hits="0" branch="false"/>
+								<line number="121" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="logDebug" signature="(Ljava/lang/String;Ljava/lang/Throwable;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="129" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="130" hits="0" branch="false"/>
+								<line number="132" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="logError" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="139" hits="0" branch="false"/>
+								<line number="140" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="logError" signature="(Ljava/lang/String;Ljava/lang/Throwable;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="148" hits="0" branch="false"/>
+								<line number="149" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="logTraceDrop" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="166" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="167" hits="0" branch="false"/>
+								<line number="169" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="logTraceMessage" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="156" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="157" hits="0" branch="false"/>
+								<line number="159" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="logTraceReg" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="176" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="177" hits="0" branch="false"/>
+								<line number="179" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="logWarning" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="186" hits="0" branch="false"/>
+								<line number="187" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="logWarning" signature="(Ljava/lang/String;Ljava/lang/Throwable;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="195" hits="0" branch="false"/>
+								<line number="196" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="serviceChanged" signature="(Lorg/osgi/framework/ServiceEvent;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="203" hits="0" branch="true" condition-coverage="0% (0/3)">
+									<conditions>
+										<condition number="0" type="switch" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="205" hits="0" branch="false"/>
+								<line number="206" hits="0" branch="false"/>
+								<line number="208" hits="0" branch="false"/>
+								<line number="211" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="59" hits="0" branch="false"/>
+						<line number="74" hits="0" branch="false"/>
+						<line number="75" hits="0" branch="false"/>
+						<line number="78" hits="0" branch="false"/>
+						<line number="79" hits="0" branch="false"/>
+						<line number="80" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="81" hits="0" branch="false"/>
+						<line number="85" hits="0" branch="false"/>
+						<line number="86" hits="0" branch="false"/>
+						<line number="88" hits="0" branch="false"/>
+						<line number="89" hits="0" branch="false"/>
+						<line number="97" hits="0" branch="false"/>
+						<line number="98" hits="0" branch="false"/>
+						<line number="99" hits="0" branch="false"/>
+						<line number="108" hits="0" branch="false"/>
+						<line number="109" hits="0" branch="false"/>
+						<line number="118" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="119" hits="0" branch="false"/>
+						<line number="121" hits="0" branch="false"/>
+						<line number="129" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="130" hits="0" branch="false"/>
+						<line number="132" hits="0" branch="false"/>
+						<line number="139" hits="0" branch="false"/>
+						<line number="140" hits="0" branch="false"/>
+						<line number="148" hits="0" branch="false"/>
+						<line number="149" hits="0" branch="false"/>
+						<line number="156" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="157" hits="0" branch="false"/>
+						<line number="159" hits="0" branch="false"/>
+						<line number="166" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="167" hits="0" branch="false"/>
+						<line number="169" hits="0" branch="false"/>
+						<line number="176" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="177" hits="0" branch="false"/>
+						<line number="179" hits="0" branch="false"/>
+						<line number="186" hits="0" branch="false"/>
+						<line number="187" hits="0" branch="false"/>
+						<line number="195" hits="0" branch="false"/>
+						<line number="196" hits="0" branch="false"/>
+						<line number="203" hits="0" branch="true" condition-coverage="0% (0/3)">
+							<conditions>
+								<condition number="0" type="switch" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="205" hits="0" branch="false"/>
+						<line number="206" hits="0" branch="false"/>
+						<line number="208" hits="0" branch="false"/>
+						<line number="211" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="ch.ethz.iks.slp.impl.OSGiPlatformAbstraction$1" filename="ch/ethz/iks/slp/impl/OSGiPlatformAbstraction.java" line-rate="0.0" branch-rate="1.0" complexity="1.7777777777777777">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lch/ethz/iks/slp/impl/OSGiPlatformAbstraction;Lorg/osgi/framework/Filter;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="99" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="match" signature="(Ljava/util/Dictionary;)Z" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="101" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="105" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="99" hits="0" branch="false"/>
+						<line number="101" hits="0" branch="false"/>
+						<line number="105" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="ch.ethz.iks.slp.impl.OSGiPlatformAbstraction$NullPatternLogService" filename="ch/ethz/iks/slp/impl/OSGiPlatformAbstraction.java" line-rate="0.0" branch-rate="0.0" complexity="1.7777777777777777">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lch/ethz/iks/slp/impl/OSGiPlatformAbstraction;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lch/ethz/iks/slp/impl/OSGiPlatformAbstraction;Lch/ethz/iks/slp/impl/OSGiPlatformAbstraction$1;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="214" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="log" signature="(ILjava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="217" hits="0" branch="true" condition-coverage="0% (0/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="219" hits="0" branch="false"/>
+								<line number="221" hits="0" branch="false"/>
+								<line number="223" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="log" signature="(ILjava/lang/String;Ljava/lang/Throwable;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="226" hits="0" branch="false"/>
+								<line number="227" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="log" signature="(Lorg/osgi/framework/ServiceReference;ILjava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="230" hits="0" branch="false"/>
+								<line number="231" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="log" signature="(Lorg/osgi/framework/ServiceReference;ILjava/lang/String;Ljava/lang/Throwable;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="235" hits="0" branch="false"/>
+								<line number="236" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="214" hits="0" branch="false"/>
+						<line number="217" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="219" hits="0" branch="false"/>
+						<line number="221" hits="0" branch="false"/>
+						<line number="223" hits="0" branch="false"/>
+						<line number="226" hits="0" branch="false"/>
+						<line number="227" hits="0" branch="false"/>
+						<line number="230" hits="0" branch="false"/>
+						<line number="231" hits="0" branch="false"/>
+						<line number="235" hits="0" branch="false"/>
+						<line number="236" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="ch.ethz.iks.slp.impl.PlatformAbstraction" filename="ch/ethz/iks/slp/impl/PlatformAbstraction.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+			</classes>
+		</package>
+	</packages>
+</coverage>

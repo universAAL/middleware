@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="c6364" href="./ObjectFactory.html" title="org.universAAL.middleware.interfaces.aalspace.xml.model.ObjectFactory" alt="" coords="15,17,118,42"/>
+<area shape="rect" id="node1" href="./ObjectFactory.html" title="&lt;TABLE&gt;" alt="" coords="5,5,128,53"/>
+<area shape="rect" id="c6365" href="./Aalspace.html" title="org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace" alt="" coords="163,17,237,42"/>
+<area shape="rect" id="node2" href="./Aalspace.html" title="&lt;TABLE&gt;" alt="" coords="152,5,248,53"/>
+<area shape="rect" id="c6366" href="./Aalspace.CommunicationChannels.html" title="org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.CommunicationChannels" alt="" coords="282,17,449,42"/>
+<area shape="rect" id="node3" href="./Aalspace.CommunicationChannels.html" title="&lt;TABLE&gt;" alt="" coords="272,5,459,53"/>
+<area shape="rect" id="c6367" href="./Aalspace.PeeringChannel.html" title="org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.PeeringChannel" alt="" coords="493,17,606,42"/>
+<area shape="rect" id="node4" href="./Aalspace.PeeringChannel.html" title="&lt;TABLE&gt;" alt="" coords="483,5,616,53"/>
+<area shape="rect" id="c6368" href="./Aalspace.SpaceDescriptor.html" title="org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.SpaceDescriptor" alt="" coords="651,17,768,42"/>
+<area shape="rect" id="node5" href="./Aalspace.SpaceDescriptor.html" title="&lt;TABLE&gt;" alt="" coords="640,5,779,53"/>
+<area shape="rect" id="c6369" href="./ChannelDescriptor.html" title="org.universAAL.middleware.interfaces.aalspace.xml.model.ChannelDescriptor" alt="" coords="813,17,942,42"/>
+<area shape="rect" id="node6" href="./ChannelDescriptor.html" title="&lt;TABLE&gt;" alt="" coords="803,5,952,53"/>
+</map>

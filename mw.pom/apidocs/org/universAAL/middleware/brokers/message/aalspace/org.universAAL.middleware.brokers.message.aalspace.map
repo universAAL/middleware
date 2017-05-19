@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c22858" href="./AALSpaceMessage.html" title="org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage" alt="" coords="16,19,152,45"/>
+<area shape="rect" id="node1" href="./AALSpaceMessage.html" title="&lt;TABLE&gt;" alt="" coords="5,8,163,56"/>
+<area shape="rect" id="c22859" href="./AALSpaceMessage.AALSpaceMessageTypes.html" title="org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage.AALSpaceMessageTypes" alt="" coords="197,11,369,53"/>
+<area shape="rect" id="node2" href="./AALSpaceMessage.AALSpaceMessageTypes.html" title="&lt;TABLE&gt;" alt="" coords="187,6,379,58"/>
+<area shape="rect" id="c22860" href="./AALSpaceMessageFields.html" title="org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessageFields" alt="" coords="413,19,584,45"/>
+<area shape="rect" id="node3" href="./AALSpaceMessageFields.html" title="&lt;TABLE&gt;" alt="" coords="403,8,595,56"/>
+<area shape="rect" id="c22861" href="./AALSpaceMessageException.html" title="org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessageException" alt="" coords="629,19,822,45"/>
+<area shape="rect" id="node4" href="./AALSpaceMessageException.html" title="&lt;TABLE&gt;" alt="" coords="619,8,832,56"/>
+</map>

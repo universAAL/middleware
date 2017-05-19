@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="c15247" href="./ConfigurationDefinedElsewhere.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationDefinedElsewhere" alt="" coords="15,121,219,146"/>
+<area shape="rect" id="node1" href="./ConfigurationDefinedElsewhere.html" title="&lt;TABLE&gt;" alt="" coords="5,109,229,157"/>
+<area shape="rect" id="c15248" href="./ConfigurationFile.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationFile" alt="" coords="263,113,382,154"/>
+<area shape="rect" id="node2" href="./ConfigurationFile.html" title="&lt;TABLE&gt;" alt="" coords="253,107,392,159"/>
+<area shape="rect" id="c15249" href="./ConfigurationParameter.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter" alt="" coords="427,113,584,154"/>
+<area shape="rect" id="node3" href="./ConfigurationParameter.html" title="&lt;TABLE&gt;" alt="" coords="416,107,595,159"/>
+<area shape="rect" id="c15250" href="./DescribedEntity.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DescribedEntity" alt="" coords="266,11,379,53"/>
+<area shape="rect" id="node4" href="./DescribedEntity.html" title="&lt;TABLE&gt;" alt="" coords="256,6,389,58"/>
+<area shape="rect" id="c15251" href="./DynamicDescribedEntityListener.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DynamicDescribedEntityListener" alt="" coords="423,11,635,53"/>
+<area shape="rect" id="node5" href="./DynamicDescribedEntityListener.html" title="&lt;TABLE&gt;" alt="" coords="413,6,645,58"/>
+<area shape="rect" id="c15252" href="./DynamicDescribedEntity.html" title="org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DynamicDescribedEntity" alt="" coords="680,11,845,53"/>
+<area shape="rect" id="node6" href="./DynamicDescribedEntity.html" title="&lt;TABLE&gt;" alt="" coords="669,6,856,58"/>
+</map>

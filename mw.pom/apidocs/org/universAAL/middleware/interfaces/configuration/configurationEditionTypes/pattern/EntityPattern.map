@@ -1,0 +1,20 @@
+<map id="G" name="G">
+<area shape="rect" id="c222915" href="./ConfigurationParameterTypePattern.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ConfigurationParameterTypePattern" alt="" coords="16,118,245,143"/>
+<area shape="rect" id="node1" href="./ConfigurationParameterTypePattern.html" title="&lt;TABLE&gt;" alt="" coords="5,107,256,155"/>
+<area shape="rect" id="c222916" href="./InstancePattern.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.InstancePattern" alt="" coords="290,118,403,143"/>
+<area shape="rect" id="node2" href="./InstancePattern.html" title="&lt;TABLE&gt;" alt="" coords="280,107,413,155"/>
+<area shape="rect" id="c222917" href="./ConfigurationFileTypePattern.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ConfigurationFileTypePattern" alt="" coords="448,118,637,143"/>
+<area shape="rect" id="node3" href="./ConfigurationFileTypePattern.html" title="&lt;TABLE&gt;" alt="" coords="437,107,648,155"/>
+<area shape="rect" id="c222918" href="./IdPattern.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.IdPattern" alt="" coords="682,118,755,143"/>
+<area shape="rect" id="node4" href="./IdPattern.html" title="&lt;TABLE&gt;" alt="" coords="672,107,765,155"/>
+<area shape="rect" id="c222919" href="./ModulePattern.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ModulePattern" alt="" coords="799,118,905,143"/>
+<area shape="rect" id="node5" href="./ModulePattern.html" title="&lt;TABLE&gt;" alt="" coords="789,107,915,155"/>
+<area shape="rect" id="c222920" href="./ApplicationPattern.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPattern" alt="" coords="949,118,1075,143"/>
+<area shape="rect" id="node6" href="./ApplicationPattern.html" title="&lt;TABLE&gt;" alt="" coords="939,107,1085,155"/>
+<area shape="rect" id="c222921" href="./ApplicationPartPattern.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPartPattern" alt="" coords="1119,118,1270,143"/>
+<area shape="rect" id="node7" href="./ApplicationPartPattern.html" title="&lt;TABLE&gt;" alt="" coords="1109,107,1280,155"/>
+<area shape="rect" id="c222922" href="./EntityPattern.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern" alt="" coords="737,11,834,53"/>
+<area shape="rect" id="node8" href="./EntityPattern.html" title="&lt;TABLE&gt;" alt="" coords="727,6,844,58"/>
+<area shape="rect" id="c222923" href="./NotPattern.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.NotPattern" alt="" coords="1314,118,1398,143"/>
+<area shape="rect" id="node9" href="./NotPattern.html" title="&lt;TABLE&gt;" alt="" coords="1304,107,1408,155"/>
+</map>

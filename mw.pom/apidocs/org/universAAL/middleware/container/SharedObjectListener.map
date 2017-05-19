@@ -1,0 +1,26 @@
+<map id="G" name="G">
+<area shape="rect" id="c383906" href="./SharedObjectListener.html" title="org.universAAL.middleware.container.SharedObjectListener" alt="" coords="990,11,1135,53"/>
+<area shape="rect" id="node1" href="./SharedObjectListener.html" title="&lt;TABLE&gt;" alt="" coords="980,6,1145,58"/>
+<area shape="rect" id="c384203" href="../modules/communication/CommunicationModuleImpl.html" title="org.universAAL.middleware.modules.communication.CommunicationModuleImpl" alt="" coords="16,118,195,143"/>
+<area shape="rect" id="node2" href="../modules/communication/CommunicationModuleImpl.html" title="&lt;TABLE&gt;" alt="" coords="5,107,205,155"/>
+<area shape="rect" id="c384227" href="../brokers/control/ControlBroker.html" title="org.universAAL.middleware.brokers.control.ControlBroker" alt="" coords="240,118,341,143"/>
+<area shape="rect" id="node3" href="../brokers/control/ControlBroker.html" title="&lt;TABLE&gt;" alt="" coords="229,107,352,155"/>
+<area shape="rect" id="c384229" href="../modules/aalspace/AALSpaceModuleImpl.html" title="org.universAAL.middleware.modules.aalspace.AALSpaceModuleImpl" alt="" coords="387,118,536,143"/>
+<area shape="rect" id="node4" href="../modules/aalspace/AALSpaceModuleImpl.html" title="&lt;TABLE&gt;" alt="" coords="376,107,547,155"/>
+<area shape="rect" id="c384230" href="../connectors/discovery/slp/SLPDiscoveryConnector.html" title="org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector" alt="" coords="581,118,747,143"/>
+<area shape="rect" id="node5" href="../connectors/discovery/slp/SLPDiscoveryConnector.html" title="&lt;TABLE&gt;" alt="" coords="571,107,757,155"/>
+<area shape="rect" id="c384233" href="../managers/aalspace/AALSpaceManagerImpl.html" title="org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl" alt="" coords="792,118,949,143"/>
+<area shape="rect" id="node6" href="../managers/aalspace/AALSpaceManagerImpl.html" title="&lt;TABLE&gt;" alt="" coords="781,107,960,155"/>
+<area shape="rect" id="c384241" href="../managers/deploy/DeployManagerImpl.html" title="org.universAAL.middleware.managers.deploy.DeployManagerImpl" alt="" coords="994,118,1131,143"/>
+<area shape="rect" id="node7" href="../managers/deploy/DeployManagerImpl.html" title="&lt;TABLE&gt;" alt="" coords="984,107,1141,155"/>
+<area shape="rect" id="c384261" href="../managers/configuration/core/impl/secondaryManagers/SharedObjectConnector.html" title="org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector" alt="" coords="1176,118,1336,143"/>
+<area shape="rect" id="node8" href="../managers/configuration/core/impl/secondaryManagers/SharedObjectConnector.html" title="&lt;TABLE&gt;" alt="" coords="1165,107,1347,155"/>
+<area shape="rect" id="c384401" href="../ui/impl/generic/CoordinatedStrategy.html" title="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy" alt="" coords="1381,118,1521,143"/>
+<area shape="rect" id="node9" href="../ui/impl/generic/CoordinatedStrategy.html" title="&lt;TABLE&gt;" alt="" coords="1371,107,1531,155"/>
+<area shape="rect" id="c384465" href="../managers/distributedmw/impl/SpaceListener.html" title="org.universAAL.middleware.managers.distributedmw.impl.SpaceListener" alt="" coords="1565,118,1669,143"/>
+<area shape="rect" id="node10" href="../managers/distributedmw/impl/SpaceListener.html" title="&lt;TABLE&gt;" alt="" coords="1555,107,1680,155"/>
+<area shape="rect" id="c384472" href="../managers/distributedmw/impl/SharedObjectConnector.html" title="org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector" alt="" coords="1715,118,1875,143"/>
+<area shape="rect" id="node11" href="../managers/distributedmw/impl/SharedObjectConnector.html" title="&lt;TABLE&gt;" alt="" coords="1704,107,1885,155"/>
+<area shape="rect" id="c384498" href="../connectors/deploy/karaf/KarafDeployConnector.html" title="org.universAAL.middleware.connectors.deploy.karaf.KarafDeployConnector" alt="" coords="1919,118,2073,143"/>
+<area shape="rect" id="node12" href="../connectors/deploy/karaf/KarafDeployConnector.html" title="&lt;TABLE&gt;" alt="" coords="1909,107,2083,155"/>
+</map>

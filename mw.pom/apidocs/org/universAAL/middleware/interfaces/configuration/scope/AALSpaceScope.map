@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c90550" href="./InstanceScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.InstanceScope" alt="" coords="15,209,123,234"/>
+<area shape="rect" id="node1" href="./InstanceScope.html" title="&lt;TABLE&gt;" alt="" coords="5,197,133,245"/>
+<area shape="rect" id="c90552" href="./ApplicationScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope" alt="" coords="167,209,289,234"/>
+<area shape="rect" id="node2" href="./ApplicationScope.html" title="&lt;TABLE&gt;" alt="" coords="157,197,299,245"/>
+<area shape="rect" id="c90553" href="./AALSpaceScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope" alt="" coords="88,113,208,138"/>
+<area shape="rect" id="node3" href="./AALSpaceScope.html" title="&lt;TABLE&gt;" alt="" coords="77,101,219,149"/>
+<area shape="rect" id="c90554" href="./Scope.html" title="org.universAAL.middleware.interfaces.configuration.scope.Scope" alt="" coords="119,17,177,42"/>
+<area shape="rect" id="node4" href="./Scope.html" title="&lt;TABLE&gt;" alt="" coords="109,5,187,53"/>
+</map>

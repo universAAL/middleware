@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="c26638" href="./ConfigurableCommunicationModule.html" title="org.universAAL.middleware.modules.ConfigurableCommunicationModule" alt="" coords="149,214,376,255"/>
+<area shape="rect" id="node1" href="./ConfigurableCommunicationModule.html" title="&lt;TABLE&gt;" alt="" coords="139,209,387,261"/>
+<area shape="rect" id="c26639" href="./AALSpaceModule.html" title="org.universAAL.middleware.modules.AALSpaceModule" alt="" coords="16,113,141,154"/>
+<area shape="rect" id="node2" href="./AALSpaceModule.html" title="&lt;TABLE&gt;" alt="" coords="5,107,152,159"/>
+<area shape="rect" id="c26640" href="./CommunicationModule.html" title="org.universAAL.middleware.modules.CommunicationModule" alt="" coords="186,113,339,154"/>
+<area shape="rect" id="node3" href="./CommunicationModule.html" title="&lt;TABLE&gt;" alt="" coords="176,107,349,159"/>
+<area shape="rect" id="c26641" href="./Module.html" title="org.universAAL.middleware.modules.Module" alt="" coords="220,11,305,53"/>
+<area shape="rect" id="node4" href="./Module.html" title="&lt;TABLE&gt;" alt="" coords="209,6,316,58"/>
+<area shape="rect" id="c26642" href="./DeployModule.html" title="org.universAAL.middleware.modules.DeployModule" alt="" coords="384,113,488,154"/>
+<area shape="rect" id="node5" href="./DeployModule.html" title="&lt;TABLE&gt;" alt="" coords="373,107,499,159"/>
+</map>

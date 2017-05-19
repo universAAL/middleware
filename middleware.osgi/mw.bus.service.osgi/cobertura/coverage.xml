@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+
+<coverage line-rate="0.0" branch-rate="1.0" lines-covered="0" lines-valid="10" branches-covered="0" branches-valid="0" complexity="1.0" version="2.1.1" timestamp="1495151903752">
+	<sources>
+		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.bus.service.osgi/src/main/java</source>
+		<source>--source</source>
+	</sources>
+	<packages>
+		<package name="org.universAAL.middleware.service.impl.osgi" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+			<classes>
+				<class name="org.universAAL.middleware.service.impl.osgi.Activator" filename="org/universAAL/middleware/service/impl/osgi/Activator.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="36" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="start" signature="(Lorg/osgi/framework/BundleContext;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="42" hits="0" branch="false"/>
+								<line number="43" hits="0" branch="false"/>
+								<line number="44" hits="0" branch="false"/>
+								<line number="45" hits="0" branch="false"/>
+								<line number="46" hits="0" branch="false"/>
+								<line number="47" hits="0" branch="false"/>
+								<line number="49" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="stop" signature="(Lorg/osgi/framework/BundleContext;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="55" hits="0" branch="false"/>
+								<line number="56" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="36" hits="0" branch="false"/>
+						<line number="42" hits="0" branch="false"/>
+						<line number="43" hits="0" branch="false"/>
+						<line number="44" hits="0" branch="false"/>
+						<line number="45" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
+						<line number="47" hits="0" branch="false"/>
+						<line number="49" hits="0" branch="false"/>
+						<line number="55" hits="0" branch="false"/>
+						<line number="56" hits="0" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+	</packages>
+</coverage>

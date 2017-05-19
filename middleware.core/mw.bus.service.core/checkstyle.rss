@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>universAAL Middleware Service Bus (Core) - Checkstyle report</title>
+    <link>http://middleware/middleware.core/mw.bus.service.core/</link>
+    <description>universAAL Middleware Service Bus (Core) - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2017 universAAL Consortium</copyright>
+    <item>
+      <title>File: 53,
+             Errors: 940,
+             Warnings: 572,
+             Infos: 1884
+      </title>
+            <link>http://middleware/middleware.core/mw.bus.service.core//checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.ProcessInput.java">org/universAAL/middleware/service/owls/process/ProcessInput.java</a>
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.AvailabilitySubscriber.java">org/universAAL/middleware/service/AvailabilitySubscriber.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceBusImpl.java">org/universAAL/middleware/service/impl/ServiceBusImpl.java</a>
+                </td>
+                <td>
+                  63
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  56
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owl.ServiceBusOntology.java">org/universAAL/middleware/service/owl/ServiceBusOntology.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.CallStatus.java">org/universAAL/middleware/service/CallStatus.java</a>
+                </td>
+                <td>
+                  18
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceProfileWrapper.java">org/universAAL/middleware/service/impl/ServiceProfileWrapper.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ProfileExistsException.java">org/universAAL/middleware/service/ProfileExistsException.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owl.Service.java">org/universAAL/middleware/service/owl/Service.java</a>
+                </td>
+                <td>
+                  64
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  73
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.OutputBinding.java">org/universAAL/middleware/service/owls/process/OutputBinding.java</a>
+                </td>
+                <td>
+                  41
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  42
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.LocalServiceSearchResultsDataMap.java">org/universAAL/middleware/service/data/LocalServiceSearchResultsDataMap.java</a>
+                </td>
+                <td>
+                  25
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceWrapper.java">org/universAAL/middleware/service/impl/ServiceWrapper.java</a>
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owl.UserInterfaceService.java">org/universAAL/middleware/service/owl/UserInterfaceService.java</a>
+                </td>
+                <td>
+                  60
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  24
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.ILocalServiceSearchResultsData.java">org/universAAL/middleware/service/data/ILocalServiceSearchResultsData.java</a>
+                </td>
+                <td>
+                  22
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceRequest.java">org/universAAL/middleware/service/ServiceRequest.java</a>
+                </td>
+                <td>
+                  59
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  40
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.Conversion.java">org/universAAL/middleware/service/owls/process/Conversion.java</a>
+                </td>
+                <td>
+                  32
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.profile.QoSRating.java">org/universAAL/middleware/service/owls/profile/QoSRating.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.MultiServiceResponse.java">org/universAAL/middleware/service/MultiServiceResponse.java</a>
+                </td>
+                <td>
+                  20
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceResponse.java">org/universAAL/middleware/service/ServiceResponse.java</a>
+                </td>
+                <td>
+                  33
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owl.InitialServiceDialog.java">org/universAAL/middleware/service/owl/InitialServiceDialog.java</a>
+                </td>
+                <td>
+                  30
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.factory.IServiceStrategyDataFactory.java">org/universAAL/middleware/service/data/factory/IServiceStrategyDataFactory.java</a>
+                </td>
+                <td>
+                  21
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.profile.MultiLocationParameter.java">org/universAAL/middleware/service/owls/profile/MultiLocationParameter.java</a>
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceCallee.java">org/universAAL/middleware/service/ServiceCallee.java</a>
+                </td>
+                <td>
+                  34
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.aapi.AapiServiceRequest.java">org/universAAL/middleware/service/aapi/AapiServiceRequest.java</a>
+                </td>
+                <td>
+                  19
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  11
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceRealization.java">org/universAAL/middleware/service/impl/ServiceRealization.java</a>
+                </td>
+                <td>
+                  59
+                </td>
+                <td>
+                  43
+                </td>
+                <td>
+                  59
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.ILocalServicesIndexData.java">org/universAAL/middleware/service/data/ILocalServicesIndexData.java</a>
+                </td>
+                <td>
+                  22
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceRequestWrapper.java">org/universAAL/middleware/service/impl/ServiceRequestWrapper.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceStrategy.java">org/universAAL/middleware/service/impl/ServiceStrategy.java</a>
+                </td>
+                <td>
+                  412
+                </td>
+                <td>
+                  180
+                </td>
+                <td>
+                  104
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.factory.ServiceStrategyDataFactory.java">org/universAAL/middleware/service/data/factory/ServiceStrategyDataFactory.java</a>
+                </td>
+                <td>
+                  22
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.ILocalWaitingCallersData.java">org/universAAL/middleware/service/data/ILocalWaitingCallersData.java</a>
+                </td>
+                <td>
+                  21
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds.java">org/universAAL/middleware/service/owls/profile/ResponseTimeInMilliseconds.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.profile.ServiceProfile.java">org/universAAL/middleware/service/owls/profile/ServiceProfile.java</a>
+                </td>
+                <td>
+                  66
+                </td>
+                <td>
+                  24
+                </td>
+                <td>
+                  73
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceBus.java">org/universAAL/middleware/service/ServiceBus.java</a>
+                </td>
+                <td>
+                  56
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.DefaultServiceCaller.java">org/universAAL/middleware/service/DefaultServiceCaller.java</a>
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceCall.java">org/universAAL/middleware/service/ServiceCall.java</a>
+                </td>
+                <td>
+                  41
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceBusFactory.java">org/universAAL/middleware/service/impl/ServiceBusFactory.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.AggregatingFilterFactory.java">org/universAAL/middleware/service/AggregatingFilterFactory.java</a>
+                </td>
+                <td>
+                  30
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.aapi.AapiServiceResponse.java">org/universAAL/middleware/service/aapi/AapiServiceResponse.java</a>
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceCaller.java">org/universAAL/middleware/service/ServiceCaller.java</a>
+                </td>
+                <td>
+                  46
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.profile.ProfileParameter.java">org/universAAL/middleware/service/owls/profile/ProfileParameter.java</a>
+                </td>
+                <td>
+                  19
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  18
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.ProcessEffect.java">org/universAAL/middleware/service/owls/process/ProcessEffect.java</a>
+                </td>
+                <td>
+                  31
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  28
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceMatcher.java">org/universAAL/middleware/service/impl/ServiceMatcher.java</a>
+                </td>
+                <td>
+                  54
+                </td>
+                <td>
+                  31
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.ProcessParameter.java">org/universAAL/middleware/service/owls/process/ProcessParameter.java</a>
+                </td>
+                <td>
+                  45
+                </td>
+                <td>
+                  39
+                </td>
+                <td>
+                  39
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.factory.AbstractServiceStrategyDataFactory.java">org/universAAL/middleware/service/data/factory/AbstractServiceStrategyDataFactory.java</a>
+                </td>
+                <td>
+                  21
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.ProcessOutput.java">org/universAAL/middleware/service/owls/process/ProcessOutput.java</a>
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.profile.NumberOfSamples.java">org/universAAL/middleware/service/owls/profile/NumberOfSamples.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.LocalWaitingDataMap.java">org/universAAL/middleware/service/data/LocalWaitingDataMap.java</a>
+                </td>
+                <td>
+                  24
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.AggregationFunction.java">org/universAAL/middleware/service/AggregationFunction.java</a>
+                </td>
+                <td>
+                  25
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  24
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.ProcessResult.java">org/universAAL/middleware/service/owls/process/ProcessResult.java</a>
+                </td>
+                <td>
+                  70
+                </td>
+                <td>
+                  25
+                </td>
+                <td>
+                  39
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.AggregatingFilter.java">org/universAAL/middleware/service/AggregatingFilter.java</a>
+                </td>
+                <td>
+                  24
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  19
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.ProcessLocal.java">org/universAAL/middleware/service/owls/process/ProcessLocal.java</a>
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceBusFacade.java">org/universAAL/middleware/service/ServiceBusFacade.java</a>
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.data.LocalServicesIndexDataMap.java">org/universAAL/middleware/service/data/LocalServicesIndexDataMap.java</a>
+                </td>
+                <td>
+                  25
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.profile.SingleLocationParameter.java">org/universAAL/middleware/service/owls/profile/SingleLocationParameter.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

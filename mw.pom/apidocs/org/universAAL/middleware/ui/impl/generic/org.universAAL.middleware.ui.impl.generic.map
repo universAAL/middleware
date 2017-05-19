@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="c53809" href="./CoordinatedRegistrationManagement.html" title="org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement" alt="" coords="15,310,251,335"/>
+<area shape="rect" id="node1" href="./CoordinatedRegistrationManagement.html" title="&lt;TABLE&gt;" alt="" coords="5,299,261,347"/>
+<area shape="rect" id="c53810" href="./CoordinatedStrategy.html" title="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy" alt="" coords="63,214,203,239"/>
+<area shape="rect" id="node2" href="./CoordinatedStrategy.html" title="&lt;TABLE&gt;" alt="" coords="53,203,213,251"/>
+<area shape="rect" id="c53811" href="./CoordinatedStrategy.CoordinatorAlreadyExistsException.html" title="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy.CoordinatorAlreadyExistsException" alt="" coords="249,19,476,45"/>
+<area shape="rect" id="node3" href="./CoordinatedStrategy.CoordinatorAlreadyExistsException.html" title="&lt;TABLE&gt;" alt="" coords="239,8,487,56"/>
+<area shape="rect" id="c53812" href="./CallBasedStrategy.html" title="org.universAAL.middleware.ui.impl.generic.CallBasedStrategy" alt="" coords="69,118,198,143"/>
+<area shape="rect" id="node4" href="./CallBasedStrategy.html" title="&lt;TABLE&gt;" alt="" coords="59,107,208,155"/>
+<area shape="rect" id="c53813" href="./EventBasedStrategy.html" title="org.universAAL.middleware.ui.impl.generic.EventBasedStrategy" alt="" coords="63,19,204,45"/>
+<area shape="rect" id="node5" href="./EventBasedStrategy.html" title="&lt;TABLE&gt;" alt="" coords="52,8,215,56"/>
+<area shape="rect" id="c53814" href="./EventMessage.html" title="org.universAAL.middleware.ui.impl.generic.EventMessage" alt="" coords="521,11,868,53"/>
+<area shape="rect" id="node6" href="./EventMessage.html" title="&lt;TABLE&gt;" alt="" coords="511,6,879,58"/>
+<area shape="rect" id="c53815" href="./CallMessage.html" title="org.universAAL.middleware.ui.impl.generic.CallMessage" alt="" coords="532,118,857,143"/>
+<area shape="rect" id="node7" href="./CallMessage.html" title="&lt;TABLE&gt;" alt="" coords="521,107,868,155"/>
+</map>

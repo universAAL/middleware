@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="c83138" href="./AALSpaceListener.html" title="org.universAAL.middleware.managers.api.AALSpaceListener" alt="" coords="285,11,414,53"/>
+<area shape="rect" id="node1" href="./AALSpaceListener.html" title="&lt;TABLE&gt;" alt="" coords="275,6,424,58"/>
+<area shape="rect" id="c83159" href="../deploy/DeployManagerImpl.html" title="org.universAAL.middleware.managers.deploy.DeployManagerImpl" alt="" coords="15,118,153,143"/>
+<area shape="rect" id="node2" href="../deploy/DeployManagerImpl.html" title="&lt;TABLE&gt;" alt="" coords="5,107,163,155"/>
+<area shape="rect" id="c83319" href="../../ui/impl/generic/CoordinatedStrategy.html" title="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy" alt="" coords="197,118,337,143"/>
+<area shape="rect" id="node3" href="../../ui/impl/generic/CoordinatedStrategy.html" title="&lt;TABLE&gt;" alt="" coords="187,107,347,155"/>
+<area shape="rect" id="c83383" href="../distributedmw/impl/SpaceListener.html" title="org.universAAL.middleware.managers.distributedmw.impl.SpaceListener" alt="" coords="381,118,485,143"/>
+<area shape="rect" id="node4" href="../distributedmw/impl/SpaceListener.html" title="&lt;TABLE&gt;" alt="" coords="371,107,496,155"/>
+<area shape="rect" id="c83391" href="../distributedmw/impl/ListenerHandler.html" title="org.universAAL.middleware.managers.distributedmw.impl.ListenerHandler" alt="" coords="531,118,667,143"/>
+<area shape="rect" id="node5" href="../distributedmw/impl/ListenerHandler.html" title="&lt;TABLE&gt;" alt="" coords="520,107,677,155"/>
+</map>

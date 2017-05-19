@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="c287629" href="./DeployManager.html" title="org.universAAL.middleware.managers.api.DeployManager" alt="" coords="16,113,128,154"/>
+<area shape="rect" id="node1" href="./DeployManager.html" title="&lt;TABLE&gt;" alt="" coords="5,107,139,159"/>
+<area shape="rect" id="c287632" href="./TenantManager.html" title="org.universAAL.middleware.managers.api.TenantManager" alt="" coords="173,113,283,154"/>
+<area shape="rect" id="node2" href="./TenantManager.html" title="&lt;TABLE&gt;" alt="" coords="163,107,293,159"/>
+<area shape="rect" id="c287636" href="./Manager.html" title="org.universAAL.middleware.managers.api.Manager" alt="" coords="352,11,437,53"/>
+<area shape="rect" id="node3" href="./Manager.html" title="&lt;TABLE&gt;" alt="" coords="341,6,448,58"/>
+<area shape="rect" id="c287637" href="./AALSpaceManager.html" title="org.universAAL.middleware.managers.api.AALSpaceManager" alt="" coords="328,113,461,154"/>
+<area shape="rect" id="node4" href="./AALSpaceManager.html" title="&lt;TABLE&gt;" alt="" coords="317,107,472,159"/>
+<area shape="rect" id="c287877" href="../distributedmw/api/DistributedLogManager.html" title="org.universAAL.middleware.managers.distributedmw.api.DistributedLogManager" alt="" coords="507,113,661,154"/>
+<area shape="rect" id="node5" href="../distributedmw/api/DistributedLogManager.html" title="&lt;TABLE&gt;" alt="" coords="496,107,672,159"/>
+<area shape="rect" id="c287878" href="../distributedmw/api/DistributedBusMemberManager.html" title="org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberManager" alt="" coords="706,113,910,154"/>
+<area shape="rect" id="node6" href="../distributedmw/api/DistributedBusMemberManager.html" title="&lt;TABLE&gt;" alt="" coords="696,107,920,159"/>
+</map>

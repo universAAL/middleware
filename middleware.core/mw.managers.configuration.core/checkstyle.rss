@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>universAAL Middleware Manager Configuration (Core) - Checkstyle report</title>
+    <link>http://middleware/middleware.core/mw.managers.configuration.core/</link>
+    <description>universAAL Middleware Manager Configuration (Core) - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2017 universAAL Consortium</copyright>
+    <item>
+      <title>File: 21,
+             Errors: 405,
+             Warnings: 56,
+             Infos: 373
+      </title>
+            <link>http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl.java">org/universAAL/middleware/managers/configuration/core/impl/ConfigurationManagerImpl.java</a>
+                </td>
+                <td>
+                  56
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  73
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ConfigurationEditorPool.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/ConfigurationEditorPool.java</a>
+                </td>
+                <td>
+                  30
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationFile.java</a>
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  38
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SynchronousConfEntityManager.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/SynchronousConfEntityManager.java</a>
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity.java">org/universAAL/middleware/managers/configuration/core/impl/GenericConfigurationEntity.java</a>
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.factories.EntityFactory.java">org/universAAL/middleware/managers/configuration/core/impl/factories/EntityFactory.java</a>
+                </td>
+                <td>
+                  19
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.factories.ScopeFactory.java">org/universAAL/middleware/managers/configuration/core/impl/factories/ScopeFactory.java</a>
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.FileManagement.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/FileManagement.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationParameterEditor.java">org/universAAL/middleware/managers/configuration/core/impl/LocalConfigurationParameterEditor.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  24
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ModuleRegistry.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/ModuleRegistry.java</a>
+                </td>
+                <td>
+                  18
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor.java">org/universAAL/middleware/managers/configuration/core/impl/RemoteConfigurationFileEditor.java</a>
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationParamaterEditor.java">org/universAAL/middleware/managers/configuration/core/impl/RemoteConfigurationParamaterEditor.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.Entity.java">org/universAAL/middleware/managers/configuration/core/owl/Entity.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  29
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/SharedObjectConnector.java</a>
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  19
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter.java">org/universAAL/middleware/managers/configuration/core/owl/ConfigurationParameter.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.EntityManager.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/EntityManager.java</a>
+                </td>
+                <td>
+                  39
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  26
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationEntity.java">org/universAAL/middleware/managers/configuration/core/impl/RemoteConfigurationEntity.java</a>
+                </td>
+                <td>
+                  16
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationEntity.java">org/universAAL/middleware/managers/configuration/core/impl/LocalConfigurationEntity.java</a>
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationFileEditor.java">org/universAAL/middleware/managers/configuration/core/impl/LocalConfigurationFileEditor.java</a>
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.PendingRequestsManager.java">org/universAAL/middleware/managers/configuration/core/impl/secondaryManagers/PendingRequestsManager.java</a>
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  11
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.configuration.core//checkstyle.html#org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology.java">org/universAAL/middleware/managers/configuration/core/owl/AALConfigurationOntology.java</a>
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

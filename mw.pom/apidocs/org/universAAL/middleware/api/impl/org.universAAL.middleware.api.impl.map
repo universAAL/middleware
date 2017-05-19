@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c59509" href="./ServiceCalleeWrapper.html" title="org.universAAL.middleware.api.impl.ServiceCalleeWrapper" alt="" coords="15,17,166,42"/>
+<area shape="rect" id="node1" href="./ServiceCalleeWrapper.html" title="&lt;TABLE&gt;" alt="" coords="5,5,176,53"/>
+<area shape="rect" id="c59510" href="./AnnotationScanner.html" title="org.universAAL.middleware.api.impl.AnnotationScanner" alt="" coords="211,17,341,42"/>
+<area shape="rect" id="node2" href="./AnnotationScanner.html" title="&lt;TABLE&gt;" alt="" coords="200,5,352,53"/>
+<area shape="rect" id="c59511" href="./DynamicServiceProxy.html" title="org.universAAL.middleware.api.impl.DynamicServiceProxy" alt="" coords="386,17,537,42"/>
+<area shape="rect" id="node3" href="./DynamicServiceProxy.html" title="&lt;TABLE&gt;" alt="" coords="376,5,547,53"/>
+<area shape="rect" id="c59512" href="./SimplifiedApiService.html" title="org.universAAL.middleware.api.impl.SimplifiedApiService" alt="" coords="581,17,723,42"/>
+<area shape="rect" id="node4" href="./SimplifiedApiService.html" title="&lt;TABLE&gt;" alt="" coords="571,5,733,53"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="c13357" href="./PeerRole.html" title="org.universAAL.middleware.interfaces.PeerRole" alt="" coords="15,11,121,53"/>
+<area shape="rect" id="node1" href="./PeerRole.html" title="&lt;TABLE&gt;" alt="" coords="5,6,131,58"/>
+<area shape="rect" id="c13358" href="./PeerCard.html" title="org.universAAL.middleware.interfaces.PeerCard" alt="" coords="165,19,241,45"/>
+<area shape="rect" id="node2" href="./PeerCard.html" title="&lt;TABLE&gt;" alt="" coords="155,8,251,56"/>
+<area shape="rect" id="c13359" href="./ChannelDescriptor.html" title="org.universAAL.middleware.interfaces.ChannelDescriptor" alt="" coords="285,19,414,45"/>
+<area shape="rect" id="node3" href="./ChannelDescriptor.html" title="&lt;TABLE&gt;" alt="" coords="275,8,424,56"/>
+</map>

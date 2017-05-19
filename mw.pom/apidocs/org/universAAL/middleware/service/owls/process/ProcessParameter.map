@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="c330732" href="../../../rdf/Variable.html" title="org.universAAL.middleware.rdf.Variable" alt="" coords="174,17,242,42"/>
+<area shape="rect" id="node1" href="../../../rdf/Variable.html" title="&lt;TABLE&gt;" alt="" coords="164,5,252,53"/>
+<area shape="rect" id="c331064" href="./ProcessParameter.html" title="org.universAAL.middleware.service.owls.process.ProcessParameter" alt="" coords="143,113,273,138"/>
+<area shape="rect" id="node4" href="./ProcessParameter.html" title="&lt;TABLE&gt;" alt="" coords="133,101,283,149"/>
+<area shape="rect" id="c331058" href="./ProcessLocal.html" title="org.universAAL.middleware.service.owls.process.ProcessLocal" alt="" coords="15,209,115,234"/>
+<area shape="rect" id="node2" href="./ProcessLocal.html" title="&lt;TABLE&gt;" alt="" coords="5,197,125,245"/>
+<area shape="rect" id="c331062" href="./ProcessInput.html" title="org.universAAL.middleware.service.owls.process.ProcessInput" alt="" coords="159,209,257,234"/>
+<area shape="rect" id="node3" href="./ProcessInput.html" title="&lt;TABLE&gt;" alt="" coords="149,197,267,245"/>
+<area shape="rect" id="c331065" href="./ProcessOutput.html" title="org.universAAL.middleware.service.owls.process.ProcessOutput" alt="" coords="301,209,409,234"/>
+<area shape="rect" id="node5" href="./ProcessOutput.html" title="&lt;TABLE&gt;" alt="" coords="291,197,419,245"/>
+</map>

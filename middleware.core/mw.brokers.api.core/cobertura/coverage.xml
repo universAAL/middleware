@@ -1,0 +1,1303 @@
+<?xml version="1.0"?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+
+<coverage line-rate="0.4074074074074074" branch-rate="0.42857142857142855" lines-covered="110" lines-valid="270" branches-covered="9" branches-valid="21" complexity="1.369047619047619" version="2.1.1" timestamp="1495151586649">
+	<sources>
+		<source>--source</source>
+		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.brokers.api.core/src/main/java</source>
+	</sources>
+	<packages>
+		<package name="org.universAAL.middleware.brokers" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+			<classes>
+				<class name="org.universAAL.middleware.brokers.Broker" filename="org/universAAL/middleware/brokers/Broker.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.universAAL.middleware.brokers.message" line-rate="0.5" branch-rate="1.0" complexity="1.0">
+			<classes>
+				<class name="org.universAAL.middleware.brokers.message.BrokerMessage" filename="org/universAAL/middleware/brokers/message/BrokerMessage.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.BrokerMessage$BrokerMessageTypes" filename="org/universAAL/middleware/brokers/message/BrokerMessage.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="38" hits="12" branch="false"/>
+								<line number="39" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/BrokerMessage$BrokerMessageTypes;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/universAAL/middleware/brokers/message/BrokerMessage$BrokerMessageTypes;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="38" hits="12" branch="false"/>
+						<line number="39" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.BrokerMessageFields" filename="org/universAAL/middleware/brokers/message/BrokerMessageFields.java" line-rate="0.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="26" hits="0" branch="false"/>
+								<line number="27" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="24" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="24" hits="0" branch="false"/>
+						<line number="26" hits="0" branch="false"/>
+						<line number="27" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.Payload" filename="org/universAAL/middleware/brokers/message/Payload.java" line-rate="1.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="31" hits="6" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="31" hits="6" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.universAAL.middleware.brokers.message.aalspace" line-rate="0.3333333333333333" branch-rate="1.0" complexity="1.1">
+			<classes>
+				<class name="org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage" filename="org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage.java" line-rate="0.5789473684210527" branch-rate="1.0" complexity="1.125">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="40" hits="1" branch="false"/>
+								<line number="41" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;Lorg/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage$AALSpaceMessageTypes;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="56" hits="1" branch="false"/>
+								<line number="57" hits="1" branch="false"/>
+								<line number="58" hits="1" branch="false"/>
+								<line number="59" hits="1" branch="false"/>
+								<line number="60" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMType" signature="()Lorg/universAAL/middleware/brokers/message/BrokerMessage$BrokerMessageTypes;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="81" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMessageType" signature="()Lorg/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage$AALSpaceMessageTypes;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="63" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getReceivers" signature="()[Lorg/universAAL/middleware/interfaces/PeerCard;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="89" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getSpaceDescriptor" signature="()Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="44" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="setSpaceDescriptor" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="48" hits="0" branch="false"/>
+								<line number="49" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="0.6666666666666666" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="67" hits="4" branch="false"/>
+								<line number="69" hits="4" branch="false"/>
+								<line number="71" hits="0" branch="false"/>
+								<line number="73" hits="0" branch="false"/>
+								<line number="74" hits="4" branch="false"/>
+								<line number="76" hits="4" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="40" hits="1" branch="false"/>
+						<line number="41" hits="1" branch="false"/>
+						<line number="44" hits="0" branch="false"/>
+						<line number="48" hits="0" branch="false"/>
+						<line number="49" hits="0" branch="false"/>
+						<line number="56" hits="1" branch="false"/>
+						<line number="57" hits="1" branch="false"/>
+						<line number="58" hits="1" branch="false"/>
+						<line number="59" hits="1" branch="false"/>
+						<line number="60" hits="1" branch="false"/>
+						<line number="63" hits="0" branch="false"/>
+						<line number="67" hits="4" branch="false"/>
+						<line number="69" hits="4" branch="false"/>
+						<line number="71" hits="0" branch="false"/>
+						<line number="73" hits="0" branch="false"/>
+						<line number="74" hits="4" branch="false"/>
+						<line number="76" hits="4" branch="false"/>
+						<line number="81" hits="0" branch="false"/>
+						<line number="89" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage$AALSpaceMessageTypes" filename="org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage.java" line-rate="1.0" branch-rate="1.0" complexity="1.125">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="51" hits="13" branch="false"/>
+								<line number="52" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage$AALSpaceMessageTypes;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage$AALSpaceMessageTypes;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="51" hits="13" branch="false"/>
+						<line number="52" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessageException" filename="org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageException.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="33" hits="0" branch="false"/>
+								<line number="34" hits="0" branch="false"/>
+								<line number="35" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="38" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="33" hits="0" branch="false"/>
+						<line number="34" hits="0" branch="false"/>
+						<line number="35" hits="0" branch="false"/>
+						<line number="38" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessageFields" filename="org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageFields.java" line-rate="0.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="31" hits="0" branch="false"/>
+								<line number="32" hits="0" branch="false"/>
+								<line number="33" hits="0" branch="false"/>
+								<line number="34" hits="0" branch="false"/>
+								<line number="35" hits="0" branch="false"/>
+								<line number="36" hits="0" branch="false"/>
+								<line number="37" hits="0" branch="false"/>
+								<line number="38" hits="0" branch="false"/>
+								<line number="39" hits="0" branch="false"/>
+								<line number="40" hits="0" branch="false"/>
+								<line number="43" hits="0" branch="false"/>
+								<line number="44" hits="0" branch="false"/>
+								<line number="46" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="30" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="30" hits="0" branch="false"/>
+						<line number="31" hits="0" branch="false"/>
+						<line number="32" hits="0" branch="false"/>
+						<line number="33" hits="0" branch="false"/>
+						<line number="34" hits="0" branch="false"/>
+						<line number="35" hits="0" branch="false"/>
+						<line number="36" hits="0" branch="false"/>
+						<line number="37" hits="0" branch="false"/>
+						<line number="38" hits="0" branch="false"/>
+						<line number="39" hits="0" branch="false"/>
+						<line number="40" hits="0" branch="false"/>
+						<line number="43" hits="0" branch="false"/>
+						<line number="44" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.universAAL.middleware.brokers.message.configuration" line-rate="0.0" branch-rate="0.0" complexity="1.6363636363636365">
+			<classes>
+				<class name="org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage" filename="org/universAAL/middleware/brokers/message/configuration/ConfigurationMessage.java" line-rate="0.0" branch-rate="0.0" complexity="1.6363636363636365">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="46" hits="0" branch="false"/>
+								<line number="47" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/brokers/message/configuration/ConfigurationMessage$ConfigurationMessageType;Lorg/universAAL/middleware/interfaces/PeerCard;Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="37" hits="0" branch="false"/>
+								<line number="59" hits="0" branch="false"/>
+								<line number="60" hits="0" branch="false"/>
+								<line number="61" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
+								<line number="63" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="createResoponse" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/configuration/ConfigurationMessage;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="91" hits="0" branch="false"/>
+								<line number="92" hits="0" branch="false"/>
+								<line number="93" hits="0" branch="false"/>
+								<line number="94" hits="0" branch="false"/>
+								<line number="95" hits="0" branch="false"/>
+								<line number="96" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMType" signature="()Lorg/universAAL/middleware/brokers/message/BrokerMessage$BrokerMessageTypes;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="75" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMessageType" signature="()Lorg/universAAL/middleware/brokers/message/configuration/ConfigurationMessage$ConfigurationMessageType;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="66" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getPayload" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="70" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getReceivers" signature="()[Lorg/universAAL/middleware/interfaces/PeerCard;" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="80" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="81" hits="0" branch="false"/>
+								<line number="83" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="isRequest" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="87" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="isSentFrom" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;)Z" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="137" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="100" hits="0" branch="false"/>
+								<line number="101" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="104" hits="0" branch="false"/>
+								<line number="105" hits="0" branch="false"/>
+								<line number="107" hits="0" branch="false"/>
+								<line number="109" hits="0" branch="false"/>
+								<line number="110" hits="0" branch="false"/>
+								<line number="112" hits="0" branch="false"/>
+								<line number="113" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="unmarshall" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/configuration/ConfigurationMessage;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="121" hits="0" branch="false"/>
+								<line number="123" hits="0" branch="false"/>
+								<line number="125" hits="0" branch="false"/>
+								<line number="127" hits="0" branch="false"/>
+								<line number="129" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="37" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
+						<line number="47" hits="0" branch="false"/>
+						<line number="59" hits="0" branch="false"/>
+						<line number="60" hits="0" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
+						<line number="62" hits="0" branch="false"/>
+						<line number="63" hits="0" branch="false"/>
+						<line number="66" hits="0" branch="false"/>
+						<line number="70" hits="0" branch="false"/>
+						<line number="75" hits="0" branch="false"/>
+						<line number="80" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="81" hits="0" branch="false"/>
+						<line number="83" hits="0" branch="false"/>
+						<line number="87" hits="0" branch="false"/>
+						<line number="91" hits="0" branch="false"/>
+						<line number="92" hits="0" branch="false"/>
+						<line number="93" hits="0" branch="false"/>
+						<line number="94" hits="0" branch="false"/>
+						<line number="95" hits="0" branch="false"/>
+						<line number="96" hits="0" branch="false"/>
+						<line number="100" hits="0" branch="false"/>
+						<line number="101" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="104" hits="0" branch="false"/>
+						<line number="105" hits="0" branch="false"/>
+						<line number="107" hits="0" branch="false"/>
+						<line number="109" hits="0" branch="false"/>
+						<line number="110" hits="0" branch="false"/>
+						<line number="112" hits="0" branch="false"/>
+						<line number="113" hits="0" branch="false"/>
+						<line number="121" hits="0" branch="false"/>
+						<line number="123" hits="0" branch="false"/>
+						<line number="125" hits="0" branch="false"/>
+						<line number="127" hits="0" branch="false"/>
+						<line number="129" hits="0" branch="false"/>
+						<line number="137" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage$ConfigurationMessageType" filename="org/universAAL/middleware/brokers/message/configuration/ConfigurationMessage.java" line-rate="0.0" branch-rate="1.0" complexity="1.6363636363636365">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="39" hits="0" branch="false"/>
+								<line number="40" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/configuration/ConfigurationMessage$ConfigurationMessageType;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/universAAL/middleware/brokers/message/configuration/ConfigurationMessage$ConfigurationMessageType;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="39" hits="0" branch="false"/>
+						<line number="40" hits="0" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.universAAL.middleware.brokers.message.control" line-rate="0.7222222222222222" branch-rate="0.5" complexity="1.2941176470588236">
+			<classes>
+				<class name="org.universAAL.middleware.brokers.message.control.ControlMessage" filename="org/universAAL/middleware/brokers/message/control/ControlMessage.java" line-rate="0.74" branch-rate="0.5" complexity="1.2941176470588236">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="77" hits="15" branch="false"/>
+								<line number="78" hits="15" branch="false"/>
+								<line number="79" hits="15" branch="false"/>
+								<line number="80" hits="15" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;Ljava/lang/String;Ljava/util/HashMap;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="90" hits="1" branch="false"/>
+								<line number="91" hits="1" branch="false"/>
+								<line number="92" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;Ljava/lang/String;Ljava/util/HashMap;Z)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="96" hits="2" branch="false"/>
+								<line number="97" hits="2" branch="false"/>
+								<line number="98" hits="2" branch="false"/>
+								<line number="99" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="67" hits="4" branch="false"/>
+								<line number="68" hits="4" branch="false"/>
+								<line number="69" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;Ljava/util/Map;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="84" hits="2" branch="false"/>
+								<line number="85" hits="2" branch="false"/>
+								<line number="86" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;Lorg/universAAL/middleware/brokers/message/control/ControlMessage$ControlMessageType;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="72" hits="6" branch="false"/>
+								<line number="73" hits="6" branch="false"/>
+								<line number="74" hits="6" branch="false"/>
+								<line number="75" hits="6" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;Lorg/universAAL/middleware/brokers/message/control/ControlMessage$ControlMessageType;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="51" hits="18" branch="false"/>
+								<line number="102" hits="3" branch="false"/>
+								<line number="103" hits="3" branch="false"/>
+								<line number="104" hits="3" branch="false"/>
+								<line number="105" hits="3" branch="false"/>
+								<line number="106" hits="3" branch="false"/>
+								<line number="107" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getAttributeFilter" signature="()Ljava/util/Map;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="155" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getAttributeValues" signature="()Ljava/util/Map;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="159" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getAttributes" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="167" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMType" signature="()Lorg/universAAL/middleware/brokers/message/BrokerMessage$BrokerMessageTypes;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="163" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMatchFilter" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="127" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMessageType" signature="()Lorg/universAAL/middleware/brokers/message/control/ControlMessage$ControlMessageType;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="131" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getReceivers" signature="()[Lorg/universAAL/middleware/interfaces/PeerCard;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="175" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getTransactionId" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="151" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="0.7777777777777778" branch-rate="0.5" complexity="0">
+							<lines>
+								<line number="110" hits="18" branch="false"/>
+								<line number="111" hits="18" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="114" hits="18" branch="false"/>
+								<line number="115" hits="18" branch="false"/>
+								<line number="117" hits="0" branch="false"/>
+								<line number="119" hits="0" branch="false"/>
+								<line number="120" hits="18" branch="false"/>
+								<line number="122" hits="18" branch="false"/>
+								<line number="123" hits="18" branch="false"/>
+							</lines>
+						</method>
+						<method name="unmarshall" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/control/ControlMessage;" line-rate="0.4" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="138" hits="8" branch="false"/>
+								<line number="140" hits="8" branch="false"/>
+								<line number="142" hits="0" branch="false"/>
+								<line number="144" hits="0" branch="false"/>
+								<line number="146" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="51" hits="18" branch="false"/>
+						<line number="67" hits="4" branch="false"/>
+						<line number="68" hits="4" branch="false"/>
+						<line number="69" hits="4" branch="false"/>
+						<line number="72" hits="6" branch="false"/>
+						<line number="73" hits="6" branch="false"/>
+						<line number="74" hits="6" branch="false"/>
+						<line number="75" hits="6" branch="false"/>
+						<line number="77" hits="15" branch="false"/>
+						<line number="78" hits="15" branch="false"/>
+						<line number="79" hits="15" branch="false"/>
+						<line number="80" hits="15" branch="false"/>
+						<line number="84" hits="2" branch="false"/>
+						<line number="85" hits="2" branch="false"/>
+						<line number="86" hits="2" branch="false"/>
+						<line number="90" hits="1" branch="false"/>
+						<line number="91" hits="1" branch="false"/>
+						<line number="92" hits="1" branch="false"/>
+						<line number="96" hits="2" branch="false"/>
+						<line number="97" hits="2" branch="false"/>
+						<line number="98" hits="2" branch="false"/>
+						<line number="99" hits="2" branch="false"/>
+						<line number="102" hits="3" branch="false"/>
+						<line number="103" hits="3" branch="false"/>
+						<line number="104" hits="3" branch="false"/>
+						<line number="105" hits="3" branch="false"/>
+						<line number="106" hits="3" branch="false"/>
+						<line number="107" hits="3" branch="false"/>
+						<line number="110" hits="18" branch="false"/>
+						<line number="111" hits="18" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="114" hits="18" branch="false"/>
+						<line number="115" hits="18" branch="false"/>
+						<line number="117" hits="0" branch="false"/>
+						<line number="119" hits="0" branch="false"/>
+						<line number="120" hits="18" branch="false"/>
+						<line number="122" hits="18" branch="false"/>
+						<line number="123" hits="18" branch="false"/>
+						<line number="127" hits="0" branch="false"/>
+						<line number="131" hits="0" branch="false"/>
+						<line number="138" hits="8" branch="false"/>
+						<line number="140" hits="8" branch="false"/>
+						<line number="142" hits="0" branch="false"/>
+						<line number="144" hits="0" branch="false"/>
+						<line number="146" hits="0" branch="false"/>
+						<line number="151" hits="0" branch="false"/>
+						<line number="155" hits="0" branch="false"/>
+						<line number="159" hits="0" branch="false"/>
+						<line number="163" hits="0" branch="false"/>
+						<line number="167" hits="0" branch="false"/>
+						<line number="175" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.control.ControlMessage$ControlMessageFields" filename="org/universAAL/middleware/brokers/message/control/ControlMessage.java" line-rate="0.0" branch-rate="1.0" complexity="1.2941176470588236">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="62" hits="0" branch="false"/>
+								<line number="63" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/control/ControlMessage$ControlMessageFields;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/universAAL/middleware/brokers/message/control/ControlMessage$ControlMessageFields;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="62" hits="0" branch="false"/>
+						<line number="63" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.control.ControlMessage$ControlMessageType" filename="org/universAAL/middleware/brokers/message/control/ControlMessage.java" line-rate="1.0" branch-rate="1.0" complexity="1.2941176470588236">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="58" hits="7" branch="false"/>
+								<line number="59" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/control/ControlMessage$ControlMessageType;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/universAAL/middleware/brokers/message/control/ControlMessage$ControlMessageType;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="58" hits="7" branch="false"/>
+						<line number="59" hits="1" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.universAAL.middleware.brokers.message.deploy" line-rate="0.35714285714285715" branch-rate="1.0" complexity="1.05">
+			<classes>
+				<class name="org.universAAL.middleware.brokers.message.deploy.DeployMessage" filename="org/universAAL/middleware/brokers/message/deploy/DeployMessage.java" line-rate="0.6" branch-rate="1.0" complexity="1.125">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="58" hits="3" branch="false"/>
+								<line number="59" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/brokers/message/deploy/DeployMessage$DeployMessageType;Lorg/universAAL/middleware/brokers/message/deploy/DeployPayload;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="51" hits="3" branch="false"/>
+								<line number="53" hits="3" branch="false"/>
+								<line number="54" hits="3" branch="false"/>
+								<line number="55" hits="3" branch="false"/>
+								<line number="56" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMType" signature="()Lorg/universAAL/middleware/brokers/message/BrokerMessage$BrokerMessageTypes;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="90" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMessageType" signature="()Lorg/universAAL/middleware/brokers/message/deploy/DeployMessage$DeployMessageType;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="62" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getPayload" signature="()Lorg/universAAL/middleware/brokers/message/deploy/DeployPayload;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="85" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getReceivers" signature="()[Lorg/universAAL/middleware/interfaces/PeerCard;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="98" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="setMessageType" signature="(Lorg/universAAL/middleware/brokers/message/deploy/DeployMessage$DeployMessageType;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="66" hits="0" branch="false"/>
+								<line number="67" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="0.7142857142857143" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="70" hits="9" branch="false"/>
+								<line number="73" hits="9" branch="false"/>
+								<line number="74" hits="9" branch="false"/>
+								<line number="76" hits="0" branch="false"/>
+								<line number="78" hits="0" branch="false"/>
+								<line number="79" hits="9" branch="false"/>
+								<line number="81" hits="9" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="51" hits="3" branch="false"/>
+						<line number="53" hits="3" branch="false"/>
+						<line number="54" hits="3" branch="false"/>
+						<line number="55" hits="3" branch="false"/>
+						<line number="56" hits="3" branch="false"/>
+						<line number="58" hits="3" branch="false"/>
+						<line number="59" hits="3" branch="false"/>
+						<line number="62" hits="0" branch="false"/>
+						<line number="66" hits="0" branch="false"/>
+						<line number="67" hits="0" branch="false"/>
+						<line number="70" hits="9" branch="false"/>
+						<line number="73" hits="9" branch="false"/>
+						<line number="74" hits="9" branch="false"/>
+						<line number="76" hits="0" branch="false"/>
+						<line number="78" hits="0" branch="false"/>
+						<line number="79" hits="9" branch="false"/>
+						<line number="81" hits="9" branch="false"/>
+						<line number="85" hits="0" branch="false"/>
+						<line number="90" hits="0" branch="false"/>
+						<line number="98" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.deploy.DeployMessage$DeployMessageType" filename="org/universAAL/middleware/brokers/message/deploy/DeployMessage.java" line-rate="1.0" branch-rate="1.0" complexity="1.125">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="42" hits="5" branch="false"/>
+								<line number="43" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/deploy/DeployMessage$DeployMessageType;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/universAAL/middleware/brokers/message/deploy/DeployMessage$DeployMessageType;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="42" hits="5" branch="false"/>
+						<line number="43" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.deploy.DeployMessageException" filename="org/universAAL/middleware/brokers/message/deploy/DeployMessageException.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="52" hits="0" branch="false"/>
+								<line number="53" hits="0" branch="false"/>
+								<line number="54" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/Throwable;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="47" hits="0" branch="false"/>
+								<line number="48" hits="0" branch="false"/>
+								<line number="49" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="61" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="47" hits="0" branch="false"/>
+						<line number="48" hits="0" branch="false"/>
+						<line number="49" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="false"/>
+						<line number="53" hits="0" branch="false"/>
+						<line number="54" hits="0" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.deploy.DeployMessageFields" filename="org/universAAL/middleware/brokers/message/deploy/DeployMessageFields.java" line-rate="0.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="37" hits="0" branch="false"/>
+								<line number="39" hits="0" branch="false"/>
+								<line number="40" hits="0" branch="false"/>
+								<line number="41" hits="0" branch="false"/>
+								<line number="43" hits="0" branch="false"/>
+								<line number="44" hits="0" branch="false"/>
+								<line number="45" hits="0" branch="false"/>
+								<line number="47" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="31" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="31" hits="0" branch="false"/>
+						<line number="37" hits="0" branch="false"/>
+						<line number="39" hits="0" branch="false"/>
+						<line number="40" hits="0" branch="false"/>
+						<line number="41" hits="0" branch="false"/>
+						<line number="43" hits="0" branch="false"/>
+						<line number="44" hits="0" branch="false"/>
+						<line number="45" hits="0" branch="false"/>
+						<line number="47" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.deploy.DeployNotificationPayload" filename="org/universAAL/middleware/brokers/message/deploy/DeployNotificationPayload.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="([BLorg/universAAL/middleware/interfaces/mpa/UAPPCard;Ljava/lang/String;Lorg/universAAL/middleware/interfaces/mpa/UAPPPartStatus;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="40" hits="0" branch="false"/>
+								<line number="41" hits="0" branch="false"/>
+								<line number="42" hits="0" branch="false"/>
+								<line number="43" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMpaPartStatus" signature="()Lorg/universAAL/middleware/interfaces/mpa/UAPPPartStatus;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="50" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getPartID" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="46" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="40" hits="0" branch="false"/>
+						<line number="41" hits="0" branch="false"/>
+						<line number="42" hits="0" branch="false"/>
+						<line number="43" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
+						<line number="50" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.deploy.DeployPayload" filename="org/universAAL/middleware/brokers/message/deploy/DeployPayload.java" line-rate="0.5" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="39" hits="3" branch="false"/>
+								<line number="40" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="([BLorg/universAAL/middleware/interfaces/mpa/UAPPCard;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="42" hits="3" branch="false"/>
+								<line number="44" hits="3" branch="false"/>
+								<line number="45" hits="3" branch="false"/>
+								<line number="46" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getPart" signature="()[B" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="49" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getuappCard" signature="()Lorg/universAAL/middleware/interfaces/mpa/UAPPCard;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="57" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="setPart" signature="([B)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="53" hits="0" branch="false"/>
+								<line number="54" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="setuappCard" signature="(Lorg/universAAL/middleware/interfaces/mpa/UAPPCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="61" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="39" hits="3" branch="false"/>
+						<line number="40" hits="3" branch="false"/>
+						<line number="42" hits="3" branch="false"/>
+						<line number="44" hits="3" branch="false"/>
+						<line number="45" hits="3" branch="false"/>
+						<line number="46" hits="3" branch="false"/>
+						<line number="49" hits="0" branch="false"/>
+						<line number="53" hits="0" branch="false"/>
+						<line number="54" hits="0" branch="false"/>
+						<line number="57" hits="0" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
+						<line number="62" hits="0" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.universAAL.middleware.brokers.message.distributedmw" line-rate="0.0" branch-rate="0.0" complexity="1.625">
+			<classes>
+				<class name="org.universAAL.middleware.brokers.message.distributedmw.DistributedMWMessage" filename="org/universAAL/middleware/brokers/message/distributedmw/DistributedMWMessage.java" line-rate="0.0" branch-rate="0.0" complexity="1.625">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="36" hits="0" branch="false"/>
+								<line number="37" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="44" hits="0" branch="false"/>
+								<line number="45" hits="0" branch="false"/>
+								<line number="46" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMType" signature="()Lorg/universAAL/middleware/brokers/message/BrokerMessage$BrokerMessageTypes;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="58" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getPayload" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="49" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getReceivers" signature="()[Lorg/universAAL/middleware/interfaces/PeerCard;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="63" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="setPayload" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="53" hits="0" branch="false"/>
+								<line number="54" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="68" hits="0" branch="false"/>
+								<line number="69" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="71" hits="0" branch="false"/>
+								<line number="72" hits="0" branch="false"/>
+								<line number="73" hits="0" branch="false"/>
+								<line number="74" hits="0" branch="false"/>
+								<line number="75" hits="0" branch="false"/>
+								<line number="77" hits="0" branch="false"/>
+								<line number="78" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="unmarshall" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/distributedmw/DistributedMWMessage;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="84" hits="0" branch="false"/>
+								<line number="85" hits="0" branch="false"/>
+								<line number="86" hits="0" branch="false"/>
+								<line number="87" hits="0" branch="false"/>
+								<line number="89" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="36" hits="0" branch="false"/>
+						<line number="37" hits="0" branch="false"/>
+						<line number="44" hits="0" branch="false"/>
+						<line number="45" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
+						<line number="49" hits="0" branch="false"/>
+						<line number="53" hits="0" branch="false"/>
+						<line number="54" hits="0" branch="false"/>
+						<line number="58" hits="0" branch="false"/>
+						<line number="63" hits="0" branch="false"/>
+						<line number="68" hits="0" branch="false"/>
+						<line number="69" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="71" hits="0" branch="false"/>
+						<line number="72" hits="0" branch="false"/>
+						<line number="73" hits="0" branch="false"/>
+						<line number="74" hits="0" branch="false"/>
+						<line number="75" hits="0" branch="false"/>
+						<line number="77" hits="0" branch="false"/>
+						<line number="78" hits="0" branch="false"/>
+						<line number="84" hits="0" branch="false"/>
+						<line number="85" hits="0" branch="false"/>
+						<line number="86" hits="0" branch="false"/>
+						<line number="87" hits="0" branch="false"/>
+						<line number="89" hits="0" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.universAAL.middleware.brokers.message.gson" line-rate="0.660377358490566" branch-rate="0.6153846153846154" complexity="2.090909090909091">
+			<classes>
+				<class name="org.universAAL.middleware.brokers.message.gson.BrokerMessageSerializer" filename="org/universAAL/middleware/brokers/message/gson/BrokerMessageSerializer.java" line-rate="0.6" branch-rate="0.4" complexity="2.5">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="75" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="deserialize" signature="(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="40" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="deserialize" signature="(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lorg/universAAL/middleware/brokers/message/BrokerMessage;" line-rate="0.8333333333333334" branch-rate="0.4" complexity="0">
+							<lines>
+								<line number="59" hits="2" branch="false"/>
+								<line number="60" hits="2" branch="false"/>
+								<line number="61" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="62" hits="2" branch="false"/>
+								<line number="63" hits="2" branch="false"/>
+								<line number="64" hits="2" branch="false"/>
+								<line number="65" hits="2" branch="true" condition-coverage="33% (1/3)">
+									<conditions>
+										<condition number="0" type="switch" coverage="33%"/>
+									</conditions>
+								</line>
+								<line number="67" hits="2" branch="false"/>
+								<line number="69" hits="2" branch="false"/>
+								<line number="71" hits="0" branch="false"/>
+								<line number="73" hits="0" branch="false"/>
+								<line number="80" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="serialize" signature="(Ljava/lang/Object;Ljava/lang/reflect/Type;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="serialize" signature="(Lorg/universAAL/middleware/brokers/message/BrokerMessage;Ljava/lang/reflect/Type;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="49" hits="0" branch="false"/>
+								<line number="50" hits="0" branch="false"/>
+								<line number="51" hits="0" branch="false"/>
+								<line number="52" hits="0" branch="false"/>
+								<line number="53" hits="0" branch="false"/>
+								<line number="54" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="40" hits="3" branch="false"/>
+						<line number="49" hits="0" branch="false"/>
+						<line number="50" hits="0" branch="false"/>
+						<line number="51" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="false"/>
+						<line number="53" hits="0" branch="false"/>
+						<line number="54" hits="0" branch="false"/>
+						<line number="59" hits="2" branch="false"/>
+						<line number="60" hits="2" branch="false"/>
+						<line number="61" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="62" hits="2" branch="false"/>
+						<line number="63" hits="2" branch="false"/>
+						<line number="64" hits="2" branch="false"/>
+						<line number="65" hits="2" branch="true" condition-coverage="33% (1/3)">
+							<conditions>
+								<condition number="0" type="switch" coverage="33%"/>
+							</conditions>
+						</line>
+						<line number="67" hits="2" branch="false"/>
+						<line number="69" hits="2" branch="false"/>
+						<line number="71" hits="0" branch="false"/>
+						<line number="73" hits="0" branch="false"/>
+						<line number="75" hits="1" branch="false"/>
+						<line number="80" hits="2" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.gson.BrokerMessageSerializer$1" filename="org/universAAL/middleware/brokers/message/gson/BrokerMessageSerializer.java" line-rate="1.0" branch-rate="1.0" complexity="2.5">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="65" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="65" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.gson.GsonParserBuilder" filename="org/universAAL/middleware/brokers/message/gson/GsonParserBuilder.java" line-rate="0.8421052631578947" branch-rate="1.0" complexity="2.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="49" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="68" hits="1" branch="false"/>
+								<line number="69" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildGson" signature="()Lcom/google/gson/Gson;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="128" hits="1" branch="false"/>
+								<line number="129" hits="1" branch="false"/>
+								<line number="131" hits="1" branch="false"/>
+								<line number="132" hits="1" branch="false"/>
+								<line number="133" hits="1" branch="false"/>
+								<line number="134" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="fromJson" signature="(Lcom/google/gson/JsonElement;Ljava/lang/Class;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="65" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="fromJson" signature="(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="60" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getInstance" signature="()Lcom/google/gson/Gson;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="117" hits="49" branch="false"/>
+								<line number="118" hits="49" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="119" hits="1" branch="false"/>
+								<line number="120" hits="1" branch="false"/>
+								<line number="121" hits="1" branch="false"/>
+								<line number="123" hits="48" branch="false"/>
+								<line number="124" hits="48" branch="false"/>
+							</lines>
+						</method>
+						<method name="toJson" signature="(Ljava/lang/Object;)Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="55" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="49" hits="1" branch="false"/>
+						<line number="55" hits="0" branch="false"/>
+						<line number="60" hits="0" branch="false"/>
+						<line number="65" hits="0" branch="false"/>
+						<line number="68" hits="1" branch="false"/>
+						<line number="69" hits="1" branch="false"/>
+						<line number="117" hits="49" branch="false"/>
+						<line number="118" hits="49" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="119" hits="1" branch="false"/>
+						<line number="120" hits="1" branch="false"/>
+						<line number="121" hits="1" branch="false"/>
+						<line number="123" hits="48" branch="false"/>
+						<line number="124" hits="48" branch="false"/>
+						<line number="128" hits="1" branch="false"/>
+						<line number="129" hits="1" branch="false"/>
+						<line number="131" hits="1" branch="false"/>
+						<line number="132" hits="1" branch="false"/>
+						<line number="133" hits="1" branch="false"/>
+						<line number="134" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.gson.GsonParserBuilder$1" filename="org/universAAL/middleware/brokers/message/gson/GsonParserBuilder.java" line-rate="1.0" branch-rate="1.0" complexity="2.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.gson.GsonParserBuilder$SerializableDeserializer" filename="org/universAAL/middleware/brokers/message/gson/GsonParserBuilder.java" line-rate="0.75" branch-rate="0.6666666666666666" complexity="2.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/brokers/message/gson/GsonParserBuilder;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/brokers/message/gson/GsonParserBuilder;Lorg/universAAL/middleware/brokers/message/gson/GsonParserBuilder$1;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="92" hits="12" branch="false"/>
+							</lines>
+						</method>
+						<method name="deserialize" signature="(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Ljava/io/Serializable;" line-rate="0.7142857142857143" branch-rate="0.6666666666666666" complexity="0">
+							<lines>
+								<line number="97" hits="10" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="98" hits="1" branch="false"/>
+								<line number="100" hits="9" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="101" hits="0" branch="false"/>
+								<line number="103" hits="9" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="104" hits="9" branch="false"/>
+								<line number="111" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="deserialize" signature="(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="92" hits="12" branch="false"/>
+						<line number="97" hits="10" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="98" hits="1" branch="false"/>
+						<line number="100" hits="9" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="101" hits="0" branch="false"/>
+						<line number="103" hits="9" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="104" hits="9" branch="false"/>
+						<line number="111" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.gson.GsonParserBuilder$SerializableSerializer" filename="org/universAAL/middleware/brokers/message/gson/GsonParserBuilder.java" line-rate="0.0" branch-rate="1.0" complexity="2.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/brokers/message/gson/GsonParserBuilder;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+							</lines>
+						</method>
+						<method name="serialize" signature="(Ljava/io/Serializable;Ljava/lang/reflect/Type;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="88" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="serialize" signature="(Ljava/lang/Object;Ljava/lang/reflect/Type;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="84" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="84" hits="0" branch="false"/>
+						<line number="88" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.brokers.message.gson.GsonParserBuilder$UnmappedJSonTypeException" filename="org/universAAL/middleware/brokers/message/gson/GsonParserBuilder.java" line-rate="0.0" branch-rate="1.0" complexity="2.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/brokers/message/gson/GsonParserBuilder;Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="78" hits="0" branch="false"/>
+								<line number="79" hits="0" branch="false"/>
+								<line number="80" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="78" hits="0" branch="false"/>
+						<line number="79" hits="0" branch="false"/>
+						<line number="80" hits="0" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+	</packages>
+</coverage>

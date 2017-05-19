@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="c332626" href="../../../rdf/FinalizedResource.html" title="org.universAAL.middleware.rdf.FinalizedResource" alt="" coords="442,17,571,42"/>
+<area shape="rect" id="node1" href="../../../rdf/FinalizedResource.html" title="&lt;TABLE&gt;" alt="" coords="432,5,581,53"/>
+<area shape="rect" id="c332953" href="./ProfileParameter.html" title="org.universAAL.middleware.service.owls.profile.ProfileParameter" alt="" coords="448,113,565,138"/>
+<area shape="rect" id="node6" href="./ProfileParameter.html" title="&lt;TABLE&gt;" alt="" coords="437,101,576,149"/>
+<area shape="rect" id="c332948" href="./ResponseTimeInMilliseconds.html" title="org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds" alt="" coords="16,209,208,234"/>
+<area shape="rect" id="node2" href="./ResponseTimeInMilliseconds.html" title="&lt;TABLE&gt;" alt="" coords="5,197,219,245"/>
+<area shape="rect" id="c332949" href="./SingleLocationParameter.html" title="org.universAAL.middleware.service.owls.profile.SingleLocationParameter" alt="" coords="253,209,419,234"/>
+<area shape="rect" id="node3" href="./SingleLocationParameter.html" title="&lt;TABLE&gt;" alt="" coords="243,197,429,245"/>
+<area shape="rect" id="c332950" href="./QoSRating.html" title="org.universAAL.middleware.service.owls.profile.QoSRating" alt="" coords="464,209,549,234"/>
+<area shape="rect" id="node4" href="./QoSRating.html" title="&lt;TABLE&gt;" alt="" coords="453,197,560,245"/>
+<area shape="rect" id="c332951" href="./MultiLocationParameter.html" title="org.universAAL.middleware.service.owls.profile.MultiLocationParameter" alt="" coords="595,209,752,234"/>
+<area shape="rect" id="node5" href="./MultiLocationParameter.html" title="&lt;TABLE&gt;" alt="" coords="584,197,763,245"/>
+<area shape="rect" id="c332954" href="./NumberOfSamples.html" title="org.universAAL.middleware.service.owls.profile.NumberOfSamples" alt="" coords="797,209,929,234"/>
+<area shape="rect" id="node7" href="./NumberOfSamples.html" title="&lt;TABLE&gt;" alt="" coords="787,197,939,245"/>
+</map>

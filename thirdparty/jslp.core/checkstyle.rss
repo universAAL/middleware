@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>universAAL Thirdparty jslp library (Core) - Checkstyle report</title>
+    <link>http://middleware/thirdparty/jslp.core/</link>
+    <description>universAAL Thirdparty jslp library (Core) - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2017 universAAL Consortium</copyright>
+    <item>
+      <title>File: 32,
+             Errors: 224,
+             Warnings: 96,
+             Infos: 437
+      </title>
+            <link>http://middleware/thirdparty/jslp.core//checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://middleware/thirdparty/jslp.core//checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.ReplyMessage.java">ch/ethz/iks/slp/impl/ReplyMessage.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.ServiceLocationEnumeration.java">ch/ethz/iks/slp/ServiceLocationEnumeration.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.PlatformAbstraction.java">ch/ethz/iks/slp/impl/PlatformAbstraction.java</a>
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.ServiceURL.java">ch/ethz/iks/slp/ServiceURL.java</a>
+                </td>
+                <td>
+                  39
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPDaemon.java">ch/ethz/iks/slp/impl/SLPDaemon.java</a>
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.AttributeRequest.java">ch/ethz/iks/slp/impl/AttributeRequest.java</a>
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.LocatorImpl.java">ch/ethz/iks/slp/impl/LocatorImpl.java</a>
+                </td>
+                <td>
+                  16
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.ServiceRegistration.java">ch/ethz/iks/slp/impl/ServiceRegistration.java</a>
+                </td>
+                <td>
+                  19
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.Advertiser.java">ch/ethz/iks/slp/Advertiser.java</a>
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPMessage.java">ch/ethz/iks/slp/impl/SLPMessage.java</a>
+                </td>
+                <td>
+                  28
+                </td>
+                <td>
+                  18
+                </td>
+                <td>
+                  26
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.ServiceType.java">ch/ethz/iks/slp/ServiceType.java</a>
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.AttributeReply.java">ch/ethz/iks/slp/impl/AttributeReply.java</a>
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.ServiceDeregistration.java">ch/ethz/iks/slp/impl/ServiceDeregistration.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.DAAdvertisement.java">ch/ethz/iks/slp/impl/DAAdvertisement.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.AdvertiserImpl.java">ch/ethz/iks/slp/impl/AdvertiserImpl.java</a>
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.AuthenticationBlock.java">ch/ethz/iks/slp/impl/AuthenticationBlock.java</a>
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.Service.java">ch/ethz/iks/slp/impl/Service.java</a>
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.Locator.java">ch/ethz/iks/slp/Locator.java</a>
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.ServiceAcknowledgement.java">ch/ethz/iks/slp/impl/ServiceAcknowledgement.java</a>
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.RequestMessage.java">ch/ethz/iks/slp/impl/RequestMessage.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.ServiceTypeReply.java">ch/ethz/iks/slp/impl/ServiceTypeReply.java</a>
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPCore.java">ch/ethz/iks/slp/impl/SLPCore.java</a>
+                </td>
+                <td>
+                  26
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPUtils.java">ch/ethz/iks/slp/impl/SLPUtils.java</a>
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.ServiceTypeRequest.java">ch/ethz/iks/slp/impl/ServiceTypeRequest.java</a>
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.AuthenticatedURL.java">ch/ethz/iks/slp/impl/AuthenticatedURL.java</a>
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPDaemonImpl.java">ch/ethz/iks/slp/impl/SLPDaemonImpl.java</a>
+                </td>
+                <td>
+                  23
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.ServiceRequest.java">ch/ethz/iks/slp/impl/ServiceRequest.java</a>
+                </td>
+                <td>
+                  16
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPConfiguration.java">ch/ethz/iks/slp/impl/SLPConfiguration.java</a>
+                </td>
+                <td>
+                  35
+                </td>
+                <td>
+                  23
+                </td>
+                <td>
+                  71
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.ServiceLocationException.java">ch/ethz/iks/slp/ServiceLocationException.java</a>
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.ServiceLocationEnumerationImpl.java">ch/ethz/iks/slp/impl/ServiceLocationEnumerationImpl.java</a>
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.filter.Filter.java">ch/ethz/iks/slp/impl/filter/Filter.java</a>
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.ServiceReply.java">ch/ethz/iks/slp/impl/ServiceReply.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

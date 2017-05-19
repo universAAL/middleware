@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>universAAL Middleware User Interaction Bus (Core) - Checkstyle report</title>
+    <link>http://middleware/middleware.core/mw.bus.ui.core/</link>
+    <description>universAAL Middleware User Interaction Bus (Core) - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2017 universAAL Consortium</copyright>
+    <item>
+      <title>File: 47,
+             Errors: 1047,
+             Warnings: 443,
+             Infos: 1335
+      </title>
+            <link>http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.owl.Preference.java">org/universAAL/middleware/ui/owl/Preference.java</a>
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UIHandler.java">org/universAAL/middleware/ui/UIHandler.java</a>
+                </td>
+                <td>
+                  36
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.SubdialogTrigger.java">org/universAAL/middleware/ui/rdf/SubdialogTrigger.java</a>
+                </td>
+                <td>
+                  18
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.owl.AccessImpairment.java">org/universAAL/middleware/ui/owl/AccessImpairment.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  11
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.InputField.java">org/universAAL/middleware/ui/rdf/InputField.java</a>
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.Submit.java">org/universAAL/middleware/ui/rdf/Submit.java</a>
+                </td>
+                <td>
+                  28
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  32
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.ChoiceItem.java">org/universAAL/middleware/ui/rdf/ChoiceItem.java</a>
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.owl.Modality.java">org/universAAL/middleware/ui/owl/Modality.java</a>
+                </td>
+                <td>
+                  21
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  26
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.CallBasedStrategy.java">org/universAAL/middleware/ui/impl/generic/CallBasedStrategy.java</a>
+                </td>
+                <td>
+                  38
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  34
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.Select.java">org/universAAL/middleware/ui/rdf/Select.java</a>
+                </td>
+                <td>
+                  31
+                </td>
+                <td>
+                  19
+                </td>
+                <td>
+                  27
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.CallMessage.java">org/universAAL/middleware/ui/impl/generic/CallMessage.java</a>
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.ChoiceList.java">org/universAAL/middleware/ui/rdf/ChoiceList.java</a>
+                </td>
+                <td>
+                  18
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.EventBasedStrategy.java">org/universAAL/middleware/ui/impl/generic/EventBasedStrategy.java</a>
+                </td>
+                <td>
+                  27
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.Range.java">org/universAAL/middleware/ui/rdf/Range.java</a>
+                </td>
+                <td>
+                  30
+                </td>
+                <td>
+                  27
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIBusImpl.java">org/universAAL/middleware/ui/impl/UIBusImpl.java</a>
+                </td>
+                <td>
+                  77
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  26
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.Output.java">org/universAAL/middleware/ui/rdf/Output.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UIBusFacade.java">org/universAAL/middleware/ui/UIBusFacade.java</a>
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UIHandlerProfile.java">org/universAAL/middleware/ui/UIHandlerProfile.java</a>
+                </td>
+                <td>
+                  40
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  24
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.MediaObject.java">org/universAAL/middleware/ui/rdf/MediaObject.java</a>
+                </td>
+                <td>
+                  39
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  26
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIBusFactory.java">org/universAAL/middleware/ui/impl/UIBusFactory.java</a>
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.TextArea.java">org/universAAL/middleware/ui/rdf/TextArea.java</a>
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.owl.UIBusOntology.java">org/universAAL/middleware/ui/owl/UIBusOntology.java</a>
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  16
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.Form.java">org/universAAL/middleware/ui/rdf/Form.java</a>
+                </td>
+                <td>
+                  63
+                </td>
+                <td>
+                  33
+                </td>
+                <td>
+                  77
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.owl.DialogType.java">org/universAAL/middleware/ui/owl/DialogType.java</a>
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  19
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.Label.java">org/universAAL/middleware/ui/rdf/Label.java</a>
+                </td>
+                <td>
+                  16
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UIResponse.java">org/universAAL/middleware/ui/UIResponse.java</a>
+                </td>
+                <td>
+                  29
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.SimpleOutput.java">org/universAAL/middleware/ui/rdf/SimpleOutput.java</a>
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UICaller.java">org/universAAL/middleware/ui/UICaller.java</a>
+                </td>
+                <td>
+                  29
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.IUIStrategyMessageSharedProps.java">org/universAAL/middleware/ui/impl/IUIStrategyMessageSharedProps.java</a>
+                </td>
+                <td>
+                  20
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.FormControl.java">org/universAAL/middleware/ui/rdf/FormControl.java</a>
+                </td>
+                <td>
+                  28
+                </td>
+                <td>
+                  48
+                </td>
+                <td>
+                  52
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng.java">org/universAAL/middleware/ui/impl/UIStrategyCoordinatorMng.java</a>
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.owl.Recommendation.java">org/universAAL/middleware/ui/owl/Recommendation.java</a>
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.IDialogManager.java">org/universAAL/middleware/ui/IDialogManager.java</a>
+                </td>
+                <td>
+                  21
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.Repeat.java">org/universAAL/middleware/ui/rdf/Repeat.java</a>
+                </td>
+                <td>
+                  45
+                </td>
+                <td>
+                  40
+                </td>
+                <td>
+                  69
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy.java">org/universAAL/middleware/ui/impl/generic/CoordinatedStrategy.java</a>
+                </td>
+                <td>
+                  51
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  67
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.IUIBus.java">org/universAAL/middleware/ui/IUIBus.java</a>
+                </td>
+                <td>
+                  38
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIStrategyHandler.java">org/universAAL/middleware/ui/impl/UIStrategyHandler.java</a>
+                </td>
+                <td>
+                  111
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  81
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.EventMessage.java">org/universAAL/middleware/ui/impl/generic/EventMessage.java</a>
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.Group.java">org/universAAL/middleware/ui/rdf/Group.java</a>
+                </td>
+                <td>
+                  51
+                </td>
+                <td>
+                  61
+                </td>
+                <td>
+                  54
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.owl.PrivacyLevel.java">org/universAAL/middleware/ui/owl/PrivacyLevel.java</a>
+                </td>
+                <td>
+                  20
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.RunningDialogsManager.java">org/universAAL/middleware/ui/impl/RunningDialogsManager.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  18
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.UIStrategyCaller.java">org/universAAL/middleware/ui/impl/UIStrategyCaller.java</a>
+                </td>
+                <td>
+                  82
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  74
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.FormElement.java">org/universAAL/middleware/ui/rdf/FormElement.java</a>
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.Input.java">org/universAAL/middleware/ui/rdf/Input.java</a>
+                </td>
+                <td>
+                  18
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UIRequest.java">org/universAAL/middleware/ui/UIRequest.java</a>
+                </td>
+                <td>
+                  43
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.rdf.Select1.java">org/universAAL/middleware/ui/rdf/Select1.java</a>
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement.java">org/universAAL/middleware/ui/impl/generic/CoordinatedRegistrationManagement.java</a>
+                </td>
+                <td>
+                  49
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  54
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

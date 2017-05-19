@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c336351" href="../owl/ObjectPropertySetup.html" title="org.universAAL.middleware.owl.ObjectPropertySetup" alt="" coords="16,113,157,154"/>
+<area shape="rect" id="node1" href="../owl/ObjectPropertySetup.html" title="&lt;TABLE&gt;" alt="" coords="5,107,168,159"/>
+<area shape="rect" id="c336352" href="../owl/DatatypePropertySetup.html" title="org.universAAL.middleware.owl.DatatypePropertySetup" alt="" coords="203,113,360,154"/>
+<area shape="rect" id="node2" href="../owl/DatatypePropertySetup.html" title="&lt;TABLE&gt;" alt="" coords="192,107,371,159"/>
+<area shape="rect" id="c336379" href="./PropertySetup.html" title="org.universAAL.middleware.rdf.PropertySetup" alt="" coords="229,11,333,53"/>
+<area shape="rect" id="node3" href="./PropertySetup.html" title="&lt;TABLE&gt;" alt="" coords="219,6,344,58"/>
+<area shape="rect" id="c336384" href="./Property.PrivatePropertySetup.html" title="org.universAAL.middleware.rdf.Property.PrivatePropertySetup" alt="" coords="405,121,550,146"/>
+<area shape="rect" id="node4" href="./Property.PrivatePropertySetup.html" title="&lt;TABLE&gt;" alt="" coords="395,109,560,157"/>
+</map>
