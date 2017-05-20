@@ -105,6 +105,8 @@ public class TurtleParser {
 	    return null;
 
 	Object parsed = deserialize(serialized, false, resourceURI);
+	if (parsed == null)
+	    return null;
 
 	if (parsed instanceof GenericOntology)
 	    return parsed;
