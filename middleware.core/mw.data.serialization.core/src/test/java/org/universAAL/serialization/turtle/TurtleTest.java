@@ -3,6 +3,7 @@ package org.universAAL.serialization.turtle;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -53,6 +54,7 @@ public class TurtleTest extends TestCase {
 				return new MyOntClass(instanceURI);
 			    }
 			}));
+	s = new TurtleSerializer();
     }
 
     private void log(String s) {
@@ -75,8 +77,8 @@ public class TurtleTest extends TestCase {
 	s = new TurtleSerializer();
 	r2 = (Resource) s.deserialize(str);
 	ResourceComparator rc = new ResourceComparator(ignoreEmptyList);
-	 System.out.println("-- r1:\n" + r1.toStringRecursive());
-	 System.out.println("-- r2:\n" + r2.toStringRecursive());
+	System.out.println("-- r1:\n" + r1.toStringRecursive());
+	System.out.println("-- r2:\n" + r2.toStringRecursive());
 
 	if (!rc.areEqual(r1, r2)) {
 	    log("-- error found in serialization: ");
@@ -232,6 +234,12 @@ public class TurtleTest extends TestCase {
 	r1.setProperty("test", Double.NEGATIVE_INFINITY);
 	assertTrue(check(r1));
     }
+    
+    public void testDoubleWithE() {
+	Resource r1 = new Resource(); // input resource
+	r1.setProperty("test", 0.0000000000001d);
+	assertTrue(check(r1));
+    }
 
     public void testInteger() {
 	// issue from Bug report #280 Incorrect deserialization of Integer
@@ -308,4 +316,34 @@ public class TurtleTest extends TestCase {
     // System.out.println("-- r2:\n" + r2.toStringRecursive());
     // }
     // }
+
+    private void checkSimpleTriple(Resource r) {
+	// check for a simple triple "<A> a <B> ."
+	assertTrue(r.getURI().equals("A"));
+	java.util.Enumeration<?> e = r.getPropertyURIs();
+	assertTrue(e.nextElement() instanceof String);
+	assertFalse(e.hasMoreElements());
+	List<?> lst = (List<?>) r.getProperty(Resource.PROP_RDF_TYPE);
+	assertTrue(lst.size() == 1);
+	Resource t = (Resource) lst.get(0);
+	assertTrue(t.getURI().equals("B"));
+    }
+
+    public void testComment1() {
+	checkSimpleTriple((Resource) s.deserialize("<A> a #kljdfghlkdfhg\n  <B> ."));
+    }
+
+    public void testComment2() {
+	checkSimpleTriple((Resource) s.deserialize("<A> a #kljdfghlkdfhg\n<B> ."));
+    }
+
+    public void testTripleWithNS1() {
+	String serialized = "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n" + "<A> a <B> .";
+	checkSimpleTriple((Resource) s.deserialize("<A> a #kljdfghlkdfhg\n<B> ."));
+    }
+    
+    public void testTripleWithNS2() {
+	String serialized = "@prefix rdf : <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n" + "<A> a <B> .";
+	checkSimpleTriple((Resource) s.deserialize("<A> a #kljdfghlkdfhg\n<B> ."));
+    }
 }
