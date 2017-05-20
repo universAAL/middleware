@@ -44,7 +44,7 @@ public class ErrorTest extends TestCase {
 
 	mc = new JUnitModuleContext();
 	// uncomment the following line to get log messages
-	TurtleUtil.moduleContext = mc;
+	//TurtleUtil.moduleContext = mc;
 	s = new TurtleSerializer();
     }
 
