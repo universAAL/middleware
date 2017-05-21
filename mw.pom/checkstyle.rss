@@ -27,7 +27,7 @@ under the License.
     <item>
       <title>File: 572,
              Errors: 9793,
-             Warnings: 3532,
+             Warnings: 3533,
              Infos: 13754
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
@@ -5078,7 +5078,7 @@ under the License.
                   31
                 </td>
                 <td>
-                  42
+                  43
                 </td>
                 <td>
                   41
