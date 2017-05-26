@@ -50,6 +50,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * 
  * @author Carsten Stockloew
  */
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class MergedRestriction extends Intersection {
 
     /** URI for this class. */

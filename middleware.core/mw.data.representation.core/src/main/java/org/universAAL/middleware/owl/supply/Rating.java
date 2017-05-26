@@ -38,6 +38,7 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  *         Tazari</a>
  * @author Carsten Stockloew
  */
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class Rating extends ComparableIndividual {
 
     public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Rating";

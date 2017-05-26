@@ -53,6 +53,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
 // * contains all individuals that are instances of at least one class
 // expression
 // * <i>CE<sub>i</sub></i> for 1 &le; i &le; n.
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class Union extends TypeExpression {
 
     /** URI for owl:unionOf . */

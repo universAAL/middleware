@@ -43,6 +43,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  */
 // * An enumeration of the individuals <i>a<sub>1</sub> ... a<sub>n</sub></i>
 // * contains exactly the individuals <i>a<sub>i</sub></i> for 1 &le; i &le; n.
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class Enumeration extends TypeExpression {
 
     /** URI for owl:oneOf. */

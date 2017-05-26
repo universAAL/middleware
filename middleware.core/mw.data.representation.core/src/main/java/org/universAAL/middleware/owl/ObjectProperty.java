@@ -37,6 +37,7 @@ import org.universAAL.middleware.rdf.Resource;
  * @see org.universAAL.middleware.rdf.Property
  * @see org.universAAL.middleware.rdf.PropertySetup
  */
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class ObjectProperty extends Property {
 
     /** The URI of this class. */

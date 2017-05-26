@@ -49,6 +49,7 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  * @see RDFClassInfo
  * @see OntClassInfoSetup
  */
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class OntClassInfo extends RDFClassInfo {
 
     /** URI of this class. */

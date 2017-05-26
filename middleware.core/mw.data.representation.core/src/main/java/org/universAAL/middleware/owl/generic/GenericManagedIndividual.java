@@ -25,6 +25,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * 
  * @author Carsten Stockloew
  */
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class GenericManagedIndividual extends ManagedIndividual {
 
     private String classURI = null;

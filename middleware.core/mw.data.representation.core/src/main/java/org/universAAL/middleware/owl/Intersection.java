@@ -51,6 +51,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
 // * An intersection of a set of class expressions <i>CE<sub>1</sub> ...
 // * CE<sub>n</sub></i> contains all individuals that are instances of all class
 // * expressions <i>CE<sub>i</sub></i> for 1 &le; i &le; n.
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public class Intersection extends TypeExpression {
 
     /** URI for owl:intersectionOf. */
