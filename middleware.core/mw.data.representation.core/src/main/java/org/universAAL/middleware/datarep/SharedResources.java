@@ -52,8 +52,8 @@ public final class SharedResources {
      */
     public static final String uAAL_IS_DEBUG_MODE = "org.universAAL.middleware.debugMode";
 
-    public static final Dictionary middlewareProps = new Hashtable(4);
-    public static final Dictionary helpOnMiddlewareProps = new Hashtable(4);
+    private static final Dictionary middlewareProps = new Hashtable(4);
+    private static final Dictionary helpOnMiddlewareProps = new Hashtable(4);
     public static ModuleContext moduleContext;
 
     public static final DataRepFactory factory = new DataRepFactory();
@@ -69,6 +69,10 @@ public final class SharedResources {
     public static String getMiddlewareProp(String key) {
 	return (key == null || middlewareProps == null) ? null
 		: (String) middlewareProps.get(key);
+    }
+
+    public static void setMiddlewareProp(String key, Object value) {
+	middlewareProps.put(key, value);
     }
 
     public static void loadReasoningEngine() throws ClassNotFoundException {

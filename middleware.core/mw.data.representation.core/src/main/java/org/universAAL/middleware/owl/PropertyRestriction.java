@@ -60,7 +60,7 @@ public abstract class PropertyRestriction extends TypeExpression {
      * method to avoid setting two or more of those properties because they
      * should uniquely identify the type of the restriction.
      */
-    protected static final HashSet<String> propMap = new HashSet<String>();
+    protected static HashSet<String> propMap = new HashSet<String>();
 
     static {
 	// for not handling properties of other restrictions, to be used in
