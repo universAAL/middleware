@@ -58,7 +58,7 @@ public final class MergedRestriction extends Intersection {
 	    + "MergedRestriction";
 
     /** A safe iterator that does not allow to remove elements. */
-    private class SafeIterator implements Iterator<TypeExpression> {
+    private static class SafeIterator implements Iterator<TypeExpression> {
 	private Iterator<TypeExpression> it;
 
 	SafeIterator(Iterator<TypeExpression> it) {

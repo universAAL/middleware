@@ -94,7 +94,7 @@ public abstract class TypeRestriction extends TypeExpression {
     protected ArrayList<Resource> restrictions = new ArrayList<Resource>();
 
     /** Internal representation of a facet. */
-    protected class Facet {
+    protected static class Facet {
 	/** URI of the facet. */
 	String facetURI;
 

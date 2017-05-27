@@ -153,7 +153,7 @@ public final class OntologyManagement {
     /**
      * Factory information to create new instances of registered classes.
      */
-    private class FactoryEntry {
+    private static class FactoryEntry {
 	private ResourceFactory factory;
 	private int factoryIndex;
 

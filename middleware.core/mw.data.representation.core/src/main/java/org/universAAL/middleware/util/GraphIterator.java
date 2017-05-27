@@ -99,7 +99,7 @@ public class GraphIterator implements Iterator {
     /**
      * Element to be stored in the stack.
      */
-    protected class StackElement {
+    protected static class StackElement {
 	/** The parent node. */
 	private Resource nodeParent;
 

@@ -173,7 +173,7 @@ public abstract class Ontology {
      */
     private boolean locked = false;
 
-    private class MyInfo extends Resource {
+    private static class MyInfo extends Resource {
 	public MyInfo(String ontURI) {
 	    super(ontURI);
 	}
