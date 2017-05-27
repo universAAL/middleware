@@ -268,10 +268,11 @@ public final class TypeMapper {
 	    }
 	}
 
-	if (o instanceof String)
-	    return XSD_NAMESPACE + o;
+	if (o == null)
+	    return null;
 
-	return null;
+	// o must be an instance of String
+	return XSD_NAMESPACE + o;
     }
 
     /**
