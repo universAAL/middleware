@@ -20,10 +20,12 @@
 package org.universAAL.middleware.owl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.datarep.SharedResources;
@@ -60,20 +62,22 @@ public abstract class PropertyRestriction extends TypeExpression {
      * method to avoid setting two or more of those properties because they
      * should uniquely identify the type of the restriction.
      */
-    protected static HashSet<String> propMap = new HashSet<String>();
+    protected static final Set<String> propMap;
 
     static {
 	// for not handling properties of other restrictions, to be used in
 	// setProperty
-	propMap.add(HasValueRestriction.PROP_OWL_HAS_VALUE);
-	propMap.add(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY);
-	propMap.add(MinCardinalityRestriction.PROP_OWL_MIN_QUALIFIED_CARDINALITY);
-	propMap.add(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY);
-	propMap.add(MaxCardinalityRestriction.PROP_OWL_MAX_QUALIFIED_CARDINALITY);
-	propMap.add(ExactCardinalityRestriction.PROP_OWL_CARDINALITY);
-	propMap.add(ExactCardinalityRestriction.PROP_OWL_QUALIFIED_CARDINALITY);
-	propMap.add(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
-	propMap.add(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM);
+	Set<String> pm = new HashSet<String>();
+	pm.add(HasValueRestriction.PROP_OWL_HAS_VALUE);
+	pm.add(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY);
+	pm.add(MinCardinalityRestriction.PROP_OWL_MIN_QUALIFIED_CARDINALITY);
+	pm.add(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY);
+	pm.add(MaxCardinalityRestriction.PROP_OWL_MAX_QUALIFIED_CARDINALITY);
+	pm.add(ExactCardinalityRestriction.PROP_OWL_CARDINALITY);
+	pm.add(ExactCardinalityRestriction.PROP_OWL_QUALIFIED_CARDINALITY);
+	pm.add(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
+	pm.add(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM);
+	propMap = Collections.unmodifiableSet(pm);
     }
 
     /** Constructor. */
