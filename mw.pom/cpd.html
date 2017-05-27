@@ -8795,6 +8795,40 @@ public class ConfigFile implements Serializable {
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="b">
+<td>org/universAAL/middleware/owl/ExactCardinalityRestriction.java</td>
+<td>universAAL Middleware Data Representation (Core)</td>
+<td>130</td></tr>
+<tr class="a">
+<td>org/universAAL/middleware/owl/MaxCardinalityRestriction.java</td>
+<td>universAAL Middleware Data Representation (Core)</td>
+<td>128</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>	    return getValue() == ((List) value).size();
+    }
+
+    @Override
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List&lt;MatchLogEntry&gt; log) {
+	ttl = checkTTL(ttl);
+	if (!(other instanceof PropertyRestriction))
+	    return other.isDisjointWith(this, context, ttl, log);
+
+	PropertyRestriction r = (PropertyRestriction) other;
+	Object o = getOnProperty();
+	if (o == null || !o.equals(r.getOnProperty()))
+	    return false;
+
+	if (r instanceof MinCardinalityRestriction) {
+	    if (getValue() &lt; ((MinCardinalityRestriction) r).getValue())
+		return true;
+	} else if (r instanceof MaxCardinalityRestriction) {</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
 <td>org/universAAL/middleware/xsd/util/Base64.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
 <td>262</td></tr>
@@ -8913,43 +8947,6 @@ public class Dependency implements Serializable {
     }
 
 }</pre></div></td></tr></table>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>File</th>
-<th>Project</th>
-<th>Line</th></tr>
-<tr class="a">
-<td>org/universAAL/middleware/owl/ExactCardinalityRestriction.java</td>
-<td>universAAL Middleware Data Representation (Core)</td>
-<td>133</td></tr>
-<tr class="b">
-<td>org/universAAL/middleware/owl/MaxCardinalityRestriction.java</td>
-<td>universAAL Middleware Data Representation (Core)</td>
-<td>131</td></tr>
-<tr class="a"><td colspan='3'>
-<div>
-<pre>	    return getValue() == ((List) value).size();
-    }
-
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      HashMap, int, List)
-     */
-    public boolean isDisjointWith(TypeExpression other, HashMap context,
-	    int ttl, List&lt;MatchLogEntry&gt; log) {
-	ttl = checkTTL(ttl);
-	if (!(other instanceof PropertyRestriction))
-	    return other.isDisjointWith(this, context, ttl, log);
-
-	PropertyRestriction r = (PropertyRestriction) other;
-	Object o = getOnProperty();
-	if (o == null || !o.equals(r.getOnProperty()))
-	    return false;
-
-	if (r instanceof MinCardinalityRestriction) {
-	    if (getValue() &lt; ((MinCardinalityRestriction) r).getValue())
-		return true;
-	} else if (r instanceof MaxCardinalityRestriction) {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="b">
 <th>File</th>
@@ -9796,6 +9793,39 @@ public class ConfigFile implements Serializable {
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="a">
+<td>org/universAAL/middleware/owl/AllValuesFromRestriction.java</td>
+<td>universAAL Middleware Data Representation (Core)</td>
+<td>150</td></tr>
+<tr class="b">
+<td>org/universAAL/middleware/owl/SomeValuesFromRestriction.java</td>
+<td>universAAL Middleware Data Representation (Core)</td>
+<td>117</td></tr>
+<tr class="a"><td colspan='3'>
+<div>
+<pre>	return true;
+    }
+
+    @Override
+    public boolean isDisjointWith(TypeExpression other, HashMap context,
+	    int ttl, List&lt;MatchLogEntry&gt; log) {
+	ttl = checkTTL(ttl);
+	if (!(other instanceof PropertyRestriction))
+	    return other.isDisjointWith(this, context, ttl, log);
+
+	PropertyRestriction r = (PropertyRestriction) other;
+	Object o = getOnProperty();
+	if (o == null || !o.equals(r.getOnProperty()))
+	    return false;
+
+	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
+
+	TypeExpression myValues = (TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="a">
 <td>org/universAAL/middleware/deploymanager/uapp/model/AalUapp.java</td>
 <td>universAAL Middleware XSD Schemas</td>
 <td>1223</td></tr>
@@ -9891,42 +9921,6 @@ public class ConfigFile implements Serializable {
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="a">
-<td>org/universAAL/middleware/owl/AllValuesFromRestriction.java</td>
-<td>universAAL Middleware Data Representation (Core)</td>
-<td>153</td></tr>
-<tr class="b">
-<td>org/universAAL/middleware/owl/SomeValuesFromRestriction.java</td>
-<td>universAAL Middleware Data Representation (Core)</td>
-<td>120</td></tr>
-<tr class="a"><td colspan='3'>
-<div>
-<pre>	return true;
-    }
-
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      HashMap, int, List)
-     */
-    public boolean isDisjointWith(TypeExpression other, HashMap context,
-	    int ttl, List&lt;MatchLogEntry&gt; log) {
-	ttl = checkTTL(ttl);
-	if (!(other instanceof PropertyRestriction))
-	    return other.isDisjointWith(this, context, ttl, log);
-
-	PropertyRestriction r = (PropertyRestriction) other;
-	Object o = getOnProperty();
-	if (o == null || !o.equals(r.getOnProperty()))
-	    return false;
-
-	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
-
-	TypeExpression myValues = (TypeExpression) getProperty(PROP_OWL_ALL_VALUES_FROM);</pre></div></td></tr></table>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>File</th>
-<th>Project</th>
-<th>Line</th></tr>
-<tr class="a">
 <td>org/universAAL/middleware/xsd/util/Base64.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
 <td>262</td></tr>
@@ -9978,10 +9972,7 @@ public class ConfigFile implements Serializable {
 <pre>	return copyTo(new AllValuesFromRestriction());
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List&lt;MatchLogEntry&gt; log) {
 	ttl = checkTTL(ttl);
@@ -10263,11 +10254,11 @@ public class ConfigFile implements Serializable {
 <tr class="a">
 <td>org/universAAL/middleware/owl/Intersection.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
-<td>227</td></tr>
+<td>218</td></tr>
 <tr class="b">
 <td>org/universAAL/middleware/owl/Union.java</td>
 <td>universAAL Middleware Data Representation (Core)</td>
-<td>215</td></tr>
+<td>206</td></tr>
 <tr class="a"><td colspan='3'>
 <div>
 <pre>		    Object tmp = TypeURI.asTypeURI(o);

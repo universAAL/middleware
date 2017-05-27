@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 572,
-             Errors: 9794,
-             Warnings: 3535,
-             Infos: 13765
+             Errors: 9363,
+             Warnings: 3531,
+             Infos: 13714
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -119,13 +119,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.MergedRestriction.java">org/universAAL/middleware/owl/MergedRestriction.java</a>
                 </td>
                 <td>
-                  125
+                  124
                 </td>
                 <td>
                   87
                 </td>
                 <td>
-                  13
+                  8
                 </td>
               </tr>
                           <tr>
@@ -195,7 +195,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  20
+                  6
                 </td>
               </tr>
                           <tr>
@@ -321,7 +321,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  8
+                  1
                 </td>
               </tr>
                           <tr>
@@ -741,7 +741,7 @@ under the License.
                   33
                 </td>
                 <td>
-                  28
+                  22
                 </td>
               </tr>
                           <tr>
@@ -749,13 +749,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.ObjectProperty.java">org/universAAL/middleware/owl/ObjectProperty.java</a>
                 </td>
                 <td>
-                  31
+                  30
                 </td>
                 <td>
                   7
                 </td>
                 <td>
-                  11
+                  17
                 </td>
               </tr>
                           <tr>
@@ -973,13 +973,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.AllValuesFromRestriction.java">org/universAAL/middleware/owl/AllValuesFromRestriction.java</a>
                 </td>
                 <td>
-                  41
+                  38
                 </td>
                 <td>
                   18
                 </td>
                 <td>
-                  22
+                  0
                 </td>
               </tr>
                           <tr>
@@ -1183,13 +1183,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.Union.java">org/universAAL/middleware/owl/Union.java</a>
                 </td>
                 <td>
-                  35
+                  31
                 </td>
                 <td>
                   26
                 </td>
                 <td>
-                  22
+                  0
                 </td>
               </tr>
                           <tr>
@@ -1637,7 +1637,7 @@ under the License.
                   11
                 </td>
                 <td>
-                  29
+                  27
                 </td>
               </tr>
                           <tr>
@@ -1707,7 +1707,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  3
                 </td>
               </tr>
                           <tr>
@@ -1883,13 +1883,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.IndividualRestriction.java">org/universAAL/middleware/owl/IndividualRestriction.java</a>
                 </td>
                 <td>
-                  26
+                  25
                 </td>
                 <td>
                   1
                 </td>
                 <td>
-                  7
+                  0
                 </td>
               </tr>
                           <tr>
@@ -1911,13 +1911,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.PropertyRestriction.java">org/universAAL/middleware/owl/PropertyRestriction.java</a>
                 </td>
                 <td>
-                  39
+                  36
                 </td>
                 <td>
                   21
                 </td>
                 <td>
-                  23
+                  18
                 </td>
               </tr>
                           <tr>
@@ -1925,13 +1925,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.PrivateResource.java">org/universAAL/middleware/owl/PrivateResource.java</a>
                 </td>
                 <td>
-                  3
+                  2
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  9
+                  6
                 </td>
               </tr>
                           <tr>
@@ -1987,7 +1987,7 @@ under the License.
                   29
                 </td>
                 <td>
-                  33
+                  27
                 </td>
               </tr>
                           <tr>
@@ -2121,13 +2121,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.TypeURI.java">org/universAAL/middleware/owl/TypeURI.java</a>
                 </td>
                 <td>
-                  41
+                  37
                 </td>
                 <td>
                   27
                 </td>
                 <td>
-                  24
+                  3
                 </td>
               </tr>
                           <tr>
@@ -2387,13 +2387,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.MaxCardinalityRestriction.java">org/universAAL/middleware/owl/MaxCardinalityRestriction.java</a>
                 </td>
                 <td>
-                  32
+                  30
                 </td>
                 <td>
                   18
                 </td>
                 <td>
-                  22
+                  1
                 </td>
               </tr>
                           <tr>
@@ -2645,7 +2645,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  7
+                  0
                 </td>
               </tr>
                           <tr>
@@ -2989,13 +2989,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.MinCardinalityRestriction.java">org/universAAL/middleware/owl/MinCardinalityRestriction.java</a>
                 </td>
                 <td>
-                  32
+                  30
                 </td>
                 <td>
                   18
                 </td>
                 <td>
-                  22
+                  1
                 </td>
               </tr>
                           <tr>
@@ -3107,7 +3107,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  8
+                  1
                 </td>
               </tr>
                           <tr>
@@ -3185,13 +3185,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.LengthRestriction.java">org/universAAL/middleware/owl/LengthRestriction.java</a>
                 </td>
                 <td>
-                  83
+                  82
                 </td>
                 <td>
                   37
                 </td>
                 <td>
-                  41
+                  34
                 </td>
               </tr>
                           <tr>
@@ -3241,13 +3241,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.HasValueRestriction.java">org/universAAL/middleware/owl/HasValueRestriction.java</a>
                 </td>
                 <td>
-                  38
+                  35
                 </td>
                 <td>
                   31
                 </td>
                 <td>
-                  32
+                  10
                 </td>
               </tr>
                           <tr>
@@ -3479,7 +3479,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.TypeRestriction.java">org/universAAL/middleware/owl/TypeRestriction.java</a>
                 </td>
                 <td>
-                  89
+                  86
                 </td>
                 <td>
                   78
@@ -4616,7 +4616,7 @@ under the License.
                   23
                 </td>
                 <td>
-                  14
+                  10
                 </td>
                 <td>
                   15
@@ -4809,13 +4809,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.SomeValuesFromRestriction.java">org/universAAL/middleware/owl/SomeValuesFromRestriction.java</a>
                 </td>
                 <td>
-                  31
+                  28
                 </td>
                 <td>
                   14
                 </td>
                 <td>
-                  22
+                  0
                 </td>
               </tr>
                           <tr>
@@ -4963,13 +4963,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.rdf.UnmodifiableResource.java">org/universAAL/middleware/rdf/UnmodifiableResource.java</a>
                 </td>
                 <td>
-                  50
+                  47
                 </td>
                 <td>
                   5
                 </td>
                 <td>
-                  57
+                  4
                 </td>
               </tr>
                           <tr>
@@ -5137,7 +5137,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  3
                 </td>
               </tr>
                           <tr>
@@ -5319,7 +5319,7 @@ under the License.
                   5
                 </td>
                 <td>
-                  22
+                  23
                 </td>
               </tr>
                           <tr>
@@ -5403,7 +5403,7 @@ under the License.
                   6
                 </td>
                 <td>
-                  39
+                  7
                 </td>
               </tr>
                           <tr>
@@ -5593,13 +5593,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.Intersection.java">org/universAAL/middleware/owl/Intersection.java</a>
                 </td>
                 <td>
-                  40
+                  36
                 </td>
                 <td>
                   22
                 </td>
                 <td>
-                  35
+                  13
                 </td>
               </tr>
                           <tr>
@@ -5705,13 +5705,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.BoundedValueRestriction.java">org/universAAL/middleware/owl/BoundedValueRestriction.java</a>
                 </td>
                 <td>
-                  59
+                  57
                 </td>
                 <td>
                   28
                 </td>
                 <td>
-                  28
+                  9
                 </td>
               </tr>
                           <tr>
@@ -6181,13 +6181,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.Enumeration.java">org/universAAL/middleware/owl/Enumeration.java</a>
                 </td>
                 <td>
-                  48
+                  44
                 </td>
                 <td>
                   24
                 </td>
                 <td>
-                  28
+                  6
                 </td>
               </tr>
                           <tr>
@@ -6845,7 +6845,7 @@ under the License.
                   31
                 </td>
                 <td>
-                  20
+                  15
                 </td>
               </tr>
                           <tr>
@@ -6887,7 +6887,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  7
+                  0
                 </td>
               </tr>
                           <tr>
@@ -7587,7 +7587,7 @@ under the License.
                   19
                 </td>
                 <td>
-                  45
+                  43
                 </td>
               </tr>
                           <tr>
@@ -7973,13 +7973,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.Complement.java">org/universAAL/middleware/owl/Complement.java</a>
                 </td>
                 <td>
-                  31
+                  27
                 </td>
                 <td>
                   6
                 </td>
                 <td>
-                  22
+                  1
                 </td>
               </tr>
                           <tr>
@@ -7993,7 +7993,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  18
+                  13
                 </td>
               </tr>
                           <tr>
@@ -8029,13 +8029,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.ExactCardinalityRestriction.java">org/universAAL/middleware/owl/ExactCardinalityRestriction.java</a>
                 </td>
                 <td>
-                  32
+                  30
                 </td>
                 <td>
                   19
                 </td>
                 <td>
-                  22
+                  1
                 </td>
               </tr>
                           <tr>
