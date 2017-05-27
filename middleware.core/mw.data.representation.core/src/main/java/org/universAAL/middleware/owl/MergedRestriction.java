@@ -760,18 +760,10 @@ public final class MergedRestriction extends Intersection {
 	case hasValueID:
 	    PropertyRestriction has = getRestriction(hasValueID);
 	    if (has == null) {
-		if (max != 0) {
-		    index[hasValueID] = types.size();
-		    types.add(res);
-		    return true;
-		} else {
-		    LogUtils.logDebug(
-			    SharedResources.moduleContext,
-			    MergedRestriction.class,
-			    "addRestriction",
-			    new String[] { "Can not add the HasValueRestriction because the maximum cardinality is set to zero, so no instances are allowed." },
-			    null);
-		}
+		// we already checked that max!=0
+		index[hasValueID] = types.size();
+		types.add(res);
+		return true;
 	    } else {
 		LogUtils.logDebug(
 			SharedResources.moduleContext,
