@@ -28,7 +28,9 @@ import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.RDFClassInfoSetup;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.ResourceFactory;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
+import org.universAAL.middleware.datarep.SharedResources;
 
 /**
  * <p>
@@ -235,8 +237,11 @@ public abstract class Ontology {
      *         ontology URI is not valid.
      */
     protected boolean addImport(String ontURI) {
-	if ((ontURI = getValidOntologyURI(ontURI)) == null)
+	if ((ontURI = getValidOntologyURI(ontURI)) == null) {
+	    LogUtils.logWarn(SharedResources.moduleContext, OntologyManagement.class, "addImport",
+		    new Object[] { "The import ", ontURI, " is not a valid ontology URI; it is not added." }, null);
 	    return false;
+	}
 	synchronized (imports) {
 	    Resource ont = new Resource(ontURI);
 	    if (imports.contains(ont))
