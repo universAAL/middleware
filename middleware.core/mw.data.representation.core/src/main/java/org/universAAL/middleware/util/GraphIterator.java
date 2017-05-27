@@ -49,8 +49,10 @@ public class GraphIterator implements Iterator {
 
 	@Override
 	public boolean equals(Object obj) {
-	    // if (!(obj instanceof ObjectEqualsResource))
-	    // return false;
+	    if (obj == null)
+		return false;
+	    if (!(obj instanceof ObjectEqualsResource))
+		return false;
 	    return (r == ((ObjectEqualsResource) obj).r);
 	}
 

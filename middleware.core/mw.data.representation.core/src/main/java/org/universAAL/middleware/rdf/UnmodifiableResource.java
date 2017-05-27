@@ -146,6 +146,8 @@ public final class UnmodifiableResource extends Resource {
     public boolean equals(Object other) {
 	if (this == other)
 	    return true;
+	if (!(other instanceof Resource))
+	    return false;
 	if (getURI().equals(((Resource) other).getURI()))
 	    return true;
 	return res.equals(other);
