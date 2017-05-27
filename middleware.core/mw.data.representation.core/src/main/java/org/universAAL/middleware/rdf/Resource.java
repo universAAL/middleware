@@ -1153,7 +1153,7 @@ public class Resource {
 	if (visitedElements == null)
 	    visitedElements = new Hashtable();
 
-	String s = new String();
+	String s = "";
 	if (prefixAtStart)
 	    s += prefix;
 	s += this.getClass().getName() + "\n";
