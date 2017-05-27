@@ -49,6 +49,7 @@ public final class SimpleOntology extends Ontology {
 	info.addSuperClass(superClassURI);
     }
 
+    @Override
     public void create() {
     }
 }

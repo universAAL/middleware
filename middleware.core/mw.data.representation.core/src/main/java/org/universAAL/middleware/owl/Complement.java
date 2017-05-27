@@ -80,20 +80,17 @@ public final class Complement extends TypeExpression {
 	return (TypeExpression) props.get(PROP_OWL_COMPLEMENT_OF);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
+    @Override
     public String[] getNamedSuperclasses() {
 	return new String[0];
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
+    @Override
     public Object[] getUpperEnumeration() {
 	return new Object[0];
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -106,10 +103,7 @@ public final class Complement extends TypeExpression {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean matches(TypeExpression subtype, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -117,22 +111,19 @@ public final class Complement extends TypeExpression {
 		.isDisjointWith(subtype, context, ttl, log);
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
 	return getComplementedClass().matches(other, context, ttl, log);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
+    @Override
     public boolean isWellFormed() {
 	return getComplementedClass() != null;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object o) {
 	Object tmp = TypeURI.asTypeURI(o);
 	if (tmp != null)

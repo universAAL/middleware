@@ -104,24 +104,24 @@ public final class IntRestriction extends BoundedValueRestriction {
 		maxInclusive);
     }
 
-    /** @see BoundedValueRestriction#checkType(Object) */
+    @Override
     protected boolean checkType(Object o) {
 	if (o instanceof Integer)
 	    return true;
 	return super.checkType(o);
     }
 
-    /** @see BoundedValueRestriction#getNext(Comparable) */
+    @Override
     protected Comparable getNext(Comparable c) {
 	return Integer.valueOf(((Integer) c).intValue() + 1);
     }
 
-    /** @see BoundedValueRestriction#getPrevious(Comparable) */
+    @Override
     protected Comparable getPrevious(Comparable c) {
 	return Integer.valueOf(((Integer) c).intValue() - 1);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    @Override
     public TypeExpression copy() {
 	return copyTo(new IntRestriction());
     }

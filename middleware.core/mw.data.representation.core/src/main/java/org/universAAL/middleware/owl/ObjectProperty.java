@@ -19,8 +19,6 @@
  */
 package org.universAAL.middleware.owl;
 
-import java.util.List;
-
 import org.universAAL.middleware.rdf.Property;
 import org.universAAL.middleware.rdf.Resource;
 
@@ -104,24 +102,20 @@ public final class ObjectProperty extends Property {
 	    super(prop);
 	}
 
-	/** @see ObjectPropertySetup#setInverseOf(String) */
 	public void setInverseOf(String _inverseOf) {
 	    inverseOf = _inverseOf;
 	}
 
-	/** @see ObjectPropertySetup#setInverseFunctional() */
 	public void setInverseFunctional() {
 	    isInverseFunctional = true;
 	    addType(TYPE_INVERSE_FUNCTIONAL, false);
 	}
 
-	/** @see ObjectPropertySetup#setTransitive() */
 	public void setTransitive() {
 	    isTransitive = true;
 	    addType(TYPE_TRANSITIVE, false);
 	}
 
-	/** @see ObjectPropertySetup#setSymmetric() */
 	public void setSymmetric() {
 	    if (!isAsymmetric) {
 		isSymmetric = true;
@@ -129,7 +123,6 @@ public final class ObjectProperty extends Property {
 	    }
 	}
 
-	/** @see ObjectPropertySetup#setAsymmetric() */
 	public void setAsymmetric() {
 	    if (!isSymmetric) {
 		isAsymmetric = true;
@@ -137,7 +130,6 @@ public final class ObjectProperty extends Property {
 	    }
 	}
 
-	/** @see ObjectPropertySetup#setReflexive() */
 	public void setReflexive() {
 	    if (!isIrreflexive) {
 		isReflexive = true;
@@ -145,7 +137,6 @@ public final class ObjectProperty extends Property {
 	    }
 	}
 
-	/** @see ObjectPropertySetup#setIrreflexive() */
 	public void setIrreflexive() {
 	    if (!isReflexive) {
 		isIrreflexive = true;

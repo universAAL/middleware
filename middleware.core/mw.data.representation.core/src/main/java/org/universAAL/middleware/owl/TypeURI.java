@@ -139,7 +139,7 @@ public final class TypeURI extends TypeExpression {
 	return this;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
+    @Override
     public String[] getNamedSuperclasses() {
 	return new String[] { getURI() };
     }
@@ -154,7 +154,7 @@ public final class TypeURI extends TypeExpression {
 	return ManagedIndividual.getClassRestrictionsOnProperty(uri, propURI);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
+    @Override
     public Object[] getUpperEnumeration() {
 	OntClassInfo info = OntologyManagement.getInstance().getOntClassInfo(
 		getURI());
@@ -162,10 +162,7 @@ public final class TypeURI extends TypeExpression {
 	return (answer == null) ? new Object[0] : answer;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean hasMember(Object value, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// ttl =
@@ -190,10 +187,7 @@ public final class TypeURI extends TypeExpression {
 	}
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean matches(TypeExpression subtype, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -281,10 +275,7 @@ public final class TypeURI extends TypeExpression {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -323,12 +314,12 @@ public final class TypeURI extends TypeExpression {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
+    @Override
     public boolean isWellFormed() {
 	return true;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object o) {
 	// ignore
 	return false;

@@ -60,7 +60,7 @@ public final class UnmodifiableResource extends Resource {
 	return o;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#changeProperty(String, Object) */
+    @Override
     public boolean changeProperty(String propURI, Object value) {
 	LogUtils.logDebug(SharedResources.moduleContext,
 		UnmodifiableResource.class, "changeProperty",
@@ -69,13 +69,13 @@ public final class UnmodifiableResource extends Resource {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getProperty(String) */
+    @Override
     public Object getProperty(String propURI) {
 	Object o = res.getProperty(propURI);
 	return getUnmodifiable(o);
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object value) {
 	LogUtils.logDebug(SharedResources.moduleContext,
 		UnmodifiableResource.class, "setProperty",
@@ -84,10 +84,7 @@ public final class UnmodifiableResource extends Resource {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.rdf.Resource#setPropertyPath(String[],
-     *      Object, boolean)
-     */
+    @Override
     public boolean setPropertyPath(String[] propPath, Object value,
 	    boolean force) {
 	LogUtils.logDebug(SharedResources.moduleContext,
@@ -97,10 +94,7 @@ public final class UnmodifiableResource extends Resource {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.rdf.Resource#setPropertyPath(String[],
-     *      Object)
-     */
+    @Override
     public boolean setPropertyPath(String[] propPath, Object value) {
 	LogUtils.logDebug(SharedResources.moduleContext,
 		UnmodifiableResource.class, "setPropertyPath",
@@ -109,10 +103,7 @@ public final class UnmodifiableResource extends Resource {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.rdf.Resource#setPropertyPathFromOffset(String[],
-     *      int, Object, boolean)
-     */
+    @Override
     public boolean setPropertyPathFromOffset(String[] propPath, int fromIndex,
 	    Object value, boolean force) {
 	LogUtils.logDebug(SharedResources.moduleContext,
@@ -122,10 +113,12 @@ public final class UnmodifiableResource extends Resource {
 	return false;
     }
 
+    @Override
     public List asList() {
 	return new UnmodifiableResourceList(res.asList());
     }
 
+    @Override
     public void asList(List l) {
 	ArrayList l2 = new ArrayList();
 	res.asList(l2);
@@ -135,14 +128,17 @@ public final class UnmodifiableResource extends Resource {
 	}
     }
 
+    @Override
     public Resource copy(boolean isXMLLitera) {
 	return new UnmodifiableResource(res.copy(isXMLLitera));
     }
 
+    @Override
     public Resource deepCopy() {
 	return res.deepCopy();
     }
 
+    @Override
     public boolean equals(Object other) {
 	if (this == other)
 	    return true;
@@ -153,115 +149,132 @@ public final class UnmodifiableResource extends Resource {
 	return res.equals(other);
     }
 
+    @Override
     public String getOrConstructLabel(String type) {
 	return res.getOrConstructLabel(type);
     }
 
+    @Override
     public int getPropSerializationType(String propURI) {
 	return res.getPropSerializationType(propURI);
     }
 
+    @Override
     public String getResourceComment() {
 	return res.getResourceComment();
     }
 
+    @Override
     public String getResourceLabel() {
 	return res.getResourceLabel();
     }
 
+    @Override
     public Object getStaticFieldValue(String fieldName, Object defaultValue) {
 	// TODO correct?
 	return res.getStaticFieldValue(fieldName, defaultValue);
     }
 
+    @Override
     public int hashCode() {
 	return res.hashCode();
     }
 
+    @Override
     public boolean hasProperty(String propURI) {
 	return res.hasProperty(propURI);
     }
 
+    @Override
     public boolean isClosedCollection(String propURI) {
 	return res.isClosedCollection(propURI);
     }
 
+    @Override
     public boolean isWellFormed() {
 	return res.isWellFormed();
     }
 
+    @Override
     public boolean representsQualifiedURI() {
 	return res.representsQualifiedURI();
     }
 
+    @Override
     public boolean serializesAsXMLLiteral() {
 	return res.serializesAsXMLLiteral();
     }
 
+    @Override
     public void setResourceComment(String comment) {
     }
 
+    @Override
     public void setResourceLabel(String label) {
     }
 
+    @Override
     public String toString() {
 	return res.toString();
     }
 
+    @Override
     public String toStringRecursive() {
 	return res.toStringRecursive();
     }
 
+    @Override
     public String toStringRecursive(String prefix, boolean prefixAtStart,
 	    Hashtable visitedElements) {
 	return res.toStringRecursive(prefix, prefixAtStart, visitedElements);
     }
 
+    @Override
     public int numberOfProperties() {
 	return res.numberOfProperties();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#isAnon() */
+    @Override
     public boolean isAnon() {
 	return res.isAnon();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#hasQualifiedName() */
+    @Override
     public boolean hasQualifiedName() {
 	return res.hasQualifiedName();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getURI() */
+    @Override
     public String getURI() {
 	return res.getURI();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getPropertyURIs() */
+    @Override
     public Enumeration getPropertyURIs() {
 	return res.getPropertyURIs();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#addType(String, boolean) */
+    @Override
     public boolean addType(String typeURI, boolean blockFurtherTypes) {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getLocalName() */
+    @Override
     public String getLocalName() {
 	return res.getLocalName();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getNamespace() */
+    @Override
     public String getNamespace() {
 	return res.getNamespace();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getType() */
+    @Override
     public String getType() {
 	return res.getType();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getTypes() */
+    @Override
     public String[] getTypes() {
 	return res.getTypes();
     }

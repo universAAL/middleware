@@ -352,18 +352,17 @@ public abstract class LengthRestriction extends TypeRestriction {
 	return super.copyTo(copy);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
     @Override
     public boolean isWellFormed() {
 	return restrictions.size() > 0;
     }
 
-    /** @see BoundedValueRestriction#getNext(Comparable) */
+    @Override
     protected Comparable getNext(Comparable c) {
 	return new NonNegativeInteger(((NonNegativeInteger) c).intValue() + 1);
     }
 
-    /** @see BoundedValueRestriction#getPrevious(Comparable) */
+    @Override
     protected Comparable getPrevious(Comparable c) {
 	return new NonNegativeInteger(((NonNegativeInteger) c).intValue() - 1);
     }
@@ -383,16 +382,11 @@ public abstract class LengthRestriction extends TypeRestriction {
 	return new NonNegativeInteger(member.toString().length());
     }
     
-    /** @see TypeRestriction#getMemberValueToCheck(Object) */
     @Override
     protected Object getMemberValueToCheck(Object member) {
 	return getMemberLen(member);
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      HashMap, int, List)
-     */
     @Override
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
@@ -416,10 +410,6 @@ public abstract class LengthRestriction extends TypeRestriction {
 	return true;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      HashMap, int, List)
-     */
     @Override
     public boolean matches(TypeExpression subset, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
@@ -460,7 +450,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null)
 	    return false;

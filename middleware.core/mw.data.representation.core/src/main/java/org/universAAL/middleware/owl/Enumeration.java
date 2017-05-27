@@ -116,7 +116,7 @@ public final class Enumeration extends TypeExpression {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    @Override
     public TypeExpression copy() {
 	Enumeration result = new Enumeration();
 	for (Iterator<Object> i = values.iterator(); i.hasNext();)
@@ -170,7 +170,7 @@ public final class Enumeration extends TypeExpression {
 	}
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
+    @Override
     public String[] getNamedSuperclasses() {
 	ArrayList<String> l = new ArrayList<String>();
 	for (Iterator<Object> i = values.iterator(); i.hasNext();)
@@ -178,7 +178,7 @@ public final class Enumeration extends TypeExpression {
 	return l.toArray(new String[l.size()]);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
+    @Override
     public Object[] getUpperEnumeration() {
 	Object[] answer = new Object[values.size()];
 	for (int i = 0; i < values.size(); i++)
@@ -186,10 +186,7 @@ public final class Enumeration extends TypeExpression {
 	return answer;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean hasMember(Object value, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// ttl =
@@ -200,10 +197,7 @@ public final class Enumeration extends TypeExpression {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean matches(TypeExpression subtype, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -261,10 +255,7 @@ public final class Enumeration extends TypeExpression {
 	return cloned == null || cloned.size() == context.size();
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -282,12 +273,12 @@ public final class Enumeration extends TypeExpression {
 	return true;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
+    @Override
     public boolean isWellFormed() {
 	return !values.isEmpty();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object o) {
 	if (PROP_OWL_ONE_OF.equals(propURI) && values.isEmpty() && o != null) {
 	    if (o instanceof List) {

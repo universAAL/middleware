@@ -135,7 +135,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 	// init data representation
 	SharedResources.moduleContext = mc;
 	SharedResources.loadReasoningEngine();
-	SharedResources.setMiddlewareProp(SharedResources.uAAL_IS_COORDINATING_PEER, "true");
+	SharedResources.setMiddlewareProp(SharedResources.IS_COORDINATING_PEER, "true");
 	OntologyManagement.getInstance().register(mc, new TestOntology());
 	mc.getContainer().shareObject(mc, new TurtleSerializer(),
 		new Object[] { MessageContentSerializer.class.getName() });

@@ -71,26 +71,26 @@ public final class Constants {
     public static final String uAAL_MIDDLEWARE_LOCAL_ID_PREFIX;
     static {
 	uAAL_MIDDLEWARE_LOCAL_ID_PREFIX = SharedResources
-		.getMiddlewareProp(SharedResources.uAAL_AAL_SPACE_ID) + "#";
+		.getMiddlewareProp(SharedResources.SPACE_URI) + "#";
     }
 
     /**
      * Return true, if debug mode is turned on.
      * 
-     * @see org.universAAL.middleware.datarep.SharedResources#uAAL_IS_DEBUG_MODE
+     * @see org.universAAL.middleware.datarep.SharedResources#IS_DEBUG_MODE
      */
     public static boolean debugMode() {
 	return "true".equals(SharedResources
-		.getMiddlewareProp(SharedResources.uAAL_IS_DEBUG_MODE));
+		.getMiddlewareProp(SharedResources.IS_DEBUG_MODE));
     }
 
     /**
      * Return true, if this peer is the coordinator.
      * 
-     * @see org.universAAL.middleware.datarep.SharedResources#uAAL_IS_COORDINATING_PEER
+     * @see org.universAAL.middleware.datarep.SharedResources#IS_COORDINATING_PEER
      */
     public static boolean isCoordinatorInstance() {
 	return "true".equals(SharedResources
-		.getMiddlewareProp(SharedResources.uAAL_IS_COORDINATING_PEER));
+		.getMiddlewareProp(SharedResources.IS_COORDINATING_PEER));
     }
 }

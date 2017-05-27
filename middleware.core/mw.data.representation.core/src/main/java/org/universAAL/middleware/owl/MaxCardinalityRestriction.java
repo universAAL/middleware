@@ -86,7 +86,7 @@ public final class MaxCardinalityRestriction extends PropertyRestriction {
     // // Integer(value));
     // }
 
-    /** @see org.universAAL.middleware.owl.PropertyRestriction#getClassURI() */
+    @Override
     public String getClassURI() {
 	return MY_URI;
     }
@@ -104,15 +104,12 @@ public final class MaxCardinalityRestriction extends PropertyRestriction {
 	return i.intValue();
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    @Override
     public TypeExpression copy() {
 	return copyTo(new MaxCardinalityRestriction());
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// ttl =
@@ -131,10 +128,7 @@ public final class MaxCardinalityRestriction extends PropertyRestriction {
 	    return getValue() >= ((List) value).size();
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -157,16 +151,13 @@ public final class MaxCardinalityRestriction extends PropertyRestriction {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
+    @Override
     public boolean isWellFormed() {
 	return getOnProperty() != null
 		&& (hasProperty(PROP_OWL_MAX_CARDINALITY));
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean matches(TypeExpression subset, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	Object noRes = matchesNonRestriction(subset, context, ttl, log);
@@ -188,7 +179,7 @@ public final class MaxCardinalityRestriction extends PropertyRestriction {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null || props.containsKey(propURI))
 	    return false;

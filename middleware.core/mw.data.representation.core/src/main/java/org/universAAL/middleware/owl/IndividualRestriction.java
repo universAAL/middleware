@@ -19,7 +19,6 @@
  */
 package org.universAAL.middleware.owl;
 
-import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.rdf.Variable;
 
 /**
@@ -82,24 +81,24 @@ public final class IndividualRestriction extends BoundedValueRestriction {
 	super(ComparableIndividual.MY_URI, min, minInclusive, max, maxInclusive);
     }
 
-    /** @see BoundedValueRestriction#checkType(Object) */
+    @Override
     protected boolean checkType(Object o) {
 	if (o instanceof ComparableIndividual)
 	    return true;
 	return super.checkType(o);
     }
 
-    /** @see BoundedValueRestriction#getNext(Comparable) */
+    @Override
     protected Comparable getNext(Comparable c) {
 	return ((ComparableIndividual) c).getNext();
     }
 
-    /** @see BoundedValueRestriction#getPrevious(Comparable) */
+    @Override
     protected Comparable getPrevious(Comparable c) {
 	return ((ComparableIndividual) c).getPrevious();
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    @Override
     public TypeExpression copy() {
 	return copyTo(new IndividualRestriction());
     }

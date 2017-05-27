@@ -412,9 +412,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
      */
     public abstract int getPropSerializationType(String propURI);
 
-    /**
-     * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
-     */
+    @Override
     public boolean isWellFormed() {
 	String[] propURIs = getOntClassInfo().getDeclaredPropertyURIs();
 	String classURI = getClassURI();
@@ -461,9 +459,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
 	}
     }
 
-    /**
-     * @see org.universAAL.middleware.rdf.Resource
-     */
+    @Override
     public boolean setPropertyPathFromOffset(String[] propPath, int fromIndex,
 	    Object value, boolean force) {
 	try {

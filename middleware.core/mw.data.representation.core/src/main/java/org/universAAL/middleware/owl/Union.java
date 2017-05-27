@@ -83,7 +83,7 @@ public final class Union extends TypeExpression {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    @Override
     public TypeExpression copy() {
 	Union result = new Union();
 	for (Iterator<TypeExpression> i = types.iterator(); i.hasNext();)
@@ -91,7 +91,7 @@ public final class Union extends TypeExpression {
 	return result;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
+    @Override
     public String[] getNamedSuperclasses() {
 	ArrayList l = new ArrayList();
 	String[] tmp;
@@ -104,7 +104,7 @@ public final class Union extends TypeExpression {
 	return (String[]) l.toArray(new String[l.size()]);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
+    @Override
     public Object[] getUpperEnumeration() {
 	ArrayList l = new ArrayList();
 	Object[] tmp;
@@ -119,10 +119,7 @@ public final class Union extends TypeExpression {
 	return l.toArray();
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean hasMember(Object value, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -132,10 +129,7 @@ public final class Union extends TypeExpression {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean matches(TypeExpression subtype, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -185,10 +179,7 @@ public final class Union extends TypeExpression {
 	return false;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	ttl = checkTTL(ttl);
@@ -201,12 +192,12 @@ public final class Union extends TypeExpression {
 	return true;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
+    @Override
     public boolean isWellFormed() {
 	return types.size() > 1;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object o) {
 	if (PROP_OWL_UNION_OF.equals(propURI) && o != null && types.isEmpty()) {
 	    if (o instanceof List) {

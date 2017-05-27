@@ -8,16 +8,18 @@ public abstract class PrivateResource extends ManagedIndividual {
 	super();
     }
 
+    @Override
     public String getClassURI() {
 	return MY_URI;
     }
 
+    @Override
     public int getPropSerializationType(String propURI) {
 	return PROP_SERIALIZATION_FULL;
     }
 
+    @Override
     public boolean isWellFormed() {
 	return true;
     }
-    
 }

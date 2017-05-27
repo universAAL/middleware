@@ -50,6 +50,7 @@ public final class DataRepOntology extends Ontology {
 	r.setResourceLabel("Basic Data Representation Model");
     }
 
+    @Override
     public void create() {
 	OntClassInfoSetup oci;
 

@@ -201,5 +201,4 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
      * must be returned.
      */
     public abstract int ord();
-
 }

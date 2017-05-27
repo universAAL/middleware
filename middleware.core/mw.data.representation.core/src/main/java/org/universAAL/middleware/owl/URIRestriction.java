@@ -39,7 +39,6 @@ public class URIRestriction extends LengthRestriction {
 	super(DATATYPE_URI);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
     @Override
     public TypeExpression copy() {
 	return copyTo(new URIRestriction());

@@ -184,19 +184,16 @@ public abstract class TypeRestriction extends TypeExpression {
 	return copy;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
     @Override
     public String[] getNamedSuperclasses() {
 	return new String[0];
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
     @Override
     public Object[] getUpperEnumeration() {
 	return new Object[0];
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
     @Override
     public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null)
@@ -254,10 +251,6 @@ public abstract class TypeRestriction extends TypeExpression {
     }
 
     @Override
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      HashMap, int, List)
-     */
     public boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log) {
 	// test only the pattern constraining facet, everything else should be
@@ -816,5 +809,4 @@ public abstract class TypeRestriction extends TypeExpression {
 	synchronize(context, cloned);
 	return true;
     }
-
 }

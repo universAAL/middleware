@@ -53,27 +53,22 @@ public class ScopedResource extends FinalizedResource {
     public static final String ONLY_LOCAL_SCOPE = uAAL_VOCABULARY_NAMESPACE
 	    + "localScope";
 
-    /** {@inheritDoc} */
     public ScopedResource() {
 	super();
     }
 
-    /** {@inheritDoc} */
     public ScopedResource(boolean isXMLLiteral) {
 	super(isXMLLiteral);
     }
 
-    /** {@inheritDoc} */
     public ScopedResource(String uri) {
 	super(uri);
     }
 
-    /** {@inheritDoc} */
     public ScopedResource(String uri, boolean isXMLLiteral) {
 	super(uri, isXMLLiteral);
     }
 
-    /** {@inheritDoc} */
     public ScopedResource(String uriPrefix, int numProps) {
 	super(uriPrefix, numProps);
     }

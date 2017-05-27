@@ -251,8 +251,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return null;
     }
 
-
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object o) {
 	if (o == null || propURI == null)
 	    return false;
@@ -301,10 +300,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return super.setProperty(propURI, o);
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#hasMember(Object,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean hasMember(Object member, HashMap context, int ttl, List<MatchLogEntry> log) {
 	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 
@@ -318,10 +314,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return true;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#isDisjointWith(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean isDisjointWith(TypeExpression other, HashMap context,
 	    int ttl, List<MatchLogEntry> log) {
 	// ttl =
@@ -352,15 +345,12 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 	return false;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
+    @Override
     public boolean isWellFormed() {
 	return restrictions.size() > 0;
     }
 
-    /**
-     * @see org.universAAL.middleware.owl.TypeExpression#matches(TypeExpression,
-     *      HashMap, int, List)
-     */
+    @Override
     public boolean matches(TypeExpression subset, HashMap context, int ttl, List<MatchLogEntry> log) {
 	// ttl =
 	checkTTL(ttl);

@@ -100,24 +100,24 @@ public final class LongRestriction extends BoundedValueRestriction {
 		maxInclusive);
     }
 
-    /** @see BoundedValueRestriction#checkType(Object) */
+    @Override
     protected boolean checkType(Object o) {
 	if (o instanceof Long)
 	    return true;
 	return super.checkType(o);
     }
 
-    /** @see BoundedValueRestriction#getNext(Comparable) */
+    @Override
     protected Comparable getNext(Comparable c) {
 	return Long.valueOf(((Long) c).longValue() + 1);
     }
 
-    /** @see BoundedValueRestriction#getPrevious(Comparable) */
+    @Override
     protected Comparable getPrevious(Comparable c) {
 	return Long.valueOf(((Long) c).longValue() - 1);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    @Override
     public TypeExpression copy() {
 	return copyTo(new LongRestriction());
     }

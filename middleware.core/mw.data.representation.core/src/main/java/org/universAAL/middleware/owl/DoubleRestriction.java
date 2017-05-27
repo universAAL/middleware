@@ -104,26 +104,26 @@ public final class DoubleRestriction extends BoundedValueRestriction {
 		maxInclusive);
     }
 
-    /** @see BoundedValueRestriction#checkType(Object) */
+    @Override
     protected boolean checkType(Object o) {
 	if (o instanceof Double)
 	    return true;
 	return super.checkType(o);
     }
 
-    /** @see BoundedValueRestriction#getNext(Comparable) */
+    @Override
     protected Comparable getNext(Comparable c) {
 	return new Double(((Double) c).doubleValue()
 		+ DOUBLE_SMALLEST_POSITIVE_VALUE);
     }
 
-    /** @see BoundedValueRestriction#getPrevious(Comparable) */
+    @Override
     protected Comparable getPrevious(Comparable c) {
 	return new Double(((Double) c).doubleValue()
 		- DOUBLE_SMALLEST_POSITIVE_VALUE);
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    @Override
     public TypeExpression copy() {
 	return copyTo(new DoubleRestriction());
     }

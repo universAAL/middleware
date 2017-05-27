@@ -910,7 +910,7 @@ public final class MergedRestriction extends Intersection {
 	}
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+    @Override
     public TypeExpression copy() {
 	ArrayList<PropertyRestriction> newList = new ArrayList<PropertyRestriction>();
 	for (int i = 0; i < types.size(); i++)
@@ -958,7 +958,7 @@ public final class MergedRestriction extends Intersection {
 	return r;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#isWellFormed() */
+    @Override
     public boolean isWellFormed() {
 	for (int i = 0; i < types.size(); i++)
 	    if (!((TypeExpression) types.get(i)).isWellFormed())
@@ -966,7 +966,7 @@ public final class MergedRestriction extends Intersection {
 	return true;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object value) {
 	if (Intersection.PROP_OWL_INTERSECTION_OF.equals(propURI)) {
 	    List<?> lst = null;

@@ -148,12 +148,12 @@ public abstract class PropertyRestriction extends TypeExpression {
 	return copy;
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getNamedSuperclasses() */
+    @Override
     public String[] getNamedSuperclasses() {
 	return new String[0];
     }
 
-    /** @see org.universAAL.middleware.owl.TypeExpression#getUpperEnumeration() */
+    @Override
     public Object[] getUpperEnumeration() {
 	return new Object[0];
     }
@@ -229,7 +229,7 @@ public abstract class PropertyRestriction extends TypeExpression {
 	return other;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object value) {
 	// the subclasses already checked the input parameters, so they are not
 	// null

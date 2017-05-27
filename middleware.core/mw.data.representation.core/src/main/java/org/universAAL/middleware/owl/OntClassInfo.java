@@ -144,7 +144,6 @@ public final class OntClassInfo extends RDFClassInfo {
 	    this.info = info;
 	}
 
-	/** @see OntClassInfoSetup#addDatatypeProperty(String) */
 	public DatatypePropertySetup addDatatypeProperty(String propURI) {
 	    if (locked)
 		return null;
@@ -156,7 +155,6 @@ public final class OntClassInfo extends RDFClassInfo {
 	    return prop;
 	}
 
-	/** @see OntClassInfoSetup#addObjectProperty(String) */
 	public ObjectPropertySetup addObjectProperty(String propURI) {
 	    if (locked)
 		return null;
@@ -168,7 +166,6 @@ public final class OntClassInfo extends RDFClassInfo {
 	    return prop;
 	}
 
-	/** @see OntClassInfoSetup#addRestriction(MergedRestriction) */
 	public void addRestriction(MergedRestriction r) {
 	    if (locked)
 		return;
@@ -198,7 +195,6 @@ public final class OntClassInfo extends RDFClassInfo {
 		    Collections.unmodifiableList(combinedSuperClasses));
 	}
 
-	/** @see OntClassInfoSetup#addInstance(ManagedIndividual) */
 	public void addInstance(ManagedIndividual instance)
 		throws UnsupportedOperationException {
 	    if (isEnumeration)
@@ -234,7 +230,6 @@ public final class OntClassInfo extends RDFClassInfo {
 	    }
 	}
 
-	/** @see OntClassInfoSetup#toEnumeration(ManagedIndividual[]) */
 	public void toEnumeration(ManagedIndividual[] individuals) {
 	    if (locked)
 		return;
@@ -246,19 +241,16 @@ public final class OntClassInfo extends RDFClassInfo {
 	    setProperty(Enumeration.PROP_OWL_ONE_OF, col);
 	}
 
-	/** @see OntClassInfoSetup#addEquivalentClass(TypeExpression) */
 	public void addEquivalentClass(TypeExpression eq) {
 	    if (locked)
 		return;
 	    // TODO
 	}
 
-	/** @see OntClassInfoSetup#addDisjointClass(TypeExpression) */
 	public void addDisjointClass(TypeExpression dj) {
 	    // TODO Auto-generated method stub
 	}
 
-	/** @see OntClassInfoSetup#setComplementClass(TypeExpression) */
 	public void setComplementClass(TypeExpression complement) {
 	    // TODO Auto-generated method stub
 	}
@@ -515,7 +507,7 @@ public final class OntClassInfo extends RDFClassInfo {
 	return isEnumeration;
     }
 
-    /** @see Resource#setProperty(String, Object) */
+    @Override
     public boolean setProperty(String propURI, Object value) {
 	if (locked)
 	    return false;

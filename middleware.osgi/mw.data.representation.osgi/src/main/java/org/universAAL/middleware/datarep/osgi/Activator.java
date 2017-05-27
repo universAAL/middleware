@@ -58,7 +58,7 @@ public final class Activator implements BundleActivator, ManagedService {
 
 	Dictionary props = new Hashtable(1);
 	props.put(Constants.SERVICE_PID,
-		SharedResources.uAAL_MW_SHARED_PROPERTY_FILE);
+		SharedResources.CONFIG_FILE);
 	// log("start", new Object[] { "starting data representation.." });
 	synchronized (this) {
 	    registration = context.registerService(
