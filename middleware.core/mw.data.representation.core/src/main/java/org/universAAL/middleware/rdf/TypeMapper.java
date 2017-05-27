@@ -160,7 +160,7 @@ public final class TypeMapper {
 
 	if (o instanceof Locale) {
 	    Locale l = (Locale) o;
-	    if (l.getCountry() == "")
+	    if ("".equals(l.getCountry()))
 		return new String[] { l.getLanguage(), getDatatypeURI(o) };
 	    else
 		return new String[] { l.getLanguage() + "-" + l.getCountry(),
