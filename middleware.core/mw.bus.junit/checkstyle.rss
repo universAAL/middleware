@@ -28,7 +28,7 @@ under the License.
       <title>File: 3,
              Errors: 98,
              Warnings: 39,
-             Infos: 334
+             Infos: 335
       </title>
             <link>http://middleware/middleware.core/mw.bus.junit//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.junit//checkstyle.html#org.universAAL.middleware.bus.junit.BusTestCase.java">org/universAAL/middleware/bus/junit/BusTestCase.java</a>
                 </td>
                 <td>
-                  57
+                  58
                 </td>
                 <td>
                   2

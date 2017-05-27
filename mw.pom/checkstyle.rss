@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 572,
-             Errors: 9793,
-             Warnings: 3533,
-             Infos: 13754
+             Errors: 9794,
+             Warnings: 3535,
+             Infos: 13765
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -119,7 +119,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.MergedRestriction.java">org/universAAL/middleware/owl/MergedRestriction.java</a>
                 </td>
                 <td>
-                  127
+                  125
                 </td>
                 <td>
                   87
@@ -749,7 +749,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.ObjectProperty.java">org/universAAL/middleware/owl/ObjectProperty.java</a>
                 </td>
                 <td>
-                  30
+                  31
                 </td>
                 <td>
                   7
@@ -1183,7 +1183,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.Union.java">org/universAAL/middleware/owl/Union.java</a>
                 </td>
                 <td>
-                  34
+                  35
                 </td>
                 <td>
                   26
@@ -1631,7 +1631,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.supply.LevelRating.java">org/universAAL/middleware/owl/supply/LevelRating.java</a>
                 </td>
                 <td>
-                  10
+                  11
                 </td>
                 <td>
                   11
@@ -1813,7 +1813,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.rdf.RDFClassInfo.java">org/universAAL/middleware/rdf/RDFClassInfo.java</a>
                 </td>
                 <td>
-                  50
+                  51
                 </td>
                 <td>
                   27
@@ -1911,7 +1911,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.PropertyRestriction.java">org/universAAL/middleware/owl/PropertyRestriction.java</a>
                 </td>
                 <td>
-                  41
+                  39
                 </td>
                 <td>
                   21
@@ -1981,7 +1981,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.OntClassInfo.java">org/universAAL/middleware/owl/OntClassInfo.java</a>
                 </td>
                 <td>
-                  55
+                  56
                 </td>
                 <td>
                   29
@@ -2208,7 +2208,7 @@ under the License.
                   20
                 </td>
                 <td>
-                  15
+                  17
                 </td>
                 <td>
                   33
@@ -4613,13 +4613,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.datarep.SharedResources.java">org/universAAL/middleware/datarep/SharedResources.java</a>
                 </td>
                 <td>
-                  21
+                  23
                 </td>
                 <td>
                   14
                 </td>
                 <td>
-                  14
+                  15
                 </td>
               </tr>
                           <tr>
@@ -4627,10 +4627,10 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.Ontology.java">org/universAAL/middleware/owl/Ontology.java</a>
                 </td>
                 <td>
-                  55
+                  58
                 </td>
                 <td>
-                  25
+                  24
                 </td>
                 <td>
                   19
@@ -4907,7 +4907,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.generic.GenericManagedIndividual.java">org/universAAL/middleware/owl/generic/GenericManagedIndividual.java</a>
                 </td>
                 <td>
-                  5
+                  6
                 </td>
                 <td>
                   2
@@ -4966,7 +4966,7 @@ under the License.
                   50
                 </td>
                 <td>
-                  4
+                  5
                 </td>
                 <td>
                   57
@@ -5593,7 +5593,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.Intersection.java">org/universAAL/middleware/owl/Intersection.java</a>
                 </td>
                 <td>
-                  39
+                  40
                 </td>
                 <td>
                   22
@@ -6181,7 +6181,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.Enumeration.java">org/universAAL/middleware/owl/Enumeration.java</a>
                 </td>
                 <td>
-                  47
+                  48
                 </td>
                 <td>
                   24
@@ -7581,7 +7581,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.supply.Rating.java">org/universAAL/middleware/owl/supply/Rating.java</a>
                 </td>
                 <td>
-                  18
+                  19
                 </td>
                 <td>
                   19
@@ -7945,7 +7945,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.bus.junit.BusTestCase.java">org/universAAL/middleware/bus/junit/BusTestCase.java</a>
                 </td>
                 <td>
-                  57
+                  58
                 </td>
                 <td>
                   2

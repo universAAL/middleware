@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="483" branches-covered="0" branches-valid="160" complexity="2.4594594594594597" version="2.1.1" timestamp="1495750633341">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="483" branches-covered="0" branches-valid="160" complexity="2.4594594594594597" version="2.1.1" timestamp="1495850882569">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.bus.junit/src/main/java</source>
@@ -23,12 +23,12 @@
 						</method>
 						<method name="deserialize" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="297" hits="0" branch="false"/>
+								<line number="296" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="serialize" signature="(Lorg/universAAL/middleware/rdf/Resource;)Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="293" hits="0" branch="false"/>
+								<line number="292" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setUp" signature="()V" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -46,6 +46,7 @@
 								<line number="87" hits="0" branch="false"/>
 								<line number="88" hits="0" branch="false"/>
 								<line number="89" hits="0" branch="false"/>
+								<line number="90" hits="0" branch="false"/>
 								<line number="91" hits="0" branch="false"/>
 								<line number="92" hits="0" branch="false"/>
 								<line number="93" hits="0" branch="false"/>
@@ -54,23 +55,22 @@
 								<line number="96" hits="0" branch="false"/>
 								<line number="97" hits="0" branch="false"/>
 								<line number="98" hits="0" branch="false"/>
-								<line number="99" hits="0" branch="false"/>
-								<line number="102" hits="0" branch="false"/>
-								<line number="104" hits="0" branch="false"/>
-								<line number="168" hits="0" branch="false"/>
+								<line number="101" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
+								<line number="167" hits="0" branch="false"/>
+								<line number="237" hits="0" branch="false"/>
 								<line number="238" hits="0" branch="false"/>
-								<line number="239" hits="0" branch="false"/>
+								<line number="240" hits="0" branch="false"/>
 								<line number="241" hits="0" branch="false"/>
-								<line number="242" hits="0" branch="false"/>
+								<line number="246" hits="0" branch="false"/>
 								<line number="247" hits="0" branch="false"/>
-								<line number="248" hits="0" branch="false"/>
+								<line number="250" hits="0" branch="false"/>
 								<line number="251" hits="0" branch="false"/>
 								<line number="252" hits="0" branch="false"/>
 								<line number="253" hits="0" branch="false"/>
-								<line number="254" hits="0" branch="false"/>
+								<line number="256" hits="0" branch="false"/>
 								<line number="257" hits="0" branch="false"/>
-								<line number="258" hits="0" branch="false"/>
-								<line number="265" hits="0" branch="false"/>
+								<line number="264" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -90,6 +90,7 @@
 						<line number="87" hits="0" branch="false"/>
 						<line number="88" hits="0" branch="false"/>
 						<line number="89" hits="0" branch="false"/>
+						<line number="90" hits="0" branch="false"/>
 						<line number="91" hits="0" branch="false"/>
 						<line number="92" hits="0" branch="false"/>
 						<line number="93" hits="0" branch="false"/>
@@ -98,267 +99,266 @@
 						<line number="96" hits="0" branch="false"/>
 						<line number="97" hits="0" branch="false"/>
 						<line number="98" hits="0" branch="false"/>
-						<line number="99" hits="0" branch="false"/>
-						<line number="102" hits="0" branch="false"/>
-						<line number="104" hits="0" branch="false"/>
-						<line number="168" hits="0" branch="false"/>
+						<line number="101" hits="0" branch="false"/>
+						<line number="103" hits="0" branch="false"/>
+						<line number="167" hits="0" branch="false"/>
+						<line number="237" hits="0" branch="false"/>
 						<line number="238" hits="0" branch="false"/>
-						<line number="239" hits="0" branch="false"/>
+						<line number="240" hits="0" branch="false"/>
 						<line number="241" hits="0" branch="false"/>
-						<line number="242" hits="0" branch="false"/>
+						<line number="246" hits="0" branch="false"/>
 						<line number="247" hits="0" branch="false"/>
-						<line number="248" hits="0" branch="false"/>
+						<line number="250" hits="0" branch="false"/>
 						<line number="251" hits="0" branch="false"/>
 						<line number="252" hits="0" branch="false"/>
 						<line number="253" hits="0" branch="false"/>
-						<line number="254" hits="0" branch="false"/>
+						<line number="256" hits="0" branch="false"/>
 						<line number="257" hits="0" branch="false"/>
-						<line number="258" hits="0" branch="false"/>
-						<line number="265" hits="0" branch="false"/>
-						<line number="293" hits="0" branch="false"/>
-						<line number="297" hits="0" branch="false"/>
+						<line number="264" hits="0" branch="false"/>
+						<line number="292" hits="0" branch="false"/>
+						<line number="296" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.bus.junit.BusTestCase$1" filename="org/universAAL/middleware/bus/junit/BusTestCase.java" line-rate="0.0" branch-rate="1.0" complexity="1.0555555555555556">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/bus/junit/BusTestCase;Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="104" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="addAALSpaceListener" signature="(Lorg/universAAL/middleware/managers/api/AALSpaceListener;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="116" hits="0" branch="false"/>
+								<line number="115" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="dispose" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="106" hits="0" branch="false"/>
+								<line number="105" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getAALSpaceDescriptor" signature="()Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="119" hits="0" branch="false"/>
+								<line number="118" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getAALSpaces" signature="()Ljava/util/Set;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="131" hits="0" branch="false"/>
+								<line number="130" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getManagedAALSpaces" signature="()Ljava/util/Map;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="135" hits="0" branch="false"/>
+								<line number="134" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMatchingPeers" signature="(Ljava/util/Map;)Lorg/universAAL/middleware/managers/api/MatchingResult;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="140" hits="0" branch="false"/>
+								<line number="139" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMyPeerCard" signature="()Lorg/universAAL/middleware/interfaces/PeerCard;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="144" hits="0" branch="false"/>
+								<line number="143" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getPeerAttributes" signature="(Ljava/util/List;Lorg/universAAL/middleware/interfaces/PeerCard;)Ljava/util/Map;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="149" hits="0" branch="false"/>
+								<line number="148" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getPeers" signature="()Ljava/util/Map;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="152" hits="0" branch="false"/>
 								<line number="153" hits="0" branch="false"/>
 								<line number="154" hits="0" branch="false"/>
-								<line number="155" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="init" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="109" hits="0" branch="false"/>
+								<line number="108" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="join" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="159" hits="0" branch="false"/>
+								<line number="158" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="leaveAALSpace" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="162" hits="0" branch="false"/>
+								<line number="161" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="loadConfigurations" signature="(Ljava/util/Dictionary;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="113" hits="0" branch="false"/>
+								<line number="112" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="removeAALSpaceListener" signature="(Lorg/universAAL/middleware/managers/api/AALSpaceListener;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="165" hits="0" branch="false"/>
+								<line number="164" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="104" hits="0" branch="false"/>
-						<line number="106" hits="0" branch="false"/>
-						<line number="109" hits="0" branch="false"/>
-						<line number="113" hits="0" branch="false"/>
-						<line number="116" hits="0" branch="false"/>
-						<line number="119" hits="0" branch="false"/>
-						<line number="131" hits="0" branch="false"/>
-						<line number="135" hits="0" branch="false"/>
-						<line number="140" hits="0" branch="false"/>
-						<line number="144" hits="0" branch="false"/>
-						<line number="149" hits="0" branch="false"/>
+						<line number="103" hits="0" branch="false"/>
+						<line number="105" hits="0" branch="false"/>
+						<line number="108" hits="0" branch="false"/>
+						<line number="112" hits="0" branch="false"/>
+						<line number="115" hits="0" branch="false"/>
+						<line number="118" hits="0" branch="false"/>
+						<line number="130" hits="0" branch="false"/>
+						<line number="134" hits="0" branch="false"/>
+						<line number="139" hits="0" branch="false"/>
+						<line number="143" hits="0" branch="false"/>
+						<line number="148" hits="0" branch="false"/>
+						<line number="152" hits="0" branch="false"/>
 						<line number="153" hits="0" branch="false"/>
 						<line number="154" hits="0" branch="false"/>
-						<line number="155" hits="0" branch="false"/>
-						<line number="159" hits="0" branch="false"/>
-						<line number="162" hits="0" branch="false"/>
-						<line number="165" hits="0" branch="false"/>
+						<line number="158" hits="0" branch="false"/>
+						<line number="161" hits="0" branch="false"/>
+						<line number="164" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.bus.junit.BusTestCase$1$1" filename="org/universAAL/middleware/bus/junit/BusTestCase.java" line-rate="0.0" branch-rate="1.0" complexity="1.0555555555555556">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/bus/junit/BusTestCase$1;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="119" hits="0" branch="false"/>
+								<line number="118" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getSpaceCard" signature="()Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceCard;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="122" hits="0" branch="false"/>
 								<line number="123" hits="0" branch="false"/>
 								<line number="124" hits="0" branch="false"/>
-								<line number="125" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="119" hits="0" branch="false"/>
+						<line number="118" hits="0" branch="false"/>
+						<line number="122" hits="0" branch="false"/>
 						<line number="123" hits="0" branch="false"/>
 						<line number="124" hits="0" branch="false"/>
-						<line number="125" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.bus.junit.BusTestCase$2" filename="org/universAAL/middleware/bus/junit/BusTestCase.java" line-rate="0.0" branch-rate="1.0" complexity="1.0555555555555556">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/bus/junit/BusTestCase;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="168" hits="0" branch="false"/>
+								<line number="167" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="addMessageListener" signature="(Lorg/universAAL/middleware/modules/listener/MessageListener;Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="196" hits="0" branch="false"/>
+								<line number="195" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="dispose" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="170" hits="0" branch="false"/>
+								<line number="169" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="173" hits="0" branch="false"/>
+								<line number="172" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getListenerByNameAndType" signature="(Ljava/lang/String;Ljava/lang/Class;)Lorg/universAAL/middleware/modules/listener/MessageListener;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="200" hits="0" branch="false"/>
+								<line number="199" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="177" hits="0" branch="false"/>
+								<line number="176" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getProvider" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="181" hits="0" branch="false"/>
+								<line number="180" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getVersion" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="185" hits="0" branch="false"/>
+								<line number="184" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="hasChannel" signature="(Ljava/lang/String;)Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="204" hits="0" branch="false"/>
+								<line number="203" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="init" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="189" hits="0" branch="false"/>
+								<line number="188" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="loadConfigurations" signature="(Ljava/util/Dictionary;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="193" hits="0" branch="false"/>
+								<line number="192" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="messageReceived" signature="(Lorg/universAAL/middleware/connectors/util/ChannelMessage;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="208" hits="0" branch="false"/>
+								<line number="207" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="removeMessageListener" signature="(Lorg/universAAL/middleware/modules/listener/MessageListener;Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="211" hits="0" branch="false"/>
+								<line number="210" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="send" signature="(Lorg/universAAL/middleware/connectors/util/ChannelMessage;Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="215" hits="0" branch="false"/>
+								<line number="214" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="send" signature="(Lorg/universAAL/middleware/connectors/util/ChannelMessage;Lorg/universAAL/middleware/modules/listener/MessageListener;Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="219" hits="0" branch="false"/>
+								<line number="218" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="sendAll" signature="(Lorg/universAAL/middleware/connectors/util/ChannelMessage;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="223" hits="0" branch="false"/>
+								<line number="222" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="sendAll" signature="(Lorg/universAAL/middleware/connectors/util/ChannelMessage;Ljava/util/List;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="227" hits="0" branch="false"/>
+								<line number="226" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="sendAll" signature="(Lorg/universAAL/middleware/connectors/util/ChannelMessage;Ljava/util/List;Lorg/universAAL/middleware/modules/listener/MessageListener;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="235" hits="0" branch="false"/>
+								<line number="234" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="sendAll" signature="(Lorg/universAAL/middleware/connectors/util/ChannelMessage;Lorg/universAAL/middleware/modules/listener/MessageListener;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="231" hits="0" branch="false"/>
+								<line number="230" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="168" hits="0" branch="false"/>
-						<line number="170" hits="0" branch="false"/>
-						<line number="173" hits="0" branch="false"/>
-						<line number="177" hits="0" branch="false"/>
-						<line number="181" hits="0" branch="false"/>
-						<line number="185" hits="0" branch="false"/>
-						<line number="189" hits="0" branch="false"/>
-						<line number="193" hits="0" branch="false"/>
-						<line number="196" hits="0" branch="false"/>
-						<line number="200" hits="0" branch="false"/>
-						<line number="204" hits="0" branch="false"/>
-						<line number="208" hits="0" branch="false"/>
-						<line number="211" hits="0" branch="false"/>
-						<line number="215" hits="0" branch="false"/>
-						<line number="219" hits="0" branch="false"/>
-						<line number="223" hits="0" branch="false"/>
-						<line number="227" hits="0" branch="false"/>
-						<line number="231" hits="0" branch="false"/>
-						<line number="235" hits="0" branch="false"/>
+						<line number="167" hits="0" branch="false"/>
+						<line number="169" hits="0" branch="false"/>
+						<line number="172" hits="0" branch="false"/>
+						<line number="176" hits="0" branch="false"/>
+						<line number="180" hits="0" branch="false"/>
+						<line number="184" hits="0" branch="false"/>
+						<line number="188" hits="0" branch="false"/>
+						<line number="192" hits="0" branch="false"/>
+						<line number="195" hits="0" branch="false"/>
+						<line number="199" hits="0" branch="false"/>
+						<line number="203" hits="0" branch="false"/>
+						<line number="207" hits="0" branch="false"/>
+						<line number="210" hits="0" branch="false"/>
+						<line number="214" hits="0" branch="false"/>
+						<line number="218" hits="0" branch="false"/>
+						<line number="222" hits="0" branch="false"/>
+						<line number="226" hits="0" branch="false"/>
+						<line number="230" hits="0" branch="false"/>
+						<line number="234" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.bus.junit.ManifestTestCase" filename="org/universAAL/middleware/bus/junit/ManifestTestCase.java" line-rate="0.0" branch-rate="0.0" complexity="3.0">
