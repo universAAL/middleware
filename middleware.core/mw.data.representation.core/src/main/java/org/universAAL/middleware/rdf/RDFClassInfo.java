@@ -112,7 +112,6 @@ public class RDFClassInfo extends FinalizedResource {
 	    this.info = info;
 	}
 
-	/** @see RDFClassInfoSetup#addInstance(Resource) */
 	public void addInstance(Resource instance) {
 	    if (locked)
 		return;
@@ -153,7 +152,6 @@ public class RDFClassInfo extends FinalizedResource {
 		instances.put(instance.getURI(), instance);
 	}
 
-	/** @see RDFClassInfoSetup#addSuperClass(TypeExpression) */
 	public void addSuperClass(TypeExpression superClass) {
 	    if (locked)
 		return;
@@ -182,7 +180,6 @@ public class RDFClassInfo extends FinalizedResource {
 	    }
 	}
 
-	/** @see RDFClassInfoSetup#addSuperClass(String) */
 	public void addSuperClass(String namedSuperClass) {
 	    if (locked)
 		return;
@@ -237,14 +234,12 @@ public class RDFClassInfo extends FinalizedResource {
 	    return info;
 	}
 
-	/** @see RDFClassInfoSetup#setResourceComment(String) */
 	public void setResourceComment(String comment) {
 	    if (locked)
 		return;
 	    info.setResourceComment(comment);
 	}
 
-	/** @see RDFClassInfoSetup#setResourceLabel(String) */
 	public void setResourceLabel(String label) {
 	    if (locked)
 		return;

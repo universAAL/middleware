@@ -238,18 +238,13 @@ public final class PropertyPath extends FinalizedResource {
 	return result;
     }
 
-    /**
-     * @see org.universAAL.middleware.rdf.Resource#isClosedCollection(String)
-     */
+    @Override
     public boolean isClosedCollection(String propURI) {
 	return PROP_PROPERTY_PATH.equals(propURI);
     }
 
-    /**
-     * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
-     *      java.lang.Object)
-     */
-    public boolean setProperty(String propURI, Object o) {
+    @Override
+   public boolean setProperty(String propURI, Object o) {
 	if (PROP_PROPERTY_PATH.equals(propURI)
 		&& !props.containsKey(PROP_PROPERTY_PATH)) {
 	    ArrayList l = new ArrayList();

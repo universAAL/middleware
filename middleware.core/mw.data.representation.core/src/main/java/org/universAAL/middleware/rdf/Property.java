@@ -94,13 +94,11 @@ public abstract class Property extends FinalizedResource {
 	    return prop;
 	}
 
-	/** @see PropertySetup#setFunctional() */
 	public void setFunctional() {
 	    prop.isFunctional = true;
 	    addType(TYPE_FUNCTIONAL, false);
 	}
 
-	/** @see PropertySetup#addSuperProperty(String) */
 	public synchronized void addSuperProperty(String superProperty) {
 	    if (subPropertyOf.contains(superProperty))
 		return;
@@ -110,7 +108,6 @@ public abstract class Property extends FinalizedResource {
 	    subPropertyOf = al;
 	}
 
-	/** @see PropertySetup#addEquivalentProperty(String) */
 	public void addEquivalentProperty(String equivalentProperty) {
 	    // we have to synchronize for all Property instances that may be in
 	    // the
@@ -137,17 +134,14 @@ public abstract class Property extends FinalizedResource {
 	    // }
 	}
 
-	/** @see PropertySetup#addDisjointProperty(String) */
 	public void addDisjointProperty(String disjointProperty) {
 	    // TODO Auto-generated method stub
 	}
 
-	/** @see PropertySetup#setDomain(TypeExpression) */
 	public void setDomain(TypeExpression domain) {
 	    setProperty(PROP_RDFS_DOMAIN, domain);
 	}
 
-	/** @see PropertySetup#setRange(TypeExpression) */
 	public void setRange(TypeExpression range) {
 	    // TODO Auto-generated method stub
 	}
@@ -210,5 +204,4 @@ public abstract class Property extends FinalizedResource {
 	}
 	return false;
     }
-
 }

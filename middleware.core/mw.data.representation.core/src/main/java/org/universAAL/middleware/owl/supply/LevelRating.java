@@ -60,7 +60,7 @@ public final class LevelRating extends ComparableIndividual {
 	this.order = order;
     }
 
-    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+    @Override
     public String getClassURI() {
 	return MY_URI;
     }
@@ -114,7 +114,7 @@ public final class LevelRating extends ComparableIndividual {
 	return PROP_SERIALIZATION_OPTIONAL;
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#isWellFormed() */
+    @Override
     public boolean isWellFormed() {
 	return true;
     }

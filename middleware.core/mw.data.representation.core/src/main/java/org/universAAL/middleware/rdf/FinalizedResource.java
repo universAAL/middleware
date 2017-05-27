@@ -54,57 +54,57 @@ public class FinalizedResource extends Resource {
 	super(uriPrefix, numProps);
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getProperty(String) */
+    @Override
     public final Object getProperty(String propURI) {
 	return super.getProperty(propURI);
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#numberOfProperties() */
+    @Override
     public final int numberOfProperties() {
 	return super.numberOfProperties();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#isAnon() */
+    @Override
     public final boolean isAnon() {
 	return super.isAnon();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#hasQualifiedName() */
+    @Override
     public final boolean hasQualifiedName() {
 	return super.hasQualifiedName();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getURI() */
+    @Override
     public final String getURI() {
 	return super.getURI();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getPropertyURIs() */
+    @Override
     public final Enumeration getPropertyURIs() {
 	return super.getPropertyURIs();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#addType(String, boolean) */
+    @Override
     public final boolean addType(String typeURI, boolean blockFurtherTypes) {
 	return super.addType(typeURI, blockFurtherTypes);
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getLocalName() */
+    @Override
     public final String getLocalName() {
 	return super.getLocalName();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getNamespace() */
+    @Override
     public final String getNamespace() {
 	return super.getNamespace();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getType() */
+    @Override
     public final String getType() {
 	return super.getType();
     }
 
-    /** @see org.universAAL.middleware.rdf.Resource#getTypes() */
+    @Override
     public final String[] getTypes() {
 	return super.getTypes();
     }
