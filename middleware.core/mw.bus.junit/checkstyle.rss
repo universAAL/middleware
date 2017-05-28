@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 3,
              Errors: 100,
-             Warnings: 40,
-             Infos: 293
+             Warnings: 41,
+             Infos: 296
       </title>
             <link>http://middleware/middleware.core/mw.bus.junit//checkstyle.html</link>
       <description>
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.junit//checkstyle.html#org.universAAL.middleware.bus.junit.OntTestCase.java">org/universAAL/middleware/bus/junit/OntTestCase.java</a>
                 </td>
                 <td>
-                  171
+                  174
                 </td>
                 <td>
-                  25
+                  26
                 </td>
                 <td>
                   44
