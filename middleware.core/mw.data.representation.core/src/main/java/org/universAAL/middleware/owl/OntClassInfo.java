@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,10 +40,10 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  * the usage; for every OntClassInfo there is exactly one
  * {@link OntClassInfoSetup} where all the characteristics of this class are
  * defined.
- * 
+ *
  * To create a new {@link OntClassInfo}, define a subclass of {@link Ontology}
  * and overwrite the {@link Ontology#create()} method.
- * 
+ *
  * @author Carsten Stockloew
  * @see RDFClassInfoSetup
  * @see RDFClassInfo
@@ -61,7 +61,7 @@ public final class OntClassInfo extends RDFClassInfo {
      * {@link MergedRestriction} is defined for a property then an entry is
      * stored here that maps the URI of the property to its restriction. If a
      * property has no restrictions, there is no entry in this repository.
-     * 
+     *
      * @see #properties
      */
     // maps property URI to MergedRestriction
@@ -76,7 +76,7 @@ public final class OntClassInfo extends RDFClassInfo {
 
     /**
      * The set of all equivalent classes.
-     * 
+     *
      * @see OntClassInfoSetup#addEquivalentClass(TypeExpression)
      */
     // Members of this arrays are instances of {@link TypeExpression}.
@@ -84,7 +84,7 @@ public final class OntClassInfo extends RDFClassInfo {
 
     /**
      * The set of all disjoint classes.
-     * 
+     *
      * @see OntClassInfoSetup#addDisjointClass(TypeExpression)
      */
     // Members of this arrays are instances of {@link TypeExpression}.
@@ -92,14 +92,14 @@ public final class OntClassInfo extends RDFClassInfo {
 
     /**
      * The complement class.
-     * 
+     *
      * @see OntClassInfoSetup#setComplementClass(TypeExpression)
      */
     private TypeExpression complementClass = null;
 
     /**
      * Determines whether this class is an enumeration class.
-     * 
+     *
      * @see OntClassInfoSetup#toEnumeration(ManagedIndividual[])
      */
     private boolean isEnumeration = false;
@@ -122,7 +122,7 @@ public final class OntClassInfo extends RDFClassInfo {
      * defined in one ontology. But it can be enhanced with additional
      * characteristics in other ontologies. This is a set of all classes that
      * contribute to the final combined class.
-     * 
+     *
      * @see Ontology#extendExistingOntClassInfo(String)
      */
     private ArrayList<OntClassInfo> extenders = new ArrayList<OntClassInfo>();
@@ -179,7 +179,7 @@ public final class OntClassInfo extends RDFClassInfo {
 		// a restriction for this property already exists
 		throw new IllegalAccessError(
 			"A restriction for this property (" + r.getOnProperty()
-				+ ") already exists. It can't be overwritten");
+				+ ") already exists. It can't be overwritten (class: " + getURI() + ")");
 
 	    // add to local variable
 	    HashMap tmp = new HashMap(propRestriction);
@@ -269,6 +269,7 @@ public final class OntClassInfo extends RDFClassInfo {
 	 */
 	public void addExtender(OntClassInfo extenderInfo) {
 	    extenderInfo.mgmt.copyTo(info);
+	    extenders.add(extenderInfo);
 	}
 
 	/**
@@ -276,7 +277,16 @@ public final class OntClassInfo extends RDFClassInfo {
 	 * combined version of all extenders.
 	 */
 	public void removeExtender(OntClassInfo extenderInfo) {
-	    extenders.remove(extenderInfo);
+	    // manually remove the extender from the list of extenders.
+	    // we cannot call extenders.remove(..) because this would remove the
+	    // element with the same URI (Resource.equals) and all extenders
+	    // have the same URI!
+	    for (int i=0; i<extenders.size(); i++) {
+		if (extenders.get(i) == extenderInfo) {
+		    extenders.remove(i);
+		    break;
+		}
+	    }
 
 	    // simple processing: just create a new combined version by adding
 	    // all extenders
@@ -376,7 +386,7 @@ public final class OntClassInfo extends RDFClassInfo {
 
     /**
      * Create a new OWL Class.
-     * 
+     *
      * @param classURI
      *            The URI of the class.
      * @param ont
@@ -403,7 +413,7 @@ public final class OntClassInfo extends RDFClassInfo {
     /**
      * Create a new OWL Class. This method can only be called from an
      * {@link Ontology}.
-     * 
+     *
      * @param classURI
      *            The URI of the class.
      * @param ont
@@ -475,7 +485,7 @@ public final class OntClassInfo extends RDFClassInfo {
 
     /**
      * Get the restriction that are defined for a property.
-     * 
+     *
      * @param propURI
      *            URI of the property for which the restrictions apply.
      * @return The restrictions of the given property.

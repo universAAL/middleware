@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -77,7 +77,7 @@ import org.universAAL.middleware.util.OntologyListener;
  * get an instance of this class and be able to call the methods, call
  * {@link #getInstance()}.
  * </p>
- * 
+ *
  * @author Carsten Stockloew
  */
 public final class OntologyManagement {
@@ -96,7 +96,7 @@ public final class OntologyManagement {
     /**
      * The set of OWL classes that are defined in the registered ontologies. It
      * maps the URI of the class to its {@link OntClassInfo}.
-     * 
+     *
      * @see #rdfClassInfoMap
      */
     private volatile HashMap<String, OntClassInfo> ontClassInfoMap = new HashMap<String, OntClassInfo>();
@@ -104,7 +104,7 @@ public final class OntologyManagement {
     /**
      * The set of RDF classes that are defined in the registered ontologies. It
      * maps the URI of the class to its {@link RDFClassInfo}.
-     * 
+     *
      * @see #ontClassInfoMap
      */
     private volatile HashMap<String, RDFClassInfo> rdfClassInfoMap = new HashMap<String, RDFClassInfo>();
@@ -149,7 +149,7 @@ public final class OntologyManagement {
     // maps the ontology URI to the module context that was used for registering
     // the ontology
     private HashMap<String, ModuleContext> registeringModule = new HashMap<String, ModuleContext>();
-    
+
     /**
      * Factory information to create new instances of registered classes.
      */
@@ -185,7 +185,7 @@ public final class OntologyManagement {
 
     /**
      * Get the Singleton instance.
-     * 
+     *
      * @return The Singleton instance.
      */
     public static OntologyManagement getInstance() {
@@ -194,7 +194,7 @@ public final class OntologyManagement {
 
     /**
      * Remove an ontology from the list of <i>pending</i> ontologies.
-     * 
+     *
      * @param ont
      *            The ontology to remove.
      */
@@ -222,12 +222,13 @@ public final class OntologyManagement {
 
     /**
      * Register a new ontology.
-     * 
+     *
      * @param ont
      *            the ontology.
      * @return false, if the Ontology is already available.
      */
     public boolean register(ModuleContext mc, Ontology ont) {
+	// System.out.println(" - Register Ont: " + ont.getInfo().getURI());
 	// add to pending
 	synchronized (pendingOntologies) {
 	    ArrayList newPendingOntologies = new ArrayList(
@@ -370,7 +371,7 @@ public final class OntologyManagement {
 		    OntologyTest.postTestClass(ont, combined, dbgClass);
 		}
 	    }
-	    
+
 	    registeringModule.put(ont.getInfo().getURI(), mc);
 	}
 
@@ -382,6 +383,7 @@ public final class OntologyManagement {
 		l.ontologyAdded(ont.getInfo().getURI());
 	}
 
+	// System.out.println(" - Register Ont END: " + ont.getInfo().getURI());
 	return true;
     }
 
@@ -405,7 +407,7 @@ public final class OntologyManagement {
     /**
      * Get a named resource. A named resource is a registered instance of an OWL
      * or RDF class.
-     * 
+     *
      * @param instanceURI
      *            URI of the instance.
      * @return The instance.
@@ -418,7 +420,7 @@ public final class OntologyManagement {
 
     /**
      * Get a Resource with the given class and instance URI.
-     * 
+     *
      * @param classURI
      *            The URI of the class.
      * @param instanceURI
@@ -470,7 +472,7 @@ public final class OntologyManagement {
      * other classes are super classes of this class. The method can be used for
      * transformations to/from other representations, e.g. turtle, jena, and it
      * considers both, RDF classes and OWL classes.
-     * 
+     *
      * @param classURIs
      *            The set of URIs of classes.
      * @return The URI of the most specialized class.
@@ -500,7 +502,7 @@ public final class OntologyManagement {
 
     /**
      * Get the URIs of all sub classes of the given class.
-     * 
+     *
      * @param superClassURI
      *            URI of the super class.
      * @param inherited
@@ -549,11 +551,12 @@ public final class OntologyManagement {
 
     /**
      * Unregister an ontology.
-     * 
+     *
      * @param ont
      *            The ontology to unregister.
      */
     public void unregister(ModuleContext mc, Ontology ont) {
+	// System.out.println(" - UN-Register Ont: " + ont.getInfo().getURI());
 	// first notify the listeners as long as the ontology is still
 	// registered and the URI provided to the listeners can be used in
 	// operations
@@ -682,17 +685,41 @@ public final class OntologyManagement {
 		}
 	    }
 
+	    // check for orphan ontClassInfos
+	    // this should never happen!
+	    ArrayList<OntClassInfo> tmp = new ArrayList<OntClassInfo>();
+	    tmp.addAll(tempOntClassInfoMap.values());
+	    for (OntClassInfo oci : tmp) {
+		boolean found = false;
+		for (Ontology o : tempOntologies.values()) {
+		    for (OntClassInfo i : o.getOntClassInfo()) {
+			if (i.getURI().equals(oci.getURI())) {
+			    found = true;
+			    break;
+			}
+		    }
+		    if (found)
+			break;
+		}
+		if (!found) {
+		    LogUtils.logError(SharedResources.moduleContext, OntologyManagement.class, "unregister",
+			    new Object[] { "The class " + oci.getURI() + " is registered, but no ont references it!" },
+			    null);
+		    tempOntClassInfoMap.remove(oci);
+		}
+	    }
+
 	    // set temp as new set of ontologies
 	    ontologies = tempOntologies;
 	    ontClassInfoMap = tempOntClassInfoMap;
 	    namedResources = tempNamedResources;
 	    factories = tempFactories;
 	    namedSubClasses = tempNamedSubClasses;
-	    
+
 	    registeringModule.remove(ont.getInfo().getURI());
 	}
     }
-    
+
     public String getRegisteringModuleID(String ontURI) {
 	synchronized (ontologies) {
 	    return registeringModule.get(ontURI).getID();
@@ -730,7 +757,7 @@ public final class OntologyManagement {
      * Get an ontology by its URI. The ontology must be registered by calling
      * {@link #register(org.universAAL.middleware.container.ModuleContext, Ontology)}
      * .
-     * 
+     *
      * @param uri
      *            URI of the ontology.
      * @return The ontology.
@@ -741,7 +768,7 @@ public final class OntologyManagement {
 
     /**
      * Get the model information of an RDF class.
-     * 
+     *
      * @param classURI
      *            URI of the class.
      * @param includeOntClasses
@@ -765,7 +792,7 @@ public final class OntologyManagement {
 
     /**
      * Get the model information of an OWL class.
-     * 
+     *
      * @param classURI
      *            URI of the class.
      * @return The model information.
@@ -780,7 +807,7 @@ public final class OntologyManagement {
     /**
      * Determines whether an OWL class is registered. It is registered if it is
      * defined or extended in one of the registered ontologies.
-     * 
+     *
      * @param classURI
      *            URI of the class.
      * @param includePending
@@ -845,13 +872,13 @@ public final class OntologyManagement {
 
     /**
      * Get the set of URIs of all registered ontologies.
-     * 
+     *
      * @return an array with the URIs of all registered ontologies.
      */
     public String[] getOntoloyURIs() {
 	return ontologies.keySet().toArray(new String[0]);
     }
-    
+
     /**
      * Test if an ontology URI is already registered.
      * @param ontURI The URI of the ontology to check if it is already registered
@@ -864,7 +891,7 @@ public final class OntologyManagement {
     /**
      * Internal method. Used to verify that an ontology is currently in the
      * registration phase.
-     * 
+     *
      * @param uri
      *            URI of the ontology.
      * @return true, iff the ontology is currently in the registration phase.
@@ -878,7 +905,7 @@ public final class OntologyManagement {
     /**
      * Add a new ontology listener. This listener is notified when a change in
      * ontology management occurs.
-     * 
+     *
      * @param owner
      *            the {@link ModuleContext} of the caller of this method.
      * @param listener
@@ -895,7 +922,7 @@ public final class OntologyManagement {
     /**
      * Remove an existing ontology listener. This listener is notified when a
      * change in ontology management occurs.
-     * 
+     *
      * @param owner
      *            the {@link ModuleContext} of the caller of this method.
      * @param listener
