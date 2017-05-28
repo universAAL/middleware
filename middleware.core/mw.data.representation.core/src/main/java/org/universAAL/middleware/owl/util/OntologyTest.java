@@ -46,7 +46,7 @@ public final class OntologyTest {
     /**
      * Perform a sanity check of the given class that is defined in the given
      * ontology. The check is done after registration of the ontology.
-     * 
+     *
      * @param ont
      *            The ontology that defined the class.
      * @param info
@@ -54,7 +54,6 @@ public final class OntologyTest {
      */
     public static boolean postTestClass(Ontology ont, OntClassInfo info,
 	    HashMap<String, String> dbgClass) {
-
 	ResourceFactory fact = info.getFactory();
 	if (fact == null)
 	    // must be an abstract class
@@ -198,7 +197,7 @@ public final class OntologyTest {
     /**
      * Perform a sanity check of the given class that is defined in the given
      * ontology. The check is done during registration of the ontology.
-     * 
+     *
      * @param ont
      *            The ontology that defined the class.
      * @param info
@@ -220,6 +219,17 @@ public final class OntologyTest {
 				" does not have a qualified URI. Please check the URI you give as parameter to creator methods like createNewOntClassInfo()." },
 			null);
 		return false;
+	    }
+
+	    String className = info.getLocalName();
+	    if (className != null) {
+		if (!className.substring(0, 1).matches("[A-Z]")) {
+		    LogUtils.logInfo(SharedResources.moduleContext, OntologyTest.class, "testClass",
+			    new Object[] { "Class not starting with upper-case letter: the ontology class ", info.getURI(),
+				    " of the ontology ", ont.getInfo().getURI(),
+				    " starts with a lower-case letter. It is recommended that classes start with an upper-case letter." },
+			    null);
+		}
 	    }
 
 	    if (info.isAbstract())
@@ -301,6 +311,19 @@ public final class OntologyTest {
 	    String[] props = info.getDeclaredPropertyURIs();
 	    for (int i = 0; i < props.length; i++) {
 		String propURI = props[i];
+
+		// test that the URI starts with a lower-case letter
+		String propURILocal = new Resource(propURI).getLocalName();
+		if (propURILocal != null) {
+		    if (!propURILocal.substring(0, 1).matches("[a-z]")) {
+			LogUtils.logInfo(SharedResources.moduleContext, OntologyTest.class, "testClass",
+				new Object[] { "Property not starting with lower-case letter: the ontology class ",
+					propURI, " of the ontology ", ont.getInfo().getURI(),
+					" does not start with a lower-case letter. It is recommended that properties start with a lower-case letter." },
+				null);
+		    }
+		}
+
 		// test that the property has a serialization type
 		int serType = m.getPropSerializationType(propURI);
 		if (serType == Resource.PROP_SERIALIZATION_UNDEFINED)
@@ -384,7 +407,7 @@ public final class OntologyTest {
     /**
      * Perform a sanity check of the given ontology. The check is done during
      * registration of the ontology.
-     * 
+     *
      * @param ont
      *            The ontology that defined the class.
      */
