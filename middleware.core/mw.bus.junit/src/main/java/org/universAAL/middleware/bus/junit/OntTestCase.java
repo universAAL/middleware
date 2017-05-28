@@ -318,6 +318,7 @@ public class OntTestCase extends BusTestCase {
 		StringBuffer sbo = new StringBuffer(" Problems detected in other Ontologies:\n");
 		boolean problems = false;
 		boolean otherProblems= false;
+		boolean fail = false;
 		for (OntologyLoaderTask olt : loadingOrder) {
 			System.out.println("\t" + (isInMyProy(olt.ont)?"* ":"  ") + olt.ont.getInfo().getURI() + " " + olt.report());
 			if (isInMyProy(olt.ont)){
@@ -326,6 +327,8 @@ public class OntTestCase extends BusTestCase {
 					problems = true;
 					for (LogEntry le : olt.logEntries) {
 						sb.append("\t\t" + le.toString().replaceAll("\n", "\n\t\t") + "\n");
+						if (le.logLevel >= LogListener.LOG_LEVEL_WARN)
+						    fail = true;
 					}
 				}
 			}
@@ -351,7 +354,12 @@ public class OntTestCase extends BusTestCase {
 		System.out.println("---------------------------------");
 		System.out.flush();
 		if (problems){
+		    if (fail) {
+			System.out.println("Severe problems found, failing build.");
 			fail(sb.toString());
+		    } else {
+			System.out.println("The problems are not severe, build does not fail.");
+		    }
 		}
 
 		// print all registered classes
