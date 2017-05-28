@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 572,
              Errors: 9365,
-             Warnings: 3536,
-             Infos: 13654
+             Warnings: 3539,
+             Infos: 13665
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -4487,10 +4487,10 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.owl.util.OntologyTest.java">org/universAAL/middleware/owl/util/OntologyTest.java</a>
                 </td>
                 <td>
-                  64
+                  75
                 </td>
                 <td>
-                  9
+                  12
                 </td>
                 <td>
                   7
