@@ -232,6 +232,14 @@ public final class OntologyTest {
 		}
 	    }
 
+	    if (!checkUniversAALLetterCase(info.getURI())) {
+		LogUtils.logInfo(SharedResources.moduleContext, OntologyTest.class, "testClass",
+			new Object[] { "Class contains \"universAAL\" with wrong letter case: the ontology class ",
+				info.getURI(), " of the ontology ", ont.getInfo().getURI(),
+				" contains the string \"universAAL\" with wrong letter case." },
+			null);
+	    }
+
 	    if (info.isAbstract())
 		return true;
 
@@ -317,11 +325,20 @@ public final class OntologyTest {
 		if (propURILocal != null) {
 		    if (!propURILocal.substring(0, 1).matches("[a-z]")) {
 			LogUtils.logInfo(SharedResources.moduleContext, OntologyTest.class, "testClass",
-				new Object[] { "Property not starting with lower-case letter: the ontology class ",
+				new Object[] { "Property not starting with lower-case letter: the property ",
 					propURI, " of the ontology ", ont.getInfo().getURI(),
 					" does not start with a lower-case letter. It is recommended that properties start with a lower-case letter." },
 				null);
 		    }
+		}
+
+		// test for universAAL letter case
+		if (!checkUniversAALLetterCase(propURI)) {
+		    LogUtils.logInfo(SharedResources.moduleContext, OntologyTest.class, "testClass",
+			    new Object[] { "Property contains \"universAAL\" with wrong letter case: the property ",
+				    propURI, " of the ontology ", ont.getInfo().getURI(),
+				    " contains the string \"universAAL\" with wrong letter case." },
+			    null);
 		}
 
 		// test that the property has a serialization type
@@ -402,6 +419,23 @@ public final class OntologyTest {
 			    ont.getInfo().getURI(), "." }, e);
 	}
 	return false;
+    }
+
+    /**
+     * Tests if a URI that contains the string ".universAAL." has it with this
+     * letter case.
+     *
+     * @param uri
+     *            the URI to test
+     * @return false, if ".universAAL." is contained with a wrong letter case.
+     */
+    private static boolean checkUniversAALLetterCase(String uri) {
+	String low = uri.toLowerCase();
+	if (!low.contains(".universaal."))
+	    return true;
+	if (!uri.contains(".universAAL."))
+	    return false;
+	return true;
     }
 
     /**
