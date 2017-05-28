@@ -234,9 +234,17 @@ public final class OntologyTest {
 
 	    if (!checkUniversAALLetterCase(info.getURI())) {
 		LogUtils.logInfo(SharedResources.moduleContext, OntologyTest.class, "testClass",
-			new Object[] { "Class contains \"universAAL\" with wrong letter case: the ontology class ",
+			new Object[] { "Class URI contains \"universAAL\" with wrong letter case: the ontology class ",
 				info.getURI(), " of the ontology ", ont.getInfo().getURI(),
 				" contains the string \"universAAL\" with wrong letter case." },
+			null);
+	    }
+
+	    if (!checkUniversAALSubdomain(info.getURI())) {
+		LogUtils.logInfo(SharedResources.moduleContext, OntologyTest.class, "testClass",
+			new Object[] { "Class URI contains \"universAAL\" but no \"ontology\": the ontology class ",
+				info.getURI(), " of the ontology ", ont.getInfo().getURI(),
+				" contains the string \"universAAL\" but not \"ontology\". universAAL URIs should start with \"http://ontology.universAAL.org\"" },
 			null);
 	    }
 
@@ -332,12 +340,21 @@ public final class OntologyTest {
 		    }
 		}
 
-		// test for universAAL letter case
+		// test for universAAL URI letter case
 		if (!checkUniversAALLetterCase(propURI)) {
 		    LogUtils.logInfo(SharedResources.moduleContext, OntologyTest.class, "testClass",
-			    new Object[] { "Property contains \"universAAL\" with wrong letter case: the property ",
+			    new Object[] { "Property URI contains \"universAAL\" with wrong letter case: the property ",
 				    propURI, " of the ontology ", ont.getInfo().getURI(),
 				    " contains the string \"universAAL\" with wrong letter case." },
+			    null);
+		}
+
+		// test for "ontology" before "universAAL" in URI
+		if (!checkUniversAALSubdomain(propURI)) {
+		    LogUtils.logInfo(SharedResources.moduleContext, OntologyTest.class, "testClass",
+			    new Object[] { "Property URI contains \"universAAL\" but no \"ontology\": the property ",
+				    propURI, " of the ontology ", ont.getInfo().getURI(),
+				    " contains the string \"universAAL\" but not \"ontology\". universAAL URIs should start with \"http://ontology.universAAL.org\"" },
 			    null);
 		}
 
@@ -419,6 +436,27 @@ public final class OntologyTest {
 			    ont.getInfo().getURI(), "." }, e);
 	}
 	return false;
+    }
+
+    /**
+     * Tests if a URI that contains the string ".universAAL." is preceded with
+     * the subdomain "ontology".
+     *
+     * @param uri
+     *            the URI to test
+     * @return false, if ".universAAL." is not preceded with "ontology".
+     */
+    private static boolean checkUniversAALSubdomain(String uri) {
+	String low = uri.toLowerCase();
+	int pos = low.indexOf(".universaal.");
+	if (pos == -1)
+	    return true;
+	int pos2 = uri.indexOf("ontology.");
+	if (pos2 == -1)
+	    return false;
+	if (pos2 > pos)
+	    return false;
+	return true;
     }
 
     /**
