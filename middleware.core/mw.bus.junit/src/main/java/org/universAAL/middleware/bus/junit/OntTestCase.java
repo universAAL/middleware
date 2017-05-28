@@ -48,6 +48,7 @@ import org.universAAL.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.owl.OntClassInfo;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
@@ -286,6 +287,10 @@ public class OntTestCase extends BusTestCase {
 
 		// first add all onts that are not from this project
 		TryLoadingOnts(toBeLoaded, false, pendingOnts, loadingOrder, totalOntologiesFound);
+
+		// print all registered classes
+		printRegistered();
+
 		// then add all onts that are from this project
 		TryLoadingOnts(toBeLoaded, true, pendingOnts, loadingOrder, totalOntologiesFound);
 
@@ -348,8 +353,26 @@ public class OntTestCase extends BusTestCase {
 		if (problems){
 			fail(sb.toString());
 		}
+
+		// print all registered classes
+		printRegistered();
 	}
 
+    private void printRegistered() {
+//	String uris[] = OntologyManagement.getInstance().getOntoloyURIs();
+//	for (String uri : uris) {
+//	    System.out.println(" -- Ontology: " + uri);
+//	    Ontology ont = OntologyManagement.getInstance().getOntology(uri);
+//	    OntClassInfo[] ocis = ont.getOntClassInfo();
+//	    for (OntClassInfo oci : ocis) {
+//		boolean b1 = OntologyManagement.getInstance().isRegisteredClass(oci.getURI(), true);
+//		boolean b2 = OntologyManagement.getInstance().isRegisteredClass(oci.getURI(), false);
+//		String s1 = b1 ? "*" : "-";
+//		String s2 = b2 ? "*" : "-";
+//		System.out.println(" ---- Class: " + s1 + s2 + " " + oci.getURI());
+//	    }
+//	}
+    }
 
     private void TryLoadingOnts(List<Ontology> toBeLoaded, boolean isInMyProject,
 	    Map<Ontology, OntologyLoaderTask> pendingOnts, List<OntologyLoaderTask> loadingOrder,
