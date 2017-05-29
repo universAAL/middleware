@@ -28,7 +28,7 @@ under the License.
       <title>File: 1,
              Errors: 7,
              Warnings: 1,
-             Infos: 8
+             Infos: 6
       </title>
             <link>http://middleware/middleware.osgi/mw.managers.tenant.osgi//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.managers.tenant.osgi//checkstyle.html#org.universAAL.middleware.managers.tenant.osgi.Activator.java">org/universAAL/middleware/managers/tenant/osgi/Activator.java</a>
                 </td>
                 <td>
-                  8
+                  6
                 </td>
                 <td>
                   1

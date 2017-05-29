@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="12" branches-covered="0" branches-valid="2" complexity="1.5" version="2.1.1" timestamp="1496067364411">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="12" branches-covered="0" branches-valid="2" complexity="1.5" version="2.1.1" timestamp="1496076344843">
 	<sources>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.brokers.control.osgi/src/main/java</source>
 		<source>--source</source>

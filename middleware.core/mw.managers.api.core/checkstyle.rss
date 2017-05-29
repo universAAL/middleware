@@ -28,7 +28,7 @@ under the License.
       <title>File: 16,
              Errors: 104,
              Warnings: 1,
-             Infos: 99
+             Infos: 83
       </title>
             <link>http://middleware/middleware.core/mw.managers.api.core//checkstyle.html</link>
       <description>
@@ -189,7 +189,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.UAPPPackage.java">org/universAAL/middleware/managers/api/UAPPPackage.java</a>
                 </td>
                 <td>
-                  10
+                  6
                 </td>
                 <td>
                   0
@@ -231,7 +231,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.InstallationResultsDetails.java">org/universAAL/middleware/managers/api/InstallationResultsDetails.java</a>
                 </td>
                 <td>
-                  14
+                  2
                 </td>
                 <td>
                   0

@@ -28,7 +28,7 @@ under the License.
       <title>File: 51,
              Errors: 1220,
              Warnings: 58,
-             Infos: 711
+             Infos: 549
       </title>
             <link>http://middleware/middleware.resources/mw.schemas//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.aalspace.json.model.AALSpace.java">org/universAAL/middleware/aalspace/json/model/AALSpace.java</a>
                 </td>
                 <td>
-                  9
+                  0
                 </td>
                 <td>
                   1
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.ConfigFile.java">org/universAAL/middleware/deploymanager/uapp/model/ConfigFile.java</a>
                 </td>
                 <td>
-                  5
+                  3
                 </td>
                 <td>
                   1
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.PlatformType.java">org/universAAL/middleware/deploymanager/uapp/model/PlatformType.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -105,7 +105,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.OntologyType.java">org/universAAL/middleware/deploymanager/uapp/model/OntologyType.java</a>
                 </td>
                 <td>
-                  14
+                  11
                 </td>
                 <td>
                   2
@@ -119,7 +119,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.AalUapp.java">org/universAAL/middleware/deploymanager/uapp/model/AalUapp.java</a>
                 </td>
                 <td>
-                  92
+                  66
                 </td>
                 <td>
                   11
@@ -133,7 +133,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.aalspace.json.model.ChannelDescriptor.java">org/universAAL/middleware/aalspace/json/model/ChannelDescriptor.java</a>
                 </td>
                 <td>
-                  13
+                  10
                 </td>
                 <td>
                   1
@@ -147,7 +147,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.ObjectFactory.java">org/universAAL/middleware/connectors/deploy/karaf/model/ObjectFactory.java</a>
                 </td>
                 <td>
-                  26
+                  25
                 </td>
                 <td>
                   1
@@ -161,7 +161,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.EmbeddingType.java">org/universAAL/middleware/deploymanager/uapp/model/EmbeddingType.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -175,7 +175,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.LicenseCategoryType.java">org/universAAL/middleware/deploymanager/uapp/model/LicenseCategoryType.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -203,7 +203,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.Part.java">org/universAAL/middleware/deploymanager/uapp/model/Part.java</a>
                 </td>
                 <td>
-                  30
+                  25
                 </td>
                 <td>
                   3
@@ -231,7 +231,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.ArtifactType.java">org/universAAL/middleware/deploymanager/uapp/model/ArtifactType.java</a>
                 </td>
                 <td>
-                  5
+                  3
                 </td>
                 <td>
                   1
@@ -245,7 +245,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.ExecutionUnit.java">org/universAAL/middleware/deploymanager/uapp/model/ExecutionUnit.java</a>
                 </td>
                 <td>
-                  7
+                  4
                 </td>
                 <td>
                   1
@@ -259,7 +259,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.Dependency.java">org/universAAL/middleware/deploymanager/uapp/model/Dependency.java</a>
                 </td>
                 <td>
-                  5
+                  3
                 </td>
                 <td>
                   1
@@ -287,7 +287,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.LicenseType.java">org/universAAL/middleware/deploymanager/uapp/model/LicenseType.java</a>
                 </td>
                 <td>
-                  7
+                  4
                 </td>
                 <td>
                   1
@@ -301,7 +301,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.DeploymentUnit.java">org/universAAL/middleware/deploymanager/uapp/model/DeploymentUnit.java</a>
                 </td>
                 <td>
-                  39
+                  25
                 </td>
                 <td>
                   4
@@ -315,7 +315,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.interfaces.aalspace.xml.model.ChannelDescriptor.java">org/universAAL/middleware/interfaces/aalspace/xml/model/ChannelDescriptor.java</a>
                 </td>
                 <td>
-                  17
+                  14
                 </td>
                 <td>
                   1
@@ -329,7 +329,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.Feature.java">org/universAAL/middleware/deploymanager/uapp/model/Feature.java</a>
                 </td>
                 <td>
-                  12
+                  8
                 </td>
                 <td>
                   1
@@ -343,7 +343,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.java">org/universAAL/middleware/interfaces/aalspace/xml/model/Aalspace.java</a>
                 </td>
                 <td>
-                  61
+                  48
                 </td>
                 <td>
                   4
@@ -385,7 +385,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.ProfileType.java">org/universAAL/middleware/deploymanager/uapp/model/ProfileType.java</a>
                 </td>
                 <td>
-                  5
+                  3
                 </td>
                 <td>
                   1
@@ -399,7 +399,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.Bundle.java">org/universAAL/middleware/deploymanager/uapp/model/Bundle.java</a>
                 </td>
                 <td>
-                  9
+                  5
                 </td>
                 <td>
                   1
@@ -413,7 +413,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.ConfigFile.java">org/universAAL/middleware/connectors/deploy/karaf/model/ConfigFile.java</a>
                 </td>
                 <td>
-                  24
+                  22
                 </td>
                 <td>
                   1
@@ -427,7 +427,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.ReqAtomType.java">org/universAAL/middleware/deploymanager/uapp/model/ReqAtomType.java</a>
                 </td>
                 <td>
-                  8
+                  5
                 </td>
                 <td>
                   1
@@ -441,7 +441,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.Broker.java">org/universAAL/middleware/deploymanager/uapp/model/Broker.java</a>
                 </td>
                 <td>
-                  5
+                  3
                 </td>
                 <td>
                   1
@@ -455,7 +455,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.CapabilityType.java">org/universAAL/middleware/deploymanager/uapp/model/CapabilityType.java</a>
                 </td>
                 <td>
-                  5
+                  3
                 </td>
                 <td>
                   1
@@ -469,7 +469,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.Config.java">org/universAAL/middleware/deploymanager/uapp/model/Config.java</a>
                 </td>
                 <td>
-                  5
+                  3
                 </td>
                 <td>
                   1
@@ -483,7 +483,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.OsType.java">org/universAAL/middleware/deploymanager/uapp/model/OsType.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -497,7 +497,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.Feature.java">org/universAAL/middleware/connectors/deploy/karaf/model/Feature.java</a>
                 </td>
                 <td>
-                  45
+                  41
                 </td>
                 <td>
                   1
@@ -511,7 +511,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.SpaceType.java">org/universAAL/middleware/deploymanager/uapp/model/SpaceType.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -525,7 +525,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.LogicalRelationType.java">org/universAAL/middleware/deploymanager/uapp/model/LogicalRelationType.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -539,7 +539,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.ReqCriticalityType.java">org/universAAL/middleware/deploymanager/uapp/model/ReqCriticalityType.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -553,7 +553,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.Dependency.java">org/universAAL/middleware/connectors/deploy/karaf/model/Dependency.java</a>
                 </td>
                 <td>
-                  26
+                  24
                 </td>
                 <td>
                   1
@@ -567,7 +567,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.ContactType.java">org/universAAL/middleware/deploymanager/uapp/model/ContactType.java</a>
                 </td>
                 <td>
-                  22
+                  12
                 </td>
                 <td>
                   2
@@ -581,7 +581,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.ReqType.java">org/universAAL/middleware/deploymanager/uapp/model/ReqType.java</a>
                 </td>
                 <td>
-                  7
+                  4
                 </td>
                 <td>
                   1
@@ -609,7 +609,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.Bundle.java">org/universAAL/middleware/connectors/deploy/karaf/model/Bundle.java</a>
                 </td>
                 <td>
-                  36
+                  32
                 </td>
                 <td>
                   1
@@ -623,7 +623,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.LogicalCriteriaType.java">org/universAAL/middleware/deploymanager/uapp/model/LogicalCriteriaType.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -637,7 +637,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.VersionType.java">org/universAAL/middleware/deploymanager/uapp/model/VersionType.java</a>
                 </td>
                 <td>
-                  6
+                  2
                 </td>
                 <td>
                   1
@@ -651,7 +651,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.Config.java">org/universAAL/middleware/connectors/deploy/karaf/model/Config.java</a>
                 </td>
                 <td>
-                  24
+                  22
                 </td>
                 <td>
                   1
@@ -665,7 +665,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.FeaturesRoot.java">org/universAAL/middleware/connectors/deploy/karaf/model/FeaturesRoot.java</a>
                 </td>
                 <td>
-                  27
+                  26
                 </td>
                 <td>
                   1
@@ -693,7 +693,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.ObjectFactory.java">org/universAAL/middleware/deploymanager/uapp/model/ObjectFactory.java</a>
                 </td>
                 <td>
-                  18
+                  14
                 </td>
                 <td>
                   4
@@ -707,7 +707,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.ReqGroupType.java">org/universAAL/middleware/deploymanager/uapp/model/ReqGroupType.java</a>
                 </td>
                 <td>
-                  7
+                  6
                 </td>
                 <td>
                   1
@@ -749,7 +749,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.deploymanager.uapp.model.FeaturesRoot.java">org/universAAL/middleware/deploymanager/uapp/model/FeaturesRoot.java</a>
                 </td>
                 <td>
-                  6
+                  5
                 </td>
                 <td>
                   1

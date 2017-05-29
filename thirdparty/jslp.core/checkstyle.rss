@@ -28,7 +28,7 @@ under the License.
       <title>File: 32,
              Errors: 222,
              Warnings: 34,
-             Infos: 344
+             Infos: 336
       </title>
             <link>http://middleware/thirdparty/jslp.core//checkstyle.html</link>
       <description>
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.ServiceURL.java">ch/ethz/iks/slp/ServiceURL.java</a>
                 </td>
                 <td>
-                  38
+                  37
                 </td>
                 <td>
                   1
@@ -175,7 +175,7 @@ under the License.
                   <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPMessage.java">ch/ethz/iks/slp/impl/SLPMessage.java</a>
                 </td>
                 <td>
-                  15
+                  14
                 </td>
                 <td>
                   0
@@ -343,7 +343,7 @@ under the License.
                   <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPCore.java">ch/ethz/iks/slp/impl/SLPCore.java</a>
                 </td>
                 <td>
-                  18
+                  17
                 </td>
                 <td>
                   7
@@ -357,7 +357,7 @@ under the License.
                   <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.SLPUtils.java">ch/ethz/iks/slp/impl/SLPUtils.java</a>
                 </td>
                 <td>
-                  13
+                  9
                 </td>
                 <td>
                   2
@@ -413,7 +413,7 @@ under the License.
                   <a href="http://middleware/thirdparty/jslp.core//checkstyle.html#ch.ethz.iks.slp.impl.ServiceRequest.java">ch/ethz/iks/slp/impl/ServiceRequest.java</a>
                 </td>
                 <td>
-                  10
+                  9
                 </td>
                 <td>
                   0

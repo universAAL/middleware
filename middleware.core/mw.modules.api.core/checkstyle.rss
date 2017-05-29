@@ -28,7 +28,7 @@ under the License.
       <title>File: 11,
              Errors: 134,
              Warnings: 9,
-             Infos: 88
+             Infos: 79
       </title>
             <link>http://middleware/middleware.core/mw.modules.api.core//checkstyle.html</link>
       <description>
@@ -133,7 +133,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.modules.api.core//checkstyle.html#org.universAAL.middleware.modules.exception.CommunicationModuleException.java">org/universAAL/middleware/modules/exception/CommunicationModuleException.java</a>
                 </td>
                 <td>
-                  8
+                  1
                 </td>
                 <td>
                   0
@@ -175,7 +175,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.modules.api.core//checkstyle.html#org.universAAL.middleware.modules.exception.AALSpaceModuleException.java">org/universAAL/middleware/modules/exception/AALSpaceModuleException.java</a>
                 </td>
                 <td>
-                  8
+                  6
                 </td>
                 <td>
                   0
