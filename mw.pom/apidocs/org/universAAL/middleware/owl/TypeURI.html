@@ -220,8 +220,7 @@ extends <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" 
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl">TypeExpression</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/owl/TypeURI.html#copy--">copy</a></span>()</code>
-<div class="block">No <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl"><code>TypeExpression</code></a> instances are stored in this class, so we do
- not need to clone; just return this object.</div>
+<div class="block">Create a copy of this object, i.e.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -234,7 +233,8 @@ extends <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" 
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl">TypeExpression</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/owl/TypeURI.html#getRestrictionOnProperty-java.lang.String-">getRestrictionOnProperty</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI)</code>
-<div class="block">Get the restrictions for the given property.</div>
+<div class="block">Get the restrictions for the given property in the context of the class
+ represented by this type URI.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
@@ -384,15 +384,16 @@ extends <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" 
 <li class="blockList">
 <h4>copy</h4>
 <pre>public&nbsp;<a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl">TypeExpression</a>&nbsp;copy()</pre>
-<div class="block">No <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl"><code>TypeExpression</code></a> instances are stored in this class, so we do
+<div class="block">Create a copy of this object, i.e. create a new object of this class and
+ copy the necessary properties.<p>
+
+ No <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl"><code>TypeExpression</code></a> instances are stored in this class, so we do
  not need to clone; just return this object.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../org/universAAL/middleware/owl/TypeExpression.html#copy--">copy</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl">TypeExpression</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The newly created copy.</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../org/universAAL/middleware/owl/TypeExpression.html#copy--"><code>TypeExpression.copy()</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -419,8 +420,13 @@ extends <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" 
 <li class="blockList">
 <h4>getRestrictionOnProperty</h4>
 <pre>public&nbsp;<a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl">TypeExpression</a>&nbsp;getRestrictionOnProperty(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propURI)</pre>
-<div class="block">Get the restrictions for the given property.</div>
+<div class="block">Get the restrictions for the given property in the context of the class
+ represented by this type URI.</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>propURI</code> - URI of the property.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the restriction of the given property.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../org/universAAL/middleware/owl/ManagedIndividual.html#getClassRestrictionsOnProperty-java.lang.String-java.lang.String-"><code>ManagedIndividual.getClassRestrictionsOnProperty(String,
       String)</code></a></dd>

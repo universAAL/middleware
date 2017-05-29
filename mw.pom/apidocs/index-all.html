@@ -3104,8 +3104,7 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/owl/TypeURI.html#copy--">copy()</a></span> - Method in class org.universAAL.middleware.owl.<a href="org/universAAL/middleware/owl/TypeURI.html" title="class in org.universAAL.middleware.owl">TypeURI</a></dt>
 <dd>
-<div class="block">No <a href="org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl"><code>TypeExpression</code></a> instances are stored in this class, so we do
- not need to clone; just return this object.</div>
+<div class="block">Create a copy of this object, i.e.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/owl/Union.html#copy--">copy()</a></span> - Method in class org.universAAL.middleware.owl.<a href="org/universAAL/middleware/owl/Union.html" title="class in org.universAAL.middleware.owl">Union</a></dt>
 <dd>&nbsp;</dd>
@@ -3520,7 +3519,6 @@
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/managers/configuration/core/owl/AALConfigurationOntology.Factory.html#createInstance-java.lang.String-java.lang.String-int-">createInstance(String, String, int)</a></span> - Method in class org.universAAL.middleware.managers.configuration.core.owl.<a href="org/universAAL/middleware/managers/configuration/core/owl/AALConfigurationOntology.Factory.html" title="class in org.universAAL.middleware.managers.configuration.core.owl">AALConfigurationOntology.Factory</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/owl/generic/GenericResourceFactory.html#createInstance-java.lang.String-java.lang.String-int-">createInstance(String, String, int)</a></span> - Method in class org.universAAL.middleware.owl.generic.<a href="org/universAAL/middleware/owl/generic/GenericResourceFactory.html" title="class in org.universAAL.middleware.owl.generic">GenericResourceFactory</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/rdf/ResourceFactory.html#createInstance-java.lang.String-java.lang.String-int-">createInstance(String, String, int)</a></span> - Method in interface org.universAAL.middleware.rdf.<a href="org/universAAL/middleware/rdf/ResourceFactory.html" title="interface in org.universAAL.middleware.rdf">ResourceFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/service/impl/ServiceBusFactory.html#createInstance-java.lang.String-java.lang.String-int-">createInstance(String, String, int)</a></span> - Method in class org.universAAL.middleware.service.impl.<a href="org/universAAL/middleware/service/impl/ServiceBusFactory.html" title="class in org.universAAL.middleware.service.impl">ServiceBusFactory</a></dt>
@@ -8051,7 +8049,8 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/owl/TypeURI.html#getRestrictionOnProperty-java.lang.String-">getRestrictionOnProperty(String)</a></span> - Method in class org.universAAL.middleware.owl.<a href="org/universAAL/middleware/owl/TypeURI.html" title="class in org.universAAL.middleware.owl">TypeURI</a></dt>
 <dd>
-<div class="block">Get the restrictions for the given property.</div>
+<div class="block">Get the restrictions for the given property in the context of the class
+ represented by this type URI.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/service/owl/Service.html#getRestrictionOnPropPath-java.util.Hashtable-java.lang.String:A-">getRestrictionOnPropPath(Hashtable, String[])</a></span> - Static method in class org.universAAL.middleware.service.owl.<a href="org/universAAL/middleware/service/owl/Service.html" title="class in org.universAAL.middleware.service.owl">Service</a></dt>
 <dd>
@@ -8635,11 +8634,11 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/owl/MaxCardinalityRestriction.html#getValue--">getValue()</a></span> - Method in class org.universAAL.middleware.owl.<a href="org/universAAL/middleware/owl/MaxCardinalityRestriction.html" title="class in org.universAAL.middleware.owl">MaxCardinalityRestriction</a></dt>
 <dd>
-<div class="block">Get the value of this cardinality restriction</div>
+<div class="block">Get the value of this cardinality restriction.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/owl/MinCardinalityRestriction.html#getValue--">getValue()</a></span> - Method in class org.universAAL.middleware.owl.<a href="org/universAAL/middleware/owl/MinCardinalityRestriction.html" title="class in org.universAAL.middleware.owl">MinCardinalityRestriction</a></dt>
 <dd>
-<div class="block">Get the value of this cardinality restriction</div>
+<div class="block">Get the value of this cardinality restriction.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/service/owls/profile/ProfileParameter.html#getValue--">getValue()</a></span> - Method in class org.universAAL.middleware.service.owls.profile.<a href="org/universAAL/middleware/service/owls/profile/ProfileParameter.html" title="class in org.universAAL.middleware.service.owls.profile">ProfileParameter</a></dt>
 <dd>
@@ -12295,7 +12294,10 @@
  deserialize the content bus messages.</div>
 </dd>
 <dt><a href="org/universAAL/middleware/serialization/MessageContentSerializerEx.html" title="interface in org.universAAL.middleware.serialization"><span class="typeNameLink">MessageContentSerializerEx</span></a> - Interface in <a href="org/universAAL/middleware/serialization/package-summary.html">org.universAAL.middleware.serialization</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">An extended version of the <a href="org/universAAL/middleware/serialization/MessageContentSerializer.html" title="interface in org.universAAL.middleware.serialization"><code>MessageContentSerializer</code></a> that allows to
+ provide a root URI.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/modules/aalspace/AALSpaceModuleImpl.html#messageFromSpace-org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage-org.universAAL.middleware.interfaces.PeerCard-">messageFromSpace(AALSpaceMessage, PeerCard)</a></span> - Method in class org.universAAL.middleware.modules.aalspace.<a href="org/universAAL/middleware/modules/aalspace/AALSpaceModuleImpl.html" title="class in org.universAAL.middleware.modules.aalspace">AALSpaceModuleImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/modules/AALSpaceModule.html#messageFromSpace-org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage-org.universAAL.middleware.interfaces.PeerCard-">messageFromSpace(AALSpaceMessage, PeerCard)</a></span> - Method in interface org.universAAL.middleware.modules.<a href="org/universAAL/middleware/modules/AALSpaceModule.html" title="interface in org.universAAL.middleware.modules">AALSpaceModule</a></dt>
@@ -17934,7 +17936,9 @@
  Java class for SpaceType.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/owl/TypeExpressionFactory.html#specialize-org.universAAL.middleware.rdf.Resource-">specialize(Resource)</a></span> - Static method in class org.universAAL.middleware.owl.<a href="org/universAAL/middleware/owl/TypeExpressionFactory.html" title="class in org.universAAL.middleware.owl">TypeExpressionFactory</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Specialize the given Resource.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/util/Specializer.html#specialize-org.universAAL.middleware.rdf.Resource-">specialize(Resource)</a></span> - Method in class org.universAAL.middleware.util.<a href="org/universAAL/middleware/util/Specializer.html" title="class in org.universAAL.middleware.util">Specializer</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org/universAAL/middleware/util/Specializer.html" title="class in org.universAAL.middleware.util"><span class="typeNameLink">Specializer</span></a> - Class in <a href="org/universAAL/middleware/util/package-summary.html">org.universAAL.middleware.util</a></dt>
@@ -18508,9 +18512,13 @@
  default implementation is used.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/util/ResourceUtil.html#toString-org.universAAL.middleware.owl.TypeExpression-">toString(TypeExpression)</a></span> - Static method in class org.universAAL.middleware.util.<a href="org/universAAL/middleware/util/ResourceUtil.html" title="class in org.universAAL.middleware.util">ResourceUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Create a String representation from a given <a href="org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl"><code>TypeExpression</code></a>.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/util/ResourceUtil.html#toString-org.universAAL.middleware.owl.TypeExpression-java.lang.String-">toString(TypeExpression, String)</a></span> - Static method in class org.universAAL.middleware.util.<a href="org/universAAL/middleware/util/ResourceUtil.html" title="class in org.universAAL.middleware.util">ResourceUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Create a String representation from a given <a href="org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl"><code>TypeExpression</code></a>.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/xsd/Base64Binary.html#toString--">toString()</a></span> - Method in class org.universAAL.middleware.xsd.<a href="org/universAAL/middleware/xsd/Base64Binary.html" title="class in org.universAAL.middleware.xsd">Base64Binary</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/universAAL/middleware/xsd/NonNegativeInteger.html#toString--">toString()</a></span> - Method in class org.universAAL.middleware.xsd.<a href="org/universAAL/middleware/xsd/NonNegativeInteger.html" title="class in org.universAAL.middleware.xsd">NonNegativeInteger</a></dt>
