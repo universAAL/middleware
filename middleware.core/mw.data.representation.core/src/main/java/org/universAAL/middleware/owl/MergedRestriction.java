@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,7 +47,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * {@link #setProperty(String, Object)}, it will behave like an
  * {@link Intersection} of the restrictions contained in this MergedRestriction.
  * </p>
- * 
+ *
  * @author Carsten Stockloew
  */
 @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
@@ -143,7 +143,7 @@ public final class MergedRestriction extends Intersection {
      * Constructor for an empty set of restrictions. Restrictions can be added
      * by calling {@link #addRestriction(PropertyRestriction)} or
      * {@link #addRestriction(MergedRestriction)}.
-     * 
+     *
      * @param onProperty
      *            The property for which this restriction is defined.
      */
@@ -154,7 +154,7 @@ public final class MergedRestriction extends Intersection {
 
     /**
      * Constructor with a given initial set of restrictions.
-     * 
+     *
      * @param onProperty
      *            The property for which this restriction is defined.
      * @param restrictions
@@ -177,7 +177,7 @@ public final class MergedRestriction extends Intersection {
      * <li>a {@link MaxCardinalityRestriction} with value <code>0</code>.
      * </ul>
      * </p>
-     * 
+     *
      * @param propURI
      *            The property for which this restriction is defined.
      * @return the restriction, or <code>null</code> if the parameters are
@@ -200,7 +200,7 @@ public final class MergedRestriction extends Intersection {
      * <li>a {@link HasValueRestriction} with value <code>value</code>.
      * </ul>
      * </p>
-     * 
+     *
      * @param propURI
      *            The property for which this restriction is defined.
      * @param value
@@ -238,7 +238,7 @@ public final class MergedRestriction extends Intersection {
      * <code>max</code> are valid and <code>min == max</code>.
      * </ul>
      * </p>
-     * 
+     *
      * @param propURI
      *            The property for which this restriction is defined.
      * @param min
@@ -304,7 +304,7 @@ public final class MergedRestriction extends Intersection {
      * <code>max</code> are valid and <code>min == max</code>.
      * </ul>
      * </p>
-     * 
+     *
      * @param propURI
      *            The property for which this restriction is defined.
      * @param min
@@ -362,7 +362,7 @@ public final class MergedRestriction extends Intersection {
      * <code>max</code> are valid and <code>min == max</code>.
      * </ul>
      * </p>
-     * 
+     *
      * @param propURI
      *            The property for which this restriction is defined.
      * @param min
@@ -397,7 +397,7 @@ public final class MergedRestriction extends Intersection {
      * <li>an {@link AllValuesFromRestriction}
      * </ul>
      * </p>
-     * 
+     *
      * @param propURI
      *            The property for which this restriction is defined.
      * @param typeURI
@@ -445,7 +445,7 @@ public final class MergedRestriction extends Intersection {
      * <li>an {@link AllValuesFromRestriction}
      * </ul>
      * </p>
-     * 
+     *
      * @param propURI
      *            The property for which this restriction is defined.
      * @param expr
@@ -468,7 +468,7 @@ public final class MergedRestriction extends Intersection {
      * may contain restrictions for <i>different</i> properties. For each
      * property, there exists exactly one {@link MergedRestriction} in the
      * returned list.
-     * 
+     *
      * @param o
      *            The list of {@link PropertyRestriction}s. Elements of this
      *            list that are not instances of {@link PropertyRestriction} are
@@ -528,7 +528,7 @@ public final class MergedRestriction extends Intersection {
      * cardinality can be specified be either a
      * {@link MinCardinalityRestriction} or an
      * {@link ExactCardinalityRestriction}.
-     * 
+     *
      * @return the minimum cardinality, or <code>0</code> if no minimum
      *         cardinality is specified.
      */
@@ -547,7 +547,7 @@ public final class MergedRestriction extends Intersection {
      * cardinality can be specified be either a
      * {@link MaxCardinalityRestriction} or an
      * {@link ExactCardinalityRestriction}.
-     * 
+     *
      * @return the maximum cardinality, or <code>-1</code> if no maximum
      *         cardinality is specified.
      */
@@ -566,7 +566,7 @@ public final class MergedRestriction extends Intersection {
      * cardinality for {@link MinCardinalityRestriction}. This method calls
      * {@link PropertyRestriction#getConstraint()}; the return value depends on
      * the individual restriction.
-     * 
+     *
      * @param id
      *            ID of the restriction.
      * @return The constraint of the restriction.
@@ -582,7 +582,7 @@ public final class MergedRestriction extends Intersection {
      * restrictions are set. This method is similar to calling the constructor
      * {@link #MergedRestriction(String, ArrayList)} with the only difference
      * that no new object is created.
-     * 
+     *
      * @param onProperty
      *            The property for which this restriction is defined.
      * @param restrictions
@@ -608,7 +608,7 @@ public final class MergedRestriction extends Intersection {
      * Get all {@link PropertyRestriction}s. The list is backed by the
      * {@link MergedRestriction}, so changes to the {@link MergedRestriction}
      * are reflected in the list.
-     * 
+     *
      * @return an unmodifiable list of restrictions.
      */
     public List<TypeExpression> getRestrictions() {
@@ -617,7 +617,7 @@ public final class MergedRestriction extends Intersection {
 
     /**
      * Remove a restriction.
-     * 
+     *
      * @param id
      *            ID of the restriction to remove.
      */
@@ -637,7 +637,7 @@ public final class MergedRestriction extends Intersection {
 
     /**
      * Get a specific {@link PropertyRestriction}.
-     * 
+     *
      * @param id
      *            ID of the property restriction.
      * @return the property restriction.
@@ -655,7 +655,7 @@ public final class MergedRestriction extends Intersection {
      * {@link MaxCardinalityRestriction} with the same value is added, then the
      * {@link MinCardinalityRestriction} is removed and an
      * {@link ExactCardinalityRestriction} is added instead.
-     * 
+     *
      * @param res
      *            The Restriction to add.
      * @return this restriction. This object is returned to allow for multiple
@@ -676,7 +676,7 @@ public final class MergedRestriction extends Intersection {
      * {@link MaxCardinalityRestriction} with the same value is added, then the
      * {@link MinCardinalityRestriction} is removed and an
      * {@link ExactCardinalityRestriction} is added instead.
-     * 
+     *
      * @param res
      *            The Restriction to add.
      * @return true, if the restriction could be added, i.e. the underlying list
@@ -841,7 +841,7 @@ public final class MergedRestriction extends Intersection {
      * {@link MinCardinalityRestriction} and a {@link MaxCardinalityRestriction}
      * with the same value is added, then the {@link MinCardinalityRestriction}
      * is removed and an {@link ExactCardinalityRestriction} is added instead.
-     * 
+     *
      * @param r
      *            The restriction to add.
      * @return this restriction. This object is returned to allow for multiple
@@ -857,7 +857,7 @@ public final class MergedRestriction extends Intersection {
 
     /**
      * Get the ID of the specified restriction.
-     * 
+     *
      * @param res
      *            Restriction for which to return the ID.
      * @return ID of the specified restriction.
@@ -921,7 +921,7 @@ public final class MergedRestriction extends Intersection {
     /**
      * Create a new {@link MergedRestriction} with modified cardinality
      * restrictions.
-     * 
+     *
      * @param min
      *            The new value for {@link MinCardinalityRestriction}.
      * @param max
@@ -942,7 +942,7 @@ public final class MergedRestriction extends Intersection {
 
     /**
      * Create a new {@link MergedRestriction} with modified onProperty value.
-     * 
+     *
      * @param onProp
      *            The new URI of the property this restriction is defined for.
      * @return the new {@link MergedRestriction} which contains all simple
@@ -1008,7 +1008,7 @@ public final class MergedRestriction extends Intersection {
      * individuals of a specific class (i.e. an {@link AllValuesFromRestriction}
      * of a either a {@link TypeURI} or a {@link BoundedValueRestriction}), then
      * return the URI of this class.
-     * 
+     *
      * @return The URI of the class the property must be an individual of.
      */
     public String getPropTypeURI() {
@@ -1033,7 +1033,7 @@ public final class MergedRestriction extends Intersection {
 
     /**
      * Get the property for which this restriction is defined.
-     * 
+     *
      * @return the property for which this restriction is defined.
      */
     public String getOnProperty() {
@@ -1043,7 +1043,7 @@ public final class MergedRestriction extends Intersection {
     /**
      * Appends this restriction to the given root restriction on the given
      * property path.
-     * 
+     *
      * @param root
      *            The root restriction for the first element of the property
      *            path. Can be null.
@@ -1198,7 +1198,7 @@ public final class MergedRestriction extends Intersection {
     /**
      * Get a {@link MergedRestriction} of a property path previously set by
      * {@link #appendTo(MergedRestriction, String[])}
-     * 
+     *
      * @param path
      *            The property path.
      * @return The {@link MergedRestriction} that is defined for the last
@@ -1250,7 +1250,7 @@ public final class MergedRestriction extends Intersection {
 
     /**
      * Get the set of instances.
-     * 
+     *
      * @return an array of all known instances.
      */
     public Object[] getEnumeratedValues() {
@@ -1288,7 +1288,7 @@ public final class MergedRestriction extends Intersection {
      * Create a new {@link MergedRestriction} that is a combination of this
      * restriction and the given restriction. If some parts are defined in both
      * restrictions, then the parts from <code>other</code> will be preferred.
-     * 
+     *
      * @param other
      *            The restriction to merge with
      * @return <p>
@@ -1325,7 +1325,7 @@ public final class MergedRestriction extends Intersection {
      * Returns true if the given object is a member of the class represented by
      * this class expression, otherwise false; cardinality restrictions are
      * ignored.
-     * 
+     *
      * @param o
      *            The object to test for membership.
      * @return true, if the given object is a member of this class expression.

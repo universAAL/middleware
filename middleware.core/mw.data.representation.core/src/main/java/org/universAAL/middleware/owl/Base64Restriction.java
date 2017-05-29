@@ -1,7 +1,7 @@
-/*	
+/*
 Copyright 2017-2020 Carsten Stockloew
 
-See the NOTICE file distributed with this work for additional 
+See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
 /**
  * A {@link TypeExpression} ({@link LengthRestriction}) that contains all
  * {@link Base64Binary} values with a given minimum and/or maximum length.
- * 
+ *
  * @author Carsten Stockloew
  */
 public class Base64Restriction extends LengthRestriction {
@@ -48,7 +48,7 @@ public class Base64Restriction extends LengthRestriction {
      * Calculate the length of a member. Overriden to provide the length of the
      * <i>decoded</i> value instead of the encoded value as the default
      * implementation of the super class would provide.
-     * 
+     *
      * @param member
      *            the member for which to calculate the length.
      * @return the length as NonNegativeInteger or a {@link Variable} if the

@@ -27,7 +27,7 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  * brokerage mechanisms, location is used as one of the non-functional
  * parameters for selecting a server or a client, e.g. being placed in a
  * location or having the smallest distance to a location.
- * 
+ *
  * By defining Location as a subclass of
  * {@link org.universAAL.middleware.owl.ComparableIndividual} we are implicitly
  * defining a transitional property 'is in' with the following semantic:
@@ -41,7 +41,7 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  * However, it should be clear that not all locations are comparable with each
  * other; this implies that 'is in' defines just a partial order between
  * locations.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -54,7 +54,7 @@ public abstract class AbsLocation extends ComparableIndividual {
 
     /**
      * Create an abstract location.
-     * 
+     *
      * @param uri
      *            URI of the location.
      */

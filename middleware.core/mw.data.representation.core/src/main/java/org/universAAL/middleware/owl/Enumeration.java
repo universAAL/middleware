@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,11 +32,11 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * A {@link TypeExpression} that contains exactly the explicitly specified
  * elements. The elements are either individuals or literals. Enumeration
  * corresponds to OWL ObjectOneOf or DataOneOf.
- * 
+ *
  * <p>
  * For example, the <code>Enumeration("Peter", 1)</code> contains the String
  * "Peter" and the integer one.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -66,7 +66,7 @@ public final class Enumeration extends TypeExpression {
 
     /**
      * Constructor with initial values.
-     * 
+     *
      * @param values
      *            List of initial values. If a value is a String with a
      *            non-anonymous URI, then a new {@link Resource} is created with
@@ -94,7 +94,7 @@ public final class Enumeration extends TypeExpression {
      * Add a new value. The value cannot be added if it is a non-supported
      * Object, i.e. it must be either a Resource, a supported primitive datatype
      * (see {@link TypeMapper}), or a list of those objects.
-     * 
+     *
      * @param o
      *            the new value.
      * @return true, if the value could be added.
@@ -131,7 +131,7 @@ public final class Enumeration extends TypeExpression {
     /**
      * Get the maximum value from all values. The values have to implement the
      * {@link java.lang.Comparable} interface.
-     * 
+     *
      * @return The maximum value, or null if a values does not implement the
      *         {@link java.lang.Comparable} interface.
      */
@@ -152,7 +152,7 @@ public final class Enumeration extends TypeExpression {
     /**
      * Get the minimum value from all values. The values have to implement the
      * {@link java.lang.Comparable} interface.
-     * 
+     *
      * @return The minimum value, or null if a values does not implement the
      *         {@link java.lang.Comparable} interface.
      */
@@ -296,7 +296,7 @@ public final class Enumeration extends TypeExpression {
 
     /**
      * Get an iterator for the values.
-     * 
+     *
      * @return an iterator for the values.
      */
     public Iterator<Object> values() {
@@ -305,7 +305,7 @@ public final class Enumeration extends TypeExpression {
 
     /**
      * Returns the number of elements in this enumeration.
-     * 
+     *
      * @return the number of elements in this enumeration.
      */
     public int size() {

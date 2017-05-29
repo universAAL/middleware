@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import org.universAAL.middleware.owl.MaxCardinalityRestriction;
  * Setup interface for creating new RDF properties. The creation is separated
  * from the usage; for every {@link Property} there is exactly one PropertySetup
  * where all the characteristics of this property are defined.
- * 
+ *
  * @author Carsten Stockloew
  * @see org.universAAL.middleware.owl.ObjectProperty
  * @see org.universAAL.middleware.owl.ObjectPropertySetup
@@ -64,7 +64,7 @@ public interface PropertySetup {
     /**
      * Add a super property. This means that all resources related by this
      * property are also related by the super property.
-     * 
+     *
      * @param superProperty
      *            URI of the super property.
      */
@@ -77,7 +77,7 @@ public interface PropertySetup {
      * equivalent to saying that <i>x</i> is a sub property of <i>y</i> and
      * <i>y</i> is a sub property of <i>x</i>. For example, the two properties
      * <i>a:hasBrother</i> and <i>a:hasMaleSibling</i> are equivalent.
-     * 
+     *
      * @param equivalentProperty
      *            URI of the equivalent property.
      */
@@ -89,12 +89,12 @@ public interface PropertySetup {
      * by the disjoint property. For example, the properties <i>a:hasName</i>
      * and <i>a:hasAddress</i> are disjoint because someone's name must be
      * different from his address.
-     * 
+     *
      * @param disjointProperty
      *            URI of the disjoint property.
      */
     public void addDisjointProperty(String disjointProperty);
-    
+
     /**
      * @see Resource#setProperty(String, Object)
      */

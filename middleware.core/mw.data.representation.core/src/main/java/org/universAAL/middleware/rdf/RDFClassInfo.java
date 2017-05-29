@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,10 +38,10 @@ import org.universAAL.middleware.owl.OntologyManagement;
  * Definition of an RDF class. The creation is separated from the usage; for
  * every RDFClassInfo there is exactly one {@link RDFClassInfoSetup} where all
  * the characteristics of this class are defined.
- * 
+ *
  * To create a new {@link RDFClassInfo}, define a subclass of {@link Ontology}
  * and overwrite the {@link Ontology#create()} method.
- * 
+ *
  * @author Carsten Stockloew
  * @see RDFClassInfoSetup
  * @see org.universAAL.middleware.owl.OntClassInfo
@@ -249,7 +249,7 @@ public class RDFClassInfo extends FinalizedResource {
 
     /**
      * Create a new RDF Class.
-     * 
+     *
      * @param classURI
      *            The URI of the class.
      * @param ont
@@ -294,7 +294,7 @@ public class RDFClassInfo extends FinalizedResource {
     /**
      * Create a new RDF Class. This method can only be called from an
      * {@link Ontology}.
-     * 
+     *
      * @param classURI
      *            The URI of the class.
      * @param ont
@@ -323,7 +323,7 @@ public class RDFClassInfo extends FinalizedResource {
     /**
      * Determines whether this class is an abstract class. It is an abstract
      * class iff the factory is not set.
-     * 
+     *
      * @return true, if this is an abstract class.
      */
     public boolean isAbstract() {
@@ -332,7 +332,7 @@ public class RDFClassInfo extends FinalizedResource {
 
     /**
      * Get the factory.
-     * 
+     *
      * @see ResourceFactory
      */
     public ResourceFactory getFactory() {
@@ -341,7 +341,7 @@ public class RDFClassInfo extends FinalizedResource {
 
     /**
      * Get the factory index.
-     * 
+     *
      * @see ResourceFactory
      */
     public int getFactoryIndex() {
@@ -352,7 +352,7 @@ public class RDFClassInfo extends FinalizedResource {
      * Determines whether the given class is a super class of this class. If
      * <code>inherited</code> is false, then only <i>direct</i> super classes
      * are considered.
-     * 
+     *
      * @param classURI
      *            The URI of the super class.
      * @param inherited
@@ -380,7 +380,7 @@ public class RDFClassInfo extends FinalizedResource {
 
     /**
      * Get the set of URIs of all named super classes.
-     * 
+     *
      * @param inherited
      *            false, iff only <i>direct</i> super classes should be
      *            returned.
@@ -447,7 +447,7 @@ public class RDFClassInfo extends FinalizedResource {
     /**
      * Get a specific registered instance of this class. To add new instances,
      * call {@link RDFClassInfoSetup#addInstance(Resource)}
-     * 
+     *
      * @param uri
      *            The URI of the instance.
      * @return The instance, if registered.

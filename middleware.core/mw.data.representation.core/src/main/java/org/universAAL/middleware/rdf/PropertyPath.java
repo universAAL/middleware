@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,7 +47,7 @@ import java.util.List;
  * reasoning, it is not defined as subclass of
  * {@link org.universAAL.middleware.owl.ManagedIndividual} but just as a
  * {@link org.universAAL.middleware.rdf.Resource}.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  */
@@ -96,7 +96,7 @@ public final class PropertyPath extends FinalizedResource {
 
     /**
      * The constructor for property paths.
-     * 
+     *
      * @param uri
      *            URI of this object.
      * @param isXMLLiteral
@@ -112,7 +112,7 @@ public final class PropertyPath extends FinalizedResource {
 
     /**
      * Get a property path that is a part of the specified property path.
-     * 
+     *
      * @param path
      *            The property path from which to extract the sub path.
      * @param i
@@ -280,7 +280,7 @@ public final class PropertyPath extends FinalizedResource {
     /**
      * Set the path for this object. Each element of the specified set has to be
      * a URI and has to be a qualified name.
-     * 
+     *
      * @param propPath
      *            The set of URIs.
      * @see org.universAAL.middleware.rdf.Resource#isQualifiedName
@@ -302,7 +302,7 @@ public final class PropertyPath extends FinalizedResource {
      * Creates a new PropertyPath and copies the property containing the
      * property path to it. The newly created PropertyPath is marked as XML
      * Literal.
-     * 
+     *
      * @return A new PropertyPath with the contents of the property
      *         {@link #PROP_PROPERTY_PATH} copied.
      */

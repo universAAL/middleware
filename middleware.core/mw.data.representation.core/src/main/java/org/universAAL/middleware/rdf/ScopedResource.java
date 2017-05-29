@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2014 Universidad Politécnica de Madrid UPM
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,10 +23,10 @@ import java.util.List;
  * A {@link ScopedResource} is a Resource that may have been generated at, or be
  * sent to, another AALSpace. Thus it can be annotated with one or more Scopes
  * (a.k.a tenant ID, origin AALSpace Id).
- * 
+ *
  * @author amedrano
  * @author Carsten Stockloew
- * 
+ *
  */
 public class ScopedResource extends FinalizedResource {
 
@@ -41,7 +41,7 @@ public class ScopedResource extends FinalizedResource {
      * used directly by {@link Resource#getProperty(String)} and
      * {@link Resource#setProperty(String, Object)}, only by the router
      * artifacts.
-     * 
+     *
      */
     public static final String PROP_ORIG_SCOPE = uAAL_VOCABULARY_NAMESPACE
 	    + "hasOriginScope";
@@ -75,7 +75,7 @@ public class ScopedResource extends FinalizedResource {
 
     /**
      * Check if there is any scopes for this resource. This includes {@link ScopedResource#ONLY_LOCAL_SCOPE}.
-     * 
+     *
      * @return true if there is one or more scopes annotated for this resource.
      */
     public boolean isScoped() {
@@ -84,7 +84,7 @@ public class ScopedResource extends FinalizedResource {
 
     /**
      * List all scopes associated to this resource.
-     * 
+     *
      * @return always a list, empty if there are no scopes.
      */
     public List getScopes() {
@@ -102,7 +102,7 @@ public class ScopedResource extends FinalizedResource {
 
     /**
      * Add a new scope to this resource.
-     * 
+     *
      * @param newScope
      *            the new scope to be added
      * @return whether the change was successful or not.
@@ -134,7 +134,7 @@ public class ScopedResource extends FinalizedResource {
      * Remove all scope annotations from this resource. If the Resource is being
      * sent and the scopes are cleared it is assumed that it has to be sent to
      * all available Scopes.
-     * 
+     *
      * @return iff the scopes have been cleared.
      */
     public boolean clearScopes() {
@@ -143,7 +143,7 @@ public class ScopedResource extends FinalizedResource {
 
     /**
      * Copy the scope from another {@link ScopedResource}.
-     * 
+     *
      * @param src
      *            the source from which to copy the scope.
      * @return whether the change was successful or not.
@@ -161,7 +161,7 @@ public class ScopedResource extends FinalizedResource {
     /**
      * Check whether if this {@link ScopedResource} may be sent to a destination
      * scope <br>
-     * 
+     *
      * <ul>
      * <li>Deny if the origin is the destination candidate (this will cause
      * message loops)
@@ -174,7 +174,7 @@ public class ScopedResource extends FinalizedResource {
      * generated the message)
      * <li>Allow if the destinations are not empty and contains the candidate destination.
      * </ul>
-     * 
+     *
      * @param destinationCandidateScope
      *            The destination to be checked, If null returns false.
      * @return true iff it may be sent according to origin / destination
@@ -190,7 +190,7 @@ public class ScopedResource extends FinalizedResource {
 		&& !dest.contains(ONLY_LOCAL_SCOPE)
 		&& (dest.isEmpty() || dest.contains(destinationCandidateScope));
     }
-    
+
     /**
      * Get the Scope of the original AALSpace sender of this {@link ScopedResource}.
      * To be used only by Gateways!
@@ -199,7 +199,7 @@ public class ScopedResource extends FinalizedResource {
     public String getOriginScope() {
 		return (String) props.get(PROP_ORIG_SCOPE);
 	}
-    
+
     /**
      * Set the Origin Scope of an incoming {@link ScopedResource}.
      * To be used by Gateways!

@@ -130,7 +130,7 @@ public final class LevelRating extends ComparableIndividual {
 
     /**
      * Overrides the default method to prevent properties from being added.
-     * 
+     *
      * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
      */
     public boolean setProperty(String propURI, Object o) {

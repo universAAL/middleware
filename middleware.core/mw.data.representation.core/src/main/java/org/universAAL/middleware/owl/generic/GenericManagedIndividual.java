@@ -22,7 +22,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
  * Class to create instances for a {@link GenericOntology}.
- * 
+ *
  * @author Carsten Stockloew
  */
 @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")

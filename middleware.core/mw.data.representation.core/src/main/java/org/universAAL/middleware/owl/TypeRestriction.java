@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,10 +39,10 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * <p>
  * Most of the type restrictions are defined for literals, with only a few
  * exceptions that define a restriction on an individual or a URI.
- * 
+ *
  * @see <a href="http://www.w3.org/TR/xmlschema-2/#defn-coss">XML Schema
  *      Datatypes</a>
- * 
+ *
  * @author Carsten Stockloew
  */
 /*-
@@ -104,7 +104,7 @@ public abstract class TypeRestriction extends TypeExpression {
 
     /**
      * Standard constructor.
-     * 
+     *
      * @param datatypeURI
      *            URI of the data type for which this restriction is defined.
      *            Must be one of the supported data types.
@@ -117,7 +117,7 @@ public abstract class TypeRestriction extends TypeExpression {
 
     /**
      * Get the data type for which this restriction is defined.
-     * 
+     *
      * @return URI of the data type.
      */
     public String getTypeURI() {
@@ -129,7 +129,7 @@ public abstract class TypeRestriction extends TypeExpression {
      * are skipped. An element of the list is not a valid facet if it is not a
      * resource or if it has not exactly one property. This one property is the
      * facet URI.
-     * 
+     *
      * @param it
      *            An iterator for a list of facets.
      * @return the {@link Facet}.
@@ -158,7 +158,7 @@ public abstract class TypeRestriction extends TypeExpression {
 
     /**
      * Add a new facet to the list of facets for this restriction.
-     * 
+     *
      * @param facetURI
      *            URI of the facet.
      * @param value
@@ -172,7 +172,7 @@ public abstract class TypeRestriction extends TypeExpression {
 
     /**
      * Copy the facets to a different {@link TypeRestriction}.
-     * 
+     *
      * @param copy
      *            The object to which to copy the facets.
      * @return the value given as parameter, but with the restrictions copied.
@@ -214,7 +214,7 @@ public abstract class TypeRestriction extends TypeExpression {
     /**
      * Set a pattern (regular expression). This pattern is added to the list of
      * constraining facets for this restriction.
-     * 
+     *
      * @param pattern
      *            The pattern as defined in {@link Pattern}.
      * @return true, if the pattern could be set, i.e. the pattern must be valid
@@ -238,7 +238,7 @@ public abstract class TypeRestriction extends TypeExpression {
     /**
      * Set a pattern (regular expression). This pattern is added to the list of
      * constraining facets for this restriction.
-     * 
+     *
      * @param pattern
      *            The pattern as defined in {@link Pattern}.
      * @return true, if the pattern could be set, i.e. the pattern must be valid
@@ -271,7 +271,7 @@ public abstract class TypeRestriction extends TypeExpression {
 
     /**
      * Set a facet. For this class, only 'pattern' is allowed.
-     * 
+     *
      * @param facet
      *            The facet.
      */
@@ -280,16 +280,16 @@ public abstract class TypeRestriction extends TypeExpression {
 	    setPattern((String) facet.value);
 	}
     }
-    
+
     /**
      * Returns the next element, i.e. the value given as parameter plus the
      * smallest possible value that can be represented for the data type. For
      * example, if the data type is int getNext(x) would return x+1. Sub classes
      * should override this method.
-     * 
+     *
      * @param c
      *            A value for which to get the next value.
-     * 
+     *
      * @return the next value.
      */
     protected Comparable getNext(Comparable c) {
@@ -321,10 +321,10 @@ public abstract class TypeRestriction extends TypeExpression {
      * smallest possible value that can be represented for the data type. For
      * example, if the data type is int getPrevious(x) would return x-1. Sub
      * classes should override this method.
-     * 
+     *
      * @param c
      *            A value for which to get the previous value.
-     * 
+     *
      * @return the previous value.
      */
     protected Comparable getPrevious(Comparable c) {
@@ -376,7 +376,7 @@ public abstract class TypeRestriction extends TypeExpression {
     /**
      * Calculate the value for the member that needs to be checked during
      * {@link #hasMember(Object)}. Sub classes may override this method.
-     * 
+     *
      * @param member
      *            the member.
      * @return the value to check.
@@ -384,7 +384,7 @@ public abstract class TypeRestriction extends TypeExpression {
     protected Object getMemberValueToCheck(Object member) {
 	return member;
     }
-    
+
     protected boolean hasMember(Object member, HashMap context, int ttl,
 	    List<MatchLogEntry> log, Object min, boolean minInclusive, Object max, boolean maxInclusive) {
 	// ttl =

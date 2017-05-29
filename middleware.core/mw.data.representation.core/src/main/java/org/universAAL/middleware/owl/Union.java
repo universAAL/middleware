@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,19 +31,19 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * A {@link TypeExpression} that contains all individuals/literals that are in
  * one of the given type expressions. Union corresponds to OWL ObjectUnionOf or
  * DataUnionOf.
- * 
+ *
  * <p>
  * For example, <code>Union(Enumeration(ex:Peter), Enumeration(ex:Paul))</code>
  * contains the individuals ex:Peter and ex:Paul, and<br>
  * <code>Union(Enumeration("Peter"), Enumeration(1))</code> contains the String
  * "Peter" and the integer one.
- * 
+ *
  * <p>
  * The given type expressions must not mix sets of individuals with sets of
  * literals. For example,
  * <code>Union(Enumeration(ex:Peter), Enumeration(1))</code> is not possible, as
  * it combines individuals (ex:Peter) with literals (1).
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -71,7 +71,7 @@ public final class Union extends TypeExpression {
 
     /**
      * Add a new child type expression.
-     * 
+     *
      * @param type
      *            The type expression to add.
      * @return true (as specified by {@link Collection#add(Object)})
@@ -227,7 +227,7 @@ public final class Union extends TypeExpression {
 
     /**
      * Get an iterator for the child type expressions.
-     * 
+     *
      * @return an iterator for the child type expressions.
      */
     public Iterator<TypeExpression> types() {

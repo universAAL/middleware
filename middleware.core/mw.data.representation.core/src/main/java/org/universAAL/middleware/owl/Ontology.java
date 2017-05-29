@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,7 +40,7 @@ import org.universAAL.middleware.datarep.SharedResources;
  * of the real world. An ontology is typically accompanied by a
  * {@link ResourceFactory} to create new instances of the ontological classes.
  * </p>
- * 
+ *
  * <p>
  * For example, one might want to model multimedia devices and creates the
  * ontology <i>multimedia</i> with the classes <i>TV</i>, <i>LoudSpeaker</i>,
@@ -52,7 +52,7 @@ import org.universAAL.middleware.datarep.SharedResources;
  * property are instances of <i>LoudSpeaker</i> (since <i>LoudSpeaker</i> is a
  * class, the property would be an {@link ObjectProperty}).
  * </p>
- * 
+ *
  * <p>
  * Each ontology class corresponds to a Java class that must be a subclass of
  * {@link ManagedIndividual}. This class is then responsible to provide getter
@@ -61,7 +61,7 @@ import org.universAAL.middleware.datarep.SharedResources;
  * that class using the methods {@link Resource#getProperty(String)} and
  * {@link Resource#setProperty(String, Object)}.
  * </p>
- * 
+ *
  * <p>
  * Additionally, for every ontology class (which stores the information at the
  * instance level), there is an instance of {@link OntClassInfo} (which stores
@@ -71,7 +71,7 @@ import org.universAAL.middleware.datarep.SharedResources;
  * {@link OntClassInfoSetup} and the getter methods are in {@link OntClassInfo}
  * so that only the creator of an ontology can make changes to it).
  * </p>
- * 
+ *
  * <p>
  * In our example, the concept <i>LoudSpeaker</i> has the property <i>volume</i>
  * and this information is a model information which is stored in an
@@ -89,7 +89,7 @@ import org.universAAL.middleware.datarep.SharedResources;
  * of this class would then identify a specific instance of <i>LoudSpeaker</i>,
  * e.g. <i>LoudSpeaker_2</i> with the <i>volume</i> <i>100</i>.
  * </p>
- * 
+ *
  * <p>
  * To create an ontology in universAAL, a subclass of this class has to be
  * defined and the method {@link #create()} has to be overwritten. The
@@ -99,14 +99,14 @@ import org.universAAL.middleware.datarep.SharedResources;
  * {@link OntologyManagement#register(org.universAAL.middleware.container.ModuleContext, Ontology)}
  * before it can be used.
  * </p>
- * 
+ *
  * <p>
  * In our example, the classes <i>TV</i>, <i>LoudSpeaker</i>, <i>VideoCamera</i>
  * and <i>Microphone</i> are created with one of the
  * <code>createNewXXClassInfo</code> methods and then all characteristics of
  * these classes (like properties and restrictions) are added.
  * </p>
- * 
+ *
  * @author Carsten Stockloew
  * @see OntClassInfo
  * @see RDFClassInfo
@@ -127,7 +127,7 @@ public abstract class Ontology {
     /**
      * The list of imports of the ontology. A list of URIs of the ontologies
      * that are imported.
-     * 
+     *
      * @see #addImport(String)
      */
     private volatile ArrayList imports = new ArrayList();
@@ -189,7 +189,7 @@ public abstract class Ontology {
 
     /**
      * Standard constructor to create a new ontology.
-     * 
+     *
      * @param ontURI
      *            The ontology URI. If this is a namespace, i.e. the ontology
      *            URI including the hash sign, the hash sign is removed.
@@ -207,7 +207,7 @@ public abstract class Ontology {
     /**
      * Test whether the given String is a valid ontology URI. If the URI
      * includes a trailing hash sign, this hash sign is removed.
-     * 
+     *
      * @param ontURI
      *            The ontology URI.
      * @return The ontology URI without trailing hash signs, or null if the
@@ -230,7 +230,7 @@ public abstract class Ontology {
     /**
      * Add an import to this ontology. An import states the URI of another
      * ontology from which some concepts are used in this ontology.
-     * 
+     *
      * @param ontURI
      *            The URI of the import ontology.
      * @return true, if the import could be added, or false, if the given
@@ -279,7 +279,7 @@ public abstract class Ontology {
 
     /**
      * Determines whether this ontology defines or extends the given OWL class.
-     * 
+     *
      * @param classURI
      *            URI of the class.
      * @return true, if this ontology defines or extends the given OWL class.
@@ -292,7 +292,7 @@ public abstract class Ontology {
 
     /**
      * Get the class information of all OWL classes of this ontology.
-     * 
+     *
      * @see #getRDFClassInfo()
      */
     public final OntClassInfo[] getOntClassInfo() {
@@ -307,7 +307,7 @@ public abstract class Ontology {
 
     /**
      * Get the class information of all RDF classes of this ontology.
-     * 
+     *
      * @see #getOntClassInfo()
      */
     public final RDFClassInfo[] getRDFClassInfo() {
@@ -319,7 +319,7 @@ public abstract class Ontology {
 
     /**
      * Register a new RDF class.
-     * 
+     *
      * @param classURI
      *            URI of the class.
      * @param fac
@@ -355,7 +355,7 @@ public abstract class Ontology {
      * Register a new abstract OWL class. An OWL class is abstract iff the Java
      * counterpart is abstract. As such a class can not be instantiated, no
      * factory can be given.
-     * 
+     *
      * @param classURI
      *            URI of the class.
      * @return The setup interface.
@@ -369,7 +369,7 @@ public abstract class Ontology {
      * Register a new OWL class. This method calls
      * {@link #createNewOntClassInfo(String, ResourceFactory, int)} with a dummy
      * factory index of -1.
-     * 
+     *
      * @param classURI
      *            URI of the class.
      * @param fac
@@ -384,7 +384,7 @@ public abstract class Ontology {
 
     /**
      * Register a new OWL class.
-     * 
+     *
      * @param classURI
      *            URI of the class.
      * @param fac
@@ -424,7 +424,7 @@ public abstract class Ontology {
      * definition and all extenders) and will provide a combined view as if all
      * these characteristics were defined only once and only in one ontology.
      * </p>
-     * 
+     *
      * @param classURI
      *            URI of the class to extend.
      * @return The setup interface.
@@ -446,7 +446,7 @@ public abstract class Ontology {
 
     /**
      * Internal helper method to create a new OWL class.
-     * 
+     *
      * @param classURI
      *            URI of the class.
      * @param fac
@@ -488,7 +488,7 @@ public abstract class Ontology {
 	    // add instances
 	    Collections.addAll(list, info.getInstances());
 	}
-	
+
 	for (Iterator it = extendedOntClassInfoMap.values().iterator(); it
 		.hasNext();) {
 	    OntClassInfo info = (OntClassInfo) it.next();

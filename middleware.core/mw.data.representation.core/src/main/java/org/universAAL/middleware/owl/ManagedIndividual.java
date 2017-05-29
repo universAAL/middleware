@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,7 +48,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * Please read the comments below on these methods as well as comments provided
  * within {@link Resource}.
  * </ol>
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author cstockloew
@@ -86,7 +86,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
 
     /**
      * Creates an instance of ManagedIndividual with a given URI.
-     * 
+     *
      * @param uri
      *            The URI.
      */
@@ -101,7 +101,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
      * pseudo parameter 'numProps' in order to make it distinct from the other
      * constructor that also takes a string. Later versions of ManagedIndividual
      * may decide to make some use of numProps in some way, however.
-     * 
+     *
      * @param uriPrefix
      *            Prefix of the URI.
      * @param numProps
@@ -130,7 +130,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
     /**
      * Assuming that the given parameters are the URIs of two registered classes
      * or datatypes, checks if the second type is derived from the first one.
-     * 
+     *
      * @param supertypeURI
      *            The URI of the class that is assumed to be the super class of
      *            the second parameter.
@@ -160,7 +160,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
      * given URI. It uses the information provided in the ontologies about
      * inheritance of the registered classes and types for checking
      * compatibility.
-     * 
+     *
      * @param typeURI
      *            The URI of the class that is assumed to be the super class of
      *            the second parameter.
@@ -196,7 +196,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
     /**
      * Returns the restrictions that apply to the given property in the context
      * of the class with the given URI.
-     * 
+     *
      * @param classURI
      *            URI of the class for which the restrictions apply.
      * @param propURI
@@ -254,7 +254,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
     /**
      * For a given class URI get the set of URIs for all super classes which are
      * instanceable (which are not abstract)
-     * 
+     *
      * @param classURI
      *            The URI for which to get the super classes.
      * @return The set of URIs for all non-abstract super classes.
@@ -275,7 +275,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
      * Get the class URI for a given object. If the object is an instance of
      * {@link java.util.List}, the class URI for the first object from this list
      * is returned.
-     * 
+     *
      * @param o
      *            The object for which to return the class URI.
      * @return The class URI.
@@ -309,7 +309,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
      * For a given {@link org.universAAL.middleware.rdf.Resource}, create a new
      * instance of ManagedIndividual with the given class URI and copy all
      * properties from the Resource object to this new ManagedIndividual.
-     * 
+     *
      * @param classURI
      *            The class URI of the ManagedIndividual.
      * @param pr
@@ -336,7 +336,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
 
     /**
      * Create a copy of this resource.
-     * 
+     *
      * @return the copied resource. If possible, this is a specialized instance
      *         of {@link ManagedIndividual}, i.e. a subclass of it.
      * @see Resource#copy(boolean)
@@ -357,9 +357,9 @@ public abstract class ManagedIndividual extends FinalizedResource {
      * Create a deep copy of this ManagedIndividual, i.e. create a new
      * ManagedIndividual for this object (according to the class URI of this
      * object) and for the resources of all properties.
-     * 
+     *
      * @return The copied ManagedIndividual.
-     * 
+     *
      * @see org.universAAL.middleware.rdf.Resource
      */
     // TODO: only resources are copies, but not list of resources.
@@ -384,7 +384,7 @@ public abstract class ManagedIndividual extends FinalizedResource {
     /**
      * Get the class URI for this ManagedIndividual. All non-abstract subclasses
      * MUST overwrite this method!
-     * 
+     *
      * @return The class URI.
      */
     public String getClassURI() {

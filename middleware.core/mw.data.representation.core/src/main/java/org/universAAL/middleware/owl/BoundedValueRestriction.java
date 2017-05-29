@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,12 +38,12 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * <li>max inclusive</li>
  * <li>max exclusive</li>
  * </ol>
- * 
+ *
  * It is possible to define a condition on the minimum value and on the maximum
  * value in the same {@link BoundedValueRestriction}.
  * <p>
  * Sub classes provide helper methods for specific data types.
- * 
+ *
  * @author Carsten Stockloew
  */
 public abstract class BoundedValueRestriction extends TypeRestriction {
@@ -87,7 +87,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     /**
      * Standard constructor.
-     * 
+     *
      * @param datatypeURI
      *            URI of the data type for which this restriction is defined.
      *            Must be one of the supported data types.
@@ -98,7 +98,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     /**
      * Constructor.
-     * 
+     *
      * @param datatypeURI
      *            URI of the data type for which this restriction is defined.
      *            Must be one of the supported data types.
@@ -136,7 +136,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
      * Determines whether the type of the given object is valid. Sub classes
      * should override this method to check for their type and call super to
      * check whether it is a {@link Variable}.
-     * 
+     *
      * @param o
      *            The object to check.
      * @return true, if the type is valid.
@@ -147,7 +147,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     /**
      * Set the constraining facets for min and max.
-     * 
+     *
      * @param min
      *            The minimum value, or a {@link Variable}, or null if no
      *            minimum is defined.
@@ -169,7 +169,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     /**
      * Set the constraining facets for min.
-     * 
+     *
      * @param min
      *            The minimum value, or a {@link Variable}, or null if no
      *            minimum is defined.
@@ -192,7 +192,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     /**
      * Set the constraining facets for max.
-     * 
+     *
      * @param max
      *            The maximum value, or a {@link Variable}, or null if no
      *            maximum is defined.
@@ -216,7 +216,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
     /**
      * Copy the facets for min and max to a different
      * {@link BoundedValueRestriction}.
-     * 
+     *
      * @param copy
      *            The object to which to copy the facets.
      * @return the value given as parameter, but with the restrictions copied.
@@ -229,7 +229,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     /**
      * Returns the minimum value.
-     * 
+     *
      * @return the minimum value, or null if not defined or an instance of
      *         {@link Variable}.
      */
@@ -241,7 +241,7 @@ public abstract class BoundedValueRestriction extends TypeRestriction {
 
     /**
      * Returns the maximum value.
-     * 
+     *
      * @return the maximum value, or null if not defined or an instance of
      *         {@link Variable}.
      */

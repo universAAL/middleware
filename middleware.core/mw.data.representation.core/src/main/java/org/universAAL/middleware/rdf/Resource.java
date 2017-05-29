@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ import org.universAAL.middleware.util.ResourceComparator;
 
 /**
  * The base class for all RDF and OWL classes.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -210,7 +210,7 @@ public class Resource {
      * parameter 'numProps' in order to make it distinct from the other
      * constructor that also takes a string. Later versions of Resource may
      * decide to make some use of numProps in some way, however.
-     * 
+     *
      * @param uriPrefix
      *            Prefix of the URI.
      * @param numProps
@@ -230,7 +230,7 @@ public class Resource {
     /**
      * Creates a new Resource instance which is treated as an RDF list and
      * contains the specified list of elements.
-     * 
+     *
      * @param members
      *            The elements of the list. This will be treated as separate
      *            Resources to be part of the resulting list.
@@ -271,7 +271,7 @@ public class Resource {
 
     /**
      * Get a Resource with the given class and instance URI.
-     * 
+     *
      * @param classURI
      *            The URI of the class.
      * @param instanceURI
@@ -288,7 +288,7 @@ public class Resource {
     /**
      * Determines if the specified URI is an anonymous URI, i.e. it is either
      * null or starts with the the String typical for anonymous URIs.
-     * 
+     *
      * @see #ANON_URI_PREFIX
      */
     public static final boolean isAnon(String uri) {
@@ -308,7 +308,7 @@ public class Resource {
     /**
      * Set or add the type of this Resource. The type complies to rdf:type. A
      * Resource can have multiple types.
-     * 
+     *
      * @param typeURI
      *            URI of the type.
      * @param blockFurtherTypes
@@ -339,7 +339,7 @@ public class Resource {
     /**
      * If this Resource represents an RDF List, retrieve the elements as
      * {@link java.util.List}.
-     * 
+     *
      * @return The list containing the elements of this RDF list.
      */
     public List asList() {
@@ -357,7 +357,7 @@ public class Resource {
     /**
      * If this Resource represents an RDF List, retrieve the elements as
      * {@link java.util.List}.
-     * 
+     *
      * @param l
      *            The list to store the elements of this RDF list.
      */
@@ -418,7 +418,7 @@ public class Resource {
      * Change the value (RDF object) of the specified property (RDF predicate)
      * to the given object. If the value can't be set, it is ensured that the
      * original value is restored.
-     * 
+     *
      * @param propURI
      *            The value has to be changed for this property.
      * @param value
@@ -444,7 +444,7 @@ public class Resource {
      * Create a copy of this resource. This method only creates a copy of this
      * resource and the property references, but not of the property values. If
      * all resources of the RDF graph should be copied, use {@link #deepCopy()}.
-     * 
+     *
      * @return the copied resource as a non-specialized instance of
      *         {@link Resource}, not a subclass of it (Note: future versions may
      *         change this and return a specialized copy).
@@ -466,7 +466,7 @@ public class Resource {
      * object and for the resources of all properties. The copied resources are
      * specialized according to the type information stored in the rdf:type
      * property.
-     * 
+     *
      * @return The copied Resource.
      */
     public Resource deepCopy() {
@@ -549,7 +549,7 @@ public class Resource {
 
     /**
      * Get the Resource comment. Convenient method to retrieve rdfs:comment.
-     * 
+     *
      * @return the comment of this resource.
      */
     public String getResourceComment() {
@@ -560,7 +560,7 @@ public class Resource {
 
     /**
      * Get the Resource label. Convenient method to retrieve rdfs:label.
-     * 
+     *
      * @return the label of this resource.
      */
     public String getResourceLabel() {
@@ -568,10 +568,10 @@ public class Resource {
 		true);
 	return ls == null ? null : ls.getString();
     }
-    
+
     /**
      * Get the Resource label. Convenient method to retrieve rdfs:label.
-     * 
+     *
      * @param lang
      *            The preferred language. Should be one of the constants defined
      *            in {@link LangString}, e.g. {@link LangString#LANG_ENGLISH}.
@@ -585,7 +585,7 @@ public class Resource {
     /**
      * Get the default language. The language has the form of a language tag
      * according to ISO 639-1 (e.g. "en").
-     * 
+     *
      * @return the default language.
      */
     public String getDefaultLang() {
@@ -596,7 +596,7 @@ public class Resource {
     /**
      * If this resource has no original label, constructs one for it without
      * changing the resource itself.
-     * 
+     *
      * @param type
      *            The optional type to be used instead of the return value of
      *            'getType()' when constructing a label
@@ -606,11 +606,11 @@ public class Resource {
     public String getOrConstructLabel(String type) {
 	return getOrConstructLabel(type, getDefaultLang());
     }
-    
+
     /**
      * If this resource has no original label, constructs one for it without
      * changing the resource itself.
-     * 
+     *
      * @param type
      *            The optional type to be used instead of the return value of
      *            'getType()' when constructing a label
@@ -639,9 +639,9 @@ public class Resource {
     /**
      * Get the local name which is the part of the URI after the delimiter
      * ('#').
-     * 
+     *
      * @return The local name of the URI of this resource.
-     * 
+     *
      * @see #getNamespace()
      * @see #getFilename()
      */
@@ -652,9 +652,9 @@ public class Resource {
     /**
      * Get the namespace of the URI which is the start of the URI including the
      * delimiter ('#'). It is the URI without the local name.
-     * 
+     *
      * @return The namespace of the URI of this resource.
-     * 
+     *
      * @see #getLocalName()
      * @see #getFilename()
      */
@@ -666,9 +666,9 @@ public class Resource {
     /**
      * Get the filename of the URI which is the part after the last '/' and
      * before the symbols '?' and '#'.
-     * 
+     *
      * @return The filename of the URI of this resource.
-     * 
+     *
      * @see #getLocalName()
      * @see #getNamespace()
      */
@@ -686,7 +686,7 @@ public class Resource {
 
     /**
      * Get the RDF object for a specified property.
-     * 
+     *
      * @param propURI
      *            URI of the property.
      * @return The object for the given property.
@@ -719,7 +719,7 @@ public class Resource {
      * form; in this case the return value should be
      * <code>PROP_SERIALIZATION_REDUCED</code>, otherwise
      * <code>PROP_SERIALIZATION_FULL</code> can be returned.
-     * 
+     *
      * Subclasses should normally overwrite this method as this default
      * implementation returns always <code>PROP_SERIALIZATION_FULL</code>.
      */
@@ -731,7 +731,7 @@ public class Resource {
      * Helper method to get the static field of the java class with the given
      * field name. If the field is not defined in this class, the given default
      * value is returned.
-     * 
+     *
      * @param fieldName
      *            Name of the static field of the java class to retrieve.
      * @param defaultValue
@@ -832,7 +832,7 @@ public class Resource {
     /**
      * Determines whether this Resource does not allow to add new type
      * information.
-     * 
+     *
      * @return true, if this Resource does not allow to add new type
      *         information.
      */
@@ -886,7 +886,7 @@ public class Resource {
     /**
      * Add a new String literal (with optional language tag) to a multi-value
      * property.
-     * 
+     *
      * @param propURI
      *            URI of the property. Typical values are
      *            {@link #PROP_RDFS_LABEL} or {@link #PROP_RDFS_COMMENT}.
@@ -930,7 +930,7 @@ public class Resource {
     /**
      * Get a String literal (with optional language tag) from a multi-value
      * property.
-     * 
+     *
      * @param propURI
      *            URI of the property. Typical values are
      *            {@link #PROP_RDFS_LABEL} or {@link #PROP_RDFS_COMMENT}.
@@ -1014,7 +1014,7 @@ public class Resource {
      * URI and (2) the serializers get no problems with the value. Also,
      * settings via subclasses may be overwritten by this class if a subsequent
      * call to {@link #addType(String, boolean)} is made.
-     * 
+     *
      * @return <tt>true</tt> if the property changed as a result of the call
      */
     public boolean setProperty(String propURI, Object value) {
@@ -1055,7 +1055,7 @@ public class Resource {
     /**
      * Set the given value at the end of the given property path, but does not
      * force the setting.
-     * 
+     *
      * @see #setPropertyPathFromOffset(String[], int, Object, boolean)
      */
     public boolean setPropertyPath(String[] propPath, Object value) {
@@ -1064,7 +1064,7 @@ public class Resource {
 
     /**
      * Set the given value at the end of the given property path.
-     * 
+     *
      * @see #setPropertyPathFromOffset(String[], int, Object, boolean)
      */
     public boolean setPropertyPath(String[] propPath, Object value,
@@ -1079,7 +1079,7 @@ public class Resource {
      * yet exist, a new anonymous Resource is automatically created. At the end
      * of the property path, the given value is set as RDF object with the last
      * property from the path as RDF predicate.
-     * 
+     *
      * @param propPath
      *            The set of properties defining the path through the RDF graph.
      * @param fromIndex
@@ -1132,7 +1132,7 @@ public class Resource {
 
     /**
      * Debug method: get a string of this RDF graph.
-     * 
+     *
      * @return The graph as string.
      */
     public String toStringRecursive() {
@@ -1141,7 +1141,7 @@ public class Resource {
 
     /**
      * Debug method: get a string of this RDF graph.
-     * 
+     *
      * @param prefix
      *            Indention string that every line starts with.
      * @param prefixAtStart

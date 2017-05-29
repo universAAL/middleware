@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,15 +36,15 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * Base class for all {@link TypeExpression}s that impose a restriction on a
  * property. Subclasses will implement the functionality for specific OWL
  * restrictions.
- * 
+ *
  * <p>
  * All property restrictions are defined by a property and one ore more
  * constraints and describe those individuals that are connected by the defined
  * property to individuals/literals under the condition that the defined
  * constraint is fulfilled.
- * 
+ *
  * @see MergedRestriction
- * 
+ *
  * @author Carsten Stockloew
  */
 public abstract class PropertyRestriction extends TypeExpression {
@@ -90,7 +90,7 @@ public abstract class PropertyRestriction extends TypeExpression {
 
     /**
      * Get the class URI for this {@link PropertyRestriction}.
-     * 
+     *
      * @return The class URI.
      */
     public String getClassURI() {
@@ -102,7 +102,7 @@ public abstract class PropertyRestriction extends TypeExpression {
      * , {@link SomeValuesFromRestriction}, or {@link AllValuesFromRestriction},
      * but none of the cardinality restrictions). Subclasses should override
      * this method if they have a constraint.
-     * 
+     *
      * @return the constraint of this restriction.
      */
     public Object getConstraint() {
@@ -111,7 +111,7 @@ public abstract class PropertyRestriction extends TypeExpression {
 
     /**
      * Set the property for which this restriction is defined.
-     * 
+     *
      * @param propURI
      *            URI of the property.
      */
@@ -121,7 +121,7 @@ public abstract class PropertyRestriction extends TypeExpression {
 
     /**
      * Get the property for which this restriction is defined.
-     * 
+     *
      * @return URI of the property.
      */
     public String getOnProperty() {
@@ -131,7 +131,7 @@ public abstract class PropertyRestriction extends TypeExpression {
 
     /**
      * Helper method to copy Restrictions.
-     * 
+     *
      * @param copy
      *            An instance of the class to which to copy all properties.
      * @return the copy with all properties from this object.
@@ -269,7 +269,7 @@ public abstract class PropertyRestriction extends TypeExpression {
 
     /**
      * Add this restriction to the given set of restrictions.
-     * 
+     *
      * @param a
      *            The set of Restrictions.
      * @return True, if the restriction was added.
@@ -295,7 +295,7 @@ public abstract class PropertyRestriction extends TypeExpression {
      * restrictions. The class URI of a specific restriction can be retrieved
      * using either Restriction.MY_URI or {@link #PropertyRestriction
      * #getClassURI()}.
-     * 
+     *
      * @param a
      *            The set of Restrictions.
      * @param restrictionURI

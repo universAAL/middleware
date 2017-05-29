@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * Each type expression represents a set of individuals (just like a class in an
  * object-oriented programming language (OOP) represents a set of objects), or a
  * set of literals.
- * 
+ *
  * <p>
  * OWL-2 explicitly distinguishes between <i>class expressions</i> (to describe
  * sets of individuals) and <i>data ranges</i> (to describe sets of literals).
@@ -55,7 +55,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * literal: instance of a data range, e.g. the literal '1' is an instance of
  * int, and the literal "Hello World" is an instance of String.
  * </ul>
- * 
+ *
  * <p>
  * In universAAL, there is only one class for each concept of class expression
  * and data range. For example, OWL-2 distinguishes between <i>ObjectOneOf</i>
@@ -63,24 +63,24 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * whereas universAAL has only the one class {@link Enumeration}. The drawback
  * of this simplification is that an RDF-graph should be created starting with
  * the leafs towards the root of the graph. For example:<br>
- * 
+ *
  * <pre>
  * // problematic:
  * u = new Union();
  * u.addType(new Enumeration(..));
- * 
+ *
  * // OK:
  * u = new Union(new Enumeration(..));
  * </pre>
- * 
+ *
  * In this example, the type of the union (whether it is a class expression or a
  * data range) can be determined because the argument is already fully set up
  * and it is known whether the given enumeration is a class expression or a data
  * range.
- * 
+ *
  * <p>
  * There are three different kinds of type expressions:
- * 
+ *
  * <ul>
  * <li>
  * {@link PropertyRestriction}: restricts the set of individuals by defining a
@@ -100,7 +100,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * data ranges.<br>
  * See also: {@link BoundedValueRestriction}, {@link LengthRestriction}
  * </ul>
- * 
+ *
  * <p>
  * There are three main methods to compare type expression:
  * <ul>
@@ -114,7 +114,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * isDisjointWith: determines if the given type expression has no member in
  * common with the class represented by this type expression</li>
  * </ul>
- * 
+ *
  * <p>
  * All three methods have three parameters in common:
  * <ul>
@@ -141,11 +141,11 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * log: list that can be filled with log entries and that shows at which point
  * the matchmaking failed. May be null.</li>
  * </ul>
- * 
+ *
  * @see <a
  *      href="https://github.com/universAAL/middleware/wiki/Data-Representation#Type_expression">
  *      Data Representation Wiki page</a>
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -228,7 +228,7 @@ public abstract class TypeExpression extends Resource {
     /**
      * Create a copy of this object, i.e. create a new object of this class and
      * copy the necessary properties.
-     * 
+     *
      * @return The newly created copy.
      */
     public abstract TypeExpression copy();
@@ -248,7 +248,7 @@ public abstract class TypeExpression extends Resource {
     /**
      * Returns <tt>true</tt> if the given object is a member of the class
      * represented by this type expression, otherwise false.
-     * 
+     *
      * @param member
      *            the object whose membership is going to be checked
      * @return <tt>true</tt> if the specified member is a member of this type
@@ -287,12 +287,12 @@ public abstract class TypeExpression extends Resource {
      * the <code>context</code> table to see if new conditions are added in
      * order for the membership to be asserted. If the <code>context</code>
      * table is null, the method does a global and unconditional check.
-     * 
+     *
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
-     * 
+     *
      * @param member
      *            the object whose membership is going to be checked
      * @param context
@@ -311,7 +311,7 @@ public abstract class TypeExpression extends Resource {
      * Returns <tt>true</tt> if the given type expression has no member in
      * common with the class represented by this type expression, otherwise
      * false.
-     * 
+     *
      * @param other
      *            the type expression with which the disjointness is going to be
      *            checked
@@ -353,12 +353,12 @@ public abstract class TypeExpression extends Resource {
      * the <code>context</code> table to see if new conditions are added in
      * order for the disjointness to be asserted. If the <code>context</code>
      * table is null, the method does a global and unconditional check.
-     * 
+     *
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
-     * 
+     *
      * @param other
      *            the type expression with which the disjointness is going to be
      *            checked
@@ -379,7 +379,7 @@ public abstract class TypeExpression extends Resource {
      * Returns <tt>true</tt>, if the state of the resource is valid, otherwise
      * false. Redefined in this class as abstract to force subclasses to
      * override it.
-     * 
+     *
      * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
      */
     public abstract boolean isWellFormed();
@@ -387,7 +387,7 @@ public abstract class TypeExpression extends Resource {
     /**
      * Returns <tt>true</tt> if the given type expression is a subset of the
      * class represented by this type expression, otherwise false.
-     * 
+     *
      * @param subset
      *            the type expression with which the compatibility is going to
      *            be checked
@@ -427,7 +427,7 @@ public abstract class TypeExpression extends Resource {
      * the <code>context</code> table to see if new conditions are added in
      * order for the compatibility to be asserted. If the <code>context</code>
      * table is null, the method does a global and unconditional check.
-     * 
+     *
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
      * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
@@ -453,7 +453,7 @@ public abstract class TypeExpression extends Resource {
      * checked; if 'cloned' contains a key which is not contained in 'context',
      * then the according (key/value)-pair is added to 'context'. The second
      * HashMap, 'cloned', is not changed.
-     * 
+     *
      * @param context
      *            The HashMap to be extended by (key/value)-pairs from the
      *            second HashMap.
@@ -474,7 +474,7 @@ public abstract class TypeExpression extends Resource {
      * Check the time-to-live parameter. If this value is zero, the method will
      * throw an {@link IllegalArgumentException}, otherwise the parameter will
      * be decreased by one and returned.
-     * 
+     *
      * @throws IllegalArgumentException
      *             if the specified value is zero.
      * @param ttl
@@ -492,7 +492,7 @@ public abstract class TypeExpression extends Resource {
 
     /**
      * Returns the default value for time-to-live.
-     * 
+     *
      * @return the default value for time-to-live
      */
     public final static int getDefaultMatchmakingTTL() {

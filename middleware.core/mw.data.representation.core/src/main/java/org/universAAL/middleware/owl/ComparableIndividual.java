@@ -1,15 +1,15 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ package org.universAAL.middleware.owl;
  * {@link org.universAAL.middleware.owl.ManagedIndividual}; in particular, the
  * subclasses must override the following non-final static methods:
  * {@link #getMaximum()} and {@link #getMinimum()}.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -90,7 +90,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
 
     /**
      * Compare this object to the given object.
-     * 
+     *
      * @return <b>0</b>if current location and argument location are in the same
      *         Place.<br>
      *         <b>-1</b> if current location is in a Place contained in argument
@@ -125,7 +125,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
     /**
      * Get the next value according to the total order of this comparable
      * individual.
-     * 
+     *
      * @return the next value
      */
     public abstract ComparableIndividual getNext();
@@ -133,7 +133,7 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
     /**
      * Get the previous value according to the total order of this comparable
      * individual.
-     * 
+     *
      * @return the previous value
      */
     public abstract ComparableIndividual getPrevious();

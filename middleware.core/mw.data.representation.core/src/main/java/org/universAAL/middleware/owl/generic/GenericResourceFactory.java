@@ -23,7 +23,7 @@ import org.universAAL.middleware.rdf.ResourceFactory;
 
 /**
  * The factory for a {@link GenericOntology}.
- * 
+ *
  * @author Carsten Stockloew
  */
 public class GenericResourceFactory implements ResourceFactory {

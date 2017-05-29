@@ -53,7 +53,7 @@ import org.universAAL.middleware.util.Specializer;
 /**
  * A generic ontology that can be used to register an ontology from a plain list
  * of resource, e.g. coming from deserializing an ontology.
- * 
+ *
  * @author Carsten Stockloew
  */
 public class GenericOntology extends Ontology {

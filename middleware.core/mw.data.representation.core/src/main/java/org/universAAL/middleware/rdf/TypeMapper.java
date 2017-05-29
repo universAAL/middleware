@@ -1,19 +1,19 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
+
 	Copyright 2008-2010 Vodafone Italy, http://www.vodafone.it
 	Vodafone Omnitel N.V.
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,7 +44,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
 /**
  * This class handles the mapping between java objects and the according
  * representation in XML namespace.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author mfreddi
@@ -121,10 +121,10 @@ public final class TypeMapper {
 
     /*
      * Return the only allowed instance of TypeMapper
-     * 
+     *
      * @return {@link TypeMapper} public static TypeMapper getTypeMapper() { if
      * (tm == null) tm = new TypeMapper();
-     * 
+     *
      * return tm; }
      */
 
@@ -138,7 +138,7 @@ public final class TypeMapper {
 
     /**
      * Return an instance of DatatypeFactory.
-     * 
+     *
      * @return {@link DatatypeFactory}
      */
     public static DatatypeFactory getDataTypeFactory() {
@@ -148,7 +148,7 @@ public final class TypeMapper {
     /**
      * Return the lexical string and XSD type from an object which can be mapped
      * to XSD type.
-     * 
+     *
      * @param o
      *            The Object to be serialized.
      * @return An array of 2 strings with the lexical XML form and associated
@@ -172,7 +172,7 @@ public final class TypeMapper {
 
     /**
      * Return a Java object from an XML literal and its type.
-     * 
+     *
      * @param lexicalForm
      *            The serialized string.
      * @param xsdType
@@ -221,7 +221,7 @@ public final class TypeMapper {
      * be serialized as XML Literal, the return value is a copy of the input. If
      * the parameter is an xsd literal, the return value is exactly the input
      * parameter.
-     * 
+     *
      * @param o
      *            The object to interpret.
      */
@@ -242,7 +242,7 @@ public final class TypeMapper {
     /**
      * Return the XSD type given a java class, according to the list of
      * predefined types.
-     * 
+     *
      * @param c
      *            The Java class.
      * @return the XSD String associated with class or null if it can not be
@@ -278,7 +278,7 @@ public final class TypeMapper {
     /**
      * Return the XSD type given a java object, according to the list of
      * predefined types.
-     * 
+     *
      * @param o
      *            The Java instance.
      * @return the XSD String associated with class or null if it can not be
@@ -291,7 +291,7 @@ public final class TypeMapper {
     /**
      * Return the Java class given an XSD String, according to the list of
      * predefined types.
-     * 
+     *
      * @param datatypeURI
      *            The XSD String.
      * @return The Java class associated to the XSD String or null if it can not
@@ -306,7 +306,7 @@ public final class TypeMapper {
     /**
      * Determines if the first specified URI is a super type of the second
      * specified URI. Both URIs must start with the XSD prefix.
-     * 
+     *
      * @param supertypeURI
      *            URI of the super type.
      * @param subtypeURI

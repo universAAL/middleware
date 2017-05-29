@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import org.universAAL.middleware.rdf.Resource;
  * usage; for every ObjectProperty there is exactly one
  * {@link ObjectPropertySetup} where all the characteristics of this property
  * are defined.
- * 
+ *
  * @author Carsten Stockloew
  * @see org.universAAL.middleware.owl.ObjectPropertySetup
  * @see org.universAAL.middleware.owl.DatatypeProperty
@@ -158,7 +158,7 @@ public final class ObjectProperty extends Property {
 
     /**
      * Create a new instance.
-     * 
+     *
      * @param propURI
      *            URI of the property.
      * @param info
@@ -172,7 +172,7 @@ public final class ObjectProperty extends Property {
 
     /**
      * Get the inverse of this property.
-     * 
+     *
      * @see ObjectPropertySetup#setInverseOf(String)
      */
     public ObjectProperty inverseOf() {
@@ -181,7 +181,7 @@ public final class ObjectProperty extends Property {
 
     /**
      * Determines whether this property is inverse-functional.
-     * 
+     *
      * @see ObjectPropertySetup#setInverseFunctional()
      */
     public boolean isInverseFunctional() {
@@ -190,7 +190,7 @@ public final class ObjectProperty extends Property {
 
     /**
      * Determines whether this property is transitive.
-     * 
+     *
      * @see ObjectPropertySetup#setTransitive()
      */
     public boolean isTransitive() {
@@ -199,7 +199,7 @@ public final class ObjectProperty extends Property {
 
     /**
      * Determines whether this property is symmetric.
-     * 
+     *
      * @see ObjectPropertySetup#setSymmetric()
      */
     public boolean isSymmetric() {
@@ -208,7 +208,7 @@ public final class ObjectProperty extends Property {
 
     /**
      * Determines whether this property is asymmetric.
-     * 
+     *
      * @see ObjectPropertySetup#setAsymmetric()
      */
     public boolean isAsymmetric() {
@@ -217,7 +217,7 @@ public final class ObjectProperty extends Property {
 
     /**
      * Determines whether this property is reflexive.
-     * 
+     *
      * @see ObjectPropertySetup#setReflexive()
      */
     public boolean isReflexive() {
@@ -226,7 +226,7 @@ public final class ObjectProperty extends Property {
 
     /**
      * Determines whether this property is irreflexive.
-     * 
+     *
      * @see ObjectPropertySetup#setIrreflexive()
      */
     public boolean isIrreflexive() {

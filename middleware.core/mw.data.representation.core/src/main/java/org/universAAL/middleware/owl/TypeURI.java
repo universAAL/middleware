@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,13 +32,13 @@ import org.universAAL.middleware.util.MatchLogEntry;
 /**
  * A {@link TypeExpression} that contains all individuals/literals of a named
  * ontology class/datatype.
- * 
+ *
  * <p>
  * In case of class expression:<br>
  * TypeURI is called with the class URI of a named ontology class, i.e. the
  * class URI of a sub class of {@link ManagedIndividual}. It then contains
  * exactly the individuals of the given named ontology class.
- * 
+ *
  * <p>
  * In case of data range:<br>
  * TypeURI is called with the URI of a datatype. It then contains exactly the
@@ -47,7 +47,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * {@link TypeMapper#getDatatypeURI(Class)} with the required primitive datatype
  * class, e.g. <code>TypeMapper#getDatatypeURI(String.class)</code>; or with a
  * concrete object, e.g. <code>TypeMapper#getDatatypeURI("Hello World")</code>.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -57,7 +57,7 @@ public final class TypeURI extends TypeExpression {
 
     /**
      * Creates a new TypeURI instance. Use with caution!
-     * 
+     *
      * @param uri
      *            The URI of the named ontology class/datatype.
      * @param isDatatypeURI
@@ -72,7 +72,7 @@ public final class TypeURI extends TypeExpression {
 
     /**
      * Creates a new TypeURI instance according to the given object.
-     * 
+     *
      * @param obj
      *            An object representing the URI of an ontology class or data
      *            type. It can be either:
@@ -82,7 +82,7 @@ public final class TypeURI extends TypeExpression {
      *            <li>the URI of a registered ontology class or data type. The
      *            URI can be given as String or as Resource.</li>
      *            </ul>
-     * 
+     *
      * @return a new TypeURI, or null if the given object is not valid.
      * @see TypeMapper#isRegisteredDatatypeURI(String)
      * @see OntologyManagement#isRegisteredClass(String, boolean)
@@ -132,7 +132,7 @@ public final class TypeURI extends TypeExpression {
     /**
      * No {@link TypeExpression} instances are stored in this class, so we do
      * not need to clone; just return this object.
-     * 
+     *
      * @see org.universAAL.middleware.owl.TypeExpression#copy()
      */
     public TypeExpression copy() {
@@ -146,7 +146,7 @@ public final class TypeURI extends TypeExpression {
 
     /**
      * Get the restrictions for the given property.
-     * 
+     *
      * @see org.universAAL.middleware.owl.ManagedIndividual#getClassRestrictionsOnProperty(String,
      *      String)
      */

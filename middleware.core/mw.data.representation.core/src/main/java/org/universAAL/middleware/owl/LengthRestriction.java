@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,11 +41,11 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  * <li>min length</li>
  * <li>max length</li>
  * </ol>
- * 
+ *
  * It is possible to define a condition on the minimum length and on the maximum
  * length in the same {@link LengthRestriction}. If minimum and maximum length
  * are equal, only the <i>length</i> facet should be set.
- * 
+ *
  * @author Carsten Stockloew
  */
 public abstract class LengthRestriction extends TypeRestriction {
@@ -85,7 +85,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Standard constructor.
-     * 
+     *
      * @param datatypeURI
      *            URI of the data type for which this restriction is defined.
      *            Must be one of the supported data types.
@@ -96,7 +96,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Set the length.
-     * 
+     *
      * @param len
      *            the length.
      */
@@ -106,7 +106,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Set the length.
-     * 
+     *
      * @param len
      *            the length.
      */
@@ -127,7 +127,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Set the length.
-     * 
+     *
      * @param len
      *            the length.
      */
@@ -148,7 +148,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Set the length.
-     * 
+     *
      * @param len
      *            the length.
      */
@@ -163,7 +163,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Set the minimum length.
-     * 
+     *
      * @param min
      *            the minimum length.
      */
@@ -173,7 +173,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Set the minimum length.
-     * 
+     *
      * @param min
      *            the minimum length.
      */
@@ -186,7 +186,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 		    "Length for LengthRestriction already set.");
 	    return false;
 	}
-	
+
 	if (max != null && max instanceof NonNegativeInteger) {
 	    if (min.compareTo((NonNegativeInteger) max) > 0)
 		throw new IllegalArgumentException(
@@ -197,10 +197,10 @@ public abstract class LengthRestriction extends TypeRestriction {
 	this.min = min;
 	return true;
     }
-    
+
     /**
      * Set the minimum length.
-     * 
+     *
      * @param min
      *            the minimum length.
      */
@@ -221,7 +221,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Set the minimum length.
-     * 
+     *
      * @param min
      *            the minimum length.
      */
@@ -233,10 +233,10 @@ public abstract class LengthRestriction extends TypeRestriction {
 
 	throw new IllegalArgumentException("Cannot set min for: " + min);
     }
-    
+
     /**
      * Set the maximum length.
-     * 
+     *
      * @param max
      *            the maximum length.
      */
@@ -246,7 +246,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Set the maximum length.
-     * 
+     *
      * @param max
      *            the maximum length.
      */
@@ -259,7 +259,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 		    "Length for LengthRestriction already set.");
 	    return false;
 	}
-	
+
 	if (min != null && min instanceof NonNegativeInteger) {
 	    if (((NonNegativeInteger) min).compareTo(max) > 0)
 		throw new IllegalArgumentException(
@@ -273,7 +273,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Set the maximum length.
-     * 
+     *
      * @param max
      *            the maximum length.
      */
@@ -294,7 +294,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Set the maximum length.
-     * 
+     *
      * @param max
      *            the maximum length.
      */
@@ -309,7 +309,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Get the length.
-     * 
+     *
      * @return the length, or null if not defined. Can also be a
      *         {@link Variable} reference.
      */
@@ -319,7 +319,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Get the minimum length.
-     * 
+     *
      * @return the minimum length, or null if not defined. Can also be a
      *         {@link Variable} reference.
      */
@@ -329,7 +329,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Get the maximum length.
-     * 
+     *
      * @return the maximum length, or null if not defined. Can also be a
      *         {@link Variable} reference.
      */
@@ -339,7 +339,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 
     /**
      * Copy the facets to a different {@link LengthRestriction}.
-     * 
+     *
      * @param copy
      *            The object to which to copy the facets.
      * @return the value given as parameter, but with the restrictions copied.
@@ -370,7 +370,7 @@ public abstract class LengthRestriction extends TypeRestriction {
     /**
      * Calculate the length of a member. The default implementation just returns
      * the length of the String value. Sub classes may override this method.
-     * 
+     *
      * @param member
      *            the member for which to calculate the length.
      * @return the length as NonNegativeInteger or a {@link Variable} if the
@@ -381,7 +381,7 @@ public abstract class LengthRestriction extends TypeRestriction {
 	    return member;
 	return new NonNegativeInteger(member.toString().length());
     }
-    
+
     @Override
     protected Object getMemberValueToCheck(Object member) {
 	return getMemberLen(member);

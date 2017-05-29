@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,20 +30,20 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * A {@link TypeExpression} that contains all individuals/literals that are in
  * all of the given type expressions. Intersection corresponds to OWL
  * ObjectIntersectionOf or DataIntersectionOf.
- * 
+ *
  * <p>
  * For example,
  * <code>Intersection(Enumeration(ex:Peter, a:Lois), Enumeration(ex:Paul, a:Lois))</code>
  * contains the individual a:Lois, and<br>
  * <code>Intersection(Enumeration(1,2), Enumeration(2,3))</code> contains the
  * integer two.
- * 
+ *
  * <p>
  * The given type expressions must not mix sets of individuals with sets of
  * literals. For example,
  * <code>Intersection(Enumeration(ex:Peter), Enumeration(1))</code> is not
  * possible, as it combines individuals (ex:Peter) with literals (1).
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -71,7 +71,7 @@ public class Intersection extends TypeExpression {
     /**
      * Constructor to create a new instance with some additional URIs to set as
      * rdf:type.
-     * 
+     *
      * @param additionalTypes
      *            The additional type URIs to set as rdf:type.
      */
@@ -85,10 +85,10 @@ public class Intersection extends TypeExpression {
      * Add a new child type expression. If the given argument is an instance of
      * Intersection, then the elements of that Intersection are added instead of
      * the Intersection itself.
-     * 
+     *
      * @param type
      *            The type expression to add.
-     * 
+     *
      * @return true, if the given type expression could be added.
      */
     public boolean addType(TypeExpression type) {
@@ -239,7 +239,7 @@ public class Intersection extends TypeExpression {
 
     /**
      * Get an iterator for the child type expressions.
-     * 
+     *
      * @return an iterator for the child type expressions.
      */
     public Iterator<TypeExpression> types() {
@@ -248,7 +248,7 @@ public class Intersection extends TypeExpression {
 
     /**
      * Get an unmodifiable list of the child type expressions.
-     * 
+     *
      * @return an unmodifiable list of the child type expressions.
      */
     public UnmodifiableResourceList elements() {
@@ -257,7 +257,7 @@ public class Intersection extends TypeExpression {
 
     /**
      * Returns the number of elements in this intersection.
-     * 
+     *
      * @return the number of elements in this intersection.
      */
     public int size() {

@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import org.universAAL.middleware.xsd.util.Base64;
 /**
  * Support for XSD data type base64Binary. <br>
  * Note: this should not be used for large data sets.
- * 
+ *
  * @see <a href="http://www.w3.org/TR/xmlschema-2/#base64Binary">XML Schema</a>
  */
 public final class Base64Binary {
@@ -38,7 +38,7 @@ public final class Base64Binary {
 
     /**
      * Constructor for the decoded value (the binary data).
-     * 
+     *
      * @param val
      *            the binary data.
      */
@@ -50,7 +50,7 @@ public final class Base64Binary {
 
     /**
      * Constructor for the encoded value (the Base64 value).
-     * 
+     *
      * @param val
      *            the encoded data.
      */
@@ -62,13 +62,13 @@ public final class Base64Binary {
 
     /**
      * Get the length of the decoded value (the binary value).
-     * 
+     *
      * @return the length of the decoded value.
      */
     public int getDecodedLength() {
 	if (val == null)
 	    val = decode(encodedVal);
-	
+
 	return val.length;
     }
 
