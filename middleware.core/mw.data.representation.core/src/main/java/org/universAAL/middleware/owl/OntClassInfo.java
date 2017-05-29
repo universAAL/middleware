@@ -144,6 +144,7 @@ public final class OntClassInfo extends RDFClassInfo {
 	    this.info = info;
 	}
 
+	/** {@inheritDoc} */
 	public DatatypePropertySetup addDatatypeProperty(String propURI) {
 	    if (locked)
 		return null;
@@ -155,6 +156,7 @@ public final class OntClassInfo extends RDFClassInfo {
 	    return prop;
 	}
 
+	/** {@inheritDoc} */
 	public ObjectPropertySetup addObjectProperty(String propURI) {
 	    if (locked)
 		return null;
@@ -166,6 +168,7 @@ public final class OntClassInfo extends RDFClassInfo {
 	    return prop;
 	}
 
+	/** {@inheritDoc} */
 	public void addRestriction(MergedRestriction r) {
 	    if (locked)
 		return;
@@ -195,6 +198,7 @@ public final class OntClassInfo extends RDFClassInfo {
 		    Collections.unmodifiableList(combinedSuperClasses));
 	}
 
+	/** {@inheritDoc} */
 	public void addInstance(ManagedIndividual instance)
 		throws UnsupportedOperationException {
 	    if (isEnumeration)
@@ -230,6 +234,7 @@ public final class OntClassInfo extends RDFClassInfo {
 	    }
 	}
 
+	/** {@inheritDoc} */
 	public void toEnumeration(ManagedIndividual[] individuals) {
 	    if (locked)
 		return;
@@ -241,16 +246,19 @@ public final class OntClassInfo extends RDFClassInfo {
 	    setProperty(Enumeration.PROP_OWL_ONE_OF, col);
 	}
 
+	/** {@inheritDoc} */
 	public void addEquivalentClass(TypeExpression eq) {
 	    if (locked)
 		return;
 	    // TODO
 	}
 
+	/** {@inheritDoc} */
 	public void addDisjointClass(TypeExpression dj) {
 	    // TODO Auto-generated method stub
 	}
 
+	/** {@inheritDoc} */
 	public void setComplementClass(TypeExpression complement) {
 	    // TODO Auto-generated method stub
 	}
@@ -308,6 +316,11 @@ public final class OntClassInfo extends RDFClassInfo {
 	    complementClass = newCombinedInfo.complementClass;
 	}
 
+	/**
+	 * Get the number of extenders.
+	 *
+	 * @return the number of extenders.
+	 */
 	public int getNumberOfExtenders() {
 	    return extenders.size();
 	}
@@ -336,6 +349,9 @@ public final class OntClassInfo extends RDFClassInfo {
 	/**
 	 * Internal method. Copy all properties from this class to the given
 	 * class.
+	 *
+	 * @param info
+	 *            The class to which to copy all the properties to.
 	 */
 	private void copyTo(OntClassInfo info) {
 	    Iterator it;
