@@ -130,10 +130,10 @@ public final class TypeURI extends TypeExpression {
     }
 
     /**
+     * {@inheritDoc}<p>
+     *
      * No {@link TypeExpression} instances are stored in this class, so we do
      * not need to clone; just return this object.
-     *
-     * @see org.universAAL.middleware.owl.TypeExpression#copy()
      */
     public TypeExpression copy() {
 	return this;
@@ -145,10 +145,14 @@ public final class TypeURI extends TypeExpression {
     }
 
     /**
-     * Get the restrictions for the given property.
+     * Get the restrictions for the given property in the context of the class
+     * represented by this type URI.
      *
      * @see org.universAAL.middleware.owl.ManagedIndividual#getClassRestrictionsOnProperty(String,
      *      String)
+     * @param propURI
+     *            URI of the property.
+     * @return the restriction of the given property.
      */
     public TypeExpression getRestrictionOnProperty(String propURI) {
 	return ManagedIndividual.getClassRestrictionsOnProperty(uri, propURI);

@@ -92,7 +92,7 @@ public final class MaxCardinalityRestriction extends PropertyRestriction {
     }
 
     /**
-     * Get the value of this cardinality restriction
+     * Get the value of this cardinality restriction.
      *
      * @return the value of this cardinality restriction
      */
@@ -172,8 +172,6 @@ public final class MaxCardinalityRestriction extends PropertyRestriction {
 	} else if (other instanceof ExactCardinalityRestriction) {
 	    if (getValue() >= ((ExactCardinalityRestriction) other).getValue())
 		return true;
-	    else
-		return false;
 	}
 
 	return false;

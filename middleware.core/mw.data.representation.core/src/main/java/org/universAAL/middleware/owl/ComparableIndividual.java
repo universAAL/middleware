@@ -76,6 +76,8 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
 
     /**
      * Returns the "largest" instance in this class, if it exists.
+     *
+     * @return the "largest" instance.
      */
     public static ComparableIndividual getMaximum() {
 	return null;
@@ -83,6 +85,8 @@ public abstract class ComparableIndividual extends ManagedIndividual implements
 
     /**
      * Returns the "smallest" instance in this class, if it exists.
+     *
+     * @return the "smallest" instance.
      */
     public static ComparableIndividual getMinimum() {
 	return null;

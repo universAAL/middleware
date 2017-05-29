@@ -20,7 +20,6 @@
 package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.middleware.rdf.Variable;
 
 /**
  * A {@link TypeExpression} ({@link BoundedValueRestriction}) that contains all
@@ -34,6 +33,7 @@ public final class FloatRestriction extends BoundedValueRestriction {
     public static final String DATATYPE_URI = TypeMapper
 	    .getDatatypeURI(Float.class);
 
+    /** The smallest possible float value. */
     // substitutions for Float.MIN_NORMAL
     private static final float FLOAT_SMALLEST_POSITIVE_VALUE = Float
 	    .intBitsToFloat(0x00800000);

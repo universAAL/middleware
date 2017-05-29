@@ -20,7 +20,6 @@
 package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.middleware.rdf.Variable;
 
 /**
  * A {@link TypeExpression} ({@link BoundedValueRestriction}) that contains all
@@ -34,6 +33,7 @@ public final class DoubleRestriction extends BoundedValueRestriction {
     public static final String DATATYPE_URI = TypeMapper
 	    .getDatatypeURI(Double.class);
 
+    /** The smallest possible double value. */
     // substitutions for Double.MIN_NORMAL
     private static final double DOUBLE_SMALLEST_POSITIVE_VALUE = Double
 	    .longBitsToDouble(0x0010000000000000L);

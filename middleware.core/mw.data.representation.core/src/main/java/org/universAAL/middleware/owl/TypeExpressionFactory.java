@@ -31,7 +31,19 @@ import org.universAAL.middleware.rdf.TypeMapper;
  */
 public final class TypeExpressionFactory {
 
+    /**
+     * A map for URIs of properties that uniquely identifies the type
+     * expression. Maps URI of the property to an index that is used in a
+     * switch-statement to create the appropriate instance.
+     */
     private static HashMap<String, Integer> propMap = new HashMap<String, Integer>();
+
+    /**
+     * A map for URIs of datatypes that uniquely identifies the
+     * {@link TypeRestriction} . Maps URI of the datatype to an index that is
+     * used in a switch-statement to create the appropriate instance of
+     * {@link TypeRestriction}.
+     */
     private static HashMap<String, Integer> datatypeMap = new HashMap<String, Integer>();
 
     static {
@@ -63,9 +75,21 @@ public final class TypeExpressionFactory {
 	datatypeMap.put(StringRestriction.DATATYPE_URI, Integer.valueOf(7));
     }
 
+    /**
+     * Private constructor. Use the static method.
+     */
     private TypeExpressionFactory() {
     }
 
+    /**
+     * Specialize the given Resource. If the Resource represents an instance of
+     * {@link TypeExpression} then the appropriate expression s returned.
+     *
+     * @param r
+     *            The resource to specialize.
+     * @return the specialized {@link TypeExpression}, or null if the resource
+     *         does not represent a type expression.
+     */
     public static TypeExpression specialize(Resource r) {
 	Integer idx = null;
 	for (java.util.Enumeration e = r.getPropertyURIs(); e.hasMoreElements();) {
@@ -139,10 +163,12 @@ public final class TypeExpressionFactory {
 		    return new Base64Restriction();
 		case 7:
 		    return new StringRestriction();
+		default:
+		    return null;
 		}
 	    }
+	default:
+	    return null;
 	}
-
-	return null;
     }
 }

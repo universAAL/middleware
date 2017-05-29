@@ -19,7 +19,15 @@
  */
 package org.universAAL.middleware.serialization;
 
-// This interface will probably be changed soon.
+/**
+ * An extended version of the {@link MessageContentSerializer} that allows to
+ * provide a root URI.
+ *
+ * NOTE: This interface will probably be changed soon.
+ *
+ * @author Carsten Stockloew
+ *
+ */
 public interface MessageContentSerializerEx extends MessageContentSerializer {
 
     /**

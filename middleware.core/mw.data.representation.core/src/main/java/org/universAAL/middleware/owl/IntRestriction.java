@@ -20,7 +20,6 @@
 package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.middleware.rdf.Variable;
 
 /**
  * A {@link TypeExpression} ({@link BoundedValueRestriction}) that contains all

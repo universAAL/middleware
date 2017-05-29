@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.util.MatchLogEntry;
 
 /**

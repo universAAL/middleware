@@ -19,7 +19,6 @@
  */
 package org.universAAL.middleware.owl;
 
-import org.universAAL.middleware.rdf.RDFClassInfo;
 import org.universAAL.middleware.rdf.RDFClassInfoSetup;
 
 /**

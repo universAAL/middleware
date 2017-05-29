@@ -19,7 +19,6 @@ limitations under the License.
 package org.universAAL.middleware.owl;
 
 import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.middleware.rdf.Variable;
 import org.universAAL.middleware.xsd.Base64Binary;
 import org.universAAL.middleware.xsd.NonNegativeInteger;
 
@@ -29,7 +28,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  *
  * @author Carsten Stockloew
  */
-public class Base64Restriction extends LengthRestriction {
+public final class Base64Restriction extends LengthRestriction {
 
     /** URI of the data type. */
     public static final String DATATYPE_URI = TypeMapper.getDatatypeURI(Base64Binary.class);
@@ -57,7 +56,7 @@ public class Base64Restriction extends LengthRestriction {
     @Override
     protected Object getMemberLen(Object member) {
 	if (member instanceof Base64Binary) {
-	    return new NonNegativeInteger(((Base64Binary)member).getDecodedLength());
+	    return new NonNegativeInteger(((Base64Binary) member).getDecodedLength());
 	}
 	return super.getMemberLen(member);
     }

@@ -38,13 +38,35 @@ import org.universAAL.middleware.rdf.Variable;
  */
 public final class ResourceUtil {
 
+    /** Private constructor. Use static methods. */
     private ResourceUtil() {
     }
 
+    /**
+     * Create a String representation from a given {@link TypeExpression}. Calls
+     * {@link #toString(TypeExpression, String)} with null as prefix.
+     *
+     * Note: not all expressions are realized yet.
+     *
+     * @param e
+     *            the expression.
+     * @return the String representation.
+     */
     public static String toString(TypeExpression e) {
 	return toString(e, null);
     }
 
+    /**
+     * Create a String representation from a given {@link TypeExpression}.
+     *
+     * Note: not all expressions are realized yet.
+     *
+     * @param e
+     *            the expression.
+     * @param prefix
+     *            a prefix for each line. Can be null.
+     * @return the String representation.
+     */
     public static String toString(TypeExpression e, String prefix) {
 	if (prefix == null)
 	    prefix = "";

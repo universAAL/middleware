@@ -26,7 +26,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  *
  * @author Carsten Stockloew
  */
-public class StringRestriction extends LengthRestriction {
+public final class StringRestriction extends LengthRestriction {
 
     /** URI of the data type. */
     public static final String DATATYPE_URI = TypeMapper

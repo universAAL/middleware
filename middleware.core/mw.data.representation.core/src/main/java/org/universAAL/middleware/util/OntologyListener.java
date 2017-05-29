@@ -19,8 +19,6 @@
  */
 package org.universAAL.middleware.util;
 
-import org.universAAL.middleware.owl.OntologyManagement;
-
 /**
  * Callback for ontology changes. This interface must be implemented and can be
  * registered at
