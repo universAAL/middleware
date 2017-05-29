@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 1,
              Errors: 13,
-             Warnings: 3,
-             Infos: 14
+             Warnings: 2,
+             Infos: 8
       </title>
             <link>http://middleware/middleware.osgi/mw.connectors.discovery.slp.osgi//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.connectors.discovery.slp.osgi//checkstyle.html#org.universAAL.middleware.connectors.discovery.slp.osgi.Activator.java">org/universAAL/middleware/connectors/discovery/slp/osgi/Activator.java</a>
                 </td>
                 <td>
-                  14
+                  8
                 </td>
                 <td>
-                  3
+                  2
                 </td>
                 <td>
                   13

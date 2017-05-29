@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 4,
              Errors: 143,
-             Warnings: 47,
-             Infos: 227
+             Warnings: 35,
+             Infos: 103
       </title>
             <link>http://middleware/middleware.core/mw.brokers.control.core//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.control.core//checkstyle.html#org.universAAL.middleware.brokers.control.ControlBroker.java">org/universAAL/middleware/brokers/control/ControlBroker.java</a>
                 </td>
                 <td>
-                  191
+                  87
                 </td>
                 <td>
-                  32
+                  22
                 </td>
                 <td>
                   124
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.control.core//checkstyle.html#org.universAAL.middleware.brokers.control.ExceptionUtils.java">org/universAAL/middleware/brokers/control/ExceptionUtils.java</a>
                 </td>
                 <td>
-                  4
+                  3
                 </td>
                 <td>
                   0
@@ -77,7 +77,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.control.core//checkstyle.html#org.universAAL.middleware.brokers.control.FileUtils.java">org/universAAL/middleware/brokers/control/FileUtils.java</a>
                 </td>
                 <td>
-                  27
+                  9
                 </td>
                 <td>
                   13
@@ -91,10 +91,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.control.core//checkstyle.html#org.universAAL.middleware.brokers.control.WaitForResponse.java">org/universAAL/middleware/brokers/control/WaitForResponse.java</a>
                 </td>
                 <td>
-                  5
+                  4
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   12

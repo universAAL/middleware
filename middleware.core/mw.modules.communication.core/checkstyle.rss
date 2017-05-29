@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 3,
              Errors: 89,
-             Warnings: 20,
-             Infos: 86
+             Warnings: 1,
+             Infos: 46
       </title>
             <link>http://middleware/middleware.core/mw.modules.communication.core//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.modules.communication.core//checkstyle.html#org.universAAL.middleware.modules.communication.BroadcastExecutor.java">org/universAAL/middleware/modules/communication/BroadcastExecutor.java</a>
                 </td>
                 <td>
-                  8
+                  5
                 </td>
                 <td>
-                  4
+                  1
                 </td>
                 <td>
                   8
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.modules.communication.core//checkstyle.html#org.universAAL.middleware.modules.communication.UnicastExecutor.java">org/universAAL/middleware/modules/communication/UnicastExecutor.java</a>
                 </td>
                 <td>
-                  10
+                  6
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   9
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.modules.communication.core//checkstyle.html#org.universAAL.middleware.modules.communication.CommunicationModuleImpl.java">org/universAAL/middleware/modules/communication/CommunicationModuleImpl.java</a>
                 </td>
                 <td>
-                  68
+                  35
                 </td>
                 <td>
-                  10
+                  0
                 </td>
                 <td>
                   72

@@ -28,7 +28,7 @@ under the License.
       <title>File: 1,
              Errors: 8,
              Warnings: 1,
-             Infos: 18
+             Infos: 10
       </title>
             <link>http://middleware/middleware.osgi/mw.managers.distributedmw.osgi//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.managers.distributedmw.osgi//checkstyle.html#org.universAAL.middleware.managers.distributedmw.osgi.DistributedMWActivator.java">org/universAAL/middleware/managers/distributedmw/osgi/DistributedMWActivator.java</a>
                 </td>
                 <td>
-                  18
+                  10
                 </td>
                 <td>
                   1

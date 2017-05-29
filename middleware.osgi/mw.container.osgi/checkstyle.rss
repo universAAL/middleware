@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 6,
              Errors: 147,
-             Warnings: 61,
-             Infos: 173
+             Warnings: 9,
+             Infos: 114
       </title>
             <link>/checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.uAALBundleContainer.java">org/universAAL/middleware/container/osgi/uAALBundleContainer.java</a>
                 </td>
                 <td>
-                  51
+                  27
                 </td>
                 <td>
-                  33
+                  2
                 </td>
                 <td>
                   12
@@ -77,7 +77,7 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.OSGiAttributes.java">org/universAAL/middleware/container/osgi/OSGiAttributes.java</a>
                 </td>
                 <td>
-                  10
+                  5
                 </td>
                 <td>
                   1
@@ -91,10 +91,10 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.run.uAALBundleExtender.java">org/universAAL/middleware/container/osgi/run/uAALBundleExtender.java</a>
                 </td>
                 <td>
-                  20
+                  14
                 </td>
                 <td>
-                  10
+                  4
                 </td>
                 <td>
                   22
@@ -105,10 +105,10 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.run.Activator.java">org/universAAL/middleware/container/osgi/run/Activator.java</a>
                 </td>
                 <td>
-                  14
+                  9
                 </td>
                 <td>
-                  5
+                  1
                 </td>
                 <td>
                   10
@@ -119,10 +119,10 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.uAALBundleContext.java">org/universAAL/middleware/container/osgi/uAALBundleContext.java</a>
                 </td>
                 <td>
-                  77
+                  58
                 </td>
                 <td>
-                  12
+                  1
                 </td>
                 <td>
                   98

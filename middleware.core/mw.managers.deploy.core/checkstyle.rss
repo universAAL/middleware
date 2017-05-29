@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 2,
              Errors: 73,
-             Warnings: 34,
-             Infos: 159
+             Warnings: 20,
+             Infos: 68
       </title>
             <link>http://middleware/middleware.core/mw.managers.deploy.core//checkstyle.html</link>
       <description>
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.deploy.core//checkstyle.html#org.universAAL.middleware.managers.deploy.DeployManagerImpl.java">org/universAAL/middleware/managers/deploy/DeployManagerImpl.java</a>
                 </td>
                 <td>
-                  158
+                  67
                 </td>
                 <td>
-                  33
+                  19
                 </td>
                 <td>
                   66

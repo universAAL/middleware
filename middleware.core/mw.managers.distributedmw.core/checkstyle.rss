@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 10,
-             Errors: 181,
-             Warnings: 26,
-             Infos: 222
+             Errors: 178,
+             Warnings: 5,
+             Infos: 161
       </title>
             <link>http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html#org.universAAL.middleware.managers.distributedmw.api.DistributedLogManager.java">org/universAAL/middleware/managers/distributedmw/api/DistributedLogManager.java</a>
                 </td>
                 <td>
-                  9
+                  8
                 </td>
                 <td>
                   0
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html#org.universAAL.middleware.managers.distributedmw.impl.BusMemberListenerHandler.java">org/universAAL/middleware/managers/distributedmw/impl/BusMemberListenerHandler.java</a>
                 </td>
                 <td>
-                  40
+                  25
                 </td>
                 <td>
-                  7
+                  2
                 </td>
                 <td>
                   36
@@ -77,7 +77,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html#org.universAAL.middleware.managers.distributedmw.api.DistributedLogListener.java">org/universAAL/middleware/managers/distributedmw/api/DistributedLogListener.java</a>
                 </td>
                 <td>
-                  13
+                  6
                 </td>
                 <td>
                   0
@@ -91,10 +91,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html#org.universAAL.middleware.managers.distributedmw.impl.LogListenerHandler.java">org/universAAL/middleware/managers/distributedmw/impl/LogListenerHandler.java</a>
                 </td>
                 <td>
-                  28
+                  20
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   27
@@ -105,13 +105,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html#org.universAAL.middleware.managers.distributedmw.impl.ListenerHandler.java">org/universAAL/middleware/managers/distributedmw/impl/ListenerHandler.java</a>
                 </td>
                 <td>
-                  27
+                  24
                 </td>
                 <td>
-                  12
+                  2
                 </td>
                 <td>
-                  29
+                  26
                 </td>
               </tr>
                           <tr>
@@ -119,7 +119,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html#org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberListener.java">org/universAAL/middleware/managers/distributedmw/api/DistributedBusMemberListener.java</a>
                 </td>
                 <td>
-                  17
+                  12
                 </td>
                 <td>
                   1
@@ -133,7 +133,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html#org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector.java">org/universAAL/middleware/managers/distributedmw/impl/SharedObjectConnector.java</a>
                 </td>
                 <td>
-                  16
+                  12
                 </td>
                 <td>
                   0
@@ -147,7 +147,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html#org.universAAL.middleware.managers.distributedmw.impl.SpaceListener.java">org/universAAL/middleware/managers/distributedmw/impl/SpaceListener.java</a>
                 </td>
                 <td>
-                  15
+                  12
                 </td>
                 <td>
                   0
@@ -161,10 +161,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html#org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl.java">org/universAAL/middleware/managers/distributedmw/impl/DistributedMWManagerImpl.java</a>
                 </td>
                 <td>
-                  45
+                  32
                 </td>
                 <td>
-                  5
+                  0
                 </td>
                 <td>
                   36
@@ -175,7 +175,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.distributedmw.core//checkstyle.html#org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberManager.java">org/universAAL/middleware/managers/distributedmw/api/DistributedBusMemberManager.java</a>
                 </td>
                 <td>
-                  12
+                  10
                 </td>
                 <td>
                   0

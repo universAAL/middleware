@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 1,
              Errors: 9,
-             Warnings: 3,
-             Infos: 10
+             Warnings: 2,
+             Infos: 3
       </title>
             <link>http://middleware/middleware.osgi/mw.connectors.communication.jgroups.osgi//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.connectors.communication.jgroups.osgi//checkstyle.html#org.universAAL.middleware.connectors.communication.jgroups.osgi.Activator.java">org/universAAL/middleware/connectors/communication/jgroups/osgi/Activator.java</a>
                 </td>
                 <td>
-                  10
+                  3
                 </td>
                 <td>
-                  3
+                  2
                 </td>
                 <td>
                   9

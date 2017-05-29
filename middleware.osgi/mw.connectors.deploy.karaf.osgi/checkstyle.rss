@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 2,
              Errors: 60,
-             Warnings: 33,
-             Infos: 81
+             Warnings: 25,
+             Infos: 31
       </title>
             <link>http://middleware/middleware.osgi/mw.connectors.deploy.karaf.osgi//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.connectors.deploy.karaf.osgi//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.osgi.Activator.java">org/universAAL/middleware/connectors/deploy/karaf/osgi/Activator.java</a>
                 </td>
                 <td>
-                  9
+                  4
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   7
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.connectors.deploy.karaf.osgi//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.KarafDeployConnector.java">org/universAAL/middleware/connectors/deploy/karaf/KarafDeployConnector.java</a>
                 </td>
                 <td>
-                  72
+                  27
                 </td>
                 <td>
-                  31
+                  24
                 </td>
                 <td>
                   53

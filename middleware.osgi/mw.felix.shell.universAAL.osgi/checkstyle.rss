@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 2,
              Errors: 16,
-             Warnings: 4,
-             Infos: 8
+             Warnings: 2,
+             Infos: 6
       </title>
             <link>http://maven.apache.org/checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://maven.apache.org/checkstyle.html#org.universAAL.middleware.felix.shell.commands.Activator.java">org/universAAL/middleware/felix/shell/commands/Activator.java</a>
                 </td>
                 <td>
-                  3
+                  2
                 </td>
                 <td>
                   0
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://maven.apache.org/checkstyle.html#org.universAAL.middleware.felix.shell.commands.AALSpaceCommand.java">org/universAAL/middleware/felix/shell/commands/AALSpaceCommand.java</a>
                 </td>
                 <td>
-                  5
+                  4
                 </td>
                 <td>
-                  4
+                  2
                 </td>
                 <td>
                   12

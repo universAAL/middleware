@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 4,
              Errors: 48,
-             Warnings: 14,
-             Infos: 65
+             Warnings: 6,
+             Infos: 52
       </title>
             <link>http://middleware/middleware.core/mw.bus.tracker.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.tracker.core//checkstyle.html#org.universAAL.middleware.tracker.IBusMemberRegistry.java">org/universAAL/middleware/tracker/IBusMemberRegistry.java</a>
                 </td>
                 <td>
-                  13
+                  8
                 </td>
                 <td>
                   2
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.tracker.core//checkstyle.html#org.universAAL.middleware.tracker.impl.BusMemberRegistryImpl.java">org/universAAL/middleware/tracker/impl/BusMemberRegistryImpl.java</a>
                 </td>
                 <td>
-                  33
+                  30
                 </td>
                 <td>
-                  9
+                  3
                 </td>
                 <td>
                   33
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.tracker.core//checkstyle.html#org.universAAL.middleware.tracker.impl.Activator.java">org/universAAL/middleware/tracker/impl/Activator.java</a>
                 </td>
                 <td>
-                  4
+                  3
                 </td>
                 <td>
-                  3
+                  1
                 </td>
                 <td>
                   10
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.tracker.core//checkstyle.html#org.universAAL.middleware.tracker.IBusMemberRegistryListener.java">org/universAAL/middleware/tracker/IBusMemberRegistryListener.java</a>
                 </td>
                 <td>
-                  15
+                  11
                 </td>
                 <td>
                   0

@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 4,
              Errors: 122,
-             Warnings: 31,
-             Infos: 144
+             Warnings: 15,
+             Infos: 89
       </title>
             <link>http://middleware/middleware.core/mw.connectors.communication.jgroups.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.communication.jgroups.core//checkstyle.html#org.universAAL.middleware.connectors.communication.jgroups.util.Consts.java">org/universAAL/middleware/connectors/communication/jgroups/util/Consts.java</a>
                 </td>
                 <td>
-                  3
+                  1
                 </td>
                 <td>
                   0
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.communication.jgroups.core//checkstyle.html#org.universAAL.middleware.connectors.communication.jgroups.JGroupsCommunicationConnector.java">org/universAAL/middleware/connectors/communication/jgroups/JGroupsCommunicationConnector.java</a>
                 </td>
                 <td>
-                  86
+                  39
                 </td>
                 <td>
-                  17
+                  10
                 </td>
                 <td>
                   73
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.communication.jgroups.core//checkstyle.html#org.universAAL.middleware.connectors.communication.jgroups.util.CryptUtil.java">org/universAAL/middleware/connectors/communication/jgroups/util/CryptUtil.java</a>
                 </td>
                 <td>
-                  33
+                  31
                 </td>
                 <td>
-                  13
+                  4
                 </td>
                 <td>
                   43
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.communication.jgroups.core//checkstyle.html#org.universAAL.middleware.connectors.communication.jgroups.util.Codec.java">org/universAAL/middleware/connectors/communication/jgroups/util/Codec.java</a>
                 </td>
                 <td>
-                  22
+                  18
                 </td>
                 <td>
                   1

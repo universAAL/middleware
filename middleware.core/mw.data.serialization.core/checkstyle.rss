@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 4,
              Errors: 138,
-             Warnings: 169,
-             Infos: 153
+             Warnings: 7,
+             Infos: 133
       </title>
             <link>http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleWriter.java">org/universAAL/middleware/serialization/turtle/TurtleWriter.java</a>
                 </td>
                 <td>
-                  79
+                  67
                 </td>
                 <td>
-                  83
+                  4
                 </td>
                 <td>
                   57
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleParser.java">org/universAAL/middleware/serialization/turtle/TurtleParser.java</a>
                 </td>
                 <td>
-                  31
+                  30
                 </td>
                 <td>
-                  43
+                  3
                 </td>
                 <td>
                   41
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleUtil.java">org/universAAL/middleware/serialization/turtle/TurtleUtil.java</a>
                 </td>
                 <td>
-                  28
+                  26
                 </td>
                 <td>
-                  43
+                  0
                 </td>
                 <td>
                   28
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleSerializer.java">org/universAAL/middleware/serialization/turtle/TurtleSerializer.java</a>
                 </td>
                 <td>
-                  15
+                  10
                 </td>
                 <td>
                   0

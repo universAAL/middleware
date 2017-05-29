@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 3,
              Errors: 39,
-             Warnings: 9,
-             Infos: 34
+             Warnings: 2,
+             Infos: 17
       </title>
             <link>http://middleware/middleware.osgi/mw.managers.configuration.osgi//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.managers.configuration.osgi//checkstyle.html#org.universAAL.middleware.managers.configuration.osgi.ConfigurationActivator.java">org/universAAL/middleware/managers/configuration/osgi/ConfigurationActivator.java</a>
                 </td>
                 <td>
-                  8
+                  3
                 </td>
                 <td>
                   1
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.managers.configuration.osgi//checkstyle.html#org.universAAL.middleware.managers.configuration.osgi.FileProvider.java">org/universAAL/middleware/managers/configuration/osgi/FileProvider.java</a>
                 </td>
                 <td>
-                  7
+                  4
                 </td>
                 <td>
                   0
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.managers.configuration.osgi//checkstyle.html#org.universAAL.middleware.managers.configuration.osgi.ResourceMapper.java">org/universAAL/middleware/managers/configuration/osgi/ResourceMapper.java</a>
                 </td>
                 <td>
-                  19
+                  10
                 </td>
                 <td>
-                  8
+                  1
                 </td>
                 <td>
                   13

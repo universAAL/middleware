@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 17,
              Errors: 278,
-             Warnings: 44,
-             Infos: 146
+             Warnings: 23,
+             Infos: 116
       </title>
             <link>http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.distributedmw.DistributedMWMessage.java">org/universAAL/middleware/brokers/message/distributedmw/DistributedMWMessage.java</a>
                 </td>
                 <td>
-                  12
+                  10
                 </td>
                 <td>
-                  3
+                  1
                 </td>
                 <td>
                   17
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessageException.java">org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessageException.java</a>
                 </td>
                 <td>
-                  3
+                  2
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   5
@@ -91,10 +91,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.deploy.DeployPayload.java">org/universAAL/middleware/brokers/message/deploy/DeployPayload.java</a>
                 </td>
                 <td>
-                  6
+                  5
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   14
@@ -105,7 +105,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.Payload.java">org/universAAL/middleware/brokers/message/Payload.java</a>
                 </td>
                 <td>
-                  11
+                  10
                 </td>
                 <td>
                   0
@@ -119,7 +119,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.Broker.java">org/universAAL/middleware/brokers/Broker.java</a>
                 </td>
                 <td>
-                  11
+                  6
                 </td>
                 <td>
                   1
@@ -133,10 +133,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.deploy.DeployMessage.java">org/universAAL/middleware/brokers/message/deploy/DeployMessage.java</a>
                 </td>
                 <td>
-                  7
+                  5
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   24
@@ -161,10 +161,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.configuration.ConfigurationMessage.java">org/universAAL/middleware/brokers/message/configuration/ConfigurationMessage.java</a>
                 </td>
                 <td>
-                  13
+                  9
                 </td>
                 <td>
-                  3
+                  1
                 </td>
                 <td>
                   30
@@ -175,10 +175,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.control.ControlMessage.java">org/universAAL/middleware/brokers/message/control/ControlMessage.java</a>
                 </td>
                 <td>
-                  21
+                  19
                 </td>
                 <td>
-                  10
+                  1
                 </td>
                 <td>
                   48
@@ -189,10 +189,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.deploy.DeployMessageException.java">org/universAAL/middleware/brokers/message/deploy/DeployMessageException.java</a>
                 </td>
                 <td>
-                  8
+                  7
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   4
@@ -203,7 +203,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.gson.BrokerMessageSerializer.java">org/universAAL/middleware/brokers/message/gson/BrokerMessageSerializer.java</a>
                 </td>
                 <td>
-                  8
+                  6
                 </td>
                 <td>
                   1
@@ -231,7 +231,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.gson.GsonParserBuilder.java">org/universAAL/middleware/brokers/message/gson/GsonParserBuilder.java</a>
                 </td>
                 <td>
-                  16
+                  14
                 </td>
                 <td>
                   0
@@ -245,10 +245,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage.java">org/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage.java</a>
                 </td>
                 <td>
-                  10
+                  9
                 </td>
                 <td>
-                  3
+                  1
                 </td>
                 <td>
                   31
@@ -259,7 +259,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.BrokerMessage.java">org/universAAL/middleware/brokers/message/BrokerMessage.java</a>
                 </td>
                 <td>
-                  12
+                  7
                 </td>
                 <td>
                   1
@@ -273,10 +273,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.api.core//checkstyle.html#org.universAAL.middleware.brokers.message.deploy.DeployNotificationPayload.java">org/universAAL/middleware/brokers/message/deploy/DeployNotificationPayload.java</a>
                 </td>
                 <td>
-                  6
+                  5
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   9

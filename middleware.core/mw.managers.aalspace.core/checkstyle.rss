@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 7,
              Errors: 182,
-             Warnings: 48,
-             Infos: 229
+             Warnings: 21,
+             Infos: 65
       </title>
             <link>http://middleware/middleware.core/mw.managers.aalspace.core//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.aalspace.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread.java">org/universAAL/middleware/managers/aalspace/util/RefreshAALSpaceThread.java</a>
                 </td>
                 <td>
-                  7
+                  2
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   10
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.aalspace.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.MatchingResultImpl.java">org/universAAL/middleware/managers/aalspace/MatchingResultImpl.java</a>
                 </td>
                 <td>
-                  5
+                  4
                 </td>
                 <td>
                   0
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.aalspace.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.java">org/universAAL/middleware/managers/aalspace/AALSpaceManagerImpl.java</a>
                 </td>
                 <td>
-                  181
+                  42
                 </td>
                 <td>
-                  29
+                  10
                 </td>
                 <td>
                   116
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.aalspace.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.util.Consts.java">org/universAAL/middleware/managers/aalspace/util/Consts.java</a>
                 </td>
                 <td>
-                  8
+                  5
                 </td>
                 <td>
                   10
@@ -105,10 +105,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.aalspace.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.util.CheckPeerThread.java">org/universAAL/middleware/managers/aalspace/util/CheckPeerThread.java</a>
                 </td>
                 <td>
-                  10
+                  2
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   12
@@ -119,10 +119,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.aalspace.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.util.AALSpaceSchemaEventHandler.java">org/universAAL/middleware/managers/aalspace/util/AALSpaceSchemaEventHandler.java</a>
                 </td>
                 <td>
-                  10
+                  7
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   5
@@ -133,10 +133,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.aalspace.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.util.Joiner.java">org/universAAL/middleware/managers/aalspace/util/Joiner.java</a>
                 </td>
                 <td>
-                  8
+                  3
                 </td>
                 <td>
-                  4
+                  0
                 </td>
                 <td>
                   9

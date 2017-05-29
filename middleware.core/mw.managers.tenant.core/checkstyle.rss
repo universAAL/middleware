@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 1,
              Errors: 20,
-             Warnings: 2,
-             Infos: 14
+             Warnings: 1,
+             Infos: 12
       </title>
             <link>http://maven.apache.org/checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://maven.apache.org/checkstyle.html#org.universAAL.middleware.managers.tenant.TenantManagerImpl.java">org/universAAL/middleware/managers/tenant/TenantManagerImpl.java</a>
                 </td>
                 <td>
-                  14
+                  12
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   20

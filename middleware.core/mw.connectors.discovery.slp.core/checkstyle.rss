@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 3,
              Errors: 101,
-             Warnings: 24,
-             Infos: 113
+             Warnings: 10,
+             Infos: 38
       </title>
             <link>http://middleware/middleware.core/mw.connectors.discovery.slp.core//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.discovery.slp.core//checkstyle.html#org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector.java">org/universAAL/middleware/connectors/discovery/slp/SLPDiscoveryConnector.java</a>
                 </td>
                 <td>
-                  82
+                  20
                 </td>
                 <td>
-                  8
+                  1
                 </td>
                 <td>
                   67
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.discovery.slp.core//checkstyle.html#org.universAAL.middleware.connectors.discovery.slp.util.Consts.java">org/universAAL/middleware/connectors/discovery/slp/util/Consts.java</a>
                 </td>
                 <td>
-                  6
+                  5
                 </td>
                 <td>
                   7
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.discovery.slp.core//checkstyle.html#org.universAAL.middleware.connectors.discovery.slp.SLPBrowser.java">org/universAAL/middleware/connectors/discovery/slp/SLPBrowser.java</a>
                 </td>
                 <td>
-                  25
+                  13
                 </td>
                 <td>
-                  9
+                  2
                 </td>
                 <td>
                   20

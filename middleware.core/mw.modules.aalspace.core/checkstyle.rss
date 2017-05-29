@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 1,
              Errors: 68,
-             Warnings: 19,
-             Infos: 185
+             Warnings: 11,
+             Infos: 31
       </title>
             <link>http://middleware/middleware.core/mw.modules.aalspace.core//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.modules.aalspace.core//checkstyle.html#org.universAAL.middleware.modules.aalspace.AALSpaceModuleImpl.java">org/universAAL/middleware/modules/aalspace/AALSpaceModuleImpl.java</a>
                 </td>
                 <td>
-                  185
+                  31
                 </td>
                 <td>
-                  19
+                  11
                 </td>
                 <td>
                   68
