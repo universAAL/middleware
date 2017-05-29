@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 80,
-             Errors: 990,
-             Warnings: 130,
-             Infos: 111
+             Errors: 746,
+             Warnings: 129,
+             Infos: 102
       </title>
             <link>http://middleware/middleware.core/mw.data.representation.core//checkstyle.html</link>
       <description>
@@ -55,7 +55,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  6
+                  4
                 </td>
               </tr>
                           <tr>
@@ -307,7 +307,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  6
+                  0
                 </td>
               </tr>
                           <tr>
@@ -357,7 +357,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.Property.java">org/universAAL/middleware/rdf/Property.java</a>
                 </td>
                 <td>
-                  4
+                  0
                 </td>
                 <td>
                   0
@@ -447,7 +447,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  184
+                  0
                 </td>
               </tr>
                           <tr>
@@ -601,7 +601,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -713,7 +713,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -825,7 +825,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -839,7 +839,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  15
+                  4
                 </td>
               </tr>
                           <tr>
@@ -867,7 +867,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  31
+                  3
                 </td>
               </tr>
                           <tr>
@@ -881,7 +881,7 @@ under the License.
                   6
                 </td>
                 <td>
-                  91
+                  89
                 </td>
               </tr>
                           <tr>
@@ -1057,13 +1057,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.ScopedResource.java">org/universAAL/middleware/rdf/ScopedResource.java</a>
                 </td>
                 <td>
-                  5
+                  0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
-                  13
+                  6
                 </td>
               </tr>
                           <tr>
@@ -1119,7 +1119,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>

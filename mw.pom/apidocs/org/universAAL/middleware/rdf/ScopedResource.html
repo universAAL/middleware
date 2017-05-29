@@ -146,8 +146,8 @@ var activeTableTab = "activeTableTab";
 <pre>public class <span class="typeNameLabel">ScopedResource</span>
 extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.html" title="class in org.universAAL.middleware.rdf">FinalizedResource</a></pre>
 <div class="block">A <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf"><code>ScopedResource</code></a> is a Resource that may have been generated at, or be
- sent to, another AALSpace. Thus it can be annotated with one or more Scopes
- (a.k.a tenant ID, origin AALSpace Id).</div>
+ sent to, another Space. Thus it can be annotated with one or more Scopes
+ (a.k.a tenant ID, origin Space ID).</div>
 <dl>
 <dt><span class="simpleTagLabel">Author:</span></dt>
 <dd>amedrano, Carsten Stockloew</dd>
@@ -174,7 +174,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <td class="colFirst"><code>static <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html#ONLY_LOCAL_SCOPE">ONLY_LOCAL_SCOPE</a></span></code>
 <div class="block">A special scope indicating the Resource may not be serialized to other
- AALSpaces.</div>
+ Spaces.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -257,7 +257,8 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html#getOriginScope--">getOriginScope</a></span>()</code>
-<div class="block">Get the Scope of the original AALSpace sender of this <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf"><code>ScopedResource</code></a>.</div>
+<div class="block">Get the Scope of the original Space sender of this
+ <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf"><code>ScopedResource</code></a>.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -288,7 +289,8 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
  candidate destination
  Allow if the destinations are empty (non-tenant-aware application has
  generated the message)
- Allow if the destinations are not empty and contains the candidate destination.</div>
+ Allow if the destinations are not empty and contains the candidate
+ destination.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
@@ -378,7 +380,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <h4>ONLY_LOCAL_SCOPE</h4>
 <pre>public static final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> ONLY_LOCAL_SCOPE</pre>
 <div class="block">A special scope indicating the Resource may not be serialized to other
- AALSpaces.</div>
+ Spaces.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../constant-values.html#org.universAAL.middleware.rdf.ScopedResource.ONLY_LOCAL_SCOPE">Constant Field Values</a></dd>
@@ -455,7 +457,8 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <li class="blockList">
 <h4>isScoped</h4>
 <pre>public&nbsp;boolean&nbsp;isScoped()</pre>
-<div class="block">Check if there is any scopes for this resource. This includes <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html#ONLY_LOCAL_SCOPE"><code>ONLY_LOCAL_SCOPE</code></a>.</div>
+<div class="block">Check if there is any scopes for this resource. This includes
+ <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html#ONLY_LOCAL_SCOPE"><code>ONLY_LOCAL_SCOPE</code></a>.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if there is one or more scopes annotated for this resource.</dd>
@@ -468,7 +471,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getScopes</h4>
-<pre>public&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&nbsp;getScopes()</pre>
+<pre>public final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&nbsp;getScopes()</pre>
 <div class="block">List all scopes associated to this resource.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -482,7 +485,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>addScope</h4>
-<pre>public&nbsp;boolean&nbsp;addScope(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;newScope)</pre>
+<pre>public final&nbsp;boolean&nbsp;addScope(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;newScope)</pre>
 <div class="block">Add a new scope to this resource.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -498,7 +501,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>clearScopes</h4>
-<pre>public&nbsp;boolean&nbsp;clearScopes()</pre>
+<pre>public final&nbsp;boolean&nbsp;clearScopes()</pre>
 <div class="block">Remove all scope annotations from this resource. If the Resource is being
  sent and the scopes are cleared it is assumed that it has to be sent to
  all available Scopes.</div>
@@ -514,7 +517,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>setScope</h4>
-<pre>public&nbsp;boolean&nbsp;setScope(<a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf">ScopedResource</a>&nbsp;src)</pre>
+<pre>public final&nbsp;boolean&nbsp;setScope(<a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf">ScopedResource</a>&nbsp;src)</pre>
 <div class="block">Copy the scope from another <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf"><code>ScopedResource</code></a>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -530,7 +533,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>isSerializableTo</h4>
-<pre>public&nbsp;boolean&nbsp;isSerializableTo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;destinationCandidateScope)</pre>
+<pre>public final&nbsp;boolean&nbsp;isSerializableTo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;destinationCandidateScope)</pre>
 <div class="block">Check whether if this <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf"><code>ScopedResource</code></a> may be sent to a destination
  scope <br>
 
@@ -544,7 +547,8 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
  candidate destination
  <li>Allow if the destinations are empty (non-tenant-aware application has
  generated the message)
- <li>Allow if the destinations are not empty and contains the candidate destination.
+ <li>Allow if the destinations are not empty and contains the candidate
+ destination.
  </ul></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -561,12 +565,13 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getOriginScope</h4>
-<pre>public&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getOriginScope()</pre>
-<div class="block">Get the Scope of the original AALSpace sender of this <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf"><code>ScopedResource</code></a>.
- To be used only by Gateways!</div>
+<pre>public final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getOriginScope()</pre>
+<div class="block">Get the Scope of the original Space sender of this
+ <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf"><code>ScopedResource</code></a>. To be used only by Gateways!</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The scoped assiged usig <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html#setOriginScope-java.lang.String-"><code>setOriginScope(String)</code></a>.</dd>
+<dd>The scoped assiged usig
+         <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html#setOriginScope-java.lang.String-"><code>setOriginScope(String)</code></a>.</dd>
 </dl>
 </li>
 </ul>
@@ -576,10 +581,9 @@ extends <a href="../../../../org/universAAL/middleware/rdf/FinalizedResource.htm
 <ul class="blockListLast">
 <li class="blockList">
 <h4>setOriginScope</h4>
-<pre>public&nbsp;void&nbsp;setOriginScope(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;scope)</pre>
-<div class="block">Set the Origin Scope of an incoming <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf"><code>ScopedResource</code></a>.
- To be used by Gateways!
- To reset, use with scope = null.</div>
+<pre>public final&nbsp;void&nbsp;setOriginScope(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;scope)</pre>
+<div class="block">Set the Origin Scope of an incoming <a href="../../../../org/universAAL/middleware/rdf/ScopedResource.html" title="class in org.universAAL.middleware.rdf"><code>ScopedResource</code></a>. To be used by
+ Gateways! To reset, use with scope = null.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>scope</code> - The Scope ID.</dd>
