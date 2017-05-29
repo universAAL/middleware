@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="1.0" lines-covered="0" lines-valid="11" branches-covered="0" branches-valid="0" complexity="1.0" version="2.1.1" timestamp="1496063290536">
+<coverage line-rate="0.0" branch-rate="1.0" lines-covered="0" lines-valid="11" branches-covered="0" branches-valid="0" complexity="1.0" version="2.1.1" timestamp="1496067418519">
 	<sources>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.managers.tenant.osgi/src/main/java</source>
 		<source>--source</source>

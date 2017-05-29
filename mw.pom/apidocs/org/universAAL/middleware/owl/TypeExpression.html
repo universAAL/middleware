@@ -149,7 +149,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/Resource.html" title=
  Each type expression represents a set of individuals (just like a class in an
  object-oriented programming language (OOP) represents a set of objects), or a
  set of literals.
- 
+
  <p>
  OWL-2 explicitly distinguishes between <i>class expressions</i> (to describe
  sets of individuals) and <i>data ranges</i> (to describe sets of literals).
@@ -169,7 +169,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/Resource.html" title=
  literal: instance of a data range, e.g. the literal '1' is an instance of
  int, and the literal "Hello World" is an instance of String.
  </ul>
- 
+
  <p>
  In universAAL, there is only one class for each concept of class expression
  and data range. For example, OWL-2 distinguishes between <i>ObjectOneOf</i>
@@ -177,24 +177,24 @@ extends <a href="../../../../org/universAAL/middleware/rdf/Resource.html" title=
  whereas universAAL has only the one class <a href="../../../../org/universAAL/middleware/owl/Enumeration.html" title="class in org.universAAL.middleware.owl"><code>Enumeration</code></a>. The drawback
  of this simplification is that an RDF-graph should be created starting with
  the leafs towards the root of the graph. For example:<br>
- 
+
  <pre>
  // problematic:
  u = new Union();
  u.addType(new Enumeration(..));
- 
+
  // OK:
  u = new Union(new Enumeration(..));
  </pre>
- 
+
  In this example, the type of the union (whether it is a class expression or a
  data range) can be determined because the argument is already fully set up
  and it is known whether the given enumeration is a class expression or a data
  range.
- 
+
  <p>
  There are three different kinds of type expressions:
- 
+
  <ul>
  <li>
  <a href="../../../../org/universAAL/middleware/owl/PropertyRestriction.html" title="class in org.universAAL.middleware.owl"><code>PropertyRestriction</code></a>: restricts the set of individuals by defining a
@@ -214,7 +214,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/Resource.html" title=
  data ranges.<br>
  See also: <a href="../../../../org/universAAL/middleware/owl/BoundedValueRestriction.html" title="class in org.universAAL.middleware.owl"><code>BoundedValueRestriction</code></a>, <a href="../../../../org/universAAL/middleware/owl/LengthRestriction.html" title="class in org.universAAL.middleware.owl"><code>LengthRestriction</code></a>
  </ul>
- 
+
  <p>
  There are three main methods to compare type expression:
  <ul>
@@ -228,7 +228,7 @@ extends <a href="../../../../org/universAAL/middleware/rdf/Resource.html" title=
  isDisjointWith: determines if the given type expression has no member in
  common with the class represented by this type expression</li>
  </ul>
- 
+
  <p>
  All three methods have three parameters in common:
  <ul>

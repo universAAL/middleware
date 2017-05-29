@@ -142,7 +142,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
  of the real world. An ontology is typically accompanied by a
  <a href="../../../../org/universAAL/middleware/rdf/ResourceFactory.html" title="interface in org.universAAL.middleware.rdf"><code>ResourceFactory</code></a> to create new instances of the ontological classes.
  </p>
- 
+
  <p>
  For example, one might want to model multimedia devices and creates the
  ontology <i>multimedia</i> with the classes <i>TV</i>, <i>LoudSpeaker</i>,
@@ -154,7 +154,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
  property are instances of <i>LoudSpeaker</i> (since <i>LoudSpeaker</i> is a
  class, the property would be an <a href="../../../../org/universAAL/middleware/owl/ObjectProperty.html" title="class in org.universAAL.middleware.owl"><code>ObjectProperty</code></a>).
  </p>
- 
+
  <p>
  Each ontology class corresponds to a Java class that must be a subclass of
  <a href="../../../../org/universAAL/middleware/owl/ManagedIndividual.html" title="class in org.universAAL.middleware.owl"><code>ManagedIndividual</code></a>. This class is then responsible to provide getter
@@ -163,7 +163,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
  that class using the methods <a href="../../../../org/universAAL/middleware/rdf/Resource.html#getProperty-java.lang.String-"><code>Resource.getProperty(String)</code></a> and
  <a href="../../../../org/universAAL/middleware/rdf/Resource.html#setProperty-java.lang.String-java.lang.Object-"><code>Resource.setProperty(String, Object)</code></a>.
  </p>
- 
+
  <p>
  Additionally, for every ontology class (which stores the information at the
  instance level), there is an instance of <a href="../../../../org/universAAL/middleware/owl/OntClassInfo.html" title="class in org.universAAL.middleware.owl"><code>OntClassInfo</code></a> (which stores
@@ -173,7 +173,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
  <a href="../../../../org/universAAL/middleware/owl/OntClassInfoSetup.html" title="interface in org.universAAL.middleware.owl"><code>OntClassInfoSetup</code></a> and the getter methods are in <a href="../../../../org/universAAL/middleware/owl/OntClassInfo.html" title="class in org.universAAL.middleware.owl"><code>OntClassInfo</code></a>
  so that only the creator of an ontology can make changes to it).
  </p>
- 
+
  <p>
  In our example, the concept <i>LoudSpeaker</i> has the property <i>volume</i>
  and this information is a model information which is stored in an
@@ -191,7 +191,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
  of this class would then identify a specific instance of <i>LoudSpeaker</i>,
  e.g. <i>LoudSpeaker_2</i> with the <i>volume</i> <i>100</i>.
  </p>
- 
+
  <p>
  To create an ontology in universAAL, a subclass of this class has to be
  defined and the method <a href="../../../../org/universAAL/middleware/owl/Ontology.html#create--"><code>create()</code></a> has to be overwritten. The
@@ -201,7 +201,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
  <a href="../../../../org/universAAL/middleware/owl/OntologyManagement.html#register-org.universAAL.middleware.container.ModuleContext-org.universAAL.middleware.owl.Ontology-"><code>OntologyManagement.register(org.universAAL.middleware.container.ModuleContext, Ontology)</code></a>
  before it can be used.
  </p>
- 
+
  <p>
  In our example, the classes <i>TV</i>, <i>LoudSpeaker</i>, <i>VideoCamera</i>
  and <i>Microphone</i> are created with one of the

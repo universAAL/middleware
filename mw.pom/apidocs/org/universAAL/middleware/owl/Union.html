@@ -132,13 +132,13 @@ extends <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" 
 <div class="block">A <a href="../../../../org/universAAL/middleware/owl/TypeExpression.html" title="class in org.universAAL.middleware.owl"><code>TypeExpression</code></a> that contains all individuals/literals that are in
  one of the given type expressions. Union corresponds to OWL ObjectUnionOf or
  DataUnionOf.
- 
+
  <p>
  For example, <code>Union(Enumeration(ex:Peter), Enumeration(ex:Paul))</code>
  contains the individuals ex:Peter and ex:Paul, and<br>
  <code>Union(Enumeration("Peter"), Enumeration(1))</code> contains the String
  "Peter" and the integer one.
- 
+
  <p>
  The given type expressions must not mix sets of individuals with sets of
  literals. For example,
