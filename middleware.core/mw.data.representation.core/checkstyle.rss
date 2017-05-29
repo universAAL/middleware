@@ -26,7 +26,7 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 80,
-             Errors: 1005,
+             Errors: 990,
              Warnings: 130,
              Infos: 111
       </title>
@@ -447,7 +447,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  189
+                  184
                 </td>
               </tr>
                           <tr>
@@ -1161,7 +1161,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  27
+                  17
                 </td>
               </tr>
                       </tbody>
