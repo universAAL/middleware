@@ -30,5 +30,6 @@ import java.util.ArrayList;
  * @see ClosedCollection
  */
 public abstract class ObjectCollection extends ArrayList {
+    /** Dummy. */
     private static final long serialVersionUID = 1L;
 }

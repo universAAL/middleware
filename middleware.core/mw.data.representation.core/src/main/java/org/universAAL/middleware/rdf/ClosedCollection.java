@@ -33,5 +33,6 @@ package org.universAAL.middleware.rdf;
  * @see OpenCollection
  */
 public final class ClosedCollection extends ObjectCollection {
+    /** Dummy. */
     private static final long serialVersionUID = 1L;
 }

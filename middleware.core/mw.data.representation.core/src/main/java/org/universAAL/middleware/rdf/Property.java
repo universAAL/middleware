@@ -24,10 +24,7 @@ import java.util.List;
 
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.TypeExpression;
-import org.universAAL.middleware.owl.DatatypeProperty;
-import org.universAAL.middleware.owl.ObjectProperty;
 import org.universAAL.middleware.owl.OntClassInfo;
-import org.universAAL.middleware.owl.Ontology;
 
 /**
  * Definition of an RDF property. The creation is separated from the usage; for

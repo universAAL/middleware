@@ -137,6 +137,12 @@ public final class PropertyPath extends FinalizedResource {
     /**
      * Determines if the specified property path has as prefix a specified set
      * of properties.
+     *
+     * @param path
+     *            the full path that is investigated for having the prefix.
+     * @param prefix
+     *            the property path that should be a prefix of path.
+     * @return true, if prefix is a prefix of path.
      */
     public static boolean pathHasPrefix(String[] path, String[] prefix) {
 	if (path == null || prefix == null || prefix.length == 0
@@ -153,6 +159,11 @@ public final class PropertyPath extends FinalizedResource {
     /**
      * Takes a Resource and creates an instance of PropertyPath. The content is
      * copied to the newly created object.
+     *
+     * @param pr
+     *            the resource that should be converted into an instance of
+     *            {@link PropertyPath}.
+     * @return an instance of {@link PropertyPath}.
      */
     public static PropertyPath toPropertyPath(Resource pr) {
 	if (pr instanceof PropertyPath)
@@ -172,6 +183,11 @@ public final class PropertyPath extends FinalizedResource {
     /**
      * Determines if the property path of this object equals the property path
      * of another object. The set of properties is compared piece-wise.
+     *
+     * @param other
+     *            the reference object with which to compare.
+     * @return true, if this object and the other object have the same property
+     *         path.
      */
     public boolean equals(Object other) {
 	if (!(other instanceof PropertyPath))
@@ -206,7 +222,11 @@ public final class PropertyPath extends FinalizedResource {
 	return false;
     }
 
-    /** Get the first element of the path. */
+    /**
+     * Get the first element of the path.
+     *
+     * @return the first element of the path.
+     */
     public String getFirstPathElement() {
 	List l = (List) props.get(PROP_PROPERTY_PATH);
 	if (l == null || l.isEmpty())
@@ -216,7 +236,11 @@ public final class PropertyPath extends FinalizedResource {
 	return (o == null) ? null : o.toString();
     }
 
-    /** Get the last element of the path. */
+    /**
+     * Get the last element of the path.
+     *
+     * @return the last element of the path.
+     */
     public String getLastPathElement() {
 	List l = (List) props.get(PROP_PROPERTY_PATH);
 	if (l == null || l.isEmpty())
@@ -226,7 +250,11 @@ public final class PropertyPath extends FinalizedResource {
 	return (o == null) ? null : o.toString();
     }
 
-    /** Get the path in form of a String array. */
+    /**
+     * Get the path in form of a String array.
+     *
+     * @return the path as String array.
+     */
     public String[] getThePath() {
 	List l = (List) props.get(PROP_PROPERTY_PATH);
 	if (l == null)
@@ -316,7 +344,7 @@ public final class PropertyPath extends FinalizedResource {
 	return result;
     }
 
-    /** Make this object not being an XMLLiteral */
+    /** Make this object not being an XMLLiteral. */
     public void unliteral() {
 	isXMLLiteral = false;
     }

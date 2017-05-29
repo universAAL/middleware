@@ -871,13 +871,23 @@ public class Resource {
 	return isXMLLiteral;
     }
 
-    /** Set the Resource comment. Convenient method to set rdfs:comment. */
+    /**
+     * Set the Resource comment. Convenient method to set rdfs:comment.
+     *
+     * @param comment
+     *            the comment.
+     */
     public void setResourceComment(String comment) {
 	if (comment != null && !props.containsKey(PROP_RDFS_COMMENT))
 	    props.put(PROP_RDFS_COMMENT, comment);
     }
 
-    /** Set the Resource label. Convenient method to set rdfs:label. */
+    /**
+     * Set the Resource label. Convenient method to set rdfs:label.
+     *
+     * @param label
+     *            the label.
+     */
     public void setResourceLabel(String label) {
 	if (label != null && !props.containsKey(PROP_RDFS_LABEL))
 	    props.put(PROP_RDFS_LABEL, label);

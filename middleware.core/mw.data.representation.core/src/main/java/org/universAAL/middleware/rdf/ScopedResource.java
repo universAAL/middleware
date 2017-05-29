@@ -21,8 +21,8 @@ import java.util.List;
 
 /**
  * A {@link ScopedResource} is a Resource that may have been generated at, or be
- * sent to, another AALSpace. Thus it can be annotated with one or more Scopes
- * (a.k.a tenant ID, origin AALSpace Id).
+ * sent to, another Space. Thus it can be annotated with one or more Scopes
+ * (a.k.a tenant ID, origin Space ID).
  *
  * @author amedrano
  * @author Carsten Stockloew
@@ -33,8 +33,7 @@ public class ScopedResource extends FinalizedResource {
     /**
      * The property URI for holding the Destination Scopes.
      */
-    public static final String PROP_SCOPES = uAAL_VOCABULARY_NAMESPACE
-	    + "hasScopes";
+    public static final String PROP_SCOPES = uAAL_VOCABULARY_NAMESPACE + "hasScopes";
 
     /**
      * The property URI for holding the Origin Scope. This property is to be
@@ -43,15 +42,13 @@ public class ScopedResource extends FinalizedResource {
      * artifacts.
      *
      */
-    public static final String PROP_ORIG_SCOPE = uAAL_VOCABULARY_NAMESPACE
-	    + "hasOriginScope";
+    public static final String PROP_ORIG_SCOPE = uAAL_VOCABULARY_NAMESPACE + "hasOriginScope";
 
     /**
      * A special scope indicating the Resource may not be serialized to other
-     * AALSpaces.
+     * Spaces.
      */
-    public static final String ONLY_LOCAL_SCOPE = uAAL_VOCABULARY_NAMESPACE
-	    + "localScope";
+    public static final String ONLY_LOCAL_SCOPE = uAAL_VOCABULARY_NAMESPACE + "localScope";
 
     public ScopedResource() {
 	super();
@@ -74,7 +71,8 @@ public class ScopedResource extends FinalizedResource {
     }
 
     /**
-     * Check if there is any scopes for this resource. This includes {@link ScopedResource#ONLY_LOCAL_SCOPE}.
+     * Check if there is any scopes for this resource. This includes
+     * {@link ScopedResource#ONLY_LOCAL_SCOPE}.
      *
      * @return true if there is one or more scopes annotated for this resource.
      */
@@ -87,7 +85,7 @@ public class ScopedResource extends FinalizedResource {
      *
      * @return always a list, empty if there are no scopes.
      */
-    public List getScopes() {
+    public final List getScopes() {
 	Object s = getProperty(PROP_SCOPES);
 	if (s instanceof String) {
 	    List res = new ArrayList();
@@ -107,7 +105,7 @@ public class ScopedResource extends FinalizedResource {
      *            the new scope to be added
      * @return whether the change was successful or not.
      */
-    public boolean addScope(String newScope) {
+    public final boolean addScope(String newScope) {
 	if (newScope == null) {
 	    return false;
 	}
@@ -137,7 +135,7 @@ public class ScopedResource extends FinalizedResource {
      *
      * @return iff the scopes have been cleared.
      */
-    public boolean clearScopes() {
+    public final boolean clearScopes() {
 	return changeProperty(PROP_SCOPES, null);
     }
 
@@ -148,7 +146,7 @@ public class ScopedResource extends FinalizedResource {
      *            the source from which to copy the scope.
      * @return whether the change was successful or not.
      */
-    public boolean setScope(ScopedResource src) {
+    public final boolean setScope(ScopedResource src) {
 	Object scope = src.getProperty(PROP_SCOPES);
 	if (scope == null) {
 	    return clearScopes();
@@ -172,7 +170,8 @@ public class ScopedResource extends FinalizedResource {
      * candidate destination
      * <li>Allow if the destinations are empty (non-tenant-aware application has
      * generated the message)
-     * <li>Allow if the destinations are not empty and contains the candidate destination.
+     * <li>Allow if the destinations are not empty and contains the candidate
+     * destination.
      * </ul>
      *
      * @param destinationCandidateScope
@@ -180,38 +179,39 @@ public class ScopedResource extends FinalizedResource {
      * @return true iff it may be sent according to origin / destination
      *         restrictions.
      */
-    public boolean isSerializableTo(String destinationCandidateScope) {
+    public final boolean isSerializableTo(String destinationCandidateScope) {
 	if (destinationCandidateScope == null) {
 	    return false;
 	}
 	String orig = getOriginScope();
 	List dest = getScopes();
-	return !destinationCandidateScope.equals(orig)
-		&& !dest.contains(ONLY_LOCAL_SCOPE)
+	return !destinationCandidateScope.equals(orig) && !dest.contains(ONLY_LOCAL_SCOPE)
 		&& (dest.isEmpty() || dest.contains(destinationCandidateScope));
     }
 
     /**
-     * Get the Scope of the original AALSpace sender of this {@link ScopedResource}.
-     * To be used only by Gateways!
-     * @return The scoped assiged usig {@link ScopedResource#setOriginScope(String)}.
+     * Get the Scope of the original Space sender of this
+     * {@link ScopedResource}. To be used only by Gateways!
+     *
+     * @return The scoped assiged usig
+     *         {@link ScopedResource#setOriginScope(String)}.
      */
-    public String getOriginScope() {
-		return (String) props.get(PROP_ORIG_SCOPE);
-	}
+    public final String getOriginScope() {
+	return (String) props.get(PROP_ORIG_SCOPE);
+    }
 
     /**
-     * Set the Origin Scope of an incoming {@link ScopedResource}.
-     * To be used by Gateways!
-     * To reset, use with scope = null.
-     * @param scope The Scope ID.
+     * Set the Origin Scope of an incoming {@link ScopedResource}. To be used by
+     * Gateways! To reset, use with scope = null.
+     *
+     * @param scope
+     *            The Scope ID.
      */
-    public void setOriginScope(String scope){
-    	if(scope!=null){
-    		props.put(PROP_ORIG_SCOPE, scope);
-    	}
-    	else {
-    		props.remove(PROP_ORIG_SCOPE);
-    	}
+    public final void setOriginScope(String scope) {
+	if (scope != null) {
+	    props.put(PROP_ORIG_SCOPE, scope);
+	} else {
+	    props.remove(PROP_ORIG_SCOPE);
+	}
     }
 }

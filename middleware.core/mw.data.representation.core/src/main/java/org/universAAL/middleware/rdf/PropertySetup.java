@@ -42,12 +42,18 @@ public interface PropertySetup {
     /**
      * Set the domain that is used to state that any resource that has a given
      * property is an instance of one or more classes.
+     *
+     * @param dom
+     *            the domain of the property.
      */
     public void setDomain(TypeExpression dom);
 
     /**
      * Set the range that is used to state that the values of a property are
      * instances of one or more classes.
+     *
+     * @param range
+     *            the range of the property.
      */
     public void setRange(TypeExpression range);
 

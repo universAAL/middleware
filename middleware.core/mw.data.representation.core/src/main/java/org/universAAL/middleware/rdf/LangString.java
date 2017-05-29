@@ -16,567 +16,567 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
- */
+. */
 package org.universAAL.middleware.rdf;
 
 /**
  * A String literal with optional language tag. Predefined language tags are
  * according to ISO 639-1.
  *
- * @author Carsten Stockloew
+ * @author Carsten Stockloew .
  */
 public final class LangString {
 
-    /** Northwest Caucasian - Abkhaz */
+    /** Northwest Caucasian - Abkhaz. */
     public static final String LANG_ABKHAZ = "ab";
 
-    /** Afro-Asiatic - Afar */
+    /** Afro-Asiatic - Afar. */
     public static final String LANG_AFAR = "aa";
 
-    /** Indo-European - Afrikaans */
+    /** Indo-European - Afrikaans. */
     public static final String LANG_AFRIKAANS = "af";
 
-    /** Niger–Congo - Akan */
+    /** Niger–Congo - Akan. */
     public static final String LANG_AKAN = "ak";
 
-    /** Indo-European - Albanian */
+    /** Indo-European - Albanian. */
     public static final String LANG_ALBANIAN = "sq";
 
-    /** Afro-Asiatic - Amharic */
+    /** Afro-Asiatic - Amharic. */
     public static final String LANG_AMHARIC = "am";
 
-    /** Afro-Asiatic - Arabic */
+    /** Afro-Asiatic - Arabic. */
     public static final String LANG_ARABIC = "ar";
 
-    /** Indo-European - Aragonese */
+    /** Indo-European - Aragonese. */
     public static final String LANG_ARAGONESE = "an";
 
-    /** Indo-European - Armenian */
+    /** Indo-European - Armenian. */
     public static final String LANG_ARMENIAN = "hy";
 
-    /** Indo-European - Assamese */
+    /** Indo-European - Assamese. */
     public static final String LANG_ASSAMESE = "as";
 
-    /** Northeast Caucasian - Avaric */
+    /** Northeast Caucasian - Avaric. */
     public static final String LANG_AVARIC = "av";
 
-    /** Indo-European - Avestan */
+    /** Indo-European - Avestan. */
     public static final String LANG_AVESTAN = "ae";
 
-    /** Aymaran - Aymara */
+    /** Aymaran - Aymara. */
     public static final String LANG_AYMARA = "ay";
 
-    /** Turkic - Azerbaijani */
+    /** Turkic - Azerbaijani. */
     public static final String LANG_AZERBAIJANI = "az";
 
-    /** Niger–Congo - Bambara */
+    /** Niger–Congo - Bambara. */
     public static final String LANG_BAMBARA = "bm";
 
-    /** Turkic - Bashkir */
+    /** Turkic - Bashkir. */
     public static final String LANG_BASHKIR = "ba";
 
-    /** Language isolate - Basque */
+    /** Language isolate - Basque. */
     public static final String LANG_BASQUE = "eu";
 
-    /** Indo-European - Belarusian */
+    /** Indo-European - Belarusian. */
     public static final String LANG_BELARUSIAN = "be";
 
-    /** Indo-European - Bengali, Bangla */
+    /** Indo-European - Bengali, Bangla. */
     public static final String LANG_BENGALI = "bn";
 
-    /** Indo-European - Bihari */
+    /** Indo-European - Bihari. */
     public static final String LANG_BIHARI = "bh";
 
-    /** Creole - Bislama */
+    /** Creole - Bislama. */
     public static final String LANG_BISLAMA = "bi";
 
-    /** Indo-European - Bosnian */
+    /** Indo-European - Bosnian. */
     public static final String LANG_BOSNIAN = "bs";
 
-    /** Indo-European - Breton */
+    /** Indo-European - Breton. */
     public static final String LANG_BRETON = "br";
 
-    /** Indo-European - Bulgarian */
+    /** Indo-European - Bulgarian. */
     public static final String LANG_BULGARIAN = "bg";
 
-    /** Sino-Tibetan - Burmese */
+    /** Sino-Tibetan - Burmese. */
     public static final String LANG_BURMESE = "my";
 
-    /** Indo-European - Catalan */
+    /** Indo-European - Catalan. */
     public static final String LANG_CATALAN = "ca";
 
-    /** Austronesian - Chamorro */
+    /** Austronesian - Chamorro. */
     public static final String LANG_CHAMORRO = "ch";
 
-    /** Northeast Caucasian - Chechen */
+    /** Northeast Caucasian - Chechen. */
     public static final String LANG_CHECHEN = "ce";
 
-    /** Niger–Congo - Chichewa, Chewa, Nyanja */
+    /** Niger–Congo - Chichewa, Chewa, Nyanja. */
     public static final String LANG_CHICHEWA = "ny";
 
-    /** Sino-Tibetan - Chinese */
+    /** Sino-Tibetan - Chinese. */
     public static final String LANG_CHINESE = "zh";
 
-    /** Turkic - Chuvash */
+    /** Turkic - Chuvash. */
     public static final String LANG_CHUVASH = "cv";
 
-    /** Indo-European - Cornish */
+    /** Indo-European - Cornish. */
     public static final String LANG_CORNISH = "kw";
 
-    /** Indo-European - Corsican */
+    /** Indo-European - Corsican. */
     public static final String LANG_CORSICAN = "co";
 
-    /** Algonquian - Cree */
+    /** Algonquian - Cree. */
     public static final String LANG_CREE = "cr";
 
-    /** Indo-European - Croatian */
+    /** Indo-European - Croatian. */
     public static final String LANG_CROATIAN = "hr";
 
-    /** Indo-European - Czech */
+    /** Indo-European - Czech. */
     public static final String LANG_CZECH = "cs";
 
-    /** Indo-European - Danish */
+    /** Indo-European - Danish. */
     public static final String LANG_DANISH = "da";
 
-    /** Indo-European - Divehi, Dhivehi, Maldivian */
+    /** Indo-European - Divehi, Dhivehi, Maldivian. */
     public static final String LANG_DIVEHI = "dv";
 
-    /** Indo-European - Dutch */
+    /** Indo-European - Dutch. */
     public static final String LANG_DUTCH = "nl";
 
-    /** Sino-Tibetan - Dzongkha */
+    /** Sino-Tibetan - Dzongkha. */
     public static final String LANG_DZONGKHA = "dz";
 
-    /** Indo-European - English */
+    /** Indo-European - English. */
     public static final String LANG_ENGLISH = "en";
 
-    /** Constructed - Esperanto */
+    /** Constructed - Esperanto. */
     public static final String LANG_ESPERANTO = "eo";
 
-    /** Uralic - Estonian */
+    /** Uralic - Estonian. */
     public static final String LANG_ESTONIAN = "et";
 
-    /** Niger–Congo - Ewe */
+    /** Niger–Congo - Ewe. */
     public static final String LANG_EWE = "ee";
 
-    /** Indo-European - Faroese */
+    /** Indo-European - Faroese. */
     public static final String LANG_FAROESE = "fo";
 
-    /** Austronesian - Fijian */
+    /** Austronesian - Fijian. */
     public static final String LANG_FIJIAN = "fj";
 
-    /** Uralic - Finnish */
+    /** Uralic - Finnish. */
     public static final String LANG_FINNISH = "fi";
 
-    /** Indo-European - French */
+    /** Indo-European - French. */
     public static final String LANG_FRENCH = "fr";
 
-    /** Niger–Congo - Fula, Fulah, Pulaar, Pular */
+    /** Niger–Congo - Fula, Fulah, Pulaar, Pular. */
     public static final String LANG_FULA = "ff";
 
-    /** Indo-European - Galician */
+    /** Indo-European - Galician. */
     public static final String LANG_GALICIAN = "gl";
 
-    /** Niger–Congo - Ganda */
+    /** Niger–Congo - Ganda. */
     public static final String LANG_GANDA = "lg";
 
-    /** South Caucasian - Georgian */
+    /** South Caucasian - Georgian. */
     public static final String LANG_GEORGIAN = "ka";
 
-    /** Indo-European - German */
+    /** Indo-European - German. */
     public static final String LANG_GERMAN = "de";
 
-    /** Indo-European - Greek (modern) */
+    /** Indo-European - Greek (modern). */
     public static final String LANG_GREEK = "el";
 
-    /** Tupian - Guaraní */
+    /** Tupian - Guaraní. */
     public static final String LANG_GUARANI = "gn";
 
-    /** Indo-European - Gujarati */
+    /** Indo-European - Gujarati. */
     public static final String LANG_GUJARATI = "gu";
 
-    /** Creole - Haitian, Haitian Creole */
+    /** Creole - Haitian, Haitian Creole. */
     public static final String LANG_HAITIAN = "ht";
 
-    /** Afro-Asiatic - Hausa */
+    /** Afro-Asiatic - Hausa. */
     public static final String LANG_HAUSA = "ha";
 
-    /** Afro-Asiatic - Hebrew (modern) */
+    /** Afro-Asiatic - Hebrew (modern). */
     public static final String LANG_HEBREW = "he";
 
-    /** Niger–Congo - Herero */
+    /** Niger–Congo - Herero. */
     public static final String LANG_HERERO = "hz";
 
-    /** Indo-European - Hindi */
+    /** Indo-European - Hindi. */
     public static final String LANG_HINDI = "hi";
 
-    /** Austronesian - Hiri Motu */
+    /** Austronesian - Hiri Motu. */
     public static final String LANG_HIRI_MOTU = "ho";
 
-    /** Uralic - Hungarian */
+    /** Uralic - Hungarian. */
     public static final String LANG_HUNGARIAN = "hu";
 
-    /** Indo-European - Icelandic */
+    /** Indo-European - Icelandic. */
     public static final String LANG_ICELANDIC = "is";
 
-    /** Constructed - Ido */
+    /** Constructed - Ido. */
     public static final String LANG_IDO = "io";
 
-    /** Niger–Congo - Igbo */
+    /** Niger–Congo - Igbo. */
     public static final String LANG_IGBO = "ig";
 
-    /** Austronesian - Indonesian */
+    /** Austronesian - Indonesian. */
     public static final String LANG_INDONESIAN = "id";
 
-    /** Constructed - Interlingua */
+    /** Constructed - Interlingua. */
     public static final String LANG_INTERLINGUA = "ia";
 
-    /** Constructed - Interlingue */
+    /** Constructed - Interlingue. */
     public static final String LANG_INTERLINGUE = "ie";
 
-    /** Eskimo–Aleut - Inuktitut */
+    /** Eskimo–Aleut - Inuktitut. */
     public static final String LANG_INUKTITUT = "iu";
 
-    /** Eskimo–Aleut - Inupiaq */
+    /** Eskimo–Aleut - Inupiaq. */
     public static final String LANG_INUPIAQ = "ik";
 
-    /** Indo-European - Irish */
+    /** Indo-European - Irish. */
     public static final String LANG_IRISH = "ga";
 
-    /** Indo-European - Italian */
+    /** Indo-European - Italian. */
     public static final String LANG_ITALIAN = "it";
 
-    /** Japonic - Japanese */
+    /** Japonic - Japanese. */
     public static final String LANG_JAPANESE = "ja";
 
-    /** Austronesian - Javanese */
+    /** Austronesian - Javanese. */
     public static final String LANG_JAVANESE = "jv";
 
-    /** Eskimo–Aleut - Kalaallisut, Greenlandic */
+    /** Eskimo–Aleut - Kalaallisut, Greenlandic. */
     public static final String LANG_KALAALLISUT = "kl";
 
-    /** Dravidian - Kannada */
+    /** Dravidian - Kannada. */
     public static final String LANG_KANNADA = "kn";
 
-    /** Nilo-Saharan - Kanuri */
+    /** Nilo-Saharan - Kanuri. */
     public static final String LANG_KANURI = "kr";
 
-    /** Indo-European - Kashmiri */
+    /** Indo-European - Kashmiri. */
     public static final String LANG_KASHMIRI = "ks";
 
-    /** Turkic - Kazakh */
+    /** Turkic - Kazakh. */
     public static final String LANG_KAZAKH = "kk";
 
-    /** Austroasiatic - Khmer */
+    /** Austroasiatic - Khmer. */
     public static final String LANG_KHMER = "km";
 
-    /** Niger–Congo - Kikuyu, Gikuyu */
+    /** Niger–Congo - Kikuyu, Gikuyu. */
     public static final String LANG_KIKUYU = "ki";
 
-    /** Niger–Congo - Kinyarwanda */
+    /** Niger–Congo - Kinyarwanda. */
     public static final String LANG_KINYARWANDA = "rw";
 
-    /** Niger–Congo - Kirundi */
+    /** Niger–Congo - Kirundi. */
     public static final String LANG_KIRUNDI = "rn";
 
-    /** Uralic - Komi */
+    /** Uralic - Komi. */
     public static final String LANG_KOMI = "kv";
 
-    /** Niger–Congo - Kongo */
+    /** Niger–Congo - Kongo. */
     public static final String LANG_KONGO = "kg";
 
-    /** Koreanic - Korean */
+    /** Koreanic - Korean. */
     public static final String LANG_KOREAN = "ko";
 
-    /** Indo-European - Kurdish */
+    /** Indo-European - Kurdish. */
     public static final String LANG_KURDISH = "ku";
 
-    /** Niger–Congo - Kwanyama, Kuanyama */
+    /** Niger–Congo - Kwanyama, Kuanyama. */
     public static final String LANG_KWANYAMA = "kj";
 
-    /** Turkic - Kyrgyz */
+    /** Turkic - Kyrgyz. */
     public static final String LANG_KYRGYZ = "ky";
 
-    /** Tai–Kadai - Lao */
+    /** Tai–Kadai - Lao. */
     public static final String LANG_LAO = "lo";
 
-    /** Indo-European - Latin */
+    /** Indo-European - Latin. */
     public static final String LANG_LATIN = "la";
 
-    /** Indo-European - Latvian */
+    /** Indo-European - Latvian. */
     public static final String LANG_LATVIAN = "lv";
 
-    /** Indo-European - Limburgish, Limburgan, Limburger */
+    /** Indo-European - Limburgish, Limburgan, Limburger. */
     public static final String LANG_LIMBURGISH = "li";
 
-    /** Niger–Congo - Lingala */
+    /** Niger–Congo - Lingala. */
     public static final String LANG_LINGALA = "ln";
 
-    /** Indo-European - Lithuanian */
+    /** Indo-European - Lithuanian. */
     public static final String LANG_LITHUANIAN = "lt";
 
-    /** Niger–Congo - Luba-Katanga */
+    /** Niger–Congo - Luba-Katanga. */
     public static final String LANG_LUBA_KATANGA = "lu";
 
-    /** Indo-European - Luxembourgish, Letzeburgesch */
+    /** Indo-European - Luxembourgish, Letzeburgesch. */
     public static final String LANG_LUXEMBOURGISH = "lb";
 
-    /** Indo-European - Macedonian */
+    /** Indo-European - Macedonian. */
     public static final String LANG_MACEDONIAN = "mk";
 
-    /** Austronesian - Malagasy */
+    /** Austronesian - Malagasy. */
     public static final String LANG_MALAGASY = "mg";
 
-    /** Austronesian - Malay */
+    /** Austronesian - Malay. */
     public static final String LANG_MALAY = "ms";
 
-    /** Dravidian - Malayalam */
+    /** Dravidian - Malayalam. */
     public static final String LANG_MALAYALAM = "ml";
 
-    /** Afro-Asiatic - Maltese */
+    /** Afro-Asiatic - Maltese. */
     public static final String LANG_MALTESE = "mt";
 
-    /** Indo-European - Manx */
+    /** Indo-European - Manx. */
     public static final String LANG_MANX = "gv";
 
-    /** Austronesian - Māori */
+    /** Austronesian - Māori. */
     public static final String LANG_MAORI = "mi";
 
-    /** Indo-European - Marathi (Marāṭhī) */
+    /** Indo-European - Marathi (Marāṭhī). */
     public static final String LANG_MARATHI = "mr";
 
-    /** Austronesian - Marshallese */
+    /** Austronesian - Marshallese. */
     public static final String LANG_MARSHALLESE = "mh";
 
-    /** Mongolic - Mongolian */
+    /** Mongolic - Mongolian. */
     public static final String LANG_MONGOLIAN = "mn";
 
-    /** Austronesian - Nauruan */
+    /** Austronesian - Nauruan. */
     public static final String LANG_NAURU = "na";
 
-    /** Dené–Yeniseian - Navajo, Navaho */
+    /** Dené–Yeniseian - Navajo, Navaho. */
     public static final String LANG_NAVAJO = "nv";
 
-    /** Niger–Congo - Ndonga */
+    /** Niger–Congo - Ndonga. */
     public static final String LANG_NDONGA = "ng";
 
-    /** Indo-European - Nepali */
+    /** Indo-European - Nepali. */
     public static final String LANG_NEPALI = "ne";
 
-    /** Niger–Congo - Northern Ndebele */
+    /** Niger–Congo - Northern Ndebele. */
     public static final String LANG_NORTH_NDEBELE = "nd";
 
-    /** Uralic - Northern Sami */
+    /** Uralic - Northern Sami. */
     public static final String LANG_NORTHERN_SAMI = "se";
 
-    /** Indo-European - Norwegian */
+    /** Indo-European - Norwegian. */
     public static final String LANG_NORWEGIAN = "no";
 
-    /** Indo-European - Norwegian Bokmål */
+    /** Indo-European - Norwegian Bokmål. */
     public static final String LANG_NORWEGIAN_BOKMAL = "nb";
 
-    /** Indo-European - Norwegian Nynorsk */
+    /** Indo-European - Norwegian Nynorsk. */
     public static final String LANG_NORWEGIAN_NYNORSK = "nn";
 
-    /** Sino-Tibetan - Nuosu */
+    /** Sino-Tibetan - Nuosu. */
     public static final String LANG_NUOSU = "ii";
 
-    /** Indo-European - Occitan */
+    /** Indo-European - Occitan. */
     public static final String LANG_OCCITAN = "oc";
 
-    /** Algonquian - Ojibwe, Ojibwa */
+    /** Algonquian - Ojibwe, Ojibwa. */
     public static final String LANG_OJIBWE = "oj";
 
-    /** Indo-European - Old Church Slavonic, Church Slavonic, Old Bulgarian */
+    /** Indo-European - Old Church Slavonic, Church Slavonic, Old Bulgarian. */
     public static final String LANG_OLD_CHURCH_SLAVONIC = "cu";
 
-    /** Indo-European - Oriya */
+    /** Indo-European - Oriya. */
     public static final String LANG_ORIYA = "or";
 
-    /** Afro-Asiatic - Oromo */
+    /** Afro-Asiatic - Oromo. */
     public static final String LANG_OROMO = "om";
 
-    /** Indo-European - Ossetian, Ossetic */
+    /** Indo-European - Ossetian, Ossetic. */
     public static final String LANG_OSSETIAN = "os";
 
-    /** Indo-European - Pāli */
+    /** Indo-European - Pāli. */
     public static final String LANG_PALI = "pi";
 
-    /** Indo-European - (Eastern) Punjabi */
+    /** Indo-European - (Eastern) Punjabi. */
     public static final String LANG_PANJABI = "pa";
 
-    /** Indo-European - Pashto, Pushto */
+    /** Indo-European - Pashto, Pushto. */
     public static final String LANG_PASHTO = "ps";
 
-    /** Indo-European - Persian (Farsi) */
+    /** Indo-European - Persian (Farsi). */
     public static final String LANG_PERSIAN = "fa";
 
-    /** Indo-European - Polish */
+    /** Indo-European - Polish. */
     public static final String LANG_POLISH = "pl";
 
-    /** Indo-European - Portuguese */
+    /** Indo-European - Portuguese. */
     public static final String LANG_PORTUGUESE = "pt";
 
-    /** Quechuan - Quechua */
+    /** Quechuan - Quechua. */
     public static final String LANG_QUECHUA = "qu";
 
-    /** Indo-European - Romanian */
+    /** Indo-European - Romanian. */
     public static final String LANG_ROMANIAN = "ro";
 
-    /** Indo-European - Romansh */
+    /** Indo-European - Romansh. */
     public static final String LANG_ROMANSH = "rm";
 
-    /** Indo-European - Russian */
+    /** Indo-European - Russian. */
     public static final String LANG_RUSSIAN = "ru";
 
-    /** Austronesian - Samoan */
+    /** Austronesian - Samoan. */
     public static final String LANG_SAMOAN = "sm";
 
-    /** Creole - Sango */
+    /** Creole - Sango. */
     public static final String LANG_SANGO = "sg";
 
-    /** Indo-European - Sanskrit (Saṁskṛta) */
+    /** Indo-European - Sanskrit (Saṁskṛta). */
     public static final String LANG_SANSKRIT = "sa";
 
-    /** Indo-European - Sardinian */
+    /** Indo-European - Sardinian. */
     public static final String LANG_SARDINIAN = "sc";
 
-    /** Indo-European - Scottish Gaelic, Gaelic */
+    /** Indo-European - Scottish Gaelic, Gaelic. */
     public static final String LANG_SCOTTISH_GAELIC = "gd";
 
-    /** Indo-European - Serbian */
+    /** Indo-European - Serbian. */
     public static final String LANG_SERBIAN = "sr";
 
-    /** Niger–Congo - Shona */
+    /** Niger–Congo - Shona. */
     public static final String LANG_SHONA = "sn";
 
-    /** Indo-European - Sindhi */
+    /** Indo-European - Sindhi. */
     public static final String LANG_SINDHI = "sd";
 
-    /** Indo-European - Sinhalese, Sinhala */
+    /** Indo-European - Sinhalese, Sinhala. */
     public static final String LANG_SINHALA = "si";
 
-    /** Indo-European - Slovak */
+    /** Indo-European - Slovak. */
     public static final String LANG_SLOVAK = "sk";
 
-    /** Indo-European - Slovene */
+    /** Indo-European - Slovene. */
     public static final String LANG_SLOVENE = "sl";
 
-    /** Afro-Asiatic - Somali */
+    /** Afro-Asiatic - Somali. */
     public static final String LANG_SOMALI = "so";
 
-    /** Niger–Congo - Southern Ndebele */
+    /** Niger–Congo - Southern Ndebele. */
     public static final String LANG_SOUTH_NDEBELE = "nr";
 
-    /** Niger–Congo - Southern Sotho */
+    /** Niger–Congo - Southern Sotho. */
     public static final String LANG_SOUTHERN_SOTHO = "st";
 
-    /** Indo-European - Spanish */
+    /** Indo-European - Spanish. */
     public static final String LANG_SPANISH = "es";
 
-    /** Austronesian - Sundanese */
+    /** Austronesian - Sundanese. */
     public static final String LANG_SUNDANESE = "su";
 
-    /** Niger–Congo - Swahili */
+    /** Niger–Congo - Swahili. */
     public static final String LANG_SWAHILI = "sw";
 
-    /** Niger–Congo - Swati */
+    /** Niger–Congo - Swati. */
     public static final String LANG_SWATI = "ss";
 
-    /** Indo-European - Swedish */
+    /** Indo-European - Swedish. */
     public static final String LANG_SWEDISH = "sv";
 
-    /** Austronesian - Tagalog */
+    /** Austronesian - Tagalog. */
     public static final String LANG_TAGALOG = "tl";
 
-    /** Austronesian - Tahitian */
+    /** Austronesian - Tahitian. */
     public static final String LANG_TAHITIAN = "ty";
 
-    /** Indo-European - Tajik */
+    /** Indo-European - Tajik. */
     public static final String LANG_TAJIK = "tg";
 
-    /** Dravidian - Tamil */
+    /** Dravidian - Tamil. */
     public static final String LANG_TAMIL = "ta";
 
-    /** Turkic - Tatar */
+    /** Turkic - Tatar. */
     public static final String LANG_TATAR = "tt";
 
-    /** Dravidian - Telugu */
+    /** Dravidian - Telugu. */
     public static final String LANG_TELUGU = "te";
 
-    /** Tai–Kadai - Thai */
+    /** Tai–Kadai - Thai. */
     public static final String LANG_THAI = "th";
 
-    /** Sino-Tibetan - Tibetan Standard, Tibetan, Central */
+    /** Sino-Tibetan - Tibetan Standard, Tibetan, Central. */
     public static final String LANG_TIBETAN_STANDARD = "bo";
 
-    /** Afro-Asiatic - Tigrinya */
+    /** Afro-Asiatic - Tigrinya. */
     public static final String LANG_TIGRINYA = "ti";
 
-    /** Austronesian - Tonga (Tonga Islands) */
+    /** Austronesian - Tonga (Tonga Islands). */
     public static final String LANG_TONGA = "to";
 
-    /** Niger–Congo - Tsonga */
+    /** Niger–Congo - Tsonga. */
     public static final String LANG_TSONGA = "ts";
 
-    /** Niger–Congo - Tswana */
+    /** Niger–Congo - Tswana. */
     public static final String LANG_TSWANA = "tn";
 
-    /** Turkic - Turkish */
+    /** Turkic - Turkish. */
     public static final String LANG_TURKISH = "tr";
 
-    /** Turkic - Turkmen */
+    /** Turkic - Turkmen. */
     public static final String LANG_TURKMEN = "tk";
 
-    /** Niger–Congo - Twi */
+    /** Niger–Congo - Twi. */
     public static final String LANG_TWI = "tw";
 
-    /** Turkic - Uyghur */
+    /** Turkic - Uyghur. */
     public static final String LANG_UIGHUR = "ug";
 
-    /** Indo-European - Ukrainian */
+    /** Indo-European - Ukrainian. */
     public static final String LANG_UKRAINIAN = "uk";
 
-    /** Indo-European - Urdu */
+    /** Indo-European - Urdu. */
     public static final String LANG_URDU = "ur";
 
-    /** Turkic - Uzbek */
+    /** Turkic - Uzbek. */
     public static final String LANG_UZBEK = "uz";
 
-    /** Niger–Congo - Venda */
+    /** Niger–Congo - Venda. */
     public static final String LANG_VENDA = "ve";
 
-    /** Austroasiatic - Vietnamese */
+    /** Austroasiatic - Vietnamese. */
     public static final String LANG_VIETNAMESE = "vi";
 
-    /** Constructed - Volapük */
+    /** Constructed - Volapük. */
     public static final String LANG_VOLAPUK = "vo";
 
-    /** Indo-European - Walloon */
+    /** Indo-European - Walloon. */
     public static final String LANG_WALLOON = "wa";
 
-    /** Indo-European - Welsh */
+    /** Indo-European - Welsh. */
     public static final String LANG_WELSH = "cy";
 
-    /** Indo-European - Western Frisian */
+    /** Indo-European - Western Frisian. */
     public static final String LANG_WESTERN_FRISIAN = "fy";
 
-    /** Niger–Congo - Wolof */
+    /** Niger–Congo - Wolof. */
     public static final String LANG_WOLOF = "wo";
 
-    /** Niger–Congo - Xhosa */
+    /** Niger–Congo - Xhosa. */
     public static final String LANG_XHOSA = "xh";
 
-    /** Indo-European - Yiddish */
+    /** Indo-European - Yiddish. */
     public static final String LANG_YIDDISH = "yi";
 
-    /** Niger–Congo - Yoruba */
+    /** Niger–Congo - Yoruba. */
     public static final String LANG_YORUBA = "yo";
 
-    /** Tai–Kadai - Zhuang, Chuang */
+    /** Tai–Kadai - Zhuang, Chuang. */
     public static final String LANG_ZHUANG = "za";
 
-    /** Niger–Congo - Zulu */
+    /** Niger–Congo - Zulu. */
     public static final String LANG_ZULU = "zu";
 
     /** The String. */

@@ -67,6 +67,8 @@ public interface RDFClassInfoSetup {
 
     /**
      * Get the {@link RDFClassInfo} for this setup.
+     *
+     * @return the info object.
      */
     public RDFClassInfo getInfo();
 

@@ -131,6 +131,8 @@ public final class TypeMapper {
     /**
      * Get the current date and time as representation for W3C XML Schema 1.0
      * date/time datatypes.
+     *
+     * @return the current date and time.
      */
     public static XMLGregorianCalendar getCurrentDateTime() {
 	return df.newXMLGregorianCalendar(new GregorianCalendar());
@@ -224,6 +226,7 @@ public final class TypeMapper {
      *
      * @param o
      *            The object to interpret.
+     * @return the interpreted object.
      */
     public static Object asLiteral(Object o) {
 	if (o instanceof List)
@@ -336,8 +339,12 @@ public final class TypeMapper {
     }
 
     /**
-     * Determines if the specified object is a Resource that is either an XML
-     * Literal or an XSD Literal.
+     * Determines if the specified object is either a Resource that is an XML
+     * Literal, or an object that can be mapped to an XSD Literal.
+     *
+     * @param o
+     *            The object.
+     * @return true, if the object is a literal.
      */
     public static boolean isLiteral(Object o) {
 	if (o instanceof Resource)
@@ -345,7 +352,13 @@ public final class TypeMapper {
 	return (getDatatypeURI(o) != null);
     }
 
-    /** Determines if an object is registered for the specified URI. */
+    /**
+     * Determines if the specified URI is the URI of a registered datatype.
+     *
+     * @param datatypeURI
+     *            The URI.
+     * @return true, if the datatype URI is registered.
+     */
     public static boolean isRegisteredDatatypeURI(String datatypeURI) {
 	return datatypeURI != null
 		&& datatypeURI.startsWith(XSD_NAMESPACE)

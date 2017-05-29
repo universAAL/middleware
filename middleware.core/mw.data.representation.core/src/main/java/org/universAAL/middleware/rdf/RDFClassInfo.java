@@ -106,13 +106,15 @@ public class RDFClassInfo extends FinalizedResource {
      * {@link Ontology} has access to it and can make changes.
      */
     protected class PrivateRDFSetup implements RDFClassInfoSetup {
-	RDFClassInfo info;
+	/** The info object. */
+	private RDFClassInfo info;
 
 	public PrivateRDFSetup(RDFClassInfo info) {
 	    this.info = info;
 	}
 
-	public void addInstance(Resource instance) {
+	/** {@inheritDoc} */
+	public final void addInstance(Resource instance) {
 	    if (locked)
 		return;
 
@@ -152,7 +154,8 @@ public class RDFClassInfo extends FinalizedResource {
 		instances.put(instance.getURI(), instance);
 	}
 
-	public void addSuperClass(TypeExpression superClass) {
+	/** {@inheritDoc} */
+	public final void addSuperClass(TypeExpression superClass) {
 	    if (locked)
 		return;
 	    if (superClass != null) {
@@ -180,7 +183,8 @@ public class RDFClassInfo extends FinalizedResource {
 	    }
 	}
 
-	public void addSuperClass(String namedSuperClass) {
+	/** {@inheritDoc} */
+	public final void addSuperClass(String namedSuperClass) {
 	    if (locked)
 		return;
 	    if (namedSuperClass == null)
@@ -226,21 +230,20 @@ public class RDFClassInfo extends FinalizedResource {
 		    Collections.unmodifiableList(combinedSuperClasses));
 	}
 
-	/**
-	 * Get the info object which is the instance of the class this class is
-	 * nested in.
-	 */
-	public RDFClassInfo getInfo() {
+	/** {@inheritDoc} */
+	public final RDFClassInfo getInfo() {
 	    return info;
 	}
 
-	public void setResourceComment(String comment) {
+	/** {@inheritDoc} */
+	public final void setResourceComment(String comment) {
 	    if (locked)
 		return;
 	    info.setResourceComment(comment);
 	}
 
-	public void setResourceLabel(String label) {
+	/** {@inheritDoc} */
+	public final void setResourceLabel(String label) {
 	    if (locked)
 		return;
 	    info.setResourceLabel(label);
@@ -326,7 +329,7 @@ public class RDFClassInfo extends FinalizedResource {
      *
      * @return true, if this is an abstract class.
      */
-    public boolean isAbstract() {
+    public final boolean isAbstract() {
 	return factory == null;
     }
 
@@ -334,8 +337,9 @@ public class RDFClassInfo extends FinalizedResource {
      * Get the factory.
      *
      * @see ResourceFactory
+     * @return the factory.
      */
-    public ResourceFactory getFactory() {
+    public final ResourceFactory getFactory() {
 	return factory;
     }
 
@@ -343,8 +347,9 @@ public class RDFClassInfo extends FinalizedResource {
      * Get the factory index.
      *
      * @see ResourceFactory
+     * @return the factory index.
      */
-    public int getFactoryIndex() {
+    public final int getFactoryIndex() {
 	return factoryIndex;
     }
 
@@ -360,7 +365,7 @@ public class RDFClassInfo extends FinalizedResource {
      *            considered.
      * @return true, if the given class is a super class of this class.
      */
-    public boolean hasSuperClass(String classURI, boolean inherited) {
+    public final boolean hasSuperClass(String classURI, boolean inherited) {
 	if (namedSuperClasses.contains(classURI))
 	    return true;
 	if (!inherited)
@@ -388,7 +393,7 @@ public class RDFClassInfo extends FinalizedResource {
      *            true, iff abstract classes should be returned.
      * @return The set of URIs of all named super classes.
      */
-    public String[] getNamedSuperClasses(boolean inherited,
+    public final String[] getNamedSuperClasses(boolean inherited,
 	    boolean includeAbstractClasses) {
 
 	ArrayList al = new ArrayList();
@@ -429,8 +434,10 @@ public class RDFClassInfo extends FinalizedResource {
 
     /**
      * Get the set of all non-named super classes.
+     *
+     * @return the set of all non-named super classes.
      */
-    public TypeExpression[] getSuperClasses() {
+    public final TypeExpression[] getSuperClasses() {
 	return (TypeExpression[]) superClasses
 		.toArray(new TypeExpression[superClasses.size()]);
     }
@@ -438,8 +445,10 @@ public class RDFClassInfo extends FinalizedResource {
     /**
      * Get the set of all registered instances of this class. To add new
      * instances, call {@link RDFClassInfoSetup#addInstance(Resource)}
+     *
+     * @return the set of all registered instances of this class.
      */
-    public Resource[] getInstances() {
+    public final Resource[] getInstances() {
 	return (Resource[]) instances.values().toArray(
 		new Resource[instances.size()]);
     }
@@ -452,7 +461,7 @@ public class RDFClassInfo extends FinalizedResource {
      *            The URI of the instance.
      * @return The instance, if registered.
      */
-    public Resource getInstanceByURI(String uri) {
+    public final Resource getInstanceByURI(String uri) {
 	return (Resource) instances.get(uri);
     }
 
@@ -461,14 +470,14 @@ public class RDFClassInfo extends FinalizedResource {
      * is automatically locked when the {@link Ontology} that defines the class
      * is registered at the {@link OntologyManagement}.
      */
-    public void lock() {
+    public final void lock() {
 	locked = true;
     }
 
     /**
      * @see Resource#isClosedCollection(String)
      */
-    public boolean isClosedCollection(String propURI) {
+    public final boolean isClosedCollection(String propURI) {
 	if (TypeExpression.PROP_RDFS_SUB_CLASS_OF.equals(propURI))
 	    return false;
 	return super.isClosedCollection(propURI);
