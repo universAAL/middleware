@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -62,20 +62,20 @@ import junit.framework.TestCase;
 
 /**
  * A special test case that also initializes the buses.
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
 public class BusTestCase extends TestCase {
 
     protected static ModuleContext mc;
-    private static MessageContentSerializer mcs;
+    protected static MessageContentSerializer mcs;
     private static boolean isInitialized = false;
 
     @Override
     protected void setUp() throws Exception {
 	super.setUp();
-	
+
 	if (isInitialized)
 	    return;
 	isInitialized = true;
@@ -272,12 +272,12 @@ public class BusTestCase extends TestCase {
      * LinkedList<URL>(); if (urlString.endsWith("/")) { // directory search if
      * (urlString.contains("ont.phWorld")) searchOntologiesInDirectory(new
      * File(url[i].toURI()), result); } else if (urlString.endsWith(".jar")) {
-     * 
+     *
      * }
-     * 
+     *
      * for (URL utemp : result) { System.out.println("   --Ontology: " + utemp);
      * } } } catch (Exception e) { e.printStackTrace(); } }
-     * 
+     *
      * private void searchOntologiesInDirectory(File file, LinkedList<URL>
      * result) { //System.out.println("   - searching file: " +
      * file.toString()); if (file.isDirectory()) { if (file.canRead()) { for
