@@ -94,7 +94,7 @@
 <th>Missing Classes</th></tr>
 <tr class="b">
 <td>10</td>
-<td>14</td>
+<td>15</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -105,7 +105,7 @@
 <th>Bugs</th></tr>
 <tr class="b">
 <td><a href="#org.universAAL.middleware.bus.junit.BusTestCase">org.universAAL.middleware.bus.junit.BusTestCase</a></td>
-<td>1</td></tr>
+<td>2</td></tr>
 <tr class="a">
 <td><a href="#org.universAAL.middleware.bus.junit.BusTestCase$1$1">org.universAAL.middleware.bus.junit.BusTestCase$1$1</a></td>
 <td>1</td></tr>
@@ -135,17 +135,23 @@
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_PKGPROTECT">MS_PKGPROTECT</a></td>
 <td></td>
+<td>Medium</td></tr>
+<tr class="b">
+<td>org.universAAL.middleware.bus.junit.BusTestCase.mcs should be package protected</td>
+<td>MALICIOUS_CODE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_PKGPROTECT">MS_PKGPROTECT</a></td>
+<td></td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.bus.junit.BusTestCase11"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.bus.junit.BusTestCase11"></a>org.universAAL.middleware.bus.junit.BusTestCase$1$1</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>Class org.universAAL.middleware.bus.junit.BusTestCase$1$1 defines non-transient non-serializable instance field this$1</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SE_BAD_FIELD">SE_BAD_FIELD</a></td>
@@ -154,13 +160,13 @@
 <div class="section">
 <h3><a name="org.universAAL.middleware.bus.junit.ManifestTestCase"></a>org.universAAL.middleware.bus.junit.ManifestTestCase</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>instanceof will always return true for all non-null values in org.universAAL.middleware.bus.junit.ManifestTestCase.extendRequestChangeEffect(GraphIteratorElement), since all org.universAAL.middleware.rdf.Resource are instances of org.universAAL.middleware.rdf.Resource</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BC_VACUOUS_INSTANCEOF">BC_VACUOUS_INSTANCEOF</a></td>
@@ -169,13 +175,13 @@
 <div class="section">
 <h3><a name="org.universAAL.middleware.bus.junit.ManifestTestCaseElement"></a>org.universAAL.middleware.bus.junit.ManifestTestCase$Element</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>Should org.universAAL.middleware.bus.junit.ManifestTestCase$Element be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
@@ -184,25 +190,25 @@
 <div class="section">
 <h3><a name="org.universAAL.middleware.bus.junit.OntTestCase"></a>org.universAAL.middleware.bus.junit.OntTestCase</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>Random object created and used only once in org.universAAL.middleware.bus.junit.OntTestCase.ontFileName(Ontology)</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DMI_RANDOM_USED_ONLY_ONCE">DMI_RANDOM_USED_ONLY_ONCE</a></td>
 <td>549</td>
 <td>High</td></tr>
-<tr class="b">
+<tr class="a">
 <td>Found reliance on default encoding in org.universAAL.middleware.bus.junit.OntTestCase.writeTTL(Ontology, File): new java.io.FileWriter(File, boolean)</td>
 <td>I18N</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_DEFAULT_ENCODING">DM_DEFAULT_ENCODING</a></td>
 <td>565</td>
 <td>High</td></tr>
-<tr class="a">
+<tr class="b">
 <td>Redundant nullcheck of name, which is known to be non-null in org.universAAL.middleware.bus.junit.OntTestCase.ontFileName(Ontology)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE">RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE</a></td>
@@ -211,49 +217,49 @@
 <div class="section">
 <h3><a name="org.universAAL.middleware.bus.junit.OntTestCaseLogEntry"></a>org.universAAL.middleware.bus.junit.OntTestCase$LogEntry</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>Return value of java.io.StringWriter.toString() ignored, but method has no side effect</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT">RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT</a></td>
 <td>130</td>
 <td>High</td></tr>
-<tr class="b">
+<tr class="a">
 <td>Switch statement found in org.universAAL.middleware.bus.junit.OntTestCase$LogEntry.toString() where default case is missing</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SF_SWITCH_NO_DEFAULT">SF_SWITCH_NO_DEFAULT</a></td>
 <td>106</td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>Should org.universAAL.middleware.bus.junit.OntTestCase$LogEntry be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
 <td>76</td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>Unread field: org.universAAL.middleware.bus.junit.OntTestCase$LogEntry.cls</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
 <td>81</td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>Unread field: org.universAAL.middleware.bus.junit.OntTestCase$LogEntry.method</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
 <td>82</td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>Unread field: org.universAAL.middleware.bus.junit.OntTestCase$LogEntry.module</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
 <td>79</td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>Unread field: org.universAAL.middleware.bus.junit.OntTestCase$LogEntry.pkg</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
