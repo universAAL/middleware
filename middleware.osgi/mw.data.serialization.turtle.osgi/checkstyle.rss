@@ -20,7 +20,7 @@ under the License.
 <rss version="0.91">
   <channel>
     <title>universAAL Middleware RDF Turtle serializer (OSGi) - Checkstyle report</title>
-    <link>http://middleware/middleware.osgi/mw.data.serialization.osgi/</link>
+    <link>http://middleware/middleware.osgi/mw.data.serialization.turtle.osgi/</link>
     <description>universAAL Middleware RDF Turtle serializer (OSGi) - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2017 universAAL Consortium</copyright>
@@ -30,9 +30,9 @@ under the License.
              Warnings: 1,
              Infos: 7
       </title>
-            <link>http://middleware/middleware.osgi/mw.data.serialization.osgi//checkstyle.html</link>
+            <link>http://middleware/middleware.osgi/mw.data.serialization.turtle.osgi//checkstyle.html</link>
       <description>
-        <p>Click <a href="http://middleware/middleware.osgi/mw.data.serialization.osgi//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="http://middleware/middleware.osgi/mw.data.serialization.turtle.osgi//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.osgi/mw.data.serialization.osgi//checkstyle.html#org.universAAL.middleware.serialization.turtle.osgi.Activator.java">org/universAAL/middleware/serialization/turtle/osgi/Activator.java</a>
+                  <a href="http://middleware/middleware.osgi/mw.data.serialization.turtle.osgi//checkstyle.html#org.universAAL.middleware.serialization.turtle.osgi.Activator.java">org/universAAL/middleware/serialization/turtle/osgi/Activator.java</a>
                 </td>
                 <td>
                   7

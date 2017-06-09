@@ -20,7 +20,7 @@ under the License.
 <rss version="0.91">
   <channel>
     <title>universAAL Middleware RDF Turtle serializer (Core) - Checkstyle report</title>
-    <link>http://middleware/middleware.core/mw.data.serialization.core/</link>
+    <link>http://middleware/middleware.core/mw.data.serialization.turtle.core/</link>
     <description>universAAL Middleware RDF Turtle serializer (Core) - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2017 universAAL Consortium</copyright>
@@ -30,9 +30,9 @@ under the License.
              Warnings: 7,
              Infos: 47
       </title>
-            <link>http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html</link>
+            <link>http://middleware/middleware.core/mw.data.serialization.turtle.core//checkstyle.html</link>
       <description>
-        <p>Click <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="http://middleware/middleware.core/mw.data.serialization.turtle.core//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleWriter.java">org/universAAL/middleware/serialization/turtle/TurtleWriter.java</a>
+                  <a href="http://middleware/middleware.core/mw.data.serialization.turtle.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleWriter.java">org/universAAL/middleware/serialization/turtle/TurtleWriter.java</a>
                 </td>
                 <td>
                   19
@@ -60,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleParser.java">org/universAAL/middleware/serialization/turtle/TurtleParser.java</a>
+                  <a href="http://middleware/middleware.core/mw.data.serialization.turtle.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleParser.java">org/universAAL/middleware/serialization/turtle/TurtleParser.java</a>
                 </td>
                 <td>
                   11
@@ -74,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleUtil.java">org/universAAL/middleware/serialization/turtle/TurtleUtil.java</a>
+                  <a href="http://middleware/middleware.core/mw.data.serialization.turtle.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleUtil.java">org/universAAL/middleware/serialization/turtle/TurtleUtil.java</a>
                 </td>
                 <td>
                   11
@@ -88,7 +88,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleSerializer.java">org/universAAL/middleware/serialization/turtle/TurtleSerializer.java</a>
+                  <a href="http://middleware/middleware.core/mw.data.serialization.turtle.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleSerializer.java">org/universAAL/middleware/serialization/turtle/TurtleSerializer.java</a>
                 </td>
                 <td>
                   6
