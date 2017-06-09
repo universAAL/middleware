@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.15217391304347827" branch-rate="1.0" lines-covered="14" lines-valid="92" branches-covered="0" branches-valid="0" complexity="1.0638297872340425" version="2.1.1" timestamp="1496178380423">
+<coverage line-rate="0.15217391304347827" branch-rate="1.0" lines-covered="14" lines-valid="92" branches-covered="0" branches-valid="0" complexity="1.0638297872340425" version="2.1.1" timestamp="1496979931213">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.connectors.api.core/src/main/java</source>
@@ -91,40 +91,40 @@
 						</method>
 						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/connectors/exception/CommunicationConnectorErrorCode;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="48" hits="0" branch="false"/>
 								<line number="49" hits="0" branch="false"/>
-								<line number="50" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/connectors/exception/CommunicationConnectorErrorCode;Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="44" hits="0" branch="false"/>
 								<line number="45" hits="0" branch="false"/>
-								<line number="46" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/connectors/exception/CommunicationConnectorErrorCode;Ljava/lang/String;Ljava/lang/Throwable;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="58" hits="0" branch="false"/>
+								<line number="59" hits="0" branch="false"/>
+								<line number="60" hits="0" branch="false"/>
 								<line number="61" hits="0" branch="false"/>
-								<line number="62" hits="0" branch="false"/>
-								<line number="63" hits="0" branch="false"/>
-								<line number="64" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/connectors/exception/CommunicationConnectorErrorCode;Ljava/lang/Throwable;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="52" hits="0" branch="false"/>
+								<line number="53" hits="0" branch="false"/>
 								<line number="54" hits="0" branch="false"/>
 								<line number="55" hits="0" branch="false"/>
-								<line number="56" hits="0" branch="false"/>
-								<line number="57" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="67" hits="0" branch="false"/>
+								<line number="64" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getErrorCode" signature="()I" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="71" hits="0" branch="false"/>
+								<line number="68" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -133,20 +133,20 @@
 						<line number="39" hits="0" branch="false"/>
 						<line number="40" hits="0" branch="false"/>
 						<line number="41" hits="0" branch="false"/>
+						<line number="44" hits="0" branch="false"/>
 						<line number="45" hits="0" branch="false"/>
-						<line number="46" hits="0" branch="false"/>
+						<line number="48" hits="0" branch="false"/>
 						<line number="49" hits="0" branch="false"/>
-						<line number="50" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="false"/>
+						<line number="53" hits="0" branch="false"/>
 						<line number="54" hits="0" branch="false"/>
 						<line number="55" hits="0" branch="false"/>
-						<line number="56" hits="0" branch="false"/>
-						<line number="57" hits="0" branch="false"/>
+						<line number="58" hits="0" branch="false"/>
+						<line number="59" hits="0" branch="false"/>
+						<line number="60" hits="0" branch="false"/>
 						<line number="61" hits="0" branch="false"/>
-						<line number="62" hits="0" branch="false"/>
-						<line number="63" hits="0" branch="false"/>
 						<line number="64" hits="0" branch="false"/>
-						<line number="67" hits="0" branch="false"/>
-						<line number="71" hits="0" branch="false"/>
+						<line number="68" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.connectors.exception.DiscoveryConnectorErrorCodes" filename="org/universAAL/middleware/connectors/exception/DiscoveryConnectorErrorCodes.java" line-rate="0.0" branch-rate="1.0" complexity="0.0">
@@ -257,9 +257,9 @@
 								<line number="107" hits="0" branch="false"/>
 								<line number="109" hits="0" branch="false"/>
 								<line number="111" hits="0" branch="false"/>
+								<line number="112" hits="0" branch="false"/>
 								<line number="113" hits="0" branch="false"/>
-								<line number="114" hits="0" branch="false"/>
-								<line number="116" hits="0" branch="false"/>
+								<line number="115" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -292,9 +292,9 @@
 						<line number="107" hits="0" branch="false"/>
 						<line number="109" hits="0" branch="false"/>
 						<line number="111" hits="0" branch="false"/>
+						<line number="112" hits="0" branch="false"/>
 						<line number="113" hits="0" branch="false"/>
-						<line number="114" hits="0" branch="false"/>
-						<line number="116" hits="0" branch="false"/>
+						<line number="115" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.connectors.util.ChannelMessageFields" filename="org/universAAL/middleware/connectors/util/ChannelMessageFields.java" line-rate="0.0" branch-rate="1.0" complexity="0.0">

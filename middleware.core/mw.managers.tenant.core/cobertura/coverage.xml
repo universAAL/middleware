@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="56" branches-covered="0" branches-valid="16" complexity="2.3636363636363638" version="2.1.1" timestamp="1496178499485">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="56" branches-covered="0" branches-valid="16" complexity="2.3636363636363638" version="2.1.1" timestamp="1496980006950">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.managers.tenant.core/src/main/java</source>
@@ -21,22 +21,22 @@
 						</method>
 						<method name="addTenantListener" signature="(Lorg/universAAL/middleware/managers/api/TenantListener;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="126" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="125" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="127" hits="0" branch="false"/>
-								<line number="129" hits="0" branch="false"/>
-								<line number="130" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="126" hits="0" branch="false"/>
+								<line number="128" hits="0" branch="false"/>
+								<line number="129" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
+								<line number="130" hits="0" branch="false"/>
 								<line number="131" hits="0" branch="false"/>
 								<line number="132" hits="0" branch="false"/>
 								<line number="133" hits="0" branch="false"/>
-								<line number="134" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="dispose" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -46,21 +46,21 @@
 						</method>
 						<method name="fireNewTenantRegisteredEvent" signature="(Ljava/lang/String;Ljava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
+								<line number="96" hits="0" branch="false"/>
 								<line number="97" hits="0" branch="false"/>
 								<line number="98" hits="0" branch="false"/>
 								<line number="99" hits="0" branch="false"/>
-								<line number="100" hits="0" branch="false"/>
-								<line number="103" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="102" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
+								<line number="104" hits="0" branch="false"/>
 								<line number="105" hits="0" branch="false"/>
 								<line number="106" hits="0" branch="false"/>
 								<line number="107" hits="0" branch="false"/>
 								<line number="108" hits="0" branch="false"/>
 								<line number="109" hits="0" branch="false"/>
-								<line number="110" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="fireTenantRemovedEvent" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -84,7 +84,7 @@
 						</method>
 						<method name="getTenants" signature="()Ljava/util/Map;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="122" hits="0" branch="false"/>
+								<line number="121" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="init" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -118,29 +118,29 @@
 						</method>
 						<method name="removeTenantListener" signature="(Lorg/universAAL/middleware/managers/api/TenantListener;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="137" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="136" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="138" hits="0" branch="false"/>
+								<line number="137" hits="0" branch="false"/>
+								<line number="139" hits="0" branch="false"/>
 								<line number="140" hits="0" branch="false"/>
 								<line number="141" hits="0" branch="false"/>
 								<line number="142" hits="0" branch="false"/>
-								<line number="143" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="unregisterTenant" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="113" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="112" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
+								<line number="113" hits="0" branch="false"/>
 								<line number="114" hits="0" branch="false"/>
-								<line number="115" hits="0" branch="false"/>
-								<line number="117" hits="0" branch="false"/>
-								<line number="119" hits="0" branch="false"/>
+								<line number="116" hits="0" branch="false"/>
+								<line number="118" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -182,57 +182,57 @@
 						<line number="91" hits="0" branch="false"/>
 						<line number="92" hits="0" branch="false"/>
 						<line number="93" hits="0" branch="false"/>
+						<line number="96" hits="0" branch="false"/>
 						<line number="97" hits="0" branch="false"/>
 						<line number="98" hits="0" branch="false"/>
 						<line number="99" hits="0" branch="false"/>
-						<line number="100" hits="0" branch="false"/>
-						<line number="103" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="102" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
+						<line number="104" hits="0" branch="false"/>
 						<line number="105" hits="0" branch="false"/>
 						<line number="106" hits="0" branch="false"/>
 						<line number="107" hits="0" branch="false"/>
 						<line number="108" hits="0" branch="false"/>
 						<line number="109" hits="0" branch="false"/>
-						<line number="110" hits="0" branch="false"/>
-						<line number="113" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="112" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
+						<line number="113" hits="0" branch="false"/>
 						<line number="114" hits="0" branch="false"/>
-						<line number="115" hits="0" branch="false"/>
-						<line number="117" hits="0" branch="false"/>
-						<line number="119" hits="0" branch="false"/>
-						<line number="122" hits="0" branch="false"/>
-						<line number="126" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="116" hits="0" branch="false"/>
+						<line number="118" hits="0" branch="false"/>
+						<line number="121" hits="0" branch="false"/>
+						<line number="125" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="127" hits="0" branch="false"/>
-						<line number="129" hits="0" branch="false"/>
-						<line number="130" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="126" hits="0" branch="false"/>
+						<line number="128" hits="0" branch="false"/>
+						<line number="129" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
+						<line number="130" hits="0" branch="false"/>
 						<line number="131" hits="0" branch="false"/>
 						<line number="132" hits="0" branch="false"/>
 						<line number="133" hits="0" branch="false"/>
-						<line number="134" hits="0" branch="false"/>
-						<line number="137" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="136" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="138" hits="0" branch="false"/>
+						<line number="137" hits="0" branch="false"/>
+						<line number="139" hits="0" branch="false"/>
 						<line number="140" hits="0" branch="false"/>
 						<line number="141" hits="0" branch="false"/>
 						<line number="142" hits="0" branch="false"/>
-						<line number="143" hits="0" branch="false"/>
 					</lines>
 				</class>
 			</classes>

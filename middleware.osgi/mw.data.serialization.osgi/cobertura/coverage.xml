@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="1.0" lines-covered="0" lines-valid="9" branches-covered="0" branches-valid="0" complexity="1.0" version="2.1.1" timestamp="1496178805245">
+<coverage line-rate="0.0" branch-rate="1.0" lines-covered="0" lines-valid="8" branches-covered="0" branches-valid="0" complexity="1.0" version="2.1.1" timestamp="1496980206297">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.data.serialization.osgi/src/main/java</source>
@@ -21,15 +21,14 @@
 								<line number="39" hits="0" branch="false"/>
 								<line number="40" hits="0" branch="false"/>
 								<line number="41" hits="0" branch="false"/>
+								<line number="42" hits="0" branch="false"/>
 								<line number="43" hits="0" branch="false"/>
 								<line number="44" hits="0" branch="false"/>
-								<line number="46" hits="0" branch="false"/>
-								<line number="47" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="stop" signature="(Lorg/osgi/framework/BundleContext;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="50" hits="0" branch="false"/>
+								<line number="47" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -38,11 +37,10 @@
 						<line number="39" hits="0" branch="false"/>
 						<line number="40" hits="0" branch="false"/>
 						<line number="41" hits="0" branch="false"/>
+						<line number="42" hits="0" branch="false"/>
 						<line number="43" hits="0" branch="false"/>
 						<line number="44" hits="0" branch="false"/>
-						<line number="46" hits="0" branch="false"/>
 						<line number="47" hits="0" branch="false"/>
-						<line number="50" hits="0" branch="false"/>
 					</lines>
 				</class>
 			</classes>

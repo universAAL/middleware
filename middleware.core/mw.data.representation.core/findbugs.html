@@ -179,7 +179,7 @@
 <td>Unwritten public or protected field: org.universAAL.middleware.datarep.SharedResources.moduleContext</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD">UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD</a></td>
-<td>261</td>
+<td>244</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.owl.ComparableIndividual"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.owl.ComparableIndividual"></a>org.universAAL.middleware.owl.ComparableIndividual</h3>
@@ -194,19 +194,19 @@
 <td>Class org.universAAL.middleware.owl.ComparableIndividual defines equal(Object); should it be equals(Object)?</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NM_BAD_EQUAL">NM_BAD_EQUAL</a></td>
-<td>148</td>
+<td>142</td>
 <td>High</td></tr>
 <tr class="b">
 <td>Check to see if return value of compareTo(Object) is equal to 1</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_CHECK_COMPARETO_FOR_SPECIFIC_RETURN_VALUE">RV_CHECK_COMPARETO_FOR_SPECIFIC_RETURN_VALUE</a></td>
-<td>157</td>
+<td>151</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Check to see if return value of compareTo(Object) is equal to -1</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_CHECK_COMPARETO_FOR_SPECIFIC_RETURN_VALUE">RV_CHECK_COMPARETO_FOR_SPECIFIC_RETURN_VALUE</a></td>
-<td>181</td>
+<td>175</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.owl.HasValueRestriction"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.owl.HasValueRestriction"></a>org.universAAL.middleware.owl.HasValueRestriction</h3>
@@ -221,7 +221,7 @@
 <td>org.universAAL.middleware.owl.HasValueRestriction.checkValueLists(List, List, HashMap) makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>178</td>
+<td>173</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.owl.MergedRestriction"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.owl.MergedRestriction"></a>org.universAAL.middleware.owl.MergedRestriction</h3>
@@ -236,7 +236,7 @@
 <td>org.universAAL.middleware.owl.MergedRestriction.getFromList(List) makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>506</td>
+<td>483</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.owl.ObjectProperty"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.owl.ObjectProperty"></a>org.universAAL.middleware.owl.ObjectProperty</h3>
@@ -251,7 +251,7 @@
 <td>Unread field: org.universAAL.middleware.owl.ObjectProperty.inverseOf</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
-<td>88</td>
+<td>81</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.owl.Ontology"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.owl.Ontology"></a>org.universAAL.middleware.owl.Ontology</h3>
@@ -266,31 +266,31 @@
 <td>Synchronization on Ontology.imports in futile attempt to guard it</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD">ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD</a></td>
-<td>252</td>
+<td>249</td>
 <td>High</td></tr>
 <tr class="b">
 <td>Synchronization on Ontology.ontClassInfoMap in futile attempt to guard it</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD">ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD</a></td>
-<td>408</td>
+<td>399</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Synchronization on Ontology.rdfClassInfoMap in futile attempt to guard it</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD">ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD</a></td>
-<td>349</td>
+<td>342</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>Synchronization on Ontology.extendedOntClassInfoMap in futile attempt to guard it</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD">ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD</a></td>
-<td>442</td>
+<td>433</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Load of known null value in org.universAAL.middleware.owl.Ontology.addImport(String)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NP_LOAD_OF_KNOWN_NULL_VALUE">NP_LOAD_OF_KNOWN_NULL_VALUE</a></td>
-<td>241</td>
+<td>238</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.owl.OntologyManagement"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.owl.OntologyManagement"></a>org.universAAL.middleware.owl.OntologyManagement</h3>
@@ -305,37 +305,37 @@
 <td>OntClassInfo is incompatible with expected argument type String in org.universAAL.middleware.owl.OntologyManagement.unregister(ModuleContext, Ontology)</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#GC_UNRELATED_TYPES">GC_UNRELATED_TYPES</a></td>
-<td>708</td>
+<td>650</td>
 <td>High</td></tr>
 <tr class="b">
 <td>Synchronization on OntologyManagement.ontologies in futile attempt to guard it</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD">ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD</a></td>
-<td>361</td>
+<td>335</td>
 <td>High</td></tr>
 <tr class="a">
 <td>Synchronization on OntologyManagement.ontologies in futile attempt to guard it</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD">ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD</a></td>
-<td>713</td>
+<td>655</td>
 <td>High</td></tr>
 <tr class="b">
 <td>Synchronization on OntologyManagement.pendingOntologies in futile attempt to guard it</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD">ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD</a></td>
-<td>238</td>
+<td>234</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Synchronization on OntologyManagement.pendingOntologies in futile attempt to guard it</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD">ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD</a></td>
-<td>210</td>
+<td>209</td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>Nullcheck of ontClassInfos at line 281 of value previously dereferenced in org.universAAL.middleware.owl.OntologyManagement.register(ModuleContext, Ontology)</td>
+<td>Nullcheck of ontClassInfos at line 267 of value previously dereferenced in org.universAAL.middleware.owl.OntologyManagement.register(ModuleContext, Ontology)</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE">RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE</a></td>
-<td>281</td>
+<td>267</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.owl.TypeExpression"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.owl.TypeExpression"></a>org.universAAL.middleware.owl.TypeExpression</h3>
@@ -350,7 +350,7 @@
 <td>org.universAAL.middleware.owl.TypeExpression.synchronize(HashMap, HashMap) makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>468</td>
+<td>451</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.owl.generic.GenericOntology"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.owl.generic.GenericOntology"></a>org.universAAL.middleware.owl.generic.GenericOntology</h3>
@@ -365,7 +365,7 @@
 <td>Useless object stored in variable propSetup of method org.universAAL.middleware.owl.generic.GenericOntology.create()</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#UC_USELESS_OBJECT">UC_USELESS_OBJECT</a></td>
-<td>172</td>
+<td>168</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.owl.util.OntologyTest"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.owl.util.OntologyTest"></a>org.universAAL.middleware.owl.util.OntologyTest</h3>
@@ -380,7 +380,7 @@
 <td>org.universAAL.middleware.owl.util.OntologyTest.postTestClass(Ontology, OntClassInfo, HashMap) concatenates strings using + in a loop</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SBSC_USE_STRINGBUFFER_CONCATENATION">SBSC_USE_STRINGBUFFER_CONCATENATION</a></td>
-<td>132</td>
+<td>119</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.rdf.LangString"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.rdf.LangString"></a>org.universAAL.middleware.rdf.LangString</h3>
@@ -410,13 +410,13 @@
 <td>Unread field: org.universAAL.middleware.rdf.Property.equivalentProperties</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
-<td>67</td>
+<td>66</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Unread public/protected field: org.universAAL.middleware.rdf.Property.info</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD">URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD</a></td>
-<td>169</td>
+<td>167</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.rdf.Resource"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.rdf.Resource"></a>org.universAAL.middleware.rdf.Resource</h3>
@@ -431,7 +431,7 @@
 <td>org.universAAL.middleware.rdf.Resource.deepCopy() makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>506</td>
+<td>486</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.rdf.TypeMapper"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.rdf.TypeMapper"></a>org.universAAL.middleware.rdf.TypeMapper</h3>
@@ -446,7 +446,7 @@
 <td>org.universAAL.middleware.rdf.TypeMapper.getDatatypeURI(Class) makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>268</td>
+<td>264</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.util.MatchLogEntry"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.util.MatchLogEntry"></a>org.universAAL.middleware.util.MatchLogEntry</h3>
@@ -461,7 +461,7 @@
 <td>org.universAAL.middleware.util.MatchLogEntry.getArgs() may expose internal representation by returning MatchLogEntry.args</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td>68</td>
+<td>67</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.util.ResourceComparator"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.util.ResourceComparator"></a>org.universAAL.middleware.util.ResourceComparator</h3>
@@ -476,7 +476,7 @@
 <td>org.universAAL.middleware.util.ResourceComparator.getDiffsAsString(Resource, Resource) concatenates strings using + in a loop</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SBSC_USE_STRINGBUFFER_CONCATENATION">SBSC_USE_STRINGBUFFER_CONCATENATION</a></td>
-<td>293</td>
+<td>274</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.xsd.Base64Binary"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.xsd.Base64Binary"></a>org.universAAL.middleware.xsd.Base64Binary</h3>
@@ -518,19 +518,19 @@
 <td>Boxing/unboxing to parse a primitive new org.universAAL.middleware.xsd.NonNegativeInteger(String)</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_BOXED_PRIMITIVE_FOR_PARSING">DM_BOXED_PRIMITIVE_FOR_PARSING</a></td>
-<td>53</td>
+<td>51</td>
 <td>High</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.xsd.NonNegativeInteger.equals(Object) checks for operand being a Integer </td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS">EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS</a></td>
-<td>80</td>
+<td>77</td>
 <td>High</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.xsd.NonNegativeInteger defines equals and uses Object.hashCode()</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#HE_EQUALS_USE_HASHCODE">HE_EQUALS_USE_HASHCODE</a></td>
-<td>76</td>
+<td>73</td>
 <td>High</td></tr></table></div><a name="org.universAAL.middleware.xsd.util.Base64"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.xsd.util.Base64"></a>org.universAAL.middleware.xsd.util.Base64</h3>
@@ -545,19 +545,19 @@
 <td>Found reliance on default encoding in org.universAAL.middleware.xsd.util.Base64.decode(String, int): String.getBytes()</td>
 <td>I18N</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_DEFAULT_ENCODING">DM_DEFAULT_ENCODING</a></td>
-<td>1363</td>
+<td>1331</td>
 <td>High</td></tr>
 <tr class="b">
 <td>Found reliance on default encoding in org.universAAL.middleware.xsd.util.Base64.encodeBytes(byte[], int, int, int): new String(byte[])</td>
 <td>I18N</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_DEFAULT_ENCODING">DM_DEFAULT_ENCODING</a></td>
-<td>919</td>
+<td>903</td>
 <td>High</td></tr>
 <tr class="a">
 <td>Found reliance on default encoding in org.universAAL.middleware.xsd.util.Base64.encodeObject(Serializable, int): new String(byte[])</td>
 <td>I18N</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_DEFAULT_ENCODING">DM_DEFAULT_ENCODING</a></td>
-<td>756</td>
+<td>742</td>
 <td>High</td></tr></table></div>
       </div>
     </div>

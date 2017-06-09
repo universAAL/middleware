@@ -28,7 +28,7 @@ under the License.
       <title>File: 3,
              Errors: 101,
              Warnings: 10,
-             Infos: 18
+             Infos: 17
       </title>
             <link>http://middleware/middleware.core/mw.connectors.discovery.slp.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.discovery.slp.core//checkstyle.html#org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector.java">org/universAAL/middleware/connectors/discovery/slp/SLPDiscoveryConnector.java</a>
                 </td>
                 <td>
-                  8
+                  7
                 </td>
                 <td>
                   1

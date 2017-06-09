@@ -28,7 +28,7 @@ under the License.
       <title>File: 53,
              Errors: 933,
              Warnings: 76,
-             Infos: 751
+             Infos: 749
       </title>
             <link>http://middleware/middleware.core/mw.bus.service.core//checkstyle.html</link>
       <description>
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owl.ServiceBusOntology.java">org/universAAL/middleware/service/owl/ServiceBusOntology.java</a>
                 </td>
                 <td>
-                  10
+                  8
                 </td>
                 <td>
                   0
@@ -343,7 +343,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.ServiceCallee.java">org/universAAL/middleware/service/ServiceCallee.java</a>
                 </td>
                 <td>
-                  17
+                  16
                 </td>
                 <td>
                   0
@@ -413,7 +413,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.impl.ServiceStrategy.java">org/universAAL/middleware/service/impl/ServiceStrategy.java</a>
                 </td>
                 <td>
-                  49
+                  47
                 </td>
                 <td>
                   32
@@ -707,7 +707,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.service.core//checkstyle.html#org.universAAL.middleware.service.owls.process.ProcessResult.java">org/universAAL/middleware/service/owls/process/ProcessResult.java</a>
                 </td>
                 <td>
-                  26
+                  29
                 </td>
                 <td>
                   0

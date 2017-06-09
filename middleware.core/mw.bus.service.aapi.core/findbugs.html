@@ -125,7 +125,7 @@
 <td>Exception is caught when Exception is not thrown in org.universAAL.middleware.api.impl.DynamicServiceProxy.invoke(Object, Method, Object[])</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#REC_CATCH_EXCEPTION">REC_CATCH_EXCEPTION</a></td>
-<td>207</td>
+<td>188</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.api.impl.ServiceCalleeWrapper"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.api.impl.ServiceCalleeWrapper"></a>org.universAAL.middleware.api.impl.ServiceCalleeWrapper</h3>
@@ -140,25 +140,25 @@
 <td>org.universAAL.middleware.api.impl.ServiceCalleeWrapper.getProfiles() may expose internal representation by returning ServiceCalleeWrapper.profiles</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td>255</td>
+<td>238</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>new org.universAAL.middleware.api.impl.ServiceCalleeWrapper(ModuleContext, ServiceProfile[], Object, String, String, Map, Map, Map, Map, Map) may expose internal representation by storing an externally mutable object into ServiceCalleeWrapper.profiles</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td>75</td>
+<td>72</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.api.impl.ServiceCalleeWrapper.setProfiles(ServiceProfile[]) may expose internal representation by storing an externally mutable object into ServiceCalleeWrapper.profiles</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td>251</td>
+<td>234</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.api.impl.ServiceCalleeWrapper.handleCall(ServiceCall) makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>120</td>
+<td>116</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.api.impl.SimplifiedApiService"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.api.impl.SimplifiedApiService"></a>org.universAAL.middleware.api.impl.SimplifiedApiService</h3>

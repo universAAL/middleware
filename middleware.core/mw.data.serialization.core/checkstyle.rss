@@ -28,7 +28,7 @@ under the License.
       <title>File: 4,
              Errors: 138,
              Warnings: 7,
-             Infos: 50
+             Infos: 47
       </title>
             <link>http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleWriter.java">org/universAAL/middleware/serialization/turtle/TurtleWriter.java</a>
                 </td>
                 <td>
-                  20
+                  19
                 </td>
                 <td>
                   4
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.serialization.core//checkstyle.html#org.universAAL.middleware.serialization.turtle.TurtleParser.java">org/universAAL/middleware/serialization/turtle/TurtleParser.java</a>
                 </td>
                 <td>
-                  13
+                  11
                 </td>
                 <td>
                   3

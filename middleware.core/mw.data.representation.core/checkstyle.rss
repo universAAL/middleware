@@ -28,7 +28,7 @@ under the License.
       <title>File: 80,
              Errors: 723,
              Warnings: 125,
-             Infos: 92
+             Infos: 89
       </title>
             <link>http://middleware/middleware.core/mw.data.representation.core//checkstyle.html</link>
       <description>
@@ -217,7 +217,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.MergedRestriction.java">org/universAAL/middleware/owl/MergedRestriction.java</a>
                 </td>
                 <td>
-                  9
+                  11
                 </td>
                 <td>
                   8
@@ -497,7 +497,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.TypeRestriction.java">org/universAAL/middleware/owl/TypeRestriction.java</a>
                 </td>
                 <td>
-                  5
+                  4
                 </td>
                 <td>
                   4
@@ -609,7 +609,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.util.OntologyTest.java">org/universAAL/middleware/owl/util/OntologyTest.java</a>
                 </td>
                 <td>
-                  14
+                  15
                 </td>
                 <td>
                   1
@@ -721,7 +721,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.OntologyManagement.java">org/universAAL/middleware/owl/OntologyManagement.java</a>
                 </td>
                 <td>
-                  6
+                  4
                 </td>
                 <td>
                   0
@@ -805,7 +805,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.generic.GenericOntology.java">org/universAAL/middleware/owl/generic/GenericOntology.java</a>
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
                   0
@@ -1155,7 +1155,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.OntClassInfo.java">org/universAAL/middleware/owl/OntClassInfo.java</a>
                 </td>
                 <td>
-                  6
+                  2
                 </td>
                 <td>
                   0

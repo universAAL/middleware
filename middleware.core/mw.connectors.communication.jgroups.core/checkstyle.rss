@@ -28,7 +28,7 @@ under the License.
       <title>File: 4,
              Errors: 122,
              Warnings: 15,
-             Infos: 44
+             Infos: 45
       </title>
             <link>http://middleware/middleware.core/mw.connectors.communication.jgroups.core//checkstyle.html</link>
       <description>
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.communication.jgroups.core//checkstyle.html#org.universAAL.middleware.connectors.communication.jgroups.JGroupsCommunicationConnector.java">org/universAAL/middleware/connectors/communication/jgroups/JGroupsCommunicationConnector.java</a>
                 </td>
                 <td>
-                  4
+                  5
                 </td>
                 <td>
                   10

@@ -197,13 +197,13 @@
 <td>org.universAAL.middleware.ui.impl.UIBusImpl.startModule(Container, ModuleContext, Object[], Object[]) may expose internal static state by storing a mutable object into a static field org.universAAL.middleware.ui.impl.UIBusImpl.busFetchParams</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_STATIC_REP2">EI_EXPOSE_STATIC_REP2</a></td>
-<td>99</td>
+<td>91</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>Incorrect lazy initialization of static field org.universAAL.middleware.ui.impl.UIBusImpl.theUIBus in org.universAAL.middleware.ui.impl.UIBusImpl.stopModule()</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#LI_LAZY_INIT_STATIC">LI_LAZY_INIT_STATIC</a></td>
-<td>107</td>
+<td>99</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.impl.UIStrategyCaller"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.impl.UIStrategyCaller"></a>org.universAAL.middleware.ui.impl.UIStrategyCaller</h3>
@@ -218,7 +218,7 @@
 <td>Using pointer equality to compare a org.universAAL.middleware.ui.IDialogManager with a org.universAAL.middleware.bus.member.BusMember in org.universAAL.middleware.ui.impl.UIStrategyCaller.abortDialog(String, String)</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EC_UNRELATED_TYPES_USING_POINTER_EQUALITY">EC_UNRELATED_TYPES_USING_POINTER_EQUALITY</a></td>
-<td>382</td>
+<td>360</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.impl.UIStrategyCallerSuspendDialogMessage"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.impl.UIStrategyCallerSuspendDialogMessage"></a>org.universAAL.middleware.ui.impl.UIStrategyCaller$SuspendDialogMessage</h3>
@@ -233,7 +233,7 @@
 <td>Should org.universAAL.middleware.ui.impl.UIStrategyCaller$SuspendDialogMessage be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
-<td>145</td>
+<td>136</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng"></a>org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng</h3>
@@ -248,7 +248,7 @@
 <td>Load of known null value in org.universAAL.middleware.ui.impl.UIStrategyCoordinatorMng.setDialogManager(IDialogManager)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NP_LOAD_OF_KNOWN_NULL_VALUE">NP_LOAD_OF_KNOWN_NULL_VALUE</a></td>
-<td>68</td>
+<td>67</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.impl.UIStrategyHandler"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.impl.UIStrategyHandler"></a>org.universAAL.middleware.ui.impl.UIStrategyHandler</h3>
@@ -263,7 +263,7 @@
 <td>instanceof will always return true for all non-null values in org.universAAL.middleware.ui.impl.UIStrategyHandler.cutDialog(String, String), since all org.universAAL.middleware.ui.UIHandler are instances of org.universAAL.middleware.ui.UIHandler</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BC_VACUOUS_INSTANCEOF">BC_VACUOUS_INSTANCEOF</a></td>
-<td>434</td>
+<td>400</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.impl.UIStrategyHandlerCutCallMessage"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.impl.UIStrategyHandlerCutCallMessage"></a>org.universAAL.middleware.ui.impl.UIStrategyHandler$CutCallMessage</h3>
@@ -278,7 +278,7 @@
 <td>Should org.universAAL.middleware.ui.impl.UIStrategyHandler$CutCallMessage be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
-<td>183</td>
+<td>173</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagementRegistrationMessage"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagementRegistrationMessage"></a>org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement$RegistrationMessage</h3>
@@ -293,7 +293,7 @@
 <td>Should org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement$RegistrationMessage be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
-<td>64</td>
+<td>62</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagementRemoveMatchingRegistrationMessage"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagementRemoveMatchingRegistrationMessage"></a>org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement$RemoveMatchingRegistrationMessage</h3>
@@ -308,7 +308,7 @@
 <td>Should org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement$RemoveMatchingRegistrationMessage be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
-<td>118</td>
+<td>104</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagementUnRegistrationMessage"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagementUnRegistrationMessage"></a>org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement$UnRegistrationMessage</h3>
@@ -323,7 +323,7 @@
 <td>Should org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement$UnRegistrationMessage be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
-<td>94</td>
+<td>84</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy"></a>org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy</h3>
@@ -338,7 +338,7 @@
 <td>Naked notify in org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy.requestBecomeACoordinator()</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NN_NAKED_NOTIFY">NN_NAKED_NOTIFY</a></td>
-<td>303</td>
+<td>289</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.owl.DialogType"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.owl.DialogType"></a>org.universAAL.middleware.ui.owl.DialogType</h3>
@@ -413,7 +413,7 @@
 <td>org.universAAL.middleware.ui.rdf.FormControl.toString() may return null</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NP_TOSTRING_COULD_RETURN_NULL">NP_TOSTRING_COULD_RETURN_NULL</a></td>
-<td>466</td>
+<td>452</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.rdf.Group"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.rdf.Group"></a>org.universAAL.middleware.ui.rdf.Group</h3>
@@ -443,7 +443,7 @@
 <td>org.universAAL.middleware.ui.rdf.InputField.setMaxLength(int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>103</td>
+<td>100</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.rdf.MediaObject"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.rdf.MediaObject"></a>org.universAAL.middleware.ui.rdf.MediaObject</h3>
@@ -458,19 +458,19 @@
 <td>org.universAAL.middleware.ui.rdf.MediaObject.setMaxResolution(int, int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>211</td>
+<td>201</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.ui.rdf.MediaObject.setMinResolution(int, int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>230</td>
+<td>220</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.ui.rdf.MediaObject.setPreferredResolution(int, int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>249</td>
+<td>239</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.ui.rdf.Range"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.ui.rdf.Range"></a>org.universAAL.middleware.ui.rdf.Range</h3>
@@ -485,37 +485,37 @@
 <td>Dead store to step in org.universAAL.middleware.ui.rdf.Range.getStepsValue()</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DLS_DEAD_LOCAL_STORE">DLS_DEAD_LOCAL_STORE</a></td>
-<td>219</td>
+<td>207</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.ui.rdf.Range.getStep() invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>336</td>
+<td>313</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.ui.rdf.Range.shiftValue(int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>195</td>
+<td>184</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.ui.rdf.Range.shiftValue(int) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>197</td>
+<td>186</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.ui.rdf.Range.stepValue(int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>289</td>
+<td>272</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.ui.rdf.Range.stepValue(int) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>292</td>
+<td>274</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.ui.rdf.Range doesn't override org.universAAL.middleware.rdf.Resource.equals(Object)</td>
@@ -536,7 +536,7 @@
 <td>instanceof will always return true for all non-null values in org.universAAL.middleware.ui.rdf.Repeat.generateVirtualForms(), since all org.universAAL.middleware.ui.rdf.FormControl are instances of org.universAAL.middleware.ui.rdf.FormControl</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BC_VACUOUS_INSTANCEOF">BC_VACUOUS_INSTANCEOF</a></td>
-<td>627</td>
+<td>605</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.ui.rdf.Repeat doesn't override org.universAAL.middleware.rdf.Resource.equals(Object)</td>
@@ -557,13 +557,13 @@
 <td>org.universAAL.middleware.ui.rdf.Submit.setConfirmationOkCancel(String) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>303</td>
+<td>299</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.ui.rdf.Submit.setConfirmationYesNo(String) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>316</td>
+<td>311</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.ui.rdf.Submit doesn't override org.universAAL.middleware.rdf.Resource.equals(Object)</td>

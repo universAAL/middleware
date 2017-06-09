@@ -114,139 +114,139 @@
 <tr>  <td class="numLine">&nbsp;48</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;49</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="comment">/**</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;50</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * Check new dialog.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * Check new dialog.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;51</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * </span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * </span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;52</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * @param request</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param request</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;53</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *            {@link UIRequest} to {@link IUIBus}</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link UIRequest} to {@link IUIBus}</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;54</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * @return the decision if the new {@link UIRequest} to {@link IUIBus} can</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @return the decision if the new {@link UIRequest} to {@link IUIBus} can</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;55</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *         be immediately forwarded to an {@link UIHandler} (returns true)</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         be immediately forwarded to an {@link UIHandler} (returns true)</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;56</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *         or must wait for a higher priority dialog to finish (return</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         or must wait for a higher priority dialog to finish (return</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;57</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *         false). In case of returning true, the {@link IDialogManager}</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         false). In case of returning true, the {@link IDialogManager}</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;58</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *         must also add the current adaptation parameters to</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         must also add the current adaptation parameters to</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;59</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *         {@link UIRequest} so that the matchmaking on the {@link IUIBus}</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         {@link UIRequest} so that the matchmaking on the {@link IUIBus}</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;60</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *         results in adaptive selection of UI channel. In case of returning</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         results in adaptive selection of UI channel. In case of returning</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;61</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *         false, the {@link IUIBus} ignores the {@link UIRequest} because</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         false, the {@link IUIBus} ignores the {@link UIRequest} because</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;62</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *         it trusts that the {@link IDialogManager} will keep the</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         it trusts that the {@link IDialogManager} will keep the</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;63</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *         {@link UIRequest} in a queue of suspended dialogs and will</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         {@link UIRequest} in a queue of suspended dialogs and will</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;64</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *         re-activate it whenever appropriate.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         re-activate it whenever appropriate.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;65</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;66</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">boolean</span> checkNewDialog(UIRequest request);</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">boolean</span> checkNewDialog(UIRequest request);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;67</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;68</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="comment">/**</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;69</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * Informs the {@link IDialogManager} that a running dialog has finished</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * Informs the {@link IDialogManager} that a running dialog has finished</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;70</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * according to the information received from an {@link UIHandler}. As a</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * according to the information received from an {@link UIHandler}. As a</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;71</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * result this may result in re-activation of previously suspended dialog</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * result this may result in re-activation of previously suspended dialog</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;72</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * (by the {@link IDialogManager}).</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * (by the {@link IDialogManager}).</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;73</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * </span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * </span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;74</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * @param dialogID</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param dialogID</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;75</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *            ID of the dialog</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            ID of the dialog</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;76</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;77</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">void</span> dialogFinished(String dialogID);</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">void</span> dialogFinished(String dialogID);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;78</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;79</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="comment">/**</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;80</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * A User has logged in at a location resend the appropriate dialog.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * A User has logged in at a location resend the appropriate dialog.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;81</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * </span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * </span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;82</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * @param user</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param user</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;83</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *            {@link User} of a system. It is declared as Resource because</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link User} of a system. It is declared as Resource because</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;84</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *            the type User is defined in the Profiling Ontology. The type</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            the type User is defined in the Profiling Ontology. The type</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;85</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *            is not needed for for matchmaking Either.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            is not needed for for matchmaking Either.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;86</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * @param loginLocation</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param loginLocation</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;87</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *            {@link Location} from which {@link User} has logged in to the</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link Location} from which {@link User} has logged in to the</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;88</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *            system</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            system</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;89</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;90</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">void</span> userLogIn(Resource user, AbsLocation loginLocation);</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">void</span> userLogIn(Resource user, AbsLocation loginLocation);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;91</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;92</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="comment">/**</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;93</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * When the application has informed the bus that a suspended parent dialog</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * When the application has informed the bus that a suspended parent dialog</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;94</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * is now ready to be resumed, then the bus uses this method in order to</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * is now ready to be resumed, then the bus uses this method in order to</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;95</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * fetch the suspended parent dialog.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * fetch the suspended parent dialog.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;96</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * </span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * </span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;97</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * @param dialogID</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param dialogID</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;98</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *            ID of the dialog</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            ID of the dialog</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;99</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * @return the suspended parent dialog</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @return the suspended parent dialog</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;100</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;101</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> UIRequest getSuspendedDialog(String dialogID);</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> UIRequest getSuspendedDialog(String dialogID);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;102</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;103</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="comment">/**</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;104</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * The bus must use this method in order to inform the</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * The bus must use this method in order to inform the</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;105</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * {@link IDialogManager} that a dialog has to be suspended. This is the</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * {@link IDialogManager} that a dialog has to be suspended. This is the</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;106</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * case when during a dialog is running the user steps into a subdialog so</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * case when during a dialog is running the user steps into a subdialog so</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;107</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * the parent dialog must be suspended until the application receives the</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * the parent dialog must be suspended until the application receives the</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;108</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * user input from the subdialog.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * user input from the subdialog.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;109</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * </span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * </span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;110</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     * @param dialogID</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param dialogID</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;111</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     *            ID of the dialog</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            ID of the dialog</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;112</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;113</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">void</span> suspendDialog(String dialogID);</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">void</span> suspendDialog(String dialogID);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;114</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 5/30/17 9:10 PM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 6/9/17 3:47 AM.</div>
 </body>
 </html>

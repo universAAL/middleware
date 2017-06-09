@@ -137,25 +137,25 @@
 <td>instanceof will always return true for all non-null values in org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl.updateLocalValue(Entity), since all java.io.File are instances of java.io.File</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BC_VACUOUS_INSTANCEOF">BC_VACUOUS_INSTANCEOF</a></td>
-<td>261</td>
+<td>253</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl.processRequest(ConfigurationMessage) might ignore java.lang.Exception</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DE_MIGHT_IGNORE">DE_MIGHT_IGNORE</a></td>
-<td>564</td>
+<td>524</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl.registerConfigurableEntityManager(ConfigurationEditor$ConfigurableEntityManager, List, Locale) might ignore java.lang.Exception</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DE_MIGHT_IGNORE">DE_MIGHT_IGNORE</a></td>
-<td>440</td>
+<td>412</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Found reliance on default encoding in org.universAAL.middleware.managers.configuration.core.impl.ConfigurationManagerImpl.updatedValue(DescribedEntity, Object): String.getBytes()</td>
 <td>I18N</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_DEFAULT_ENCODING">DM_DEFAULT_ENCODING</a></td>
-<td>384</td>
+<td>361</td>
 <td>High</td></tr></table></div><a name="org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationFileEditor"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationFileEditor"></a>org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationFileEditor</h3>
@@ -170,19 +170,19 @@
 <td>Possible null pointer dereference of url in org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationFileEditor.pullFile() on exception path</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NP_NULL_ON_SOME_PATH_EXCEPTION">NP_NULL_ON_SOME_PATH_EXCEPTION</a></td>
-<td>122</td>
+<td>118</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>Exception is caught when Exception is not thrown in org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationFileEditor.isDefaultValue()</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#REC_CATCH_EXCEPTION">REC_CATCH_EXCEPTION</a></td>
-<td>85</td>
+<td>82</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Exception is caught when Exception is not thrown in org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationFileEditor.pushFile(File)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#REC_CATCH_EXCEPTION">REC_CATCH_EXCEPTION</a></td>
-<td>142</td>
+<td>138</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor"></a>org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor</h3>
@@ -197,7 +197,7 @@
 <td>Exception is caught when Exception is not thrown in org.universAAL.middleware.managers.configuration.core.impl.RemoteConfigurationFileEditor.pushFile(File)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#REC_CATCH_EXCEPTION">REC_CATCH_EXCEPTION</a></td>
-<td>119</td>
+<td>116</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ModuleRegistry"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ModuleRegistry"></a>org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ModuleRegistry</h3>
@@ -212,13 +212,13 @@
 <td>Possible null pointer dereference in org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ModuleRegistry.configurationChanged(Scope, Object) due to return value of called method</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE">NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE</a></td>
-<td>112</td>
+<td>108</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>Possible null pointer dereference in org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ModuleRegistry.remove(ConfigurableModule) due to return value of called method</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE">NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE</a></td>
-<td>75</td>
+<td>71</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector"></a>org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector</h3>
@@ -233,25 +233,25 @@
 <td>Inconsistent synchronization of org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector.aalSpaceManager; locked 75% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
-<td>124</td>
+<td>123</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Inconsistent synchronization of org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector.controlBroker; locked 75% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
-<td>126</td>
+<td>125</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>Inconsistent synchronization of org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector.messageContentSerializer; locked 75% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
-<td>128</td>
+<td>127</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Inconsistent synchronization of org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector.stopping; locked 60% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
-<td>116</td>
+<td>115</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile"></a>org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile</h3>
@@ -266,7 +266,7 @@
 <td>org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile.writeContentToFile(Base64Binary, File) may fail to clean up java.io.OutputStream on checked exception</td>
 <td>EXPERIMENTAL</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE">OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE</a></td>
-<td>137</td>
+<td>132</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.configuration.core.owl.Entity"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.managers.configuration.core.owl.Entity"></a>org.universAAL.middleware.managers.configuration.core.owl.Entity</h3>
@@ -281,7 +281,7 @@
 <td>org.universAAL.middleware.managers.configuration.core.owl.Entity.setVersion(long) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>90</td>
+<td>88</td>
 <td>Medium</td></tr></table></div>
       </div>
     </div>

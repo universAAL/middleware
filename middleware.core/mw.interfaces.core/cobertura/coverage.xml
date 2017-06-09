@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.032073310423825885" branch-rate="0.010416666666666666" lines-covered="28" lines-valid="873" branches-covered="3" branches-valid="288" complexity="1.2254464285714286" version="2.1.1" timestamp="1496178367391">
+<coverage line-rate="0.03117782909930716" branch-rate="0.010416666666666666" lines-covered="27" lines-valid="866" branches-covered="3" branches-valid="288" complexity="1.2254464285714286" version="2.1.1" timestamp="1496979924265">
 	<sources>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.interfaces.core/src/main/java</source>
 		<source>--source</source>
 	</sources>
 	<packages>
-		<package name="org.universAAL.middleware.interfaces" line-rate="0.36363636363636365" branch-rate="0.25" complexity="1.4615384615384615">
+		<package name="org.universAAL.middleware.interfaces" line-rate="0.36" branch-rate="0.25" complexity="1.4615384615384615">
 			<classes>
 				<class name="org.universAAL.middleware.interfaces.ChannelDescriptor" filename="org/universAAL/middleware/interfaces/ChannelDescriptor.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
 					<methods>
@@ -79,158 +79,156 @@
 						<line number="71" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.interfaces.PeerCard" filename="org/universAAL/middleware/interfaces/PeerCard.java" line-rate="0.4406779661016949" branch-rate="0.25" complexity="1.6666666666666667">
+				<class name="org.universAAL.middleware.interfaces.PeerCard" filename="org/universAAL/middleware/interfaces/PeerCard.java" line-rate="0.43859649122807015" branch-rate="0.25" complexity="1.6666666666666667">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="61" hits="0" branch="false"/>
 								<line number="62" hits="0" branch="false"/>
-								<line number="63" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="&lt;init&gt;" signature="(Ljava/lang/String;)V" line-rate="0.4166666666666667" branch-rate="0.0" complexity="0">
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;)V" line-rate="0.36363636363636365" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="38" hits="8" branch="false"/>
 								<line number="44" hits="8" branch="false"/>
 								<line number="45" hits="8" branch="false"/>
-								<line number="46" hits="8" branch="false"/>
-								<line number="48" hits="8" branch="false"/>
+								<line number="47" hits="8" branch="false"/>
+								<line number="74" hits="0" branch="false"/>
 								<line number="75" hits="0" branch="false"/>
-								<line number="76" hits="0" branch="false"/>
-								<line number="77" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="76" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="78" hits="0" branch="false"/>
+								<line number="77" hits="0" branch="false"/>
+								<line number="79" hits="0" branch="false"/>
+								<line number="80" hits="0" branch="false"/>
 								<line number="81" hits="0" branch="false"/>
-								<line number="82" hits="0" branch="false"/>
-								<line number="83" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Lorg/universAAL/middleware/interfaces/PeerRole;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="64" hits="7" branch="false"/>
 								<line number="65" hits="7" branch="false"/>
 								<line number="66" hits="7" branch="false"/>
 								<line number="67" hits="7" branch="false"/>
-								<line number="68" hits="7" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/interfaces/PeerRole;Ljava/lang/String;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="54" hits="1" branch="false"/>
 								<line number="55" hits="1" branch="false"/>
 								<line number="56" hits="1" branch="false"/>
 								<line number="57" hits="1" branch="false"/>
 								<line number="58" hits="1" branch="false"/>
 								<line number="59" hits="1" branch="false"/>
-								<line number="60" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="equals" signature="(Ljava/lang/Object;)Z" line-rate="0.75" branch-rate="0.5" complexity="0">
 							<lines>
-								<line number="123" hits="2" branch="true" condition-coverage="50% (1/2)">
+								<line number="121" hits="2" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="124" hits="2" branch="false"/>
-								<line number="125" hits="2" branch="false"/>
-								<line number="127" hits="0" branch="false"/>
+								<line number="122" hits="2" branch="false"/>
+								<line number="123" hits="2" branch="false"/>
+								<line number="125" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getCONTAINER_UNIT" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="139" hits="0" branch="false"/>
+								<line number="137" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getOS" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="147" hits="0" branch="false"/>
+								<line number="145" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getPLATFORM_UNIT" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="131" hits="0" branch="false"/>
+								<line number="129" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getPeerID" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="91" hits="0" branch="false"/>
+								<line number="89" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getRole" signature="()Lorg/universAAL/middleware/interfaces/PeerRole;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="95" hits="0" branch="false"/>
+								<line number="93" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="hashCode" signature="()I" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="119" hits="4" branch="false"/>
+								<line number="117" hits="4" branch="false"/>
 							</lines>
 						</method>
 						<method name="isCoordinator" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="109" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="107" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="110" hits="0" branch="false"/>
-								<line number="111" hits="0" branch="false"/>
+								<line number="108" hits="0" branch="false"/>
+								<line number="109" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setCONTAINER_UNIT" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="143" hits="0" branch="false"/>
-								<line number="144" hits="0" branch="false"/>
+								<line number="141" hits="0" branch="false"/>
+								<line number="142" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setOS" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="151" hits="0" branch="false"/>
-								<line number="152" hits="0" branch="false"/>
+								<line number="149" hits="0" branch="false"/>
+								<line number="150" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setPLATFORM_UNIT" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="135" hits="0" branch="false"/>
-								<line number="136" hits="0" branch="false"/>
+								<line number="133" hits="0" branch="false"/>
+								<line number="134" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setRole" signature="(Lorg/universAAL/middleware/interfaces/PeerRole;)V" line-rate="0.5" branch-rate="0.5" complexity="0">
 							<lines>
-								<line number="99" hits="1" branch="true" condition-coverage="50% (1/2)">
+								<line number="97" hits="1" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="100" hits="1" branch="false"/>
-								<line number="101" hits="0" branch="false"/>
-								<line number="102" hits="0" branch="false"/>
+								<line number="98" hits="1" branch="false"/>
+								<line number="99" hits="0" branch="false"/>
+								<line number="100" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="toString" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="115" hits="0" branch="false"/>
+								<line number="113" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="toURI" signature="()Ljava/net/URI;" line-rate="0.45454545454545453" branch-rate="0.5" complexity="0">
+						<method name="toURI" signature="()Ljava/net/URI;" line-rate="0.5" branch-rate="0.5" complexity="0">
 							<lines>
-								<line number="161" hits="1" branch="false"/>
-								<line number="162" hits="1" branch="true" condition-coverage="50% (1/2)">
+								<line number="159" hits="1" branch="false"/>
+								<line number="160" hits="1" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="163" hits="0" branch="false"/>
-								<line number="166" hits="1" branch="false"/>
+								<line number="161" hits="0" branch="false"/>
+								<line number="164" hits="1" branch="false"/>
+								<line number="165" hits="0" branch="false"/>
+								<line number="166" hits="0" branch="false"/>
 								<line number="167" hits="0" branch="false"/>
-								<line number="168" hits="0" branch="false"/>
-								<line number="169" hits="0" branch="false"/>
+								<line number="168" hits="1" branch="false"/>
+								<line number="169" hits="1" branch="false"/>
 								<line number="170" hits="0" branch="false"/>
-								<line number="171" hits="1" branch="false"/>
-								<line number="172" hits="1" branch="false"/>
-								<line number="173" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -238,83 +236,81 @@
 						<line number="38" hits="8" branch="false"/>
 						<line number="44" hits="8" branch="false"/>
 						<line number="45" hits="8" branch="false"/>
-						<line number="46" hits="8" branch="false"/>
-						<line number="48" hits="8" branch="false"/>
+						<line number="47" hits="8" branch="false"/>
+						<line number="54" hits="1" branch="false"/>
 						<line number="55" hits="1" branch="false"/>
 						<line number="56" hits="1" branch="false"/>
 						<line number="57" hits="1" branch="false"/>
 						<line number="58" hits="1" branch="false"/>
 						<line number="59" hits="1" branch="false"/>
-						<line number="60" hits="1" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
 						<line number="62" hits="0" branch="false"/>
-						<line number="63" hits="0" branch="false"/>
+						<line number="64" hits="7" branch="false"/>
 						<line number="65" hits="7" branch="false"/>
 						<line number="66" hits="7" branch="false"/>
 						<line number="67" hits="7" branch="false"/>
-						<line number="68" hits="7" branch="false"/>
+						<line number="74" hits="0" branch="false"/>
 						<line number="75" hits="0" branch="false"/>
-						<line number="76" hits="0" branch="false"/>
-						<line number="77" hits="0" branch="true" condition-coverage="0% (0/4)">
+						<line number="76" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="78" hits="0" branch="false"/>
+						<line number="77" hits="0" branch="false"/>
+						<line number="79" hits="0" branch="false"/>
+						<line number="80" hits="0" branch="false"/>
 						<line number="81" hits="0" branch="false"/>
-						<line number="82" hits="0" branch="false"/>
-						<line number="83" hits="0" branch="false"/>
-						<line number="91" hits="0" branch="false"/>
-						<line number="95" hits="0" branch="false"/>
-						<line number="99" hits="1" branch="true" condition-coverage="50% (1/2)">
+						<line number="89" hits="0" branch="false"/>
+						<line number="93" hits="0" branch="false"/>
+						<line number="97" hits="1" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="100" hits="1" branch="false"/>
-						<line number="101" hits="0" branch="false"/>
-						<line number="102" hits="0" branch="false"/>
-						<line number="109" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="98" hits="1" branch="false"/>
+						<line number="99" hits="0" branch="false"/>
+						<line number="100" hits="0" branch="false"/>
+						<line number="107" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="110" hits="0" branch="false"/>
-						<line number="111" hits="0" branch="false"/>
-						<line number="115" hits="0" branch="false"/>
-						<line number="119" hits="4" branch="false"/>
-						<line number="123" hits="2" branch="true" condition-coverage="50% (1/2)">
+						<line number="108" hits="0" branch="false"/>
+						<line number="109" hits="0" branch="false"/>
+						<line number="113" hits="0" branch="false"/>
+						<line number="117" hits="4" branch="false"/>
+						<line number="121" hits="2" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="124" hits="2" branch="false"/>
-						<line number="125" hits="2" branch="false"/>
-						<line number="127" hits="0" branch="false"/>
-						<line number="131" hits="0" branch="false"/>
-						<line number="135" hits="0" branch="false"/>
-						<line number="136" hits="0" branch="false"/>
-						<line number="139" hits="0" branch="false"/>
-						<line number="143" hits="0" branch="false"/>
-						<line number="144" hits="0" branch="false"/>
-						<line number="147" hits="0" branch="false"/>
-						<line number="151" hits="0" branch="false"/>
-						<line number="152" hits="0" branch="false"/>
-						<line number="161" hits="1" branch="false"/>
-						<line number="162" hits="1" branch="true" condition-coverage="50% (1/2)">
+						<line number="122" hits="2" branch="false"/>
+						<line number="123" hits="2" branch="false"/>
+						<line number="125" hits="0" branch="false"/>
+						<line number="129" hits="0" branch="false"/>
+						<line number="133" hits="0" branch="false"/>
+						<line number="134" hits="0" branch="false"/>
+						<line number="137" hits="0" branch="false"/>
+						<line number="141" hits="0" branch="false"/>
+						<line number="142" hits="0" branch="false"/>
+						<line number="145" hits="0" branch="false"/>
+						<line number="149" hits="0" branch="false"/>
+						<line number="150" hits="0" branch="false"/>
+						<line number="159" hits="1" branch="false"/>
+						<line number="160" hits="1" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="163" hits="0" branch="false"/>
-						<line number="166" hits="1" branch="false"/>
+						<line number="161" hits="0" branch="false"/>
+						<line number="164" hits="1" branch="false"/>
+						<line number="165" hits="0" branch="false"/>
+						<line number="166" hits="0" branch="false"/>
 						<line number="167" hits="0" branch="false"/>
-						<line number="168" hits="0" branch="false"/>
-						<line number="169" hits="0" branch="false"/>
+						<line number="168" hits="1" branch="false"/>
+						<line number="169" hits="1" branch="false"/>
 						<line number="170" hits="0" branch="false"/>
-						<line number="171" hits="1" branch="false"/>
-						<line number="172" hits="1" branch="false"/>
-						<line number="173" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.PeerRole" filename="org/universAAL/middleware/interfaces/PeerRole.java" line-rate="1.0" branch-rate="1.0" complexity="0.0">
@@ -370,26 +366,26 @@
 						</method>
 						<method name="equals" signature="(Ljava/lang/Object;)Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="201" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="200" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="202" hits="0" branch="false"/>
+								<line number="201" hits="0" branch="false"/>
+								<line number="202" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
 								<line number="203" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="205" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
+								<line number="204" hits="0" branch="false"/>
 								<line number="206" hits="0" branch="false"/>
 								<line number="208" hits="0" branch="false"/>
-								<line number="210" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getAalSpaceLifeTime" signature="()I" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -456,7 +452,7 @@
 						</method>
 						<method name="hashCode" signature="()I" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="215" hits="0" branch="false"/>
+								<line number="213" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="serializeCard" signature="()Ljava/util/Dictionary;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -596,43 +592,43 @@
 						<line number="181" hits="0" branch="false"/>
 						<line number="182" hits="0" branch="false"/>
 						<line number="190" hits="0" branch="false"/>
-						<line number="201" hits="0" branch="true" condition-coverage="0% (0/4)">
+						<line number="200" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="202" hits="0" branch="false"/>
+						<line number="201" hits="0" branch="false"/>
+						<line number="202" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
 						<line number="203" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="205" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
+						<line number="204" hits="0" branch="false"/>
 						<line number="206" hits="0" branch="false"/>
 						<line number="208" hits="0" branch="false"/>
-						<line number="210" hits="0" branch="false"/>
-						<line number="215" hits="0" branch="false"/>
+						<line number="213" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor" filename="org/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="79" hits="0" branch="false"/>
-								<line number="81" hits="0" branch="false"/>
+								<line number="78" hits="0" branch="false"/>
+								<line number="80" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceCard;Ljava/util/List;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="73" hits="0" branch="false"/>
 								<line number="74" hits="0" branch="false"/>
 								<line number="75" hits="0" branch="false"/>
 								<line number="76" hits="0" branch="false"/>
-								<line number="77" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getBrokerChannels" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -679,12 +675,12 @@
 						<line number="66" hits="0" branch="false"/>
 						<line number="70" hits="0" branch="false"/>
 						<line number="71" hits="0" branch="false"/>
+						<line number="73" hits="0" branch="false"/>
 						<line number="74" hits="0" branch="false"/>
 						<line number="75" hits="0" branch="false"/>
 						<line number="76" hits="0" branch="false"/>
-						<line number="77" hits="0" branch="false"/>
-						<line number="79" hits="0" branch="false"/>
-						<line number="81" hits="0" branch="false"/>
+						<line number="78" hits="0" branch="false"/>
+						<line number="80" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus" filename="org/universAAL/middleware/interfaces/aalspace/AALSpaceStatus.java" line-rate="0.0" branch-rate="1.0" complexity="0.0">
@@ -1167,13 +1163,13 @@
 									</conditions>
 								</line>
 								<line number="50" hits="0" branch="false"/>
+								<line number="52" hits="0" branch="false"/>
 								<line number="53" hits="0" branch="false"/>
-								<line number="54" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getPartID" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="62" hits="0" branch="false"/>
+								<line number="61" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -1192,9 +1188,9 @@
 							</conditions>
 						</line>
 						<line number="50" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="false"/>
 						<line number="53" hits="0" branch="false"/>
-						<line number="54" hits="0" branch="false"/>
-						<line number="62" hits="0" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope" filename="org/universAAL/middleware/interfaces/configuration/scope/ApplicationScope.java" line-rate="0.0" branch-rate="0.0" complexity="3.5">
@@ -1263,19 +1259,19 @@
 									</conditions>
 								</line>
 								<line number="50" hits="0" branch="false"/>
+								<line number="52" hits="0" branch="false"/>
 								<line number="53" hits="0" branch="false"/>
-								<line number="54" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="65" hits="0" branch="false"/>
 								<line number="66" hits="0" branch="false"/>
-								<line number="67" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getPeerID" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="75" hits="0" branch="false"/>
+								<line number="74" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -1294,11 +1290,11 @@
 							</conditions>
 						</line>
 						<line number="50" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="false"/>
 						<line number="53" hits="0" branch="false"/>
-						<line number="54" hits="0" branch="false"/>
+						<line number="65" hits="0" branch="false"/>
 						<line number="66" hits="0" branch="false"/>
-						<line number="67" hits="0" branch="false"/>
-						<line number="75" hits="0" branch="false"/>
+						<line number="74" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.configuration.scope.ModuleScope" filename="org/universAAL/middleware/interfaces/configuration/scope/ModuleScope.java" line-rate="0.0" branch-rate="0.0" complexity="2.6666666666666665">
@@ -1313,25 +1309,25 @@
 									</conditions>
 								</line>
 								<line number="46" hits="0" branch="false"/>
-								<line number="48" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="47" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="49" hits="0" branch="false"/>
-								<line number="52" hits="0" branch="false"/>
-								<line number="53" hits="0" branch="false"/>
+								<line number="48" hits="0" branch="false"/>
+								<line number="50" hits="0" branch="false"/>
+								<line number="51" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Lorg/universAAL/middleware/interfaces/PeerCard;Lorg/universAAL/middleware/container/ModuleContext;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="68" hits="0" branch="false"/>
-								<line number="69" hits="0" branch="false"/>
+								<line number="66" hits="0" branch="false"/>
+								<line number="67" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getModuleID" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="77" hits="0" branch="false"/>
+								<line number="75" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -1344,17 +1340,17 @@
 							</conditions>
 						</line>
 						<line number="46" hits="0" branch="false"/>
-						<line number="48" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="47" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="49" hits="0" branch="false"/>
-						<line number="52" hits="0" branch="false"/>
-						<line number="53" hits="0" branch="false"/>
-						<line number="68" hits="0" branch="false"/>
-						<line number="69" hits="0" branch="false"/>
-						<line number="77" hits="0" branch="false"/>
+						<line number="48" hits="0" branch="false"/>
+						<line number="50" hits="0" branch="false"/>
+						<line number="51" hits="0" branch="false"/>
+						<line number="66" hits="0" branch="false"/>
+						<line number="67" hits="0" branch="false"/>
+						<line number="75" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.configuration.scope.Scope" filename="org/universAAL/middleware/interfaces/configuration/scope/Scope.java" line-rate="0.0" branch-rate="0.0" complexity="1.7142857142857142">
@@ -1386,7 +1382,7 @@
 						</method>
 						<method name="applicationPartScope" signature="(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/universAAL/middleware/interfaces/configuration/scope/Scope;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="80" hits="0" branch="false"/>
+								<line number="79" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="applicationScope" signature="(Ljava/lang/String;Ljava/lang/String;)Lorg/universAAL/middleware/interfaces/configuration/scope/Scope;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -1432,7 +1428,7 @@
 						<line number="67" hits="0" branch="false"/>
 						<line number="71" hits="0" branch="false"/>
 						<line number="75" hits="0" branch="false"/>
-						<line number="80" hits="0" branch="false"/>
+						<line number="79" hits="0" branch="false"/>
 					</lines>
 				</class>
 			</classes>
@@ -1489,78 +1485,78 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="58" hits="0" branch="false"/>
 								<line number="59" hits="0" branch="false"/>
 								<line number="60" hits="0" branch="false"/>
 								<line number="61" hits="0" branch="false"/>
 								<line number="62" hits="0" branch="false"/>
 								<line number="63" hits="0" branch="false"/>
 								<line number="64" hits="0" branch="false"/>
-								<line number="65" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;Lorg/universAAL/middleware/deploymanager/uapp/model/AalUapp$App;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="75" hits="0" branch="false"/>
 								<line number="76" hits="0" branch="false"/>
 								<line number="77" hits="0" branch="false"/>
 								<line number="78" hits="0" branch="false"/>
 								<line number="79" hits="0" branch="false"/>
 								<line number="80" hits="0" branch="false"/>
 								<line number="81" hits="0" branch="false"/>
-								<line number="82" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="93" hits="0" branch="false"/>
+								<line number="92" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getId" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="89" hits="0" branch="false"/>
+								<line number="88" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="85" hits="0" branch="false"/>
+								<line number="84" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getPartId" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="101" hits="0" branch="false"/>
+								<line number="100" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getServiceId" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="97" hits="0" branch="false"/>
+								<line number="96" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="toString" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="105" hits="0" branch="false"/>
+								<line number="104" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
+						<line number="58" hits="0" branch="false"/>
 						<line number="59" hits="0" branch="false"/>
 						<line number="60" hits="0" branch="false"/>
 						<line number="61" hits="0" branch="false"/>
 						<line number="62" hits="0" branch="false"/>
 						<line number="63" hits="0" branch="false"/>
 						<line number="64" hits="0" branch="false"/>
-						<line number="65" hits="0" branch="false"/>
+						<line number="75" hits="0" branch="false"/>
 						<line number="76" hits="0" branch="false"/>
 						<line number="77" hits="0" branch="false"/>
 						<line number="78" hits="0" branch="false"/>
 						<line number="79" hits="0" branch="false"/>
 						<line number="80" hits="0" branch="false"/>
 						<line number="81" hits="0" branch="false"/>
-						<line number="82" hits="0" branch="false"/>
-						<line number="85" hits="0" branch="false"/>
-						<line number="89" hits="0" branch="false"/>
-						<line number="93" hits="0" branch="false"/>
-						<line number="97" hits="0" branch="false"/>
-						<line number="101" hits="0" branch="false"/>
-						<line number="105" hits="0" branch="false"/>
+						<line number="84" hits="0" branch="false"/>
+						<line number="88" hits="0" branch="false"/>
+						<line number="92" hits="0" branch="false"/>
+						<line number="96" hits="0" branch="false"/>
+						<line number="100" hits="0" branch="false"/>
+						<line number="104" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.UAPPPartStatus" filename="org/universAAL/middleware/interfaces/mpa/UAPPPartStatus.java" line-rate="0.0" branch-rate="1.0" complexity="0.0">
@@ -1616,23 +1612,23 @@
 						</method>
 						<method name="getMpaParts" signature="()Ljava/util/Map;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="68" hits="0" branch="false"/>
+								<line number="67" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="updatePart" signature="(Ljava/lang/String;Ljava/lang/String;Lorg/universAAL/middleware/interfaces/mpa/UAPPPartStatus;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="55" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="54" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
+								<line number="56" hits="0" branch="false"/>
 								<line number="57" hits="0" branch="false"/>
 								<line number="58" hits="0" branch="false"/>
 								<line number="59" hits="0" branch="false"/>
-								<line number="60" hits="0" branch="false"/>
+								<line number="61" hits="0" branch="false"/>
 								<line number="62" hits="0" branch="false"/>
-								<line number="63" hits="0" branch="false"/>
-								<line number="65" hits="0" branch="false"/>
+								<line number="64" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -1642,19 +1638,19 @@
 						<line number="46" hits="0" branch="false"/>
 						<line number="47" hits="0" branch="false"/>
 						<line number="50" hits="0" branch="false"/>
-						<line number="55" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="54" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
+						<line number="56" hits="0" branch="false"/>
 						<line number="57" hits="0" branch="false"/>
 						<line number="58" hits="0" branch="false"/>
 						<line number="59" hits="0" branch="false"/>
-						<line number="60" hits="0" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
 						<line number="62" hits="0" branch="false"/>
-						<line number="63" hits="0" branch="false"/>
-						<line number="65" hits="0" branch="false"/>
-						<line number="68" hits="0" branch="false"/>
+						<line number="64" hits="0" branch="false"/>
+						<line number="67" hits="0" branch="false"/>
 					</lines>
 				</class>
 			</classes>
@@ -1666,7 +1662,7 @@
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="208" hits="0" branch="false"/>
-								<line number="1634" hits="0" branch="false"/>
+								<line number="1629" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getApp" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$App;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -1812,50 +1808,50 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1634" hits="0" branch="false"/>
+						<line number="1629" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$App" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="388" hits="0" branch="false"/>
-								<line number="569" hits="0" branch="false"/>
+								<line number="387" hits="0" branch="false"/>
+								<line number="568" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getAppId" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="453" hits="0" branch="false"/>
+								<line number="452" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="478" hits="0" branch="false"/>
+								<line number="477" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getLicense" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$App$License;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="503" hits="0" branch="false"/>
+								<line number="502" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="408" hits="0" branch="false"/>
+								<line number="407" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getSla" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="528" hits="0" branch="false"/>
+								<line number="527" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isDistributed" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="431" hits="0" branch="false"/>
+								<line number="430" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetAppId" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="468" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="467" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -1864,7 +1860,7 @@
 						</method>
 						<method name="isSetDescription" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="493" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="492" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -1873,12 +1869,12 @@
 						</method>
 						<method name="isSetDistributed" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="443" hits="0" branch="false"/>
+								<line number="442" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetLicense" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="518" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="517" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -1887,7 +1883,7 @@
 						</method>
 						<method name="isSetName" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="423" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="422" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -1896,7 +1892,7 @@
 						</method>
 						<method name="isSetSla" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="543" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="542" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -1905,110 +1901,110 @@
 						</method>
 						<method name="setAppId" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="463" hits="0" branch="false"/>
 								<line number="464" hits="0" branch="false"/>
-								<line number="465" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setDescription" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="488" hits="0" branch="false"/>
 								<line number="489" hits="0" branch="false"/>
-								<line number="490" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setDistributed" signature="(Z)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="438" hits="0" branch="false"/>
 								<line number="439" hits="0" branch="false"/>
-								<line number="440" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setLicense" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$App$License;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="513" hits="0" branch="false"/>
 								<line number="514" hits="0" branch="false"/>
-								<line number="515" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setName" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="418" hits="0" branch="false"/>
 								<line number="419" hits="0" branch="false"/>
-								<line number="420" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setSla" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="538" hits="0" branch="false"/>
 								<line number="539" hits="0" branch="false"/>
-								<line number="540" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="388" hits="0" branch="false"/>
-						<line number="408" hits="0" branch="false"/>
+						<line number="387" hits="0" branch="false"/>
+						<line number="407" hits="0" branch="false"/>
+						<line number="418" hits="0" branch="false"/>
 						<line number="419" hits="0" branch="false"/>
-						<line number="420" hits="0" branch="false"/>
-						<line number="423" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="422" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="431" hits="0" branch="false"/>
+						<line number="430" hits="0" branch="false"/>
+						<line number="438" hits="0" branch="false"/>
 						<line number="439" hits="0" branch="false"/>
-						<line number="440" hits="0" branch="false"/>
-						<line number="443" hits="0" branch="false"/>
-						<line number="453" hits="0" branch="false"/>
+						<line number="442" hits="0" branch="false"/>
+						<line number="452" hits="0" branch="false"/>
+						<line number="463" hits="0" branch="false"/>
 						<line number="464" hits="0" branch="false"/>
-						<line number="465" hits="0" branch="false"/>
-						<line number="468" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="467" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="478" hits="0" branch="false"/>
+						<line number="477" hits="0" branch="false"/>
+						<line number="488" hits="0" branch="false"/>
 						<line number="489" hits="0" branch="false"/>
-						<line number="490" hits="0" branch="false"/>
-						<line number="493" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="492" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="503" hits="0" branch="false"/>
+						<line number="502" hits="0" branch="false"/>
+						<line number="513" hits="0" branch="false"/>
 						<line number="514" hits="0" branch="false"/>
-						<line number="515" hits="0" branch="false"/>
-						<line number="518" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="517" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="528" hits="0" branch="false"/>
+						<line number="527" hits="0" branch="false"/>
+						<line number="538" hits="0" branch="false"/>
 						<line number="539" hits="0" branch="false"/>
-						<line number="540" hits="0" branch="false"/>
-						<line number="543" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="542" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="569" hits="0" branch="false"/>
+						<line number="568" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$App$License" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="571" hits="0" branch="false"/>
+								<line number="570" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getLink" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="612" hits="0" branch="false"/>
+								<line number="611" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="587" hits="0" branch="false"/>
+								<line number="586" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetLink" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="627" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="626" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2017,7 +2013,7 @@
 						</method>
 						<method name="isSetName" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="602" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="601" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2026,31 +2022,31 @@
 						</method>
 						<method name="setLink" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="622" hits="0" branch="false"/>
 								<line number="623" hits="0" branch="false"/>
-								<line number="624" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setName" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="597" hits="0" branch="false"/>
 								<line number="598" hits="0" branch="false"/>
-								<line number="599" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="571" hits="0" branch="false"/>
-						<line number="587" hits="0" branch="false"/>
+						<line number="570" hits="0" branch="false"/>
+						<line number="586" hits="0" branch="false"/>
+						<line number="597" hits="0" branch="false"/>
 						<line number="598" hits="0" branch="false"/>
-						<line number="599" hits="0" branch="false"/>
-						<line number="602" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="601" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="612" hits="0" branch="false"/>
+						<line number="611" hits="0" branch="false"/>
+						<line number="622" hits="0" branch="false"/>
 						<line number="623" hits="0" branch="false"/>
-						<line number="624" hits="0" branch="false"/>
-						<line number="627" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="626" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
@@ -2061,23 +2057,23 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="670" hits="0" branch="false"/>
-								<line number="754" hits="0" branch="false"/>
+								<line number="669" hits="0" branch="false"/>
+								<line number="752" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getContactPoint" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="685" hits="0" branch="false"/>
+								<line number="684" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getRemoteManagement" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationManagement$RemoteManagement;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="711" hits="0" branch="false"/>
+								<line number="710" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetContactPoint" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="700" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="699" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2086,7 +2082,7 @@
 						</method>
 						<method name="isSetRemoteManagement" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="728" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="726" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2095,64 +2091,64 @@
 						</method>
 						<method name="setContactPoint" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="695" hits="0" branch="false"/>
 								<line number="696" hits="0" branch="false"/>
-								<line number="697" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setRemoteManagement" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationManagement$RemoteManagement;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="724" hits="0" branch="false"/>
-								<line number="725" hits="0" branch="false"/>
+								<line number="722" hits="0" branch="false"/>
+								<line number="723" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="670" hits="0" branch="false"/>
-						<line number="685" hits="0" branch="false"/>
+						<line number="669" hits="0" branch="false"/>
+						<line number="684" hits="0" branch="false"/>
+						<line number="695" hits="0" branch="false"/>
 						<line number="696" hits="0" branch="false"/>
-						<line number="697" hits="0" branch="false"/>
-						<line number="700" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="699" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="711" hits="0" branch="false"/>
-						<line number="724" hits="0" branch="false"/>
-						<line number="725" hits="0" branch="false"/>
-						<line number="728" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="710" hits="0" branch="false"/>
+						<line number="722" hits="0" branch="false"/>
+						<line number="723" hits="0" branch="false"/>
+						<line number="726" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="754" hits="0" branch="false"/>
+						<line number="752" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$ApplicationManagement$RemoteManagement" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="756" hits="0" branch="false"/>
+								<line number="754" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getProtocols" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="788" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="786" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
+								<line number="787" hits="0" branch="false"/>
 								<line number="789" hits="0" branch="false"/>
-								<line number="791" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getSoftware" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/ArtifactType;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="809" hits="0" branch="false"/>
+								<line number="807" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetProtocols" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="795" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="793" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
@@ -2162,7 +2158,7 @@
 						</method>
 						<method name="isSetSoftware" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="824" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="822" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2171,38 +2167,38 @@
 						</method>
 						<method name="setSoftware" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/ArtifactType;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="820" hits="0" branch="false"/>
-								<line number="821" hits="0" branch="false"/>
+								<line number="818" hits="0" branch="false"/>
+								<line number="819" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="unsetProtocols" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="799" hits="0" branch="false"/>
-								<line number="800" hits="0" branch="false"/>
+								<line number="797" hits="0" branch="false"/>
+								<line number="798" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="756" hits="0" branch="false"/>
-						<line number="788" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="754" hits="0" branch="false"/>
+						<line number="786" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
+						<line number="787" hits="0" branch="false"/>
 						<line number="789" hits="0" branch="false"/>
-						<line number="791" hits="0" branch="false"/>
-						<line number="795" hits="0" branch="true" condition-coverage="0% (0/4)">
+						<line number="793" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="799" hits="0" branch="false"/>
-						<line number="800" hits="0" branch="false"/>
-						<line number="809" hits="0" branch="false"/>
-						<line number="820" hits="0" branch="false"/>
-						<line number="821" hits="0" branch="false"/>
-						<line number="824" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="797" hits="0" branch="false"/>
+						<line number="798" hits="0" branch="false"/>
+						<line number="807" hits="0" branch="false"/>
+						<line number="818" hits="0" branch="false"/>
+						<line number="819" hits="0" branch="false"/>
+						<line number="822" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
@@ -2213,23 +2209,23 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="855" hits="0" branch="false"/>
+								<line number="853" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getPart" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="884" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="883" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="885" hits="0" branch="false"/>
-								<line number="887" hits="0" branch="false"/>
+								<line number="884" hits="0" branch="false"/>
+								<line number="886" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetPart" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="891" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="890" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
@@ -2239,36 +2235,36 @@
 						</method>
 						<method name="unsetPart" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="894" hits="0" branch="false"/>
 								<line number="895" hits="0" branch="false"/>
-								<line number="896" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="855" hits="0" branch="false"/>
-						<line number="884" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="853" hits="0" branch="false"/>
+						<line number="883" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="885" hits="0" branch="false"/>
-						<line number="887" hits="0" branch="false"/>
-						<line number="891" hits="0" branch="true" condition-coverage="0% (0/4)">
+						<line number="884" hits="0" branch="false"/>
+						<line number="886" hits="0" branch="false"/>
+						<line number="890" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
+						<line number="894" hits="0" branch="false"/>
 						<line number="895" hits="0" branch="false"/>
-						<line number="896" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$ApplicationProfile" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="989" hits="0" branch="false"/>
-								<line number="1374" hits="0" branch="false"/>
+								<line number="988" hits="0" branch="false"/>
+								<line number="1370" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getAalSpace" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$AalSpace;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -2313,7 +2309,7 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="989" hits="0" branch="false"/>
+						<line number="988" hits="0" branch="false"/>
 						<line number="1004" hits="0" branch="false"/>
 						<line number="1016" hits="0" branch="false"/>
 						<line number="1017" hits="0" branch="false"/>
@@ -2330,35 +2326,35 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1374" hits="0" branch="false"/>
+						<line number="1370" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$ApplicationProfile$AalSpace" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1096" hits="0" branch="false"/>
-								<line number="1279" hits="0" branch="false"/>
+								<line number="1095" hits="0" branch="false"/>
+								<line number="1276" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getAlternativeProfiles" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$AalSpace$AlternativeProfiles;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1139" hits="0" branch="false"/>
+								<line number="1138" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getRequirredOntologies" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$AalSpace$RequirredOntologies;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1167" hits="0" branch="false"/>
+								<line number="1165" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getTargetProfile" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/ProfileType;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1113" hits="0" branch="false"/>
+								<line number="1112" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetAlternativeProfiles" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1156" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1154" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2367,7 +2363,7 @@
 						</method>
 						<method name="isSetRequirredOntologies" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1184" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1181" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2376,7 +2372,7 @@
 						</method>
 						<method name="isSetTargetProfile" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1128" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1127" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2385,73 +2381,73 @@
 						</method>
 						<method name="setAlternativeProfiles" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$AalSpace$AlternativeProfiles;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1152" hits="0" branch="false"/>
-								<line number="1153" hits="0" branch="false"/>
+								<line number="1150" hits="0" branch="false"/>
+								<line number="1151" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setRequirredOntologies" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$AalSpace$RequirredOntologies;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1180" hits="0" branch="false"/>
-								<line number="1181" hits="0" branch="false"/>
+								<line number="1177" hits="0" branch="false"/>
+								<line number="1178" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setTargetProfile" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/ProfileType;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="1123" hits="0" branch="false"/>
 								<line number="1124" hits="0" branch="false"/>
-								<line number="1125" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="1096" hits="0" branch="false"/>
-						<line number="1113" hits="0" branch="false"/>
+						<line number="1095" hits="0" branch="false"/>
+						<line number="1112" hits="0" branch="false"/>
+						<line number="1123" hits="0" branch="false"/>
 						<line number="1124" hits="0" branch="false"/>
-						<line number="1125" hits="0" branch="false"/>
-						<line number="1128" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1127" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1139" hits="0" branch="false"/>
-						<line number="1152" hits="0" branch="false"/>
-						<line number="1153" hits="0" branch="false"/>
-						<line number="1156" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1138" hits="0" branch="false"/>
+						<line number="1150" hits="0" branch="false"/>
+						<line number="1151" hits="0" branch="false"/>
+						<line number="1154" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1167" hits="0" branch="false"/>
-						<line number="1180" hits="0" branch="false"/>
-						<line number="1181" hits="0" branch="false"/>
-						<line number="1184" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1165" hits="0" branch="false"/>
+						<line number="1177" hits="0" branch="false"/>
+						<line number="1178" hits="0" branch="false"/>
+						<line number="1181" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1279" hits="0" branch="false"/>
+						<line number="1276" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$ApplicationProfile$AalSpace$AlternativeProfiles" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1211" hits="0" branch="false"/>
+								<line number="1208" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getProfile" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1241" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1238" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="1242" hits="0" branch="false"/>
-								<line number="1244" hits="0" branch="false"/>
+								<line number="1239" hits="0" branch="false"/>
+								<line number="1241" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetProfile" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1248" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="1245" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
@@ -2461,118 +2457,110 @@
 						</method>
 						<method name="unsetProfile" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1252" hits="0" branch="false"/>
-								<line number="1253" hits="0" branch="false"/>
+								<line number="1249" hits="0" branch="false"/>
+								<line number="1250" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="1211" hits="0" branch="false"/>
-						<line number="1241" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1208" hits="0" branch="false"/>
+						<line number="1238" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1242" hits="0" branch="false"/>
-						<line number="1244" hits="0" branch="false"/>
-						<line number="1248" hits="0" branch="true" condition-coverage="0% (0/4)">
+						<line number="1239" hits="0" branch="false"/>
+						<line number="1241" hits="0" branch="false"/>
+						<line number="1245" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1252" hits="0" branch="false"/>
-						<line number="1253" hits="0" branch="false"/>
+						<line number="1249" hits="0" branch="false"/>
+						<line number="1250" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$ApplicationProfile$AalSpace$RequirredOntologies" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1281" hits="0" branch="false"/>
+								<line number="1278" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getOntology" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1311" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1308" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="1312" hits="0" branch="false"/>
-								<line number="1314" hits="0" branch="false"/>
+								<line number="1309" hits="0" branch="false"/>
+								<line number="1311" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetOntology" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1318" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1315" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="1319" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
 							</lines>
 						</method>
 						<method name="unsetOntology" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1323" hits="0" branch="false"/>
-								<line number="1324" hits="0" branch="false"/>
+								<line number="1319" hits="0" branch="false"/>
+								<line number="1320" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="1281" hits="0" branch="false"/>
-						<line number="1311" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1278" hits="0" branch="false"/>
+						<line number="1308" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1312" hits="0" branch="false"/>
-						<line number="1314" hits="0" branch="false"/>
-						<line number="1318" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1309" hits="0" branch="false"/>
+						<line number="1311" hits="0" branch="false"/>
+						<line number="1315" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1319" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="1323" hits="0" branch="false"/>
-						<line number="1324" hits="0" branch="false"/>
+						<line number="1319" hits="0" branch="false"/>
+						<line number="1320" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$ApplicationProfile$Runtime" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1376" hits="0" branch="false"/>
-								<line number="1558" hits="0" branch="false"/>
+								<line number="1372" hits="0" branch="false"/>
+								<line number="1553" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getBroker" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$Runtime$Broker;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1419" hits="0" branch="false"/>
+								<line number="1415" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getManagers" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$Runtime$Managers;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1446" hits="0" branch="false"/>
+								<line number="1442" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMiddleware" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/ArtifactType;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1393" hits="0" branch="false"/>
+								<line number="1389" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetBroker" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1435" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1431" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2581,7 +2569,7 @@
 						</method>
 						<method name="isSetManagers" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1463" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1458" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2590,7 +2578,7 @@
 						</method>
 						<method name="isSetMiddleware" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1408" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1404" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2599,73 +2587,73 @@
 						</method>
 						<method name="setBroker" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$Runtime$Broker;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1431" hits="0" branch="false"/>
-								<line number="1432" hits="0" branch="false"/>
+								<line number="1427" hits="0" branch="false"/>
+								<line number="1428" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setManagers" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$Runtime$Managers;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1459" hits="0" branch="false"/>
-								<line number="1460" hits="0" branch="false"/>
+								<line number="1454" hits="0" branch="false"/>
+								<line number="1455" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setMiddleware" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/ArtifactType;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1404" hits="0" branch="false"/>
-								<line number="1405" hits="0" branch="false"/>
+								<line number="1400" hits="0" branch="false"/>
+								<line number="1401" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="1376" hits="0" branch="false"/>
-						<line number="1393" hits="0" branch="false"/>
-						<line number="1404" hits="0" branch="false"/>
-						<line number="1405" hits="0" branch="false"/>
-						<line number="1408" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1372" hits="0" branch="false"/>
+						<line number="1389" hits="0" branch="false"/>
+						<line number="1400" hits="0" branch="false"/>
+						<line number="1401" hits="0" branch="false"/>
+						<line number="1404" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1419" hits="0" branch="false"/>
-						<line number="1431" hits="0" branch="false"/>
-						<line number="1432" hits="0" branch="false"/>
-						<line number="1435" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1415" hits="0" branch="false"/>
+						<line number="1427" hits="0" branch="false"/>
+						<line number="1428" hits="0" branch="false"/>
+						<line number="1431" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1446" hits="0" branch="false"/>
-						<line number="1459" hits="0" branch="false"/>
-						<line number="1460" hits="0" branch="false"/>
-						<line number="1463" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1442" hits="0" branch="false"/>
+						<line number="1454" hits="0" branch="false"/>
+						<line number="1455" hits="0" branch="false"/>
+						<line number="1458" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1558" hits="0" branch="false"/>
+						<line number="1553" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$ApplicationProfile$Runtime$Broker" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1490" hits="0" branch="false"/>
+								<line number="1485" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getBroker" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1520" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1515" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="1521" hits="0" branch="false"/>
-								<line number="1523" hits="0" branch="false"/>
+								<line number="1516" hits="0" branch="false"/>
+								<line number="1518" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetBroker" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1527" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="1522" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
@@ -2675,51 +2663,51 @@
 						</method>
 						<method name="unsetBroker" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1531" hits="0" branch="false"/>
-								<line number="1532" hits="0" branch="false"/>
+								<line number="1526" hits="0" branch="false"/>
+								<line number="1527" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="1490" hits="0" branch="false"/>
-						<line number="1520" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1485" hits="0" branch="false"/>
+						<line number="1515" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1521" hits="0" branch="false"/>
-						<line number="1523" hits="0" branch="false"/>
-						<line number="1527" hits="0" branch="true" condition-coverage="0% (0/4)">
+						<line number="1516" hits="0" branch="false"/>
+						<line number="1518" hits="0" branch="false"/>
+						<line number="1522" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1531" hits="0" branch="false"/>
-						<line number="1532" hits="0" branch="false"/>
+						<line number="1526" hits="0" branch="false"/>
+						<line number="1527" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$ApplicationProfile$Runtime$Managers" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1560" hits="0" branch="false"/>
+								<line number="1555" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getManager" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1590" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1585" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="1591" hits="0" branch="false"/>
-								<line number="1593" hits="0" branch="false"/>
+								<line number="1586" hits="0" branch="false"/>
+								<line number="1588" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetManager" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1597" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="1592" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
@@ -2729,55 +2717,55 @@
 						</method>
 						<method name="unsetManager" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1601" hits="0" branch="false"/>
-								<line number="1602" hits="0" branch="false"/>
+								<line number="1596" hits="0" branch="false"/>
+								<line number="1597" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="1560" hits="0" branch="false"/>
-						<line number="1590" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1555" hits="0" branch="false"/>
+						<line number="1585" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1591" hits="0" branch="false"/>
-						<line number="1593" hits="0" branch="false"/>
-						<line number="1597" hits="0" branch="true" condition-coverage="0% (0/4)">
+						<line number="1586" hits="0" branch="false"/>
+						<line number="1588" hits="0" branch="false"/>
+						<line number="1592" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1601" hits="0" branch="false"/>
-						<line number="1602" hits="0" branch="false"/>
+						<line number="1596" hits="0" branch="false"/>
+						<line number="1597" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.AalMpa$ApplicationProvider" filename="org/universAAL/middleware/interfaces/mpa/model/AalMpa.java" line-rate="0.0" branch-rate="0.0" complexity="1.121212121212121">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1636" hits="0" branch="false"/>
+								<line number="1631" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getCertificate" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1705" hits="0" branch="false"/>
+								<line number="1700" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1655" hits="0" branch="false"/>
+								<line number="1650" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getWebSite" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1680" hits="0" branch="false"/>
+								<line number="1675" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetCertificate" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1720" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1715" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2786,7 +2774,7 @@
 						</method>
 						<method name="isSetName" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1670" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1665" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2795,7 +2783,7 @@
 						</method>
 						<method name="isSetWebSite" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="1695" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="1690" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -2804,45 +2792,45 @@
 						</method>
 						<method name="setCertificate" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1716" hits="0" branch="false"/>
-								<line number="1717" hits="0" branch="false"/>
+								<line number="1711" hits="0" branch="false"/>
+								<line number="1712" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setName" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1666" hits="0" branch="false"/>
-								<line number="1667" hits="0" branch="false"/>
+								<line number="1661" hits="0" branch="false"/>
+								<line number="1662" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setWebSite" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="1691" hits="0" branch="false"/>
-								<line number="1692" hits="0" branch="false"/>
+								<line number="1686" hits="0" branch="false"/>
+								<line number="1687" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="1636" hits="0" branch="false"/>
-						<line number="1655" hits="0" branch="false"/>
-						<line number="1666" hits="0" branch="false"/>
-						<line number="1667" hits="0" branch="false"/>
-						<line number="1670" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1631" hits="0" branch="false"/>
+						<line number="1650" hits="0" branch="false"/>
+						<line number="1661" hits="0" branch="false"/>
+						<line number="1662" hits="0" branch="false"/>
+						<line number="1665" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1680" hits="0" branch="false"/>
-						<line number="1691" hits="0" branch="false"/>
-						<line number="1692" hits="0" branch="false"/>
-						<line number="1695" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1675" hits="0" branch="false"/>
+						<line number="1686" hits="0" branch="false"/>
+						<line number="1687" hits="0" branch="false"/>
+						<line number="1690" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="1705" hits="0" branch="false"/>
-						<line number="1716" hits="0" branch="false"/>
-						<line number="1717" hits="0" branch="false"/>
-						<line number="1720" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="1700" hits="0" branch="false"/>
+						<line number="1711" hits="0" branch="false"/>
+						<line number="1712" hits="0" branch="false"/>
+						<line number="1715" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
@@ -3554,32 +3542,32 @@
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="243" hits="0" branch="false"/>
-								<line number="378" hits="0" branch="false"/>
+								<line number="379" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getEquinox" signature="()Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="309" hits="0" branch="false"/>
+								<line number="310" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getFelix" signature="()Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="334" hits="0" branch="false"/>
+								<line number="335" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getKaraf" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/DeploymentUnit$ContainerUnit$Karaf;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="258" hits="0" branch="false"/>
+								<line number="259" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getTomcat" signature="()Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="284" hits="0" branch="false"/>
+								<line number="285" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetEquinox" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="324" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="325" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -3588,7 +3576,7 @@
 						</method>
 						<method name="isSetFelix" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="349" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="350" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -3597,7 +3585,7 @@
 						</method>
 						<method name="isSetKaraf" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="274" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="275" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -3606,7 +3594,7 @@
 						</method>
 						<method name="isSetTomcat" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="299" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="300" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -3615,64 +3603,64 @@
 						</method>
 						<method name="setEquinox" signature="(Ljava/lang/Object;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="320" hits="0" branch="false"/>
 								<line number="321" hits="0" branch="false"/>
+								<line number="322" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setFelix" signature="(Ljava/lang/Object;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="345" hits="0" branch="false"/>
 								<line number="346" hits="0" branch="false"/>
+								<line number="347" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setKaraf" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/DeploymentUnit$ContainerUnit$Karaf;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="270" hits="0" branch="false"/>
 								<line number="271" hits="0" branch="false"/>
+								<line number="272" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setTomcat" signature="(Ljava/lang/Object;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="295" hits="0" branch="false"/>
 								<line number="296" hits="0" branch="false"/>
+								<line number="297" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
 						<line number="243" hits="0" branch="false"/>
-						<line number="258" hits="0" branch="false"/>
-						<line number="270" hits="0" branch="false"/>
+						<line number="259" hits="0" branch="false"/>
 						<line number="271" hits="0" branch="false"/>
-						<line number="274" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="272" hits="0" branch="false"/>
+						<line number="275" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="284" hits="0" branch="false"/>
-						<line number="295" hits="0" branch="false"/>
+						<line number="285" hits="0" branch="false"/>
 						<line number="296" hits="0" branch="false"/>
-						<line number="299" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="297" hits="0" branch="false"/>
+						<line number="300" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="309" hits="0" branch="false"/>
-						<line number="320" hits="0" branch="false"/>
+						<line number="310" hits="0" branch="false"/>
 						<line number="321" hits="0" branch="false"/>
-						<line number="324" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="322" hits="0" branch="false"/>
+						<line number="325" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="334" hits="0" branch="false"/>
-						<line number="345" hits="0" branch="false"/>
+						<line number="335" hits="0" branch="false"/>
 						<line number="346" hits="0" branch="false"/>
-						<line number="349" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="347" hits="0" branch="false"/>
+						<line number="350" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="378" hits="0" branch="false"/>
+						<line number="379" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.DeploymentUnit$ContainerUnit$Karaf" filename="org/universAAL/middleware/interfaces/mpa/model/DeploymentUnit.java" line-rate="0.0" branch-rate="0.0" complexity="1.0">
@@ -3847,27 +3835,27 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="60" hits="0" branch="false"/>
+								<line number="59" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getConfigFiles" signature="()Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="104" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDeploymentUnit" signature="()Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="79" hits="0" branch="false"/>
+								<line number="78" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getSpaceStartLevel" signature="()Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="129" hits="0" branch="false"/>
+								<line number="128" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetConfigFiles" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="119" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="118" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -3876,7 +3864,7 @@
 						</method>
 						<method name="isSetDeploymentUnit" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="94" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="93" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -3885,7 +3873,7 @@
 						</method>
 						<method name="isSetSpaceStartLevel" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="144" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="143" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -3894,45 +3882,45 @@
 						</method>
 						<method name="setConfigFiles" signature="(Ljava/lang/Object;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="114" hits="0" branch="false"/>
 								<line number="115" hits="0" branch="false"/>
-								<line number="116" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setDeploymentUnit" signature="(Ljava/lang/Object;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="89" hits="0" branch="false"/>
 								<line number="90" hits="0" branch="false"/>
-								<line number="91" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setSpaceStartLevel" signature="(Ljava/lang/Object;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="139" hits="0" branch="false"/>
 								<line number="140" hits="0" branch="false"/>
-								<line number="141" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="60" hits="0" branch="false"/>
-						<line number="79" hits="0" branch="false"/>
+						<line number="59" hits="0" branch="false"/>
+						<line number="78" hits="0" branch="false"/>
+						<line number="89" hits="0" branch="false"/>
 						<line number="90" hits="0" branch="false"/>
-						<line number="91" hits="0" branch="false"/>
-						<line number="94" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="93" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="104" hits="0" branch="false"/>
+						<line number="103" hits="0" branch="false"/>
+						<line number="114" hits="0" branch="false"/>
 						<line number="115" hits="0" branch="false"/>
-						<line number="116" hits="0" branch="false"/>
-						<line number="119" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="118" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="129" hits="0" branch="false"/>
+						<line number="128" hits="0" branch="false"/>
+						<line number="139" hits="0" branch="false"/>
 						<line number="140" hits="0" branch="false"/>
-						<line number="141" hits="0" branch="false"/>
-						<line number="144" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="143" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
@@ -3943,12 +3931,12 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="69" hits="0" branch="false"/>
+								<line number="70" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="187" hits="0" branch="false"/>
+								<line number="186" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDetailsOrConfigOrConfigfile" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -3964,28 +3952,28 @@
 						</method>
 						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="133" hits="0" branch="false"/>
+								<line number="132" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getResolver" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="212" hits="0" branch="false"/>
+								<line number="211" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getVersion" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="158" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="157" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="159" hits="0" branch="false"/>
-								<line number="161" hits="0" branch="false"/>
+								<line number="158" hits="0" branch="false"/>
+								<line number="160" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetDescription" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="202" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="201" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -3994,21 +3982,17 @@
 						</method>
 						<method name="isSetDetailsOrConfigOrConfigfile" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="118" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="118" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="119" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
 							</lines>
 						</method>
 						<method name="isSetName" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="148" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="147" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -4017,7 +4001,7 @@
 						</method>
 						<method name="isSetResolver" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="227" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="226" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -4026,7 +4010,7 @@
 						</method>
 						<method name="isSetVersion" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="177" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="176" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -4035,37 +4019,37 @@
 						</method>
 						<method name="setDescription" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="197" hits="0" branch="false"/>
 								<line number="198" hits="0" branch="false"/>
-								<line number="199" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setName" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="143" hits="0" branch="false"/>
 								<line number="144" hits="0" branch="false"/>
-								<line number="145" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setResolver" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="222" hits="0" branch="false"/>
 								<line number="223" hits="0" branch="false"/>
-								<line number="224" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setVersion" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="172" hits="0" branch="false"/>
 								<line number="173" hits="0" branch="false"/>
-								<line number="174" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="unsetDetailsOrConfigOrConfigfile" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="122" hits="0" branch="false"/>
 								<line number="123" hits="0" branch="false"/>
-								<line number="124" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="69" hits="0" branch="false"/>
+						<line number="70" hits="0" branch="false"/>
 						<line number="111" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
@@ -4073,52 +4057,48 @@
 						</line>
 						<line number="112" hits="0" branch="false"/>
 						<line number="114" hits="0" branch="false"/>
-						<line number="118" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="118" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="119" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
+						<line number="122" hits="0" branch="false"/>
 						<line number="123" hits="0" branch="false"/>
-						<line number="124" hits="0" branch="false"/>
-						<line number="133" hits="0" branch="false"/>
+						<line number="132" hits="0" branch="false"/>
+						<line number="143" hits="0" branch="false"/>
 						<line number="144" hits="0" branch="false"/>
-						<line number="145" hits="0" branch="false"/>
-						<line number="148" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="147" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="158" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="157" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="159" hits="0" branch="false"/>
-						<line number="161" hits="0" branch="false"/>
+						<line number="158" hits="0" branch="false"/>
+						<line number="160" hits="0" branch="false"/>
+						<line number="172" hits="0" branch="false"/>
 						<line number="173" hits="0" branch="false"/>
-						<line number="174" hits="0" branch="false"/>
-						<line number="177" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="176" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="187" hits="0" branch="false"/>
+						<line number="186" hits="0" branch="false"/>
+						<line number="197" hits="0" branch="false"/>
 						<line number="198" hits="0" branch="false"/>
-						<line number="199" hits="0" branch="false"/>
-						<line number="202" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="201" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="212" hits="0" branch="false"/>
+						<line number="211" hits="0" branch="false"/>
+						<line number="222" hits="0" branch="false"/>
 						<line number="223" hits="0" branch="false"/>
-						<line number="224" hits="0" branch="false"/>
-						<line number="227" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="226" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
@@ -4129,7 +4109,7 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="66" hits="0" branch="false"/>
+								<line number="67" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -4139,13 +4119,13 @@
 						</method>
 						<method name="getRepositoryOrFeature" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="99" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="100" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="100" hits="0" branch="false"/>
-								<line number="102" hits="0" branch="false"/>
+								<line number="101" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetName" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -4159,14 +4139,10 @@
 						</method>
 						<method name="isSetRepositoryOrFeature" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="106" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="107" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="107" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
 							</lines>
@@ -4185,22 +4161,18 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="66" hits="0" branch="false"/>
-						<line number="99" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="67" hits="0" branch="false"/>
+						<line number="100" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="100" hits="0" branch="false"/>
-						<line number="102" hits="0" branch="false"/>
-						<line number="106" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="101" hits="0" branch="false"/>
+						<line number="103" hits="0" branch="false"/>
+						<line number="107" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="107" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
 						<line number="111" hits="0" branch="false"/>
@@ -4220,165 +4192,165 @@
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="43" hits="0" branch="false"/>
-								<line number="45" hits="0" branch="false"/>
-								<line number="47" hits="0" branch="false"/>
-								<line number="49" hits="0" branch="false"/>
+								<line number="44" hits="0" branch="false"/>
+								<line number="46" hits="0" branch="false"/>
+								<line number="48" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="57" hits="0" branch="false"/>
 								<line number="58" hits="0" branch="false"/>
-								<line number="59" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpa" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="66" hits="0" branch="false"/>
+								<line number="65" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApp" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$App;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="130" hits="0" branch="false"/>
+								<line number="129" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaAppLicense" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$App$License;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="318" hits="0" branch="false"/>
+								<line number="317" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationManagement" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationManagement;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="98" hits="0" branch="false"/>
+								<line number="97" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationManagementRemoteManagement" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationManagement$RemoteManagement;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="276" hits="0" branch="false"/>
+								<line number="275" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationPart" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationPart;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="146" hits="0" branch="false"/>
+								<line number="145" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationProfile" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="106" hits="0" branch="false"/>
+								<line number="105" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationProfileAalSpace" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$AalSpace;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="122" hits="0" branch="false"/>
+								<line number="121" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationProfileAalSpaceAlternativeProfiles" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$AalSpace$AlternativeProfiles;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="301" hits="0" branch="false"/>
+								<line number="300" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationProfileAalSpaceRequirredOntologies" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$AalSpace$RequirredOntologies;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="310" hits="0" branch="false"/>
+								<line number="309" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationProfileRuntime" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$Runtime;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="114" hits="0" branch="false"/>
+								<line number="113" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationProfileRuntimeBroker" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$Runtime$Broker;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="284" hits="0" branch="false"/>
+								<line number="283" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationProfileRuntimeManagers" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProfile$Runtime$Managers;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="292" hits="0" branch="false"/>
+								<line number="291" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createAalMpaApplicationProvider" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/AalMpa$ApplicationProvider;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="138" hits="0" branch="false"/>
+								<line number="137" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createArtifactType" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/ArtifactType;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="171" hits="0" branch="false"/>
+								<line number="170" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createBroker" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/Broker;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="163" hits="0" branch="false"/>
+								<line number="162" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createBundle" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/Bundle;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="243" hits="0" branch="false"/>
+								<line number="242" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createConfig" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/Config;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="235" hits="0" branch="false"/>
+								<line number="234" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createConfigFile" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/ConfigFile;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="227" hits="0" branch="false"/>
+								<line number="226" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createDependency" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/Dependency;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="219" hits="0" branch="false"/>
+								<line number="218" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createDeploymentUnit" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/DeploymentUnit;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="74" hits="0" branch="false"/>
+								<line number="73" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createDeploymentUnitContainerUnit" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/DeploymentUnit$ContainerUnit;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="90" hits="0" branch="false"/>
+								<line number="89" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createDeploymentUnitContainerUnitKaraf" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/DeploymentUnit$ContainerUnit$Karaf;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="267" hits="0" branch="false"/>
+								<line number="266" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createExecutionUnit" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/ExecutionUnit;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="154" hits="0" branch="false"/>
+								<line number="153" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createFeature" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/Feature;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="251" hits="0" branch="false"/>
+								<line number="250" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createFeatures" signature="(Lorg/universAAL/middleware/interfaces/mpa/model/FeaturesRoot;)Ljavax/xml/bind/JAXBElement;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="328" hits="0" branch="false"/>
+								<line number="327" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createFeaturesRoot" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/FeaturesRoot;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="211" hits="0" branch="false"/>
+								<line number="210" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createOntologyType" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/OntologyType;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="82" hits="0" branch="false"/>
+								<line number="81" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createOntologyTypeLocation" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/OntologyType$Location;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="259" hits="0" branch="false"/>
+								<line number="258" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createOntologyTypeLocationPath" signature="(Ljava/lang/String;)Ljavax/xml/bind/JAXBElement;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="358" hits="0" branch="false"/>
+								<line number="359" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createOntologyTypeLocationRuntimeId" signature="(Ljava/lang/String;)Ljavax/xml/bind/JAXBElement;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -4388,73 +4360,73 @@
 						</method>
 						<method name="createOntologyTypeLocationUrl" signature="(Ljava/lang/Object;)Ljavax/xml/bind/JAXBElement;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="338" hits="0" branch="false"/>
+								<line number="337" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createPart" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/Part;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="179" hits="0" branch="false"/>
+								<line number="178" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createProfileType" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/ProfileType;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="187" hits="0" branch="false"/>
+								<line number="186" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createToBeDefined" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/ToBeDefined;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="203" hits="0" branch="false"/>
+								<line number="202" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createVersionType" signature="()Lorg/universAAL/middleware/interfaces/mpa/model/VersionType;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="195" hits="0" branch="false"/>
+								<line number="194" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
 						<line number="43" hits="0" branch="false"/>
-						<line number="45" hits="0" branch="false"/>
-						<line number="47" hits="0" branch="false"/>
-						<line number="49" hits="0" branch="false"/>
+						<line number="44" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
+						<line number="48" hits="0" branch="false"/>
+						<line number="57" hits="0" branch="false"/>
 						<line number="58" hits="0" branch="false"/>
-						<line number="59" hits="0" branch="false"/>
-						<line number="66" hits="0" branch="false"/>
-						<line number="74" hits="0" branch="false"/>
-						<line number="82" hits="0" branch="false"/>
-						<line number="90" hits="0" branch="false"/>
-						<line number="98" hits="0" branch="false"/>
-						<line number="106" hits="0" branch="false"/>
-						<line number="114" hits="0" branch="false"/>
-						<line number="122" hits="0" branch="false"/>
-						<line number="130" hits="0" branch="false"/>
-						<line number="138" hits="0" branch="false"/>
-						<line number="146" hits="0" branch="false"/>
-						<line number="154" hits="0" branch="false"/>
-						<line number="163" hits="0" branch="false"/>
-						<line number="171" hits="0" branch="false"/>
-						<line number="179" hits="0" branch="false"/>
-						<line number="187" hits="0" branch="false"/>
-						<line number="195" hits="0" branch="false"/>
-						<line number="203" hits="0" branch="false"/>
-						<line number="211" hits="0" branch="false"/>
-						<line number="219" hits="0" branch="false"/>
-						<line number="227" hits="0" branch="false"/>
-						<line number="235" hits="0" branch="false"/>
-						<line number="243" hits="0" branch="false"/>
-						<line number="251" hits="0" branch="false"/>
-						<line number="259" hits="0" branch="false"/>
-						<line number="267" hits="0" branch="false"/>
-						<line number="276" hits="0" branch="false"/>
-						<line number="284" hits="0" branch="false"/>
-						<line number="292" hits="0" branch="false"/>
-						<line number="301" hits="0" branch="false"/>
-						<line number="310" hits="0" branch="false"/>
-						<line number="318" hits="0" branch="false"/>
-						<line number="328" hits="0" branch="false"/>
-						<line number="338" hits="0" branch="false"/>
+						<line number="65" hits="0" branch="false"/>
+						<line number="73" hits="0" branch="false"/>
+						<line number="81" hits="0" branch="false"/>
+						<line number="89" hits="0" branch="false"/>
+						<line number="97" hits="0" branch="false"/>
+						<line number="105" hits="0" branch="false"/>
+						<line number="113" hits="0" branch="false"/>
+						<line number="121" hits="0" branch="false"/>
+						<line number="129" hits="0" branch="false"/>
+						<line number="137" hits="0" branch="false"/>
+						<line number="145" hits="0" branch="false"/>
+						<line number="153" hits="0" branch="false"/>
+						<line number="162" hits="0" branch="false"/>
+						<line number="170" hits="0" branch="false"/>
+						<line number="178" hits="0" branch="false"/>
+						<line number="186" hits="0" branch="false"/>
+						<line number="194" hits="0" branch="false"/>
+						<line number="202" hits="0" branch="false"/>
+						<line number="210" hits="0" branch="false"/>
+						<line number="218" hits="0" branch="false"/>
+						<line number="226" hits="0" branch="false"/>
+						<line number="234" hits="0" branch="false"/>
+						<line number="242" hits="0" branch="false"/>
+						<line number="250" hits="0" branch="false"/>
+						<line number="258" hits="0" branch="false"/>
+						<line number="266" hits="0" branch="false"/>
+						<line number="275" hits="0" branch="false"/>
+						<line number="283" hits="0" branch="false"/>
+						<line number="291" hits="0" branch="false"/>
+						<line number="300" hits="0" branch="false"/>
+						<line number="309" hits="0" branch="false"/>
+						<line number="317" hits="0" branch="false"/>
+						<line number="327" hits="0" branch="false"/>
+						<line number="337" hits="0" branch="false"/>
 						<line number="348" hits="0" branch="false"/>
-						<line number="358" hits="0" branch="false"/>
+						<line number="359" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.OntologyType" filename="org/universAAL/middleware/interfaces/mpa/model/OntologyType.java" line-rate="0.0" branch-rate="0.0" complexity="1.1666666666666667">
@@ -4575,22 +4547,18 @@
 						</method>
 						<method name="isSetPathOrRuntimeIdOrUrl" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="227" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="227" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="228" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
 							</lines>
 						</method>
 						<method name="unsetPathOrRuntimeIdOrUrl" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="231" hits="0" branch="false"/>
 								<line number="232" hits="0" branch="false"/>
-								<line number="233" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -4603,18 +4571,14 @@
 						</line>
 						<line number="221" hits="0" branch="false"/>
 						<line number="223" hits="0" branch="false"/>
-						<line number="227" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="227" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="228" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
+						<line number="231" hits="0" branch="false"/>
 						<line number="232" hits="0" branch="false"/>
-						<line number="233" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.interfaces.mpa.model.OsType" filename="org/universAAL/middleware/interfaces/mpa/model/OsType.java" line-rate="0.0" branch-rate="0.0" complexity="2.3333333333333335">
@@ -4709,37 +4673,33 @@
 						</method>
 						<method name="getExecutionUnit" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="140" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="139" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="141" hits="0" branch="false"/>
-								<line number="143" hits="0" branch="false"/>
+								<line number="140" hits="0" branch="false"/>
+								<line number="142" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getPartId" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="161" hits="0" branch="false"/>
+								<line number="160" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetDeploymentUnit" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="108" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="108" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="109" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
 							</lines>
 						</method>
 						<method name="isSetExecutionUnit" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="147" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="146" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
@@ -4749,7 +4709,7 @@
 						</method>
 						<method name="isSetPartId" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="176" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="175" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -4758,20 +4718,20 @@
 						</method>
 						<method name="setPartId" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="171" hits="0" branch="false"/>
 								<line number="172" hits="0" branch="false"/>
-								<line number="173" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="unsetDeploymentUnit" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="112" hits="0" branch="false"/>
 								<line number="113" hits="0" branch="false"/>
-								<line number="114" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="unsetExecutionUnit" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="150" hits="0" branch="false"/>
 								<line number="151" hits="0" branch="false"/>
-								<line number="152" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -4784,37 +4744,33 @@
 						</line>
 						<line number="102" hits="0" branch="false"/>
 						<line number="104" hits="0" branch="false"/>
-						<line number="108" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="109" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="113" hits="0" branch="false"/>
-						<line number="114" hits="0" branch="false"/>
-						<line number="140" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="141" hits="0" branch="false"/>
-						<line number="143" hits="0" branch="false"/>
-						<line number="147" hits="0" branch="true" condition-coverage="0% (0/4)">
+						<line number="108" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
+						<line number="112" hits="0" branch="false"/>
+						<line number="113" hits="0" branch="false"/>
+						<line number="139" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="140" hits="0" branch="false"/>
+						<line number="142" hits="0" branch="false"/>
+						<line number="146" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="150" hits="0" branch="false"/>
 						<line number="151" hits="0" branch="false"/>
-						<line number="152" hits="0" branch="false"/>
-						<line number="161" hits="0" branch="false"/>
+						<line number="160" hits="0" branch="false"/>
+						<line number="171" hits="0" branch="false"/>
 						<line number="172" hits="0" branch="false"/>
-						<line number="173" hits="0" branch="false"/>
-						<line number="176" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="175" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
@@ -5093,37 +5049,37 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="58" hits="0" branch="false"/>
+								<line number="57" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getBuild" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="138" hits="0" branch="false"/>
+								<line number="137" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMajor" signature="()I" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="76" hits="0" branch="false"/>
+								<line number="75" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMicro" signature="()I" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="116" hits="0" branch="false"/>
+								<line number="115" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMinor" signature="()I" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="96" hits="0" branch="false"/>
+								<line number="95" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getString" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="163" hits="0" branch="false"/>
+								<line number="162" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetBuild" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="153" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="152" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -5132,22 +5088,22 @@
 						</method>
 						<method name="isSetMajor" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="88" hits="0" branch="false"/>
+								<line number="87" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetMicro" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="128" hits="0" branch="false"/>
+								<line number="127" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetMinor" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="108" hits="0" branch="false"/>
+								<line number="107" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isSetString" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="178" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="177" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -5156,61 +5112,61 @@
 						</method>
 						<method name="setBuild" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="148" hits="0" branch="false"/>
 								<line number="149" hits="0" branch="false"/>
-								<line number="150" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setMajor" signature="(I)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="83" hits="0" branch="false"/>
 								<line number="84" hits="0" branch="false"/>
-								<line number="85" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setMicro" signature="(I)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="123" hits="0" branch="false"/>
 								<line number="124" hits="0" branch="false"/>
-								<line number="125" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setMinor" signature="(I)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="103" hits="0" branch="false"/>
 								<line number="104" hits="0" branch="false"/>
-								<line number="105" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="setString" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="173" hits="0" branch="false"/>
 								<line number="174" hits="0" branch="false"/>
-								<line number="175" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="58" hits="0" branch="false"/>
-						<line number="76" hits="0" branch="false"/>
+						<line number="57" hits="0" branch="false"/>
+						<line number="75" hits="0" branch="false"/>
+						<line number="83" hits="0" branch="false"/>
 						<line number="84" hits="0" branch="false"/>
-						<line number="85" hits="0" branch="false"/>
-						<line number="88" hits="0" branch="false"/>
-						<line number="96" hits="0" branch="false"/>
+						<line number="87" hits="0" branch="false"/>
+						<line number="95" hits="0" branch="false"/>
+						<line number="103" hits="0" branch="false"/>
 						<line number="104" hits="0" branch="false"/>
-						<line number="105" hits="0" branch="false"/>
-						<line number="108" hits="0" branch="false"/>
-						<line number="116" hits="0" branch="false"/>
+						<line number="107" hits="0" branch="false"/>
+						<line number="115" hits="0" branch="false"/>
+						<line number="123" hits="0" branch="false"/>
 						<line number="124" hits="0" branch="false"/>
-						<line number="125" hits="0" branch="false"/>
-						<line number="128" hits="0" branch="false"/>
-						<line number="138" hits="0" branch="false"/>
+						<line number="127" hits="0" branch="false"/>
+						<line number="137" hits="0" branch="false"/>
+						<line number="148" hits="0" branch="false"/>
 						<line number="149" hits="0" branch="false"/>
-						<line number="150" hits="0" branch="false"/>
-						<line number="153" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="152" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="163" hits="0" branch="false"/>
+						<line number="162" hits="0" branch="false"/>
+						<line number="173" hits="0" branch="false"/>
 						<line number="174" hits="0" branch="false"/>
-						<line number="175" hits="0" branch="false"/>
-						<line number="178" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="177" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>

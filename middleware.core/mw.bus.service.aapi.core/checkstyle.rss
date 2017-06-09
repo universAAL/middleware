@@ -28,7 +28,7 @@ under the License.
       <title>File: 18,
              Errors: 156,
              Warnings: 9,
-             Infos: 64
+             Infos: 65
       </title>
             <link>http://middleware/middleware.core/mw.bus.service.aapi.core//checkstyle.html</link>
       <description>
@@ -133,7 +133,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.service.aapi.core//checkstyle.html#org.universAAL.middleware.api.impl.ServiceCalleeWrapper.java">org/universAAL/middleware/api/impl/ServiceCalleeWrapper.java</a>
                 </td>
                 <td>
-                  6
+                  7
                 </td>
                 <td>
                   0

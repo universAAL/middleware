@@ -185,7 +185,7 @@
 <td>org.universAAL.middleware.service.CallStatus.valueOf(String) makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>78</td>
+<td>74</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.MultiServiceResponse"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.MultiServiceResponse"></a>org.universAAL.middleware.service.MultiServiceResponse</h3>
@@ -200,7 +200,7 @@
 <td>org.universAAL.middleware.service.MultiServiceResponse.getOutputsMap() makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>138</td>
+<td>136</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.ServiceCall"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.ServiceCall"></a>org.universAAL.middleware.service.ServiceCall</h3>
@@ -215,7 +215,7 @@
 <td>org.universAAL.middleware.service.ServiceCall.addNonSemanticInput(Hashtable) may expose internal representation by storing an externally mutable object into ServiceCall.nonSemanticInput</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td>103</td>
+<td>96</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.service.ServiceCall doesn't override org.universAAL.middleware.rdf.Resource.equals(Object)</td>
@@ -236,31 +236,31 @@
 <td>org.universAAL.middleware.service.impl.ServiceBusImpl.startModule(ModuleContext, Object[], Object[], Object[], Object[]) may expose internal static state by storing a mutable object into a static field org.universAAL.middleware.service.impl.ServiceBusImpl.busFetchParams</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_STATIC_REP2">EI_EXPOSE_STATIC_REP2</a></td>
-<td>123</td>
+<td>112</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.service.impl.ServiceBusImpl.startModule(ModuleContext, Object[], Object[], Object[], Object[]) may expose internal static state by storing a mutable object into a static field org.universAAL.middleware.service.impl.ServiceBusImpl.busInjectFetchParams</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_STATIC_REP2">EI_EXPOSE_STATIC_REP2</a></td>
-<td>124</td>
+<td>113</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.service.impl.ServiceBusImpl.startModule(ModuleContext, Object[], Object[], Object[], Object[]) may expose internal static state by storing a mutable object into a static field org.universAAL.middleware.service.impl.ServiceBusImpl.busInjectRemoveParams</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_STATIC_REP2">EI_EXPOSE_STATIC_REP2</a></td>
-<td>130</td>
+<td>119</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.service.impl.ServiceBusImpl.startModule(ModuleContext, Object[], Object[], Object[], Object[]) may expose internal static state by storing a mutable object into a static field org.universAAL.middleware.service.impl.ServiceBusImpl.busRemoveParams</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_STATIC_REP2">EI_EXPOSE_STATIC_REP2</a></td>
-<td>129</td>
+<td>118</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Incorrect lazy initialization of static field org.universAAL.middleware.service.impl.ServiceBusImpl.theServiceBus in org.universAAL.middleware.service.impl.ServiceBusImpl.stopModule()</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#LI_LAZY_INIT_STATIC">LI_LAZY_INIT_STATIC</a></td>
-<td>141</td>
+<td>127</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.impl.ServiceMatcher"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.impl.ServiceMatcher"></a>org.universAAL.middleware.service.impl.ServiceMatcher</h3>
@@ -275,13 +275,13 @@
 <td>instanceof will always return true for all non-null values in org.universAAL.middleware.service.impl.ServiceMatcher.matchRestrictions(ServiceWrapper, ServiceWrapper, HashMap, Long), since all org.universAAL.middleware.owl.MergedRestriction are instances of org.universAAL.middleware.owl.MergedRestriction</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BC_VACUOUS_INSTANCEOF">BC_VACUOUS_INSTANCEOF</a></td>
-<td>181</td>
+<td>171</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.service.impl.ServiceMatcher.matches(ServiceWrapper, ServiceWrapper, HashMap, Long) makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>71</td>
+<td>70</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.impl.ServiceRealization"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.impl.ServiceRealization"></a>org.universAAL.middleware.service.impl.ServiceRealization</h3>
@@ -296,7 +296,7 @@
 <td>org.universAAL.middleware.service.impl.ServiceRealization.addAggregatedProperties(HashMap) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>102</td>
+<td>95</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.impl.ServiceStrategy"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.impl.ServiceStrategy"></a>org.universAAL.middleware.service.impl.ServiceStrategy</h3>
@@ -311,31 +311,31 @@
 <td>instanceof will always return true for all non-null values in org.universAAL.middleware.service.impl.ServiceStrategy.callStartDialog(ArrayList, String, BusMessage), since all String are instances of String</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BC_VACUOUS_INSTANCEOF">BC_VACUOUS_INSTANCEOF</a></td>
-<td>558</td>
+<td>510</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Switch statement found in org.universAAL.middleware.service.impl.ServiceStrategy.sendServiceResponse(BusMessage) where default case is missing</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SF_SWITCH_NO_DEFAULT">SF_SWITCH_NO_DEFAULT</a></td>
-<td>633</td>
+<td>578</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>Useless object stored in variable nmsf of method org.universAAL.middleware.service.impl.ServiceStrategy.sendServiceResponse(BusMessage)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#UC_USELESS_OBJECT">UC_USELESS_OBJECT</a></td>
-<td>623</td>
+<td>569</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Wait not in loop in org.universAAL.middleware.service.impl.ServiceStrategy.waitForCoordinatorToBeKnown()</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WA_NOT_IN_LOOP">WA_NOT_IN_LOOP</a></td>
-<td>2102</td>
+<td>1855</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>org.universAAL.middleware.service.impl.ServiceStrategy.getOutputValue(Map, AggregatingFilter) makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>1008</td>
+<td>924</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.impl.ServiceStrategyAvailabilitySubscription"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.impl.ServiceStrategyAvailabilitySubscription"></a>org.universAAL.middleware.service.impl.ServiceStrategy$AvailabilitySubscription</h3>
@@ -350,7 +350,7 @@
 <td>Should org.universAAL.middleware.service.impl.ServiceStrategy$AvailabilitySubscription be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
-<td>114</td>
+<td>107</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.impl.ServiceStrategyWaitingRequest"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.impl.ServiceStrategyWaitingRequest"></a>org.universAAL.middleware.service.impl.ServiceStrategy$WaitingRequest</h3>
@@ -365,7 +365,7 @@
 <td>Should org.universAAL.middleware.service.impl.ServiceStrategy$WaitingRequest be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
-<td>121</td>
+<td>114</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.owl.Service"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.owl.Service"></a>org.universAAL.middleware.service.owl.Service</h3>
@@ -380,13 +380,13 @@
 <td>org.universAAL.middleware.service.owl.Service.addInstanceLevelRestriction(MergedRestriction, String[]) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>187</td>
+<td>181</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>org.universAAL.middleware.service.owl.Service.setProperty(String, Object) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>337</td>
+<td>313</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.owls.process.OutputBinding"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.owls.process.OutputBinding"></a>org.universAAL.middleware.service.owls.process.OutputBinding</h3>
@@ -401,7 +401,7 @@
 <td>Redundant nullcheck of key, which is known to be non-null in org.universAAL.middleware.service.owls.process.OutputBinding.checkBinding(Object)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE">RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE</a></td>
-<td>92</td>
+<td>85</td>
 <td>High</td></tr></table></div><a name="org.universAAL.middleware.service.owls.process.ProcessParameter"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.owls.process.ProcessParameter"></a>org.universAAL.middleware.service.owls.process.ProcessParameter</h3>
@@ -416,7 +416,7 @@
 <td>org.universAAL.middleware.service.owls.process.ProcessParameter.setCardinality(int, int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>338</td>
+<td>318</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.owls.process.ProcessResult"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.owls.process.ProcessResult"></a>org.universAAL.middleware.service.owls.process.ProcessResult</h3>
@@ -431,7 +431,7 @@
 <td>Possible null pointer dereference of value in org.universAAL.middleware.service.owls.process.ProcessResult.setProperty(String, Object)</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NP_NULL_ON_SOME_PATH">NP_NULL_ON_SOME_PATH</a></td>
-<td>317</td>
+<td>270</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.owls.profile.NumberOfSamples"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.owls.profile.NumberOfSamples"></a>org.universAAL.middleware.service.owls.profile.NumberOfSamples</h3>
@@ -446,13 +446,13 @@
 <td>new org.universAAL.middleware.service.owls.profile.NumberOfSamples(int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>41</td>
+<td>40</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>new org.universAAL.middleware.service.owls.profile.NumberOfSamples(String, int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>48</td>
+<td>47</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds"></a>org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds</h3>
@@ -467,13 +467,13 @@
 <td>new org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds(int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>41</td>
+<td>40</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>new org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds(String, int) invokes inefficient new Integer(int) constructor; use Integer.valueOf(int) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
-<td>48</td>
+<td>47</td>
 <td>Medium</td></tr></table></div>
       </div>
     </div>

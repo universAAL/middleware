@@ -28,7 +28,7 @@ under the License.
       <title>File: 26,
              Errors: 254,
              Warnings: 21,
-             Infos: 193
+             Infos: 194
       </title>
             <link>http://middleware/middleware.core/mw.bus.model.core//checkstyle.html</link>
       <description>
@@ -371,7 +371,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.model.core//checkstyle.html#org.universAAL.middleware.bus.permission.AccessControl.java">org/universAAL/middleware/bus/permission/AccessControl.java</a>
                 </td>
                 <td>
-                  8
+                  9
                 </td>
                 <td>
                   2
