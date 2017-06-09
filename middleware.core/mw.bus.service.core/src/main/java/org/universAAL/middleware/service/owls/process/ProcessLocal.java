@@ -25,14 +25,14 @@ package org.universAAL.middleware.service.owls.process;
  * @author Carsten Stockloew
  */
 public class ProcessLocal extends ProcessParameter {
-    public static final String MY_URI = OWLS_PROCESS_NAMESPACE + "Local";
+	public static final String MY_URI = OWLS_PROCESS_NAMESPACE + "Local";
 
-    /**
-     * The constructor - from the uri of a process local
-     * 
-     * @param uri
-     */
-    public ProcessLocal(String uri) {
-	super(uri, MY_URI);
-    }
+	/**
+	 * The constructor - from the uri of a process local
+	 * 
+	 * @param uri
+	 */
+	public ProcessLocal(String uri) {
+		super(uri, MY_URI);
+	}
 }

@@ -30,36 +30,35 @@ import org.universAAL.middleware.tracker.impl.Activator;
  */
 public interface IBusMemberRegistry {
 
-    public final static Object[] busRegistryShareParams = Activator.fetchParams;
+	public final static Object[] busRegistryShareParams = Activator.fetchParams;
 
-    /**
-     * Enumeration used in notifications.
-     * 
-     * @author dzmuda
-     * 
-     */
-    public enum BusType {
-	Service, Context, UI
-    }
+	/**
+	 * Enumeration used in notifications.
+	 * 
+	 * @author dzmuda
+	 * 
+	 */
+	public enum BusType {
+		Service, Context, UI
+	}
 
-    /**
-     * Method used for adding listener for notifications about changes in
-     * BusMember registry.
-     * 
-     * @param listener
-     *            - listener to be added
-     * @param notifyAboutPreviouslyRegisteredMembers
-     *            - if true then the listener is automatically notified about
-     *            all BusMembers currently available in registry.
-     */
-    public void addListener(IBusMemberRegistryListener listener,
-	    boolean notifyAboutPreviouslyRegisteredMembers);
+	/**
+	 * Method used for adding listener for notifications about changes in
+	 * BusMember registry.
+	 * 
+	 * @param listener
+	 *            - listener to be added
+	 * @param notifyAboutPreviouslyRegisteredMembers
+	 *            - if true then the listener is automatically notified about
+	 *            all BusMembers currently available in registry.
+	 */
+	public void addListener(IBusMemberRegistryListener listener, boolean notifyAboutPreviouslyRegisteredMembers);
 
-    /**
-     * Method used for removal of listeners in BusMember registry
-     * 
-     * @param listener
-     *            - listener to be removed
-     */
-    public void removeListener(IBusMemberRegistryListener listener);
+	/**
+	 * Method used for removal of listeners in BusMember registry
+	 * 
+	 * @param listener
+	 *            - listener to be removed
+	 */
+	public void removeListener(IBusMemberRegistryListener listener);
 }

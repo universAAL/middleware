@@ -29,51 +29,48 @@ package org.universAAL.middleware.container;
  * 
  * <pre>
  * LogMonitor lm = new LogMonitor();
- * myModuleContext.getContainer().shareObject(myModuleContext, lm,
- *     new Object[] { LogListener.class.getName() });
+ * myModuleContext.getContainer().shareObject(myModuleContext, lm, new Object[] { LogListener.class.getName() });
  * </pre>
  *
  * To stop listening to log messages, the shared objects needs to be removed:
  * 
  * <pre>
- * myModuleContext.getContainer().removeSharedObject(myModuleContext, lm,
- *     new Object[] { LogListener.class.getName() });
+ * myModuleContext.getContainer().removeSharedObject(myModuleContext, lm, new Object[] { LogListener.class.getName() });
  * </pre>
  * 
  * @author Carsten Stockloew
  */
 public interface LogListener {
 
-    public static final int LOG_LEVEL_TRACE = 0;
-    public static final int LOG_LEVEL_DEBUG = 1;
-    public static final int LOG_LEVEL_INFO = 2;
-    public static final int LOG_LEVEL_WARN = 3;
-    public static final int LOG_LEVEL_ERROR = 4;
+	public static final int LOG_LEVEL_TRACE = 0;
+	public static final int LOG_LEVEL_DEBUG = 1;
+	public static final int LOG_LEVEL_INFO = 2;
+	public static final int LOG_LEVEL_WARN = 3;
+	public static final int LOG_LEVEL_ERROR = 4;
 
-    /**
-     * Log a new message.
-     * 
-     * @param logLevel
-     *            the log level (trace, debug, info, warn, or error)
-     * @param module
-     *            the name of the module that contains the class that intends to
-     *            generate the log message
-     * @param pkg
-     *            the name of the package that contains the class that intends
-     *            to generate the log message
-     * @param cls
-     *            the name of the class that intends to generate the log message
-     * @param method
-     *            The name of the method in the above Java class that intends to
-     *            generate the log message
-     * @param msgPart
-     *            An array of strings and other objects that should be
-     *            concatenated using {@link java.lang.String#valueOf(Object)} in
-     *            order to construct the log message
-     * @param t
-     *            An optional {@link java.lang.Throwable} object like an
-     *            exception that might have caused the log request
-     */
-    public void log(int logLevel, String module, String pkg, String cls,
-	    String method, Object[] msgPart, Throwable t);
+	/**
+	 * Log a new message.
+	 * 
+	 * @param logLevel
+	 *            the log level (trace, debug, info, warn, or error)
+	 * @param module
+	 *            the name of the module that contains the class that intends to
+	 *            generate the log message
+	 * @param pkg
+	 *            the name of the package that contains the class that intends
+	 *            to generate the log message
+	 * @param cls
+	 *            the name of the class that intends to generate the log message
+	 * @param method
+	 *            The name of the method in the above Java class that intends to
+	 *            generate the log message
+	 * @param msgPart
+	 *            An array of strings and other objects that should be
+	 *            concatenated using {@link java.lang.String#valueOf(Object)} in
+	 *            order to construct the log message
+	 * @param t
+	 *            An optional {@link java.lang.Throwable} object like an
+	 *            exception that might have caused the log request
+	 */
+	public void log(int logLevel, String module, String pkg, String cls, String method, Object[] msgPart, Throwable t);
 }

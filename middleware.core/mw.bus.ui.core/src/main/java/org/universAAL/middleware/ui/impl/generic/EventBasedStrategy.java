@@ -34,126 +34,122 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * A set of methods to send messages. Main implementation for
  * {@link EventMessage} handling. <br>
  * 
- * <center> <img style="background-color:lightgray;"
- * src="doc-files/EventBasedStrategy.png" alt="UIStrategy messages"
- * width="70%"/> </center>
+ * <center> <img style="background-color:lightgray;" src=
+ * "doc-files/EventBasedStrategy.png" alt="UIStrategy messages" width="70%"/>
+ * </center>
  * 
  * When a message who's content implements the {@link EventMessage} Interface
  * then the
  * {@link EventMessage#onReceived(EventBasedStrategy, BusMessage, String)
  * method} is called. For this the Message content has to be deserialized into a
- * {@link Resource} that implements such method, thus an ontology is needed. <br>
+ * {@link Resource} that implements such method, thus an ontology is needed.
+ * <br>
  * Overall when an event it sent, The {@link BusMessage} content has to be a
- * {@link EventMessage}. <center> <img style="background-color:lightgray;"
- * src="doc-files/SDSend.png" alt="UIStrategy messages" width="70%"/> </center> <br>
+ * {@link EventMessage}. <center>
+ * <img style="background-color:lightgray;" src="doc-files/SDSend.png" alt=
+ * "UIStrategy messages" width="70%"/> </center> <br>
  * So when received it is deserialized and the instance's
  * {@link EventMessage#onReceived(EventBasedStrategy, BusMessage, String)
  * callback} is called, being of the type of the sent message then the correct
- * operation is perfomed <center> <img style="background-color:lightgray;"
- * src="doc-files/SDReceive.png" alt="UIStrategy messages" width="70%"/>
- * </center> <br>
- * <center> <img style="background-color:lightgray;"
- * src="doc-files/EventBasedStrategy-Sample.png" alt="UIStrategy messages"
- * width="70%"/> </center>
+ * operation is perfomed <center>
+ * <img style="background-color:lightgray;" src="doc-files/SDReceive.png" alt=
+ * "UIStrategy messages" width="70%"/> </center> <br>
+ * <center> <img style="background-color:lightgray;" src=
+ * "doc-files/EventBasedStrategy-Sample.png" alt="UIStrategy messages" width=
+ * "70%"/> </center>
  * 
  * @author amedrano
  * 
  */
 public abstract class EventBasedStrategy extends BusStrategy {
 
-    /**
-     * @param commModule
-     */
-    public EventBasedStrategy(CommunicationModule commModule) {
-	super(commModule);
-    }
-
-    /**
-     * @param commModule
-     * @param name
-     */
-    public EventBasedStrategy(CommunicationModule commModule, String name) {
-	super(commModule, name);
-    }
-
-    /** {@ inheritDoc} */
-    protected void handle(BusMessage m, String senderID) {
-	Object o = m.getContent();
-	if (o instanceof EventMessage) {
-	    ((EventMessage) o).onReceived(this, m, senderID);
-	    return;
+	/**
+	 * @param commModule
+	 */
+	public EventBasedStrategy(CommunicationModule commModule) {
+		super(commModule);
 	}
-    }
 
-    /**
-     * Helper method to send a Unicast Event.
-     * 
-     * @param memberID
-     * @param content
-     */
-    protected final void sendEventToRemoteBusMember(String memberID,
-	    EventMessage content) {
-	sendEventToRemoteBusMember(
-		AbstractBus.getPeerFromBusResourceURI(memberID), content);
-    }
-
-    /**
-     * Helper method to send a Multicast Event.
-     * 
-     * @param memberID
-     * @param content
-     */
-    protected final void sendEventToRemoteBusMember(String[] membersID,
-	    EventMessage content) {
-	((UIBusImpl) bus).assessContentSerialization((Resource) content);
-	BusMessage m = new BusMessage(MessageType.p2p_event, content, bus);
-	List<PeerCard> receivers = new ArrayList<PeerCard>(membersID.length);
-	for (int i = 0; i < membersID.length; i++) {
-	    receivers.add(AbstractBus.getPeerFromBusResourceURI(membersID[i]));
+	/**
+	 * @param commModule
+	 * @param name
+	 */
+	public EventBasedStrategy(CommunicationModule commModule, String name) {
+		super(commModule, name);
 	}
-	m.setReceivers(receivers);
-	send(m);
-    }
 
-    /**
-     * Helper method to send a Broadcast Event.
-     * 
-     * @param memberID
-     * @param content
-     */
-    protected final void sendEventToRemoteBusMember(EventMessage content) {
-	((UIBusImpl) bus).assessContentSerialization((Resource) content);
-	BusMessage m = new BusMessage(MessageType.p2p_event, content, bus);
-	send(m);
-    }
+	/** {@ inheritDoc} */
+	protected void handle(BusMessage m, String senderID) {
+		Object o = m.getContent();
+		if (o instanceof EventMessage) {
+			((EventMessage) o).onReceived(this, m, senderID);
+			return;
+		}
+	}
 
-    /**
-     * Helper method to send a Unicast Event.
-     * 
-     * @param member
-     * @param content
-     */
-    protected final void sendEventToRemoteBusMember(PeerCard member,
-	    EventMessage content) {
-	((UIBusImpl) bus).assessContentSerialization((Resource) content);
-	BusMessage m = new BusMessage(MessageType.p2p_event, content, bus);
-	m.setReceiver(member);
-	send(m);
-    }
+	/**
+	 * Helper method to send a Unicast Event.
+	 * 
+	 * @param memberID
+	 * @param content
+	 */
+	protected final void sendEventToRemoteBusMember(String memberID, EventMessage content) {
+		sendEventToRemoteBusMember(AbstractBus.getPeerFromBusResourceURI(memberID), content);
+	}
 
-    /**
-     * Helper method to send a Multicast Event.
-     * 
-     * @param memberID
-     * @param content
-     */
-    protected final void sendEventToRemoteBusMember(PeerCard[] members,
-	    EventMessage content) {
-	((UIBusImpl) bus).assessContentSerialization((Resource) content);
-	BusMessage m = new BusMessage(MessageType.p2p_event, content, bus);
-	List<PeerCard> receivers = new ArrayList<PeerCard>(
-		Arrays.asList(members));
-	m.setReceivers(receivers);
-	send(m);
-    }
+	/**
+	 * Helper method to send a Multicast Event.
+	 * 
+	 * @param memberID
+	 * @param content
+	 */
+	protected final void sendEventToRemoteBusMember(String[] membersID, EventMessage content) {
+		((UIBusImpl) bus).assessContentSerialization((Resource) content);
+		BusMessage m = new BusMessage(MessageType.p2p_event, content, bus);
+		List<PeerCard> receivers = new ArrayList<PeerCard>(membersID.length);
+		for (int i = 0; i < membersID.length; i++) {
+			receivers.add(AbstractBus.getPeerFromBusResourceURI(membersID[i]));
+		}
+		m.setReceivers(receivers);
+		send(m);
+	}
+
+	/**
+	 * Helper method to send a Broadcast Event.
+	 * 
+	 * @param memberID
+	 * @param content
+	 */
+	protected final void sendEventToRemoteBusMember(EventMessage content) {
+		((UIBusImpl) bus).assessContentSerialization((Resource) content);
+		BusMessage m = new BusMessage(MessageType.p2p_event, content, bus);
+		send(m);
+	}
+
+	/**
+	 * Helper method to send a Unicast Event.
+	 * 
+	 * @param member
+	 * @param content
+	 */
+	protected final void sendEventToRemoteBusMember(PeerCard member, EventMessage content) {
+		((UIBusImpl) bus).assessContentSerialization((Resource) content);
+		BusMessage m = new BusMessage(MessageType.p2p_event, content, bus);
+		m.setReceiver(member);
+		send(m);
+	}
+
+	/**
+	 * Helper method to send a Multicast Event.
+	 * 
+	 * @param memberID
+	 * @param content
+	 */
+	protected final void sendEventToRemoteBusMember(PeerCard[] members, EventMessage content) {
+		((UIBusImpl) bus).assessContentSerialization((Resource) content);
+		BusMessage m = new BusMessage(MessageType.p2p_event, content, bus);
+		List<PeerCard> receivers = new ArrayList<PeerCard>(Arrays.asList(members));
+		m.setReceivers(receivers);
+		send(m);
+	}
 }

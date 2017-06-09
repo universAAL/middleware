@@ -28,26 +28,25 @@ import org.universAAL.middleware.owl.MergedRestriction;
  */
 public interface ConfigurationParameter extends DescribedEntity {
 
-    /**
-     * The default value, for when a value is not set.
-     * 
-     * @return default vaule to use.
-     */
-    public Object getDefaultValue();
+	/**
+	 * The default value, for when a value is not set.
+	 * 
+	 * @return default vaule to use.
+	 */
+	public Object getDefaultValue();
 
-    /**
-     * The type that the configuration parameter is allowed to take. The
-     * {@link MergedRestriction} has to be bounded to the property
-     * {@link ConfigurationParameter#PROP_CONFIG_VALUE}, otherwise the
-     * {@link ConfigurationParameter} will not register properly.
-     * 
-     * @return a {@link MergedRestriction} over the property that defines the
-     *         restrictions on the object received in
-     *         {@link ConfigurableModule#configurationChanged(org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.Scope, Object)}
-     *         for the scope of this Configuration Parameter Entity.
-     */
-    public MergedRestriction getType();
+	/**
+	 * The type that the configuration parameter is allowed to take. The
+	 * {@link MergedRestriction} has to be bounded to the property
+	 * {@link ConfigurationParameter#PROP_CONFIG_VALUE}, otherwise the
+	 * {@link ConfigurationParameter} will not register properly.
+	 * 
+	 * @return a {@link MergedRestriction} over the property that defines the
+	 *         restrictions on the object received in
+	 *         {@link ConfigurableModule#configurationChanged(org.universAAL.middleware.mw.manager.configuration.core.interfaces.scope.Scope, Object)}
+	 *         for the scope of this Configuration Parameter Entity.
+	 */
+	public MergedRestriction getType();
 
-    public static String PROP_CONFIG_VALUE = "http://ontology.universAAL.org/AALConfigurationOntology#"
-	    + "hasValue";
+	public static String PROP_CONFIG_VALUE = "http://ontology.universAAL.org/AALConfigurationOntology#" + "hasValue";
 }

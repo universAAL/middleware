@@ -25,32 +25,32 @@ package org.universAAL.middleware.interfaces.configuration.scope;
  */
 public class ApplicationScope extends AALSpaceScope {
 
-    /**
-     * The application the entity is meant for.
-     */
-    private String appID;
+	/**
+	 * The application the entity is meant for.
+	 */
+	private String appID;
 
-    /**
-     * Constructor for a given entity identifier and application.
-     * 
-     * @param id
-     */
-    public ApplicationScope(String id, String appID) {
-	super(id);
-	if (appID == null || appID.isEmpty())
-	    throw new IllegalArgumentException("appID cannot be null or empty");
-	if (appID.matches(FORBIDDEN)) {
-	    throw new IllegalArgumentException("appID contains forbiden format");
+	/**
+	 * Constructor for a given entity identifier and application.
+	 * 
+	 * @param id
+	 */
+	public ApplicationScope(String id, String appID) {
+		super(id);
+		if (appID == null || appID.isEmpty())
+			throw new IllegalArgumentException("appID cannot be null or empty");
+		if (appID.matches(FORBIDDEN)) {
+			throw new IllegalArgumentException("appID contains forbiden format");
+		}
+		this.appID = appID;
 	}
-	this.appID = appID;
-    }
 
-    /**
-     * Get the application ID.
-     * 
-     * @return
-     */
-    public String getAppID() {
-	return appID;
-    }
+	/**
+	 * Get the application ID.
+	 * 
+	 * @return
+	 */
+	public String getAppID() {
+		return appID;
+	}
 }

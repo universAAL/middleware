@@ -34,24 +34,24 @@ import org.universAAL.middleware.interfaces.mpa.UAPPCard;
  */
 public interface DeployConnector extends Connector {
 
-    /**
-     * This method allows to install a part on the running container
-     * 
-     * @param serializedPart
-     *            The part to be installed
-     * @param card
-     *            The reference information of the part of the application
-     *            within a service to install
-     */
-    public void installPart(File applicationPart, UAPPCard card);
+	/**
+	 * This method allows to install a part on the running container
+	 * 
+	 * @param serializedPart
+	 *            The part to be installed
+	 * @param card
+	 *            The reference information of the part of the application
+	 *            within a service to install
+	 */
+	public void installPart(File applicationPart, UAPPCard card);
 
-    /**
-     * This method allows to uninstall a part on the running container
-     * 
-     * @param card
-     *            The reference information of the part of the application
-     *            within a service to install
-     */
-    public void uninstallPart(UAPPCard card);
+	/**
+	 * This method allows to uninstall a part on the running container
+	 * 
+	 * @param card
+	 *            The reference information of the part of the application
+	 *            within a service to install
+	 */
+	public void uninstallPart(UAPPCard card);
 
 }

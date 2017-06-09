@@ -26,40 +26,39 @@ package org.universAAL.middleware.interfaces.configuration.scope;
  */
 public final class AppPartScope extends ApplicationScope {
 
-    /**
-     * The application part unique ID.
-     */
-    private String partID;
+	/**
+	 * The application part unique ID.
+	 */
+	private String partID;
 
-    /**
-     * Constructor for an entity with unique Id, associated to an application
-     * with a part.
-     * 
-     * @param id
-     *            the entity id.
-     * @param appID
-     *            the application id.
-     * @param partID
-     *            the id for the application part.
-     */
-    public AppPartScope(String id, String appID, String partID) {
-	super(id, appID);
-	if (partID == null || partID.isEmpty())
-	    throw new IllegalArgumentException("partID cannot be null or empty");
-	if (partID.matches(FORBIDDEN)) {
-	    throw new IllegalArgumentException(
-		    "partID contains forbiden format");
+	/**
+	 * Constructor for an entity with unique Id, associated to an application
+	 * with a part.
+	 * 
+	 * @param id
+	 *            the entity id.
+	 * @param appID
+	 *            the application id.
+	 * @param partID
+	 *            the id for the application part.
+	 */
+	public AppPartScope(String id, String appID, String partID) {
+		super(id, appID);
+		if (partID == null || partID.isEmpty())
+			throw new IllegalArgumentException("partID cannot be null or empty");
+		if (partID.matches(FORBIDDEN)) {
+			throw new IllegalArgumentException("partID contains forbiden format");
+		}
+		this.partID = partID;
 	}
-	this.partID = partID;
-    }
 
-    /**
-     * Get the application part ID.
-     * 
-     * @return
-     */
-    public String getPartID() {
-	return partID;
-    }
+	/**
+	 * Get the application part ID.
+	 * 
+	 * @return
+	 */
+	public String getPartID() {
+		return partID;
+	}
 
 }

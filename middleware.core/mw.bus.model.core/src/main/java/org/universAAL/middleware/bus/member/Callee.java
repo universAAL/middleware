@@ -29,15 +29,15 @@ import org.universAAL.middleware.container.ModuleContext;
  */
 public abstract class Callee extends BusMember {
 
-    protected Callee(ModuleContext owner, Object[] busFetchParams) {
-	super(owner, busFetchParams, BusMemberType.responder);
-    }
+	protected Callee(ModuleContext owner, Object[] busFetchParams) {
+		super(owner, busFetchParams, BusMemberType.responder);
+	}
 
-    /**
-     * Handles request coming from the bus.
-     * 
-     * @param m
-     *            request message coming from the bus.
-     */
-    // public Response handleRequest(Request r);
+	/**
+	 * Handles request coming from the bus.
+	 * 
+	 * @param m
+	 *            request message coming from the bus.
+	 */
+	// public Response handleRequest(Request r);
 }

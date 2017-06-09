@@ -36,85 +36,84 @@ import com.google.gson.Gson;
  */
 public class ChannelMessage {
 
-    /**
-     * The list of channels to which to send the message
-     */
-    private List channelNames;
-    /**
-     * Message sender
-     */
-    private PeerCard sender;
-    private String content;
+	/**
+	 * The list of channels to which to send the message
+	 */
+	private List channelNames;
+	/**
+	 * Message sender
+	 */
+	private PeerCard sender;
+	private String content;
 
-    /*
-     * private ChannelMessage() { }
-     */
+	/*
+	 * private ChannelMessage() { }
+	 */
 
-    public ChannelMessage(PeerCard sender, String content, List channelNames) {
-	this.sender = sender;
-	this.content = content;
-	this.channelNames = channelNames;
-    }
-
-    public ChannelMessage() {
-
-    }
-
-    public PeerCard getSender() {
-	return sender;
-    }
-
-    public void setSender(PeerCard sender) {
-	this.sender = sender;
-    }
-
-    public List getChannelNames() {
-	return channelNames;
-    }
-
-    public void setChannelNames(List channelNames) {
-	this.channelNames = channelNames;
-    }
-
-    public String getContent() {
-	return content;
-    }
-
-    public void setContent(String content) {
-	this.content = content;
-    }
-
-    public String toString() {
-	String serializedMessage = null;
-	try {
-	    Gson gson = new Gson();
-	    serializedMessage = gson.toJson(this);
-
-	} catch (Exception e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	public ChannelMessage(PeerCard sender, String content, List channelNames) {
+		this.sender = sender;
+		this.content = content;
+		this.channelNames = channelNames;
 	}
 
-	return serializedMessage;
-    }
+	public ChannelMessage() {
 
-    public static ChannelMessage unmarshall(String message) throws Exception {
-
-	ChannelMessage ch = null;
-	try {
-
-	    Gson gson = new Gson();
-	    ch = gson.fromJson(message, ChannelMessage.class);
-
-	} catch (Exception e) {
-
-	    throw new Exception(
-		    "Unable to unmashall AALSpaceMessage. Original message: "
-			    + message + ". Full Stack: " + e.toString());
 	}
 
-	return ch;
+	public PeerCard getSender() {
+		return sender;
+	}
 
-    }
+	public void setSender(PeerCard sender) {
+		this.sender = sender;
+	}
+
+	public List getChannelNames() {
+		return channelNames;
+	}
+
+	public void setChannelNames(List channelNames) {
+		this.channelNames = channelNames;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String toString() {
+		String serializedMessage = null;
+		try {
+			Gson gson = new Gson();
+			serializedMessage = gson.toJson(this);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return serializedMessage;
+	}
+
+	public static ChannelMessage unmarshall(String message) throws Exception {
+
+		ChannelMessage ch = null;
+		try {
+
+			Gson gson = new Gson();
+			ch = gson.fromJson(message, ChannelMessage.class);
+
+		} catch (Exception e) {
+
+			throw new Exception("Unable to unmashall AALSpaceMessage. Original message: " + message + ". Full Stack: "
+					+ e.toString());
+		}
+
+		return ch;
+
+	}
 
 }

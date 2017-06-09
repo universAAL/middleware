@@ -24,5 +24,5 @@ package org.universAAL.middleware.bus.member;
  * 
  */
 public enum BusMemberType {
-    publisher, requester, responder, subscriber
+	publisher, requester, responder, subscriber
 }

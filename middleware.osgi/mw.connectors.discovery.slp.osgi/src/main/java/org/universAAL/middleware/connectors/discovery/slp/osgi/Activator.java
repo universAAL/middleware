@@ -46,59 +46,56 @@ import org.universAAL.middleware.container.utils.LogUtils;
  */
 public class Activator implements BundleActivator, ManagedService {
 
-    private static String SERVICE_PID = "mw.connectors.discovery.slp.core";
-    DiscoveryConnector slpDiscoveryConnector;
-    private ServiceRegistration myRegistration;
+	private static String SERVICE_PID = "mw.connectors.discovery.slp.core";
+	DiscoveryConnector slpDiscoveryConnector;
+	private ServiceRegistration myRegistration;
 
-    public void start(BundleContext context) throws Exception {
+	public void start(BundleContext context) throws Exception {
 
-	uAALBundleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
+		uAALBundleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
+				.registerModule(new Object[] { context });
 
-	LogUtils.logDebug(moduleContext, Activator.class, "Activator",
-		new Object[] { "Starting the SLPDiscoveryConnector..." }, null);
-	slpDiscoveryConnector = new SLPDiscoveryConnector(moduleContext);
+		LogUtils.logDebug(moduleContext, Activator.class, "Activator",
+				new Object[] { "Starting the SLPDiscoveryConnector..." }, null);
+		slpDiscoveryConnector = new SLPDiscoveryConnector(moduleContext);
 
-	Dictionary props = new Hashtable();
-	props.put(Constants.SERVICE_PID, SERVICE_PID);
-	myRegistration = context.registerService(
-		ManagedService.class.getName(), this, props);
+		Dictionary props = new Hashtable();
+		props.put(Constants.SERVICE_PID, SERVICE_PID);
+		myRegistration = context.registerService(ManagedService.class.getName(), this, props);
 
-	ConfigurationAdmin configurationAdmin = null;
-	ServiceReference sr = context
-		.getServiceReference(ConfigurationAdmin.class.getName());
-	if (sr != null && context.getService(sr) instanceof ConfigurationAdmin)
-	    configurationAdmin = (ConfigurationAdmin) context.getService(sr);
-	Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
+		ConfigurationAdmin configurationAdmin = null;
+		ServiceReference sr = context.getServiceReference(ConfigurationAdmin.class.getName());
+		if (sr != null && context.getService(sr) instanceof ConfigurationAdmin)
+			configurationAdmin = (ConfigurationAdmin) context.getService(sr);
+		Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
 
-	Dictionary slpDConnectorProperties = config.getProperties();
+		Dictionary slpDConnectorProperties = config.getProperties();
 
-	if (slpDConnectorProperties != null) {
-	    slpDiscoveryConnector.loadConfigurations(slpDConnectorProperties);
-	    slpDiscoveryConnector.init();
+		if (slpDConnectorProperties != null) {
+			slpDiscoveryConnector.loadConfigurations(slpDConnectorProperties);
+			slpDiscoveryConnector.init();
+		}
+
+		// register the SLPDiscoveryConnector
+		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, slpDiscoveryConnector,
+				new Object[] { DiscoveryConnector.class.getName() });
+		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
+				new Object[] { "Starting the SLPDiscoveryConnector..." }, null);
+
 	}
 
-	// register the SLPDiscoveryConnector
-	uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
-		slpDiscoveryConnector,
-		new Object[] { DiscoveryConnector.class.getName() });
-	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-		new Object[] { "Starting the SLPDiscoveryConnector..." }, null);
+	public void stop(BundleContext arg0) throws Exception {
+		slpDiscoveryConnector.dispose();
+		myRegistration.unregister();
+	}
 
-    }
+	/**
+	 * Called-back as soon as properties are loaded or modified
+	 */
+	public void updated(Dictionary properties) throws ConfigurationException {
+		slpDiscoveryConnector.loadConfigurations(properties);
+		slpDiscoveryConnector.init();
 
-    public void stop(BundleContext arg0) throws Exception {
-	slpDiscoveryConnector.dispose();
-	myRegistration.unregister();
-    }
-
-    /**
-     * Called-back as soon as properties are loaded or modified
-     */
-    public void updated(Dictionary properties) throws ConfigurationException {
-	slpDiscoveryConnector.loadConfigurations(properties);
-	slpDiscoveryConnector.init();
-
-    }
+	}
 
 }

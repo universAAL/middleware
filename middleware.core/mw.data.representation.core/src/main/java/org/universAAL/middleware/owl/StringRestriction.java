@@ -21,24 +21,23 @@ package org.universAAL.middleware.owl;
 import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
- * A {@link TypeExpression} ({@link LengthRestriction}) that contains all Strings
- * with a given minimum and/or maximum length.
+ * A {@link TypeExpression} ({@link LengthRestriction}) that contains all
+ * Strings with a given minimum and/or maximum length.
  *
  * @author Carsten Stockloew
  */
 public final class StringRestriction extends LengthRestriction {
 
-    /** URI of the data type. */
-    public static final String DATATYPE_URI = TypeMapper
-	    .getDatatypeURI(String.class);
+	/** URI of the data type. */
+	public static final String DATATYPE_URI = TypeMapper.getDatatypeURI(String.class);
 
-    /** Standard constructor. */
-    public StringRestriction() {
-	super(DATATYPE_URI);
-    }
+	/** Standard constructor. */
+	public StringRestriction() {
+		super(DATATYPE_URI);
+	}
 
-    @Override
-    public TypeExpression copy() {
-	return copyTo(new StringRestriction());
-    }
+	@Override
+	public TypeExpression copy() {
+		return copyTo(new StringRestriction());
+	}
 }

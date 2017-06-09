@@ -29,92 +29,80 @@ package org.universAAL.middleware.interfaces.aalspace.model;
  */
 public interface ISpaceDescriptor {
 
-    /**
-     * Gets the value of the profile property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public abstract String getProfile();
+	/**
+	 * Gets the value of the profile property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public abstract String getProfile();
 
-    /**
-     * Sets the value of the profile property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public abstract void setProfile(String value);
+	/**
+	 * Sets the value of the profile property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public abstract void setProfile(String value);
 
-    public abstract boolean isSetProfile();
+	public abstract boolean isSetProfile();
 
-    /**
-     * Gets the value of the spaceId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public abstract String getSpaceId();
+	/**
+	 * Gets the value of the spaceId property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public abstract String getSpaceId();
 
-    /**
-     * Sets the value of the spaceId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public abstract void setSpaceId(String value);
+	/**
+	 * Sets the value of the spaceId property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public abstract void setSpaceId(String value);
 
-    public abstract boolean isSetSpaceId();
+	public abstract boolean isSetSpaceId();
 
-    /**
-     * Gets the value of the spaceName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public abstract String getSpaceName();
+	/**
+	 * Gets the value of the spaceName property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public abstract String getSpaceName();
 
-    /**
-     * Sets the value of the spaceName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public abstract void setSpaceName(String value);
+	/**
+	 * Sets the value of the spaceName property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public abstract void setSpaceName(String value);
 
-    public abstract boolean isSetSpaceName();
+	public abstract boolean isSetSpaceName();
 
-    /**
-     * Gets the value of the spaceDescription property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public abstract String getSpaceDescription();
+	/**
+	 * Gets the value of the spaceDescription property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public abstract String getSpaceDescription();
 
-    /**
-     * Sets the value of the spaceDescription property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public abstract void setSpaceDescription(String value);
+	/**
+	 * Sets the value of the spaceDescription property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public abstract void setSpaceDescription(String value);
 
-    public abstract boolean isSetSpaceDescription();
+	public abstract boolean isSetSpaceDescription();
 
 }

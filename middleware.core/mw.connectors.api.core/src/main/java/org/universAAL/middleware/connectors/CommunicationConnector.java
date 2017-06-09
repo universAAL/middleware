@@ -36,49 +36,47 @@ import org.universAAL.middleware.interfaces.PeerCard;
  */
 public interface CommunicationConnector extends Connector {
 
-    /**
-     * Send multicast message to a list of recipients in the same group
-     */
-    public void multicast(ChannelMessage message, List<PeerCard> receivers)
-	    throws CommunicationConnectorException;
+	/**
+	 * Send multicast message to a list of recipients in the same group
+	 */
+	public void multicast(ChannelMessage message, List<PeerCard> receivers) throws CommunicationConnectorException;
 
-    /**
-     * Send multicast message to a group (Broadcast)
-     */
-    public void multicast(ChannelMessage message)
-	    throws CommunicationConnectorException;
+	/**
+	 * Send multicast message to a group (Broadcast)
+	 */
+	public void multicast(ChannelMessage message) throws CommunicationConnectorException;
 
-    /**
-     * Send unicast message to one recipient
-     */
-    public void unicast(ChannelMessage message, String receiver);
+	/**
+	 * Send unicast message to one recipient
+	 */
+	public void unicast(ChannelMessage message, String receiver);
 
-    /**
-     * Configure the connector
-     * 
-     * @throws CommunicationModuleException
-     */
-    public void configureConnector(List<ChannelDescriptor> channels,
-	    String peerName) throws CommunicationConnectorException;
+	/**
+	 * Configure the connector
+	 * 
+	 * @throws CommunicationModuleException
+	 */
+	public void configureConnector(List<ChannelDescriptor> channels, String peerName)
+			throws CommunicationConnectorException;
 
-    /**
-     * Reset the CommunicationConnector
-     * 
-     * @param channels
-     *            Channels to reset
-     */
-    public void dispose(List<ChannelDescriptor> channels);
+	/**
+	 * Reset the CommunicationConnector
+	 * 
+	 * @param channels
+	 *            Channels to reset
+	 */
+	public void dispose(List<ChannelDescriptor> channels);
 
-    public String toString();
+	public String toString();
 
-    public List<String> getGroupMembers(String groupName);
+	public List<String> getGroupMembers(String groupName);
 
-    /**
-     * This method checks if the communication connector provides a channel with
-     * the name specified.
-     * 
-     * @param channelName
-     * @return
-     */
-    public boolean hasChannel(String channelName);
+	/**
+	 * This method checks if the communication connector provides a channel with
+	 * the name specified.
+	 * 
+	 * @param channelName
+	 * @return
+	 */
+	public boolean hasChannel(String channelName);
 }

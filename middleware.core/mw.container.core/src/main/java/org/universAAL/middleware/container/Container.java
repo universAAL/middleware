@@ -22,110 +22,105 @@ package org.universAAL.middleware.container;
 import java.util.Iterator;
 
 /**
- * Represents the container <a
- * href="http://forge.universaal.org/wiki/middleware:Container">specified in the
- * context of the universAAL middleware</a>.
+ * Represents the container
+ * <a href="http://forge.universaal.org/wiki/middleware:Container">specified in
+ * the context of the universAAL middleware</a>.
  * 
  * @author mtazari
  * 
  */
 public interface Container {
-    /**
-     * Returns an object previously shared by another module for usage within
-     * this container.
-     * 
-     * @param requester
-     *            The module in the context of which the shared object is going
-     *            to be used.
-     * @param fetchParams
-     *            Container-specific parameters for fetching shared objects.
-     */
-    public Object fetchSharedObject(ModuleContext requester,
-	    Object[] fetchParams);
+	/**
+	 * Returns an object previously shared by another module for usage within
+	 * this container.
+	 * 
+	 * @param requester
+	 *            The module in the context of which the shared object is going
+	 *            to be used.
+	 * @param fetchParams
+	 *            Container-specific parameters for fetching shared objects.
+	 */
+	public Object fetchSharedObject(ModuleContext requester, Object[] fetchParams);
 
-    /**
-     * Returns an object previously shared by another module for usage within
-     * this container.
-     * 
-     * @param requester
-     *            The module in the context of which the shared object is going
-     *            to be used.
-     * @param fetchParams
-     *            Container-specific parameters for fetching shared objects.
-     * @param listener
-     *            If not null, the listener will be notified asynchronously each
-     *            time a new matching object is shared within this container.
-     */
-    public Object[] fetchSharedObject(ModuleContext requester,
-	    Object[] fetchParams, SharedObjectListener listener);
+	/**
+	 * Returns an object previously shared by another module for usage within
+	 * this container.
+	 * 
+	 * @param requester
+	 *            The module in the context of which the shared object is going
+	 *            to be used.
+	 * @param fetchParams
+	 *            Container-specific parameters for fetching shared objects.
+	 * @param listener
+	 *            If not null, the listener will be notified asynchronously each
+	 *            time a new matching object is shared within this container.
+	 */
+	public Object[] fetchSharedObject(ModuleContext requester, Object[] fetchParams, SharedObjectListener listener);
 
-    /**
-     * This method allows a SharedObjectListener instance to be removed from the
-     * list of listeners managed by this container
-     * 
-     * @param listener
-     *            the SharedObjectListener to be removed
-     */
-    public void removeSharedObjectListener(SharedObjectListener listener);
+	/**
+	 * This method allows a SharedObjectListener instance to be removed from the
+	 * list of listeners managed by this container
+	 * 
+	 * @param listener
+	 *            the SharedObjectListener to be removed
+	 */
+	public void removeSharedObjectListener(SharedObjectListener listener);
 
-    /**
-     * Provides possibility for programmatically installing (downloaded)
-     * modules.
-     * 
-     * @param requester
-     *            The module requesting the installation; only an certain
-     *            modules should be allowed to install modules on the fly
-     * @param installParams
-     *            Container-specific parameters for installing modules
-     * @return The context of the newly installed module if the operation is
-     *         successful, null otherwise.
-     */
-    public ModuleContext installModule(ModuleContext requester,
-	    Object[] installParams);
+	/**
+	 * Provides possibility for programmatically installing (downloaded)
+	 * modules.
+	 * 
+	 * @param requester
+	 *            The module requesting the installation; only an certain
+	 *            modules should be allowed to install modules on the fly
+	 * @param installParams
+	 *            Container-specific parameters for installing modules
+	 * @return The context of the newly installed module if the operation is
+	 *         successful, null otherwise.
+	 */
+	public ModuleContext installModule(ModuleContext requester, Object[] installParams);
 
-    /**
-     * Returns an {@link java.util.Iterator} object over all registered
-     * instances of {@link LogListener}.
-     */
-    public Iterator logListeners();
+	/**
+	 * Returns an {@link java.util.Iterator} object over all registered
+	 * instances of {@link LogListener}.
+	 */
+	public Iterator logListeners();
 
-    /**
-     * Provides possibility for wrapping container-specific context for a module
-     * in terms of an instance of the universAAL {@link ModuleContext}.
-     * 
-     * @param regParams
-     *            The container-specific parameters for identifying the module.
-     * @return The universAAL wrapper object as an instance of
-     *         {@link ModuleContext}.
-     */
-    public ModuleContext registerModule(Object[] regParams);
+	/**
+	 * Provides possibility for wrapping container-specific context for a module
+	 * in terms of an instance of the universAAL {@link ModuleContext}.
+	 * 
+	 * @param regParams
+	 *            The container-specific parameters for identifying the module.
+	 * @return The universAAL wrapper object as an instance of
+	 *         {@link ModuleContext}.
+	 */
+	public ModuleContext registerModule(Object[] regParams);
 
-    /**
-     * Makes a given object accessible for the other modules hosted by this
-     * container.
-     * 
-     * @param requester
-     *            The module in the context of which the shared object is going
-     *            to be used.
-     * @param objToShare
-     *            The actual object to be shared.
-     * @param shareParams
-     *            Container-specific parameters for sharing a specific object.
-     */
-    public void shareObject(ModuleContext requester, Object objToShare,
-	    Object[] shareParams);
+	/**
+	 * Makes a given object accessible for the other modules hosted by this
+	 * container.
+	 * 
+	 * @param requester
+	 *            The module in the context of which the shared object is going
+	 *            to be used.
+	 * @param objToShare
+	 *            The actual object to be shared.
+	 * @param shareParams
+	 *            Container-specific parameters for sharing a specific object.
+	 */
+	public void shareObject(ModuleContext requester, Object objToShare, Object[] shareParams);
 
-    /**
-     * Removes an object previously shared by a module for usage within this
-     * container.
-     * 
-     * @param requester
-     *            The module in the context of which the shared object was
-     *            shared.
-     * @param fetchParams
-     *            Container-specific parameters for removing shared objects. The
-     *            params must be the same that were used to share the object.
-     */
-    public void removeSharedObject(ModuleContext requester, Object objToRemove,
-	    Object[] shareParams);
+	/**
+	 * Removes an object previously shared by a module for usage within this
+	 * container.
+	 * 
+	 * @param requester
+	 *            The module in the context of which the shared object was
+	 *            shared.
+	 * @param fetchParams
+	 *            Container-specific parameters for removing shared objects. The
+	 *            params must be the same that were used to share the object.
+	 */
+	public void removeSharedObject(ModuleContext requester, Object objToRemove, Object[] shareParams);
 }

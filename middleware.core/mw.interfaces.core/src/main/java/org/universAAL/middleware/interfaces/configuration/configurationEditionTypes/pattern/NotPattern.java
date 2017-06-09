@@ -28,21 +28,21 @@ import org.universAAL.middleware.owl.TypeExpression;
  */
 public class NotPattern implements EntityPattern {
 
-    private EntityPattern pat;
+	private EntityPattern pat;
 
-    /**
-     * Match entities that NOT match the given pattern
-     * 
-     * @param onPattern
-     *            the pattern to complement.
-     */
-    public NotPattern(EntityPattern onPattern) {
-	pat = onPattern;
-    }
+	/**
+	 * Match entities that NOT match the given pattern
+	 * 
+	 * @param onPattern
+	 *            the pattern to complement.
+	 */
+	public NotPattern(EntityPattern onPattern) {
+		pat = onPattern;
+	}
 
-    /** {@ inheritDoc} */
-    public TypeExpression getRestriction() {
-	return new Complement(pat.getRestriction());
-    }
+	/** {@ inheritDoc} */
+	public TypeExpression getRestriction() {
+		return new Complement(pat.getRestriction());
+	}
 
 }

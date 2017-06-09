@@ -36,19 +36,19 @@ import org.universAAL.middleware.interfaces.PeerCard;
  */
 public interface MatchingResult {
 
-    /**
-     * 
-     * @return an array of {@link PeerCard} representing the peers whom matches
-     *         the search
-     */
-    public PeerCard[] getPeers();
+	/**
+	 * 
+	 * @return an array of {@link PeerCard} representing the peers whom matches
+	 *         the search
+	 */
+	public PeerCard[] getPeers();
 
-    /**
-     * 
-     * @param peer
-     *            the that we are asking the attribute for
-     * @return a {@link Map} with the current value of the all the attribute
-     *         that were searched
-     */
-    public Map<String, Serializable> getPeerAttribute(PeerCard peer);
+	/**
+	 * 
+	 * @param peer
+	 *            the that we are asking the attribute for
+	 * @return a {@link Map} with the current value of the all the attribute
+	 *         that were searched
+	 */
+	public Map<String, Serializable> getPeerAttribute(PeerCard peer);
 }

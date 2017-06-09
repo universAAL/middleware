@@ -33,123 +33,118 @@ import org.universAAL.middleware.rdf.PropertyPath;
  * @author Carsten Stockloew
  */
 public abstract class Input extends FormControl {
-    public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Input";
+	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Input";
 
-    /**
-     * A mandatory (in the sense of "best practice") property for defining a
-     * message to be communicated with human users if the provided input by them
-     * is erroneous.
-     */
-    public static final String PROP_INPUT_ALERT = Form.uAAL_DIALOG_NAMESPACE
-	    + "inputAlert";
+	/**
+	 * A mandatory (in the sense of "best practice") property for defining a
+	 * message to be communicated with human users if the provided input by them
+	 * is erroneous.
+	 */
+	public static final String PROP_INPUT_ALERT = Form.uAAL_DIALOG_NAMESPACE + "inputAlert";
 
-    /**
-     * A property that is set automatically by the dialog package as soon as an
-     * input control is added to a {@link Submit} control as mandatory input. By
-     * default, input controls are optional.
-     */
-    public static final String PROP_IS_MANDATORY = Form.uAAL_DIALOG_NAMESPACE
-	    + "isMandatory";
+	/**
+	 * A property that is set automatically by the dialog package as soon as an
+	 * input control is added to a {@link Submit} control as mandatory input. By
+	 * default, input controls are optional.
+	 */
+	public static final String PROP_IS_MANDATORY = Form.uAAL_DIALOG_NAMESPACE + "isMandatory";
 
-    protected Input() {
-	super();
-    }
-
-    protected Input(String typeURI, Group parent, Label label,
-	    PropertyPath ref, MergedRestriction valueRestriction,
-	    Object initialValue) {
-	super(typeURI, parent, label, ref, valueRestriction, initialValue);
-	if (parent instanceof Repeat)
-	    return;
-	if (ref == null)
-	    throw new IllegalArgumentException(
-		    "The property path for input controls must be not null!");
-    }
-
-    boolean checkSubmission() {
-	Repeat r = getAncestorRepeat();
-	if (r != null) {
-	    if (isMandatory()) {
-		List values = r.getAllValues(getReferencedPPath());
-		if (values != null)
-		    for (Iterator i = values.iterator(); i.hasNext();)
-			if (i.next() == null)
-			    return false;
-	    }
-	    return r.checkSubmission();
+	protected Input() {
+		super();
 	}
 
-	Object o = getValue();
-	if (o == null)
-	    return !isMandatory();
+	protected Input(String typeURI, Group parent, Label label, PropertyPath ref, MergedRestriction valueRestriction,
+			Object initialValue) {
+		super(typeURI, parent, label, ref, valueRestriction, initialValue);
+		if (parent instanceof Repeat)
+			return;
+		if (ref == null)
+			throw new IllegalArgumentException("The property path for input controls must be not null!");
+	}
 
-	return !(o instanceof List) || this.getClass() == Select.class;
-    }
+	boolean checkSubmission() {
+		Repeat r = getAncestorRepeat();
+		if (r != null) {
+			if (isMandatory()) {
+				List values = r.getAllValues(getReferencedPPath());
+				if (values != null)
+					for (Iterator i = values.iterator(); i.hasNext();)
+						if (i.next() == null)
+							return false;
+			}
+			return r.checkSubmission();
+		}
 
-    /**
-     * @see #PROP_INPUT_ALERT
-     */
-    public String getAlertString() {
-	return (String) props.get(PROP_INPUT_ALERT);
-    }
+		Object o = getValue();
+		if (o == null)
+			return !isMandatory();
 
-    // public Object[] getAllowedValues() {
-    // Restriction r = getControlRestrictions();
-    // Object[] res = (r == null)? null : r.getEnumeratedValues();
-    // if (res == null) {
-    // r = getModelBasedRestrictions();
-    // res = (r == null)? null : r.getEnumeratedValues();
-    // }
-    // return res;
-    // }
+		return !(o instanceof List) || this.getClass() == Select.class;
+	}
 
-    /**
-     * @see #PROP_IS_MANDATORY
-     */
-    public boolean isMandatory() {
-	return Boolean.TRUE.equals(props.get(PROP_IS_MANDATORY));
-    }
+	/**
+	 * @see #PROP_INPUT_ALERT
+	 */
+	public String getAlertString() {
+		return (String) props.get(PROP_INPUT_ALERT);
+	}
 
-    /**
-     * @see #PROP_INPUT_ALERT
-     */
-    public void setAlertString(String value) {
-	if (value != null && !props.containsKey(PROP_INPUT_ALERT))
-	    props.put(PROP_INPUT_ALERT, value);
-    }
+	// public Object[] getAllowedValues() {
+	// Restriction r = getControlRestrictions();
+	// Object[] res = (r == null)? null : r.getEnumeratedValues();
+	// if (res == null) {
+	// r = getModelBasedRestrictions();
+	// res = (r == null)? null : r.getEnumeratedValues();
+	// }
+	// return res;
+	// }
 
-    void setMandatory() {
-	props.put(PROP_IS_MANDATORY, Boolean.TRUE);
-    }
+	/**
+	 * @see #PROP_IS_MANDATORY
+	 */
+	public boolean isMandatory() {
+		return Boolean.TRUE.equals(props.get(PROP_IS_MANDATORY));
+	}
 
-    /**
-     * @see FormControl#setProperty(String, Object)
-     */
-    public boolean setProperty(String propURI, Object value) {
-	if (PROP_INPUT_ALERT.equals(propURI)) {
-	    if (value instanceof String && !props.containsKey(propURI)) {
-		props.put(propURI, value);
-		return true;
-	    }
-	    return false;
-	} else
-	    return super.setProperty(propURI, value);
-    }
+	/**
+	 * @see #PROP_INPUT_ALERT
+	 */
+	public void setAlertString(String value) {
+		if (value != null && !props.containsKey(PROP_INPUT_ALERT))
+			props.put(PROP_INPUT_ALERT, value);
+	}
 
-    /**
-     * Tries to store the given value as user input and returns true if it
-     * passes all the known restrictions, false otherwise.
-     */
-    public boolean storeUserInput(Object value) {
-	if (isMandatory() && value == null)
-	    return false;
+	void setMandatory() {
+		props.put(PROP_IS_MANDATORY, Boolean.TRUE);
+	}
 
-	Group g = getParentGroup();
-	if (g == null)
-	    return false;
+	/**
+	 * @see FormControl#setProperty(String, Object)
+	 */
+	public boolean setProperty(String propURI, Object value) {
+		if (PROP_INPUT_ALERT.equals(propURI)) {
+			if (value instanceof String && !props.containsKey(propURI)) {
+				props.put(propURI, value);
+				return true;
+			}
+			return false;
+		} else
+			return super.setProperty(propURI, value);
+	}
 
-	PropertyPath pp = getReferencedPPath();
-	return g.setValue((pp == null ? null : pp.getThePath()), value,
-		getLocalRestrictions());
-    }
+	/**
+	 * Tries to store the given value as user input and returns true if it
+	 * passes all the known restrictions, false otherwise.
+	 */
+	public boolean storeUserInput(Object value) {
+		if (isMandatory() && value == null)
+			return false;
+
+		Group g = getParentGroup();
+		if (g == null)
+			return false;
+
+		PropertyPath pp = getReferencedPPath();
+		return g.setValue((pp == null ? null : pp.getThePath()), value, getLocalRestrictions());
+	}
 }

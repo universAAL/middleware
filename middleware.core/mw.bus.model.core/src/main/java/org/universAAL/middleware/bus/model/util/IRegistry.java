@@ -30,45 +30,45 @@ import org.universAAL.middleware.rdf.Resource;
  */
 public interface IRegistry {
 
-    void addBusMember(String memberID, BusMember busMember);
+	void addBusMember(String memberID, BusMember busMember);
 
-    BusMember removeMemberByID(String memberID);
+	BusMember removeMemberByID(String memberID);
 
-    BusMember getBusMemberByID(String memberID);
+	BusMember getBusMemberByID(String memberID);
 
-    String getBusMemberID(BusMember busMember);
+	String getBusMemberID(BusMember busMember);
 
-    BusMember[] getAllBusMembers();
+	BusMember[] getAllBusMembers();
 
-    String[] getAllBusMembersIds();
+	String[] getAllBusMembersIds();
 
-    int getBusMembersCount();
+	int getBusMembersCount();
 
-    void reset();
+	void reset();
 
-    boolean addRegistryListener(IRegistryListener listener);
+	boolean addRegistryListener(IRegistryListener listener);
 
-    boolean removeRegistryListener(IRegistryListener listener);
+	boolean removeRegistryListener(IRegistryListener listener);
 
-    /**
-     * Add registration parameters of an existing BusMember.
-     * 
-     * @param busMemberID
-     *            the ID of the bus member for which the registration parameters
-     *            have been added.
-     * @param params
-     *            the registration parameters.
-     */
-    public void addRegParams(String busMemberID, Resource[] params);
+	/**
+	 * Add registration parameters of an existing BusMember.
+	 * 
+	 * @param busMemberID
+	 *            the ID of the bus member for which the registration parameters
+	 *            have been added.
+	 * @param params
+	 *            the registration parameters.
+	 */
+	public void addRegParams(String busMemberID, Resource[] params);
 
-    /**
-     * Remove registration parameters of an existing BusMember.
-     * 
-     * @param busMemberID
-     *            the ID of the bus member for which the registration parameters
-     *            have been removed.
-     * @param params
-     *            the registration parameters.
-     */
-    public void removeRegParams(String busMemberID, Resource[] params);
+	/**
+	 * Remove registration parameters of an existing BusMember.
+	 * 
+	 * @param busMemberID
+	 *            the ID of the bus member for which the registration parameters
+	 *            have been removed.
+	 * @param params
+	 *            the registration parameters.
+	 */
+	public void removeRegParams(String busMemberID, Resource[] params);
 }

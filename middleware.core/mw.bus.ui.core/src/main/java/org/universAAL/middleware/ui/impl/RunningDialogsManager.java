@@ -33,62 +33,62 @@ import org.universAAL.middleware.ui.UIHandler;
  */
 public class RunningDialogsManager {
 
-    private Map<String, Set<String>> handlersToDialogs;
-    private Map<String, String> dialogsToHandlers;
+	private Map<String, Set<String>> handlersToDialogs;
+	private Map<String, String> dialogsToHandlers;
 
-    /**
-     * 
-     */
-    public RunningDialogsManager() {
-	handlersToDialogs = new Hashtable<String, Set<String>>();
-	dialogsToHandlers = new Hashtable<String, String>();
-    }
-
-    public void add(String handlerId, String dialogId) {
-	Set<String> setDialogs = handlersToDialogs.get(handlerId);
-	if (setDialogs == null) {
-	    setDialogs = new HashSet<String>();
+	/**
+	 * 
+	 */
+	public RunningDialogsManager() {
+		handlersToDialogs = new Hashtable<String, Set<String>>();
+		dialogsToHandlers = new Hashtable<String, String>();
 	}
-	setDialogs.add(dialogId);
-	handlersToDialogs.put(handlerId, setDialogs);
-	dialogsToHandlers.put(dialogId, handlerId);
-    }
 
-    public void removeDialogId(String dialogId) {
-	String handlerID = dialogsToHandlers.remove(dialogId);
-	Set<String> dialogs = handlersToDialogs.get(handlerID);
-	dialogs.remove(dialogId);
-	if (dialogs.isEmpty()) {
-	    handlersToDialogs.remove(handlerID);
-	} else {
-	    handlersToDialogs.put(handlerID, dialogs);
+	public void add(String handlerId, String dialogId) {
+		Set<String> setDialogs = handlersToDialogs.get(handlerId);
+		if (setDialogs == null) {
+			setDialogs = new HashSet<String>();
+		}
+		setDialogs.add(dialogId);
+		handlersToDialogs.put(handlerId, setDialogs);
+		dialogsToHandlers.put(dialogId, handlerId);
 	}
-    }
 
-    public void removeHandlerId(String handlerId) {
-	Set<String> dialogs = handlersToDialogs.remove(handlerId);
-	for (String dID : dialogs) {
-	    dialogsToHandlers.remove(dID);
+	public void removeDialogId(String dialogId) {
+		String handlerID = dialogsToHandlers.remove(dialogId);
+		Set<String> dialogs = handlersToDialogs.get(handlerID);
+		dialogs.remove(dialogId);
+		if (dialogs.isEmpty()) {
+			handlersToDialogs.remove(handlerID);
+		} else {
+			handlersToDialogs.put(handlerID, dialogs);
+		}
 	}
-    }
 
-    public String getHandler(String dialogID) {
-	return dialogsToHandlers.get(dialogID);
-    }
+	public void removeHandlerId(String handlerId) {
+		Set<String> dialogs = handlersToDialogs.remove(handlerId);
+		for (String dID : dialogs) {
+			dialogsToHandlers.remove(dID);
+		}
+	}
 
-    public Set<String> getDialogs(String handlerID) {
-	return handlersToDialogs.get(handlerID);
-    }
+	public String getHandler(String dialogID) {
+		return dialogsToHandlers.get(dialogID);
+	}
 
-    public Set<String> usedHandlers() {
-	return handlersToDialogs.keySet();
-    }
+	public Set<String> getDialogs(String handlerID) {
+		return handlersToDialogs.get(handlerID);
+	}
 
-    public Set<String> pendingDialogs() {
-	return dialogsToHandlers.keySet();
-    }
+	public Set<String> usedHandlers() {
+		return handlersToDialogs.keySet();
+	}
 
-    public boolean isDialogHandled(String dialogId) {
-	return dialogsToHandlers.containsKey(dialogId);
-    }
+	public Set<String> pendingDialogs() {
+		return dialogsToHandlers.keySet();
+	}
+
+	public boolean isDialogHandled(String dialogId) {
+		return dialogsToHandlers.containsKey(dialogId);
+	}
 }

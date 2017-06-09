@@ -28,14 +28,14 @@ package org.universAAL.middleware.interfaces.aalspace;
  */
 public final class Consts {
 
-    // AALSpace property names
-    public static String AALSPaceName = "aalSpaceName";
-    public static String AALSPaceID = "aalSpaceID";
-    public static String AALSPaceType = "aalSpaceType";
-    public static String AALSPaceProfile = "aalSpaceProfile";
-    public static String AALSPaceDescription = "aalSpaceDescription";
-    public static String AALSpaceCoordinator = "aalSpaceCoordinator";
-    public static String AALSpacePeeringChannelURL = "aalSpacePeeringChannelURL";
-    public static String AALSpacePeeringChannelName = "aalSpacePeeringChannelName";
+	// AALSpace property names
+	public static String AALSPaceName = "aalSpaceName";
+	public static String AALSPaceID = "aalSpaceID";
+	public static String AALSPaceType = "aalSpaceType";
+	public static String AALSPaceProfile = "aalSpaceProfile";
+	public static String AALSPaceDescription = "aalSpaceDescription";
+	public static String AALSpaceCoordinator = "aalSpaceCoordinator";
+	public static String AALSpacePeeringChannelURL = "aalSpacePeeringChannelURL";
+	public static String AALSpacePeeringChannelName = "aalSpacePeeringChannelName";
 
 }

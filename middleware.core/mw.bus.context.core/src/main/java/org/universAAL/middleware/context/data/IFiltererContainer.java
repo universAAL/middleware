@@ -34,11 +34,11 @@ import org.universAAL.middleware.context.impl.ContextStrategy.ContextFilterer;
  */
 public interface IFiltererContainer {
 
-    void addFilterer(ContextFilterer contextFilterer);
+	void addFilterer(ContextFilterer contextFilterer);
 
-    Vector getFilterers();
+	Vector getFilterers();
 
-    // void removeFilterer(ContextFilterer contextFilterer);
+	// void removeFilterer(ContextFilterer contextFilterer);
 
-    void removeFilterers(ContextSubscriber subscriber);
+	void removeFilterers(ContextSubscriber subscriber);
 }

@@ -29,41 +29,40 @@ import org.universAAL.middleware.managers.configuration.core.impl.secondaryManag
  */
 public class FileProvider implements FileManagement {
 
-    private static int index = 0;
+	private static int index = 0;
 
-    private File mainCFG;
+	private File mainCFG;
 
-    public FileProvider(File mainFolder) {
-	mainCFG = mainFolder;
-    }
-
-    /** {@ inheritDoc} */
-    public File cache(URL url) {
-	return ResourceMapper.cached(new File(mainCFG, "cache"), url);
-    }
-
-    /** {@ inheritDoc} */
-    public File getMasterFile() {
-	File f = new File(mainCFG, "configurationDB.ttl");
-	f.getParentFile().mkdirs();
-	return f;
-    }
-
-    /** {@ inheritDoc} */
-    public File getLocalFile(String id) {
-	File f = new File(new File(mainCFG, "localFiles"), id);
-	f.getParentFile().mkdirs();
-	return f;
-    }
-
-    /** {@ inheritDoc} */
-    public File getTemporalFile() {
-	try {
-	    return File.createTempFile("configManagerTempFile" + index++,
-		    ".dat");
-	} catch (IOException e) {
-	    return getLocalFile("configManagerTempFile" + index++);
+	public FileProvider(File mainFolder) {
+		mainCFG = mainFolder;
 	}
-    }
+
+	/** {@ inheritDoc} */
+	public File cache(URL url) {
+		return ResourceMapper.cached(new File(mainCFG, "cache"), url);
+	}
+
+	/** {@ inheritDoc} */
+	public File getMasterFile() {
+		File f = new File(mainCFG, "configurationDB.ttl");
+		f.getParentFile().mkdirs();
+		return f;
+	}
+
+	/** {@ inheritDoc} */
+	public File getLocalFile(String id) {
+		File f = new File(new File(mainCFG, "localFiles"), id);
+		f.getParentFile().mkdirs();
+		return f;
+	}
+
+	/** {@ inheritDoc} */
+	public File getTemporalFile() {
+		try {
+			return File.createTempFile("configManagerTempFile" + index++, ".dat");
+		} catch (IOException e) {
+			return getLocalFile("configManagerTempFile" + index++);
+		}
+	}
 
 }

@@ -34,11 +34,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Output {
-    String name() default "";
+	String name() default "";
 
-    String[] propertyPaths() default {};
+	String[] propertyPaths() default {};
 
-    Class<?> filteringClass() default void.class;
+	Class<?> filteringClass() default void.class;
 
-    Cardinality cardinality() default Cardinality.NOT_SPECIFIED;
+	Cardinality cardinality() default Cardinality.NOT_SPECIFIED;
 }

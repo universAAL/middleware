@@ -40,50 +40,49 @@ import org.universAAL.middleware.context.data.ProvisionsDataList;
  *         Apr 20, 2012
  * 
  */
-public class ContextStrategyDataFactory extends
-	AbstractContextStrategyDataFactory {
+public class ContextStrategyDataFactory extends AbstractContextStrategyDataFactory {
 
-    public IProvisionsData createProvisionsData() {
-	return new ProvisionsDataList();
-    }
+	public IProvisionsData createProvisionsData() {
+		return new ProvisionsDataList();
+	}
 
-    public INumCalledPeersData createNumCalledPeersData() {
-	return new NumCalledPeersDataMap();
-    }
+	public INumCalledPeersData createNumCalledPeersData() {
+		return new NumCalledPeersDataMap();
+	}
 
-    public ICalledPeers createCalledPeers() {
-	return new CalledPeers();
-    }
+	public ICalledPeers createCalledPeers() {
+		return new CalledPeers();
+	}
 
-    public IPropsData createAllPropsOfDomain() {
-	return new PropsDataMap();
-    }
+	public IPropsData createAllPropsOfDomain() {
+		return new PropsDataMap();
+	}
 
-    public IPropsData createAllPropsOfSubject() {
-	return new PropsDataMap();
-    }
+	public IPropsData createAllPropsOfSubject() {
+		return new PropsDataMap();
+	}
 
-    public IPropsData createAllSubjectsWithProp() {
-	return new PropsDataMap();
-    }
+	public IPropsData createAllSubjectsWithProp() {
+		return new PropsDataMap();
+	}
 
-    public IPropsData createSpecificDomainAndProp() {
-	return new PropsDataMap();
-    }
+	public IPropsData createSpecificDomainAndProp() {
+		return new PropsDataMap();
+	}
 
-    public IPropsData createSpecificSubjectAndProp() {
-	return new PropsDataMap();
-    }
+	public IPropsData createSpecificSubjectAndProp() {
+		return new PropsDataMap();
+	}
 
-    public IPropsData createNonIndexedProps() {
-	return new PropsDataMap();
-    }
+	public IPropsData createNonIndexedProps() {
+		return new PropsDataMap();
+	}
 
-    public IFiltererContainer createFiltererContainer(String containerKey) {
-	return new FiltererContainerData(containerKey);
-    }
+	public IFiltererContainer createFiltererContainer(String containerKey) {
+		return new FiltererContainerData(containerKey);
+	}
 
-    public IAllProvisionData createAllProvisions() {
-	return new AllProvisionDataVector();
-    }
+	public IAllProvisionData createAllProvisions() {
+		return new AllProvisionDataVector();
+	}
 }

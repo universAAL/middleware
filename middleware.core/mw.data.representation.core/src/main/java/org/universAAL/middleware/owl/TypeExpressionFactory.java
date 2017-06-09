@@ -31,144 +31,137 @@ import org.universAAL.middleware.rdf.TypeMapper;
  */
 public final class TypeExpressionFactory {
 
-    /**
-     * A map for URIs of properties that uniquely identifies the type
-     * expression. Maps URI of the property to an index that is used in a
-     * switch-statement to create the appropriate instance.
-     */
-    private static HashMap<String, Integer> propMap = new HashMap<String, Integer>();
+	/**
+	 * A map for URIs of properties that uniquely identifies the type
+	 * expression. Maps URI of the property to an index that is used in a
+	 * switch-statement to create the appropriate instance.
+	 */
+	private static HashMap<String, Integer> propMap = new HashMap<String, Integer>();
 
-    /**
-     * A map for URIs of datatypes that uniquely identifies the
-     * {@link TypeRestriction} . Maps URI of the datatype to an index that is
-     * used in a switch-statement to create the appropriate instance of
-     * {@link TypeRestriction}.
-     */
-    private static HashMap<String, Integer> datatypeMap = new HashMap<String, Integer>();
+	/**
+	 * A map for URIs of datatypes that uniquely identifies the
+	 * {@link TypeRestriction} . Maps URI of the datatype to an index that is
+	 * used in a switch-statement to create the appropriate instance of
+	 * {@link TypeRestriction}.
+	 */
+	private static HashMap<String, Integer> datatypeMap = new HashMap<String, Integer>();
 
-    static {
-	propMap.put(Intersection.PROP_OWL_INTERSECTION_OF, Integer.valueOf(0));
-	propMap.put(Union.PROP_OWL_UNION_OF, Integer.valueOf(1));
-	propMap.put(Complement.PROP_OWL_COMPLEMENT_OF, Integer.valueOf(2));
-	propMap.put(Enumeration.PROP_OWL_ONE_OF, Integer.valueOf(3));
-	propMap.put(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM,
-		Integer.valueOf(4));
-	propMap.put(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM,
-		Integer.valueOf(5));
-	propMap.put(HasValueRestriction.PROP_OWL_HAS_VALUE, Integer.valueOf(6));
-	propMap.put(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY,
-		Integer.valueOf(7));
-	propMap.put(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY,
-		Integer.valueOf(8));
-	propMap.put(ExactCardinalityRestriction.PROP_OWL_CARDINALITY,
-		Integer.valueOf(9));
-	propMap.put(TypeRestriction.PROP_OWL_WITH_RESTRICTIONS,
-		Integer.valueOf(10));
+	static {
+		propMap.put(Intersection.PROP_OWL_INTERSECTION_OF, Integer.valueOf(0));
+		propMap.put(Union.PROP_OWL_UNION_OF, Integer.valueOf(1));
+		propMap.put(Complement.PROP_OWL_COMPLEMENT_OF, Integer.valueOf(2));
+		propMap.put(Enumeration.PROP_OWL_ONE_OF, Integer.valueOf(3));
+		propMap.put(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM, Integer.valueOf(4));
+		propMap.put(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM, Integer.valueOf(5));
+		propMap.put(HasValueRestriction.PROP_OWL_HAS_VALUE, Integer.valueOf(6));
+		propMap.put(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY, Integer.valueOf(7));
+		propMap.put(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY, Integer.valueOf(8));
+		propMap.put(ExactCardinalityRestriction.PROP_OWL_CARDINALITY, Integer.valueOf(9));
+		propMap.put(TypeRestriction.PROP_OWL_WITH_RESTRICTIONS, Integer.valueOf(10));
 
-	datatypeMap.put(IntRestriction.DATATYPE_URI, Integer.valueOf(0));
-	datatypeMap.put(FloatRestriction.DATATYPE_URI, Integer.valueOf(1));
-	datatypeMap.put(DoubleRestriction.DATATYPE_URI, Integer.valueOf(2));
-	datatypeMap.put(IndividualRestriction.DATATYPE_URI, Integer.valueOf(3));
-	datatypeMap.put(LongRestriction.DATATYPE_URI, Integer.valueOf(4));
-	datatypeMap.put(URIRestriction.DATATYPE_URI, Integer.valueOf(5));
-	datatypeMap.put(Base64Restriction.DATATYPE_URI, Integer.valueOf(6));
-	datatypeMap.put(StringRestriction.DATATYPE_URI, Integer.valueOf(7));
-    }
-
-    /**
-     * Private constructor. Use the static method.
-     */
-    private TypeExpressionFactory() {
-    }
-
-    /**
-     * Specialize the given Resource. If the Resource represents an instance of
-     * {@link TypeExpression} then the appropriate expression s returned.
-     *
-     * @param r
-     *            The resource to specialize.
-     * @return the specialized {@link TypeExpression}, or null if the resource
-     *         does not represent a type expression.
-     */
-    public static TypeExpression specialize(Resource r) {
-	Integer idx = null;
-	for (java.util.Enumeration e = r.getPropertyURIs(); e.hasMoreElements();) {
-	    idx = (Integer) propMap.get((String) e.nextElement());
-	    if (idx != null)
-		break;
+		datatypeMap.put(IntRestriction.DATATYPE_URI, Integer.valueOf(0));
+		datatypeMap.put(FloatRestriction.DATATYPE_URI, Integer.valueOf(1));
+		datatypeMap.put(DoubleRestriction.DATATYPE_URI, Integer.valueOf(2));
+		datatypeMap.put(IndividualRestriction.DATATYPE_URI, Integer.valueOf(3));
+		datatypeMap.put(LongRestriction.DATATYPE_URI, Integer.valueOf(4));
+		datatypeMap.put(URIRestriction.DATATYPE_URI, Integer.valueOf(5));
+		datatypeMap.put(Base64Restriction.DATATYPE_URI, Integer.valueOf(6));
+		datatypeMap.put(StringRestriction.DATATYPE_URI, Integer.valueOf(7));
 	}
 
-	if (idx == null) {
-	    // none of the properties matches, so it may be a TypeURI
-	    String uri = r.getURI();
-	    if (Resource.isAnon(uri))
-		return null;
-
-	    if (OntologyManagement.getInstance().isRegisteredClass(uri, false))
-		return new TypeURI(uri, false);
-	    if (TypeMapper.isRegisteredDatatypeURI(uri))
-		return new TypeURI(uri, true);
-
-	    return null;
+	/**
+	 * Private constructor. Use the static method.
+	 */
+	private TypeExpressionFactory() {
 	}
 
-	switch (idx.intValue()) {
-	case 0:
-	    String[] types = r.getTypes();
-	    for (int i = 0; i < types.length; i++)
-		if (MergedRestriction.MY_URI.equals(types[i]))
-		    return new MergedRestriction();
-	    return new Intersection();
-	case 1:
-	    return new Union();
-	case 2:
-	    return new HasValueRestriction();
-	case 3:
-	    return new Enumeration();
-	case 4:
-	    return new SomeValuesFromRestriction();
-	case 5:
-	    return new AllValuesFromRestriction();
-	case 6:
-	    return new HasValueRestriction();
-	case 7:
-	    return new MinCardinalityRestriction();
-	case 8:
-	    return new MaxCardinalityRestriction();
-	case 9:
-	    return new ExactCardinalityRestriction();
-	case 10:
-	    Resource datatypeURI = (Resource) r
-		    .getProperty(TypeRestriction.PROP_OWL_ON_DATATYPE);
-	    if (datatypeURI != null) {
-		idx = (Integer) datatypeMap.get(datatypeURI.getURI());
+	/**
+	 * Specialize the given Resource. If the Resource represents an instance of
+	 * {@link TypeExpression} then the appropriate expression s returned.
+	 *
+	 * @param r
+	 *            The resource to specialize.
+	 * @return the specialized {@link TypeExpression}, or null if the resource
+	 *         does not represent a type expression.
+	 */
+	public static TypeExpression specialize(Resource r) {
+		Integer idx = null;
+		for (java.util.Enumeration e = r.getPropertyURIs(); e.hasMoreElements();) {
+			idx = (Integer) propMap.get((String) e.nextElement());
+			if (idx != null)
+				break;
+		}
 
-		if (idx == null)
-		    return null;
+		if (idx == null) {
+			// none of the properties matches, so it may be a TypeURI
+			String uri = r.getURI();
+			if (Resource.isAnon(uri))
+				return null;
+
+			if (OntologyManagement.getInstance().isRegisteredClass(uri, false))
+				return new TypeURI(uri, false);
+			if (TypeMapper.isRegisteredDatatypeURI(uri))
+				return new TypeURI(uri, true);
+
+			return null;
+		}
 
 		switch (idx.intValue()) {
 		case 0:
-		    return new IntRestriction();
+			String[] types = r.getTypes();
+			for (int i = 0; i < types.length; i++)
+				if (MergedRestriction.MY_URI.equals(types[i]))
+					return new MergedRestriction();
+			return new Intersection();
 		case 1:
-		    return new FloatRestriction();
+			return new Union();
 		case 2:
-		    return new DoubleRestriction();
+			return new HasValueRestriction();
 		case 3:
-		    return new IndividualRestriction();
+			return new Enumeration();
 		case 4:
-		    return new LongRestriction();
+			return new SomeValuesFromRestriction();
 		case 5:
-		    return new URIRestriction();
+			return new AllValuesFromRestriction();
 		case 6:
-		    return new Base64Restriction();
+			return new HasValueRestriction();
 		case 7:
-		    return new StringRestriction();
+			return new MinCardinalityRestriction();
+		case 8:
+			return new MaxCardinalityRestriction();
+		case 9:
+			return new ExactCardinalityRestriction();
+		case 10:
+			Resource datatypeURI = (Resource) r.getProperty(TypeRestriction.PROP_OWL_ON_DATATYPE);
+			if (datatypeURI != null) {
+				idx = (Integer) datatypeMap.get(datatypeURI.getURI());
+
+				if (idx == null)
+					return null;
+
+				switch (idx.intValue()) {
+				case 0:
+					return new IntRestriction();
+				case 1:
+					return new FloatRestriction();
+				case 2:
+					return new DoubleRestriction();
+				case 3:
+					return new IndividualRestriction();
+				case 4:
+					return new LongRestriction();
+				case 5:
+					return new URIRestriction();
+				case 6:
+					return new Base64Restriction();
+				case 7:
+					return new StringRestriction();
+				default:
+					return null;
+				}
+			}
 		default:
-		    return null;
+			return null;
 		}
-	    }
-	default:
-	    return null;
 	}
-    }
 }

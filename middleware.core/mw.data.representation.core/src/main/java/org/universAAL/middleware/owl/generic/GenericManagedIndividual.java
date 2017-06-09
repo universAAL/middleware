@@ -28,21 +28,21 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class GenericManagedIndividual extends ManagedIndividual {
 
-    private String classURI = null;
+	private String classURI = null;
 
-    public GenericManagedIndividual(String classURI, String instanceURI) {
-	super(instanceURI);
-	this.classURI = classURI;
-	addType(classURI, true);
-    }
+	public GenericManagedIndividual(String classURI, String instanceURI) {
+		super(instanceURI);
+		this.classURI = classURI;
+		addType(classURI, true);
+	}
 
-    @Override
-    public String getClassURI() {
-	return classURI;
-    }
+	@Override
+	public String getClassURI() {
+		return classURI;
+	}
 
-    @Override
-    public int getPropSerializationType(String propURI) {
-	return PROP_SERIALIZATION_FULL;
-    }
+	@Override
+	public int getPropSerializationType(String propURI) {
+		return PROP_SERIALIZATION_FULL;
+	}
 }

@@ -28,24 +28,24 @@ package org.universAAL.middleware.connectors.exception;
  */
 public class DiscoveryConnectorException extends RuntimeException {
 
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = -7231774119150878104L;
-    /**
+	private static final long serialVersionUID = -7231774119150878104L;
+	/**
 	 * 
 	 */
-    private String description;
-    private short errorCode;
+	private String description;
+	private short errorCode;
 
-    public DiscoveryConnectorException(short errorCode, String description) {
-	super();
-	this.description = description;
-	this.errorCode = errorCode;
-    }
+	public DiscoveryConnectorException(short errorCode, String description) {
+		super();
+		this.description = description;
+		this.errorCode = errorCode;
+	}
 
-    public String toString() {
-	return "cause: " + this.description + "error code: " + this.errorCode;
-    }
+	public String toString() {
+		return "cause: " + this.description + "error code: " + this.errorCode;
+	}
 
 }

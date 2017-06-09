@@ -38,99 +38,86 @@ import org.universAAL.middleware.rdf.Variable;
  */
 public final class ResourceUtil {
 
-    /** Private constructor. Use static methods. */
-    private ResourceUtil() {
-    }
-
-    /**
-     * Create a String representation from a given {@link TypeExpression}. Calls
-     * {@link #toString(TypeExpression, String)} with null as prefix.
-     *
-     * Note: not all expressions are realized yet.
-     *
-     * @param e
-     *            the expression.
-     * @return the String representation.
-     */
-    public static String toString(TypeExpression e) {
-	return toString(e, null);
-    }
-
-    /**
-     * Create a String representation from a given {@link TypeExpression}.
-     *
-     * Note: not all expressions are realized yet.
-     *
-     * @param e
-     *            the expression.
-     * @param prefix
-     *            a prefix for each line. Can be null.
-     * @return the String representation.
-     */
-    public static String toString(TypeExpression e, String prefix) {
-	if (prefix == null)
-	    prefix = "";
-
-	if (e instanceof AllValuesFromRestriction) {
-	    AllValuesFromRestriction all = (AllValuesFromRestriction) e;
-	    Object o = all.getConstraint();
-	    String prefix2 = prefix + "AllValuesFrom (for property "
-		    + all.getOnProperty() + ")";
-	    if (o instanceof TypeExpression)
-		return prefix2
-			+ "\n"
-			+ ResourceUtil.toString((TypeExpression) o, prefix
-				+ "  ");
-	    else
-		return prefix2 + " - unknown: " + o.getClass().getName() + "\n";
-	} else if (e instanceof TypeURI) {
-	    return prefix + "Type: " + ((TypeURI) e).getURI() + "\n";
-	} else if (e instanceof HasValueRestriction) {
-	    HasValueRestriction has = (HasValueRestriction) e;
-	    Object o = has.getConstraint();
-	    String prefix2 = prefix + "HasValue (for property "
-		    + has.getOnProperty() + ")";
-	    if (o instanceof TypeExpression)
-		return prefix2
-			+ "\n"
-			+ ResourceUtil.toString((TypeExpression) o, prefix
-				+ "  ");
-	    else {
-		if (Variable.isVarRef(o)) {
-		    // input variable
-		    return prefix2 + "\n" + prefix + "  Variable\n";
-		} else {
-		    // TODO: data values (e.g. int)
-		    return prefix2 + "\n" + prefix + "  - unknown: "
-			    + o.getClass().getName() + "\n";
-		}
-	    }
-	} else if (e instanceof ExactCardinalityRestriction) {
-	    ExactCardinalityRestriction c = (ExactCardinalityRestriction) e;
-	    return prefix + "ExactCardinality " + c.getValue()
-		    + "(for property " + c.getOnProperty() + ")" + "\n";
-	} else if (e instanceof MinCardinalityRestriction) {
-	    MinCardinalityRestriction c = (MinCardinalityRestriction) e;
-	    return prefix + "MinCardinality " + c.getValue() + "(for property "
-		    + c.getOnProperty() + ")" + "\n";
-	} else if (e instanceof MaxCardinalityRestriction) {
-	    MaxCardinalityRestriction c = (MaxCardinalityRestriction) e;
-	    return prefix + "MaxCardinality " + c.getValue() + "(for property "
-		    + c.getOnProperty() + ")" + "\n";
-	} else if (e instanceof Intersection) {
-	    Intersection in = (Intersection) e;
-	    String ret = prefix + "Intersection\n";
-	    Iterator<?> it = in.types();
-	    while (it.hasNext()) {
-		Object el = it.next();
-		if (el instanceof TypeExpression) {
-		    ret += ResourceUtil.toString((TypeExpression) el, prefix
-			    + "  ");
-		}
-	    }
-	    return ret;
+	/** Private constructor. Use static methods. */
+	private ResourceUtil() {
 	}
 
-	return prefix + "unknown: " + e.getClass().getName() + "\n";
-    }
+	/**
+	 * Create a String representation from a given {@link TypeExpression}. Calls
+	 * {@link #toString(TypeExpression, String)} with null as prefix.
+	 *
+	 * Note: not all expressions are realized yet.
+	 *
+	 * @param e
+	 *            the expression.
+	 * @return the String representation.
+	 */
+	public static String toString(TypeExpression e) {
+		return toString(e, null);
+	}
+
+	/**
+	 * Create a String representation from a given {@link TypeExpression}.
+	 *
+	 * Note: not all expressions are realized yet.
+	 *
+	 * @param e
+	 *            the expression.
+	 * @param prefix
+	 *            a prefix for each line. Can be null.
+	 * @return the String representation.
+	 */
+	public static String toString(TypeExpression e, String prefix) {
+		if (prefix == null)
+			prefix = "";
+
+		if (e instanceof AllValuesFromRestriction) {
+			AllValuesFromRestriction all = (AllValuesFromRestriction) e;
+			Object o = all.getConstraint();
+			String prefix2 = prefix + "AllValuesFrom (for property " + all.getOnProperty() + ")";
+			if (o instanceof TypeExpression)
+				return prefix2 + "\n" + ResourceUtil.toString((TypeExpression) o, prefix + "  ");
+			else
+				return prefix2 + " - unknown: " + o.getClass().getName() + "\n";
+		} else if (e instanceof TypeURI) {
+			return prefix + "Type: " + ((TypeURI) e).getURI() + "\n";
+		} else if (e instanceof HasValueRestriction) {
+			HasValueRestriction has = (HasValueRestriction) e;
+			Object o = has.getConstraint();
+			String prefix2 = prefix + "HasValue (for property " + has.getOnProperty() + ")";
+			if (o instanceof TypeExpression)
+				return prefix2 + "\n" + ResourceUtil.toString((TypeExpression) o, prefix + "  ");
+			else {
+				if (Variable.isVarRef(o)) {
+					// input variable
+					return prefix2 + "\n" + prefix + "  Variable\n";
+				} else {
+					// TODO: data values (e.g. int)
+					return prefix2 + "\n" + prefix + "  - unknown: " + o.getClass().getName() + "\n";
+				}
+			}
+		} else if (e instanceof ExactCardinalityRestriction) {
+			ExactCardinalityRestriction c = (ExactCardinalityRestriction) e;
+			return prefix + "ExactCardinality " + c.getValue() + "(for property " + c.getOnProperty() + ")" + "\n";
+		} else if (e instanceof MinCardinalityRestriction) {
+			MinCardinalityRestriction c = (MinCardinalityRestriction) e;
+			return prefix + "MinCardinality " + c.getValue() + "(for property " + c.getOnProperty() + ")" + "\n";
+		} else if (e instanceof MaxCardinalityRestriction) {
+			MaxCardinalityRestriction c = (MaxCardinalityRestriction) e;
+			return prefix + "MaxCardinality " + c.getValue() + "(for property " + c.getOnProperty() + ")" + "\n";
+		} else if (e instanceof Intersection) {
+			Intersection in = (Intersection) e;
+			String ret = prefix + "Intersection\n";
+			Iterator<?> it = in.types();
+			while (it.hasNext()) {
+				Object el = it.next();
+				if (el instanceof TypeExpression) {
+					ret += ResourceUtil.toString((TypeExpression) el, prefix + "  ");
+				}
+			}
+			return ret;
+		}
+
+		return prefix + "unknown: " + e.getClass().getName() + "\n";
+	}
 }

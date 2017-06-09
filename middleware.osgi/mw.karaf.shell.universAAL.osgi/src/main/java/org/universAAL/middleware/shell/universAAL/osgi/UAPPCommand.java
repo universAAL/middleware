@@ -35,10 +35,10 @@ import org.apache.karaf.shell.console.OsgiCommandSupport;
 @Command(scope = "universAAL", name = "uaap", description = "Get the list of MPA applications and the status")
 public class UAPPCommand extends OsgiCommandSupport {
 
-    protected Object doExecute() throws Exception {
-	log.debug("Executing command...");
-	System.out.println("Command not existing anymore");
-	return null;
-    }
+	protected Object doExecute() throws Exception {
+		log.debug("Executing command...");
+		System.out.println("Command not existing anymore");
+		return null;
+	}
 
 }

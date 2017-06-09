@@ -30,34 +30,34 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  */
 public class ProfileExistsException extends RuntimeException {
 
-    private static final long serialVersionUID = -3680652227316685556L;
+	private static final long serialVersionUID = -3680652227316685556L;
 
-    private ServiceProfile profile;
-    private int index;
+	private ServiceProfile profile;
+	private int index;
 
-    public ProfileExistsException(ServiceProfile profile, int index) {
-	this.profile = profile;
-	this.index = index;
-    }
+	public ProfileExistsException(ServiceProfile profile, int index) {
+		this.profile = profile;
+		this.index = index;
+	}
 
-    /**
-     * Gets the {@link ServiceProfile}.
-     * 
-     * @return the {@link ServiceProfile}.
-     */
-    public ServiceProfile getProfile() {
-	return profile;
-    }
+	/**
+	 * Gets the {@link ServiceProfile}.
+	 * 
+	 * @return the {@link ServiceProfile}.
+	 */
+	public ServiceProfile getProfile() {
+		return profile;
+	}
 
-    /**
-     * Gets the index of the {@link ServiceProfile}. When registering a set of
-     * {@link ServiceProfile}, the {@link ServiceCallee} has to provide an array
-     * of {@link ServiceProfile}. The index is the position in that array for
-     * the profile that was rrgistered before.
-     * 
-     * @return the index in the array that was used during registration.
-     */
-    public int getIndex() {
-	return index;
-    }
+	/**
+	 * Gets the index of the {@link ServiceProfile}. When registering a set of
+	 * {@link ServiceProfile}, the {@link ServiceCallee} has to provide an array
+	 * of {@link ServiceProfile}. The index is the position in that array for
+	 * the profile that was rrgistered before.
+	 * 
+	 * @return the index in the array that was used during registration.
+	 */
+	public int getIndex() {
+		return index;
+	}
 }

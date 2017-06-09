@@ -32,7 +32,7 @@ import java.util.Vector;
  */
 public interface IAllProvisionData {
 
-    void addContextEventPatterns(List contextEventPatterns);
+	void addContextEventPatterns(List contextEventPatterns);
 
-    Vector getContextEventPatterns();
+	Vector getContextEventPatterns();
 }

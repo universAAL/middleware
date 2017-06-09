@@ -48,77 +48,69 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class Activator implements BundleActivator, ManagedService {
 
-    private static String SERVICE_PID = "mw.managers.aalspace.core";
-    private AALSpaceManager spaceManager;
-    private ServiceRegistration myRegistration;
-    private ModuleContext moduleContext;
+	private static String SERVICE_PID = "mw.managers.aalspace.core";
+	private AALSpaceManager spaceManager;
+	private ServiceRegistration myRegistration;
+	private ModuleContext moduleContext;
 
-    public void start(BundleContext context) throws Exception {
-	moduleContext = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	spaceManager = new AALSpaceManagerImpl(moduleContext);
+	public void start(BundleContext context) throws Exception {
+		moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		spaceManager = new AALSpaceManagerImpl(moduleContext);
 
-	Dictionary props = new Hashtable();
-	props.put(Constants.SERVICE_PID, SERVICE_PID);
-	myRegistration = context.registerService(
-		ManagedService.class.getName(), this, props);
+		Dictionary props = new Hashtable();
+		props.put(Constants.SERVICE_PID, SERVICE_PID);
+		myRegistration = context.registerService(ManagedService.class.getName(), this, props);
 
-	ConfigurationAdmin configurationAdmin = null;
-	ServiceReference sr = context
-		.getServiceReference(ConfigurationAdmin.class.getName());
-	if (sr != null && context.getService(sr) instanceof ConfigurationAdmin)
-	    configurationAdmin = (ConfigurationAdmin) context.getService(sr);
-	Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
+		ConfigurationAdmin configurationAdmin = null;
+		ServiceReference sr = context.getServiceReference(ConfigurationAdmin.class.getName());
+		if (sr != null && context.getService(sr) instanceof ConfigurationAdmin)
+			configurationAdmin = (ConfigurationAdmin) context.getService(sr);
+		Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
 
-	Dictionary aalSpaceManagerProps = config.getProperties();
+		Dictionary aalSpaceManagerProps = config.getProperties();
 
-	// if null, the configuration is new
-	if (aalSpaceManagerProps == null) {
-	    aalSpaceManagerProps = new Hashtable<String, String>();
-	} else
-	    spaceManager.loadConfigurations(aalSpaceManagerProps);
+		// if null, the configuration is new
+		if (aalSpaceManagerProps == null) {
+			aalSpaceManagerProps = new Hashtable<String, String>();
+		} else
+			spaceManager.loadConfigurations(aalSpaceManagerProps);
 
-	// init
-	spaceManager.init();
+		// init
+		spaceManager.init();
 
-	LogUtils.logDebug(moduleContext, Activator.class, "Activator",
-		new Object[] { "Starting AALSpaceManager..." }, null);
+		LogUtils.logDebug(moduleContext, Activator.class, "Activator", new Object[] { "Starting AALSpaceManager..." },
+				null);
 
-	uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
-		spaceManager, new String[] { AALSpaceManager.class.getName(),
-			AALSpaceEventHandler.class.getName() });
-	LogUtils.logDebug(moduleContext, Activator.class, "Activator",
-		new Object[] { "Registered" }, null);
+		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, spaceManager,
+				new String[] { AALSpaceManager.class.getName(), AALSpaceEventHandler.class.getName() });
+		LogUtils.logDebug(moduleContext, Activator.class, "Activator", new Object[] { "Registered" }, null);
 
-    }
-
-    public void stop(BundleContext context) throws Exception {
-	spaceManager.dispose();
-	myRegistration.unregister();
-    }
-
-    public void updated(Dictionary properties) throws ConfigurationException {
-	spaceManager.loadConfigurations(properties);
-	if (myRegistration == null) {
-	    LogUtils.logDebug(
-		    moduleContext,
-		    Activator.class,
-		    "updated",
-		    new Object[] { "Race Condition: the ServiceRegistration"
-			    + " is not yet initialized, waiting for registerService." },
-		    null);
-	    int numLoops = 20;
-	    while (myRegistration == null && numLoops != 0) {
-		numLoops--;
-		try {
-		    Thread.sleep(500);
-		} catch (InterruptedException e) {
-		    e.printStackTrace();
-		}
-	    }
 	}
-	if (myRegistration != null)
-	    myRegistration.setProperties(properties);
-	// spaceManager.init();
-    }
+
+	public void stop(BundleContext context) throws Exception {
+		spaceManager.dispose();
+		myRegistration.unregister();
+	}
+
+	public void updated(Dictionary properties) throws ConfigurationException {
+		spaceManager.loadConfigurations(properties);
+		if (myRegistration == null) {
+			LogUtils.logDebug(moduleContext, Activator.class, "updated",
+					new Object[] { "Race Condition: the ServiceRegistration"
+							+ " is not yet initialized, waiting for registerService." },
+					null);
+			int numLoops = 20;
+			while (myRegistration == null && numLoops != 0) {
+				numLoops--;
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		if (myRegistration != null)
+			myRegistration.setProperties(properties);
+		// spaceManager.init();
+	}
 }

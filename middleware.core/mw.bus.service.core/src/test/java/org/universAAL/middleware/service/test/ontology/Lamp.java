@@ -30,47 +30,44 @@ package org.universAAL.middleware.service.test.ontology;
  * 
  */
 public class Lamp extends Device {
-    public static final String MY_URI = TestOntology.NAMESPACE + "Lamp";
-    public static final String PROP_SOURCE_BRIGHTNESS = TestOntology.NAMESPACE
-	    + "hasBrightness";
+	public static final String MY_URI = TestOntology.NAMESPACE + "Lamp";
+	public static final String PROP_SOURCE_BRIGHTNESS = TestOntology.NAMESPACE + "hasBrightness";
 
-    public Lamp() {
-	super();
-    }
+	public Lamp() {
+		super();
+	}
 
-    public Lamp(String uri) {
-	super(uri);
-    }
+	public Lamp(String uri) {
+		super(uri);
+	}
 
-    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
-    public String getClassURI() {
-	return MY_URI;
-    }
+	/** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    public int getBrightness() {
-	Integer i = (Integer) props.get(PROP_SOURCE_BRIGHTNESS);
-	return (i == null) ? -1 : i.intValue();
-    }
+	public int getBrightness() {
+		Integer i = (Integer) props.get(PROP_SOURCE_BRIGHTNESS);
+		return (i == null) ? -1 : i.intValue();
+	}
 
-    public void setBrightness(int percentage) {
-	if (percentage > -1 && percentage < 101)
-	    props.put(PROP_SOURCE_BRIGHTNESS, new Integer(percentage));
-    }
+	public void setBrightness(int percentage) {
+		if (percentage > -1 && percentage < 101)
+			props.put(PROP_SOURCE_BRIGHTNESS, new Integer(percentage));
+	}
 
-    /**
-     * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
-     *      (java.lang.String)
-     */
-    public int getPropSerializationType(String propURI) {
-	return (PROP_PHYSICAL_LOCATION.equals(propURI)) ? PROP_SERIALIZATION_REDUCED
-		: PROP_SERIALIZATION_FULL;
-    }
+	/**
+	 * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
+	 *      (java.lang.String)
+	 */
+	public int getPropSerializationType(String propURI) {
+		return (PROP_PHYSICAL_LOCATION.equals(propURI)) ? PROP_SERIALIZATION_REDUCED : PROP_SERIALIZATION_FULL;
+	}
 
-    /**
-     * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
-     */
-    public boolean isWellFormed() {
-	return props.containsKey(PROP_SOURCE_BRIGHTNESS)
-		&& props.containsKey(PROP_PHYSICAL_LOCATION);
-    }
+	/**
+	 * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
+	 */
+	public boolean isWellFormed() {
+		return props.containsKey(PROP_SOURCE_BRIGHTNESS) && props.containsKey(PROP_PHYSICAL_LOCATION);
+	}
 }

@@ -35,31 +35,27 @@ import org.universAAL.middleware.tracker.IBusMemberRegistry;
  * 
  */
 public class MWTestCase extends BusTestCase {
-    
-    DistributedMWManagerImpl mm;
 
-    @Override
-    protected void setUp() throws Exception {
-	super.setUp();
+	DistributedMWManagerImpl mm;
 
-	System.out.println(" - starting MWTestCase -");
-	
-	mc.setAttribute(AccessControl.PROP_MODE, "none");
-	((JUnitModuleContext) mc).setLogLevel(LogLevel.ERROR);
-	
-	org.universAAL.middleware.tracker.impl.Activator.fetchParams = new Object[] { IBusMemberRegistry.class
-		.getName() };
-	//org.universAAL.middleware.tracker.osgi.Activator.mc = mc;
-	org.universAAL.middleware.tracker.impl.Activator bta = new org.universAAL.middleware.tracker.impl.Activator();
-	bta.start(mc);
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
 
-	Object[] parBMLMgmt = new Object[] { DistributedBusMemberManager.class
-		.getName() };
-	Object[] parLLMgmt = new Object[] { DistributedLogManager.class
-		.getName() };
-	Object[] parEvtH = new Object[] { DistributedMWEventHandler.class
-		.getName() };
-	mm = new DistributedMWManagerImpl(mc, parBMLMgmt, parBMLMgmt,
-		parLLMgmt, parLLMgmt, parEvtH, parEvtH);
-    }
+		System.out.println(" - starting MWTestCase -");
+
+		mc.setAttribute(AccessControl.PROP_MODE, "none");
+		((JUnitModuleContext) mc).setLogLevel(LogLevel.ERROR);
+
+		org.universAAL.middleware.tracker.impl.Activator.fetchParams = new Object[] {
+				IBusMemberRegistry.class.getName() };
+		// org.universAAL.middleware.tracker.osgi.Activator.mc = mc;
+		org.universAAL.middleware.tracker.impl.Activator bta = new org.universAAL.middleware.tracker.impl.Activator();
+		bta.start(mc);
+
+		Object[] parBMLMgmt = new Object[] { DistributedBusMemberManager.class.getName() };
+		Object[] parLLMgmt = new Object[] { DistributedLogManager.class.getName() };
+		Object[] parEvtH = new Object[] { DistributedMWEventHandler.class.getName() };
+		mm = new DistributedMWManagerImpl(mc, parBMLMgmt, parBMLMgmt, parLLMgmt, parLLMgmt, parEvtH, parEvtH);
+	}
 }

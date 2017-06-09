@@ -33,24 +33,24 @@ import org.universAAL.middleware.container.ModuleContext;
  */
 public class DefaultServiceCaller extends ServiceCaller {
 
-    /**
-     * Constructor for usage by de-serializers.
-     * 
-     * @param context
-     */
-    public DefaultServiceCaller(ModuleContext context) {
-	super(context);
-    }
+	/**
+	 * Constructor for usage by de-serializers.
+	 * 
+	 * @param context
+	 */
+	public DefaultServiceCaller(ModuleContext context) {
+		super(context);
+	}
 
-    /**
-     * @see ServiceCaller#communicationChannelBroken()
-     */
-    public void communicationChannelBroken() {
-    }
+	/**
+	 * @see ServiceCaller#communicationChannelBroken()
+	 */
+	public void communicationChannelBroken() {
+	}
 
-    /**
-     * @see ServiceCaller#handleResponse(String, ServiceResponse)
-     */
-    public void handleResponse(String reqID, ServiceResponse response) {
-    }
+	/**
+	 * @see ServiceCaller#handleResponse(String, ServiceResponse)
+	 */
+	public void handleResponse(String reqID, ServiceResponse response) {
+	}
 }

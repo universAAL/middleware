@@ -32,47 +32,41 @@ import org.universAAL.middleware.ui.owl.UIBusOntology;
  */
 public class SearchTest extends TestCase {
 
-    private static final int DEPTH = 10;
-    private static JUnitModuleContext mc;
+	private static final int DEPTH = 10;
+	private static JUnitModuleContext mc;
 
-    static {
+	static {
 
-	mc = new JUnitModuleContext();
-	OntologyManagement.getInstance().register(mc, new DataRepOntology());
-	OntologyManagement.getInstance().register(mc, new UIBusOntology());
-    }
-
-    private PropertyPath getPath(String input) {
-	return new PropertyPath(null, false,
-		new String[] { "http://org.universaal.ui.newGui/tests.owl#"
-			+ input });
-    }
-
-    public void test() {
-	Form f = Form.newDialog("test", new Resource());
-
-	InputField[] fields = new InputField[DEPTH];
-	Group[] groups = new Group[DEPTH];
-
-	groups[0] = new Group(f.getIOControls(), new Label(null, null), null,
-		null, null);
-
-	for (int i = 1; i < DEPTH; i++) {
-	    groups[i] = new Group(groups[i - 1], new Label(null, null), null,
-		    null, null);
-	    String fid = "input" + Integer.toString(i);
-	    fields[i] = new InputField(groups[i], new Label(fid, null),
-		    getPath(fid), null, null);
+		mc = new JUnitModuleContext();
+		OntologyManagement.getInstance().register(mc, new DataRepOntology());
+		OntologyManagement.getInstance().register(mc, new UIBusOntology());
 	}
 
-	Select s = new Select(f.getStandardButtons(), new Label("troll", null),
-		getPath("select"), null, null);
-
-	for (int i = 1; i < DEPTH; i++) {
-	    assertEquals(groups[i], f.searchFormControl(groups[i].getURI()));
-	    assertEquals(fields[i], f.searchFormControl(fields[i].getURI()));
+	private PropertyPath getPath(String input) {
+		return new PropertyPath(null, false, new String[] { "http://org.universaal.ui.newGui/tests.owl#" + input });
 	}
-	assertNull(groups[0].searchFormControl(s.getURI()));
-    }
+
+	public void test() {
+		Form f = Form.newDialog("test", new Resource());
+
+		InputField[] fields = new InputField[DEPTH];
+		Group[] groups = new Group[DEPTH];
+
+		groups[0] = new Group(f.getIOControls(), new Label(null, null), null, null, null);
+
+		for (int i = 1; i < DEPTH; i++) {
+			groups[i] = new Group(groups[i - 1], new Label(null, null), null, null, null);
+			String fid = "input" + Integer.toString(i);
+			fields[i] = new InputField(groups[i], new Label(fid, null), getPath(fid), null, null);
+		}
+
+		Select s = new Select(f.getStandardButtons(), new Label("troll", null), getPath("select"), null, null);
+
+		for (int i = 1; i < DEPTH; i++) {
+			assertEquals(groups[i], f.searchFormControl(groups[i].getURI()));
+			assertEquals(fields[i], f.searchFormControl(fields[i].getURI()));
+		}
+		assertNull(groups[0].searchFormControl(s.getURI()));
+	}
 
 }

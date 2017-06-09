@@ -41,104 +41,103 @@ import org.universAAL.middleware.managers.api.TenantManager;
  */
 public class TenantManagerImpl implements TenantManager {
 
-    private Map<String, String> tenants = new HashMap<String, String>();
-    private List<TenantListener> listeners = new ArrayList<TenantListener>();
+	private Map<String, String> tenants = new HashMap<String, String>();
+	private List<TenantListener> listeners = new ArrayList<TenantListener>();
 
-    public TenantManagerImpl(ModuleContext module) {
-    }
-
-    public void loadConfigurations(Dictionary configurations) {
-	/*
-	 * No configuration for this manager
-	 */
-    }
-
-    public boolean init() {
-	/*
-	 * No initialization required
-	 */
-	return true;
-    }
-
-    public void dispose() {
-	/*
-	 * No disposing phase
-	 */
-    }
-
-    public void registerTenant(String tenantID, String tenantDescription) {
-	if (tenantID != null) {
-	    if (tenantDescription == null) {
-		tenantDescription = "Missing description for " + tenantID;
-	    }
-	    tenants.put(tenantID, tenantDescription);
-	    fireNewTenantRegisteredEvent(tenantID, tenantDescription);
-	} else {
-	    throw new NullPointerException("TennantID cannot be null");
+	public TenantManagerImpl(ModuleContext module) {
 	}
-    }
 
-    private void fireTenantRemovedEvent(String tenantID) {
-	ArrayList<TenantListener> localCopy = null;
-	synchronized (listeners) {
-	    localCopy = new ArrayList<TenantListener>(listeners);
+	public void loadConfigurations(Dictionary configurations) {
+		/*
+		 * No configuration for this manager
+		 */
 	}
-	for (TenantListener listener : localCopy) {
-	    try {
-		listener.tenantRemoved(tenantID);
-	    } catch (Throwable t) {
-		t.printStackTrace(); // TODO log me
-	    }
-	}
-    }
 
-    private void fireNewTenantRegisteredEvent(String tenantID,
-	    String tenantDescription) {
-	ArrayList<TenantListener> localCopy = null;
-	synchronized (listeners) {
-	    localCopy = new ArrayList<TenantListener>(listeners);
+	public boolean init() {
+		/*
+		 * No initialization required
+		 */
+		return true;
 	}
-	// TODO: optimization instead of running through all the listeners and
-	// invoking newTenantRegistered, a thread can do this on the background
-	for (TenantListener listener : localCopy) {
-	    try {
-		listener.newTenantRegistered(tenantID, tenantDescription);
-	    } catch (Throwable t) {
-		t.printStackTrace(); // TODO log me
-	    }
-	}
-    }
 
-    public void unregisterTenant(String tenantID) {
-	if (tenantID != null) {
-	    tenants.remove(tenantID);
-	    fireTenantRemovedEvent(tenantID);
-	} else {
-	    throw new NullPointerException("TennantID cannot be null");
+	public void dispose() {
+		/*
+		 * No disposing phase
+		 */
 	}
-    }
 
-    public Map<String, String> getTenants() {
-	return tenants;
-    }
+	public void registerTenant(String tenantID, String tenantDescription) {
+		if (tenantID != null) {
+			if (tenantDescription == null) {
+				tenantDescription = "Missing description for " + tenantID;
+			}
+			tenants.put(tenantID, tenantDescription);
+			fireNewTenantRegisteredEvent(tenantID, tenantDescription);
+		} else {
+			throw new NullPointerException("TennantID cannot be null");
+		}
+	}
 
-    public void addTenantListener(TenantListener tenantListener) {
-	if (tenantListener == null) {
-	    throw new NullPointerException("Cannot add a null listener");
+	private void fireTenantRemovedEvent(String tenantID) {
+		ArrayList<TenantListener> localCopy = null;
+		synchronized (listeners) {
+			localCopy = new ArrayList<TenantListener>(listeners);
+		}
+		for (TenantListener listener : localCopy) {
+			try {
+				listener.tenantRemoved(tenantID);
+			} catch (Throwable t) {
+				t.printStackTrace(); // TODO log me
+			}
+		}
 	}
-	synchronized (listeners) {
-	    if (listeners.contains(tenantListener))
-		return;
-	    listeners.add(tenantListener);
-	}
-    }
 
-    public void removeTenantListener(TenantListener tenantListener) {
-	if (tenantListener == null) {
-	    throw new NullPointerException("Cannot remove a null listener");
+	private void fireNewTenantRegisteredEvent(String tenantID, String tenantDescription) {
+		ArrayList<TenantListener> localCopy = null;
+		synchronized (listeners) {
+			localCopy = new ArrayList<TenantListener>(listeners);
+		}
+		// TODO: optimization instead of running through all the listeners and
+		// invoking newTenantRegistered, a thread can do this on the background
+		for (TenantListener listener : localCopy) {
+			try {
+				listener.newTenantRegistered(tenantID, tenantDescription);
+			} catch (Throwable t) {
+				t.printStackTrace(); // TODO log me
+			}
+		}
 	}
-	synchronized (listeners) {
-	    listeners.remove(tenantListener);
+
+	public void unregisterTenant(String tenantID) {
+		if (tenantID != null) {
+			tenants.remove(tenantID);
+			fireTenantRemovedEvent(tenantID);
+		} else {
+			throw new NullPointerException("TennantID cannot be null");
+		}
 	}
-    }
+
+	public Map<String, String> getTenants() {
+		return tenants;
+	}
+
+	public void addTenantListener(TenantListener tenantListener) {
+		if (tenantListener == null) {
+			throw new NullPointerException("Cannot add a null listener");
+		}
+		synchronized (listeners) {
+			if (listeners.contains(tenantListener))
+				return;
+			listeners.add(tenantListener);
+		}
+	}
+
+	public void removeTenantListener(TenantListener tenantListener) {
+		if (tenantListener == null) {
+			throw new NullPointerException("Cannot remove a null listener");
+		}
+		synchronized (listeners) {
+			listeners.remove(tenantListener);
+		}
+	}
 }

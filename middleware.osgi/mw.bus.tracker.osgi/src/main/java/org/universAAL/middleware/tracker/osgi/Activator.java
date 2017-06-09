@@ -28,16 +28,15 @@ import org.universAAL.middleware.tracker.IBusMemberRegistry;
 
 public class Activator implements BundleActivator {
 
-    public static ModuleContext mc;
+	public static ModuleContext mc;
 
-    public void start(BundleContext context) throws Exception {
-	org.universAAL.middleware.tracker.impl.Activator.fetchParams = new Object[] { IBusMemberRegistry.class
-		.getName() };
+	public void start(BundleContext context) throws Exception {
+		org.universAAL.middleware.tracker.impl.Activator.fetchParams = new Object[] {
+				IBusMemberRegistry.class.getName() };
 
-	mc = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-    }
+		mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+	}
 
-    public void stop(BundleContext mc) throws Exception {
-    }
+	public void stop(BundleContext mc) throws Exception {
+	}
 }

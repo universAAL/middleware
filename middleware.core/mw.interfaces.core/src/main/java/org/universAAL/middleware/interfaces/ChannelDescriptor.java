@@ -31,43 +31,43 @@ import java.io.Serializable;
  */
 public class ChannelDescriptor implements Serializable {
 
-    private static final long serialVersionUID = 1339517729177690537L;
-    private String channelName;
-    private String channelDescriptorFileURL;
+	private static final long serialVersionUID = 1339517729177690537L;
+	private String channelName;
+	private String channelDescriptorFileURL;
 
-    public String getChannelName() {
-	return channelName;
-    }
+	public String getChannelName() {
+		return channelName;
+	}
 
-    public void setChannelName(String channelName) {
-	this.channelName = channelName;
-    }
+	public void setChannelName(String channelName) {
+		this.channelName = channelName;
+	}
 
-    public String getChannelDescriptorFileURL() {
-	return channelDescriptorFileURL;
-    }
+	public String getChannelDescriptorFileURL() {
+		return channelDescriptorFileURL;
+	}
 
-    public void setChannelDescriptorFileURL(String channelDescriptorFileURL) {
-	this.channelDescriptorFileURL = channelDescriptorFileURL;
-    }
+	public void setChannelDescriptorFileURL(String channelDescriptorFileURL) {
+		this.channelDescriptorFileURL = channelDescriptorFileURL;
+	}
 
-    public String getChannelValue() {
-	return channelValue;
-    }
+	public String getChannelValue() {
+		return channelValue;
+	}
 
-    public void setChannelValue(String channelValue) {
-	this.channelValue = channelValue;
-    }
+	public void setChannelValue(String channelValue) {
+		this.channelValue = channelValue;
+	}
 
-    private String channelValue;
+	private String channelValue;
 
-    public ChannelDescriptor(String name, String descriptor, String value) {
-	this.channelName = name;
-	this.channelDescriptorFileURL = descriptor;
-	this.channelValue = value;
-    }
+	public ChannelDescriptor(String name, String descriptor, String value) {
+		this.channelName = name;
+		this.channelDescriptorFileURL = descriptor;
+		this.channelValue = value;
+	}
 
-    public ChannelDescriptor() {
-    }
+	public ChannelDescriptor() {
+	}
 
 }

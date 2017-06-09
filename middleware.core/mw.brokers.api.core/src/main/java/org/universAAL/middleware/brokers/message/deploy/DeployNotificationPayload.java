@@ -31,23 +31,22 @@ import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
  */
 public class DeployNotificationPayload extends DeployPayload {
 
-    private static final long serialVersionUID = -3622178451748007711L;
-    private String mpaPartID;
-    private UAPPPartStatus mpaPartStatus;
+	private static final long serialVersionUID = -3622178451748007711L;
+	private String mpaPartID;
+	private UAPPPartStatus mpaPartStatus;
 
-    public DeployNotificationPayload(byte[] part, UAPPCard mpaCard,
-	    String partID, UAPPPartStatus mpaPartStatus) {
-	super(part, mpaCard);
-	this.mpaPartID = partID;
-	this.mpaPartStatus = mpaPartStatus;
-    }
+	public DeployNotificationPayload(byte[] part, UAPPCard mpaCard, String partID, UAPPPartStatus mpaPartStatus) {
+		super(part, mpaCard);
+		this.mpaPartID = partID;
+		this.mpaPartStatus = mpaPartStatus;
+	}
 
-    public String getPartID() {
-	return mpaPartID;
-    }
+	public String getPartID() {
+		return mpaPartID;
+	}
 
-    public UAPPPartStatus getMpaPartStatus() {
-	return mpaPartStatus;
-    }
+	public UAPPPartStatus getMpaPartStatus() {
+		return mpaPartStatus;
+	}
 
 }

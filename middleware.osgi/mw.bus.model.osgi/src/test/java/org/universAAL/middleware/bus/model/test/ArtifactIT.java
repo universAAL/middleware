@@ -9,15 +9,15 @@ import org.universAAL.itests.IntegrationTest;
  * 
  */
 public class ArtifactIT extends IntegrationTest {
-    public ArtifactIT() {
+	public ArtifactIT() {
 
-	// // Arguments for MW2.0
-	setRunArguments("java.net.preferIPv4Stack", "true");
-	setRunArguments("net.slp.port", "7000");
-    }
+		// // Arguments for MW2.0
+		setRunArguments("java.net.preferIPv4Stack", "true");
+		setRunArguments("net.slp.port", "7000");
+	}
 
-    public void testComposite() {
-	logAllBundles();
-    }
+	public void testComposite() {
+		logAllBundles();
+	}
 
 }

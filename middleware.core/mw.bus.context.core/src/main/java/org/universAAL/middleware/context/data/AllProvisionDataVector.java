@@ -32,13 +32,13 @@ import java.util.Vector;
  */
 public class AllProvisionDataVector implements IAllProvisionData {
 
-    private Vector contextEventPatterns = new Vector();
+	private Vector contextEventPatterns = new Vector();
 
-    public void addContextEventPatterns(List contextEventPatterns) {
-	this.contextEventPatterns.addAll(contextEventPatterns);
-    }
+	public void addContextEventPatterns(List contextEventPatterns) {
+		this.contextEventPatterns.addAll(contextEventPatterns);
+	}
 
-    public Vector getContextEventPatterns() {
-	return contextEventPatterns;
-    }
+	public Vector getContextEventPatterns() {
+		return contextEventPatterns;
+	}
 }

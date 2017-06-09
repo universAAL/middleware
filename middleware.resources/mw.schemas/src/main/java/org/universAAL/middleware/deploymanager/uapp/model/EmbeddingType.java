@@ -25,12 +25,15 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for embeddingType.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
+ * Java class for embeddingType.
+ *
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
+ * <p>
+ * 
  * <pre>
  * &lt;simpleType name="embeddingType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -46,29 +49,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum EmbeddingType {
 
-    @XmlEnumValue("singleContainer")
-    SINGLE_CONTAINER("singleContainer"),
-    @XmlEnumValue("anyContainer")
-    ANY_CONTAINER("anyContainer"),
-    @XmlEnumValue("namedContainer")
-    NAMED_CONTAINER("namedContainer");
-    private final String value;
+	@XmlEnumValue("singleContainer")
+	SINGLE_CONTAINER("singleContainer"), @XmlEnumValue("anyContainer")
+	ANY_CONTAINER("anyContainer"), @XmlEnumValue("namedContainer")
+	NAMED_CONTAINER("namedContainer");
+	private final String value;
 
-    EmbeddingType(String v) {
-        value = v;
-    }
+	EmbeddingType(String v) {
+		value = v;
+	}
 
-    public String value() {
-        return value;
-    }
+	public String value() {
+		return value;
+	}
 
-    public static EmbeddingType fromValue(String v) {
-        for (EmbeddingType c: EmbeddingType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
+	public static EmbeddingType fromValue(String v) {
+		for (EmbeddingType c : EmbeddingType.values()) {
+			if (c.value.equals(v)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(v);
+	}
 
 }

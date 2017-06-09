@@ -41,143 +41,142 @@ import org.universAAL.middleware.owl.ComparableIndividual;
 @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class Rating extends ComparableIndividual {
 
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Rating";
+	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Rating";
 
-    public static final int POOR = 0;
-    public static final int ALMOST_POOR = 1;
-    public static final int ALMOST_SUFFICIENT = 2;
-    public static final int SUFFICIENT = 3;
-    public static final int RICH_SUFFICIENT = 4;
-    public static final int ALMOST_SATISFYING = 5;
-    public static final int SATISFYING = 6;
-    public static final int RICH_SATISFYING = 7;
-    public static final int ALMOST_GOOD = 8;
-    public static final int GOOD = 9;
-    public static final int RICH_GOOD = 10;
-    public static final int ALMOST_EXCELLENT = 11;
-    public static final int EXCELLENT = 12;
+	public static final int POOR = 0;
+	public static final int ALMOST_POOR = 1;
+	public static final int ALMOST_SUFFICIENT = 2;
+	public static final int SUFFICIENT = 3;
+	public static final int RICH_SUFFICIENT = 4;
+	public static final int ALMOST_SATISFYING = 5;
+	public static final int SATISFYING = 6;
+	public static final int RICH_SATISFYING = 7;
+	public static final int ALMOST_GOOD = 8;
+	public static final int GOOD = 9;
+	public static final int RICH_GOOD = 10;
+	public static final int ALMOST_EXCELLENT = 11;
+	public static final int EXCELLENT = 12;
 
-    private static final String[] names = { "poor", "almost_poor",
-	    "almost_sufficient", "sufficient", "rich_sufficient",
-	    "almost_satisfying", "satisfying", "rich_satisfying",
-	    "almost_good", "good", "rich_good", "almost_excellent", "excellent" };
+	private static final String[] names = { "poor", "almost_poor", "almost_sufficient", "sufficient", "rich_sufficient",
+			"almost_satisfying", "satisfying", "rich_satisfying", "almost_good", "good", "rich_good",
+			"almost_excellent", "excellent" };
 
-    public static final Rating poor = new Rating(POOR);
-    public static final Rating almostPoor = new Rating(ALMOST_POOR);
-    public static final Rating almostSufficient = new Rating(ALMOST_SUFFICIENT);
-    public static final Rating sufficient = new Rating(SUFFICIENT);
-    public static final Rating richSufficient = new Rating(RICH_SUFFICIENT);
-    public static final Rating almostSatisfying = new Rating(ALMOST_SATISFYING);
-    public static final Rating satisfying = new Rating(SATISFYING);
-    public static final Rating richSatisfying = new Rating(RICH_SATISFYING);
-    public static final Rating almostGood = new Rating(ALMOST_GOOD);
-    public static final Rating good = new Rating(GOOD);
-    public static final Rating richGood = new Rating(RICH_GOOD);
-    public static final Rating almostExcellent = new Rating(ALMOST_EXCELLENT);
-    public static final Rating excellent = new Rating(EXCELLENT);
+	public static final Rating poor = new Rating(POOR);
+	public static final Rating almostPoor = new Rating(ALMOST_POOR);
+	public static final Rating almostSufficient = new Rating(ALMOST_SUFFICIENT);
+	public static final Rating sufficient = new Rating(SUFFICIENT);
+	public static final Rating richSufficient = new Rating(RICH_SUFFICIENT);
+	public static final Rating almostSatisfying = new Rating(ALMOST_SATISFYING);
+	public static final Rating satisfying = new Rating(SATISFYING);
+	public static final Rating richSatisfying = new Rating(RICH_SATISFYING);
+	public static final Rating almostGood = new Rating(ALMOST_GOOD);
+	public static final Rating good = new Rating(GOOD);
+	public static final Rating richGood = new Rating(RICH_GOOD);
+	public static final Rating almostExcellent = new Rating(ALMOST_EXCELLENT);
+	public static final Rating excellent = new Rating(EXCELLENT);
 
-    /** The current value of this object. */
-    private int order;
+	/** The current value of this object. */
+	private int order;
 
-    // prevent the usage of the default constructor
-    private Rating() {
-    }
-
-    private Rating(int order) {
-	super(uAAL_VOCABULARY_NAMESPACE + names[order]);
-	this.order = order;
-    }
-
-    @Override
-    public String getClassURI() {
-	return MY_URI;
-    }
-
-    public static Rating getMaxValue() {
-	return excellent;
-    }
-
-    public static Rating getMinValue() {
-	return poor;
-    }
-
-    public static Rating getRatingByOrder(int order) {
-	switch (order) {
-	case POOR:
-	    return poor;
-	case ALMOST_POOR:
-	    return almostPoor;
-	case ALMOST_SUFFICIENT:
-	    return almostSufficient;
-	case SUFFICIENT:
-	    return sufficient;
-	case RICH_SUFFICIENT:
-	    return richSufficient;
-	case ALMOST_SATISFYING:
-	    return almostSatisfying;
-	case SATISFYING:
-	    return satisfying;
-	case RICH_SATISFYING:
-	    return richSatisfying;
-	case ALMOST_GOOD:
-	    return almostGood;
-	case GOOD:
-	    return good;
-	case RICH_GOOD:
-	    return richGood;
-	case ALMOST_EXCELLENT:
-	    return almostExcellent;
-	case EXCELLENT:
-	    return excellent;
-	default:
-	    return null;
+	// prevent the usage of the default constructor
+	private Rating() {
 	}
-    }
 
-    public static Rating valueOf(String name) {
-	for (int i = POOR; i <= EXCELLENT; i++)
-	    if (names[i].equals(name))
-		return getRatingByOrder(i);
-	return null;
-    }
+	private Rating(int order) {
+		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		this.order = order;
+	}
 
-    public int compareTo(Object other) {
-	return (this == other) ? 0 : (order < ((Rating) other).order) ? -1 : 1;
-    }
+	@Override
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    public ComparableIndividual getNext() {
-	return getRatingByOrder(order + 1);
-    }
+	public static Rating getMaxValue() {
+		return excellent;
+	}
 
-    public ComparableIndividual getPrevious() {
-	return getRatingByOrder(order - 1);
-    }
+	public static Rating getMinValue() {
+		return poor;
+	}
 
-    public int getPropSerializationType(String propURI) {
-	return PROP_SERIALIZATION_OPTIONAL;
-    }
+	public static Rating getRatingByOrder(int order) {
+		switch (order) {
+		case POOR:
+			return poor;
+		case ALMOST_POOR:
+			return almostPoor;
+		case ALMOST_SUFFICIENT:
+			return almostSufficient;
+		case SUFFICIENT:
+			return sufficient;
+		case RICH_SUFFICIENT:
+			return richSufficient;
+		case ALMOST_SATISFYING:
+			return almostSatisfying;
+		case SATISFYING:
+			return satisfying;
+		case RICH_SATISFYING:
+			return richSatisfying;
+		case ALMOST_GOOD:
+			return almostGood;
+		case GOOD:
+			return good;
+		case RICH_GOOD:
+			return richGood;
+		case ALMOST_EXCELLENT:
+			return almostExcellent;
+		case EXCELLENT:
+			return excellent;
+		default:
+			return null;
+		}
+	}
 
-    @Override
-    public boolean isWellFormed() {
-	return true;
-    }
+	public static Rating valueOf(String name) {
+		for (int i = POOR; i <= EXCELLENT; i++)
+			if (names[i].equals(name))
+				return getRatingByOrder(i);
+		return null;
+	}
 
-    /** Get a human-readable description for this Rating value. */
-    public String name() {
-	return names[order];
-    }
+	public int compareTo(Object other) {
+		return (this == other) ? 0 : (order < ((Rating) other).order) ? -1 : 1;
+	}
 
-    public int ord() {
-	return order;
-    }
+	public ComparableIndividual getNext() {
+		return getRatingByOrder(order + 1);
+	}
 
-    /**
-     * Overrides the default method to prevent properties from being added.
-     *
-     * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
-     */
-    public boolean setProperty(String propURI, Object o) {
-	// do nothing
-	return false;
-    }
+	public ComparableIndividual getPrevious() {
+		return getRatingByOrder(order - 1);
+	}
+
+	public int getPropSerializationType(String propURI) {
+		return PROP_SERIALIZATION_OPTIONAL;
+	}
+
+	@Override
+	public boolean isWellFormed() {
+		return true;
+	}
+
+	/** Get a human-readable description for this Rating value. */
+	public String name() {
+		return names[order];
+	}
+
+	public int ord() {
+		return order;
+	}
+
+	/**
+	 * Overrides the default method to prevent properties from being added.
+	 *
+	 * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
+	 */
+	public boolean setProperty(String propURI, Object o) {
+		// do nothing
+		return false;
+	}
 }

@@ -27,13 +27,15 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
  * describes a simple requirement
  *
- * <p>Java class for reqAtomType complex type.
+ * <p>
+ * Java class for reqAtomType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="reqAtomType">
@@ -52,105 +54,90 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "reqAtomType", propOrder = {
-    "reqAtomName",
-    "reqAtomValue",
-    "reqCriteria"
-})
-public class ReqAtomType
-    implements Serializable
-{
+@XmlType(name = "reqAtomType", propOrder = { "reqAtomName", "reqAtomValue", "reqCriteria" })
+public class ReqAtomType implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(required = true)
-    protected String reqAtomName;
-    @XmlElement(required = true)
-    protected String reqAtomValue;
-    @XmlElement(defaultValue = "equal")
-    protected LogicalCriteriaType reqCriteria;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(required = true)
+	protected String reqAtomName;
+	@XmlElement(required = true)
+	protected String reqAtomValue;
+	@XmlElement(defaultValue = "equal")
+	protected LogicalCriteriaType reqCriteria;
 
-    /**
-     * Gets the value of the reqAtomName property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getReqAtomName() {
-        return reqAtomName;
-    }
+	/**
+	 * Gets the value of the reqAtomName property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getReqAtomName() {
+		return reqAtomName;
+	}
 
-    /**
-     * Sets the value of the reqAtomName property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setReqAtomName(String value) {
-        this.reqAtomName = value;
-    }
+	/**
+	 * Sets the value of the reqAtomName property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setReqAtomName(String value) {
+		this.reqAtomName = value;
+	}
 
-    public boolean isSetReqAtomName() {
-        return (this.reqAtomName!= null);
-    }
+	public boolean isSetReqAtomName() {
+		return (this.reqAtomName != null);
+	}
 
-    /**
-     * Gets the value of the reqAtomValue property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getReqAtomValue() {
-        return reqAtomValue;
-    }
+	/**
+	 * Gets the value of the reqAtomValue property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getReqAtomValue() {
+		return reqAtomValue;
+	}
 
-    /**
-     * Sets the value of the reqAtomValue property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setReqAtomValue(String value) {
-        this.reqAtomValue = value;
-    }
+	/**
+	 * Sets the value of the reqAtomValue property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setReqAtomValue(String value) {
+		this.reqAtomValue = value;
+	}
 
-    public boolean isSetReqAtomValue() {
-        return (this.reqAtomValue!= null);
-    }
+	public boolean isSetReqAtomValue() {
+		return (this.reqAtomValue != null);
+	}
 
-    /**
-     * Gets the value of the reqCriteria property.
-     *
-     * @return
-     *     possible object is
-     *     {@link LogicalCriteriaType }
-     *
-     */
-    public LogicalCriteriaType getReqCriteria() {
-        return reqCriteria;
-    }
+	/**
+	 * Gets the value of the reqCriteria property.
+	 *
+	 * @return possible object is {@link LogicalCriteriaType }
+	 *
+	 */
+	public LogicalCriteriaType getReqCriteria() {
+		return reqCriteria;
+	}
 
-    /**
-     * Sets the value of the reqCriteria property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link LogicalCriteriaType }
-     *
-     */
-    public void setReqCriteria(LogicalCriteriaType value) {
-        this.reqCriteria = value;
-    }
+	/**
+	 * Sets the value of the reqCriteria property.
+	 *
+	 * @param value
+	 *            allowed object is {@link LogicalCriteriaType }
+	 *
+	 */
+	public void setReqCriteria(LogicalCriteriaType value) {
+		this.reqCriteria = value;
+	}
 
-    public boolean isSetReqCriteria() {
-        return (this.reqCriteria!= null);
-    }
+	public boolean isSetReqCriteria() {
+		return (this.reqCriteria != null);
+	}
 
 }

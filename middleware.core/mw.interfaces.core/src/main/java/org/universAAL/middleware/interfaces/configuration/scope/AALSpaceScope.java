@@ -25,13 +25,13 @@ package org.universAAL.middleware.interfaces.configuration.scope;
  * 
  */
 public class AALSpaceScope extends Scope {
-    /**
-     * Constructor for a entity with unique identifier.
-     * 
-     * @param id
-     *            a unique identifier.
-     */
-    public AALSpaceScope(String id) {
-	super(id);
-    }
+	/**
+	 * Constructor for a entity with unique identifier.
+	 * 
+	 * @param id
+	 *            a unique identifier.
+	 */
+	public AALSpaceScope(String id) {
+		super(id);
+	}
 }

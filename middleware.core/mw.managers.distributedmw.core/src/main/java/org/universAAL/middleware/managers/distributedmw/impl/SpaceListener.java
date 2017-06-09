@@ -18,126 +18,125 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
  */
 public class SpaceListener implements AALSpaceListener, SharedObjectListener {
 
-    private AALSpaceManager theAALSpaceManager = null;
+	private AALSpaceManager theAALSpaceManager = null;
 
-    // the singleton instance
-    private static SpaceListener instance = null;
+	// the singleton instance
+	private static SpaceListener instance = null;
 
-    private List<AALSpaceListener> listeners = new ArrayList<AALSpaceListener>();
+	private List<AALSpaceListener> listeners = new ArrayList<AALSpaceListener>();
 
-    private SpaceListener() {
-    }
-
-    public static SpaceListener getInstance() {
-	if (instance == null) {
-	    instance = new SpaceListener();
-	    instance.start();
+	private SpaceListener() {
 	}
-	return instance;
-    }
 
-    public void register(AALSpaceListener l) {
-	synchronized (listeners) {
-	    listeners.add(l);
-	}
-    }
-
-    public void start() {
-	// get AAL Space Manager to register this listener
-	Object[] o = DistributedMWManagerImpl.context.getContainer()
-		.fetchSharedObject(DistributedMWManagerImpl.context,
-			new Object[] { AALSpaceManager.class.getName() }, this);
-	if (o != null) {
-	    if (o.length != 0) {
-		if (o[0] instanceof AALSpaceManager) {
-		    sharedObjectAdded(o[0], null);
+	public static SpaceListener getInstance() {
+		if (instance == null) {
+			instance = new SpaceListener();
+			instance.start();
 		}
-	    }
+		return instance;
 	}
-    }
 
-    public void stop() {
-	synchronized (listeners) {
-	    listeners.clear();
+	public void register(AALSpaceListener l) {
+		synchronized (listeners) {
+			listeners.add(l);
+		}
 	}
-	// remove me as AALSpaceListener
-	synchronized (this) {
-	    if (theAALSpaceManager != null) {
-		theAALSpaceManager.removeAALSpaceListener(this);
-	    }
+
+	public void start() {
+		// get AAL Space Manager to register this listener
+		Object[] o = DistributedMWManagerImpl.context.getContainer().fetchSharedObject(DistributedMWManagerImpl.context,
+				new Object[] { AALSpaceManager.class.getName() }, this);
+		if (o != null) {
+			if (o.length != 0) {
+				if (o[0] instanceof AALSpaceManager) {
+					sharedObjectAdded(o[0], null);
+				}
+			}
+		}
 	}
-	// and remove this object
-	instance = null;
-    }
 
-    public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor) {
-	synchronized (listeners) {
-	    for (AALSpaceListener l : listeners) {
-		l.aalSpaceJoined(spaceDescriptor);
-	    }
+	public void stop() {
+		synchronized (listeners) {
+			listeners.clear();
+		}
+		// remove me as AALSpaceListener
+		synchronized (this) {
+			if (theAALSpaceManager != null) {
+				theAALSpaceManager.removeAALSpaceListener(this);
+			}
+		}
+		// and remove this object
+		instance = null;
 	}
-    }
 
-    public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor) {
-	synchronized (listeners) {
-	    for (AALSpaceListener l : listeners) {
-		l.aalSpaceLost(spaceDescriptor);
-	    }
+	public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor) {
+		synchronized (listeners) {
+			for (AALSpaceListener l : listeners) {
+				l.aalSpaceJoined(spaceDescriptor);
+			}
+		}
 	}
-    }
 
-    public void newPeerJoined(PeerCard peer) {
-	synchronized (listeners) {
-	    for (AALSpaceListener l : listeners) {
-		l.newPeerJoined(peer);
-	    }
+	public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor) {
+		synchronized (listeners) {
+			for (AALSpaceListener l : listeners) {
+				l.aalSpaceLost(spaceDescriptor);
+			}
+		}
 	}
-    }
 
-    public void peerLost(PeerCard peer) {
-	synchronized (listeners) {
-	    for (AALSpaceListener l : listeners) {
-		l.peerLost(peer);
-	    }
+	public void newPeerJoined(PeerCard peer) {
+		synchronized (listeners) {
+			for (AALSpaceListener l : listeners) {
+				l.newPeerJoined(peer);
+			}
+		}
 	}
-    }
 
-    public void aalSpaceStatusChanged(AALSpaceStatus status) {
-	// not needed
-    }
-
-    /**
-     * Get all peers, including this peer.
-     * 
-     * @return
-     */
-    public List<PeerCard> getPeers() {
-	List<PeerCard> ret = new ArrayList<PeerCard>();
-
-	Map<String, PeerCard> peers = theAALSpaceManager.getPeers();
-	if (peers != null) {
-	    for (PeerCard pc : peers.values()) {
-		ret.add(pc);
-	    }
+	public void peerLost(PeerCard peer) {
+		synchronized (listeners) {
+			for (AALSpaceListener l : listeners) {
+				l.peerLost(peer);
+			}
+		}
 	}
-	ret.add(theAALSpaceManager.getMyPeerCard());
-	return ret;
-    }
 
-    public void sharedObjectAdded(Object sharedObj, Object removeHook) {
-	if (sharedObj instanceof AALSpaceManager) {
-	    synchronized (this) {
-		theAALSpaceManager = (AALSpaceManager) sharedObj;
-		theAALSpaceManager.addAALSpaceListener(this);
-	    }
+	public void aalSpaceStatusChanged(AALSpaceStatus status) {
+		// not needed
 	}
-    }
 
-    public void sharedObjectRemoved(Object removeHook) {
-	if (removeHook instanceof AALSpaceManager) {
-	    synchronized (this) {
-		theAALSpaceManager = null;
-	    }
+	/**
+	 * Get all peers, including this peer.
+	 * 
+	 * @return
+	 */
+	public List<PeerCard> getPeers() {
+		List<PeerCard> ret = new ArrayList<PeerCard>();
+
+		Map<String, PeerCard> peers = theAALSpaceManager.getPeers();
+		if (peers != null) {
+			for (PeerCard pc : peers.values()) {
+				ret.add(pc);
+			}
+		}
+		ret.add(theAALSpaceManager.getMyPeerCard());
+		return ret;
 	}
-    }
+
+	public void sharedObjectAdded(Object sharedObj, Object removeHook) {
+		if (sharedObj instanceof AALSpaceManager) {
+			synchronized (this) {
+				theAALSpaceManager = (AALSpaceManager) sharedObj;
+				theAALSpaceManager.addAALSpaceListener(this);
+			}
+		}
+	}
+
+	public void sharedObjectRemoved(Object removeHook) {
+		if (removeHook instanceof AALSpaceManager) {
+			synchronized (this) {
+				theAALSpaceManager = null;
+			}
+		}
+	}
 }

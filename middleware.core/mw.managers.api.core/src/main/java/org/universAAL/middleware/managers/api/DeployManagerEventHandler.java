@@ -35,19 +35,19 @@ import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
  */
 public interface DeployManagerEventHandler {
 
-    /**
-     * Method called back in order to notifiy the result of a request to install
-     * 
-     * @param peer
-     *            The Peer sending the result
-     * @param uappCard
-     *            The MPA to whic the peer refers to
-     * @param partID
-     *            Part id
-     * @param partStatus
-     *            Status of the part @
-     */
-    public void installationPartNotification(UAPPCard uappCard, String partID,
-	    PeerCard peer, UAPPPartStatus partStatus);
+	/**
+	 * Method called back in order to notifiy the result of a request to install
+	 * 
+	 * @param peer
+	 *            The Peer sending the result
+	 * @param uappCard
+	 *            The MPA to whic the peer refers to
+	 * @param partID
+	 *            Part id
+	 * @param partStatus
+	 *            Status of the part @
+	 */
+	public void installationPartNotification(UAPPCard uappCard, String partID, PeerCard peer,
+			UAPPPartStatus partStatus);
 
 }

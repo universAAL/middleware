@@ -25,5 +25,5 @@ import org.universAAL.middleware.owl.TypeExpression;
  */
 public interface EntityPattern {
 
-    public TypeExpression getRestriction();
+	public TypeExpression getRestriction();
 }

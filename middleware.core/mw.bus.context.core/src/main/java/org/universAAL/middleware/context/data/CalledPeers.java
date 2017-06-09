@@ -32,47 +32,47 @@ import java.util.List;
  */
 public class CalledPeers implements ICalledPeers {
 
-    private String messageID;
+	private String messageID;
 
-    private int numOfCalledPeers;
+	private int numOfCalledPeers;
 
-    private List provisions = new ArrayList();
+	private List provisions = new ArrayList();
 
-    public void setMessageID(String messageID) {
-	this.messageID = messageID;
-    }
-
-    public String getMessageID() {
-	return messageID;
-    }
-
-    public int getNumOfCalledPeers() {
-	return numOfCalledPeers;
-    }
-
-    public void setNumOfCalledPeers(int numOfCalledPeers) {
-	if (numOfCalledPeers >= 0) {
-	    this.numOfCalledPeers = numOfCalledPeers;
+	public void setMessageID(String messageID) {
+		this.messageID = messageID;
 	}
-    }
 
-    public boolean gotResponsesFromAllPeers() {
-	return numOfCalledPeers == 0;
-    }
+	public String getMessageID() {
+		return messageID;
+	}
 
-    public void reduceNumOfCalledPeers() {
-	setNumOfCalledPeers(numOfCalledPeers - 1);
-    }
+	public int getNumOfCalledPeers() {
+		return numOfCalledPeers;
+	}
 
-    public void resetCalledPeers() {
-	numOfCalledPeers = 0;
-    }
+	public void setNumOfCalledPeers(int numOfCalledPeers) {
+		if (numOfCalledPeers >= 0) {
+			this.numOfCalledPeers = numOfCalledPeers;
+		}
+	}
 
-    public void addProvisions(List contextEventPatterns) {
-	provisions.addAll(contextEventPatterns);
-    }
+	public boolean gotResponsesFromAllPeers() {
+		return numOfCalledPeers == 0;
+	}
 
-    public List getProvisions() {
-	return provisions;
-    }
+	public void reduceNumOfCalledPeers() {
+		setNumOfCalledPeers(numOfCalledPeers - 1);
+	}
+
+	public void resetCalledPeers() {
+		numOfCalledPeers = 0;
+	}
+
+	public void addProvisions(List contextEventPatterns) {
+		provisions.addAll(contextEventPatterns);
+	}
+
+	public List getProvisions() {
+		return provisions;
+	}
 }

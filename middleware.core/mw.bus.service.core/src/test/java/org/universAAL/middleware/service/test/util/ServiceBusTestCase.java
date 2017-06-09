@@ -70,525 +70,499 @@ import junit.framework.TestCase;
  * 
  */
 public abstract class ServiceBusTestCase extends TestCase {
-    /*
-     * TODO: put the setUp()-method in a junit.extensions.TestSetup and add a
-     * tearDown()-method so that it is possible to have multiple subclasses and
-     * to allow a reset() in a new setUp()-method so that not every untit test
-     * has to call it.
-     */
+	/*
+	 * TODO: put the setUp()-method in a junit.extensions.TestSetup and add a
+	 * tearDown()-method so that it is possible to have multiple subclasses and
+	 * to allow a reset() in a new setUp()-method so that not every untit test
+	 * has to call it.
+	 */
 
-    private static boolean isSetup = false;
+	private static boolean isSetup = false;
 
-    public static int COORD = 0;
-    public static int NODE1 = 1;
-    public static int NODE2 = 2;
+	public static int COORD = 0;
+	public static int NODE1 = 1;
+	public static int NODE2 = 2;
 
-    public static JUnitModuleContext mc;
-    public static MessageContentSerializer mcs;
+	public static JUnitModuleContext mc;
+	public static MessageContentSerializer mcs;
 
-    public static PeerCard coordCard = new PeerCard(PeerRole.COORDINATOR,
-	    "OSGi", "universAAL");
-    public static PeerCard node1Card = new PeerCard(PeerRole.PEER, "OSGi",
-	    "universAAL");
-    public static PeerCard node2Card = new PeerCard(PeerRole.PEER, "OSGi",
-	    "universAAL");
-    public static List<PeerCard> lstPeerCard = new ArrayList<PeerCard>();
+	public static PeerCard coordCard = new PeerCard(PeerRole.COORDINATOR, "OSGi", "universAAL");
+	public static PeerCard node1Card = new PeerCard(PeerRole.PEER, "OSGi", "universAAL");
+	public static PeerCard node2Card = new PeerCard(PeerRole.PEER, "OSGi", "universAAL");
+	public static List<PeerCard> lstPeerCard = new ArrayList<PeerCard>();
 
-    public static Map<String, String> mapReadableNodes = new HashMap<String, String>();
-    public static List<String> lstReadableNodes = new ArrayList<String>();
+	public static Map<String, String> mapReadableNodes = new HashMap<String, String>();
+	public static List<String> lstReadableNodes = new ArrayList<String>();
 
-    public static MyServiceCallee coordCallee1;
-    public static MyServiceCallee coordCallee2;
-    public static MyServiceCallee node1Callee1;
-    public static MyServiceCallee node1Callee2;
-    public static MyServiceCallee node2Callee1;
-    public static MyServiceCallee node2Callee2;
-    public static ServiceCaller coordCaller;
-    public static ServiceCaller node1Caller;
-    public static ServiceCaller node2Caller;
+	public static MyServiceCallee coordCallee1;
+	public static MyServiceCallee coordCallee2;
+	public static MyServiceCallee node1Callee1;
+	public static MyServiceCallee node1Callee2;
+	public static MyServiceCallee node2Callee1;
+	public static MyServiceCallee node2Callee2;
+	public static ServiceCaller coordCaller;
+	public static ServiceCaller node1Caller;
+	public static ServiceCaller node2Caller;
 
-    public static List<ServiceBusImpl> lstBus = new ArrayList<ServiceBusImpl>();
-    public static List<MyServiceCallee> lstCallees = new ArrayList<MyServiceCallee>();
-    public static List<ServiceCaller> lstCallers = new ArrayList<ServiceCaller>();
+	public static List<ServiceBusImpl> lstBus = new ArrayList<ServiceBusImpl>();
+	public static List<MyServiceCallee> lstCallees = new ArrayList<MyServiceCallee>();
+	public static List<ServiceCaller> lstCallers = new ArrayList<ServiceCaller>();
 
-    private static int sharedObjectCounter = 0;
+	private static int sharedObjectCounter = 0;
 
-    @Override
-    protected void tearDown() throws Exception {
-	super.tearDown();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    protected void setUp() throws Exception {
-	super.setUp();
-
-	if (isSetup)
-	    return;
-	isSetup = true;
-
-	System.out.println(" - starting BusTestCase -");
-	System.setProperty("org.universaal.bus.permission.mode", "none");
-	mc = new JUnitModuleContext();
-	mc.setLogLevel(LogLevel.DEBUG);
-
-	// init data representation
-	SharedResources.moduleContext = mc;
-	SharedResources.loadReasoningEngine();
-	SharedResources.setMiddlewareProp(SharedResources.IS_COORDINATING_PEER, "true");
-	OntologyManagement.getInstance().register(mc, new TestOntology());
-	mc.getContainer().shareObject(mc, new TurtleSerializer(),
-		new Object[] { MessageContentSerializer.class.getName() });
-	mcs = (MessageContentSerializer) mc.getContainer().fetchSharedObject(
-		mc, new Object[] { MessageContentSerializer.class.getName() });
-	TurtleUtil.moduleContext = mc;
-
-	// init bus model
-	HashMap<String, PeerCard> mapCards = new HashMap<String, PeerCard>();
-	mapCards.put(coordCard.getPeerID(), coordCard);
-	mapCards.put(node1Card.getPeerID(), node1Card);
-	mapCards.put(node2Card.getPeerID(), node2Card);
-	List<PeerCard> lstCards = new ArrayList<PeerCard>();
-	lstCards.add(coordCard);
-	lstCards.add(node1Card);
-	lstCards.add(node2Card);
-	mapReadableNodes.put(coordCard.getPeerID(), "Coord");
-	mapReadableNodes.put(node1Card.getPeerID(), "Node1");
-	mapReadableNodes.put(node2Card.getPeerID(), "Node2");
-	lstReadableNodes.add("Coord");
-	lstReadableNodes.add("Node1");
-	lstReadableNodes.add("Node2");
-	lstPeerCard.add(coordCard);
-	lstPeerCard.add(node1Card);
-	lstPeerCard.add(node2Card);
-
-	AALSpaceManager sp = new MyAALSpaceManager(mapCards, lstCards);
-	CommunicationModule com = new MyCommunicationModule(lstCards,
-		mapReadableNodes);
-
-	AbstractBus.initBrokerage(mc, sp, com);
-	BusMessage.setMessageContentSerializer(mcs);
-
-	// init bus instances
-	sharedObjectCounter++;
-
-	// coordinator
-	Object[] busFetchParams = new Object[] { "coordinator-bus-service"
-		+ sharedObjectCounter };
-	Object[] busInjectFetchParams = new Object[] { "coordinator-injector-service"
-		+ sharedObjectCounter };
-	ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams,
-		busInjectFetchParams, busInjectFetchParams);
-
-	coordCallee1 = new MyServiceCallee(mc, new ServiceProfile[0], 0, 0);
-	coordCallee2 = new MyServiceCallee(mc, new ServiceProfile[0], 0, 1);
-	coordCaller = new DefaultServiceCaller(mc);
-
-	// ---------
-	// node1
-
-	Hashtable<String, String> newPropValues = new Hashtable<String, String>();
-	newPropValues.put("org.universAAL.middleware.peer.is_coordinator",
-		"false");
-	SharedResources.updateProps(newPropValues);
-
-	ServiceBusImpl sb = getBus(true);
-	String peerID = sb.getPeerCard().getPeerID();
-	System.out.println("-- registered new bus instance: Coord = " + peerID);
-
-	createNode(1);
-	createNode(2);
-
-	lstCallees.add(coordCallee1);
-	lstCallees.add(coordCallee2);
-	lstCallees.add(node1Callee1);
-	lstCallees.add(node1Callee2);
-	lstCallees.add(node2Callee1);
-	lstCallees.add(node2Callee2);
-
-	lstCallers.add(coordCaller);
-	lstCallers.add(node1Caller);
-	lstCallers.add(node2Caller);
-
-	System.out.println("\n\n----------------------\ninitialization done");
-	for (int i = 0; i < 3; i++) {
-	    String pi = lstCards.get(i).getPeerID();
-	    System.out.println("\t" + mapReadableNodes.get(pi) + ":  " + pi);
-	}
-	System.out.println();
-	int i = 0;
-	for (MyServiceCallee c : lstCallees) {
-	    if (c != null)
-		System.out.println("\t" + lstReadableNodes.get(i / 2)
-			+ " Callee (" + i + "): " + c.getMyID());
-	    i++;
-	}
-	System.out.println();
-	i = 0;
-	for (ServiceCaller c : lstCallers) {
-	    if (c != null)
-		System.out.println("\t" + lstReadableNodes.get(i) + " Caller ("
-			+ i + "): " + c.getMyID());
-	    i++;
-	}
-	System.out.println("let the tests begin..\n----------------------\n\n");
-    }
-
-    /**
-     * Creates a new instance of the service bus; thus, simulating a new node in
-     * the network.
-     * 
-     * @param i
-     *            One-based index of the node.
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     */
-    private void createNode(int i) throws NoSuchFieldException,
-	    SecurityException, IllegalArgumentException,
-	    IllegalAccessException, NoSuchMethodException,
-	    InvocationTargetException {
-	Object[] busFetchParams = new Object[] { "node" + i + "-bus-service"
-		+ sharedObjectCounter };
-	Object[] busInjectFetchParams = new Object[] { "node" + i
-		+ "-injector-service" + sharedObjectCounter };
-	ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams,
-		busInjectFetchParams, busInjectFetchParams);
-
-	// We have to re-initialize the URIs of the bus, otherwise, the bus
-	// members of the new node will have the same node id than the
-	// coordinator.
-	// But we can only do this ~after~ the coordinator-messages have been
-	// exchanged and the coordinator is known. Otherwise the new node will
-	// ask for the coordinator and the coordinator will get the URI from the
-	// bus which is then the wrong URI (the URI of the new node)
-	ServiceBusImpl sb = getBus(true);
-
-	Field f = AbstractBus.class.getDeclaredField("busStrategy");
-	f.setAccessible(true);
-	ServiceStrategy strategy = (ServiceStrategy) f.get(sb);
-
-	f = ServiceStrategy.class.getDeclaredField("theCoordinator");
-	f.setAccessible(true);
-	// System.out.println(" -- setting coord on peer ..");
-	f.set(strategy, coordCard);
-	// System.out.println(" -- setting coord on peer done");
-
-	Method method = AbstractBus.class.getDeclaredMethod("createURIs");
-	method.setAccessible(true);
-	method.invoke(null);
-
-	if (i == 1) {
-	    node1Callee1 = new MyServiceCallee(mc, new ServiceProfile[0], 1, 0);
-	    node1Callee2 = new MyServiceCallee(mc, new ServiceProfile[0], 1, 1);
-	    node1Caller = new DefaultServiceCaller(mc);
-	} else {
-	    node2Callee1 = new MyServiceCallee(mc, new ServiceProfile[0], 2, 0);
-	    node2Callee2 = new MyServiceCallee(mc, new ServiceProfile[0], 2, 1);
-	    node2Caller = new DefaultServiceCaller(mc);
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
 	}
 
-	// sb = getBus(true);
-	String peerID = sb.getPeerCard().getPeerID();
-	System.out.println("-- registered new bus instance: Node" + i + " = "
-		+ peerID);
-    }
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
 
-    /**
-     * Removes all service call handler and service profiles from all callees.
-     */
-    public void reset() {
-	resetProfiles();
-	resetHandler();
-	System.out.println("-------------------------------\nreset done\n");
-    }
+		if (isSetup)
+			return;
+		isSetup = true;
 
-    /**
-     * Removes all service call handler from all callees.
-     */
-    public void resetHandler() {
-	for (MyServiceCallee c : lstCallees) {
-	    if (c != null)
-		c.setHandler(null);
-	}
-    }
+		System.out.println(" - starting BusTestCase -");
+		System.setProperty("org.universaal.bus.permission.mode", "none");
+		mc = new JUnitModuleContext();
+		mc.setLogLevel(LogLevel.DEBUG);
 
-    /**
-     * Removes all service profiles from all callees.
-     */
-    public void resetProfiles() {
-	HashMap<?, ?> map = lstBus.get(0).getMatchingServices(
-		DeviceService.MY_URI);
+		// init data representation
+		SharedResources.moduleContext = mc;
+		SharedResources.loadReasoningEngine();
+		SharedResources.setMiddlewareProp(SharedResources.IS_COORDINATING_PEER, "true");
+		OntologyManagement.getInstance().register(mc, new TestOntology());
+		mc.getContainer().shareObject(mc, new TurtleSerializer(),
+				new Object[] { MessageContentSerializer.class.getName() });
+		mcs = (MessageContentSerializer) mc.getContainer().fetchSharedObject(mc,
+				new Object[] { MessageContentSerializer.class.getName() });
+		TurtleUtil.moduleContext = mc;
 
-	for (MyServiceCallee c : lstCallees) {
-	    if (c != null)
-		c.reset();
-	}
+		// init bus model
+		HashMap<String, PeerCard> mapCards = new HashMap<String, PeerCard>();
+		mapCards.put(coordCard.getPeerID(), coordCard);
+		mapCards.put(node1Card.getPeerID(), node1Card);
+		mapCards.put(node2Card.getPeerID(), node2Card);
+		List<PeerCard> lstCards = new ArrayList<PeerCard>();
+		lstCards.add(coordCard);
+		lstCards.add(node1Card);
+		lstCards.add(node2Card);
+		mapReadableNodes.put(coordCard.getPeerID(), "Coord");
+		mapReadableNodes.put(node1Card.getPeerID(), "Node1");
+		mapReadableNodes.put(node2Card.getPeerID(), "Node2");
+		lstReadableNodes.add("Coord");
+		lstReadableNodes.add("Node1");
+		lstReadableNodes.add("Node2");
+		lstPeerCard.add(coordCard);
+		lstPeerCard.add(node1Card);
+		lstPeerCard.add(node2Card);
 
-	do {
-	    try {
-		Thread.sleep(10);
-	    } catch (InterruptedException e) {
-		e.printStackTrace();
-	    }
-	    map = lstBus.get(0).getMatchingServices(DeviceService.MY_URI);
-	} while (map.keySet().size() != 0);
-    }
+		AALSpaceManager sp = new MyAALSpaceManager(mapCards, lstCards);
+		CommunicationModule com = new MyCommunicationModule(lstCards, mapReadableNodes);
 
-    /**
-     * Get the number of registered profiles.
-     * 
-     * @return
-     */
-    public int getNumRegisteredProfiles() {
-	HashMap<?, ?> map = lstBus.get(0).getMatchingServices(
-		DeviceService.MY_URI);
-	int num = 0;
-	for (Object o : map.values()) {
-	    num += ((List<?>) o).size();
-	}
-	return num;
-    }
+		AbstractBus.initBrokerage(mc, sp, com);
+		BusMessage.setMessageContentSerializer(mcs);
 
-    /**
-     * Wait until the number of registered profiles have changed.
-     * 
-     * @param old
-     */
-    public void waitForProfileNumberChange(int old) {
-	int to = 0;
-	while (getNumRegisteredProfiles() == old) {
-	    try {
-		Thread.sleep(10);
-	    } catch (InterruptedException e) {
-		e.printStackTrace();
-	    }
-	    to++;
-	    if (to > 1000)
-		throw new RuntimeException(
-			"Timeout occurred while waiting for the number of registered profiles to change; old number: "
-				+ old);
-	}
-    }
+		// init bus instances
+		sharedObjectCounter++;
 
-    /**
-     * Get the service caller on a specific node.
-     * 
-     * @param node
-     * @return
-     */
-    public ServiceCaller getCaller(int node) {
-	return lstCallers.get(node);
-    }
+		// coordinator
+		Object[] busFetchParams = new Object[] { "coordinator-bus-service" + sharedObjectCounter };
+		Object[] busInjectFetchParams = new Object[] { "coordinator-injector-service" + sharedObjectCounter };
+		ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams, busInjectFetchParams, busInjectFetchParams);
 
-    /**
-     * Get s specific service callee on a specific node.
-     * 
-     * @param node
-     * @return
-     */
-    public MyServiceCallee getCallee(int node, int callee) {
-	// determine the index of the callee assuming that we have 2 callees per
-	// node
-	int i = node * 2 + callee;
-	return lstCallees.get(i);
-    }
+		coordCallee1 = new MyServiceCallee(mc, new ServiceProfile[0], 0, 0);
+		coordCallee2 = new MyServiceCallee(mc, new ServiceProfile[0], 0, 1);
+		coordCaller = new DefaultServiceCaller(mc);
 
-    /**
-     * Set the handler to handle service calls for a specific callee.
-     * 
-     * @param node
-     * @param callee
-     * @param handler
-     */
-    public void setHandler(int node, int callee, CallHandler handler) {
-	MyServiceCallee c = getCallee(node, callee);
-	c.setHandler(handler);
-    }
+		// ---------
+		// node1
 
-    /**
-     * Set the handler to handle service calls for the first callee.
-     * 
-     * @param node
-     * @param handler
-     */
-    public void setHandler(int node, CallHandler handler) {
-	setHandler(node, 0, handler);
-    }
+		Hashtable<String, String> newPropValues = new Hashtable<String, String>();
+		newPropValues.put("org.universAAL.middleware.peer.is_coordinator", "false");
+		SharedResources.updateProps(newPropValues);
 
-    /**
-     * Call a service from a given node.
-     * 
-     * @param node
-     * @param sr
-     * @return
-     */
-    public ServiceResponse call(int node, ServiceRequest sr) {
-	ServiceCaller c = getCaller(node);
-	return c.call(sr);
-    }
+		ServiceBusImpl sb = getBus(true);
+		String peerID = sb.getPeerCard().getPeerID();
+		System.out.println("-- registered new bus instance: Coord = " + peerID);
 
-    /**
-     * Inject a service call from a given node.
-     * 
-     * @param node
-     * @param sr
-     * @return
-     */
-    public ServiceResponse inject(int node, ServiceCall call, int receivingNode) {
-	ServiceCaller c = getCaller(node);
-	return c.inject(call, lstPeerCard.get(receivingNode));
-    }
+		createNode(1);
+		createNode(2);
 
-    /**
-     * Deploy some profiles to a given callee on the given node. The profiles
-     * are added to existing profiles.
-     * 
-     * @param node
-     * @param profiles
-     */
-    public void deployProfiles(int node, int callee, ServiceProfile profiles[]) {
-	int num = getNumRegisteredProfiles();
-	MyServiceCallee c = getCallee(node, callee);
-	c.addProfiles(profiles);
-	waitForProfileNumberChange(num);
-    }
+		lstCallees.add(coordCallee1);
+		lstCallees.add(coordCallee2);
+		lstCallees.add(node1Callee1);
+		lstCallees.add(node1Callee2);
+		lstCallees.add(node2Callee1);
+		lstCallees.add(node2Callee2);
 
-    /**
-     * Deploy a profile to a given callee on the given node. The profiles are
-     * added to existing profiles.
-     * 
-     * @param node
-     * @param profiles
-     */
-    public void deployProfiles(int node, int callee, ServiceProfile profile) {
-	deployProfiles(node, callee, new ServiceProfile[] { profile });
-    }
+		lstCallers.add(coordCaller);
+		lstCallers.add(node1Caller);
+		lstCallers.add(node2Caller);
 
-    /**
-     * Deploy some profiles to the first callee on the given node. The profiles
-     * are added to existing profiles.
-     * 
-     * @param node
-     * @param profiles
-     */
-    public void deployProfiles(int node, ServiceProfile profiles[]) {
-	deployProfiles(node, 0, profiles);
-    }
-
-    /**
-     * Deploy a single profiles to the first callee on the given node. The
-     * profile is added to existing profiles.
-     * 
-     * @param node
-     * @param profiles
-     */
-    public void deployProfiles(int node, ServiceProfile profile) {
-	deployProfiles(node, new ServiceProfile[] { profile });
-    }
-
-    private ServiceBusImpl getBus(boolean setToNull)
-	    throws NoSuchFieldException, SecurityException,
-	    IllegalArgumentException, IllegalAccessException {
-	Field f = ServiceBusImpl.class.getDeclaredField("theServiceBus");
-	f.setAccessible(true);
-	Object objSBus = f.get(null);
-	if (setToNull)
-	    f.set(null, null);
-	lstBus.add((ServiceBusImpl) objSBus);
-	return (ServiceBusImpl) objSBus;
-    }
-
-    public String serialize(Resource r) {
-	return mcs.serialize(r);
-    }
-
-    public Resource deserialize(String s) {
-	return (Resource) mcs.deserialize(s);
-    }
-
-    /**
-     * Test the given profile and request for all possible deployments.
-     */
-    public void testAllDeployments(String name, ServiceProfile profile,
-	    CallHandler handler, ServiceRequest request, ResponseChecker checker) {
-	System.out.println("---------------\n testing scenario " + name + "\n");
-	for (int i = 0; i < 3; i++) {
-	    for (int j = 0; j < 3; j++) {
-		reset();
-		System.out.println(" -- testing scenario: " + name
-			+ "\n   profile on " + lstReadableNodes.get(i)
-			+ ", request from " + lstReadableNodes.get(j));
-
-		deployProfiles(i, profile);
-		setHandler(i, handler);
-		ServiceResponse sr = call(j, request);
-		checker.check(sr);
-	    }
-	}
-    }
-
-    /**
-     * Test the given profile and request for all possible deployments.
-     */
-    public void testAllDeployments(String name, ServiceProfile profile,
-	    CallHandler handler, ServiceCall call, ResponseChecker checker) {
-	System.out.println("---------------\n testing scenario " + name + "\n");
-	for (int i = 0; i < 3; i++) {
-	    for (int j = 0; j < 3; j++) {
-		reset();
-		System.out.println(" -- testing scenario: " + name
-			+ "\n   profile on " + lstReadableNodes.get(i)
-			+ ", inject from " + lstReadableNodes.get(j));
-
-		deployProfiles(i, profile);
-		setHandler(i, handler);
-		ServiceResponse sr = inject(j, call, i);
-		checker.check(sr);
-	    }
-	}
-    }
-
-    /**
-     * Test the given profiles and request for all possible deployments.
-     */
-    public void testAllDeployments(String name, ServiceProfile profile1,
-	    CallHandler handler1, ServiceProfile profile2,
-	    CallHandler handler2, ServiceRequest request,
-	    ResponseChecker checker, boolean allowProfilesOnSameNode) {
-	System.out.println("---------------\n testing scenario " + name + "\n");
-	for (int i = 0; i < 3; i++) {
-	    for (int j = 0; j < 3; j++) {
-		for (int k = 0; k < 3; k++) {
-		    if (!allowProfilesOnSameNode)
-			if (i == j)
-			    continue;
-		    reset();
-		    System.out.println(" -- testing scenario: " + name);
-		    System.out.println("  profile1 on "
-			    + lstReadableNodes.get(i));
-		    System.out.println("  profile2 on "
-			    + lstReadableNodes.get(j));
-		    System.out.println("  request from "
-			    + lstReadableNodes.get(k));
-
-		    deployProfiles(i, profile1);
-		    setHandler(i, handler1);
-		    if (i == j) {
-			// profiles on same node -> use different callee
-			deployProfiles(j, 1, profile2);
-			setHandler(j, 1, handler2);
-		    } else {
-			deployProfiles(j, profile2);
-			setHandler(j, handler2);
-		    }
-		    ServiceResponse sr = call(k, request);
-		    checker.check(sr);
+		System.out.println("\n\n----------------------\ninitialization done");
+		for (int i = 0; i < 3; i++) {
+			String pi = lstCards.get(i).getPeerID();
+			System.out.println("\t" + mapReadableNodes.get(pi) + ":  " + pi);
 		}
-	    }
+		System.out.println();
+		int i = 0;
+		for (MyServiceCallee c : lstCallees) {
+			if (c != null)
+				System.out.println("\t" + lstReadableNodes.get(i / 2) + " Callee (" + i + "): " + c.getMyID());
+			i++;
+		}
+		System.out.println();
+		i = 0;
+		for (ServiceCaller c : lstCallers) {
+			if (c != null)
+				System.out.println("\t" + lstReadableNodes.get(i) + " Caller (" + i + "): " + c.getMyID());
+			i++;
+		}
+		System.out.println("let the tests begin..\n----------------------\n\n");
 	}
-    }
+
+	/**
+	 * Creates a new instance of the service bus; thus, simulating a new node in
+	 * the network.
+	 * 
+	 * @param i
+	 *            One-based index of the node.
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 */
+	private void createNode(int i) throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+			IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+		Object[] busFetchParams = new Object[] { "node" + i + "-bus-service" + sharedObjectCounter };
+		Object[] busInjectFetchParams = new Object[] { "node" + i + "-injector-service" + sharedObjectCounter };
+		ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams, busInjectFetchParams, busInjectFetchParams);
+
+		// We have to re-initialize the URIs of the bus, otherwise, the bus
+		// members of the new node will have the same node id than the
+		// coordinator.
+		// But we can only do this ~after~ the coordinator-messages have been
+		// exchanged and the coordinator is known. Otherwise the new node will
+		// ask for the coordinator and the coordinator will get the URI from the
+		// bus which is then the wrong URI (the URI of the new node)
+		ServiceBusImpl sb = getBus(true);
+
+		Field f = AbstractBus.class.getDeclaredField("busStrategy");
+		f.setAccessible(true);
+		ServiceStrategy strategy = (ServiceStrategy) f.get(sb);
+
+		f = ServiceStrategy.class.getDeclaredField("theCoordinator");
+		f.setAccessible(true);
+		// System.out.println(" -- setting coord on peer ..");
+		f.set(strategy, coordCard);
+		// System.out.println(" -- setting coord on peer done");
+
+		Method method = AbstractBus.class.getDeclaredMethod("createURIs");
+		method.setAccessible(true);
+		method.invoke(null);
+
+		if (i == 1) {
+			node1Callee1 = new MyServiceCallee(mc, new ServiceProfile[0], 1, 0);
+			node1Callee2 = new MyServiceCallee(mc, new ServiceProfile[0], 1, 1);
+			node1Caller = new DefaultServiceCaller(mc);
+		} else {
+			node2Callee1 = new MyServiceCallee(mc, new ServiceProfile[0], 2, 0);
+			node2Callee2 = new MyServiceCallee(mc, new ServiceProfile[0], 2, 1);
+			node2Caller = new DefaultServiceCaller(mc);
+		}
+
+		// sb = getBus(true);
+		String peerID = sb.getPeerCard().getPeerID();
+		System.out.println("-- registered new bus instance: Node" + i + " = " + peerID);
+	}
+
+	/**
+	 * Removes all service call handler and service profiles from all callees.
+	 */
+	public void reset() {
+		resetProfiles();
+		resetHandler();
+		System.out.println("-------------------------------\nreset done\n");
+	}
+
+	/**
+	 * Removes all service call handler from all callees.
+	 */
+	public void resetHandler() {
+		for (MyServiceCallee c : lstCallees) {
+			if (c != null)
+				c.setHandler(null);
+		}
+	}
+
+	/**
+	 * Removes all service profiles from all callees.
+	 */
+	public void resetProfiles() {
+		HashMap<?, ?> map = lstBus.get(0).getMatchingServices(DeviceService.MY_URI);
+
+		for (MyServiceCallee c : lstCallees) {
+			if (c != null)
+				c.reset();
+		}
+
+		do {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			map = lstBus.get(0).getMatchingServices(DeviceService.MY_URI);
+		} while (map.keySet().size() != 0);
+	}
+
+	/**
+	 * Get the number of registered profiles.
+	 * 
+	 * @return
+	 */
+	public int getNumRegisteredProfiles() {
+		HashMap<?, ?> map = lstBus.get(0).getMatchingServices(DeviceService.MY_URI);
+		int num = 0;
+		for (Object o : map.values()) {
+			num += ((List<?>) o).size();
+		}
+		return num;
+	}
+
+	/**
+	 * Wait until the number of registered profiles have changed.
+	 * 
+	 * @param old
+	 */
+	public void waitForProfileNumberChange(int old) {
+		int to = 0;
+		while (getNumRegisteredProfiles() == old) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			to++;
+			if (to > 1000)
+				throw new RuntimeException(
+						"Timeout occurred while waiting for the number of registered profiles to change; old number: "
+								+ old);
+		}
+	}
+
+	/**
+	 * Get the service caller on a specific node.
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public ServiceCaller getCaller(int node) {
+		return lstCallers.get(node);
+	}
+
+	/**
+	 * Get s specific service callee on a specific node.
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public MyServiceCallee getCallee(int node, int callee) {
+		// determine the index of the callee assuming that we have 2 callees per
+		// node
+		int i = node * 2 + callee;
+		return lstCallees.get(i);
+	}
+
+	/**
+	 * Set the handler to handle service calls for a specific callee.
+	 * 
+	 * @param node
+	 * @param callee
+	 * @param handler
+	 */
+	public void setHandler(int node, int callee, CallHandler handler) {
+		MyServiceCallee c = getCallee(node, callee);
+		c.setHandler(handler);
+	}
+
+	/**
+	 * Set the handler to handle service calls for the first callee.
+	 * 
+	 * @param node
+	 * @param handler
+	 */
+	public void setHandler(int node, CallHandler handler) {
+		setHandler(node, 0, handler);
+	}
+
+	/**
+	 * Call a service from a given node.
+	 * 
+	 * @param node
+	 * @param sr
+	 * @return
+	 */
+	public ServiceResponse call(int node, ServiceRequest sr) {
+		ServiceCaller c = getCaller(node);
+		return c.call(sr);
+	}
+
+	/**
+	 * Inject a service call from a given node.
+	 * 
+	 * @param node
+	 * @param sr
+	 * @return
+	 */
+	public ServiceResponse inject(int node, ServiceCall call, int receivingNode) {
+		ServiceCaller c = getCaller(node);
+		return c.inject(call, lstPeerCard.get(receivingNode));
+	}
+
+	/**
+	 * Deploy some profiles to a given callee on the given node. The profiles
+	 * are added to existing profiles.
+	 * 
+	 * @param node
+	 * @param profiles
+	 */
+	public void deployProfiles(int node, int callee, ServiceProfile profiles[]) {
+		int num = getNumRegisteredProfiles();
+		MyServiceCallee c = getCallee(node, callee);
+		c.addProfiles(profiles);
+		waitForProfileNumberChange(num);
+	}
+
+	/**
+	 * Deploy a profile to a given callee on the given node. The profiles are
+	 * added to existing profiles.
+	 * 
+	 * @param node
+	 * @param profiles
+	 */
+	public void deployProfiles(int node, int callee, ServiceProfile profile) {
+		deployProfiles(node, callee, new ServiceProfile[] { profile });
+	}
+
+	/**
+	 * Deploy some profiles to the first callee on the given node. The profiles
+	 * are added to existing profiles.
+	 * 
+	 * @param node
+	 * @param profiles
+	 */
+	public void deployProfiles(int node, ServiceProfile profiles[]) {
+		deployProfiles(node, 0, profiles);
+	}
+
+	/**
+	 * Deploy a single profiles to the first callee on the given node. The
+	 * profile is added to existing profiles.
+	 * 
+	 * @param node
+	 * @param profiles
+	 */
+	public void deployProfiles(int node, ServiceProfile profile) {
+		deployProfiles(node, new ServiceProfile[] { profile });
+	}
+
+	private ServiceBusImpl getBus(boolean setToNull)
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field f = ServiceBusImpl.class.getDeclaredField("theServiceBus");
+		f.setAccessible(true);
+		Object objSBus = f.get(null);
+		if (setToNull)
+			f.set(null, null);
+		lstBus.add((ServiceBusImpl) objSBus);
+		return (ServiceBusImpl) objSBus;
+	}
+
+	public String serialize(Resource r) {
+		return mcs.serialize(r);
+	}
+
+	public Resource deserialize(String s) {
+		return (Resource) mcs.deserialize(s);
+	}
+
+	/**
+	 * Test the given profile and request for all possible deployments.
+	 */
+	public void testAllDeployments(String name, ServiceProfile profile, CallHandler handler, ServiceRequest request,
+			ResponseChecker checker) {
+		System.out.println("---------------\n testing scenario " + name + "\n");
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				reset();
+				System.out.println(" -- testing scenario: " + name + "\n   profile on " + lstReadableNodes.get(i)
+						+ ", request from " + lstReadableNodes.get(j));
+
+				deployProfiles(i, profile);
+				setHandler(i, handler);
+				ServiceResponse sr = call(j, request);
+				checker.check(sr);
+			}
+		}
+	}
+
+	/**
+	 * Test the given profile and request for all possible deployments.
+	 */
+	public void testAllDeployments(String name, ServiceProfile profile, CallHandler handler, ServiceCall call,
+			ResponseChecker checker) {
+		System.out.println("---------------\n testing scenario " + name + "\n");
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				reset();
+				System.out.println(" -- testing scenario: " + name + "\n   profile on " + lstReadableNodes.get(i)
+						+ ", inject from " + lstReadableNodes.get(j));
+
+				deployProfiles(i, profile);
+				setHandler(i, handler);
+				ServiceResponse sr = inject(j, call, i);
+				checker.check(sr);
+			}
+		}
+	}
+
+	/**
+	 * Test the given profiles and request for all possible deployments.
+	 */
+	public void testAllDeployments(String name, ServiceProfile profile1, CallHandler handler1, ServiceProfile profile2,
+			CallHandler handler2, ServiceRequest request, ResponseChecker checker, boolean allowProfilesOnSameNode) {
+		System.out.println("---------------\n testing scenario " + name + "\n");
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				for (int k = 0; k < 3; k++) {
+					if (!allowProfilesOnSameNode)
+						if (i == j)
+							continue;
+					reset();
+					System.out.println(" -- testing scenario: " + name);
+					System.out.println("  profile1 on " + lstReadableNodes.get(i));
+					System.out.println("  profile2 on " + lstReadableNodes.get(j));
+					System.out.println("  request from " + lstReadableNodes.get(k));
+
+					deployProfiles(i, profile1);
+					setHandler(i, handler1);
+					if (i == j) {
+						// profiles on same node -> use different callee
+						deployProfiles(j, 1, profile2);
+						setHandler(j, 1, handler2);
+					} else {
+						deployProfiles(j, profile2);
+						setHandler(j, handler2);
+					}
+					ServiceResponse sr = call(k, request);
+					checker.check(sr);
+				}
+			}
+		}
+	}
 }

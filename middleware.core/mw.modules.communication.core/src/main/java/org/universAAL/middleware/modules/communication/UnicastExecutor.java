@@ -41,45 +41,39 @@ import org.universAAL.middleware.modules.listener.MessageListener;
  */
 public class UnicastExecutor implements Runnable {
 
-    private ChannelMessage message;
-    private CommunicationConnector communicationConnector;
-    // listeners interested in notifications about the broker message
-    private List<MessageListener> listeners;
-    private PeerCard receiver;
-    private ModuleContext mc;
+	private ChannelMessage message;
+	private CommunicationConnector communicationConnector;
+	// listeners interested in notifications about the broker message
+	private List<MessageListener> listeners;
+	private PeerCard receiver;
+	private ModuleContext mc;
 
-    public UnicastExecutor(ChannelMessage message,
-	    CommunicationConnector communicationConnector, PeerCard receiver,
-	    List<MessageListener> listeners, ModuleContext moduleContext) {
-	super();
-	this.message = message;
-	this.communicationConnector = communicationConnector;
-	this.receiver = receiver;
-	this.listeners = listeners;
-	this.mc = moduleContext;
-    }
-
-    public void run() {
-
-	try {
-	    LogUtils.logInfo(
-		    mc,
-		    UnicastExecutor.class,
-		    "run()",
-		    new Object[] { "Preparing to send data to "
-			    + receiver.getPeerID()
-			    + " the message to deliver is " + message }, null);
-	    communicationConnector.unicast(message, receiver.getPeerID());
-	} catch (CommunicationConnectorException e) {
-	    for (MessageListener listener : listeners)
-		listener.handleSendError(message, e);
-	} catch (Throwable t) {
-	    final String msg = ExceptionUtils.stackTraceAsString(t);
-	    final CommunicationConnectorException e = new CommunicationConnectorException(
-		    -1, msg);
-	    for (MessageListener listener : listeners)
-		listener.handleSendError(message, e);
+	public UnicastExecutor(ChannelMessage message, CommunicationConnector communicationConnector, PeerCard receiver,
+			List<MessageListener> listeners, ModuleContext moduleContext) {
+		super();
+		this.message = message;
+		this.communicationConnector = communicationConnector;
+		this.receiver = receiver;
+		this.listeners = listeners;
+		this.mc = moduleContext;
 	}
-    }
+
+	public void run() {
+
+		try {
+			LogUtils.logInfo(mc, UnicastExecutor.class, "run()", new Object[] {
+					"Preparing to send data to " + receiver.getPeerID() + " the message to deliver is " + message },
+					null);
+			communicationConnector.unicast(message, receiver.getPeerID());
+		} catch (CommunicationConnectorException e) {
+			for (MessageListener listener : listeners)
+				listener.handleSendError(message, e);
+		} catch (Throwable t) {
+			final String msg = ExceptionUtils.stackTraceAsString(t);
+			final CommunicationConnectorException e = new CommunicationConnectorException(-1, msg);
+			for (MessageListener listener : listeners)
+				listener.handleSendError(message, e);
+		}
+	}
 
 }

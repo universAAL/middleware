@@ -29,51 +29,49 @@ import org.universAAL.middleware.interfaces.PeerCard;
 /**
  * 
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
- * @version $LastChangedRevision$ ( $LastChangedDate: 2014-01-20 11:22:38
- *          +0100 (Mo, 20 Jan 2014) $ )
+ * @version $LastChangedRevision$ ( $LastChangedDate: 2014-01-20 11:22:38 +0100
+ *          (Mo, 20 Jan 2014) $ )
  */
 public class InstallationResultsDetails {
 
-    private InstallationResults results;
-    private Map<String, Map<String, InstallationResults>> details = new HashMap<String, Map<String, InstallationResults>>();
+	private InstallationResults results;
+	private Map<String, Map<String, InstallationResults>> details = new HashMap<String, Map<String, InstallationResults>>();
 
-    public InstallationResultsDetails(InstallationResults status) {
-	this.results = status;
-    }
-
-    public void setDetailedResult(String id, String partId,
-	    InstallationResults result) {
-	Map<String, InstallationResults> detail = details.get(id);
-	if (detail == null) {
-	    detail = new HashMap<String, InstallationResults>();
-	    details.put(id, detail);
+	public InstallationResultsDetails(InstallationResults status) {
+		this.results = status;
 	}
-	detail.put(partId, result);
-    }
 
-    public void setDetailedResult(PeerCard peer, Part part,
-	    InstallationResults result) {
-	setDetailedResult(peer.getPeerID(), part.getPartId(), result);
-    }
-
-    public InstallationResults getDetailedResult(String id, String partId) {
-	Map<String, InstallationResults> detail = details.get(id);
-	if (detail == null) {
-	    return InstallationResults.UNKNOWN;
+	public void setDetailedResult(String id, String partId, InstallationResults result) {
+		Map<String, InstallationResults> detail = details.get(id);
+		if (detail == null) {
+			detail = new HashMap<String, InstallationResults>();
+			details.put(id, detail);
+		}
+		detail.put(partId, result);
 	}
-	return detail.get(partId);
-    }
 
-    public InstallationResults getDetailedResult(PeerCard peer, Part part) {
-	return getDetailedResult(peer.getPeerID(), part.getPartId());
-    }
+	public void setDetailedResult(PeerCard peer, Part part, InstallationResults result) {
+		setDetailedResult(peer.getPeerID(), part.getPartId(), result);
+	}
 
-    public InstallationResults getGlobalResult() {
-	return results;
-    }
+	public InstallationResults getDetailedResult(String id, String partId) {
+		Map<String, InstallationResults> detail = details.get(id);
+		if (detail == null) {
+			return InstallationResults.UNKNOWN;
+		}
+		return detail.get(partId);
+	}
 
-    public void setGlobalResult(InstallationResults global) {
-	this.results = global;
-    }
+	public InstallationResults getDetailedResult(PeerCard peer, Part part) {
+		return getDetailedResult(peer.getPeerID(), part.getPartId());
+	}
+
+	public InstallationResults getGlobalResult() {
+		return results;
+	}
+
+	public void setGlobalResult(InstallationResults global) {
+		this.results = global;
+	}
 
 }

@@ -32,33 +32,33 @@ import org.universAAL.middleware.interfaces.mpa.UAPPCard;
  */
 public class DeployPayload extends Payload {
 
-    private byte[] part;
-    private static final long serialVersionUID = 4155680139788101950L;
-    private UAPPCard uappCard;
+	private byte[] part;
+	private static final long serialVersionUID = 4155680139788101950L;
+	private UAPPCard uappCard;
 
-    public DeployPayload() {
-    }
+	public DeployPayload() {
+	}
 
-    public DeployPayload(byte[] part, UAPPCard mpaCard) {
+	public DeployPayload(byte[] part, UAPPCard mpaCard) {
 
-	this.part = part;
-	this.uappCard = mpaCard;
-    }
+		this.part = part;
+		this.uappCard = mpaCard;
+	}
 
-    public byte[] getPart() {
-	return part;
-    }
+	public byte[] getPart() {
+		return part;
+	}
 
-    public void setPart(byte[] part) {
-	this.part = part;
-    }
+	public void setPart(byte[] part) {
+		this.part = part;
+	}
 
-    public UAPPCard getuappCard() {
-	return uappCard;
-    }
+	public UAPPCard getuappCard() {
+		return uappCard;
+	}
 
-    public void setuappCard(UAPPCard mpaCard) {
-	this.uappCard = mpaCard;
-    }
+	public void setuappCard(UAPPCard mpaCard) {
+		this.uappCard = mpaCard;
+	}
 
 }

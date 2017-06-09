@@ -27,19 +27,19 @@ import java.io.PrintStream;
  * A simple class for extracing full stack trace from Exception
  * 
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano "Kismet" Lenzi</a>
- * @version $LastChangedRevision$ ($LastChangedDate: 2013-04-02 14:36:09
- *          +0200 (Di, 02 Apr 2013) $)
+ * @version $LastChangedRevision$ ($LastChangedDate: 2013-04-02 14:36:09 +0200
+ *          (Di, 02 Apr 2013) $)
  * 
  */
 public class ExceptionUtils {
 
-    public static String stackTraceAsString(Exception ex) {
-	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-	PrintStream ps = new PrintStream(bos);
-	ex.printStackTrace(ps);
-	ps.flush();
-	ps.close();
-	return bos.toString();
-    }
+	public static String stackTraceAsString(Exception ex) {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		PrintStream ps = new PrintStream(bos);
+		ex.printStackTrace(ps);
+		ps.flush();
+		ps.close();
+		return bos.toString();
+	}
 
 }

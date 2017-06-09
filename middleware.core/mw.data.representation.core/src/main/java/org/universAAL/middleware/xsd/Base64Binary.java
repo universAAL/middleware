@@ -31,81 +31,81 @@ import org.universAAL.middleware.xsd.util.Base64;
  * @see <a href="http://www.w3.org/TR/xmlschema-2/#base64Binary">XML Schema</a>
  */
 public final class Base64Binary {
-    public static final String MY_URI = TypeMapper.XSD_NAMESPACE + "base64Binary";
+	public static final String MY_URI = TypeMapper.XSD_NAMESPACE + "base64Binary";
 
-    private String encodedVal = null;
-    private byte[] val = null;
+	private String encodedVal = null;
+	private byte[] val = null;
 
-    /**
-     * Constructor for the decoded value (the binary data).
-     *
-     * @param val
-     *            the binary data.
-     */
-    public Base64Binary(byte[] val) {
-	if (val == null)
-	    throw new NullPointerException();
-	this.val = val;
-    }
-
-    /**
-     * Constructor for the encoded value (the Base64 value).
-     *
-     * @param val
-     *            the encoded data.
-     */
-    public Base64Binary(String encodedVal) {
-	if (encodedVal == null)
-	    throw new NullPointerException();
-	this.encodedVal = encodedVal;
-    }
-
-    /**
-     * Get the length of the decoded value (the binary value).
-     *
-     * @return the length of the decoded value.
-     */
-    public int getDecodedLength() {
-	if (val == null)
-	    val = decode(encodedVal);
-
-	return val.length;
-    }
-
-    @Override
-    public String toString() {
-	if (encodedVal == null)
-	    encodedVal = encode(val);
-	return encodedVal;
-    }
-
-    public byte[] getVal() {
-	if (val == null)
-	    val = decode(encodedVal);
-	return val;
-    }
-
-    public static String encode(byte[] val) {
-	return Base64.encodeBytes(val);
-    }
-
-    public static byte[] decode(String encodedVal) {
-	try {
-	    return Base64.decode(encodedVal);
-	} catch (IOException e) {
-	    e.printStackTrace();
+	/**
+	 * Constructor for the decoded value (the binary data).
+	 *
+	 * @param val
+	 *            the binary data.
+	 */
+	public Base64Binary(byte[] val) {
+		if (val == null)
+			throw new NullPointerException();
+		this.val = val;
 	}
-	return null;
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (!(obj instanceof Base64Binary))
-	    return false;
-	if (this.toString().equals(obj.toString()))
-	    return true;
-	return false;
-    }
+	/**
+	 * Constructor for the encoded value (the Base64 value).
+	 *
+	 * @param val
+	 *            the encoded data.
+	 */
+	public Base64Binary(String encodedVal) {
+		if (encodedVal == null)
+			throw new NullPointerException();
+		this.encodedVal = encodedVal;
+	}
+
+	/**
+	 * Get the length of the decoded value (the binary value).
+	 *
+	 * @return the length of the decoded value.
+	 */
+	public int getDecodedLength() {
+		if (val == null)
+			val = decode(encodedVal);
+
+		return val.length;
+	}
+
+	@Override
+	public String toString() {
+		if (encodedVal == null)
+			encodedVal = encode(val);
+		return encodedVal;
+	}
+
+	public byte[] getVal() {
+		if (val == null)
+			val = decode(encodedVal);
+		return val;
+	}
+
+	public static String encode(byte[] val) {
+		return Base64.encodeBytes(val);
+	}
+
+	public static byte[] decode(String encodedVal) {
+		try {
+			return Base64.decode(encodedVal);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Base64Binary))
+			return false;
+		if (this.toString().equals(obj.toString()))
+			return true;
+		return false;
+	}
 }

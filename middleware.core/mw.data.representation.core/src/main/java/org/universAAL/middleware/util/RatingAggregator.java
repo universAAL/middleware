@@ -33,64 +33,64 @@ import org.universAAL.middleware.owl.supply.Rating;
  */
 public final class RatingAggregator {
 
-    /** The average. */
-    private Rating avg;
+	/** The average. */
+	private Rating avg;
 
-    /** The minimum. */
-    private Rating min;
+	/** The minimum. */
+	private Rating min;
 
-    /** The maximum. */
-    private Rating max;
+	/** The maximum. */
+	private Rating max;
 
-    /** The number of Ratings. */
-    private int num = 0;
+	/** The number of Ratings. */
+	private int num = 0;
 
-    /** The sum. */
-    private int sum = 0;
+	/** The sum. */
+	private int sum = 0;
 
-    /** Create a new instance. */
-    public RatingAggregator() {
-    }
-
-    /** Add a new Rating. */
-    public RatingAggregator addRating(Rating r) {
-	if (r != null) {
-	    sum += r.ord();
-	    num++;
-
-	    if (num == 1)
-		max = min = r;
-	    else if (max.ord() < r.ord())
-		max = r;
-	    else if (min.ord() > r.ord())
-		min = r;
-
-	    int a = sum / num;
-	    if ((sum % num) << 1 >= num)
-		a++;
-	    avg = Rating.getRatingByOrder(a);
+	/** Create a new instance. */
+	public RatingAggregator() {
 	}
 
-	return this;
-    }
+	/** Add a new Rating. */
+	public RatingAggregator addRating(Rating r) {
+		if (r != null) {
+			sum += r.ord();
+			num++;
 
-    /** Get the average value. */
-    public Rating getAverage() {
-	return avg;
-    }
+			if (num == 1)
+				max = min = r;
+			else if (max.ord() < r.ord())
+				max = r;
+			else if (min.ord() > r.ord())
+				min = r;
 
-    /** Get the maximum value. */
-    public Rating getMax() {
-	return max;
-    }
+			int a = sum / num;
+			if ((sum % num) << 1 >= num)
+				a++;
+			avg = Rating.getRatingByOrder(a);
+		}
 
-    /** Get the minimum value. */
-    public Rating getMin() {
-	return min;
-    }
+		return this;
+	}
 
-    /** Get the number of Ratings. */
-    public int getNumberOfRatings() {
-	return num;
-    }
+	/** Get the average value. */
+	public Rating getAverage() {
+		return avg;
+	}
+
+	/** Get the maximum value. */
+	public Rating getMax() {
+		return max;
+	}
+
+	/** Get the minimum value. */
+	public Rating getMin() {
+		return min;
+	}
+
+	/** Get the number of Ratings. */
+	public int getNumberOfRatings() {
+		return num;
+	}
 }

@@ -29,14 +29,14 @@ import org.universAAL.middleware.owl.TypeURI;
  */
 public class ConfigurationFileTypePattern implements EntityPattern {
 
-    /**
-     * The URI of the ConfigurationFile Ontology type
-     */
-    private static String URI = "http://ontology.universAAL.org/AALConfigurationOntology#ConfigurationFile";
+	/**
+	 * The URI of the ConfigurationFile Ontology type
+	 */
+	private static String URI = "http://ontology.universAAL.org/AALConfigurationOntology#ConfigurationFile";
 
-    /** {@ inheritDoc} */
-    public TypeExpression getRestriction() {
-	return new TypeURI(URI, false);
-    }
+	/** {@ inheritDoc} */
+	public TypeExpression getRestriction() {
+		return new TypeURI(URI, false);
+	}
 
 }

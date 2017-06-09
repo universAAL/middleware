@@ -35,23 +35,23 @@ import org.universAAL.middleware.context.impl.ContextStrategy.ContextFilterer;
  */
 public class FiltererContainerData extends AbstractFiltererContainer {
 
-    private Vector filterers = new Vector();
+	private Vector filterers = new Vector();
 
-    public FiltererContainerData(String containerKey) {
-	super(containerKey);
-    }
+	public FiltererContainerData(String containerKey) {
+		super(containerKey);
+	}
 
-    public void addFilterer(ContextFilterer contextFilterer) {
-	filterers.add(contextFilterer);
-    }
+	public void addFilterer(ContextFilterer contextFilterer) {
+		filterers.add(contextFilterer);
+	}
 
-    public Vector getFilterers() {
-	return filterers;
-    }
+	public Vector getFilterers() {
+		return filterers;
+	}
 
-    public void removeFilterers(ContextSubscriber subscriber) {
-	for (Iterator i = filterers.iterator(); i.hasNext();)
-	    if (((ContextFilterer) i.next()).s == subscriber)
-		i.remove();
-    }
+	public void removeFilterers(ContextSubscriber subscriber) {
+		for (Iterator i = filterers.iterator(); i.hasNext();)
+			if (((ContextFilterer) i.next()).s == subscriber)
+				i.remove();
+	}
 }

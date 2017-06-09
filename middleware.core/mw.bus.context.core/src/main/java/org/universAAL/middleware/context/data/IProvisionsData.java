@@ -31,7 +31,7 @@ import org.universAAL.middleware.context.ContextPublisher;
  */
 public interface IProvisionsData {
 
-    void addProvision(ContextPublisher contextPublisher);
+	void addProvision(ContextPublisher contextPublisher);
 
-    boolean exist(ContextPublisher contextPublisher);
+	boolean exist(ContextPublisher contextPublisher);
 }

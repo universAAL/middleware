@@ -28,33 +28,32 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  */
 public class TestFactory implements ResourceFactory {
 
-    public TestFactory() {
-    }
-
-    public Resource createInstance(String classURI, String instanceURI,
-	    int factoryIndex) {
-
-	switch (factoryIndex) {
-	case 0:
-	    return new Device(instanceURI);
-	case 1:
-	    return new Lamp(instanceURI);
-	case 2:
-	    return new DeviceService(instanceURI);
-	case 3:
-	    return new LampService(instanceURI);
-	case 4:
-	    return new PhysicalThing(instanceURI);
-	case 5:
-	    return new Location(instanceURI);
-	case 6:
-	    return new IndoorPlace(instanceURI);
-	case 7:
-	    return new OutdoorPlace(instanceURI);
-	case 8:
-	    return new Room(instanceURI);
+	public TestFactory() {
 	}
 
-	return null;
-    }
+	public Resource createInstance(String classURI, String instanceURI, int factoryIndex) {
+
+		switch (factoryIndex) {
+		case 0:
+			return new Device(instanceURI);
+		case 1:
+			return new Lamp(instanceURI);
+		case 2:
+			return new DeviceService(instanceURI);
+		case 3:
+			return new LampService(instanceURI);
+		case 4:
+			return new PhysicalThing(instanceURI);
+		case 5:
+			return new Location(instanceURI);
+		case 6:
+			return new IndoorPlace(instanceURI);
+		case 7:
+			return new OutdoorPlace(instanceURI);
+		case 8:
+			return new Room(instanceURI);
+		}
+
+		return null;
+	}
 }

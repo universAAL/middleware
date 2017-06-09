@@ -28,27 +28,27 @@ import java.util.Dictionary;
  */
 public interface Module {
 
-    public String getDescription();
+	public String getDescription();
 
-    public String getProvider();
+	public String getProvider();
 
-    public String getVersion();
+	public String getVersion();
 
-    public String getName();
+	public String getName();
 
-    public void loadConfigurations(Dictionary configurations);
+	public void loadConfigurations(Dictionary configurations);
 
-    /**
-     * Routine in order to release resources
-     */
-    public void dispose();
+	/**
+	 * Routine in order to release resources
+	 */
+	public void dispose();
 
-    /**
-     * Initialize the module. This method should be called after the loading the
-     * configurations.
-     * 
-     * @return
-     */
-    public boolean init();
+	/**
+	 * Initialize the module. This method should be called after the loading the
+	 * configurations.
+	 * 
+	 * @return
+	 */
+	public boolean init();
 
 }

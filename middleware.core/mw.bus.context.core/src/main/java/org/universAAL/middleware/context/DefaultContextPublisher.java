@@ -31,24 +31,23 @@ import org.universAAL.middleware.context.owl.ContextProvider;
  */
 public class DefaultContextPublisher extends ContextPublisher {
 
-    /**
-     * Creates a default Context Publisher with the given Provider Information.
-     * 
-     * @param context
-     *            The context of the Bundle creating the Publisher
-     * @param providerInfo
-     *            The Information describing the Publisher
-     */
-    public DefaultContextPublisher(ModuleContext context,
-	    ContextProvider providerInfo) {
-	super(context, providerInfo);
-    }
+	/**
+	 * Creates a default Context Publisher with the given Provider Information.
+	 * 
+	 * @param context
+	 *            The context of the Bundle creating the Publisher
+	 * @param providerInfo
+	 *            The Information describing the Publisher
+	 */
+	public DefaultContextPublisher(ModuleContext context, ContextProvider providerInfo) {
+		super(context, providerInfo);
+	}
 
-    /**
-     * @see org.universAAL.middleware.context.ContextPublisher#communicationChannelBroken()
-     *      Currently does nothing.
-     */
-    public void communicationChannelBroken() {
-    }
+	/**
+	 * @see org.universAAL.middleware.context.ContextPublisher#communicationChannelBroken()
+	 *      Currently does nothing.
+	 */
+	public void communicationChannelBroken() {
+	}
 
 }

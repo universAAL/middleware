@@ -27,13 +27,15 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
  * describes single offering, mostly used for devices and platforms
  *
- * <p>Java class for capabilityType complex type.
+ * <p>
+ * Java class for capabilityType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="capabilityType">
@@ -51,74 +53,63 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "capabilityType", propOrder = {
-    "name",
-    "value"
-})
-public class CapabilityType
-    implements Serializable
-{
+@XmlType(name = "capabilityType", propOrder = { "name", "value" })
+public class CapabilityType implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(required = true)
-    protected String name;
-    @XmlElement(required = true)
-    protected String value;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(required = true)
+	protected String name;
+	@XmlElement(required = true)
+	protected String value;
 
-    /**
-     * Gets the value of the name property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Gets the value of the name property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Sets the value of the name property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+	/**
+	 * Sets the value of the name property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
 
-    public boolean isSetName() {
-        return (this.name!= null);
-    }
+	public boolean isSetName() {
+		return (this.name != null);
+	}
 
-    /**
-     * Gets the value of the value property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getValue() {
-        return value;
-    }
+	/**
+	 * Gets the value of the value property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getValue() {
+		return value;
+	}
 
-    /**
-     * Sets the value of the value property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+	/**
+	 * Sets the value of the value property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-    public boolean isSetValue() {
-        return (this.value!= null);
-    }
+	public boolean isSetValue() {
+		return (this.value != null);
+	}
 
 }

@@ -27,30 +27,29 @@ public class ScopedResourceTest extends TestCase {
 		ScopedResource sr = new ScopedResource();
 		assertFalse(sr.isSerializableTo(null));
 		assertTrue(sr.isSerializableTo("1"));
-		
+
 		sr.addScope(ScopedResource.ONLY_LOCAL_SCOPE);
 		assertFalse(sr.isSerializableTo("1"));
-		
+
 		sr.clearScopes();
 		assertFalse(sr.isSerializableTo(null));
 		assertTrue(sr.isSerializableTo("1"));
-		
+
 		sr.addScope("1");
 		assertTrue(sr.isSerializableTo("1"));
 		assertFalse(sr.isSerializableTo("2"));
-		
+
 		sr.clearScopes();
 		sr.setOriginScope("1");
 		assertFalse(sr.isSerializableTo("1"));
 		assertTrue(sr.isSerializableTo("2"));
-		
+
 		sr.addScope("1");
 		assertFalse(sr.isSerializableTo("1"));
 		assertFalse(sr.isSerializableTo("2"));
-		
-		
+
 	}
-	
+
 	public void test_isScoped() {
 		ScopedResource sr = new ScopedResource();
 		assertFalse(sr.isScoped());
@@ -62,18 +61,18 @@ public class ScopedResourceTest extends TestCase {
 		assertFalse(sr.isScoped());
 		sr.addScope(ScopedResource.ONLY_LOCAL_SCOPE);
 		assertTrue(sr.isScoped());
-		
+
 	}
-	
-	public void test_Origin(){
+
+	public void test_Origin() {
 		ScopedResource sr = new ScopedResource();
-		assertEquals(null,sr.getOriginScope());
+		assertEquals(null, sr.getOriginScope());
 		sr.setOriginScope("1");
 		assertEquals("1", sr.getOriginScope());
 		sr.setOriginScope("2");
 		assertEquals("2", sr.getOriginScope());
 		sr.setOriginScope(null);
 		assertEquals(null, sr.getOriginScope());
-		
+
 	}
 }

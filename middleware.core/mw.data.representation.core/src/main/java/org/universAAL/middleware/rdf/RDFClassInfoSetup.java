@@ -37,56 +37,56 @@ import org.universAAL.middleware.owl.Ontology;
  */
 public interface RDFClassInfoSetup {
 
-    /**
-     * Add a super class. Roughly speaking, this states that this class is more
-     * specific than the given class expression.
-     *
-     * @param superClass
-     *            The super class.
-     */
-    public void addSuperClass(TypeExpression superClass);
+	/**
+	 * Add a super class. Roughly speaking, this states that this class is more
+	 * specific than the given class expression.
+	 *
+	 * @param superClass
+	 *            The super class.
+	 */
+	public void addSuperClass(TypeExpression superClass);
 
-    /**
-     * Add a super class. Instances of this class are also instances of the
-     * class specified by <code>superClassURI</code>. A class can have multiple
-     * super classes. Properties that are defined in the super class are also
-     * available in the sub class.
-     *
-     * @param superClassURI
-     *            URI of the super class
-     */
-    public void addSuperClass(String superClassURI);
+	/**
+	 * Add a super class. Instances of this class are also instances of the
+	 * class specified by <code>superClassURI</code>. A class can have multiple
+	 * super classes. Properties that are defined in the super class are also
+	 * available in the sub class.
+	 *
+	 * @param superClassURI
+	 *            URI of the super class
+	 */
+	public void addSuperClass(String superClassURI);
 
-    /**
-     * Add an instance of this class.
-     *
-     * @param instance
-     *            The instance to add.
-     */
-    public void addInstance(Resource instance);
+	/**
+	 * Add an instance of this class.
+	 *
+	 * @param instance
+	 *            The instance to add.
+	 */
+	public void addInstance(Resource instance);
 
-    /**
-     * Get the {@link RDFClassInfo} for this setup.
-     *
-     * @return the info object.
-     */
-    public RDFClassInfo getInfo();
+	/**
+	 * Get the {@link RDFClassInfo} for this setup.
+	 *
+	 * @return the info object.
+	 */
+	public RDFClassInfo getInfo();
 
-    /**
-     * Set the resource comment which may be used to provide a human-readable
-     * description of a resource to clarify the meaning of this class.
-     *
-     * @param comment
-     *            The comment of the resource.
-     */
-    public void setResourceComment(String comment);
+	/**
+	 * Set the resource comment which may be used to provide a human-readable
+	 * description of a resource to clarify the meaning of this class.
+	 *
+	 * @param comment
+	 *            The comment of the resource.
+	 */
+	public void setResourceComment(String comment);
 
-    /**
-     * Set the resource label which may be used to provide a human-readable
-     * version of a resource's name.
-     *
-     * @param label
-     *            The label of the resource.
-     */
-    public void setResourceLabel(String label);
+	/**
+	 * Set the resource label which may be used to provide a human-readable
+	 * version of a resource's name.
+	 *
+	 * @param label
+	 *            The label of the resource.
+	 */
+	public void setResourceLabel(String label);
 }

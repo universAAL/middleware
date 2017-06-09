@@ -48,57 +48,56 @@ import org.universAAL.middleware.ui.rdf.TextArea;
  */
 public class UIBusFactory implements ResourceFactory {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance
-     * (java.lang.String, java.lang.String, int)
-     */
-    public Resource createInstance(String classURI, String instanceURI,
-	    int factoryIndex) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance
+	 * (java.lang.String, java.lang.String, int)
+	 */
+	public Resource createInstance(String classURI, String instanceURI, int factoryIndex) {
 
-	switch (factoryIndex) {
-	case 0:
-	    return new UIHandlerProfile();
-	case 1:
-	    return new UIRequest();
-	case 2:
-	    return new UIResponse();
-	case 3:
-	    return new AccessImpairment();
-	case 4:
-	    return new Label();
-	case 5:
-	    return new ChoiceItem();
-	case 6:
-	    return new ChoiceList();
-	case 7:
-	    return new Form(instanceURI);
-	case 8:
-	    return new Group();
-	case 9:
-	    return new Select();
-	case 10:
-	    return new Select1();
-	case 11:
-	    return new InputField();
-	case 12:
-	    return new SimpleOutput();
-	case 13:
-	    return new TextArea();
-	case 14:
-	    return new Submit();
-	case 15:
-	    return new SubdialogTrigger();
-	case 16:
-	    return new Repeat();
-	case 17:
-	    return new MediaObject();
-	case 18:
-	    return new Range();
+		switch (factoryIndex) {
+		case 0:
+			return new UIHandlerProfile();
+		case 1:
+			return new UIRequest();
+		case 2:
+			return new UIResponse();
+		case 3:
+			return new AccessImpairment();
+		case 4:
+			return new Label();
+		case 5:
+			return new ChoiceItem();
+		case 6:
+			return new ChoiceList();
+		case 7:
+			return new Form(instanceURI);
+		case 8:
+			return new Group();
+		case 9:
+			return new Select();
+		case 10:
+			return new Select1();
+		case 11:
+			return new InputField();
+		case 12:
+			return new SimpleOutput();
+		case 13:
+			return new TextArea();
+		case 14:
+			return new Submit();
+		case 15:
+			return new SubdialogTrigger();
+		case 16:
+			return new Repeat();
+		case 17:
+			return new MediaObject();
+		case 18:
+			return new Range();
+		}
+
+		return null;
 	}
-
-	return null;
-    }
 }

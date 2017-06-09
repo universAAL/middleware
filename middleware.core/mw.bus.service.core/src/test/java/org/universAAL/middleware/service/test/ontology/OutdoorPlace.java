@@ -28,26 +28,26 @@ package org.universAAL.middleware.service.test.ontology;
  */
 public class OutdoorPlace extends Location {
 
-    public static final String MY_URI = TestOntology.NAMESPACE + "OutdoorPlace";
+	public static final String MY_URI = TestOntology.NAMESPACE + "OutdoorPlace";
 
-    /**
-     * Creates a Place object
-     * 
-     * @param uri
-     *            the object URI
-     */
-    public OutdoorPlace(String uri) {
-	super(uri);
-    }
+	/**
+	 * Creates a Place object
+	 * 
+	 * @param uri
+	 *            the object URI
+	 */
+	public OutdoorPlace(String uri) {
+		super(uri);
+	}
 
-    /**
-     * Creates a Place object
-     */
-    public OutdoorPlace() {
-	super();
-    }
+	/**
+	 * Creates a Place object
+	 */
+	public OutdoorPlace() {
+		super();
+	}
 
-    public String getClassURI() {
-	return MY_URI;
-    }
+	public String getClassURI() {
+		return MY_URI;
+	}
 }

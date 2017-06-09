@@ -32,42 +32,42 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
  */
 public interface AALSpaceListener {
 
-    /**
-     * Called as soon as am AALSpace has been joined
-     * 
-     * @param spaceDescriptor
-     *            Space desce
-     */
-    public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor);
+	/**
+	 * Called as soon as am AALSpace has been joined
+	 * 
+	 * @param spaceDescriptor
+	 *            Space desce
+	 */
+	public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor);
 
-    /**
-     * Called as soon as an AALSpace has been left
-     * 
-     * @param spaceDescriptor
-     *            Space desce
-     */
-    public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor);
+	/**
+	 * Called as soon as an AALSpace has been left
+	 * 
+	 * @param spaceDescriptor
+	 *            Space desce
+	 */
+	public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor);
 
-    /**
-     * Called when a peers joins the AALSpace
-     * 
-     * @param peer
-     *            PeerCard
-     */
-    public void newPeerJoined(PeerCard peer);
+	/**
+	 * Called when a peers joins the AALSpace
+	 * 
+	 * @param peer
+	 *            PeerCard
+	 */
+	public void newPeerJoined(PeerCard peer);
 
-    /**
-     * Called when a Peer leaves the AALSpace
-     * 
-     * @param peer
-     */
-    public void peerLost(PeerCard peer);
+	/**
+	 * Called when a Peer leaves the AALSpace
+	 * 
+	 * @param peer
+	 */
+	public void peerLost(PeerCard peer);
 
-    /**
-     * Called when the AALSpace changes status
-     * 
-     * @param status
-     */
-    public void aalSpaceStatusChanged(AALSpaceStatus status);
+	/**
+	 * Called when the AALSpace changes status
+	 * 
+	 * @param status
+	 */
+	public void aalSpaceStatusChanged(AALSpaceStatus status);
 
 }

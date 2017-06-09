@@ -48,27 +48,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum SpaceType {
 
-    @XmlEnumValue("HomeSpace")
-    HOME_SPACE("HomeSpace"), @XmlEnumValue("MarketSpace")
-    MARKET_SPACE("MarketSpace"), @XmlEnumValue("CarSpace")
-    CAR_SPACE("CarSpace");
-    private final String value;
+	@XmlEnumValue("HomeSpace")
+	HOME_SPACE("HomeSpace"), @XmlEnumValue("MarketSpace")
+	MARKET_SPACE("MarketSpace"), @XmlEnumValue("CarSpace")
+	CAR_SPACE("CarSpace");
+	private final String value;
 
-    SpaceType(String v) {
-	value = v;
-    }
-
-    public String value() {
-	return value;
-    }
-
-    public static SpaceType fromValue(String v) {
-	for (SpaceType c : SpaceType.values()) {
-	    if (c.value.equals(v)) {
-		return c;
-	    }
+	SpaceType(String v) {
+		value = v;
 	}
-	throw new IllegalArgumentException(v);
-    }
+
+	public String value() {
+		return value;
+	}
+
+	public static SpaceType fromValue(String v) {
+		for (SpaceType c : SpaceType.values()) {
+			if (c.value.equals(v)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(v);
+	}
 
 }

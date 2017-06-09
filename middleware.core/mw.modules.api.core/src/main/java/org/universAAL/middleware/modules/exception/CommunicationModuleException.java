@@ -29,37 +29,36 @@ package org.universAAL.middleware.modules.exception;
  */
 public class CommunicationModuleException extends RuntimeException {
 
-    private String description;
+	private String description;
 
-    public String getDescription() {
-	return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-	this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public short getErrorCode() {
-	return errorCode;
-    }
+	public short getErrorCode() {
+		return errorCode;
+	}
 
-    public void setErrorCode(short errorCode) {
-	this.errorCode = errorCode;
-    }
+	public void setErrorCode(short errorCode) {
+		this.errorCode = errorCode;
+	}
 
-    private short errorCode;
+	private short errorCode;
 
-    public CommunicationModuleException(short errorCode, String description) {
-	super(description);
-	this.description = description;
-	this.errorCode = errorCode;
-    }
+	public CommunicationModuleException(short errorCode, String description) {
+		super(description);
+		this.description = description;
+		this.errorCode = errorCode;
+	}
 
-    public CommunicationModuleException(short errorCode, String description,
-	    Throwable t) {
-	super(description, t);
-	this.description = description;
-	this.errorCode = errorCode;
-    }
+	public CommunicationModuleException(short errorCode, String description, Throwable t) {
+		super(description, t);
+		this.description = description;
+		this.errorCode = errorCode;
+	}
 
 }

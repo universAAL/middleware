@@ -31,7 +31,7 @@ package org.universAAL.middleware.connectors.communication.jgroups.util;
  */
 public class Consts {
 
-    public static final String ENABLE_REMOTE_CHANNEL_URL_CONFIG = "remoteChannelConfigURL";
-    public static final String ENABLE_REMOTE_CHANNEL_CONFIG = "remoteChannelConfig";
+	public static final String ENABLE_REMOTE_CHANNEL_URL_CONFIG = "remoteChannelConfigURL";
+	public static final String ENABLE_REMOTE_CHANNEL_CONFIG = "remoteChannelConfig";
 
 }

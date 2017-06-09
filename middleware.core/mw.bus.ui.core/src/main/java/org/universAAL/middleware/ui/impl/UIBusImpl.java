@@ -58,319 +58,291 @@ import org.universAAL.middleware.util.ResourceComparator;
  * 
  */
 public class UIBusImpl extends AbstractBus implements IUIBus {
-    private static Object[] busFetchParams;
-    private static UIBusImpl theUIBus = null;
-    private static UIBusOntology uiBusOntology = null;
-    private static ModuleContext mc;
+	private static Object[] busFetchParams;
+	private static UIBusImpl theUIBus = null;
+	private static UIBusOntology uiBusOntology = null;
+	private static ModuleContext mc;
 
-    public static Object[] getUIBusFetchParams() {
-	return busFetchParams.clone();
-    }
-
-    public synchronized void assessContentSerialization(Resource content) {
-	if (org.universAAL.middleware.util.Constants.debugMode()) {
-	    LogUtils.logDebug(
-		    context,
-		    UIBusImpl.class,
-		    "assessContentSerialization",
-		    new Object[] { "Assessing message content serialization:" },
-		    null);
-
-	    String str = BusMessage.trySerializationAsContent(content);
-	    LogUtils.logDebug(
-		    context,
-		    UIBusImpl.class,
-		    "assessContentSerialization",
-		    new Object[] { "\n      1. serialization dump\n", str,
-			    "\n      2. deserialize & compare with the original resource\n" },
-		    null);
-	    new ResourceComparator().printDiffs(content,
-		    (Resource) BusMessage.deserializeAsContent(str));
+	public static Object[] getUIBusFetchParams() {
+		return busFetchParams.clone();
 	}
-    }
 
-    public static synchronized void startModule(Container c, ModuleContext mc,
-	    Object[] uiBusShareParams, Object[] uiBusFetchParams) {
-	if (theUIBus == null) {
-	    UIBusImpl.mc = mc;
-	    uiBusOntology = new UIBusOntology();
-	    OntologyManagement.getInstance().register(mc, uiBusOntology);
-	    theUIBus = new UIBusImpl(mc);
-	    busFetchParams = uiBusFetchParams;
-	    c.shareObject(mc, theUIBus, uiBusShareParams);
+	public synchronized void assessContentSerialization(Resource content) {
+		if (org.universAAL.middleware.util.Constants.debugMode()) {
+			LogUtils.logDebug(context, UIBusImpl.class, "assessContentSerialization",
+					new Object[] { "Assessing message content serialization:" }, null);
+
+			String str = BusMessage.trySerializationAsContent(content);
+			LogUtils.logDebug(context, UIBusImpl.class, "assessContentSerialization",
+					new Object[] { "\n      1. serialization dump\n", str,
+							"\n      2. deserialize & compare with the original resource\n" },
+					null);
+			new ResourceComparator().printDiffs(content, (Resource) BusMessage.deserializeAsContent(str));
+		}
 	}
-    }
 
-    public static void stopModule() {
-//	new Thread(new Runnable() {
-//	    public void run() {
+	public static synchronized void startModule(Container c, ModuleContext mc, Object[] uiBusShareParams,
+			Object[] uiBusFetchParams) {
+		if (theUIBus == null) {
+			UIBusImpl.mc = mc;
+			uiBusOntology = new UIBusOntology();
+			OntologyManagement.getInstance().register(mc, uiBusOntology);
+			theUIBus = new UIBusImpl(mc);
+			busFetchParams = uiBusFetchParams;
+			c.shareObject(mc, theUIBus, uiBusShareParams);
+		}
+	}
+
+	public static void stopModule() {
+		// new Thread(new Runnable() {
+		// public void run() {
 		if (theUIBus != null) {
-		    ((UIStrategyCaller) theUIBus.busStrategy).close();
-		    OntologyManagement.getInstance().unregister(mc,
-			    uiBusOntology);
-		    uiBusOntology = null;
-		    theUIBus.dispose();
-		    theUIBus = null;
+			((UIStrategyCaller) theUIBus.busStrategy).close();
+			OntologyManagement.getInstance().unregister(mc, uiBusOntology);
+			uiBusOntology = null;
+			theUIBus.dispose();
+			theUIBus = null;
 		}
-//	    }
-//	}, "UIBusStoppingThread").start();
-    }
-
-    /**
-     * Create an instance of the {@link IUIBus}.
-     * 
-     * @param mc
-     *            {@link ModuleContext}
-     */
-    private UIBusImpl(ModuleContext mc) {
-	super(mc, "mw.bus.ui.osgi");
-	busStrategy.setBus(this);
-    }
-
-    /**
-     * @return {@link ModuleContext}
-     */
-    public static ModuleContext getModuleContext() {
-	return mc;
-    }
-
-    protected BusStrategy createBusStrategy(CommunicationModule commModule) {
-	// return new UIStrategyCaller(commModule);
-	return new UIStrategyCaller(commModule, "UIBusStrategy");
-    }
-
-    /**
-     * @param dm
-     *            {@link IDialogManager}
-     */
-    public void setDialogManager(IDialogManager dm) {
-	if (!((UIStrategyCaller) busStrategy).setDialogManager(dm))
-	    throw new RuntimeException("Could not set DialogManager");
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.ui.IUIBus#abortDialog(java.lang.String,
-     * java.lang.String)
-     */
-    public void abortDialog(String callerID, String dialogID) {
-	BusMember bm = getBusMember(callerID);
-	if (bm instanceof UICaller) {
-	    ((UIStrategyCaller) busStrategy).abortDialog(callerID, dialogID);
-	}
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.ui.IUIBus#adaptationParametersChanged(org.
-     * universAAL .middleware.ui.DialogManager,
-     * org.universAAL.middleware.ui.UIRequest, java.lang.String)
-     */
-    public void adaptationParametersChanged(IDialogManager dm,
-	    UIRequest uiRequest, String changedProp) {
-	((UIStrategyCaller) busStrategy).adaptationParametersChanged(dm,
-		uiRequest, changedProp);
-    }
-
-    // public UIHandlerProfile getMatchingUiHandler(){
-    // return ((UIStrategyCaller) busStrategy).get
-    // }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.ui.IUIBus#addNewProfile(java.lang.String,
-     * org.universAAL.middleware.ui.UIHandlerProfile)
-     */
-    public void addNewProfile(String handlerID, UIHandlerProfile newProfile) {
-	Object o = registry.getBusMemberByID(handlerID);
-	if (o instanceof UIHandler) {
-	    ((UIStrategyCaller) busStrategy).addRegistration(handlerID,
-		    newProfile);
-	    registry.addRegParams(handlerID,
-		    new UIHandlerProfile[] { newProfile });
-	}
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.ui.IUIBus#dialogFinished(java.lang.String,
-     * org.universAAL.middleware.ui.UIResponse)
-     */
-    public void dialogFinished(String handlerID, UIResponse response) {
-	if (response != null) {
-	    ((UIStrategyCaller) busStrategy)
-		    .dialogFinished(handlerID, response);
-	}
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.universAAL.middleware.ui.IUIBus#dialogSuspended(org.universAAL.middleware
-     * .ui.DialogManager, java.lang.String)
-     */
-    public void dialogSuspended(IDialogManager dm, String dialogID) {
-	((UIStrategyCaller) busStrategy).dialogSuspended(dm, dialogID);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.universAAL.middleware.ui.IUIBus#removeMatchingProfile(java.lang.String
-     * , org.universAAL.middleware.ui.UIHandlerProfile)
-     */
-    public void removeMatchingProfile(String handlerID,
-	    UIHandlerProfile oldProfile) {
-	Object o = registry.getBusMemberByID(handlerID);
-	if (o instanceof UIHandler) {
-	    ((UIStrategyCaller) busStrategy).removeMatchingRegistries(
-		    handlerID, oldProfile);
-	    registry.removeRegParams(handlerID,
-		    new UIHandlerProfile[] { oldProfile });
-	}
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.ui.IUIBus#resumeDialog(java.lang.String,
-     * java.lang.String, org.universAAL.middleware.rdf.Resource)
-     */
-    public void resumeDialog(String callerID, String dialogID,
-	    Resource dialogData) {
-	BusMember bm = getBusMember(callerID);
-	if (bm instanceof IDialogManager && dialogData instanceof UIRequest) {
-	    ((UIStrategyCaller) busStrategy).adaptationParametersChanged(
-		    (IDialogManager) bm, (UIRequest) dialogData, null);
-	} else if (bm instanceof UICaller) {
-	    ((UIStrategyCaller) busStrategy).resumeDialog(dialogID, dialogData);
-	}
-    }
-
-    /**
-     * 
-     * Asks the bus to find an appropriate UI handler and forward the request to
-     * it for handling
-     * 
-     * @see org.universAAL.middleware.ui.IUIBus#brokerUIRequest(java.lang.String,
-     *      org.universAAL.middleware.ui.UIRequest)
-     * 
-     * @param callerID
-     *            the ID of the UICaller that is asking the bus
-     * @param req
-     *            the request to be forwarded to a UI handler
-     * 
-     */
-    public void brokerUIRequest(String callerID, UIRequest req) {
-	BusMember bm = getBusMember(callerID);
-	if (bm instanceof UICaller) {
-	    UIRequestCall call = ((UIStrategyCaller) busStrategy).new UIRequestCall(
-		    req, callerID);
-	    assessContentSerialization(call);
-	    brokerMessage(callerID, new BusMessage(MessageType.request, call,
-		    this));
-	}
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.ui.IUIBus#unregister(java.lang.String,
-     * org.universAAL.middleware.ui.UICaller)
-     */
-    public void unregister(String callerID, UICaller caller) {
-	((UIStrategyCaller) busStrategy).abortAllPendingRequestsFor(caller);
-	if (caller instanceof IDialogManager) {
-	    setDialogManager(null);
-	}
-	super.unregister(callerID, caller);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.ui.IUIBus#unregister(java.lang.String,
-     * org.universAAL.middleware.ui.UIHandler)
-     */
-    public void unregister(String handlerID, UIHandler handler) {
-	Object o = registry.getBusMemberByID(handlerID);
-	if (o != null && o == handler) {
-	    super.unregister(handlerID, handler);
-	    ((UIStrategyCaller) busStrategy).removeAllRegistries(handlerID);
-	}
-    }
-
-    @Override
-    public void unregister(String memberID, BusMember m) {
-	if (m instanceof UICaller)
-	    unregister(memberID, (UICaller) m);
-	else if (m instanceof UIHandler)
-	    unregister(memberID, (UIHandler) m);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.ui.IUIBus#userLoggedIn(java.lang.String,
-     * org.universAAL.middleware.rdf.Resource,
-     * org.universAAL.middleware.owl.supply.AbsLocation)
-     */
-    public void userLoggedIn(String handlerID, Resource user,
-	    AbsLocation loginLocation) {
-	Object o = registry.getBusMemberByID(handlerID);
-	if (o instanceof UIHandler && user != null) {
-	    ((UIStrategyCaller) busStrategy).userLoggedIn(handlerID, user,
-		    loginLocation);
+		// }
+		// }, "UIBusStoppingThread").start();
 	}
 
-    }
+	/**
+	 * Create an instance of the {@link IUIBus}.
+	 * 
+	 * @param mc
+	 *            {@link ModuleContext}
+	 */
+	private UIBusImpl(ModuleContext mc) {
+		super(mc, "mw.bus.ui.osgi");
+		busStrategy.setBus(this);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.universAAL.middleware.modules.listener.MessageListener#handleSendError
-     * (org.universAAL.middleware.connectors.util.ChannelMessage,
-     * org.universAAL.
-     * middleware.connectors.exception.CommunicationConnectorException)
-     */
-    public void handleSendError(ChannelMessage message,
-	    CommunicationConnectorException e) {
-	// TODO Auto-generated method stub
+	/**
+	 * @return {@link ModuleContext}
+	 */
+	public static ModuleContext getModuleContext() {
+		return mc;
+	}
 
-    }
+	protected BusStrategy createBusStrategy(CommunicationModule commModule) {
+		// return new UIStrategyCaller(commModule);
+		return new UIStrategyCaller(commModule, "UIBusStrategy");
+	}
 
-    /**
-     * Returns list of {@link UIHandlerProfile}s that match the given expression
-     */
-    public UIHandlerProfile[] getMatchingProfiles(String modalityRegex) {
-	String lowerCaseModality = modalityRegex.toLowerCase();
-	List<UIHandlerProfile> matchedProfiles = new ArrayList<UIHandlerProfile>();
-	BusMember[] members = registry.getAllBusMembers();
-	for (BusMember member : members) {
-	    if (member instanceof UIHandler) {
-		UIHandler handler = (UIHandler) member;
-		List<UIHandlerProfile> realizedProfiles = (List<UIHandlerProfile>) handler
-			.getRealizedHandlerProfiles();
-		for (UIHandlerProfile profile : realizedProfiles) {
-		    Modality[] supportedModalities = profile
-			    .getSupportedInputModalities();
-		    for (Modality m : supportedModalities) {
-			if (m.toString().toLowerCase()
-				.matches(lowerCaseModality)) {
-			    matchedProfiles.add(profile);
-			    break;
+	/**
+	 * @param dm
+	 *            {@link IDialogManager}
+	 */
+	public void setDialogManager(IDialogManager dm) {
+		if (!((UIStrategyCaller) busStrategy).setDialogManager(dm))
+			throw new RuntimeException("Could not set DialogManager");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#abortDialog(java.lang.String,
+	 * java.lang.String)
+	 */
+	public void abortDialog(String callerID, String dialogID) {
+		BusMember bm = getBusMember(callerID);
+		if (bm instanceof UICaller) {
+			((UIStrategyCaller) busStrategy).abortDialog(callerID, dialogID);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#adaptationParametersChanged(org.
+	 * universAAL .middleware.ui.DialogManager,
+	 * org.universAAL.middleware.ui.UIRequest, java.lang.String)
+	 */
+	public void adaptationParametersChanged(IDialogManager dm, UIRequest uiRequest, String changedProp) {
+		((UIStrategyCaller) busStrategy).adaptationParametersChanged(dm, uiRequest, changedProp);
+	}
+
+	// public UIHandlerProfile getMatchingUiHandler(){
+	// return ((UIStrategyCaller) busStrategy).get
+	// }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#addNewProfile(java.lang.String,
+	 * org.universAAL.middleware.ui.UIHandlerProfile)
+	 */
+	public void addNewProfile(String handlerID, UIHandlerProfile newProfile) {
+		Object o = registry.getBusMemberByID(handlerID);
+		if (o instanceof UIHandler) {
+			((UIStrategyCaller) busStrategy).addRegistration(handlerID, newProfile);
+			registry.addRegParams(handlerID, new UIHandlerProfile[] { newProfile });
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#dialogFinished(java.lang.String,
+	 * org.universAAL.middleware.ui.UIResponse)
+	 */
+	public void dialogFinished(String handlerID, UIResponse response) {
+		if (response != null) {
+			((UIStrategyCaller) busStrategy).dialogFinished(handlerID, response);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#dialogSuspended(org.universAAL.
+	 * middleware .ui.DialogManager, java.lang.String)
+	 */
+	public void dialogSuspended(IDialogManager dm, String dialogID) {
+		((UIStrategyCaller) busStrategy).dialogSuspended(dm, dialogID);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#removeMatchingProfile(java.lang.
+	 * String , org.universAAL.middleware.ui.UIHandlerProfile)
+	 */
+	public void removeMatchingProfile(String handlerID, UIHandlerProfile oldProfile) {
+		Object o = registry.getBusMemberByID(handlerID);
+		if (o instanceof UIHandler) {
+			((UIStrategyCaller) busStrategy).removeMatchingRegistries(handlerID, oldProfile);
+			registry.removeRegParams(handlerID, new UIHandlerProfile[] { oldProfile });
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#resumeDialog(java.lang.String,
+	 * java.lang.String, org.universAAL.middleware.rdf.Resource)
+	 */
+	public void resumeDialog(String callerID, String dialogID, Resource dialogData) {
+		BusMember bm = getBusMember(callerID);
+		if (bm instanceof IDialogManager && dialogData instanceof UIRequest) {
+			((UIStrategyCaller) busStrategy).adaptationParametersChanged((IDialogManager) bm, (UIRequest) dialogData,
+					null);
+		} else if (bm instanceof UICaller) {
+			((UIStrategyCaller) busStrategy).resumeDialog(dialogID, dialogData);
+		}
+	}
+
+	/**
+	 * 
+	 * Asks the bus to find an appropriate UI handler and forward the request to
+	 * it for handling
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#brokerUIRequest(java.lang.String,
+	 *      org.universAAL.middleware.ui.UIRequest)
+	 * 
+	 * @param callerID
+	 *            the ID of the UICaller that is asking the bus
+	 * @param req
+	 *            the request to be forwarded to a UI handler
+	 * 
+	 */
+	public void brokerUIRequest(String callerID, UIRequest req) {
+		BusMember bm = getBusMember(callerID);
+		if (bm instanceof UICaller) {
+			UIRequestCall call = ((UIStrategyCaller) busStrategy).new UIRequestCall(req, callerID);
+			assessContentSerialization(call);
+			brokerMessage(callerID, new BusMessage(MessageType.request, call, this));
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#unregister(java.lang.String,
+	 * org.universAAL.middleware.ui.UICaller)
+	 */
+	public void unregister(String callerID, UICaller caller) {
+		((UIStrategyCaller) busStrategy).abortAllPendingRequestsFor(caller);
+		if (caller instanceof IDialogManager) {
+			setDialogManager(null);
+		}
+		super.unregister(callerID, caller);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#unregister(java.lang.String,
+	 * org.universAAL.middleware.ui.UIHandler)
+	 */
+	public void unregister(String handlerID, UIHandler handler) {
+		Object o = registry.getBusMemberByID(handlerID);
+		if (o != null && o == handler) {
+			super.unregister(handlerID, handler);
+			((UIStrategyCaller) busStrategy).removeAllRegistries(handlerID);
+		}
+	}
+
+	@Override
+	public void unregister(String memberID, BusMember m) {
+		if (m instanceof UICaller)
+			unregister(memberID, (UICaller) m);
+		else if (m instanceof UIHandler)
+			unregister(memberID, (UIHandler) m);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.ui.IUIBus#userLoggedIn(java.lang.String,
+	 * org.universAAL.middleware.rdf.Resource,
+	 * org.universAAL.middleware.owl.supply.AbsLocation)
+	 */
+	public void userLoggedIn(String handlerID, Resource user, AbsLocation loginLocation) {
+		Object o = registry.getBusMemberByID(handlerID);
+		if (o instanceof UIHandler && user != null) {
+			((UIStrategyCaller) busStrategy).userLoggedIn(handlerID, user, loginLocation);
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.modules.listener.MessageListener#
+	 * handleSendError
+	 * (org.universAAL.middleware.connectors.util.ChannelMessage,
+	 * org.universAAL.
+	 * middleware.connectors.exception.CommunicationConnectorException)
+	 */
+	public void handleSendError(ChannelMessage message, CommunicationConnectorException e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * Returns list of {@link UIHandlerProfile}s that match the given expression
+	 */
+	public UIHandlerProfile[] getMatchingProfiles(String modalityRegex) {
+		String lowerCaseModality = modalityRegex.toLowerCase();
+		List<UIHandlerProfile> matchedProfiles = new ArrayList<UIHandlerProfile>();
+		BusMember[] members = registry.getAllBusMembers();
+		for (BusMember member : members) {
+			if (member instanceof UIHandler) {
+				UIHandler handler = (UIHandler) member;
+				List<UIHandlerProfile> realizedProfiles = (List<UIHandlerProfile>) handler.getRealizedHandlerProfiles();
+				for (UIHandlerProfile profile : realizedProfiles) {
+					Modality[] supportedModalities = profile.getSupportedInputModalities();
+					for (Modality m : supportedModalities) {
+						if (m.toString().toLowerCase().matches(lowerCaseModality)) {
+							matchedProfiles.add(profile);
+							break;
+						}
+					}
+				}
 			}
-		    }
 		}
-	    }
+		return matchedProfiles.toArray(new UIHandlerProfile[0]);
 	}
-	return matchedProfiles.toArray(new UIHandlerProfile[0]);
-    }
 }

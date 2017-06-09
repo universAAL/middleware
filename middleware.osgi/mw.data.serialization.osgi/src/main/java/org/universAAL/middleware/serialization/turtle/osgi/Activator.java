@@ -35,17 +35,14 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
  */
 public final class Activator implements BundleActivator {
 
-    public void start(BundleContext context) throws Exception {
-	TurtleUtil.moduleContext = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	uAALBundleContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext,
-		new TurtleSerializer(),
-		new Object[] { MessageContentSerializer.class.getName() });
-	uAALBundleContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext,
-		new TurtleSerializer(),
-		new Object[] { MessageContentSerializerEx.class.getName() });
-    }
+	public void start(BundleContext context) throws Exception {
+		TurtleUtil.moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		uAALBundleContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, new TurtleSerializer(),
+				new Object[] { MessageContentSerializer.class.getName() });
+		uAALBundleContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, new TurtleSerializer(),
+				new Object[] { MessageContentSerializerEx.class.getName() });
+	}
 
-    public void stop(BundleContext arg0) throws Exception {
-    }
+	public void stop(BundleContext arg0) throws Exception {
+	}
 }

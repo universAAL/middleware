@@ -37,19 +37,19 @@ import org.universAAL.middleware.interfaces.configuration.ConfigurableModule;
  */
 public interface ConfigurationFile extends DescribedEntity {
 
-    /**
-     * Reference to the default file to use when no file is defined.
-     * 
-     * @return
-     */
-    public URL getDefaultFileRef();
+	/**
+	 * Reference to the default file to use when no file is defined.
+	 * 
+	 * @return
+	 */
+	public URL getDefaultFileRef();
 
-    /**
-     * Help the Configuration Editor (interface and human user), provide comma
-     * separated extension filters for the file. Eg: "*.*" for anything Eg:
-     * "*.zip" for zip files only Eg: "*.jpg,*.png" for jpg or png files
-     * 
-     * @return the comma separated extensions expected for this file.
-     */
-    public String getExtensionfilter();
+	/**
+	 * Help the Configuration Editor (interface and human user), provide comma
+	 * separated extension filters for the file. Eg: "*.*" for anything Eg:
+	 * "*.zip" for zip files only Eg: "*.jpg,*.png" for jpg or png files
+	 * 
+	 * @return the comma separated extensions expected for this file.
+	 */
+	public String getExtensionfilter();
 }

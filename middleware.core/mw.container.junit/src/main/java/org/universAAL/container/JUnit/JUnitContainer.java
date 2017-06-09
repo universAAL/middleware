@@ -33,94 +33,88 @@ import org.universAAL.middleware.container.SharedObjectListener;
  */
 public final class JUnitContainer implements Container {
 
-    private static JUnitContainer instance = null;
+	private static JUnitContainer instance = null;
 
-    private List<SharedObjectListener> listeners;
-    private List<LogListener> logListeners;
+	private List<SharedObjectListener> listeners;
+	private List<LogListener> logListeners;
 
-    private Map<String, Object> sharedObjectMap;
+	private Map<String, Object> sharedObjectMap;
 
-    // private Map<String, POJOModuleContext> modules;
+	// private Map<String, POJOModuleContext> modules;
 
-    private JUnitContainer() {
-	listeners = new ArrayList<SharedObjectListener>();
-	logListeners = new ArrayList<LogListener>();
-	sharedObjectMap = new Hashtable<String, Object>();
-    };
+	private JUnitContainer() {
+		listeners = new ArrayList<SharedObjectListener>();
+		logListeners = new ArrayList<LogListener>();
+		sharedObjectMap = new Hashtable<String, Object>();
+	};
 
-    public static JUnitContainer getInstance() {
-	if (instance == null) {
-	    instance = new JUnitContainer();
+	public static JUnitContainer getInstance() {
+		if (instance == null) {
+			instance = new JUnitContainer();
+		}
+		return instance;
 	}
-	return instance;
-    }
 
-    /** {@inheritDoc} */
-    public Object fetchSharedObject(ModuleContext requester,
-	    Object[] fetchParams) {
-	return sharedObjectMap.get(fetchParams[0]);
-    }
-
-    /** {@inheritDoc} */
-    public Object[] fetchSharedObject(ModuleContext requester,
-	    Object[] fetchParams, SharedObjectListener listener) {
-	synchronized (listeners) {
-	    listeners.add(listener);
+	/** {@inheritDoc} */
+	public Object fetchSharedObject(ModuleContext requester, Object[] fetchParams) {
+		return sharedObjectMap.get(fetchParams[0]);
 	}
-	return new Object[] { fetchSharedObject(requester, fetchParams) };
-    }
 
-    /** {@inheritDoc} */
-    public void removeSharedObjectListener(SharedObjectListener listener) {
-	if (listener != null) {
-	    synchronized (listeners) {
-		listeners.remove(listener);
-	    }
+	/** {@inheritDoc} */
+	public Object[] fetchSharedObject(ModuleContext requester, Object[] fetchParams, SharedObjectListener listener) {
+		synchronized (listeners) {
+			listeners.add(listener);
+		}
+		return new Object[] { fetchSharedObject(requester, fetchParams) };
 	}
-    }
 
-    /** {@inheritDoc} */
-    public ModuleContext installModule(ModuleContext requester,
-	    Object[] installParams) {
-	// no installing.
-	return null;
-    }
+	/** {@inheritDoc} */
+	public void removeSharedObjectListener(SharedObjectListener listener) {
+		if (listener != null) {
+			synchronized (listeners) {
+				listeners.remove(listener);
+			}
+		}
+	}
 
-    /** Register a LogListener */
-    public void registerLogListener(LogListener listener) {
-	logListeners.add(listener);
-    }
-    
-    /** Remove a LogListener */
-    public void unregisterLogListener(LogListener listener) {
-	logListeners.remove(listener);
-    }
+	/** {@inheritDoc} */
+	public ModuleContext installModule(ModuleContext requester, Object[] installParams) {
+		// no installing.
+		return null;
+	}
 
-    /** {@inheritDoc} */
-    public Iterator logListeners() {
-	return logListeners.iterator();
-    }
+	/** Register a LogListener */
+	public void registerLogListener(LogListener listener) {
+		logListeners.add(listener);
+	}
 
-    /** {@inheritDoc} */
-    public ModuleContext registerModule(Object[] regParams) {
-	JUnitModuleContext mc = new JUnitModuleContext(
-		(ModuleActivator) regParams[0]);
-	return mc;
-    }
+	/** Remove a LogListener */
+	public void unregisterLogListener(LogListener listener) {
+		logListeners.remove(listener);
+	}
 
-    /** {@inheritDoc} */
-    public void shareObject(ModuleContext requester, Object objToShare,
-	    Object[] shareParams) {
-	sharedObjectMap.put((String) shareParams[0], objToShare);
-    }
+	/** {@inheritDoc} */
+	public Iterator logListeners() {
+		return logListeners.iterator();
+	}
 
-    public void removeSharedObject(ModuleContext requester, Object objToRemove,
-	    Object[] shareParams) {
-	sharedObjectMap.remove((String) shareParams[0]);
-    }
+	/** {@inheritDoc} */
+	public ModuleContext registerModule(Object[] regParams) {
+		JUnitModuleContext mc = new JUnitModuleContext((ModuleActivator) regParams[0]);
+		return mc;
+	}
 
-    public void removeAllSharedObjects() {
-	listeners.clear();
-	sharedObjectMap.clear();
-    }
+	/** {@inheritDoc} */
+	public void shareObject(ModuleContext requester, Object objToShare, Object[] shareParams) {
+		sharedObjectMap.put((String) shareParams[0], objToShare);
+	}
+
+	public void removeSharedObject(ModuleContext requester, Object objToRemove, Object[] shareParams) {
+		sharedObjectMap.remove((String) shareParams[0]);
+	}
+
+	public void removeAllSharedObjects() {
+		listeners.clear();
+		sharedObjectMap.clear();
+	}
 }

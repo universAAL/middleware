@@ -55,66 +55,66 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType(name = "dependency", namespace = "http://karaf.apache.org/xmlns/features/v1.0.0", propOrder = { "value" })
 public class Dependency implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlValue
-    protected String value;
-    @XmlAttribute(name = "version")
-    protected String version;
+	private final static long serialVersionUID = 12343L;
+	@XmlValue
+	protected String value;
+	@XmlAttribute(name = "version")
+	protected String version;
 
-    /**
-     * 
-     * Feature name should be non empty string.
-     * 
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getValue() {
-	return value;
-    }
-
-    /**
-     * Sets the value of the value property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setValue(String value) {
-	this.value = value;
-    }
-
-    public boolean isSetValue() {
-	return (this.value != null);
-    }
-
-    /**
-     * Gets the value of the version property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getVersion() {
-	if (version == null) {
-	    return "0.0.0";
-	} else {
-	    return version;
+	/**
+	 * 
+	 * Feature name should be non empty string.
+	 * 
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getValue() {
+		return value;
 	}
-    }
 
-    /**
-     * Sets the value of the version property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setVersion(String value) {
-	this.version = value;
-    }
+	/**
+	 * Sets the value of the value property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-    public boolean isSetVersion() {
-	return (this.version != null);
-    }
+	public boolean isSetValue() {
+		return (this.value != null);
+	}
+
+	/**
+	 * Gets the value of the version property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getVersion() {
+		if (version == null) {
+			return "0.0.0";
+		} else {
+			return version;
+		}
+	}
+
+	/**
+	 * Sets the value of the version property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setVersion(String value) {
+		this.version = value;
+	}
+
+	public boolean isSetVersion() {
+		return (this.version != null);
+	}
 
 }

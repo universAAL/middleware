@@ -26,12 +26,12 @@ package org.universAAL.middleware.interfaces.configuration.configurationEditionT
  */
 public interface ConfigurableEntityEditorListener {
 
-    /**
-     * Callback for changes.
-     * 
-     * @param entityChanged
-     *            the entity Changed.
-     */
-    public void ConfigurationChanged(ConfigurableEntityEditor entityChanged);
+	/**
+	 * Callback for changes.
+	 * 
+	 * @param entityChanged
+	 *            the entity Changed.
+	 */
+	public void ConfigurationChanged(ConfigurableEntityEditor entityChanged);
 
 }

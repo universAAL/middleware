@@ -48,114 +48,98 @@ import org.universAAL.middleware.context.impl.ContextBusImpl;
  */
 public abstract class ContextSubscriber extends Subscriber {
 
-    /**
-     * Creates a Context Subscriber and immediately registers a set of Context
-     * Event Patterns for it, so it receives the matching events.
-     * 
-     * @param connectingModule
-     *            The module context of the module creating the Publisher
-     * @param initialSubscriptions
-     *            Array of ContextEventPattern that are immediately registered
-     *            for this Subscriber
-     * @throws NullPointerException
-     *             if newSubscriptions is null or one of the elements of that
-     *             array is null
-     */
-    protected ContextSubscriber(ModuleContext connectingModule,
-	    ContextEventPattern[] initialSubscriptions) {
-	super(connectingModule, ContextBusImpl.getContextBusFetchParams());
-	initialSubscriptions = AccessControl.INSTANCE.checkPermission(owner,
-		getURI(), initialSubscriptions);
-	addNewRegParams(initialSubscriptions);
-    }
-
-    /**
-     * Registers more ContextEventPattern for this Subscriber in addition to
-     * those that might have passed initially
-     * 
-     * @param newSubscriptions
-     *            The additional array of ContextEventPattern
-     * @throws NullPointerException
-     *             if newSubscriptions is null or one of the elements of that
-     *             array is null
-     */
-    protected final void addNewRegParams(ContextEventPattern[] newSubscriptions) {
-	newSubscriptions = AccessControl.INSTANCE.checkPermission(owner,
-		getURI(), newSubscriptions);
-	((ContextBus) theBus).addNewRegParams(busResourceURI, newSubscriptions);
-    }
-
-    /**
-     * Unregisters a set of ContextEventPattern that had been previously
-     * registered for this Subscriber. The Subscriber will no longer receive
-     * Events matching these Patterns.
-     * 
-     * @param oldSubscriptions
-     */
-    protected final void removeMatchingRegParams(
-	    ContextEventPattern[] oldSubscriptions) {
-	((ContextBus) theBus).removeMatchingRegParams(busResourceURI,
-		oldSubscriptions);
-    }
-
-    /**
-     * Method to be called when the communication of the Subsccriber with the
-     * Context Bus is lost.
-     */
-    public abstract void communicationChannelBroken();
-
-    public final void busDyingOut(AbstractBus b) {
-	if (b == theBus)
-	    communicationChannelBroken();
-    }
-
-    /**
-     * Returns all provisions registered by all {@link ContextPublisher}s on all
-     * instances of context bus in the current AAL Space.
-     */
-    public ContextEventPattern[] getAllProvisions() {
-	return ((ContextBus) theBus).getAllProvisions(busResourceURI);
-    }
-
-    /**
-     * Method to be called when an Event forwarded in the Context Bus matches
-     * one of the Patterns registered by this Subscriber.
-     * 
-     * @param event
-     *            The Context Event that matched the registered Patterns
-     * @throws NullPointerException
-     *             if the event is null
-     */
-    public abstract void handleContextEvent(ContextEvent event);
-
-    public final void handleEvent(BusMessage m) {
-	if (m.getContent() instanceof ContextEvent) {
-	    ContextEvent ce = (ContextEvent) (m.getContent());
-	    if (AccessControl.INSTANCE.checkPermission(owner, getURI(), ce)) {
-		LogUtils.logInfo(
-			owner,
-			ContextSubscriber.class,
-			"handleEvent",
-			new Object[] { busResourceURI,
-				" received context event:\n",
-				m.getContentAsString() }, null);
-		try {
-		    handleContextEvent((ContextEvent) m.getContent());
-		} catch (Exception e) {
-		    LogUtils.logInfo(
-			    owner,
-			    ContextSubscriber.class,
-			    "handleEvent",
-			    new Object[] {
-				    busResourceURI,
-				    " has thrown an exception while handling the received context event.", },
-			    e);
-		}
-	    }
+	/**
+	 * Creates a Context Subscriber and immediately registers a set of Context
+	 * Event Patterns for it, so it receives the matching events.
+	 * 
+	 * @param connectingModule
+	 *            The module context of the module creating the Publisher
+	 * @param initialSubscriptions
+	 *            Array of ContextEventPattern that are immediately registered
+	 *            for this Subscriber
+	 * @throws NullPointerException
+	 *             if newSubscriptions is null or one of the elements of that
+	 *             array is null
+	 */
+	protected ContextSubscriber(ModuleContext connectingModule, ContextEventPattern[] initialSubscriptions) {
+		super(connectingModule, ContextBusImpl.getContextBusFetchParams());
+		initialSubscriptions = AccessControl.INSTANCE.checkPermission(owner, getURI(), initialSubscriptions);
+		addNewRegParams(initialSubscriptions);
 	}
-    }
 
-    public String getMyID() {
-	return busResourceURI;
-    }
+	/**
+	 * Registers more ContextEventPattern for this Subscriber in addition to
+	 * those that might have passed initially
+	 * 
+	 * @param newSubscriptions
+	 *            The additional array of ContextEventPattern
+	 * @throws NullPointerException
+	 *             if newSubscriptions is null or one of the elements of that
+	 *             array is null
+	 */
+	protected final void addNewRegParams(ContextEventPattern[] newSubscriptions) {
+		newSubscriptions = AccessControl.INSTANCE.checkPermission(owner, getURI(), newSubscriptions);
+		((ContextBus) theBus).addNewRegParams(busResourceURI, newSubscriptions);
+	}
+
+	/**
+	 * Unregisters a set of ContextEventPattern that had been previously
+	 * registered for this Subscriber. The Subscriber will no longer receive
+	 * Events matching these Patterns.
+	 * 
+	 * @param oldSubscriptions
+	 */
+	protected final void removeMatchingRegParams(ContextEventPattern[] oldSubscriptions) {
+		((ContextBus) theBus).removeMatchingRegParams(busResourceURI, oldSubscriptions);
+	}
+
+	/**
+	 * Method to be called when the communication of the Subsccriber with the
+	 * Context Bus is lost.
+	 */
+	public abstract void communicationChannelBroken();
+
+	public final void busDyingOut(AbstractBus b) {
+		if (b == theBus)
+			communicationChannelBroken();
+	}
+
+	/**
+	 * Returns all provisions registered by all {@link ContextPublisher}s on all
+	 * instances of context bus in the current AAL Space.
+	 */
+	public ContextEventPattern[] getAllProvisions() {
+		return ((ContextBus) theBus).getAllProvisions(busResourceURI);
+	}
+
+	/**
+	 * Method to be called when an Event forwarded in the Context Bus matches
+	 * one of the Patterns registered by this Subscriber.
+	 * 
+	 * @param event
+	 *            The Context Event that matched the registered Patterns
+	 * @throws NullPointerException
+	 *             if the event is null
+	 */
+	public abstract void handleContextEvent(ContextEvent event);
+
+	public final void handleEvent(BusMessage m) {
+		if (m.getContent() instanceof ContextEvent) {
+			ContextEvent ce = (ContextEvent) (m.getContent());
+			if (AccessControl.INSTANCE.checkPermission(owner, getURI(), ce)) {
+				LogUtils.logInfo(owner, ContextSubscriber.class, "handleEvent",
+						new Object[] { busResourceURI, " received context event:\n", m.getContentAsString() }, null);
+				try {
+					handleContextEvent((ContextEvent) m.getContent());
+				} catch (Exception e) {
+					LogUtils.logInfo(owner, ContextSubscriber.class, "handleEvent", new Object[] { busResourceURI,
+							" has thrown an exception while handling the received context event.", }, e);
+				}
+			}
+		}
+	}
+
+	public String getMyID() {
+		return busResourceURI;
+	}
 }

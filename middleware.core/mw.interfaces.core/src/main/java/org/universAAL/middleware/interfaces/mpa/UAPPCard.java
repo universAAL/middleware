@@ -35,75 +35,73 @@ import org.universAAL.middleware.deploymanager.uapp.model.AalUapp.App;
  */
 public class UAPPCard implements Serializable {
 
-    private static final long serialVersionUID = -3217977547051129449L;
-    private String name;
-    private String id;
-    private String description;
-    private String serviceId;
-    private String partId;
+	private static final long serialVersionUID = -3217977547051129449L;
+	private String name;
+	private String id;
+	private String description;
+	private String serviceId;
+	private String partId;
 
-    /**
-     * 
-     * @param serviceId
-     *            The id of the uSrv containing the uAAP
-     * @param appId
-     *            The id of the uAAP
-     * @param partId
-     *            The id of part within the uAAP
-     * @param name
-     *            The name of the uAAP
-     * @param description
-     *            The description of the uAAP
-     */
-    public UAPPCard(String serviceId, String appId, String partId, String name,
-	    String description) {
-	this.serviceId = serviceId;
-	this.name = name;
-	this.id = appId;
-	this.description = description;
-	this.partId = partId;
-    }
+	/**
+	 * 
+	 * @param serviceId
+	 *            The id of the uSrv containing the uAAP
+	 * @param appId
+	 *            The id of the uAAP
+	 * @param partId
+	 *            The id of part within the uAAP
+	 * @param name
+	 *            The name of the uAAP
+	 * @param description
+	 *            The description of the uAAP
+	 */
+	public UAPPCard(String serviceId, String appId, String partId, String name, String description) {
+		this.serviceId = serviceId;
+		this.name = name;
+		this.id = appId;
+		this.description = description;
+		this.partId = partId;
+	}
 
-    /**
-     * 
-     * @param serviceId
-     *            The id of the uSrv containing the uAAP
-     * @param partId
-     *            The id of part within the uAAP
-     * @param uApp
-     *            The uAAP
-     */
-    public UAPPCard(String serviceId, String partId, App uApp) {
-	this.serviceId = serviceId;
-	this.name = uApp.getName();
-	this.id = uApp.getAppId();
-	this.description = uApp.getDescription();
-	this.partId = partId;
-    }
+	/**
+	 * 
+	 * @param serviceId
+	 *            The id of the uSrv containing the uAAP
+	 * @param partId
+	 *            The id of part within the uAAP
+	 * @param uApp
+	 *            The uAAP
+	 */
+	public UAPPCard(String serviceId, String partId, App uApp) {
+		this.serviceId = serviceId;
+		this.name = uApp.getName();
+		this.id = uApp.getAppId();
+		this.description = uApp.getDescription();
+		this.partId = partId;
+	}
 
-    public String getName() {
-	return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getId() {
-	return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getDescription() {
-	return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getServiceId() {
-	return serviceId;
-    }
+	public String getServiceId() {
+		return serviceId;
+	}
 
-    public String getPartId() {
-	return partId;
-    }
+	public String getPartId() {
+		return partId;
+	}
 
-    public String toString() {
-	return serviceId + " - " + id + " - " + partId + " - " + name + " - "
-		+ description;
-    }
+	public String toString() {
+		return serviceId + " - " + id + " - " + partId + " - " + name + " - " + description;
+	}
 
 }

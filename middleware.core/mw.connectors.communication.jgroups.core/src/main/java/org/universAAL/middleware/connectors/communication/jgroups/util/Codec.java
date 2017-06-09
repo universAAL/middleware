@@ -26,7 +26,7 @@ package org.universAAL.middleware.connectors.communication.jgroups.util;
  * 
  */
 public interface Codec {
-    public byte[] decode(String data);
+	public byte[] decode(String data);
 
-    public byte[] encode(byte[] data);
+	public byte[] encode(byte[] data);
 }

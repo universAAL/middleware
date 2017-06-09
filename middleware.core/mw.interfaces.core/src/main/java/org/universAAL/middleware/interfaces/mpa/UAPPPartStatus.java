@@ -30,31 +30,31 @@ package org.universAAL.middleware.interfaces.mpa;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public enum UAPPPartStatus {
-    /**
-     * It means that the part has been installed SUCCESFULLY
-     */
-    PART_INSTALLED,
-    /**
-     * It means that the part installation FAILED somehow
-     */
-    PART_NOT_INSTALLED,
-    /**
-     * Not in use
-     * 
-     * @deprecated
-     */
-    PART_PENDING,
-    /**
-     * It means that the part has been UNinstalled SUCCESFULLY
-     */
-    PART_UNINSTALLED,
-    /**
-     * It means that the part UNinstallation FAILED somehow
-     */
-    PART_NOT_UNINSTALLED,
-    /**
-     * It means that the part installation FAILED because missing file need for
-     * the container for installing the parts
-     */
-    PART_MISSING_NEEDED_FILES;
+	/**
+	 * It means that the part has been installed SUCCESFULLY
+	 */
+	PART_INSTALLED,
+	/**
+	 * It means that the part installation FAILED somehow
+	 */
+	PART_NOT_INSTALLED,
+	/**
+	 * Not in use
+	 * 
+	 * @deprecated
+	 */
+	PART_PENDING,
+	/**
+	 * It means that the part has been UNinstalled SUCCESFULLY
+	 */
+	PART_UNINSTALLED,
+	/**
+	 * It means that the part UNinstallation FAILED somehow
+	 */
+	PART_NOT_UNINSTALLED,
+	/**
+	 * It means that the part installation FAILED because missing file need for
+	 * the container for installing the parts
+	 */
+	PART_MISSING_NEEDED_FILES;
 }

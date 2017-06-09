@@ -25,12 +25,15 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for logicalRelationType.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
+ * Java class for logicalRelationType.
+ *
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
+ * <p>
+ * 
  * <pre>
  * &lt;simpleType name="logicalRelationType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -46,29 +49,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum LogicalRelationType {
 
-    @XmlEnumValue("or")
-    OR("or"),
-    @XmlEnumValue("and")
-    AND("and"),
-    @XmlEnumValue("none")
-    NONE("none");
-    private final String value;
+	@XmlEnumValue("or")
+	OR("or"), @XmlEnumValue("and")
+	AND("and"), @XmlEnumValue("none")
+	NONE("none");
+	private final String value;
 
-    LogicalRelationType(String v) {
-        value = v;
-    }
+	LogicalRelationType(String v) {
+		value = v;
+	}
 
-    public String value() {
-        return value;
-    }
+	public String value() {
+		return value;
+	}
 
-    public static LogicalRelationType fromValue(String v) {
-        for (LogicalRelationType c: LogicalRelationType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
+	public static LogicalRelationType fromValue(String v) {
+		for (LogicalRelationType c : LogicalRelationType.values()) {
+			if (c.value.equals(v)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(v);
+	}
 
 }

@@ -28,11 +28,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -50,75 +52,64 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "name",
-    "software"
-})
+@XmlType(name = "", propOrder = { "name", "software" })
 @XmlRootElement(name = "broker")
-public class Broker
-    implements Serializable
-{
+public class Broker implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(required = true)
-    protected String name;
-    @XmlElement(required = true)
-    protected ArtifactType software;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(required = true)
+	protected String name;
+	@XmlElement(required = true)
+	protected ArtifactType software;
 
-    /**
-     * Gets the value of the name property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Gets the value of the name property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Sets the value of the name property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+	/**
+	 * Sets the value of the name property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
 
-    public boolean isSetName() {
-        return (this.name!= null);
-    }
+	public boolean isSetName() {
+		return (this.name != null);
+	}
 
-    /**
-     * Gets the value of the software property.
-     *
-     * @return
-     *     possible object is
-     *     {@link ArtifactType }
-     *
-     */
-    public ArtifactType getSoftware() {
-        return software;
-    }
+	/**
+	 * Gets the value of the software property.
+	 *
+	 * @return possible object is {@link ArtifactType }
+	 *
+	 */
+	public ArtifactType getSoftware() {
+		return software;
+	}
 
-    /**
-     * Sets the value of the software property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link ArtifactType }
-     *
-     */
-    public void setSoftware(ArtifactType value) {
-        this.software = value;
-    }
+	/**
+	 * Sets the value of the software property.
+	 *
+	 * @param value
+	 *            allowed object is {@link ArtifactType }
+	 *
+	 */
+	public void setSoftware(ArtifactType value) {
+		this.software = value;
+	}
 
-    public boolean isSetSoftware() {
-        return (this.software!= null);
-    }
+	public boolean isSetSoftware() {
+		return (this.software != null);
+	}
 
 }

@@ -28,40 +28,33 @@ import org.universAAL.middleware.managers.configuration.core.impl.ConfigurationM
 
 public class ConfigurationActivator implements BundleActivator {
 
-    ModuleContext context;
+	ModuleContext context;
 
-    ConfigurationManagerImpl cm;
+	ConfigurationManagerImpl cm;
 
-    public void start(BundleContext arg0) throws Exception {
-	context = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { arg0 });
-	LogUtils.logDebug(context, getClass(), "start",
-		"Starting Configuration Manager.");
-	/*
-	 * uAAL stuff
-	 */
-	cm = new ConfigurationManagerImpl(context, 
-			new FileProvider(context.getConfigHome()));
+	public void start(BundleContext arg0) throws Exception {
+		context = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { arg0 });
+		LogUtils.logDebug(context, getClass(), "start", "Starting Configuration Manager.");
+		/*
+		 * uAAL stuff
+		 */
+		cm = new ConfigurationManagerImpl(context, new FileProvider(context.getConfigHome()));
 
-	context.getContainer().shareObject(
-		context,
-		cm,
-		new String[] { ConfigurationManager.class.getName(),
-			ConfigurationEditor.class.getName(),
-			ConfigurationManagerConnector.class.getName(), });
+		context.getContainer().shareObject(context, cm, new String[] { ConfigurationManager.class.getName(),
+				ConfigurationEditor.class.getName(), ConfigurationManagerConnector.class.getName(), });
 
-	LogUtils.logDebug(context, getClass(), "start", "Started.");
-    }
+		LogUtils.logDebug(context, getClass(), "start", "Started.");
+	}
 
-    public void stop(BundleContext arg0) throws Exception {
-	LogUtils.logDebug(context, getClass(), "stop", "Stopping.");
-	/*
-	 * close uAAL stuff
-	 */
-	cm.finish();
-	cm = null;
-	LogUtils.logDebug(context, getClass(), "stop", "Stopped.");
+	public void stop(BundleContext arg0) throws Exception {
+		LogUtils.logDebug(context, getClass(), "stop", "Stopping.");
+		/*
+		 * close uAAL stuff
+		 */
+		cm.finish();
+		cm = null;
+		LogUtils.logDebug(context, getClass(), "stop", "Stopped.");
 
-    }
+	}
 
 }

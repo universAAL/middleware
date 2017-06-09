@@ -29,21 +29,21 @@ package org.universAAL.middleware.serialization;
  */
 public interface MessageContentSerializer {
 
-    /**
-     * Deserialize a bus message.
-     *
-     * @param serialized
-     *            serialized object
-     * @return Deserialized content of the bus message.
-     */
-    public Object deserialize(String serialized);
+	/**
+	 * Deserialize a bus message.
+	 *
+	 * @param serialized
+	 *            serialized object
+	 * @return Deserialized content of the bus message.
+	 */
+	public Object deserialize(String serialized);
 
-    /**
-     * Serialize a bus message.
-     *
-     * @param messageContent
-     *            content to serialize
-     * @return Serialized representation of the given object.
-     */
-    public String serialize(Object messageContent);
+	/**
+	 * Serialize a bus message.
+	 *
+	 * @param messageContent
+	 *            content to serialize
+	 * @return Serialized representation of the given object.
+	 */
+	public String serialize(Object messageContent);
 }

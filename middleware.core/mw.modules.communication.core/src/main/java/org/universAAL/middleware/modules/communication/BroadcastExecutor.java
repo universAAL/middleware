@@ -36,32 +36,29 @@ import org.universAAL.middleware.modules.listener.MessageListener;
  */
 public class BroadcastExecutor implements Runnable {
 
-    private ChannelMessage message;
-    private CommunicationConnector communicationConnector;
-    private MessageListener listener;
-    private ModuleContext mc;
+	private ChannelMessage message;
+	private CommunicationConnector communicationConnector;
+	private MessageListener listener;
+	private ModuleContext mc;
 
-    public BroadcastExecutor(ChannelMessage message,
-	    CommunicationConnector communicationConnector,
-	    MessageListener listener, ModuleContext moduleContext) {
-	this.message = message;
-	this.communicationConnector = communicationConnector;
-	this.listener = listener;
-	this.mc = moduleContext;
-    }
-
-    public void run() {
-	try {
-	    LogUtils.logInfo(mc, BroadcastExecutor.class, "run()",
-		    new Object[] { "Preparing to BROADCAST the message "
-			    + message }, null);
-	    communicationConnector.multicast(message);
-	} catch (CommunicationConnectorException e) {
-	    listener.handleSendError(message, e);
-	} catch (Throwable t) {
-	    final String msg = ExceptionUtils.stackTraceAsString(t);
-	    listener.handleSendError(message,
-		    new CommunicationConnectorException(-1, msg));
+	public BroadcastExecutor(ChannelMessage message, CommunicationConnector communicationConnector,
+			MessageListener listener, ModuleContext moduleContext) {
+		this.message = message;
+		this.communicationConnector = communicationConnector;
+		this.listener = listener;
+		this.mc = moduleContext;
 	}
-    }
+
+	public void run() {
+		try {
+			LogUtils.logInfo(mc, BroadcastExecutor.class, "run()",
+					new Object[] { "Preparing to BROADCAST the message " + message }, null);
+			communicationConnector.multicast(message);
+		} catch (CommunicationConnectorException e) {
+			listener.handleSendError(message, e);
+		} catch (Throwable t) {
+			final String msg = ExceptionUtils.stackTraceAsString(t);
+			listener.handleSendError(message, new CommunicationConnectorException(-1, msg));
+		}
+	}
 }

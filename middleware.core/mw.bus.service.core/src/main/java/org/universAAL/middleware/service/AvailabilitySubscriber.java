@@ -31,27 +31,27 @@ package org.universAAL.middleware.service;
  */
 public interface AvailabilitySubscriber {
 
-    /**
-     * Whenever a service is registered we need to pass two parameters for
-     * mapping the notification to a specific subscription.
-     * 
-     * @param requestURI
-     *            the URI of the original ServiceRequest object
-     * @param realizationID
-     *            a unique ID for each matched offer because of possible
-     *            multiple matches to a certain request
-     */
-    public void serviceRegistered(String requestURI, String realizationID);
+	/**
+	 * Whenever a service is registered we need to pass two parameters for
+	 * mapping the notification to a specific subscription.
+	 * 
+	 * @param requestURI
+	 *            the URI of the original ServiceRequest object
+	 * @param realizationID
+	 *            a unique ID for each matched offer because of possible
+	 *            multiple matches to a certain request
+	 */
+	public void serviceRegistered(String requestURI, String realizationID);
 
-    /**
-     * Whenever a service is deregistered we need to pass two parameters for
-     * mapping the notification to a specific subscription.
-     * 
-     * @param requestURI
-     *            the URI of the original ServiceRequest object
-     * @param realizationID
-     *            a unique ID for each matched offer because of possible
-     *            multiple matches to a certain request
-     */
-    public void serviceUnregistered(String requestURI, String realizationID);
+	/**
+	 * Whenever a service is deregistered we need to pass two parameters for
+	 * mapping the notification to a specific subscription.
+	 * 
+	 * @param requestURI
+	 *            the URI of the original ServiceRequest object
+	 * @param realizationID
+	 *            a unique ID for each matched offer because of possible
+	 *            multiple matches to a certain request
+	 */
+	public void serviceUnregistered(String requestURI, String realizationID);
 }

@@ -28,32 +28,32 @@ import org.universAAL.middleware.interfaces.configuration.configurationDefinitio
  */
 public interface ConfigurableEntityEditor extends DescribedEntity {
 
-    /**
-     * Ask whether the entity has default value or not.
-     * 
-     * @return true if it is default value.
-     */
-    boolean isDefaultValue();
+	/**
+	 * Ask whether the entity has default value or not.
+	 * 
+	 * @return true if it is default value.
+	 */
+	boolean isDefaultValue();
 
-    /**
-     * Set the default value for the entity.
-     * 
-     * @return true if it could be set.
-     */
-    boolean setDefaultValue();
+	/**
+	 * Set the default value for the entity.
+	 * 
+	 * @return true if it could be set.
+	 */
+	boolean setDefaultValue();
 
-    /**
-     * Add a {@link ConfigurableEntityEditorListener}.
-     * 
-     * @param listener
-     */
-    void subscribe2Changes(ConfigurableEntityEditorListener listener);
+	/**
+	 * Add a {@link ConfigurableEntityEditorListener}.
+	 * 
+	 * @param listener
+	 */
+	void subscribe2Changes(ConfigurableEntityEditorListener listener);
 
-    /**
-     * remove a {@link ConfigurableEntityEditorListener}.
-     * 
-     * @param listener
-     */
-    void unsubscribe2Changes(ConfigurableEntityEditorListener listener);
+	/**
+	 * remove a {@link ConfigurableEntityEditorListener}.
+	 * 
+	 * @param listener
+	 */
+	void unsubscribe2Changes(ConfigurableEntityEditorListener listener);
 
 }

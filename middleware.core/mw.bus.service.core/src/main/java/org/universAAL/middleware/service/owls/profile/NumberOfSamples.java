@@ -31,50 +31,48 @@ package org.universAAL.middleware.service.owls.profile;
  *         Tazari</a>
  */
 public class NumberOfSamples extends ProfileParameter {
-    public static final String MY_URI = uAAL_SERVICE_NAMESPACE
-	    + "NumberOfSamples";
+	public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "NumberOfSamples";
 
-    public NumberOfSamples(int value) {
-	super();
-	addType(MY_URI, true);
-	if (value > -1)
-	    props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
-    }
+	public NumberOfSamples(int value) {
+		super();
+		addType(MY_URI, true);
+		if (value > -1)
+			props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
+	}
 
-    public NumberOfSamples(String uri, int value) {
-	super(uri);
-	addType(MY_URI, true);
-	if (value > -1)
-	    props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
-    }
+	public NumberOfSamples(String uri, int value) {
+		super(uri);
+		addType(MY_URI, true);
+		if (value > -1)
+			props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
+	}
 
-    /**
-     * Returns the number of samples and -1 if an error occurs.
-     * 
-     * @return number of samples
-     */
-    public int getNumberOfSamples() {
-	Object o = props.get(PROP_uAAL_PARAMETER_VALUE_DATA);
-	return (o instanceof Integer) ? ((Integer) o).intValue() : -1;
-    }
+	/**
+	 * Returns the number of samples and -1 if an error occurs.
+	 * 
+	 * @return number of samples
+	 */
+	public int getNumberOfSamples() {
+		Object o = props.get(PROP_uAAL_PARAMETER_VALUE_DATA);
+		return (o instanceof Integer) ? ((Integer) o).intValue() : -1;
+	}
 
-    /**
-     * This method sets the property of <propURI> with <value>.
-     */
-    public boolean setProperty(String propURI, Object value) {
-	if (propURI != null && value != null && !props.containsKey(propURI))
-	    if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
-		if (value instanceof String) {
-		    props.put(propURI, value);
-		    return true;
-		}
-	    } else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
-		if (value instanceof Integer
-			&& ((Integer) value).intValue() > -1) {
-		    props.put(propURI, value);
-		    return true;
-		}
-	    }
-	return false;
-    }
+	/**
+	 * This method sets the property of <propURI> with <value>.
+	 */
+	public boolean setProperty(String propURI, Object value) {
+		if (propURI != null && value != null && !props.containsKey(propURI))
+			if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
+				if (value instanceof String) {
+					props.put(propURI, value);
+					return true;
+				}
+			} else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
+				if (value instanceof Integer && ((Integer) value).intValue() > -1) {
+					props.put(propURI, value);
+					return true;
+				}
+			}
+		return false;
+	}
 }

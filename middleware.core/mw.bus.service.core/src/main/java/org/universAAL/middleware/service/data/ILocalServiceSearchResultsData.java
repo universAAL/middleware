@@ -31,10 +31,10 @@ import java.util.List;
  */
 public interface ILocalServiceSearchResultsData {
 
-    void addProfiles(String id, List profiles);
+	void addProfiles(String id, List profiles);
 
-    public List getProfiles(String id);
+	public List getProfiles(String id);
 
-    boolean exist(String id);
+	boolean exist(String id);
 
 }

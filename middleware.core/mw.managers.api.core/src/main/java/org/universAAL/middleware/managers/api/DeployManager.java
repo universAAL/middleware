@@ -34,40 +34,39 @@ import java.util.Map;
  */
 public interface DeployManager extends Manager {
 
-    /**
-     * This method is invoked in order to install a multi-part application in
-     * the AALSpace. The class using this method will have to invoke the @link
-     * {@link #requestToInstall(URI, Map, String)} method once for each
-     * application that is contained in a uSrv
-     * 
-     * @param app
-     *            {@link UAPPPackage} the representing the uAPP application
-     *            deployment plan to install on uAAL
-     * @return {@link InstallationResults} as result of the installation
-     */
-    public InstallationResultsDetails requestToInstall(UAPPPackage app);
+	/**
+	 * This method is invoked in order to install a multi-part application in
+	 * the AALSpace. The class using this method will have to invoke the @link
+	 * {@link #requestToInstall(URI, Map, String)} method once for each
+	 * application that is contained in a uSrv
+	 * 
+	 * @param app
+	 *            {@link UAPPPackage} the representing the uAPP application
+	 *            deployment plan to install on uAAL
+	 * @return {@link InstallationResults} as result of the installation
+	 */
+	public InstallationResultsDetails requestToInstall(UAPPPackage app);
 
-    /**
-     * True if I'm the Deploy coordinator
-     * 
-     * @return <code>true</code>if and only if the node has the Deploy Manager
-     *         Coordinator role
-     */
-    public boolean isDeployCoordinator();
+	/**
+	 * True if I'm the Deploy coordinator
+	 * 
+	 * @return <code>true</code>if and only if the node has the Deploy Manager
+	 *         Coordinator role
+	 */
+	public boolean isDeployCoordinator();
 
-    /**
-     * Remove an installed uApp by means of the unique pair {@link String}
-     * serviceId and {@link String} id
-     * 
-     * @param serviceId
-     *            the {@link String} representing the unique identifier of the
-     *            service provided by the uStore
-     * @param id
-     *            the {@link String} representing the unique id (with the
-     *            service) of the uApp to remove
-     * @return the result of the uninstall task of the uApp
-     */
-    public InstallationResultsDetails requestToUninstall(String serviceId,
-	    String id);
+	/**
+	 * Remove an installed uApp by means of the unique pair {@link String}
+	 * serviceId and {@link String} id
+	 * 
+	 * @param serviceId
+	 *            the {@link String} representing the unique identifier of the
+	 *            service provided by the uStore
+	 * @param id
+	 *            the {@link String} representing the unique id (with the
+	 *            service) of the uApp to remove
+	 * @return the result of the uninstall task of the uApp
+	 */
+	public InstallationResultsDetails requestToUninstall(String serviceId, String id);
 
 }

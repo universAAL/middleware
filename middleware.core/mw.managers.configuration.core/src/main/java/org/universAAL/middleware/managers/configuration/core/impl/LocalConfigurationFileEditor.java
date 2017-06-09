@@ -36,114 +36,110 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
  * @author amedrano
  * 
  */
-public class LocalConfigurationFileEditor extends LocalConfigurationEntity
-	implements ConfigurationFileEditor {
+public class LocalConfigurationFileEditor extends LocalConfigurationEntity implements ConfigurationFileEditor {
 
-    /**
-     * @param configurationManagerImpl
-     * @param uri
-     */
-    public LocalConfigurationFileEditor(
-	    ConfigurationManagerImpl configurationManagerImpl, String uri) {
-	super(configurationManagerImpl, uri);
-    }
-
-    /** {@ inheritDoc} */
-    public URL getDefaultFileRef() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    try {
-		return new URL(((ConfigurationFile) e).getDefaultURL());
-	    } catch (MalformedURLException e1) {
-		e1.printStackTrace();
-	    }
+	/**
+	 * @param configurationManagerImpl
+	 * @param uri
+	 */
+	public LocalConfigurationFileEditor(ConfigurationManagerImpl configurationManagerImpl, String uri) {
+		super(configurationManagerImpl, uri);
 	}
-	return null;
-    }
 
-    /** {@ inheritDoc} */
-    public String getExtensionfilter() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    return ((ConfigurationFile) e).getExtensionFilter();
-	}
-	return null;
-    }
-
-    /** {@ inheritDoc} */
-    public boolean isDefaultValue() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    ConfigurationFile cf = (ConfigurationFile) e;
-	    File defF;
-	    File actual;
-	    try {
-		defF = confManager.fileM.cache(new URL(cf.getDefaultURL()));
-		actual = new File(URLDecoder.decode(
-			new URL(cf.getLocalURL()).getFile(), "UTF-8"));
-		return actual.getAbsolutePath().equals(defF.getAbsolutePath());
-	    } catch (Exception e1) {
-		return false;
-	    }
-	}
-	return false;
-    }
-
-    /** {@ inheritDoc} */
-    public boolean setDefaultValue() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    ((ConfigurationFile) e).setLocalURL(((ConfigurationFile) e)
-		    .getDefaultURL());
-	    try {
-		((ConfigurationFile) e).loadContentFromDefaultURL();
-	    } catch (IOException e1) {
-		((ConfigurationFile) e).setContent(null);
-	    }
-	    e.incrementVersion();
-	    return confManager.updateLocalAndPropagate(e);
-	}
-	return false;
-    }
-
-    /** {@ inheritDoc} */
-    public File pullFile() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    ConfigurationFile cf = (ConfigurationFile) e;
-	    URL url = null;
-	    try {
-		url = new URL(cf.getLocalURL());
-	    } catch (MalformedURLException e1) {
-		// very complicated
-	    }
-	    File f;
-	    try {
-		f = new File(URLDecoder.decode(url.getFile(), "UTF-8"));
-		if (f.exists()) {
-		    return f;
+	/** {@ inheritDoc} */
+	public URL getDefaultFileRef() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			try {
+				return new URL(((ConfigurationFile) e).getDefaultURL());
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			}
 		}
-	    } catch (UnsupportedEncodingException e1) {
-	    }
+		return null;
 	}
-	return null;
-    }
 
-    /** {@ inheritDoc} */
-    public boolean pushFile(File file) {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    ConfigurationFile cf = (ConfigurationFile) e;
-	    try {
-		cf.setLocalURL(file.toURI().toURL().toString());
-		cf.loadContentFromLocalURL();
-		cf.incrementVersion();
-		return confManager.updateLocalAndPropagate(cf);
-	    } catch (Exception e1) {
-		return false;
-	    }
+	/** {@ inheritDoc} */
+	public String getExtensionfilter() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			return ((ConfigurationFile) e).getExtensionFilter();
+		}
+		return null;
 	}
-	return false;
-    }
+
+	/** {@ inheritDoc} */
+	public boolean isDefaultValue() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			ConfigurationFile cf = (ConfigurationFile) e;
+			File defF;
+			File actual;
+			try {
+				defF = confManager.fileM.cache(new URL(cf.getDefaultURL()));
+				actual = new File(URLDecoder.decode(new URL(cf.getLocalURL()).getFile(), "UTF-8"));
+				return actual.getAbsolutePath().equals(defF.getAbsolutePath());
+			} catch (Exception e1) {
+				return false;
+			}
+		}
+		return false;
+	}
+
+	/** {@ inheritDoc} */
+	public boolean setDefaultValue() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			((ConfigurationFile) e).setLocalURL(((ConfigurationFile) e).getDefaultURL());
+			try {
+				((ConfigurationFile) e).loadContentFromDefaultURL();
+			} catch (IOException e1) {
+				((ConfigurationFile) e).setContent(null);
+			}
+			e.incrementVersion();
+			return confManager.updateLocalAndPropagate(e);
+		}
+		return false;
+	}
+
+	/** {@ inheritDoc} */
+	public File pullFile() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			ConfigurationFile cf = (ConfigurationFile) e;
+			URL url = null;
+			try {
+				url = new URL(cf.getLocalURL());
+			} catch (MalformedURLException e1) {
+				// very complicated
+			}
+			File f;
+			try {
+				f = new File(URLDecoder.decode(url.getFile(), "UTF-8"));
+				if (f.exists()) {
+					return f;
+				}
+			} catch (UnsupportedEncodingException e1) {
+			}
+		}
+		return null;
+	}
+
+	/** {@ inheritDoc} */
+	public boolean pushFile(File file) {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			ConfigurationFile cf = (ConfigurationFile) e;
+			try {
+				cf.setLocalURL(file.toURI().toURL().toString());
+				cf.loadContentFromLocalURL();
+				cf.incrementVersion();
+				return confManager.updateLocalAndPropagate(cf);
+			} catch (Exception e1) {
+				return false;
+			}
+		}
+		return false;
+	}
 
 }

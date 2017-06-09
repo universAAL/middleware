@@ -29,88 +29,85 @@ import org.universAAL.middleware.rdf.TypeMapper;
  *      Schema</a>
  */
 public final class NonNegativeInteger extends Number implements Comparable<NonNegativeInteger> {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /** URI for xsd:nonNegativeInteger. */
-    public static final String MY_URI = TypeMapper.XSD_NAMESPACE
-	    + "nonNegativeInteger";
+	/** URI for xsd:nonNegativeInteger. */
+	public static final String MY_URI = TypeMapper.XSD_NAMESPACE + "nonNegativeInteger";
 
-    private boolean isInt;
+	private boolean isInt;
 
-    private int intval;
+	private int intval;
 
-    // private BigInteger bigintval;
+	// private BigInteger bigintval;
 
-    public NonNegativeInteger(int val) {
-	if (val < 0)
-	    throw new IllegalArgumentException(
-		    "NonNegativeInteger must be non-negative: " + val);
-	isInt = true;
-	intval = val;
-    }
+	public NonNegativeInteger(int val) {
+		if (val < 0)
+			throw new IllegalArgumentException("NonNegativeInteger must be non-negative: " + val);
+		isInt = true;
+		intval = val;
+	}
 
-    public NonNegativeInteger(String val) {
-	int intval = Integer.valueOf(val).intValue();
-	if (intval < 0)
-	    throw new IllegalArgumentException(
-		    "NonNegativeInteger must be non-negative: " + val);
+	public NonNegativeInteger(String val) {
+		int intval = Integer.valueOf(val).intValue();
+		if (intval < 0)
+			throw new IllegalArgumentException("NonNegativeInteger must be non-negative: " + val);
 
-	isInt = true;
-	this.intval = intval;
-	// TODO: if the value is too big, use BigInteger
-    }
+		isInt = true;
+		this.intval = intval;
+		// TODO: if the value is too big, use BigInteger
+	}
 
-    @Override
-    public int intValue() {
-	if (isInt)
-	    return intval;
-	else
-	    return Integer.MAX_VALUE;
-    }
+	@Override
+	public int intValue() {
+		if (isInt)
+			return intval;
+		else
+			return Integer.MAX_VALUE;
+	}
 
-    public String toString() {
-	return Integer.toString(intval);
-    }
+	public String toString() {
+		return Integer.toString(intval);
+	}
 
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj instanceof NonNegativeInteger)
-	    return this.intval == ((NonNegativeInteger) obj).intval;
-	if (obj instanceof Integer)
-	    return this.intval == ((Integer) obj).intValue();
-	return false;
-    }
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj instanceof NonNegativeInteger)
+			return this.intval == ((NonNegativeInteger) obj).intval;
+		if (obj instanceof Integer)
+			return this.intval == ((Integer) obj).intValue();
+		return false;
+	}
 
-    public boolean isIntValue() {
-	return isInt;
-    }
+	public boolean isIntValue() {
+		return isInt;
+	}
 
-    @Override
-    public long longValue() {
-	if (isInt)
-	    return intval;
-	else
-	    return Integer.MAX_VALUE;
-    }
+	@Override
+	public long longValue() {
+		if (isInt)
+			return intval;
+		else
+			return Integer.MAX_VALUE;
+	}
 
-    @Override
-    public float floatValue() {
-	if (isInt)
-	    return intval;
-	else
-	    return Integer.MAX_VALUE;
-    }
+	@Override
+	public float floatValue() {
+		if (isInt)
+			return intval;
+		else
+			return Integer.MAX_VALUE;
+	}
 
-    @Override
-    public double doubleValue() {
-	if (isInt)
-	    return intval;
-	else
-	    return Integer.MAX_VALUE;
-    }
+	@Override
+	public double doubleValue() {
+		if (isInt)
+			return intval;
+		else
+			return Integer.MAX_VALUE;
+	}
 
-    public int compareTo(NonNegativeInteger o) {
-	return Integer.valueOf(intval).compareTo(Integer.valueOf(o.intval));
-    }
+	public int compareTo(NonNegativeInteger o) {
+		return Integer.valueOf(intval).compareTo(Integer.valueOf(o.intval));
+	}
 }

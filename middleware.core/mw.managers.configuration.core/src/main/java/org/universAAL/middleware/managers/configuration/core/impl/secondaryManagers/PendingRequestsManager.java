@@ -36,63 +36,61 @@ import org.universAAL.middleware.owl.TypeExpression;
  */
 public class PendingRequestsManager {
 
-    private Map<ConfigurableEntityManager, List<TypeExpression>> map;
-    private ConfigurationEditorPool editorPool;
+	private Map<ConfigurableEntityManager, List<TypeExpression>> map;
+	private ConfigurationEditorPool editorPool;
 
-    /**
-     * Create the manager and link to the editor pool.
-     */
-    public PendingRequestsManager(ConfigurationEditorPool editorPool) {
-	map = new WeakHashMap<ConfigurationEditor.ConfigurableEntityManager, List<TypeExpression>>();
-	this.editorPool = editorPool;
-    }
-
-    /**
-     * add a {@link ConfigurableEntityManager} that has issued a request.
-     * 
-     * @param mngr
-     * @param filter
-     */
-    public void add(ConfigurableEntityManager mngr, List<TypeExpression> filter) {
-	if (map.containsKey(mngr)) {
-	    map.get(mngr).addAll(filter);
-	} else {
-	    map.put(mngr, filter);
+	/**
+	 * Create the manager and link to the editor pool.
+	 */
+	public PendingRequestsManager(ConfigurationEditorPool editorPool) {
+		map = new WeakHashMap<ConfigurationEditor.ConfigurableEntityManager, List<TypeExpression>>();
+		this.editorPool = editorPool;
 	}
-    }
 
-    /**
-     * remove a {@link ConfigurableEntityManager}, no longer interested in
-     * responses.
-     * 
-     * @param manager
-     */
-    public void remove(ConfigurableEntityManager manager) {
-	map.remove(manager);
-    }
-
-    /**
-     * Called when a response is received. for all the
-     * {@link ConfigurableEntityManager} match the possible new entities, and
-     * add them.
-     * 
-     * @param ents
-     */
-    public void processResponse(List<Entity> ents) {
-	for (Map.Entry<ConfigurableEntityManager, List<TypeExpression>> entry : map
-		.entrySet()) {
-	    List<Entity> toBeAdded = EntityManager.filter(ents,
-		    entry.getValue());
-	    for (Entity e : toBeAdded) {
-		entry.getKey().addConfigurableEntity(editorPool.get(e));
-	    }
+	/**
+	 * add a {@link ConfigurableEntityManager} that has issued a request.
+	 * 
+	 * @param mngr
+	 * @param filter
+	 */
+	public void add(ConfigurableEntityManager mngr, List<TypeExpression> filter) {
+		if (map.containsKey(mngr)) {
+			map.get(mngr).addAll(filter);
+		} else {
+			map.put(mngr, filter);
+		}
 	}
-    }
 
-    /**
-     * When finished.
-     */
-    public void clear() {
-	map.clear();
-    }
+	/**
+	 * remove a {@link ConfigurableEntityManager}, no longer interested in
+	 * responses.
+	 * 
+	 * @param manager
+	 */
+	public void remove(ConfigurableEntityManager manager) {
+		map.remove(manager);
+	}
+
+	/**
+	 * Called when a response is received. for all the
+	 * {@link ConfigurableEntityManager} match the possible new entities, and
+	 * add them.
+	 * 
+	 * @param ents
+	 */
+	public void processResponse(List<Entity> ents) {
+		for (Map.Entry<ConfigurableEntityManager, List<TypeExpression>> entry : map.entrySet()) {
+			List<Entity> toBeAdded = EntityManager.filter(ents, entry.getValue());
+			for (Entity e : toBeAdded) {
+				entry.getKey().addConfigurableEntity(editorPool.get(e));
+			}
+		}
+	}
+
+	/**
+	 * When finished.
+	 */
+	public void clear() {
+		map.clear();
+	}
 }

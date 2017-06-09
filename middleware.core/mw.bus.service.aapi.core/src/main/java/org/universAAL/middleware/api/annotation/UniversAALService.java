@@ -40,7 +40,7 @@ import java.lang.annotation.ElementType;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface UniversAALService {
-    String namespace();
+	String namespace();
 
-    String name() default "";
+	String name() default "";
 }

@@ -34,30 +34,25 @@ import org.universAAL.middleware.container.utils.LogUtils;
  */
 public class AALSpaceSchemaEventHandler implements ValidationEventHandler {
 
-    private ModuleContext context;
+	private ModuleContext context;
 
-    public AALSpaceSchemaEventHandler(ModuleContext context) {
-	this.context = context;
-    }
+	public AALSpaceSchemaEventHandler(ModuleContext context) {
+		this.context = context;
+	}
 
-    public boolean handleEvent(ValidationEvent event) {
-	// TODO Auto-generated method stub
+	public boolean handleEvent(ValidationEvent event) {
+		// TODO Auto-generated method stub
 
-	LogUtils.logError(context, AALSpaceSchemaEventHandler.class,
-		"AALSpaceSchemaEventHandler",
-		new Object[] { "Error during AALSpace Schema validation" },
-		null);
+		LogUtils.logError(context, AALSpaceSchemaEventHandler.class, "AALSpaceSchemaEventHandler",
+				new Object[] { "Error during AALSpace Schema validation" }, null);
 
-	LogUtils.logError(context, AALSpaceSchemaEventHandler.class,
-		"AALSpaceSchemaEventHandler",
-		new Object[] { "Severity: " + event.getSeverity()
-			+ " Message: " + event.getMessage()
-			+ " Position. Coloumn: "
-			+ event.getLocator().getColumnNumber()
-			+ "Line Number: " + event.getLocator().getLineNumber()
-			+ " in the node: "
-			+ event.getLocator().getNode().getNodeName() }, null);
-	return true;
-    }
+		LogUtils.logError(context, AALSpaceSchemaEventHandler.class, "AALSpaceSchemaEventHandler",
+				new Object[] { "Severity: " + event.getSeverity() + " Message: " + event.getMessage()
+						+ " Position. Coloumn: " + event.getLocator().getColumnNumber() + "Line Number: "
+						+ event.getLocator().getLineNumber() + " in the node: "
+						+ event.getLocator().getNode().getNodeName() },
+				null);
+		return true;
+	}
 
 }

@@ -37,28 +37,27 @@ import org.universAAL.middleware.modules.communication.CommunicationModuleImpl;
  */
 public class Activator implements BundleActivator {
 
-    CommunicationModule communicationModule;
+	CommunicationModule communicationModule;
 
-    public void start(BundleContext context) throws Exception {
+	public void start(BundleContext context) throws Exception {
 
-	ModuleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-		new Object[] { "Starting the CommunicationModule..." }, null);
+		ModuleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
+				.registerModule(new Object[] { context });
+		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
+				new Object[] { "Starting the CommunicationModule..." }, null);
 
-	communicationModule = new CommunicationModuleImpl(moduleContext);
-	communicationModule.init();
-	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-		new Object[] { "Started the CommunicationModule..." }, null);
-	uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
-		communicationModule,
-		new Object[] { CommunicationModule.class.getName() });
+		communicationModule = new CommunicationModuleImpl(moduleContext);
+		communicationModule.init();
+		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
+				new Object[] { "Started the CommunicationModule..." }, null);
+		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, communicationModule,
+				new Object[] { CommunicationModule.class.getName() });
 
-    }
+	}
 
-    public void stop(BundleContext context) throws Exception {
-	if (communicationModule != null)
-	    communicationModule.dispose();
-    }
+	public void stop(BundleContext context) throws Exception {
+		if (communicationModule != null)
+			communicationModule.dispose();
+	}
 
 }

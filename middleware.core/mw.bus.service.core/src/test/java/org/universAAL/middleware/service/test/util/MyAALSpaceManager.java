@@ -26,78 +26,76 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
  * 
  */
 public class MyAALSpaceManager implements AALSpaceManager {
-    HashMap<String, PeerCard> mapCards;
-    HashMap<AbstractBus, PeerCard> mapCardForBus;
-    List<PeerCard> lstCards;
-    int cnt = -1;
+	HashMap<String, PeerCard> mapCards;
+	HashMap<AbstractBus, PeerCard> mapCardForBus;
+	List<PeerCard> lstCards;
+	int cnt = -1;
 
-    MyAALSpaceManager(HashMap<String, PeerCard> mapCards,
-	    List<PeerCard> lstCards) {
-	this.mapCards = mapCards;
-	this.lstCards = lstCards;
-    }
+	MyAALSpaceManager(HashMap<String, PeerCard> mapCards, List<PeerCard> lstCards) {
+		this.mapCards = mapCards;
+		this.lstCards = lstCards;
+	}
 
-    public void dispose() {
-    }
+	public void dispose() {
+	}
 
-    public boolean init() {
-	return false;
-    }
+	public boolean init() {
+		return false;
+	}
 
-    public void loadConfigurations(@SuppressWarnings("rawtypes") Dictionary arg0) {
-    }
+	public void loadConfigurations(@SuppressWarnings("rawtypes") Dictionary arg0) {
+	}
 
-    public void addAALSpaceListener(AALSpaceListener arg0) {
-    }
+	public void addAALSpaceListener(AALSpaceListener arg0) {
+	}
 
-    public AALSpaceDescriptor getAALSpaceDescriptor() {
-	return new AALSpaceDescriptor() {
-	    private static final long serialVersionUID = -7504183020450042989L;
+	public AALSpaceDescriptor getAALSpaceDescriptor() {
+		return new AALSpaceDescriptor() {
+			private static final long serialVersionUID = -7504183020450042989L;
 
-	    public AALSpaceCard getSpaceCard() {
-		AALSpaceCard sc = new AALSpaceCard();
-		sc.setSpaceID("TestSpaceID");
-		return sc;
-	    }
-	};
-    }
+			public AALSpaceCard getSpaceCard() {
+				AALSpaceCard sc = new AALSpaceCard();
+				sc.setSpaceID("TestSpaceID");
+				return sc;
+			}
+		};
+	}
 
-    public Set<AALSpaceCard> getAALSpaces() {
-	return null;
-    }
+	public Set<AALSpaceCard> getAALSpaces() {
+		return null;
+	}
 
-    public Map<String, AALSpaceDescriptor> getManagedAALSpaces() {
-	return null;
-    }
+	public Map<String, AALSpaceDescriptor> getManagedAALSpaces() {
+		return null;
+	}
 
-    public MatchingResult getMatchingPeers(Map<String, Serializable> arg0) {
-	return null;
-    }
+	public MatchingResult getMatchingPeers(Map<String, Serializable> arg0) {
+		return null;
+	}
 
-    public PeerCard getMyPeerCard() {
-	// HACK: we assume that this method is called only by the bus and that
-	// it is called exactly two times for a bus
-	// System.out.println(" --- getMyPeerCard");
-	cnt++;
-	return lstCards.get(cnt / 2);
-	// return null;
-    }
+	public PeerCard getMyPeerCard() {
+		// HACK: we assume that this method is called only by the bus and that
+		// it is called exactly two times for a bus
+		// System.out.println(" --- getMyPeerCard");
+		cnt++;
+		return lstCards.get(cnt / 2);
+		// return null;
+	}
 
-    public Map<String, Serializable> getPeerAttributes(List<String> arg0,
-	    PeerCard arg1) {
-	return null;
-    }
+	public Map<String, Serializable> getPeerAttributes(List<String> arg0, PeerCard arg1) {
+		return null;
+	}
 
-    public Map<String, PeerCard> getPeers() {
-	return mapCards;
-    }
+	public Map<String, PeerCard> getPeers() {
+		return mapCards;
+	}
 
-    public void join(AALSpaceCard arg0) {
-    }
+	public void join(AALSpaceCard arg0) {
+	}
 
-    public void leaveAALSpace(AALSpaceDescriptor arg0) {
-    }
+	public void leaveAALSpace(AALSpaceDescriptor arg0) {
+	}
 
-    public void removeAALSpaceListener(AALSpaceListener arg0) {
-    }
+	public void removeAALSpaceListener(AALSpaceListener arg0) {
+	}
 }

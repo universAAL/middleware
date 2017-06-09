@@ -47,26 +47,26 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum PlatformType {
 
-    @XmlEnumValue("Java")
-    JAVA("Java"), @XmlEnumValue(".NET")
-    NET(".NET");
-    private final String value;
+	@XmlEnumValue("Java")
+	JAVA("Java"), @XmlEnumValue(".NET")
+	NET(".NET");
+	private final String value;
 
-    PlatformType(String v) {
-	value = v;
-    }
-
-    public String value() {
-	return value;
-    }
-
-    public static PlatformType fromValue(String v) {
-	for (PlatformType c : PlatformType.values()) {
-	    if (c.value.equals(v)) {
-		return c;
-	    }
+	PlatformType(String v) {
+		value = v;
 	}
-	throw new IllegalArgumentException(v);
-    }
+
+	public String value() {
+		return value;
+	}
+
+	public static PlatformType fromValue(String v) {
+		for (PlatformType c : PlatformType.values()) {
+			if (c.value.equals(v)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(v);
+	}
 
 }

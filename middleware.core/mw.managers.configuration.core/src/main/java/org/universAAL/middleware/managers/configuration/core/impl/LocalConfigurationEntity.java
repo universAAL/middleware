@@ -31,29 +31,27 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
  * 
  * @author amedrano
  */
-public abstract class LocalConfigurationEntity extends
-	GenericConfigurationEntity implements ConfigurableEntityEditor {
+public abstract class LocalConfigurationEntity extends GenericConfigurationEntity implements ConfigurableEntityEditor {
 
-    /**
-     * 
-     */
-    public LocalConfigurationEntity(
-	    ConfigurationManagerImpl configurationManagerImpl, String uri) {
-	super(configurationManagerImpl, uri);
-    }
+	/**
+	 * 
+	 */
+	public LocalConfigurationEntity(ConfigurationManagerImpl configurationManagerImpl, String uri) {
+		super(configurationManagerImpl, uri);
+	}
 
-    /** {@ inheritDoc} */
-    public String getDescription(Locale loc) {
-	DescribedEntity s = confManager.entitiesSources.get(uri);
-	Entity old = confManager.manager.find(uri);
-	Entity ne = EntityFactory.updateEntity(old, s, loc);
-	confManager.manager.addEntity(ne);
-	return ne.getDescription(loc);
-    }
+	/** {@ inheritDoc} */
+	public String getDescription(Locale loc) {
+		DescribedEntity s = confManager.entitiesSources.get(uri);
+		Entity old = confManager.manager.find(uri);
+		Entity ne = EntityFactory.updateEntity(old, s, loc);
+		confManager.manager.addEntity(ne);
+		return ne.getDescription(loc);
+	}
 
-    protected Entity getEntity() {
-	Entity e = confManager.manager.find(uri);
-	return e;
-    }
+	protected Entity getEntity() {
+		Entity e = confManager.manager.find(uri);
+		return e;
+	}
 
 }

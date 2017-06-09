@@ -50,70 +50,64 @@ import org.universAAL.middleware.managers.deploy.DeployManagerImpl;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class Activator implements BundleActivator, ManagedService {
 
-    private DeployManager deployManager;
-    private static String SERVICE_PID = "mw.managers.deploy.core";
-    private ServiceRegistration myRegistration;
-    private ModuleContext moduleContext;
+	private DeployManager deployManager;
+	private static String SERVICE_PID = "mw.managers.deploy.core";
+	private ServiceRegistration myRegistration;
+	private ModuleContext moduleContext;
 
-    public void start(BundleContext context) throws Exception {
-	moduleContext = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-		new Object[] { "Starting the Deploymanager..." }, null);
+	public void start(BundleContext context) throws Exception {
+		moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
+				new Object[] { "Starting the Deploymanager..." }, null);
 
-	deployManager = new DeployManagerImpl(moduleContext);
+		deployManager = new DeployManagerImpl(moduleContext);
 
-	Dictionary props = new Hashtable();
-	props.put(Constants.SERVICE_PID, SERVICE_PID);
-	myRegistration = context.registerService(
-		ManagedService.class.getName(), this, props);
+		Dictionary props = new Hashtable();
+		props.put(Constants.SERVICE_PID, SERVICE_PID);
+		myRegistration = context.registerService(ManagedService.class.getName(), this, props);
 
-	ConfigurationAdmin configurationAdmin = null;
-	ServiceReference sr = context
-		.getServiceReference(ConfigurationAdmin.class.getName());
-	if (sr != null && context.getService(sr) instanceof ConfigurationAdmin)
-	    configurationAdmin = (ConfigurationAdmin) context.getService(sr);
-	Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
+		ConfigurationAdmin configurationAdmin = null;
+		ServiceReference sr = context.getServiceReference(ConfigurationAdmin.class.getName());
+		if (sr != null && context.getService(sr) instanceof ConfigurationAdmin)
+			configurationAdmin = (ConfigurationAdmin) context.getService(sr);
+		Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
 
-	Dictionary deployManagerProps = config.getProperties();
+		Dictionary deployManagerProps = config.getProperties();
 
-	// if null, the configuration is new
-	if (deployManagerProps == null) {
-	    deployManagerProps = new Hashtable<String, String>();
-	} else {
-	    deployManager.loadConfigurations(deployManagerProps);
-	}
-	deployManager.init();
-	uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
-		deployManager, new Object[] { DeployManager.class.getName() });
-    }
-
-    public void stop(BundleContext context) throws Exception {
-	deployManager.dispose();
-	myRegistration.unregister();
-    }
-
-    public void updated(Dictionary properties) throws ConfigurationException {
-	deployManager.loadConfigurations(properties);
-	if (myRegistration == null) {
-	    LogUtils.logDebug(
-		    moduleContext,
-		    Activator.class,
-		    "updated",
-		    new Object[] { "Race Condition: the ServiceRegistration"
-			    + " is not yet initialized, waiting for registerService." },
-		    null);
-	    int numLoops = 20;
-	    while (myRegistration == null && numLoops != 0) {
-		numLoops--;
-		try {
-		    Thread.sleep(500);
-		} catch (InterruptedException e) {
-		    e.printStackTrace();
+		// if null, the configuration is new
+		if (deployManagerProps == null) {
+			deployManagerProps = new Hashtable<String, String>();
+		} else {
+			deployManager.loadConfigurations(deployManagerProps);
 		}
-	    }
+		deployManager.init();
+		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, deployManager,
+				new Object[] { DeployManager.class.getName() });
 	}
-	if (myRegistration != null)
-	    myRegistration.setProperties(properties);
-    }
+
+	public void stop(BundleContext context) throws Exception {
+		deployManager.dispose();
+		myRegistration.unregister();
+	}
+
+	public void updated(Dictionary properties) throws ConfigurationException {
+		deployManager.loadConfigurations(properties);
+		if (myRegistration == null) {
+			LogUtils.logDebug(moduleContext, Activator.class, "updated",
+					new Object[] { "Race Condition: the ServiceRegistration"
+							+ " is not yet initialized, waiting for registerService." },
+					null);
+			int numLoops = 20;
+			while (myRegistration == null && numLoops != 0) {
+				numLoops--;
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		if (myRegistration != null)
+			myRegistration.setProperties(properties);
+	}
 }

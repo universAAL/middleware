@@ -29,30 +29,30 @@ import org.universAAL.middleware.owl.URIRestriction;
  */
 public class ApplicationPartPattern implements EntityPattern {
 
-    private String id;
+	private String id;
 
-    /**
-     * Match any entity with ApplicationPart type scope.
-     */
-    public ApplicationPartPattern() {
-	id = ".*";
-    }
+	/**
+	 * Match any entity with ApplicationPart type scope.
+	 */
+	public ApplicationPartPattern() {
+		id = ".*";
+	}
 
-    /**
-     * Match any Entity with an ApplicationPart Type scope where the partID also
-     * matches the appPartID
-     * 
-     * @param appPartId
-     */
-    public ApplicationPartPattern(String appPartId) {
-	id = appPartId;
-    }
+	/**
+	 * Match any Entity with an ApplicationPart Type scope where the partID also
+	 * matches the appPartID
+	 * 
+	 * @param appPartId
+	 */
+	public ApplicationPartPattern(String appPartId) {
+		id = appPartId;
+	}
 
-    /** {@ inheritDoc} */
-    public TypeExpression getRestriction() {
-	URIRestriction ur = new URIRestriction();
-	ur.setPattern(".*part\\:" + id + ".*");
-	return ur;
-    }
+	/** {@ inheritDoc} */
+	public TypeExpression getRestriction() {
+		URIRestriction ur = new URIRestriction();
+		ur.setPattern(".*part\\:" + id + ".*");
+		return ur;
+	}
 
 }

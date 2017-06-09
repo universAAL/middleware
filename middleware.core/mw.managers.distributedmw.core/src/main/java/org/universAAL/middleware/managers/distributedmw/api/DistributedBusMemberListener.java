@@ -31,63 +31,60 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public interface DistributedBusMemberListener {
-    /**
-     * Invoked when a new BusMember is registered in the bus.
-     * 
-     * @param origin
-     *            the peer on which the event occurred.
-     * @param member
-     *            newly added bus member
-     * @param type
-     *            type of bus {@link IBusMemberRegistry}
-     */
-    public void busMemberAdded(PeerCard origin, String busMemberID,
-	    String busName, BusMemberType memberType, String label,
-	    String comment);
+	/**
+	 * Invoked when a new BusMember is registered in the bus.
+	 * 
+	 * @param origin
+	 *            the peer on which the event occurred.
+	 * @param member
+	 *            newly added bus member
+	 * @param type
+	 *            type of bus {@link IBusMemberRegistry}
+	 */
+	public void busMemberAdded(PeerCard origin, String busMemberID, String busName, BusMemberType memberType,
+			String label, String comment);
 
-    /**
-     * Invoked when an existing BusMember is unregistered from the bus.
-     * 
-     * @param origin
-     *            the peer on which the event occurred.
-     * @param member
-     *            removed bus member
-     * @param type
-     *            type of bus {@link IBusMemberRegistry}
-     */
-    public void busMemberRemoved(PeerCard origin, String busMemberID);
+	/**
+	 * Invoked when an existing BusMember is unregistered from the bus.
+	 * 
+	 * @param origin
+	 *            the peer on which the event occurred.
+	 * @param member
+	 *            removed bus member
+	 * @param type
+	 *            type of bus {@link IBusMemberRegistry}
+	 */
+	public void busMemberRemoved(PeerCard origin, String busMemberID);
 
-    /**
-     * Invoked when registration parameters of an existing BusMember are added.
-     * Registration parameters can be, for example, {@link ServiceProfile}s for
-     * {@link ServiceCallee}s or {@link ContextEventPattern} for
-     * {@link ContextSubscriber}.
-     * 
-     * @param origin
-     *            the peer on which the event occurred.
-     * @param busMemberID
-     *            the ID of the bus member for which the registration parameters
-     *            have been added.
-     * @param params
-     *            the registration parameters that have been added.
-     */
-    public void regParamsAdded(PeerCard origin, String busMemberID,
-	    Resource[] params);
+	/**
+	 * Invoked when registration parameters of an existing BusMember are added.
+	 * Registration parameters can be, for example, {@link ServiceProfile}s for
+	 * {@link ServiceCallee}s or {@link ContextEventPattern} for
+	 * {@link ContextSubscriber}.
+	 * 
+	 * @param origin
+	 *            the peer on which the event occurred.
+	 * @param busMemberID
+	 *            the ID of the bus member for which the registration parameters
+	 *            have been added.
+	 * @param params
+	 *            the registration parameters that have been added.
+	 */
+	public void regParamsAdded(PeerCard origin, String busMemberID, Resource[] params);
 
-    /**
-     * Invoked when registration parameters of an existing BusMember are
-     * removed. Registration parameters can be, for example,
-     * {@link ServiceProfile}s for {@link ServiceCallee}s or
-     * {@link ContextEventPattern} for {@link ContextSubscriber}.
-     * 
-     * @param origin
-     *            the peer on which the event occurred.
-     * @param busMemberID
-     *            the ID of the bus member for which the registration parameters
-     *            have been removed.
-     * @param params
-     *            the registration parameters that have been removed.
-     */
-    public void regParamsRemoved(PeerCard origin, String busMemberID,
-	    Resource[] params);
+	/**
+	 * Invoked when registration parameters of an existing BusMember are
+	 * removed. Registration parameters can be, for example,
+	 * {@link ServiceProfile}s for {@link ServiceCallee}s or
+	 * {@link ContextEventPattern} for {@link ContextSubscriber}.
+	 * 
+	 * @param origin
+	 *            the peer on which the event occurred.
+	 * @param busMemberID
+	 *            the ID of the bus member for which the registration parameters
+	 *            have been removed.
+	 * @param params
+	 *            the registration parameters that have been removed.
+	 */
+	public void regParamsRemoved(PeerCard origin, String busMemberID, Resource[] params);
 }

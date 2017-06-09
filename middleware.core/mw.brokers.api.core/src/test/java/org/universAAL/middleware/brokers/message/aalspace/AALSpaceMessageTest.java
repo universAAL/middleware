@@ -43,46 +43,41 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 
 public class AALSpaceMessageTest {
 
-    @Test
-    public void testGSONMessageAALSpace() throws Exception {
+	@Test
+	public void testGSONMessageAALSpace() throws Exception {
 
-	AALSpaceCard spaceCard = new AALSpaceCard();
-	spaceCard.setSpaceID("id");
-	spaceCard.setDescription("descrizione");
-	spaceCard.setPeerCoordinatorID("coord{   }&)?id");
-	spaceCard.setPeeringChannel("canale");
-	spaceCard.setPeeringChannelName("nome canaèle");
-	spaceCard.setProfile("profilo");
-	spaceCard.setRetry(10);
-	ChannelDescriptor chd = new ChannelDescriptor("1339517729177690537L",
-		"nome!", "http://google.it");
+		AALSpaceCard spaceCard = new AALSpaceCard();
+		spaceCard.setSpaceID("id");
+		spaceCard.setDescription("descrizione");
+		spaceCard.setPeerCoordinatorID("coord{   }&)?id");
+		spaceCard.setPeeringChannel("canale");
+		spaceCard.setPeeringChannelName("nome canaèle");
+		spaceCard.setProfile("profilo");
+		spaceCard.setRetry(10);
+		ChannelDescriptor chd = new ChannelDescriptor("1339517729177690537L", "nome!", "http://google.it");
 
-	List<org.universAAL.middleware.interfaces.ChannelDescriptor> brokerChannels = new ArrayList<org.universAAL.middleware.interfaces.ChannelDescriptor>();
-	brokerChannels.add(chd);
+		List<org.universAAL.middleware.interfaces.ChannelDescriptor> brokerChannels = new ArrayList<org.universAAL.middleware.interfaces.ChannelDescriptor>();
+		brokerChannels.add(chd);
 
-	AALSpaceDescriptor spaceDescriptor = new AALSpaceDescriptor(spaceCard,
-		brokerChannels);
+		AALSpaceDescriptor spaceDescriptor = new AALSpaceDescriptor(spaceCard, brokerChannels);
 
-	PeerCard deployManager = new PeerCard(PeerRole.PEER, "stringa1",
-		"stringa2");
+		PeerCard deployManager = new PeerCard(PeerRole.PEER, "stringa1", "stringa2");
 
-	spaceDescriptor.setDeployManager(deployManager);
+		spaceDescriptor.setDeployManager(deployManager);
 
-	AALSpaceMessage original = new AALSpaceMessage(spaceDescriptor,
-		AALSpaceMessageTypes.CONNECT);
+		AALSpaceMessage original = new AALSpaceMessage(spaceDescriptor, AALSpaceMessageTypes.CONNECT);
 
-	String serializedMessage = GsonParserBuilder.getInstance().toJson(
-		original);
+		String serializedMessage = GsonParserBuilder.getInstance().toJson(original);
 
-	AALSpaceMessage decodedMessage = GsonParserBuilder.getInstance()
-		.fromJson(serializedMessage, AALSpaceMessage.class);
+		AALSpaceMessage decodedMessage = GsonParserBuilder.getInstance().fromJson(serializedMessage,
+				AALSpaceMessage.class);
 
-	System.out.println(original.toString());
-	System.out.println(serializedMessage.toString());
-	System.out.println(decodedMessage.toString());
+		System.out.println(original.toString());
+		System.out.println(serializedMessage.toString());
+		System.out.println(decodedMessage.toString());
 
-	assertEquals(original.toString(), decodedMessage.toString());
+		assertEquals(original.toString(), decodedMessage.toString());
 
-    }
+	}
 
 }

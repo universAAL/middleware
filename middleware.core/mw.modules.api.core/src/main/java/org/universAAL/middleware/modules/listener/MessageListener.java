@@ -32,19 +32,18 @@ import org.universAAL.middleware.connectors.util.ChannelMessage;
  */
 public interface MessageListener {
 
-    /**
-     * Callback for the reception of messages
-     * 
-     * @param message
-     */
-    public void messageReceived(ChannelMessage message);
+	/**
+	 * Callback for the reception of messages
+	 * 
+	 * @param message
+	 */
+	public void messageReceived(ChannelMessage message);
 
-    /**
-     * Callback for error handling
-     * 
-     * @param message
-     * @param e
-     */
-    public void handleSendError(ChannelMessage message,
-	    CommunicationConnectorException e);
+	/**
+	 * Callback for error handling
+	 * 
+	 * @param message
+	 * @param e
+	 */
+	public void handleSendError(ChannelMessage message, CommunicationConnectorException e);
 }

@@ -28,21 +28,21 @@ package org.universAAL.middleware.modules.exception;
  */
 public class AALSpaceModuleException extends RuntimeException {
 
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = -8518393767365549902L;
-    private String description;
-    private short errorCode;
+	private static final long serialVersionUID = -8518393767365549902L;
+	private String description;
+	private short errorCode;
 
-    public AALSpaceModuleException(short errorCode, String description) {
-	super();
-	this.description = description;
-	this.errorCode = errorCode;
-    }
+	public AALSpaceModuleException(short errorCode, String description) {
+		super();
+		this.description = description;
+		this.errorCode = errorCode;
+	}
 
-    public String toString() {
-	return "cause: " + this.description + "error code: " + this.errorCode;
-    }
+	public String toString() {
+		return "cause: " + this.description + "error code: " + this.errorCode;
+	}
 
 }

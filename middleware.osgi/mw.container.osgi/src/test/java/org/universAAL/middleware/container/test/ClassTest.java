@@ -20,27 +20,26 @@ import org.universAAL.middleware.container.ModuleContext;
 
 import junit.framework.TestCase;
 
-
 /**
  * @author amedrano
  *
  */
 public class ClassTest extends TestCase {
-	
-	public void test_isAssignableFrom(){
+
+	public void test_isAssignableFrom() {
 		ModuleActivator activatorClass = new ModuleActivator() {
-			
+
 			public void stop(ModuleContext arg0) throws Exception {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			public void start(ModuleContext arg0) throws Exception {
 				// TODO Auto-generated method stub
-				
+
 			}
 		};
-		
+
 		assertFalse(activatorClass.getClass().isAssignableFrom(ModuleActivator.class));
 		assertTrue(ModuleActivator.class.isAssignableFrom(activatorClass.getClass()));
 	}

@@ -27,14 +27,12 @@ package org.universAAL.middleware.connectors.discovery.slp.util;
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public final class Consts {
-    public static String AALSPaceServiceTypeName = "aalSpaceServiceType";
-    public static String SDPProtocols = "sdpprtocol";
-    public static String BROWSE_SLP_NETWORK = "browseSLPNetwork";
-    public static String SLP_INIT_DELAY_SCAN = "slpInitDelayScan";
-    public static String SLP_PERIOD_SCAN = "slpPeriodScan";
+	public static String AALSPaceServiceTypeName = "aalSpaceServiceType";
+	public static String SDPProtocols = "sdpprtocol";
+	public static String BROWSE_SLP_NETWORK = "browseSLPNetwork";
+	public static String SLP_INIT_DELAY_SCAN = "slpInitDelayScan";
+	public static String SLP_PERIOD_SCAN = "slpPeriodScan";
 
-    public static String SEARCH_ALL = "("
-	    + org.universAAL.middleware.interfaces.aalspace.Consts.AALSPaceID
-	    + "=*)";
+	public static String SEARCH_ALL = "(" + org.universAAL.middleware.interfaces.aalspace.Consts.AALSPaceID + "=*)";
 
 }

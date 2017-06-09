@@ -21,4 +21,3 @@
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://universaal.org/aal-mpa/v1.0.0", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package org.universAAL.middleware.interfaces.mpa.model;
-

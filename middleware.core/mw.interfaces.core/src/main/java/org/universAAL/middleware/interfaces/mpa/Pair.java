@@ -30,28 +30,28 @@ package org.universAAL.middleware.interfaces.mpa;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class Pair {
-    String peerID;
-    UAPPPartStatus partStatus;
+	String peerID;
+	UAPPPartStatus partStatus;
 
-    public Pair(String peerID, UAPPPartStatus partStatus) {
-	this.peerID = peerID;
-	this.partStatus = partStatus;
-    }
+	public Pair(String peerID, UAPPPartStatus partStatus) {
+		this.peerID = peerID;
+		this.partStatus = partStatus;
+	}
 
-    public String getPeerID() {
-	return peerID;
-    }
+	public String getPeerID() {
+		return peerID;
+	}
 
-    public UAPPPartStatus getPartStatus() {
-	return partStatus;
-    }
+	public UAPPPartStatus getPartStatus() {
+		return partStatus;
+	}
 
-    public void setPeerID(String peerID) {
-	this.peerID = peerID;
-    }
+	public void setPeerID(String peerID) {
+		this.peerID = peerID;
+	}
 
-    public void setPartStatus(UAPPPartStatus partStatus) {
-	this.partStatus = partStatus;
-    }
+	public void setPartStatus(UAPPPartStatus partStatus) {
+		this.partStatus = partStatus;
+	}
 
 }

@@ -35,49 +35,48 @@ import org.universAAL.middleware.interfaces.PeerCard;
  */
 public class AALSpaceDescriptor implements Serializable {
 
-    /**
-     *  
-     */
-    private static final long serialVersionUID = -3522163669123414699L;
-    private AALSpaceCard spaceCard;
-    private List<ChannelDescriptor> brokerChannels;
-    /**
-     * ID of the peer configured as deploy manager
-     */
-    private PeerCard deployManager;
+	/**
+	 *  
+	 */
+	private static final long serialVersionUID = -3522163669123414699L;
+	private AALSpaceCard spaceCard;
+	private List<ChannelDescriptor> brokerChannels;
+	/**
+	 * ID of the peer configured as deploy manager
+	 */
+	private PeerCard deployManager;
 
-    public PeerCard getDeployManager() {
-	return deployManager;
-    }
+	public PeerCard getDeployManager() {
+		return deployManager;
+	}
 
-    public void setDeployManager(PeerCard deployManager) {
-	this.deployManager = deployManager;
-    }
+	public void setDeployManager(PeerCard deployManager) {
+		this.deployManager = deployManager;
+	}
 
-    public List<ChannelDescriptor> getBrokerChannels() {
-	return brokerChannels;
-    }
+	public List<ChannelDescriptor> getBrokerChannels() {
+		return brokerChannels;
+	}
 
-    public void setBrokerChannels(List<ChannelDescriptor> brokerChannels) {
-	this.brokerChannels = brokerChannels;
-    }
+	public void setBrokerChannels(List<ChannelDescriptor> brokerChannels) {
+		this.brokerChannels = brokerChannels;
+	}
 
-    public AALSpaceCard getSpaceCard() {
-	return spaceCard;
-    }
+	public AALSpaceCard getSpaceCard() {
+		return spaceCard;
+	}
 
-    public void setSpaceCard(AALSpaceCard spaceCard) {
-	this.spaceCard = spaceCard;
-    }
+	public void setSpaceCard(AALSpaceCard spaceCard) {
+		this.spaceCard = spaceCard;
+	}
 
-    public AALSpaceDescriptor(AALSpaceCard spaceCard,
-	    List<ChannelDescriptor> brokerChannels) {
-	this.spaceCard = spaceCard;
-	this.brokerChannels = brokerChannels;
-    }
+	public AALSpaceDescriptor(AALSpaceCard spaceCard, List<ChannelDescriptor> brokerChannels) {
+		this.spaceCard = spaceCard;
+		this.brokerChannels = brokerChannels;
+	}
 
-    public AALSpaceDescriptor() {
+	public AALSpaceDescriptor() {
 
-    }
+	}
 
 }

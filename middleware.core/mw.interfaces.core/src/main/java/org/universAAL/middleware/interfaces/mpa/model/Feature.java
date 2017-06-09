@@ -65,166 +65,165 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "feature", namespace = "http://karaf.apache.org/xmlns/features/v1.0.0", propOrder = { "detailsOrConfigOrConfigfile" })
+@XmlType(name = "feature", namespace = "http://karaf.apache.org/xmlns/features/v1.0.0", propOrder = {
+		"detailsOrConfigOrConfigfile" })
 public class Feature implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElements({ @XmlElement(name = "details", type = String.class),
-	    @XmlElement(name = "config", type = Config.class),
-	    @XmlElement(name = "configfile", type = ConfigFile.class),
-	    @XmlElement(name = "feature", type = Dependency.class),
-	    @XmlElement(name = "bundle", type = Bundle.class) })
-    protected List<Serializable> detailsOrConfigOrConfigfile;
-    @XmlAttribute(name = "name", required = true)
-    protected String name;
-    @XmlAttribute(name = "version")
-    protected String version;
-    @XmlAttribute(name = "description")
-    protected String description;
-    @XmlAttribute(name = "resolver")
-    protected String resolver;
+	private final static long serialVersionUID = 12343L;
+	@XmlElements({ @XmlElement(name = "details", type = String.class),
+			@XmlElement(name = "config", type = Config.class),
+			@XmlElement(name = "configfile", type = ConfigFile.class),
+			@XmlElement(name = "feature", type = Dependency.class), @XmlElement(name = "bundle", type = Bundle.class) })
+	protected List<Serializable> detailsOrConfigOrConfigfile;
+	@XmlAttribute(name = "name", required = true)
+	protected String name;
+	@XmlAttribute(name = "version")
+	protected String version;
+	@XmlAttribute(name = "description")
+	protected String description;
+	@XmlAttribute(name = "resolver")
+	protected String resolver;
 
-    /**
-     * Gets the value of the detailsOrConfigOrConfigfile property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list, not a
-     * snapshot. Therefore any modification you make to the returned list will
-     * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the detailsOrConfigOrConfigfile property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * 
-     * <pre>
-     * getDetailsOrConfigOrConfigfile().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list {@link String }
-     * {@link Config } {@link ConfigFile } {@link Dependency } {@link Bundle }
-     * 
-     * 
-     */
-    public List<Serializable> getDetailsOrConfigOrConfigfile() {
-	if (detailsOrConfigOrConfigfile == null) {
-	    detailsOrConfigOrConfigfile = new ArrayList<Serializable>();
+	/**
+	 * Gets the value of the detailsOrConfigOrConfigfile property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the detailsOrConfigOrConfigfile property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getDetailsOrConfigOrConfigfile().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link String }
+	 * {@link Config } {@link ConfigFile } {@link Dependency } {@link Bundle }
+	 * 
+	 * 
+	 */
+	public List<Serializable> getDetailsOrConfigOrConfigfile() {
+		if (detailsOrConfigOrConfigfile == null) {
+			detailsOrConfigOrConfigfile = new ArrayList<Serializable>();
+		}
+		return this.detailsOrConfigOrConfigfile;
 	}
-	return this.detailsOrConfigOrConfigfile;
-    }
 
-    public boolean isSetDetailsOrConfigOrConfigfile() {
-	return ((this.detailsOrConfigOrConfigfile != null) && (!this.detailsOrConfigOrConfigfile
-		.isEmpty()));
-    }
-
-    public void unsetDetailsOrConfigOrConfigfile() {
-	this.detailsOrConfigOrConfigfile = null;
-    }
-
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getName() {
-	return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setName(String value) {
-	this.name = value;
-    }
-
-    public boolean isSetName() {
-	return (this.name != null);
-    }
-
-    /**
-     * Gets the value of the version property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getVersion() {
-	if (version == null) {
-	    return "0.0.0";
-	} else {
-	    return version;
+	public boolean isSetDetailsOrConfigOrConfigfile() {
+		return ((this.detailsOrConfigOrConfigfile != null) && (!this.detailsOrConfigOrConfigfile.isEmpty()));
 	}
-    }
 
-    /**
-     * Sets the value of the version property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setVersion(String value) {
-	this.version = value;
-    }
+	public void unsetDetailsOrConfigOrConfigfile() {
+		this.detailsOrConfigOrConfigfile = null;
+	}
 
-    public boolean isSetVersion() {
-	return (this.version != null);
-    }
+	/**
+	 * Gets the value of the name property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Gets the value of the description property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getDescription() {
-	return description;
-    }
+	/**
+	 * Sets the value of the name property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
 
-    /**
-     * Sets the value of the description property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setDescription(String value) {
-	this.description = value;
-    }
+	public boolean isSetName() {
+		return (this.name != null);
+	}
 
-    public boolean isSetDescription() {
-	return (this.description != null);
-    }
+	/**
+	 * Gets the value of the version property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getVersion() {
+		if (version == null) {
+			return "0.0.0";
+		} else {
+			return version;
+		}
+	}
 
-    /**
-     * Gets the value of the resolver property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getResolver() {
-	return resolver;
-    }
+	/**
+	 * Sets the value of the version property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setVersion(String value) {
+		this.version = value;
+	}
 
-    /**
-     * Sets the value of the resolver property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setResolver(String value) {
-	this.resolver = value;
-    }
+	public boolean isSetVersion() {
+		return (this.version != null);
+	}
 
-    public boolean isSetResolver() {
-	return (this.resolver != null);
-    }
+	/**
+	 * Gets the value of the description property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * Sets the value of the description property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setDescription(String value) {
+		this.description = value;
+	}
+
+	public boolean isSetDescription() {
+		return (this.description != null);
+	}
+
+	/**
+	 * Gets the value of the resolver property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getResolver() {
+		return resolver;
+	}
+
+	/**
+	 * Sets the value of the resolver property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setResolver(String value) {
+		this.resolver = value;
+	}
+
+	public boolean isSetResolver() {
+		return (this.resolver != null);
+	}
 
 }

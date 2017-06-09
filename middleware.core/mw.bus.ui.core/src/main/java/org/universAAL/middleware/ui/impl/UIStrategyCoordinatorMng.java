@@ -32,51 +32,49 @@ import org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManageme
  */
 public class UIStrategyCoordinatorMng extends CoordinatedRegistrationManagement {
 
-    /**
-     * The reference to the dialogManager
-     */
-    protected IDialogManager dialogManager;
+	/**
+	 * The reference to the dialogManager
+	 */
+	protected IDialogManager dialogManager;
 
-    /**
-     * @param commModule
-     * @param name
-     */
-    public UIStrategyCoordinatorMng(CommunicationModule commModule, String name) {
-	super(commModule, name);
-    }
-
-    /**
-     * @param commModule
-     */
-    public UIStrategyCoordinatorMng(CommunicationModule commModule) {
-	super(commModule);
-    }
-
-    boolean setDialogManager(IDialogManager dm) {
-	if (dm != null) {
-	    try {
-		requestBecomeACoordinator();
-		this.dialogManager = dm;
-		return true;
-	    } catch (CoordinatorAlreadyExistsException e) {
-		LogUtils.logWarn(busModule, getClass(), "setDialogManager",
-			"The peer: " + e.getExistingCoordinator().getPeerID()
-				+ " is already coordinator");
-		return false;
-	    }
+	/**
+	 * @param commModule
+	 * @param name
+	 */
+	public UIStrategyCoordinatorMng(CommunicationModule commModule, String name) {
+		super(commModule, name);
 	}
-	if (dm == null && iAmCoordinator()) {
-	    try {
-		resignFromCoordinator();
-		this.dialogManager = null;
-		return true;
-	    } catch (CoordinatorAlreadyExistsException e) {
-		LogUtils.logWarn(busModule, getClass(), "setDialogManager",
-			"could not unset DM, not the coordinator");
-		return false;
-	    }
+
+	/**
+	 * @param commModule
+	 */
+	public UIStrategyCoordinatorMng(CommunicationModule commModule) {
+		super(commModule);
 	}
-	return false;
-    }
+
+	boolean setDialogManager(IDialogManager dm) {
+		if (dm != null) {
+			try {
+				requestBecomeACoordinator();
+				this.dialogManager = dm;
+				return true;
+			} catch (CoordinatorAlreadyExistsException e) {
+				LogUtils.logWarn(busModule, getClass(), "setDialogManager",
+						"The peer: " + e.getExistingCoordinator().getPeerID() + " is already coordinator");
+				return false;
+			}
+		}
+		if (dm == null && iAmCoordinator()) {
+			try {
+				resignFromCoordinator();
+				this.dialogManager = null;
+				return true;
+			} catch (CoordinatorAlreadyExistsException e) {
+				LogUtils.logWarn(busModule, getClass(), "setDialogManager", "could not unset DM, not the coordinator");
+				return false;
+			}
+		}
+		return false;
+	}
 
 }

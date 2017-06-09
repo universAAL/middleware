@@ -22,49 +22,48 @@ package org.universAAL.middleware.util;
 import org.universAAL.middleware.owl.TypeExpression;
 
 public final class MatchLogEntry {
-    private Integer errorCode;
-    private TypeExpression te1;
-    private TypeExpression te2;
-    private String message;
-    private String details;
-    private Object[] args;
+	private Integer errorCode;
+	private TypeExpression te1;
+	private TypeExpression te2;
+	private String message;
+	private String details;
+	private Object[] args;
 
-    public MatchLogEntry(Integer errorCode, TypeExpression te1,
-	    TypeExpression te2, String message, String details) {
-	this.errorCode = errorCode;
-	this.te1 = te1;
-	this.te2 = te2;
-	this.message = message;
-	this.details = details;
-    }
+	public MatchLogEntry(Integer errorCode, TypeExpression te1, TypeExpression te2, String message, String details) {
+		this.errorCode = errorCode;
+		this.te1 = te1;
+		this.te2 = te2;
+		this.message = message;
+		this.details = details;
+	}
 
-    public MatchLogEntry(Integer errorCode, TypeExpression te1,
-	    TypeExpression te2, String message, String details, Object... args) {
-	this(errorCode, te1, te2, message, details);
-	this.args = args;
-    }
+	public MatchLogEntry(Integer errorCode, TypeExpression te1, TypeExpression te2, String message, String details,
+			Object... args) {
+		this(errorCode, te1, te2, message, details);
+		this.args = args;
+	}
 
-    public String getMessage() {
-	return message;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public String getDetails() {
-	return details;
-    }
+	public String getDetails() {
+		return details;
+	}
 
-    public Integer getErrorCode() {
-	return errorCode;
-    }
+	public Integer getErrorCode() {
+		return errorCode;
+	}
 
-    public String getTypeExpression1URI() {
-	return te1.getURI();
-    }
+	public String getTypeExpression1URI() {
+		return te1.getURI();
+	}
 
-    public String getTypeExpression2URI() {
-	return te2.getURI();
-    }
+	public String getTypeExpression2URI() {
+		return te2.getURI();
+	}
 
-    public Object[] getArgs() {
-	return args;
-    }
+	public Object[] getArgs() {
+		return args;
+	}
 }

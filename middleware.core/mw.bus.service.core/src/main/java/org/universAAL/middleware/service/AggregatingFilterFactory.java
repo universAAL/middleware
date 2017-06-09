@@ -37,8 +37,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * 
  * There are basically two types of filter:
  * <ul>
- * <li>
- * Service Selection:
+ * <li>Service Selection:
  * <p>
  * The service selection filters restrict the number of service calls to calling
  * only one service even if more than one service would match.
@@ -58,8 +57,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * {@link #createServiceSelectionFilter(MinMax, String, AbsLocation)}.
  * </p>
  * </li>
- * <li>
- * Output Aggregation:
+ * <li>Output Aggregation:
  * <p>
  * The output aggregation filters aggregate the output coming from several
  * service calls.
@@ -83,131 +81,123 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * @author Carsten Stockloew
  */
 public class AggregatingFilterFactory {
-    /**
-     * Definition of the type of the aggregation functions: either a minimum
-     * value or a maximum value.
-     */
-    public enum MinMax {
-	min, max
-    };
+	/**
+	 * Definition of the type of the aggregation functions: either a minimum
+	 * value or a maximum value.
+	 */
+	public enum MinMax {
+		min, max
+	};
 
-    public final static String PROP_DUMMY = Resource.uAAL_NAMESPACE_PREFIX
-	    + "dummy.owl#dummyPropURI";
+	public final static String PROP_DUMMY = Resource.uAAL_NAMESPACE_PREFIX + "dummy.owl#dummyPropURI";
 
-    /**
-     * Create a service selection filter that selects one service randomly. The
-     * aggregation function is {@link AggregationFunction#oneOf}. This filter is
-     * ignored if another filter with a different function is added to the
-     * service request.
-     * 
-     * @return a filter with a {@link AggregationFunction#oneOf} function.
-     */
-    public static AggregatingFilter createServiceSelectionFilter() {
-	ArrayList params = new ArrayList(1);
-	params.add(new PropertyPath(null, false, new String[] {
-		Service.PROP_OWLS_PRESENTS, PROP_DUMMY }));
+	/**
+	 * Create a service selection filter that selects one service randomly. The
+	 * aggregation function is {@link AggregationFunction#oneOf}. This filter is
+	 * ignored if another filter with a different function is added to the
+	 * service request.
+	 * 
+	 * @return a filter with a {@link AggregationFunction#oneOf} function.
+	 */
+	public static AggregatingFilter createServiceSelectionFilter() {
+		ArrayList params = new ArrayList(1);
+		params.add(new PropertyPath(null, false, new String[] { Service.PROP_OWLS_PRESENTS, PROP_DUMMY }));
 
-	return new AggregatingFilter(AggregationFunction.oneOf, params, true);
-    }
+		return new AggregatingFilter(AggregationFunction.oneOf, params, true);
+	}
 
-    /**
-     * Creates a service selection filter that evaluates a non-functional
-     * parameter that is not related to a location.
-     * 
-     * @param type
-     *            determines whether either the service with the minimum value
-     *            or the maximum value of the parameter is called.
-     * @param nonFunctionalParamPropURI
-     *            the URI of the non-functional parameter. Typical values are:
-     *            {@link ServiceProfile#PROP_uAAL_MIN_QOS_RATING},
-     *            {@link ServiceProfile#PROP_uAAL_AVERAGE_QOS_RATING},
-     *            {@link ServiceProfile#PROP_uAAL_MAX_QOS_RATING},
-     *            {@link ServiceProfile#PROP_uAAL_MIN_RESPONSE_TIME},
-     *            {@link ServiceProfile#PROP_uAAL_AVERAGE_RESPONSE_TIME},
-     *            {@link ServiceProfile#PROP_uAAL_MAX_RESPONSE_TIME},
-     *            {@link ServiceProfile#PROP_uAAL_NUMBER_OF_QOS_RATINGS},
-     *            {@link ServiceProfile#PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS}
-     *            , {@link ServiceProfile#PROP_uAAL_RESPONSE_TIMEOUT}.
-     * @return a new aggregating filter.
-     */
-    public static AggregatingFilter createServiceSelectionFilter(MinMax type,
-	    String nonFunctionalParamPropURI) {
-	AggregationFunction func = type == MinMax.min ? AggregationFunction.minOf
-		: AggregationFunction.maxOf;
+	/**
+	 * Creates a service selection filter that evaluates a non-functional
+	 * parameter that is not related to a location.
+	 * 
+	 * @param type
+	 *            determines whether either the service with the minimum value
+	 *            or the maximum value of the parameter is called.
+	 * @param nonFunctionalParamPropURI
+	 *            the URI of the non-functional parameter. Typical values are:
+	 *            {@link ServiceProfile#PROP_uAAL_MIN_QOS_RATING},
+	 *            {@link ServiceProfile#PROP_uAAL_AVERAGE_QOS_RATING},
+	 *            {@link ServiceProfile#PROP_uAAL_MAX_QOS_RATING},
+	 *            {@link ServiceProfile#PROP_uAAL_MIN_RESPONSE_TIME},
+	 *            {@link ServiceProfile#PROP_uAAL_AVERAGE_RESPONSE_TIME},
+	 *            {@link ServiceProfile#PROP_uAAL_MAX_RESPONSE_TIME},
+	 *            {@link ServiceProfile#PROP_uAAL_NUMBER_OF_QOS_RATINGS},
+	 *            {@link ServiceProfile#PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS}
+	 *            , {@link ServiceProfile#PROP_uAAL_RESPONSE_TIMEOUT}.
+	 * @return a new aggregating filter.
+	 */
+	public static AggregatingFilter createServiceSelectionFilter(MinMax type, String nonFunctionalParamPropURI) {
+		AggregationFunction func = type == MinMax.min ? AggregationFunction.minOf : AggregationFunction.maxOf;
 
-	ArrayList params = new ArrayList(1);
-	params.add(new PropertyPath(null, false, new String[] {
-		Service.PROP_OWLS_PRESENTS, nonFunctionalParamPropURI }));
+		ArrayList params = new ArrayList(1);
+		params.add(
+				new PropertyPath(null, false, new String[] { Service.PROP_OWLS_PRESENTS, nonFunctionalParamPropURI }));
 
-	return new AggregatingFilter(func, params, true);
-    }
+		return new AggregatingFilter(func, params, true);
+	}
 
-    /**
-     * Creates a service selection filter that evaluates a non-functional
-     * parameter that is related to a location.
-     * 
-     * @param type
-     *            determines whether either the service with the minimum value
-     *            or the maximum value of the parameter is called.
-     * @param nonFunctionalParamPropURI
-     *            {@link ServiceProfile#PROP_uAAL_HOST_LOCATION},
-     *            {@link ServiceProfile#PROP_uAAL_SPATIAL_COVERAGE}.
-     * @param location
-     *            the location that is referenced by the parameter.
-     * @return a new aggregating filter.
-     */
-    public static AggregatingFilter createServiceSelectionFilter(MinMax type,
-	    String nonFunctionalParamPropURI, AbsLocation location) {
-	AggregationFunction func = type == MinMax.min ? AggregationFunction.minDistanceToRefLoc
-		: AggregationFunction.maxDistanceToRefLoc;
+	/**
+	 * Creates a service selection filter that evaluates a non-functional
+	 * parameter that is related to a location.
+	 * 
+	 * @param type
+	 *            determines whether either the service with the minimum value
+	 *            or the maximum value of the parameter is called.
+	 * @param nonFunctionalParamPropURI
+	 *            {@link ServiceProfile#PROP_uAAL_HOST_LOCATION},
+	 *            {@link ServiceProfile#PROP_uAAL_SPATIAL_COVERAGE}.
+	 * @param location
+	 *            the location that is referenced by the parameter.
+	 * @return a new aggregating filter.
+	 */
+	public static AggregatingFilter createServiceSelectionFilter(MinMax type, String nonFunctionalParamPropURI,
+			AbsLocation location) {
+		AggregationFunction func = type == MinMax.min ? AggregationFunction.minDistanceToRefLoc
+				: AggregationFunction.maxDistanceToRefLoc;
 
-	ArrayList params = new ArrayList(2);
-	params.add(new PropertyPath(null, false, new String[] {
-		Service.PROP_OWLS_PRESENTS, nonFunctionalParamPropURI }));
-	params.add(location);
+		ArrayList params = new ArrayList(2);
+		params.add(
+				new PropertyPath(null, false, new String[] { Service.PROP_OWLS_PRESENTS, nonFunctionalParamPropURI }));
+		params.add(location);
 
-	return new AggregatingFilter(func, params, true);
-    }
+		return new AggregatingFilter(func, params, true);
+	}
 
-    /**
-     * Creates an output aggregation filter.
-     * 
-     * @param type
-     *            determines whether the output with the minimum value or the
-     *            maximum value is used.
-     * @return a new aggregating filter.
-     */
-    public static AggregatingFilter createOutputAggregationFilter(MinMax type) {
-	AggregationFunction func = type == MinMax.min ? AggregationFunction.minOf
-		: AggregationFunction.maxOf;
+	/**
+	 * Creates an output aggregation filter.
+	 * 
+	 * @param type
+	 *            determines whether the output with the minimum value or the
+	 *            maximum value is used.
+	 * @return a new aggregating filter.
+	 */
+	public static AggregatingFilter createOutputAggregationFilter(MinMax type) {
+		AggregationFunction func = type == MinMax.min ? AggregationFunction.minOf : AggregationFunction.maxOf;
 
-	ArrayList params = new ArrayList(1);
-	params.add(new PropertyPath(null, false, new String[] {
-		Service.PROP_OWLS_PRESENTS, PROP_DUMMY }));
+		ArrayList params = new ArrayList(1);
+		params.add(new PropertyPath(null, false, new String[] { Service.PROP_OWLS_PRESENTS, PROP_DUMMY }));
 
-	return new AggregatingFilter(func, params, true);
-    }
+		return new AggregatingFilter(func, params, true);
+	}
 
-    /**
-     * Creates an output aggregation filter.
-     * 
-     * @param type
-     *            determines whether the output with the minimum value or the
-     *            maximum value is used.
-     * @param location
-     *            the location that is referenced by the parameter.
-     * @return a new aggregating filter.
-     */
-    public static AggregatingFilter createOutputAggregationFilter(MinMax type,
-	    AbsLocation location) {
-	AggregationFunction func = type == MinMax.min ? AggregationFunction.minDistanceToRefLoc
-		: AggregationFunction.maxDistanceToRefLoc;
+	/**
+	 * Creates an output aggregation filter.
+	 * 
+	 * @param type
+	 *            determines whether the output with the minimum value or the
+	 *            maximum value is used.
+	 * @param location
+	 *            the location that is referenced by the parameter.
+	 * @return a new aggregating filter.
+	 */
+	public static AggregatingFilter createOutputAggregationFilter(MinMax type, AbsLocation location) {
+		AggregationFunction func = type == MinMax.min ? AggregationFunction.minDistanceToRefLoc
+				: AggregationFunction.maxDistanceToRefLoc;
 
-	ArrayList params = new ArrayList(1);
-	params.add(new PropertyPath(null, false, new String[] {
-		Service.PROP_OWLS_PRESENTS, PROP_DUMMY }));
-	params.add(location);
+		ArrayList params = new ArrayList(1);
+		params.add(new PropertyPath(null, false, new String[] { Service.PROP_OWLS_PRESENTS, PROP_DUMMY }));
+		params.add(location);
 
-	return new AggregatingFilter(func, params, true);
-    }
+		return new AggregatingFilter(func, params, true);
+	}
 }

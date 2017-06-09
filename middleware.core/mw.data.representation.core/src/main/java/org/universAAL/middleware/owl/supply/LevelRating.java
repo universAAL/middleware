@@ -29,112 +29,109 @@ import org.universAAL.middleware.owl.ComparableIndividual;
 @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "EQ_DOESNT_OVERRIDE_EQUALS", justification = "This is implemented in Resource based on URI and props.")
 public final class LevelRating extends ComparableIndividual {
 
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
-	    + "LevelRating";
+	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "LevelRating";
 
-    public static final int NONE = 0;
-    public static final int LOW = 1;
-    public static final int MIDDLE = 2;
-    public static final int HIGH = 3;
-    public static final int FULL = 4;
+	public static final int NONE = 0;
+	public static final int LOW = 1;
+	public static final int MIDDLE = 2;
+	public static final int HIGH = 3;
+	public static final int FULL = 4;
 
-    private static final String[] names = { "none", "low", "middle", "high",
-	    "full" };
+	private static final String[] names = { "none", "low", "middle", "high", "full" };
 
-    public static final LevelRating none = new LevelRating(NONE);
-    public static final LevelRating low = new LevelRating(LOW);
-    public static final LevelRating middle = new LevelRating(MIDDLE);
-    public static final LevelRating high = new LevelRating(HIGH);
-    public static final LevelRating full = new LevelRating(FULL);
+	public static final LevelRating none = new LevelRating(NONE);
+	public static final LevelRating low = new LevelRating(LOW);
+	public static final LevelRating middle = new LevelRating(MIDDLE);
+	public static final LevelRating high = new LevelRating(HIGH);
+	public static final LevelRating full = new LevelRating(FULL);
 
-    /** The current value of this object. */
-    private int order;
+	/** The current value of this object. */
+	private int order;
 
-    // prevent the usage of the default constructor
-    private LevelRating() {
+	// prevent the usage of the default constructor
+	private LevelRating() {
 
-    }
-
-    private LevelRating(int order) {
-	super(uAAL_VOCABULARY_NAMESPACE + names[order]);
-	this.order = order;
-    }
-
-    @Override
-    public String getClassURI() {
-	return MY_URI;
-    }
-
-    public static LevelRating getMaxValue() {
-	return full;
-    }
-
-    public static LevelRating getMinValue() {
-	return none;
-    }
-
-    public static LevelRating getLevelByOrder(int order) {
-	switch (order) {
-	case NONE:
-	    return none;
-	case LOW:
-	    return low;
-	case MIDDLE:
-	    return middle;
-	case HIGH:
-	    return high;
-	case FULL:
-	    return full;
-	default:
-	    return null;
 	}
-    }
 
-    public static LevelRating valueOf(String name) {
-	for (int i = NONE; i <= FULL; i++)
-	    if (names[i].equals(name))
-		return getLevelByOrder(i);
-	return null;
-    }
+	private LevelRating(int order) {
+		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		this.order = order;
+	}
 
-    public int compareTo(Object other) {
-	return (this == other) ? 0 : (order < ((LevelRating) other).order) ? -1
-		: 1;
-    }
+	@Override
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    public ComparableIndividual getNext() {
-	return getLevelByOrder(order + 1);
-    }
+	public static LevelRating getMaxValue() {
+		return full;
+	}
 
-    public ComparableIndividual getPrevious() {
-	return getLevelByOrder(order - 1);
-    }
+	public static LevelRating getMinValue() {
+		return none;
+	}
 
-    public int getPropSerializationType(String propURI) {
-	return PROP_SERIALIZATION_OPTIONAL;
-    }
+	public static LevelRating getLevelByOrder(int order) {
+		switch (order) {
+		case NONE:
+			return none;
+		case LOW:
+			return low;
+		case MIDDLE:
+			return middle;
+		case HIGH:
+			return high;
+		case FULL:
+			return full;
+		default:
+			return null;
+		}
+	}
 
-    @Override
-    public boolean isWellFormed() {
-	return true;
-    }
+	public static LevelRating valueOf(String name) {
+		for (int i = NONE; i <= FULL; i++)
+			if (names[i].equals(name))
+				return getLevelByOrder(i);
+		return null;
+	}
 
-    /** Get a human-readable description for this Rating value. */
-    public String name() {
-	return names[order];
-    }
+	public int compareTo(Object other) {
+		return (this == other) ? 0 : (order < ((LevelRating) other).order) ? -1 : 1;
+	}
 
-    public int ord() {
-	return order;
-    }
+	public ComparableIndividual getNext() {
+		return getLevelByOrder(order + 1);
+	}
 
-    /**
-     * Overrides the default method to prevent properties from being added.
-     *
-     * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
-     */
-    public boolean setProperty(String propURI, Object o) {
-	// do nothing
-	return false;
-    }
+	public ComparableIndividual getPrevious() {
+		return getLevelByOrder(order - 1);
+	}
+
+	public int getPropSerializationType(String propURI) {
+		return PROP_SERIALIZATION_OPTIONAL;
+	}
+
+	@Override
+	public boolean isWellFormed() {
+		return true;
+	}
+
+	/** Get a human-readable description for this Rating value. */
+	public String name() {
+		return names[order];
+	}
+
+	public int ord() {
+		return order;
+	}
+
+	/**
+	 * Overrides the default method to prevent properties from being added.
+	 *
+	 * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
+	 */
+	public boolean setProperty(String propURI, Object o) {
+		// do nothing
+		return false;
+	}
 }

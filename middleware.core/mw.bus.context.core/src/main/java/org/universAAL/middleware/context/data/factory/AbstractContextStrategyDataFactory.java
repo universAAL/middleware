@@ -27,7 +27,6 @@ package org.universAAL.middleware.context.data.factory;
  *         Apr 20, 2012
  * 
  */
-public abstract class AbstractContextStrategyDataFactory implements
-	IContextStrategyDataFactory {
+public abstract class AbstractContextStrategyDataFactory implements IContextStrategyDataFactory {
 
 }

@@ -36,11 +36,11 @@ import java.lang.annotation.ElementType;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface ServiceOperation {
-    String value() default "";
+	String value() default "";
 
-    MatchMakingType type() default MatchMakingType.NOT_SPECIFIED;
+	MatchMakingType type() default MatchMakingType.NOT_SPECIFIED;
 
-    enum MatchMakingType {
-	ONTOLOGICAL, BY_URI, NOT_SPECIFIED
-    }
+	enum MatchMakingType {
+		ONTOLOGICAL, BY_URI, NOT_SPECIFIED
+	}
 }

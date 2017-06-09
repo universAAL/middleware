@@ -35,22 +35,21 @@ import org.universAAL.middleware.context.data.factory.ContextStrategyDataFactory
  */
 public class PropsDataMap implements IPropsData {
 
-    private Map map = new HashMap();
+	private Map map = new HashMap();
 
-    public IFiltererContainer getFiltererContainer(String key) {
-	IFiltererContainer container = null;
-	if (!map.containsKey(key)) {
-	    container = new ContextStrategyDataFactory()
-		    .createFiltererContainer(key);
-	    map.put(key, container);
-	} else {
-	    container = (IFiltererContainer) map.get(key);
+	public IFiltererContainer getFiltererContainer(String key) {
+		IFiltererContainer container = null;
+		if (!map.containsKey(key)) {
+			container = new ContextStrategyDataFactory().createFiltererContainer(key);
+			map.put(key, container);
+		} else {
+			container = (IFiltererContainer) map.get(key);
+		}
+
+		return container;
 	}
 
-	return container;
-    }
-
-    public Collection getAllFiltererContainers() {
-	return map.values();
-    }
+	public Collection getAllFiltererContainers() {
+		return map.values();
+	}
 }

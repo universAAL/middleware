@@ -29,8 +29,8 @@ package org.universAAL.middleware.modules.exception;
  */
 public class CommunicationModuleErrorCode {
 
-    public static final short ERROR_MANAGING_MESSAGE = 0;
-    public static final short ERROR_MESSAGE_FORMAT = 1;
-    public static final short ERROR_MESSAGE_RECEPTION = 2;
+	public static final short ERROR_MANAGING_MESSAGE = 0;
+	public static final short ERROR_MESSAGE_FORMAT = 1;
+	public static final short ERROR_MESSAGE_RECEPTION = 2;
 
 }

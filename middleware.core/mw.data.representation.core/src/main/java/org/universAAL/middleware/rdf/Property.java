@@ -41,164 +41,162 @@ import org.universAAL.middleware.owl.OntClassInfo;
 
 public abstract class Property extends FinalizedResource {
 
-    /**
-     * URI of rdfs:domain that is used to state that any resource that has a
-     * given property is an instance of one or more classes.
-     */
-    public static final String PROP_RDFS_DOMAIN = RDFS_NAMESPACE + "domain";
+	/**
+	 * URI of rdfs:domain that is used to state that any resource that has a
+	 * given property is an instance of one or more classes.
+	 */
+	public static final String PROP_RDFS_DOMAIN = RDFS_NAMESPACE + "domain";
 
-    /**
-     * URI of rdfs:range that is used to state that the values of a property are
-     * instances of one or more classes.
-     */
-    public static final String PROP_RDFS_RANGE = RDFS_NAMESPACE + "range";
+	/**
+	 * URI of rdfs:range that is used to state that the values of a property are
+	 * instances of one or more classes.
+	 */
+	public static final String PROP_RDFS_RANGE = RDFS_NAMESPACE + "range";
 
-    /** @see PropertySetup#setFunctional() */
-    public static final String TYPE_FUNCTIONAL = ManagedIndividual.OWL_NAMESPACE
-	    + "FunctionalProperty";
+	/** @see PropertySetup#setFunctional() */
+	public static final String TYPE_FUNCTIONAL = ManagedIndividual.OWL_NAMESPACE + "FunctionalProperty";
 
-    /** Determines whether this property is functional. */
-    protected boolean isFunctional;
+	/** Determines whether this property is functional. */
+	protected boolean isFunctional;
 
-    /** The set of super properties. */
-    private volatile ArrayList subPropertyOf = new ArrayList();
+	/** The set of super properties. */
+	private volatile ArrayList subPropertyOf = new ArrayList();
 
-    /** The set of equivalent properties. */
-    private volatile ArrayList equivalentProperties = new ArrayList();
+	/** The set of equivalent properties. */
+	private volatile ArrayList equivalentProperties = new ArrayList();
 
-    /** The ontology that defines this property. */
-    protected OntClassInfo info;
+	/** The ontology that defines this property. */
+	protected OntClassInfo info;
 
-    /** The setup interface. */
-    protected PrivatePropertySetup setup;
+	/** The setup interface. */
+	protected PrivatePropertySetup setup;
 
-    /**
-     * Implementation of the setup interface. For security reasons, this is
-     * realized as a protected nested class so that only the creator of an
-     * {@link Ontology} has access to it and can make changes.
-     */
-    protected class PrivatePropertySetup implements PropertySetup {
-	/** The property. */
-	protected Property prop;
+	/**
+	 * Implementation of the setup interface. For security reasons, this is
+	 * realized as a protected nested class so that only the creator of an
+	 * {@link Ontology} has access to it and can make changes.
+	 */
+	protected class PrivatePropertySetup implements PropertySetup {
+		/** The property. */
+		protected Property prop;
 
-	/** Constructor. */
-	public PrivatePropertySetup(Property prop) {
-	    this.prop = prop;
+		/** Constructor. */
+		public PrivatePropertySetup(Property prop) {
+			this.prop = prop;
+		}
+
+		/** Get the property for this set up. */
+		public Property getProperty() {
+			return prop;
+		}
+
+		public void setFunctional() {
+			prop.isFunctional = true;
+			addType(TYPE_FUNCTIONAL, false);
+		}
+
+		public synchronized void addSuperProperty(String superProperty) {
+			if (subPropertyOf.contains(superProperty))
+				return;
+
+			ArrayList al = new ArrayList(subPropertyOf);
+			al.add(superProperty);
+			subPropertyOf = al;
+		}
+
+		public void addEquivalentProperty(String equivalentProperty) {
+			// we have to synchronize for all Property instances that may be in
+			// the
+			// set of equivalent properties
+			// -> just synch over all Properties (synch only blocks this method,
+			// and
+			// adding equivalent properties is assumed to happen not very often;
+			// mainly at the beginning)
+			// synchronized (equivalentPropertiesSync) {
+			// get the two sets of Properties
+			// ArrayList set1 = equivalentProperties;
+			// ArrayList set2 = equivalentProperty.equivalentProperties;
+			//
+			// // combine the two sets
+			// ArrayList comb = new ArrayList(set1.size() + set2.size());
+			// comb.addAll(set1);
+			// for (int i = 0; i < set2.size(); i++)
+			// if (!comb.contains(set2.get(i)))
+			// comb.add(set2.get(i));
+			//
+			// // set the combined set in all Properties
+			// for (int i = 0; i < comb.size(); i++)
+			// ((Property) comb.get(i)).equivalentProperties = comb;
+			// }
+		}
+
+		public void addDisjointProperty(String disjointProperty) {
+			// TODO Auto-generated method stub
+		}
+
+		public void setDomain(TypeExpression domain) {
+			setProperty(PROP_RDFS_DOMAIN, domain);
+		}
+
+		public void setRange(TypeExpression range) {
+			// TODO Auto-generated method stub
+		}
+
+		public boolean setProperty(String propURI, Object value) {
+			return prop.setProperty(propURI, value);
+		}
 	}
 
-	/** Get the property for this set up. */
-	public Property getProperty() {
-	    return prop;
+	/**
+	 * Protected constructor, to create instances call either
+	 * {@link ObjectProperty#create(String, OntClassInfo)} or
+	 * {@link DatatypeProperty#create(String, OntClassInfo)}.
+	 *
+	 * @param uri
+	 *            URI of this property.
+	 * @param info
+	 *            The class for which this property is defined.
+	 */
+	protected Property(String uri, OntClassInfo info) {
+		super(uri);
+		if (info == null)
+			throw new NullPointerException("The ontology class for the property must be not null.");
+		if (!info.checkPermission(uri))
+			throw new IllegalAccessError(
+					"The given property URI is not defined in the context of the given ontology class.");
+		this.info = info;
 	}
 
-	public void setFunctional() {
-	    prop.isFunctional = true;
-	    addType(TYPE_FUNCTIONAL, false);
+	/**
+	 * Determines whether this property is functional.
+	 *
+	 * @see PropertySetup#setFunctional()
+	 */
+	public boolean isFunctional() {
+		return isFunctional;
 	}
 
-	public synchronized void addSuperProperty(String superProperty) {
-	    if (subPropertyOf.contains(superProperty))
-		return;
-
-	    ArrayList al = new ArrayList(subPropertyOf);
-	    al.add(superProperty);
-	    subPropertyOf = al;
-	}
-
-	public void addEquivalentProperty(String equivalentProperty) {
-	    // we have to synchronize for all Property instances that may be in
-	    // the
-	    // set of equivalent properties
-	    // -> just synch over all Properties (synch only blocks this method,
-	    // and
-	    // adding equivalent properties is assumed to happen not very often;
-	    // mainly at the beginning)
-	    // synchronized (equivalentPropertiesSync) {
-	    // get the two sets of Properties
-	    // ArrayList set1 = equivalentProperties;
-	    // ArrayList set2 = equivalentProperty.equivalentProperties;
-	    //
-	    // // combine the two sets
-	    // ArrayList comb = new ArrayList(set1.size() + set2.size());
-	    // comb.addAll(set1);
-	    // for (int i = 0; i < set2.size(); i++)
-	    // if (!comb.contains(set2.get(i)))
-	    // comb.add(set2.get(i));
-	    //
-	    // // set the combined set in all Properties
-	    // for (int i = 0; i < comb.size(); i++)
-	    // ((Property) comb.get(i)).equivalentProperties = comb;
-	    // }
-	}
-
-	public void addDisjointProperty(String disjointProperty) {
-	    // TODO Auto-generated method stub
-	}
-
-	public void setDomain(TypeExpression domain) {
-	    setProperty(PROP_RDFS_DOMAIN, domain);
-	}
-
-	public void setRange(TypeExpression range) {
-	    // TODO Auto-generated method stub
-	}
-
+	@Override
 	public boolean setProperty(String propURI, Object value) {
-	    return prop.setProperty(propURI, value);
+		if (Resource.PROP_RDF_TYPE.equals(propURI)) {
+			if (containsType(TYPE_FUNCTIONAL, value)) {
+				setup.setFunctional();
+				return true;
+			}
+		}
+		return super.setProperty(propURI, value);
 	}
-    }
 
-    /**
-     * Protected constructor, to create instances call either
-     * {@link ObjectProperty#create(String, OntClassInfo)} or
-     * {@link DatatypeProperty#create(String, OntClassInfo)}.
-     *
-     * @param uri
-     *            URI of this property.
-     * @param info
-     *            The class for which this property is defined.
-     */
-    protected Property(String uri, OntClassInfo info) {
-	super(uri);
-	if (info == null)
-	    throw new NullPointerException(
-		    "The ontology class for the property must be not null.");
-	if (!info.checkPermission(uri))
-	    throw new IllegalAccessError(
-		    "The given property URI is not defined in the context of the given ontology class.");
-	this.info = info;
-    }
-
-    /**
-     * Determines whether this property is functional.
-     *
-     * @see PropertySetup#setFunctional()
-     */
-    public boolean isFunctional() {
-	return isFunctional;
-    }
-
-    @Override
-    public boolean setProperty(String propURI, Object value) {
-	if (Resource.PROP_RDF_TYPE.equals(propURI)) {
-	    if (containsType(TYPE_FUNCTIONAL, value)) {
-		setup.setFunctional();
-		return true;
-	    }
+	protected boolean containsType(String type, Object value) {
+		if (value instanceof Resource) {
+			if (type.equals(value)) {
+				return true;
+			}
+		} else if (value instanceof List) {
+			if (((List) value).contains(type)) {
+				return true;
+			}
+		}
+		return false;
 	}
-	return super.setProperty(propURI, value);
-    }
-
-    protected boolean containsType(String type, Object value) {
-	if (value instanceof Resource) {
-	    if (type.equals(value)) {
-		return true;
-	    }
-	} else if (value instanceof List) {
-	    if (((List) value).contains(type)) {
-		return true;
-	    }
-	}
-	return false;
-    }
 }

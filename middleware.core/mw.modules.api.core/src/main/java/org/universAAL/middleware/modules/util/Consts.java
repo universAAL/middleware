@@ -27,11 +27,11 @@ package org.universAAL.middleware.modules.util;
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class Consts {
-    // Connector stuff
-    public static String MODULE_NAME = "moduleName";
-    public static String MODULE_VERSION = "moduleVersion";
-    public static String MODULE_PROVIDER = "moduleProvider";
-    public static String MODULE_DESCRIPTION = "moduleDescription";
-    public static String PEER_SCAN_PERIOD = "peerScanPeriod";
+	// Connector stuff
+	public static String MODULE_NAME = "moduleName";
+	public static String MODULE_VERSION = "moduleVersion";
+	public static String MODULE_PROVIDER = "moduleProvider";
+	public static String MODULE_DESCRIPTION = "moduleDescription";
+	public static String PEER_SCAN_PERIOD = "peerScanPeriod";
 
 }

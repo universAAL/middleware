@@ -46,285 +46,270 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * @author Carsten Stockloew
  */
 public abstract class ServiceCaller extends Caller {
-    private HashMap<String, ServiceCaller> waitingCalls;
-    private HashMap<String, Object> readyResponses;
-    private CallInjector injector = null;
+	private HashMap<String, ServiceCaller> waitingCalls;
+	private HashMap<String, Object> readyResponses;
+	private CallInjector injector = null;
 
-    /**
-     * The default constructor for this class.
-     * 
-     * @param context
-     *            The module context where the {@link ServiceBus} is registered.
-     *            Note that if no service bus is registered within the passed
-     *            <code>ModuleContext</code> at the time of creation, this
-     *            object will not be operational.
-     */
-    protected ServiceCaller(ModuleContext context) {
-	super(context, ServiceBusImpl.getServiceBusFetchParams());
-	waitingCalls = new HashMap<String, ServiceCaller>();
-	readyResponses = new HashMap<String, Object>();
-	injector = (CallInjector) context.getContainer().fetchSharedObject(
-		context, ServiceBusImpl.getServiceBusInjectFetchParams());
-    }
+	/**
+	 * The default constructor for this class.
+	 * 
+	 * @param context
+	 *            The module context where the {@link ServiceBus} is registered.
+	 *            Note that if no service bus is registered within the passed
+	 *            <code>ModuleContext</code> at the time of creation, this
+	 *            object will not be operational.
+	 */
+	protected ServiceCaller(ModuleContext context) {
+		super(context, ServiceBusImpl.getServiceBusFetchParams());
+		waitingCalls = new HashMap<String, ServiceCaller>();
+		readyResponses = new HashMap<String, Object>();
+		injector = (CallInjector) context.getContainer().fetchSharedObject(context,
+				ServiceBusImpl.getServiceBusInjectFetchParams());
+	}
 
-    /**
-     * @see BusMember#busDyingOut(AbstractBus)
-     */
-    public final void busDyingOut(AbstractBus b) {
-	if (b == theBus)
-	    communicationChannelBroken();
-    }
+	/**
+	 * @see BusMember#busDyingOut(AbstractBus)
+	 */
+	public final void busDyingOut(AbstractBus b) {
+		if (b == theBus)
+			communicationChannelBroken();
+	}
 
-    /**
-     * The "normal" (synchronous) way of calling a service. Use
-     * {@link #sendRequest(ServiceRequest)}, if you want to handle the response
-     * asynchronously in another thread.
-     * 
-     * @throws NullPointerException
-     *             if request is null
-     */
-    public ServiceResponse call(ServiceRequest request) {
-	if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
-	    ServiceResponse sr = null;
-	    synchronized (waitingCalls) {
-		String callID = sendRequest(request);
-		waitingCalls.put(callID, this);
-		while (sr == null) {
-		    try {
-			waitingCalls.wait();
-			sr = (ServiceResponse) readyResponses.remove(callID);
-		    } catch (InterruptedException e) {
-		    }
+	/**
+	 * The "normal" (synchronous) way of calling a service. Use
+	 * {@link #sendRequest(ServiceRequest)}, if you want to handle the response
+	 * asynchronously in another thread.
+	 * 
+	 * @throws NullPointerException
+	 *             if request is null
+	 */
+	public ServiceResponse call(ServiceRequest request) {
+		if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
+			ServiceResponse sr = null;
+			synchronized (waitingCalls) {
+				String callID = sendRequest(request);
+				waitingCalls.put(callID, this);
+				while (sr == null) {
+					try {
+						waitingCalls.wait();
+						sr = (ServiceResponse) readyResponses.remove(callID);
+					} catch (InterruptedException e) {
+					}
+				}
+			}
+			return sr;
+		} else {
+			return new ServiceResponse(CallStatus.denied);
 		}
-	    }
-	    return sr;
-	} else {
-	    return new ServiceResponse(CallStatus.denied);
 	}
-    }
 
-    /**
-     * Can be used to inject a {@link ServiceCall} to the bus. Compared to the
-     * method {@link #call(ServiceRequest)} there is no matchmaking; the call
-     * will be sent directly to a given {@link ServiceCallee}. Therefore, this
-     * method should NOT be used directly by applications.
-     * 
-     * @param call
-     *            the {@link ServiceCall} .
-     * @param receiver
-     *            the {@link PeerCard} of the node that hosts the callee.
-     */
-    public ServiceResponse inject(ServiceCall call, String receiver) {
-	return inject(call, AbstractBus.getPeerFromBusResourceURI(receiver));
-    }
+	/**
+	 * Can be used to inject a {@link ServiceCall} to the bus. Compared to the
+	 * method {@link #call(ServiceRequest)} there is no matchmaking; the call
+	 * will be sent directly to a given {@link ServiceCallee}. Therefore, this
+	 * method should NOT be used directly by applications.
+	 * 
+	 * @param call
+	 *            the {@link ServiceCall} .
+	 * @param receiver
+	 *            the {@link PeerCard} of the node that hosts the callee.
+	 */
+	public ServiceResponse inject(ServiceCall call, String receiver) {
+		return inject(call, AbstractBus.getPeerFromBusResourceURI(receiver));
+	}
 
-    /**
-     * Can be used to inject a {@link ServiceCall} to the bus. Compared to the
-     * method {@link #call(ServiceRequest)} there is no matchmaking; the call
-     * will be sent directly to a given {@link ServiceCallee}. Therefore, this
-     * method should NOT be used directly by applications.
-     * 
-     * @param call
-     *            the {@link ServiceCall} .
-     * @param receiver
-     *            the URI of the bus member that has registered the matching
-     *            {@link ServiceProfile}. Only the identifier of the node that
-     *            hosts the callee is used from the bus member URI.
-     */
-    public ServiceResponse inject(ServiceCall call, PeerCard receiver) {
-	// TODO: AccessControl
-	ServiceResponse sr = null;
-	synchronized (waitingCalls) {
-	    String callID = sendCall(call, receiver);
-	    waitingCalls.put(callID, this);
-	    while (sr == null) {
-		try {
-		    waitingCalls.wait();
-		    sr = (ServiceResponse) readyResponses.remove(callID);
-		} catch (InterruptedException e) {
+	/**
+	 * Can be used to inject a {@link ServiceCall} to the bus. Compared to the
+	 * method {@link #call(ServiceRequest)} there is no matchmaking; the call
+	 * will be sent directly to a given {@link ServiceCallee}. Therefore, this
+	 * method should NOT be used directly by applications.
+	 * 
+	 * @param call
+	 *            the {@link ServiceCall} .
+	 * @param receiver
+	 *            the URI of the bus member that has registered the matching
+	 *            {@link ServiceProfile}. Only the identifier of the node that
+	 *            hosts the callee is used from the bus member URI.
+	 */
+	public ServiceResponse inject(ServiceCall call, PeerCard receiver) {
+		// TODO: AccessControl
+		ServiceResponse sr = null;
+		synchronized (waitingCalls) {
+			String callID = sendCall(call, receiver);
+			waitingCalls.put(callID, this);
+			while (sr == null) {
+				try {
+					waitingCalls.wait();
+					sr = (ServiceResponse) readyResponses.remove(callID);
+				} catch (InterruptedException e) {
+				}
+			}
 		}
-	    }
+		return sr;
 	}
-	return sr;
-    }
 
-    /**
-     * This method is a way of calling a service using Turtle Strings as input.
-     * Turtle Strings are converted to Service Requests.
-     * 
-     * @param request
-     *            the Turtle String which will be converted into
-     *            <code>ServiceRequest</code>
-     * @return the expected Service Response
-     */
-    public final ServiceResponse call(String request) {
-	Object o = BusMessage.deserializeAsContent(request);
-	return (o instanceof ServiceRequest) ? call((ServiceRequest) o) : null;
-    }
+	/**
+	 * This method is a way of calling a service using Turtle Strings as input.
+	 * Turtle Strings are converted to Service Requests.
+	 * 
+	 * @param request
+	 *            the Turtle String which will be converted into
+	 *            <code>ServiceRequest</code>
+	 * @return the expected Service Response
+	 */
+	public final ServiceResponse call(String request) {
+		Object o = BusMessage.deserializeAsContent(request);
+		return (o instanceof ServiceRequest) ? call((ServiceRequest) o) : null;
+	}
 
-    /**
-     * This abstract method is called for each member of the bus when the bus is
-     * being stopped.
-     */
-    public abstract void communicationChannelBroken();
+	/**
+	 * This abstract method is called for each member of the bus when the bus is
+	 * being stopped.
+	 */
+	public abstract void communicationChannelBroken();
 
-    public final void handleReply(BusMessage m) {
-	if (m.getType() == MessageType.reply
-		&& (m.getContent() instanceof ServiceResponse)) {
-	    LogUtils.logDebug(
-		    owner,
-		    ServiceCaller.class,
-		    "handleReply",
-		    new Object[] { busResourceURI,
-			    " received service response:\n",
-			    m.getContentAsString() }, null);
-	    String reqID = m.getInReplyTo();
-	    synchronized (waitingCalls) {
-		if (waitingCalls.remove(reqID) == null)
-		    handleResponse(reqID, (ServiceResponse) m.getContent());
-		else {
-		    readyResponses.put(reqID, m.getContent());
-		    waitingCalls.notifyAll();
+	public final void handleReply(BusMessage m) {
+		if (m.getType() == MessageType.reply && (m.getContent() instanceof ServiceResponse)) {
+			LogUtils.logDebug(owner, ServiceCaller.class, "handleReply",
+					new Object[] { busResourceURI, " received service response:\n", m.getContentAsString() }, null);
+			String reqID = m.getInReplyTo();
+			synchronized (waitingCalls) {
+				if (waitingCalls.remove(reqID) == null)
+					handleResponse(reqID, (ServiceResponse) m.getContent());
+				else {
+					readyResponses.put(reqID, m.getContent());
+					waitingCalls.notifyAll();
+				}
+			}
 		}
-	    }
 	}
-    }
 
-    /**
-     * Will be called automatically in a new thread whenever the response
-     * corresponding to a previous call to {@link #sendRequest(ServiceRequest)}
-     * is ready.
-     * 
-     * @param reqID
-     *            the ID returned by the previous call to
-     *            {@link #sendRequest(ServiceRequest)}.
-     * @param response
-     *            the expected response.
-     */
-    public abstract void handleResponse(String reqID, ServiceResponse response);
+	/**
+	 * Will be called automatically in a new thread whenever the response
+	 * corresponding to a previous call to {@link #sendRequest(ServiceRequest)}
+	 * is ready.
+	 * 
+	 * @param reqID
+	 *            the ID returned by the previous call to
+	 *            {@link #sendRequest(ServiceRequest)}.
+	 * @param response
+	 *            the expected response.
+	 */
+	public abstract void handleResponse(String reqID, ServiceResponse response);
 
-    /**
-     * To be used if the caller would like to handle the reply asynchronously
-     * within the method {@link #handleResponse(String, ServiceResponse)}, which
-     * will automatically be called in another thread when the response is
-     * ready.
-     * 
-     * @return a unique ID for this request that will be passed to the method
-     *         {@link #handleResponse(String, ServiceResponse)} for an
-     *         unambiguous mapping of responses to requests. Returns null, if
-     *         this caller does not have the permission for the given request
-     * @throws NullPointerException
-     *             if the request is null
-     */
-    public final String sendRequest(ServiceRequest request) {
-	request.setProperty(ServiceRequest.PROP_uAAL_SERVICE_CALLER,
-		busResourceURI);
-	if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
-	    BusMessage reqMsg = new BusMessage(MessageType.request, request,
-		    theBus);
-	    ((ServiceBus) theBus).brokerRequest(busResourceURI, reqMsg);
-	    return reqMsg.getID();
-	} else {
-	    return null;
+	/**
+	 * To be used if the caller would like to handle the reply asynchronously
+	 * within the method {@link #handleResponse(String, ServiceResponse)}, which
+	 * will automatically be called in another thread when the response is
+	 * ready.
+	 * 
+	 * @return a unique ID for this request that will be passed to the method
+	 *         {@link #handleResponse(String, ServiceResponse)} for an
+	 *         unambiguous mapping of responses to requests. Returns null, if
+	 *         this caller does not have the permission for the given request
+	 * @throws NullPointerException
+	 *             if the request is null
+	 */
+	public final String sendRequest(ServiceRequest request) {
+		request.setProperty(ServiceRequest.PROP_uAAL_SERVICE_CALLER, busResourceURI);
+		if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
+			BusMessage reqMsg = new BusMessage(MessageType.request, request, theBus);
+			((ServiceBus) theBus).brokerRequest(busResourceURI, reqMsg);
+			return reqMsg.getID();
+		} else {
+			return null;
+		}
 	}
-    }
 
-    public final String sendCall(ServiceCall call, PeerCard receiver) {
-	// TODO: AccessControl
-	BusMessage callMsg = new BusMessage(MessageType.p2p_request, call,
-		theBus);
-	injector.brokerCall(busResourceURI, receiver, callMsg);
-	return callMsg.getID();
-    }
+	public final String sendCall(ServiceCall call, PeerCard receiver) {
+		// TODO: AccessControl
+		BusMessage callMsg = new BusMessage(MessageType.p2p_request, call, theBus);
+		injector.brokerCall(busResourceURI, receiver, callMsg);
+		return callMsg.getID();
+	}
 
-    public final String sendCall(ServiceCall call, String receiver) {
-	return sendCall(call, AbstractBus.getPeerFromBusResourceURI(receiver));
-    }
+	public final String sendCall(ServiceCall call, String receiver) {
+		return sendCall(call, AbstractBus.getPeerFromBusResourceURI(receiver));
+	}
 
-    /**
-     * A method used to instantly retrieve all services available to this
-     * caller.
-     * 
-     * @return all available services.
-     */
-    public ServiceProfile[] getAllServices() {
-	return ((ServiceBus) theBus).getAllServices(busResourceURI);
-    }
+	/**
+	 * A method used to instantly retrieve all services available to this
+	 * caller.
+	 * 
+	 * @return all available services.
+	 */
+	public ServiceProfile[] getAllServices() {
+		return ((ServiceBus) theBus).getAllServices(busResourceURI);
+	}
 
-    /**
-     * A method used to retrieve a specified service, available to this
-     * <code>ServiceCaller</code>.
-     * 
-     * @param s
-     *            the desired service.
-     * @return the service that is available, or null if no such service is
-     *         available.
-     */
-    public ServiceProfile[] getMatchingService(Service s) {
-	return ((ServiceBus) theBus).getMatchingServices(busResourceURI, s);
-    }
+	/**
+	 * A method used to retrieve a specified service, available to this
+	 * <code>ServiceCaller</code>.
+	 * 
+	 * @param s
+	 *            the desired service.
+	 * @return the service that is available, or null if no such service is
+	 *         available.
+	 */
+	public ServiceProfile[] getMatchingService(Service s) {
+		return ((ServiceBus) theBus).getMatchingServices(busResourceURI, s);
+	}
 
-    /**
-     * A method used to retrieve a specified service, available to this
-     * <code>ServiceCaller</code>.
-     * 
-     * @param serviceClassURI
-     *            the class URI of the desired service.
-     * @return the service that is available, or null if no such service is
-     *         available.
-     */
-    public ServiceProfile[] getMatchingService(String serviceClassURI) {
-	return ((ServiceBus) theBus).getMatchingServices(busResourceURI,
-		serviceClassURI);
-    }
+	/**
+	 * A method used to retrieve a specified service, available to this
+	 * <code>ServiceCaller</code>.
+	 * 
+	 * @param serviceClassURI
+	 *            the class URI of the desired service.
+	 * @return the service that is available, or null if no such service is
+	 *         available.
+	 */
+	public ServiceProfile[] getMatchingService(String serviceClassURI) {
+		return ((ServiceBus) theBus).getMatchingServices(busResourceURI, serviceClassURI);
+	}
 
-    /**
-     * A method used to retrieve a service available to this caller, that
-     * matches the specified keywords.
-     * 
-     * @param keywords
-     *            the keywords that should be matched by the service.
-     * @return the service that matches the keywords, or null if no such service
-     *         is available.
-     */
-    public ServiceProfile[] getMatchingService(String[] keywords) {
-	return ((ServiceBus) theBus).getMatchingServices(busResourceURI,
-		keywords);
-    }
+	/**
+	 * A method used to retrieve a service available to this caller, that
+	 * matches the specified keywords.
+	 * 
+	 * @param keywords
+	 *            the keywords that should be matched by the service.
+	 * @return the service that matches the keywords, or null if no such service
+	 *         is available.
+	 */
+	public ServiceProfile[] getMatchingService(String[] keywords) {
+		return ((ServiceBus) theBus).getMatchingServices(busResourceURI, keywords);
+	}
 
-    /**
-     * Adds an availability subscription, in other words a listener, to receive
-     * events about the availability of a specified service.
-     * 
-     * @param subscriber
-     *            the object which will receive events when the appropriate
-     *            service registers or unregisters.
-     * @param request
-     *            the request that describes the desired service.
-     */
-    public void addAvailabilitySubscription(AvailabilitySubscriber subscriber,
-	    ServiceRequest request) {
-	((ServiceBus) theBus).addAvailabilitySubscription(busResourceURI,
-		subscriber, request);
-    }
+	/**
+	 * Adds an availability subscription, in other words a listener, to receive
+	 * events about the availability of a specified service.
+	 * 
+	 * @param subscriber
+	 *            the object which will receive events when the appropriate
+	 *            service registers or unregisters.
+	 * @param request
+	 *            the request that describes the desired service.
+	 */
+	public void addAvailabilitySubscription(AvailabilitySubscriber subscriber, ServiceRequest request) {
+		((ServiceBus) theBus).addAvailabilitySubscription(busResourceURI, subscriber, request);
+	}
 
-    /**
-     * Removes an availability subscription for this <code>Caller</code>, which
-     * was previously added using <code>addAvailabilitySubscription</code>
-     * method.
-     * 
-     * @param subscriber
-     *            the object which used to receive the events.
-     * @param requestURI
-     *            the service that was being monitored.
-     */
-    public void removeAvailabilitySubscription(
-	    AvailabilitySubscriber subscriber, String requestURI) {
-	((ServiceBus) theBus).removeAvailabilitySubscription(busResourceURI,
-		subscriber, requestURI);
-    }
+	/**
+	 * Removes an availability subscription for this <code>Caller</code>, which
+	 * was previously added using <code>addAvailabilitySubscription</code>
+	 * method.
+	 * 
+	 * @param subscriber
+	 *            the object which used to receive the events.
+	 * @param requestURI
+	 *            the service that was being monitored.
+	 */
+	public void removeAvailabilitySubscription(AvailabilitySubscriber subscriber, String requestURI) {
+		((ServiceBus) theBus).removeAvailabilitySubscription(busResourceURI, subscriber, requestURI);
+	}
 
-    public String getMyID() {
-	return busResourceURI;
-    }
+	public String getMyID() {
+		return busResourceURI;
+	}
 }

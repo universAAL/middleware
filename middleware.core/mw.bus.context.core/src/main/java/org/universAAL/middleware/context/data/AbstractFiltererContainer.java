@@ -31,13 +31,13 @@ package org.universAAL.middleware.context.data;
 // class
 public abstract class AbstractFiltererContainer implements IFiltererContainer {
 
-    protected String containerKey;
+	protected String containerKey;
 
-    public AbstractFiltererContainer(String containerKey) {
-	this.containerKey = containerKey;
-    }
+	public AbstractFiltererContainer(String containerKey) {
+		this.containerKey = containerKey;
+	}
 
-    public String getContainerKey() {
-	return containerKey;
-    }
+	public String getContainerKey() {
+		return containerKey;
+	}
 }

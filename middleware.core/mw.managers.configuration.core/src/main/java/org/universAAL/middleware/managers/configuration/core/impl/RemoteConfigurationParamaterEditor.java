@@ -30,86 +30,85 @@ import org.universAAL.middleware.owl.MergedRestriction;
  * @author amedrano
  * 
  */
-public class RemoteConfigurationParamaterEditor extends
-	RemoteConfigurationEntity implements ConfigurationParameterEditor {
+public class RemoteConfigurationParamaterEditor extends RemoteConfigurationEntity
+		implements ConfigurationParameterEditor {
 
-    /**
-     * @param configurationManagerImpl
-     * @param remote
-     */
-    public RemoteConfigurationParamaterEditor(
-	    ConfigurationManagerImpl configurationManagerImpl, Entity remote) {
-	super(configurationManagerImpl, remote);
-    }
-
-    /** {@ inheritDoc} */
-    public Object getDefaultValue() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationParameter) {
-	    return ((ConfigurationParameter) e).getDefaultValue();
+	/**
+	 * @param configurationManagerImpl
+	 * @param remote
+	 */
+	public RemoteConfigurationParamaterEditor(ConfigurationManagerImpl configurationManagerImpl, Entity remote) {
+		super(configurationManagerImpl, remote);
 	}
-	return null;
-    }
 
-    /** {@ inheritDoc} */
-    public MergedRestriction getType() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationParameter) {
-	    return ((ConfigurationParameter) e).getParameterRestriction();
+	/** {@ inheritDoc} */
+	public Object getDefaultValue() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationParameter) {
+			return ((ConfigurationParameter) e).getDefaultValue();
+		}
+		return null;
 	}
-	return null;
-    }
 
-    /** {@ inheritDoc} */
-    public boolean isDefaultValue() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationParameter) {
-	    Object dVal = ((ConfigurationParameter) e).getDefaultValue();
-	    return ((ConfigurationParameter) e).getValue().equals(dVal);
+	/** {@ inheritDoc} */
+	public MergedRestriction getType() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationParameter) {
+			return ((ConfigurationParameter) e).getParameterRestriction();
+		}
+		return null;
 	}
-	return false;
-    }
 
-    /** {@ inheritDoc} */
-    public boolean setDefaultValue() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationParameter) {
-	    Object dVal = ((ConfigurationParameter) e).getDefaultValue();
-	    return setValue((ConfigurationParameter) e, dVal);
+	/** {@ inheritDoc} */
+	public boolean isDefaultValue() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationParameter) {
+			Object dVal = ((ConfigurationParameter) e).getDefaultValue();
+			return ((ConfigurationParameter) e).getValue().equals(dVal);
+		}
+		return false;
 	}
-	return false;
-    }
 
-    /**
-     * @param e
-     * @param dVal
-     * @return
-     */
-    boolean setValue(ConfigurationParameter e, Object val) {
-	if (e.setValue(val)) {
-	    e.incrementVersion();
-	    confManager.propagate(e);
-	    return true;
+	/** {@ inheritDoc} */
+	public boolean setDefaultValue() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationParameter) {
+			Object dVal = ((ConfigurationParameter) e).getDefaultValue();
+			return setValue((ConfigurationParameter) e, dVal);
+		}
+		return false;
 	}
-	return false;
-    }
 
-    /** {@ inheritDoc} */
-    public boolean setValue(Object value) {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationParameter) {
-	    return setValue((ConfigurationParameter) e, value);
+	/**
+	 * @param e
+	 * @param dVal
+	 * @return
+	 */
+	boolean setValue(ConfigurationParameter e, Object val) {
+		if (e.setValue(val)) {
+			e.incrementVersion();
+			confManager.propagate(e);
+			return true;
+		}
+		return false;
 	}
-	return false;
-    }
 
-    /** {@ inheritDoc} */
-    public Object getConfiguredValue() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationParameter) {
-	    return ((ConfigurationParameter) e).getValue();
+	/** {@ inheritDoc} */
+	public boolean setValue(Object value) {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationParameter) {
+			return setValue((ConfigurationParameter) e, value);
+		}
+		return false;
 	}
-	return null;
-    }
+
+	/** {@ inheritDoc} */
+	public Object getConfiguredValue() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationParameter) {
+			return ((ConfigurationParameter) e).getValue();
+		}
+		return null;
+	}
 
 }

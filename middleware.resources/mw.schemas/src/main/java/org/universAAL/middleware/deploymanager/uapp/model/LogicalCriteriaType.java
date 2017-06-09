@@ -25,12 +25,15 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for logicalCriteriaType.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
+ * Java class for logicalCriteriaType.
+ *
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
+ * <p>
+ * 
  * <pre>
  * &lt;simpleType name="logicalCriteriaType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -53,43 +56,34 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum LogicalCriteriaType {
 
-    @XmlEnumValue("not")
-    NOT("not"),
-    @XmlEnumValue("equal")
-    EQUAL("equal"),
-    @XmlEnumValue("greater")
-    GREATER("greater"),
-    @XmlEnumValue("greater-equal")
-    GREATER_EQUAL("greater-equal"),
-    @XmlEnumValue("less")
-    LESS("less"),
-    @XmlEnumValue("less-equal")
-    LESS_EQUAL("less-equal"),
-    @XmlEnumValue("contain")
-    CONTAIN("contain"),
-    @XmlEnumValue("doesn-not-contain")
-    DOESN_NOT_CONTAIN("doesn-not-contain"),
-    @XmlEnumValue("begin")
-    BEGIN("begin"),
-    @XmlEnumValue("end")
-    END("end");
-    private final String value;
+	@XmlEnumValue("not")
+	NOT("not"), @XmlEnumValue("equal")
+	EQUAL("equal"), @XmlEnumValue("greater")
+	GREATER("greater"), @XmlEnumValue("greater-equal")
+	GREATER_EQUAL("greater-equal"), @XmlEnumValue("less")
+	LESS("less"), @XmlEnumValue("less-equal")
+	LESS_EQUAL("less-equal"), @XmlEnumValue("contain")
+	CONTAIN("contain"), @XmlEnumValue("doesn-not-contain")
+	DOESN_NOT_CONTAIN("doesn-not-contain"), @XmlEnumValue("begin")
+	BEGIN("begin"), @XmlEnumValue("end")
+	END("end");
+	private final String value;
 
-    LogicalCriteriaType(String v) {
-        value = v;
-    }
+	LogicalCriteriaType(String v) {
+		value = v;
+	}
 
-    public String value() {
-        return value;
-    }
+	public String value() {
+		return value;
+	}
 
-    public static LogicalCriteriaType fromValue(String v) {
-        for (LogicalCriteriaType c: LogicalCriteriaType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
+	public static LogicalCriteriaType fromValue(String v) {
+		for (LogicalCriteriaType c : LogicalCriteriaType.values()) {
+			if (c.value.equals(v)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(v);
+	}
 
 }

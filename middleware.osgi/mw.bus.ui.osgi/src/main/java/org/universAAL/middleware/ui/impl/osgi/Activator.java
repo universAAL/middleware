@@ -28,21 +28,19 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
 
 public final class Activator implements BundleActivator {
 
-    /**
-     * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-     */
-    public void start(BundleContext context) throws Exception {
-	Object[] busFetchParams = new Object[] { IUIBus.class.getName() };
-	ModuleContext mc = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	UIBusImpl.startModule(uAALBundleContainer.THE_CONTAINER, mc,
-		busFetchParams, busFetchParams);
-    }
+	/**
+	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+	 */
+	public void start(BundleContext context) throws Exception {
+		Object[] busFetchParams = new Object[] { IUIBus.class.getName() };
+		ModuleContext mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		UIBusImpl.startModule(uAALBundleContainer.THE_CONTAINER, mc, busFetchParams, busFetchParams);
+	}
 
-    /**
-     * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-     */
-    public void stop(BundleContext context) throws Exception {
-	UIBusImpl.stopModule();
-    }
+	/**
+	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	 */
+	public void stop(BundleContext context) throws Exception {
+		UIBusImpl.stopModule();
+	}
 }

@@ -33,11 +33,13 @@ import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for ontologyType complex type.
+ * <p>
+ * Java class for ontologyType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="ontologyType">
@@ -68,185 +70,168 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ontologyType", propOrder = {
-    "name",
-    "uri",
-    "location"
-})
-public class OntologyType
-    implements Serializable
-{
+@XmlType(name = "ontologyType", propOrder = { "name", "uri", "location" })
+public class OntologyType implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(required = true)
-    protected String name;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String uri;
-    @XmlElement(required = true)
-    protected OntologyType.Location location;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(required = true)
+	protected String name;
+	@XmlElement(required = true)
+	@XmlSchemaType(name = "anyURI")
+	protected String uri;
+	@XmlElement(required = true)
+	protected OntologyType.Location location;
 
-    /**
-     * Gets the value of the name property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Gets the value of the name property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Sets the value of the name property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+	/**
+	 * Sets the value of the name property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
 
-    public boolean isSetName() {
-        return (this.name!= null);
-    }
+	public boolean isSetName() {
+		return (this.name != null);
+	}
 
-    /**
-     * Gets the value of the uri property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getUri() {
-        return uri;
-    }
+	/**
+	 * Gets the value of the uri property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getUri() {
+		return uri;
+	}
 
-    /**
-     * Sets the value of the uri property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setUri(String value) {
-        this.uri = value;
-    }
+	/**
+	 * Sets the value of the uri property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setUri(String value) {
+		this.uri = value;
+	}
 
-    public boolean isSetUri() {
-        return (this.uri!= null);
-    }
+	public boolean isSetUri() {
+		return (this.uri != null);
+	}
 
-    /**
-     * Gets the value of the location property.
-     *
-     * @return
-     *     possible object is
-     *     {@link OntologyType.Location }
-     *
-     */
-    public OntologyType.Location getLocation() {
-        return location;
-    }
+	/**
+	 * Gets the value of the location property.
+	 *
+	 * @return possible object is {@link OntologyType.Location }
+	 *
+	 */
+	public OntologyType.Location getLocation() {
+		return location;
+	}
 
-    /**
-     * Sets the value of the location property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link OntologyType.Location }
-     *
-     */
-    public void setLocation(OntologyType.Location value) {
-        this.location = value;
-    }
+	/**
+	 * Sets the value of the location property.
+	 *
+	 * @param value
+	 *            allowed object is {@link OntologyType.Location }
+	 *
+	 */
+	public void setLocation(OntologyType.Location value) {
+		this.location = value;
+	}
 
-    public boolean isSetLocation() {
-        return (this.location!= null);
-    }
+	public boolean isSetLocation() {
+		return (this.location != null);
+	}
 
+	/**
+	 * <p>
+	 * Java class for anonymous complex type.
+	 *
+	 * <p>
+	 * The following schema fragment specifies the expected content contained
+	 * within this class.
+	 *
+	 * <pre>
+	 * &lt;complexType>
+	 *   &lt;complexContent>
+	 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+	 *       &lt;choice maxOccurs="3" minOccurs="0">
+	 *         &lt;element name="path" type="{http://www.w3.org/2001/XMLSchema}string"/>
+	 *         &lt;element name="runtimeId" type="{http://www.w3.org/2001/XMLSchema}string"/>
+	 *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
+	 *       &lt;/choice>
+	 *     &lt;/restriction>
+	 *   &lt;/complexContent>
+	 * &lt;/complexType>
+	 * </pre>
+	 *
+	 *
+	 */
+	@XmlAccessorType(XmlAccessType.FIELD)
+	@XmlType(name = "", propOrder = { "pathOrRuntimeIdOrUrl" })
+	public static class Location implements Serializable {
 
-    /**
-     * <p>Java class for anonymous complex type.
-     *
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     *
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice maxOccurs="3" minOccurs="0">
-     *         &lt;element name="path" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="runtimeId" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     *
-     *
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "pathOrRuntimeIdOrUrl"
-    })
-    public static class Location
-        implements Serializable
-    {
+		private final static long serialVersionUID = 12343L;
+		@XmlElementRefs({
+				@XmlElementRef(name = "runtimeId", namespace = "http://www.universaal.org/aal-uapp/v1.0.2", type = JAXBElement.class),
+				@XmlElementRef(name = "path", namespace = "http://www.universaal.org/aal-uapp/v1.0.2", type = JAXBElement.class),
+				@XmlElementRef(name = "url", namespace = "http://www.universaal.org/aal-uapp/v1.0.2", type = JAXBElement.class) })
+		protected List<JAXBElement<?>> pathOrRuntimeIdOrUrl;
 
-        private final static long serialVersionUID = 12343L;
-        @XmlElementRefs({
-            @XmlElementRef(name = "runtimeId", namespace = "http://www.universaal.org/aal-uapp/v1.0.2", type = JAXBElement.class),
-            @XmlElementRef(name = "path", namespace = "http://www.universaal.org/aal-uapp/v1.0.2", type = JAXBElement.class),
-            @XmlElementRef(name = "url", namespace = "http://www.universaal.org/aal-uapp/v1.0.2", type = JAXBElement.class)
-        })
-        protected List<JAXBElement<?>> pathOrRuntimeIdOrUrl;
+		/**
+		 * Gets the value of the pathOrRuntimeIdOrUrl property.
+		 *
+		 * <p>
+		 * This accessor method returns a reference to the live list, not a
+		 * snapshot. Therefore any modification you make to the returned list
+		 * will be present inside the JAXB object. This is why there is not a
+		 * <CODE>set</CODE> method for the pathOrRuntimeIdOrUrl property.
+		 *
+		 * <p>
+		 * For example, to add a new item, do as follows:
+		 * 
+		 * <pre>
+		 * getPathOrRuntimeIdOrUrl().add(newItem);
+		 * </pre>
+		 *
+		 *
+		 * <p>
+		 * Objects of the following type(s) are allowed in the list
+		 * {@link JAXBElement }{@code <}{@link String }{@code >}
+		 * {@link JAXBElement }{@code <}{@link String }{@code >}
+		 * {@link JAXBElement }{@code <}{@link Object }{@code >}
+		 *
+		 *
+		 */
+		public List<JAXBElement<?>> getPathOrRuntimeIdOrUrl() {
+			if (pathOrRuntimeIdOrUrl == null) {
+				pathOrRuntimeIdOrUrl = new ArrayList<JAXBElement<?>>();
+			}
+			return this.pathOrRuntimeIdOrUrl;
+		}
 
-        /**
-         * Gets the value of the pathOrRuntimeIdOrUrl property.
-         *
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the pathOrRuntimeIdOrUrl property.
-         *
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getPathOrRuntimeIdOrUrl().add(newItem);
-         * </pre>
-         *
-         *
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link JAXBElement }{@code <}{@link String }{@code >}
-         * {@link JAXBElement }{@code <}{@link String }{@code >}
-         * {@link JAXBElement }{@code <}{@link Object }{@code >}
-         *
-         *
-         */
-        public List<JAXBElement<?>> getPathOrRuntimeIdOrUrl() {
-            if (pathOrRuntimeIdOrUrl == null) {
-                pathOrRuntimeIdOrUrl = new ArrayList<JAXBElement<?>>();
-            }
-            return this.pathOrRuntimeIdOrUrl;
-        }
+		public boolean isSetPathOrRuntimeIdOrUrl() {
+			return ((this.pathOrRuntimeIdOrUrl != null) && (!this.pathOrRuntimeIdOrUrl.isEmpty()));
+		}
 
-        public boolean isSetPathOrRuntimeIdOrUrl() {
-            return ((this.pathOrRuntimeIdOrUrl!= null)&&(!this.pathOrRuntimeIdOrUrl.isEmpty()));
-        }
+		public void unsetPathOrRuntimeIdOrUrl() {
+			this.pathOrRuntimeIdOrUrl = null;
+		}
 
-        public void unsetPathOrRuntimeIdOrUrl() {
-            this.pathOrRuntimeIdOrUrl = null;
-        }
-
-    }
+	}
 
 }

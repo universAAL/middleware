@@ -30,11 +30,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -53,107 +55,92 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "deploymentUnit",
-    "configFiles",
-    "spaceStartLevel"
-})
+@XmlType(name = "", propOrder = { "deploymentUnit", "configFiles", "spaceStartLevel" })
 @XmlRootElement(name = "executionUnit")
-public class ExecutionUnit
-    implements Serializable
-{
+public class ExecutionUnit implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(required = true)
-    @XmlIDREF
-    @XmlSchemaType(name = "IDREF")
-    protected Object deploymentUnit;
-    @XmlElement(required = true)
-    protected Object configFiles;
-    protected Object spaceStartLevel;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(required = true)
+	@XmlIDREF
+	@XmlSchemaType(name = "IDREF")
+	protected Object deploymentUnit;
+	@XmlElement(required = true)
+	protected Object configFiles;
+	protected Object spaceStartLevel;
 
-    /**
-     * Gets the value of the deploymentUnit property.
-     *
-     * @return
-     *     possible object is
-     *     {@link Object }
-     *
-     */
-    public Object getDeploymentUnit() {
-        return deploymentUnit;
-    }
+	/**
+	 * Gets the value of the deploymentUnit property.
+	 *
+	 * @return possible object is {@link Object }
+	 *
+	 */
+	public Object getDeploymentUnit() {
+		return deploymentUnit;
+	}
 
-    /**
-     * Sets the value of the deploymentUnit property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *
-     */
-    public void setDeploymentUnit(Object value) {
-        this.deploymentUnit = value;
-    }
+	/**
+	 * Sets the value of the deploymentUnit property.
+	 *
+	 * @param value
+	 *            allowed object is {@link Object }
+	 *
+	 */
+	public void setDeploymentUnit(Object value) {
+		this.deploymentUnit = value;
+	}
 
-    public boolean isSetDeploymentUnit() {
-        return (this.deploymentUnit!= null);
-    }
+	public boolean isSetDeploymentUnit() {
+		return (this.deploymentUnit != null);
+	}
 
-    /**
-     * Gets the value of the configFiles property.
-     *
-     * @return
-     *     possible object is
-     *     {@link Object }
-     *
-     */
-    public Object getConfigFiles() {
-        return configFiles;
-    }
+	/**
+	 * Gets the value of the configFiles property.
+	 *
+	 * @return possible object is {@link Object }
+	 *
+	 */
+	public Object getConfigFiles() {
+		return configFiles;
+	}
 
-    /**
-     * Sets the value of the configFiles property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *
-     */
-    public void setConfigFiles(Object value) {
-        this.configFiles = value;
-    }
+	/**
+	 * Sets the value of the configFiles property.
+	 *
+	 * @param value
+	 *            allowed object is {@link Object }
+	 *
+	 */
+	public void setConfigFiles(Object value) {
+		this.configFiles = value;
+	}
 
-    public boolean isSetConfigFiles() {
-        return (this.configFiles!= null);
-    }
+	public boolean isSetConfigFiles() {
+		return (this.configFiles != null);
+	}
 
-    /**
-     * Gets the value of the spaceStartLevel property.
-     *
-     * @return
-     *     possible object is
-     *     {@link Object }
-     *
-     */
-    public Object getSpaceStartLevel() {
-        return spaceStartLevel;
-    }
+	/**
+	 * Gets the value of the spaceStartLevel property.
+	 *
+	 * @return possible object is {@link Object }
+	 *
+	 */
+	public Object getSpaceStartLevel() {
+		return spaceStartLevel;
+	}
 
-    /**
-     * Sets the value of the spaceStartLevel property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *
-     */
-    public void setSpaceStartLevel(Object value) {
-        this.spaceStartLevel = value;
-    }
+	/**
+	 * Sets the value of the spaceStartLevel property.
+	 *
+	 * @param value
+	 *            allowed object is {@link Object }
+	 *
+	 */
+	public void setSpaceStartLevel(Object value) {
+		this.spaceStartLevel = value;
+	}
 
-    public boolean isSetSpaceStartLevel() {
-        return (this.spaceStartLevel!= null);
-    }
+	public boolean isSetSpaceStartLevel() {
+		return (this.spaceStartLevel != null);
+	}
 
 }

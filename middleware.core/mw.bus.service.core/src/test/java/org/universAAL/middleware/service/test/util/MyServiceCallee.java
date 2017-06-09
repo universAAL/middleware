@@ -11,60 +11,55 @@ import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 public class MyServiceCallee extends ServiceCallee {
-    private CallHandler handler = null;
-    List<ServiceProfile[]> profiles = new ArrayList<ServiceProfile[]>();
-    int node;
-    int callee;
+	private CallHandler handler = null;
+	List<ServiceProfile[]> profiles = new ArrayList<ServiceProfile[]>();
+	int node;
+	int callee;
 
-    protected MyServiceCallee(ModuleContext context,
-	    ServiceProfile[] realizedServices, int node, int callee) {
-	super(context, realizedServices);
-	profiles.add(realizedServices);
-	this.node = node;
-	this.callee = callee;
-    }
-
-    @Override
-    public void communicationChannelBroken() {
-    }
-
-    public void setHandler(CallHandler handler) {
-	this.handler = handler;
-    }
-
-    @Override
-    public ServiceResponse handleCall(ServiceCall call) {
-	System.out.println(" -- Handler called: Node " + node + " Callee "
-		+ callee);
-	// System.out.println(call.toStringRecursive());
-	CallHandler handler = this.handler;
-	if (handler != null)
-	    return handler.handleCall(call);
-
-	return null;
-    }
-
-    public void addProfiles(ServiceProfile[] p) {
-	profiles.add(p);
-	addNewServiceProfiles(p);
-
-	System.out.println(" -- added new profile for Node " + node
-		+ " Callee " + callee);
-    }
-
-    public void addProfiles(ServiceProfile[] p, boolean throwOnError)
-	    throws ProfileExistsException {
-	addNewServiceProfiles(p, throwOnError);
-	profiles.add(p);
-
-	System.out.println(" -- added new profile for Node " + node
-		+ " Callee " + callee);
-    }
-
-    public void reset() {
-	for (ServiceProfile[] p : profiles) {
-	    removeMatchingProfiles(p);
+	protected MyServiceCallee(ModuleContext context, ServiceProfile[] realizedServices, int node, int callee) {
+		super(context, realizedServices);
+		profiles.add(realizedServices);
+		this.node = node;
+		this.callee = callee;
 	}
-	profiles.clear();
-    }
+
+	@Override
+	public void communicationChannelBroken() {
+	}
+
+	public void setHandler(CallHandler handler) {
+		this.handler = handler;
+	}
+
+	@Override
+	public ServiceResponse handleCall(ServiceCall call) {
+		System.out.println(" -- Handler called: Node " + node + " Callee " + callee);
+		// System.out.println(call.toStringRecursive());
+		CallHandler handler = this.handler;
+		if (handler != null)
+			return handler.handleCall(call);
+
+		return null;
+	}
+
+	public void addProfiles(ServiceProfile[] p) {
+		profiles.add(p);
+		addNewServiceProfiles(p);
+
+		System.out.println(" -- added new profile for Node " + node + " Callee " + callee);
+	}
+
+	public void addProfiles(ServiceProfile[] p, boolean throwOnError) throws ProfileExistsException {
+		addNewServiceProfiles(p, throwOnError);
+		profiles.add(p);
+
+		System.out.println(" -- added new profile for Node " + node + " Callee " + callee);
+	}
+
+	public void reset() {
+		for (ServiceProfile[] p : profiles) {
+			removeMatchingProfiles(p);
+		}
+		profiles.clear();
+	}
 }

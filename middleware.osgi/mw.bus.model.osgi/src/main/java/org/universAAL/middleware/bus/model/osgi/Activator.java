@@ -39,53 +39,45 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
  */
 public class Activator implements BundleActivator, ServiceListener {
 
-    private BundleContext context = null;
+	private BundleContext context = null;
 
-    public void start(BundleContext context) throws Exception {
-	this.context = context;
-	ModuleContext mc = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
+	public void start(BundleContext context) throws Exception {
+		this.context = context;
+		ModuleContext mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
 
-	// intentionally without checking for null, because if the following
-	// OSGi services are not found, then it makes no sense to start this
-	// bundle!
+		// intentionally without checking for null, because if the following
+		// OSGi services are not found, then it makes no sense to start this
+		// bundle!
 
-	ServiceReference sRef = context
-		.getServiceReference(AALSpaceManager.class.getName());
-	AALSpaceManager mgr = (AALSpaceManager) context.getService(sRef);
-	CommunicationModule mdl = (CommunicationModule) context
-		.getService(context
-			.getServiceReference(CommunicationModule.class
-				.getName()));
-	AbstractBus.initBrokerage(mc, mgr, mdl);
+		ServiceReference sRef = context.getServiceReference(AALSpaceManager.class.getName());
+		AALSpaceManager mgr = (AALSpaceManager) context.getService(sRef);
+		CommunicationModule mdl = (CommunicationModule) context
+				.getService(context.getServiceReference(CommunicationModule.class.getName()));
+		AbstractBus.initBrokerage(mc, mgr, mdl);
 
-	BusMessage.setThisPeer(mgr.getMyPeerCard());
+		BusMessage.setThisPeer(mgr.getMyPeerCard());
 
-	ServiceReference sr = context
-		.getServiceReference(MessageContentSerializer.class.getName());
-	if (sr != null) {
-	    Object o = context.getService(sr);
-	    if (o instanceof MessageContentSerializer)
-		BusMessage
-			.setMessageContentSerializer((MessageContentSerializer) o);
-	    else
-		context.addServiceListener(this, "(" + Constants.OBJECTCLASS
-			+ "=" + MessageContentSerializer.class.getName() + ")");
-	} else
-	    context.addServiceListener(this, "(" + Constants.OBJECTCLASS + "="
-		    + MessageContentSerializer.class.getName() + ")");
-    }
-
-    public void stop(BundleContext context) throws Exception {
-    }
-
-    public void serviceChanged(ServiceEvent se) {
-	Object o = context.getService(se.getServiceReference());
-	if (se.getType() == ServiceEvent.REGISTERED
-		&& o instanceof MessageContentSerializer) {
-	    BusMessage
-		    .setMessageContentSerializer((MessageContentSerializer) o);
-	    context.removeServiceListener(this);
+		ServiceReference sr = context.getServiceReference(MessageContentSerializer.class.getName());
+		if (sr != null) {
+			Object o = context.getService(sr);
+			if (o instanceof MessageContentSerializer)
+				BusMessage.setMessageContentSerializer((MessageContentSerializer) o);
+			else
+				context.addServiceListener(this,
+						"(" + Constants.OBJECTCLASS + "=" + MessageContentSerializer.class.getName() + ")");
+		} else
+			context.addServiceListener(this,
+					"(" + Constants.OBJECTCLASS + "=" + MessageContentSerializer.class.getName() + ")");
 	}
-    }
+
+	public void stop(BundleContext context) throws Exception {
+	}
+
+	public void serviceChanged(ServiceEvent se) {
+		Object o = context.getService(se.getServiceReference());
+		if (se.getType() == ServiceEvent.REGISTERED && o instanceof MessageContentSerializer) {
+			BusMessage.setMessageContentSerializer((MessageContentSerializer) o);
+			context.removeServiceListener(this);
+		}
+	}
 }

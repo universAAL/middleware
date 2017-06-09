@@ -39,126 +39,122 @@ import org.universAAL.middleware.context.ContextEvent;
  */
 public class ContextProviderType extends ManagedIndividual {
 
-    public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE
-	    + "ContextProviderType";
+	public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE + "ContextProviderType";
 
-    /**
-     * The ordering number for controllers, needed for the implementation of the
-     * enumeration.
-     */
-    public static final int CONTROLLER = 0;
+	/**
+	 * The ordering number for controllers, needed for the implementation of the
+	 * enumeration.
+	 */
+	public static final int CONTROLLER = 0;
 
-    /**
-     * The ordering number for gauges, needed for the implementation of the
-     * enumeration.
-     */
-    public static final int GAUGE = 1;
+	/**
+	 * The ordering number for gauges, needed for the implementation of the
+	 * enumeration.
+	 */
+	public static final int GAUGE = 1;
 
-    /**
-     * The ordering number for reasoners, needed for the implementation of the
-     * enumeration.
-     */
-    public static final int REASONER = 2;
+	/**
+	 * The ordering number for reasoners, needed for the implementation of the
+	 * enumeration.
+	 */
+	public static final int REASONER = 2;
 
-    /**
-     * The the names used to construct the URIs of context provider types.
-     */
-    private static final String[] names = { "controller", "gauge", "reasoner" };
+	/**
+	 * The the names used to construct the URIs of context provider types.
+	 */
+	private static final String[] names = { "controller", "gauge", "reasoner" };
 
-    /**
-     * The type of a controller as an instance of this class.
-     */
-    public static final ContextProviderType controller = new ContextProviderType(
-	    CONTROLLER);
+	/**
+	 * The type of a controller as an instance of this class.
+	 */
+	public static final ContextProviderType controller = new ContextProviderType(CONTROLLER);
 
-    /**
-     * The type of a gauge as an instance of this class.
-     */
-    public static final ContextProviderType gauge = new ContextProviderType(
-	    GAUGE);
+	/**
+	 * The type of a gauge as an instance of this class.
+	 */
+	public static final ContextProviderType gauge = new ContextProviderType(GAUGE);
 
-    /**
-     * The type of a reasoner as an instance of this class.
-     */
-    public static final ContextProviderType reasoner = new ContextProviderType(
-	    REASONER);
+	/**
+	 * The type of a reasoner as an instance of this class.
+	 */
+	public static final ContextProviderType reasoner = new ContextProviderType(REASONER);
 
-    public static ContextProviderType getProviderByOrder(int order) {
-	switch (order) {
-	case CONTROLLER:
-	    return controller;
-	case GAUGE:
-	    return gauge;
-	case REASONER:
-	    return reasoner;
-	default:
-	    return null;
+	public static ContextProviderType getProviderByOrder(int order) {
+		switch (order) {
+		case CONTROLLER:
+			return controller;
+		case GAUGE:
+			return gauge;
+		case REASONER:
+			return reasoner;
+		default:
+			return null;
+		}
 	}
-    }
 
-    public static final ContextProviderType valueOf(String name) {
-	for (int i = CONTROLLER; i <= REASONER; i++)
-	    if (names[i].equals(name))
-		return getProviderByOrder(i);
-	return null;
-    }
+	public static final ContextProviderType valueOf(String name) {
+		for (int i = CONTROLLER; i <= REASONER; i++)
+			if (names[i].equals(name))
+				return getProviderByOrder(i);
+		return null;
+	}
 
-    private int order;
+	private int order;
 
-    // prevent the usage of the default constructor
-    private ContextProviderType() {
-    }
+	// prevent the usage of the default constructor
+	private ContextProviderType() {
+	}
 
-    // for the internal usage above
-    private ContextProviderType(int order) {
-	super(ContextEvent.uAAL_CONTEXT_NAMESPACE + names[order]);
-	this.order = order;
-    }
+	// for the internal usage above
+	private ContextProviderType(int order) {
+		super(ContextEvent.uAAL_CONTEXT_NAMESPACE + names[order]);
+		this.order = order;
+	}
 
-    public String getClassURI() {
-	return MY_URI;
-    }
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    /**
-     * The class has no property; any "imaginary" property can be ignored!
-     * 
-     * @see ManagedIndividual#getPropSerializationType(String).
-     */
-    public int getPropSerializationType(String propURI) {
-	return PROP_SERIALIZATION_OPTIONAL;
-    }
+	/**
+	 * The class has no property; any "imaginary" property can be ignored!
+	 * 
+	 * @see ManagedIndividual#getPropSerializationType(String).
+	 */
+	public int getPropSerializationType(String propURI) {
+		return PROP_SERIALIZATION_OPTIONAL;
+	}
 
-    /**
-     * The internal instances created above are always well-formed.
-     * 
-     * @see ManagedIndividual#isWellFormed().
-     */
-    public boolean isWellFormed() {
-	return true;
-    }
+	/**
+	 * The internal instances created above are always well-formed.
+	 * 
+	 * @see ManagedIndividual#isWellFormed().
+	 */
+	public boolean isWellFormed() {
+		return true;
+	}
 
-    /**
-     * Returns the local name used for constructing the URI of this instance.
-     */
-    public String name() {
-	return names[order];
-    }
+	/**
+	 * Returns the local name used for constructing the URI of this instance.
+	 */
+	public String name() {
+		return names[order];
+	}
 
-    /**
-     * Returns the order of this instance that can be useful for switch-case
-     * statements.
-     */
-    public int ord() {
-	return order;
-    }
+	/**
+	 * Returns the order of this instance that can be useful for switch-case
+	 * statements.
+	 */
+	public int ord() {
+		return order;
+	}
 
-    /**
-     * The class has no property, so ignore the call!
-     * 
-     * @see ManagedIndividual#setProperty(String, Object).
-     */
-    public boolean setProperty(String propURI, Object o) {
-	// do nothing
-	return false;
-    }
+	/**
+	 * The class has no property, so ignore the call!
+	 * 
+	 * @see ManagedIndividual#setProperty(String, Object).
+	 */
+	public boolean setProperty(String propURI, Object o) {
+		// do nothing
+		return false;
+	}
 }

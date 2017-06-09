@@ -34,18 +34,17 @@ import org.universAAL.middleware.service.data.LocalWaitingDataMap;
  *         Apr 20, 2012
  * 
  */
-public class ServiceStrategyDataFactory extends
-	AbstractServiceStrategyDataFactory {
+public class ServiceStrategyDataFactory extends AbstractServiceStrategyDataFactory {
 
-    public ILocalServicesIndexData createLocalServicesIndexData() {
-	return new LocalServicesIndexDataMap();
-    }
+	public ILocalServicesIndexData createLocalServicesIndexData() {
+		return new LocalServicesIndexDataMap();
+	}
 
-    public ILocalServiceSearchResultsData createLocalServiceSearchResultsData() {
-	return new LocalServiceSearchResultsDataMap();
-    }
+	public ILocalServiceSearchResultsData createLocalServiceSearchResultsData() {
+		return new LocalServiceSearchResultsDataMap();
+	}
 
-    public ILocalWaitingCallersData createLocalWaitingCallersData() {
-	return new LocalWaitingDataMap();
-    }
+	public ILocalWaitingCallersData createLocalWaitingCallersData() {
+		return new LocalWaitingDataMap();
+	}
 }

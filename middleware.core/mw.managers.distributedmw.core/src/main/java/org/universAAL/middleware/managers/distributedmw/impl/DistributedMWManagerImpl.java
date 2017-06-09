@@ -41,157 +41,138 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Carsten Stockloew
  * 
  */
-public class DistributedMWManagerImpl implements
-	DistributedBusMemberManager, DistributedLogManager {
-    // TODO: split this implementation in two for each interface for security
-    // reasons
+public class DistributedMWManagerImpl implements DistributedBusMemberManager, DistributedLogManager {
+	// TODO: split this implementation in two for each interface for security
+	// reasons
 
-    public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX
-	    + "DistributedMWManager.rdf#";
+	public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX + "DistributedMWManager.rdf#";
 
-    public static PeerCard myPeer;
-    public static ModuleContext context;
-    public static SharedObjectConnector shared;
-    private LogListenerHandler logListenerHandler = null;
-    private BusMemberListenerHandler busMemberListenerHandler = null;
-    private Object[] removeParamsBMLMgmt;
-    private Object[] removeParamsLLMgmt;
-    private Object[] removeParamsEvtH;
+	public static PeerCard myPeer;
+	public static ModuleContext context;
+	public static SharedObjectConnector shared;
+	private LogListenerHandler logListenerHandler = null;
+	private BusMemberListenerHandler busMemberListenerHandler = null;
+	private Object[] removeParamsBMLMgmt;
+	private Object[] removeParamsLLMgmt;
+	private Object[] removeParamsEvtH;
 
-    interface Handler {
-	void handle(PeerCard sender, Resource r);
-    };
+	interface Handler {
+		void handle(PeerCard sender, Resource r);
+	};
 
-    private DistributedMWEventHandler handler = null;
+	private DistributedMWEventHandler handler = null;
 
-    private class MyDistributedMWEventHandler implements
-	    DistributedMWEventHandler {
-	public HashMap<String, Handler> handlers = new HashMap<String, Handler>();
+	private class MyDistributedMWEventHandler implements DistributedMWEventHandler {
+		public HashMap<String, Handler> handlers = new HashMap<String, Handler>();
 
-	{
-	    handlers.put(LogListenerHandler.TYPE_ADD_LOGLISTENER,
-		    logListenerHandler.new AddListenerHandler());
-	    handlers.put(LogListenerHandler.TYPE_REMOVE_LOGLISTENER,
-		    logListenerHandler.new RemoveListenerHandler());
-	    handlers.put(LogListenerHandler.TYPE_LOGLISTENER_MESSAGE,
-		    logListenerHandler.new LogListenerMessageHandler());
+		{
+			handlers.put(LogListenerHandler.TYPE_ADD_LOGLISTENER, logListenerHandler.new AddListenerHandler());
+			handlers.put(LogListenerHandler.TYPE_REMOVE_LOGLISTENER, logListenerHandler.new RemoveListenerHandler());
+			handlers.put(LogListenerHandler.TYPE_LOGLISTENER_MESSAGE,
+					logListenerHandler.new LogListenerMessageHandler());
 
-	    handlers.put(BusMemberListenerHandler.TYPE_ADD_BUSMEMBER_LISTENER,
-		    busMemberListenerHandler.new AddListenerHandler());
-	    handlers.put(
-		    BusMemberListenerHandler.TYPE_REMOVE_BUSMEMBER_LISTENER,
-		    busMemberListenerHandler.new RemoveListenerHandler());
-	    handlers.put(BusMemberListenerHandler.TYPE_BUSMEMBER_ADDED,
-		    busMemberListenerHandler.new BusMemberAddedMessageHandler());
-	    handlers.put(
-		    BusMemberListenerHandler.TYPE_BUSMEMBER_REMOVED,
-		    busMemberListenerHandler.new BusMemberRemovedMessageHandler());
-	    handlers.put(BusMemberListenerHandler.TYPE_BUSMEMBER_PARAMS_ADDED,
-		    busMemberListenerHandler.new RegParamsAddedMessageHandler());
-	    handlers.put(
-		    BusMemberListenerHandler.TYPE_BUSMEMBER_PARAMS_REMOVED,
-		    busMemberListenerHandler.new RegParamsRemovedMessageHandler());
+			handlers.put(BusMemberListenerHandler.TYPE_ADD_BUSMEMBER_LISTENER,
+					busMemberListenerHandler.new AddListenerHandler());
+			handlers.put(BusMemberListenerHandler.TYPE_REMOVE_BUSMEMBER_LISTENER,
+					busMemberListenerHandler.new RemoveListenerHandler());
+			handlers.put(BusMemberListenerHandler.TYPE_BUSMEMBER_ADDED,
+					busMemberListenerHandler.new BusMemberAddedMessageHandler());
+			handlers.put(BusMemberListenerHandler.TYPE_BUSMEMBER_REMOVED,
+					busMemberListenerHandler.new BusMemberRemovedMessageHandler());
+			handlers.put(BusMemberListenerHandler.TYPE_BUSMEMBER_PARAMS_ADDED,
+					busMemberListenerHandler.new RegParamsAddedMessageHandler());
+			handlers.put(BusMemberListenerHandler.TYPE_BUSMEMBER_PARAMS_REMOVED,
+					busMemberListenerHandler.new RegParamsRemovedMessageHandler());
+		}
+
+		public void handleMessage(PeerCard sender, DistributedMWMessage msg) {
+			Object obj = shared.getMessageContentSerializer().deserialize(msg.getPayload());
+			if (!(obj instanceof Resource)) {
+				LogUtils.logError(context, DistributedMWManagerImpl.class, "handleMessage",
+						"Received an object that is not a Resource. Ignoring it.");
+				return;
+			}
+			Resource r = (Resource) obj;
+			String type = r.getType();
+			Handler h = handlers.get(type);
+			if (h != null) {
+				h.handle(sender, r);
+			} else {
+				LogUtils.logWarn(context, DistributedMWManagerImpl.class, "handleMessage",
+						"DistributedMWMessage has unknown type. Ignoring it.");
+				return;
+			}
+		}
+	};
+
+	public DistributedMWManagerImpl(ModuleContext context, Object[] shareParamsBMLMgmt, Object[] removeParamsBMLMgmt,
+			Object[] shareParamsLLMgmt, Object[] removeParamsLLMgmt, Object[] shareParamsEvtH,
+			Object[] removeParamsEvtH) {
+		DistributedMWManagerImpl.context = context;
+		shared = new SharedObjectConnector(context);
+		myPeer = shared.getAalSpaceManager().getMyPeerCard();
+		this.removeParamsBMLMgmt = removeParamsBMLMgmt;
+		this.removeParamsLLMgmt = removeParamsLLMgmt;
+		this.removeParamsEvtH = removeParamsEvtH;
+
+		logListenerHandler = new LogListenerHandler();
+		busMemberListenerHandler = new BusMemberListenerHandler();
+		handler = new MyDistributedMWEventHandler();
+
+		// register manager as shared object
+		context.getContainer().shareObject(context, this, shareParamsBMLMgmt);
+		context.getContainer().shareObject(context, this, shareParamsLLMgmt);
+		context.getContainer().shareObject(context, handler, shareParamsEvtH);
 	}
 
-	public void handleMessage(PeerCard sender, DistributedMWMessage msg) {
-	    Object obj = shared.getMessageContentSerializer().deserialize(
-		    msg.getPayload());
-	    if (!(obj instanceof Resource)) {
-		LogUtils.logError(context, DistributedMWManagerImpl.class,
-			"handleMessage",
-			"Received an object that is not a Resource. Ignoring it.");
-		return;
-	    }
-	    Resource r = (Resource) obj;
-	    String type = r.getType();
-	    Handler h = handlers.get(type);
-	    if (h != null) {
-		h.handle(sender, r);
-	    } else {
-		LogUtils.logWarn(context, DistributedMWManagerImpl.class,
-			"handleMessage",
-			"DistributedMWMessage has unknown type. Ignoring it.");
-		return;
-	    }
+	public void addListener(DistributedLogListener listener, List<PeerCard> nodes) {
+		logListenerHandler.addListener(listener, nodes);
 	}
-    };
 
-    public DistributedMWManagerImpl(ModuleContext context,
-	    Object[] shareParamsBMLMgmt, Object[] removeParamsBMLMgmt,
-	    Object[] shareParamsLLMgmt, Object[] removeParamsLLMgmt,
-	    Object[] shareParamsEvtH, Object[] removeParamsEvtH) {
-	DistributedMWManagerImpl.context = context;
-	shared = new SharedObjectConnector(context);
-	myPeer = shared.getAalSpaceManager().getMyPeerCard();
-	this.removeParamsBMLMgmt = removeParamsBMLMgmt;
-	this.removeParamsLLMgmt = removeParamsLLMgmt;
-	this.removeParamsEvtH = removeParamsEvtH;
+	public void removeListener(DistributedLogListener listener, List<PeerCard> nodes) {
+		logListenerHandler.removeListener(listener, nodes);
+	}
 
-	logListenerHandler = new LogListenerHandler();
-	busMemberListenerHandler = new BusMemberListenerHandler();
-	handler = new MyDistributedMWEventHandler();
+	public void addListener(DistributedBusMemberListener listener, List<PeerCard> nodes) {
+		busMemberListenerHandler.addListener(listener, nodes);
+	}
 
-	// register manager as shared object
-	context.getContainer().shareObject(context, this, shareParamsBMLMgmt);
-	context.getContainer().shareObject(context, this, shareParamsLLMgmt);
-	context.getContainer().shareObject(context, handler, shareParamsEvtH);
-    }
+	public void removeListener(DistributedBusMemberListener listener, List<PeerCard> nodes) {
+		busMemberListenerHandler.removeListener(listener, nodes);
+	}
 
-    public void addListener(DistributedLogListener listener,
-	    List<PeerCard> nodes) {
-	logListenerHandler.addListener(listener, nodes);
-    }
+	@SuppressWarnings("rawtypes")
+	public void loadConfigurations(Dictionary configurations) {
+	}
 
-    public void removeListener(DistributedLogListener listener,
-	    List<PeerCard> nodes) {
-	logListenerHandler.removeListener(listener, nodes);
-    }
+	public boolean init() {
+		return true;
+	}
 
-    public void addListener(DistributedBusMemberListener listener,
-	    List<PeerCard> nodes) {
-	busMemberListenerHandler.addListener(listener, nodes);
-    }
+	public void dispose() {
+		context.getContainer().removeSharedObject(context, this, removeParamsLLMgmt);
+		context.getContainer().removeSharedObject(context, this, removeParamsBMLMgmt);
+		context.getContainer().removeSharedObject(context, handler, removeParamsEvtH);
+		SpaceListener.getInstance().stop();
+	}
 
-    public void removeListener(DistributedBusMemberListener listener,
-	    List<PeerCard> nodes) {
-	busMemberListenerHandler.removeListener(listener, nodes);
-    }
+	public static void sendMessage(Resource r, Set<PeerCard> receivers) {
+		sendMessage(r, new ArrayList<PeerCard>(receivers));
+	}
 
-    @SuppressWarnings("rawtypes")
-    public void loadConfigurations(Dictionary configurations) {
-    }
+	public static void sendMessage(Resource r, List<PeerCard> receivers) {
+		if (r == null || receivers == null || receivers.size() == 0)
+			return;
 
-    public boolean init() {
-	return true;
-    }
+		String serialized = shared.getMessageContentSerializer().serialize(r);
+		DistributedMWMessage msg = new DistributedMWMessage(serialized);
 
-    public void dispose() {
-	context.getContainer().removeSharedObject(context, this,
-		removeParamsLLMgmt);
-	context.getContainer().removeSharedObject(context, this,
-		removeParamsBMLMgmt);
-	context.getContainer().removeSharedObject(context, handler,
-		removeParamsEvtH);
-	SpaceListener.getInstance().stop();
-    }
+		shared.getControlBroker().sendMessage(msg, receivers);
+	}
 
-    public static void sendMessage(Resource r, Set<PeerCard> receivers) {
-	sendMessage(r, new ArrayList<PeerCard>(receivers));
-    }
-
-    public static void sendMessage(Resource r, List<PeerCard> receivers) {
-	if (r == null || receivers == null || receivers.size() == 0)
-	    return;
-
-	String serialized = shared.getMessageContentSerializer().serialize(r);
-	DistributedMWMessage msg = new DistributedMWMessage(serialized);
-
-	shared.getControlBroker().sendMessage(msg, receivers);
-    }
-
-    public static void sendMessage(Resource r, PeerCard receiver) {
-	List<PeerCard> receivers = new ArrayList<PeerCard>();
-	receivers.add(receiver);
-	sendMessage(r, receivers);
-    }
+	public static void sendMessage(Resource r, PeerCard receiver) {
+		List<PeerCard> receivers = new ArrayList<PeerCard>();
+		receivers.add(receiver);
+		sendMessage(r, receivers);
+	}
 }

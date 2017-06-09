@@ -28,24 +28,23 @@ import org.universAAL.middleware.interfaces.configuration.configurationDefinitio
  * @author amedrano
  * 
  */
-public interface ConfigurationFileEditor extends ConfigurationFile,
-	ConfigurableEntityEditor {
+public interface ConfigurationFileEditor extends ConfigurationFile, ConfigurableEntityEditor {
 
-    /**
-     * Pull the file, It will download if necessary, copying it to a temporal
-     * directory.
-     * 
-     * @return the {@link File} object pointing to the temporal file (it should
-     *         be deleted by the caller, when finished).
-     */
-    File pullFile();
+	/**
+	 * Pull the file, It will download if necessary, copying it to a temporal
+	 * directory.
+	 * 
+	 * @return the {@link File} object pointing to the temporal file (it should
+	 *         be deleted by the caller, when finished).
+	 */
+	File pullFile();
 
-    /**
-     * Push the file, it will copy the file, upload if necessary.
-     * 
-     * @param file
-     *            the file to be pushed.
-     * @return if the file was accepted by the {@link ConfigurableModule}.
-     */
-    boolean pushFile(File file);
+	/**
+	 * Push the file, it will copy the file, upload if necessary.
+	 * 
+	 * @param file
+	 *            the file to be pushed.
+	 * @return if the file was accepted by the {@link ConfigurableModule}.
+	 */
+	boolean pushFile(File file);
 }

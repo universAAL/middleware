@@ -45,56 +45,53 @@ import org.universAAL.middleware.modules.aalspace.AALSpaceModuleImpl;
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  */
 public class Activator implements BundleActivator, ManagedService {
-    private static String SERVICE_PID = "mw.modules.aalspace.core";
-    private AALSpaceModule aalSpaceModule;
+	private static String SERVICE_PID = "mw.modules.aalspace.core";
+	private AALSpaceModule aalSpaceModule;
 
-    private ServiceRegistration myRegistration;
+	private ServiceRegistration myRegistration;
 
-    public void start(BundleContext context) throws Exception {
+	public void start(BundleContext context) throws Exception {
 
-	ModuleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	aalSpaceModule = new AALSpaceModuleImpl(moduleContext);
+		ModuleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
+				.registerModule(new Object[] { context });
+		aalSpaceModule = new AALSpaceModuleImpl(moduleContext);
 
-	Dictionary props = new Hashtable();
-	props.put(Constants.SERVICE_PID, SERVICE_PID);
-	myRegistration = context.registerService(
-		ManagedService.class.getName(), this, props);
+		Dictionary props = new Hashtable();
+		props.put(Constants.SERVICE_PID, SERVICE_PID);
+		myRegistration = context.registerService(ManagedService.class.getName(), this, props);
 
-	ConfigurationAdmin configurationAdmin = null;
-	ServiceReference sr = context
-		.getServiceReference(ConfigurationAdmin.class.getName());
-	if (sr != null && context.getService(sr) instanceof ConfigurationAdmin)
-	    configurationAdmin = (ConfigurationAdmin) context.getService(sr);
-	Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
+		ConfigurationAdmin configurationAdmin = null;
+		ServiceReference sr = context.getServiceReference(ConfigurationAdmin.class.getName());
+		if (sr != null && context.getService(sr) instanceof ConfigurationAdmin)
+			configurationAdmin = (ConfigurationAdmin) context.getService(sr);
+		Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
 
-	Dictionary aalSpaceModuleProp = config.getProperties();
+		Dictionary aalSpaceModuleProp = config.getProperties();
 
-	if (aalSpaceModuleProp != null) {
-	    aalSpaceModule.loadConfigurations(aalSpaceModuleProp);
+		if (aalSpaceModuleProp != null) {
+			aalSpaceModule.loadConfigurations(aalSpaceModuleProp);
 
-	} else
-	    aalSpaceModule.loadConfigurations(new Hashtable<String, String>());
+		} else
+			aalSpaceModule.loadConfigurations(new Hashtable<String, String>());
 
-	aalSpaceModule.init();
+		aalSpaceModule.init();
 
-	uAALBundleContainer.THE_CONTAINER
-		.shareObject(moduleContext, aalSpaceModule,
-			new Object[] { AALSpaceModule.class.getName() });
-	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-		new Object[] { "AALSpaceModule registered" }, null);
+		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, aalSpaceModule,
+				new Object[] { AALSpaceModule.class.getName() });
+		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
+				new Object[] { "AALSpaceModule registered" }, null);
 
-    }
+	}
 
-    public void stop(BundleContext arg0) throws Exception {
-	if (aalSpaceModule != null)
-	    aalSpaceModule.dispose();
-	myRegistration.unregister();
-    }
+	public void stop(BundleContext arg0) throws Exception {
+		if (aalSpaceModule != null)
+			aalSpaceModule.dispose();
+		myRegistration.unregister();
+	}
 
-    public void updated(Dictionary properties) throws ConfigurationException {
-	aalSpaceModule.loadConfigurations(properties);
+	public void updated(Dictionary properties) throws ConfigurationException {
+		aalSpaceModule.loadConfigurations(properties);
 
-    }
+	}
 
 }

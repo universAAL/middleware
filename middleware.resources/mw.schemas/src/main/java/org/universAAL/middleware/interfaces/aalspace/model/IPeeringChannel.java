@@ -29,26 +29,23 @@ package org.universAAL.middleware.interfaces.aalspace.model;
  */
 public interface IPeeringChannel {
 
-    /**
-     * Gets the value of the channelDescriptor property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ChannelDescriptor }
-     *     
-     */
-    public abstract IChannelDescriptor getChannelDescriptor();
+	/**
+	 * Gets the value of the channelDescriptor property.
+	 * 
+	 * @return possible object is {@link ChannelDescriptor }
+	 * 
+	 */
+	public abstract IChannelDescriptor getChannelDescriptor();
 
-    /**
-     * Sets the value of the channelDescriptor property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ChannelDescriptor }
-     *     
-     */
-    public abstract void setChannelDescriptor(IChannelDescriptor value);
+	/**
+	 * Sets the value of the channelDescriptor property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link ChannelDescriptor }
+	 * 
+	 */
+	public abstract void setChannelDescriptor(IChannelDescriptor value);
 
-    public abstract boolean isSetChannelDescriptor();
+	public abstract boolean isSetChannelDescriptor();
 
 }

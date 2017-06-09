@@ -29,20 +29,20 @@ import org.universAAL.middleware.interfaces.PeerCard;
  */
 public interface BrokerMessage {
 
-    /**
-     * The Types of broker messages
-     * 
-     * @author michele
-     * 
-     */
-    public enum BrokerMessageTypes {
-	AALSpaceMessage, DeployMessage, BusMessage, ControlMessage, ConfigurationMessage, DistributedMWMessage, SimpleMessage
-    }
+	/**
+	 * The Types of broker messages
+	 * 
+	 * @author michele
+	 * 
+	 */
+	public enum BrokerMessageTypes {
+		AALSpaceMessage, DeployMessage, BusMessage, ControlMessage, ConfigurationMessage, DistributedMWMessage, SimpleMessage
+	}
 
-    public BrokerMessageTypes getMType();
+	public BrokerMessageTypes getMType();
 
-    public String toString();
+	public String toString();
 
-    public PeerCard[] getReceivers();
+	public PeerCard[] getReceivers();
 
 }

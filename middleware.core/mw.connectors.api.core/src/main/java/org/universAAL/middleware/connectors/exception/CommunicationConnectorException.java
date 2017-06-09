@@ -31,44 +31,41 @@ package org.universAAL.middleware.connectors.exception;
  */
 public class CommunicationConnectorException extends RuntimeException {
 
-    private String description;
-    private int errorCode;
+	private String description;
+	private int errorCode;
 
-    public CommunicationConnectorException(int i, String description) {
-	super(description);
-	this.description = description;
-	this.errorCode = i;
-    }
+	public CommunicationConnectorException(int i, String description) {
+		super(description);
+		this.description = description;
+		this.errorCode = i;
+	}
 
-    public CommunicationConnectorException(
-	    CommunicationConnectorErrorCode code, String description) {
-	this(code.ordinal(), description);
-    }
+	public CommunicationConnectorException(CommunicationConnectorErrorCode code, String description) {
+		this(code.ordinal(), description);
+	}
 
-    public CommunicationConnectorException(CommunicationConnectorErrorCode code) {
-	this(code.ordinal(), code.toString());
-    }
+	public CommunicationConnectorException(CommunicationConnectorErrorCode code) {
+		this(code.ordinal(), code.toString());
+	}
 
-    public CommunicationConnectorException(
-	    CommunicationConnectorErrorCode code, Throwable t) {
-	super("Internal exception", t);
-	this.errorCode = code.ordinal();
-	this.description = code.toString();
-    }
+	public CommunicationConnectorException(CommunicationConnectorErrorCode code, Throwable t) {
+		super("Internal exception", t);
+		this.errorCode = code.ordinal();
+		this.description = code.toString();
+	}
 
-    public CommunicationConnectorException(
-	    CommunicationConnectorErrorCode code, String msg, Throwable t) {
-	super(msg, t);
-	this.errorCode = code.ordinal();
-	this.description = msg;
-    }
+	public CommunicationConnectorException(CommunicationConnectorErrorCode code, String msg, Throwable t) {
+		super(msg, t);
+		this.errorCode = code.ordinal();
+		this.description = msg;
+	}
 
-    public String getDescription() {
-	return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public int getErrorCode() {
-	return errorCode;
-    }
+	public int getErrorCode() {
+		return errorCode;
+	}
 
 }

@@ -44,99 +44,96 @@ import org.universAAL.middleware.container.ModuleContext;
  * 
  */
 public abstract class BusMember {
-    protected final ModuleContext owner;
-    protected final AbstractBus theBus;
-    protected final String busResourceURI;
-    private BusMemberType type;
-    private String label = null;
-    private String comment = null;
+	protected final ModuleContext owner;
+	protected final AbstractBus theBus;
+	protected final String busResourceURI;
+	private BusMemberType type;
+	private String label = null;
+	private String comment = null;
 
-    protected BusMember(ModuleContext owner, Object[] busFetchParams,
-	    BusMemberType type) {
-	this.owner = owner;
-	this.type = type;
-	theBus = (AbstractBus) owner.getContainer().fetchSharedObject(owner,
-		busFetchParams);
-	busResourceURI = theBus.createBusSpecificID(owner.getID(), type.name());
-	theBus.register(owner, this, type);
-	AccessControl.INSTANCE.registerBusMember(owner, this,
-		theBus.getBrokerName());
-    }
+	protected BusMember(ModuleContext owner, Object[] busFetchParams, BusMemberType type) {
+		this.owner = owner;
+		this.type = type;
+		theBus = (AbstractBus) owner.getContainer().fetchSharedObject(owner, busFetchParams);
+		busResourceURI = theBus.createBusSpecificID(owner.getID(), type.name());
+		theBus.register(owner, this, type);
+		AccessControl.INSTANCE.registerBusMember(owner, this, theBus.getBrokerName());
+	}
 
-    /**
-     * Unregisters the Subscriber from the bus.
-     */
-    public void close() {
-	theBus.unregister(busResourceURI, this);
-	AccessControl.INSTANCE.unregisterBusMember(owner, this);
-    }
+	/**
+	 * Unregisters the Subscriber from the bus.
+	 */
+	public void close() {
+		theBus.unregister(busResourceURI, this);
+		AccessControl.INSTANCE.unregisterBusMember(owner, this);
+	}
 
-    /**
-     * This method is called when the bus is stopped to announce this to the bus
-     * members.
-     * 
-     * @see AbstractBus
-     * 
-     * @param b
-     *            bus on which this member has been registered
-     */
-    public abstract void busDyingOut(AbstractBus b);
+	/**
+	 * This method is called when the bus is stopped to announce this to the bus
+	 * members.
+	 * 
+	 * @see AbstractBus
+	 * 
+	 * @param b
+	 *            bus on which this member has been registered
+	 */
+	public abstract void busDyingOut(AbstractBus b);
 
-    /**
-     * URI of this bus member. The URI is created by the bus and set during
-     * registration of the the bus member at the bus.
-     */
-    public final String getURI() {
-	return busResourceURI;
-    }
+	/**
+	 * URI of this bus member. The URI is created by the bus and set during
+	 * registration of the the bus member at the bus.
+	 */
+	public final String getURI() {
+		return busResourceURI;
+	}
 
-    /**
-     * Get the type of this bus member.
-     * 
-     * @return the type of this bus member.
-     */
-    public BusMemberType getType() {
-	return type;
-    }
+	/**
+	 * Get the type of this bus member.
+	 * 
+	 * @return the type of this bus member.
+	 */
+	public BusMemberType getType() {
+		return type;
+	}
 
-    /**
-     * Set a human-readable label for this bus member.
-     * 
-     * @param label
-     *            the new label.
-     */
-    public void setLabel(String label) {
-	if (this.label == null)
-	    this.label = label;
-    }
+	/**
+	 * Set a human-readable label for this bus member.
+	 * 
+	 * @param label
+	 *            the new label.
+	 */
+	public void setLabel(String label) {
+		if (this.label == null)
+			this.label = label;
+	}
 
-    /**
-     * Get the human-readable label for this bus member.
-     * 
-     * @return the label.
-     */
-    public String getLabel() {
-	return label;
-    }
+	/**
+	 * Get the human-readable label for this bus member.
+	 * 
+	 * @return the label.
+	 */
+	public String getLabel() {
+		return label;
+	}
 
-    /**
-     * Set a human-readable comment for this bus member.
-     * 
-     * @param comment
-     *            the new comment.
-     */
+	/**
+	 * Set a human-readable comment for this bus member.
+	 * 
+	 * @param comment
+	 *            the new comment.
+	 */
 
-    public void setComment(String comment) {
-	if (this.comment == null)
-	    this.comment = comment;
-    }
+	public void setComment(String comment) {
+		if (this.comment == null)
+			this.comment = comment;
+	}
 
-    /**
-     * Get the human-readable comment for this bus member.
-     * 
-     * @return the comment.
-     */
-    public String getComment() {
-	return comment;
-    }
+	/**
+	 * Get the human-readable comment for this bus member.
+	 * 
+	 * @return the comment.
+	 */
+	public String getComment() {
+		return comment;
+	}
 }

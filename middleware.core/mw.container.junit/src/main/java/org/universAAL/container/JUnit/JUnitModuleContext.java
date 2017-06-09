@@ -37,255 +37,252 @@ import org.universAAL.middleware.container.ModuleContext;
  */
 public class JUnitModuleContext implements ModuleContext {
 
-    public enum LogLevel {
-	ERROR, WARN, INFO, DEBUG, TRACE, NONE
-    };
+	public enum LogLevel {
+		ERROR, WARN, INFO, DEBUG, TRACE, NONE
+	};
 
-    private Logger logger;
+	private Logger logger;
 
-    private Map<String, Object> attributeMap;
+	private Map<String, Object> attributeMap;
 
-    private Set<File> configFiles;
+	private Set<File> configFiles;
 
-    private ModuleActivator activator;
+	private ModuleActivator activator;
 
-    private static Appender ca = new ConsoleAppender(new SimpleLayout());
+	private static Appender ca = new ConsoleAppender(new SimpleLayout());
 
-    public JUnitModuleContext(ModuleActivator ma) {
-	activator = ma;
-	attributeMap = new HashMap<String, Object>();
-	configFiles = new HashSet<File>();
-	logger = LogManager.getLogger(activator.getClass().getPackage()
-		.getName());
-	logger.addAppender(ca);
-	//Don't want to log things outside universAAL logs
-	Logger.getRootLogger().setLevel(Level.OFF);
-	//TODO Alternatively root logger could log to target/test.log
-    }
-
-    public JUnitModuleContext() {
-	this(new ModuleActivator() {
-
-	    public void stop(ModuleContext mc) throws Exception {
-	    }
-
-	    public void start(ModuleContext mc) throws Exception {
-	    }
-	});
-	logger.setLevel(Level.ALL);
-    }
-
-    public void setLogLevel(LogLevel level) {
-    	switch (level) {
-    	case ERROR:
-    		logger.setLevel(Level.ERROR);
-    		break;
-    	case WARN:
-    		logger.setLevel(Level.WARN);
-    		break;
-    	case INFO:
-    		logger.setLevel(Level.INFO);
-    		break;
-    	case DEBUG:
-    		logger.setLevel(Level.DEBUG);
-    		break;
-    	case TRACE:
-    		logger.setLevel(Level.TRACE);
-    		break;
-    	case NONE:
-    		logger.setLevel(Level.OFF);
-    	}
-    }
-    
-    public LogLevel getLogLevel(){
-    	if (isLogErrorEnabled()){
-    		return LogLevel.ERROR;
-    	}
-    	if (isLogWarnEnabled()){
-    		return LogLevel.WARN;
-    	}
-    	if (isLogInfoEnabled()){
-    		return LogLevel.INFO;
-    	}
-    	if (isLogDebugEnabled()){
-    		return LogLevel.DEBUG;
-    	}
-    	if (isLogTraceEnabled()){
-    		return LogLevel.TRACE;
-    	}
-    	return LogLevel.NONE;
-    }
-
-    /** {@inheritDoc} */
-    public boolean canBeStarted(ModuleContext requester) {
-	// If can be accessed then it can be started
-	return true;
-    }
-
-    /** {@inheritDoc} */
-    public boolean canBeStopped(ModuleContext requester) {
-	// If can be accessed then it can be stopped
-	return true;
-    }
-
-    /** {@inheritDoc} */
-    public boolean canBeUninstalled(ModuleContext requester) {
-	// can not uninstall things in POJO.
-	return false;
-    }
-
-    /** {@inheritDoc} */
-    public Object getAttribute(String attrName) {
-	return attributeMap.get(attrName);
-    }
-
-    /** {@inheritDoc} */
-    public Container getContainer() {
-	return JUnitContainer.getInstance();
-    }
-
-    /** {@inheritDoc} */
-    public String getID() {
-	return activator.getClass().getPackage().getName();
-    }
-
-    /** {@inheritDoc} */
-    public File[] listConfigFiles(ModuleContext requester) {
-	return configFiles.toArray(new File[configFiles.size()]);
-    }
-
-    /** {@inheritDoc} */
-    public void logDebug(String tag, String message, Throwable t) {
-	logger.debug(tag + ": " + message, t);
-    }
-
-    /** {@inheritDoc} */
-    public void logError(String tag, String message, Throwable t) {
-	logger.error(tag + ": " + message, t);
-    }
-
-    /** {@inheritDoc} */
-    public void logInfo(String tag, String message, Throwable t) {
-	logger.info(tag + ": " + message, t);
-    }
-
-    /** {@inheritDoc} */
-    public void logWarn(String tag, String message, Throwable t) {
-	logger.warn(tag + ": " + message, t);
-    }
-
-    /** {@inheritDoc} */
-    public void logTrace(String tag, String message, Throwable t) {
-	logger.trace(tag + ": " + message, t);
-    }
-
-    /** {@inheritDoc} */
-    public boolean isLogErrorEnabled() {
-	return Level.ERROR.isGreaterOrEqual(logger.getEffectiveLevel());
-    }
-
-    /** {@inheritDoc} */
-    public boolean isLogWarnEnabled() {
-	return Level.WARN.isGreaterOrEqual(logger.getEffectiveLevel());
-    }
-
-    /** {@inheritDoc} */
-    public boolean isLogInfoEnabled() {
-	return logger.isInfoEnabled();
-    }
-
-    /** {@inheritDoc} */
-    public boolean isLogDebugEnabled() {
-	return logger.isDebugEnabled();
-    }
-
-    /** {@inheritDoc} */
-    public boolean isLogTraceEnabled() {
-	return logger.isTraceEnabled();
-    }
-
-    /** {@inheritDoc} */
-    public void registerConfigFile(Object[] configFileParams) {
-	configFiles.add((File) configFileParams[0]);
-    }
-
-    /** {@inheritDoc} */
-    public void setAttribute(String attrName, Object attrValue) {
-	attributeMap.put(attrName, attrValue);
-    }
-
-    /** {@inheritDoc} */
-    public boolean start(ModuleContext requester) {
-	if (canBeStarted(requester)) {
-	    try {
-		activator.start(this);
-		return true;
-	    } catch (Exception e) {
-		logger.error("Unable to start: "
-			+ activator.getClass().getPackage().getName(), e);
-	    }
+	public JUnitModuleContext(ModuleActivator ma) {
+		activator = ma;
+		attributeMap = new HashMap<String, Object>();
+		configFiles = new HashSet<File>();
+		logger = LogManager.getLogger(activator.getClass().getPackage().getName());
+		logger.addAppender(ca);
+		// Don't want to log things outside universAAL logs
+		Logger.getRootLogger().setLevel(Level.OFF);
+		// TODO Alternatively root logger could log to target/test.log
 	}
-	return false;
-    }
 
-    /** {@inheritDoc} */
-    public boolean stop(ModuleContext requester) {
-	if (canBeStopped(requester)) {
-	    try {
-		activator.stop(this);
-		return true;
-	    } catch (Exception e) {
-		logger.error("Unable to stop: "
-			+ activator.getClass().getPackage().getName(), e);
-	    }
+	public JUnitModuleContext() {
+		this(new ModuleActivator() {
+
+			public void stop(ModuleContext mc) throws Exception {
+			}
+
+			public void start(ModuleContext mc) throws Exception {
+			}
+		});
+		logger.setLevel(Level.ALL);
 	}
-	return false;
-    }
 
-    /** {@inheritDoc} */
-    public boolean uninstall(ModuleContext requester) {
-	return false;
-    }
+	public void setLogLevel(LogLevel level) {
+		switch (level) {
+		case ERROR:
+			logger.setLevel(Level.ERROR);
+			break;
+		case WARN:
+			logger.setLevel(Level.WARN);
+			break;
+		case INFO:
+			logger.setLevel(Level.INFO);
+			break;
+		case DEBUG:
+			logger.setLevel(Level.DEBUG);
+			break;
+		case TRACE:
+			logger.setLevel(Level.TRACE);
+			break;
+		case NONE:
+			logger.setLevel(Level.OFF);
+		}
+	}
 
-    /** {@inheritDoc} */
-    public Object getProperty(String name) {
+	public LogLevel getLogLevel() {
+		if (isLogErrorEnabled()) {
+			return LogLevel.ERROR;
+		}
+		if (isLogWarnEnabled()) {
+			return LogLevel.WARN;
+		}
+		if (isLogInfoEnabled()) {
+			return LogLevel.INFO;
+		}
+		if (isLogDebugEnabled()) {
+			return LogLevel.DEBUG;
+		}
+		if (isLogTraceEnabled()) {
+			return LogLevel.TRACE;
+		}
+		return LogLevel.NONE;
+	}
 
-	Object value = getAttribute(name);
-	if (value != null)
-	    return value;
+	/** {@inheritDoc} */
+	public boolean canBeStarted(ModuleContext requester) {
+		// If can be accessed then it can be started
+		return true;
+	}
 
-	value = System.getProperty(name);
-	if (value != null)
-	    return value;
+	/** {@inheritDoc} */
+	public boolean canBeStopped(ModuleContext requester) {
+		// If can be accessed then it can be stopped
+		return true;
+	}
 
-	value = System.getenv(name);
-	if (value != null)
-	    return value;
+	/** {@inheritDoc} */
+	public boolean canBeUninstalled(ModuleContext requester) {
+		// can not uninstall things in POJO.
+		return false;
+	}
 
-	return null;
-    }
+	/** {@inheritDoc} */
+	public Object getAttribute(String attrName) {
+		return attributeMap.get(attrName);
+	}
 
-    /** {@inheritDoc} */
-    public Object getProperty(String name, Object def) {
-	Object value = getProperty(name);
-	if (value == null)
-	    return def;
-	return value;
-    }
+	/** {@inheritDoc} */
+	public Container getContainer() {
+		return JUnitContainer.getInstance();
+	}
 
-    public String getManifestEntry(String name) {
-	return null;
-    }
+	/** {@inheritDoc} */
+	public String getID() {
+		return activator.getClass().getPackage().getName();
+	}
 
-    public String getManifestEntry(String manifest, String name) {
-	return null;
-    }
+	/** {@inheritDoc} */
+	public File[] listConfigFiles(ModuleContext requester) {
+		return configFiles.toArray(new File[configFiles.size()]);
+	}
 
-    public File getConfigHome() {
-	return new File("./target/rundir/configuration/", getID());
-    }
+	/** {@inheritDoc} */
+	public void logDebug(String tag, String message, Throwable t) {
+		logger.debug(tag + ": " + message, t);
+	}
 
-    public File getDataFolder() {
-	return new File("./target/rundir/data/", getID());
-    }
+	/** {@inheritDoc} */
+	public void logError(String tag, String message, Throwable t) {
+		logger.error(tag + ": " + message, t);
+	}
+
+	/** {@inheritDoc} */
+	public void logInfo(String tag, String message, Throwable t) {
+		logger.info(tag + ": " + message, t);
+	}
+
+	/** {@inheritDoc} */
+	public void logWarn(String tag, String message, Throwable t) {
+		logger.warn(tag + ": " + message, t);
+	}
+
+	/** {@inheritDoc} */
+	public void logTrace(String tag, String message, Throwable t) {
+		logger.trace(tag + ": " + message, t);
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogErrorEnabled() {
+		return Level.ERROR.isGreaterOrEqual(logger.getEffectiveLevel());
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogWarnEnabled() {
+		return Level.WARN.isGreaterOrEqual(logger.getEffectiveLevel());
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogInfoEnabled() {
+		return logger.isInfoEnabled();
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogDebugEnabled() {
+		return logger.isDebugEnabled();
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogTraceEnabled() {
+		return logger.isTraceEnabled();
+	}
+
+	/** {@inheritDoc} */
+	public void registerConfigFile(Object[] configFileParams) {
+		configFiles.add((File) configFileParams[0]);
+	}
+
+	/** {@inheritDoc} */
+	public void setAttribute(String attrName, Object attrValue) {
+		attributeMap.put(attrName, attrValue);
+	}
+
+	/** {@inheritDoc} */
+	public boolean start(ModuleContext requester) {
+		if (canBeStarted(requester)) {
+			try {
+				activator.start(this);
+				return true;
+			} catch (Exception e) {
+				logger.error("Unable to start: " + activator.getClass().getPackage().getName(), e);
+			}
+		}
+		return false;
+	}
+
+	/** {@inheritDoc} */
+	public boolean stop(ModuleContext requester) {
+		if (canBeStopped(requester)) {
+			try {
+				activator.stop(this);
+				return true;
+			} catch (Exception e) {
+				logger.error("Unable to stop: " + activator.getClass().getPackage().getName(), e);
+			}
+		}
+		return false;
+	}
+
+	/** {@inheritDoc} */
+	public boolean uninstall(ModuleContext requester) {
+		return false;
+	}
+
+	/** {@inheritDoc} */
+	public Object getProperty(String name) {
+
+		Object value = getAttribute(name);
+		if (value != null)
+			return value;
+
+		value = System.getProperty(name);
+		if (value != null)
+			return value;
+
+		value = System.getenv(name);
+		if (value != null)
+			return value;
+
+		return null;
+	}
+
+	/** {@inheritDoc} */
+	public Object getProperty(String name, Object def) {
+		Object value = getProperty(name);
+		if (value == null)
+			return def;
+		return value;
+	}
+
+	public String getManifestEntry(String name) {
+		return null;
+	}
+
+	public String getManifestEntry(String manifest, String name) {
+		return null;
+	}
+
+	public File getConfigHome() {
+		return new File("./target/rundir/configuration/", getID());
+	}
+
+	public File getDataFolder() {
+		return new File("./target/rundir/data/", getID());
+	}
 }

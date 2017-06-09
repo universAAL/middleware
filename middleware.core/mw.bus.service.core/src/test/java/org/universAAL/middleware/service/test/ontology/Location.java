@@ -35,32 +35,32 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  */
 public class Location extends ManagedIndividual {
 
-    public static final String MY_URI = TestOntology.NAMESPACE + "Location";
+	public static final String MY_URI = TestOntology.NAMESPACE + "Location";
 
-    /**
-     * Constructor just for usage by de-serializers. Do not use this constructor
-     * within applications as it may lead to incomplete instances that cause
-     * exceptions.
-     */
-    public Location() {
-	super();
-    }
+	/**
+	 * Constructor just for usage by de-serializers. Do not use this constructor
+	 * within applications as it may lead to incomplete instances that cause
+	 * exceptions.
+	 */
+	public Location() {
+		super();
+	}
 
-    /**
-     * Constructor just for usage by de-serializers. Do not use this constructor
-     * within applications as it may lead to incomplete instances that cause
-     * exceptions.
-     */
-    public Location(String uri) {
-	super(uri);
-    }
+	/**
+	 * Constructor just for usage by de-serializers. Do not use this constructor
+	 * within applications as it may lead to incomplete instances that cause
+	 * exceptions.
+	 */
+	public Location(String uri) {
+		super(uri);
+	}
 
-    public String getClassURI() {
-	return MY_URI;
-    }
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    @Override
-    public int getPropSerializationType(String propURI) {
-	return PROP_SERIALIZATION_FULL;
-    }
+	@Override
+	public int getPropSerializationType(String propURI) {
+		return PROP_SERIALIZATION_FULL;
+	}
 }

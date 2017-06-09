@@ -29,14 +29,14 @@ import org.universAAL.middleware.owl.TypeURI;
  */
 public class ConfigurationParameterTypePattern implements EntityPattern {
 
-    /**
-     * The URI of the ConfigurationParameter Ontology type
-     */
-    private static String URI = "http://ontology.universAAL.org/AALConfigurationOntology#ConfigurationParameter";
+	/**
+	 * The URI of the ConfigurationParameter Ontology type
+	 */
+	private static String URI = "http://ontology.universAAL.org/AALConfigurationOntology#ConfigurationParameter";
 
-    /** {@ inheritDoc} */
-    public TypeExpression getRestriction() {
-	return new TypeURI(URI, false);
-    }
+	/** {@ inheritDoc} */
+	public TypeExpression getRestriction() {
+		return new TypeURI(URI, false);
+	}
 
 }

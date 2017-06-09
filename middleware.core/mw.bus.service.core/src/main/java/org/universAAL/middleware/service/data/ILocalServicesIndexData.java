@@ -31,13 +31,13 @@ import org.universAAL.middleware.service.impl.ServiceRealization;
  */
 public interface ILocalServicesIndexData {
 
-    void addServiceRealization(String id, ServiceRealization serviceRealization);
+	void addServiceRealization(String id, ServiceRealization serviceRealization);
 
-    ServiceRealization removeServiceRealization(String id);
+	ServiceRealization removeServiceRealization(String id);
 
-    ServiceRealization getServiceRealizationByID(String id);
+	ServiceRealization getServiceRealizationByID(String id);
 
-    ServiceRealization[] getAllServiceRealizations();
+	ServiceRealization[] getAllServiceRealizations();
 
-    String[] getServiceRealizationIds();
+	String[] getServiceRealizationIds();
 }

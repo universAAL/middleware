@@ -24,31 +24,30 @@ import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 
 public class TurtleSerializer implements MessageContentSerializerEx {
 
-    public TurtleSerializer() {
-    }
-
-    /** @see org.universAAL.middleware.serialization.MessageContentSerializer#deserialize(String) */
-    public synchronized Object deserialize(String serialized) {
-	return deserialize(serialized, null);
-    }
-
-    /**
-     * @see org.universAAL.middleware.serialization.MessageContentSerializerEx#deserialize(String,
-     *      String)
-     */
-    public synchronized Object deserialize(String serialized, String resourceURI) {
-	try {
-	    TurtleParser parser = new TurtleParser();
-	    return parser.deserialize(serialized, resourceURI);
-	} catch (Exception ex) {
-	    LogUtils.logError(TurtleUtil.moduleContext, TurtleSerializer.class,
-		    "deserialize", null, ex);
-	    return null;
+	public TurtleSerializer() {
 	}
-    }
 
-    /** @see org.universAAL.middleware.serialization.MessageContentSerializer#serialize(Object) */
-    public String serialize(Object messageContent) {
-	return TurtleWriter.serialize(messageContent, 0);
-    }
+	/** @see org.universAAL.middleware.serialization.MessageContentSerializer#deserialize(String) */
+	public synchronized Object deserialize(String serialized) {
+		return deserialize(serialized, null);
+	}
+
+	/**
+	 * @see org.universAAL.middleware.serialization.MessageContentSerializerEx#deserialize(String,
+	 *      String)
+	 */
+	public synchronized Object deserialize(String serialized, String resourceURI) {
+		try {
+			TurtleParser parser = new TurtleParser();
+			return parser.deserialize(serialized, resourceURI);
+		} catch (Exception ex) {
+			LogUtils.logError(TurtleUtil.moduleContext, TurtleSerializer.class, "deserialize", null, ex);
+			return null;
+		}
+	}
+
+	/** @see org.universAAL.middleware.serialization.MessageContentSerializer#serialize(Object) */
+	public String serialize(Object messageContent) {
+		return TurtleWriter.serialize(messageContent, 0);
+	}
 }

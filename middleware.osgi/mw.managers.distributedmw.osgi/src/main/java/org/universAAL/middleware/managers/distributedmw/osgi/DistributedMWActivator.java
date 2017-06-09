@@ -35,31 +35,25 @@ import org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManage
  * 
  */
 public class DistributedMWActivator implements BundleActivator {
-    ModuleContext context;
-    DistributedMWManagerImpl mm;
+	ModuleContext context;
+	DistributedMWManagerImpl mm;
 
-    public void start(BundleContext arg0) throws Exception {
-	context = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { arg0 });
-	LogUtils.logDebug(context, getClass(), "start",
-		"Starting DistributedMWM Manager.");
+	public void start(BundleContext arg0) throws Exception {
+		context = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { arg0 });
+		LogUtils.logDebug(context, getClass(), "start", "Starting DistributedMWM Manager.");
 
-	Object[] parBMLMgmt = new Object[] { DistributedBusMemberManager.class
-		.getName() };
-	Object[] parLLMgmt = new Object[] { DistributedLogManager.class
-		.getName() };
-	Object[] parEvtH = new Object[] { DistributedMWEventHandler.class
-		.getName() };
-	mm = new DistributedMWManagerImpl(context, parBMLMgmt, parBMLMgmt,
-		parLLMgmt, parLLMgmt, parEvtH, parEvtH);
+		Object[] parBMLMgmt = new Object[] { DistributedBusMemberManager.class.getName() };
+		Object[] parLLMgmt = new Object[] { DistributedLogManager.class.getName() };
+		Object[] parEvtH = new Object[] { DistributedMWEventHandler.class.getName() };
+		mm = new DistributedMWManagerImpl(context, parBMLMgmt, parBMLMgmt, parLLMgmt, parLLMgmt, parEvtH, parEvtH);
 
-	LogUtils.logDebug(context, getClass(), "start", "Started.");
-    }
+		LogUtils.logDebug(context, getClass(), "start", "Started.");
+	}
 
-    public void stop(BundleContext arg0) throws Exception {
-	LogUtils.logDebug(context, getClass(), "stop", "Stopping.");
-	mm.dispose();
-	mm = null;
-	LogUtils.logDebug(context, getClass(), "stop", "Stopped.");
-    }
+	public void stop(BundleContext arg0) throws Exception {
+		LogUtils.logDebug(context, getClass(), "stop", "Stopping.");
+		mm.dispose();
+		mm = null;
+		LogUtils.logDebug(context, getClass(), "stop", "Stopped.");
+	}
 }

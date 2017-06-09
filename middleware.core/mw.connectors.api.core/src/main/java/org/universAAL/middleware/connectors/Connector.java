@@ -30,24 +30,24 @@ import java.util.Dictionary;
  */
 public interface Connector {
 
-    public String getName();
+	public String getName();
 
-    public String getVersion();
+	public String getVersion();
 
-    public String getDescription();
+	public String getDescription();
 
-    public String getProvider();
+	public String getProvider();
 
-    /**
-     * This method allows the connector to obtain all the required
-     * configurations
-     * 
-     * @param configurations
-     */
-    public void loadConfigurations(Dictionary configurations);
+	/**
+	 * This method allows the connector to obtain all the required
+	 * configurations
+	 * 
+	 * @param configurations
+	 */
+	public void loadConfigurations(Dictionary configurations);
 
-    public boolean init();
+	public boolean init();
 
-    public void dispose();
+	public void dispose();
 
 }

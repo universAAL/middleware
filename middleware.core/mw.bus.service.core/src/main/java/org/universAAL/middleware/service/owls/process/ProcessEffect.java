@@ -47,199 +47,181 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public abstract class ProcessEffect {
-    public static final String PROP_PROCESS_AFFECTED_PROPERTY = Resource.uAAL_SERVICE_NAMESPACE
-	    + "affectedProperty";
-    public static final String PROP_PROCESS_PROPERTY_VALUE = Resource.uAAL_SERVICE_NAMESPACE
-	    + "propertyValue";
-    public static final String TYPE_PROCESS_ADD_EFFECT = Resource.uAAL_SERVICE_NAMESPACE
-	    + "AddEffect";
-    public static final String TYPE_PROCESS_CHANGE_EFFECT = Resource.uAAL_SERVICE_NAMESPACE
-	    + "ChangeEffect";
-    public static final String TYPE_PROCESS_REMOVE_EFFECT = Resource.uAAL_SERVICE_NAMESPACE
-	    + "RemoveEffect";
+	public static final String PROP_PROCESS_AFFECTED_PROPERTY = Resource.uAAL_SERVICE_NAMESPACE + "affectedProperty";
+	public static final String PROP_PROCESS_PROPERTY_VALUE = Resource.uAAL_SERVICE_NAMESPACE + "propertyValue";
+	public static final String TYPE_PROCESS_ADD_EFFECT = Resource.uAAL_SERVICE_NAMESPACE + "AddEffect";
+	public static final String TYPE_PROCESS_CHANGE_EFFECT = Resource.uAAL_SERVICE_NAMESPACE + "ChangeEffect";
+	public static final String TYPE_PROCESS_REMOVE_EFFECT = Resource.uAAL_SERVICE_NAMESPACE + "RemoveEffect";
 
-    /**
-     * Returns true or false depending if the object o contains the right effect
-     * 
-     * @param Object
-     *            o The object that contains the effect to check
-     * 
-     * @return true if the object contains the right effect, return false on
-     *         contrary.
-     */
+	/**
+	 * Returns true or false depending if the object o contains the right effect
+	 * 
+	 * @param Object
+	 *            o The object that contains the effect to check
+	 * 
+	 * @return true if the object contains the right effect, return false on
+	 *         contrary.
+	 */
 
-    static boolean checkEffect(Object o) {
-	if (o instanceof Resource && ((Resource) o).isAnon()) {
-	    int num = 0;
-	    Object type = null;
-	    for (Enumeration e = ((Resource) o).getPropertyURIs(); e
-		    .hasMoreElements();) {
-		Object key = e.nextElement();
-		if (Resource.PROP_RDF_TYPE.equals(key))
-		    type = ((Resource) o).getType();
-		else if (PROP_PROCESS_AFFECTED_PROPERTY.equals(key)) {
-		    key = ((Resource) o)
-			    .getProperty(PROP_PROCESS_AFFECTED_PROPERTY);
-		    if (key instanceof Resource) {
-			if (!(key instanceof PropertyPath)) {
-			    key = PropertyPath.toPropertyPath((Resource) key);
-			    if (key == null)
-				return false;
-			    ((Resource) o).setProperty(
-				    PROP_PROCESS_AFFECTED_PROPERTY, key);
+	static boolean checkEffect(Object o) {
+		if (o instanceof Resource && ((Resource) o).isAnon()) {
+			int num = 0;
+			Object type = null;
+			for (Enumeration e = ((Resource) o).getPropertyURIs(); e.hasMoreElements();) {
+				Object key = e.nextElement();
+				if (Resource.PROP_RDF_TYPE.equals(key))
+					type = ((Resource) o).getType();
+				else if (PROP_PROCESS_AFFECTED_PROPERTY.equals(key)) {
+					key = ((Resource) o).getProperty(PROP_PROCESS_AFFECTED_PROPERTY);
+					if (key instanceof Resource) {
+						if (!(key instanceof PropertyPath)) {
+							key = PropertyPath.toPropertyPath((Resource) key);
+							if (key == null)
+								return false;
+							((Resource) o).setProperty(PROP_PROCESS_AFFECTED_PROPERTY, key);
+						}
+						((PropertyPath) key).unliteral();
+						num++;
+					}
+				} else if (PROP_PROCESS_PROPERTY_VALUE.equals(key)) {
+					key = ((Resource) o).getProperty(PROP_PROCESS_PROPERTY_VALUE);
+					if (ProcessParameter.checkDeserialization(key)
+							|| (ProcessParameter.MY_URI.equals(((Resource) key).getType())))
+						num++;
+					else
+						return false;
+				} else
+					return false;
 			}
-			((PropertyPath) key).unliteral();
-			num++;
-		    }
-		} else if (PROP_PROCESS_PROPERTY_VALUE.equals(key)) {
-		    key = ((Resource) o)
-			    .getProperty(PROP_PROCESS_PROPERTY_VALUE);
-		    if (ProcessParameter.checkDeserialization(key)
-			    || (ProcessParameter.MY_URI.equals(((Resource) key)
-				    .getType())))
-			num++;
-		    else
-			return false;
-		} else
-		    return false;
-	    }
-	    return (num == 1 && TYPE_PROCESS_REMOVE_EFFECT.equals(type))
-		    || (num == 2 && (TYPE_PROCESS_ADD_EFFECT.equals(type) || TYPE_PROCESS_CHANGE_EFFECT
-			    .equals(type)));
-	}
-	return false;
-    }
-
-    /**
-     * Adds a effect of a resource
-     * 
-     * @param Propertypath
-     *            path to set the effect.
-     * @param Object
-     *            object that contains the effect property
-     * @return a resource with an added effect
-     */
-
-    static Resource constructAddEffect(PropertyPath ppath, Object value) {
-	if (ppath == null || value == null)
-	    return null;
-
-	ppath.unliteral();
-	Resource ae = new Resource();
-	ae.addType(TYPE_PROCESS_ADD_EFFECT, true);
-	ae.setProperty(PROP_PROCESS_AFFECTED_PROPERTY, ppath);
-	ae.setProperty(PROP_PROCESS_PROPERTY_VALUE, value);
-	return ae;
-    }
-
-    /**
-     * Changes a effect of a resource
-     * 
-     * @param Propertypath
-     *            path to set the effect.
-     * @param Object
-     *            object that contains the effect property
-     * @return a resource with an changed effect
-     */
-
-    static Resource constructChangeEffect(PropertyPath ppath, Object value) {
-	if (ppath == null || value == null)
-	    return null;
-
-	ppath.unliteral();
-	Resource ce = new Resource();
-	ce.addType(TYPE_PROCESS_CHANGE_EFFECT, true);
-	ce.setProperty(PROP_PROCESS_AFFECTED_PROPERTY, ppath);
-	ce.setProperty(PROP_PROCESS_PROPERTY_VALUE, value);
-	return ce;
-    }
-
-    /**
-     * Removes a effect of a resource
-     * 
-     * @param Propertypath
-     *            path to set the effect.
-     * @param Object
-     *            object that contains the effect property
-     * @return a resource with an changed effect
-     */
-
-    static Resource constructRemoveEffect(PropertyPath ppath) {
-	if (ppath == null)
-	    return null;
-
-	ppath.unliteral();
-	Resource re = new Resource();
-	re.addType(TYPE_PROCESS_REMOVE_EFFECT, true);
-	re.setProperty(PROP_PROCESS_AFFECTED_PROPERTY, ppath);
-	return re;
-    }
-
-    /**
-     * Finds if the requested resource match with the context provided
-     * 
-     * @param Resource
-     *            req. Resource requested to check.
-     * @param Hastable
-     *            context to check.
-     * @return return true if it match and false on contrary.
-     */
-
-    static boolean findMatchingEffect(Resource req, Resource[] offer,
-	    HashMap context) {
-	String effectType = req.getType();
-	boolean isRemoveEffect = TYPE_PROCESS_REMOVE_EFFECT.equals(effectType);
-	Object affectedProp = req.getProperty(PROP_PROCESS_AFFECTED_PROPERTY);
-	Object effectValue = req.getProperty(PROP_PROCESS_PROPERTY_VALUE);
-	if (effectValue == null) {
-	    if (!isRemoveEffect)
+			return (num == 1 && TYPE_PROCESS_REMOVE_EFFECT.equals(type))
+					|| (num == 2 && (TYPE_PROCESS_ADD_EFFECT.equals(type) || TYPE_PROCESS_CHANGE_EFFECT.equals(type)));
+		}
 		return false;
-	} else if (!(effectValue instanceof List)) {
-	    List aux = new ArrayList(1);
-	    aux.add(effectValue);
-	    effectValue = aux;
 	}
-	for (int i = 0; i < offer.length; i++) {
-	    if (offer[i] == null)
-		continue;
-	    if (effectType.equals(offer[i].getType())
-		    && affectedProp.equals(offer[i]
-			    .getProperty(PROP_PROCESS_AFFECTED_PROPERTY))) {
-		if (isRemoveEffect) {
-		    offer[i] = null;
-		    return true;
-		}
-		Object o = ProcessParameter.resolveVarRef(
-			offer[i].getProperty(PROP_PROCESS_PROPERTY_VALUE),
-			context);
-		offer[i] = null;
-		if (o instanceof ProcessParameter) {
-		    int max = ((ProcessParameter) o).getMaxCardinality();
-		    if (((ProcessParameter) o).getMinCardinality() > ((List) effectValue)
-			    .size()
-			    || (max > 0 && ((List) effectValue).size() > max))
-			return false;
-		    String pType = ((ProcessParameter) o).getParameterType();
-		    if (pType != null)
-			for (Iterator j = ((List) effectValue).iterator(); j
-				.hasNext();)
-			    if (!ManagedIndividual.checkMembership(pType,
-				    j.next()))
+
+	/**
+	 * Adds a effect of a resource
+	 * 
+	 * @param Propertypath
+	 *            path to set the effect.
+	 * @param Object
+	 *            object that contains the effect property
+	 * @return a resource with an added effect
+	 */
+
+	static Resource constructAddEffect(PropertyPath ppath, Object value) {
+		if (ppath == null || value == null)
+			return null;
+
+		ppath.unliteral();
+		Resource ae = new Resource();
+		ae.addType(TYPE_PROCESS_ADD_EFFECT, true);
+		ae.setProperty(PROP_PROCESS_AFFECTED_PROPERTY, ppath);
+		ae.setProperty(PROP_PROCESS_PROPERTY_VALUE, value);
+		return ae;
+	}
+
+	/**
+	 * Changes a effect of a resource
+	 * 
+	 * @param Propertypath
+	 *            path to set the effect.
+	 * @param Object
+	 *            object that contains the effect property
+	 * @return a resource with an changed effect
+	 */
+
+	static Resource constructChangeEffect(PropertyPath ppath, Object value) {
+		if (ppath == null || value == null)
+			return null;
+
+		ppath.unliteral();
+		Resource ce = new Resource();
+		ce.addType(TYPE_PROCESS_CHANGE_EFFECT, true);
+		ce.setProperty(PROP_PROCESS_AFFECTED_PROPERTY, ppath);
+		ce.setProperty(PROP_PROCESS_PROPERTY_VALUE, value);
+		return ce;
+	}
+
+	/**
+	 * Removes a effect of a resource
+	 * 
+	 * @param Propertypath
+	 *            path to set the effect.
+	 * @param Object
+	 *            object that contains the effect property
+	 * @return a resource with an changed effect
+	 */
+
+	static Resource constructRemoveEffect(PropertyPath ppath) {
+		if (ppath == null)
+			return null;
+
+		ppath.unliteral();
+		Resource re = new Resource();
+		re.addType(TYPE_PROCESS_REMOVE_EFFECT, true);
+		re.setProperty(PROP_PROCESS_AFFECTED_PROPERTY, ppath);
+		return re;
+	}
+
+	/**
+	 * Finds if the requested resource match with the context provided
+	 * 
+	 * @param Resource
+	 *            req. Resource requested to check.
+	 * @param Hastable
+	 *            context to check.
+	 * @return return true if it match and false on contrary.
+	 */
+
+	static boolean findMatchingEffect(Resource req, Resource[] offer, HashMap context) {
+		String effectType = req.getType();
+		boolean isRemoveEffect = TYPE_PROCESS_REMOVE_EFFECT.equals(effectType);
+		Object affectedProp = req.getProperty(PROP_PROCESS_AFFECTED_PROPERTY);
+		Object effectValue = req.getProperty(PROP_PROCESS_PROPERTY_VALUE);
+		if (effectValue == null) {
+			if (!isRemoveEffect)
 				return false;
-		    if (((List) effectValue).size() == 1)
-			effectValue = ((List) effectValue).get(0);
-		    context.put(((ProcessParameter) o).getURI(), effectValue);
-		    return true;
-		} else {
-		    if (!(o instanceof List)) {
+		} else if (!(effectValue instanceof List)) {
 			List aux = new ArrayList(1);
-			aux.add(o);
-			o = aux;
-		    }
-		    return o.equals(effectValue);
+			aux.add(effectValue);
+			effectValue = aux;
 		}
-	    }
+		for (int i = 0; i < offer.length; i++) {
+			if (offer[i] == null)
+				continue;
+			if (effectType.equals(offer[i].getType())
+					&& affectedProp.equals(offer[i].getProperty(PROP_PROCESS_AFFECTED_PROPERTY))) {
+				if (isRemoveEffect) {
+					offer[i] = null;
+					return true;
+				}
+				Object o = ProcessParameter.resolveVarRef(offer[i].getProperty(PROP_PROCESS_PROPERTY_VALUE), context);
+				offer[i] = null;
+				if (o instanceof ProcessParameter) {
+					int max = ((ProcessParameter) o).getMaxCardinality();
+					if (((ProcessParameter) o).getMinCardinality() > ((List) effectValue).size()
+							|| (max > 0 && ((List) effectValue).size() > max))
+						return false;
+					String pType = ((ProcessParameter) o).getParameterType();
+					if (pType != null)
+						for (Iterator j = ((List) effectValue).iterator(); j.hasNext();)
+							if (!ManagedIndividual.checkMembership(pType, j.next()))
+								return false;
+					if (((List) effectValue).size() == 1)
+						effectValue = ((List) effectValue).get(0);
+					context.put(((ProcessParameter) o).getURI(), effectValue);
+					return true;
+				} else {
+					if (!(o instanceof List)) {
+						List aux = new ArrayList(1);
+						aux.add(o);
+						o = aux;
+					}
+					return o.equals(effectValue);
+				}
+			}
+		}
+		return false;
 	}
-	return false;
-    }
 }

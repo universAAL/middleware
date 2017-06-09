@@ -28,24 +28,24 @@ import java.util.Dictionary;
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
  */
 public interface Manager {
-    /**
-     * This method sets all the configurations for the AALSpaceManager
-     * 
-     * @param configurations
-     *            Dictionary of configurations
-     */
-    public void loadConfigurations(Dictionary configurations);
+	/**
+	 * This method sets all the configurations for the AALSpaceManager
+	 * 
+	 * @param configurations
+	 *            Dictionary of configurations
+	 */
+	public void loadConfigurations(Dictionary configurations);
 
-    /**
-     * Initialize the AALSpace Manager
-     * 
-     * @return true if the initialization is completed, false otherwise
-     */
-    public boolean init();
+	/**
+	 * Initialize the AALSpace Manager
+	 * 
+	 * @return true if the initialization is completed, false otherwise
+	 */
+	public boolean init();
 
-    /**
-     * Release all the resources
-     */
-    public void dispose();
+	/**
+	 * Release all the resources
+	 */
+	public void dispose();
 
 }

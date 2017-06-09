@@ -34,13 +34,13 @@ import org.universAAL.middleware.context.ContextPublisher;
  */
 public class ProvisionsDataList implements IProvisionsData {
 
-    private List list = new ArrayList();
+	private List list = new ArrayList();
 
-    public void addProvision(ContextPublisher contextPublisher) {
-	list.add(contextPublisher);
-    }
+	public void addProvision(ContextPublisher contextPublisher) {
+		list.add(contextPublisher);
+	}
 
-    public boolean exist(ContextPublisher contextPublisher) {
-	return list.contains(contextPublisher);
-    }
+	public boolean exist(ContextPublisher contextPublisher) {
+		return list.contains(contextPublisher);
+	}
 }

@@ -31,109 +31,103 @@ import org.universAAL.middleware.service.test.ontology.Room;
 
 public class RequestUtil {
 
-    public static final String CONSUMER_NAMESPACE = "http://ontology.igd.fhg.de/Consumer.owl#";
-    public static final String lampURI = CONSUMER_NAMESPACE + "lampURI";
-    public static final String OUTPUT_LIST_OF_LAMPS = CONSUMER_NAMESPACE
-	    + "controlledLamps";
-    public static final String OUTPUT_BRIGHTNESS = CONSUMER_NAMESPACE
-	    + "out_brightness";
-    public static final String OUTPUT_LOCATION = CONSUMER_NAMESPACE
-	    + "out_location";
+	public static final String CONSUMER_NAMESPACE = "http://ontology.igd.fhg.de/Consumer.owl#";
+	public static final String lampURI = CONSUMER_NAMESPACE + "lampURI";
+	public static final String OUTPUT_LIST_OF_LAMPS = CONSUMER_NAMESPACE + "controlledLamps";
+	public static final String OUTPUT_BRIGHTNESS = CONSUMER_NAMESPACE + "out_brightness";
+	public static final String OUTPUT_LOCATION = CONSUMER_NAMESPACE + "out_location";
 
-    public static String[] ppControls;
-    public static String[] ppBrightness;
-    public static String[] ppLocation;
+	public static String[] ppControls;
+	public static String[] ppBrightness;
+	public static String[] ppLocation;
 
-    static {
-	// Help structures to define property paths used more than once below
-	ppControls = new String[] { DeviceService.PROP_CONTROLS };
-	ppBrightness = new String[] { DeviceService.PROP_CONTROLS,
-		Lamp.PROP_SOURCE_BRIGHTNESS };
-	ppLocation = new String[] { DeviceService.PROP_CONTROLS,
-		PhysicalThing.PROP_PHYSICAL_LOCATION };
-    }
+	static {
+		// Help structures to define property paths used more than once below
+		ppControls = new String[] { DeviceService.PROP_CONTROLS };
+		ppBrightness = new String[] { DeviceService.PROP_CONTROLS, Lamp.PROP_SOURCE_BRIGHTNESS };
+		ppLocation = new String[] { DeviceService.PROP_CONTROLS, PhysicalThing.PROP_PHYSICAL_LOCATION };
+	}
 
-    // *****************************************************************
-    // Services Requests
-    // *****************************************************************
+	// *****************************************************************
+	// Services Requests
+	// *****************************************************************
 
-    private static ServiceRequest createRequest(boolean dev) {
-	if (dev)
-	    return new ServiceRequest(new DeviceService(), null);
-	else
-	    return new ServiceRequest(new LampService(), null);
-    }
+	private static ServiceRequest createRequest(boolean dev) {
+		if (dev)
+			return new ServiceRequest(new DeviceService(), null);
+		else
+			return new ServiceRequest(new LampService(), null);
+	}
 
-    public static ServiceRequest getLampInfoRequest(boolean dev) {
-	ServiceRequest getLampInfo = createRequest(dev);
-	getLampInfo.addValueFilter(ppControls, new Lamp(lampURI));
-	getLampInfo.addRequiredOutput(OUTPUT_BRIGHTNESS, ppBrightness);
-	getLampInfo.addRequiredOutput(OUTPUT_LOCATION, ppLocation);
-	return getLampInfo;
-    }
+	public static ServiceRequest getLampInfoRequest(boolean dev) {
+		ServiceRequest getLampInfo = createRequest(dev);
+		getLampInfo.addValueFilter(ppControls, new Lamp(lampURI));
+		getLampInfo.addRequiredOutput(OUTPUT_BRIGHTNESS, ppBrightness);
+		getLampInfo.addRequiredOutput(OUTPUT_LOCATION, ppLocation);
+		return getLampInfo;
+	}
 
-    public static ServiceRequest getAllLampsRequest(boolean dev) {
-	ServiceRequest getAllLamps = createRequest(dev);
-	getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
-	return getAllLamps;
-    }
+	public static ServiceRequest getAllLampsRequest(boolean dev) {
+		ServiceRequest getAllLamps = createRequest(dev);
+		getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
+		return getAllLamps;
+	}
 
-    public static ServiceRequest getAllLampsRequest2(boolean dev) {
-	ServiceRequest getAllLamps = createRequest(dev);
-	getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
-	getAllLamps.addTypeFilter(ppControls, Lamp.MY_URI);
-	return getAllLamps;
-    }
+	public static ServiceRequest getAllLampsRequest2(boolean dev) {
+		ServiceRequest getAllLamps = createRequest(dev);
+		getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
+		getAllLamps.addTypeFilter(ppControls, Lamp.MY_URI);
+		return getAllLamps;
+	}
 
-    public static ServiceRequest getAllLampsRequest3() {
-	ServiceRequest getAllLamps = createRequest(true);
-	getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
-	getAllLamps.addAggregatingFilter(AggregatingFilterFactory
-		.createServiceSelectionFilter());
-	return getAllLamps;
-    }
+	public static ServiceRequest getAllLampsRequest3() {
+		ServiceRequest getAllLamps = createRequest(true);
+		getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
+		getAllLamps.addAggregatingFilter(AggregatingFilterFactory.createServiceSelectionFilter());
+		return getAllLamps;
+	}
 
-    public static ServiceRequest turnOffRequest(boolean dev) {
-	ServiceRequest turnOff = createRequest(dev);
-	turnOff.addValueFilter(ppControls, new Lamp(lampURI));
-	turnOff.addChangeEffect(ppBrightness, new Integer(0));
-	return turnOff;
-    }
+	public static ServiceRequest turnOffRequest(boolean dev) {
+		ServiceRequest turnOff = createRequest(dev);
+		turnOff.addValueFilter(ppControls, new Lamp(lampURI));
+		turnOff.addChangeEffect(ppBrightness, new Integer(0));
+		return turnOff;
+	}
 
-    public static ServiceRequest turnOnRequest(boolean dev) {
-	ServiceRequest turnOn = createRequest(dev);
-	turnOn.addValueFilter(ppControls, new Lamp(lampURI));
-	turnOn.addChangeEffect(ppBrightness, new Integer(100));
-	return turnOn;
-    }
+	public static ServiceRequest turnOnRequest(boolean dev) {
+		ServiceRequest turnOn = createRequest(dev);
+		turnOn.addValueFilter(ppControls, new Lamp(lampURI));
+		turnOn.addChangeEffect(ppBrightness, new Integer(100));
+		return turnOn;
+	}
 
-    public static ServiceRequest dimRequest(boolean dev, Integer percent) {
-	ServiceRequest dim = createRequest(dev);
-	dim.addValueFilter(ppControls, new Lamp(lampURI));
-	dim.addChangeEffect(ppBrightness, percent);
-	return dim;
-    }
+	public static ServiceRequest dimRequest(boolean dev, Integer percent) {
+		ServiceRequest dim = createRequest(dev);
+		dim.addValueFilter(ppControls, new Lamp(lampURI));
+		dim.addChangeEffect(ppBrightness, percent);
+		return dim;
+	}
 
-    public static ServiceRequest getAllLampsFromLocation() {
-	ServiceRequest getAllLamps = createRequest(false);
-	getAllLamps.addTypeFilter(ppLocation, Location.MY_URI);
-	getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
-	// System.out.println(getAllLamps.toStringRecursive());
-	return getAllLamps;
-    }
+	public static ServiceRequest getAllLampsFromLocation() {
+		ServiceRequest getAllLamps = createRequest(false);
+		getAllLamps.addTypeFilter(ppLocation, Location.MY_URI);
+		getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
+		// System.out.println(getAllLamps.toStringRecursive());
+		return getAllLamps;
+	}
 
-    public static ServiceRequest getAllLampsFromIndoors() {
-	ServiceRequest getAllLamps = createRequest(false);
-	getAllLamps.addTypeFilter(ppLocation, IndoorPlace.MY_URI);
-	getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
-	// System.out.println(getAllLamps.toStringRecursive());
-	return getAllLamps;
-    }
+	public static ServiceRequest getAllLampsFromIndoors() {
+		ServiceRequest getAllLamps = createRequest(false);
+		getAllLamps.addTypeFilter(ppLocation, IndoorPlace.MY_URI);
+		getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
+		// System.out.println(getAllLamps.toStringRecursive());
+		return getAllLamps;
+	}
 
-    public static ServiceRequest getAllLampsFromRoom() {
-	ServiceRequest getAllLamps = createRequest(false);
-	getAllLamps.addTypeFilter(ppLocation, Room.MY_URI);
-	getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
-	return getAllLamps;
-    }
+	public static ServiceRequest getAllLampsFromRoom() {
+		ServiceRequest getAllLamps = createRequest(false);
+		getAllLamps.addTypeFilter(ppLocation, Room.MY_URI);
+		getAllLamps.addRequiredOutput(OUTPUT_LIST_OF_LAMPS, ppControls);
+		return getAllLamps;
+	}
 }

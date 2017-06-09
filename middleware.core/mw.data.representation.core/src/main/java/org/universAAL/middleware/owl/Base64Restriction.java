@@ -30,34 +30,34 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
  */
 public final class Base64Restriction extends LengthRestriction {
 
-    /** URI of the data type. */
-    public static final String DATATYPE_URI = TypeMapper.getDatatypeURI(Base64Binary.class);
+	/** URI of the data type. */
+	public static final String DATATYPE_URI = TypeMapper.getDatatypeURI(Base64Binary.class);
 
-    /** Standard constructor. */
-    public Base64Restriction() {
-	super(DATATYPE_URI);
-    }
-
-    @Override
-    public TypeExpression copy() {
-	return copyTo(new Base64Restriction());
-    }
-
-    /**
-     * Calculate the length of a member. Overriden to provide the length of the
-     * <i>decoded</i> value instead of the encoded value as the default
-     * implementation of the super class would provide.
-     *
-     * @param member
-     *            the member for which to calculate the length.
-     * @return the length as NonNegativeInteger or a {@link Variable} if the
-     *         member is a {@link Variable}.
-     */
-    @Override
-    protected Object getMemberLen(Object member) {
-	if (member instanceof Base64Binary) {
-	    return new NonNegativeInteger(((Base64Binary) member).getDecodedLength());
+	/** Standard constructor. */
+	public Base64Restriction() {
+		super(DATATYPE_URI);
 	}
-	return super.getMemberLen(member);
-    }
+
+	@Override
+	public TypeExpression copy() {
+		return copyTo(new Base64Restriction());
+	}
+
+	/**
+	 * Calculate the length of a member. Overriden to provide the length of the
+	 * <i>decoded</i> value instead of the encoded value as the default
+	 * implementation of the super class would provide.
+	 *
+	 * @param member
+	 *            the member for which to calculate the length.
+	 * @return the length as NonNegativeInteger or a {@link Variable} if the
+	 *         member is a {@link Variable}.
+	 */
+	@Override
+	protected Object getMemberLen(Object member) {
+		if (member instanceof Base64Binary) {
+			return new NonNegativeInteger(((Base64Binary) member).getDecodedLength());
+		}
+		return super.getMemberLen(member);
+	}
 }

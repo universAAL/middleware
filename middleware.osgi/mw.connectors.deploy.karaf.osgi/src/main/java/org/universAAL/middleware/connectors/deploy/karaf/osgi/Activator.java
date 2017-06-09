@@ -36,29 +36,27 @@ import org.universAAL.middleware.container.utils.LogUtils;
  * 
  */
 public class Activator implements BundleActivator {
-    KarafDeployConnector kDeployConnector;
+	KarafDeployConnector kDeployConnector;
 
-    public void start(BundleContext context) throws Exception {
+	public void start(BundleContext context) throws Exception {
 
-	ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-		new Object[] { "Starting the KarafDeployConnector..." }, null);
-	kDeployConnector = new KarafDeployConnector(moduleContext);
+		ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
+				new Object[] { "Starting the KarafDeployConnector..." }, null);
+		kDeployConnector = new KarafDeployConnector(moduleContext);
 
-	kDeployConnector.init();
+		kDeployConnector.init();
 
-	uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
-		kDeployConnector,
-		new Object[] { DeployConnector.class.getName() });
-	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-		new Object[] { "Started the KarafDeployConnector" }, null);
+		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, kDeployConnector,
+				new Object[] { DeployConnector.class.getName() });
+		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
+				new Object[] { "Started the KarafDeployConnector" }, null);
 
-    }
+	}
 
-    public void stop(BundleContext context) throws Exception {
-	if (kDeployConnector != null)
-	    kDeployConnector.dispose();
-    }
+	public void stop(BundleContext context) throws Exception {
+		if (kDeployConnector != null)
+			kDeployConnector.dispose();
+	}
 
 }

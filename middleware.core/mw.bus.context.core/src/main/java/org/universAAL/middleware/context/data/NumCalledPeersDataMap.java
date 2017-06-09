@@ -32,17 +32,17 @@ import java.util.Map;
  */
 public class NumCalledPeersDataMap implements INumCalledPeersData {
 
-    private Map map = new HashMap();
+	private Map map = new HashMap();
 
-    public void addCalledPeers(String messageID, ICalledPeers calledPeers) {
-	map.put(messageID, calledPeers);
-    }
+	public void addCalledPeers(String messageID, ICalledPeers calledPeers) {
+		map.put(messageID, calledPeers);
+	}
 
-    public ICalledPeers getCalledPeers(String messageID) {
-	return (ICalledPeers) map.get(messageID);
-    }
+	public ICalledPeers getCalledPeers(String messageID) {
+		return (ICalledPeers) map.get(messageID);
+	}
 
-    public void removeCalledPeers(String messageID) {
-	map.remove(messageID);
-    }
+	public void removeCalledPeers(String messageID) {
+		map.remove(messageID);
+	}
 }

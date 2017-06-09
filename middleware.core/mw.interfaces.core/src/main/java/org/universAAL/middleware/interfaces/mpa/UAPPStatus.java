@@ -37,35 +37,34 @@ import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class UAPPStatus {
-    public UAPPCard mpaCard;
-    // PartID, <PeerID,MPAPartStatus >
-    Map<String, Pair> mpaParts;
+	public UAPPCard mpaCard;
+	// PartID, <PeerID,MPAPartStatus >
+	Map<String, Pair> mpaParts;
 
-    public UAPPStatus(UAPPCard mpaCard) {
-	this.mpaCard = mpaCard;
-	this.mpaParts = new HashMap<String, Pair>();
-    }
-
-    public UAPPCard getMpaCard() {
-	return mpaCard;
-    }
-
-    public void updatePart(String partID, String peerID,
-	    UAPPPartStatus partStatus) {
-	if (mpaParts.containsKey(partID)) {
-	    // update the status of an mpa part
-	    Pair part = mpaParts.get(partID);
-	    part.setPeerID(peerID);
-	    part.setPartStatus(partStatus);
-	} else {
-	    // add a new part
-	    Pair part = new Pair(peerID, partStatus);
-	    mpaParts.put(partID, part);
+	public UAPPStatus(UAPPCard mpaCard) {
+		this.mpaCard = mpaCard;
+		this.mpaParts = new HashMap<String, Pair>();
 	}
-    }
 
-    public Map<String, Pair> getMpaParts() {
-	return mpaParts;
-    }
+	public UAPPCard getMpaCard() {
+		return mpaCard;
+	}
+
+	public void updatePart(String partID, String peerID, UAPPPartStatus partStatus) {
+		if (mpaParts.containsKey(partID)) {
+			// update the status of an mpa part
+			Pair part = mpaParts.get(partID);
+			part.setPeerID(peerID);
+			part.setPartStatus(partStatus);
+		} else {
+			// add a new part
+			Pair part = new Pair(peerID, partStatus);
+			mpaParts.put(partID, part);
+		}
+	}
+
+	public Map<String, Pair> getMpaParts() {
+		return mpaParts;
+	}
 
 }

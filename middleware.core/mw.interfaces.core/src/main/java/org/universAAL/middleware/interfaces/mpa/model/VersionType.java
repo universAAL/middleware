@@ -53,129 +53,128 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "VersionType", propOrder = { "major", "minor", "micro",
-	"build", "string" })
+@XmlType(name = "VersionType", propOrder = { "major", "minor", "micro", "build", "string" })
 public class VersionType implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(defaultValue = "0")
-    protected int major;
-    @XmlElement(defaultValue = "0")
-    protected int minor;
-    @XmlElement(defaultValue = "0")
-    protected int micro;
-    protected String build;
-    @XmlElement(required = true)
-    protected String string;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(defaultValue = "0")
+	protected int major;
+	@XmlElement(defaultValue = "0")
+	protected int minor;
+	@XmlElement(defaultValue = "0")
+	protected int micro;
+	protected String build;
+	@XmlElement(required = true)
+	protected String string;
 
-    /**
-     * Gets the value of the major property.
-     * 
-     */
-    public int getMajor() {
-	return major;
-    }
+	/**
+	 * Gets the value of the major property.
+	 * 
+	 */
+	public int getMajor() {
+		return major;
+	}
 
-    /**
-     * Sets the value of the major property.
-     * 
-     */
-    public void setMajor(int value) {
-	this.major = value;
-    }
+	/**
+	 * Sets the value of the major property.
+	 * 
+	 */
+	public void setMajor(int value) {
+		this.major = value;
+	}
 
-    public boolean isSetMajor() {
-	return true;
-    }
+	public boolean isSetMajor() {
+		return true;
+	}
 
-    /**
-     * Gets the value of the minor property.
-     * 
-     */
-    public int getMinor() {
-	return minor;
-    }
+	/**
+	 * Gets the value of the minor property.
+	 * 
+	 */
+	public int getMinor() {
+		return minor;
+	}
 
-    /**
-     * Sets the value of the minor property.
-     * 
-     */
-    public void setMinor(int value) {
-	this.minor = value;
-    }
+	/**
+	 * Sets the value of the minor property.
+	 * 
+	 */
+	public void setMinor(int value) {
+		this.minor = value;
+	}
 
-    public boolean isSetMinor() {
-	return true;
-    }
+	public boolean isSetMinor() {
+		return true;
+	}
 
-    /**
-     * Gets the value of the micro property.
-     * 
-     */
-    public int getMicro() {
-	return micro;
-    }
+	/**
+	 * Gets the value of the micro property.
+	 * 
+	 */
+	public int getMicro() {
+		return micro;
+	}
 
-    /**
-     * Sets the value of the micro property.
-     * 
-     */
-    public void setMicro(int value) {
-	this.micro = value;
-    }
+	/**
+	 * Sets the value of the micro property.
+	 * 
+	 */
+	public void setMicro(int value) {
+		this.micro = value;
+	}
 
-    public boolean isSetMicro() {
-	return true;
-    }
+	public boolean isSetMicro() {
+		return true;
+	}
 
-    /**
-     * Gets the value of the build property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getBuild() {
-	return build;
-    }
+	/**
+	 * Gets the value of the build property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getBuild() {
+		return build;
+	}
 
-    /**
-     * Sets the value of the build property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setBuild(String value) {
-	this.build = value;
-    }
+	/**
+	 * Sets the value of the build property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setBuild(String value) {
+		this.build = value;
+	}
 
-    public boolean isSetBuild() {
-	return (this.build != null);
-    }
+	public boolean isSetBuild() {
+		return (this.build != null);
+	}
 
-    /**
-     * Gets the value of the string property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getString() {
-	return string;
-    }
+	/**
+	 * Gets the value of the string property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getString() {
+		return string;
+	}
 
-    /**
-     * Sets the value of the string property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setString(String value) {
-	this.string = value;
-    }
+	/**
+	 * Sets the value of the string property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setString(String value) {
+		this.string = value;
+	}
 
-    public boolean isSetString() {
-	return (this.string != null);
-    }
+	public boolean isSetString() {
+		return (this.string != null);
+	}
 
 }

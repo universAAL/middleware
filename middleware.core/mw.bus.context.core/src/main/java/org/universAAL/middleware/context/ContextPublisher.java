@@ -45,58 +45,56 @@ import org.universAAL.middleware.context.owl.ContextProvider;
  *         Tazari</a>
  */
 public abstract class ContextPublisher extends Publisher {
-    private ContextProvider providerInfo;
+	private ContextProvider providerInfo;
 
-    /**
-     * Creates a Context Publisher with the associated Context Provider
-     * Information
-     * 
-     * @param context
-     *            The context of the Bundle creating the Publisher
-     * @param providerInfo
-     *            The Information describing the Publisher
-     */
-    protected ContextPublisher(ModuleContext context,
-	    ContextProvider providerInfo) {
-	super(context, ContextBusImpl.getContextBusFetchParams());
-	if (providerInfo == null || !providerInfo.isWellFormed())
-	    throw new IllegalArgumentException(
-		    "Missing the well-formed provider info!");
+	/**
+	 * Creates a Context Publisher with the associated Context Provider
+	 * Information
+	 * 
+	 * @param context
+	 *            The context of the Bundle creating the Publisher
+	 * @param providerInfo
+	 *            The Information describing the Publisher
+	 */
+	protected ContextPublisher(ModuleContext context, ContextProvider providerInfo) {
+		super(context, ContextBusImpl.getContextBusFetchParams());
+		if (providerInfo == null || !providerInfo.isWellFormed())
+			throw new IllegalArgumentException("Missing the well-formed provider info!");
 
-	this.providerInfo = providerInfo;
-    }
-
-    /**
-     * Method to be called when the communication of the Publisher with the
-     * Context Bus is lost.
-     */
-    public abstract void communicationChannelBroken();
-
-    public final void busDyingOut(AbstractBus b) {
-	if (b == theBus)
-	    communicationChannelBroken();
-    }
-
-    /**
-     * Forward a Context Event through the Context Bus
-     * 
-     * @param e
-     *            The Context Event to forward
-     * @throws NullPointerException
-     *             if the event is null
-     */
-    public final void publish(ContextEvent e) {
-	if (e != null) {
-	    if (e.getProvider() == null && providerInfo != null)
-		e.setProvider(providerInfo);
-	    else if (providerInfo != e.getProvider())
-		return;
-	    if (AccessControl.INSTANCE.checkPermission(owner, getURI(), e))
-		((ContextBus) theBus).brokerContextEvent(busResourceURI, e);
+		this.providerInfo = providerInfo;
 	}
-    }
 
-    public String getMyID() {
-	return busResourceURI;
-    }
+	/**
+	 * Method to be called when the communication of the Publisher with the
+	 * Context Bus is lost.
+	 */
+	public abstract void communicationChannelBroken();
+
+	public final void busDyingOut(AbstractBus b) {
+		if (b == theBus)
+			communicationChannelBroken();
+	}
+
+	/**
+	 * Forward a Context Event through the Context Bus
+	 * 
+	 * @param e
+	 *            The Context Event to forward
+	 * @throws NullPointerException
+	 *             if the event is null
+	 */
+	public final void publish(ContextEvent e) {
+		if (e != null) {
+			if (e.getProvider() == null && providerInfo != null)
+				e.setProvider(providerInfo);
+			else if (providerInfo != e.getProvider())
+				return;
+			if (AccessControl.INSTANCE.checkPermission(owner, getURI(), e))
+				((ContextBus) theBus).brokerContextEvent(busResourceURI, e);
+		}
+	}
+
+	public String getMyID() {
+		return busResourceURI;
+	}
 }

@@ -31,14 +31,14 @@ import org.universAAL.middleware.container.ModuleContext;
  */
 public abstract class Subscriber extends BusMember {
 
-    protected Subscriber(ModuleContext owner, Object[] busFetchParams) {
-	super(owner, busFetchParams, BusMemberType.subscriber);
-    }
+	protected Subscriber(ModuleContext owner, Object[] busFetchParams) {
+		super(owner, busFetchParams, BusMemberType.subscriber);
+	}
 
-    /**
-     * 
-     * @param m
-     *            message (answer) to handle
-     */
-    // public void handleEvent(Event m);
+	/**
+	 * 
+	 * @param m
+	 *            message (answer) to handle
+	 */
+	// public void handleEvent(Event m);
 }

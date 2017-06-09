@@ -31,21 +31,20 @@ import java.util.Map;
  *         Apr 20, 2012
  * 
  */
-public class LocalServiceSearchResultsDataMap implements
-	ILocalServiceSearchResultsData {
+public class LocalServiceSearchResultsDataMap implements ILocalServiceSearchResultsData {
 
-    private Map map = new HashMap();
+	private Map map = new HashMap();
 
-    public void addProfiles(String id, List profiles) {
-	map.put(id, profiles);
-    }
+	public void addProfiles(String id, List profiles) {
+		map.put(id, profiles);
+	}
 
-    public List getProfiles(String id) {
-	return (List) map.get(id);
-    }
+	public List getProfiles(String id) {
+		return (List) map.get(id);
+	}
 
-    public boolean exist(String id) {
-	return map.containsKey(id);
-    }
+	public boolean exist(String id) {
+		return map.containsKey(id);
+	}
 
 }

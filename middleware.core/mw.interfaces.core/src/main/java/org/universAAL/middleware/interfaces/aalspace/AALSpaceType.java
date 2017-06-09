@@ -28,6 +28,6 @@ package org.universAAL.middleware.interfaces.aalspace;
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public enum AALSpaceType {
-    STATIC_AALSPACE, MOBILE_AALSPACE;
+	STATIC_AALSPACE, MOBILE_AALSPACE;
 
 }

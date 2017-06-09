@@ -20,8 +20,7 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.ui.impl.UIBusImpl;
 
 public class UIBusFacade {
-    public static IUIBus fetchBus(ModuleContext mc) {
-	return (IUIBus) mc.getContainer().fetchSharedObject(mc,
-		UIBusImpl.getUIBusFetchParams());
-    }
+	public static IUIBus fetchBus(ModuleContext mc) {
+		return (IUIBus) mc.getContainer().fetchSharedObject(mc, UIBusImpl.getUIBusFetchParams());
+	}
 }

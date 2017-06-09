@@ -29,7 +29,7 @@ package org.universAAL.middleware.service.data;
  */
 public interface ILocalWaitingCallersData {
 
-    void addLocalWaitier(String msgID, String callerID);
+	void addLocalWaitier(String msgID, String callerID);
 
-    String getAndRemoveLocalWaiterCallerID(String msgID);
+	String getAndRemoveLocalWaiterCallerID(String msgID);
 }

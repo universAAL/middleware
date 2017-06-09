@@ -56,60 +56,60 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType(name = "config", namespace = "http://karaf.apache.org/xmlns/features/v1.0.0", propOrder = { "value" })
 public class Config implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlValue
-    protected String value;
-    @XmlAttribute(name = "name", required = true)
-    protected String name;
+	private final static long serialVersionUID = 12343L;
+	@XmlValue
+	protected String value;
+	@XmlAttribute(name = "name", required = true)
+	protected String name;
 
-    /**
-     * Gets the value of the value property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getValue() {
-	return value;
-    }
+	/**
+	 * Gets the value of the value property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getValue() {
+		return value;
+	}
 
-    /**
-     * Sets the value of the value property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setValue(String value) {
-	this.value = value;
-    }
+	/**
+	 * Sets the value of the value property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-    public boolean isSetValue() {
-	return (this.value != null);
-    }
+	public boolean isSetValue() {
+		return (this.value != null);
+	}
 
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getName() {
-	return name;
-    }
+	/**
+	 * Gets the value of the name property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setName(String value) {
-	this.name = value;
-    }
+	/**
+	 * Sets the value of the name property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
 
-    public boolean isSetName() {
-	return (this.name != null);
-    }
+	public boolean isSetName() {
+		return (this.name != null);
+	}
 
 }

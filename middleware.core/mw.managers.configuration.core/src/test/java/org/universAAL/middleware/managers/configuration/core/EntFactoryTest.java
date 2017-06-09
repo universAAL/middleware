@@ -46,99 +46,96 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
  */
 public class EntFactoryTest {
 
-    private static JUnitModuleContext mc;
+	private static JUnitModuleContext mc;
 
-    @BeforeClass
-    public static void init() {
-	mc = new JUnitModuleContext();
-	mc.getContainer().shareObject(mc, new TurtleSerializer(),
-		new Object[] { MessageContentSerializer.class.getName() });
+	@BeforeClass
+	public static void init() {
+		mc = new JUnitModuleContext();
+		mc.getContainer().shareObject(mc, new TurtleSerializer(),
+				new Object[] { MessageContentSerializer.class.getName() });
 
-	OntologyManagement.getInstance().register(mc, new DataRepOntology());
-	OntologyManagement.getInstance().register(mc,
-		new AALConfigurationOntology());
-	TurtleUtil.moduleContext = mc;
-    }
+		OntologyManagement.getInstance().register(mc, new DataRepOntology());
+		OntologyManagement.getInstance().register(mc, new AALConfigurationOntology());
+		TurtleUtil.moduleContext = mc;
+	}
 
-    @Test
-    public void simpleTest() {
-	Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
+	@Test
+	public void simpleTest() {
+		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
 
-	    public Scope getScope() {
-		return new AALSpaceScope("aalspace.config");
-	    }
+			public Scope getScope() {
+				return new AALSpaceScope("aalspace.config");
+			}
 
-	    public String getDescription(Locale loc) {
-		return "some config";
-	    }
+			public String getDescription(Locale loc) {
+				return "some config";
+			}
 
-	    public MergedRestriction getType() {
-		MergedRestriction mr = MergedRestriction
-			.getAllValuesRestrictionWithCardinality(
-				ConfigurationParameter.PROP_CONFIG_VALUE,
-				TypeMapper.getDatatypeURI(Integer.class), 1, 1);
-		mr.addType(new IntRestriction(0, true, 10, true));
-		return mr;
-	    }
+			public MergedRestriction getType() {
+				MergedRestriction mr = MergedRestriction.getAllValuesRestrictionWithCardinality(
+						ConfigurationParameter.PROP_CONFIG_VALUE, TypeMapper.getDatatypeURI(Integer.class), 1, 1);
+				mr.addType(new IntRestriction(0, true, 10, true));
+				return mr;
+			}
 
-	    public Object getDefaultValue() {
-		return Integer.valueOf(1);
-	    }
-	}, Locale.ENGLISH);
+			public Object getDefaultValue() {
+				return Integer.valueOf(1);
+			}
+		}, Locale.ENGLISH);
 
-	System.out.println(e.toStringRecursive());
-    }
+		System.out.println(e.toStringRecursive());
+	}
 
-    @Test
-    public void SmurfTest() {
-	Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
+	@Test
+	public void SmurfTest() {
+		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
 
-	    public Scope getScope() {
-		return new AALSpaceScope("aalspace.config");
-	    }
+			public Scope getScope() {
+				return new AALSpaceScope("aalspace.config");
+			}
 
-	    public String getDescription(Locale loc) {
-		return "";
-	    }
+			public String getDescription(Locale loc) {
+				return "";
+			}
 
-	    public MergedRestriction getType() {
-		return null;
-	    }
+			public MergedRestriction getType() {
+				return null;
+			}
 
-	    public Object getDefaultValue() {
-		return null;
-	    }
-	}, Locale.ENGLISH);
+			public Object getDefaultValue() {
+				return null;
+			}
+		}, Locale.ENGLISH);
 
-	System.out.println(e.toStringRecursive());
-    }
+		System.out.println(e.toStringRecursive());
+	}
 
-    @Test
-    public void fileTest() {
-	Entity e = EntityFactory.getEntity(new ConfigurationFile() {
+	@Test
+	public void fileTest() {
+		Entity e = EntityFactory.getEntity(new ConfigurationFile() {
 
-	    public Scope getScope() {
-		return new AALSpaceScope("AALSpace.somefile");
-	    }
+			public Scope getScope() {
+				return new AALSpaceScope("AALSpace.somefile");
+			}
 
-	    public String getDescription(Locale loc) {
-		return "very important file";
-	    }
+			public String getDescription(Locale loc) {
+				return "very important file";
+			}
 
-	    public String getExtensionfilter() {
-		return "*.zip";
-	    }
+			public String getExtensionfilter() {
+				return "*.zip";
+			}
 
-	    public URL getDefaultFileRef() {
-		try {
-		    return new URL("http://host/sample.zip");
-		} catch (MalformedURLException e) {
-		    e.printStackTrace();
-		    return null;
-		}
-	    }
-	}, Locale.ENGLISH);
+			public URL getDefaultFileRef() {
+				try {
+					return new URL("http://host/sample.zip");
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}, Locale.ENGLISH);
 
-	System.out.println(e.toStringRecursive());
-    }
+		System.out.println(e.toStringRecursive());
+	}
 }

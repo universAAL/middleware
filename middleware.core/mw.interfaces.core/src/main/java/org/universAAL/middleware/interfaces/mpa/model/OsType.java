@@ -49,28 +49,28 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum OsType {
 
-    @XmlEnumValue("Linux")
-    LINUX("Linux"), @XmlEnumValue("Windows")
-    WINDOWS("Windows"), @XmlEnumValue("MacOS")
-    MAC_OS("MacOS"), @XmlEnumValue("any")
-    ANY("any");
-    private final String value;
+	@XmlEnumValue("Linux")
+	LINUX("Linux"), @XmlEnumValue("Windows")
+	WINDOWS("Windows"), @XmlEnumValue("MacOS")
+	MAC_OS("MacOS"), @XmlEnumValue("any")
+	ANY("any");
+	private final String value;
 
-    OsType(String v) {
-	value = v;
-    }
-
-    public String value() {
-	return value;
-    }
-
-    public static OsType fromValue(String v) {
-	for (OsType c : OsType.values()) {
-	    if (c.value.equals(v)) {
-		return c;
-	    }
+	OsType(String v) {
+		value = v;
 	}
-	throw new IllegalArgumentException(v);
-    }
+
+	public String value() {
+		return value;
+	}
+
+	public static OsType fromValue(String v) {
+		for (OsType c : OsType.values()) {
+			if (c.value.equals(v)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(v);
+	}
 
 }

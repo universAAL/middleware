@@ -27,15 +27,15 @@ package org.universAAL.middleware.managers.aalspace.util;
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class Consts {
-    public static String AAL_SPACE_CONFIGURATION_PATH = "aalSpaceConfigurationPath";
-    public static String PEER_ID = "peerID";
-    public static String PEER_ROLE = "peerRole";
-    public static String SPACE_EXTENSION = "spaceExtension";
-    public static String AAL_SPACE_VALIDATION = "aalSpaceValidation";
-    public static String AAL_SPACE_LIFETIME = "aalSpaceLifeTime";
-    public static String AAL_SPACE_SCHEMA_URL = "aalSpaceSchemaURL";
-    public static String AAL_SPACE_SCHEMA_NAME = "aalSpaceSchemaName";
-    public static String WAIT_BEFEORE_CLOSING_CHANNEL = "waitBeforeClosingChannels";
-    public static String WAIT_AFTER_JOIN_REQUEST = "waitAfterJoinRequest";
+	public static String AAL_SPACE_CONFIGURATION_PATH = "aalSpaceConfigurationPath";
+	public static String PEER_ID = "peerID";
+	public static String PEER_ROLE = "peerRole";
+	public static String SPACE_EXTENSION = "spaceExtension";
+	public static String AAL_SPACE_VALIDATION = "aalSpaceValidation";
+	public static String AAL_SPACE_LIFETIME = "aalSpaceLifeTime";
+	public static String AAL_SPACE_SCHEMA_URL = "aalSpaceSchemaURL";
+	public static String AAL_SPACE_SCHEMA_NAME = "aalSpaceSchemaName";
+	public static String WAIT_BEFEORE_CLOSING_CHANNEL = "waitBeforeClosingChannels";
+	public static String WAIT_AFTER_JOIN_REQUEST = "waitAfterJoinRequest";
 
 }

@@ -24,5 +24,5 @@ import org.universAAL.middleware.interfaces.PeerCard;
 
 public interface DistributedMWEventHandler {
 
-    public void handleMessage(PeerCard sender, DistributedMWMessage msg);
+	public void handleMessage(PeerCard sender, DistributedMWMessage msg);
 }

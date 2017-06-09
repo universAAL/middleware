@@ -29,15 +29,17 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
-
 /**
  * 
  * Deployable element to install.
- *             
  * 
- * <p>Java class for bundle complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for bundle complex type.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="bundle">
@@ -54,145 +56,130 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "bundle", propOrder = {
-    "value"
-})
-public class Bundle implements Serializable
-{
+@XmlType(name = "bundle", propOrder = { "value" })
+public class Bundle implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlValue
-    @XmlSchemaType(name = "anyURI")
-    protected String value;
-    @XmlAttribute(name = "start-level")
-    protected Integer startLevel;
-    @XmlAttribute(name = "start")
-    protected Boolean start;
-    @XmlAttribute(name = "dependency")
-    protected Boolean dependency;
+	private final static long serialVersionUID = 12343L;
+	@XmlValue
+	@XmlSchemaType(name = "anyURI")
+	protected String value;
+	@XmlAttribute(name = "start-level")
+	protected Integer startLevel;
+	@XmlAttribute(name = "start")
+	protected Boolean start;
+	@XmlAttribute(name = "dependency")
+	protected Boolean dependency;
 
-    /**
-     * Gets the value of the value property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getValue() {
-        return value;
-    }
+	/**
+	 * Gets the value of the value property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getValue() {
+		return value;
+	}
 
-    /**
-     * Sets the value of the value property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+	/**
+	 * Sets the value of the value property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-    public boolean isSetValue() {
-        return (this.value!= null);
-    }
+	public boolean isSetValue() {
+		return (this.value != null);
+	}
 
-    /**
-     * Gets the value of the startLevel property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public int getStartLevel() {
-        return startLevel;
-    }
+	/**
+	 * Gets the value of the startLevel property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public int getStartLevel() {
+		return startLevel;
+	}
 
-    /**
-     * Sets the value of the startLevel property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setStartLevel(int value) {
-        this.startLevel = value;
-    }
+	/**
+	 * Sets the value of the startLevel property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Integer }
+	 * 
+	 */
+	public void setStartLevel(int value) {
+		this.startLevel = value;
+	}
 
-    public boolean isSetStartLevel() {
-        return (this.startLevel!= null);
-    }
+	public boolean isSetStartLevel() {
+		return (this.startLevel != null);
+	}
 
-    public void unsetStartLevel() {
-        this.startLevel = null;
-    }
+	public void unsetStartLevel() {
+		this.startLevel = null;
+	}
 
-    /**
-     * Gets the value of the start property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public boolean isStart() {
-        return start;
-    }
+	/**
+	 * Gets the value of the start property.
+	 * 
+	 * @return possible object is {@link Boolean }
+	 * 
+	 */
+	public boolean isStart() {
+		return start;
+	}
 
-    /**
-     * Sets the value of the start property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setStart(boolean value) {
-        this.start = value;
-    }
+	/**
+	 * Sets the value of the start property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Boolean }
+	 * 
+	 */
+	public void setStart(boolean value) {
+		this.start = value;
+	}
 
-    public boolean isSetStart() {
-        return (this.start!= null);
-    }
+	public boolean isSetStart() {
+		return (this.start != null);
+	}
 
-    public void unsetStart() {
-        this.start = null;
-    }
+	public void unsetStart() {
+		this.start = null;
+	}
 
-    /**
-     * Gets the value of the dependency property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public boolean isDependency() {
-        return dependency;
-    }
+	/**
+	 * Gets the value of the dependency property.
+	 * 
+	 * @return possible object is {@link Boolean }
+	 * 
+	 */
+	public boolean isDependency() {
+		return dependency;
+	}
 
-    /**
-     * Sets the value of the dependency property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setDependency(boolean value) {
-        this.dependency = value;
-    }
+	/**
+	 * Sets the value of the dependency property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Boolean }
+	 * 
+	 */
+	public void setDependency(boolean value) {
+		this.dependency = value;
+	}
 
-    public boolean isSetDependency() {
-        return (this.dependency!= null);
-    }
+	public boolean isSetDependency() {
+		return (this.dependency != null);
+	}
 
-    public void unsetDependency() {
-        this.dependency = null;
-    }
+	public void unsetDependency() {
+		this.dependency = null;
+	}
 
 }

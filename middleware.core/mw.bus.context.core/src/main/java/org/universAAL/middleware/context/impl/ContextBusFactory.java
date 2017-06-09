@@ -32,18 +32,17 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  */
 public class ContextBusFactory implements ResourceFactory {
 
-    public Resource createInstance(String classURI, String instanceURI,
-	    int factoryIndex) {
+	public Resource createInstance(String classURI, String instanceURI, int factoryIndex) {
 
-	switch (factoryIndex) {
-	case 0:
-	    return new ContextEvent(instanceURI);
-	case 1:
-	    return new ContextEventPattern(instanceURI);
-	case 2:
-	    return new ContextProvider(instanceURI);
+		switch (factoryIndex) {
+		case 0:
+			return new ContextEvent(instanceURI);
+		case 1:
+			return new ContextEventPattern(instanceURI);
+		case 2:
+			return new ContextProvider(instanceURI);
+		}
+
+		return null;
 	}
-
-	return null;
-    }
 }

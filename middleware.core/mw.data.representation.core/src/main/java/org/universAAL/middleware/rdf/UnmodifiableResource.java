@@ -34,256 +34,243 @@ import org.universAAL.middleware.datarep.SharedResources;
  */
 public final class UnmodifiableResource extends Resource {
 
-    private Resource res;
+	private Resource res;
 
-    public UnmodifiableResource(Resource r) {
-	res = r;
-    }
-
-    /**
-     * Get an unmodifiable version of the given object. If the parameter is a
-     * {@link Resource}, an {@link UnmodifiableResource} is returned. If the
-     * parameter is a {@link java.util.List}, an
-     * {@link UnmodifiableResourceList} is returned.
-     *
-     * @param o
-     *            The object for which an unmodifiable version should be
-     *            returned.
-     * @return The unmodifiable version.
-     */
-    public static Object getUnmodifiable(Object o) {
-	if (o instanceof Resource)
-	    return new UnmodifiableResource((Resource) o);
-	else if (o instanceof List)
-	    return new UnmodifiableResourceList((List) o);
-
-	return o;
-    }
-
-    @Override
-    public boolean changeProperty(String propURI, Object value) {
-	LogUtils.logDebug(SharedResources.moduleContext,
-		UnmodifiableResource.class, "changeProperty",
-		new String[] { "Can not change an unmodifiable resource." },
-		null);
-	return false;
-    }
-
-    @Override
-    public Object getProperty(String propURI) {
-	Object o = res.getProperty(propURI);
-	return getUnmodifiable(o);
-    }
-
-    @Override
-    public boolean setProperty(String propURI, Object value) {
-	LogUtils.logDebug(SharedResources.moduleContext,
-		UnmodifiableResource.class, "setProperty",
-		new String[] { "Can not change an unmodifiable resource." },
-		null);
-	return false;
-    }
-
-    @Override
-    public boolean setPropertyPath(String[] propPath, Object value,
-	    boolean force) {
-	LogUtils.logDebug(SharedResources.moduleContext,
-		UnmodifiableResource.class, "setPropertyPath",
-		new String[] { "Can not change an unmodifiable resource." },
-		null);
-	return false;
-    }
-
-    @Override
-    public boolean setPropertyPath(String[] propPath, Object value) {
-	LogUtils.logDebug(SharedResources.moduleContext,
-		UnmodifiableResource.class, "setPropertyPath",
-		new String[] { "Can not change an unmodifiable resource." },
-		null);
-	return false;
-    }
-
-    @Override
-    public boolean setPropertyPathFromOffset(String[] propPath, int fromIndex,
-	    Object value, boolean force) {
-	LogUtils.logDebug(SharedResources.moduleContext,
-		UnmodifiableResource.class, "setPropertyPathFromOffset",
-		new String[] { "Can not change an unmodifiable resource." },
-		null);
-	return false;
-    }
-
-    @Override
-    public List asList() {
-	return new UnmodifiableResourceList(res.asList());
-    }
-
-    @Override
-    public void asList(List l) {
-	ArrayList l2 = new ArrayList();
-	res.asList(l2);
-	for (int i = 0; i < l2.size(); i++) {
-	    Object o = l2.get(i);
-	    l.add(getUnmodifiable(o));
+	public UnmodifiableResource(Resource r) {
+		res = r;
 	}
-    }
 
-    @Override
-    public Resource copy(boolean isXMLLitera) {
-	return new UnmodifiableResource(res.copy(isXMLLitera));
-    }
+	/**
+	 * Get an unmodifiable version of the given object. If the parameter is a
+	 * {@link Resource}, an {@link UnmodifiableResource} is returned. If the
+	 * parameter is a {@link java.util.List}, an
+	 * {@link UnmodifiableResourceList} is returned.
+	 *
+	 * @param o
+	 *            The object for which an unmodifiable version should be
+	 *            returned.
+	 * @return The unmodifiable version.
+	 */
+	public static Object getUnmodifiable(Object o) {
+		if (o instanceof Resource)
+			return new UnmodifiableResource((Resource) o);
+		else if (o instanceof List)
+			return new UnmodifiableResourceList((List) o);
 
-    @Override
-    public Resource deepCopy() {
-	return res.deepCopy();
-    }
+		return o;
+	}
 
-    @Override
-    public boolean equals(Object other) {
-	if (this == other)
-	    return true;
-	if (!(other instanceof Resource))
-	    return false;
-	if (getURI().equals(((Resource) other).getURI()))
-	    return true;
-	return res.equals(other);
-    }
+	@Override
+	public boolean changeProperty(String propURI, Object value) {
+		LogUtils.logDebug(SharedResources.moduleContext, UnmodifiableResource.class, "changeProperty",
+				new String[] { "Can not change an unmodifiable resource." }, null);
+		return false;
+	}
 
-    @Override
-    public String getOrConstructLabel(String type) {
-	return res.getOrConstructLabel(type);
-    }
+	@Override
+	public Object getProperty(String propURI) {
+		Object o = res.getProperty(propURI);
+		return getUnmodifiable(o);
+	}
 
-    @Override
-    public int getPropSerializationType(String propURI) {
-	return res.getPropSerializationType(propURI);
-    }
+	@Override
+	public boolean setProperty(String propURI, Object value) {
+		LogUtils.logDebug(SharedResources.moduleContext, UnmodifiableResource.class, "setProperty",
+				new String[] { "Can not change an unmodifiable resource." }, null);
+		return false;
+	}
 
-    @Override
-    public String getResourceComment() {
-	return res.getResourceComment();
-    }
+	@Override
+	public boolean setPropertyPath(String[] propPath, Object value, boolean force) {
+		LogUtils.logDebug(SharedResources.moduleContext, UnmodifiableResource.class, "setPropertyPath",
+				new String[] { "Can not change an unmodifiable resource." }, null);
+		return false;
+	}
 
-    @Override
-    public String getResourceLabel() {
-	return res.getResourceLabel();
-    }
+	@Override
+	public boolean setPropertyPath(String[] propPath, Object value) {
+		LogUtils.logDebug(SharedResources.moduleContext, UnmodifiableResource.class, "setPropertyPath",
+				new String[] { "Can not change an unmodifiable resource." }, null);
+		return false;
+	}
 
-    @Override
-    public Object getStaticFieldValue(String fieldName, Object defaultValue) {
-	// TODO correct?
-	return res.getStaticFieldValue(fieldName, defaultValue);
-    }
+	@Override
+	public boolean setPropertyPathFromOffset(String[] propPath, int fromIndex, Object value, boolean force) {
+		LogUtils.logDebug(SharedResources.moduleContext, UnmodifiableResource.class, "setPropertyPathFromOffset",
+				new String[] { "Can not change an unmodifiable resource." }, null);
+		return false;
+	}
 
-    @Override
-    public int hashCode() {
-	return res.hashCode();
-    }
+	@Override
+	public List asList() {
+		return new UnmodifiableResourceList(res.asList());
+	}
 
-    @Override
-    public boolean hasProperty(String propURI) {
-	return res.hasProperty(propURI);
-    }
+	@Override
+	public void asList(List l) {
+		ArrayList l2 = new ArrayList();
+		res.asList(l2);
+		for (int i = 0; i < l2.size(); i++) {
+			Object o = l2.get(i);
+			l.add(getUnmodifiable(o));
+		}
+	}
 
-    @Override
-    public boolean isClosedCollection(String propURI) {
-	return res.isClosedCollection(propURI);
-    }
+	@Override
+	public Resource copy(boolean isXMLLitera) {
+		return new UnmodifiableResource(res.copy(isXMLLitera));
+	}
 
-    @Override
-    public boolean isWellFormed() {
-	return res.isWellFormed();
-    }
+	@Override
+	public Resource deepCopy() {
+		return res.deepCopy();
+	}
 
-    @Override
-    public boolean representsQualifiedURI() {
-	return res.representsQualifiedURI();
-    }
+	@Override
+	public boolean equals(Object other) {
+		if (this == other)
+			return true;
+		if (!(other instanceof Resource))
+			return false;
+		if (getURI().equals(((Resource) other).getURI()))
+			return true;
+		return res.equals(other);
+	}
 
-    @Override
-    public boolean serializesAsXMLLiteral() {
-	return res.serializesAsXMLLiteral();
-    }
+	@Override
+	public String getOrConstructLabel(String type) {
+		return res.getOrConstructLabel(type);
+	}
 
-    @Override
-    public void setResourceComment(String comment) {
-    }
+	@Override
+	public int getPropSerializationType(String propURI) {
+		return res.getPropSerializationType(propURI);
+	}
 
-    @Override
-    public void setResourceLabel(String label) {
-    }
+	@Override
+	public String getResourceComment() {
+		return res.getResourceComment();
+	}
 
-    @Override
-    public String toString() {
-	return res.toString();
-    }
+	@Override
+	public String getResourceLabel() {
+		return res.getResourceLabel();
+	}
 
-    @Override
-    public String toStringRecursive() {
-	return res.toStringRecursive();
-    }
+	@Override
+	public Object getStaticFieldValue(String fieldName, Object defaultValue) {
+		// TODO correct?
+		return res.getStaticFieldValue(fieldName, defaultValue);
+	}
 
-    @Override
-    public String toStringRecursive(String prefix, boolean prefixAtStart,
-	    Hashtable visitedElements) {
-	return res.toStringRecursive(prefix, prefixAtStart, visitedElements);
-    }
+	@Override
+	public int hashCode() {
+		return res.hashCode();
+	}
 
-    @Override
-    public int numberOfProperties() {
-	return res.numberOfProperties();
-    }
+	@Override
+	public boolean hasProperty(String propURI) {
+		return res.hasProperty(propURI);
+	}
 
-    @Override
-    public boolean isAnon() {
-	return res.isAnon();
-    }
+	@Override
+	public boolean isClosedCollection(String propURI) {
+		return res.isClosedCollection(propURI);
+	}
 
-    @Override
-    public boolean hasQualifiedName() {
-	return res.hasQualifiedName();
-    }
+	@Override
+	public boolean isWellFormed() {
+		return res.isWellFormed();
+	}
 
-    @Override
-    public String getURI() {
-	return res.getURI();
-    }
+	@Override
+	public boolean representsQualifiedURI() {
+		return res.representsQualifiedURI();
+	}
 
-    @Override
-    public Enumeration getPropertyURIs() {
-	return res.getPropertyURIs();
-    }
+	@Override
+	public boolean serializesAsXMLLiteral() {
+		return res.serializesAsXMLLiteral();
+	}
 
-    @Override
-    public boolean addType(String typeURI, boolean blockFurtherTypes) {
-	return false;
-    }
+	@Override
+	public void setResourceComment(String comment) {
+	}
 
-    @Override
-    public String getLocalName() {
-	return res.getLocalName();
-    }
+	@Override
+	public void setResourceLabel(String label) {
+	}
 
-    @Override
-    public String getNamespace() {
-	return res.getNamespace();
-    }
+	@Override
+	public String toString() {
+		return res.toString();
+	}
 
-    @Override
-    public String getType() {
-	return res.getType();
-    }
+	@Override
+	public String toStringRecursive() {
+		return res.toStringRecursive();
+	}
 
-    @Override
-    public String[] getTypes() {
-	return res.getTypes();
-    }
+	@Override
+	public String toStringRecursive(String prefix, boolean prefixAtStart, Hashtable visitedElements) {
+		return res.toStringRecursive(prefix, prefixAtStart, visitedElements);
+	}
 
-    public Class getClassOfUnmodifiable() {
-	return res.getClass();
-    }
+	@Override
+	public int numberOfProperties() {
+		return res.numberOfProperties();
+	}
 
-    public boolean instanceOf(Class c) {
-	return c.isAssignableFrom(res.getClass());
-    }
+	@Override
+	public boolean isAnon() {
+		return res.isAnon();
+	}
+
+	@Override
+	public boolean hasQualifiedName() {
+		return res.hasQualifiedName();
+	}
+
+	@Override
+	public String getURI() {
+		return res.getURI();
+	}
+
+	@Override
+	public Enumeration getPropertyURIs() {
+		return res.getPropertyURIs();
+	}
+
+	@Override
+	public boolean addType(String typeURI, boolean blockFurtherTypes) {
+		return false;
+	}
+
+	@Override
+	public String getLocalName() {
+		return res.getLocalName();
+	}
+
+	@Override
+	public String getNamespace() {
+		return res.getNamespace();
+	}
+
+	@Override
+	public String getType() {
+		return res.getType();
+	}
+
+	@Override
+	public String[] getTypes() {
+		return res.getTypes();
+	}
+
+	public Class getClassOfUnmodifiable() {
+		return res.getClass();
+	}
+
+	public boolean instanceOf(Class c) {
+		return c.isAssignableFrom(res.getClass());
+	}
 }

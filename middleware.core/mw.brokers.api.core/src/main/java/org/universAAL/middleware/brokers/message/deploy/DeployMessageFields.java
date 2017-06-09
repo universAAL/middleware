@@ -30,20 +30,20 @@ package org.universAAL.middleware.brokers.message.deploy;
  */
 public class DeployMessageFields {
 
-    public static final String UAPP_CARD_SERVICE_ID = "cardServiceId";
+	public static final String UAPP_CARD_SERVICE_ID = "cardServiceId";
 
-    public static final String UAPP_CARD_PART_ID = "cardPartId";
+	public static final String UAPP_CARD_PART_ID = "cardPartId";
 
-    public static String DEPLOY_MTYPE = "deploymessagetype";
+	public static String DEPLOY_MTYPE = "deploymessagetype";
 
-    public static String PART_ID = "partID";
-    public static String PART = "part";
-    public static String PART_STATUS = "partstatus";
+	public static String PART_ID = "partID";
+	public static String PART = "part";
+	public static String PART_STATUS = "partstatus";
 
-    public static String UAPP_NAME = "uAPPName";
-    public static String UAPP_ID = "APPID";
-    public static String UAPP_DESC = "APPDesc";
+	public static String UAPP_NAME = "uAPPName";
+	public static String UAPP_ID = "APPID";
+	public static String UAPP_DESC = "APPDesc";
 
-    public static String DEPLOY_PAYLOAD = "deployPayload";
+	public static String DEPLOY_PAYLOAD = "deployPayload";
 
 }

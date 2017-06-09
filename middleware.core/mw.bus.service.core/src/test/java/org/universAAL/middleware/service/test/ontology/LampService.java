@@ -31,18 +31,18 @@ import org.universAAL.middleware.service.owl.Service;
  * 
  */
 public class LampService extends Service {
-    public static final String MY_URI = TestOntology.NAMESPACE + "LampService";
+	public static final String MY_URI = TestOntology.NAMESPACE + "LampService";
 
-    public LampService() {
-	super();
-    }
+	public LampService() {
+		super();
+	}
 
-    public LampService(String uri) {
-	super(uri);
-    }
+	public LampService(String uri) {
+		super(uri);
+	}
 
-    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
-    public String getClassURI() {
-	return MY_URI;
-    }
+	/** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+	public String getClassURI() {
+		return MY_URI;
+	}
 }

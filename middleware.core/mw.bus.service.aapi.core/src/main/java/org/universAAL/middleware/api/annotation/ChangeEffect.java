@@ -34,9 +34,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface ChangeEffect {
-    String[] propertyPaths();
+	String[] propertyPaths();
 
-    String value();
+	String value();
 
-    Class<?> valueType();
+	Class<?> valueType();
 }

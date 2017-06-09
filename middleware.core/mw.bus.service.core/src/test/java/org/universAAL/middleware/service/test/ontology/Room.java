@@ -27,26 +27,26 @@ package org.universAAL.middleware.service.test.ontology;
  * 
  */
 public class Room extends IndoorPlace {
-    public static final String MY_URI = TestOntology.NAMESPACE + "Room";
+	public static final String MY_URI = TestOntology.NAMESPACE + "Room";
 
-    /**
-     * Creates a Room object
-     * 
-     * @param uri
-     *            the object URI
-     */
-    public Room(String uri) {
-	super(uri);
-    }
+	/**
+	 * Creates a Room object
+	 * 
+	 * @param uri
+	 *            the object URI
+	 */
+	public Room(String uri) {
+		super(uri);
+	}
 
-    /**
-     * Creates a Room object
-     */
-    public Room() {
-	super();
-    }
+	/**
+	 * Creates a Room object
+	 */
+	public Room() {
+		super();
+	}
 
-    public String getClassURI() {
-	return MY_URI;
-    }
+	public String getClassURI() {
+		return MY_URI;
+	}
 }

@@ -25,12 +25,15 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for platformType.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
+ * Java class for platformType.
+ *
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
+ * <p>
+ * 
  * <pre>
  * &lt;simpleType name="platformType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -48,33 +51,29 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum PlatformType {
 
-    @XmlEnumValue("Java")
-    JAVA("Java"),
-    @XmlEnumValue(".NET")
-    NET(".NET"),
-    @XmlEnumValue("Android")
-    ANDROID("Android"),
-    @XmlEnumValue("OSGi")
-    OS_GI("OSGi"),
-    @XmlEnumValue("OSGi-Android")
-    OS_GI_ANDROID("OSGi-Android");
-    private final String value;
+	@XmlEnumValue("Java")
+	JAVA("Java"), @XmlEnumValue(".NET")
+	NET(".NET"), @XmlEnumValue("Android")
+	ANDROID("Android"), @XmlEnumValue("OSGi")
+	OS_GI("OSGi"), @XmlEnumValue("OSGi-Android")
+	OS_GI_ANDROID("OSGi-Android");
+	private final String value;
 
-    PlatformType(String v) {
-        value = v;
-    }
+	PlatformType(String v) {
+		value = v;
+	}
 
-    public String value() {
-        return value;
-    }
+	public String value() {
+		return value;
+	}
 
-    public static PlatformType fromValue(String v) {
-        for (PlatformType c: PlatformType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
+	public static PlatformType fromValue(String v) {
+		for (PlatformType c : PlatformType.values()) {
+			if (c.value.equals(v)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(v);
+	}
 
 }

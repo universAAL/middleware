@@ -31,66 +31,61 @@ import org.universAAL.middleware.rdf.Resource;
  */
 public final class Constants {
 
-    private Constants() {
-    }
+	private Constants() {
+	}
 
-    // URIs of standard variables managed by the uAAL middleware
-    /**
-     * The URI of a standard variable managed by the uAAL middleware indicating
-     * the current time.
-     */
-    public static final String VAR_uAAL_CURRENT_DATETIME = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "currentDatetime";
+	// URIs of standard variables managed by the uAAL middleware
+	/**
+	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * the current time.
+	 */
+	public static final String VAR_uAAL_CURRENT_DATETIME = Resource.uAAL_VOCABULARY_NAMESPACE + "currentDatetime";
 
-    /**
-     * The URI of a standard variable managed by the uAAL middleware indicating
-     * the software component currently accessing the middleware.
-     */
-    public static final String VAR_uAAL_ACCESSING_BUS_MEMBER = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "theAccessingBusMember";
+	/**
+	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * the software component currently accessing the middleware.
+	 */
+	public static final String VAR_uAAL_ACCESSING_BUS_MEMBER = Resource.uAAL_VOCABULARY_NAMESPACE
+			+ "theAccessingBusMember";
 
-    /**
-     * The URI of a standard variable managed by the uAAL middleware indicating
-     * the current human user as claimed by
-     * {@link #VAR_uAAL_ACCESSING_BUS_MEMBER}.
-     */
-    public static final String VAR_uAAL_ACCESSING_HUMAN_USER = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "theAccessingHumanUser";
+	/**
+	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * the current human user as claimed by
+	 * {@link #VAR_uAAL_ACCESSING_BUS_MEMBER}.
+	 */
+	public static final String VAR_uAAL_ACCESSING_HUMAN_USER = Resource.uAAL_VOCABULARY_NAMESPACE
+			+ "theAccessingHumanUser";
 
-    /**
-     * The URI of a standard variable managed by the uAAL middleware indicating
-     * the profile of a service that is estimated to be appropriate for
-     * responding the current service request.
-     */
-    public static final String VAR_uAAL_SERVICE_TO_SELECT = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "theServiceToSelect";
+	/**
+	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * the profile of a service that is estimated to be appropriate for
+	 * responding the current service request.
+	 */
+	public static final String VAR_uAAL_SERVICE_TO_SELECT = Resource.uAAL_VOCABULARY_NAMESPACE + "theServiceToSelect";
 
-    /**
-     * The URI prefix for the middleware.
-     */
-    public static final String uAAL_MIDDLEWARE_LOCAL_ID_PREFIX;
-    static {
-	uAAL_MIDDLEWARE_LOCAL_ID_PREFIX = SharedResources
-		.getMiddlewareProp(SharedResources.SPACE_URI) + "#";
-    }
+	/**
+	 * The URI prefix for the middleware.
+	 */
+	public static final String uAAL_MIDDLEWARE_LOCAL_ID_PREFIX;
+	static {
+		uAAL_MIDDLEWARE_LOCAL_ID_PREFIX = SharedResources.getMiddlewareProp(SharedResources.SPACE_URI) + "#";
+	}
 
-    /**
-     * Return true, if debug mode is turned on.
-     *
-     * @see org.universAAL.middleware.datarep.SharedResources#IS_DEBUG_MODE
-     */
-    public static boolean debugMode() {
-	return "true".equals(SharedResources
-		.getMiddlewareProp(SharedResources.IS_DEBUG_MODE));
-    }
+	/**
+	 * Return true, if debug mode is turned on.
+	 *
+	 * @see org.universAAL.middleware.datarep.SharedResources#IS_DEBUG_MODE
+	 */
+	public static boolean debugMode() {
+		return "true".equals(SharedResources.getMiddlewareProp(SharedResources.IS_DEBUG_MODE));
+	}
 
-    /**
-     * Return true, if this peer is the coordinator.
-     *
-     * @see org.universAAL.middleware.datarep.SharedResources#IS_COORDINATING_PEER
-     */
-    public static boolean isCoordinatorInstance() {
-	return "true".equals(SharedResources
-		.getMiddlewareProp(SharedResources.IS_COORDINATING_PEER));
-    }
+	/**
+	 * Return true, if this peer is the coordinator.
+	 *
+	 * @see org.universAAL.middleware.datarep.SharedResources#IS_COORDINATING_PEER
+	 */
+	public static boolean isCoordinatorInstance() {
+		return "true".equals(SharedResources.getMiddlewareProp(SharedResources.IS_COORDINATING_PEER));
+	}
 }

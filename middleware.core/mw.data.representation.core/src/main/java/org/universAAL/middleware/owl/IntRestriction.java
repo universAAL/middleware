@@ -32,96 +32,89 @@ import org.universAAL.middleware.rdf.TypeMapper;
  */
 public final class IntRestriction extends BoundedValueRestriction {
 
-    /** URI of the data type <i>Integer</i>. */
-    public static final String DATATYPE_URI = TypeMapper
-	    .getDatatypeURI(Integer.class);
+	/** URI of the data type <i>Integer</i>. */
+	public static final String DATATYPE_URI = TypeMapper.getDatatypeURI(Integer.class);
 
-    /** Standard constructor for exclusive use by serializers. */
-    public IntRestriction() {
-	super(DATATYPE_URI);
-    }
+	/** Standard constructor for exclusive use by serializers. */
+	public IntRestriction() {
+		super(DATATYPE_URI);
+	}
 
-    /**
-     * Creates a new restriction.
-     *
-     * @param min
-     *            The minimum value, or null if no minimum is defined.
-     * @param minInclusive
-     *            True, if the minimum value is included. Ignored, if min is
-     *            null.
-     * @param max
-     *            The maximum value, or null if no maximum is defined.
-     * @param maxInclusive
-     *            True, if the maximum value is included. Ignored, if max is
-     *            null.
-     */
-    public IntRestriction(int min, boolean minInclusive, int max,
-	    boolean maxInclusive) {
-	this(Integer.valueOf(min), minInclusive, Integer.valueOf(max),
-		maxInclusive);
-    }
+	/**
+	 * Creates a new restriction.
+	 *
+	 * @param min
+	 *            The minimum value, or null if no minimum is defined.
+	 * @param minInclusive
+	 *            True, if the minimum value is included. Ignored, if min is
+	 *            null.
+	 * @param max
+	 *            The maximum value, or null if no maximum is defined.
+	 * @param maxInclusive
+	 *            True, if the maximum value is included. Ignored, if max is
+	 *            null.
+	 */
+	public IntRestriction(int min, boolean minInclusive, int max, boolean maxInclusive) {
+		this(Integer.valueOf(min), minInclusive, Integer.valueOf(max), maxInclusive);
+	}
 
-    /**
-     * Creates a new restriction.
-     *
-     * @param min
-     *            The minimum value, or null if no minimum is defined.
-     * @param minInclusive
-     *            True, if the minimum value is included. Ignored, if min is
-     *            null.
-     * @param max
-     *            The maximum value, or null if no maximum is defined.
-     * @param maxInclusive
-     *            True, if the maximum value is included. Ignored, if max is
-     *            null.
-     */
-    public IntRestriction(Integer min, boolean minInclusive, Integer max,
-	    boolean maxInclusive) {
-	super(TypeMapper.getDatatypeURI(Integer.class), min, minInclusive, max,
-		maxInclusive);
-    }
+	/**
+	 * Creates a new restriction.
+	 *
+	 * @param min
+	 *            The minimum value, or null if no minimum is defined.
+	 * @param minInclusive
+	 *            True, if the minimum value is included. Ignored, if min is
+	 *            null.
+	 * @param max
+	 *            The maximum value, or null if no maximum is defined.
+	 * @param maxInclusive
+	 *            True, if the maximum value is included. Ignored, if max is
+	 *            null.
+	 */
+	public IntRestriction(Integer min, boolean minInclusive, Integer max, boolean maxInclusive) {
+		super(TypeMapper.getDatatypeURI(Integer.class), min, minInclusive, max, maxInclusive);
+	}
 
-    /**
-     * Creates a new restriction.
-     *
-     * @param min
-     *            The minimum value, or a {@link Variable} reference, or null if
-     *            no minimum is defined.
-     * @param minInclusive
-     *            True, if the minimum value is included. Ignored, if min is
-     *            null.
-     * @param max
-     *            The maximum value, or a {@link Variable} reference, or null if
-     *            no maximum is defined.
-     * @param maxInclusive
-     *            True, if the maximum value is included. Ignored, if max is
-     *            null.
-     */
-    public IntRestriction(Object min, boolean minInclusive, Object max,
-	    boolean maxInclusive) {
-	super(TypeMapper.getDatatypeURI(Integer.class), min, minInclusive, max,
-		maxInclusive);
-    }
+	/**
+	 * Creates a new restriction.
+	 *
+	 * @param min
+	 *            The minimum value, or a {@link Variable} reference, or null if
+	 *            no minimum is defined.
+	 * @param minInclusive
+	 *            True, if the minimum value is included. Ignored, if min is
+	 *            null.
+	 * @param max
+	 *            The maximum value, or a {@link Variable} reference, or null if
+	 *            no maximum is defined.
+	 * @param maxInclusive
+	 *            True, if the maximum value is included. Ignored, if max is
+	 *            null.
+	 */
+	public IntRestriction(Object min, boolean minInclusive, Object max, boolean maxInclusive) {
+		super(TypeMapper.getDatatypeURI(Integer.class), min, minInclusive, max, maxInclusive);
+	}
 
-    @Override
-    protected boolean checkType(Object o) {
-	if (o instanceof Integer)
-	    return true;
-	return super.checkType(o);
-    }
+	@Override
+	protected boolean checkType(Object o) {
+		if (o instanceof Integer)
+			return true;
+		return super.checkType(o);
+	}
 
-    @Override
-    protected Comparable getNext(Comparable c) {
-	return Integer.valueOf(((Integer) c).intValue() + 1);
-    }
+	@Override
+	protected Comparable getNext(Comparable c) {
+		return Integer.valueOf(((Integer) c).intValue() + 1);
+	}
 
-    @Override
-    protected Comparable getPrevious(Comparable c) {
-	return Integer.valueOf(((Integer) c).intValue() - 1);
-    }
+	@Override
+	protected Comparable getPrevious(Comparable c) {
+		return Integer.valueOf(((Integer) c).intValue() - 1);
+	}
 
-    @Override
-    public TypeExpression copy() {
-	return copyTo(new IntRestriction());
-    }
+	@Override
+	public TypeExpression copy() {
+		return copyTo(new IntRestriction());
+	}
 }

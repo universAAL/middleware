@@ -32,14 +32,14 @@ import java.util.Map;
  */
 public class LocalWaitingDataMap implements ILocalWaitingCallersData {
 
-    private Map map = new HashMap();
+	private Map map = new HashMap();
 
-    public void addLocalWaitier(String msgID, String callerID) {
-	map.put(msgID, callerID);
-    }
+	public void addLocalWaitier(String msgID, String callerID) {
+		map.put(msgID, callerID);
+	}
 
-    public String getAndRemoveLocalWaiterCallerID(String msgID) {
-	return (String) map.remove(msgID);
-    }
+	public String getAndRemoveLocalWaiterCallerID(String msgID) {
+		return (String) map.remove(msgID);
+	}
 
 }

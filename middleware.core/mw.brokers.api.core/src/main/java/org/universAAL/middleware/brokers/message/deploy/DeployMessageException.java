@@ -28,37 +28,37 @@ package org.universAAL.middleware.brokers.message.deploy;
  * 
  */
 public class DeployMessageException extends RuntimeException {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 2616912297180230008L;
-    String description;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 2616912297180230008L;
+	String description;
 
-    /**
-     * 
-     * @param msg
-     *            the error message describing what is happened, it will be
-     *            stored also into the {@link #description} field
-     * @param t
-     *            The {@link Throwable} exception causing this exception
-     * @since 1.3.2
-     */
-    public DeployMessageException(String msg, Throwable t) {
-	super(msg, t);
-	this.description = msg;
-    }
+	/**
+	 * 
+	 * @param msg
+	 *            the error message describing what is happened, it will be
+	 *            stored also into the {@link #description} field
+	 * @param t
+	 *            The {@link Throwable} exception causing this exception
+	 * @since 1.3.2
+	 */
+	public DeployMessageException(String msg, Throwable t) {
+		super(msg, t);
+		this.description = msg;
+	}
 
-    public DeployMessageException(String description) {
-	super(description);
-	this.description = description;
-    }
+	public DeployMessageException(String description) {
+		super(description);
+		this.description = description;
+	}
 
-    /**
-     * 
-     * @return the current value of the {@link #description} field
-     */
-    public String getDescription() {
-	return this.description;
-    }
+	/**
+	 * 
+	 * @return the current value of the {@link #description} field
+	 */
+	public String getDescription() {
+		return this.description;
+	}
 
 }

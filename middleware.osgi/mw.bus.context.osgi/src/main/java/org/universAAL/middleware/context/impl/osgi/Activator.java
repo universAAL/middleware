@@ -33,27 +33,25 @@ import org.universAAL.middleware.context.impl.ContextBusImpl;
  * 
  */
 public final class Activator implements BundleActivator {
-    private static ModuleContext mc = null;
+	private static ModuleContext mc = null;
 
-    public static ModuleContext getModuleContext() {
-	return mc;
-    }
+	public static ModuleContext getModuleContext() {
+		return mc;
+	}
 
-    /**
-     * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-     */
-    public void start(BundleContext context) throws Exception {
-	Object[] busFetchParams = new Object[] { ContextBus.class.getName() };
-	mc = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	ContextBusImpl.startModule(uAALBundleContainer.THE_CONTAINER, mc,
-		busFetchParams, busFetchParams);
-    }
+	/**
+	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+	 */
+	public void start(BundleContext context) throws Exception {
+		Object[] busFetchParams = new Object[] { ContextBus.class.getName() };
+		mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		ContextBusImpl.startModule(uAALBundleContainer.THE_CONTAINER, mc, busFetchParams, busFetchParams);
+	}
 
-    /**
-     * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-     */
-    public void stop(BundleContext context) throws Exception {
-	ContextBusImpl.stopModule();
-    }
+	/**
+	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	 */
+	public void stop(BundleContext context) throws Exception {
+		ContextBusImpl.stopModule();
+	}
 }

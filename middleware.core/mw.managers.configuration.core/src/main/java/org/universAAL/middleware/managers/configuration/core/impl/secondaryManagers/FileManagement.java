@@ -30,37 +30,37 @@ import org.universAAL.middleware.interfaces.configuration.configurationDefinitio
  */
 public interface FileManagement {
 
-    /**
-     * check, and store if not, a URL file in the cache.
-     * 
-     * @param url
-     * @return
-     */
-    public File cache(URL url);
+	/**
+	 * check, and store if not, a URL file in the cache.
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public File cache(URL url);
 
-    /**
-     * The master file of the configurator editor, where all the entitites will
-     * be stored.
-     * 
-     * @return
-     */
-    public File getMasterFile();
+	/**
+	 * The master file of the configurator editor, where all the entitites will
+	 * be stored.
+	 * 
+	 * @return
+	 */
+	public File getMasterFile();
 
-    /**
-     * Generate a File path for a specific identificator. These files are where
-     * {@link ConfigurationFile ConfigurationFiles} will be stored.
-     * 
-     * @param id
-     * @return
-     */
-    public File getLocalFile(String id);
+	/**
+	 * Generate a File path for a specific identificator. These files are where
+	 * {@link ConfigurationFile ConfigurationFiles} will be stored.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public File getLocalFile(String id);
 
-    /**
-     * Create a temporal file, used when users pull the file before copying it
-     * else where.
-     * 
-     * @return
-     */
-    public File getTemporalFile();
+	/**
+	 * Create a temporal file, used when users pull the file before copying it
+	 * else where.
+	 * 
+	 * @return
+	 */
+	public File getTemporalFile();
 
 }

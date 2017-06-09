@@ -29,30 +29,30 @@ import org.universAAL.middleware.owl.URIRestriction;
  */
 public class InstancePattern implements EntityPattern {
 
-    private String id;
+	private String id;
 
-    /**
-     * Match any Entity with Instance type scope.
-     */
-    public InstancePattern() {
-	id = ".*";
-    }
+	/**
+	 * Match any Entity with Instance type scope.
+	 */
+	public InstancePattern() {
+		id = ".*";
+	}
 
-    /**
-     * Match Instance type scope entities using instanceIdPattern
-     * 
-     * @param instanceIdPattern
-     *            the pattern to match the instanceId of the entities.
-     */
-    public InstancePattern(String instanceIdPattern) {
-	id = instanceIdPattern;
-    }
+	/**
+	 * Match Instance type scope entities using instanceIdPattern
+	 * 
+	 * @param instanceIdPattern
+	 *            the pattern to match the instanceId of the entities.
+	 */
+	public InstancePattern(String instanceIdPattern) {
+		id = instanceIdPattern;
+	}
 
-    /** {@ inheritDoc} */
-    public TypeExpression getRestriction() {
-	URIRestriction ur = new URIRestriction();
-	ur.setPattern(".*inst\\:" + id + ".*");
-	return ur;
-    }
+	/** {@ inheritDoc} */
+	public TypeExpression getRestriction() {
+		URIRestriction ur = new URIRestriction();
+		ur.setPattern(".*inst\\:" + id + ".*");
+		return ur;
+	}
 
 }

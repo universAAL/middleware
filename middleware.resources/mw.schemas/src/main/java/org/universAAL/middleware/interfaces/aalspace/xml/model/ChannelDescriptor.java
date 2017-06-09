@@ -29,15 +29,16 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor;
 
-
 /**
- * This schema describes the meta-information of an
- *         AALSpace Channel
- *       
+ * This schema describes the meta-information of an AALSpace Channel
  * 
- * <p>Java class for channelDescriptor complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for channelDescriptor complex type.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="channelDescriptor">
@@ -56,84 +57,114 @@ import org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "channelDescriptor", propOrder = {
-    "channelName",
-    "channelURL",
-    "channelValue"
-})
-public class ChannelDescriptor
-    implements Serializable, IChannelDescriptor
-{
+@XmlType(name = "channelDescriptor", propOrder = { "channelName", "channelURL", "channelValue" })
+public class ChannelDescriptor implements Serializable, IChannelDescriptor {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
-    protected String channelName;
-    @XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
-    protected String channelURL;
-    @XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
-    protected String channelValue;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
+	protected String channelName;
+	@XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
+	protected String channelURL;
+	@XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
+	protected String channelValue;
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#getChannelName()
-     */
-    public String getChannelName() {
-        return channelName;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#
+	 * getChannelName()
+	 */
+	public String getChannelName() {
+		return channelName;
+	}
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#setChannelName(java.lang.String)
-     */
-    public void setChannelName(String value) {
-        this.channelName = value;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#
+	 * setChannelName(java.lang.String)
+	 */
+	public void setChannelName(String value) {
+		this.channelName = value;
+	}
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#isSetChannelName()
-     */
-    public boolean isSetChannelName() {
-        return (this.channelName!= null);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#
+	 * isSetChannelName()
+	 */
+	public boolean isSetChannelName() {
+		return (this.channelName != null);
+	}
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#getChannelURL()
-     */
-    public String getChannelURL() {
-        return channelURL;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#
+	 * getChannelURL()
+	 */
+	public String getChannelURL() {
+		return channelURL;
+	}
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#setChannelURL(java.lang.String)
-     */
-    public void setChannelURL(String value) {
-        this.channelURL = value;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#
+	 * setChannelURL(java.lang.String)
+	 */
+	public void setChannelURL(String value) {
+		this.channelURL = value;
+	}
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#isSetChannelURL()
-     */
-    public boolean isSetChannelURL() {
-        return (this.channelURL!= null);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#
+	 * isSetChannelURL()
+	 */
+	public boolean isSetChannelURL() {
+		return (this.channelURL != null);
+	}
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#getChannelValue()
-     */
-    public String getChannelValue() {
-        return channelValue;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#
+	 * getChannelValue()
+	 */
+	public String getChannelValue() {
+		return channelValue;
+	}
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#setChannelValue(java.lang.String)
-     */
-    public void setChannelValue(String value) {
-        this.channelValue = value;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#
+	 * setChannelValue(java.lang.String)
+	 */
+	public void setChannelValue(String value) {
+		this.channelValue = value;
+	}
 
-    /* (non-Javadoc)
-     * @see org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#isSetChannelValue()
-     */
-    public boolean isSetChannelValue() {
-        return (this.channelValue!= null);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor#
+	 * isSetChannelValue()
+	 */
+	public boolean isSetChannelValue() {
+		return (this.channelValue != null);
+	}
 
 }

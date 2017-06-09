@@ -31,83 +31,83 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 public class ErrorTest extends TestCase {
 
-    TurtleSerializer s;
-    boolean isInitialized;
-    JUnitModuleContext mc;
+	TurtleSerializer s;
+	boolean isInitialized;
+	JUnitModuleContext mc;
 
-    public ErrorTest(String name) {
-	super(name);
+	public ErrorTest(String name) {
+		super(name);
 
-	if (isInitialized)
-	    return;
-	isInitialized = true;
+		if (isInitialized)
+			return;
+		isInitialized = true;
 
-	mc = new JUnitModuleContext();
-	// uncomment the following line to get log messages
-	//TurtleUtil.moduleContext = mc;
-	s = new TurtleSerializer();
-    }
+		mc = new JUnitModuleContext();
+		// uncomment the following line to get log messages
+		// TurtleUtil.moduleContext = mc;
+		s = new TurtleSerializer();
+	}
 
-    public void testWrongBlankNode() {
-	// The subject as blind node should start with "_:"
-	assertTrue(s.deserialize("__") == null);
-    }
-    
-    public void testEOFinBlankNode() {
-	// The subject as blind node should start with "_:"
-	assertTrue(s.deserialize("_") == null);
-    }
-    
-    public void testEOFinObject1() {
-	assertTrue(s.deserialize("<A> a ") == null);
-    }
-    
-    public void testEOFinObject2() {
-	assertTrue(s.deserialize("<A> a <B") == null);
-    }
-    
-    public void testEOFinObject3() {
-	assertTrue(s.deserialize("<A> a <\\") == null);
-    }
-    
-    public void testWrongObject1() {
-	assertTrue(s.deserialize("<A> a B .") == null);
-    }
-    
-    public void testWrongObject2() {
-	assertTrue(s.deserialize("<A> a ! .") == null);
-    }
-    
-    public void testStringObject1() {
-	assertTrue(s.deserialize("<A> p \"\\a\" .") == null);
-    }
-    
-    public void testStringObject2() {
-	// EOF in string
-	assertTrue(s.deserialize("<A> p \"\\") == null);
-    }
-    
-    public void testWrongLangTag1() {
-	assertTrue(s.deserialize("<A> p \"someString\"@! .") == null);
-    }
-    
-    public void testWrongLangTag2() {
-	assertTrue(s.deserialize("<A> p \"someString\"@") == null);
-    }
-    
-    public void testWrongQuotedLiteral1() {
-	assertTrue(s.deserialize("<A> p \"someString\"^^") == null);
-    }
-    
-    public void testWrongQuotedLiteral2() {
-	assertTrue(s.deserialize("<A> p \"someString\"^^xkjgj .") == null);
-    }
-    
-    public void testNoDefaultNamespaceDefined() {
-	assertTrue(s.deserialize("<A> a :B .") == null);
-    }
-    
-    public void testEOFinNS() {
-	assertTrue(s.deserialize("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-sy") == null);
-    }
+	public void testWrongBlankNode() {
+		// The subject as blind node should start with "_:"
+		assertTrue(s.deserialize("__") == null);
+	}
+
+	public void testEOFinBlankNode() {
+		// The subject as blind node should start with "_:"
+		assertTrue(s.deserialize("_") == null);
+	}
+
+	public void testEOFinObject1() {
+		assertTrue(s.deserialize("<A> a ") == null);
+	}
+
+	public void testEOFinObject2() {
+		assertTrue(s.deserialize("<A> a <B") == null);
+	}
+
+	public void testEOFinObject3() {
+		assertTrue(s.deserialize("<A> a <\\") == null);
+	}
+
+	public void testWrongObject1() {
+		assertTrue(s.deserialize("<A> a B .") == null);
+	}
+
+	public void testWrongObject2() {
+		assertTrue(s.deserialize("<A> a ! .") == null);
+	}
+
+	public void testStringObject1() {
+		assertTrue(s.deserialize("<A> p \"\\a\" .") == null);
+	}
+
+	public void testStringObject2() {
+		// EOF in string
+		assertTrue(s.deserialize("<A> p \"\\") == null);
+	}
+
+	public void testWrongLangTag1() {
+		assertTrue(s.deserialize("<A> p \"someString\"@! .") == null);
+	}
+
+	public void testWrongLangTag2() {
+		assertTrue(s.deserialize("<A> p \"someString\"@") == null);
+	}
+
+	public void testWrongQuotedLiteral1() {
+		assertTrue(s.deserialize("<A> p \"someString\"^^") == null);
+	}
+
+	public void testWrongQuotedLiteral2() {
+		assertTrue(s.deserialize("<A> p \"someString\"^^xkjgj .") == null);
+	}
+
+	public void testNoDefaultNamespaceDefined() {
+		assertTrue(s.deserialize("<A> a :B .") == null);
+	}
+
+	public void testEOFinNS() {
+		assertTrue(s.deserialize("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-sy") == null);
+	}
 }

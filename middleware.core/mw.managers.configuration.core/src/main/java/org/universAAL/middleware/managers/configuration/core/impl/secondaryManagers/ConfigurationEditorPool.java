@@ -47,97 +47,94 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
  */
 public class ConfigurationEditorPool {
 
-    private Map<String, WeakReference<GenericConfigurationEntity>> map;
-    private ConfigurationManagerImpl confManager;
+	private Map<String, WeakReference<GenericConfigurationEntity>> map;
+	private ConfigurationManagerImpl confManager;
 
-    /**
-     * @param confManager
-     *            The configuration Manager to link editors.
-     * 
-     */
-    public ConfigurationEditorPool(ConfigurationManagerImpl confManager) {
-	map = new HashMap<String, WeakReference<GenericConfigurationEntity>>();
-	this.confManager = confManager;
-    }
-
-    /**
-     * Get a {@link ConfigurableEntityEditor} or create one if needed.
-     * 
-     * @param e
-     *            the entity associated to the editor.
-     * @return the editor.
-     */
-    public GenericConfigurationEntity get(Entity e) {
-	String uri = e.getURI();
-	if (map.containsKey(uri) && map.get(uri).get() != null) {
-	    return map.get(uri).get();
-	} else {
-	    GenericConfigurationEntity editor = createEditorFor(e);
-	    add(editor);
-	    return editor;
+	/**
+	 * @param confManager
+	 *            The configuration Manager to link editors.
+	 * 
+	 */
+	public ConfigurationEditorPool(ConfigurationManagerImpl confManager) {
+		map = new HashMap<String, WeakReference<GenericConfigurationEntity>>();
+		this.confManager = confManager;
 	}
-    }
 
-    private void add(GenericConfigurationEntity configEditor) {
-	WeakReference<GenericConfigurationEntity> ref = new WeakReference<GenericConfigurationEntity>(
-		configEditor);
-	String uri = configEditor.getURI();
-	map.put(uri, ref);
-    }
+	/**
+	 * Get a {@link ConfigurableEntityEditor} or create one if needed.
+	 * 
+	 * @param e
+	 *            the entity associated to the editor.
+	 * @return the editor.
+	 */
+	public GenericConfigurationEntity get(Entity e) {
+		String uri = e.getURI();
+		if (map.containsKey(uri) && map.get(uri).get() != null) {
+			return map.get(uri).get();
+		} else {
+			GenericConfigurationEntity editor = createEditorFor(e);
+			add(editor);
+			return editor;
+		}
+	}
 
-    private void remove(GenericConfigurationEntity cEditor) {
-	String uri = cEditor.getURI();
-	map.remove(uri);
-    }
+	private void add(GenericConfigurationEntity configEditor) {
+		WeakReference<GenericConfigurationEntity> ref = new WeakReference<GenericConfigurationEntity>(configEditor);
+		String uri = configEditor.getURI();
+		map.put(uri, ref);
+	}
 
-    /**
-     * This method is called to update any existing Editor for the
-     * {@link Entity}. works only for existing editors.
-     * 
-     * @param e
-     *            the entity updated.
-     */
-    public void entityUpdated(Entity e) {
-	String uri = e.getURI();
-	if (map.containsKey(uri)) {
-	    GenericConfigurationEntity editor = map.get(uri).get();
-	    if (editor != null) {
-		editor.updated(e);
-	    } else {
+	private void remove(GenericConfigurationEntity cEditor) {
+		String uri = cEditor.getURI();
 		map.remove(uri);
-	    }
 	}
-    }
 
-    private GenericConfigurationEntity createEditorFor(Entity e) {
-	if (isLocal(e)) {
-	    if (e instanceof ConfigurationFile) {
-		return new LocalConfigurationFileEditor(confManager, e.getURI());
-	    } else if (e instanceof ConfigurationParameter) {
-		return new LocalConfigurationParameterEditor(confManager,
-			e.getURI());
-	    }
-	} else {
-	    if (e instanceof ConfigurationFile) {
-		return new RemoteConfigurationFileEditor(confManager, e);
-	    } else if (e instanceof ConfigurationParameter) {
-		return new RemoteConfigurationParamaterEditor(confManager, e);
-	    }
+	/**
+	 * This method is called to update any existing Editor for the
+	 * {@link Entity}. works only for existing editors.
+	 * 
+	 * @param e
+	 *            the entity updated.
+	 */
+	public void entityUpdated(Entity e) {
+		String uri = e.getURI();
+		if (map.containsKey(uri)) {
+			GenericConfigurationEntity editor = map.get(uri).get();
+			if (editor != null) {
+				editor.updated(e);
+			} else {
+				map.remove(uri);
+			}
+		}
 	}
-	return null;
-    }
 
-    /**
-     * Find if e can be managed as local.
-     * 
-     * @param e
-     *            the entity to test
-     * @return true iff e is local or not instance type scope.
-     */
-    private boolean isLocal(Entity e) {
+	private GenericConfigurationEntity createEditorFor(Entity e) {
+		if (isLocal(e)) {
+			if (e instanceof ConfigurationFile) {
+				return new LocalConfigurationFileEditor(confManager, e.getURI());
+			} else if (e instanceof ConfigurationParameter) {
+				return new LocalConfigurationParameterEditor(confManager, e.getURI());
+			}
+		} else {
+			if (e instanceof ConfigurationFile) {
+				return new RemoteConfigurationFileEditor(confManager, e);
+			} else if (e instanceof ConfigurationParameter) {
+				return new RemoteConfigurationParamaterEditor(confManager, e);
+			}
+		}
+		return null;
+	}
 
-	return confManager.localOnlyExpression().hasMember(e)
-		|| new NotPattern(new InstancePattern()).getRestriction()
-			.hasMember(e);
-    }
+	/**
+	 * Find if e can be managed as local.
+	 * 
+	 * @param e
+	 *            the entity to test
+	 * @return true iff e is local or not instance type scope.
+	 */
+	private boolean isLocal(Entity e) {
+
+		return confManager.localOnlyExpression().hasMember(e)
+				|| new NotPattern(new InstancePattern()).getRestriction().hasMember(e);
+	}
 }

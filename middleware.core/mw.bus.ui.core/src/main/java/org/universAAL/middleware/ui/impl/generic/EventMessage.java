@@ -25,11 +25,11 @@ import org.universAAL.middleware.bus.msg.BusMessage;
  */
 public interface EventMessage<Strategy extends EventBasedStrategy> {
 
-    /**
-     * 
-     * @param strategy
-     * @param m
-     * @param senderID
-     */
-    void onReceived(Strategy strategy, BusMessage m, String senderID);
+	/**
+	 * 
+	 * @param strategy
+	 * @param m
+	 * @param senderID
+	 */
+	void onReceived(Strategy strategy, BusMessage m, String senderID);
 }

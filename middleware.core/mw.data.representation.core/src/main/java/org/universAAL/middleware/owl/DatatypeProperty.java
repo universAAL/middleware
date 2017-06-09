@@ -36,45 +36,43 @@ import org.universAAL.middleware.rdf.Property;
  */
 public final class DatatypeProperty extends Property {
 
-    /** The URI of this class. */
-    public static final String MY_URI = TypeExpression.OWL_NAMESPACE
-	    + "DatatypeProperty";
+	/** The URI of this class. */
+	public static final String MY_URI = TypeExpression.OWL_NAMESPACE + "DatatypeProperty";
 
-    /**
-     * Implementation of the setup interface. For security reasons, this is
-     * realized as a protected nested class so that only the creator of an
-     * {@link Ontology} has access to it and can make changes.
-     */
-    private class PrivateDataTypePropertySetup extends PrivatePropertySetup
-	    implements DatatypePropertySetup {
-	/** Constructor. */
-	public PrivateDataTypePropertySetup(Property prop) {
-	    super(prop);
+	/**
+	 * Implementation of the setup interface. For security reasons, this is
+	 * realized as a protected nested class so that only the creator of an
+	 * {@link Ontology} has access to it and can make changes.
+	 */
+	private class PrivateDataTypePropertySetup extends PrivatePropertySetup implements DatatypePropertySetup {
+		/** Constructor. */
+		public PrivateDataTypePropertySetup(Property prop) {
+			super(prop);
+		}
 	}
-    }
 
-    /**
-     * Protected constructor, call
-     * {@link DatatypeProperty#create(String, OntClassInfo)} to create
-     * instances.
-     */
-    protected DatatypeProperty(String uri, OntClassInfo info) {
-	super(uri, info);
-	setup = new PrivateDataTypePropertySetup(this);
-	addType(MY_URI, false);
-    }
+	/**
+	 * Protected constructor, call
+	 * {@link DatatypeProperty#create(String, OntClassInfo)} to create
+	 * instances.
+	 */
+	protected DatatypeProperty(String uri, OntClassInfo info) {
+		super(uri, info);
+		setup = new PrivateDataTypePropertySetup(this);
+		addType(MY_URI, false);
+	}
 
-    /**
-     * Create a new instance.
-     *
-     * @param propURI
-     *            URI of the property.
-     * @param info
-     *            The class for which this property is defined.
-     * @return The setup interface to set all information of this property.
-     */
-    public static DatatypePropertySetup create(String propURI, OntClassInfo info) {
-	DatatypeProperty prop = new DatatypeProperty(propURI, info);
-	return (DatatypePropertySetup) prop.setup;
-    }
+	/**
+	 * Create a new instance.
+	 *
+	 * @param propURI
+	 *            URI of the property.
+	 * @param info
+	 *            The class for which this property is defined.
+	 * @return The setup interface to set all information of this property.
+	 */
+	public static DatatypePropertySetup create(String propURI, OntClassInfo info) {
+		DatatypeProperty prop = new DatatypeProperty(propURI, info);
+		return (DatatypePropertySetup) prop.setup;
+	}
 }

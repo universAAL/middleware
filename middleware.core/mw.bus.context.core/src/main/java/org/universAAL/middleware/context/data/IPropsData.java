@@ -31,7 +31,7 @@ import java.util.Collection;
  */
 public interface IPropsData {
 
-    IFiltererContainer getFiltererContainer(String key);
+	IFiltererContainer getFiltererContainer(String key);
 
-    Collection getAllFiltererContainers();
+	Collection getAllFiltererContainers();
 }

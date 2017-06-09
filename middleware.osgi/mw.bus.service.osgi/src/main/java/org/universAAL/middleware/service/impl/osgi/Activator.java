@@ -35,23 +35,20 @@ import org.universAAL.middleware.service.impl.ServiceBusImpl;
  */
 public final class Activator implements BundleActivator {
 
-    /**
-     * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-     */
-    public void start(BundleContext context) throws Exception {
-	Object[] busFetchParams = new Object[] { ServiceBus.class.getName() };
-	Object[] busInjectFetchParams = new Object[] { CallInjector.class
-		.getName() };
-	ModuleContext mc = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams,
-		busInjectFetchParams, busInjectFetchParams);
-    }
+	/**
+	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+	 */
+	public void start(BundleContext context) throws Exception {
+		Object[] busFetchParams = new Object[] { ServiceBus.class.getName() };
+		Object[] busInjectFetchParams = new Object[] { CallInjector.class.getName() };
+		ModuleContext mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams, busInjectFetchParams, busInjectFetchParams);
+	}
 
-    /**
-     * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-     */
-    public void stop(BundleContext context) throws Exception {
-	ServiceBusImpl.stopModule();
-    }
+	/**
+	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	 */
+	public void stop(BundleContext context) throws Exception {
+		ServiceBusImpl.stopModule();
+	}
 }

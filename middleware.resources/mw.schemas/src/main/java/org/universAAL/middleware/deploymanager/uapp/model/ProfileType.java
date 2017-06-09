@@ -27,11 +27,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for profileType complex type.
+ * <p>
+ * Java class for profileType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="profileType">
@@ -49,74 +51,63 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "profileType", propOrder = {
-    "profileId",
-    "version"
-})
-public class ProfileType
-    implements Serializable
-{
+@XmlType(name = "profileType", propOrder = { "profileId", "version" })
+public class ProfileType implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(required = true)
-    protected SpaceType profileId;
-    @XmlElement(required = true)
-    protected VersionType version;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(required = true)
+	protected SpaceType profileId;
+	@XmlElement(required = true)
+	protected VersionType version;
 
-    /**
-     * Gets the value of the profileId property.
-     *
-     * @return
-     *     possible object is
-     *     {@link SpaceType }
-     *
-     */
-    public SpaceType getProfileId() {
-        return profileId;
-    }
+	/**
+	 * Gets the value of the profileId property.
+	 *
+	 * @return possible object is {@link SpaceType }
+	 *
+	 */
+	public SpaceType getProfileId() {
+		return profileId;
+	}
 
-    /**
-     * Sets the value of the profileId property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link SpaceType }
-     *
-     */
-    public void setProfileId(SpaceType value) {
-        this.profileId = value;
-    }
+	/**
+	 * Sets the value of the profileId property.
+	 *
+	 * @param value
+	 *            allowed object is {@link SpaceType }
+	 *
+	 */
+	public void setProfileId(SpaceType value) {
+		this.profileId = value;
+	}
 
-    public boolean isSetProfileId() {
-        return (this.profileId!= null);
-    }
+	public boolean isSetProfileId() {
+		return (this.profileId != null);
+	}
 
-    /**
-     * Gets the value of the version property.
-     *
-     * @return
-     *     possible object is
-     *     {@link VersionType }
-     *
-     */
-    public VersionType getVersion() {
-        return version;
-    }
+	/**
+	 * Gets the value of the version property.
+	 *
+	 * @return possible object is {@link VersionType }
+	 *
+	 */
+	public VersionType getVersion() {
+		return version;
+	}
 
-    /**
-     * Sets the value of the version property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link VersionType }
-     *
-     */
-    public void setVersion(VersionType value) {
-        this.version = value;
-    }
+	/**
+	 * Sets the value of the version property.
+	 *
+	 * @param value
+	 *            allowed object is {@link VersionType }
+	 *
+	 */
+	public void setVersion(VersionType value) {
+		this.version = value;
+	}
 
-    public boolean isSetVersion() {
-        return (this.version!= null);
-    }
+	public boolean isSetVersion() {
+		return (this.version != null);
+	}
 
 }

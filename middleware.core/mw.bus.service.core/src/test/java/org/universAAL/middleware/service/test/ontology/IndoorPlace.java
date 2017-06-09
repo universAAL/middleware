@@ -21,26 +21,26 @@ package org.universAAL.middleware.service.test.ontology;
 
 public class IndoorPlace extends Location {
 
-    public static final String MY_URI = TestOntology.NAMESPACE + "IndoorPlace";
+	public static final String MY_URI = TestOntology.NAMESPACE + "IndoorPlace";
 
-    /**
-     * Creates a IndoorPlace object
-     * 
-     * @param uri
-     *            the object URI
-     */
-    public IndoorPlace(String uri) {
-	super(uri);
-    }
+	/**
+	 * Creates a IndoorPlace object
+	 * 
+	 * @param uri
+	 *            the object URI
+	 */
+	public IndoorPlace(String uri) {
+		super(uri);
+	}
 
-    /**
-     * Creates a IndoorPlace object
-     */
-    public IndoorPlace() {
-	super();
-    }
+	/**
+	 * Creates a IndoorPlace object
+	 */
+	public IndoorPlace() {
+		super();
+	}
 
-    public String getClassURI() {
-	return MY_URI;
-    }
+	public String getClassURI() {
+		return MY_URI;
+	}
 }

@@ -33,9 +33,9 @@ import org.universAAL.middleware.service.data.ILocalWaitingCallersData;
  */
 public interface IServiceStrategyDataFactory {
 
-    ILocalServicesIndexData createLocalServicesIndexData();
+	ILocalServicesIndexData createLocalServicesIndexData();
 
-    ILocalServiceSearchResultsData createLocalServiceSearchResultsData();
+	ILocalServiceSearchResultsData createLocalServiceSearchResultsData();
 
-    ILocalWaitingCallersData createLocalWaitingCallersData();
+	ILocalWaitingCallersData createLocalWaitingCallersData();
 }

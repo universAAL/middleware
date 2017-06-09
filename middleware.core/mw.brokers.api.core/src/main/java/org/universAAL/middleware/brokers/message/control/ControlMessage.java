@@ -44,135 +44,130 @@ import com.google.gson.Gson;
  */
 public class ControlMessage implements BrokerMessage {
 
-    private ControlMessageType messageType;
-    private BrokerMessageTypes mType;
-    private AALSpaceDescriptor space;
-    private String payload;
-    private String parsed = null;
-    private List<String> attributes;
-    private Map<String, Serializable> filter;
-    private Map<String, Serializable> values;
-    private boolean match;
-    private String transactionId;
+	private ControlMessageType messageType;
+	private BrokerMessageTypes mType;
+	private AALSpaceDescriptor space;
+	private String payload;
+	private String parsed = null;
+	private List<String> attributes;
+	private Map<String, Serializable> filter;
+	private Map<String, Serializable> values;
+	private boolean match;
+	private String transactionId;
 
-    public enum ControlMessageType {
-	AALSPACE_EVENT, GET_ATTRIBUTES, MATCH_ATTRIBUTES, GET_ATTRIBUTES_RESPONSE, MATCH_ATTRIBUTES_RESPONSE
-    }
-
-    public enum ControlMessageFields {
-	ID, TYPE, PAYLOAD
-    }
-
-    public ControlMessage(AALSpaceDescriptor space, List<String> attributes) {
-	this(space, ControlMessageType.GET_ATTRIBUTES);
-	this.attributes = attributes;
-    }
-
-    public ControlMessage(AALSpaceDescriptor space, ControlMessageType type) {
-	this();
-	this.space = space;
-	this.messageType = type;
-    }
-
-    public ControlMessage() {
-	this.mType = BrokerMessageTypes.ControlMessage;
-	this.transactionId = UUID.randomUUID().toString();
-    }
-
-    public ControlMessage(AALSpaceDescriptor space,
-	    Map<String, Serializable> filter) {
-	this(space, ControlMessageType.MATCH_ATTRIBUTES);
-	this.filter = filter;
-    }
-
-    public ControlMessage(AALSpaceDescriptor space, String id,
-	    HashMap<String, Serializable> map) {
-	this(space, ControlMessageType.GET_ATTRIBUTES_RESPONSE, id);
-	this.values = map;
-    }
-
-    public ControlMessage(AALSpaceDescriptor space, String id,
-	    HashMap<String, Serializable> map, boolean match) {
-	this(space, ControlMessageType.MATCH_ATTRIBUTES_RESPONSE, id);
-	this.values = map;
-	this.match = match;
-    }
-
-    public ControlMessage(AALSpaceDescriptor space, ControlMessageType type,
-	    String id) {
-	this.space = space;
-	this.messageType = type;
-	this.mType = BrokerMessageTypes.ControlMessage;
-	this.transactionId = id;
-    }
-
-    public String toString() {
-	String serializedMessage = null;
-	if (parsed == null) {
-
-	    try {
-		Gson gson = GsonParserBuilder.getInstance();
-		serializedMessage = gson.toJson(this);
-
-	    } catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
+	public enum ControlMessageType {
+		AALSPACE_EVENT, GET_ATTRIBUTES, MATCH_ATTRIBUTES, GET_ATTRIBUTES_RESPONSE, MATCH_ATTRIBUTES_RESPONSE
 	}
-	parsed = serializedMessage;
-	return parsed;
-    }
 
-    public boolean getMatchFilter() {
-	return match;
-    }
-
-    public ControlMessageType getMessageType() {
-	return messageType;
-    }
-
-    public static ControlMessage unmarshall(String message) throws Exception {
-
-	try {
-
-	    Gson gson = GsonParserBuilder.getInstance();
-
-	    return gson.fromJson(message, ControlMessage.class);
-
-	} catch (Exception e) {
-
-	    throw new Exception(
-		    "Unable to unmashall ControlMessage. Original message: "
-			    + message + ". Full Stack: " + e.toString());
+	public enum ControlMessageFields {
+		ID, TYPE, PAYLOAD
 	}
-    }
 
-    public String getTransactionId() {
-	return transactionId;
-    }
+	public ControlMessage(AALSpaceDescriptor space, List<String> attributes) {
+		this(space, ControlMessageType.GET_ATTRIBUTES);
+		this.attributes = attributes;
+	}
 
-    public Map<String, Serializable> getAttributeFilter() {
-	return filter;
-    }
+	public ControlMessage(AALSpaceDescriptor space, ControlMessageType type) {
+		this();
+		this.space = space;
+		this.messageType = type;
+	}
 
-    public Map<String, Serializable> getAttributeValues() {
-	return values;
-    }
+	public ControlMessage() {
+		this.mType = BrokerMessageTypes.ControlMessage;
+		this.transactionId = UUID.randomUUID().toString();
+	}
 
-    public BrokerMessageTypes getMType() {
-	return mType;
-    }
+	public ControlMessage(AALSpaceDescriptor space, Map<String, Serializable> filter) {
+		this(space, ControlMessageType.MATCH_ATTRIBUTES);
+		this.filter = filter;
+	}
 
-    public List<String> getAttributes() {
-	return attributes;
-    }
+	public ControlMessage(AALSpaceDescriptor space, String id, HashMap<String, Serializable> map) {
+		this(space, ControlMessageType.GET_ATTRIBUTES_RESPONSE, id);
+		this.values = map;
+	}
 
-    /**
-     * To implement
-     */
-    public PeerCard[] getReceivers() {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	public ControlMessage(AALSpaceDescriptor space, String id, HashMap<String, Serializable> map, boolean match) {
+		this(space, ControlMessageType.MATCH_ATTRIBUTES_RESPONSE, id);
+		this.values = map;
+		this.match = match;
+	}
+
+	public ControlMessage(AALSpaceDescriptor space, ControlMessageType type, String id) {
+		this.space = space;
+		this.messageType = type;
+		this.mType = BrokerMessageTypes.ControlMessage;
+		this.transactionId = id;
+	}
+
+	public String toString() {
+		String serializedMessage = null;
+		if (parsed == null) {
+
+			try {
+				Gson gson = GsonParserBuilder.getInstance();
+				serializedMessage = gson.toJson(this);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		parsed = serializedMessage;
+		return parsed;
+	}
+
+	public boolean getMatchFilter() {
+		return match;
+	}
+
+	public ControlMessageType getMessageType() {
+		return messageType;
+	}
+
+	public static ControlMessage unmarshall(String message) throws Exception {
+
+		try {
+
+			Gson gson = GsonParserBuilder.getInstance();
+
+			return gson.fromJson(message, ControlMessage.class);
+
+		} catch (Exception e) {
+
+			throw new Exception("Unable to unmashall ControlMessage. Original message: " + message + ". Full Stack: "
+					+ e.toString());
+		}
+	}
+
+	public String getTransactionId() {
+		return transactionId;
+	}
+
+	public Map<String, Serializable> getAttributeFilter() {
+		return filter;
+	}
+
+	public Map<String, Serializable> getAttributeValues() {
+		return values;
+	}
+
+	public BrokerMessageTypes getMType() {
+		return mType;
+	}
+
+	public List<String> getAttributes() {
+		return attributes;
+	}
+
+	/**
+	 * To implement
+	 */
+	public PeerCard[] getReceivers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

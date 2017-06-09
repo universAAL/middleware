@@ -34,7 +34,7 @@ import org.universAAL.middleware.managers.api.Manager;
  */
 public interface DistributedLogManager extends Manager {
 
-    void addListener(DistributedLogListener listener, List<PeerCard> nodes);
+	void addListener(DistributedLogListener listener, List<PeerCard> nodes);
 
-    void removeListener(DistributedLogListener listener, List<PeerCard> nodes);
+	void removeListener(DistributedLogListener listener, List<PeerCard> nodes);
 }

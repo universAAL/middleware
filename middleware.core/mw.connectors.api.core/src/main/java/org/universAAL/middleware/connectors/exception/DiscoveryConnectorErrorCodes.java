@@ -28,8 +28,8 @@ package org.universAAL.middleware.connectors.exception;
  */
 public class DiscoveryConnectorErrorCodes {
 
-    public static final short SEARCH_ERROR = 0;
-    public static final short ANNOUNCE_ERROR = 1;
-    public static final short DEREGISTER_ERROR = 2;
-    public static final short AALSPACE_UNMASHALLING_ERROR = 3;
+	public static final short SEARCH_ERROR = 0;
+	public static final short ANNOUNCE_ERROR = 1;
+	public static final short DEREGISTER_ERROR = 2;
+	public static final short AALSPACE_UNMASHALLING_ERROR = 3;
 }

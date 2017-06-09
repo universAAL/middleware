@@ -33,26 +33,25 @@ import org.universAAL.middleware.container.utils.LogUtils;
  */
 public class Activator implements BundleActivator {
 
-    private ControlBroker controlBroker;
+	private ControlBroker controlBroker;
 
-    public void start(BundleContext context) throws Exception {
+	public void start(BundleContext context) throws Exception {
 
-	ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-		new Object[] { "Starting ControlBroker..." }, null);
-	controlBroker = new ControlBroker(moduleContext);
+		ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
+				new Object[] { "Starting ControlBroker..." }, null);
+		controlBroker = new ControlBroker(moduleContext);
 
-	uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext,
-		controlBroker, new Object[] { ControlBroker.class.getName() });
-	LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-		new Object[] { "Started ControlBroker!" }, null);
+		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, controlBroker,
+				new Object[] { ControlBroker.class.getName() });
+		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
+				new Object[] { "Started ControlBroker!" }, null);
 
-    }
+	}
 
-    public void stop(BundleContext context) throws Exception {
-	if (controlBroker != null)
-	    controlBroker.dispose();
-    }
+	public void stop(BundleContext context) throws Exception {
+		if (controlBroker != null)
+			controlBroker.dispose();
+	}
 
 }

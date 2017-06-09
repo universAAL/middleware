@@ -35,44 +35,44 @@ import org.universAAL.middleware.service.owl.Service;
  */
 public class ServiceRequestWrapper extends ServiceWrapper {
 
-    private ServiceRequest r;
+	private ServiceRequest r;
 
-    public ServiceRequestWrapper(ServiceRequest r) {
-	if (r == null)
-	    throw new IllegalArgumentException();
-	this.r = r;
-    }
-
-    @Override
-    public Service getService() {
-	return r.getRequestedService();
-    }
-
-    @Override
-    public Object getProperty(String propURI) {
-	return r.getProperty(propURI);
-    }
-
-    @Override
-    public Resource[] getEffects() {
-	return r.getRequiredEffects();
-    }
-
-    @Override
-    public Resource[] getOutputs() {
-	return r.getRequiredOutputs();
-    }
-
-    @Override
-    public Hashtable getNonSemanticInput() {
-	if (r instanceof AapiServiceRequest) {
-	    return ((AapiServiceRequest) r).getInput();
+	public ServiceRequestWrapper(ServiceRequest r) {
+		if (r == null)
+			throw new IllegalArgumentException();
+		this.r = r;
 	}
-	return null;
-    }
 
-    @Override
-    public Object getInitialServiceDialogProperty(String propURI) {
-	return getService().getInstanceLevelFixedValueOnProp(propURI);
-    }
+	@Override
+	public Service getService() {
+		return r.getRequestedService();
+	}
+
+	@Override
+	public Object getProperty(String propURI) {
+		return r.getProperty(propURI);
+	}
+
+	@Override
+	public Resource[] getEffects() {
+		return r.getRequiredEffects();
+	}
+
+	@Override
+	public Resource[] getOutputs() {
+		return r.getRequiredOutputs();
+	}
+
+	@Override
+	public Hashtable getNonSemanticInput() {
+		if (r instanceof AapiServiceRequest) {
+			return ((AapiServiceRequest) r).getInput();
+		}
+		return null;
+	}
+
+	@Override
+	public Object getInitialServiceDialogProperty(String propURI) {
+		return getService().getInstanceLevelFixedValueOnProp(propURI);
+	}
 }

@@ -35,28 +35,28 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  */
 public abstract class ServiceWrapper {
 
-    protected ServiceWrapper() {
-    }
+	protected ServiceWrapper() {
+	}
 
-    public static ServiceWrapper create(ServiceRequest request) {
-	return new ServiceRequestWrapper(request);
-    }
+	public static ServiceWrapper create(ServiceRequest request) {
+		return new ServiceRequestWrapper(request);
+	}
 
-    public static ServiceWrapper create(ServiceProfile profile) {
-	return new ServiceProfileWrapper(profile);
-    }
+	public static ServiceWrapper create(ServiceProfile profile) {
+		return new ServiceProfileWrapper(profile);
+	}
 
-    public abstract Service getService();
+	public abstract Service getService();
 
-    public abstract Object getProperty(String propURI);
+	public abstract Object getProperty(String propURI);
 
-    public abstract Resource[] getEffects();
+	public abstract Resource[] getEffects();
 
-    public abstract Resource[] getOutputs();
+	public abstract Resource[] getOutputs();
 
-    public Hashtable getNonSemanticInput() {
-	return null;
-    }
+	public Hashtable getNonSemanticInput() {
+		return null;
+	}
 
-    public abstract Object getInitialServiceDialogProperty(String propURI);
+	public abstract Object getInitialServiceDialogProperty(String propURI);
 }

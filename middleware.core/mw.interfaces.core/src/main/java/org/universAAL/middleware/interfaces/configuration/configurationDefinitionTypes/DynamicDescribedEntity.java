@@ -35,13 +35,13 @@ import org.universAAL.middleware.interfaces.configuration.scope.Scope;
  */
 public interface DynamicDescribedEntity {
 
-    /**
-     * Add a listener that should be called when the entity is changed.
-     */
-    public void registerListener(DynamicDescribedEntityListener listener);
+	/**
+	 * Add a listener that should be called when the entity is changed.
+	 */
+	public void registerListener(DynamicDescribedEntityListener listener);
 
-    /**
-     * Remove a listener.
-     */
-    public void unRegisterListener(DynamicDescribedEntityListener listener);
+	/**
+	 * Remove a listener.
+	 */
+	public void unRegisterListener(DynamicDescribedEntityListener listener);
 }

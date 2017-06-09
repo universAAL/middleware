@@ -49,312 +49,297 @@ import org.universAAL.middleware.util.MatchLogEntry;
  */
 public abstract class PropertyRestriction extends TypeExpression {
 
-    /** URI for owl:Restriction. */
-    public static final String MY_URI = OWL_NAMESPACE + "Restriction";
+	/** URI for owl:Restriction. */
+	public static final String MY_URI = OWL_NAMESPACE + "Restriction";
 
-    /** URI for owl:onProperty. */
-    public static final String PROP_OWL_ON_PROPERTY = OWL_NAMESPACE
-	    + "onProperty";
+	/** URI for owl:onProperty. */
+	public static final String PROP_OWL_ON_PROPERTY = OWL_NAMESPACE + "onProperty";
 
-    /**
-     * Set of all property URIs that are used in the different property
-     * restrictions. This can be used in {@link #setProperty(String, Object)}
-     * method to avoid setting two or more of those properties because they
-     * should uniquely identify the type of the restriction.
-     */
-    protected static final Set<String> propMap;
+	/**
+	 * Set of all property URIs that are used in the different property
+	 * restrictions. This can be used in {@link #setProperty(String, Object)}
+	 * method to avoid setting two or more of those properties because they
+	 * should uniquely identify the type of the restriction.
+	 */
+	protected static final Set<String> propMap;
 
-    static {
-	// for not handling properties of other restrictions, to be used in
-	// setProperty
-	Set<String> pm = new HashSet<String>();
-	pm.add(HasValueRestriction.PROP_OWL_HAS_VALUE);
-	pm.add(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY);
-	pm.add(MinCardinalityRestriction.PROP_OWL_MIN_QUALIFIED_CARDINALITY);
-	pm.add(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY);
-	pm.add(MaxCardinalityRestriction.PROP_OWL_MAX_QUALIFIED_CARDINALITY);
-	pm.add(ExactCardinalityRestriction.PROP_OWL_CARDINALITY);
-	pm.add(ExactCardinalityRestriction.PROP_OWL_QUALIFIED_CARDINALITY);
-	pm.add(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
-	pm.add(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM);
-	propMap = Collections.unmodifiableSet(pm);
-    }
-
-    /** Constructor. */
-    PropertyRestriction() {
-	addType(MY_URI, true);
-	ArrayList l = new ArrayList(1);
-	l.add(new Resource(MY_URI));
-	props.put(PROP_RDF_TYPE, l);
-    }
-
-    /**
-     * Get the class URI for this {@link PropertyRestriction}.
-     *
-     * @return The class URI.
-     */
-    public String getClassURI() {
-	return MY_URI;
-    }
-
-    /**
-     * Get the constraint of all value restrictions ({@link HasValueRestriction}
-     * , {@link SomeValuesFromRestriction}, or {@link AllValuesFromRestriction},
-     * but none of the cardinality restrictions). Subclasses should override
-     * this method if they have a constraint.
-     *
-     * @return the constraint of this restriction.
-     */
-    public Object getConstraint() {
-	return null;
-    }
-
-    /**
-     * Set the property for which this restriction is defined.
-     *
-     * @param propURI
-     *            URI of the property.
-     */
-    protected void setOnProperty(String propURI) {
-	super.setProperty(PROP_OWL_ON_PROPERTY, new Resource(propURI));
-    }
-
-    /**
-     * Get the property for which this restriction is defined.
-     *
-     * @return URI of the property.
-     */
-    public String getOnProperty() {
-	Object o = props.get(PROP_OWL_ON_PROPERTY);
-	return (o == null) ? null : o.toString();
-    }
-
-    /**
-     * Helper method to copy Restrictions.
-     *
-     * @param copy
-     *            An instance of the class to which to copy all properties.
-     * @return the copy with all properties from this object.
-     * @see org.universAAL.middleware.owl.TypeExpression#copy()
-     */
-    protected TypeExpression copyTo(PropertyRestriction copy) {
-	for (Iterator i = props.keySet().iterator(); i.hasNext();) {
-	    String key = i.next().toString();
-	    Object o = props.get(key);
-	    if (o instanceof TypeExpression)
-		o = ((TypeExpression) o).copy();
-	    copy.props.put(key, o);
-	}
-	return copy;
-    }
-
-    @Override
-    public String[] getNamedSuperclasses() {
-	return new String[0];
-    }
-
-    @Override
-    public Object[] getUpperEnumeration() {
-	return new Object[0];
-    }
-
-    /**
-     * Check all cases where the subtype is not a subclass of
-     * {@link #PropertyRestriction()}. Helper method for
-     * {@link #matches(TypeExpression, HashMap, int, List)} in subclasses.
-     */
-    protected Object matchesNonRestriction(TypeExpression subtype,
-	    HashMap context, int ttl, List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
-	if (subtype == null)
-	    return Boolean.FALSE;
-
-	if (subtype instanceof Enumeration)
-	    return Boolean.valueOf(((Enumeration) subtype).hasSupertype(this,
-		    context, ttl, log));
-
-	if (subtype instanceof TypeURI) {
-	    // TODO: change
-	    MergedRestriction r = ManagedIndividual
-		    .getClassRestrictionsOnProperty(subtype.getURI(),
-			    getOnProperty());
-	    if (r == null)
-		return Boolean.FALSE;
-	    subtype = r;
+	static {
+		// for not handling properties of other restrictions, to be used in
+		// setProperty
+		Set<String> pm = new HashSet<String>();
+		pm.add(HasValueRestriction.PROP_OWL_HAS_VALUE);
+		pm.add(MinCardinalityRestriction.PROP_OWL_MIN_CARDINALITY);
+		pm.add(MinCardinalityRestriction.PROP_OWL_MIN_QUALIFIED_CARDINALITY);
+		pm.add(MaxCardinalityRestriction.PROP_OWL_MAX_CARDINALITY);
+		pm.add(MaxCardinalityRestriction.PROP_OWL_MAX_QUALIFIED_CARDINALITY);
+		pm.add(ExactCardinalityRestriction.PROP_OWL_CARDINALITY);
+		pm.add(ExactCardinalityRestriction.PROP_OWL_QUALIFIED_CARDINALITY);
+		pm.add(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
+		pm.add(SomeValuesFromRestriction.PROP_OWL_SOME_VALUES_FROM);
+		propMap = Collections.unmodifiableSet(pm);
 	}
 
-	if (subtype instanceof Intersection)
-	    for (Iterator i = ((Intersection) subtype).types(); i.hasNext();)
-		if (matches((TypeExpression) i.next(), context, ttl, log))
-		    return Boolean.TRUE;
+	/** Constructor. */
+	PropertyRestriction() {
+		addType(MY_URI, true);
+		ArrayList l = new ArrayList(1);
+		l.add(new Resource(MY_URI));
+		props.put(PROP_RDF_TYPE, l);
+	}
 
-	if (!(subtype instanceof PropertyRestriction)) {
-	    HashMap cloned = (context == null) ? null : (HashMap) context
-		    .clone();
-	    Object[] members = subtype.getUpperEnumeration();
-	    if (members != null && members.length > 0) {
-		for (int i = 0; i < members.length; i++)
-		    if (!hasMember(members[i], cloned, ttl, log))
-			return Boolean.FALSE;
-		synchronize(context, cloned);
-		return Boolean.TRUE;
-	    }
-	    String[] sups = subtype.getNamedSuperclasses();
-	    if (sups != null && sups.length > 0) {
-		for (int i = 0; i < sups.length; i++) {
-		    // TODO: change
-		    MergedRestriction r = ManagedIndividual
-			    .getClassRestrictionsOnProperty(sups[i],
-				    getOnProperty());
-		    if (r == null || matches(r, context, ttl, log))
-			return Boolean.TRUE;
+	/**
+	 * Get the class URI for this {@link PropertyRestriction}.
+	 *
+	 * @return The class URI.
+	 */
+	public String getClassURI() {
+		return MY_URI;
+	}
+
+	/**
+	 * Get the constraint of all value restrictions ({@link HasValueRestriction}
+	 * , {@link SomeValuesFromRestriction}, or {@link AllValuesFromRestriction},
+	 * but none of the cardinality restrictions). Subclasses should override
+	 * this method if they have a constraint.
+	 *
+	 * @return the constraint of this restriction.
+	 */
+	public Object getConstraint() {
+		return null;
+	}
+
+	/**
+	 * Set the property for which this restriction is defined.
+	 *
+	 * @param propURI
+	 *            URI of the property.
+	 */
+	protected void setOnProperty(String propURI) {
+		super.setProperty(PROP_OWL_ON_PROPERTY, new Resource(propURI));
+	}
+
+	/**
+	 * Get the property for which this restriction is defined.
+	 *
+	 * @return URI of the property.
+	 */
+	public String getOnProperty() {
+		Object o = props.get(PROP_OWL_ON_PROPERTY);
+		return (o == null) ? null : o.toString();
+	}
+
+	/**
+	 * Helper method to copy Restrictions.
+	 *
+	 * @param copy
+	 *            An instance of the class to which to copy all properties.
+	 * @return the copy with all properties from this object.
+	 * @see org.universAAL.middleware.owl.TypeExpression#copy()
+	 */
+	protected TypeExpression copyTo(PropertyRestriction copy) {
+		for (Iterator i = props.keySet().iterator(); i.hasNext();) {
+			String key = i.next().toString();
+			Object o = props.get(key);
+			if (o instanceof TypeExpression)
+				o = ((TypeExpression) o).copy();
+			copy.props.put(key, o);
 		}
-		return Boolean.FALSE;
-	    }
-	    if (subtype instanceof Union) {
-		for (Iterator i = ((Union) subtype).types(); i.hasNext();)
-		    if (!matches((TypeExpression) i.next(), context, ttl, log))
+		return copy;
+	}
+
+	@Override
+	public String[] getNamedSuperclasses() {
+		return new String[0];
+	}
+
+	@Override
+	public Object[] getUpperEnumeration() {
+		return new Object[0];
+	}
+
+	/**
+	 * Check all cases where the subtype is not a subclass of
+	 * {@link #PropertyRestriction()}. Helper method for
+	 * {@link #matches(TypeExpression, HashMap, int, List)} in subclasses.
+	 */
+	protected Object matchesNonRestriction(TypeExpression subtype, HashMap context, int ttl, List<MatchLogEntry> log) {
+		ttl = checkTTL(ttl);
+		if (subtype == null)
 			return Boolean.FALSE;
-		synchronize(context, cloned);
-		return Boolean.TRUE;
-	    }
-	    return Boolean.FALSE;
+
+		if (subtype instanceof Enumeration)
+			return Boolean.valueOf(((Enumeration) subtype).hasSupertype(this, context, ttl, log));
+
+		if (subtype instanceof TypeURI) {
+			// TODO: change
+			MergedRestriction r = ManagedIndividual.getClassRestrictionsOnProperty(subtype.getURI(), getOnProperty());
+			if (r == null)
+				return Boolean.FALSE;
+			subtype = r;
+		}
+
+		if (subtype instanceof Intersection)
+			for (Iterator i = ((Intersection) subtype).types(); i.hasNext();)
+				if (matches((TypeExpression) i.next(), context, ttl, log))
+					return Boolean.TRUE;
+
+		if (!(subtype instanceof PropertyRestriction)) {
+			HashMap cloned = (context == null) ? null : (HashMap) context.clone();
+			Object[] members = subtype.getUpperEnumeration();
+			if (members != null && members.length > 0) {
+				for (int i = 0; i < members.length; i++)
+					if (!hasMember(members[i], cloned, ttl, log))
+						return Boolean.FALSE;
+				synchronize(context, cloned);
+				return Boolean.TRUE;
+			}
+			String[] sups = subtype.getNamedSuperclasses();
+			if (sups != null && sups.length > 0) {
+				for (int i = 0; i < sups.length; i++) {
+					// TODO: change
+					MergedRestriction r = ManagedIndividual.getClassRestrictionsOnProperty(sups[i], getOnProperty());
+					if (r == null || matches(r, context, ttl, log))
+						return Boolean.TRUE;
+				}
+				return Boolean.FALSE;
+			}
+			if (subtype instanceof Union) {
+				for (Iterator i = ((Union) subtype).types(); i.hasNext();)
+					if (!matches((TypeExpression) i.next(), context, ttl, log))
+						return Boolean.FALSE;
+				synchronize(context, cloned);
+				return Boolean.TRUE;
+			}
+			return Boolean.FALSE;
+		}
+
+		PropertyRestriction other = (PropertyRestriction) subtype;
+		if (!isWellFormed() || !other.isWellFormed() || !getOnProperty().equals(other.getOnProperty()))
+			return Boolean.FALSE;
+
+		return other;
 	}
 
-	PropertyRestriction other = (PropertyRestriction) subtype;
-	if (!isWellFormed() || !other.isWellFormed()
-		|| !getOnProperty().equals(other.getOnProperty()))
-	    return Boolean.FALSE;
+	@Override
+	public boolean setProperty(String propURI, Object value) {
+		// the subclasses already checked the input parameters, so they are not
+		// null
 
-	return other;
-    }
+		// handle owl:onProperty
+		if (PROP_OWL_ON_PROPERTY.equals(propURI)) {
+			if (Resource.isAnon(value.toString())) {
+				LogUtils.logError(SharedResources.moduleContext, PropertyRestriction.class, "setProperty",
+						new Object[] {
+								"Cannot set the 'on property' (owl:onProperty) value with an anonymous URI. Please use a non-anonymous URI" },
+						null);
+				return false;
+			}
 
-    @Override
-    public boolean setProperty(String propURI, Object value) {
-	// the subclasses already checked the input parameters, so they are not
-	// null
+			if (value instanceof String) {
+				props.put(PROP_OWL_ON_PROPERTY, new Resource((String) value));
+			} else if (value instanceof Resource) {
+				props.put(PROP_OWL_ON_PROPERTY, new Resource(((Resource) value).getURI()));
+			} else {
+				return false;
+			}
+			return true;
+		}
 
-	// handle owl:onProperty
-	if (PROP_OWL_ON_PROPERTY.equals(propURI)) {
-	    if (Resource.isAnon(value.toString())) {
-		LogUtils.logError(
-			SharedResources.moduleContext,
-			PropertyRestriction.class,
-			"setProperty",
-			new Object[] { "Cannot set the 'on property' (owl:onProperty) value with an anonymous URI. Please use a non-anonymous URI" },
-			null);
+		// for everything else: call super
+		// TODO: should we really do this?
+		return super.setProperty(propURI, value);
+	}
+
+	/*
+	 * ******************************************* Methods for handling Array of
+	 * Restrictions *******************************************
+	 */
+
+	/**
+	 * Add this restriction to the given set of restrictions.
+	 *
+	 * @param a
+	 *            The set of Restrictions.
+	 * @return True, if the restriction was added.
+	 */
+	public boolean addToList(ArrayList a) {
+		if (a == null)
+			return false;
+
+		PropertyRestriction r = getRestriction(a, getClassURI());
+		if (r == null) {
+			// the restriction is not yet in the array
+			a.add(this);
+			return true;
+		}
+
+		// the restriction is already in the array
+		// TODO: should we merge?
 		return false;
-	    }
-
-	    if (value instanceof String) {
-		props.put(PROP_OWL_ON_PROPERTY, new Resource((String) value));
-	    } else if (value instanceof Resource) {
-		props.put(PROP_OWL_ON_PROPERTY,
-			new Resource(((Resource) value).getURI()));
-	    } else {
-		return false;
-	    }
-	    return true;
 	}
 
-	// for everything else: call super
-	// TODO: should we really do this?
-	return super.setProperty(propURI, value);
-    }
-
-    /* *******************************************
-     * Methods for handling Array of Restrictions
-     * *******************************************
-     */
-
-    /**
-     * Add this restriction to the given set of restrictions.
-     *
-     * @param a
-     *            The set of Restrictions.
-     * @return True, if the restriction was added.
-     */
-    public boolean addToList(ArrayList a) {
-	if (a == null)
-	    return false;
-
-	PropertyRestriction r = getRestriction(a, getClassURI());
-	if (r == null) {
-	    // the restriction is not yet in the array
-	    a.add(this);
-	    return true;
+	/**
+	 * Get a restriction with the given class URI from the given set of
+	 * restrictions. The class URI of a specific restriction can be retrieved
+	 * using either Restriction.MY_URI or {@link #PropertyRestriction
+	 * #getClassURI()}.
+	 *
+	 * @param a
+	 *            The set of Restrictions.
+	 * @param restrictionURI
+	 *            The URI of the Restriction class to search for.
+	 * @return The restriction, or null, if no restriction of the given type
+	 *         could be found in the given set.
+	 */
+	public static PropertyRestriction getRestriction(ArrayList a, String restrictionURI) {
+		if (restrictionURI == null || a == null)
+			return null;
+		PropertyRestriction r = null;
+		for (int i = 0; i < a.size(); i++) {
+			r = (PropertyRestriction) (a.get(i));
+			if (r.getClassURI().equals(restrictionURI))
+				return r;
+		}
+		return null;
 	}
 
-	// the restriction is already in the array
-	// TODO: should we merge?
-	return false;
-    }
+	/**
+	 * This method is specifically defined for working with property paths,
+	 * hence whenever it is called it means that the path is already processed
+	 * until the 'onProperty' of this Restriction and now we are interested in
+	 * the restrictions defined for the next property in the path (the property
+	 * given as input parameter). Hence, the class set for 'allValuesFrom' must
+	 * be checked.
+	 */
+	public AllValuesFromRestriction getRestrictionOnProperty(String propURI) {
+		TypeExpression all = (TypeExpression) getProperty(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
+		if (all instanceof Intersection) {
+			// If the intersection already has an AllValuesFromRestriction for
+			// the given property, return it.
+			for (Iterator i = ((Intersection) all).types(); i.hasNext();) {
+				TypeExpression tmp = (TypeExpression) i.next();
+				if (tmp instanceof AllValuesFromRestriction
+						&& ((AllValuesFromRestriction) tmp).getOnProperty().equals(propURI))
+					return (AllValuesFromRestriction) tmp;
+			}
+		} else if (all instanceof AllValuesFromRestriction
+				&& ((AllValuesFromRestriction) all).getOnProperty().equals(propURI)) {
+			return (AllValuesFromRestriction) all;
+		}
 
-    /**
-     * Get a restriction with the given class URI from the given set of
-     * restrictions. The class URI of a specific restriction can be retrieved
-     * using either Restriction.MY_URI or {@link #PropertyRestriction
-     * #getClassURI()}.
-     *
-     * @param a
-     *            The set of Restrictions.
-     * @param restrictionURI
-     *            The URI of the Restriction class to search for.
-     * @return The restriction, or null, if no restriction of the given type
-     *         could be found in the given set.
-     */
-    public static PropertyRestriction getRestriction(ArrayList a,
-	    String restrictionURI) {
-	if (restrictionURI == null || a == null)
-	    return null;
-	PropertyRestriction r = null;
-	for (int i = 0; i < a.size(); i++) {
-	    r = (PropertyRestriction) (a.get(i));
-	    if (r.getClassURI().equals(restrictionURI))
+		if (!(all instanceof Intersection)) {
+			Intersection i = new Intersection();
+			if (all != null)
+				i.addType(all);
+			props.put(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM, i);
+			all = i;
+		}
+
+		// 'all' is now an intersection
+		// create an AllValuesFrom Restriction to return
+		AllValuesFromRestriction r = new AllValuesFromRestriction();
+		r.setProperty(PROP_OWL_ON_PROPERTY, new Resource(propURI));
+		((Intersection) all).addType(r);
 		return r;
 	}
-	return null;
-    }
-
-    /**
-     * This method is specifically defined for working with property paths,
-     * hence whenever it is called it means that the path is already processed
-     * until the 'onProperty' of this Restriction and now we are interested in
-     * the restrictions defined for the next property in the path (the property
-     * given as input parameter). Hence, the class set for 'allValuesFrom' must
-     * be checked.
-     */
-    public AllValuesFromRestriction getRestrictionOnProperty(String propURI) {
-	TypeExpression all = (TypeExpression) getProperty(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM);
-	if (all instanceof Intersection) {
-	    // If the intersection already has an AllValuesFromRestriction for
-	    // the given property, return it.
-	    for (Iterator i = ((Intersection) all).types(); i.hasNext();) {
-		TypeExpression tmp = (TypeExpression) i.next();
-		if (tmp instanceof AllValuesFromRestriction
-			&& ((AllValuesFromRestriction) tmp).getOnProperty()
-				.equals(propURI))
-		    return (AllValuesFromRestriction) tmp;
-	    }
-	} else if (all instanceof AllValuesFromRestriction
-		&& ((AllValuesFromRestriction) all).getOnProperty().equals(
-			propURI)) {
-	    return (AllValuesFromRestriction) all;
-	}
-
-	if (!(all instanceof Intersection)) {
-	    Intersection i = new Intersection();
-	    if (all != null)
-		i.addType(all);
-	    props.put(AllValuesFromRestriction.PROP_OWL_ALL_VALUES_FROM, i);
-	    all = i;
-	}
-
-	// 'all' is now an intersection
-	// create an AllValuesFrom Restriction to return
-	AllValuesFromRestriction r = new AllValuesFromRestriction();
-	r.setProperty(PROP_OWL_ON_PROPERTY, new Resource(propURI));
-	((Intersection) all).addType(r);
-	return r;
-    }
 }

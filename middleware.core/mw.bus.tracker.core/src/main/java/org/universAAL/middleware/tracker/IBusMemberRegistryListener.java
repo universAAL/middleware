@@ -37,51 +37,51 @@ import org.universAAL.middleware.tracker.IBusMemberRegistry.BusType;
  * 
  */
 public interface IBusMemberRegistryListener {
-    /**
-     * Invoked when a new BusMember is registered in the bus.
-     * 
-     * @param member
-     *            newly added bus member
-     * @param type
-     *            type of bus {@link IBusMemberRegistry}
-     */
-    public void busMemberAdded(BusMember member, BusType type);
+	/**
+	 * Invoked when a new BusMember is registered in the bus.
+	 * 
+	 * @param member
+	 *            newly added bus member
+	 * @param type
+	 *            type of bus {@link IBusMemberRegistry}
+	 */
+	public void busMemberAdded(BusMember member, BusType type);
 
-    /**
-     * Invoked when an existing BusMember is unregistered from the bus.
-     * 
-     * @param member
-     *            removed bus member
-     * @param type
-     *            type of bus {@link IBusMemberRegistry}
-     */
-    public void busMemberRemoved(BusMember member, BusType type);
+	/**
+	 * Invoked when an existing BusMember is unregistered from the bus.
+	 * 
+	 * @param member
+	 *            removed bus member
+	 * @param type
+	 *            type of bus {@link IBusMemberRegistry}
+	 */
+	public void busMemberRemoved(BusMember member, BusType type);
 
-    /**
-     * Invoked when registration parameters of an existing BusMember are added.
-     * Registration parameters can be, for example, {@link ServiceProfile}s for
-     * {@link ServiceCallee}s or {@link ContextEventPattern} for
-     * {@link ContextSubscriber}.
-     * 
-     * @param busMemberID
-     *            the ID of the bus member for which the registration parameters
-     *            have been added.
-     * @param params
-     *            the registration parameters that have been added.
-     */
-    public void regParamsAdded(String busMemberID, Resource[] params);
+	/**
+	 * Invoked when registration parameters of an existing BusMember are added.
+	 * Registration parameters can be, for example, {@link ServiceProfile}s for
+	 * {@link ServiceCallee}s or {@link ContextEventPattern} for
+	 * {@link ContextSubscriber}.
+	 * 
+	 * @param busMemberID
+	 *            the ID of the bus member for which the registration parameters
+	 *            have been added.
+	 * @param params
+	 *            the registration parameters that have been added.
+	 */
+	public void regParamsAdded(String busMemberID, Resource[] params);
 
-    /**
-     * Invoked when registration parameters of an existing BusMember are
-     * removed. Registration parameters can be, for example,
-     * {@link ServiceProfile}s for {@link ServiceCallee}s or
-     * {@link ContextEventPattern} for {@link ContextSubscriber}.
-     * 
-     * @param busMemberID
-     *            the ID of the bus member for which the registration parameters
-     *            have been removed.
-     * @param params
-     *            the registration parameters that have been removed.
-     */
-    public void regParamsRemoved(String busMemberID, Resource[] params);
+	/**
+	 * Invoked when registration parameters of an existing BusMember are
+	 * removed. Registration parameters can be, for example,
+	 * {@link ServiceProfile}s for {@link ServiceCallee}s or
+	 * {@link ContextEventPattern} for {@link ContextSubscriber}.
+	 * 
+	 * @param busMemberID
+	 *            the ID of the bus member for which the registration parameters
+	 *            have been removed.
+	 * @param params
+	 *            the registration parameters that have been removed.
+	 */
+	public void regParamsRemoved(String busMemberID, Resource[] params);
 }

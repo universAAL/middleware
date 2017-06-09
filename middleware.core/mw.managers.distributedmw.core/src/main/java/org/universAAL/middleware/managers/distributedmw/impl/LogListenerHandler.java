@@ -39,137 +39,124 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public class LogListenerHandler extends ListenerHandler<DistributedLogListener> {
-    public static final String TYPE_ADD_LOGLISTENER = DistributedMWManagerImpl.NAMESPACE
-	    + "addLogListener";
-    public static final String TYPE_REMOVE_LOGLISTENER = DistributedMWManagerImpl.NAMESPACE
-	    + "removeLogListener";
-    public static final String TYPE_LOGLISTENER_MESSAGE = DistributedMWManagerImpl.NAMESPACE
-	    + "LogListenerMessage";
+	public static final String TYPE_ADD_LOGLISTENER = DistributedMWManagerImpl.NAMESPACE + "addLogListener";
+	public static final String TYPE_REMOVE_LOGLISTENER = DistributedMWManagerImpl.NAMESPACE + "removeLogListener";
+	public static final String TYPE_LOGLISTENER_MESSAGE = DistributedMWManagerImpl.NAMESPACE + "LogListenerMessage";
 
-    public static final String PROP_LEVEL = DistributedMWManagerImpl.NAMESPACE
-	    + "logLevel";
-    public static final String PROP_MODULE = DistributedMWManagerImpl.NAMESPACE
-	    + "module";
-    public static final String PROP_PKG = DistributedMWManagerImpl.NAMESPACE
-	    + "pkg";
-    public static final String PROP_CLS = DistributedMWManagerImpl.NAMESPACE
-	    + "cls";
-    public static final String PROP_METH = DistributedMWManagerImpl.NAMESPACE
-	    + "method";
-    public static final String PROP_MSG = DistributedMWManagerImpl.NAMESPACE
-	    + "msgPart";
-    public static final String PROP_T = DistributedMWManagerImpl.NAMESPACE
-	    + "t";
+	public static final String PROP_LEVEL = DistributedMWManagerImpl.NAMESPACE + "logLevel";
+	public static final String PROP_MODULE = DistributedMWManagerImpl.NAMESPACE + "module";
+	public static final String PROP_PKG = DistributedMWManagerImpl.NAMESPACE + "pkg";
+	public static final String PROP_CLS = DistributedMWManagerImpl.NAMESPACE + "cls";
+	public static final String PROP_METH = DistributedMWManagerImpl.NAMESPACE + "method";
+	public static final String PROP_MSG = DistributedMWManagerImpl.NAMESPACE + "msgPart";
+	public static final String PROP_T = DistributedMWManagerImpl.NAMESPACE + "t";
 
-    private Object[] sharingParams;
-    private LocalLogListener localListener = null;
+	private Object[] sharingParams;
+	private LocalLogListener localListener = null;
 
-    public class LogListenerMessageHandler implements Handler {
-	public void handle(PeerCard sender, Resource r) {
-	    // a remote peer, to which we subscribed, sent us a message
-	    // -> notify all listeners
+	public class LogListenerMessageHandler implements Handler {
+		public void handle(PeerCard sender, Resource r) {
+			// a remote peer, to which we subscribed, sent us a message
+			// -> notify all listeners
 
-	    int logLevel = (Integer) r.getProperty(PROP_LEVEL);
-	    String module = (String) r.getProperty(PROP_MODULE);
-	    String pkg = (String) r.getProperty(PROP_PKG);
-	    String cls = (String) r.getProperty(PROP_CLS);
-	    String method = (String) r.getProperty(PROP_METH);
-	    Object[] msgPart = ((List<?>) r.getProperty(PROP_MSG)).toArray();
-	    String t = (String) r.getProperty(PROP_T);
+			int logLevel = (Integer) r.getProperty(PROP_LEVEL);
+			String module = (String) r.getProperty(PROP_MODULE);
+			String pkg = (String) r.getProperty(PROP_PKG);
+			String cls = (String) r.getProperty(PROP_CLS);
+			String method = (String) r.getProperty(PROP_METH);
+			Object[] msgPart = ((List<?>) r.getProperty(PROP_MSG)).toArray();
+			String t = (String) r.getProperty(PROP_T);
 
-	    Set<DistributedLogListener> st = null;
-	    synchronized (listeners) {
-		st = listeners.get(sender);
-		if (st == null || st.size() == 0) {
-		    // TODO: log message?
-		    // we received a message from a node to which we did not
-		    // subscribe. This can also happen in the short time after
-		    // removing the listener until the remote node stops sending
-		    // messages
-		    return;
+			Set<DistributedLogListener> st = null;
+			synchronized (listeners) {
+				st = listeners.get(sender);
+				if (st == null || st.size() == 0) {
+					// TODO: log message?
+					// we received a message from a node to which we did not
+					// subscribe. This can also happen in the short time after
+					// removing the listener until the remote node stops sending
+					// messages
+					return;
+				}
+				// dispatch message
+				for (DistributedLogListener l : st) {
+					l.log(sender, logLevel, module, pkg, cls, method, msgPart, t);
+				}
+			}
 		}
-		// dispatch message
-		for (DistributedLogListener l : st) {
-		    l.log(sender, logLevel, module, pkg, cls, method, msgPart,
-			    t);
+	}
+
+	public class LocalLogListener implements LogListener {
+		public void log(int logLevel, String module, String pkg, String cls, String method, Object[] msgPart,
+				Throwable t) {
+
+			// get throwable as string
+			Writer result = new StringWriter();
+			PrintWriter printWriter = new PrintWriter(result);
+			t.printStackTrace(printWriter);
+			String s = result.toString();
+
+			// dispatch message
+			synchronized (localListeners) {
+				// local subscriptions
+				for (DistributedLogListener l : localListeners) {
+					l.log(DistributedMWManagerImpl.myPeer, logLevel, module, pkg, cls, method, msgPart, s);
+				}
+			}
+
+			synchronized (subscribers) {
+				// remote subscriptions
+				if (subscribers.size() != 0) {
+					Resource r = new Resource();
+					r.addType(TYPE_LOGLISTENER_MESSAGE, true);
+					r.setProperty(PROP_LEVEL, Integer.valueOf(logLevel));
+					r.setProperty(PROP_MODULE, module);
+					r.setProperty(PROP_PKG, pkg);
+					r.setProperty(PROP_CLS, cls);
+					r.setProperty(PROP_METH, method);
+					r.setProperty(PROP_MSG, new ArrayList<Object>(Arrays.asList(msgPart)));
+					r.setProperty(PROP_T, s);
+					DistributedMWManagerImpl.sendMessage(r, subscribers);
+				}
+			}
 		}
-	    }
 	}
-    }
 
-    public class LocalLogListener implements LogListener {
-	public void log(int logLevel, String module, String pkg, String cls,
-		String method, Object[] msgPart, Throwable t) {
+	public LogListenerHandler() {
+		super(TYPE_ADD_LOGLISTENER, TYPE_REMOVE_LOGLISTENER);
+	}
 
-	    // get throwable as string
-	    Writer result = new StringWriter();
-	    PrintWriter printWriter = new PrintWriter(result);
-	    t.printStackTrace(printWriter);
-	    String s = result.toString();
+	public void setSharingParams(Object[] sharingParams) {
+		this.sharingParams = sharingParams;
+	}
 
-	    // dispatch message
-	    synchronized (localListeners) {
-		// local subscriptions
-		for (DistributedLogListener l : localListeners) {
-		    l.log(DistributedMWManagerImpl.myPeer, logLevel, module,
-			    pkg, cls, method, msgPart, s);
+	public void shareObject(Object objToShare) {
+		DistributedMWManagerImpl.context.getContainer().shareObject(DistributedMWManagerImpl.context, objToShare,
+				sharingParams);
+	}
+
+	public void removeSharedObject(Object objToRemove) {
+		DistributedMWManagerImpl.context.getContainer().removeSharedObject(DistributedMWManagerImpl.context,
+				objToRemove, sharingParams);
+	}
+
+	@Override
+	protected void addListenerLocally() {
+		synchronized (this) {
+			if (localListener == null) {
+				localListener = new LocalLogListener();
+				shareObject(localListener);
+			}
 		}
-	    }
+	}
 
-	    synchronized (subscribers) {
-		// remote subscriptions
-		if (subscribers.size() != 0) {
-		    Resource r = new Resource();
-		    r.addType(TYPE_LOGLISTENER_MESSAGE, true);
-		    r.setProperty(PROP_LEVEL, Integer.valueOf(logLevel));
-		    r.setProperty(PROP_MODULE, module);
-		    r.setProperty(PROP_PKG, pkg);
-		    r.setProperty(PROP_CLS, cls);
-		    r.setProperty(PROP_METH, method);
-		    r.setProperty(PROP_MSG,
-			    new ArrayList<Object>(Arrays.asList(msgPart)));
-		    r.setProperty(PROP_T, s);
-		    DistributedMWManagerImpl.sendMessage(r, subscribers);
+	@Override
+	protected void removeListenerLocally() {
+		synchronized (this) {
+			if (localListener != null) {
+				removeSharedObject(localListener);
+				localListener = null;
+			}
 		}
-	    }
 	}
-    }
-
-    public LogListenerHandler() {
-	super(TYPE_ADD_LOGLISTENER, TYPE_REMOVE_LOGLISTENER);
-    }
-
-    public void setSharingParams(Object[] sharingParams) {
-	this.sharingParams = sharingParams;
-    }
-
-    public void shareObject(Object objToShare) {
-	DistributedMWManagerImpl.context.getContainer().shareObject(
-		DistributedMWManagerImpl.context, objToShare, sharingParams);
-    }
-
-    public void removeSharedObject(Object objToRemove) {
-	DistributedMWManagerImpl.context.getContainer().removeSharedObject(
-		DistributedMWManagerImpl.context, objToRemove, sharingParams);
-    }
-
-    @Override
-    protected void addListenerLocally() {
-	synchronized (this) {
-	    if (localListener == null) {
-		localListener = new LocalLogListener();
-		shareObject(localListener);
-	    }
-	}
-    }
-
-    @Override
-    protected void removeListenerLocally() {
-	synchronized (this) {
-	    if (localListener != null) {
-		removeSharedObject(localListener);
-		localListener = null;
-	    }
-	}
-    }
 }

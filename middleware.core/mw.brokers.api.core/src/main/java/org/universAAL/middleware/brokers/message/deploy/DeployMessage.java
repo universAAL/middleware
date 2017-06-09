@@ -39,63 +39,63 @@ import com.google.gson.Gson;
  */
 public class DeployMessage implements BrokerMessage {
 
-    public enum DeployMessageType {
-	REQUEST_TO_INSTALL_PART, REQUEST_TO_UNINSTALL_PART, PART_NOTIFICATION;
+	public enum DeployMessageType {
+		REQUEST_TO_INSTALL_PART, REQUEST_TO_UNINSTALL_PART, PART_NOTIFICATION;
 
-    }
-
-    private DeployPayload payload;
-    private DeployMessageType deployMessageType;
-    public BrokerMessageTypes mType;
-
-    public DeployMessage(DeployMessageType messageType, DeployPayload payload) {
-
-	this.deployMessageType = messageType;
-	this.payload = payload;
-	this.mType = BrokerMessageTypes.DeployMessage;
-    }
-
-    public DeployMessage() {
-    }
-
-    public DeployMessageType getMessageType() {
-	return deployMessageType;
-    }
-
-    public void setMessageType(DeployMessageType messageType) {
-	this.deployMessageType = messageType;
-    }
-
-    public String toString() {
-	String serializedMessage = null;
-
-	try {
-	    Gson gson = GsonParserBuilder.getInstance();
-	    serializedMessage = gson.toJson(this);
-
-	} catch (Exception e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
 	}
 
-	return serializedMessage;
-    }
+	private DeployPayload payload;
+	private DeployMessageType deployMessageType;
+	public BrokerMessageTypes mType;
 
-    public DeployPayload getPayload() {
-	return payload;
+	public DeployMessage(DeployMessageType messageType, DeployPayload payload) {
 
-    }
+		this.deployMessageType = messageType;
+		this.payload = payload;
+		this.mType = BrokerMessageTypes.DeployMessage;
+	}
 
-    public BrokerMessageTypes getMType() {
-	return mType;
-    }
+	public DeployMessage() {
+	}
 
-    /**
-     * To implement
-     */
-    public PeerCard[] getReceivers() {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	public DeployMessageType getMessageType() {
+		return deployMessageType;
+	}
+
+	public void setMessageType(DeployMessageType messageType) {
+		this.deployMessageType = messageType;
+	}
+
+	public String toString() {
+		String serializedMessage = null;
+
+		try {
+			Gson gson = GsonParserBuilder.getInstance();
+			serializedMessage = gson.toJson(this);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return serializedMessage;
+	}
+
+	public DeployPayload getPayload() {
+		return payload;
+
+	}
+
+	public BrokerMessageTypes getMType() {
+		return mType;
+	}
+
+	/**
+	 * To implement
+	 */
+	public PeerCard[] getReceivers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

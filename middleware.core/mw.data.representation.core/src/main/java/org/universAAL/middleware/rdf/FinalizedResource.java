@@ -29,83 +29,83 @@ import java.util.Enumeration;
  */
 public class FinalizedResource extends Resource {
 
-    /** @see org.universAAL.middleware.rdf.Resource#Resource() */
-    protected FinalizedResource() {
-	super();
-    }
+	/** @see org.universAAL.middleware.rdf.Resource#Resource() */
+	protected FinalizedResource() {
+		super();
+	}
 
-    /** @see org.universAAL.middleware.rdf.Resource#Resource(boolean) */
-    public FinalizedResource(boolean isXMLLiteral) {
-	super(isXMLLiteral);
-    }
+	/** @see org.universAAL.middleware.rdf.Resource#Resource(boolean) */
+	public FinalizedResource(boolean isXMLLiteral) {
+		super(isXMLLiteral);
+	}
 
-    /** @see org.universAAL.middleware.rdf.Resource#Resource(String) */
-    protected FinalizedResource(String uri) {
-	super(uri);
-    }
+	/** @see org.universAAL.middleware.rdf.Resource#Resource(String) */
+	protected FinalizedResource(String uri) {
+		super(uri);
+	}
 
-    /** @see org.universAAL.middleware.rdf.Resource#Resource(String, boolean) */
-    public FinalizedResource(String uri, boolean isXMLLiteral) {
-	super(uri, isXMLLiteral);
-    }
+	/** @see org.universAAL.middleware.rdf.Resource#Resource(String, boolean) */
+	public FinalizedResource(String uri, boolean isXMLLiteral) {
+		super(uri, isXMLLiteral);
+	}
 
-    /** @see org.universAAL.middleware.rdf.Resource#Resource(String, int) */
-    protected FinalizedResource(String uriPrefix, int numProps) {
-	super(uriPrefix, numProps);
-    }
+	/** @see org.universAAL.middleware.rdf.Resource#Resource(String, int) */
+	protected FinalizedResource(String uriPrefix, int numProps) {
+		super(uriPrefix, numProps);
+	}
 
-    @Override
-    public final Object getProperty(String propURI) {
-	return super.getProperty(propURI);
-    }
+	@Override
+	public final Object getProperty(String propURI) {
+		return super.getProperty(propURI);
+	}
 
-    @Override
-    public final int numberOfProperties() {
-	return super.numberOfProperties();
-    }
+	@Override
+	public final int numberOfProperties() {
+		return super.numberOfProperties();
+	}
 
-    @Override
-    public final boolean isAnon() {
-	return super.isAnon();
-    }
+	@Override
+	public final boolean isAnon() {
+		return super.isAnon();
+	}
 
-    @Override
-    public final boolean hasQualifiedName() {
-	return super.hasQualifiedName();
-    }
+	@Override
+	public final boolean hasQualifiedName() {
+		return super.hasQualifiedName();
+	}
 
-    @Override
-    public final String getURI() {
-	return super.getURI();
-    }
+	@Override
+	public final String getURI() {
+		return super.getURI();
+	}
 
-    @Override
-    public final Enumeration getPropertyURIs() {
-	return super.getPropertyURIs();
-    }
+	@Override
+	public final Enumeration getPropertyURIs() {
+		return super.getPropertyURIs();
+	}
 
-    @Override
-    public final boolean addType(String typeURI, boolean blockFurtherTypes) {
-	return super.addType(typeURI, blockFurtherTypes);
-    }
+	@Override
+	public final boolean addType(String typeURI, boolean blockFurtherTypes) {
+		return super.addType(typeURI, blockFurtherTypes);
+	}
 
-    @Override
-    public final String getLocalName() {
-	return super.getLocalName();
-    }
+	@Override
+	public final String getLocalName() {
+		return super.getLocalName();
+	}
 
-    @Override
-    public final String getNamespace() {
-	return super.getNamespace();
-    }
+	@Override
+	public final String getNamespace() {
+		return super.getNamespace();
+	}
 
-    @Override
-    public final String getType() {
-	return super.getType();
-    }
+	@Override
+	public final String getType() {
+		return super.getType();
+	}
 
-    @Override
-    public final String[] getTypes() {
-	return super.getTypes();
-    }
+	@Override
+	public final String[] getTypes() {
+		return super.getTypes();
+	}
 }

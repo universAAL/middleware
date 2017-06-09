@@ -34,27 +34,28 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 @Command(scope = "universAAL", name = "targetSpace", description = "Print the Target AAL Spaces")
 public class TargetAALSpaceCommand extends OsgiCommandSupport {
 
-    private AALSpaceManager aalSpaceManager;
+	private AALSpaceManager aalSpaceManager;
 
-    @Override
-    protected Object doExecute() throws Exception {
-	log.debug("Executing command...");
-	ServiceReference ref = bundleContext
-		.getServiceReference(AALSpaceManager.class.getName());
-	if (ref != null) {
-	    aalSpaceManager = (AALSpaceManager) bundleContext.getService(ref);
-	} else {
-	    return null;
+	@Override
+	protected Object doExecute() throws Exception {
+		log.debug("Executing command...");
+		ServiceReference ref = bundleContext.getServiceReference(AALSpaceManager.class.getName());
+		if (ref != null) {
+			aalSpaceManager = (AALSpaceManager) bundleContext.getService(ref);
+		} else {
+			return null;
+		}
+		// Aalspace aalSpace =
+		// aalSpaceManager.readAALSpaceDefaultConfigurations();
+		System.out.println("--------------------------");
+		System.out.println("Target AAL Space:");
+		// System.out.println("AAL Space Name:
+		// "+aalSpace.getSpaceDescriptor().getSpaceName()
+		// + "" +
+		// "AAL Space ID: "+aalSpace.getSpaceDescriptor().getSpaceId() +
+		// " AAL Space Descriptor:
+		// "+aalSpace.getSpaceDescriptor().getSpaceDescription());
+		System.out.println("--------------------------");
+		return null;
 	}
-	// Aalspace aalSpace =
-	// aalSpaceManager.readAALSpaceDefaultConfigurations();
-	System.out.println("--------------------------");
-	System.out.println("Target AAL Space:");
-	// System.out.println("AAL Space Name: "+aalSpace.getSpaceDescriptor().getSpaceName()
-	// + "" +
-	// "AAL Space ID: "+aalSpace.getSpaceDescriptor().getSpaceId() +
-	// " AAL Space Descriptor: "+aalSpace.getSpaceDescriptor().getSpaceDescription());
-	System.out.println("--------------------------");
-	return null;
-    }
 }

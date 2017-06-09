@@ -31,45 +31,45 @@ import org.universAAL.middleware.owl.supply.Rating;
  *         Tazari</a>
  */
 public class QoSRating extends ProfileParameter {
-    public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "QoSRating";
+	public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "QoSRating";
 
-    public QoSRating(Rating r) {
-	super();
-	addType(MY_URI, true);
-	if (r != null)
-	    props.put(PROP_OWLS_PROFILE_S_PARAMETER, r);
-    }
+	public QoSRating(Rating r) {
+		super();
+		addType(MY_URI, true);
+		if (r != null)
+			props.put(PROP_OWLS_PROFILE_S_PARAMETER, r);
+	}
 
-    public QoSRating(String uri, Rating r) {
-	super(uri);
-	addType(MY_URI, true);
-	if (r != null)
-	    props.put(PROP_OWLS_PROFILE_S_PARAMETER, r);
-    }
+	public QoSRating(String uri, Rating r) {
+		super(uri);
+		addType(MY_URI, true);
+		if (r != null)
+			props.put(PROP_OWLS_PROFILE_S_PARAMETER, r);
+	}
 
-    /**
-     * Returns the rating of the property with URI
-     * <PROP_OWLS_PROFILE_S_PARAMETER>.
-     * 
-     * @return Rating
-     */
-    public Rating getRating() {
-	return (Rating) props.get(PROP_OWLS_PROFILE_S_PARAMETER);
-    }
+	/**
+	 * Returns the rating of the property with URI
+	 * <PROP_OWLS_PROFILE_S_PARAMETER>.
+	 * 
+	 * @return Rating
+	 */
+	public Rating getRating() {
+		return (Rating) props.get(PROP_OWLS_PROFILE_S_PARAMETER);
+	}
 
-    public boolean setProperty(String propURI, Object value) {
-	if (propURI != null && value != null && !props.containsKey(propURI))
-	    if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
-		if (value instanceof String) {
-		    props.put(propURI, value);
-		    return true;
-		}
-	    } else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
-		if (value instanceof Rating) {
-		    props.put(propURI, value);
-		    return true;
-		}
-	    }
-	return false;
-    }
+	public boolean setProperty(String propURI, Object value) {
+		if (propURI != null && value != null && !props.containsKey(propURI))
+			if (propURI.equals(PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME)) {
+				if (value instanceof String) {
+					props.put(propURI, value);
+					return true;
+				}
+			} else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
+				if (value instanceof Rating) {
+					props.put(propURI, value);
+					return true;
+				}
+			}
+		return false;
+	}
 }

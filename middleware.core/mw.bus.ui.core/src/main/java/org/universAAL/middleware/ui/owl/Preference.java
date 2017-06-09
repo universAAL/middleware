@@ -28,32 +28,31 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  */
 public abstract class Preference extends ManagedIndividual {
 
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
-	    + "Preference";
+	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Preference";
 
-    /** The constructor for (de-)serializers. */
-    public Preference() {
-	super();
-    }
+	/** The constructor for (de-)serializers. */
+	public Preference() {
+		super();
+	}
 
-    /** The constructor for subclasses */
-    public Preference(String uri) {
-	super(uri);
-    }
+	/** The constructor for subclasses */
+	public Preference(String uri) {
+		super(uri);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI()
-     */
-    public String getClassURI() {
-	return MY_URI;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI()
+	 */
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
-     */
-    public abstract boolean isWellFormed();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
+	 */
+	public abstract boolean isWellFormed();
 }

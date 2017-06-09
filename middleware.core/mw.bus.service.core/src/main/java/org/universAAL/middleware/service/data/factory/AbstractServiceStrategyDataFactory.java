@@ -27,7 +27,6 @@ package org.universAAL.middleware.service.data.factory;
  *         Apr 20, 2012
  * 
  */
-public abstract class AbstractServiceStrategyDataFactory implements
-	IServiceStrategyDataFactory {
+public abstract class AbstractServiceStrategyDataFactory implements IServiceStrategyDataFactory {
 
 }

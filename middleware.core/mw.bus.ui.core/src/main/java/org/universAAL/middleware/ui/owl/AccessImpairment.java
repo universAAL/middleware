@@ -34,50 +34,49 @@ import org.universAAL.middleware.owl.supply.LevelRating;
  * @see org.universAAL.middleware.owl.ManagedIndividual
  */
 public class AccessImpairment extends ManagedIndividual {
-    public static final String MY_URI;
-    public static final String PROP_IMPAIRMENT_LEVEL;
+	public static final String MY_URI;
+	public static final String PROP_IMPAIRMENT_LEVEL;
 
-    static {
-	MY_URI = uAAL_VOCABULARY_NAMESPACE + "AccessImpairment";
-	PROP_IMPAIRMENT_LEVEL = uAAL_VOCABULARY_NAMESPACE + "impairmentLevel";
-    }
+	static {
+		MY_URI = uAAL_VOCABULARY_NAMESPACE + "AccessImpairment";
+		PROP_IMPAIRMENT_LEVEL = uAAL_VOCABULARY_NAMESPACE + "impairmentLevel";
+	}
 
-    /** The constructor for (de-)serializers. */
-    public AccessImpairment() {
-	super();
-    }
+	/** The constructor for (de-)serializers. */
+	public AccessImpairment() {
+		super();
+	}
 
-    /** The constructor for use by applications. */
-    public AccessImpairment(LevelRating impairmentLevel) {
-	super();
-	props.put(PROP_IMPAIRMENT_LEVEL, impairmentLevel);
-    }
+	/** The constructor for use by applications. */
+	public AccessImpairment(LevelRating impairmentLevel) {
+		super();
+		props.put(PROP_IMPAIRMENT_LEVEL, impairmentLevel);
+	}
 
-    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
-    public String getClassURI() {
-	return MY_URI;
-    }
+	/** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    /**
-     * @return level rating
-     */
-    public LevelRating getImpaimentLevel() {
-	return (LevelRating) props.get(PROP_IMPAIRMENT_LEVEL);
-    }
+	/**
+	 * @return level rating
+	 */
+	public LevelRating getImpaimentLevel() {
+		return (LevelRating) props.get(PROP_IMPAIRMENT_LEVEL);
+	}
 
-    /**
-     * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
-     *      (java.lang.String)
-     */
-    public int getPropSerializationType(String propURI) {
-	return (PROP_IMPAIRMENT_LEVEL.equals(propURI)) ? PROP_SERIALIZATION_REDUCED
-		: PROP_SERIALIZATION_OPTIONAL;
-    }
+	/**
+	 * @see org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
+	 *      (java.lang.String)
+	 */
+	public int getPropSerializationType(String propURI) {
+		return (PROP_IMPAIRMENT_LEVEL.equals(propURI)) ? PROP_SERIALIZATION_REDUCED : PROP_SERIALIZATION_OPTIONAL;
+	}
 
-    /**
-     * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
-     */
-    public boolean isWellFormed() {
-	return props.containsKey(PROP_IMPAIRMENT_LEVEL);
-    }
+	/**
+	 * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
+	 */
+	public boolean isWellFormed() {
+		return props.containsKey(PROP_IMPAIRMENT_LEVEL);
+	}
 }

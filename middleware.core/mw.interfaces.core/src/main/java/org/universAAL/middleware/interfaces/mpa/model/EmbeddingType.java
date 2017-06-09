@@ -49,28 +49,28 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum EmbeddingType {
 
-    @XmlEnumValue("standaloneContainer")
-    STANDALONE_CONTAINER("standaloneContainer"), @XmlEnumValue("companySharedContainer")
-    COMPANY_SHARED_CONTAINER("companySharedContainer"), @XmlEnumValue("anyContainer")
-    ANY_CONTAINER("anyContainer"), @XmlEnumValue("namedContainer")
-    NAMED_CONTAINER("namedContainer");
-    private final String value;
+	@XmlEnumValue("standaloneContainer")
+	STANDALONE_CONTAINER("standaloneContainer"), @XmlEnumValue("companySharedContainer")
+	COMPANY_SHARED_CONTAINER("companySharedContainer"), @XmlEnumValue("anyContainer")
+	ANY_CONTAINER("anyContainer"), @XmlEnumValue("namedContainer")
+	NAMED_CONTAINER("namedContainer");
+	private final String value;
 
-    EmbeddingType(String v) {
-	value = v;
-    }
-
-    public String value() {
-	return value;
-    }
-
-    public static EmbeddingType fromValue(String v) {
-	for (EmbeddingType c : EmbeddingType.values()) {
-	    if (c.value.equals(v)) {
-		return c;
-	    }
+	EmbeddingType(String v) {
+		value = v;
 	}
-	throw new IllegalArgumentException(v);
-    }
+
+	public String value() {
+		return value;
+	}
+
+	public static EmbeddingType fromValue(String v) {
+		for (EmbeddingType c : EmbeddingType.values()) {
+			if (c.value.equals(v)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(v);
+	}
 
 }

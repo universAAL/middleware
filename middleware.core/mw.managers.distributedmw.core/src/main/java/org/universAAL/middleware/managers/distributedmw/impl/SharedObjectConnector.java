@@ -31,105 +31,104 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
  */
 public class SharedObjectConnector implements SharedObjectListener {
 
-    private ModuleContext context;
-    private AALSpaceManager aalSpaceManager;
-    private MessageContentSerializer messageContentSerializer;
-    private boolean stopping = false;
-    private ControlBroker controlBroker;
+	private ModuleContext context;
+	private AALSpaceManager aalSpaceManager;
+	private MessageContentSerializer messageContentSerializer;
+	private boolean stopping = false;
+	private ControlBroker controlBroker;
 
-    public ModuleContext getContext() {
-	return context;
-    }
-
-    /**
-     * @return the aalSpaceManager
-     */
-    public synchronized final AALSpaceManager getAalSpaceManager() {
-	while (!stopping && aalSpaceManager == null) {
-	    try {
-		wait();
-	    } catch (InterruptedException e) {
-	    }
+	public ModuleContext getContext() {
+		return context;
 	}
-	return aalSpaceManager;
-    }
 
-    /**
-     * @return the controlBroker
-     */
-    public synchronized final ControlBroker getControlBroker() {
-	while (!stopping && controlBroker == null) {
-	    try {
-		wait();
-	    } catch (InterruptedException e) {
-	    }
+	/**
+	 * @return the aalSpaceManager
+	 */
+	public synchronized final AALSpaceManager getAalSpaceManager() {
+		while (!stopping && aalSpaceManager == null) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+			}
+		}
+		return aalSpaceManager;
 	}
-	return controlBroker;
-    }
 
-    /**
-     * @return the messageContentSerializer
-     */
-    public synchronized final MessageContentSerializer getMessageContentSerializer() {
-	while (!stopping && messageContentSerializer == null) {
-	    try {
-		wait();
-	    } catch (InterruptedException e) {
-	    }
+	/**
+	 * @return the controlBroker
+	 */
+	public synchronized final ControlBroker getControlBroker() {
+		while (!stopping && controlBroker == null) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+			}
+		}
+		return controlBroker;
 	}
-	return messageContentSerializer;
-    }
 
-    /**
-     * 
-     */
-    public SharedObjectConnector(ModuleContext mc) {
-	context = mc;
-	susbcribeFor(AALSpaceManager.class.getName());
-	susbcribeFor(ControlBroker.class.getName());
-	susbcribeFor(MessageContentSerializer.class.getName());
-    }
-
-    private synchronized void add(Object shr) {
-	if (shr instanceof AALSpaceManager) {
-	    aalSpaceManager = (AALSpaceManager) shr;
-	    notifyAll();
-	} else if (shr instanceof ControlBroker) {
-	    controlBroker = (ControlBroker) shr;
-	    notifyAll();
-	} else if (shr instanceof MessageContentSerializer) {
-	    messageContentSerializer = (MessageContentSerializer) shr;
-	    notifyAll();
+	/**
+	 * @return the messageContentSerializer
+	 */
+	public synchronized final MessageContentSerializer getMessageContentSerializer() {
+		while (!stopping && messageContentSerializer == null) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+			}
+		}
+		return messageContentSerializer;
 	}
-    }
 
-    private void susbcribeFor(String clazzName) {
-	Object[] ref = context.getContainer().fetchSharedObject(context,
-		new Object[] { clazzName }, this);
-	if (ref != null && ref.length > 0) {
-	    add(ref[0]);
+	/**
+	 * 
+	 */
+	public SharedObjectConnector(ModuleContext mc) {
+		context = mc;
+		susbcribeFor(AALSpaceManager.class.getName());
+		susbcribeFor(ControlBroker.class.getName());
+		susbcribeFor(MessageContentSerializer.class.getName());
 	}
-    }
 
-    /** {@ inheritDoc} */
-    public void sharedObjectAdded(Object sharedObj, Object removeHook) {
-	if (!stopping) {
-	    add(sharedObj);
+	private synchronized void add(Object shr) {
+		if (shr instanceof AALSpaceManager) {
+			aalSpaceManager = (AALSpaceManager) shr;
+			notifyAll();
+		} else if (shr instanceof ControlBroker) {
+			controlBroker = (ControlBroker) shr;
+			notifyAll();
+		} else if (shr instanceof MessageContentSerializer) {
+			messageContentSerializer = (MessageContentSerializer) shr;
+			notifyAll();
+		}
 	}
-    }
 
-    /** {@ inheritDoc} */
-    public void sharedObjectRemoved(Object removeHook) {
-	if (removeHook instanceof AALSpaceManager) {
-	    aalSpaceManager = null;
-	} else if (removeHook instanceof ControlBroker) {
-	    controlBroker = null;
-	} else if (removeHook instanceof MessageContentSerializer) {
-	    messageContentSerializer = null;
+	private void susbcribeFor(String clazzName) {
+		Object[] ref = context.getContainer().fetchSharedObject(context, new Object[] { clazzName }, this);
+		if (ref != null && ref.length > 0) {
+			add(ref[0]);
+		}
 	}
-    }
 
-    public void stop() {
-	stopping = true;
-    }
+	/** {@ inheritDoc} */
+	public void sharedObjectAdded(Object sharedObj, Object removeHook) {
+		if (!stopping) {
+			add(sharedObj);
+		}
+	}
+
+	/** {@ inheritDoc} */
+	public void sharedObjectRemoved(Object removeHook) {
+		if (removeHook instanceof AALSpaceManager) {
+			aalSpaceManager = null;
+		} else if (removeHook instanceof ControlBroker) {
+			controlBroker = null;
+		} else if (removeHook instanceof MessageContentSerializer) {
+			messageContentSerializer = null;
+		}
+	}
+
+	public void stop() {
+		stopping = true;
+	}
 }

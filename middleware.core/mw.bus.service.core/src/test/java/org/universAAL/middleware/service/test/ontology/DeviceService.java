@@ -31,30 +31,27 @@ import org.universAAL.middleware.service.owl.Service;
  * 
  */
 public class DeviceService extends Service {
-    public static final String MY_URI = TestOntology.NAMESPACE
-	    + "DeviceService";
-    public static final String PROP_CONTROLS = TestOntology.NAMESPACE
-	    + "controls";
+	public static final String MY_URI = TestOntology.NAMESPACE + "DeviceService";
+	public static final String PROP_CONTROLS = TestOntology.NAMESPACE + "controls";
 
-    public DeviceService() {
-	super();
-    }
+	public DeviceService() {
+		super();
+	}
 
-    public DeviceService(String uri) {
-	super(uri);
-    }
+	public DeviceService(String uri) {
+		super(uri);
+	}
 
-    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
-    public String getClassURI() {
-	return MY_URI;
-    }
+	/** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    public int getPropSerializationType(String propURI) {
-	return PROP_CONTROLS.equals(propURI) ? PROP_SERIALIZATION_FULL : super
-		.getPropSerializationType(propURI);
-    }
+	public int getPropSerializationType(String propURI) {
+		return PROP_CONTROLS.equals(propURI) ? PROP_SERIALIZATION_FULL : super.getPropSerializationType(propURI);
+	}
 
-    public boolean isWellFormed() {
-	return true;
-    }
+	public boolean isWellFormed() {
+		return true;
+	}
 }

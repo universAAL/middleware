@@ -32,27 +32,27 @@ import org.universAAL.middleware.managers.api.ConfigurationEditor.ConfigurableEn
  */
 public class SynchronousConfEntityManager implements ConfigurableEntityManager {
 
-    private List<ConfigurableEntityEditor> entities;
-    private static long WAIT_TIME = 1000;
+	private List<ConfigurableEntityEditor> entities;
+	private static long WAIT_TIME = 1000;
 
-    /**
-     * 
-     */
-    public SynchronousConfEntityManager() {
-	entities = new ArrayList<ConfigurableEntityEditor>();
-    }
-
-    /** {@ inheritDoc} */
-    public void addConfigurableEntity(ConfigurableEntityEditor cent) {
-	entities.add(cent);
-    }
-
-    public List<ConfigurableEntityEditor> getList() {
-	try {
-	    Thread.sleep(WAIT_TIME);
-	} catch (InterruptedException e) {
+	/**
+	 * 
+	 */
+	public SynchronousConfEntityManager() {
+		entities = new ArrayList<ConfigurableEntityEditor>();
 	}
-	return entities;
-    }
+
+	/** {@ inheritDoc} */
+	public void addConfigurableEntity(ConfigurableEntityEditor cent) {
+		entities.add(cent);
+	}
+
+	public List<ConfigurableEntityEditor> getList() {
+		try {
+			Thread.sleep(WAIT_TIME);
+		} catch (InterruptedException e) {
+		}
+		return entities;
+	}
 
 }

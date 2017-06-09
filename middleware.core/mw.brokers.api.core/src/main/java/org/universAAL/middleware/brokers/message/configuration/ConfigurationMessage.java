@@ -29,112 +29,109 @@ import com.google.gson.Gson;
  */
 public class ConfigurationMessage implements BrokerMessage {
 
-    private PeerCard sender;
-    private PeerCard receiver;
-    private ConfigurationMessageType cType;
-    private String param;
-    private String parsed;
-    private boolean request = true;
+	private PeerCard sender;
+	private PeerCard receiver;
+	private ConfigurationMessageType cType;
+	private String param;
+	private String parsed;
+	private boolean request = true;
 
-    public enum ConfigurationMessageType {
-	PROPAGATE, QUERY
-    }
-
-    /**
-     * 
-     */
-    public ConfigurationMessage() {
-    }
-
-    /**
-     * Create a new Configuration Message.
-     * 
-     * @param mType
-     *            the type of the message to sent
-     * @param sender
-     *            the sender of this message
-     * @param propagateSerialized
-     */
-    public ConfigurationMessage(ConfigurationMessageType mType,
-	    PeerCard sender, String propagateSerialized) {
-	this.cType = mType;
-	this.param = propagateSerialized;
-	this.sender = sender;
-    }
-
-    public ConfigurationMessageType getMessageType() {
-	return cType;
-    }
-
-    public String getPayload() {
-	return param;
-    }
-
-    /** {@ inheritDoc} */
-    public BrokerMessageTypes getMType() {
-	return BrokerMessageTypes.ConfigurationMessage;
-    }
-
-    /** {@ inheritDoc} */
-    public PeerCard[] getReceivers() {
-	if (receiver != null) {
-	    return new PeerCard[] { receiver };
+	public enum ConfigurationMessageType {
+		PROPAGATE, QUERY
 	}
-	return new PeerCard[] {};
-    }
 
-    public boolean isRequest() {
-	return request;
-    }
-
-    public ConfigurationMessage createResoponse(String serializedParam) {
-	ConfigurationMessage resp = new ConfigurationMessage();
-	resp.cType = cType;
-	resp.receiver = sender;
-	resp.param = serializedParam;
-	resp.request = false;
-	return resp;
-    }
-
-    public String toString() {
-	String serializedMessage = null;
-	if (parsed == null) {
-
-	    try {
-		Gson gson = GsonParserBuilder.getInstance();
-		serializedMessage = gson.toJson(this);
-
-	    } catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
+	/**
+	 * 
+	 */
+	public ConfigurationMessage() {
 	}
-	parsed = serializedMessage;
-	return parsed;
-    }
 
-    public static ConfigurationMessage unmarshall(String message)
-	    throws Exception {
-
-	try {
-
-	    Gson gson = GsonParserBuilder.getInstance();
-
-	    return gson.fromJson(message, ConfigurationMessage.class);
-
-	} catch (Exception e) {
-
-	    throw new Exception(
-		    "Unable to unmashall ConfigurationMessage. Original message: "
-			    + message + ". Full Stack: " + e.toString());
+	/**
+	 * Create a new Configuration Message.
+	 * 
+	 * @param mType
+	 *            the type of the message to sent
+	 * @param sender
+	 *            the sender of this message
+	 * @param propagateSerialized
+	 */
+	public ConfigurationMessage(ConfigurationMessageType mType, PeerCard sender, String propagateSerialized) {
+		this.cType = mType;
+		this.param = propagateSerialized;
+		this.sender = sender;
 	}
-    }
 
-    /**
-     * @return
-     */
-    public boolean isSentFrom(PeerCard sender) {
-	return this.sender.equals(sender);
-    }
+	public ConfigurationMessageType getMessageType() {
+		return cType;
+	}
+
+	public String getPayload() {
+		return param;
+	}
+
+	/** {@ inheritDoc} */
+	public BrokerMessageTypes getMType() {
+		return BrokerMessageTypes.ConfigurationMessage;
+	}
+
+	/** {@ inheritDoc} */
+	public PeerCard[] getReceivers() {
+		if (receiver != null) {
+			return new PeerCard[] { receiver };
+		}
+		return new PeerCard[] {};
+	}
+
+	public boolean isRequest() {
+		return request;
+	}
+
+	public ConfigurationMessage createResoponse(String serializedParam) {
+		ConfigurationMessage resp = new ConfigurationMessage();
+		resp.cType = cType;
+		resp.receiver = sender;
+		resp.param = serializedParam;
+		resp.request = false;
+		return resp;
+	}
+
+	public String toString() {
+		String serializedMessage = null;
+		if (parsed == null) {
+
+			try {
+				Gson gson = GsonParserBuilder.getInstance();
+				serializedMessage = gson.toJson(this);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		parsed = serializedMessage;
+		return parsed;
+	}
+
+	public static ConfigurationMessage unmarshall(String message) throws Exception {
+
+		try {
+
+			Gson gson = GsonParserBuilder.getInstance();
+
+			return gson.fromJson(message, ConfigurationMessage.class);
+
+		} catch (Exception e) {
+
+			throw new Exception("Unable to unmashall ConfigurationMessage. Original message: " + message
+					+ ". Full Stack: " + e.toString());
+		}
+	}
+
+	/**
+	 * @return
+	 */
+	public boolean isSentFrom(PeerCard sender) {
+		return this.sender.equals(sender);
+	}
 
 }

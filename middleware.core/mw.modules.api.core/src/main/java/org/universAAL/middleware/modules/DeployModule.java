@@ -28,24 +28,24 @@ package org.universAAL.middleware.modules;
  */
 public interface DeployModule extends Module {
 
-    /**
-     * This method delegates to the right DeployConnector the installation of a
-     * multipart application
-     * 
-     * @param serializedPart
-     *            the string serialization of the application part. An object
-     *            representation can be obtained by using the unmarshaller
-     */
-    public void installPart(String serializedPart);
+	/**
+	 * This method delegates to the right DeployConnector the installation of a
+	 * multipart application
+	 * 
+	 * @param serializedPart
+	 *            the string serialization of the application part. An object
+	 *            representation can be obtained by using the unmarshaller
+	 */
+	public void installPart(String serializedPart);
 
-    /**
-     * This method delegates to the right DeployConnector the uninstallation of
-     * a multipart application
-     * 
-     * @param serializedPart
-     *            the string serialization of the application part. An object
-     *            representation can be obtained by using the unmarshaller
-     */
-    public void uninstallPart(String serializedPart);
+	/**
+	 * This method delegates to the right DeployConnector the uninstallation of
+	 * a multipart application
+	 * 
+	 * @param serializedPart
+	 *            the string serialization of the application part. An object
+	 *            representation can be obtained by using the unmarshaller
+	 */
+	public void uninstallPart(String serializedPart);
 
 }

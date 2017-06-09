@@ -26,13 +26,15 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
  * describes single offering, mostly used for devices and platforms
  *
- * <p>Java class for reqType complex type.
+ * <p>
+ * Java class for reqType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="reqType">
@@ -53,102 +55,87 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "reqType", propOrder = {
-    "reqAtom",
-    "reqGroup",
-    "optional"
-})
-public class ReqType
-    implements Serializable
-{
+@XmlType(name = "reqType", propOrder = { "reqAtom", "reqGroup", "optional" })
+public class ReqType implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    protected ReqAtomType reqAtom;
-    protected ReqGroupType reqGroup;
-    protected Boolean optional;
+	private final static long serialVersionUID = 12343L;
+	protected ReqAtomType reqAtom;
+	protected ReqGroupType reqGroup;
+	protected Boolean optional;
 
-    /**
-     * Gets the value of the reqAtom property.
-     *
-     * @return
-     *     possible object is
-     *     {@link ReqAtomType }
-     *
-     */
-    public ReqAtomType getReqAtom() {
-        return reqAtom;
-    }
+	/**
+	 * Gets the value of the reqAtom property.
+	 *
+	 * @return possible object is {@link ReqAtomType }
+	 *
+	 */
+	public ReqAtomType getReqAtom() {
+		return reqAtom;
+	}
 
-    /**
-     * Sets the value of the reqAtom property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link ReqAtomType }
-     *
-     */
-    public void setReqAtom(ReqAtomType value) {
-        this.reqAtom = value;
-    }
+	/**
+	 * Sets the value of the reqAtom property.
+	 *
+	 * @param value
+	 *            allowed object is {@link ReqAtomType }
+	 *
+	 */
+	public void setReqAtom(ReqAtomType value) {
+		this.reqAtom = value;
+	}
 
-    public boolean isSetReqAtom() {
-        return (this.reqAtom!= null);
-    }
+	public boolean isSetReqAtom() {
+		return (this.reqAtom != null);
+	}
 
-    /**
-     * Gets the value of the reqGroup property.
-     *
-     * @return
-     *     possible object is
-     *     {@link ReqGroupType }
-     *
-     */
-    public ReqGroupType getReqGroup() {
-        return reqGroup;
-    }
+	/**
+	 * Gets the value of the reqGroup property.
+	 *
+	 * @return possible object is {@link ReqGroupType }
+	 *
+	 */
+	public ReqGroupType getReqGroup() {
+		return reqGroup;
+	}
 
-    /**
-     * Sets the value of the reqGroup property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link ReqGroupType }
-     *
-     */
-    public void setReqGroup(ReqGroupType value) {
-        this.reqGroup = value;
-    }
+	/**
+	 * Sets the value of the reqGroup property.
+	 *
+	 * @param value
+	 *            allowed object is {@link ReqGroupType }
+	 *
+	 */
+	public void setReqGroup(ReqGroupType value) {
+		this.reqGroup = value;
+	}
 
-    public boolean isSetReqGroup() {
-        return (this.reqGroup!= null);
-    }
+	public boolean isSetReqGroup() {
+		return (this.reqGroup != null);
+	}
 
-    /**
-     * Gets the value of the optional property.
-     *
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *
-     */
-    public Boolean isOptional() {
-        return optional;
-    }
+	/**
+	 * Gets the value of the optional property.
+	 *
+	 * @return possible object is {@link Boolean }
+	 *
+	 */
+	public Boolean isOptional() {
+		return optional;
+	}
 
-    /**
-     * Sets the value of the optional property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *
-     */
-    public void setOptional(Boolean value) {
-        this.optional = value;
-    }
+	/**
+	 * Sets the value of the optional property.
+	 *
+	 * @param value
+	 *            allowed object is {@link Boolean }
+	 *
+	 */
+	public void setOptional(Boolean value) {
+		this.optional = value;
+	}
 
-    public boolean isSetOptional() {
-        return (this.optional!= null);
-    }
+	public boolean isSetOptional() {
+		return (this.optional != null);
+	}
 
 }

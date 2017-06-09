@@ -53,414 +53,398 @@ import org.universAAL.middleware.container.ModuleContext;
  * 
  */
 public class uAALBundleContext implements ModuleContext {
-    private BundleContext bundle;
-    private Hashtable extension = new Hashtable();
-    private Logger logger;
+	private BundleContext bundle;
+	private Hashtable extension = new Hashtable();
+	private Logger logger;
 
-    /**
-     * The root directory of the runtime configuration.
-     */
-    public static final String CONF_ROOT_DIR = "bundles.configuration.location";
+	/**
+	 * The root directory of the runtime configuration.
+	 */
+	public static final String CONF_ROOT_DIR = "bundles.configuration.location";
 
-    private static File servicesConfHome = new File(System.getProperty(CONF_ROOT_DIR, System.getProperty("user.dir")),
-	    "services");
-    private ArrayList confFiles = new ArrayList(2);
-    private Hashtable<String, ServiceRegistration> sharedObjects = new Hashtable<String, ServiceRegistration>();
+	private static File servicesConfHome = new File(System.getProperty(CONF_ROOT_DIR, System.getProperty("user.dir")),
+			"services");
+	private ArrayList confFiles = new ArrayList(2);
+	private Hashtable<String, ServiceRegistration> sharedObjects = new Hashtable<String, ServiceRegistration>();
 
-    uAALBundleContext(BundleContext bc) {
-	bundle = bc;
-	logger = LoggerFactory.getLogger("org.universAAL."
-		+ bc.getBundle().getSymbolicName());
-	loadUniversAALAttribute();
-    }
-
-    private void loadUniversAALAttribute() {
-	Properties props = new Properties();
-	try {
-	    props.load(this.getClass().getResourceAsStream(
-		    "attributes.properties"));
-	    setAttribute(Attributes.MIDDLEWARE_VERSION, props.getProperty(
-		    Attributes.MIDDLEWARE_VERSION, System.getProperty(
-			    Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT")));
-	} catch (IOException e) {
-	    logger.error("Unable to load default attributes set");
-	    setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.0");
-	}
-	boolean isKaraf = null != System.getProperty("karaf.home");
-	if (isKaraf) {
-	    setAttribute(Attributes.CONTAINER_NAME, "karaf");
-	} else {
-	    setAttribute(Attributes.CONTAINER_NAME, "osgi");
-	}
-	if (isKaraf) {
-	    setAttribute(Attributes.CONTAINER_VERSION,
-		    System.getProperty("karaf.version"));
-	} else {
-	    setAttribute(Attributes.CONTAINER_VERSION,
-		    bundle.getProperty(Constants.FRAMEWORK_VERSION));
+	uAALBundleContext(BundleContext bc) {
+		bundle = bc;
+		logger = LoggerFactory.getLogger("org.universAAL." + bc.getBundle().getSymbolicName());
+		loadUniversAALAttribute();
 	}
 
-	loadOSGiAttributes();
+	private void loadUniversAALAttribute() {
+		Properties props = new Properties();
+		try {
+			props.load(this.getClass().getResourceAsStream("attributes.properties"));
+			setAttribute(Attributes.MIDDLEWARE_VERSION, props.getProperty(Attributes.MIDDLEWARE_VERSION,
+					System.getProperty(Attributes.MIDDLEWARE_VERSION, "2.0.1-SNAPSHOT")));
+		} catch (IOException e) {
+			logger.error("Unable to load default attributes set");
+			setAttribute(Attributes.MIDDLEWARE_VERSION, "2.0.0");
+		}
+		boolean isKaraf = null != System.getProperty("karaf.home");
+		if (isKaraf) {
+			setAttribute(Attributes.CONTAINER_NAME, "karaf");
+		} else {
+			setAttribute(Attributes.CONTAINER_NAME, "osgi");
+		}
+		if (isKaraf) {
+			setAttribute(Attributes.CONTAINER_VERSION, System.getProperty("karaf.version"));
+		} else {
+			setAttribute(Attributes.CONTAINER_VERSION, bundle.getProperty(Constants.FRAMEWORK_VERSION));
+		}
 
-	loadOSAttributes();
+		loadOSGiAttributes();
 
-	loadPlatformAttributes();
+		loadOSAttributes();
 
-    }
+		loadPlatformAttributes();
 
-    private void loadPlatformAttributes() {
-	setAttribute(Attributes.CONTAINER_PLATFORM_NAME, "java");
-	setAttribute(Attributes.CONTAINER_PLATFORM_VERSION,
-		System.getProperty("java.specification.version"));
-    }
-
-    private void loadOSAttributes() {
-	setAttribute(Attributes.CONTAINER_OS_NAME,
-		bundle.getProperty(Constants.FRAMEWORK_OS_NAME));
-	setAttribute(Attributes.CONTAINER_OS_VERSION,
-		bundle.getProperty(Constants.FRAMEWORK_OS_VERSION));
-	setAttribute(Attributes.CONTAINER_OS_ARCHITECTURE,
-		bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
-    }
-
-    private void loadOSGiAttributes() {
-	setAttribute(Attributes.CONTAINER_EE_NAME,
-		bundle.getProperty(Constants.FRAMEWORK_VENDOR));
-	setAttribute(OSGiAttributes.OSGI_NAME,
-		bundle.getProperty(Constants.FRAMEWORK_VENDOR));
-
-	setAttribute(Attributes.CONTAINER_EE_VERSION,
-		bundle.getProperty(Constants.FRAMEWORK_VERSION));
-	setAttribute(OSGiAttributes.OSGI_VERSION,
-		bundle.getProperty(Constants.FRAMEWORK_VERSION));
-
-	setAttribute(Attributes.CONTAINER_EE_ARCHITECTURE,
-		bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
-	setAttribute(OSGiAttributes.OSGI_ARCHITECTURE,
-		bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#canBeStarted(org.universAAL.middleware.container.ModuleContext)
-     */
-    public boolean canBeStarted(ModuleContext requester) {
-	// TODO check permissions
-	return bundle.getBundle().getState() == Bundle.RESOLVED;
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#canBeStopped(org.universAAL.middleware.container.ModuleContext)
-     */
-    public boolean canBeStopped(ModuleContext requester) {
-	// TODO check permissions
-	return bundle.getBundle().getState() == Bundle.ACTIVE;
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#canBeUninstalled(org.universAAL.middleware.container.ModuleContext)
-     */
-    public boolean canBeUninstalled(ModuleContext requester) {
-	// TODO check permissions
-	int state = bundle.getBundle().getState();
-	return state == Bundle.RESOLVED || state == Bundle.INSTALLED;
-    }
-
-    public Object fetchObject(String className) {
-	ServiceReference sr = bundle.getServiceReference(className);
-	return (sr == null) ? null : bundle.getService(sr);
-    }
-
-    public Object[] fetchObject(String className, String filter) {
-	ServiceReference[] srs = null;
-	try {
-	    srs = bundle.getServiceReferences(className, filter);
-	} catch (Exception e) {
 	}
-	if (srs == null || srs.length == 0)
-	    return null;
-	else {
-	    Object[] result = new Object[srs.length];
-	    for (int i = 0; i < srs.length; i++)
-		result[i] = bundle.getService(srs[i]);
-	    return result;
+
+	private void loadPlatformAttributes() {
+		setAttribute(Attributes.CONTAINER_PLATFORM_NAME, "java");
+		setAttribute(Attributes.CONTAINER_PLATFORM_VERSION, System.getProperty("java.specification.version"));
 	}
-    }
 
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#getAttribute(java.lang.String)
-     */
-    public Object getAttribute(String attrName) {
-	return (attrName == null) ? null : extension.get(attrName);
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#getContainer()
-     */
-    public Container getContainer() {
-	return uAALBundleContainer.THE_CONTAINER;
-    }
-
-    public String getID() {
-	return bundle.getBundle().getSymbolicName();
-    }
-
-    public uAALBundleContext installBundle(String location) {
-	try {
-	    Bundle b = bundle.installBundle(location);
-	    return new uAALBundleContext(b.getBundleContext());
-	} catch (Exception e) {
-	    logError(this.getClass().getName() + "installBundle",
-		    "Exception while installing bundle at " + location, e);
-	    return null;
+	private void loadOSAttributes() {
+		setAttribute(Attributes.CONTAINER_OS_NAME, bundle.getProperty(Constants.FRAMEWORK_OS_NAME));
+		setAttribute(Attributes.CONTAINER_OS_VERSION, bundle.getProperty(Constants.FRAMEWORK_OS_VERSION));
+		setAttribute(Attributes.CONTAINER_OS_ARCHITECTURE, bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
 	}
-    }
 
-    public uAALBundleContext installBundle(String location, InputStream is) {
-	try {
-	    Bundle b = bundle.installBundle(location, is);
-	    return new uAALBundleContext(b.getBundleContext());
-	} catch (Exception e) {
-	    logError(this.getClass().getName() + "installBundle",
-		    "Exception while installing bundle at " + location, e);
-	    return null;
+	private void loadOSGiAttributes() {
+		setAttribute(Attributes.CONTAINER_EE_NAME, bundle.getProperty(Constants.FRAMEWORK_VENDOR));
+		setAttribute(OSGiAttributes.OSGI_NAME, bundle.getProperty(Constants.FRAMEWORK_VENDOR));
+
+		setAttribute(Attributes.CONTAINER_EE_VERSION, bundle.getProperty(Constants.FRAMEWORK_VERSION));
+		setAttribute(OSGiAttributes.OSGI_VERSION, bundle.getProperty(Constants.FRAMEWORK_VERSION));
+
+		setAttribute(Attributes.CONTAINER_EE_ARCHITECTURE, bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
+		setAttribute(OSGiAttributes.OSGI_ARCHITECTURE, bundle.getProperty(Constants.FRAMEWORK_PROCESSOR));
 	}
-    }
 
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#listConfigFiles(org.universAAL.middleware.container.ModuleContext)
-     */
-    public File[] listConfigFiles(ModuleContext requester) {
-	// TODO check permissions
-	int n = confFiles.size();
-	File[] files = new File[n];
-	for (int i = 0; i < n; i++)
-	    files[i] = (File) ((Object[]) confFiles.get(i))[0];
-	return files;
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#logDebug(java.lang.String,
-     *      java.lang.Throwable)
-     */
-    public void logDebug(String tag, String message, Throwable t) {
-	logger.debug(tag + ": " + message, t);
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#logError(java.lang.String,
-     *      java.lang.Throwable)
-     */
-    public void logError(String tag, String message, Throwable t) {
-	logger.error(tag + ": " + message, t);
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#logInfo(java.lang.String,
-     *      java.lang.Throwable)
-     */
-    public void logInfo(String tag, String message, Throwable t) {
-	logger.info(tag + ": " + message, t);
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#logWarn(java.lang.String,
-     *      java.lang.Throwable)
-     */
-    public void logWarn(String tag, String message, Throwable t) {
-	logger.warn(tag + ": " + message, t);
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#logTrace(java.lang.String,
-     *      java.lang.Throwable)
-     */
-    public void logTrace(String tag, String message, Throwable t) {
-	logger.trace(tag + ": " + message, t);
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#registerConfigFile(java.lang.Object[])
-     */
-    public void registerConfigFile(Object[] configFileParams) {
-	// TODO define a convention for the array param
-	// current assumption: 1st param @ index 0 is the
-	// org.osgi.framework.Constants.SERVICE_PID
-	// chosen for a org.osgi.service.cm.ManagedService (type = String)
-	// possible extensions:
-	// 2nd param @ index 1: help string describing the role of the property
-	// file indirectly specified by the first first param @ index 0
-	// 3rd param @ index 2: a hash-table with allowed properties as keys and
-	// a help string about each property as value
-	if (configFileParams != null && configFileParams.length > 0) {
-	    configFileParams[0] = new File(servicesConfHome, configFileParams[0].toString() + ".properties");
-	    confFiles.add(configFileParams);
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#canBeStarted(org.universAAL.middleware.container.ModuleContext)
+	 */
+	public boolean canBeStarted(ModuleContext requester) {
+		// TODO check permissions
+		return bundle.getBundle().getState() == Bundle.RESOLVED;
 	}
-    }
 
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#setAttribute(java.lang.String,
-     *      java.lang.Object)
-     */
-    public void setAttribute(String attrName, Object attrValue) {
-	if (attrName != null && attrValue != null)
-	    extension.put(attrName, attrValue);
-    }
-
-    public void shareObject(String xface, Object obj, Dictionary props) {
-	ServiceRegistration sr = bundle.registerService(xface, obj, props);
-	sharedObjects.put(xface, sr);
-    }
-
-    public void shareObject(String[] xface, Object obj, Dictionary props) {
-	ServiceRegistration sr = bundle.registerService(xface, obj, props);
-	for (String xf : xface) {
-	    sharedObjects.put(xf, sr);
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#canBeStopped(org.universAAL.middleware.container.ModuleContext)
+	 */
+	public boolean canBeStopped(ModuleContext requester) {
+		// TODO check permissions
+		return bundle.getBundle().getState() == Bundle.ACTIVE;
 	}
-    }
 
-    public void removesharedObject(String[] xface, Object obj, Dictionary props) {
-	for (String xf : xface) {
-	    sharedObjects.get(xf).unregister();
-	    sharedObjects.remove(xf);
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#canBeUninstalled(org.universAAL.middleware.container.ModuleContext)
+	 */
+	public boolean canBeUninstalled(ModuleContext requester) {
+		// TODO check permissions
+		int state = bundle.getBundle().getState();
+		return state == Bundle.RESOLVED || state == Bundle.INSTALLED;
 	}
-    }
 
-    public void removeSharedObject(String xface, Object obj, Dictionary props) {
-	sharedObjects.get(xface).unregister();
-	sharedObjects.remove(xface);
-    }
-
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#start(org.universAAL.middleware.container.ModuleContext)
-     */
-    public boolean start(ModuleContext requester) {
-	if (canBeStarted(requester)) {
-	    try {
-		bundle.getBundle().start();
-		return true;
-	    } catch (Exception e) {
-		// TODO: log
-	    }
+	public Object fetchObject(String className) {
+		ServiceReference sr = bundle.getServiceReference(className);
+		return (sr == null) ? null : bundle.getService(sr);
 	}
-	return false;
-    }
 
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#stop(org.universAAL.middleware.container.ModuleContext)
-     */
-    public boolean stop(ModuleContext requester) {
-	if (canBeStopped(requester)) {
-	    try {
-		bundle.getBundle().stop();
-		return true;
-	    } catch (Exception e) {
-		// TODO: log
-	    }
+	public Object[] fetchObject(String className, String filter) {
+		ServiceReference[] srs = null;
+		try {
+			srs = bundle.getServiceReferences(className, filter);
+		} catch (Exception e) {
+		}
+		if (srs == null || srs.length == 0)
+			return null;
+		else {
+			Object[] result = new Object[srs.length];
+			for (int i = 0; i < srs.length; i++)
+				result[i] = bundle.getService(srs[i]);
+			return result;
+		}
 	}
-	return false;
-    }
 
-    /**
-     * @see org.universAAL.middleware.container.ModuleContext#uninstall(org.universAAL.middleware.container.ModuleContext)
-     */
-    public boolean uninstall(ModuleContext requester) {
-	if (canBeUninstalled(requester)) {
-	    try {
-		bundle.getBundle().uninstall();
-		return true;
-	    } catch (Exception e) {
-		// TODO: log
-	    }
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#getAttribute(java.lang.String)
+	 */
+	public Object getAttribute(String attrName) {
+		return (attrName == null) ? null : extension.get(attrName);
 	}
-	return false;
-    }
 
-    private String[] getBundleList() {
-	Bundle[] bundles = bundle.getBundles();
-	String[] values = new String[bundles.length];
-	for (int i = 0; i < bundles.length; i++) {
-	    values[i] = bundles[i].getSymbolicName() + "-"
-		    + bundles[i].getHeaders(Constants.BUNDLE_VERSION);
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#getContainer()
+	 */
+	public Container getContainer() {
+		return uAALBundleContainer.THE_CONTAINER;
 	}
-	return values;
-    }
 
-    public Object getProperty(String name) {
-	return getProperty(name, null);
-    }
-
-    public Object getProperty(String name, Object def) {
-	Object value = null;
-
-	value = getAttribute(name);
-	if (value != null)
-	    return value;
-
-	value = bundle.getProperty(name);
-	if (value != null)
-	    return value;
-
-	value = System.getProperty(name);
-	if (value != null)
-	    return value;
-
-	value = System.getenv(name);
-	if (value != null)
-	    return value;
-
-	return def;
-    }
-
-    public String getManifestEntry(String name) {
-	return (String) bundle.getBundle().getHeaders().get(name);
-    }
-
-    public String getManifestEntry(String manifest, String name) {
-	URL url = bundle.getBundle().getEntry(manifest);
-	if (url == null)
-	    return null;
-	Manifest man;
-	try {
-	    man = new Manifest(url.openStream());
-	} catch (IOException e) {
-	    // e.printStackTrace();
-	    return null;
+	public String getID() {
+		return bundle.getBundle().getSymbolicName();
 	}
-	return man.getMainAttributes().getValue(name);
-    }
 
-    public File getConfigHome() {
-	return new File(System.getProperty(CONF_ROOT_DIR, System.getProperty("user.dir")), getID());
-    }
+	public uAALBundleContext installBundle(String location) {
+		try {
+			Bundle b = bundle.installBundle(location);
+			return new uAALBundleContext(b.getBundleContext());
+		} catch (Exception e) {
+			logError(this.getClass().getName() + "installBundle", "Exception while installing bundle at " + location,
+					e);
+			return null;
+		}
+	}
 
-    public File getDataFolder() {
-	// XXX maybe set another system property to point to the main data
-	// folder
-	return new File("./Data", getID());
-    }
+	public uAALBundleContext installBundle(String location, InputStream is) {
+		try {
+			Bundle b = bundle.installBundle(location, is);
+			return new uAALBundleContext(b.getBundleContext());
+		} catch (Exception e) {
+			logError(this.getClass().getName() + "installBundle", "Exception while installing bundle at " + location,
+					e);
+			return null;
+		}
+	}
 
-    /** {@inheritDoc} */
-    public boolean isLogErrorEnabled() {
-	return logger.isErrorEnabled();
-    }
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#listConfigFiles(org.universAAL.middleware.container.ModuleContext)
+	 */
+	public File[] listConfigFiles(ModuleContext requester) {
+		// TODO check permissions
+		int n = confFiles.size();
+		File[] files = new File[n];
+		for (int i = 0; i < n; i++)
+			files[i] = (File) ((Object[]) confFiles.get(i))[0];
+		return files;
+	}
 
-    /** {@inheritDoc} */
-    public boolean isLogWarnEnabled() {
-	return logger.isWarnEnabled();
-    }
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#logDebug(java.lang.String,
+	 *      java.lang.Throwable)
+	 */
+	public void logDebug(String tag, String message, Throwable t) {
+		logger.debug(tag + ": " + message, t);
+	}
 
-    /** {@inheritDoc} */
-    public boolean isLogInfoEnabled() {
-	return logger.isInfoEnabled();
-    }
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#logError(java.lang.String,
+	 *      java.lang.Throwable)
+	 */
+	public void logError(String tag, String message, Throwable t) {
+		logger.error(tag + ": " + message, t);
+	}
 
-    /** {@inheritDoc} */
-    public boolean isLogDebugEnabled() {
-	return logger.isDebugEnabled();
-    }
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#logInfo(java.lang.String,
+	 *      java.lang.Throwable)
+	 */
+	public void logInfo(String tag, String message, Throwable t) {
+		logger.info(tag + ": " + message, t);
+	}
 
-    /** {@inheritDoc} */
-    public boolean isLogTraceEnabled() {
-	return logger.isTraceEnabled();
-    }
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#logWarn(java.lang.String,
+	 *      java.lang.Throwable)
+	 */
+	public void logWarn(String tag, String message, Throwable t) {
+		logger.warn(tag + ": " + message, t);
+	}
+
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#logTrace(java.lang.String,
+	 *      java.lang.Throwable)
+	 */
+	public void logTrace(String tag, String message, Throwable t) {
+		logger.trace(tag + ": " + message, t);
+	}
+
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#registerConfigFile(java.lang.Object[])
+	 */
+	public void registerConfigFile(Object[] configFileParams) {
+		// TODO define a convention for the array param
+		// current assumption: 1st param @ index 0 is the
+		// org.osgi.framework.Constants.SERVICE_PID
+		// chosen for a org.osgi.service.cm.ManagedService (type = String)
+		// possible extensions:
+		// 2nd param @ index 1: help string describing the role of the property
+		// file indirectly specified by the first first param @ index 0
+		// 3rd param @ index 2: a hash-table with allowed properties as keys and
+		// a help string about each property as value
+		if (configFileParams != null && configFileParams.length > 0) {
+			configFileParams[0] = new File(servicesConfHome, configFileParams[0].toString() + ".properties");
+			confFiles.add(configFileParams);
+		}
+	}
+
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#setAttribute(java.lang.String,
+	 *      java.lang.Object)
+	 */
+	public void setAttribute(String attrName, Object attrValue) {
+		if (attrName != null && attrValue != null)
+			extension.put(attrName, attrValue);
+	}
+
+	public void shareObject(String xface, Object obj, Dictionary props) {
+		ServiceRegistration sr = bundle.registerService(xface, obj, props);
+		sharedObjects.put(xface, sr);
+	}
+
+	public void shareObject(String[] xface, Object obj, Dictionary props) {
+		ServiceRegistration sr = bundle.registerService(xface, obj, props);
+		for (String xf : xface) {
+			sharedObjects.put(xf, sr);
+		}
+	}
+
+	public void removesharedObject(String[] xface, Object obj, Dictionary props) {
+		for (String xf : xface) {
+			sharedObjects.get(xf).unregister();
+			sharedObjects.remove(xf);
+		}
+	}
+
+	public void removeSharedObject(String xface, Object obj, Dictionary props) {
+		sharedObjects.get(xface).unregister();
+		sharedObjects.remove(xface);
+	}
+
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#start(org.universAAL.middleware.container.ModuleContext)
+	 */
+	public boolean start(ModuleContext requester) {
+		if (canBeStarted(requester)) {
+			try {
+				bundle.getBundle().start();
+				return true;
+			} catch (Exception e) {
+				// TODO: log
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#stop(org.universAAL.middleware.container.ModuleContext)
+	 */
+	public boolean stop(ModuleContext requester) {
+		if (canBeStopped(requester)) {
+			try {
+				bundle.getBundle().stop();
+				return true;
+			} catch (Exception e) {
+				// TODO: log
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @see org.universAAL.middleware.container.ModuleContext#uninstall(org.universAAL.middleware.container.ModuleContext)
+	 */
+	public boolean uninstall(ModuleContext requester) {
+		if (canBeUninstalled(requester)) {
+			try {
+				bundle.getBundle().uninstall();
+				return true;
+			} catch (Exception e) {
+				// TODO: log
+			}
+		}
+		return false;
+	}
+
+	private String[] getBundleList() {
+		Bundle[] bundles = bundle.getBundles();
+		String[] values = new String[bundles.length];
+		for (int i = 0; i < bundles.length; i++) {
+			values[i] = bundles[i].getSymbolicName() + "-" + bundles[i].getHeaders(Constants.BUNDLE_VERSION);
+		}
+		return values;
+	}
+
+	public Object getProperty(String name) {
+		return getProperty(name, null);
+	}
+
+	public Object getProperty(String name, Object def) {
+		Object value = null;
+
+		value = getAttribute(name);
+		if (value != null)
+			return value;
+
+		value = bundle.getProperty(name);
+		if (value != null)
+			return value;
+
+		value = System.getProperty(name);
+		if (value != null)
+			return value;
+
+		value = System.getenv(name);
+		if (value != null)
+			return value;
+
+		return def;
+	}
+
+	public String getManifestEntry(String name) {
+		return (String) bundle.getBundle().getHeaders().get(name);
+	}
+
+	public String getManifestEntry(String manifest, String name) {
+		URL url = bundle.getBundle().getEntry(manifest);
+		if (url == null)
+			return null;
+		Manifest man;
+		try {
+			man = new Manifest(url.openStream());
+		} catch (IOException e) {
+			// e.printStackTrace();
+			return null;
+		}
+		return man.getMainAttributes().getValue(name);
+	}
+
+	public File getConfigHome() {
+		return new File(System.getProperty(CONF_ROOT_DIR, System.getProperty("user.dir")), getID());
+	}
+
+	public File getDataFolder() {
+		// XXX maybe set another system property to point to the main data
+		// folder
+		return new File("./Data", getID());
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogErrorEnabled() {
+		return logger.isErrorEnabled();
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogWarnEnabled() {
+		return logger.isWarnEnabled();
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogInfoEnabled() {
+		return logger.isInfoEnabled();
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogDebugEnabled() {
+		return logger.isDebugEnabled();
+	}
+
+	/** {@inheritDoc} */
+	public boolean isLogTraceEnabled() {
+		return logger.isTraceEnabled();
+	}
 }

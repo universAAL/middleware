@@ -31,19 +31,19 @@ import java.util.List;
  */
 public interface ICalledPeers {
 
-    void setMessageID(String messageID);
+	void setMessageID(String messageID);
 
-    int getNumOfCalledPeers();
+	int getNumOfCalledPeers();
 
-    void setNumOfCalledPeers(int numOfCalledPeers);
+	void setNumOfCalledPeers(int numOfCalledPeers);
 
-    void reduceNumOfCalledPeers();
+	void reduceNumOfCalledPeers();
 
-    void resetCalledPeers();
+	void resetCalledPeers();
 
-    boolean gotResponsesFromAllPeers();
+	boolean gotResponsesFromAllPeers();
 
-    void addProvisions(List contextEventPatterns);
+	void addProvisions(List contextEventPatterns);
 
-    List getProvisions();
+	List getProvisions();
 }

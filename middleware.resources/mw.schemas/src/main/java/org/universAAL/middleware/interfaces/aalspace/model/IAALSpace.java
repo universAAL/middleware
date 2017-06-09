@@ -31,93 +31,80 @@ import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace;
  */
 public interface IAALSpace {
 
-    /**
-     * Gets the value of the spaceDescriptor property.
-     *
-     * @return
-     *     possible object is
-     *     {@link Aalspace.SpaceDescriptor }
-     *
-     */
-    public abstract ISpaceDescriptor getSpaceDescriptor();
+	/**
+	 * Gets the value of the spaceDescriptor property.
+	 *
+	 * @return possible object is {@link Aalspace.SpaceDescriptor }
+	 *
+	 */
+	public abstract ISpaceDescriptor getSpaceDescriptor();
 
-    /**
-     * Sets the value of the spaceDescriptor property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Aalspace.SpaceDescriptor }
-     *
-     */
-    public abstract void setSpaceDescriptor(ISpaceDescriptor value);
+	/**
+	 * Sets the value of the spaceDescriptor property.
+	 *
+	 * @param value
+	 *            allowed object is {@link Aalspace.SpaceDescriptor }
+	 *
+	 */
+	public abstract void setSpaceDescriptor(ISpaceDescriptor value);
 
-    public abstract boolean isSetSpaceDescriptor();
+	public abstract boolean isSetSpaceDescriptor();
 
-    /**
-     * Gets the value of the peeringChannel property.
-     *
-     * @return
-     *     possible object is
-     *     {@link Aalspace.PeeringChannel }
-     *
-     */
-    public abstract IPeeringChannel getPeeringChannel();
+	/**
+	 * Gets the value of the peeringChannel property.
+	 *
+	 * @return possible object is {@link Aalspace.PeeringChannel }
+	 *
+	 */
+	public abstract IPeeringChannel getPeeringChannel();
 
-    /**
-     * Sets the value of the peeringChannel property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Aalspace.PeeringChannel }
-     *
-     */
-    public abstract void setPeeringChannel(IPeeringChannel value);
+	/**
+	 * Sets the value of the peeringChannel property.
+	 *
+	 * @param value
+	 *            allowed object is {@link Aalspace.PeeringChannel }
+	 *
+	 */
+	public abstract void setPeeringChannel(IPeeringChannel value);
 
-    public abstract boolean isSetPeeringChannel();
+	public abstract boolean isSetPeeringChannel();
 
-    /**
-     * Gets the value of the communicationChannels property.
-     *
-     * @return
-     *     possible object is
-     *     {@link Aalspace.CommunicationChannels }
-     *
-     */
-    public abstract ICommunicationChannels getCommunicationChannels();
+	/**
+	 * Gets the value of the communicationChannels property.
+	 *
+	 * @return possible object is {@link Aalspace.CommunicationChannels }
+	 *
+	 */
+	public abstract ICommunicationChannels getCommunicationChannels();
 
-    /**
-     * Sets the value of the communicationChannels property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Aalspace.CommunicationChannels }
-     *
-     */
-    public abstract void setCommunicationChannels(
-            ICommunicationChannels value);
+	/**
+	 * Sets the value of the communicationChannels property.
+	 *
+	 * @param value
+	 *            allowed object is {@link Aalspace.CommunicationChannels }
+	 *
+	 */
+	public abstract void setCommunicationChannels(ICommunicationChannels value);
 
-    public abstract boolean isSetCommunicationChannels();
+	public abstract boolean isSetCommunicationChannels();
 
-    /**
-     * Gets the value of the security property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public abstract String getSecurity();
+	/**
+	 * Gets the value of the security property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public abstract String getSecurity();
 
-    /**
-     * Sets the value of the security property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public abstract void setSecurity(String value);
+	/**
+	 * Sets the value of the security property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public abstract void setSecurity(String value);
 
-    public abstract boolean isSetSecurity();
+	public abstract boolean isSetSecurity();
 
 }

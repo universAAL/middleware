@@ -56,69 +56,69 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "artifact")
 public class Artifact {
 
-    @XmlElement(required = true)
-    protected List<DeploymentUnit> deploymentUnit;
-    @XmlElement(required = true)
-    protected List<ExecutionUnit> executionUnit;
+	@XmlElement(required = true)
+	protected List<DeploymentUnit> deploymentUnit;
+	@XmlElement(required = true)
+	protected List<ExecutionUnit> executionUnit;
 
-    /**
-     * Gets the value of the deploymentUnit property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list, not a
-     * snapshot. Therefore any modification you make to the returned list will
-     * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the deploymentUnit property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * 
-     * <pre>
-     * getDeploymentUnit().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link DeploymentUnit }
-     * 
-     * 
-     */
-    public List<DeploymentUnit> getDeploymentUnit() {
-	if (deploymentUnit == null) {
-	    deploymentUnit = new ArrayList<DeploymentUnit>();
+	/**
+	 * Gets the value of the deploymentUnit property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the deploymentUnit property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getDeploymentUnit().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list
+	 * {@link DeploymentUnit }
+	 * 
+	 * 
+	 */
+	public List<DeploymentUnit> getDeploymentUnit() {
+		if (deploymentUnit == null) {
+			deploymentUnit = new ArrayList<DeploymentUnit>();
+		}
+		return this.deploymentUnit;
 	}
-	return this.deploymentUnit;
-    }
 
-    /**
-     * Gets the value of the executionUnit property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list, not a
-     * snapshot. Therefore any modification you make to the returned list will
-     * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the executionUnit property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * 
-     * <pre>
-     * getExecutionUnit().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link ExecutionUnit }
-     * 
-     * 
-     */
-    public List<ExecutionUnit> getExecutionUnit() {
-	if (executionUnit == null) {
-	    executionUnit = new ArrayList<ExecutionUnit>();
+	/**
+	 * Gets the value of the executionUnit property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the executionUnit property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getExecutionUnit().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list
+	 * {@link ExecutionUnit }
+	 * 
+	 * 
+	 */
+	public List<ExecutionUnit> getExecutionUnit() {
+		if (executionUnit == null) {
+			executionUnit = new ArrayList<ExecutionUnit>();
+		}
+		return this.executionUnit;
 	}
-	return this.executionUnit;
-    }
 
 }

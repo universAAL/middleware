@@ -28,52 +28,50 @@ import org.universAAL.middleware.interfaces.PeerCard;
  */
 public final class ModuleScope extends InstanceScope {
 
-    /**
-     * The module identifier.
-     */
-    private String moduleId;
+	/**
+	 * The module identifier.
+	 */
+	private String moduleId;
 
-    /**
-     * Constructor using strings.
-     * 
-     * @param id
-     * @param peerID
-     * @param moduleID
-     */
-    public ModuleScope(String id, String peerID, String moduleID) {
-	super(id, peerID);
-	if (moduleID == null || moduleID.isEmpty())
-	    throw new IllegalArgumentException(
-		    "moduleID cannot be null or empty");
-	if (moduleID.matches(FORBIDDEN)) {
-	    throw new IllegalArgumentException(
-		    "moduleID contains forbiden format");
+	/**
+	 * Constructor using strings.
+	 * 
+	 * @param id
+	 * @param peerID
+	 * @param moduleID
+	 */
+	public ModuleScope(String id, String peerID, String moduleID) {
+		super(id, peerID);
+		if (moduleID == null || moduleID.isEmpty())
+			throw new IllegalArgumentException("moduleID cannot be null or empty");
+		if (moduleID.matches(FORBIDDEN)) {
+			throw new IllegalArgumentException("moduleID contains forbiden format");
+		}
+		this.moduleId = moduleID;
 	}
-	this.moduleId = moduleID;
-    }
 
-    /**
-     * Constructor using default instance (this), and ModuleContext for module
-     * Id.
-     * 
-     * @param id
-     *            unique id.
-     * @param pc
-     *            for the instance which the scope is meant for, must not be
-     *            null.
-     * @param mc
-     *            for the Module which the scope is meant for, must not be null.
-     */
-    public ModuleScope(String id, PeerCard pc, ModuleContext mc) {
-	this(id, pc.getPeerID(), mc.getID());
-    }
+	/**
+	 * Constructor using default instance (this), and ModuleContext for module
+	 * Id.
+	 * 
+	 * @param id
+	 *            unique id.
+	 * @param pc
+	 *            for the instance which the scope is meant for, must not be
+	 *            null.
+	 * @param mc
+	 *            for the Module which the scope is meant for, must not be null.
+	 */
+	public ModuleScope(String id, PeerCard pc, ModuleContext mc) {
+		this(id, pc.getPeerID(), mc.getID());
+	}
 
-    /**
-     * Get the set Module Id.
-     * 
-     * @return
-     */
-    public String getModuleID() {
-	return moduleId;
-    }
+	/**
+	 * Get the set Module Id.
+	 * 
+	 * @return
+	 */
+	public String getModuleID() {
+		return moduleId;
+	}
 }

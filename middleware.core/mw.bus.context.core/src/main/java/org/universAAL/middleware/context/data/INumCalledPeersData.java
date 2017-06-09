@@ -29,9 +29,9 @@ package org.universAAL.middleware.context.data;
  */
 public interface INumCalledPeersData {
 
-    void addCalledPeers(String messageID, ICalledPeers calledPeers);
+	void addCalledPeers(String messageID, ICalledPeers calledPeers);
 
-    ICalledPeers getCalledPeers(String messageID);
+	ICalledPeers getCalledPeers(String messageID);
 
-    void removeCalledPeers(String messageID);
+	void removeCalledPeers(String messageID);
 }

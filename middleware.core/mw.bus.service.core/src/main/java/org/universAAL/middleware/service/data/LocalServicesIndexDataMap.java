@@ -34,27 +34,25 @@ import org.universAAL.middleware.service.impl.ServiceRealization;
  */
 public class LocalServicesIndexDataMap implements ILocalServicesIndexData {
 
-    Map map = new HashMap();
+	Map map = new HashMap();
 
-    public void addServiceRealization(String id,
-	    ServiceRealization serviceRealization) {
-	map.put(id, serviceRealization);
-    }
+	public void addServiceRealization(String id, ServiceRealization serviceRealization) {
+		map.put(id, serviceRealization);
+	}
 
-    public ServiceRealization removeServiceRealization(String id) {
-	return (ServiceRealization) map.remove(id);
-    }
+	public ServiceRealization removeServiceRealization(String id) {
+		return (ServiceRealization) map.remove(id);
+	}
 
-    public ServiceRealization getServiceRealizationByID(String id) {
-	return (ServiceRealization) map.get(id);
-    }
+	public ServiceRealization getServiceRealizationByID(String id) {
+		return (ServiceRealization) map.get(id);
+	}
 
-    public ServiceRealization[] getAllServiceRealizations() {
-	return (ServiceRealization[]) map.values().toArray(
-		new ServiceRealization[0]);
-    }
+	public ServiceRealization[] getAllServiceRealizations() {
+		return (ServiceRealization[]) map.values().toArray(new ServiceRealization[0]);
+	}
 
-    public String[] getServiceRealizationIds() {
-	return (String[]) map.keySet().toArray(new String[0]);
-    }
+	public String[] getServiceRealizationIds() {
+		return (String[]) map.keySet().toArray(new String[0]);
+	}
 }

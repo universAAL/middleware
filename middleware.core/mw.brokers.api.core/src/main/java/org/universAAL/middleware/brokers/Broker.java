@@ -29,21 +29,21 @@ import org.universAAL.middleware.brokers.message.BrokerMessage;
  */
 public interface Broker {
 
-    public String getBrokerName();
+	public String getBrokerName();
 
-    /**
-     * Release the resources
-     */
-    public void dispose();
+	/**
+	 * Release the resources
+	 */
+	public void dispose();
 
-    public boolean init();
+	public boolean init();
 
-    /**
-     * From String to Broker Message
-     * 
-     * @param message
-     * @return
-     */
-    public BrokerMessage unmarshall(String message);
+	/**
+	 * From String to Broker Message
+	 * 
+	 * @param message
+	 * @return
+	 */
+	public BrokerMessage unmarshall(String message);
 
 }

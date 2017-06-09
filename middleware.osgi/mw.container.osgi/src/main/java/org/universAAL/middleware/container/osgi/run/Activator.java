@@ -37,54 +37,51 @@ import org.universAAL.middleware.container.osgi.uAALBundleContainer;
  * 
  */
 public final class Activator implements BundleActivator, ServiceListener {
-    private BundleContext context;
-    private static ArrayList<LogListener> logListeners = new ArrayList<LogListener>(
-	    2);
-    public static ModuleContext mc;
+	private BundleContext context;
+	private static ArrayList<LogListener> logListeners = new ArrayList<LogListener>(2);
+	public static ModuleContext mc;
 
-    public static Iterator<LogListener> logListeners() {
-	return logListeners.iterator();
-    }
-
-    public void serviceChanged(ServiceEvent se) {
-	Object service = context.getService(se.getServiceReference());
-	if (service instanceof LogListener) {
-	    if (se.getType() == ServiceEvent.REGISTERED)
-		logListeners.add((LogListener) service);
-	    else if (se.getType() == ServiceEvent.UNREGISTERING)
-		logListeners.remove(service);
-	}
-    }
-
-    /**
-     * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
-     *      )
-     */
-    public void start(BundleContext arg0) throws Exception {
-	context = arg0;
-	context.addServiceListener(this);
-	context.addBundleListener(new uAALBundleExtender(context));
-	mc = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	try {
-	    ServiceReference sr[] = context.getServiceReferences(
-		    LogListener.class.getName(), null);
-	    if (sr == null)
-		return;
-	    for (int i = 0; i < sr.length; i++) {
-		LogListener l = (LogListener) context.getService(sr[i]);
-		if (l != null)
-		    logListeners.add(l);
-	    }
-	} catch (InvalidSyntaxException e) {
-	    e.printStackTrace();
+	public static Iterator<LogListener> logListeners() {
+		return logListeners.iterator();
 	}
 
-    }
+	public void serviceChanged(ServiceEvent se) {
+		Object service = context.getService(se.getServiceReference());
+		if (service instanceof LogListener) {
+			if (se.getType() == ServiceEvent.REGISTERED)
+				logListeners.add((LogListener) service);
+			else if (se.getType() == ServiceEvent.UNREGISTERING)
+				logListeners.remove(service);
+		}
+	}
 
-    /**
-     * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-     */
-    public void stop(BundleContext arg0) throws Exception {
-    }
+	/**
+	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
+	 *      )
+	 */
+	public void start(BundleContext arg0) throws Exception {
+		context = arg0;
+		context.addServiceListener(this);
+		context.addBundleListener(new uAALBundleExtender(context));
+		mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		try {
+			ServiceReference sr[] = context.getServiceReferences(LogListener.class.getName(), null);
+			if (sr == null)
+				return;
+			for (int i = 0; i < sr.length; i++) {
+				LogListener l = (LogListener) context.getService(sr[i]);
+				if (l != null)
+					logListeners.add(l);
+			}
+		} catch (InvalidSyntaxException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	 */
+	public void stop(BundleContext arg0) throws Exception {
+	}
 }

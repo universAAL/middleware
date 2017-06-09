@@ -42,109 +42,86 @@ import ch.ethz.iks.slp.ServiceURL;
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class SLPBrowser implements Runnable {
-    private Locator locator;
-    private String aalSpaceServiceType;
-    private String filter;
-    private ModuleContext context;
-    private List<ServiceListener> listeners;
-    private boolean stop = false;
-    private static int MAX_RETRY = 3;
-    private Set<AALSpaceCard> aalSpaces;
+	private Locator locator;
+	private String aalSpaceServiceType;
+	private String filter;
+	private ModuleContext context;
+	private List<ServiceListener> listeners;
+	private boolean stop = false;
+	private static int MAX_RETRY = 3;
+	private Set<AALSpaceCard> aalSpaces;
 
-    public SLPBrowser(Locator locator, String aalSpaceServiceType,
-	    String filter, ModuleContext context,
-	    List<ServiceListener> listeners) {
-	this.locator = locator;
-	this.aalSpaceServiceType = aalSpaceServiceType;
-	this.filter = filter;
-	this.listeners = listeners;
-	this.context = context;
-    }
-
-    public void addListener(ServiceListener listener) {
-	this.listeners.add(listener);
-
-	LogUtils.logDebug(context, SLPBrowser.class, "addListener",
-		new Object[] { "New listener added!" }, null);
-    }
-
-    public void removeListener(ServiceListener listener) {
-	this.listeners.remove(listener);
-	LogUtils.logDebug(context, SLPBrowser.class, "removeListener",
-		new Object[] { "Listener removed!" }, null);
-    }
-
-    public void setStop(boolean stop) {
-	this.stop = stop;
-    }
-
-    public boolean isStop() {
-	return this.stop;
-    }
-
-    public void run() {
-	aalSpaces = new HashSet<AALSpaceCard>();
-	ServiceLocationEnumeration slenum = null;
-	ServiceLocationEnumeration attribs = null;
-	if (!stop) {
-	    try {
-		slenum = locator.findServices(new ServiceType(
-			aalSpaceServiceType), null, filter);
-		while (slenum.hasMoreElements()) {
-		    ServiceURL serviceURL = (ServiceURL) slenum.next();
-		    attribs = locator.findAttributes(serviceURL, null,
-			    AALSpaceCard.getSpaceAttributes());
-		    // FIX JSLP sometimes returns null attributes
-
-		    // attribs = locator.findAttributes(new ServiceType(
-		    // aalSpaceServiceType), null, AALSpaceCard
-		    // .getSpaceAttributes());
-		    if (attribs != null) {
-			LogUtils.logTrace(
-				context,
-				SLPBrowser.class,
-				"run",
-				new Object[] { "Unmarshalling AALSpace attributes..." },
-				null);
-			AALSpaceCard spaceCard = new AALSpaceCard(
-				SLPDiscoveryConnector
-					.unmarshalServiceAttributes(attribs));
-			// TODO: remove the static name of the channel name
-			spaceCard
-				.setPeeringChannelName("mw.modules.aalspace.osgi");
-			spaceCard.setRetry(MAX_RETRY);
-			if (spaceCard.getCoordinatorID() != null) {
-			    aalSpaces.add(spaceCard);
-			    LogUtils.logTrace(
-				    context,
-				    SLPBrowser.class,
-				    "run",
-				    new Object[] { "AALSpace attributes unmarshalled" },
-				    null);
-			}
-		    }
-		}
-		// Calling all the ServiceListeners
-
-		for (ServiceListener listener : listeners) {
-		    LogUtils.logTrace(
-			    context,
-			    SLPBrowser.class,
-			    "run",
-			    new Object[] { "Calling the AALSpaceModule listeners..." },
-			    null);
-		    listener.newAALSpacesFound(aalSpaces);
-		}
-
-	    } catch (Exception e) {
-		LogUtils.logError(
-			context,
-			SLPBrowser.class,
-			"run",
-			new Object[] { "Error during AALSpace search: "
-				+ e.toString() }, e);
-	    }
+	public SLPBrowser(Locator locator, String aalSpaceServiceType, String filter, ModuleContext context,
+			List<ServiceListener> listeners) {
+		this.locator = locator;
+		this.aalSpaceServiceType = aalSpaceServiceType;
+		this.filter = filter;
+		this.listeners = listeners;
+		this.context = context;
 	}
-    }
+
+	public void addListener(ServiceListener listener) {
+		this.listeners.add(listener);
+
+		LogUtils.logDebug(context, SLPBrowser.class, "addListener", new Object[] { "New listener added!" }, null);
+	}
+
+	public void removeListener(ServiceListener listener) {
+		this.listeners.remove(listener);
+		LogUtils.logDebug(context, SLPBrowser.class, "removeListener", new Object[] { "Listener removed!" }, null);
+	}
+
+	public void setStop(boolean stop) {
+		this.stop = stop;
+	}
+
+	public boolean isStop() {
+		return this.stop;
+	}
+
+	public void run() {
+		aalSpaces = new HashSet<AALSpaceCard>();
+		ServiceLocationEnumeration slenum = null;
+		ServiceLocationEnumeration attribs = null;
+		if (!stop) {
+			try {
+				slenum = locator.findServices(new ServiceType(aalSpaceServiceType), null, filter);
+				while (slenum.hasMoreElements()) {
+					ServiceURL serviceURL = (ServiceURL) slenum.next();
+					attribs = locator.findAttributes(serviceURL, null, AALSpaceCard.getSpaceAttributes());
+					// FIX JSLP sometimes returns null attributes
+
+					// attribs = locator.findAttributes(new ServiceType(
+					// aalSpaceServiceType), null, AALSpaceCard
+					// .getSpaceAttributes());
+					if (attribs != null) {
+						LogUtils.logTrace(context, SLPBrowser.class, "run",
+								new Object[] { "Unmarshalling AALSpace attributes..." }, null);
+						AALSpaceCard spaceCard = new AALSpaceCard(
+								SLPDiscoveryConnector.unmarshalServiceAttributes(attribs));
+						// TODO: remove the static name of the channel name
+						spaceCard.setPeeringChannelName("mw.modules.aalspace.osgi");
+						spaceCard.setRetry(MAX_RETRY);
+						if (spaceCard.getCoordinatorID() != null) {
+							aalSpaces.add(spaceCard);
+							LogUtils.logTrace(context, SLPBrowser.class, "run",
+									new Object[] { "AALSpace attributes unmarshalled" }, null);
+						}
+					}
+				}
+				// Calling all the ServiceListeners
+
+				for (ServiceListener listener : listeners) {
+					LogUtils.logTrace(context, SLPBrowser.class, "run",
+							new Object[] { "Calling the AALSpaceModule listeners..." }, null);
+					listener.newAALSpacesFound(aalSpaces);
+				}
+
+			} catch (Exception e) {
+				LogUtils.logError(context, SLPBrowser.class, "run",
+						new Object[] { "Error during AALSpace search: " + e.toString() }, e);
+			}
+		}
+	}
 
 }

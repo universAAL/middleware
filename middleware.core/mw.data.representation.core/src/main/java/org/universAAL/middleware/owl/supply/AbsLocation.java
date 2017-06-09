@@ -48,37 +48,36 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  */
 public abstract class AbsLocation extends ComparableIndividual {
 
-    /** The URI of the ontology class. */
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
-	    + "AbsLocation";
+	/** The URI of the ontology class. */
+	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "AbsLocation";
 
-    /**
-     * Create an abstract location.
-     *
-     * @param uri
-     *            URI of the location.
-     */
-    protected AbsLocation(String uri) {
-	super(uri);
-    }
+	/**
+	 * Create an abstract location.
+	 *
+	 * @param uri
+	 *            URI of the location.
+	 */
+	protected AbsLocation(String uri) {
+		super(uri);
+	}
 
-    /**
-     * Constructor just for usage by de-serializers. Do not use this constructor
-     * within applications as it may lead to incomplete instances that cause
-     * exceptions.
-     */
-    protected AbsLocation() {
-	super();
-    }
+	/**
+	 * Constructor just for usage by de-serializers. Do not use this constructor
+	 * within applications as it may lead to incomplete instances that cause
+	 * exceptions.
+	 */
+	protected AbsLocation() {
+		super();
+	}
 
-    /** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
-    public String getClassURI() {
-	return MY_URI;
-    }
+	/** @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI() */
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    /**
-     * Returns the distance (meters) between the current location and the
-     * argument location.
-     */
-    public abstract float getDistanceTo(AbsLocation other);
+	/**
+	 * Returns the distance (meters) between the current location and the
+	 * argument location.
+	 */
+	public abstract float getDistanceTo(AbsLocation other);
 }

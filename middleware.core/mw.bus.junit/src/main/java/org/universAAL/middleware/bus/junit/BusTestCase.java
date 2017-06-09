@@ -68,231 +68,217 @@ import junit.framework.TestCase;
  */
 public class BusTestCase extends TestCase {
 
-    protected static ModuleContext mc;
-    protected static MessageContentSerializer mcs;
-    private static boolean isInitialized = false;
+	protected static ModuleContext mc;
+	protected static MessageContentSerializer mcs;
+	private static boolean isInitialized = false;
 
-    @Override
-    protected void setUp() throws Exception {
-	super.setUp();
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
 
-	if (isInitialized)
-	    return;
-	isInitialized = true;
+		if (isInitialized)
+			return;
+		isInitialized = true;
 
-	System.out.println(" - starting BusTestCase -");
-	mc = new JUnitModuleContext();
+		System.out.println(" - starting BusTestCase -");
+		mc = new JUnitModuleContext();
 
-	// init data representation
-	SharedResources.moduleContext = mc;
-	SharedResources.loadReasoningEngine();
-	SharedResources.setMiddlewareProp(SharedResources.IS_COORDINATING_PEER, "true");
-	OntologyManagement.getInstance().register(mc, new DataRepOntology());
-	TurtleSerializer turtleS = new TurtleSerializer();
-	mc.getContainer().shareObject(mc, turtleS,
-		new Object[] { MessageContentSerializer.class.getName() });
-	mc.getContainer().shareObject(mc, turtleS,
-			new Object[] { MessageContentSerializerEx.class.getName() });
-	mcs = (MessageContentSerializer) mc.getContainer().fetchSharedObject(
-		mc, new Object[] { MessageContentSerializer.class.getName() });
-	TurtleUtil.moduleContext = mc;
+		// init data representation
+		SharedResources.moduleContext = mc;
+		SharedResources.loadReasoningEngine();
+		SharedResources.setMiddlewareProp(SharedResources.IS_COORDINATING_PEER, "true");
+		OntologyManagement.getInstance().register(mc, new DataRepOntology());
+		TurtleSerializer turtleS = new TurtleSerializer();
+		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializer.class.getName() });
+		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializerEx.class.getName() });
+		mcs = (MessageContentSerializer) mc.getContainer().fetchSharedObject(mc,
+				new Object[] { MessageContentSerializer.class.getName() });
+		TurtleUtil.moduleContext = mc;
 
-	// init bus model
-	final PeerCard myCard = new PeerCard(PeerRole.COORDINATOR, "", "");
+		// init bus model
+		final PeerCard myCard = new PeerCard(PeerRole.COORDINATOR, "", "");
 
-	AALSpaceManager sp = new AALSpaceManager() {
-	    public void dispose() {
-	    }
+		AALSpaceManager sp = new AALSpaceManager() {
+			public void dispose() {
+			}
 
-	    public boolean init() {
-		return false;
-	    }
+			public boolean init() {
+				return false;
+			}
 
-	    public void loadConfigurations(Dictionary arg0) {
-	    }
+			public void loadConfigurations(Dictionary arg0) {
+			}
 
-	    public void addAALSpaceListener(AALSpaceListener arg0) {
-	    }
+			public void addAALSpaceListener(AALSpaceListener arg0) {
+			}
 
-	    public AALSpaceDescriptor getAALSpaceDescriptor() {
-		return new AALSpaceDescriptor() {
-		    private static final long serialVersionUID = -7504183020450042989L;
+			public AALSpaceDescriptor getAALSpaceDescriptor() {
+				return new AALSpaceDescriptor() {
+					private static final long serialVersionUID = -7504183020450042989L;
 
-		    public AALSpaceCard getSpaceCard() {
-			AALSpaceCard sc = new AALSpaceCard();
-			sc.setSpaceID("TestSpaceID");
-			return sc;
-		    }
+					public AALSpaceCard getSpaceCard() {
+						AALSpaceCard sc = new AALSpaceCard();
+						sc.setSpaceID("TestSpaceID");
+						return sc;
+					}
+				};
+			}
+
+			public Set<AALSpaceCard> getAALSpaces() {
+				return null;
+			}
+
+			public Map<String, AALSpaceDescriptor> getManagedAALSpaces() {
+				return null;
+			}
+
+			public MatchingResult getMatchingPeers(Map<String, Serializable> arg0) {
+				return null;
+			}
+
+			public PeerCard getMyPeerCard() {
+				return myCard;
+			}
+
+			public Map<String, Serializable> getPeerAttributes(List<String> arg0, PeerCard arg1) {
+				return null;
+			}
+
+			public Map<String, PeerCard> getPeers() {
+				HashMap map = new HashMap();
+				map.put(myCard.getPeerID(), myCard);
+				return map;
+			}
+
+			public void join(AALSpaceCard arg0) {
+			}
+
+			public void leaveAALSpace(AALSpaceDescriptor arg0) {
+			}
+
+			public void removeAALSpaceListener(AALSpaceListener arg0) {
+			}
 		};
-	    }
 
-	    public Set<AALSpaceCard> getAALSpaces() {
-		return null;
-	    }
+		CommunicationModule com = new CommunicationModule() {
+			public void dispose() {
+			}
 
-	    public Map<String, AALSpaceDescriptor> getManagedAALSpaces() {
-		return null;
-	    }
+			public String getDescription() {
+				return null;
+			}
 
-	    public MatchingResult getMatchingPeers(
-		    Map<String, Serializable> arg0) {
-		return null;
-	    }
+			public String getName() {
+				return null;
+			}
 
-	    public PeerCard getMyPeerCard() {
-		return myCard;
-	    }
+			public String getProvider() {
+				return null;
+			}
 
-	    public Map<String, Serializable> getPeerAttributes(
-		    List<String> arg0, PeerCard arg1) {
-		return null;
-	    }
+			public String getVersion() {
+				return null;
+			}
 
-	    public Map<String, PeerCard> getPeers() {
-		HashMap map = new HashMap();
-		map.put(myCard.getPeerID(), myCard);
-		return map;
-	    }
+			public boolean init() {
+				return false;
+			}
 
-	    public void join(AALSpaceCard arg0) {
-	    }
+			public void loadConfigurations(Dictionary arg0) {
+			}
 
-	    public void leaveAALSpace(AALSpaceDescriptor arg0) {
-	    }
+			public void addMessageListener(MessageListener arg0, String arg1) {
+			}
 
-	    public void removeAALSpaceListener(AALSpaceListener arg0) {
-	    }
-	};
+			public MessageListener getListenerByNameAndType(String arg0, Class arg1) {
+				return null;
+			}
 
-	CommunicationModule com = new CommunicationModule() {
-	    public void dispose() {
-	    }
+			public boolean hasChannel(String arg0) {
+				return true;
+			}
 
-	    public String getDescription() {
-		return null;
-	    }
+			public void messageReceived(ChannelMessage arg0) {
+			}
 
-	    public String getName() {
-		return null;
-	    }
+			public void removeMessageListener(MessageListener arg0, String arg1) {
+			}
 
-	    public String getProvider() {
-		return null;
-	    }
+			public void send(ChannelMessage arg0, PeerCard arg1) throws CommunicationModuleException {
+			}
 
-	    public String getVersion() {
-		return null;
-	    }
+			public void send(ChannelMessage arg0, MessageListener arg1, PeerCard arg2)
+					throws CommunicationModuleException {
+			}
 
-	    public boolean init() {
-		return false;
-	    }
+			public void sendAll(ChannelMessage arg0) throws CommunicationModuleException {
+			}
 
-	    public void loadConfigurations(Dictionary arg0) {
-	    }
+			public void sendAll(ChannelMessage arg0, List<PeerCard> arg1) throws CommunicationModuleException {
+			}
 
-	    public void addMessageListener(MessageListener arg0, String arg1) {
-	    }
+			public void sendAll(ChannelMessage arg0, MessageListener arg1) throws CommunicationModuleException {
+			}
 
-	    public MessageListener getListenerByNameAndType(String arg0,
-		    Class arg1) {
-		return null;
-	    }
+			public void sendAll(ChannelMessage arg0, List<PeerCard> arg1, MessageListener arg2)
+					throws CommunicationModuleException {
+			}
+		};
 
-	    public boolean hasChannel(String arg0) {
-		return true;
-	    }
+		mc.getContainer().shareObject(mc, sp, new Object[] { AALSpaceManager.class.getName() });
 
-	    public void messageReceived(ChannelMessage arg0) {
-	    }
+		AbstractBus.initBrokerage(mc, sp, com);
+		BusMessage.setThisPeer(myCard);
 
-	    public void removeMessageListener(MessageListener arg0, String arg1) {
-	    }
+		// init buses
+		Object[] busFetchParams;
 
-	    public void send(ChannelMessage arg0, PeerCard arg1)
-		    throws CommunicationModuleException {
-	    }
+		busFetchParams = new Object[] { ContextBus.class.getName() };
+		ContextBusImpl.startModule(JUnitContainer.getInstance(), mc, busFetchParams, busFetchParams);
 
-	    public void send(ChannelMessage arg0, MessageListener arg1,
-		    PeerCard arg2) throws CommunicationModuleException {
-	    }
+		busFetchParams = new Object[] { ServiceBus.class.getName() };
+		Object[] busInjectFetchParams = new Object[] { CallInjector.class.getName() };
+		ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams, busInjectFetchParams, busInjectFetchParams);
 
-	    public void sendAll(ChannelMessage arg0)
-		    throws CommunicationModuleException {
-	    }
+		busFetchParams = new Object[] { IUIBus.class.getName() };
+		UIBusImpl.startModule(JUnitContainer.getInstance(), mc, busFetchParams, busFetchParams);
 
-	    public void sendAll(ChannelMessage arg0, List<PeerCard> arg1)
-		    throws CommunicationModuleException {
-	    }
+		// Package p[] = Package.getPackages();
+		// for (int i=0; i<p.length; i++)
+		// System.out.println("--Package: " + p[i].getName());
+		// getOntologies();
+	}
 
-	    public void sendAll(ChannelMessage arg0, MessageListener arg1)
-		    throws CommunicationModuleException {
-	    }
+	/*
+	 * private void getOntologies() { try { ClassLoader cl =
+	 * Thread.currentThread().getContextClassLoader(); URLClassLoader ucl =
+	 * (URLClassLoader) cl; URL[] url = ucl.getURLs(); for (int i = 0; i <
+	 * url.length; i++) { System.out.println("--URL: " + url[i]); String
+	 * urlString = url[i].toString(); LinkedList<URL> result = new
+	 * LinkedList<URL>(); if (urlString.endsWith("/")) { // directory search if
+	 * (urlString.contains("ont.phWorld")) searchOntologiesInDirectory(new
+	 * File(url[i].toURI()), result); } else if (urlString.endsWith(".jar")) {
+	 *
+	 * }
+	 *
+	 * for (URL utemp : result) { System.out.println("   --Ontology: " + utemp);
+	 * } } } catch (Exception e) { e.printStackTrace(); } }
+	 *
+	 * private void searchOntologiesInDirectory(File file, LinkedList<URL>
+	 * result) { //System.out.println("   - searching file: " +
+	 * file.toString()); if (file.isDirectory()) { if (file.canRead()) { for
+	 * (File temp : file.listFiles()) searchOntologiesInDirectory(temp, result);
+	 * } } else { //System.out.println("   - found file: " + file.toString());
+	 * if (file.toString().endsWith("Ontology.class")) { try {
+	 * result.add(file.toURI().toURL()); } catch (MalformedURLException e) {
+	 * e.printStackTrace(); } } } }
+	 */
 
-	    public void sendAll(ChannelMessage arg0, List<PeerCard> arg1,
-		    MessageListener arg2) throws CommunicationModuleException {
-	    }
-	};
+	public String serialize(Resource r) {
+		return mcs.serialize(r);
+	}
 
-	mc.getContainer().shareObject(mc, sp,
-		new Object[] { AALSpaceManager.class.getName() });
-
-	AbstractBus.initBrokerage(mc, sp, com);
-	BusMessage.setThisPeer(myCard);
-
-	// init buses
-	Object[] busFetchParams;
-
-	busFetchParams = new Object[] { ContextBus.class.getName() };
-	ContextBusImpl.startModule(JUnitContainer.getInstance(), mc,
-		busFetchParams, busFetchParams);
-
-	busFetchParams = new Object[] { ServiceBus.class.getName() };
-	Object[] busInjectFetchParams = new Object[] { CallInjector.class
-		.getName() };
-	ServiceBusImpl.startModule(mc, busFetchParams, busFetchParams,
-		busInjectFetchParams, busInjectFetchParams);
-
-	busFetchParams = new Object[] { IUIBus.class.getName() };
-	UIBusImpl.startModule(JUnitContainer.getInstance(), mc, busFetchParams,
-		busFetchParams);
-
-	// Package p[] = Package.getPackages();
-	// for (int i=0; i<p.length; i++)
-	// System.out.println("--Package: " + p[i].getName());
-	// getOntologies();
-    }
-
-    /*
-     * private void getOntologies() { try { ClassLoader cl =
-     * Thread.currentThread().getContextClassLoader(); URLClassLoader ucl =
-     * (URLClassLoader) cl; URL[] url = ucl.getURLs(); for (int i = 0; i <
-     * url.length; i++) { System.out.println("--URL: " + url[i]); String
-     * urlString = url[i].toString(); LinkedList<URL> result = new
-     * LinkedList<URL>(); if (urlString.endsWith("/")) { // directory search if
-     * (urlString.contains("ont.phWorld")) searchOntologiesInDirectory(new
-     * File(url[i].toURI()), result); } else if (urlString.endsWith(".jar")) {
-     *
-     * }
-     *
-     * for (URL utemp : result) { System.out.println("   --Ontology: " + utemp);
-     * } } } catch (Exception e) { e.printStackTrace(); } }
-     *
-     * private void searchOntologiesInDirectory(File file, LinkedList<URL>
-     * result) { //System.out.println("   - searching file: " +
-     * file.toString()); if (file.isDirectory()) { if (file.canRead()) { for
-     * (File temp : file.listFiles()) searchOntologiesInDirectory(temp, result);
-     * } } else { //System.out.println("   - found file: " + file.toString());
-     * if (file.toString().endsWith("Ontology.class")) { try {
-     * result.add(file.toURI().toURL()); } catch (MalformedURLException e) {
-     * e.printStackTrace(); } } } }
-     */
-
-    public String serialize(Resource r) {
-	return mcs.serialize(r);
-    }
-
-    public Resource deserialize(String s) {
-	return (Resource) mcs.deserialize(s);
-    }
+	public Resource deserialize(String s) {
+		return (Resource) mcs.deserialize(s);
+	}
 }

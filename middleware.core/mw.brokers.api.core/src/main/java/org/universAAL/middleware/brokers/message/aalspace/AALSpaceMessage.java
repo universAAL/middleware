@@ -33,60 +33,59 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
  */
 public class AALSpaceMessage implements BrokerMessage {
 
-    private AALSpaceMessageTypes aalSpaceMessageType;
-    private AALSpaceDescriptor spaceDescriptor;
-    private BrokerMessageTypes mtype;
+	private AALSpaceMessageTypes aalSpaceMessageType;
+	private AALSpaceDescriptor spaceDescriptor;
+	private BrokerMessageTypes mtype;
 
-    public AALSpaceMessage() {
-    }
-
-    public AALSpaceDescriptor getSpaceDescriptor() {
-	return spaceDescriptor;
-    }
-
-    public void setSpaceDescriptor(AALSpaceDescriptor spaceDescriptor) {
-	this.spaceDescriptor = spaceDescriptor;
-    }
-
-    public enum AALSpaceMessageTypes {
-	JOIN_REQUEST, LEAVE, REQUEST_TO_LEAVE, CONNECT, DISCONNECT, JOIN_RESPONSE, NEW_PEER, PEER_LOST, NOT_AALSPACE_COODINATOR, REQUEST_PEERCARD, PEERCARD
-    }
-
-    public AALSpaceMessage(AALSpaceDescriptor spaceDescriptor,
-	    AALSpaceMessageTypes type) {
-	this.spaceDescriptor = spaceDescriptor;
-	this.aalSpaceMessageType = type;
-	this.mtype = BrokerMessageTypes.AALSpaceMessage;
-    }
-
-    public AALSpaceMessageTypes getMessageType() {
-	return this.aalSpaceMessageType;
-    }
-
-    public String toString() {
-	String serializedMessage = null;
-	try {
-	    serializedMessage = GsonParserBuilder.getInstance().toJson(this);
-
-	} catch (Exception e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	public AALSpaceMessage() {
 	}
 
-	return serializedMessage;
+	public AALSpaceDescriptor getSpaceDescriptor() {
+		return spaceDescriptor;
+	}
 
-    }
+	public void setSpaceDescriptor(AALSpaceDescriptor spaceDescriptor) {
+		this.spaceDescriptor = spaceDescriptor;
+	}
 
-    public BrokerMessageTypes getMType() {
-	return mtype;
-    }
+	public enum AALSpaceMessageTypes {
+		JOIN_REQUEST, LEAVE, REQUEST_TO_LEAVE, CONNECT, DISCONNECT, JOIN_RESPONSE, NEW_PEER, PEER_LOST, NOT_AALSPACE_COODINATOR, REQUEST_PEERCARD, PEERCARD
+	}
 
-    /**
-     * To implement
-     */
-    public PeerCard[] getReceivers() {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	public AALSpaceMessage(AALSpaceDescriptor spaceDescriptor, AALSpaceMessageTypes type) {
+		this.spaceDescriptor = spaceDescriptor;
+		this.aalSpaceMessageType = type;
+		this.mtype = BrokerMessageTypes.AALSpaceMessage;
+	}
+
+	public AALSpaceMessageTypes getMessageType() {
+		return this.aalSpaceMessageType;
+	}
+
+	public String toString() {
+		String serializedMessage = null;
+		try {
+			serializedMessage = GsonParserBuilder.getInstance().toJson(this);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return serializedMessage;
+
+	}
+
+	public BrokerMessageTypes getMType() {
+		return mtype;
+	}
+
+	/**
+	 * To implement
+	 */
+	public PeerCard[] getReceivers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -42,98 +42,92 @@ import org.universAAL.middleware.util.MatchLogEntry;
 // * individuals that are not instances of the class expression <i>CE</i>.
 public final class Complement extends TypeExpression {
 
-    /** URI for owl:complementOf. */
-    public static final String PROP_OWL_COMPLEMENT_OF = OWL_NAMESPACE
-	    + "complementOf";
+	/** URI for owl:complementOf. */
+	public static final String PROP_OWL_COMPLEMENT_OF = OWL_NAMESPACE + "complementOf";
 
-    /** Constructor. */
-    public Complement() {
-	super();
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param toComplement
-     *            the type expression to which this expression should be the
-     *            complement.
-     */
-    public Complement(TypeExpression toComplement) {
-	if (toComplement == null)
-	    throw new NullPointerException();
-	if (toComplement instanceof Complement)
-	    throw new IllegalArgumentException();
-	props.put(PROP_OWL_COMPLEMENT_OF, toComplement);
-    }
-
-    /** @see org.universAAL.middleware.owl.TypeExpression#copy() */
-    public TypeExpression copy() {
-	return new Complement(getComplementedClass().copy());
-    }
-
-    /**
-     * Get the complement class.
-     *
-     * @return the complement class.
-     */
-    public TypeExpression getComplementedClass() {
-	return (TypeExpression) props.get(PROP_OWL_COMPLEMENT_OF);
-    }
-
-    @Override
-    public String[] getNamedSuperclasses() {
-	return new String[0];
-    }
-
-    @Override
-    public Object[] getUpperEnumeration() {
-	return new Object[0];
-    }
-
-    @Override
-    public boolean hasMember(Object member, HashMap context, int ttl,
-	    List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
-	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
-	if (!getComplementedClass().hasMember(member, cloned, ttl, log))
-	    if (cloned == null || cloned.size() == context.size())
-		return true;
-	// TODO: all values different from those in the changed hashtable would
-	// cause a match
-	return false;
-    }
-
-    @Override
-    public boolean matches(TypeExpression subtype, HashMap context, int ttl,
-	    List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
-	return getComplementedClass()
-		.isDisjointWith(subtype, context, ttl, log);
-    }
-
-    @Override
-    public boolean isDisjointWith(TypeExpression other, HashMap context,
-	    int ttl, List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
-	return getComplementedClass().matches(other, context, ttl, log);
-    }
-
-    @Override
-    public boolean isWellFormed() {
-	return getComplementedClass() != null;
-    }
-
-    @Override
-    public boolean setProperty(String propURI, Object o) {
-	Object tmp = TypeURI.asTypeURI(o);
-	if (tmp != null)
-	    o = tmp;
-	if (PROP_OWL_COMPLEMENT_OF.equals(propURI)
-		&& o instanceof TypeExpression && !(o instanceof Complement)
-		&& !props.containsKey(PROP_OWL_COMPLEMENT_OF)) {
-	    props.put(PROP_OWL_COMPLEMENT_OF, o);
-	    return true;
+	/** Constructor. */
+	public Complement() {
+		super();
 	}
-	return false;
-    }
+
+	/**
+	 * Constructor.
+	 *
+	 * @param toComplement
+	 *            the type expression to which this expression should be the
+	 *            complement.
+	 */
+	public Complement(TypeExpression toComplement) {
+		if (toComplement == null)
+			throw new NullPointerException();
+		if (toComplement instanceof Complement)
+			throw new IllegalArgumentException();
+		props.put(PROP_OWL_COMPLEMENT_OF, toComplement);
+	}
+
+	/** @see org.universAAL.middleware.owl.TypeExpression#copy() */
+	public TypeExpression copy() {
+		return new Complement(getComplementedClass().copy());
+	}
+
+	/**
+	 * Get the complement class.
+	 *
+	 * @return the complement class.
+	 */
+	public TypeExpression getComplementedClass() {
+		return (TypeExpression) props.get(PROP_OWL_COMPLEMENT_OF);
+	}
+
+	@Override
+	public String[] getNamedSuperclasses() {
+		return new String[0];
+	}
+
+	@Override
+	public Object[] getUpperEnumeration() {
+		return new Object[0];
+	}
+
+	@Override
+	public boolean hasMember(Object member, HashMap context, int ttl, List<MatchLogEntry> log) {
+		ttl = checkTTL(ttl);
+		HashMap cloned = (context == null) ? null : (HashMap) context.clone();
+		if (!getComplementedClass().hasMember(member, cloned, ttl, log))
+			if (cloned == null || cloned.size() == context.size())
+				return true;
+		// TODO: all values different from those in the changed hashtable would
+		// cause a match
+		return false;
+	}
+
+	@Override
+	public boolean matches(TypeExpression subtype, HashMap context, int ttl, List<MatchLogEntry> log) {
+		ttl = checkTTL(ttl);
+		return getComplementedClass().isDisjointWith(subtype, context, ttl, log);
+	}
+
+	@Override
+	public boolean isDisjointWith(TypeExpression other, HashMap context, int ttl, List<MatchLogEntry> log) {
+		ttl = checkTTL(ttl);
+		return getComplementedClass().matches(other, context, ttl, log);
+	}
+
+	@Override
+	public boolean isWellFormed() {
+		return getComplementedClass() != null;
+	}
+
+	@Override
+	public boolean setProperty(String propURI, Object o) {
+		Object tmp = TypeURI.asTypeURI(o);
+		if (tmp != null)
+			o = tmp;
+		if (PROP_OWL_COMPLEMENT_OF.equals(propURI) && o instanceof TypeExpression && !(o instanceof Complement)
+				&& !props.containsKey(PROP_OWL_COMPLEMENT_OF)) {
+			props.put(PROP_OWL_COMPLEMENT_OF, o);
+			return true;
+		}
+		return false;
+	}
 }

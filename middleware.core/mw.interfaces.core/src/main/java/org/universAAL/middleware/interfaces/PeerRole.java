@@ -28,5 +28,5 @@ package org.universAAL.middleware.interfaces;
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public enum PeerRole {
-    COORDINATOR, AALSPACE_GATEWAY, SENSOR_NETWORK_GATEWAY, PEER
+	COORDINATOR, AALSPACE_GATEWAY, SENSOR_NETWORK_GATEWAY, PEER
 }

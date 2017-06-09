@@ -27,11 +27,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for artifactType complex type.
+ * <p>
+ * Java class for artifactType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="artifactType">
@@ -49,74 +51,63 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "artifactType", propOrder = {
-    "artifactId",
-    "version"
-})
-public class ArtifactType
-    implements Serializable
-{
+@XmlType(name = "artifactType", propOrder = { "artifactId", "version" })
+public class ArtifactType implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(required = true)
-    protected String artifactId;
-    @XmlElement(required = true)
-    protected VersionType version;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(required = true)
+	protected String artifactId;
+	@XmlElement(required = true)
+	protected VersionType version;
 
-    /**
-     * Gets the value of the artifactId property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getArtifactId() {
-        return artifactId;
-    }
+	/**
+	 * Gets the value of the artifactId property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getArtifactId() {
+		return artifactId;
+	}
 
-    /**
-     * Sets the value of the artifactId property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setArtifactId(String value) {
-        this.artifactId = value;
-    }
+	/**
+	 * Sets the value of the artifactId property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setArtifactId(String value) {
+		this.artifactId = value;
+	}
 
-    public boolean isSetArtifactId() {
-        return (this.artifactId!= null);
-    }
+	public boolean isSetArtifactId() {
+		return (this.artifactId != null);
+	}
 
-    /**
-     * Gets the value of the version property.
-     *
-     * @return
-     *     possible object is
-     *     {@link VersionType }
-     *
-     */
-    public VersionType getVersion() {
-        return version;
-    }
+	/**
+	 * Gets the value of the version property.
+	 *
+	 * @return possible object is {@link VersionType }
+	 *
+	 */
+	public VersionType getVersion() {
+		return version;
+	}
 
-    /**
-     * Sets the value of the version property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link VersionType }
-     *
-     */
-    public void setVersion(VersionType value) {
-        this.version = value;
-    }
+	/**
+	 * Sets the value of the version property.
+	 *
+	 * @param value
+	 *            allowed object is {@link VersionType }
+	 *
+	 */
+	public void setVersion(VersionType value) {
+		this.version = value;
+	}
 
-    public boolean isSetVersion() {
-        return (this.version!= null);
-    }
+	public boolean isSetVersion() {
+		return (this.version != null);
+	}
 
 }

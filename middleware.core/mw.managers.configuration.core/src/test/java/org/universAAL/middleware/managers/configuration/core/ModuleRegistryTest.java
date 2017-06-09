@@ -43,64 +43,63 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
  */
 public class ModuleRegistryTest {
 
-    private class TestModule implements ConfigurableModule {
+	private class TestModule implements ConfigurableModule {
 
-	boolean configured = false;
+		boolean configured = false;
 
-	/** {@ inheritDoc} */
-	public boolean configurationChanged(Scope param, Object value) {
-	    configured = true;
-	    return true;
+		/** {@ inheritDoc} */
+		public boolean configurationChanged(Scope param, Object value) {
+			configured = true;
+			return true;
+		}
 	}
-    }
 
-    private static JUnitModuleContext mc;
+	private static JUnitModuleContext mc;
 
-    @BeforeClass
-    public static void init() {
-	mc = new JUnitModuleContext();
-	mc.getContainer().shareObject(mc, new TurtleSerializer(),
-		new Object[] { MessageContentSerializer.class.getName() });
+	@BeforeClass
+	public static void init() {
+		mc = new JUnitModuleContext();
+		mc.getContainer().shareObject(mc, new TurtleSerializer(),
+				new Object[] { MessageContentSerializer.class.getName() });
 
-	OntologyManagement.getInstance().register(mc, new DataRepOntology());
-	OntologyManagement.getInstance().register(mc,
-		new AALConfigurationOntology());
-	TurtleUtil.moduleContext = mc;
-    }
+		OntologyManagement.getInstance().register(mc, new DataRepOntology());
+		OntologyManagement.getInstance().register(mc, new AALConfigurationOntology());
+		TurtleUtil.moduleContext = mc;
+	}
 
-    @Test
-    public void simpleTest() {
-	DescribedEntity[] des = ConfigSample.getConfigurationDescription();
-	String urn = ScopeFactory.getScopeURN(des[0].getScope());
-	ModuleRegistry mr = new ModuleRegistry();
-	TestModule tm1 = new TestModule();
-	mr.put(urn, tm1);
-	assertTrue(mr.contains(urn));
-	assertFalse(mr.configurationChanged(des[1].getScope(), 1));
-	assertTrue(mr.configurationChanged(des[0].getScope(), 1));
-	assertTrue(tm1.configured);
-	mr.remove(tm1);
-	assertFalse(mr.contains(urn));
-	mr.clear();
-    }
+	@Test
+	public void simpleTest() {
+		DescribedEntity[] des = ConfigSample.getConfigurationDescription();
+		String urn = ScopeFactory.getScopeURN(des[0].getScope());
+		ModuleRegistry mr = new ModuleRegistry();
+		TestModule tm1 = new TestModule();
+		mr.put(urn, tm1);
+		assertTrue(mr.contains(urn));
+		assertFalse(mr.configurationChanged(des[1].getScope(), 1));
+		assertTrue(mr.configurationChanged(des[0].getScope(), 1));
+		assertTrue(tm1.configured);
+		mr.remove(tm1);
+		assertFalse(mr.contains(urn));
+		mr.clear();
+	}
 
-    @Test
-    public void multipleTest() {
-	DescribedEntity[] des = ConfigSample.getConfigurationDescription();
-	String urn = ScopeFactory.getScopeURN(des[0].getScope());
-	ModuleRegistry mr = new ModuleRegistry();
-	TestModule tm1 = new TestModule();
-	TestModule tm2 = new TestModule();
-	TestModule tm3 = new TestModule();
-	mr.put(urn, tm1);
-	mr.put(urn, tm2);
-	mr.put(urn, tm3);
-	assertTrue(mr.contains(urn));
-	assertTrue(mr.configurationChanged(des[0].getScope(), 1));
-	assertTrue(tm1.configured);
-	assertTrue(tm2.configured);
-	assertTrue(tm3.configured);
-	mr.clear();
-	assertFalse(mr.contains(urn));
-    }
+	@Test
+	public void multipleTest() {
+		DescribedEntity[] des = ConfigSample.getConfigurationDescription();
+		String urn = ScopeFactory.getScopeURN(des[0].getScope());
+		ModuleRegistry mr = new ModuleRegistry();
+		TestModule tm1 = new TestModule();
+		TestModule tm2 = new TestModule();
+		TestModule tm3 = new TestModule();
+		mr.put(urn, tm1);
+		mr.put(urn, tm2);
+		mr.put(urn, tm3);
+		assertTrue(mr.contains(urn));
+		assertTrue(mr.configurationChanged(des[0].getScope(), 1));
+		assertTrue(tm1.configured);
+		assertTrue(tm2.configured);
+		assertTrue(tm3.configured);
+		mr.clear();
+		assertFalse(mr.contains(urn));
+	}
 }

@@ -28,30 +28,30 @@ import org.universAAL.middleware.owl.URIRestriction;
  */
 public class IdPattern implements EntityPattern {
 
-    private String id;
+	private String id;
 
-    /**
-     * Contructor for Testing purposes only.
-     */
-    public IdPattern() {
-	id = null;
-    }
+	/**
+	 * Contructor for Testing purposes only.
+	 */
+	public IdPattern() {
+		id = null;
+	}
 
-    /**
-     * Match Entities that match their id with idPattern .
-     * 
-     * @param idPattern
-     *            the pattern to match entities IDs.
-     */
-    public IdPattern(String idPattern) {
-	id = idPattern;
-    }
+	/**
+	 * Match Entities that match their id with idPattern .
+	 * 
+	 * @param idPattern
+	 *            the pattern to match entities IDs.
+	 */
+	public IdPattern(String idPattern) {
+		id = idPattern;
+	}
 
-    /** {@ inheritDoc} */
-    public TypeExpression getRestriction() {
-	URIRestriction ur = new URIRestriction();
-	ur.setPattern(".*configscope\\:" + id + ".*");
-	return ur;
-    }
+	/** {@ inheritDoc} */
+	public TypeExpression getRestriction() {
+		URIRestriction ur = new URIRestriction();
+		ur.setPattern(".*configscope\\:" + id + ".*");
+		return ur;
+	}
 
 }

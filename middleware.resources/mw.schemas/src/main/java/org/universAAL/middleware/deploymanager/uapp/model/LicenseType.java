@@ -28,13 +28,15 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
  * describe the single license
  *
- * <p>Java class for licenseType complex type.
+ * <p>
+ * Java class for licenseType complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="licenseType">
@@ -53,106 +55,91 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "licenseType", propOrder = {
-    "category",
-    "name",
-    "link"
-})
-public class LicenseType
-    implements Serializable
-{
+@XmlType(name = "licenseType", propOrder = { "category", "name", "link" })
+public class LicenseType implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(required = true)
-    protected LicenseCategoryType category;
-    @XmlElement(required = true)
-    protected String name;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String link;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(required = true)
+	protected LicenseCategoryType category;
+	@XmlElement(required = true)
+	protected String name;
+	@XmlElement(required = true)
+	@XmlSchemaType(name = "anyURI")
+	protected String link;
 
-    /**
-     * Gets the value of the category property.
-     *
-     * @return
-     *     possible object is
-     *     {@link LicenseCategoryType }
-     *
-     */
-    public LicenseCategoryType getCategory() {
-        return category;
-    }
+	/**
+	 * Gets the value of the category property.
+	 *
+	 * @return possible object is {@link LicenseCategoryType }
+	 *
+	 */
+	public LicenseCategoryType getCategory() {
+		return category;
+	}
 
-    /**
-     * Sets the value of the category property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link LicenseCategoryType }
-     *
-     */
-    public void setCategory(LicenseCategoryType value) {
-        this.category = value;
-    }
+	/**
+	 * Sets the value of the category property.
+	 *
+	 * @param value
+	 *            allowed object is {@link LicenseCategoryType }
+	 *
+	 */
+	public void setCategory(LicenseCategoryType value) {
+		this.category = value;
+	}
 
-    public boolean isSetCategory() {
-        return (this.category!= null);
-    }
+	public boolean isSetCategory() {
+		return (this.category != null);
+	}
 
-    /**
-     * Gets the value of the name property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Gets the value of the name property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Sets the value of the name property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+	/**
+	 * Sets the value of the name property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
 
-    public boolean isSetName() {
-        return (this.name!= null);
-    }
+	public boolean isSetName() {
+		return (this.name != null);
+	}
 
-    /**
-     * Gets the value of the link property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getLink() {
-        return link;
-    }
+	/**
+	 * Gets the value of the link property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getLink() {
+		return link;
+	}
 
-    /**
-     * Sets the value of the link property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setLink(String value) {
-        this.link = value;
-    }
+	/**
+	 * Sets the value of the link property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setLink(String value) {
+		this.link = value;
+	}
 
-    public boolean isSetLink() {
-        return (this.link!= null);
-    }
+	public boolean isSetLink() {
+		return (this.link != null);
+	}
 
 }

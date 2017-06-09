@@ -34,24 +34,24 @@ import org.universAAL.middleware.interfaces.configuration.scope.Scope;
  */
 public class ConfigurationDefinedElsewhere implements DescribedEntity {
 
-    private Scope scope;
+	private Scope scope;
 
-    /**
-     * Provide a {@link Scope} for an entity that is fully defined somewhere
-     * else.
-     */
-    public ConfigurationDefinedElsewhere(Scope s) {
-	scope = s;
-    }
+	/**
+	 * Provide a {@link Scope} for an entity that is fully defined somewhere
+	 * else.
+	 */
+	public ConfigurationDefinedElsewhere(Scope s) {
+		scope = s;
+	}
 
-    /** {@ inheritDoc} */
-    public final Scope getScope() {
-	return scope;
-    }
+	/** {@ inheritDoc} */
+	public final Scope getScope() {
+		return scope;
+	}
 
-    /** {@ inheritDoc} */
-    public final String getDescription(Locale loc) {
-	return null;
-    }
+	/** {@ inheritDoc} */
+	public final String getDescription(Locale loc) {
+		return null;
+	}
 
 }

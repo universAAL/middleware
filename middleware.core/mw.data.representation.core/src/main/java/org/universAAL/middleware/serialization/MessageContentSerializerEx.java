@@ -30,14 +30,14 @@ package org.universAAL.middleware.serialization;
  */
 public interface MessageContentSerializerEx extends MessageContentSerializer {
 
-    /**
-     * @param serialized
-     *            serialized object
-     * @param resourceURI
-     *            if the serialized String contains multiple resources then this
-     *            parameter determines which resource is returned as root
-     *            object.
-     * @return deserialized content of the bus message
-     */
-    public Object deserialize(String serialized, String resourceURI);
+	/**
+	 * @param serialized
+	 *            serialized object
+	 * @param resourceURI
+	 *            if the serialized String contains multiple resources then this
+	 *            parameter determines which resource is returned as root
+	 *            object.
+	 * @return deserialized content of the bus message
+	 */
+	public Object deserialize(String serialized, String resourceURI);
 }

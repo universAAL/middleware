@@ -31,19 +31,19 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public interface ServiceListener {
-    /**
-     * Called when a new AALSpace has been found
-     * 
-     * @param spaceCard
-     *            Information about the AALSpace
-     */
-    public void newAALSpacesFound(Set<AALSpaceCard> spaceCards);
+	/**
+	 * Called when a new AALSpace has been found
+	 * 
+	 * @param spaceCard
+	 *            Information about the AALSpace
+	 */
+	public void newAALSpacesFound(Set<AALSpaceCard> spaceCards);
 
-    /**
-     * Called when an AALSpace has been destroyed
-     * 
-     * @param spaceCard
-     *            Information about the AALSpace
-     */
-    public void aalSpaceLost(AALSpaceCard spaceCard);
+	/**
+	 * Called when an AALSpace has been destroyed
+	 * 
+	 * @param spaceCard
+	 *            Information about the AALSpace
+	 */
+	public void aalSpaceLost(AALSpaceCard spaceCard);
 }

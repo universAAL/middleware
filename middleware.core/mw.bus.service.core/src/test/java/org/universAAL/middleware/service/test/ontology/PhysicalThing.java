@@ -28,56 +28,54 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  * 
  */
 public class PhysicalThing extends ManagedIndividual {
-    public static final String MY_URI = TestOntology.NAMESPACE
-	    + "PhysicalThing";
-    public static final String PROP_PHYSICAL_LOCATION = TestOntology.NAMESPACE
-	    + "hasLocation";
+	public static final String MY_URI = TestOntology.NAMESPACE + "PhysicalThing";
+	public static final String PROP_PHYSICAL_LOCATION = TestOntology.NAMESPACE + "hasLocation";
 
-    protected PhysicalThing() {
-	super();
-    }
+	protected PhysicalThing() {
+		super();
+	}
 
-    public PhysicalThing(String uri) {
-	super(uri);
-    }
+	public PhysicalThing(String uri) {
+		super(uri);
+	}
 
-    protected PhysicalThing(String uriPrefix, int numProps) {
-	super(uriPrefix, numProps);
-    }
+	protected PhysicalThing(String uriPrefix, int numProps) {
+		super(uriPrefix, numProps);
+	}
 
-    public String getClassURI() {
-	return MY_URI;
-    }
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    public Location getLocation() {
-	return (Location) props.get(PROP_PHYSICAL_LOCATION);
-    }
+	public Location getLocation() {
+		return (Location) props.get(PROP_PHYSICAL_LOCATION);
+	}
 
-    /**
-     * From the point of view of this top most class of things with a location,
-     * the location can be represented in its reduced form. As the class has no
-     * other property, for all other input, we return
-     * {@link ManagedIndividual#PROP_SERIALIZATION_OPTIONAL}.
-     * 
-     * @see ManagedIndividual#getPropSerializationType(String).
-     */
-    public int getPropSerializationType(String propURI) {
-	if (PROP_PHYSICAL_LOCATION.equals(propURI))
-	    return PROP_SERIALIZATION_REDUCED;
-	return PROP_SERIALIZATION_OPTIONAL;
-    }
+	/**
+	 * From the point of view of this top most class of things with a location,
+	 * the location can be represented in its reduced form. As the class has no
+	 * other property, for all other input, we return
+	 * {@link ManagedIndividual#PROP_SERIALIZATION_OPTIONAL}.
+	 * 
+	 * @see ManagedIndividual#getPropSerializationType(String).
+	 */
+	public int getPropSerializationType(String propURI) {
+		if (PROP_PHYSICAL_LOCATION.equals(propURI))
+			return PROP_SERIALIZATION_REDUCED;
+		return PROP_SERIALIZATION_OPTIONAL;
+	}
 
-    public boolean setLocation(Location loc) {
-	if (loc == null)
-	    throw new IllegalArgumentException();
-	props.put(PROP_PHYSICAL_LOCATION, loc);
-	return true;
-    }
+	public boolean setLocation(Location loc) {
+		if (loc == null)
+			throw new IllegalArgumentException();
+		props.put(PROP_PHYSICAL_LOCATION, loc);
+		return true;
+	}
 
-    public boolean setProperty(String propURI, Object o) {
-	if (PROP_PHYSICAL_LOCATION.equals(propURI) && o instanceof Location)
-	    return setLocation((Location) o);
-	else
-	    return super.setProperty(propURI, o);
-    }
+	public boolean setProperty(String propURI, Object o) {
+		if (PROP_PHYSICAL_LOCATION.equals(propURI) && o instanceof Location)
+			return setLocation((Location) o);
+		else
+			return super.setProperty(propURI, o);
+	}
 }

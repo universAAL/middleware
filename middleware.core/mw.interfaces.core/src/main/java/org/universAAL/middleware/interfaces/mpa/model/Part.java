@@ -63,117 +63,116 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement(name = "part")
 public class Part implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlElement(required = true)
-    protected List<DeploymentUnit> deploymentUnit;
-    @XmlElement(required = true)
-    protected List<ExecutionUnit> executionUnit;
-    @XmlAttribute(name = "partId")
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlID
-    @XmlSchemaType(name = "ID")
-    protected String partId;
+	private final static long serialVersionUID = 12343L;
+	@XmlElement(required = true)
+	protected List<DeploymentUnit> deploymentUnit;
+	@XmlElement(required = true)
+	protected List<ExecutionUnit> executionUnit;
+	@XmlAttribute(name = "partId")
+	@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+	@XmlID
+	@XmlSchemaType(name = "ID")
+	protected String partId;
 
-    /**
-     * Gets the value of the deploymentUnit property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list, not a
-     * snapshot. Therefore any modification you make to the returned list will
-     * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the deploymentUnit property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * 
-     * <pre>
-     * getDeploymentUnit().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link DeploymentUnit }
-     * 
-     * 
-     */
-    public List<DeploymentUnit> getDeploymentUnit() {
-	if (deploymentUnit == null) {
-	    deploymentUnit = new ArrayList<DeploymentUnit>();
+	/**
+	 * Gets the value of the deploymentUnit property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the deploymentUnit property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getDeploymentUnit().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list
+	 * {@link DeploymentUnit }
+	 * 
+	 * 
+	 */
+	public List<DeploymentUnit> getDeploymentUnit() {
+		if (deploymentUnit == null) {
+			deploymentUnit = new ArrayList<DeploymentUnit>();
+		}
+		return this.deploymentUnit;
 	}
-	return this.deploymentUnit;
-    }
 
-    public boolean isSetDeploymentUnit() {
-	return ((this.deploymentUnit != null) && (!this.deploymentUnit
-		.isEmpty()));
-    }
-
-    public void unsetDeploymentUnit() {
-	this.deploymentUnit = null;
-    }
-
-    /**
-     * Gets the value of the executionUnit property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list, not a
-     * snapshot. Therefore any modification you make to the returned list will
-     * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the executionUnit property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * 
-     * <pre>
-     * getExecutionUnit().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link ExecutionUnit }
-     * 
-     * 
-     */
-    public List<ExecutionUnit> getExecutionUnit() {
-	if (executionUnit == null) {
-	    executionUnit = new ArrayList<ExecutionUnit>();
+	public boolean isSetDeploymentUnit() {
+		return ((this.deploymentUnit != null) && (!this.deploymentUnit.isEmpty()));
 	}
-	return this.executionUnit;
-    }
 
-    public boolean isSetExecutionUnit() {
-	return ((this.executionUnit != null) && (!this.executionUnit.isEmpty()));
-    }
+	public void unsetDeploymentUnit() {
+		this.deploymentUnit = null;
+	}
 
-    public void unsetExecutionUnit() {
-	this.executionUnit = null;
-    }
+	/**
+	 * Gets the value of the executionUnit property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the executionUnit property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getExecutionUnit().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list
+	 * {@link ExecutionUnit }
+	 * 
+	 * 
+	 */
+	public List<ExecutionUnit> getExecutionUnit() {
+		if (executionUnit == null) {
+			executionUnit = new ArrayList<ExecutionUnit>();
+		}
+		return this.executionUnit;
+	}
 
-    /**
-     * Gets the value of the partId property.
-     * 
-     * @return possible object is {@link String }
-     * 
-     */
-    public String getPartId() {
-	return partId;
-    }
+	public boolean isSetExecutionUnit() {
+		return ((this.executionUnit != null) && (!this.executionUnit.isEmpty()));
+	}
 
-    /**
-     * Sets the value of the partId property.
-     * 
-     * @param value
-     *            allowed object is {@link String }
-     * 
-     */
-    public void setPartId(String value) {
-	this.partId = value;
-    }
+	public void unsetExecutionUnit() {
+		this.executionUnit = null;
+	}
 
-    public boolean isSetPartId() {
-	return (this.partId != null);
-    }
+	/**
+	 * Gets the value of the partId property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getPartId() {
+		return partId;
+	}
+
+	/**
+	 * Sets the value of the partId property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setPartId(String value) {
+		this.partId = value;
+	}
+
+	public boolean isSetPartId() {
+		return (this.partId != null);
+	}
 
 }

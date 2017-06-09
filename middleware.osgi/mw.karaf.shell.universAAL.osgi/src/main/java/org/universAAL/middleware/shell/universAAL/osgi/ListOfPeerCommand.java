@@ -37,32 +37,31 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 @Command(scope = "universAAL", name = "peers", description = "Get the list of peers joining the AALSpace")
 public class ListOfPeerCommand extends OsgiCommandSupport {
 
-    private AALSpaceManager aalSpaceManager;
+	private AALSpaceManager aalSpaceManager;
 
-    @Override
-    protected Object doExecute() throws Exception {
-	log.debug("Executing command...");
-	ServiceReference ref = bundleContext
-		.getServiceReference(AALSpaceManager.class.getName());
-	if (ref != null) {
-	    aalSpaceManager = (AALSpaceManager) bundleContext.getService(ref);
-	} else {
-	    return null;
+	@Override
+	protected Object doExecute() throws Exception {
+		log.debug("Executing command...");
+		ServiceReference ref = bundleContext.getServiceReference(AALSpaceManager.class.getName());
+		if (ref != null) {
+			aalSpaceManager = (AALSpaceManager) bundleContext.getService(ref);
+		} else {
+			return null;
+		}
+		Map<String, PeerCard> peers = aalSpaceManager.getPeers();
+		if (peers != null) {
+			System.out.println(" Found: " + peers.size() + " Peers");
+			System.out.println(" ----------------------------------------");
+			for (String key : peers.keySet()) {
+				if (key.equals(aalSpaceManager.getMyPeerCard().getPeerID()))
+					System.out.println(" * " + peers.get(key));
+				else
+					System.out.println(peers.get(key));
+			}
+		}
+
+		return null;
+
 	}
-	Map<String, PeerCard> peers = aalSpaceManager.getPeers();
-	if (peers != null) {
-	    System.out.println(" Found: " + peers.size() + " Peers");
-	    System.out.println(" ----------------------------------------");
-	    for (String key : peers.keySet()) {
-		if (key.equals(aalSpaceManager.getMyPeerCard().getPeerID()))
-		    System.out.println(" * " + peers.get(key));
-		else
-		    System.out.println(peers.get(key));
-	    }
-	}
-
-	return null;
-
-    }
 
 }

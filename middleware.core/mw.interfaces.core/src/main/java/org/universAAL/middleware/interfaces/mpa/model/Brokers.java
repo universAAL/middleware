@@ -53,28 +53,28 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "brokers")
 public class Brokers {
 
-    @XmlElement(required = true)
-    protected ArtifactType software;
+	@XmlElement(required = true)
+	protected ArtifactType software;
 
-    /**
-     * Gets the value of the software property.
-     * 
-     * @return possible object is {@link ArtifactType }
-     * 
-     */
-    public ArtifactType getSoftware() {
-	return software;
-    }
+	/**
+	 * Gets the value of the software property.
+	 * 
+	 * @return possible object is {@link ArtifactType }
+	 * 
+	 */
+	public ArtifactType getSoftware() {
+		return software;
+	}
 
-    /**
-     * Sets the value of the software property.
-     * 
-     * @param value
-     *            allowed object is {@link ArtifactType }
-     * 
-     */
-    public void setSoftware(ArtifactType value) {
-	this.software = value;
-    }
+	/**
+	 * Sets the value of the software property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link ArtifactType }
+	 * 
+	 */
+	public void setSoftware(ArtifactType value) {
+		this.software = value;
+	}
 
 }

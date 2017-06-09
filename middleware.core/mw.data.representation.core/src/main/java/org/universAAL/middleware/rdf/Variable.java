@@ -31,119 +31,116 @@ import java.util.HashMap;
  */
 public abstract class Variable extends FinalizedResource {
 
-    // URIs of standard variables managed by the uAAL middleware
-    /**
-     * The URI of a standard variable managed by the uAAL middleware indicating
-     * the current time.
-     */
-    public static final String VAR_uAAL_CURRENT_DATETIME = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "currentDatetime";
+	// URIs of standard variables managed by the uAAL middleware
+	/**
+	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * the current time.
+	 */
+	public static final String VAR_uAAL_CURRENT_DATETIME = Resource.uAAL_VOCABULARY_NAMESPACE + "currentDatetime";
 
-    /**
-     * The URI of a standard variable managed by the uAAL middleware indicating
-     * the software component currently accessing the middleware.
-     */
-    public static final String VAR_uAAL_ACCESSING_BUS_MEMBER = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "theAccessingBusMember";
+	/**
+	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * the software component currently accessing the middleware.
+	 */
+	public static final String VAR_uAAL_ACCESSING_BUS_MEMBER = Resource.uAAL_VOCABULARY_NAMESPACE
+			+ "theAccessingBusMember";
 
-    /**
-     * The URI of a standard variable managed by the uAAL middleware indicating
-     * the current human user as claimed by
-     * {@link #VAR_uAAL_ACCESSING_BUS_MEMBER}.
-     */
-    public static final String VAR_uAAL_ACCESSING_HUMAN_USER = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "theAccessingHumanUser";
+	/**
+	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * the current human user as claimed by
+	 * {@link #VAR_uAAL_ACCESSING_BUS_MEMBER}.
+	 */
+	public static final String VAR_uAAL_ACCESSING_HUMAN_USER = Resource.uAAL_VOCABULARY_NAMESPACE
+			+ "theAccessingHumanUser";
 
-    /**
-     * The URI of a standard variable managed by the uAAL middleware indicating
-     * the profile of a service that is estimated to be appropriate for
-     * responding the current service request.
-     */
-    public static final String VAR_uAAL_SERVICE_TO_SELECT = Resource.uAAL_VOCABULARY_NAMESPACE
-	    + "theServiceToSelect";
+	/**
+	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * the profile of a service that is estimated to be appropriate for
+	 * responding the current service request.
+	 */
+	public static final String VAR_uAAL_SERVICE_TO_SELECT = Resource.uAAL_VOCABULARY_NAMESPACE + "theServiceToSelect";
 
-    /**
-     * Storage for all handlers of subclasses. Subclasses have to
-     * {@link #register(VariableHandler)} themselves to this class.
-     */
-    private static final ArrayList<VariableHandler> handlers = new ArrayList<VariableHandler>(
-	    2);
+	/**
+	 * Storage for all handlers of subclasses. Subclasses have to
+	 * {@link #register(VariableHandler)} themselves to this class.
+	 */
+	private static final ArrayList<VariableHandler> handlers = new ArrayList<VariableHandler>(2);
 
-    /**
-     * Subclasses must implement and register this interface.
-     */
-    public static interface VariableHandler {
-	/** @see Variable#isVarRef(Object) */
-	public abstract boolean isVarRef(Object o);
+	/**
+	 * Subclasses must implement and register this interface.
+	 */
+	public static interface VariableHandler {
+		/** @see Variable#isVarRef(Object) */
+		public abstract boolean isVarRef(Object o);
 
-	/** @see Variable#resolveVarRef(Object, HashMap) */
-	public abstract Object resolveVarRef(Object o, HashMap context);
+		/** @see Variable#resolveVarRef(Object, HashMap) */
+		public abstract Object resolveVarRef(Object o, HashMap context);
 
-	/** @see Variable#checkDeserialization(Object) */
-	public abstract boolean checkDeserialization(Object o);
-    }
-
-    /** The constructor. */
-    protected Variable(String uri) {
-	super(uri);
-    }
-
-    /**
-     * Determines if a specified object can be de-serialized to a subclass of
-     * {@link Variable}. Must be implemented by subclasses.
-     *
-     * @param o
-     *            The object to be investigated, must be a subclass of
-     *            {@link Resource}.
-     */
-    public static boolean checkDeserialization(Object o) {
-	for (int i = 0; i < handlers.size(); i++) {
-	    try {
-		if (handlers.get(i).checkDeserialization(o))
-		    return true;
-	    } catch (Exception e) {
-	    }
+		/** @see Variable#checkDeserialization(Object) */
+		public abstract boolean checkDeserialization(Object o);
 	}
-	return false;
-    }
 
-    /**
-     * Determines if the specified object is a {@link Resource} and is of type
-     * owls:ValueOf.
-     */
-    public static boolean isVarRef(Object o) {
-	for (int i = 0; i < handlers.size(); i++) {
-	    try {
-		if (handlers.get(i).isVarRef(o))
-		    return true;
-	    } catch (Exception e) {
-	    }
+	/** The constructor. */
+	protected Variable(String uri) {
+		super(uri);
 	}
-	return false;
-    }
 
-    /** Registration: subclasses must register to this class. */
-    protected static void register(VariableHandler h) {
-	handlers.add(h);
-    }
-
-    public static Object resolveVarRef(Object o, HashMap context) {
-	Object aux;
-	for (int i = 0; i < handlers.size(); i++) {
-	    try {
-		aux = handlers.get(i).resolveVarRef(o, context);
-		if (aux != o)
-		    return aux;
-	    } catch (Exception e) {
-	    }
+	/**
+	 * Determines if a specified object can be de-serialized to a subclass of
+	 * {@link Variable}. Must be implemented by subclasses.
+	 *
+	 * @param o
+	 *            The object to be investigated, must be a subclass of
+	 *            {@link Resource}.
+	 */
+	public static boolean checkDeserialization(Object o) {
+		for (int i = 0; i < handlers.size(); i++) {
+			try {
+				if (handlers.get(i).checkDeserialization(o))
+					return true;
+			} catch (Exception e) {
+			}
+		}
+		return false;
 	}
-	return o;
-    }
 
-    public abstract int getMinCardinality();
+	/**
+	 * Determines if the specified object is a {@link Resource} and is of type
+	 * owls:ValueOf.
+	 */
+	public static boolean isVarRef(Object o) {
+		for (int i = 0; i < handlers.size(); i++) {
+			try {
+				if (handlers.get(i).isVarRef(o))
+					return true;
+			} catch (Exception e) {
+			}
+		}
+		return false;
+	}
 
-    public abstract Object getDefaultValue();
+	/** Registration: subclasses must register to this class. */
+	protected static void register(VariableHandler h) {
+		handlers.add(h);
+	}
 
-    public abstract String getParameterType();
+	public static Object resolveVarRef(Object o, HashMap context) {
+		Object aux;
+		for (int i = 0; i < handlers.size(); i++) {
+			try {
+				aux = handlers.get(i).resolveVarRef(o, context);
+				if (aux != o)
+					return aux;
+			} catch (Exception e) {
+			}
+		}
+		return o;
+	}
+
+	public abstract int getMinCardinality();
+
+	public abstract Object getDefaultValue();
+
+	public abstract String getParameterType();
 
 }

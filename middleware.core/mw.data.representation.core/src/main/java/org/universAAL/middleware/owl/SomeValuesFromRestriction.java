@@ -42,162 +42,152 @@ import org.universAAL.middleware.util.MatchLogEntry;
  */
 public final class SomeValuesFromRestriction extends PropertyRestriction {
 
-    /** URI for this class. */
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
-	    + "SomeValuesFromRestriction";
+	/** URI for this class. */
+	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "SomeValuesFromRestriction";
 
-    /** URI for owl:someValuesFrom. */
-    public static final String PROP_OWL_SOME_VALUES_FROM = OWL_NAMESPACE
-	    + "someValuesFrom";;
+	/** URI for owl:someValuesFrom. */
+	public static final String PROP_OWL_SOME_VALUES_FROM = OWL_NAMESPACE + "someValuesFrom";;
 
-    /** Standard constructor for exclusive use by serializers. */
-    SomeValuesFromRestriction() {
-    }
-
-    /**
-     * Constructor to create a new instance.
-     *
-     * @param propURI
-     *            URI of the property for which this restriction is defined.
-     * @param expr
-     *            Expression for the type that at least one value of the
-     *            property must have.
-     */
-    public SomeValuesFromRestriction(String propURI, TypeExpression expr) {
-	if (propURI == null || expr == null)
-	    throw new NullPointerException();
-	setOnProperty(propURI);
-	super.setProperty(PROP_OWL_SOME_VALUES_FROM, expr);
-    }
-
-    @Override
-    public String getClassURI() {
-	return MY_URI;
-    }
-
-    @Override
-    public Object getConstraint() {
-	return getProperty(PROP_OWL_SOME_VALUES_FROM);
-    }
-
-    @Override
-    public TypeExpression copy() {
-	return copyTo(new SomeValuesFromRestriction());
-    }
-
-    @Override
-    public boolean hasMember(Object member, HashMap context, int ttl,
-	    List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
-	if (!(member instanceof Resource))
-	    return member == null;
-
-	Object o = ((Resource) member).getProperty(getOnProperty());
-	if (o == null)
-	    return true;
-	if (!(o instanceof List)) {
-	    List aux = new ArrayList(1);
-	    aux.add(o);
-	    o = aux;
+	/** Standard constructor for exclusive use by serializers. */
+	SomeValuesFromRestriction() {
 	}
-	int size = ((List) o).size();
 
-	TypeExpression from = (TypeExpression) props
-		.get(PROP_OWL_SOME_VALUES_FROM);
-	if (from != null) {
-	    HashMap cloned = (context == null) ? null : (HashMap) context
-		    .clone();
-	    for (int i = 0; i < size; i++)
-		if (from.hasMember(((List) o).get(i), cloned, ttl, log)) {
-		    synchronize(context, cloned);
-		    return true;
+	/**
+	 * Constructor to create a new instance.
+	 *
+	 * @param propURI
+	 *            URI of the property for which this restriction is defined.
+	 * @param expr
+	 *            Expression for the type that at least one value of the
+	 *            property must have.
+	 */
+	public SomeValuesFromRestriction(String propURI, TypeExpression expr) {
+		if (propURI == null || expr == null)
+			throw new NullPointerException();
+		setOnProperty(propURI);
+		super.setProperty(PROP_OWL_SOME_VALUES_FROM, expr);
+	}
+
+	@Override
+	public String getClassURI() {
+		return MY_URI;
+	}
+
+	@Override
+	public Object getConstraint() {
+		return getProperty(PROP_OWL_SOME_VALUES_FROM);
+	}
+
+	@Override
+	public TypeExpression copy() {
+		return copyTo(new SomeValuesFromRestriction());
+	}
+
+	@Override
+	public boolean hasMember(Object member, HashMap context, int ttl, List<MatchLogEntry> log) {
+		ttl = checkTTL(ttl);
+		if (!(member instanceof Resource))
+			return member == null;
+
+		Object o = ((Resource) member).getProperty(getOnProperty());
+		if (o == null)
+			return true;
+		if (!(o instanceof List)) {
+			List aux = new ArrayList(1);
+			aux.add(o);
+			o = aux;
 		}
-	    return false;
+		int size = ((List) o).size();
+
+		TypeExpression from = (TypeExpression) props.get(PROP_OWL_SOME_VALUES_FROM);
+		if (from != null) {
+			HashMap cloned = (context == null) ? null : (HashMap) context.clone();
+			for (int i = 0; i < size; i++)
+				if (from.hasMember(((List) o).get(i), cloned, ttl, log)) {
+					synchronize(context, cloned);
+					return true;
+				}
+			return false;
+		}
+		return true;
 	}
-	return true;
-    }
 
-    @Override
-    public boolean isDisjointWith(TypeExpression other, HashMap context,
-	    int ttl, List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
-	if (!(other instanceof PropertyRestriction))
-	    return other.isDisjointWith(this, context, ttl, log);
+	@Override
+	public boolean isDisjointWith(TypeExpression other, HashMap context, int ttl, List<MatchLogEntry> log) {
+		ttl = checkTTL(ttl);
+		if (!(other instanceof PropertyRestriction))
+			return other.isDisjointWith(this, context, ttl, log);
 
-	PropertyRestriction r = (PropertyRestriction) other;
-	Object o = getOnProperty();
-	if (o == null || !o.equals(r.getOnProperty()))
-	    return false;
+		PropertyRestriction r = (PropertyRestriction) other;
+		Object o = getOnProperty();
+		if (o == null || !o.equals(r.getOnProperty()))
+			return false;
 
-	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
+		HashMap cloned = (context == null) ? null : (HashMap) context.clone();
 
-	TypeExpression myValues = (TypeExpression) getProperty(PROP_OWL_SOME_VALUES_FROM);
-	if (myValues != null
-		&& !myValues.isDisjointWith((TypeExpression) r
-			.getProperty(PROP_OWL_SOME_VALUES_FROM), cloned, ttl,
-			log))
-	    return false;
+		TypeExpression myValues = (TypeExpression) getProperty(PROP_OWL_SOME_VALUES_FROM);
+		if (myValues != null && !myValues.isDisjointWith((TypeExpression) r.getProperty(PROP_OWL_SOME_VALUES_FROM),
+				cloned, ttl, log))
+			return false;
 
-	return false;
-    }
-
-    @Override
-    public boolean isWellFormed() {
-	return getOnProperty() != null
-		&& (hasProperty(PROP_OWL_SOME_VALUES_FROM));
-    }
-
-    @Override
-    public boolean matches(TypeExpression subset, HashMap context, int ttl,
-	    List<MatchLogEntry> log) {
-	Object noRes = matchesNonRestriction(subset, context, ttl, log);
-	if (noRes instanceof Boolean)
-	    return ((Boolean) noRes).booleanValue();
-
-	// PropertyRestriction otherRes = (PropertyRestriction)noRes;
-
-	// if (otherRes instanceof SomeValuesFromRestriction) {
-	// Hashtable cloned = (context == null) ? null : (Hashtable) context
-	// .clone();
-	// ClassExpression my = (ClassExpression)
-	// getProperty(PROP_OWL_SOME_VALUES_FROM);
-	// ClassExpression other = (ClassExpression)
-	// ((SomeValuesFromRestriction) otherRes)
-	// .getProperty(PROP_OWL_SOME_VALUES_FROM);
-	// if (my != null && other != null) {
-	// if (!my.matches(other, cloned)) {
-	// //synchronize(context, cloned);
-	// //return true;
-	// }
-	// }
-	// }
-
-	return false;
-    }
-
-    @Override
-    public boolean setProperty(String propURI, Object o) {
-	if (o == null || propURI == null || props.containsKey(propURI))
-	    return false;
-
-	// handle this restriction
-	if (PROP_OWL_SOME_VALUES_FROM.equals(propURI)) {
-	    TypeExpression some = (TypeExpression) getProperty(PROP_OWL_SOME_VALUES_FROM);
-	    if (some != null)
 		return false;
-
-	    Object tmp = TypeURI.asTypeURI(o);
-	    if (tmp != null)
-		o = tmp;
-
-	    return super.setProperty(PROP_OWL_SOME_VALUES_FROM, o);
 	}
 
-	// do not handle other restrictions
-	if (propMap.contains(propURI))
-	    return false;
+	@Override
+	public boolean isWellFormed() {
+		return getOnProperty() != null && (hasProperty(PROP_OWL_SOME_VALUES_FROM));
+	}
 
-	// for everything else: call super
-	return super.setProperty(propURI, o);
-    }
+	@Override
+	public boolean matches(TypeExpression subset, HashMap context, int ttl, List<MatchLogEntry> log) {
+		Object noRes = matchesNonRestriction(subset, context, ttl, log);
+		if (noRes instanceof Boolean)
+			return ((Boolean) noRes).booleanValue();
+
+		// PropertyRestriction otherRes = (PropertyRestriction)noRes;
+
+		// if (otherRes instanceof SomeValuesFromRestriction) {
+		// Hashtable cloned = (context == null) ? null : (Hashtable) context
+		// .clone();
+		// ClassExpression my = (ClassExpression)
+		// getProperty(PROP_OWL_SOME_VALUES_FROM);
+		// ClassExpression other = (ClassExpression)
+		// ((SomeValuesFromRestriction) otherRes)
+		// .getProperty(PROP_OWL_SOME_VALUES_FROM);
+		// if (my != null && other != null) {
+		// if (!my.matches(other, cloned)) {
+		// //synchronize(context, cloned);
+		// //return true;
+		// }
+		// }
+		// }
+
+		return false;
+	}
+
+	@Override
+	public boolean setProperty(String propURI, Object o) {
+		if (o == null || propURI == null || props.containsKey(propURI))
+			return false;
+
+		// handle this restriction
+		if (PROP_OWL_SOME_VALUES_FROM.equals(propURI)) {
+			TypeExpression some = (TypeExpression) getProperty(PROP_OWL_SOME_VALUES_FROM);
+			if (some != null)
+				return false;
+
+			Object tmp = TypeURI.asTypeURI(o);
+			if (tmp != null)
+				o = tmp;
+
+			return super.setProperty(PROP_OWL_SOME_VALUES_FROM, o);
+		}
+
+		// do not handle other restrictions
+		if (propMap.contains(propURI))
+			return false;
+
+		// for everything else: call super
+		return super.setProperty(propURI, o);
+	}
 }

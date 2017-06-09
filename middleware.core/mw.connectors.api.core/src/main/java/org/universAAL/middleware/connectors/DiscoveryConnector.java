@@ -34,43 +34,40 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
  */
 public interface DiscoveryConnector extends Connector {
 
-    /**
-     * Discovers all the AALSpace matching agains the filter
-     * 
-     * @param filter
-     * @return
-     */
-    public List<AALSpaceCard> findAALSpace(Dictionary<String, String> filters)
-	    throws DiscoveryConnectorException;
+	/**
+	 * Discovers all the AALSpace matching agains the filter
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	public List<AALSpaceCard> findAALSpace(Dictionary<String, String> filters) throws DiscoveryConnectorException;
 
-    /**
-     * Discovers all the AALSpace without a filter
-     * 
-     * @return
-     */
-    public List<AALSpaceCard> findAALSpace() throws DiscoveryConnectorException;
+	/**
+	 * Discovers all the AALSpace without a filter
+	 * 
+	 * @return
+	 */
+	public List<AALSpaceCard> findAALSpace() throws DiscoveryConnectorException;
 
-    /**
-     * Announce the existence of an AALSpace
-     * 
-     * @param card
-     */
-    public void announceAALSpace(AALSpaceCard spaceCard)
-	    throws DiscoveryConnectorException;
+	/**
+	 * Announce the existence of an AALSpace
+	 * 
+	 * @param card
+	 */
+	public void announceAALSpace(AALSpaceCard spaceCard) throws DiscoveryConnectorException;
 
-    /**
-     * De-register an AALSpace
-     * 
-     * @param spaceCard
-     * @throws DiscoveryConnectorException
-     */
-    public void deregisterAALSpace(AALSpaceCard spaceCard)
-	    throws DiscoveryConnectorException;
+	/**
+	 * De-register an AALSpace
+	 * 
+	 * @param spaceCard
+	 * @throws DiscoveryConnectorException
+	 */
+	public void deregisterAALSpace(AALSpaceCard spaceCard) throws DiscoveryConnectorException;
 
-    public String getSDPPRotocol();
+	public String getSDPPRotocol();
 
-    public void addAALSpaceListener(ServiceListener listener);
+	public void addAALSpaceListener(ServiceListener listener);
 
-    public void removeAALSpaceListener(ServiceListener listener);
+	public void removeAALSpaceListener(ServiceListener listener);
 
 }

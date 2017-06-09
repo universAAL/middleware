@@ -32,95 +32,92 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
  * 
  * @author amedrano
  */
-public class RemoteConfigurationFileEditor extends RemoteConfigurationEntity
-	implements ConfigurationFileEditor {
+public class RemoteConfigurationFileEditor extends RemoteConfigurationEntity implements ConfigurationFileEditor {
 
-    /**
-     * @param configurationManagerImpl
-     * @param uri
-     */
-    public RemoteConfigurationFileEditor(
-	    ConfigurationManagerImpl configurationManagerImpl, Entity entity) {
-	super(configurationManagerImpl, entity);
-    }
-
-    /** {@ inheritDoc} */
-    public URL getDefaultFileRef() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    try {
-		return new URL(((ConfigurationFile) e).getDefaultURL());
-	    } catch (MalformedURLException e1) {
-		e1.printStackTrace();
-	    }
+	/**
+	 * @param configurationManagerImpl
+	 * @param uri
+	 */
+	public RemoteConfigurationFileEditor(ConfigurationManagerImpl configurationManagerImpl, Entity entity) {
+		super(configurationManagerImpl, entity);
 	}
-	return null;
-    }
 
-    /** {@ inheritDoc} */
-    public String getExtensionfilter() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    return ((ConfigurationFile) e).getExtensionFilter();
+	/** {@ inheritDoc} */
+	public URL getDefaultFileRef() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			try {
+				return new URL(((ConfigurationFile) e).getDefaultURL());
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return null;
 	}
-	return null;
-    }
 
-    /** {@ inheritDoc} */
-    public boolean isDefaultValue() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    ConfigurationFile cf = (ConfigurationFile) e;
-	    // oversimplifying:
-	    return cf.getLocalURL().equals(cf.getDefaultURL());
+	/** {@ inheritDoc} */
+	public String getExtensionfilter() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			return ((ConfigurationFile) e).getExtensionFilter();
+		}
+		return null;
 	}
-	return false;
-    }
 
-    /** {@ inheritDoc} */
-    public boolean setDefaultValue() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    ((ConfigurationFile) e).setLocalURL(((ConfigurationFile) e)
-		    .getDefaultURL());
-	    ((ConfigurationFile) e).setContent(null);
-	    e.incrementVersion();
-	    confManager.propagate(e);
-	    return true;
-	}
-	return false;
-    }
-
-    /** {@ inheritDoc} */
-    public File pullFile() {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    ConfigurationFile cf = (ConfigurationFile) e;
-	    // write content in a temp file and return it.
-	    File f = confManager.fileM.getTemporalFile();
-	    ConfigurationFile.writeContentToFile(cf.getContent(), f);
-	    return f;
-	}
-	return null;
-    }
-
-    /** {@ inheritDoc} */
-    public boolean pushFile(File file) {
-	Entity e = getEntity();
-	if (e instanceof ConfigurationFile) {
-	    ConfigurationFile cf = (ConfigurationFile) e;
-	    try {
-		cf.setLocalURL(file.toURI().toURL().toString());
-		cf.loadContentFromLocalURL();
-		cf.setLocalURL(null);
-		cf.incrementVersion();
-		confManager.propagate(cf);
-		return true;
-	    } catch (Exception e1) {
+	/** {@ inheritDoc} */
+	public boolean isDefaultValue() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			ConfigurationFile cf = (ConfigurationFile) e;
+			// oversimplifying:
+			return cf.getLocalURL().equals(cf.getDefaultURL());
+		}
 		return false;
-	    }
 	}
-	return false;
-    }
+
+	/** {@ inheritDoc} */
+	public boolean setDefaultValue() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			((ConfigurationFile) e).setLocalURL(((ConfigurationFile) e).getDefaultURL());
+			((ConfigurationFile) e).setContent(null);
+			e.incrementVersion();
+			confManager.propagate(e);
+			return true;
+		}
+		return false;
+	}
+
+	/** {@ inheritDoc} */
+	public File pullFile() {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			ConfigurationFile cf = (ConfigurationFile) e;
+			// write content in a temp file and return it.
+			File f = confManager.fileM.getTemporalFile();
+			ConfigurationFile.writeContentToFile(cf.getContent(), f);
+			return f;
+		}
+		return null;
+	}
+
+	/** {@ inheritDoc} */
+	public boolean pushFile(File file) {
+		Entity e = getEntity();
+		if (e instanceof ConfigurationFile) {
+			ConfigurationFile cf = (ConfigurationFile) e;
+			try {
+				cf.setLocalURL(file.toURI().toURL().toString());
+				cf.loadContentFromLocalURL();
+				cf.setLocalURL(null);
+				cf.incrementVersion();
+				confManager.propagate(cf);
+				return true;
+			} catch (Exception e1) {
+				return false;
+			}
+		}
+		return false;
+	}
 
 }

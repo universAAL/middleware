@@ -35,7 +35,8 @@ import org.universAAL.middleware.util.MatchLogEntry;
  * DataHasValue.
  * <p>
  * <code>HasValueRestriction(property, a)</code> can be seen as a syntactic
- * shortcut for <code>SomeValuesFromRestriction(property, Enumeration(a))</code>.
+ * shortcut for
+ * <code>SomeValuesFromRestriction(property, Enumeration(a))</code>.
  *
  * @see SomeValuesFromRestriction
  * @see Enumeration
@@ -44,294 +45,284 @@ import org.universAAL.middleware.util.MatchLogEntry;
  */
 public final class HasValueRestriction extends PropertyRestriction {
 
-    /** URI for this class. */
-    public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE
-	    + "HasValueRestriction";
+	/** URI for this class. */
+	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "HasValueRestriction";
 
-    /** URI for owl:hasValue. */
-    public static final String PROP_OWL_HAS_VALUE = OWL_NAMESPACE + "hasValue";
+	/** URI for owl:hasValue. */
+	public static final String PROP_OWL_HAS_VALUE = OWL_NAMESPACE + "hasValue";
 
-    /** Standard constructor for exclusive use by serializers. */
-    HasValueRestriction() {
-    }
+	/** Standard constructor for exclusive use by serializers. */
+	HasValueRestriction() {
+	}
 
-    /**
-     * Constructor to create a new instance.
-     *
-     * @param propURI
-     *            URI of the property for which this restriction is defined.
-     * @param o
-     *            value that the property must have. The value can be an
-     *            individual or a literal. If it is a String holding a valid
-     *            URI, a new Resource is created treating the object as
-     *            individual.
-     */
-    public HasValueRestriction(String propURI, Object o) {
-	if (propURI == null || o == null)
-	    throw new NullPointerException();
-	setOnProperty(propURI);
-	if (o instanceof String && isQualifiedName((String) o))
-	    o = new Resource((String) o);
-	super.setProperty(PROP_OWL_HAS_VALUE, o);
-    }
+	/**
+	 * Constructor to create a new instance.
+	 *
+	 * @param propURI
+	 *            URI of the property for which this restriction is defined.
+	 * @param o
+	 *            value that the property must have. The value can be an
+	 *            individual or a literal. If it is a String holding a valid
+	 *            URI, a new Resource is created treating the object as
+	 *            individual.
+	 */
+	public HasValueRestriction(String propURI, Object o) {
+		if (propURI == null || o == null)
+			throw new NullPointerException();
+		setOnProperty(propURI);
+		if (o instanceof String && isQualifiedName((String) o))
+			o = new Resource((String) o);
+		super.setProperty(PROP_OWL_HAS_VALUE, o);
+	}
 
-    @Override
-    public String getClassURI() {
-	return MY_URI;
-    }
+	@Override
+	public String getClassURI() {
+		return MY_URI;
+	}
 
-    @Override
-    public Object getConstraint() {
-	return getProperty(PROP_OWL_HAS_VALUE);
-    }
+	@Override
+	public Object getConstraint() {
+		return getProperty(PROP_OWL_HAS_VALUE);
+	}
 
-    @Override
-    public TypeExpression copy() {
-	return copyTo(new HasValueRestriction());
-    }
+	@Override
+	public TypeExpression copy() {
+		return copyTo(new HasValueRestriction());
+	}
 
-    /** Helper function for {@link #checkValue(Object, HashMap)}. */
-    private List resolveVariables(List l, HashMap context) {
-	List result = new ArrayList(l.size());
-	for (int i = 0; i < l.size(); i++)
-	    result.add(Variable.resolveVarRef(l.get(i), context));
-	return result;
-    }
+	/** Helper function for {@link #checkValue(Object, HashMap)}. */
+	private List resolveVariables(List l, HashMap context) {
+		List result = new ArrayList(l.size());
+		for (int i = 0; i < l.size(); i++)
+			result.add(Variable.resolveVarRef(l.get(i), context));
+		return result;
+	}
 
-    /** Helper function for {@link #checkValue(Object, HashMap)}. */
-    // -1 -> incompatible; 0 -> equal; 1 -> compatible
-    private int checkValueLists(List first, List second, HashMap context) {
-	if (first.size() != second.size())
-	    return -1;
-	HashMap aux = new HashMap(second.size());
-	for (int i = 0; i < first.size(); i++) {
-	    Object o = first.get(i);
-	    if (o instanceof Variable) {
-		if (((Variable) o).getMinCardinality() > 1)
-		    return -1;
-		boolean found = false;
-		for (Iterator j = second.iterator(); !found && j.hasNext();) {
-		    Object oo = j.next();
-		    if (oo instanceof Variable) {
-			// check that the type in 'oo' is a subclass of the type
-			// in 'o'
-			boolean found2 = false;
-			String superClassName = ((Variable) o)
-				.getParameterType();
-			String subClassName = ((Variable) oo)
-				.getParameterType();
+	/** Helper function for {@link #checkValue(Object, HashMap)}. */
+	// -1 -> incompatible; 0 -> equal; 1 -> compatible
+	private int checkValueLists(List first, List second, HashMap context) {
+		if (first.size() != second.size())
+			return -1;
+		HashMap aux = new HashMap(second.size());
+		for (int i = 0; i < first.size(); i++) {
+			Object o = first.get(i);
+			if (o instanceof Variable) {
+				if (((Variable) o).getMinCardinality() > 1)
+					return -1;
+				boolean found = false;
+				for (Iterator j = second.iterator(); !found && j.hasNext();) {
+					Object oo = j.next();
+					if (oo instanceof Variable) {
+						// check that the type in 'oo' is a subclass of the type
+						// in 'o'
+						boolean found2 = false;
+						String superClassName = ((Variable) o).getParameterType();
+						String subClassName = ((Variable) oo).getParameterType();
 
-			if (superClassName.equals(subClassName)) {
-			    found2 = true;
-			} else {
-			    OntClassInfo sub = OntologyManagement.getInstance()
-				    .getOntClassInfo(subClassName);
-			    if (sub != null) {
-				if (sub.hasSuperClass(superClassName, true))
-				    found2 = true;
-			    }
+						if (superClassName.equals(subClassName)) {
+							found2 = true;
+						} else {
+							OntClassInfo sub = OntologyManagement.getInstance().getOntClassInfo(subClassName);
+							if (sub != null) {
+								if (sub.hasSuperClass(superClassName, true))
+									found2 = true;
+							}
+						}
+
+						if (found2) {
+							aux.put(((Variable) o).getURI(), oo);
+							j.remove();
+							found = true;
+						}
+					} else {
+						if (ManagedIndividual.checkMembership(((Variable) o).getParameterType(), oo)) {
+							aux.put(((Variable) o).getURI(), oo);
+							j.remove();
+							found = true;
+						}
+					}
+				}
+				if (!found)
+					return -1;
+			} else if (!second.remove(o)) {
+				boolean found = false;
+				for (Iterator j = second.iterator(); !found && j.hasNext();) {
+					Object oo = j.next();
+					if (oo instanceof Variable) {
+						if (((Variable) oo).getMinCardinality() > 1)
+							return -1;
+						if (ManagedIndividual.checkMembership(((Variable) oo).getParameterType(), o)) {
+							aux.put(((Variable) oo).getURI(), o);
+							j.remove();
+							found = true;
+						}
+					}
+				}
+				if (!found)
+					return -1;
 			}
-
-			if (found2) {
-			    aux.put(((Variable) o).getURI(), oo);
-			    j.remove();
-			    found = true;
-			}
-		    } else {
-			if (ManagedIndividual.checkMembership(
-				((Variable) o).getParameterType(), oo)) {
-			    aux.put(((Variable) o).getURI(), oo);
-			    j.remove();
-			    found = true;
-			}
-		    }
 		}
-		if (!found)
-		    return -1;
-	    } else if (!second.remove(o)) {
-		boolean found = false;
-		for (Iterator j = second.iterator(); !found && j.hasNext();) {
-		    Object oo = j.next();
-		    if (oo instanceof Variable) {
-			if (((Variable) oo).getMinCardinality() > 1)
-			    return -1;
-			if (ManagedIndividual.checkMembership(
-				((Variable) oo).getParameterType(), o)) {
-			    aux.put(((Variable) oo).getURI(), o);
-			    j.remove();
-			    found = true;
+		if (!second.isEmpty())
+			return -1;
+		if (!aux.isEmpty())
+			if (context == null)
+				return -1;
+			else {
+				for (Iterator i = aux.keySet().iterator(); i.hasNext();) {
+					Object key = i.next();
+					context.put(key, aux.get(key));
+				}
+				return 1;
 			}
-		    }
+		return 0;
+	}
+
+	/** Helper function for {@link #hasMember(Object, HashMap)}. */
+	// -1 -> incompatible; 0 -> equal; 1 -> compatible
+	private int checkValue(Object value, HashMap context) {
+		if (value == null)
+			return 1;
+
+		Object myValue = props.get(PROP_OWL_HAS_VALUE);
+		if (myValue == null)
+			// no value restriction => all values are compatible
+			return 1;
+
+		if (myValue instanceof List)
+			myValue = resolveVariables((List) myValue, context);
+		else {
+			List aux = new ArrayList(1);
+			aux.add(Variable.resolveVarRef(myValue, context));
+			myValue = aux;
 		}
-		if (!found)
-		    return -1;
-	    }
-	}
-	if (!second.isEmpty())
-	    return -1;
-	if (!aux.isEmpty())
-	    if (context == null)
-		return -1;
-	    else {
-		for (Iterator i = aux.keySet().iterator(); i.hasNext();) {
-		    Object key = i.next();
-		    context.put(key, aux.get(key));
+
+		// if (value == null) {
+		// if (((List) myValue).size() == 1)
+		// myValue = ((List) myValue).get(0);
+		// else
+		// return -1;
+		//
+		// // an optional parameter without any existing and / or default value
+		// // means that null value is accepted; then we remark that under the
+		// // condition that this parameter remains null, the null value is
+		// // acceptable;
+		// // for this purpose rdf:nil is used. An existing remark means that
+		// // the above was asserted previously
+		// if (RDF_EMPTY_LIST.equals(myValue))
+		// return 0;
+		// if (myValue instanceof Variable
+		// && ((Variable) myValue).getMinCardinality() == 0
+		// && ((Variable) myValue).getDefaultValue() == null) {
+		// context.put(((Variable) myValue).getURI(), RDF_EMPTY_LIST);
+		// return 0;
+		// }
+		// return -1;
+		// }
+
+		if (value instanceof List)
+			value = resolveVariables((List) value, context);
+		else {
+			List aux = new ArrayList(1);
+			aux.add(Variable.resolveVarRef(value, context));
+			value = aux;
 		}
-		return 1;
-	    }
-	return 0;
-    }
 
-    /** Helper function for {@link #hasMember(Object, HashMap)}. */
-    // -1 -> incompatible; 0 -> equal; 1 -> compatible
-    private int checkValue(Object value, HashMap context) {
-	if (value == null)
-	    return 1;
-
-	Object myValue = props.get(PROP_OWL_HAS_VALUE);
-	if (myValue == null)
-	    // no value restriction => all values are compatible
-	    return 1;
-
-	if (myValue instanceof List)
-	    myValue = resolveVariables((List) myValue, context);
-	else {
-	    List aux = new ArrayList(1);
-	    aux.add(Variable.resolveVarRef(myValue, context));
-	    myValue = aux;
+		return checkValueLists((List) myValue, (List) value, context);
 	}
 
-	// if (value == null) {
-	// if (((List) myValue).size() == 1)
-	// myValue = ((List) myValue).get(0);
-	// else
-	// return -1;
-	//
-	// // an optional parameter without any existing and / or default value
-	// // means that null value is accepted; then we remark that under the
-	// // condition that this parameter remains null, the null value is
-	// // acceptable;
-	// // for this purpose rdf:nil is used. An existing remark means that
-	// // the above was asserted previously
-	// if (RDF_EMPTY_LIST.equals(myValue))
-	// return 0;
-	// if (myValue instanceof Variable
-	// && ((Variable) myValue).getMinCardinality() == 0
-	// && ((Variable) myValue).getDefaultValue() == null) {
-	// context.put(((Variable) myValue).getURI(), RDF_EMPTY_LIST);
-	// return 0;
-	// }
-	// return -1;
-	// }
+	@Override
+	public boolean hasMember(Object member, HashMap context, int ttl, List<MatchLogEntry> log) {
+		// ttl =
+		checkTTL(ttl);
+		if (!(member instanceof Resource))
+			return member == null;
 
-	if (value instanceof List)
-	    value = resolveVariables((List) value, context);
-	else {
-	    List aux = new ArrayList(1);
-	    aux.add(Variable.resolveVarRef(value, context));
-	    value = aux;
-	}
-
-	return checkValueLists((List) myValue, (List) value, context);
-    }
-
-    @Override
-    public boolean hasMember(Object member, HashMap context, int ttl,
-	    List<MatchLogEntry> log) {
-	// ttl =
-	checkTTL(ttl);
-	if (!(member instanceof Resource))
-	    return member == null;
-
-	Object value = ((Resource) member).getProperty(getOnProperty());
-	if (checkValue(value, context) == -1)
-	    return false;
-	return true;
-    }
-
-    @Override
-    public boolean isDisjointWith(TypeExpression other, HashMap context,
-	    int ttl, List<MatchLogEntry> log) {
-	ttl = checkTTL(ttl);
-	if (!(other instanceof PropertyRestriction))
-	    return other.isDisjointWith(this, context, ttl, log);
-
-	PropertyRestriction r = (PropertyRestriction) other;
-	Object o = getOnProperty();
-	if (o == null || !o.equals(r.getOnProperty()))
-	    return false;
-
-	o = r.getProperty(PROP_OWL_HAS_VALUE);
-	HashMap cloned = (context == null) ? null : (HashMap) context.clone();
-	switch (checkValue(o, cloned)) {
-	case -1: // incompatible
-	    return true;
-	case 0: // equal
-	    if (cloned == null || cloned.size() == context.size())
-		// unconditional equality
-		return false;
-	    else
-		// TODO: because the equality was conditional, there is still a
-		// chance to return true by adopting complement conditions into
-		// context
-		return false;
-	}
-
-	return true;
-    }
-
-    @Override
-    public boolean isWellFormed() {
-	return getOnProperty() != null && (hasProperty(PROP_OWL_HAS_VALUE));
-    }
-
-    @Override
-    public boolean matches(TypeExpression subset, HashMap context, int ttl,
-	    List<MatchLogEntry> log) {
-	Object noRes = matchesNonRestriction(subset, context, ttl, log);
-	if (noRes instanceof Boolean)
-	    return ((Boolean) noRes).booleanValue();
-
-	PropertyRestriction other = (PropertyRestriction) noRes;
-
-	if (other instanceof HasValueRestriction) {
-	    HashMap cloned = (context == null) ? null : (HashMap) context
-		    .clone();
-	    Object o = other.getProperty(PROP_OWL_HAS_VALUE);
-	    switch (checkValue(o, cloned)) {
-	    case -1:
-		return false;
-	    case 0:
-	    case 1:
-		synchronize(context, cloned);
+		Object value = ((Resource) member).getProperty(getOnProperty());
+		if (checkValue(value, context) == -1)
+			return false;
 		return true;
-	    }
 	}
 
-	return false;
-    }
+	@Override
+	public boolean isDisjointWith(TypeExpression other, HashMap context, int ttl, List<MatchLogEntry> log) {
+		ttl = checkTTL(ttl);
+		if (!(other instanceof PropertyRestriction))
+			return other.isDisjointWith(this, context, ttl, log);
 
-    @Override
-    public boolean setProperty(String propURI, Object o) {
-	if (o == null || propURI == null || props.containsKey(propURI))
-	    return false;
+		PropertyRestriction r = (PropertyRestriction) other;
+		Object o = getOnProperty();
+		if (o == null || !o.equals(r.getOnProperty()))
+			return false;
 
-	// handle this restriction
-	if (PROP_OWL_HAS_VALUE.equals(propURI)) {
-	    Object hasVal = getProperty(PROP_OWL_HAS_VALUE);
-	    if (hasVal != null)
+		o = r.getProperty(PROP_OWL_HAS_VALUE);
+		HashMap cloned = (context == null) ? null : (HashMap) context.clone();
+		switch (checkValue(o, cloned)) {
+		case -1: // incompatible
+			return true;
+		case 0: // equal
+			if (cloned == null || cloned.size() == context.size())
+				// unconditional equality
+				return false;
+			else
+				// TODO: because the equality was conditional, there is still a
+				// chance to return true by adopting complement conditions into
+				// context
+				return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean isWellFormed() {
+		return getOnProperty() != null && (hasProperty(PROP_OWL_HAS_VALUE));
+	}
+
+	@Override
+	public boolean matches(TypeExpression subset, HashMap context, int ttl, List<MatchLogEntry> log) {
+		Object noRes = matchesNonRestriction(subset, context, ttl, log);
+		if (noRes instanceof Boolean)
+			return ((Boolean) noRes).booleanValue();
+
+		PropertyRestriction other = (PropertyRestriction) noRes;
+
+		if (other instanceof HasValueRestriction) {
+			HashMap cloned = (context == null) ? null : (HashMap) context.clone();
+			Object o = other.getProperty(PROP_OWL_HAS_VALUE);
+			switch (checkValue(o, cloned)) {
+			case -1:
+				return false;
+			case 0:
+			case 1:
+				synchronize(context, cloned);
+				return true;
+			}
+		}
+
 		return false;
-	    // if (!Variable.checkDeserialization(o))
-	    // return false;
-	    // hasVarRefAsValue = Variable.isVarRef(o);
-	    return super.setProperty(PROP_OWL_HAS_VALUE, o);
 	}
 
-	// do not handle other restrictions
-	if (propMap.contains(propURI))
-	    return false;
+	@Override
+	public boolean setProperty(String propURI, Object o) {
+		if (o == null || propURI == null || props.containsKey(propURI))
+			return false;
 
-	// for everything else: call super
-	return super.setProperty(propURI, o);
-    }
+		// handle this restriction
+		if (PROP_OWL_HAS_VALUE.equals(propURI)) {
+			Object hasVal = getProperty(PROP_OWL_HAS_VALUE);
+			if (hasVal != null)
+				return false;
+			// if (!Variable.checkDeserialization(o))
+			// return false;
+			// hasVarRefAsValue = Variable.isVarRef(o);
+			return super.setProperty(PROP_OWL_HAS_VALUE, o);
+		}
+
+		// do not handle other restrictions
+		if (propMap.contains(propURI))
+			return false;
+
+		// for everything else: call super
+		return super.setProperty(propURI, o);
+	}
 }

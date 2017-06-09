@@ -40,38 +40,35 @@ import org.junit.Test;
  */
 public class AalspaceTest {
 
-    @Test
-    public void testHomeSpace() {
-        try {
-            JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
-            Unmarshaller unmarshaller = jc.createUnmarshaller();
-            Marshaller marshaller = jc.createMarshaller();
-            InputStream is = AalspaceTest.class
-                    .getResourceAsStream("./Home.space");
-            Aalspace space = (Aalspace) unmarshaller.unmarshal(is);
-            assertNotNull(space.getOwner());
-            assertNotNull(space.getAdmin());
-        } catch (JAXBException e) {
-            e.printStackTrace(System.err);
-            fail(e.getMessage());
-        }
-    }
+	@Test
+	public void testHomeSpace() {
+		try {
+			JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
+			Unmarshaller unmarshaller = jc.createUnmarshaller();
+			Marshaller marshaller = jc.createMarshaller();
+			InputStream is = AalspaceTest.class.getResourceAsStream("./Home.space");
+			Aalspace space = (Aalspace) unmarshaller.unmarshal(is);
+			assertNotNull(space.getOwner());
+			assertNotNull(space.getAdmin());
+		} catch (JAXBException e) {
+			e.printStackTrace(System.err);
+			fail(e.getMessage());
+		}
+	}
 
-
-    @Test
-    public void testHomeSpace101() {
-        try {
-            JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
-            Unmarshaller unmarshaller = jc.createUnmarshaller();
-            Marshaller marshaller = jc.createMarshaller();
-            InputStream is = AalspaceTest.class
-                    .getResourceAsStream("./Home.1.0.1.space");
-            Aalspace space = (Aalspace) unmarshaller.unmarshal(is);
-            assertNull(space.getOwner());
-            assertNull(space.getAdmin());
-        } catch (JAXBException e) {
-            e.printStackTrace(System.err);
-            fail(e.getMessage());
-        }
-    }
+	@Test
+	public void testHomeSpace101() {
+		try {
+			JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
+			Unmarshaller unmarshaller = jc.createUnmarshaller();
+			Marshaller marshaller = jc.createMarshaller();
+			InputStream is = AalspaceTest.class.getResourceAsStream("./Home.1.0.1.space");
+			Aalspace space = (Aalspace) unmarshaller.unmarshal(is);
+			assertNull(space.getOwner());
+			assertNull(space.getAdmin());
+		} catch (JAXBException e) {
+			e.printStackTrace(System.err);
+			fail(e.getMessage());
+		}
+	}
 }

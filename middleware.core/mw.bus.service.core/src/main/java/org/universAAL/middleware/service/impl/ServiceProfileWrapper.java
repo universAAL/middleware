@@ -32,37 +32,37 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * 
  */
 public class ServiceProfileWrapper extends ServiceWrapper {
-    private ServiceProfile r;
+	private ServiceProfile r;
 
-    public ServiceProfileWrapper(ServiceProfile r) {
-	if (r == null)
-	    throw new IllegalArgumentException();
-	this.r = r;
-    }
+	public ServiceProfileWrapper(ServiceProfile r) {
+		if (r == null)
+			throw new IllegalArgumentException();
+		this.r = r;
+	}
 
-    @Override
-    public Service getService() {
-	return r.getTheService();
-    }
+	@Override
+	public Service getService() {
+		return r.getTheService();
+	}
 
-    @Override
-    public Object getProperty(String propURI) {
-	return r.getProperty(propURI);
-    }
+	@Override
+	public Object getProperty(String propURI) {
+		return r.getProperty(propURI);
+	}
 
-    @Override
-    public Resource[] getEffects() {
-	return r.getEffects();
-    }
+	@Override
+	public Resource[] getEffects() {
+		return r.getEffects();
+	}
 
-    @Override
-    public Resource[] getOutputs() {
-	return r.getOutputBindings();
-    }
+	@Override
+	public Resource[] getOutputs() {
+		return r.getOutputBindings();
+	}
 
-    @Override
-    public Object getInitialServiceDialogProperty(String propURI) {
-	InitialServiceDialog is = (InitialServiceDialog) getService();
-	return is.getProperty(propURI);
-    }
+	@Override
+	public Object getInitialServiceDialogProperty(String propURI) {
+		InitialServiceDialog is = (InitialServiceDialog) getService();
+		return is.getProperty(propURI);
+	}
 }

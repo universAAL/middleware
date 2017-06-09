@@ -28,15 +28,18 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
-
 /**
  *
- * Additional configuration files which should be created during feature installation.
+ * Additional configuration files which should be created during feature
+ * installation.
  *
  *
- * <p>Java class for configFile complex type.
+ * <p>
+ * Java class for configFile complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="configFile">
@@ -51,72 +54,63 @@ import javax.xml.bind.annotation.XmlValue;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "configFile", namespace = "http://karaf.apache.org/xmlns/features/v1.0.0", propOrder = {
-    "value"
-})
-public class ConfigFile implements Serializable
-{
+@XmlType(name = "configFile", namespace = "http://karaf.apache.org/xmlns/features/v1.0.0", propOrder = { "value" })
+public class ConfigFile implements Serializable {
 
-    private final static long serialVersionUID = 12343L;
-    @XmlValue
-    protected String value;
-    @XmlAttribute(name = "finalname", required = true)
-    protected String finalname;
+	private final static long serialVersionUID = 12343L;
+	@XmlValue
+	protected String value;
+	@XmlAttribute(name = "finalname", required = true)
+	protected String finalname;
 
-    /**
-     * Gets the value of the value property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getValue() {
-        return value;
-    }
+	/**
+	 * Gets the value of the value property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getValue() {
+		return value;
+	}
 
-    /**
-     * Sets the value of the value property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+	/**
+	 * Sets the value of the value property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-    public boolean isSetValue() {
-        return (this.value!= null);
-    }
+	public boolean isSetValue() {
+		return (this.value != null);
+	}
 
-    /**
-     * Gets the value of the finalname property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getFinalname() {
-        return finalname;
-    }
+	/**
+	 * Gets the value of the finalname property.
+	 *
+	 * @return possible object is {@link String }
+	 *
+	 */
+	public String getFinalname() {
+		return finalname;
+	}
 
-    /**
-     * Sets the value of the finalname property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setFinalname(String value) {
-        this.finalname = value;
-    }
+	/**
+	 * Sets the value of the finalname property.
+	 *
+	 * @param value
+	 *            allowed object is {@link String }
+	 *
+	 */
+	public void setFinalname(String value) {
+		this.finalname = value;
+	}
 
-    public boolean isSetFinalname() {
-        return (this.finalname!= null);
-    }
+	public boolean isSetFinalname() {
+		return (this.finalname != null);
+	}
 
 }

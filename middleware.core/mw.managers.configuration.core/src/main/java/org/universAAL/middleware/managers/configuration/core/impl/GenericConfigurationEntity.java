@@ -33,50 +33,48 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
  * @author amedrano
  * 
  */
-public abstract class GenericConfigurationEntity implements
-	ConfigurableEntityEditor {
+public abstract class GenericConfigurationEntity implements ConfigurableEntityEditor {
 
-    /**
-     * 
-     */
-    protected final ConfigurationManagerImpl confManager;
-    protected String uri;
-    protected List<ConfigurableEntityEditorListener> listeners;
+	/**
+	 * 
+	 */
+	protected final ConfigurationManagerImpl confManager;
+	protected String uri;
+	protected List<ConfigurableEntityEditorListener> listeners;
 
-    /**
-     * 
-     */
-    public GenericConfigurationEntity(
-	    ConfigurationManagerImpl configurationManagerImpl, String uri) {
-	confManager = configurationManagerImpl;
-	listeners = new ArrayList<ConfigurableEntityEditorListener>();
-	this.uri = uri;
-    }
-
-    public String getURI() {
-	return uri;
-    }
-
-    /** {@ inheritDoc} */
-    public void subscribe2Changes(ConfigurableEntityEditorListener listener) {
-	listeners.add(listener);
-
-    }
-
-    /** {@ inheritDoc} */
-    public void unsubscribe2Changes(ConfigurableEntityEditorListener listener) {
-	listeners.remove(listener);
-    }
-
-    /** {@ inheritDoc} */
-    public Scope getScope() {
-	return ScopeFactory.getScope(uri);
-    }
-
-    public void updated(Entity e) {
-	for (ConfigurableEntityEditorListener l : listeners) {
-	    l.ConfigurationChanged(this);
+	/**
+	 * 
+	 */
+	public GenericConfigurationEntity(ConfigurationManagerImpl configurationManagerImpl, String uri) {
+		confManager = configurationManagerImpl;
+		listeners = new ArrayList<ConfigurableEntityEditorListener>();
+		this.uri = uri;
 	}
-    }
+
+	public String getURI() {
+		return uri;
+	}
+
+	/** {@ inheritDoc} */
+	public void subscribe2Changes(ConfigurableEntityEditorListener listener) {
+		listeners.add(listener);
+
+	}
+
+	/** {@ inheritDoc} */
+	public void unsubscribe2Changes(ConfigurableEntityEditorListener listener) {
+		listeners.remove(listener);
+	}
+
+	/** {@ inheritDoc} */
+	public Scope getScope() {
+		return ScopeFactory.getScope(uri);
+	}
+
+	public void updated(Entity e) {
+		for (ConfigurableEntityEditorListener l : listeners) {
+			l.ConfigurationChanged(this);
+		}
+	}
 
 }

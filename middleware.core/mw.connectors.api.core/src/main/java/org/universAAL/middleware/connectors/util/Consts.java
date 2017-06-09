@@ -28,25 +28,25 @@ package org.universAAL.middleware.connectors.util;
  */
 public final class Consts {
 
-    // Connector stuff
-    public static String CONNECTOR_NAME = "connectorName";
-    public static String CONNECTOR_VERSION = "connectorVersion";
-    public static String CONNECTOR_PROVIDER = "connectorProvider";
-    public static String CONNECTOR_DESCRIPTION = "connectorDescription";
+	// Connector stuff
+	public static String CONNECTOR_NAME = "connectorName";
+	public static String CONNECTOR_VERSION = "connectorVersion";
+	public static String CONNECTOR_PROVIDER = "connectorProvider";
+	public static String CONNECTOR_DESCRIPTION = "connectorDescription";
 
-    // AAL Space stuff
-    public static String AALSPaceName = "aalSpaceName";
-    public static String AALSPaceID = "aalSpaceID";
-    public static String AALSPaceType = "aalSpaceType";
-    public static String AALSPaceDescription = "aalSpaceDescription";
-    public static String AALSpaceCoordinator = "aalSpaceCoordinator";
+	// AAL Space stuff
+	public static String AALSPaceName = "aalSpaceName";
+	public static String AALSPaceID = "aalSpaceID";
+	public static String AALSPaceType = "aalSpaceType";
+	public static String AALSPaceDescription = "aalSpaceDescription";
+	public static String AALSpaceCoordinator = "aalSpaceCoordinator";
 
-    // DeployConnector stuff
-    /**
-     * TODO: to generalize
-     */
-    public static String PLATFORM_UNIT = "java";
+	// DeployConnector stuff
+	/**
+	 * TODO: to generalize
+	 */
+	public static String PLATFORM_UNIT = "java";
 
-    public static String TMP_FOLDER = "tmpFolder";
+	public static String TMP_FOLDER = "tmpFolder";
 
 }

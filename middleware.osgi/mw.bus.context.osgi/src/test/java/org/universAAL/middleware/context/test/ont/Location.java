@@ -5,17 +5,17 @@ import org.universAAL.middleware.rdf.Resource;
 
 public class Location extends ManagedIndividual {
 
-    public static final String MY_URI = TestOntology.NAMESPACE + "Location";
+	public static final String MY_URI = TestOntology.NAMESPACE + "Location";
 
-    public Location(String uri) {
-	super(uri);
-    }
+	public Location(String uri) {
+		super(uri);
+	}
 
-    public int getPropSerializationType(String propURI) {
-	return Resource.PROP_SERIALIZATION_FULL;
-    }
+	public int getPropSerializationType(String propURI) {
+		return Resource.PROP_SERIALIZATION_FULL;
+	}
 
-    public String getClassURI() {
-	return MY_URI;
-    }
+	public String getClassURI() {
+		return MY_URI;
+	}
 }

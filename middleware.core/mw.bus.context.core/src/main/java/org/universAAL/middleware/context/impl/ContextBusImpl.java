@@ -48,136 +48,118 @@ import org.universAAL.middleware.util.ResourceComparator;
  */
 public class ContextBusImpl extends AbstractBus implements ContextBus {
 
-    private static Object[] busFetchParams;
-    private static ContextBusImpl theContextBus;
-    private static ContextBusOntology contextBusOntology = null;
+	private static Object[] busFetchParams;
+	private static ContextBusImpl theContextBus;
+	private static ContextBusOntology contextBusOntology = null;
 
-    public static Object[] getContextBusFetchParams() {
-	return busFetchParams.clone();
-    }
-
-    public synchronized void assessContentSerialization(Resource content) {
-	if (Constants.debugMode()) {
-	    LogUtils.logDebug(
-		    context,
-		    ContextBusImpl.class,
-		    "assessContentSerialization",
-		    new Object[] { "Assessing message content serialization:" },
-		    null);
-	    // System.out.println(new RuntimeException().getStackTrace()[1]);
-
-	    String str = BusMessage.trySerializationAsContent(content);
-	    LogUtils.logDebug(
-		    context,
-		    ContextBusImpl.class,
-		    "assessContentSerialization",
-		    new Object[] { "\n      1. serialization dump\n", str,
-			    "\n      2. deserialize & compare with the original resource\n" },
-		    null);
-	    new ResourceComparator().printDiffs(content,
-		    (Resource) BusMessage.deserializeAsContent(str));
+	public static Object[] getContextBusFetchParams() {
+		return busFetchParams.clone();
 	}
-    }
 
-    public static synchronized void startModule(Container c, ModuleContext mc,
-	    Object[] contextBusShareParams, Object[] contextBusFetchParams) {
-	if (theContextBus == null) {
-	    contextBusOntology = new ContextBusOntology();
-	    OntologyManagement.getInstance().register(mc, contextBusOntology);
-	    theContextBus = new ContextBusImpl(mc);
-	    busFetchParams = contextBusFetchParams;
-	    c.shareObject(mc, theContextBus, contextBusShareParams);
+	public synchronized void assessContentSerialization(Resource content) {
+		if (Constants.debugMode()) {
+			LogUtils.logDebug(context, ContextBusImpl.class, "assessContentSerialization",
+					new Object[] { "Assessing message content serialization:" }, null);
+			// System.out.println(new RuntimeException().getStackTrace()[1]);
+
+			String str = BusMessage.trySerializationAsContent(content);
+			LogUtils.logDebug(context, ContextBusImpl.class, "assessContentSerialization",
+					new Object[] { "\n      1. serialization dump\n", str,
+							"\n      2. deserialize & compare with the original resource\n" },
+					null);
+			new ResourceComparator().printDiffs(content, (Resource) BusMessage.deserializeAsContent(str));
+		}
 	}
-    }
 
-    public static void stopModule() {
-	if (theContextBus != null) {
-	    OntologyManagement.getInstance().unregister(theContextBus.context,
-		    contextBusOntology);
-	    contextBusOntology = null;
-	    theContextBus.dispose();
-	    theContextBus = null;
+	public static synchronized void startModule(Container c, ModuleContext mc, Object[] contextBusShareParams,
+			Object[] contextBusFetchParams) {
+		if (theContextBus == null) {
+			contextBusOntology = new ContextBusOntology();
+			OntologyManagement.getInstance().register(mc, contextBusOntology);
+			theContextBus = new ContextBusImpl(mc);
+			busFetchParams = contextBusFetchParams;
+			c.shareObject(mc, theContextBus, contextBusShareParams);
+		}
 	}
-    }
 
-    private ContextBusImpl(ModuleContext mc) {
-	super(mc, "mw.bus.context.osgi");
-	busStrategy.setBus(this);
-    }
-
-    protected BusStrategy createBusStrategy(CommunicationModule commModule) {
-	return new ContextStrategy(commModule);
-    }
-
-    public void addNewRegParams(String memberID,
-	    ContextEventPattern[] registrParams) {
-	if (memberID != null && registrParams != null) {
-	    Object o = registry.getBusMemberByID(memberID);
-	    if (o instanceof ContextSubscriber) {
-		((ContextStrategy) busStrategy).addRegParams(
-			(ContextSubscriber) o, registrParams);
-	    } else if (o instanceof ContextPublisher) {
-		((ContextStrategy) busStrategy).addRegParams(
-			(ContextPublisher) o, registrParams);
-	    }
-	    registry.addRegParams(memberID, registrParams);
+	public static void stopModule() {
+		if (theContextBus != null) {
+			OntologyManagement.getInstance().unregister(theContextBus.context, contextBusOntology);
+			contextBusOntology = null;
+			theContextBus.dispose();
+			theContextBus = null;
+		}
 	}
-    }
 
-    public ContextEventPattern[] getAllProvisions(String publisherID) {
-	if (publisherID != null) {
-	    Object o = registry.getBusMemberByID(publisherID);
-	    if (o instanceof ContextPublisher) {
-		return ((ContextStrategy) busStrategy)
-			.getAllProvisions((ContextPublisher) o);
-	    }
+	private ContextBusImpl(ModuleContext mc) {
+		super(mc, "mw.bus.context.osgi");
+		busStrategy.setBus(this);
 	}
-	return null;
-    }
 
-    public void removeMatchingRegParams(String memberID,
-	    ContextEventPattern[] oldRegistrParams) {
-	if (memberID != null && oldRegistrParams != null) {
-	    Object o = registry.getBusMemberByID(memberID);
-	    if (o instanceof ContextSubscriber) {
-		((ContextStrategy) busStrategy).removeMatchingRegParams(
-			(ContextSubscriber) o, oldRegistrParams);
-	    } else if (o instanceof ContextPublisher) {
-		((ContextStrategy) busStrategy).removeMatchingRegParams(
-			(ContextPublisher) o, oldRegistrParams);
-	    }
-	    registry.removeRegParams(memberID, oldRegistrParams);
+	protected BusStrategy createBusStrategy(CommunicationModule commModule) {
+		return new ContextStrategy(commModule);
 	}
-    }
 
-    public void brokerContextEvent(String publisherID, ContextEvent msg) {
-	assessContentSerialization(msg);
-	if (publisherID != null) {
-	    super.brokerMessage(publisherID, new BusMessage(MessageType.event,
-		    msg, this));
+	public void addNewRegParams(String memberID, ContextEventPattern[] registrParams) {
+		if (memberID != null && registrParams != null) {
+			Object o = registry.getBusMemberByID(memberID);
+			if (o instanceof ContextSubscriber) {
+				((ContextStrategy) busStrategy).addRegParams((ContextSubscriber) o, registrParams);
+			} else if (o instanceof ContextPublisher) {
+				((ContextStrategy) busStrategy).addRegParams((ContextPublisher) o, registrParams);
+			}
+			registry.addRegParams(memberID, registrParams);
+		}
 	}
-    }
 
-    public void unregister(String publisherID, ContextPublisher publisher) {
-	super.unregister(publisherID, publisher);
-	((ContextStrategy) busStrategy).removeRegParams(publisher);
-    }
+	public ContextEventPattern[] getAllProvisions(String publisherID) {
+		if (publisherID != null) {
+			Object o = registry.getBusMemberByID(publisherID);
+			if (o instanceof ContextPublisher) {
+				return ((ContextStrategy) busStrategy).getAllProvisions((ContextPublisher) o);
+			}
+		}
+		return null;
+	}
 
-    public void unregister(String subscriberID, ContextSubscriber subscriber) {
-	super.unregister(subscriberID, subscriber);
-	((ContextStrategy) busStrategy).removeRegParams(subscriber);
-    }
+	public void removeMatchingRegParams(String memberID, ContextEventPattern[] oldRegistrParams) {
+		if (memberID != null && oldRegistrParams != null) {
+			Object o = registry.getBusMemberByID(memberID);
+			if (o instanceof ContextSubscriber) {
+				((ContextStrategy) busStrategy).removeMatchingRegParams((ContextSubscriber) o, oldRegistrParams);
+			} else if (o instanceof ContextPublisher) {
+				((ContextStrategy) busStrategy).removeMatchingRegParams((ContextPublisher) o, oldRegistrParams);
+			}
+			registry.removeRegParams(memberID, oldRegistrParams);
+		}
+	}
 
-    @Override
-    public void unregister(String memberID, BusMember m) {
-	if (m instanceof ContextPublisher)
-	    unregister(memberID, (ContextPublisher) m);
-	else if (m instanceof ContextSubscriber)
-	    unregister(memberID, (ContextSubscriber) m);
-    }
+	public void brokerContextEvent(String publisherID, ContextEvent msg) {
+		assessContentSerialization(msg);
+		if (publisherID != null) {
+			super.brokerMessage(publisherID, new BusMessage(MessageType.event, msg, this));
+		}
+	}
 
-    public void handleSendError(ChannelMessage message,
-	    CommunicationConnectorException e) {
-	// TODO Auto-generated method stub
-    }
+	public void unregister(String publisherID, ContextPublisher publisher) {
+		super.unregister(publisherID, publisher);
+		((ContextStrategy) busStrategy).removeRegParams(publisher);
+	}
+
+	public void unregister(String subscriberID, ContextSubscriber subscriber) {
+		super.unregister(subscriberID, subscriber);
+		((ContextStrategy) busStrategy).removeRegParams(subscriber);
+	}
+
+	@Override
+	public void unregister(String memberID, BusMember m) {
+		if (m instanceof ContextPublisher)
+			unregister(memberID, (ContextPublisher) m);
+		else if (m instanceof ContextSubscriber)
+			unregister(memberID, (ContextSubscriber) m);
+	}
+
+	public void handleSendError(ChannelMessage message, CommunicationConnectorException e) {
+		// TODO Auto-generated method stub
+	}
 }

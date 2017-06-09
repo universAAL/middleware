@@ -26,23 +26,22 @@ import org.universAAL.middleware.tracker.IBusMemberRegistry;
 
 public class Activator implements ModuleActivator {
 
-    public static ModuleContext mc;
+	public static ModuleContext mc;
 
-    public static Object[] fetchParams = null;
+	public static Object[] fetchParams = null;
 
-    private IBusMemberRegistry busRegistry;
+	private IBusMemberRegistry busRegistry;
 
-    public void start(ModuleContext mc) throws Exception {
-	Activator.mc = mc;
-	busRegistry = new BusMemberRegistryImpl(mc);
-	mc.getContainer().shareObject(mc, busRegistry,
-		IBusMemberRegistry.busRegistryShareParams);
-    }
-
-    public void stop(ModuleContext mc) throws Exception {
-	if (busRegistry != null) {
-	    ((BusMemberRegistryImpl) busRegistry).removeRegistryListeners();
-	    busRegistry = null;
+	public void start(ModuleContext mc) throws Exception {
+		Activator.mc = mc;
+		busRegistry = new BusMemberRegistryImpl(mc);
+		mc.getContainer().shareObject(mc, busRegistry, IBusMemberRegistry.busRegistryShareParams);
 	}
-    }
+
+	public void stop(ModuleContext mc) throws Exception {
+		if (busRegistry != null) {
+			((BusMemberRegistryImpl) busRegistry).removeRegistryListeners();
+			busRegistry = null;
+		}
+	}
 }

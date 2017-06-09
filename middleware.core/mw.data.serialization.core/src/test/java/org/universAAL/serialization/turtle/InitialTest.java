@@ -35,80 +35,76 @@ import org.universAAL.middleware.util.ResourceComparator;
 
 public class InitialTest extends TestCase {
 
-    TurtleSerializer s;
+	TurtleSerializer s;
 
-    public InitialTest(String name) {
-	super(name);
+	public InitialTest(String name) {
+		super(name);
 
-	s = new TurtleSerializer();
-    }
+		s = new TurtleSerializer();
+	}
 
-    // public void testMultiRoot() {
-    // String serialized = "<uri1> <prop1> <uri2> .\r\n"
-    // + "<uri2> a <uri3> .\r\n"
-    // + "<uri4> a <uri5> .\r\n"
-    // + "<Beaming> a <owlClass> ;\r\n"
-    // + "  <rdfssubClassOf> <Lighting> ,\r\n"
-    // + "    [\r\n"
-    // + "      a <owlRestriction> ;\r\n"
-    // + "      <owlallValuesFrom> <BeamingSource> ;\r\n"
-    // + "      <owlonProperty> <controls>\r\n"
-    // + "    ] .\r\n" + "";
-    // Resource r = (Resource) s.deserialize(serialized);
-    // System.out.println(r.toStringRecursive());
-    // }
+	// public void testMultiRoot() {
+	// String serialized = "<uri1> <prop1> <uri2> .\r\n"
+	// + "<uri2> a <uri3> .\r\n"
+	// + "<uri4> a <uri5> .\r\n"
+	// + "<Beaming> a <owlClass> ;\r\n"
+	// + " <rdfssubClassOf> <Lighting> ,\r\n"
+	// + " [\r\n"
+	// + " a <owlRestriction> ;\r\n"
+	// + " <owlallValuesFrom> <BeamingSource> ;\r\n"
+	// + " <owlonProperty> <controls>\r\n"
+	// + " ] .\r\n" + "";
+	// Resource r = (Resource) s.deserialize(serialized);
+	// System.out.println(r.toStringRecursive());
+	// }
 
-    public void testDataRange() {
-	// if (true)
-	// return;
-	Enumeration e1 = new Enumeration();
-	e1.addValue(new Integer(0));
-	e1.addValue(new Integer(1));
-	e1.addValue(new Integer(2));
-	e1.addValue(new Integer(3));
-	e1.addValue(new Integer(4));
+	public void testDataRange() {
+		// if (true)
+		// return;
+		Enumeration e1 = new Enumeration();
+		e1.addValue(new Integer(0));
+		e1.addValue(new Integer(1));
+		e1.addValue(new Integer(2));
+		e1.addValue(new Integer(3));
+		e1.addValue(new Integer(4));
 
-	String str = s.serialize(e1);
-	Resource r = (Resource) s.deserialize(str);
-	assertTrue(new ResourceComparator().areEqual(e1, r));
-	System.out.println(str);
-	new ResourceComparator().printDiffs(e1, r);
-	System.out.println();
-	System.out.println();
-    }
+		String str = s.serialize(e1);
+		Resource r = (Resource) s.deserialize(str);
+		assertTrue(new ResourceComparator().areEqual(e1, r));
+		System.out.println(str);
+		new ResourceComparator().printDiffs(e1, r);
+		System.out.println();
+		System.out.println();
+	}
 
-    public void testRestriction() {
-	if (true)
-	    return;
-	Integer one = new Integer(1);
-	Enumeration e = new Enumeration();
-	e.addValue(Boolean.FALSE);
-	e.addValue(Boolean.TRUE);
+	public void testRestriction() {
+		if (true)
+			return;
+		Integer one = new Integer(1);
+		Enumeration e = new Enumeration();
+		e.addValue(Boolean.FALSE);
+		e.addValue(Boolean.TRUE);
 
-	MergedRestriction r = new MergedRestriction(
-		HasValueRestriction.PROP_OWL_HAS_VALUE);
+		MergedRestriction r = new MergedRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE);
 
-	r.addRestriction(new AllValuesFromRestriction(
-		HasValueRestriction.PROP_OWL_HAS_VALUE, new TypeURI(TypeMapper
-			.getDatatypeURI(Boolean.class), true)));
-	r.addRestriction(new ExactCardinalityRestriction(
-		HasValueRestriction.PROP_OWL_HAS_VALUE, one.intValue()));
-	r.addRestriction(new SomeValuesFromRestriction(
-		HasValueRestriction.PROP_OWL_HAS_VALUE, e));
+		r.addRestriction(new AllValuesFromRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE,
+				new TypeURI(TypeMapper.getDatatypeURI(Boolean.class), true)));
+		r.addRestriction(new ExactCardinalityRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE, one.intValue()));
+		r.addRestriction(new SomeValuesFromRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE, e));
 
-	// Restriction r = new Restriction();
-	// r.setProperty(Restriction.PROP_OWL_ON_PROPERTY,
-	// Restriction.PROP_OWL_HAS_VALUE);
-	//
-	// r.setProperty(Restriction.PROP_OWL_ALL_VALUES_FROM, new TypeURI(
-	// TypeMapper.getDatatypeURI(Boolean.class), true));
-	// r.setProperty(Restriction.PROP_OWL_CARDINALITY, one);
-	// r.setProperty(Restriction.PROP_OWL_SOME_VALUES_FROM, e);
+		// Restriction r = new Restriction();
+		// r.setProperty(Restriction.PROP_OWL_ON_PROPERTY,
+		// Restriction.PROP_OWL_HAS_VALUE);
+		//
+		// r.setProperty(Restriction.PROP_OWL_ALL_VALUES_FROM, new TypeURI(
+		// TypeMapper.getDatatypeURI(Boolean.class), true));
+		// r.setProperty(Restriction.PROP_OWL_CARDINALITY, one);
+		// r.setProperty(Restriction.PROP_OWL_SOME_VALUES_FROM, e);
 
-	String str = s.serialize(r);
-	Resource r2 = (Resource) s.deserialize(str);
-	System.out.println(str);
-	new ResourceComparator().printDiffs(r, r2);
-	assertTrue(new ResourceComparator().areEqual(r, r2));
-    }
+		String str = s.serialize(r);
+		Resource r2 = (Resource) s.deserialize(str);
+		System.out.println(str);
+		new ResourceComparator().printDiffs(r, r2);
+		assertTrue(new ResourceComparator().areEqual(r, r2));
+	}
 }

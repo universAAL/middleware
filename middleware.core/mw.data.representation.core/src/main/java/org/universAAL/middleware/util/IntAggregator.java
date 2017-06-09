@@ -30,59 +30,59 @@ package org.universAAL.middleware.util;
  */
 public final class IntAggregator {
 
-    /** The average. */
-    private int avg;
+	/** The average. */
+	private int avg;
 
-    /** The minimum. */
-    private int min;
+	/** The minimum. */
+	private int min;
 
-    /** The maximum. */
-    private int max;
+	/** The maximum. */
+	private int max;
 
-    /** The number of integers. */
-    private int num = 0;
+	/** The number of integers. */
+	private int num = 0;
 
-    /** The sum. */
-    private int sum = 0;
+	/** The sum. */
+	private int sum = 0;
 
-    /** Create a new instance. */
-    public IntAggregator() {
-    }
+	/** Create a new instance. */
+	public IntAggregator() {
+	}
 
-    /** Add a new integer. */
-    public IntAggregator addVote(int vote) {
-	sum += vote;
-	num++;
+	/** Add a new integer. */
+	public IntAggregator addVote(int vote) {
+		sum += vote;
+		num++;
 
-	if (num == 1)
-	    max = min = vote;
-	else if (max < vote)
-	    max = vote;
-	else if (min > vote)
-	    min = vote;
+		if (num == 1)
+			max = min = vote;
+		else if (max < vote)
+			max = vote;
+		else if (min > vote)
+			min = vote;
 
-	avg = sum / num;
+		avg = sum / num;
 
-	return this;
-    }
+		return this;
+	}
 
-    /** Get the average value. */
-    public int getAverage() {
-	return avg;
-    }
+	/** Get the average value. */
+	public int getAverage() {
+		return avg;
+	}
 
-    /** Get the maximum value. */
-    public int getMax() {
-	return max;
-    }
+	/** Get the maximum value. */
+	public int getMax() {
+		return max;
+	}
 
-    /** Get the minimum value. */
-    public int getMin() {
-	return min;
-    }
+	/** Get the minimum value. */
+	public int getMin() {
+		return min;
+	}
 
-    /** Get the number of integers. */
-    public int getNumberOfVotes() {
-	return num;
-    }
+	/** Get the number of integers. */
+	public int getNumberOfVotes() {
+		return num;
+	}
 }

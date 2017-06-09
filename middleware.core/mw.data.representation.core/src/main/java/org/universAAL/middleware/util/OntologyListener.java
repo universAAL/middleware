@@ -29,19 +29,19 @@ package org.universAAL.middleware.util;
  */
 public interface OntologyListener {
 
-    /**
-     * Notification when a new ontology is added.
-     *
-     * @param ontURI
-     *            the URI of the new ontology.
-     */
-    public void ontologyAdded(String ontURI);
+	/**
+	 * Notification when a new ontology is added.
+	 *
+	 * @param ontURI
+	 *            the URI of the new ontology.
+	 */
+	public void ontologyAdded(String ontURI);
 
-    /**
-     * Notification when an existing ontology is removed.
-     *
-     * @param ontURI
-     *            the URI of the ontology.
-     */
-    public void ontologyRemoved(String ontURI);
+	/**
+	 * Notification when an existing ontology is removed.
+	 *
+	 * @param ontURI
+	 *            the URI of the ontology.
+	 */
+	public void ontologyRemoved(String ontURI);
 }

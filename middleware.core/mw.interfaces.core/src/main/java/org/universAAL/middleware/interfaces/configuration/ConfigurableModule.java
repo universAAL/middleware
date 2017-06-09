@@ -30,17 +30,17 @@ import org.universAAL.middleware.interfaces.configuration.scope.Scope;
  */
 public interface ConfigurableModule {
 
-    /**
-     * When a configuration is changed this method is called.
-     * 
-     * @param param
-     *            The parameter scope + id that has to change value.
-     * @param value
-     *            The new value to be set, in case of {@link ConfigurationFile}
-     *            this value will be a {@link File}.
-     * @return true iff the value was accepted and processed (even if it hasn't
-     *         changed).
-     */
-    public boolean configurationChanged(Scope param, Object value);
+	/**
+	 * When a configuration is changed this method is called.
+	 * 
+	 * @param param
+	 *            The parameter scope + id that has to change value.
+	 * @param value
+	 *            The new value to be set, in case of {@link ConfigurationFile}
+	 *            this value will be a {@link File}.
+	 * @return true iff the value was accepted and processed (even if it hasn't
+	 *         changed).
+	 */
+	public boolean configurationChanged(Scope param, Object value);
 
 }

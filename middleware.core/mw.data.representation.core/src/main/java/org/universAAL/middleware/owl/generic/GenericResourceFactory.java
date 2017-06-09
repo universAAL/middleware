@@ -28,9 +28,8 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  */
 public final class GenericResourceFactory implements ResourceFactory {
 
-    /** {@inheritDoc} */
-    public Resource createInstance(String classURI, String instanceURI,
-	    int factoryIndex) {
-	return new GenericManagedIndividual(classURI, instanceURI);
-    }
+	/** {@inheritDoc} */
+	public Resource createInstance(String classURI, String instanceURI, int factoryIndex) {
+		return new GenericManagedIndividual(classURI, instanceURI);
+	}
 }

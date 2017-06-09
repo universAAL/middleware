@@ -36,25 +36,25 @@ import org.universAAL.middleware.context.data.IProvisionsData;
  */
 public interface IContextStrategyDataFactory {
 
-    IProvisionsData createProvisionsData();
+	IProvisionsData createProvisionsData();
 
-    INumCalledPeersData createNumCalledPeersData();
+	INumCalledPeersData createNumCalledPeersData();
 
-    ICalledPeers createCalledPeers();
+	ICalledPeers createCalledPeers();
 
-    IPropsData createAllPropsOfDomain();
+	IPropsData createAllPropsOfDomain();
 
-    IPropsData createAllPropsOfSubject();
+	IPropsData createAllPropsOfSubject();
 
-    IPropsData createAllSubjectsWithProp();
+	IPropsData createAllSubjectsWithProp();
 
-    IPropsData createSpecificDomainAndProp();
+	IPropsData createSpecificDomainAndProp();
 
-    IPropsData createSpecificSubjectAndProp();
+	IPropsData createSpecificSubjectAndProp();
 
-    IPropsData createNonIndexedProps();
+	IPropsData createNonIndexedProps();
 
-    IFiltererContainer createFiltererContainer(String containerKey);
+	IFiltererContainer createFiltererContainer(String containerKey);
 
-    IAllProvisionData createAllProvisions();
+	IAllProvisionData createAllProvisions();
 }

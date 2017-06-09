@@ -39,86 +39,86 @@ import org.universAAL.middleware.rdf.Resource;
 // TODO: synchronize map and listener for concurrent access
 public class RegistryMap extends Object implements IRegistry {
 
-    protected Map<String, BusMember> map = new HashMap<String, BusMember>();
-    protected List<IRegistryListener> listeners = new ArrayList<IRegistryListener>();
+	protected Map<String, BusMember> map = new HashMap<String, BusMember>();
+	protected List<IRegistryListener> listeners = new ArrayList<IRegistryListener>();
 
-    public void addBusMember(String memberID, BusMember busMember) {
-	map.put(memberID, busMember);
-	for (int i = 0; i < listeners.size(); i++) {
-	    listeners.get(i).busMemberAdded(busMember);
-	}
-    }
-
-    public BusMember removeMemberByID(String memberID) {
-	BusMember busMember = (BusMember) map.remove(memberID);
-	if (busMember != null) {
-	    for (int i = 0; i < listeners.size(); i++) {
-		listeners.get(i).busMemberRemoved(busMember);
-	    }
-	}
-	return busMember;
-    }
-
-    public BusMember[] getAllBusMembers() {
-	return (BusMember[]) map.values().toArray(new BusMember[0]);
-    }
-
-    public String[] getAllBusMembersIds() {
-	return (String[]) map.keySet().toArray(new String[0]);
-    }
-
-    public BusMember getBusMemberByID(String memberID) {
-	return (memberID == null) ? null : (BusMember) map.get(memberID);
-    }
-
-    public String getBusMemberID(BusMember busMember) {
-	String result = null;
-	if (busMember != null) {
-	    for (Iterator<String> i = map.keySet().iterator(); i.hasNext();) {
-		String id = i.next();
-		if (busMember.equals(map.get(id))) {
-		    result = id;
-		    break;
+	public void addBusMember(String memberID, BusMember busMember) {
+		map.put(memberID, busMember);
+		for (int i = 0; i < listeners.size(); i++) {
+			listeners.get(i).busMemberAdded(busMember);
 		}
-	    }
 	}
-	return result;
-    }
 
-    public int getBusMembersCount() {
-	return map.size();
-    }
-
-    public void reset() {
-	map.clear();
-	for (int i = 0; i < listeners.size(); i++) {
-	    ((IRegistryListener) listeners.get(i)).busCleared();
+	public BusMember removeMemberByID(String memberID) {
+		BusMember busMember = (BusMember) map.remove(memberID);
+		if (busMember != null) {
+			for (int i = 0; i < listeners.size(); i++) {
+				listeners.get(i).busMemberRemoved(busMember);
+			}
+		}
+		return busMember;
 	}
-    }
 
-    public boolean addRegistryListener(IRegistryListener listener) {
-	if (listener == null)
-	    throw new NullPointerException();
-	return listeners.add(listener);
-    }
-
-    public boolean removeRegistryListener(IRegistryListener listener) {
-	return listeners.remove(listener);
-    }
-
-    public void addRegParams(String busMemberID, Resource[] params) {
-	// We don't do anything with the reg params, we just forward them to the
-	// listeners.
-	for (IRegistryListener listener : listeners) {
-	    listener.regParamsAdded(busMemberID, params);
+	public BusMember[] getAllBusMembers() {
+		return (BusMember[]) map.values().toArray(new BusMember[0]);
 	}
-    }
 
-    public void removeRegParams(String busMemberID, Resource[] params) {
-	// We don't do anything with the reg params, we just forward them to the
-	// listeners.
-	for (IRegistryListener listener : listeners) {
-	    listener.regParamsRemoved(busMemberID, params);
+	public String[] getAllBusMembersIds() {
+		return (String[]) map.keySet().toArray(new String[0]);
 	}
-    }
+
+	public BusMember getBusMemberByID(String memberID) {
+		return (memberID == null) ? null : (BusMember) map.get(memberID);
+	}
+
+	public String getBusMemberID(BusMember busMember) {
+		String result = null;
+		if (busMember != null) {
+			for (Iterator<String> i = map.keySet().iterator(); i.hasNext();) {
+				String id = i.next();
+				if (busMember.equals(map.get(id))) {
+					result = id;
+					break;
+				}
+			}
+		}
+		return result;
+	}
+
+	public int getBusMembersCount() {
+		return map.size();
+	}
+
+	public void reset() {
+		map.clear();
+		for (int i = 0; i < listeners.size(); i++) {
+			((IRegistryListener) listeners.get(i)).busCleared();
+		}
+	}
+
+	public boolean addRegistryListener(IRegistryListener listener) {
+		if (listener == null)
+			throw new NullPointerException();
+		return listeners.add(listener);
+	}
+
+	public boolean removeRegistryListener(IRegistryListener listener) {
+		return listeners.remove(listener);
+	}
+
+	public void addRegParams(String busMemberID, Resource[] params) {
+		// We don't do anything with the reg params, we just forward them to the
+		// listeners.
+		for (IRegistryListener listener : listeners) {
+			listener.regParamsAdded(busMemberID, params);
+		}
+	}
+
+	public void removeRegParams(String busMemberID, Resource[] params) {
+		// We don't do anything with the reg params, we just forward them to the
+		// listeners.
+		for (IRegistryListener listener : listeners) {
+			listener.regParamsRemoved(busMemberID, params);
+		}
+	}
 }

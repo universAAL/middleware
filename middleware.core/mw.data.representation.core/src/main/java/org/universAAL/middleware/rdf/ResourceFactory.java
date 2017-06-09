@@ -21,6 +21,5 @@ package org.universAAL.middleware.rdf;
 
 public interface ResourceFactory {
 
-    public abstract Resource createInstance(String classURI,
-	    String instanceURI, int factoryIndex);
+	public abstract Resource createInstance(String classURI, String instanceURI, int factoryIndex);
 }

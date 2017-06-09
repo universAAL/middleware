@@ -30,15 +30,15 @@ import org.universAAL.middleware.container.ModuleContext;
  */
 public abstract class Caller extends BusMember {
 
-    protected Caller(ModuleContext owner, Object[] busFetchParams) {
-	super(owner, busFetchParams, BusMemberType.requester);
-    }
+	protected Caller(ModuleContext owner, Object[] busFetchParams) {
+		super(owner, busFetchParams, BusMemberType.requester);
+	}
 
-    /**
-     * Handles replies coming from the bus.
-     * 
-     * @param m
-     *            reply message coming from the bus
-     */
-    // public void handleResponse(Response);
+	/**
+	 * Handles replies coming from the bus.
+	 * 
+	 * @param m
+	 *            reply message coming from the bus
+	 */
+	// public void handleResponse(Response);
 }
