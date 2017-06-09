@@ -9,13 +9,13 @@
 		<relativePath>../../middleware.osgi/pom</relativePath>
 	</parent>
 
-	<artifactId>mw.data.serialization.osgi.agg</artifactId>
+	<artifactId>mw.data.serialization.turtle.osgi.agg</artifactId>
 	<version>2.0.0</version>
 	<packaging>pom</packaging>
 	<name>universAAL Middleware RDF Turtle serializer (AGG)</name>
 
 	<modules>
-		<module>../../middleware.osgi/mw.data.serialization.osgi</module>
-		<module>../../middleware.core/mw.data.serialization.core</module>
+		<module>../../middleware.osgi/mw.data.serialization.turtle.osgi</module>
+		<module>../../middleware.core/mw.data.serialization.turtle.core</module>
 	</modules>
 </project>

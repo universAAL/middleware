@@ -32,7 +32,7 @@
     <module>../mw.managers.aalspace.osgi</module>
     <module>../mw.managers.tenant.osgi</module>
     <module>../mw.managers.deploy.osgi</module>
-    <module>../mw.data.serialization.osgi</module>
+    <module>../mw.data.serialization.turtle.osgi</module>
     <module>../mw.managers.configuration.osgi</module>
     <module>../mw.connectors.deploy.karaf.osgi</module>
     <module>../mw.karaf.branding.osgi</module>
@@ -193,7 +193,7 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.data.serialization.osgi</artifactId>
+        <artifactId>mw.data.serialization.turtle.osgi</artifactId>
         <version>3.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>

@@ -46,7 +46,7 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.serialization.core</artifactId>
+      <artifactId>mw.data.serialization.turtle.core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>

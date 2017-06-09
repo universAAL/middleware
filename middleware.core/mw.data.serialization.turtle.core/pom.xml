@@ -8,7 +8,7 @@
     <version>3.4.1-SNAPSHOT</version>
     <relativePath>../mw.pom.core</relativePath>
   </parent>
-  <artifactId>mw.data.serialization.core</artifactId>
+  <artifactId>mw.data.serialization.turtle.core</artifactId>
   <version>3.4.1-SNAPSHOT</version>
   <name>universAAL Middleware RDF Turtle serializer (Core)</name>
   <description>The module for message content serialization in Turtle (Core)</description>

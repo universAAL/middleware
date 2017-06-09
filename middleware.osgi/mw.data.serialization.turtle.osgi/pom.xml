@@ -8,7 +8,7 @@
     <version>3.4.1-SNAPSHOT</version>
     <relativePath>../mw.pom.osgi</relativePath>
   </parent>
-  <artifactId>mw.data.serialization.osgi</artifactId>
+  <artifactId>mw.data.serialization.turtle.osgi</artifactId>
   <version>3.4.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Middleware RDF Turtle serializer (OSGi)</name>
@@ -32,7 +32,7 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.serialization.core</artifactId>
+      <artifactId>mw.data.serialization.turtle.core</artifactId>
     </dependency>
   </dependencies>
   <build>
