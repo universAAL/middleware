@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AALSpaceManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl
-	c83778 [label=<<table title="org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../aalspace/AALSpaceManagerImpl.html">
+	c83779 [label=<<table title="org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../aalspace/AALSpaceManagerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AALSpaceManagerImpl </td></tr>
 		</table></td></tr>
@@ -32,6 +32,6 @@ digraph G {
 	//org.universAAL.middleware.managers.api.AALSpaceManager implements org.universAAL.middleware.managers.api.Manager
 	c83767:p -> c83768:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl implements org.universAAL.middleware.managers.api.AALSpaceManager
-	c83768:p -> c83778:p [dir=back,arrowtail=empty,style=dashed];
+	c83768:p -> c83779:p [dir=back,arrowtail=empty,style=dashed];
 }
 

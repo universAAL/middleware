@@ -41,7 +41,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../connectors/discovery/slp/SLPDiscoveryConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl
-	c384233 [label=<<table title="org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/aalspace/AALSpaceManagerImpl.html">
+	c384234 [label=<<table title="org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/aalspace/AALSpaceManagerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AALSpaceManagerImpl </td></tr>
 		</table></td></tr>
@@ -91,7 +91,7 @@ digraph G {
 	//org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector implements org.universAAL.middleware.container.SharedObjectListener
 	c383906:p -> c384230:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl implements org.universAAL.middleware.container.SharedObjectListener
-	c383906:p -> c384233:p [dir=back,arrowtail=empty,style=dashed];
+	c383906:p -> c384234:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.deploy.DeployManagerImpl implements org.universAAL.middleware.container.SharedObjectListener
 	c383906:p -> c384241:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector implements org.universAAL.middleware.container.SharedObjectListener

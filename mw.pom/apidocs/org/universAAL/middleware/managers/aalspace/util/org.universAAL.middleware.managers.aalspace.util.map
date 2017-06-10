@@ -1,12 +1,12 @@
 <map id="G" name="G">
 <area shape="rect" id="c34834" href="./AALSpaceSchemaEventHandler.html" title="org.universAAL.middleware.managers.aalspace.util.AALSpaceSchemaEventHandler" alt="" coords="15,17,225,42"/>
 <area shape="rect" id="node1" href="./AALSpaceSchemaEventHandler.html" title="&lt;TABLE&gt;" alt="" coords="5,5,235,53"/>
-<area shape="rect" id="c34835" href="./Joiner.html" title="org.universAAL.middleware.managers.aalspace.util.Joiner" alt="" coords="269,17,325,42"/>
-<area shape="rect" id="node2" href="./Joiner.html" title="&lt;TABLE&gt;" alt="" coords="259,5,336,53"/>
-<area shape="rect" id="c34836" href="./CheckPeerThread.html" title="org.universAAL.middleware.managers.aalspace.util.CheckPeerThread" alt="" coords="371,17,496,42"/>
-<area shape="rect" id="node3" href="./CheckPeerThread.html" title="&lt;TABLE&gt;" alt="" coords="360,5,507,53"/>
-<area shape="rect" id="c34837" href="./Consts.html" title="org.universAAL.middleware.managers.aalspace.util.Consts" alt="" coords="541,17,603,42"/>
-<area shape="rect" id="node4" href="./Consts.html" title="&lt;TABLE&gt;" alt="" coords="531,5,613,53"/>
-<area shape="rect" id="c34838" href="./RefreshAALSpaceThread.html" title="org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread" alt="" coords="647,17,817,42"/>
-<area shape="rect" id="node5" href="./RefreshAALSpaceThread.html" title="&lt;TABLE&gt;" alt="" coords="637,5,827,53"/>
+<area shape="rect" id="c34835" href="./Consts.html" title="org.universAAL.middleware.managers.aalspace.util.Consts" alt="" coords="269,17,331,42"/>
+<area shape="rect" id="node2" href="./Consts.html" title="&lt;TABLE&gt;" alt="" coords="259,5,341,53"/>
+<area shape="rect" id="c34836" href="./RefreshAALSpaceThread.html" title="org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread" alt="" coords="375,17,545,42"/>
+<area shape="rect" id="node3" href="./RefreshAALSpaceThread.html" title="&lt;TABLE&gt;" alt="" coords="365,5,555,53"/>
+<area shape="rect" id="c34837" href="./Joiner.html" title="org.universAAL.middleware.managers.aalspace.util.Joiner" alt="" coords="589,17,645,42"/>
+<area shape="rect" id="node4" href="./Joiner.html" title="&lt;TABLE&gt;" alt="" coords="579,5,656,53"/>
+<area shape="rect" id="c34838" href="./CheckPeerThread.html" title="org.universAAL.middleware.managers.aalspace.util.CheckPeerThread" alt="" coords="691,17,816,42"/>
+<area shape="rect" id="node5" href="./CheckPeerThread.html" title="&lt;TABLE&gt;" alt="" coords="680,5,827,53"/>
 </map>

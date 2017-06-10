@@ -10,13 +10,13 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread
-	c344097 [label=<<table title="org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RefreshAALSpaceThread.html">
+	c344095 [label=<<table title="org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RefreshAALSpaceThread.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RefreshAALSpaceThread </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RefreshAALSpaceThread.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread implements java.lang.Runnable
-	c344371:p -> c344097:p [dir=back,arrowtail=empty,style=dashed];
+	c344371:p -> c344095:p [dir=back,arrowtail=empty,style=dashed];
 	// java.lang.Runnable
 	c344371 [label=<<table title="java.lang.Runnable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Runnable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

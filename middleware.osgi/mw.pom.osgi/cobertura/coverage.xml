@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.04836480884385076" branch-rate="0.0021436227224008574" lines-covered="105" lines-valid="2171" branches-covered="2" branches-valid="933" complexity="1.5099750623441397" version="2.1.1" timestamp="1497040648157">
+<coverage line-rate="0.04836480884385076" branch-rate="0.0021436227224008574" lines-covered="105" lines-valid="2171" branches-covered="2" branches-valid="933" complexity="1.5099750623441397" version="2.1.1" timestamp="1497066762360">
 	<sources>
+		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.modules.space.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.managers.tenant.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.bus.service.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.felix.shell.universAAL.osgi/src/main/java</source>
@@ -11,10 +12,10 @@
 		<source>/home/travis/build/universAAL/middleware/middleware.resources/mw.schemas/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/thirdparty/jslp.osgi/src/main/java</source>
+		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.managers.space.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.modules.communication.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.pom.osgi/mw.karaf.feature/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.connectors.communication.jgroups.osgi/src/main/java</source>
-		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.modules.aalspace.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.brokers.control.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.data.serialization.turtle.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.pom.osgi/composite/src/main/java</source>
@@ -34,7 +35,6 @@
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.bus.context.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.brokers.api.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.bus.service.aapi.osgi/src/main/java</source>
-		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.managers.aalspace.osgi/src/main/java</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.bus.tracker.osgi/src/main/java</source>
 	</sources>
 	<packages>

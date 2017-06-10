@@ -31,16 +31,16 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../api/AALSpaceEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl
-	c84405 [label=<<table title="org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AALSpaceManagerImpl.html">
+	c84406 [label=<<table title="org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AALSpaceManagerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AALSpaceManagerImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AALSpaceManagerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl implements org.universAAL.middleware.managers.api.AALSpaceEventHandler
-	c84396:p -> c84405:p [dir=back,arrowtail=empty,style=dashed];
+	c84396:p -> c84406:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl implements org.universAAL.middleware.managers.api.AALSpaceManager
-	c84395:p -> c84405:p [dir=back,arrowtail=empty,style=dashed];
+	c84395:p -> c84406:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl implements org.universAAL.middleware.container.SharedObjectListener
-	c84078:p -> c84405:p [dir=back,arrowtail=empty,style=dashed];
+	c84078:p -> c84406:p [dir=back,arrowtail=empty,style=dashed];
 }
 

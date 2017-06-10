@@ -15,29 +15,29 @@ digraph G {
 <tr><td align="center" balign="center"> AALSpaceSchemaEventHandler </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AALSpaceSchemaEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.aalspace.util.Joiner
-	c34835 [label=<<table title="org.universAAL.middleware.managers.aalspace.util.Joiner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Joiner.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Joiner </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Joiner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.aalspace.util.CheckPeerThread
-	c34836 [label=<<table title="org.universAAL.middleware.managers.aalspace.util.CheckPeerThread" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CheckPeerThread.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> CheckPeerThread </td></tr>
-		</table></td></tr>
-		</table>>, URL="./CheckPeerThread.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.aalspace.util.Consts
-	c34837 [label=<<table title="org.universAAL.middleware.managers.aalspace.util.Consts" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Consts.html">
+	c34835 [label=<<table title="org.universAAL.middleware.managers.aalspace.util.Consts" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Consts.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Consts </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Consts.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread
-	c34838 [label=<<table title="org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RefreshAALSpaceThread.html">
+	c34836 [label=<<table title="org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RefreshAALSpaceThread.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RefreshAALSpaceThread </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RefreshAALSpaceThread.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.managers.aalspace.util.Joiner
+	c34837 [label=<<table title="org.universAAL.middleware.managers.aalspace.util.Joiner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Joiner.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Joiner </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Joiner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.managers.aalspace.util.CheckPeerThread
+	c34838 [label=<<table title="org.universAAL.middleware.managers.aalspace.util.CheckPeerThread" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CheckPeerThread.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> CheckPeerThread </td></tr>
+		</table></td></tr>
+		</table>>, URL="./CheckPeerThread.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

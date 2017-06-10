@@ -17,12 +17,12 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MatchingResult.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.aalspace.MatchingResultImpl
-	c290783 [label=<<table title="org.universAAL.middleware.managers.aalspace.MatchingResultImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../aalspace/MatchingResultImpl.html">
+	c290782 [label=<<table title="org.universAAL.middleware.managers.aalspace.MatchingResultImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../aalspace/MatchingResultImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MatchingResultImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="../aalspace/MatchingResultImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.managers.aalspace.MatchingResultImpl implements org.universAAL.middleware.managers.api.MatchingResult
-	c290770:p -> c290783:p [dir=back,arrowtail=empty,style=dashed];
+	c290770:p -> c290782:p [dir=back,arrowtail=empty,style=dashed];
 }
 
