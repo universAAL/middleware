@@ -72,7 +72,7 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.managers.aalspace.core.config</artifactId>
+      <artifactId>mw.managers.space.core.config</artifactId>
       <type>cfg</type>
     </dependency>
     <dependency>
@@ -92,7 +92,7 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.modules.aalspace.core.config</artifactId>
+      <artifactId>mw.modules.space.core.config</artifactId>
       <type>cfg</type>
     </dependency>
   </dependencies>

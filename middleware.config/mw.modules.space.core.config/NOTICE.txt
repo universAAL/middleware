@@ -1,4 +1,4 @@
-AAL Space Manager
+Space Module Configuration
 
 Copyright 
 

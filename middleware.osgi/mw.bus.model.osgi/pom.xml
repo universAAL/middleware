@@ -86,7 +86,7 @@
         </dependency>
         <dependency>
           <groupId>org.universAAL.middleware</groupId>
-          <artifactId>mw.managers.aalspace.osgi</artifactId>
+          <artifactId>mw.managers.space.osgi</artifactId>
         </dependency>
       </dependencies>
     </profile>

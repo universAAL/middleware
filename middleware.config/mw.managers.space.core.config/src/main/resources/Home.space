@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<aalspace xmlns:aalChannel="http://universaal.org/aalspace-channel/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aalspace.xsd">
+<aalspace xmlns:aalChannel="http://universaal.org/aalspace-channel/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="space.xsd">
   <space-descriptor>
     <profile>HomeSpace</profile>
     <spaceId>8888</spaceId>

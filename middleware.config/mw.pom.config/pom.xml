@@ -17,9 +17,9 @@
   <modules>
     <module>../mw.connectors.communication.jgroups.core.config</module>
     <module>../mw.connectors.discovery.slp.core.config</module>
-    <module>../mw.managers.aalspace.core.config</module>
+    <module>../mw.managers.space.core.config</module>
     <module>../mw.managers.deploy.core.config</module>
-    <module>../mw.modules.aalspace.core.config</module>
+    <module>../mw.modules.space.core.config</module>
   </modules>
   <dependencyManagement>
     <dependencies>
@@ -31,7 +31,7 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.modules.aalspace.core.config</artifactId>
+        <artifactId>mw.modules.space.core.config</artifactId>
         <version>3.4.1-SNAPSHOT</version>
         <type>cfg</type>
       </dependency>
@@ -49,7 +49,7 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.managers.aalspace.core.config</artifactId>
+        <artifactId>mw.managers.space.core.config</artifactId>
         <version>3.4.1-SNAPSHOT</version>
         <type>cfg</type>
       </dependency>

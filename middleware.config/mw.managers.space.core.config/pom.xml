@@ -9,10 +9,10 @@
     <relativePath>../mw.pom.config</relativePath>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
-  <artifactId>mw.managers.aalspace.core.config</artifactId>
+  <artifactId>mw.managers.space.core.config</artifactId>
   <version>3.4.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>universAAL Middleware Manager AALSpace (Config)</name>
+  <name>universAAL Middleware Manager Space (Config)</name>
   <build>
     <resources>
       <resource>
@@ -46,7 +46,7 @@
             <configuration>
               <artifacts>
                 <artifact>
-                  <file>target/classes/mw.managers.aalspace.core.cfg</file>
+                  <file>target/classes/mw.managers.space.core.cfg</file>
                   <type>cfg</type>
                 </artifact>
                 <artifact>
@@ -54,7 +54,7 @@
                   <type>space</type>
                 </artifact>
                 <artifact>
-                  <file>target/classes/aalspace.xsd</file>
+                  <file>target/classes/space.xsd</file>
                   <type>xsd</type>
                 </artifact>
               </artifacts>

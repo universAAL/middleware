@@ -19,7 +19,7 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.modules.aalspace.core</artifactId>
+      <artifactId>mw.modules.space.core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>

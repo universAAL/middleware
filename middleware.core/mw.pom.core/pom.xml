@@ -23,12 +23,12 @@
     <module>../mw.connectors.communication.jgroups.core</module>
     <module>../mw.connectors.discovery.slp.core</module>
     <module>../mw.modules.api.core</module>
-    <module>../mw.modules.aalspace.core</module>
+    <module>../mw.modules.space.core</module>
     <module>../mw.modules.communication.core</module>
     <module>../mw.brokers.api.core</module>
     <module>../mw.brokers.control.core</module>
     <module>../mw.managers.api.core</module>
-    <module>../mw.managers.aalspace.core</module>
+    <module>../mw.managers.space.core</module>
     <module>../mw.managers.tenant.core</module>
     <module>../mw.managers.deploy.core</module>
     <module>../mw.managers.configuration.core</module>
@@ -78,7 +78,7 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.modules.aalspace.core</artifactId>
+        <artifactId>mw.modules.space.core</artifactId>
         <version>3.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -103,7 +103,7 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.managers.aalspace.core</artifactId>
+        <artifactId>mw.managers.space.core</artifactId>
         <version>3.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>

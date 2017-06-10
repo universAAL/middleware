@@ -25,11 +25,11 @@
     <module>../mw.modules.api.osgi</module>
     <module>../mw.managers.api.osgi</module>
     <module>../mw.brokers.control.osgi</module>
-    <module>../mw.modules.aalspace.osgi</module>
+    <module>../mw.modules.space.osgi</module>
     <module>../mw.connectors.discovery.slp.osgi</module>
     <module>../mw.modules.communication.osgi</module>
     <module>../mw.connectors.communication.jgroups.osgi</module>
-    <module>../mw.managers.aalspace.osgi</module>
+    <module>../mw.managers.space.osgi</module>
     <module>../mw.managers.tenant.osgi</module>
     <module>../mw.managers.deploy.osgi</module>
     <module>../mw.data.serialization.turtle.osgi</module>
@@ -122,7 +122,7 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.modules.aalspace.osgi</artifactId>
+        <artifactId>mw.modules.space.osgi</artifactId>
         <version>3.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -137,7 +137,7 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.managers.aalspace.osgi</artifactId>
+        <artifactId>mw.managers.space.osgi</artifactId>
         <version>3.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>

@@ -9,9 +9,9 @@
     <relativePath>../mw.pom.core</relativePath>
   </parent>
   <groupId>org.universAAL.middleware</groupId>
-  <artifactId>mw.modules.aalspace.core</artifactId>
+  <artifactId>mw.modules.space.core</artifactId>
   <version>3.4.1-SNAPSHOT</version>
-  <name>universAAL Middleware Module AALSpace (Core)</name>
+  <name>universAAL Middleware Module Space (Core)</name>
   <dependencies>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>

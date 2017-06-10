@@ -26,14 +26,14 @@
 
 		<!-- Modules -->
 		<bundle start-level='53' start='true'>mvn:org.universAAL.middleware/mw.modules.communication.osgi/${mw.modules.communication.osgi.version}</bundle>
-		<bundle start-level='54' start='true'>mvn:org.universAAL.middleware/mw.modules.aalspace.osgi/${mw.modules.aalspace.osgi.version}</bundle>
+		<bundle start-level='54' start='true'>mvn:org.universAAL.middleware/mw.modules.space.osgi/${mw.modules.space.osgi.version}</bundle>
 
 		<!-- Brokers -->
 		<bundle start-level='55' start='true'>mvn:org.universAAL.middleware/mw.brokers.control.osgi/${mw.brokers.control.osgi.version}</bundle>
 
 
 		<!-- Managers -->
-		<bundle start-level='56' start='true'>mvn:org.universAAL.middleware/mw.managers.aalspace.osgi/${mw.managers.aalspace.osgi.version}</bundle>
+		<bundle start-level='56' start='true'>mvn:org.universAAL.middleware/mw.managers.space.osgi/${mw.managers.space.osgi.version}</bundle>
 		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.deploy.osgi/${mw.managers.deploy.osgi.version}</bundle>
 		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.configuration.osgi/${mw.managers.configuration.osgi.version}</bundle>
 		<bundle start-level='57' start='true'>mvn:org.universAAL.middleware/mw.managers.tenant.osgi/${mw.managers.tenant.osgi.version}</bundle>
@@ -56,9 +56,9 @@
 
 		<!-- Configuration file section -->
 
-		<!-- AAL Space Manager -->
-		<configfile finalname="/etc/mw.managers.aalspace.core.cfg">mvn:org.universAAL.middleware/mw.managers.aalspace.core.config/${mw.managers.aalspace.core.config.version}/cfg</configfile>
-		<configfile finalname="/etc/Home.space">mvn:org.universAAL.middleware/mw.managers.aalspace.core.config/${mw.managers.aalspace.core.config.version}/space</configfile>
+		<!-- Space Manager -->
+		<configfile finalname="/etc/mw.managers.space.core.cfg">mvn:org.universAAL.middleware/mw.managers.space.core.config/${mw.managers.space.core.config.version}/cfg</configfile>
+		<configfile finalname="/etc/Home.space">mvn:org.universAAL.middleware/mw.managers.space.core.config/${mw.managers.space.core.config.version}/space</configfile>
 
 		<!-- jGroups Communication Connector -->
 		<configfile finalname="/etc/mw.connectors.communication.jgroups.core.cfg">mvn:org.universAAL.middleware/mw.connectors.communication.jgroups.core.config/${mw.connectors.communication.jgroups.core.config.version}/cfg</configfile>
@@ -69,8 +69,8 @@
 		<!-- Deploy Manager -->
 		<configfile finalname="/etc/mw.managers.deploy.core.cfg">mvn:org.universAAL.middleware/mw.managers.deploy.core.config/${mw.managers.deploy.core.config.version}/cfg</configfile>
 
-		<!-- AAL Space Module -->
-		<configfile finalname="/etc/mw.modules.aalspace.core.cfg">mvn:org.universAAL.middleware/mw.modules.aalspace.core.config/${mw.modules.aalspace.core.config.version}/cfg</configfile>
+		<!-- Space Module -->
+		<configfile finalname="/etc/mw.modules.space.core.cfg">mvn:org.universAAL.middleware/mw.modules.space.core.config/${mw.modules.space.core.config.version}/cfg</configfile>
 
 	</feature>
 </features>
