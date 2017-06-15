@@ -31,6 +31,7 @@ import org.universAAL.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
+import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
@@ -80,9 +81,18 @@ public class BusTestCase extends TestCase {
 			return;
 		isInitialized = true;
 
-		System.out.println(" - starting BusTestCase -");
-		mc = new JUnitModuleContext();
+//		System.out.println(" - starting BusTestCase -");
+		mc = new JUnitModuleContext(new ModuleActivator() {
 
+			public void stop(ModuleContext mc) throws Exception {
+			}
+
+			public void start(ModuleContext mc) throws Exception {
+			}
+		}, this.getClass().getName());
+
+		mc.logInfo("BusTestCase", "Starting BusTestCase", null);
+		
 		// init data representation
 		SharedResources.moduleContext = mc;
 		SharedResources.loadReasoningEngine();
@@ -247,6 +257,8 @@ public class BusTestCase extends TestCase {
 		// for (int i=0; i<p.length; i++)
 		// System.out.println("--Package: " + p[i].getName());
 		// getOntologies();
+
+		mc.logInfo("BusTestCase", "Buses Loaded.", null);
 	}
 
 	/*

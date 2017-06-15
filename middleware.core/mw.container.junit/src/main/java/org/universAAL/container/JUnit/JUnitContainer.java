@@ -100,7 +100,11 @@ public final class JUnitContainer implements Container {
 
 	/** {@inheritDoc} */
 	public ModuleContext registerModule(Object[] regParams) {
-		JUnitModuleContext mc = new JUnitModuleContext((ModuleActivator) regParams[0]);
+		String logname = "uAAL";
+		if (regParams.length > 1){
+			logname = (String) regParams[1];
+		}
+		JUnitModuleContext mc = new JUnitModuleContext((ModuleActivator) regParams[0], logname);
 		return mc;
 	}
 

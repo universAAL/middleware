@@ -16,13 +16,14 @@
 package org.universAAL.container.JUnit;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Appender;
 import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -39,7 +40,9 @@ public class JUnitModuleContext implements ModuleContext {
 
 	public enum LogLevel {
 		ERROR, WARN, INFO, DEBUG, TRACE, NONE
-	};
+	}
+
+	private static final String VERBOSE_KEY = "org.universAAL.junit.console.output";
 
 	private Logger logger;
 
@@ -49,17 +52,36 @@ public class JUnitModuleContext implements ModuleContext {
 
 	private ModuleActivator activator;
 
-	private static Appender ca = new ConsoleAppender(new SimpleLayout());
+	private boolean logEnabled;
 
-	public JUnitModuleContext(ModuleActivator ma) {
+	public JUnitModuleContext(ModuleActivator ma, String classname) {
 		activator = ma;
 		attributeMap = new HashMap<String, Object>();
 		configFiles = new HashSet<File>();
 		logger = LogManager.getLogger(activator.getClass().getPackage().getName());
-		logger.addAppender(ca);
+		if (System.getProperty(VERBOSE_KEY, "true").equalsIgnoreCase("true")) {
+			ConsoleAppender ca = new ConsoleAppender(new SimpleLayout());
+			logger.addAppender(ca);
+		}
+		try {
+			FileAppender fa = new FileAppender(new SimpleLayout(), "./target/"+ classname + ".log",false);
+			fa.setThreshold(Level.ALL);
+			logger.addAppender(fa);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		// Don't want to log things outside universAAL logs
 		Logger.getRootLogger().setLevel(Level.OFF);
 		// TODO Alternatively root logger could log to target/test.log
+		enableLog();
+		logger.setLevel(Level.ALL);
+	}
+	
+	/**
+	 * @deprecated
+	 */
+	public JUnitModuleContext(ModuleActivator ma){
+		this(ma,"uAAL");
 	}
 
 	public JUnitModuleContext() {
@@ -70,49 +92,15 @@ public class JUnitModuleContext implements ModuleContext {
 
 			public void start(ModuleContext mc) throws Exception {
 			}
-		});
-		logger.setLevel(Level.ALL);
+		}, "uAAL");
 	}
 
-	public void setLogLevel(LogLevel level) {
-		switch (level) {
-		case ERROR:
-			logger.setLevel(Level.ERROR);
-			break;
-		case WARN:
-			logger.setLevel(Level.WARN);
-			break;
-		case INFO:
-			logger.setLevel(Level.INFO);
-			break;
-		case DEBUG:
-			logger.setLevel(Level.DEBUG);
-			break;
-		case TRACE:
-			logger.setLevel(Level.TRACE);
-			break;
-		case NONE:
-			logger.setLevel(Level.OFF);
-		}
+	public void disableLog(){
+		logEnabled = false;
 	}
-
-	public LogLevel getLogLevel() {
-		if (isLogErrorEnabled()) {
-			return LogLevel.ERROR;
-		}
-		if (isLogWarnEnabled()) {
-			return LogLevel.WARN;
-		}
-		if (isLogInfoEnabled()) {
-			return LogLevel.INFO;
-		}
-		if (isLogDebugEnabled()) {
-			return LogLevel.DEBUG;
-		}
-		if (isLogTraceEnabled()) {
-			return LogLevel.TRACE;
-		}
-		return LogLevel.NONE;
+	
+	public void enableLog(){
+		logEnabled = true;
 	}
 
 	/** {@inheritDoc} */
@@ -155,27 +143,37 @@ public class JUnitModuleContext implements ModuleContext {
 
 	/** {@inheritDoc} */
 	public void logDebug(String tag, String message, Throwable t) {
-		logger.debug(tag + ": " + message, t);
+		if (logEnabled) {
+			logger.debug(tag + ": " + message, t);
+		}
 	}
 
 	/** {@inheritDoc} */
 	public void logError(String tag, String message, Throwable t) {
-		logger.error(tag + ": " + message, t);
+		if (logEnabled) {
+			logger.error(tag + ": " + message, t);
+		}
 	}
 
 	/** {@inheritDoc} */
 	public void logInfo(String tag, String message, Throwable t) {
-		logger.info(tag + ": " + message, t);
+		if (logEnabled) {
+			logger.info(tag + ": " + message, t);
+		}
 	}
 
 	/** {@inheritDoc} */
 	public void logWarn(String tag, String message, Throwable t) {
-		logger.warn(tag + ": " + message, t);
+		if (logEnabled) {
+			logger.warn(tag + ": " + message, t);
+		}
 	}
 
 	/** {@inheritDoc} */
 	public void logTrace(String tag, String message, Throwable t) {
-		logger.trace(tag + ": " + message, t);
+		if (logEnabled) {
+			logger.trace(tag + ": " + message, t);
+		}
 	}
 
 	/** {@inheritDoc} */
