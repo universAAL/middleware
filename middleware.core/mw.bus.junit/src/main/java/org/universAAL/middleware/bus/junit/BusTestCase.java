@@ -97,7 +97,8 @@ public class BusTestCase extends TestCase {
 		SharedResources.moduleContext = mc;
 		SharedResources.loadReasoningEngine();
 		SharedResources.setMiddlewareProp(SharedResources.IS_COORDINATING_PEER, "true");
-		OntologyManagement.getInstance().register(mc, new DataRepOntology());
+		//SharedResources.loadReasoningEngine(); already registers dataRepOntology
+		//OntologyManagement.getInstance().register(mc, new DataRepOntology());
 		TurtleSerializer turtleS = new TurtleSerializer();
 		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializer.class.getName() });
 		mc.getContainer().shareObject(mc, turtleS, new Object[] { MessageContentSerializerEx.class.getName() });
