@@ -54,13 +54,15 @@ public class JUnitModuleContext implements ModuleContext {
 
 	private boolean logEnabled;
 
+	ConsoleAppender ca = null;
+	
 	public JUnitModuleContext(ModuleActivator ma, String classname) {
 		activator = ma;
 		attributeMap = new HashMap<String, Object>();
 		configFiles = new HashSet<File>();
 		logger = LogManager.getLogger(activator.getClass().getPackage().getName());
 		if (System.getProperty(VERBOSE_KEY, "true").equalsIgnoreCase("true")) {
-			ConsoleAppender ca = new ConsoleAppender(new SimpleLayout());
+			ca = new ConsoleAppender(new SimpleLayout());
 			logger.addAppender(ca);
 		}
 		try {
@@ -151,7 +153,11 @@ public class JUnitModuleContext implements ModuleContext {
 	/** {@inheritDoc} */
 	public void logError(String tag, String message, Throwable t) {
 		if (logEnabled) {
+			ca.setTarget(ConsoleAppender.SYSTEM_ERR);
+			ca.activateOptions();
 			logger.error(tag + ": " + message, t);
+			ca.setTarget(ConsoleAppender.SYSTEM_OUT);
+			ca.activateOptions();
 		}
 	}
 
