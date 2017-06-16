@@ -18,8 +18,6 @@
  */
 package org.universAAL.middleware.junit;
 
-import org.universAAL.container.JUnit.JUnitModuleContext;
-import org.universAAL.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.bus.junit.BusTestCase;
 import org.universAAL.middleware.bus.permission.AccessControl;
 import org.universAAL.middleware.managers.api.DistributedMWEventHandler;
@@ -42,20 +40,23 @@ public class MWTestCase extends BusTestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		System.out.println(" - starting MWTestCase -");
+		mc.logInfo("MWTestCase", "Start TestCase", null);
 
 		mc.setAttribute(AccessControl.PROP_MODE, "none");
-		((JUnitModuleContext) mc).setLogLevel(LogLevel.ERROR);
 
-		org.universAAL.middleware.tracker.impl.Activator.fetchParams = new Object[] {
-				IBusMemberRegistry.class.getName() };
+		org.universAAL.middleware.tracker.impl.Activator.fetchParams = new Object[] { IBusMemberRegistry.class
+				.getName() };
 		// org.universAAL.middleware.tracker.osgi.Activator.mc = mc;
 		org.universAAL.middleware.tracker.impl.Activator bta = new org.universAAL.middleware.tracker.impl.Activator();
 		bta.start(mc);
 
-		Object[] parBMLMgmt = new Object[] { DistributedBusMemberManager.class.getName() };
-		Object[] parLLMgmt = new Object[] { DistributedLogManager.class.getName() };
-		Object[] parEvtH = new Object[] { DistributedMWEventHandler.class.getName() };
-		mm = new DistributedMWManagerImpl(mc, parBMLMgmt, parBMLMgmt, parLLMgmt, parLLMgmt, parEvtH, parEvtH);
+		Object[] parBMLMgmt = new Object[] { DistributedBusMemberManager.class
+				.getName() };
+		Object[] parLLMgmt = new Object[] { DistributedLogManager.class
+				.getName() };
+		Object[] parEvtH = new Object[] { DistributedMWEventHandler.class
+				.getName() };
+		mm = new DistributedMWManagerImpl(mc, parBMLMgmt, parBMLMgmt,
+				parLLMgmt, parLLMgmt, parEvtH, parEvtH);
 	}
 }
