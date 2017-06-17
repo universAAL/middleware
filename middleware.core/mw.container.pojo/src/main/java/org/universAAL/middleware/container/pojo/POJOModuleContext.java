@@ -60,8 +60,8 @@ public class POJOModuleContext implements ModuleContext {
 		configFiles = new HashSet<File>();
 		this.container = container;
 		logger = Logger.getLogger(getClass());
+		// Get all needed properties from container.
 		loadUniversAALAttribute();
-		// TODO Get all needed properties from container.
 		configurationFolder = container.getConfigurationFolder();
 		dataFolder = container.getDataFolder();
 	}
@@ -226,7 +226,7 @@ public class POJOModuleContext implements ModuleContext {
 
 	/** {@inheritDoc} */
 	public boolean uninstall(ModuleContext requester) {
-		// TODO
+		// in POJO one can stop the module but not unistall?
 		return false;
 	}
 

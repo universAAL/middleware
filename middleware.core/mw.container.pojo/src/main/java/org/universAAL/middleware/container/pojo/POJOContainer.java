@@ -124,22 +124,28 @@ public final class POJOContainer implements Container {
 	public void shareObject(ModuleContext requester, Object objToShare,
 			Object[] shareParams) {
 		sharedObjectMap.put((String) shareParams[0], objToShare);
-		// XXX check if shared object is a LogListener for registering it
+		// check if shared object is a LogListener for registering it
+		if (objToShare instanceof LogListener) {
+			registerLogListener((LogListener) objToShare);
+		}
 	}
 
 	public void removeSharedObject(ModuleContext requester, Object objToRemove,
 			Object[] shareParams) {
 		sharedObjectMap.remove((String) shareParams[0]);
-		// XXX check if shared object is a LogListener for unregistering it
+		// check if shared object is a LogListener for unregistering it
+		if (objToRemove instanceof LogListener) {
+			unregisterLogListener((LogListener) objToRemove);
+		}
 	}
 
 	/** Register a LogListener */
-	public void registerLogListener(LogListener listener) {
+	private void registerLogListener(LogListener listener) {
 		logListeners.add(listener);
 	}
 
 	/** Remove a LogListener */
-	public void unregisterLogListener(LogListener listener) {
+	private void unregisterLogListener(LogListener listener) {
 		logListeners.remove(listener);
 	}
 
