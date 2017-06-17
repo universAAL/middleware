@@ -23,14 +23,14 @@ import org.universAAL.middleware.service.test.util.TwoObjectCallHandler;
 /**
  * Unit tests for testing a distributed service bus with 3 bus instances: a
  * coordinator (coord) and 2 nodes (node1 and node2).
- * 
+ *
  * Each unit test should have a scenario description that describes for all
  * three nodes which profiles are registered there. A '*' means that the caller
  * is on that node; the request of the caller is mentioned at the end. This
  * description can be omitted if all deployments are tested.
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
 public class DistributedTest extends ServiceBusTestCase {
 
@@ -43,13 +43,13 @@ public class DistributedTest extends ServiceBusTestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		mc.setLogLevel(LogLevel.WARN);
+		//mc.setLogLevel(LogLevel.WARN);
 	}
 
 	/**
 	 * Helper method to check if the response is valid and has exactly the
 	 * member 'lamp1'
-	 * 
+	 *
 	 * @param sr
 	 */
 	private void checkResponse(ServiceResponse sr) {
@@ -64,7 +64,7 @@ public class DistributedTest extends ServiceBusTestCase {
 	/**
 	 * Helper method to check if the response is valid and has exactly the
 	 * members 'lamp1' and 'lamp2'
-	 * 
+	 *
 	 * @param sr
 	 */
 	private void checkResponse2(ServiceResponse sr) {
@@ -80,7 +80,7 @@ public class DistributedTest extends ServiceBusTestCase {
 	/**
 	 * Helper method to check if the response is valid and has exactly the
 	 * members 'lamp1', 'lamp2' abd 'lamp3'
-	 * 
+	 *
 	 * @param sr
 	 */
 	private void checkResponse3(ServiceResponse sr) {

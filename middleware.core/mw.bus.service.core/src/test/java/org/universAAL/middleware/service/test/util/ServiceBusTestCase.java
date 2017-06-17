@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -58,16 +58,16 @@ import junit.framework.TestCase;
 /**
  * An abstract class as base for unit tests that creates 3 instances of the
  * service bus; a coordinator and two nodes.
- * 
+ *
  * It uses some weird hacks to make it possible to have the 3 instances as the
  * bus normally is started only once. Main problems are that some variables are
  * static but need to be different for the different instances. This was
  * "solved" with Java reflection, a specific ordering of the creation of buses
  * and bus members, and certain assumptions (e.g. the custom AAL Space Manager
  * assumes that the method getPeerID is called exactly twice for each bus).
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
 public abstract class ServiceBusTestCase extends TestCase {
 	/*
@@ -127,7 +127,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 		System.out.println(" - starting BusTestCase -");
 		System.setProperty("org.universaal.bus.permission.mode", "none");
 		mc = new JUnitModuleContext();
-		mc.setLogLevel(LogLevel.DEBUG);
+		//mc.setLogLevel(LogLevel.DEBUG);
 
 		// init data representation
 		SharedResources.moduleContext = mc;
@@ -227,7 +227,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 	/**
 	 * Creates a new instance of the service bus; thus, simulating a new node in
 	 * the network.
-	 * 
+	 *
 	 * @param i
 	 *            One-based index of the node.
 	 * @throws IllegalAccessException
@@ -323,7 +323,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 	/**
 	 * Get the number of registered profiles.
-	 * 
+	 *
 	 * @return
 	 */
 	public int getNumRegisteredProfiles() {
@@ -337,7 +337,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 	/**
 	 * Wait until the number of registered profiles have changed.
-	 * 
+	 *
 	 * @param old
 	 */
 	public void waitForProfileNumberChange(int old) {
@@ -358,7 +358,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 	/**
 	 * Get the service caller on a specific node.
-	 * 
+	 *
 	 * @param node
 	 * @return
 	 */
@@ -368,7 +368,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 	/**
 	 * Get s specific service callee on a specific node.
-	 * 
+	 *
 	 * @param node
 	 * @return
 	 */
@@ -381,7 +381,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 	/**
 	 * Set the handler to handle service calls for a specific callee.
-	 * 
+	 *
 	 * @param node
 	 * @param callee
 	 * @param handler
@@ -393,7 +393,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 	/**
 	 * Set the handler to handle service calls for the first callee.
-	 * 
+	 *
 	 * @param node
 	 * @param handler
 	 */
@@ -403,7 +403,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 	/**
 	 * Call a service from a given node.
-	 * 
+	 *
 	 * @param node
 	 * @param sr
 	 * @return
@@ -415,7 +415,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 
 	/**
 	 * Inject a service call from a given node.
-	 * 
+	 *
 	 * @param node
 	 * @param sr
 	 * @return
@@ -428,7 +428,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 	/**
 	 * Deploy some profiles to a given callee on the given node. The profiles
 	 * are added to existing profiles.
-	 * 
+	 *
 	 * @param node
 	 * @param profiles
 	 */
@@ -442,7 +442,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 	/**
 	 * Deploy a profile to a given callee on the given node. The profiles are
 	 * added to existing profiles.
-	 * 
+	 *
 	 * @param node
 	 * @param profiles
 	 */
@@ -453,7 +453,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 	/**
 	 * Deploy some profiles to the first callee on the given node. The profiles
 	 * are added to existing profiles.
-	 * 
+	 *
 	 * @param node
 	 * @param profiles
 	 */
@@ -464,7 +464,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 	/**
 	 * Deploy a single profiles to the first callee on the given node. The
 	 * profile is added to existing profiles.
-	 * 
+	 *
 	 * @param node
 	 * @param profiles
 	 */
