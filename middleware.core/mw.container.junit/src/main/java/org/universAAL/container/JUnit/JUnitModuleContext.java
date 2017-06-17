@@ -55,18 +55,20 @@ public class JUnitModuleContext implements ModuleContext {
 	private boolean logEnabled;
 
 	ConsoleAppender ca = null;
-	
+
 	public JUnitModuleContext(ModuleActivator ma, String classname) {
 		activator = ma;
 		attributeMap = new HashMap<String, Object>();
 		configFiles = new HashSet<File>();
-		logger = LogManager.getLogger(activator.getClass().getPackage().getName());
+		logger = LogManager.getLogger(activator.getClass().getPackage()
+				.getName());
 		if (System.getProperty(VERBOSE_KEY, "true").equalsIgnoreCase("true")) {
 			ca = new ConsoleAppender(new SimpleLayout());
 			logger.addAppender(ca);
 		}
 		try {
-			FileAppender fa = new FileAppender(new SimpleLayout(), "./target/"+ classname + ".log",false);
+			FileAppender fa = new FileAppender(new SimpleLayout(), "./target/"
+					+ classname + ".log", false);
 			fa.setThreshold(Level.ALL);
 			logger.addAppender(fa);
 		} catch (IOException e) {
@@ -78,12 +80,12 @@ public class JUnitModuleContext implements ModuleContext {
 		enableLog();
 		logger.setLevel(Level.ALL);
 	}
-	
+
 	/**
 	 * @deprecated
 	 */
-	public JUnitModuleContext(ModuleActivator ma){
-		this(ma,"uAAL");
+	public JUnitModuleContext(ModuleActivator ma) {
+		this(ma, "uAAL");
 	}
 
 	public JUnitModuleContext() {
@@ -97,11 +99,11 @@ public class JUnitModuleContext implements ModuleContext {
 		}, "uAAL");
 	}
 
-	public void disableLog(){
+	public void disableLog() {
 		logEnabled = false;
 	}
-	
-	public void enableLog(){
+
+	public void enableLog() {
 		logEnabled = true;
 	}
 
@@ -153,11 +155,15 @@ public class JUnitModuleContext implements ModuleContext {
 	/** {@inheritDoc} */
 	public void logError(String tag, String message, Throwable t) {
 		if (logEnabled) {
-			ca.setTarget(ConsoleAppender.SYSTEM_ERR);
-			ca.activateOptions();
-			logger.error(tag + ": " + message, t);
-			ca.setTarget(ConsoleAppender.SYSTEM_OUT);
-			ca.activateOptions();
+			if (ca != null) {
+				ca.setTarget(ConsoleAppender.SYSTEM_ERR);
+				ca.activateOptions();
+				logger.error(tag + ": " + message, t);
+				ca.setTarget(ConsoleAppender.SYSTEM_OUT);
+				ca.activateOptions();
+			} else
+				logger.error(tag + ": " + message, t);
+
 		}
 	}
 
@@ -224,7 +230,8 @@ public class JUnitModuleContext implements ModuleContext {
 				activator.start(this);
 				return true;
 			} catch (Exception e) {
-				logger.error("Unable to start: " + activator.getClass().getPackage().getName(), e);
+				logger.error("Unable to start: "
+						+ activator.getClass().getPackage().getName(), e);
 			}
 		}
 		return false;
@@ -237,7 +244,8 @@ public class JUnitModuleContext implements ModuleContext {
 				activator.stop(this);
 				return true;
 			} catch (Exception e) {
-				logger.error("Unable to stop: " + activator.getClass().getPackage().getName(), e);
+				logger.error("Unable to stop: "
+						+ activator.getClass().getPackage().getName(), e);
 			}
 		}
 		return false;
