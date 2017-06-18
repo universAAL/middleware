@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,7 @@ import org.universAAL.middleware.modules.listener.MessageListener;
 /**
  * The interface for the Communication Module. This interface is invoked from
  * the brokerage layer
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
@@ -39,14 +39,14 @@ public interface CommunicationModule extends Module {
 	/**
 	 * This method is invoked by the Connector layer as soon as a message
 	 * arrives.
-	 * 
+	 *
 	 * @param channelMessage
 	 */
 	public void messageReceived(ChannelMessage channelMessage);
 
 	/**
 	 * Multicast send
-	 * 
+	 *
 	 * @param message
 	 *            Message to send
 	 * @param receivers
@@ -60,7 +60,7 @@ public interface CommunicationModule extends Module {
 	/**
 	 * Multicast implementation of the send. This signature does not require any
 	 * MessageListener
-	 * 
+	 *
 	 * @param message
 	 * @param receivers
 	 */
@@ -68,7 +68,7 @@ public interface CommunicationModule extends Module {
 
 	/**
 	 * Broadcast implementation of the send
-	 * 
+	 *
 	 * @param message
 	 * @param listener
 	 *            The listener that will manage failures during the message send
@@ -77,14 +77,14 @@ public interface CommunicationModule extends Module {
 
 	/**
 	 * Broadcast implementation of the send
-	 * 
+	 *
 	 * @param message
 	 */
 	public void sendAll(ChannelMessage message) throws CommunicationModuleException;
 
 	/**
 	 * Unicast send
-	 * 
+	 *
 	 * @param message
 	 * @param recipient
 	 * @param listener
@@ -94,8 +94,8 @@ public interface CommunicationModule extends Module {
 			throws CommunicationModuleException;
 
 	/**
-	 * Unicast send to the AALSpace Coordinator for joining operation
-	 * 
+	 * Unicast send to the Space Coordinator for joining operation
+	 *
 	 * @param message
 	 * @param coordinatorID
 	 * @param listener
@@ -104,7 +104,7 @@ public interface CommunicationModule extends Module {
 
 	/**
 	 * Method used by the brokerage layer to add message listener
-	 * 
+	 *
 	 * @param listener
 	 * @param ChannelMessage
 	 */
@@ -113,7 +113,7 @@ public interface CommunicationModule extends Module {
 	/**
 	 * Method used by the upper layer to un-register themselves as message
 	 * listener
-	 * 
+	 *
 	 * @param listener
 	 * @param ChannelMessage
 	 */
@@ -122,7 +122,7 @@ public interface CommunicationModule extends Module {
 	/**
 	 * Returns the first MessageListener that is an instance of the given clz
 	 * and has been registered under the given name.
-	 * 
+	 *
 	 * @param name
 	 * @return
 	 */
@@ -130,7 +130,7 @@ public interface CommunicationModule extends Module {
 
 	/**
 	 * Determines whether a channel with the specified name exists.
-	 * 
+	 *
 	 * @param channelName
 	 *            name of the channel.
 	 * @return true, iff the channel exists.

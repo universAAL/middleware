@@ -66,7 +66,7 @@ import org.universAAL.middleware.managers.api.ConfigurationManagerConnector;
 import org.universAAL.middleware.managers.api.DeployManager;
 import org.universAAL.middleware.managers.api.DeployManagerEventHandler;
 import org.universAAL.middleware.managers.api.DistributedMWEventHandler;
-import org.universAAL.middleware.modules.AALSpaceModule;
+import org.universAAL.middleware.modules.SpaceModule;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.modules.ConfigurableCommunicationModule;
 import org.universAAL.middleware.modules.listener.MessageListener;
@@ -83,7 +83,7 @@ import com.google.gson.Gson;
 public class ControlBroker implements SharedObjectListener, Broker, MessageListener {
 
 	private ModuleContext context;
-	private AALSpaceModule aalSpaceModule;
+	private SpaceModule aalSpaceModule;
 	private ConfigurableCommunicationModule communicationModule;
 	private SpaceEventHandler aalSpaceEventHandler;
 	private SpaceManager aalSpaceManager;
@@ -123,9 +123,9 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 				new Object[] { SpaceManager.class.getName() });
 	}
 
-	private AALSpaceModule getAALSpaceModule() {
-		return aalSpaceModule = (AALSpaceModule) getSharedObject(AALSpaceModule.class,
-				new Object[] { AALSpaceModule.class.getName() });
+	private SpaceModule getAALSpaceModule() {
+		return aalSpaceModule = (SpaceModule) getSharedObject(SpaceModule.class,
+				new Object[] { SpaceModule.class.getName() });
 	}
 
 	private DeployManager getDeployManager() {
@@ -204,7 +204,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 					new Object[] { "ControlBroker not initialized." }, null);
 			return null;
 		}
-		return aalSpaceModule.getAALSpaces(filters);
+		return aalSpaceModule.getSpaces(filters);
 	}
 
 	public void buildAALSpace(SpaceCard aalSpaceCard) {
@@ -213,17 +213,17 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 					new Object[] { "ControlBroker not initialized. " }, null);
 			return;
 		}
-		aalSpaceModule.newAALSpace(aalSpaceCard);
+		aalSpaceModule.newSpace(aalSpaceCard);
 	}
 
 	public void sharedObjectAdded(Object sharedObj, Object removeHook) {
 		if (sharedObj == null)
 			return;
 
-		if (sharedObj instanceof AALSpaceModule) {
+		if (sharedObj instanceof SpaceModule) {
 			LogUtils.logDebug(context, ControlBroker.class, "sharedObjectAdded",
 					new Object[] { "AALSpaceModule registered..." }, null);
-			aalSpaceModule = (AALSpaceModule) sharedObj;
+			aalSpaceModule = (SpaceModule) sharedObj;
 		}
 		if (sharedObj instanceof CommunicationModule) {
 			LogUtils.logDebug(context, ControlBroker.class, "sharedObjectAdded",
@@ -284,7 +284,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 			deployManager = null;
 			initialized = false;
 
-		} else if (arg0 instanceof AALSpaceModule) {
+		} else if (arg0 instanceof SpaceModule) {
 			LogUtils.logInfo(context, ControlBroker.class, "sharedObjectRemoved",
 					new Object[] { "AALSpaceModule unregistered!" }, null);
 			aalSpaceModule = null;
@@ -354,7 +354,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 					new Object[] { "ControlBroker not initialized. Join message aborted" }, null);
 			return;
 		}
-		aalSpaceModule.joinAALSpace(spaceCoordinator, spaceCard);
+		aalSpaceModule.joinSpace(spaceCoordinator, spaceCard);
 	}
 
 	/**
@@ -438,7 +438,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 					new Object[] { "ControlBroker not initialized." }, null);
 			return;
 		}
-		aalSpaceModule.configureAALSpaceChannel();
+		aalSpaceModule.configureSpaceChannel();
 		List<ChannelDescriptor> channel = new ArrayList<ChannelDescriptor>();
 		channel.add(peeringChannel);
 		configureChannels(channel, peerName);
@@ -459,7 +459,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 					new Object[] { "ControlBroker not initialized." }, null);
 			return;
 		}
-		aalSpaceModule.destroyAALSpace(spaceCard);
+		aalSpaceModule.destroySpace(spaceCard);
 	}
 
 	public void leaveAALSpace(PeerCard spaceCoordinator, SpaceCard spaceCard) {
@@ -468,7 +468,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 					new Object[] { "ControlBroker not initialized." }, null);
 			return;
 		}
-		aalSpaceModule.leaveAALSpace(spaceCoordinator, spaceCard);
+		aalSpaceModule.leaveSpace(spaceCoordinator, spaceCard);
 	}
 
 	public void addNewPeer(SpaceDescriptor spaceDescriptor, PeerCard peer) {
@@ -864,7 +864,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 	}
 
 	public void renewAALSpace(SpaceCard spaceCard) {
-		aalSpaceModule.renewAALSpace(spaceCard);
+		aalSpaceModule.renewSpace(spaceCard);
 	}
 
 	public void signalAALSpaceStatus(SpaceStatus status, SpaceDescriptor spaceDescriptor) {

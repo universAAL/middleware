@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,26 +21,26 @@
 package org.universAAL.middleware.modules.exception;
 
 /**
- * Error codes AALSpaceModule
- * 
+ * Error codes SpaceModule
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:filippo.palumbo@isti.cnr.it">Filippo Palumbo</a>
  */
-public class AALSpaceModuleErrorCode {
+public class SpaceModuleErrorCode {
 	public static final short NO_DISCOVERY_CONNECTORS = 0;
 	public static final short ERROR_INTERACTING_DISCOVERY_CONNECTORS = 1;
-	public static final short AALSPACE_JOIN_ERROR = 2;
-	public static final short AALSPACE_JOIN_WRONG_PARAMETERS = 3;
-	public static final short AALSPACE_JOIN_RESPONSE_WRONG_PARAMETERS = 4;
-	public static final short AALSPACE_NEW_PEER_ERROR = 5;
-	public static final short AALSPACE_NEW_PEER_ADDED_ERROR = 6;
-	public static final short ERROR_MANAGING_AALSPACE_MESSAGE = 7;
+	public static final short SPACE_JOIN_ERROR = 2;
+	public static final short SPACE_JOIN_WRONG_PARAMETERS = 3;
+	public static final short SPACE_JOIN_RESPONSE_WRONG_PARAMETERS = 4;
+	public static final short SPACE_NEW_PEER_ERROR = 5;
+	public static final short SPACE_NEW_PEER_ADDED_ERROR = 6;
+	public static final short ERROR_MANAGING_SPACE_MESSAGE = 7;
 
 	public static final short ERROR_SENDING_JOIN_REQUEST = 8;
 	public static final short ERROR_SENDING_JOIN_RESPONSE = 9;
 	public static final short ERROR_SENDING_NEW_PEER_ADDED = 10;
 
-	public static final short AALSPACE_LEAVE_ERROR = 11;
+	public static final short SPACE_LEAVE_ERROR = 11;
 
 }

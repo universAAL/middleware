@@ -37,7 +37,7 @@ import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.modules.AALSpaceModule;
+import org.universAAL.middleware.modules.SpaceModule;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.modules.ConfigurableCommunicationModule;
 import org.universAAL.middleware.modules.exception.CommunicationModuleErrorCode;
@@ -60,7 +60,7 @@ public class CommunicationModuleImpl implements CommunicationModule, Configurabl
 	private String description;
 	private ModuleContext context;
 	private CommunicationConnector communicationConnector;
-	private AALSpaceModule aalSpaceModule;
+	private SpaceModule aalSpaceModule;
 	private ConcurrentMap<String, List<MessageListener>> messageListeners;
 	private boolean initialized = false;
 
@@ -109,11 +109,11 @@ public class CommunicationModuleImpl implements CommunicationModule, Configurabl
 
 				// AALSpace Module
 				Object[] aalSpaceModules = context.getContainer().fetchSharedObject(context,
-						new Object[] { AALSpaceModule.class.getName() }, this);
+						new Object[] { SpaceModule.class.getName() }, this);
 
 				if (aalSpaceModules != null && aalSpaceModules.length > 0) {
 					// we use only the first communication connector... to patch
-					aalSpaceModule = (AALSpaceModule) aalSpaceModules[0];
+					aalSpaceModule = (SpaceModule) aalSpaceModules[0];
 					LogUtils.logDebug(context, CommunicationModuleImpl.class, "CommunicationModuleImpl",
 							new Object[] { "AALSpaceModule found " }, null);
 					initialized = true;

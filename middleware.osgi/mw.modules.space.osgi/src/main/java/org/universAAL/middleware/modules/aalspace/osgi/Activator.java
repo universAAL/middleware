@@ -36,7 +36,7 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.osgi.uAALBundleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.modules.AALSpaceModule;
+import org.universAAL.middleware.modules.SpaceModule;
 import org.universAAL.middleware.modules.aalspace.AALSpaceModuleImpl;
 
 /**
@@ -46,7 +46,7 @@ import org.universAAL.middleware.modules.aalspace.AALSpaceModuleImpl;
  */
 public class Activator implements BundleActivator, ManagedService {
 	private static String SERVICE_PID = "mw.modules.aalspace.core";
-	private AALSpaceModule aalSpaceModule;
+	private SpaceModule aalSpaceModule;
 
 	private ServiceRegistration myRegistration;
 
@@ -77,7 +77,7 @@ public class Activator implements BundleActivator, ManagedService {
 		aalSpaceModule.init();
 
 		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, aalSpaceModule,
-				new Object[] { AALSpaceModule.class.getName() });
+				new Object[] { SpaceModule.class.getName() });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "AALSpaceModule registered" }, null);
 
