@@ -16,14 +16,13 @@
 package org.universAAL.container.JUnit;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Appender;
 import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -40,12 +39,7 @@ public class JUnitModuleContext implements ModuleContext {
 
 	public enum LogLevel {
 		ERROR, WARN, INFO, DEBUG, TRACE, NONE
-	}
-
-	private static final String VERBOSE_KEY = "org.universAAL.junit.console.output";
-
-	private static final int BUFFERSIZE = 16 * 1024 * 1024;
-	// Defatult is 8 * 1024
+	};
 
 	private Logger logger;
 
@@ -55,40 +49,17 @@ public class JUnitModuleContext implements ModuleContext {
 
 	private ModuleActivator activator;
 
-	private boolean logEnabled;
+	private static Appender ca = new ConsoleAppender(new SimpleLayout());
 
-	ConsoleAppender ca = null;
-
-	public JUnitModuleContext(ModuleActivator ma, String classname) {
+	public JUnitModuleContext(ModuleActivator ma) {
 		activator = ma;
 		attributeMap = new HashMap<String, Object>();
 		configFiles = new HashSet<File>();
-		logger = LogManager.getLogger(activator.getClass().getPackage()
-				.getName());
-		logger.removeAllAppenders();
-		if (System.getProperty(VERBOSE_KEY, "true").equalsIgnoreCase("true")) {
-			ca = new ConsoleAppender(new SimpleLayout());
-			logger.addAppender(ca);
-		}
-		try {
-			FileAppender fa = new FileAppender(new SimpleLayout(), "./target/"
-					+ classname + ".log", false, true, BUFFERSIZE);
-			logger.addAppender(fa);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		logger = LogManager.getLogger(activator.getClass().getPackage().getName());
+		logger.addAppender(ca);
 		// Don't want to log things outside universAAL logs
 		Logger.getRootLogger().setLevel(Level.OFF);
 		// TODO Alternatively root logger could log to target/test.log
-		enableLog();
-		logger.setLevel(Level.ALL);
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public JUnitModuleContext(ModuleActivator ma) {
-		this(ma, "uAAL");
 	}
 
 	public JUnitModuleContext() {
@@ -99,15 +70,8 @@ public class JUnitModuleContext implements ModuleContext {
 
 			public void start(ModuleContext mc) throws Exception {
 			}
-		}, "uAAL");
-	}
-
-	public void disableLog() {
-		logEnabled = false;
-	}
-
-	public void enableLog() {
-		logEnabled = true;
+		});
+		logger.setLevel(Level.ALL);
 	}
 
 	public void setLogLevel(LogLevel level) {
@@ -130,6 +94,25 @@ public class JUnitModuleContext implements ModuleContext {
 		case NONE:
 			logger.setLevel(Level.OFF);
 		}
+	}
+
+	public LogLevel getLogLevel() {
+		if (isLogErrorEnabled()) {
+			return LogLevel.ERROR;
+		}
+		if (isLogWarnEnabled()) {
+			return LogLevel.WARN;
+		}
+		if (isLogInfoEnabled()) {
+			return LogLevel.INFO;
+		}
+		if (isLogDebugEnabled()) {
+			return LogLevel.DEBUG;
+		}
+		if (isLogTraceEnabled()) {
+			return LogLevel.TRACE;
+		}
+		return LogLevel.NONE;
 	}
 
 	/** {@inheritDoc} */
@@ -172,45 +155,27 @@ public class JUnitModuleContext implements ModuleContext {
 
 	/** {@inheritDoc} */
 	public void logDebug(String tag, String message, Throwable t) {
-		if (logEnabled) {
-			logger.debug(tag + ": " + message, t);
-		}
+		logger.debug(tag + ": " + message, t);
 	}
 
 	/** {@inheritDoc} */
 	public void logError(String tag, String message, Throwable t) {
-		if (logEnabled) {
-			if (ca != null) {
-				ca.setTarget(ConsoleAppender.SYSTEM_ERR);
-				ca.activateOptions();
-				logger.error(tag + ": " + message, t);
-				ca.setTarget(ConsoleAppender.SYSTEM_OUT);
-				ca.activateOptions();
-			} else
-				logger.error(tag + ": " + message, t);
-
-		}
+		logger.error(tag + ": " + message, t);
 	}
 
 	/** {@inheritDoc} */
 	public void logInfo(String tag, String message, Throwable t) {
-		if (logEnabled) {
-			logger.info(tag + ": " + message, t);
-		}
+		logger.info(tag + ": " + message, t);
 	}
 
 	/** {@inheritDoc} */
 	public void logWarn(String tag, String message, Throwable t) {
-		if (logEnabled) {
-			logger.warn(tag + ": " + message, t);
-		}
+		logger.warn(tag + ": " + message, t);
 	}
 
 	/** {@inheritDoc} */
 	public void logTrace(String tag, String message, Throwable t) {
-		if (logEnabled) {
-			logger.trace(tag + ": " + message, t);
-		}
+		logger.trace(tag + ": " + message, t);
 	}
 
 	/** {@inheritDoc} */
@@ -255,8 +220,7 @@ public class JUnitModuleContext implements ModuleContext {
 				activator.start(this);
 				return true;
 			} catch (Exception e) {
-				logger.error("Unable to start: "
-						+ activator.getClass().getPackage().getName(), e);
+				logger.error("Unable to start: " + activator.getClass().getPackage().getName(), e);
 			}
 		}
 		return false;
@@ -269,8 +233,7 @@ public class JUnitModuleContext implements ModuleContext {
 				activator.stop(this);
 				return true;
 			} catch (Exception e) {
-				logger.error("Unable to stop: "
-						+ activator.getClass().getPackage().getName(), e);
+				logger.error("Unable to stop: " + activator.getClass().getPackage().getName(), e);
 			}
 		}
 		return false;

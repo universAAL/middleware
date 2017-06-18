@@ -44,9 +44,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.universAAL.container.JUnit.JUnitContainer;
 import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.owl.OntClassInfo;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
@@ -173,7 +175,8 @@ public class OntTestCase extends BusTestCase {
 			// String[] { LogListener.class.getName() });
 			((JUnitContainer) mc.getContainer()).registerLogListener(OntologyLoaderTask.this);
 			// Disable output
-			((JUnitModuleContext) mc).disableLog();
+			LogLevel lvl = ((JUnitModuleContext) mc).getLogLevel();
+			((JUnitModuleContext) mc).setLogLevel(LogLevel.NONE);
 
 			try {
 				OntologyManagement.getInstance().register(mc, ont);
@@ -183,7 +186,7 @@ public class OntTestCase extends BusTestCase {
 			}
 
 			// Reactivate Logs
-			((JUnitModuleContext) mc).enableLog();
+			((JUnitModuleContext) mc).setLogLevel(lvl);
 			// mc.getContainer().removeSharedObject(mc, OntologyLoaderTask.this,
 			// new String[] { LogListener.class.getName() });
 			((JUnitContainer) mc.getContainer()).unregisterLogListener(OntologyLoaderTask.this);
@@ -195,11 +198,12 @@ public class OntTestCase extends BusTestCase {
 			errors = 0;
 			logEntries.clear();
 			// Disable output
-			((JUnitModuleContext) mc).disableLog();
+			LogLevel lvl = ((JUnitModuleContext) mc).getLogLevel();
+			((JUnitModuleContext) mc).setLogLevel(LogLevel.NONE);
 			// unregister
 			OntologyManagement.getInstance().unregister(mc, ont);
 			// Reactivate Logs
-			((JUnitModuleContext) mc).enableLog();
+			((JUnitModuleContext) mc).setLogLevel(lvl);
 			// refresh ont instance
 			try {
 				ont = (Ontology) ont.getClass().newInstance();
@@ -255,7 +259,7 @@ public class OntTestCase extends BusTestCase {
 				}
 			folder = s;
 		}
-//		System.out.println("Folder: " + folder);
+		System.out.println("Folder: " + folder);
 
 		autoLoadOntologies();
 	}
@@ -265,7 +269,6 @@ public class OntTestCase extends BusTestCase {
 	 * after, if fortunately, dependant ontologies are loaded.
 	 */
 	private void autoLoadOntologies() {
-		mc.logInfo("OntTestCase", "Auto Loading Ontologies.", null);
 		List<Ontology> toBeLoaded = getOntologies();
 		// The ordering in this list may differ if you call it as mvn-install or
 		// JUnit.
@@ -288,6 +291,9 @@ public class OntTestCase extends BusTestCase {
 		// first add all onts that are not from this project
 		TryLoadingOnts(toBeLoaded, false, pendingOnts, loadingOrder, totalOntologiesFound);
 
+		// print all registered classes
+		printRegistered();
+
 		// then add all onts that are from this project
 		TryLoadingOnts(toBeLoaded, true, pendingOnts, loadingOrder, totalOntologiesFound);
 
@@ -307,9 +313,9 @@ public class OntTestCase extends BusTestCase {
 		// }
 
 		// Print Summary
-		StringBuffer ls = new StringBuffer();
-		ls.append("AUTO LOAD RESULT\n");
-		ls.append(" Load Order:\n");
+		System.out.println("---------------------------------");
+		System.out.println("AUTO LOAD RESULT");
+		System.out.println(" Load Order:");
 		StringBuffer sb = new StringBuffer();
 		sb.append(" Ontology problems found in this project:\n");
 		StringBuffer sbo = new StringBuffer(" Problems detected in other Ontologies:\n");
@@ -317,8 +323,8 @@ public class OntTestCase extends BusTestCase {
 		boolean otherProblems = false;
 		boolean fail = false;
 		for (OntologyLoaderTask olt : loadingOrder) {
-			ls.append(
-					"\t" + (isInMyProy(olt.ont) ? "* " : "  ") + olt.ont.getInfo().getURI() + " " + olt.report() + "\n");
+			System.out.println(
+					"\t" + (isInMyProy(olt.ont) ? "* " : "  ") + olt.ont.getInfo().getURI() + " " + olt.report());
 			if (isInMyProy(olt.ont)) {
 				if (!olt.logEntries.isEmpty()) {
 					sb.append("\t" + olt.ont.getInfo().getURI() + "\n");
@@ -340,26 +346,47 @@ public class OntTestCase extends BusTestCase {
 
 			}
 		}
-		LogUtils.logInfo(mc, getClass(), "autoLoadOntologies", ls.toString());
+		System.out.flush();
 		if (problems) {
-//			System.err.println(sb.toString());
-			LogUtils.logError(mc, getClass(), "autoLoadOntologies", sb.toString());
+			System.err.println(sb.toString());
 		}
 		if (otherProblems) {
-//			System.out.print(sbo.toString());
-			LogUtils.logWarn(mc, getClass(), "autoLoadOntologies", sbo.toString());
+			System.out.print(sbo.toString());
 		}
-
+		System.err.flush();
+		System.out.println("---------------------------------");
+		System.out.flush();
 		if (problems) {
 			if (fail) {
-				LogUtils.logError(mc, getClass(), "autoLoadOntologies", "Severe problems found, failing build.");
+				System.out.println("Severe problems found, failing build.");
 				fail(sb.toString());
 			} else {
-				LogUtils.logWarn(mc, getClass(), "autoLoadOntologies", "The problems are not severe, build does not fail.");
+				System.out.println("The problems are not severe, build does not fail.");
 			}
 		}
 
-		mc.logInfo("OntTestCase", "Auto Loading complete.", null);
+		// print all registered classes
+		printRegistered();
+	}
+
+	private void printRegistered() {
+		// String uris[] = OntologyManagement.getInstance().getOntoloyURIs();
+		// for (String uri : uris) {
+		// System.out.println(" -- Ontology: " + uri);
+		// Ontology ont = OntologyManagement.getInstance().getOntology(uri);
+		// OntClassInfo[] ocis = ont.getOntClassInfo();
+		// for (OntClassInfo oci : ocis) {
+		// boolean b1 =
+		// OntologyManagement.getInstance().isRegisteredClass(oci.getURI(),
+		// true);
+		// boolean b2 =
+		// OntologyManagement.getInstance().isRegisteredClass(oci.getURI(),
+		// false);
+		// String s1 = b1 ? "*" : "-";
+		// String s2 = b2 ? "*" : "-";
+		// System.out.println(" ---- Class: " + s1 + s2 + " " + oci.getURI());
+		// }
+		// }
 	}
 
 	private void TryLoadingOnts(List<Ontology> toBeLoaded, boolean isInMyProject,
