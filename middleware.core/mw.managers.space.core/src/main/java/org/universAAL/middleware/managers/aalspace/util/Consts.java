@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,19 +22,19 @@ package org.universAAL.middleware.managers.aalspace.util;
 
 /**
  * Widely-used constants for the AALSpaceManager
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class Consts {
-	public static String AAL_SPACE_CONFIGURATION_PATH = "aalSpaceConfigurationPath";
+	public static String AAL_SPACE_CONFIGURATION_PATH = "spaceConfigurationPath";
 	public static String PEER_ID = "peerID";
 	public static String PEER_ROLE = "peerRole";
 	public static String SPACE_EXTENSION = "spaceExtension";
-	public static String AAL_SPACE_VALIDATION = "aalSpaceValidation";
-	public static String AAL_SPACE_LIFETIME = "aalSpaceLifeTime";
-	public static String AAL_SPACE_SCHEMA_URL = "aalSpaceSchemaURL";
-	public static String AAL_SPACE_SCHEMA_NAME = "aalSpaceSchemaName";
+	public static String AAL_SPACE_VALIDATION = "spaceValidation";
+	public static String AAL_SPACE_LIFETIME = "spaceLifeTime";
+	public static String AAL_SPACE_SCHEMA_URL = "spaceSchemaURL";
+	public static String AAL_SPACE_SCHEMA_NAME = "spaceSchemaName";
 	public static String WAIT_BEFEORE_CLOSING_CHANNEL = "waitBeforeClosingChannels";
 	public static String WAIT_AFTER_JOIN_REQUEST = "waitAfterJoinRequest";
 
