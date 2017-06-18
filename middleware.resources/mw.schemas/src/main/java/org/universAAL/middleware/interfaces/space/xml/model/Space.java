@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@
 	limitations under the License.
  */
 
-package org.universAAL.middleware.interfaces.aalspace.xml.model;
+package org.universAAL.middleware.interfaces.space.xml.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,20 +30,20 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.universAAL.middleware.interfaces.aalspace.model.IAALSpace;
-import org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor;
-import org.universAAL.middleware.interfaces.aalspace.model.ICommunicationChannels;
-import org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel;
-import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.model.ISpace;
+import org.universAAL.middleware.interfaces.space.model.IChannelDescriptor;
+import org.universAAL.middleware.interfaces.space.model.ICommunicationChannels;
+import org.universAAL.middleware.interfaces.space.model.IPeeringChannel;
+import org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor;
 
 /**
  * <p>
  * Java class for anonymous complex type.
- * 
+ *
  * <p>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -93,14 +93,14 @@ import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "spaceDescriptor", "peeringChannel", "communicationChannels", "owner", "admin",
 		"security" })
 @XmlRootElement(name = "aalspace", namespace = "")
-public class Aalspace implements Serializable, IAALSpace {
+public class Space implements Serializable, ISpace {
 
 	private final static long serialVersionUID = 12343L;
 	@XmlElement(name = "space-descriptor", required = true)
@@ -118,8 +118,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#
+	 *
+	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
 	 * getSpaceDescriptor()
 	 */
 	public ISpaceDescriptor getSpaceDescriptor() {
@@ -128,9 +128,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#
-	 * setSpaceDescriptor(org.universAAL.middleware.interfaces.aalspace.model.
+	 *
+	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
+	 * setSpaceDescriptor(org.universAAL.middleware.interfaces.space.model.
 	 * Aalspace.SpaceDescriptor)
 	 */
 	public void setSpaceDescriptor(ISpaceDescriptor value) {
@@ -143,8 +143,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#
+	 *
+	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
 	 * isSetSpaceDescriptor()
 	 */
 	public boolean isSetSpaceDescriptor() {
@@ -153,8 +153,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#
+	 *
+	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
 	 * getPeeringChannel()
 	 */
 	public IPeeringChannel getPeeringChannel() {
@@ -163,9 +163,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#
-	 * setPeeringChannel(org.universAAL.middleware.interfaces.aalspace.model.
+	 *
+	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
+	 * setPeeringChannel(org.universAAL.middleware.interfaces.space.model.
 	 * Aalspace.PeeringChannel)
 	 */
 	public void setPeeringChannel(PeeringChannel value) {
@@ -178,8 +178,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#
+	 *
+	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
 	 * isSetPeeringChannel()
 	 */
 	public boolean isSetPeeringChannel() {
@@ -188,8 +188,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#
+	 *
+	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
 	 * getCommunicationChannels()
 	 */
 	public ICommunicationChannels getCommunicationChannels() {
@@ -198,8 +198,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#
+	 *
+	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
 	 * setCommunicationChannels(org.universAAL.middleware.interfaces.aalspace.
 	 * model.Aalspace.CommunicationChannels)
 	 */
@@ -209,8 +209,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#
+	 *
+	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
 	 * isSetCommunicationChannels()
 	 */
 	public boolean isSetCommunicationChannels() {
@@ -219,9 +219,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#getOwner()
+	 * org.universAAL.middleware.interfaces.space.model.ISpace#getOwner()
 	 */
 	public String getOwner() {
 		return owner;
@@ -229,9 +229,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#setOwner(
+	 * org.universAAL.middleware.interfaces.space.model.ISpace#setOwner(
 	 * java.lang.String)
 	 */
 	public void setOwner(String value) {
@@ -240,9 +240,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#isSetOwner(
+	 * org.universAAL.middleware.interfaces.space.model.ISpace#isSetOwner(
 	 * )
 	 */
 	public boolean isSetOwner() {
@@ -251,9 +251,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#getAdmin()
+	 * org.universAAL.middleware.interfaces.space.model.ISpace#getAdmin()
 	 */
 	public String getAdmin() {
 		return admin;
@@ -261,9 +261,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#setAdmin(
+	 * org.universAAL.middleware.interfaces.space.model.ISpace#setAdmin(
 	 * java.lang.String)
 	 */
 	public void setAdmin(String value) {
@@ -272,9 +272,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#isSetAdmin(
+	 * org.universAAL.middleware.interfaces.space.model.ISpace#isSetAdmin(
 	 * )
 	 */
 	public boolean isSetAdmin() {
@@ -283,9 +283,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#getSecurity
+	 * org.universAAL.middleware.interfaces.space.model.ISpace#getSecurity
 	 * ()
 	 */
 	public String getSecurity() {
@@ -294,9 +294,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
-	 * org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#setSecurity
+	 * org.universAAL.middleware.interfaces.space.model.ISpace#setSecurity
 	 * (java.lang.String)
 	 */
 	public void setSecurity(String value) {
@@ -305,8 +305,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.universAAL.middleware.interfaces.aalspace.model.IAALSpace#
+	 *
+	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
 	 * isSetSecurity()
 	 */
 	public boolean isSetSecurity() {
@@ -316,11 +316,11 @@ public class Aalspace implements Serializable, IAALSpace {
 	/**
 	 * <p>
 	 * Java class for anonymous complex type.
-	 * 
+	 *
 	 * <p>
 	 * The following schema fragment specifies the expected content contained
 	 * within this class.
-	 * 
+	 *
 	 * <pre>
 	 * &lt;complexType>
 	 *   &lt;complexContent>
@@ -332,8 +332,8 @@ public class Aalspace implements Serializable, IAALSpace {
 	 *   &lt;/complexContent>
 	 * &lt;/complexType>
 	 * </pre>
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = "", propOrder = { "channelDescriptor" })
@@ -345,8 +345,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
-		 * @see org.universAAL.middleware.interfaces.aalspace.model.
+		 *
+		 * @see org.universAAL.middleware.interfaces.space.model.
 		 * ICommunicationChannels#getChannelDescriptor()
 		 */
 		public List<IChannelDescriptor> getChannelDescriptor() {
@@ -358,8 +358,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
-		 * @see org.universAAL.middleware.interfaces.aalspace.model.
+		 *
+		 * @see org.universAAL.middleware.interfaces.space.model.
 		 * ICommunicationChannels#isSetChannelDescriptor()
 		 */
 		public boolean isSetChannelDescriptor() {
@@ -368,8 +368,8 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
-		 * @see org.universAAL.middleware.interfaces.aalspace.model.
+		 *
+		 * @see org.universAAL.middleware.interfaces.space.model.
 		 * ICommunicationChannels#unsetChannelDescriptor()
 		 */
 		public void unsetChannelDescriptor() {
@@ -381,11 +381,11 @@ public class Aalspace implements Serializable, IAALSpace {
 	/**
 	 * <p>
 	 * Java class for anonymous complex type.
-	 * 
+	 *
 	 * <p>
 	 * The following schema fragment specifies the expected content contained
 	 * within this class.
-	 * 
+	 *
 	 * <pre>
 	 * &lt;complexType>
 	 *   &lt;complexContent>
@@ -397,8 +397,8 @@ public class Aalspace implements Serializable, IAALSpace {
 	 *   &lt;/complexContent>
 	 * &lt;/complexType>
 	 * </pre>
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = "", propOrder = { "channelDescriptor" })
@@ -410,9 +410,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel#
+		 * org.universAAL.middleware.interfaces.space.model.IPeeringChannel#
 		 * getChannelDescriptor()
 		 */
 		public IChannelDescriptor getChannelDescriptor() {
@@ -421,9 +421,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel#
+		 * org.universAAL.middleware.interfaces.space.model.IPeeringChannel#
 		 * setChannelDescriptor(org.universAAL.middleware.interfaces.aalspace.
 		 * model.ChannelDescriptor)
 		 */
@@ -433,9 +433,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel#
+		 * org.universAAL.middleware.interfaces.space.model.IPeeringChannel#
 		 * isSetChannelDescriptor()
 		 */
 		public boolean isSetChannelDescriptor() {
@@ -447,11 +447,11 @@ public class Aalspace implements Serializable, IAALSpace {
 	/**
 	 * <p>
 	 * Java class for anonymous complex type.
-	 * 
+	 *
 	 * <p>
 	 * The following schema fragment specifies the expected content contained
 	 * within this class.
-	 * 
+	 *
 	 * <pre>
 	 * &lt;complexType>
 	 *   &lt;complexContent>
@@ -466,8 +466,8 @@ public class Aalspace implements Serializable, IAALSpace {
 	 *   &lt;/complexContent>
 	 * &lt;/complexType>
 	 * </pre>
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = "", propOrder = { "profile", "spaceId", "spaceName", "spaceDescription" })
@@ -485,9 +485,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * getProfile()
 		 */
 		public String getProfile() {
@@ -496,9 +496,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * setProfile(java.lang.String)
 		 */
 		public void setProfile(String value) {
@@ -507,9 +507,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * isSetProfile()
 		 */
 		public boolean isSetProfile() {
@@ -518,9 +518,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * getSpaceId()
 		 */
 		public String getSpaceId() {
@@ -529,9 +529,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * setSpaceId(java.lang.String)
 		 */
 		public void setSpaceId(String value) {
@@ -540,9 +540,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * isSetSpaceId()
 		 */
 		public boolean isSetSpaceId() {
@@ -551,9 +551,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * getSpaceName()
 		 */
 		public String getSpaceName() {
@@ -562,9 +562,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * setSpaceName(java.lang.String)
 		 */
 		public void setSpaceName(String value) {
@@ -573,9 +573,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * isSetSpaceName()
 		 */
 		public boolean isSetSpaceName() {
@@ -584,9 +584,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * getSpaceDescription()
 		 */
 		public String getSpaceDescription() {
@@ -595,9 +595,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * setSpaceDescription(java.lang.String)
 		 */
 		public void setSpaceDescription(String value) {
@@ -606,9 +606,9 @@ public class Aalspace implements Serializable, IAALSpace {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
-		 * org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor#
+		 * org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor#
 		 * isSetSpaceDescription()
 		 */
 		public boolean isSetSpaceDescription() {

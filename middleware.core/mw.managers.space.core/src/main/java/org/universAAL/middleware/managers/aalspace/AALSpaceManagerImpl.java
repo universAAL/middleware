@@ -58,9 +58,9 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
 import org.universAAL.middleware.interfaces.aalspace.Consts;
-import org.universAAL.middleware.interfaces.aalspace.model.IAALSpace;
-import org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor;
-import org.universAAL.middleware.interfaces.aalspace.xml.model.ObjectFactory;
+import org.universAAL.middleware.interfaces.space.model.ISpace;
+import org.universAAL.middleware.interfaces.space.model.IChannelDescriptor;
+import org.universAAL.middleware.interfaces.space.xml.model.ObjectFactory;
 import org.universAAL.middleware.managers.aalspace.util.AALSpaceSchemaEventHandler;
 import org.universAAL.middleware.managers.aalspace.util.CheckPeerThread;
 import org.universAAL.middleware.managers.aalspace.util.Joiner;
@@ -112,7 +112,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler, AALSpaceManage
 	private Boolean pendingAALSpace = Boolean.FALSE;
 	private Object aalSpaceLock = new Object();
 	private String spaceExtension;
-	private IAALSpace aalSpaceDefaultConfiguration;
+	private ISpace aalSpaceDefaultConfiguration;
 
 	// thread
 	private Joiner joiner;
@@ -169,7 +169,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler, AALSpaceManage
 		return peers;
 	}
 
-	public IAALSpace getAalSpaceDefaultConfiguration() {
+	public ISpace getAalSpaceDefaultConfiguration() {
 		return aalSpaceDefaultConfiguration;
 	}
 
@@ -300,7 +300,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler, AALSpaceManage
 	 *            Default AAL Space configurations
 	 * @return true if the creation succeeded, false otherwise
 	 */
-	public synchronized void initAALSpace(IAALSpace aalSpaceDefaultConfiguration) {
+	public synchronized void initAALSpace(ISpace aalSpaceDefaultConfiguration) {
 		// configure the MW with the space configurations
 		if (currentAALSpace != null) {
 			// EXPLAIN AALSpace has been already configured
@@ -515,7 +515,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler, AALSpaceManage
 		}
 	}
 
-	private Dictionary<String, String> buildAALSpaceFilter(IAALSpace space) {
+	private Dictionary<String, String> buildAALSpaceFilter(ISpace space) {
 		Dictionary<String, String> filters = new Hashtable<String, String>();
 		if (space != null) {
 			try {
@@ -564,7 +564,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler, AALSpaceManage
 	 * @param space
 	 * @return
 	 */
-	private Dictionary<String, String> getAALSpaceProperties(IAALSpace space) {
+	private Dictionary<String, String> getAALSpaceProperties(ISpace space) {
 		Dictionary<String, String> properties = new Hashtable<String, String>();
 		try {
 
@@ -610,7 +610,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler, AALSpaceManage
 		return spaces;
 	}
 
-	public IAALSpace readAALSpaceDefaultConfigurations() {
+	public ISpace readAALSpaceDefaultConfigurations() {
 		final String METHOD = "readAALSpaceDefaultConfigurations";
 		LogUtils.logDebug(context, AALSpaceManagerImpl.class, METHOD,
 				new Object[] { "Reading AALSpace configuration." }, null);
@@ -649,7 +649,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler, AALSpaceManage
 			return null;
 		}
 
-		IAALSpace space = null;
+		ISpace space = null;
 		space = loadConfigurationFromXML(spaces);
 		if (space == null) {
 			space = loadConfigurationFromJSON(spaces);
@@ -657,11 +657,11 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler, AALSpaceManage
 		return space;
 	}
 
-	private IAALSpace loadConfigurationFromJSON(File[] spaces) {
+	private ISpace loadConfigurationFromJSON(File[] spaces) {
 		return null;
 	}
 
-	private IAALSpace loadConfigurationFromXML(File[] spaces) {
+	private ISpace loadConfigurationFromXML(File[] spaces) {
 		final String METHOD = "loadConfigurationFromXML";
 		File xml = spaces[0];
 
@@ -674,10 +674,10 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler, AALSpaceManage
 		LogUtils.logDebug(context, AALSpaceManagerImpl.class, METHOD,
 				new Object[] { "Loading AALSpace configuration from the file ", xml.getAbsolutePath() }, null);
 
-		IAALSpace space = null;
+		ISpace space = null;
 		try {
 			loadXMLParser();
-			space = (IAALSpace) unmarshaller.unmarshal(xml);
+			space = (ISpace) unmarshaller.unmarshal(xml);
 			// parametrize the channels
 			space = parametrizeChannelNames(space);
 		} catch (Exception ex) {
@@ -697,7 +697,7 @@ public class AALSpaceManagerImpl implements AALSpaceEventHandler, AALSpaceManage
 	 * @param space
 	 * @return
 	 */
-	private IAALSpace parametrizeChannelNames(IAALSpace space) {
+	private ISpace parametrizeChannelNames(ISpace space) {
 		// change the peering channel
 		String peeringChannelName = space.getPeeringChannel().getChannelDescriptor().getChannelName();
 		String aalSpaceID = space.getSpaceDescriptor().getSpaceId();

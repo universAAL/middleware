@@ -18,9 +18,9 @@
         See the License for the specific language governing permissions and
         limitations under the License.
  */
-package org.universAAL.middleware.interfaces.aalspace.model;
+package org.universAAL.middleware.interfaces.space.model;
 
-import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace;
+import org.universAAL.middleware.interfaces.space.xml.model.Space;
 
 /**
  *
@@ -29,12 +29,12 @@ import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace;
  * @version $LastChangedRevision$ ($LastChangedDate$)
  * @since 2.0.1
  */
-public interface IAALSpace {
+public interface ISpace {
 
 	/**
 	 * Gets the value of the spaceDescriptor property.
 	 *
-	 * @return possible object is {@link Aalspace.SpaceDescriptor }
+	 * @return possible object is {@link Space.SpaceDescriptor }
 	 *
 	 */
 	public abstract ISpaceDescriptor getSpaceDescriptor();
@@ -43,7 +43,7 @@ public interface IAALSpace {
 	 * Sets the value of the spaceDescriptor property.
 	 *
 	 * @param value
-	 *            allowed object is {@link Aalspace.SpaceDescriptor }
+	 *            allowed object is {@link Space.SpaceDescriptor }
 	 *
 	 */
 	public abstract void setSpaceDescriptor(ISpaceDescriptor value);
@@ -53,7 +53,7 @@ public interface IAALSpace {
 	/**
 	 * Gets the value of the peeringChannel property.
 	 *
-	 * @return possible object is {@link Aalspace.PeeringChannel }
+	 * @return possible object is {@link Space.PeeringChannel }
 	 *
 	 */
 	public abstract IPeeringChannel getPeeringChannel();
@@ -62,7 +62,7 @@ public interface IAALSpace {
 	 * Sets the value of the peeringChannel property.
 	 *
 	 * @param value
-	 *            allowed object is {@link Aalspace.PeeringChannel }
+	 *            allowed object is {@link Space.PeeringChannel }
 	 *
 	 */
 	public abstract void setPeeringChannel(IPeeringChannel value);
@@ -72,7 +72,7 @@ public interface IAALSpace {
 	/**
 	 * Gets the value of the communicationChannels property.
 	 *
-	 * @return possible object is {@link Aalspace.CommunicationChannels }
+	 * @return possible object is {@link Space.CommunicationChannels }
 	 *
 	 */
 	public abstract ICommunicationChannels getCommunicationChannels();
@@ -81,7 +81,7 @@ public interface IAALSpace {
 	 * Sets the value of the communicationChannels property.
 	 *
 	 * @param value
-	 *            allowed object is {@link Aalspace.CommunicationChannels }
+	 *            allowed object is {@link Space.CommunicationChannels }
 	 *
 	 */
 	public abstract void setCommunicationChannels(ICommunicationChannels value);

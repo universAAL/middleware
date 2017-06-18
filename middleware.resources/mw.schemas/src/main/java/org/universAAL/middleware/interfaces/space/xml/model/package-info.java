@@ -18,34 +18,6 @@
         See the License for the specific language governing permissions and
         limitations under the License.
  */
-package org.universAAL.middleware.interfaces.aalspace.model;
 
-/**
- * 
- * 
- * @author <a href="mailto:sterfano.lenzi@isti.cnr.it">Stefano Lenzi</a>
- * @version $LastChangedRevision$ ($LastChangedDate$)
- * @since 2.0.1
- */
-public interface IPeeringChannel {
-
-	/**
-	 * Gets the value of the channelDescriptor property.
-	 * 
-	 * @return possible object is {@link ChannelDescriptor }
-	 * 
-	 */
-	public abstract IChannelDescriptor getChannelDescriptor();
-
-	/**
-	 * Sets the value of the channelDescriptor property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link ChannelDescriptor }
-	 * 
-	 */
-	public abstract void setChannelDescriptor(IChannelDescriptor value);
-
-	public abstract boolean isSetChannelDescriptor();
-
-}
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://universaal.org/aalspace-channel/v1.0.0")
+package org.universAAL.middleware.interfaces.space.xml.model;

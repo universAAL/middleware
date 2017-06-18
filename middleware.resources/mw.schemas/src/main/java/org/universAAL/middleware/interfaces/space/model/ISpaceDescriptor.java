@@ -18,7 +18,7 @@
         See the License for the specific language governing permissions and
         limitations under the License.
  */
-package org.universAAL.middleware.interfaces.aalspace.model;
+package org.universAAL.middleware.interfaces.space.model;
 
 /**
  * 

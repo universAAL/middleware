@@ -18,11 +18,13 @@
         See the License for the specific language governing permissions and
         limitations under the License.
  */
-package org.universAAL.middleware.interfaces.aalspace.xml.model;
+package org.universAAL.middleware.interfaces.space.xml.model;
 
 import static org.junit.Assert.*;
 
 import org.junit.Assert.*;
+import org.universAAL.middleware.interfaces.space.xml.model.Space;
+import org.universAAL.middleware.interfaces.space.xml.model.ObjectFactory;
 
 import java.io.InputStream;
 
@@ -38,7 +40,7 @@ import org.junit.Test;
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
-public class AalspaceTest {
+public class SpaceTest {
 
 	@Test
 	public void testHomeSpace() {
@@ -46,8 +48,8 @@ public class AalspaceTest {
 			JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			Marshaller marshaller = jc.createMarshaller();
-			InputStream is = AalspaceTest.class.getResourceAsStream("./Home.space");
-			Aalspace space = (Aalspace) unmarshaller.unmarshal(is);
+			InputStream is = SpaceTest.class.getResourceAsStream("./Home.space");
+			Space space = (Space) unmarshaller.unmarshal(is);
 			assertNotNull(space.getOwner());
 			assertNotNull(space.getAdmin());
 		} catch (JAXBException e) {
@@ -62,8 +64,8 @@ public class AalspaceTest {
 			JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			Marshaller marshaller = jc.createMarshaller();
-			InputStream is = AalspaceTest.class.getResourceAsStream("./Home.1.0.1.space");
-			Aalspace space = (Aalspace) unmarshaller.unmarshal(is);
+			InputStream is = SpaceTest.class.getResourceAsStream("./Home.1.0.1.space");
+			Space space = (Space) unmarshaller.unmarshal(is);
 			assertNull(space.getOwner());
 			assertNull(space.getAdmin());
 		} catch (JAXBException e) {

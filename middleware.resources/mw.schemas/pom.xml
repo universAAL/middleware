@@ -49,7 +49,7 @@
                      org.w3c.dom</Import-Package>
             <Export-Package>org.universAAL.middleware.connectors.deploy.karaf.model,
                      org.universAAL.middleware.deploymanager.uapp.model,
-                     org.universAAL.middleware.interfaces.aalspace.*</Export-Package>
+                     org.universAAL.middleware.interfaces.space.*</Export-Package>
           </instructions>
         </configuration>
       </plugin>

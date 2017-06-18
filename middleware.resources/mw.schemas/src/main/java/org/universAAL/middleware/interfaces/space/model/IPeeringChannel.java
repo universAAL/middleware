@@ -18,9 +18,7 @@
         See the License for the specific language governing permissions and
         limitations under the License.
  */
-package org.universAAL.middleware.interfaces.aalspace.model;
-
-import java.util.List;
+package org.universAAL.middleware.interfaces.space.model;
 
 /**
  * 
@@ -29,35 +27,25 @@ import java.util.List;
  * @version $LastChangedRevision$ ($LastChangedDate$)
  * @since 2.0.1
  */
-public interface ICommunicationChannels {
+public interface IPeeringChannel {
 
 	/**
 	 * Gets the value of the channelDescriptor property.
 	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a
-	 * snapshot. Therefore any modification you make to the returned list will
-	 * be present inside the JAXB object. This is why there is not a
-	 * <CODE>set</CODE> method for the channelDescriptor property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getChannelDescriptor().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list
-	 * {@link ChannelDescriptor }
-	 * 
+	 * @return possible object is {@link ChannelDescriptor }
 	 * 
 	 */
-	public abstract List<IChannelDescriptor> getChannelDescriptor();
+	public abstract IChannelDescriptor getChannelDescriptor();
+
+	/**
+	 * Sets the value of the channelDescriptor property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link ChannelDescriptor }
+	 * 
+	 */
+	public abstract void setChannelDescriptor(IChannelDescriptor value);
 
 	public abstract boolean isSetChannelDescriptor();
-
-	public abstract void unsetChannelDescriptor();
 
 }

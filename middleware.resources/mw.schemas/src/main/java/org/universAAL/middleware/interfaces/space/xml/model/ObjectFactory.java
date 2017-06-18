@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,25 +19,25 @@
 	limitations under the License.
  */
 
-package org.universAAL.middleware.interfaces.aalspace.xml.model;
+package org.universAAL.middleware.interfaces.space.xml.model;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
-import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.CommunicationChannels;
-import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.PeeringChannel;
-import org.universAAL.middleware.interfaces.aalspace.xml.model.Aalspace.SpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.xml.model.Space.CommunicationChannels;
+import org.universAAL.middleware.interfaces.space.xml.model.Space.PeeringChannel;
+import org.universAAL.middleware.interfaces.space.xml.model.Space.SpaceDescriptor;
 
 /**
  * This object contains factory methods for each Java content interface and Java
  * element interface generated in the
- * org.universAAL.middleware.interfaces.aalspace.model package.
+ * org.universAAL.middleware.interfaces.space.model package.
  * <p>
  * An ObjectFactory allows you to programatically construct new instances of the
  * Java representation for XML content. The Java representation of XML content
  * can consist of schema derived interfaces and classes representing the binding
  * of schema type definitions, element declarations and model groups. Factory
  * methods for each of these are provided in this class.
- * 
+ *
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -45,50 +45,50 @@ public class ObjectFactory {
 	/**
 	 * Create a new ObjectFactory that can be used to create new instances of
 	 * schema derived classes for package:
-	 * org.universAAL.middleware.interfaces.aalspace.model
-	 * 
+	 * org.universAAL.middleware.interfaces.space.model
+	 *
 	 */
 	public ObjectFactory() {
 	}
 
 	/**
-	 * Create an instance of {@link Aalspace }
-	 * 
+	 * Create an instance of {@link Space }
+	 *
 	 */
-	public Aalspace createAalspace() {
-		return new Aalspace();
+	public Space createSpace() {
+		return new Space();
 	}
 
 	/**
 	 * Create an instance of {@link ChannelDescriptor }
-	 * 
+	 *
 	 */
 	public ChannelDescriptor createChannelDescriptor() {
 		return new ChannelDescriptor();
 	}
 
 	/**
-	 * Create an instance of {@link Aalspace.SpaceDescriptor }
-	 * 
+	 * Create an instance of {@link Space.SpaceDescriptor }
+	 *
 	 */
 	public SpaceDescriptor createAalspaceSpaceDescriptor() {
-		return new Aalspace.SpaceDescriptor();
+		return new Space.SpaceDescriptor();
 	}
 
 	/**
-	 * Create an instance of {@link Aalspace.PeeringChannel }
-	 * 
+	 * Create an instance of {@link Space.PeeringChannel }
+	 *
 	 */
 	public PeeringChannel createAalspacePeeringChannel() {
-		return new Aalspace.PeeringChannel();
+		return new Space.PeeringChannel();
 	}
 
 	/**
-	 * Create an instance of {@link Aalspace.CommunicationChannels }
-	 * 
+	 * Create an instance of {@link Space.CommunicationChannels }
+	 *
 	 */
 	public CommunicationChannels createAalspaceCommunicationChannels() {
-		return new Aalspace.CommunicationChannels();
+		return new Space.CommunicationChannels();
 	}
 
 }

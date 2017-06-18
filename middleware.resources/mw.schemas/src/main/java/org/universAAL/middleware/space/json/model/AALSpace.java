@@ -19,17 +19,17 @@
         limitations under the License.
  */
 
-package org.universAAL.middleware.aalspace.json.model;
+package org.universAAL.middleware.space.json.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.universAAL.middleware.interfaces.aalspace.model.IAALSpace;
-import org.universAAL.middleware.interfaces.aalspace.model.IChannelDescriptor;
-import org.universAAL.middleware.interfaces.aalspace.model.ICommunicationChannels;
-import org.universAAL.middleware.interfaces.aalspace.model.IPeeringChannel;
-import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.model.ISpace;
+import org.universAAL.middleware.interfaces.space.model.IChannelDescriptor;
+import org.universAAL.middleware.interfaces.space.model.ICommunicationChannels;
+import org.universAAL.middleware.interfaces.space.model.IPeeringChannel;
+import org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor;
 
 /**
  *
@@ -38,7 +38,7 @@ import org.universAAL.middleware.interfaces.aalspace.model.ISpaceDescriptor;
  * @version $LastChangedRevision$ ($LastChangedDate$)
  * @since 2.0.1
  */
-public class AALSpace implements Serializable, IAALSpace {
+public class AALSpace implements Serializable, ISpace {
 
 	public static class CommunicationChannels implements Serializable, ICommunicationChannels {
 
