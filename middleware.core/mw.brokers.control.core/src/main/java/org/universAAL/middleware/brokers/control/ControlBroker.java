@@ -407,7 +407,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 		if (getAALSpaceEventHandler() == null) {
 			return;
 		}
-		aalSpaceEventHandler.newAALSpacesFound(spaceCards);
+		aalSpaceEventHandler.newSpacesFound(spaceCards);
 	}
 
 	/**

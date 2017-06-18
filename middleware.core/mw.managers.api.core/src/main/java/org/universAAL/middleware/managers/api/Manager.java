@@ -29,16 +29,16 @@ import java.util.Dictionary;
  */
 public interface Manager {
 	/**
-	 * This method sets all the configurations for the AALSpaceManager
-	 * 
+	 * This method sets all the configurations for the SpaceManager
+	 *
 	 * @param configurations
 	 *            Dictionary of configurations
 	 */
 	public void loadConfigurations(Dictionary configurations);
 
 	/**
-	 * Initialize the AALSpace Manager
-	 * 
+	 * Initialize the Space Manager
+	 *
 	 * @return true if the initialization is completed, false otherwise
 	 */
 	public boolean init();

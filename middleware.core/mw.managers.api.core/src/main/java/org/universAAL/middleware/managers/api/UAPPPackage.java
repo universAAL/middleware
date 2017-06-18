@@ -32,7 +32,7 @@ import org.universAAL.middleware.deploymanager.uapp.model.Part;
  * used by the {@link DeployManager}<br>
  * <b>NOTE</b>: The unique identifier of an {@link UAPPPackage} is defined by
  * the the pair {@link #getServiceId()} and {@link #getId()}
- * 
+ *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
@@ -44,7 +44,7 @@ public class UAPPPackage {
 	private final Map<PeerCard, List<Part>> deploy;
 
 	/**
-	 * 
+	 *
 	 * @param serviceId
 	 *            the {@link String} representing an unique identifier of the
 	 *            service which is provided by the uStore
@@ -54,7 +54,7 @@ public class UAPPPackage {
 	 * @param folder
 	 *            is the {@link URI} where the uApp has been unpacked, which
 	 *            contains all the uApp file and configuration required for
-	 *            installing the uAAL service
+	 *            installing the universAAL service
 	 * @param layout
 	 *            contains a map describing the node where each uApp of
 	 *            contained in the uSrv has to be installed
@@ -68,7 +68,7 @@ public class UAPPPackage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the {@link String} representing the unique serviceId from uStore
 	 *         that contains the uApp
 	 */
@@ -77,7 +77,7 @@ public class UAPPPackage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the {@link URI} where the uApp has been upacked by the platform
 	 */
 	public URI getFolder() {
@@ -85,7 +85,7 @@ public class UAPPPackage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the unique {@link String} id (within the service) representing
 	 *         the application
 	 */
@@ -94,7 +94,7 @@ public class UAPPPackage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the deployment plan for the uApp application
 	 */
 	public Map<PeerCard, List<Part>> getDeploy() {

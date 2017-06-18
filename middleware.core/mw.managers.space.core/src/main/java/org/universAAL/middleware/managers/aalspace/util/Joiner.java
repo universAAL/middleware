@@ -55,11 +55,11 @@ public class Joiner implements Runnable {
 
 			// look for an element of the set that matches wit the default
 			// AALSpace
-			if (!spaceManager.getAALSpaces().isEmpty()) {
+			if (!spaceManager.getSpaces().isEmpty()) {
 
 				LogUtils.logDebug(context, Joiner.class, "Joiner",
 						new Object[] { "AALSpaces found looking for the default one" }, null);
-				Iterator<SpaceCard> iterator = spaceManager.getAALSpaces().iterator();
+				Iterator<SpaceCard> iterator = spaceManager.getSpaces().iterator();
 				while (iterator.hasNext()) {
 					SpaceCard candidate = iterator.next();
 					/*
@@ -72,7 +72,7 @@ public class Joiner implements Runnable {
 							.equals(spaceManager.getAalSpaceDefaultConfiguration().getSpaceDescriptor().getSpaceId()))
 							|| (spaceManager.getAalSpaceDefaultConfiguration() == null)) {
 						if (candidate.getRetry() == 0)
-							spaceManager.getAALSpaces().remove(candidate);
+							spaceManager.getSpaces().remove(candidate);
 						else {
 							candidate.setRetry(candidate.getRetry() - 1);
 							spaceManager.join(candidate);

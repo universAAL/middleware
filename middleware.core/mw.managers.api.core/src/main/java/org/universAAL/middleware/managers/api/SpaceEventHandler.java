@@ -29,79 +29,79 @@ import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 import org.universAAL.middleware.interfaces.space.SpaceStatus;
 
 /**
- * AALSpaceEventHandler interface. These methods are called by the lower layer
+ * SpaceEventHandler interface. These methods are called by the lower layer
  * in order to manage events.
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  */
 public interface SpaceEventHandler {
 	/**
 	 * The method is called asynchronously from the bottom layer of the MW after
 	 * a previous join(...) request.
-	 * 
+	 *
 	 * @param descriptor
-	 *            all the information about the joinined AALSpace
+	 *            all the information about the joined Space
 	 */
 	public void spaceJoined(SpaceDescriptor descriptor);
 
 	/**
-	 * This method allows the AALSpaceManager to manage a join request from a
-	 * remote peer. In this case this AALSpaceManager is the AALSpace
+	 * This method allows the SpaceManager to manage a join request from a
+	 * remote peer. In this case this SpaceManager is the Space
 	 * coordinator
-	 * 
+	 *
 	 * @param spaceCard
 	 * @param sender
 	 */
 	public void joinRequest(SpaceCard spaceCard, PeerCard sender);
 
 	/**
-	 * This method forces the peer to leace an AALSpace
-	 * 
+	 * This method forces the peer to leave a Space
+	 *
 	 * @param spaceCard
 	 */
 	public void leaveRequest(SpaceDescriptor spaceCard);
 
 	/**
 	 * This method notifies to the coordinator that a peer wants to leave to the
-	 * AALSpace
-	 * 
+	 * Space
+	 *
 	 * @param sender
 	 */
 	public void peerLost(PeerCard peer);
 
 	/**
-	 * Method called when a peer joins the AALSpace managed by the
-	 * AALSpaceManager
-	 * 
+	 * Method called when a peer joins the Space managed by the
+	 * SpaceManager
+	 *
 	 * @param peer
 	 */
 	public void peerFound(PeerCard peer);
 
 	/**
-	 * A new AALSpace has been found
-	 * 
+	 * A new Space has been found
+	 *
 	 * @param spaceCard
 	 */
-	public void newAALSpacesFound(Set<SpaceCard> spaceCards);
+	public void newSpacesFound(Set<SpaceCard> spaceCards);
 
 	public void spaceEvent(SpaceStatus newStatus);
 
 	/**
 	 * This method allows to configure the set of peers that actually join the
-	 * AAL Space managed or joined by this AALSpaceManager
-	 * 
+	 * Space managed or joined by this SpaceManager
+	 *
 	 * @param peer
 	 *            Map of peers
 	 */
 	public void setListOfPeers(Map<String, PeerCard> peer);
 
 	/**
-	 * Called in order to alert the AALSpace about the installation of a new MPA
+	 * Called in order to alert the Space about the installation of a new MPA
 	 */
 	public void mpaInstalling(SpaceDescriptor spaceDescriptor);
 
 	/**
-	 * Called in order to alert the AALSpace about the installation of a new MPA
+	 * Called in order to alert the Space about the installation of a new MPA
 	 */
 	public void mpaInstalled(SpaceDescriptor spaceDescriptor);
 

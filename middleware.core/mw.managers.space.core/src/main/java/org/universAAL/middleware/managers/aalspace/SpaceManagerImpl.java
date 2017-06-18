@@ -66,7 +66,7 @@ import org.universAAL.middleware.managers.aalspace.util.CheckPeerThread;
 import org.universAAL.middleware.managers.aalspace.util.Joiner;
 import org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread;
 import org.universAAL.middleware.managers.api.SpaceEventHandler;
-import org.universAAL.middleware.managers.api.AALSpaceListener;
+import org.universAAL.middleware.managers.api.SpaceListener;
 import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.managers.api.MatchingResult;
 
@@ -135,7 +135,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 	private long waitAfterJoinRequest;
 	private String altConfigDir;
 
-	private List<AALSpaceListener> listeners;
+	private List<SpaceListener> listeners;
 
 	private long TIMEOUT;
 
@@ -148,7 +148,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 		managedAALspaces = new Hashtable<String, SpaceDescriptor>();
 		foundAALSpaces = Collections.synchronizedSet(new HashSet<SpaceCard>());
 		peers = new HashMap<String, PeerCard>();
-		listeners = new ArrayList<AALSpaceListener>();
+		listeners = new ArrayList<SpaceListener>();
 		try {
 			TIMEOUT = Long.parseLong(System.getProperty(SpaceManager.COMUNICATION_TIMEOUT_KEY,
 					SpaceManager.COMUNICATION_TIMEOUT_VALUE));
@@ -161,7 +161,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 		}
 	}
 
-	public Map<String, SpaceDescriptor> getManagedAALSpaces() {
+	public Map<String, SpaceDescriptor> getManagedSpaces() {
 		return managedAALspaces;
 	}
 
@@ -195,7 +195,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 		return myPeerCard;
 	}
 
-	public Set<SpaceCard> getAALSpaces() {
+	public Set<SpaceCard> getSpaces() {
 		synchronized (foundAALSpaces) {
 			return foundAALSpaces;
 		}
@@ -372,8 +372,8 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 
 						// notify to all the listeners a new AAL Space has
 						// been joined
-						for (AALSpaceListener spaceListener : listeners) {
-							spaceListener.aalSpaceJoined(currentAALSpace);
+						for (SpaceListener spaceListener : listeners) {
+							spaceListener.spaceJoined(currentAALSpace);
 						}
 						peers.put(myPeerCard.getPeerID(), myPeerCard);
 
@@ -505,8 +505,8 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 			LogUtils.logInfo(context, SpaceManagerImpl.class, "aalSpaceJoined",
 					new Object[] { "--->Announced my presence!" }, null);
 
-			for (AALSpaceListener spaceListener : listeners) {
-				spaceListener.aalSpaceJoined(currentAALSpace);
+			for (SpaceListener spaceListener : listeners) {
+				spaceListener.spaceJoined(currentAALSpace);
 			}
 		} else {
 			LogUtils.logWarn(context, SpaceManagerImpl.class, "aalSpaceJoined",
@@ -878,7 +878,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 		}
 	}
 
-	public synchronized void newAALSpacesFound(Set<SpaceCard> spaceCards) {
+	public synchronized void newSpacesFound(Set<SpaceCard> spaceCards) {
 		if (spaceCards != null) {
 			synchronized (foundAALSpaces) {
 				foundAALSpaces = spaceCards;
@@ -896,8 +896,8 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 			LogUtils.logInfo(context, SpaceManagerImpl.class, "peerFound",
 					new Object[] { "--->The Peer: " + peer.getPeerID().toString() + " joins the AALSpace: " }, null);
 			peers.put(peer.getPeerID(), peer);
-			for (AALSpaceListener list : listeners) {
-				list.newPeerJoined(peer);
+			for (SpaceListener list : listeners) {
+				list.peerJoined(peer);
 			}
 		}
 	}
@@ -907,7 +907,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 			LogUtils.logInfo(context, SpaceManagerImpl.class, "peerLost",
 					new Object[] { "--->Peer +" + peer.getPeerID() + " left the AALSpace" }, null);
 			peers.remove(peer.getPeerID());
-			for (AALSpaceListener list : listeners) {
+			for (SpaceListener list : listeners) {
 				list.peerLost(peer);
 			}
 		}
@@ -952,7 +952,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 		}
 	}
 
-	public void leaveAALSpace(SpaceDescriptor spaceDescriptor) {
+	public void leaveSpace(SpaceDescriptor spaceDescriptor) {
 		if (init()) {
 			if (spaceDescriptor != null && managedAALspaces.containsKey(spaceDescriptor.getSpaceCard().getSpaceID())) {
 				LogUtils.logInfo(context, SpaceManagerImpl.class, "leaveAALSpace",
@@ -990,9 +990,9 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 
 			}
 
-			for (AALSpaceListener elem : listeners) {
+			for (SpaceListener elem : listeners) {
 
-				elem.aalSpaceLost(spaceDescriptor);
+				elem.spaceLost(spaceDescriptor);
 			}
 
 		} else {
@@ -1026,7 +1026,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 				}
 			} else {
 				if (currentAALSpace != null)
-					leaveAALSpace(currentAALSpace);
+					leaveSpace(currentAALSpace);
 
 			}
 		} else {
@@ -1063,12 +1063,12 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 		controlBroker.destroyAALSpace(spaceDescriptor.getSpaceCard());
 	}
 
-	public void addAALSpaceListener(AALSpaceListener listener) {
+	public void addSpaceListener(SpaceListener listener) {
 		if (listener != null && !listeners.contains(listener))
 			listeners.add(listener);
 	}
 
-	public void removeAALSpaceListener(AALSpaceListener listener) {
+	public void removeSpaceListener(SpaceListener listener) {
 		if (listener != null)
 			listeners.remove(listener);
 	}
@@ -1101,8 +1101,8 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 		LogUtils.logInfo(context, SpaceManagerImpl.class, "aalSpaceEvent",
 				new Object[] { "--->New event from AALSpace: " + newStatus.toString() }, null);
 
-		for (AALSpaceListener elem : listeners) {
-			elem.aalSpaceStatusChanged(newStatus);
+		for (SpaceListener elem : listeners) {
+			elem.spaceStatusChanged(newStatus);
 		}
 	}
 

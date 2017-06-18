@@ -25,49 +25,49 @@ import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 import org.universAAL.middleware.interfaces.space.SpaceStatus;
 
 /**
- * Manages notifications about AALSpace events
- * 
+ * Manages notifications about Space events
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
-public interface AALSpaceListener {
+public interface SpaceListener {
 
 	/**
-	 * Called as soon as am AALSpace has been joined
-	 * 
+	 * Called as soon as a Space has been joined
+	 *
 	 * @param spaceDescriptor
 	 *            Space desce
 	 */
-	public void aalSpaceJoined(SpaceDescriptor spaceDescriptor);
+	public void spaceJoined(SpaceDescriptor spaceDescriptor);
 
 	/**
-	 * Called as soon as an AALSpace has been left
-	 * 
+	 * Called as soon as an Space has been left
+	 *
 	 * @param spaceDescriptor
-	 *            Space desce
+	 *            Space descriptor
 	 */
-	public void aalSpaceLost(SpaceDescriptor spaceDescriptor);
+	public void spaceLost(SpaceDescriptor spaceDescriptor);
 
 	/**
-	 * Called when a peers joins the AALSpace
-	 * 
+	 * Called when a peers joins the Space
+	 *
 	 * @param peer
 	 *            PeerCard
 	 */
-	public void newPeerJoined(PeerCard peer);
+	public void peerJoined(PeerCard peer);
 
 	/**
-	 * Called when a Peer leaves the AALSpace
-	 * 
+	 * Called when a Peer leaves the Space
+	 *
 	 * @param peer
 	 */
 	public void peerLost(PeerCard peer);
 
 	/**
-	 * Called when the AALSpace changes status
-	 * 
+	 * Called when the Space changes status
+	 *
 	 * @param status
 	 */
-	public void aalSpaceStatusChanged(SpaceStatus status);
+	public void spaceStatusChanged(SpaceStatus status);
 
 }

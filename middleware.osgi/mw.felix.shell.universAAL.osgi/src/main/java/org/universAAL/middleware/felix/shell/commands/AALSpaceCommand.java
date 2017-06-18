@@ -45,7 +45,7 @@ public class AALSpaceCommand implements Command {
 			err.println("AALSapceManager not found");
 			return;
 		}
-		Set<SpaceCard> aalSpaces = aalSpaceManager.getAALSpaces();
+		Set<SpaceCard> aalSpaces = aalSpaceManager.getSpaces();
 		if (aalSpaces != null) {
 			out.println(" Found: " + aalSpaces.size() + " AAL Spaces");
 			out.println(" ----------------------------------------");

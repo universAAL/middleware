@@ -25,7 +25,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 import org.universAAL.middleware.interfaces.space.SpaceStatus;
-import org.universAAL.middleware.managers.api.AALSpaceListener;
+import org.universAAL.middleware.managers.api.SpaceListener;
 import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.Ontology;
@@ -53,13 +53,13 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  * {@link CoordinatedStrategy#peerLost(PeerCard) lost peers}, in case they are
  * the coordinator; or if the Coordinator has left the coordinated space, it
  * automatically surrenders coordination. Also
- * {@link CoordinatedStrategy#newPeerJoined(PeerCard) new Peers} joining the
+ * {@link CoordinatedStrategy#peerJoined(PeerCard) new Peers} joining the
  * space will proactively be informed about who is the coordinator.
  * 
  * @author amedrano
  * 
  */
-public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceListener, SharedObjectListener {
+public class CoordinatedStrategy extends CallBasedStrategy implements SpaceListener, SharedObjectListener {
 
 	/**
 	 * 
@@ -330,7 +330,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	}
 
 	/** {@ inheritDoc} */
-	public void aalSpaceJoined(SpaceDescriptor spaceDescriptor) {
+	public void spaceJoined(SpaceDescriptor spaceDescriptor) {
 		/*
 		 * NOTHING, wait for notification of the coordinator or for one of the
 		 * busmembers to request a coordinator
@@ -338,7 +338,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	}
 
 	/** {@ inheritDoc} */
-	public void aalSpaceLost(SpaceDescriptor spaceDescriptor) {
+	public void spaceLost(SpaceDescriptor spaceDescriptor) {
 		/*
 		 * I have left the AALSPace. If i was the coordinator, no longer
 		 */
@@ -352,7 +352,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	}
 
 	/** {@ inheritDoc} */
-	public void newPeerJoined(PeerCard peer) {
+	public void peerJoined(PeerCard peer) {
 		/*
 		 * A new Peer has joined, If i am the coordinator show him that I am the
 		 * king of the place
@@ -377,13 +377,13 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	}
 
 	/** {@ inheritDoc} */
-	public void aalSpaceStatusChanged(SpaceStatus status) {
+	public void spaceStatusChanged(SpaceStatus status) {
 	}
 
 	/** {@ inheritDoc} */
 	public void sharedObjectAdded(Object sharedObj, Object removeHook) {
 		if (sharedObj instanceof SpaceManager) {
-			((SpaceManager) sharedObj).addAALSpaceListener(this);
+			((SpaceManager) sharedObj).addSpaceListener(this);
 		}
 	}
 
@@ -400,7 +400,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 		Object o = busModule.getContainer().fetchSharedObject(busModule,
 				new Object[] { SpaceManager.class.getName() });
 		if (o instanceof SpaceManager) {
-			((SpaceManager) o).removeAALSpaceListener(this);
+			((SpaceManager) o).removeSpaceListener(this);
 		}
 	}
 

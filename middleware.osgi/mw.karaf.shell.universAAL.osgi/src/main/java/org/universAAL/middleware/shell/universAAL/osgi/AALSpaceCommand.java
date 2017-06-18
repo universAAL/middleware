@@ -48,7 +48,7 @@ public class AALSpaceCommand extends OsgiCommandSupport {
 		} else {
 			return null;
 		}
-		Set<SpaceCard> aalSpaces = aalSpaceManager.getAALSpaces();
+		Set<SpaceCard> aalSpaces = aalSpaceManager.getSpaces();
 		if (aalSpaces != null) {
 
 			System.out.println(" Found: " + aalSpaces.size() + " AAL Spaces");

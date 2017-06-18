@@ -31,8 +31,8 @@ import org.universAAL.middleware.interfaces.space.SpaceCard;
 import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 
 /**
- * AALSpace manager interface. These methods are managing an AALSpace
- * 
+ * Space manager interface. These methods are managing an Space
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano "Kismet" Lenzi</a>
  */
@@ -45,63 +45,63 @@ public interface SpaceManager extends Manager {
 
 	/**
 	 * This method returns the PeerCard of the current MW instance
-	 * 
+	 *
 	 * @return PeerCard
 	 */
 	public PeerCard getMyPeerCard();
 
 	/**
-	 * This method returns the list of AALSpace discovered
-	 * 
-	 * @return Set of AALSpace found
+	 * This method returns the list of Space discovered
+	 *
+	 * @return Set of Space found
 	 */
-	public Set<SpaceCard> getAALSpaces();
+	public Set<SpaceCard> getSpaces();
 
 	/**
-	 * This method returns the AALSpaceDescriptor of the AALSpace where the MW
-	 * belongs to or null if the mw instance does not join to any AAL Space.
-	 * 
-	 * @return AALSpaceDescriptor
+	 * This method returns the SpaceDescriptor of the Space where the MW
+	 * belongs to or null if the mw instance does not join to any Space.
+	 *
+	 * @return SpaceDescriptor
 	 */
 	public SpaceDescriptor getSpaceDescriptor();
 
 	/**
-	 * This method return a map of AALSpace managed by this MW instance
-	 * 
+	 * This method return a map of Space managed by this MW instance
+	 *
 	 * @return
 	 */
-	public Map<String, SpaceDescriptor> getManagedAALSpaces();
+	public Map<String, SpaceDescriptor> getManagedSpaces();
 
 	/**
-	 * method to join an existing AALSpace according the configuration file: -to
+	 * method to join an existing Space according the configuration file: -to
 	 * configure the peering channel -to send a join request -to receive the
-	 * join response -to get the AALSpaceDescriptor -to configure the
+	 * join response -to get the SpaceDescriptor -to configure the
 	 * communication channels
-	 * 
+	 *
 	 * @param space
-	 *            AAL Space to join
+	 *            Space to join
 	 */
 	public void join(SpaceCard spaceCard);
 
 	/**
-	 * Method used to leave an AALSpace
-	 * 
+	 * Method used to leave an Space
+	 *
 	 * @param spaceDescriptor
 	 */
-	public void leaveAALSpace(SpaceDescriptor spaceDescriptor);
+	public void leaveSpace(SpaceDescriptor spaceDescriptor);
 
 	/**
 	 * This method return the list of neighborhood peers joined to the current
-	 * AALSpace.<br />
+	 * Space.<br />
 	 * <b>NOTE:</b> The list does not contains the invoker
-	 * 
+	 *
 	 * @return Map of peers: peerID, PeerCard
 	 */
 	public Map<String, PeerCard> getPeers();
 
 	/**
-	 * 
-	 * A method for identifying a possible set of Peer in the AAL space that can
+	 *
+	 * A method for identifying a possible set of Peer in the space that can
 	 * be used for installing a part of the universAAL application.<br>
 	 * The matching algorithm returns only the Peer of the space that match the
 	 * following rules
@@ -113,7 +113,7 @@ public interface SpaceManager extends Manager {
 	 * {@link #equals(Object)} is used for checking if the value are the
 	 * same</li> Please consider the following example:<br>
 	 * <ul>
-	 * <li>The AAL space contains four peer: A, B, C, D, and E</li>
+	 * <li>The space contains four peer: A, B, C, D, and E</li>
 	 * <li>The attributes of the peer A are { container=Foo, tool=OSGi,
 	 * version=3.0 }</li>
 	 * <li>The attributes of the peer B are { container=Karaf, tool=Bar,
@@ -131,18 +131,18 @@ public interface SpaceManager extends Manager {
 	 * searched</li>
 	 * <li>peer B is skipped because tool=Bar, but tool=OSGi was searched</li>
 	 * <li>peer D is skipped because the attribute version is missing</li>
-	 * 
+	 *
 	 * @param filter
 	 *            a {@link Map} that contains a pair of {@link String} as Key
 	 *            and {@link Object} as value which will be used for looking for
-	 *            matching among the one available on the AAL space
+	 *            matching among the one available on the space
 	 * @return {@link MatchingResult} representing the filtering result
 	 * @since 1.3.2
 	 */
 	public MatchingResult getMatchingPeers(Map<String, Serializable> filter);
 
 	/**
-	 * 
+	 *
 	 * @param attributes
 	 *            The list of attribute to get value,
 	 * @param target
@@ -154,17 +154,17 @@ public interface SpaceManager extends Manager {
 	public Map<String, Serializable> getPeerAttributes(List<String> attributes, PeerCard target);
 
 	/**
-	 * Add a new AAL Space listener.
-	 * 
+	 * Add a new Space listener.
+	 *
 	 * @param listener
 	 */
-	public void addAALSpaceListener(AALSpaceListener listener);
+	public void addSpaceListener(SpaceListener listener);
 
 	/**
-	 * Remove an AAL Space Listener
-	 * 
+	 * Remove a Space Listener
+	 *
 	 * @param listener
 	 */
-	public void removeAALSpaceListener(AALSpaceListener listener);
+	public void removeSpaceListener(SpaceListener listener);
 
 }

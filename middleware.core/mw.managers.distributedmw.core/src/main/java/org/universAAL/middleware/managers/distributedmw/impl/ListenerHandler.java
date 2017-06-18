@@ -29,7 +29,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 import org.universAAL.middleware.interfaces.space.SpaceStatus;
-import org.universAAL.middleware.managers.api.AALSpaceListener;
+import org.universAAL.middleware.managers.api.SpaceListener;
 import org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl.Handler;
 import org.universAAL.middleware.rdf.Resource;
 
@@ -38,7 +38,7 @@ import org.universAAL.middleware.rdf.Resource;
  * @author Carsten Stockloew
  * 
  */
-public abstract class ListenerHandler<T> implements AALSpaceListener {
+public abstract class ListenerHandler<T> implements SpaceListener {
 
 	private String TYPE_ADD;
 	private String TYPE_REMOVE;
@@ -74,7 +74,7 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 		localListeners = new HashSet<T>();
 		subscribers = new HashSet<PeerCard>();
 		allPeersListeners = new HashSet<T>();
-		SpaceListener.getInstance().register(this);
+		MySpaceListener.getInstance().register(this);
 	}
 
 	public class AddListenerHandler implements Handler {
@@ -126,7 +126,7 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 					}
 
 					// create the list of all nodes from AAL Space Manager
-					nodes = SpaceListener.getInstance().getPeers();
+					nodes = MySpaceListener.getInstance().getPeers();
 					if (nodes == null) {
 						LogUtils.logError(DistributedMWManagerImpl.context, ListenerHandler.class, "addListener",
 								"No peers available, not even this peer?");
@@ -186,7 +186,7 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 					}
 
 					// create the list of all nodes from AAL Space Manager
-					nodes = SpaceListener.getInstance().getPeers();
+					nodes = MySpaceListener.getInstance().getPeers();
 					if (nodes == null) {
 						LogUtils.logError(DistributedMWManagerImpl.context, ListenerHandler.class, "addListener",
 								"No peers available, not even this peer?");
@@ -249,12 +249,12 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 
 	protected abstract void removeListenerLocally();
 
-	public void aalSpaceJoined(SpaceDescriptor spaceDescriptor) {
+	public void spaceJoined(SpaceDescriptor spaceDescriptor) {
 		// TODO: subscribe for all allPeersListeners in all peers?
 		// or do we get a call to newPeerJoined?
 	}
 
-	public void aalSpaceLost(SpaceDescriptor spaceDescriptor) {
+	public void spaceLost(SpaceDescriptor spaceDescriptor) {
 		// clear everything
 		synchronized (listeners) {
 			synchronized (localListeners) {
@@ -268,7 +268,7 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 		}
 	}
 
-	public void newPeerJoined(final PeerCard peer) {
+	public void peerJoined(final PeerCard peer) {
 		// check if we are called with this peer
 		if (peer.getPeerID().equals(DistributedMWManagerImpl.shared.getAalSpaceManager().getMyPeerCard()))
 			return;
@@ -324,7 +324,7 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 		}
 	}
 
-	public void aalSpaceStatusChanged(SpaceStatus status) {
+	public void spaceStatusChanged(SpaceStatus status) {
 		// not needed
 	}
 }

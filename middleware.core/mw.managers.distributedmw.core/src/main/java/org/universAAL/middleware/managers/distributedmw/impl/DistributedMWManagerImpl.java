@@ -153,7 +153,7 @@ public class DistributedMWManagerImpl implements DistributedBusMemberManager, Di
 		context.getContainer().removeSharedObject(context, this, removeParamsLLMgmt);
 		context.getContainer().removeSharedObject(context, this, removeParamsBMLMgmt);
 		context.getContainer().removeSharedObject(context, handler, removeParamsEvtH);
-		SpaceListener.getInstance().stop();
+		MySpaceListener.getInstance().stop();
 	}
 
 	public static void sendMessage(Resource r, Set<PeerCard> receivers) {

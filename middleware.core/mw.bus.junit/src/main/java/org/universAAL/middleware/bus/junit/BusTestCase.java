@@ -40,7 +40,7 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
 import org.universAAL.middleware.interfaces.space.SpaceCard;
 import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
-import org.universAAL.middleware.managers.api.AALSpaceListener;
+import org.universAAL.middleware.managers.api.SpaceListener;
 import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.managers.api.MatchingResult;
 import org.universAAL.middleware.modules.CommunicationModule;
@@ -120,7 +120,7 @@ public class BusTestCase extends TestCase {
 			public void loadConfigurations(Dictionary arg0) {
 			}
 
-			public void addAALSpaceListener(AALSpaceListener arg0) {
+			public void addSpaceListener(SpaceListener arg0) {
 			}
 
 			public SpaceDescriptor getSpaceDescriptor() {
@@ -135,11 +135,11 @@ public class BusTestCase extends TestCase {
 				};
 			}
 
-			public Set<SpaceCard> getAALSpaces() {
+			public Set<SpaceCard> getSpaces() {
 				return null;
 			}
 
-			public Map<String, SpaceDescriptor> getManagedAALSpaces() {
+			public Map<String, SpaceDescriptor> getManagedSpaces() {
 				return null;
 			}
 
@@ -164,10 +164,10 @@ public class BusTestCase extends TestCase {
 			public void join(SpaceCard arg0) {
 			}
 
-			public void leaveAALSpace(SpaceDescriptor arg0) {
+			public void leaveSpace(SpaceDescriptor arg0) {
 			}
 
-			public void removeAALSpaceListener(AALSpaceListener arg0) {
+			public void removeSpaceListener(SpaceListener arg0) {
 			}
 		};
 

@@ -84,7 +84,7 @@ public class CheckPeerThread implements Runnable {
 							if (aalSpaceManager.getSpaceDescriptor().getSpaceCard().getCoordinatorID()
 									.equals(oldPeer)) {
 								// than force the leave
-								aalSpaceManager.leaveAALSpace(aalSpaceManager.getSpaceDescriptor());
+								aalSpaceManager.leaveSpace(aalSpaceManager.getSpaceDescriptor());
 							}
 							controlBrolker.peerLost(peers.get(oldPeer));
 						}

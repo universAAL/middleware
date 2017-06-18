@@ -61,7 +61,7 @@ import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 import org.universAAL.middleware.interfaces.space.SpaceStatus;
 import org.universAAL.middleware.interfaces.utils.Util;
 import org.universAAL.middleware.managers.api.SpaceEventHandler;
-import org.universAAL.middleware.managers.api.AALSpaceListener;
+import org.universAAL.middleware.managers.api.SpaceListener;
 import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.managers.api.DeployManager;
 import org.universAAL.middleware.managers.api.DeployManagerEventHandler;
@@ -80,7 +80,7 @@ import org.universAAL.middleware.managers.deploy.util.Consts;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 public class DeployManagerImpl
-		implements DeployManager, DeployManagerEventHandler, SharedObjectListener, AALSpaceListener {
+		implements DeployManager, DeployManagerEventHandler, SharedObjectListener, SpaceListener {
 
 	private SpaceEventHandler aalSpaceEventHandler;
 	private SpaceManager aalSpaceManager;
@@ -135,7 +135,7 @@ public class DeployManagerImpl
 					new Object[] { SpaceManager.class.getName().toString() }, this);
 			if (aalManagers != null) {
 				aalSpaceManager = (SpaceManager) aalManagers[0];
-				aalSpaceManager.addAALSpaceListener(this);
+				aalSpaceManager.addSpaceListener(this);
 
 				// check if I'm the deploy coordinator
 				if (aalSpaceManager.getSpaceDescriptor() != null && aalSpaceManager.getSpaceDescriptor()
@@ -243,7 +243,7 @@ public class DeployManagerImpl
 		}
 		// 2 - verify If I belong to an AALSpace
 		if (aalSpaceManager.getSpaceDescriptor() == null)
-			return InstallationResults.NO_AALSPACE_JOINED;
+			return InstallationResults.NO_SPACE_JOINED;
 
 		// 3 - verify if I'm the DeployCoordinator
 		if (isDeployCoordinator() == false) {
@@ -799,7 +799,7 @@ public class DeployManagerImpl
 			LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 					new Object[] { "AALSpaceManager service added" }, null);
 			aalSpaceManager = (SpaceManager) sharedObj;
-			aalSpaceManager.addAALSpaceListener(this);
+			aalSpaceManager.addSpaceListener(this);
 			if (aalSpaceManager.getSpaceDescriptor() != null && aalSpaceManager.getSpaceDescriptor()
 					.getDeployManager().getPeerID().equals(aalSpaceManager.getMyPeerCard().getPeerID())) {
 				isDeployCoordinator = true;
@@ -809,7 +809,7 @@ public class DeployManagerImpl
 			LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 					new Object[] { "AALSpaceEventHandler service added" }, null);
 			aalSpaceEventHandler = (SpaceEventHandler) sharedObj;
-			aalSpaceManager.addAALSpaceListener(this);
+			aalSpaceManager.addSpaceListener(this);
 
 		}
 
@@ -942,7 +942,7 @@ public class DeployManagerImpl
 	 *         } } } return true; }
 	 */
 
-	public void aalSpaceJoined(SpaceDescriptor spaceDescriptor) {
+	public void spaceJoined(SpaceDescriptor spaceDescriptor) {
 		LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 				new Object[] { "Configure the ControlBroker for the reception of DeployMessage" }, null);
 		// if I'm also the deploy manager, set this property
@@ -952,7 +952,7 @@ public class DeployManagerImpl
 
 	}
 
-	public void aalSpaceLost(SpaceDescriptor spaceDescriptor) {
+	public void spaceLost(SpaceDescriptor spaceDescriptor) {
 		// TODO Auto-generated method stub
 
 	}
@@ -977,7 +977,7 @@ public class DeployManagerImpl
 
 	}
 
-	public void newPeerJoined(PeerCard peer) {
+	public void peerJoined(PeerCard peer) {
 		// TODO Auto-generated method stub
 
 	}
@@ -991,7 +991,7 @@ public class DeployManagerImpl
 		return isDeployCoordinator;
 	}
 
-	public void aalSpaceStatusChanged(SpaceStatus status) {
+	public void spaceStatusChanged(SpaceStatus status) {
 		// TODO Auto-generated method stub
 
 	}
