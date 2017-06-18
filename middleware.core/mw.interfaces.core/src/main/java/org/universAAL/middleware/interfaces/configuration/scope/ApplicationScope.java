@@ -19,11 +19,11 @@ package org.universAAL.middleware.interfaces.configuration.scope;
 
 /**
  * Defines an entity that is applicable over a certain application, this will be
- * shared over the whole AALSpace for the same application.
- * 
+ * shared over the whole Space for the same application.
+ *
  * @author amedrano
  */
-public class ApplicationScope extends AALSpaceScope {
+public class ApplicationScope extends SpaceScope {
 
 	/**
 	 * The application the entity is meant for.
@@ -32,7 +32,7 @@ public class ApplicationScope extends AALSpaceScope {
 
 	/**
 	 * Constructor for a given entity identifier and application.
-	 * 
+	 *
 	 * @param id
 	 */
 	public ApplicationScope(String id, String appID) {
@@ -47,7 +47,7 @@ public class ApplicationScope extends AALSpaceScope {
 
 	/**
 	 * Get the application ID.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getAppID() {

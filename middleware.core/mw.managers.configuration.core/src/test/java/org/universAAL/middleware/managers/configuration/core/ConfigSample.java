@@ -63,7 +63,7 @@ public class ConfigSample {
 		}, new ConfigurationParameter() {
 
 			public Scope getScope() {
-				return Scope.aalScope("foo.target");
+				return Scope.scope("foo.target");
 			}
 
 			public String getDescription(Locale loc) {
@@ -80,7 +80,7 @@ public class ConfigSample {
 			public Object getDefaultValue() {
 				return null;
 			}
-		}, new ConfigurationDefinedElsewhere(Scope.aalScope("super.config")), new ConfigurationParameter() {
+		}, new ConfigurationDefinedElsewhere(Scope.scope("super.config")), new ConfigurationParameter() {
 
 			public Scope getScope() {
 				return new InstanceScope("noise.limit", "mySuperPeer");

@@ -34,9 +34,9 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
+import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.modules.listener.MessageListener;
 
@@ -64,7 +64,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	 * The prefix of the URI of {@link BusMember}s. Each time a new bus member
 	 * registers at the bus, this String is the prefix of the URI that is
 	 * created to identify the bus member. It consists of the ID of the AAL
-	 * Space, queried by {@link AALSpaceCard#getSpaceID()}, and a finalizing "/"
+	 * Space, queried by {@link SpaceCard#getSpaceID()}, and a finalizing "/"
 	 * (if the Space ID does not create a valid URI,
 	 * {@link #uAAL_OPTIONAL_URI_PREFIX} is added at the beginning of this
 	 * prefix).
@@ -94,11 +94,11 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	 */
 	private static int uAAL_MW_INSTANCE_BUS_MEMBERSHIPS = 0;
 
-	protected static AALSpaceManager aalSpaceManager;
+	protected static SpaceManager aalSpaceManager;
 	protected static CommunicationModule communicationModule;
 	private static ModuleContext myContext;
 
-	public static void initBrokerage(ModuleContext mc, AALSpaceManager aalSpaceMgr, CommunicationModule commModule) {
+	public static void initBrokerage(ModuleContext mc, SpaceManager aalSpaceMgr, CommunicationModule commModule) {
 		if (myContext != null) {
 			// LogUtils.logError(
 			// myContext,
@@ -143,7 +143,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 		// uAAL_SPACE_INSTANCE_URI_PREFIX = "";
 
 		// wait until the space ID is known
-		AALSpaceDescriptor sd = aalSpaceManager.getAALSpaceDescriptor();
+		SpaceDescriptor sd = aalSpaceManager.getSpaceDescriptor();
 		String spaceID = null;
 		if (sd != null) {
 			spaceID = sd.getSpaceCard().getSpaceID();
@@ -162,7 +162,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 								"The AAL space ID is not yet known. Waiting for the AAL Space Manager to join a space. Time elapsed: ",
 								cnt / 10, " seconds." },
 						null);
-			sd = aalSpaceManager.getAALSpaceDescriptor();
+			sd = aalSpaceManager.getSpaceDescriptor();
 			if (sd != null) {
 				spaceID = sd.getSpaceCard().getSpaceID();
 			}

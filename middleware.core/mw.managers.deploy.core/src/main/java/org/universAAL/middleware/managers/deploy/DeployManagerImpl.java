@@ -55,14 +55,14 @@ import org.universAAL.middleware.deploymanager.uapp.model.AalUapp;
 import org.universAAL.middleware.deploymanager.uapp.model.ObjectFactory;
 import org.universAAL.middleware.deploymanager.uapp.model.Part;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceStatus;
 import org.universAAL.middleware.interfaces.utils.Util;
-import org.universAAL.middleware.managers.api.AALSpaceEventHandler;
+import org.universAAL.middleware.managers.api.SpaceEventHandler;
 import org.universAAL.middleware.managers.api.AALSpaceListener;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.managers.api.DeployManager;
 import org.universAAL.middleware.managers.api.DeployManagerEventHandler;
 import org.universAAL.middleware.managers.api.InstallationResults;
@@ -82,8 +82,8 @@ import org.universAAL.middleware.managers.deploy.util.Consts;
 public class DeployManagerImpl
 		implements DeployManager, DeployManagerEventHandler, SharedObjectListener, AALSpaceListener {
 
-	private AALSpaceEventHandler aalSpaceEventHandler;
-	private AALSpaceManager aalSpaceManager;
+	private SpaceEventHandler aalSpaceEventHandler;
+	private SpaceManager aalSpaceManager;
 	private ControlBroker controlBroker;
 	private ModuleContext context;
 	private boolean initialized = false;
@@ -132,13 +132,13 @@ public class DeployManagerImpl
 			LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 					new Object[] { "fetching the AALSpaceManager..." }, null);
 			Object[] aalManagers = context.getContainer().fetchSharedObject(context,
-					new Object[] { AALSpaceManager.class.getName().toString() }, this);
+					new Object[] { SpaceManager.class.getName().toString() }, this);
 			if (aalManagers != null) {
-				aalSpaceManager = (AALSpaceManager) aalManagers[0];
+				aalSpaceManager = (SpaceManager) aalManagers[0];
 				aalSpaceManager.addAALSpaceListener(this);
 
 				// check if I'm the deploy coordinator
-				if (aalSpaceManager.getAALSpaceDescriptor() != null && aalSpaceManager.getAALSpaceDescriptor()
+				if (aalSpaceManager.getSpaceDescriptor() != null && aalSpaceManager.getSpaceDescriptor()
 						.getDeployManager().getPeerID().equals(aalSpaceManager.getMyPeerCard().getPeerID())) {
 					isDeployCoordinator = true;
 				}
@@ -152,9 +152,9 @@ public class DeployManagerImpl
 			LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 					new Object[] { "fetching the AALSpaceEventHandler..." }, null);
 			Object[] aalEventHandlers = context.getContainer().fetchSharedObject(context,
-					new Object[] { AALSpaceManager.class.getName().toString() }, this);
+					new Object[] { SpaceManager.class.getName().toString() }, this);
 			if (aalEventHandlers != null) {
-				aalSpaceEventHandler = (AALSpaceEventHandler) aalEventHandlers[0];
+				aalSpaceEventHandler = (SpaceEventHandler) aalEventHandlers[0];
 
 			} else {
 				LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
@@ -172,7 +172,7 @@ public class DeployManagerImpl
 						new Object[] { "Found  ContextBrokers..." }, null);
 				if (cBrokers[0] instanceof ControlBroker)
 					controlBroker = (ControlBroker) cBrokers[0];
-				if (aalSpaceManager.getAALSpaceDescriptor() == null) {
+				if (aalSpaceManager.getSpaceDescriptor() == null) {
 					initialized = false;
 					return initialized;
 				}
@@ -242,7 +242,7 @@ public class DeployManagerImpl
 			return InstallationResults.UAPP_URI_INVALID;
 		}
 		// 2 - verify If I belong to an AALSpace
-		if (aalSpaceManager.getAALSpaceDescriptor() == null)
+		if (aalSpaceManager.getSpaceDescriptor() == null)
 			return InstallationResults.NO_AALSPACE_JOINED;
 
 		// 3 - verify if I'm the DeployCoordinator
@@ -282,7 +282,7 @@ public class DeployManagerImpl
 		}
 
 		// 4 - send event to the AAL Space
-		aalSpaceEventHandler.mpaInstalling(aalSpaceManager.getAALSpaceDescriptor());
+		aalSpaceEventHandler.mpaInstalling(aalSpaceManager.getSpaceDescriptor());
 
 		// adding an entry to the registry
 		// this.registry.put(card.getId(), new UAPPStatus(card));
@@ -303,7 +303,7 @@ public class DeployManagerImpl
 		}
 
 		// 4 - send event to the AAL Space
-		aalSpaceEventHandler.mpaInstalled(aalSpaceManager.getAALSpaceDescriptor());
+		aalSpaceEventHandler.mpaInstalled(aalSpaceManager.getSpaceDescriptor());
 
 		storeInstallationStatus(application);
 
@@ -795,20 +795,20 @@ public class DeployManagerImpl
 			LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 					new Object[] { "ControlBroker service added" }, null);
 			this.controlBroker = (ControlBroker) sharedObj;
-		} else if (sharedObj instanceof AALSpaceManager) {
+		} else if (sharedObj instanceof SpaceManager) {
 			LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 					new Object[] { "AALSpaceManager service added" }, null);
-			aalSpaceManager = (AALSpaceManager) sharedObj;
+			aalSpaceManager = (SpaceManager) sharedObj;
 			aalSpaceManager.addAALSpaceListener(this);
-			if (aalSpaceManager.getAALSpaceDescriptor() != null && aalSpaceManager.getAALSpaceDescriptor()
+			if (aalSpaceManager.getSpaceDescriptor() != null && aalSpaceManager.getSpaceDescriptor()
 					.getDeployManager().getPeerID().equals(aalSpaceManager.getMyPeerCard().getPeerID())) {
 				isDeployCoordinator = true;
 			}
 
-		} else if (sharedObj instanceof AALSpaceEventHandler) {
+		} else if (sharedObj instanceof SpaceEventHandler) {
 			LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 					new Object[] { "AALSpaceEventHandler service added" }, null);
-			aalSpaceEventHandler = (AALSpaceEventHandler) sharedObj;
+			aalSpaceEventHandler = (SpaceEventHandler) sharedObj;
 			aalSpaceManager.addAALSpaceListener(this);
 
 		}
@@ -821,12 +821,12 @@ public class DeployManagerImpl
 					new Object[] { "ControlBroker service removed" }, null);
 			controlBroker = null;
 			initialized = false;
-		} else if (sharedObj instanceof AALSpaceManager) {
+		} else if (sharedObj instanceof SpaceManager) {
 			LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 					new Object[] { "AALSpaceManager service removed" }, null);
 			aalSpaceManager = null;
 			initialized = false;
-		} else if (sharedObj instanceof AALSpaceEventHandler) {
+		} else if (sharedObj instanceof SpaceEventHandler) {
 			LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 					new Object[] { "AALSpaceEventHandler service removed" }, null);
 			aalSpaceEventHandler = null;
@@ -942,7 +942,7 @@ public class DeployManagerImpl
 	 *         } } } return true; }
 	 */
 
-	public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor) {
+	public void aalSpaceJoined(SpaceDescriptor spaceDescriptor) {
 		LogUtils.logDebug(context, DeployManagerImpl.class, "DeployManagerImpl",
 				new Object[] { "Configure the ControlBroker for the reception of DeployMessage" }, null);
 		// if I'm also the deploy manager, set this property
@@ -952,7 +952,7 @@ public class DeployManagerImpl
 
 	}
 
-	public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor) {
+	public void aalSpaceLost(SpaceDescriptor spaceDescriptor) {
 		// TODO Auto-generated method stub
 
 	}
@@ -991,7 +991,7 @@ public class DeployManagerImpl
 		return isDeployCoordinator;
 	}
 
-	public void aalSpaceStatusChanged(AALSpaceStatus status) {
+	public void aalSpaceStatusChanged(SpaceStatus status) {
 		// TODO Auto-generated method stub
 
 	}

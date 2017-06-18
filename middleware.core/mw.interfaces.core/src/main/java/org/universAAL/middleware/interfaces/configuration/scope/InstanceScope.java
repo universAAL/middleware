@@ -21,13 +21,13 @@ import org.universAAL.middleware.interfaces.PeerCard;
 
 /**
  * Defines entity that are only applicable for the instance given in the scope.
- * Entities with this scope will be shared in the whole AALSpaced, but stored
+ * Entities with this scope will be shared in the whole Space, but stored
  * only locally.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
-public class InstanceScope extends AALSpaceScope {
+public class InstanceScope extends SpaceScope {
 
 	/**
 	 * The unique instance ID.
@@ -36,7 +36,7 @@ public class InstanceScope extends AALSpaceScope {
 
 	/**
 	 * Constructor for an entity with unique id, and given instance ID.
-	 * 
+	 *
 	 * @param id
 	 *            the id of the entity.
 	 * @param peerID
@@ -54,7 +54,7 @@ public class InstanceScope extends AALSpaceScope {
 
 	/**
 	 * Constructor for an entity residing in the same node (this).
-	 * 
+	 *
 	 * @param id
 	 *            the id of the entity.
 	 * @param pc
@@ -67,7 +67,7 @@ public class InstanceScope extends AALSpaceScope {
 
 	/**
 	 * Get the id of the instace.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getPeerID() {

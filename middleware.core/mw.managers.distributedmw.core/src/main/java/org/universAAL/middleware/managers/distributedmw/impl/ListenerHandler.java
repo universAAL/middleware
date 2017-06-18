@@ -27,8 +27,8 @@ import java.util.Set;
 
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceStatus;
 import org.universAAL.middleware.managers.api.AALSpaceListener;
 import org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl.Handler;
 import org.universAAL.middleware.rdf.Resource;
@@ -249,12 +249,12 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 
 	protected abstract void removeListenerLocally();
 
-	public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor) {
+	public void aalSpaceJoined(SpaceDescriptor spaceDescriptor) {
 		// TODO: subscribe for all allPeersListeners in all peers?
 		// or do we get a call to newPeerJoined?
 	}
 
-	public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor) {
+	public void aalSpaceLost(SpaceDescriptor spaceDescriptor) {
 		// clear everything
 		synchronized (listeners) {
 			synchronized (localListeners) {
@@ -324,7 +324,7 @@ public abstract class ListenerHandler<T> implements AALSpaceListener {
 		}
 	}
 
-	public void aalSpaceStatusChanged(AALSpaceStatus status) {
+	public void aalSpaceStatusChanged(SpaceStatus status) {
 		// not needed
 	}
 }

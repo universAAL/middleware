@@ -25,8 +25,8 @@ import java.util.Set;
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.ServiceReference;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
+import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
  * Commands for universAAL
@@ -37,18 +37,18 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 @Command(scope = "universAAL", name = "spaces", description = "Discover the existing AAL Spaces")
 public class AALSpaceCommand extends OsgiCommandSupport {
 
-	private AALSpaceManager aalSpaceManager;
+	private SpaceManager aalSpaceManager;
 
 	@Override
 	protected Object doExecute() throws Exception {
 		log.debug("Executing command...");
-		ServiceReference ref = bundleContext.getServiceReference(AALSpaceManager.class.getName());
+		ServiceReference ref = bundleContext.getServiceReference(SpaceManager.class.getName());
 		if (ref != null) {
-			aalSpaceManager = (AALSpaceManager) bundleContext.getService(ref);
+			aalSpaceManager = (SpaceManager) bundleContext.getService(ref);
 		} else {
 			return null;
 		}
-		Set<AALSpaceCard> aalSpaces = aalSpaceManager.getAALSpaces();
+		Set<SpaceCard> aalSpaces = aalSpaceManager.getAALSpaces();
 		if (aalSpaces != null) {
 
 			System.out.println(" Found: " + aalSpaces.size() + " AAL Spaces");
@@ -56,10 +56,10 @@ public class AALSpaceCommand extends OsgiCommandSupport {
 			if (aalSpaces.size() == 0)
 				System.out.println("Waiting to join an AALSpace");
 
-			for (AALSpaceCard aalSpace : aalSpaces) {
+			for (SpaceCard aalSpace : aalSpaces) {
 
-				if (aalSpaceManager.getAALSpaceDescriptor() != null
-						&& aalSpace.equals(aalSpaceManager.getAALSpaceDescriptor().getSpaceCard()))
+				if (aalSpaceManager.getSpaceDescriptor() != null
+						&& aalSpace.equals(aalSpaceManager.getSpaceDescriptor().getSpaceCard()))
 					System.out.println(" * " + aalSpace.toString());
 				else
 					System.out.println(aalSpace.toString());

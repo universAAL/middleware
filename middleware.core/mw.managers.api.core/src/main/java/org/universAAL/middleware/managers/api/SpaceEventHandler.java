@@ -24,9 +24,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceStatus;
 
 /**
  * AALSpaceEventHandler interface. These methods are called by the lower layer
@@ -34,7 +34,7 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
  * 
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  */
-public interface AALSpaceEventHandler {
+public interface SpaceEventHandler {
 	/**
 	 * The method is called asynchronously from the bottom layer of the MW after
 	 * a previous join(...) request.
@@ -42,7 +42,7 @@ public interface AALSpaceEventHandler {
 	 * @param descriptor
 	 *            all the information about the joinined AALSpace
 	 */
-	public void aalSpaceJoined(AALSpaceDescriptor descriptor);
+	public void spaceJoined(SpaceDescriptor descriptor);
 
 	/**
 	 * This method allows the AALSpaceManager to manage a join request from a
@@ -52,14 +52,14 @@ public interface AALSpaceEventHandler {
 	 * @param spaceCard
 	 * @param sender
 	 */
-	public void joinRequest(AALSpaceCard spaceCard, PeerCard sender);
+	public void joinRequest(SpaceCard spaceCard, PeerCard sender);
 
 	/**
 	 * This method forces the peer to leace an AALSpace
 	 * 
 	 * @param spaceCard
 	 */
-	public void leaveRequest(AALSpaceDescriptor spaceCard);
+	public void leaveRequest(SpaceDescriptor spaceCard);
 
 	/**
 	 * This method notifies to the coordinator that a peer wants to leave to the
@@ -82,9 +82,9 @@ public interface AALSpaceEventHandler {
 	 * 
 	 * @param spaceCard
 	 */
-	public void newAALSpacesFound(Set<AALSpaceCard> spaceCards);
+	public void newAALSpacesFound(Set<SpaceCard> spaceCards);
 
-	public void aalSpaceEvent(AALSpaceStatus newStatus);
+	public void spaceEvent(SpaceStatus newStatus);
 
 	/**
 	 * This method allows to configure the set of peers that actually join the
@@ -98,11 +98,11 @@ public interface AALSpaceEventHandler {
 	/**
 	 * Called in order to alert the AALSpace about the installation of a new MPA
 	 */
-	public void mpaInstalling(AALSpaceDescriptor spaceDescriptor);
+	public void mpaInstalling(SpaceDescriptor spaceDescriptor);
 
 	/**
 	 * Called in order to alert the AALSpace about the installation of a new MPA
 	 */
-	public void mpaInstalled(AALSpaceDescriptor spaceDescriptor);
+	public void mpaInstalled(SpaceDescriptor spaceDescriptor);
 
 }

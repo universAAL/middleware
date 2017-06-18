@@ -29,7 +29,7 @@ import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 
@@ -49,8 +49,8 @@ public class Activator implements BundleActivator, ServiceListener {
 		// OSGi services are not found, then it makes no sense to start this
 		// bundle!
 
-		ServiceReference sRef = context.getServiceReference(AALSpaceManager.class.getName());
-		AALSpaceManager mgr = (AALSpaceManager) context.getService(sRef);
+		ServiceReference sRef = context.getServiceReference(SpaceManager.class.getName());
+		SpaceManager mgr = (SpaceManager) context.getService(sRef);
 		CommunicationModule mdl = (CommunicationModule) context
 				.getService(context.getServiceReference(CommunicationModule.class.getName()));
 		AbstractBus.initBrokerage(mc, mgr, mdl);

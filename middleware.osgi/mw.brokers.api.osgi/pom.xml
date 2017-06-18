@@ -33,7 +33,7 @@
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Provider>ISTI-CNR</Bundle-Provider>
             <Import-Package>org.universAAL.middleware.interfaces,
-							org.universAAL.middleware.interfaces.aalspace,
+							org.universAAL.middleware.interfaces.space,
 							org.universAAL.middleware.interfaces.mpa,com.google.gson</Import-Package>
             <Export-Package>org.universAAL.middleware.brokers,
 							org.universAAL.middleware.brokers.message.*</Export-Package>

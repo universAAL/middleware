@@ -25,8 +25,8 @@ import java.util.List;
 
 import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 
 /**
  * The implementations of this interface manage the AALSpace life-cycle:
@@ -40,7 +40,7 @@ public interface AALSpaceModule extends Module {
 	 * 
 	 * @return List of discovered AAL Spaces
 	 */
-	public List<AALSpaceCard> getAALSpaces();
+	public List<SpaceCard> getAALSpaces();
 
 	/**
 	 * This method fetches a list of AALSpaces according to a filter
@@ -49,7 +49,7 @@ public interface AALSpaceModule extends Module {
 	 *            A set of key, value pairs for filtering the AAL Spaces
 	 * @return
 	 */
-	public List<AALSpaceCard> getAALSpaces(Dictionary<String, String> filters);
+	public List<SpaceCard> getAALSpaces(Dictionary<String, String> filters);
 
 	/**
 	 * This method creates a new AALSpace
@@ -58,14 +58,14 @@ public interface AALSpaceModule extends Module {
 	 *            The configuration parameters for the AALSpace
 	 * @return
 	 */
-	public void newAALSpace(AALSpaceCard aalSpaceCard);
+	public void newAALSpace(SpaceCard aalSpaceCard);
 
 	/**
 	 * This method renews the AALSpace
 	 * 
 	 * @param spaceCard
 	 */
-	public void renewAALSpace(AALSpaceCard aalSpaceCard);
+	public void renewAALSpace(SpaceCard aalSpaceCard);
 
 	/**
 	 * Destroy an AAL Space
@@ -73,7 +73,7 @@ public interface AALSpaceModule extends Module {
 	 * @param spaceCard
 	 *            AALSpace to destroy
 	 */
-	public void destroyAALSpace(AALSpaceCard aalSpaceCard);
+	public void destroyAALSpace(SpaceCard aalSpaceCard);
 
 	/**
 	 * This method allows to join to an existing AALSpace
@@ -84,7 +84,7 @@ public interface AALSpaceModule extends Module {
 	 * @param spaceCard
 	 *            The AALSpaceCard of the AAL space the peer aims to join
 	 */
-	public void joinAALSpace(PeerCard spaceCoordinator, AALSpaceCard aalSpaceCard);
+	public void joinAALSpace(PeerCard spaceCoordinator, SpaceCard aalSpaceCard);
 
 	/**
 	 * This method allows to leave an AALSpace
@@ -92,14 +92,14 @@ public interface AALSpaceModule extends Module {
 	 * @param spaceCard
 	 *            Space Card of the AALSpace to leave
 	 */
-	public void leaveAALSpace(PeerCard spaceCoordinator, AALSpaceCard aalSpaceCard);
+	public void leaveAALSpace(PeerCard spaceCoordinator, SpaceCard aalSpaceCard);
 
 	/**
 	 * This method announces to all the peers to leave the AAL space
 	 * 
 	 * @param spaceDescriptor
 	 */
-	public void requestToLeave(AALSpaceDescriptor aalSpaceDescriptor);
+	public void requestToLeave(SpaceDescriptor aalSpaceDescriptor);
 
 	/**
 	 * This method allows to send a request for the PeerCard of the peer with
@@ -110,7 +110,7 @@ public interface AALSpaceModule extends Module {
 	 * @param spaceDescriptor
 	 *            the AAL Space descriptor
 	 */
-	public void requestPeerCard(AALSpaceDescriptor spaceDescriptor, String peerAddress);
+	public void requestPeerCard(SpaceDescriptor spaceDescriptor, String peerAddress);
 
 	/**
 	 * This method is called as soon as an AALSpaceMessage has been received
@@ -127,7 +127,7 @@ public interface AALSpaceModule extends Module {
 	 * @param peer
 	 *            The Peer to add to the AALSpace
 	 */
-	public void addPeer(AALSpaceDescriptor aalSpaceDescriptor, PeerCard peer);
+	public void addPeer(SpaceDescriptor aalSpaceDescriptor, PeerCard peer);
 
 	/**
 	 * This method propagates the event of new PeerAdded to the whole AALSpace
@@ -137,7 +137,7 @@ public interface AALSpaceModule extends Module {
 	 * @param peerCard
 	 *            The new peer added
 	 */
-	public void announceNewPeer(AALSpaceCard aalSpaceCard, PeerCard peerCard);
+	public void announceNewPeer(SpaceCard aalSpaceCard, PeerCard peerCard);
 
 	/**
 	 * This method configures the channel used in order to send/receive AAL

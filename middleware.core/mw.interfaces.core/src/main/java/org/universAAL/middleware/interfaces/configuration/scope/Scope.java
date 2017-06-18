@@ -59,8 +59,8 @@ public abstract class Scope {
 		return id;
 	}
 
-	public static Scope aalScope(String id) {
-		return new AALSpaceScope(id);
+	public static Scope scope(String id) {
+		return new SpaceScope(id);
 	}
 
 	public static Scope instanceScope(String id, PeerCard peerCard) {

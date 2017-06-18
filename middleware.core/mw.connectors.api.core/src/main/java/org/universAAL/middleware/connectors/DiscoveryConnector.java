@@ -24,7 +24,7 @@ import java.util.Dictionary;
 import java.util.List;
 
 import org.universAAL.middleware.connectors.exception.DiscoveryConnectorException;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
 
 /**
  * Interface for the discovery connector.
@@ -40,21 +40,21 @@ public interface DiscoveryConnector extends Connector {
 	 * @param filter
 	 * @return
 	 */
-	public List<AALSpaceCard> findAALSpace(Dictionary<String, String> filters) throws DiscoveryConnectorException;
+	public List<SpaceCard> findAALSpace(Dictionary<String, String> filters) throws DiscoveryConnectorException;
 
 	/**
 	 * Discovers all the AALSpace without a filter
 	 * 
 	 * @return
 	 */
-	public List<AALSpaceCard> findAALSpace() throws DiscoveryConnectorException;
+	public List<SpaceCard> findAALSpace() throws DiscoveryConnectorException;
 
 	/**
 	 * Announce the existence of an AALSpace
 	 * 
 	 * @param card
 	 */
-	public void announceAALSpace(AALSpaceCard spaceCard) throws DiscoveryConnectorException;
+	public void announceAALSpace(SpaceCard spaceCard) throws DiscoveryConnectorException;
 
 	/**
 	 * De-register an AALSpace
@@ -62,7 +62,7 @@ public interface DiscoveryConnector extends Connector {
 	 * @param spaceCard
 	 * @throws DiscoveryConnectorException
 	 */
-	public void deregisterAALSpace(AALSpaceCard spaceCard) throws DiscoveryConnectorException;
+	public void deregisterAALSpace(SpaceCard spaceCard) throws DiscoveryConnectorException;
 
 	public String getSDPPRotocol();
 

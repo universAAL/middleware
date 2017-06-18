@@ -19,7 +19,7 @@
         limitations under the License.
  */
 
-package org.universAAL.middleware.interfaces.aalspace;
+package org.universAAL.middleware.interfaces.space;
 
 import java.io.Serializable;
 import java.util.List;
@@ -28,18 +28,18 @@ import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
 
 /**
- * This class fully describes an AALSpace.
- * 
+ * This class fully describes a Space.
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
-public class AALSpaceDescriptor implements Serializable {
+public class SpaceDescriptor implements Serializable {
 
 	/**
-	 *  
+	 *
 	 */
 	private static final long serialVersionUID = -3522163669123414699L;
-	private AALSpaceCard spaceCard;
+	private SpaceCard spaceCard;
 	private List<ChannelDescriptor> brokerChannels;
 	/**
 	 * ID of the peer configured as deploy manager
@@ -62,21 +62,20 @@ public class AALSpaceDescriptor implements Serializable {
 		this.brokerChannels = brokerChannels;
 	}
 
-	public AALSpaceCard getSpaceCard() {
+	public SpaceCard getSpaceCard() {
 		return spaceCard;
 	}
 
-	public void setSpaceCard(AALSpaceCard spaceCard) {
+	public void setSpaceCard(SpaceCard spaceCard) {
 		this.spaceCard = spaceCard;
 	}
 
-	public AALSpaceDescriptor(AALSpaceCard spaceCard, List<ChannelDescriptor> brokerChannels) {
+	public SpaceDescriptor(SpaceCard spaceCard, List<ChannelDescriptor> brokerChannels) {
 		this.spaceCard = spaceCard;
 		this.brokerChannels = brokerChannels;
 	}
 
-	public AALSpaceDescriptor() {
+	public SpaceDescriptor() {
 
 	}
-
 }

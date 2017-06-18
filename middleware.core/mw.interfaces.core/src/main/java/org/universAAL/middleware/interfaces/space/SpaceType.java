@@ -19,15 +19,14 @@
         limitations under the License.
  */
 
-package org.universAAL.middleware.interfaces.aalspace;
+package org.universAAL.middleware.interfaces.space;
 
 /**
- * List of types for the AALSpaces
- * 
+ * List of types for the Spaces
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
-public enum AALSpaceType {
-	STATIC_AALSPACE, MOBILE_AALSPACE;
-
+public enum SpaceType {
+	STATIC_SPACE, MOBILE_SPACE;
 }

@@ -22,7 +22,7 @@ package org.universAAL.middleware.connectors;
 
 import java.util.Set;
 
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
 
 /**
  * Implementation of this interface manages new or lost AALSpaces
@@ -37,7 +37,7 @@ public interface ServiceListener {
 	 * @param spaceCard
 	 *            Information about the AALSpace
 	 */
-	public void newAALSpacesFound(Set<AALSpaceCard> spaceCards);
+	public void newAALSpacesFound(Set<SpaceCard> spaceCards);
 
 	/**
 	 * Called when an AALSpace has been destroyed
@@ -45,5 +45,5 @@ public interface ServiceListener {
 	 * @param spaceCard
 	 *            Information about the AALSpace
 	 */
-	public void aalSpaceLost(AALSpaceCard spaceCard);
+	public void aalSpaceLost(SpaceCard spaceCard);
 }

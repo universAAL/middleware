@@ -33,6 +33,6 @@ public final class Consts {
 	public static String SLP_INIT_DELAY_SCAN = "slpInitDelayScan";
 	public static String SLP_PERIOD_SCAN = "slpPeriodScan";
 
-	public static String SEARCH_ALL = "(" + org.universAAL.middleware.interfaces.aalspace.Consts.AALSPaceID + "=*)";
+	public static String SEARCH_ALL = "(" + org.universAAL.middleware.interfaces.space.Consts.SpaceID + "=*)";
 
 }

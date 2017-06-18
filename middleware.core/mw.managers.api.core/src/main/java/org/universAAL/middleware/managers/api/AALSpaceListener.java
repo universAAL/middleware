@@ -21,8 +21,8 @@
 package org.universAAL.middleware.managers.api;
 
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceStatus;
 
 /**
  * Manages notifications about AALSpace events
@@ -38,7 +38,7 @@ public interface AALSpaceListener {
 	 * @param spaceDescriptor
 	 *            Space desce
 	 */
-	public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor);
+	public void aalSpaceJoined(SpaceDescriptor spaceDescriptor);
 
 	/**
 	 * Called as soon as an AALSpace has been left
@@ -46,7 +46,7 @@ public interface AALSpaceListener {
 	 * @param spaceDescriptor
 	 *            Space desce
 	 */
-	public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor);
+	public void aalSpaceLost(SpaceDescriptor spaceDescriptor);
 
 	/**
 	 * Called when a peers joins the AALSpace
@@ -68,6 +68,6 @@ public interface AALSpaceListener {
 	 * 
 	 * @param status
 	 */
-	public void aalSpaceStatusChanged(AALSpaceStatus status);
+	public void aalSpaceStatusChanged(SpaceStatus status);
 
 }

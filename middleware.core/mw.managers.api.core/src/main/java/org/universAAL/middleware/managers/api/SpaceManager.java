@@ -27,8 +27,8 @@ import java.util.Set;
 
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 
 /**
  * AALSpace manager interface. These methods are managing an AALSpace
@@ -36,7 +36,7 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano "Kismet" Lenzi</a>
  */
-public interface AALSpaceManager extends Manager {
+public interface SpaceManager extends Manager {
 
 	public static final String COMUNICATION_TIMEOUT_KEY = "uAAL.synchronous.timeout";
 	public static final String COMUNICATION_TIMEOUT_VALUE = "10000";
@@ -55,7 +55,7 @@ public interface AALSpaceManager extends Manager {
 	 * 
 	 * @return Set of AALSpace found
 	 */
-	public Set<AALSpaceCard> getAALSpaces();
+	public Set<SpaceCard> getAALSpaces();
 
 	/**
 	 * This method returns the AALSpaceDescriptor of the AALSpace where the MW
@@ -63,14 +63,14 @@ public interface AALSpaceManager extends Manager {
 	 * 
 	 * @return AALSpaceDescriptor
 	 */
-	public AALSpaceDescriptor getAALSpaceDescriptor();
+	public SpaceDescriptor getSpaceDescriptor();
 
 	/**
 	 * This method return a map of AALSpace managed by this MW instance
 	 * 
 	 * @return
 	 */
-	public Map<String, AALSpaceDescriptor> getManagedAALSpaces();
+	public Map<String, SpaceDescriptor> getManagedAALSpaces();
 
 	/**
 	 * method to join an existing AALSpace according the configuration file: -to
@@ -81,14 +81,14 @@ public interface AALSpaceManager extends Manager {
 	 * @param space
 	 *            AAL Space to join
 	 */
-	public void join(AALSpaceCard spaceCard);
+	public void join(SpaceCard spaceCard);
 
 	/**
 	 * Method used to leave an AALSpace
 	 * 
 	 * @param spaceDescriptor
 	 */
-	public void leaveAALSpace(AALSpaceDescriptor spaceDescriptor);
+	public void leaveAALSpace(SpaceDescriptor spaceDescriptor);
 
 	/**
 	 * This method return the list of neighborhood peers joined to the current

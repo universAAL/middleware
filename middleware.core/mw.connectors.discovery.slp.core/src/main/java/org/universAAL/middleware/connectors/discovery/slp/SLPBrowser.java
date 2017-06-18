@@ -27,7 +27,7 @@ import java.util.Set;
 import org.universAAL.middleware.connectors.ServiceListener;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
 
 import ch.ethz.iks.slp.Locator;
 import ch.ethz.iks.slp.ServiceLocationEnumeration;
@@ -49,7 +49,7 @@ public class SLPBrowser implements Runnable {
 	private List<ServiceListener> listeners;
 	private boolean stop = false;
 	private static int MAX_RETRY = 3;
-	private Set<AALSpaceCard> aalSpaces;
+	private Set<SpaceCard> aalSpaces;
 
 	public SLPBrowser(Locator locator, String aalSpaceServiceType, String filter, ModuleContext context,
 			List<ServiceListener> listeners) {
@@ -80,7 +80,7 @@ public class SLPBrowser implements Runnable {
 	}
 
 	public void run() {
-		aalSpaces = new HashSet<AALSpaceCard>();
+		aalSpaces = new HashSet<SpaceCard>();
 		ServiceLocationEnumeration slenum = null;
 		ServiceLocationEnumeration attribs = null;
 		if (!stop) {
@@ -88,7 +88,7 @@ public class SLPBrowser implements Runnable {
 				slenum = locator.findServices(new ServiceType(aalSpaceServiceType), null, filter);
 				while (slenum.hasMoreElements()) {
 					ServiceURL serviceURL = (ServiceURL) slenum.next();
-					attribs = locator.findAttributes(serviceURL, null, AALSpaceCard.getSpaceAttributes());
+					attribs = locator.findAttributes(serviceURL, null, SpaceCard.getSpaceAttributes());
 					// FIX JSLP sometimes returns null attributes
 
 					// attribs = locator.findAttributes(new ServiceType(
@@ -97,7 +97,7 @@ public class SLPBrowser implements Runnable {
 					if (attribs != null) {
 						LogUtils.logTrace(context, SLPBrowser.class, "run",
 								new Object[] { "Unmarshalling AALSpace attributes..." }, null);
-						AALSpaceCard spaceCard = new AALSpaceCard(
+						SpaceCard spaceCard = new SpaceCard(
 								SLPDiscoveryConnector.unmarshalServiceAttributes(attribs));
 						// TODO: remove the static name of the channel name
 						spaceCard.setPeeringChannelName("mw.modules.aalspace.osgi");

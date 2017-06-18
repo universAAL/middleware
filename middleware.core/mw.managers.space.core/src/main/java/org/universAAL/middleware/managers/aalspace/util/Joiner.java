@@ -22,10 +22,10 @@ package org.universAAL.middleware.managers.aalspace.util;
 
 import java.util.Iterator;
 
-import org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl;
+import org.universAAL.middleware.managers.aalspace.SpaceManagerImpl;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
 
 /**
  * This thread inspects the set of discovered AALSpaces and tries to join to the
@@ -36,11 +36,11 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
  */
 public class Joiner implements Runnable {
 
-	private AALSpaceManagerImpl spaceManager;
+	private SpaceManagerImpl spaceManager;
 	private boolean stop = false;
 	private ModuleContext context;
 
-	public Joiner(AALSpaceManagerImpl spaceManager, ModuleContext context) {
+	public Joiner(SpaceManagerImpl spaceManager, ModuleContext context) {
 		this.spaceManager = spaceManager;
 		this.context = context;
 	}
@@ -51,7 +51,7 @@ public class Joiner implements Runnable {
 
 	public void run() {
 
-		if (spaceManager.getAALSpaceDescriptor() == null) {
+		if (spaceManager.getSpaceDescriptor() == null) {
 
 			// look for an element of the set that matches wit the default
 			// AALSpace
@@ -59,9 +59,9 @@ public class Joiner implements Runnable {
 
 				LogUtils.logDebug(context, Joiner.class, "Joiner",
 						new Object[] { "AALSpaces found looking for the default one" }, null);
-				Iterator<AALSpaceCard> iterator = spaceManager.getAALSpaces().iterator();
+				Iterator<SpaceCard> iterator = spaceManager.getAALSpaces().iterator();
 				while (iterator.hasNext()) {
-					AALSpaceCard candidate = iterator.next();
+					SpaceCard candidate = iterator.next();
 					/*
 					 * check if to join to the AAL Space found a)ID matches with
 					 * the default configuration the one in the default
@@ -96,7 +96,7 @@ public class Joiner implements Runnable {
 							}
 							// notify or timeout expired. To clean up the
 							// pending join
-							if (spaceManager.getAALSpaceDescriptor() == null)
+							if (spaceManager.getSpaceDescriptor() == null)
 								spaceManager.cleanUpJoinRequest();
 						}
 
@@ -106,7 +106,7 @@ public class Joiner implements Runnable {
 				// check if now I'm part of an AAL Space , if yes no operations
 				// if not and I am a Coordinator I run the initialization of an
 				// AALSpace
-				if (spaceManager.getAALSpaceDescriptor() == null && spaceManager.getMyPeerCard().isCoordinator()) {
+				if (spaceManager.getSpaceDescriptor() == null && spaceManager.getMyPeerCard().isCoordinator()) {
 					spaceManager.initAALSpace(spaceManager.getAalSpaceDefaultConfiguration());
 				}
 			}
@@ -114,7 +114,7 @@ public class Joiner implements Runnable {
 			// check if now I'm part of an AAL Space , if yes no operations
 			// if not and I am a Coordinator I run the initialization of an
 			// AALSpace
-			if (spaceManager.getAALSpaceDescriptor() == null && spaceManager.getMyPeerCard().isCoordinator()) {
+			if (spaceManager.getSpaceDescriptor() == null && spaceManager.getMyPeerCard().isCoordinator()) {
 				spaceManager.initAALSpace(spaceManager.getAalSpaceDefaultConfiguration());
 			}
 

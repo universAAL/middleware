@@ -23,7 +23,7 @@ package org.universAAL.middleware.shell.universAAL.osgi;
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.ServiceReference;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
  * Commands for universAAL
@@ -34,14 +34,14 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 @Command(scope = "universAAL", name = "targetSpace", description = "Print the Target AAL Spaces")
 public class TargetAALSpaceCommand extends OsgiCommandSupport {
 
-	private AALSpaceManager aalSpaceManager;
+	private SpaceManager aalSpaceManager;
 
 	@Override
 	protected Object doExecute() throws Exception {
 		log.debug("Executing command...");
-		ServiceReference ref = bundleContext.getServiceReference(AALSpaceManager.class.getName());
+		ServiceReference ref = bundleContext.getServiceReference(SpaceManager.class.getName());
 		if (ref != null) {
-			aalSpaceManager = (AALSpaceManager) bundleContext.getService(ref);
+			aalSpaceManager = (SpaceManager) bundleContext.getService(ref);
 		} else {
 			return null;
 		}

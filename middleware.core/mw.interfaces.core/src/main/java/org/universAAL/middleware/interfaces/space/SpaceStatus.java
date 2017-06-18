@@ -19,13 +19,13 @@
         limitations under the License.
  */
 
-package org.universAAL.middleware.interfaces.aalspace;
+package org.universAAL.middleware.interfaces.space;
 
 /**
- * The enum list the status of the AALSpace
- * 
+ * The enum list the status of the Space
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  */
-public enum AALSpaceStatus {
+public enum SpaceStatus {
 	STARTED, STOPPING, STOPPD, INSTALLING_UAAP, INSTALLED_UAAP, REMOVING_UAAP, REMOVED_UAAP
 }

@@ -20,7 +20,7 @@ package org.universAAL.middleware.managers.configuration.core.impl.secondaryMana
 import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
@@ -32,7 +32,7 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
 public class SharedObjectConnector implements SharedObjectListener {
 
 	private ModuleContext context;
-	private AALSpaceManager aalSpaceManager;
+	private SpaceManager aalSpaceManager;
 	private MessageContentSerializer messageContentSerializer;
 	private boolean stopping = false;
 	private ControlBroker controlBroker;
@@ -44,7 +44,7 @@ public class SharedObjectConnector implements SharedObjectListener {
 	/**
 	 * @return the aalSpaceManager
 	 */
-	public synchronized final AALSpaceManager getAalSpaceManager() {
+	public synchronized final SpaceManager getAalSpaceManager() {
 		while (!stopping && aalSpaceManager == null) {
 			try {
 				wait();
@@ -85,14 +85,14 @@ public class SharedObjectConnector implements SharedObjectListener {
 	 */
 	public SharedObjectConnector(ModuleContext mc) {
 		context = mc;
-		susbcribeFor(AALSpaceManager.class.getName());
+		susbcribeFor(SpaceManager.class.getName());
 		susbcribeFor(ControlBroker.class.getName());
 		susbcribeFor(MessageContentSerializer.class.getName());
 	}
 
 	private synchronized void add(Object shr) {
-		if (shr instanceof AALSpaceManager) {
-			aalSpaceManager = (AALSpaceManager) shr;
+		if (shr instanceof SpaceManager) {
+			aalSpaceManager = (SpaceManager) shr;
 			notifyAll();
 		} else if (shr instanceof ControlBroker) {
 			controlBroker = (ControlBroker) shr;
@@ -119,7 +119,7 @@ public class SharedObjectConnector implements SharedObjectListener {
 
 	/** {@ inheritDoc} */
 	public void sharedObjectRemoved(Object removeHook) {
-		if (removeHook instanceof AALSpaceManager) {
+		if (removeHook instanceof SpaceManager) {
 			aalSpaceManager = null;
 		} else if (removeHook instanceof ControlBroker) {
 			controlBroker = null;

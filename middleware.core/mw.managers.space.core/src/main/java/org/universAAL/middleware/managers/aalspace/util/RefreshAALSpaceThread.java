@@ -23,7 +23,7 @@ package org.universAAL.middleware.managers.aalspace.util;
 import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
  * Thread for refreshing AAL Spaces
@@ -33,7 +33,7 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 public class RefreshAALSpaceThread implements Runnable {
 
 	ModuleContext moduleContext;
-	AALSpaceManager aalSpaceManager;
+	SpaceManager aalSpaceManager;
 	ControlBroker controlBroker;
 
 	public RefreshAALSpaceThread(ModuleContext moduleContext) {
@@ -42,15 +42,15 @@ public class RefreshAALSpaceThread implements Runnable {
 
 	public void run() {
 		Object o = moduleContext.getContainer().fetchSharedObject(moduleContext,
-				new Object[] { AALSpaceManager.class.getName() });
+				new Object[] { SpaceManager.class.getName() });
 		Object o1 = moduleContext.getContainer().fetchSharedObject(moduleContext,
 				new Object[] { ControlBroker.class.getName() });
 		if (o != null && o1 != null) {
 			try {
-				aalSpaceManager = (AALSpaceManager) o;
+				aalSpaceManager = (SpaceManager) o;
 				controlBroker = (ControlBroker) o1;
-				if (aalSpaceManager.getAALSpaceDescriptor() != null)
-					controlBroker.renewAALSpace(aalSpaceManager.getAALSpaceDescriptor().getSpaceCard());
+				if (aalSpaceManager.getSpaceDescriptor() != null)
+					controlBroker.renewAALSpace(aalSpaceManager.getSpaceDescriptor().getSpaceCard());
 			} catch (Exception e) {
 				LogUtils.logError(moduleContext, RefreshAALSpaceThread.class, "RefreshAALSpaceThread",
 						new Object[] { "Error during AAL Space refresh" }, null);

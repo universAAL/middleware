@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.universAAL.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationFile;
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter;
-import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.SpaceScope;
 import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.managers.configuration.core.impl.factories.EntityFactory;
 import org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology;
@@ -64,7 +64,7 @@ public class EntFactoryTest {
 		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
 
 			public Scope getScope() {
-				return new AALSpaceScope("aalspace.config");
+				return new SpaceScope("aalspace.config");
 			}
 
 			public String getDescription(Locale loc) {
@@ -91,7 +91,7 @@ public class EntFactoryTest {
 		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
 
 			public Scope getScope() {
-				return new AALSpaceScope("aalspace.config");
+				return new SpaceScope("aalspace.config");
 			}
 
 			public String getDescription(Locale loc) {
@@ -115,7 +115,7 @@ public class EntFactoryTest {
 		Entity e = EntityFactory.getEntity(new ConfigurationFile() {
 
 			public Scope getScope() {
-				return new AALSpaceScope("AALSpace.somefile");
+				return new SpaceScope("AALSpace.somefile");
 			}
 
 			public String getDescription(Locale loc) {

@@ -32,8 +32,8 @@ import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 
 /**
  * 
@@ -46,7 +46,7 @@ public class AALSpaceMessageTest {
 	@Test
 	public void testGSONMessageAALSpace() throws Exception {
 
-		AALSpaceCard spaceCard = new AALSpaceCard();
+		SpaceCard spaceCard = new SpaceCard();
 		spaceCard.setSpaceID("id");
 		spaceCard.setDescription("descrizione");
 		spaceCard.setPeerCoordinatorID("coord{   }&)?id");
@@ -59,7 +59,7 @@ public class AALSpaceMessageTest {
 		List<org.universAAL.middleware.interfaces.ChannelDescriptor> brokerChannels = new ArrayList<org.universAAL.middleware.interfaces.ChannelDescriptor>();
 		brokerChannels.add(chd);
 
-		AALSpaceDescriptor spaceDescriptor = new AALSpaceDescriptor(spaceCard, brokerChannels);
+		SpaceDescriptor spaceDescriptor = new SpaceDescriptor(spaceCard, brokerChannels);
 
 		PeerCard deployManager = new PeerCard(PeerRole.PEER, "stringa1", "stringa2");
 

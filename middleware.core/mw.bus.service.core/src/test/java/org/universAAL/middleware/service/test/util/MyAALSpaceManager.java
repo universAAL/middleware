@@ -9,11 +9,11 @@ import java.util.Set;
 
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 import org.universAAL.middleware.managers.api.AALSpaceListener;
 import org.universAAL.middleware.managers.api.MatchingResult;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
  * A fake AAL Space Manager for distributed unit tests. As this manager is used
@@ -25,7 +25,7 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
  * @author cs
  * 
  */
-public class MyAALSpaceManager implements AALSpaceManager {
+public class MyAALSpaceManager implements SpaceManager {
 	HashMap<String, PeerCard> mapCards;
 	HashMap<AbstractBus, PeerCard> mapCardForBus;
 	List<PeerCard> lstCards;
@@ -49,23 +49,23 @@ public class MyAALSpaceManager implements AALSpaceManager {
 	public void addAALSpaceListener(AALSpaceListener arg0) {
 	}
 
-	public AALSpaceDescriptor getAALSpaceDescriptor() {
-		return new AALSpaceDescriptor() {
+	public SpaceDescriptor getSpaceDescriptor() {
+		return new SpaceDescriptor() {
 			private static final long serialVersionUID = -7504183020450042989L;
 
-			public AALSpaceCard getSpaceCard() {
-				AALSpaceCard sc = new AALSpaceCard();
+			public SpaceCard getSpaceCard() {
+				SpaceCard sc = new SpaceCard();
 				sc.setSpaceID("TestSpaceID");
 				return sc;
 			}
 		};
 	}
 
-	public Set<AALSpaceCard> getAALSpaces() {
+	public Set<SpaceCard> getAALSpaces() {
 		return null;
 	}
 
-	public Map<String, AALSpaceDescriptor> getManagedAALSpaces() {
+	public Map<String, SpaceDescriptor> getManagedAALSpaces() {
 		return null;
 	}
 
@@ -90,10 +90,10 @@ public class MyAALSpaceManager implements AALSpaceManager {
 		return mapCards;
 	}
 
-	public void join(AALSpaceCard arg0) {
+	public void join(SpaceCard arg0) {
 	}
 
-	public void leaveAALSpace(AALSpaceDescriptor arg0) {
+	public void leaveAALSpace(SpaceDescriptor arg0) {
 	}
 
 	public void removeAALSpaceListener(AALSpaceListener arg0) {

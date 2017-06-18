@@ -19,7 +19,7 @@
         limitations under the License.
  */
 
-package org.universAAL.middleware.interfaces.aalspace;
+package org.universAAL.middleware.interfaces.space;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -27,12 +27,12 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * This class provides compact information about an AAL space
- * 
+ * This class provides compact information about a space
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
-public class AALSpaceCard {
+public class SpaceCard {
 
 	private String spaceName;
 	private String spaceID;
@@ -44,6 +44,7 @@ public class AALSpaceCard {
 	// constrained type should be used
 	private String profile;
 	private int retry;
+	private int spaceLifeTime;
 
 	public String getPeerCoordinatorID() {
 		return peerCoordinatorID;
@@ -53,14 +54,12 @@ public class AALSpaceCard {
 		this.peerCoordinatorID = peerCoordinatorID;
 	}
 
-	private int aalSpaceLifeTime;
-
-	public int getAalSpaceLifeTime() {
-		return aalSpaceLifeTime;
+	public int getSpaceLifeTime() {
+		return spaceLifeTime;
 	}
 
-	public void setAalSpaceLifeTime(int aalSpaceLifeTime) {
-		this.aalSpaceLifeTime = aalSpaceLifeTime;
+	public void setSpaceLifeTime(int spaceLifeTime) {
+		this.spaceLifeTime = spaceLifeTime;
 	}
 
 	public int getRetry() {
@@ -88,21 +87,21 @@ public class AALSpaceCard {
 	}
 
 	/**
-	 * Constructs an AALSpaceCard by using the Dictionary specified
-	 * 
+	 * Constructs a SpaceCard by using the Dictionary specified
+	 *
 	 * @param prop
 	 */
-	public AALSpaceCard(Dictionary<String, String> prop) {
-		this.spaceName = prop.get(Consts.AALSPaceName);
-		this.spaceID = prop.get(Consts.AALSPaceID);
-		this.description = prop.get(Consts.AALSPaceDescription);
-		this.peerCoordinatorID = prop.get(Consts.AALSpaceCoordinator);
-		this.peeringChannel = prop.get(Consts.AALSpacePeeringChannelURL);
-		this.peeringChannelName = prop.get(Consts.AALSpacePeeringChannelName);
-		this.profile = prop.get(Consts.AALSPaceProfile);
+	public SpaceCard(Dictionary<String, String> prop) {
+		this.spaceName = prop.get(Consts.SpaceName);
+		this.spaceID = prop.get(Consts.SpaceID);
+		this.description = prop.get(Consts.SpaceDescription);
+		this.peerCoordinatorID = prop.get(Consts.SpaceCoordinator);
+		this.peeringChannel = prop.get(Consts.SpacePeeringChannelURL);
+		this.peeringChannelName = prop.get(Consts.SpacePeeringChannelName);
+		this.profile = prop.get(Consts.SpaceProfile);
 	}
 
-	public AALSpaceCard() {
+	public SpaceCard() {
 	}
 
 	public String getProfile() {
@@ -115,7 +114,7 @@ public class AALSpaceCard {
 
 	/**
 	 * Return the peerID of the coordinator
-	 * 
+	 *
 	 * @return
 	 */
 	public String getCoordinatorID() {
@@ -151,40 +150,40 @@ public class AALSpaceCard {
 	}
 
 	/**
-	 * Stores the AALSpaceCard as a Dictionary
-	 * 
+	 * Stores the SpaceCard as a Dictionary
+	 *
 	 * @return
 	 */
 	public Dictionary<String, String> serializeCard() {
 		Dictionary<String, String> prop = new Hashtable<String, String>();
-		prop.put(Consts.AALSPaceName, spaceName);
-		prop.put(Consts.AALSPaceDescription, description);
-		prop.put(Consts.AALSPaceID, spaceID);
-		// prop.put(Consts.AALSPaceType, type.toString());
-		prop.put(Consts.AALSpaceCoordinator, peerCoordinatorID);
-		prop.put(Consts.AALSpacePeeringChannelURL, peeringChannel);
-		prop.put(Consts.AALSpacePeeringChannelName, peeringChannelName);
+		prop.put(Consts.SpaceName, spaceName);
+		prop.put(Consts.SpaceDescription, description);
+		prop.put(Consts.SpaceID, spaceID);
+		// prop.put(Consts.SPaceType, type.toString());
+		prop.put(Consts.SpaceCoordinator, peerCoordinatorID);
+		prop.put(Consts.SpacePeeringChannelURL, peeringChannel);
+		prop.put(Consts.SpacePeeringChannelName, peeringChannelName);
 		return prop;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return a list of String whose name identifies the space card attributes
 	 */
 	public static List<String> getSpaceAttributes() {
 		List<String> attrib = new ArrayList<String>();
-		attrib.add(Consts.AALSPaceName);
-		attrib.add(Consts.AALSPaceDescription);
-		attrib.add(Consts.AALSPaceID);
-		attrib.add(Consts.AALSPaceType);
-		attrib.add(Consts.AALSpaceCoordinator);
-		attrib.add(Consts.AALSpacePeeringChannelURL);
+		attrib.add(Consts.SpaceName);
+		attrib.add(Consts.SpaceDescription);
+		attrib.add(Consts.SpaceID);
+		attrib.add(Consts.SpaceType);
+		attrib.add(Consts.SpaceCoordinator);
+		attrib.add(Consts.SpacePeeringChannelURL);
 		return attrib;
 
 	}
 
 	/**
-	 * This method provides a text-based representation of an AALSpaceCard
+	 * This method provides a text-based representation of a SpaceCard
 	 */
 	public String toString() {
 		return spaceName + " - " + description + " - " + spaceID + " - " + peerCoordinatorID + " - "
@@ -193,12 +192,12 @@ public class AALSpaceCard {
 	}
 
 	/**
-	 * Two AALSpaceCard are equals iff the ID and the peerCoordinator ID are the
+	 * Two SpaceCard are equals iff the ID and the peerCoordinator ID are the
 	 * same
 	 */
 	public boolean equals(Object o) {
-		if (o != null && o instanceof AALSpaceCard) {
-			AALSpaceCard toCompare = (AALSpaceCard) o;
+		if (o != null && o instanceof SpaceCard) {
+			SpaceCard toCompare = (SpaceCard) o;
 			if (toCompare.getSpaceID().equals(this.spaceID)
 					&& toCompare.peerCoordinatorID.equals(this.peerCoordinatorID))
 				return true;

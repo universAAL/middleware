@@ -27,8 +27,8 @@ import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.managers.api.AALSpaceEventHandler;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceEventHandler;
+import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
  * Checks the peers joining to the AALSpace
@@ -40,8 +40,8 @@ public class CheckPeerThread implements Runnable {
 
 	ModuleContext moduleContext;
 	ControlBroker controlBrolker;
-	AALSpaceEventHandler aalSpaceEventHandler;
-	AALSpaceManager aalSpaceManager;
+	SpaceEventHandler aalSpaceEventHandler;
+	SpaceManager aalSpaceManager;
 
 	public CheckPeerThread(ModuleContext moduleContext) {
 		this.moduleContext = moduleContext;
@@ -51,19 +51,19 @@ public class CheckPeerThread implements Runnable {
 		Object controlBrokerRef = moduleContext.getContainer().fetchSharedObject(moduleContext,
 				new Object[] { ControlBroker.class.getName() });
 		Object aalSpaceManagerRef = moduleContext.getContainer().fetchSharedObject(moduleContext,
-				new Object[] { AALSpaceManager.class.getName() });
+				new Object[] { SpaceManager.class.getName() });
 		Object aalSpaceEventHandlerRef = moduleContext.getContainer().fetchSharedObject(moduleContext,
-				new Object[] { AALSpaceEventHandler.class.getName() });
+				new Object[] { SpaceEventHandler.class.getName() });
 
 		if (controlBrokerRef != null && aalSpaceManagerRef != null && aalSpaceEventHandlerRef != null) {
 			try {
 				controlBrolker = (ControlBroker) controlBrokerRef;
-				aalSpaceManager = (AALSpaceManager) aalSpaceManagerRef;
-				aalSpaceEventHandler = (AALSpaceEventHandler) aalSpaceEventHandlerRef;
+				aalSpaceManager = (SpaceManager) aalSpaceManagerRef;
+				aalSpaceEventHandler = (SpaceEventHandler) aalSpaceEventHandlerRef;
 
 				// get the list of peers only if the current MW instance joins a
 				// AAL Space
-				if (aalSpaceManager.getAALSpaceDescriptor() != null) {
+				if (aalSpaceManager.getSpaceDescriptor() != null) {
 					// first get the list of peer address
 					List<String> peersAddress = controlBrolker.getPeersAddress();
 
@@ -81,10 +81,10 @@ public class CheckPeerThread implements Runnable {
 							// check if the peer lost is the coordinator. This
 							// happens if the coordinator crashed without
 							// sending any Request_to_leave
-							if (aalSpaceManager.getAALSpaceDescriptor().getSpaceCard().getCoordinatorID()
+							if (aalSpaceManager.getSpaceDescriptor().getSpaceCard().getCoordinatorID()
 									.equals(oldPeer)) {
 								// than force the leave
-								aalSpaceManager.leaveAALSpace(aalSpaceManager.getAALSpaceDescriptor());
+								aalSpaceManager.leaveAALSpace(aalSpaceManager.getSpaceDescriptor());
 							}
 							controlBrolker.peerLost(peers.get(oldPeer));
 						}

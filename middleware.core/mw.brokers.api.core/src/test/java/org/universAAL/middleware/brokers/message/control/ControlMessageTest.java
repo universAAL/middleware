@@ -49,9 +49,9 @@ import org.universAAL.middleware.deploymanager.uapp.model.ContactType.OtherChann
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -159,7 +159,7 @@ public class ControlMessageTest {
 
 		ControlMessageType messageType = ControlMessageType.GET_ATTRIBUTES;
 
-		AALSpaceCard spaceCard = new AALSpaceCard();
+		SpaceCard spaceCard = new SpaceCard();
 		spaceCard.setSpaceID("id");
 		spaceCard.setDescription("descrizione");
 		spaceCard.setPeerCoordinatorID("coord{   }&)?id");
@@ -170,7 +170,7 @@ public class ControlMessageTest {
 		ChannelDescriptor chd = new ChannelDescriptor("1339517729177690537L", "nome!", "http://google.it");
 		List<org.universAAL.middleware.interfaces.ChannelDescriptor> brokerChannels = new ArrayList<org.universAAL.middleware.interfaces.ChannelDescriptor>();
 		brokerChannels.add(chd);
-		AALSpaceDescriptor spaceDescriptor = new AALSpaceDescriptor(spaceCard, brokerChannels);
+		SpaceDescriptor spaceDescriptor = new SpaceDescriptor(spaceCard, brokerChannels);
 		PeerCard deployManager = new PeerCard(PeerRole.PEER, "stringa1", "stringa2");
 		spaceDescriptor.setDeployManager(deployManager);
 		String id = "stringa id";

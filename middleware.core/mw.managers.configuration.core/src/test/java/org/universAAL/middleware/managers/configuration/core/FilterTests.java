@@ -32,7 +32,7 @@ import org.universAAL.middleware.interfaces.configuration.configurationEditionTy
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.IdPattern;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ModulePattern;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.NotPattern;
-import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.SpaceScope;
 import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.managers.configuration.core.impl.factories.EntityFactory;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.EntityManager;

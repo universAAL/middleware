@@ -23,10 +23,10 @@ import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceStatus;
 import org.universAAL.middleware.managers.api.AALSpaceListener;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -49,7 +49,7 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  * <center>
  * <img style="background-color:white;" src="doc-files/CoordinatedStrategy.png"
  * alt="UIStrategy messages" width="70%"/> </center> The strategy subscribes to
- * the {@link AALSpaceManager} to listen to
+ * the {@link SpaceManager} to listen to
  * {@link CoordinatedStrategy#peerLost(PeerCard) lost peers}, in case they are
  * the coordinator; or if the Coordinator has left the coordinated space, it
  * automatically surrenders coordination. Also
@@ -256,7 +256,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 		OntologyManagement.getInstance().register(busModule, ontology);
 		if (busModule.getContainer() != null) {
 			Object o = busModule.getContainer().fetchSharedObject(busModule,
-					new Object[] { AALSpaceManager.class.getName() }, this);
+					new Object[] { SpaceManager.class.getName() }, this);
 			sharedObjectAdded(o, null);
 		}
 	}
@@ -330,7 +330,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	}
 
 	/** {@ inheritDoc} */
-	public void aalSpaceJoined(AALSpaceDescriptor spaceDescriptor) {
+	public void aalSpaceJoined(SpaceDescriptor spaceDescriptor) {
 		/*
 		 * NOTHING, wait for notification of the coordinator or for one of the
 		 * busmembers to request a coordinator
@@ -338,7 +338,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	}
 
 	/** {@ inheritDoc} */
-	public void aalSpaceLost(AALSpaceDescriptor spaceDescriptor) {
+	public void aalSpaceLost(SpaceDescriptor spaceDescriptor) {
 		/*
 		 * I have left the AALSPace. If i was the coordinator, no longer
 		 */
@@ -377,13 +377,13 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 	}
 
 	/** {@ inheritDoc} */
-	public void aalSpaceStatusChanged(AALSpaceStatus status) {
+	public void aalSpaceStatusChanged(SpaceStatus status) {
 	}
 
 	/** {@ inheritDoc} */
 	public void sharedObjectAdded(Object sharedObj, Object removeHook) {
-		if (sharedObj instanceof AALSpaceManager) {
-			((AALSpaceManager) sharedObj).addAALSpaceListener(this);
+		if (sharedObj instanceof SpaceManager) {
+			((SpaceManager) sharedObj).addAALSpaceListener(this);
 		}
 	}
 
@@ -398,9 +398,9 @@ public class CoordinatedStrategy extends CallBasedStrategy implements AALSpaceLi
 		}
 		OntologyManagement.getInstance().unregister(busModule, ontology);
 		Object o = busModule.getContainer().fetchSharedObject(busModule,
-				new Object[] { AALSpaceManager.class.getName() });
-		if (o instanceof AALSpaceManager) {
-			((AALSpaceManager) o).removeAALSpaceListener(this);
+				new Object[] { SpaceManager.class.getName() });
+		if (o instanceof SpaceManager) {
+			((SpaceManager) o).removeAALSpaceListener(this);
 		}
 	}
 

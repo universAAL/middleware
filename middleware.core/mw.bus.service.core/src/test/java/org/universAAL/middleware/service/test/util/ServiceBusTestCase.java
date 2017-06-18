@@ -35,7 +35,7 @@ import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
@@ -159,7 +159,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 		lstPeerCard.add(node1Card);
 		lstPeerCard.add(node2Card);
 
-		AALSpaceManager sp = new MyAALSpaceManager(mapCards, lstCards);
+		SpaceManager sp = new MyAALSpaceManager(mapCards, lstCards);
 		CommunicationModule com = new MyCommunicationModule(lstCards, mapReadableNodes);
 
 		AbstractBus.initBrokerage(mc, sp, com);

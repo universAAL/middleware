@@ -37,8 +37,7 @@ import org.universAAL.middleware.connectors.exception.DiscoveryConnectorExceptio
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
-
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
 
 import ch.ethz.iks.slp.Advertiser;
 import ch.ethz.iks.slp.Locator;
@@ -165,9 +164,9 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 	}
 
 	private void removeAALSpaces() {
-		List<AALSpaceCard> spaces = findAALSpace();
+		List<SpaceCard> spaces = findAALSpace();
 		if (spaces != null && spaces.size() > 0) {
-			for (AALSpaceCard space : spaces) {
+			for (SpaceCard space : spaces) {
 				deregisterAALSpace(space);
 			}
 		}
@@ -177,13 +176,13 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 	 * This method implements how to announce an AALSpace by adopting the SLP
 	 * protocol
 	 */
-	public void announceAALSpace(AALSpaceCard card) throws DiscoveryConnectorException {
+	public void announceAALSpace(SpaceCard card) throws DiscoveryConnectorException {
 		LogUtils.logTrace(context, SLPDiscoveryConnector.class, "announceAALSpace",
 				new Object[] { "Announcing the AALSpace..." }, null);
 		if (init()) {
 			try {
 				getSLPAdvertiser().register(new ServiceURL(aalSpaceServiceType + "://" + card.getCoordinatorID(),
-						card.getAalSpaceLifeTime()), card.serializeCard());
+						card.getSpaceLifeTime()), card.serializeCard());
 				LogUtils.logTrace(context, SLPDiscoveryConnector.class, "announceAALSpace",
 						new Object[] { "AALSpace announced" }, null);
 			} catch (ServiceLocationException e) {
@@ -199,13 +198,13 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 		}
 	}
 
-	public void deregisterAALSpace(AALSpaceCard spaceCard) throws DiscoveryConnectorException {
+	public void deregisterAALSpace(SpaceCard spaceCard) throws DiscoveryConnectorException {
 		LogUtils.logDebug(context, SLPDiscoveryConnector.class, "deregisterAALSpace",
 				new Object[] { "De-Registering the AALSpace: " + spaceCard.toString() + "..." }, null);
 		if (init()) {
 			try {
 				getSLPAdvertiser().deregister(new ServiceURL(aalSpaceServiceType + "://" + spaceCard.getCoordinatorID(),
-						spaceCard.getAalSpaceLifeTime()));
+						spaceCard.getSpaceLifeTime()));
 				LogUtils.logDebug(context, SLPDiscoveryConnector.class, "deregisterAALSpace",
 						new Object[] { "AALSpace de-registered" }, null);
 			} catch (ServiceLocationException e) {
@@ -222,7 +221,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 
 	}
 
-	public List<AALSpaceCard> findAALSpace() throws DiscoveryConnectorException {
+	public List<SpaceCard> findAALSpace() throws DiscoveryConnectorException {
 		return this.findAALSpace(null);
 	}
 
@@ -230,8 +229,8 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 	 * This method finds an AALSpace by using the specified filter in the SLP
 	 * network
 	 */
-	public List<AALSpaceCard> findAALSpace(Dictionary<String, String> filters) throws DiscoveryConnectorException {
-		List<AALSpaceCard> spaces = new ArrayList<AALSpaceCard>();
+	public List<SpaceCard> findAALSpace(Dictionary<String, String> filters) throws DiscoveryConnectorException {
+		List<SpaceCard> spaces = new ArrayList<SpaceCard>();
 
 		if (init()) {
 			String filter = formatFilter(filters);
@@ -246,11 +245,11 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 				while (slenum.hasMoreElements()) {
 					ServiceURL serviceURL = (ServiceURL) slenum.next();
 					ServiceLocationEnumeration attribs = getSLPLocator().findAttributes(serviceURL, null,
-							AALSpaceCard.getSpaceAttributes());
+							SpaceCard.getSpaceAttributes());
 					if (attribs != null) {
 						LogUtils.logDebug(context, SLPDiscoveryConnector.class, "findAALSpace",
 								new Object[] { "Unmarshalling AALSpace attributes..." }, null);
-						AALSpaceCard card = new AALSpaceCard(unmarshalServiceAttributes(attribs));
+						SpaceCard card = new SpaceCard(unmarshalServiceAttributes(attribs));
 						// hack
 						card.setPeeringChannelName("mw.modules.aalspace.osgi");
 						card.setRetry(MAX_RETRY);

@@ -20,7 +20,7 @@ package org.universAAL.middleware.managers.configuration.core;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.SpaceScope;
 import org.universAAL.middleware.interfaces.configuration.scope.AppPartScope;
 import org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope;
 import org.universAAL.middleware.interfaces.configuration.scope.InstanceScope;
@@ -36,27 +36,27 @@ public class ScopeTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorsAALSpace1() {
-		new AALSpaceScope(null);
+		new SpaceScope(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorsAALSpace2() {
-		new AALSpaceScope("");
+		new SpaceScope("");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorsAALSpace3() {
-		new AALSpaceScope("not:ok");
+		new SpaceScope("not:ok");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorsAALSpace4() {
-		new AALSpaceScope("not ok");
+		new SpaceScope("not ok");
 	}
 
 	@Test
 	public void testConstructorsAALSpace5() {
-		new AALSpaceScope("ok");
+		new SpaceScope("ok");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -166,7 +166,7 @@ public class ScopeTest {
 
 	@Test
 	public void testFactory() {
-		testconv(new AALSpaceScope("id"));
+		testconv(new SpaceScope("id"));
 		testconv(new InstanceScope("id", "peerId"));
 		testconv(new ModuleScope("id", "peerId", "moduleID"));
 		testconv(new ApplicationScope("id", "appID"));

@@ -35,9 +35,9 @@ import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl;
-import org.universAAL.middleware.managers.api.AALSpaceEventHandler;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.aalspace.SpaceManagerImpl;
+import org.universAAL.middleware.managers.api.SpaceEventHandler;
+import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
  *
@@ -49,13 +49,13 @@ import org.universAAL.middleware.managers.api.AALSpaceManager;
 public class Activator implements BundleActivator, ManagedService {
 
 	private static String SERVICE_PID = "mw.managers.space.core";
-	private AALSpaceManager spaceManager;
+	private SpaceManager spaceManager;
 	private ServiceRegistration myRegistration;
 	private ModuleContext moduleContext;
 
 	public void start(BundleContext context) throws Exception {
 		moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
-		spaceManager = new AALSpaceManagerImpl(moduleContext);
+		spaceManager = new SpaceManagerImpl(moduleContext);
 
 		Dictionary props = new Hashtable();
 		props.put(Constants.SERVICE_PID, SERVICE_PID);
@@ -82,7 +82,7 @@ public class Activator implements BundleActivator, ManagedService {
 				null);
 
 		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, spaceManager,
-				new String[] { AALSpaceManager.class.getName(), AALSpaceEventHandler.class.getName() });
+				new String[] { SpaceManager.class.getName(), SpaceEventHandler.class.getName() });
 		LogUtils.logDebug(moduleContext, Activator.class, "Activator", new Object[] { "Registered" }, null);
 
 	}

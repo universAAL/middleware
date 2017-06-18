@@ -23,7 +23,7 @@ package org.universAAL.middleware.brokers.message.aalspace;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 import org.universAAL.middleware.interfaces.PeerCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 
 /**
  * Class for AALSpace Messages
@@ -34,17 +34,17 @@ import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
 public class AALSpaceMessage implements BrokerMessage {
 
 	private AALSpaceMessageTypes aalSpaceMessageType;
-	private AALSpaceDescriptor spaceDescriptor;
+	private SpaceDescriptor spaceDescriptor;
 	private BrokerMessageTypes mtype;
 
 	public AALSpaceMessage() {
 	}
 
-	public AALSpaceDescriptor getSpaceDescriptor() {
+	public SpaceDescriptor getSpaceDescriptor() {
 		return spaceDescriptor;
 	}
 
-	public void setSpaceDescriptor(AALSpaceDescriptor spaceDescriptor) {
+	public void setSpaceDescriptor(SpaceDescriptor spaceDescriptor) {
 		this.spaceDescriptor = spaceDescriptor;
 	}
 
@@ -52,7 +52,7 @@ public class AALSpaceMessage implements BrokerMessage {
 		JOIN_REQUEST, LEAVE, REQUEST_TO_LEAVE, CONNECT, DISCONNECT, JOIN_RESPONSE, NEW_PEER, PEER_LOST, NOT_AALSPACE_COODINATOR, REQUEST_PEERCARD, PEERCARD
 	}
 
-	public AALSpaceMessage(AALSpaceDescriptor spaceDescriptor, AALSpaceMessageTypes type) {
+	public AALSpaceMessage(SpaceDescriptor spaceDescriptor, AALSpaceMessageTypes type) {
 		this.spaceDescriptor = spaceDescriptor;
 		this.aalSpaceMessageType = type;
 		this.mtype = BrokerMessageTypes.AALSpaceMessage;

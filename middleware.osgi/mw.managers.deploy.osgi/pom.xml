@@ -61,7 +61,7 @@
                      org.universAAL.middleware.managers.deploy.util,
                      org.universAAL.middleware.container.utils,javax.xml.bind,
                      org.universAAL.middleware.interfaces,
-                     org.universAAL.middleware.interfaces.aalspace,
+                     org.universAAL.middleware.interfaces.space,
                      org.universAAL.middleware.interfaces.mpa,
                      org.universAAL.middleware.interfaces.utils,
                      org.universAAL.middleware.brokers.control,

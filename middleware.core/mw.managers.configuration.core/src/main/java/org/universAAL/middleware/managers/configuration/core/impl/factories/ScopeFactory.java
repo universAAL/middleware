@@ -17,7 +17,7 @@
 
 package org.universAAL.middleware.managers.configuration.core.impl.factories;
 
-import org.universAAL.middleware.interfaces.configuration.scope.AALSpaceScope;
+import org.universAAL.middleware.interfaces.configuration.scope.SpaceScope;
 import org.universAAL.middleware.interfaces.configuration.scope.AppPartScope;
 import org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope;
 import org.universAAL.middleware.interfaces.configuration.scope.InstanceScope;
@@ -103,7 +103,7 @@ public class ScopeFactory {
 			return null;
 		}
 		if (params.length == 3) {
-			return new AALSpaceScope(params[2]);
+			return new SpaceScope(params[2]);
 		}
 		if (params.length == 5) {
 			if (params[3].equals(L_INSTANCE)) {

@@ -38,10 +38,10 @@ import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceCard;
-import org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor;
+import org.universAAL.middleware.interfaces.space.SpaceCard;
+import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 import org.universAAL.middleware.managers.api.AALSpaceListener;
-import org.universAAL.middleware.managers.api.AALSpaceManager;
+import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.managers.api.MatchingResult;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.modules.exception.CommunicationModuleException;
@@ -109,7 +109,7 @@ public class BusTestCase extends TestCase {
 		// init bus model
 		final PeerCard myCard = new PeerCard(PeerRole.COORDINATOR, "", "");
 
-		AALSpaceManager sp = new AALSpaceManager() {
+		SpaceManager sp = new SpaceManager() {
 			public void dispose() {
 			}
 
@@ -123,23 +123,23 @@ public class BusTestCase extends TestCase {
 			public void addAALSpaceListener(AALSpaceListener arg0) {
 			}
 
-			public AALSpaceDescriptor getAALSpaceDescriptor() {
-				return new AALSpaceDescriptor() {
+			public SpaceDescriptor getSpaceDescriptor() {
+				return new SpaceDescriptor() {
 					private static final long serialVersionUID = -7504183020450042989L;
 
-					public AALSpaceCard getSpaceCard() {
-						AALSpaceCard sc = new AALSpaceCard();
+					public SpaceCard getSpaceCard() {
+						SpaceCard sc = new SpaceCard();
 						sc.setSpaceID("TestSpaceID");
 						return sc;
 					}
 				};
 			}
 
-			public Set<AALSpaceCard> getAALSpaces() {
+			public Set<SpaceCard> getAALSpaces() {
 				return null;
 			}
 
-			public Map<String, AALSpaceDescriptor> getManagedAALSpaces() {
+			public Map<String, SpaceDescriptor> getManagedAALSpaces() {
 				return null;
 			}
 
@@ -161,10 +161,10 @@ public class BusTestCase extends TestCase {
 				return map;
 			}
 
-			public void join(AALSpaceCard arg0) {
+			public void join(SpaceCard arg0) {
 			}
 
-			public void leaveAALSpace(AALSpaceDescriptor arg0) {
+			public void leaveAALSpace(SpaceDescriptor arg0) {
 			}
 
 			public void removeAALSpaceListener(AALSpaceListener arg0) {
@@ -236,7 +236,7 @@ public class BusTestCase extends TestCase {
 			}
 		};
 
-		mc.getContainer().shareObject(mc, sp, new Object[] { AALSpaceManager.class.getName() });
+		mc.getContainer().shareObject(mc, sp, new Object[] { SpaceManager.class.getName() });
 
 		AbstractBus.initBrokerage(mc, sp, com);
 		BusMessage.setThisPeer(myCard);

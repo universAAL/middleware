@@ -62,11 +62,11 @@
 							org.apache.felix.gogo.commands,
 							org.apache.karaf.shell.console;version="${karaf.version}",
 							org.osgi.framework, org.osgi.service.blueprint, org.slf4j,
-							org.universAAL.middleware.interfaces.aalspace,
+							org.universAAL.middleware.interfaces.space,
 							org.universAAL.middleware.managers.api,
 							org.universAAL.middleware.interfaces,
 							org.universAAL.middleware.interfaces.mpa,
-							org.universAAL.middleware.interfaces.aalspace.model</Import-Package>
+							org.universAAL.middleware.interfaces.space.model</Import-Package>
             <Private-Package />
           </instructions>
         </configuration>

@@ -53,7 +53,7 @@
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Provider>ISTI-CNR</Bundle-Provider>
             <Import-Package>org.universAAL.middleware.interfaces,
-							org.universAAL.middleware.interfaces.aalspace,
+							org.universAAL.middleware.interfaces.space,
 							org.universAAL.middleware.modules.aalspace,
 							org.universAAL.middleware.modules.listener,
 							org.universAAL.middleware.modules.util,
