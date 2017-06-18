@@ -127,7 +127,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 		System.out.println(" - starting BusTestCase -");
 		System.setProperty("org.universaal.bus.permission.mode", "none");
 		mc = new JUnitModuleContext();
-		//mc.setLogLevel(LogLevel.DEBUG);
+		mc.setLogLevel(LogLevel.DEBUG);
 
 		// init data representation
 		SharedResources.moduleContext = mc;

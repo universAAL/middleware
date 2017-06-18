@@ -43,7 +43,7 @@ public class DistributedTest extends ServiceBusTestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		//mc.setLogLevel(LogLevel.WARN);
+		mc.setLogLevel(LogLevel.WARN);
 	}
 
 	/**
