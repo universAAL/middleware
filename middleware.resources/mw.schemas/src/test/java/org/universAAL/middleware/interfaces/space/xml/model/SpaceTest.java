@@ -57,20 +57,4 @@ public class SpaceTest {
 			fail(e.getMessage());
 		}
 	}
-
-	@Test
-	public void testHomeSpace101() {
-		try {
-			JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
-			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			Marshaller marshaller = jc.createMarshaller();
-			InputStream is = SpaceTest.class.getResourceAsStream("./Home.1.0.1.space");
-			Space space = (Space) unmarshaller.unmarshal(is);
-			assertNull(space.getOwner());
-			assertNull(space.getAdmin());
-		} catch (JAXBException e) {
-			e.printStackTrace(System.err);
-			fail(e.getMessage());
-		}
-	}
 }
