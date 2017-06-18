@@ -37,7 +37,7 @@
 							org.universAAL.middleware.connectors.util,
 							org.universAAL.middleware.interfaces,
 							org.universAAL.middleware.interfaces.space,
-							org.universAAL.middleware.brokers.message.aalspace</Import-Package>
+							org.universAAL.middleware.brokers.message.space</Import-Package>
           </instructions>
         </configuration>
       </plugin>

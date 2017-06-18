@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.middleware.brokers.message.aalspace;
+package org.universAAL.middleware.brokers.message.space;
 
 import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
@@ -26,18 +26,18 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 
 /**
- * Class for AALSpace Messages
- * 
+ * Class for Space Messages
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
-public class AALSpaceMessage implements BrokerMessage {
+public class SpaceMessage implements BrokerMessage {
 
-	private AALSpaceMessageTypes aalSpaceMessageType;
+	private SpaceMessageTypes spaceMessageType;
 	private SpaceDescriptor spaceDescriptor;
 	private BrokerMessageTypes mtype;
 
-	public AALSpaceMessage() {
+	public SpaceMessage() {
 	}
 
 	public SpaceDescriptor getSpaceDescriptor() {
@@ -48,18 +48,18 @@ public class AALSpaceMessage implements BrokerMessage {
 		this.spaceDescriptor = spaceDescriptor;
 	}
 
-	public enum AALSpaceMessageTypes {
-		JOIN_REQUEST, LEAVE, REQUEST_TO_LEAVE, CONNECT, DISCONNECT, JOIN_RESPONSE, NEW_PEER, PEER_LOST, NOT_AALSPACE_COODINATOR, REQUEST_PEERCARD, PEERCARD
+	public enum SpaceMessageTypes {
+		JOIN_REQUEST, LEAVE, REQUEST_TO_LEAVE, CONNECT, DISCONNECT, JOIN_RESPONSE, NEW_PEER, PEER_LOST, NOT_SPACE_COODINATOR, REQUEST_PEERCARD, PEERCARD
 	}
 
-	public AALSpaceMessage(SpaceDescriptor spaceDescriptor, AALSpaceMessageTypes type) {
+	public SpaceMessage(SpaceDescriptor spaceDescriptor, SpaceMessageTypes type) {
 		this.spaceDescriptor = spaceDescriptor;
-		this.aalSpaceMessageType = type;
-		this.mtype = BrokerMessageTypes.AALSpaceMessage;
+		this.spaceMessageType = type;
+		this.mtype = BrokerMessageTypes.SpaceMessage;
 	}
 
-	public AALSpaceMessageTypes getMessageType() {
-		return this.aalSpaceMessageType;
+	public SpaceMessageTypes getMessageType() {
+		return this.spaceMessageType;
 	}
 
 	public String toString() {

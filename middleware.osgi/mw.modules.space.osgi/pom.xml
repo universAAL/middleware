@@ -68,7 +68,7 @@
 							org.universAAL.middleware.container.osgi,
 							org.universAAL.middleware.connectors.util,
 							org.universAAL.middleware.brokers.message,
-							org.universAAL.middleware.brokers.message.aalspace,						
+							org.universAAL.middleware.brokers.message.space,						
 							com.google.gson,
 							org.universAAL.middleware.brokers.message.gson,
 							org.universAAL.middleware.brokers</Import-Package>

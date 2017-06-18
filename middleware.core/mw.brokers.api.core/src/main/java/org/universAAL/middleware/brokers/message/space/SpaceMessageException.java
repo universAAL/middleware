@@ -18,18 +18,15 @@
         See the License for the specific language governing permissions and
         limitations under the License.
  */
-package org.universAAL.middleware.brokers.message.aalspace;
+package org.universAAL.middleware.brokers.message.space;
 
-public class AALSpaceMessageException extends RuntimeException {
+public class SpaceMessageException extends RuntimeException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private String description;
 
-	public AALSpaceMessageException(String description) {
+	public SpaceMessageException(String description) {
 		super();
 		this.description = description;
 	}
@@ -37,5 +34,4 @@ public class AALSpaceMessageException extends RuntimeException {
 	public String getDescription() {
 		return description;
 	}
-
 }

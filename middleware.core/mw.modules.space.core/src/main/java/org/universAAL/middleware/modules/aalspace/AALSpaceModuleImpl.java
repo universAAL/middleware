@@ -28,10 +28,10 @@ import java.util.Set;
 import org.universAAL.middleware.brokers.Broker;
 import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
-import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage;
-import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage.AALSpaceMessageTypes;
-import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessageException;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
+import org.universAAL.middleware.brokers.message.space.SpaceMessage;
+import org.universAAL.middleware.brokers.message.space.SpaceMessageException;
+import org.universAAL.middleware.brokers.message.space.SpaceMessage.SpaceMessageTypes;
 import org.universAAL.middleware.connectors.DiscoveryConnector;
 import org.universAAL.middleware.connectors.ServiceListener;
 import org.universAAL.middleware.connectors.exception.CommunicationConnectorException;
@@ -283,9 +283,9 @@ public class AALSpaceModuleImpl
 				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
 						new Object[] { "Creating a new AALSpaceMessage" }, null);
 				// prepare the AALSpace Message...
-				AALSpaceMessage spaceMessage = new AALSpaceMessage(
+				SpaceMessage spaceMessage = new SpaceMessage(
 						new SpaceDescriptor(spaceCard, new ArrayList<ChannelDescriptor>()),
-						AALSpaceMessageTypes.LEAVE);
+						SpaceMessageTypes.LEAVE);
 				// ...and wraps it as ChannelMessage
 				List<String> channelName = new ArrayList<String>();
 				channelName.add(getBrokerName());
@@ -314,8 +314,8 @@ public class AALSpaceModuleImpl
 						new Object[] { "Creating a new AALSpaceMessage" }, null);
 
 				// prepare the AALSpace Message
-				AALSpaceMessage spaceMessage = new AALSpaceMessage(spaceDescriptor,
-						AALSpaceMessageTypes.REQUEST_TO_LEAVE);
+				SpaceMessage spaceMessage = new SpaceMessage(spaceDescriptor,
+						SpaceMessageTypes.REQUEST_TO_LEAVE);
 				// ...and wrap it as ChannelMessage
 				List<String> channelName = new ArrayList<String>();
 				channelName.add(getBrokerName());
@@ -344,8 +344,8 @@ public class AALSpaceModuleImpl
 						new Object[] { "Creating a new AALSpaceMessage" }, null);
 
 				// prepare the AALSpace Message
-				AALSpaceMessage spaceMessage = new AALSpaceMessage(spaceDescriptor,
-						AALSpaceMessageTypes.REQUEST_PEERCARD);
+				SpaceMessage spaceMessage = new SpaceMessage(spaceDescriptor,
+						SpaceMessageTypes.REQUEST_PEERCARD);
 				// ...and wrap it as ChannelMessage
 				List<String> channelName = new ArrayList<String>();
 				channelName.add(getBrokerName());
@@ -394,7 +394,7 @@ public class AALSpaceModuleImpl
 
 					SpaceDescriptor spaceDesc = new SpaceDescriptor(spaceCard,
 							new ArrayList<ChannelDescriptor>());
-					AALSpaceMessage spaceMessage = new AALSpaceMessage(spaceDesc, AALSpaceMessageTypes.JOIN_REQUEST);
+					SpaceMessage spaceMessage = new SpaceMessage(spaceDesc, SpaceMessageTypes.JOIN_REQUEST);
 
 					// ...and wrap it as ChannelMessage
 					List<String> channelName = new ArrayList<String>();
@@ -435,8 +435,8 @@ public class AALSpaceModuleImpl
 							new Object[] { "Creating a new AALSpaceMessage" }, null);
 					// prepare the AALSpace Message
 
-					AALSpaceMessage spaceMessage = new AALSpaceMessage(spaceDescriptor,
-							AALSpaceMessageTypes.JOIN_RESPONSE);
+					SpaceMessage spaceMessage = new SpaceMessage(spaceDescriptor,
+							SpaceMessageTypes.JOIN_RESPONSE);
 
 					// ...and wrap it as ChannelMessage
 					List<String> channelName = new ArrayList<String>();
@@ -473,9 +473,9 @@ public class AALSpaceModuleImpl
 					"Announcing new Peer: " + peerCard.toString() + " into the AASpace: " + spaceCard.toString() },
 					null);
 
-			AALSpaceMessage spaceMessage = new AALSpaceMessage(
+			SpaceMessage spaceMessage = new SpaceMessage(
 					new SpaceDescriptor(spaceCard, new ArrayList<ChannelDescriptor>()),
-					AALSpaceMessageTypes.NEW_PEER);
+					SpaceMessageTypes.NEW_PEER);
 
 			// ...and wrap it as ChannelMessage
 			List<String> channelName = new ArrayList<String>();
@@ -497,11 +497,11 @@ public class AALSpaceModuleImpl
 		}
 	}
 
-	public void messageFromSpace(AALSpaceMessage message, PeerCard sender) throws AALSpaceModuleException {
+	public void messageFromSpace(SpaceMessage message, PeerCard sender) throws AALSpaceModuleException {
 		LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
 				new Object[] { "AALSpaceMessage arrived...queuing" }, null);
 		try {
-			AALSpaceMessageTypes messageType = message.getMessageType();
+			SpaceMessageTypes messageType = message.getMessageType();
 			switch (messageType) {
 			case JOIN_REQUEST: {
 				// check if the peer belongs to by AALSpace
@@ -614,8 +614,8 @@ public class AALSpaceModuleImpl
 				}
 
 				// send my PeerCard
-				AALSpaceMessage spaceMessage = new AALSpaceMessage(controlBoker.getmyAALSpaceDescriptor(),
-						AALSpaceMessageTypes.PEERCARD);
+				SpaceMessage spaceMessage = new SpaceMessage(controlBoker.getmyAALSpaceDescriptor(),
+						SpaceMessageTypes.PEERCARD);
 
 				// ...and wrap it as ChannelMessage
 				List<String> channelName = new ArrayList<String>();
@@ -686,8 +686,8 @@ public class AALSpaceModuleImpl
 			}
 
 			switch (brokerMessage.getMType()) {
-			case AALSpaceMessage:
-				AALSpaceMessage spaceMessage = (AALSpaceMessage) unmarshall(message.getContent());
+			case SpaceMessage:
+				SpaceMessage spaceMessage = (SpaceMessage) unmarshall(message.getContent());
 				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
 						new Object[] { "AALSpace message arrived" }, null);
 				messageFromSpace(spaceMessage, message.getSender());
@@ -709,7 +709,7 @@ public class AALSpaceModuleImpl
 
 			if (message != null && message.getContent() != null) {
 				// initialize the exception and throw it
-				AALSpaceMessage aMessage = (AALSpaceMessage) unmarshall(message.getContent());
+				SpaceMessage aMessage = (SpaceMessage) unmarshall(message.getContent());
 				switch (aMessage.getMessageType()) {
 				case JOIN_REQUEST:
 					spaceException = new AALSpaceModuleException(AALSpaceModuleErrorCode.ERROR_SENDING_JOIN_REQUEST,
@@ -730,7 +730,7 @@ public class AALSpaceModuleImpl
 				}
 				throw spaceException;
 			}
-		} catch (AALSpaceMessageException e) {
+		} catch (SpaceMessageException e) {
 			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
 					new Object[] { "The message received is not valid...dropping it." + e.toString() }, null);
 		} catch (Exception e2) {
@@ -843,10 +843,10 @@ public class AALSpaceModuleImpl
 
 	public BrokerMessage unmarshall(String message) {
 		try {
-			return GsonParserBuilder.getInstance().fromJson(message, AALSpaceMessage.class);
+			return GsonParserBuilder.getInstance().fromJson(message, SpaceMessage.class);
 		} catch (Exception e) {
 
-			throw new AALSpaceMessageException("Unable to unmashall AALSpaceMessage. Original message: " + message
+			throw new SpaceMessageException("Unable to unmashall AALSpaceMessage. Original message: " + message
 					+ ". Full Stack: " + e.toString());
 		}
 	}

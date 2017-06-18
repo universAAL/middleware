@@ -23,7 +23,7 @@ package org.universAAL.middleware.modules;
 import java.util.Dictionary;
 import java.util.List;
 
-import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage;
+import org.universAAL.middleware.brokers.message.space.SpaceMessage;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.space.SpaceCard;
 import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
@@ -117,7 +117,7 @@ public interface AALSpaceModule extends Module {
 	 * 
 	 * @param message
 	 */
-	public void messageFromSpace(AALSpaceMessage message, PeerCard sender);
+	public void messageFromSpace(SpaceMessage message, PeerCard sender);
 
 	/**
 	 * This method allows to add a new Peer to the AALSpace.

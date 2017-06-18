@@ -19,7 +19,7 @@
         See the License for the specific language governing permissions and
         limitations under the License.
  */
-package org.universAAL.middleware.brokers.message.aalspace;
+package org.universAAL.middleware.brokers.message.space;
 
 import static org.junit.Assert.*;
 
@@ -27,8 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.universAAL.middleware.brokers.message.aalspace.AALSpaceMessage.AALSpaceMessageTypes;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
+import org.universAAL.middleware.brokers.message.space.SpaceMessage;
+import org.universAAL.middleware.brokers.message.space.SpaceMessage.SpaceMessageTypes;
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
@@ -41,10 +42,10 @@ import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */
 
-public class AALSpaceMessageTest {
+public class SpaceMessageTest {
 
 	@Test
-	public void testGSONMessageAALSpace() throws Exception {
+	public void testGSONMessageSpace() throws Exception {
 
 		SpaceCard spaceCard = new SpaceCard();
 		spaceCard.setSpaceID("id");
@@ -65,12 +66,12 @@ public class AALSpaceMessageTest {
 
 		spaceDescriptor.setDeployManager(deployManager);
 
-		AALSpaceMessage original = new AALSpaceMessage(spaceDescriptor, AALSpaceMessageTypes.CONNECT);
+		SpaceMessage original = new SpaceMessage(spaceDescriptor, SpaceMessageTypes.CONNECT);
 
 		String serializedMessage = GsonParserBuilder.getInstance().toJson(original);
 
-		AALSpaceMessage decodedMessage = GsonParserBuilder.getInstance().fromJson(serializedMessage,
-				AALSpaceMessage.class);
+		SpaceMessage decodedMessage = GsonParserBuilder.getInstance().fromJson(serializedMessage,
+				SpaceMessage.class);
 
 		System.out.println(original.toString());
 		System.out.println(serializedMessage.toString());

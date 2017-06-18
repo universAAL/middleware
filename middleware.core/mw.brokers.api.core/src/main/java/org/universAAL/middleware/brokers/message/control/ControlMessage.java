@@ -56,7 +56,7 @@ public class ControlMessage implements BrokerMessage {
 	private String transactionId;
 
 	public enum ControlMessageType {
-		AALSPACE_EVENT, GET_ATTRIBUTES, MATCH_ATTRIBUTES, GET_ATTRIBUTES_RESPONSE, MATCH_ATTRIBUTES_RESPONSE
+		SPACE_EVENT, GET_ATTRIBUTES, MATCH_ATTRIBUTES, GET_ATTRIBUTES_RESPONSE, MATCH_ATTRIBUTES_RESPONSE
 	}
 
 	public enum ControlMessageFields {
