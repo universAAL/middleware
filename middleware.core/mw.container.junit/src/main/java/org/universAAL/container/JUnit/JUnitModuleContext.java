@@ -44,6 +44,9 @@ public class JUnitModuleContext implements ModuleContext {
 
 	private static final String VERBOSE_KEY = "org.universAAL.junit.console.output";
 
+	private static final int BUFFERSIZE = 16 * 1024 * 1024;
+	// Defatult is 8 * 1024
+
 	private Logger logger;
 
 	private Map<String, Object> attributeMap;
@@ -62,14 +65,14 @@ public class JUnitModuleContext implements ModuleContext {
 		configFiles = new HashSet<File>();
 		logger = LogManager.getLogger(activator.getClass().getPackage()
 				.getName());
+		logger.removeAllAppenders();
 		if (System.getProperty(VERBOSE_KEY, "true").equalsIgnoreCase("true")) {
 			ca = new ConsoleAppender(new SimpleLayout());
 			logger.addAppender(ca);
 		}
 		try {
 			FileAppender fa = new FileAppender(new SimpleLayout(), "./target/"
-					+ classname + ".log", false);
-			fa.setThreshold(Level.ALL);
+					+ classname + ".log", false, true, BUFFERSIZE);
 			logger.addAppender(fa);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -105,6 +108,28 @@ public class JUnitModuleContext implements ModuleContext {
 
 	public void enableLog() {
 		logEnabled = true;
+	}
+
+	public void setLogLevel(LogLevel level) {
+		switch (level) {
+		case ERROR:
+			logger.setLevel(Level.ERROR);
+			break;
+		case WARN:
+			logger.setLevel(Level.WARN);
+			break;
+		case INFO:
+			logger.setLevel(Level.INFO);
+			break;
+		case DEBUG:
+			logger.setLevel(Level.DEBUG);
+			break;
+		case TRACE:
+			logger.setLevel(Level.TRACE);
+			break;
+		case NONE:
+			logger.setLevel(Level.OFF);
+		}
 	}
 
 	/** {@inheritDoc} */
