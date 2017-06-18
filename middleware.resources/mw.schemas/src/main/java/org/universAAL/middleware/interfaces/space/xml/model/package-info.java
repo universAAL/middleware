@@ -19,5 +19,5 @@
         limitations under the License.
  */
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://universaal.org/aalspace-channel/v1.0.0")
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://universaal.org/space-channel/v1.0.0")
 package org.universAAL.middleware.interfaces.space.xml.model;

@@ -71,7 +71,7 @@ public class ObjectFactory {
 	 * Create an instance of {@link Space.SpaceDescriptor }
 	 *
 	 */
-	public SpaceDescriptor createAalspaceSpaceDescriptor() {
+	public SpaceDescriptor createSpaceSpaceDescriptor() {
 		return new Space.SpaceDescriptor();
 	}
 
@@ -79,7 +79,7 @@ public class ObjectFactory {
 	 * Create an instance of {@link Space.PeeringChannel }
 	 *
 	 */
-	public PeeringChannel createAalspacePeeringChannel() {
+	public PeeringChannel createSpacePeeringChannel() {
 		return new Space.PeeringChannel();
 	}
 
@@ -87,7 +87,7 @@ public class ObjectFactory {
 	 * Create an instance of {@link Space.CommunicationChannels }
 	 *
 	 */
-	public CommunicationChannels createAalspaceCommunicationChannels() {
+	public CommunicationChannels createSpaceCommunicationChannels() {
 		return new Space.CommunicationChannels();
 	}
 

@@ -61,11 +61,11 @@ import org.universAAL.middleware.interfaces.space.model.IChannelDescriptor;
 public class ChannelDescriptor implements Serializable, IChannelDescriptor {
 
 	private final static long serialVersionUID = 12343L;
-	@XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
+	@XmlElement(namespace = "http://universaal.org/space-channel/v1.0.0", required = true)
 	protected String channelName;
-	@XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
+	@XmlElement(namespace = "http://universaal.org/space-channel/v1.0.0", required = true)
 	protected String channelURL;
-	@XmlElement(namespace = "http://universaal.org/aalspace-channel/v1.0.0", required = true)
+	@XmlElement(namespace = "http://universaal.org/space-channel/v1.0.0", required = true)
 	protected String channelValue;
 
 	/*

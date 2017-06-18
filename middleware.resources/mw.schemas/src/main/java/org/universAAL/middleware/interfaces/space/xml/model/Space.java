@@ -68,7 +68,7 @@ import org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="channel-descriptor" type="{http://universaal.org/aalspace-channel/v1.0.0}channelDescriptor"/>
+ *                   &lt;element name="channel-descriptor" type="{http://universaal.org/space-channel/v1.0.0}channelDescriptor"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -79,7 +79,7 @@ import org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence maxOccurs="unbounded">
- *                   &lt;element name="channel-descriptor" type="{http://universaal.org/aalspace-channel/v1.0.0}channelDescriptor"/>
+ *                   &lt;element name="channel-descriptor" type="{http://universaal.org/space-channel/v1.0.0}channelDescriptor"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -99,7 +99,7 @@ import org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "spaceDescriptor", "peeringChannel", "communicationChannels", "owner", "admin",
 		"security" })
-@XmlRootElement(name = "aalspace", namespace = "")
+@XmlRootElement(name = "space", namespace = "")
 public class Space implements Serializable, ISpace {
 
 	private final static long serialVersionUID = 12343L;
@@ -131,7 +131,7 @@ public class Space implements Serializable, ISpace {
 	 *
 	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
 	 * setSpaceDescriptor(org.universAAL.middleware.interfaces.space.model.
-	 * Aalspace.SpaceDescriptor)
+	 * space.SpaceDescriptor)
 	 */
 	public void setSpaceDescriptor(ISpaceDescriptor value) {
 		this.spaceDescriptor = (SpaceDescriptor) value;
@@ -166,7 +166,7 @@ public class Space implements Serializable, ISpace {
 	 *
 	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
 	 * setPeeringChannel(org.universAAL.middleware.interfaces.space.model.
-	 * Aalspace.PeeringChannel)
+	 * space.PeeringChannel)
 	 */
 	public void setPeeringChannel(PeeringChannel value) {
 		this.peeringChannel = value;
@@ -200,8 +200,8 @@ public class Space implements Serializable, ISpace {
 	 * (non-Javadoc)
 	 *
 	 * @see org.universAAL.middleware.interfaces.space.model.ISpace#
-	 * setCommunicationChannels(org.universAAL.middleware.interfaces.aalspace.
-	 * model.Aalspace.CommunicationChannels)
+	 * setCommunicationChannels(org.universAAL.middleware.interfaces.space.
+	 * model.space.CommunicationChannels)
 	 */
 	public void setCommunicationChannels(ICommunicationChannels value) {
 		this.communicationChannels = (CommunicationChannels) value;
@@ -326,7 +326,7 @@ public class Space implements Serializable, ISpace {
 	 *   &lt;complexContent>
 	 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
 	 *       &lt;sequence maxOccurs="unbounded">
-	 *         &lt;element name="channel-descriptor" type="{http://universaal.org/aalspace-channel/v1.0.0}channelDescriptor"/>
+	 *         &lt;element name="channel-descriptor" type="{http://universaal.org/space-channel/v1.0.0}channelDescriptor"/>
 	 *       &lt;/sequence>
 	 *     &lt;/restriction>
 	 *   &lt;/complexContent>
@@ -391,7 +391,7 @@ public class Space implements Serializable, ISpace {
 	 *   &lt;complexContent>
 	 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
 	 *       &lt;sequence>
-	 *         &lt;element name="channel-descriptor" type="{http://universaal.org/aalspace-channel/v1.0.0}channelDescriptor"/>
+	 *         &lt;element name="channel-descriptor" type="{http://universaal.org/space-channel/v1.0.0}channelDescriptor"/>
 	 *       &lt;/sequence>
 	 *     &lt;/restriction>
 	 *   &lt;/complexContent>
@@ -424,7 +424,7 @@ public class Space implements Serializable, ISpace {
 		 *
 		 * @see
 		 * org.universAAL.middleware.interfaces.space.model.IPeeringChannel#
-		 * setChannelDescriptor(org.universAAL.middleware.interfaces.aalspace.
+		 * setChannelDescriptor(org.universAAL.middleware.interfaces.space.
 		 * model.ChannelDescriptor)
 		 */
 		public void setChannelDescriptor(IChannelDescriptor value) {
