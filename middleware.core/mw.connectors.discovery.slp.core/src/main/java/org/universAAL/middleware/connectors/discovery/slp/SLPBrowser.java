@@ -114,7 +114,7 @@ public class SLPBrowser implements Runnable {
 				for (ServiceListener listener : listeners) {
 					LogUtils.logTrace(context, SLPBrowser.class, "run",
 							new Object[] { "Calling the AALSpaceModule listeners..." }, null);
-					listener.newAALSpacesFound(aalSpaces);
+					listener.newSpacesFound(aalSpaces);
 				}
 
 			} catch (Exception e) {

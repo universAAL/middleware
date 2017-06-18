@@ -164,10 +164,10 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 	}
 
 	private void removeAALSpaces() {
-		List<SpaceCard> spaces = findAALSpace();
+		List<SpaceCard> spaces = findSpace();
 		if (spaces != null && spaces.size() > 0) {
 			for (SpaceCard space : spaces) {
-				deregisterAALSpace(space);
+				deregisterSpace(space);
 			}
 		}
 	}
@@ -176,7 +176,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 	 * This method implements how to announce an AALSpace by adopting the SLP
 	 * protocol
 	 */
-	public void announceAALSpace(SpaceCard card) throws DiscoveryConnectorException {
+	public void announceSpace(SpaceCard card) throws DiscoveryConnectorException {
 		LogUtils.logTrace(context, SLPDiscoveryConnector.class, "announceAALSpace",
 				new Object[] { "Announcing the AALSpace..." }, null);
 		if (init()) {
@@ -198,7 +198,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 		}
 	}
 
-	public void deregisterAALSpace(SpaceCard spaceCard) throws DiscoveryConnectorException {
+	public void deregisterSpace(SpaceCard spaceCard) throws DiscoveryConnectorException {
 		LogUtils.logDebug(context, SLPDiscoveryConnector.class, "deregisterAALSpace",
 				new Object[] { "De-Registering the AALSpace: " + spaceCard.toString() + "..." }, null);
 		if (init()) {
@@ -221,15 +221,15 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 
 	}
 
-	public List<SpaceCard> findAALSpace() throws DiscoveryConnectorException {
-		return this.findAALSpace(null);
+	public List<SpaceCard> findSpace() throws DiscoveryConnectorException {
+		return this.findSpace(null);
 	}
 
 	/**
 	 * This method finds an AALSpace by using the specified filter in the SLP
 	 * network
 	 */
-	public List<SpaceCard> findAALSpace(Dictionary<String, String> filters) throws DiscoveryConnectorException {
+	public List<SpaceCard> findSpace(Dictionary<String, String> filters) throws DiscoveryConnectorException {
 		List<SpaceCard> spaces = new ArrayList<SpaceCard>();
 
 		if (init()) {
@@ -329,7 +329,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 						attribs.put(tokens[0], tokens[1]);
 				}
 			} catch (Exception e) {
-				throw new DiscoveryConnectorException(DiscoveryConnectorErrorCodes.AALSPACE_UNMASHALLING_ERROR,
+				throw new DiscoveryConnectorException(DiscoveryConnectorErrorCodes.SPACE_UNMASHALLING_ERROR,
 						e.toString());
 			}
 		}
@@ -401,7 +401,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 		return this.name + "-" + this.description + "-" + this.provider + "-" + this.version;
 	}
 
-	public void addAALSpaceListener(ServiceListener listener) {
+	public void addSpaceListener(ServiceListener listener) {
 		if (listener != null && !listeners.contains(listener)) {
 			this.listeners.add(listener);
 			if (slpBrowser != null)
@@ -413,7 +413,7 @@ public class SLPDiscoveryConnector implements DiscoveryConnector, SharedObjectLi
 
 	}
 
-	public void removeAALSpaceListener(ServiceListener listener) {
+	public void removeSpaceListener(ServiceListener listener) {
 		if (listener != null) {
 			this.listeners.remove(listener);
 			if (slpBrowser != null)

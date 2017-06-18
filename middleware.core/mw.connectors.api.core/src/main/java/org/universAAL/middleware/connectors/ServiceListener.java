@@ -1,17 +1,17 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
-	
-	See the NOTICE file distributed with this work for additional 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,25 +25,25 @@ import java.util.Set;
 import org.universAAL.middleware.interfaces.space.SpaceCard;
 
 /**
- * Implementation of this interface manages new or lost AALSpaces
- * 
+ * Implementation of this interface manages new or lost Spaces
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public interface ServiceListener {
 	/**
-	 * Called when a new AALSpace has been found
-	 * 
+	 * Called when a new Space has been found
+	 *
 	 * @param spaceCard
-	 *            Information about the AALSpace
+	 *            Information about the Space
 	 */
-	public void newAALSpacesFound(Set<SpaceCard> spaceCards);
+	public void newSpacesFound(Set<SpaceCard> spaceCards);
 
 	/**
-	 * Called when an AALSpace has been destroyed
-	 * 
+	 * Called when an Space has been destroyed
+	 *
 	 * @param spaceCard
-	 *            Information about the AALSpace
+	 *            Information about the Space
 	 */
-	public void aalSpaceLost(SpaceCard spaceCard);
+	public void spaceLost(SpaceCard spaceCard);
 }

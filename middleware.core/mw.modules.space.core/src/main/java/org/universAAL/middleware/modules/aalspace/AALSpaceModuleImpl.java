@@ -98,7 +98,7 @@ public class AALSpaceModuleImpl
 						discoveryConnectors = new ArrayList<DiscoveryConnector>();
 						for (Object ref : dConnectors) {
 							DiscoveryConnector dConnector = (DiscoveryConnector) ref;
-							dConnector.addAALSpaceListener(this);
+							dConnector.addSpaceListener(this);
 							discoveryConnectors.add((DiscoveryConnector) ref);
 						}
 						LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
@@ -186,9 +186,9 @@ public class AALSpaceModuleImpl
 			try {
 				for (DiscoveryConnector dConnector : discoveryConnectors) {
 					if (filters != null && filters.size() > 0)
-						spaces.addAll(dConnector.findAALSpace(filters));
+						spaces.addAll(dConnector.findSpace(filters));
 					else
-						spaces.addAll(dConnector.findAALSpace());
+						spaces.addAll(dConnector.findSpace());
 				}
 			} catch (DiscoveryConnectorException e) {
 				LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
@@ -214,7 +214,7 @@ public class AALSpaceModuleImpl
 					new Object[] { "Creating a new AALSpace..." }, null);
 			for (DiscoveryConnector connector : discoveryConnectors) {
 				try {
-					connector.announceAALSpace(aalSpaceCard);
+					connector.announceSpace(aalSpaceCard);
 
 				} catch (DiscoveryConnectorException e) {
 					LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl", new Object[] {
@@ -367,7 +367,7 @@ public class AALSpaceModuleImpl
 		}
 	}
 
-	public void newAALSpacesFound(Set<SpaceCard> spaceCards) {
+	public void newSpacesFound(Set<SpaceCard> spaceCards) {
 		if (spaceCards != null) {
 			if (controlBoker != null)
 				controlBoker.newAALSpaceFound(spaceCards);
@@ -746,7 +746,7 @@ public class AALSpaceModuleImpl
 		// to de-register the AALSpace
 		for (DiscoveryConnector dConnector : discoveryConnectors) {
 			try {
-				dConnector.deregisterAALSpace(spaceCard);
+				dConnector.deregisterSpace(spaceCard);
 			} catch (Exception e) {
 				LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
 						new Object[] { "Error during destroy AALSpace: " + e.toString() }, null);
@@ -754,7 +754,7 @@ public class AALSpaceModuleImpl
 		}
 	}
 
-	public void aalSpaceLost(SpaceCard spaceCard) {
+	public void spaceLost(SpaceCard spaceCard) {
 	}
 
 	public void sharedObjectAdded(Object arg0, Object arg1) {
@@ -764,7 +764,7 @@ public class AALSpaceModuleImpl
 				DiscoveryConnector connector = (DiscoveryConnector) arg0;
 				// check if I already have the same connector
 				if (!discoveryConnectors.contains(connector)) {
-					connector.addAALSpaceListener(this);
+					connector.addSpaceListener(this);
 					discoveryConnectors.add(connector);
 				}
 			} else if (arg0 instanceof CommunicationModule) {
@@ -814,7 +814,7 @@ public class AALSpaceModuleImpl
 			communicationModule.removeMessageListener(this, getBrokerName());
 		if (discoveryConnectors != null && discoveryConnectors.size() > 0) {
 			for (DiscoveryConnector dConnector : discoveryConnectors) {
-				dConnector.removeAALSpaceListener(this);
+				dConnector.removeSpaceListener(this);
 			}
 		}
 	}
@@ -832,7 +832,7 @@ public class AALSpaceModuleImpl
 		if (spaceCard != null) {
 			for (DiscoveryConnector discoveryConnector : discoveryConnectors) {
 				try {
-					discoveryConnector.announceAALSpace(spaceCard);
+					discoveryConnector.announceSpace(spaceCard);
 				} catch (DiscoveryConnectorException e) {
 					LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
 							new Object[] { "error during AALSpace renew: " + spaceCard.toString() }, null);
