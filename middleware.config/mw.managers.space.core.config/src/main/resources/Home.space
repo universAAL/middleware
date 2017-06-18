@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<aalspace xmlns:aalChannel="http://universaal.org/aalspace-channel/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="space.xsd">
+<space xmlns:channel="http://universaal.org/space-channel/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="space.xsd">
   <space-descriptor>
     <profile>HomeSpace</profile>
     <spaceId>8888</spaceId>
@@ -8,9 +8,9 @@
   </space-descriptor>
   <peeringChannel>
     <channel-descriptor>
-      <aalChannel:channelName>mw.modules.aalspace.osgi</aalChannel:channelName>
-      <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
-      <aalChannel:channelValue><![CDATA[
+      <channel:channelName>mw.modules.space.osgi</channel:channelName>
+      <channel:channelURL>http://aaloa.isti.cnr.it/udp.xml</channel:channelURL>
+      <channel:channelValue><![CDATA[
       
       
 <!--
@@ -87,14 +87,14 @@
 </config>
 
             
-      ]]></aalChannel:channelValue>
+      ]]></channel:channelValue>
     </channel-descriptor>
   </peeringChannel>
   <communicationChannels>
     <channel-descriptor>
-      <aalChannel:channelName>mw.bus.ui.osgi</aalChannel:channelName>
-      <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
-      <aalChannel:channelValue><![CDATA[
+      <channel:channelName>mw.bus.ui.osgi</channel:channelName>
+      <channel:channelURL>http://aaloa.isti.cnr.it/udp.xml</channel:channelURL>
+      <channel:channelValue><![CDATA[
       
       
 <!--
@@ -171,12 +171,12 @@
 </config>
 
             
-      ]]></aalChannel:channelValue>
+      ]]></channel:channelValue>
     </channel-descriptor>
     <channel-descriptor>
-      <aalChannel:channelName>mw.brokers.control.osgi</aalChannel:channelName>
-      <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
-      <aalChannel:channelValue><![CDATA[
+      <channel:channelName>mw.brokers.control.osgi</channel:channelName>
+      <channel:channelURL>http://aaloa.isti.cnr.it/udp.xml</channel:channelURL>
+      <channel:channelValue><![CDATA[
       
       
 <!--
@@ -253,13 +253,13 @@
 </config>
 
             
-      ]]></aalChannel:channelValue>
+      ]]></channel:channelValue>
     </channel-descriptor>
         <!--Channel used by the context bus-->
     <channel-descriptor>
-      <aalChannel:channelName>mw.bus.context.osgi</aalChannel:channelName>
-      <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
-      <aalChannel:channelValue><![CDATA[
+      <channel:channelName>mw.bus.context.osgi</channel:channelName>
+      <channel:channelURL>http://aaloa.isti.cnr.it/udp.xml</channel:channelURL>
+      <channel:channelValue><![CDATA[
       
       
 <!--
@@ -337,13 +337,13 @@
 
             
       ]]>
-      </aalChannel:channelValue>
+      </channel:channelValue>
     </channel-descriptor>
         <!--Channel used by the service bus-->
         <channel-descriptor>
-      <aalChannel:channelName>mw.bus.service.osgi</aalChannel:channelName>
-      <aalChannel:channelURL>http://aaloa.isti.cnr.it/udp.xml</aalChannel:channelURL>
-      <aalChannel:channelValue><![CDATA[
+      <channel:channelName>mw.bus.service.osgi</channel:channelName>
+      <channel:channelURL>http://aaloa.isti.cnr.it/udp.xml</channel:channelURL>
+      <channel:channelValue><![CDATA[
       
       
 <!--
@@ -421,10 +421,10 @@
 
             
       ]]>
-      </aalChannel:channelValue>
+      </channel:channelValue>
     </channel-descriptor>
       </communicationChannels>
   <owner>owner</owner>
   <admin>admin</admin>
   <security>security</security>
-</aalspace>
+</space>
