@@ -75,7 +75,7 @@ import com.google.gson.Gson;
 
 /**
  * The Control Broker
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
@@ -359,7 +359,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 
 	/**
 	 * This method returns the PeerCard of the current MW instance
-	 * 
+	 *
 	 * @return PeerCard
 	 */
 	public PeerCard getmyPeerCard() {
@@ -373,21 +373,21 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 
 	/**
 	 * This method returns the AALSpaceDescriptor of my AALSpace
-	 * 
+	 *
 	 * @return
 	 */
-	public SpaceDescriptor getmyAALSpaceDescriptor() {
+	public SpaceDescriptor getMySpaceDescriptor() {
 		if (getAALSpaceManager() == null) {
-			LogUtils.logWarn(context, ControlBroker.class, "getmyAALSpaceDescriptor",
+			LogUtils.logWarn(context, ControlBroker.class, "getMySpaceDescriptor",
 					new Object[] { "ControlBroker not initialized. Fetching the PeerCard aborted" }, null);
 			return null;
 		}
 		return aalSpaceManager.getSpaceDescriptor();
 	}
 
-	public void aalSpaceJoined(SpaceDescriptor descriptor) {
+	public void spaceJoined(SpaceDescriptor descriptor) {
 		if (getAALSpaceEventHandler() == null) {
-			LogUtils.logWarn(context, ControlBroker.class, "aalSpaceJoined",
+			LogUtils.logWarn(context, ControlBroker.class, "spaceJoined",
 					new Object[] { "ControlBroker not initialized." }, null);
 			return;
 		}
@@ -403,7 +403,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 		aalSpaceEventHandler.peerFound(peer);
 	}
 
-	public void newAALSpaceFound(Set<SpaceCard> spaceCards) {
+	public void newSpaceFound(Set<SpaceCard> spaceCards) {
 		if (getAALSpaceEventHandler() == null) {
 			return;
 		}
@@ -413,7 +413,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 	/**
 	 * Only configures the communication channels by creating a list of channels
 	 * for the Communication Module
-	 * 
+	 *
 	 * @param communicationChannels
 	 */
 	public void configureChannels(List<ChannelDescriptor> communicationChannels, String peerName) {
@@ -429,7 +429,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 	/**
 	 * Configures the peering channel by configuring the AALSpaceModule and by
 	 * creating a new channel for the Communication Module
-	 * 
+	 *
 	 * @param peeringChannel
 	 */
 	public void configurePeeringChannel(ChannelDescriptor peeringChannel, String peerName) {
@@ -492,7 +492,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 	/**
 	 * This method allows to request the installation of an uApp part to a
 	 * target node
-	 * 
+	 *
 	 * @param target
 	 *            The node into which to install the part
 	 * @param card
@@ -528,7 +528,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 	/**
 	 * This method allows to request the installation of an uApp part to a
 	 * target node
-	 * 
+	 *
 	 * @param partAsZip
 	 *            The part serialized as a String. The payload of the
 	 *            DeployMessage has to be a string
@@ -588,7 +588,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 	}
 
 	/**
-	 * 
+	 *
 	 * @param mpaCard
 	 * @param partID
 	 * @param peer
@@ -947,7 +947,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 
 	/**
 	 * Send a Configuration Message.
-	 * 
+	 *
 	 * @param cm
 	 */
 	public void sendConfigurationMessage(ConfigurationMessage cm) {

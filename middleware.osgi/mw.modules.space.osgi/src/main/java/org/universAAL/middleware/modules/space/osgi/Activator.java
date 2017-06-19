@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.middleware.modules.aalspace.osgi;
+package org.universAAL.middleware.modules.space.osgi;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -37,16 +37,16 @@ import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.osgi.uAALBundleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.modules.SpaceModule;
-import org.universAAL.middleware.modules.aalspace.AALSpaceModuleImpl;
+import org.universAAL.middleware.modules.space.SpaceModuleImpl;
 
 /**
- * Activator class for the AALSpaceModule
- * 
+ * Activator class for the SpaceModule
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  */
 public class Activator implements BundleActivator, ManagedService {
-	private static String SERVICE_PID = "mw.modules.aalspace.core";
-	private SpaceModule aalSpaceModule;
+	private static String SERVICE_PID = "mw.modules.space.core";
+	private SpaceModule spaceModule;
 
 	private ServiceRegistration myRegistration;
 
@@ -54,7 +54,7 @@ public class Activator implements BundleActivator, ManagedService {
 
 		ModuleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
 				.registerModule(new Object[] { context });
-		aalSpaceModule = new AALSpaceModuleImpl(moduleContext);
+		spaceModule = new SpaceModuleImpl(moduleContext);
 
 		Dictionary props = new Hashtable();
 		props.put(Constants.SERVICE_PID, SERVICE_PID);
@@ -66,31 +66,31 @@ public class Activator implements BundleActivator, ManagedService {
 			configurationAdmin = (ConfigurationAdmin) context.getService(sr);
 		Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
 
-		Dictionary aalSpaceModuleProp = config.getProperties();
+		Dictionary spaceModuleProp = config.getProperties();
 
-		if (aalSpaceModuleProp != null) {
-			aalSpaceModule.loadConfigurations(aalSpaceModuleProp);
+		if (spaceModuleProp != null) {
+			spaceModule.loadConfigurations(spaceModuleProp);
 
 		} else
-			aalSpaceModule.loadConfigurations(new Hashtable<String, String>());
+			spaceModule.loadConfigurations(new Hashtable<String, String>());
 
-		aalSpaceModule.init();
+		spaceModule.init();
 
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, aalSpaceModule,
+		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, spaceModule,
 				new Object[] { SpaceModule.class.getName() });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
-				new Object[] { "AALSpaceModule registered" }, null);
+				new Object[] { "SpaceModule registered" }, null);
 
 	}
 
 	public void stop(BundleContext arg0) throws Exception {
-		if (aalSpaceModule != null)
-			aalSpaceModule.dispose();
+		if (spaceModule != null)
+			spaceModule.dispose();
 		myRegistration.unregister();
 	}
 
 	public void updated(Dictionary properties) throws ConfigurationException {
-		aalSpaceModule.loadConfigurations(properties);
+		spaceModule.loadConfigurations(properties);
 
 	}
 

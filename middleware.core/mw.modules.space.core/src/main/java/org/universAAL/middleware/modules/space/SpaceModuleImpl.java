@@ -18,7 +18,7 @@
         See the License for the specific language governing permissions and
         limitations under the License.
  */
-package org.universAAL.middleware.modules.aalspace;
+package org.universAAL.middleware.modules.space;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -53,11 +53,11 @@ import org.universAAL.middleware.modules.exception.SpaceModuleException;
 import org.universAAL.middleware.modules.listener.MessageListener;
 
 /**
- * Implementation of the AALSpaceModule
- * 
+ * Implementation of the SpaceModule
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  */
-public class AALSpaceModuleImpl
+public class SpaceModuleImpl
 		implements SpaceModule, MessageListener, SharedObjectListener, ServiceListener, Broker {
 
 	private String name;
@@ -74,10 +74,10 @@ public class AALSpaceModuleImpl
 	private boolean initialized = false;
 
 	/**
-	 * This method configures the AALSpaceModule: -to obtain the reference to
+	 * This method configures the SpaceModule: -to obtain the reference to
 	 * all the DiscoveryConnector present in the fw -to obtain the reference to
 	 * the CommunicationModdule -to obtain the reference to the ControlBroker
-	 * 
+	 *
 	 * @return true if initialized with the connectors and the module, false
 	 *         otherwise
 	 */
@@ -86,12 +86,12 @@ public class AALSpaceModuleImpl
 			try {
 				if (discoveryConnectors == null || discoveryConnectors.isEmpty()) {
 
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "Fetching the DiscoveryConnector..." }, null);
 					Object[] dConnectors = context.getContainer().fetchSharedObject(context,
 							new Object[] { DiscoveryConnector.class.getName() }, this);
 					if (dConnectors != null && dConnectors.length > 0) {
-						LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+						LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 								new Object[] { "Found: " + dConnectors.length + " DiscoveryConnector" }, null);
 						// clear or init the list of connectors
 
@@ -101,26 +101,26 @@ public class AALSpaceModuleImpl
 							dConnector.addSpaceListener(this);
 							discoveryConnectors.add((DiscoveryConnector) ref);
 						}
-						LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+						LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 								new Object[] { "DiscoveryConnectors fetched" }, null);
 					} else {
-						LogUtils.logWarn(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+						LogUtils.logWarn(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 								new Object[] { "No DiscoveryConnector found" }, null);
 						initialized = false;
 						return initialized;
 					}
 				}
 				if (communicationModule == null) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "Fetching the CommunicationModule..." }, null);
 					Object cModule = context.getContainer().fetchSharedObject(context,
 							new Object[] { CommunicationModule.class.getName().toString() });
 					if (cModule != null) {
 						communicationModule = (CommunicationModule) cModule;
-						LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+						LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 								new Object[] { "CommunicationModule fetched" }, null);
 					} else {
-						LogUtils.logWarn(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+						LogUtils.logWarn(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 								new Object[] { "No CommunicationModule found" }, null);
 						initialized = false;
 						return initialized;
@@ -128,23 +128,23 @@ public class AALSpaceModuleImpl
 				}
 
 				if (controlBoker == null) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "Fetching the ControlBroker..." }, null);
 					Object cBroker = context.getContainer().fetchSharedObject(context,
 							new Object[] { ControlBroker.class.getName().toString() });
 					if (cBroker != null) {
-						LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+						LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 								new Object[] { "Found a ControlBroker" }, null);
 						controlBoker = (ControlBroker) cBroker;
-						LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+						LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 								new Object[] { "ControlBroker fetched" }, null);
 					} else {
-						LogUtils.logWarn(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+						LogUtils.logWarn(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 								new Object[] { "No ControlBroker found" }, null);
 						initialized = false;
 						return initialized;
 					}
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "ControlBroker found" }, null);
 					// DiscoveryConnector, CommunicationModule and ControlBroker
 					// have been found
@@ -152,23 +152,23 @@ public class AALSpaceModuleImpl
 				}
 				initialized = true;
 			} catch (NullPointerException e) {
-				LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-						new Object[] { "Error while initializing the AALSpaceModule: " + e }, null);
+				LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+						new Object[] { "Error while initializing the SpaceModule: " + e }, null);
 				initialized = false;
 			} catch (ClassCastException e) {
-				LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Error while casting CommunicationConnector and CommunicationModule: " + e },
 						null);
 				initialized = false;
 			}
 		}
 		if (initialized)
-			LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "AALSpaceModule initialized" }, null);
+			LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "SpaceModule initialized" }, null);
 		return initialized;
 	}
 
-	public AALSpaceModuleImpl(ModuleContext context) {
+	public SpaceModuleImpl(ModuleContext context) {
 		this.context = context;
 		discoveryConnectors = new ArrayList<DiscoveryConnector>();
 	}
@@ -180,8 +180,8 @@ public class AALSpaceModuleImpl
 	public List<SpaceCard> getSpaces(Dictionary<String, String> filters) throws SpaceModuleException {
 		List<SpaceCard> spaces = new ArrayList<SpaceCard>();
 		if (init()) {
-			LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "Searching for the AALSpace with filters: " + filters.toString() + "..." }, null);
+			LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "Searching for the Space with filters: " + filters.toString() + "..." }, null);
 
 			try {
 				for (DiscoveryConnector dConnector : discoveryConnectors) {
@@ -191,44 +191,44 @@ public class AALSpaceModuleImpl
 						spaces.addAll(dConnector.findSpace());
 				}
 			} catch (DiscoveryConnectorException e) {
-				LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-						new Object[] { "Error during the AALSPace search:" + e.toString() }, null);
+				LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+						new Object[] { "Error during the SPace search:" + e.toString() }, null);
 				throw new SpaceModuleException(SpaceModuleErrorCode.ERROR_INTERACTING_DISCOVERY_CONNECTORS,
 						e.toString());
 			}
-			LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "Found: " + spaces.size() + " AALSpaces." }, null);
+			LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "Found: " + spaces.size() + " Spaces." }, null);
 
 		} else {
-			LogUtils.logWarn(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "AALSpaceModule cannot be initialized. Returning no AALSpaces" }, null);
+			LogUtils.logWarn(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "SpaceModule cannot be initialized. Returning no Spaces" }, null);
 			throw new SpaceModuleException(SpaceModuleErrorCode.NO_DISCOVERY_CONNECTORS,
-					"AALSpaceModule cannot be initialized. Returning no AALSpaces");
+					"SpaceModule cannot be initialized. Returning no Spaces");
 		}
 		return spaces;
 	}
 
-	public synchronized void newSpace(SpaceCard aalSpaceCard) throws SpaceModuleException {
+	public synchronized void newSpace(SpaceCard spaceCard) throws SpaceModuleException {
 		if (init()) {
-			LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "Creating a new AALSpace..." }, null);
+			LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "Creating a new Space..." }, null);
 			for (DiscoveryConnector connector : discoveryConnectors) {
 				try {
-					connector.announceSpace(aalSpaceCard);
+					connector.announceSpace(spaceCard);
 
 				} catch (DiscoveryConnectorException e) {
-					LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl", new Object[] {
-							"Error creating the AALSpace: " + aalSpaceCard.toString() + " due to: " + e.toString() },
+					LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl", new Object[] {
+							"Error creating the Space: " + spaceCard.toString() + " due to: " + e.toString() },
 							null);
 					throw new SpaceModuleException(SpaceModuleErrorCode.ERROR_INTERACTING_DISCOVERY_CONNECTORS,
-							"Error creating the AALSpace: " + aalSpaceCard.toString() + " due to: " + e.toString());
+							"Error creating the Space: " + spaceCard.toString() + " due to: " + e.toString());
 				}
 			}
 		} else {
-			LogUtils.logWarn(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "AALSpaceModule cannot be initialized. Returning no AALSpace" }, null);
+			LogUtils.logWarn(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "SpaceModule cannot be initialized. Returning no Space" }, null);
 			throw new SpaceModuleException(SpaceModuleErrorCode.NO_DISCOVERY_CONNECTORS,
-					"AALSpaceModule cannot be initialized. Returning no AALSpaces");
+					"SpaceModule cannot be initialized. Returning no Spaces");
 		}
 	}
 
@@ -249,11 +249,11 @@ public class AALSpaceModuleImpl
 	}
 
 	public void loadConfigurations(Dictionary configurations) {
-		LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-				new Object[] { "updating AALSpaceModule properties" }, null);
+		LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+				new Object[] { "updating SpaceModule properties" }, null);
 		if (configurations == null) {
-			LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "AALSpaceModule properties are null" }, null);
+			LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "SpaceModule properties are null" }, null);
 			return;
 		}
 		try {
@@ -264,25 +264,25 @@ public class AALSpaceModuleImpl
 					.get(org.universAAL.middleware.modules.util.Consts.MODULE_DESCRIPTION);
 			this.provider = (String) configurations.get(org.universAAL.middleware.modules.util.Consts.MODULE_PROVIDER);
 		} catch (NumberFormatException e) {
-			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "Error during AALSpaceModule properties update" }, null);
+			LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "Error during SpaceModule properties update" }, null);
 		} catch (NullPointerException e) {
-			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "Error during AALSpaceModule properties update" }, null);
+			LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "Error during SpaceModule properties update" }, null);
 		} catch (Exception e) {
-			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "Error during AALSpaceModule properties update" }, null);
+			LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "Error during SpaceModule properties update" }, null);
 		}
-		LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-				new Object[] { "AALSpaceModule properties updated" }, null);
+		LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+				new Object[] { "SpaceModule properties updated" }, null);
 	}
 
 	public void leaveSpace(PeerCard spaceCoordinator, SpaceCard spaceCard) {
 		try {
 			if (init()) {
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-						new Object[] { "Creating a new AALSpaceMessage" }, null);
-				// prepare the AALSpace Message...
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+						new Object[] { "Creating a new SpaceMessage" }, null);
+				// prepare the Space Message...
 				SpaceMessage spaceMessage = new SpaceMessage(
 						new SpaceDescriptor(spaceCard, new ArrayList<ChannelDescriptor>()),
 						SpaceMessageTypes.LEAVE);
@@ -292,15 +292,15 @@ public class AALSpaceModuleImpl
 				ChannelMessage channelMessage = new ChannelMessage(controlBoker.getmyPeerCard(),
 						spaceMessage.toString(), channelName);
 
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Sending Leave Request message..." }, null);
 				communicationModule.send(channelMessage, this, spaceCoordinator);
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Leave Request message sent." }, null);
 
 			}
 		} catch (CommunicationConnectorException e) {
-			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "Error during the unicast send: " + e }, null);
 			throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_LEAVE_ERROR,
 					"Error during the unicast send: " + e);
@@ -310,10 +310,10 @@ public class AALSpaceModuleImpl
 	public void requestToLeave(SpaceDescriptor spaceDescriptor) {
 		try {
 			if (init()) {
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-						new Object[] { "Creating a new AALSpaceMessage" }, null);
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+						new Object[] { "Creating a new SpaceMessage" }, null);
 
-				// prepare the AALSpace Message
+				// prepare the Space Message
 				SpaceMessage spaceMessage = new SpaceMessage(spaceDescriptor,
 						SpaceMessageTypes.REQUEST_TO_LEAVE);
 				// ...and wrap it as ChannelMessage
@@ -322,15 +322,15 @@ public class AALSpaceModuleImpl
 				ChannelMessage channelMessage = new ChannelMessage(controlBoker.getmyPeerCard(),
 						spaceMessage.toString(), channelName);
 
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Sending Leave Request message..." }, null);
 				communicationModule.sendAll(channelMessage, this);
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Leave Request message sent." }, null);
 
 			}
 		} catch (CommunicationConnectorException e) {
-			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "Error during the unicast send: " + e }, null);
 			throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_LEAVE_ERROR,
 					"Error during the unicast send: " + e);
@@ -340,10 +340,10 @@ public class AALSpaceModuleImpl
 	public void requestPeerCard(SpaceDescriptor spaceDescriptor, String peerAddress) {
 		try {
 			if (init()) {
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-						new Object[] { "Creating a new AALSpaceMessage" }, null);
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+						new Object[] { "Creating a new SpaceMessage" }, null);
 
-				// prepare the AALSpace Message
+				// prepare the Space Message
 				SpaceMessage spaceMessage = new SpaceMessage(spaceDescriptor,
 						SpaceMessageTypes.REQUEST_PEERCARD);
 				// ...and wrap it as ChannelMessage
@@ -352,15 +352,15 @@ public class AALSpaceModuleImpl
 				ChannelMessage channelMessage = new ChannelMessage(controlBoker.getmyPeerCard(),
 						spaceMessage.toString(), channelName);
 
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Sending Request Peer Card message..." }, null);
 				communicationModule.send(channelMessage, this, new PeerCard(peerAddress, PeerRole.PEER));
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Request Peer Card sent." }, null);
 
 			}
 		} catch (CommunicationConnectorException e) {
-			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "Error during the unicast send: " + e }, null);
 			throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_LEAVE_ERROR,
 					"Error during the unicast send: " + e);
@@ -370,27 +370,27 @@ public class AALSpaceModuleImpl
 	public void newSpacesFound(Set<SpaceCard> spaceCards) {
 		if (spaceCards != null) {
 			if (controlBoker != null)
-				controlBoker.newAALSpaceFound(spaceCards);
+				controlBoker.newSpaceFound(spaceCards);
 			else
-				LogUtils.logWarn(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logWarn(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "NO control Broker found" }, null);
 		} else
-			LogUtils.logWarn(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "AALSpace card is null" }, null);
+			LogUtils.logWarn(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "Space card is null" }, null);
 	}
 
 	public synchronized void joinSpace(PeerCard spaceCoordinator, SpaceCard spaceCard) {
 
 		if (spaceCoordinator != null && spaceCard != null) {
 			LogUtils.logDebug(context,
-					AALSpaceModuleImpl.class, "AALSpaceModuleImpl", new Object[] { "Peer: "
+					SpaceModuleImpl.class, "SpaceModuleImpl", new Object[] { "Peer: "
 							+ spaceCoordinator.toString() + " is joining the spaceCard: " + spaceCard.toString() },
 					null);
 			try {
 				if (init()) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "Creating a new AALSpaceMessage" }, null);
-					// prepare the AALSpace Message
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "Creating a new SpaceMessage" }, null);
+					// prepare the Space Message
 
 					SpaceDescriptor spaceDesc = new SpaceDescriptor(spaceCard,
 							new ArrayList<ChannelDescriptor>());
@@ -402,15 +402,15 @@ public class AALSpaceModuleImpl
 					ChannelMessage channelMessage = new ChannelMessage(controlBoker.getmyPeerCard(),
 							spaceMessage.toString(), channelName);
 
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "Sending Join Request message..." }, null);
 					communicationModule.send(channelMessage, this, spaceCoordinator);
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "Join Request message sent." }, null);
 
 				}
 			} catch (CommunicationConnectorException e) {
-				LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Error during the unicast send: " + e }, null);
 				throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_JOIN_ERROR,
 						"Error during the unicast send: " + e);
@@ -418,7 +418,7 @@ public class AALSpaceModuleImpl
 		}
 		// invalid parameters
 		else {
-			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "PeerCard and/or SpaceCard are null" }, null);
 			throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_JOIN_WRONG_PARAMETERS,
 					"PeerCard and/or SpaceCard are null");
@@ -427,13 +427,13 @@ public class AALSpaceModuleImpl
 
 	public void addPeer(SpaceDescriptor spaceDescriptor, PeerCard newPeer) {
 		if (spaceDescriptor != null && newPeer != null) {
-			LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl", new Object[] {
+			LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl", new Object[] {
 					"Peer: " + newPeer.toString() + " is joining the spaceCard: " + spaceDescriptor.toString() }, null);
 			try {
 				if (init()) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "Creating a new AALSpaceMessage" }, null);
-					// prepare the AALSpace Message
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "Creating a new SpaceMessage" }, null);
+					// prepare the Space Message
 
 					SpaceMessage spaceMessage = new SpaceMessage(spaceDescriptor,
 							SpaceMessageTypes.JOIN_RESPONSE);
@@ -444,15 +444,15 @@ public class AALSpaceModuleImpl
 					ChannelMessage channelMessage = new ChannelMessage(controlBoker.getmyPeerCard(),
 							spaceMessage.toString(), channelName);
 
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "Sending Join Request message..." }, null);
 					communicationModule.send(channelMessage, this, newPeer);
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "Join Request message queued." }, null);
 
 				}
 			} catch (CommunicationConnectorException e) {
-				LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Error during the unicast send: " + e }, null);
 				throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_JOIN_ERROR,
 						"Error during the unicast send: " + e);
@@ -460,7 +460,7 @@ public class AALSpaceModuleImpl
 		}
 		// invalid parameters
 		else {
-			LogUtils.logWarn(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logWarn(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "PeerCard and/or SpaceCard are null" }, null);
 			throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_JOIN_WRONG_PARAMETERS,
 					"PeerCard and/or SpaceCard are null");
@@ -469,7 +469,7 @@ public class AALSpaceModuleImpl
 
 	public void announceNewPeer(SpaceCard spaceCard, PeerCard peerCard) {
 		if (spaceCard != null && peerCard != null) {
-			LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl", new Object[] {
+			LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl", new Object[] {
 					"Announcing new Peer: " + peerCard.toString() + " into the AASpace: " + spaceCard.toString() },
 					null);
 
@@ -483,35 +483,35 @@ public class AALSpaceModuleImpl
 			ChannelMessage channelMessage = new ChannelMessage(controlBoker.getmyPeerCard(), spaceMessage.toString(),
 					channelName);
 
-			LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "Sending New Peer added message..." }, null);
 			communicationModule.sendAll(channelMessage, this);
-			LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "New Peer added message queued" }, null);
 
 		} else {
-			LogUtils.logWarn(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-					new Object[] { "Event propagation failed! PeerCard and/or AALSpaceCard are not valid" }, null);
+			LogUtils.logWarn(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+					new Object[] { "Event propagation failed! PeerCard and/or SpaceCard are not valid" }, null);
 			throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_NEW_PEER_ADDED_ERROR,
-					"Event propagation failed! PeerCard and/or AALSpaceCard are not valid");
+					"Event propagation failed! PeerCard and/or SpaceCard are not valid");
 		}
 	}
 
 	public void messageFromSpace(SpaceMessage message, PeerCard sender) throws SpaceModuleException {
-		LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-				new Object[] { "AALSpaceMessage arrived...queuing" }, null);
+		LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+				new Object[] { "SpaceMessage arrived...queuing" }, null);
 		try {
 			SpaceMessageTypes messageType = message.getMessageType();
 			switch (messageType) {
 			case JOIN_REQUEST: {
-				// check if the peer belongs to by AALSpace
+				// check if the peer belongs to by Space
 				if (!message.getSpaceDescriptor().getSpaceCard().getSpaceID()
-						.equals(controlBoker.getmyAALSpaceDescriptor().getSpaceCard().getSpaceID())) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "Peer is not part of my AALSpace..dropping it" + message.toString() }, null);
+						.equals(controlBoker.getMySpaceDescriptor().getSpaceCard().getSpaceID())) {
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "Peer is not part of my Space..dropping it" + message.toString() }, null);
 					return;
 				}
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Join request: " + message.toString() }, null);
 				controlBoker.joinRequest(message.getSpaceDescriptor().getSpaceCard(), sender);
 
@@ -519,12 +519,12 @@ public class AALSpaceModuleImpl
 				break;
 			case JOIN_RESPONSE: {
 
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Join response: " + message.toString() }, null);
 				if (message.getSpaceDescriptor() != null) {
-					controlBoker.aalSpaceJoined(message.getSpaceDescriptor());
+					controlBoker.spaceJoined(message.getSpaceDescriptor());
 				} else {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "The Join Response is not valid" }, null);
 					throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_JOIN_RESPONSE_WRONG_PARAMETERS,
 							"The Join Response is not valid");
@@ -533,19 +533,19 @@ public class AALSpaceModuleImpl
 			}
 				break;
 			case NEW_PEER: {
-				// check if the peer belongs to by AALSpace
+				// check if the peer belongs to by Space
 				if (!message.getSpaceDescriptor().getSpaceCard().getSpaceID()
-						.equals(controlBoker.getmyAALSpaceDescriptor().getSpaceCard().getSpaceID())) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "Peer is not part of my AALSpace..dropping it" + message.toString() }, null);
+						.equals(controlBoker.getMySpaceDescriptor().getSpaceCard().getSpaceID())) {
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "Peer is not part of my Space..dropping it" + message.toString() }, null);
 					return;
 				}
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "New Peer added: " + message.toString() }, null);
 				if (sender != null) {
 					controlBoker.peerFound(sender);
 				} else {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "The New Peer added has not a valid PeerCard" }, null);
 					throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_NEW_PEER_ERROR,
 							"The New Peer added has not a valid PeerCard");
@@ -554,19 +554,19 @@ public class AALSpaceModuleImpl
 			}
 				break;
 			case LEAVE: {
-				// check if the peer belongs to by AALSpace
+				// check if the peer belongs to by Space
 				if (!message.getSpaceDescriptor().getSpaceCard().getSpaceID()
-						.equals(controlBoker.getmyAALSpaceDescriptor().getSpaceCard().getSpaceID())) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "Peer is not part of my AALSpace..dropping it" + message.toString() }, null);
+						.equals(controlBoker.getMySpaceDescriptor().getSpaceCard().getSpaceID())) {
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "Peer is not part of my Space..dropping it" + message.toString() }, null);
 					return;
 				}
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Leave request: " + message.toString() }, null);
 				if (sender != null) {
 					controlBoker.peerLost(sender);
 				} else {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 							new Object[] { "Leaving Peer  has not a valid PeerCard" }, null);
 					throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_LEAVE_ERROR,
 							"The leaving Peer has not a valid PeerCard");
@@ -574,20 +574,20 @@ public class AALSpaceModuleImpl
 			}
 				break;
 			case REQUEST_TO_LEAVE: {
-				// check if the peer belongs to by AALSpace
+				// check if the peer belongs to by Space
 				if (!message.getSpaceDescriptor().getSpaceCard().getSpaceID()
-						.equals(controlBoker.getmyAALSpaceDescriptor().getSpaceCard().getSpaceID())) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "Peer is not part of my AALSpace..dropping it" + message.toString() }, null);
+						.equals(controlBoker.getMySpaceDescriptor().getSpaceCard().getSpaceID())) {
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "Peer is not part of my Space..dropping it" + message.toString() }, null);
 					return;
 				}
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Request to leave: " + message.toString() }, null);
 				if (message.getSpaceDescriptor() != null) {
 					controlBoker.leaveRequest(message.getSpaceDescriptor());
 				} else {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "Not a valid AALSpace descriptor" }, null);
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "Not a valid Space descriptor" }, null);
 					throw new SpaceModuleException(SpaceModuleErrorCode.SPACE_LEAVE_ERROR,
 							"No valid space descritpro");
 				}
@@ -595,26 +595,26 @@ public class AALSpaceModuleImpl
 			}
 				break;
 			case REQUEST_PEERCARD: {
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Request PeerCard: " + message.toString() }, null);
 				// check if everything is correct
-				if (controlBoker.getmyAALSpaceDescriptor() == null) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "AALSpaceDescritor not yet ready.. " + message.toString() }, null);
+				if (controlBoker.getMySpaceDescriptor() == null) {
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "SpaceDescritor not yet ready.. " + message.toString() }, null);
 					return;
 
 				}
 
 				if (!message.getSpaceDescriptor().getSpaceCard().getSpaceID()
-						.equals(controlBoker.getmyAALSpaceDescriptor().getSpaceCard().getSpaceID())) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "Not part of the AALSpace requester... " + message.toString() }, null);
+						.equals(controlBoker.getMySpaceDescriptor().getSpaceCard().getSpaceID())) {
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "Not part of the Space requester... " + message.toString() }, null);
 					return;
 
 				}
 
 				// send my PeerCard
-				SpaceMessage spaceMessage = new SpaceMessage(controlBoker.getmyAALSpaceDescriptor(),
+				SpaceMessage spaceMessage = new SpaceMessage(controlBoker.getMySpaceDescriptor(),
 						SpaceMessageTypes.PEERCARD);
 
 				// ...and wrap it as ChannelMessage
@@ -623,24 +623,24 @@ public class AALSpaceModuleImpl
 				ChannelMessage channelMessage = new ChannelMessage(controlBoker.getmyPeerCard(),
 						spaceMessage.toString(), channelName);
 
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Sending Peer Card ..." }, null);
 				communicationModule.send(channelMessage, this, sender);
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Peer Card message sent." }, null);
 			}
 				break;
 			case PEERCARD: {
-				// check if the peer belongs to by AALSpace
+				// check if the peer belongs to by Space
 				if (!message.getSpaceDescriptor().getSpaceCard().getSpaceID()
-						.equals(controlBoker.getmyAALSpaceDescriptor().getSpaceCard().getSpaceID())) {
-					LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "Peer is not part of my AALSpace..dropping it" + message.toString() }, null);
+						.equals(controlBoker.getMySpaceDescriptor().getSpaceCard().getSpaceID())) {
+					LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "Peer is not part of my Space..dropping it" + message.toString() }, null);
 					return;
 				}
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "PeerCard received: " + message.toString() }, null);
-				// check if it is part of my aalspacde
+				// check if it is part of my space
 
 				controlBoker.peerFound(sender);
 
@@ -654,13 +654,13 @@ public class AALSpaceModuleImpl
 					"The message body is not valid: " + e);
 		}
 
-		LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-				new Object[] { "AALSpaceMessage queued" }, null);
+		LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+				new Object[] { "SpaceMessage queued" }, null);
 	}
 
 	public void configureSpaceChannel() {
-		LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-				new Object[] { "Setting the broker group for the AALSpaceModule..." + getBrokerName() }, null);
+		LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+				new Object[] { "Setting the broker group for the SpaceModule..." + getBrokerName() }, null);
 
 		/*
 		 * Register me as MessageListener for messages to the channel associated
@@ -671,7 +671,7 @@ public class AALSpaceModuleImpl
 
 	public void messageReceived(ChannelMessage message) {
 		if (message == null || message.getContent() == null) {
-			LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "The message received is not valid...dropping it." }, null);
 			return;
 		}
@@ -681,21 +681,21 @@ public class AALSpaceModuleImpl
 			try {
 				brokerMessage = unmarshall(message.getContent());
 			} catch (Exception e) {
-				LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "The message received is not valid...dropping it." }, null);
 			}
 
 			switch (brokerMessage.getMType()) {
 			case SpaceMessage:
 				SpaceMessage spaceMessage = (SpaceMessage) unmarshall(message.getContent());
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-						new Object[] { "AALSpace message arrived" }, null);
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+						new Object[] { "Space message arrived" }, null);
 				messageFromSpace(spaceMessage, message.getSender());
 				break;
 
 			}
 		} catch (Exception e) {
-			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "Error during message receive: " + e.toString() }, null);
 		}
 	}
@@ -703,7 +703,7 @@ public class AALSpaceModuleImpl
 	public void handleSendError(ChannelMessage message, CommunicationConnectorException exception)
 			throws SpaceModuleException {
 		try {
-			LogUtils.logWarn(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logWarn(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "Error during message queuing for message: " + message.toString() }, null);
 			SpaceModuleException spaceException;
 
@@ -731,25 +731,25 @@ public class AALSpaceModuleImpl
 				throw spaceException;
 			}
 		} catch (SpaceMessageException e) {
-			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "The message received is not valid...dropping it." + e.toString() }, null);
 		} catch (Exception e2) {
 
-			LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+			LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 					new Object[] { "The message received is not valid...dropping it." + e2.toString() }, null);
 		}
 	}
 
 	public void destroySpace(SpaceCard spaceCard) {
-		LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-				new Object[] { "Destroy the AALSpace: " + spaceCard.toString() }, null);
-		// to de-register the AALSpace
+		LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+				new Object[] { "Destroy the Space: " + spaceCard.toString() }, null);
+		// to de-register the Space
 		for (DiscoveryConnector dConnector : discoveryConnectors) {
 			try {
 				dConnector.deregisterSpace(spaceCard);
 			} catch (Exception e) {
-				LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-						new Object[] { "Error during destroy AALSpace: " + e.toString() }, null);
+				LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+						new Object[] { "Error during destroy Space: " + e.toString() }, null);
 			}
 		}
 	}
@@ -768,11 +768,11 @@ public class AALSpaceModuleImpl
 					discoveryConnectors.add(connector);
 				}
 			} else if (arg0 instanceof CommunicationModule) {
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "New CommunicationModule added..." }, null);
 				communicationModule = (CommunicationModule) arg0;
 			} else if (arg0 instanceof ControlBroker) {
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "ControkBroker added..." }, null);
 				controlBoker = (ControlBroker) arg0;
 			}
@@ -783,19 +783,19 @@ public class AALSpaceModuleImpl
 		if (arg0 != null) {
 			if (arg0 instanceof DiscoveryConnector) {
 				DiscoveryConnector connector = (DiscoveryConnector) arg0;
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "Removing the DiscoveryConnector" }, null);
 				discoveryConnectors.remove(connector);
 				if (discoveryConnectors.size() == 0) {
 					initialized = false;
 				}
 			} else if (arg0 instanceof CommunicationModule) {
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "CommunicationModule removed..." }, null);
 				communicationModule = null;
 				initialized = false;
 			} else if (arg0 instanceof ControlBroker) {
-				LogUtils.logDebug(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
+				LogUtils.logDebug(context, SpaceModuleImpl.class, "SpaceModuleImpl",
 						new Object[] { "ControlBroker removed..." }, null);
 				controlBoker = null;
 				initialized = false;
@@ -834,8 +834,8 @@ public class AALSpaceModuleImpl
 				try {
 					discoveryConnector.announceSpace(spaceCard);
 				} catch (DiscoveryConnectorException e) {
-					LogUtils.logError(context, AALSpaceModuleImpl.class, "AALSpaceModuleImpl",
-							new Object[] { "error during AALSpace renew: " + spaceCard.toString() }, null);
+					LogUtils.logError(context, SpaceModuleImpl.class, "SpaceModuleImpl",
+							new Object[] { "error during Space renew: " + spaceCard.toString() }, null);
 				}
 			}
 		}
@@ -846,7 +846,7 @@ public class AALSpaceModuleImpl
 			return GsonParserBuilder.getInstance().fromJson(message, SpaceMessage.class);
 		} catch (Exception e) {
 
-			throw new SpaceMessageException("Unable to unmashall AALSpaceMessage. Original message: " + message
+			throw new SpaceMessageException("Unable to unmashall SpaceMessage. Original message: " + message
 					+ ". Full Stack: " + e.toString());
 		}
 	}
