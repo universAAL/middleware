@@ -67,7 +67,7 @@ public class KarafDeployConnector implements DeployConnector, SharedObjectListen
 	// private boolean initialized = false;
 	// private final static String UAPP_SUFFIX = ".uapp";
 	private final static String KAR_EXTENSION = "kar";
-	private final static String KAR_DEPLOY_DIR = System.getProperty("org.universeAAL.connector.karaf.deploydir",
+	private final static String KAR_DEPLOY_DIR = System.getProperty("org.universAAL.connector.karaf.deploydir",
 			"deploy");
 	private static final String JAR_EXTENSION = "jar";
 
