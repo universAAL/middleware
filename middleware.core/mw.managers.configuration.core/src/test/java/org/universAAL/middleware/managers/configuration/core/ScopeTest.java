@@ -30,32 +30,32 @@ import org.universAAL.middleware.managers.configuration.core.impl.factories.Scop
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class ScopeTest {
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructorsAALSpace1() {
+	public void testConstructorsSpace1() {
 		new SpaceScope(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructorsAALSpace2() {
+	public void testConstructorsSpace2() {
 		new SpaceScope("");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructorsAALSpace3() {
+	public void testConstructorsSpace3() {
 		new SpaceScope("not:ok");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructorsAALSpace4() {
+	public void testConstructorsSpace4() {
 		new SpaceScope("not ok");
 	}
 
 	@Test
-	public void testConstructorsAALSpace5() {
+	public void testConstructorsSpace5() {
 		new SpaceScope("ok");
 	}
 

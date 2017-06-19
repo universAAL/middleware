@@ -25,14 +25,14 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
  * a Class that manages connections to universAAL modules.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class SharedObjectConnector implements SharedObjectListener {
 
 	private ModuleContext context;
-	private SpaceManager aalSpaceManager;
+	private SpaceManager spaceManager;
 	private MessageContentSerializer messageContentSerializer;
 	private boolean stopping = false;
 	private ControlBroker controlBroker;
@@ -42,16 +42,16 @@ public class SharedObjectConnector implements SharedObjectListener {
 	}
 
 	/**
-	 * @return the aalSpaceManager
+	 * @return the SpaceManager
 	 */
-	public synchronized final SpaceManager getAalSpaceManager() {
-		while (!stopping && aalSpaceManager == null) {
+	public synchronized final SpaceManager getSpaceManager() {
+		while (!stopping && spaceManager == null) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
 			}
 		}
-		return aalSpaceManager;
+		return spaceManager;
 	}
 
 	/**
@@ -80,9 +80,6 @@ public class SharedObjectConnector implements SharedObjectListener {
 		return messageContentSerializer;
 	}
 
-	/**
-	 * 
-	 */
 	public SharedObjectConnector(ModuleContext mc) {
 		context = mc;
 		susbcribeFor(SpaceManager.class.getName());
@@ -92,7 +89,7 @@ public class SharedObjectConnector implements SharedObjectListener {
 
 	private synchronized void add(Object shr) {
 		if (shr instanceof SpaceManager) {
-			aalSpaceManager = (SpaceManager) shr;
+			spaceManager = (SpaceManager) shr;
 			notifyAll();
 		} else if (shr instanceof ControlBroker) {
 			controlBroker = (ControlBroker) shr;
@@ -110,17 +107,15 @@ public class SharedObjectConnector implements SharedObjectListener {
 		}
 	}
 
-	/** {@ inheritDoc} */
 	public void sharedObjectAdded(Object sharedObj, Object removeHook) {
 		if (!stopping) {
 			add(sharedObj);
 		}
 	}
 
-	/** {@ inheritDoc} */
 	public void sharedObjectRemoved(Object removeHook) {
 		if (removeHook instanceof SpaceManager) {
-			aalSpaceManager = null;
+			spaceManager = null;
 		} else if (removeHook instanceof ControlBroker) {
 			controlBroker = null;
 		} else if (removeHook instanceof MessageContentSerializer) {

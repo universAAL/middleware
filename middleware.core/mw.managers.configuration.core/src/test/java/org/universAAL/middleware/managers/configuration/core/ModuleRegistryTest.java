@@ -30,7 +30,7 @@ import org.universAAL.middleware.interfaces.configuration.configurationDefinitio
 import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.managers.configuration.core.impl.factories.ScopeFactory;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.ModuleRegistry;
-import org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology;
+import org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology;
 import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
@@ -63,7 +63,7 @@ public class ModuleRegistryTest {
 				new Object[] { MessageContentSerializer.class.getName() });
 
 		OntologyManagement.getInstance().register(mc, new DataRepOntology());
-		OntologyManagement.getInstance().register(mc, new AALConfigurationOntology());
+		OntologyManagement.getInstance().register(mc, new ConfigurationOntology());
 		TurtleUtil.moduleContext = mc;
 	}
 

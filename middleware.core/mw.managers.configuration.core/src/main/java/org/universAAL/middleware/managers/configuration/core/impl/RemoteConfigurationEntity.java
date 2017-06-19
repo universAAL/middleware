@@ -90,7 +90,7 @@ public abstract class RemoteConfigurationEntity extends GenericConfigurationEnti
 		root.changeProperty(ConfigurationManagerImpl.PROP_PARAM, filter);
 		root.changeProperty(ConfigurationManagerImpl.PROP_LOCALE, loc);
 		ConfigurationMessage cm = new ConfigurationMessage(ConfigurationMessageType.QUERY,
-				confManager.shared.getAalSpaceManager().getMyPeerCard(),
+				confManager.shared.getSpaceManager().getMyPeerCard(),
 				confManager.shared.getMessageContentSerializer().serialize(root));
 
 		// TODO add receivers.

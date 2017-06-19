@@ -28,7 +28,7 @@ import org.universAAL.middleware.interfaces.configuration.configurationDefinitio
 import org.universAAL.middleware.interfaces.configuration.scope.SpaceScope;
 import org.universAAL.middleware.interfaces.configuration.scope.Scope;
 import org.universAAL.middleware.managers.configuration.core.impl.factories.EntityFactory;
-import org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology;
+import org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology;
 import org.universAAL.middleware.managers.configuration.core.owl.Entity;
 import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.IntRestriction;
@@ -41,7 +41,7 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class EntityTest {
 
@@ -54,7 +54,7 @@ public class EntityTest {
 				new Object[] { MessageContentSerializer.class.getName() });
 
 		OntologyManagement.getInstance().register(mc, new DataRepOntology());
-		OntologyManagement.getInstance().register(mc, new AALConfigurationOntology());
+		OntologyManagement.getInstance().register(mc, new ConfigurationOntology());
 		TurtleUtil.moduleContext = mc;
 	}
 
@@ -63,7 +63,7 @@ public class EntityTest {
 		Entity e = EntityFactory.getEntity(new ConfigurationParameter() {
 
 			public Scope getScope() {
-				return new SpaceScope("aalspace.config");
+				return new SpaceScope("space.config");
 			}
 
 			public String getDescription(Locale loc) {

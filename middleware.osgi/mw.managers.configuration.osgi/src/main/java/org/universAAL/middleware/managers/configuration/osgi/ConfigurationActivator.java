@@ -36,7 +36,7 @@ public class ConfigurationActivator implements BundleActivator {
 		context = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { arg0 });
 		LogUtils.logDebug(context, getClass(), "start", "Starting Configuration Manager.");
 		/*
-		 * uAAL stuff
+		 * universAAL stuff
 		 */
 		cm = new ConfigurationManagerImpl(context, new FileProvider(context.getConfigHome()));
 
@@ -49,12 +49,10 @@ public class ConfigurationActivator implements BundleActivator {
 	public void stop(BundleContext arg0) throws Exception {
 		LogUtils.logDebug(context, getClass(), "stop", "Stopping.");
 		/*
-		 * close uAAL stuff
+		 * close universAAL stuff
 		 */
 		cm.finish();
 		cm = null;
 		LogUtils.logDebug(context, getClass(), "stop", "Stopped.");
-
 	}
-
 }

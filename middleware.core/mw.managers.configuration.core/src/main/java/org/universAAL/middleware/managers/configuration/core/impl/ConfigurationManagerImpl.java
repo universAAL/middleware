@@ -53,7 +53,7 @@ import org.universAAL.middleware.managers.configuration.core.impl.secondaryManag
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.PendingRequestsManager;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SharedObjectConnector;
 import org.universAAL.middleware.managers.configuration.core.impl.secondaryManagers.SynchronousConfEntityManager;
-import org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology;
+import org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology;
 import org.universAAL.middleware.managers.configuration.core.owl.ConfigurationFile;
 import org.universAAL.middleware.managers.configuration.core.owl.ConfigurationParameter;
 import org.universAAL.middleware.managers.configuration.core.owl.Entity;
@@ -72,8 +72,8 @@ import org.universAAL.middleware.xsd.Base64Binary;
 public class ConfigurationManagerImpl implements ConfigurationManager, ConfigurationManagerConnector,
 		ConfigurationEditor, DynamicDescribedEntityListener {
 
-	static final String PROP_PARAM = AALConfigurationOntology.NAMESPACE + "messageParameter";
-	static final String PROP_LOCALE = AALConfigurationOntology.NAMESPACE + "preferredLocale";
+	static final String PROP_PARAM = ConfigurationOntology.NAMESPACE + "messageParameter";
+	static final String PROP_LOCALE = ConfigurationOntology.NAMESPACE + "preferredLocale";
 
 	private ModuleContext context;
 
@@ -90,7 +90,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	 * Internal structures
 	 */
 	HashMap<String, DescribedEntity> entitiesSources;
-	private AALConfigurationOntology ont;
+	private ConfigurationOntology ont;
 
 	/**
 	 * 
@@ -98,7 +98,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	public ConfigurationManagerImpl(ModuleContext mc, FileManagement fm) {
 		this.context = mc;
 		// register ontology
-		ont = new AALConfigurationOntology();
+		ont = new ConfigurationOntology();
 		OntologyManagement.getInstance().register(context, ont);
 		moduleRegistry = new ModuleRegistry();
 		entitiesSources = new HashMap<String, DescribedEntity>();
@@ -447,7 +447,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	 * @return
 	 */
 	public TypeExpression localOnlyExpression() {
-		String localPeerID = shared.getAalSpaceManager().getMyPeerCard().getPeerID();
+		String localPeerID = shared.getSpaceManager().getMyPeerCard().getPeerID();
 		URIRestriction localOnly = new URIRestriction();
 		localOnly.setPattern("urn\\:configscope\\:.*\\:inst\\:" + localPeerID + ".*");
 		return localOnly;
@@ -468,7 +468,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 		root.changeProperty(PROP_PARAM, filters);
 		root.changeProperty(PROP_LOCALE, locale);
 		ConfigurationMessage cm = new ConfigurationMessage(ConfigurationMessageType.QUERY,
-				shared.getAalSpaceManager().getMyPeerCard(), shared.getMessageContentSerializer().serialize(root));
+				shared.getSpaceManager().getMyPeerCard(), shared.getMessageContentSerializer().serialize(root));
 		// send
 		shared.getControlBroker().sendConfigurationMessage(cm);
 	}
@@ -482,7 +482,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 		root.changeProperty(PROP_PARAM, list);
 		String serialized = shared.getMessageContentSerializer().serialize(root);
 		ConfigurationMessage cm = new ConfigurationMessage(ConfigurationMessageType.PROPAGATE,
-				shared.getAalSpaceManager().getMyPeerCard(), serialized);
+				shared.getSpaceManager().getMyPeerCard(), serialized);
 		// send the list of Entities to all nodes.
 		shared.getControlBroker().sendConfigurationMessage(cm);
 	}
@@ -490,7 +490,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	/** {@ inheritDoc} */
 	public void processPropagation(ConfigurationMessage message) {
 		// ignore my own propagations
-		if (message.isSentFrom(shared.getAalSpaceManager().getMyPeerCard())) {
+		if (message.isSentFrom(shared.getSpaceManager().getMyPeerCard())) {
 			return;
 		}
 		Object r = shared.getMessageContentSerializer().deserialize(message.getPayload());
