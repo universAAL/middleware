@@ -18,7 +18,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.middleware.managers.aalspace.osgi;
+package org.universAAL.middleware.managers.space.osgi;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -35,9 +35,9 @@ import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.managers.aalspace.SpaceManagerImpl;
 import org.universAAL.middleware.managers.api.SpaceEventHandler;
 import org.universAAL.middleware.managers.api.SpaceManager;
+import org.universAAL.middleware.managers.space.SpaceManagerImpl;
 
 /**
  *
@@ -67,18 +67,18 @@ public class Activator implements BundleActivator, ManagedService {
 			configurationAdmin = (ConfigurationAdmin) context.getService(sr);
 		Configuration config = configurationAdmin.getConfiguration(SERVICE_PID);
 
-		Dictionary aalSpaceManagerProps = config.getProperties();
+		Dictionary spaceManagerProps = config.getProperties();
 
 		// if null, the configuration is new
-		if (aalSpaceManagerProps == null) {
-			aalSpaceManagerProps = new Hashtable<String, String>();
+		if (spaceManagerProps == null) {
+			spaceManagerProps = new Hashtable<String, String>();
 		} else
-			spaceManager.loadConfigurations(aalSpaceManagerProps);
+			spaceManager.loadConfigurations(spaceManagerProps);
 
 		// init
 		spaceManager.init();
 
-		LogUtils.logDebug(moduleContext, Activator.class, "Activator", new Object[] { "Starting AALSpaceManager..." },
+		LogUtils.logDebug(moduleContext, Activator.class, "Activator", new Object[] { "Starting SpaceManager..." },
 				null);
 
 		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, spaceManager,

@@ -1,4 +1,4 @@
-package org.universAAL.middleware.managers.aalspace.test;
+package org.universAAL.middleware.managers.space.test;
 
 import org.universAAL.itests.IntegrationTest;
 

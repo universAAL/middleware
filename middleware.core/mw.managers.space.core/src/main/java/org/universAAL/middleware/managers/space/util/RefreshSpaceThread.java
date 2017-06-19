@@ -18,7 +18,7 @@
         See the License for the specific language governing permissions and
         limitations under the License.
  */
-package org.universAAL.middleware.managers.aalspace.util;
+package org.universAAL.middleware.managers.space.util;
 
 import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.container.ModuleContext;
@@ -26,17 +26,17 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
- * Thread for refreshing AAL Spaces
- * 
+ * Thread for refreshing Spaces
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  */
-public class RefreshAALSpaceThread implements Runnable {
+public class RefreshSpaceThread implements Runnable {
 
 	ModuleContext moduleContext;
-	SpaceManager aalSpaceManager;
+	SpaceManager spaceManager;
 	ControlBroker controlBroker;
 
-	public RefreshAALSpaceThread(ModuleContext moduleContext) {
+	public RefreshSpaceThread(ModuleContext moduleContext) {
 		this.moduleContext = moduleContext;
 	}
 
@@ -47,13 +47,13 @@ public class RefreshAALSpaceThread implements Runnable {
 				new Object[] { ControlBroker.class.getName() });
 		if (o != null && o1 != null) {
 			try {
-				aalSpaceManager = (SpaceManager) o;
+				spaceManager = (SpaceManager) o;
 				controlBroker = (ControlBroker) o1;
-				if (aalSpaceManager.getSpaceDescriptor() != null)
-					controlBroker.renewSpace(aalSpaceManager.getSpaceDescriptor().getSpaceCard());
+				if (spaceManager.getSpaceDescriptor() != null)
+					controlBroker.renewSpace(spaceManager.getSpaceDescriptor().getSpaceCard());
 			} catch (Exception e) {
-				LogUtils.logError(moduleContext, RefreshAALSpaceThread.class, "RefreshAALSpaceThread",
-						new Object[] { "Error during AAL Space refresh" }, null);
+				LogUtils.logError(moduleContext, RefreshSpaceThread.class, "RefreshSpaceThread",
+						new Object[] { "Error during Space refresh" }, null);
 			}
 
 		}

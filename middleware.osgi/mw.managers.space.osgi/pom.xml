@@ -49,10 +49,10 @@
             <Bundle-Name>${project.name}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Export-Package>org.universAAL.middleware.managers.aalspace,
-                     org.universAAL.middleware.managers.aalspace.osgi,
-                     org.universAAL.middleware.managers.aalspace.util</Export-Package>
-            <Bundle-Activator>org.universAAL.middleware.managers.aalspace.osgi.Activator</Bundle-Activator>
+            <Export-Package>org.universAAL.middleware.managers.space,
+                     org.universAAL.middleware.managers.space.osgi,
+                     org.universAAL.middleware.managers.space.util</Export-Package>
+            <Bundle-Activator>org.universAAL.middleware.managers.space.osgi.Activator</Bundle-Activator>
             <Private-Package />
           </instructions>
         </configuration>

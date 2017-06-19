@@ -18,24 +18,23 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.middleware.managers.aalspace.util;
+package org.universAAL.middleware.managers.space.util;
 
 /**
- * Widely-used constants for the AALSpaceManager
+ * Widely-used constants for the SpaceManager
  *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class Consts {
-	public static String AAL_SPACE_CONFIGURATION_PATH = "spaceConfigurationPath";
+	public static String SPACE_CONFIGURATION_PATH = "spaceConfigurationPath";
 	public static String PEER_ID = "peerID";
 	public static String PEER_ROLE = "peerRole";
 	public static String SPACE_EXTENSION = "spaceExtension";
-	public static String AAL_SPACE_VALIDATION = "spaceValidation";
-	public static String AAL_SPACE_LIFETIME = "spaceLifeTime";
-	public static String AAL_SPACE_SCHEMA_URL = "spaceSchemaURL";
-	public static String AAL_SPACE_SCHEMA_NAME = "spaceSchemaName";
+	public static String SPACE_VALIDATION = "spaceValidation";
+	public static String SPACE_LIFETIME = "spaceLifeTime";
+	public static String SPACE_SCHEMA_URL = "spaceSchemaURL";
+	public static String SPACE_SCHEMA_NAME = "spaceSchemaName";
 	public static String WAIT_BEFEORE_CLOSING_CHANNEL = "waitBeforeClosingChannels";
 	public static String WAIT_AFTER_JOIN_REQUEST = "waitAfterJoinRequest";
-
 }
