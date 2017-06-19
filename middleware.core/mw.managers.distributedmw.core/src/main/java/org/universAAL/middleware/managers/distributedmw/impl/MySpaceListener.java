@@ -12,13 +12,13 @@ import org.universAAL.middleware.managers.api.SpaceListener;
 import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
 public class MySpaceListener implements SpaceListener, SharedObjectListener {
 
-	private SpaceManager theAALSpaceManager = null;
+	private SpaceManager theSpaceManager = null;
 
 	// the singleton instance
 	private static MySpaceListener instance = null;
@@ -43,7 +43,7 @@ public class MySpaceListener implements SpaceListener, SharedObjectListener {
 	}
 
 	public void start() {
-		// get AAL Space Manager to register this listener
+		// get Space Manager to register this listener
 		Object[] o = DistributedMWManagerImpl.context.getContainer().fetchSharedObject(DistributedMWManagerImpl.context,
 				new Object[] { SpaceManager.class.getName() }, this);
 		if (o != null) {
@@ -59,10 +59,10 @@ public class MySpaceListener implements SpaceListener, SharedObjectListener {
 		synchronized (listeners) {
 			listeners.clear();
 		}
-		// remove me as AALSpaceListener
+		// remove me as SpaceListener
 		synchronized (this) {
-			if (theAALSpaceManager != null) {
-				theAALSpaceManager.removeSpaceListener(this);
+			if (theSpaceManager != null) {
+				theSpaceManager.removeSpaceListener(this);
 			}
 		}
 		// and remove this object
@@ -107,27 +107,27 @@ public class MySpaceListener implements SpaceListener, SharedObjectListener {
 
 	/**
 	 * Get all peers, including this peer.
-	 * 
+	 *
 	 * @return
 	 */
 	public List<PeerCard> getPeers() {
 		List<PeerCard> ret = new ArrayList<PeerCard>();
 
-		Map<String, PeerCard> peers = theAALSpaceManager.getPeers();
+		Map<String, PeerCard> peers = theSpaceManager.getPeers();
 		if (peers != null) {
 			for (PeerCard pc : peers.values()) {
 				ret.add(pc);
 			}
 		}
-		ret.add(theAALSpaceManager.getMyPeerCard());
+		ret.add(theSpaceManager.getMyPeerCard());
 		return ret;
 	}
 
 	public void sharedObjectAdded(Object sharedObj, Object removeHook) {
 		if (sharedObj instanceof SpaceManager) {
 			synchronized (this) {
-				theAALSpaceManager = (SpaceManager) sharedObj;
-				theAALSpaceManager.addSpaceListener(this);
+				theSpaceManager = (SpaceManager) sharedObj;
+				theSpaceManager.addSpaceListener(this);
 			}
 		}
 	}
@@ -135,7 +135,7 @@ public class MySpaceListener implements SpaceListener, SharedObjectListener {
 	public void sharedObjectRemoved(Object removeHook) {
 		if (removeHook instanceof SpaceManager) {
 			synchronized (this) {
-				theAALSpaceManager = null;
+				theSpaceManager = null;
 			}
 		}
 	}

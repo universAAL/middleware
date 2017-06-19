@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2016 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,9 +34,9 @@ import org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManage
 import org.universAAL.middleware.rdf.Resource;
 
 /**
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
 public abstract class ListenerHandler<T> implements SpaceListener {
 
@@ -125,7 +125,7 @@ public abstract class ListenerHandler<T> implements SpaceListener {
 						allPeersListeners.add(listener);
 					}
 
-					// create the list of all nodes from AAL Space Manager
+					// create the list of all nodes from Space Manager
 					nodes = MySpaceListener.getInstance().getPeers();
 					if (nodes == null) {
 						LogUtils.logError(DistributedMWManagerImpl.context, ListenerHandler.class, "addListener",
@@ -134,7 +134,7 @@ public abstract class ListenerHandler<T> implements SpaceListener {
 					}
 				} else if (nodes.size() == 0) {
 					// an empty list -> subscribe to this peer only
-					nodes.add(DistributedMWManagerImpl.shared.getAalSpaceManager().getMyPeerCard());
+					nodes.add(DistributedMWManagerImpl.shared.getSpaceManager().getMyPeerCard());
 				}
 
 				for (PeerCard node : nodes) {
@@ -185,7 +185,7 @@ public abstract class ListenerHandler<T> implements SpaceListener {
 						allPeersListeners.remove(listener);
 					}
 
-					// create the list of all nodes from AAL Space Manager
+					// create the list of all nodes from Space Manager
 					nodes = MySpaceListener.getInstance().getPeers();
 					if (nodes == null) {
 						LogUtils.logError(DistributedMWManagerImpl.context, ListenerHandler.class, "addListener",
@@ -194,7 +194,7 @@ public abstract class ListenerHandler<T> implements SpaceListener {
 					}
 				} else if (nodes.size() == 0) {
 					// an empty list -> un-subscribe from this peer only
-					nodes.add(DistributedMWManagerImpl.shared.getAalSpaceManager().getMyPeerCard());
+					nodes.add(DistributedMWManagerImpl.shared.getSpaceManager().getMyPeerCard());
 				}
 
 				for (PeerCard node : nodes) {
@@ -270,7 +270,7 @@ public abstract class ListenerHandler<T> implements SpaceListener {
 
 	public void peerJoined(final PeerCard peer) {
 		// check if we are called with this peer
-		if (peer.getPeerID().equals(DistributedMWManagerImpl.shared.getAalSpaceManager().getMyPeerCard()))
+		if (peer.getPeerID().equals(DistributedMWManagerImpl.shared.getSpaceManager().getMyPeerCard()))
 			return;
 
 		new Thread() {

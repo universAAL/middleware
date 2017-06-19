@@ -110,7 +110,7 @@ public class DistributedMWManagerImpl implements DistributedBusMemberManager, Di
 			Object[] removeParamsEvtH) {
 		DistributedMWManagerImpl.context = context;
 		shared = new SharedObjectConnector(context);
-		myPeer = shared.getAalSpaceManager().getMyPeerCard();
+		myPeer = shared.getSpaceManager().getMyPeerCard();
 		this.removeParamsBMLMgmt = removeParamsBMLMgmt;
 		this.removeParamsLLMgmt = removeParamsLLMgmt;
 		this.removeParamsEvtH = removeParamsEvtH;
