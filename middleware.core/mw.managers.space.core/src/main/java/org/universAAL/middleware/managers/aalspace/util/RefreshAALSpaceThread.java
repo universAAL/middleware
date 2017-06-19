@@ -50,7 +50,7 @@ public class RefreshAALSpaceThread implements Runnable {
 				aalSpaceManager = (SpaceManager) o;
 				controlBroker = (ControlBroker) o1;
 				if (aalSpaceManager.getSpaceDescriptor() != null)
-					controlBroker.renewAALSpace(aalSpaceManager.getSpaceDescriptor().getSpaceCard());
+					controlBroker.renewSpace(aalSpaceManager.getSpaceDescriptor().getSpaceCard());
 			} catch (Exception e) {
 				LogUtils.logError(moduleContext, RefreshAALSpaceThread.class, "RefreshAALSpaceThread",
 						new Object[] { "Error during AAL Space refresh" }, null);

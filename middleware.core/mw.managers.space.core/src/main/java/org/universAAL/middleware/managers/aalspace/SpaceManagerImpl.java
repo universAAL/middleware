@@ -321,7 +321,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 			// first look for existing AALSpace with the same name as the
 			// one reported in the default config.file
 			List<SpaceCard> spaceCards = controlBroker
-					.discoverAALSpace(buildAALSpaceFilter(aalSpaceDefaultConfiguration));
+					.discoverSpace(buildAALSpaceFilter(aalSpaceDefaultConfiguration));
 			if (spaceCards != null && spaceCards.size() > 0) {
 				LogUtils.logDebug(context, SpaceManagerImpl.class, "initAALSpace",
 						new Object[] { "Default AALSpace found" }, null);
@@ -355,7 +355,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 						currentAALSpace.setDeployManager(getMyPeerCard());
 
 						// announce the AAL Space
-						controlBroker.buildAALSpace(myAALSpace);
+						controlBroker.buildSpace(myAALSpace);
 
 						// start threads
 						refreshAALSpaceThread = new RefreshAALSpaceThread(context);
@@ -968,7 +968,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 						null);
 				PeerCard spaceCoordinator = new PeerCard(spaceDescriptor.getSpaceCard().getCoordinatorID(),
 						PeerRole.COORDINATOR);
-				controlBroker.leaveAALSpace(spaceCoordinator, spaceDescriptor.getSpaceCard());
+				controlBroker.leaveSpace(spaceCoordinator, spaceDescriptor.getSpaceCard());
 				LogUtils.logDebug(context, SpaceManagerImpl.class, "leaveAALSpace",
 						new Object[] { "Leave message sent!" }, null);
 
@@ -1060,7 +1060,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 		channels.add(peeringChannel);
 		channels.addAll(spaceDescriptor.getBrokerChannels());
 		controlBroker.resetModule(channels);
-		controlBroker.destroyAALSpace(spaceDescriptor.getSpaceCard());
+		controlBroker.destroySpace(spaceDescriptor.getSpaceCard());
 	}
 
 	public void addSpaceListener(SpaceListener listener) {
@@ -1089,12 +1089,12 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 	}
 
 	public void mpaInstalled(SpaceDescriptor spaceDescriptor) {
-		controlBroker.signalAALSpaceStatus(SpaceStatus.INSTALLED_UAAP, spaceDescriptor);
+		controlBroker.signalSpaceStatus(SpaceStatus.INSTALLED_UAAP, spaceDescriptor);
 	}
 
 	public void mpaInstalling(SpaceDescriptor spaceDescriptor) {
 		// send a event notification to the AALSpace
-		controlBroker.signalAALSpaceStatus(SpaceStatus.INSTALLING_UAAP, spaceDescriptor);
+		controlBroker.signalSpaceStatus(SpaceStatus.INSTALLING_UAAP, spaceDescriptor);
 	}
 
 	public void spaceEvent(SpaceStatus newStatus) {
