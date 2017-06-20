@@ -42,16 +42,16 @@ import org.universAAL.middleware.brokers.message.deploy.DeployMessage.DeployMess
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
 import org.universAAL.middleware.brokers.message.space.SpaceMessage;
 import org.universAAL.middleware.brokers.message.space.SpaceMessage.SpaceMessageTypes;
-import org.universAAL.middleware.deploymanager.uapp.model.ContactType;
-import org.universAAL.middleware.deploymanager.uapp.model.VersionType;
-import org.universAAL.middleware.deploymanager.uapp.model.AalUapp.App;
-import org.universAAL.middleware.deploymanager.uapp.model.ContactType.OtherChannel;
 import org.universAAL.middleware.interfaces.ChannelDescriptor;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.space.SpaceCard;
 import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
+import org.universAAL.middleware.managers.deploy.uapp.model.ContactType;
+import org.universAAL.middleware.managers.deploy.uapp.model.VersionType;
+import org.universAAL.middleware.managers.deploy.uapp.model.AalUapp.App;
+import org.universAAL.middleware.managers.deploy.uapp.model.ContactType.OtherChannel;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

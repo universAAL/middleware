@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 import java.util.Enumeration;
 import java.util.List;
 
-import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
 import org.universAAL.middleware.serialization.turtle.TurtleUtil;

@@ -28,10 +28,10 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import org.universAAL.container.JUnit.JUnitModuleContext;
-import org.universAAL.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.msg.BusMessage;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.datarep.SharedResources;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.PeerRole;

@@ -31,12 +31,11 @@ import org.junit.Test;
 import org.universAAL.middleware.brokers.message.BrokerMessage;
 import org.universAAL.middleware.brokers.message.deploy.DeployMessage.DeployMessageType;
 import org.universAAL.middleware.brokers.message.gson.GsonParserBuilder;
-import org.universAAL.middleware.deploymanager.uapp.model.AalUapp.App;
-import org.universAAL.middleware.deploymanager.uapp.model.ContactType;
-import org.universAAL.middleware.deploymanager.uapp.model.ContactType.OtherChannel;
-import org.universAAL.middleware.deploymanager.uapp.model.VersionType;
-
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
+import org.universAAL.middleware.managers.deploy.uapp.model.ContactType;
+import org.universAAL.middleware.managers.deploy.uapp.model.VersionType;
+import org.universAAL.middleware.managers.deploy.uapp.model.AalUapp.App;
+import org.universAAL.middleware.managers.deploy.uapp.model.ContactType.OtherChannel;
 
 import com.google.gson.Gson;
 

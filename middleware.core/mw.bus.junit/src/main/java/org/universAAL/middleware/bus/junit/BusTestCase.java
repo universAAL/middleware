@@ -26,12 +26,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.universAAL.container.JUnit.JUnitContainer;
-import org.universAAL.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.connectors.util.ChannelMessage;
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitContainer;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
 import org.universAAL.middleware.datarep.SharedResources;

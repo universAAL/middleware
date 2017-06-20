@@ -25,7 +25,7 @@ import java.util.Locale;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
 import org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationParameter;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPartPattern;
 import org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPattern;

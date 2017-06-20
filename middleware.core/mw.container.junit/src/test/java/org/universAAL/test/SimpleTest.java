@@ -16,8 +16,8 @@
 
 package org.universAAL.test;
 
-import org.universAAL.container.JUnit.JUnitContainer;
-import org.universAAL.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.container.JUnit.JUnitContainer;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
 
 /**
  * @author amedrano

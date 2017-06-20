@@ -2,7 +2,7 @@ package org.universAAL.middleware.service.test;
 
 import java.util.List;
 
-import org.universAAL.container.JUnit.JUnitModuleContext.LogLevel;
+import org.universAAL.middleware.container.JUnit.JUnitModuleContext.LogLevel;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ProfileExistsException;

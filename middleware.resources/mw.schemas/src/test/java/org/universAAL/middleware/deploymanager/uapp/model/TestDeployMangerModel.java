@@ -30,6 +30,11 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
+import org.universAAL.middleware.managers.deploy.uapp.model.AalUapp;
+import org.universAAL.middleware.managers.deploy.uapp.model.DeploymentUnit;
+import org.universAAL.middleware.managers.deploy.uapp.model.FeaturesRoot;
+import org.universAAL.middleware.managers.deploy.uapp.model.ObjectFactory;
+import org.universAAL.middleware.managers.deploy.uapp.model.Part;
 
 /**
  * 

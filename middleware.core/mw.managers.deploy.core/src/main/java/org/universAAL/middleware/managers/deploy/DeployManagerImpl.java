@@ -51,9 +51,6 @@ import org.universAAL.middleware.brokers.control.ExceptionUtils;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.SharedObjectListener;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.deploymanager.uapp.model.AalUapp;
-import org.universAAL.middleware.deploymanager.uapp.model.ObjectFactory;
-import org.universAAL.middleware.deploymanager.uapp.model.Part;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 import org.universAAL.middleware.interfaces.mpa.UAPPPartStatus;
@@ -68,6 +65,9 @@ import org.universAAL.middleware.managers.api.DeployManagerEventHandler;
 import org.universAAL.middleware.managers.api.InstallationResults;
 import org.universAAL.middleware.managers.api.InstallationResultsDetails;
 import org.universAAL.middleware.managers.api.UAPPPackage;
+import org.universAAL.middleware.managers.deploy.uapp.model.AalUapp;
+import org.universAAL.middleware.managers.deploy.uapp.model.ObjectFactory;
+import org.universAAL.middleware.managers.deploy.uapp.model.Part;
 import org.universAAL.middleware.managers.deploy.util.Consts;
 
 /**
