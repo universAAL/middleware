@@ -30,30 +30,30 @@ import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
  * Commands for universAAL
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
-@Command(scope = "universAAL", name = "peers", description = "Get the list of peers joining the AALSpace")
+@Command(scope = "universAAL", name = "peers", description = "Get the list of peers joining the Space")
 public class ListOfPeerCommand extends OsgiCommandSupport {
 
-	private SpaceManager aalSpaceManager;
+	private SpaceManager spaceManager;
 
 	@Override
 	protected Object doExecute() throws Exception {
 		log.debug("Executing command...");
 		ServiceReference ref = bundleContext.getServiceReference(SpaceManager.class.getName());
 		if (ref != null) {
-			aalSpaceManager = (SpaceManager) bundleContext.getService(ref);
+			spaceManager = (SpaceManager) bundleContext.getService(ref);
 		} else {
 			return null;
 		}
-		Map<String, PeerCard> peers = aalSpaceManager.getPeers();
+		Map<String, PeerCard> peers = spaceManager.getPeers();
 		if (peers != null) {
 			System.out.println(" Found: " + peers.size() + " Peers");
 			System.out.println(" ----------------------------------------");
 			for (String key : peers.keySet()) {
-				if (key.equals(aalSpaceManager.getMyPeerCard().getPeerID()))
+				if (key.equals(spaceManager.getMyPeerCard().getPeerID()))
 					System.out.println(" * " + peers.get(key));
 				else
 					System.out.println(peers.get(key));
@@ -61,7 +61,5 @@ public class ListOfPeerCommand extends OsgiCommandSupport {
 		}
 
 		return null;
-
 	}
-
 }

@@ -38,7 +38,7 @@ import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
  */
 public interface SpaceManager extends Manager {
 
-	public static final String COMUNICATION_TIMEOUT_KEY = "uAAL.synchronous.timeout";
+	public static final String COMUNICATION_TIMEOUT_KEY = "universAAL.synchronous.timeout";
 	public static final String COMUNICATION_TIMEOUT_VALUE = "10000";
 	public static final PeerRole DEFAULT_PEER_ROLE = PeerRole.PEER;
 	public static final String PEER_ID_FILE = "peer.ids";

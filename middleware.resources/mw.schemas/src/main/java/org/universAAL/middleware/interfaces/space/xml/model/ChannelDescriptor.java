@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
 import org.universAAL.middleware.interfaces.space.model.IChannelDescriptor;
 
 /**
- * This schema describes the meta-information of an AALSpace Channel
+ * This schema describes the meta-information of an Space Channel
  *
  *
  * <p>

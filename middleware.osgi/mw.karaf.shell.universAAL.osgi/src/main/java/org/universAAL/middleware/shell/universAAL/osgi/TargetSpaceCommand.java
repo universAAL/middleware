@@ -1,9 +1,9 @@
-/*	
+/*
 	Copyright 2007-2014 CNR-ISTI, http://isti.cnr.it
-	Institute of Information Science and Technologies 
-	of the Italian National Research Council 
+	Institute of Information Science and Technologies
+	of the Italian National Research Council
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,52 +20,42 @@
  */
 package org.universAAL.middleware.shell.universAAL.osgi;
 
-import java.util.Set;
-
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.ServiceReference;
-import org.universAAL.middleware.interfaces.space.SpaceCard;
 import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
  * Commands for universAAL
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
-@Command(scope = "universAAL", name = "spaces", description = "Discover the existing AAL Spaces")
-public class AALSpaceCommand extends OsgiCommandSupport {
+@Command(scope = "universAAL", name = "targetSpace", description = "Print the Target Spaces")
+public class TargetSpaceCommand extends OsgiCommandSupport {
 
-	private SpaceManager aalSpaceManager;
+	private SpaceManager spaceManager;
 
 	@Override
 	protected Object doExecute() throws Exception {
 		log.debug("Executing command...");
 		ServiceReference ref = bundleContext.getServiceReference(SpaceManager.class.getName());
 		if (ref != null) {
-			aalSpaceManager = (SpaceManager) bundleContext.getService(ref);
+			spaceManager = (SpaceManager) bundleContext.getService(ref);
 		} else {
 			return null;
 		}
-		Set<SpaceCard> aalSpaces = aalSpaceManager.getSpaces();
-		if (aalSpaces != null) {
-
-			System.out.println(" Found: " + aalSpaces.size() + " AAL Spaces");
-			System.out.println(" ----------------------------------------");
-			if (aalSpaces.size() == 0)
-				System.out.println("Waiting to join an AALSpace");
-
-			for (SpaceCard aalSpace : aalSpaces) {
-
-				if (aalSpaceManager.getSpaceDescriptor() != null
-						&& aalSpace.equals(aalSpaceManager.getSpaceDescriptor().getSpaceCard()))
-					System.out.println(" * " + aalSpace.toString());
-				else
-					System.out.println(aalSpace.toString());
-			}
-		}
-
+		// Space space =
+		// spaceManager.readSpaceDefaultConfigurations();
+		System.out.println("--------------------------");
+		System.out.println("Target Space:");
+		// System.out.println("Space Name:
+		// "+space.getSpaceDescriptor().getSpaceName()
+		// + "" +
+		// "Space ID: "+space.getSpaceDescriptor().getSpaceId() +
+		// " Space Descriptor:
+		// "+space.getSpaceDescriptor().getSpaceDescription());
+		System.out.println("--------------------------");
 		return null;
 	}
 }

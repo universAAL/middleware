@@ -29,50 +29,48 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.middleware.interfaces.space.SpaceCard;
 import org.universAAL.middleware.managers.api.SpaceManager;
 
-public class AALSpaceCommand implements Command {
+public class SpaceCommand implements Command {
 	private BundleContext m_context = null;
-	private SpaceManager aalSpaceManager;
+	private SpaceManager spaceManager;
 
-	public AALSpaceCommand(BundleContext context) {
+	public SpaceCommand(BundleContext context) {
 		this.m_context = context;
 	}
 
 	public void execute(String arg0, PrintStream out, PrintStream err) {
 		ServiceReference ref = m_context.getServiceReference(SpaceManager.class.getName());
 		if (ref != null) {
-			aalSpaceManager = (SpaceManager) m_context.getService(ref);
+			spaceManager = (SpaceManager) m_context.getService(ref);
 		} else {
-			err.println("AALSapceManager not found");
+			err.println("SpaceManager not found");
 			return;
 		}
-		Set<SpaceCard> aalSpaces = aalSpaceManager.getSpaces();
-		if (aalSpaces != null) {
-			out.println(" Found: " + aalSpaces.size() + " AAL Spaces");
+		Set<SpaceCard> spaces = spaceManager.getSpaces();
+		if (spaces != null) {
+			out.println(" Found: " + spaces.size() + " Spaces");
 			out.println(" ----------------------------------------");
-			for (SpaceCard aalSpace : aalSpaces) {
+			for (SpaceCard space : spaces) {
 
-				if (aalSpaceManager.getSpaceDescriptor() != null
-						&& aalSpace.equals(aalSpaceManager.getSpaceDescriptor().getSpaceCard()))
-					out.println(" * " + aalSpace.toString());
+				if (spaceManager.getSpaceDescriptor() != null
+						&& space.equals(spaceManager.getSpaceDescriptor().getSpaceCard()))
+					out.println(" * " + space.toString());
 				else
-					out.println(aalSpace.toString());
+					out.println(space.toString());
 			}
 		}
 
 	}
 
 	public String getName() {
-		return "universAAL:aalsapces";
+		return "universAAL:spaces";
 	}
 
 	public String getShortDescription() {
-
-		return "List the AAL Spaces found on this network";
+		return "List the Spaces found on this network";
 	}
 
 	public String getUsage() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

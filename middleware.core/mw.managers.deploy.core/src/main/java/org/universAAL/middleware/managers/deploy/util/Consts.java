@@ -22,7 +22,7 @@ package org.universAAL.middleware.managers.deploy.util;
 
 /**
  * Widely-used constants for the DeployManager
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
@@ -33,6 +33,6 @@ public class Consts {
 	public static final String APPLICATION_CONFIGURATION_PATH = "config";
 	public static final String APPLICATION_BINARYPART_PATH = "bin";
 	public static final String APP_REGISTRY = "installation.registry";
-	public static final String DEPLOY_MANAGER_ID = "uAAL.dm";
+	public static final String DEPLOY_MANAGER_ID = "universAAL.dm";
 
 }
