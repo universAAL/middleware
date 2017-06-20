@@ -39,7 +39,7 @@ import org.universAAL.middleware.context.ContextEvent;
  */
 public class ContextProviderType extends ManagedIndividual {
 
-	public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE + "ContextProviderType";
+	public static final String MY_URI = ContextEvent.CONTEXT_NAMESPACE + "ContextProviderType";
 
 	/**
 	 * The ordering number for controllers, needed for the implementation of the
@@ -107,7 +107,7 @@ public class ContextProviderType extends ManagedIndividual {
 
 	// for the internal usage above
 	private ContextProviderType(int order) {
-		super(ContextEvent.uAAL_CONTEXT_NAMESPACE + names[order]);
+		super(ContextEvent.CONTEXT_NAMESPACE + names[order]);
 		this.order = order;
 	}
 

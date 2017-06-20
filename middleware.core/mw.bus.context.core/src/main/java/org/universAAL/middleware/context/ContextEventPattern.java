@@ -45,7 +45,7 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public class ContextEventPattern extends FinalizedResource implements EventAdvertisement, Subscription {
-	public static final String MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE + "ContextEventPattern";
+	public static final String MY_URI = ContextEvent.CONTEXT_NAMESPACE + "ContextEventPattern";
 
 	public class Indices {
 		private String[] subjects = null;

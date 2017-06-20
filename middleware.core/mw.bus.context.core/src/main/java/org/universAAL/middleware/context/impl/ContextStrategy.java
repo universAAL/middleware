@@ -56,10 +56,10 @@ public class ContextStrategy extends BusStrategy {
 
 	private static final String COMPOUND_INDEX_CONNECTOR = "";
 
-	private static final String PROP_uAAL_CONTEXT_PEER_PROVISIONS = Resource.VOCABULARY_NAMESPACE
+	private static final String PROP_CONTEXT_PEER_PROVISIONS = Resource.VOCABULARY_NAMESPACE
 			+ "myContextProvisions";
 
-	private static final String TYPE_uAAL_CONTEXT_BUS_PROVISIONS = Resource.VOCABULARY_NAMESPACE
+	private static final String TYPE_CONTEXT_BUS_PROVISIONS = Resource.VOCABULARY_NAMESPACE
 			+ "ContextProvisions";
 
 	public static class ContextFilterer {
@@ -155,7 +155,7 @@ public class ContextStrategy extends BusStrategy {
 			// create a CalledPeers for collecting peer responses
 			ICalledPeers calledPeers = createContextStrategyDataFactory().createCalledPeers();
 			Resource r = new Resource();
-			r.addType(TYPE_uAAL_CONTEXT_BUS_PROVISIONS, true);
+			r.addType(TYPE_CONTEXT_BUS_PROVISIONS, true);
 			((ContextBusImpl) bus).assessContentSerialization(r);
 			BusMessage message = new BusMessage(MessageType.p2p_request, r, bus);
 			send(message);
@@ -295,7 +295,7 @@ public class ContextStrategy extends BusStrategy {
 		if (content instanceof Resource) {
 			Resource resource = (Resource) content;
 			if (isContextBusProvisionList(resource) && resource.numberOfProperties() == 1) {
-				resource.setProperty(PROP_uAAL_CONTEXT_PEER_PROVISIONS, allProvisions.getContextEventPatterns());
+				resource.setProperty(PROP_CONTEXT_PEER_PROVISIONS, allProvisions.getContextEventPatterns());
 				send(message.createReply(content));
 			}
 		} else {
@@ -308,7 +308,7 @@ public class ContextStrategy extends BusStrategy {
 		if (content instanceof Resource) {
 			Resource resource = (Resource) content;
 			if (isContextBusProvisionList(resource)) {
-				Object provisionList = resource.getProperty(PROP_uAAL_CONTEXT_PEER_PROVISIONS);
+				Object provisionList = resource.getProperty(PROP_CONTEXT_PEER_PROVISIONS);
 				if (provisionList instanceof List && !((List) provisionList).isEmpty()) {
 					ICalledPeers calledPeers = numCalledPeers.getCalledPeers(message.getInReplyTo());
 					if (calledPeers != null) {
@@ -340,7 +340,7 @@ public class ContextStrategy extends BusStrategy {
 	}
 
 	private boolean isContextBusProvisionList(Resource resource) {
-		return TYPE_uAAL_CONTEXT_BUS_PROVISIONS.equals(resource.getType());
+		return TYPE_CONTEXT_BUS_PROVISIONS.equals(resource.getType());
 	}
 
 	private void handleEvent(BusMessage message) {

@@ -55,10 +55,10 @@ public class ContextProvider extends ManagedIndividual {
 	public static final String PROP_CONTEXT_SOURCE;
 
 	static {
-		MY_URI = ContextEvent.uAAL_CONTEXT_NAMESPACE + "ContextProvider";
-		PROP_CONTEXT_PROVIDED_EVENTS = ContextEvent.uAAL_CONTEXT_NAMESPACE + "myClassesOfEvents";
-		PROP_CONTEXT_PROVIDER_TYPE = ContextEvent.uAAL_CONTEXT_NAMESPACE + "hasType";
-		PROP_CONTEXT_SOURCE = ContextEvent.uAAL_CONTEXT_NAMESPACE + "hasSource";
+		MY_URI = ContextEvent.CONTEXT_NAMESPACE + "ContextProvider";
+		PROP_CONTEXT_PROVIDED_EVENTS = ContextEvent.CONTEXT_NAMESPACE + "myClassesOfEvents";
+		PROP_CONTEXT_PROVIDER_TYPE = ContextEvent.CONTEXT_NAMESPACE + "hasType";
+		PROP_CONTEXT_SOURCE = ContextEvent.CONTEXT_NAMESPACE + "hasSource";
 	}
 
 	public ContextProvider() {

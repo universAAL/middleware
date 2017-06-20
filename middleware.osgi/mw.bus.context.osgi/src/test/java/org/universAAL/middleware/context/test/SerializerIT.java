@@ -35,7 +35,7 @@ public class SerializerIT extends IntegrationTest {
 				+ "  rdf:object \"100\"^^<http://www.w3.org/2001/XMLSchema#int> .\r\n"
 				+ ":gauge a :ContextProviderType .\r\n" + "ns1:blind4 a ns:BlindController ,\r\n"
 				+ "    <http://ontology.universAAL.org/Device.owl#Device> ,\r\n"
-				+ "    <http://ontology.universAAL.org/uAAL.owl#PhysicalThing> ;\r\n"
+				+ "    <http://ontology.universAAL.org/universAAL.owl#PhysicalThing> ;\r\n"
 				+ "  ns:hasValue \"90\"^^<http://www.w3.org/2001/XMLSchema#int> .\r\n"
 				+ "ns1:TestMassContextProvider a :ContextProvider ;\r\n" + "  :hasType :gauge .";
 		MessageContentSerializer contentSerializer = (MessageContentSerializerEx) Activator.getModuleContext()

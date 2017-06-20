@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,15 +34,15 @@ import org.universAAL.middleware.rdf.ScopedResource;
  * and the object of the RDF statement specifies its state at a time provided as
  * a timestamp. Other properties can be used to give more info about the
  * validity and provider of the statement, to name a few.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class ContextEvent extends ScopedResource implements Event {
-	public static final String uAAL_CONTEXT_NAMESPACE = NAMESPACE_PREFIX + "Context.owl#";
+	public static final String CONTEXT_NAMESPACE = NAMESPACE_PREFIX + "Context.owl#";
 
-	public static final String MY_URI = uAAL_CONTEXT_NAMESPACE + "ContextEvent";
+	public static final String MY_URI = CONTEXT_NAMESPACE + "ContextEvent";
 
 	public static final String CONTEXT_EVENT_URI_PREFIX = "urn:org.universAAL.middleware.context.rdf:ContextEvent#";
 
@@ -73,7 +73,7 @@ public class ContextEvent extends ScopedResource implements Event {
 	 * property.
 	 */
 	public static final String LOCAL_NAME_CONFIDENCE = "hasConfidence";
-	public static final String PROP_CONTEXT_CONFIDENCE = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_CONFIDENCE;
+	public static final String PROP_CONTEXT_CONFIDENCE = CONTEXT_NAMESPACE + LOCAL_NAME_CONFIDENCE;
 
 	/*
 	 * Deprecated, because the accuracy of measurements can be stated in
@@ -85,7 +85,7 @@ public class ContextEvent extends ScopedResource implements Event {
 	 * org.universAAL.middleware.context.owl.MultiDimensionMeasure
 	 * #cumulativeErrorUpperBound}. public static final String
 	 * LOCAL_NAME_ACCURACY = "hasAccuracy"; public static final String
-	 * PROP_CONTEXT_ACCURACY = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_ACCURACY;
+	 * PROP_CONTEXT_ACCURACY = CONTEXT_NAMESPACE + LOCAL_NAME_ACCURACY;
 	 */
 
 	// no matter, which of the above types of reliability indications apply to
@@ -109,7 +109,7 @@ public class ContextEvent extends ScopedResource implements Event {
 	 * its registration time.
 	 */
 	public static final String LOCAL_NAME_PROVIDER = "hasProvider";
-	public static final String PROP_CONTEXT_PROVIDER = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_PROVIDER;
+	public static final String PROP_CONTEXT_PROVIDER = CONTEXT_NAMESPACE + LOCAL_NAME_PROVIDER;
 
 	/**
 	 * An optional property of context events is its expiration time which says
@@ -121,7 +121,7 @@ public class ContextEvent extends ScopedResource implements Event {
 	 * by a more up-to-date event.
 	 */
 	public static final String LOCAL_NAME_EXPIRATION_TIME = "hasExpirationTime";
-	public static final String PROP_CONTEXT_EXPIRATION_TIME = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_EXPIRATION_TIME;
+	public static final String PROP_CONTEXT_EXPIRATION_TIME = CONTEXT_NAMESPACE + LOCAL_NAME_EXPIRATION_TIME;
 
 	/**
 	 * A timestamp, as a Long value to be interpreted as the number of
@@ -133,11 +133,11 @@ public class ContextEvent extends ScopedResource implements Event {
 	 * set the timestamp 'manually'.
 	 */
 	public static final String LOCAL_NAME_TIMESTAMP = "hasTimestamp";
-	public static final String PROP_CONTEXT_TIMESTAMP = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_TIMESTAMP;
+	public static final String PROP_CONTEXT_TIMESTAMP = CONTEXT_NAMESPACE + LOCAL_NAME_TIMESTAMP;
 
 	/**
 	 * Constructs a CHe stub ContextEvent according to the parameters passed
-	 * 
+	 *
 	 * @param subjectURI
 	 *            URI of the subject. Must not be null.
 	 * @param subjectTypeURI
@@ -178,7 +178,7 @@ public class ContextEvent extends ScopedResource implements Event {
 	/**
 	 * Construct a CHe stub ContextEvent inferring the object from the predicate
 	 * which URI is present in the properties of the subject
-	 * 
+	 *
 	 * @param subject
 	 *            The Resource representing the subject of the event. Must
 	 *            include the property specified in the second parameter, and
@@ -207,7 +207,7 @@ public class ContextEvent extends ScopedResource implements Event {
 	/**
 	 * Construct a CHe stub ContextEvent inferring the object from the predicate
 	 * which URI is present in the properties of the subject
-	 * 
+	 *
 	 * @param subject
 	 *            The Resource representing the subject of the event. Must
 	 *            include the property specified in the second parameter, and
@@ -239,7 +239,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Get the confidence of the event
-	 * 
+	 *
 	 * @return The confidence represented as a percentage (0 to 100)
 	 */
 	public Integer getConfidence() {
@@ -248,7 +248,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Get the expiration time
-	 * 
+	 *
 	 * @return The amount of milliseconds after reception from which the
 	 *         information in the event is no longer valid
 	 */
@@ -263,7 +263,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Get the object of the event
-	 * 
+	 *
 	 * @return The object of the event (a Resource)
 	 */
 	public Object getRDFObject() {
@@ -272,7 +272,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Get the predicate of the event
-	 * 
+	 *
 	 * @return The URI of the predicate of the event
 	 */
 	public String getRDFPredicate() {
@@ -282,7 +282,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Get the ContextProvider of the event
-	 * 
+	 *
 	 * @return The {@link org.universAAL.middleware.context.owl.ContextProvider}
 	 *         representing the provider that originated the event
 	 */
@@ -292,7 +292,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Get the subject of the event
-	 * 
+	 *
 	 * @return The {@link org.universAAL.middleware.rdf.Resource} that is the
 	 *         subject to the event
 	 */
@@ -302,7 +302,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Get the type of the subject of the event
-	 * 
+	 *
 	 * @return The URI of the type of the subject to the event
 	 */
 	public String getSubjectTypeURI() {
@@ -312,7 +312,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Get the URI of the subject of the event
-	 * 
+	 *
 	 * @return The URI of the individual that is the subject to the event
 	 */
 	public String getSubjectURI() {
@@ -322,7 +322,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Get the timestamp of the event
-	 * 
+	 *
 	 * @return The timestamp, in UNIX format, associated to the event
 	 */
 	public Long getTimestamp() {
@@ -342,7 +342,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Set the confidence
-	 * 
+	 *
 	 * @param confidence
 	 *            The confidence in percentage (0 to 100)
 	 */
@@ -357,7 +357,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Set the expiration time
-	 * 
+	 *
 	 * @param expirationTime
 	 *            The amount of millisecond after which the event is not valid
 	 *            afer reception
@@ -373,7 +373,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Set the object
-	 * 
+	 *
 	 * @param o
 	 */
 	public boolean setRDFObject(Object o) {
@@ -386,7 +386,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Set the predicate
-	 * 
+	 *
 	 * @param propURI
 	 *            The URI of the predicate
 	 */
@@ -400,7 +400,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Set the Context Provider
-	 * 
+	 *
 	 * @param src
 	 */
 	public boolean setProvider(ContextProvider src) {
@@ -413,7 +413,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Set the subject
-	 * 
+	 *
 	 * @param subj
 	 */
 	public boolean setRDFSubject(Resource subj) {
@@ -426,7 +426,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Set the timestamp
-	 * 
+	 *
 	 * @param timestamp
 	 *            The timestamp in UNIX format
 	 */
@@ -440,7 +440,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Set the involved user
-	 * 
+	 *
 	 * @param user
 	 */
 	public boolean setInvolvedUser(Resource user) {
@@ -453,7 +453,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * Get the involved user
-	 * 
+	 *
 	 * @return user
 	 */
 	public Resource getInvolvedUser() {
@@ -499,7 +499,7 @@ public class ContextEvent extends ScopedResource implements Event {
 
 	/**
 	 * @see Matchable#matches(Matchable)
-	 * 
+	 *
 	 *      Currently, this method always returns false.
 	 */
 	public boolean matches(Matchable subset) {
