@@ -29,10 +29,9 @@ import java.io.File;
  * Represents the container-specific context of modules that either build up the
  * universAAL platform or use this platform. Its design is inspired by the
  * <a href="http://en.wikipedia.org/wiki/OSGi#Life-cycle"> OSGi life-cycle</a>
- * as well as container-specific general-purpose code in the alpha release of
- * the universAAL middleware, and the requirements of the
- * <a href="http://forge.universaal.org/wiki/rinterop:Remote_Administration">
- * Space Admin Gateway</a> with regard to node-level admin.
+ * as well as container-specific general-purpose code in the universAAL
+ * middleware, and the requirements of the Space Admin Gateway with regard to
+ * node-level admin.
  *
  * @author mtazari
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
