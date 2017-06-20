@@ -63,7 +63,7 @@ import junit.framework.TestCase;
  * bus normally is started only once. Main problems are that some variables are
  * static but need to be different for the different instances. This was
  * "solved" with Java reflection, a specific ordering of the creation of buses
- * and bus members, and certain assumptions (e.g. the custom AAL Space Manager
+ * and bus members, and certain assumptions (e.g. the custom Space Manager
  * assumes that the method getPeerID is called exactly twice for each bus).
  *
  * @author Carsten Stockloew
@@ -159,7 +159,7 @@ public abstract class ServiceBusTestCase extends TestCase {
 		lstPeerCard.add(node1Card);
 		lstPeerCard.add(node2Card);
 
-		SpaceManager sp = new MyAALSpaceManager(mapCards, lstCards);
+		SpaceManager sp = new MypaceManager(mapCards, lstCards);
 		CommunicationModule com = new MyCommunicationModule(lstCards, mapReadableNodes);
 
 		AbstractBus.initBrokerage(mc, sp, com);

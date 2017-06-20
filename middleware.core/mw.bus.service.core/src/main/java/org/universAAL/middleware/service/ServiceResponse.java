@@ -280,7 +280,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	 * @return The URI of the service provider.
 	 */
 	public Resource getProvider() {
-		return (Resource) props.get(ServiceRealization.uAAL_SERVICE_PROVIDER);
+		return (Resource) props.get(ServiceRealization.SERVICE_PROVIDER);
 	}
 
 	/**
@@ -310,7 +310,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 				props.put(propURI, value);
 				return true;
 			}
-		} else if (propURI.equals(ServiceRealization.uAAL_SERVICE_PROVIDER)) {
+		} else if (propURI.equals(ServiceRealization.SERVICE_PROVIDER)) {
 			if (value instanceof Resource) {
 				props.put(propURI, value);
 				return true;

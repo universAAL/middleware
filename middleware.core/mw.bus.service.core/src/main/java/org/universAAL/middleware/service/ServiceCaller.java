@@ -211,7 +211,7 @@ public abstract class ServiceCaller extends Caller {
 	 *             if the request is null
 	 */
 	public final String sendRequest(ServiceRequest request) {
-		request.setProperty(ServiceRequest.PROP_uAAL_SERVICE_CALLER, busResourceURI);
+		request.setProperty(ServiceRequest.PROP_SERVICE_CALLER, busResourceURI);
 		if (AccessControl.INSTANCE.checkPermission(owner, getURI(), request)) {
 			BusMessage reqMsg = new BusMessage(MessageType.request, request, theBus);
 			((ServiceBus) theBus).brokerRequest(busResourceURI, reqMsg);

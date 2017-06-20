@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research 
-	
-	See the NOTICE file distributed with this work for additional 
+	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,8 +31,8 @@ import org.universAAL.middleware.service.AggregatingFilter;
 /**
  * Support for constructing an OWL-S
  * http://www.daml.org/services/owl-s/1.1/Process.owl#OutputBinding that can be
- * used in the definition of process results according to the uAAL model. In the
- * uAAL model, an output parameter can reflect the value of a reachable property
+ * used in the definition of process results according to the universAAL model. In the
+ * universAAL model, an output parameter can reflect the value of a reachable property
  * using an instance of {@link PropertyPath} as proces:vaueForm or get a
  * converted form of such a reachable property using an instance of
  * {@link Conversion}s as process:valueFunction. As the type hierarchy of output
@@ -40,10 +40,10 @@ import org.universAAL.middleware.service.AggregatingFilter;
  * defined as a subclasses of {@link ManagedIndividual} but this class simply
  * provides support for the definition of the needed constant values as well as
  * helps in constructing a {@link Resource} representation of them.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class OutputBinding {
 	public static final String PROP_OWLS_BINDING_TO_PARAM = ProcessOutput.OWLS_PROCESS_NAMESPACE + "toParam";
@@ -55,10 +55,10 @@ public class OutputBinding {
 	/**
 	 * Returns true or false depending if the object o contains the right
 	 * bindings
-	 * 
+	 *
 	 * @param Object
 	 *            o The object that contains the binding to check
-	 * 
+	 *
 	 * @return true if the object contains the right bindings, return false on
 	 *         contrary.
 	 */
@@ -109,7 +109,7 @@ public class OutputBinding {
 
 	/**
 	 * Creates a binding on the output requested
-	 * 
+	 *
 	 * @param AggregatingFilter
 	 *            Filter to define on the output.
 	 * @param ProcessOutput
@@ -130,7 +130,7 @@ public class OutputBinding {
 
 	/**
 	 * Creates a conversion binding on the output requested
-	 * 
+	 *
 	 * @param ProcessOutput
 	 *            Process Output to bind
 	 * @param PropertyPath
@@ -152,7 +152,7 @@ public class OutputBinding {
 
 	/**
 	 * Creates a language conversion binding on the output requested
-	 * 
+	 *
 	 * @param ProcessOutput
 	 *            Process Output to bind
 	 * @param PropertyPath
@@ -174,7 +174,7 @@ public class OutputBinding {
 
 	/**
 	 * Creates a simple binding withe the property path of the argument
-	 * 
+	 *
 	 * @param ProcessOutput
 	 *            Process Output to bind
 	 * @param PropertyPath
@@ -193,7 +193,7 @@ public class OutputBinding {
 
 	/**
 	 * Creates a language conversion binding on the output requested
-	 * 
+	 *
 	 * @param ProcessOutput
 	 *            Process Output to bind
 	 * @param PropertyPath
@@ -214,7 +214,7 @@ public class OutputBinding {
 
 	/**
 	 * Finds if the requested resource match with the context binding
-	 * 
+	 *
 	 * @param Resource
 	 *            req. Resource requested to check.
 	 * @param Hastable

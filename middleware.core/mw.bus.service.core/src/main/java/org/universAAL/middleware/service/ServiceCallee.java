@@ -203,7 +203,7 @@ public abstract class ServiceCallee extends Callee {
 			}
 			if (sr == null)
 				sr = new ServiceResponse(CallStatus.serviceSpecificFailure);
-			sr.setProperty(ServiceRealization.uAAL_SERVICE_PROVIDER, new Resource(busResourceURI));
+			sr.setProperty(ServiceRealization.SERVICE_PROVIDER, new Resource(busResourceURI));
 			BusMessage reply = m.createReply(sr);
 			if (reply != null)
 				((ServiceBus) theBus).brokerReply(busResourceURI, reply);

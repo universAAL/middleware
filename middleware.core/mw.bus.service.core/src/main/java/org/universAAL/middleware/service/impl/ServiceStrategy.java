@@ -77,29 +77,29 @@ import org.universAAL.middleware.util.Constants;
  * @author Carsten Stockloew
  */
 public class ServiceStrategy extends BusStrategy {
-	private static final String PROP_uAAL_REGISTRATION_STATUS = Resource.VOCABULARY_NAMESPACE
+	private static final String PROP_REGISTRATION_STATUS = Resource.VOCABULARY_NAMESPACE
 			+ "registrationStatus";
-	private static final String PROP_uAAL_SERVICE_REALIZATION_ID = Resource.VOCABULARY_NAMESPACE
+	private static final String PROP_SERVICE_REALIZATION_ID = Resource.VOCABULARY_NAMESPACE
 			+ "theRealization";
-	private static final String PROP_uAAL_SERVICE_REGISTERED_PROFILE = Resource.VOCABULARY_NAMESPACE
+	private static final String PROP_SERVICE_REGISTERED_PROFILE = Resource.VOCABULARY_NAMESPACE
 			+ "registeredProfile";
-	private static final String PROP_uAAL_SERVICE_PROVIDED_BY = Resource.VOCABULARY_NAMESPACE + "registeredBy";
-	private static final String PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST = Resource.VOCABULARY_NAMESPACE
+	private static final String PROP_SERVICE_PROVIDED_BY = Resource.VOCABULARY_NAMESPACE + "registeredBy";
+	private static final String PROP_SERVICE_SUBSCRIBER_REQUEST = Resource.VOCABULARY_NAMESPACE
 			+ "theRequest";
-	private static final String PROP_uAAL_SERVICE_SUBSCRIBER = Resource.VOCABULARY_NAMESPACE + "theSubscriber";
-	private static final String PROP_uAAL_SERVICE_TYPE = Resource.VOCABULARY_NAMESPACE + "serviceType";
+	private static final String PROP_SERVICE_SUBSCRIBER = Resource.VOCABULARY_NAMESPACE + "theSubscriber";
+	private static final String PROP_SERVICE_TYPE = Resource.VOCABULARY_NAMESPACE + "serviceType";
 	private static final Resource RES_STATUS_DEREGISTERED = new Resource(
 			Resource.VOCABULARY_NAMESPACE + "deregistered");
 	private static final Resource RES_STATUS_REGISTERED = new Resource(
 			Resource.VOCABULARY_NAMESPACE + "registered");
-	private static final String TYPE_uAAL_SERVICE_BUS_COORDINATOR = Resource.VOCABULARY_NAMESPACE + "Coordinator";
-	private static final String TYPE_uAAL_SERVICE_BUS_NOTIFICATION = Resource.VOCABULARY_NAMESPACE
+	private static final String TYPE_SERVICE_BUS_COORDINATOR = Resource.VOCABULARY_NAMESPACE + "Coordinator";
+	private static final String TYPE_SERVICE_BUS_NOTIFICATION = Resource.VOCABULARY_NAMESPACE
 			+ "SubscriberNotification";
-	private static final String TYPE_uAAL_SERVICE_BUS_REGISTRATION = Resource.VOCABULARY_NAMESPACE
+	private static final String TYPE_SERVICE_BUS_REGISTRATION = Resource.VOCABULARY_NAMESPACE
 			+ "ServiceRegistration";
-	private static final String TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION = Resource.VOCABULARY_NAMESPACE
+	private static final String TYPE_SERVICE_BUS_SUBSCRIPTION = Resource.VOCABULARY_NAMESPACE
 			+ "ServiceSubscription";
-	private static final String TYPE_uAAL_SERVICE_PROFILE_INFORMATION = Resource.VOCABULARY_NAMESPACE
+	private static final String TYPE_SERVICE_PROFILE_INFORMATION = Resource.VOCABULARY_NAMESPACE
 			+ "ProfileInformation";
 	private static final String CONTEXT_REQUEST_MESSAGE = Resource.VOCABULARY_NAMESPACE + "requestMessage";
 	private static final String CONTEXT_RESPONSE_MESSAGE = Resource.VOCABULARY_NAMESPACE + "responseMessage";
@@ -231,9 +231,9 @@ public class ServiceStrategy extends BusStrategy {
 			addSubscriber(callerID, request);
 		else if (isCoordinatorKnown()) {
 			Resource res = new Resource(callerID);
-			res.addType(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION, true);
-			res.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST, request);
-			res.setProperty(PROP_uAAL_REGISTRATION_STATUS, RES_STATUS_REGISTERED);
+			res.addType(TYPE_SERVICE_BUS_SUBSCRIPTION, true);
+			res.setProperty(PROP_SERVICE_SUBSCRIBER_REQUEST, request);
+			res.setProperty(PROP_REGISTRATION_STATUS, RES_STATUS_REGISTERED);
 			((ServiceBusImpl) bus).assessContentSerialization(res);
 			BusMessage m = new BusMessage(MessageType.p2p_event, res, bus);
 			m.setReceiver(theCoordinator);
@@ -317,10 +317,10 @@ public class ServiceStrategy extends BusStrategy {
 
 		if (!isCoordinator && isCoordinatorKnown()) {
 			Resource r = new Resource();
-			r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
-			r.setProperty(PROP_uAAL_REGISTRATION_STATUS, RES_STATUS_REGISTERED);
-			r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE, Arrays.asList(realizedServices));
-			r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
+			r.addType(TYPE_SERVICE_BUS_REGISTRATION, true);
+			r.setProperty(PROP_REGISTRATION_STATUS, RES_STATUS_REGISTERED);
+			r.setProperty(PROP_SERVICE_REGISTERED_PROFILE, Arrays.asList(realizedServices));
+			r.setProperty(PROP_SERVICE_PROVIDED_BY, new Resource(calleeID));
 			((ServiceBusImpl) bus).assessContentSerialization(r);
 			BusMessage m = new BusMessage(MessageType.p2p_event, r, bus);
 			m.setReceiver(theCoordinator);
@@ -339,7 +339,7 @@ public class ServiceStrategy extends BusStrategy {
 					try {
 						sleep(10000);
 						Resource res = new Resource(bus.getURI());
-						res.addType(TYPE_uAAL_SERVICE_BUS_COORDINATOR, true);
+						res.addType(TYPE_SERVICE_BUS_COORDINATOR, true);
 						((ServiceBusImpl) bus).assessContentSerialization(res);
 						send(new BusMessage(MessageType.p2p_event, res, bus));
 					} catch (Exception e) {
@@ -372,7 +372,7 @@ public class ServiceStrategy extends BusStrategy {
 			if (realizations != null)
 				for (ServiceRealization sr : realizations) {
 					if (null != matches(callerID, request, sr))
-						notifySubscriber(as, ((ServiceProfile) sr.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+						notifySubscriber(as, ((ServiceProfile) sr.getProperty(ServiceRealization.SERVICE_PROFILE))
 								.getProcessURI(), true);
 				}
 		}
@@ -400,13 +400,13 @@ public class ServiceStrategy extends BusStrategy {
 			HashMap<String, Object> match = matches.get(i);
 			match.put(CONTEXT_REQUEST_MESSAGE, m);
 			ServiceRealization sr = (ServiceRealization) match.get(Variable.VAR_SERVICE_TO_SELECT);
-			Object timeout = ((ServiceProfile) sr.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
-					.getProperty(ServiceProfile.PROP_uAAL_RESPONSE_TIMEOUT);
+			Object timeout = ((ServiceProfile) sr.getProperty(ServiceRealization.SERVICE_PROFILE))
+					.getProperty(ServiceProfile.PROP_RESPONSE_TIMEOUT);
 			if (timeout instanceof Integer && ((Integer) timeout).intValue() > maxTimeout)
 				maxTimeout = ((Integer) timeout).intValue();
 			PeerCard receiver = AbstractBus
-					.getPeerFromBusResourceURI(sr.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER).toString());
-			ServiceCall sc = (ServiceCall) match.remove(ServiceRealization.uAAL_ASSERTED_SERVICE_CALL);
+					.getPeerFromBusResourceURI(sr.getProperty(ServiceRealization.SERVICE_PROVIDER).toString());
+			ServiceCall sc = (ServiceCall) match.remove(ServiceRealization.ASSERTED_SERVICE_CALL);
 			((ServiceBusImpl) bus).assessContentSerialization(sc);
 			BusMessage call = new BusMessage(MessageType.p2p_request, sc, bus);
 
@@ -499,7 +499,7 @@ public class ServiceStrategy extends BusStrategy {
 		for (ServiceRealization sr : matchingServices) {
 			if (sr == null)
 				continue;
-			ServiceProfile sp = (ServiceProfile) sr.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
+			ServiceProfile sp = (ServiceProfile) sr.getProperty(ServiceRealization.SERVICE_PROFILE);
 			if (sp == null)
 				continue;
 			Service s = sp.getTheService();
@@ -507,7 +507,7 @@ public class ServiceStrategy extends BusStrategy {
 				continue;
 			if (vendor.equals(String.valueOf(s.getProperty(InitialServiceDialog.PROP_HAS_VENDOR)))) {
 				processURI = sp.getProcessURI();
-				calleeID = sr.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER);
+				calleeID = sr.getProperty(ServiceRealization.SERVICE_PROVIDER);
 				if (processURI instanceof String && calleeID instanceof String) {
 					Object user = (m.getContent() instanceof ServiceRequest) ? ((ServiceRequest) m.getContent())
 							.getProperty(ServiceRequest.PROP_INVOLVED_HUMAN_USER) : null;
@@ -949,7 +949,7 @@ public class ServiceStrategy extends BusStrategy {
 	private Object getProfileParameter(HashMap<String, Object> context, String prop) {
 		Object o = context.get(prop);
 		if (o == null)
-			o = ((ServiceProfile) context.get(ServiceRealization.uAAL_SERVICE_PROFILE)).getProperty(prop);
+			o = ((ServiceProfile) context.get(ServiceRealization.SERVICE_PROFILE)).getProperty(prop);
 		return o;
 	}
 
@@ -1010,17 +1010,17 @@ public class ServiceStrategy extends BusStrategy {
 		Resource res = (Resource) msg.getContent();
 		switch (msg.getType().ord()) {
 		case MessageType.EVENT:
-			if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_NOTIFICATION))
-				notifyLocalSubscriber(res.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER).toString(),
-						res.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST).toString(),
-						res.getProperty(PROP_uAAL_SERVICE_REALIZATION_ID).toString(),
-						RES_STATUS_REGISTERED.equals(res.getProperty(PROP_uAAL_REGISTRATION_STATUS)));
+			if (res.getType().equals(TYPE_SERVICE_BUS_NOTIFICATION))
+				notifyLocalSubscriber(res.getProperty(PROP_SERVICE_SUBSCRIBER).toString(),
+						res.getProperty(PROP_SERVICE_SUBSCRIBER_REQUEST).toString(),
+						res.getProperty(PROP_SERVICE_REALIZATION_ID).toString(),
+						RES_STATUS_REGISTERED.equals(res.getProperty(PROP_REGISTRATION_STATUS)));
 			break;
 		case MessageType.P2P_EVENT:
-			if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION) && isCoordinator) {
-				if (RES_STATUS_DEREGISTERED.equals(res.getProperty(PROP_uAAL_REGISTRATION_STATUS))) {
-					String serviceURI = res.getProperty(PROP_uAAL_SERVICE_TYPE).toString(), subscriber = res.getURI(),
-							requestURI = res.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST).toString();
+			if (res.getType().equals(TYPE_SERVICE_BUS_SUBSCRIPTION) && isCoordinator) {
+				if (RES_STATUS_DEREGISTERED.equals(res.getProperty(PROP_REGISTRATION_STATUS))) {
+					String serviceURI = res.getProperty(PROP_SERVICE_TYPE).toString(), subscriber = res.getURI(),
+							requestURI = res.getProperty(PROP_SERVICE_SUBSCRIBER_REQUEST).toString();
 					synchronized (allServicesIndex) {
 						ArrayList<AvailabilitySubscription> arrAS = allSubscriptionsIndex.get(serviceURI);
 						if (arrAS != null) {
@@ -1034,11 +1034,11 @@ public class ServiceStrategy extends BusStrategy {
 						}
 					}
 				} else
-					addSubscriber(res.getURI(), (ServiceRequest) res.getProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST));
-			} else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_REGISTRATION) && isCoordinator) {
-				List<?> profiles = (List<?>) res.getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
-				String theCallee = res.getProperty(PROP_uAAL_SERVICE_PROVIDED_BY).toString();
-				if (RES_STATUS_REGISTERED.equals(res.getProperty(PROP_uAAL_REGISTRATION_STATUS))) {
+					addSubscriber(res.getURI(), (ServiceRequest) res.getProperty(PROP_SERVICE_SUBSCRIBER_REQUEST));
+			} else if (res.getType().equals(TYPE_SERVICE_BUS_REGISTRATION) && isCoordinator) {
+				List<?> profiles = (List<?>) res.getProperty(PROP_SERVICE_REGISTERED_PROFILE);
+				String theCallee = res.getProperty(PROP_SERVICE_PROVIDED_BY).toString();
+				if (RES_STATUS_REGISTERED.equals(res.getProperty(PROP_REGISTRATION_STATUS))) {
 					if (profiles != null) {
 						for (Iterator<?> i = profiles.iterator(); i.hasNext();) {
 							ServiceProfile prof = (ServiceProfile) i.next();
@@ -1051,7 +1051,7 @@ public class ServiceStrategy extends BusStrategy {
 					for (Iterator<?> i = profiles.iterator(); i.hasNext();)
 						unindexServices(theCallee, ((ServiceProfile) i.next()).getProcessURI());
 				}
-			} else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
+			} else if (res.getType().equals(TYPE_SERVICE_BUS_COORDINATOR)) {
 				PeerCard coord = AbstractBus.getPeerFromBusResourceURI(res.getURI());
 				if (theCoordinator == null && coord != null) {
 					synchronized (this) {
@@ -1107,7 +1107,7 @@ public class ServiceStrategy extends BusStrategy {
 					// coordinator
 					send(msg);
 				}
-			} else if (res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
+			} else if (res.getType().equals(TYPE_SERVICE_BUS_COORDINATOR)) {
 				PeerCard coord = AbstractBus.getPeerFromBusResourceURI(res.getURI());
 				if (theCoordinator == null && coord != null) {
 					synchronized (this) {
@@ -1115,10 +1115,10 @@ public class ServiceStrategy extends BusStrategy {
 						notifyAll();
 					}
 				}
-			} else if (res.getType().equals(TYPE_uAAL_SERVICE_PROFILE_INFORMATION)) {
+			} else if (res.getType().equals(TYPE_SERVICE_PROFILE_INFORMATION)) {
 				synchronized (this) {
-					String realizationID = (String) res.getProperty(PROP_uAAL_SERVICE_REALIZATION_ID);
-					List<?> profiles = (List<?>) res.getProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE);
+					String realizationID = (String) res.getProperty(PROP_SERVICE_REALIZATION_ID);
+					List<?> profiles = (List<?>) res.getProperty(PROP_SERVICE_REGISTERED_PROFILE);
 
 					localServiceSearchResults.addProfiles(realizationID, profiles);
 
@@ -1134,7 +1134,7 @@ public class ServiceStrategy extends BusStrategy {
 				}
 				if (sr != null) {
 					ServiceCallee callee = (ServiceCallee) getBusMember(
-							sr.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER).toString());
+							sr.getProperty(ServiceRealization.SERVICE_PROVIDER).toString());
 					if (callee != null) {
 						callee.handleRequest(msg);
 						break;
@@ -1143,19 +1143,19 @@ public class ServiceStrategy extends BusStrategy {
 				// we could not get the service realization or the bus member
 				// for the call, this should not happen
 				// TODO: handle somehow, e.g. send an empty/error-response
-			} else if (isCoordinator && res.getType().equals(TYPE_uAAL_SERVICE_BUS_COORDINATOR)) {
+			} else if (isCoordinator && res.getType().equals(TYPE_SERVICE_BUS_COORDINATOR)) {
 				res = new Resource(bus.getURI());
-				res.addType(TYPE_uAAL_SERVICE_BUS_COORDINATOR, true);
+				res.addType(TYPE_SERVICE_BUS_COORDINATOR, true);
 				((ServiceBusImpl) bus).assessContentSerialization(res);
 				send(msg.createReply(res));
-			} else if (isCoordinator && res.getType().equals(TYPE_uAAL_SERVICE_PROFILE_INFORMATION)) {
+			} else if (isCoordinator && res.getType().equals(TYPE_SERVICE_PROFILE_INFORMATION)) {
 
 				Resource r = new Resource();
-				String realizationID = (String) res.getProperty(PROP_uAAL_SERVICE_REALIZATION_ID);
-				r.addType(TYPE_uAAL_SERVICE_PROFILE_INFORMATION, true);
-				r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE,
+				String realizationID = (String) res.getProperty(PROP_SERVICE_REALIZATION_ID);
+				r.addType(TYPE_SERVICE_PROFILE_INFORMATION, true);
+				r.setProperty(PROP_SERVICE_REGISTERED_PROFILE,
 						Arrays.asList(getCoordinatorServices(realizationID)));
-				r.setProperty(PROP_uAAL_SERVICE_REALIZATION_ID, realizationID);
+				r.setProperty(PROP_SERVICE_REALIZATION_ID, realizationID);
 
 				((ServiceBusImpl) bus).assessContentSerialization(r);
 
@@ -1219,11 +1219,11 @@ public class ServiceStrategy extends BusStrategy {
 						logID = null; // no more trace log messages
 						sendNoMatchingFound(msg);
 					} else {
-						String caller = request.getProperty(ServiceRequest.PROP_uAAL_SERVICE_CALLER).toString();
+						String caller = request.getProperty(ServiceRequest.PROP_SERVICE_CALLER).toString();
 
 						for (ServiceRealization sr : arrServices) {
 							Service profileService = ((ServiceProfile) sr
-									.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE)).getTheService();
+									.getProperty(ServiceRealization.SERVICE_PROFILE)).getTheService();
 							String profileServiceURI = profileService.getURI();
 							String profileProviderURI = (String) sr.getProvider();
 
@@ -1248,19 +1248,19 @@ public class ServiceStrategy extends BusStrategy {
 						if (otherMatch == null)
 							auxMap.put(sr.getProvider(), match);
 						else {
-							// uAAL_SERVICE_URI_MATCHED:
+							// SERVICE_URI_MATCHED:
 							// New strategy: if service matches exactly URI
 							// specified in Service Request than this service is
 							// always preferred over others.
-							if ((match.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null)
-									&& (otherMatch.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null)) {
+							if ((match.get(ServiceRealization.SERVICE_URI_MATCHED) != null)
+									&& (otherMatch.get(ServiceRealization.SERVICE_URI_MATCHED) == null)) {
 								// the new service matches better the
 								// request
 								auxMap.put(sr.getProvider(), match);
 								continue;
 							}
-							if ((otherMatch.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) != null)
-									&& (match.get(ServiceRealization.uAAL_SERVICE_URI_MATCHED) == null)) {
+							if ((otherMatch.get(ServiceRealization.SERVICE_URI_MATCHED) != null)
+									&& (match.get(ServiceRealization.SERVICE_URI_MATCHED) == null)) {
 								// the new service won't match better the
 								// request
 								continue;
@@ -1286,7 +1286,7 @@ public class ServiceStrategy extends BusStrategy {
 						logTrace("handle",
 								new Object[] { ServiceBus.LOG_MATCHING_MISMATCH,
 										"input in profile not given in request", "\nprofile URI: ",
-										((ServiceProfile) sr.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+										((ServiceProfile) sr.getProperty(ServiceRealization.SERVICE_PROFILE))
 												.getTheService().getURI(),
 										ServiceBus.LOG_MATCHING_MISMATCH_CODE, Integer.valueOf(1031),
 										ServiceBus.LOG_MATCHING_MISMATCH_DETAILS,
@@ -1314,7 +1314,7 @@ public class ServiceStrategy extends BusStrategy {
 					for (HashMap<String, Object> match : matches) {
 						ServiceRealization sr = (ServiceRealization) match.get(Variable.VAR_SERVICE_TO_SELECT);
 						Service profileService = ((ServiceProfile) sr
-								.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE)).getTheService();
+								.getProperty(ServiceRealization.SERVICE_PROFILE)).getTheService();
 						String profileServiceURI = profileService.getURI();
 						obj[i++] = profileServiceURI;
 					}
@@ -1536,7 +1536,7 @@ public class ServiceStrategy extends BusStrategy {
 		for (ServiceRealization sr : matchingServices) {
 			if (sr == null)
 				continue;
-			ServiceProfile sp = (ServiceProfile) sr.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
+			ServiceProfile sp = (ServiceProfile) sr.getProperty(ServiceRealization.SERVICE_PROFILE);
 			if (sp == null)
 				continue;
 			Service s = sp.getTheService();
@@ -1582,7 +1582,7 @@ public class ServiceStrategy extends BusStrategy {
 		for (ServiceRealization sr : matchingServices) {
 			if (sr == null)
 				continue;
-			ServiceProfile sp = (ServiceProfile) sr.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
+			ServiceProfile sp = (ServiceProfile) sr.getProperty(ServiceRealization.SERVICE_PROFILE);
 			if (sp == null)
 				continue;
 			Service s = sp.getTheService();
@@ -1729,7 +1729,7 @@ public class ServiceStrategy extends BusStrategy {
 	private boolean isCoordinatorKnown() {
 		if (theCoordinator == null) {
 			Resource r = new Resource();
-			r.addType(TYPE_uAAL_SERVICE_BUS_COORDINATOR, true);
+			r.addType(TYPE_SERVICE_BUS_COORDINATOR, true);
 			((ServiceBusImpl) bus).assessContentSerialization(r);
 			BusMessage m = new BusMessage(MessageType.p2p_request, r, bus);
 			send(m);
@@ -1839,12 +1839,12 @@ public class ServiceStrategy extends BusStrategy {
 			notifyLocalSubscriber(as.id, ((Resource) as.reqOrSubs).getURI(), realizationID, registers);
 		else {
 			Resource res = new Resource();
-			res.addType(TYPE_uAAL_SERVICE_BUS_NOTIFICATION, true);
-			res.setProperty(PROP_uAAL_REGISTRATION_STATUS,
+			res.addType(TYPE_SERVICE_BUS_NOTIFICATION, true);
+			res.setProperty(PROP_REGISTRATION_STATUS,
 					(registers ? RES_STATUS_REGISTERED : RES_STATUS_DEREGISTERED));
-			res.setProperty(PROP_uAAL_SERVICE_REALIZATION_ID, new Resource(realizationID));
-			res.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER, new Resource(as.id));
-			res.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST, new Resource(((Resource) as.reqOrSubs).getURI()));
+			res.setProperty(PROP_SERVICE_REALIZATION_ID, new Resource(realizationID));
+			res.setProperty(PROP_SERVICE_SUBSCRIBER, new Resource(as.id));
+			res.setProperty(PROP_SERVICE_SUBSCRIBER_REQUEST, new Resource(((Resource) as.reqOrSubs).getURI()));
 			((ServiceBusImpl) bus).assessContentSerialization(res);
 			BusMessage m = new BusMessage(MessageType.event, res, bus);
 			m.setReceiver(AbstractBus.getPeerFromBusResourceURI(as.callerID));
@@ -1901,10 +1901,10 @@ public class ServiceStrategy extends BusStrategy {
 			}
 		} else if (isCoordinatorKnown()) {
 			Resource res = new Resource(callerID);
-			res.addType(TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION, true);
-			res.setProperty(PROP_uAAL_SERVICE_TYPE, new Resource(serviceClassURI));
-			res.setProperty(PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST, new Resource(requestURI));
-			res.setProperty(PROP_uAAL_REGISTRATION_STATUS, RES_STATUS_DEREGISTERED);
+			res.addType(TYPE_SERVICE_BUS_SUBSCRIPTION, true);
+			res.setProperty(PROP_SERVICE_TYPE, new Resource(serviceClassURI));
+			res.setProperty(PROP_SERVICE_SUBSCRIBER_REQUEST, new Resource(requestURI));
+			res.setProperty(PROP_REGISTRATION_STATUS, RES_STATUS_DEREGISTERED);
 			((ServiceBusImpl) bus).assessContentSerialization(res);
 			BusMessage m = new BusMessage(MessageType.p2p_event, res, bus);
 			m.setReceiver(theCoordinator);
@@ -1936,8 +1936,8 @@ public class ServiceStrategy extends BusStrategy {
 				ServiceRealization reg = localServicesIndex.removeServiceRealization(processURI);
 				if (reg == null)
 					continue;
-				if (!calleeID.equals(reg.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER)) || !processURI.equals(
-						((ServiceProfile) reg.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE)).getProcessURI())) {
+				if (!calleeID.equals(reg.getProperty(ServiceRealization.SERVICE_PROVIDER)) || !processURI.equals(
+						((ServiceProfile) reg.getProperty(ServiceRealization.SERVICE_PROFILE)).getProcessURI())) {
 					localServicesIndex.addServiceRealization(processURI, reg);
 				}
 			}
@@ -1948,10 +1948,10 @@ public class ServiceStrategy extends BusStrategy {
 
 		if (!isCoordinator && isCoordinatorKnown()) {
 			Resource r = new Resource();
-			r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
-			r.setProperty(PROP_uAAL_REGISTRATION_STATUS, RES_STATUS_DEREGISTERED);
-			r.setProperty(PROP_uAAL_SERVICE_REGISTERED_PROFILE, Arrays.asList(realizedServices));
-			r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
+			r.addType(TYPE_SERVICE_BUS_REGISTRATION, true);
+			r.setProperty(PROP_REGISTRATION_STATUS, RES_STATUS_DEREGISTERED);
+			r.setProperty(PROP_SERVICE_REGISTERED_PROFILE, Arrays.asList(realizedServices));
+			r.setProperty(PROP_SERVICE_PROVIDED_BY, new Resource(calleeID));
 			((ServiceBusImpl) bus).assessContentSerialization(r);
 			BusMessage m = new BusMessage(MessageType.p2p_event, r, bus);
 			m.setReceiver(theCoordinator);
@@ -1975,7 +1975,7 @@ public class ServiceStrategy extends BusStrategy {
 			for (int i = 0; i < serviceRealizationsIds.length; i++) {
 				String id = serviceRealizationsIds[i];
 				ServiceRealization serviceRealization = localServicesIndex.getServiceRealizationByID(id);
-				if (calleeID.equals(serviceRealization.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))) {
+				if (calleeID.equals(serviceRealization.getProperty(ServiceRealization.SERVICE_PROVIDER))) {
 					localServicesIndex.removeServiceRealization(id);
 				}
 			}
@@ -1985,9 +1985,9 @@ public class ServiceStrategy extends BusStrategy {
 			unindexServices(calleeID, null);
 		else if (isCoordinatorKnown()) {
 			Resource r = new Resource();
-			r.addType(TYPE_uAAL_SERVICE_BUS_REGISTRATION, true);
-			r.setProperty(PROP_uAAL_REGISTRATION_STATUS, RES_STATUS_DEREGISTERED);
-			r.setProperty(PROP_uAAL_SERVICE_PROVIDED_BY, new Resource(calleeID));
+			r.addType(TYPE_SERVICE_BUS_REGISTRATION, true);
+			r.setProperty(PROP_REGISTRATION_STATUS, RES_STATUS_DEREGISTERED);
+			r.setProperty(PROP_SERVICE_PROVIDED_BY, new Resource(calleeID));
 			((ServiceBusImpl) bus).assessContentSerialization(r);
 			BusMessage m = new BusMessage(MessageType.p2p_event, r, bus);
 			m.setReceiver(theCoordinator);
@@ -2010,17 +2010,17 @@ public class ServiceStrategy extends BusStrategy {
 			for (ArrayList<ServiceRealization> i : allServicesIndex.values()) {
 				for (Iterator<ServiceRealization> j = i.iterator(); j.hasNext();) {
 					ServiceRealization reg = j.next();
-					if (calleeID.equals(reg.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER))) {
+					if (calleeID.equals(reg.getProperty(ServiceRealization.SERVICE_PROVIDER))) {
 						if (deleteAll)
-							processURI = ((ServiceProfile) reg.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+							processURI = ((ServiceProfile) reg.getProperty(ServiceRealization.SERVICE_PROFILE))
 									.getProcessURI();
 						else if (!processURI
-								.equals(((ServiceProfile) reg.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+								.equals(((ServiceProfile) reg.getProperty(ServiceRealization.SERVICE_PROFILE))
 										.getProcessURI()))
 							continue;
 
 						j.remove();
-						String serviceURI = ((ServiceProfile) reg.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
+						String serviceURI = ((ServiceProfile) reg.getProperty(ServiceRealization.SERVICE_PROFILE))
 								.getTheService().getClassURI();
 						ArrayList<AvailabilitySubscription> subscribers = allSubscriptionsIndex.get(serviceURI);
 						if (subscribers != null) {
@@ -2048,8 +2048,8 @@ public class ServiceStrategy extends BusStrategy {
 			return getCoordinatorServices(serviceURI);
 
 		Resource r = new Resource();
-		r.addType(TYPE_uAAL_SERVICE_PROFILE_INFORMATION, true);
-		r.setProperty(PROP_uAAL_SERVICE_REALIZATION_ID, serviceURI);
+		r.addType(TYPE_SERVICE_PROFILE_INFORMATION, true);
+		r.setProperty(PROP_SERVICE_REALIZATION_ID, serviceURI);
 		((ServiceBusImpl) bus).assessContentSerialization(r);
 		BusMessage m = new BusMessage(MessageType.p2p_request, r, bus);
 		m.setReceiver(theCoordinator);
@@ -2086,7 +2086,7 @@ public class ServiceStrategy extends BusStrategy {
 				if (neededProfiles != null) {
 					for (ServiceRealization reg : neededProfiles) {
 						ServiceProfile profile = (ServiceProfile) reg
-								.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
+								.getProperty(ServiceRealization.SERVICE_PROFILE);
 
 						String provider = (String) reg.getProvider();
 						if (map.get(provider) == null) {
@@ -2117,7 +2117,7 @@ public class ServiceStrategy extends BusStrategy {
 				if (neededProfiles != null)
 					for (ServiceRealization reg : neededProfiles) {
 						ServiceProfile profile = (ServiceProfile) reg
-								.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE);
+								.getProperty(ServiceRealization.SERVICE_PROFILE);
 						if (profile != null)
 							profiles.add(profile);
 					}

@@ -37,14 +37,14 @@ public class NumberOfSamples extends ProfileParameter {
 		super();
 		addType(MY_URI, true);
 		if (value > -1)
-			props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
+			props.put(PROP_PARAMETER_VALUE_DATA, new Integer(value));
 	}
 
 	public NumberOfSamples(String uri, int value) {
 		super(uri);
 		addType(MY_URI, true);
 		if (value > -1)
-			props.put(PROP_uAAL_PARAMETER_VALUE_DATA, new Integer(value));
+			props.put(PROP_PARAMETER_VALUE_DATA, new Integer(value));
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class NumberOfSamples extends ProfileParameter {
 	 * @return number of samples
 	 */
 	public int getNumberOfSamples() {
-		Object o = props.get(PROP_uAAL_PARAMETER_VALUE_DATA);
+		Object o = props.get(PROP_PARAMETER_VALUE_DATA);
 		return (o instanceof Integer) ? ((Integer) o).intValue() : -1;
 	}
 

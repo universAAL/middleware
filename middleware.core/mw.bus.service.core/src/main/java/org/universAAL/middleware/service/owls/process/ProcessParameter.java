@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,7 @@ import org.universAAL.middleware.service.owl.Service;
  * This implementation of process:Parameter, however, differs from the OWL-S
  * process ontology in the following way:
  * <ol>
- * <li>Three uAAL-specific properties are added in order to be able to define
+ * <li>Three universAAL-specific properties are added in order to be able to define
  * cardinality restrictions on process:parameterValue. All three are optional
  * properties and accept only positive integers. Negative values and zero will
  * simply be ignored. The corresponding properties are <code>cardinality</code>
@@ -57,12 +57,12 @@ import org.universAAL.middleware.service.owl.Service;
  * to process:parameterValue.
  * <li>If a parameter is optional (no minCardinality restriction specified) but
  * references to it are used in the definition of service effects or
- * restrictions, then its default value must be specified using a uAAL-specific
+ * restrictions, then its default value must be specified using a universAAL-specific
  * property, namely <code>defaultValue</code>.
  * </ol>
- * 
+ *
  * @author mtazari
- * 
+ *
  */
 public class ProcessParameter extends Variable {
 	public static final String OWLS_PROCESS_NAMESPACE = Service.OWLS_NAMESPACE_PREFIX + "Process.owl#";
@@ -83,7 +83,7 @@ public class ProcessParameter extends Variable {
 		/**
 		 * Return true iff the object is Variable Reference (a resource of OWL-S
 		 * http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf class)
-		 * 
+		 *
 		 * @param o
 		 *            - the object to test
 		 * @return - true iff the object is a resource of OWL-S ValueOf class
@@ -97,7 +97,7 @@ public class ProcessParameter extends Variable {
 		 * property {@link #PROP_OWLS_VALUE_OF_THE_VAR}
 		 * (http://www.daml.org/services/owl-s/1.1/Process.owl#theVar) or from
 		 * the context.
-		 * 
+		 *
 		 * @param o
 		 *            - the variable reference
 		 * @param context
@@ -159,7 +159,7 @@ public class ProcessParameter extends Variable {
 	 * Create a variable reference (a resource of OWL-S
 	 * http://www.daml.org/services/owl-s/1.1/Process.owl#ValueOf class) from
 	 * this ProcessParameter
-	 * 
+	 *
 	 * @return the Variable Reference resource
 	 */
 	public Resource asVariableReference() {
@@ -172,7 +172,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Returns the maximal cardinality of this parameter
-	 * 
+	 *
 	 * @return - the maximal cardinality
 	 */
 	public int getMaxCardinality() {
@@ -186,7 +186,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Returns the minimal cardinality of this parameter
-	 * 
+	 *
 	 * @return - the minimal cardinality
 	 */
 	public int getMinCardinality() {
@@ -200,7 +200,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Returns the default value of this parameter
-	 * 
+	 *
 	 * @return - the object representing the default value
 	 */
 	public Object getDefaultValue() {
@@ -215,7 +215,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Returns the parameter type of this parameter
-	 * 
+	 *
 	 * @return String - the parameter type
 	 */
 	public String getParameterType() {
@@ -227,7 +227,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Returns the value of this parameter
-	 * 
+	 *
 	 * @return - the object representing the value
 	 */
 	public Object getParameterValue() {
@@ -304,7 +304,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Set cardinality of the process parameter
-	 * 
+	 *
 	 * @param max
 	 *            - maximal cardinality
 	 * @param min
@@ -331,7 +331,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Set the default value of this parameter
-	 * 
+	 *
 	 * @param value
 	 *            - the object representing the default value
 	 */
@@ -349,7 +349,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Set the parameter type of this parameter
-	 * 
+	 *
 	 * @param typeURI
 	 *            - the URI of the parameter type
 	 */
@@ -363,7 +363,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Set the value of this parameter
-	 * 
+	 *
 	 * @param value
 	 *            - the object representing the value
 	 */
@@ -380,7 +380,7 @@ public class ProcessParameter extends Variable {
 
 	/**
 	 * Set a value of a property for this process parameter
-	 * 
+	 *
 	 * @param prop
 	 *            - the property to set
 	 * @param val

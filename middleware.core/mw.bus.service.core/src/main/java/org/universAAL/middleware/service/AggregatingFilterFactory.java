@@ -115,15 +115,15 @@ public class AggregatingFilterFactory {
 	 *            or the maximum value of the parameter is called.
 	 * @param nonFunctionalParamPropURI
 	 *            the URI of the non-functional parameter. Typical values are:
-	 *            {@link ServiceProfile#PROP_uAAL_MIN_QOS_RATING},
-	 *            {@link ServiceProfile#PROP_uAAL_AVERAGE_QOS_RATING},
-	 *            {@link ServiceProfile#PROP_uAAL_MAX_QOS_RATING},
-	 *            {@link ServiceProfile#PROP_uAAL_MIN_RESPONSE_TIME},
-	 *            {@link ServiceProfile#PROP_uAAL_AVERAGE_RESPONSE_TIME},
-	 *            {@link ServiceProfile#PROP_uAAL_MAX_RESPONSE_TIME},
-	 *            {@link ServiceProfile#PROP_uAAL_NUMBER_OF_QOS_RATINGS},
-	 *            {@link ServiceProfile#PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS}
-	 *            , {@link ServiceProfile#PROP_uAAL_RESPONSE_TIMEOUT}.
+	 *            {@link ServiceProfile#PROP_MIN_QOS_RATING},
+	 *            {@link ServiceProfile#PROP_AVERAGE_QOS_RATING},
+	 *            {@link ServiceProfile#PROP_MAX_QOS_RATING},
+	 *            {@link ServiceProfile#PROP_MIN_RESPONSE_TIME},
+	 *            {@link ServiceProfile#PROP_AVERAGE_RESPONSE_TIME},
+	 *            {@link ServiceProfile#PROP_MAX_RESPONSE_TIME},
+	 *            {@link ServiceProfile#PROP_NUMBER_OF_QOS_RATINGS},
+	 *            {@link ServiceProfile#PROP_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS}
+	 *            , {@link ServiceProfile#PROP_RESPONSE_TIMEOUT}.
 	 * @return a new aggregating filter.
 	 */
 	public static AggregatingFilter createServiceSelectionFilter(MinMax type, String nonFunctionalParamPropURI) {
@@ -144,8 +144,8 @@ public class AggregatingFilterFactory {
 	 *            determines whether either the service with the minimum value
 	 *            or the maximum value of the parameter is called.
 	 * @param nonFunctionalParamPropURI
-	 *            {@link ServiceProfile#PROP_uAAL_HOST_LOCATION},
-	 *            {@link ServiceProfile#PROP_uAAL_SPATIAL_COVERAGE}.
+	 *            {@link ServiceProfile#PROP_HOST_LOCATION},
+	 *            {@link ServiceProfile#PROP_SPATIAL_COVERAGE}.
 	 * @param location
 	 *            the location that is referenced by the parameter.
 	 * @return a new aggregating filter.

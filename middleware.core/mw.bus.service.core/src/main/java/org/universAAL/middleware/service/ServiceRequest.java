@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,7 +43,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * A class that represents a service request resource, which is used by the
  * <code>ServiceCaller</code>-s when performing synchronous or asynchronous
  * requests.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -73,7 +73,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	/**
 	 * A property key for adding of the related service caller.
 	 */
-	public static final String PROP_uAAL_SERVICE_CALLER = VOCABULARY_NAMESPACE + "theServiceCaller";
+	public static final String PROP_SERVICE_CALLER = VOCABULARY_NAMESPACE + "theServiceCaller";
 
 	/**
 	 * Constructor for usage by de-serializers, as an anonymous node without a
@@ -86,7 +86,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 
 	/**
 	 * Constructor for usage by de-serializers, as a node with a URI.
-	 * 
+	 *
 	 * @param uri
 	 *            the URI of this resource.
 	 */
@@ -109,7 +109,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	 * <li>Finally the required outputs and effects from this ServiceRequest
 	 * will be checked against the effects and outputs of the matched services.
 	 * </ul>
-	 * 
+	 *
 	 * @param requestedService
 	 *            the requested service. It is added as a property of the
 	 *            <code>ServiceRequest</code> with key
@@ -118,7 +118,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	 *            the human user that is related to this service request. May be
 	 *            <code>null</code>. If not null or anonymous, then it is added
 	 *            as a property of the <code>ServiceRequest</code> with key
-	 *            <code>Resource.PROP_uAAL_INVOLVED_HUMAN_USER</code>.
+	 *            <code>Resource.PROP_INVOLVED_HUMAN_USER</code>.
 	 */
 	public ServiceRequest(Service requestedService, Resource involvedHumanUser) {
 		super();
@@ -139,7 +139,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	 * distinct from the other constructor that also takes a string. Later
 	 * versions of <code>ServiceRequest</code> may decide to make some use of
 	 * numProps in some way, however.
-	 * 
+	 *
 	 * @param uriPrefix
 	 *            Prefix of the URI.
 	 * @param numProps
@@ -152,7 +152,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	 *            the human user that is related to this service request. May be
 	 *            <code>null</code>. If not null or anonymous, then it is added
 	 *            as a property of the <code>ServiceRequest</code> with key
-	 *            <code>Resource.PROP_uAAL_INVOLVED_HUMAN_USER</code>.
+	 *            <code>Resource.PROP_INVOLVED_HUMAN_USER</code>.
 	 */
 	public ServiceRequest(String uriPrefix, int numProps, Service requestedService, Resource involvedHumanUser) {
 		super(uriPrefix, numProps);
@@ -170,7 +170,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	 * Creates a service request with a specified URI. This constructor is more
 	 * appropriate for {@link AvailabilitySubscriber}s, because they will be
 	 * notified later only with the URI.
-	 * 
+	 *
 	 * @param uri
 	 *            The URI of the <code>ServiceRequest</code>.
 	 * @param requestedService
@@ -181,7 +181,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	 *            the human user that is related to this service request. May be
 	 *            <code>null</code>. If not null or anonymous, then it is added
 	 *            as a property of the <code>ServiceRequest</code> with key
-	 *            <code>Resource.PROP_uAAL_INVOLVED_HUMAN_USER</code>.
+	 *            <code>Resource.PROP_INVOLVED_HUMAN_USER</code>.
 	 */
 	public ServiceRequest(String uri, Service requestedService, Resource involvedHumanUser) {
 		super(uri);
@@ -233,10 +233,10 @@ public class ServiceRequest extends ScopedResource implements Request {
 	/**
 	 * Adds filtering functions such as max(aProp) to the request as criteria to
 	 * be used by the service bus for match-making and service selection.
-	 * 
+	 *
 	 * @param f
 	 *            the filter to add.
-	 * 
+	 *
 	 * @see AggregatingFilterFactory
 	 */
 	public void addAggregatingFilter(AggregatingFilter f) {
@@ -328,7 +328,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	/**
 	 * Get a list of {@link AggregatingFilter}s. If there are no filters yet, a
 	 * new list is created and added as property to this resource.
-	 * 
+	 *
 	 * @return the non-null list. Changes to this list are reflected in the
 	 *         property value of this resource.
 	 */
@@ -344,7 +344,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	/**
 	 * Returns the list of aggregating filters added previously by calls to
 	 * {@link #addAggregatingFilter(AggregatingFilter)}.
-	 * 
+	 *
 	 * @return the non-null list of filters.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -364,7 +364,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	/**
 	 * Returns the requested service that was given to the constructor during
 	 * instantiation.
-	 * 
+	 *
 	 * @return the requested service.
 	 */
 	public Service getRequestedService() {
@@ -373,7 +373,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 
 	/**
 	 * Returns the list of required process effects.
-	 * 
+	 *
 	 * @return the list of required process effects
 	 */
 	public Resource[] getRequiredEffects() {
@@ -384,7 +384,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 
 	/**
 	 * Returns the list of required process outputs.
-	 * 
+	 *
 	 * @return the list of required process outputs.
 	 */
 	public Resource[] getRequiredOutputs() {
@@ -461,7 +461,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 			} else if (!(value instanceof Resource) || ((Resource) value).isAnon()) {
 				return false;
 			}
-		} else if (propURI.equals(PROP_uAAL_SERVICE_CALLER)) {
+		} else if (propURI.equals(PROP_SERVICE_CALLER)) {
 			if (value instanceof String && Resource.isQualifiedName((String) value)) {
 				value = new Resource((String) value);
 			} else {

@@ -16,22 +16,22 @@ import org.universAAL.middleware.managers.api.MatchingResult;
 import org.universAAL.middleware.managers.api.SpaceManager;
 
 /**
- * A fake AAL Space Manager for distributed unit tests. As this manager is used
+ * A fake Space Manager for distributed unit tests. As this manager is used
  * by different instances of the service bus and normally we only have one
  * instance (multiple instances is necessary for simulating the distribution) we
  * have to make some weird hacks. The problem is that {@link AbstractBus} has
  * only one static reference to this manager.
- * 
+ *
  * @author cs
- * 
+ *
  */
-public class MyAALSpaceManager implements SpaceManager {
+public class MypaceManager implements SpaceManager {
 	HashMap<String, PeerCard> mapCards;
 	HashMap<AbstractBus, PeerCard> mapCardForBus;
 	List<PeerCard> lstCards;
 	int cnt = -1;
 
-	MyAALSpaceManager(HashMap<String, PeerCard> mapCards, List<PeerCard> lstCards) {
+	MypaceManager(HashMap<String, PeerCard> mapCards, List<PeerCard> lstCards) {
 		this.mapCards = mapCards;
 		this.lstCards = lstCards;
 	}

@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,10 +26,10 @@ import org.universAAL.middleware.rdf.PropertyPath;
 /**
  * The AggregationFunction class includes the required functions in the SELECT
  * clause of a the SPARQL-like query.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public final class AggregationFunction extends FinalizedResource {
 	public static final String MY_URI = VOCABULARY_NAMESPACE + "AggregationFunction";
@@ -53,7 +53,7 @@ public final class AggregationFunction extends FinalizedResource {
 	 * Returns the order value of the AggregationFunction. Depending on the
 	 * inserted parameter, it returns only one of the predefined values for the
 	 * number of services.
-	 * 
+	 *
 	 * @param order
 	 */
 	public static AggregationFunction getAggregationFunctionByOrder(int order) {
@@ -76,9 +76,9 @@ public final class AggregationFunction extends FinalizedResource {
 	/**
 	 * Returns the value of the AggregationFunction. It returns the predefined
 	 * names for the AggregationFunction of services.
-	 * 
+	 *
 	 * @param name
-	 *            can get null or the uAAL_VOCABULARY_NAMESPACE value
+	 *            can get null or the VOCABULARY_NAMESPACE value
 	 */
 	public static final AggregationFunction valueOf(String name) {
 		if (name == null)
@@ -103,7 +103,7 @@ public final class AggregationFunction extends FinalizedResource {
 
 	/**
 	 * Creates an {@link AggregationFunction} object.
-	 * 
+	 *
 	 * @param order
 	 *            defines the order of each service
 	 */
@@ -148,7 +148,7 @@ public final class AggregationFunction extends FinalizedResource {
 	/**
 	 * Returns the type of the parameter that is needed for this
 	 * {@link AggregationFunction}.
-	 * 
+	 *
 	 * @param i
 	 *            the index of the parameter.
 	 * @return URI of the type of the parameter. The first parameter is always a

@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,9 +34,9 @@ import org.universAAL.middleware.service.owls.process.ProcessResult;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
 public class ServiceBusFactory implements ResourceFactory {
 
@@ -72,35 +72,35 @@ public class ServiceBusFactory implements ResourceFactory {
 		/*
 		 * All classes that are sub classes of Resource, the ones marked with
 		 * '+' are registered (e.g. for deserialisation). State: 2011-07-20
-		 * 
-		 * + AggregatingFilter MY_URI = uAAL_VOCABULARY_NAMESPACE +
+		 *
+		 * + AggregatingFilter MY_URI = VOCABULARY_NAMESPACE +
 		 * "AggregatingFilter" + ServiceCall MY_URI =
 		 * ProcessInput.OWLS_PROCESS_NAMESPACE + "Perform" + ServiceRequest
-		 * MY_URI = uAAL_VOCABULARY_NAMESPACE + "ServiceRequest" +
-		 * ServiceResponse MY_URI = uAAL_VOCABULARY_NAMESPACE +
+		 * MY_URI = VOCABULARY_NAMESPACE + "ServiceRequest" +
+		 * ServiceResponse MY_URI = VOCABULARY_NAMESPACE +
 		 * "ServiceResponse" + ServiceProfile MY_URI = OWLS_PROFILE_NAMESPACE +
-		 * "Profile" AggregationFunction MY_URI = uAAL_VOCABULARY_NAMESPACE +
-		 * "AggregationFunction" CallStatus MY_URI = uAAL_VOCABULARY_NAMESPACE +
-		 * "CallStatus" ServiceRealization MY_URI = uAAL_VOCABULARY_NAMESPACE +
+		 * "Profile" AggregationFunction MY_URI = VOCABULARY_NAMESPACE +
+		 * "AggregationFunction" CallStatus MY_URI = VOCABULARY_NAMESPACE +
+		 * "CallStatus" ServiceRealization MY_URI = VOCABULARY_NAMESPACE +
 		 * "ServiceRealization" ProcessInput MY_URI = OWLS_PROCESS_NAMESPACE +
 		 * "Input" ProcessOutput MY_URI = OWLS_PROCESS_NAMESPACE + "Output"
 		 * ProcessParameter MY_URI = OWLS_PROCESS_NAMESPACE + "Parameter"
 		 * ProcessResult TYPE_OWLS_RESULT = ProcessOutput.OWLS_PROCESS_NAMESPACE
-		 * + "Result" MultiLocationParameter MY_URI = uAAL_SERVICE_NAMESPACE +
+		 * + "Result" MultiLocationParameter MY_URI = SERVICE_NAMESPACE +
 		 * "MultiAbsLocationParameter" NumberOfSamples MY_URI =
-		 * uAAL_SERVICE_NAMESPACE + "NumberOfSamples" ProfileParameter MY_URI =
+		 * SERVICE_NAMESPACE + "NumberOfSamples" ProfileParameter MY_URI =
 		 * ServiceProfile.OWLS_PROFILE_NAMESPACE + "ServiceParameter" QoSRating
-		 * MY_URI = uAAL_SERVICE_NAMESPACE + "QoSRating"
-		 * ResponseTimeInMilliseconds MY_URI = uAAL_SERVICE_NAMESPACE +
+		 * MY_URI = SERVICE_NAMESPACE + "QoSRating"
+		 * ResponseTimeInMilliseconds MY_URI = SERVICE_NAMESPACE +
 		 * "ResponseTimeInMilliseconds" SingleLocationParameter MY_URI =
-		 * uAAL_SERVICE_NAMESPACE + "SingleLocationParameter"
+		 * SERVICE_NAMESPACE + "SingleLocationParameter"
 		 */
 
 		// if (classURI == null)
 		// return null;
-		// if (classURI.startsWith(Resource.uAAL_VOCABULARY_NAMESPACE)) {
+		// if (classURI.startsWith(Resource.VOCABULARY_NAMESPACE)) {
 		// String className =
-		// classURI.substring(Resource.uAAL_VOCABULARY_NAMESPACE.length());
+		// classURI.substring(Resource.VOCABULARY_NAMESPACE.length());
 		// if (className.equals("AggregatingFilter"))
 		// return new AggregatingFilter(instanceURI);
 		// else if (className.equals("ServiceRequest"))
@@ -117,10 +117,10 @@ public class ServiceBusFactory implements ResourceFactory {
 		 * All classes that are sub classes of ManagedIndividual, the ones
 		 * marked with '+' are registered (e.g. for deserialisation). State:
 		 * 2011-07-20
-		 * 
-		 * + InitialServiceDialog MY_URI = uAAL_SERVICE_NAMESPACE +
+		 *
+		 * + InitialServiceDialog MY_URI = SERVICE_NAMESPACE +
 		 * "InitialServiceDialog" + UserInterfaceService MY_URI =
-		 * uAAL_SERVICE_NAMESPACE + "UserInterfaceService" + Service MY_URI =
+		 * SERVICE_NAMESPACE + "UserInterfaceService" + Service MY_URI =
 		 * OWLS_SERVICE_NAMESPACE + "Service"
 		 */
 

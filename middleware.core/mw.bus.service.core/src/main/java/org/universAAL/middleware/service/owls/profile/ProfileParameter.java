@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,23 +39,23 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * <ul>
  * <li>ignoring the cardinality restriction on both profile:serviceParameterName
  * and profile:sParameter;
- * <li>adding a new owl:DatatypeProperty called 'uaal:valueData' for
+ * <li>adding a new owl:DatatypeProperty called 'universAAL:valueData' for
  * literal-valued parameters; and
  * <li>requiring that the subclasses of profie:ServiceProperty restrict one of
- * profile:sParameter or uaal:valueData to have a cardinality of 0 and the other
+ * profile:sParameter or universAAL:valueData to have a cardinality of 0 and the other
  * one to have minCardinality 1.
  * </ul>
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public abstract class ProfileParameter extends FinalizedResource {
 	public static final String MY_URI = ServiceProfile.OWLS_PROFILE_NAMESPACE + "ServiceParameter";
 	public static final String PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME = ServiceProfile.OWLS_PROFILE_NAMESPACE
 			+ "serviceParameterName";
 	public static final String PROP_OWLS_PROFILE_S_PARAMETER = ServiceProfile.OWLS_PROFILE_NAMESPACE + "sParameter";
-	public static final String PROP_uAAL_PARAMETER_VALUE_DATA = VOCABULARY_NAMESPACE + "valueData";
+	public static final String PROP_PARAMETER_VALUE_DATA = VOCABULARY_NAMESPACE + "valueData";
 
 	protected ProfileParameter() {
 		super();
@@ -74,12 +74,12 @@ public abstract class ProfileParameter extends FinalizedResource {
 	 * properties will have always literal values and there would make no
 	 * difference to return {@link Resource#PROP_SERIALIZATION_REDUCED} or
 	 * {@link Resource#PROP_SERIALIZATION_FULL}.
-	 * 
+	 *
 	 * @see Resource#getPropSerializationType(java.lang.String)
 	 */
 	public int getPropSerializationType(String propURI) {
 		if (PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME.equals(propURI) || PROP_OWLS_PROFILE_S_PARAMETER.equals(propURI)
-				|| PROP_uAAL_PARAMETER_VALUE_DATA.equals(propURI))
+				|| PROP_PARAMETER_VALUE_DATA.equals(propURI))
 			return PROP_SERIALIZATION_REDUCED;
 		return PROP_SERIALIZATION_OPTIONAL;
 	}
@@ -87,7 +87,7 @@ public abstract class ProfileParameter extends FinalizedResource {
 	/**
 	 * The method returns the name of the name of the property (profile service
 	 * parameter)
-	 * 
+	 *
 	 * @return name of property name for parameter (String)
 	 */
 	public String getName() {
@@ -96,19 +96,19 @@ public abstract class ProfileParameter extends FinalizedResource {
 
 	/**
 	 * The method returns the value of the specified parameter.
-	 * 
+	 *
 	 * @return parameter value
 	 */
 	public Object getValue() {
 		Object answer = props.get(PROP_OWLS_PROFILE_S_PARAMETER);
-		return (answer == null) ? props.get(PROP_uAAL_PARAMETER_VALUE_DATA) : answer;
+		return (answer == null) ? props.get(PROP_PARAMETER_VALUE_DATA) : answer;
 	}
 
 	/**
 	 * @see Resource#isWellFormed()
 	 */
 	public boolean isWellFormed() {
-		return (props.get(PROP_OWLS_PROFILE_S_PARAMETER) != null || props.get(PROP_uAAL_PARAMETER_VALUE_DATA) != null);
+		return (props.get(PROP_OWLS_PROFILE_S_PARAMETER) != null || props.get(PROP_PARAMETER_VALUE_DATA) != null);
 	}
 
 	/**
@@ -122,7 +122,7 @@ public abstract class ProfileParameter extends FinalizedResource {
 					return true;
 				}
 			} else if (propURI.equals(PROP_OWLS_PROFILE_S_PARAMETER)) {
-				if (props.containsKey(PROP_uAAL_PARAMETER_VALUE_DATA))
+				if (props.containsKey(PROP_PARAMETER_VALUE_DATA))
 					return false;
 				if (value instanceof Resource) {
 					props.put(propURI, value);
@@ -134,7 +134,7 @@ public abstract class ProfileParameter extends FinalizedResource {
 					props.put(propURI, value);
 					return true;
 				}
-			} else if (propURI.equals(PROP_uAAL_PARAMETER_VALUE_DATA)) {
+			} else if (propURI.equals(PROP_PARAMETER_VALUE_DATA)) {
 				if (props.containsKey(PROP_OWLS_PROFILE_S_PARAMETER))
 					return false;
 				if (TypeMapper.getDatatypeURI(value) != null) {
