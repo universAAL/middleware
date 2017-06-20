@@ -33,7 +33,7 @@ import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.api.SpaceEventHandler;
 import org.universAAL.middleware.managers.api.SpaceManager;
@@ -54,7 +54,7 @@ public class Activator implements BundleActivator, ManagedService {
 	private ModuleContext moduleContext;
 
 	public void start(BundleContext context) throws Exception {
-		moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 		spaceManager = new SpaceManagerImpl(moduleContext);
 
 		Dictionary props = new Hashtable();
@@ -81,7 +81,7 @@ public class Activator implements BundleActivator, ManagedService {
 		LogUtils.logDebug(moduleContext, Activator.class, "Activator", new Object[] { "Starting SpaceManager..." },
 				null);
 
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, spaceManager,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, spaceManager,
 				new String[] { SpaceManager.class.getName(), SpaceEventHandler.class.getName() });
 		LogUtils.logDebug(moduleContext, Activator.class, "Activator", new Object[] { "Registered" }, null);
 

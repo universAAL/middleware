@@ -49,12 +49,12 @@ import org.universAAL.middleware.container.osgi.run.Activator;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  * 
  */
-public final class uAALBundleContainer implements Container, ServiceListener {
-	public static final uAALBundleContainer THE_CONTAINER = new uAALBundleContainer();
+public final class OSGiContainer implements Container, ServiceListener {
+	public static final OSGiContainer THE_CONTAINER = new OSGiContainer();
 
 	private List listeners;
 
-	private uAALBundleContainer() {
+	private OSGiContainer() {
 		listeners = Collections.synchronizedList(new ArrayList());
 	}
 
@@ -82,21 +82,21 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 	 *            </ul>
 	 * 
 	 * @return if the given requester is an instance of
-	 *         {@link uAALBundleContext} and a {@link ServiceReference} has been
+	 *         {@link OSGiModuleContext} and a {@link ServiceReference} has been
 	 *         found according to the explanations given for
 	 *         <code>fetchParams</code>, then the result of calling
 	 *         {@link BundleContext#getService(ServiceReference)} will be
 	 *         returned.
 	 */
 	public Object fetchSharedObject(ModuleContext requester, Object[] fetchParams) {
-		if (requester instanceof uAALBundleContext && fetchParams != null && fetchParams.length > 0)
+		if (requester instanceof OSGiModuleContext && fetchParams != null && fetchParams.length > 0)
 			if (fetchParams.length == 1) {
 				if (fetchParams[0] instanceof String) {
-					return ((uAALBundleContext) requester).fetchObject((String) fetchParams[0]);
+					return ((OSGiModuleContext) requester).fetchObject((String) fetchParams[0]);
 				}
 			} else if ((fetchParams[0] == null || fetchParams[0] instanceof String)
 					&& (fetchParams[1] == null || fetchParams[1] instanceof String)) {
-				Object[] result = ((uAALBundleContext) requester).fetchObject((String) fetchParams[0],
+				Object[] result = ((OSGiModuleContext) requester).fetchObject((String) fetchParams[0],
 						(String) fetchParams[1]);
 				if (result != null)
 					return result[0];
@@ -106,7 +106,7 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 	}
 
 	public Object[] fetchSharedObject(ModuleContext requester, Object[] fetchParams, SharedObjectListener listener) {
-		if (requester instanceof uAALBundleContext && fetchParams != null && fetchParams.length > 0)
+		if (requester instanceof OSGiModuleContext && fetchParams != null && fetchParams.length > 0)
 			if (fetchParams.length == 1) {
 				if (fetchParams[0] instanceof String) {
 					if (listener != null && !listeners.contains(listener)) {
@@ -115,7 +115,7 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 						}
 
 					}
-					return ((uAALBundleContext) requester).fetchObject((String) fetchParams[0], null);
+					return ((OSGiModuleContext) requester).fetchObject((String) fetchParams[0], null);
 				}
 			} else if ((fetchParams[0] == null || fetchParams[0] instanceof String)
 					&& (fetchParams[1] == null || fetchParams[1] instanceof String)) {
@@ -123,7 +123,7 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 					synchronized (listeners) {
 						listeners.add(listener);
 					}
-				return ((uAALBundleContext) requester).fetchObject((String) fetchParams[0], (String) fetchParams[1]);
+				return ((OSGiModuleContext) requester).fetchObject((String) fetchParams[0], (String) fetchParams[1]);
 			}
 		// problems with parameters => do not add the listener
 		return null;
@@ -149,20 +149,20 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 	 *            will be used to install the given bundle</li>
 	 *            </ul>
 	 * 
-	 * @return a newly created instance of {@link uAALBundleContext} that wraps
+	 * @return a newly created instance of {@link OSGiModuleContext} that wraps
 	 *         the newly installed bundle if the given requester is an instance
-	 *         of {@link uAALBundleContext}, the conditions on
+	 *         of {@link OSGiModuleContext}, the conditions on
 	 *         <code>installParams</code> hold, and the installation is
 	 *         successful, null otherwise.
 	 */
 	public ModuleContext installModule(ModuleContext requester, Object[] installParams) {
-		if (!(requester instanceof uAALBundleContext))
+		if (!(requester instanceof OSGiModuleContext))
 			return null;
 		if (installParams == null || installParams.length == 0 || !(installParams[0] instanceof String))
 			return null;
 		return (installParams.length == 1 || !(installParams[1] instanceof InputStream))
-				? ((uAALBundleContext) requester).installBundle((String) installParams[0])
-				: ((uAALBundleContext) requester).installBundle((String) installParams[0],
+				? ((OSGiModuleContext) requester).installBundle((String) installParams[0])
+				: ((OSGiModuleContext) requester).installBundle((String) installParams[0],
 						(InputStream) installParams[1]);
 	}
 
@@ -180,7 +180,7 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 	 *            element @ index 0 must exist and be an instance of
 	 *            {@link BundleContext}
 	 * 
-	 * @return an instance of {@link uAALBundleContext} if the conditions for
+	 * @return an instance of {@link OSGiModuleContext} if the conditions for
 	 *         <code>regParams</code> hold, null otherwise
 	 */
 	public ModuleContext registerModule(Object[] regParams) {
@@ -191,7 +191,7 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 			bContext.addServiceListener(THE_CONTAINER);
 		}
 		return (regParams != null && regParams.length > 0 && regParams[0] instanceof BundleContext)
-				? new uAALBundleContext((BundleContext) regParams[0]) : null;
+				? new OSGiModuleContext((BundleContext) regParams[0]) : null;
 	}
 
 	/**
@@ -246,7 +246,7 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 	 *            </ul>
 	 */
 	public void shareObject(ModuleContext requester, Object objToShare, Object[] shareParams) {
-		if (!(requester instanceof uAALBundleContext) || objToShare == null || shareParams == null
+		if (!(requester instanceof OSGiModuleContext) || objToShare == null || shareParams == null
 				|| shareParams.length == 0) {
 			requester.logWarn(this.getClass().getName() + "shareObject",
 					"Parameters passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!", null);
@@ -256,9 +256,9 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 		int n = shareParams.length - 1;
 		if (n == 0)
 			if (shareParams[0] instanceof String)
-				((uAALBundleContext) requester).shareObject((String) shareParams[0], objToShare, null);
+				((OSGiModuleContext) requester).shareObject((String) shareParams[0], objToShare, null);
 			else if (shareParams[0] instanceof Dictionary)
-				((uAALBundleContext) requester).shareObject((String) null, objToShare, (Dictionary) shareParams[0]);
+				((OSGiModuleContext) requester).shareObject((String) null, objToShare, (Dictionary) shareParams[0]);
 			else
 				requester.logWarn(this.getClass().getName() + "shareObject",
 						"'shareParams' passed to 'shareObject' do not satisfy the requirements of mw.container.osgi!",
@@ -272,16 +272,16 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 					return;
 				}
 			if (shareParams[n] instanceof String)
-				((uAALBundleContext) requester).shareObject((String[]) shareParams, objToShare, null);
+				((OSGiModuleContext) requester).shareObject((String[]) shareParams, objToShare, null);
 			else if (shareParams[n] instanceof Dictionary)
 				if (n == 1)
-					((uAALBundleContext) requester).shareObject((String) shareParams[0], objToShare,
+					((OSGiModuleContext) requester).shareObject((String) shareParams[0], objToShare,
 							(Dictionary) shareParams[1]);
 				else {
 					String[] xfaces = new String[n];
 					for (int i = 0; i < n; i++)
 						xfaces[i] = (String) shareParams[i];
-					((uAALBundleContext) requester).shareObject(xfaces, objToShare, (Dictionary) shareParams[n]);
+					((OSGiModuleContext) requester).shareObject(xfaces, objToShare, (Dictionary) shareParams[n]);
 				}
 			else
 				requester.logWarn(this.getClass().getName() + "shareObject",
@@ -291,7 +291,7 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 	}
 
 	public void removeSharedObject(ModuleContext requester, Object objToRemove, Object[] shareParams) {
-		if (!(requester instanceof uAALBundleContext) || objToRemove == null || shareParams == null
+		if (!(requester instanceof OSGiModuleContext) || objToRemove == null || shareParams == null
 				|| shareParams.length == 0) {
 			requester.logWarn(this.getClass().getName() + "removeSharedObject",
 					"Parameters passed to 'removeSharedObject' do not satisfy the requirements of mw.container.osgi!",
@@ -302,9 +302,9 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 		int n = shareParams.length - 1;
 		if (n == 0)
 			if (shareParams[0] instanceof String)
-				((uAALBundleContext) requester).removeSharedObject((String) shareParams[0], objToRemove, null);
+				((OSGiModuleContext) requester).removeSharedObject((String) shareParams[0], objToRemove, null);
 			else if (shareParams[0] instanceof Dictionary)
-				((uAALBundleContext) requester).removeSharedObject((String) null, objToRemove,
+				((OSGiModuleContext) requester).removeSharedObject((String) null, objToRemove,
 						(Dictionary) shareParams[0]);
 			else
 				requester.logWarn(this.getClass().getName() + "removeSharedObject",
@@ -319,16 +319,16 @@ public final class uAALBundleContainer implements Container, ServiceListener {
 					return;
 				}
 			if (shareParams[n] instanceof String)
-				((uAALBundleContext) requester).removesharedObject((String[]) shareParams, objToRemove, null);
+				((OSGiModuleContext) requester).removesharedObject((String[]) shareParams, objToRemove, null);
 			else if (shareParams[n] instanceof Dictionary)
 				if (n == 1)
-					((uAALBundleContext) requester).removeSharedObject((String) shareParams[0], objToRemove,
+					((OSGiModuleContext) requester).removeSharedObject((String) shareParams[0], objToRemove,
 							(Dictionary) shareParams[1]);
 				else {
 					String[] xfaces = new String[n];
 					for (int i = 0; i < n; i++)
 						xfaces[i] = (String) shareParams[i];
-					((uAALBundleContext) requester).removesharedObject(xfaces, objToRemove,
+					((OSGiModuleContext) requester).removesharedObject(xfaces, objToRemove,
 							(Dictionary) shareParams[n]);
 				}
 			else

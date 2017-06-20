@@ -34,10 +34,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.ModuleActivator;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 
-public class uAALBundleExtender implements SynchronousBundleListener {
+public class OSGiExtender implements SynchronousBundleListener {
 
 	private BundleContext bc;
 
@@ -58,7 +58,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 		return null;
 	}
 
-	public uAALBundleExtender(BundleContext bc) {
+	public OSGiExtender(BundleContext bc) {
 		this.bc = bc;
 	}
 
@@ -183,7 +183,7 @@ public class uAALBundleExtender implements SynchronousBundleListener {
 		public ActivatorExecutor(ModuleActivator activator, Bundle b) {
 			this.activator = activator;
 			this.b = b;
-			this.mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { b.getBundleContext() });
+			this.mc = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { b.getBundleContext() });
 		}
 
 		public ActivatorExecutor(String errorMsg, Bundle b) {

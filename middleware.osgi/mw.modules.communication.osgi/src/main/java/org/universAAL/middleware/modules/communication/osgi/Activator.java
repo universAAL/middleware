@@ -23,8 +23,8 @@ package org.universAAL.middleware.modules.communication.osgi;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.uAALBundleContext;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
+import org.universAAL.middleware.container.osgi.OSGiModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.modules.communication.CommunicationModuleImpl;
@@ -41,7 +41,7 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext context) throws Exception {
 
-		ModuleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
+		ModuleContext moduleContext = (OSGiModuleContext) OSGiContainer.THE_CONTAINER
 				.registerModule(new Object[] { context });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Starting the CommunicationModule..." }, null);
@@ -50,7 +50,7 @@ public class Activator implements BundleActivator {
 		communicationModule.init();
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Started the CommunicationModule..." }, null);
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, communicationModule,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, communicationModule,
 				new Object[] { CommunicationModule.class.getName() });
 
 	}

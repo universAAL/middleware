@@ -33,8 +33,8 @@ import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.uAALBundleContext;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
+import org.universAAL.middleware.container.osgi.OSGiModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.modules.SpaceModule;
 import org.universAAL.middleware.modules.space.SpaceModuleImpl;
@@ -52,7 +52,7 @@ public class Activator implements BundleActivator, ManagedService {
 
 	public void start(BundleContext context) throws Exception {
 
-		ModuleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
+		ModuleContext moduleContext = (OSGiModuleContext) OSGiContainer.THE_CONTAINER
 				.registerModule(new Object[] { context });
 		spaceModule = new SpaceModuleImpl(moduleContext);
 
@@ -76,7 +76,7 @@ public class Activator implements BundleActivator, ManagedService {
 
 		spaceModule.init();
 
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, spaceModule,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, spaceModule,
 				new Object[] { SpaceModule.class.getName() });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "SpaceModule registered" }, null);

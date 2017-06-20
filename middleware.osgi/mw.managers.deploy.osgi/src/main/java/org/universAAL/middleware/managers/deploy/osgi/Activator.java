@@ -33,7 +33,7 @@ import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.api.DeployManager;
 import org.universAAL.middleware.managers.deploy.DeployManagerImpl;
@@ -56,7 +56,7 @@ public class Activator implements BundleActivator, ManagedService {
 	private ModuleContext moduleContext;
 
 	public void start(BundleContext context) throws Exception {
-		moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Starting the Deploymanager..." }, null);
 
@@ -81,7 +81,7 @@ public class Activator implements BundleActivator, ManagedService {
 			deployManager.loadConfigurations(deployManagerProps);
 		}
 		deployManager.init();
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, deployManager,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, deployManager,
 				new Object[] { DeployManager.class.getName() });
 	}
 

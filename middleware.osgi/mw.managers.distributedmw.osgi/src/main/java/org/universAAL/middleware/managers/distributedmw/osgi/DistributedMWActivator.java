@@ -22,7 +22,7 @@ package org.universAAL.middleware.managers.distributedmw.osgi;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.api.DistributedMWEventHandler;
 import org.universAAL.middleware.managers.distributedmw.api.DistributedBusMemberManager;
@@ -39,7 +39,7 @@ public class DistributedMWActivator implements BundleActivator {
 	DistributedMWManagerImpl mm;
 
 	public void start(BundleContext arg0) throws Exception {
-		context = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { arg0 });
+		context = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { arg0 });
 		LogUtils.logDebug(context, getClass(), "start", "Starting DistributedMWM Manager.");
 
 		Object[] parBMLMgmt = new Object[] { DistributedBusMemberManager.class.getName() };

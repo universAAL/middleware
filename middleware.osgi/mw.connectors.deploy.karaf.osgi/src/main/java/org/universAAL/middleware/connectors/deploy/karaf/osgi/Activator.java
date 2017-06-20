@@ -26,7 +26,7 @@ import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.connectors.DeployConnector;
 import org.universAAL.middleware.connectors.deploy.karaf.KarafDeployConnector;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
@@ -40,14 +40,14 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext context) throws Exception {
 
-		ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		ModuleContext moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Starting the KarafDeployConnector..." }, null);
 		kDeployConnector = new KarafDeployConnector(moduleContext);
 
 		kDeployConnector.init();
 
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, kDeployConnector,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, kDeployConnector,
 				new Object[] { DeployConnector.class.getName() });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Started the KarafDeployConnector" }, null);

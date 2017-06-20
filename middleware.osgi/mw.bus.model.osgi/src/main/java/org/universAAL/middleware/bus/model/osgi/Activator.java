@@ -28,7 +28,7 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.middleware.bus.model.AbstractBus;
 import org.universAAL.middleware.bus.msg.BusMessage;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.modules.CommunicationModule;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
@@ -43,7 +43,7 @@ public class Activator implements BundleActivator, ServiceListener {
 
 	public void start(BundleContext context) throws Exception {
 		this.context = context;
-		ModuleContext mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		ModuleContext mc = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 
 		// intentionally without checking for null, because if the following
 		// OSGi services are not found, then it makes no sense to start this

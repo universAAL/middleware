@@ -24,7 +24,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.brokers.control.ControlBroker;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
@@ -37,12 +37,12 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext context) throws Exception {
 
-		ModuleContext moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		ModuleContext moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Starting ControlBroker..." }, null);
 		controlBroker = new ControlBroker(moduleContext);
 
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, controlBroker,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, controlBroker,
 				new Object[] { ControlBroker.class.getName() });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Started ControlBroker!" }, null);

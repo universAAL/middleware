@@ -34,8 +34,8 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.universAAL.middleware.connectors.DiscoveryConnector;
 import org.universAAL.middleware.connectors.discovery.slp.SLPDiscoveryConnector;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.uAALBundleContext;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
+import org.universAAL.middleware.container.osgi.OSGiModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
@@ -52,7 +52,7 @@ public class Activator implements BundleActivator, ManagedService {
 
 	public void start(BundleContext context) throws Exception {
 
-		uAALBundleContext moduleContext = (uAALBundleContext) uAALBundleContainer.THE_CONTAINER
+		OSGiModuleContext moduleContext = (OSGiModuleContext) OSGiContainer.THE_CONTAINER
 				.registerModule(new Object[] { context });
 
 		LogUtils.logDebug(moduleContext, Activator.class, "Activator",
@@ -77,7 +77,7 @@ public class Activator implements BundleActivator, ManagedService {
 		}
 
 		// register the SLPDiscoveryConnector
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, slpDiscoveryConnector,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, slpDiscoveryConnector,
 				new Object[] { DiscoveryConnector.class.getName() });
 		LogUtils.logDebug(moduleContext, Activator.class, "startBrokerClient",
 				new Object[] { "Starting the SLPDiscoveryConnector..." }, null);

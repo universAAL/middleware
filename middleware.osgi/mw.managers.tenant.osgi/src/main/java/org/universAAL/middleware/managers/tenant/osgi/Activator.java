@@ -24,7 +24,7 @@ package org.universAAL.middleware.managers.tenant.osgi;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.managers.api.TenantManager;
 import org.universAAL.middleware.managers.tenant.TenantManagerImpl;
@@ -44,14 +44,14 @@ public class Activator implements BundleActivator {
 	private ModuleContext moduleContext;
 
 	public void start(BundleContext context) throws Exception {
-		moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 		LogUtils.logDebug(moduleContext, Activator.class, "start", new Object[] { "Starting the TenantManager..." },
 				null);
 
 		tenantManager = new TenantManagerImpl(moduleContext);
 
 		tenantManager.init();
-		uAALBundleContainer.THE_CONTAINER.shareObject(moduleContext, tenantManager,
+		OSGiContainer.THE_CONTAINER.shareObject(moduleContext, tenantManager,
 				new Object[] { TenantManager.class.getName() });
 	}
 

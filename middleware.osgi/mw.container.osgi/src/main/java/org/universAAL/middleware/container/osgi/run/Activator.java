@@ -30,7 +30,7 @@ import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.universAAL.middleware.container.LogListener;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 
 /**
  * @author mtazari
@@ -62,8 +62,8 @@ public final class Activator implements BundleActivator, ServiceListener {
 	public void start(BundleContext arg0) throws Exception {
 		context = arg0;
 		context.addServiceListener(this);
-		context.addBundleListener(new uAALBundleExtender(context));
-		mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		context.addBundleListener(new OSGiExtender(context));
+		mc = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 		try {
 			ServiceReference sr[] = context.getServiceReferences(LogListener.class.getName(), null);
 			if (sr == null)

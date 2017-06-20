@@ -22,7 +22,7 @@ package org.universAAL.middleware.context.impl.osgi;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.context.ContextBus;
 import org.universAAL.middleware.context.impl.ContextBusImpl;
 
@@ -44,8 +44,8 @@ public final class Activator implements BundleActivator {
 	 */
 	public void start(BundleContext context) throws Exception {
 		Object[] busFetchParams = new Object[] { ContextBus.class.getName() };
-		mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
-		ContextBusImpl.startModule(uAALBundleContainer.THE_CONTAINER, mc, busFetchParams, busFetchParams);
+		mc = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		ContextBusImpl.startModule(OSGiContainer.THE_CONTAINER, mc, busFetchParams, busFetchParams);
 	}
 
 	/**

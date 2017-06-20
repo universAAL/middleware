@@ -21,7 +21,7 @@ package org.universAAL.middleware.serialization.turtle.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 import org.universAAL.middleware.serialization.turtle.TurtleSerializer;
@@ -36,10 +36,10 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 public final class Activator implements BundleActivator {
 
 	public void start(BundleContext context) throws Exception {
-		TurtleUtil.moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
-		uAALBundleContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, new TurtleSerializer(),
+		TurtleUtil.moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, new TurtleSerializer(),
 				new Object[] { MessageContentSerializer.class.getName() });
-		uAALBundleContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, new TurtleSerializer(),
+		OSGiContainer.THE_CONTAINER.shareObject(TurtleUtil.moduleContext, new TurtleSerializer(),
 				new Object[] { MessageContentSerializerEx.class.getName() });
 	}
 

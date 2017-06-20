@@ -28,7 +28,7 @@ import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.datarep.SharedResources;
 
 public final class Activator implements BundleActivator, ManagedService {
@@ -51,7 +51,7 @@ public final class Activator implements BundleActivator, ManagedService {
 	 */
 	public void start(BundleContext context) throws Exception {
 
-		SharedResources.moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		SharedResources.moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 		SharedResources.loadReasoningEngine();
 		SharedResources.setDefaults();
 

@@ -52,7 +52,7 @@ import org.universAAL.middleware.container.ModuleContext;
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  * 
  */
-public class uAALBundleContext implements ModuleContext {
+public class OSGiModuleContext implements ModuleContext {
 	private BundleContext bundle;
 	private Hashtable extension = new Hashtable();
 	private Logger logger;
@@ -67,7 +67,7 @@ public class uAALBundleContext implements ModuleContext {
 	private ArrayList confFiles = new ArrayList(2);
 	private Hashtable<String, ServiceRegistration> sharedObjects = new Hashtable<String, ServiceRegistration>();
 
-	uAALBundleContext(BundleContext bc) {
+	OSGiModuleContext(BundleContext bc) {
 		bundle = bc;
 		logger = LoggerFactory.getLogger("org.universAAL." + bc.getBundle().getSymbolicName());
 		loadUniversAALAttribute();
@@ -182,17 +182,17 @@ public class uAALBundleContext implements ModuleContext {
 	 * @see org.universAAL.middleware.container.ModuleContext#getContainer()
 	 */
 	public Container getContainer() {
-		return uAALBundleContainer.THE_CONTAINER;
+		return OSGiContainer.THE_CONTAINER;
 	}
 
 	public String getID() {
 		return bundle.getBundle().getSymbolicName();
 	}
 
-	public uAALBundleContext installBundle(String location) {
+	public OSGiModuleContext installBundle(String location) {
 		try {
 			Bundle b = bundle.installBundle(location);
-			return new uAALBundleContext(b.getBundleContext());
+			return new OSGiModuleContext(b.getBundleContext());
 		} catch (Exception e) {
 			logError(this.getClass().getName() + "installBundle", "Exception while installing bundle at " + location,
 					e);
@@ -200,10 +200,10 @@ public class uAALBundleContext implements ModuleContext {
 		}
 	}
 
-	public uAALBundleContext installBundle(String location, InputStream is) {
+	public OSGiModuleContext installBundle(String location, InputStream is) {
 		try {
 			Bundle b = bundle.installBundle(location, is);
-			return new uAALBundleContext(b.getBundleContext());
+			return new OSGiModuleContext(b.getBundleContext());
 		} catch (Exception e) {
 			logError(this.getClass().getName() + "installBundle", "Exception while installing bundle at " + location,
 					e);
