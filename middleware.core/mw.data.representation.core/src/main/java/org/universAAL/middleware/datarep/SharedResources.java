@@ -101,7 +101,7 @@ public final class SharedResources {
 	}
 
 	public static void setDefaults() {
-		middlewareProps.put(SPACE_URI, System.getProperty(SPACE_URI, "urn:org.universAAL.aal_space:test_environment"));
+		middlewareProps.put(SPACE_URI, System.getProperty(SPACE_URI, "urn:org.universAAL.space:test_environment"));
 		middlewareProps.put(IS_COORDINATING_PEER, System.getProperty(IS_COORDINATING_PEER, "true"));
 		if ("true".equals(System.getProperty(IS_DEBUG_MODE)))
 			middlewareProps.put(IS_DEBUG_MODE, "true");
