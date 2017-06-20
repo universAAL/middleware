@@ -36,21 +36,21 @@ public abstract class Variable extends FinalizedResource {
 	 * The URI of a standard variable managed by the universAAL middleware indicating
 	 * the current time.
 	 */
-	public static final String VAR_uAAL_CURRENT_DATETIME = Resource.VOCABULARY_NAMESPACE + "currentDatetime";
+	public static final String VAR_CURRENT_DATETIME = Resource.VOCABULARY_NAMESPACE + "currentDatetime";
 
 	/**
 	 * The URI of a standard variable managed by the universAAL middleware indicating
 	 * the software component currently accessing the middleware.
 	 */
-	public static final String VAR_uAAL_ACCESSING_BUS_MEMBER = Resource.VOCABULARY_NAMESPACE
+	public static final String VAR_ACCESSING_BUS_MEMBER = Resource.VOCABULARY_NAMESPACE
 			+ "theAccessingBusMember";
 
 	/**
 	 * The URI of a standard variable managed by the universAAL middleware indicating
 	 * the current human user as claimed by
-	 * {@link #VAR_uAAL_ACCESSING_BUS_MEMBER}.
+	 * {@link #VAR_ACCESSING_BUS_MEMBER}.
 	 */
-	public static final String VAR_uAAL_ACCESSING_HUMAN_USER = Resource.VOCABULARY_NAMESPACE
+	public static final String VAR_ACCESSING_HUMAN_USER = Resource.VOCABULARY_NAMESPACE
 			+ "theAccessingHumanUser";
 
 	/**
@@ -58,7 +58,7 @@ public abstract class Variable extends FinalizedResource {
 	 * the profile of a service that is estimated to be appropriate for
 	 * responding the current service request.
 	 */
-	public static final String VAR_uAAL_SERVICE_TO_SELECT = Resource.VOCABULARY_NAMESPACE + "theServiceToSelect";
+	public static final String VAR_SERVICE_TO_SELECT = Resource.VOCABULARY_NAMESPACE + "theServiceToSelect";
 
 	/**
 	 * Storage for all handlers of subclasses. Subclasses have to

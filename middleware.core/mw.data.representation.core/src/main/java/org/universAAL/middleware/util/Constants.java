@@ -20,7 +20,6 @@
 package org.universAAL.middleware.util;
 
 import org.universAAL.middleware.datarep.SharedResources;
-import org.universAAL.middleware.rdf.Resource;
 
 /**
  * Management of some basic middleware constants.
@@ -33,35 +32,6 @@ public final class Constants {
 
 	private Constants() {
 	}
-
-	// URIs of standard variables managed by the universAAL middleware
-	/**
-	 * The URI of a standard variable managed by the universAAL middleware indicating
-	 * the current time.
-	 */
-	public static final String VAR_CURRENT_DATETIME = Resource.VOCABULARY_NAMESPACE + "currentDatetime";
-
-	/**
-	 * The URI of a standard variable managed by the universAAL middleware indicating
-	 * the software component currently accessing the middleware.
-	 */
-	public static final String VAR_ACCESSING_BUS_MEMBER = Resource.VOCABULARY_NAMESPACE
-			+ "theAccessingBusMember";
-
-	/**
-	 * The URI of a standard variable managed by the universAAL middleware indicating
-	 * the current human user as claimed by
-	 * {@link #VAR_ACCESSING_BUS_MEMBER}.
-	 */
-	public static final String VAR_ACCESSING_HUMAN_USER = Resource.VOCABULARY_NAMESPACE
-			+ "theAccessingHumanUser";
-
-	/**
-	 * The URI of a standard variable managed by the universAAL middleware indicating
-	 * the profile of a service that is estimated to be appropriate for
-	 * responding the current service request.
-	 */
-	public static final String VAR_SERVICE_TO_SELECT = Resource.VOCABULARY_NAMESPACE + "theServiceToSelect";
 
 	/**
 	 * The URI prefix for the middleware.

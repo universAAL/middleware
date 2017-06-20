@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,26 +25,26 @@ import java.util.Iterator;
 import org.universAAL.middleware.owl.supply.Rating;
 import org.universAAL.middleware.rdf.FinalizedResource;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.Variable;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.aapi.AapiServiceRequest;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
-import org.universAAL.middleware.util.Constants;
 import org.universAAL.middleware.util.IntAggregator;
 import org.universAAL.middleware.util.RatingAggregator;
 
 /**
  * The realization of a service to be passed to the service bus as registration
  * parameter.
- * 
+ *
  * The ServiceRealization is a resource that has ServiceCalle, ServiceProfile,
  * response times, QoS rankings as properties.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class ServiceRealization extends FinalizedResource {
 	public static final String MY_URI = VOCABULARY_NAMESPACE + "ServiceRealization";
@@ -79,7 +79,7 @@ public class ServiceRealization extends FinalizedResource {
 
 	/**
 	 * Adds properties of the realization to the hashtable passed as a parameter
-	 * 
+	 *
 	 * @param context
 	 *            - the hashtable to add properties
 	 */
@@ -115,7 +115,7 @@ public class ServiceRealization extends FinalizedResource {
 
 	/**
 	 * add measured response time to the properties of the realization
-	 * 
+	 *
 	 * @param rt
 	 */
 	void addMeasuredResponseTime(int rt) {
@@ -131,7 +131,7 @@ public class ServiceRealization extends FinalizedResource {
 
 	/**
 	 * Add Quality of Service (QoS) to the properties of the realization
-	 * 
+	 *
 	 * @param r
 	 *            - the rating of QoS
 	 */
@@ -149,11 +149,11 @@ public class ServiceRealization extends FinalizedResource {
 	/**
 	 * Adds to the hashtable passed as a parameter an asserted service call
 	 * representing this ServiceRealization
-	 * 
+	 *
 	 * @param context
 	 *            - the hashtable to add the asserted service call, contains
 	 *            input parameters to the service call
-	 * 
+	 *
 	 * @return true iff the operation was successful
 	 */
 	boolean assertServiceCall(HashMap<String, Object> context, ServiceRequest request) {
@@ -167,7 +167,7 @@ public class ServiceRealization extends FinalizedResource {
 
 		ServiceCall result = new ServiceCall(new Resource(processURI));
 		result.setScope(request);
-		Object user = context.get(Constants.VAR_ACCESSING_HUMAN_USER);
+		Object user = context.get(Variable.VAR_ACCESSING_HUMAN_USER);
 		if (user instanceof Resource)
 			result.setInvolvedUser((Resource) user);
 
@@ -197,7 +197,7 @@ public class ServiceRealization extends FinalizedResource {
 
 	/**
 	 * Returns average Quality of Service rating of this ServiceRealization
-	 * 
+	 *
 	 * @return Rating - the average rating
 	 */
 	public Rating getAvgQoSRating() {
@@ -208,7 +208,7 @@ public class ServiceRealization extends FinalizedResource {
 	/**
 	 * Returns average response time of the measured response times for this
 	 * ServiceRealization
-	 * 
+	 *
 	 * @return int - the average response time
 	 */
 	public int getAvgResponseTime() {
@@ -218,7 +218,7 @@ public class ServiceRealization extends FinalizedResource {
 
 	/**
 	 * Returns maximal Quality of Service rating of this ServiceRealization
-	 * 
+	 *
 	 * @return Rating - the maximal rating
 	 */
 	public Rating getMaxQoSRating() {
@@ -229,7 +229,7 @@ public class ServiceRealization extends FinalizedResource {
 	/**
 	 * Returns maximal response time of the measured response times for this
 	 * ServiceRealization
-	 * 
+	 *
 	 * @return int - the maximal response time
 	 */
 	public int getMaxResponseTime() {
@@ -239,7 +239,7 @@ public class ServiceRealization extends FinalizedResource {
 
 	/**
 	 * Returns minimal Quality of Service rating of this ServiceRealization
-	 * 
+	 *
 	 * @return Rating - the minimal rating
 	 */
 	public Rating getMinQoSRating() {
@@ -250,7 +250,7 @@ public class ServiceRealization extends FinalizedResource {
 	/**
 	 * Returns minimal response time of the measured response times for this
 	 * ServiceRealization
-	 * 
+	 *
 	 * @return int - the minimal response time
 	 */
 	public int getMinResponseTime() {
@@ -260,7 +260,7 @@ public class ServiceRealization extends FinalizedResource {
 
 	/**
 	 * Returns number of Quality of Service ratings of this ServiceRealization
-	 * 
+	 *
 	 * @return int - the number of QoSRatings
 	 */
 	public int getNumberOfQoSRatings() {
@@ -270,7 +270,7 @@ public class ServiceRealization extends FinalizedResource {
 
 	/**
 	 * Returns number of the measured response times for this ServiceRealization
-	 * 
+	 *
 	 * @return int - the number of measurements
 	 */
 	public int getNumberOfResponseTimeMeasurements() {
@@ -280,7 +280,7 @@ public class ServiceRealization extends FinalizedResource {
 
 	/**
 	 * Return the ServiceProvider of this ServiceRealization
-	 * 
+	 *
 	 * @return the service provider
 	 */
 	String getProvider() {
@@ -290,7 +290,7 @@ public class ServiceRealization extends FinalizedResource {
 	/**
 	 * Return the declared response timeout of the ServiceProfile related to
 	 * this realization
-	 * 
+	 *
 	 * @return int - the response timeout
 	 */
 	public int getResponseTimeout() {
@@ -307,7 +307,7 @@ public class ServiceRealization extends FinalizedResource {
 	/**
 	 * Return true if the ServiceRequest matches this ServiceRealization +
 	 * Context
-	 * 
+	 *
 	 * @param request
 	 *            - the ServiceRequest to match
 	 * @param context
@@ -334,7 +334,7 @@ public class ServiceRealization extends FinalizedResource {
 	/**
 	 * Return true iff the string passed as a parameter matches this
 	 * ServiceRealization
-	 * 
+	 *
 	 * @param word
 	 *            - the string to match
 	 * @return - true iff the string passed as a parameter matches
@@ -350,7 +350,7 @@ public class ServiceRealization extends FinalizedResource {
 	/**
 	 * Return true iff all the strings in the array of Strings passed as a
 	 * parameter match this ServiceRealization
-	 * 
+	 *
 	 * @param keywords
 	 *            - the array of Strings to match
 	 * @return - true iff all the strings match
@@ -371,7 +371,7 @@ public class ServiceRealization extends FinalizedResource {
 	/**
 	 * Return true iff one of the strings in the array of Strings passed as a
 	 * parameter matches this ServiceRealization
-	 * 
+	 *
 	 * @param keywords
 	 *            - the array of Strings to match
 	 * @return - true iff one of the strings matches
@@ -392,7 +392,7 @@ public class ServiceRealization extends FinalizedResource {
 	/**
 	 * Returns true iff the 'searched' String appears either in 'name' or in
 	 * 'text' strings
-	 * 
+	 *
 	 * @param searched
 	 * @param name
 	 * @param text

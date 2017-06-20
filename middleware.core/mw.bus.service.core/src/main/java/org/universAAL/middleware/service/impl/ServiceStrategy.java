@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,6 +44,7 @@ import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.rdf.UnmodifiableResource;
+import org.universAAL.middleware.rdf.Variable;
 import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.AggregationFunction;
 import org.universAAL.middleware.service.AvailabilitySubscriber;
@@ -70,7 +71,7 @@ import org.universAAL.middleware.util.Constants;
 
 /**
  * This class implements the BusStrategy for the ServiceBus
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -133,10 +134,10 @@ public class ServiceStrategy extends BusStrategy {
 	 * stored in this map before a call is sent to each of the callees. When the
 	 * responses from all callees are received, the data in this map can be used
 	 * to send an aggregated reponse back to the caller.
-	 * 
+	 *
 	 * It makes use of {@link #allWaitingCalls} which stores information about a
 	 * single call.
-	 * 
+	 *
 	 * It maps the ID of the bus message of the request to a set of call
 	 * contexts (one entry for each matching callee).
 	 */
@@ -147,7 +148,7 @@ public class ServiceStrategy extends BusStrategy {
 	 * have been found out, a call is sent to each callee. This map stores the
 	 * call context for each call. When a response is received, the mapping
 	 * between URIs in request and response can be done.
-	 * 
+	 *
 	 * It maps the ID of the bus message of the call to the call context for
 	 * this callee.
 	 */
@@ -204,7 +205,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Adds availability subscription (registration and un-registration of
 	 * services), according to the ServiceRequest
-	 * 
+	 *
 	 * @param callerID
 	 *            the ID of the caller who asked to make the subscription
 	 * @param subscriber
@@ -242,7 +243,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	/**
 	 * Add service profiles to a previously registered ServiceCallee
-	 * 
+	 *
 	 * @param calleeID
 	 *            The id of the ServiceCallee
 	 * @param realizedServices
@@ -354,7 +355,7 @@ public class ServiceStrategy extends BusStrategy {
 	 * Add service availability subscriber that will be notified about
 	 * registration/unregistration of services, matching according the
 	 * ServiceRequest passed as a parameter
-	 * 
+	 *
 	 * @param callerID
 	 *            the id of the subscriber
 	 * @param request
@@ -379,7 +380,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	/**
 	 * Pass the service call message to all matching service callees.
-	 * 
+	 *
 	 * @param m
 	 *            the message.
 	 * @param matches
@@ -398,7 +399,7 @@ public class ServiceStrategy extends BusStrategy {
 		for (int i = 0; i < size; i++) {
 			HashMap<String, Object> match = matches.get(i);
 			match.put(CONTEXT_REQUEST_MESSAGE, m);
-			ServiceRealization sr = (ServiceRealization) match.get(Constants.VAR_SERVICE_TO_SELECT);
+			ServiceRealization sr = (ServiceRealization) match.get(Variable.VAR_SERVICE_TO_SELECT);
 			Object timeout = ((ServiceProfile) sr.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
 					.getProperty(ServiceProfile.PROP_uAAL_RESPONSE_TIMEOUT);
 			if (timeout instanceof Integer && ((Integer) timeout).intValue() > maxTimeout)
@@ -430,7 +431,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	/**
 	 * Call a specific service.
-	 * 
+	 *
 	 * @param call
 	 *            the bus message that contains a {@link ServiceCall}
 	 * @param receiver
@@ -478,7 +479,7 @@ public class ServiceStrategy extends BusStrategy {
 	 * This method starts a general purpose user interaction related to a
 	 * certain service class. The decision about a concrete goal to reach (if at
 	 * all) will be taken later during exploring the user interface
-	 * 
+	 *
 	 * @param matchingServices
 	 *            the currently matching services for the general purpose user
 	 *            interaction request
@@ -542,7 +543,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	/**
 	 * Sends a response to the message passed as a parameter
-	 * 
+	 *
 	 * @param m
 	 *            the message, to which the response is sent
 	 */
@@ -823,7 +824,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	/**
 	 * Translates the process outputs according to the bindings
-	 * 
+	 *
 	 * @param ctxt
 	 *            HashMap of bindings for the ProcessOutputs
 	 */
@@ -840,7 +841,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	/**
 	 * Translates the process outputs according to the bindings
-	 * 
+	 *
 	 * @param outputs
 	 *            a list of ProcessOutputs
 	 * @param context
@@ -880,7 +881,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Return a list of non abstract super classes of the service passed as a
 	 * parameter including the given service.
-	 * 
+	 *
 	 * @param s
 	 *            the service.
 	 * @return a list with the class URIs of all non-abstract super classes.
@@ -908,7 +909,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Extract the output value from the context, according to the
 	 * AggregatingFilter passed as a parameter
-	 * 
+	 *
 	 * @param context
 	 *            the context
 	 * @param af
@@ -939,7 +940,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Extract profile parameter from the context, according to the property
 	 * passed as a parameter
-	 * 
+	 *
 	 * @param context
 	 * @param prop
 	 *            the property of the profile paramter to return
@@ -956,7 +957,7 @@ public class ServiceStrategy extends BusStrategy {
 	 * Returns a vector from a hashtable from Strings to Vectors. If no vector
 	 * exists in the hashtable according to the key passed as a parameter, an
 	 * empty vector is inserted in the hashtable according to the key
-	 * 
+	 *
 	 * @param table
 	 *            the hashtable
 	 * @param key
@@ -975,7 +976,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Returns a list that is stored as value in a {@link Map}. If the list does
 	 * not exist for the given key, the list is created and added to the map.
-	 * 
+	 *
 	 * @param map
 	 *            the map that should contain the list under the given key.
 	 * @param key
@@ -1240,7 +1241,7 @@ public class ServiceStrategy extends BusStrategy {
 				int matchesFound = 0;
 				HashMap<String, HashMap<String, Object>> auxMap = new HashMap<String, HashMap<String, Object>>();
 				for (HashMap<String, Object> match : matches) {
-					ServiceRealization sr = (ServiceRealization) match.get(Constants.VAR_SERVICE_TO_SELECT);
+					ServiceRealization sr = (ServiceRealization) match.get(Variable.VAR_SERVICE_TO_SELECT);
 					if (sr.assertServiceCall(match, request)) {
 						matchesFound++;
 						HashMap<String, Object> otherMatch = auxMap.get(sr.getProvider());
@@ -1311,7 +1312,7 @@ public class ServiceStrategy extends BusStrategy {
 					obj[3] = " matches. The matching profiles are: ";
 					int i = 4;
 					for (HashMap<String, Object> match : matches) {
-						ServiceRealization sr = (ServiceRealization) match.get(Constants.VAR_SERVICE_TO_SELECT);
+						ServiceRealization sr = (ServiceRealization) match.get(Variable.VAR_SERVICE_TO_SELECT);
 						Service profileService = ((ServiceProfile) sr
 								.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE)).getTheService();
 						String profileServiceURI = profileService.getURI();
@@ -1520,7 +1521,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Sends a reply to the initial dialog info request message. The reply will
 	 * contain the matched services.
-	 * 
+	 *
 	 * @param m
 	 *            the initial dialog info request message
 	 * @param matchingServices
@@ -1565,7 +1566,7 @@ public class ServiceStrategy extends BusStrategy {
 	 * Sends a reply to the initial dialog info request message. The reply will
 	 * contain a description of a matched service of the vendor whose ID is
 	 * passed as a parameter
-	 * 
+	 *
 	 * @param m
 	 *            the initial dialog info request message
 	 * @param matchingServices
@@ -1613,7 +1614,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	/**
 	 * Send the reply message to a local caller
-	 * 
+	 *
 	 * @param msg
 	 *            the reply message
 	 */
@@ -1648,7 +1649,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Send a no-matching-found message as a reply to the message passed as a
 	 * parameter
-	 * 
+	 *
 	 * @param m
 	 *            the message to send a reply to
 	 */
@@ -1659,7 +1660,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Send a message of type <tt>status</tt> as a reply to the message passed
 	 * as parameter
-	 * 
+	 *
 	 * @param message
 	 *            the message to reply to
 	 * @param status
@@ -1677,7 +1678,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Adds a service with ServiceProfile, ServiceRealization and processURI to
 	 * the index of services
-	 * 
+	 *
 	 * @param prof
 	 * @param registration
 	 * @param processURI
@@ -1749,7 +1750,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Returns true iff a ServiceRealization passed as a parameter matches the
 	 * ServiceRequest
-	 * 
+	 *
 	 * @param callerID
 	 *            the caller ID of the ServiceRequest
 	 * @param request
@@ -1766,7 +1767,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Returns true iff a ServiceRealization passed as a parameter matches the
 	 * ServiceRequest
-	 * 
+	 *
 	 * @param callerID
 	 *            the caller ID of the ServiceRequest
 	 * @param request
@@ -1781,19 +1782,19 @@ public class ServiceStrategy extends BusStrategy {
 	private HashMap<String, Object> matches(String callerID, ServiceRequest request, ServiceRealization offer,
 			Long logID) {
 		HashMap<String, Object> context = new HashMap<String, Object>();
-		context.put(Constants.VAR_ACCESSING_BUS_MEMBER, callerID);
-		context.put(Constants.VAR_CURRENT_DATETIME, TypeMapper.getCurrentDateTime());
-		context.put(Constants.VAR_SERVICE_TO_SELECT, offer);
+		context.put(Variable.VAR_ACCESSING_BUS_MEMBER, callerID);
+		context.put(Variable.VAR_CURRENT_DATETIME, TypeMapper.getCurrentDateTime());
+		context.put(Variable.VAR_SERVICE_TO_SELECT, offer);
 		Object o = request.getProperty(ServiceRequest.PROP_INVOLVED_HUMAN_USER);
 		if (o != null)
-			context.put(Constants.VAR_ACCESSING_HUMAN_USER, o);
+			context.put(Variable.VAR_ACCESSING_HUMAN_USER, o);
 		return offer.matches(request, context, logID) ? context : null;
 	}
 
 	/**
 	 * Notify the Availability Subscribers about registration/unregistration of
 	 * Services (ServiceRealization representing the Services)
-	 * 
+	 *
 	 * @param caller
 	 *            the subscriber
 	 * @param request
@@ -1823,7 +1824,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Notify the Availability Subscriber about registration/unregistration of
 	 * Services (ServiceRealization representing the Services)
-	 * 
+	 *
 	 * @param as
 	 *            the availability subscription
 	 * @param realizationID
@@ -1861,7 +1862,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	/**
 	 * Remove availability subscriber passed as a parameter
-	 * 
+	 *
 	 * @param callerID
 	 *            the subscribing caller ID
 	 * @param subscriber
@@ -1913,7 +1914,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	/**
 	 * Remove service profiles to a previously registered ServiceCallee
-	 * 
+	 *
 	 * @param calleeID
 	 *            the URI of the ServiceCallee
 	 * @param realizedServices
@@ -1960,7 +1961,7 @@ public class ServiceStrategy extends BusStrategy {
 
 	/**
 	 * Remove registration parameters for a calleID passed as a parameter
-	 * 
+	 *
 	 * @param calleeID
 	 *            the URI of the callee for which the registration parameters
 	 *            are removed
@@ -1997,7 +1998,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Remove services of the callee passed as a parameter from the index of
 	 * services
-	 * 
+	 *
 	 * @param calleeID
 	 *            the URI of the caller
 	 * @param processURI
@@ -2037,7 +2038,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * This method returns all the globally registered Service Profiles for the
 	 * given service URI
-	 * 
+	 *
 	 * @param serviceURI
 	 *            the URI of the Service whose profiles are returned
 	 * @return the service profiles of the given service
@@ -2103,7 +2104,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * Return the profiles registered for the service passed as a parameter,
 	 * only if this peer is a coordinator. Otherwise, an empty list is returned.
-	 * 
+	 *
 	 * @param serviceURI
 	 *            the URI of the service whose profiles are returned
 	 * @return the profiles of the service passed as a parameter
@@ -2129,7 +2130,7 @@ public class ServiceStrategy extends BusStrategy {
 	/**
 	 * This method translates a List of ServiceProfiles into an array of
 	 * ServiceProfiles
-	 * 
+	 *
 	 * @param list
 	 *            the list to translate
 	 * @return the translated array of ServiceProfiles
