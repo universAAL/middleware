@@ -48,5 +48,5 @@ public interface ConfigurationParameter extends DescribedEntity {
 	 */
 	public MergedRestriction getType();
 
-	public static String PROP_CONFIG_VALUE = "http://ontology.universAAL.org/ConfigurationOntology#" + "hasValue";
+	public static final String PROP_CONFIG_VALUE = "http://ontology.universAAL.org/ConfigurationOntology#" + "hasValue";
 }

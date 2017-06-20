@@ -95,7 +95,7 @@ public class ControlBroker implements SharedObjectListener, Broker, MessageListe
 	private HashMap<String, WaitForResponse> openTransaction = new HashMap<String, WaitForResponse>();
 	private List<ChannelMessage> cachedMessages = new ArrayList<ChannelMessage>();
 
-	private static String TMP_DEPLOY_FOLDER = "etc" + File.separatorChar + "tmp" + File.separatorChar + "installations"
+	private static final String TMP_DEPLOY_FOLDER = "etc" + File.separatorChar + "tmp" + File.separatorChar + "installations"
 			+ File.separatorChar;
 
 	private class Response {

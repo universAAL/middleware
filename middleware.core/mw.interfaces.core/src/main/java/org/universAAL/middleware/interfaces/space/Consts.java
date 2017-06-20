@@ -29,12 +29,12 @@ package org.universAAL.middleware.interfaces.space;
 public final class Consts {
 
 	// Space property names
-	public static String SpaceName = "SpaceName";
-	public static String SpaceID = "SpaceID";
-	public static String SpaceType = "SpaceType";
-	public static String SpaceProfile = "SpaceProfile";
-	public static String SpaceDescription = "SpaceDescription";
-	public static String SpaceCoordinator = "SpaceCoordinator";
-	public static String SpacePeeringChannelURL = "SpacePeeringChannelURL";
-	public static String SpacePeeringChannelName = "SpacePeeringChannelName";
+	public static final String SPACE_NAME = "SpaceName";
+	public static final String SPACE_ID = "SpaceID";
+	public static final String SPACE_TYPE = "SpaceType";
+	public static final String SPACE_PROFILE = "SpaceProfile";
+	public static final String SPACE_DESCRIPTION = "SpaceDescription";
+	public static final String SPACE_COORDINATOR = "SpaceCoordinator";
+	public static final String SPACE_PEERING_CHANNEL_URL = "SpacePeeringChannelURL";
+	public static final String SPACE_PEERING_CHANNEL_NAME = "SpacePeeringChannelName";
 }

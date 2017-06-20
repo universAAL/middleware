@@ -32,7 +32,7 @@ public class ConfigurationParameterTypePattern implements EntityPattern {
 	/**
 	 * The URI of the ConfigurationParameter Ontology type
 	 */
-	private static String URI = "http://ontology.universAAL.org/ConfigurationOntology#ConfigurationParameter";
+	private static final String URI = "http://ontology.universAAL.org/ConfigurationOntology#ConfigurationParameter";
 
 	/** {@ inheritDoc} */
 	public TypeExpression getRestriction() {

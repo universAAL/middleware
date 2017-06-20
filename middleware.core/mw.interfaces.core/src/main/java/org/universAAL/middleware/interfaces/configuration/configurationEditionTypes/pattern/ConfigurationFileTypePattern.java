@@ -32,7 +32,7 @@ public class ConfigurationFileTypePattern implements EntityPattern {
 	/**
 	 * The URI of the ConfigurationFile Ontology type
 	 */
-	private static String URI = "http://ontology.universAAL.org/ConfigurationOntology#ConfigurationFile";
+	private static final String URI = "http://ontology.universAAL.org/ConfigurationOntology#ConfigurationFile";
 
 	/** {@ inheritDoc} */
 	public TypeExpression getRestriction() {

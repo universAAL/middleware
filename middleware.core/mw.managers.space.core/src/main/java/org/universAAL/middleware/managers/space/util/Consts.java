@@ -27,14 +27,14 @@ package org.universAAL.middleware.managers.space.util;
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */
 public class Consts {
-	public static String SPACE_CONFIGURATION_PATH = "spaceConfigurationPath";
-	public static String PEER_ID = "peerID";
-	public static String PEER_ROLE = "peerRole";
-	public static String SPACE_EXTENSION = "spaceExtension";
-	public static String SPACE_VALIDATION = "spaceValidation";
-	public static String SPACE_LIFETIME = "spaceLifeTime";
-	public static String SPACE_SCHEMA_URL = "spaceSchemaURL";
-	public static String SPACE_SCHEMA_NAME = "spaceSchemaName";
-	public static String WAIT_BEFEORE_CLOSING_CHANNEL = "waitBeforeClosingChannels";
-	public static String WAIT_AFTER_JOIN_REQUEST = "waitAfterJoinRequest";
+	public static final String SPACE_CONFIGURATION_PATH = "spaceConfigurationPath";
+	public static final String PEER_ID = "peerID";
+	public static final String PEER_ROLE = "peerRole";
+	public static final String SPACE_EXTENSION = "spaceExtension";
+	public static final String SPACE_VALIDATION = "spaceValidation";
+	public static final String SPACE_LIFETIME = "spaceLifeTime";
+	public static final String SPACE_SCHEMA_URL = "spaceSchemaURL";
+	public static final String SPACE_SCHEMA_NAME = "spaceSchemaName";
+	public static final String WAIT_BEFEORE_CLOSING_CHANNEL = "waitBeforeClosingChannels";
+	public static final String WAIT_AFTER_JOIN_REQUEST = "waitAfterJoinRequest";
 }

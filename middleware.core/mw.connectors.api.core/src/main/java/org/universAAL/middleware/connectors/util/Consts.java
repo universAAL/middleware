@@ -29,16 +29,16 @@ package org.universAAL.middleware.connectors.util;
 public final class Consts {
 
 	// Connector stuff
-	public static String CONNECTOR_NAME = "connectorName";
-	public static String CONNECTOR_VERSION = "connectorVersion";
-	public static String CONNECTOR_PROVIDER = "connectorProvider";
-	public static String CONNECTOR_DESCRIPTION = "connectorDescription";
+	public static final String CONNECTOR_NAME = "connectorName";
+	public static final String CONNECTOR_VERSION = "connectorVersion";
+	public static final String CONNECTOR_PROVIDER = "connectorProvider";
+	public static final String CONNECTOR_DESCRIPTION = "connectorDescription";
 
 	// DeployConnector stuff
 	/**
 	 * TODO: to generalize
 	 */
-	public static String PLATFORM_UNIT = "java";
+	public static final String PLATFORM_UNIT = "java";
 
-	public static String TMP_FOLDER = "tmpFolder";
+	public static final String TMP_FOLDER = "tmpFolder";
 }

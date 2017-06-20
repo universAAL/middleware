@@ -26,17 +26,17 @@ import org.universAAL.middleware.managers.api.ConfigurationEditor.ConfigurableEn
 /**
  * The Default implementation of {@link ConfigurableEntityManager} used to
  * transform the asynchronous calls of remote requests into a synchronous call.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class SynchronousConfEntityManager implements ConfigurableEntityManager {
 
 	private List<ConfigurableEntityEditor> entities;
-	private static long WAIT_TIME = 1000;
+	private static final long WAIT_TIME = 1000;
 
 	/**
-	 * 
+	 *
 	 */
 	public SynchronousConfEntityManager() {
 		entities = new ArrayList<ConfigurableEntityEditor>();

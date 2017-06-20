@@ -519,7 +519,7 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 		Dictionary<String, String> filters = new Hashtable<String, String>();
 		if (space != null) {
 			try {
-				filters.put(Consts.SpaceID, space.getSpaceDescriptor().getSpaceId());
+				filters.put(Consts.SPACE_ID, space.getSpaceDescriptor().getSpaceId());
 				LogUtils.logDebug(context, SpaceManagerImpl.class, "buildSpaceFilter",
 						new Object[] { "Filter created" }, null);
 			} catch (NullPointerException e) {
@@ -569,16 +569,16 @@ public class SpaceManagerImpl implements SpaceEventHandler, SpaceManager, Shared
 		try {
 
 			// general purpose properties
-			properties.put(Consts.SpaceName, space.getSpaceDescriptor().getSpaceName());
-			properties.put(Consts.SpaceID, space.getSpaceDescriptor().getSpaceId());
-			properties.put(Consts.SpaceDescription, space.getSpaceDescriptor().getSpaceDescription());
-			properties.put(Consts.SpaceCoordinator, getMyPeerCard().getPeerID());
+			properties.put(Consts.SPACE_NAME, space.getSpaceDescriptor().getSpaceName());
+			properties.put(Consts.SPACE_ID, space.getSpaceDescriptor().getSpaceId());
+			properties.put(Consts.SPACE_DESCRIPTION, space.getSpaceDescriptor().getSpaceDescription());
+			properties.put(Consts.SPACE_COORDINATOR, getMyPeerCard().getPeerID());
 			// URL where to fetch the peering channel
-			properties.put(Consts.SpacePeeringChannelURL,
+			properties.put(Consts.SPACE_PEERING_CHANNEL_URL,
 					space.getPeeringChannel().getChannelDescriptor().getChannelURL());
-			properties.put(Consts.SpacePeeringChannelName,
+			properties.put(Consts.SPACE_PEERING_CHANNEL_NAME,
 					space.getPeeringChannel().getChannelDescriptor().getChannelName());
-			properties.put(Consts.SpaceProfile, space.getSpaceDescriptor().getProfile());
+			properties.put(Consts.SPACE_PROFILE, space.getSpaceDescriptor().getProfile());
 
 		} catch (NullPointerException e) {
 			return null;

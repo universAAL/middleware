@@ -92,13 +92,13 @@ public class SpaceCard {
 	 * @param prop
 	 */
 	public SpaceCard(Dictionary<String, String> prop) {
-		this.spaceName = prop.get(Consts.SpaceName);
-		this.spaceID = prop.get(Consts.SpaceID);
-		this.description = prop.get(Consts.SpaceDescription);
-		this.peerCoordinatorID = prop.get(Consts.SpaceCoordinator);
-		this.peeringChannel = prop.get(Consts.SpacePeeringChannelURL);
-		this.peeringChannelName = prop.get(Consts.SpacePeeringChannelName);
-		this.profile = prop.get(Consts.SpaceProfile);
+		this.spaceName = prop.get(Consts.SPACE_NAME);
+		this.spaceID = prop.get(Consts.SPACE_ID);
+		this.description = prop.get(Consts.SPACE_DESCRIPTION);
+		this.peerCoordinatorID = prop.get(Consts.SPACE_COORDINATOR);
+		this.peeringChannel = prop.get(Consts.SPACE_PEERING_CHANNEL_URL);
+		this.peeringChannelName = prop.get(Consts.SPACE_PEERING_CHANNEL_NAME);
+		this.profile = prop.get(Consts.SPACE_PROFILE);
 	}
 
 	public SpaceCard() {
@@ -156,13 +156,13 @@ public class SpaceCard {
 	 */
 	public Dictionary<String, String> serializeCard() {
 		Dictionary<String, String> prop = new Hashtable<String, String>();
-		prop.put(Consts.SpaceName, spaceName);
-		prop.put(Consts.SpaceDescription, description);
-		prop.put(Consts.SpaceID, spaceID);
+		prop.put(Consts.SPACE_NAME, spaceName);
+		prop.put(Consts.SPACE_DESCRIPTION, description);
+		prop.put(Consts.SPACE_ID, spaceID);
 		// prop.put(Consts.SPaceType, type.toString());
-		prop.put(Consts.SpaceCoordinator, peerCoordinatorID);
-		prop.put(Consts.SpacePeeringChannelURL, peeringChannel);
-		prop.put(Consts.SpacePeeringChannelName, peeringChannelName);
+		prop.put(Consts.SPACE_COORDINATOR, peerCoordinatorID);
+		prop.put(Consts.SPACE_PEERING_CHANNEL_URL, peeringChannel);
+		prop.put(Consts.SPACE_PEERING_CHANNEL_NAME, peeringChannelName);
 		return prop;
 	}
 
@@ -172,12 +172,12 @@ public class SpaceCard {
 	 */
 	public static List<String> getSpaceAttributes() {
 		List<String> attrib = new ArrayList<String>();
-		attrib.add(Consts.SpaceName);
-		attrib.add(Consts.SpaceDescription);
-		attrib.add(Consts.SpaceID);
-		attrib.add(Consts.SpaceType);
-		attrib.add(Consts.SpaceCoordinator);
-		attrib.add(Consts.SpacePeeringChannelURL);
+		attrib.add(Consts.SPACE_NAME);
+		attrib.add(Consts.SPACE_DESCRIPTION);
+		attrib.add(Consts.SPACE_ID);
+		attrib.add(Consts.SPACE_TYPE);
+		attrib.add(Consts.SPACE_COORDINATOR);
+		attrib.add(Consts.SPACE_PEERING_CHANNEL_URL);
 		return attrib;
 
 	}
