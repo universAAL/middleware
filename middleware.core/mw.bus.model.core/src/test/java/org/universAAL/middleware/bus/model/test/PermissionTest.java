@@ -53,7 +53,7 @@ public class PermissionTest extends TestCase {
 		// the resource cannot be deserialized in a specialized class, it will
 		// be just a Resource and then the casting to a Matchable will fail.
 		OntologyManagement.getInstance().register(mc,
-				new SimpleOntology("http://ontology.universAAL.org/uAAL.owl#ServiceRequest", ManagedIndividual.MY_URI,
+				new SimpleOntology("http://ontology.universAAL.org/universAAL.owl#ServiceRequest", ManagedIndividual.MY_URI,
 						new ResourceFactory() {
 							public Resource createInstance(String classURI, String instanceURI, int factoryIndex) {
 								return new TestServiceRequest();

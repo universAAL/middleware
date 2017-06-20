@@ -1,8 +1,8 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,61 +44,61 @@ import org.universAAL.middleware.modules.listener.MessageListener;
  * Defines a shared mechanisms realized by all concrete buses. This mainly means
  * that it offers abstract view on the bus strategy and manages the bus message
  * queue and by that reduces the implementation of the concrete bus strategy.
- * 
+ *
  * @author mtazari - <a href="mailto:saied.tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public abstract class AbstractBus implements Broker, MessageListener {
 
 	/**
-	 * Additional prefix for {@link #uAAL_SPACE_INSTANCE_URI_PREFIX} and
-	 * {@link #uAAL_MW_INSTANCE_URI_PREFIX} to make it start with a valid URI
+	 * Additional prefix for {@link #SPACE_INSTANCE_URI_PREFIX} and
+	 * {@link #MW_INSTANCE_URI_PREFIX} to make it start with a valid URI
 	 * scheme.
 	 * <p>
-	 * For example, this prefix could be <tt>urn:uaal_space:</tt>
+	 * For example, this prefix could be <tt>urn:space:</tt>
 	 */
-	public static final String uAAL_OPTIONAL_URI_PREFIX = "urn:uaal_space:";
+	public static final String OPTIONAL_URI_PREFIX = "urn:space:";
 
 	/**
 	 * The prefix of the URI of {@link BusMember}s. Each time a new bus member
 	 * registers at the bus, this String is the prefix of the URI that is
-	 * created to identify the bus member. It consists of the ID of the AAL
+	 * created to identify the bus member. It consists of the ID of the
 	 * Space, queried by {@link SpaceCard#getSpaceID()}, and a finalizing "/"
 	 * (if the Space ID does not create a valid URI,
-	 * {@link #uAAL_OPTIONAL_URI_PREFIX} is added at the beginning of this
+	 * {@link #OPTIONAL_URI_PREFIX} is added at the beginning of this
 	 * prefix).
 	 * <p>
 	 * For example, if the Space ID is <tt>8224</tt> this prefix would be
-	 * <tt>urn:uaal_space:8224/</tt>
+	 * <tt>urn:space:8224/</tt>
 	 */
-	private static String uAAL_SPACE_INSTANCE_URI_PREFIX = null;
+	private static String SPACE_INSTANCE_URI_PREFIX = null;
 
 	/**
 	 * The prefix of the URI of {@link BusMember}s. Each time a new bus member
 	 * registers at the bus, this String is the prefix of the URI that is
 	 * created to identify the bus member. It consists of the
-	 * {@link #uAAL_SPACE_INSTANCE_URI_PREFIX} and the ID of the peer, queried
+	 * {@link #SPACE_INSTANCE_URI_PREFIX} and the ID of the peer, queried
 	 * by {@link PeerCard#getPeerID()}, and a finalizing "#"
 	 * <p>
 	 * For example, if the Space ID is <tt>8224</tt> and the Peer ID is
 	 * <tt>7ca58fd6-fb5f-4c8e-8db2-4ba6807fa1bf</tt> this prefix would be
-	 * <tt>urn:uaal_space:8224/7ca58fd6-fb5f-4c8e-8db2-4ba6807fa1bf#</tt>
+	 * <tt>urn:space:8224/7ca58fd6-fb5f-4c8e-8db2-4ba6807fa1bf#</tt>
 	 */
-	private static String uAAL_MW_INSTANCE_URI_PREFIX = null;
+	private static String MW_INSTANCE_URI_PREFIX = null;
 
 	/**
 	 * A counter for {@link BusMember}s. Each time a new bus member registers at
 	 * the bus, this counter is used as part of the URI of the bus member, and
 	 * then increased.
 	 */
-	private static int uAAL_MW_INSTANCE_BUS_MEMBERSHIPS = 0;
+	private static int MW_INSTANCE_BUS_MEMBERSHIPS = 0;
 
-	protected static SpaceManager aalSpaceManager;
+	protected static SpaceManager spaceManager;
 	protected static CommunicationModule communicationModule;
 	private static ModuleContext myContext;
 
-	public static void initBrokerage(ModuleContext mc, SpaceManager aalSpaceMgr, CommunicationModule commModule) {
+	public static void initBrokerage(ModuleContext mc, SpaceManager spaceMgr, CommunicationModule commModule) {
 		if (myContext != null) {
 			// LogUtils.logError(
 			// myContext,
@@ -121,7 +121,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 
 		myContext = mc;
 
-		aalSpaceManager = aalSpaceMgr;
+		spaceManager = spaceMgr;
 		communicationModule = commModule;
 
 		createURIs();
@@ -129,21 +129,21 @@ public abstract class AbstractBus implements Broker, MessageListener {
 
 	private static void createURIs() {
 		// configure the MW's URI instance
-		// first check if I already join an AALSpace
+		// first check if I already join an Space
 
-		// AALSpaceDescriptor sd = aalSpaceManager.getAALSpaceDescriptor();
+		// SpaceDescriptor sd = spaceManager.getSpaceDescriptor();
 		// if (sd != null) {
-		// uAAL_SPACE_INSTANCE_URI_PREFIX = sd.getSpaceCard().getSpaceID()
+		// SPACE_INSTANCE_URI_PREFIX = sd.getSpaceCard().getSpaceID()
 		// + "/";
 		// } else {
-		// uAAL_SPACE_INSTANCE_URI_PREFIX = "unknown-space/";
+		// SPACE_INSTANCE_URI_PREFIX = "unknown-space/";
 		// }
 		// // TODO: workaround for non-space-coordinators (space ID is unknown
 		// // then)
-		// uAAL_SPACE_INSTANCE_URI_PREFIX = "";
+		// SPACE_INSTANCE_URI_PREFIX = "";
 
 		// wait until the space ID is known
-		SpaceDescriptor sd = aalSpaceManager.getSpaceDescriptor();
+		SpaceDescriptor sd = spaceManager.getSpaceDescriptor();
 		String spaceID = null;
 		if (sd != null) {
 			spaceID = sd.getSpaceCard().getSpaceID();
@@ -159,32 +159,32 @@ public abstract class AbstractBus implements Broker, MessageListener {
 			if (cnt % 50 == 0) // log a message every 5 seconds
 				LogUtils.logError(myContext, AbstractBus.class, "createURIs",
 						new Object[] {
-								"The AAL space ID is not yet known. Waiting for the AAL Space Manager to join a space. Time elapsed: ",
+								"The space ID is not yet known. Waiting for the Space Manager to join a space. Time elapsed: ",
 								cnt / 10, " seconds." },
 						null);
-			sd = aalSpaceManager.getSpaceDescriptor();
+			sd = spaceManager.getSpaceDescriptor();
 			if (sd != null) {
 				spaceID = sd.getSpaceCard().getSpaceID();
 			}
 		}
-		uAAL_SPACE_INSTANCE_URI_PREFIX = spaceID + "/";
+		SPACE_INSTANCE_URI_PREFIX = spaceID + "/";
 
-		PeerCard pc = aalSpaceManager.getMyPeerCard();
+		PeerCard pc = spaceManager.getMyPeerCard();
 		if (pc != null) {
-			uAAL_MW_INSTANCE_URI_PREFIX = uAAL_SPACE_INSTANCE_URI_PREFIX + pc.getPeerID() + "#";
+			MW_INSTANCE_URI_PREFIX = SPACE_INSTANCE_URI_PREFIX + pc.getPeerID() + "#";
 		} else {
-			uAAL_MW_INSTANCE_URI_PREFIX = uAAL_SPACE_INSTANCE_URI_PREFIX + "unknown-peer#";
+			MW_INSTANCE_URI_PREFIX = SPACE_INSTANCE_URI_PREFIX + "unknown-peer#";
 		}
 
-		if (!StringUtils.startsWithURIScheme(uAAL_MW_INSTANCE_URI_PREFIX)) {
+		if (!StringUtils.startsWithURIScheme(MW_INSTANCE_URI_PREFIX)) {
 			// to get a valid URI we have to add a valid URI schema prefix
-			uAAL_SPACE_INSTANCE_URI_PREFIX = uAAL_OPTIONAL_URI_PREFIX + uAAL_SPACE_INSTANCE_URI_PREFIX;
-			uAAL_MW_INSTANCE_URI_PREFIX = uAAL_OPTIONAL_URI_PREFIX + uAAL_MW_INSTANCE_URI_PREFIX;
+			SPACE_INSTANCE_URI_PREFIX = OPTIONAL_URI_PREFIX + SPACE_INSTANCE_URI_PREFIX;
+			MW_INSTANCE_URI_PREFIX = OPTIONAL_URI_PREFIX + MW_INSTANCE_URI_PREFIX;
 		}
 	}
 
 	public static int getCurrentNumberOfPeers() {
-		return aalSpaceManager.getPeers().size();
+		return spaceManager.getPeers().size();
 	}
 
 	public static PeerCard getPeerFromBusResourceURI(String uri) {
@@ -195,17 +195,17 @@ public abstract class AbstractBus implements Broker, MessageListener {
 		if (end < 1) {
 			return null;
 		}
-		uri = uri.substring(uAAL_SPACE_INSTANCE_URI_PREFIX.length(), end);
+		uri = uri.substring(SPACE_INSTANCE_URI_PREFIX.length(), end);
 
-		PeerCard retVal = aalSpaceManager.getPeers().get(uri);
+		PeerCard retVal = spaceManager.getPeers().get(uri);
 		if (retVal == null) {
 			String myPeerID = "<unknown>";
-			PeerCard myPeerCard = aalSpaceManager.getMyPeerCard();
+			PeerCard myPeerCard = spaceManager.getMyPeerCard();
 			if (myPeerCard != null)
 				myPeerID = myPeerCard.getPeerID();
 			LogUtils.logDebug(myContext, AbstractBus.class, "getPeerFromBusResourceURI",
 					new Object[] { "The peer with ID ", uri, " could not be retrieved. There are ",
-							aalSpaceManager.getPeers().size(), " peers known and our own peer ID is ", myPeerID },
+							spaceManager.getPeers().size(), " peers known and our own peer ID is ", myPeerID },
 					null);
 
 			if (uri.equals(myPeerID)) {
@@ -225,7 +225,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 
 	protected AbstractBus(ModuleContext module, String brokerName) {
 		context = module;
-		this.myCard = aalSpaceManager.getMyPeerCard();
+		this.myCard = spaceManager.getMyPeerCard();
 		this.brokerName = brokerName;
 		if (communicationModule != null)
 			communicationModule.addMessageListener(this, getBrokerName());
@@ -245,7 +245,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 
 	/**
 	 * Returns bus member instance based on its member ID.
-	 * 
+	 *
 	 * @param memberID
 	 *            bus member ID
 	 * @return bus member instance
@@ -268,7 +268,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return all bus members in BusMember array
 	 */
 	public BusMember[] getBusMembers() {
@@ -280,7 +280,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return IDs of all bus members in array
 	 */
 	public String[] getBusMembersByID() {
@@ -330,10 +330,10 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public boolean init() {
-		return aalSpaceManager != null && communicationModule != null;
+		return spaceManager != null && communicationModule != null;
 	}
 
 	/**
@@ -393,16 +393,16 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	}
 
 	public String getURI() {
-		return uAAL_MW_INSTANCE_URI_PREFIX + context.getID();
+		return MW_INSTANCE_URI_PREFIX + context.getID();
 	}
 
 	public final String createBusSpecificID(String module, String type) {
 		StringBuffer sb = new StringBuffer(128);
-		sb.append(uAAL_MW_INSTANCE_URI_PREFIX);
+		sb.append(MW_INSTANCE_URI_PREFIX);
 		// TODO: should we handle duplicates? Assume a malicious component that
 		// creates its own bus and creates IDs in a loop, then the counter
 		// could overflow
-		sb.append(++uAAL_MW_INSTANCE_BUS_MEMBERSHIPS).append(type).append(".").append(module);
+		sb.append(++MW_INSTANCE_BUS_MEMBERSHIPS).append(type).append(".").append(module);
 		return sb.toString();
 	}
 
@@ -411,7 +411,7 @@ public abstract class AbstractBus implements Broker, MessageListener {
 	}
 
 	public boolean isBusResourceURI(String uri) {
-		return uri.startsWith(uAAL_MW_INSTANCE_URI_PREFIX);
+		return uri.startsWith(MW_INSTANCE_URI_PREFIX);
 	}
 
 	public BrokerMessage unmarshall(String serializedBusMessage) {
