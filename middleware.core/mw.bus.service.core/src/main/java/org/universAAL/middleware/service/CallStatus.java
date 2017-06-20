@@ -34,7 +34,7 @@ import org.universAAL.middleware.rdf.FinalizedResource;
  * 
  */
 public final class CallStatus extends FinalizedResource {
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "CallStatus";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "CallStatus";
 
 	public static final int SUCCEEDED = 0;
 	public static final int NO_MATCHING_SERVICE_FOUND = 1;
@@ -67,8 +67,8 @@ public final class CallStatus extends FinalizedResource {
 	 */
 	public static CallStatus valueOf(String name) {
 		if (name != null) {
-			if (name.startsWith(uAAL_VOCABULARY_NAMESPACE)) {
-				name = name.substring(uAAL_VOCABULARY_NAMESPACE.length());
+			if (name.startsWith(VOCABULARY_NAMESPACE)) {
+				name = name.substring(VOCABULARY_NAMESPACE.length());
 			}
 			for (Integer status : names.keySet()) {
 				if (names.get(status).equals(name)) {
@@ -108,7 +108,7 @@ public final class CallStatus extends FinalizedResource {
 	 *            defines the order of each service call status
 	 */
 	private CallStatus(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names.get(order));
+		super(VOCABULARY_NAMESPACE + names.get(order));
 		addType(MY_URI, true);
 		this.order = order;
 	}

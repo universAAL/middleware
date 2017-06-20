@@ -274,10 +274,10 @@ public abstract class TypeExpression extends Resource {
 	 * order for the membership to be asserted. If the <code>context</code>
 	 * table is null, the method does a global and unconditional check.
 	 *
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
+	 * @see org.universAAL.middleware.util.Constants#VAR_ACCESSING_BUS_MEMBER
+	 * @see org.universAAL.middleware.util.Constants#VAR_ACCESSING_HUMAN_USER
+	 * @see org.universAAL.middleware.util.Constants#VAR_CURRENT_DATETIME
+	 * @see org.universAAL.middleware.util.Constants#VAR_SERVICE_TO_SELECT
 	 *
 	 * @param member
 	 *            the object whose membership is going to be checked
@@ -339,10 +339,10 @@ public abstract class TypeExpression extends Resource {
 	 * order for the disjointness to be asserted. If the <code>context</code>
 	 * table is null, the method does a global and unconditional check.
 	 *
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
+	 * @see org.universAAL.middleware.util.Constants#VAR_ACCESSING_BUS_MEMBER
+	 * @see org.universAAL.middleware.util.Constants#VAR_ACCESSING_HUMAN_USER
+	 * @see org.universAAL.middleware.util.Constants#VAR_CURRENT_DATETIME
+	 * @see org.universAAL.middleware.util.Constants#VAR_SERVICE_TO_SELECT
 	 *
 	 * @param other
 	 *            the type expression with which the disjointness is going to be
@@ -412,10 +412,10 @@ public abstract class TypeExpression extends Resource {
 	 * order for the compatibility to be asserted. If the <code>context</code>
 	 * table is null, the method does a global and unconditional check.
 	 *
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_BUS_MEMBER
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_ACCESSING_HUMAN_USER
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_CURRENT_DATETIME
-	 * @see org.universAAL.middleware.util.Constants#VAR_uAAL_SERVICE_TO_SELECT
+	 * @see org.universAAL.middleware.util.Constants#VAR_ACCESSING_BUS_MEMBER
+	 * @see org.universAAL.middleware.util.Constants#VAR_ACCESSING_HUMAN_USER
+	 * @see org.universAAL.middleware.util.Constants#VAR_CURRENT_DATETIME
+	 * @see org.universAAL.middleware.util.Constants#VAR_SERVICE_TO_SELECT
 	 * @param subset
 	 *            the type expression with which the compatibility is going to
 	 *            be checked

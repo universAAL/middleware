@@ -1,7 +1,7 @@
 package org.universAAL.middleware.owl;
 
 public abstract class PrivateResource extends ManagedIndividual {
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "PrivateResource";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "PrivateResource";
 
 	protected PrivateResource() {
 		super();

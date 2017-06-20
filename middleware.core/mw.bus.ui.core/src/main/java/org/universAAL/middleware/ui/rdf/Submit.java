@@ -67,7 +67,7 @@ public class Submit extends FormControl {
 	 * OK/Cancel or Yes/No; the type specifies which buttons should be added by
 	 * a UI handler to the confirmation dialog.
 	 */
-	public static final String PROP_CONFIRMATION_MESSAGE = uAAL_VOCABULARY_NAMESPACE + "confirmationMessage";
+	public static final String PROP_CONFIRMATION_MESSAGE = VOCABULARY_NAMESPACE + "confirmationMessage";
 
 	/**
 	 * Critical submits may be associated with a confirmation message to be
@@ -76,20 +76,20 @@ public class Submit extends FormControl {
 	 * OK/Cancel or Yes/No; the type specifies which buttons should be added by
 	 * a UI handler to the confirmation dialog.
 	 */
-	public static final String PROP_CONFIRMATION_TYPE = uAAL_VOCABULARY_NAMESPACE + "confirmationType";
+	public static final String PROP_CONFIRMATION_TYPE = VOCABULARY_NAMESPACE + "confirmationType";
 
 	/**
 	 * For maintaining a list of mandatory input controls associated with each
 	 * submit control that have to be filled by the user before submitting a
 	 * form via that submit control.
 	 */
-	public static final String PROP_MANDATORY_INPUT = uAAL_VOCABULARY_NAMESPACE + "mandatoryInput";
+	public static final String PROP_MANDATORY_INPUT = VOCABULARY_NAMESPACE + "mandatoryInput";
 
 	/**
 	 * The unique ID that helps to identify with pressing which button a dialog
 	 * was finished.
 	 */
-	public static final String PROP_SUBMISSION_ID = uAAL_VOCABULARY_NAMESPACE + "submissionID";
+	public static final String PROP_SUBMISSION_ID = VOCABULARY_NAMESPACE + "submissionID";
 
 	/**
 	 * The list of Manadatory {@link Input} Controls.

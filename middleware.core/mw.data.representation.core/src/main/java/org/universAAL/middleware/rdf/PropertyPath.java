@@ -57,10 +57,10 @@ public final class PropertyPath extends FinalizedResource {
 	 * The only property of a property path is the one pointing to the list of
 	 * properties that build up the path.
 	 */
-	public static final String PROP_PROPERTY_PATH = uAAL_SERVICE_NAMESPACE + "thePath";
+	public static final String PROP_PROPERTY_PATH = VOCABULARY_NAMESPACE + "thePath";
 
 	/** URI of this class. */
-	public static final String TYPE_PROPERTY_PATH = uAAL_SERVICE_NAMESPACE + "PropertyPath";
+	public static final String TYPE_PROPERTY_PATH = VOCABULARY_NAMESPACE + "PropertyPath";
 
 	/** The constructor for (de-)serializers. */
 	public PropertyPath() {

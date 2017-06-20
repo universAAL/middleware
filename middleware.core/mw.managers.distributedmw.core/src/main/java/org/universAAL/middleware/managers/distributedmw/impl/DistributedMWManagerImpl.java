@@ -45,7 +45,7 @@ public class DistributedMWManagerImpl implements DistributedBusMemberManager, Di
 	// TODO: split this implementation in two for each interface for security
 	// reasons
 
-	public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX + "DistributedMWManager.rdf#";
+	public static final String NAMESPACE = Resource.NAMESPACE_PREFIX + "DistributedMWManager.rdf#";
 
 	public static PeerCard myPeer;
 	public static ModuleContext context;

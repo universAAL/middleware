@@ -37,7 +37,7 @@ import org.universAAL.middleware.owl.supply.AbsLocation;
  *         Tazari</a>
  */
 public class MultiLocationParameter extends ProfileParameter {
-	public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "MultiAbsLocationParameter";
+	public static final String MY_URI = SERVICE_NAMESPACE + "MultiAbsLocationParameter";
 
 	public MultiLocationParameter(AbsLocation[] value) {
 		super();

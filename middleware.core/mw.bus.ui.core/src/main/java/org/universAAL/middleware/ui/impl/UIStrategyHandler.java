@@ -79,9 +79,9 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	private class UserLogOnMessage extends Resource
 			implements IUIStrategyMessageSharedProps, EventMessage<UIStrategyCaller> {
 
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "LogIn";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "LogIn";
 
-		public static final String PROP_LOCATION = Resource.uAAL_VOCABULARY_NAMESPACE + "logOnLocation";
+		public static final String PROP_LOCATION = Resource.VOCABULARY_NAMESPACE + "logOnLocation";
 
 		/**
 		 * 
@@ -92,7 +92,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 		public UserLogOnMessage(String handlerID, Resource user, AbsLocation location) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_INVOLVED_HUMAN_USER, user);
+			setProperty(PROP_INVOLVED_HUMAN_USER, user);
 			setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
 			if (location != null) {
 				setProperty(PROP_LOCATION, location);
@@ -102,7 +102,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		/** {@ inheritDoc} */
 		public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
 			String handerID = (String) getProperty(PROP_uAAL_UI_HANDLER_ID);
-			Resource usr = (Resource) getProperty(PROP_uAAL_INVOLVED_HUMAN_USER);
+			Resource usr = (Resource) getProperty(PROP_INVOLVED_HUMAN_USER);
 			AbsLocation loc = (AbsLocation) getProperty(PROP_LOCATION);
 			userLoggedIn(handerID, usr, loc);
 		}
@@ -113,7 +113,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		/**
 		 * Type for finishing dialog.
 		 */
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "FinishDialog";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "FinishDialog";
 
 		/**
 		 * 
@@ -138,7 +138,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	private class NotifyHandlerMessage extends Resource
 			implements IUIStrategyMessageSharedProps, EventMessage<UIStrategyCaller> {
 
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "HandlerNotify";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "HandlerNotify";
 
 		/**
 		 * 
@@ -175,13 +175,13 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		/**
 		 * Type for Cutting.
 		 */
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "Cut";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "Cut";
 
 		/**
 		 * Type only for the case there is a {@link Resource} withou properties,
 		 * that will not be serialized.
 		 */
-		private static final String TYPE_DUMMY_TYPE = Resource.uAAL_VOCABULARY_NAMESPACE + "DummyType";
+		private static final String TYPE_DUMMY_TYPE = Resource.VOCABULARY_NAMESPACE + "DummyType";
 
 		public CutCallMessage() {
 			super();
@@ -279,7 +279,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	/** {@ inheritDoc} */
 	public synchronized void start() {
 		super.start();
-		ont = new POntology(Resource.uAAL_NAMESPACE_PREFIX + "UIStrategyHandlerMessageOntology");
+		ont = new POntology(Resource.NAMESPACE_PREFIX + "UIStrategyHandlerMessageOntology");
 		OntologyManagement.getInstance().register(busModule, ont);
 	}
 

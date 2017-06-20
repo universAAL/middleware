@@ -33,7 +33,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  */
 public class Modality extends ManagedIndividual {
 
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Modality";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "Modality";
 
 	public static final int VOICE = 0;
 	public static final int GUI = 1;
@@ -100,7 +100,7 @@ public class Modality extends ManagedIndividual {
 	 * @param order
 	 */
 	private Modality(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		super(VOCABULARY_NAMESPACE + names[order]);
 		this.order = order;
 	}
 

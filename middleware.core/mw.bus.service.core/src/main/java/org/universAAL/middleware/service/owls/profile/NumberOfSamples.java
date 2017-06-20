@@ -31,7 +31,7 @@ package org.universAAL.middleware.service.owls.profile;
  *         Tazari</a>
  */
 public class NumberOfSamples extends ProfileParameter {
-	public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "NumberOfSamples";
+	public static final String MY_URI = SERVICE_NAMESPACE + "NumberOfSamples";
 
 	public NumberOfSamples(int value) {
 		super();

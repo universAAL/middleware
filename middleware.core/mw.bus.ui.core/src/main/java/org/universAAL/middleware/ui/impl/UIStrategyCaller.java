@@ -69,8 +69,8 @@ public class UIStrategyCaller extends UIStrategyHandler {
 
 	public class UIRequestCall extends CallMessage<UIStrategyCaller> implements IUIStrategyMessageSharedProps {
 
-		private static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "UIRequestCall";
-		private static final String PROP_uAAL_UI_RESPONSE = Resource.uAAL_VOCABULARY_NAMESPACE + "uiResponse";;
+		private static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "UIRequestCall";
+		private static final String PROP_uAAL_UI_RESPONSE = Resource.VOCABULARY_NAMESPACE + "uiResponse";;
 
 		public UIRequestCall() {
 			super();
@@ -115,7 +115,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 
 	private class ResumeDialogMessage extends Resource
 			implements IUIStrategyMessageSharedProps, EventMessage<UIStrategyCaller> {
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "ResumeDialog";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "ResumeDialog";
 
 		public ResumeDialogMessage() {
 			super();
@@ -135,7 +135,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 
 	private class SuspendDialogMessage extends Resource
 			implements IUIStrategyMessageSharedProps, EventMessage<UIStrategyCaller> {
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "SuspendDialog";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "SuspendDialog";
 
 		public SuspendDialogMessage() {
 			super();
@@ -157,7 +157,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 		/**
 		 * Type for aborting.
 		 */
-		public static final String MY_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "AbortDialog";
+		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "AbortDialog";
 
 		/**
 		 * Constructor for deserializer.
@@ -260,7 +260,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	/** {@ inheritDoc} */
 	public synchronized void start() {
 		super.start();
-		ont = new MessageOntology(Resource.uAAL_NAMESPACE_PREFIX + "UIStrategyCallerMesageOntology");
+		ont = new MessageOntology(Resource.NAMESPACE_PREFIX + "UIStrategyCallerMesageOntology");
 		OntologyManagement.getInstance().register(busModule, ont);
 		pendingRequests = new Hashtable<String, UICaller>();
 	}

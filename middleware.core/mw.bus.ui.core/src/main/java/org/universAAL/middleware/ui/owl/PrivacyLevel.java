@@ -31,7 +31,7 @@ import org.universAAL.middleware.owl.ComparableIndividual;
  */
 public class PrivacyLevel extends ComparableIndividual {
 
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "PrivacyLevel";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "PrivacyLevel";
 
 	public static final int INSENSIBLE = 0;
 	public static final int KNOWN_PEOPLE_ONLY = 1;
@@ -110,7 +110,7 @@ public class PrivacyLevel extends ComparableIndividual {
 	 *            order
 	 */
 	private PrivacyLevel(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		super(VOCABULARY_NAMESPACE + names[order]);
 		this.order = order;
 	}
 

@@ -76,33 +76,33 @@ import org.universAAL.middleware.util.Constants;
  * @author Carsten Stockloew
  */
 public class ServiceStrategy extends BusStrategy {
-	private static final String PROP_uAAL_REGISTRATION_STATUS = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String PROP_uAAL_REGISTRATION_STATUS = Resource.VOCABULARY_NAMESPACE
 			+ "registrationStatus";
-	private static final String PROP_uAAL_SERVICE_REALIZATION_ID = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String PROP_uAAL_SERVICE_REALIZATION_ID = Resource.VOCABULARY_NAMESPACE
 			+ "theRealization";
-	private static final String PROP_uAAL_SERVICE_REGISTERED_PROFILE = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String PROP_uAAL_SERVICE_REGISTERED_PROFILE = Resource.VOCABULARY_NAMESPACE
 			+ "registeredProfile";
-	private static final String PROP_uAAL_SERVICE_PROVIDED_BY = Resource.uAAL_VOCABULARY_NAMESPACE + "registeredBy";
-	private static final String PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String PROP_uAAL_SERVICE_PROVIDED_BY = Resource.VOCABULARY_NAMESPACE + "registeredBy";
+	private static final String PROP_uAAL_SERVICE_SUBSCRIBER_REQUEST = Resource.VOCABULARY_NAMESPACE
 			+ "theRequest";
-	private static final String PROP_uAAL_SERVICE_SUBSCRIBER = Resource.uAAL_VOCABULARY_NAMESPACE + "theSubscriber";
-	private static final String PROP_uAAL_SERVICE_TYPE = Resource.uAAL_VOCABULARY_NAMESPACE + "serviceType";
+	private static final String PROP_uAAL_SERVICE_SUBSCRIBER = Resource.VOCABULARY_NAMESPACE + "theSubscriber";
+	private static final String PROP_uAAL_SERVICE_TYPE = Resource.VOCABULARY_NAMESPACE + "serviceType";
 	private static final Resource RES_STATUS_DEREGISTERED = new Resource(
-			Resource.uAAL_VOCABULARY_NAMESPACE + "deregistered");
+			Resource.VOCABULARY_NAMESPACE + "deregistered");
 	private static final Resource RES_STATUS_REGISTERED = new Resource(
-			Resource.uAAL_VOCABULARY_NAMESPACE + "registered");
-	private static final String TYPE_uAAL_SERVICE_BUS_COORDINATOR = Resource.uAAL_VOCABULARY_NAMESPACE + "Coordinator";
-	private static final String TYPE_uAAL_SERVICE_BUS_NOTIFICATION = Resource.uAAL_VOCABULARY_NAMESPACE
+			Resource.VOCABULARY_NAMESPACE + "registered");
+	private static final String TYPE_uAAL_SERVICE_BUS_COORDINATOR = Resource.VOCABULARY_NAMESPACE + "Coordinator";
+	private static final String TYPE_uAAL_SERVICE_BUS_NOTIFICATION = Resource.VOCABULARY_NAMESPACE
 			+ "SubscriberNotification";
-	private static final String TYPE_uAAL_SERVICE_BUS_REGISTRATION = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String TYPE_uAAL_SERVICE_BUS_REGISTRATION = Resource.VOCABULARY_NAMESPACE
 			+ "ServiceRegistration";
-	private static final String TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String TYPE_uAAL_SERVICE_BUS_SUBSCRIPTION = Resource.VOCABULARY_NAMESPACE
 			+ "ServiceSubscription";
-	private static final String TYPE_uAAL_SERVICE_PROFILE_INFORMATION = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String TYPE_uAAL_SERVICE_PROFILE_INFORMATION = Resource.VOCABULARY_NAMESPACE
 			+ "ProfileInformation";
-	private static final String CONTEXT_REQUEST_MESSAGE = Resource.uAAL_VOCABULARY_NAMESPACE + "requestMessage";
-	private static final String CONTEXT_RESPONSE_MESSAGE = Resource.uAAL_VOCABULARY_NAMESPACE + "responseMessage";
-	private static final String CONTEXT_INJECT_CALLER = Resource.uAAL_VOCABULARY_NAMESPACE + "injectCaller";
+	private static final String CONTEXT_REQUEST_MESSAGE = Resource.VOCABULARY_NAMESPACE + "requestMessage";
+	private static final String CONTEXT_RESPONSE_MESSAGE = Resource.VOCABULARY_NAMESPACE + "responseMessage";
+	private static final String CONTEXT_INJECT_CALLER = Resource.VOCABULARY_NAMESPACE + "injectCaller";
 
 	private class AvailabilitySubscription {
 		String id;
@@ -398,7 +398,7 @@ public class ServiceStrategy extends BusStrategy {
 		for (int i = 0; i < size; i++) {
 			HashMap<String, Object> match = matches.get(i);
 			match.put(CONTEXT_REQUEST_MESSAGE, m);
-			ServiceRealization sr = (ServiceRealization) match.get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
+			ServiceRealization sr = (ServiceRealization) match.get(Constants.VAR_SERVICE_TO_SELECT);
 			Object timeout = ((ServiceProfile) sr.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE))
 					.getProperty(ServiceProfile.PROP_uAAL_RESPONSE_TIMEOUT);
 			if (timeout instanceof Integer && ((Integer) timeout).intValue() > maxTimeout)
@@ -509,7 +509,7 @@ public class ServiceStrategy extends BusStrategy {
 				calleeID = sr.getProperty(ServiceRealization.uAAL_SERVICE_PROVIDER);
 				if (processURI instanceof String && calleeID instanceof String) {
 					Object user = (m.getContent() instanceof ServiceRequest) ? ((ServiceRequest) m.getContent())
-							.getProperty(ServiceRequest.PROP_uAAL_INVOLVED_HUMAN_USER) : null;
+							.getProperty(ServiceRequest.PROP_INVOLVED_HUMAN_USER) : null;
 					ServiceCall sc = new ServiceCall(new Resource((String) processURI));
 					if (user instanceof Resource)
 						sc.setInvolvedUser((Resource) user);
@@ -1240,7 +1240,7 @@ public class ServiceStrategy extends BusStrategy {
 				int matchesFound = 0;
 				HashMap<String, HashMap<String, Object>> auxMap = new HashMap<String, HashMap<String, Object>>();
 				for (HashMap<String, Object> match : matches) {
-					ServiceRealization sr = (ServiceRealization) match.get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
+					ServiceRealization sr = (ServiceRealization) match.get(Constants.VAR_SERVICE_TO_SELECT);
 					if (sr.assertServiceCall(match, request)) {
 						matchesFound++;
 						HashMap<String, Object> otherMatch = auxMap.get(sr.getProvider());
@@ -1311,7 +1311,7 @@ public class ServiceStrategy extends BusStrategy {
 					obj[3] = " matches. The matching profiles are: ";
 					int i = 4;
 					for (HashMap<String, Object> match : matches) {
-						ServiceRealization sr = (ServiceRealization) match.get(Constants.VAR_uAAL_SERVICE_TO_SELECT);
+						ServiceRealization sr = (ServiceRealization) match.get(Constants.VAR_SERVICE_TO_SELECT);
 						Service profileService = ((ServiceProfile) sr
 								.getProperty(ServiceRealization.uAAL_SERVICE_PROFILE)).getTheService();
 						String profileServiceURI = profileService.getURI();
@@ -1781,12 +1781,12 @@ public class ServiceStrategy extends BusStrategy {
 	private HashMap<String, Object> matches(String callerID, ServiceRequest request, ServiceRealization offer,
 			Long logID) {
 		HashMap<String, Object> context = new HashMap<String, Object>();
-		context.put(Constants.VAR_uAAL_ACCESSING_BUS_MEMBER, callerID);
-		context.put(Constants.VAR_uAAL_CURRENT_DATETIME, TypeMapper.getCurrentDateTime());
-		context.put(Constants.VAR_uAAL_SERVICE_TO_SELECT, offer);
-		Object o = request.getProperty(ServiceRequest.PROP_uAAL_INVOLVED_HUMAN_USER);
+		context.put(Constants.VAR_ACCESSING_BUS_MEMBER, callerID);
+		context.put(Constants.VAR_CURRENT_DATETIME, TypeMapper.getCurrentDateTime());
+		context.put(Constants.VAR_SERVICE_TO_SELECT, offer);
+		Object o = request.getProperty(ServiceRequest.PROP_INVOLVED_HUMAN_USER);
 		if (o != null)
-			context.put(Constants.VAR_uAAL_ACCESSING_HUMAN_USER, o);
+			context.put(Constants.VAR_ACCESSING_HUMAN_USER, o);
 		return offer.matches(request, context, logID) ? context : null;
 	}
 

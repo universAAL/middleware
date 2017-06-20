@@ -199,7 +199,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 	 * @return the involved user or null, if no human user is involved.
 	 */
 	public Resource getInvolvedUser() {
-		Object o = props.get(PROP_uAAL_INVOLVED_HUMAN_USER);
+		Object o = props.get(PROP_INVOLVED_HUMAN_USER);
 		return (o instanceof Resource) ? (Resource) o : null;
 	}
 
@@ -223,7 +223,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 	public int getPropSerializationType(String propURI) {
 		return (PROP_OWLS_PERFORM_PROCESS.equals(propURI) || PROP_OWLS_BINDING_VALUE_DATA.equals(propURI)
 				|| PROP_OWLS_PERFORM_HAS_DATA_FROM.equals(propURI)) ? PROP_SERIALIZATION_FULL
-						: PROP_uAAL_INVOLVED_HUMAN_USER.equals(propURI) ? PROP_SERIALIZATION_REDUCED
+						: PROP_INVOLVED_HUMAN_USER.equals(propURI) ? PROP_SERIALIZATION_REDUCED
 								: PROP_SERIALIZATION_OPTIONAL;
 	}
 
@@ -251,8 +251,8 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 	 *            the new involved user.
 	 */
 	public void setInvolvedUser(Resource user) {
-		if (user != null && !props.containsKey(PROP_uAAL_INVOLVED_HUMAN_USER))
-			props.put(PROP_uAAL_INVOLVED_HUMAN_USER, user);
+		if (user != null && !props.containsKey(PROP_INVOLVED_HUMAN_USER))
+			props.put(PROP_INVOLVED_HUMAN_USER, user);
 	}
 
 	/**
@@ -311,8 +311,8 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 							&& ProcessInput.MY_URI.equals(((Resource) toParam).getType()))
 						return addInput(toParam.toString(), ((Resource) o).getProperty(PROP_OWLS_BINDING_VALUE_DATA));
 				}
-			} else if (PROP_uAAL_INVOLVED_HUMAN_USER.equals(propURI) && o instanceof Resource) {
-				props.put(PROP_uAAL_INVOLVED_HUMAN_USER, o);
+			} else if (PROP_INVOLVED_HUMAN_USER.equals(propURI) && o instanceof Resource) {
+				props.put(PROP_INVOLVED_HUMAN_USER, o);
 				return true;
 			}
 		}

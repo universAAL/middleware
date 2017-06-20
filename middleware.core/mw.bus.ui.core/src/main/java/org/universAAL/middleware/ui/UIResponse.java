@@ -78,7 +78,7 @@ public class UIResponse extends ScopedResource implements Response {
 		super();
 
 		addType(MY_URI, true);
-		props.put(PROP_uAAL_INVOLVED_HUMAN_USER, user);
+		props.put(PROP_INVOLVED_HUMAN_USER, user);
 		Form f = submit.getFormObject();
 		props.put(PROP_DIALOG_ID, new Resource(f.getDialogID()));
 		props.put(PROP_SUBMISSION_ID, submit.getID());
@@ -131,7 +131,7 @@ public class UIResponse extends ScopedResource implements Response {
 	 * @see org.universAAL.middleware.rdf.Resource#getPropSerializationType(java.lang.String)
 	 */
 	public int getPropSerializationType(String propURI) {
-		return (PROP_uAAL_INVOLVED_HUMAN_USER.equals(propURI) || PROP_SUBMISSION_LOCATION.equals(propURI))
+		return (PROP_INVOLVED_HUMAN_USER.equals(propURI) || PROP_SUBMISSION_LOCATION.equals(propURI))
 				? PROP_SERIALIZATION_REDUCED : PROP_SERIALIZATION_FULL;
 	}
 
@@ -163,7 +163,7 @@ public class UIResponse extends ScopedResource implements Response {
 	 *         for for matchmaking Either.
 	 */
 	public Resource getUser() {
-		Object user = props.get(PROP_uAAL_INVOLVED_HUMAN_USER);
+		Object user = props.get(PROP_INVOLVED_HUMAN_USER);
 		return (user instanceof Resource) ? (Resource) user : null;
 	}
 

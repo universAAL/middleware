@@ -49,7 +49,7 @@ import org.universAAL.middleware.owl.ComparableIndividual;
 public abstract class AbsLocation extends ComparableIndividual {
 
 	/** The URI of the ontology class. */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "AbsLocation";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "AbsLocation";
 
 	/**
 	 * Create an abstract location.

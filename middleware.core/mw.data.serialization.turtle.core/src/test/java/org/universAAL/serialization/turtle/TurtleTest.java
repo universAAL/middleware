@@ -24,7 +24,7 @@ public class TurtleTest extends TestCase {
 	TurtleSerializer s;
 
 	class MyOntClass extends ManagedIndividual {
-		public static final String MY_URI = Resource.uAAL_NAMESPACE_PREFIX + "TurtleTest.owl#MyOntClass";
+		public static final String MY_URI = Resource.NAMESPACE_PREFIX + "TurtleTest.owl#MyOntClass";
 
 		@Override
 		public String getClassURI() {
@@ -131,7 +131,7 @@ public class TurtleTest extends TestCase {
 	}
 
 	public void testTypeURI2() {
-		String propURI = Resource.uAAL_NAMESPACE_PREFIX + "TurtleTest.owl#myProperty";
+		String propURI = Resource.NAMESPACE_PREFIX + "TurtleTest.owl#myProperty";
 		Resource r = new Resource("testResource");
 		ArrayList al = new ArrayList();
 		al.add(new MyOntClass("instanceURI"));
@@ -254,21 +254,21 @@ public class TurtleTest extends TestCase {
 	public void testAnonWithAnonPropVal() {
 		Resource r1 = new Resource(); // input resource
 		Resource r2 = new Resource(); // input resource
-		r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+		r1.setProperty(Resource.PROP_INVOLVED_HUMAN_USER, r2);
 		assertTrue(check(r1, true));
 	}
 
 	public void testAnon() {
 		Resource r1 = new Resource("test"); // input resource
 		Resource r2 = new Resource(); // input resource
-		r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+		r1.setProperty(Resource.PROP_INVOLVED_HUMAN_USER, r2);
 		assertTrue(check(r1, true));
 	}
 
 	public void testNoType() {
 		Resource r1 = new Resource("test"); // input resource
 		Resource r2 = new Resource("test2"); // input resource
-		r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+		r1.setProperty(Resource.PROP_INVOLVED_HUMAN_USER, r2);
 		assertTrue(check(r1));
 	}
 
@@ -276,7 +276,7 @@ public class TurtleTest extends TestCase {
 		Resource r1 = new Resource("test"); // input resource
 		r1.addType("testtype", true);
 		Resource r2 = new Resource("test2"); // input resource
-		r1.setProperty(Resource.PROP_uAAL_INVOLVED_HUMAN_USER, r2);
+		r1.setProperty(Resource.PROP_INVOLVED_HUMAN_USER, r2);
 		assertTrue(check(r1));
 	}
 

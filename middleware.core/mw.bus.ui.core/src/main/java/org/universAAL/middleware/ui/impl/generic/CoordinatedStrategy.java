@@ -66,13 +66,13 @@ public class CoordinatedStrategy extends CallBasedStrategy implements SpaceListe
 	 */
 	private static final int RESEND_INTERVAL = 10000;
 
-	public static final String TYPE_uAAL_UI_BUS_COORDINATOR_BROADCAST = Resource.uAAL_VOCABULARY_NAMESPACE
+	public static final String TYPE_uAAL_UI_BUS_COORDINATOR_BROADCAST = Resource.VOCABULARY_NAMESPACE
 			+ "IamCoordinator";
 
-	public static final String TYPE_uAAL_UI_BUS_COORDINATOR_REQUEST = Resource.uAAL_VOCABULARY_NAMESPACE
+	public static final String TYPE_uAAL_UI_BUS_COORDINATOR_REQUEST = Resource.VOCABULARY_NAMESPACE
 			+ "WhoIsCoordinator";
 
-	public static final String TYPE_uAAL_UI_BUS_COORDINATOR_RESIGN = Resource.uAAL_VOCABULARY_NAMESPACE
+	public static final String TYPE_uAAL_UI_BUS_COORDINATOR_RESIGN = Resource.VOCABULARY_NAMESPACE
 			+ "CoordinatorResign";
 
 	private class CoordinatorAnnounceEvent extends Resource implements EventMessage<CoordinatedStrategy> {
@@ -252,7 +252,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements SpaceListe
 	/** {@ inheritDoc} */
 	public synchronized void start() {
 		super.start();
-		ontology = new CoordinatorMessageOnt(Resource.uAAL_NAMESPACE_PREFIX + "CoordinatedStrategyMessageOntology");
+		ontology = new CoordinatorMessageOnt(Resource.NAMESPACE_PREFIX + "CoordinatedStrategyMessageOntology");
 		OntologyManagement.getInstance().register(busModule, ontology);
 		if (busModule.getContainer() != null) {
 			Object o = busModule.getContainer().fetchSharedObject(busModule,

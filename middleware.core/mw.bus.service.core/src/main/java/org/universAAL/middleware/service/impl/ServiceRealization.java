@@ -47,18 +47,18 @@ import org.universAAL.middleware.util.RatingAggregator;
  * 
  */
 public class ServiceRealization extends FinalizedResource {
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ServiceRealization";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "ServiceRealization";
 
-	public static final String uAAL_SERVICE_RESPONSE_TIME = uAAL_VOCABULARY_NAMESPACE + "responseTime";
-	public static final String uAAL_SERVICE_QUALITY_OF_SERVICE = uAAL_VOCABULARY_NAMESPACE + "qos";
-	public static final String uAAL_SERVICE_PROVIDER = uAAL_VOCABULARY_NAMESPACE + "theCallee";
-	public static final String uAAL_SERVICE_PROFILE = uAAL_VOCABULARY_NAMESPACE + "theProfile";
-	public static final String uAAL_ASSERTED_SERVICE_CALL = uAAL_VOCABULARY_NAMESPACE + "assertedServiceCall";
+	public static final String uAAL_SERVICE_RESPONSE_TIME = VOCABULARY_NAMESPACE + "responseTime";
+	public static final String uAAL_SERVICE_QUALITY_OF_SERVICE = VOCABULARY_NAMESPACE + "qos";
+	public static final String uAAL_SERVICE_PROVIDER = VOCABULARY_NAMESPACE + "theCallee";
+	public static final String uAAL_SERVICE_PROFILE = VOCABULARY_NAMESPACE + "theProfile";
+	public static final String uAAL_ASSERTED_SERVICE_CALL = VOCABULARY_NAMESPACE + "assertedServiceCall";
 	/**
 	 * This constant is used for indicating that service has matched exactly the
 	 * URI specified in the Service Request.
 	 */
-	public static final String uAAL_SERVICE_URI_MATCHED = uAAL_VOCABULARY_NAMESPACE + "serviceUriMatched";
+	public static final String uAAL_SERVICE_URI_MATCHED = VOCABULARY_NAMESPACE + "serviceUriMatched";
 
 	public ServiceRealization() {
 		super();
@@ -167,7 +167,7 @@ public class ServiceRealization extends FinalizedResource {
 
 		ServiceCall result = new ServiceCall(new Resource(processURI));
 		result.setScope(request);
-		Object user = context.get(Constants.VAR_uAAL_ACCESSING_HUMAN_USER);
+		Object user = context.get(Constants.VAR_ACCESSING_HUMAN_USER);
 		if (user instanceof Resource)
 			result.setInvolvedUser((Resource) user);
 

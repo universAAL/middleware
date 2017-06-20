@@ -54,7 +54,7 @@ import org.universAAL.middleware.ui.rdf.Form;
 public class UIRequest extends ScopedResource implements Request {
 
 	/** The Constant uAAL_UI_NAMESPACE. */
-	public static final String uAAL_UI_NAMESPACE = uAAL_NAMESPACE_PREFIX + "UI.owl#";
+	public static final String uAAL_UI_NAMESPACE = NAMESPACE_PREFIX + "UI.owl#";
 
 	/** The Constant MY_URI. */
 	public static final String MY_URI = uAAL_UI_NAMESPACE + "UIRequest";

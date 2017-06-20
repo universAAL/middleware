@@ -31,7 +31,7 @@ import org.universAAL.middleware.owl.supply.Rating;
  *         Tazari</a>
  */
 public class QoSRating extends ProfileParameter {
-	public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "QoSRating";
+	public static final String MY_URI = SERVICE_NAMESPACE + "QoSRating";
 
 	public QoSRating(Rating r) {
 		super();

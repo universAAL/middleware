@@ -36,7 +36,7 @@ import org.universAAL.middleware.rdf.Resource;
  */
 public class ContextBusOntology extends Ontology {
 
-	public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX + "ContextBus.owl#";
+	public static final String NAMESPACE = Resource.NAMESPACE_PREFIX + "ContextBus.owl#";
 
 	private static ContextBusFactory factory = new ContextBusFactory();
 

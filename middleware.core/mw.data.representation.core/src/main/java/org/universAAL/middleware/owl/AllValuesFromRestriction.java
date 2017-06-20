@@ -62,7 +62,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
 public final class AllValuesFromRestriction extends PropertyRestriction {
 
 	/** URI for this class. */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "AllValuesFromRestriction";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "AllValuesFromRestriction";
 
 	/** URI for owl:allValuesFrom. */
 	public static final String PROP_OWL_ALL_VALUES_FROM = OWL_NAMESPACE + "allValuesFrom";;

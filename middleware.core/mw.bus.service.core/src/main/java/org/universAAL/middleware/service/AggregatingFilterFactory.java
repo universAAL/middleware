@@ -89,7 +89,7 @@ public class AggregatingFilterFactory {
 		min, max
 	};
 
-	public final static String PROP_DUMMY = Resource.uAAL_NAMESPACE_PREFIX + "dummy.owl#dummyPropURI";
+	public final static String PROP_DUMMY = Resource.NAMESPACE_PREFIX + "dummy.owl#dummyPropURI";
 
 	/**
 	 * Create a service selection filter that selects one service randomly. The

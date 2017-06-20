@@ -46,7 +46,7 @@ import org.universAAL.middleware.util.MatchLogEntry;
 public final class HasValueRestriction extends PropertyRestriction {
 
 	/** URI for this class. */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "HasValueRestriction";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "HasValueRestriction";
 
 	/** URI for owl:hasValue. */
 	public static final String PROP_OWL_HAS_VALUE = OWL_NAMESPACE + "hasValue";

@@ -40,7 +40,7 @@ import org.universAAL.middleware.rdf.ScopedResource;
  * 
  */
 public class ContextEvent extends ScopedResource implements Event {
-	public static final String uAAL_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX + "Context.owl#";
+	public static final String uAAL_CONTEXT_NAMESPACE = NAMESPACE_PREFIX + "Context.owl#";
 
 	public static final String MY_URI = uAAL_CONTEXT_NAMESPACE + "ContextEvent";
 
@@ -444,8 +444,8 @@ public class ContextEvent extends ScopedResource implements Event {
 	 * @param user
 	 */
 	public boolean setInvolvedUser(Resource user) {
-		if (user != null && !props.containsKey(PROP_uAAL_INVOLVED_HUMAN_USER)) {
-			props.put(PROP_uAAL_INVOLVED_HUMAN_USER, user);
+		if (user != null && !props.containsKey(PROP_INVOLVED_HUMAN_USER)) {
+			props.put(PROP_INVOLVED_HUMAN_USER, user);
 			return true;
 		}
 		return false;
@@ -457,7 +457,7 @@ public class ContextEvent extends ScopedResource implements Event {
 	 * @return user
 	 */
 	public Resource getInvolvedUser() {
-		return (Resource) props.get(PROP_uAAL_INVOLVED_HUMAN_USER);
+		return (Resource) props.get(PROP_INVOLVED_HUMAN_USER);
 	}
 
 	public boolean setProperty(String propURI, Object value) {
@@ -471,7 +471,7 @@ public class ContextEvent extends ScopedResource implements Event {
 			 * (propURI.equals(PROP_CONTEXT_ACCURACY)) setAccuracy((Rating)
 			 * value);
 			 */
-		} else if (propURI.equals(PROP_uAAL_INVOLVED_HUMAN_USER)) {
+		} else if (propURI.equals(PROP_INVOLVED_HUMAN_USER)) {
 			if (value instanceof Resource)
 				return setInvolvedUser((Resource) value);
 		} else if (value instanceof ContextProvider) {

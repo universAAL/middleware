@@ -33,7 +33,7 @@ import org.universAAL.middleware.owl.supply.AbsLocation;
  *         Tazari</a>
  */
 public class SingleLocationParameter extends ProfileParameter {
-	public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "SingleLocationParameter";
+	public static final String MY_URI = SERVICE_NAMESPACE + "SingleLocationParameter";
 
 	public SingleLocationParameter(AbsLocation value) {
 		super();

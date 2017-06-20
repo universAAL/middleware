@@ -45,30 +45,30 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	/**
 	 * A resource URI that specifies the resource as a service response.
 	 */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ServiceResponse";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "ServiceResponse";
 
 	/**
 	 * A property key for the property where the status of the call is stored.
 	 */
-	public static final String PROP_SERVICE_CALL_STATUS = uAAL_VOCABULARY_NAMESPACE + "callStatus";
+	public static final String PROP_SERVICE_CALL_STATUS = VOCABULARY_NAMESPACE + "callStatus";
 
 	/**
 	 * A property key for the property where the service outputs are stored. The
 	 * service output is either a list of {@link ProcessOutput}s or a list of
 	 * {@link ServiceResponse}s in case of a {@link MultiServiceResponse}.
 	 */
-	public static final String PROP_SERVICE_HAS_OUTPUT = uAAL_VOCABULARY_NAMESPACE + "returns";
+	public static final String PROP_SERVICE_HAS_OUTPUT = VOCABULARY_NAMESPACE + "returns";
 
 	/**
 	 * A property key for the property where any errors occurred during the
 	 * service invocation are stored.
 	 */
-	public static final String PROP_SERVICE_SPECIFIC_ERROR = uAAL_VOCABULARY_NAMESPACE + "errorDescription";
+	public static final String PROP_SERVICE_SPECIFIC_ERROR = VOCABULARY_NAMESPACE + "errorDescription";
 
 	/**
 	 * A key of property indicating that not bound output is allowed.
 	 */
-	public static final String PROP_UNBOUND_OUTPUT_ALLOWED = uAAL_VOCABULARY_NAMESPACE + "unboundOutputAllowed";
+	public static final String PROP_UNBOUND_OUTPUT_ALLOWED = VOCABULARY_NAMESPACE + "unboundOutputAllowed";
 
 	/**
 	 * Default constructor for the class. Only sets the class URI of the

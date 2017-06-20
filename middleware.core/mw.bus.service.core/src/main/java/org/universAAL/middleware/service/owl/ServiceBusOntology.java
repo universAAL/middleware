@@ -46,7 +46,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  */
 public class ServiceBusOntology extends Ontology {
 
-	public static final String NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX + "ServiceBus.owl#";
+	public static final String NAMESPACE = Resource.NAMESPACE_PREFIX + "ServiceBus.owl#";
 
 	private static ServiceBusFactory factory = new ServiceBusFactory();
 

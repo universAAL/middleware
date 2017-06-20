@@ -46,14 +46,14 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public class Conversion {
-	public static final String PROP_OUTPUT_CONVERSION_SOURCE = Resource.uAAL_SERVICE_NAMESPACE + "sourceProperty";
-	public static final String PROP_OUTPUT_CONVERSION_TARGET_CLASS = Resource.uAAL_SERVICE_NAMESPACE + "targetClass";
-	public static final String PROP_OUTPUT_CONVERSION_TARGET_LANGUAGE = Resource.uAAL_SERVICE_NAMESPACE
+	public static final String PROP_OUTPUT_CONVERSION_SOURCE = Resource.SERVICE_NAMESPACE + "sourceProperty";
+	public static final String PROP_OUTPUT_CONVERSION_TARGET_CLASS = Resource.SERVICE_NAMESPACE + "targetClass";
+	public static final String PROP_OUTPUT_CONVERSION_TARGET_LANGUAGE = Resource.SERVICE_NAMESPACE
 			+ "targetLanguage";
-	public static final String PROP_OUTPUT_CONVERSION_TARGET_UNIT = Resource.uAAL_SERVICE_NAMESPACE + "targetUnit";
-	public static final String TYPE_OUTPUT_CLASS_CONVERSION = Resource.uAAL_SERVICE_NAMESPACE + "ClassConversion";
-	public static final String TYPE_OUTPUT_LANGUAGE_CONVERSION = Resource.uAAL_SERVICE_NAMESPACE + "LanguageConversion";
-	public static final String TYPE_OUTPUT_UNIT_CONVERSION = Resource.uAAL_SERVICE_NAMESPACE + "UnitConversion";
+	public static final String PROP_OUTPUT_CONVERSION_TARGET_UNIT = Resource.SERVICE_NAMESPACE + "targetUnit";
+	public static final String TYPE_OUTPUT_CLASS_CONVERSION = Resource.SERVICE_NAMESPACE + "ClassConversion";
+	public static final String TYPE_OUTPUT_LANGUAGE_CONVERSION = Resource.SERVICE_NAMESPACE + "LanguageConversion";
+	public static final String TYPE_OUTPUT_UNIT_CONVERSION = Resource.SERVICE_NAMESPACE + "UnitConversion";
 
 	/**
 	 * Return true iff the object passed as a parameter represents a Conversion

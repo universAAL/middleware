@@ -31,7 +31,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  */
 public class DialogType extends ManagedIndividual {
 
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "DialogType";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "DialogType";
 
 	public static final int SYS_MENU = 0;
 	public static final int MESSAGE = 1;
@@ -82,7 +82,7 @@ public class DialogType extends ManagedIndividual {
 	 *            order of dialog
 	 */
 	private DialogType(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		super(VOCABULARY_NAMESPACE + names[order]);
 		this.order = order;
 	}
 

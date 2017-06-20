@@ -38,7 +38,7 @@ public final class MultiServiceResponse extends ServiceResponse {
 	/**
 	 * A resource URI that specifies the resource as a multi service response.
 	 */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "MultiServiceResponse";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "MultiServiceResponse";
 
 	public MultiServiceResponse() {
 		super();

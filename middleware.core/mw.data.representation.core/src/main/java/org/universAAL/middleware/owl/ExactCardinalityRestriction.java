@@ -46,7 +46,7 @@ import org.universAAL.middleware.xsd.NonNegativeInteger;
 public final class ExactCardinalityRestriction extends PropertyRestriction {
 
 	/** URI for this class. */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ExactCardinalityRestriction";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "ExactCardinalityRestriction";
 
 	/** URI for owl:cardinality. */
 	public static final String PROP_OWL_CARDINALITY = OWL_NAMESPACE + "cardinality";

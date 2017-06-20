@@ -28,7 +28,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
  */
 public abstract class Preference extends ManagedIndividual {
 
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "Preference";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "Preference";
 
 	/** The constructor for (de-)serializers. */
 	public Preference() {

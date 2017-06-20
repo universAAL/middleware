@@ -53,27 +53,27 @@ public class ServiceRequest extends ScopedResource implements Request {
 	/**
 	 * A resource URI that specifies the resource as a service request.
 	 */
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "ServiceRequest";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "ServiceRequest";
 
 	/**
 	 * A property key for adding of the list of aggregating filters.
 	 */
-	public static final String PROP_AGGREGATING_FILTER = uAAL_VOCABULARY_NAMESPACE + "aggregatingFilter";
+	public static final String PROP_AGGREGATING_FILTER = VOCABULARY_NAMESPACE + "aggregatingFilter";
 
 	/**
 	 * A property key for adding of the requested service.
 	 */
-	public static final String PROP_REQUESTED_SERVICE = uAAL_VOCABULARY_NAMESPACE + "requestedService";
+	public static final String PROP_REQUESTED_SERVICE = VOCABULARY_NAMESPACE + "requestedService";
 
 	/**
 	 * A property key for adding of the process result.
 	 */
-	public static final String PROP_REQUIRED_PROCESS_RESULT = uAAL_VOCABULARY_NAMESPACE + "requiredResult";
+	public static final String PROP_REQUIRED_PROCESS_RESULT = VOCABULARY_NAMESPACE + "requiredResult";
 
 	/**
 	 * A property key for adding of the related service caller.
 	 */
-	public static final String PROP_uAAL_SERVICE_CALLER = uAAL_VOCABULARY_NAMESPACE + "theServiceCaller";
+	public static final String PROP_uAAL_SERVICE_CALLER = VOCABULARY_NAMESPACE + "theServiceCaller";
 
 	/**
 	 * Constructor for usage by de-serializers, as an anonymous node without a
@@ -128,7 +128,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 		addType(MY_URI, true);
 		props.put(PROP_REQUESTED_SERVICE, requestedService);
 		if (involvedHumanUser != null && !involvedHumanUser.isAnon()) {
-			props.put(PROP_uAAL_INVOLVED_HUMAN_USER, involvedHumanUser);
+			props.put(PROP_INVOLVED_HUMAN_USER, involvedHumanUser);
 		}
 	}
 
@@ -162,7 +162,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 		addType(MY_URI, true);
 		props.put(PROP_REQUESTED_SERVICE, requestedService);
 		if (involvedHumanUser != null && !involvedHumanUser.isAnon()) {
-			props.put(PROP_uAAL_INVOLVED_HUMAN_USER, involvedHumanUser);
+			props.put(PROP_INVOLVED_HUMAN_USER, involvedHumanUser);
 		}
 	}
 
@@ -191,7 +191,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 		addType(MY_URI, true);
 		props.put(PROP_REQUESTED_SERVICE, requestedService);
 		if (involvedHumanUser != null && !involvedHumanUser.isAnon()) {
-			props.put(PROP_uAAL_INVOLVED_HUMAN_USER, involvedHumanUser);
+			props.put(PROP_INVOLVED_HUMAN_USER, involvedHumanUser);
 		}
 	}
 
@@ -414,7 +414,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 	 */
 	@Override
 	public int getPropSerializationType(String propURI) {
-		return PROP_uAAL_INVOLVED_HUMAN_USER.equals(propURI) ? PROP_SERIALIZATION_REDUCED : PROP_SERIALIZATION_FULL;
+		return PROP_INVOLVED_HUMAN_USER.equals(propURI) ? PROP_SERIALIZATION_REDUCED : PROP_SERIALIZATION_FULL;
 	}
 
 	/**
@@ -455,7 +455,7 @@ public class ServiceRequest extends ScopedResource implements Request {
 			} else {
 				return false;
 			}
-		} else if (propURI.equals(PROP_uAAL_INVOLVED_HUMAN_USER)) {
+		} else if (propURI.equals(PROP_INVOLVED_HUMAN_USER)) {
 			if (value instanceof String && Resource.isQualifiedName((String) value)) {
 				value = new Resource((String) value);
 			} else if (!(value instanceof Resource) || ((Resource) value).isAnon()) {

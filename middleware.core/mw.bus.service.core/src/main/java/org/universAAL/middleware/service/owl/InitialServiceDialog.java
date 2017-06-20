@@ -39,7 +39,7 @@ public final class InitialServiceDialog extends UserInterfaceService {
 	public static final String MY_URI;
 	private static Hashtable isdClassLevelRestrictions = new Hashtable();
 	static {
-		MY_URI = uAAL_SERVICE_NAMESPACE + "InitialServiceDialog";
+		MY_URI = SERVICE_NAMESPACE + "InitialServiceDialog";
 	}
 
 	/**

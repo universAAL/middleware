@@ -31,34 +31,34 @@ import java.util.HashMap;
  */
 public abstract class Variable extends FinalizedResource {
 
-	// URIs of standard variables managed by the uAAL middleware
+	// URIs of standard variables managed by the universAAL middleware
 	/**
-	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * The URI of a standard variable managed by the universAAL middleware indicating
 	 * the current time.
 	 */
-	public static final String VAR_uAAL_CURRENT_DATETIME = Resource.uAAL_VOCABULARY_NAMESPACE + "currentDatetime";
+	public static final String VAR_uAAL_CURRENT_DATETIME = Resource.VOCABULARY_NAMESPACE + "currentDatetime";
 
 	/**
-	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * The URI of a standard variable managed by the universAAL middleware indicating
 	 * the software component currently accessing the middleware.
 	 */
-	public static final String VAR_uAAL_ACCESSING_BUS_MEMBER = Resource.uAAL_VOCABULARY_NAMESPACE
+	public static final String VAR_uAAL_ACCESSING_BUS_MEMBER = Resource.VOCABULARY_NAMESPACE
 			+ "theAccessingBusMember";
 
 	/**
-	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * The URI of a standard variable managed by the universAAL middleware indicating
 	 * the current human user as claimed by
 	 * {@link #VAR_uAAL_ACCESSING_BUS_MEMBER}.
 	 */
-	public static final String VAR_uAAL_ACCESSING_HUMAN_USER = Resource.uAAL_VOCABULARY_NAMESPACE
+	public static final String VAR_uAAL_ACCESSING_HUMAN_USER = Resource.VOCABULARY_NAMESPACE
 			+ "theAccessingHumanUser";
 
 	/**
-	 * The URI of a standard variable managed by the uAAL middleware indicating
+	 * The URI of a standard variable managed by the universAAL middleware indicating
 	 * the profile of a service that is estimated to be appropriate for
 	 * responding the current service request.
 	 */
-	public static final String VAR_uAAL_SERVICE_TO_SELECT = Resource.uAAL_VOCABULARY_NAMESPACE + "theServiceToSelect";
+	public static final String VAR_uAAL_SERVICE_TO_SELECT = Resource.VOCABULARY_NAMESPACE + "theServiceToSelect";
 
 	/**
 	 * Storage for all handlers of subclasses. Subclasses have to

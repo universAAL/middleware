@@ -47,11 +47,11 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public abstract class ProcessEffect {
-	public static final String PROP_PROCESS_AFFECTED_PROPERTY = Resource.uAAL_SERVICE_NAMESPACE + "affectedProperty";
-	public static final String PROP_PROCESS_PROPERTY_VALUE = Resource.uAAL_SERVICE_NAMESPACE + "propertyValue";
-	public static final String TYPE_PROCESS_ADD_EFFECT = Resource.uAAL_SERVICE_NAMESPACE + "AddEffect";
-	public static final String TYPE_PROCESS_CHANGE_EFFECT = Resource.uAAL_SERVICE_NAMESPACE + "ChangeEffect";
-	public static final String TYPE_PROCESS_REMOVE_EFFECT = Resource.uAAL_SERVICE_NAMESPACE + "RemoveEffect";
+	public static final String PROP_PROCESS_AFFECTED_PROPERTY = Resource.SERVICE_NAMESPACE + "affectedProperty";
+	public static final String PROP_PROCESS_PROPERTY_VALUE = Resource.SERVICE_NAMESPACE + "propertyValue";
+	public static final String TYPE_PROCESS_ADD_EFFECT = Resource.SERVICE_NAMESPACE + "AddEffect";
+	public static final String TYPE_PROCESS_CHANGE_EFFECT = Resource.SERVICE_NAMESPACE + "ChangeEffect";
+	public static final String TYPE_PROCESS_REMOVE_EFFECT = Resource.SERVICE_NAMESPACE + "RemoveEffect";
 
 	/**
 	 * Returns true or false depending if the object o contains the right effect

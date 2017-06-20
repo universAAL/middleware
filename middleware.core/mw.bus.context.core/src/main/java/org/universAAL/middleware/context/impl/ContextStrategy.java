@@ -56,10 +56,10 @@ public class ContextStrategy extends BusStrategy {
 
 	private static final String COMPOUND_INDEX_CONNECTOR = "";
 
-	private static final String PROP_uAAL_CONTEXT_PEER_PROVISIONS = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String PROP_uAAL_CONTEXT_PEER_PROVISIONS = Resource.VOCABULARY_NAMESPACE
 			+ "myContextProvisions";
 
-	private static final String TYPE_uAAL_CONTEXT_BUS_PROVISIONS = Resource.uAAL_VOCABULARY_NAMESPACE
+	private static final String TYPE_uAAL_CONTEXT_BUS_PROVISIONS = Resource.VOCABULARY_NAMESPACE
 			+ "ContextProvisions";
 
 	public static class ContextFilterer {

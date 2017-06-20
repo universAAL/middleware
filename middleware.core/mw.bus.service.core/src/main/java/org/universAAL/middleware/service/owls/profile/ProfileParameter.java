@@ -55,7 +55,7 @@ public abstract class ProfileParameter extends FinalizedResource {
 	public static final String PROP_OWLS_PROFILE_SERVICE_PARAMETER_NAME = ServiceProfile.OWLS_PROFILE_NAMESPACE
 			+ "serviceParameterName";
 	public static final String PROP_OWLS_PROFILE_S_PARAMETER = ServiceProfile.OWLS_PROFILE_NAMESPACE + "sParameter";
-	public static final String PROP_uAAL_PARAMETER_VALUE_DATA = uAAL_VOCABULARY_NAMESPACE + "valueData";
+	public static final String PROP_uAAL_PARAMETER_VALUE_DATA = VOCABULARY_NAMESPACE + "valueData";
 
 	protected ProfileParameter() {
 		super();

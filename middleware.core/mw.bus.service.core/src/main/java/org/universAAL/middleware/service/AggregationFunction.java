@@ -32,7 +32,7 @@ import org.universAAL.middleware.rdf.PropertyPath;
  * 
  */
 public final class AggregationFunction extends FinalizedResource {
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "AggregationFunction";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "AggregationFunction";
 
 	public static final int ONE_OF = 0;
 	public static final int MIN_OF = 1;
@@ -83,8 +83,8 @@ public final class AggregationFunction extends FinalizedResource {
 	public static final AggregationFunction valueOf(String name) {
 		if (name == null)
 			return null;
-		if (name.startsWith(uAAL_VOCABULARY_NAMESPACE))
-			name = name.substring(uAAL_VOCABULARY_NAMESPACE.length());
+		if (name.startsWith(VOCABULARY_NAMESPACE))
+			name = name.substring(VOCABULARY_NAMESPACE.length());
 		for (int i = ONE_OF; i <= MAX_DISTANCE_TO_REF_LOC; i++)
 			if (names[i].equals(name))
 				return getAggregationFunctionByOrder(i);
@@ -108,7 +108,7 @@ public final class AggregationFunction extends FinalizedResource {
 	 *            defines the order of each service
 	 */
 	private AggregationFunction(int order) {
-		super(uAAL_VOCABULARY_NAMESPACE + names[order]);
+		super(VOCABULARY_NAMESPACE + names[order]);
 		addType(MY_URI, true);
 		this.order = order;
 	}

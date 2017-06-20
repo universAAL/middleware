@@ -36,10 +36,10 @@ public class ProcessParameter extends Variable {
 
 	public static final String PROP_OWLS_PROCESS_PARAMETER_TYPE = OWLS_PROCESS_NAMESPACE + "parameterType";
 	public static final String PROP_OWLS_PROCESS_PARAMETER_VALUE = OWLS_PROCESS_NAMESPACE + "parameterValue";
-	public static final String PROP_PARAMETER_DEFAULT_VALUE = uAAL_SERVICE_NAMESPACE + "defaultValue";
-	public static final String PROP_PARAMETER_CARDINALITY = uAAL_SERVICE_NAMESPACE + "parameterCardinality";
-	public static final String PROP_PARAMETER_MAX_CARDINALITY = uAAL_SERVICE_NAMESPACE + "parameterMaxCardinality";
-	public static final String PROP_PARAMETER_MIN_CARDINALITY = uAAL_SERVICE_NAMESPACE + "parameterMinCardinality";
+	public static final String PROP_PARAMETER_DEFAULT_VALUE = SERVICE_NAMESPACE + "defaultValue";
+	public static final String PROP_PARAMETER_CARDINALITY = SERVICE_NAMESPACE + "parameterCardinality";
+	public static final String PROP_PARAMETER_MAX_CARDINALITY = SERVICE_NAMESPACE + "parameterMaxCardinality";
+	public static final String PROP_PARAMETER_MIN_CARDINALITY = SERVICE_NAMESPACE + "parameterMinCardinality";
 
 	public static final String PROP_OWLS_VALUE_OF_THE_VAR = OWLS_PROCESS_NAMESPACE + "theVar";
 	public static final String TYPE_OWLS_VALUE_OF = OWLS_PROCESS_NAMESPACE + "ValueOf";

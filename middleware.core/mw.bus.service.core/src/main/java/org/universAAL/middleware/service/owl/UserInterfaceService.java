@@ -42,9 +42,9 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 // TODO: check the methods, especially getUIServiceInfo; there seems to be
 // something wrong (using MY_URI as property path??)
 public class UserInterfaceService extends Service {
-	public static final String SERVICE_REQUEST_URI_PREFIX_INFO = uAAL_SERVICE_NAMESPACE + "UIServiceInfo";
-	public static final String SERVICE_REQUEST_URI_PREFIX_START = uAAL_SERVICE_NAMESPACE + "UIServiceStart";
-	public static final String OUTPUT_INSTANCE_INFO = uAAL_SERVICE_NAMESPACE + "uiServiceInfo";
+	public static final String SERVICE_REQUEST_URI_PREFIX_INFO = SERVICE_NAMESPACE + "UIServiceInfo";
+	public static final String SERVICE_REQUEST_URI_PREFIX_START = SERVICE_NAMESPACE + "UIServiceStart";
+	public static final String OUTPUT_INSTANCE_INFO = SERVICE_NAMESPACE + "uiServiceInfo";
 
 	public static final String MY_URI;
 	public static final String PROP_CORRELATED_SERVICE_CLASS;
@@ -52,12 +52,12 @@ public class UserInterfaceService extends Service {
 	public static final String PROP_HAS_INFO_RETRIEVAL_PROCESS;
 	public static final String PROP_HAS_VENDOR;
 	static {
-		MY_URI = uAAL_SERVICE_NAMESPACE + "UserInterfaceService";
+		MY_URI = SERVICE_NAMESPACE + "UserInterfaceService";
 
-		PROP_CORRELATED_SERVICE_CLASS = uAAL_SERVICE_NAMESPACE + "correlatedServiceClass";
-		PROP_DESCRIPTION = uAAL_SERVICE_NAMESPACE + "description";
-		PROP_HAS_INFO_RETRIEVAL_PROCESS = uAAL_SERVICE_NAMESPACE + "infoRetrievalProcess";
-		PROP_HAS_VENDOR = uAAL_SERVICE_NAMESPACE + "vendor";
+		PROP_CORRELATED_SERVICE_CLASS = SERVICE_NAMESPACE + "correlatedServiceClass";
+		PROP_DESCRIPTION = SERVICE_NAMESPACE + "description";
+		PROP_HAS_INFO_RETRIEVAL_PROCESS = SERVICE_NAMESPACE + "infoRetrievalProcess";
+		PROP_HAS_VENDOR = SERVICE_NAMESPACE + "vendor";
 	}
 
 	/**

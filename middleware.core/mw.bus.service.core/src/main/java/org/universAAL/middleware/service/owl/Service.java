@@ -65,9 +65,9 @@ public abstract class Service extends ManagedIndividual {
 	public static final String OWLS_NAMESPACE_PREFIX = "http://www.daml.org/services/owl-s/1.1/";
 
 	public static final String OWLS_SERVICE_NAMESPACE = OWLS_NAMESPACE_PREFIX + "Service.owl#";
-	public static final String PROP_INSTANCE_LEVEL_RESTRICTIONS = uAAL_VOCABULARY_NAMESPACE
+	public static final String PROP_INSTANCE_LEVEL_RESTRICTIONS = VOCABULARY_NAMESPACE
 			+ "instanceLevelRestrictions";
-	public static final String PROP_NUMBER_OF_VALUE_RESTRICTIONS = uAAL_VOCABULARY_NAMESPACE
+	public static final String PROP_NUMBER_OF_VALUE_RESTRICTIONS = VOCABULARY_NAMESPACE
 			+ "numberOfValueRestrictions";
 
 	/**

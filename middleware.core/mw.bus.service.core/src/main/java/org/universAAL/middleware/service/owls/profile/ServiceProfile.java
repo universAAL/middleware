@@ -111,7 +111,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * this property is
 	 * {@link org.universAAL.middleware.service.owls.profile.QoSRating}.
 	 */
-	public static final String PROP_uAAL_AVERAGE_QOS_RATING = uAAL_VOCABULARY_NAMESPACE + "averageQoSRating";
+	public static final String PROP_uAAL_AVERAGE_QOS_RATING = VOCABULARY_NAMESPACE + "averageQoSRating";
 
 	/**
 	 * A sub-property of profile:serviceParameter as a non-functional parameter
@@ -120,7 +120,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * {@link org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds}
 	 * .
 	 */
-	public static final String PROP_uAAL_AVERAGE_RESPONSE_TIME = uAAL_VOCABULARY_NAMESPACE + "averageResponseTime";
+	public static final String PROP_uAAL_AVERAGE_RESPONSE_TIME = VOCABULARY_NAMESPACE + "averageResponseTime";
 
 	/**
 	 * A sub-property of profile:serviceParameter as a non-functional parameter
@@ -129,7 +129,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * {@link org.universAAL.middleware.service.owls.profile.SingleLocationParameter}
 	 * .
 	 */
-	public static final String PROP_uAAL_HOST_LOCATION = uAAL_VOCABULARY_NAMESPACE + "hostLocation";
+	public static final String PROP_uAAL_HOST_LOCATION = VOCABULARY_NAMESPACE + "hostLocation";
 
 	/**
 	 * A sub-property of profile:serviceParameter as a non-functional parameter
@@ -137,7 +137,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * this property is
 	 * {@link org.universAAL.middleware.service.owls.profile.QoSRating}.
 	 */
-	public static final String PROP_uAAL_MAX_QOS_RATING = uAAL_VOCABULARY_NAMESPACE + "maxQoSRating";
+	public static final String PROP_uAAL_MAX_QOS_RATING = VOCABULARY_NAMESPACE + "maxQoSRating";
 
 	/**
 	 * A sub-property of profile:serviceParameter as a non-functional parameter
@@ -146,7 +146,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * {@link org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds}
 	 * .
 	 */
-	public static final String PROP_uAAL_MAX_RESPONSE_TIME = uAAL_VOCABULARY_NAMESPACE + "maxResponseTime";
+	public static final String PROP_uAAL_MAX_RESPONSE_TIME = VOCABULARY_NAMESPACE + "maxResponseTime";
 
 	/**
 	 * A sub-property of profile:serviceParameter as a non-functional parameter
@@ -154,7 +154,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * this property is
 	 * {@link org.universAAL.middleware.service.owls.profile.QoSRating}.
 	 */
-	public static final String PROP_uAAL_MIN_QOS_RATING = uAAL_VOCABULARY_NAMESPACE + "minQoSRating";
+	public static final String PROP_uAAL_MIN_QOS_RATING = VOCABULARY_NAMESPACE + "minQoSRating";
 
 	/**
 	 * A sub-property of profile:serviceParameter as a non-functional parameter
@@ -163,7 +163,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * {@link org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds}
 	 * .
 	 */
-	public static final String PROP_uAAL_MIN_RESPONSE_TIME = uAAL_VOCABULARY_NAMESPACE + "minResponseTime";
+	public static final String PROP_uAAL_MIN_RESPONSE_TIME = VOCABULARY_NAMESPACE + "minResponseTime";
 
 	/**
 	 * A sub-property of profile:serviceParameter as a non-functional parameter
@@ -171,7 +171,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * this property is
 	 * {@link org.universAAL.middleware.service.owls.profile.NumberOfSamples}.
 	 */
-	public static final String PROP_uAAL_NUMBER_OF_QOS_RATINGS = uAAL_VOCABULARY_NAMESPACE + "numberOfQoSRatings";
+	public static final String PROP_uAAL_NUMBER_OF_QOS_RATINGS = VOCABULARY_NAMESPACE + "numberOfQoSRatings";
 
 	/**
 	 * A sub-property of profile:serviceParameter as a non-functional parameter
@@ -179,7 +179,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * this property is
 	 * {@link org.universAAL.middleware.service.owls.profile.NumberOfSamples}.
 	 */
-	public static final String PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS = uAAL_VOCABULARY_NAMESPACE
+	public static final String PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS = VOCABULARY_NAMESPACE
 			+ "numberOfResponseTimeMeasurements";
 
 	/**
@@ -191,7 +191,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * {@link org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds}
 	 * .
 	 */
-	public static final String PROP_uAAL_RESPONSE_TIMEOUT = uAAL_VOCABULARY_NAMESPACE + "responseTimeout";
+	public static final String PROP_uAAL_RESPONSE_TIMEOUT = VOCABULARY_NAMESPACE + "responseTimeout";
 
 	/**
 	 * A sub-property of profile:serviceParameter as a non-functional parameter
@@ -201,7 +201,7 @@ public class ServiceProfile extends FinalizedResource implements UtilityAdvertis
 	 * ; the union of the given locations will be interpreted as the area
 	 * covered by the service.
 	 */
-	public static final String PROP_uAAL_SPATIAL_COVERAGE = uAAL_VOCABULARY_NAMESPACE + "spatialCoverage";
+	public static final String PROP_uAAL_SPATIAL_COVERAGE = VOCABULARY_NAMESPACE + "spatialCoverage";
 
 	// the repository for managing sub-properties of profile:serviceParameter
 	private static Hashtable nonFunctionalParams = new Hashtable();

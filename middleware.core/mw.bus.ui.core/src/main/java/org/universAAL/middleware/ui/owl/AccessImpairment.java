@@ -38,8 +38,8 @@ public class AccessImpairment extends ManagedIndividual {
 	public static final String PROP_IMPAIRMENT_LEVEL;
 
 	static {
-		MY_URI = uAAL_VOCABULARY_NAMESPACE + "AccessImpairment";
-		PROP_IMPAIRMENT_LEVEL = uAAL_VOCABULARY_NAMESPACE + "impairmentLevel";
+		MY_URI = VOCABULARY_NAMESPACE + "AccessImpairment";
+		PROP_IMPAIRMENT_LEVEL = VOCABULARY_NAMESPACE + "impairmentLevel";
 	}
 
 	/** The constructor for (de-)serializers. */

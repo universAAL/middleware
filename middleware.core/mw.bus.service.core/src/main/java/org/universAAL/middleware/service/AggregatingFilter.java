@@ -35,10 +35,10 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public class AggregatingFilter extends FinalizedResource {
-	public static final String MY_URI = uAAL_VOCABULARY_NAMESPACE + "AggregatingFilter";
+	public static final String MY_URI = VOCABULARY_NAMESPACE + "AggregatingFilter";
 
-	public static final String PROP_uAAL_AGGREGATION_FUNCTION = uAAL_VOCABULARY_NAMESPACE + "theFunction";
-	public static final String PROP_uAAL_AGGREGATION_PARAMS = uAAL_VOCABULARY_NAMESPACE + "aggregationParameters";
+	public static final String PROP_uAAL_AGGREGATION_FUNCTION = VOCABULARY_NAMESPACE + "theFunction";
+	public static final String PROP_uAAL_AGGREGATION_PARAMS = VOCABULARY_NAMESPACE + "aggregationParameters";
 
 	/**
 	 * Returns true, if function and it's parameters are valid, otherwise false.

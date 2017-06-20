@@ -31,7 +31,7 @@ package org.universAAL.middleware.service.owls.profile;
  *         Tazari</a>
  */
 public class ResponseTimeInMilliseconds extends ProfileParameter {
-	public static final String MY_URI = uAAL_SERVICE_NAMESPACE + "ResponseTimeInMilliseconds";
+	public static final String MY_URI = SERVICE_NAMESPACE + "ResponseTimeInMilliseconds";
 
 	public ResponseTimeInMilliseconds(int value) {
 		super();

@@ -471,9 +471,9 @@ public final class TurtleWriter {
 		String prefix;
 		if (ns.equals(TypeExpression.OWL_NAMESPACE))
 			prefix = "owl";
-		else if (ns.equals(Resource.uAAL_SERVICE_NAMESPACE))
+		else if (ns.equals(Resource.SERVICE_NAMESPACE))
 			prefix = "psn";
-		else if (ns.equals(Resource.uAAL_VOCABULARY_NAMESPACE))
+		else if (ns.equals(Resource.VOCABULARY_NAMESPACE))
 			prefix = "pvn";
 		else if (ns.equals(Resource.RDF_NAMESPACE))
 			prefix = "rdf";

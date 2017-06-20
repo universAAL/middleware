@@ -47,9 +47,9 @@ import org.universAAL.middleware.rdf.Resource;
  */
 public class EntityManager {
 
-	private static final String PROP_ENTITIES = Resource.uAAL_VOCABULARY_NAMESPACE + "entries";
+	private static final String PROP_ENTITIES = Resource.VOCABULARY_NAMESPACE + "entries";
 	private static final String UTF_8 = "utf-8";
-	private static final String ROOT_URI = Resource.uAAL_VOCABULARY_NAMESPACE + "storedEntities";
+	private static final String ROOT_URI = Resource.VOCABULARY_NAMESPACE + "storedEntities";
 
 	private File file;
 	private ModuleContext mc;
