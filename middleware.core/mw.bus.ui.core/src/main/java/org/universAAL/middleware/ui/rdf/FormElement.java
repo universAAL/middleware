@@ -31,7 +31,7 @@ public abstract class FormElement extends FinalizedResource {
 	/**
 	 * FormElements may have Recommendations.
 	 */
-	public static final String PROP_APPEARANCE = Form.uAAL_DIALOG_NAMESPACE + "appearance";
+	public static final String PROP_APPEARANCE = Form.DIALOG_NAMESPACE + "appearance";
 
 	/**
 	 * 

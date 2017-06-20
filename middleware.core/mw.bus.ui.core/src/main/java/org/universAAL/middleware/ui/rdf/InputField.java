@@ -29,20 +29,20 @@ import org.universAAL.middleware.rdf.PropertyPath;
  * @author Carsten Stockloew
  */
 public class InputField extends Input {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "InputField";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "InputField";
 
 	/**
 	 * To be set by applications if the field value, e.g. a password, should be
 	 * kept secret during the presentation of the form.
 	 */
-	public static final String PROP_IS_SECRET = Form.uAAL_DIALOG_NAMESPACE + "isSecret";
+	public static final String PROP_IS_SECRET = Form.DIALOG_NAMESPACE + "isSecret";
 
 	/**
 	 * To be set by applications (recommended) to declare a general restriction
 	 * on the number of characters in the string representation of any
 	 * acceptable value for the corresponding input field.
 	 */
-	public static final String PROP_MAX_LENGTH = Form.uAAL_DIALOG_NAMESPACE + "maxLength";
+	public static final String PROP_MAX_LENGTH = Form.DIALOG_NAMESPACE + "maxLength";
 
 	/**
 	 * For exclusive use by de-serializers.

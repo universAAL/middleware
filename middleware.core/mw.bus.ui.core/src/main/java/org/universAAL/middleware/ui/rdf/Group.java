@@ -43,14 +43,14 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * @navassoc "" children * FormControl
  */
 public class Group extends FormControl {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Group";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Group";
 
 	/**
 	 * For each group, the list of form controls that have been created with
 	 * that group as their direct container (parent) in the order of their
 	 * creation.
 	 */
-	public static final String PROP_CHILDREN = Form.uAAL_DIALOG_NAMESPACE + "groupChildren";
+	public static final String PROP_CHILDREN = Form.DIALOG_NAMESPACE + "groupChildren";
 
 	static final String STD_IO_CONTROLS = "ioControlsGroup";
 	static final String STD_SUBMITS = "submitsGroup";

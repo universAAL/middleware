@@ -35,7 +35,7 @@ import org.universAAL.middleware.rdf.ResourceFactory;
 
 /**
  * Strategy stack dedicated only to manage Coordination of the bus.
- * 
+ *
  * <br>
  * This strategy consists of 3 basic events:
  * <ol>
@@ -55,30 +55,30 @@ import org.universAAL.middleware.rdf.ResourceFactory;
  * automatically surrenders coordination. Also
  * {@link CoordinatedStrategy#peerJoined(PeerCard) new Peers} joining the
  * space will proactively be informed about who is the coordinator.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class CoordinatedStrategy extends CallBasedStrategy implements SpaceListener, SharedObjectListener {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final int RESEND_INTERVAL = 10000;
 
-	public static final String TYPE_uAAL_UI_BUS_COORDINATOR_BROADCAST = Resource.VOCABULARY_NAMESPACE
+	public static final String TYPE_UI_BUS_COORDINATOR_BROADCAST = Resource.VOCABULARY_NAMESPACE
 			+ "IamCoordinator";
 
-	public static final String TYPE_uAAL_UI_BUS_COORDINATOR_REQUEST = Resource.VOCABULARY_NAMESPACE
+	public static final String TYPE_UI_BUS_COORDINATOR_REQUEST = Resource.VOCABULARY_NAMESPACE
 			+ "WhoIsCoordinator";
 
-	public static final String TYPE_uAAL_UI_BUS_COORDINATOR_RESIGN = Resource.VOCABULARY_NAMESPACE
+	public static final String TYPE_UI_BUS_COORDINATOR_RESIGN = Resource.VOCABULARY_NAMESPACE
 			+ "CoordinatorResign";
 
 	private class CoordinatorAnnounceEvent extends Resource implements EventMessage<CoordinatedStrategy> {
 
 		public CoordinatorAnnounceEvent() {
-			addType(TYPE_uAAL_UI_BUS_COORDINATOR_BROADCAST, true);
+			addType(TYPE_UI_BUS_COORDINATOR_BROADCAST, true);
 		}
 
 		/** {@ inheritDoc} */
@@ -119,7 +119,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements SpaceListe
 	private class CoordinatorRequestEvent extends Resource implements EventMessage<CoordinatedStrategy> {
 
 		public CoordinatorRequestEvent() {
-			addType(TYPE_uAAL_UI_BUS_COORDINATOR_REQUEST, true);
+			addType(TYPE_UI_BUS_COORDINATOR_REQUEST, true);
 		}
 
 		/** {@ inheritDoc} */
@@ -133,7 +133,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements SpaceListe
 	private class CoordinatorResignEvent extends Resource implements EventMessage<CoordinatedStrategy> {
 
 		public CoordinatorResignEvent() {
-			addType(TYPE_uAAL_UI_BUS_COORDINATOR_RESIGN, true);
+			addType(TYPE_UI_BUS_COORDINATOR_RESIGN, true);
 		}
 
 		/** {@ inheritDoc} */
@@ -176,21 +176,21 @@ public class CoordinatedStrategy extends CallBasedStrategy implements SpaceListe
 
 		/** {@ inheritDoc} */
 		public void create() {
-			createNewRDFClassInfo(TYPE_uAAL_UI_BUS_COORDINATOR_BROADCAST, factory, 0);
-			createNewRDFClassInfo(TYPE_uAAL_UI_BUS_COORDINATOR_RESIGN, factory, 1);
-			createNewRDFClassInfo(TYPE_uAAL_UI_BUS_COORDINATOR_REQUEST, factory, 2);
+			createNewRDFClassInfo(TYPE_UI_BUS_COORDINATOR_BROADCAST, factory, 0);
+			createNewRDFClassInfo(TYPE_UI_BUS_COORDINATOR_RESIGN, factory, 1);
+			createNewRDFClassInfo(TYPE_UI_BUS_COORDINATOR_REQUEST, factory, 2);
 		}
 	}
 
 	/**
 	 * Exception indicating there is already a Coordinator.
-	 * 
+	 *
 	 * @author amedrano
 	 */
 	public static class CoordinatorAlreadyExistsException extends Exception {
 
 		/**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = 1L;
 		PeerCard existingCoordinator;
@@ -267,7 +267,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements SpaceListe
 
 	/**
 	 * Check the conditions and announce this Peer as coordinator.
-	 * 
+	 *
 	 * @throws CoordinatorAlreadyExistsException
 	 */
 	protected final void requestBecomeACoordinator() throws CoordinatorAlreadyExistsException {
@@ -293,7 +293,7 @@ public class CoordinatedStrategy extends CallBasedStrategy implements SpaceListe
 
 	/**
 	 * Check and announce this Peer is no longer the coordinator.
-	 * 
+	 *
 	 * @throws CoordinatorAlreadyExistsException
 	 *             in case this peer is not the coordinator.
 	 */
@@ -340,12 +340,12 @@ public class CoordinatedStrategy extends CallBasedStrategy implements SpaceListe
 	/** {@ inheritDoc} */
 	public void spaceLost(SpaceDescriptor spaceDescriptor) {
 		/*
-		 * I have left the AALSPace. If i was the coordinator, no longer
+		 * I have left the Space. If i was the coordinator, no longer
 		 */
 		if (iAmCoordinator()) {
 			synchronized (this) {
 				setCoordinatorPeer(null);
-				LogUtils.logInfo(busModule, getClass(), "aalSpaceLost", "Lost the space to Coordinate.");
+				LogUtils.logInfo(busModule, getClass(), "SpaceLost", "Lost the space to Coordinate.");
 				// TODO give a notification? so coordination may be reattempted.
 			}
 		}

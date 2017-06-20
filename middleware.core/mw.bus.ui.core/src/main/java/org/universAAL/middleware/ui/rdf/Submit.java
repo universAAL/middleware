@@ -40,7 +40,7 @@ import java.util.Set;
  * @navassoc - "mandatoryInput" * Input
  */
 public class Submit extends FormControl {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Submit";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Submit";
 
 	/**
 	 * Critical submits may be associated with a confirmation message to be

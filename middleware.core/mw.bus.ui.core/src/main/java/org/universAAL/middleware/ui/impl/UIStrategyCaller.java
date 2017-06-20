@@ -70,7 +70,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	public class UIRequestCall extends CallMessage<UIStrategyCaller> implements IUIStrategyMessageSharedProps {
 
 		private static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "UIRequestCall";
-		private static final String PROP_uAAL_UI_RESPONSE = Resource.VOCABULARY_NAMESPACE + "uiResponse";;
+		private static final String PROP_UI_RESPONSE = Resource.VOCABULARY_NAMESPACE + "uiResponse";;
 
 		public UIRequestCall() {
 			super();
@@ -78,25 +78,25 @@ public class UIStrategyCaller extends UIStrategyHandler {
 
 		public UIRequestCall(UIRequest req, String CallerID) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_UI_CALL, req);
-			setProperty(PROP_uAAL_UI_CALLER_ID, CallerID);
+			setProperty(PROP_UI_CALL, req);
+			setProperty(PROP_UI_CALLER_ID, CallerID);
 		}
 
 		public UIRequestCall(UIResponse resp) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_UI_RESPONSE, resp);
+			setProperty(PROP_UI_RESPONSE, resp);
 		}
 
 		/** {@ inheritDoc} */
 		@Override
 		protected void onRequest(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			handleUIRequest(m, (String) getProperty(PROP_uAAL_UI_CALLER_ID));
+			handleUIRequest(m, (String) getProperty(PROP_UI_CALLER_ID));
 		}
 
 		/** {@ inheritDoc} */
 		@Override
 		protected void onResponse(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			UIResponse resp = (UIResponse) getProperty(PROP_uAAL_UI_RESPONSE);
+			UIResponse resp = (UIResponse) getProperty(PROP_UI_RESPONSE);
 			if (resp != null) {
 				notifyCallerDialogSubmitted(resp);
 			} else {
@@ -108,7 +108,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 		 * @return
 		 */
 		public UIRequest getRequest() {
-			return (UIRequest) getProperty(PROP_uAAL_UI_CALL);
+			return (UIRequest) getProperty(PROP_UI_CALL);
 		}
 
 	}
@@ -123,13 +123,13 @@ public class UIStrategyCaller extends UIStrategyHandler {
 
 		public ResumeDialogMessage(String dialogID, Resource updatedData) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_DIALOG_ID, dialogID);
-			setProperty(PROP_uAAL_UI_UPDATED_DATA, updatedData);
+			setProperty(PROP_DIALOG_ID, dialogID);
+			setProperty(PROP_UI_UPDATED_DATA, updatedData);
 		}
 
 		/** {@ inheritDoc} */
 		public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			resumeDialog((String) getProperty(PROP_uAAL_DIALOG_ID), (Resource) getProperty(PROP_uAAL_UI_UPDATED_DATA));
+			resumeDialog((String) getProperty(PROP_DIALOG_ID), (Resource) getProperty(PROP_UI_UPDATED_DATA));
 		}
 	}
 
@@ -143,12 +143,12 @@ public class UIStrategyCaller extends UIStrategyHandler {
 
 		public SuspendDialogMessage(String dialogID) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_DIALOG_ID, dialogID);
+			setProperty(PROP_DIALOG_ID, dialogID);
 		}
 
 		/** {@ inheritDoc} */
 		public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			strategy.suspendDialog((String) getProperty(PROP_uAAL_DIALOG_ID));
+			strategy.suspendDialog((String) getProperty(PROP_DIALOG_ID));
 		}
 	}
 
@@ -169,30 +169,30 @@ public class UIStrategyCaller extends UIStrategyHandler {
 		public AbortCall(String dialogID, String callerID) {
 			super();
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_DIALOG_ID, dialogID);
-			setProperty(PROP_uAAL_UI_CALLER_ID, callerID);
+			setProperty(PROP_DIALOG_ID, dialogID);
+			setProperty(PROP_UI_CALLER_ID, callerID);
 		}
 
 		public AbortCall(String dialogID, String callerID, Resource data) {
 			super();
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_DIALOG_ID, dialogID);
-			setProperty(PROP_uAAL_UI_CALLER_ID, callerID);
-			setProperty(PROP_uAAL_UI_UPDATED_DATA, data);
+			setProperty(PROP_DIALOG_ID, dialogID);
+			setProperty(PROP_UI_CALLER_ID, callerID);
+			setProperty(PROP_UI_UPDATED_DATA, data);
 		}
 
 		/** {@ inheritDoc} */
 		@Override
 		protected void onResponse(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			notifyAbort((String) getProperty(PROP_uAAL_UI_CALLER_ID), (String) getProperty(PROP_uAAL_DIALOG_ID),
-					(Resource) getProperty(PROP_uAAL_UI_UPDATED_DATA));
+			notifyAbort((String) getProperty(PROP_UI_CALLER_ID), (String) getProperty(PROP_DIALOG_ID),
+					(Resource) getProperty(PROP_UI_UPDATED_DATA));
 
 		}
 
 		/** {@ inheritDoc} */
 		@Override
 		protected void onRequest(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			abortDialogRequest((String) getProperty(PROP_uAAL_DIALOG_ID), (String) getProperty(PROP_uAAL_UI_CALLER_ID));
+			abortDialogRequest((String) getProperty(PROP_DIALOG_ID), (String) getProperty(PROP_UI_CALLER_ID));
 		}
 	}
 

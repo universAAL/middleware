@@ -74,25 +74,25 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * @author Carsten Stockloew
  */
 public class Repeat extends Group {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Repeat";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Repeat";
 
 	/**
 	 * Indicates if entries can be removed from the list of initial values
 	 * associated with a repeat control.
 	 */
-	public static final String PROP_IS_DELETABLE = Form.uAAL_DIALOG_NAMESPACE + "listEntriesDeletable";
+	public static final String PROP_IS_DELETABLE = Form.DIALOG_NAMESPACE + "listEntriesDeletable";
 
 	/**
 	 * Indicates if entries in the list of initial values associated with a
 	 * repeat control can be edited.
 	 */
-	public static final String PROP_IS_EDITABLE = Form.uAAL_DIALOG_NAMESPACE + "listEntriesEditable";
+	public static final String PROP_IS_EDITABLE = Form.DIALOG_NAMESPACE + "listEntriesEditable";
 
 	/**
 	 * Indicates if new entries can be added to the list of initial values
 	 * associated with a repeat control.
 	 */
-	public static final String PROP_IS_EXPANDABLE = Form.uAAL_DIALOG_NAMESPACE + "listAcceptsNewEntries";
+	public static final String PROP_IS_EXPANDABLE = Form.DIALOG_NAMESPACE + "listAcceptsNewEntries";
 
 	/**
 	 * The form control in the repeat that plays the role of a searchable column
@@ -100,7 +100,7 @@ public class Repeat extends Group {
 	 * where the user can enter text to be used to select a specific entry in
 	 * the list of values associated with a repeat control.
 	 */
-	public static final String PROP_SEARCHABLE_FIELD = Form.uAAL_DIALOG_NAMESPACE + "searchableField";
+	public static final String PROP_SEARCHABLE_FIELD = Form.DIALOG_NAMESPACE + "searchableField";
 
 	private List values = null;
 	private Object selection = null;
@@ -664,7 +664,7 @@ public class Repeat extends Group {
 			 * 
 			 */
 		public VirtualForm(Object dataRoot) {
-			super(uAAL_DIALOG_NAMESPACE, 5);
+			super(DIALOG_NAMESPACE, 5);
 			addType(MY_URI, true);
 			props.put(PROP_DIALOG_CREATION_TIME, TypeMapper.getCurrentDateTime());
 			props.put(PROP_ROOT_GROUP, new Group("Virtual Form", this));

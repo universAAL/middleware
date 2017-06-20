@@ -52,13 +52,13 @@ import org.universAAL.middleware.ui.UIHandler;
  * @author Carsten Stockloew
  */
 public class Range extends Input {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Range";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Range";
 
 	/**
 	 * a positive number (defaults to 1) for determining a next or previous
 	 * value relative to a given value.
 	 */
-	public static final String PROP_STEP = Form.uAAL_DIALOG_NAMESPACE + "rangeChangeStep";
+	public static final String PROP_STEP = Form.DIALOG_NAMESPACE + "rangeChangeStep";
 
 	private Comparable max = null, min = null;
 

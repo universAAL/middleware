@@ -30,7 +30,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @author Carsten Stockloew
  */
 public class TextArea extends Input {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "TextArea";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "TextArea";
 
 	/**
 	 * For exclusive use of de-serializers.

@@ -37,25 +37,25 @@ import org.universAAL.middleware.ui.rdf.Submit;
 public class UIResponse extends ScopedResource implements Response {
 
 	/** The Constant MY_URI. */
-	public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE + "UIResponse";
+	public static final String MY_URI = UIRequest.UI_NAMESPACE + "UIResponse";
 
 	/** The Constant PROP_DIALOG_DATA. */
-	public static final String PROP_DIALOG_DATA = UIRequest.uAAL_UI_NAMESPACE + "dialogData";
+	public static final String PROP_DIALOG_DATA = UIRequest.UI_NAMESPACE + "dialogData";
 
 	/** The Constant PROP_DIALOG_ID. */
-	public static final String PROP_DIALOG_ID = UIRequest.uAAL_UI_NAMESPACE + "dialogID";
+	public static final String PROP_DIALOG_ID = UIRequest.UI_NAMESPACE + "dialogID";
 
 	/** The Constant PROP_SUBMISSION_LOCATION. */
-	public static final String PROP_SUBMISSION_LOCATION = UIRequest.uAAL_UI_NAMESPACE + "submissionLocation";
+	public static final String PROP_SUBMISSION_LOCATION = UIRequest.UI_NAMESPACE + "submissionLocation";
 
 	/** The Constant PROP_IS_SUBDIALOG_CALL. */
-	public static final String PROP_IS_SUBDIALOG_CALL = UIRequest.uAAL_UI_NAMESPACE + "isSubdialogCall";
+	public static final String PROP_IS_SUBDIALOG_CALL = UIRequest.UI_NAMESPACE + "isSubdialogCall";
 
 	/** The Constant PROP_SUBMISSION_ID. */
-	public static final String PROP_SUBMISSION_ID = UIRequest.uAAL_UI_NAMESPACE + "submissionID";
+	public static final String PROP_SUBMISSION_ID = UIRequest.UI_NAMESPACE + "submissionID";
 
 	/** The Constant PROP_IS_DIALOG_MANAGER_RESPONSE. */
-	public static final String PROP_IS_DIALOG_MANAGER_RESPONSE = UIRequest.uAAL_UI_NAMESPACE + "forDialogManager";
+	public static final String PROP_IS_DIALOG_MANAGER_RESPONSE = UIRequest.UI_NAMESPACE + "forDialogManager";
 
 	/**
 	 * This constructor is for the exclusive usage by deserializers.

@@ -93,7 +93,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		public UserLogOnMessage(String handlerID, Resource user, AbsLocation location) {
 			addType(MY_URI, true);
 			setProperty(PROP_INVOLVED_HUMAN_USER, user);
-			setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
+			setProperty(PROP_UI_HANDLER_ID, handlerID);
 			if (location != null) {
 				setProperty(PROP_LOCATION, location);
 			}
@@ -101,7 +101,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 		/** {@ inheritDoc} */
 		public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			String handerID = (String) getProperty(PROP_uAAL_UI_HANDLER_ID);
+			String handerID = (String) getProperty(PROP_UI_HANDLER_ID);
 			Resource usr = (Resource) getProperty(PROP_INVOLVED_HUMAN_USER);
 			AbsLocation loc = (AbsLocation) getProperty(PROP_LOCATION);
 			userLoggedIn(handerID, usr, loc);
@@ -124,14 +124,14 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 		public FinishDialogMessage(String handlerID, UIResponse input) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
-			setProperty(PROP_uAAL_UI_USER_INPUT, input);
+			setProperty(PROP_UI_HANDLER_ID, handlerID);
+			setProperty(PROP_UI_USER_INPUT, input);
 		}
 
 		/** {@ inheritDoc} */
 		public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			dialogFinished((String) getProperty(PROP_uAAL_UI_HANDLER_ID),
-					(UIResponse) getProperty(PROP_uAAL_UI_USER_INPUT));
+			dialogFinished((String) getProperty(PROP_UI_HANDLER_ID),
+					(UIResponse) getProperty(PROP_UI_USER_INPUT));
 		}
 	}
 
@@ -149,23 +149,23 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 		public NotifyHandlerMessage(String handlerID, UIRequest req) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
-			setProperty(PROP_uAAL_UI_CALL, req);
+			setProperty(PROP_UI_HANDLER_ID, handlerID);
+			setProperty(PROP_UI_CALL, req);
 		}
 
 		public NotifyHandlerMessage(String handlerID, UIRequest req, String propChange) {
 			this(handlerID, req);
-			setProperty(PROP_uAAL_CHANGED_PROPERTY, propChange);
+			setProperty(PROP_CHANGED_PROPERTY, propChange);
 		}
 
 		/** {@ inheritDoc} */
 		public void onReceived(UIStrategyCaller strategy, BusMessage m, String senderID) {
-			String handlerID = (String) getProperty(PROP_uAAL_UI_HANDLER_ID);
-			UIRequest uiReq = (UIRequest) getProperty(PROP_uAAL_UI_CALL);
-			if (!hasProperty(PROP_uAAL_CHANGED_PROPERTY)) {
+			String handlerID = (String) getProperty(PROP_UI_HANDLER_ID);
+			UIRequest uiReq = (UIRequest) getProperty(PROP_UI_CALL);
+			if (!hasProperty(PROP_CHANGED_PROPERTY)) {
 				notifyHandler_handle(handlerID, uiReq);
 			} else {
-				notifyHandler_apChanged(handlerID, uiReq, (String) getProperty(PROP_uAAL_CHANGED_PROPERTY));
+				notifyHandler_apChanged(handlerID, uiReq, (String) getProperty(PROP_CHANGED_PROPERTY));
 			}
 		}
 	}
@@ -192,14 +192,14 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		 */
 		public CutCallMessage(String dialogID, String handlerID) {
 			addType(MY_URI, true);
-			setProperty(PROP_uAAL_DIALOG_ID, dialogID);
-			setProperty(PROP_uAAL_UI_HANDLER_ID, handlerID);
+			setProperty(PROP_DIALOG_ID, dialogID);
+			setProperty(PROP_UI_HANDLER_ID, handlerID);
 		}
 
 		/** {@ inheritDoc} */
 		protected void onRequest(UIStrategyHandler strategy, BusMessage m, String senderID) {
-			Resource data = strategy.cutDialog((String) getProperty(PROP_uAAL_UI_HANDLER_ID),
-					(String) getProperty(PROP_uAAL_DIALOG_ID));
+			Resource data = strategy.cutDialog((String) getProperty(PROP_UI_HANDLER_ID),
+					(String) getProperty(PROP_DIALOG_ID));
 			if (data == null || data.numberOfProperties() == 0) {
 				data = new Resource(data == null ? null : data.getURI());
 				data.addType(TYPE_DUMMY_TYPE, true);

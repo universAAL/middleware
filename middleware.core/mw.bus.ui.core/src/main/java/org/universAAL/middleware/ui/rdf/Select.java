@@ -39,13 +39,13 @@ import org.universAAL.middleware.rdf.Resource;
  * @navassoc "" - "*" Label
  */
 public class Select extends Input {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Select";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Select";
 
 	/**
 	 * The list of choices in a select control. List members must be instances
 	 * of either {@link ChoiceItem} or {@link ChoiceList}.
 	 */
-	public static final String PROP_CHOICES = Form.uAAL_DIALOG_NAMESPACE + "choices";
+	public static final String PROP_CHOICES = Form.DIALOG_NAMESPACE + "choices";
 
 	/**
 	 * Just for use by de-serializers.

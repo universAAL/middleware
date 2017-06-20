@@ -1,18 +1,18 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
+
 	Copyright 2013-2014 Ericsson Nikola Tesla d.d., www.ericsson.com/hr/
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,17 +37,17 @@ import org.universAAL.middleware.ui.owl.Modality;
  * they can be matched with {@link UIRequest} ( more specifically User
  * preferences and abilities added by the {@link IDialogManager}) and possibly
  * some additional parameters.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  * @author eandgrg
- * 
+ *
  */
 public class UIHandlerProfile extends FinalizedResource implements UtilityAdvertisement {
 
-	public static final String MY_URI = UIRequest.uAAL_UI_NAMESPACE + "UIHandlerProfile";
+	public static final String MY_URI = UIRequest.UI_NAMESPACE + "UIHandlerProfile";
 	// public static final String PROP_INPUT_MODALITY =
-	// UIRequest.uAAL_UI_NAMESPACE
+	// UIRequest.UI_NAMESPACE
 	// + "inputModality";
 
 	// individual weights of matching criteria
@@ -75,7 +75,7 @@ public class UIHandlerProfile extends FinalizedResource implements UtilityAdvert
 
 	/**
 	 * Adds the restriction.
-	 * 
+	 *
 	 * @param mergedRestriction
 	 *            the restriction
 	 */
@@ -103,7 +103,7 @@ public class UIHandlerProfile extends FinalizedResource implements UtilityAdvert
 	 * this method is called when selecting the best {@link UIHandler} for
 	 * certain {@link UIRequest}) additional weight is added on this one that
 	 * reflects the lastly used {@link UIHandler}.
-	 * 
+	 *
 	 * @param uiRequest
 	 *            the {@link UIRequest}
 	 * @return a value indicating to which degree the {@link UIRequest} matches
@@ -174,7 +174,7 @@ public class UIHandlerProfile extends FinalizedResource implements UtilityAdvert
 
 	/**
 	 * Gets the restriction.
-	 * 
+	 *
 	 * @param onProp
 	 *            the on prop
 	 * @return the restriction
@@ -200,7 +200,7 @@ public class UIHandlerProfile extends FinalizedResource implements UtilityAdvert
 
 	/**
 	 * Prop restriction allowed.
-	 * 
+	 *
 	 * @param prop
 	 *            the property
 	 * @return true, if successful; false if not
@@ -272,7 +272,7 @@ public class UIHandlerProfile extends FinalizedResource implements UtilityAdvert
 
 	/**
 	 * Sets the supported input modalities.
-	 * 
+	 *
 	 * @param modalities
 	 *            the new supported input modalities
 	 */
@@ -302,7 +302,7 @@ public class UIHandlerProfile extends FinalizedResource implements UtilityAdvert
 
 	/**
 	 * Gets the supported input modalities.
-	 * 
+	 *
 	 * @return the supported input modalities
 	 */
 	public Modality[] getSupportedInputModalities() {

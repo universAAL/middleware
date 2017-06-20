@@ -33,21 +33,21 @@ import org.universAAL.middleware.rdf.PropertyPath;
  * @author Carsten Stockloew
  */
 public abstract class Input extends FormControl {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Input";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Input";
 
 	/**
 	 * A mandatory (in the sense of "best practice") property for defining a
 	 * message to be communicated with human users if the provided input by them
 	 * is erroneous.
 	 */
-	public static final String PROP_INPUT_ALERT = Form.uAAL_DIALOG_NAMESPACE + "inputAlert";
+	public static final String PROP_INPUT_ALERT = Form.DIALOG_NAMESPACE + "inputAlert";
 
 	/**
 	 * A property that is set automatically by the dialog package as soon as an
 	 * input control is added to a {@link Submit} control as mandatory input. By
 	 * default, input controls are optional.
 	 */
-	public static final String PROP_IS_MANDATORY = Form.uAAL_DIALOG_NAMESPACE + "isMandatory";
+	public static final String PROP_IS_MANDATORY = Form.DIALOG_NAMESPACE + "isMandatory";
 
 	protected Input() {
 		super();

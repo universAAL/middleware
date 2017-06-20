@@ -31,13 +31,13 @@ import org.universAAL.middleware.rdf.TypeMapper;
  * @author Carsten Stockloew
  */
 public class SimpleOutput extends Output {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "SimpleOutput";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "SimpleOutput";
 
 	/**
 	 * For local storage of the contained info if this info is not accessible
 	 * from the form data.
 	 */
-	public static final String PROP_CONTENT = Form.uAAL_DIALOG_NAMESPACE + "theContent";
+	public static final String PROP_CONTENT = Form.DIALOG_NAMESPACE + "theContent";
 
 	/**
 	 * For exclusive use by de-serializers.

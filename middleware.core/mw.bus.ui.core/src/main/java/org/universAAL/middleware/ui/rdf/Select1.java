@@ -29,7 +29,7 @@ import org.universAAL.middleware.rdf.PropertyPath;
  * @author Carsten Stockloew
  */
 public class Select1 extends Select {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Select1";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Select1";
 
 	/**
 	 * For exclusive usage by de-serializers.

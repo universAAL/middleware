@@ -27,7 +27,7 @@ package org.universAAL.middleware.ui.rdf;
  * @author Carsten Stockloew
  */
 public class MediaObject extends Output {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "MediaObject";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "MediaObject";
 
 	/**
 	 * The Internet media type of the content borne by a media object.
@@ -36,48 +36,48 @@ public class MediaObject extends Output {
 	 *      "http://en.wikipedia.org/wiki/Internet_media_type">http://en.wikipedia.org/wiki/Internet_media_type</a>
 	 * 
 	 */
-	public static final String PROP_CONTENT_TYPE = Form.uAAL_DIALOG_NAMESPACE + "contentType";
+	public static final String PROP_CONTENT_TYPE = Form.DIALOG_NAMESPACE + "contentType";
 
 	/**
 	 * The URL with which the media content can be retrieved.
 	 */
-	public static final String PROP_CONTENT_URL = Form.uAAL_DIALOG_NAMESPACE + "contentURL";
+	public static final String PROP_CONTENT_URL = Form.DIALOG_NAMESPACE + "contentURL";
 
 	/**
 	 * An optional hint for UI handlers regarding the maximum horizontal size of
 	 * a visualizable media in number of pixels.
 	 */
-	public static final String PROP_RESOLUTION_MAX_X = Form.uAAL_DIALOG_NAMESPACE + "resMaxX";
+	public static final String PROP_RESOLUTION_MAX_X = Form.DIALOG_NAMESPACE + "resMaxX";
 
 	/**
 	 * An optional hint for UI handlers regarding the maximum vertical size of a
 	 * visualizable media in number of pixels.
 	 */
-	public static final String PROP_RESOLUTION_MAX_Y = Form.uAAL_DIALOG_NAMESPACE + "resMaxY";
+	public static final String PROP_RESOLUTION_MAX_Y = Form.DIALOG_NAMESPACE + "resMaxY";
 
 	/**
 	 * An optional hint for UI handlers regarding the minimum horizontal size of
 	 * a visualizable media in number of pixels.
 	 */
-	public static final String PROP_RESOLUTION_MIN_X = Form.uAAL_DIALOG_NAMESPACE + "resMinX";
+	public static final String PROP_RESOLUTION_MIN_X = Form.DIALOG_NAMESPACE + "resMinX";
 
 	/**
 	 * An optional hint for UI handlers regarding the minimum vertical size of a
 	 * visualizable media in number of pixels.
 	 */
-	public static final String PROP_RESOLUTION_MIN_Y = Form.uAAL_DIALOG_NAMESPACE + "resMinY";
+	public static final String PROP_RESOLUTION_MIN_Y = Form.DIALOG_NAMESPACE + "resMinY";
 
 	/**
 	 * An optional hint for UI handlers regarding the preferred horizontal size
 	 * of a visualizable media in number of pixels.
 	 */
-	public static final String PROP_RESOLUTION_PREFERRED_X = Form.uAAL_DIALOG_NAMESPACE + "resPreferredX";
+	public static final String PROP_RESOLUTION_PREFERRED_X = Form.DIALOG_NAMESPACE + "resPreferredX";
 
 	/**
 	 * An optional hint for UI handlers regarding the preferred vertical size of
 	 * a visualizable media in number of pixels.
 	 */
-	public static final String PROP_RESOLUTION_PREFERRED_Y = Form.uAAL_DIALOG_NAMESPACE + "resPreferredY";
+	public static final String PROP_RESOLUTION_PREFERRED_Y = Form.DIALOG_NAMESPACE + "resPreferredY";
 
 	/**
 	 * For exclusive use by de-serializers.

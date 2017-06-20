@@ -36,13 +36,13 @@ import org.universAAL.middleware.container.utils.StringUtils;
  * @author Carsten Stockloew
  */
 public class Label extends FormElement {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "Label";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "Label";
 
 	/**
 	 * The URL of media objects that can be used as an audio / visual icon
 	 * equivalent to the meaning borne by the text label.
 	 */
-	public static final String PROP_ICON_URL = Form.uAAL_DIALOG_NAMESPACE + "iconURL";
+	public static final String PROP_ICON_URL = Form.DIALOG_NAMESPACE + "iconURL";
 
 	/**
 	 * For use by de-serializers only.

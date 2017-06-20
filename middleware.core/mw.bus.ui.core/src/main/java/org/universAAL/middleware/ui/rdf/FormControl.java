@@ -44,40 +44,40 @@ public abstract class FormControl extends FormElement {
 	/**
 	 * Form controls may have a {@link Label}.
 	 */
-	public static final String PROP_CONTROL_LABEL = Form.uAAL_DIALOG_NAMESPACE + "controlLabel";
+	public static final String PROP_CONTROL_LABEL = Form.DIALOG_NAMESPACE + "controlLabel";
 
 	/**
 	 * Form controls may have a help string to be presented to human users when
 	 * they need more info about the role of a form control.
 	 */
-	public static final String PROP_HELP = Form.uAAL_DIALOG_NAMESPACE + "ctrlHelp";
+	public static final String PROP_HELP = Form.DIALOG_NAMESPACE + "ctrlHelp";
 
 	/**
 	 * Form controls may have a hint string as a short hint about the role of a
 	 * form control. Confer the concept of tool-tips in graphical user
 	 * interfaces.
 	 */
-	public static final String PROP_HINT = Form.uAAL_DIALOG_NAMESPACE + "ctrlHint";
+	public static final String PROP_HINT = Form.DIALOG_NAMESPACE + "ctrlHint";
 
 	/**
 	 * Apart from the three standard groups described in {@link Form}, all other
 	 * form controls are contained in a {@link Group}.
 	 */
-	public static final String PROP_PARENT_CONTROL = Form.uAAL_DIALOG_NAMESPACE + "parentControl";
+	public static final String PROP_PARENT_CONTROL = Form.DIALOG_NAMESPACE + "parentControl";
 
 	/**
 	 * If a form control is allowed to have associated data (initial value or
 	 * user input) it must have a property path that is used to access related
 	 * data within {@link Form#PROP_DIALOG_DATA_ROOT}.
 	 */
-	public static final String PROP_REFERENCED_PPATH = Form.uAAL_DIALOG_NAMESPACE + "controlRef";
+	public static final String PROP_REFERENCED_PPATH = Form.DIALOG_NAMESPACE + "controlRef";
 
 	/**
 	 * Can be used to define local restrictions on the value of form controls in
 	 * addition to restrictions possibly derivable from possibly available form
 	 * data (the latter are called model-based restrictions).
 	 */
-	public static final String PROP_VALUE_RESTRICTION = Form.uAAL_DIALOG_NAMESPACE + "valueRestrictions";
+	public static final String PROP_VALUE_RESTRICTION = Form.DIALOG_NAMESPACE + "valueRestrictions";
 
 	protected FormControl() {
 		super();

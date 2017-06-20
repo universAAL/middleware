@@ -29,7 +29,7 @@ package org.universAAL.middleware.ui.rdf;
  * @author Carsten Stockloew
  */
 public class SubdialogTrigger extends Submit {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "SubdialogTrigger";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "SubdialogTrigger";
 
 	/**
 	 * If a SubdialogTrigger is used in a column of a {@link Repeat} control,
@@ -48,12 +48,12 @@ public class SubdialogTrigger extends Submit {
 	 * in different {@link Repeat} controls or in different columns of the same
 	 * {@link Repeat} control.
 	 */
-	public static final String PROP_REPEATABLE_ID_PREFIX = Form.uAAL_DIALOG_NAMESPACE + "selectionXIDPrefix";
+	public static final String PROP_REPEATABLE_ID_PREFIX = Form.DIALOG_NAMESPACE + "selectionXIDPrefix";
 
 	/**
 	 * @see #PROP_REPEATABLE_ID_PREFIX
 	 */
-	public static final String VAR_REPEATABLE_ID = Form.uAAL_DIALOG_NAMESPACE + "repeatableSubmissionID";
+	public static final String VAR_REPEATABLE_ID = Form.DIALOG_NAMESPACE + "repeatableSubmissionID";
 
 	/**
 	 * For exclusive use by de-serializers.

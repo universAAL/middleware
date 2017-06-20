@@ -34,13 +34,13 @@ import java.util.List;
  * @navassoc "" children "*" Label
  */
 public class ChoiceList extends Label {
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "ChoiceList";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "ChoiceList";
 
 	/**
 	 * Property for accessing the list of items and sublists contained in a
 	 * choice list.
 	 */
-	public static final String PROP_CHILDREN = Form.uAAL_DIALOG_NAMESPACE + "subchoices";
+	public static final String PROP_CHILDREN = Form.DIALOG_NAMESPACE + "subchoices";
 
 	private List children;
 

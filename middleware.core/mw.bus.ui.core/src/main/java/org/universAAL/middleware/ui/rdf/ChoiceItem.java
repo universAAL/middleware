@@ -30,12 +30,12 @@ package org.universAAL.middleware.ui.rdf;
  */
 public class ChoiceItem extends Label {
 
-	public static final String MY_URI = Form.uAAL_DIALOG_NAMESPACE + "ChoiceItem";
+	public static final String MY_URI = Form.DIALOG_NAMESPACE + "ChoiceItem";
 
 	/**
 	 * Property for accessing the value associated with a choice item.
 	 */
-	public static final String PROP_ITEM_VALUE = Form.uAAL_DIALOG_NAMESPACE + "choiceItemValue";
+	public static final String PROP_ITEM_VALUE = Form.DIALOG_NAMESPACE + "choiceItemValue";
 
 	/**
 	 * For use by de-serializers only.
