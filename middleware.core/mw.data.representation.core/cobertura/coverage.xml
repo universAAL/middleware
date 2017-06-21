@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.4633842872378244" branch-rate="0.3480693900391718" lines-covered="2607" lines-valid="5626" branches-covered="1244" branches-valid="3574" complexity="3.85" version="2.1.1" timestamp="1497066326183">
+<coverage line-rate="0.4633842872378244" branch-rate="0.3480693900391718" lines-covered="2607" lines-valid="5626" branches-covered="1244" branches-valid="3574" complexity="3.85" version="2.1.1" timestamp="1498024717275">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.data.representation.core/src/main/java</source>
@@ -18,25 +18,25 @@
 						</method>
 						<method name="createInstance" signature="(Ljava/lang/String;Ljava/lang/String;I)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
-								<line number="39" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="34" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="switch" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="41" hits="0" branch="false"/>
-								<line number="44" hits="0" branch="false"/>
+								<line number="36" hits="0" branch="false"/>
+								<line number="38" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
 						<line number="31" hits="5" branch="false"/>
-						<line number="39" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="34" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="switch" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="41" hits="0" branch="false"/>
-						<line number="44" hits="0" branch="false"/>
+						<line number="36" hits="0" branch="false"/>
+						<line number="38" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.datarep.SharedResources" filename="org/universAAL/middleware/datarep/SharedResources.java" line-rate="0.40816326530612246" branch-rate="0.0" complexity="1.875">
@@ -23813,34 +23813,34 @@
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="71" hits="0" branch="false"/>
-								<line number="72" hits="0" branch="false"/>
+								<line number="41" hits="0" branch="false"/>
+								<line number="42" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
+								<line number="33" hits="0" branch="false"/>
 								<line number="34" hits="0" branch="false"/>
-								<line number="35" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="debugMode" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="80" hits="0" branch="false"/>
+								<line number="50" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isCoordinatorInstance" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="89" hits="0" branch="false"/>
+								<line number="59" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
+						<line number="33" hits="0" branch="false"/>
 						<line number="34" hits="0" branch="false"/>
-						<line number="35" hits="0" branch="false"/>
-						<line number="71" hits="0" branch="false"/>
-						<line number="72" hits="0" branch="false"/>
-						<line number="80" hits="0" branch="false"/>
-						<line number="89" hits="0" branch="false"/>
+						<line number="41" hits="0" branch="false"/>
+						<line number="42" hits="0" branch="false"/>
+						<line number="50" hits="0" branch="false"/>
+						<line number="59" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.util.GraphIterator" filename="org/universAAL/middleware/util/GraphIterator.java" line-rate="0.961038961038961" branch-rate="0.925" complexity="3.4210526315789473">

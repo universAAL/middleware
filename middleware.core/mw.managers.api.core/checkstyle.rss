@@ -28,7 +28,7 @@ under the License.
       <title>File: 16,
              Errors: 104,
              Warnings: 1,
-             Infos: 83
+             Infos: 44
       </title>
             <link>http://middleware/middleware.core/mw.managers.api.core//checkstyle.html</link>
       <description>
@@ -46,16 +46,30 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.AALSpaceManager.java">org/universAAL/middleware/managers/api/AALSpaceManager.java</a>
-                </td>
-                <td>
-                  13
+                  <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.SpaceListener.java">org/universAAL/middleware/managers/api/SpaceListener.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  17
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.SpaceEventHandler.java">org/universAAL/middleware/managers/api/SpaceEventHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
                 </td>
               </tr>
                           <tr>
@@ -66,7 +80,7 @@ under the License.
                   10
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   1
@@ -116,20 +130,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.AALSpaceEventHandler.java">org/universAAL/middleware/managers/api/AALSpaceEventHandler.java</a>
-                </td>
-                <td>
-                  8
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  16
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.DistributedMWEventHandler.java">org/universAAL/middleware/managers/api/DistributedMWEventHandler.java</a>
                 </td>
                 <td>
@@ -161,7 +161,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.Manager.java">org/universAAL/middleware/managers/api/Manager.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -189,7 +189,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.UAPPPackage.java">org/universAAL/middleware/managers/api/UAPPPackage.java</a>
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   0
@@ -203,27 +203,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.DeployManager.java">org/universAAL/middleware/managers/api/DeployManager.java</a>
                 </td>
                 <td>
-                  6
+                  2
                 </td>
                 <td>
                   0
                 </td>
                 <td>
                   3
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.AALSpaceListener.java">org/universAAL/middleware/managers/api/AALSpaceListener.java</a>
-                </td>
-                <td>
-                  6
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  8
                 </td>
               </tr>
                           <tr>
@@ -238,6 +224,20 @@ under the License.
                 </td>
                 <td>
                   15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.api.core//checkstyle.html#org.universAAL.middleware.managers.api.SpaceManager.java">org/universAAL/middleware/managers/api/SpaceManager.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
                 </td>
               </tr>
                           <tr>

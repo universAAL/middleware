@@ -1,14 +1,14 @@
 <map id="G" name="G">
-<area shape="rect" id="c40511" href="./Callee.html" title="org.universAAL.middleware.bus.member.Callee" alt="" coords="15,118,73,143"/>
+<area shape="rect" id="c36422" href="./Callee.html" title="org.universAAL.middleware.bus.member.Callee" alt="" coords="15,118,73,143"/>
 <area shape="rect" id="node1" href="./Callee.html" title="&lt;TABLE&gt;" alt="" coords="5,107,83,155"/>
-<area shape="rect" id="c40512" href="./Subscriber.html" title="org.universAAL.middleware.bus.member.Subscriber" alt="" coords="117,118,200,143"/>
+<area shape="rect" id="c36423" href="./Subscriber.html" title="org.universAAL.middleware.bus.member.Subscriber" alt="" coords="117,118,200,143"/>
 <area shape="rect" id="node2" href="./Subscriber.html" title="&lt;TABLE&gt;" alt="" coords="107,107,211,155"/>
-<area shape="rect" id="c40513" href="./Publisher.html" title="org.universAAL.middleware.bus.member.Publisher" alt="" coords="245,118,320,143"/>
+<area shape="rect" id="c36424" href="./Publisher.html" title="org.universAAL.middleware.bus.member.Publisher" alt="" coords="245,118,320,143"/>
 <area shape="rect" id="node3" href="./Publisher.html" title="&lt;TABLE&gt;" alt="" coords="235,107,331,155"/>
-<area shape="rect" id="c40514" href="./BusMember.html" title="org.universAAL.middleware.bus.member.BusMember" alt="" coords="175,19,265,45"/>
+<area shape="rect" id="c36425" href="./BusMember.html" title="org.universAAL.middleware.bus.member.BusMember" alt="" coords="175,19,265,45"/>
 <area shape="rect" id="node4" href="./BusMember.html" title="&lt;TABLE&gt;" alt="" coords="164,8,276,56"/>
-<area shape="rect" id="c40515" href="./Caller.html" title="org.universAAL.middleware.bus.member.Caller" alt="" coords="365,118,419,143"/>
+<area shape="rect" id="c36426" href="./Caller.html" title="org.universAAL.middleware.bus.member.Caller" alt="" coords="365,118,419,143"/>
 <area shape="rect" id="node5" href="./Caller.html" title="&lt;TABLE&gt;" alt="" coords="355,107,429,155"/>
-<area shape="rect" id="c40516" href="./BusMemberType.html" title="org.universAAL.middleware.bus.member.BusMemberType" alt="" coords="311,11,431,53"/>
+<area shape="rect" id="c36427" href="./BusMemberType.html" title="org.universAAL.middleware.bus.member.BusMemberType" alt="" coords="311,11,431,53"/>
 <area shape="rect" id="node6" href="./BusMemberType.html" title="&lt;TABLE&gt;" alt="" coords="300,6,441,58"/>
 </map>

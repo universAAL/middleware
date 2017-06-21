@@ -28,7 +28,7 @@ under the License.
       <title>File: 1,
              Errors: 10,
              Warnings: 2,
-             Infos: 6
+             Infos: 0
       </title>
             <link>http://middleware/middleware.osgi/mw.managers.space.osgi//checkstyle.html</link>
       <description>
@@ -46,10 +46,10 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.osgi/mw.managers.space.osgi//checkstyle.html#org.universAAL.middleware.managers.aalspace.osgi.Activator.java">org/universAAL/middleware/managers/aalspace/osgi/Activator.java</a>
+                  <a href="http://middleware/middleware.osgi/mw.managers.space.osgi//checkstyle.html#org.universAAL.middleware.managers.space.osgi.Activator.java">org/universAAL/middleware/managers/space/osgi/Activator.java</a>
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   2

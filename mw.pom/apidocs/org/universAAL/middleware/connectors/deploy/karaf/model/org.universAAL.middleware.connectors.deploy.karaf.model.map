@@ -1,16 +1,16 @@
 <map id="G" name="G">
-<area shape="rect" id="c4423" href="./Feature.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.Feature" alt="" coords="15,17,81,42"/>
+<area shape="rect" id="c3521" href="./Feature.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.Feature" alt="" coords="15,17,81,42"/>
 <area shape="rect" id="node1" href="./Feature.html" title="&lt;TABLE&gt;" alt="" coords="5,5,91,53"/>
-<area shape="rect" id="c4424" href="./ConfigFile.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.ConfigFile" alt="" coords="125,17,205,42"/>
+<area shape="rect" id="c3522" href="./ConfigFile.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.ConfigFile" alt="" coords="125,17,205,42"/>
 <area shape="rect" id="node2" href="./ConfigFile.html" title="&lt;TABLE&gt;" alt="" coords="115,5,216,53"/>
-<area shape="rect" id="c4425" href="./FeaturesRoot.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.FeaturesRoot" alt="" coords="250,17,350,42"/>
+<area shape="rect" id="c3523" href="./FeaturesRoot.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.FeaturesRoot" alt="" coords="250,17,350,42"/>
 <area shape="rect" id="node3" href="./FeaturesRoot.html" title="&lt;TABLE&gt;" alt="" coords="240,5,360,53"/>
-<area shape="rect" id="c4426" href="./ObjectFactory.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.ObjectFactory" alt="" coords="394,17,497,42"/>
+<area shape="rect" id="c3524" href="./ObjectFactory.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.ObjectFactory" alt="" coords="394,17,497,42"/>
 <area shape="rect" id="node4" href="./ObjectFactory.html" title="&lt;TABLE&gt;" alt="" coords="384,5,507,53"/>
-<area shape="rect" id="c4427" href="./Dependency.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.Dependency" alt="" coords="541,17,635,42"/>
+<area shape="rect" id="c3525" href="./Dependency.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.Dependency" alt="" coords="541,17,635,42"/>
 <area shape="rect" id="node5" href="./Dependency.html" title="&lt;TABLE&gt;" alt="" coords="531,5,645,53"/>
-<area shape="rect" id="c4428" href="./Bundle.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.Bundle" alt="" coords="680,17,741,42"/>
+<area shape="rect" id="c3526" href="./Bundle.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.Bundle" alt="" coords="680,17,741,42"/>
 <area shape="rect" id="node6" href="./Bundle.html" title="&lt;TABLE&gt;" alt="" coords="669,5,752,53"/>
-<area shape="rect" id="c4429" href="./Config.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.Config" alt="" coords="787,17,845,42"/>
+<area shape="rect" id="c3527" href="./Config.html" title="org.universAAL.middleware.connectors.deploy.karaf.model.Config" alt="" coords="787,17,845,42"/>
 <area shape="rect" id="node7" href="./Config.html" title="&lt;TABLE&gt;" alt="" coords="776,5,856,53"/>
 </map>

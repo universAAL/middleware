@@ -93,8 +93,8 @@
 <th>Errors</th>
 <th>Missing Classes</th></tr>
 <tr class="b">
-<td>80</td>
-<td>13</td>
+<td>40</td>
+<td>4</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -107,17 +107,11 @@
 <td><a href="#org.universAAL.middleware.interfaces.PeerCard">org.universAAL.middleware.interfaces.PeerCard</a></td>
 <td>1</td></tr>
 <tr class="a">
-<td><a href="#org.universAAL.middleware.interfaces.aalspace.AALSpaceCard">org.universAAL.middleware.interfaces.aalspace.AALSpaceCard</a></td>
+<td><a href="#org.universAAL.middleware.interfaces.space.SpaceCard">org.universAAL.middleware.interfaces.space.SpaceCard</a></td>
 <td>1</td></tr>
 <tr class="b">
-<td><a href="#org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor">org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor</a></td>
-<td>2</td></tr>
-<tr class="a">
-<td><a href="#org.universAAL.middleware.interfaces.aalspace.Consts">org.universAAL.middleware.interfaces.aalspace.Consts</a></td>
-<td>8</td></tr>
-<tr class="b">
-<td><a href="#org.universAAL.middleware.interfaces.mpa.model.ToBeDefined">org.universAAL.middleware.interfaces.mpa.model.ToBeDefined</a></td>
-<td>1</td></tr></table></div><a name="org.universAAL.middleware.interfaces.PeerCard"></a>
+<td><a href="#org.universAAL.middleware.interfaces.space.SpaceDescriptor">org.universAAL.middleware.interfaces.space.SpaceDescriptor</a></td>
+<td>2</td></tr></table></div><a name="org.universAAL.middleware.interfaces.PeerCard"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.interfaces.PeerCard"></a>org.universAAL.middleware.interfaces.PeerCard</h3>
 <table border="0" class="bodyTable">
@@ -132,9 +126,9 @@
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SS_SHOULD_BE_STATIC">SS_SHOULD_BE_STATIC</a></td>
 <td>38</td>
-<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.interfaces.aalspace.AALSpaceCard"></a>
+<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.interfaces.space.SpaceCard"></a>
 <div class="section">
-<h3><a name="org.universAAL.middleware.interfaces.aalspace.AALSpaceCard"></a>org.universAAL.middleware.interfaces.aalspace.AALSpaceCard</h3>
+<h3><a name="org.universAAL.middleware.interfaces.space.SpaceCard"></a>org.universAAL.middleware.interfaces.space.SpaceCard</h3>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>Bug</th>
@@ -143,13 +137,13 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="b">
-<td>Boxing/unboxing to parse a primitive org.universAAL.middleware.interfaces.aalspace.AALSpaceCard.hashCode()</td>
+<td>Boxing/unboxing to parse a primitive org.universAAL.middleware.interfaces.space.SpaceCard.hashCode()</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_BOXED_PRIMITIVE_FOR_PARSING">DM_BOXED_PRIMITIVE_FOR_PARSING</a></td>
-<td>213</td>
-<td>High</td></tr></table></div><a name="org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor"></a>
+<td>212</td>
+<td>High</td></tr></table></div><a name="org.universAAL.middleware.interfaces.space.SpaceDescriptor"></a>
 <div class="section">
-<h3><a name="org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor"></a>org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor</h3>
+<h3><a name="org.universAAL.middleware.interfaces.space.SpaceDescriptor"></a>org.universAAL.middleware.interfaces.space.SpaceDescriptor</h3>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>Bug</th>
@@ -158,89 +152,17 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="b">
-<td>Class org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor defines non-transient non-serializable instance field deployManager</td>
+<td>Class org.universAAL.middleware.interfaces.space.SpaceDescriptor defines non-transient non-serializable instance field deployManager</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SE_BAD_FIELD">SE_BAD_FIELD</a></td>
 <td></td>
 <td>High</td></tr>
 <tr class="a">
-<td>Class org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor defines non-transient non-serializable instance field spaceCard</td>
+<td>Class org.universAAL.middleware.interfaces.space.SpaceDescriptor defines non-transient non-serializable instance field spaceCard</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SE_BAD_FIELD">SE_BAD_FIELD</a></td>
 <td></td>
-<td>High</td></tr></table></div><a name="org.universAAL.middleware.interfaces.aalspace.Consts"></a>
-<div class="section">
-<h3><a name="org.universAAL.middleware.interfaces.aalspace.Consts"></a>org.universAAL.middleware.interfaces.aalspace.Consts</h3>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>Bug</th>
-<th>Category</th>
-<th>Details</th>
-<th>Line</th>
-<th>Priority</th></tr>
-<tr class="a">
-<td>org.universAAL.middleware.interfaces.aalspace.Consts.AALSPaceDescription isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>36</td>
-<td>High</td></tr>
-<tr class="b">
-<td>org.universAAL.middleware.interfaces.aalspace.Consts.AALSPaceID isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>33</td>
-<td>High</td></tr>
-<tr class="a">
-<td>org.universAAL.middleware.interfaces.aalspace.Consts.AALSPaceName isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>32</td>
-<td>High</td></tr>
-<tr class="b">
-<td>org.universAAL.middleware.interfaces.aalspace.Consts.AALSPaceProfile isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>35</td>
-<td>High</td></tr>
-<tr class="a">
-<td>org.universAAL.middleware.interfaces.aalspace.Consts.AALSPaceType isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>34</td>
-<td>High</td></tr>
-<tr class="b">
-<td>org.universAAL.middleware.interfaces.aalspace.Consts.AALSpaceCoordinator isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>37</td>
-<td>High</td></tr>
-<tr class="a">
-<td>org.universAAL.middleware.interfaces.aalspace.Consts.AALSpacePeeringChannelName isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>39</td>
-<td>High</td></tr>
-<tr class="b">
-<td>org.universAAL.middleware.interfaces.aalspace.Consts.AALSpacePeeringChannelURL isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>38</td>
-<td>High</td></tr></table></div><a name="org.universAAL.middleware.interfaces.mpa.model.ToBeDefined"></a>
-<div class="section">
-<h3><a name="org.universAAL.middleware.interfaces.mpa.model.ToBeDefined"></a>org.universAAL.middleware.interfaces.mpa.model.ToBeDefined</h3>
-<table border="0" class="bodyTable">
-<tr class="a">
-<th>Bug</th>
-<th>Category</th>
-<th>Details</th>
-<th>Line</th>
-<th>Priority</th></tr>
-<tr class="b">
-<td>Class org.universAAL.middleware.interfaces.mpa.model.ToBeDefined defines non-transient non-serializable instance field any</td>
-<td>BAD_PRACTICE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SE_BAD_FIELD">SE_BAD_FIELD</a></td>
-<td></td>
-<td>Medium</td></tr></table></div>
+<td>High</td></tr></table></div>
       </div>
     </div>
     <div class="clear">

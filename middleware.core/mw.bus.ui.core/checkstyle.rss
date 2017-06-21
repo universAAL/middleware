@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 47,
              Errors: 1043,
-             Warnings: 46,
-             Infos: 513
+             Warnings: 30,
+             Infos: 457
       </title>
             <link>http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html</link>
       <description>
@@ -287,7 +287,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UIHandlerProfile.java">org/universAAL/middleware/ui/UIHandlerProfile.java</a>
                 </td>
                 <td>
-                  22
+                  7
                 </td>
                 <td>
                   1
@@ -343,7 +343,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.owl.UIBusOntology.java">org/universAAL/middleware/ui/owl/UIBusOntology.java</a>
                 </td>
                 <td>
-                  7
+                  0
                 </td>
                 <td>
                   0
@@ -360,7 +360,7 @@ under the License.
                   18
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   77
@@ -444,7 +444,7 @@ under the License.
                   2
                 </td>
                 <td>
-                  9
+                  1
                 </td>
                 <td>
                   2
@@ -525,10 +525,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy.java">org/universAAL/middleware/ui/impl/generic/CoordinatedStrategy.java</a>
                 </td>
                 <td>
-                  9
+                  1
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   67
@@ -626,7 +626,7 @@ under the License.
                   8
                 </td>
                 <td>
-                  3
+                  2
                 </td>
                 <td>
                   74
@@ -665,10 +665,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.ui.core//checkstyle.html#org.universAAL.middleware.ui.UIRequest.java">org/universAAL/middleware/ui/UIRequest.java</a>
                 </td>
                 <td>
-                  26
+                  0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   23
@@ -696,7 +696,7 @@ under the License.
                   2
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   54

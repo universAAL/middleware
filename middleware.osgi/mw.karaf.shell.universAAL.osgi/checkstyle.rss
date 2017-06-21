@@ -28,7 +28,7 @@ under the License.
       <title>File: 5,
              Errors: 14,
              Warnings: 1,
-             Infos: 16
+             Infos: 0
       </title>
             <link>http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.ListOfPeerCommand.java">org/universAAL/middleware/shell/universAAL/osgi/ListOfPeerCommand.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   3
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.TenantCommand.java">org/universAAL/middleware/shell/universAAL/osgi/TenantCommand.java</a>
                 </td>
                 <td>
-                  4
+                  0
                 </td>
                 <td>
                   0
@@ -74,10 +74,24 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.TargetAALSpaceCommand.java">org/universAAL/middleware/shell/universAAL/osgi/TargetAALSpaceCommand.java</a>
+                  <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.SpaceCommand.java">org/universAAL/middleware/shell/universAAL/osgi/SpaceCommand.java</a>
                 </td>
                 <td>
-                  5
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.TargetSpaceCommand.java">org/universAAL/middleware/shell/universAAL/osgi/TargetSpaceCommand.java</a>
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -91,27 +105,13 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.UAPPCommand.java">org/universAAL/middleware/shell/universAAL/osgi/UAPPCommand.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
                 </td>
                 <td>
                   2
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.osgi/mw.karaf.shell.universAAL.osgi//checkstyle.html#org.universAAL.middleware.shell.universAAL.osgi.AALSpaceCommand.java">org/universAAL/middleware/shell/universAAL/osgi/AALSpaceCommand.java</a>
-                </td>
-                <td>
-                  5
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  3
                 </td>
               </tr>
                       </tbody>

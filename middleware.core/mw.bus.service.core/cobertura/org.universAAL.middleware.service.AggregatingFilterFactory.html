@@ -198,7 +198,7 @@
 <tr>  <td class="numLine">&nbsp;91</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;92</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String PROP_DUMMY = Resource.uAAL_NAMESPACE_PREFIX + <span class="string">"dummy.owl#dummyPropURI"</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String PROP_DUMMY = Resource.NAMESPACE_PREFIX + <span class="string">"dummy.owl#dummyPropURI"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;93</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;94</td>  <td class="nbHits">&nbsp;</td>
@@ -247,23 +247,23 @@
 <tr>  <td class="numLine">&nbsp;117</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         *            the URI of the non-functional parameter. Typical values are:</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;118</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_uAAL_MIN_QOS_RATING},</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_MIN_QOS_RATING},</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;119</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_uAAL_AVERAGE_QOS_RATING},</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_AVERAGE_QOS_RATING},</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;120</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_uAAL_MAX_QOS_RATING},</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_MAX_QOS_RATING},</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;121</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_uAAL_MIN_RESPONSE_TIME},</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_MIN_RESPONSE_TIME},</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;122</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_uAAL_AVERAGE_RESPONSE_TIME},</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_AVERAGE_RESPONSE_TIME},</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;123</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_uAAL_MAX_RESPONSE_TIME},</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_MAX_RESPONSE_TIME},</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;124</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_uAAL_NUMBER_OF_QOS_RATINGS},</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_NUMBER_OF_QOS_RATINGS},</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;125</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_uAAL_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS}</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_NUMBER_OF_RESPONSE_TIME_MEASUREMENTS}</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;126</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            , {@link ServiceProfile#PROP_uAAL_RESPONSE_TIMEOUT}.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            , {@link ServiceProfile#PROP_RESPONSE_TIMEOUT}.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;127</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         * @return a new aggregating filter.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;128</td>  <td class="nbHits">&nbsp;</td>
@@ -301,9 +301,9 @@
 <tr>  <td class="numLine">&nbsp;146</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param nonFunctionalParamPropURI</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;147</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_uAAL_HOST_LOCATION},</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_HOST_LOCATION},</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;148</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_uAAL_SPATIAL_COVERAGE}.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            {@link ServiceProfile#PROP_SPATIAL_COVERAGE}.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;149</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param location</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;150</td>  <td class="nbHits">&nbsp;</td>
@@ -402,6 +402,6 @@
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 6/10/17 3:47 AM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 6/21/17 6:00 AM.</div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="c62670" href="./uAALBundleExtender.html" title="org.universAAL.middleware.container.osgi.run.uAALBundleExtender" alt="" coords="15,17,161,42"/>
-<area shape="rect" id="node1" href="./uAALBundleExtender.html" title="&lt;TABLE&gt;" alt="" coords="5,5,171,53"/>
-<area shape="rect" id="c62671" href="./Activator.html" title="org.universAAL.middleware.container.osgi.run.Activator" alt="" coords="205,17,278,42"/>
-<area shape="rect" id="node2" href="./Activator.html" title="&lt;TABLE&gt;" alt="" coords="195,5,288,53"/>
+<area shape="rect" id="c57006" href="./OSGiExtender.html" title="org.universAAL.middleware.container.osgi.run.OSGiExtender" alt="" coords="15,17,121,42"/>
+<area shape="rect" id="node1" href="./OSGiExtender.html" title="&lt;TABLE&gt;" alt="" coords="5,5,131,53"/>
+<area shape="rect" id="c57007" href="./Activator.html" title="org.universAAL.middleware.container.osgi.run.Activator" alt="" coords="165,17,238,42"/>
+<area shape="rect" id="node2" href="./Activator.html" title="&lt;TABLE&gt;" alt="" coords="155,5,248,53"/>
 </map>

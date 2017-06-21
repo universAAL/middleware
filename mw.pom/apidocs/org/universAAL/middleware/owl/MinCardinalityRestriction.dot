@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.owl.MinCardinalityRestriction
-	c296816 [label=<<table title="org.universAAL.middleware.owl.MinCardinalityRestriction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MinCardinalityRestriction.html">
+	c249309 [label=<<table title="org.universAAL.middleware.owl.MinCardinalityRestriction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MinCardinalityRestriction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MinCardinalityRestriction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MinCardinalityRestriction.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.PropertyRestriction
-	c296838 [label=<<table title="org.universAAL.middleware.owl.PropertyRestriction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PropertyRestriction.html">
+	c249331 [label=<<table title="org.universAAL.middleware.owl.PropertyRestriction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PropertyRestriction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> PropertyRestriction </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./PropertyRestriction.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.owl.MinCardinalityRestriction extends org.universAAL.middleware.owl.PropertyRestriction
-	c296838:p -> c296816:p [dir=back,arrowtail=empty];
+	c249331:p -> c249309:p [dir=back,arrowtail=empty];
 }
 

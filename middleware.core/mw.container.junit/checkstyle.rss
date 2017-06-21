@@ -46,21 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.container.junit//checkstyle.html#org.universAAL.container.JUnit.JUnitModuleContext.java">org/universAAL/container/JUnit/JUnitModuleContext.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  50
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.container.junit//checkstyle.html#org.universAAL.container.JUnit.JUnitContainer.java">org/universAAL/container/JUnit/JUnitContainer.java</a>
+                  <a href="http://middleware/middleware.core/mw.container.junit//checkstyle.html#org.universAAL.middleware.container.JUnit.JUnitContainer.java">org/universAAL/middleware/container/JUnit/JUnitContainer.java</a>
                 </td>
                 <td>
                   0
@@ -70,6 +56,20 @@ under the License.
                 </td>
                 <td>
                   12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.container.junit//checkstyle.html#org.universAAL.middleware.container.JUnit.JUnitModuleContext.java">org/universAAL/middleware/container/JUnit/JUnitModuleContext.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  50
                 </td>
               </tr>
                       </tbody>

@@ -52,7 +52,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   4
@@ -60,13 +60,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://maven.apache.org/checkstyle.html#org.universAAL.middleware.felix.shell.commands.AALSpaceCommand.java">org/universAAL/middleware/felix/shell/commands/AALSpaceCommand.java</a>
+                  <a href="http://maven.apache.org/checkstyle.html#org.universAAL.middleware.felix.shell.commands.SpaceCommand.java">org/universAAL/middleware/felix/shell/commands/SpaceCommand.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   12

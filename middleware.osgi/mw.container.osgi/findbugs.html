@@ -94,7 +94,7 @@
 <th>Missing Classes</th></tr>
 <tr class="b">
 <td>8</td>
-<td>11</td>
+<td>8</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -104,22 +104,22 @@
 <th>Class</th>
 <th>Bugs</th></tr>
 <tr class="b">
-<td><a href="#org.universAAL.middleware.container.osgi.uAALBundleContainer">org.universAAL.middleware.container.osgi.uAALBundleContainer</a></td>
-<td>3</td></tr>
-<tr class="a">
-<td><a href="#org.universAAL.middleware.container.osgi.uAALBundleContext">org.universAAL.middleware.container.osgi.uAALBundleContext</a></td>
+<td><a href="#org.universAAL.middleware.container.osgi.OSGiContainer">org.universAAL.middleware.container.osgi.OSGiContainer</a></td>
 <td>2</td></tr>
+<tr class="a">
+<td><a href="#org.universAAL.middleware.container.osgi.OSGiModuleContext">org.universAAL.middleware.container.osgi.OSGiModuleContext</a></td>
+<td>1</td></tr>
 <tr class="b">
 <td><a href="#org.universAAL.middleware.container.osgi.run.Activator">org.universAAL.middleware.container.osgi.run.Activator</a></td>
 <td>1</td></tr>
 <tr class="a">
-<td><a href="#org.universAAL.middleware.container.osgi.run.uAALBundleExtender">org.universAAL.middleware.container.osgi.run.uAALBundleExtender</a></td>
-<td>4</td></tr>
+<td><a href="#org.universAAL.middleware.container.osgi.run.OSGiExtender">org.universAAL.middleware.container.osgi.run.OSGiExtender</a></td>
+<td>3</td></tr>
 <tr class="b">
-<td><a href="#org.universAAL.middleware.container.osgi.run.uAALBundleExtender$ActivatorExecutor">org.universAAL.middleware.container.osgi.run.uAALBundleExtender$ActivatorExecutor</a></td>
-<td>1</td></tr></table></div><a name="org.universAAL.middleware.container.osgi.uAALBundleContainer"></a>
+<td><a href="#org.universAAL.middleware.container.osgi.run.OSGiExtender$ActivatorExecutor">org.universAAL.middleware.container.osgi.run.OSGiExtender$ActivatorExecutor</a></td>
+<td>1</td></tr></table></div><a name="org.universAAL.middleware.container.osgi.OSGiContainer"></a>
 <div class="section">
-<h3><a name="org.universAAL.middleware.container.osgi.uAALBundleContainer"></a>org.universAAL.middleware.container.osgi.uAALBundleContainer</h3>
+<h3><a name="org.universAAL.middleware.container.osgi.OSGiContainer"></a>org.universAAL.middleware.container.osgi.OSGiContainer</h3>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>Bug</th>
@@ -128,40 +128,28 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="b">
-<td>The class name org.universAAL.middleware.container.osgi.uAALBundleContainer doesn't start with an upper case letter</td>
-<td>BAD_PRACTICE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NM_CLASS_NAMING_CONVENTION">NM_CLASS_NAMING_CONVENTION</a></td>
-<td>53</td>
-<td>Medium</td></tr>
-<tr class="a">
-<td>Null passed for non-null parameter of uAALBundleContext.removeSharedObject(String, Object, Dictionary) in org.universAAL.middleware.container.osgi.uAALBundleContainer.removeSharedObject(ModuleContext, Object, Object[])</td>
+<td>Null passed for non-null parameter of OSGiModuleContext.removeSharedObject(String, Object, Dictionary) in org.universAAL.middleware.container.osgi.OSGiContainer.removeSharedObject(ModuleContext, Object, Object[])</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS">NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS</a></td>
 <td>307</td>
 <td>Medium</td></tr>
-<tr class="b">
-<td>Null passed for non-null parameter of uAALBundleContext.shareObject(String, Object, Dictionary) in org.universAAL.middleware.container.osgi.uAALBundleContainer.shareObject(ModuleContext, Object, Object[])</td>
+<tr class="a">
+<td>Null passed for non-null parameter of OSGiModuleContext.shareObject(String, Object, Dictionary) in org.universAAL.middleware.container.osgi.OSGiContainer.shareObject(ModuleContext, Object, Object[])</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS">NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS</a></td>
 <td>261</td>
-<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.container.osgi.uAALBundleContext"></a>
+<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.container.osgi.OSGiModuleContext"></a>
 <div class="section">
-<h3><a name="org.universAAL.middleware.container.osgi.uAALBundleContext"></a>org.universAAL.middleware.container.osgi.uAALBundleContext</h3>
+<h3><a name="org.universAAL.middleware.container.osgi.OSGiModuleContext"></a>org.universAAL.middleware.container.osgi.OSGiModuleContext</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
-<td>The class name org.universAAL.middleware.container.osgi.uAALBundleContext doesn't start with an upper case letter</td>
-<td>BAD_PRACTICE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NM_CLASS_NAMING_CONVENTION">NM_CLASS_NAMING_CONVENTION</a></td>
-<td>57</td>
-<td>Medium</td></tr>
 <tr class="a">
-<td>org.universAAL.middleware.container.osgi.uAALBundleContext.loadUniversAALAttribute() may fail to clean up java.io.InputStream</td>
+<td>org.universAAL.middleware.container.osgi.OSGiModuleContext.loadUniversAALAttribute() may fail to clean up java.io.InputStream</td>
 <td>EXPERIMENTAL</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#OBL_UNSATISFIED_OBLIGATION">OBL_UNSATISFIED_OBLIGATION</a></td>
 <td>79</td>
@@ -180,9 +168,9 @@
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_PKGPROTECT">MS_PKGPROTECT</a></td>
 <td></td>
-<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.container.osgi.run.uAALBundleExtender"></a>
+<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.container.osgi.run.OSGiExtender"></a>
 <div class="section">
-<h3><a name="org.universAAL.middleware.container.osgi.run.uAALBundleExtender"></a>org.universAAL.middleware.container.osgi.run.uAALBundleExtender</h3>
+<h3><a name="org.universAAL.middleware.container.osgi.run.OSGiExtender"></a>org.universAAL.middleware.container.osgi.run.OSGiExtender</h3>
 <table border="0" class="bodyTable">
 <tr class="b">
 <th>Bug</th>
@@ -191,40 +179,34 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="a">
-<td>org.universAAL.middleware.container.osgi.run.uAALBundleExtender.doStart(Bundle) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
+<td>org.universAAL.middleware.container.osgi.run.OSGiExtender.doStart(Bundle) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
 <td>124</td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>org.universAAL.middleware.container.osgi.run.uAALBundleExtender.doStop(Bundle) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
+<td>org.universAAL.middleware.container.osgi.run.OSGiExtender.doStop(Bundle) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
 <td>145</td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>The class name org.universAAL.middleware.container.osgi.run.uAALBundleExtender doesn't start with an upper case letter</td>
-<td>BAD_PRACTICE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NM_CLASS_NAMING_CONVENTION">NM_CLASS_NAMING_CONVENTION</a></td>
-<td>44</td>
-<td>Medium</td></tr>
-<tr class="b">
-<td>Switch statement found in org.universAAL.middleware.container.osgi.run.uAALBundleExtender.bundleChanged(BundleEvent) where default case is missing</td>
+<td>Switch statement found in org.universAAL.middleware.container.osgi.run.OSGiExtender.bundleChanged(BundleEvent) where default case is missing</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SF_SWITCH_NO_DEFAULT">SF_SWITCH_NO_DEFAULT</a></td>
 <td>160</td>
-<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.container.osgi.run.uAALBundleExtenderActivatorExecutor"></a>
+<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.container.osgi.run.OSGiExtenderActivatorExecutor"></a>
 <div class="section">
-<h3><a name="org.universAAL.middleware.container.osgi.run.uAALBundleExtenderActivatorExecutor"></a>org.universAAL.middleware.container.osgi.run.uAALBundleExtender$ActivatorExecutor</h3>
+<h3><a name="org.universAAL.middleware.container.osgi.run.OSGiExtenderActivatorExecutor"></a>org.universAAL.middleware.container.osgi.run.OSGiExtender$ActivatorExecutor</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
-<td>Should org.universAAL.middleware.container.osgi.run.uAALBundleExtender$ActivatorExecutor be a _static_ inner class?</td>
+<tr class="a">
+<td>Should org.universAAL.middleware.container.osgi.run.OSGiExtender$ActivatorExecutor be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
 <td>176</td>

@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c365211" href="../../owl/ManagedIndividual.html" title="org.universAAL.middleware.owl.ManagedIndividual" alt="" coords="117,17,246,42"/>
+<area shape="rect" id="c315130" href="../../owl/ManagedIndividual.html" title="org.universAAL.middleware.owl.ManagedIndividual" alt="" coords="117,17,246,42"/>
 <area shape="rect" id="node1" href="../../owl/ManagedIndividual.html" title="&lt;TABLE&gt;" alt="" coords="107,5,256,53"/>
-<area shape="rect" id="c365552" href="./Service.html" title="org.universAAL.middleware.service.owl.Service" alt="" coords="149,113,214,138"/>
+<area shape="rect" id="c315431" href="./Service.html" title="org.universAAL.middleware.service.owl.Service" alt="" coords="149,113,214,138"/>
 <area shape="rect" id="node3" href="./Service.html" title="&lt;TABLE&gt;" alt="" coords="139,101,224,149"/>
-<area shape="rect" id="c365549" href="./UserInterfaceService.html" title="org.universAAL.middleware.service.owl.UserInterfaceService" alt="" coords="16,209,160,234"/>
+<area shape="rect" id="c315428" href="./UserInterfaceService.html" title="org.universAAL.middleware.service.owl.UserInterfaceService" alt="" coords="16,209,160,234"/>
 <area shape="rect" id="node2" href="./UserInterfaceService.html" title="&lt;TABLE&gt;" alt="" coords="5,197,171,245"/>
-<area shape="rect" id="c365644" href="../../api/impl/SimplifiedApiService.html" title="org.universAAL.middleware.api.impl.SimplifiedApiService" alt="" coords="205,209,347,234"/>
+<area shape="rect" id="c315523" href="../../api/impl/SimplifiedApiService.html" title="org.universAAL.middleware.api.impl.SimplifiedApiService" alt="" coords="205,209,347,234"/>
 <area shape="rect" id="node4" href="../../api/impl/SimplifiedApiService.html" title="&lt;TABLE&gt;" alt="" coords="195,197,357,245"/>
 </map>

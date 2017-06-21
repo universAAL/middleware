@@ -95,15 +95,15 @@ var activeTableTab = "activeTableTab";
 <div class="subTitle">org.universAAL.middleware.bus.member</div>
 <h2 title="Class BusMember" class="title">Class BusMember</h2>
 <map id="G" name="G">
-<area shape="rect" id="c139033" href="./Callee.html" title="org.universAAL.middleware.bus.member.Callee" alt="" coords="15,113,73,138"/>
+<area shape="rect" id="c101659" href="./Callee.html" title="org.universAAL.middleware.bus.member.Callee" alt="" coords="15,113,73,138"/>
 <area shape="rect" id="node1" href="./Callee.html" title="&lt;TABLE&gt;" alt="" coords="5,101,83,149"/>
-<area shape="rect" id="c139034" href="./Subscriber.html" title="org.universAAL.middleware.bus.member.Subscriber" alt="" coords="117,113,200,138"/>
+<area shape="rect" id="c101660" href="./Subscriber.html" title="org.universAAL.middleware.bus.member.Subscriber" alt="" coords="117,113,200,138"/>
 <area shape="rect" id="node2" href="./Subscriber.html" title="&lt;TABLE&gt;" alt="" coords="107,101,211,149"/>
-<area shape="rect" id="c139035" href="./Publisher.html" title="org.universAAL.middleware.bus.member.Publisher" alt="" coords="245,113,320,138"/>
+<area shape="rect" id="c101661" href="./Publisher.html" title="org.universAAL.middleware.bus.member.Publisher" alt="" coords="245,113,320,138"/>
 <area shape="rect" id="node3" href="./Publisher.html" title="&lt;TABLE&gt;" alt="" coords="235,101,331,149"/>
-<area shape="rect" id="c139036" href="./BusMember.html" title="org.universAAL.middleware.bus.member.BusMember" alt="" coords="175,17,265,42"/>
+<area shape="rect" id="c101662" href="./BusMember.html" title="org.universAAL.middleware.bus.member.BusMember" alt="" coords="175,17,265,42"/>
 <area shape="rect" id="node4" href="./BusMember.html" title="&lt;TABLE&gt;" alt="" coords="164,5,276,53"/>
-<area shape="rect" id="c139037" href="./Caller.html" title="org.universAAL.middleware.bus.member.Caller" alt="" coords="365,113,419,138"/>
+<area shape="rect" id="c101663" href="./Caller.html" title="org.universAAL.middleware.bus.member.Caller" alt="" coords="365,113,419,138"/>
 <area shape="rect" id="node5" href="./Caller.html" title="&lt;TABLE&gt;" alt="" coords="355,101,429,149"/>
 </map>
 <!-- UML diagram added by UMLGraph version R5_6-24-gf6e263 (http://www.umlgraph.org/) -->
@@ -129,20 +129,20 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public abstract class <span class="typeNameLabel">BusMember</span>
 extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
-<div class="block">An AALSpaceParticipant can connect to the different buses of the universAAL
+<div class="block">A SpaceParticipant can connect to the different buses of the universAAL
  middleware by becoming a member, i.e., by creating instances of this class.
  Each instance of BusMember represents exactly one connection with a specific
  role on one specific bus: on call-based buses either as a caller or as a
  callee and on event-based buses either as a publisher or as a subscriber.
  However, there is no limitation for the number of instances of BusMember that
- an AALSpaceParticipant can create; i.e., an AALSpaceParticipant can create
+ an SpaceParticipant can create; i.e., an SpaceParticipant can create
  different instances of BusMember to connect to different buses; it is also
  possible to connect with different roles to the same bus or even create, say,
  several publishers on one and the same event-based bus while at the same time
  creating even several subscribers on that very bus. BusMember is an abstract
  class with the idea that for each concrete role on each concrete bus a
  specific subclass is created. It also forces that the creation of an instance
- is bound to a specific AALSpaceParticipant.</div>
+ is bound to a specific SpaceParticipant.</div>
 <dl>
 <dt><span class="simpleTagLabel">Author:</span></dt>
 <dd>mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied

@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c50639" href="./UserInterfaceService.html" title="org.universAAL.middleware.service.owl.UserInterfaceService" alt="" coords="16,113,160,138"/>
+<area shape="rect" id="c45830" href="./UserInterfaceService.html" title="org.universAAL.middleware.service.owl.UserInterfaceService" alt="" coords="16,113,160,138"/>
 <area shape="rect" id="node1" href="./UserInterfaceService.html" title="&lt;TABLE&gt;" alt="" coords="5,101,171,149"/>
-<area shape="rect" id="c50640" href="./InitialServiceDialog.html" title="org.universAAL.middleware.service.owl.InitialServiceDialog" alt="" coords="21,209,155,234"/>
+<area shape="rect" id="c45831" href="./InitialServiceDialog.html" title="org.universAAL.middleware.service.owl.InitialServiceDialog" alt="" coords="21,209,155,234"/>
 <area shape="rect" id="node2" href="./InitialServiceDialog.html" title="&lt;TABLE&gt;" alt="" coords="11,197,165,245"/>
-<area shape="rect" id="c50641" href="./ServiceBusOntology.html" title="org.universAAL.middleware.service.owl.ServiceBusOntology" alt="" coords="165,17,305,42"/>
+<area shape="rect" id="c45832" href="./ServiceBusOntology.html" title="org.universAAL.middleware.service.owl.ServiceBusOntology" alt="" coords="165,17,305,42"/>
 <area shape="rect" id="node3" href="./ServiceBusOntology.html" title="&lt;TABLE&gt;" alt="" coords="155,5,315,53"/>
-<area shape="rect" id="c50642" href="./Service.html" title="org.universAAL.middleware.service.owl.Service" alt="" coords="55,17,121,42"/>
+<area shape="rect" id="c45833" href="./Service.html" title="org.universAAL.middleware.service.owl.Service" alt="" coords="55,17,121,42"/>
 <area shape="rect" id="node4" href="./Service.html" title="&lt;TABLE&gt;" alt="" coords="45,5,131,53"/>
 </map>

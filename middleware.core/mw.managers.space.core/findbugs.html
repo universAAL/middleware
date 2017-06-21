@@ -94,7 +94,7 @@
 <th>Missing Classes</th></tr>
 <tr class="b">
 <td>8</td>
-<td>26</td>
+<td>17</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -104,209 +104,143 @@
 <th>Class</th>
 <th>Bugs</th></tr>
 <tr class="b">
-<td><a href="#org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl">org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl</a></td>
+<td><a href="#org.universAAL.middleware.managers.space.MatchingResultImpl">org.universAAL.middleware.managers.space.MatchingResultImpl</a></td>
+<td>1</td></tr>
+<tr class="a">
+<td><a href="#org.universAAL.middleware.managers.space.SpaceManagerImpl">org.universAAL.middleware.managers.space.SpaceManagerImpl</a></td>
 <td>15</td></tr>
-<tr class="a">
-<td><a href="#org.universAAL.middleware.managers.aalspace.MatchingResultImpl">org.universAAL.middleware.managers.aalspace.MatchingResultImpl</a></td>
-<td>1</td></tr>
 <tr class="b">
-<td><a href="#org.universAAL.middleware.managers.aalspace.util.CheckPeerThread">org.universAAL.middleware.managers.aalspace.util.CheckPeerThread</a></td>
-<td>1</td></tr>
-<tr class="a">
-<td><a href="#org.universAAL.middleware.managers.aalspace.util.Consts">org.universAAL.middleware.managers.aalspace.util.Consts</a></td>
-<td>9</td></tr></table></div><a name="org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl"></a>
+<td><a href="#org.universAAL.middleware.managers.space.util.CheckPeerThread">org.universAAL.middleware.managers.space.util.CheckPeerThread</a></td>
+<td>1</td></tr></table></div><a name="org.universAAL.middleware.managers.space.MatchingResultImpl"></a>
 <div class="section">
-<h3><a name="org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl"></a>org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl</h3>
+<h3><a name="org.universAAL.middleware.managers.space.MatchingResultImpl"></a>org.universAAL.middleware.managers.space.MatchingResultImpl</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
-<td>Inconsistent synchronization of org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.aalSpaceLifeTime; locked 66% of time</td>
-<td>MT_CORRECTNESS</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
-<td>822</td>
-<td>Medium</td></tr>
 <tr class="b">
-<td>Inconsistent synchronization of org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.checkPeerThread; locked 50% of time</td>
+<td>org.universAAL.middleware.managers.space.MatchingResultImpl.getPeers() may expose internal representation by returning MatchingResultImpl.peers</td>
+<td>MALICIOUS_CODE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
+<td>51</td>
+<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.space.SpaceManagerImpl"></a>
+<div class="section">
+<h3><a name="org.universAAL.middleware.managers.space.SpaceManagerImpl"></a>org.universAAL.middleware.managers.space.SpaceManagerImpl</h3>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="b">
+<td>Inconsistent synchronization of org.universAAL.middleware.managers.space.SpaceManagerImpl.checkPeerThread; locked 50% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
 <td>499</td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>Inconsistent synchronization of org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.checkerFuture; locked 50% of time</td>
+<td>Inconsistent synchronization of org.universAAL.middleware.managers.space.SpaceManagerImpl.checkerFuture; locked 50% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
 <td>500</td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>Inconsistent synchronization of org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.foundAALSpaces; locked 75% of time</td>
+<td>Inconsistent synchronization of org.universAAL.middleware.managers.space.SpaceManagerImpl.foundSpaces; locked 75% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
 <td>199</td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>Inconsistent synchronization of org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.myPeerCard; locked 88% of time</td>
+<td>Inconsistent synchronization of org.universAAL.middleware.managers.space.SpaceManagerImpl.myPeerCard; locked 88% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
 <td>195</td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>Inconsistent synchronization of org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.peerRole; locked 50% of time</td>
+<td>Inconsistent synchronization of org.universAAL.middleware.managers.space.SpaceManagerImpl.peerRole; locked 50% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
 <td>771</td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>Inconsistent synchronization of org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.refreshFuture; locked 50% of time</td>
+<td>Inconsistent synchronization of org.universAAL.middleware.managers.space.SpaceManagerImpl.refreshFuture; locked 50% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
 <td>977</td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>Synchronization on AALSpaceManagerImpl.foundAALSpaces in futile attempt to guard it</td>
+<td>Inconsistent synchronization of org.universAAL.middleware.managers.space.SpaceManagerImpl.spaceLifeTime; locked 66% of time</td>
+<td>MT_CORRECTNESS</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
+<td>822</td>
+<td>Medium</td></tr>
+<tr class="a">
+<td>Synchronization on SpaceManagerImpl.foundSpaces in futile attempt to guard it</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD">ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD</a></td>
 <td>884</td>
 <td>Medium</td></tr>
-<tr class="a">
-<td>Possible null pointer dereference of spaceDescriptor in org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.leaveAALSpace(AALSpaceDescriptor)</td>
+<tr class="b">
+<td>Possible null pointer dereference of spaceDescriptor in org.universAAL.middleware.managers.space.SpaceManagerImpl.leaveSpace(SpaceDescriptor)</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#NP_NULL_ON_SOME_PATH">NP_NULL_ON_SOME_PATH</a></td>
 <td>963</td>
 <td>Medium</td></tr>
-<tr class="b">
-<td>org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.loadPeerCard() may fail to clean up java.io.InputStream</td>
+<tr class="a">
+<td>org.universAAL.middleware.managers.space.SpaceManagerImpl.loadPeerCard() may fail to clean up java.io.InputStream</td>
 <td>EXPERIMENTAL</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#OBL_UNSATISFIED_OBLIGATION">OBL_UNSATISFIED_OBLIGATION</a></td>
 <td>213</td>
 <td>Medium</td></tr>
-<tr class="a">
-<td>org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.loadPeerCard() may fail to clean up java.io.OutputStream</td>
+<tr class="b">
+<td>org.universAAL.middleware.managers.space.SpaceManagerImpl.loadPeerCard() may fail to clean up java.io.OutputStream</td>
 <td>EXPERIMENTAL</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#OBL_UNSATISFIED_OBLIGATION">OBL_UNSATISFIED_OBLIGATION</a></td>
 <td>239</td>
 <td>Medium</td></tr>
-<tr class="b">
-<td>org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.loadPeerCard() may fail to close stream</td>
+<tr class="a">
+<td>org.universAAL.middleware.managers.space.SpaceManagerImpl.loadPeerCard() may fail to close stream</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#OS_OPEN_STREAM">OS_OPEN_STREAM</a></td>
 <td>213</td>
 <td>Medium</td></tr>
-<tr class="a">
-<td>org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.loadPeerCard() may fail to close stream</td>
+<tr class="b">
+<td>org.universAAL.middleware.managers.space.SpaceManagerImpl.loadPeerCard() may fail to close stream</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#OS_OPEN_STREAM">OS_OPEN_STREAM</a></td>
 <td>239</td>
 <td>Medium</td></tr>
-<tr class="b">
-<td>Nullcheck of peeringChannelSerialized at line 425 of value previously dereferenced in org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.join(AALSpaceCard)</td>
+<tr class="a">
+<td>Nullcheck of peeringChannelSerialized at line 425 of value previously dereferenced in org.universAAL.middleware.managers.space.SpaceManagerImpl.join(SpaceCard)</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE">RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE</a></td>
 <td>425</td>
 <td>High</td></tr>
-<tr class="a">
-<td>org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.dispose() makes inefficient use of keySet iterator instead of entrySet iterator</td>
+<tr class="b">
+<td>org.universAAL.middleware.managers.space.SpaceManagerImpl.dispose() makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
 <td>1021</td>
-<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.aalspace.MatchingResultImpl"></a>
+<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.space.util.CheckPeerThread"></a>
 <div class="section">
-<h3><a name="org.universAAL.middleware.managers.aalspace.MatchingResultImpl"></a>org.universAAL.middleware.managers.aalspace.MatchingResultImpl</h3>
+<h3><a name="org.universAAL.middleware.managers.space.util.CheckPeerThread"></a>org.universAAL.middleware.managers.space.util.CheckPeerThread</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
-<td>org.universAAL.middleware.managers.aalspace.MatchingResultImpl.getPeers() may expose internal representation by returning MatchingResultImpl.peers</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td>51</td>
-<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.aalspace.util.CheckPeerThread"></a>
-<div class="section">
-<h3><a name="org.universAAL.middleware.managers.aalspace.util.CheckPeerThread"></a>org.universAAL.middleware.managers.aalspace.util.CheckPeerThread</h3>
-<table border="0" class="bodyTable">
 <tr class="b">
-<th>Bug</th>
-<th>Category</th>
-<th>Details</th>
-<th>Line</th>
-<th>Priority</th></tr>
-<tr class="a">
-<td>org.universAAL.middleware.managers.aalspace.util.CheckPeerThread.run() makes inefficient use of keySet iterator instead of entrySet iterator</td>
+<td>org.universAAL.middleware.managers.space.util.CheckPeerThread.run() makes inefficient use of keySet iterator instead of entrySet iterator</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
-<td>89</td>
-<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.aalspace.util.Consts"></a>
-<div class="section">
-<h3><a name="org.universAAL.middleware.managers.aalspace.util.Consts"></a>org.universAAL.middleware.managers.aalspace.util.Consts</h3>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>Bug</th>
-<th>Category</th>
-<th>Details</th>
-<th>Line</th>
-<th>Priority</th></tr>
-<tr class="a">
-<td>org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_CONFIGURATION_PATH isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>30</td>
-<td>High</td></tr>
-<tr class="b">
-<td>org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_LIFETIME isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>35</td>
-<td>High</td></tr>
-<tr class="a">
-<td>org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_SCHEMA_NAME isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>37</td>
-<td>High</td></tr>
-<tr class="b">
-<td>org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_SCHEMA_URL isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>36</td>
-<td>High</td></tr>
-<tr class="a">
-<td>org.universAAL.middleware.managers.aalspace.util.Consts.AAL_SPACE_VALIDATION isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>34</td>
-<td>High</td></tr>
-<tr class="b">
-<td>org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ID isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>31</td>
-<td>High</td></tr>
-<tr class="a">
-<td>org.universAAL.middleware.managers.aalspace.util.Consts.PEER_ROLE isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>32</td>
-<td>High</td></tr>
-<tr class="b">
-<td>org.universAAL.middleware.managers.aalspace.util.Consts.SPACE_EXTENSION isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>33</td>
-<td>High</td></tr>
-<tr class="a">
-<td>org.universAAL.middleware.managers.aalspace.util.Consts.WAIT_BEFEORE_CLOSING_CHANNEL isn't final but should be</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_SHOULD_BE_FINAL">MS_SHOULD_BE_FINAL</a></td>
-<td>38</td>
-<td>High</td></tr></table></div>
+<td>87</td>
+<td>Medium</td></tr></table></div>
       </div>
     </div>
     <div class="clear">

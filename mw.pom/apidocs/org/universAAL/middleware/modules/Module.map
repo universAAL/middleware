@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c298264" href="./AALSpaceModule.html" title="org.universAAL.middleware.modules.AALSpaceModule" alt="" coords="16,113,141,154"/>
-<area shape="rect" id="node1" href="./AALSpaceModule.html" title="&lt;TABLE&gt;" alt="" coords="5,107,152,159"/>
-<area shape="rect" id="c298265" href="./CommunicationModule.html" title="org.universAAL.middleware.modules.CommunicationModule" alt="" coords="186,113,339,154"/>
-<area shape="rect" id="node2" href="./CommunicationModule.html" title="&lt;TABLE&gt;" alt="" coords="176,107,349,159"/>
-<area shape="rect" id="c298266" href="./Module.html" title="org.universAAL.middleware.modules.Module" alt="" coords="220,11,305,53"/>
-<area shape="rect" id="node3" href="./Module.html" title="&lt;TABLE&gt;" alt="" coords="209,6,316,58"/>
-<area shape="rect" id="c298267" href="./DeployModule.html" title="org.universAAL.middleware.modules.DeployModule" alt="" coords="384,113,488,154"/>
-<area shape="rect" id="node4" href="./DeployModule.html" title="&lt;TABLE&gt;" alt="" coords="373,107,499,159"/>
+<area shape="rect" id="c250626" href="./SpaceModule.html" title="org.universAAL.middleware.modules.SpaceModule" alt="" coords="15,113,115,154"/>
+<area shape="rect" id="node1" href="./SpaceModule.html" title="&lt;TABLE&gt;" alt="" coords="5,107,125,159"/>
+<area shape="rect" id="c250628" href="./CommunicationModule.html" title="org.universAAL.middleware.modules.CommunicationModule" alt="" coords="159,113,313,154"/>
+<area shape="rect" id="node2" href="./CommunicationModule.html" title="&lt;TABLE&gt;" alt="" coords="149,107,323,159"/>
+<area shape="rect" id="c250629" href="./Module.html" title="org.universAAL.middleware.modules.Module" alt="" coords="193,11,279,53"/>
+<area shape="rect" id="node3" href="./Module.html" title="&lt;TABLE&gt;" alt="" coords="183,6,289,58"/>
+<area shape="rect" id="c250630" href="./DeployModule.html" title="org.universAAL.middleware.modules.DeployModule" alt="" coords="357,113,461,154"/>
+<area shape="rect" id="node4" href="./DeployModule.html" title="&lt;TABLE&gt;" alt="" coords="347,107,472,159"/>
 </map>

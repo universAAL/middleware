@@ -28,7 +28,7 @@ under the License.
       <title>File: 9,
              Errors: 93,
              Warnings: 6,
-             Infos: 106
+             Infos: 76
       </title>
             <link>/checkstyle.html</link>
       <description>
@@ -105,7 +105,7 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.Attributes.java">org/universAAL/middleware/container/Attributes.java</a>
                 </td>
                 <td>
-                  14
+                  0
                 </td>
                 <td>
                   1
@@ -133,7 +133,7 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.ModuleContext.java">org/universAAL/middleware/container/ModuleContext.java</a>
                 </td>
                 <td>
-                  16
+                  0
                 </td>
                 <td>
                   0

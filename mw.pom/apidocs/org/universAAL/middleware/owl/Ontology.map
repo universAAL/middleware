@@ -1,18 +1,18 @@
 <map id="G" name="G">
-<area shape="rect" id="c311871" href="./SimpleOntology.html" title="org.universAAL.middleware.owl.SimpleOntology" alt="" coords="15,113,129,138"/>
+<area shape="rect" id="c265615" href="./SimpleOntology.html" title="org.universAAL.middleware.owl.SimpleOntology" alt="" coords="15,113,129,138"/>
 <area shape="rect" id="node1" href="./SimpleOntology.html" title="&lt;TABLE&gt;" alt="" coords="5,101,139,149"/>
-<area shape="rect" id="c311872" href="./DataRepOntology.html" title="org.universAAL.middleware.owl.DataRepOntology" alt="" coords="173,113,299,138"/>
+<area shape="rect" id="c265616" href="./DataRepOntology.html" title="org.universAAL.middleware.owl.DataRepOntology" alt="" coords="173,113,299,138"/>
 <area shape="rect" id="node2" href="./DataRepOntology.html" title="&lt;TABLE&gt;" alt="" coords="163,101,309,149"/>
-<area shape="rect" id="c311891" href="./Ontology.html" title="org.universAAL.middleware.owl.Ontology" alt="" coords="557,17,630,42"/>
-<area shape="rect" id="node3" href="./Ontology.html" title="&lt;TABLE&gt;" alt="" coords="547,5,640,53"/>
-<area shape="rect" id="c311900" href="./generic/GenericOntology.html" title="org.universAAL.middleware.owl.generic.GenericOntology" alt="" coords="344,113,461,138"/>
+<area shape="rect" id="c265635" href="./Ontology.html" title="org.universAAL.middleware.owl.Ontology" alt="" coords="545,17,618,42"/>
+<area shape="rect" id="node3" href="./Ontology.html" title="&lt;TABLE&gt;" alt="" coords="535,5,628,53"/>
+<area shape="rect" id="c265644" href="./generic/GenericOntology.html" title="org.universAAL.middleware.owl.generic.GenericOntology" alt="" coords="344,113,461,138"/>
 <area shape="rect" id="node4" href="./generic/GenericOntology.html" title="&lt;TABLE&gt;" alt="" coords="333,101,472,149"/>
-<area shape="rect" id="c312137" href="../managers/configuration/core/owl/AALConfigurationOntology.html" title="org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology" alt="" coords="506,113,681,138"/>
-<area shape="rect" id="node5" href="../managers/configuration/core/owl/AALConfigurationOntology.html" title="&lt;TABLE&gt;" alt="" coords="496,101,691,149"/>
-<area shape="rect" id="c312196" href="../context/owl/ContextBusOntology.html" title="org.universAAL.middleware.context.owl.ContextBusOntology" alt="" coords="725,113,867,138"/>
-<area shape="rect" id="node6" href="../context/owl/ContextBusOntology.html" title="&lt;TABLE&gt;" alt="" coords="715,101,877,149"/>
-<area shape="rect" id="c312238" href="../service/owl/ServiceBusOntology.html" title="org.universAAL.middleware.service.owl.ServiceBusOntology" alt="" coords="911,113,1051,138"/>
-<area shape="rect" id="node7" href="../service/owl/ServiceBusOntology.html" title="&lt;TABLE&gt;" alt="" coords="901,101,1061,149"/>
-<area shape="rect" id="c312284" href="../ui/owl/UIBusOntology.html" title="org.universAAL.middleware.ui.owl.UIBusOntology" alt="" coords="1096,113,1205,138"/>
-<area shape="rect" id="node8" href="../ui/owl/UIBusOntology.html" title="&lt;TABLE&gt;" alt="" coords="1085,101,1216,149"/>
+<area shape="rect" id="c265841" href="../managers/configuration/core/owl/ConfigurationOntology.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology" alt="" coords="507,113,656,138"/>
+<area shape="rect" id="node5" href="../managers/configuration/core/owl/ConfigurationOntology.html" title="&lt;TABLE&gt;" alt="" coords="496,101,667,149"/>
+<area shape="rect" id="c265900" href="../context/owl/ContextBusOntology.html" title="org.universAAL.middleware.context.owl.ContextBusOntology" alt="" coords="701,113,843,138"/>
+<area shape="rect" id="node6" href="../context/owl/ContextBusOntology.html" title="&lt;TABLE&gt;" alt="" coords="691,101,853,149"/>
+<area shape="rect" id="c265942" href="../service/owl/ServiceBusOntology.html" title="org.universAAL.middleware.service.owl.ServiceBusOntology" alt="" coords="887,113,1027,138"/>
+<area shape="rect" id="node7" href="../service/owl/ServiceBusOntology.html" title="&lt;TABLE&gt;" alt="" coords="877,101,1037,149"/>
+<area shape="rect" id="c265988" href="../ui/owl/UIBusOntology.html" title="org.universAAL.middleware.ui.owl.UIBusOntology" alt="" coords="1072,113,1181,138"/>
+<area shape="rect" id="node8" href="../ui/owl/UIBusOntology.html" title="&lt;TABLE&gt;" alt="" coords="1061,101,1192,149"/>
 </map>

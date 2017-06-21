@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="133" branches-covered="0" branches-valid="33" complexity="1.6808510638297873" version="2.1.1" timestamp="1497066297000">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="133" branches-covered="0" branches-valid="33" complexity="1.6808510638297873" version="2.1.1" timestamp="1498024684623">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.container.junit/src/main/java</source>
 	</sources>
 	<packages>
-		<package name="org.universAAL.container.JUnit" line-rate="0.0" branch-rate="0.0" complexity="1.6808510638297873">
+		<package name="org.universAAL.middleware.container.JUnit" line-rate="0.0" branch-rate="0.0" complexity="1.6808510638297873">
 			<classes>
-				<class name="org.universAAL.container.JUnit.JUnitContainer" filename="org/universAAL/container/JUnit/JUnitContainer.java" line-rate="0.0" branch-rate="0.0" complexity="1.1538461538461537">
+				<class name="org.universAAL.middleware.container.JUnit.JUnitContainer" filename="org/universAAL/middleware/container/JUnit/JUnitContainer.java" line-rate="0.0" branch-rate="0.0" complexity="1.1538461538461537">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -38,7 +38,7 @@
 								<line number="68" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="getInstance" signature="()Lorg/universAAL/container/JUnit/JUnitContainer;" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="getInstance" signature="()Lorg/universAAL/middleware/container/JUnit/JUnitContainer;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="52" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
@@ -155,7 +155,7 @@
 						<line number="119" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.container.JUnit.JUnitModuleContext" filename="org/universAAL/container/JUnit/JUnitModuleContext.java" line-rate="0.0" branch-rate="0.0" complexity="1.8823529411764706">
+				<class name="org.universAAL.middleware.container.JUnit.JUnitModuleContext" filename="org/universAAL/middleware/container/JUnit/JUnitModuleContext.java" line-rate="0.0" branch-rate="0.0" complexity="1.8823529411764706">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -221,7 +221,7 @@
 								<line number="148" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="getLogLevel" signature="()Lorg/universAAL/container/JUnit/JUnitModuleContext$LogLevel;" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="getLogLevel" signature="()Lorg/universAAL/middleware/container/JUnit/JUnitModuleContext$LogLevel;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="100" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
@@ -376,7 +376,7 @@
 								<line number="214" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setLogLevel" signature="(Lorg/universAAL/container/JUnit/JUnitModuleContext$LogLevel;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="setLogLevel" signature="(Lorg/universAAL/middleware/container/JUnit/JUnitModuleContext$LogLevel;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="78" hits="0" branch="true" condition-coverage="0% (0/7)">
 									<conditions>
@@ -575,7 +575,7 @@
 						<line number="286" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.container.JUnit.JUnitModuleContext$1" filename="org/universAAL/container/JUnit/JUnitModuleContext.java" line-rate="0.0" branch-rate="1.0" complexity="1.8823529411764706">
+				<class name="org.universAAL.middleware.container.JUnit.JUnitModuleContext$1" filename="org/universAAL/middleware/container/JUnit/JUnitModuleContext.java" line-rate="0.0" branch-rate="1.0" complexity="1.8823529411764706">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -599,7 +599,7 @@
 						<line number="72" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.container.JUnit.JUnitModuleContext$2" filename="org/universAAL/container/JUnit/JUnitModuleContext.java" line-rate="0.0" branch-rate="1.0" complexity="1.8823529411764706">
+				<class name="org.universAAL.middleware.container.JUnit.JUnitModuleContext$2" filename="org/universAAL/middleware/container/JUnit/JUnitModuleContext.java" line-rate="0.0" branch-rate="1.0" complexity="1.8823529411764706">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -611,7 +611,7 @@
 						<line number="78" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.container.JUnit.JUnitModuleContext$LogLevel" filename="org/universAAL/container/JUnit/JUnitModuleContext.java" line-rate="0.0" branch-rate="1.0" complexity="1.8823529411764706">
+				<class name="org.universAAL.middleware.container.JUnit.JUnitModuleContext$LogLevel" filename="org/universAAL/middleware/container/JUnit/JUnitModuleContext.java" line-rate="0.0" branch-rate="1.0" complexity="1.8823529411764706">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -623,11 +623,11 @@
 							<lines>
 							</lines>
 						</method>
-						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/universAAL/container/JUnit/JUnitModuleContext$LogLevel;" line-rate="1.0" branch-rate="1.0" complexity="0">
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/container/JUnit/JUnitModuleContext$LogLevel;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 							</lines>
 						</method>
-						<method name="values" signature="()[Lorg/universAAL/container/JUnit/JUnitModuleContext$LogLevel;" line-rate="1.0" branch-rate="1.0" complexity="0">
+						<method name="values" signature="()[Lorg/universAAL/middleware/container/JUnit/JUnitModuleContext$LogLevel;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 							</lines>
 						</method>

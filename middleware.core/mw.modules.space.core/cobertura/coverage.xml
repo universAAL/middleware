@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="416" branches-covered="0" branches-valid="142" complexity="5.266666666666667" version="2.1.1" timestamp="1497066389422">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="416" branches-covered="0" branches-valid="142" complexity="5.266666666666667" version="2.1.1" timestamp="1498024779383">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.modules.space.core/src/main/java</source>
 	</sources>
 	<packages>
-		<package name="org.universAAL.middleware.modules.aalspace" line-rate="0.0" branch-rate="0.0" complexity="5.266666666666667">
+		<package name="org.universAAL.middleware.modules.space" line-rate="0.0" branch-rate="0.0" complexity="5.266666666666667">
 			<classes>
-				<class name="org.universAAL.middleware.modules.aalspace.AALSpaceModuleImpl" filename="org/universAAL/middleware/modules/aalspace/AALSpaceModuleImpl.java" line-rate="0.0" branch-rate="0.0" complexity="5.266666666666667">
+				<class name="org.universAAL.middleware.modules.space.SpaceModuleImpl" filename="org/universAAL/middleware/modules/space/SpaceModuleImpl.java" line-rate="0.0" branch-rate="0.0" complexity="5.266666666666667">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/container/ModuleContext;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -20,12 +20,7 @@
 								<line number="174" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="aalSpaceLost" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="758" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="addPeer" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="addPeer" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceDescriptor;Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="429" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
@@ -58,7 +53,7 @@
 								<line number="468" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="announceNewPeer" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceCard;Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="announceNewPeer" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceCard;Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="471" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
@@ -81,7 +76,7 @@
 								<line number="498" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="configureAALSpaceChannel" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="configureSpaceChannel" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="662" hits="0" branch="false"/>
 								<line number="663" hits="0" branch="false"/>
@@ -89,7 +84,7 @@
 								<line number="670" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="destroyAALSpace" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="destroySpace" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="744" hits="0" branch="false"/>
 								<line number="745" hits="0" branch="false"/>
@@ -132,12 +127,45 @@
 								<line number="820" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="getAALSpaces" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="getBrokerName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="807" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="236" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="248" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getPeersAddress" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="823" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="824" hits="0" branch="false"/>
+								<line number="825" hits="0" branch="false"/>
+								<line number="826" hits="0" branch="false"/>
+								<line number="828" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getProvider" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="240" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getSpaces" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="177" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="getAALSpaces" signature="(Ljava/util/Dictionary;)Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="getSpaces" signature="(Ljava/util/Dictionary;)Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="181" hits="0" branch="false"/>
 								<line number="182" hits="0" branch="true" condition-coverage="0% (0/2)">
@@ -172,39 +200,6 @@
 								<line number="203" hits="0" branch="false"/>
 								<line number="205" hits="0" branch="false"/>
 								<line number="208" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getBrokerName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="807" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="236" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="248" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getPeersAddress" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="0.0" complexity="0">
-							<lines>
-								<line number="823" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="824" hits="0" branch="false"/>
-								<line number="825" hits="0" branch="false"/>
-								<line number="826" hits="0" branch="false"/>
-								<line number="828" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getProvider" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="240" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getVersion" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -341,7 +336,7 @@
 								<line number="168" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="joinAALSpace" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="joinSpace" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;Lorg/universAAL/middleware/interfaces/space/SpaceCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="384" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
@@ -375,7 +370,7 @@
 								<line number="426" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="leaveAALSpace" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="leaveSpace" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;Lorg/universAAL/middleware/interfaces/space/SpaceCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="282" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
@@ -424,7 +419,7 @@
 								<line number="278" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="messageFromSpace" signature="(Lorg/universAAL/middleware/brokers/message/aalspace/AALSpaceMessage;Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="messageFromSpace" signature="(Lorg/universAAL/middleware/brokers/message/space/SpaceMessage;Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="501" hits="0" branch="false"/>
 								<line number="504" hits="0" branch="false"/>
@@ -590,7 +585,7 @@
 								<line number="701" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="newAALSpace" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="newSpace" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="212" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
@@ -616,7 +611,7 @@
 								<line number="233" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="newAALSpacesFound" signature="(Ljava/util/Set;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="newSpacesFound" signature="(Ljava/util/Set;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="371" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
@@ -634,7 +629,7 @@
 								<line number="380" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="renewAALSpace" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="renewSpace" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="832" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
@@ -655,7 +650,7 @@
 								<line number="842" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="requestPeerCard" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;Ljava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="requestPeerCard" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceDescriptor;Ljava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="342" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
@@ -678,7 +673,7 @@
 								<line number="368" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="requestToLeave" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="requestToLeave" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceDescriptor;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="312" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
@@ -776,6 +771,11 @@
 								<line number="800" hits="0" branch="false"/>
 								<line number="801" hits="0" branch="false"/>
 								<line number="804" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="spaceLost" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="758" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="unmarshall" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/brokers/message/BrokerMessage;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -1445,7 +1445,7 @@
 						<line number="850" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.modules.aalspace.AALSpaceModuleImpl$1" filename="org/universAAL/middleware/modules/aalspace/AALSpaceModuleImpl.java" line-rate="0.0" branch-rate="1.0" complexity="5.266666666666667">
+				<class name="org.universAAL.middleware.modules.space.SpaceModuleImpl$1" filename="org/universAAL/middleware/modules/space/SpaceModuleImpl.java" line-rate="0.0" branch-rate="1.0" complexity="5.266666666666667">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>

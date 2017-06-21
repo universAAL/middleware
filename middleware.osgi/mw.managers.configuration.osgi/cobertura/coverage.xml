@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="79" branches-covered="0" branches-valid="24" complexity="2.4615384615384617" version="2.1.1" timestamp="1497066599104">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="79" branches-covered="0" branches-valid="24" complexity="2.4615384615384617" version="2.1.1" timestamp="1498025005818">
 	<sources>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.managers.configuration.osgi/src/main/java</source>
 		<source>--source</source>
@@ -33,7 +33,7 @@
 								<line number="54" hits="0" branch="false"/>
 								<line number="55" hits="0" branch="false"/>
 								<line number="56" hits="0" branch="false"/>
-								<line number="58" hits="0" branch="false"/>
+								<line number="57" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -50,7 +50,7 @@
 						<line number="54" hits="0" branch="false"/>
 						<line number="55" hits="0" branch="false"/>
 						<line number="56" hits="0" branch="false"/>
-						<line number="58" hits="0" branch="false"/>
+						<line number="57" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.managers.configuration.osgi.FileProvider" filename="org/universAAL/middleware/managers/configuration/osgi/FileProvider.java" line-rate="0.0" branch-rate="1.0" complexity="1.4">

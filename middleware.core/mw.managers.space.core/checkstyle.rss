@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 7,
-             Errors: 182,
-             Warnings: 21,
-             Infos: 21
+             Errors: 172,
+             Warnings: 11,
+             Infos: 3
       </title>
             <link>http://middleware/middleware.core/mw.managers.space.core//checkstyle.html</link>
       <description>
@@ -46,66 +46,10 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread.java">org/universAAL/middleware/managers/aalspace/util/RefreshAALSpaceThread.java</a>
-                </td>
-                <td>
-                  1
+                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.space.util.Consts.java">org/universAAL/middleware/managers/space/util/Consts.java</a>
                 </td>
                 <td>
                   0
-                </td>
-                <td>
-                  10
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.MatchingResultImpl.java">org/universAAL/middleware/managers/aalspace/MatchingResultImpl.java</a>
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  8
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.java">org/universAAL/middleware/managers/aalspace/AALSpaceManagerImpl.java</a>
-                </td>
-                <td>
-                  6
-                </td>
-                <td>
-                  10
-                </td>
-                <td>
-                  116
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.util.Consts.java">org/universAAL/middleware/managers/aalspace/util/Consts.java</a>
-                </td>
-                <td>
-                  5
-                </td>
-                <td>
-                  10
-                </td>
-                <td>
-                  22
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.util.CheckPeerThread.java">org/universAAL/middleware/managers/aalspace/util/CheckPeerThread.java</a>
-                </td>
-                <td>
-                  1
                 </td>
                 <td>
                   0
@@ -116,13 +60,41 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.util.AALSpaceSchemaEventHandler.java">org/universAAL/middleware/managers/aalspace/util/AALSpaceSchemaEventHandler.java</a>
+                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.space.util.CheckPeerThread.java">org/universAAL/middleware/managers/space/util/CheckPeerThread.java</a>
                 </td>
                 <td>
-                  5
+                  0
                 </td>
                 <td>
                   1
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.space.util.RefreshSpaceThread.java">org/universAAL/middleware/managers/space/util/RefreshSpaceThread.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.space.util.SpaceSchemaEventHandler.java">org/universAAL/middleware/managers/space/util/SpaceSchemaEventHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   5
@@ -130,10 +102,38 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.aalspace.util.Joiner.java">org/universAAL/middleware/managers/aalspace/util/Joiner.java</a>
+                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.space.MatchingResultImpl.java">org/universAAL/middleware/managers/space/MatchingResultImpl.java</a>
+                </td>
+                <td>
+                  2
                 </td>
                 <td>
                   1
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.space.SpaceManagerImpl.java">org/universAAL/middleware/managers/space/SpaceManagerImpl.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  116
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.space.util.Joiner.java">org/universAAL/middleware/managers/space/util/Joiner.java</a>
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0

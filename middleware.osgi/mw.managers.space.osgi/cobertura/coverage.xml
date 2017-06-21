@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="38" branches-covered="0" branches-valid="14" complexity="3.6666666666666665" version="2.1.1" timestamp="1497066571238">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="38" branches-covered="0" branches-valid="14" complexity="3.6666666666666665" version="2.1.1" timestamp="1498024975124">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.managers.space.osgi/src/main/java</source>
 	</sources>
 	<packages>
-		<package name="org.universAAL.middleware.managers.aalspace.osgi" line-rate="0.0" branch-rate="0.0" complexity="3.6666666666666665">
+		<package name="org.universAAL.middleware.managers.space.osgi" line-rate="0.0" branch-rate="0.0" complexity="3.6666666666666665">
 			<classes>
-				<class name="org.universAAL.middleware.managers.aalspace.osgi.Activator" filename="org/universAAL/middleware/managers/aalspace/osgi/Activator.java" line-rate="0.0" branch-rate="0.0" complexity="3.6666666666666665">
+				<class name="org.universAAL.middleware.managers.space.osgi.Activator" filename="org/universAAL/middleware/managers/space/osgi/Activator.java" line-rate="0.0" branch-rate="0.0" complexity="3.6666666666666665">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="465" branches-covered="0" branches-valid="159" complexity="5.424242424242424" version="2.1.1" timestamp="1497066415067">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="465" branches-covered="0" branches-valid="159" complexity="5.424242424242424" version="2.1.1" timestamp="1498024806702">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.managers.deploy.core/src/main/java</source>
@@ -34,28 +34,6 @@
 								<line number="121" hits="0" branch="false"/>
 								<line number="123" hits="0" branch="false"/>
 								<line number="125" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="aalSpaceJoined" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
-							<lines>
-								<line number="946" hits="0" branch="false"/>
-								<line number="949" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="950" hits="0" branch="false"/>
-								<line number="953" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="aalSpaceLost" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="958" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="aalSpaceStatusChanged" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceStatus;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="997" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="addDirToZipFile" signature="(Ljava/util/zip/ZipOutputStream;Ljava/io/File;Ljava/lang/String;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -159,7 +137,7 @@
 								<line number="598" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="createZippedPart" signature="(Ljava/net/URI;Lorg/universAAL/middleware/deploymanager/uapp/model/Part;)[B" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="createZippedPart" signature="(Ljava/net/URI;Lorg/universAAL/middleware/managers/deploy/uapp/model/Part;)[B" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="714" hits="0" branch="false"/>
 								<line number="715" hits="0" branch="false"/>
@@ -405,7 +383,7 @@
 						</method>
 						<method name="isDeployCoordinator" signature="()Z" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="991" hits="0" branch="false"/>
+								<line number="989" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="isInstalled" signature="(Ljava/lang/String;Ljava/lang/String;)Z" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -556,14 +534,14 @@
 								<line number="310" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="newPeerJoined" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="peerJoined" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="983" hits="0" branch="false"/>
+								<line number="982" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="peerLost" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="988" hits="0" branch="false"/>
+								<line number="986" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="reloadRegistry" signature="(Ljava/io/File;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -758,6 +736,28 @@
 								<line number="832" hits="0" branch="false"/>
 								<line number="833" hits="0" branch="false"/>
 								<line number="836" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="spaceJoined" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceDescriptor;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="946" hits="0" branch="false"/>
+								<line number="949" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="950" hits="0" branch="false"/>
+								<line number="953" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="spaceLost" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceDescriptor;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="958" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="spaceStatusChanged" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceStatus;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="994" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="storeInstallationStatus" signature="(Lorg/universAAL/middleware/managers/api/UAPPPackage;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -1617,10 +1617,10 @@
 						</line>
 						<line number="971" hits="0" branch="false"/>
 						<line number="978" hits="0" branch="false"/>
-						<line number="983" hits="0" branch="false"/>
-						<line number="988" hits="0" branch="false"/>
-						<line number="991" hits="0" branch="false"/>
-						<line number="997" hits="0" branch="false"/>
+						<line number="982" hits="0" branch="false"/>
+						<line number="986" hits="0" branch="false"/>
+						<line number="989" hits="0" branch="false"/>
+						<line number="994" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.managers.deploy.DeployManagerImpl$1" filename="org/universAAL/middleware/managers/deploy/DeployManagerImpl.java" line-rate="0.0" branch-rate="1.0" complexity="5.424242424242424">

@@ -10,55 +10,55 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.owl.ManagedIndividual
-	c162010 [label=<<table title="org.universAAL.middleware.owl.ManagedIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ManagedIndividual.html">
+	c123011 [label=<<table title="org.universAAL.middleware.owl.ManagedIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ManagedIndividual.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ManagedIndividual </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./ManagedIndividual.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.ComparableIndividual
-	c162011 [label=<<table title="org.universAAL.middleware.owl.ComparableIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ComparableIndividual.html">
+	c123012 [label=<<table title="org.universAAL.middleware.owl.ComparableIndividual" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ComparableIndividual.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ComparableIndividual </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./ComparableIndividual.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.supply.Rating
-	c162015 [label=<<table title="org.universAAL.middleware.owl.supply.Rating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/Rating.html">
+	c123016 [label=<<table title="org.universAAL.middleware.owl.supply.Rating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/Rating.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Rating </td></tr>
 		</table></td></tr>
 		</table>>, URL="./supply/Rating.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.supply.AbsLocation
-	c162016 [label=<<table title="org.universAAL.middleware.owl.supply.AbsLocation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/AbsLocation.html">
+	c123017 [label=<<table title="org.universAAL.middleware.owl.supply.AbsLocation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/AbsLocation.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbsLocation </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./supply/AbsLocation.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.supply.LevelRating
-	c162017 [label=<<table title="org.universAAL.middleware.owl.supply.LevelRating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/LevelRating.html">
+	c123018 [label=<<table title="org.universAAL.middleware.owl.supply.LevelRating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./supply/LevelRating.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LevelRating </td></tr>
 		</table></td></tr>
 		</table>>, URL="./supply/LevelRating.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.owl.PrivacyLevel
-	c162395 [label=<<table title="org.universAAL.middleware.ui.owl.PrivacyLevel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/PrivacyLevel.html">
+	c123356 [label=<<table title="org.universAAL.middleware.ui.owl.PrivacyLevel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/PrivacyLevel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PrivacyLevel </td></tr>
 		</table></td></tr>
 		</table>>, URL="../ui/owl/PrivacyLevel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.owl.ComparableIndividual extends org.universAAL.middleware.owl.ManagedIndividual
-	c162010:p -> c162011:p [dir=back,arrowtail=empty];
+	c123011:p -> c123012:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.ComparableIndividual implements java.lang.Comparable<T>
-	c162496:p -> c162011:p [dir=back,arrowtail=empty,style=dashed];
+	c123457:p -> c123012:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.owl.supply.Rating extends org.universAAL.middleware.owl.ComparableIndividual
-	c162011:p -> c162015:p [dir=back,arrowtail=empty];
+	c123012:p -> c123016:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.supply.AbsLocation extends org.universAAL.middleware.owl.ComparableIndividual
-	c162011:p -> c162016:p [dir=back,arrowtail=empty];
+	c123012:p -> c123017:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.supply.LevelRating extends org.universAAL.middleware.owl.ComparableIndividual
-	c162011:p -> c162017:p [dir=back,arrowtail=empty];
+	c123012:p -> c123018:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.ui.owl.PrivacyLevel extends org.universAAL.middleware.owl.ComparableIndividual
-	c162011:p -> c162395:p [dir=back,arrowtail=empty];
+	c123012:p -> c123356:p [dir=back,arrowtail=empty];
 	// java.lang.Comparable<T>
-	c162496 [label=<<table title="java.lang.Comparable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Comparable.html">
+	c123457 [label=<<table title="java.lang.Comparable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Comparable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Comparable&lt;T&gt; </td></tr>

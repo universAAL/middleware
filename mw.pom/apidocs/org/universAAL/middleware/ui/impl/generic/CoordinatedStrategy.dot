@@ -10,44 +10,44 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.container.SharedObjectListener
-	c193873 [label=<<table title="org.universAAL.middleware.container.SharedObjectListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../container/SharedObjectListener.html">
+	c153748 [label=<<table title="org.universAAL.middleware.container.SharedObjectListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../container/SharedObjectListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> SharedObjectListener </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../container/SharedObjectListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.api.AALSpaceListener
-	c194187 [label=<<table title="org.universAAL.middleware.managers.api.AALSpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../managers/api/AALSpaceListener.html">
+	// org.universAAL.middleware.managers.api.SpaceListener
+	c154021 [label=<<table title="org.universAAL.middleware.managers.api.SpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../managers/api/SpaceListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> AALSpaceListener </td></tr>
+<tr><td align="center" balign="center"> SpaceListener </td></tr>
 		</table></td></tr>
-		</table>>, URL="../../../managers/api/AALSpaceListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../../../managers/api/SpaceListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement
-	c194367 [label=<<table title="org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CoordinatedRegistrationManagement.html">
+	c154197 [label=<<table title="org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CoordinatedRegistrationManagement.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CoordinatedRegistrationManagement </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CoordinatedRegistrationManagement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy
-	c194368 [label=<<table title="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CoordinatedStrategy.html">
+	c154198 [label=<<table title="org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CoordinatedStrategy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CoordinatedStrategy </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CoordinatedStrategy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.impl.generic.CallBasedStrategy
-	c194370 [label=<<table title="org.universAAL.middleware.ui.impl.generic.CallBasedStrategy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CallBasedStrategy.html">
+	c154200 [label=<<table title="org.universAAL.middleware.ui.impl.generic.CallBasedStrategy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CallBasedStrategy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CallBasedStrategy </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CallBasedStrategy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.ui.impl.generic.CoordinatedRegistrationManagement extends org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy
-	c194368:p -> c194367:p [dir=back,arrowtail=empty];
+	c154198:p -> c154197:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy extends org.universAAL.middleware.ui.impl.generic.CallBasedStrategy
-	c194370:p -> c194368:p [dir=back,arrowtail=empty];
-	//org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy implements org.universAAL.middleware.managers.api.AALSpaceListener
-	c194187:p -> c194368:p [dir=back,arrowtail=empty,style=dashed];
+	c154200:p -> c154198:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy implements org.universAAL.middleware.managers.api.SpaceListener
+	c154021:p -> c154198:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.ui.impl.generic.CoordinatedStrategy implements org.universAAL.middleware.container.SharedObjectListener
-	c193873:p -> c194368:p [dir=back,arrowtail=empty,style=dashed];
+	c153748:p -> c154198:p [dir=back,arrowtail=empty,style=dashed];
 }
 

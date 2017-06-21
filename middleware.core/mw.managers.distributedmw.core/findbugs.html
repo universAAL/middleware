@@ -113,11 +113,11 @@
 <td><a href="#org.universAAL.middleware.managers.distributedmw.impl.LogListenerHandler">org.universAAL.middleware.managers.distributedmw.impl.LogListenerHandler</a></td>
 <td>1</td></tr>
 <tr class="a">
-<td><a href="#org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector">org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector</a></td>
-<td>4</td></tr>
+<td><a href="#org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener">org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener</a></td>
+<td>3</td></tr>
 <tr class="b">
-<td><a href="#org.universAAL.middleware.managers.distributedmw.impl.SpaceListener">org.universAAL.middleware.managers.distributedmw.impl.SpaceListener</a></td>
-<td>3</td></tr></table></div><a name="org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl"></a>
+<td><a href="#org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector">org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector</a></td>
+<td>4</td></tr></table></div><a name="org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl"></a>org.universAAL.middleware.managers.distributedmw.impl.DistributedMWManagerImpl</h3>
 <table border="0" class="bodyTable">
@@ -191,7 +191,7 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="b">
-<td>Call to String.equals(org.universAAL.middleware.interfaces.PeerCard) in org.universAAL.middleware.managers.distributedmw.impl.ListenerHandler.newPeerJoined(PeerCard)</td>
+<td>Call to String.equals(org.universAAL.middleware.interfaces.PeerCard) in org.universAAL.middleware.managers.distributedmw.impl.ListenerHandler.peerJoined(PeerCard)</td>
 <td>CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EC_UNRELATED_TYPES">EC_UNRELATED_TYPES</a></td>
 <td>273</td>
@@ -222,7 +222,34 @@
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
 <td>130</td>
-<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector"></a>
+<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener"></a>
+<div class="section">
+<h3><a name="org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener"></a>org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener</h3>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="b">
+<td>Inconsistent synchronization of org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener.theSpaceManager; locked 71% of time</td>
+<td>MT_CORRECTNESS</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
+<td>116</td>
+<td>Medium</td></tr>
+<tr class="a">
+<td>Incorrect lazy initialization and update of static field org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener.instance in org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener.getInstance()</td>
+<td>MT_CORRECTNESS</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#LI_LAZY_INIT_UPDATE_STATIC">LI_LAZY_INIT_UPDATE_STATIC</a></td>
+<td>32</td>
+<td>High</td></tr>
+<tr class="b">
+<td>Write to static field org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener.instance from instance method org.universAAL.middleware.managers.distributedmw.impl.MySpaceListener.stop()</td>
+<td>STYLE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD">ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD</a></td>
+<td>69</td>
+<td>High</td></tr></table></div><a name="org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector"></a>org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector</h3>
 <table border="0" class="bodyTable">
@@ -233,56 +260,29 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="b">
-<td>Inconsistent synchronization of org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector.aalSpaceManager; locked 75% of time</td>
-<td>MT_CORRECTNESS</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
-<td>123</td>
-<td>Medium</td></tr>
-<tr class="a">
 <td>Inconsistent synchronization of org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector.controlBroker; locked 75% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
 <td>125</td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>Inconsistent synchronization of org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector.messageContentSerializer; locked 75% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
 <td>127</td>
+<td>Medium</td></tr>
+<tr class="b">
+<td>Inconsistent synchronization of org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector.spaceManager; locked 75% of time</td>
+<td>MT_CORRECTNESS</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
+<td>123</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Inconsistent synchronization of org.universAAL.middleware.managers.distributedmw.impl.SharedObjectConnector.stopping; locked 60% of time</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
 <td>115</td>
-<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.managers.distributedmw.impl.SpaceListener"></a>
-<div class="section">
-<h3><a name="org.universAAL.middleware.managers.distributedmw.impl.SpaceListener"></a>org.universAAL.middleware.managers.distributedmw.impl.SpaceListener</h3>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>Bug</th>
-<th>Category</th>
-<th>Details</th>
-<th>Line</th>
-<th>Priority</th></tr>
-<tr class="a">
-<td>Inconsistent synchronization of org.universAAL.middleware.managers.distributedmw.impl.SpaceListener.theAALSpaceManager; locked 71% of time</td>
-<td>MT_CORRECTNESS</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#IS2_INCONSISTENT_SYNC">IS2_INCONSISTENT_SYNC</a></td>
-<td>116</td>
-<td>Medium</td></tr>
-<tr class="b">
-<td>Incorrect lazy initialization and update of static field org.universAAL.middleware.managers.distributedmw.impl.SpaceListener.instance in org.universAAL.middleware.managers.distributedmw.impl.SpaceListener.getInstance()</td>
-<td>MT_CORRECTNESS</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#LI_LAZY_INIT_UPDATE_STATIC">LI_LAZY_INIT_UPDATE_STATIC</a></td>
-<td>32</td>
-<td>High</td></tr>
-<tr class="a">
-<td>Write to static field org.universAAL.middleware.managers.distributedmw.impl.SpaceListener.instance from instance method org.universAAL.middleware.managers.distributedmw.impl.SpaceListener.stop()</td>
-<td>STYLE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD">ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD</a></td>
-<td>69</td>
-<td>High</td></tr></table></div>
+<td>Medium</td></tr></table></div>
       </div>
     </div>
     <div class="clear">

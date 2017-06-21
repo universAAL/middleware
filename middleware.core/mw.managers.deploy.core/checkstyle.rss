@@ -28,7 +28,7 @@ under the License.
       <title>File: 2,
              Errors: 73,
              Warnings: 20,
-             Infos: 16
+             Infos: 2
       </title>
             <link>http://middleware/middleware.core/mw.managers.deploy.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.deploy.core//checkstyle.html#org.universAAL.middleware.managers.deploy.util.Consts.java">org/universAAL/middleware/managers/deploy/util/Consts.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   1
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.deploy.core//checkstyle.html#org.universAAL.middleware.managers.deploy.DeployManagerImpl.java">org/universAAL/middleware/managers/deploy/DeployManagerImpl.java</a>
                 </td>
                 <td>
-                  15
+                  2
                 </td>
                 <td>
                   19

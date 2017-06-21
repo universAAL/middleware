@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 6,
              Errors: 147,
-             Warnings: 9,
-             Infos: 34
+             Warnings: 6,
+             Infos: 30
       </title>
             <link>/checkstyle.html</link>
       <description>
@@ -46,16 +46,30 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.uAALBundleContainer.java">org/universAAL/middleware/container/osgi/uAALBundleContainer.java</a>
+                  <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.OSGiModuleContext.java">org/universAAL/middleware/container/osgi/OSGiModuleContext.java</a>
                 </td>
                 <td>
-                  14
+                  7
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
-                  12
+                  98
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.run.OSGiExtender.java">org/universAAL/middleware/container/osgi/run/OSGiExtender.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  22
                 </td>
               </tr>
                           <tr>
@@ -74,30 +88,30 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.OSGiAttributes.java">org/universAAL/middleware/container/osgi/OSGiAttributes.java</a>
+                  <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.OSGiContainer.java">org/universAAL/middleware/container/osgi/OSGiContainer.java</a>
                 </td>
                 <td>
-                  5
+                  14
                 </td>
                 <td>
                   1
                 </td>
                 <td>
-                  5
+                  12
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.run.uAALBundleExtender.java">org/universAAL/middleware/container/osgi/run/uAALBundleExtender.java</a>
+                  <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.OSGiAttributes.java">org/universAAL/middleware/container/osgi/OSGiAttributes.java</a>
                 </td>
                 <td>
                   1
                 </td>
                 <td>
-                  4
+                  1
                 </td>
                 <td>
-                  22
+                  5
                 </td>
               </tr>
                           <tr>
@@ -112,20 +126,6 @@ under the License.
                 </td>
                 <td>
                   10
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.uAALBundleContext.java">org/universAAL/middleware/container/osgi/uAALBundleContext.java</a>
-                </td>
-                <td>
-                  7
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  98
                 </td>
               </tr>
                       </tbody>

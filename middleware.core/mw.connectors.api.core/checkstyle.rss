@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 13,
-             Errors: 140,
-             Warnings: 18,
-             Infos: 71
+             Errors: 120,
+             Warnings: 3,
+             Infos: 40
       </title>
             <link>http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html</link>
       <description>
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.DiscoveryConnector.java">org/universAAL/middleware/connectors/DiscoveryConnector.java</a>
                 </td>
                 <td>
-                  13
+                  0
                 </td>
                 <td>
                   0
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.util.ChannelMessage.java">org/universAAL/middleware/connectors/util/ChannelMessage.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   1
@@ -105,13 +105,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.util.Consts.java">org/universAAL/middleware/connectors/util/Consts.java</a>
                 </td>
                 <td>
-                  5
+                  0
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
-                  24
+                  8
                 </td>
               </tr>
                           <tr>
@@ -175,7 +175,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.exception.CommunicationConnectorErrorCode.java">org/universAAL/middleware/connectors/exception/CommunicationConnectorErrorCode.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   1
@@ -206,10 +206,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  0
                 </td>
                 <td>
-                  10
+                  6
                 </td>
               </tr>
                           <tr>
@@ -217,7 +217,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.ServiceListener.java">org/universAAL/middleware/connectors/ServiceListener.java</a>
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
                   0

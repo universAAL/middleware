@@ -125,25 +125,25 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="a">
-<td>Incorrect lazy initialization of static field org.universAAL.middleware.bus.model.AbstractBus.myContext in org.universAAL.middleware.bus.model.AbstractBus.initBrokerage(ModuleContext, AALSpaceManager, CommunicationModule)</td>
+<td>Incorrect lazy initialization of static field org.universAAL.middleware.bus.model.AbstractBus.myContext in org.universAAL.middleware.bus.model.AbstractBus.initBrokerage(ModuleContext, SpaceManager, CommunicationModule)</td>
 <td>MT_CORRECTNESS</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#LI_LAZY_INIT_STATIC">LI_LAZY_INIT_STATIC</a></td>
 <td>102</td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>org.universAAL.middleware.bus.model.AbstractBus.aalSpaceManager should be package protected</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_PKGPROTECT">MS_PKGPROTECT</a></td>
-<td></td>
-<td>Medium</td></tr>
-<tr class="a">
 <td>org.universAAL.middleware.bus.model.AbstractBus.communicationModule should be package protected</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_PKGPROTECT">MS_PKGPROTECT</a></td>
 <td></td>
 <td>Medium</td></tr>
+<tr class="a">
+<td>org.universAAL.middleware.bus.model.AbstractBus.spaceManager should be package protected</td>
+<td>MALICIOUS_CODE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_PKGPROTECT">MS_PKGPROTECT</a></td>
+<td></td>
+<td>Medium</td></tr>
 <tr class="b">
-<td>Write to static field org.universAAL.middleware.bus.model.AbstractBus.uAAL_MW_INSTANCE_BUS_MEMBERSHIPS from instance method org.universAAL.middleware.bus.model.AbstractBus.createBusSpecificID(String, String)</td>
+<td>Write to static field org.universAAL.middleware.bus.model.AbstractBus.MW_INSTANCE_BUS_MEMBERSHIPS from instance method org.universAAL.middleware.bus.model.AbstractBus.createBusSpecificID(String, String)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD">ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD</a></td>
 <td>405</td>

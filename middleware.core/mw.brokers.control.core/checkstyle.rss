@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 4,
              Errors: 143,
-             Warnings: 35,
-             Infos: 15
+             Warnings: 34,
+             Infos: 7
       </title>
             <link>http://middleware/middleware.core/mw.brokers.control.core//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.brokers.control.core//checkstyle.html#org.universAAL.middleware.brokers.control.ControlBroker.java">org/universAAL/middleware/brokers/control/ControlBroker.java</a>
                 </td>
                 <td>
-                  10
+                  2
                 </td>
                 <td>
-                  22
+                  21
                 </td>
                 <td>
                   124

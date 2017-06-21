@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 26,
              Errors: 254,
-             Warnings: 21,
-             Infos: 194
+             Warnings: 20,
+             Infos: 171
       </title>
             <link>http://middleware/middleware.core/mw.bus.model.core//checkstyle.html</link>
       <description>
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.model.core//checkstyle.html#org.universAAL.middleware.bus.member.BusMember.java">org/universAAL/middleware/bus/member/BusMember.java</a>
                 </td>
                 <td>
-                  15
+                  0
                 </td>
                 <td>
                   1
@@ -133,10 +133,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.model.core//checkstyle.html#org.universAAL.middleware.bus.model.AbstractBus.java">org/universAAL/middleware/bus/model/AbstractBus.java</a>
                 </td>
                 <td>
-                  10
+                  2
                 </td>
                 <td>
-                  5
+                  4
                 </td>
                 <td>
                   54

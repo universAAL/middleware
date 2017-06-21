@@ -10,15 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.connectors.deploy.karaf.model.FeaturesRoot
-	c229014 [label=<<table title="org.universAAL.middleware.connectors.deploy.karaf.model.FeaturesRoot" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FeaturesRoot.html">
+	c186364 [label=<<table title="org.universAAL.middleware.connectors.deploy.karaf.model.FeaturesRoot" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FeaturesRoot.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FeaturesRoot </td></tr>
 		</table></td></tr>
 		</table>>, URL="./FeaturesRoot.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.connectors.deploy.karaf.model.FeaturesRoot implements java.io.Serializable
-	c229605:p -> c229014:p [dir=back,arrowtail=empty,style=dashed];
+	c186915:p -> c186364:p [dir=back,arrowtail=empty,style=dashed];
 	// java.io.Serializable
-	c229605 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html">
+	c186915 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Serializable </td></tr>

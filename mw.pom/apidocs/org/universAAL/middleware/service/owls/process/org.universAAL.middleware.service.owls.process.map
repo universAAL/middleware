@@ -1,18 +1,18 @@
 <map id="G" name="G">
-<area shape="rect" id="c51270" href="./ProcessLocal.html" title="org.universAAL.middleware.service.owls.process.ProcessLocal" alt="" coords="15,113,115,138"/>
+<area shape="rect" id="c46416" href="./ProcessLocal.html" title="org.universAAL.middleware.service.owls.process.ProcessLocal" alt="" coords="15,113,115,138"/>
 <area shape="rect" id="node1" href="./ProcessLocal.html" title="&lt;TABLE&gt;" alt="" coords="5,101,125,149"/>
-<area shape="rect" id="c51271" href="./ProcessEffect.html" title="org.universAAL.middleware.service.owls.process.ProcessEffect" alt="" coords="317,17,421,42"/>
+<area shape="rect" id="c46417" href="./ProcessEffect.html" title="org.universAAL.middleware.service.owls.process.ProcessEffect" alt="" coords="317,17,421,42"/>
 <area shape="rect" id="node2" href="./ProcessEffect.html" title="&lt;TABLE&gt;" alt="" coords="307,5,432,53"/>
-<area shape="rect" id="c51272" href="./Conversion.html" title="org.universAAL.middleware.service.owls.process.Conversion" alt="" coords="466,17,553,42"/>
+<area shape="rect" id="c46418" href="./Conversion.html" title="org.universAAL.middleware.service.owls.process.Conversion" alt="" coords="466,17,553,42"/>
 <area shape="rect" id="node3" href="./Conversion.html" title="&lt;TABLE&gt;" alt="" coords="456,5,563,53"/>
-<area shape="rect" id="c51273" href="./OutputBinding.html" title="org.universAAL.middleware.service.owls.process.OutputBinding" alt="" coords="597,17,699,42"/>
+<area shape="rect" id="c46419" href="./OutputBinding.html" title="org.universAAL.middleware.service.owls.process.OutputBinding" alt="" coords="597,17,699,42"/>
 <area shape="rect" id="node4" href="./OutputBinding.html" title="&lt;TABLE&gt;" alt="" coords="587,5,709,53"/>
-<area shape="rect" id="c51274" href="./ProcessInput.html" title="org.universAAL.middleware.service.owls.process.ProcessInput" alt="" coords="159,113,257,138"/>
+<area shape="rect" id="c46420" href="./ProcessInput.html" title="org.universAAL.middleware.service.owls.process.ProcessInput" alt="" coords="159,113,257,138"/>
 <area shape="rect" id="node5" href="./ProcessInput.html" title="&lt;TABLE&gt;" alt="" coords="149,101,267,149"/>
-<area shape="rect" id="c51275" href="./ProcessResult.html" title="org.universAAL.middleware.service.owls.process.ProcessResult" alt="" coords="744,17,851,42"/>
+<area shape="rect" id="c46421" href="./ProcessResult.html" title="org.universAAL.middleware.service.owls.process.ProcessResult" alt="" coords="744,17,851,42"/>
 <area shape="rect" id="node6" href="./ProcessResult.html" title="&lt;TABLE&gt;" alt="" coords="733,5,861,53"/>
-<area shape="rect" id="c51276" href="./ProcessParameter.html" title="org.universAAL.middleware.service.owls.process.ProcessParameter" alt="" coords="143,17,273,42"/>
+<area shape="rect" id="c46422" href="./ProcessParameter.html" title="org.universAAL.middleware.service.owls.process.ProcessParameter" alt="" coords="143,17,273,42"/>
 <area shape="rect" id="node7" href="./ProcessParameter.html" title="&lt;TABLE&gt;" alt="" coords="133,5,283,53"/>
-<area shape="rect" id="c51277" href="./ProcessOutput.html" title="org.universAAL.middleware.service.owls.process.ProcessOutput" alt="" coords="301,113,409,138"/>
+<area shape="rect" id="c46423" href="./ProcessOutput.html" title="org.universAAL.middleware.service.owls.process.ProcessOutput" alt="" coords="301,113,409,138"/>
 <area shape="rect" id="node8" href="./ProcessOutput.html" title="&lt;TABLE&gt;" alt="" coords="291,101,419,149"/>
 </map>

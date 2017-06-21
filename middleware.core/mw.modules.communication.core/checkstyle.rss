@@ -28,7 +28,7 @@ under the License.
       <title>File: 3,
              Errors: 89,
              Warnings: 1,
-             Infos: 4
+             Infos: 2
       </title>
             <link>http://middleware/middleware.core/mw.modules.communication.core//checkstyle.html</link>
       <description>
@@ -77,7 +77,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.modules.communication.core//checkstyle.html#org.universAAL.middleware.modules.communication.CommunicationModuleImpl.java">org/universAAL/middleware/modules/communication/CommunicationModuleImpl.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0

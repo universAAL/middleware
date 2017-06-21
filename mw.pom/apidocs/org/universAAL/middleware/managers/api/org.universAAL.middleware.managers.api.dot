@@ -10,127 +10,127 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.managers.api.ConfigurationEditor
-	c31045 [label=<<table title="org.universAAL.middleware.managers.api.ConfigurationEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationEditor.html">
+	c27631 [label=<<table title="org.universAAL.middleware.managers.api.ConfigurationEditor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationEditor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigurationEditor </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationEditor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.ConfigurationEditor.ConfigurableEntityManager
-	c31046 [label=<<table title="org.universAAL.middleware.managers.api.ConfigurationEditor.ConfigurableEntityManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationEditor.ConfigurableEntityManager.html">
+	c27632 [label=<<table title="org.universAAL.middleware.managers.api.ConfigurationEditor.ConfigurableEntityManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationEditor.ConfigurableEntityManager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigurableEntityManager </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationEditor.ConfigurableEntityManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.managers.api.SpaceEventHandler
+	c27633 [label=<<table title="org.universAAL.middleware.managers.api.SpaceEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SpaceEventHandler.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> SpaceEventHandler </td></tr>
+		</table></td></tr>
+		</table>>, URL="./SpaceEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.ConfigurationManager
-	c31047 [label=<<table title="org.universAAL.middleware.managers.api.ConfigurationManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationManager.html">
+	c27634 [label=<<table title="org.universAAL.middleware.managers.api.ConfigurationManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationManager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigurationManager </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.managers.api.SpaceManager
+	c27635 [label=<<table title="org.universAAL.middleware.managers.api.SpaceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SpaceManager.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> SpaceManager </td></tr>
+		</table></td></tr>
+		</table>>, URL="./SpaceManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.DeployManagerEventHandler
-	c31048 [label=<<table title="org.universAAL.middleware.managers.api.DeployManagerEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeployManagerEventHandler.html">
+	c27636 [label=<<table title="org.universAAL.middleware.managers.api.DeployManagerEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeployManagerEventHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DeployManagerEventHandler </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DeployManagerEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.InstallationResults
-	c31049 [label=<<table title="org.universAAL.middleware.managers.api.InstallationResults" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InstallationResults.html">
+	c27637 [label=<<table title="org.universAAL.middleware.managers.api.InstallationResults" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InstallationResults.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> InstallationResults </td></tr>
 		</table></td></tr>
 		</table>>, URL="./InstallationResults.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.InstallationResultsDetails
-	c31050 [label=<<table title="org.universAAL.middleware.managers.api.InstallationResultsDetails" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InstallationResultsDetails.html">
+	c27638 [label=<<table title="org.universAAL.middleware.managers.api.InstallationResultsDetails" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InstallationResultsDetails.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> InstallationResultsDetails </td></tr>
 		</table></td></tr>
 		</table>>, URL="./InstallationResultsDetails.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.UAPPPackage
-	c31051 [label=<<table title="org.universAAL.middleware.managers.api.UAPPPackage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UAPPPackage.html">
+	c27639 [label=<<table title="org.universAAL.middleware.managers.api.UAPPPackage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UAPPPackage.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UAPPPackage </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UAPPPackage.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.DeployManager
-	c31052 [label=<<table title="org.universAAL.middleware.managers.api.DeployManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeployManager.html">
+	c27640 [label=<<table title="org.universAAL.middleware.managers.api.DeployManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeployManager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DeployManager </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DeployManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.ConfigurationManagerConnector
-	c31053 [label=<<table title="org.universAAL.middleware.managers.api.ConfigurationManagerConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationManagerConnector.html">
+	c27641 [label=<<table title="org.universAAL.middleware.managers.api.ConfigurationManagerConnector" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationManagerConnector.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigurationManagerConnector </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationManagerConnector.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.managers.api.MatchingResult
+	c27642 [label=<<table title="org.universAAL.middleware.managers.api.MatchingResult" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MatchingResult.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> MatchingResult </td></tr>
+		</table></td></tr>
+		</table>>, URL="./MatchingResult.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.TenantListener
-	c31054 [label=<<table title="org.universAAL.middleware.managers.api.TenantListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TenantListener.html">
+	c27643 [label=<<table title="org.universAAL.middleware.managers.api.TenantListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TenantListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TenantListener </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TenantListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.TenantManager
-	c31055 [label=<<table title="org.universAAL.middleware.managers.api.TenantManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TenantManager.html">
+	c27644 [label=<<table title="org.universAAL.middleware.managers.api.TenantManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TenantManager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TenantManager </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TenantManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.api.DistributedMWEventHandler
-	c31056 [label=<<table title="org.universAAL.middleware.managers.api.DistributedMWEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DistributedMWEventHandler.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> DistributedMWEventHandler </td></tr>
-		</table></td></tr>
-		</table>>, URL="./DistributedMWEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.api.AALSpaceListener
-	c31057 [label=<<table title="org.universAAL.middleware.managers.api.AALSpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AALSpaceListener.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> AALSpaceListener </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AALSpaceListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.api.MatchingResult
-	c31058 [label=<<table title="org.universAAL.middleware.managers.api.MatchingResult" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MatchingResult.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> MatchingResult </td></tr>
-		</table></td></tr>
-		</table>>, URL="./MatchingResult.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.Manager
-	c31059 [label=<<table title="org.universAAL.middleware.managers.api.Manager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Manager.html">
+	c27645 [label=<<table title="org.universAAL.middleware.managers.api.Manager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Manager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Manager </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Manager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.api.AALSpaceManager
-	c31060 [label=<<table title="org.universAAL.middleware.managers.api.AALSpaceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AALSpaceManager.html">
+	// org.universAAL.middleware.managers.api.DistributedMWEventHandler
+	c27646 [label=<<table title="org.universAAL.middleware.managers.api.DistributedMWEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DistributedMWEventHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> AALSpaceManager </td></tr>
+<tr><td align="center" balign="center"> DistributedMWEventHandler </td></tr>
 		</table></td></tr>
-		</table>>, URL="./AALSpaceManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.api.AALSpaceEventHandler
-	c31061 [label=<<table title="org.universAAL.middleware.managers.api.AALSpaceEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AALSpaceEventHandler.html">
+		</table>>, URL="./DistributedMWEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.managers.api.SpaceListener
+	c27647 [label=<<table title="org.universAAL.middleware.managers.api.SpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SpaceListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> AALSpaceEventHandler </td></tr>
+<tr><td align="center" balign="center"> SpaceListener </td></tr>
 		</table></td></tr>
-		</table>>, URL="./AALSpaceEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./SpaceListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//org.universAAL.middleware.managers.api.SpaceManager implements org.universAAL.middleware.managers.api.Manager
+	c27645:p -> c27635:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.api.DeployManager implements org.universAAL.middleware.managers.api.Manager
-	c31059:p -> c31052:p [dir=back,arrowtail=empty,style=dashed];
+	c27645:p -> c27640:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.api.TenantManager implements org.universAAL.middleware.managers.api.Manager
-	c31059:p -> c31055:p [dir=back,arrowtail=empty,style=dashed];
-	//org.universAAL.middleware.managers.api.AALSpaceManager implements org.universAAL.middleware.managers.api.Manager
-	c31059:p -> c31060:p [dir=back,arrowtail=empty,style=dashed];
+	c27645:p -> c27644:p [dir=back,arrowtail=empty,style=dashed];
 }
 

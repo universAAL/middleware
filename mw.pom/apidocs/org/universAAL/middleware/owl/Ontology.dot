@@ -10,66 +10,66 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.owl.SimpleOntology
-	c311871 [label=<<table title="org.universAAL.middleware.owl.SimpleOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SimpleOntology.html">
+	c265615 [label=<<table title="org.universAAL.middleware.owl.SimpleOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SimpleOntology.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SimpleOntology </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SimpleOntology.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.DataRepOntology
-	c311872 [label=<<table title="org.universAAL.middleware.owl.DataRepOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DataRepOntology.html">
+	c265616 [label=<<table title="org.universAAL.middleware.owl.DataRepOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DataRepOntology.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DataRepOntology </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DataRepOntology.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.Ontology
-	c311891 [label=<<table title="org.universAAL.middleware.owl.Ontology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Ontology.html">
+	c265635 [label=<<table title="org.universAAL.middleware.owl.Ontology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Ontology.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Ontology </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./Ontology.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.generic.GenericOntology
-	c311900 [label=<<table title="org.universAAL.middleware.owl.generic.GenericOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./generic/GenericOntology.html">
+	c265644 [label=<<table title="org.universAAL.middleware.owl.generic.GenericOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./generic/GenericOntology.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GenericOntology </td></tr>
 		</table></td></tr>
 		</table>>, URL="./generic/GenericOntology.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology
-	c312137 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/configuration/core/owl/AALConfigurationOntology.html">
+	// org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology
+	c265841 [label=<<table title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../managers/configuration/core/owl/ConfigurationOntology.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AALConfigurationOntology </td></tr>
+<tr><td align="center" balign="center"> ConfigurationOntology </td></tr>
 		</table></td></tr>
-		</table>>, URL="../managers/configuration/core/owl/AALConfigurationOntology.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../managers/configuration/core/owl/ConfigurationOntology.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.context.owl.ContextBusOntology
-	c312196 [label=<<table title="org.universAAL.middleware.context.owl.ContextBusOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../context/owl/ContextBusOntology.html">
+	c265900 [label=<<table title="org.universAAL.middleware.context.owl.ContextBusOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../context/owl/ContextBusOntology.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ContextBusOntology </td></tr>
 		</table></td></tr>
 		</table>>, URL="../context/owl/ContextBusOntology.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.owl.ServiceBusOntology
-	c312238 [label=<<table title="org.universAAL.middleware.service.owl.ServiceBusOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../service/owl/ServiceBusOntology.html">
+	c265942 [label=<<table title="org.universAAL.middleware.service.owl.ServiceBusOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../service/owl/ServiceBusOntology.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ServiceBusOntology </td></tr>
 		</table></td></tr>
 		</table>>, URL="../service/owl/ServiceBusOntology.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.owl.UIBusOntology
-	c312284 [label=<<table title="org.universAAL.middleware.ui.owl.UIBusOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/UIBusOntology.html">
+	c265988 [label=<<table title="org.universAAL.middleware.ui.owl.UIBusOntology" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ui/owl/UIBusOntology.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UIBusOntology </td></tr>
 		</table></td></tr>
 		</table>>, URL="../ui/owl/UIBusOntology.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.owl.SimpleOntology extends org.universAAL.middleware.owl.Ontology
-	c311891:p -> c311871:p [dir=back,arrowtail=empty];
+	c265635:p -> c265615:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.DataRepOntology extends org.universAAL.middleware.owl.Ontology
-	c311891:p -> c311872:p [dir=back,arrowtail=empty];
+	c265635:p -> c265616:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.generic.GenericOntology extends org.universAAL.middleware.owl.Ontology
-	c311891:p -> c311900:p [dir=back,arrowtail=empty];
-	//org.universAAL.middleware.managers.configuration.core.owl.AALConfigurationOntology extends org.universAAL.middleware.owl.Ontology
-	c311891:p -> c312137:p [dir=back,arrowtail=empty];
+	c265635:p -> c265644:p [dir=back,arrowtail=empty];
+	//org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology extends org.universAAL.middleware.owl.Ontology
+	c265635:p -> c265841:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.context.owl.ContextBusOntology extends org.universAAL.middleware.owl.Ontology
-	c311891:p -> c312196:p [dir=back,arrowtail=empty];
+	c265635:p -> c265900:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.owl.ServiceBusOntology extends org.universAAL.middleware.owl.Ontology
-	c311891:p -> c312238:p [dir=back,arrowtail=empty];
+	c265635:p -> c265942:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.ui.owl.UIBusOntology extends org.universAAL.middleware.owl.Ontology
-	c311891:p -> c312284:p [dir=back,arrowtail=empty];
+	c265635:p -> c265988:p [dir=back,arrowtail=empty];
 }
 

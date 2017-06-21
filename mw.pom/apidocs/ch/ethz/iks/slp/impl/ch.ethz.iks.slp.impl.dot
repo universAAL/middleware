@@ -10,70 +10,70 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// ch.ethz.iks.slp.impl.OSGiPlatformAbstraction
-	c633 [label=<<table title="ch.ethz.iks.slp.impl.OSGiPlatformAbstraction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OSGiPlatformAbstraction.html">
+	c588 [label=<<table title="ch.ethz.iks.slp.impl.OSGiPlatformAbstraction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OSGiPlatformAbstraction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OSGiPlatformAbstraction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OSGiPlatformAbstraction.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// ch.ethz.iks.slp.impl.Activator
-	c634 [label=<<table title="ch.ethz.iks.slp.impl.Activator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Activator.html">
+	c589 [label=<<table title="ch.ethz.iks.slp.impl.Activator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Activator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Activator </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Activator.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// ch.ethz.iks.slp.impl.SLPCore
-	c635 [label=<<table title="ch.ethz.iks.slp.impl.SLPCore" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SLPCore.html">
+	c590 [label=<<table title="ch.ethz.iks.slp.impl.SLPCore" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SLPCore.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> SLPCore </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./SLPCore.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// ch.ethz.iks.slp.impl.SLPDaemon
-	c636 [label=<<table title="ch.ethz.iks.slp.impl.SLPDaemon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SLPDaemon.html">
+	c591 [label=<<table title="ch.ethz.iks.slp.impl.SLPDaemon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SLPDaemon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> SLPDaemon </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SLPDaemon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// ch.ethz.iks.slp.impl.SLPDaemonImpl
-	c637 [label=<<table title="ch.ethz.iks.slp.impl.SLPDaemonImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SLPDaemonImpl.html">
+	c592 [label=<<table title="ch.ethz.iks.slp.impl.SLPDaemonImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SLPDaemonImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SLPDaemonImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SLPDaemonImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// ch.ethz.iks.slp.impl.LocatorImpl
-	c638 [label=<<table title="ch.ethz.iks.slp.impl.LocatorImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LocatorImpl.html">
+	c593 [label=<<table title="ch.ethz.iks.slp.impl.LocatorImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LocatorImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LocatorImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="./LocatorImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// ch.ethz.iks.slp.impl.AdvertiserImpl
-	c639 [label=<<table title="ch.ethz.iks.slp.impl.AdvertiserImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvertiserImpl.html">
+	c594 [label=<<table title="ch.ethz.iks.slp.impl.AdvertiserImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvertiserImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvertiserImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AdvertiserImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// ch.ethz.iks.slp.impl.PlatformAbstraction
-	c640 [label=<<table title="ch.ethz.iks.slp.impl.PlatformAbstraction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PlatformAbstraction.html">
+	c595 [label=<<table title="ch.ethz.iks.slp.impl.PlatformAbstraction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PlatformAbstraction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> PlatformAbstraction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PlatformAbstraction.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// ch.ethz.iks.slp.impl.AuthenticatedURL
-	c641 [label=<<table title="ch.ethz.iks.slp.impl.AuthenticatedURL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AuthenticatedURL.html">
+	c596 [label=<<table title="ch.ethz.iks.slp.impl.AuthenticatedURL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AuthenticatedURL.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AuthenticatedURL </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./AuthenticatedURL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// ch.ethz.iks.slp.impl.SLPMessage
-	c642 [label=<<table title="ch.ethz.iks.slp.impl.SLPMessage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SLPMessage.html">
+	c597 [label=<<table title="ch.ethz.iks.slp.impl.SLPMessage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SLPMessage.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> SLPMessage </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./SLPMessage.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//ch.ethz.iks.slp.impl.OSGiPlatformAbstraction implements ch.ethz.iks.slp.impl.PlatformAbstraction
-	c640:p -> c633:p [dir=back,arrowtail=empty,style=dashed];
+	c595:p -> c588:p [dir=back,arrowtail=empty,style=dashed];
 	//ch.ethz.iks.slp.impl.SLPDaemonImpl implements ch.ethz.iks.slp.impl.SLPDaemon
-	c636:p -> c637:p [dir=back,arrowtail=empty,style=dashed];
+	c591:p -> c592:p [dir=back,arrowtail=empty,style=dashed];
 }
 

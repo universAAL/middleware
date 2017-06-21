@@ -10,15 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.connectors.deploy.karaf.model.ConfigFile
-	c163787 [label=<<table title="org.universAAL.middleware.connectors.deploy.karaf.model.ConfigFile" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigFile.html">
+	c124653 [label=<<table title="org.universAAL.middleware.connectors.deploy.karaf.model.ConfigFile" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigFile.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigFile </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigFile.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.connectors.deploy.karaf.model.ConfigFile implements java.io.Serializable
-	c164379:p -> c163787:p [dir=back,arrowtail=empty,style=dashed];
+	c125205:p -> c124653:p [dir=back,arrowtail=empty,style=dashed];
 	// java.io.Serializable
-	c164379 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html">
+	c125205 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Serializable </td></tr>

@@ -10,46 +10,46 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.container.SharedObjectListener
-	c202027 [label=<<table title="org.universAAL.middleware.container.SharedObjectListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../container/SharedObjectListener.html">
+	c161317 [label=<<table title="org.universAAL.middleware.container.SharedObjectListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../container/SharedObjectListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> SharedObjectListener </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../container/SharedObjectListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.DeployManagerEventHandler
-	c202332 [label=<<table title="org.universAAL.middleware.managers.api.DeployManagerEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../api/DeployManagerEventHandler.html">
+	c161579 [label=<<table title="org.universAAL.middleware.managers.api.DeployManagerEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../api/DeployManagerEventHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DeployManagerEventHandler </td></tr>
 		</table></td></tr>
 		</table>>, URL="../api/DeployManagerEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.api.DeployManager
-	c202336 [label=<<table title="org.universAAL.middleware.managers.api.DeployManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../api/DeployManager.html">
+	c161583 [label=<<table title="org.universAAL.middleware.managers.api.DeployManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../api/DeployManager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DeployManager </td></tr>
 		</table></td></tr>
 		</table>>, URL="../api/DeployManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.managers.api.AALSpaceListener
-	c202341 [label=<<table title="org.universAAL.middleware.managers.api.AALSpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../api/AALSpaceListener.html">
+	// org.universAAL.middleware.managers.api.SpaceListener
+	c161590 [label=<<table title="org.universAAL.middleware.managers.api.SpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../api/SpaceListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> AALSpaceListener </td></tr>
+<tr><td align="center" balign="center"> SpaceListener </td></tr>
 		</table></td></tr>
-		</table>>, URL="../api/AALSpaceListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../api/SpaceListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.managers.deploy.DeployManagerImpl
-	c202362 [label=<<table title="org.universAAL.middleware.managers.deploy.DeployManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeployManagerImpl.html">
+	c161607 [label=<<table title="org.universAAL.middleware.managers.deploy.DeployManagerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeployManagerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DeployManagerImpl </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DeployManagerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.managers.deploy.DeployManagerImpl implements org.universAAL.middleware.managers.api.DeployManager
-	c202336:p -> c202362:p [dir=back,arrowtail=empty,style=dashed];
+	c161583:p -> c161607:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.deploy.DeployManagerImpl implements org.universAAL.middleware.managers.api.DeployManagerEventHandler
-	c202332:p -> c202362:p [dir=back,arrowtail=empty,style=dashed];
+	c161579:p -> c161607:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.managers.deploy.DeployManagerImpl implements org.universAAL.middleware.container.SharedObjectListener
-	c202027:p -> c202362:p [dir=back,arrowtail=empty,style=dashed];
-	//org.universAAL.middleware.managers.deploy.DeployManagerImpl implements org.universAAL.middleware.managers.api.AALSpaceListener
-	c202341:p -> c202362:p [dir=back,arrowtail=empty,style=dashed];
+	c161317:p -> c161607:p [dir=back,arrowtail=empty,style=dashed];
+	//org.universAAL.middleware.managers.deploy.DeployManagerImpl implements org.universAAL.middleware.managers.api.SpaceListener
+	c161590:p -> c161607:p [dir=back,arrowtail=empty,style=dashed];
 }
 

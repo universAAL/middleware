@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="c75238" href="./Activator.html" title="org.universAAL.middleware.felix.shell.commands.Activator" alt="" coords="15,17,89,42"/>
-<area shape="rect" id="node1" href="./Activator.html" title="&lt;TABLE&gt;" alt="" coords="5,5,99,53"/>
-<area shape="rect" id="c75239" href="./AALSpaceCommand.html" title="org.universAAL.middleware.felix.shell.commands.AALSpaceCommand" alt="" coords="133,17,275,42"/>
-<area shape="rect" id="node2" href="./AALSpaceCommand.html" title="&lt;TABLE&gt;" alt="" coords="123,5,285,53"/>
+<area shape="rect" id="c68674" href="./SpaceCommand.html" title="org.universAAL.middleware.felix.shell.commands.SpaceCommand" alt="" coords="16,17,133,42"/>
+<area shape="rect" id="node1" href="./SpaceCommand.html" title="&lt;TABLE&gt;" alt="" coords="5,5,144,53"/>
+<area shape="rect" id="c68675" href="./Activator.html" title="org.universAAL.middleware.felix.shell.commands.Activator" alt="" coords="178,17,251,42"/>
+<area shape="rect" id="node2" href="./Activator.html" title="&lt;TABLE&gt;" alt="" coords="168,5,261,53"/>
 </map>

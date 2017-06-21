@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="32" branches-covered="0" branches-valid="4" complexity="1.0461538461538462" version="2.1.1" timestamp="1497066375398">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="32" branches-covered="0" branches-valid="4" complexity="1.0461538461538462" version="2.1.1" timestamp="1498024765931">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.managers.api.core/src/main/java</source>
@@ -9,24 +9,6 @@
 	<packages>
 		<package name="org.universAAL.middleware.managers.api" line-rate="0.0" branch-rate="0.0" complexity="1.0461538461538462">
 			<classes>
-				<class name="org.universAAL.middleware.managers.api.AALSpaceEventHandler" filename="org/universAAL/middleware/managers/api/AALSpaceEventHandler.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
-					<methods>
-					</methods>
-					<lines>
-					</lines>
-				</class>
-				<class name="org.universAAL.middleware.managers.api.AALSpaceListener" filename="org/universAAL/middleware/managers/api/AALSpaceListener.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
-					<methods>
-					</methods>
-					<lines>
-					</lines>
-				</class>
-				<class name="org.universAAL.middleware.managers.api.AALSpaceManager" filename="org/universAAL/middleware/managers/api/AALSpaceManager.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
-					<methods>
-					</methods>
-					<lines>
-					</lines>
-				</class>
 				<class name="org.universAAL.middleware.managers.api.ConfigurationEditor" filename="org/universAAL/middleware/managers/api/ConfigurationEditor.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 					</methods>
@@ -117,7 +99,7 @@
 								<line number="62" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="getDetailedResult" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;Lorg/universAAL/middleware/deploymanager/uapp/model/Part;)Lorg/universAAL/middleware/managers/api/InstallationResults;" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="getDetailedResult" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;Lorg/universAAL/middleware/managers/deploy/uapp/model/Part;)Lorg/universAAL/middleware/managers/api/InstallationResults;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="66" hits="0" branch="false"/>
 							</lines>
@@ -141,7 +123,7 @@
 								<line number="51" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setDetailedResult" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;Lorg/universAAL/middleware/deploymanager/uapp/model/Part;Lorg/universAAL/middleware/managers/api/InstallationResults;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setDetailedResult" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;Lorg/universAAL/middleware/managers/deploy/uapp/model/Part;Lorg/universAAL/middleware/managers/api/InstallationResults;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="54" hits="0" branch="false"/>
 								<line number="55" hits="0" branch="false"/>
@@ -192,6 +174,24 @@
 					</lines>
 				</class>
 				<class name="org.universAAL.middleware.managers.api.MatchingResult" filename="org/universAAL/middleware/managers/api/MatchingResult.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.managers.api.SpaceEventHandler" filename="org/universAAL/middleware/managers/api/SpaceEventHandler.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.managers.api.SpaceListener" filename="org/universAAL/middleware/managers/api/SpaceListener.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="org.universAAL.middleware.managers.api.SpaceManager" filename="org/universAAL/middleware/managers/api/SpaceManager.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 					</methods>
 					<lines>

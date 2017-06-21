@@ -10,26 +10,26 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.owl.TypeExpression
-	c265482 [label=<<table title="org.universAAL.middleware.owl.TypeExpression" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TypeExpression.html">
+	c220222 [label=<<table title="org.universAAL.middleware.owl.TypeExpression" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TypeExpression.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TypeExpression </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./TypeExpression.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.Intersection
-	c265483 [label=<<table title="org.universAAL.middleware.owl.Intersection" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Intersection.html">
+	c220223 [label=<<table title="org.universAAL.middleware.owl.Intersection" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Intersection.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Intersection </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Intersection.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.owl.MergedRestriction
-	c265484 [label=<<table title="org.universAAL.middleware.owl.MergedRestriction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MergedRestriction.html">
+	c220224 [label=<<table title="org.universAAL.middleware.owl.MergedRestriction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MergedRestriction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MergedRestriction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MergedRestriction.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.owl.Intersection extends org.universAAL.middleware.owl.TypeExpression
-	c265482:p -> c265483:p [dir=back,arrowtail=empty];
+	c220222:p -> c220223:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.owl.MergedRestriction extends org.universAAL.middleware.owl.Intersection
-	c265483:p -> c265484:p [dir=back,arrowtail=empty];
+	c220223:p -> c220224:p [dir=back,arrowtail=empty];
 }
 

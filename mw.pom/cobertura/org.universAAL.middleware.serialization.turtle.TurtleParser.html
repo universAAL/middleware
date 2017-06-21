@@ -1269,21 +1269,21 @@
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Read up to the next '&gt;' character</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;825</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="keyword">while</span> (<span class="keyword">true</span>) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;826</td>  <td class="nbHitsCovered">&nbsp;5847</td>  <td class="src"><pre class="src">&nbsp;                        c = read();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;826</td>  <td class="nbHitsCovered">&nbsp;5895</td>  <td class="src"><pre class="src">&nbsp;                        c = read();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;827</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;828</td>  <td class="nbHitsCovered"><a title="Line 828: Conditional coverage 100% (2/2).">&nbsp;5847</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 828: Conditional coverage 100% (2/2).">                        <span class="keyword">if</span> (c == <span class="string">'&gt;'</span>) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;828</td>  <td class="nbHitsCovered"><a title="Line 828: Conditional coverage 100% (2/2).">&nbsp;5895</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 828: Conditional coverage 100% (2/2).">                        <span class="keyword">if</span> (c == <span class="string">'&gt;'</span>) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;829</td>  <td class="nbHitsCovered">&nbsp;171</td>  <td class="src"><pre class="src">&nbsp;                                <span class="keyword">break</span>;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;830</td>  <td class="nbHitsCovered"><a title="Line 830: Conditional coverage 100% (2/2).">&nbsp;5676</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 830: Conditional coverage 100% (2/2).">                        } <span class="keyword">else</span> <span class="keyword">if</span> (c == -1) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;830</td>  <td class="nbHitsCovered"><a title="Line 830: Conditional coverage 100% (2/2).">&nbsp;5724</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 830: Conditional coverage 100% (2/2).">                        } <span class="keyword">else</span> <span class="keyword">if</span> (c == -1) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;831</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;                                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Unexpected end of file!"</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;832</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;833</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;834</td>  <td class="nbHitsCovered">&nbsp;5674</td>  <td class="src"><pre class="src">&nbsp;                        uriBuf.append((<span class="keyword">char</span>) c);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;834</td>  <td class="nbHitsCovered">&nbsp;5722</td>  <td class="src"><pre class="src">&nbsp;                        uriBuf.append((<span class="keyword">char</span>) c);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;835</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;836</td>  <td class="nbHitsCovered"><a title="Line 836: Conditional coverage 100% (2/2).">&nbsp;5674</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 836: Conditional coverage 100% (2/2).">                        <span class="keyword">if</span> (c == <span class="string">'\\'</span>) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;836</td>  <td class="nbHitsCovered"><a title="Line 836: Conditional coverage 100% (2/2).">&nbsp;5722</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 836: Conditional coverage 100% (2/2).">                        <span class="keyword">if</span> (c == <span class="string">'\\'</span>) {</a></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;837</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="comment">// This escapes the next character, which might be a '&gt;'</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;838</td>  <td class="nbHitsCovered">&nbsp;1</td>  <td class="src"><pre class="src">&nbsp;                                c = read();</pre></td></tr>
@@ -1411,7 +1411,7 @@
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> <span class="keyword">int</span> read() {</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;914</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="keyword">try</span> {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;915</td>  <td class="nbHitsCovered">&nbsp;17760</td>  <td class="src"><pre class="src">&nbsp;                        <span class="keyword">return</span> reader.read();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;915</td>  <td class="nbHitsCovered">&nbsp;17808</td>  <td class="src"><pre class="src">&nbsp;                        <span class="keyword">return</span> reader.read();</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;916</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                } <span class="keyword">catch</span> (Exception e) {</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;917</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e.getMessage());</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;918</td>  <td class="nbHits">&nbsp;</td>
@@ -1535,6 +1535,6 @@
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 6/10/17 3:52 AM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 6/21/17 6:06 AM.</div>
 </body>
 </html>

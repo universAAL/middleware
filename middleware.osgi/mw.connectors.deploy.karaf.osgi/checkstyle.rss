@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 2,
-             Errors: 60,
+             Errors: 54,
              Warnings: 25,
-             Infos: 6
+             Infos: 5
       </title>
             <link>http://middleware/middleware.osgi/mw.connectors.deploy.karaf.osgi//checkstyle.html</link>
       <description>
@@ -63,13 +63,13 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.connectors.deploy.karaf.osgi//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.KarafDeployConnector.java">org/universAAL/middleware/connectors/deploy/karaf/KarafDeployConnector.java</a>
                 </td>
                 <td>
-                  4
+                  3
                 </td>
                 <td>
                   24
                 </td>
                 <td>
-                  53
+                  47
                 </td>
               </tr>
                       </tbody>

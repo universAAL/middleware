@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="419" branches-covered="0" branches-valid="248" complexity="3.3714285714285714" version="2.1.1" timestamp="1497066516376">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="419" branches-covered="0" branches-valid="248" complexity="3.3714285714285714" version="2.1.1" timestamp="1498024916747">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/middleware/middleware.osgi/mw.container.osgi/src/main/java</source>
@@ -15,7 +15,7 @@
 					<lines>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.container.osgi.uAALBundleContainer" filename="org/universAAL/middleware/container/osgi/uAALBundleContainer.java" line-rate="0.0" branch-rate="0.0" complexity="9.3">
+				<class name="org.universAAL.middleware.container.osgi.OSGiContainer" filename="org/universAAL/middleware/container/osgi/OSGiContainer.java" line-rate="0.0" branch-rate="0.0" complexity="9.3">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -697,7 +697,7 @@
 						<line number="348" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.container.osgi.uAALBundleContext" filename="org/universAAL/middleware/container/osgi/uAALBundleContext.java" line-rate="0.0" branch-rate="0.0" complexity="2.0476190476190474">
+				<class name="org.universAAL.middleware.container.osgi.OSGiModuleContext" filename="org/universAAL/middleware/container/osgi/OSGiModuleContext.java" line-rate="0.0" branch-rate="0.0" complexity="2.0476190476190474">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -880,7 +880,7 @@
 								<line number="395" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="installBundle" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/container/osgi/uAALBundleContext;" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="installBundle" signature="(Ljava/lang/String;)Lorg/universAAL/middleware/container/osgi/OSGiModuleContext;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="194" hits="0" branch="false"/>
 								<line number="195" hits="0" branch="false"/>
@@ -889,7 +889,7 @@
 								<line number="199" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="installBundle" signature="(Ljava/lang/String;Ljava/io/InputStream;)Lorg/universAAL/middleware/container/osgi/uAALBundleContext;" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="installBundle" signature="(Ljava/lang/String;Ljava/io/InputStream;)Lorg/universAAL/middleware/container/osgi/OSGiModuleContext;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="205" hits="0" branch="false"/>
 								<line number="206" hits="0" branch="false"/>
@@ -1525,7 +1525,7 @@
 						<line number="86" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.container.osgi.run.uAALBundleExtender" filename="org/universAAL/middleware/container/osgi/run/uAALBundleExtender.java" line-rate="0.0" branch-rate="0.0" complexity="3.2142857142857144">
+				<class name="org.universAAL.middleware.container.osgi.run.OSGiExtender" filename="org/universAAL/middleware/container/osgi/run/OSGiExtender.java" line-rate="0.0" branch-rate="0.0" complexity="3.2142857142857144">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/osgi/framework/BundleContext;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -1845,9 +1845,9 @@
 						<line number="174" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.container.osgi.run.uAALBundleExtender$1" filename="org/universAAL/middleware/container/osgi/run/uAALBundleExtender.java" line-rate="0.0" branch-rate="1.0" complexity="3.2142857142857144">
+				<class name="org.universAAL.middleware.container.osgi.run.OSGiExtender$1" filename="org/universAAL/middleware/container/osgi/run/OSGiExtender.java" line-rate="0.0" branch-rate="1.0" complexity="3.2142857142857144">
 					<methods>
-						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/container/osgi/run/uAALBundleExtender;Lorg/osgi/framework/Bundle;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/container/osgi/run/OSGiExtender;Lorg/osgi/framework/Bundle;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="128" hits="0" branch="false"/>
 							</lines>
@@ -1871,9 +1871,9 @@
 						<line number="135" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.container.osgi.run.uAALBundleExtender$ActivatorExecutor" filename="org/universAAL/middleware/container/osgi/run/uAALBundleExtender.java" line-rate="0.0" branch-rate="0.0" complexity="3.2142857142857144">
+				<class name="org.universAAL.middleware.container.osgi.run.OSGiExtender$ActivatorExecutor" filename="org/universAAL/middleware/container/osgi/run/OSGiExtender.java" line-rate="0.0" branch-rate="0.0" complexity="3.2142857142857144">
 					<methods>
-						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/container/osgi/run/uAALBundleExtender;Ljava/lang/String;Lorg/osgi/framework/Bundle;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/container/osgi/run/OSGiExtender;Ljava/lang/String;Lorg/osgi/framework/Bundle;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="189" hits="0" branch="false"/>
 								<line number="190" hits="0" branch="false"/>
@@ -1882,7 +1882,7 @@
 								<line number="193" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/container/osgi/run/uAALBundleExtender;Lorg/universAAL/middleware/container/ModuleActivator;Lorg/osgi/framework/Bundle;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/container/osgi/run/OSGiExtender;Lorg/universAAL/middleware/container/ModuleActivator;Lorg/osgi/framework/Bundle;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="183" hits="0" branch="false"/>
 								<line number="184" hits="0" branch="false"/>
@@ -1891,7 +1891,7 @@
 								<line number="187" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="access$000" signature="(Lorg/universAAL/middleware/container/osgi/run/uAALBundleExtender$ActivatorExecutor;)Lorg/osgi/framework/Bundle;" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="access$000" signature="(Lorg/universAAL/middleware/container/osgi/run/OSGiExtender$ActivatorExecutor;)Lorg/osgi/framework/Bundle;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="176" hits="0" branch="false"/>
 							</lines>
@@ -1973,9 +1973,9 @@
 						<line number="224" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.universAAL.middleware.container.osgi.run.uAALBundleExtender$ActivatorExecutor$1" filename="org/universAAL/middleware/container/osgi/run/uAALBundleExtender.java" line-rate="0.0" branch-rate="1.0" complexity="3.2142857142857144">
+				<class name="org.universAAL.middleware.container.osgi.run.OSGiExtender$ActivatorExecutor$1" filename="org/universAAL/middleware/container/osgi/run/OSGiExtender.java" line-rate="0.0" branch-rate="1.0" complexity="3.2142857142857144">
 					<methods>
-						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/container/osgi/run/uAALBundleExtender$ActivatorExecutor;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="&lt;init&gt;" signature="(Lorg/universAAL/middleware/container/osgi/run/OSGiExtender$ActivatorExecutor;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="208" hits="0" branch="false"/>
 							</lines>

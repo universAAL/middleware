@@ -28,7 +28,7 @@ under the License.
       <title>File: 1,
              Errors: 68,
              Warnings: 11,
-             Infos: 3
+             Infos: 1
       </title>
             <link>http://middleware/middleware.core/mw.modules.space.core//checkstyle.html</link>
       <description>
@@ -46,10 +46,10 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://middleware/middleware.core/mw.modules.space.core//checkstyle.html#org.universAAL.middleware.modules.aalspace.AALSpaceModuleImpl.java">org/universAAL/middleware/modules/aalspace/AALSpaceModuleImpl.java</a>
+                  <a href="http://middleware/middleware.core/mw.modules.space.core//checkstyle.html#org.universAAL.middleware.modules.space.SpaceModuleImpl.java">org/universAAL/middleware/modules/space/SpaceModuleImpl.java</a>
                 </td>
                 <td>
-                  3
+                  1
                 </td>
                 <td>
                   11

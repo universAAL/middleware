@@ -1,16 +1,16 @@
 <map id="G" name="G">
-<area shape="rect" id="c162010" href="./ManagedIndividual.html" title="org.universAAL.middleware.owl.ManagedIndividual" alt="" coords="87,19,217,45"/>
+<area shape="rect" id="c123011" href="./ManagedIndividual.html" title="org.universAAL.middleware.owl.ManagedIndividual" alt="" coords="87,19,217,45"/>
 <area shape="rect" id="node1" href="./ManagedIndividual.html" title="&lt;TABLE&gt;" alt="" coords="77,8,227,56"/>
-<area shape="rect" id="c162011" href="./ComparableIndividual.html" title="org.universAAL.middleware.owl.ComparableIndividual" alt="" coords="162,118,307,143"/>
+<area shape="rect" id="c123012" href="./ComparableIndividual.html" title="org.universAAL.middleware.owl.ComparableIndividual" alt="" coords="162,118,307,143"/>
 <area shape="rect" id="node2" href="./ComparableIndividual.html" title="&lt;TABLE&gt;" alt="" coords="152,107,317,155"/>
-<area shape="rect" id="c162015" href="./supply/Rating.html" title="org.universAAL.middleware.owl.supply.Rating" alt="" coords="16,214,75,239"/>
+<area shape="rect" id="c123016" href="./supply/Rating.html" title="org.universAAL.middleware.owl.supply.Rating" alt="" coords="16,214,75,239"/>
 <area shape="rect" id="node3" href="./supply/Rating.html" title="&lt;TABLE&gt;" alt="" coords="5,203,85,251"/>
-<area shape="rect" id="c162016" href="./supply/AbsLocation.html" title="org.universAAL.middleware.owl.supply.AbsLocation" alt="" coords="120,214,213,239"/>
+<area shape="rect" id="c123017" href="./supply/AbsLocation.html" title="org.universAAL.middleware.owl.supply.AbsLocation" alt="" coords="120,214,213,239"/>
 <area shape="rect" id="node4" href="./supply/AbsLocation.html" title="&lt;TABLE&gt;" alt="" coords="109,203,224,251"/>
-<area shape="rect" id="c162017" href="./supply/LevelRating.html" title="org.universAAL.middleware.owl.supply.LevelRating" alt="" coords="258,214,347,239"/>
+<area shape="rect" id="c123018" href="./supply/LevelRating.html" title="org.universAAL.middleware.owl.supply.LevelRating" alt="" coords="258,214,347,239"/>
 <area shape="rect" id="node5" href="./supply/LevelRating.html" title="&lt;TABLE&gt;" alt="" coords="248,203,357,251"/>
-<area shape="rect" id="c162395" href="../ui/owl/PrivacyLevel.html" title="org.universAAL.middleware.ui.owl.PrivacyLevel" alt="" coords="392,214,488,239"/>
+<area shape="rect" id="c123356" href="../ui/owl/PrivacyLevel.html" title="org.universAAL.middleware.ui.owl.PrivacyLevel" alt="" coords="392,214,488,239"/>
 <area shape="rect" id="node6" href="../ui/owl/PrivacyLevel.html" title="&lt;TABLE&gt;" alt="" coords="381,203,499,251"/>
-<area shape="rect" id="c162496" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Comparable.html" title="java.lang.Comparable" alt="" coords="261,11,376,53"/>
+<area shape="rect" id="c123457" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Comparable.html" title="java.lang.Comparable" alt="" coords="261,11,376,53"/>
 <area shape="rect" id="node8" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Comparable.html" title="&lt;TABLE&gt;" alt="" coords="251,6,387,58"/>
 </map>

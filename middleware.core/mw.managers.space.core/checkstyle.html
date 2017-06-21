@@ -91,9 +91,9 @@
 <th><img src="images/icon_error_sml.gif" alt="" />&#160;Errors</th></tr>
 <tr class="b">
 <td>7</td>
-<td>21</td>
-<td>21</td>
-<td>182</td></tr></table></div>
+<td>3</td>
+<td>11</td>
+<td>172</td></tr></table></div>
 <div class="section">
 <h2><a name="Files"></a>Files</h2>
 <table border="0" class="bodyTable">
@@ -103,40 +103,40 @@
 <th><img src="images/icon_warning_sml.gif" alt="" />&#160;W</th>
 <th><img src="images/icon_error_sml.gif" alt="" />&#160;E</th></tr>
 <tr class="b">
-<td><a href="#org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.java">org/universAAL/middleware/managers/aalspace/AALSpaceManagerImpl.java</a></td>
-<td>6</td>
-<td>10</td>
-<td>116</td></tr>
-<tr class="a">
-<td><a href="#org.universAAL.middleware.managers.aalspace.MatchingResultImpl.java">org/universAAL/middleware/managers/aalspace/MatchingResultImpl.java</a></td>
+<td><a href="#org.universAAL.middleware.managers.space.MatchingResultImpl.java">org/universAAL/middleware/managers/space/MatchingResultImpl.java</a></td>
 <td>2</td>
-<td>0</td>
+<td>1</td>
 <td>8</td></tr>
-<tr class="b">
-<td><a href="#org.universAAL.middleware.managers.aalspace.util.AALSpaceSchemaEventHandler.java">org/universAAL/middleware/managers/aalspace/util/AALSpaceSchemaEventHandler.java</a></td>
-<td>5</td>
-<td>1</td>
-<td>5</td></tr>
 <tr class="a">
-<td><a href="#org.universAAL.middleware.managers.aalspace.util.CheckPeerThread.java">org/universAAL/middleware/managers/aalspace/util/CheckPeerThread.java</a></td>
+<td><a href="#org.universAAL.middleware.managers.space.SpaceManagerImpl.java">org/universAAL/middleware/managers/space/SpaceManagerImpl.java</a></td>
 <td>1</td>
+<td>9</td>
+<td>116</td></tr>
+<tr class="b">
+<td><a href="#org.universAAL.middleware.managers.space.util.CheckPeerThread.java">org/universAAL/middleware/managers/space/util/CheckPeerThread.java</a></td>
+<td>0</td>
+<td>1</td>
+<td>12</td></tr>
+<tr class="a">
+<td><a href="#org.universAAL.middleware.managers.space.util.Consts.java">org/universAAL/middleware/managers/space/util/Consts.java</a></td>
+<td>0</td>
 <td>0</td>
 <td>12</td></tr>
 <tr class="b">
-<td><a href="#org.universAAL.middleware.managers.aalspace.util.Consts.java">org/universAAL/middleware/managers/aalspace/util/Consts.java</a></td>
-<td>5</td>
-<td>10</td>
-<td>22</td></tr>
-<tr class="a">
-<td><a href="#org.universAAL.middleware.managers.aalspace.util.Joiner.java">org/universAAL/middleware/managers/aalspace/util/Joiner.java</a></td>
-<td>1</td>
+<td><a href="#org.universAAL.middleware.managers.space.util.Joiner.java">org/universAAL/middleware/managers/space/util/Joiner.java</a></td>
+<td>0</td>
 <td>0</td>
 <td>9</td></tr>
-<tr class="b">
-<td><a href="#org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread.java">org/universAAL/middleware/managers/aalspace/util/RefreshAALSpaceThread.java</a></td>
-<td>1</td>
+<tr class="a">
+<td><a href="#org.universAAL.middleware.managers.space.util.RefreshSpaceThread.java">org/universAAL/middleware/managers/space/util/RefreshSpaceThread.java</a></td>
 <td>0</td>
-<td>10</td></tr></table></div>
+<td>0</td>
+<td>10</td></tr>
+<tr class="b">
+<td><a href="#org.universAAL.middleware.managers.space.util.SpaceSchemaEventHandler.java">org/universAAL/middleware/managers/space/util/SpaceSchemaEventHandler.java</a></td>
+<td>0</td>
+<td>0</td>
+<td>5</td></tr></table></div>
 <div class="section">
 <h2><a name="Rules"></a>Rules</h2>
 <table border="0" class="bodyTable">
@@ -165,7 +165,7 @@
 <td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_design.html#VisibilityModifier">VisibilityModifier</a>
 <ul>
 <li>protectedAllowed: <tt>&quot;true&quot;</tt></li></ul></td>
-<td>17</td>
+<td>7</td>
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
 <tr class="b">
 <td>javadoc</td>
@@ -205,19 +205,14 @@
 <td>1</td>
 <td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td></tr>
 <tr class="a">
-<td></td>
-<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_naming.html#StaticVariableName">StaticVariableName</a></td>
-<td>10</td>
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td></tr>
-<tr class="b">
 <td>regexp</td>
 <td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_regexp.html#RegexpSingleline">RegexpSingleline</a>
 <ul>
 <li>format: <tt>&quot;\s+$&quot;</tt></li>
 <li>message: <tt>&quot;Line has trailing spaces.&quot;</tt></li></ul></td>
-<td>19</td>
+<td>1</td>
 <td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td></tr>
-<tr class="a">
+<tr class="b">
 <td>sizes</td>
 <td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_sizes.html#LineLength">LineLength</a>
 <ul>
@@ -228,20 +223,89 @@
 <div class="section">
 <h2><a name="Details"></a>Details</h2>
 <div class="section">
-<h3 id="org.universAAL.middleware.managers.aalspace.AALSpaceManagerImpl.java">org/universAAL/middleware/managers/aalspace/AALSpaceManagerImpl.java</h3>
+<h3 id="org.universAAL.middleware.managers.space.MatchingResultImpl.java">org/universAAL/middleware/managers/space/MatchingResultImpl.java</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Severity</th>
 <th>Category</th>
 <th>Rule</th>
 <th>Message</th>
 <th>Line</th></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
 <td>javadoc</td>
 <td>JavadocPackage</td>
 <td>Missing package-info.java file.</td>
 <td></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocStyle</td>
+<td>First sentence should end with a period.</td>
+<td>31</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td>33</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td>39</td></tr>
+<tr class="b">
+<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
+<td>modifier</td>
+<td>ModifierOrder</td>
+<td>'private' modifier out of order with the JLS suggestions.</td>
+<td>39</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td>40</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>42</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getPeers' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>46</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>46</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getPeerAttribute' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>54</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>54</td></tr></table></div>
+<div class="section">
+<h3 id="org.universAAL.middleware.managers.space.SpaceManagerImpl.java">org/universAAL/middleware/managers/space/SpaceManagerImpl.java</h3>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>Severity</th>
+<th>Category</th>
+<th>Rule</th>
+<th>Message</th>
+<th>Line</th></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
@@ -249,347 +313,335 @@
 <td>First sentence should end with a period.</td>
 <td>73</td></tr>
 <tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>75</td></tr>
-<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>85</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>86</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>87</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>94</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>96</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>97</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
 <td>98</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
 <td>103</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
 <td>108</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>112</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>113</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>114</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>115</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>118</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>119</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>121</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>122</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>124</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>125</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>127</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>128</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>129</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>130</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>131</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>132</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>133</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>134</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>135</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>136</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>138</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>140</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
 <td>naming</td>
 <td>MemberName</td>
 <td>Name 'TIMEOUT' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
 <td>140</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>143</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>145</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'getManagedAALSpaces' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'getManagedSpaces' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>164</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>164</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getPeers' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>168</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>168</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'getAalSpaceDefaultConfiguration' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'getSpaceDefaultConfiguration' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>172</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>172</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'getPendingAALSpace' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'getPendingSpace' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>176</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>176</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getWaitAfterJoinRequest' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>180</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>180</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'getAALSpaceDescriptor' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'getSpaceDescriptor' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>184</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>184</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getMyPeerCard' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>188</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>188</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'getAALSpaces' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'getSpaces' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>198</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>198</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>204</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
 <td>naming</td>
 <td>LocalFinalVariableName</td>
 <td>Name 'METHOD' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
 <td>205</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'init' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>249</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>249</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
 <td>295</td></tr>
-<tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>298</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
@@ -600,7 +652,7 @@
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'initAALSpace' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'initSpace' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>303</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
@@ -630,7 +682,7 @@
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'aalSpaceJoined' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'spaceJoined' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>474</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
@@ -657,83 +709,71 @@
 <td>Missing a Javadoc comment.</td>
 <td>551</td></tr>
 <tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>563</td></tr>
-<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected an @return tag.</td>
 <td>567</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'space'.</td>
 <td>567</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>591</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
 <td>coding</td>
 <td>SimplifyBooleanExpression</td>
 <td>Expression can be simplified.</td>
 <td>593</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
 <td>coding</td>
 <td>SimplifyBooleanExpression</td>
 <td>Expression can be simplified.</td>
 <td>600</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'readAALSpaceDefaultConfigurations' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'readSpaceDefaultConfigurations' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>613</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>613</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
 <td>naming</td>
 <td>LocalFinalVariableName</td>
 <td>Name 'METHOD' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
 <td>614</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>660</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>664</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
 <td>naming</td>
 <td>LocalFinalVariableName</td>
 <td>Name 'METHOD' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
 <td>665</td></tr>
-<tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>696</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
@@ -792,7 +832,7 @@
 <td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
 <td>sizes</td>
 <td>LineLength</td>
-<td>Line is longer than 120 characters (found 146).</td>
+<td>Line is longer than 120 characters (found 140).</td>
 <td>809</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
@@ -810,7 +850,7 @@
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'newAALSpacesFound' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'newSpacesFound' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>881</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
@@ -882,7 +922,7 @@
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'leaveAALSpace' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'leaveSpace' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>955</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
@@ -909,196 +949,121 @@
 <td>First sentence should end with a period.</td>
 <td>1044</td></tr>
 <tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>1046</td></tr>
-<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Expected @param tag for 'spaceDescriptor'.</td>
 <td>1049</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'addAALSpaceListener' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'addSpaceListener' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>1066</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>1066</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'removeAALSpaceListener' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'removeSpaceListener' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>1071</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>1071</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'setListOfPeers' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>1076</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>1076</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'getAALSpaceStatus' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'getSpaceStatus' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>1087</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>1087</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'mpaInstalled' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>1091</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>1091</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'mpaInstalling' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>1095</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>1095</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'aalSpaceEvent' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>Method 'spaceEvent' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>1100</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>1100</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getMatchingPeers' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>1109</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>1109</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getPeerAttributes' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>1118</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>1118</td></tr></table></div>
 <div class="section">
-<h3 id="org.universAAL.middleware.managers.aalspace.MatchingResultImpl.java">org/universAAL/middleware/managers/aalspace/MatchingResultImpl.java</h3>
-<table border="0" class="bodyTable">
-<tr class="a">
-<th>Severity</th>
-<th>Category</th>
-<th>Rule</th>
-<th>Message</th>
-<th>Line</th></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocStyle</td>
-<td>First sentence should end with a period.</td>
-<td>31</td></tr>
-<tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>33</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td>39</td></tr>
-<tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>modifier</td>
-<td>ModifierOrder</td>
-<td>'private' modifier out of order with the JLS suggestions.</td>
-<td>39</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td>40</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>42</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getPeers' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>46</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>46</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getPeerAttribute' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>54</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>54</td></tr></table></div>
-<div class="section">
-<h3 id="org.universAAL.middleware.managers.aalspace.util.AALSpaceSchemaEventHandler.java">org/universAAL/middleware/managers/aalspace/util/AALSpaceSchemaEventHandler.java</h3>
+<h3 id="org.universAAL.middleware.managers.space.util.CheckPeerThread.java">org/universAAL/middleware/managers/space/util/CheckPeerThread.java</h3>
 <table border="0" class="bodyTable">
 <tr class="b">
 <th>Severity</th>
@@ -1113,86 +1078,11 @@
 <td>Missing package-info.java file.</td>
 <td></td></tr>
 <tr class="b">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>1</td></tr>
-<tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>3</td></tr>
-<tr class="b">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>4</td></tr>
-<tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>6</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocStyle</td>
-<td>First sentence should end with a period.</td>
-<td>29</td></tr>
-<tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>31</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td>37</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>39</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'handleEvent' is not designed for extension - needs to be abstract, final or empty.</td>
-<td>43</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td>43</td></tr></table></div>
-<div class="section">
-<h3 id="org.universAAL.middleware.managers.aalspace.util.CheckPeerThread.java">org/universAAL/middleware/managers/aalspace/util/CheckPeerThread.java</h3>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>Severity</th>
-<th>Category</th>
-<th>Rule</th>
-<th>Message</th>
-<th>Line</th></tr>
-<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
 <td>33</td></tr>
-<tr class="b">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>35</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
@@ -1227,7 +1117,7 @@
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>VisibilityModifier</td>
-<td>Variable 'aalSpaceEventHandler' must be private and have accessor methods.</td>
+<td>Variable 'spaceEventHandler' must be private and have accessor methods.</td>
 <td>43</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
@@ -1239,7 +1129,7 @@
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>VisibilityModifier</td>
-<td>Variable 'aalSpaceManager' must be private and have accessor methods.</td>
+<td>Variable 'spaceManager' must be private and have accessor methods.</td>
 <td>44</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
@@ -1260,7 +1150,7 @@
 <td>Missing a Javadoc comment.</td>
 <td>50</td></tr></table></div>
 <div class="section">
-<h3 id="org.universAAL.middleware.managers.aalspace.util.Consts.java">org/universAAL/middleware/managers/aalspace/util/Consts.java</h3>
+<h3 id="org.universAAL.middleware.managers.space.util.Consts.java">org/universAAL/middleware/managers/space/util/Consts.java</h3>
 <table border="0" class="bodyTable">
 <tr class="b">
 <th>Severity</th>
@@ -1268,30 +1158,6 @@
 <th>Rule</th>
 <th>Message</th>
 <th>Line</th></tr>
-<tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>1</td></tr>
-<tr class="b">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>3</td></tr>
-<tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>4</td></tr>
-<tr class="b">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>6</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
@@ -1299,218 +1165,86 @@
 <td>First sentence should end with a period.</td>
 <td>23</td></tr>
 <tr class="b">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>25</td></tr>
-<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>HideUtilityClassConstructor</td>
 <td>Utility classes should not have a public or default constructor.</td>
 <td>29</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>30</td></tr>
-<tr class="a">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>StaticVariableName</td>
-<td>Name 'AAL_SPACE_CONFIGURATION_PATH' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>30</td></tr>
 <tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>VisibilityModifier</td>
-<td>Variable 'AAL_SPACE_CONFIGURATION_PATH' must be private and have accessor methods.</td>
-<td>30</td></tr>
-<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>31</td></tr>
-<tr class="b">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>StaticVariableName</td>
-<td>Name 'PEER_ID' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>31</td></tr>
 <tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>VisibilityModifier</td>
-<td>Variable 'PEER_ID' must be private and have accessor methods.</td>
-<td>31</td></tr>
-<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>32</td></tr>
-<tr class="a">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>StaticVariableName</td>
-<td>Name 'PEER_ROLE' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>32</td></tr>
 <tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>VisibilityModifier</td>
-<td>Variable 'PEER_ROLE' must be private and have accessor methods.</td>
-<td>32</td></tr>
-<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>33</td></tr>
-<tr class="b">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>StaticVariableName</td>
-<td>Name 'SPACE_EXTENSION' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>33</td></tr>
 <tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>VisibilityModifier</td>
-<td>Variable 'SPACE_EXTENSION' must be private and have accessor methods.</td>
-<td>33</td></tr>
-<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>34</td></tr>
-<tr class="a">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>StaticVariableName</td>
-<td>Name 'AAL_SPACE_VALIDATION' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>34</td></tr>
 <tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>VisibilityModifier</td>
-<td>Variable 'AAL_SPACE_VALIDATION' must be private and have accessor methods.</td>
-<td>34</td></tr>
-<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>35</td></tr>
-<tr class="b">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>StaticVariableName</td>
-<td>Name 'AAL_SPACE_LIFETIME' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>35</td></tr>
 <tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>VisibilityModifier</td>
-<td>Variable 'AAL_SPACE_LIFETIME' must be private and have accessor methods.</td>
-<td>35</td></tr>
-<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>36</td></tr>
-<tr class="a">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>StaticVariableName</td>
-<td>Name 'AAL_SPACE_SCHEMA_URL' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>36</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>VisibilityModifier</td>
-<td>Variable 'AAL_SPACE_SCHEMA_URL' must be private and have accessor methods.</td>
-<td>36</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td>37</td></tr>
-<tr class="b">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>StaticVariableName</td>
-<td>Name 'AAL_SPACE_SCHEMA_NAME' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>37</td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>VisibilityModifier</td>
-<td>Variable 'AAL_SPACE_SCHEMA_NAME' must be private and have accessor methods.</td>
-<td>37</td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
-<td>38</td></tr>
-<tr class="a">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>StaticVariableName</td>
-<td>Name 'WAIT_BEFEORE_CLOSING_CHANNEL' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>38</td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>VisibilityModifier</td>
-<td>Variable 'WAIT_BEFEORE_CLOSING_CHANNEL' must be private and have accessor methods.</td>
-<td>38</td></tr>
+<td>37</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
-<td>39</td></tr>
+<td>38</td></tr>
 <tr class="b">
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;Warning</td>
-<td>naming</td>
-<td>StaticVariableName</td>
-<td>Name 'WAIT_AFTER_JOIN_REQUEST' must match pattern '^[a-z][a-zA-Z0-9]*$'.</td>
-<td>39</td></tr>
-<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>VisibilityModifier</td>
-<td>Variable 'WAIT_AFTER_JOIN_REQUEST' must be private and have accessor methods.</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
 <td>39</td></tr></table></div>
 <div class="section">
-<h3 id="org.universAAL.middleware.managers.aalspace.util.Joiner.java">org/universAAL/middleware/managers/aalspace/util/Joiner.java</h3>
+<h3 id="org.universAAL.middleware.managers.space.util.Joiner.java">org/universAAL/middleware/managers/space/util/Joiner.java</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Severity</th>
 <th>Category</th>
 <th>Rule</th>
 <th>Message</th>
 <th>Line</th></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocStyle</td>
 <td>First sentence should end with a period.</td>
 <td>30</td></tr>
-<tr class="b">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>33</td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
@@ -1560,7 +1294,7 @@
 <td>Missing a Javadoc comment.</td>
 <td>52</td></tr></table></div>
 <div class="section">
-<h3 id="org.universAAL.middleware.managers.aalspace.util.RefreshAALSpaceThread.java">org/universAAL/middleware/managers/aalspace/util/RefreshAALSpaceThread.java</h3>
+<h3 id="org.universAAL.middleware.managers.space.util.RefreshSpaceThread.java">org/universAAL/middleware/managers/space/util/RefreshSpaceThread.java</h3>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>Severity</th>
@@ -1575,60 +1309,93 @@
 <td>First sentence should end with a period.</td>
 <td>28</td></tr>
 <tr class="a">
-<td><img src="images/icon_info_sml.gif" alt="" />&#160;Info</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td>30</td></tr>
-<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>35</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>VisibilityModifier</td>
 <td>Variable 'moduleContext' must be private and have accessor methods.</td>
 <td>35</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>36</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>VisibilityModifier</td>
-<td>Variable 'aalSpaceManager' must be private and have accessor methods.</td>
+<td>Variable 'spaceManager' must be private and have accessor methods.</td>
 <td>36</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocVariable</td>
 <td>Missing a Javadoc comment.</td>
 <td>37</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>VisibilityModifier</td>
 <td>Variable 'controlBroker' must be private and have accessor methods.</td>
 <td>37</td></tr>
-<tr class="b">
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
 <td>39</td></tr>
-<tr class="a">
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'run' is not designed for extension - needs to be abstract, final or empty.</td>
 <td>43</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>43</td></tr></table></div>
+<div class="section">
+<h3 id="org.universAAL.middleware.managers.space.util.SpaceSchemaEventHandler.java">org/universAAL/middleware/managers/space/util/SpaceSchemaEventHandler.java</h3>
+<table border="0" class="bodyTable">
 <tr class="b">
+<th>Severity</th>
+<th>Category</th>
+<th>Rule</th>
+<th>Message</th>
+<th>Line</th></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocStyle</td>
+<td>First sentence should end with a period.</td>
+<td>29</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td>37</td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td>39</td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'handleEvent' is not designed for extension - needs to be abstract, final or empty.</td>
+<td>43</td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>

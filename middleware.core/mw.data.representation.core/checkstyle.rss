@@ -26,8 +26,8 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 80,
-             Errors: 723,
-             Warnings: 125,
+             Errors: 720,
+             Warnings: 112,
              Infos: 89
       </title>
             <link>http://middleware/middleware.core/mw.data.representation.core//checkstyle.html</link>
@@ -80,7 +80,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  6
+                  1
                 </td>
                 <td>
                   3
@@ -783,7 +783,7 @@ under the License.
                   2
                 </td>
                 <td>
-                  4
+                  1
                 </td>
               </tr>
                           <tr>
@@ -878,7 +878,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  6
+                  2
                 </td>
                 <td>
                   89
@@ -990,7 +990,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  5
+                  1
                 </td>
                 <td>
                   16
