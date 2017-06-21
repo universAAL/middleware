@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c331721" href="./ServiceProfileWrapper.html" title="org.universAAL.middleware.service.impl.ServiceProfileWrapper" alt="" coords="15,113,166,138"/>
+<area shape="rect" id="c327156" href="./ServiceProfileWrapper.html" title="org.universAAL.middleware.service.impl.ServiceProfileWrapper" alt="" coords="15,113,166,138"/>
 <area shape="rect" id="node1" href="./ServiceProfileWrapper.html" title="&lt;TABLE&gt;" alt="" coords="5,101,176,149"/>
-<area shape="rect" id="c331722" href="./ServiceRequestWrapper.html" title="org.universAAL.middleware.service.impl.ServiceRequestWrapper" alt="" coords="211,113,373,138"/>
+<area shape="rect" id="c327157" href="./ServiceRequestWrapper.html" title="org.universAAL.middleware.service.impl.ServiceRequestWrapper" alt="" coords="211,113,373,138"/>
 <area shape="rect" id="node2" href="./ServiceRequestWrapper.html" title="&lt;TABLE&gt;" alt="" coords="200,101,384,149"/>
-<area shape="rect" id="c331729" href="./ServiceWrapper.html" title="org.universAAL.middleware.service.impl.ServiceWrapper" alt="" coords="134,17,247,42"/>
+<area shape="rect" id="c327164" href="./ServiceWrapper.html" title="org.universAAL.middleware.service.impl.ServiceWrapper" alt="" coords="134,17,247,42"/>
 <area shape="rect" id="node3" href="./ServiceWrapper.html" title="&lt;TABLE&gt;" alt="" coords="124,5,257,53"/>
 </map>

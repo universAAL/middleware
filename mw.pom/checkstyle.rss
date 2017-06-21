@@ -25,10 +25,10 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
-      <title>File: 545,
-             Errors: 7941,
-             Warnings: 497,
-             Infos: 3136
+      <title>File: 537,
+             Errors: 7815,
+             Warnings: 496,
+             Infos: 2969
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -3840,34 +3840,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.Config.java">org/universAAL/middleware/connectors/deploy/karaf/model/Config.java</a>
-                </td>
-                <td>
-                  20
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  11
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.FeaturesRoot.java">org/universAAL/middleware/connectors/deploy/karaf/model/FeaturesRoot.java</a>
-                </td>
-                <td>
-                  23
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  13
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.bus.member.Publisher.java">org/universAAL/middleware/bus/member/Publisher.java</a>
                 </td>
                 <td>
@@ -5730,20 +5702,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.Dependency.java">org/universAAL/middleware/connectors/deploy/karaf/model/Dependency.java</a>
-                </td>
-                <td>
-                  22
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  11
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.modules.CommunicationModule.java">org/universAAL/middleware/modules/CommunicationModule.java</a>
                 </td>
                 <td>
@@ -5782,20 +5740,6 @@ under the License.
                 </td>
                 <td>
                   11
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.Bundle.java">org/universAAL/middleware/connectors/deploy/karaf/model/Bundle.java</a>
-                </td>
-                <td>
-                  28
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  27
                 </td>
               </tr>
                           <tr>
@@ -6034,20 +5978,6 @@ under the License.
                 </td>
                 <td>
                   12
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.ObjectFactory.java">org/universAAL/middleware/connectors/deploy/karaf/model/ObjectFactory.java</a>
-                </td>
-                <td>
-                  14
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  24
                 </td>
               </tr>
                           <tr>
@@ -6510,20 +6440,6 @@ under the License.
                 </td>
                 <td>
                   3
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.ConfigFile.java">org/universAAL/middleware/connectors/deploy/karaf/model/ConfigFile.java</a>
-                </td>
-                <td>
-                  20
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  11
                 </td>
               </tr>
                           <tr>
@@ -7424,20 +7340,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.Feature.java">org/universAAL/middleware/connectors/deploy/karaf/model/Feature.java</a>
-                </td>
-                <td>
-                  35
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  28
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.interfaces.space.model.ICommunicationChannels.java">org/universAAL/middleware/interfaces/space/model/ICommunicationChannels.java</a>
                 </td>
                 <td>
@@ -7655,20 +7557,6 @@ under the License.
                 </td>
                 <td>
                   1
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.connectors.deploy.karaf.model.package-info.java">org/universAAL/middleware/connectors/deploy/karaf/model/package-info.java</a>
-                </td>
-                <td>
-                  5
-                </td>
-                <td>
-                  0
                 </td>
                 <td>
                   1

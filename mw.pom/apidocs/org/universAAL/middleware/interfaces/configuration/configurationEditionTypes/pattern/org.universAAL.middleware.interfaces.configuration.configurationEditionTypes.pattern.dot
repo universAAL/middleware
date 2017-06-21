@@ -10,75 +10,75 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ModulePattern
-	c14167 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ModulePattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ModulePattern.html">
+	c13417 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ModulePattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ModulePattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ModulePattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ModulePattern.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPattern
-	c14168 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApplicationPattern.html">
+	c13418 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApplicationPattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ApplicationPattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ApplicationPattern.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ConfigurationParameterTypePattern
-	c14169 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ConfigurationParameterTypePattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationParameterTypePattern.html">
+	c13419 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ConfigurationParameterTypePattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationParameterTypePattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigurationParameterTypePattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationParameterTypePattern.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.InstancePattern
-	c14170 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.InstancePattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InstancePattern.html">
+	c13420 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.InstancePattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InstancePattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> InstancePattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./InstancePattern.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ConfigurationFileTypePattern
-	c14171 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ConfigurationFileTypePattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationFileTypePattern.html">
+	c13421 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ConfigurationFileTypePattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigurationFileTypePattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigurationFileTypePattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigurationFileTypePattern.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPartPattern
-	c14172 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPartPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApplicationPartPattern.html">
+	c13422 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPartPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApplicationPartPattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ApplicationPartPattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ApplicationPartPattern.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.IdPattern
-	c14173 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.IdPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IdPattern.html">
+	c13423 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.IdPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IdPattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IdPattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./IdPattern.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern
-	c14174 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EntityPattern.html">
+	c13424 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EntityPattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> EntityPattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./EntityPattern.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.NotPattern
-	c14175 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.NotPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NotPattern.html">
+	c13425 [label=<<table title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.NotPattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NotPattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NotPattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NotPattern.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ModulePattern implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern
-	c14174:p -> c14167:p [dir=back,arrowtail=empty,style=dashed];
+	c13424:p -> c13417:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPattern implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern
-	c14174:p -> c14168:p [dir=back,arrowtail=empty,style=dashed];
+	c13424:p -> c13418:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ConfigurationParameterTypePattern implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern
-	c14174:p -> c14169:p [dir=back,arrowtail=empty,style=dashed];
+	c13424:p -> c13419:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.InstancePattern implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern
-	c14174:p -> c14170:p [dir=back,arrowtail=empty,style=dashed];
+	c13424:p -> c13420:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ConfigurationFileTypePattern implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern
-	c14174:p -> c14171:p [dir=back,arrowtail=empty,style=dashed];
+	c13424:p -> c13421:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPartPattern implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern
-	c14174:p -> c14172:p [dir=back,arrowtail=empty,style=dashed];
+	c13424:p -> c13422:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.IdPattern implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern
-	c14174:p -> c14173:p [dir=back,arrowtail=empty,style=dashed];
+	c13424:p -> c13423:p [dir=back,arrowtail=empty,style=dashed];
 	//org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.NotPattern implements org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern
-	c14174:p -> c14175:p [dir=back,arrowtail=empty,style=dashed];
+	c13424:p -> c13425:p [dir=back,arrowtail=empty,style=dashed];
 }
 

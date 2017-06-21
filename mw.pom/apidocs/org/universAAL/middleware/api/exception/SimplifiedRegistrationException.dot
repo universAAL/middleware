@@ -10,15 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.api.exception.SimplifiedRegistrationException
-	c337059 [label=<<table title="org.universAAL.middleware.api.exception.SimplifiedRegistrationException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SimplifiedRegistrationException.html">
+	c332431 [label=<<table title="org.universAAL.middleware.api.exception.SimplifiedRegistrationException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SimplifiedRegistrationException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SimplifiedRegistrationException </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SimplifiedRegistrationException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.api.exception.SimplifiedRegistrationException extends java.lang.Exception
-	c337116:p -> c337059:p [dir=back,arrowtail=empty];
+	c332488:p -> c332431:p [dir=back,arrowtail=empty];
 	// java.lang.Exception
-	c337116 [label=<<table title="java.lang.Exception" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Exception.html">
+	c332488 [label=<<table title="java.lang.Exception" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Exception.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Exception </td></tr>
 		</table></td></tr>

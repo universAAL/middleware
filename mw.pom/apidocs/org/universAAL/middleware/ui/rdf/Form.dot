@@ -10,28 +10,28 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.ui.rdf.Form
-	c191482 [label=<<table title="org.universAAL.middleware.ui.rdf.Form" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Form.html">
+	c188604 [label=<<table title="org.universAAL.middleware.ui.rdf.Form" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Form.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Form </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Form.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.rdf.Group
-	c191487 [label=<<table title="org.universAAL.middleware.ui.rdf.Group" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Group.html">
+	c188609 [label=<<table title="org.universAAL.middleware.ui.rdf.Group" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Group.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Group </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Group.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.ui.rdf.FormElement
-	c191488 [label=<<table title="org.universAAL.middleware.ui.rdf.FormElement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FormElement.html">
+	c188610 [label=<<table title="org.universAAL.middleware.ui.rdf.FormElement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FormElement.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> FormElement </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./FormElement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.ui.rdf.Form extends org.universAAL.middleware.ui.rdf.FormElement
-	c191488:p -> c191482:p [dir=back,arrowtail=empty];
+	c188610:p -> c188604:p [dir=back,arrowtail=empty];
 	// org.universAAL.middleware.ui.rdf.Form NAVASSOC org.universAAL.middleware.ui.rdf.Group
-	c191482:p -> c191487:p [taillabel="", label="IOControlls\n Submits\n StandardButtons", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c188604:p -> c188609:p [taillabel="", label="IOControlls\n Submits\n StandardButtons", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// org.universAAL.middleware.ui.rdf.Form NAVASSOC org.universAAL.middleware.ui.rdf.Form
-	c191482:p -> c191482:p [taillabel="", label="parentDialog", headlabel="1", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c188604:p -> c188604:p [taillabel="", label="parentDialog", headlabel="1", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

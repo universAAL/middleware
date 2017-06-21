@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c292418" href="../owl/OntClassInfoSetup.html" title="org.universAAL.middleware.owl.OntClassInfoSetup" alt="" coords="15,113,147,154"/>
+<area shape="rect" id="c288322" href="../owl/OntClassInfoSetup.html" title="org.universAAL.middleware.owl.OntClassInfoSetup" alt="" coords="15,113,147,154"/>
 <area shape="rect" id="node1" href="../owl/OntClassInfoSetup.html" title="&lt;TABLE&gt;" alt="" coords="5,107,157,159"/>
-<area shape="rect" id="c292445" href="./RDFClassInfoSetup.html" title="org.universAAL.middleware.rdf.RDFClassInfoSetup" alt="" coords="97,11,236,53"/>
+<area shape="rect" id="c288349" href="./RDFClassInfoSetup.html" title="org.universAAL.middleware.rdf.RDFClassInfoSetup" alt="" coords="97,11,236,53"/>
 <area shape="rect" id="node2" href="./RDFClassInfoSetup.html" title="&lt;TABLE&gt;" alt="" coords="87,6,247,58"/>
-<area shape="rect" id="c292450" href="./RDFClassInfo.PrivateRDFSetup.html" title="org.universAAL.middleware.rdf.RDFClassInfo.PrivateRDFSetup" alt="" coords="191,121,315,146"/>
+<area shape="rect" id="c288354" href="./RDFClassInfo.PrivateRDFSetup.html" title="org.universAAL.middleware.rdf.RDFClassInfo.PrivateRDFSetup" alt="" coords="191,121,315,146"/>
 <area shape="rect" id="node3" href="./RDFClassInfo.PrivateRDFSetup.html" title="&lt;TABLE&gt;" alt="" coords="181,109,325,157"/>
 </map>

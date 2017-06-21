@@ -1,12 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="c23539" href="./SpaceModule.html" title="org.universAAL.middleware.modules.SpaceModule" alt="" coords="15,113,115,154"/>
+<area shape="rect" id="c22677" href="./SpaceModule.html" title="org.universAAL.middleware.modules.SpaceModule" alt="" coords="15,113,115,154"/>
 <area shape="rect" id="node1" href="./SpaceModule.html" title="&lt;TABLE&gt;" alt="" coords="5,107,125,159"/>
-<area shape="rect" id="c23540" href="./ConfigurableCommunicationModule.html" title="org.universAAL.middleware.modules.ConfigurableCommunicationModule" alt="" coords="123,214,349,255"/>
+<area shape="rect" id="c22678" href="./ConfigurableCommunicationModule.html" title="org.universAAL.middleware.modules.ConfigurableCommunicationModule" alt="" coords="123,214,349,255"/>
 <area shape="rect" id="node2" href="./ConfigurableCommunicationModule.html" title="&lt;TABLE&gt;" alt="" coords="112,209,360,261"/>
-<area shape="rect" id="c23541" href="./CommunicationModule.html" title="org.universAAL.middleware.modules.CommunicationModule" alt="" coords="159,113,313,154"/>
+<area shape="rect" id="c22679" href="./CommunicationModule.html" title="org.universAAL.middleware.modules.CommunicationModule" alt="" coords="159,113,313,154"/>
 <area shape="rect" id="node3" href="./CommunicationModule.html" title="&lt;TABLE&gt;" alt="" coords="149,107,323,159"/>
-<area shape="rect" id="c23542" href="./Module.html" title="org.universAAL.middleware.modules.Module" alt="" coords="193,11,279,53"/>
+<area shape="rect" id="c22680" href="./Module.html" title="org.universAAL.middleware.modules.Module" alt="" coords="193,11,279,53"/>
 <area shape="rect" id="node4" href="./Module.html" title="&lt;TABLE&gt;" alt="" coords="183,6,289,58"/>
-<area shape="rect" id="c23543" href="./DeployModule.html" title="org.universAAL.middleware.modules.DeployModule" alt="" coords="357,113,461,154"/>
+<area shape="rect" id="c22681" href="./DeployModule.html" title="org.universAAL.middleware.modules.DeployModule" alt="" coords="357,113,461,154"/>
 <area shape="rect" id="node5" href="./DeployModule.html" title="&lt;TABLE&gt;" alt="" coords="347,107,472,159"/>
 </map>

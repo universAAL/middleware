@@ -10,26 +10,26 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.service.owl.UserInterfaceService
-	c380055 [label=<<table title="org.universAAL.middleware.service.owl.UserInterfaceService" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UserInterfaceService.html">
+	c374909 [label=<<table title="org.universAAL.middleware.service.owl.UserInterfaceService" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UserInterfaceService.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UserInterfaceService </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UserInterfaceService.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.owl.InitialServiceDialog
-	c380056 [label=<<table title="org.universAAL.middleware.service.owl.InitialServiceDialog" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InitialServiceDialog.html">
+	c374910 [label=<<table title="org.universAAL.middleware.service.owl.InitialServiceDialog" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InitialServiceDialog.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> InitialServiceDialog </td></tr>
 		</table></td></tr>
 		</table>>, URL="./InitialServiceDialog.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.owl.Service
-	c380058 [label=<<table title="org.universAAL.middleware.service.owl.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Service.html">
+	c374912 [label=<<table title="org.universAAL.middleware.service.owl.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Service.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Service </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./Service.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.service.owl.UserInterfaceService extends org.universAAL.middleware.service.owl.Service
-	c380058:p -> c380055:p [dir=back,arrowtail=empty];
+	c374912:p -> c374909:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.owl.InitialServiceDialog extends org.universAAL.middleware.service.owl.UserInterfaceService
-	c380055:p -> c380056:p [dir=back,arrowtail=empty];
+	c374909:p -> c374910:p [dir=back,arrowtail=empty];
 }
 

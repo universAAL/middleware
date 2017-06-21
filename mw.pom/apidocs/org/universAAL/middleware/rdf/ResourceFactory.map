@@ -1,16 +1,16 @@
 <map id="G" name="G">
-<area shape="rect" id="c303446" href="../datarep/DataRepFactory.html" title="org.universAAL.middleware.datarep.DataRepFactory" alt="" coords="16,118,133,143"/>
+<area shape="rect" id="c299217" href="../datarep/DataRepFactory.html" title="org.universAAL.middleware.datarep.DataRepFactory" alt="" coords="16,118,133,143"/>
 <area shape="rect" id="node1" href="../datarep/DataRepFactory.html" title="&lt;TABLE&gt;" alt="" coords="5,107,144,155"/>
-<area shape="rect" id="c303489" href="../owl/generic/GenericResourceFactory.html" title="org.universAAL.middleware.owl.generic.GenericResourceFactory" alt="" coords="179,118,344,143"/>
+<area shape="rect" id="c299260" href="../owl/generic/GenericResourceFactory.html" title="org.universAAL.middleware.owl.generic.GenericResourceFactory" alt="" coords="179,118,344,143"/>
 <area shape="rect" id="node2" href="../owl/generic/GenericResourceFactory.html" title="&lt;TABLE&gt;" alt="" coords="168,107,355,155"/>
-<area shape="rect" id="c303506" href="./ResourceFactory.html" title="org.universAAL.middleware.rdf.ResourceFactory" alt="" coords="433,11,554,53"/>
+<area shape="rect" id="c299277" href="./ResourceFactory.html" title="org.universAAL.middleware.rdf.ResourceFactory" alt="" coords="433,11,554,53"/>
 <area shape="rect" id="node3" href="./ResourceFactory.html" title="&lt;TABLE&gt;" alt="" coords="423,6,564,58"/>
-<area shape="rect" id="c303686" href="../managers/configuration/core/owl/ConfigurationOntology.Factory.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory" alt="" coords="389,118,454,143"/>
+<area shape="rect" id="c299457" href="../managers/configuration/core/owl/ConfigurationOntology.Factory.html" title="org.universAAL.middleware.managers.configuration.core.owl.ConfigurationOntology.Factory" alt="" coords="389,118,454,143"/>
 <area shape="rect" id="node4" href="../managers/configuration/core/owl/ConfigurationOntology.Factory.html" title="&lt;TABLE&gt;" alt="" coords="379,107,464,155"/>
-<area shape="rect" id="c303741" href="../context/impl/ContextBusFactory.html" title="org.universAAL.middleware.context.impl.ContextBusFactory" alt="" coords="499,118,632,143"/>
+<area shape="rect" id="c299512" href="../context/impl/ContextBusFactory.html" title="org.universAAL.middleware.context.impl.ContextBusFactory" alt="" coords="499,118,632,143"/>
 <area shape="rect" id="node5" href="../context/impl/ContextBusFactory.html" title="&lt;TABLE&gt;" alt="" coords="488,107,643,155"/>
-<area shape="rect" id="c303778" href="../service/impl/ServiceBusFactory.html" title="org.universAAL.middleware.service.impl.ServiceBusFactory" alt="" coords="677,118,809,143"/>
+<area shape="rect" id="c299549" href="../service/impl/ServiceBusFactory.html" title="org.universAAL.middleware.service.impl.ServiceBusFactory" alt="" coords="677,118,809,143"/>
 <area shape="rect" id="node6" href="../service/impl/ServiceBusFactory.html" title="&lt;TABLE&gt;" alt="" coords="667,107,819,155"/>
-<area shape="rect" id="c303818" href="../ui/impl/UIBusFactory.html" title="org.universAAL.middleware.ui.impl.UIBusFactory" alt="" coords="853,118,955,143"/>
+<area shape="rect" id="c299589" href="../ui/impl/UIBusFactory.html" title="org.universAAL.middleware.ui.impl.UIBusFactory" alt="" coords="853,118,955,143"/>
 <area shape="rect" id="node7" href="../ui/impl/UIBusFactory.html" title="&lt;TABLE&gt;" alt="" coords="843,107,965,155"/>
 </map>

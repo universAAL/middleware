@@ -10,58 +10,58 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.middleware.rdf.FinalizedResource
-	c284885 [label=<<table title="org.universAAL.middleware.rdf.FinalizedResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../rdf/FinalizedResource.html">
+	c280880 [label=<<table title="org.universAAL.middleware.rdf.FinalizedResource" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../rdf/FinalizedResource.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FinalizedResource </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../rdf/FinalizedResource.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds
-	c285167 [label=<<table title="org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ResponseTimeInMilliseconds.html">
+	c281162 [label=<<table title="org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ResponseTimeInMilliseconds.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ResponseTimeInMilliseconds </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ResponseTimeInMilliseconds.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.owls.profile.SingleLocationParameter
-	c285168 [label=<<table title="org.universAAL.middleware.service.owls.profile.SingleLocationParameter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SingleLocationParameter.html">
+	c281163 [label=<<table title="org.universAAL.middleware.service.owls.profile.SingleLocationParameter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SingleLocationParameter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SingleLocationParameter </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SingleLocationParameter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.owls.profile.QoSRating
-	c285169 [label=<<table title="org.universAAL.middleware.service.owls.profile.QoSRating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./QoSRating.html">
+	c281164 [label=<<table title="org.universAAL.middleware.service.owls.profile.QoSRating" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./QoSRating.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> QoSRating </td></tr>
 		</table></td></tr>
 		</table>>, URL="./QoSRating.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.owls.profile.MultiLocationParameter
-	c285170 [label=<<table title="org.universAAL.middleware.service.owls.profile.MultiLocationParameter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultiLocationParameter.html">
+	c281165 [label=<<table title="org.universAAL.middleware.service.owls.profile.MultiLocationParameter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultiLocationParameter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MultiLocationParameter </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MultiLocationParameter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.owls.profile.ProfileParameter
-	c285172 [label=<<table title="org.universAAL.middleware.service.owls.profile.ProfileParameter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ProfileParameter.html">
+	c281167 [label=<<table title="org.universAAL.middleware.service.owls.profile.ProfileParameter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ProfileParameter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ProfileParameter </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./ProfileParameter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.service.owls.profile.NumberOfSamples
-	c285173 [label=<<table title="org.universAAL.middleware.service.owls.profile.NumberOfSamples" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NumberOfSamples.html">
+	c281168 [label=<<table title="org.universAAL.middleware.service.owls.profile.NumberOfSamples" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NumberOfSamples.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NumberOfSamples </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NumberOfSamples.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.middleware.service.owls.profile.ResponseTimeInMilliseconds extends org.universAAL.middleware.service.owls.profile.ProfileParameter
-	c285172:p -> c285167:p [dir=back,arrowtail=empty];
+	c281167:p -> c281162:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.owls.profile.SingleLocationParameter extends org.universAAL.middleware.service.owls.profile.ProfileParameter
-	c285172:p -> c285168:p [dir=back,arrowtail=empty];
+	c281167:p -> c281163:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.owls.profile.QoSRating extends org.universAAL.middleware.service.owls.profile.ProfileParameter
-	c285172:p -> c285169:p [dir=back,arrowtail=empty];
+	c281167:p -> c281164:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.owls.profile.MultiLocationParameter extends org.universAAL.middleware.service.owls.profile.ProfileParameter
-	c285172:p -> c285170:p [dir=back,arrowtail=empty];
+	c281167:p -> c281165:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.owls.profile.ProfileParameter extends org.universAAL.middleware.rdf.FinalizedResource
-	c284885:p -> c285172:p [dir=back,arrowtail=empty];
+	c280880:p -> c281167:p [dir=back,arrowtail=empty];
 	//org.universAAL.middleware.service.owls.profile.NumberOfSamples extends org.universAAL.middleware.service.owls.profile.ProfileParameter
-	c285172:p -> c285173:p [dir=back,arrowtail=empty];
+	c281167:p -> c281168:p [dir=back,arrowtail=empty];
 }
 

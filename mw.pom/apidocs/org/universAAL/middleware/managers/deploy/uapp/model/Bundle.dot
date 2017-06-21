@@ -9,16 +9,16 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.middleware.connectors.deploy.karaf.model.Bundle
-	c100772 [label=<<table title="org.universAAL.middleware.connectors.deploy.karaf.model.Bundle" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Bundle.html">
+	// org.universAAL.middleware.managers.deploy.uapp.model.Bundle
+	c98997 [label=<<table title="org.universAAL.middleware.managers.deploy.uapp.model.Bundle" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Bundle.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bundle </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Bundle.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//org.universAAL.middleware.connectors.deploy.karaf.model.Bundle implements java.io.Serializable
-	c101320:p -> c100772:p [dir=back,arrowtail=empty,style=dashed];
+	//org.universAAL.middleware.managers.deploy.uapp.model.Bundle implements java.io.Serializable
+	c99527:p -> c98997:p [dir=back,arrowtail=empty,style=dashed];
 	// java.io.Serializable
-	c101320 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html">
+	c99527 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Serializable </td></tr>

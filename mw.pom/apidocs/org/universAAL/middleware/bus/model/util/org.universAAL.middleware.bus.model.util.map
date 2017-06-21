@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c38187" href="./RegistryMap.html" title="org.universAAL.middleware.bus.model.util.RegistryMap" alt="" coords="15,118,110,143"/>
+<area shape="rect" id="c37150" href="./RegistryMap.html" title="org.universAAL.middleware.bus.model.util.RegistryMap" alt="" coords="15,118,110,143"/>
 <area shape="rect" id="node1" href="./RegistryMap.html" title="&lt;TABLE&gt;" alt="" coords="5,107,120,155"/>
-<area shape="rect" id="c38188" href="./IRegistryListener.html" title="org.universAAL.middleware.bus.model.util.IRegistryListener" alt="" coords="151,11,271,53"/>
+<area shape="rect" id="c37151" href="./IRegistryListener.html" title="org.universAAL.middleware.bus.model.util.IRegistryListener" alt="" coords="151,11,271,53"/>
 <area shape="rect" id="node2" href="./IRegistryListener.html" title="&lt;TABLE&gt;" alt="" coords="140,6,281,58"/>
-<area shape="rect" id="c38189" href="./IRegistry.html" title="org.universAAL.middleware.bus.model.util.IRegistry" alt="" coords="20,11,105,53"/>
+<area shape="rect" id="c37152" href="./IRegistry.html" title="org.universAAL.middleware.bus.model.util.IRegistry" alt="" coords="20,11,105,53"/>
 <area shape="rect" id="node3" href="./IRegistry.html" title="&lt;TABLE&gt;" alt="" coords="9,6,116,58"/>
 </map>

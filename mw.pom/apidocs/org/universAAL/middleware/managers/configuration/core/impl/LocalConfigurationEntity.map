@@ -1,12 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="c230193" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor" alt="" coords="151,11,313,53"/>
+<area shape="rect" id="c226846" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html" title="org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor" alt="" coords="151,11,313,53"/>
 <area shape="rect" id="node1" href="../../../../interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.html" title="&lt;TABLE&gt;" alt="" coords="141,6,323,58"/>
-<area shape="rect" id="c230315" href="./LocalConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationEntity" alt="" coords="151,214,313,239"/>
+<area shape="rect" id="c226968" href="./LocalConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationEntity" alt="" coords="151,214,313,239"/>
 <area shape="rect" id="node4" href="./LocalConfigurationEntity.html" title="&lt;TABLE&gt;" alt="" coords="140,203,324,251"/>
-<area shape="rect" id="c230319" href="./GenericConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity" alt="" coords="211,118,389,143"/>
+<area shape="rect" id="c226972" href="./GenericConfigurationEntity.html" title="org.universAAL.middleware.managers.configuration.core.impl.GenericConfigurationEntity" alt="" coords="211,118,389,143"/>
 <area shape="rect" id="node5" href="./GenericConfigurationEntity.html" title="&lt;TABLE&gt;" alt="" coords="201,107,399,155"/>
-<area shape="rect" id="c230313" href="./LocalConfigurationFileEditor.html" title="org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationFileEditor" alt="" coords="16,310,200,335"/>
+<area shape="rect" id="c226966" href="./LocalConfigurationFileEditor.html" title="org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationFileEditor" alt="" coords="16,310,200,335"/>
 <area shape="rect" id="node2" href="./LocalConfigurationFileEditor.html" title="&lt;TABLE&gt;" alt="" coords="5,299,211,347"/>
-<area shape="rect" id="c230314" href="./LocalConfigurationParameterEditor.html" title="org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationParameterEditor" alt="" coords="245,310,467,335"/>
+<area shape="rect" id="c226967" href="./LocalConfigurationParameterEditor.html" title="org.universAAL.middleware.managers.configuration.core.impl.LocalConfigurationParameterEditor" alt="" coords="245,310,467,335"/>
 <area shape="rect" id="node3" href="./LocalConfigurationParameterEditor.html" title="&lt;TABLE&gt;" alt="" coords="235,299,477,347"/>
 </map>

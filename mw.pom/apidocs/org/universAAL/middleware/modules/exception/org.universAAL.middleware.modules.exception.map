@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c24126" href="./CommunicationModuleErrorCode.html" title="org.universAAL.middleware.modules.exception.CommunicationModuleErrorCode" alt="" coords="16,17,229,42"/>
+<area shape="rect" id="c23257" href="./CommunicationModuleErrorCode.html" title="org.universAAL.middleware.modules.exception.CommunicationModuleErrorCode" alt="" coords="16,17,229,42"/>
 <area shape="rect" id="node1" href="./CommunicationModuleErrorCode.html" title="&lt;TABLE&gt;" alt="" coords="5,5,240,53"/>
-<area shape="rect" id="c24127" href="./SpaceModuleException.html" title="org.universAAL.middleware.modules.exception.SpaceModuleException" alt="" coords="275,17,432,42"/>
+<area shape="rect" id="c23258" href="./SpaceModuleException.html" title="org.universAAL.middleware.modules.exception.SpaceModuleException" alt="" coords="275,17,432,42"/>
 <area shape="rect" id="node2" href="./SpaceModuleException.html" title="&lt;TABLE&gt;" alt="" coords="264,5,443,53"/>
-<area shape="rect" id="c24128" href="./CommunicationModuleException.html" title="org.universAAL.middleware.modules.exception.CommunicationModuleException" alt="" coords="477,17,689,42"/>
+<area shape="rect" id="c23259" href="./CommunicationModuleException.html" title="org.universAAL.middleware.modules.exception.CommunicationModuleException" alt="" coords="477,17,689,42"/>
 <area shape="rect" id="node3" href="./CommunicationModuleException.html" title="&lt;TABLE&gt;" alt="" coords="467,5,699,53"/>
-<area shape="rect" id="c24129" href="./SpaceModuleErrorCode.html" title="org.universAAL.middleware.modules.exception.SpaceModuleErrorCode" alt="" coords="733,17,891,42"/>
+<area shape="rect" id="c23260" href="./SpaceModuleErrorCode.html" title="org.universAAL.middleware.modules.exception.SpaceModuleErrorCode" alt="" coords="733,17,891,42"/>
 <area shape="rect" id="node4" href="./SpaceModuleErrorCode.html" title="&lt;TABLE&gt;" alt="" coords="723,5,901,53"/>
 </map>

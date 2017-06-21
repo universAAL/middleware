@@ -9,40 +9,40 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.middleware.interfaces.space.model.IChannelDescriptor
-	c4110 [label=<<table title="org.universAAL.middleware.interfaces.space.model.IChannelDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IChannelDescriptor.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> IChannelDescriptor </td></tr>
-		</table></td></tr>
-		</table>>, URL="./IChannelDescriptor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.middleware.interfaces.space.model.ICommunicationChannels
-	c4111 [label=<<table title="org.universAAL.middleware.interfaces.space.model.ICommunicationChannels" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ICommunicationChannels.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> ICommunicationChannels </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ICommunicationChannels.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.space.model.IPeeringChannel
-	c4112 [label=<<table title="org.universAAL.middleware.interfaces.space.model.IPeeringChannel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IPeeringChannel.html">
+	c3479 [label=<<table title="org.universAAL.middleware.interfaces.space.model.IPeeringChannel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IPeeringChannel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> IPeeringChannel </td></tr>
 		</table></td></tr>
 		</table>>, URL="./IPeeringChannel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor
-	c4113 [label=<<table title="org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ISpaceDescriptor.html">
+	c3480 [label=<<table title="org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ISpaceDescriptor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ISpaceDescriptor </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ISpaceDescriptor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.interfaces.space.model.ISpace
-	c4114 [label=<<table title="org.universAAL.middleware.interfaces.space.model.ISpace" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ISpace.html">
+	c3481 [label=<<table title="org.universAAL.middleware.interfaces.space.model.ISpace" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ISpace.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ISpace </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ISpace.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.interfaces.space.model.ICommunicationChannels
+	c3482 [label=<<table title="org.universAAL.middleware.interfaces.space.model.ICommunicationChannels" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ICommunicationChannels.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> ICommunicationChannels </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ICommunicationChannels.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.interfaces.space.model.IChannelDescriptor
+	c3483 [label=<<table title="org.universAAL.middleware.interfaces.space.model.IChannelDescriptor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IChannelDescriptor.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> IChannelDescriptor </td></tr>
+		</table></td></tr>
+		</table>>, URL="./IChannelDescriptor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

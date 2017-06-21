@@ -28,7 +28,6 @@ org.universAAL.middleware.connectors.communication.jgroups
 org.universAAL.middleware.connectors.communication.jgroups.osgi
 org.universAAL.middleware.connectors.communication.jgroups.util
 org.universAAL.middleware.connectors.deploy.karaf
-org.universAAL.middleware.connectors.deploy.karaf.model
 org.universAAL.middleware.connectors.deploy.karaf.osgi
 org.universAAL.middleware.connectors.discovery.slp
 org.universAAL.middleware.connectors.discovery.slp.osgi

@@ -1,12 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="c192318" href="../../rdf/FinalizedResource.html" title="org.universAAL.middleware.rdf.FinalizedResource" alt="" coords="51,17,180,42"/>
+<area shape="rect" id="c189426" href="../../rdf/FinalizedResource.html" title="org.universAAL.middleware.rdf.FinalizedResource" alt="" coords="51,17,180,42"/>
 <area shape="rect" id="node1" href="../../rdf/FinalizedResource.html" title="&lt;TABLE&gt;" alt="" coords="41,5,190,53"/>
-<area shape="rect" id="c192652" href="./FormElement.html" title="org.universAAL.middleware.ui.rdf.FormElement" alt="" coords="66,115,165,141"/>
+<area shape="rect" id="c189760" href="./FormElement.html" title="org.universAAL.middleware.ui.rdf.FormElement" alt="" coords="66,115,165,141"/>
 <area shape="rect" id="node4" href="./FormElement.html" title="&lt;TABLE&gt;" alt="" coords="55,104,175,152"/>
-<area shape="rect" id="c192646" href="./Form.html" title="org.universAAL.middleware.ui.rdf.Form" alt="" coords="17,214,67,239"/>
+<area shape="rect" id="c189754" href="./Form.html" title="org.universAAL.middleware.ui.rdf.Form" alt="" coords="17,214,67,239"/>
 <area shape="rect" id="node2" href="./Form.html" title="&lt;TABLE&gt;" alt="" coords="6,203,78,251"/>
-<area shape="rect" id="c192650" href="./Label.html" title="org.universAAL.middleware.ui.rdf.Label" alt="" coords="124,329,176,354"/>
+<area shape="rect" id="c189758" href="./Label.html" title="org.universAAL.middleware.ui.rdf.Label" alt="" coords="124,329,176,354"/>
 <area shape="rect" id="node3" href="./Label.html" title="&lt;TABLE&gt;" alt="" coords="114,317,186,365"/>
-<area shape="rect" id="c192653" href="./FormControl.html" title="org.universAAL.middleware.ui.rdf.FormControl" alt="" coords="163,214,257,239"/>
+<area shape="rect" id="c189761" href="./FormControl.html" title="org.universAAL.middleware.ui.rdf.FormControl" alt="" coords="163,214,257,239"/>
 <area shape="rect" id="node5" href="./FormControl.html" title="&lt;TABLE&gt;" alt="" coords="153,203,267,251"/>
 </map>

@@ -1,14 +1,14 @@
 <map id="G" name="G">
-<area shape="rect" id="c14758" href="./AppPartScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.AppPartScope" alt="" coords="175,305,281,330"/>
+<area shape="rect" id="c14001" href="./AppPartScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.AppPartScope" alt="" coords="175,305,281,330"/>
 <area shape="rect" id="node1" href="./AppPartScope.html" title="&lt;TABLE&gt;" alt="" coords="165,293,291,341"/>
-<area shape="rect" id="c14759" href="./InstanceScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.InstanceScope" alt="" coords="15,209,123,234"/>
+<area shape="rect" id="c14002" href="./InstanceScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.InstanceScope" alt="" coords="15,209,123,234"/>
 <area shape="rect" id="node2" href="./InstanceScope.html" title="&lt;TABLE&gt;" alt="" coords="5,197,133,245"/>
-<area shape="rect" id="c14760" href="./ModuleScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.ModuleScope" alt="" coords="19,305,119,330"/>
+<area shape="rect" id="c14003" href="./ModuleScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.ModuleScope" alt="" coords="19,305,119,330"/>
 <area shape="rect" id="node3" href="./ModuleScope.html" title="&lt;TABLE&gt;" alt="" coords="9,293,129,341"/>
-<area shape="rect" id="c14761" href="./SpaceScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.SpaceScope" alt="" coords="101,113,195,138"/>
+<area shape="rect" id="c14004" href="./SpaceScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.SpaceScope" alt="" coords="101,113,195,138"/>
 <area shape="rect" id="node4" href="./SpaceScope.html" title="&lt;TABLE&gt;" alt="" coords="91,101,205,149"/>
-<area shape="rect" id="c14762" href="./ApplicationScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope" alt="" coords="167,209,289,234"/>
+<area shape="rect" id="c14005" href="./ApplicationScope.html" title="org.universAAL.middleware.interfaces.configuration.scope.ApplicationScope" alt="" coords="167,209,289,234"/>
 <area shape="rect" id="node5" href="./ApplicationScope.html" title="&lt;TABLE&gt;" alt="" coords="157,197,299,245"/>
-<area shape="rect" id="c14763" href="./Scope.html" title="org.universAAL.middleware.interfaces.configuration.scope.Scope" alt="" coords="119,17,177,42"/>
+<area shape="rect" id="c14006" href="./Scope.html" title="org.universAAL.middleware.interfaces.configuration.scope.Scope" alt="" coords="119,17,177,42"/>
 <area shape="rect" id="node6" href="./Scope.html" title="&lt;TABLE&gt;" alt="" coords="109,5,187,53"/>
 </map>
