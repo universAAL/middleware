@@ -33,4 +33,21 @@
       <scope>provided</scope>
 	</dependency>
   </dependencies>
+  
+  <build>
+    <pluginManagement>
+      <plugins>
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-pmd-plugin</artifactId>
+    <configuration>
+        <excludes>
+            <exclude>org\universAAL\middleware\xsd\util\Base64.java</exclude>
+        </excludes>
+    </configuration>
+  </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
 </project>
