@@ -65,7 +65,7 @@
                      org.universAAL.middleware.interfaces.mpa,
                      org.universAAL.middleware.interfaces.utils,
                      org.universAAL.middleware.brokers.control,
-                     org.universAAL.middleware.deploymanager.uapp.model</Import-Package>
+                     org.universAAL.middleware.managers.deploy.uapp.model</Import-Package>
             <Bundle-Activator>org.universAAL.middleware.managers.deploy.osgi.Activator</Bundle-Activator>
             <Private-Package />
           </instructions>
