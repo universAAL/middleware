@@ -47,8 +47,7 @@
                      javax.xml.bind.annotation.adapters,
                      javax.xml.namespace,
                      org.w3c.dom</Import-Package>
-            <Export-Package>org.universAAL.middleware.connectors.deploy.karaf.model,
-                     org.universAAL.middleware.managers.deploy.uapp.model,
+            <Export-Package>org.universAAL.middleware.managers.deploy.uapp.model,
                      org.universAAL.middleware.interfaces.space.*</Export-Package>
           </instructions>
         </configuration>
