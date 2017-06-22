@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 537,
-             Errors: 7815,
+             Errors: 7821,
              Warnings: 496,
-             Infos: 2969
+             Infos: 2973
       </title>
             <link>http://middleware/mw.pom//checkstyle.html</link>
       <description>
@@ -1295,13 +1295,13 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.bus.junit.OntTestCase.java">org/universAAL/middleware/bus/junit/OntTestCase.java</a>
                 </td>
                 <td>
-                  12
+                  14
                 </td>
                 <td>
                   3
                 </td>
                 <td>
-                  44
+                  43
                 </td>
               </tr>
                           <tr>
@@ -1519,7 +1519,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.container.JUnit.JUnitContainer.java">org/universAAL/middleware/container/JUnit/JUnitContainer.java</a>
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   1
@@ -6299,7 +6299,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  50
+                  57
                 </td>
               </tr>
                           <tr>
@@ -7469,7 +7469,7 @@ under the License.
                   <a href="http://middleware/mw.pom//checkstyle.html#org.universAAL.middleware.bus.junit.BusTestCase.java">org/universAAL/middleware/bus/junit/BusTestCase.java</a>
                 </td>
                 <td>
-                  3
+                  4
                 </td>
                 <td>
                   1

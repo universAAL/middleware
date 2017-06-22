@@ -49,14 +49,11 @@
                                                                                       <li class="collapsed">
                           <a href="project-info.html" title="Project Information">Project Information</a>
                   </li>
-                                                                                                                                                      <li class="expanded">
+                                                                                                                                    <li class="expanded">
                           <a href="project-reports.html" title="Project Reports">Project Reports</a>
                     <ul>
                       <li class="none">
                           <a href="checkstyle.html" title="Checkstyle">Checkstyle</a>
-            </li>
-                      <li class="none">
-                          <a href="cobertura/index.html" title="Cobertura Test Coverage">Cobertura Test Coverage</a>
             </li>
                       <li class="none">
                           <a href="apidocs/index.html" title="JavaDocs">JavaDocs</a>
@@ -93,7 +90,7 @@
 <th>Errors</th>
 <th>Missing Classes</th></tr>
 <tr class="b">
-<td>10</td>
+<td>11</td>
 <td>15</td>
 <td>0</td>
 <td>0</td></tr></table></div>
@@ -107,7 +104,7 @@
 <td><a href="#org.universAAL.middleware.bus.junit.BusTestCase">org.universAAL.middleware.bus.junit.BusTestCase</a></td>
 <td>2</td></tr>
 <tr class="a">
-<td><a href="#org.universAAL.middleware.bus.junit.BusTestCase$1$1">org.universAAL.middleware.bus.junit.BusTestCase$1$1</a></td>
+<td><a href="#org.universAAL.middleware.bus.junit.BusTestCase$2$1">org.universAAL.middleware.bus.junit.BusTestCase$2$1</a></td>
 <td>1</td></tr>
 <tr class="b">
 <td><a href="#org.universAAL.middleware.bus.junit.ManifestTestCase">org.universAAL.middleware.bus.junit.ManifestTestCase</a></td>
@@ -141,9 +138,9 @@
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#MS_PKGPROTECT">MS_PKGPROTECT</a></td>
 <td></td>
-<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.bus.junit.BusTestCase11"></a>
+<td>Medium</td></tr></table></div><a name="org.universAAL.middleware.bus.junit.BusTestCase21"></a>
 <div class="section">
-<h3><a name="org.universAAL.middleware.bus.junit.BusTestCase11"></a>org.universAAL.middleware.bus.junit.BusTestCase$1$1</h3>
+<h3><a name="org.universAAL.middleware.bus.junit.BusTestCase21"></a>org.universAAL.middleware.bus.junit.BusTestCase$2$1</h3>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>Bug</th>
@@ -152,7 +149,7 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="b">
-<td>Class org.universAAL.middleware.bus.junit.BusTestCase$1$1 defines non-transient non-serializable instance field this$1</td>
+<td>Class org.universAAL.middleware.bus.junit.BusTestCase$2$1 defines non-transient non-serializable instance field this$1</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SE_BAD_FIELD">SE_BAD_FIELD</a></td>
 <td></td>
@@ -200,19 +197,19 @@
 <td>Random object created and used only once in org.universAAL.middleware.bus.junit.OntTestCase.ontFileName(Ontology)</td>
 <td>BAD_PRACTICE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DMI_RANDOM_USED_ONLY_ONCE">DMI_RANDOM_USED_ONLY_ONCE</a></td>
-<td>565</td>
+<td>539</td>
 <td>High</td></tr>
 <tr class="a">
 <td>Found reliance on default encoding in org.universAAL.middleware.bus.junit.OntTestCase.writeTTL(Ontology, File): new java.io.FileWriter(File, boolean)</td>
 <td>I18N</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_DEFAULT_ENCODING">DM_DEFAULT_ENCODING</a></td>
-<td>584</td>
+<td>558</td>
 <td>High</td></tr>
 <tr class="b">
 <td>Redundant nullcheck of name, which is known to be non-null in org.universAAL.middleware.bus.junit.OntTestCase.ontFileName(Ontology)</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE">RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE</a></td>
-<td>562</td>
+<td>536</td>
 <td>Medium</td></tr></table></div><a name="org.universAAL.middleware.bus.junit.OntTestCaseLogEntry"></a>
 <div class="section">
 <h3><a name="org.universAAL.middleware.bus.junit.OntTestCaseLogEntry"></a>org.universAAL.middleware.bus.junit.OntTestCase$LogEntry</h3>
@@ -227,43 +224,43 @@
 <td>Return value of java.io.StringWriter.toString() ignored, but method has no side effect</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT">RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT</a></td>
-<td>134</td>
+<td>133</td>
 <td>High</td></tr>
 <tr class="a">
 <td>Switch statement found in org.universAAL.middleware.bus.junit.OntTestCase$LogEntry.toString() where default case is missing</td>
 <td>STYLE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SF_SWITCH_NO_DEFAULT">SF_SWITCH_NO_DEFAULT</a></td>
-<td>110</td>
+<td>109</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>Should org.universAAL.middleware.bus.junit.OntTestCase$LogEntry be a _static_ inner class?</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a></td>
-<td>80</td>
+<td>79</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Unread field: org.universAAL.middleware.bus.junit.OntTestCase$LogEntry.cls</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
-<td>85</td>
+<td>84</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>Unread field: org.universAAL.middleware.bus.junit.OntTestCase$LogEntry.method</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
-<td>86</td>
+<td>85</td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>Unread field: org.universAAL.middleware.bus.junit.OntTestCase$LogEntry.module</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
-<td>83</td>
+<td>82</td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>Unread field: org.universAAL.middleware.bus.junit.OntTestCase$LogEntry.pkg</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
-<td>84</td>
+<td>83</td>
 <td>Medium</td></tr></table></div>
       </div>
     </div>

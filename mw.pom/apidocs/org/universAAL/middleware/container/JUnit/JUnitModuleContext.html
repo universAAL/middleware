@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -168,7 +168,13 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#JUnitModuleContext--">JUnitModuleContext</a></span>()</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#JUnitModuleContext-org.universAAL.middleware.container.ModuleActivator-">JUnitModuleContext</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html" title="interface in org.universAAL.middleware.container">ModuleActivator</a>&nbsp;ma)</code>&nbsp;</td>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#JUnitModuleContext-org.universAAL.middleware.container.ModuleActivator-">JUnitModuleContext</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html" title="interface in org.universAAL.middleware.container">ModuleActivator</a>&nbsp;ma)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;&nbsp;</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#JUnitModuleContext-org.universAAL.middleware.container.ModuleActivator-java.lang.String-">JUnitModuleContext</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html" title="interface in org.universAAL.middleware.container">ModuleActivator</a>&nbsp;ma,
+                  <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classname)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -209,61 +215,65 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#disableLog--">disableLog</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#enableLog--">enableLog</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#getAttribute-java.lang.String-">getAttribute</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;attrName)</code>
 <div class="block">Returns the value associated with a certain attribute that has been set
  previously by a component that has access to this module context.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#getConfigHome--">getConfigHome</a></span>()</code>
 <div class="block">Get the Configuration Folder for this module.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/universAAL/middleware/container/Container.html" title="interface in org.universAAL.middleware.container">Container</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#getContainer--">getContainer</a></span>()</code>
 <div class="block">Returns the <a href="../../../../../org/universAAL/middleware/container/Container.html" title="interface in org.universAAL.middleware.container"><code>Container</code></a> object that contains the module associated
  with this ModuleContext.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#getDataFolder--">getDataFolder</a></span>()</code>
 <div class="block">Get the Data folder for this module, the general storage space where data
  generated by the module should be stored.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#getID--">getID</a></span>()</code></td>
 </tr>
-<tr id="i8" class="altColor">
-<td class="colFirst"><code><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.LogLevel.html" title="enum in org.universAAL.middleware.container.JUnit">JUnitModuleContext.LogLevel</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#getLogLevel--">getLogLevel</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#getManifestEntry-java.lang.String-">getManifestEntry</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
 <div class="block">Get the value of an entry from the manifest of this module.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#getManifestEntry-java.lang.String-java.lang.String-">getManifestEntry</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;manifest,
                 <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
 <div class="block">Get the value of an entry from a custom manifest of this module.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#getProperty-java.lang.String-">getProperty</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</code>
 <div class="block">Return the current value of an property or properties that is defined in
  this container</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#getProperty-java.lang.String-java.lang.Object-">getProperty</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name,
            <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;def)</code>
@@ -271,37 +281,37 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
  this container</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#isLogDebugEnabled--">isLogDebugEnabled</a></span>()</code>
 <div class="block">Is the logger instance enabled for the DEBUG level?</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#isLogErrorEnabled--">isLogErrorEnabled</a></span>()</code>
 <div class="block">Is the logger instance enabled for the ERROR level?</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#isLogInfoEnabled--">isLogInfoEnabled</a></span>()</code>
 <div class="block">Is the logger instance enabled for the INFO level?</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#isLogTraceEnabled--">isLogTraceEnabled</a></span>()</code>
 <div class="block">Is the logger instance enabled for the TRACE level?</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#isLogWarnEnabled--">isLogWarnEnabled</a></span>()</code>
 <div class="block">Is the logger instance enabled for the WARN level?</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#listConfigFiles-org.universAAL.middleware.container.ModuleContext-">listConfigFiles</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;requester)</code>
 <div class="block">Returns the list of all config files associated with this module that
@@ -309,7 +319,7 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
  the given requester is allowed to access them.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#logDebug-java.lang.String-java.lang.String-java.lang.Throwable-">logDebug</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;tag,
         <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message,
@@ -318,7 +328,7 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
  case for logging debug messages.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#logError-java.lang.String-java.lang.String-java.lang.Throwable-">logError</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;tag,
         <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message,
@@ -327,7 +337,7 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
  case for logging error messages.</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#logInfo-java.lang.String-java.lang.String-java.lang.Throwable-">logInfo</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;tag,
        <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message,
@@ -336,7 +346,7 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
  case for logging info messages.</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#logTrace-java.lang.String-java.lang.String-java.lang.Throwable-">logTrace</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;tag,
         <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message,
@@ -345,7 +355,7 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
  case for logging trace messages.</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#logWarn-java.lang.String-java.lang.String-java.lang.Throwable-">logWarn</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;tag,
        <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message,
@@ -354,14 +364,14 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
  case for logging warnings.</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#registerConfigFile-java.lang.Object:A-">registerConfigFile</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>[]&nbsp;configFileParams)</code>
 <div class="block">Modules can use this method of their context to enrich it with info about
  those config files of them that follow the container conventions.</div>
 </td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#setAttribute-java.lang.String-java.lang.Object-">setAttribute</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;attrName,
             <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;attrValue)</code>
@@ -370,23 +380,23 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
  this interface.</div>
 </td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#setLogLevel-org.universAAL.middleware.container.JUnit.JUnitModuleContext.LogLevel-">setLogLevel</a></span>(<a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.LogLevel.html" title="enum in org.universAAL.middleware.container.JUnit">JUnitModuleContext.LogLevel</a>&nbsp;level)</code>&nbsp;</td>
 </tr>
-<tr id="i27" class="rowColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#start-org.universAAL.middleware.container.ModuleContext-">start</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;requester)</code>
 <div class="block">An authorized requester can use this method to start the current module.</div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#stop-org.universAAL.middleware.container.ModuleContext-">stop</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;requester)</code>
 <div class="block">An authorized requester can use this method to stop the current module.</div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.html#uninstall-org.universAAL.middleware.container.ModuleContext-">uninstall</a></span>(<a href="../../../../../org/universAAL/middleware/container/ModuleContext.html" title="interface in org.universAAL.middleware.container">ModuleContext</a>&nbsp;requester)</code>
 <div class="block">An authorized requester can use this method to uninstall the current
@@ -415,6 +425,16 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
+<a name="JUnitModuleContext-org.universAAL.middleware.container.ModuleActivator-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>JUnitModuleContext</h4>
+<pre>public&nbsp;JUnitModuleContext(<a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html" title="interface in org.universAAL.middleware.container">ModuleActivator</a>&nbsp;ma,
+                          <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classname)</pre>
+</li>
+</ul>
 <a name="JUnitModuleContext-org.universAAL.middleware.container.ModuleActivator-">
 <!--   -->
 </a>
@@ -422,6 +442,7 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
 <li class="blockList">
 <h4>JUnitModuleContext</h4>
 <pre>public&nbsp;JUnitModuleContext(<a href="../../../../../org/universAAL/middleware/container/ModuleActivator.html" title="interface in org.universAAL.middleware.container">ModuleActivator</a>&nbsp;ma)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 <a name="JUnitModuleContext--">
@@ -441,6 +462,24 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a name="disableLog--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>disableLog</h4>
+<pre>public&nbsp;void&nbsp;disableLog()</pre>
+</li>
+</ul>
+<a name="enableLog--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>enableLog</h4>
+<pre>public&nbsp;void&nbsp;enableLog()</pre>
+</li>
+</ul>
 <a name="setLogLevel-org.universAAL.middleware.container.JUnit.JUnitModuleContext.LogLevel-">
 <!--   -->
 </a>
@@ -448,15 +487,6 @@ implements <a href="../../../../../org/universAAL/middleware/container/ModuleCon
 <li class="blockList">
 <h4>setLogLevel</h4>
 <pre>public&nbsp;void&nbsp;setLogLevel(<a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.LogLevel.html" title="enum in org.universAAL.middleware.container.JUnit">JUnitModuleContext.LogLevel</a>&nbsp;level)</pre>
-</li>
-</ul>
-<a name="getLogLevel--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getLogLevel</h4>
-<pre>public&nbsp;<a href="../../../../../org/universAAL/middleware/container/JUnit/JUnitModuleContext.LogLevel.html" title="enum in org.universAAL.middleware.container.JUnit">JUnitModuleContext.LogLevel</a>&nbsp;getLogLevel()</pre>
 </li>
 </ul>
 <a name="canBeStarted-org.universAAL.middleware.container.ModuleContext-">
