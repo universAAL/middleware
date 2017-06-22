@@ -14,11 +14,14 @@ branches:
 
 env:
   global:
-    secure: "RRAppK9c17EVIoYgLwSz6O1pcJzLmQIx9M8quvTkIU4xYVCQKCMsyc1eJiFWH35CABytH28h87u+24d1ZeuIjzE0fMfqA30kS1rTW3QXh7DDYAXz/DFr4c0j18vCfzXw5qoeEkunSNph75l6+z84ays2yC0bzwXncIb+273lmxw="
- matrix:
+    - secure: "RRAppK9c17EVIoYgLwSz6O1pcJzLmQIx9M8quvTkIU4xYVCQKCMsyc1eJiFWH35CABytH28h87u+24d1ZeuIjzE0fMfqA30kS1rTW3QXh7DDYAXz/DFr4c0j18vCfzXw5qoeEkunSNph75l6+z84ays2yC0bzwXncIb+273lmxw="
+  matrix:
     - MAT=MAT_TEST
     - MAT=MAT_REPORT
     - MAT=MAT_DEPLOY
+
+matrix:
+  fast_finish: true
 
 addons:
   apt:
