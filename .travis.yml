@@ -15,6 +15,10 @@ branches:
 env:
   global:
     secure: "RRAppK9c17EVIoYgLwSz6O1pcJzLmQIx9M8quvTkIU4xYVCQKCMsyc1eJiFWH35CABytH28h87u+24d1ZeuIjzE0fMfqA30kS1rTW3QXh7DDYAXz/DFr4c0j18vCfzXw5qoeEkunSNph75l6+z84ays2yC0bzwXncIb+273lmxw="
+ matrix:
+    - MAT=MAT_TEST
+    - MAT=MAT_REPORT
+    - MAT=MAT_DEPLOY
 
 addons:
   apt:
@@ -25,7 +29,7 @@ before_install:
  - cd pom
  - (curl -s https://raw.githubusercontent.com/universAAL/platform/master/uAAL.pom/src/scripts/settings.xml) > settings.xml
  - cp settings.xml $HOME/.m2/settings.xml
- - (curl -s https://raw.githubusercontent.com/universAAL/platform/master/uAAL.pom/src/scripts/ci.sh) > ci.sh
+ - (curl -s https://raw.githubusercontent.com/universAAL/platform/master/uAAL.pom/src/scripts/ci_mat.sh) > ci.sh
  - chmod +x ci.sh
  - export MY_REPO="middleware"
 
