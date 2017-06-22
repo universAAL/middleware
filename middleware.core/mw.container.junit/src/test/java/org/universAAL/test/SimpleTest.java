@@ -16,20 +16,25 @@
 
 package org.universAAL.test;
 
+import junit.framework.TestCase;
+
 import org.universAAL.middleware.container.JUnit.JUnitContainer;
 import org.universAAL.middleware.container.JUnit.JUnitModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
  * @author amedrano
  * 
  */
-public class SimpleTest {
+public class SimpleTest extends TestCase {
 
 	public void testContainer() {
 		JUnitContainer.getInstance();
 	}
 
 	public void testModuleContext() {
-		new JUnitModuleContext();
+		JUnitModuleContext jmc = new JUnitModuleContext();
+		jmc.logError("test", "This should be seen", null);
+		LogUtils.logDebug(jmc, getClass(), "test", "this too.");
 	}
 }
