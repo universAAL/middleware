@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="387" branches-covered="0" branches-valid="126" complexity="3.382978723404255" version="2.1.1" timestamp="1498213374023">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="387" branches-covered="0" branches-valid="126" complexity="3.382978723404255" version="2.1.1" timestamp="1498232459421">
 	<sources>
 		<source>/home/travis/build/universAAL/middleware/middleware.core/mw.connectors.communication.jgroups.core/src/main/java</source>
 		<source>--source</source>
