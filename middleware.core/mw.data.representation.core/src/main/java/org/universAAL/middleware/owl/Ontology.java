@@ -233,8 +233,9 @@ public abstract class Ontology {
 	 * @return true, if the import could be added, or false, if the given
 	 *         ontology URI is not valid.
 	 */
-	protected boolean addImport(String ontURI) {
-		if ((ontURI = getValidOntologyURI(ontURI)) == null) {
+	protected final boolean addImport(String ontURI) {
+		ontURI = getValidOntologyURI(ontURI);
+		if (ontURI == null) {
 			LogUtils.logWarn(SharedResources.moduleContext, OntologyManagement.class, "addImport",
 					new Object[] { "The import ", ontURI, " is not a valid ontology URI; it is not added." }, null);
 			return false;
@@ -256,7 +257,7 @@ public abstract class Ontology {
 	 * Get the object that stores all general information about the ontology,
 	 * like description, version, author, and imports.
 	 */
-	public Resource getInfo() {
+	public final Resource getInfo() {
 		return info;
 	}
 
@@ -281,7 +282,7 @@ public abstract class Ontology {
 	 *            URI of the class.
 	 * @return true, if this ontology defines or extends the given OWL class.
 	 */
-	public boolean hasOntClass(String classURI) {
+	public final boolean hasOntClass(String classURI) {
 		if (ontClassInfoMap.containsKey(classURI))
 			return true;
 		return extendedOntClassInfoMap.containsKey(classURI);
@@ -323,7 +324,7 @@ public abstract class Ontology {
 	 *            Factory index to be given to the factory.
 	 * @return The setup interface.
 	 */
-	protected RDFClassInfoSetup createNewRDFClassInfo(String classURI, ResourceFactory fac, int factoryIndex) {
+	protected final RDFClassInfoSetup createNewRDFClassInfo(String classURI, ResourceFactory fac, int factoryIndex) {
 		if (locked)
 			return null;
 
@@ -354,7 +355,7 @@ public abstract class Ontology {
 	 * @return The setup interface.
 	 * @see #extendExistingOntClassInfo(String)
 	 */
-	protected OntClassInfoSetup createNewAbstractOntClassInfo(String classURI) {
+	protected final OntClassInfoSetup createNewAbstractOntClassInfo(String classURI) {
 		return createNewOntClassInfo(classURI, null, -1);
 	}
 
@@ -370,7 +371,7 @@ public abstract class Ontology {
 	 * @return The setup interface.
 	 * @see #extendExistingOntClassInfo(String)
 	 */
-	protected OntClassInfoSetup createNewOntClassInfo(String classURI, ResourceFactory fac) {
+	protected final OntClassInfoSetup createNewOntClassInfo(String classURI, ResourceFactory fac) {
 		return createNewOntClassInfo(classURI, fac, -1);
 	}
 
@@ -386,7 +387,7 @@ public abstract class Ontology {
 	 * @return The setup interface.
 	 * @see #extendExistingOntClassInfo(String)
 	 */
-	protected OntClassInfoSetup createNewOntClassInfo(String classURI, ResourceFactory fac, int factoryIndex) {
+	protected final OntClassInfoSetup createNewOntClassInfo(String classURI, ResourceFactory fac, int factoryIndex) {
 		if (locked)
 			return null;
 		OntClassInfoSetup setup = newOntClassInfo(classURI, fac, factoryIndex);
@@ -420,7 +421,7 @@ public abstract class Ontology {
 	 *            URI of the class to extend.
 	 * @return The setup interface.
 	 */
-	protected OntClassInfoSetup extendExistingOntClassInfo(String classURI) {
+	protected final OntClassInfoSetup extendExistingOntClassInfo(String classURI) {
 		if (locked)
 			return null;
 		OntClassInfoSetup setup = newOntClassInfo(classURI, null, 0);
@@ -462,7 +463,7 @@ public abstract class Ontology {
 	 * Get a list of all resources of this ontology. The resources are the info
 	 * part, the RDF and OWL classes as well as the properties of these classes.
 	 */
-	public Resource[] getResourceList() {
+	public final Resource[] getResourceList() {
 		ArrayList list = new ArrayList();
 		list.add(info);
 
@@ -507,7 +508,7 @@ public abstract class Ontology {
 	 * can be made. The {@link Ontology} is automatically locked when it is
 	 * registered at the {@link OntologyManagement}.
 	 */
-	public void lock() {
+	public final void lock() {
 		// lock this ontology
 		locked = true;
 

@@ -20,7 +20,6 @@
 package org.universAAL.middleware.rdf;
 
 import org.universAAL.middleware.owl.TypeExpression;
-import org.universAAL.middleware.owl.Ontology;
 
 /**
  * Setup interface for creating new RDF classes. The creation is separated from

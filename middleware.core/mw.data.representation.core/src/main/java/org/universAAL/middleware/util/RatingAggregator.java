@@ -58,9 +58,10 @@ public final class RatingAggregator {
 			sum += r.ord();
 			num++;
 
-			if (num == 1)
-				max = min = r;
-			else if (max.ord() < r.ord())
+			if (num == 1) {
+				max = r;
+				min = r;
+			} else if (max.ord() < r.ord())
 				max = r;
 			else if (min.ord() > r.ord())
 				min = r;

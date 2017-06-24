@@ -461,9 +461,8 @@ public class Resource {
 			Resource spec = null;
 
 			String[] types = r.getTypes();
-			if (types == null || types.length == 0) {
-				// no type info -> this resource cannot be specialized
-			} else {
+			if (types != null && types.length != 0) {
+				// we have type info -> this resource can be specialized
 				String type = OntologyManagement.getInstance().getMostSpecializedClass(types);
 				if (type == null) {
 					spec = TypeExpressionFactory.specialize(r);

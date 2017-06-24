@@ -20,7 +20,6 @@
 package org.universAAL.middleware.rdf;
 
 import org.universAAL.middleware.owl.TypeExpression;
-import org.universAAL.middleware.owl.MaxCardinalityRestriction;
 
 /**
  * Setup interface for creating new RDF properties. The creation is separated
