@@ -28,7 +28,7 @@ under the License.
       <title>File: 7,
              Errors: 172,
              Warnings: 11,
-             Infos: 3
+             Infos: 2
       </title>
             <link>http://middleware/middleware.core/mw.managers.space.core//checkstyle.html</link>
       <description>
@@ -105,7 +105,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.managers.space.core//checkstyle.html#org.universAAL.middleware.managers.space.MatchingResultImpl.java">org/universAAL/middleware/managers/space/MatchingResultImpl.java</a>
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   1

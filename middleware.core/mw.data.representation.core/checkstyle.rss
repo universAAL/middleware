@@ -28,7 +28,7 @@ under the License.
       <title>File: 80,
              Errors: 720,
              Warnings: 112,
-             Infos: 89
+             Infos: 88
       </title>
             <link>http://middleware/middleware.core/mw.data.representation.core//checkstyle.html</link>
       <description>
@@ -721,7 +721,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.OntologyManagement.java">org/universAAL/middleware/owl/OntologyManagement.java</a>
                 </td>
                 <td>
-                  4
+                  3
                 </td>
                 <td>
                   0

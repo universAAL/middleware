@@ -28,7 +28,7 @@ under the License.
       <title>File: 6,
              Errors: 147,
              Warnings: 6,
-             Infos: 30
+             Infos: 13
       </title>
             <link>/checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.OSGiModuleContext.java">org/universAAL/middleware/container/osgi/OSGiModuleContext.java</a>
                 </td>
                 <td>
-                  7
+                  5
                 </td>
                 <td>
                   0
@@ -63,7 +63,7 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.run.OSGiExtender.java">org/universAAL/middleware/container/osgi/run/OSGiExtender.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   3
@@ -91,7 +91,7 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.OSGiContainer.java">org/universAAL/middleware/container/osgi/OSGiContainer.java</a>
                 </td>
                 <td>
-                  14
+                  5
                 </td>
                 <td>
                   1
@@ -119,7 +119,7 @@ under the License.
                   <a href="/checkstyle.html#org.universAAL.middleware.container.osgi.run.Activator.java">org/universAAL/middleware/container/osgi/run/Activator.java</a>
                 </td>
                 <td>
-                  6
+                  1
                 </td>
                 <td>
                   1

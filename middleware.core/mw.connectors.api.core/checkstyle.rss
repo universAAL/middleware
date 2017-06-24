@@ -28,7 +28,7 @@ under the License.
       <title>File: 13,
              Errors: 120,
              Warnings: 3,
-             Infos: 40
+             Infos: 0
       </title>
             <link>http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.exception.DiscoveryConnectorException.java">org/universAAL/middleware/connectors/exception/DiscoveryConnectorException.java</a>
                 </td>
                 <td>
-                  7
+                  0
                 </td>
                 <td>
                   0
@@ -77,7 +77,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.DeployConnector.java">org/universAAL/middleware/connectors/DeployConnector.java</a>
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   0
@@ -119,7 +119,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.CommunicationConnector.java">org/universAAL/middleware/connectors/CommunicationConnector.java</a>
                 </td>
                 <td>
-                  12
+                  0
                 </td>
                 <td>
                   1
@@ -133,7 +133,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.Connector.java">org/universAAL/middleware/connectors/Connector.java</a>
                 </td>
                 <td>
-                  10
+                  0
                 </td>
                 <td>
                   0
@@ -147,7 +147,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.exception.DiscoveryConnectorErrorCodes.java">org/universAAL/middleware/connectors/exception/DiscoveryConnectorErrorCodes.java</a>
                 </td>
                 <td>
-                  5
+                  0
                 </td>
                 <td>
                   0
@@ -161,7 +161,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.util.ExceptionUtils.java">org/universAAL/middleware/connectors/util/ExceptionUtils.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -189,7 +189,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.connectors.api.core//checkstyle.html#org.universAAL.middleware.connectors.exception.CommunicationConnectorException.java">org/universAAL/middleware/connectors/exception/CommunicationConnectorException.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0

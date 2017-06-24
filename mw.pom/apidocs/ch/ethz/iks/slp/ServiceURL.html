@@ -418,16 +418,16 @@ implements <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/Seriali
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>serviceURL</code> - the string representation of a ServiceURL like
- 
+
             <pre>
                  service::&quot;serviceType&quot;://&quot;addrspec&quot;
  </pre>
- 
+
             where servicetype should be of the form
             abstractType:concreteType and addrspec is the hostname or
             dotted decimal notation of the host's address followed by an
             optional :portNumber. Example:
- 
+
             <pre>
                      service:osgi:remote://my.host.ch:9200
  </pre></dd>
@@ -651,7 +651,7 @@ implements <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/Seriali
 <div class="block">Reads a byte stream from a DataInput and constructs a ServiceURL from it,
  following the RFC 2608 schema:
  <p>
- 
+
  <pre>
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -663,7 +663,7 @@ implements <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/Seriali
    |# of URL auths |            Auth. blocks (if any)              \
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  </pre>
- 
+
  .
  </p></div>
 <dl>

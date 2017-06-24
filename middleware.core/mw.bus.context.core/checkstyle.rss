@@ -28,7 +28,7 @@ under the License.
       <title>File: 29,
              Errors: 357,
              Warnings: 10,
-             Infos: 395
+             Infos: 1
       </title>
             <link>http://middleware/middleware.core/mw.bus.context.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.INumCalledPeersData.java">org/universAAL/middleware/context/data/INumCalledPeersData.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.IPropsData.java">org/universAAL/middleware/context/data/IPropsData.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.AllProvisionDataVector.java">org/universAAL/middleware/context/data/AllProvisionDataVector.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -105,7 +105,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.IAllProvisionData.java">org/universAAL/middleware/context/data/IAllProvisionData.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -119,7 +119,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.factory.ContextStrategyDataFactory.java">org/universAAL/middleware/context/data/factory/ContextStrategyDataFactory.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -133,7 +133,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.impl.ContextStrategy.java">org/universAAL/middleware/context/impl/ContextStrategy.java</a>
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
                   0
@@ -147,7 +147,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.DefaultContextPublisher.java">org/universAAL/middleware/context/DefaultContextPublisher.java</a>
                 </td>
                 <td>
-                  8
+                  0
                 </td>
                 <td>
                   0
@@ -175,7 +175,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.factory.AbstractContextStrategyDataFactory.java">org/universAAL/middleware/context/data/factory/AbstractContextStrategyDataFactory.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   1
@@ -189,7 +189,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.ContextBusFacade.java">org/universAAL/middleware/context/ContextBusFacade.java</a>
                 </td>
                 <td>
-                  5
+                  0
                 </td>
                 <td>
                   0
@@ -203,7 +203,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.CalledPeers.java">org/universAAL/middleware/context/data/CalledPeers.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -217,7 +217,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.AbstractFiltererContainer.java">org/universAAL/middleware/context/data/AbstractFiltererContainer.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   1
@@ -231,7 +231,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.factory.IContextStrategyDataFactory.java">org/universAAL/middleware/context/data/factory/IContextStrategyDataFactory.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -245,7 +245,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.ContextPublisher.java">org/universAAL/middleware/context/ContextPublisher.java</a>
                 </td>
                 <td>
-                  9
+                  0
                 </td>
                 <td>
                   0
@@ -259,7 +259,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.PropsDataMap.java">org/universAAL/middleware/context/data/PropsDataMap.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -273,7 +273,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.owl.ContextBusOntology.java">org/universAAL/middleware/context/owl/ContextBusOntology.java</a>
                 </td>
                 <td>
-                  8
+                  0
                 </td>
                 <td>
                   1
@@ -287,7 +287,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.IFiltererContainer.java">org/universAAL/middleware/context/data/IFiltererContainer.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -301,7 +301,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.ContextEventPattern.java">org/universAAL/middleware/context/ContextEventPattern.java</a>
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
                   0
@@ -315,7 +315,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.NumCalledPeersDataMap.java">org/universAAL/middleware/context/data/NumCalledPeersDataMap.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -329,7 +329,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.impl.ContextBusFactory.java">org/universAAL/middleware/context/impl/ContextBusFactory.java</a>
                 </td>
                 <td>
-                  8
+                  0
                 </td>
                 <td>
                   2
@@ -343,7 +343,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.owl.ContextProvider.java">org/universAAL/middleware/context/owl/ContextProvider.java</a>
                 </td>
                 <td>
-                  13
+                  1
                 </td>
                 <td>
                   0
@@ -371,7 +371,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.IProvisionsData.java">org/universAAL/middleware/context/data/IProvisionsData.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -385,7 +385,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.impl.ContextBusImpl.java">org/universAAL/middleware/context/impl/ContextBusImpl.java</a>
                 </td>
                 <td>
-                  7
+                  0
                 </td>
                 <td>
                   0
@@ -399,7 +399,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.FiltererContainerData.java">org/universAAL/middleware/context/data/FiltererContainerData.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -413,7 +413,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.ICalledPeers.java">org/universAAL/middleware/context/data/ICalledPeers.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -427,7 +427,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.data.ProvisionsDataList.java">org/universAAL/middleware/context/data/ProvisionsDataList.java</a>
                 </td>
                 <td>
-                  19
+                  0
                 </td>
                 <td>
                   0
@@ -441,7 +441,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.bus.context.core//checkstyle.html#org.universAAL.middleware.context.owl.ContextProviderType.java">org/universAAL/middleware/context/owl/ContextProviderType.java</a>
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
                   4

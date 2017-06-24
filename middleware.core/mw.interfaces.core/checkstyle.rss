@@ -28,7 +28,7 @@ under the License.
       <title>File: 39,
              Errors: 303,
              Warnings: 19,
-             Infos: 106
+             Infos: 32
       </title>
             <link>http://middleware/middleware.core/mw.interfaces.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.NotPattern.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/NotPattern.java</a>
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   0
@@ -77,7 +77,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.EntityPattern.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/EntityPattern.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -105,7 +105,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationDefinedElsewhere.java">org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationDefinedElsewhere.java</a>
                 </td>
                 <td>
-                  3
+                  1
                 </td>
                 <td>
                   1
@@ -119,7 +119,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.scope.Scope.java">org/universAAL/middleware/interfaces/configuration/scope/Scope.java</a>
                 </td>
                 <td>
-                  5
+                  1
                 </td>
                 <td>
                   0
@@ -147,7 +147,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.ConfigurableModule.java">org/universAAL/middleware/interfaces/configuration/ConfigurableModule.java</a>
                 </td>
                 <td>
-                  5
+                  2
                 </td>
                 <td>
                   1
@@ -161,7 +161,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditor.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditor.java</a>
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   1
@@ -203,7 +203,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.mpa.UAPPPartStatus.java">org/universAAL/middleware/interfaces/mpa/UAPPPartStatus.java</a>
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -217,7 +217,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DynamicDescribedEntity.java">org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/DynamicDescribedEntity.java</a>
                 </td>
                 <td>
-                  4
+                  2
                 </td>
                 <td>
                   0
@@ -231,7 +231,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ModulePattern.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/ModulePattern.java</a>
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   0
@@ -245,7 +245,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPattern.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/ApplicationPattern.java</a>
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   0
@@ -259,7 +259,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.mpa.UAPPStatus.java">org/universAAL/middleware/interfaces/mpa/UAPPStatus.java</a>
                 </td>
                 <td>
-                  3
+                  2
                 </td>
                 <td>
                   0
@@ -287,7 +287,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationParameterEditor.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/ConfigurationParameterEditor.java</a>
                 </td>
                 <td>
-                  5
+                  1
                 </td>
                 <td>
                   0
@@ -301,7 +301,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.ApplicationPartPattern.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/ApplicationPartPattern.java</a>
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   1
@@ -315,7 +315,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.DynamicDescribedEntityListener.java">org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/DynamicDescribedEntityListener.java</a>
                 </td>
                 <td>
-                  9
+                  5
                 </td>
                 <td>
                   0
@@ -385,7 +385,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.InstancePattern.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/InstancePattern.java</a>
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   0
@@ -413,7 +413,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.scope.AppPartScope.java">org/universAAL/middleware/interfaces/configuration/scope/AppPartScope.java</a>
                 </td>
                 <td>
-                  4
+                  0
                 </td>
                 <td>
                   1
@@ -427,7 +427,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.mpa.Pair.java">org/universAAL/middleware/interfaces/mpa/Pair.java</a>
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   1
@@ -469,7 +469,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.utils.Util.java">org/universAAL/middleware/interfaces/utils/Util.java</a>
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   1
@@ -483,7 +483,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.ChannelDescriptor.java">org/universAAL/middleware/interfaces/ChannelDescriptor.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   1
@@ -497,7 +497,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.mpa.UAPPCard.java">org/universAAL/middleware/interfaces/mpa/UAPPCard.java</a>
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   0
@@ -511,7 +511,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationDefinitionTypes.ConfigurationFile.java">org/universAAL/middleware/interfaces/configuration/configurationDefinitionTypes/ConfigurationFile.java</a>
                 </td>
                 <td>
-                  7
+                  3
                 </td>
                 <td>
                   0
@@ -525,7 +525,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurationFileEditor.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/ConfigurationFileEditor.java</a>
                 </td>
                 <td>
-                  5
+                  1
                 </td>
                 <td>
                   0
@@ -539,7 +539,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.ConfigurableEntityEditorListener.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/ConfigurableEntityEditorListener.java</a>
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   1
@@ -553,7 +553,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.configurationEditionTypes.pattern.IdPattern.java">org/universAAL/middleware/interfaces/configuration/configurationEditionTypes/pattern/IdPattern.java</a>
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   0
@@ -581,7 +581,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.interfaces.core//checkstyle.html#org.universAAL.middleware.interfaces.configuration.scope.ModuleScope.java">org/universAAL/middleware/interfaces/configuration/scope/ModuleScope.java</a>
                 </td>
                 <td>
-                  4
+                  0
                 </td>
                 <td>
                   0

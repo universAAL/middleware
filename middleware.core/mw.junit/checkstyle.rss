@@ -28,7 +28,7 @@ under the License.
       <title>File: 1,
              Errors: 3,
              Warnings: 1,
-             Infos: 8
+             Infos: 0
       </title>
             <link>http://middleware/middleware.core/mw.junit//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.junit//checkstyle.html#org.universAAL.middleware.junit.MWTestCase.java">org/universAAL/middleware/junit/MWTestCase.java</a>
                 </td>
                 <td>
-                  8
+                  0
                 </td>
                 <td>
                   1

@@ -28,7 +28,7 @@ under the License.
       <title>File: 41,
              Errors: 1008,
              Warnings: 5,
-             Infos: 143
+             Infos: 86
       </title>
             <link>http://middleware/middleware.resources/mw.schemas//checkstyle.html</link>
       <description>
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.Feature.java">org/universAAL/middleware/managers/deploy/uapp/model/Feature.java</a>
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   0
@@ -147,7 +147,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.Part.java">org/universAAL/middleware/managers/deploy/uapp/model/Part.java</a>
                 </td>
                 <td>
-                  12
+                  8
                 </td>
                 <td>
                   0
@@ -161,7 +161,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.AalUapp.java">org/universAAL/middleware/managers/deploy/uapp/model/AalUapp.java</a>
                 </td>
                 <td>
-                  29
+                  23
                 </td>
                 <td>
                   0
@@ -175,7 +175,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.interfaces.space.model.ISpaceDescriptor.java">org/universAAL/middleware/interfaces/space/model/ISpaceDescriptor.java</a>
                 </td>
                 <td>
-                  19
+                  1
                 </td>
                 <td>
                   0
@@ -217,7 +217,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.LicenseCategoryType.java">org/universAAL/middleware/managers/deploy/uapp/model/LicenseCategoryType.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -245,7 +245,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.ToBeDefined.java">org/universAAL/middleware/managers/deploy/uapp/model/ToBeDefined.java</a>
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   0
@@ -301,7 +301,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.LogicalRelationType.java">org/universAAL/middleware/managers/deploy/uapp/model/LogicalRelationType.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -315,7 +315,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.interfaces.space.model.ICommunicationChannels.java">org/universAAL/middleware/interfaces/space/model/ICommunicationChannels.java</a>
                 </td>
                 <td>
-                  10
+                  1
                 </td>
                 <td>
                   0
@@ -343,7 +343,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.DeploymentUnit.java">org/universAAL/middleware/managers/deploy/uapp/model/DeploymentUnit.java</a>
                 </td>
                 <td>
-                  9
+                  8
                 </td>
                 <td>
                   0
@@ -357,7 +357,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.PlatformType.java">org/universAAL/middleware/managers/deploy/uapp/model/PlatformType.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -371,7 +371,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.OntologyType.java">org/universAAL/middleware/managers/deploy/uapp/model/OntologyType.java</a>
                 </td>
                 <td>
-                  6
+                  5
                 </td>
                 <td>
                   0
@@ -385,7 +385,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.OsType.java">org/universAAL/middleware/managers/deploy/uapp/model/OsType.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -441,7 +441,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.interfaces.space.model.IPeeringChannel.java">org/universAAL/middleware/interfaces/space/model/IPeeringChannel.java</a>
                 </td>
                 <td>
-                  7
+                  1
                 </td>
                 <td>
                   0
@@ -469,7 +469,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.ReqGroupType.java">org/universAAL/middleware/managers/deploy/uapp/model/ReqGroupType.java</a>
                 </td>
                 <td>
-                  3
+                  2
                 </td>
                 <td>
                   0
@@ -483,7 +483,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.FeaturesRoot.java">org/universAAL/middleware/managers/deploy/uapp/model/FeaturesRoot.java</a>
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   0
@@ -497,7 +497,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.LogicalCriteriaType.java">org/universAAL/middleware/managers/deploy/uapp/model/LogicalCriteriaType.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -525,7 +525,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.SpaceType.java">org/universAAL/middleware/managers/deploy/uapp/model/SpaceType.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -581,7 +581,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.EmbeddingType.java">org/universAAL/middleware/managers/deploy/uapp/model/EmbeddingType.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -595,7 +595,7 @@ under the License.
                   <a href="http://middleware/middleware.resources/mw.schemas//checkstyle.html#org.universAAL.middleware.managers.deploy.uapp.model.ReqCriticalityType.java">org/universAAL/middleware/managers/deploy/uapp/model/ReqCriticalityType.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0

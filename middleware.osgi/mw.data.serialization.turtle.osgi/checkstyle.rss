@@ -28,7 +28,7 @@ under the License.
       <title>File: 1,
              Errors: 2,
              Warnings: 1,
-             Infos: 7
+             Infos: 0
       </title>
             <link>http://middleware/middleware.osgi/mw.data.serialization.turtle.osgi//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.osgi/mw.data.serialization.turtle.osgi//checkstyle.html#org.universAAL.middleware.serialization.turtle.osgi.Activator.java">org/universAAL/middleware/serialization/turtle/osgi/Activator.java</a>
                 </td>
                 <td>
-                  7
+                  0
                 </td>
                 <td>
                   1
