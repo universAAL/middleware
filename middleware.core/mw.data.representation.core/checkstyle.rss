@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2017 universAAL Consortium</copyright>
     <item>
       <title>File: 80,
-             Errors: 720,
-             Warnings: 112,
-             Infos: 88
+             Errors: 699,
+             Warnings: 71,
+             Infos: 78
       </title>
             <link>http://middleware/middleware.core/mw.data.representation.core//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.PropertySetup.java">org/universAAL/middleware/rdf/PropertySetup.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -175,7 +175,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.Enumeration.java">org/universAAL/middleware/owl/Enumeration.java</a>
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   0
@@ -217,10 +217,10 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.MergedRestriction.java">org/universAAL/middleware/owl/MergedRestriction.java</a>
                 </td>
                 <td>
-                  11
+                  5
                 </td>
                 <td>
-                  8
+                  7
                 </td>
                 <td>
                   8
@@ -273,13 +273,13 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.util.GraphIterator.java">org/universAAL/middleware/util/GraphIterator.java</a>
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  28
+                  18
                 </td>
               </tr>
                           <tr>
@@ -318,7 +318,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   6
@@ -343,7 +343,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.ResourceFactory.java">org/universAAL/middleware/rdf/ResourceFactory.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -374,7 +374,7 @@ under the License.
                   27
                 </td>
                 <td>
-                  48
+                  13
                 </td>
                 <td>
                   70
@@ -570,7 +570,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   6
@@ -766,10 +766,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
-                  19
+                  9
                 </td>
               </tr>
                           <tr>
@@ -819,7 +819,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.rdf.RDFClassInfoSetup.java">org/universAAL/middleware/rdf/RDFClassInfoSetup.java</a>
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   0
@@ -878,7 +878,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   89
@@ -973,7 +973,7 @@ under the License.
                   <a href="http://middleware/middleware.core/mw.data.representation.core//checkstyle.html#org.universAAL.middleware.owl.IndividualRestriction.java">org/universAAL/middleware/owl/IndividualRestriction.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -1144,10 +1144,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>

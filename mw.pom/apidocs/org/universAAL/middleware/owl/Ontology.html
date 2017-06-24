@@ -460,7 +460,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>addImport</h4>
-<pre>protected&nbsp;boolean&nbsp;addImport(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;ontURI)</pre>
+<pre>protected final&nbsp;boolean&nbsp;addImport(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;ontURI)</pre>
 <div class="block">Add an import to this ontology. An import states the URI of another
  ontology from which some concepts are used in this ontology.</div>
 <dl>
@@ -478,7 +478,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getInfo</h4>
-<pre>public&nbsp;<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;getInfo()</pre>
+<pre>public final&nbsp;<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>&nbsp;getInfo()</pre>
 <div class="block">Get the object that stores all general information about the ontology,
  like description, version, author, and imports.</div>
 </li>
@@ -511,7 +511,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>hasOntClass</h4>
-<pre>public&nbsp;boolean&nbsp;hasOntClass(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI)</pre>
+<pre>public final&nbsp;boolean&nbsp;hasOntClass(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI)</pre>
 <div class="block">Determines whether this ontology defines or extends the given OWL class.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -555,9 +555,9 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>createNewRDFClassInfo</h4>
-<pre>protected&nbsp;<a href="../../../../org/universAAL/middleware/rdf/RDFClassInfoSetup.html" title="interface in org.universAAL.middleware.rdf">RDFClassInfoSetup</a>&nbsp;createNewRDFClassInfo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI,
-                                                  <a href="../../../../org/universAAL/middleware/rdf/ResourceFactory.html" title="interface in org.universAAL.middleware.rdf">ResourceFactory</a>&nbsp;fac,
-                                                  int&nbsp;factoryIndex)</pre>
+<pre>protected final&nbsp;<a href="../../../../org/universAAL/middleware/rdf/RDFClassInfoSetup.html" title="interface in org.universAAL.middleware.rdf">RDFClassInfoSetup</a>&nbsp;createNewRDFClassInfo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI,
+                                                        <a href="../../../../org/universAAL/middleware/rdf/ResourceFactory.html" title="interface in org.universAAL.middleware.rdf">ResourceFactory</a>&nbsp;fac,
+                                                        int&nbsp;factoryIndex)</pre>
 <div class="block">Register a new RDF class.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -575,7 +575,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>createNewAbstractOntClassInfo</h4>
-<pre>protected&nbsp;<a href="../../../../org/universAAL/middleware/owl/OntClassInfoSetup.html" title="interface in org.universAAL.middleware.owl">OntClassInfoSetup</a>&nbsp;createNewAbstractOntClassInfo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI)</pre>
+<pre>protected final&nbsp;<a href="../../../../org/universAAL/middleware/owl/OntClassInfoSetup.html" title="interface in org.universAAL.middleware.owl">OntClassInfoSetup</a>&nbsp;createNewAbstractOntClassInfo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI)</pre>
 <div class="block">Register a new abstract OWL class. An OWL class is abstract iff the Java
  counterpart is abstract. As such a class can not be instantiated, no
  factory can be given.</div>
@@ -595,8 +595,8 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>createNewOntClassInfo</h4>
-<pre>protected&nbsp;<a href="../../../../org/universAAL/middleware/owl/OntClassInfoSetup.html" title="interface in org.universAAL.middleware.owl">OntClassInfoSetup</a>&nbsp;createNewOntClassInfo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI,
-                                                  <a href="../../../../org/universAAL/middleware/rdf/ResourceFactory.html" title="interface in org.universAAL.middleware.rdf">ResourceFactory</a>&nbsp;fac)</pre>
+<pre>protected final&nbsp;<a href="../../../../org/universAAL/middleware/owl/OntClassInfoSetup.html" title="interface in org.universAAL.middleware.owl">OntClassInfoSetup</a>&nbsp;createNewOntClassInfo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI,
+                                                        <a href="../../../../org/universAAL/middleware/rdf/ResourceFactory.html" title="interface in org.universAAL.middleware.rdf">ResourceFactory</a>&nbsp;fac)</pre>
 <div class="block">Register a new OWL class. This method calls
  <a href="../../../../org/universAAL/middleware/owl/Ontology.html#createNewOntClassInfo-java.lang.String-org.universAAL.middleware.rdf.ResourceFactory-int-"><code>createNewOntClassInfo(String, ResourceFactory, int)</code></a> with a dummy
  factory index of -1.</div>
@@ -617,9 +617,9 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>createNewOntClassInfo</h4>
-<pre>protected&nbsp;<a href="../../../../org/universAAL/middleware/owl/OntClassInfoSetup.html" title="interface in org.universAAL.middleware.owl">OntClassInfoSetup</a>&nbsp;createNewOntClassInfo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI,
-                                                  <a href="../../../../org/universAAL/middleware/rdf/ResourceFactory.html" title="interface in org.universAAL.middleware.rdf">ResourceFactory</a>&nbsp;fac,
-                                                  int&nbsp;factoryIndex)</pre>
+<pre>protected final&nbsp;<a href="../../../../org/universAAL/middleware/owl/OntClassInfoSetup.html" title="interface in org.universAAL.middleware.owl">OntClassInfoSetup</a>&nbsp;createNewOntClassInfo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI,
+                                                        <a href="../../../../org/universAAL/middleware/rdf/ResourceFactory.html" title="interface in org.universAAL.middleware.rdf">ResourceFactory</a>&nbsp;fac,
+                                                        int&nbsp;factoryIndex)</pre>
 <div class="block">Register a new OWL class.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -639,7 +639,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>extendExistingOntClassInfo</h4>
-<pre>protected&nbsp;<a href="../../../../org/universAAL/middleware/owl/OntClassInfoSetup.html" title="interface in org.universAAL.middleware.owl">OntClassInfoSetup</a>&nbsp;extendExistingOntClassInfo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI)</pre>
+<pre>protected final&nbsp;<a href="../../../../org/universAAL/middleware/owl/OntClassInfoSetup.html" title="interface in org.universAAL.middleware.owl">OntClassInfoSetup</a>&nbsp;extendExistingOntClassInfo(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;classURI)</pre>
 <div class="block"><p>
  Extend an existing OWL class. A class is normally defined only once and
  only in one ontology. However, other ontologies can add some
@@ -667,7 +667,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getResourceList</h4>
-<pre>public&nbsp;<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>[]&nbsp;getResourceList()</pre>
+<pre>public final&nbsp;<a href="../../../../org/universAAL/middleware/rdf/Resource.html" title="class in org.universAAL.middleware.rdf">Resource</a>[]&nbsp;getResourceList()</pre>
 <div class="block">Get a list of all resources of this ontology. The resources are the info
  part, the RDF and OWL classes as well as the properties of these classes.</div>
 </li>
@@ -678,7 +678,7 @@ extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.h
 <ul class="blockListLast">
 <li class="blockList">
 <h4>lock</h4>
-<pre>public&nbsp;void&nbsp;lock()</pre>
+<pre>public final&nbsp;void&nbsp;lock()</pre>
 <div class="block">Lock this instance and all its elements. After it is locked, no changes
  can be made. The <a href="../../../../org/universAAL/middleware/owl/Ontology.html" title="class in org.universAAL.middleware.owl"><code>Ontology</code></a> is automatically locked when it is
  registered at the <a href="../../../../org/universAAL/middleware/owl/OntologyManagement.html" title="class in org.universAAL.middleware.owl"><code>OntologyManagement</code></a>.</div>
