@@ -42,7 +42,7 @@ import ch.ethz.iks.slp.impl.filter.Filter;
 
 /**
  * Platform abstraction for the OSGi implementation.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  */
 public class OSGiPlatformAbstraction implements PlatformAbstraction,
@@ -60,7 +60,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
 
     /**
      * Constructor.
-     * 
+     *
      * @param context
      *            the bundle context from the OSGi framework.
      * @param log
@@ -89,7 +89,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.PlatformAbstraction#createFilter(java.lang.String)
      */
     public Filter createFilter(String filterString) {
@@ -111,7 +111,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.PlatformAbstraction#logDebug(java.lang.String)
      */
     public void logDebug(String message) {
@@ -121,7 +121,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.PlatformAbstraction#logDebug(java.lang.String,
      *      java.lang.Throwable)
      */
@@ -132,7 +132,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.PlatformAbstraction#logError(java.lang.String)
      */
     public void logError(String message) {
@@ -140,7 +140,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.PlatformAbstraction#logError(java.lang.String,
      *      java.lang.Throwable)
      */
@@ -149,7 +149,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.PlatformAbstraction#logTraceMessage(java.lang.String)
      */
     public void logTraceMessage(String message) {
@@ -159,7 +159,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.PlatformAbstraction#logTraceDrop(java.lang.String)
      */
     public void logTraceDrop(String message) {
@@ -169,7 +169,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.PlatformAbstraction#logTraceMessage(java.lang.String)
      */
     public void logTraceReg(String message) {
@@ -179,7 +179,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.PlatformAbstraction#logWarning(java.lang.String)
      */
     public void logWarning(String message) {
@@ -187,7 +187,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.PlatformAbstraction#logWarning(java.lang.String,
      *      java.lang.Throwable)
      */
@@ -196,7 +196,7 @@ public class OSGiPlatformAbstraction implements PlatformAbstraction,
     }
 
     /**
-     * 
+     *
      * @see org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.ServiceEvent)
      */
     public void serviceChanged(final ServiceEvent event) {

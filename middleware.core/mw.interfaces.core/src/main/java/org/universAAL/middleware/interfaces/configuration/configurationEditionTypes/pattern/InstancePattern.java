@@ -23,9 +23,9 @@ import org.universAAL.middleware.owl.URIRestriction;
 /**
  * A pattern that matches entities with an Instance type scope. Additionally, it
  * can match instanceId in scopes with the provided pattern.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class InstancePattern implements EntityPattern {
 
@@ -40,7 +40,7 @@ public class InstancePattern implements EntityPattern {
 
 	/**
 	 * Match Instance type scope entities using instanceIdPattern
-	 * 
+	 *
 	 * @param instanceIdPattern
 	 *            the pattern to match the instanceId of the entities.
 	 */

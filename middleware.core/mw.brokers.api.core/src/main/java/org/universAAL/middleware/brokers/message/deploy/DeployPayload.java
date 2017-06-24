@@ -26,7 +26,7 @@ import org.universAAL.middleware.interfaces.mpa.UAPPCard;
 
 /**
  * Payload for Deploy messages
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:francesco.furfari@isti.cnr.it">Francesco Furfari</a>
  */

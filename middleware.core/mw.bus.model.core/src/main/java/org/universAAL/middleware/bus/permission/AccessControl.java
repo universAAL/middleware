@@ -1,8 +1,8 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,9 +32,9 @@ import org.universAAL.middleware.rdf.Resource;
 
 /**
  * Management of permissions of bus members.
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
 public final class AccessControl {
 	public static final AccessControl INSTANCE = new AccessControl();
@@ -119,7 +119,7 @@ public final class AccessControl {
 	 * {@link AccessControlMode}. If the update policy for this mode is set to
 	 * {@link AccessControlModeUpdate#always} then the property
 	 * {@link #PROP_MODE} is always updated and can be set via the container.
-	 * 
+	 *
 	 * @return the current mode for access control
 	 */
 	public AccessControlMode getAccessControlMode() {
@@ -138,7 +138,7 @@ public final class AccessControl {
 	/**
 	 * Check the permissions of a {@link BusMember} for a given
 	 * {@link Matchable}.
-	 * 
+	 *
 	 * @param owner
 	 *            the owning module.
 	 * @param busMemberURI
@@ -195,7 +195,7 @@ public final class AccessControl {
 	/**
 	 * Check the permissions of a {@link BusMember} for a given array of
 	 * {@link Matchable}s.
-	 * 
+	 *
 	 * @param owner
 	 *            the owning module.
 	 * @param busMemberURI

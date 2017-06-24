@@ -1,18 +1,18 @@
 /*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research 
-	
+	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
+
 	Copyright Aduna (http://www.aduna-software.com/) 2001-2007
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,7 +42,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
  * Serialization of RDF graphs to <i>Terse RDF Triple Language (Turtle)</i>.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  */
@@ -70,7 +70,7 @@ public final class TurtleWriter {
 
 		/**
 		 * Reduction type: how much of the property should be serialized?
-		 * 
+		 *
 		 * @see org.universAAL.middleware.rdf.Resource#getPropSerializationType(String)
 		 */
 		int redType = Resource.PROP_SERIALIZATION_UNDEFINED;
@@ -157,7 +157,7 @@ public final class TurtleWriter {
 	/**
 	 * Serialize the specified object. All lines of the output stream start with
 	 * an indentation.
-	 * 
+	 *
 	 * @param o
 	 *            The object to serialize, must be an instance of
 	 *            {@link org.universAAL.middleware.rdf.Resource}.
@@ -307,7 +307,7 @@ public final class TurtleWriter {
 	 * with the namespace definition <i>ns</i>, <i>ns1</i>, <i>ns2</i>, ... This
 	 * method checks if a namespace is already available. If this is the case,
 	 * the number of that namespace is increased.
-	 * 
+	 *
 	 * @param ns
 	 *            The namespace.
 	 * @param countTable
@@ -326,7 +326,7 @@ public final class TurtleWriter {
 	/**
 	 * For the given Resource, increase the reference counter contained in the
 	 * serialization data in countTable.
-	 * 
+	 *
 	 * @param r
 	 *            The Resource.
 	 * @param countTable
@@ -385,7 +385,7 @@ public final class TurtleWriter {
 
 	/**
 	 * generates a locally unique ID
-	 * 
+	 *
 	 * @param localPrefix
 	 * @param counter
 	 * @param counterLen
@@ -398,7 +398,7 @@ public final class TurtleWriter {
 	/**
 	 * Padd the string passed as the first parameter with zeros up to the length
 	 * passed as the second parameter
-	 * 
+	 *
 	 * @param arg
 	 *            - the string to padd
 	 * @param len
@@ -657,7 +657,7 @@ public final class TurtleWriter {
 	 * Write an RDF Literal. For example, for the literal <code>"15"^^xsd:byte
 	 * </code>, the lexical form is <code>15</code> and the datatype is
 	 * <code>xsd:byte</code>.
-	 * 
+	 *
 	 * @param lexicalForm
 	 *            The value if the literal in lexical form.
 	 * @param datatype
@@ -687,7 +687,7 @@ public final class TurtleWriter {
 
 	/**
 	 * Write a namespace to be used as prefix in the serialization.
-	 * 
+	 *
 	 * @param prefix
 	 *            The prefix to be used as abbreviation, e.g. <code>rdf</code>.
 	 * @param name
@@ -707,7 +707,7 @@ public final class TurtleWriter {
 	/**
 	 * Write the beginning of the Turtle output (the namespaces) to the output
 	 * stream.
-	 * 
+	 *
 	 * @param nsTable
 	 *            Table with the namespaces.
 	 * @throws IOException
@@ -837,7 +837,7 @@ public final class TurtleWriter {
 	 * Write the specified URI to the output stream. This method tries to split
 	 * the URI; if the prefix is a known namespace, an abbreviated URI is
 	 * written.
-	 * 
+	 *
 	 * @param uri
 	 *            The URI to write.
 	 * @throws IOException

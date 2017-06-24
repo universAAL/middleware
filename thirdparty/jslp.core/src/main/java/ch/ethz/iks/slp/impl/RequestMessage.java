@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Abstract base class for all request messages.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */

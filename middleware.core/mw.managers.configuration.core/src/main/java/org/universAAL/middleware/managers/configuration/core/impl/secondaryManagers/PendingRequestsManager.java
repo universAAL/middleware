@@ -30,9 +30,9 @@ import org.universAAL.middleware.owl.TypeExpression;
  * Manage the Requests, waiting for responses. Specifically for remote
  * configuration editors, that need to be created when the response arrives, and
  * then added to the {@link ConfigurableEntityManager}.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class PendingRequestsManager {
 
@@ -49,7 +49,7 @@ public class PendingRequestsManager {
 
 	/**
 	 * add a {@link ConfigurableEntityManager} that has issued a request.
-	 * 
+	 *
 	 * @param mngr
 	 * @param filter
 	 */
@@ -64,7 +64,7 @@ public class PendingRequestsManager {
 	/**
 	 * remove a {@link ConfigurableEntityManager}, no longer interested in
 	 * responses.
-	 * 
+	 *
 	 * @param manager
 	 */
 	public void remove(ConfigurableEntityManager manager) {
@@ -75,7 +75,7 @@ public class PendingRequestsManager {
 	 * Called when a response is received. for all the
 	 * {@link ConfigurableEntityManager} match the possible new entities, and
 	 * add them.
-	 * 
+	 *
 	 * @param ents
 	 */
 	public void processResponse(List<Entity> ents) {

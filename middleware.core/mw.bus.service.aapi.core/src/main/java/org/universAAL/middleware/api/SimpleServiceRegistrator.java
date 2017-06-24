@@ -1,7 +1,7 @@
 /*
 Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
-Department of Computer Science 
+Department of Computer Science
 
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
@@ -47,23 +47,23 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
  * Main class of Simpified API approach.
- * 
+ *
  * It is responsible for scanning provided object interfaces for occurences of
  * SimplifiedAPI annotations, generating ServiceProfiles, and creating
  * ServiceCallee wrappers.
- * 
+ *
  * In all methods if not all information was provided in @Input or @Output
  * annotations it generates default values:
- * 
+ *
  * @Input - default parameter name is "argX" where X is the number of parameter
  *        in method definition starting from 1.
  * @Output - default parameter name is "outputX" where X is the number
  *         of @Output annotation on method declaration starting from 1.
  *         Currently only single @Output can be provided and if its name is
  *         skipped a default value of "output1" is generated.
- * 
+ *
  * @author dzmuda
- * 
+ *
  */
 public class SimpleServiceRegistrator {
 	public ModuleContext mc;
@@ -76,7 +76,7 @@ public class SimpleServiceRegistrator {
 
 	/**
 	 * Method extracts MY_URI from given resource class.
-	 * 
+	 *
 	 * @param resourceClass
 	 * @return
 	 * @throws SimplifiedRegistrationException
@@ -98,16 +98,16 @@ public class SimpleServiceRegistrator {
 
 	/**
 	 * Main method of Simplified API approach.
-	 * 
+	 *
 	 * It scans provided object for occurrences of : 1. @UniversAALService
 	 * and @ResourceClass annotation on one of its interfaces; 2. Methods of
 	 * founded interface for occurrences of @ServiceOperation, @Output,
 	 * and @ChangeEffect annotation; 3. Parameters of methods for occurrences
 	 * of @Input annotations.
-	 * 
+	 *
 	 * For each founded method it generates a proper ServiceProfile and create a
 	 * ServiceCalleeWrapper instance.
-	 * 
+	 *
 	 * If something goes wrong during processing a
 	 * SimplifiedRegistrationException, especially when: 1.
 	 * No @UniversAALService and @ResourceClass is found on object interfaces;
@@ -116,7 +116,7 @@ public class SimpleServiceRegistrator {
 	 * (@ServiceOperation); 4. No @Output annotation was provided for method
 	 * annotated with @ServiceOperation; 5. Duplicate names was provided
 	 * in @Input annotations of service method;
-	 * 
+	 *
 	 * @param o
 	 *            - service implementation, which implements annotated
 	 *            UniversAAL interface
@@ -312,13 +312,13 @@ public class SimpleServiceRegistrator {
 	/**
 	 * Method is used for registering onthologies on the basis of provided
 	 * annotation.
-	 * 
+	 *
 	 * Under the hood it scans class provided in @ResourceClass annotation for
 	 * occurences of "MY_URI" field and register it:
-	 * 
+	 *
 	 * OntologyManagement.getInstance().register(new
 	 * SimpleOntology(namespace+serviceURI, myUri));
-	 * 
+	 *
 	 * @param namespace
 	 *            - URI of whole UniversAAL service provider (@UniversAALService
 	 *            annotation - namespace)
@@ -346,7 +346,7 @@ public class SimpleServiceRegistrator {
 	 * each @Input parameter it calls createInput - for each @Output (currently
 	 * supported only single) parameter it calls addOutput - for
 	 * each @ChangeEffect - parameter it calls addChangeEffect
-	 * 
+	 *
 	 * @param namespace
 	 *            - URI of whole UniversAAL service provider (@UniversAALService
 	 *            annotation)

@@ -1,8 +1,8 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 
-	See the NOTICE file distributed with this work for additional 
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
 
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ package org.universAAL.middleware.bus.model.matchable;
 
 /**
  * @author mtazari
- * 
+ *
  */
 public interface Request extends Requirement {
 }

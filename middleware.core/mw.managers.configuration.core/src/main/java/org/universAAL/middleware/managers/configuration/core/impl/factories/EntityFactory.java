@@ -29,15 +29,15 @@ import org.universAAL.middleware.owl.MergedRestriction;
 /**
  * Facotry to create and update {@link Entity Entities} from
  * {@link DescribedEntity DescribedEntities}.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class EntityFactory {
 
 	/**
 	 * Given a {@link DescribedEntity} create a new Entity.
-	 * 
+	 *
 	 * @param dentity
 	 *            template
 	 * @param loc
@@ -85,7 +85,7 @@ public class EntityFactory {
 
 	/**
 	 * Update an entity from the associated {@link DescribedEntity}.
-	 * 
+	 *
 	 * @param OldEntity
 	 *            the old {@link Entity} to update. if null then
 	 *            {@link EntityFactory#getEntity(DescribedEntity, Locale)} is

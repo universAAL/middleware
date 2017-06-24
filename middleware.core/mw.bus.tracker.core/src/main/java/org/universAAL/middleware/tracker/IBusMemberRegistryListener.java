@@ -1,7 +1,7 @@
 /*
 Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
-Department of Computer Science 
+Department of Computer Science
 
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
@@ -31,15 +31,15 @@ import org.universAAL.middleware.tracker.IBusMemberRegistry.BusType;
 /**
  * Interface of BusMember registry listener. If registered at the service
  * {@link IBusMemberRegistry} it gets notified if any changes occurs in it.
- * 
+ *
  * @author dzmuda
  * @author Carsten Stockloew
- * 
+ *
  */
 public interface IBusMemberRegistryListener {
 	/**
 	 * Invoked when a new BusMember is registered in the bus.
-	 * 
+	 *
 	 * @param member
 	 *            newly added bus member
 	 * @param type
@@ -49,7 +49,7 @@ public interface IBusMemberRegistryListener {
 
 	/**
 	 * Invoked when an existing BusMember is unregistered from the bus.
-	 * 
+	 *
 	 * @param member
 	 *            removed bus member
 	 * @param type
@@ -62,7 +62,7 @@ public interface IBusMemberRegistryListener {
 	 * Registration parameters can be, for example, {@link ServiceProfile}s for
 	 * {@link ServiceCallee}s or {@link ContextEventPattern} for
 	 * {@link ContextSubscriber}.
-	 * 
+	 *
 	 * @param busMemberID
 	 *            the ID of the bus member for which the registration parameters
 	 *            have been added.
@@ -76,7 +76,7 @@ public interface IBusMemberRegistryListener {
 	 * removed. Registration parameters can be, for example,
 	 * {@link ServiceProfile}s for {@link ServiceCallee}s or
 	 * {@link ContextEventPattern} for {@link ContextSubscriber}.
-	 * 
+	 *
 	 * @param busMemberID
 	 *            the ID of the bus member for which the registration parameters
 	 *            have been removed.

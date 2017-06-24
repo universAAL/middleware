@@ -30,7 +30,7 @@ import org.universAAL.middleware.managers.api.MatchingResult;
 
 /**
  * The implementation of the {@link MatchingResult} interface
- * 
+ *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */

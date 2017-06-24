@@ -32,7 +32,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class ConfigSample {
 

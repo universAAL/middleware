@@ -27,13 +27,13 @@ import java.util.Map;
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  * @since 3.2.0
- * 
+ *
  */
 public interface TenantManager extends Manager {
 
 	/**
 	 * Register a new tenant to the manager
-	 * 
+	 *
 	 * @param tenantID
 	 *            ID of the tenant
 	 * @param tenantDescription
@@ -43,14 +43,14 @@ public interface TenantManager extends Manager {
 
 	/**
 	 * Unregisters an existing tenant
-	 * 
+	 *
 	 * @param tenantID
 	 */
 	public void unregisterTenant(String tenantID);
 
 	/**
 	 * Retrieves the map of tenants
-	 * 
+	 *
 	 * @return
 	 */
 	public Map<String, String> getTenants();

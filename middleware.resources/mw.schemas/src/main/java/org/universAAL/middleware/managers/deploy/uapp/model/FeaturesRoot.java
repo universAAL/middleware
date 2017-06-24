@@ -84,7 +84,7 @@ public class FeaturesRoot implements Serializable {
 	 *
 	 * <p>
 	 * For example, to add a new item, do as follows:
-	 * 
+	 *
 	 * <pre>
 	 * getRepositoryOrFeature().add(newItem);
 	 * </pre>

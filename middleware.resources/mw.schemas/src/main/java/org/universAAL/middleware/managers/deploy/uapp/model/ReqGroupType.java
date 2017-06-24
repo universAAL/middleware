@@ -100,7 +100,7 @@ public class ReqGroupType implements Serializable {
 	 *
 	 * <p>
 	 * For example, to add a new item, do as follows:
-	 * 
+	 *
 	 * <pre>
 	 * getRequirement().add(newItem);
 	 * </pre>

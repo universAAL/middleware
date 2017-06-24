@@ -43,9 +43,9 @@ import org.universAAL.middleware.ui.UIHandlerProfile;
  * <img style="background-color:white;" src=
  * "doc-files/CoordinatedRegistrationStrategy.png" alt="UIStrategy messages"
  * width="70%"/> </center>
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class CoordinatedRegistrationManagement extends CoordinatedStrategy {
 

@@ -31,9 +31,9 @@ import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
  * Activator for karaf Deploy Connector
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
- * 
+ *
  */
 public class Activator implements BundleActivator {
 	KarafDeployConnector kDeployConnector;

@@ -24,7 +24,7 @@ import org.universAAL.middleware.ui.owl.Recommendation;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public abstract class FormElement extends FinalizedResource {
 
@@ -34,7 +34,7 @@ public abstract class FormElement extends FinalizedResource {
 	public static final String PROP_APPEARANCE = Form.DIALOG_NAMESPACE + "appearance";
 
 	/**
-	 * 
+	 *
 	 */
 	public FormElement() {
 		super();
@@ -74,7 +74,7 @@ public abstract class FormElement extends FinalizedResource {
 	 * Convenience method to add an Appearance recommendation, see
 	 * ont.recommendation for the definition of possible recommendations. It is
 	 * not granted that the recommendation will be followed when rendered.
-	 * 
+	 *
 	 * @param recommendation
 	 *            the {@link Recommendation} instance to add.
 	 */
@@ -94,7 +94,7 @@ public abstract class FormElement extends FinalizedResource {
 	/**
 	 * Intended to be used by handlers, to iterate over the recommendations
 	 * added to the FormElement.
-	 * 
+	 *
 	 * @return the List of {@link Recommendation}s, that is empty if none are
 	 *         present.
 	 */

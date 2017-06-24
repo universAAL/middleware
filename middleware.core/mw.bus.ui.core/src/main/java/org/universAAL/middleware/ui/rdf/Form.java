@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -103,7 +103,7 @@ import org.universAAL.middleware.ui.owl.DialogType;
  * construct their dialogs using these two groups as parent for their real form
  * controls.</dd>
  * </dl>
- * 
+ *
  * @see <a href=
  *      "ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg">
  *      ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg</a>
@@ -247,7 +247,7 @@ public class Form extends FormElement {
 	 * type {@link DialogType#stdDialog Standard Dialog} with proper initial
 	 * configuration. See also the discussion of dialog types in the above
 	 * documentation of this class.
-	 * 
+	 *
 	 * @param formTitle
 	 *            The form title giving the intent of the dialog.
 	 * @param dataRoot
@@ -289,7 +289,7 @@ public class Form extends FormElement {
 	 * {@link DialogType#message Message} dialog that is ready to publish within
 	 * an {@link org.universAAL.middleware.ui.UIRequest}. See also the
 	 * discussion of dialog types in the above documentation of this class.
-	 * 
+	 *
 	 * @param formTitle
 	 *            The form title giving the intent of the dialog.
 	 * @param message
@@ -319,7 +319,7 @@ public class Form extends FormElement {
 	 * method
 	 * {@link org.universAAL.middleware.rdf.Resource#setPropertyPath(String[], Object)}
 	 * .
-	 * 
+	 *
 	 * @param formTitle
 	 *            The form title giving the intent of the dialog.
 	 * @param parentDialogURI
@@ -410,7 +410,7 @@ public class Form extends FormElement {
 	/**
 	 * Returns the time at which the first time the form was created by an
 	 * application.
-	 * 
+	 *
 	 * @see #PROP_DIALOG_CREATION_TIME
 	 */
 	public XMLGregorianCalendar getCreationTime() {
@@ -580,7 +580,7 @@ public class Form extends FormElement {
 	/**
 	 * Answers if this form object is created by
 	 * {@link #newDialog(String, Resource)}.
-	 * 
+	 *
 	 * @see #PROP_DIALOG_TYPE
 	 */
 	public boolean isStandardDialog() {
@@ -590,7 +590,7 @@ public class Form extends FormElement {
 	/**
 	 * Answers if this form object is created by
 	 * {@link #newMessage(String, String)}.
-	 * 
+	 *
 	 * @see #PROP_DIALOG_TYPE
 	 */
 	public boolean isMessage() {
@@ -600,7 +600,7 @@ public class Form extends FormElement {
 	/**
 	 * Answers if this form object is created by
 	 * {@link #newSubdialog(String, String)}.
-	 * 
+	 *
 	 * @see #PROP_DIALOG_TYPE
 	 */
 	public boolean isSubdialog() {
@@ -609,7 +609,7 @@ public class Form extends FormElement {
 
 	/**
 	 * Answers if this form object is created by {@link #newSystemMenu(String)}.
-	 * 
+	 *
 	 * @see #PROP_DIALOG_TYPE
 	 */
 	public boolean isSystemMenu() {
@@ -652,7 +652,7 @@ public class Form extends FormElement {
 
 	/**
 	 * look for a FormControl within the form with the given URI.
-	 * 
+	 *
 	 * @param formControlURI
 	 * @return the {@link FormControl} or null if not found.
 	 */

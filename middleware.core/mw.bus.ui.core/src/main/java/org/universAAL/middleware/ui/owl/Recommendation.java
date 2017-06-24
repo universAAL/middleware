@@ -20,9 +20,9 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
  * Core concept for Modal Recommendations over FormElements.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public abstract class Recommendation extends ManagedIndividual {
 
@@ -35,7 +35,7 @@ public abstract class Recommendation extends ManagedIndividual {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param uri
 	 */
 	public Recommendation(String uri) {

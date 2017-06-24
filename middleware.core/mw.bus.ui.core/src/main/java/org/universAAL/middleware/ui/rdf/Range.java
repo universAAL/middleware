@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,7 +47,7 @@ import org.universAAL.middleware.ui.UIHandler;
  * that implement {@link java.lang.Comparable} are not supported because there
  * is no straightforward solution to determine the next or previous values based
  * on a step.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  */
@@ -71,7 +71,7 @@ public class Range extends Input {
 
 	/**
 	 * Constructs a new range control.
-	 * 
+	 *
 	 * @param parent
 	 *            The mandatory parent group as the direct container of this
 	 *            input field. See {@link FormControl#PROP_PARENT_CONTROL}.
@@ -151,7 +151,7 @@ public class Range extends Input {
 	 * Using the current value stored in this range control and the value of
 	 * {@link #PROP_STEP}, tries to calculate a new value that is then stored to
 	 * substitute the current value.
-	 * 
+	 *
 	 * @param numberOfSteps
 	 *            Number of sttp. Will be multiplied by the value of
 	 *            {@link #PROP_STEP} in oer to calculate theamount o requied
@@ -196,7 +196,7 @@ public class Range extends Input {
 	 * Using the current value stored in this range control and the value of
 	 * {@link #PROP_STEP}, tries to calculate the number of steps that separate
 	 * the current value and minimun value.
-	 * 
+	 *
 	 * @return number of steps from minimum of current value, should be [o,
 	 *         {@link Range#getRangeLength()}).
 	 * @see Range#getRangeLength()
@@ -241,14 +241,14 @@ public class Range extends Input {
 	 * Using the current value stored in this range control and the value of
 	 * {@link #PROP_STEP}, tries to calculate a new value form the steps from
 	 * min value. Helper method for {@link UIHandler}s.
-	 * 
+	 *
 	 * @param numberOfStepsFormMin
 	 *            Number of steps. Will be multiplied by the value of
 	 *            {@link #PROP_STEP} in oder to calculate the new amount, it
 	 *            must be between 0 and {@link Range#getRangeLength()} -1.
 	 * @return the newly calculated and stored value if everything goes well,
 	 *         otherwise null.
-	 * 
+	 *
 	 * @see Range#getRangeLength()
 	 * @see Range#getStepsValue()
 	 */

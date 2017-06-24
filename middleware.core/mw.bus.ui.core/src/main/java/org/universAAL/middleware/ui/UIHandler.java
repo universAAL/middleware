@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,10 +45,10 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * <li>{@link UIHandler}s provide only at the registration time info about
  * themselves</li>
  * </ul>
- * 
+ *
  * @author mtazari
  * @author eandgrg
- * 
+ *
  */
 public abstract class UIHandler extends Callee {
 
@@ -56,7 +56,7 @@ public abstract class UIHandler extends Callee {
 
 	/**
 	 * Instantiates a new {@link UIHandler}.
-	 * 
+	 *
 	 * @param context
 	 *            the context
 	 * @param initialSubscription
@@ -79,7 +79,7 @@ public abstract class UIHandler extends Callee {
 
 	/**
 	 * Instantiates a new {@link UIHandler}.
-	 * 
+	 *
 	 * @param context
 	 *            the context
 	 * @param initialSubscription
@@ -104,7 +104,7 @@ public abstract class UIHandler extends Callee {
 	/**
 	 * Adaptation parameters changed. The Dialog must be redrawn according to
 	 * the new value of the changedProp.
-	 * 
+	 *
 	 * @param dialogID
 	 *            the dialog id
 	 * @param changedProp
@@ -116,7 +116,7 @@ public abstract class UIHandler extends Callee {
 
 	/**
 	 * Adds the new {@link UIHandler} registration parameters.
-	 * 
+	 *
 	 * @param newSubscription
 	 *            the new subscription - as a {@link UIHandlerProfile}
 	 * @throws NullPointerException
@@ -148,7 +148,7 @@ public abstract class UIHandler extends Callee {
 	/**
 	 * Cut dialog. The DM is requesting an IMEDIATE de-renderization of the
 	 * dialog with given dialogID.
-	 * 
+	 *
 	 * @param dialogID
 	 *            the dialog id
 	 * @return the resource data form the {@link Form} filled by the user up to
@@ -159,7 +159,7 @@ public abstract class UIHandler extends Callee {
 	/**
 	 * Dialog finished. UIHandler reporting the user has submitted a
 	 * {@link Submit} or a {@link SubdialogTrigger}.
-	 * 
+	 *
 	 * @param uiResponse
 	 *            the {@link UIResponse}
 	 */
@@ -169,7 +169,7 @@ public abstract class UIHandler extends Callee {
 
 	/**
 	 * Handle request.
-	 * 
+	 *
 	 * @param msg
 	 *            the message
 	 */
@@ -184,7 +184,7 @@ public abstract class UIHandler extends Callee {
 	/**
 	 * Handle ui call ({@link UIRequest}). The bus is soliciting a
 	 * Render/display of the {@link UIRequest}.
-	 * 
+	 *
 	 * @param uiRequest
 	 *            the {@link UIRequest}
 	 */
@@ -192,7 +192,7 @@ public abstract class UIHandler extends Callee {
 
 	/**
 	 * Removes the matching registration parameters.
-	 * 
+	 *
 	 * @param oldSubscription
 	 *            the old subscription
 	 */
@@ -203,7 +203,7 @@ public abstract class UIHandler extends Callee {
 
 	/**
 	 * User logged in.
-	 * 
+	 *
 	 * @param user
 	 *            the {@link User}, It is declared as Resource because the type
 	 *            User is defined in the Profiling Ontology. The type is not
@@ -224,7 +224,7 @@ public abstract class UIHandler extends Callee {
 
 	/**
 	 * Id with which the {@link UIHandler} is registered in the {@link IUIBus}
-	 * 
+	 *
 	 * @return {@link UIHandler} ID
 	 */
 	public String getMyID() {

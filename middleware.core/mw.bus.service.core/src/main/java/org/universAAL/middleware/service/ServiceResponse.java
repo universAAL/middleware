@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
  * A class that represents a service response resource, which is produced by the
  * <code>ServiceCallee</code>-s when handling calls, and are delivered to the
  * <code>ServiceCaller</code>-s as a result of their requests.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -103,7 +103,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 
 	/**
 	 * Constructor which besides the URI, sets the status of the call.
-	 * 
+	 *
 	 * @param status
 	 *            the current status of the call.
 	 */
@@ -116,7 +116,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	/**
 	 * Adds output payload to this object. Keeps any output payload that was
 	 * previously added.
-	 * 
+	 *
 	 * @param output
 	 *            the ouput that needs to be added.
 	 */
@@ -134,7 +134,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	/**
 	 * Adds output payload to this object. Keeps any output payload that was
 	 * previously added.
-	 * 
+	 *
 	 * @param uri
 	 *            the URI that identifies the output.
 	 * @param value
@@ -147,7 +147,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 
 	/**
 	 * Retrieves the call status.
-	 * 
+	 *
 	 * @return the current call status.
 	 */
 	public CallStatus getCallStatus() {
@@ -163,7 +163,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	 * that there are no output related to the given paramURI. Otherwise, the
 	 * return value is always a list even if there is only one value object in
 	 * that list.
-	 * 
+	 *
 	 * @param paramURI
 	 *            the URI of the required output.
 	 * @return the output with the specified URI.
@@ -199,7 +199,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	 * returned by this method, it indicates that there are no output related to
 	 * the given paramURI. Otherwise, the return value is always a list even if
 	 * there is only one value object in that list.
-	 * 
+	 *
 	 * @param paramURI
 	 *            the URI of the required output.
 	 * @param asMergedList
@@ -221,7 +221,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	 * instead of providing the output of one parameter, it provides the outputs
 	 * of all parameters. The URI of the parameter is the key of the returned
 	 * map.
-	 * 
+	 *
 	 * @return the non-null map of all outputs of the service.
 	 */
 	public Map<String, List<Object>> getOutputsMap() {
@@ -253,7 +253,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	/**
 	 * Retrieves all of the service outputs as a raw <code>List</code> without
 	 * any rearranging.
-	 * 
+	 *
 	 * @return the outputs that the invoked services produced. May be null. If
 	 *         this object is a {@link MultiServiceResponse} then the list can
 	 *         contain more than one {@link ProcessOutput} with the same URI;
@@ -266,7 +266,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	/**
 	 * Tests the object for correctness by verifying the presence of
 	 * <code>PROP_SERVICE_CALL_STATUS</code> property.
-	 * 
+	 *
 	 * @see org.universAAL.middleware.rdf.Resource#isWellFormed()
 	 */
 	public boolean isWellFormed() {
@@ -276,7 +276,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	/**
 	 * Get the provider of the requested service. The provider is the URI of the
 	 * bus member (the {@link ServiceCallee}).
-	 * 
+	 *
 	 * @return The URI of the service provider.
 	 */
 	public Resource getProvider() {
@@ -287,7 +287,7 @@ public class ServiceResponse extends ScopedResource implements Response, Utility
 	 * This method inherits the superclass behavior, but performs some
 	 * additional checks for correctness of the property values, specific for
 	 * the <code>ServiceResponse</code>.
-	 * 
+	 *
 	 * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */

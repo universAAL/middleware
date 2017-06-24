@@ -2,7 +2,7 @@
  * Systems Group,
  * Department of Computer Science, ETH Zurich.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *    - Redistributions of source code must retain the above copyright notice,
@@ -37,7 +37,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 
 /**
  * the implementation of a ServiceLocationEnumeration.
- * 
+ *
  * @see ch.ethz.iks.slp.ServiceLocationEnumeration
  * @author Jan S. Rellermeyer, IKS, ETH Zurich
  * @since 0.1
@@ -55,7 +55,7 @@ class ServiceLocationEnumerationImpl implements ServiceLocationEnumeration {
 
     /**
      * creates a new ServiceLocationEnumerationImpl.
-     * 
+     *
      * @param resultList
      *            a list of results.
      */
@@ -66,7 +66,7 @@ class ServiceLocationEnumerationImpl implements ServiceLocationEnumeration {
 
     /**
      * returns the next element of the Enumeration.
-     * 
+     *
      * @return the next element.
      * @throws ServiceLocationException
      *             if there is no more element.
@@ -84,7 +84,7 @@ class ServiceLocationEnumerationImpl implements ServiceLocationEnumeration {
 
     /**
      * checks if the Enumeration has more elements.
-     * 
+     *
      * @return true if there are more elements available.
      */
     public synchronized boolean hasMoreElements() {
@@ -93,7 +93,7 @@ class ServiceLocationEnumerationImpl implements ServiceLocationEnumeration {
 
     /**
      * returns the next elenemt of the Enumeration.
-     * 
+     *
      * @return the next element or null if there aren't any more.
      */
     public synchronized Object nextElement() {

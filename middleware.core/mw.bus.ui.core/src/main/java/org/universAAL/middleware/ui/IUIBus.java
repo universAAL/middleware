@@ -1,18 +1,18 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut fuer Graphische Datenverarbeitung 
-	
+	Fraunhofer Gesellschaft - Institut fuer Graphische Datenverarbeitung
+
 	2012 Ericsson Nikola Tesla d.d., www.ericsson.com/hr
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,10 +38,10 @@ import org.universAAL.middleware.ui.rdf.Submit;
  * running, and transfer of responsibility to another {@link UIHandler}. It
  * accepts registration parameters from {@link UIHandler}s (when they register
  * to the bus) and allows removing and/or updating of these parameters.
- * 
+ *
  * @author mtazari
  * @author eandgrg
- * 
+ *
  */
 public interface IUIBus {
 
@@ -50,12 +50,12 @@ public interface IUIBus {
 	 * matter which one has requested the abort, the bus informs both when the
 	 * operation is finished (informing the caller as a sort of acknowledgment
 	 * and informing the other one to prevent unnecessary waiting).
-	 * 
+	 *
 	 * @param callerID
 	 *            ID of the application that had originally started the dialog
 	 * @param dialogID
 	 *            ID of the dialog
-	 * 
+	 *
 	 */
 	public void abortDialog(String callerID, String dialogID);
 
@@ -74,7 +74,7 @@ public interface IUIBus {
 	 * {@link UIHandler#cutDialog(String)}), and then the new {@link UIHandler}
 	 * is mandated (by calling {@link UIHandler#handleUICall(UIRequest)}) to
 	 * continue with the dialog presentation without loss of data.
-	 * 
+	 *
 	 * @param dm
 	 *            Dialog Manager
 	 * @param uicall
@@ -92,7 +92,7 @@ public interface IUIBus {
 	 * regard to {@link UIRequest}s that it can handle. Responsible (together
 	 * with {@link #removeMatchingProfile(String, UIHandlerProfile)}) for
 	 * changing the handler's profile dynamically.
-	 * 
+	 *
 	 * @param handlerID
 	 *            ID of the {@link UIHandler} introducing the new registration
 	 *            parameters
@@ -105,7 +105,7 @@ public interface IUIBus {
 	/**
 	 * Whenever a dialog is finished, {@link UIHandler}s must inform the
 	 * {@link IUIBus} by calling this method.
-	 * 
+	 *
 	 * @param handlerID
 	 *            ID of the {@link UIHandler} that has finished the dialog
 	 * @param {@link
@@ -125,7 +125,7 @@ public interface IUIBus {
 	 * that dialog (see {@link UIHandler#cutDialog(String)}) and return all user
 	 * input collected so far so that the dialog can be resumed later without
 	 * loss of data.
-	 * 
+	 *
 	 * @param dm
 	 *            Dialog Manager
 	 * @param dialogID
@@ -138,7 +138,7 @@ public interface IUIBus {
 	 * {@link UIHandler}. Responsible (together with
 	 * {@link #addNewProfile(String, UIHandlerProfile)}) for changing the
 	 * handler's profile dynamically.
-	 * 
+	 *
 	 * @param handlerID
 	 *            ID of the calling {@link UIHandler} that had previously
 	 *            registered 'oldProfile'
@@ -155,7 +155,7 @@ public interface IUIBus {
 	 * processed the user input in the context of the sub-dialog and having
 	 * incorporated it into the form data of the parent dialog if needed. Then,
 	 * they can activate the parent dialog using this method.
-	 * 
+	 *
 	 * @param callerID
 	 *            ID of the application that had originally started the dialog
 	 * @param dialogID
@@ -167,7 +167,7 @@ public interface IUIBus {
 
 	/**
 	 * Can be used by applications to send a {@link UIRequest}.
-	 * 
+	 *
 	 * @param callerID
 	 *            ID of the caller that is sending the UI request
 	 * @param uicall
@@ -177,7 +177,7 @@ public interface IUIBus {
 
 	/**
 	 * Unregisters an application's caller from the bus.
-	 * 
+	 *
 	 * @param callerID
 	 *            ID of the caller to be unregistered
 	 * @param uicaller
@@ -187,7 +187,7 @@ public interface IUIBus {
 
 	/**
 	 * Unregisters the given {@link UIHandler} from the bus..
-	 * 
+	 *
 	 * @param handlerID
 	 *            ID of the handler to be unregistered
 	 * @param uiHandler
@@ -198,7 +198,7 @@ public interface IUIBus {
 	/**
 	 * Notifies {@link IUIBus} that the human user has logged in (using
 	 * {@link UIHandler}).
-	 * 
+	 *
 	 * @param handlerID
 	 *            id of the {@link UIHandler} which is received when registering
 	 *            to the {@link IUIBus}. It must be passed to the bus when
@@ -215,7 +215,7 @@ public interface IUIBus {
 	/**
 	 * Retrieves all registered UIHandlerProfiles that has restriction for
 	 * modality matched by modalityRegex
-	 * 
+	 *
 	 * @param modalityRegex
 	 *            - regular expression used for matching
 	 *            {@link UIHandlerProfile}s modalities

@@ -61,7 +61,7 @@ import ch.ethz.iks.slp.ServiceType;
 /**
  * the core class of the jSLP implementation.
  * <code>ch.ethz.iks.slp.ServiceLocationManager</code> inherits from this class.
- * 
+ *
  * @see ch.ethz.iks.slp.impl.ServiceLocationManager
  * @author Jan S. Rellermeyer, IKS, ETH Zurich
  * @since 0.6
@@ -97,7 +97,7 @@ public abstract class SLPCore {
     static final String SLP_MCAST_ADDRESS = "239.255.255.253";
 
     /**
-	 * 
+	 *
 	 */
     static final InetAddress MCAST_ADDRESS;
 
@@ -173,14 +173,14 @@ public abstract class SLPCore {
 
     /**
      * Map of DAs:
-     * 
+     *
      * String scope -> list of Strings of DA URLs.
      */
     static Map dAs = new HashMap();
 
     /**
      * Map of DA SPIs:
-     * 
+     *
      * String DA URL -> String String.
      */
     static Map dASPIs = new HashMap(); // DA URL -> List of SPIs
@@ -429,7 +429,7 @@ public abstract class SLPCore {
 
     /**
      * get my own IP.
-     * 
+     *
      * @return the own IP.
      */
     static InetAddress getMyIP() {
@@ -444,7 +444,7 @@ public abstract class SLPCore {
 
     /**
      * get the list of all available scopes.
-     * 
+     *
      * @return a List of all available scopes. RFC 2614 proposes
      *         <code>Vector</code> but jSLP returns <code>List</code>.
      * @throws ServiceLocationException
@@ -456,7 +456,7 @@ public abstract class SLPCore {
 
     /**
      * handle incoming UDP messages.
-     * 
+     *
      * @param message
      *            the incoming message.
      * @throws ServiceLocationException
@@ -607,7 +607,7 @@ public abstract class SLPCore {
 
     /**
      * get the next XID.
-     * 
+     *
      * @return the next XID.
      */
     static short nextXid() {
@@ -620,7 +620,7 @@ public abstract class SLPCore {
     /**
      * find DAs for the scopes by sending a multicast service request for
      * service <i>service:directory-agent</i>.
-     * 
+     *
      * @param scopes
      *            a <code>List</code> of scopes.
      * @throws ServiceLocationException
@@ -678,7 +678,7 @@ public abstract class SLPCore {
 
     /**
      * send a unicast message over TCP.
-     * 
+     *
      * @param msg
      *            the message.
      * @return the reply.
@@ -709,7 +709,7 @@ public abstract class SLPCore {
 
     /**
      * send a unicast message over UDP.
-     * 
+     *
      * @param msg
      *            the message to be sent.
      * @param expectReply
@@ -780,7 +780,7 @@ public abstract class SLPCore {
 
     /**
      * send a request via multicast convergence algorithm.
-     * 
+     *
      * @param msg
      *            the message.
      * @return the collected reply messages.
@@ -959,7 +959,7 @@ public abstract class SLPCore {
 
     /**
      * setup a new receiver thread for a socket.
-     * 
+     *
      * @param socket
      *            the <code>DatagramSocket</code> for which the receiver thread
      *            is set up.

@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import org.universAAL.middleware.ui.rdf.Submit;
 
 /**
  * Instances of this class can be used to exchange info about user input.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  * @author eandgrg
@@ -66,7 +66,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * This constructor is used in the context of a running dialog.
-	 * 
+	 *
 	 * @param user
 	 *            reference to the {@link User}
 	 * @param inputLocation
@@ -97,7 +97,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the dialog id.
-	 * 
+	 *
 	 * @return ID of the dialog in which this input has been provided
 	 */
 	public String getDialogID() {
@@ -107,7 +107,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the submission location.
-	 * 
+	 *
 	 * @return the submission location
 	 */
 	public AbsLocation getSubmissionLocation() {
@@ -117,7 +117,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the parent dialog uri.
-	 * 
+	 *
 	 * @return the ID of the parent dialog in case this event is about dialog
 	 *         being finished (which can be checked by calling
 	 *         isSubdialogSubmission() method)
@@ -137,7 +137,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the submission id.
-	 * 
+	 *
 	 * @return ID of the submit button selected by the user when finishing the
 	 *         dialog
 	 */
@@ -148,7 +148,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the submitted data.
-	 * 
+	 *
 	 * @return root of the tree with form data submitted.
 	 */
 	public Resource getSubmittedData() {
@@ -157,7 +157,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the {@link User}.
-	 * 
+	 *
 	 * @return the {@link User}. It is declared as Resource because the type
 	 *         User is defined in the Profiling Ontology. The type is not needed
 	 *         for for matchmaking Either.
@@ -169,7 +169,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Gets the user input.
-	 * 
+	 *
 	 * @param propPath
 	 *            array of property URIs, path of a certain expected user input
 	 * @return input from the tree with the form data
@@ -193,7 +193,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Checks if is subdialog call.
-	 * 
+	 *
 	 * @return true, if is subdialog call
 	 */
 	public boolean isSubdialogCall() {
@@ -202,7 +202,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Checks if is subdialog submission.
-	 * 
+	 *
 	 * @return true, if is subdialog submission
 	 */
 	public boolean isSubdialogSubmission() {
@@ -211,7 +211,7 @@ public class UIResponse extends ScopedResource implements Response {
 
 	/**
 	 * Checks if is the response is for the IDialogManager.
-	 * 
+	 *
 	 * @return true, if the submit was in a standardButton group.
 	 */
 	public boolean isForDialogManagerCall() {

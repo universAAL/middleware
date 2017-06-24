@@ -1,8 +1,8 @@
-/*	
+/*
 Copyright 2007-2015 Fraunhofer IGD, http://www.igd.fraunhofer.de
-Fraunhofer-Gesellschaft - Institute for Computer Graphics Research 
+Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
 
-See the NOTICE file distributed with this work for additional 
+See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ import org.universAAL.middleware.interfaces.PeerCard;
  * Listener interface for new log entries. The log listeners are called
  * automatically when adding a log entry to
  * {@link org.universAAL.middleware.container.utils.LogUtils}.
- * 
+ *
  * @author Carsten Stockloew
  */
 public interface DistributedLogListener {
@@ -39,7 +39,7 @@ public interface DistributedLogListener {
 
 	/**
 	 * Log a new message.
-	 * 
+	 *
 	 * @param origin
 	 *            the peer on which the event occurred.
 	 * @param logLevel

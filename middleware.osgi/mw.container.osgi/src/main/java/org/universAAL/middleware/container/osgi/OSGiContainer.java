@@ -43,11 +43,11 @@ import org.universAAL.middleware.container.osgi.run.Activator;
 
 /**
  * An implementation of the concept of {@link Container} for OSGi.
- * 
+ *
  * @author mtazari
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
- * 
+ *
  */
 public final class OSGiContainer implements Container, ServiceListener {
 	public static final OSGiContainer THE_CONTAINER = new OSGiContainer();
@@ -61,7 +61,7 @@ public final class OSGiContainer implements Container, ServiceListener {
 	/**
 	 * @see org.universAAL.middleware.container.Container#fetchSharedObject(ModuleContext,
 	 *      Object[], SharedObjectListener)
-	 * 
+	 *
 	 * @param fetchParams
 	 *            <ul>
 	 *            <li>min length = 1, max used length is 2 (elements @ index 2+
@@ -80,7 +80,7 @@ public final class OSGiContainer implements Container, ServiceListener {
 	 *            will be used to fetch the first service object from the
 	 *            returned array</li>
 	 *            </ul>
-	 * 
+	 *
 	 * @return if the given requester is an instance of
 	 *         {@link OSGiModuleContext} and a {@link ServiceReference} has been
 	 *         found according to the explanations given for
@@ -132,7 +132,7 @@ public final class OSGiContainer implements Container, ServiceListener {
 	/**
 	 * @see org.universAAL.middleware.container.Container#installModule(org.universAAL.middleware.container.ModuleContext,
 	 *      java.lang.Object[])
-	 * 
+	 *
 	 * @param installParams
 	 *            <ul>
 	 *            <li>min length = 1, max used length is 2 (elements @ index 2+
@@ -148,7 +148,7 @@ public final class OSGiContainer implements Container, ServiceListener {
 	 *            {@link BundleContext#installBundle(String, java.io.InputStream)}
 	 *            will be used to install the given bundle</li>
 	 *            </ul>
-	 * 
+	 *
 	 * @return a newly created instance of {@link OSGiModuleContext} that wraps
 	 *         the newly installed bundle if the given requester is an instance
 	 *         of {@link OSGiModuleContext}, the conditions on
@@ -175,11 +175,11 @@ public final class OSGiContainer implements Container, ServiceListener {
 
 	/**
 	 * @see org.universAAL.middleware.container.Container#registerModule(java.lang.Object[])
-	 * 
+	 *
 	 * @param regParams
 	 *            element @ index 0 must exist and be an instance of
 	 *            {@link BundleContext}
-	 * 
+	 *
 	 * @return an instance of {@link OSGiModuleContext} if the conditions for
 	 *         <code>regParams</code> hold, null otherwise
 	 */
@@ -228,7 +228,7 @@ public final class OSGiContainer implements Container, ServiceListener {
 	/**
 	 * @see org.universAAL.middleware.container.Container#shareObject(org.universAAL.middleware.container.ModuleContext,
 	 *      java.lang.Object, java.lang.Object[])
-	 * 
+	 *
 	 * @param shareParams
 	 *            <ul>
 	 *            <li>min length = 1, no upper limit</li>

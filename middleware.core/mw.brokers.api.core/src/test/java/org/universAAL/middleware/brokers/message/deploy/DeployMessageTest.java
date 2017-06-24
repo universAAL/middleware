@@ -40,8 +40,8 @@ import org.universAAL.middleware.managers.deploy.uapp.model.ContactType.OtherCha
 import com.google.gson.Gson;
 
 /**
- * 
- * 
+ *
+ *
  * @author <a href="mailto:giancarlo.riolo@isti.cnr.it">Giancarlo Riolo</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
  */

@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,7 +42,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * the registration parameters the
  * <li><code>ServiceCallee</code>-s may pass an array of
  * {@link org.universAAL.middleware.service.owls.profile.ServiceProfile}s</li>
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
  * @author Carsten Stockloew
@@ -51,7 +51,7 @@ public abstract class ServiceCallee extends Callee {
 
 	/**
 	 * The default constructor for this class.
-	 * 
+	 *
 	 * @param context
 	 *            The OSGI bundle context where the ServiceBus is registered.
 	 *            Note that if no service bus is registered at the time of
@@ -70,7 +70,7 @@ public abstract class ServiceCallee extends Callee {
 
 	/**
 	 * The default constructor for this class.
-	 * 
+	 *
 	 * @param context
 	 *            The OSGI bundle context where the ServiceBus is registered.
 	 *            Note that if no service bus is registered at the time of
@@ -98,7 +98,7 @@ public abstract class ServiceCallee extends Callee {
 	/**
 	 * Registers additional services to be provided by this
 	 * <code>ServiceCallee</code>.
-	 * 
+	 *
 	 * @param realizedServices
 	 *            the new services.
 	 * @throws NullPointerException
@@ -115,7 +115,7 @@ public abstract class ServiceCallee extends Callee {
 	/**
 	 * Registers additional services to be provided by this
 	 * <code>ServiceCallee</code>.
-	 * 
+	 *
 	 * @param realizedServices
 	 *            the new services.
 	 * @param throwOnError
@@ -140,7 +140,7 @@ public abstract class ServiceCallee extends Callee {
 	/**
 	 * Removes a specified set of services that were previously provided by this
 	 * <code>ServiceCallee</code>.
-	 * 
+	 *
 	 * @param realizedServices
 	 *            the services that need to be removed.
 	 */
@@ -166,7 +166,7 @@ public abstract class ServiceCallee extends Callee {
 	 * The actual service method of the <code>ServiceCallee</code>. It is called
 	 * by the bus whenever there is a call that need to be serviced by this
 	 * <code>ServiceCallee</code>.
-	 * 
+	 *
 	 * @param call
 	 *            the call that needs to be serviced.
 	 * @return the result of the call execution.
@@ -176,7 +176,7 @@ public abstract class ServiceCallee extends Callee {
 	/**
 	 * Handles a peer-to-peer request representing a {@link ServiceCall} coming
 	 * from the bus.
-	 * 
+	 *
 	 * @param m
 	 *            request message coming from the bus.
 	 */
@@ -212,7 +212,7 @@ public abstract class ServiceCallee extends Callee {
 
 	/**
 	 * Get the ID of this bus member.
-	 * 
+	 *
 	 * @return the ID of this bus member.
 	 */
 	public String getMyID() {

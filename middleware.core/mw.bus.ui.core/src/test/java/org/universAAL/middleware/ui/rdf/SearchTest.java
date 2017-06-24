@@ -28,7 +28,7 @@ import org.universAAL.middleware.ui.owl.UIBusOntology;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class SearchTest extends TestCase {
 

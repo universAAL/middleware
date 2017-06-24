@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,10 +28,10 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
  * Ontological representation of a ContextProvider
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class ContextProvider extends ManagedIndividual {
 	public static final String MY_URI;
@@ -89,7 +89,7 @@ public class ContextProvider extends ManagedIndividual {
 	 * The type of a context provider should be of minor interest, whereas the
 	 * source could be important; but even the latter can be represented in its
 	 * reduced form.
-	 * 
+	 *
 	 * @see ManagedIndividual#getPropSerializationType(String)
 	 */
 	public int getPropSerializationType(String propURI) {
@@ -130,7 +130,7 @@ public class ContextProvider extends ManagedIndividual {
 	/**
 	 * Allows to assign a set of ManagedIndividuals as the origin of the Context
 	 * Information provided by this ContextProvider.
-	 * 
+	 *
 	 * @param sources
 	 *            An Array of ManagedIndividuals representing the source of
 	 *            context events that generate the actual information provided
@@ -193,7 +193,7 @@ public class ContextProvider extends ManagedIndividual {
 	/**
 	 * Allows to assign a set of {@link ContextEventPattern}s as the classes of
 	 * context events provided by this ContextProvider.
-	 * 
+	 *
 	 * @param myEvents
 	 *            An Array of {@link ContextEventPattern}s describing the
 	 *            context events provided by this ContextProvider.
@@ -212,7 +212,7 @@ public class ContextProvider extends ManagedIndividual {
 	/**
 	 * Set the type of this ContextProvider to one of those defined in
 	 * ContextProviderType.
-	 * 
+	 *
 	 * @param type
 	 *            The ContextProviderType of the ContextProvider.
 	 */

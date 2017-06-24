@@ -41,9 +41,9 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
  * used they automatically de register. If a {@link ConfigurableEntityEditor} is
  * not yet referenced, then it is created (depending on the type of the Editor
  * needed file VS parameter and Local VS remote).
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class ConfigurationEditorPool {
 
@@ -53,7 +53,7 @@ public class ConfigurationEditorPool {
 	/**
 	 * @param confManager
 	 *            The configuration Manager to link editors.
-	 * 
+	 *
 	 */
 	public ConfigurationEditorPool(ConfigurationManagerImpl confManager) {
 		map = new HashMap<String, WeakReference<GenericConfigurationEntity>>();
@@ -62,7 +62,7 @@ public class ConfigurationEditorPool {
 
 	/**
 	 * Get a {@link ConfigurableEntityEditor} or create one if needed.
-	 * 
+	 *
 	 * @param e
 	 *            the entity associated to the editor.
 	 * @return the editor.
@@ -92,7 +92,7 @@ public class ConfigurationEditorPool {
 	/**
 	 * This method is called to update any existing Editor for the
 	 * {@link Entity}. works only for existing editors.
-	 * 
+	 *
 	 * @param e
 	 *            the entity updated.
 	 */
@@ -127,7 +127,7 @@ public class ConfigurationEditorPool {
 
 	/**
 	 * Find if e can be managed as local.
-	 * 
+	 *
 	 * @param e
 	 *            the entity to test
 	 * @return true iff e is local or not instance type scope.

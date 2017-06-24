@@ -821,7 +821,7 @@ public final class OntologyManagement {
 
 	/**
 	 * Test if an ontology URI is already registered.
-	 * 
+	 *
 	 * @param ontURI
 	 *            The URI of the ontology to check if it is already registered
 	 * @return true only if the ontology is registered.

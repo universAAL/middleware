@@ -34,7 +34,7 @@ import org.universAAL.middleware.container.ModuleContext;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class JUnitModuleContext implements ModuleContext {
 

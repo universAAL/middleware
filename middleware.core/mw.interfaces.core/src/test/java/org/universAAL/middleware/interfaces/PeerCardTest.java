@@ -29,7 +29,7 @@ import org.junit.Test;
 
 /**
  * This class is a test unit for {@link PeerCard}
- * 
+ *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  */
 public class PeerCardTest {

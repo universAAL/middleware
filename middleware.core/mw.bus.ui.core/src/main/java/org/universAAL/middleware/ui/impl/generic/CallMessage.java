@@ -23,7 +23,7 @@ import org.universAAL.middleware.rdf.Resource;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public abstract class CallMessage<Strategy extends CallBasedStrategy> extends Resource
 		implements EventMessage<Strategy> {

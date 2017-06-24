@@ -24,7 +24,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class SimpleTest extends TestCase {
 

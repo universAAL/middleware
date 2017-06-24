@@ -38,7 +38,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 
 /**
  * a AttributeReply Message is sent as reaction to a AttributeRequest message.
- * 
+ *
  * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @since 0.1
  */
@@ -56,12 +56,12 @@ class AttributeReply extends ReplyMessage {
 
     /**
      * create a new AttributeReply from a list of attributes.
-     * 
+     *
      * @param attList
      *            a list of attributes in
-     * 
+     *
      *            <verbatim> (key=value) </verbatim>
-     * 
+     *
      *            format.
      */
     AttributeReply(final AttributeRequest req, final List attList) {
@@ -78,7 +78,7 @@ class AttributeReply extends ReplyMessage {
     /**
      * create a new AttributeReply from a DataInput streaming the bytes of an
      * AttributeReply message body.
-     * 
+     *
      * @param input
      *            stream of bytes forming the message body.
      * @throws ServiceLocationException
@@ -103,7 +103,7 @@ class AttributeReply extends ReplyMessage {
      * get the bytes of the message body in the following RFC 2608 compliant
      * format:
      * <p>
-     * 
+     *
      * <pre>
      *    0                   1                   2                   3
      *    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -117,10 +117,10 @@ class AttributeReply extends ReplyMessage {
      *   |# of AttrAuths |  Attribute Authentication Block (if present)  \
      *   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      * </pre>
-     * 
+     *
      * .
      * </p>
-     * 
+     *
      * @return array of bytes.
      * @throws ServiceLocationException
      *             if an IO Exception occurs.
@@ -138,7 +138,7 @@ class AttributeReply extends ReplyMessage {
 
     /**
      * get the length of the message.
-     * 
+     *
      * @return the length of the message.
      * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
      */
@@ -153,7 +153,7 @@ class AttributeReply extends ReplyMessage {
 
     /**
      * get the result.
-     * 
+     *
      * @see ch.ethz.iks.slp.impl.ReplyMessage#getResult()
      * @return the <code>List</code> of results.
      */
@@ -163,7 +163,7 @@ class AttributeReply extends ReplyMessage {
 
     /**
      * get a string representation of the AttributeReply message.
-     * 
+     *
      * @return a String displaying the properties of this message instance.
      */
     public String toString() {
@@ -177,7 +177,7 @@ class AttributeReply extends ReplyMessage {
 
     /**
      * sign this AttributeReply.
-     * 
+     *
      * @param spiStr
      *            a String of SPIs.
      * @throws ServiceLocationException
@@ -198,7 +198,7 @@ class AttributeReply extends ReplyMessage {
 
     /**
      * verify this AttributeReply.
-     * 
+     *
      * @return true if verification suceeds.
      * @throws ServiceLocationException
      *             in case of IO errors.
@@ -215,7 +215,7 @@ class AttributeReply extends ReplyMessage {
 
     /**
      * get the authentication data.
-     * 
+     *
      * @param spiStr
      *            the SPI.
      * @param timestamp

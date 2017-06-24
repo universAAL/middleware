@@ -21,8 +21,8 @@
 package org.universAAL.middleware.interfaces.space.model;
 
 /**
- * 
- * 
+ *
+ *
  * @author <a href="mailto:sterfano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ($LastChangedDate$)
  * @since 2.0.1
@@ -31,18 +31,18 @@ public interface ISpaceDescriptor {
 
 	/**
 	 * Gets the value of the profile property.
-	 * 
+	 *
 	 * @return possible object is {@link String }
-	 * 
+	 *
 	 */
 	public abstract String getProfile();
 
 	/**
 	 * Sets the value of the profile property.
-	 * 
+	 *
 	 * @param value
 	 *            allowed object is {@link String }
-	 * 
+	 *
 	 */
 	public abstract void setProfile(String value);
 
@@ -50,18 +50,18 @@ public interface ISpaceDescriptor {
 
 	/**
 	 * Gets the value of the spaceId property.
-	 * 
+	 *
 	 * @return possible object is {@link String }
-	 * 
+	 *
 	 */
 	public abstract String getSpaceId();
 
 	/**
 	 * Sets the value of the spaceId property.
-	 * 
+	 *
 	 * @param value
 	 *            allowed object is {@link String }
-	 * 
+	 *
 	 */
 	public abstract void setSpaceId(String value);
 
@@ -69,18 +69,18 @@ public interface ISpaceDescriptor {
 
 	/**
 	 * Gets the value of the spaceName property.
-	 * 
+	 *
 	 * @return possible object is {@link String }
-	 * 
+	 *
 	 */
 	public abstract String getSpaceName();
 
 	/**
 	 * Sets the value of the spaceName property.
-	 * 
+	 *
 	 * @param value
 	 *            allowed object is {@link String }
-	 * 
+	 *
 	 */
 	public abstract void setSpaceName(String value);
 
@@ -88,18 +88,18 @@ public interface ISpaceDescriptor {
 
 	/**
 	 * Gets the value of the spaceDescription property.
-	 * 
+	 *
 	 * @return possible object is {@link String }
-	 * 
+	 *
 	 */
 	public abstract String getSpaceDescription();
 
 	/**
 	 * Sets the value of the spaceDescription property.
-	 * 
+	 *
 	 * @param value
 	 *            allowed object is {@link String }
-	 * 
+	 *
 	 */
 	public abstract void setSpaceDescription(String value);
 

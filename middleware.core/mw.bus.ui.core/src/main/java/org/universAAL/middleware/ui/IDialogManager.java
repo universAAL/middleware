@@ -1,18 +1,18 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut fuer Graphische Datenverarbeitung 
-	
+	Fraunhofer Gesellschaft - Institut fuer Graphische Datenverarbeitung
+
 	2012 Ericsson Nikola Tesla d.d., www.ericsson.com/hr
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,12 +35,12 @@ import org.universAAL.middleware.rdf.Resource;
  * management of dialogs initiated by different applications to protect the user
  * against a mess of parallel dialogs (decides whether some dialog needs to wait
  * for another dialog to finish).
- * 
+ *
  * This interface is supposed to be implemented by exactly one component. The
  * first component that registers as a {@link UICaller} to the UI bus (and
  * implements this interface) blocks the registration of any further
  * implementation of this interface.
- * 
+ *
  * @author mtazari
  * @author eandgrg
  */
@@ -48,7 +48,7 @@ public interface IDialogManager {
 
 	/**
 	 * Check new dialog.
-	 * 
+	 *
 	 * @param request
 	 *            {@link UIRequest} to {@link IUIBus}
 	 * @return the decision if the new {@link UIRequest} to {@link IUIBus} can
@@ -70,7 +70,7 @@ public interface IDialogManager {
 	 * according to the information received from an {@link UIHandler}. As a
 	 * result this may result in re-activation of previously suspended dialog
 	 * (by the {@link IDialogManager}).
-	 * 
+	 *
 	 * @param dialogID
 	 *            ID of the dialog
 	 */
@@ -78,7 +78,7 @@ public interface IDialogManager {
 
 	/**
 	 * A User has logged in at a location resend the appropriate dialog.
-	 * 
+	 *
 	 * @param user
 	 *            {@link User} of a system. It is declared as Resource because
 	 *            the type User is defined in the Profiling Ontology. The type
@@ -93,7 +93,7 @@ public interface IDialogManager {
 	 * When the application has informed the bus that a suspended parent dialog
 	 * is now ready to be resumed, then the bus uses this method in order to
 	 * fetch the suspended parent dialog.
-	 * 
+	 *
 	 * @param dialogID
 	 *            ID of the dialog
 	 * @return the suspended parent dialog
@@ -106,7 +106,7 @@ public interface IDialogManager {
 	 * case when during a dialog is running the user steps into a subdialog so
 	 * the parent dialog must be suspended until the application receives the
 	 * user input from the subdialog.
-	 * 
+	 *
 	 * @param dialogID
 	 *            ID of the dialog
 	 */

@@ -25,7 +25,7 @@ import com.google.gson.Gson;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class ConfigurationMessage implements BrokerMessage {
 
@@ -41,14 +41,14 @@ public class ConfigurationMessage implements BrokerMessage {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public ConfigurationMessage() {
 	}
 
 	/**
 	 * Create a new Configuration Message.
-	 * 
+	 *
 	 * @param mType
 	 *            the type of the message to sent
 	 * @param sender

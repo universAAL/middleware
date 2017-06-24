@@ -28,9 +28,9 @@ import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
  * Find the resources referenced by urls.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public final class ResourceMapper {
 
@@ -48,7 +48,7 @@ public final class ResourceMapper {
 	/**
 	 * Utility method: it will look for the resource in the cache, if it not
 	 * available it will copy it there. Returns the cache location.
-	 * 
+	 *
 	 * @param cacheFolder
 	 *            the location of the cache folder.
 	 * @param resource
@@ -83,9 +83,9 @@ public final class ResourceMapper {
 
 	/**
 	 * A class that will perform copy operation in a thread.
-	 * 
+	 *
 	 * @author amedrano
-	 * 
+	 *
 	 */
 	static public class Retreiver implements Runnable {
 

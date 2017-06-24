@@ -61,9 +61,9 @@ import org.universAAL.middleware.ui.rdf.Form;
  * may also be instructed by the {@link IDialogManager} in representation of the
  * user.
  * </ol>
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class UIStrategyCaller extends UIStrategyHandler {
 
@@ -288,7 +288,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	 * specific dialog; Or when the {@link IDialogManager} wants to resume a
 	 * previously suspended dialog because of higher priority dialog
 	 * interrupted.
-	 * 
+	 *
 	 * @param dialogID
 	 *            ID of the dialog we want to resume
 	 * @param dialogData
@@ -321,7 +321,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	 * instance of {@link org.universAAL.middleware.ui.rdf.SubdialogTrigger} so
 	 * that we must only notify to suspend this dialog until the original
 	 * publisher calls 'resume'.
-	 * 
+	 *
 	 * @param dialogID
 	 *            ID of the dialog to suspend
 	 */
@@ -339,13 +339,13 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	}
 
 	/**
-	 * 
+	 *
 	 * Aborts the dialog with the given ID. If the requester is the
 	 * {@link IDialogManager} and/or the {@link UICaller} of the dialog the
 	 * request will be handled directly. Otherwise the request is given to the
 	 * request-queue. Only {@link IDialogManager} & the original
 	 * {@link UICaller} are allowed to ask for abortion of dialogs.
-	 * 
+	 *
 	 * @param requester
 	 *            ID of the {@link UICaller} that wants to abort the dialog
 	 * @param dialogID
@@ -481,7 +481,7 @@ public class UIStrategyCaller extends UIStrategyHandler {
 	/**
 	 * A caller is unregistering, and it will be no more reachable, all of its
 	 * pending requests must be aborted.
-	 * 
+	 *
 	 * @param caller
 	 */
 	public void abortAllPendingRequestsFor(UICaller caller) {

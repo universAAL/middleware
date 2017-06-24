@@ -35,21 +35,21 @@ import java.util.Locale;
  * Locator implements the UA properties of SLP. Services can be discovered by
  * type or by URL, attributes of discovered services can be retrieved and
  * service types can be listed.
- * 
+ *
  * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @since 0.1
  */
 public interface Locator {
     /**
      * Returns the locale of this Locator instance.
-     * 
+     *
      * @return the current Locale.
      */
     Locale getLocale();
 
     /**
      * Get the locale of this instance.
-     * 
+     *
      * @param locale
      *            the Locale.
      * @see Advertiser#getLocale()
@@ -58,7 +58,7 @@ public interface Locator {
 
     /**
      * Find all services types that are currently registered in the network.
-     * 
+     *
      * @param namingAuthority
      *            the naming authority for the service type. If omitted, ALL
      *            Service Types are returned, regardless of Naming Authority.
@@ -76,7 +76,7 @@ public interface Locator {
 
     /**
      * Find all services that match a certain service type.
-     * 
+     *
      * @param type
      *            the ServiceType.
      * @param scopes
@@ -99,7 +99,7 @@ public interface Locator {
 
     /**
      * Find all services that match a ServiceURL.
-     * 
+     *
      * @param url
      *            the ServiceURL.
      * @param scopes
@@ -108,11 +108,11 @@ public interface Locator {
      *            Framework.
      * @param attributeIds
      *            A List of attribute-value-pairs like
-     * 
+     *
      *            <pre>
      * (key = value)
      * </pre>
-     * 
+     *
      *            that must match. If null, no attribute constraints are
      *            applied.
      * @return a ServiceLocationEnumeration over the <code>ServiceURLs</code> of
@@ -125,7 +125,7 @@ public interface Locator {
 
     /**
      * Find all services that match a ServiceType.
-     * 
+     *
      * @param type
      *            the ServiceType.
      * @param scopes
@@ -134,11 +134,11 @@ public interface Locator {
      *            Framework.
      * @param attributeIds
      *            A List of attribute-value-pairs like
-     * 
+     *
      *            <pre>
      * (key = value)
      * </pre>
-     * 
+     *
      *            that must match. If null, no attribute constraints are
      *            applied.
      * @return a ServiceLocationEnumeration over the ServiceURLs of the found

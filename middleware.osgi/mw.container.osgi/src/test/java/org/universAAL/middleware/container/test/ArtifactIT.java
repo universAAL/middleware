@@ -7,9 +7,9 @@ import org.universAAL.middleware.container.osgi.run.Activator;
 
 /**
  * Here developer's of this artifact should code their integration tests.
- * 
+ *
  * @author rotgier
- * 
+ *
  */
 public class ArtifactIT extends IntegrationTest {
 

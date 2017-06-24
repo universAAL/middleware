@@ -46,11 +46,11 @@ import org.universAAL.middleware.container.ModuleContext;
 
 /**
  * An implementation of the concept of {@link ModuleContext} for OSGi.
- * 
+ *
  * @author mtazari
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
- * 
+ *
  */
 public class OSGiModuleContext implements ModuleContext {
 	private BundleContext bundle;

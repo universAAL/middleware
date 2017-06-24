@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,7 +50,7 @@ import org.universAAL.middleware.rdf.Resource;
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class ContextStrategy extends BusStrategy {
 
@@ -101,7 +101,7 @@ public class ContextStrategy extends BusStrategy {
 	/**
 	 * Allows a Context Publisher to announce which events it is going to
 	 * publish during its membership at context bus.
-	 * 
+	 *
 	 * @param publisher
 	 *            The Publisher that wants to announce Patterns
 	 * @param providedEvents
@@ -119,7 +119,7 @@ public class ContextStrategy extends BusStrategy {
 	/**
 	 * * Allows a Context Subscriber to register to events in the bus that match
 	 * the given patterns
-	 * 
+	 *
 	 * @param subscriber
 	 *            The Subscriber that wants to register Patterns
 	 * @param initialSubscriptions
@@ -410,7 +410,7 @@ public class ContextStrategy extends BusStrategy {
 	/**
 	 * Remove the patterns of Context Events that a Context Subscriber is
 	 * interested in, so it no longer receives Events matching them
-	 * 
+	 *
 	 * @param subscriber
 	 *            The Subscriber that wants to remove its Patterns
 	 * @param initialSubscriptions
@@ -453,7 +453,7 @@ public class ContextStrategy extends BusStrategy {
 	/**
 	 * Remove ALL patterns of Context Events that a Context Subscriber is
 	 * interested in, so it no longer receives Events OF ANY KIND
-	 * 
+	 *
 	 * @param subscriber
 	 *            The Subscriber that wants to remove its Patterns
 	 */

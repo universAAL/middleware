@@ -1,7 +1,7 @@
 /*
 Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
-Department of Computer Science 
+Department of Computer Science
 
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
@@ -29,7 +29,7 @@ import org.universAAL.middleware.service.owl.Service;
  * This is a simple helper class used for generating the profiles in the persona
  * way. As all methods for creating outputs,inputs, and change effects in
  * Service class are protected it was necessary to extend it.
- * 
+ *
  * @author dzmuda
  */
 public class SimplifiedApiService extends Service {
@@ -42,7 +42,7 @@ public class SimplifiedApiService extends Service {
 	/**
 	 * Factory method for creating instances of SimplifiedApiService. It is
 	 * needed due to early initialization (getClassURI) of upper classes.
-	 * 
+	 *
 	 * @param namespace
 	 * @param methodUri
 	 * @param ontologyUri
@@ -72,7 +72,7 @@ public class SimplifiedApiService extends Service {
 
 	/**
 	 * Wrapper method for creating the simpliest input.
-	 * 
+	 *
 	 * @param baseURI
 	 *            - input parameter URI
 	 * @param clazz
@@ -125,7 +125,7 @@ public class SimplifiedApiService extends Service {
 
 	/**
 	 * Wrapper method for creating the simpliest output.
-	 * 
+	 *
 	 * @param baseURI
 	 *            - output URI
 	 * @param clazz
@@ -170,7 +170,7 @@ public class SimplifiedApiService extends Service {
 
 	/**
 	 * Wrapper method for ServiceProfile addChangeEffect
-	 * 
+	 *
 	 * @param propPaths
 	 * @param value
 	 * @throws SimplifiedRegistrationException
@@ -192,7 +192,7 @@ public class SimplifiedApiService extends Service {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
 	 * (java.lang.String)

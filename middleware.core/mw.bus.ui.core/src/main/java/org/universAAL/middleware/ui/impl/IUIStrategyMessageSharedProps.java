@@ -22,7 +22,7 @@ import org.universAAL.middleware.ui.UIRequest;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public interface IUIStrategyMessageSharedProps {
 

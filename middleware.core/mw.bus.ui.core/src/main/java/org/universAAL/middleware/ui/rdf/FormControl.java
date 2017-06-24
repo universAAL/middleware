@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import org.universAAL.middleware.rdf.TypeMapper;
 /**
  * The structural unit of forms that may bear information to be presented to
  * human users and / or serve as a placeholder for user input.
- * 
+ *
  * @see <a href=
  *      "ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg">
  *      ftp://ftp.igd.fraunhofer.de/outgoing/mtazari/persona/dialogPackage.jpg</a>
@@ -136,7 +136,7 @@ public abstract class FormControl extends FormElement {
 
 	/**
 	 * Returns the help text for this control.
-	 * 
+	 *
 	 * @see #PROP_HELP
 	 */
 	public String getHelpString() {
@@ -145,7 +145,7 @@ public abstract class FormControl extends FormElement {
 
 	/**
 	 * Returns the hint string for this control.
-	 * 
+	 *
 	 * @see #PROP_HINT
 	 */
 	public String getHintString() {
@@ -154,7 +154,7 @@ public abstract class FormControl extends FormElement {
 
 	/**
 	 * Returns the {@link Label} of this control.
-	 * 
+	 *
 	 * @see #PROP_CONTROL_LABEL
 	 */
 	public Label getLabel() {
@@ -395,7 +395,7 @@ public abstract class FormControl extends FormElement {
 
 	/**
 	 * For usage by de-serializers.
-	 * 
+	 *
 	 * @see org.universAAL.middleware.rdf.Resource#setProperty(String, Object)
 	 */
 	public boolean setProperty(String propURI, Object value) {

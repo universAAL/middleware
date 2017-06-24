@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,7 +34,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * from services after they have been called and before the result is given to
  * the {@link ServiceCaller}. {@link AggregatingFilter}s are only evaluated if
  * there is more than one service that match a {@link ServiceRequest}.
- * 
+ *
  * There are basically two types of filter:
  * <ul>
  * <li>Service Selection:
@@ -77,7 +77,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * </p>
  * </li>
  * </ul>
- * 
+ *
  * @author Carsten Stockloew
  */
 public class AggregatingFilterFactory {
@@ -96,7 +96,7 @@ public class AggregatingFilterFactory {
 	 * aggregation function is {@link AggregationFunction#oneOf}. This filter is
 	 * ignored if another filter with a different function is added to the
 	 * service request.
-	 * 
+	 *
 	 * @return a filter with a {@link AggregationFunction#oneOf} function.
 	 */
 	public static AggregatingFilter createServiceSelectionFilter() {
@@ -109,7 +109,7 @@ public class AggregatingFilterFactory {
 	/**
 	 * Creates a service selection filter that evaluates a non-functional
 	 * parameter that is not related to a location.
-	 * 
+	 *
 	 * @param type
 	 *            determines whether either the service with the minimum value
 	 *            or the maximum value of the parameter is called.
@@ -139,7 +139,7 @@ public class AggregatingFilterFactory {
 	/**
 	 * Creates a service selection filter that evaluates a non-functional
 	 * parameter that is related to a location.
-	 * 
+	 *
 	 * @param type
 	 *            determines whether either the service with the minimum value
 	 *            or the maximum value of the parameter is called.
@@ -165,7 +165,7 @@ public class AggregatingFilterFactory {
 
 	/**
 	 * Creates an output aggregation filter.
-	 * 
+	 *
 	 * @param type
 	 *            determines whether the output with the minimum value or the
 	 *            maximum value is used.
@@ -182,7 +182,7 @@ public class AggregatingFilterFactory {
 
 	/**
 	 * Creates an output aggregation filter.
-	 * 
+	 *
 	 * @param type
 	 *            determines whether the output with the minimum value or the
 	 *            maximum value is used.

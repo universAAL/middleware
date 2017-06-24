@@ -29,9 +29,9 @@ import org.universAAL.middleware.interfaces.configuration.scope.Scope;
  * {@link ConfigurableModule#configurationChanged(Scope, Object)} will be
  * called, and local and remote {@link ConfigurationEditor ConfigurationEditors}
  * will be notified.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public interface DynamicDescribedEntity {
 

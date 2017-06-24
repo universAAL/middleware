@@ -28,13 +28,13 @@ import org.universAAL.middleware.managers.configuration.core.owl.Entity;
  * Abstract class for Local {@link ConfigurableEntityEditor}s. implement method
  * for getDescription (from {@link DescribedEntity} compared with file to
  * maintain it updated), utility method to get the entity (from file).
- * 
+ *
  * @author amedrano
  */
 public abstract class LocalConfigurationEntity extends GenericConfigurationEntity implements ConfigurableEntityEditor {
 
 	/**
-	 * 
+	 *
 	 */
 	public LocalConfigurationEntity(ConfigurationManagerImpl configurationManagerImpl, String uri) {
 		super(configurationManagerImpl, uri);

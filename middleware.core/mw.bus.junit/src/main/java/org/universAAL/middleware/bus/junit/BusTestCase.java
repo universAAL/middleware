@@ -92,7 +92,7 @@ public class BusTestCase extends TestCase {
 		}, this.getClass().getName());
 
 		mc.logInfo("BusTestCase", "Starting BusTestCase", null);
-		
+
 		// init data representation
 		SharedResources.moduleContext = mc;
 		SharedResources.loadReasoningEngine();

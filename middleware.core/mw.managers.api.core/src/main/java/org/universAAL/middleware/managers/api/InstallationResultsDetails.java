@@ -27,7 +27,7 @@ import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.managers.deploy.uapp.model.Part;
 
 /**
- * 
+ *
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @version $LastChangedRevision$ ( $LastChangedDate: 2014-01-20 11:22:38 +0100
  *          (Mo, 20 Jan 2014) $ )

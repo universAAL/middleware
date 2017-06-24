@@ -36,7 +36,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 
 /**
  * a ServiceReply Message is sent as reaction of a ServiceRequest.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.6
  */
@@ -48,7 +48,7 @@ class ServiceTypeReply extends ReplyMessage {
 
     /**
      * create a new ServiceTypeReply from a list of ServiceTypes.
-     * 
+     *
      * @param req
      *            the request to reply to.
      * @param types
@@ -67,7 +67,7 @@ class ServiceTypeReply extends ReplyMessage {
     /**
      * create a new ServiceTypeReply from a DataInput streaming the bytes of an
      * ServiceTypeReply message body.
-     * 
+     *
      * @param input
      *            stream of bytes forming the message body.
      * @throws ServiceLocationException
@@ -82,7 +82,7 @@ class ServiceTypeReply extends ReplyMessage {
      * get the bytes of the message body in the following RFC 2608 compliant
      * format:
      * <p>
-     * 
+     *
      * <pre>
      *    0                   1                   2                   3
      *    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -94,10 +94,10 @@ class ServiceTypeReply extends ReplyMessage {
      *   |                       &lt;srvtype--list&gt;                         \
      *   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      * </pre>
-     * 
+     *
      * .
      * </p>
-     * 
+     *
      * @return array of bytes.
      * @throws ServiceLocationException
      *             if an IO Exception occurs.
@@ -110,7 +110,7 @@ class ServiceTypeReply extends ReplyMessage {
 
     /**
      * get the length of the message.
-     * 
+     *
      * @return the length of the message.
      * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
      */
@@ -121,7 +121,7 @@ class ServiceTypeReply extends ReplyMessage {
 
     /**
      * get the result of the reply message.
-     * 
+     *
      * @return the <code>List</code> of results.
      * @see ch.ethz.iks.slp.impl.ReplyMessage#getResult()
      */
@@ -131,7 +131,7 @@ class ServiceTypeReply extends ReplyMessage {
 
     /**
      * get a string representation of the ServiceTypeReply message.
-     * 
+     *
      * @return a String displaying the properties of this message instance.
      */
     public String toString() {

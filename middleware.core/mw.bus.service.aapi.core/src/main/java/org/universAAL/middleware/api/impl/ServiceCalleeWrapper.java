@@ -1,7 +1,7 @@
 /*
 Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
-Department of Computer Science 
+Department of Computer Science
 
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
@@ -43,9 +43,9 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  * implementation which was annotated by UniversAALService annotation. During
  * handleCall it invokes original service by reflection and create proper
  * ServiceResponse object.
- * 
+ *
  * @author dzmuda
- * 
+ *
  */
 public class ServiceCalleeWrapper extends ServiceCallee {
 
@@ -92,11 +92,11 @@ public class ServiceCalleeWrapper extends ServiceCallee {
 	 * Handles the incoming ServiceCall and check if it fits to methods declared
 	 * by wrapped object. If so, it invoke such method with reflection and
 	 * create proper ServiceResponse
-	 * 
+	 *
 	 * It is crucial to remember that Output in ServiceResponse has to be either
 	 * List or RDF object because TypeMapper.asLiteral does not support other
 	 * types. If output is an Array it is automatically converted into a List.
-	 * 
+	 *
 	 * @see org.universAAL.middleware.service.ServiceCallee#handleCall(org.universAAL.middleware.service.ServiceCall)
 	 */
 	public ServiceResponse handleCall(ServiceCall call) {

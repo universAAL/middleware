@@ -26,9 +26,9 @@ import org.universAAL.middleware.context.test.ont.User;
 
 /**
  * Here developer's of this artifact should code their integration tests.
- * 
+ *
  * @author rotgier
- * 
+ *
  */
 public class ArtifactIT extends IntegrationTest {
 
@@ -49,7 +49,7 @@ public class ArtifactIT extends IntegrationTest {
 
 	/**
 	 * Helper method for logging.
-	 * 
+	 *
 	 * @param msg
 	 */
 	protected void logInfo(String format, Object args) {
@@ -60,7 +60,7 @@ public class ArtifactIT extends IntegrationTest {
 
 	/**
 	 * Helper method for logging.
-	 * 
+	 *
 	 * @param msg
 	 */
 	protected void logError(Throwable t, String format, Object args) {

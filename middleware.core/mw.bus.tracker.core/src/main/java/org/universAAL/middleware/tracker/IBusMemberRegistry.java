@@ -1,7 +1,7 @@
 /*
 Copyright 2011-2014 AGH-UST, http://www.agh.edu.pl
 Faculty of Computer Science, Electronics and Telecommunications
-Department of Computer Science 
+Department of Computer Science
 
 See the NOTICE file distributed with this work for additional
 information regarding copyright ownership
@@ -24,9 +24,9 @@ import org.universAAL.middleware.tracker.impl.Activator;
 
 /**
  * Interface used for plugging into the registry of BusMembers in MW nodes.
- * 
+ *
  * @author dzmuda
- * 
+ *
  */
 public interface IBusMemberRegistry {
 
@@ -34,9 +34,9 @@ public interface IBusMemberRegistry {
 
 	/**
 	 * Enumeration used in notifications.
-	 * 
+	 *
 	 * @author dzmuda
-	 * 
+	 *
 	 */
 	public enum BusType {
 		Service, Context, UI
@@ -45,7 +45,7 @@ public interface IBusMemberRegistry {
 	/**
 	 * Method used for adding listener for notifications about changes in
 	 * BusMember registry.
-	 * 
+	 *
 	 * @param listener
 	 *            - listener to be added
 	 * @param notifyAboutPreviouslyRegisteredMembers
@@ -56,7 +56,7 @@ public interface IBusMemberRegistry {
 
 	/**
 	 * Method used for removal of listeners in BusMember registry
-	 * 
+	 *
 	 * @param listener
 	 *            - listener to be removed
 	 */

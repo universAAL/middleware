@@ -23,9 +23,9 @@ import org.universAAL.middleware.owl.URIRestriction;
 /**
  * A pattern that matches entities with an Module type scope. Additionally, it
  * can match moduleId in scopes with the provided pattern.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class ModulePattern implements EntityPattern {
 
@@ -40,7 +40,7 @@ public class ModulePattern implements EntityPattern {
 
 	/**
 	 * Match Module type scope entities whose moduleId matches moduleIdPattern.
-	 * 
+	 *
 	 * @param moduleIdPattern
 	 *            the pattern to match the moduleId in entities.
 	 */

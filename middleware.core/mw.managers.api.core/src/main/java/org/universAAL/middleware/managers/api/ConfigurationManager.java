@@ -25,9 +25,9 @@ import org.universAAL.middleware.interfaces.configuration.configurationDefinitio
 /**
  * Hub to register {@link ConfigurableModule}s, and configurations (as
  * {@link DescribedEntity}s) against.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public interface ConfigurationManager {
 
@@ -37,7 +37,7 @@ public interface ConfigurationManager {
 	 * the {@link ConfigurableModule} will be called with the stored
 	 * configuration or the default value of the {@link DescribedEntity} (if not
 	 * null)
-	 * 
+	 *
 	 * @param confEntities
 	 *            list of {@link DescribedEntity DescribedEntities} that the
 	 *            {@link ConfigurableModule} will manage.
@@ -52,7 +52,7 @@ public interface ConfigurationManager {
 	 * the {@link ConfigurableModule} will be called with the stored
 	 * configuration or the default value of the {@link DescribedEntity} (if not
 	 * null)
-	 * 
+	 *
 	 * @param confEntities
 	 *            Array of {@link DescribedEntity DescribedEntities} that the
 	 *            {@link ConfigurableModule} will manage.
@@ -63,7 +63,7 @@ public interface ConfigurationManager {
 
 	/**
 	 * Unregister a particular {@link ConfigurableModule}.
-	 * 
+	 *
 	 * @param listener
 	 *            the {@link ConfigurableModule} to unregister.
 	 */

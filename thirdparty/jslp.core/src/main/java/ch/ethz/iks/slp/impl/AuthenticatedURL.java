@@ -37,7 +37,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 
 /**
  * an authenticated URL block within an SLPMessage.
- * 
+ *
  * @author Jan S. Rellermeyer, Systems Group, ETH Zurich
  * @since 0.4
  */
@@ -62,7 +62,7 @@ public abstract class AuthenticatedURL {
 
     /**
      * sign the ServiceURL.
-     * 
+     *
      * @param spiList
      *            the List of SPIs
      * @throws ServiceLocationException
@@ -84,7 +84,7 @@ public abstract class AuthenticatedURL {
 
     /**
      * verifies the authentication blocks of the ServiceURL.
-     * 
+     *
      * @return true if the verification succeeds.
      * @throws ServiceLocationException
      *             in case of IO errors.
@@ -103,7 +103,7 @@ public abstract class AuthenticatedURL {
 
     /**
      * get the byte representation of the authentication data.
-     * 
+     *
      * @param spi
      *            the SPI string as defined in RFC 2608
      * @param timestamp
@@ -135,7 +135,7 @@ public abstract class AuthenticatedURL {
 
     /**
      * get the authentication block bytes.
-     * 
+     *
      * @return the bytes of the authentication block.
      * @throws IOException
      *             in case of IO errors.
@@ -158,7 +158,7 @@ public abstract class AuthenticatedURL {
 
     /**
      * parse the auth blocks.
-     * 
+     *
      * @param input
      *            the data input.
      * @return the auth blocks.

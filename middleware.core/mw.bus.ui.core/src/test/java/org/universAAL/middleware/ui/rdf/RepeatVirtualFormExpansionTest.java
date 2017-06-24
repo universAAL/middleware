@@ -31,12 +31,12 @@ import org.universAAL.middleware.ui.owl.UIBusOntology;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class RepeatVirtualFormExpansionTest extends TestCase {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final String SIMPLE_OUTPUT_CONTENT = "out";
 	private static final String PREFIX = "http://example.com/Dable.owl#";

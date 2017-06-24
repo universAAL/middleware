@@ -39,7 +39,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 
 /**
  * ServiceTypeRequest message is used to find existing service types.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.6
  */
@@ -55,7 +55,7 @@ class ServiceTypeRequest extends RequestMessage {
 
     /**
      * creates a new ServiceTypeRequest.
-     * 
+     *
      * @param authority
      *            the naming authority.
      * @param scopes
@@ -80,7 +80,7 @@ class ServiceTypeRequest extends RequestMessage {
     /**
      * create a new ServiceTypeRequest from a DataInput streaming the bytes of a
      * ServiceTypeRequest message body.
-     * 
+     *
      * @param input
      *            stream of bytes forming the message body.
      * @throws ServiceLocationException
@@ -105,7 +105,7 @@ class ServiceTypeRequest extends RequestMessage {
      * get the bytes of the message body in the following RFC 2608 compliant
      * format:
      * <p>
-     * 
+     *
      * <pre>
      *   0                   1                   2                   3
      *   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -119,10 +119,10 @@ class ServiceTypeRequest extends RequestMessage {
      *  |     length of &lt;scope-list&gt;    |      &lt;scope-list&gt; String      \
      *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      * </pre>
-     * 
+     *
      * .
      * </p>
-     * 
+     *
      * @return array of bytes.
      * @throws IOException
      * @throws ServiceLocationException
@@ -144,7 +144,7 @@ class ServiceTypeRequest extends RequestMessage {
 
     /**
      * get the length of the message.
-     * 
+     *
      * @return the length of the message.
      * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
      */
@@ -163,7 +163,7 @@ class ServiceTypeRequest extends RequestMessage {
 
     /**
      * get a string representation of the ServiceTypeRequest message.
-     * 
+     *
      * @return a String displaying the properties of this message instance.
      */
     public String toString() {

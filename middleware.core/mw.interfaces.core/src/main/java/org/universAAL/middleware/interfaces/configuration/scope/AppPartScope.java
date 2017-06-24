@@ -20,9 +20,9 @@ package org.universAAL.middleware.interfaces.configuration.scope;
 /**
  * Defines an Entity same as {@link ApplicationScope} but with finer grain, for
  * application parts.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public final class AppPartScope extends ApplicationScope {
 
@@ -34,7 +34,7 @@ public final class AppPartScope extends ApplicationScope {
 	/**
 	 * Constructor for an entity with unique Id, associated to an application
 	 * with a part.
-	 * 
+	 *
 	 * @param id
 	 *            the entity id.
 	 * @param appID
@@ -54,7 +54,7 @@ public final class AppPartScope extends ApplicationScope {
 
 	/**
 	 * Get the application part ID.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getPartID() {

@@ -27,7 +27,7 @@ import org.universAAL.middleware.container.utils.Messages;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class MessagesTest extends TestCase {
 

@@ -32,7 +32,7 @@ import org.universAAL.middleware.rdf.Resource;
  * Abastract class for all Remote Entities. Implementations for Get description,
  * and get entity (that is updated when the entity is propagated). handy method
  * for sending requests.
- * 
+ *
  * @author amedrano
  */
 public abstract class RemoteConfigurationEntity extends GenericConfigurationEntity implements ConfigurableEntityEditor {
@@ -40,7 +40,7 @@ public abstract class RemoteConfigurationEntity extends GenericConfigurationEnti
 	protected Entity entity;
 
 	/**
-	 * 
+	 *
 	 */
 	public RemoteConfigurationEntity(ConfigurationManagerImpl configurationManagerImpl, Entity remote) {
 		super(configurationManagerImpl, remote.getURI());
@@ -77,7 +77,7 @@ public abstract class RemoteConfigurationEntity extends GenericConfigurationEnti
 
 	/**
 	 * used to force a remote update.
-	 * 
+	 *
 	 * @param e
 	 * @param loc
 	 */

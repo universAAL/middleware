@@ -26,9 +26,9 @@ import org.universAAL.middleware.owl.MergedRestriction;
 /**
  * Implementation of {@link ConfigurableEntityEditor} for local and parameter
  * type Entities.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class LocalConfigurationParameterEditor extends LocalConfigurationEntity
 		implements ConfigurationParameterEditor {

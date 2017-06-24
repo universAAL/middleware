@@ -40,7 +40,7 @@ import ch.ethz.iks.slp.ServiceURL;
 
 /**
  * deregister a service from a DA.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
@@ -63,7 +63,7 @@ class ServiceDeregistration extends SLPMessage {
 
     /**
      * create a new ServiceDeregistration.
-     * 
+     *
      * @param serviceURL
      *            the ServiceURL.
      * @param scopes
@@ -93,7 +93,7 @@ class ServiceDeregistration extends SLPMessage {
 
     /**
      * parse a ServiceDeregistration from an input stream.
-     * 
+     *
      * @param input
      *            the stream.
      * @throws ServiceLocationException
@@ -117,7 +117,7 @@ class ServiceDeregistration extends SLPMessage {
     /**
      * get the bytes from a ServiceDeregistration:
      * <p>
-     * 
+     *
      * <pre>
      *          0                   1                   2                   3
      *          0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -131,10 +131,10 @@ class ServiceDeregistration extends SLPMessage {
      *         |      Length of &lt;tag-list&gt;     |            &lt;tag-list&gt;         \
      *         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      * </pre>
-     * 
+     *
      * .
      * </p>
-     * 
+     *
      * @return the bytes.
      * @throws ServiceLocationException
      *             in case of IO errors.
@@ -148,7 +148,7 @@ class ServiceDeregistration extends SLPMessage {
 
     /**
      * get the length of the message.
-     * 
+     *
      * @return the length of the message.
      * @see ch.ethz.iks.slp.impl.SLPMessage#getSize()
      */
@@ -159,7 +159,7 @@ class ServiceDeregistration extends SLPMessage {
 
     /**
      * sign this ServiceDeregistration.
-     * 
+     *
      * @param spiList
      *            a List of SPIs.
      * @throws ServiceLocationException
@@ -171,7 +171,7 @@ class ServiceDeregistration extends SLPMessage {
 
     /**
      * verify the ServiceDeregistration.
-     * 
+     *
      * @return true if it could be verified.
      * @throws ServiceLocationException
      *             in case of IO errors.

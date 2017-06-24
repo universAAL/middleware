@@ -67,7 +67,7 @@ import org.universAAL.middleware.xsd.Base64Binary;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class ConfigurationManagerImpl implements ConfigurationManager, ConfigurationManagerConnector,
 		ConfigurationEditor, DynamicDescribedEntityListener {
@@ -93,7 +93,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 	private ConfigurationOntology ont;
 
 	/**
-	 * 
+	 *
 	 */
 	public ConfigurationManagerImpl(ModuleContext mc, FileManagement fm) {
 		this.context = mc;
@@ -443,7 +443,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager, Configura
 
 	/**
 	 * Get an Expresion for instance or module scopes in this instance.
-	 * 
+	 *
 	 * @return
 	 */
 	public TypeExpression localOnlyExpression() {

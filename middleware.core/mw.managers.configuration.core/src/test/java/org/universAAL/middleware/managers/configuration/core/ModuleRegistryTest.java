@@ -39,7 +39,7 @@ import org.universAAL.middleware.serialization.turtle.TurtleUtil;
 
 /**
  * @author amedrano
- * 
+ *
  */
 public class ModuleRegistryTest {
 

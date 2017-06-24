@@ -40,7 +40,7 @@ import java.util.Set;
 
 /**
  * Utility class.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
@@ -56,7 +56,7 @@ final class SLPUtils {
     /**
      * get a <code>List</code> of attribute/value pairs in String representation
      * from a <code>Dictionary</code>.
-     * 
+     *
      * @param attributes
      *            the <code>Dictionary</code>
      * @return the <code>List</code>.
@@ -81,7 +81,7 @@ final class SLPUtils {
     /**
      * get a <code>Dictionary</code> of attributes and their values from an
      * attribute <code>List</code>.
-     * 
+     *
      * @since 0.6
      * @param attrList
      *            the attribute list.
@@ -106,7 +106,7 @@ final class SLPUtils {
 
     /**
      * add a value to a value list in a Map.
-     * 
+     *
      * @param map
      *            the map.
      * @param key
@@ -129,7 +129,7 @@ final class SLPUtils {
 
     /**
      * remove a value from a value list in a Map.
-     * 
+     *
      * @param map
      *            the map.
      * @param key
@@ -152,7 +152,7 @@ final class SLPUtils {
 
     /**
      * remove a value from all keys where it occurs.
-     * 
+     *
      * @param map
      *            the map.
      * @param value
@@ -171,7 +171,7 @@ final class SLPUtils {
 
     /**
      * get the current timestamp as defined in RFC 2608.
-     * 
+     *
      * @return the current timestamp.
      */
     static int getTimestamp() {
@@ -183,7 +183,7 @@ final class SLPUtils {
     /**
      * find case insensitive matching between a key List and a Dictionary of
      * attributes.
-     * 
+     *
      * @param keyList
      *            the key List.
      * @param attributes
@@ -229,7 +229,7 @@ final class SLPUtils {
 
     /**
      * equality check with wildcards
-     * 
+     *
      * @param val
      *            the value
      * @param valIndex

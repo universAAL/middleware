@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,7 +37,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 /**
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 // TODO: check the methods, especially getUIServiceInfo; there seems to be
 // something wrong (using MY_URI as property path??)
@@ -65,7 +65,7 @@ public class UserInterfaceService extends Service {
 	 * service. This service is called from the main menu when the UI service is
 	 * selected. Typically, the UI service that registers this ServiceProfile
 	 * will then send a UI request to present the main dialog of the UI service.
-	 * 
+	 *
 	 * @param serviceClassURI
 	 *            the URI of the service class from an underlying ontology, e.g.
 	 *            the value of <code>Lighting.MY_URI</code> from the lighting
@@ -100,7 +100,7 @@ public class UserInterfaceService extends Service {
 	/**
 	 * Same method with different arguments. This time a User Interface Service
 	 * will be required to create a service profile for a UI.
-	 * 
+	 *
 	 * @return The created service profile that can be used to register the UI
 	 *         service at the service bus.
 	 */
@@ -131,7 +131,7 @@ public class UserInterfaceService extends Service {
 
 	/**
 	 * Gets the UI service description of the service.
-	 * 
+	 *
 	 * @param requestedService
 	 * @param serviceClassURI
 	 *            the URI of the service class from an underlying ontology, e.g.
@@ -223,7 +223,7 @@ public class UserInterfaceService extends Service {
 	/**
 	 * Gets the UI service request. This request is sent at the service bus to
 	 * present the main dialog of the UI service.
-	 * 
+	 *
 	 * @param serviceClassURI
 	 *            the URI of the service class from an underlying ontology, e.g.
 	 *            the value of <code>Lighting.MY_URI</code> from the lighting
@@ -243,7 +243,7 @@ public class UserInterfaceService extends Service {
 	/**
 	 * Gets the UI service request. This request is sent at the service bus to
 	 * present the main dialog of the UI service.
-	 * 
+	 *
 	 * @param serviceClassURI
 	 *            the URI of the service class from an underlying ontology, e.g.
 	 *            the value of <code>Lighting.MY_URI </code> from the lighting
@@ -298,7 +298,7 @@ public class UserInterfaceService extends Service {
 	// }
 
 	/**
-	 * 
+	 *
 	 */
 	protected UserInterfaceService() {
 		super();

@@ -41,9 +41,9 @@ import org.universAAL.middleware.rdf.Resource;
 
 /**
  * Collection of {@link Entity Entities} managed in a master file.
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public class EntityManager {
 
@@ -74,7 +74,7 @@ public class EntityManager {
 
 	/**
 	 * Read the master file.
-	 * 
+	 *
 	 * @return
 	 * @throws FileNotFoundException
 	 */
@@ -107,7 +107,7 @@ public class EntityManager {
 
 	/**
 	 * Load the master file as a Map.
-	 * 
+	 *
 	 * @return
 	 */
 	private Map<String, Entity> loadAsMap() {
@@ -126,7 +126,7 @@ public class EntityManager {
 
 	/**
 	 * save the list of entities in the master file.
-	 * 
+	 *
 	 * @param entities
 	 */
 	private void store(Collection<Entity> entities) {
@@ -149,7 +149,7 @@ public class EntityManager {
 
 	/**
 	 * Add a single Entity to the configuration file.
-	 * 
+	 *
 	 * @param ent
 	 *            the entity to be added.
 	 * @return true if it was added, false if it couldn't be added because there
@@ -177,7 +177,7 @@ public class EntityManager {
 
 	/**
 	 * Check that it is possible to add an entity in the file.
-	 * 
+	 *
 	 * @param newEnt
 	 * @param emap
 	 * @return
@@ -196,7 +196,7 @@ public class EntityManager {
 	/**
 	 * Try to merge all new entities. For those which there is a newer version
 	 * stored, the newer version will be included in the return list.
-	 * 
+	 *
 	 * @param news
 	 *            list of {@link Entity Entities} to attempt to "add".
 	 * @return the list of newer {@link Entity Entities} found.
@@ -209,7 +209,7 @@ public class EntityManager {
 	/**
 	 * same as {@link EntityManager#mergeAdd(List)} but does not actually add to
 	 * the master file, instead it updates the emap.
-	 * 
+	 *
 	 * @param news
 	 * @param emap
 	 * @return
@@ -236,7 +236,7 @@ public class EntityManager {
 	 * Try to add all new entities. For those that are not be added (because
 	 * there is a newer version stored), the newer version will be included in
 	 * the return list.
-	 * 
+	 *
 	 * @param news
 	 *            list of {@link Entity Entities} to attempt to add.
 	 * @return the list of newer {@link Entity Entities} found.
@@ -252,7 +252,7 @@ public class EntityManager {
 	/**
 	 * Look in the file for an {@link Entity} with matching URI (from
 	 * {@link Scope} use {@link ScopeFactory#getScopeURN(Scope)}).
-	 * 
+	 *
 	 * @param uri
 	 *            the uri(scope) to be matched.
 	 * @return the entity if found, null otherwise.
@@ -267,7 +267,7 @@ public class EntityManager {
 
 	/**
 	 * Look in the file for an {@link Entity} with matching Restrictions.
-	 * 
+	 *
 	 * @param filters
 	 *            all the restrictions that the Entity should comply (anded,
 	 *            empty list returns all).
@@ -286,7 +286,7 @@ public class EntityManager {
 	/**
 	 * Utility method, Filter a list of entities and return only those that
 	 * match all {@link TypeExpression} filters.
-	 * 
+	 *
 	 * @param list
 	 * @param filters
 	 * @return

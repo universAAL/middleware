@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,7 +40,7 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * subscriptions and can always add new (and remove old) subscriptions
  * dynamically.</li>
  * </ul>
- * 
+ *
  * @author mtazari
  * @author eandgrg
  */
@@ -49,7 +49,7 @@ public abstract class UICaller extends Caller {
 
 	/**
 	 * Instantiates a new {@link UICaller}.
-	 * 
+	 *
 	 * @param context
 	 *            the module context
 	 */
@@ -61,7 +61,7 @@ public abstract class UICaller extends Caller {
 
 	/**
 	 * Abort dialog.
-	 * 
+	 *
 	 * @param dialogID
 	 *            the dialog id
 	 */
@@ -71,7 +71,7 @@ public abstract class UICaller extends Caller {
 
 	/**
 	 * Adaptation parameters changed.
-	 * 
+	 *
 	 * @param call
 	 *            the {@link UIRequest}
 	 * @param changedProp
@@ -101,7 +101,7 @@ public abstract class UICaller extends Caller {
 
 	/**
 	 * Dialog aborted.
-	 * 
+	 *
 	 * @param dialogID
 	 *            the dialog id
 	 * @param data
@@ -112,7 +112,7 @@ public abstract class UICaller extends Caller {
 
 	/**
 	 * Dialog suspended.
-	 * 
+	 *
 	 * @param dialogID
 	 *            the dialog id
 	 */
@@ -123,7 +123,7 @@ public abstract class UICaller extends Caller {
 
 	/**
 	 * Handle reply.
-	 * 
+	 *
 	 * @param msg
 	 *            the {@link BusMessage}
 	 */
@@ -135,7 +135,7 @@ public abstract class UICaller extends Caller {
 	/**
 	 * Handle {@link UIResponse} - that comes from {@link UIHandler} carrying
 	 * user input.
-	 * 
+	 *
 	 * @param uiResponse
 	 *            the {@link UIResponse}
 	 */
@@ -143,7 +143,7 @@ public abstract class UICaller extends Caller {
 
 	/**
 	 * Resume dialog.
-	 * 
+	 *
 	 * @param dialogID
 	 *            the dialog id
 	 * @param dialogData
@@ -155,7 +155,7 @@ public abstract class UICaller extends Caller {
 
 	/**
 	 * Sends {@link UIRequest}.
-	 * 
+	 *
 	 * @param uiRequest
 	 *            the {@link UIRequest}
 	 * @throws NullPointerException
@@ -171,7 +171,7 @@ public abstract class UICaller extends Caller {
 
 	/**
 	 * Id with which the {@link UICaller} is registered in the {@link IUIBus}
-	 * 
+	 *
 	 * @return {@link UICaller} ID
 	 */
 	public String getMyID() {

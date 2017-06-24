@@ -65,9 +65,9 @@ import org.universAAL.middleware.ui.rdf.Form;
  * waiting) for the {@link Form#PROP_DIALOG_DATA_ROOT dataRoot} of the
  * {@link Form}.
  * </ol>
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
@@ -84,7 +84,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		public static final String PROP_LOCATION = Resource.VOCABULARY_NAMESPACE + "logOnLocation";
 
 		/**
-		 * 
+		 *
 		 */
 		public UserLogOnMessage() {
 			super();
@@ -116,7 +116,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "FinishDialog";
 
 		/**
-		 * 
+		 *
 		 */
 		public FinishDialogMessage() {
 			super();
@@ -141,7 +141,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		public static final String MY_URI = Resource.VOCABULARY_NAMESPACE + "HandlerNotify";
 
 		/**
-		 * 
+		 *
 		 */
 		public NotifyHandlerMessage() {
 			super();
@@ -188,7 +188,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 		}
 
 		/**
-		 * 
+		 *
 		 */
 		public CutCallMessage(String dialogID, String handlerID) {
 			addType(MY_URI, true);
@@ -303,10 +303,10 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	}
 
 	/**
-	 * 
+	 *
 	 * This method is responsible for adapting existing dialogs to new
 	 * environmental conditions.
-	 * 
+	 *
 	 * @param dm
 	 *            Instance of the {@link IDialogManager}
 	 * @param uiRequest
@@ -437,7 +437,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param user
 	 *            {@link User} that logged (request main menu)
 	 * @param loginLocation
@@ -508,9 +508,9 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	}
 
 	/**
-	 * 
+	 *
 	 * Handle a dialogChanged-Notification
-	 * 
+	 *
 	 * @param handlerID
 	 *            ID of the dialog handler
 	 * @param request
@@ -540,10 +540,10 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	}
 
 	/**
-	 * 
+	 *
 	 * Handle uiRequest-notifications. Look for {@link UIHandler} for relay the
 	 * {@link UIRequest}.
-	 * 
+	 *
 	 * @param handlerID
 	 *            ID of the handler of the request
 	 * @param request
@@ -614,7 +614,7 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 
 	/**
 	 * check sender and if local send it if not send message.
-	 * 
+	 *
 	 * @param response
 	 */
 	protected abstract void notifyCallerDialogSubmitted(UIResponse response);
@@ -659,9 +659,9 @@ public abstract class UIStrategyHandler extends UIStrategyCoordinatorMng {
 	 * registrations are now invalid. This task schedules the re-registration of
 	 * all implemented {@link UIHandlerProfile}s by all the {@link UIHandler}s
 	 * registered in the local node.
-	 * 
+	 *
 	 * @author amedrano
-	 * 
+	 *
 	 */
 	private class ResendRegisstrationTask implements Runnable {
 

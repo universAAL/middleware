@@ -43,7 +43,7 @@ import ch.ethz.iks.slp.ServiceLocationException;
 
 /**
  * base class for all messages that the SLP framework uses.
- * 
+ *
  * @author Jan S. Rellermeyer, ETH Zurich
  * @since 0.1
  */
@@ -153,7 +153,7 @@ public abstract class SLPMessage {
     /**
      * get the bytes from a SLPMessage. Processes the header and then calls the
      * getBody() method of the implementing subclass.
-     * 
+     *
      * @return an array of bytes encoding the SLPMessage.
      * @throws IOException
      * @throws ServiceLocationException
@@ -186,12 +186,12 @@ public abstract class SLPMessage {
     }
 
     /**
-	 * 
+	 *
 	 */
     abstract void writeTo(final DataOutputStream out) throws IOException;
 
     /**
-	 * 
+	 *
 	 */
     byte[] getBytes() throws IOException {
 	final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -202,7 +202,7 @@ public abstract class SLPMessage {
 
     /**
      * The RFC 2608 SLP message header:
-     * 
+     *
      * <pre>
      *                   0                   1                   2                   3
      *                   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -216,10 +216,10 @@ public abstract class SLPMessage {
      *                  |      Language Tag Length      |         Language Tag          \
      *                  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      * </pre>
-     * 
+     *
      * This method parses the header and then delegates the creation of the
      * corresponding SLPMessage to the subclass that matches the funcID.
-     * 
+     *
      * @param senderAddr
      *            the address of the message sender.
      * @param senderPort
@@ -329,7 +329,7 @@ public abstract class SLPMessage {
     }
 
     /**
-     * 
+     *
      * @return
      */
     int getHeaderSize() {
@@ -337,7 +337,7 @@ public abstract class SLPMessage {
     }
 
     /**
-     * 
+     *
      * @return
      */
     abstract int getSize();
@@ -345,7 +345,7 @@ public abstract class SLPMessage {
     /**
      * Get a string representation of the message. Overridden by message
      * subtypes.
-     * 
+     *
      * @return a String.
      */
     public String toString() {
@@ -359,7 +359,7 @@ public abstract class SLPMessage {
     /**
      * returns the string value of the message type, catches the case where an
      * unsupported message has been received.
-     * 
+     *
      * @param type
      *            the type.
      * @return the type as String.
@@ -373,7 +373,7 @@ public abstract class SLPMessage {
 
     /**
      * parse a numerical value that can be spanned over multiple bytes.
-     * 
+     *
      * @param input
      *            the data input stream.
      * @param len
@@ -399,7 +399,7 @@ public abstract class SLPMessage {
 
     /**
      * transforms a Java list to string list.
-     * 
+     *
      * @param list
      *            the list
      * @param delim
@@ -425,7 +425,7 @@ public abstract class SLPMessage {
 
     /**
      * transforms a string list to Java List.
-     * 
+     *
      * @param str
      *            the String list
      * @param delim

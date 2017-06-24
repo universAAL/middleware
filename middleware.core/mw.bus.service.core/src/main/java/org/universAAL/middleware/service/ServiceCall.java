@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,10 +40,10 @@ import org.universAAL.middleware.service.owls.process.ProcessInput;
  * parameters, the operation should be "executed" with the default value of the
  * optional parameters only if {@link #getInputValue(String)} returns null;
  * otherwise the passed value must be used.
- * 
+ *
  * @author mtazari - <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied
  *         Tazari</a>
- * 
+ *
  */
 public class ServiceCall extends ScopedResource implements UtilityCall {
 
@@ -116,7 +116,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 	/**
 	 * A constructor that besides the resource identification URI
 	 * <code>MY_URI</code>, sets the the URI of the OWL-S perform process.
-	 * 
+	 *
 	 * @param processURI
 	 *            the URI of the OWL-S perform process.
 	 */
@@ -130,7 +130,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 
 	/**
 	 * Adds an input parameter to the call.
-	 * 
+	 *
 	 * @param inputURI
 	 *            the URI of the input parameter.
 	 * @param value
@@ -154,7 +154,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 
 	/**
 	 * Retrieves the actual value of an input parameter.
-	 * 
+	 *
 	 * @param inputURI
 	 *            the URI of the input parameter.
 	 * @return the value of the parameter.
@@ -195,7 +195,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 
 	/**
 	 * Retrieves the user involved in the call, if there is such.
-	 * 
+	 *
 	 * @return the involved user or null, if no human user is involved.
 	 */
 	public Resource getInvolvedUser() {
@@ -205,7 +205,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 
 	/**
 	 * Retrieves the URI of the OWL-S perform process.
-	 * 
+	 *
 	 * @return the process URI , or null if no process is set.
 	 */
 	public String getProcessURI() {
@@ -215,7 +215,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.middleware.rdf.Resource#getPropSerializationType(java.
 	 * lang.String)
@@ -246,7 +246,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 	/**
 	 * Sets the human user involved in the call. This method is usually invoked
 	 * by the bus.
-	 * 
+	 *
 	 * @param user
 	 *            the new involved user.
 	 */
@@ -258,7 +258,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 	/**
 	 * Sets the URI of the OWL-S perform process. This method is usually invoked
 	 * by the bus.
-	 * 
+	 *
 	 * @param processURI
 	 *            the new process URI.
 	 */
@@ -271,7 +271,7 @@ public class ServiceCall extends ScopedResource implements UtilityCall {
 	 * This method inherits the superclass behavior, but performs some
 	 * additional checks for correctness of the property values, specific for
 	 * the <code>ServiceCall</code>.
-	 * 
+	 *
 	 * @see org.universAAL.middleware.rdf.Resource#setProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */

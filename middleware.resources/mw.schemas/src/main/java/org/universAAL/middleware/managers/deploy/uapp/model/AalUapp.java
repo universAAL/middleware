@@ -597,7 +597,7 @@ public class AalUapp implements Serializable {
 		 *
 		 * <p>
 		 * For example, to add a new item, do as follows:
-		 * 
+		 *
 		 * <pre>
 		 * getLicenses().add(newItem);
 		 * </pre>
@@ -752,7 +752,7 @@ public class AalUapp implements Serializable {
 			 *
 			 * <p>
 			 * For example, to add a new item, do as follows:
-			 * 
+			 *
 			 * <pre>
 			 * getLicense().add(newItem);
 			 * </pre>
@@ -1143,7 +1143,7 @@ public class AalUapp implements Serializable {
 		 *
 		 * <p>
 		 * For example, to add a new item, do as follows:
-		 * 
+		 *
 		 * <pre>
 		 * getCapability().add(newItem);
 		 * </pre>
@@ -1311,7 +1311,7 @@ public class AalUapp implements Serializable {
 			 *
 			 * <p>
 			 * For example, to add a new item, do as follows:
-			 * 
+			 *
 			 * <pre>
 			 * getProtocols().add(newItem);
 			 * </pre>
@@ -1408,7 +1408,7 @@ public class AalUapp implements Serializable {
 		 *
 		 * <p>
 		 * For example, to add a new item, do as follows:
-		 * 
+		 *
 		 * <pre>
 		 * getPart().add(newItem);
 		 * </pre>
@@ -1478,7 +1478,7 @@ public class AalUapp implements Serializable {
 		 *
 		 * <p>
 		 * For example, to add a new item, do as follows:
-		 * 
+		 *
 		 * <pre>
 		 * getRequirement().add(newItem);
 		 * </pre>

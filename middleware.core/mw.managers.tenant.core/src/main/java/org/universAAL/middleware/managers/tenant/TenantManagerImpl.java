@@ -32,12 +32,12 @@ import org.universAAL.middleware.managers.api.TenantManager;
 
 /**
  * The implementation of the TenantManager
- * 
+ *
  * @author <a href="mailto:michele.girolami@isti.cnr.it">Michele Girolami</a>
  * @author <a href="mailto:stefano.lenzi@isti.cnr.it">Stefano Lenzi</a>
  * @since 3.2.0
  * @version $LastChangedRevision$ ( $LastChangedDate$ )
- * 
+ *
  */
 public class TenantManagerImpl implements TenantManager {
 

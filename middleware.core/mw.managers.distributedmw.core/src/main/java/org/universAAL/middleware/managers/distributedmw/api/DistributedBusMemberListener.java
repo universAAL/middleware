@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2016 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,14 +26,14 @@ import org.universAAL.middleware.rdf.Resource;
 /**
  * Interface of BusMember registry listener. If registered at the service
  * {@link IBusMemberRegistry} it gets notified if any changes occurs in it.
- * 
+ *
  * @author Carsten Stockloew
- * 
+ *
  */
 public interface DistributedBusMemberListener {
 	/**
 	 * Invoked when a new BusMember is registered in the bus.
-	 * 
+	 *
 	 * @param origin
 	 *            the peer on which the event occurred.
 	 * @param member
@@ -46,7 +46,7 @@ public interface DistributedBusMemberListener {
 
 	/**
 	 * Invoked when an existing BusMember is unregistered from the bus.
-	 * 
+	 *
 	 * @param origin
 	 *            the peer on which the event occurred.
 	 * @param member
@@ -61,7 +61,7 @@ public interface DistributedBusMemberListener {
 	 * Registration parameters can be, for example, {@link ServiceProfile}s for
 	 * {@link ServiceCallee}s or {@link ContextEventPattern} for
 	 * {@link ContextSubscriber}.
-	 * 
+	 *
 	 * @param origin
 	 *            the peer on which the event occurred.
 	 * @param busMemberID
@@ -77,7 +77,7 @@ public interface DistributedBusMemberListener {
 	 * removed. Registration parameters can be, for example,
 	 * {@link ServiceProfile}s for {@link ServiceCallee}s or
 	 * {@link ContextEventPattern} for {@link ContextSubscriber}.
-	 * 
+	 *
 	 * @param origin
 	 *            the peer on which the event occurred.
 	 * @param busMemberID

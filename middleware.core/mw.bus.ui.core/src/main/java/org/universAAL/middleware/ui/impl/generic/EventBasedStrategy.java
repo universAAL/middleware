@@ -33,11 +33,11 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
 /**
  * A set of methods to send messages. Main implementation for
  * {@link EventMessage} handling. <br>
- * 
+ *
  * <center> <img style="background-color:lightgray;" src=
  * "doc-files/EventBasedStrategy.png" alt="UIStrategy messages" width="70%"/>
  * </center>
- * 
+ *
  * When a message who's content implements the {@link EventMessage} Interface
  * then the
  * {@link EventMessage#onReceived(EventBasedStrategy, BusMessage, String)
@@ -57,9 +57,9 @@ import org.universAAL.middleware.ui.impl.UIBusImpl;
  * <center> <img style="background-color:lightgray;" src=
  * "doc-files/EventBasedStrategy-Sample.png" alt="UIStrategy messages" width=
  * "70%"/> </center>
- * 
+ *
  * @author amedrano
- * 
+ *
  */
 public abstract class EventBasedStrategy extends BusStrategy {
 
@@ -89,7 +89,7 @@ public abstract class EventBasedStrategy extends BusStrategy {
 
 	/**
 	 * Helper method to send a Unicast Event.
-	 * 
+	 *
 	 * @param memberID
 	 * @param content
 	 */
@@ -99,7 +99,7 @@ public abstract class EventBasedStrategy extends BusStrategy {
 
 	/**
 	 * Helper method to send a Multicast Event.
-	 * 
+	 *
 	 * @param memberID
 	 * @param content
 	 */
@@ -116,7 +116,7 @@ public abstract class EventBasedStrategy extends BusStrategy {
 
 	/**
 	 * Helper method to send a Broadcast Event.
-	 * 
+	 *
 	 * @param memberID
 	 * @param content
 	 */
@@ -128,7 +128,7 @@ public abstract class EventBasedStrategy extends BusStrategy {
 
 	/**
 	 * Helper method to send a Unicast Event.
-	 * 
+	 *
 	 * @param member
 	 * @param content
 	 */
@@ -141,7 +141,7 @@ public abstract class EventBasedStrategy extends BusStrategy {
 
 	/**
 	 * Helper method to send a Multicast Event.
-	 * 
+	 *
 	 * @param memberID
 	 * @param content
 	 */

@@ -1,18 +1,18 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
-	
+
 	Copyright 2012-2014 Ericsson Nikola Tesla d.d., www.ericsson.com/hr/
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,11 +25,11 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 
 /**
  * Defines modalities which can be: voice, gui, gesture, sms, web or mobile
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  * @author eandgrg
- * 
+ *
  */
 public class Modality extends ManagedIndividual {
 
@@ -96,7 +96,7 @@ public class Modality extends ManagedIndividual {
 
 	/**
 	 * Constructor receives order
-	 * 
+	 *
 	 * @param order
 	 */
 	private Modality(int order) {
@@ -106,7 +106,7 @@ public class Modality extends ManagedIndividual {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.owl.ManagedIndividual#getClassURI()
 	 */
 	public String getClassURI() {
@@ -115,7 +115,7 @@ public class Modality extends ManagedIndividual {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.middleware.owl.ManagedIndividual#getPropSerializationType
 	 * (java.lang.String)
@@ -126,7 +126,7 @@ public class Modality extends ManagedIndividual {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
 	 */
 	public boolean isWellFormed() {

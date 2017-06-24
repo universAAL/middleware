@@ -33,7 +33,7 @@ import ch.ethz.iks.slp.ServiceURL;
 
 /**
  * encapsulates the internal information about registered services.
- * 
+ *
  * @author Jan S. Rellermeyer, IKS, ETH Zurich
  * @since 0.6
  */
@@ -51,7 +51,7 @@ class Service {
 
     /**
      * creates a new Service instance.
-     * 
+     *
      * @param sreg
      *            the service registration message.
      */
@@ -82,7 +82,7 @@ class Service {
 
     /**
      * get the hash code.
-     * 
+     *
      * @return the hash code.
      * @see java.lang.Object#hashCode()
      */
@@ -92,7 +92,7 @@ class Service {
 
     /**
      * get a string representation.
-     * 
+     *
      * @return a string.
      */
     public String toString() {

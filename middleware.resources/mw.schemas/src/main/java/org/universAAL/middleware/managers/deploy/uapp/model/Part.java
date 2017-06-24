@@ -216,7 +216,7 @@ public class Part implements Serializable {
 	 *
 	 * <p>
 	 * For example, to add a new item, do as follows:
-	 * 
+	 *
 	 * <pre>
 	 * getDeploymentUnit().add(newItem);
 	 * </pre>
@@ -254,7 +254,7 @@ public class Part implements Serializable {
 	 *
 	 * <p>
 	 * For example, to add a new item, do as follows:
-	 * 
+	 *
 	 * <pre>
 	 * getExecutionUnit().add(newItem);
 	 * </pre>
@@ -347,7 +347,7 @@ public class Part implements Serializable {
 		 *
 		 * <p>
 		 * For example, to add a new item, do as follows:
-		 * 
+		 *
 		 * <pre>
 		 * getCapability().add(newItem);
 		 * </pre>
@@ -417,7 +417,7 @@ public class Part implements Serializable {
 		 *
 		 * <p>
 		 * For example, to add a new item, do as follows:
-		 * 
+		 *
 		 * <pre>
 		 * getRequirement().add(newItem);
 		 * </pre>

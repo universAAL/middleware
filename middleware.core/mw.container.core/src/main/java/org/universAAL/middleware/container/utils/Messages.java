@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research 
-	
-	See the NOTICE file distributed with this work for additional 
+	Fraunhofer-Gesellschaft - Institute for Computer Graphics Research
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ import java.util.Properties;
  * If the default file name is <i>messages.properties</i>, the file name for a
  * different language include a language code as lowercase ISO 639 code, e.g.
  * for english, the file name would be <i>messages_en.properties</i>.
- * 
+ *
  * @author mtazari
  * @author Carsten Stockloew
  * @author amedrano
@@ -66,7 +66,7 @@ public class Messages {
 	/**
 	 * Constructor: opens the file with the given descriptor and loads all
 	 * messages. Initializes to default Locale.
-	 * 
+	 *
 	 * @param propertiesFile
 	 *            the properties file to use to load the messages.
 	 * @throws IOException
@@ -81,7 +81,7 @@ public class Messages {
 	/**
 	 * Constructor: opens the file with the given descriptor and loads all
 	 * messages. Initializes a default Locale.
-	 * 
+	 *
 	 * @param propertiesFile
 	 *            the properties file to use to load the messages.
 	 * @param initialLocale
@@ -99,7 +99,7 @@ public class Messages {
 	/**
 	 * Constructor: opens the file with the given descriptor and loads all
 	 * messages. Initializes to default Locale.
-	 * 
+	 *
 	 * @param propertiesURL
 	 *            the properties file to use to load the messages.
 	 * @throws IOException
@@ -114,12 +114,12 @@ public class Messages {
 	/**
 	 * Constructor: opens the file with the given descriptor and loads all
 	 * messages. Initializes a default Locale.
-	 * 
+	 *
 	 * @param propertiesURL
 	 *            the properties file to use to load the messages.
 	 * @param initialLocale
 	 *            the initialLocale to be used.
-	 * 
+	 *
 	 * @throws IOException
 	 *             if the propertiesURL does not exist (but not if the
 	 *             internationalized file does not exist)
@@ -143,7 +143,7 @@ public class Messages {
 
 	/**
 	 * Try to change the locale for messages.
-	 * 
+	 *
 	 * @param loc
 	 */
 	public void setLocale(Locale loc) {
@@ -159,7 +159,7 @@ public class Messages {
 
 	/**
 	 * Get the current Locale used for messages.
-	 * 
+	 *
 	 * @return the current Locale, null if default.
 	 */
 	public Locale getCurrentLocale() {
@@ -168,7 +168,7 @@ public class Messages {
 
 	/**
 	 * Gets the file descriptor for the international {@link Locale} set.
-	 * 
+	 *
 	 * @param loc
 	 * @return {defaultFileName}_{localeLanguaje}.properties
 	 */
@@ -183,7 +183,7 @@ public class Messages {
 
 	/**
 	 * Get the value for a given key.
-	 * 
+	 *
 	 * @param key
 	 *            The key.
 	 * @return The value.
@@ -201,7 +201,7 @@ public class Messages {
 
 	/**
 	 * Loads the property file into {@link Properties}.
-	 * 
+	 *
 	 * @param propertiesURL
 	 *            the file from which to load.
 	 * @return the {@link Properties} contained in file f.
